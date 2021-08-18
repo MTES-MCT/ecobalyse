@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>elm-kitchen</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css?family=Lato:400,400i,700" rel="stylesheet">
+  <link href="main.css" rel="stylesheet">
+</head>
+<body>
+  <script src="app.js"></script>
+  <script>
+    // The localStorage key to use to store serialized session data
+    const storeKey = "store";
+
+    const app = Elm.Main.init({
+      flags: {
+        clientUrl: location.origin + location.pathname,
+        rawStore: localStorage[storeKey] || ""
+      }
+    });
+
+    app.ports.saveStore.subscribe((rawStore) => {
+      localStorage[storeKey] = rawStore;
+    });
+
+    // Ensure session is refreshed when it changes in another tab/window
+    window.addEventListener("storage", (event) => {
+      if (event.storageArea === localStorage && event.key === storeKey) {
+        app.ports.storeChanged.send(event.newValue);
+      }
+    }, false);
+  </script>
+</body>
+</html>
