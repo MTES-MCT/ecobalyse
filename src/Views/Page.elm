@@ -9,7 +9,7 @@ import Route
 
 type ActivePage
     = Home
-    | Counter
+    | Simulator
     | Editorial String
     | Other
 
@@ -46,9 +46,9 @@ navbar { activePage } =
         [ div [ class "container" ]
             [ h1 [ class "display-5 fw-bold" ] [ a [ class "text-light", Route.href Route.Home ] [ text "wikicarbone" ] ]
             , [ linkIf Home Route.Home "Home"
-              , linkIf Counter Route.Counter "Second page"
+              , linkIf Simulator Route.Simulator "Simulator"
               , linkIf (Editorial "methodology") (Route.Editorial "methodology") "Methodology"
-              , a [ class "text-light", href "https://github.com/n1k0/wikicarbone" ] [ text "Github" ]
+              , a [ class "text-light", href "https://github.com/MTES-MCT/wikicarbone/" ] [ text "Source" ]
               ]
                 |> List.intersperse (text " | ")
                 |> nav []

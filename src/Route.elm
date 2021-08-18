@@ -9,7 +9,7 @@ import Url.Parser as Parser exposing ((</>), (<?>), Parser)
 
 type Route
     = Home
-    | Counter
+    | Simulator
     | Editorial String
 
 
@@ -17,7 +17,7 @@ parser : Parser (Route -> a) a
 parser =
     Parser.oneOf
         [ Parser.map Home Parser.top
-        , Parser.map Counter (Parser.s "second-page")
+        , Parser.map Simulator (Parser.s "simulator")
         , Parser.map Editorial (Parser.s "content" </> Parser.string)
         ]
 
@@ -69,8 +69,8 @@ toString route =
                 Home ->
                     []
 
-                Counter ->
-                    [ "second-page" ]
+                Simulator ->
+                    [ "simulator" ]
 
                 Editorial slug ->
                     [ "content", slug ]

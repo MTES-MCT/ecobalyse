@@ -4,9 +4,9 @@ import Browser exposing (Document)
 import Browser.Navigation as Nav
 import Data.Session as Session exposing (Session)
 import Html exposing (..)
-import Page.Counter as Counter
 import Page.Editorial as Editorial
 import Page.Home as Home
+import Page.Simulator as Simulator
 import Ports
 import Route exposing (Route)
 import Url exposing (Url)
@@ -22,7 +22,7 @@ type alias Flags =
 type Page
     = BlankPage
     | HomePage Home.Model
-    | CounterPage Counter.Model
+    | SimulatorPage Simulator.Model
     | EditorialPage Editorial.Model
     | NotFoundPage
 
@@ -35,7 +35,7 @@ type alias Model =
 
 type Msg
     = HomeMsg Home.Msg
-    | CounterMsg Counter.Msg
+    | SimulatorMsg Simulator.Msg
     | EditorialMsg Editorial.Msg
     | StoreChanged String
     | UrlChanged Url
@@ -70,8 +70,8 @@ setRoute maybeRoute model =
         Just Route.Home ->
             toPage HomePage Home.init HomeMsg
 
-        Just Route.Counter ->
-            toPage CounterPage Counter.init CounterMsg
+        Just Route.Simulator ->
+            toPage SimulatorPage Simulator.init SimulatorMsg
 
         Just (Route.Editorial slug) ->
             toPage EditorialPage (Editorial.init slug) EditorialMsg
@@ -115,8 +115,8 @@ update msg ({ page, session } as model) =
         ( HomeMsg homeMsg, HomePage homeModel ) ->
             toPage HomePage HomeMsg Home.update homeMsg homeModel
 
-        ( CounterMsg counterMsg, CounterPage counterModel ) ->
-            toPage CounterPage CounterMsg Counter.update counterMsg counterModel
+        ( SimulatorMsg counterMsg, SimulatorPage counterModel ) ->
+            toPage SimulatorPage SimulatorMsg Simulator.update counterMsg counterModel
 
         ( EditorialMsg editorialMsg, EditorialPage editorialModel ) ->
             toPage EditorialPage EditorialMsg Editorial.update editorialMsg editorialModel
@@ -152,7 +152,7 @@ subscriptions model =
             HomePage _ ->
                 Sub.none
 
-            CounterPage _ ->
+            SimulatorPage _ ->
                 Sub.none
 
             EditorialPage _ ->
@@ -181,10 +181,10 @@ view { page, session } =
                 |> mapMsg HomeMsg
                 |> Page.frame (pageConfig Page.Home)
 
-        CounterPage counterModel ->
-            Counter.view session counterModel
-                |> mapMsg CounterMsg
-                |> Page.frame (pageConfig Page.Counter)
+        SimulatorPage counterModel ->
+            Simulator.view session counterModel
+                |> mapMsg SimulatorMsg
+                |> Page.frame (pageConfig Page.Simulator)
 
         EditorialPage editorialModel ->
             Editorial.view session editorialModel

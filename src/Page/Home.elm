@@ -5,6 +5,7 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Http
 import Request.HttpClient as HttpClient
+import Route
 
 
 type alias Model =
@@ -29,6 +30,7 @@ view : Session -> Model -> ( String, List (Html Msg) )
 view _ _ =
     ( "Home"
     , [ h2 [] [ text "Welcome to Wikicarbone" ]
-      , p [] [ text "blah" ]
+      , p [] [ text "Simulate the environmental footprint of common textile products" ]
+      , a [ class "btn btn-success", Route.href Route.Simulator ] [ text "Make a simulation" ]
       ]
     )
