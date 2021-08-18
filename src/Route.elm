@@ -4,12 +4,13 @@ import Browser.Navigation as Nav
 import Html exposing (Attribute)
 import Html.Attributes as Attr
 import Url exposing (Url)
-import Url.Parser as Parser exposing (Parser)
+import Url.Parser as Parser exposing ((</>), (<?>), Parser)
 
 
 type Route
     = Home
     | Counter
+    | Editorial String
 
 
 parser : Parser (Route -> a) a
@@ -17,6 +18,7 @@ parser =
     Parser.oneOf
         [ Parser.map Home Parser.top
         , Parser.map Counter (Parser.s "second-page")
+        , Parser.map Editorial (Parser.s "content" </> Parser.string)
         ]
 
 
@@ -69,5 +71,8 @@ toString route =
 
                 Counter ->
                     [ "second-page" ]
+
+                Editorial slug ->
+                    [ "content", slug ]
     in
     "#/" ++ String.join "/" pieces

@@ -5,6 +5,7 @@ import Browser.Navigation as Nav
 import Data.Session as Session exposing (Session)
 import Html exposing (..)
 import Page.Counter as Counter
+import Page.Editorial as Editorial
 import Page.Home as Home
 import Ports
 import Route exposing (Route)
@@ -22,6 +23,7 @@ type Page
     = BlankPage
     | HomePage Home.Model
     | CounterPage Counter.Model
+    | EditorialPage Editorial.Model
     | NotFoundPage
 
 
@@ -34,6 +36,7 @@ type alias Model =
 type Msg
     = HomeMsg Home.Msg
     | CounterMsg Counter.Msg
+    | EditorialMsg Editorial.Msg
     | StoreChanged String
     | UrlChanged Url
     | UrlRequested Browser.UrlRequest
@@ -69,6 +72,9 @@ setRoute maybeRoute model =
 
         Just Route.Counter ->
             toPage CounterPage Counter.init CounterMsg
+
+        Just (Route.Editorial slug) ->
+            toPage EditorialPage (Editorial.init slug) EditorialMsg
 
 
 init : Flags -> Url -> Nav.Key -> ( Model, Cmd Msg )
@@ -112,6 +118,9 @@ update msg ({ page, session } as model) =
         ( CounterMsg counterMsg, CounterPage counterModel ) ->
             toPage CounterPage CounterMsg Counter.update counterMsg counterModel
 
+        ( EditorialMsg editorialMsg, EditorialPage editorialModel ) ->
+            toPage EditorialPage EditorialMsg Editorial.update editorialMsg editorialModel
+
         ( StoreChanged json, _ ) ->
             ( { model | session = { session | store = Session.deserializeStore json } }
             , Cmd.none
@@ -146,6 +155,9 @@ subscriptions model =
             CounterPage _ ->
                 Sub.none
 
+            EditorialPage _ ->
+                Sub.none
+
             NotFoundPage ->
                 Sub.none
 
@@ -173,6 +185,11 @@ view { page, session } =
             Counter.view session counterModel
                 |> mapMsg CounterMsg
                 |> Page.frame (pageConfig Page.Counter)
+
+        EditorialPage editorialModel ->
+            Editorial.view session editorialModel
+                |> mapMsg EditorialMsg
+                |> Page.frame (pageConfig (Page.Editorial editorialModel.slug))
 
         NotFoundPage ->
             ( "Not Found", [ Html.text "Not found" ] )
