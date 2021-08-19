@@ -45,10 +45,10 @@ navbar { activePage } =
     header [ class "navbar navbar-dark bg-dark text-light shadow-sm" ]
         [ div [ class "container" ]
             [ h1 [ class "display-5 fw-bold" ] [ a [ class "text-light", Route.href Route.Home ] [ text "wikicarbone" ] ]
-            , [ linkIf Home Route.Home "Home"
-              , linkIf Simulator Route.Simulator "Simulator"
-              , linkIf (Editorial "methodology") (Route.Editorial "methodology") "Methodology"
-              , a [ class "text-light", href "https://github.com/MTES-MCT/wikicarbone/" ] [ text "Source" ]
+            , [ linkIf Home Route.Home "Accueil"
+              , linkIf Simulator Route.Simulator "Simulateur"
+              , linkIf (Editorial "methodology") (Route.Editorial "methodology") "Méthodologie"
+              , a [ class "text-light", href "https://github.com/MTES-MCT/wikicarbone/" ] [ text "Code source" ]
               ]
                 |> List.intersperse (text " | ")
                 |> nav []

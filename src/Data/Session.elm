@@ -6,6 +6,7 @@ module Data.Session exposing
     )
 
 import Browser.Navigation as Nav
+import Data.Simulator as Simulator exposing (Simulator)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
 
@@ -21,24 +22,24 @@ type alias Session =
 across browser restarts, typically in localStorage.
 -}
 type alias Store =
-    { mass : Float }
+    { simulator : Simulator }
 
 
 defaultStore : Store
 defaultStore =
-    { mass = 0.2 }
+    { simulator = Simulator.default }
 
 
 decodeStore : Decoder Store
 decodeStore =
     Decode.map Store
-        (Decode.field "mass" Decode.float)
+        (Decode.field "mass" Simulator.decode)
 
 
 encodeStore : Store -> Encode.Value
 encodeStore v =
     Encode.object
-        [ ( "mass", Encode.float v.mass )
+        [ ( "simulator", Simulator.encode v.simulator )
         ]
 
 

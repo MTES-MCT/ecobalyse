@@ -3,8 +3,6 @@ module Page.Home exposing (Model, Msg, init, update, view)
 import Data.Session exposing (Session)
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Http
-import Request.HttpClient as HttpClient
 import Route
 
 
@@ -22,15 +20,17 @@ init session =
 
 
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
-update session _ model =
-    ( model, session, Cmd.none )
+update session msg model =
+    case msg of
+        NoOp ->
+            ( model, session, Cmd.none )
 
 
 view : Session -> Model -> ( String, List (Html Msg) )
 view _ _ =
     ( "Home"
-    , [ h2 [] [ text "Welcome to Wikicarbone" ]
-      , p [] [ text "Simulate the environmental footprint of common textile products" ]
-      , a [ class "btn btn-success", Route.href Route.Simulator ] [ text "Make a simulation" ]
+    , [ h2 [] [ text "Bienvenue sur Wikicarbone" ]
+      , p [] [ text "Accélerer la mise en place de l'affichage environnemental" ]
+      , a [ class "btn btn-success", Route.href Route.Simulator ] [ text "Faire une simulation" ]
       ]
     )

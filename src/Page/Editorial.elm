@@ -49,7 +49,7 @@ update session msg model =
 
 
 view : Session -> Model -> ( String, List (Html Msg) )
-view _ { slug, state } =
+view _ { state } =
     ( "Home"
     , case state of
         Loading ->
