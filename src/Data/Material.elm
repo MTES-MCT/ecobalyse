@@ -68,7 +68,10 @@ choices =
 
 cotton : Material
 cotton =
-    { id = "n09", name = "Fil de coton conventionnel, inventaire partiellement agrégé", category = Category.Natural }
+    { id = "n09"
+    , name = "Fil de coton conventionnel, inventaire partiellement agrégé"
+    , category = Category.Natural
+    }
 
 
 decode : Decoder Material

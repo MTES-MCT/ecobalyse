@@ -89,7 +89,7 @@ update session msg model =
 massInput : Float -> Html Msg
 massInput mass =
     div [ class "mb-3" ]
-        [ label [ for "mass", class "form-label fw-bold" ] [ text "Masse de matière première" ]
+        [ label [ for "mass", class "form-label fw-bold" ] [ text "Masse du produit fini" ]
         , div
             [ class "input-group" ]
             [ input
@@ -193,6 +193,25 @@ processListView processList =
         ]
 
 
+summaryView : Model -> Html Msg
+summaryView model =
+    div [ class "mb-3" ]
+        [ div [ class "card text-white bg-primary mb-3" ]
+            [ div [ class "card-header" ]
+                [ em [] [ text model.product.name ]
+                , text " en "
+                , em [] [ text model.material.name ]
+                , text " de "
+                , em [] [ text (String.fromFloat model.mass ++ "kg") ]
+                ]
+            , div [ class "card-body" ]
+                [ p [ class "display-5 text-center" ]
+                    [ text (String.fromFloat model.score ++ "kg eq, CO₂") ]
+                ]
+            ]
+        ]
+
+
 view : Session -> Model -> ( String, List (Html Msg) )
 view _ model =
     ( "Simulateur"
@@ -221,7 +240,9 @@ view _ model =
                     ]
                 ]
             , div [ class "col-lg-6" ]
-                [ img [ class "w-100", src "https://via.placeholder.com/400x200?text=Graphic+goes+here" ] []
+                [ summaryView model
+                , img [ class "w-100 mb-3", src "https://via.placeholder.com/400x200?text=Graphic+goes+here" ] []
+                , h4 [] [ text "Debug" ]
                 , pre [ class "mt-3" ]
                     [ Simulator.encode model |> Encode.encode 2 |> text
                     ]
