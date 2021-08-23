@@ -1,54 +1,62 @@
 module Data.Process exposing (..)
 
+import Data.Country as Country exposing (Country)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
 
 
 type alias Process =
-    { step : Int
+    { id : String
     , name : String
+    , country : Country
     }
 
 
 spinning : Process
 spinning =
-    { step = 1
+    { id = "1"
     , name = "Matière & filature"
+    , country = Country.France
     }
 
 
 weaving : Process
 weaving =
-    { step = 2
+    { id = "2"
     , name = "Tissage & tricotage"
+    , country = Country.France
     }
 
 
 confection : Process
 confection =
-    { step = 3
+    { id = "3"
     , name = "Confection"
+    , country = Country.France
     }
 
 
 ennoblement : Process
 ennoblement =
-    { step = 4
+    { id = "4"
     , name = "Ennoblissement"
+    , country = Country.France
     }
 
 
 transport : Process
 transport =
-    { step = 5
+    { id = "5"
     , name = "Transport"
+    , country = Country.France
     }
 
 
 distribution : Process
 distribution =
-    { step = 6
+    { id = "6"
     , name = "Distribution"
+    , country = Country.France
     }
 
 
@@ -65,14 +73,16 @@ default =
 
 decode : Decoder Process
 decode =
-    Decode.map2 Process
-        (Decode.field "step" Decode.int)
+    Decode.map3 Process
+        (Decode.field "id" Decode.string)
         (Decode.field "name" Decode.string)
+        (Decode.field "country" Country.decode)
 
 
 encode : Process -> Encode.Value
 encode v =
     Encode.object
-        [ ( "step", Encode.int v.step )
+        [ ( "id", Encode.string v.id )
         , ( "name", Encode.string v.name )
+        , ( "country", Country.encode v.country )
         ]

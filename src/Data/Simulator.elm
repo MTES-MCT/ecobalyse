@@ -12,25 +12,28 @@ type alias Simulator =
     , material : Material
     , product : Product
     , process : List Process
+    , score : Float
     }
 
 
 default : Simulator
 default =
-    { mass = 0.2
+    { mass = Product.tShirt.defaultMass
     , material = Material.cotton
     , product = Product.tShirt
     , process = Process.default
+    , score = 0
     }
 
 
 decode : Decoder Simulator
 decode =
-    Decode.map4 Simulator
+    Decode.map5 Simulator
         (Decode.field "mass" Decode.float)
         (Decode.field "material" Material.decode)
         (Decode.field "product" Product.decode)
         (Decode.field "process" (Decode.list Process.decode))
+        (Decode.field "score" Decode.float)
 
 
 encode : Simulator -> Encode.Value
@@ -40,4 +43,5 @@ encode v =
         , ( "material", Material.encode v.material )
         , ( "product", Product.encode v.product )
         , ( "process", Encode.list Process.encode v.process )
+        , ( "score", Encode.float v.score )
         ]

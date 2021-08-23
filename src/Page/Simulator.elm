@@ -1,7 +1,9 @@
 module Page.Simulator exposing (Model, Msg, init, update, view)
 
+import Data.Country as Country exposing (Country)
 import Data.Material as Material exposing (Material)
 import Data.Material.Category as Category exposing (Category)
+import Data.Process exposing (Process)
 import Data.Product as Product exposing (Product)
 import Data.Session as Product exposing (Session)
 import Data.Simulator as Simulator exposing (Simulator)
@@ -17,9 +19,11 @@ type alias Model =
 
 
 type Msg
-    = UpdateMass Float
+    = Reset
+    | UpdateMass Float
     | UpdateMaterial Material
     | UpdateMaterialCategory Category
+    | UpdateProcessStep String Country
     | UpdateProduct Product
 
 
@@ -31,6 +35,9 @@ init session =
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
 update session msg model =
     case msg of
+        Reset ->
+            ( Simulator.default, session, Cmd.none )
+
         UpdateMass mass ->
             ( { model | mass = mass }
             , session
@@ -55,6 +62,23 @@ update session msg model =
             , Cmd.none
             )
 
+        UpdateProcessStep id country ->
+            ( { model
+                | process =
+                    model.process
+                        |> List.map
+                            (\p ->
+                                if p.id == id then
+                                    { p | country = country }
+
+                                else
+                                    p
+                            )
+              }
+            , session
+            , Cmd.none
+            )
+
         UpdateProduct product ->
             ( { model | product = product, mass = product.defaultMass }
             , session
@@ -65,15 +89,15 @@ update session msg model =
 massInput : Float -> Html Msg
 massInput mass =
     div [ class "mb-3" ]
-        [ label [ for "mass", class "form-label" ] [ text "Masse de matière première" ]
+        [ label [ for "mass", class "form-label fw-bold" ] [ text "Masse de matière première" ]
         , div
             [ class "input-group" ]
             [ input
                 [ type_ "number"
                 , class "form-control"
                 , id "mass"
-                , Attr.min "0.1"
-                , step "0.1"
+                , Attr.min "0.05"
+                , step "0.05"
                 , value <| String.fromFloat mass
                 , onInput (String.toFloat >> Maybe.withDefault mass >> UpdateMass)
                 ]
@@ -86,7 +110,7 @@ massInput mass =
 materialCategorySelect : Material -> Html Msg
 materialCategorySelect material =
     div [ class "mb-2" ]
-        [ div [ class "form-label" ] [ text "Matières premières" ]
+        [ div [ class "form-label fw-bold" ] [ text "Matières premières" ]
         , [ Category.Natural, Category.Synthetic, Category.Recycled ]
             |> List.map
                 (\m ->
@@ -123,7 +147,7 @@ materialInput material =
 productSelect : Product -> Html Msg
 productSelect product =
     div [ class "mb-3" ]
-        [ label [ for "product", class "form-label" ] [ text "Type de produit" ]
+        [ label [ for "product", class "form-label fw-bold" ] [ text "Type de produit" ]
         , Product.choices
             |> List.map (\p -> option [ value p.id, selected (product.id == p.id) ] [ text p.name ])
             |> select
@@ -134,29 +158,74 @@ productSelect product =
         ]
 
 
+countrySelect : Process -> Html Msg
+countrySelect process =
+    Country.choices
+        |> List.map (\c -> option [ selected (process.country == c) ] [ text (Country.toString c) ])
+        |> select
+            [ class "form-select"
+            , onInput (Country.fromString >> UpdateProcessStep process.id)
+            ]
+
+
+processView : Int -> Process -> Html Msg
+processView index process =
+    div [ class "card mb-3" ]
+        [ div [ class "card-header d-flex align-items-center" ]
+            [ span [ class "badge rounded-pill bg-primary me-1" ]
+                [ text (String.fromInt (index + 1)) ]
+            , text process.name
+            ]
+        , div [ class "card-body" ]
+            [ countrySelect process
+            ]
+        ]
+
+
+processListView : List Process -> Html Msg
+processListView processList =
+    div []
+        [ h2 [ class "mb-3" ] [ text "Étapes" ]
+        , processList
+            |> List.indexedMap processView
+            |> List.map (List.singleton >> div [ class "col" ])
+            |> div [ class "row row-cols-1 row-cols-md-2 g-4" ]
+        ]
+
+
 view : Session -> Model -> ( String, List (Html Msg) )
 view _ model =
     ( "Simulateur"
-    , [ h1 [] [ text "Simulateur" ]
+    , [ h1 [ class "mb-3" ] [ text "Simulateur" ]
       , div [ class "row" ]
-            [ div [ class "col" ]
+            [ div [ class "col-lg-6" ]
                 [ div [ class "row" ]
-                    [ div [ class "col" ]
+                    [ div [ class "col-md-6" ]
                         [ productSelect model.product
                         ]
-                    , div [ class "col" ]
+                    , div [ class "col-md-6" ]
                         [ massInput model.mass
                         ]
                     ]
                 , materialCategorySelect model.material
                 , materialInput model.material
+                , processListView model.process
+                , div [ class "d-flex align-items-center justify-content-between" ]
+                    [ a [ Route.href Route.Home ] [ text "« Retour à l'accueil" ]
+                    , button
+                        [ class "btn btn-secondary"
+                        , onClick Reset
+                        , disabled (Simulator.default == model)
+                        ]
+                        [ text "Réinitialiser le simulateur" ]
+                    ]
                 ]
-            , div [ class "col" ]
-                [ img [ class "w-100", src "https://via.placeholder.com/400x200?text=Graphic+goes+here" ] [] ]
+            , div [ class "col-lg-6" ]
+                [ img [ class "w-100", src "https://via.placeholder.com/400x200?text=Graphic+goes+here" ] []
+                , pre [ class "mt-3" ]
+                    [ Simulator.encode model |> Encode.encode 2 |> text
+                    ]
+                ]
             ]
-      , pre []
-            [ Simulator.encode model |> Encode.encode 2 |> text
-            ]
-      , p [] [ a [ Route.href Route.Home ] [ text "Retour à l'accueil" ] ]
       ]
     )
