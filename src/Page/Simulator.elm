@@ -1,6 +1,7 @@
 module Page.Simulator exposing (Model, Msg, init, update, view)
 
 import Data.Material as Material exposing (Material)
+import Data.Material.Category as Category exposing (Category)
 import Data.Product as Product exposing (Product)
 import Data.Session as Product exposing (Session)
 import Data.Simulator as Simulator exposing (Simulator)
@@ -18,6 +19,7 @@ type alias Model =
 type Msg
     = UpdateMass Float
     | UpdateMaterial Material
+    | UpdateMaterialCategory Category
     | UpdateProduct Product
 
 
@@ -41,8 +43,20 @@ update session msg model =
             , Cmd.none
             )
 
+        UpdateMaterialCategory category ->
+            ( { model
+                | material =
+                    Material.choices
+                        |> List.filter (.category >> (==) category)
+                        |> List.head
+                        |> Maybe.withDefault Material.cotton
+              }
+            , session
+            , Cmd.none
+            )
+
         UpdateProduct product ->
-            ( { model | product = product }
+            ( { model | product = product, mass = product.defaultMass }
             , session
             , Cmd.none
             )
@@ -70,26 +84,39 @@ massInput mass =
         ]
 
 
-materialInput : Material -> Html Msg
-materialInput material =
+materialCategorySelect : Material -> Html Msg
+materialCategorySelect material =
     div [ class "mb-3" ]
         [ div [ class "form-label" ] [ text "Matières premières" ]
-        , Material.choices
+        , [ Category.Natural, Category.Synthetic, Category.Recycled ]
             |> List.map
                 (\m ->
                     button
                         [ type_ "button"
                         , classList
                             [ ( "btn", True )
-                            , ( "btn-outline-primary", material.id /= m.id )
-                            , ( "btn-primary", material.id == m.id )
+                            , ( "btn-outline-primary", material.category /= m )
+                            , ( "btn-primary", material.category == m )
                             , ( "text-truncate", True )
                             ]
-                        , onClick (UpdateMaterial m)
+                        , onClick (UpdateMaterialCategory m)
                         ]
-                        [ text m.name ]
+                        [ m |> Category.toString |> text ]
                 )
             |> div [ class "btn-group w-100" ]
+        ]
+
+
+materialInput : Material -> Html Msg
+materialInput material =
+    div [ class "mb-3" ]
+        [ Material.choices
+            |> List.map (\m -> option [ value m.id, selected (material.id == m.id) ] [ text m.name ])
+            |> select
+                [ id "material"
+                , class "form-select"
+                , onInput (Material.findById >> Maybe.withDefault Material.cotton >> UpdateMaterial)
+                ]
         ]
 
 
@@ -114,6 +141,7 @@ view _ model =
       , div [ class "row" ]
             [ div [ class "col" ]
                 [ productSelect model.product
+                , materialCategorySelect model.material
                 , materialInput model.material
                 , massInput model.mass
                 ]
