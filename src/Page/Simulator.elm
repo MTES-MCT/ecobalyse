@@ -80,13 +80,12 @@ massInput mass =
                 []
             , span [ class "input-group-text" ] [ text "kg" ]
             ]
-        , div [ class "form-text" ] [ text "Masse de matériau brut, en kilogrammes" ]
         ]
 
 
 materialCategorySelect : Material -> Html Msg
 materialCategorySelect material =
-    div [ class "mb-3" ]
+    div [ class "mb-2" ]
         [ div [ class "form-label" ] [ text "Matières premières" ]
         , [ Category.Natural, Category.Synthetic, Category.Recycled ]
             |> List.map
@@ -111,7 +110,8 @@ materialInput : Material -> Html Msg
 materialInput material =
     div [ class "mb-3" ]
         [ Material.choices
-            |> List.map (\m -> option [ value m.id, selected (material.id == m.id) ] [ text m.name ])
+            |> List.filter (.category >> (==) material.category)
+            |> List.map (\m -> option [ value m.id, selected (material.id == m.id), title m.name ] [ text m.name ])
             |> select
                 [ id "material"
                 , class "form-select"
@@ -140,10 +140,16 @@ view _ model =
     , [ h1 [] [ text "Simulateur" ]
       , div [ class "row" ]
             [ div [ class "col" ]
-                [ productSelect model.product
+                [ div [ class "row" ]
+                    [ div [ class "col" ]
+                        [ productSelect model.product
+                        ]
+                    , div [ class "col" ]
+                        [ massInput model.mass
+                        ]
+                    ]
                 , materialCategorySelect model.material
                 , materialInput model.material
-                , massInput model.mass
                 ]
             , div [ class "col" ]
                 [ img [ class "w-100", src "https://via.placeholder.com/400x200?text=Graphic+goes+here" ] [] ]
