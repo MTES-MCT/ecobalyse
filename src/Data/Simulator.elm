@@ -1,5 +1,6 @@
 module Data.Simulator exposing (Simulator, decode, default, encode)
 
+import Array exposing (Array)
 import Data.Material as Material exposing (Material)
 import Data.Process as Process exposing (Process)
 import Data.Product as Product exposing (Product)
@@ -11,7 +12,7 @@ type alias Simulator =
     { mass : Float
     , material : Material
     , product : Product
-    , process : List Process
+    , process : Array Process
     , score : Float
     }
 
@@ -32,7 +33,7 @@ decode =
         (Decode.field "mass" Decode.float)
         (Decode.field "material" Material.decode)
         (Decode.field "product" Product.decode)
-        (Decode.field "process" (Decode.list Process.decode))
+        (Decode.field "process" (Decode.array Process.decode))
         (Decode.field "score" Decode.float)
 
 
@@ -42,6 +43,6 @@ encode v =
         [ ( "mass", Encode.float v.mass )
         , ( "material", Material.encode v.material )
         , ( "product", Product.encode v.product )
-        , ( "process", Encode.list Process.encode v.process )
+        , ( "process", Encode.array Process.encode v.process )
         , ( "score", Encode.float v.score )
         ]

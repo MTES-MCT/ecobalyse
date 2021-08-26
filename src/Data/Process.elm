@@ -1,5 +1,6 @@
 module Data.Process exposing (..)
 
+import Array exposing (Array)
 import Data.Country as Country exposing (Country)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
@@ -60,15 +61,16 @@ distribution =
     }
 
 
-default : List Process
+default : Array Process
 default =
-    [ spinning
-    , weaving
-    , confection
-    , ennoblement
-    , transport
-    , distribution
-    ]
+    Array.fromList
+        [ spinning
+        , weaving
+        , confection
+        , ennoblement
+        , transport
+        , distribution
+        ]
 
 
 decode : Decoder Process

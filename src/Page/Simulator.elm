@@ -1,5 +1,6 @@
 module Page.Simulator exposing (Model, Msg, init, update, view)
 
+import Array exposing (Array)
 import Data.Country as Country exposing (Country)
 import Data.Material as Material exposing (Material)
 import Data.Material.Category as Category exposing (Category)
@@ -7,6 +8,7 @@ import Data.Process exposing (Process)
 import Data.Product as Product exposing (Product)
 import Data.Session as Product exposing (Session)
 import Data.Simulator as Simulator exposing (Simulator)
+import Data.Transport as Transport
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (onClick, onInput)
@@ -66,7 +68,7 @@ update session msg model =
             ( { model
                 | process =
                     model.process
-                        |> List.map
+                        |> Array.map
                             (\p ->
                                 if p.id == id then
                                     { p | country = country }
@@ -161,35 +163,71 @@ productSelect product =
 countrySelect : Process -> Html Msg
 countrySelect process =
     Country.choices
-        |> List.map (\c -> option [ selected (process.country == c) ] [ text (Country.toString c) ])
+        |> List.map
+            (\c ->
+                option [ selected (process.country == c) ]
+                    [ text (Country.toString c) ]
+            )
         |> select
             [ class "form-select"
             , onInput (Country.fromString >> UpdateProcessStep process.id)
             ]
 
 
-processView : Int -> Process -> Html Msg
-processView index process =
-    div [ class "card mb-3" ]
-        [ div [ class "card-header d-flex align-items-center" ]
-            [ span [ class "badge rounded-pill bg-primary me-1" ]
-                [ text (String.fromInt (index + 1)) ]
-            , text process.name
-            ]
-        , div [ class "card-body" ]
-            [ countrySelect process
+processView : Int -> Maybe Process -> Process -> Html Msg
+processView index previous current =
+    let
+        maybeDistance =
+            previous |> Maybe.map (.country >> Transport.getDistanceCo2 current.country)
+    in
+    div []
+        [ case maybeDistance of
+            Just distance ->
+                div [ class "container mb-3" ]
+                    [ div [ class "row" ]
+                        [ div [ class "col text-end" ]
+                            [ text "Transport"
+                            ]
+                        , div [ class "col-1 text-center" ]
+                            [ if index /= 0 then
+                                text "↓"
+
+                              else
+                                text ""
+                            ]
+                        , div
+                            [ class "col text-start" ]
+                            [ String.fromFloat distance ++ "km" |> text
+                            ]
+                        ]
+                    ]
+
+            Nothing ->
+                text ""
+        , div [ class "card mb-3" ]
+            [ div [ class "card-header d-flex align-items-center" ]
+                [ span [ class "badge rounded-pill bg-primary me-1" ]
+                    [ text (String.fromInt (index + 1)) ]
+                , text current.name
+                ]
+            , div [ class "card-body" ]
+                [ countrySelect current
+                ]
             ]
         ]
 
 
-processListView : List Process -> Html Msg
+processListView : Array Process -> Html Msg
 processListView processList =
     div []
         [ h2 [ class "mb-3" ] [ text "Étapes" ]
         , processList
-            |> List.indexedMap processView
-            |> List.map (List.singleton >> div [ class "col" ])
-            |> div [ class "row row-cols-1 row-cols-md-2 g-4" ]
+            |> Array.indexedMap
+                (\index process ->
+                    processView index (Array.get (index - 1) processList) process
+                )
+            |> Array.toList
+            |> div []
         ]
 
 
