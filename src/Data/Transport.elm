@@ -143,7 +143,16 @@ getDistanceInfo : Country -> Country -> Transport
 getDistanceInfo cA cB =
     distances
         |> Dict.get (Country.toString cA)
-        |> Maybe.andThen (Dict.get (Country.toString cB))
+        |> Maybe.andThen
+            (\countries ->
+                case Dict.get (Country.toString cB) countries of
+                    Just transport ->
+                        Just transport
+
+                    Nothing ->
+                        -- reverse query source dict
+                        Just (getDistanceInfo cB cA)
+            )
         |> Maybe.withDefault default
 
 

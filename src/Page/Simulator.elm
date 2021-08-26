@@ -8,7 +8,7 @@ import Data.Process exposing (Process)
 import Data.Product as Product exposing (Product)
 import Data.Session as Product exposing (Session)
 import Data.Simulator as Simulator exposing (Simulator)
-import Data.Transport as Transport
+import Data.Transport as Transport exposing (Transport)
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (onClick, onInput)
@@ -174,15 +174,32 @@ countrySelect process =
             ]
 
 
+transportInfoView : Transport -> Html Msg
+transportInfoView transport =
+    let
+        row label getter =
+            tr []
+                [ th [] [ text label ]
+                , td [] [ text <| (String.fromInt (Tuple.first (getter transport)) ++ "km") ]
+                , td [] [ text <| (String.fromInt (Tuple.second (getter transport)) ++ "%") ]
+                ]
+    in
+    table [ class "table" ]
+        [ row "Terrestre" .road
+        , row "Aérien" .air
+        , row "Maritime" .sea
+        ]
+
+
 processView : Int -> Maybe Process -> Process -> Html Msg
 processView index previous current =
     let
-        maybeDistance =
-            previous |> Maybe.map (.country >> Transport.getDistanceCo2 current.country)
+        maybeTransport =
+            previous |> Maybe.map (.country >> Transport.getDistanceInfo current.country)
     in
     div []
-        [ case maybeDistance of
-            Just distance ->
+        [ case maybeTransport of
+            Just transport ->
                 div [ class "container mb-3" ]
                     [ div [ class "row" ]
                         [ div [ class "col text-end" ]
@@ -197,7 +214,7 @@ processView index previous current =
                             ]
                         , div
                             [ class "col text-start" ]
-                            [ String.fromFloat distance ++ "km" |> text
+                            [ transportInfoView transport
                             ]
                         ]
                     ]
@@ -267,7 +284,7 @@ view _ model =
                 , materialCategorySelect model.material
                 , materialInput model.material
                 , processListView model.process
-                , div [ class "d-flex align-items-center justify-content-between" ]
+                , div [ class "d-flex align-items-center justify-content-between mb-3" ]
                     [ a [ Route.href Route.Home ] [ text "« Retour à l'accueil" ]
                     , button
                         [ class "btn btn-secondary"
@@ -280,9 +297,11 @@ view _ model =
             , div [ class "col-lg-6" ]
                 [ summaryView model
                 , img [ class "w-100 mb-3", src "https://via.placeholder.com/400x200?text=Graphic+goes+here" ] []
-                , h4 [] [ text "Debug" ]
-                , pre [ class "mt-3" ]
-                    [ Simulator.encode model |> Encode.encode 2 |> text
+                , details []
+                    [ summary [] [ text "Debug" ]
+                    , pre [ class "mt-3" ]
+                        [ Simulator.encode model |> Encode.encode 2 |> text
+                        ]
                     ]
                 ]
             ]
