@@ -45,14 +45,6 @@ ennoblement =
     }
 
 
-transport : Process
-transport =
-    { id = "5"
-    , name = "Transport"
-    , country = Country.France
-    }
-
-
 distribution : Process
 distribution =
     { id = "6"
@@ -68,7 +60,6 @@ default =
         , weaving
         , confection
         , ennoblement
-        , transport
         , distribution
         ]
 

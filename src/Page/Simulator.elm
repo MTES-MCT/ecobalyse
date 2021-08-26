@@ -192,18 +192,25 @@ transportInfoView transport =
 
 
 processView : Int -> Maybe Process -> Process -> Html Msg
-processView index previous current =
-    let
-        maybeTransport =
-            previous |> Maybe.map (.country >> Transport.getDistanceInfo current.country)
-    in
+processView index maybePrevious current =
     div []
-        [ case maybeTransport of
-            Just transport ->
+        [ case maybePrevious of
+            Just previous ->
                 div [ class "container mb-3" ]
                     [ div [ class "row align-items-center" ]
                         [ div [ class "col text-end" ]
-                            [ text "Transport"
+                            [ strong [ class "me-1" ] [ text "Transport" ]
+                            , text "("
+                            , if current.country == previous.country then
+                                text <| Country.toString previous.country ++ " intranational"
+
+                              else
+                                text
+                                    (Country.toString previous.country
+                                        ++ " - "
+                                        ++ Country.toString current.country
+                                    )
+                            , text ")"
                             ]
                         , div [ class "col-1 text-center" ]
                             [ if index /= 0 then
@@ -214,7 +221,9 @@ processView index previous current =
                             ]
                         , div
                             [ class "col text-start" ]
-                            [ transportInfoView transport
+                            [ current.country
+                                |> Transport.getDistanceInfo previous.country
+                                |> transportInfoView
                             ]
                         ]
                     ]
@@ -297,6 +306,14 @@ view _ model =
             , div [ class "col-lg-6" ]
                 [ summaryView model
                 , img [ class "w-100 mb-3", src "https://via.placeholder.com/400x200?text=Graphic+goes+here" ] []
+
+                -- , div [ class "card mb-3" ]
+                --     [ div [ class "card-header" ]
+                --         [ text "Synthèse transport" ]
+                --     , div [ class "card-body" ]
+                --         [ text "todo?"
+                --         ]
+                --     ]
                 , details []
                     [ summary [] [ text "Debug" ]
                     , pre [ class "mt-3" ]
