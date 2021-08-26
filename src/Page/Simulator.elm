@@ -180,11 +180,11 @@ transportInfoView transport =
         row label getter =
             tr []
                 [ th [] [ text label ]
-                , td [] [ text <| (String.fromInt (Tuple.first (getter transport)) ++ "km") ]
-                , td [] [ text <| (String.fromInt (Tuple.second (getter transport)) ++ "%") ]
+                , td [ class "text-end" ] [ text <| (String.fromInt (Tuple.first (getter transport)) ++ "km") ]
+                , td [ class "text-end" ] [ text <| (String.fromInt (Tuple.second (getter transport)) ++ "%") ]
                 ]
     in
-    table [ class "table" ]
+    table [ class "table mb-0", style "font-size" ".85em" ]
         [ row "Terrestre" .road
         , row "Aérien" .air
         , row "Maritime" .sea
@@ -201,13 +201,13 @@ processView index previous current =
         [ case maybeTransport of
             Just transport ->
                 div [ class "container mb-3" ]
-                    [ div [ class "row" ]
+                    [ div [ class "row align-items-center" ]
                         [ div [ class "col text-end" ]
                             [ text "Transport"
                             ]
                         , div [ class "col-1 text-center" ]
                             [ if index /= 0 then
-                                text "↓"
+                                span [ class "fs-1 fw-lighter" ] [ text "↓" ]
 
                               else
                                 text ""
