@@ -162,16 +162,27 @@ productSelect product =
 
 countrySelect : Process -> Html Msg
 countrySelect process =
-    Country.choices
-        |> List.map
-            (\c ->
-                option [ selected (process.country == c) ]
-                    [ text (Country.toString c) ]
-            )
-        |> select
-            [ class "form-select"
-            , onInput (Country.fromString >> UpdateProcessStep process.id)
-            ]
+    let
+        preventUpdate =
+            List.member process.name [ "Matière & filature", "Tissage & tricotage" ]
+    in
+    div []
+        [ Country.choices
+            |> List.map (\c -> option [ selected (process.country == c) ] [ text (Country.toString c) ])
+            |> select
+                [ class "form-select"
+                , disabled preventUpdate -- ADEME enforce Asia as a default for these, prevent update
+                , onInput (Country.fromString >> UpdateProcessStep process.id)
+                ]
+        , if preventUpdate then
+            div [ class "form-text mt-2" ]
+                [ span [ class "me-2" ] [ text "ℹ" ]
+                , text "L'ADEME impose l'Asie comme localisation pour cette étape"
+                ]
+
+          else
+            text ""
+        ]
 
 
 transportInfoView : Transport -> Html Msg
