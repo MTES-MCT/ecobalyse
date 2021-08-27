@@ -17,7 +17,7 @@ spinning : Process
 spinning =
     { id = "1"
     , name = "Matière & filature"
-    , country = Country.France
+    , country = Country.China -- note: ADEME makes Asia the default for spinning
     }
 
 
@@ -25,7 +25,7 @@ weaving : Process
 weaving =
     { id = "2"
     , name = "Tissage & tricotage"
-    , country = Country.France
+    , country = Country.China -- note: ADEME makes Asia the default for weaving
     }
 
 
