@@ -14,6 +14,7 @@ import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (onClick, onInput)
 import Json.Encode as Encode
 import Route
+import Views.Format as Format
 
 
 type alias Model =
@@ -192,8 +193,8 @@ transportInfoView transport =
         row label getter =
             tr []
                 [ th [] [ text label ]
-                , td [ class "text-end" ] [ text <| (String.fromInt (Tuple.first (getter transport)) ++ "km") ]
-                , td [ class "text-end" ] [ text <| (String.fromInt (Tuple.second (getter transport)) ++ "%") ]
+                , td [ class "text-end" ] [ getter transport |> Tuple.first |> Format.formatInt "km" |> text ]
+                , td [ class "text-end" ] [ getter transport |> Tuple.second |> Format.formatInt "%" |> text ]
                 ]
     in
     table [ class "table mb-0", style "font-size" ".85em" ]
@@ -281,15 +282,15 @@ transportSummaryView model =
         , div [ class "card-body" ]
             [ div []
                 [ strong [] [ text "Terrestre: " ]
-                , text <| String.fromInt summary.road ++ "km"
+                , summary.road |> Format.formatInt "km" |> text
                 ]
             , div []
                 [ strong [] [ text "Maritime: " ]
-                , text <| String.fromInt summary.sea ++ "km"
+                , summary.sea |> Format.formatInt "km" |> text
                 ]
             , div []
                 [ strong [] [ text "Aérien: " ]
-                , text <| String.fromInt summary.air ++ "km"
+                , summary.air |> Format.formatInt "km" |> text
                 ]
             ]
         ]

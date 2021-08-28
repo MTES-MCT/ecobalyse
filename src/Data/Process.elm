@@ -17,7 +17,7 @@ type alias Process =
 material : Process
 material =
     { id = "0"
-    , name = "Matière"
+    , name = "Matière première"
     , country = Country.China -- note: ADEME makes Asia the default for spinning
     }
 
