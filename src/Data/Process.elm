@@ -2,6 +2,7 @@ module Data.Process exposing (..)
 
 import Array exposing (Array)
 import Data.Country as Country exposing (Country)
+import Data.Transport as Transport
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
 
@@ -13,10 +14,18 @@ type alias Process =
     }
 
 
+material : Process
+material =
+    { id = "0"
+    , name = "Matière"
+    , country = Country.China -- note: ADEME makes Asia the default for spinning
+    }
+
+
 spinning : Process
 spinning =
     { id = "1"
-    , name = "Matière & filature"
+    , name = "Filature"
     , country = Country.China -- note: ADEME makes Asia the default for spinning
     }
 
@@ -56,12 +65,18 @@ distribution =
 default : Array Process
 default =
     Array.fromList
-        [ spinning
+        [ material
+        , spinning
         , weaving
         , confection
         , ennoblement
         , distribution
         ]
+
+
+editable : Process -> Bool
+editable process =
+    List.member process.name [ "Matière", "Filature", "Tissage & tricotage" ]
 
 
 decode : Decoder Process
@@ -79,3 +94,27 @@ encode v =
         , ( "name", Encode.string v.name )
         , ( "country", Country.encode v.country )
         ]
+
+
+computeTransportSummary : Array Process -> Transport.Summary
+computeTransportSummary processes =
+    processes
+        |> Array.toIndexedList
+        |> List.foldl
+            (\( index, current ) acc ->
+                case Array.get (index - 1) processes of
+                    Just previous ->
+                        let
+                            info =
+                                Transport.getDistanceInfo previous.country current.country
+                        in
+                        { acc
+                            | road = acc.road + Tuple.first info.road
+                            , sea = acc.sea + Tuple.first info.sea
+                            , air = acc.air + Tuple.first info.air
+                        }
+
+                    Nothing ->
+                        acc
+            )
+            Transport.defaultSummary

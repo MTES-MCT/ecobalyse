@@ -54,7 +54,8 @@ encode country =
 fromString : String -> Country
 fromString country =
     case country of
-        "Chine" ->
+        -- NOTE: because ADEME requires Asia as default, we use this label and use China behind the scene
+        "Asie" ->
             China
 
         "France" ->
@@ -91,8 +92,9 @@ fromString country =
 toString : Country -> String
 toString country =
     case country of
+        -- NOTE: because ADEME requires Asia as default, we use this label and use China behind the scene
         China ->
-            "Chine"
+            "Asie"
 
         France ->
             "France"

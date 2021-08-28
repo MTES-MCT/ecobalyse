@@ -2,6 +2,8 @@ module Data.Transport exposing (..)
 
 import Data.Country as Country exposing (..)
 import Dict exposing (Dict)
+import Json.Decode as Decode exposing (Decoder)
+import Json.Encode as Encode
 
 
 type alias Info =
@@ -17,15 +19,27 @@ type alias Ratio =
 
 
 type alias Transport =
-    { road : ( Km, Ratio ) --terre
-    , air : ( Km, Ratio ) --air
-    , sea : ( Km, Ratio ) --mer
+    { road : ( Km, Ratio )
+    , air : ( Km, Ratio )
+    , sea : ( Km, Ratio )
+    }
+
+
+type alias Summary =
+    { road : Km
+    , sea : Km
+    , air : Km
     }
 
 
 default : Transport
 default =
     Transport ( 0, 0 ) ( 0, 0 ) ( 0, 0 )
+
+
+defaultSummary : Summary
+defaultSummary =
+    { road = 0, sea = 0, air = 0 }
 
 
 toDict : List ( Country, a ) -> Dict String a
@@ -172,3 +186,20 @@ getDistanceCo2 cA cB =
             sea
     in
     roadKm + airKm + seaKm |> toFloat
+
+
+decodeSummary : Decoder Summary
+decodeSummary =
+    Decode.map3 Summary
+        (Decode.field "road" Decode.int)
+        (Decode.field "air" Decode.int)
+        (Decode.field "sea" Decode.int)
+
+
+encodeSummary : Summary -> Encode.Value
+encodeSummary summary =
+    Encode.object
+        [ ( "road", Encode.int summary.road )
+        , ( "air", Encode.int summary.air )
+        , ( "sea", Encode.int summary.sea )
+        ]

@@ -4,9 +4,9 @@ import Array exposing (Array)
 import Data.Country as Country exposing (Country)
 import Data.Material as Material exposing (Material)
 import Data.Material.Category as Category exposing (Category)
-import Data.Process exposing (Process)
+import Data.Process as Process exposing (Process)
 import Data.Product as Product exposing (Product)
-import Data.Session as Product exposing (Session)
+import Data.Session exposing (Session)
 import Data.Simulator as Simulator exposing (Simulator)
 import Data.Transport as Transport exposing (Transport)
 import Html exposing (..)
@@ -66,7 +66,8 @@ update session msg model =
 
         UpdateProcessStep id country ->
             ( { model
-                | process =
+                | transport = model.process |> Process.computeTransportSummary
+                , process =
                     model.process
                         |> Array.map
                             (\p ->
@@ -164,7 +165,7 @@ countrySelect : Process -> Html Msg
 countrySelect process =
     let
         preventUpdate =
-            List.member process.name [ "Matière & filature", "Tissage & tricotage" ]
+            Process.editable process
     in
     div []
         [ Country.choices
@@ -177,7 +178,7 @@ countrySelect process =
         , if preventUpdate then
             div [ class "form-text mt-2" ]
                 [ span [ class "me-2" ] [ text "ℹ" ]
-                , text "L'ADEME impose l'Asie comme localisation pour cette étape"
+                , text "Champ non paramétrable"
                 ]
 
           else
@@ -213,7 +214,7 @@ processView index maybePrevious current =
                             [ strong [ class "me-1" ] [ text "Transport" ]
                             , text "("
                             , if current.country == previous.country then
-                                text <| Country.toString previous.country ++ " intranational"
+                                text <| Country.toString previous.country
 
                               else
                                 text
@@ -254,17 +255,43 @@ processView index maybePrevious current =
         ]
 
 
-processListView : Array Process -> Html Msg
-processListView processList =
+processesView : Array Process -> Html Msg
+processesView processes =
     div []
         [ h2 [ class "mb-3" ] [ text "Étapes" ]
-        , processList
+        , processes
             |> Array.indexedMap
                 (\index process ->
-                    processView index (Array.get (index - 1) processList) process
+                    processView index (Array.get (index - 1) processes) process
                 )
             |> Array.toList
             |> div []
+        ]
+
+
+transportSummaryView : Model -> Html Msg
+transportSummaryView model =
+    let
+        summary =
+            Process.computeTransportSummary model.process
+    in
+    div [ class "card mb-3" ]
+        [ div [ class "card-header" ]
+            [ text "Synthèse transport" ]
+        , div [ class "card-body" ]
+            [ div []
+                [ strong [] [ text "Terrestre: " ]
+                , text <| String.fromInt summary.road ++ "km"
+                ]
+            , div []
+                [ strong [] [ text "Maritime: " ]
+                , text <| String.fromInt summary.sea ++ "km"
+                ]
+            , div []
+                [ strong [] [ text "Aérien: " ]
+                , text <| String.fromInt summary.air ++ "km"
+                ]
+            ]
         ]
 
 
@@ -303,7 +330,7 @@ view _ model =
                     ]
                 , materialCategorySelect model.material
                 , materialInput model.material
-                , processListView model.process
+                , processesView model.process
                 , div [ class "d-flex align-items-center justify-content-between mb-3" ]
                     [ a [ Route.href Route.Home ] [ text "« Retour à l'accueil" ]
                     , button
@@ -317,14 +344,7 @@ view _ model =
             , div [ class "col-lg-6" ]
                 [ summaryView model
                 , img [ class "w-100 mb-3", src "https://via.placeholder.com/400x200?text=Graphic+goes+here" ] []
-
-                -- , div [ class "card mb-3" ]
-                --     [ div [ class "card-header" ]
-                --         [ text "Synthèse transport" ]
-                --     , div [ class "card-body" ]
-                --         [ text "todo?"
-                --         ]
-                --     ]
+                , transportSummaryView model
                 , details []
                     [ summary [] [ text "Debug" ]
                     , pre [ class "mt-3" ]
