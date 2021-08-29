@@ -16,7 +16,7 @@ type alias Process =
 
 material : Process
 material =
-    { id = "0"
+    { id = "p0"
     , name = "Matière première"
     , country = Country.China -- note: ADEME makes Asia the default for spinning
     }
@@ -24,7 +24,7 @@ material =
 
 spinning : Process
 spinning =
-    { id = "1"
+    { id = "p1"
     , name = "Filature"
     , country = Country.China -- note: ADEME makes Asia the default for spinning
     }
@@ -32,7 +32,7 @@ spinning =
 
 weaving : Process
 weaving =
-    { id = "2"
+    { id = "p2"
     , name = "Tissage & tricotage"
     , country = Country.China -- note: ADEME makes Asia the default for weaving
     }
@@ -40,7 +40,7 @@ weaving =
 
 confection : Process
 confection =
-    { id = "3"
+    { id = "p3"
     , name = "Confection"
     , country = Country.France
     }
@@ -48,7 +48,7 @@ confection =
 
 ennoblement : Process
 ennoblement =
-    { id = "4"
+    { id = "p4"
     , name = "Ennoblissement"
     , country = Country.France
     }
@@ -56,7 +56,7 @@ ennoblement =
 
 distribution : Process
 distribution =
-    { id = "6"
+    { id = "p5"
     , name = "Distribution"
     , country = Country.France
     }
@@ -102,12 +102,12 @@ computeTransportSummary processes =
         |> Array.toIndexedList
         |> List.foldl
             (\( index, current ) acc ->
-                case Array.get (index - 1) processes of
-                    Just previous ->
-                        let
-                            info =
-                                Transport.getDistanceInfo previous.country current.country
-                        in
+                case
+                    processes
+                        |> Array.get (index - 1)
+                        |> Maybe.map (.country >> Transport.getDistanceInfo current.country)
+                of
+                    Just info ->
                         { acc
                             | road = acc.road + Tuple.first info.road
                             , sea = acc.sea + Tuple.first info.sea
@@ -118,3 +118,15 @@ computeTransportSummary processes =
                         acc
             )
             Transport.defaultSummary
+
+
+updateCountryAt : String -> Country -> Array Process -> Array Process
+updateCountryAt id country =
+    Array.map
+        (\p ->
+            if p.id == id then
+                { p | country = country }
+
+            else
+                p
+        )

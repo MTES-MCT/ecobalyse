@@ -47,9 +47,9 @@ toDict =
     List.map (Tuple.mapFirst Country.toString) >> Dict.fromList
 
 
-defaultInlandRoad : Int
-defaultInlandRoad =
-    500
+defaultInland : Transport
+defaultInland =
+    { road = ( 500, 100 ), sea = ( 0, 0 ), air = ( 0, 0 ) }
 
 
 distances : Dict String (Dict String Transport)
@@ -66,7 +66,7 @@ distances =
                 , ( Morocco, { road = ( 0, 0 ), sea = ( 4156, 100 ), air = ( 3300, 33 ) } )
                 , ( Spain, { road = ( 3312, 90 ), sea = ( 5576, 10 ), air = ( 2700, 33 ) } )
                 , ( Tunisia, { road = ( 0, 0 ), sea = ( 2348, 100 ), air = ( 1700, 33 ) } )
-                , ( Turkey, { road = ( defaultInlandRoad, 100 ), sea = ( 0, 0 ), air = ( 0, 0 ) } )
+                , ( Turkey, defaultInland )
                 ]
           )
         , ( Tunisia
@@ -79,7 +79,7 @@ distances =
                 , ( Italy, { road = ( 0, 0 ), sea = ( 908, 100 ), air = ( 600, 0 ) } )
                 , ( Morocco, { road = ( 1569, 90 ), sea = ( 2274, 10 ), air = ( 1700, 0 ) } )
                 , ( Spain, { road = ( 0, 0 ), sea = ( 3693, 100 ), air = ( 1300, 0 ) } )
-                , ( Tunisia, { road = ( defaultInlandRoad, 100 ), sea = ( 0, 0 ), air = ( 0, 0 ) } )
+                , ( Tunisia, defaultInland )
                 ]
           )
         , ( Morocco
@@ -90,7 +90,7 @@ distances =
                 , ( Greece, { road = ( 0, 0 ), sea = ( 3343, 100 ), air = ( 2900, 0 ) } )
                 , ( India, { road = ( 0, 0 ), sea = ( 9891, 100 ), air = ( 7900, 33 ) } )
                 , ( Italy, { road = ( 0, 0 ), sea = ( 2078, 100 ), air = ( 2000, 0 ) } )
-                , ( Morocco, { road = ( defaultInlandRoad, 100 ), sea = ( 0, 0 ), air = ( 0, 0 ) } )
+                , ( Morocco, defaultInland )
                 , ( Spain, { road = ( 0, 0 ), sea = ( 1916, 100 ), air = ( 900, 0 ) } )
                 ]
           )
@@ -101,7 +101,7 @@ distances =
                 , ( Germany, { road = ( 1045, 90 ), sea = ( 4747, 10 ), air = ( 1000, 0 ) } )
                 , ( Greece, { road = ( 841, 25 ), sea = ( 1576, 75 ), air = ( 1100, 0 ) } )
                 , ( India, { road = ( 0, 0 ), sea = ( 8152, 100 ), air = ( 5900, 33 ) } )
-                , ( Italy, { road = ( defaultInlandRoad, 100 ), sea = ( 0, 0 ), air = ( 0, 0 ) } )
+                , ( Italy, defaultInland )
                 , ( Spain, { road = ( 1372, 90 ), sea = ( 3496, 10 ), air = ( 1300, 0 ) } )
                 ]
           )
@@ -111,7 +111,7 @@ distances =
                 , ( France, { road = ( 0, 0 ), sea = ( 11960, 100 ), air = ( 6600, 33 ) } )
                 , ( Germany, { road = ( 0, 0 ), sea = ( 12560, 100 ), air = ( 6100, 0 ) } )
                 , ( Greece, { road = ( 0, 0 ), sea = ( 7168, 100 ), air = ( 5000, 0 ) } )
-                , ( India, { road = ( defaultInlandRoad, 100 ), sea = ( 0, 0 ), air = ( 0, 0 ) } )
+                , ( India, defaultInland )
                 , ( Spain, { road = ( 0, 0 ), sea = ( 11310, 100 ), air = ( 7300, 0 ) } )
                 ]
           )
@@ -120,14 +120,14 @@ distances =
                 [ ( China, { road = ( 0, 0 ), sea = ( 16756, 100 ), air = ( 7600, 33 ) } )
                 , ( France, { road = ( 1783, 50 ), sea = ( 5413, 50 ), air = ( 2100, 0 ) } )
                 , ( Germany, { road = ( 1609, 90 ), sea = ( 6013, 10 ), air = ( 1800, 0 ) } )
-                , ( Greece, { road = ( defaultInlandRoad, 100 ), sea = ( 0, 0 ), air = ( 0, 0 ) } )
+                , ( Greece, defaultInland )
                 , ( Spain, { road = ( 2183, 90 ), sea = ( 4763, 10 ), air = ( 2400, 0 ) } )
                 ]
           )
         , ( France
           , toDict
                 [ ( China, { road = ( 0, 0 ), sea = ( 21548, 100 ), air = ( 8200, 33 ) } )
-                , ( France, { road = ( defaultInlandRoad, 100 ), sea = ( 0, 0 ), air = ( 0, 0 ) } )
+                , ( France, defaultInland )
                 , ( Germany, { road = ( 815, 90 ), sea = ( 1300, 10 ), air = ( 400, 0 ) } )
                 , ( Spain, { road = ( 801, 90 ), sea = ( 1672, 10 ), air = ( 1100, 0 ) } )
                 ]
@@ -136,18 +136,18 @@ distances =
           , toDict
                 [ ( China, { road = ( 0, 0 ), sea = ( 20898, 100 ), air = ( 9200, 33 ) } )
                 , ( Germany, { road = ( 1615, 90 ), sea = ( 2272, 10 ), air = ( 1400, 0 ) } )
-                , ( Spain, { road = ( defaultInlandRoad, 100 ), sea = ( 0, 0 ), air = ( 0, 0 ) } )
+                , ( Spain, defaultInland )
                 ]
           )
         , ( Germany
           , toDict
                 [ ( China, { road = ( 0, 0 ), sea = ( 22149, 100 ), air = ( 7800, 33 ) } )
-                , ( Germany, { road = ( defaultInlandRoad, 100 ), sea = ( 0, 0 ), air = ( 0, 0 ) } )
+                , ( Germany, defaultInland )
                 ]
           )
         , ( China
           , toDict
-                [ ( China, { road = ( defaultInlandRoad, 100 ), sea = ( 0, 0 ), air = ( 0, 0 ) } )
+                [ ( China, defaultInland )
                 ]
           )
         ]
@@ -170,22 +170,20 @@ getDistanceInfo cA cB =
         |> Maybe.withDefault default
 
 
-getDistanceCo2 : Country -> Country -> Float
-getDistanceCo2 cA cB =
-    let
-        { road, air, sea } =
-            getDistanceInfo cA cB
 
-        ( roadKm, _ ) =
-            road
-
-        ( airKm, _ ) =
-            air
-
-        ( seaKm, _ ) =
-            sea
-    in
-    roadKm + airKm + seaKm |> toFloat
+-- getDistanceCo2 : Country -> Country -> Float
+-- getDistanceCo2 cA cB =
+--     let
+--         { road, air, sea } =
+--             getDistanceInfo cA cB
+--         ( roadKm, _ ) =
+--             road
+--         ( airKm, _ ) =
+--             air
+--         ( seaKm, _ ) =
+--             sea
+--     in
+--     roadKm + airKm + seaKm |> toFloat
 
 
 decodeSummary : Decoder Summary

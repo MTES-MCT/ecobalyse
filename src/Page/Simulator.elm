@@ -68,16 +68,7 @@ update session msg model =
         UpdateProcessStep id country ->
             ( { model
                 | transport = model.process |> Process.computeTransportSummary
-                , process =
-                    model.process
-                        |> Array.map
-                            (\p ->
-                                if p.id == id then
-                                    { p | country = country }
-
-                                else
-                                    p
-                            )
+                , process = model.process |> Process.updateCountryAt id country
               }
             , session
             , Cmd.none
