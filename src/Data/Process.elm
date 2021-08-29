@@ -11,6 +11,7 @@ type alias Process =
     { id : String
     , name : String
     , country : Country
+    , editable : Bool
     }
 
 
@@ -19,6 +20,7 @@ material =
     { id = "p0"
     , name = "Matière première"
     , country = Country.China -- note: ADEME makes Asia the default for spinning
+    , editable = False
     }
 
 
@@ -27,6 +29,7 @@ spinning =
     { id = "p1"
     , name = "Filature"
     , country = Country.China -- note: ADEME makes Asia the default for spinning
+    , editable = False
     }
 
 
@@ -35,6 +38,7 @@ weaving =
     { id = "p2"
     , name = "Tissage & tricotage"
     , country = Country.China -- note: ADEME makes Asia the default for weaving
+    , editable = False
     }
 
 
@@ -43,6 +47,7 @@ confection =
     { id = "p3"
     , name = "Confection"
     , country = Country.France
+    , editable = True
     }
 
 
@@ -51,6 +56,7 @@ ennoblement =
     { id = "p4"
     , name = "Ennoblissement"
     , country = Country.France
+    , editable = True
     }
 
 
@@ -59,6 +65,7 @@ distribution =
     { id = "p5"
     , name = "Distribution"
     , country = Country.France
+    , editable = True
     }
 
 
@@ -74,17 +81,13 @@ default =
         ]
 
 
-editable : Process -> Bool
-editable process =
-    List.member process.name [ "Matière", "Filature", "Tissage & tricotage" ]
-
-
 decode : Decoder Process
 decode =
-    Decode.map3 Process
+    Decode.map4 Process
         (Decode.field "id" Decode.string)
         (Decode.field "name" Decode.string)
         (Decode.field "country" Country.decode)
+        (Decode.field "editable" Decode.bool)
 
 
 encode : Process -> Encode.Value
@@ -93,6 +96,7 @@ encode v =
         [ ( "id", Encode.string v.id )
         , ( "name", Encode.string v.name )
         , ( "country", Country.encode v.country )
+        , ( "editable", Encode.bool v.editable )
         ]
 
 

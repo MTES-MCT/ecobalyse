@@ -155,19 +155,15 @@ productSelect product =
 
 countrySelect : Process -> Html Msg
 countrySelect process =
-    let
-        preventUpdate =
-            Process.editable process
-    in
     div []
         [ Country.choices
             |> List.map (\c -> option [ selected (process.country == c) ] [ text (Country.toString c) ])
             |> select
                 [ class "form-select"
-                , disabled preventUpdate -- ADEME enforce Asia as a default for these, prevent update
+                , disabled (not process.editable) -- ADEME enforce Asia as a default for these, prevent update
                 , onInput (Country.fromString >> UpdateProcessStep process.id)
                 ]
-        , if preventUpdate then
+        , if not process.editable then
             div [ class "form-text mt-2" ]
                 [ span [ class "me-2" ] [ text "ℹ" ]
                 , text "Champ non paramétrable"
