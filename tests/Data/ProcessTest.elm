@@ -22,6 +22,6 @@ suite =
                         |> Process.updateCountryAt "p3" India
                         |> Process.computeTransportSummary
                         |> Expect.equal
-                            { road = 1000, air = 21400, sea = 45468 }
+                            { air = 10400, road = 1500, sea = 23234 }
             ]
         ]
