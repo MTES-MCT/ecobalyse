@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "build": "npm run copy-assets && npm run sass:build && npm run elm:build && npm run elm:optimize",
-    "copy-assets": "rimraf build && mkdir build && cpy 'public/**/*' build",
+    "copy-assets": "rimraf build && mkdir build && cpy --parents 'public/**/*' build",
     "deploy": "npm run build && gh-pages --dist build/",
     "elm:build": "elm make src/Main.elm --optimize --output=build/app.js",
     "elm:debug": "elm-live src/Main.elm --port=3000 --dir=public/ -- --output=public/app.js --debug",
