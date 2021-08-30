@@ -14,11 +14,7 @@ import Json.Encode as Encode
 type Country
     = China
     | France
-    | Germany
-    | Greece
     | India
-    | Italy
-    | Morocco
     | Spain
     | Tunisia
     | Turkey
@@ -29,11 +25,7 @@ choices =
     List.sortBy toString
         [ China
         , France
-        , Germany
-        , Greece
         , India
-        , Italy
-        , Morocco
         , Spain
         , Tunisia
         , Turkey
@@ -61,20 +53,8 @@ fromString country =
         "France" ->
             France
 
-        "Allemagne" ->
-            Germany
-
-        "Grèce" ->
-            Greece
-
         "Inde" ->
             India
-
-        "Italie" ->
-            Italy
-
-        "Maroc" ->
-            Morocco
 
         "Espagne" ->
             Spain
@@ -99,20 +79,8 @@ toString country =
         France ->
             "France"
 
-        Germany ->
-            "Allemagne"
-
-        Greece ->
-            "Grèce"
-
         India ->
             "Inde"
-
-        Italy ->
-            "Italie"
-
-        Morocco ->
-            "Maroc"
 
         Spain ->
             "Espagne"

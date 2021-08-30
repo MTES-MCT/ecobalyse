@@ -19,9 +19,9 @@ suite =
             , test "should compute custom distances" <|
                 \_ ->
                     Process.default
-                        |> Process.updateCountryAt "p3" Greece
+                        |> Process.updateCountryAt "p3" India
                         |> Process.computeTransportSummary
                         |> Expect.equal
-                            { road = 3283, air = 9700, sea = 22169 }
+                            { road = 1000, air = 21400, sea = 45468 }
             ]
         ]
