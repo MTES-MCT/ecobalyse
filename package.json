@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "build": "npm run copy-assets && npm run sass:build && npm run elm:build && npm run elm:optimize",
-    "copy-assets": "rimraf build && mkdir build && cpy --parents 'public/**/*' build",
+    "copy-assets": "rimraf build && mkdir build && cp -r public/* build",
     "deploy": "npm run build && gh-pages --dist build/",
     "elm:build": "elm make src/Main.elm --optimize --output=build/app.js",
     "elm:debug": "elm-live src/Main.elm --port=3000 --dir=public/ -- --output=public/app.js --debug",
@@ -24,7 +24,6 @@
     "bootstrap": "^5.1.0",
     "chokidar-cli": "^3.0.0",
     "concurrently": "^6.2.1",
-    "cpy-cli": "^3.1.1",
     "elm": "^0.19.1-5",
     "elm-analyse": "^0.16.5",
     "elm-format": "^0.8.5",
