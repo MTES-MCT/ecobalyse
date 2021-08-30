@@ -31,8 +31,15 @@ type Msg
 
 
 init : Session -> ( Model, Session, Cmd Msg )
-init session =
-    ( session.store.simulator, session, Cmd.none )
+init ({ store } as session) =
+    let
+        { simulator } =
+            store
+    in
+    ( { simulator | transport = simulator.process |> Process.computeTransportSummary }
+    , session
+    , Cmd.none
+    )
 
 
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
@@ -164,9 +171,8 @@ countrySelect process =
                 , onInput (Country.fromString >> UpdateProcessStep process.id)
                 ]
         , if not process.editable then
-            div [ class "form-text mt-2" ]
-                [ span [ class "me-2" ] [ text "ℹ" ]
-                , text "Champ non paramétrable"
+            div [ class "form-text" ]
+                [ text "Champ non paramétrable"
                 ]
 
           else
@@ -178,17 +184,33 @@ transportInfoView : Transport -> Html Msg
 transportInfoView transport =
     let
         row label getter =
+            let
+                ( km, ratio ) =
+                    getter transport
+            in
             tr []
-                [ th [] [ text label ]
-                , td [ class "text-end" ] [ getter transport |> Tuple.first |> Format.formatInt "km" |> text ]
-                , td [ class "text-end" ] [ getter transport |> Tuple.second |> Format.formatInt "%" |> text ]
+                [ th [ class "text-start" ] [ text label ]
+                , td [ class "text-end" ] [ km |> Format.formatInt "km" |> text ]
+                , td [ class "text-end" ] [ ratio |> Format.formatInt "%" |> text ]
+                , td [ class "text-end" ]
+                    [ strong []
+                        [ Transport.calcInfo ( km, ratio ) |> Format.formatInt "km" |> text
+                        ]
+                    ]
                 ]
     in
-    table [ class "table mb-0", style "font-size" ".85em" ]
+    table
+        [ class "table text-muted mb-0"
+        ]
         [ row "Terrestre" .road
         , row "Aérien" .air
         , row "Maritime" .sea
         ]
+
+
+downArrow : Html Msg
+downArrow =
+    img [ src "img/down-arrow-icon.png" ] []
 
 
 processView : Int -> Maybe Process -> Process -> Html Msg
@@ -196,13 +218,18 @@ processView index maybePrevious current =
     div []
         [ case maybePrevious of
             Just previous ->
-                div [ class "container mb-3" ]
-                    [ div [ class "row align-items-center" ]
-                        [ div [ class "col text-end" ]
-                            [ strong [ class "me-1" ] [ text "Transport" ]
-                            , text "("
+                div [ class "text-center" ]
+                    [ downArrow
+                    , div
+                        [ class "card"
+                        , style "max-width" "320px"
+                        , style "margin" "0 auto"
+                        , style "font-size" ".85em"
+                        ]
+                        [ div [ class "card-header fw-bold text-muted" ]
+                            [ span [ class "me-1" ] [ text "Transport" ]
                             , if current.country == previous.country then
-                                text <| Country.toString previous.country
+                                text <| "interne " ++ Country.toString previous.country
 
                               else
                                 text
@@ -210,27 +237,19 @@ processView index maybePrevious current =
                                         ++ " - "
                                         ++ Country.toString current.country
                                     )
-                            , text ")"
                             ]
-                        , div [ class "col-1 text-center" ]
-                            [ if index /= 0 then
-                                span [ class "fs-1 fw-lighter" ] [ text "↓" ]
-
-                              else
-                                text ""
-                            ]
-                        , div
-                            [ class "col text-start" ]
+                        , div [ class "card-body" ]
                             [ current.country
-                                |> Transport.getDistanceInfo previous.country
+                                |> Transport.getTransportBetween previous.country
                                 |> transportInfoView
                             ]
                         ]
+                    , downArrow
                     ]
 
             Nothing ->
                 text ""
-        , div [ class "card mb-3" ]
+        , div [ class "card" ]
             [ div [ class "card-header d-flex align-items-center" ]
                 [ span [ class "badge rounded-pill bg-primary me-1" ]
                     [ text (String.fromInt (index + 1)) ]
@@ -319,7 +338,7 @@ view _ model =
                 , materialCategorySelect model.material
                 , materialInput model.material
                 , processesView model.process
-                , div [ class "d-flex align-items-center justify-content-between mb-3" ]
+                , div [ class "d-flex align-items-center justify-content-between my-3" ]
                     [ a [ Route.href Route.Home ] [ text "« Retour à l'accueil" ]
                     , button
                         [ class "btn btn-secondary"

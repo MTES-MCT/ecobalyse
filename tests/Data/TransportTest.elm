@@ -14,18 +14,18 @@ franceChina =
 suite : Test
 suite =
     describe "Data.Transport"
-        [ describe "getDistanceInfo"
+        [ describe "getTransportBetween"
             [ test "should retrieve distance between two countries" <|
                 \_ ->
-                    Transport.getDistanceInfo France China
+                    Transport.getTransportBetween France China
                         |> Expect.equal franceChina
             , test "should retrieve distance between two swapped countries" <|
                 \_ ->
-                    Transport.getDistanceInfo China France
+                    Transport.getTransportBetween China France
                         |> Expect.equal franceChina
             , test "should apply default inland transport when country is the same" <|
                 \_ ->
-                    Transport.getDistanceInfo France France
+                    Transport.getTransportBetween France France
                         |> Expect.equal Transport.defaultInland
             ]
         ]

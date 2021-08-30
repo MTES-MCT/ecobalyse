@@ -6,16 +6,16 @@ import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
 
 
-type alias Info =
-    ( Int, Int )
-
-
 type alias Km =
     Int
 
 
 type alias Ratio =
     Int
+
+
+type alias Info =
+    ( Km, Ratio )
 
 
 type alias Transport =
@@ -103,8 +103,22 @@ distances =
         ]
 
 
-getDistanceInfo : Country -> Country -> Transport
-getDistanceInfo cA cB =
+addToSummary : Transport -> Summary -> Summary
+addToSummary transport summary =
+    { summary
+        | road = summary.road + calcInfo transport.road
+        , sea = summary.sea + calcInfo transport.sea
+        , air = summary.air + calcInfo transport.air
+    }
+
+
+calcInfo : Info -> Km
+calcInfo ( km, ratio ) =
+    round <| toFloat km * (toFloat ratio / toFloat 100)
+
+
+getTransportBetween : Country -> Country -> Transport
+getTransportBetween cA cB =
     distances
         |> Dict.get (Country.toString cA)
         |> Maybe.andThen
@@ -115,25 +129,9 @@ getDistanceInfo cA cB =
 
                     Nothing ->
                         -- reverse query source dict
-                        Just (getDistanceInfo cB cA)
+                        Just (getTransportBetween cB cA)
             )
         |> Maybe.withDefault default
-
-
-
--- getDistanceCo2 : Country -> Country -> Float
--- getDistanceCo2 cA cB =
---     let
---         { road, air, sea } =
---             getDistanceInfo cA cB
---         ( roadKm, _ ) =
---             road
---         ( airKm, _ ) =
---             air
---         ( seaKm, _ ) =
---             sea
---     in
---     roadKm + airKm + seaKm |> toFloat
 
 
 decodeSummary : Decoder Summary

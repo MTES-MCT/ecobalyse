@@ -105,21 +105,17 @@ computeTransportSummary processes =
     processes
         |> Array.toIndexedList
         |> List.foldl
-            (\( index, current ) acc ->
+            (\( index, current ) summary ->
                 case
                     processes
                         |> Array.get (index - 1)
-                        |> Maybe.map (.country >> Transport.getDistanceInfo current.country)
+                        |> Maybe.map (.country >> Transport.getTransportBetween current.country)
                 of
-                    Just info ->
-                        { acc
-                            | road = acc.road + Tuple.first info.road
-                            , sea = acc.sea + Tuple.first info.sea
-                            , air = acc.air + Tuple.first info.air
-                        }
+                    Just transport ->
+                        Transport.addToSummary transport summary
 
                     Nothing ->
-                        acc
+                        summary
             )
             Transport.defaultSummary
 
