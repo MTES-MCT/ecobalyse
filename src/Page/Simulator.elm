@@ -4,6 +4,7 @@ import Array exposing (Array)
 import Data.Country as Country exposing (Country)
 import Data.Material as Material exposing (Material)
 import Data.Material.Category as Category exposing (Category)
+import Data.Process as Process
 import Data.Product as Product exposing (Product)
 import Data.Session exposing (Session)
 import Data.Simulator as Simulator exposing (Simulator)
@@ -35,6 +36,9 @@ init ({ store } as session) =
     let
         { simulator } =
             store
+
+        _ =
+            Debug.log "processes" Process.processes
     in
     ( { simulator | transport = simulator.steps |> Step.computeTransportSummary }
     , session

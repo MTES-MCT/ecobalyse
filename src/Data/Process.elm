@@ -1,4 +1,315 @@
-Catégorie (niveau 1);Catégorie (niveau 2);Catégorie (niveau 3);Procédé;UUID avec espaces;UUID;Changement climatique;heat;electricity per pick per meter;electricity;textile waste
+module Data.Process exposing (..)
+
+import Csv.Decode as Csv
+
+
+type alias Process =
+    { cat1 : Cat1
+    , cat2 : Cat2
+    , cat3 : Cat3
+    , name : String
+    , uuid : String
+    , climateChange : Float
+    , heat : Float
+    , elec_pppm : Float
+    , elec : Float
+    , waste : Float
+    }
+
+
+type Cat1
+    = --Energie
+      Energy
+      --Textile
+    | Textile
+      --Transport
+    | Transport
+
+
+type Cat2
+    = -- "Aérien"
+      AirTransport
+      -- "Chaleur"
+    | Heat
+      -- "Electricité"
+    | Electricity
+      -- "Ennoblissement"
+    | Ennoblement
+      -- "Maritime"
+    | SeaTransport
+      -- "Matières"
+    | Material
+      -- "Mise en forme"
+    | Processing
+      -- "Routier"
+    | RoadTransport
+
+
+type Cat3
+    = -- Mix moyen
+      AverageMix
+      -- Valeur par énergie primaire
+    | PrimaryEnergyValue
+      -- Matières naturelles
+    | NaturalMaterials
+      -- Matières synthétiques
+    | SyntheticMaterials
+      -- Matières recyclées
+    | RecycledMaterials
+      -- Tricotage
+    | Knitting
+      -- Tissage
+    | Weaving
+      -- Teinture
+    | Dyeing
+      -- Confection
+    | Making
+      -- Flotte moyenne
+    | AverageFleet
+      -- Flotte moyenne continentale
+    | AverageContinentalFleet
+      -- Flotte moyenne française
+    | AverageFrenchFleet
+
+
+decodeFrenchFloat : Csv.Decoder Float
+decodeFrenchFloat =
+    Csv.string
+        |> Csv.andThen
+            (String.replace "," "."
+                >> String.toFloat
+                >> Csv.fromMaybe "Impossible de décoder ce nombre flottant"
+            )
+
+
+decodeProcess : Csv.Decoder Process
+decodeProcess =
+    Csv.into Process
+        |> Csv.pipeline (Csv.field "Catégorie (niveau 1)" (Csv.string |> Csv.andThen (cat1FromString >> Csv.fromResult)))
+        |> Csv.pipeline (Csv.field "Catégorie (niveau 2)" (Csv.string |> Csv.andThen (cat2FromString >> Csv.fromResult)))
+        |> Csv.pipeline (Csv.field "Catégorie (niveau 3)" (Csv.string |> Csv.andThen (cat3FromString >> Csv.fromResult)))
+        |> Csv.pipeline (Csv.field "Procédé" Csv.string)
+        |> Csv.pipeline (Csv.field "UUID" Csv.string)
+        |> Csv.pipeline (Csv.field "Changement climatique" decodeFrenchFloat)
+        |> Csv.pipeline (Csv.field "heat" decodeFrenchFloat)
+        |> Csv.pipeline (Csv.field "electricity per pick per meter" decodeFrenchFloat)
+        |> Csv.pipeline (Csv.field "electricity" decodeFrenchFloat)
+        |> Csv.pipeline (Csv.field "textile waste" decodeFrenchFloat)
+
+
+decodeCsv : String -> Result Csv.Error (List Process)
+decodeCsv =
+    Csv.decodeCustom
+        { fieldSeparator = ';' }
+        Csv.FieldNamesFromFirstRow
+        decodeProcess
+
+
+byUuid : String -> Maybe Process
+byUuid uuid =
+    processes |> List.filter (.uuid >> (==) uuid) |> List.head
+
+
+cat1 : Cat1 -> List Process -> List Process
+cat1 c1 =
+    List.filter (.cat1 >> (==) c1)
+
+
+cat2 : Cat2 -> List Process -> List Process
+cat2 c2 =
+    List.filter (.cat2 >> (==) c2)
+
+
+cat3 : Cat3 -> List Process -> List Process
+cat3 c3 =
+    List.filter (.cat3 >> (==) c3)
+
+
+cat1FromString : String -> Result String Cat1
+cat1FromString c1 =
+    case c1 of
+        "Energie" ->
+            Ok Energy
+
+        "Textile" ->
+            Ok Textile
+
+        "Transport" ->
+            Ok Transport
+
+        _ ->
+            Err <| "Catégorie 1 invalide: " ++ c1
+
+
+cat1ToString : Cat1 -> String
+cat1ToString c1 =
+    case c1 of
+        Energy ->
+            "Energie"
+
+        Textile ->
+            "Textile"
+
+        Transport ->
+            "Transport"
+
+
+cat2FromString : String -> Result String Cat2
+cat2FromString c2 =
+    case c2 of
+        "Aérien" ->
+            Ok AirTransport
+
+        "Chaleur" ->
+            Ok Heat
+
+        "Electricité" ->
+            Ok Electricity
+
+        "Ennoblissement" ->
+            Ok Ennoblement
+
+        "Maritime" ->
+            Ok SeaTransport
+
+        "Matières" ->
+            Ok Material
+
+        "Mise en forme" ->
+            Ok Processing
+
+        "Routier" ->
+            Ok RoadTransport
+
+        _ ->
+            Err <| "Catégorie 2 invalide: " ++ c2
+
+
+cat2ToString : Cat2 -> String
+cat2ToString c2 =
+    case c2 of
+        AirTransport ->
+            "Aérien"
+
+        Heat ->
+            "Chaleur"
+
+        Electricity ->
+            "Electricité"
+
+        Ennoblement ->
+            "Ennoblissement"
+
+        SeaTransport ->
+            "Maritime"
+
+        Material ->
+            "Matières"
+
+        Processing ->
+            "Mise en forme"
+
+        RoadTransport ->
+            "Routier"
+
+
+cat3FromString : String -> Result String Cat3
+cat3FromString c3 =
+    case c3 of
+        "Mix moyen" ->
+            Ok AverageMix
+
+        "Valeur par énergie primaire" ->
+            Ok PrimaryEnergyValue
+
+        "Matières naturelles" ->
+            Ok NaturalMaterials
+
+        "Matières synthétiques" ->
+            Ok SyntheticMaterials
+
+        "Matières recyclées" ->
+            Ok RecycledMaterials
+
+        "Tricotage" ->
+            Ok Knitting
+
+        "Tissage" ->
+            Ok Weaving
+
+        "Teinture" ->
+            Ok Dyeing
+
+        "Confection" ->
+            Ok Making
+
+        "Flotte moyenne" ->
+            Ok AverageFleet
+
+        "Flotte moyenne continentale" ->
+            Ok AverageContinentalFleet
+
+        "Flotte moyenne française" ->
+            Ok AverageFrenchFleet
+
+        _ ->
+            Err <| "Catégorie 3 invalide: " ++ c3
+
+
+cat3ToString : Cat3 -> String
+cat3ToString c3 =
+    case c3 of
+        AverageMix ->
+            "Mix moyen"
+
+        PrimaryEnergyValue ->
+            "Valeur par énergie primaire"
+
+        NaturalMaterials ->
+            "Matières naturelles"
+
+        SyntheticMaterials ->
+            "Matières synthétiques"
+
+        RecycledMaterials ->
+            "Matières recyclées"
+
+        Knitting ->
+            "Tricotage"
+
+        Weaving ->
+            "Tissage"
+
+        Dyeing ->
+            "Teinture"
+
+        Making ->
+            "Confection"
+
+        AverageFleet ->
+            "Flotte moyenne"
+
+        AverageContinentalFleet ->
+            "Flotte moyenne continentale"
+
+        AverageFrenchFleet ->
+            "Flotte moyenne française"
+
+
+processes : List Process
+processes =
+    -- In a first iteration, processes data will statically live in memory; later on, we'll load them over HTTP.
+    case decodeCsv csvSource of
+        Ok decoded ->
+            decoded
+
+        Err _ ->
+            []
+
+
+csvSource : String
+csvSource =
+    """Catégorie (niveau 1);Catégorie (niveau 2);Catégorie (niveau 3);Procédé;UUID avec espaces;UUID;Changement climatique;heat;electricity per pick per meter;electricity;textile waste
 Energie;Electricité;Mix moyen; Mix électrique réseau, TR ; 6fad8643-de3e-49dd-a48b-8e17b4175c23 ;6fad8643-de3e-49dd-a48b-8e17b4175c23;0,706988;0;0;0;0
 Energie;Electricité;Mix moyen; Mix électrique réseau, TN ; f0eb64cd-468d-4f3c-a9a3-3b3661625955 ;f0eb64cd-468d-4f3c-a9a3-3b3661625955;0,80722;0;0;0;0
 Energie;Electricité;Mix moyen; Mix électrique réseau, IN ; 1b470f5c-6ae6-404d-bd71-8546d33dbc17 ;1b470f5c-6ae6-404d-bd71-8546d33dbc17;1,58299;0;0;0;0
@@ -59,3 +370,4 @@ Transport;Aérien;Flotte moyenne; Transport aérien long-courrier (dont flotte, 
 Transport;Routier;Flotte moyenne continentale; Transport en camion (dont parc, utilisation et infrastructure) (50%) [tkm], GLO ; cf6e9d81-358c-4f44-5ab7-0e7a89440576 ;cf6e9d81-358c-4f44-5ab7-0e7a89440576;0,204544;0;0;0;0
 Transport;Routier;Flotte moyenne continentale; Transport en camion (dont parc, utilisation et infrastructure) (50%) [tkm], RER ; c0397088-6a57-eea7-8950-1d6db2e6bfdb ;c0397088-6a57-eea7-8950-1d6db2e6bfdb;0,156105;0;0;0;0
 Transport;Routier;Flotte moyenne française; Transport en camion non spécifié France (dont parc, utilisation et infrastructure) (50%) [tkm], FR ; f49b27fa-f22e-c6e1-ab4b-e9f873e2e648 ;f49b27fa-f22e-c6e1-ab4b-e9f873e2e648;0,269575;0;0;0;0
+"""
