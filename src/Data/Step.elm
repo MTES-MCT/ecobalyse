@@ -1,4 +1,4 @@
-module Data.Process exposing (..)
+module Data.Step exposing (..)
 
 import Array exposing (Array)
 import Data.Country as Country exposing (Country)
@@ -7,7 +7,7 @@ import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
 
 
-type alias Process =
+type alias Step =
     { id : String
     , name : String
     , country : Country
@@ -15,7 +15,7 @@ type alias Process =
     }
 
 
-material : Process
+material : Step
 material =
     { id = "p0"
     , name = "Matière première"
@@ -24,7 +24,7 @@ material =
     }
 
 
-spinning : Process
+spinning : Step
 spinning =
     { id = "p1"
     , name = "Filature"
@@ -33,7 +33,7 @@ spinning =
     }
 
 
-weaving : Process
+weaving : Step
 weaving =
     { id = "p2"
     , name = "Tissage & tricotage"
@@ -42,7 +42,7 @@ weaving =
     }
 
 
-confection : Process
+confection : Step
 confection =
     { id = "p3"
     , name = "Confection"
@@ -51,7 +51,7 @@ confection =
     }
 
 
-ennoblement : Process
+ennoblement : Step
 ennoblement =
     { id = "p4"
     , name = "Ennoblissement"
@@ -60,7 +60,7 @@ ennoblement =
     }
 
 
-distribution : Process
+distribution : Step
 distribution =
     { id = "p5"
     , name = "Distribution"
@@ -69,7 +69,7 @@ distribution =
     }
 
 
-default : Array Process
+default : Array Step
 default =
     Array.fromList
         [ material
@@ -81,16 +81,16 @@ default =
         ]
 
 
-decode : Decoder Process
+decode : Decoder Step
 decode =
-    Decode.map4 Process
+    Decode.map4 Step
         (Decode.field "id" Decode.string)
         (Decode.field "name" Decode.string)
         (Decode.field "country" Country.decode)
         (Decode.field "editable" Decode.bool)
 
 
-encode : Process -> Encode.Value
+encode : Step -> Encode.Value
 encode v =
     Encode.object
         [ ( "id", Encode.string v.id )
@@ -100,14 +100,14 @@ encode v =
         ]
 
 
-computeTransportSummary : Array Process -> Transport.Summary
-computeTransportSummary processes =
-    processes
+computeTransportSummary : Array Step -> Transport.Summary
+computeTransportSummary steps =
+    steps
         |> Array.toIndexedList
         |> List.foldl
             (\( index, current ) summary ->
                 case
-                    processes
+                    steps
                         |> Array.get (index - 1)
                         |> Maybe.map (.country >> Transport.getTransportBetween current.country)
                 of
@@ -120,7 +120,7 @@ computeTransportSummary processes =
             Transport.defaultSummary
 
 
-updateCountryAt : String -> Country -> Array Process -> Array Process
+updateCountryAt : String -> Country -> Array Step -> Array Step
 updateCountryAt id country =
     Array.map
         (\p ->

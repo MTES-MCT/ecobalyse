@@ -4,10 +4,10 @@ import Array exposing (Array)
 import Data.Country as Country exposing (Country)
 import Data.Material as Material exposing (Material)
 import Data.Material.Category as Category exposing (Category)
-import Data.Process as Process exposing (Process)
 import Data.Product as Product exposing (Product)
 import Data.Session exposing (Session)
 import Data.Simulator as Simulator exposing (Simulator)
+import Data.Step as Step exposing (Step)
 import Data.Transport as Transport exposing (Transport)
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
@@ -26,7 +26,7 @@ type Msg
     | UpdateMass Float
     | UpdateMaterial Material
     | UpdateMaterialCategory Category
-    | UpdateProcessStep String Country
+    | UpdateStepStep String Country
     | UpdateProduct Product
 
 
@@ -36,7 +36,7 @@ init ({ store } as session) =
         { simulator } =
             store
     in
-    ( { simulator | transport = simulator.process |> Process.computeTransportSummary }
+    ( { simulator | transport = simulator.steps |> Step.computeTransportSummary }
     , session
     , Cmd.none
     )
@@ -72,10 +72,10 @@ update session msg model =
             , Cmd.none
             )
 
-        UpdateProcessStep id country ->
+        UpdateStepStep id country ->
             ( { model
-                | transport = model.process |> Process.computeTransportSummary
-                , process = model.process |> Process.updateCountryAt id country
+                | transport = model.steps |> Step.computeTransportSummary
+                , steps = model.steps |> Step.updateCountryAt id country
               }
             , session
             , Cmd.none
@@ -160,17 +160,17 @@ productSelect product =
         ]
 
 
-countrySelect : Process -> Html Msg
-countrySelect process =
+countrySelect : Step -> Html Msg
+countrySelect steps =
     div []
         [ Country.choices
-            |> List.map (\c -> option [ selected (process.country == c) ] [ text (Country.toString c) ])
+            |> List.map (\c -> option [ selected (steps.country == c) ] [ text (Country.toString c) ])
             |> select
                 [ class "form-select"
-                , disabled (not process.editable) -- ADEME enforce Asia as a default for these, prevent update
-                , onInput (Country.fromString >> UpdateProcessStep process.id)
+                , disabled (not steps.editable) -- ADEME enforce Asia as a default for these, prevent update
+                , onInput (Country.fromString >> UpdateStepStep steps.id)
                 ]
-        , if not process.editable then
+        , if not steps.editable then
             div [ class "form-text" ]
                 [ text "Champ non paramétrable"
                 ]
@@ -214,8 +214,8 @@ downArrow =
     img [ src "img/down-arrow-icon.png" ] []
 
 
-processView : Int -> Maybe Process -> Process -> Html Msg
-processView index maybeNext current =
+stepView : Int -> Maybe Step -> Step -> Html Msg
+stepView index maybeNext current =
     div [ class "card-group" ]
         [ div [ class "card" ]
             [ div [ class "card-header d-flex align-items-center" ]
@@ -254,7 +254,7 @@ processView index maybeNext current =
                     -- last step, add internal country circuit
                     -- TODO:
                     -- - move to generic view?
-                    -- - compute added step to Process.computeTransport
+                    -- - compute added step to Step.computeTransport
                     [ div [ class "card-header text-muted" ]
                         [ span [ class "me-1" ] [ text "Transport" ]
                         , text <| "Distribution " ++ Country.toString current.country
@@ -269,14 +269,14 @@ processView index maybeNext current =
         ]
 
 
-processesView : Array Process -> Html Msg
-processesView processes =
+stepListView : Array Step -> Html Msg
+stepListView steps =
     div []
         [ h2 [ class "mb-3" ] [ text "Étapes" ]
-        , processes
+        , steps
             |> Array.indexedMap
-                (\index process ->
-                    processView index (Array.get (index + 1) processes) process
+                (\index step ->
+                    stepView index (Array.get (index + 1) steps) step
                 )
             |> Array.toList
             |> List.intersperse (div [ class "text-center" ] [ downArrow ])
@@ -288,7 +288,7 @@ transportSummaryView : Model -> Html Msg
 transportSummaryView model =
     let
         summary =
-            Process.computeTransportSummary model.process
+            Step.computeTransportSummary model.steps
     in
     div [ class "card mb-3" ]
         [ div [ class "card-header" ]
@@ -345,7 +345,7 @@ view _ model =
                     ]
                 , materialCategorySelect model.material
                 , materialInput model.material
-                , processesView model.process
+                , stepListView model.steps
                 , div [ class "d-flex align-items-center justify-content-between my-3" ]
                     [ a [ Route.href Route.Home ] [ text "« Retour à l'accueil" ]
                     , button

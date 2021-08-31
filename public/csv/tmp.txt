@@ -1,0 +1,60 @@
+BrianHicks/elm-csv
+
+krisajenkins/remotedata?
+
+import Csv.Decode as Csv
+
+decodeDistance : Csv.Decoder Distance
+decodeDistance =
+    Csv.into Distance
+        |> Csv.pipeline (Csv.field "Mode transport" (Csv.string |> Csv.andThen (modeFromString >> Csv.fromResult)))
+        |> Csv.pipeline (Csv.field "Pays A" (Csv.map Country.fromString Csv.string))
+        |> Csv.pipeline (Csv.field "Pays B" (Csv.map Country.fromString Csv.string))
+        |> Csv.pipeline (Csv.field "kms" Csv.int)
+        |> Csv.pipeline (Csv.field "%age" Csv.float)
+
+
+decodeCsv : String -> Result Csv.Error (List Distance)
+decodeCsv =
+    Csv.decodeCustom
+        { fieldSeparator = ';' }
+        Csv.FieldNamesFromFirstRow
+        decodeDistance
+
+Page
+
++init session =
++    ( defaultModel session
+     , session
+-    , Cmd.none
++    , HttpClient.getTransportData session TransportDataReceived
+     )
+
+Request
+
++getTransportData : Session -> (WebData (List Transport.Distance) -> msg) -> Cmd msg
++getTransportData _ event =
++    Http.get
++        { url = "csv/transport.csv"
++
++        -- TODO: refactor and move to expectCsv
++        , expect =
++            Http.expectString
++                (\httpResult ->
++                    event
++                        (RemoteData.fromResult
++                            (case httpResult of
++                                Ok data ->
++                                    case Transport.decodeCsv data of
++                                        Ok decoded ->
++                                            Ok decoded
++
++                                        Err err ->
++                                            Err (Http.BadBody <| "Erreur de décodage: " ++ Csv.errorToString err)
++
++                                Err err ->
++                                    Err err
++                            )
++                        )
++                )
++        }
