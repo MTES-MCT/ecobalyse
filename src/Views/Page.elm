@@ -26,6 +26,9 @@ frame config ( title, content ) =
     , body =
         [ div []
             [ navbar config
+            , div [ class "alert alert-info" ]
+                [ div [ class "container" ] [ text "Ce site n'est pas encore opérationnel… Work in progress." ]
+                ]
             , main_ [ class "container mt-5" ] content
             ]
         ]
