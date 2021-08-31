@@ -201,6 +201,7 @@ transportInfoView transport =
     in
     table
         [ class "table text-muted mb-0"
+        , style "font-size" ".85em"
         ]
         [ row "Terrestre" .road
         , row "Aérien" .air
@@ -214,42 +215,9 @@ downArrow =
 
 
 processView : Int -> Maybe Process -> Process -> Html Msg
-processView index maybePrevious current =
-    div []
-        [ case maybePrevious of
-            Just previous ->
-                div [ class "text-center" ]
-                    [ downArrow
-                    , div
-                        [ class "card"
-                        , style "max-width" "320px"
-                        , style "margin" "0 auto"
-                        , style "font-size" ".85em"
-                        ]
-                        [ div [ class "card-header fw-bold text-muted" ]
-                            [ span [ class "me-1" ] [ text "Transport" ]
-                            , if current.country == previous.country then
-                                text <| "interne " ++ Country.toString previous.country
-
-                              else
-                                text
-                                    (Country.toString previous.country
-                                        ++ " - "
-                                        ++ Country.toString current.country
-                                    )
-                            ]
-                        , div [ class "card-body" ]
-                            [ current.country
-                                |> Transport.getTransportBetween previous.country
-                                |> transportInfoView
-                            ]
-                        ]
-                    , downArrow
-                    ]
-
-            Nothing ->
-                text ""
-        , div [ class "card" ]
+processView index maybeNext current =
+    div [ class "card-group" ]
+        [ div [ class "card" ]
             [ div [ class "card-header d-flex align-items-center" ]
                 [ span [ class "badge rounded-pill bg-primary me-1" ]
                     [ text (String.fromInt (index + 1)) ]
@@ -259,6 +227,45 @@ processView index maybePrevious current =
                 [ countrySelect current
                 ]
             ]
+        , div
+            [ class "card text-center" ]
+            (case maybeNext of
+                Just next ->
+                    [ div [ class "card-header text-muted" ]
+                        [ span [ class "me-1" ] [ text "Transport" ]
+                        , if current.country == next.country then
+                            text <| "interne " ++ Country.toString next.country
+
+                          else
+                            text
+                                (Country.toString next.country
+                                    ++ " - "
+                                    ++ Country.toString current.country
+                                )
+                        ]
+                    , div [ class "card-body" ]
+                        [ current.country
+                            |> Transport.getTransportBetween next.country
+                            |> transportInfoView
+                        ]
+                    ]
+
+                Nothing ->
+                    -- last step, add internal country circuit
+                    -- TODO:
+                    -- - move to generic view?
+                    -- - compute added step to Process.computeTransport
+                    [ div [ class "card-header text-muted" ]
+                        [ span [ class "me-1" ] [ text "Transport" ]
+                        , text <| "Distribution " ++ Country.toString current.country
+                        ]
+                    , div [ class "card-body" ]
+                        [ current.country
+                            |> Transport.getTransportBetween current.country
+                            |> transportInfoView
+                        ]
+                    ]
+            )
         ]
 
 
@@ -269,9 +276,10 @@ processesView processes =
         , processes
             |> Array.indexedMap
                 (\index process ->
-                    processView index (Array.get (index - 1) processes) process
+                    processView index (Array.get (index + 1) processes) process
                 )
             |> Array.toList
+            |> List.intersperse (div [ class "text-center" ] [ downArrow ])
             |> div []
         ]
 
@@ -326,7 +334,7 @@ view _ model =
     ( "Simulateur"
     , [ h1 [ class "mb-3" ] [ text "Simulateur" ]
       , div [ class "row" ]
-            [ div [ class "col-lg-6" ]
+            [ div [ class "col-lg-7 col-xl-6" ]
                 [ div [ class "row" ]
                     [ div [ class "col-md-6" ]
                         [ productSelect model.product
@@ -348,7 +356,7 @@ view _ model =
                         [ text "Réinitialiser le simulateur" ]
                     ]
                 ]
-            , div [ class "col-lg-6" ]
+            , div [ class "col-lg-5 col-xl-6" ]
                 [ summaryView model
                 , img [ class "w-100 mb-3", src "https://via.placeholder.com/400x200?text=Graphic+goes+here" ] []
                 , transportSummaryView model
