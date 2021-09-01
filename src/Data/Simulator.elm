@@ -65,6 +65,10 @@ type alias Results =
 compute : Simulator -> Results
 compute { mass, product } =
     let
+        -- TODO:
+        -- - trouver un moyen de redéfinir les steps en Step2
+        -- - peut-être qu'on peut modéliser toutes les étapes avec ça + le résultat des calculs intermédiaires ?
+        --
         -- materialProcess =
         --     Process.findByUuid material.process_uuid
         --         |> Maybe.withDefault Process.cotton

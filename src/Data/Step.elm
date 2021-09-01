@@ -103,8 +103,8 @@ default =
         [ material
         , spinning
         , weaving
-        , confection
         , ennoblement
+        , confection
         , distribution
         ]
 
