@@ -234,13 +234,13 @@ stepView index maybeNext current =
                     [ div [ class "card-header text-muted" ]
                         [ span [ class "me-1" ] [ text "Transport" ]
                         , if current.country == next.country then
-                            text <| "interne " ++ Country.toString next.country
+                            text <| "interne " ++ Country.toString current.country
 
                           else
                             text
-                                (Country.toString next.country
+                                (Country.toString current.country
                                     ++ " - "
-                                    ++ Country.toString current.country
+                                    ++ Country.toString next.country
                                 )
                         ]
                     , div [ class "card-body" ]
