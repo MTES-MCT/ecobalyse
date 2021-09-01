@@ -1,7 +1,8 @@
-module Data.Simulator exposing (Simulator, decode, default, encode)
+module Data.Simulator exposing (Simulator, compute, decode, default, encode)
 
 import Array exposing (Array)
 import Data.Material as Material exposing (Material)
+import Data.Process as Process
 import Data.Product as Product exposing (Product)
 import Data.Step as Step exposing (Step)
 import Data.Transport as Transport
@@ -21,7 +22,7 @@ type alias Simulator =
 
 default : Simulator
 default =
-    { mass = Product.tShirt.defaultMass
+    { mass = Product.tShirt.mass
     , material = Material.cotton
     , product = Product.tShirt
     , steps = Step.default
@@ -51,3 +52,31 @@ encode v =
         , ( "score", Encode.float v.score )
         , ( "transport", Transport.encodeSummary v.transport )
         ]
+
+
+type alias Results =
+    { confection :
+        { waste : Float
+        , mass : Float
+        }
+    }
+
+
+compute : Simulator -> Results
+compute { mass, product } =
+    let
+        -- materialProcess =
+        --     Process.findByUuid material.process_uuid
+        --         |> Maybe.withDefault Process.cotton
+        confectionProcess =
+            Process.findByUuid product.process_uuid
+                |> Maybe.withDefault Process.cotton
+                |> Debug.log "confectionProcess"
+    in
+    { confection =
+        { waste = mass * confectionProcess.waste
+
+        -- (Poids Habit + textile waste confection) / (1 - taux de perte (PCR))
+        , mass = (mass + (mass * confectionProcess.waste)) / (1 - product.waste)
+        }
+    }

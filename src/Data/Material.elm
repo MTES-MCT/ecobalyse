@@ -1,11 +1,4 @@
-module Data.Material exposing
-    ( Material
-    , choices
-    , cotton
-    , decode
-    , encode
-    , findById
-    )
+module Data.Material exposing (..)
 
 import Data.Material.Category as Category exposing (Category)
 import Data.Process as Process
@@ -14,7 +7,7 @@ import Json.Encode as Encode
 
 
 type alias Material =
-    { id : String
+    { process_uuid : String
     , name : String
     , category : Category
     }
@@ -27,7 +20,7 @@ choices =
         |> Process.cat2 Process.Material
         |> List.map
             (\{ uuid, name, cat3 } ->
-                { id = uuid
+                { process_uuid = uuid
                 , name = name
                 , category =
                     case cat3 of
@@ -48,7 +41,7 @@ cotton =
     choices
         |> List.filter (.name >> (==) "Fil de coton conventionnel, inventaire partiellement agrégé")
         |> List.head
-        |> Maybe.withDefault { id = "", name = "", category = Category.Natural }
+        |> Maybe.withDefault { process_uuid = "", name = "", category = Category.Natural }
 
 
 decode : Decoder Material
@@ -62,12 +55,12 @@ decode =
 encode : Material -> Encode.Value
 encode v =
     Encode.object
-        [ ( "id", Encode.string v.id )
+        [ ( "process_uuid", Encode.string v.process_uuid )
         , ( "name", Encode.string v.name )
         , ( "category", Category.encode v.category )
         ]
 
 
-findById : String -> Maybe Material
-findById id =
-    choices |> List.filter (\m -> m.id == id) |> List.head
+findByProcessUuid : String -> Maybe Material
+findByProcessUuid process_uuid =
+    choices |> List.filter (\m -> m.process_uuid == process_uuid) |> List.head

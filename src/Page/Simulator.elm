@@ -82,7 +82,7 @@ update session msg model =
             )
 
         UpdateProduct product ->
-            ( { model | product = product, mass = product.defaultMass }
+            ( { model | product = product, mass = product.mass }
             , session
             , Cmd.none
             )
@@ -137,11 +137,16 @@ materialInput material =
     div [ class "mb-3" ]
         [ Material.choices
             |> List.filter (.category >> (==) material.category)
-            |> List.map (\m -> option [ value m.id, selected (material.id == m.id), title m.name ] [ text m.name ])
+            |> List.map
+                (\m ->
+                    option
+                        [ value m.process_uuid, selected (material.process_uuid == m.process_uuid), title m.name ]
+                        [ text m.name ]
+                )
             |> select
                 [ id "material"
                 , class "form-select"
-                , onInput (Material.findById >> Maybe.withDefault Material.cotton >> UpdateMaterial)
+                , onInput (Material.findByProcessUuid >> Maybe.withDefault Material.cotton >> UpdateMaterial)
                 ]
         ]
 
@@ -360,6 +365,14 @@ view _ model =
                 [ summaryView model
                 , img [ class "w-100 mb-3", src "https://via.placeholder.com/400x200?text=Graphic+goes+here" ] []
                 , transportSummaryView model
+                , div []
+                    [ text "confection, masse: "
+                    , model
+                        |> Simulator.compute
+                        |> (.confection >> .mass)
+                        |> Format.formatFloat "kg"
+                        |> text
+                    ]
                 , details []
                     [ summary [] [ text "Debug" ]
                     , pre [ class "mt-3" ]

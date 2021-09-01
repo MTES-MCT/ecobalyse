@@ -97,6 +97,21 @@ decodeProcess =
         |> Csv.pipeline (Csv.field "textile waste" decodeFrenchFloat)
 
 
+cotton : Process
+cotton =
+    { cat1 = Textile
+    , cat2 = Material
+    , cat3 = NaturalMaterials
+    , name = "Fil de coton conventionnel, inventaire partiellement agrégé"
+    , uuid = "f211bbdb-415c-46fd-be4d-ddf199575b44"
+    , climateChange = 16.3699
+    , heat = 0
+    , elec_pppm = 0
+    , elec = 0
+    , waste = 0.201201
+    }
+
+
 decodeCsv : String -> Result Csv.Error (List Process)
 decodeCsv =
     Csv.decodeCustom
@@ -105,8 +120,8 @@ decodeCsv =
         decodeProcess
 
 
-byUuid : String -> Maybe Process
-byUuid uuid =
+findByUuid : String -> Maybe Process
+findByUuid uuid =
     processes |> List.filter (.uuid >> (==) uuid) |> List.head
 
 
