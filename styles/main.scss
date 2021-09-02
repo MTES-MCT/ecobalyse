@@ -21,6 +21,10 @@ $viewport-xl: 1200px;
 
 @import "../node_modules/bootstrap/scss/bootstrap.scss";
 
+.fs-7 {
+  font-size: 0.85rem;
+}
+
 .md-content {
   h2 {
     border-top: 1px solid #ccc;

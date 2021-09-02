@@ -1,9 +1,10 @@
-module Data.Simulator exposing (Simulator, compute, decode, default, encode)
+module Data.Simulator exposing (..)
 
 import Data.LifeCycle as LifeCycle exposing (LifeCycle)
 import Data.Material as Material exposing (Material)
 import Data.Process as Process
 import Data.Product as Product exposing (Product)
+import Data.Step as Step exposing (Step)
 import Data.Transport as Transport
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
@@ -53,33 +54,52 @@ encode v =
         ]
 
 
-type alias Results =
-    { confection :
-        { waste : Float
-        , mass : Float
-        }
-    }
+compute : Simulator -> Simulator
+compute simulator =
+    simulator
+        -- Ensure end product mass is applied to the final Distribution step
+        |> updateLifeCycleStep Step.Distribution (\step -> { step | mass = simulator.mass })
+        -- Compute inital required material mass
+        |> computeConfectionWaste
+        -- Compute transport summary
+        |> computeTransportSummary
 
 
-compute : Simulator -> Results
-compute { mass, product } =
+computeConfectionWaste : Simulator -> Simulator
+computeConfectionWaste ({ mass, product } as simulator) =
     let
-        -- TODO:
-        -- - trouver un moyen de redéfinir les lifeCycle en Step.Steps
-        -- - peut-être qu'on peut modéliser toutes les étapes avec ça + le résultat des calculs intermédiaires ?
-        --
-        -- materialProcess =
-        --     Process.findByUuid material.process_uuid
-        --         |> Maybe.withDefault Process.cotton
         confectionProcess =
-            Process.findByUuid product.process_uuid
-                |> Maybe.withDefault Process.cotton
-                |> Debug.log "confectionProcess"
-    in
-    { confection =
-        { waste = mass * confectionProcess.waste
+            Process.findByUuid product.process_uuid |> Maybe.withDefault Process.cotton
 
-        -- (Poids Habit + textile waste confection) / (1 - taux de perte (PCR))
-        , mass = (mass + (mass * confectionProcess.waste)) / (1 - product.waste)
-        }
-    }
+        stepMass =
+            -- (product weight + textile waste for confection) / (1 - PCR waste rate)
+            (mass + (mass * confectionProcess.waste)) / (1 - product.waste)
+
+        waste =
+            stepMass - mass
+    in
+    simulator
+        |> updateLifeCycleStep Step.Making (\step -> { step | waste = waste, mass = stepMass })
+        |> updateLifeCycleSteps
+            [ Step.Material, Step.Spinning, Step.Weaving, Step.Ennoblement ]
+            (\step -> { step | mass = stepMass })
+
+
+computeTransportSummary : Simulator -> Simulator
+computeTransportSummary simulator =
+    { simulator | transport = simulator.lifeCycle |> LifeCycle.computeTransportSummary }
+
+
+updateLifeCycle : (LifeCycle -> LifeCycle) -> Simulator -> Simulator
+updateLifeCycle update simulator =
+    { simulator | lifeCycle = update simulator.lifeCycle }
+
+
+updateLifeCycleStep : Step.Label -> (Step -> Step) -> Simulator -> Simulator
+updateLifeCycleStep label update =
+    updateLifeCycle (LifeCycle.updateStep label update)
+
+
+updateLifeCycleSteps : List Step.Label -> (Step -> Step) -> Simulator -> Simulator
+updateLifeCycleSteps labels update =
+    updateLifeCycle (LifeCycle.updateSteps labels update)

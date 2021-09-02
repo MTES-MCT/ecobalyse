@@ -74,3 +74,8 @@ updateStep label update =
             else
                 s
         )
+
+
+updateSteps : List Step.Label -> (Step -> Step) -> LifeCycle -> LifeCycle
+updateSteps labels update lifeCycle =
+    labels |> List.foldl (\label -> updateStep label update) lifeCycle

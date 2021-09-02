@@ -33,11 +33,8 @@ type Msg
 
 init : Session -> ( Model, Session, Cmd Msg )
 init ({ store } as session) =
-    let
-        { simulator } =
-            store
-    in
-    ( { simulator | transport = simulator.lifeCycle |> LifeCycle.computeTransportSummary }
+    -- TODO: is using store.simulator necessary? why should it be serialized in a first step?
+    ( Simulator.compute store.simulator
     , session
     , Cmd.none
     )
@@ -47,43 +44,41 @@ update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
 update session msg model =
     case msg of
         Reset ->
-            ( Simulator.default, session, Cmd.none )
+            ( Simulator.compute Simulator.default, session, Cmd.none )
 
         UpdateMass mass ->
-            ( { model | mass = mass }
+            ( Simulator.compute { model | mass = mass }
             , session
             , Cmd.none
             )
 
         UpdateMaterial material ->
-            ( { model | material = material }
+            ( Simulator.compute { model | material = material }
             , session
             , Cmd.none
             )
 
         UpdateMaterialCategory category ->
-            ( { model
-                | material =
-                    Material.choices
-                        |> List.filter (.category >> (==) category)
-                        |> List.head
-                        |> Maybe.withDefault Material.cotton
-              }
+            ( Simulator.compute
+                { model
+                    | material =
+                        Material.choices
+                            |> List.filter (.category >> (==) category)
+                            |> List.head
+                            |> Maybe.withDefault Material.cotton
+                }
             , session
             , Cmd.none
             )
 
         UpdateStepCountry label country ->
-            ( { model
-                | transport = model.lifeCycle |> LifeCycle.computeTransportSummary
-                , lifeCycle = model.lifeCycle |> LifeCycle.updateStepCountry label country
-              }
+            ( Simulator.compute { model | lifeCycle = model.lifeCycle |> LifeCycle.updateStepCountry label country }
             , session
             , Cmd.none
             )
 
         UpdateProduct product ->
-            ( { model | product = product, mass = product.mass }
+            ( Simulator.compute { model | product = product, mass = product.mass }
             , session
             , Cmd.none
             )
@@ -176,18 +171,18 @@ countrySelect step =
                 , disabled (not step.editable) -- ADEME enforce Asia as a default for these, prevent update
                 , onInput (Country.fromString >> UpdateStepCountry step.label)
                 ]
-        , if not step.editable then
-            div [ class "form-text" ]
-                [ text "Champ non paramétrable"
-                ]
 
-          else
-            text ""
+        -- , if not step.editable then
+        --     div [ class "form-text" ]
+        --         [ text "Champ non paramétrable"
+        --         ]
+        --   else
+        --     text ""
         ]
 
 
-transportInfoView : Transport -> Html Msg
-transportInfoView transport =
+stepTransportInfoView : Transport -> Html Msg
+stepTransportInfoView transport =
     let
         row label getter =
             let
@@ -206,8 +201,7 @@ transportInfoView transport =
                 ]
     in
     table
-        [ class "table text-muted mb-0"
-        , style "font-size" ".85em"
+        [ class "table text-muted mb-0 fs-7"
         ]
         [ row "Terrestre" .road
         , row "Aérien" .air
@@ -231,6 +225,12 @@ stepView index maybeNext current =
                 ]
             , div [ class "card-body" ]
                 [ countrySelect current
+                , div [ class "text-muted mt-1 fs-7" ]
+                    [ text "Masse: "
+                    , Format.formatFloat "kg" current.mass |> text
+                    , text " - Rebus: "
+                    , Format.formatFloat "kg" current.waste |> text
+                    ]
                 ]
             ]
         , div
@@ -252,7 +252,7 @@ stepView index maybeNext current =
                     , div [ class "card-body" ]
                         [ current.country
                             |> Transport.getTransportBetween next.country
-                            |> transportInfoView
+                            |> stepTransportInfoView
                         ]
                     ]
 
@@ -268,7 +268,7 @@ stepView index maybeNext current =
                     , div [ class "card-body" ]
                         [ current.country
                             |> Transport.getTransportBetween current.country
-                            |> transportInfoView
+                            |> stepTransportInfoView
                         ]
                     ]
             )
@@ -363,14 +363,6 @@ view _ model =
                 [ summaryView model
                 , img [ class "w-100 mb-3", src "https://via.placeholder.com/400x200?text=Graphic+goes+here" ] []
                 , transportSummaryView model
-                , div []
-                    [ text "confection, masse: "
-                    , model
-                        |> Simulator.compute
-                        |> (.confection >> .mass)
-                        |> Format.formatFloat "kg"
-                        |> text
-                    ]
                 , details []
                     [ summary [] [ text "Debug" ]
                     , pre [ class "mt-3" ]
