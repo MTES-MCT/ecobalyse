@@ -125,6 +125,11 @@ findByUuid uuid =
     processes |> List.filter (.uuid >> (==) uuid) |> List.head
 
 
+findByName : String -> Maybe Process
+findByName name =
+    processes |> List.filter (.name >> (==) name) |> List.head
+
+
 cat1 : Cat1 -> List Process -> List Process
 cat1 c1 =
     List.filter (.cat1 >> (==) c1)

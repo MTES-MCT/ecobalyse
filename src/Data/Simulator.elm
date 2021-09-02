@@ -62,21 +62,9 @@ compute simulator =
         -- Compute inital required material mass
         |> computeMakingStepWaste
         -- TODO: Compute Knitting/Weawing material waste
-        -- |> computeWeavingKnittingStepWaste
+        |> computeWeavingKnittingStepWaste
         -- Compute transport summary
         |> computeTransportSummary
-
-
-
--- computeWeavingKnittingStepWaste : Simulator -> Simulator
--- computeWeavingKnittingStepWaste ({ material, product } as simulator) =
---     let
---         baseMass =
---             simulator.lifeCycle |> LifeCycle.getStep Step.Making |> Maybe.map .mass |> Maybe.withDefault 0
---         weavingKnittingWaste =
---             Process.findByUuid material.process_uuid |> Maybe.map .waste |> Maybe.withDefault 0
---     in
---     simulator
 
 
 computeMakingStepWaste : Simulator -> Simulator
@@ -96,6 +84,36 @@ computeMakingStepWaste ({ mass, product } as simulator) =
         |> updateLifeCycleStep Step.Making (\step -> { step | waste = waste, mass = stepMass })
         |> updateLifeCycleSteps
             [ Step.Material, Step.Spinning, Step.WeavingKnitting, Step.Ennoblement ]
+            (\step -> { step | mass = stepMass })
+
+
+computeWeavingKnittingStepWaste : Simulator -> Simulator
+computeWeavingKnittingStepWaste ({ product } as simulator) =
+    let
+        baseMass =
+            simulator.lifeCycle |> LifeCycle.getStep Step.Making |> Maybe.map .mass |> Maybe.withDefault 0
+
+        wasteProcessName =
+            -- Note: process names are unique, so let's use them as is
+            if product.knitted then
+                "Tricotage"
+
+            else
+                "Tissage (habillement)"
+
+        weavingKnittingWaste =
+            Process.findByName wasteProcessName
+                |> Maybe.map .waste
+                |> Maybe.withDefault 0
+                |> (*) baseMass
+
+        stepMass =
+            baseMass + weavingKnittingWaste
+    in
+    simulator
+        |> updateLifeCycleStep Step.WeavingKnitting (\step -> { step | mass = stepMass, waste = weavingKnittingWaste })
+        |> updateLifeCycleSteps
+            [ Step.Material, Step.Spinning ]
             (\step -> { step | mass = stepMass })
 
 
