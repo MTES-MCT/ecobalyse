@@ -182,21 +182,26 @@ countrySelect step =
         ]
 
 
-stepTransportSummaryView : Transport.Summary -> Html Msg
-stepTransportSummaryView summary =
-    -- FIXME: replace unicode icons with proper ones
-    div [ class "d-flex justify-content-between fs-7 text-muted" ]
-        [ span []
+transportWidget : Bool -> Transport.Summary -> Html Msg
+transportWidget fullWidth { road, air, sea } =
+    div
+        [ classList
+            [ ( "d-flex fs-7", True )
+            , ( "justify-content-between", fullWidth )
+            , ( "justify-content-center", not fullWidth )
+            ]
+        ]
+        [ span [ class "mx-2" ]
             [ span [ class "me-1" ] [ Icon.bus ]
-            , summary.road |> Format.formatInt "km" |> text
+            , road |> Format.formatInt "km" |> text
             ]
-        , span []
+        , span [ class "mx-2" ]
             [ span [ class "me-1" ] [ Icon.plane ]
-            , summary.air |> Format.formatInt "km" |> text
+            , air |> Format.formatInt "km" |> text
             ]
-        , span []
+        , span [ class "mx-2" ]
             [ span [ class "me-1" ] [ Icon.boat ]
-            , summary.sea |> Format.formatInt "km" |> text
+            , sea |> Format.formatInt "km" |> text
             ]
         ]
 
@@ -222,15 +227,15 @@ stepView index current =
         , div
             [ class "card text-center" ]
             [ div [ class "card-header text-muted" ]
-                [ span [ class "me-1" ] [ text "Transport" ] ]
-            , div [ class "card-body" ]
+                [ span [ class "me-1 fw-bold" ] [ text "0kg eq, CO₂" ] ]
+            , div [ class "card-body text-muted" ]
                 [ div [ class "text-muted mt-1 fs-7 mb-2" ]
                     [ text "Masse: "
                     , Format.formatFloat "kg" current.mass |> text
                     , text " - Perte: "
                     , Format.formatFloat "kg" current.waste |> text
                     ]
-                , stepTransportSummaryView current.transport
+                , transportWidget True current.transport
                 ]
             ]
         ]
@@ -248,22 +253,6 @@ lifeCycleStepsView lifeCycle =
         ]
 
 
-transportSummaryView : Model -> Html Msg
-transportSummaryView model =
-    let
-        summary =
-            LifeCycle.computeTransportSummary model.lifeCycle
-    in
-    div [ class "text-center" ]
-        [ span [ class "me-1" ] [ Icon.bus ]
-        , summary.road |> Format.formatInt "km" |> text
-        , span [ class "mx-1" ] [ Icon.plane ]
-        , summary.air |> Format.formatInt "km" |> text
-        , span [ class "mx-1" ] [ Icon.boat ]
-        , summary.sea |> Format.formatInt "km" |> text
-        ]
-
-
 summaryView : Model -> Html Msg
 summaryView model =
     div [ class "mb-3" ]
@@ -278,7 +267,9 @@ summaryView model =
             , div [ class "card-body" ]
                 [ p [ class "display-5 text-center" ]
                     [ text (String.fromFloat model.score ++ "kg eq, CO₂") ]
-                , transportSummaryView model
+                , model.lifeCycle
+                    |> LifeCycle.computeTransportSummary
+                    |> transportWidget False
                 ]
             ]
         ]
