@@ -65,7 +65,7 @@ compute simulator =
         |> computeWeavingKnittingStepWaste
         -- Compute Material&Spinning material waste
         |> computeMaterialStepWaste
-        -- Compute step transport summaries
+        -- Compute step transport
         |> computeTransportSummaries
         -- Compute transport summary
         |> computeTransportSummary

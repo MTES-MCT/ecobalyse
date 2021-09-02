@@ -64,9 +64,9 @@ distances =
         [ ( Turkey
           , toDict
                 [ ( China, { road = ( 0, 0 ), sea = ( 16243, 1 ), air = ( 7100, 0.33 ) } )
-                , ( France, { road = ( 2798, 90 ), sea = ( 6226, 0.1 ), air = ( 2200, 0.33 ) } )
+                , ( France, { road = ( 2798, 0.9 ), sea = ( 6226, 0.1 ), air = ( 2200, 0.33 ) } )
                 , ( India, { road = ( 0, 0 ), sea = ( 6655, 1 ), air = ( 4600, 0.33 ) } )
-                , ( Spain, { road = ( 3312, 90 ), sea = ( 5576, 0.1 ), air = ( 2700, 0.33 ) } )
+                , ( Spain, { road = ( 3312, 0.9 ), sea = ( 5576, 0.1 ), air = ( 2700, 0.33 ) } )
                 , ( Tunisia, { road = ( 0, 0 ), sea = ( 2348, 1 ), air = ( 1700, 0.33 ) } )
                 , ( Turkey, defaultInland )
                 ]
@@ -92,7 +92,7 @@ distances =
           , toDict
                 [ ( China, { road = ( 0, 0 ), sea = ( 21548, 1 ), air = ( 8200, 0.33 ) } )
                 , ( France, defaultInland )
-                , ( Spain, { road = ( 801, 90 ), sea = ( 1672, 0.1 ), air = ( 1100, 0 ) } )
+                , ( Spain, { road = ( 801, 0.9 ), sea = ( 1672, 0.1 ), air = ( 1100, 0 ) } )
                 ]
           )
         , ( Spain
@@ -147,10 +147,7 @@ toDict =
 
 toSummary : Transport -> Summary
 toSummary { road, air, sea } =
-    { road = round <| toFloat (Tuple.first road) * Tuple.second road
-    , air = round <| toFloat (Tuple.first air) * Tuple.second air
-    , sea = round <| toFloat (Tuple.first sea) * Tuple.second sea
-    }
+    { road = calcInfo road, air = calcInfo air, sea = calcInfo sea }
 
 
 decodeSummary : Decoder Summary

@@ -34,39 +34,39 @@ encode =
     Encode.array Step.encode
 
 
+computeSummaryBetween : Step -> Maybe Step -> Transport.Summary
+computeSummaryBetween current maybeNext =
+    case ( current.label, maybeNext ) of
+        -- TODO: handle special case for Distribution: (Step.Distribution, Nothing)
+        ( Step.Material, Just _ ) ->
+            Transport.defaultInitialSummary
+
+        ( _, Just next ) ->
+            Transport.getTransportBetween current.country next.country |> Transport.toSummary
+
+        _ ->
+            Transport.getTransportBetween current.country current.country |> Transport.toSummary
+
+
 computeTransportSummaries : LifeCycle -> LifeCycle
 computeTransportSummaries lifeCycle =
     lifeCycle
         |> Array.toIndexedList
-        |> List.map
-            (\( index, current ) ->
-                { current
-                    | transport =
-                        lifeCycle
-                            |> Array.get (index + 1)
-                            |> Maybe.map (.country >> Transport.getTransportBetween current.country >> Transport.toSummary)
-                            |> Maybe.withDefault Transport.defaultSummary
-                }
-            )
+        |> List.map (\( index, current ) -> { current | transport = Array.get (index + 1) lifeCycle |> computeSummaryBetween current })
         |> Array.fromList
 
 
 computeTransportSummary : LifeCycle -> Transport.Summary
 computeTransportSummary lifeCycle =
     lifeCycle
-        |> Array.toIndexedList
-        |> List.foldl
-            (\( index, current ) summary ->
-                case
-                    lifeCycle
-                        |> Array.get (index - 1)
-                        |> Maybe.map (.country >> Transport.getTransportBetween current.country)
-                of
-                    Just transport ->
-                        Transport.addToSummary transport summary
-
-                    Nothing ->
-                        summary
+        |> computeTransportSummaries
+        |> Array.foldl
+            (\{ transport } summary ->
+                { summary
+                    | road = summary.road + transport.road
+                    , sea = summary.sea + transport.sea
+                    , air = summary.air + transport.air
+                }
             )
             Transport.defaultSummary
 

@@ -9,13 +9,14 @@ import Data.Product as Product exposing (Product)
 import Data.Session exposing (Session)
 import Data.Simulator as Simulator exposing (Simulator)
 import Data.Step as Step exposing (Step)
-import Data.Transport as Transport exposing (Transport)
+import Data.Transport as Transport
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (onClick, onInput)
 import Json.Encode as Encode
 import Route
 import Views.Format as Format
+import Views.Icon as Icon
 
 
 type alias Model =
@@ -171,41 +172,13 @@ countrySelect step =
                 , disabled (not step.editable) -- ADEME enforce Asia as a default for these, prevent update
                 , onInput (Country.fromString >> UpdateStepCountry step.label)
                 ]
-
-        -- , if not step.editable then
-        --     div [ class "form-text" ]
-        --         [ text "Champ non paramétrable"
-        --         ]
-        --   else
-        --     text ""
-        ]
-
-
-stepTransportInfoView : Transport -> Html Msg
-stepTransportInfoView transport =
-    let
-        row label getter =
-            let
-                ( km, ratio ) =
-                    getter transport
-            in
-            tr []
-                [ th [ class "text-start" ] [ text label ]
-                , td [ class "text-end" ] [ km |> Format.formatInt "km" |> text ]
-                , td [ class "text-end" ] [ ratio |> (*) 100 |> round |> Format.formatInt "%" |> text ]
-                , td [ class "text-end" ]
-                    [ strong []
-                        [ Transport.calcInfo ( km, ratio ) |> Format.formatInt "km" |> text
-                        ]
-                    ]
+        , if not step.editable then
+            div [ class "form-text fs-7" ]
+                [ text "Champ non paramétrable"
                 ]
-    in
-    table
-        [ class "table text-muted fs-7"
-        ]
-        [ row "Terrestre" .road
-        , row "Aérien" .air
-        , row "Maritime" .sea
+
+          else
+            text ""
         ]
 
 
@@ -214,15 +187,15 @@ stepTransportSummaryView summary =
     -- FIXME: replace unicode icons with proper ones
     div [ class "d-flex justify-content-between fs-7 text-muted" ]
         [ span []
-            [ span [ class "me-1" ] [ text " 🚌 " ]
+            [ span [ class "me-1" ] [ Icon.bus ]
             , summary.road |> Format.formatInt "km" |> text
             ]
         , span []
-            [ span [ class "me-1" ] [ text " ✈ " ]
+            [ span [ class "me-1" ] [ Icon.plane ]
             , summary.air |> Format.formatInt "km" |> text
             ]
         , span []
-            [ span [ class "me-1" ] [ text " 🛥 " ]
+            [ span [ class "me-1" ] [ Icon.boat ]
             , summary.sea |> Format.formatInt "km" |> text
             ]
         ]
@@ -233,8 +206,8 @@ downArrow =
     img [ src "img/down-arrow-icon.png" ] []
 
 
-stepView : Int -> Maybe Step -> Step -> Html Msg
-stepView index maybeNext current =
+stepView : Int -> Step -> Html Msg
+stepView index current =
     div [ class "card-group" ]
         [ div [ class "card" ]
             [ div [ class "card-header d-flex align-items-center" ]
@@ -244,54 +217,22 @@ stepView index maybeNext current =
                 ]
             , div [ class "card-body" ]
                 [ countrySelect current
-                , div [ class "text-muted mt-1 fs-7" ]
+                ]
+            ]
+        , div
+            [ class "card text-center" ]
+            [ div [ class "card-header text-muted" ]
+                [ span [ class "me-1" ] [ text "Transport" ] ]
+            , div [ class "card-body" ]
+                [ div [ class "text-muted mt-1 fs-7 mb-2" ]
                     [ text "Masse: "
                     , Format.formatFloat "kg" current.mass |> text
                     , text " - Perte: "
                     , Format.formatFloat "kg" current.waste |> text
                     ]
+                , stepTransportSummaryView current.transport
                 ]
             ]
-        , div
-            [ class "card text-center" ]
-            (case maybeNext of
-                Just next ->
-                    [ div [ class "card-header text-muted" ]
-                        [ span [ class "me-1" ] [ text "Transport" ]
-                        , if current.country == next.country then
-                            text <| "interne " ++ Country.toString current.country
-
-                          else
-                            text
-                                (Country.toString current.country
-                                    ++ " - "
-                                    ++ Country.toString next.country
-                                )
-                        ]
-                    , div [ class "card-body" ]
-                        [ current.country
-                            |> Transport.getTransportBetween next.country
-                            |> stepTransportInfoView
-                        , stepTransportSummaryView current.transport
-                        ]
-                    ]
-
-                Nothing ->
-                    -- last step, add internal country circuit
-                    -- TODO:
-                    -- - move to generic view?
-                    -- - compute added step to Step.computeTransport
-                    [ div [ class "card-header text-muted" ]
-                        [ span [ class "me-1" ] [ text "Transport" ]
-                        , text <| "Distribution " ++ Country.toString current.country
-                        ]
-                    , div [ class "card-body" ]
-                        [ current.country
-                            |> Transport.getTransportBetween current.country
-                            |> stepTransportInfoView
-                        ]
-                    ]
-            )
         ]
 
 
@@ -300,7 +241,7 @@ lifeCycleStepsView lifeCycle =
     div []
         [ h2 [ class "mb-3" ] [ text "Étapes" ]
         , lifeCycle
-            |> Array.indexedMap (\index -> stepView index (Array.get (index + 1) lifeCycle))
+            |> Array.indexedMap (\index -> stepView index)
             |> Array.toList
             |> List.intersperse (div [ class "text-center" ] [ downArrow ])
             |> div []
@@ -313,23 +254,13 @@ transportSummaryView model =
         summary =
             LifeCycle.computeTransportSummary model.lifeCycle
     in
-    div [ class "card mb-3" ]
-        [ div [ class "card-header" ]
-            [ text "Synthèse transport" ]
-        , div [ class "card-body" ]
-            [ div []
-                [ strong [] [ text "Terrestre: " ]
-                , summary.road |> Format.formatInt "km" |> text
-                ]
-            , div []
-                [ strong [] [ text "Maritime: " ]
-                , summary.sea |> Format.formatInt "km" |> text
-                ]
-            , div []
-                [ strong [] [ text "Aérien: " ]
-                , summary.air |> Format.formatInt "km" |> text
-                ]
-            ]
+    div [ class "text-center" ]
+        [ span [ class "me-1" ] [ Icon.bus ]
+        , summary.road |> Format.formatInt "km" |> text
+        , span [ class "mx-1" ] [ Icon.plane ]
+        , summary.air |> Format.formatInt "km" |> text
+        , span [ class "mx-1" ] [ Icon.boat ]
+        , summary.sea |> Format.formatInt "km" |> text
         ]
 
 
@@ -347,6 +278,7 @@ summaryView model =
             , div [ class "card-body" ]
                 [ p [ class "display-5 text-center" ]
                     [ text (String.fromFloat model.score ++ "kg eq, CO₂") ]
+                , transportSummaryView model
                 ]
             ]
         ]
@@ -382,7 +314,6 @@ view _ model =
             , div [ class "col-lg-5 col-xl-6" ]
                 [ summaryView model
                 , img [ class "w-100 mb-3", src "https://via.placeholder.com/400x200?text=Graphic+goes+here" ] []
-                , transportSummaryView model
                 , details []
                     [ summary [] [ text "Debug" ]
                     , pre [ class "mt-3" ]
