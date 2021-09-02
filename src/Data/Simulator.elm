@@ -61,8 +61,10 @@ compute simulator =
         |> updateLifeCycleStep Step.Distribution (\step -> { step | mass = simulator.mass })
         -- Compute inital required material mass
         |> computeMakingStepWaste
-        -- TODO: Compute Knitting/Weawing material waste
+        -- Compute Knitting/Weawing material waste
         |> computeWeavingKnittingStepWaste
+        -- Compute Material&Spinning material waste
+        |> computeWMaterialStepWaste
         -- Compute transport summary
         |> computeTransportSummary
 
@@ -114,6 +116,28 @@ computeWeavingKnittingStepWaste ({ product } as simulator) =
         |> updateLifeCycleStep Step.WeavingKnitting (\step -> { step | mass = stepMass, waste = weavingKnittingWaste })
         |> updateLifeCycleSteps
             [ Step.Material, Step.Spinning ]
+            (\step -> { step | mass = stepMass })
+
+
+computeWMaterialStepWaste : Simulator -> Simulator
+computeWMaterialStepWaste ({ material } as simulator) =
+    let
+        baseMass =
+            simulator.lifeCycle |> LifeCycle.getStep Step.WeavingKnitting |> Maybe.map .mass |> Maybe.withDefault 0
+
+        stepWaste =
+            Process.findByUuid material.process_uuid
+                |> Maybe.map .waste
+                |> Maybe.withDefault 0
+                |> (*) baseMass
+
+        stepMass =
+            baseMass + stepWaste
+    in
+    simulator
+        |> updateLifeCycleStep Step.Material (\step -> { step | mass = stepMass, waste = stepWaste })
+        |> updateLifeCycleSteps
+            [ Step.Spinning ]
             (\step -> { step | mass = stepMass })
 
 
