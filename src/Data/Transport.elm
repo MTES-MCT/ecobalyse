@@ -11,7 +11,7 @@ type alias Km =
 
 
 type alias Ratio =
-    Int
+    Float
 
 
 type alias Info =
@@ -49,7 +49,12 @@ toDict =
 
 defaultInland : Transport
 defaultInland =
-    { road = ( 500, 100 ), sea = ( 0, 0 ), air = ( 0, 0 ) }
+    { road = ( 500, 1 ), sea = ( 0, 0 ), air = ( 0, 0 ) }
+
+
+defaultInitial : Transport
+defaultInitial =
+    { road = ( 2000, 1 ), sea = ( 4000, 1 ), air = ( 0, 0 ) }
 
 
 distances : Dict String (Dict String Transport)
@@ -57,41 +62,41 @@ distances =
     toDict
         [ ( Turkey
           , toDict
-                [ ( China, { road = ( 0, 0 ), sea = ( 16243, 100 ), air = ( 7100, 33 ) } )
-                , ( France, { road = ( 2798, 90 ), sea = ( 6226, 10 ), air = ( 2200, 33 ) } )
-                , ( India, { road = ( 0, 0 ), sea = ( 6655, 100 ), air = ( 4600, 33 ) } )
-                , ( Spain, { road = ( 3312, 90 ), sea = ( 5576, 10 ), air = ( 2700, 33 ) } )
-                , ( Tunisia, { road = ( 0, 0 ), sea = ( 2348, 100 ), air = ( 1700, 33 ) } )
+                [ ( China, { road = ( 0, 0 ), sea = ( 16243, 1 ), air = ( 7100, 0.33 ) } )
+                , ( France, { road = ( 2798, 90 ), sea = ( 6226, 0.1 ), air = ( 2200, 0.33 ) } )
+                , ( India, { road = ( 0, 0 ), sea = ( 6655, 1 ), air = ( 4600, 0.33 ) } )
+                , ( Spain, { road = ( 3312, 90 ), sea = ( 5576, 0.1 ), air = ( 2700, 0.33 ) } )
+                , ( Tunisia, { road = ( 0, 0 ), sea = ( 2348, 1 ), air = ( 1700, 0.33 ) } )
                 , ( Turkey, defaultInland )
                 ]
           )
         , ( Tunisia
           , toDict
-                [ ( China, { road = ( 0, 0 ), sea = ( 17637, 100 ), air = ( 8600, 33 ) } )
-                , ( France, { road = ( 0, 0 ), sea = ( 4343, 100 ), air = ( 1500, 0 ) } )
-                , ( India, { road = ( 0, 0 ), sea = ( 8048, 100 ), air = ( 6200, 33 ) } )
-                , ( Spain, { road = ( 0, 0 ), sea = ( 3693, 100 ), air = ( 1300, 0 ) } )
+                [ ( China, { road = ( 0, 0 ), sea = ( 17637, 1 ), air = ( 8600, 0.33 ) } )
+                , ( France, { road = ( 0, 0 ), sea = ( 4343, 1 ), air = ( 1500, 0 ) } )
+                , ( India, { road = ( 0, 0 ), sea = ( 8048, 1 ), air = ( 6200, 0.33 ) } )
+                , ( Spain, { road = ( 0, 0 ), sea = ( 3693, 1 ), air = ( 1300, 0 ) } )
                 , ( Tunisia, defaultInland )
                 ]
           )
         , ( India
           , toDict
-                [ ( China, { road = ( 0, 0 ), sea = ( 11274, 100 ), air = ( 3800, 33 ) } )
-                , ( France, { road = ( 0, 0 ), sea = ( 11960, 100 ), air = ( 6600, 33 ) } )
+                [ ( China, { road = ( 0, 0 ), sea = ( 11274, 1 ), air = ( 3800, 0.33 ) } )
+                , ( France, { road = ( 0, 0 ), sea = ( 11960, 1 ), air = ( 6600, 0.33 ) } )
                 , ( India, defaultInland )
-                , ( Spain, { road = ( 0, 0 ), sea = ( 11310, 100 ), air = ( 7300, 0 ) } )
+                , ( Spain, { road = ( 0, 0 ), sea = ( 11310, 1 ), air = ( 7300, 0 ) } )
                 ]
           )
         , ( France
           , toDict
-                [ ( China, { road = ( 0, 0 ), sea = ( 21548, 100 ), air = ( 8200, 33 ) } )
+                [ ( China, { road = ( 0, 0 ), sea = ( 21548, 1 ), air = ( 8200, 0.33 ) } )
                 , ( France, defaultInland )
-                , ( Spain, { road = ( 801, 90 ), sea = ( 1672, 10 ), air = ( 1100, 0 ) } )
+                , ( Spain, { road = ( 801, 90 ), sea = ( 1672, 0.1 ), air = ( 1100, 0 ) } )
                 ]
           )
         , ( Spain
           , toDict
-                [ ( China, { road = ( 0, 0 ), sea = ( 20898, 100 ), air = ( 9200, 33 ) } )
+                [ ( China, { road = ( 0, 0 ), sea = ( 20898, 1 ), air = ( 9200, 0.33 ) } )
                 , ( Spain, defaultInland )
                 ]
           )
@@ -114,7 +119,7 @@ addToSummary transport summary =
 
 calcInfo : Info -> Km
 calcInfo ( km, ratio ) =
-    round <| toFloat km * (toFloat ratio / toFloat 100)
+    round <| toFloat km * ratio
 
 
 getTransportBetween : Country -> Country -> Transport

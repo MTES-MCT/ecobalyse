@@ -8,7 +8,7 @@ import Test exposing (..)
 
 franceChina : Transport
 franceChina =
-    { road = ( 0, 0 ), sea = ( 21548, 100 ), air = ( 8200, 33 ) }
+    { road = ( 0, 0 ), sea = ( 21548, 1 ), air = ( 8200, 0.33 ) }
 
 
 suite : Test
