@@ -34,6 +34,23 @@ encode =
     Encode.array Step.encode
 
 
+computeTransportSummaries : LifeCycle -> LifeCycle
+computeTransportSummaries lifeCycle =
+    lifeCycle
+        |> Array.toIndexedList
+        |> List.map
+            (\( index, current ) ->
+                { current
+                    | transport =
+                        lifeCycle
+                            |> Array.get (index + 1)
+                            |> Maybe.map (.country >> Transport.getTransportBetween current.country >> Transport.toSummary)
+                            |> Maybe.withDefault Transport.defaultSummary
+                }
+            )
+        |> Array.fromList
+
+
 computeTransportSummary : LifeCycle -> Transport.Summary
 computeTransportSummary lifeCycle =
     lifeCycle

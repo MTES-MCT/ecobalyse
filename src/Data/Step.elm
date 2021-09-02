@@ -1,6 +1,7 @@
 module Data.Step exposing (..)
 
 import Data.Country as Country exposing (Country)
+import Data.Transport as Transport
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
 
@@ -11,6 +12,7 @@ type alias Step =
     , editable : Bool
     , mass : Float
     , waste : Float
+    , transport : Transport.Summary
     }
 
 
@@ -31,6 +33,7 @@ default =
     , editable = False
     , mass = 0
     , waste = 0
+    , transport = Transport.defaultSummary
     }
 
 
@@ -41,6 +44,7 @@ material =
     , editable = False
     , mass = 0
     , waste = 0
+    , transport = Transport.defaultInitialSummary
     }
 
 
@@ -51,6 +55,7 @@ spinning =
     , editable = False
     , mass = 0
     , waste = 0
+    , transport = Transport.defaultSummary
     }
 
 
@@ -61,6 +66,7 @@ weaving =
     , editable = False
     , mass = 0
     , waste = 0
+    , transport = Transport.defaultSummary
     }
 
 
@@ -71,6 +77,7 @@ confection =
     , editable = True
     , mass = 0
     , waste = 0
+    , transport = Transport.defaultSummary
     }
 
 
@@ -81,6 +88,7 @@ ennoblement =
     , editable = True
     , mass = 0
     , waste = 0
+    , transport = Transport.defaultSummary
     }
 
 
@@ -91,17 +99,19 @@ distribution =
     , editable = True
     , mass = 0
     , waste = 0
+    , transport = Transport.defaultSummary
     }
 
 
 decode : Decoder Step
 decode =
-    Decode.map5 Step
+    Decode.map6 Step
         (Decode.field "label" (Decode.map labelFromString Decode.string))
         (Decode.field "country" Country.decode)
         (Decode.field "editable" Decode.bool)
         (Decode.field "mass" Decode.float)
         (Decode.field "waste" Decode.float)
+        (Decode.field "transport" Transport.decodeSummary)
 
 
 encode : Step -> Encode.Value
@@ -112,6 +122,7 @@ encode v =
         , ( "editable", Encode.bool v.editable )
         , ( "mass", Encode.float v.mass )
         , ( "waste", Encode.float v.waste )
+        , ( "transport", Transport.encodeSummary v.transport )
         ]
 
 

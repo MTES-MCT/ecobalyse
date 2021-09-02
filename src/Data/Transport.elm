@@ -34,7 +34,7 @@ type alias Summary =
 
 default : Transport
 default =
-    Transport ( 0, 0 ) ( 0, 0 ) ( 0, 0 )
+    { road = ( 0, 0 ), sea = ( 0, 0 ), air = ( 0, 0 ) }
 
 
 defaultSummary : Summary
@@ -42,9 +42,10 @@ defaultSummary =
     { road = 0, sea = 0, air = 0 }
 
 
-toDict : List ( Country, a ) -> Dict String a
-toDict =
-    List.map (Tuple.mapFirst Country.toString) >> Dict.fromList
+defaultInitialSummary : Summary
+defaultInitialSummary =
+    -- Note: used as the defaults for the initial Material&Spinning step
+    { road = 2000, sea = 4000, air = 0 }
 
 
 defaultInland : Transport
@@ -137,6 +138,19 @@ getTransportBetween cA cB =
                         Just (getTransportBetween cB cA)
             )
         |> Maybe.withDefault default
+
+
+toDict : List ( Country, a ) -> Dict String a
+toDict =
+    List.map (Tuple.mapFirst Country.toString) >> Dict.fromList
+
+
+toSummary : Transport -> Summary
+toSummary { road, air, sea } =
+    { road = round <| toFloat (Tuple.first road) * Tuple.second road
+    , air = round <| toFloat (Tuple.first air) * Tuple.second air
+    , sea = round <| toFloat (Tuple.first sea) * Tuple.second sea
+    }
 
 
 decodeSummary : Decoder Summary

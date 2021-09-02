@@ -201,11 +201,30 @@ stepTransportInfoView transport =
                 ]
     in
     table
-        [ class "table text-muted mb-0 fs-7"
+        [ class "table text-muted fs-7"
         ]
         [ row "Terrestre" .road
         , row "Aérien" .air
         , row "Maritime" .sea
+        ]
+
+
+stepTransportSummaryView : Transport.Summary -> Html Msg
+stepTransportSummaryView summary =
+    -- FIXME: replace unicode icons with proper ones
+    div [ class "d-flex justify-content-between fs-7 text-muted" ]
+        [ span []
+            [ span [ class "me-1" ] [ text " 🚌 " ]
+            , summary.road |> Format.formatInt "km" |> text
+            ]
+        , span []
+            [ span [ class "me-1" ] [ text " ✈ " ]
+            , summary.air |> Format.formatInt "km" |> text
+            ]
+        , span []
+            [ span [ class "me-1" ] [ text " 🛥 " ]
+            , summary.sea |> Format.formatInt "km" |> text
+            ]
         ]
 
 
@@ -253,6 +272,7 @@ stepView index maybeNext current =
                         [ current.country
                             |> Transport.getTransportBetween next.country
                             |> stepTransportInfoView
+                        , stepTransportSummaryView current.transport
                         ]
                     ]
 
