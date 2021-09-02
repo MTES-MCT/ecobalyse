@@ -1,10 +1,9 @@
 module Data.Simulator exposing (Simulator, compute, decode, default, encode)
 
-import Array exposing (Array)
+import Data.LifeCycle as LifeCycle exposing (LifeCycle)
 import Data.Material as Material exposing (Material)
 import Data.Process as Process
 import Data.Product as Product exposing (Product)
-import Data.Step as Step exposing (Step)
 import Data.Transport as Transport
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
@@ -14,7 +13,7 @@ type alias Simulator =
     { mass : Float
     , material : Material
     , product : Product
-    , steps : Array Step
+    , lifeCycle : LifeCycle
     , score : Float
     , transport : Transport.Summary
     }
@@ -25,7 +24,7 @@ default =
     { mass = Product.tShirt.mass
     , material = Material.cotton
     , product = Product.tShirt
-    , steps = Step.default
+    , lifeCycle = LifeCycle.default
     , score = 0
     , transport = Transport.defaultSummary
     }
@@ -37,7 +36,7 @@ decode =
         (Decode.field "mass" Decode.float)
         (Decode.field "material" Material.decode)
         (Decode.field "product" Product.decode)
-        (Decode.field "steps" (Decode.array Step.decode))
+        (Decode.field "lifeCycle" LifeCycle.decode)
         (Decode.field "score" Decode.float)
         (Decode.field "transport" Transport.decodeSummary)
 
@@ -48,7 +47,7 @@ encode v =
         [ ( "mass", Encode.float v.mass )
         , ( "material", Material.encode v.material )
         , ( "product", Product.encode v.product )
-        , ( "steps", Encode.array Step.encode v.steps )
+        , ( "lifeCycle", LifeCycle.encode v.lifeCycle )
         , ( "score", Encode.float v.score )
         , ( "transport", Transport.encodeSummary v.transport )
         ]
@@ -66,7 +65,7 @@ compute : Simulator -> Results
 compute { mass, product } =
     let
         -- TODO:
-        -- - trouver un moyen de redéfinir les steps en Step2
+        -- - trouver un moyen de redéfinir les lifeCycle en Step.Steps
         -- - peut-être qu'on peut modéliser toutes les étapes avec ça + le résultat des calculs intermédiaires ?
         --
         -- materialProcess =

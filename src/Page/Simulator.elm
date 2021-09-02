@@ -1,7 +1,8 @@
 module Page.Simulator exposing (Model, Msg, init, update, view)
 
-import Array exposing (Array)
+import Array
 import Data.Country as Country exposing (Country)
+import Data.LifeCycle as LifeCycle exposing (LifeCycle)
 import Data.Material as Material exposing (Material)
 import Data.Material.Category as Category exposing (Category)
 import Data.Product as Product exposing (Product)
@@ -26,7 +27,7 @@ type Msg
     | UpdateMass Float
     | UpdateMaterial Material
     | UpdateMaterialCategory Category
-    | UpdateStepStep String Country
+    | UpdateStepCountry Step.Label Country
     | UpdateProduct Product
 
 
@@ -36,7 +37,7 @@ init ({ store } as session) =
         { simulator } =
             store
     in
-    ( { simulator | transport = simulator.steps |> Step.computeTransportSummary }
+    ( { simulator | transport = simulator.lifeCycle |> LifeCycle.computeTransportSummary }
     , session
     , Cmd.none
     )
@@ -72,10 +73,10 @@ update session msg model =
             , Cmd.none
             )
 
-        UpdateStepStep id country ->
+        UpdateStepCountry label country ->
             ( { model
-                | transport = model.steps |> Step.computeTransportSummary
-                , steps = model.steps |> Step.updateCountryAt id country
+                | transport = model.lifeCycle |> LifeCycle.computeTransportSummary
+                , lifeCycle = model.lifeCycle |> LifeCycle.updateStepCountry label country
               }
             , session
             , Cmd.none
@@ -166,16 +167,16 @@ productSelect product =
 
 
 countrySelect : Step -> Html Msg
-countrySelect steps =
+countrySelect step =
     div []
         [ Country.choices
-            |> List.map (\c -> option [ selected (steps.country == c) ] [ text (Country.toString c) ])
+            |> List.map (\c -> option [ selected (step.country == c) ] [ text (Country.toString c) ])
             |> select
                 [ class "form-select"
-                , disabled (not steps.editable) -- ADEME enforce Asia as a default for these, prevent update
-                , onInput (Country.fromString >> UpdateStepStep steps.id)
+                , disabled (not step.editable) -- ADEME enforce Asia as a default for these, prevent update
+                , onInput (Country.fromString >> UpdateStepCountry step.label)
                 ]
-        , if not steps.editable then
+        , if not step.editable then
             div [ class "form-text" ]
                 [ text "Champ non paramétrable"
                 ]
@@ -226,7 +227,7 @@ stepView index maybeNext current =
             [ div [ class "card-header d-flex align-items-center" ]
                 [ span [ class "badge rounded-pill bg-primary me-1" ]
                     [ text (String.fromInt (index + 1)) ]
-                , text current.name
+                , text <| Step.labelToString current.label
                 ]
             , div [ class "card-body" ]
                 [ countrySelect current
@@ -274,15 +275,12 @@ stepView index maybeNext current =
         ]
 
 
-stepListView : Array Step -> Html Msg
-stepListView steps =
+lifeCycleStepsView : LifeCycle -> Html Msg
+lifeCycleStepsView lifeCycle =
     div []
         [ h2 [ class "mb-3" ] [ text "Étapes" ]
-        , steps
-            |> Array.indexedMap
-                (\index step ->
-                    stepView index (Array.get (index + 1) steps) step
-                )
+        , lifeCycle
+            |> Array.indexedMap (\index -> stepView index (Array.get (index + 1) lifeCycle))
             |> Array.toList
             |> List.intersperse (div [ class "text-center" ] [ downArrow ])
             |> div []
@@ -293,7 +291,7 @@ transportSummaryView : Model -> Html Msg
 transportSummaryView model =
     let
         summary =
-            Step.computeTransportSummary model.steps
+            LifeCycle.computeTransportSummary model.lifeCycle
     in
     div [ class "card mb-3" ]
         [ div [ class "card-header" ]
@@ -350,7 +348,7 @@ view _ model =
                     ]
                 , materialCategorySelect model.material
                 , materialInput model.material
-                , stepListView model.steps
+                , lifeCycleStepsView model.lifeCycle
                 , div [ class "d-flex align-items-center justify-content-between my-3" ]
                     [ a [ Route.href Route.Home ] [ text "« Retour à l'accueil" ]
                     , button
