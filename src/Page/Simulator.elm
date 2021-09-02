@@ -192,7 +192,7 @@ stepTransportInfoView transport =
             tr []
                 [ th [ class "text-start" ] [ text label ]
                 , td [ class "text-end" ] [ km |> Format.formatInt "km" |> text ]
-                , td [ class "text-end" ] [ ratio |> Format.formatInt "%" |> text ]
+                , td [ class "text-end" ] [ ratio |> (*) 100 |> round |> Format.formatInt "%" |> text ]
                 , td [ class "text-end" ]
                     [ strong []
                         [ Transport.calcInfo ( km, ratio ) |> Format.formatInt "km" |> text
