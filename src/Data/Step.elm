@@ -16,12 +16,12 @@ type alias Step =
 
 type Label
     = Default
-    | Material
-    | Spinning
-    | Weaving
-    | Making
-    | Ennoblement
-    | Distribution
+    | Material -- Matière
+    | Spinning -- Filature
+    | WeavingKnitting -- Tissage & Tricotage
+    | Making -- Confection
+    | Ennoblement -- Ennoblement
+    | Distribution -- Distribution
 
 
 default : Step
@@ -56,7 +56,7 @@ spinning =
 
 weaving : Step
 weaving =
-    { label = Weaving
+    { label = WeavingKnitting
     , country = Country.China -- note: ADEME makes Asia the default for weaving
     , editable = False
     , mass = 0
@@ -127,7 +127,7 @@ labelToString label =
         Spinning ->
             "Filature"
 
-        Weaving ->
+        WeavingKnitting ->
             "Tissage & tricotage"
 
         Making ->
@@ -150,7 +150,7 @@ labelFromString label =
             Spinning
 
         "Tissage & tricotage" ->
-            Weaving
+            WeavingKnitting
 
         "Confection" ->
             Making

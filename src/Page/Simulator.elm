@@ -228,7 +228,7 @@ stepView index maybeNext current =
                 , div [ class "text-muted mt-1 fs-7" ]
                     [ text "Masse: "
                     , Format.formatFloat "kg" current.mass |> text
-                    , text " - Rebus: "
+                    , text " - Perte: "
                     , Format.formatFloat "kg" current.waste |> text
                     ]
                 ]

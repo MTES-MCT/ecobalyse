@@ -60,20 +60,34 @@ compute simulator =
         -- Ensure end product mass is applied to the final Distribution step
         |> updateLifeCycleStep Step.Distribution (\step -> { step | mass = simulator.mass })
         -- Compute inital required material mass
-        |> computeConfectionWaste
+        |> computeMakingStepWaste
+        -- TODO: Compute Knitting/Weawing material waste
+        -- |> computeWeavingKnittingStepWaste
         -- Compute transport summary
         |> computeTransportSummary
 
 
-computeConfectionWaste : Simulator -> Simulator
-computeConfectionWaste ({ mass, product } as simulator) =
+
+-- computeWeavingKnittingStepWaste : Simulator -> Simulator
+-- computeWeavingKnittingStepWaste ({ material, product } as simulator) =
+--     let
+--         baseMass =
+--             simulator.lifeCycle |> LifeCycle.getStep Step.Making |> Maybe.map .mass |> Maybe.withDefault 0
+--         weavingKnittingWaste =
+--             Process.findByUuid material.process_uuid |> Maybe.map .waste |> Maybe.withDefault 0
+--     in
+--     simulator
+
+
+computeMakingStepWaste : Simulator -> Simulator
+computeMakingStepWaste ({ mass, product } as simulator) =
     let
-        confectionProcess =
-            Process.findByUuid product.process_uuid |> Maybe.withDefault Process.cotton
+        confectionWaste =
+            Process.findByUuid product.process_uuid |> Maybe.map .waste |> Maybe.withDefault 0
 
         stepMass =
             -- (product weight + textile waste for confection) / (1 - PCR waste rate)
-            (mass + (mass * confectionProcess.waste)) / (1 - product.waste)
+            (mass + (mass * confectionWaste)) / (1 - product.pcrWaste)
 
         waste =
             stepMass - mass
@@ -81,7 +95,7 @@ computeConfectionWaste ({ mass, product } as simulator) =
     simulator
         |> updateLifeCycleStep Step.Making (\step -> { step | waste = waste, mass = stepMass })
         |> updateLifeCycleSteps
-            [ Step.Material, Step.Spinning, Step.Weaving, Step.Ennoblement ]
+            [ Step.Material, Step.Spinning, Step.WeavingKnitting, Step.Ennoblement ]
             (\step -> { step | mass = stepMass })
 
 
