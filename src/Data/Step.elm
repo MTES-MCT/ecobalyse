@@ -96,7 +96,7 @@ distribution : Step
 distribution =
     { label = Distribution
     , country = Country.France
-    , editable = True
+    , editable = False
     , mass = 0
     , waste = 0
     , transport = Transport.defaultSummary
