@@ -16,13 +16,13 @@ suite =
                     LifeCycle.default
                         |> LifeCycle.computeTransportSummary
                         |> Expect.equal
-                            { air = 2706, road = 4000, sea = 25548 }
+                            { air = 0, road = 4000, sea = 25548 }
             , test "should compute custom distances" <|
                 \_ ->
                     LifeCycle.default
                         |> LifeCycle.updateStepCountry Step.Ennoblement India
                         |> LifeCycle.computeTransportSummary
                         |> Expect.equal
-                            { air = 3432, road = 3500, sea = 27234 }
+                            { air = 0, road = 3000, sea = 49468 }
             ]
         ]

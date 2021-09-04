@@ -59,11 +59,11 @@ spinning =
     }
 
 
-weaving : Step
-weaving =
+weavingKnitting : Step
+weavingKnitting =
     { label = WeavingKnitting
-    , country = Country.China -- note: ADEME makes Asia the default for weaving
-    , editable = False
+    , country = Country.France
+    , editable = True
     , mass = 0
     , waste = 0
     , transport = Transport.defaultSummary

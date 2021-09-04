@@ -17,7 +17,7 @@ default =
     Array.fromList
         [ Step.material
         , Step.spinning
-        , Step.weaving
+        , Step.weavingKnitting
         , Step.ennoblement
         , Step.confection
         , Step.distribution
@@ -36,9 +36,10 @@ encode =
 
 computeSummaryBetween : Step -> Maybe Step -> Transport.Summary
 computeSummaryBetween current maybeNext =
+    -- TODO: handle special case for Distribution: (Step.Distribution, Nothing)
     case ( current.label, maybeNext ) of
-        -- TODO: handle special case for Distribution: (Step.Distribution, Nothing)
         ( Step.Material, Just _ ) ->
+            -- First initial material step has specific defaults
             Transport.defaultInitialSummary
 
         ( _, Just next ) ->
@@ -48,19 +49,35 @@ computeSummaryBetween current maybeNext =
             Transport.getTransportBetween current.country current.country |> Transport.toSummary
 
 
+handleAirTransport : Step -> Transport.Summary -> Transport.Summary
+handleAirTransport { label } summary =
+    -- Air transport can only concern finished products, so we only keep air travel distance
+    -- between the Making and Distribution and for the Distribution step itself steps.
+    if List.member label [ Step.Making, Step.Distribution ] then
+        summary
+
+    else
+        { summary | air = 0 }
+
+
 computeTransportSummaries : LifeCycle -> LifeCycle
 computeTransportSummaries lifeCycle =
     lifeCycle
-        |> Array.toIndexedList
-        |> List.map (\( index, current ) -> { current | transport = Array.get (index + 1) lifeCycle |> computeSummaryBetween current })
-        |> Array.fromList
+        |> Array.indexedMap
+            (\index current ->
+                { current
+                    | transport =
+                        Array.get (index + 1) lifeCycle
+                            |> computeSummaryBetween current
+                            |> handleAirTransport current
+                }
+            )
 
 
 computeTransportSummary : LifeCycle -> Transport.Summary
-computeTransportSummary lifeCycle =
-    lifeCycle
-        |> computeTransportSummaries
-        |> Array.foldl
+computeTransportSummary =
+    computeTransportSummaries
+        >> Array.foldl
             (\{ transport } summary ->
                 { summary
                     | road = summary.road + transport.road
