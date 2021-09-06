@@ -15,7 +15,7 @@ type alias Simulator =
     , material : Material
     , product : Product
     , lifeCycle : LifeCycle
-    , score : Float
+    , co2 : Float
     , transport : Transport.Summary
     }
 
@@ -26,7 +26,7 @@ default =
     , material = Material.cotton
     , product = Product.tShirt
     , lifeCycle = LifeCycle.default
-    , score = 0
+    , co2 = 0
     , transport = Transport.defaultSummary
     }
 
@@ -38,7 +38,7 @@ decode =
         (Decode.field "material" Material.decode)
         (Decode.field "product" Product.decode)
         (Decode.field "lifeCycle" LifeCycle.decode)
-        (Decode.field "score" Decode.float)
+        (Decode.field "co2" Decode.float)
         (Decode.field "transport" Transport.decodeSummary)
 
 
@@ -49,7 +49,7 @@ encode v =
         , ( "material", Material.encode v.material )
         , ( "product", Product.encode v.product )
         , ( "lifeCycle", LifeCycle.encode v.lifeCycle )
-        , ( "score", Encode.float v.score )
+        , ( "co2", Encode.float v.co2 )
         , ( "transport", Transport.encodeSummary v.transport )
         ]
 

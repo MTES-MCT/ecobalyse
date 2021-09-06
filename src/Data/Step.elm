@@ -13,6 +13,7 @@ type alias Step =
     , mass : Float
     , waste : Float
     , transport : Transport.Summary
+    , co2 : Float
     }
 
 
@@ -34,6 +35,7 @@ default =
     , mass = 0
     , waste = 0
     , transport = Transport.defaultSummary
+    , co2 = 0
     }
 
 
@@ -45,6 +47,7 @@ material =
     , mass = 0
     , waste = 0
     , transport = Transport.defaultInitialSummary
+    , co2 = 0
     }
 
 
@@ -56,6 +59,7 @@ spinning =
     , mass = 0
     , waste = 0
     , transport = Transport.defaultSummary
+    , co2 = 0
     }
 
 
@@ -67,6 +71,7 @@ weavingKnitting =
     , mass = 0
     , waste = 0
     , transport = Transport.defaultSummary
+    , co2 = 0
     }
 
 
@@ -78,6 +83,7 @@ confection =
     , mass = 0
     , waste = 0
     , transport = Transport.defaultSummary
+    , co2 = 0
     }
 
 
@@ -89,6 +95,7 @@ ennoblement =
     , mass = 0
     , waste = 0
     , transport = Transport.defaultSummary
+    , co2 = 0
     }
 
 
@@ -100,18 +107,20 @@ distribution =
     , mass = 0
     , waste = 0
     , transport = Transport.defaultSummary
+    , co2 = 0
     }
 
 
 decode : Decoder Step
 decode =
-    Decode.map6 Step
+    Decode.map7 Step
         (Decode.field "label" (Decode.map labelFromString Decode.string))
         (Decode.field "country" Country.decode)
         (Decode.field "editable" Decode.bool)
         (Decode.field "mass" Decode.float)
         (Decode.field "waste" Decode.float)
         (Decode.field "transport" Transport.decodeSummary)
+        (Decode.field "co2" Decode.float)
 
 
 encode : Step -> Encode.Value
@@ -123,6 +132,7 @@ encode v =
         , ( "mass", Encode.float v.mass )
         , ( "waste", Encode.float v.waste )
         , ( "transport", Transport.encodeSummary v.transport )
+        , ( "co2", Encode.float v.co2 )
         ]
 
 

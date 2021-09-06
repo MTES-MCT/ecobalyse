@@ -227,7 +227,10 @@ stepView index current =
         , div
             [ class "card text-center" ]
             [ div [ class "card-header text-muted" ]
-                [ span [ class "me-1 fw-bold" ] [ text "0kg eq, CO₂" ] ]
+                [ span [ class "me-1 fw-bold" ]
+                    [ current.co2 |> Format.formatFloat "kg eq, CO₂" |> text
+                    ]
+                ]
             , div [ class "card-body text-muted" ]
                 [ div [ class "text-muted mt-1 fs-7 mb-2" ]
                     [ text "Masse: "
@@ -266,7 +269,7 @@ summaryView model =
                 ]
             , div [ class "card-body" ]
                 [ p [ class "display-5 text-center" ]
-                    [ text (String.fromFloat model.score ++ "kg eq, CO₂") ]
+                    [ model.co2 |> Format.formatFloat "kg eq, CO₂" |> text ]
                 , model.lifeCycle
                     |> LifeCycle.computeTransportSummary
                     |> transportWidget False
