@@ -65,6 +65,8 @@ compute simulator =
         |> computeWeavingKnittingStepWaste
         -- Compute Material&Spinning material waste
         |> computeMaterialStepWaste
+        -- TODO: Compute Material step co2 score
+        -- |> computeMaterialCo2Score
         -- Compute step transport
         |> computeTransportSummaries
         -- Compute transport summary
@@ -87,7 +89,7 @@ computeMakingStepWaste ({ mass, product } as simulator) =
     simulator
         |> updateLifeCycleStep Step.Making (\step -> { step | waste = waste, mass = stepMass })
         |> updateLifeCycleSteps
-            [ Step.Material, Step.Spinning, Step.WeavingKnitting, Step.Ennoblement ]
+            [ Step.MaterialAndSpinning, Step.WeavingKnitting, Step.Ennoblement ]
             (\step -> { step | mass = stepMass })
 
 
@@ -113,9 +115,7 @@ computeWeavingKnittingStepWaste ({ product } as simulator) =
     in
     simulator
         |> updateLifeCycleStep Step.WeavingKnitting (\step -> { step | mass = stepMass, waste = weavingKnittingWaste })
-        |> updateLifeCycleSteps
-            [ Step.Material, Step.Spinning ]
-            (\step -> { step | mass = stepMass })
+        |> updateLifeCycleSteps [ Step.MaterialAndSpinning ] (\step -> { step | mass = stepMass })
 
 
 computeMaterialStepWaste : Simulator -> Simulator
@@ -131,10 +131,7 @@ computeMaterialStepWaste ({ material } as simulator) =
             baseMass + stepWaste
     in
     simulator
-        |> updateLifeCycleStep Step.Material (\step -> { step | mass = stepMass, waste = stepWaste })
-        |> updateLifeCycleSteps
-            [ Step.Spinning ]
-            (\step -> { step | mass = stepMass })
+        |> updateLifeCycleStep Step.MaterialAndSpinning (\step -> { step | mass = stepMass, waste = stepWaste })
 
 
 computeTransportSummaries : Simulator -> Simulator

@@ -19,8 +19,7 @@ type alias Step =
 
 type Label
     = Default
-    | Material -- Matière
-    | Spinning -- Filature
+    | MaterialAndSpinning -- Matière & Filature
     | WeavingKnitting -- Tissage & Tricotage
     | Making -- Confection
     | Ennoblement -- Ennoblement
@@ -29,7 +28,7 @@ type Label
 
 default : Step
 default =
-    { label = Material
+    { label = MaterialAndSpinning
     , country = Country.France
     , editable = False
     , mass = 0
@@ -39,26 +38,14 @@ default =
     }
 
 
-material : Step
-material =
-    { label = Material
-    , country = Country.China -- note: ADEME makes Asia the default for spinning
+materialAndSpinning : Step
+materialAndSpinning =
+    { label = MaterialAndSpinning
+    , country = Country.China -- note: ADEME makes Asia the default for raw material + spinning
     , editable = False
     , mass = 0
     , waste = 0
     , transport = Transport.defaultInitialSummary
-    , co2 = 0
-    }
-
-
-spinning : Step
-spinning =
-    { label = Spinning
-    , country = Country.China -- note: ADEME makes Asia the default for spinning
-    , editable = False
-    , mass = 0
-    , waste = 0
-    , transport = Transport.defaultSummary
     , co2 = 0
     }
 
@@ -142,11 +129,8 @@ labelToString label =
         Default ->
             "Par défaut"
 
-        Material ->
-            "Matière première"
-
-        Spinning ->
-            "Filature"
+        MaterialAndSpinning ->
+            "Matière & Filature"
 
         WeavingKnitting ->
             "Tissage & tricotage"
@@ -164,11 +148,8 @@ labelToString label =
 labelFromString : String -> Label
 labelFromString label =
     case label of
-        "Matière première" ->
-            Material
-
-        "Filature" ->
-            Spinning
+        "Matière & Filature" ->
+            MaterialAndSpinning
 
         "Tissage & tricotage" ->
             WeavingKnitting

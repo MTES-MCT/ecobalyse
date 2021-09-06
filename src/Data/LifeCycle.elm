@@ -15,8 +15,7 @@ type alias LifeCycle =
 default : LifeCycle
 default =
     Array.fromList
-        [ Step.material
-        , Step.spinning
+        [ Step.materialAndSpinning
         , Step.weavingKnitting
         , Step.ennoblement
         , Step.confection
@@ -38,9 +37,10 @@ computeSummaryBetween : Step -> Maybe Step -> Transport.Summary
 computeSummaryBetween current maybeNext =
     -- TODO: handle special case for Distribution: (Step.Distribution, Nothing)
     case ( current.label, maybeNext ) of
-        ( Step.Material, Just _ ) ->
+        ( Step.MaterialAndSpinning, Just next ) ->
             -- First initial material step has specific defaults
             Transport.defaultInitialSummary
+                |> Transport.addToSummary (Transport.getTransportBetween current.country next.country)
 
         ( _, Just next ) ->
             Transport.getTransportBetween current.country next.country |> Transport.toSummary
