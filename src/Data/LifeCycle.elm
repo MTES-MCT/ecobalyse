@@ -82,16 +82,20 @@ computeTransportSummaries lifeCycle =
 
 computeTransportSummary : LifeCycle -> Transport.Summary
 computeTransportSummary =
-    computeTransportSummaries
-        >> Array.foldl
-            (\{ transport } summary ->
-                { summary
-                    | road = summary.road + transport.road
-                    , sea = summary.sea + transport.sea
-                    , air = summary.air + transport.air
-                }
-            )
-            Transport.defaultSummary
+    Array.foldl
+        (\{ transport } summary ->
+            { summary
+                | road = summary.road + transport.road
+                , sea = summary.sea + transport.sea
+                , air = summary.air + transport.air
+            }
+        )
+        Transport.defaultSummary
+
+
+computeFinalCo2Score : LifeCycle -> Float
+computeFinalCo2Score =
+    Array.foldl (\{ co2 } finalScore -> finalScore + co2) 0
 
 
 getStep : Step.Label -> LifeCycle -> Maybe Step

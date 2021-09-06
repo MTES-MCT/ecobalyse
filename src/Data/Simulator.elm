@@ -1,5 +1,6 @@
 module Data.Simulator exposing (..)
 
+import Data.CountryProcess as CountryProcess
 import Data.LifeCycle as LifeCycle exposing (LifeCycle)
 import Data.Material as Material exposing (Material)
 import Data.Process as Process
@@ -71,8 +72,10 @@ compute simulator =
         --
         -- CO2 SCORES
         --
-        -- Compute Material step co2 score
+        -- Compute Material & Spinning step co2 score
         |> computeMaterialAndSpinningCo2Score
+        -- Compute Weaving & Knitting step co2 score
+        |> computeWeavingKnittingCo2Score
         --
         -- TRANSPORTS
         --
@@ -80,25 +83,64 @@ compute simulator =
         |> computeTransportSummaries
         -- Compute transport summary
         |> computeTransportSummary
+        --
+        -- FINAL CO2 SCORE
+        --
+        |> computeFinalCo2Score
 
 
 computeMaterialAndSpinningCo2Score : Simulator -> Simulator
 computeMaterialAndSpinningCo2Score ({ material } as simulator) =
     let
         climateChange =
-            Process.findByUuid material.process_uuid |> .climateChange
+            Process.findByUuid material.materialProcessUuid |> .climateChange
     in
     simulator
-        -- Material & spinning CO2 costs
         |> updateLifeCycleStep Step.MaterialAndSpinning
             (\step -> { step | co2 = climateChange * step.mass })
+
+
+computeWeavingKnittingCo2Score : Simulator -> Simulator
+computeWeavingKnittingCo2Score ({ product } as simulator) =
+    simulator
+        |> updateLifeCycleStep Step.WeavingKnitting
+            (\step ->
+                let
+                    previousStepMass =
+                        simulator.lifeCycle
+                            |> LifeCycle.getStep Step.Ennoblement
+                            |> Maybe.map .mass
+                            |> Maybe.withDefault 0
+
+                    -- Note: weaving and knitting processes are the same across all
+                    -- countries and are defined by product
+                    weavingKnittingProcess =
+                        Product.getWeavingKnittingProcess product
+
+                    electricityKWh =
+                        -- NOTE: knitted elec is computed against previous step mass,
+                        -- weaved elec is computed against current step mass
+                        if product.knitted then
+                            previousStepMass * weavingKnittingProcess.elec / 3.6
+
+                        else
+                            (step.mass * weavingKnittingProcess.elec_pppm)
+                                * (step.mass * 1000 * toFloat product.ppm / toFloat product.grammage)
+
+                    averageMix =
+                        CountryProcess.get step.country
+                            |> Maybe.map (.averageMix >> .climateChange)
+                            |> Maybe.withDefault 0
+                in
+                { step | co2 = electricityKWh * averageMix }
+            )
 
 
 computeMakingStepWaste : Simulator -> Simulator
 computeMakingStepWaste ({ mass, product } as simulator) =
     let
         confectionWaste =
-            Process.findByUuid product.process_uuid |> .waste
+            Process.findByUuid product.makingProcessUuid |> .waste
 
         stepMass =
             -- (product weight + textile waste for confection) / (1 - PCR waste rate)
@@ -120,16 +162,8 @@ computeWeavingKnittingStepWaste ({ product } as simulator) =
         baseMass =
             simulator.lifeCycle |> LifeCycle.getStep Step.Making |> Maybe.map .mass |> Maybe.withDefault 0
 
-        wasteProcessName =
-            -- Note: process names are unique, so let's use them as is
-            if product.knitted then
-                "Tricotage"
-
-            else
-                "Tissage (habillement)"
-
         weavingKnittingWaste =
-            Process.findByName wasteProcessName |> .waste |> (*) baseMass
+            product |> Product.getWeavingKnittingProcess |> .waste |> (*) baseMass
 
         stepMass =
             baseMass + weavingKnittingWaste
@@ -146,7 +180,7 @@ computeMaterialStepWaste ({ material } as simulator) =
             simulator.lifeCycle |> LifeCycle.getStep Step.WeavingKnitting |> Maybe.map .mass |> Maybe.withDefault 0
 
         stepWaste =
-            Process.findByUuid material.process_uuid |> .waste |> (*) baseMass
+            Process.findByUuid material.materialProcessUuid |> .waste |> (*) baseMass
 
         stepMass =
             baseMass + stepWaste
@@ -163,6 +197,11 @@ computeTransportSummaries =
 computeTransportSummary : Simulator -> Simulator
 computeTransportSummary simulator =
     { simulator | transport = simulator.lifeCycle |> LifeCycle.computeTransportSummary }
+
+
+computeFinalCo2Score : Simulator -> Simulator
+computeFinalCo2Score simulator =
+    { simulator | co2 = LifeCycle.computeFinalCo2Score simulator.lifeCycle }
 
 
 updateLifeCycle : (LifeCycle -> LifeCycle) -> Simulator -> Simulator

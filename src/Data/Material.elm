@@ -7,7 +7,7 @@ import Json.Encode as Encode
 
 
 type alias Material =
-    { process_uuid : String
+    { materialProcessUuid : String
     , name : String
     , category : Category
     }
@@ -20,7 +20,7 @@ choices =
         |> Process.cat2 Process.Material
         |> List.map
             (\{ uuid, name, cat3 } ->
-                { process_uuid = uuid
+                { materialProcessUuid = uuid
                 , name = name
                 , category =
                     case cat3 of
@@ -41,7 +41,7 @@ cotton =
     choices
         |> List.filter (.name >> (==) "Fil de coton conventionnel, inventaire partiellement agrégé")
         |> List.head
-        |> Maybe.withDefault { process_uuid = "", name = "", category = Category.Natural }
+        |> Maybe.withDefault { materialProcessUuid = "", name = "", category = Category.Natural }
 
 
 decode : Decoder Material
@@ -55,12 +55,12 @@ decode =
 encode : Material -> Encode.Value
 encode v =
     Encode.object
-        [ ( "process_uuid", Encode.string v.process_uuid )
+        [ ( "materialProcessUuid", Encode.string v.materialProcessUuid )
         , ( "name", Encode.string v.name )
         , ( "category", Category.encode v.category )
         ]
 
 
 findByProcessUuid : String -> Maybe Material
-findByProcessUuid process_uuid =
-    choices |> List.filter (\m -> m.process_uuid == process_uuid) |> List.head
+findByProcessUuid materialProcessUuid =
+    choices |> List.filter (\m -> m.materialProcessUuid == materialProcessUuid) |> List.head

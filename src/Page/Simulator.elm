@@ -137,7 +137,10 @@ materialInput material =
             |> List.map
                 (\m ->
                     option
-                        [ value m.process_uuid, selected (material.process_uuid == m.process_uuid), title m.name ]
+                        [ value m.materialProcessUuid
+                        , selected (material.materialProcessUuid == m.materialProcessUuid)
+                        , title m.name
+                        ]
                         [ text m.name ]
                 )
             |> select

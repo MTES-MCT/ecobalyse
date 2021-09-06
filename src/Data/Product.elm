@@ -1,5 +1,6 @@
-module Data.Product exposing (Product, choices, decode, encode, findById, tShirt)
+module Data.Product exposing (..)
 
+import Data.Process as Process exposing (Process)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
 
@@ -12,7 +13,7 @@ type alias Product =
     , ppm : Int -- pick per meter
     , grammage : Int
     , knitted : Bool -- True: Tricotage (Knitting); False: Tissage (Weaving)
-    , process_uuid : String
+    , makingProcessUuid : String
     }
 
 
@@ -25,20 +26,20 @@ choices =
     -- Confection (débardeur, tee-shirt, combinaison);26e3ca02-9bc0-45b4-b8b4-73f4b3701ad5
     -- Confection (chemisier, manteau, veste, cape, robe);7fe48d7c-a568-4bd5-a3ac-cfa88255b4fe
     -- Confection (ceinture, châle, chapeau, sac, écharpe);0a260a3f-260e-4b43-a0df-0cf673fda960
-    [ { id = "1", name = "Cape", mass = 0.95, pcrWaste = 0.2, ppm = 1600, grammage = 140, knitted = False, process_uuid = "7fe48d7c-a568-4bd5-a3ac-cfa88255b4fe" }
-    , { id = "2", name = "Châle", mass = 0.11, pcrWaste = 0.1, ppm = 1600, grammage = 140, knitted = False, process_uuid = "0a260a3f-260e-4b43-a0df-0cf673fda960" }
-    , { id = "3", name = "Chemisier", mass = 0.25, pcrWaste = 0.2, ppm = 5000, grammage = 40, knitted = False, process_uuid = "7fe48d7c-a568-4bd5-a3ac-cfa88255b4fe" }
-    , { id = "4", name = "Débardeur", mass = 0.17, pcrWaste = 0.15, ppm = 0, grammage = 0, knitted = True, process_uuid = "26e3ca02-9bc0-45b4-b8b4-73f4b3701ad5" }
-    , { id = "5", name = "Echarpe", mass = 0.11, pcrWaste = 0.1, ppm = 1600, grammage = 140, knitted = False, process_uuid = "0a260a3f-260e-4b43-a0df-0cf673fda960" }
-    , { id = "6", name = "Gilet", mass = 0.5, pcrWaste = 0.2, ppm = 0, grammage = 0, knitted = True, process_uuid = "387059fc-72cb-4a92-b1e7-2ef9242f8380" }
-    , { id = "7", name = "Jean", mass = 0.45, pcrWaste = 0.22, ppm = 3000, grammage = 140, knitted = False, process_uuid = "1f428a50-73c0-4fc1-ab39-00fd312458ee" }
-    , { id = "8", name = "Jupe", mass = 0.3, pcrWaste = 0.2, ppm = 5000, grammage = 40, knitted = False, process_uuid = "387059fc-72cb-4a92-b1e7-2ef9242f8380" }
-    , { id = "9", name = "Manteau", mass = 0.95, pcrWaste = 0.2, ppm = 1600, grammage = 140, knitted = False, process_uuid = "7fe48d7c-a568-4bd5-a3ac-cfa88255b4fe" }
-    , { id = "10", name = "Pantalon", mass = 0.45, pcrWaste = 0.2, ppm = 3000, grammage = 140, knitted = False, process_uuid = "387059fc-72cb-4a92-b1e7-2ef9242f8380" }
-    , { id = "11", name = "Pull", mass = 0.5, pcrWaste = 0.2, ppm = 0, grammage = 0, knitted = True, process_uuid = "387059fc-72cb-4a92-b1e7-2ef9242f8380" }
-    , { id = "12", name = "Robe", mass = 0.3, pcrWaste = 0.2, ppm = 5000, grammage = 40, knitted = False, process_uuid = "7fe48d7c-a568-4bd5-a3ac-cfa88255b4fe" }
+    [ { id = "1", name = "Cape", mass = 0.95, pcrWaste = 0.2, ppm = 1600, grammage = 140, knitted = False, makingProcessUuid = "7fe48d7c-a568-4bd5-a3ac-cfa88255b4fe" }
+    , { id = "2", name = "Châle", mass = 0.11, pcrWaste = 0.1, ppm = 1600, grammage = 140, knitted = False, makingProcessUuid = "0a260a3f-260e-4b43-a0df-0cf673fda960" }
+    , { id = "3", name = "Chemisier", mass = 0.25, pcrWaste = 0.2, ppm = 5000, grammage = 40, knitted = False, makingProcessUuid = "7fe48d7c-a568-4bd5-a3ac-cfa88255b4fe" }
+    , { id = "4", name = "Débardeur", mass = 0.17, pcrWaste = 0.15, ppm = 0, grammage = 0, knitted = True, makingProcessUuid = "26e3ca02-9bc0-45b4-b8b4-73f4b3701ad5" }
+    , { id = "5", name = "Echarpe", mass = 0.11, pcrWaste = 0.1, ppm = 1600, grammage = 140, knitted = False, makingProcessUuid = "0a260a3f-260e-4b43-a0df-0cf673fda960" }
+    , { id = "6", name = "Gilet", mass = 0.5, pcrWaste = 0.2, ppm = 0, grammage = 0, knitted = True, makingProcessUuid = "387059fc-72cb-4a92-b1e7-2ef9242f8380" }
+    , { id = "7", name = "Jean", mass = 0.45, pcrWaste = 0.22, ppm = 3000, grammage = 140, knitted = False, makingProcessUuid = "1f428a50-73c0-4fc1-ab39-00fd312458ee" }
+    , { id = "8", name = "Jupe", mass = 0.3, pcrWaste = 0.2, ppm = 5000, grammage = 40, knitted = False, makingProcessUuid = "387059fc-72cb-4a92-b1e7-2ef9242f8380" }
+    , { id = "9", name = "Manteau", mass = 0.95, pcrWaste = 0.2, ppm = 1600, grammage = 140, knitted = False, makingProcessUuid = "7fe48d7c-a568-4bd5-a3ac-cfa88255b4fe" }
+    , { id = "10", name = "Pantalon", mass = 0.45, pcrWaste = 0.2, ppm = 3000, grammage = 140, knitted = False, makingProcessUuid = "387059fc-72cb-4a92-b1e7-2ef9242f8380" }
+    , { id = "11", name = "Pull", mass = 0.5, pcrWaste = 0.2, ppm = 0, grammage = 0, knitted = True, makingProcessUuid = "387059fc-72cb-4a92-b1e7-2ef9242f8380" }
+    , { id = "12", name = "Robe", mass = 0.3, pcrWaste = 0.2, ppm = 5000, grammage = 40, knitted = False, makingProcessUuid = "7fe48d7c-a568-4bd5-a3ac-cfa88255b4fe" }
     , tShirt
-    , { id = "14", name = "Veste", mass = 0.95, pcrWaste = 0.2, ppm = 3000, grammage = 140, knitted = False, process_uuid = "7fe48d7c-a568-4bd5-a3ac-cfa88255b4fe" }
+    , { id = "14", name = "Veste", mass = 0.95, pcrWaste = 0.2, ppm = 3000, grammage = 140, knitted = False, makingProcessUuid = "7fe48d7c-a568-4bd5-a3ac-cfa88255b4fe" }
     ]
 
 
@@ -56,8 +57,17 @@ tShirt =
     , ppm = 0
     , grammage = 0
     , knitted = True
-    , process_uuid = "26e3ca02-9bc0-45b4-b8b4-73f4b3701ad5"
+    , makingProcessUuid = "26e3ca02-9bc0-45b4-b8b4-73f4b3701ad5"
     }
+
+
+getWeavingKnittingProcess : Product -> Process
+getWeavingKnittingProcess { knitted } =
+    if knitted then
+        Process.findByName "Tricotage"
+
+    else
+        Process.findByName "Tissage (habillement)"
 
 
 decode : Decoder Product
@@ -70,7 +80,7 @@ decode =
         (Decode.field "ppm" Decode.int)
         (Decode.field "grammage" Decode.int)
         (Decode.field "knitted" Decode.bool)
-        (Decode.field "process_uuid" Decode.string)
+        (Decode.field "makingProcessUuid" Decode.string)
 
 
 encode : Product -> Encode.Value
@@ -83,5 +93,5 @@ encode v =
         , ( "ppm", Encode.int v.ppm )
         , ( "grammage", Encode.int v.grammage )
         , ( "knitted", Encode.bool v.knitted )
-        , ( "process_uuid", Encode.string v.process_uuid )
+        , ( "makingProcessUuid", Encode.string v.makingProcessUuid )
         ]

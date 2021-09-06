@@ -14,6 +14,7 @@ suite =
             [ test "should compute default distances" <|
                 \_ ->
                     LifeCycle.default
+                        |> LifeCycle.computeTransportSummaries
                         |> LifeCycle.computeTransportSummary
                         |> Expect.equal
                             { air = 0, road = 4000, sea = 25548 }
@@ -21,6 +22,7 @@ suite =
                 \_ ->
                     LifeCycle.default
                         |> LifeCycle.updateStepCountry Step.Ennoblement India
+                        |> LifeCycle.computeTransportSummaries
                         |> LifeCycle.computeTransportSummary
                         |> Expect.equal
                             { air = 0, road = 3000, sea = 49468 }
