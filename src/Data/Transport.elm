@@ -113,8 +113,8 @@ distances =
         ]
 
 
-addToSummary : Transport -> Summary -> Summary
-addToSummary transport summary =
+addToSummary : Summary -> Transport -> Summary
+addToSummary summary transport =
     { summary
         | road = summary.road + calcInfo transport.road
         , sea = summary.sea + calcInfo transport.sea

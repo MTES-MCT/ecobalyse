@@ -33,20 +33,24 @@ encode =
     Encode.array Step.encode
 
 
-computeSummaryBetween : Step -> Maybe Step -> Transport.Summary
-computeSummaryBetween current maybeNext =
-    -- TODO: handle special case for Distribution: (Step.Distribution, Nothing)
-    case ( current.label, maybeNext ) of
-        ( Step.MaterialAndSpinning, Just next ) ->
-            -- First initial material step has specific defaults
-            Transport.defaultInitialSummary
-                |> Transport.addToSummary (Transport.getTransportBetween current.country next.country)
+computeSummaryBetween : Step -> Step -> Transport.Summary
+computeSummaryBetween current next =
+    let
+        transport =
+            Transport.getTransportBetween current.country next.country
+    in
+    case ( current.label, next.label ) of
+        ( Step.MaterialAndSpinning, Step.WeavingKnitting ) ->
+            -- Note: First initial material step has specific defaults
+            transport |> Transport.addToSummary Transport.defaultInitialSummary
 
-        ( _, Just next ) ->
-            Transport.getTransportBetween current.country next.country |> Transport.toSummary
+        ( Step.Distribution, Step.Distribution ) ->
+            -- TODO: handle special case for Distribution: (Step.Distribution, Nothing)
+            -- lookup previous step (confection) and extract road transport (damn…)
+            Transport.toSummary transport
 
         _ ->
-            Transport.getTransportBetween current.country current.country |> Transport.toSummary
+            Transport.toSummary transport
 
 
 handleAirTransport : Step -> Transport.Summary -> Transport.Summary
@@ -67,7 +71,9 @@ computeTransportSummaries lifeCycle =
             (\index current ->
                 { current
                     | transport =
-                        Array.get (index + 1) lifeCycle
+                        lifeCycle
+                            |> Array.get (index + 1)
+                            |> Maybe.withDefault current
                             |> computeSummaryBetween current
                             |> handleAirTransport current
                 }
