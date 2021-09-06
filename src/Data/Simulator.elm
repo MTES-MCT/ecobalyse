@@ -59,18 +59,39 @@ compute simulator =
     simulator
         -- Ensure end product mass is applied to the final Distribution step
         |> updateLifeCycleStep Step.Distribution (\step -> { step | mass = simulator.mass })
+        --
+        -- WASTE
+        --
         -- Compute inital required material mass
         |> computeMakingStepWaste
         -- Compute Knitting/Weawing material waste
         |> computeWeavingKnittingStepWaste
         -- Compute Material&Spinning material waste
         |> computeMaterialStepWaste
-        -- TODO: Compute Material step co2 score
-        -- |> computeMaterialCo2Score
+        --
+        -- CO2 SCORES
+        --
+        -- Compute Material step co2 score
+        |> computeMaterialAndSpinningCo2Score
+        --
+        -- TRANSPORTS
+        --
         -- Compute step transport
         |> computeTransportSummaries
         -- Compute transport summary
         |> computeTransportSummary
+
+
+computeMaterialAndSpinningCo2Score : Simulator -> Simulator
+computeMaterialAndSpinningCo2Score ({ material } as simulator) =
+    let
+        climateChange =
+            Process.findByUuid material.process_uuid |> .climateChange
+    in
+    simulator
+        -- Material & spinning CO2 costs
+        |> updateLifeCycleStep Step.MaterialAndSpinning
+            (\step -> { step | co2 = climateChange * step.mass })
 
 
 computeMakingStepWaste : Simulator -> Simulator
