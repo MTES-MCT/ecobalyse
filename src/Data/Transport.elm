@@ -1,7 +1,7 @@
 module Data.Transport exposing (..)
 
 import Data.Country as Country exposing (..)
-import Dict exposing (Dict)
+import Dict.Any as Dict exposing (AnyDict)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
 
@@ -16,6 +16,10 @@ type alias Ratio =
 
 type alias Info =
     ( Km, Ratio )
+
+
+type alias Distances =
+    AnyDict String Country (AnyDict String Country Transport)
 
 
 type alias Transport =
@@ -58,11 +62,11 @@ defaultInitial =
     { road = ( 2000, 1 ), sea = ( 4000, 1 ), air = ( 0, 0 ) }
 
 
-distances : Dict String (Dict String Transport)
+distances : Distances
 distances =
-    toDict
+    Dict.fromList Country.toString
         [ ( Turkey
-          , toDict
+          , Dict.fromList Country.toString
                 [ ( China, { road = ( 0, 0 ), sea = ( 16243, 1 ), air = ( 7100, 0.33 ) } )
                 , ( France, { road = ( 2798, 0.9 ), sea = ( 6226, 0.1 ), air = ( 2200, 0.33 ) } )
                 , ( India, { road = ( 0, 0 ), sea = ( 6655, 1 ), air = ( 4600, 0.33 ) } )
@@ -72,7 +76,7 @@ distances =
                 ]
           )
         , ( Tunisia
-          , toDict
+          , Dict.fromList Country.toString
                 [ ( China, { road = ( 0, 0 ), sea = ( 17637, 1 ), air = ( 8600, 0.33 ) } )
                 , ( France, { road = ( 0, 0 ), sea = ( 4343, 1 ), air = ( 1500, 0 ) } )
                 , ( India, { road = ( 0, 0 ), sea = ( 8048, 1 ), air = ( 6200, 0.33 ) } )
@@ -81,7 +85,7 @@ distances =
                 ]
           )
         , ( India
-          , toDict
+          , Dict.fromList Country.toString
                 [ ( China, { road = ( 0, 0 ), sea = ( 11274, 1 ), air = ( 3800, 0.33 ) } )
                 , ( France, { road = ( 0, 0 ), sea = ( 11960, 1 ), air = ( 6600, 0.33 ) } )
                 , ( India, defaultInland )
@@ -89,20 +93,20 @@ distances =
                 ]
           )
         , ( France
-          , toDict
+          , Dict.fromList Country.toString
                 [ ( China, { road = ( 0, 0 ), sea = ( 21548, 1 ), air = ( 8200, 0.33 ) } )
                 , ( France, defaultInland )
                 , ( Spain, { road = ( 801, 0.9 ), sea = ( 1672, 0.1 ), air = ( 1100, 0 ) } )
                 ]
           )
         , ( Spain
-          , toDict
+          , Dict.fromList Country.toString
                 [ ( China, { road = ( 0, 0 ), sea = ( 20898, 1 ), air = ( 9200, 0.33 ) } )
                 , ( Spain, defaultInland )
                 ]
           )
         , ( China
-          , toDict
+          , Dict.fromList Country.toString
                 [ ( China, defaultInland )
                 ]
           )
@@ -126,10 +130,10 @@ calcInfo ( km, ratio ) =
 getTransportBetween : Country -> Country -> Transport
 getTransportBetween cA cB =
     distances
-        |> Dict.get (Country.toString cA)
+        |> Dict.get cA
         |> Maybe.andThen
             (\countries ->
-                case Dict.get (Country.toString cB) countries of
+                case Dict.get cB countries of
                     Just transport ->
                         Just transport
 
@@ -138,11 +142,6 @@ getTransportBetween cA cB =
                         Just (getTransportBetween cB cA)
             )
         |> Maybe.withDefault default
-
-
-toDict : List ( Country, a ) -> Dict String a
-toDict =
-    List.map (Tuple.mapFirst Country.toString) >> Dict.fromList
 
 
 toSummary : Transport -> Summary
