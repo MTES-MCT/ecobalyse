@@ -18,7 +18,8 @@ type alias Product =
 
 choices : List Product
 choices =
-    -- process property uuid:
+    -- Note: we could probably attach the making process directly
+    -- Process uuid:
     -- Confection (jeans);1f428a50-73c0-4fc1-ab39-00fd312458ee
     -- Confection (gilet, jupe, pantalon, pull);387059fc-72cb-4a92-b1e7-2ef9242f8380
     -- Confection (débardeur, tee-shirt, combinaison);26e3ca02-9bc0-45b4-b8b4-73f4b3701ad5

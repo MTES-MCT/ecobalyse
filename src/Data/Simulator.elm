@@ -75,7 +75,7 @@ computeMakingStepWaste : Simulator -> Simulator
 computeMakingStepWaste ({ mass, product } as simulator) =
     let
         confectionWaste =
-            Process.findByUuid product.process_uuid |> Maybe.map .waste |> Maybe.withDefault 0
+            Process.findByUuid product.process_uuid |> .waste
 
         stepMass =
             -- (product weight + textile waste for confection) / (1 - PCR waste rate)
@@ -106,10 +106,7 @@ computeWeavingKnittingStepWaste ({ product } as simulator) =
                 "Tissage (habillement)"
 
         weavingKnittingWaste =
-            Process.findByName wasteProcessName
-                |> Maybe.map .waste
-                |> Maybe.withDefault 0
-                |> (*) baseMass
+            Process.findByName wasteProcessName |> .waste |> (*) baseMass
 
         stepMass =
             baseMass + weavingKnittingWaste
@@ -128,10 +125,7 @@ computeMaterialStepWaste ({ material } as simulator) =
             simulator.lifeCycle |> LifeCycle.getStep Step.WeavingKnitting |> Maybe.map .mass |> Maybe.withDefault 0
 
         stepWaste =
-            Process.findByUuid material.process_uuid
-                |> Maybe.map .waste
-                |> Maybe.withDefault 0
-                |> (*) baseMass
+            Process.findByUuid material.process_uuid |> .waste |> (*) baseMass
 
         stepMass =
             baseMass + stepWaste
