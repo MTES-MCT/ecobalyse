@@ -11,27 +11,43 @@ import Views.Format as Format
 type alias Bar =
     { label : String
     , co2 : Float
+    , width : Float
     , percent : Float
     }
 
 
 makeBars : Simulator -> List Bar
 makeBars simulator =
-    simulator.lifeCycle
-        |> Array.toList
-        |> List.filter (\{ label } -> label /= Step.Distribution)
-        |> List.map
-            (\step ->
-                { label = Step.labelToString step.label
-                , co2 = step.co2
-                , percent = step.co2 / simulator.co2 * toFloat 100
-                }
-            )
-        |> (::)
+    let
+        maxScore =
+            simulator.lifeCycle
+                |> Array.map .co2
+                |> Array.push simulator.transport.co2
+                |> Array.toList
+                |> List.maximum
+                |> Maybe.withDefault 0
+
+        stepBars =
+            simulator.lifeCycle
+                |> Array.toList
+                |> List.filter (\{ label } -> label /= Step.Distribution)
+                |> List.map
+                    (\step ->
+                        { label = Step.labelToString step.label
+                        , co2 = step.co2
+                        , width = step.co2 / maxScore * toFloat 100
+                        , percent = step.co2 / simulator.co2 * toFloat 100
+                        }
+                    )
+
+        transportBar =
             { label = "Transport total"
             , co2 = simulator.transport.co2
+            , width = simulator.transport.co2 / maxScore * toFloat 100
             , percent = simulator.transport.co2 / simulator.co2 * toFloat 100
             }
+    in
+    stepBars ++ [ transportBar ]
 
 
 barView : Bar -> Html msg
@@ -45,11 +61,11 @@ barView bar =
                 [ class "bg-primary"
                 , style "height" "1rem"
                 , style "line-height" "1rem"
-                , style "width" (String.fromFloat bar.percent ++ "%")
+                , style "width" (String.fromFloat bar.width ++ "%")
                 ]
                 []
             ]
-        , td [ class "d-none d-sm-block text-center py-1 ps-2 pe-3 text-truncate" ]
+        , td [ class "d-none d-sm-block text-end py-1 ps-2 text-truncate" ]
             [ bar.percent |> Format.formatFloat "%" |> text ]
         ]
 
