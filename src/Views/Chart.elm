@@ -1,7 +1,7 @@
 module Views.Chart exposing (..)
 
 import Array
-import Data.Simulator as Simulator exposing (Simulator)
+import Data.Simulator exposing (Simulator)
 import Data.Step as Step
 import Html exposing (..)
 import Html.Attributes exposing (..)

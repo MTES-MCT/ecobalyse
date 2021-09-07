@@ -133,13 +133,13 @@ labelToString label =
             "Matière & Filature"
 
         WeavingKnitting ->
-            "Tissage & tricotage"
+            "Tissage & Tricotage"
 
         Making ->
             "Confection"
 
         Ennoblement ->
-            "Ennoblissement"
+            "Teinture"
 
         Distribution ->
             "Distribution"
@@ -151,13 +151,13 @@ labelFromString label =
         "Matière & Filature" ->
             MaterialAndSpinning
 
-        "Tissage & tricotage" ->
+        "Tissage & Tricotage" ->
             WeavingKnitting
 
         "Confection" ->
             Making
 
-        "Ennoblissement" ->
+        "Teinture" ->
             Ennoblement
 
         "Distribution" ->
