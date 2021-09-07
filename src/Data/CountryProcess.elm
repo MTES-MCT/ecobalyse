@@ -6,7 +6,7 @@ import Dict.Any as Dict exposing (AnyDict)
 
 
 type alias CountryProcesses =
-    { averageMix : Process -- Electricité
+    { electricity : Process -- Electricité
     , heat : Process -- Chaleur
     , dyeing : Process -- Teinture
     , airTransport : Process -- Transport aérien
@@ -27,7 +27,7 @@ countryProcesses =
     -- Q: should we rather work with uuids? Process names have the advantage of readability…
     Dict.fromList Country.toString
         [ ( China
-          , { averageMix = Process.findByName "Mix électrique réseau, CN"
+          , { electricity = Process.findByName "Mix électrique réseau, CN"
             , heat = Process.findByName "Mix Vapeur (mix technologique|mix de production, en sortie de chaudière), RSA"
             , dyeing = Process.findByName "Teinture sur étoffe, procédé majorant, traitement inefficace des eaux usées"
             , airTransport = Process.findByName "Transport aérien long-courrier (dont flotte, utilisation et infrastructure) [tkm], GLO"
@@ -38,7 +38,7 @@ countryProcesses =
             }
           )
         , ( France
-          , { averageMix = Process.findByName "Mix électrique réseau, FR"
+          , { electricity = Process.findByName "Mix électrique réseau, FR"
             , heat = Process.findByName "Mix Vapeur (mix technologique|mix de production, en sortie de chaudière), FR"
             , dyeing = Process.findByName "Teinture sur étoffe, procédé représentatif, traitement très efficace des eaux usées"
             , airTransport = Process.findByName "Transport aérien long-courrier (dont flotte, utilisation et infrastructure) [tkm], GLO"
@@ -49,7 +49,7 @@ countryProcesses =
             }
           )
         , ( India
-          , { averageMix = Process.findByName "Mix électrique réseau, IN"
+          , { electricity = Process.findByName "Mix électrique réseau, IN"
             , heat = Process.findByName "Mix Vapeur (mix technologique|mix de production, en sortie de chaudière), RSA"
             , dyeing = Process.findByName "Teinture sur étoffe, procédé majorant, traitement inefficace des eaux usées"
             , airTransport = Process.findByName "Transport aérien long-courrier (dont flotte, utilisation et infrastructure) [tkm], GLO"
@@ -60,7 +60,7 @@ countryProcesses =
             }
           )
         , ( Spain
-          , { averageMix = Process.findByName "Mix électrique réseau, ES"
+          , { electricity = Process.findByName "Mix électrique réseau, ES"
             , heat = Process.findByName "Vapeur à partir de gaz naturel (mix de technologies de combustion et d'épuration des effluents gazeux|en sortie de chaudière|Puissance non spécifiée), ES"
             , dyeing = Process.findByName "Teinture sur étoffe, procédé représentatif, traitement très efficace des eaux usées"
             , airTransport = Process.findByName "Transport aérien long-courrier (dont flotte, utilisation et infrastructure) [tkm], GLO"
@@ -71,7 +71,7 @@ countryProcesses =
             }
           )
         , ( Tunisia
-          , { averageMix = Process.findByName "Mix électrique réseau, TN"
+          , { electricity = Process.findByName "Mix électrique réseau, TN"
             , heat = Process.findByName "Mix Vapeur (mix technologique|mix de production, en sortie de chaudière), RSA"
             , dyeing = Process.findByName "Teinture sur étoffe, procédé majorant, traitement inefficace des eaux usées"
             , airTransport = Process.findByName "Transport aérien long-courrier (dont flotte, utilisation et infrastructure) [tkm], GLO"
@@ -82,7 +82,7 @@ countryProcesses =
             }
           )
         , ( Turkey
-          , { averageMix = Process.findByName "Mix électrique réseau, TR"
+          , { electricity = Process.findByName "Mix électrique réseau, TR"
             , heat = Process.findByName "Mix Vapeur (mix technologique|mix de production, en sortie de chaudière), RSA"
             , dyeing = Process.findByName "Teinture sur étoffe, procédé majorant, traitement inefficace des eaux usées"
             , airTransport = Process.findByName "Transport aérien long-courrier (dont flotte, utilisation et infrastructure) [tkm], GLO"
