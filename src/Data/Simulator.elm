@@ -78,6 +78,8 @@ compute simulator =
         |> computeWeavingKnittingCo2Score
         -- Compute Ennoblement step co2 score
         |> computeEnnoblementCo2Score
+        -- Compute Making step co2 score
+        |> computeMakingCo2Score
         --
         -- TRANSPORTS
         --
@@ -91,50 +93,78 @@ compute simulator =
         |> computeFinalCo2Score
 
 
-computeEnnoblementCo2Score : Simulator -> Simulator
-computeEnnoblementCo2Score simulator =
+computeMakingCo2Score : Simulator -> Simulator
+computeMakingCo2Score ({ product } as simulator) =
     simulator
-        |> updateLifeCycleStep Step.Ennoblement
+        |> updateLifeCycleStep Step.Making
             (\step ->
                 let
-                    processes =
-                        CountryProcess.get step.country
-
-                    dyeingCo2 =
-                        processes
-                            |> Maybe.map (.dyeing >> .climateChange)
-                            |> Maybe.withDefault 0
+                    makingCo2 =
+                        Process.findByUuid product.makingProcessUuid
+                            |> .climateChange
                             |> (*) step.mass
-
-                    heatMJ =
-                        processes
-                            |> Maybe.map (.dyeing >> .heat)
-                            |> Maybe.withDefault 0
-                            |> (*) step.mass
-
-                    heatCo2 =
-                        processes
-                            |> Maybe.map (.heat >> .climateChange)
-                            |> Maybe.withDefault 0
-                            |> (*) heatMJ
 
                     electricityMJ =
-                        processes
-                            |> Maybe.map (.dyeing >> .elec)
-                            |> Maybe.withDefault 0
+                        Process.findByUuid product.makingProcessUuid
+                            |> .elec
                             |> (*) step.mass
 
                     electricityKWh =
                         electricityMJ / 3.6
 
                     elecCo2 =
-                        processes
+                        CountryProcess.get step.country
                             |> Maybe.map (.electricity >> .climateChange)
                             |> Maybe.withDefault 0
                             |> (*) electricityKWh
                 in
-                { step | co2 = dyeingCo2 + heatCo2 + elecCo2 }
+                { step | co2 = makingCo2 + elecCo2 }
             )
+
+
+computeEnnoblementCo2Score : Simulator -> Simulator
+computeEnnoblementCo2Score =
+    updateLifeCycleStep Step.Ennoblement
+        (\step ->
+            let
+                processes =
+                    CountryProcess.get step.country
+
+                dyeingCo2 =
+                    processes
+                        |> Maybe.map (.dyeing >> .climateChange)
+                        |> Maybe.withDefault 0
+                        |> (*) step.mass
+
+                heatMJ =
+                    processes
+                        |> Maybe.map (.dyeing >> .heat)
+                        |> Maybe.withDefault 0
+                        |> (*) step.mass
+
+                heatCo2 =
+                    processes
+                        |> Maybe.map (.heat >> .climateChange)
+                        |> Maybe.withDefault 0
+                        |> (*) heatMJ
+
+                electricityMJ =
+                    processes
+                        |> Maybe.map (.dyeing >> .elec)
+                        |> Maybe.withDefault 0
+                        |> (*) step.mass
+
+                electricityKWh =
+                    electricityMJ / 3.6
+
+                elecCo2 =
+                    processes
+                        |> Maybe.map (.electricity >> .climateChange)
+                        |> Maybe.withDefault 0
+                        |> (*) electricityKWh
+            in
+            { step | co2 = dyeingCo2 + heatCo2 + elecCo2 }
+        )
 
 
 computeMaterialAndSpinningCo2Score : Simulator -> Simulator
