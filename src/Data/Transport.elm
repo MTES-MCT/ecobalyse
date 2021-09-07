@@ -33,6 +33,7 @@ type alias Summary =
     { road : Km
     , sea : Km
     , air : Km
+    , co2 : Float
     }
 
 
@@ -43,13 +44,13 @@ default =
 
 defaultSummary : Summary
 defaultSummary =
-    { road = 0, sea = 0, air = 0 }
+    { road = 0, sea = 0, air = 0, co2 = 0 }
 
 
 defaultInitialSummary : Summary
 defaultInitialSummary =
     -- Note: used as the defaults for the initial Material&Spinning step
-    { road = 2000, sea = 4000, air = 0 }
+    { road = 2000, sea = 4000, air = 0, co2 = 0 }
 
 
 defaultInland : Transport
@@ -146,15 +147,20 @@ getTransportBetween cA cB =
 
 toSummary : Transport -> Summary
 toSummary { road, air, sea } =
-    { road = calcInfo road, air = calcInfo air, sea = calcInfo sea }
+    { road = calcInfo road
+    , air = calcInfo air
+    , sea = calcInfo sea
+    , co2 = 0
+    }
 
 
 decodeSummary : Decoder Summary
 decodeSummary =
-    Decode.map3 Summary
+    Decode.map4 Summary
         (Decode.field "road" Decode.int)
         (Decode.field "air" Decode.int)
         (Decode.field "sea" Decode.int)
+        (Decode.field "co2" Decode.float)
 
 
 encodeSummary : Summary -> Encode.Value
@@ -163,4 +169,5 @@ encodeSummary summary =
         [ ( "road", Encode.int summary.road )
         , ( "air", Encode.int summary.air )
         , ( "sea", Encode.int summary.sea )
+        , ( "co2", Encode.float summary.co2 )
         ]
