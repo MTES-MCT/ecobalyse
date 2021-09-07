@@ -230,18 +230,24 @@ stepView index current =
         , div
             [ class "card text-center" ]
             [ div [ class "card-header text-muted" ]
-                [ span [ class "me-1 fw-bold" ]
-                    [ current.co2 |> Format.formatFloat "kg eq, CO₂" |> text
+                [ span [ class "fw-bold" ]
+                    [ (current.co2 + current.transport.co2)
+                        |> Format.formatFloat "kg eq, CO₂"
+                        |> text
                     ]
                 ]
-            , div [ class "card-body text-muted" ]
-                [ div [ class "text-muted mt-1 fs-7 mb-2" ]
+            , div [ class "card-body text-muted fs-7" ]
+                [ div [ class "text-muted mb-2" ]
                     [ text "Masse: "
                     , Format.formatFloat "kg" current.mass |> text
                     , text " - Perte: "
                     , Format.formatFloat "kg" current.waste |> text
                     ]
                 , transportWidget True current.transport
+                , div [ class "text-muted mt-2" ]
+                    [ strong [] [ text "Transport\u{00A0}:\u{00A0}" ]
+                    , current.transport.co2 |> Format.formatFloat "kg eq, CO₂" |> text
+                    ]
                 ]
             ]
         ]
