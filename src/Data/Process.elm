@@ -130,6 +130,31 @@ findByName name =
     processes |> List.filter (.name >> (==) name) |> List.head |> Maybe.withDefault noOp
 
 
+airTransport : Process
+airTransport =
+    findByName "Transport aérien long-courrier (dont flotte, utilisation et infrastructure) [tkm], GLO"
+
+
+seaTransport : Process
+seaTransport =
+    findByName "Transport maritime de conteneurs 27,500 t (dont flotte, utilisation et infrastructure) [tkm], GLO"
+
+
+roadTransportPreMaking : Process
+roadTransportPreMaking =
+    findByName "Transport en camion (dont parc, utilisation et infrastructure) (50%) [tkm], GLO"
+
+
+roadTransportPostMaking : Process
+roadTransportPostMaking =
+    findByName "Transport en camion (dont parc, utilisation et infrastructure) (50%) [tkm], RER"
+
+
+distribution : Process
+distribution =
+    findByName "Transport en camion non spécifié France (dont parc, utilisation et infrastructure) (50%) [tkm], FR"
+
+
 cat1 : Cat1 -> List Process -> List Process
 cat1 c1 =
     List.filter (.cat1 >> (==) c1)
