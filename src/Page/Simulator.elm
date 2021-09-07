@@ -232,22 +232,20 @@ stepView index current =
             [ class "card text-center" ]
             [ div [ class "card-header text-muted" ]
                 [ span [ class "fw-bold" ]
-                    [ (current.co2 + current.transport.co2)
-                        |> Format.formatFloat "kg eq, CO₂"
-                        |> text
+                    [ Format.kgCo2 (current.co2 + current.transport.co2)
                     ]
                 ]
             , div [ class "card-body text-muted fs-7" ]
                 [ div [ class "text-muted mb-2" ]
                     [ text "Masse: "
-                    , Format.formatFloat "kg" current.mass |> text
+                    , Format.kg current.mass
                     , text " - Perte: "
-                    , Format.formatFloat "kg" current.waste |> text
+                    , Format.kg current.waste
                     ]
                 , transportWidget True current.transport
                 , div [ class "text-muted mt-2" ]
                     [ strong [] [ text "Transport\u{00A0}:\u{00A0}" ]
-                    , current.transport.co2 |> Format.formatFloat "kg eq, CO₂" |> text
+                    , Format.kgCo2 current.transport.co2
                     ]
                 ]
             ]
@@ -271,15 +269,15 @@ summaryView model =
     div [ class "mb-3" ]
         [ div [ class "card text-white bg-primary mb-3" ]
             [ div [ class "card-header" ]
-                [ em [] [ text model.product.name ]
+                [ strong [] [ text model.product.name ]
                 , text " en "
                 , em [] [ text model.material.name ]
                 , text " de "
-                , em [] [ text (String.fromFloat model.mass ++ "kg") ]
+                , strong [] [ Format.kg model.mass ]
                 ]
             , div [ class "card-body" ]
                 [ p [ class "display-5 text-center" ]
-                    [ model.co2 |> Format.formatFloat "kg eq, CO₂" |> text ]
+                    [ Format.kgCo2 model.co2 ]
                 , model.lifeCycle
                     |> LifeCycle.computeTransportSummary
                     |> transportWidget False

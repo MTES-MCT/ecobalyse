@@ -21,8 +21,14 @@ $viewport-xl: 1200px;
 
 @import "../node_modules/bootstrap/scss/bootstrap.scss";
 
-.fs-7 {
-  font-size: 0.85rem;
+.fs {
+  &-7 {
+    font-size: 0.85rem;
+  }
+
+  &-70p {
+    font-size: 80%;
+  }
 }
 
 .md-content {

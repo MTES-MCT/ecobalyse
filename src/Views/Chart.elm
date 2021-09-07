@@ -55,7 +55,7 @@ barView bar =
     tr [ class "fs-7" ]
         [ th [ class "text-end text-truncate py-1 pe-2" ] [ text bar.label ]
         , td [ class "d-none d-sm-block text-end py-1 ps-2 pe-3 text-truncate" ]
-            [ bar.co2 |> Format.formatFloat "kg eq, CO₂" |> text ]
+            [ Format.kgCo2 bar.co2 ]
         , td [ class "w-100 py-1" ]
             [ div
                 [ class "bg-primary"
