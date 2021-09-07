@@ -15,6 +15,7 @@ import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (onClick, onInput)
 import Json.Encode as Encode
 import Route
+import Views.Chart as Chart
 import Views.Format as Format
 import Views.Icon as Icon
 
@@ -316,7 +317,9 @@ view _ model =
                 ]
             , div [ class "col-lg-5 col-xl-6" ]
                 [ summaryView model
-                , img [ class "w-100 mb-3", src "https://via.placeholder.com/400x200?text=Graphic+goes+here" ] []
+
+                -- , img [ class "w-100 mb-3", src "https://via.placeholder.com/400x200?text=Graphic+goes+here" ] []
+                , Chart.view model
                 , details []
                     [ summary [] [ text "Debug" ]
                     , pre [ class "mt-3" ]
