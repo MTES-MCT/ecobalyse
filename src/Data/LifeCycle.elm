@@ -2,6 +2,7 @@ module Data.LifeCycle exposing (..)
 
 import Array exposing (Array)
 import Data.Country exposing (Country)
+import Data.Process as Process
 import Data.Step as Step exposing (Step)
 import Data.Transport as Transport
 import Json.Decode as Decode exposing (Decoder)
@@ -44,11 +45,6 @@ computeSummaryBetween current next =
             -- Note: First initial material step has specific defaults
             transport |> Transport.addToSummary Transport.defaultInitialSummary
 
-        ( Step.Distribution, Step.Distribution ) ->
-            -- TODO: handle special case for Distribution: (Step.Distribution, Nothing)
-            -- lookup previous step (confection) and extract road transport (damn…)
-            Transport.toSummary transport
-
         _ ->
             Transport.toSummary transport
 
@@ -76,6 +72,19 @@ computeTransportSummaries lifeCycle =
                             |> Maybe.withDefault current
                             |> computeSummaryBetween current
                             |> handleAirTransport current
+                            |> Transport.applyProcess current.mass
+                                (case current.label of
+                                    -- FIXME: in Excel, the distribution road distance is eventually
+                                    -- substracted from the one of the making step.
+                                    Step.Making ->
+                                        Process.roadTransportPostMaking
+
+                                    Step.Distribution ->
+                                        Process.distribution
+
+                                    _ ->
+                                        Process.roadTransportPreMaking
+                                )
                 }
             )
 
@@ -88,6 +97,7 @@ computeTransportSummary =
                 | road = summary.road + transport.road
                 , sea = summary.sea + transport.sea
                 , air = summary.air + transport.air
+                , co2 = summary.co2 + transport.co2
             }
         )
         Transport.defaultSummary
@@ -95,7 +105,9 @@ computeTransportSummary =
 
 computeFinalCo2Score : LifeCycle -> Float
 computeFinalCo2Score =
-    Array.foldl (\{ co2 } finalScore -> finalScore + co2) 0
+    Array.foldl
+        (\{ co2, transport } finalScore -> finalScore + co2 + transport.co2)
+        0
 
 
 getStep : Step.Label -> LifeCycle -> Maybe Step
