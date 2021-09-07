@@ -35,7 +35,7 @@ makeBars simulator =
                     (\step ->
                         { label = Step.labelToString step.label
                         , co2 = step.co2
-                        , width = step.co2 / maxScore * toFloat 100
+                        , width = clamp 0 100 (step.co2 / maxScore * toFloat 100)
                         , percent = step.co2 / simulator.co2 * toFloat 100
                         }
                     )
@@ -44,7 +44,7 @@ makeBars simulator =
             { label = "Transport total"
             , co2 = simulator.transport.co2
             , width = simulator.transport.co2 / maxScore * toFloat 100
-            , percent = simulator.transport.co2 / simulator.co2 * toFloat 100
+            , percent = clamp 0 100 (simulator.transport.co2 / simulator.co2 * toFloat 100)
             }
     in
     stepBars ++ [ transportBar ]
@@ -54,7 +54,7 @@ barView : Bar -> Html msg
 barView bar =
     tr [ class "fs-7" ]
         [ th [ class "text-end text-truncate py-1 pe-2" ] [ text bar.label ]
-        , td [ class "d-none d-sm-block text-center py-1 ps-2 pe-3 text-truncate" ]
+        , td [ class "d-none d-sm-block text-end py-1 ps-2 pe-3 text-truncate" ]
             [ bar.co2 |> Format.formatFloat "kg eq, CO₂" |> text ]
         , td [ class "w-100 py-1" ]
             [ div
