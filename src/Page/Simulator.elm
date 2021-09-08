@@ -281,8 +281,17 @@ summaryView model =
                 , strong [] [ Format.kg model.mass ]
                 ]
             , div [ class "card-body" ]
-                [ p [ class "display-5 text-center" ]
-                    [ Format.kgCo2 model.co2 ]
+                [ div [ class "d-flex justify-content-center align-items-center mb-3" ]
+                    [ img
+                        [ src <| "img/product/" ++ model.product.name ++ "-inv.png"
+                        , class "mx-2"
+                        , style "width" "3em"
+                        , style "height" "3em"
+                        ]
+                        []
+                    , div [ class "display-5 text-center" ]
+                        [ Format.kgCo2 model.co2 ]
+                    ]
                 , model.lifeCycle
                     |> LifeCycle.computeTransportSummary
                     |> transportWidget False
