@@ -111,9 +111,12 @@ materialCategorySelect : Material -> Html Msg
 materialCategorySelect material =
     div [ class "mb-2" ]
         [ div [ class "form-label fw-bold" ] [ text "Matières premières" ]
-        , [ Category.Natural, Category.Synthetic, Category.Recycled ]
+        , [ ( Category.Natural, "leaf" )
+          , ( Category.Synthetic, "lab" )
+          , ( Category.Recycled, "recycle" )
+          ]
             |> List.map
-                (\m ->
+                (\( m, icon ) ->
                     button
                         [ type_ "button"
                         , classList
@@ -124,7 +127,9 @@ materialCategorySelect material =
                             ]
                         , onClick (UpdateMaterialCategory m)
                         ]
-                        [ m |> Category.toString |> text ]
+                        [ span [ class "me-1" ] [ Icon.icon icon ]
+                        , m |> Category.toString |> text
+                        ]
                 )
             |> div [ class "btn-group w-100" ]
         ]

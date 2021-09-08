@@ -21,6 +21,10 @@ $viewport-xl: 1200px;
 
 @import "../node_modules/bootstrap/scss/bootstrap.scss";
 
+.icon {
+  vertical-align: text-bottom;
+}
+
 .fs {
   &-7 {
     font-size: 0.85rem;

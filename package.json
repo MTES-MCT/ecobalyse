@@ -5,7 +5,8 @@
   "author": "You",
   "license": "MIT",
   "scripts": {
-    "build": "npm run copy-assets && npm run sass:build && npm run elm:build && npm run elm:optimize",
+    "build": "npm run copy-assets && npm run sass:build && npm run elm:build && npm run elm:optimize && npm run build:clean",
+    "build:clean": "rm -rf build/icomoon/demo.html build/icomoon/demo-files",
     "copy-assets": "rimraf build && mkdir build && cp -r public/* build",
     "deploy": "npm run build && gh-pages --dist build/",
     "elm:build": "elm make src/Main.elm --optimize --output=build/app.js",

@@ -1,18 +1,24 @@
 module Views.Icon exposing (..)
 
 import Html exposing (..)
+import Html.Attributes exposing (..)
+
+
+icon : String -> Html msg
+icon name =
+    i [ attribute "aria-hidden" "true", class ("icon icon-" ++ name) ] []
 
 
 boat : Html msg
 boat =
-    text " 🛥 "
+    icon "ship"
 
 
 bus : Html msg
 bus =
-    text " 🚌 "
+    icon "truck"
 
 
 plane : Html msg
 plane =
-    text " ✈ "
+    icon "plane"

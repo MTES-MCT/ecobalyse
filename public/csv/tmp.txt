@@ -1,5 +1,0 @@
-notes excel:
-
-- waste : poids du fil (B25) + textile waste (B23)
-- dans MVP, le textile waste est un ratio (poucentage)
- -> poids mat prem + 20% du poids mat prem
