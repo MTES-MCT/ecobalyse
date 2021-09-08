@@ -11,6 +11,7 @@ type ActivePage
     = Home
     | Simulator
     | Editorial String
+    | Examples
     | Other
 
 
@@ -50,6 +51,7 @@ navbar { activePage } =
             [ h1 [ class "display-5 fw-bold" ] [ a [ class "text-light", Route.href Route.Home ] [ text "wikicarbone" ] ]
             , [ linkIf Home Route.Home "Accueil"
               , linkIf Simulator Route.Simulator "Simulateur"
+              , linkIf Examples Route.Examples "Exemples"
               , linkIf (Editorial "methodology") (Route.Editorial "methodology") "Méthodologie"
               , a [ class "text-light", href "https://github.com/MTES-MCT/wikicarbone/" ] [ text "Code source" ]
               ]

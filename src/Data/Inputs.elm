@@ -40,6 +40,13 @@ presets =
     , { mass = 0.17
       , material = Material.findByName "Filament d'acrylique"
       , product = Product.findByName "Jupe"
-      , countries = [ Country.China, Country.China, Country.China, Country.China, Country.China ]
+      , countries = [ Country.China, Country.China, Country.China, Country.China, Country.France ]
+      }
+
+    -- Pantalon circuit Turquie
+    , { mass = 0.17
+      , material = Material.findByName "Fil de lin (filasse)"
+      , product = Product.findByName "Pantalon"
+      , countries = [ Country.China, Country.Turkey, Country.Turkey, Country.Turkey, Country.France ]
       }
     ]

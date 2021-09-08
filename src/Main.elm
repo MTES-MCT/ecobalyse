@@ -5,6 +5,7 @@ import Browser.Navigation as Nav
 import Data.Session as Session exposing (Session)
 import Html exposing (..)
 import Page.Editorial as Editorial
+import Page.Examples as Examples
 import Page.Home as Home
 import Page.Simulator as Simulator
 import Ports
@@ -24,6 +25,7 @@ type Page
     | HomePage Home.Model
     | SimulatorPage Simulator.Model
     | EditorialPage Editorial.Model
+    | ExamplesPage Examples.Model
     | NotFoundPage
 
 
@@ -37,6 +39,7 @@ type Msg
     = HomeMsg Home.Msg
     | SimulatorMsg Simulator.Msg
     | EditorialMsg Editorial.Msg
+    | ExamplesMsg Examples.Msg
     | StoreChanged String
     | UrlChanged Url
     | UrlRequested Browser.UrlRequest
@@ -75,6 +78,9 @@ setRoute maybeRoute model =
 
         Just (Route.Editorial slug) ->
             toPage EditorialPage (Editorial.init slug) EditorialMsg
+
+        Just Route.Examples ->
+            toPage ExamplesPage Examples.init ExamplesMsg
 
 
 init : Flags -> Url -> Nav.Key -> ( Model, Cmd Msg )
@@ -158,6 +164,9 @@ subscriptions model =
             EditorialPage _ ->
                 Sub.none
 
+            ExamplesPage _ ->
+                Sub.none
+
             NotFoundPage ->
                 Sub.none
 
@@ -190,6 +199,11 @@ view { page, session } =
             Editorial.view session editorialModel
                 |> mapMsg EditorialMsg
                 |> Page.frame (pageConfig (Page.Editorial editorialModel.slug))
+
+        ExamplesPage editorialModel ->
+            Examples.view session editorialModel
+                |> mapMsg ExamplesMsg
+                |> Page.frame (pageConfig Page.Examples)
 
         NotFoundPage ->
             ( "Not Found", [ Html.text "Not found" ] )

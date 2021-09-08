@@ -11,6 +11,7 @@ type Route
     = Home
     | Simulator
     | Editorial String
+    | Examples
 
 
 parser : Parser (Route -> a) a
@@ -19,6 +20,7 @@ parser =
         [ Parser.map Home Parser.top
         , Parser.map Simulator (Parser.s "simulator")
         , Parser.map Editorial (Parser.s "content" </> Parser.string)
+        , Parser.map Examples (Parser.s "examples")
         ]
 
 
@@ -74,5 +76,8 @@ toString route =
 
                 Editorial slug ->
                     [ "content", slug ]
+
+                Examples ->
+                    [ "examples" ]
     in
     "#/" ++ String.join "/" pieces

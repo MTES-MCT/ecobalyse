@@ -34,6 +34,11 @@ encode =
     Encode.array Step.encode
 
 
+stepCountries : LifeCycle -> List Country
+stepCountries =
+    Array.map .country >> Array.toList
+
+
 computeSummaryBetween : Step -> Step -> Transport.Summary
 computeSummaryBetween current next =
     let
