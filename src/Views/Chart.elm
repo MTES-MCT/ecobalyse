@@ -66,7 +66,7 @@ barView bar =
                 []
             ]
         , td [ class "d-none d-sm-block text-end py-1 ps-2 text-truncate" ]
-            [ bar.percent |> Format.formatFloat "%" |> text ]
+            [ Format.percent bar.percent ]
         ]
 
 
