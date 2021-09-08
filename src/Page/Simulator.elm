@@ -9,15 +9,15 @@ import Data.Product as Product exposing (Product)
 import Data.Session exposing (Session)
 import Data.Simulator as Simulator exposing (Simulator)
 import Data.Step as Step exposing (Step)
-import Data.Transport as Transport
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (onClick, onInput)
 import Json.Encode as Encode
 import Route
-import Views.Chart as Chart
 import Views.Format as Format
 import Views.Icon as Icon
+import Views.Summary as SummaryView
+import Views.Transport as TransportView
 
 
 type alias Model =
@@ -191,30 +191,6 @@ countrySelect step =
         ]
 
 
-transportWidget : Bool -> Transport.Summary -> Html Msg
-transportWidget fullWidth { road, air, sea } =
-    div
-        [ classList
-            [ ( "d-flex fs-7", True )
-            , ( "justify-content-between", fullWidth )
-            , ( "justify-content-center", not fullWidth )
-            ]
-        ]
-        [ span [ class "mx-2" ]
-            [ span [ class "me-1" ] [ Icon.plane ]
-            , air |> Format.formatInt "km" |> text
-            ]
-        , span [ class "mx-2" ]
-            [ span [ class "me-1" ] [ Icon.boat ]
-            , sea |> Format.formatInt "km" |> text
-            ]
-        , span [ class "mx-2" ]
-            [ span [ class "me-1" ] [ Icon.bus ]
-            , road |> Format.formatInt "km" |> text
-            ]
-        ]
-
-
 downArrow : Html Msg
 downArrow =
     img [ src "img/down-arrow-icon.png" ] []
@@ -247,7 +223,7 @@ stepView index current =
                     , text " - Perte: "
                     , Format.kg current.waste
                     ]
-                , transportWidget True current.transport
+                , TransportView.view True current.transport
                 , div [ class "text-muted mt-2" ]
                     [ strong [] [ text "Transport\u{00A0}:\u{00A0}" ]
                     , Format.kgCo2 current.transport.co2
@@ -266,37 +242,6 @@ lifeCycleStepsView lifeCycle =
             |> Array.toList
             |> List.intersperse (div [ class "text-center" ] [ downArrow ])
             |> div []
-        ]
-
-
-summaryView : Model -> Html Msg
-summaryView model =
-    div [ class "mb-3" ]
-        [ div [ class "card text-white bg-primary mb-3" ]
-            [ div [ class "card-header" ]
-                [ strong [] [ text model.product.name ]
-                , text " en "
-                , em [] [ text <| Material.shortName model.material ]
-                , text " de "
-                , strong [] [ Format.kg model.mass ]
-                ]
-            , div [ class "card-body" ]
-                [ div [ class "d-flex justify-content-center align-items-center mb-3" ]
-                    [ img
-                        [ src <| "img/product/" ++ model.product.name ++ "-inv.png"
-                        , class "mx-2"
-                        , style "width" "3em"
-                        , style "height" "3em"
-                        ]
-                        []
-                    , div [ class "display-5 text-center" ]
-                        [ Format.kgCo2 model.co2 ]
-                    ]
-                , model.lifeCycle
-                    |> LifeCycle.computeTransportSummary
-                    |> transportWidget False
-                ]
-            ]
         ]
 
 
@@ -328,10 +273,7 @@ view _ model =
                     ]
                 ]
             , div [ class "col-lg-5 col-xl-6" ]
-                [ summaryView model
-
-                -- , img [ class "w-100 mb-3", src "https://via.placeholder.com/400x200?text=Graphic+goes+here" ] []
-                , Chart.view model
+                [ SummaryView.view model
                 , details []
                     [ summary [] [ text "Debug" ]
                     , pre [ class "mt-3" ]

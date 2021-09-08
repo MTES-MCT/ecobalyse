@@ -72,12 +72,8 @@ barView bar =
 
 view : Simulator -> Html msg
 view simulator =
-    div [ class "card mb-3" ]
-        [ div [ class "card-body py-2" ]
-            [ table [ class "mb-0" ]
-                [ makeBars simulator
-                    |> List.map barView
-                    |> tbody []
-                ]
-            ]
+    table [ class "mb-0" ]
+        [ makeBars simulator
+            |> List.map barView
+            |> tbody []
         ]
