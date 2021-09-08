@@ -2,6 +2,7 @@ module Data.Material exposing (..)
 
 import Data.Material.Category as Category exposing (Category)
 import Data.Process as Process
+import Html.Attributes exposing (name)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
 
@@ -64,3 +65,28 @@ encode v =
 findByProcessUuid : String -> Maybe Material
 findByProcessUuid materialProcessUuid =
     choices |> List.filter (\m -> m.materialProcessUuid == materialProcessUuid) |> List.head
+
+
+shortName : Material -> String
+shortName =
+    .name
+        >> String.replace "Fil de " ""
+        >> String.replace "Fil d'" ""
+        >> String.replace "Filament de " ""
+        >> String.replace "Filament d'" ""
+        >> String.replace "Filament bi-composant " ""
+        >> String.replace "Feuille de " ""
+        >> String.replace "Production de filament de " ""
+        >> String.replace "Production de fil de " ""
+        >> String.replace "Production de fil d'" ""
+        >> ucFirst
+
+
+ucFirst : String -> String
+ucFirst string =
+    case String.split "" string of
+        x :: rest ->
+            String.toUpper x :: rest |> String.join ""
+
+        [] ->
+            string

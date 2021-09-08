@@ -276,7 +276,7 @@ summaryView model =
             [ div [ class "card-header" ]
                 [ strong [] [ text model.product.name ]
                 , text " en "
-                , em [] [ text model.material.name ]
+                , em [] [ text <| Material.shortName model.material ]
                 , text " de "
                 , strong [] [ Format.kg model.mass ]
                 ]
