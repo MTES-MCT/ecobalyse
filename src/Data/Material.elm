@@ -1,7 +1,7 @@
 module Data.Material exposing (..)
 
 import Data.Material.Category as Category exposing (Category)
-import Data.Process as Process
+import Data.Process as Process exposing (findByName)
 import Html.Attributes exposing (name)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
@@ -39,16 +39,23 @@ choices =
 
 cotton : Material
 cotton =
-    choices
-        |> List.filter (.name >> (==) "Fil de coton conventionnel, inventaire partiellement agrégé")
-        |> List.head
-        |> Maybe.withDefault { materialProcessUuid = "", name = "", category = Category.Natural }
+    findByName "Fil de coton conventionnel, inventaire partiellement agrégé"
+
+
+findByName : String -> Material
+findByName name =
+    choices |> List.filter (.name >> (==) name) |> List.head |> Maybe.withDefault invalid
+
+
+invalid : Material
+invalid =
+    { materialProcessUuid = "", name = "<invalid>", category = Category.Natural }
 
 
 decode : Decoder Material
 decode =
     Decode.map3 Material
-        (Decode.field "id" Decode.string)
+        (Decode.field "materialProcessUuid" Decode.string)
         (Decode.field "name" Decode.string)
         (Decode.field "category" Category.decode)
 

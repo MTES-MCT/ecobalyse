@@ -48,10 +48,28 @@ findById id =
     choices |> List.filter (.id >> (==) id) |> List.head
 
 
+findByName : String -> Product
+findByName name =
+    choices |> List.filter (.name >> (==) name) |> List.head |> Maybe.withDefault invalid
+
+
 tShirt : Product
 tShirt =
     { id = "13"
     , name = "T-shirt"
+    , mass = 0.17
+    , pcrWaste = 0.15
+    , ppm = 0
+    , grammage = 0
+    , knitted = True
+    , makingProcessUuid = "26e3ca02-9bc0-45b4-b8b4-73f4b3701ad5"
+    }
+
+
+invalid : Product
+invalid =
+    { id = ""
+    , name = "<invalide>"
     , mass = 0.17
     , pcrWaste = 0.15
     , ppm = 0

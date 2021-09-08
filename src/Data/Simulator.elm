@@ -1,6 +1,8 @@
 module Data.Simulator exposing (..)
 
+import Array
 import Data.CountryProcess as CountryProcess
+import Data.Inputs exposing (Inputs)
 import Data.LifeCycle as LifeCycle exposing (LifeCycle)
 import Data.Material as Material exposing (Material)
 import Data.Process as Process
@@ -53,6 +55,28 @@ encode v =
         , ( "co2", Encode.float v.co2 )
         , ( "transport", Transport.encodeSummary v.transport )
         ]
+
+
+fromInputs : Inputs -> Simulator
+fromInputs { mass, material, product, countries } =
+    compute
+        { default
+            | mass = mass
+            , material = material
+            , product = product
+            , lifeCycle =
+                default.lifeCycle
+                    |> Array.indexedMap
+                        (\index step ->
+                            { step
+                                | country =
+                                    countries
+                                        |> Array.fromList
+                                        |> Array.get index
+                                        |> Maybe.withDefault step.country
+                            }
+                        )
+        }
 
 
 compute : Simulator -> Simulator
