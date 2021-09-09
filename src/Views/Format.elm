@@ -1,5 +1,6 @@
 module Views.Format exposing (..)
 
+import Data.Unit as Unit
 import FormatNumber
 import FormatNumber.Locales exposing (Decimals(..), frenchLocale)
 import Html exposing (..)
@@ -30,9 +31,9 @@ kgCo2 =
     formatRichFloat 2 "kgCO₂e"
 
 
-kg : Float -> Html msg
+kg : Unit.Kg -> Html msg
 kg =
-    formatRichFloat 2 "kg"
+    Unit.kgToFloat >> formatRichFloat 2 "kg"
 
 
 percent : Float -> Html msg

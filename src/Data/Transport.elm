@@ -2,6 +2,7 @@ module Data.Transport exposing (..)
 
 import Data.Country as Country exposing (..)
 import Data.Process as Process exposing (Process)
+import Data.Unit as Unit
 import Dict.Any as Dict exposing (AnyDict)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
@@ -124,8 +125,8 @@ addToSummary summary transport =
     }
 
 
-applyProcess : Float -> Process -> Summary -> Summary
-applyProcess mass roadProcess summary =
+applyProcess : Unit.Kg -> Process -> Summary -> Summary
+applyProcess (Unit.Kg mass) roadProcess summary =
     let
         ( airTransportCo2, seaTransportCo2, roadTransportCo2 ) =
             ( Process.airTransport |> .climateChange |> (*) mass |> (*) (toFloat summary.air)

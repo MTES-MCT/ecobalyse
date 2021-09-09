@@ -10,6 +10,7 @@ import Data.Product as Product exposing (Product)
 import Data.Session exposing (Session)
 import Data.Simulator as Simulator exposing (Simulator)
 import Data.Step as Step exposing (Step)
+import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (onClick, onInput)
@@ -29,7 +30,7 @@ type alias Model =
 type Msg
     = CopyToClipBoard String
     | Reset
-    | UpdateMass Float
+    | UpdateMass Unit.Kg
     | UpdateMaterial Material
     | UpdateMaterialCategory Category
     | UpdateStepCountry Step.Label Country
@@ -97,8 +98,8 @@ update session msg model =
             )
 
 
-massInput : Float -> Html Msg
-massInput mass =
+massInput : Unit.Kg -> Html Msg
+massInput (Unit.Kg mass) =
     div [ class "mb-3" ]
         [ label [ for "mass", class "form-label fw-bold" ] [ text "Masse du produit fini" ]
         , div
@@ -110,7 +111,7 @@ massInput mass =
                 , Attr.min "0.05"
                 , step "0.05"
                 , value <| String.fromFloat mass
-                , onInput (String.toFloat >> Maybe.withDefault mass >> UpdateMass)
+                , onInput (String.toFloat >> Maybe.withDefault mass >> Unit.Kg >> UpdateMass)
                 ]
                 []
             , span [ class "input-group-text" ] [ text "kg" ]
