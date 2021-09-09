@@ -79,6 +79,15 @@ fromInputs { mass, material, product, countries } =
         }
 
 
+toInputs : Simulator -> Inputs
+toInputs { mass, product, material, lifeCycle } =
+    { mass = mass
+    , product = product
+    , material = material
+    , countries = lifeCycle |> Array.map .country |> Array.toList
+    }
+
+
 compute : Simulator -> Simulator
 compute simulator =
     simulator

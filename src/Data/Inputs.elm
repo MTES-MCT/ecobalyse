@@ -1,10 +1,13 @@
 module Data.Inputs exposing (..)
 
+import Base64
 import Data.Country as Country exposing (Country)
 import Data.Material as Material exposing (Material)
 import Data.Product as Product exposing (Product)
 import FormatNumber
 import FormatNumber.Locales exposing (Decimals(..), frenchLocale)
+import Json.Decode as Decode exposing (Decoder)
+import Json.Encode as Encode
 
 
 type alias Inputs =
@@ -71,3 +74,36 @@ presets =
       , countries = [ Country.China, Country.Turkey, Country.Turkey, Country.Turkey, Country.France ]
       }
     ]
+
+
+decode : Decoder Inputs
+decode =
+    Decode.map4 Inputs
+        (Decode.field "mass" Decode.float)
+        (Decode.field "material" Material.decode)
+        (Decode.field "product" Product.decode)
+        (Decode.field "countries" (Decode.list Country.decode))
+
+
+encode : Inputs -> Encode.Value
+encode inputs =
+    Encode.object
+        [ ( "mass", Encode.float inputs.mass )
+        , ( "material", Material.encode inputs.material )
+        , ( "product", Product.encode inputs.product )
+        , ( "countries", Encode.list Country.encode inputs.countries )
+        ]
+
+
+b64decode : String -> Result String Inputs
+b64decode =
+    Base64.decode
+        >> Result.andThen
+            (Decode.decodeString decode
+                >> Result.mapError Decode.errorToString
+            )
+
+
+b64encode : Inputs -> String
+b64encode =
+    encode >> Encode.encode 0 >> Base64.encode
