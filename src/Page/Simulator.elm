@@ -236,15 +236,20 @@ stepView index current =
                     [ Format.kgCo2 (current.co2 + current.transport.co2)
                     ]
                 ]
-            , div [ class "card-body text-muted fs-7" ]
-                [ div [ class "text-muted mb-2" ]
-                    [ text "Masse: "
-                    , Format.kg current.mass
-                    , text " - Perte: "
-                    , Format.kg current.waste
+
+            -- <ul class="">
+            --     <li class="list-group-item">An item</li>
+            --     <li class="list-group-item">A second item</li>
+            --     <li class="list-group-item">A third item</li>
+            -- </ul>
+            , ul [ class "list-group list-group-flush fs-7" ]
+                [ li [ class "list-group-item text-muted d-flex justify-content-around" ]
+                    [ span [] [ text "Masse\u{00A0}: ", Format.kg current.mass ]
+                    , span [] [ text "Perte\u{00A0}: ", Format.kg current.waste ]
                     ]
-                , TransportView.view True current.transport
-                , div [ class "text-muted mt-2" ]
+                , li [ class "list-group-item text-muted" ]
+                    [ TransportView.view True current.transport ]
+                , li [ class "list-group-item text-muted" ]
                     [ strong [] [ text "Transport\u{00A0}:\u{00A0}" ]
                     , Format.kgCo2 current.transport.co2
                     ]
