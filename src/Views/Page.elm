@@ -48,7 +48,7 @@ navbar { activePage } =
     in
     header [ class "navbar navbar-dark bg-dark text-light shadow-sm" ]
         [ div [ class "container" ]
-            [ h1 [ class "display-5 fw-bold" ] [ a [ class "text-light", Route.href Route.Home ] [ text "wikicarbone" ] ]
+            [ h1 [ class "display-5 fw-bold" ] [ a [ class "text-light text-decoration-none", Route.href Route.Home ] [ text "wikicarbone" ] ]
             , [ linkIf Home Route.Home "Accueil"
               , linkIf Simulator (Route.Simulator Nothing) "Simulateur"
               , linkIf Examples Route.Examples "Exemples"
