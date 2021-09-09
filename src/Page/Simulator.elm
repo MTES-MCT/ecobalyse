@@ -181,13 +181,21 @@ countrySelect step =
                 , disabled (not step.editable) -- ADEME enforce Asia as a default for these, prevent update
                 , onInput (Country.fromString >> UpdateStepCountry step.label)
                 ]
-        , if not step.editable then
-            div [ class "form-text fs-7" ]
-                [ text "Champ non paramétrable"
-                ]
+        , case step.label of
+            Step.MaterialAndSpinning ->
+                div [ class "form-text fs-7" ]
+                    [ Icon.info
+                    , text " Ce champ sera bientôt paramétrable"
+                    ]
 
-          else
-            text ""
+            Step.Distribution ->
+                div [ class "form-text fs-7" ]
+                    [ Icon.exclamation
+                    , text " Champ non paramétrable"
+                    ]
+
+            _ ->
+                text ""
         ]
 
 

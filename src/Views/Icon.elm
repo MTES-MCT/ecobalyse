@@ -19,6 +19,16 @@ bus =
     icon "truck"
 
 
+info : Html msg
+info =
+    icon "info"
+
+
+exclamation : Html msg
+exclamation =
+    icon "exclamation"
+
+
 plane : Html msg
 plane =
     icon "plane"
