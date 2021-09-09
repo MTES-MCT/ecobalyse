@@ -32,7 +32,14 @@ update session msg model =
 view : Session -> Model -> ( String, List (Html Msg) )
 view _ _ =
     ( "Exemples"
-    , [ h2 [ class "mb-3" ] [ text "Exemples de simulation" ]
+    , [ div [ class "row" ]
+            [ div [ class "col-md-6" ]
+                [ h2 [ class "mb-3" ] [ text "Exemples de simulation" ]
+                ]
+            , div [ class "col-md-6 text-center text-md-end" ]
+                [ a [ Route.href Route.Simulator, class "btn btn-primary" ] [ text "Faire une simulation" ]
+                ]
+            ]
       , Inputs.presets
             |> List.map (Simulator.fromInputs >> SummaryView.view >> (\v -> div [ class "col" ] [ v ]))
             |> div [ class "row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4" ]
