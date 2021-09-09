@@ -1,11 +1,4 @@
-module Data.Country exposing
-    ( Country(..)
-    , choices
-    , decode
-    , encode
-    , fromString
-    , toString
-    )
+module Data.Country exposing (..)
 
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
@@ -46,8 +39,7 @@ encode country =
 fromString : String -> Country
 fromString country =
     case country of
-        -- NOTE: because ADEME requires Asia as default, we use this label and use China behind the scene
-        "Asie" ->
+        "Chine" ->
             China
 
         "France" ->
@@ -72,9 +64,8 @@ fromString country =
 toString : Country -> String
 toString country =
     case country of
-        -- NOTE: because ADEME requires Asia as default, we use this label and use China behind the scene
         China ->
-            "Asie"
+            "Chine"
 
         France ->
             "France"

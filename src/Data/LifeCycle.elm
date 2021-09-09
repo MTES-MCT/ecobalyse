@@ -34,9 +34,9 @@ encode =
     Encode.array Step.encode
 
 
-stepCountries : LifeCycle -> List Country
-stepCountries =
-    Array.map .country >> Array.toList
+stepCountryLabels : LifeCycle -> List String
+stepCountryLabels =
+    Array.toList >> List.map Step.countryLabel
 
 
 computeSummaryBetween : Step -> Step -> Transport.Summary

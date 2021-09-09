@@ -1,6 +1,5 @@
 module Views.Summary exposing (..)
 
-import Data.Country as Country
 import Data.LifeCycle as LifeCycle
 import Data.Material as Material
 import Data.Simulator exposing (Simulator)
@@ -35,8 +34,8 @@ view simulator =
                         [ Format.kgCo2 simulator.co2 ]
                     ]
                 , simulator.lifeCycle
-                    |> LifeCycle.stepCountries
-                    |> List.map (Country.toString >> (\c -> span [ class "badge bg-light text-primary" ] [ text c ]))
+                    |> LifeCycle.stepCountryLabels
+                    |> List.map (\label -> span [ class "badge bg-light text-primary" ] [ text label ])
                     |> List.intersperse (text " → ")
                     |> div [ class "text-center my-2 mb-3" ]
                 , simulator.lifeCycle

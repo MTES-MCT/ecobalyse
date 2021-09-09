@@ -98,6 +98,17 @@ distribution =
     }
 
 
+countryLabel : Step -> String
+countryLabel step =
+    -- NOTE: because ADEME requires Asia as default for the Material & Spinning step,
+    -- we use Asia as a label and use China behind the scene
+    if step.label == MaterialAndSpinning then
+        "Asie"
+
+    else
+        Country.toString step.country
+
+
 decode : Decoder Step
 decode =
     Decode.map7 Step

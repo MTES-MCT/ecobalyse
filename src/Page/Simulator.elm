@@ -175,7 +175,7 @@ countrySelect : Step -> Html Msg
 countrySelect step =
     div []
         [ Country.choices
-            |> List.map (\c -> option [ selected (step.country == c) ] [ text (Country.toString c) ])
+            |> List.map (\c -> option [ selected (step.country == c) ] [ text (Step.countryLabel { step | country = c }) ])
             |> select
                 [ class "form-select"
                 , disabled (not step.editable) -- ADEME enforce Asia as a default for these, prevent update
