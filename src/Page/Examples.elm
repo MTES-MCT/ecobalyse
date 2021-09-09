@@ -41,7 +41,7 @@ view _ _ =
                 ]
             ]
       , Inputs.presets
-            |> List.map (Simulator.fromInputs >> SummaryView.view >> (\v -> div [ class "col" ] [ v ]))
+            |> List.map (Simulator.fromInputs >> SummaryView.view True >> (\v -> div [ class "col" ] [ v ]))
             |> div [ class "row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4" ]
       , a [ Route.href Route.Home ] [ text "« Retour à l'accueil" ]
       ]

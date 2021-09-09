@@ -2,16 +2,17 @@ module Views.Summary exposing (..)
 
 import Data.LifeCycle as LifeCycle
 import Data.Material as Material
-import Data.Simulator exposing (Simulator)
+import Data.Simulator as Simulator exposing (Simulator)
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import Route exposing (Route(..))
 import Views.Chart as Chart
 import Views.Format as Format
 import Views.Transport as TransportView
 
 
-view : Simulator -> Html msg
-view simulator =
+view : Bool -> Simulator -> Html msg
+view reusable simulator =
     div [ class "mb-3" ]
         [ div [ class "card mb-3" ]
             [ div [ class "card-header text-white bg-primary d-flex justify-content-between" ]
@@ -45,5 +46,16 @@ view simulator =
             , div [ class "card-body px-2" ]
                 [ Chart.view simulator
                 ]
+            , if reusable then
+                div [ class "card-footer text-center" ]
+                    [ a
+                        [ class "btn btn-primary"
+                        , Route.href (Route.Simulator (Just (Simulator.toInputs simulator)))
+                        ]
+                        [ text "Reprendre cette simulation" ]
+                    ]
+
+              else
+                text ""
             ]
         ]

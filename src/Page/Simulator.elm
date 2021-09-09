@@ -289,7 +289,8 @@ shareLinkView session model =
                     [ Icon.clipboard
                     ]
                 ]
-            , div [ class "form-text fs-7" ] [ text "Copiez cette adresse pour partager votre simulation" ]
+            , div [ class "form-text fs-7" ]
+                [ text "Copiez cette adresse pour partager votre simulation" ]
             ]
         ]
 
@@ -323,7 +324,7 @@ view session model =
                 ]
             , div [ class "col-lg-5 col-xl-6" ]
                 [ div [ class "sticky-md-top" ]
-                    [ SummaryView.view model
+                    [ SummaryView.view False model
                     , shareLinkView session model
                     , details []
                         [ summary [] [ text "Debug" ]
