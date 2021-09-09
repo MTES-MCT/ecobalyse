@@ -16,6 +16,7 @@
     "sass:build": "sass styles/main.scss build/main.css",
     "sass:watch": "chokidar 'styles/main.scss' -c 'sass styles/main.scss public/main.css && touch src/Main.elm' --initial",
     "start": "concurrently -n \"sass,_elm\" -c \"green,blue\" -k \"npm run sass:watch\" \"npm run elm:live\"",
+    "start:debug": "concurrently -n \"sass,_elm\" -c \"green,blue\" -k \"npm run sass:watch\" \"npm run elm:debug\"",
     "test": "elm-test"
   },
   "uglify": {
