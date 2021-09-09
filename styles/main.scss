@@ -21,10 +21,6 @@ $viewport-xl: 1200px;
 
 @import "../node_modules/bootstrap/scss/bootstrap.scss";
 
-.icon {
-  vertical-align: text-bottom;
-}
-
 .fs {
   &-7 {
     font-size: 0.85rem;
@@ -33,6 +29,10 @@ $viewport-xl: 1200px;
   &-70p {
     font-size: 80%;
   }
+}
+
+.icon {
+  vertical-align: text-bottom;
 }
 
 .md-content {
@@ -55,5 +55,13 @@ $viewport-xl: 1200px;
     border-radius: 8px;
     color: #fff;
     padding: 1em;
+  }
+}
+
+.sticky-summary {
+  // TODO: stick permanently on top for smaller viewports
+  @media screen and (min-width: $viewport-lg) {
+    position: sticky;
+    top: 5px;
   }
 }

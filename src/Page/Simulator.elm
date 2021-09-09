@@ -273,7 +273,8 @@ view _ model =
                     ]
                 ]
             , div [ class "col-lg-5 col-xl-6" ]
-                [ SummaryView.view model
+                [ div [ class "sticky-summary" ]
+                    [ SummaryView.view model ]
                 , details []
                     [ summary [] [ text "Debug" ]
                     , pre [ class "mt-3" ]
