@@ -30,21 +30,42 @@ toLabel { mass, material, product, countries } =
 presets : List Inputs
 presets =
     [ -- T-shirt circuit France
-      { mass = 0.17
+      { mass = Product.tShirt.mass
       , material = Material.cotton
       , product = Product.tShirt
       , countries = []
       }
 
+    -- T-shirt circuit Europe
+    , { mass = Product.tShirt.mass
+      , material = Material.cotton
+      , product = Product.tShirt
+      , countries = [ Country.China, Country.Turkey, Country.Tunisia, Country.Spain, Country.France ]
+      }
+
+    -- T-shirt circuit Asie
+    , { mass = Product.tShirt.mass
+      , material = Material.cotton
+      , product = Product.tShirt
+      , countries = [ Country.China, Country.China, Country.China, Country.China, Country.France ]
+      }
+
     -- Jupe circuit Asie
-    , { mass = 0.17
+    , { mass = Product.findByName "Jupe" |> .mass
       , material = Material.findByName "Filament d'acrylique"
       , product = Product.findByName "Jupe"
       , countries = [ Country.China, Country.China, Country.China, Country.China, Country.France ]
       }
 
+    -- Manteau circuit Europe
+    , { mass = Product.findByName "Manteau" |> .mass
+      , material = Material.findByName "Fil de cachemire"
+      , product = Product.findByName "Manteau"
+      , countries = [ Country.China, Country.Turkey, Country.Tunisia, Country.Spain, Country.France ]
+      }
+
     -- Pantalon circuit Turquie
-    , { mass = 0.17
+    , { mass = Product.findByName "Pantalon" |> .mass
       , material = Material.findByName "Fil de lin (filasse)"
       , product = Product.findByName "Pantalon"
       , countries = [ Country.China, Country.Turkey, Country.Turkey, Country.Turkey, Country.France ]
