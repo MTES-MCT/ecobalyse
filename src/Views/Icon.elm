@@ -19,6 +19,11 @@ bus =
     icon "truck"
 
 
+clipboard : Html msg
+clipboard =
+    icon "clipboard"
+
+
 info : Html msg
 info =
     icon "info"

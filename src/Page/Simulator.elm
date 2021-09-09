@@ -14,6 +14,7 @@ import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (onClick, onInput)
 import Json.Encode as Encode
+import Ports
 import Route exposing (Route(..))
 import Views.Format as Format
 import Views.Icon as Icon
@@ -26,7 +27,8 @@ type alias Model =
 
 
 type Msg
-    = Reset
+    = CopyToClipBoard String
+    | Reset
     | UpdateMass Float
     | UpdateMaterial Material
     | UpdateMaterialCategory Category
@@ -51,6 +53,9 @@ init maybeInputs ({ store } as session) =
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
 update session msg model =
     case msg of
+        CopyToClipBoard shareableLink ->
+            ( model, session, Ports.copyToClipboard shareableLink )
+
         Reset ->
             ( Simulator.compute Simulator.default, session, Cmd.none )
 
@@ -259,8 +264,38 @@ lifeCycleStepsView lifeCycle =
         ]
 
 
+shareLinkView : Session -> Model -> Html Msg
+shareLinkView session model =
+    let
+        shareableLink =
+            model |> Simulator.toInputs |> Just |> Route.Simulator |> Route.toString |> (++) session.clientUrl
+    in
+    div [ class "card mb-3" ]
+        [ div [ class "card-header" ] [ text "Partager cette simulation" ]
+        , div [ class "card-body" ]
+            [ div
+                [ class "input-group" ]
+                [ input
+                    [ type_ "url"
+                    , class "form-control"
+                    , value shareableLink
+                    ]
+                    []
+                , button
+                    [ class "input-group-text"
+                    , title "Copier l'adresse"
+                    , onClick (CopyToClipBoard shareableLink)
+                    ]
+                    [ Icon.clipboard
+                    ]
+                ]
+            , div [ class "form-text fs-7" ] [ text "Copiez cette adresse pour partager votre simulation" ]
+            ]
+        ]
+
+
 view : Session -> Model -> ( String, List (Html Msg) )
-view _ model =
+view session model =
     ( "Simulateur"
     , [ h1 [ class "mb-3" ] [ text "Simulateur" ]
       , div [ class "row" ]
@@ -287,12 +322,14 @@ view _ model =
                     ]
                 ]
             , div [ class "col-lg-5 col-xl-6" ]
-                [ div [ class "sticky-summary" ]
-                    [ SummaryView.view model ]
-                , details []
-                    [ summary [] [ text "Debug" ]
-                    , pre [ class "mt-3" ]
-                        [ Simulator.encode model |> Encode.encode 2 |> text
+                [ div [ class "sticky-md-top" ]
+                    [ SummaryView.view model
+                    , shareLinkView session model
+                    , details []
+                        [ summary [] [ text "Debug" ]
+                        , pre [ class "mt-3" ]
+                            [ Simulator.encode model |> Encode.encode 2 |> text
+                            ]
                         ]
                     ]
                 ]
