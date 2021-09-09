@@ -30,6 +30,14 @@ toLabel { mass, material, product, countries } =
         ]
 
 
+defaults =
+    { mass = Product.tShirt.mass
+    , material = Material.cotton
+    , product = Product.tShirt
+    , countries = []
+    }
+
+
 presets : List Inputs
 presets =
     [ -- T-shirt circuit France

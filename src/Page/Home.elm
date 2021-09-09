@@ -31,7 +31,7 @@ view _ _ =
     ( "Home"
     , [ h2 [] [ text "Bienvenue sur Wikicarbone" ]
       , p [] [ text "Accélerer la mise en place de l'affichage environnemental" ]
-      , a [ class "btn btn-primary me-2", Route.href Route.Simulator ] [ text "Faire une simulation" ]
+      , a [ class "btn btn-primary me-2", Route.href (Route.Simulator Nothing) ] [ text "Faire une simulation" ]
       , a [ class "btn btn-secondary ms-2", Route.href Route.Examples ] [ text "voir des exemples" ]
       ]
     )

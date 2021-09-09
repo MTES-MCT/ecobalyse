@@ -1,6 +1,7 @@
 module Route exposing (Route(..), fromUrl, href, pushUrl)
 
 import Browser.Navigation as Nav
+import Data.Inputs as Inputs exposing (Inputs)
 import Html exposing (Attribute)
 import Html.Attributes as Attr
 import Url exposing (Url)
@@ -9,7 +10,7 @@ import Url.Parser as Parser exposing ((</>), (<?>), Parser)
 
 type Route
     = Home
-    | Simulator
+    | Simulator (Maybe Inputs)
     | Editorial String
     | Examples
 
@@ -18,10 +19,21 @@ parser : Parser (Route -> a) a
 parser =
     Parser.oneOf
         [ Parser.map Home Parser.top
-        , Parser.map Simulator (Parser.s "simulator")
+        , Parser.map (Simulator Nothing) (Parser.s "simulator")
+        , Parser.map (Simulator << Just) (Parser.s "simulator" </> parseInputs)
         , Parser.map Editorial (Parser.s "content" </> Parser.string)
         , Parser.map Examples (Parser.s "examples")
         ]
+
+
+parseInputs : Parser (Inputs -> a) a
+parseInputs =
+    Parser.string
+        |> Parser.map
+            (Inputs.b64decode
+                >> Result.toMaybe
+                >> Maybe.withDefault Inputs.defaults
+            )
 
 
 {-| Note: as elm-kitten relies on URL fragment based routing, the source URL is
@@ -71,7 +83,10 @@ toString route =
                 Home ->
                     []
 
-                Simulator ->
+                Simulator (Just inputs) ->
+                    [ "simulator", Inputs.b64encode inputs ]
+
+                Simulator Nothing ->
                     [ "simulator" ]
 
                 Editorial slug ->

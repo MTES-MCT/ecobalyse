@@ -37,7 +37,7 @@ view _ _ =
                 [ h2 [ class "mb-3" ] [ text "Exemples de simulation" ]
                 ]
             , div [ class "col-md-6 text-center text-md-end" ]
-                [ a [ Route.href Route.Simulator, class "btn btn-primary" ] [ text "Faire une simulation" ]
+                [ a [ Route.href (Route.Simulator Nothing), class "btn btn-primary" ] [ text "Faire une simulation" ]
                 ]
             ]
       , Inputs.presets

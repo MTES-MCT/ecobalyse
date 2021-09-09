@@ -2,6 +2,7 @@ module Page.Simulator exposing (Model, Msg, init, update, view)
 
 import Array
 import Data.Country as Country exposing (Country)
+import Data.Inputs exposing (Inputs)
 import Data.LifeCycle as LifeCycle exposing (LifeCycle)
 import Data.Material as Material exposing (Material)
 import Data.Material.Category as Category exposing (Category)
@@ -13,7 +14,7 @@ import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (onClick, onInput)
 import Json.Encode as Encode
-import Route
+import Route exposing (Route(..))
 import Views.Format as Format
 import Views.Icon as Icon
 import Views.Summary as SummaryView
@@ -33,10 +34,15 @@ type Msg
     | UpdateProduct Product
 
 
-init : Session -> ( Model, Session, Cmd Msg )
-init ({ store } as session) =
-    -- TODO: is using store.simulator necessary? why should it be serialized in a first step?
-    ( Simulator.compute store.simulator
+init : Maybe Inputs -> Session -> ( Model, Session, Cmd Msg )
+init maybeInputs ({ store } as session) =
+    ( case maybeInputs of
+        Just inputs ->
+            Simulator.fromInputs inputs
+
+        Nothing ->
+            -- TODO: is using store.simulator necessary? why should it be serialized in a first step?
+            Simulator.compute store.simulator
     , session
     , Cmd.none
     )
