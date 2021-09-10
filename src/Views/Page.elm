@@ -82,7 +82,7 @@ pageFooter { activePage } =
                     , p [ class "mb-0" ]
                         [ text "Un produit "
                         , a [ href "https://beta.gouv.fr/", class "text-light", rel "noopener noreferrer", target "_blank" ]
-                            [ text "beta.gouv.fr" ]
+                            [ img [ src "img/betagouv.svg", alt "beta.gouv.fr", style "width" "120px" ] [] ]
                         ]
                     ]
                 , a
