@@ -259,8 +259,9 @@ computeMakingStepWaste ({ mass, product } as simulator) =
             Unit.kgToFloat mass
 
         stepMass =
-            -- (product weight + textile waste for confection) / (1 - PCR waste rate)
-            Unit.Kg <| ((massKg + (massKg * confectionWaste)) / (1 - product.pcrWaste))
+            Unit.Kg <|
+                -- (product weight + textile waste for confection) / (1 - PCR waste rate)
+                ((massKg + (massKg * confectionWaste)) / (1 - product.pcrWaste))
 
         waste =
             Unit.kgOp (-) stepMass mass
