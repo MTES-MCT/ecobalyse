@@ -9,6 +9,9 @@ port saveStore : String -> Cmd msg
 port copyToClipboard : String -> Cmd msg
 
 
+port scrollTo : { x : Float, y : Float } -> Cmd msg
+
+
 
 -- Incoming
 

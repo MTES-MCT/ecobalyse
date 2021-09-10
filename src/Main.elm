@@ -61,7 +61,7 @@ setRoute maybeRoute model =
                         Cmd.none
             in
             ( { model | session = newSession, page = page subModel }
-            , Cmd.batch [ Cmd.map subMsg subCmds, storeCmd ]
+            , Cmd.batch [ Ports.scrollTo { x = 0, y = 0 }, Cmd.map subMsg subCmds, storeCmd ]
             )
     in
     case maybeRoute of

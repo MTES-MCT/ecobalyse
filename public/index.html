@@ -25,6 +25,10 @@
       localStorage[storeKey] = rawStore;
     });
 
+    app.ports.scrollTo.subscribe((pos) => {
+      window.scrollTo(pos.x, pos.y);
+    });
+
     app.ports.copyToClipboard.subscribe((text) => {
       navigator.clipboard.writeText(text)
         .then(function() {}, function(err) {
