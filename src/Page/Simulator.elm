@@ -216,8 +216,17 @@ downArrow =
     img [ src "img/down-arrow-icon.png" ] []
 
 
-stepView : Int -> Step -> Html Msg
-stepView index current =
+stepView : Int -> Maybe Step -> Step -> Html Msg
+stepView index maybeNext current =
+    let
+        transportLabel =
+            case maybeNext of
+                Just { country } ->
+                    "Transport vers " ++ Country.toString country
+
+                Nothing ->
+                    "Transport"
+    in
     div [ class "card-group" ]
         [ div [ class "card" ]
             [ div [ class "card-header d-flex align-items-center" ]
@@ -232,16 +241,12 @@ stepView index current =
         , div
             [ class "card text-center" ]
             [ div [ class "card-header text-muted" ]
-                [ span [ class "fw-bold" ]
-                    [ Format.kgCo2 (current.co2 + current.transport.co2)
-                    ]
-                ]
+                [ if current.co2 > 0 then
+                    span [ class "fw-bold" ] [ Format.kgCo2 3 current.co2 ]
 
-            -- <ul class="">
-            --     <li class="list-group-item">An item</li>
-            --     <li class="list-group-item">A second item</li>
-            --     <li class="list-group-item">A third item</li>
-            -- </ul>
+                  else
+                    text "\u{00A0}"
+                ]
             , ul [ class "list-group list-group-flush fs-7" ]
                 [ li [ class "list-group-item text-muted d-flex justify-content-around" ]
                     [ span [] [ text "Masse\u{00A0}: ", Format.kg current.mass ]
@@ -250,8 +255,8 @@ stepView index current =
                 , li [ class "list-group-item text-muted" ]
                     [ TransportView.view True current.transport ]
                 , li [ class "list-group-item text-muted" ]
-                    [ strong [] [ text "Transport\u{00A0}:\u{00A0}" ]
-                    , Format.kgCo2 current.transport.co2
+                    [ strong [] [ text <| transportLabel ++ "\u{00A0}:\u{00A0}" ]
+                    , Format.kgCo2 3 current.transport.co2
                     ]
                 ]
             ]
@@ -263,7 +268,7 @@ lifeCycleStepsView lifeCycle =
     div []
         [ h2 [ class "mb-3" ] [ text "Étapes" ]
         , lifeCycle
-            |> Array.indexedMap (\index -> stepView index)
+            |> Array.indexedMap (\index -> stepView index (Array.get (index + 1) lifeCycle))
             |> Array.toList
             |> List.intersperse (div [ class "text-center" ] [ downArrow ])
             |> div []
@@ -276,7 +281,7 @@ shareLinkView session model =
         shareableLink =
             model |> Simulator.toInputs |> Just |> Route.Simulator |> Route.toString |> (++) session.clientUrl
     in
-    div [ class "card mb-3" ]
+    div [ class "card shadow-sm mb-3" ]
         [ div [ class "card-header" ] [ text "Partager cette simulation" ]
         , div [ class "card-body" ]
             [ div

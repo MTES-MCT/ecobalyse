@@ -20,15 +20,21 @@ formatFloat decimals float =
 formatRichFloat : Int -> String -> Float -> Html msg
 formatRichFloat decimals unit value =
     span []
-        [ value |> formatFloat decimals |> text
+        [ text
+            (if value == 0 then
+                "0"
+
+             else
+                formatFloat decimals value
+            )
         , text "\u{202F}"
         , span [ class "fs-70p" ] [ text unit ]
         ]
 
 
-kgCo2 : Float -> Html msg
-kgCo2 =
-    formatRichFloat 2 "kgCO₂e"
+kgCo2 : Int -> Float -> Html msg
+kgCo2 decimals =
+    formatRichFloat decimals "kgCO₂e"
 
 
 kg : Unit.Kg -> Html msg

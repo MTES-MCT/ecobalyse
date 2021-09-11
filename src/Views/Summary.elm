@@ -14,7 +14,7 @@ import Views.Transport as TransportView
 view : Bool -> Simulator -> Html msg
 view reusable simulator =
     div [ class "mb-3" ]
-        [ div [ class "card mb-3" ]
+        [ div [ class "card mb-3 shadow-sm" ]
             [ div [ class "card-header text-white bg-primary d-flex justify-content-between" ]
                 [ span [ class "text-nowrap" ] [ strong [] [ text simulator.product.name ] ]
                 , span
@@ -33,7 +33,7 @@ view reusable simulator =
                         ]
                         []
                     , div [ class "display-5 text-center" ]
-                        [ Format.kgCo2 simulator.co2 ]
+                        [ Format.kgCo2 2 simulator.co2 ]
                     ]
                 , simulator.lifeCycle
                     |> LifeCycle.stepCountryLabels
