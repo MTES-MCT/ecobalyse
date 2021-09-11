@@ -77,7 +77,7 @@ pageFooter { activePage } =
                 [ div [ class "col" ]
                     [ h3 [] [ text "wikicarbone" ]
                     , menuLinks activePage
-                        |> List.map (\l -> li [] [ l ])
+                        |> List.map (List.singleton >> li [])
                         |> ul []
                     , p [ class "mb-0" ]
                         [ text "Un produit "

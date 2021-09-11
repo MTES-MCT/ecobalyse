@@ -25,10 +25,11 @@ view reusable simulator =
             , div [ class "card-body text-white bg-primary" ]
                 [ div [ class "d-flex justify-content-center align-items-center mb-2" ]
                     [ img
-                        [ src <| "img/product/" ++ simulator.product.name ++ "-inv.png"
+                        [ src <| "img/product/" ++ simulator.product.name ++ ".svg"
                         , class "mx-2"
                         , style "width" "3em"
                         , style "height" "3em"
+                        , style "filter" "invert(1)"
                         ]
                         []
                     , div [ class "display-5 text-center" ]
