@@ -5,6 +5,7 @@ import Data.Session exposing (Session)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Route
+import Views.Icon as Icon
 
 
 type ActivePage
@@ -26,57 +27,65 @@ frame config ( title, content ) =
     { title = title ++ " | wikicarbone"
     , body =
         [ navbar config
-        , div [ class "alert alert-info mb-0" ]
+        , div [ class "alert alert-info py-2 mb-0 rounded-0 shadow-sm" ]
             [ div [ class "container" ]
-                [ text "Ce site n'est pas encore opérationnel… Work in progress." ]
+                [ Icon.info
+                , text " Ce site n'est pas encore opérationnel… Work in progress."
+                ]
             ]
         , div [ class "bg-light", style "min-height" "52vh" ]
             [ main_ [ class "container py-5" ] content
             ]
-        , pageFooter config
+        , pageFooter
         ]
     }
 
 
-menuLinks : ActivePage -> List (Html msg)
-menuLinks activePage =
-    let
-        linkIf page route caption =
-            if page == activePage then
-                text caption
-
-            else
-                a [ class "text-light", Route.href route ] [ text caption ]
-    in
-    [ linkIf Home Route.Home "Accueil"
-    , linkIf Simulator (Route.Simulator Nothing) "Simulateur"
-    , linkIf Examples Route.Examples "Exemples"
-    , linkIf (Editorial "methodology") (Route.Editorial "methodology") "Méthodologie"
-    , a [ class "text-light", href "https://github.com/MTES-MCT/wikicarbone/" ] [ text "Code source" ]
+menuLinks2 : List ( ActivePage, Route.Route, String )
+menuLinks2 =
+    [ ( Home, Route.Home, "Accueil" )
+    , ( Simulator, Route.Simulator Nothing, "Simulateur" )
+    , ( Examples, Route.Examples, "Exemples" )
+    , ( Editorial "methodology", Route.Editorial "methodology", "Méthodologie" )
     ]
 
 
 navbar : Config -> Html msg
 navbar { activePage } =
-    header [ class "navbar navbar-dark bg-dark text-light shadow-sm" ]
+    nav [ class "navbar navbar-expand-lg navbar-dark bg-dark" ]
         [ div [ class "container" ]
-            [ h1 [ class "display-5 fw-bold" ] [ a [ class "text-light text-decoration-none", Route.href Route.Home ] [ text "wikicarbone" ] ]
-            , menuLinks activePage
-                |> List.intersperse (text " | ")
-                |> nav []
+            [ a [ class "navbar-brand", Route.href Route.Home ] [ text "wikicarbone" ]
+            , menuLinks2
+                |> List.map
+                    (\( page, route, label ) ->
+                        if page == activePage then
+                            a [ class "nav-link pe-1 active", Route.href route, attribute "aria-current" "page" ]
+                                [ text label ]
+
+                        else
+                            a [ class "nav-link pe-1", Route.href route ]
+                                [ text label ]
+                    )
+                |> div
+                    [ class "navbar-nav justify-content-between flex-row"
+                    , style "overflow" "auto"
+                    ]
             ]
         ]
 
 
-pageFooter : Config -> Html msg
-pageFooter { activePage } =
+pageFooter : Html msg
+pageFooter =
     footer
         [ class "bg-dark text-light py-5 fs-7" ]
         [ div [ class "container" ]
             [ div [ class "row d-flex align-items-center" ]
                 [ div [ class "col" ]
                     [ h3 [] [ text "wikicarbone" ]
-                    , menuLinks activePage
+                    , menuLinks2
+                        |> List.map (\( _, r, l ) -> a [ class "text-light", Route.href r ] [ text l ])
+                        |> (\new list -> list ++ [ new ])
+                            (a [ class "text-light", href "https://github.com/MTES-MCT/wikicarbone/" ] [ text "Code source" ])
                         |> List.map (List.singleton >> li [])
                         |> ul []
                     , p [ class "mb-0" ]
