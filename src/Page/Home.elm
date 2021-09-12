@@ -33,15 +33,23 @@ view : Session -> Model -> ( String, List (Html Msg) )
 view _ _ =
     ( "Home"
     , [ div [ class "row align-items-center" ]
-            [ div [ class "col-sm-7 text-center" ]
-                [ h2 [ class "display-5" ] [ text "Bienvenue sur Wikicarbone" ]
-                , p [ class "fs-4 text-muted my-5" ] [ text "Accélerer la mise en place de l'affichage environnemental" ]
-                , div [ class "mb-4 d-flex justify-content-center" ]
-                    [ a [ class "btn btn-lg btn-primary me-2", Route.href (Route.Simulator Nothing) ] [ text "Faire une simulation" ]
-                    , a [ class "btn btn-lg btn-secondary ms-2", Route.href Route.Examples ] [ text "voir des exemples" ]
+            [ div [ class "col-lg-7 text-center" ]
+                [ h2 [ class "display-5" ]
+                    [ text "Bienvenue sur Wikicarbone" ]
+                , p [ class "fs-4 text-muted my-5" ]
+                    [ text "Accélerer la mise en place de l'affichage environnemental" ]
+                , div [ class "row mb-4" ]
+                    [ div [ class "col-md-6 text-center text-md-end py-2" ]
+                        [ a [ class "btn btn-lg btn-primary", Route.href (Route.Simulator Nothing) ]
+                            [ text "Faire une simulation" ]
+                        ]
+                    , div [ class "col-md-6 text-center text-md-start py-2" ]
+                        [ a [ class "btn btn-lg btn-secondary", Route.href Route.Examples ]
+                            [ text "voir des exemples" ]
+                        ]
                     ]
                 ]
-            , div [ class "col-sm-5" ]
+            , div [ class "col-lg-5" ]
                 [ Inputs.tShirtCotonFrance
                     |> Simulator.fromInputs
                     |> SummaryView.view False
