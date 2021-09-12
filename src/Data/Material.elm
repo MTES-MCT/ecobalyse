@@ -2,7 +2,6 @@ module Data.Material exposing (..)
 
 import Data.Material.Category as Category exposing (Category)
 import Data.Process as Process exposing (findByName)
-import Html.Attributes exposing (name)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
 

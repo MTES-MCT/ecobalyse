@@ -31,6 +31,7 @@ toLabel { mass, material, product, countries } =
         ]
 
 
+defaults : Inputs
 defaults =
     { mass = Product.tShirt.mass
     , material = Material.cotton
