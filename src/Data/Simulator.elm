@@ -5,17 +5,19 @@ import Data.CountryProcess as CountryProcess
 import Data.Inputs exposing (Inputs)
 import Data.LifeCycle as LifeCycle exposing (LifeCycle)
 import Data.Material as Material exposing (Material)
-import Data.Process as Process
+import Data.Process as Process exposing (Cat1(..))
 import Data.Product as Product exposing (Product)
 import Data.Step as Step exposing (Step)
 import Data.Transport as Transport
-import Data.Unit as Unit
+import Energy
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
+import Mass exposing (Mass)
+import Quantity
 
 
 type alias Simulator =
-    { mass : Unit.Kg
+    { mass : Mass
     , material : Material
     , product : Product
     , lifeCycle : LifeCycle
@@ -38,7 +40,7 @@ default =
 decode : Decoder Simulator
 decode =
     Decode.map6 Simulator
-        (Decode.field "mass" Unit.decodeKg)
+        (Decode.field "mass" (Decode.map Mass.kilograms Decode.float))
         (Decode.field "material" Material.decode)
         (Decode.field "product" Product.decode)
         (Decode.field "lifeCycle" LifeCycle.decode)
@@ -49,7 +51,7 @@ decode =
 encode : Simulator -> Encode.Value
 encode v =
     Encode.object
-        [ ( "mass", Unit.encodeKg v.mass )
+        [ ( "mass", Encode.float (Mass.inKilograms v.mass) )
         , ( "material", Material.encode v.material )
         , ( "product", Product.encode v.product )
         , ( "lifeCycle", LifeCycle.encode v.lifeCycle )
@@ -136,15 +138,13 @@ computeMakingCo2Score ({ product } as simulator) =
                     makingCo2 =
                         Process.findByUuid product.makingProcessUuid
                             |> .climateChange
-                            |> (*) (Unit.kgToFloat step.mass)
-
-                    electricityMJ =
-                        Process.findByUuid product.makingProcessUuid
-                            |> .elec
-                            |> (*) (Unit.kgToFloat step.mass)
+                            |> (*) (Mass.inKilograms step.mass)
 
                     electricityKWh =
-                        electricityMJ / 3.6
+                        Process.findByUuid product.makingProcessUuid
+                            |> .elec
+                            |> Quantity.multiplyBy (Mass.inKilograms step.mass)
+                            |> Energy.inKilowattHours
 
                     elecCo2 =
                         CountryProcess.get step.country
@@ -168,28 +168,26 @@ computeEnnoblementCo2Score =
                     processes
                         |> Maybe.map (.dyeing >> .climateChange)
                         |> Maybe.withDefault 0
-                        |> (*) (Unit.kgToFloat step.mass)
+                        |> (*) (Mass.inKilograms step.mass)
 
                 heatMJ =
                     processes
                         |> Maybe.map (.dyeing >> .heat)
-                        |> Maybe.withDefault 0
-                        |> (*) (Unit.kgToFloat step.mass)
+                        |> Maybe.withDefault (Energy.megajoules 0)
+                        |> Quantity.multiplyBy (Mass.inKilograms step.mass)
 
                 heatCo2 =
                     processes
                         |> Maybe.map (.heat >> .climateChange)
                         |> Maybe.withDefault 0
-                        |> (*) heatMJ
-
-                electricityMJ =
-                    processes
-                        |> Maybe.map (.dyeing >> .elec)
-                        |> Maybe.withDefault 0
-                        |> (*) (Unit.kgToFloat step.mass)
+                        |> (*) (Energy.inMegajoules heatMJ)
 
                 electricityKWh =
-                    electricityMJ / 3.6
+                    processes
+                        |> Maybe.map (.dyeing >> .elec)
+                        |> Maybe.withDefault (Energy.megajoules 0)
+                        |> Quantity.multiplyBy (Mass.inKilograms step.mass)
+                        |> Energy.inKilowattHours
 
                 elecCo2 =
                     processes
@@ -209,7 +207,7 @@ computeMaterialAndSpinningCo2Score ({ material } as simulator) =
     in
     simulator
         |> updateLifeCycleStep Step.MaterialAndSpinning
-            (\step -> { step | co2 = climateChange * Unit.kgToFloat step.mass })
+            (\step -> { step | co2 = climateChange * Mass.inKilograms step.mass })
 
 
 computeWeavingKnittingCo2Score : Simulator -> Simulator
@@ -222,7 +220,7 @@ computeWeavingKnittingCo2Score ({ product } as simulator) =
                         simulator.lifeCycle
                             |> LifeCycle.getStep Step.Ennoblement
                             |> Maybe.map .mass
-                            |> Maybe.withDefault (Unit.Kg 0)
+                            |> Maybe.withDefault (Mass.kilograms 0)
 
                     -- Note: weaving and knitting processes are the same across all
                     -- countries and are defined by product
@@ -233,11 +231,11 @@ computeWeavingKnittingCo2Score ({ product } as simulator) =
                         -- NOTE: knitted elec is computed against previous step mass,
                         -- weaved elec is computed against current step mass
                         if product.knitted then
-                            Unit.kgToFloat previousStepMass * weavingKnittingProcess.elec / 3.6
+                            Mass.inKilograms previousStepMass * Energy.inKilowattHours weavingKnittingProcess.elec
 
                         else
-                            (Unit.kgToFloat step.mass * weavingKnittingProcess.elec_pppm)
-                                * (Unit.kgToFloat step.mass * 1000 * toFloat product.ppm / toFloat product.grammage)
+                            (Mass.inKilograms step.mass * weavingKnittingProcess.elec_pppm)
+                                * (Mass.inKilograms step.mass * 1000 * toFloat product.ppm / toFloat product.grammage)
 
                     climateChangeKgCo2e =
                         CountryProcess.get step.country
@@ -252,19 +250,19 @@ computeMakingStepWaste : Simulator -> Simulator
 computeMakingStepWaste ({ mass, product } as simulator) =
     let
         confectionWaste =
-            -- FIXME: Ratio type
             Process.findByUuid product.makingProcessUuid |> .waste
 
         stepMass =
             -- (product weight + textile waste for confection) / (1 - PCR waste rate)
-            (Unit.kgToFloat (Unit.kgOp (+) mass (Unit.kgOp (*) mass confectionWaste)) / (1 - product.pcrWaste))
-                |> Unit.Kg
+            Mass.kilograms <|
+                (Mass.inKilograms mass + (Mass.inKilograms mass * Mass.inKilograms confectionWaste))
+                    / (1 - product.pcrWaste)
 
-        waste =
-            Unit.kgOp (-) stepMass mass
+        stepWaste =
+            Quantity.minus stepMass mass
     in
     simulator
-        |> updateLifeCycleStep Step.Making (\step -> { step | waste = waste, mass = stepMass })
+        |> updateLifeCycleStep Step.Making (\step -> { step | waste = stepWaste, mass = stepMass })
         |> updateLifeCycleSteps
             [ Step.MaterialAndSpinning, Step.WeavingKnitting, Step.Ennoblement ]
             (\step -> { step | mass = stepMass })
@@ -277,16 +275,16 @@ computeWeavingKnittingStepWaste ({ product } as simulator) =
             simulator.lifeCycle
                 |> LifeCycle.getStep Step.Making
                 |> Maybe.map .mass
-                |> Maybe.withDefault (Unit.Kg 0)
+                |> Maybe.withDefault (Mass.kilograms 0)
 
         weavingKnittingWaste =
             product
                 |> Product.getWeavingKnittingProcess
                 |> .waste
-                |> Unit.kgOp (*) baseMass
+                |> Quantity.multiplyBy (Mass.inKilograms baseMass)
 
         stepMass =
-            Unit.kgOp (+) baseMass weavingKnittingWaste
+            Quantity.plus baseMass weavingKnittingWaste
     in
     simulator
         |> updateLifeCycleStep Step.WeavingKnitting (\step -> { step | mass = stepMass, waste = weavingKnittingWaste })
@@ -300,15 +298,15 @@ computeMaterialStepWaste ({ material } as simulator) =
             simulator.lifeCycle
                 |> LifeCycle.getStep Step.WeavingKnitting
                 |> Maybe.map .mass
-                |> Maybe.withDefault (Unit.Kg 0)
+                |> Maybe.withDefault (Mass.kilograms 0)
 
         stepWaste =
             Process.findByUuid material.materialProcessUuid
                 |> .waste
-                |> Unit.kgOp (*) baseMass
+                |> Quantity.multiplyBy (Mass.inKilograms baseMass)
 
         stepMass =
-            Unit.kgOp (+) baseMass stepWaste
+            Quantity.plus baseMass stepWaste
     in
     simulator
         |> updateLifeCycleStep Step.MaterialAndSpinning

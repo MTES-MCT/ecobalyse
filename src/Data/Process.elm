@@ -1,7 +1,8 @@
 module Data.Process exposing (..)
 
 import Csv.Decode as Csv
-import Data.Unit as Unit
+import Energy exposing (Energy)
+import Mass exposing (Mass)
 
 
 type alias Process =
@@ -11,10 +12,10 @@ type alias Process =
     , name : String
     , uuid : String
     , climateChange : Float -- kgCO2e per kg of material to process
-    , heat : Float -- MJ per kg of material to process
+    , heat : Energy -- MJ per kg of material to process
     , elec_pppm : Float -- kWh/(pick,m) per kg of material to process
-    , elec : Float -- MJ per kg of material to process
-    , waste : Unit.Kg -- kg of textile wasted per kg of material to process
+    , elec : Energy -- MJ per kg of material to process
+    , waste : Mass -- kg of textile wasted per kg of material to process
     }
 
 
@@ -92,10 +93,10 @@ decodeProcess =
         |> Csv.pipeline (Csv.field "Procédé" Csv.string)
         |> Csv.pipeline (Csv.field "UUID" Csv.string)
         |> Csv.pipeline (Csv.field "Changement climatique" decodeFrenchFloat)
-        |> Csv.pipeline (Csv.field "heat" decodeFrenchFloat)
+        |> Csv.pipeline (Csv.field "heat" (decodeFrenchFloat |> Csv.andThen (Energy.megajoules >> Csv.succeed)))
         |> Csv.pipeline (Csv.field "electricity per pick per meter" decodeFrenchFloat)
-        |> Csv.pipeline (Csv.field "electricity" decodeFrenchFloat)
-        |> Csv.pipeline (Csv.field "textile waste" (decodeFrenchFloat |> Csv.andThen (Unit.Kg >> Csv.succeed)))
+        |> Csv.pipeline (Csv.field "electricity" (decodeFrenchFloat |> Csv.andThen (Energy.megajoules >> Csv.succeed)))
+        |> Csv.pipeline (Csv.field "textile waste" (decodeFrenchFloat |> Csv.andThen (Mass.kilograms >> Csv.succeed)))
 
 
 noOp : Process
@@ -106,10 +107,10 @@ noOp =
     , name = "void"
     , uuid = ""
     , climateChange = 0
-    , heat = 0
+    , heat = Energy.megajoules 0
     , elec_pppm = 0
-    , elec = 0
-    , waste = Unit.Kg 0
+    , elec = Energy.megajoules 0
+    , waste = Mass.kilograms 0
     }
 
 

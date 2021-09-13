@@ -4,15 +4,15 @@ import Base64
 import Data.Country as Country exposing (Country)
 import Data.Material as Material exposing (Material)
 import Data.Product as Product exposing (Product)
-import Data.Unit as Unit
 import FormatNumber
 import FormatNumber.Locales exposing (Decimals(..), frenchLocale)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
+import Mass exposing (Mass)
 
 
 type alias Inputs =
-    { mass : Unit.Kg
+    { mass : Mass
     , material : Material
     , product : Product
     , countries : List Country
@@ -26,7 +26,7 @@ toLabel { mass, material, product, countries } =
         , "en"
         , material.name
         , "de"
-        , FormatNumber.format { frenchLocale | decimals = Exact 2 } (Unit.kgToFloat mass) ++ "\u{202F}kg"
+        , FormatNumber.format { frenchLocale | decimals = Exact 2 } (Mass.inKilograms mass) ++ "\u{202F}kg"
         , "(" ++ (countries |> List.map Country.toString |> String.join "->") ++ ")"
         ]
 
@@ -121,7 +121,7 @@ presets =
 decode : Decoder Inputs
 decode =
     Decode.map4 Inputs
-        (Decode.field "mass" Unit.decodeKg)
+        (Decode.field "mass" (Decode.map Mass.kilograms Decode.float))
         (Decode.field "material" Material.decode)
         (Decode.field "product" Product.decode)
         (Decode.field "countries" (Decode.list Country.decode))
@@ -130,7 +130,7 @@ decode =
 encode : Inputs -> Encode.Value
 encode inputs =
     Encode.object
-        [ ( "mass", Unit.encodeKg inputs.mass )
+        [ ( "mass", Encode.float (Mass.inKilograms inputs.mass) )
         , ( "material", Material.encode inputs.material )
         , ( "product", Product.encode inputs.product )
         , ( "countries", Encode.list Country.encode inputs.countries )

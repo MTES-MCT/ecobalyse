@@ -2,17 +2,17 @@ module Data.Step exposing (..)
 
 import Data.Country as Country exposing (Country)
 import Data.Transport as Transport
-import Data.Unit as Unit
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
+import Mass exposing (Mass)
 
 
 type alias Step =
     { label : Label
     , country : Country
     , editable : Bool
-    , mass : Unit.Kg
-    , waste : Unit.Kg
+    , mass : Mass
+    , waste : Mass
     , transport : Transport.Summary
     , co2 : Float
     }
@@ -32,8 +32,8 @@ default =
     { label = MaterialAndSpinning
     , country = Country.France
     , editable = False
-    , mass = Unit.Kg 0
-    , waste = Unit.Kg 0
+    , mass = Mass.kilograms 0
+    , waste = Mass.kilograms 0
     , transport = Transport.defaultSummary
     , co2 = 0
     }
@@ -44,8 +44,8 @@ materialAndSpinning =
     { label = MaterialAndSpinning
     , country = Country.China -- note: ADEME makes Asia the default for raw material + spinning
     , editable = False
-    , mass = Unit.Kg 0
-    , waste = Unit.Kg 0
+    , mass = Mass.kilograms 0
+    , waste = Mass.kilograms 0
     , transport = Transport.defaultInitialSummary
     , co2 = 0
     }
@@ -56,8 +56,8 @@ weavingKnitting =
     { label = WeavingKnitting
     , country = Country.France
     , editable = True
-    , mass = Unit.Kg 0
-    , waste = Unit.Kg 0
+    , mass = Mass.kilograms 0
+    , waste = Mass.kilograms 0
     , transport = Transport.defaultSummary
     , co2 = 0
     }
@@ -68,8 +68,8 @@ confection =
     { label = Making
     , country = Country.France
     , editable = True
-    , mass = Unit.Kg 0
-    , waste = Unit.Kg 0
+    , mass = Mass.kilograms 0
+    , waste = Mass.kilograms 0
     , transport = Transport.defaultSummary
     , co2 = 0
     }
@@ -80,8 +80,8 @@ ennoblement =
     { label = Ennoblement
     , country = Country.France
     , editable = True
-    , mass = Unit.Kg 0
-    , waste = Unit.Kg 0
+    , mass = Mass.kilograms 0
+    , waste = Mass.kilograms 0
     , transport = Transport.defaultSummary
     , co2 = 0
     }
@@ -92,8 +92,8 @@ distribution =
     { label = Distribution
     , country = Country.France
     , editable = False
-    , mass = Unit.Kg 0
-    , waste = Unit.Kg 0
+    , mass = Mass.kilograms 0
+    , waste = Mass.kilograms 0
     , transport = Transport.defaultSummary
     , co2 = 0
     }
@@ -116,8 +116,8 @@ decode =
         (Decode.field "label" (Decode.map labelFromString Decode.string))
         (Decode.field "country" Country.decode)
         (Decode.field "editable" Decode.bool)
-        (Decode.field "mass" Unit.decodeKg)
-        (Decode.field "waste" Unit.decodeKg)
+        (Decode.field "mass" (Decode.map Mass.kilograms Decode.float))
+        (Decode.field "waste" (Decode.map Mass.kilograms Decode.float))
         (Decode.field "transport" Transport.decodeSummary)
         (Decode.field "co2" Decode.float)
 
@@ -128,8 +128,8 @@ encode v =
         [ ( "label", Encode.string (labelToString v.label) )
         , ( "country", Country.encode v.country )
         , ( "editable", Encode.bool v.editable )
-        , ( "mass", Unit.encodeKg v.mass )
-        , ( "waste", Unit.encodeKg v.waste )
+        , ( "mass", Encode.float (Mass.inKilograms v.mass) )
+        , ( "waste", Encode.float (Mass.inKilograms v.waste) )
         , ( "transport", Transport.encodeSummary v.transport )
         , ( "co2", Encode.float v.co2 )
         ]
