@@ -43,8 +43,8 @@ makeBars simulator =
         transportBar =
             { label = "Transport total"
             , co2 = simulator.transport.co2
-            , width = simulator.transport.co2 / maxScore * toFloat 100
-            , percent = clamp 0 100 (simulator.transport.co2 / simulator.co2 * toFloat 100)
+            , width = clamp 0 100 (simulator.transport.co2 / maxScore * toFloat 100)
+            , percent = simulator.transport.co2 / simulator.co2 * toFloat 100
             }
     in
     stepBars ++ [ transportBar ]

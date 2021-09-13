@@ -14,7 +14,7 @@ import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (onClick, onInput)
 import Json.Encode as Encode
-import Mass exposing (Mass)
+import Mass
 import Ports
 import Route exposing (Route(..))
 import Views.Analysis as AnalysisView
@@ -25,13 +25,15 @@ import Views.Transport as TransportView
 
 
 type alias Model =
-    Simulator
+    { simulator : Simulator
+    , massInput : String
+    }
 
 
 type Msg
     = CopyToClipBoard String
     | Reset
-    | UpdateMass Mass
+    | UpdateMassInput String
     | UpdateMaterial Material
     | UpdateMaterialCategory Category
     | UpdateStepCountry Step.Label Country
@@ -40,67 +42,74 @@ type Msg
 
 init : Maybe Inputs -> Session -> ( Model, Session, Cmd Msg )
 init maybeInputs ({ store } as session) =
-    ( case maybeInputs of
-        Just inputs ->
-            Simulator.fromInputs inputs
+    let
+        simulator =
+            case maybeInputs of
+                Just inputs ->
+                    Simulator.fromInputs inputs
 
-        Nothing ->
-            -- TODO: is using store.simulator necessary? why should it be serialized in a first step?
-            Simulator.compute store.simulator
+                Nothing ->
+                    -- TODO: is using store.simulator necessary? why should it be serialized in a first step?
+                    Simulator.compute store.simulator
+    in
+    ( { simulator = simulator
+      , massInput = simulator.mass |> Mass.inKilograms |> String.fromFloat
+      }
     , session
     , Cmd.none
     )
 
 
+updateSimulator : Simulator -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
+updateSimulator simulator ( model, session, msg ) =
+    ( { model | simulator = Simulator.compute simulator }, session, msg )
+
+
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
-update session msg model =
+update session msg ({ simulator } as model) =
     case msg of
         CopyToClipBoard shareableLink ->
             ( model, session, Ports.copyToClipboard shareableLink )
 
         Reset ->
-            ( Simulator.compute Simulator.default, session, Cmd.none )
+            ( model, session, Cmd.none )
+                |> updateSimulator Simulator.default
 
-        UpdateMass mass ->
-            ( Simulator.compute { model | mass = mass }
-            , session
-            , Cmd.none
-            )
+        UpdateMassInput massInput ->
+            case massInput |> String.toFloat |> Maybe.map Mass.kilograms of
+                Just mass ->
+                    ( { model | massInput = massInput }, session, Cmd.none )
+                        |> updateSimulator { simulator | mass = mass }
+
+                Nothing ->
+                    ( { model | massInput = massInput }, session, Cmd.none )
 
         UpdateMaterial material ->
-            ( Simulator.compute { model | material = material }
-            , session
-            , Cmd.none
-            )
+            ( model, session, Cmd.none )
+                |> updateSimulator { simulator | material = material }
 
         UpdateMaterialCategory category ->
-            ( Simulator.compute
-                { model
-                    | material =
-                        Material.choices
-                            |> List.filter (.category >> (==) category)
-                            |> List.head
-                            |> Maybe.withDefault Material.cotton
-                }
-            , session
-            , Cmd.none
-            )
+            ( model, session, Cmd.none )
+                |> updateSimulator
+                    { simulator
+                        | material =
+                            Material.choices
+                                |> List.filter (.category >> (==) category)
+                                |> List.head
+                                |> Maybe.withDefault Material.cotton
+                    }
 
         UpdateStepCountry label country ->
-            ( Simulator.compute { model | lifeCycle = model.lifeCycle |> LifeCycle.updateStepCountry label country }
-            , session
-            , Cmd.none
-            )
+            ( model, session, Cmd.none )
+                |> updateSimulator { simulator | lifeCycle = simulator.lifeCycle |> LifeCycle.updateStepCountry label country }
 
         UpdateProduct product ->
-            ( Simulator.compute { model | product = product, mass = product.mass }
-            , session
-            , Cmd.none
-            )
+            ( model, session, Cmd.none )
+                |> updateSimulator { simulator | product = product, mass = product.mass }
 
 
-massInput : Mass -> Html Msg
-massInput mass =
+massField : String -> Html Msg
+massField massInput =
     div [ class "mb-3" ]
         [ label [ for "mass", class "form-label fw-bold" ] [ text "Masse du produit fini" ]
         , div
@@ -111,8 +120,8 @@ massInput mass =
                 , id "mass"
                 , Attr.min "0.05"
                 , step "0.05"
-                , mass |> Mass.inKilograms |> String.fromFloat |> value
-                , onInput (String.toFloat >> Maybe.withDefault (Mass.inKilograms mass) >> Mass.kilograms >> UpdateMass)
+                , value massInput
+                , onInput UpdateMassInput
                 ]
                 []
             , span [ class "input-group-text" ] [ text "kg" ]
@@ -120,8 +129,8 @@ massInput mass =
         ]
 
 
-materialCategorySelect : Material -> Html Msg
-materialCategorySelect material =
+materialCategoryField : Material -> Html Msg
+materialCategoryField material =
     div [ class "mb-2" ]
         [ div [ class "form-label fw-bold" ] [ text "Matières premières" ]
         , [ ( Category.Natural, "leaf" )
@@ -148,8 +157,8 @@ materialCategorySelect material =
         ]
 
 
-materialInput : Material -> Html Msg
-materialInput material =
+materialField : Material -> Html Msg
+materialField material =
     div [ class "mb-3" ]
         [ Material.choices
             |> List.filter (.category >> (==) material.category)
@@ -170,8 +179,8 @@ materialInput material =
         ]
 
 
-productSelect : Product -> Html Msg
-productSelect product =
+productField : Product -> Html Msg
+productField product =
     div [ class "mb-3" ]
         [ label [ for "product", class "form-label fw-bold" ] [ text "Type de produit" ]
         , Product.choices
@@ -184,8 +193,8 @@ productSelect product =
         ]
 
 
-countrySelect : Step -> Html Msg
-countrySelect step =
+countryField : Step -> Html Msg
+countryField step =
     div []
         [ Country.choices
             |> List.map (\c -> option [ selected (step.country == c) ] [ text (Step.countryLabel { step | country = c }) ])
@@ -236,7 +245,7 @@ stepView index maybeNext current =
                 , text <| Step.labelToString current.label
                 ]
             , div [ class "card-body" ]
-                [ countrySelect current
+                [ countryField current
                 ]
             ]
         , div
@@ -280,7 +289,12 @@ shareLinkView : Session -> Model -> Html Msg
 shareLinkView session model =
     let
         shareableLink =
-            model |> Simulator.toInputs |> Just |> Route.Simulator |> Route.toString |> (++) session.clientUrl
+            model.simulator
+                |> Simulator.toInputs
+                |> Just
+                |> Route.Simulator
+                |> Route.toString
+                |> (++) session.clientUrl
     in
     div [ class "card shadow-sm mb-3" ]
         [ div [ class "card-header" ] [ text "Partager cette simulation" ]
@@ -308,41 +322,40 @@ shareLinkView session model =
 
 
 view : Session -> Model -> ( String, List (Html Msg) )
-view session model =
+view session ({ simulator } as model) =
     ( "Simulateur"
     , [ h1 [ class "mb-3" ] [ text "Simulateur" ]
       , div [ class "row" ]
             [ div [ class "col-lg-7 col-xl-6" ]
                 [ div [ class "row" ]
                     [ div [ class "col-md-6" ]
-                        [ productSelect model.product
+                        [ productField simulator.product
                         ]
                     , div [ class "col-md-6" ]
-                        [ massInput model.mass
+                        [ massField model.massInput
                         ]
                     ]
-                , materialCategorySelect model.material
-                , materialInput model.material
-                , lifeCycleStepsView model.lifeCycle
+                , materialCategoryField simulator.material
+                , materialField simulator.material
+                , lifeCycleStepsView simulator.lifeCycle
                 , div [ class "d-flex align-items-center justify-content-between my-3" ]
                     [ a [ Route.href Route.Home ] [ text "« Retour à l'accueil" ]
                     , button
                         [ class "btn btn-secondary"
                         , onClick Reset
-                        , disabled (Simulator.default == model)
+                        , disabled (Simulator.default == simulator)
                         ]
                         [ text "Réinitialiser le simulateur" ]
                     ]
                 ]
             , div [ class "col-lg-5 col-xl-6" ]
                 [ div [ class "sticky-md-top" ]
-                    [ SummaryView.view False model
-                    , AnalysisView.view model
+                    [ SummaryView.view False simulator
                     , shareLinkView session model
                     , details []
                         [ summary [] [ text "Debug" ]
                         , pre [ class "mt-3" ]
-                            [ Simulator.encode model |> Encode.encode 2 |> text
+                            [ Simulator.encode simulator |> Encode.encode 2 |> text
                             ]
                         ]
                     ]
