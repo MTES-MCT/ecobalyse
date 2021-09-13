@@ -24,16 +24,26 @@ clipboard =
     icon "clipboard"
 
 
-info : Html msg
-info =
-    icon "info"
-
-
 exclamation : Html msg
 exclamation =
     icon "exclamation"
 
 
+info : Html msg
+info =
+    icon "info"
+
+
+pencil : Html msg
+pencil =
+    icon "pencil"
+
+
 plane : Html msg
 plane =
     icon "plane"
+
+
+search : Html msg
+search =
+    icon "search"

@@ -1,8 +1,8 @@
 module Views.Analysis exposing (..)
 
 import Array
-import Data.Country as Country exposing (Country)
-import Data.Inputs as Inputs exposing (Inputs)
+import Data.Country as Country
+import Data.Inputs as Inputs
 import Data.Simulator as Simulator exposing (Simulator)
 import Data.Step as Step exposing (Step)
 import Html exposing (..)

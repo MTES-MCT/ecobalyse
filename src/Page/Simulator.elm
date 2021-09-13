@@ -27,12 +27,19 @@ import Views.Transport as TransportView
 type alias Model =
     { simulator : Simulator
     , massInput : String
+    , activeTab : ActiveTab
     }
+
+
+type ActiveTab
+    = StepsEditionTab
+    | AnalysisTab
 
 
 type Msg
     = CopyToClipBoard String
     | Reset
+    | SwitchTab ActiveTab
     | UpdateMassInput String
     | UpdateMaterial Material
     | UpdateMaterialCategory Category
@@ -54,6 +61,7 @@ init maybeInputs ({ store } as session) =
     in
     ( { simulator = simulator
       , massInput = simulator.mass |> Mass.inKilograms |> String.fromFloat
+      , activeTab = StepsEditionTab
       }
     , session
     , Cmd.none
@@ -74,6 +82,9 @@ update session msg ({ simulator } as model) =
         Reset ->
             ( model, session, Cmd.none )
                 |> updateSimulator Simulator.default
+
+        SwitchTab activeTab ->
+            ( { model | activeTab = activeTab }, session, Cmd.none )
 
         UpdateMassInput massInput ->
             case massInput |> String.toFloat |> Maybe.map Mass.kilograms of
@@ -275,14 +286,11 @@ stepView index maybeNext current =
 
 lifeCycleStepsView : LifeCycle -> Html Msg
 lifeCycleStepsView lifeCycle =
-    div []
-        [ h2 [ class "mb-3" ] [ text "Étapes" ]
-        , lifeCycle
-            |> Array.indexedMap (\index -> stepView index (Array.get (index + 1) lifeCycle))
-            |> Array.toList
-            |> List.intersperse (div [ class "text-center" ] [ downArrow ])
-            |> div []
-        ]
+    lifeCycle
+        |> Array.indexedMap (\index -> stepView index (Array.get (index + 1) lifeCycle))
+        |> Array.toList
+        |> List.intersperse (div [ class "text-center" ] [ downArrow ])
+        |> div []
 
 
 shareLinkView : Session -> Model -> Html Msg
@@ -321,6 +329,42 @@ shareLinkView session model =
         ]
 
 
+tabsView : Model -> Html Msg
+tabsView { activeTab, simulator } =
+    div []
+        [ ul [ class "nav nav-pills nav-fill mb-3" ]
+            [ li [ class "nav-item" ]
+                [ button
+                    [ type_ "button"
+                    , classList
+                        [ ( "nav-link", True )
+                        , ( "active", activeTab == StepsEditionTab )
+                        ]
+                    , onClick (SwitchTab StepsEditionTab)
+                    ]
+                    [ Icon.pencil, text " Édition des étapes" ]
+                ]
+            , li [ class "nav-item" ]
+                [ button
+                    [ type_ "button"
+                    , classList
+                        [ ( "nav-link", True )
+                        , ( "active", activeTab == AnalysisTab )
+                        ]
+                    , onClick (SwitchTab AnalysisTab)
+                    ]
+                    [ Icon.search, text " Détails des calculs" ]
+                ]
+            ]
+        , case activeTab of
+            StepsEditionTab ->
+                lifeCycleStepsView simulator.lifeCycle
+
+            AnalysisTab ->
+                AnalysisView.view simulator
+        ]
+
+
 view : Session -> Model -> ( String, List (Html Msg) )
 view session ({ simulator } as model) =
     ( "Simulateur"
@@ -337,7 +381,7 @@ view session ({ simulator } as model) =
                     ]
                 , materialCategoryField simulator.material
                 , materialField simulator.material
-                , lifeCycleStepsView simulator.lifeCycle
+                , tabsView model
                 , div [ class "d-flex align-items-center justify-content-between my-3" ]
                     [ a [ Route.href Route.Home ] [ text "« Retour à l'accueil" ]
                     , button
