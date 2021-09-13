@@ -17,6 +17,7 @@ import Json.Encode as Encode
 import Mass exposing (Mass)
 import Ports
 import Route exposing (Route(..))
+import Views.Analysis as AnalysisView
 import Views.Format as Format
 import Views.Icon as Icon
 import Views.Summary as SummaryView
@@ -336,6 +337,7 @@ view session model =
             , div [ class "col-lg-5 col-xl-6" ]
                 [ div [ class "sticky-md-top" ]
                     [ SummaryView.view False model
+                    , AnalysisView.view model
                     , shareLinkView session model
                     , details []
                         [ summary [] [ text "Debug" ]

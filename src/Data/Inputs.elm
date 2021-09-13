@@ -20,14 +20,13 @@ type alias Inputs =
 
 
 toLabel : Inputs -> String
-toLabel { mass, material, product, countries } =
+toLabel { mass, material, product } =
     String.join " "
         [ product.name
         , "en"
         , material.name
         , "de"
         , FormatNumber.format { frenchLocale | decimals = Exact 2 } (Mass.inKilograms mass) ++ "\u{202F}kg"
-        , "(" ++ (countries |> List.map Country.toString |> String.join "->") ++ ")"
         ]
 
 
