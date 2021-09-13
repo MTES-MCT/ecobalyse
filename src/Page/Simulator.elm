@@ -18,7 +18,6 @@ import Json.Encode as Encode
 import Mass
 import Ports
 import Route exposing (Route(..))
-import Views.Analysis as AnalysisView
 import Views.Format as Format
 import Views.Icon as Icon
 import Views.Summary as SummaryView
@@ -28,19 +27,12 @@ import Views.Transport as TransportView
 type alias Model =
     { simulator : Simulator
     , massInput : String
-    , activeTab : ActiveTab
     }
-
-
-type ActiveTab
-    = StepsEditionTab
-    | AnalysisTab
 
 
 type Msg
     = CopyToClipBoard String
     | Reset
-    | SwitchTab ActiveTab
     | UpdateMassInput String
     | UpdateMaterial Material
     | UpdateMaterialCategory Category
@@ -62,7 +54,6 @@ init maybeInputs ({ store } as session) =
     in
     ( { simulator = simulator
       , massInput = simulator.mass |> Mass.inKilograms |> String.fromFloat
-      , activeTab = StepsEditionTab
       }
     , session
     , Cmd.none
@@ -83,9 +74,6 @@ update session msg ({ simulator } as model) =
         Reset ->
             ( model, session, Cmd.none )
                 |> updateSimulator Simulator.default
-
-        SwitchTab activeTab ->
-            ( { model | activeTab = activeTab }, session, Cmd.none )
 
         UpdateMassInput massInput ->
             case massInput |> String.toFloat |> Maybe.map Mass.kilograms of
@@ -116,7 +104,7 @@ update session msg ({ simulator } as model) =
                 |> updateSimulator { simulator | lifeCycle = simulator.lifeCycle |> LifeCycle.updateStepCountry label country }
 
         UpdateProduct product ->
-            ( model, session, Cmd.none )
+            ( { model | massInput = product.mass |> Mass.inKilograms |> String.fromFloat }, session, Cmd.none )
                 |> updateSimulator { simulator | product = product, mass = product.mass }
 
 
@@ -349,42 +337,6 @@ shareLinkView session model =
         ]
 
 
-tabsView : Model -> Html Msg
-tabsView { activeTab, simulator } =
-    div []
-        [ ul [ class "nav nav-pills nav-fill mb-3" ]
-            [ li [ class "nav-item" ]
-                [ button
-                    [ type_ "button"
-                    , classList
-                        [ ( "nav-link", True )
-                        , ( "active", activeTab == StepsEditionTab )
-                        ]
-                    , onClick (SwitchTab StepsEditionTab)
-                    ]
-                    [ Icon.pencil, text " Édition des étapes" ]
-                ]
-            , li [ class "nav-item" ]
-                [ button
-                    [ type_ "button"
-                    , classList
-                        [ ( "nav-link", True )
-                        , ( "active", activeTab == AnalysisTab )
-                        ]
-                    , onClick (SwitchTab AnalysisTab)
-                    ]
-                    [ Icon.search, text " Détails des calculs" ]
-                ]
-            ]
-        , case activeTab of
-            StepsEditionTab ->
-                lifeCycleStepsView simulator
-
-            AnalysisTab ->
-                AnalysisView.view simulator
-        ]
-
-
 view : Session -> Model -> ( String, List (Html Msg) )
 view session ({ simulator } as model) =
     ( "Simulateur"
@@ -401,7 +353,7 @@ view session ({ simulator } as model) =
                     ]
                 , materialCategoryField simulator.material
                 , materialField simulator.material
-                , tabsView model
+                , lifeCycleStepsView simulator
                 , div [ class "d-flex align-items-center justify-content-between my-3" ]
                     [ a [ Route.href Route.Home ] [ text "« Retour à l'accueil" ]
                     , button
