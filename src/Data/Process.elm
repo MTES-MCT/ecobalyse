@@ -9,11 +9,11 @@ type alias Process =
     , cat3 : Cat3
     , name : String
     , uuid : String
-    , climateChange : Float
-    , heat : Float
-    , elec_pppm : Float
-    , elec : Float
-    , waste : Float
+    , climateChange : Float -- kgCO2e per kg of material to process
+    , heat : Float -- MJ per kg of material to process
+    , elec_pppm : Float -- kWh/(pick,m) per kg of material to process
+    , elec : Float -- MJ per kg of material to process
+    , waste : Float -- kg of textile wasted per kg of material to process
     }
 
 
