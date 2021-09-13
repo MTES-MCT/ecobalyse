@@ -1,6 +1,7 @@
 module Data.Process exposing (..)
 
 import Csv.Decode as Csv
+import Data.Unit as Unit
 
 
 type alias Process =
@@ -13,7 +14,7 @@ type alias Process =
     , heat : Float -- MJ per kg of material to process
     , elec_pppm : Float -- kWh/(pick,m) per kg of material to process
     , elec : Float -- MJ per kg of material to process
-    , waste : Float -- kg of textile wasted per kg of material to process
+    , waste : Unit.Kg -- kg of textile wasted per kg of material to process
     }
 
 
@@ -94,7 +95,7 @@ decodeProcess =
         |> Csv.pipeline (Csv.field "heat" decodeFrenchFloat)
         |> Csv.pipeline (Csv.field "electricity per pick per meter" decodeFrenchFloat)
         |> Csv.pipeline (Csv.field "electricity" decodeFrenchFloat)
-        |> Csv.pipeline (Csv.field "textile waste" decodeFrenchFloat)
+        |> Csv.pipeline (Csv.field "textile waste" (decodeFrenchFloat |> Csv.andThen (Unit.Kg >> Csv.succeed)))
 
 
 noOp : Process
@@ -108,7 +109,7 @@ noOp =
     , heat = 0
     , elec_pppm = 0
     , elec = 0
-    , waste = 0
+    , waste = Unit.Kg 0
     }
 
 

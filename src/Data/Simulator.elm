@@ -239,12 +239,12 @@ computeWeavingKnittingCo2Score ({ product } as simulator) =
                             (Unit.kgToFloat step.mass * weavingKnittingProcess.elec_pppm)
                                 * (Unit.kgToFloat step.mass * 1000 * toFloat product.ppm / toFloat product.grammage)
 
-                    electricity =
+                    climateChangeKgCo2e =
                         CountryProcess.get step.country
                             |> Maybe.map (.electricity >> .climateChange)
                             |> Maybe.withDefault 0
                 in
-                { step | co2 = electricityKWh * electricity }
+                { step | co2 = electricityKWh * climateChangeKgCo2e }
             )
 
 
@@ -255,13 +255,10 @@ computeMakingStepWaste ({ mass, product } as simulator) =
             -- FIXME: Ratio type
             Process.findByUuid product.makingProcessUuid |> .waste
 
-        massKg =
-            Unit.kgToFloat mass
-
         stepMass =
-            Unit.Kg <|
-                -- (product weight + textile waste for confection) / (1 - PCR waste rate)
-                ((massKg + (massKg * confectionWaste)) / (1 - product.pcrWaste))
+            -- (product weight + textile waste for confection) / (1 - PCR waste rate)
+            (Unit.kgToFloat (Unit.kgOp (+) mass (Unit.kgOp (*) mass confectionWaste)) / (1 - product.pcrWaste))
+                |> Unit.Kg
 
         waste =
             Unit.kgOp (-) stepMass mass
@@ -285,10 +282,8 @@ computeWeavingKnittingStepWaste ({ product } as simulator) =
         weavingKnittingWaste =
             product
                 |> Product.getWeavingKnittingProcess
-                -- FIXME : implement Ratio type
                 |> .waste
-                |> (*) (Unit.kgToFloat baseMass)
-                |> Unit.Kg
+                |> Unit.kgOp (*) baseMass
 
         stepMass =
             Unit.kgOp (+) baseMass weavingKnittingWaste
@@ -310,8 +305,7 @@ computeMaterialStepWaste ({ material } as simulator) =
         stepWaste =
             Process.findByUuid material.materialProcessUuid
                 |> .waste
-                |> (*) (Unit.kgToFloat baseMass)
-                |> Unit.Kg
+                |> Unit.kgOp (*) baseMass
 
         stepMass =
             Unit.kgOp (+) baseMass stepWaste

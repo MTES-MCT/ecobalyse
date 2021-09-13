@@ -12,7 +12,7 @@ type alias Product =
     , mass : Unit.Kg
     , pcrWaste : Float -- PCR product waste ratio
     , ppm : Int -- pick per meter
-    , grammage : Int
+    , grammage : Int -- grammes per kg
     , knitted : Bool -- True: Tricotage (Knitting); False: Tissage (Weaving)
     , makingProcessUuid : String
     }
