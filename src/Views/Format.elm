@@ -43,6 +43,11 @@ kg =
     Mass.inKilograms >> formatRichFloat 2 "kg"
 
 
+kilowattHours : Energy -> Html msg
+kilowattHours =
+    Energy.inKilowattHours >> formatRichFloat 2 "KWh"
+
+
 megajoules : Energy -> Html msg
 megajoules =
     Energy.inMegajoules >> formatRichFloat 2 "MJ"

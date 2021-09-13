@@ -148,19 +148,18 @@ computeMakingCo2Score ({ product } as simulator) =
                             |> .climateChange
                             |> (*) (Mass.inKilograms step.mass)
 
-                    electricityKWh =
+                    electricity =
                         Process.findByUuid product.makingProcessUuid
                             |> .elec
                             |> Quantity.multiplyBy (Mass.inKilograms step.mass)
-                            |> Energy.inKilowattHours
 
                     elecCo2 =
                         CountryProcess.get step.country
                             |> Maybe.map (.electricity >> .climateChange)
                             |> Maybe.withDefault 0
-                            |> (*) electricityKWh
+                            |> (*) (Energy.inKilowattHours electricity)
                 in
-                { step | co2 = makingCo2 + elecCo2 }
+                { step | co2 = makingCo2 + elecCo2, kwh = electricity }
             )
 
 
@@ -193,20 +192,23 @@ computeEnnoblementCo2Score =
                         |> Maybe.withDefault 0
                         |> (*) (Energy.inMegajoules heatMJ)
 
-                electricityKWh =
+                electricity =
                     dyeingProcess
                         |> Maybe.map .elec
                         |> Maybe.withDefault (Energy.megajoules 0)
                         |> Quantity.multiplyBy (Mass.inKilograms step.mass)
-                        |> Energy.inKilowattHours
 
                 elecCo2 =
                     processes
                         |> Maybe.map (.electricity >> .climateChange)
                         |> Maybe.withDefault 0
-                        |> (*) electricityKWh
+                        |> (*) (Energy.inKilowattHours electricity)
             in
-            { step | co2 = dyeingCo2 + heatCo2 + elecCo2, heat = heatMJ }
+            { step
+                | co2 = dyeingCo2 + heatCo2 + elecCo2
+                , heat = heatMJ
+                , kwh = electricity
+            }
         )
 
 
@@ -253,7 +255,10 @@ computeWeavingKnittingCo2Score ({ product } as simulator) =
                             |> Maybe.map (.electricity >> .climateChange)
                             |> Maybe.withDefault 0
                 in
-                { step | co2 = electricityKWh * climateChangeKgCo2e }
+                { step
+                    | co2 = electricityKWh * climateChangeKgCo2e
+                    , kwh = Energy.kilowattHours electricityKWh
+                }
             )
 
 

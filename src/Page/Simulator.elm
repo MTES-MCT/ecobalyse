@@ -10,6 +10,7 @@ import Data.Product as Product exposing (Product)
 import Data.Session exposing (Session)
 import Data.Simulator as Simulator exposing (Simulator)
 import Data.Step as Step exposing (Step)
+import Energy
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (onClick, onInput)
@@ -269,17 +270,21 @@ stepView index maybeNext current =
                     text "\u{00A0}"
                 ]
             , ul [ class "list-group list-group-flush fs-7" ]
-                [ li [ class "list-group-item py-1 text-muted d-flex justify-content-around" ]
+                [ li [ class "list-group-item text-muted d-flex justify-content-around" ]
                     [ span [] [ text "Masse\u{00A0}: ", Format.kg current.mass ]
                     , span [] [ text "Perte\u{00A0}: ", Format.kg current.waste ]
                     ]
-                , li [ class "list-group-item py-1 text-muted d-flex justify-content-around" ]
-                    [ span [] [ text "Chaleur\u{00A0}: ", Format.megajoules current.heat ]
-                    , span [] [ text "Électricité\u{00A0}: ", text "TODO" ]
-                    ]
-                , li [ class "list-group-item py-1 text-muted" ]
+                , if Energy.inKilojoules current.heat > 0 || Energy.inKilowattHours current.kwh > 0 then
+                    li [ class "list-group-item text-muted d-flex justify-content-around" ]
+                        [ span [] [ text "Chaleur\u{00A0}: ", Format.megajoules current.heat ]
+                        , span [] [ text "Électricité\u{00A0}: ", Format.kilowattHours current.kwh ]
+                        ]
+
+                  else
+                    text ""
+                , li [ class "list-group-item text-muted" ]
                     [ TransportView.view True current.transport ]
-                , li [ class "list-group-item py-1 text-muted" ]
+                , li [ class "list-group-item text-muted" ]
                     [ strong [] [ text <| transportLabel ++ "\u{00A0}:\u{00A0}" ]
                     , Format.kgCo2 3 current.transport.co2
                     ]

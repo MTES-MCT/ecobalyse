@@ -4,6 +4,7 @@ import Data.Country as Country exposing (Country)
 import Data.Transport as Transport
 import Energy exposing (Energy)
 import Json.Decode as Decode exposing (Decoder)
+import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
 import Mass exposing (Mass)
 
@@ -17,6 +18,7 @@ type alias Step =
     , transport : Transport.Summary
     , co2 : Float
     , heat : Energy
+    , kwh : Energy
     }
 
 
@@ -39,6 +41,7 @@ default =
     , transport = Transport.defaultSummary
     , co2 = 0
     , heat = Energy.megajoules 0
+    , kwh = Energy.kilowattHours 0
     }
 
 
@@ -52,6 +55,7 @@ materialAndSpinning =
     , transport = Transport.defaultInitialSummary
     , co2 = 0
     , heat = Energy.megajoules 0
+    , kwh = Energy.kilowattHours 0
     }
 
 
@@ -65,6 +69,7 @@ weavingKnitting =
     , transport = Transport.defaultSummary
     , co2 = 0
     , heat = Energy.megajoules 0
+    , kwh = Energy.kilowattHours 0
     }
 
 
@@ -78,6 +83,7 @@ confection =
     , transport = Transport.defaultSummary
     , co2 = 0
     , heat = Energy.megajoules 0
+    , kwh = Energy.kilowattHours 0
     }
 
 
@@ -91,6 +97,7 @@ ennoblement =
     , transport = Transport.defaultSummary
     , co2 = 0
     , heat = Energy.megajoules 0
+    , kwh = Energy.kilowattHours 0
     }
 
 
@@ -104,6 +111,7 @@ distribution =
     , transport = Transport.defaultSummary
     , co2 = 0
     , heat = Energy.megajoules 0
+    , kwh = Energy.kilowattHours 0
     }
 
 
@@ -120,15 +128,16 @@ countryLabel step =
 
 decode : Decoder Step
 decode =
-    Decode.map8 Step
-        (Decode.field "label" (Decode.map labelFromString Decode.string))
-        (Decode.field "country" Country.decode)
-        (Decode.field "editable" Decode.bool)
-        (Decode.field "mass" (Decode.map Mass.kilograms Decode.float))
-        (Decode.field "waste" (Decode.map Mass.kilograms Decode.float))
-        (Decode.field "transport" Transport.decodeSummary)
-        (Decode.field "co2" Decode.float)
-        (Decode.field "heat" (Decode.map Energy.megajoules Decode.float))
+    Decode.succeed Step
+        |> Pipe.required "label" (Decode.map labelFromString Decode.string)
+        |> Pipe.required "country" Country.decode
+        |> Pipe.required "editable" Decode.bool
+        |> Pipe.required "mass" (Decode.map Mass.kilograms Decode.float)
+        |> Pipe.required "waste" (Decode.map Mass.kilograms Decode.float)
+        |> Pipe.required "transport" Transport.decodeSummary
+        |> Pipe.required "co2" Decode.float
+        |> Pipe.required "heat" (Decode.map Energy.megajoules Decode.float)
+        |> Pipe.required "kwh" (Decode.map Energy.kilowattHours Decode.float)
 
 
 encode : Step -> Encode.Value
@@ -142,6 +151,7 @@ encode v =
         , ( "transport", Transport.encodeSummary v.transport )
         , ( "co2", Encode.float v.co2 )
         , ( "heat", Encode.float (Energy.inMegajoules v.heat) )
+        , ( "kwh", Encode.float (Energy.inKilowattHours v.kwh) )
         ]
 
 
