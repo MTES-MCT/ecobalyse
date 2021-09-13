@@ -275,7 +275,7 @@ computeMakingStepWaste ({ mass, product } as simulator) =
                     / (1 - product.pcrWaste)
 
         stepWaste =
-            Quantity.minus stepMass mass
+            Quantity.minus mass stepMass
     in
     simulator
         |> updateLifeCycleStep Step.Making (\step -> { step | waste = stepWaste, mass = stepMass })
