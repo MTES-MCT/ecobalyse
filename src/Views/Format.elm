@@ -1,5 +1,6 @@
 module Views.Format exposing (..)
 
+import Energy exposing (Energy)
 import FormatNumber
 import FormatNumber.Locales exposing (Decimals(..), frenchLocale)
 import Html exposing (..)
@@ -40,6 +41,11 @@ kgCo2 decimals =
 kg : Mass -> Html msg
 kg =
     Mass.inKilograms >> formatRichFloat 2 "kg"
+
+
+megajoules : Energy -> Html msg
+megajoules =
+    Energy.inMegajoules >> formatRichFloat 2 "MJ"
 
 
 percent : Float -> Html msg

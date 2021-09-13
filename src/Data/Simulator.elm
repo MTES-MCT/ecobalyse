@@ -172,15 +172,18 @@ computeEnnoblementCo2Score =
                 processes =
                     CountryProcess.get step.country
 
+                dyeingProcess =
+                    processes |> Maybe.map .dyeing
+
                 dyeingCo2 =
-                    processes
-                        |> Maybe.map (.dyeing >> .climateChange)
+                    dyeingProcess
+                        |> Maybe.map .climateChange
                         |> Maybe.withDefault 0
                         |> (*) (Mass.inKilograms step.mass)
 
                 heatMJ =
-                    processes
-                        |> Maybe.map (.dyeing >> .heat)
+                    dyeingProcess
+                        |> Maybe.map .heat
                         |> Maybe.withDefault (Energy.megajoules 0)
                         |> Quantity.multiplyBy (Mass.inKilograms step.mass)
 
@@ -191,8 +194,8 @@ computeEnnoblementCo2Score =
                         |> (*) (Energy.inMegajoules heatMJ)
 
                 electricityKWh =
-                    processes
-                        |> Maybe.map (.dyeing >> .elec)
+                    dyeingProcess
+                        |> Maybe.map .elec
                         |> Maybe.withDefault (Energy.megajoules 0)
                         |> Quantity.multiplyBy (Mass.inKilograms step.mass)
                         |> Energy.inKilowattHours
@@ -203,7 +206,7 @@ computeEnnoblementCo2Score =
                         |> Maybe.withDefault 0
                         |> (*) electricityKWh
             in
-            { step | co2 = dyeingCo2 + heatCo2 + elecCo2 }
+            { step | co2 = dyeingCo2 + heatCo2 + elecCo2, heat = heatMJ }
         )
 
 

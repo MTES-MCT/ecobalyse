@@ -2,6 +2,7 @@ module Data.Step exposing (..)
 
 import Data.Country as Country exposing (Country)
 import Data.Transport as Transport
+import Energy exposing (Energy)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
 import Mass exposing (Mass)
@@ -15,6 +16,7 @@ type alias Step =
     , waste : Mass
     , transport : Transport.Summary
     , co2 : Float
+    , heat : Energy
     }
 
 
@@ -36,6 +38,7 @@ default =
     , waste = Mass.kilograms 0
     , transport = Transport.defaultSummary
     , co2 = 0
+    , heat = Energy.megajoules 0
     }
 
 
@@ -48,6 +51,7 @@ materialAndSpinning =
     , waste = Mass.kilograms 0
     , transport = Transport.defaultInitialSummary
     , co2 = 0
+    , heat = Energy.megajoules 0
     }
 
 
@@ -60,6 +64,7 @@ weavingKnitting =
     , waste = Mass.kilograms 0
     , transport = Transport.defaultSummary
     , co2 = 0
+    , heat = Energy.megajoules 0
     }
 
 
@@ -72,6 +77,7 @@ confection =
     , waste = Mass.kilograms 0
     , transport = Transport.defaultSummary
     , co2 = 0
+    , heat = Energy.megajoules 0
     }
 
 
@@ -84,6 +90,7 @@ ennoblement =
     , waste = Mass.kilograms 0
     , transport = Transport.defaultSummary
     , co2 = 0
+    , heat = Energy.megajoules 0
     }
 
 
@@ -96,6 +103,7 @@ distribution =
     , waste = Mass.kilograms 0
     , transport = Transport.defaultSummary
     , co2 = 0
+    , heat = Energy.megajoules 0
     }
 
 
@@ -112,7 +120,7 @@ countryLabel step =
 
 decode : Decoder Step
 decode =
-    Decode.map7 Step
+    Decode.map8 Step
         (Decode.field "label" (Decode.map labelFromString Decode.string))
         (Decode.field "country" Country.decode)
         (Decode.field "editable" Decode.bool)
@@ -120,6 +128,7 @@ decode =
         (Decode.field "waste" (Decode.map Mass.kilograms Decode.float))
         (Decode.field "transport" Transport.decodeSummary)
         (Decode.field "co2" Decode.float)
+        (Decode.field "heat" (Decode.map Energy.megajoules Decode.float))
 
 
 encode : Step -> Encode.Value
@@ -132,6 +141,7 @@ encode v =
         , ( "waste", Encode.float (Mass.inKilograms v.waste) )
         , ( "transport", Transport.encodeSummary v.transport )
         , ( "co2", Encode.float v.co2 )
+        , ( "heat", Encode.float (Energy.inMegajoules v.heat) )
         ]
 
 
