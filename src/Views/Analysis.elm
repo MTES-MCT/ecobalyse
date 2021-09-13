@@ -17,22 +17,15 @@ stepAnalysis step =
         ]
 
 
-story : Simulator -> Html msg
-story simulator =
-    div []
-        [ p [] [ simulator |> Simulator.toInputs |> Inputs.toLabel |> text ]
-        , simulator.lifeCycle
-            |> Array.map stepAnalysis
-            |> Array.toList
-            |> div []
-        ]
-
-
 view : Simulator -> Html msg
 view simulator =
     div [ class "card shadow-sm mb-3" ]
         [ div [ class "card-header" ] [ text "Analyse" ]
         , div [ class "card-body" ]
-            [ story simulator
+            [ p [] [ simulator |> Simulator.toInputs |> Inputs.toLabel |> text ]
+            , simulator.lifeCycle
+                |> Array.map stepAnalysis
+                |> Array.toList
+                |> div []
             ]
         ]

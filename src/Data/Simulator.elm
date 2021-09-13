@@ -95,7 +95,7 @@ compute : Simulator -> Simulator
 compute simulator =
     simulator
         -- Ensure end product mass is applied to the final Distribution step
-        |> updateLifeCycleStep Step.Distribution (\step -> { step | mass = simulator.mass })
+        |> computeMaterialAndSpinningWaste
         --
         -- WASTE
         --
@@ -127,6 +127,14 @@ compute simulator =
         -- FINAL CO2 SCORE
         --
         |> computeFinalCo2Score
+
+
+computeMaterialAndSpinningWaste : Simulator -> Simulator
+computeMaterialAndSpinningWaste ({ mass } as simulator) =
+    simulator
+        |> updateLifeCycleStep
+            Step.Distribution
+            (\step -> { step | mass = mass })
 
 
 computeMakingCo2Score : Simulator -> Simulator
