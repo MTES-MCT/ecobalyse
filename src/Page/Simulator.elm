@@ -75,15 +75,13 @@ update session msg ({ simulator } as model) =
                 |> updateSimulator Simulator.default
 
         UpdateMassInput massInput ->
-            ( { model | massInput = massInput }, session, Cmd.none )
-                |> updateSimulator
-                    { simulator
-                        | mass =
-                            massInput
-                                |> String.toFloat
-                                |> Maybe.map Mass.kilograms
-                                |> Maybe.withDefault (Mass.kilograms 0)
-                    }
+            case massInput |> String.toFloat |> Maybe.map Mass.kilograms of
+                Just mass ->
+                    ( { model | massInput = massInput }, session, Cmd.none )
+                        |> updateSimulator { simulator | mass = mass }
+
+                Nothing ->
+                    ( { model | massInput = massInput }, session, Cmd.none )
 
         UpdateMaterial material ->
             ( model, session, Cmd.none )
