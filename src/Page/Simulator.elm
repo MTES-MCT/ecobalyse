@@ -3,7 +3,7 @@ module Page.Simulator exposing (Model, Msg, init, update, view)
 import Array
 import Data.Country as Country exposing (Country)
 import Data.Inputs exposing (Inputs)
-import Data.LifeCycle as LifeCycle exposing (LifeCycle)
+import Data.LifeCycle as LifeCycle
 import Data.Material as Material exposing (Material)
 import Data.Material.Category as Category exposing (Category)
 import Data.Product as Product exposing (Product)
@@ -238,8 +238,8 @@ downArrow =
     img [ src "img/down-arrow-icon.png" ] []
 
 
-stepView : Int -> Maybe Step -> Step -> Html Msg
-stepView index maybeNext current =
+stepView : Product -> Int -> Maybe Step -> Step -> Html Msg
+stepView product index maybeNext current =
     let
         transportLabel =
             case maybeNext of
@@ -248,13 +248,24 @@ stepView index maybeNext current =
 
                 Nothing ->
                     "Transport"
+
+        stepLabel =
+            case ( current.label, product.knitted ) of
+                ( Step.WeavingKnitting, True ) ->
+                    "Tricotage"
+
+                ( Step.WeavingKnitting, False ) ->
+                    "Tissage"
+
+                _ ->
+                    Step.labelToString current.label
     in
     div [ class "card-group" ]
         [ div [ class "card" ]
             [ div [ class "card-header d-flex align-items-center" ]
                 [ span [ class "badge rounded-pill bg-primary me-1" ]
                     [ text (String.fromInt (index + 1)) ]
-                , text <| Step.labelToString current.label
+                , text stepLabel
                 ]
             , div [ class "card-body" ]
                 [ countryField current
@@ -293,10 +304,10 @@ stepView index maybeNext current =
         ]
 
 
-lifeCycleStepsView : LifeCycle -> Html Msg
-lifeCycleStepsView lifeCycle =
+lifeCycleStepsView : Simulator -> Html Msg
+lifeCycleStepsView { product, lifeCycle } =
     lifeCycle
-        |> Array.indexedMap (\index -> stepView index (Array.get (index + 1) lifeCycle))
+        |> Array.indexedMap (\index -> stepView product index (Array.get (index + 1) lifeCycle))
         |> Array.toList
         |> List.intersperse (div [ class "text-center" ] [ downArrow ])
         |> div []
@@ -367,7 +378,7 @@ tabsView { activeTab, simulator } =
             ]
         , case activeTab of
             StepsEditionTab ->
-                lifeCycleStepsView simulator.lifeCycle
+                lifeCycleStepsView simulator
 
             AnalysisTab ->
                 AnalysisView.view simulator

@@ -33,7 +33,16 @@ makeBars simulator =
                 |> List.filter (\{ label } -> label /= Step.Distribution)
                 |> List.map
                     (\step ->
-                        { label = Step.labelToString step.label
+                        { label =
+                            case ( step.label, simulator.product.knitted ) of
+                                ( Step.WeavingKnitting, True ) ->
+                                    "Tricotage"
+
+                                ( Step.WeavingKnitting, False ) ->
+                                    "Tissage"
+
+                                _ ->
+                                    Step.labelToString step.label
                         , co2 = step.co2
                         , width = clamp 0 100 (step.co2 / maxScore * toFloat 100)
                         , percent = step.co2 / simulator.co2 * toFloat 100
