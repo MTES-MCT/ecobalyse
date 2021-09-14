@@ -48,19 +48,12 @@ update session msg model =
             )
 
 
-view : Session -> Model -> ( String, List (Html Msg) )
-view _ { state } =
-    ( "Home"
-    , case state of
-        Loading ->
-            [ text "loading…" ]
-
-        Loaded content ->
-            [ content |> Markdown.toHtml [ class "md-content" ] ]
-
-        Errored error ->
-            [ text (errorToMarkdown error) ]
-    )
+extractTitle : String -> String
+extractTitle =
+    String.split "\n"
+        >> List.head
+        >> Maybe.map (String.replace "# " "")
+        >> Maybe.withDefault "À propos"
 
 
 errorToMarkdown : Http.Error -> String
@@ -70,3 +63,16 @@ errorToMarkdown error =
 There was an error attempting to retrieve README information:
 
 > *""" ++ HttpClient.errorToString error ++ "*"
+
+
+view : Session -> Model -> ( String, List (Html Msg) )
+view _ { state } =
+    case state of
+        Loading ->
+            ( "Chargement…", [ text "loading…" ] )
+
+        Loaded content ->
+            ( extractTitle content, [ content |> Markdown.toHtml [ class "md-content" ] ] )
+
+        Errored error ->
+            ( "Erreur", [ text (errorToMarkdown error) ] )

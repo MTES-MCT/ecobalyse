@@ -31,7 +31,7 @@ update session msg model =
 
 view : Session -> Model -> ( String, List (Html Msg) )
 view _ _ =
-    ( "Home"
+    ( "Accueil"
     , [ div [ class "row align-items-center" ]
             [ div [ class "col-lg-7 text-center" ]
                 [ h2 [ class "display-5" ]
