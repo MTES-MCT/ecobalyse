@@ -40,18 +40,23 @@ type Label
     | Distribution -- Distribution
 
 
-default : Step
-default =
-    { label = MaterialAndSpinning
-    , country = Country.France
-    , editable = False
+create : Label -> Bool -> Country -> Step
+create label editable country =
+    { label = label
+    , country = country
+    , editable = editable
     , mass = Mass.kilograms 0
     , waste = Mass.kilograms 0
-    , transport = Transport.defaultSummary
+    , transport =
+        if label == MaterialAndSpinning then
+            Transport.defaultInitialSummary
+
+        else
+            Transport.defaultSummary
     , co2 = 0
     , heat = Energy.megajoules 0
     , kwh = Energy.kilowattHours 0
-    , processInfo = processInfoForCountry MaterialAndSpinning Country.France
+    , processInfo = processCountryInfo label country
     }
 
 
@@ -63,13 +68,9 @@ defaultProcessInfo =
     }
 
 
-processInfoForCountry : Label -> Country -> ProcessInfo
-processInfoForCountry label country =
-    let
-        processes =
-            CountryProcess.get country
-    in
-    case ( label, processes ) of
+processCountryInfo : Label -> Country -> ProcessInfo
+processCountryInfo label country =
+    case ( label, CountryProcess.get country ) of
         ( WeavingKnitting, Just { electricity, dyeing } ) ->
             { heat = Nothing
             , electricity = Just electricity.name
@@ -92,81 +93,6 @@ processInfoForCountry label country =
             defaultProcessInfo
 
 
-materialAndSpinning : Step
-materialAndSpinning =
-    { label = MaterialAndSpinning
-    , country = Country.China -- note: ADEME makes Asia the default for raw material + spinning
-    , editable = False
-    , mass = Mass.kilograms 0
-    , waste = Mass.kilograms 0
-    , transport = Transport.defaultInitialSummary
-    , co2 = 0
-    , heat = Energy.megajoules 0
-    , kwh = Energy.kilowattHours 0
-    , processInfo = processInfoForCountry MaterialAndSpinning Country.China
-    }
-
-
-weavingKnitting : Step
-weavingKnitting =
-    { label = WeavingKnitting
-    , country = Country.France
-    , editable = True
-    , mass = Mass.kilograms 0
-    , waste = Mass.kilograms 0
-    , transport = Transport.defaultSummary
-    , co2 = 0
-    , heat = Energy.megajoules 0
-    , kwh = Energy.kilowattHours 0
-    , processInfo = processInfoForCountry WeavingKnitting Country.France
-    }
-
-
-confection : Step
-confection =
-    { label = Making
-    , country = Country.France
-    , editable = True
-    , mass = Mass.kilograms 0
-    , waste = Mass.kilograms 0
-    , transport = Transport.defaultSummary
-    , co2 = 0
-    , heat = Energy.megajoules 0
-    , kwh = Energy.kilowattHours 0
-    , processInfo = processInfoForCountry Making Country.France
-    }
-
-
-ennoblement : Step
-ennoblement =
-    { label = Ennoblement
-    , country = Country.France
-    , editable = True
-    , mass = Mass.kilograms 0
-    , waste = Mass.kilograms 0
-    , transport = Transport.defaultSummary
-    , co2 = 0
-    , heat = Energy.megajoules 0
-    , kwh = Energy.kilowattHours 0
-    , processInfo = processInfoForCountry Ennoblement Country.France
-    }
-
-
-distribution : Step
-distribution =
-    { label = Distribution
-    , country = Country.France
-    , editable = False
-    , mass = Mass.kilograms 0
-    , waste = Mass.kilograms 0
-    , transport = Transport.defaultSummary
-    , co2 = 0
-    , heat = Energy.megajoules 0
-    , kwh = Energy.kilowattHours 0
-    , processInfo = processInfoForCountry Distribution Country.France
-    }
-
-
 countryLabel : Step -> String
 countryLabel step =
     -- NOTE: because ADEME requires Asia as default for the Material & Spinning step,
@@ -182,7 +108,7 @@ updateCountry : Country -> Step -> Step
 updateCountry country step =
     { step
         | country = country
-        , processInfo = processInfoForCountry step.label country
+        , processInfo = processCountryInfo step.label country
     }
 
 

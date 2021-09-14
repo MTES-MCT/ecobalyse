@@ -1,7 +1,7 @@
 module Data.LifeCycle exposing (..)
 
 import Array exposing (Array)
-import Data.Country exposing (Country)
+import Data.Country as Country exposing (Country)
 import Data.Process as Process
 import Data.Step as Step exposing (Step)
 import Data.Transport as Transport
@@ -16,11 +16,11 @@ type alias LifeCycle =
 default : LifeCycle
 default =
     Array.fromList
-        [ Step.materialAndSpinning
-        , Step.weavingKnitting
-        , Step.ennoblement
-        , Step.confection
-        , Step.distribution
+        [ Step.create Step.MaterialAndSpinning False Country.China
+        , Step.create Step.WeavingKnitting True Country.France
+        , Step.create Step.Ennoblement True Country.France
+        , Step.create Step.Making True Country.France
+        , Step.create Step.Distribution False Country.France
         ]
 
 
