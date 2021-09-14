@@ -168,24 +168,22 @@ materialCategoryField material =
 
 materialField : Material -> Html Msg
 materialField material =
-    div [ class "mb-3" ]
-        [ Material.choices
-            |> List.filter (.category >> (==) material.category)
-            |> List.map
-                (\m ->
-                    option
-                        [ value m.materialProcessUuid
-                        , selected (material.materialProcessUuid == m.materialProcessUuid)
-                        , title m.name
-                        ]
-                        [ text m.name ]
-                )
-            |> select
-                [ id "material"
-                , class "form-select"
-                , onInput (Material.findByProcessUuid >> Maybe.withDefault Material.cotton >> UpdateMaterial)
-                ]
-        ]
+    Material.choices
+        |> List.filter (.category >> (==) material.category)
+        |> List.map
+            (\m ->
+                option
+                    [ value m.materialProcessUuid
+                    , selected (material.materialProcessUuid == m.materialProcessUuid)
+                    , title m.name
+                    ]
+                    [ text m.name ]
+            )
+        |> select
+            [ id "material"
+            , class "form-select"
+            , onInput (Material.findByProcessUuid >> Maybe.withDefault Material.cotton >> UpdateMaterial)
+            ]
 
 
 productField : Product -> Html Msg
@@ -264,7 +262,7 @@ shareLinkView session model =
 
 displayModeView : DisplayMode -> Html Msg
 displayModeView displayMode =
-    ul [ class "nav nav-pills nav-fill mb-3" ]
+    ul [ class "nav nav-pills nav-fill py-3 bg-light sticky-md-top" ]
         [ li [ class "nav-item" ]
             [ button
                 [ classList [ ( "nav-link", True ), ( "active", displayMode == SimpleMode ) ]
