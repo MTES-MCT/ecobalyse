@@ -27,6 +27,14 @@ body {
   background-color: $dark;
 }
 
+.app {
+  &-navbar-nav {
+    @media screen and (max-width: $viewport-sm) {
+      width: 100%;
+    }
+  }
+}
+
 .fs {
   &-7 {
     font-size: 0.85rem;

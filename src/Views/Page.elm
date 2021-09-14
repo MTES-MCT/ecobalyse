@@ -76,7 +76,7 @@ navbar { activePage } =
                                 [ text label ]
                     )
                 |> div
-                    [ class "navbar-nav justify-content-between flex-row"
+                    [ class "app-navbar-nav navbar-nav justify-content-between flex-row"
                     , style "overflow" "auto"
                     ]
             ]
