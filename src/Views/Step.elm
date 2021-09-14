@@ -13,7 +13,8 @@ import Views.Transport as TransportView
 
 
 type alias Config msg =
-    { index : Int
+    { detailed : Bool
+    , index : Int
     , product : Product
     , current : Step
     , next : Maybe Step
@@ -53,8 +54,62 @@ countryField { current, updateCountry } =
         ]
 
 
-view : Config msg -> Html msg
-view ({ product, index, next, current } as config) =
+simpleView : Config msg -> Html msg
+simpleView ({ product, index, next, current } as config) =
+    let
+        transportLabel =
+            case next of
+                Just { country } ->
+                    "Transport vers " ++ Country.toString country
+
+                Nothing ->
+                    "Transport"
+
+        stepLabel =
+            case ( current.label, product.knitted ) of
+                ( Step.WeavingKnitting, True ) ->
+                    "Tricotage"
+
+                ( Step.WeavingKnitting, False ) ->
+                    "Tissage"
+
+                _ ->
+                    Step.labelToString current.label
+    in
+    div [ class "card-group" ]
+        [ div [ class "card" ]
+            [ div [ class "card-header d-flex align-items-center" ]
+                [ span [ class "badge rounded-pill bg-primary me-1" ]
+                    [ text (String.fromInt (index + 1)) ]
+                , text stepLabel
+                ]
+            , ul [ class "list-group list-group-flush fs-7" ]
+                [ li [ class "list-group-item text-muted" ] [ countryField config ]
+                ]
+            ]
+        , div
+            [ class "card text-center" ]
+            [ div [ class "card-header text-muted" ]
+                [ if current.co2 > 0 then
+                    span [ class "fw-bold" ] [ Format.kgCo2 3 current.co2 ]
+
+                  else
+                    text "\u{00A0}"
+                ]
+            , ul [ class "list-group list-group-flush fs-7" ]
+                [ li [ class "list-group-item text-muted" ]
+                    [ TransportView.view True current.transport ]
+                , li [ class "list-group-item text-muted" ]
+                    [ strong [] [ text <| transportLabel ++ "\u{00A0}:\u{00A0}" ]
+                    , Format.kgCo2 3 current.transport.co2
+                    ]
+                ]
+            ]
+        ]
+
+
+detailedView : Config msg -> Html msg
+detailedView ({ product, index, next, current } as config) =
     let
         transportLabel =
             case next of
@@ -128,3 +183,12 @@ view ({ product, index, next, current } as config) =
                 ]
             ]
         ]
+
+
+view : Config msg -> Html msg
+view ({ detailed } as config) =
+    if detailed then
+        detailedView config
+
+    else
+        simpleView config

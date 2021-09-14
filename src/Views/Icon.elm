@@ -29,6 +29,11 @@ exclamation =
     icon "exclamation"
 
 
+expand : Html msg
+expand =
+    icon "expand"
+
+
 info : Html msg
 info =
     icon "info"
@@ -47,3 +52,18 @@ plane =
 search : Html msg
 search =
     icon "search"
+
+
+shrink : Html msg
+shrink =
+    icon "shrink"
+
+
+zoomin : Html msg
+zoomin =
+    icon "zoomin"
+
+
+zoomout : Html msg
+zoomout =
+    icon "zoomout"

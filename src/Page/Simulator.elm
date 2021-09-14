@@ -25,12 +25,19 @@ import Views.Summary as SummaryView
 type alias Model =
     { simulator : Simulator
     , massInput : String
+    , displayMode : DisplayMode
     }
+
+
+type DisplayMode
+    = DetailedMode
+    | SimpleMode
 
 
 type Msg
     = CopyToClipBoard String
     | Reset
+    | SwitchMode DisplayMode
     | UpdateMassInput String
     | UpdateMaterial Material
     | UpdateMaterialCategory Category
@@ -52,6 +59,7 @@ init maybeInputs ({ store } as session) =
     in
     ( { simulator = simulator
       , massInput = simulator.mass |> Mass.inKilograms |> String.fromFloat
+      , displayMode = SimpleMode
       }
     , session
     , Cmd.none
@@ -72,6 +80,9 @@ update session msg ({ simulator } as model) =
         Reset ->
             ( model, session, Cmd.none )
                 |> updateSimulator Simulator.default
+
+        SwitchMode displayMode ->
+            ( { model | displayMode = displayMode }, session, Cmd.none )
 
         UpdateMassInput massInput ->
             case massInput |> String.toFloat |> Maybe.map Mass.kilograms of
@@ -196,16 +207,17 @@ downArrow =
     img [ src "img/down-arrow-icon.png" ] []
 
 
-lifeCycleStepsView : Simulator -> Html Msg
-lifeCycleStepsView { product, lifeCycle } =
-    lifeCycle
+lifeCycleStepsView : Model -> Html Msg
+lifeCycleStepsView { displayMode, simulator } =
+    simulator.lifeCycle
         |> Array.indexedMap
             (\index current ->
                 StepView.view
-                    { index = index
-                    , product = product
+                    { detailed = displayMode == DetailedMode
+                    , index = index
+                    , product = simulator.product
                     , current = current
-                    , next = Array.get (index + 1) lifeCycle
+                    , next = Array.get (index + 1) simulator.lifeCycle
                     , updateCountry = UpdateStepCountry
                     }
             )
@@ -250,8 +262,28 @@ shareLinkView session model =
         ]
 
 
+displayModeView : DisplayMode -> Html Msg
+displayModeView displayMode =
+    ul [ class "nav nav-pills nav-fill mb-3" ]
+        [ li [ class "nav-item" ]
+            [ button
+                [ classList [ ( "nav-link", True ), ( "active", displayMode == SimpleMode ) ]
+                , onClick (SwitchMode SimpleMode)
+                ]
+                [ span [ class "me-2" ] [ Icon.zoomout ], text "Affichage simple" ]
+            ]
+        , li [ class "nav-item" ]
+            [ button
+                [ classList [ ( "nav-link", True ), ( "active", displayMode == DetailedMode ) ]
+                , onClick (SwitchMode DetailedMode)
+                ]
+                [ span [ class "me-2" ] [ Icon.zoomin ], text "Affichage détaillé" ]
+            ]
+        ]
+
+
 view : Session -> Model -> ( String, List (Html Msg) )
-view session ({ simulator } as model) =
+view session ({ displayMode, simulator } as model) =
     ( "Simulateur"
     , [ h1 [ class "mb-3" ] [ text "Simulateur" ]
       , div [ class "row" ]
@@ -266,7 +298,8 @@ view session ({ simulator } as model) =
                     ]
                 , materialCategoryField simulator.material
                 , materialField simulator.material
-                , lifeCycleStepsView simulator
+                , displayModeView displayMode
+                , lifeCycleStepsView model
                 , div [ class "d-flex align-items-center justify-content-between my-3" ]
                     [ a [ Route.href Route.Home ] [ text "« Retour à l'accueil" ]
                     , button
