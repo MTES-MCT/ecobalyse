@@ -72,7 +72,11 @@ view _ { state } =
             ( "Chargement…", [ text "loading…" ] )
 
         Loaded content ->
-            ( extractTitle content, [ content |> Markdown.toHtml [ class "md-content" ] ] )
+            ( extractTitle content
+            , [ article [ class "row justify-content-center" ]
+                    [ content |> Markdown.toHtml [ class "col-md-8 md-content" ] ]
+              ]
+            )
 
         Errored error ->
             ( "Erreur", [ text (errorToMarkdown error) ] )
