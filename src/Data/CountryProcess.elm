@@ -5,19 +5,19 @@ import Data.Process as Process exposing (Process)
 import Dict.Any as Dict exposing (AnyDict)
 
 
-type alias CountryProcesses =
+type alias CountryProcess =
     { electricity : Process -- Electricité
     , heat : Process -- Chaleur
     , dyeing : Process -- Teinture
     }
 
 
-get : Country -> Maybe CountryProcesses
+get : Country -> Maybe CountryProcess
 get country =
     Dict.get country countryProcesses
 
 
-countryProcesses : AnyDict String Country CountryProcesses
+countryProcesses : AnyDict String Country CountryProcess
 countryProcesses =
     -- Q: should we rather work with uuids? Process names have the advantage of readability…
     Dict.fromList Country.toString

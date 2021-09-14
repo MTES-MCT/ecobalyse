@@ -94,7 +94,9 @@ toInputs { mass, product, material, lifeCycle } =
 compute : Simulator -> Simulator
 compute simulator =
     simulator
-        -- Ensure end product mass is applied to the final Distribution step
+        -- Step initialization
+        |> initLifeCycleSteps
+        -- Ensure end product mass is first applied to the final Distribution step
         |> computeMaterialAndSpinningWaste
         --
         -- WASTE
@@ -127,6 +129,11 @@ compute simulator =
         -- FINAL CO2 SCORE
         --
         |> computeFinalCo2Score
+
+
+initLifeCycleSteps : Simulator -> Simulator
+initLifeCycleSteps =
+    updateLifeCycle LifeCycle.processStepCountries
 
 
 computeMaterialAndSpinningWaste : Simulator -> Simulator

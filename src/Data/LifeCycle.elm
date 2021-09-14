@@ -120,9 +120,14 @@ getStep label =
     Array.filter (.label >> (==) label) >> Array.get 0
 
 
+processStepCountries : LifeCycle -> LifeCycle
+processStepCountries =
+    Array.map (\step -> Step.updateCountry step.country step)
+
+
 updateStepCountry : Step.Label -> Country -> LifeCycle -> LifeCycle
 updateStepCountry label country =
-    updateStep label (\s -> { s | country = country })
+    updateStep label (Step.updateCountry country)
 
 
 updateStep : Step.Label -> (Step -> Step) -> LifeCycle -> LifeCycle

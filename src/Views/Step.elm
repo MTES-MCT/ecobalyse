@@ -74,6 +74,14 @@ view ({ product, index, next, current } as config) =
 
                 _ ->
                     Step.labelToString current.label
+
+        listItem maybeValue =
+            case maybeValue of
+                Just value ->
+                    li [ class "list-group-item text-muted" ] [ text value ]
+
+                Nothing ->
+                    text ""
     in
     div [ class "card-group" ]
         [ div [ class "card" ]
@@ -82,8 +90,11 @@ view ({ product, index, next, current } as config) =
                     [ text (String.fromInt (index + 1)) ]
                 , text stepLabel
                 ]
-            , div [ class "card-body" ]
-                [ countryField config
+            , ul [ class "list-group list-group-flush fs-7" ]
+                [ li [ class "list-group-item text-muted" ] [ countryField config ]
+                , listItem current.processInfo.heat
+                , listItem current.processInfo.electricity
+                , listItem current.processInfo.dyeing
                 ]
             ]
         , div
