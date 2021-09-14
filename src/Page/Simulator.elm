@@ -1,7 +1,7 @@
 module Page.Simulator exposing (Model, Msg, init, update, view)
 
 import Array
-import Data.Country as Country exposing (Country)
+import Data.Country exposing (Country)
 import Data.Inputs exposing (Inputs)
 import Data.LifeCycle as LifeCycle
 import Data.Material as Material exposing (Material)
@@ -9,8 +9,7 @@ import Data.Material.Category as Category exposing (Category)
 import Data.Product as Product exposing (Product)
 import Data.Session exposing (Session)
 import Data.Simulator as Simulator exposing (Simulator)
-import Data.Step as Step exposing (Step)
-import Energy
+import Data.Step as Step
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (onClick, onInput)
@@ -18,10 +17,9 @@ import Json.Encode as Encode
 import Mass
 import Ports
 import Route exposing (Route(..))
-import Views.Format as Format
 import Views.Icon as Icon
+import Views.Step as StepView
 import Views.Summary as SummaryView
-import Views.Transport as TransportView
 
 
 type alias Model =
@@ -193,109 +191,24 @@ productField product =
         ]
 
 
-countryField : Step -> Html Msg
-countryField step =
-    div []
-        [ Country.choices
-            |> List.map (\c -> option [ selected (step.country == c) ] [ text (Step.countryLabel { step | country = c }) ])
-            |> select
-                [ class "form-select"
-                , disabled (not step.editable) -- ADEME enforce Asia as a default for these, prevent update
-                , onInput (Country.fromString >> UpdateStepCountry step.label)
-                ]
-        , case step.label of
-            Step.MaterialAndSpinning ->
-                div [ class "form-text fs-7" ]
-                    [ Icon.info
-                    , text " Ce champ sera bientôt paramétrable"
-                    ]
-
-            Step.Distribution ->
-                div [ class "form-text fs-7" ]
-                    [ Icon.exclamation
-                    , text " Champ non paramétrable"
-                    ]
-
-            _ ->
-                text ""
-        ]
-
-
 downArrow : Html Msg
 downArrow =
     img [ src "img/down-arrow-icon.png" ] []
 
 
-stepView : Product -> Int -> Maybe Step -> Step -> Html Msg
-stepView product index maybeNext current =
-    let
-        transportLabel =
-            case maybeNext of
-                Just { country } ->
-                    "Transport vers " ++ Country.toString country
-
-                Nothing ->
-                    "Transport"
-
-        stepLabel =
-            case ( current.label, product.knitted ) of
-                ( Step.WeavingKnitting, True ) ->
-                    "Tricotage"
-
-                ( Step.WeavingKnitting, False ) ->
-                    "Tissage"
-
-                _ ->
-                    Step.labelToString current.label
-    in
-    div [ class "card-group" ]
-        [ div [ class "card" ]
-            [ div [ class "card-header d-flex align-items-center" ]
-                [ span [ class "badge rounded-pill bg-primary me-1" ]
-                    [ text (String.fromInt (index + 1)) ]
-                , text stepLabel
-                ]
-            , div [ class "card-body" ]
-                [ countryField current
-                ]
-            ]
-        , div
-            [ class "card text-center" ]
-            [ div [ class "card-header text-muted" ]
-                [ if current.co2 > 0 then
-                    span [ class "fw-bold" ] [ Format.kgCo2 3 current.co2 ]
-
-                  else
-                    text "\u{00A0}"
-                ]
-            , ul [ class "list-group list-group-flush fs-7" ]
-                [ li [ class "list-group-item text-muted d-flex justify-content-around" ]
-                    [ span [] [ text "Masse\u{00A0}: ", Format.kg current.mass ]
-                    , span [] [ text "Perte\u{00A0}: ", Format.kg current.waste ]
-                    ]
-                , if Energy.inKilojoules current.heat > 0 || Energy.inKilowattHours current.kwh > 0 then
-                    li [ class "list-group-item text-muted d-flex justify-content-around" ]
-                        [ span [] [ text "Chaleur\u{00A0}: ", Format.megajoules current.heat ]
-                        , span [] [ text "Électricité\u{00A0}: ", Format.kilowattHours current.kwh ]
-                        ]
-
-                  else
-                    text ""
-                , li [ class "list-group-item text-muted" ]
-                    [ TransportView.view True current.transport ]
-                , li [ class "list-group-item text-muted" ]
-                    [ strong [] [ text <| transportLabel ++ "\u{00A0}:\u{00A0}" ]
-                    , Format.kgCo2 3 current.transport.co2
-                    ]
-                ]
-            ]
-        ]
-
-
 lifeCycleStepsView : Simulator -> Html Msg
 lifeCycleStepsView { product, lifeCycle } =
     lifeCycle
-        |> Array.indexedMap (\index -> stepView product index (Array.get (index + 1) lifeCycle))
+        |> Array.indexedMap
+            (\index current ->
+                StepView.view
+                    { index = index
+                    , product = product
+                    , current = current
+                    , next = Array.get (index + 1) lifeCycle
+                    , updateCountry = UpdateStepCountry
+                    }
+            )
         |> Array.toList
         |> List.intersperse (div [ class "text-center" ] [ downArrow ])
         |> div []
