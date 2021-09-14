@@ -2,7 +2,7 @@ module Views.Step exposing (..)
 
 import Data.Country as Country exposing (Country)
 import Data.Product exposing (Product)
-import Data.Step as Step exposing (Step)
+import Data.Step as Step exposing (Label(..), Step)
 import Energy
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -38,13 +38,13 @@ countryField { current, updateCountry } =
                 ]
         , case current.label of
             Step.MaterialAndSpinning ->
-                div [ class "form-text fs-7" ]
+                div [ class "form-text fs-7 mb-0" ]
                     [ Icon.info
                     , text " Ce champ sera bientôt paramétrable"
                     ]
 
             Step.Distribution ->
-                div [ class "form-text fs-7" ]
+                div [ class "form-text fs-7 mb-0" ]
                     [ Icon.exclamation
                     , text " Champ non paramétrable"
                     ]
@@ -55,16 +55,8 @@ countryField { current, updateCountry } =
 
 
 simpleView : Config msg -> Html msg
-simpleView ({ product, index, next, current } as config) =
+simpleView ({ product, index, current } as config) =
     let
-        transportLabel =
-            case next of
-                Just { country } ->
-                    "Transport vers " ++ Country.toString country
-
-                Nothing ->
-                    "Transport"
-
         stepLabel =
             case ( current.label, product.knitted ) of
                 ( Step.WeavingKnitting, True ) ->
@@ -76,33 +68,25 @@ simpleView ({ product, index, next, current } as config) =
                 _ ->
                     Step.labelToString current.label
     in
-    div [ class "card-group" ]
-        [ div [ class "card" ]
-            [ div [ class "card-header d-flex align-items-center" ]
-                [ span [ class "badge rounded-pill bg-primary me-1" ]
-                    [ text (String.fromInt (index + 1)) ]
-                , text stepLabel
-                ]
-            , ul [ class "list-group list-group-flush fs-7" ]
-                [ li [ class "list-group-item text-muted" ] [ countryField config ]
-                ]
+    div [ class "card" ]
+        [ div [ class "card-header d-flex align-items-center" ]
+            [ span [ class "badge rounded-pill bg-primary me-1" ]
+                [ text (String.fromInt (index + 1)) ]
+            , text stepLabel
             ]
-        , div
-            [ class "card text-center" ]
-            [ div [ class "card-header text-muted" ]
-                [ if current.co2 > 0 then
-                    span [ class "fw-bold" ] [ Format.kgCo2 3 current.co2 ]
+        , div [ class "card-body row align-items-center" ]
+            [ div [ class "col-sm-6 col-lg-7" ]
+                [ countryField config ]
+            , div [ class "col-sm-6 col-lg-5 text-center text-muted" ]
+                [ div [ class "fs-3 fw-normal text-secondary" ] [ Format.kgCo2 3 current.co2 ]
+                , if current.label == Step.Distribution then
+                    div [ class "fs-7" ]
+                        [ Icon.info
+                        , text " Le coût du transport a été ajouté au transport total"
+                        ]
 
                   else
-                    text "\u{00A0}"
-                ]
-            , ul [ class "list-group list-group-flush fs-7" ]
-                [ li [ class "list-group-item text-muted" ]
-                    [ TransportView.view True current.transport ]
-                , li [ class "list-group-item text-muted" ]
-                    [ strong [] [ text <| transportLabel ++ "\u{00A0}:\u{00A0}" ]
-                    , Format.kgCo2 3 current.transport.co2
-                    ]
+                    text ""
                 ]
             ]
         ]
