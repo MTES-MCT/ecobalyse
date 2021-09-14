@@ -46,7 +46,7 @@ menuLinks2 =
     [ ( Home, Route.Home, "Accueil" )
     , ( Simulator, Route.Simulator Nothing, "Simulateur" )
     , ( Examples, Route.Examples, "Exemples" )
-    , ( Editorial "methodology", Route.Editorial "methodology", "Méthodologie" )
+    , ( Editorial "methodologie", Route.Editorial "methodologie", "Méthodologie" )
     ]
 
 
