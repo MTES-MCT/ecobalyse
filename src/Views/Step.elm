@@ -78,15 +78,15 @@ simpleView ({ product, index, current } as config) =
             [ div [ class "col-sm-6 col-lg-7" ]
                 [ countryField config ]
             , div [ class "col-sm-6 col-lg-5 text-center text-muted" ]
-                [ div [ class "fs-3 fw-normal text-secondary" ] [ Format.kgCo2 3 current.co2 ]
-                , if current.label == Step.Distribution then
+                [ if current.label == Step.Distribution && current.co2 == 0 then
                     div [ class "fs-7" ]
                         [ Icon.info
                         , text " Le coût du transport a été ajouté au transport total"
                         ]
 
                   else
-                    text ""
+                    div [ class "fs-3 fw-normal text-secondary" ]
+                        [ Format.kgCo2 3 current.co2 ]
                 ]
             ]
         ]
