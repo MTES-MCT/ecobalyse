@@ -54,7 +54,16 @@ navbar : Config -> Html msg
 navbar { activePage } =
     nav [ class "navbar navbar-expand-lg navbar-dark bg-dark" ]
         [ div [ class "container" ]
-            [ a [ class "navbar-brand", Route.href Route.Home ] [ text "wikicarbone" ]
+            [ a [ class "navbar-brand", Route.href Route.Home ]
+                [ img
+                    [ class "d-inline-block align-text-bottom invert me-2"
+                    , alt ""
+                    , src "img/logo.svg"
+                    , height 26
+                    ]
+                    []
+                , span [ class "fs-3" ] [ text "wikicarbone" ]
+                ]
             , menuLinks2
                 |> List.map
                     (\( page, route, label ) ->

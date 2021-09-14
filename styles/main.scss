@@ -37,6 +37,10 @@ body {
   }
 }
 
+.invert {
+  filter: invert(1);
+}
+
 .md-content {
   h2 {
     border-top: 1px solid #ccc;
