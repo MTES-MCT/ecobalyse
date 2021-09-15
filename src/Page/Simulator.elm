@@ -221,7 +221,7 @@ lifeCycleStepsView { displayMode, simulator } =
             )
         |> Array.toList
         |> List.intersperse (div [ class "text-center" ] [ downArrow ])
-        |> div []
+        |> div [ class "pt-1" ]
 
 
 shareLinkView : Session -> Model -> Html Msg
@@ -262,7 +262,7 @@ shareLinkView session model =
 
 displayModeView : DisplayMode -> Html Msg
 displayModeView displayMode =
-    ul [ class "nav nav-pills nav-fill py-3 bg-light sticky-md-top" ]
+    ul [ class "nav nav-pills nav-fill py-2 bg-light sticky-md-top" ]
         [ li [ class "nav-item" ]
             [ button
                 [ classList [ ( "nav-link", True ), ( "active", displayMode == SimpleMode ) ]
@@ -295,7 +295,7 @@ view session ({ displayMode, simulator } as model) =
                         ]
                     ]
                 , materialCategoryField simulator.material
-                , materialField simulator.material
+                , div [ class "mb-1" ] [ materialField simulator.material ]
                 , displayModeView displayMode
                 , lifeCycleStepsView model
                 , div [ class "d-flex align-items-center justify-content-between my-3" ]
