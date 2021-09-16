@@ -254,8 +254,8 @@ computeWeavingKnittingCo2Score ({ product } as simulator) =
                             Mass.inKilograms previousStepMass * Energy.inKilowattHours weavingKnittingProcess.elec
 
                         else
-                            (Mass.inKilograms step.mass * weavingKnittingProcess.elec_pppm)
-                                * (Mass.inKilograms step.mass * 1000 * toFloat product.ppm / toFloat product.grammage)
+                            (Mass.inKilograms step.mass * 1000 * toFloat product.ppm / toFloat product.grammage)
+                                * weavingKnittingProcess.elec_pppm
 
                     climateChangeKgCo2e =
                         CountryProcess.get step.country
