@@ -8,7 +8,7 @@
 
 Les pré-évaluations d'impacts environnementaux proposés par Wikicarbone s'appuient sur [le référentiel établit par l'ADEME](http://www.base-impacts.ademe.fr/) :
 
-- procédés de la base Impacts (R)
+- procédés de la base Impacts®
 - documentation sectorielle textile (`BASE IMPACTS® DATA DOCUMENTATION - SECTOR: TEXTILE - 1.09.208`)
 - `METHODOLOGIE D’EVALUATION DES IMPACTS ENVIRONNEMENTAUX DES ARTICLES D’HABILLEMENT` (2016 rev 2017. Principes généraux pour l’affichage environnemental des produits de grande consommation – Partie 23 : méthodologie d’évaluation des impacts environnementaux des articles d’habillement. 47 p.)
 
