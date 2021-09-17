@@ -1,9 +1,6 @@
 module Data.SimulatorTest exposing (..)
 
-import Data.Country as Country
 import Data.Inputs as Inputs exposing (Inputs)
-import Data.Material as Material
-import Data.Product as Product
 import Data.Simulator as Simulator
 import Expect exposing (Expectation)
 import Route exposing (Route(..))
