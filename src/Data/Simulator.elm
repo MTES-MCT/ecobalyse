@@ -1,25 +1,21 @@
 module Data.Simulator exposing (..)
 
-import Array
 import Data.CountryProcess as CountryProcess
-import Data.Inputs exposing (Inputs)
+import Data.Inputs as Inputs exposing (Inputs)
 import Data.LifeCycle as LifeCycle exposing (LifeCycle)
-import Data.Material as Material exposing (Material)
 import Data.Process as Process exposing (Cat1(..))
-import Data.Product as Product exposing (Product)
+import Data.Product as Product
 import Data.Step as Step exposing (Step)
 import Data.Transport as Transport
 import Energy
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
-import Mass exposing (Mass)
+import Mass
 import Quantity
 
 
 type alias Simulator =
-    { mass : Mass
-    , material : Material
-    , product : Product
+    { inputs : Inputs
     , lifeCycle : LifeCycle
     , co2 : Float
     , transport : Transport.Summary
@@ -28,9 +24,7 @@ type alias Simulator =
 
 default : Simulator
 default =
-    { mass = Product.tShirt.mass
-    , material = Material.cotton
-    , product = Product.tShirt
+    { inputs = Inputs.defaults
     , lifeCycle = LifeCycle.default
     , co2 = 0
     , transport = Transport.defaultSummary
@@ -39,10 +33,8 @@ default =
 
 decode : Decoder Simulator
 decode =
-    Decode.map6 Simulator
-        (Decode.field "mass" (Decode.map Mass.kilograms Decode.float))
-        (Decode.field "material" Material.decode)
-        (Decode.field "product" Product.decode)
+    Decode.map4 Simulator
+        (Decode.field "inputs" Inputs.decode)
         (Decode.field "lifeCycle" LifeCycle.decode)
         (Decode.field "co2" Decode.float)
         (Decode.field "transport" Transport.decodeSummary)
@@ -51,51 +43,19 @@ decode =
 encode : Simulator -> Encode.Value
 encode v =
     Encode.object
-        [ ( "mass", Encode.float (Mass.inKilograms v.mass) )
-        , ( "material", Material.encode v.material )
-        , ( "product", Product.encode v.product )
+        [ ( "inputs", Inputs.encode v.inputs )
         , ( "lifeCycle", LifeCycle.encode v.lifeCycle )
         , ( "co2", Encode.float v.co2 )
         , ( "transport", Transport.encodeSummary v.transport )
         ]
 
 
-fromInputs : Inputs -> Simulator
-fromInputs { mass, material, product, countries } =
-    compute
-        { default
-            | mass = mass
-            , material = material
-            , product = product
-            , lifeCycle =
-                default.lifeCycle
-                    |> Array.indexedMap
-                        (\index step ->
-                            { step
-                                | country =
-                                    countries
-                                        |> Array.fromList
-                                        |> Array.get index
-                                        |> Maybe.withDefault step.country
-                            }
-                        )
-        }
-
-
-toInputs : Simulator -> Inputs
-toInputs { mass, product, material, lifeCycle } =
-    { mass = mass
-    , product = product
-    , material = material
-    , countries = lifeCycle |> Array.map .country |> Array.toList
+compute : Inputs -> Simulator
+compute inputs =
+    { default
+        | inputs = inputs
+        , lifeCycle = default.lifeCycle |> LifeCycle.initCountries inputs.countries
     }
-
-
-compute : Simulator -> Simulator
-compute simulator =
-    simulator
-        -- Step initialization
-        |> initLifeCycleSteps
         -- Ensure end product mass is first applied to the final Distribution step
         |> computeMaterialAndSpinningWaste
         --
@@ -131,32 +91,27 @@ compute simulator =
         |> computeFinalCo2Score
 
 
-initLifeCycleSteps : Simulator -> Simulator
-initLifeCycleSteps =
-    updateLifeCycle LifeCycle.processStepCountries
-
-
 computeMaterialAndSpinningWaste : Simulator -> Simulator
-computeMaterialAndSpinningWaste ({ mass } as simulator) =
+computeMaterialAndSpinningWaste ({ inputs } as simulator) =
     simulator
         |> updateLifeCycleStep
             Step.Distribution
-            (\step -> { step | mass = mass })
+            (\step -> { step | mass = inputs.mass })
 
 
 computeMakingCo2Score : Simulator -> Simulator
-computeMakingCo2Score ({ product } as simulator) =
+computeMakingCo2Score ({ inputs } as simulator) =
     simulator
         |> updateLifeCycleStep Step.Making
             (\step ->
                 let
                     makingCo2 =
-                        Process.findByUuid product.makingProcessUuid
+                        Process.findByUuid inputs.product.makingProcessUuid
                             |> .climateChange
                             |> (*) (Mass.inKilograms step.mass)
 
                     electricity =
-                        Process.findByUuid product.makingProcessUuid
+                        Process.findByUuid inputs.product.makingProcessUuid
                             |> .elec
                             |> Quantity.multiplyBy (Mass.inKilograms step.mass)
 
@@ -220,10 +175,10 @@ computeEnnoblementCo2Score =
 
 
 computeMaterialAndSpinningCo2Score : Simulator -> Simulator
-computeMaterialAndSpinningCo2Score ({ material } as simulator) =
+computeMaterialAndSpinningCo2Score ({ inputs } as simulator) =
     let
         climateChange =
-            Process.findByUuid material.materialProcessUuid |> .climateChange
+            Process.findByUuid inputs.material.materialProcessUuid |> .climateChange
     in
     simulator
         |> updateLifeCycleStep Step.MaterialAndSpinning
@@ -231,7 +186,7 @@ computeMaterialAndSpinningCo2Score ({ material } as simulator) =
 
 
 computeWeavingKnittingCo2Score : Simulator -> Simulator
-computeWeavingKnittingCo2Score ({ product } as simulator) =
+computeWeavingKnittingCo2Score ({ inputs } as simulator) =
     simulator
         |> updateLifeCycleStep Step.WeavingKnitting
             (\step ->
@@ -245,16 +200,16 @@ computeWeavingKnittingCo2Score ({ product } as simulator) =
                     -- Note: weaving and knitting processes are the same across all
                     -- countries and are defined by product
                     weavingKnittingProcess =
-                        Product.getWeavingKnittingProcess product
+                        Product.getWeavingKnittingProcess inputs.product
 
                     electricityKWh =
                         -- NOTE: knitted elec is computed against previous step mass,
                         -- weaved elec is computed against current step mass
-                        if product.knitted then
+                        if inputs.product.knitted then
                             Mass.inKilograms previousStepMass * Energy.inKilowattHours weavingKnittingProcess.elec
 
                         else
-                            (Mass.inKilograms step.mass * 1000 * toFloat product.ppm / toFloat product.grammage)
+                            (Mass.inKilograms step.mass * 1000 * toFloat inputs.product.ppm / toFloat inputs.product.grammage)
                                 * weavingKnittingProcess.elec_pppm
 
                     climateChangeKgCo2e =
@@ -270,19 +225,19 @@ computeWeavingKnittingCo2Score ({ product } as simulator) =
 
 
 computeMakingStepWaste : Simulator -> Simulator
-computeMakingStepWaste ({ mass, product } as simulator) =
+computeMakingStepWaste ({ inputs } as simulator) =
     let
         confectionWaste =
-            Process.findByUuid product.makingProcessUuid |> .waste
+            Process.findByUuid inputs.product.makingProcessUuid |> .waste
 
         stepMass =
             -- (product weight + textile waste for confection) / (1 - PCR waste rate)
             Mass.kilograms <|
-                (Mass.inKilograms mass + (Mass.inKilograms mass * Mass.inKilograms confectionWaste))
-                    / (1 - product.pcrWaste)
+                (Mass.inKilograms inputs.mass + (Mass.inKilograms inputs.mass * Mass.inKilograms confectionWaste))
+                    / (1 - inputs.product.pcrWaste)
 
         stepWaste =
-            Quantity.minus mass stepMass
+            Quantity.minus inputs.mass stepMass
     in
     simulator
         |> updateLifeCycleStep Step.Making (\step -> { step | waste = stepWaste, mass = stepMass })
@@ -292,7 +247,7 @@ computeMakingStepWaste ({ mass, product } as simulator) =
 
 
 computeWeavingKnittingStepWaste : Simulator -> Simulator
-computeWeavingKnittingStepWaste ({ product } as simulator) =
+computeWeavingKnittingStepWaste ({ inputs } as simulator) =
     let
         baseMass =
             simulator.lifeCycle
@@ -301,7 +256,7 @@ computeWeavingKnittingStepWaste ({ product } as simulator) =
                 |> Maybe.withDefault (Mass.kilograms 0)
 
         weavingKnittingWaste =
-            product
+            inputs.product
                 |> Product.getWeavingKnittingProcess
                 |> .waste
                 |> Quantity.multiplyBy (Mass.inKilograms baseMass)
@@ -315,7 +270,7 @@ computeWeavingKnittingStepWaste ({ product } as simulator) =
 
 
 computeMaterialStepWaste : Simulator -> Simulator
-computeMaterialStepWaste ({ material } as simulator) =
+computeMaterialStepWaste ({ inputs } as simulator) =
     let
         baseMass =
             simulator.lifeCycle
@@ -324,7 +279,7 @@ computeMaterialStepWaste ({ material } as simulator) =
                 |> Maybe.withDefault (Mass.kilograms 0)
 
         stepWaste =
-            Process.findByUuid material.materialProcessUuid
+            Process.findByUuid inputs.material.materialProcessUuid
                 |> .waste
                 |> Quantity.multiplyBy (Mass.inKilograms baseMass)
 

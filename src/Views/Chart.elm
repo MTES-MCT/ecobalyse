@@ -34,7 +34,7 @@ makeBars simulator =
                 |> List.map
                     (\step ->
                         { label =
-                            case ( step.label, simulator.product.knitted ) of
+                            case ( step.label, simulator.inputs.product.knitted ) of
                                 ( Step.WeavingKnitting, True ) ->
                                     "Tricotage"
 

@@ -51,7 +51,7 @@ view _ _ =
                 ]
             , div [ class "col-lg-5" ]
                 [ Inputs.tShirtCotonFrance
-                    |> Simulator.fromInputs
+                    |> Simulator.compute
                     |> SummaryView.view False
                 ]
             ]

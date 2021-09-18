@@ -34,11 +34,6 @@ encode =
     Encode.array Step.encode
 
 
-stepCountryLabels : LifeCycle -> List String
-stepCountryLabels =
-    Array.toList >> List.map Step.countryLabel
-
-
 computeSummaryBetween : Step -> Step -> Transport.Summary
 computeSummaryBetween current next =
     let
@@ -118,6 +113,21 @@ computeFinalCo2Score =
 getStep : Step.Label -> LifeCycle -> Maybe Step
 getStep label =
     Array.filter (.label >> (==) label) >> Array.get 0
+
+
+initCountries : List Country -> LifeCycle -> LifeCycle
+initCountries countries =
+    Array.indexedMap
+        (\index step ->
+            { step
+                | country =
+                    countries
+                        |> Array.fromList
+                        |> Array.get index
+                        |> Maybe.withDefault step.country
+            }
+        )
+        >> processStepCountries
 
 
 processStepCountries : LifeCycle -> LifeCycle

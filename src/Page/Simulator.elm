@@ -2,14 +2,12 @@ module Page.Simulator exposing (Model, Msg, init, update, view)
 
 import Array
 import Data.Country exposing (Country)
-import Data.Inputs exposing (Inputs)
-import Data.LifeCycle as LifeCycle
+import Data.Inputs as Inputs exposing (Inputs)
 import Data.Material as Material exposing (Material)
 import Data.Material.Category as Category exposing (Category)
 import Data.Product as Product exposing (Product)
 import Data.Session exposing (Session)
 import Data.Simulator as Simulator exposing (Simulator)
-import Data.Step as Step
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (onClick, onInput)
@@ -41,7 +39,7 @@ type Msg
     | UpdateMassInput String
     | UpdateMaterial Material
     | UpdateMaterialCategory Category
-    | UpdateStepCountry Step.Label Country
+    | UpdateStepCountry Int Country
     | UpdateProduct Product
 
 
@@ -49,16 +47,11 @@ init : Maybe Inputs -> Session -> ( Model, Session, Cmd Msg )
 init maybeInputs ({ store } as session) =
     let
         simulator =
-            case maybeInputs of
-                Just inputs ->
-                    Simulator.fromInputs inputs
-
-                Nothing ->
-                    -- TODO: is using store.simulator necessary? why should it be serialized in a first step?
-                    Simulator.compute store.simulator
+            -- TODO: is using store.simulator necessary? why should it be serialized in a first step?
+            maybeInputs |> Maybe.withDefault store.inputs |> Simulator.compute
     in
     ( { simulator = simulator
-      , massInput = simulator.mass |> Mass.inKilograms |> String.fromFloat
+      , massInput = simulator.inputs.mass |> Mass.inKilograms |> String.fromFloat
       , displayMode = SimpleMode
       }
     , session
@@ -66,20 +59,27 @@ init maybeInputs ({ store } as session) =
     )
 
 
-updateSimulator : Simulator -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
-updateSimulator simulator ( model, session, msg ) =
-    ( { model | simulator = Simulator.compute simulator }, session, msg )
+updateInputs : Inputs -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
+updateInputs inputs ( model, session, msg ) =
+    ( { model | simulator = Simulator.compute inputs }
+    , session
+    , msg
+    )
 
 
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
 update session msg ({ simulator } as model) =
+    let
+        { inputs } =
+            simulator
+    in
     case msg of
         CopyToClipBoard shareableLink ->
             ( model, session, Ports.copyToClipboard shareableLink )
 
         Reset ->
             ( model, session, Cmd.none )
-                |> updateSimulator Simulator.default
+                |> updateInputs Inputs.defaults
 
         SwitchMode displayMode ->
             ( { model | displayMode = displayMode }, session, Cmd.none )
@@ -88,19 +88,19 @@ update session msg ({ simulator } as model) =
             case massInput |> String.toFloat |> Maybe.map Mass.kilograms of
                 Just mass ->
                     ( { model | massInput = massInput }, session, Cmd.none )
-                        |> updateSimulator { simulator | mass = mass }
+                        |> updateInputs { inputs | mass = mass }
 
                 Nothing ->
                     ( { model | massInput = massInput }, session, Cmd.none )
 
         UpdateMaterial material ->
             ( model, session, Cmd.none )
-                |> updateSimulator { simulator | material = material }
+                |> updateInputs { inputs | material = material }
 
         UpdateMaterialCategory category ->
             ( model, session, Cmd.none )
-                |> updateSimulator
-                    { simulator
+                |> updateInputs
+                    { inputs
                         | material =
                             Material.choices
                                 |> List.filter (.category >> (==) category)
@@ -108,13 +108,13 @@ update session msg ({ simulator } as model) =
                                 |> Maybe.withDefault Material.cotton
                     }
 
-        UpdateStepCountry label country ->
+        UpdateStepCountry index country ->
             ( model, session, Cmd.none )
-                |> updateSimulator { simulator | lifeCycle = simulator.lifeCycle |> LifeCycle.updateStepCountry label country }
+                |> updateInputs { inputs | countries = inputs.countries |> Array.fromList |> Array.set index country |> Array.toList }
 
         UpdateProduct product ->
             ( { model | massInput = product.mass |> Mass.inKilograms |> String.fromFloat }, session, Cmd.none )
-                |> updateSimulator { simulator | product = product, mass = product.mass }
+                |> updateInputs { inputs | product = product, mass = product.mass }
 
 
 massField : String -> Html Msg
@@ -213,7 +213,7 @@ lifeCycleStepsView { displayMode, simulator } =
                 StepView.view
                     { detailed = displayMode == DetailedMode
                     , index = index
-                    , product = simulator.product
+                    , product = simulator.inputs.product
                     , current = current
                     , next = Array.get (index + 1) simulator.lifeCycle
                     , updateCountry = UpdateStepCountry
@@ -225,12 +225,10 @@ lifeCycleStepsView { displayMode, simulator } =
 
 
 shareLinkView : Session -> Model -> Html Msg
-shareLinkView session model =
+shareLinkView session { simulator } =
     let
         shareableLink =
-            model.simulator
-                |> Simulator.toInputs
-                |> Just
+            Just simulator.inputs
                 |> Route.Simulator
                 |> Route.toString
                 |> (++) session.clientUrl
@@ -288,14 +286,14 @@ view session ({ displayMode, simulator } as model) =
             [ div [ class "col-lg-7 col-xl-6" ]
                 [ div [ class "row" ]
                     [ div [ class "col-md-6" ]
-                        [ productField simulator.product
+                        [ productField simulator.inputs.product
                         ]
                     , div [ class "col-md-6" ]
                         [ massField model.massInput
                         ]
                     ]
-                , materialCategoryField simulator.material
-                , div [ class "mb-1" ] [ materialField simulator.material ]
+                , materialCategoryField simulator.inputs.material
+                , div [ class "mb-1" ] [ materialField simulator.inputs.material ]
                 , displayModeView displayMode
                 , lifeCycleStepsView model
                 , div [ class "d-flex align-items-center justify-content-between my-3" ]

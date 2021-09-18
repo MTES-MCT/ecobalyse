@@ -32,11 +32,7 @@ toLabel { mass, material, product } =
 
 defaults : Inputs
 defaults =
-    { mass = Product.tShirt.mass
-    , material = Material.cotton
-    , product = Product.tShirt
-    , countries = []
-    }
+    tShirtCotonFrance
 
 
 tShirtCotonFrance : Inputs
@@ -45,7 +41,13 @@ tShirtCotonFrance =
     { mass = Product.tShirt.mass
     , material = Material.cotton
     , product = Product.tShirt
-    , countries = []
+    , countries =
+        [ Country.China
+        , Country.France
+        , Country.France
+        , Country.France
+        , Country.France
+        ]
     }
 
 
@@ -83,7 +85,13 @@ jupeCircuitAsie =
     { mass = Product.findByName "Jupe" |> .mass
     , material = Material.findByName "Filament d'acrylique"
     , product = Product.findByName "Jupe"
-    , countries = [ Country.China, Country.China, Country.China, Country.China, Country.France ]
+    , countries =
+        [ Country.China
+        , Country.China
+        , Country.China
+        , Country.China
+        , Country.France
+        ]
     }
 
 
@@ -93,7 +101,13 @@ manteauCircuitEurope =
     { mass = Product.findByName "Manteau" |> .mass
     , material = Material.findByName "Fil de cachemire"
     , product = Product.findByName "Manteau"
-    , countries = [ Country.China, Country.Turkey, Country.Tunisia, Country.Spain, Country.France ]
+    , countries =
+        [ Country.China
+        , Country.Turkey
+        , Country.Tunisia
+        , Country.Spain
+        , Country.France
+        ]
     }
 
 
@@ -102,7 +116,13 @@ pantalonCircuitEurope =
     { mass = Product.findByName "Pantalon" |> .mass
     , material = Material.findByName "Fil de lin (filasse)"
     , product = Product.findByName "Pantalon"
-    , countries = [ Country.China, Country.Turkey, Country.Turkey, Country.Turkey, Country.France ]
+    , countries =
+        [ Country.China
+        , Country.Turkey
+        , Country.Turkey
+        , Country.Turkey
+        , Country.France
+        ]
     }
 
 
