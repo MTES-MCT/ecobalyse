@@ -18,12 +18,12 @@ type alias Config msg =
     , product : Product
     , current : Step
     , next : Maybe Step
-    , updateCountry : Step.Label -> Country -> msg
+    , updateCountry : Int -> Country -> msg
     }
 
 
 countryField : Config msg -> Html msg
-countryField { current, updateCountry } =
+countryField { current, index, updateCountry } =
     div []
         [ Country.choices
             |> List.map
@@ -33,8 +33,8 @@ countryField { current, updateCountry } =
                 )
             |> select
                 [ class "form-select"
-                , disabled (not current.editable) -- ADEME enforce Asia as a default for these, prevent update
-                , onInput (Country.fromString >> updateCountry current.label)
+                , disabled (not current.editable)
+                , onInput (Country.fromString >> updateCountry index)
                 ]
         , case current.label of
             Step.MaterialAndSpinning ->

@@ -14,7 +14,7 @@ asTest label =
 
 expectCo2 : Float -> Inputs -> Expectation
 expectCo2 co2 =
-    Simulator.fromInputs >> .co2 >> Expect.within (Expect.Absolute 0.01) co2
+    Simulator.compute >> .co2 >> Expect.within (Expect.Absolute 0.01) co2
 
 
 suite : Test
