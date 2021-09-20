@@ -11,7 +11,6 @@ import Data.Simulator as Simulator exposing (Simulator)
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (onClick, onInput)
-import Json.Encode as Encode
 import Mass
 import Ports
 import Route exposing (Route(..))
@@ -233,7 +232,7 @@ shareLinkView session { simulator } =
                 |> Route.toString
                 |> (++) session.clientUrl
     in
-    div [ class "card shadow-sm mb-3" ]
+    div [ class "card shadow-sm" ]
         [ div [ class "card-header" ] [ text "Partager cette simulation" ]
         , div [ class "card-body" ]
             [ div
@@ -281,40 +280,36 @@ displayModeView displayMode =
 view : Session -> Model -> ( String, List (Html Msg) )
 view session ({ displayMode, simulator } as model) =
     ( "Simulateur"
-    , [ h1 [ class "mb-3" ] [ text "Simulateur" ]
-      , div [ class "row" ]
-            [ div [ class "col-lg-7 col-xl-6" ]
-                [ div [ class "row" ]
-                    [ div [ class "col-md-6" ]
-                        [ productField simulator.inputs.product
-                        ]
-                    , div [ class "col-md-6" ]
-                        [ massField model.massInput
-                        ]
-                    ]
-                , materialCategoryField simulator.inputs.material
-                , div [ class "mb-1" ] [ materialField simulator.inputs.material ]
-                , displayModeView displayMode
-                , lifeCycleStepsView model
-                , div [ class "d-flex align-items-center justify-content-between my-3" ]
-                    [ a [ Route.href Route.Home ] [ text "« Retour à l'accueil" ]
-                    , button
-                        [ class "btn btn-secondary"
-                        , onClick Reset
-                        , disabled (Simulator.default == simulator)
-                        ]
-                        [ text "Réinitialiser le simulateur" ]
-                    ]
-                ]
-            , div [ class "col-lg-5 col-xl-6" ]
-                [ div [ class "sticky-md-top" ]
-                    [ SummaryView.view False simulator
-                    , shareLinkView session model
-                    , details []
-                        [ summary [] [ text "Debug" ]
-                        , pre [ class "mt-3" ]
-                            [ Simulator.encode simulator |> Encode.encode 2 |> text
+    , [ div [ class "Simulator" ]
+            [ h1 [ class "mb-3" ] [ text "Simulateur" ]
+            , div [ class "row" ]
+                [ div [ class "col-lg-7 col-xl-6" ]
+                    [ div [ class "row" ]
+                        [ div [ class "col-md-6" ]
+                            [ productField simulator.inputs.product
                             ]
+                        , div [ class "col-md-6" ]
+                            [ massField model.massInput
+                            ]
+                        ]
+                    , materialCategoryField simulator.inputs.material
+                    , div [ class "mb-1" ] [ materialField simulator.inputs.material ]
+                    , displayModeView displayMode
+                    , lifeCycleStepsView model
+                    , div [ class "d-flex align-items-center justify-content-between my-3" ]
+                        [ a [ Route.href Route.Home ] [ text "« Retour à l'accueil" ]
+                        , button
+                            [ class "btn btn-secondary"
+                            , onClick Reset
+                            , disabled (Simulator.default == simulator)
+                            ]
+                            [ text "Réinitialiser le simulateur" ]
+                        ]
+                    ]
+                , div [ class "col-lg-5 col-xl-6" ]
+                    [ div [ class "sticky-md-top" ]
+                        [ div [ class "Summary mb-3" ] [ SummaryView.view False simulator ]
+                        , div [ class "mb-3" ] [ shareLinkView session model ]
                         ]
                     ]
                 ]

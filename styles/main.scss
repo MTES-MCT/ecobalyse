@@ -29,14 +29,6 @@ body {
   background-color: $dark;
 }
 
-.app {
-  &-navbar-nav {
-    @media screen and (max-width: $viewport-sm) {
-      width: 100%;
-    }
-  }
-}
-
 .fs {
   &-7 {
     font-size: 0.85rem;
@@ -149,5 +141,50 @@ body {
     margin-right: 5px;
     position: relative;
     padding: math.div($chevrons-size, 2);
+  }
+}
+
+.Header {
+  @media screen and (max-width: $viewport-sm) {
+    position: sticky;
+    top: 0;
+    z-index: 1020;
+  }
+}
+
+.MainMenu {
+  @media screen and (max-width: $viewport-sm) {
+    width: 100%;
+  }
+}
+
+.Simulator {
+  @media screen and (max-width: $viewport-sm) {
+    margin-top: 160px;
+
+    >h1 {
+      display: none;
+    }
+  }
+}
+
+.Summary {
+  @media screen and (max-width: $viewport-sm) {
+    position: fixed;
+    z-index: 1020;
+    top: 100px;
+    left: 0;
+    right: 0;
+
+    .card {
+      border: 0;
+      .card-header {
+        border-radius: 0;
+      }
+    }
+
+    .card-header {
+      color: red;
+    }
   }
 }

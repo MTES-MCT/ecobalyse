@@ -5,7 +5,6 @@ import Data.Session exposing (Session)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Route
-import Views.Icon as Icon
 
 
 type ActivePage
@@ -27,12 +26,6 @@ frame config ( title, content ) =
     { title = title ++ " | wikicarbone"
     , body =
         [ navbar config
-        , div [ class "alert alert-info py-2 mb-0 rounded-0 shadow-sm" ]
-            [ div [ class "container" ]
-                [ Icon.info
-                , text " Ce site n'est pas encore opérationnel… Work in progress."
-                ]
-            ]
         , div [ class "bg-light", style "min-height" "52vh" ]
             [ main_ [ class "container py-5" ] content
             ]
@@ -52,7 +45,7 @@ menuLinks2 =
 
 navbar : Config -> Html msg
 navbar { activePage } =
-    nav [ class "navbar navbar-expand-lg navbar-dark bg-dark" ]
+    nav [ class "Header navbar navbar-expand-lg navbar-dark bg-dark" ]
         [ div [ class "container" ]
             [ a [ class "navbar-brand", Route.href Route.Home ]
                 [ img
@@ -76,7 +69,7 @@ navbar { activePage } =
                                 [ text label ]
                     )
                 |> div
-                    [ class "app-navbar-nav navbar-nav justify-content-between flex-row"
+                    [ class "MainMenu navbar-nav justify-content-between flex-row"
                     , style "overflow" "auto"
                     ]
             ]

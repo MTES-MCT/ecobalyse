@@ -23,7 +23,7 @@
     "params": "pure_funcs=\"F2,F3,F4,F5,F6,F7,F8,F9,A2,A3,A4,A5,A6,A7,A8,A9\",pure_getters,keep_fargs=false,unsafe_comps,unsafe"
   },
   "devDependencies": {
-    "bootstrap": "^5.1.0",
+    "bootstrap": "^5.1.1",
     "chokidar-cli": "^3.0.0",
     "concurrently": "^6.2.1",
     "elm": "^0.19.1-5",

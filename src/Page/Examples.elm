@@ -34,7 +34,7 @@ view _ _ =
     ( "Exemples"
     , [ div [ class "row mb-3" ]
             [ div [ class "col-md-7 col-lg-8 col-xl-9" ]
-                [ h2 [] [ text "Exemples de simulation" ]
+                [ h1 [ class "mb-3" ] [ text "Exemples de simulation" ]
                 ]
             , div [ class "col-md-5 col-lg-4 col-xl-3 text-center text-md-end" ]
                 [ a
