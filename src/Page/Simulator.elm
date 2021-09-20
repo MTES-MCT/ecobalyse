@@ -118,7 +118,7 @@ update session msg ({ simulator } as model) =
 
 massField : String -> Html Msg
 massField massInput =
-    div [ class "mb-3" ]
+    div []
         [ label [ for "mass", class "form-label fw-bold" ] [ text "Masse du produit fini" ]
         , div
             [ class "input-group" ]
@@ -187,7 +187,7 @@ materialField material =
 
 productField : Product -> Html Msg
 productField product =
-    div [ class "mb-3" ]
+    div []
         [ label [ for "product", class "form-label fw-bold" ] [ text "Type de produit" ]
         , Product.choices
             |> List.map (\p -> option [ value p.id, selected (product.id == p.id) ] [ text p.name ])
@@ -285,10 +285,10 @@ view session ({ displayMode, simulator } as model) =
             , div [ class "row" ]
                 [ div [ class "col-lg-7 col-xl-6" ]
                     [ div [ class "row" ]
-                        [ div [ class "col-md-6" ]
+                        [ div [ class "col-md-6 mb-2" ]
                             [ productField simulator.inputs.product
                             ]
-                        , div [ class "col-md-6" ]
+                        , div [ class "col-md-6 mb-2" ]
                             [ massField model.massInput
                             ]
                         ]
@@ -307,9 +307,9 @@ view session ({ displayMode, simulator } as model) =
                         ]
                     ]
                 , div [ class "col-lg-5 col-xl-6" ]
-                    [ div [ class "sticky-md-top" ]
-                        [ div [ class "Summary mb-3" ] [ SummaryView.view False simulator ]
-                        , div [ class "mb-3" ] [ shareLinkView session model ]
+                    [ div [ class "d-grid gap-3 sticky-md-top" ]
+                        [ div [ class "Summary" ] [ SummaryView.view False simulator ]
+                        , shareLinkView session model
                         ]
                     ]
                 ]

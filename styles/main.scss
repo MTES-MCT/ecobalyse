@@ -80,6 +80,7 @@ body {
   font-size: 0.75em;
   font-weight: bold;
   padding-left: 0;
+  margin-bottom: 0;
 
   li {
     &:before, &:after {
@@ -180,6 +181,9 @@ body {
       border: 0;
       .card-header {
         border-radius: 0;
+      }
+      .card-body {
+        padding: 10px;
       }
     }
 

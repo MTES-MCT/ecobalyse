@@ -22,8 +22,8 @@ view reusable simulator =
                 [ text <| "\u{00A0}" ++ Material.shortName simulator.inputs.material ++ "\u{00A0}" ]
             , span [ class "text-nowrap" ] [ strong [] [ Format.kg simulator.inputs.mass ] ]
             ]
-        , div [ class "card-body text-white bg-primary" ]
-            [ div [ class "d-flex justify-content-center align-items-center mb-2" ]
+        , div [ class "card-body d-grid gap-3 text-white bg-primary" ]
+            [ div [ class "d-flex justify-content-center align-items-center" ]
                 [ img
                     [ src <| "img/product/" ++ simulator.inputs.product.name ++ ".svg"
                     , class "invert me-2"
@@ -36,7 +36,7 @@ view reusable simulator =
                 ]
             , simulator.inputs.countries
                 |> List.map (\country -> li [] [ country |> Country.toString |> text ])
-                |> ul [ class "Chevrons text-center mt-3" ]
+                |> ul [ class "Chevrons text-center" ]
             , simulator.lifeCycle
                 |> LifeCycle.computeTransportSummary
                 |> TransportView.view False
