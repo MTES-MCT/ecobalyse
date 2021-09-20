@@ -27,18 +27,17 @@ view reusable simulator =
                 [ div [ class "d-flex justify-content-center align-items-center mb-2" ]
                     [ img
                         [ src <| "img/product/" ++ simulator.inputs.product.name ++ ".svg"
-                        , class "invert mx-2"
+                        , class "invert me-2"
                         , style "width" "3em"
                         , style "height" "3em"
                         ]
                         []
-                    , div [ class "display-5 text-center" ]
+                    , div [ class "display-5" ]
                         [ Format.kgCo2 2 simulator.co2 ]
                     ]
                 , simulator.inputs.countries
-                    |> List.map (\country -> span [ class "badge bg-light text-primary" ] [ country |> Country.toString |> text ])
-                    |> List.intersperse (text " → ")
-                    |> div [ class "text-center my-2 mb-3" ]
+                    |> List.map (\country -> li [] [ country |> Country.toString |> text ])
+                    |> ul [ class "Chevrons text-center mt-3" ]
                 , simulator.lifeCycle
                     |> LifeCycle.computeTransportSummary
                     |> TransportView.view False

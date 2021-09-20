@@ -1,3 +1,5 @@
+@use "sass:math";
+
 // Bootstrap colors
 $white: #fff;
 $body-color: #111;
@@ -77,5 +79,75 @@ body {
   @media screen and (min-width: $viewport-lg) {
     position: sticky;
     top: 5px;
+  }
+}
+
+.Chevrons {
+  $chevrons-radius: 4px;
+  $chevrons-size: 12px;
+  font-size: 0.75em;
+  font-weight: bold;
+  padding-left: 0;
+
+  li {
+    &:before, &:after {
+      position: absolute;
+      right: 100%;
+      content: "";
+      top: 0;
+      bottom: 0;
+      border-style: solid;
+      border-color: red; // remove me or adapt
+      border-width: $chevrons-size 0 $chevrons-size math.div($chevrons-size, 2);
+    }
+
+    &:nth-child(odd) {
+      background: $white;
+      color: $primary;
+      &:before {
+        background: $primary;
+        border-color: $primary;
+        border-left-color: transparent;
+      }
+      &:after {
+        background: $white;
+        border-color: transparent;
+        border-left-color: $primary;
+      }
+    }
+
+    &:nth-child(even) {
+      background: $primary;
+      color: $white;
+      &:before {
+        background: $white;
+        border-color: $white;
+        border-left-color: transparent;
+      }
+      &:after {
+        background: $primary;
+        border-color: transparent;
+        border-left-color: $white;
+      }
+    }
+
+    &:first-child {
+      &:before, &:after {
+        content: none;
+      }
+      border-bottom-left-radius: $chevrons-radius;
+      border-top-left-radius: $chevrons-radius;
+    }
+
+    &:last-child {
+      border-bottom-right-radius: $chevrons-radius;
+      border-top-right-radius: $chevrons-radius;
+    }
+
+    display: inline-block;
+    line-height: $chevrons-size;
+    margin-right: 5px;
+    position: relative;
+    padding: math.div($chevrons-size, 2);
   }
 }
