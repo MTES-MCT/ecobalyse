@@ -69,14 +69,21 @@ view : Session -> Model -> ( String, List (Html Msg) )
 view _ { state } =
     case state of
         Loading ->
-            ( "Chargement…", [ text "loading…" ] )
+            ( "Chargement…", [ div [ class "text-center" ] [ text "Chargement…" ] ] )
 
         Loaded content ->
             ( extractTitle content
-            , [ article [ class "row justify-content-center" ]
-                    [ content |> Markdown.toHtml [ class "col-md-8 md-content" ] ]
+            , [ h1 [ class "mb-3" ] [ text "Méthodologie" ]
+              , article [ class "row justify-content-center" ]
+                    [ content
+                        |> Markdown.toHtml
+                            [ class "md-content"
+                            , style "columns" "30em"
+                            , style "column-gap" "40px"
+                            ]
+                    ]
               ]
             )
 
         Errored error ->
-            ( "Erreur", [ text (errorToMarkdown error) ] )
+            ( "Erreur", [ div [ class "alert alert-warning" ] [ text (errorToMarkdown error) ] ] )

@@ -1,5 +1,3 @@
-# Methodologie
-
 ## Un outil en phase de construction
 
 **Le simulateur et les exemples qui en découlent sont des documents de travail et de réflexion. Ils ne sont pas validés, ni par l'ADEME, ni par le ministère de la Transition écologique.**
