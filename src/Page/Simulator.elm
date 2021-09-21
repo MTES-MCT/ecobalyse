@@ -14,6 +14,7 @@ import Html.Events exposing (onClick, onInput)
 import Mass
 import Ports
 import Route exposing (Route(..))
+import Views.Container as Container
 import Views.Icon as Icon
 import Views.Step as StepView
 import Views.Summary as SummaryView
@@ -280,7 +281,7 @@ displayModeView displayMode =
 view : Session -> Model -> ( String, List (Html Msg) )
 view session ({ displayMode, simulator } as model) =
     ( "Simulateur"
-    , [ div [ class "Simulator" ]
+    , [ Container.centered [ class "Simulator" ]
             [ h1 [ class "mb-3" ] [ text "Simulateur" ]
             , div [ class "row" ]
                 [ div [ class "col-lg-7 col-xl-6" ]
@@ -307,7 +308,7 @@ view session ({ displayMode, simulator } as model) =
                         ]
                     ]
                 , div [ class "col-lg-5 col-xl-6" ]
-                    [ div [ class "d-grid gap-3 sticky-md-top" ]
+                    [ div [ class "d-flex flex-column gap-3 sticky-md-top" ]
                         [ div [ class "Summary" ] [ SummaryView.view False simulator ]
                         , shareLinkView session model
                         ]

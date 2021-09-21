@@ -39,6 +39,19 @@ body {
   }
 }
 
+.bottomed-paragraphs {
+  p:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.text-light-all {
+  color: $white;
+  a {
+    color: $white;
+  }
+}
+
 .invert {
   filter: invert(1);
 }

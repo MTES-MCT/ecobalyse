@@ -6,6 +6,7 @@ import Html.Attributes exposing (..)
 import Http
 import Markdown
 import Request.HttpClient as HttpClient
+import Views.Container as Container
 
 
 type Msg
@@ -56,25 +57,24 @@ extractTitle =
         >> Maybe.withDefault "À propos"
 
 
-errorToMarkdown : Http.Error -> String
-errorToMarkdown error =
-    """## Error
-
-There was an error attempting to retrieve README information:
-
-> *""" ++ HttpClient.errorToString error ++ "*"
+page : String -> List (Html msg) -> ( String, List (Html msg) )
+page title content =
+    ( title
+    , [ Container.centered [] content ]
+    )
 
 
 view : Session -> Model -> ( String, List (Html Msg) )
 view _ { state } =
     case state of
         Loading ->
-            ( "Chargement…", [ div [ class "text-center" ] [ text "Chargement…" ] ] )
+            page "Chargement…"
+                [ div [ class "text-center" ] [ text "Chargement…" ] ]
 
         Loaded content ->
-            ( extractTitle content
-            , [ h1 [ class "mb-3" ] [ text "Méthodologie" ]
-              , article [ class "row justify-content-center" ]
+            page (extractTitle content)
+                [ h1 [ class "mb-3" ] [ text "Méthodologie" ]
+                , article [ class "row justify-content-center" ]
                     [ content
                         |> Markdown.toHtml
                             [ class "md-content"
@@ -82,8 +82,12 @@ view _ { state } =
                             , style "column-gap" "40px"
                             ]
                     ]
-              ]
-            )
+                ]
 
         Errored error ->
-            ( "Erreur", [ div [ class "alert alert-warning" ] [ text (errorToMarkdown error) ] ] )
+            page "Erreur"
+                [ div [ class "alert alert-warning" ]
+                    [ p [] [ strong [] [ text "Impossible de charger le contenu de cette page\u{00A0}:" ] ]
+                    , p [ class "mb-0" ] [ text (HttpClient.errorToString error) ]
+                    ]
+                ]

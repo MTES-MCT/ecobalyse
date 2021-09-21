@@ -5,6 +5,7 @@ import Data.Session exposing (Session)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Route
+import Views.Container as Container
 
 
 type ActivePage
@@ -26,9 +27,7 @@ frame config ( title, content ) =
     { title = title ++ " | wikicarbone"
     , body =
         [ navbar config
-        , div [ class "d-flex align-items-center bg-light", style "min-height" "59vh" ]
-            [ main_ [ class "container py-5" ] content
-            ]
+        , main_ [ class "bg-light py-5" ] content
         , pageFooter
         ]
     }
@@ -46,7 +45,7 @@ menuLinks =
 navbar : Config -> Html msg
 navbar { activePage } =
     nav [ class "Header navbar navbar-expand-lg navbar-dark bg-dark" ]
-        [ div [ class "container" ]
+        [ Container.centered []
             [ a [ class "navbar-brand", Route.href Route.Home ]
                 [ img
                     [ class "d-inline-block align-text-bottom invert me-2"
@@ -80,7 +79,7 @@ pageFooter : Html msg
 pageFooter =
     footer
         [ class "bg-dark text-light py-5 fs-7" ]
-        [ div [ class "container" ]
+        [ Container.centered []
             [ div [ class "row d-flex align-items-center" ]
                 [ div [ class "col" ]
                     [ h3 [] [ text "wikicarbone" ]
