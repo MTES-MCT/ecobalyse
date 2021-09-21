@@ -14,6 +14,11 @@ boat =
     icon "ship"
 
 
+build : Html msg
+build =
+    icon "build"
+
+
 bus : Html msg
 bus =
     icon "truck"
@@ -32,6 +37,11 @@ exclamation =
 expand : Html msg
 expand =
     icon "expand"
+
+
+globe : Html msg
+globe =
+    icon "globe"
 
 
 info : Html msg
@@ -57,6 +67,11 @@ search =
 shrink : Html msg
 shrink =
     icon "shrink"
+
+
+study : Html msg
+study =
+    icon "study"
 
 
 zoomin : Html msg

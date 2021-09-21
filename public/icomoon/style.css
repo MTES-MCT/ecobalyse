@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?92a9qn');
-  src:  url('fonts/icomoon.eot?92a9qn#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?92a9qn') format('truetype'),
-    url('fonts/icomoon.woff?92a9qn') format('woff'),
-    url('fonts/icomoon.svg?92a9qn#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?ta1djw');
+  src:  url('fonts/icomoon.eot?ta1djw#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?ta1djw') format('truetype'),
+    url('fonts/icomoon.woff?ta1djw') format('woff'),
+    url('fonts/icomoon.svg?ta1djw#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -37,6 +37,9 @@
 .icon-atom:before {
   content: "\e903";
 }
+.icon-build:before {
+  content: "\e909";
+}
 .icon-pencil:before {
   content: "\f040";
 }
@@ -49,6 +52,9 @@
 .icon-plane:before {
   content: "\f072";
 }
+.icon-globe:before {
+  content: "\f0ac";
+}
 .icon-truck:before {
   content: "\f0d1";
 }
@@ -57,6 +63,9 @@
 }
 .icon-paste:before {
   content: "\f0ea";
+}
+.icon-study:before {
+  content: "\f19d";
 }
 .icon-ship:before {
   content: "\f21a";
