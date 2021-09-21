@@ -26,7 +26,7 @@ frame config ( title, content ) =
     { title = title ++ " | wikicarbone"
     , body =
         [ navbar config
-        , div [ class "bg-light", style "min-height" "52vh" ]
+        , div [ class "d-flex align-items-center bg-light", style "min-height" "59vh" ]
             [ main_ [ class "container py-5" ] content
             ]
         , pageFooter
@@ -34,8 +34,8 @@ frame config ( title, content ) =
     }
 
 
-menuLinks2 : List ( ActivePage, Route.Route, String )
-menuLinks2 =
+menuLinks : List ( ActivePage, Route.Route, String )
+menuLinks =
     [ ( Home, Route.Home, "Accueil" )
     , ( Simulator, Route.Simulator Nothing, "Simulateur" )
     , ( Examples, Route.Examples, "Exemples" )
@@ -57,7 +57,7 @@ navbar { activePage } =
                     []
                 , span [ class "fs-3" ] [ text "wikicarbone" ]
                 ]
-            , menuLinks2
+            , menuLinks
                 |> List.map
                     (\( page, route, label ) ->
                         if page == activePage then
@@ -84,7 +84,7 @@ pageFooter =
             [ div [ class "row d-flex align-items-center" ]
                 [ div [ class "col" ]
                     [ h3 [] [ text "wikicarbone" ]
-                    , menuLinks2
+                    , menuLinks
                         |> List.map (\( _, r, l ) -> a [ class "text-light", Route.href r ] [ text l ])
                         |> (\new list -> list ++ [ new ])
                             (a [ class "text-light", href "https://github.com/MTES-MCT/wikicarbone/" ] [ text "Code source" ])
