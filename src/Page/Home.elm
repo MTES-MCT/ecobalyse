@@ -39,7 +39,7 @@ view _ _ =
                 [ div [ class "row align-items-center", style "min-height" "57vh" ]
                     [ div [ class "col-lg-7 text-center" ]
                         [ h2 [ class "display-5" ]
-                            [ text "Quels sont les impacts de nos achats sur la planète ?" ]
+                            [ text "Quels sont les impacts de nos achats sur la planète\u{00A0}?" ]
                         , p [ class "fs-4 text-muted my-5" ]
                             [ text "Comprendre, contribuer et faire émerger des valeurs de référence" ]
                         , div [ class "row mb-4" ]
@@ -63,7 +63,7 @@ view _ _ =
             , Container.full [ class "bg-primary-gradient shadow text-light-all" ]
                 [ Container.centered []
                     [ Column.create
-                        |> Column.add []
+                        |> Column.add [ class "text-center px-3 px-sm-2" ]
                             [ blockquote [ class "fs-4 mb-1" ]
                                 [ q [] [ text "74% des Français aimeraient avoir plus d’informations sur l’impact environnemental et sociétal des produits qu’ils achètent" ] ]
                             , p [ class "text-center" ]
@@ -76,8 +76,9 @@ view _ _ =
                                     [ text "14ème baromètre de la consommation responsable 2021" ]
                                 ]
                             ]
-                        |> Column.addMd [ class "fs-5 mt-1" ]
-                            """Répondant à cette demande, [la loi Climat et Résilience rend obligatoire l'affichage environnemental](https://www.legifrance.gouv.fr/loda/article_lc/LEGIARTI000043957692).
+                        |> Column.addMd [ class "fs-5 mt-1 px-4 px-sm-2" ]
+                            """Répondant à cette demande, [la loi Climat et Résilience rend obligatoire l'affichage
+                            environnemental](https://www.legifrance.gouv.fr/loda/article_lc/LEGIARTI000043957692).
 
                             La mise en œuvre de cette nouvelle obligation va prendre du temps et **nécessite un travail collectif**."""
                         |> Column.render [ class "d-flex align-items-start py-5" ]
@@ -118,7 +119,8 @@ view _ _ =
                 ]
             , Container.full [ class "bg-info text-light-all py-5" ]
                 [ Container.centered []
-                    [ Column.create
+                    [ h2 [ class "fs-1 text-center fw-light mb-4" ] [ text "La démarche Wikicarbone" ]
+                    , Column.create
                         |> Column.addMd []
                             """Wikicarbone vise dans un premier temps à faire émerger des **valeurs d'impacts de référence**,
                             à partir de critères simples : matières, pays de confection, pays de teinture…
@@ -143,7 +145,7 @@ view _ _ =
                             ([Base Impacts ADEME](https://www.base-impacts.ademe.fr/)) et se concentrent sur les impacts des produits sur
                             **le changement climatique**. L'objectif est d'augmenter les informations proposées (impacts, bases de référence...)
                             pour rendre accessible un maximum d'information et éclairer les débats."""
-                        |> Column.render [ class "" ]
+                        |> Column.render []
                     ]
                 ]
             ]
