@@ -60,7 +60,7 @@ extractTitle =
 page : String -> List (Html msg) -> ( String, List (Html msg) )
 page title content =
     ( title
-    , [ Container.centered [] content ]
+    , [ Container.centered [ class "pb-5" ] content ]
     )
 
 

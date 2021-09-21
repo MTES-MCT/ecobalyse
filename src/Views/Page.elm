@@ -27,7 +27,7 @@ frame config ( title, content ) =
     { title = title ++ " | wikicarbone"
     , body =
         [ navbar config
-        , main_ [ class "bg-light py-5" ] content
+        , main_ [ class "bg-light pt-5" ] content
         , pageFooter
         ]
     }
@@ -44,7 +44,7 @@ menuLinks =
 
 navbar : Config -> Html msg
 navbar { activePage } =
-    nav [ class "Header navbar navbar-expand-lg navbar-dark bg-dark" ]
+    nav [ class "Header navbar navbar-expand-lg navbar-dark bg-dark shadow" ]
         [ Container.centered []
             [ a [ class "navbar-brand", Route.href Route.Home ]
                 [ img

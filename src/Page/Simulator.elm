@@ -297,7 +297,7 @@ view session ({ displayMode, simulator } as model) =
                     , div [ class "mb-1" ] [ materialField simulator.inputs.material ]
                     , displayModeView displayMode
                     , lifeCycleStepsView model
-                    , div [ class "d-flex align-items-center justify-content-between my-3" ]
+                    , div [ class "d-flex align-items-center justify-content-between mt-3 mb-5" ]
                         [ a [ Route.href Route.Home ] [ text "« Retour à l'accueil" ]
                         , button
                             [ class "btn btn-secondary"

@@ -29,6 +29,30 @@ body {
   background-color: $dark;
 }
 
+blockquote {
+  q {
+    font-family: Blanco, Georgia, serif;
+    quotes: "“" "”" "‘" "’";
+    &::before {
+      content: open-quote;
+    }
+    &::after {
+      content: close-quote;
+    }
+  }
+}
+
+.bottomed-paragraphs {
+  p:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.bg-primary-gradient {
+  background: $primary;
+  background: linear-gradient(15deg, #054a80, $primary);
+}
+
 .fs {
   &-7 {
     font-size: 0.85rem;
@@ -36,12 +60,6 @@ body {
 
   &-70p {
     font-size: 80%;
-  }
-}
-
-.bottomed-paragraphs {
-  p:last-child {
-    margin-bottom: 0;
   }
 }
 
