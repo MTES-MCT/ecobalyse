@@ -34,10 +34,10 @@ view _ _ =
     ( "Accueil"
     , [ div [ class "row align-items-center" ]
             [ div [ class "col-lg-7 text-center" ]
-                [ h2 [ class "display-5" ]
-                    [ text "Bienvenue sur Wikicarbone" ]
+                [ h2 [ class "display-4" ]
+                    [ text "Quels sont les impacts de nos achats sur la planète ?" ]
                 , p [ class "fs-4 text-muted my-5" ]
-                    [ text "Accélerer la mise en place de l'affichage environnemental" ]
+                    [ text "Comprendre, contribuer et faire émerger des valeurs de référence" ]
                 , div [ class "row mb-4" ]
                     [ div [ class "col-md-6 text-center text-md-end py-2" ]
                         [ a [ class "btn btn-lg btn-primary", Route.href (Route.Simulator Nothing) ]
