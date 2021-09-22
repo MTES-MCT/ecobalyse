@@ -7,7 +7,7 @@ import Json.Encode as Encode
 
 
 type alias Material =
-    { materialProcessUuid : String
+    { materialProcessUuid : Process.Uuid
     , name : String
     , category : Category
     }
@@ -48,13 +48,13 @@ findByName name =
 
 invalid : Material
 invalid =
-    { materialProcessUuid = "", name = "<invalid>", category = Category.Natural }
+    { materialProcessUuid = Process.Uuid "", name = "<invalid>", category = Category.Natural }
 
 
 decode : Decoder Material
 decode =
     Decode.map3 Material
-        (Decode.field "materialProcessUuid" Decode.string)
+        (Decode.field "materialProcessUuid" (Decode.map Process.Uuid Decode.string))
         (Decode.field "name" Decode.string)
         (Decode.field "category" Category.decode)
 
@@ -62,13 +62,13 @@ decode =
 encode : Material -> Encode.Value
 encode v =
     Encode.object
-        [ ( "materialProcessUuid", Encode.string v.materialProcessUuid )
+        [ ( "materialProcessUuid", Encode.string (Process.uuidToString v.materialProcessUuid) )
         , ( "name", Encode.string v.name )
         , ( "category", Category.encode v.category )
         ]
 
 
-findByProcessUuid : String -> Maybe Material
+findByProcessUuid : Process.Uuid -> Maybe Material
 findByProcessUuid materialProcessUuid =
     choices |> List.filter (\m -> m.materialProcessUuid == materialProcessUuid) |> List.head
 

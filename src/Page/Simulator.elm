@@ -5,6 +5,7 @@ import Data.Country exposing (Country)
 import Data.Inputs as Inputs exposing (Inputs)
 import Data.Material as Material exposing (Material)
 import Data.Material.Category as Category exposing (Category)
+import Data.Process as Process
 import Data.Product as Product exposing (Product)
 import Data.Session exposing (Session)
 import Data.Simulator as Simulator exposing (Simulator)
@@ -173,7 +174,7 @@ materialField material =
         |> List.map
             (\m ->
                 option
-                    [ value m.materialProcessUuid
+                    [ value <| Process.uuidToString m.materialProcessUuid
                     , selected (material.materialProcessUuid == m.materialProcessUuid)
                     , title m.name
                     ]
@@ -182,7 +183,12 @@ materialField material =
         |> select
             [ id "material"
             , class "form-select"
-            , onInput (Material.findByProcessUuid >> Maybe.withDefault Material.cotton >> UpdateMaterial)
+            , onInput
+                (Process.Uuid
+                    >> Material.findByProcessUuid
+                    >> Maybe.withDefault Material.cotton
+                    >> UpdateMaterial
+                )
             ]
 
 

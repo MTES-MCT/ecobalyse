@@ -10,13 +10,17 @@ type alias Process =
     , cat2 : Cat2
     , cat3 : Cat3
     , name : String
-    , uuid : String
+    , uuid : Uuid
     , climateChange : Float -- kgCO2e per kg of material to process
     , heat : Energy -- MJ per kg of material to process
     , elec_pppm : Float -- kWh/(pick,m) per kg of material to process
     , elec : Energy -- MJ per kg of material to process
     , waste : Mass -- kg of textile wasted per kg of material to process
     }
+
+
+type Uuid
+    = Uuid String
 
 
 type Cat1
@@ -91,7 +95,7 @@ decodeProcess =
         |> Csv.pipeline (Csv.field "Catégorie (niveau 2)" (Csv.string |> Csv.andThen (cat2FromString >> Csv.fromResult)))
         |> Csv.pipeline (Csv.field "Catégorie (niveau 3)" (Csv.string |> Csv.andThen (cat3FromString >> Csv.fromResult)))
         |> Csv.pipeline (Csv.field "Procédé" Csv.string)
-        |> Csv.pipeline (Csv.field "UUID" Csv.string)
+        |> Csv.pipeline (Csv.field "UUID" (Csv.map Uuid Csv.string))
         |> Csv.pipeline (Csv.field "Changement climatique" decodeFrenchFloat)
         |> Csv.pipeline (Csv.field "heat" (decodeFrenchFloat |> Csv.andThen (Energy.megajoules >> Csv.succeed)))
         |> Csv.pipeline (Csv.field "electricity per pick per meter" decodeFrenchFloat)
@@ -105,7 +109,7 @@ noOp =
     , cat2 = Material
     , cat3 = NaturalMaterials
     , name = "void"
-    , uuid = ""
+    , uuid = Uuid ""
     , climateChange = 0
     , heat = Energy.megajoules 0
     , elec_pppm = 0
@@ -122,7 +126,7 @@ decodeCsv =
         decodeProcess
 
 
-findByUuid : String -> Process
+findByUuid : Uuid -> Process
 findByUuid uuid =
     processes |> List.filter (.uuid >> (==) uuid) |> List.head |> Maybe.withDefault noOp
 
@@ -352,6 +356,11 @@ processes =
 
         Err _ ->
             []
+
+
+uuidToString : Uuid -> String
+uuidToString (Uuid string) =
+    string
 
 
 csvSource : String
