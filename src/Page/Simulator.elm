@@ -271,7 +271,7 @@ shareLinkView session { simulator } =
 
 displayModeView : DisplayMode -> Html Msg
 displayModeView displayMode =
-    ul [ class "nav nav-pills nav-fill py-2 bg-light sticky-md-top" ]
+    ul [ class "nav nav-pills nav-fill py-2 bg-white sticky-md-top" ]
         [ li [ class "nav-item" ]
             [ button
                 [ classList [ ( "nav-link", True ), ( "active", displayMode == SimpleMode ) ]

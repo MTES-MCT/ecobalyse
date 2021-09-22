@@ -1,4 +1,4 @@
-module Views.Page exposing (ActivePage(..), Config, frame)
+module Views.Page exposing (..)
 
 import Browser exposing (Document)
 import Data.Session exposing (Session)
@@ -13,6 +13,7 @@ type ActivePage
     | Simulator
     | Editorial String
     | Examples
+    | Stats
     | Other
 
 
@@ -27,7 +28,7 @@ frame config ( title, content ) =
     { title = title ++ " | wikicarbone"
     , body =
         [ navbar config
-        , main_ [ class "bg-light pt-5" ] content
+        , main_ [ class "bg-white pt-5" ] content
         , pageFooter
         ]
     }
@@ -77,6 +78,10 @@ navbar { activePage } =
 
 pageFooter : Html msg
 pageFooter =
+    let
+        appendList =
+            \new list -> list ++ [ new ]
+    in
     footer
         [ class "bg-dark text-light py-5 fs-7" ]
         [ Container.centered []
@@ -85,7 +90,9 @@ pageFooter =
                     [ h3 [] [ text "wikicarbone" ]
                     , menuLinks
                         |> List.map (\( _, r, l ) -> a [ class "text-light", Route.href r ] [ text l ])
-                        |> (\new list -> list ++ [ new ])
+                        |> appendList
+                            (a [ class "text-light", Route.href Route.Stats ] [ text "Statistiques" ])
+                        |> appendList
                             (a [ class "text-light", href "https://github.com/MTES-MCT/wikicarbone/" ] [ text "Code source" ])
                         |> List.map (List.singleton >> li [])
                         |> ul []
@@ -139,4 +146,13 @@ pageFooter =
                     ]
                 ]
             ]
+        ]
+
+
+notFound : Html msg
+notFound =
+    Container.centered [ class "pb-5" ]
+        [ h1 [ class "mb-3" ] [ text "Page non trouvée" ]
+        , p [] [ text "La page que vous avez demandé n'existe pas." ]
+        , a [ Route.href Route.Home ] [ text "Retour à l'accueil" ]
         ]

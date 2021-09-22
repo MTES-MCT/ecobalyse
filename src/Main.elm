@@ -8,6 +8,7 @@ import Page.Editorial as Editorial
 import Page.Examples as Examples
 import Page.Home as Home
 import Page.Simulator as Simulator
+import Page.Stats as Stats
 import Ports
 import Route exposing (Route)
 import Url exposing (Url)
@@ -26,6 +27,7 @@ type Page
     | SimulatorPage Simulator.Model
     | EditorialPage Editorial.Model
     | ExamplesPage Examples.Model
+    | StatsPage Stats.Model
     | NotFoundPage
 
 
@@ -40,6 +42,7 @@ type Msg
     | SimulatorMsg Simulator.Msg
     | EditorialMsg Editorial.Msg
     | ExamplesMsg Examples.Msg
+    | StatsMsg Stats.Msg
     | StoreChanged String
     | UrlChanged Url
     | UrlRequested Browser.UrlRequest
@@ -81,6 +84,9 @@ setRoute maybeRoute model =
 
         Just Route.Examples ->
             toPage ExamplesPage Examples.init ExamplesMsg
+
+        Just Route.Stats ->
+            toPage StatsPage Stats.init StatsMsg
 
 
 init : Flags -> Url -> Nav.Key -> ( Model, Cmd Msg )
@@ -127,6 +133,12 @@ update msg ({ page, session } as model) =
         ( EditorialMsg editorialMsg, EditorialPage editorialModel ) ->
             toPage EditorialPage EditorialMsg Editorial.update editorialMsg editorialModel
 
+        ( ExamplesMsg examplesMsg, ExamplesPage examplesModel ) ->
+            toPage ExamplesPage ExamplesMsg Examples.update examplesMsg examplesModel
+
+        ( StatsMsg statsMsg, StatsPage statsModel ) ->
+            toPage StatsPage StatsMsg Stats.update statsMsg statsModel
+
         ( StoreChanged json, _ ) ->
             ( { model | session = { session | store = Session.deserializeStore json } }
             , Cmd.none
@@ -146,7 +158,7 @@ update msg ({ page, session } as model) =
         ( _, NotFoundPage ) ->
             ( { model | page = NotFoundPage }, Cmd.none )
 
-        ( _, _ ) ->
+        _ ->
             ( model, Cmd.none )
 
 
@@ -165,6 +177,9 @@ subscriptions model =
                 Sub.none
 
             ExamplesPage _ ->
+                Sub.none
+
+            StatsPage _ ->
                 Sub.none
 
             NotFoundPage ->
@@ -205,8 +220,13 @@ view { page, session } =
                 |> mapMsg ExamplesMsg
                 |> Page.frame (pageConfig Page.Examples)
 
+        StatsPage editorialModel ->
+            Stats.view session editorialModel
+                |> mapMsg StatsMsg
+                |> Page.frame (pageConfig Page.Stats)
+
         NotFoundPage ->
-            ( "Not Found", [ Html.text "Not found" ] )
+            ( "Not Found", [ Page.notFound ] )
                 |> Page.frame (pageConfig Page.Other)
 
         BlankPage ->

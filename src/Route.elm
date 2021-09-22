@@ -13,6 +13,7 @@ type Route
     | Simulator (Maybe Inputs)
     | Editorial String
     | Examples
+    | Stats
 
 
 parser : Parser (Route -> a) a
@@ -23,6 +24,7 @@ parser =
         , Parser.map (Simulator << Just) (Parser.s "simulator" </> parseInputs)
         , Parser.map Editorial (Parser.s "content" </> Parser.string)
         , Parser.map Examples (Parser.s "examples")
+        , Parser.map Stats (Parser.s "stats")
         ]
 
 
@@ -94,5 +96,8 @@ toString route =
 
                 Examples ->
                     [ "examples" ]
+
+                Stats ->
+                    [ "stats" ]
     in
     "#/" ++ String.join "/" pieces
