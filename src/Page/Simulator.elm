@@ -197,11 +197,16 @@ productField product =
     div []
         [ label [ for "product", class "form-label fw-bold" ] [ text "Type de produit" ]
         , Product.choices
-            |> List.map (\p -> option [ value p.id, selected (product.id == p.id) ] [ text p.name ])
+            |> List.map (\p -> option [ value (Product.idToString p.id), selected (product.id == p.id) ] [ text p.name ])
             |> select
                 [ id "product"
                 , class "form-select"
-                , onInput (Product.findById >> Maybe.withDefault Product.tShirt >> UpdateProduct)
+                , onInput
+                    (Product.Id
+                        >> Product.findById
+                        >> Maybe.withDefault Product.tShirt
+                        >> UpdateProduct
+                    )
                 ]
         ]
 
