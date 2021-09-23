@@ -34,7 +34,7 @@ view _ _ =
             , div [ id "widgetIframe" ]
                 [ iframe
                     [ attribute "frameborder" "0"
-                    , attribute "height" "800"
+                    , attribute "height" "850"
                     , attribute "marginheight" "0"
                     , attribute "marginwidth" "0"
                     , attribute "scrolling" "yes"
