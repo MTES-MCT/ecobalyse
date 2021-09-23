@@ -38,7 +38,9 @@ Les fichiers générés sont alors générés dans le répertoire `build` à la 
 
 ## Déploiement
 
-Cette application est hébergée sur [Github Pages](https://pages.github.com/). Pour déployer l'application, il faut lancer la commande suivante :
+L'application est déployée automatiquement sur [Github Pages](https://pages.github.com/) pour toute mise à jour de la branche `master`.
+
+Il est cependant possible de déployer l'application manuellement au moyen de la commande suivante :
 
 ```
 $ npm run deploy
