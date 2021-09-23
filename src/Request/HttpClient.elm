@@ -26,6 +26,6 @@ errorToString error =
 getMarkdownFile : Session -> String -> (Result Error String -> msg) -> Cmd msg
 getMarkdownFile _ file event =
     Http.get
-        { url = file
+        { url = "markdown/" ++ file
         , expect = Http.expectString event
         }

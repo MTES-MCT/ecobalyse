@@ -5,10 +5,10 @@
   "author": "You",
   "license": "MIT",
   "scripts": {
-    "build": "parcel build public/index.html && cp -r public/img dist/",
+    "build": "parcel build public/index.html && cp -r public/img dist/ && cp -r public/markdown dist/",
     "deploy": "npm run build && gh-pages --dist dist/",
-    "start:debug": "parcel serve public/index.html --port 3000",
-    "start": "PARCEL_ELM_NO_DEBUG=1 parcel serve public/index.html --port 3000",
+    "start:dev": "parcel serve public/index.html --port 3000 --no-cache",
+    "start": "PARCEL_ELM_NO_DEBUG=1 npm run start:dev",
     "test": "elm-test"
   },
   "devDependencies": {
@@ -19,9 +19,7 @@
     "elm-analyse": "^0.16.5",
     "elm-format": "^0.8.5",
     "elm-test": "^0.19.1-revision7",
-    "gh-pages": "^3.2.3",
-    "npm-run-all": "^4.1.5",
-    "rimraf": "^3.0.2"
+    "gh-pages": "^3.2.3"
   },
   "dependencies": {
     "parcel": "^2.0.0-rc.0"
