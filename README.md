@@ -20,7 +20,7 @@ Le serveur local de développement se lance au moyen de la commande suivante :
 
     $ npm start
 
-L'instance de développement est alors accessible via [localhost:3000](http://localhost:3000/)
+L'instance de développement est alors accessible via [localhost:1234](http://localhost:1234/).
 
 ### Mode de débogage
 
