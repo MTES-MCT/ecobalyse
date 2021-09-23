@@ -5,36 +5,25 @@
   "author": "You",
   "license": "MIT",
   "scripts": {
-    "build": "npm run copy-assets && npm run sass:build && npm run elm:build && npm run elm:optimize && npm run build:clean",
-    "build:clean": "rm -rf build/icomoon/demo.html build/icomoon/demo-files build/main.css.map",
-    "copy-assets": "rimraf build && mkdir build && cp -r public/* build",
-    "deploy": "npm run build && gh-pages --dist build/",
-    "elm:build": "elm make src/Main.elm --optimize --output=build/app.js",
-    "elm:debug": "elm-live src/Main.elm --port=3000 --dir=public/ -- --output=public/app.js --debug",
-    "elm:live": "elm-live src/Main.elm --port=3000 --dir=public/ -- --output=public/app.js",
-    "elm:optimize": "uglifyjs build/app.js -c $npm_package_uglify_params | uglifyjs -m -o build/app.js",
-    "sass:build": "sass styles/main.scss build/main.css --style compressed --no-source-map",
-    "sass:watch": "chokidar 'styles/main.scss' -c 'sass styles/main.scss public/main.css && touch src/Main.elm' --initial",
-    "start": "concurrently -n \"sass,_elm\" -c \"green,blue\" -k \"npm run sass:watch\" \"npm run elm:live\"",
-    "start:debug": "concurrently -n \"sass,_elm\" -c \"green,blue\" -k \"npm run sass:watch\" \"npm run elm:debug\"",
+    "build": "parcel build public/index.html && cp -r public/img dist/",
+    "deploy": "npm run build && gh-pages --dist dist/",
+    "start:debug": "parcel serve public/index.html --port 3000",
+    "start": "PARCEL_ELM_NO_DEBUG=1 parcel serve public/index.html --port 3000",
     "test": "elm-test"
   },
-  "uglify": {
-    "params": "pure_funcs=\"F2,F3,F4,F5,F6,F7,F8,F9,A2,A3,A4,A5,A6,A7,A8,A9\",pure_getters,keep_fargs=false,unsafe_comps,unsafe"
-  },
   "devDependencies": {
+    "@parcel/transformer-elm": "^2.0.0-rc.0",
+    "@parcel/transformer-sass": "^2.0.0-rc.0",
     "bootstrap": "^5.1.1",
-    "chokidar-cli": "^3.0.0",
-    "concurrently": "^6.2.1",
     "elm": "^0.19.1-5",
     "elm-analyse": "^0.16.5",
     "elm-format": "^0.8.5",
-    "elm-live": "^4.0.2",
     "elm-test": "^0.19.1-revision7",
     "gh-pages": "^3.2.3",
     "npm-run-all": "^4.1.5",
-    "rimraf": "^3.0.2",
-    "sass": "^1.38.0",
-    "uglify-js": "^3.14.1"
+    "rimraf": "^3.0.2"
+  },
+  "dependencies": {
+    "parcel": "^2.0.0-rc.0"
   }
 }
