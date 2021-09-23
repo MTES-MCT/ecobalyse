@@ -21,12 +21,13 @@ $viewport-md: 768px;
 $viewport-lg: 992px;
 $viewport-xl: 1200px;
 
-@import "../node_modules/bootstrap/scss/bootstrap.scss";
+@import "./node_modules/bootstrap/scss/bootstrap.scss";
 
 body {
   // Note: This is for header and footer to occupy the whole height of the
   // available viewport. Main content area is white background.
   background-color: $dark;
+  color: red;
 }
 
 blockquote {

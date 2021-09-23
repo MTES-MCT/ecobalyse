@@ -1,9 +1,10 @@
-import { Elm } from "../src/Main.elm";
+import { Elm } from "./src/Main.elm";
 
 // The localStorage key to use to store serialized session data
 const storeKey = "store";
 
 const app = Elm.Main.init({
+  node: document.getElementById("app"),
   flags: {
     clientUrl: location.origin + location.pathname,
     rawStore: localStorage[storeKey] || "",
@@ -37,3 +38,23 @@ window.addEventListener(
   },
   false
 );
+
+try {
+  var _paq = (window._paq = window._paq || []);
+  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+  _paq.push(["trackPageView"]);
+  _paq.push(["enableLinkTracking"]);
+  (function () {
+    var u = "https://stats.data.gouv.fr/";
+    _paq.push(["setTrackerUrl", u + "piwik.php"]);
+    _paq.push(["setSiteId", "196"]);
+    var d = document,
+      g = d.createElement("script"),
+      s = d.getElementsByTagName("script")[0];
+    g.async = true;
+    g.src = u + "piwik.js";
+    s.parentNode.insertBefore(g, s);
+  })();
+} catch (e) {
+  console.warn(e);
+}
