@@ -26,7 +26,7 @@ L'instance de développement est alors accessible via [localhost:3000](http://lo
 
 Pour lancer le serveur de développement en mode de débuggage :
 
-    $ npm run start:debug
+    $ npm run start:dev
 
 ## Build
 
@@ -34,7 +34,7 @@ Pour compiler l'application :
 
     $ npm run build
 
-Les fichiers générés sont alors générés dans le répertoire `build` à la racine du projet.
+Les fichiers sont alors générés dans le répertoire `build` à la racine du projet, qui peut être servi de façon statique.
 
 ## Déploiement
 
