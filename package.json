@@ -7,7 +7,7 @@
   "scripts": {
     "build": "parcel build public/index.html && cp -r public/{img,markdown,stats} dist/",
     "deploy": "npm run build && gh-pages --dist dist/",
-    "start:dev": "parcel serve public/index.html --no-cache",
+    "start:dev": "parcel serve index.html --no-cache",
     "start": "PARCEL_ELM_NO_DEBUG=1 npm run start:dev",
     "test": "elm-test"
   },

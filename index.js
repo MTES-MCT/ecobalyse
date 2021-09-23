@@ -39,7 +39,9 @@ window.addEventListener(
   false
 );
 
-try {
+// Matomo tracking is enabled for production hostnames only
+// Note: The tracker code is incompatible with Parcel's HMR, hence why we don't want to to run on a local dev instance
+if (["mtes-mct.github.io", "wikicarbone.beta.gouv.fr"].indexOf(location.hostname) !== -1) {
   var _paq = (window._paq = window._paq || []);
   /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
   _paq.push(["trackPageView"]);
@@ -55,6 +57,4 @@ try {
     g.src = u + "piwik.js";
     s.parentNode.insertBefore(g, s);
   })();
-} catch (e) {
-  console.warn(e);
 }
