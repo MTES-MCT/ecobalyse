@@ -6,6 +6,7 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Route
 import Views.Container as Container
+import Views.Link as Link
 
 
 type ActivePage
@@ -93,19 +94,17 @@ pageFooter =
                         |> appendList
                             (a [ class "text-light", Route.href Route.Stats ] [ text "Statistiques" ])
                         |> appendList
-                            (a [ class "text-light", href "https://github.com/MTES-MCT/wikicarbone/" ] [ text "Code source" ])
+                            (Link.external [ class "text-light", href "https://github.com/MTES-MCT/wikicarbone/" ] [ text "Code source" ])
                         |> List.map (List.singleton >> li [])
                         |> ul []
                     , p [ class "mb-0" ]
                         [ text "Un produit "
-                        , a [ href "https://beta.gouv.fr/startups/wikicarbone.html", class "text-light" ]
+                        , Link.external [ href "https://beta.gouv.fr/startups/wikicarbone.html", class "text-light" ]
                             [ img [ src "img/betagouv.svg", alt "beta.gouv.fr", style "width" "120px" ] [] ]
                         ]
                     ]
-                , a
+                , Link.external
                     [ href "https://www.ecologique-solidaire.gouv.fr/"
-                    , rel "noopener noreferrer"
-                    , target "_blank"
                     , class "col text-center bg-light px-3 m-3"
                     ]
                     [ img
@@ -116,10 +115,8 @@ pageFooter =
                         ]
                         []
                     ]
-                , a
+                , Link.external
                     [ href "https://www.cohesion-territoires.gouv.fr/"
-                    , rel "noopener noreferrer"
-                    , target "_blank"
                     , class "col text-center bg-light px-3 m-3"
                     ]
                     [ img
@@ -130,10 +127,8 @@ pageFooter =
                         ]
                         []
                     ]
-                , a
+                , Link.external
                     [ href "https://www.ecologique-solidaire.gouv.fr/fabrique-numerique"
-                    , rel "noopener noreferrer"
-                    , target "_blank"
                     , class "col text-center px-3 py-2"
                     ]
                     [ img

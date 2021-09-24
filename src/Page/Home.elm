@@ -9,6 +9,7 @@ import Route
 import Views.Column as Column
 import Views.Container as Container
 import Views.Icon as Icon
+import Views.Link as Link
 import Views.Summary as SummaryView
 
 
@@ -69,9 +70,8 @@ view _ _ =
                                 [ q [] [ text "74% des Français aimeraient avoir plus d’informations sur l’impact environnemental et sociétal des produits qu’ils achètent" ] ]
                             , p [ class "text-center" ]
                                 [ text "Source\u{00A0}:\u{00A0}"
-                                , a
+                                , Link.external
                                     [ class "text-light"
-                                    , target "_blank"
                                     , href "https://presse.ademe.fr/wp-content/uploads/2021/05/CP-Barometre-de-la-consommation-responsable-Version-Finale.pdf"
                                     ]
                                     [ text "14ème baromètre de la consommation responsable 2021" ]
@@ -92,7 +92,7 @@ view _ _ =
                             [ h3 [ class "fw-light" ] [ span [ class "align-middle text-primary me-2" ] [ Icon.build ], text "Un projet en construction" ]
                             , hr [] []
                             , Column.toMarkdown """Incubé par la Fabrique Numérique du Ministère de la Transition Écologique et
-                            [beta.gouv.fr](https://beta.gouv.fr), ce projet est en phase de construction depuis
+                            [beta.gouv.fr](https://beta.gouv.fr/startups/wikicarbone.html), ce projet est en phase de construction depuis
                             le 1er juillet 2021.
 
                             Dans un premier temps, **les travaux se concentrent sur la filière textile**."""

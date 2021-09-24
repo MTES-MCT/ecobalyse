@@ -26,6 +26,7 @@ view reusable simulator =
             [ div [ class "d-flex justify-content-center align-items-center" ]
                 [ img
                     [ src <| "img/product/" ++ simulator.inputs.product.name ++ ".svg"
+                    , alt <| simulator.inputs.product.name
                     , class "invert me-2"
                     , style "width" "3em"
                     , style "height" "3em"
