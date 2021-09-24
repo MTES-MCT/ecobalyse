@@ -2,7 +2,7 @@ module Views.Column exposing (..)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Markdown
+import Views.Markdown as Markdown
 
 
 type alias Column msg =
@@ -75,4 +75,4 @@ toMarkdown =
     String.split "\n\n"
         >> List.map String.trim
         >> String.join "\n\n"
-        >> Markdown.toHtml [ class "bottomed-paragraphs" ]
+        >> Markdown.view [ class "bottomed-paragraphs" ]

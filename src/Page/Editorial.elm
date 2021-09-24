@@ -4,9 +4,9 @@ import Data.Session exposing (Session)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Http
-import Markdown
 import Request.HttpClient as HttpClient
 import Views.Container as Container
+import Views.Markdown as Markdown
 
 
 type Msg
@@ -76,7 +76,7 @@ view _ { state } =
                 [ h1 [ class "mb-3" ] [ text "Méthodologie" ]
                 , article [ class "row justify-content-center" ]
                     [ content
-                        |> Markdown.toHtml
+                        |> Markdown.view
                             [ class "md-content"
                             , style "columns" "30em"
                             , style "column-gap" "40px"
