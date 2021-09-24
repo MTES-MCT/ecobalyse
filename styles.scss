@@ -74,43 +74,6 @@ blockquote {
   filter: invert(1);
 }
 
-.md-content {
-  h2 {
-    border-top: 1px solid #ccc;
-    font-size: 1.5em;
-    padding: 1em 0 .5em;
-    margin-top: 1em;
-  }
-
-  h3 {
-    font-size: 1.25em;
-    padding: 1em 0 .5em;
-    margin-top: .85em;
-  }
-
-  blockquote {
-    color: $text-dark;
-    border-left: 5px solid #ccc;
-    font-style: italic;
-    padding-left: .5em;
-  }
-
-  pre {
-    background-color: rgb(14, 14, 36);
-    border-radius: 8px;
-    color: #fff;
-    padding: 1em;
-  }
-}
-
-.sticky-summary {
-  // TODO: stick permanently on top for smaller viewports
-  @media screen and (min-width: $viewport-lg) {
-    position: sticky;
-    top: 5px;
-  }
-}
-
 .Chevrons {
   $chevrons-radius: 4px;
   $chevrons-size: 12px;
@@ -193,6 +156,35 @@ blockquote {
 .MainMenu {
   @media screen and (max-width: $viewport-sm) {
     width: 100%;
+  }
+}
+
+.Markdown {
+  h2 {
+    border-top: 1px solid #ccc;
+    font-size: 1.5em;
+    padding: 1em 0 .5em;
+    margin-top: 1em;
+  }
+
+  h3 {
+    font-size: 1.25em;
+    padding: 1em 0 .5em;
+    margin-top: .85em;
+  }
+
+  blockquote {
+    color: $text-dark;
+    border-left: 5px solid #ccc;
+    font-style: italic;
+    padding-left: .5em;
+  }
+
+  pre {
+    background-color: rgb(14, 14, 36);
+    border-radius: 8px;
+    color: #fff;
+    padding: 1em;
   }
 }
 

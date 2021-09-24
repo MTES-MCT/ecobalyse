@@ -77,8 +77,7 @@ view _ { state } =
                 , article [ class "row justify-content-center" ]
                     [ content
                         |> Markdown.view
-                            [ class "md-content"
-                            , style "columns" "30em"
+                            [ style "columns" "30em"
                             , style "column-gap" "40px"
                             ]
                     ]

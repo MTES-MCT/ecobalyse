@@ -10,6 +10,7 @@ import Views.Column as Column
 import Views.Container as Container
 import Views.Icon as Icon
 import Views.Link as Link
+import Views.Markdown as Markdown
 import Views.Summary as SummaryView
 
 
@@ -91,7 +92,7 @@ view _ _ =
                         |> Column.add [ class "text-center px-lg-4" ]
                             [ h3 [ class "fw-light" ] [ span [ class "align-middle text-primary me-2" ] [ Icon.build ], text "Un projet en construction" ]
                             , hr [] []
-                            , Column.toMarkdown """Incubé par la Fabrique Numérique du Ministère de la Transition Écologique et
+                            , Markdown.view [] """Incubé par la Fabrique Numérique du Ministère de la Transition Écologique et
                             [beta.gouv.fr](https://beta.gouv.fr/startups/wikicarbone.html), ce projet est en phase de construction depuis
                             le 1er juillet 2021.
 
@@ -100,7 +101,7 @@ view _ _ =
                         |> Column.add [ class "text-center px-lg-4" ]
                             [ h3 [ class "fw-light" ] [ span [ class "align-middle text-primary me-2" ] [ Icon.study ], text "Un outil pédagogique" ]
                             , hr [] []
-                            , Column.toMarkdown """pour comprendre les **impacts environnementaux de nos produits**,
+                            , Markdown.view [] """pour comprendre les **impacts environnementaux de nos produits**,
                             en s'appuyant sur les **méthodes de référence** (Base Impacts ADEME, PEF européen).
 
                             Il doit être **accessible à tous**, y compris des PME/TPE voire des consommateurs curieux."""
@@ -108,7 +109,7 @@ view _ _ =
                         |> Column.add [ class "text-center px-lg-4" ]
                             [ h3 [ class "fw-light" ] [ span [ class "align-middle text-primary me-2" ] [ Icon.globe ], text "Un commun numérique" ]
                             , hr [] []
-                            , Column.toMarkdown """**Les producteurs et les entreprises textiles connaissent leurs produits**.
+                            , Markdown.view [] """**Les producteurs et les entreprises textiles connaissent leurs produits**.
 
                             Au travers d'un **outil collaboratif**, leurs contributions sont nécessaires pour comprendre et évaluer au mieux les impacts."""
                             ]

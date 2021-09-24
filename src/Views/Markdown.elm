@@ -6,6 +6,13 @@ import Markdown.Parser as Markdown
 import Markdown.Renderer exposing (Renderer, defaultHtmlRenderer)
 
 
+clean : String -> String
+clean =
+    String.split "\n\n"
+        >> List.map String.trim
+        >> String.join "\n\n"
+
+
 renderer : Renderer (Html msg)
 renderer =
     { defaultHtmlRenderer | link = renderLink }
@@ -33,12 +40,13 @@ view : List (Attribute msg) -> String -> Html msg
 view attrs markdown =
     case
         markdown
+            |> clean
             |> Markdown.parse
             |> Result.mapError (List.map Markdown.deadEndToString >> String.join "\n")
             |> Result.andThen (Markdown.Renderer.render renderer)
     of
         Ok rendered ->
-            div attrs rendered
+            div ([ class "Markdown bottomed-paragraphs" ] ++ attrs) rendered
 
         Err errors ->
             div [ class "alert alert-warning" ] [ text errors ]

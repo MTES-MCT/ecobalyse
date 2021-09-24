@@ -24,7 +24,7 @@ add attrs elements columns =
 
 addMd : Attributes msg -> String -> List (Column msg) -> List (Column msg)
 addMd attrs md =
-    add attrs [ toMarkdown md ]
+    add attrs [ Markdown.view [ class "bottomed-paragraphs" ] md ]
 
 
 create : List (Column msg)
@@ -68,11 +68,3 @@ render wrapAttrs columns =
                 div (attrs ++ [ class <| "py-2 col-" ++ breakpoint ++ "-" ++ String.fromInt col ]) elements
             )
         |> div ([ class "row" ] ++ wrapAttrs)
-
-
-toMarkdown : String -> Html msg
-toMarkdown =
-    String.split "\n\n"
-        >> List.map String.trim
-        >> String.join "\n\n"
-        >> Markdown.view [ class "bottomed-paragraphs" ]
