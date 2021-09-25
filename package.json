@@ -6,7 +6,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "build": "rimraf dist && npm run build:init && parcel build index.html",
+    "build": "rimraf dist && npm run build:init && parcel build index.html --public-url ./",
     "build:init": "mkdir -p dist && cp -r public/* dist/",
     "deploy": "npm run build && gh-pages --dist dist/",
     "start:dev": "npm run build:init && parcel serve index.html --no-cache",
