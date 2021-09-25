@@ -4,7 +4,7 @@
 
 ![](https://i.imgur.com/s6wAYhZ.png)
 
-L'application est accessible [à cette adresse](https://mtes-mct.github.io/wikicarbone/).
+L'application est accessible [à cette adresse](https://wikicarbone.beta.gouv.fr/).
 
 ## Socle technique et prérequis
 

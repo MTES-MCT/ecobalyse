@@ -1,5 +1,10 @@
 import { Elm } from "./src/Main.elm";
 
+// Prevent app from running from github.io
+if (location.hostname.includes("github.io")) {
+  document.location.href = "https://wikicarbone.beta.gouv.fr/";
+}
+
 // The localStorage key to use to store serialized session data
 const storeKey = "store";
 
