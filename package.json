@@ -15,6 +15,7 @@
   },
   "devDependencies": {
     "@parcel/transformer-elm": "^2.0.0-rc.0",
+    "@parcel/transformer-image": "^2.0.0-rc.0",
     "@parcel/transformer-sass": "^2.0.0-rc.0",
     "bootstrap": "^5.1.1",
     "elm": "^0.19.1-5",
