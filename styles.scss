@@ -23,6 +23,19 @@ $viewport-xl: 1200px;
 
 @import "./node_modules/bootstrap/scss/bootstrap.scss";
 
+// Browser Hacks
+
+_::-webkit-full-page-media, _:future, :root select {
+  // https://browserstrangeness.bitbucket.io/css_hacks.html#safari
+  -webkit-appearance: none;
+  background-image: url("./public/img/chevron-down.png") !important;
+  background-position: right 8px center;
+  background-repeat: no-repeat;
+  padding-right: 20px;
+}
+
+// App styles
+
 body {
   // Note: This is for header and footer to occupy the whole height of the
   // available viewport. Main content area is white background.
@@ -196,15 +209,6 @@ blockquote {
       display: none;
     }
   }
-}
-
-_::-webkit-full-page-media, _:future, :root select {
-  // https://browserstrangeness.bitbucket.io/css_hacks.html#safari
-  -webkit-appearance: none;
-  background-image: url("./public/img/chevron-down.png") !important;
-  background-position: right 8px center;
-  background-repeat: no-repeat;
-  padding-right: 20px;
 }
 
 .Summary {
