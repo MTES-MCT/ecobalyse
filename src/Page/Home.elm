@@ -93,7 +93,7 @@ view _ _ =
                             [ h3 [ class "fw-light" ] [ span [ class "align-middle text-primary me-2" ] [ Icon.build ], text "Un projet en construction" ]
                             , hr [] []
                             , Markdown.view [] """Incubé par la Fabrique Numérique du Ministère de la Transition Écologique et
-                            [beta.gouv.fr](https://beta.gouv.fr/startups/wikicarbone.html), ce projet est en phase de construction depuis
+                            [beta.gouv.fr](https://beta.gouv.fr/startups/filigrane.html), ce projet est en phase de construction depuis
                             le 1er juillet 2021.
 
                             Dans un premier temps, **les travaux se concentrent sur la filière textile**."""
@@ -118,11 +118,11 @@ view _ _ =
                 ]
             , Container.full [ class "bg-info text-light-all py-5" ]
                 [ Container.centered []
-                    [ h2 [ class "fs-1 text-center fw-light mb-4" ] [ text "La démarche Wikicarbone" ]
+                    [ h2 [ class "fs-1 text-center fw-light mb-4" ] [ text "La démarche Filigrane" ]
                     , hr [ class "text-light" ] []
                     , Column.create
                         |> Column.addMd []
-                            """Wikicarbone vise dans un premier temps à faire émerger des **valeurs d'impacts de référence**,
+                            """Filigrane vise dans un premier temps à faire émerger des **valeurs d'impacts de référence**,
                             à partir de critères simples&nbsp;: matières, pays de confection, pays de teinture…
 
                             Ces valeurs ne doivent pas être regardées comme des évaluations précises d’impacts pour un produit

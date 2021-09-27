@@ -26,7 +26,7 @@ type alias Config =
 
 frame : Config -> ( String, List (Html msg) ) -> Document msg
 frame config ( title, content ) =
-    { title = title ++ " | wikicarbone"
+    { title = title ++ " | Filigrane"
     , body =
         [ navbar config
         , main_ [ class "bg-white pt-5" ] content
@@ -56,7 +56,7 @@ navbar { activePage } =
                     , height 26
                     ]
                     []
-                , span [ class "fs-3" ] [ text "wikicarbone" ]
+                , span [ class "fs-3" ] [ text "Filigrane" ]
                 ]
             , menuLinks
                 |> List.map
@@ -88,18 +88,18 @@ pageFooter =
         [ Container.centered []
             [ div [ class "row d-flex align-items-center" ]
                 [ div [ class "col" ]
-                    [ h3 [] [ text "wikicarbone" ]
+                    [ h3 [] [ text "Filigrane" ]
                     , menuLinks
                         |> List.map (\( _, r, l ) -> a [ class "text-light", Route.href r ] [ text l ])
                         |> appendList
                             (a [ class "text-light", Route.href Route.Stats ] [ text "Statistiques" ])
                         |> appendList
-                            (Link.external [ class "text-light", href "https://github.com/MTES-MCT/wikicarbone/" ] [ text "Code source" ])
+                            (Link.external [ class "text-light", href "https://github.com/MTES-MCT/filigrane/" ] [ text "Code source" ])
                         |> List.map (List.singleton >> li [])
                         |> ul []
                     , p [ class "mb-0" ]
                         [ text "Un produit "
-                        , Link.external [ href "https://beta.gouv.fr/startups/wikicarbone.html", class "text-light" ]
+                        , Link.external [ href "https://beta.gouv.fr/startups/filigrane.html", class "text-light" ]
                             [ img [ src "img/betagouv.svg", alt "beta.gouv.fr", style "width" "120px" ] [] ]
                         ]
                     ]

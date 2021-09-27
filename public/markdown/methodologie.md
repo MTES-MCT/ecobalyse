@@ -4,7 +4,7 @@
 
 ## Un outil adossé au référentiel méthodologique ADEME
 
-Les pré-évaluations d'impacts environnementaux proposés par Wikicarbone s'appuient sur [le référentiel établi par l'ADEME](http://www.base-impacts.ademe.fr/) :
+Les pré-évaluations d'impacts environnementaux proposés par Filigrane s'appuient sur [le référentiel établi par l'ADEME](http://www.base-impacts.ademe.fr/) :
 
 - procédés de la base Impacts®
 - documentation sectorielle textile (`BASE IMPACTS® DATA DOCUMENTATION - SECTOR: TEXTILE - 1.09.208`)
@@ -22,7 +22,7 @@ En première approche, le simulateur est très incomplet :
 
 Dans une démarche *agile*, cette première version vise en priorité à recueillir des commentaires et des critiques des utilisateurs, dans le but d'orienter la suite des travaux dans les directions les plus importantes.
 
-Tout retour est d'ailleurs le bienvenu [par email](mailto:pascal.dagras@beta.gouv.fr?Subject=wikicarbone).
+Tout retour est d'ailleurs le bienvenu [par email](mailto:pascal.dagras@beta.gouv.fr?Subject=filigrane).
 
 ## Comment sont faites les hypothèses ?
 
@@ -64,4 +64,4 @@ Quelques exemples :
 
 L'intérêt de l'outil repose notamment sur la pertinence de ces hypothèses supplémentaires. Dans quelle mesure sont-elles représentatives, ou majorantes, par rapport aux pratiques observées dans l'industrie (pour les phases de production et de fabrication) ?
 
-Dans une logique de commun numérique, Wikicarbone cherche notamment à servir de support aux échanges techniques qui permettraient de faire émerger des hypothèses par défaut pertinentes. En première approche, les remarques sont simplement collectées [par mail](mailto:pascal.dagras@beta.gouv.fr?Subject=wikicarbone). Des évolutions sont envisagées pour la suite pour chercher à recueillir les contributions directement sur l'outil.
+Dans une logique de commun numérique, Filigrane cherche notamment à servir de support aux échanges techniques qui permettraient de faire émerger des hypothèses par défaut pertinentes. En première approche, les remarques sont simplement collectées [par mail](mailto:pascal.dagras@beta.gouv.fr?Subject=filigrane). Des évolutions sont envisagées pour la suite pour chercher à recueillir les contributions directement sur l'outil.
