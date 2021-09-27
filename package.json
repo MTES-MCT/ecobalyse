@@ -21,6 +21,7 @@
     "@parcel/transformer-sass": "^2.0.0-rc.0",
     "bootstrap": "^5.1.1",
     "chokidar-cli": "^3.0.0",
+    "concurrently": "^6.2.1",
     "elm": "^0.19.1-5",
     "elm-analyse": "^0.16.5",
     "elm-format": "^0.8.5",
