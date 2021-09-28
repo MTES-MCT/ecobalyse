@@ -76,8 +76,8 @@ setRoute maybeRoute model =
         Just Route.Home ->
             toPage HomePage Home.init HomeMsg
 
-        Just (Route.Simulator maybeInputs) ->
-            toPage SimulatorPage (Simulator.init maybeInputs) SimulatorMsg
+        Just (Route.Simulator maybeQuery) ->
+            toPage SimulatorPage (Simulator.init maybeQuery) SimulatorMsg
 
         Just (Route.Editorial slug) ->
             toPage EditorialPage (Editorial.init slug) EditorialMsg

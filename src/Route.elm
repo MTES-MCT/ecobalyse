@@ -1,7 +1,7 @@
 module Route exposing (Route(..), fromUrl, href, pushUrl, toString)
 
 import Browser.Navigation as Nav
-import Data.Inputs as Inputs exposing (Inputs)
+import Data.Inputs as Inputs
 import Html exposing (Attribute)
 import Html.Attributes as Attr
 import Url exposing (Url)
@@ -10,7 +10,7 @@ import Url.Parser as Parser exposing ((</>), Parser)
 
 type Route
     = Home
-    | Simulator (Maybe Inputs)
+    | Simulator (Maybe Inputs.Query)
     | Editorial String
     | Examples
     | Stats
@@ -21,20 +21,20 @@ parser =
     Parser.oneOf
         [ Parser.map Home Parser.top
         , Parser.map (Simulator Nothing) (Parser.s "simulator")
-        , Parser.map (Simulator << Just) (Parser.s "simulator" </> parseInputs)
+        , Parser.map (Simulator << Just) (Parser.s "simulator" </> parseInputsQuery)
         , Parser.map Editorial (Parser.s "content" </> Parser.string)
         , Parser.map Examples (Parser.s "examples")
         , Parser.map Stats (Parser.s "stats")
         ]
 
 
-parseInputs : Parser (Inputs -> a) a
-parseInputs =
+parseInputsQuery : Parser (Inputs.Query -> a) a
+parseInputsQuery =
     Parser.string
         |> Parser.map
             (Inputs.b64decode
                 >> Result.toMaybe
-                >> Maybe.withDefault Inputs.defaults
+                >> Maybe.withDefault Inputs.defaultQuery
             )
 
 

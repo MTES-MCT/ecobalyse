@@ -44,12 +44,15 @@ type Msg
     | UpdateProduct Product
 
 
-init : Maybe Inputs -> Session -> ( Model, Session, Cmd Msg )
+init : Maybe Inputs.Query -> Session -> ( Model, Session, Cmd Msg )
 init maybeInputs ({ store } as session) =
     let
         simulator =
             -- TODO: is using store.simulator necessary? why should it be serialized in a first step?
-            maybeInputs |> Maybe.withDefault store.inputs |> Simulator.compute
+            maybeInputs
+                |> Maybe.map Inputs.fromQuery
+                |> Maybe.withDefault store.inputs
+                |> Simulator.compute
     in
     ( { simulator = simulator
       , massInput = simulator.inputs.mass |> Mass.inKilograms |> String.fromFloat
@@ -183,12 +186,7 @@ materialField material =
         |> select
             [ id "material"
             , class "form-select"
-            , onInput
-                (Process.Uuid
-                    >> Material.findByProcessUuid
-                    >> Maybe.withDefault Material.cotton
-                    >> UpdateMaterial
-                )
+            , onInput (Process.Uuid >> Material.findByProcessUuid >> UpdateMaterial)
             ]
 
 
@@ -201,12 +199,7 @@ productField product =
             |> select
                 [ id "product"
                 , class "form-select"
-                , onInput
-                    (Product.Id
-                        >> Product.findById
-                        >> Maybe.withDefault Product.tShirt
-                        >> UpdateProduct
-                    )
+                , onInput (Product.Id >> Product.findById >> UpdateProduct)
                 ]
         ]
 
@@ -239,7 +232,8 @@ shareLinkView : Session -> Model -> Html Msg
 shareLinkView session { simulator } =
     let
         shareableLink =
-            Just simulator.inputs
+            simulator.inputs
+                |> (Inputs.toQuery >> Just)
                 |> Route.Simulator
                 |> Route.toString
                 |> (++) session.clientUrl

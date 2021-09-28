@@ -1,6 +1,7 @@
 module Views.Summary exposing (..)
 
 import Data.Country as Country
+import Data.Inputs as Inputs
 import Data.LifeCycle as LifeCycle
 import Data.Material as Material
 import Data.Simulator exposing (Simulator)
@@ -50,7 +51,7 @@ view reusable simulator =
             div [ class "card-footer text-center" ]
                 [ a
                     [ class "btn btn-primary"
-                    , Route.href (Route.Simulator (Just simulator.inputs))
+                    , Route.href (Route.Simulator (simulator.inputs |> Inputs.toQuery |> Just))
                     ]
                     [ text "Reprendre cette simulation" ]
                 ]

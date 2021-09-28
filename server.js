@@ -12,7 +12,7 @@ app.get("/", (req, res) => {
     return res.send({ result });
   }
   server.ports.output.subscribe(handler);
-  server.ports.input.send(parseFloat(req.query.inputs) || 0);
+  server.ports.input.send(JSON.stringify(req.query.inputs)); // FIXME: http POST + json body
 });
 
 app.listen(port, () => {
