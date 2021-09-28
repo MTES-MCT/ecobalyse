@@ -9,10 +9,17 @@ const port = 3000;
 app.get("/", (req, res) => {
   function handler(result) {
     server.ports.output.unsubscribe(handler);
-    return res.send({ result });
+    return res.send(result);
   }
   server.ports.output.subscribe(handler);
-  server.ports.input.send(JSON.stringify(req.query.inputs)); // FIXME: http POST + json body
+  const inputs = {
+    mass: parseFloat(req.query.mass),
+    product: req.query.product,
+    material: req.query.material,
+    countries: req.query.countries,
+  };
+  console.log(inputs);
+  server.ports.input.send(inputs);
 });
 
 app.listen(port, () => {

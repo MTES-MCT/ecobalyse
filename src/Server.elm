@@ -1,12 +1,17 @@
 port module Server exposing (main)
 
+import Data.Inputs as Inputs
+import Data.Simulator as Simulator
+import Json.Decode as Decode
+import Json.Encode as Encode
+
 
 type alias Model =
     ()
 
 
 type Msg
-    = Received Float
+    = Received Decode.Value
 
 
 init : () -> ( Model, Cmd Msg )
@@ -14,11 +19,26 @@ init _ =
     ( (), Cmd.none )
 
 
+toResponse : Result Decode.Error Float -> Cmd Msg
+toResponse result =
+    case result of
+        Ok score ->
+            Encode.object [ ( "score", Encode.float score ) ] |> output
+
+        Err error ->
+            Encode.object [ ( "error", error |> Decode.errorToString |> Encode.string ) ] |> output
+
+
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
-        Received value ->
-            ( model, output (value + 42) )
+        Received json ->
+            ( model
+            , json
+                |> Decode.decodeValue Inputs.decodeQuery
+                |> Result.map (Inputs.fromQuery >> Simulator.compute >> .co2)
+                |> toResponse
+            )
 
 
 main : Program () Model Msg
@@ -30,7 +50,7 @@ main =
         }
 
 
-port input : (Float -> msg) -> Sub msg
+port input : (Decode.Value -> msg) -> Sub msg
 
 
-port output : Float -> Cmd msg
+port output : Encode.Value -> Cmd msg
