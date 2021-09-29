@@ -5,9 +5,11 @@ import Json.Encode as Encode
 
 
 type Country
-    = China
+    = Bengladesh
+    | China
     | France
     | India
+    | Portugal
     | Spain
     | Tunisia
     | Turkey
@@ -16,9 +18,11 @@ type Country
 choices : List Country
 choices =
     List.sortBy toString
-        [ China
+        [ Bengladesh
+        , China
         , France
         , India
+        , Portugal
         , Spain
         , Tunisia
         , Turkey
@@ -39,6 +43,9 @@ encode country =
 fromString : String -> Country
 fromString country =
     case country of
+        "Bengladesh" ->
+            Bengladesh
+
         "Chine" ->
             China
 
@@ -50,6 +57,9 @@ fromString country =
 
         "Espagne" ->
             Spain
+
+        "Portugal" ->
+            Portugal
 
         "Tunisie" ->
             Tunisia
@@ -64,6 +74,9 @@ fromString country =
 toString : Country -> String
 toString country =
     case country of
+        Bengladesh ->
+            "Bengladesh"
+
         China ->
             "Chine"
 
@@ -72,6 +85,9 @@ toString country =
 
         India ->
             "Inde"
+
+        Portugal ->
+            "Portugal"
 
         Spain ->
             "Espagne"
