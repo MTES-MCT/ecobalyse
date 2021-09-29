@@ -9,6 +9,9 @@ type alias CountryProcess =
     { electricity : Process -- Electricité
     , heat : Process -- Chaleur
     , dyeing : Process -- Teinture
+
+    -- TODO: Teinture - Caractère majorant (vs représentatif)
+    -- , upperBoundDyeingRatio : Float
     }
 
 
@@ -21,7 +24,13 @@ countryProcesses : AnyDict String Country CountryProcess
 countryProcesses =
     -- Q: should we rather work with uuids? Process names have the advantage of readability…
     Dict.fromList Country.toString
-        [ ( China
+        [ ( Bangladesh
+          , { electricity = Process.findByName "Mix électrique réseau, BD"
+            , heat = Process.findByName "Mix Vapeur (mix technologique|mix de production, en sortie de chaudière), RSA"
+            , dyeing = Process.findByName "Teinture sur étoffe, procédé majorant, traitement inefficace des eaux usées"
+            }
+          )
+        , ( China
           , { electricity = Process.findByName "Mix électrique réseau, CN"
             , heat = Process.findByName "Mix Vapeur (mix technologique|mix de production, en sortie de chaudière), RSA"
             , dyeing = Process.findByName "Teinture sur étoffe, procédé majorant, traitement inefficace des eaux usées"
@@ -37,6 +46,12 @@ countryProcesses =
           , { electricity = Process.findByName "Mix électrique réseau, IN"
             , heat = Process.findByName "Mix Vapeur (mix technologique|mix de production, en sortie de chaudière), RSA"
             , dyeing = Process.findByName "Teinture sur étoffe, procédé majorant, traitement inefficace des eaux usées"
+            }
+          )
+        , ( Portugal
+          , { electricity = Process.findByName "Mix électrique réseau, PT"
+            , heat = Process.findByName "Vapeur à partir de gaz naturel (mix de technologies de combustion et d'épuration des effluents gazeux|en sortie de chaudière|Puissance non spécifiée), RER"
+            , dyeing = Process.findByName "Teinture sur étoffe, procédé représentatif, traitement très efficace des eaux usées"
             }
           )
         , ( Spain

@@ -40,6 +40,7 @@ body {
   // Note: This is for header and footer to occupy the whole height of the
   // available viewport. Main content area is white background.
   background-color: $dark;
+  min-width: 320px;
 }
 
 blockquote {
@@ -92,10 +93,29 @@ blockquote {
   $chevrons-size: 12px;
   font-size: 0.75em;
   font-weight: bold;
-  padding-left: 0;
-  margin-bottom: 0;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  overflow-x: auto;
 
   li {
+    display: inline-block;
+    line-height: $chevrons-size;
+    margin-right: 5px;
+    position: relative;
+    padding: math.div($chevrons-size, 2);
+
+    @media screen and (max-width: $viewport-sm) {
+      span {
+        display: inline-block;
+        max-width: 16vw;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+
     &:before, &:after {
       position: absolute;
       right: 100%;
@@ -148,13 +168,8 @@ blockquote {
     &:last-child {
       border-bottom-right-radius: $chevrons-radius;
       border-top-right-radius: $chevrons-radius;
+      margin-right: 0;
     }
-
-    display: inline-block;
-    line-height: $chevrons-size;
-    margin-right: 5px;
-    position: relative;
-    padding: math.div($chevrons-size, 2);
   }
 }
 

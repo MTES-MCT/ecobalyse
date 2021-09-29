@@ -372,7 +372,10 @@ Energie;Electricité;Mix moyen;Mix électrique réseau, IN;1b470f5c-6ae6-404d-bd
 Energie;Electricité;Mix moyen;Mix électrique réseau, FR;05585055-9742-4fff-81ff-ad2e30e1b791;05585055-9742-4fff-81ff-ad2e30e1b791;0,0813225;0;0;0;0
 Energie;Electricité;Mix moyen;Mix électrique réseau, CN;8f923f3d-0bd2-4326-99e2-f984b4454226;8f923f3d-0bd2-4326-99e2-f984b4454226;1,05738;0;0;0;0
 Energie;Electricité;Mix moyen;Mix électrique réseau, ES;37301c44-c4cf-4214-a4ac-eee5785ccdc5;37301c44-c4cf-4214-a4ac-eee5785ccdc5;0,467803;0;0;0;0
+Energie;Electricité;Mix moyen;Mix électrique réseau, PT;a1d83202-0052-4d10-b9d2-938564be6a0b;a1d83202-0052-4d10-b9d2-938564be6a0b;0,571172;0;0;0;0
+Energie;Electricité;Mix moyen;Mix électrique réseau, BD;1ee6061e-8e15-4558-9338-94ad87abf932;1ee6061e-8e15-4558-9338-94ad87abf932;0,795168;0;0;0;0
 Energie;Chaleur;Mix moyen;Mix Vapeur (mix technologique|mix de production, en sortie de chaudière), RSA;2e8de6f6-0ea1-455b-adce-ea74d307d222;2e8de6f6-0ea1-455b-adce-ea74d307d222;0,106827;0;0;0;0
+Energie;Chaleur;Mix moyen;Vapeur à partir de gaz naturel (mix de technologies de combustion et d'épuration des effluents gazeux|en sortie de chaudière|Puissance non spécifiée), RER;59c4c64c-0916-868a-5dd6-a42c4c42222f;59c4c64c-0916-868a-5dd6-a42c4c42222f;0,0744719;0;0;0;0
 Energie;Chaleur;Mix moyen;Mix Vapeur (mix technologique|mix de production, en sortie de chaudière), FR;12fc43f2-a007-423b-a619-619d725793ea;12fc43f2-a007-423b-a619-619d725793ea;0,0854514;0;0;0;0
 Energie;Chaleur;Valeur par énergie primaire;Vapeur à partir de gaz naturel (mix de technologies de combustion et d'épuration des effluents gazeux|en sortie de chaudière|Puissance non spécifiée), ES;618440a9-f4aa-65bc-21cb-ea40eee53f3d;618440a9-f4aa-65bc-21cb-ea40eee53f3d;0,0830517;0;0;0;0
 Textile;Matières;Matières naturelles;Plume de canard, inventaire agrégé;d1f06ea5-d63f-453a-8f98-55ce78ae7579;d1f06ea5-d63f-453a-8f98-55ce78ae7579;16,238;0;0;0;0
