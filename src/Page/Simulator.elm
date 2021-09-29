@@ -17,6 +17,8 @@ import Ports
 import Route exposing (Route(..))
 import Views.Container as Container
 import Views.Icon as Icon
+import Views.Markdown as MarkdownView
+import Views.Modal as ModalView
 import Views.Step as StepView
 import Views.Summary as SummaryView
 
@@ -25,6 +27,7 @@ type alias Model =
     { simulator : Simulator
     , massInput : String
     , displayMode : DisplayMode
+    , modal : ModalContent
     }
 
 
@@ -33,8 +36,14 @@ type DisplayMode
     | SimpleMode
 
 
+type ModalContent
+    = NoModal
+    | MarkdownModal String String
+
+
 type Msg
-    = CopyToClipBoard String
+    = CloseModal
+    | CopyToClipBoard String
     | Reset
     | SwitchMode DisplayMode
     | UpdateDyeingWeighting (Maybe Float)
@@ -58,6 +67,7 @@ init maybeInputs ({ store } as session) =
     ( { simulator = simulator
       , massInput = simulator.inputs.mass |> Mass.inKilograms |> String.fromFloat
       , displayMode = SimpleMode
+      , modal = NoModal
       }
     , session
     , Cmd.none
@@ -79,6 +89,9 @@ update session msg ({ simulator } as model) =
             simulator
     in
     case msg of
+        CloseModal ->
+            ( { model | modal = NoModal }, session, Cmd.none )
+
         CopyToClipBoard shareableLink ->
             ( model, session, Ports.copyToClipboard shareableLink )
 
@@ -326,5 +339,16 @@ view session ({ displayMode, simulator } as model) =
                     ]
                 ]
             ]
+      , case model.modal of
+            NoModal ->
+                text ""
+
+            MarkdownModal title markdown ->
+                ModalView.view
+                    { size = ModalView.Small
+                    , close = CloseModal
+                    , title = title
+                    , content = [ MarkdownView.view [ class "px-3 py-2" ] markdown ]
+                    }
       ]
     )
