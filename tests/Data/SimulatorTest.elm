@@ -39,8 +39,8 @@ suite =
             , Inputs.pantalonCircuitEurope
                 |> expectCo2 25.49
                 |> asTest "should compute co2 score for pantalonCircuitEurope"
-            , Inputs.jupeCircuitBangladesh
-                |> expectCo2 49.65
-                |> asTest "should compute co2 score for jupeCircuitBangladesh"
+            , Inputs.robeCircuitBangladesh
+                |> expectCo2 39.72
+                |> asTest "should compute co2 score for robeCircuitBangladesh"
             ]
         ]
