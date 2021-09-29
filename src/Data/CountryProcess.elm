@@ -24,7 +24,7 @@ countryProcesses : AnyDict String Country CountryProcess
 countryProcesses =
     -- Q: should we rather work with uuids? Process names have the advantage of readability…
     Dict.fromList Country.toString
-        [ ( Bengladesh
+        [ ( Bangladesh
           , { electricity = Process.findByName "Mix électrique réseau, BD"
             , heat = Process.findByName "Mix Vapeur (mix technologique|mix de production, en sortie de chaudière), RSA"
             , dyeing = Process.findByName "Teinture sur étoffe, procédé majorant, traitement inefficace des eaux usées"

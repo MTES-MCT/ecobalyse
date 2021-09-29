@@ -159,17 +159,17 @@ pantalonCircuitEurope =
     }
 
 
-jupeCircuitBengladesh : Inputs
-jupeCircuitBengladesh =
+jupeCircuitBangladesh : Inputs
+jupeCircuitBangladesh =
     -- Jupe circuit Asie
     { mass = Mass.kilograms 0.5
     , material = Material.findByName "Filament d'aramide"
     , product = Product.findByName "Jupe"
     , countries =
         [ Country.China
-        , Country.Bengladesh
-        , Country.Bengladesh
-        , Country.Bengladesh
+        , Country.Bangladesh
+        , Country.Bangladesh
+        , Country.Bangladesh
         , Country.France
         ]
     }
