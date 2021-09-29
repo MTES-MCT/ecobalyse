@@ -70,7 +70,9 @@ distances =
     Dict.fromList Country.toString
         [ ( Turkey
           , Dict.fromList Country.toString
-                [ ( China, { road = ( 0, 0 ), sea = ( 16243, 1 ), air = ( 7100, 0.33 ) } )
+                [ ( Bengladesh, { road = ( 5416, 0 ), sea = ( 9545, 1 ), air = ( 6000, 0.33 ) } )
+                , ( Portugal, { road = ( 3709, 0.9 ), sea = ( 4876, 0.1 ), air = ( 3200, 0.33 ) } )
+                , ( China, { road = ( 0, 0 ), sea = ( 16243, 1 ), air = ( 7100, 0.33 ) } )
                 , ( France, { road = ( 2798, 0.9 ), sea = ( 6226, 0.1 ), air = ( 2200, 0.33 ) } )
                 , ( India, { road = ( 0, 0 ), sea = ( 6655, 1 ), air = ( 4600, 0.33 ) } )
                 , ( Spain, { road = ( 3312, 0.9 ), sea = ( 5576, 0.1 ), air = ( 2700, 0.33 ) } )
@@ -80,7 +82,9 @@ distances =
           )
         , ( Tunisia
           , Dict.fromList Country.toString
-                [ ( China, { road = ( 0, 0 ), sea = ( 17637, 1 ), air = ( 8600, 0.33 ) } )
+                [ ( Bengladesh, { road = ( 0, 0 ), sea = ( 10605, 1 ), air = ( 7600, 0 ) } )
+                , ( Portugal, { road = ( 0, 0 ), sea = ( 2660, 1 ), air = ( 1700, 0 ) } )
+                , ( China, { road = ( 0, 0 ), sea = ( 17637, 1 ), air = ( 8600, 0.33 ) } )
                 , ( France, { road = ( 0, 0 ), sea = ( 4343, 1 ), air = ( 1500, 0 ) } )
                 , ( India, { road = ( 0, 0 ), sea = ( 8048, 1 ), air = ( 6200, 0.33 ) } )
                 , ( Spain, { road = ( 0, 0 ), sea = ( 3693, 1 ), air = ( 1300, 0 ) } )
@@ -89,7 +93,9 @@ distances =
           )
         , ( India
           , Dict.fromList Country.toString
-                [ ( China, { road = ( 0, 0 ), sea = ( 11274, 1 ), air = ( 3800, 0.33 ) } )
+                [ ( Bengladesh, { road = ( 1222, 1 ), sea = ( 4631, 0 ), air = ( 1400, 0 ) } )
+                , ( Portugal, { road = ( 8339, 0 ), sea = ( 10705, 1 ), air = ( 7800, 0.33 ) } )
+                , ( China, { road = ( 0, 0 ), sea = ( 11274, 1 ), air = ( 3800, 0.33 ) } )
                 , ( France, { road = ( 0, 0 ), sea = ( 11960, 1 ), air = ( 6600, 0.33 ) } )
                 , ( India, defaultInland )
                 , ( Spain, { road = ( 0, 0 ), sea = ( 11310, 1 ), air = ( 7300, 0 ) } )
@@ -97,20 +103,37 @@ distances =
           )
         , ( France
           , Dict.fromList Country.toString
-                [ ( China, { road = ( 0, 0 ), sea = ( 21548, 1 ), air = ( 8200, 0.33 ) } )
+                [ ( Bengladesh, { road = ( 7995, 0 ), sea = ( 14614, 1 ), air = ( 7900, 0.33 ) } )
+                , ( Portugal, { road = ( 1138, 0.9 ), sea = ( 2425, 0.1 ), air = ( 1500, 0.33 ) } )
+                , ( China, { road = ( 0, 0 ), sea = ( 21548, 1 ), air = ( 8200, 0.33 ) } )
                 , ( France, defaultInland )
                 , ( Spain, { road = ( 801, 0.9 ), sea = ( 1672, 0.1 ), air = ( 1100, 0 ) } )
                 ]
           )
         , ( Spain
           , Dict.fromList Country.toString
-                [ ( China, { road = ( 0, 0 ), sea = ( 20898, 1 ), air = ( 9200, 0.33 ) } )
+                [ ( Bengladesh, { road = ( 8653, 0 ), sea = ( 13820, 1 ), air = ( 8600, 0.33 ) } )
+                , ( Portugal, { road = ( 399, 0.9 ), sea = ( 1632, 0.1 ), air = ( 500, 0.33 ) } )
+                , ( China, { road = ( 0, 0 ), sea = ( 20898, 1 ), air = ( 9200, 0.33 ) } )
                 , ( Spain, defaultInland )
                 ]
           )
         , ( China
           , Dict.fromList Country.toString
-                [ ( China, defaultInland )
+                [ ( Bengladesh, { road = ( 1897, 0 ), sea = ( 9309, 1 ), air = ( 3200, 0 ) } )
+                , ( Portugal, { road = ( 9157, 0 ), sea = ( 19863, 1 ), air = ( 10700, 0.33 ) } )
+                , ( China, defaultInland )
+                ]
+          )
+        , ( Bengladesh
+          , Dict.fromList Country.toString
+                [ ( Bengladesh, defaultInland )
+                , ( Portugal, { road = ( 9051, 0 ), sea = ( 12723, 1 ), air = ( 9200, 0.33 ) } )
+                ]
+          )
+        , ( Portugal
+          , Dict.fromList Country.toString
+                [ ( Portugal, defaultInland )
                 ]
           )
         ]
