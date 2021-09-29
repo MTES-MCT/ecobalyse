@@ -29,5 +29,8 @@
     "gh-pages": "^3.2.3",
     "parcel": "^2.0.0-rc.0",
     "rimraf": "^3.0.2"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
   }
 }

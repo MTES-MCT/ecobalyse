@@ -48,14 +48,20 @@ choices =
     ]
 
 
-findById : Id -> Maybe Product
+findById : Id -> Product
 findById id =
-    choices |> List.filter (.id >> (==) id) |> List.head
+    choices
+        |> List.filter (.id >> (==) id)
+        |> List.head
+        |> Maybe.withDefault invalid
 
 
 findByName : String -> Product
 findByName name =
-    choices |> List.filter (.name >> (==) name) |> List.head |> Maybe.withDefault invalid
+    choices
+        |> List.filter (.name >> (==) name)
+        |> List.head
+        |> Maybe.withDefault invalid
 
 
 tShirt : Product

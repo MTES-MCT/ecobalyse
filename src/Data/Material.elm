@@ -43,12 +43,26 @@ cotton =
 
 findByName : String -> Material
 findByName name =
-    choices |> List.filter (.name >> (==) name) |> List.head |> Maybe.withDefault invalid
+    choices
+        |> List.filter (.name >> (==) name)
+        |> List.head
+        |> Maybe.withDefault invalid
+
+
+findByProcessUuid : Process.Uuid -> Material
+findByProcessUuid materialProcessUuid =
+    choices
+        |> List.filter (\m -> m.materialProcessUuid == materialProcessUuid)
+        |> List.head
+        |> Maybe.withDefault invalid
 
 
 invalid : Material
 invalid =
-    { materialProcessUuid = Process.Uuid "", name = "<invalid>", category = Category.Natural }
+    { materialProcessUuid = Process.Uuid "<invalid>"
+    , name = "<invalid>"
+    , category = Category.Natural
+    }
 
 
 decode : Decoder Material
@@ -66,11 +80,6 @@ encode v =
         , ( "name", Encode.string v.name )
         , ( "category", Category.encode v.category )
         ]
-
-
-findByProcessUuid : Process.Uuid -> Maybe Material
-findByProcessUuid materialProcessUuid =
-    choices |> List.filter (\m -> m.materialProcessUuid == materialProcessUuid) |> List.head
 
 
 shortName : Material -> String

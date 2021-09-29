@@ -3,6 +3,7 @@ module Data.Inputs exposing (..)
 import Base64
 import Data.Country as Country exposing (Country)
 import Data.Material as Material exposing (Material)
+import Data.Process as Process
 import Data.Product as Product exposing (Product)
 import FormatNumber
 import FormatNumber.Locales exposing (Decimals(..), frenchLocale)
@@ -16,6 +17,33 @@ type alias Inputs =
     , material : Material
     , product : Product
     , countries : List Country
+    }
+
+
+type alias Query =
+    -- a shorter version than Inputs (identifiers only)
+    { mass : Mass
+    , material : Process.Uuid
+    , product : Product.Id
+    , countries : List Country
+    }
+
+
+fromQuery : Query -> Inputs
+fromQuery query =
+    { mass = query.mass
+    , material = Material.findByProcessUuid query.material
+    , product = Product.findById query.product
+    , countries = query.countries
+    }
+
+
+toQuery : Inputs -> Query
+toQuery { mass, material, product, countries } =
+    { mass = mass
+    , material = material.materialProcessUuid
+    , product = product.id
+    , countries = countries
     }
 
 
@@ -33,6 +61,11 @@ toLabel { mass, material, product } =
 defaults : Inputs
 defaults =
     tShirtCotonFrance
+
+
+defaultQuery : Query
+defaultQuery =
+    toQuery defaults
 
 
 tShirtCotonFrance : Inputs
@@ -156,15 +189,34 @@ encode inputs =
         ]
 
 
-b64decode : String -> Result String Inputs
+decodeQuery : Decoder Query
+decodeQuery =
+    Decode.map4 Query
+        (Decode.field "mass" (Decode.map Mass.kilograms Decode.float))
+        (Decode.field "material" (Decode.map Process.Uuid Decode.string))
+        (Decode.field "product" (Decode.map Product.Id Decode.string))
+        (Decode.field "countries" (Decode.list Country.decode))
+
+
+encodeQuery : Query -> Encode.Value
+encodeQuery query =
+    Encode.object
+        [ ( "mass", Encode.float (Mass.inKilograms query.mass) )
+        , ( "material", query.material |> Process.uuidToString |> Encode.string )
+        , ( "product", query.product |> Product.idToString |> Encode.string )
+        , ( "countries", Encode.list Country.encode query.countries )
+        ]
+
+
+b64decode : String -> Result String Query
 b64decode =
     Base64.decode
         >> Result.andThen
-            (Decode.decodeString decode
+            (Decode.decodeString decodeQuery
                 >> Result.mapError Decode.errorToString
             )
 
 
-b64encode : Inputs -> String
+b64encode : Query -> String
 b64encode =
-    encode >> Encode.encode 0 >> Base64.encode
+    encodeQuery >> Encode.encode 0 >> Base64.encode
