@@ -25,7 +25,7 @@ countryProcesses =
     -- Q: should we rather work with uuids? Process names have the advantage of readability…
     Dict.fromList Country.toString
         [ ( Bengladesh
-          , { electricity = Process.findByName "Mix électrique réseau, PT"
+          , { electricity = Process.findByName "Mix électrique réseau, BD"
             , heat = Process.findByName "Mix Vapeur (mix technologique|mix de production, en sortie de chaudière), RSA"
             , dyeing = Process.findByName "Teinture sur étoffe, procédé majorant, traitement inefficace des eaux usées"
             }
@@ -49,7 +49,7 @@ countryProcesses =
             }
           )
         , ( Portugal
-          , { electricity = Process.findByName "Mix électrique réseau, BD"
+          , { electricity = Process.findByName "Mix électrique réseau, PT"
             , heat = Process.findByName "Vapeur à partir de gaz naturel (mix de technologies de combustion et d'épuration des effluents gazeux|en sortie de chaudière|Puissance non spécifiée), RER"
             , dyeing = Process.findByName "Teinture sur étoffe, procédé représentatif, traitement très efficace des eaux usées"
             }

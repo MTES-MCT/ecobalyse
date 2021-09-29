@@ -96,6 +96,22 @@ blockquote {
   margin-bottom: 0;
 
   li {
+    display: inline-block;
+    line-height: $chevrons-size;
+    margin-right: 5px;
+    position: relative;
+    padding: math.div($chevrons-size, 2);
+
+    @media screen and (max-width: $viewport-sm) {
+      span {
+        display: inline-block;
+        max-width: 45px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+
     &:before, &:after {
       position: absolute;
       right: 100%;
@@ -149,12 +165,6 @@ blockquote {
       border-bottom-right-radius: $chevrons-radius;
       border-top-right-radius: $chevrons-radius;
     }
-
-    display: inline-block;
-    line-height: $chevrons-size;
-    margin-right: 5px;
-    position: relative;
-    padding: math.div($chevrons-size, 2);
   }
 }
 
