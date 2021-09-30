@@ -88,6 +88,12 @@ blockquote {
   filter: invert(1);
 }
 
+.Abbr {
+  font-weight: normal;
+  cursor: help;
+  border-bottom: 1px dashed $primary;
+}
+
 .Chevrons {
   $chevrons-radius: 4px;
   $chevrons-size: 12px;

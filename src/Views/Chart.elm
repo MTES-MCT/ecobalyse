@@ -8,15 +8,15 @@ import Html.Attributes exposing (..)
 import Views.Format as Format
 
 
-type alias Bar =
-    { label : String
+type alias Bar msg =
+    { label : Html msg
     , co2 : Float
     , width : Float
     , percent : Float
     }
 
 
-makeBars : Simulator -> List Bar
+makeBars : Simulator -> List (Bar msg)
 makeBars simulator =
     let
         maxScore =
@@ -34,15 +34,26 @@ makeBars simulator =
                 |> List.map
                     (\step ->
                         { label =
-                            case ( step.label, simulator.inputs.product.knitted ) of
-                                ( Step.WeavingKnitting, True ) ->
-                                    "Tricotage"
+                            span []
+                                [ case ( step.label, simulator.inputs.product.knitted ) of
+                                    ( Step.WeavingKnitting, True ) ->
+                                        text "Tricotage"
 
-                                ( Step.WeavingKnitting, False ) ->
-                                    "Tissage"
+                                    ( Step.WeavingKnitting, False ) ->
+                                        text "Tissage"
 
-                                _ ->
-                                    Step.labelToString step.label
+                                    ( Step.Ennoblement, _ ) ->
+                                        span [ class "fw-normal", title <| Step.dyeingWeightingToString step.dyeingWeighting ]
+                                            [ strong [] [ text "Teinture" ]
+                                            , text " ("
+                                            , abbr [ class "Abbr" ]
+                                                [ text <| Format.formatInt "%" (round (step.dyeingWeighting * 100)) ]
+                                            , text ")"
+                                            ]
+
+                                    _ ->
+                                        text (Step.labelToString step.label)
+                                ]
                         , co2 = step.co2
                         , width = clamp 0 100 (step.co2 / maxScore * toFloat 100)
                         , percent = step.co2 / simulator.co2 * toFloat 100
@@ -50,7 +61,7 @@ makeBars simulator =
                     )
 
         transportBar =
-            { label = "Transport total"
+            { label = text "Transport total"
             , co2 = simulator.transport.co2
             , width = clamp 0 100 (simulator.transport.co2 / maxScore * toFloat 100)
             , percent = simulator.transport.co2 / simulator.co2 * toFloat 100
@@ -59,10 +70,10 @@ makeBars simulator =
     stepBars ++ [ transportBar ]
 
 
-barView : Bar -> Html msg
+barView : Bar msg -> Html msg
 barView bar =
     tr [ class "fs-7" ]
-        [ th [ class "text-end text-truncate py-1 pe-2" ] [ text bar.label ]
+        [ th [ class "text-end text-truncate py-1 pe-2" ] [ bar.label ]
         , td [ class "d-none d-sm-block text-end py-1 ps-2 pe-3 text-truncate" ]
             [ Format.kgCo2 2 bar.co2 ]
         , td [ class "w-100 py-1" ]

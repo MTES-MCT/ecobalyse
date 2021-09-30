@@ -2,6 +2,7 @@ module Data.Step exposing (..)
 
 import Data.Country as Country exposing (Country)
 import Data.CountryProcess as CountryProcess
+import Data.Process exposing (Cat3(..))
 import Data.Transport as Transport
 import Energy exposing (Energy)
 import Json.Decode as Decode exposing (Decoder)
@@ -21,13 +22,14 @@ type alias Step =
     , heat : Energy
     , kwh : Energy
     , processInfo : ProcessInfo
+    , dyeingWeighting : Float
     }
 
 
 type alias ProcessInfo =
     { electricity : Maybe String
     , heat : Maybe String
-    , dyeing : Maybe String
+    , dyeingWeighting : Maybe String
     }
 
 
@@ -57,6 +59,7 @@ create label editable country =
     , heat = Energy.megajoules 0
     , kwh = Energy.kilowattHours 0
     , processInfo = processCountryInfo label country
+    , dyeingWeighting = getDyeingWeighting country
     }
 
 
@@ -64,33 +67,38 @@ defaultProcessInfo : ProcessInfo
 defaultProcessInfo =
     { electricity = Nothing
     , heat = Nothing
-    , dyeing = Nothing
+    , dyeingWeighting = Nothing
     }
 
 
 processCountryInfo : Label -> Country -> ProcessInfo
 processCountryInfo label country =
     case ( label, CountryProcess.get country ) of
-        ( WeavingKnitting, Just { electricity, dyeing } ) ->
+        ( WeavingKnitting, Just { electricity } ) ->
             { heat = Nothing
             , electricity = Just electricity.name
-            , dyeing = Just dyeing.name
+            , dyeingWeighting = Nothing
             }
 
-        ( Ennoblement, Just { heat, electricity, dyeing } ) ->
+        ( Ennoblement, Just { heat, electricity, dyeingWeighting } ) ->
             { heat = Just heat.name
             , electricity = Just electricity.name
-            , dyeing = Just dyeing.name
+            , dyeingWeighting = Just (dyeingWeightingToString dyeingWeighting)
             }
 
         ( Making, Just { electricity } ) ->
             { heat = Nothing
             , electricity = Just electricity.name
-            , dyeing = Nothing
+            , dyeingWeighting = Nothing
             }
 
         _ ->
             defaultProcessInfo
+
+
+getDyeingWeighting : Country -> Float
+getDyeingWeighting =
+    CountryProcess.get >> Maybe.map .dyeingWeighting >> Maybe.withDefault 0
 
 
 countryLabel : Step -> String
@@ -109,7 +117,39 @@ updateCountry country step =
     { step
         | country = country
         , processInfo = processCountryInfo step.label country
+        , dyeingWeighting =
+            if step.label == Ennoblement then
+                getDyeingWeighting country
+
+            else
+                step.dyeingWeighting
     }
+
+
+updateDyeingWeighting : Float -> Step -> Step
+updateDyeingWeighting dyeingWeighting ({ processInfo } as step) =
+    { step
+        | dyeingWeighting = dyeingWeighting
+        , processInfo =
+            if step.label == Ennoblement then
+                { processInfo | dyeingWeighting = Just (dyeingWeightingToString dyeingWeighting) }
+
+            else
+                processInfo
+    }
+
+
+dyeingWeightingToString : Float -> String
+dyeingWeightingToString dyeingWeighting =
+    let
+        p =
+            round (dyeingWeighting * 100)
+    in
+    if p == 0 then
+        "Procédé représentatif"
+
+    else
+        "Procédé " ++ String.fromInt p ++ "% majorant"
 
 
 decode : Decoder Step
@@ -125,6 +165,7 @@ decode =
         |> Pipe.required "heat" (Decode.map Energy.megajoules Decode.float)
         |> Pipe.required "kwh" (Decode.map Energy.kilowattHours Decode.float)
         |> Pipe.required "processInfo" decodeProcessInfo
+        |> Pipe.required "dyeingWeighting" Decode.float
 
 
 encode : Step -> Encode.Value
@@ -148,7 +189,7 @@ decodeProcessInfo =
     Decode.succeed ProcessInfo
         |> Pipe.required "electricity" (Decode.maybe Decode.string)
         |> Pipe.required "heat" (Decode.maybe Decode.string)
-        |> Pipe.required "dyeing" (Decode.maybe Decode.string)
+        |> Pipe.required "dyeingWeighting" (Decode.maybe Decode.string)
 
 
 encodeProcessInfo : ProcessInfo -> Encode.Value
@@ -156,7 +197,7 @@ encodeProcessInfo v =
     Encode.object
         [ ( "electricity", Maybe.map Encode.string v.electricity |> Maybe.withDefault Encode.null )
         , ( "heat", Maybe.map Encode.string v.heat |> Maybe.withDefault Encode.null )
-        , ( "dyeing", Maybe.map Encode.string v.dyeing |> Maybe.withDefault Encode.null )
+        , ( "dyeing", Maybe.map Encode.string v.dyeingWeighting |> Maybe.withDefault Encode.null )
         ]
 
 

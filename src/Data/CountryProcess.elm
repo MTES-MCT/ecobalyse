@@ -8,10 +8,7 @@ import Dict.Any as Dict exposing (AnyDict)
 type alias CountryProcess =
     { electricity : Process -- Electricité
     , heat : Process -- Chaleur
-    , dyeing : Process -- Teinture
-
-    -- TODO: Teinture - Caractère majorant (vs représentatif)
-    -- , upperBoundDyeingRatio : Float
+    , dyeingWeighting : Float -- Caractère majorant de la teinture (vs représentatif)
     }
 
 
@@ -27,49 +24,49 @@ countryProcesses =
         [ ( Bangladesh
           , { electricity = Process.findByName "Mix électrique réseau, BD"
             , heat = Process.findByName "Mix Vapeur (mix technologique|mix de production, en sortie de chaudière), RSA"
-            , dyeing = Process.findByName "Teinture sur étoffe, procédé majorant, traitement inefficace des eaux usées"
+            , dyeingWeighting = 1
             }
           )
         , ( China
           , { electricity = Process.findByName "Mix électrique réseau, CN"
             , heat = Process.findByName "Mix Vapeur (mix technologique|mix de production, en sortie de chaudière), RSA"
-            , dyeing = Process.findByName "Teinture sur étoffe, procédé majorant, traitement inefficace des eaux usées"
+            , dyeingWeighting = 1
             }
           )
         , ( France
           , { electricity = Process.findByName "Mix électrique réseau, FR"
             , heat = Process.findByName "Mix Vapeur (mix technologique|mix de production, en sortie de chaudière), FR"
-            , dyeing = Process.findByName "Teinture sur étoffe, procédé représentatif, traitement très efficace des eaux usées"
+            , dyeingWeighting = 0
             }
           )
         , ( India
           , { electricity = Process.findByName "Mix électrique réseau, IN"
             , heat = Process.findByName "Mix Vapeur (mix technologique|mix de production, en sortie de chaudière), RSA"
-            , dyeing = Process.findByName "Teinture sur étoffe, procédé majorant, traitement inefficace des eaux usées"
+            , dyeingWeighting = 1
             }
           )
         , ( Portugal
           , { electricity = Process.findByName "Mix électrique réseau, PT"
             , heat = Process.findByName "Vapeur à partir de gaz naturel (mix de technologies de combustion et d'épuration des effluents gazeux|en sortie de chaudière|Puissance non spécifiée), RER"
-            , dyeing = Process.findByName "Teinture sur étoffe, procédé représentatif, traitement très efficace des eaux usées"
+            , dyeingWeighting = 0
             }
           )
         , ( Spain
           , { electricity = Process.findByName "Mix électrique réseau, ES"
             , heat = Process.findByName "Vapeur à partir de gaz naturel (mix de technologies de combustion et d'épuration des effluents gazeux|en sortie de chaudière|Puissance non spécifiée), ES"
-            , dyeing = Process.findByName "Teinture sur étoffe, procédé représentatif, traitement très efficace des eaux usées"
+            , dyeingWeighting = 0
             }
           )
         , ( Tunisia
           , { electricity = Process.findByName "Mix électrique réseau, TN"
             , heat = Process.findByName "Mix Vapeur (mix technologique|mix de production, en sortie de chaudière), RSA"
-            , dyeing = Process.findByName "Teinture sur étoffe, procédé majorant, traitement inefficace des eaux usées"
+            , dyeingWeighting = 1
             }
           )
         , ( Turkey
           , { electricity = Process.findByName "Mix électrique réseau, TR"
             , heat = Process.findByName "Mix Vapeur (mix technologique|mix de production, en sortie de chaudière), RSA"
-            , dyeing = Process.findByName "Teinture sur étoffe, procédé majorant, traitement inefficace des eaux usées"
+            , dyeingWeighting = 1
             }
           )
         ]

@@ -17,6 +17,7 @@ type alias Inputs =
     , material : Material
     , product : Product
     , countries : List Country
+    , dyeingWeighting : Maybe Float
     }
 
 
@@ -26,6 +27,7 @@ type alias Query =
     , material : Process.Uuid
     , product : Product.Id
     , countries : List Country
+    , dyeingWeighting : Maybe Float
     }
 
 
@@ -35,15 +37,17 @@ fromQuery query =
     , material = Material.findByProcessUuid query.material
     , product = Product.findById query.product
     , countries = query.countries
+    , dyeingWeighting = query.dyeingWeighting
     }
 
 
 toQuery : Inputs -> Query
-toQuery { mass, material, product, countries } =
+toQuery { mass, material, product, countries, dyeingWeighting } =
     { mass = mass
     , material = material.materialProcessUuid
     , product = product.id
     , countries = countries
+    , dyeingWeighting = dyeingWeighting
     }
 
 
@@ -81,6 +85,7 @@ tShirtCotonFrance =
         , Country.France
         , Country.France
         ]
+    , dyeingWeighting = Nothing
     }
 
 
@@ -125,6 +130,7 @@ jupeCircuitAsie =
         , Country.China
         , Country.France
         ]
+    , dyeingWeighting = Nothing
     }
 
 
@@ -141,6 +147,7 @@ manteauCircuitEurope =
         , Country.Spain
         , Country.France
         ]
+    , dyeingWeighting = Nothing
     }
 
 
@@ -156,6 +163,7 @@ pantalonCircuitEurope =
         , Country.Turkey
         , Country.France
         ]
+    , dyeingWeighting = Nothing
     }
 
 
@@ -172,6 +180,7 @@ robeCircuitBangladesh =
         , Country.Tunisia
         , Country.France
         ]
+    , dyeingWeighting = Nothing
     }
 
 
@@ -188,11 +197,12 @@ presets =
 
 decode : Decoder Inputs
 decode =
-    Decode.map4 Inputs
+    Decode.map5 Inputs
         (Decode.field "mass" (Decode.map Mass.kilograms Decode.float))
         (Decode.field "material" Material.decode)
         (Decode.field "product" Product.decode)
         (Decode.field "countries" (Decode.list Country.decode))
+        (Decode.field "dyeingWeighting" (Decode.maybe Decode.float))
 
 
 encode : Inputs -> Encode.Value
@@ -202,16 +212,18 @@ encode inputs =
         , ( "material", Material.encode inputs.material )
         , ( "product", Product.encode inputs.product )
         , ( "countries", Encode.list Country.encode inputs.countries )
+        , ( "dyeingWeighting", inputs.dyeingWeighting |> Maybe.map Encode.float |> Maybe.withDefault Encode.null )
         ]
 
 
 decodeQuery : Decoder Query
 decodeQuery =
-    Decode.map4 Query
+    Decode.map5 Query
         (Decode.field "mass" (Decode.map Mass.kilograms Decode.float))
         (Decode.field "material" (Decode.map Process.Uuid Decode.string))
         (Decode.field "product" (Decode.map Product.Id Decode.string))
         (Decode.field "countries" (Decode.list Country.decode))
+        (Decode.field "dyeingWeighting" (Decode.maybe Decode.float))
 
 
 encodeQuery : Query -> Encode.Value
@@ -221,6 +233,7 @@ encodeQuery query =
         , ( "material", query.material |> Process.uuidToString |> Encode.string )
         , ( "product", query.product |> Product.idToString |> Encode.string )
         , ( "countries", Encode.list Country.encode query.countries )
+        , ( "dyeingWeighting", query.dyeingWeighting |> Maybe.map Encode.float |> Maybe.withDefault Encode.null )
         ]
 
 

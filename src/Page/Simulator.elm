@@ -37,6 +37,7 @@ type Msg
     = CopyToClipBoard String
     | Reset
     | SwitchMode DisplayMode
+    | UpdateDyeingWeighting (Maybe Float)
     | UpdateMassInput String
     | UpdateMaterial Material
     | UpdateMaterialCategory Category
@@ -88,6 +89,10 @@ update session msg ({ simulator } as model) =
         SwitchMode displayMode ->
             ( { model | displayMode = displayMode }, session, Cmd.none )
 
+        UpdateDyeingWeighting dyeingWeighting ->
+            ( model, session, Cmd.none )
+                |> updateInputs { inputs | dyeingWeighting = dyeingWeighting }
+
         UpdateMassInput massInput ->
             case massInput |> String.toFloat |> Maybe.map Mass.kilograms of
                 Just mass ->
@@ -114,7 +119,11 @@ update session msg ({ simulator } as model) =
 
         UpdateStepCountry index country ->
             ( model, session, Cmd.none )
-                |> updateInputs { inputs | countries = inputs.countries |> Array.fromList |> Array.set index country |> Array.toList }
+                |> updateInputs
+                    { inputs
+                        | dyeingWeighting = Nothing
+                        , countries = inputs.countries |> Array.fromList |> Array.set index country |> Array.toList
+                    }
 
         UpdateProduct product ->
             ( { model | massInput = product.mass |> Mass.inKilograms |> String.fromFloat }, session, Cmd.none )
@@ -221,6 +230,7 @@ lifeCycleStepsView { displayMode, simulator } =
                     , current = current
                     , next = Array.get (index + 1) simulator.lifeCycle
                     , updateCountry = UpdateStepCountry
+                    , updateDyeingWeighting = UpdateDyeingWeighting
                     }
             )
         |> Array.toList
@@ -289,7 +299,7 @@ view session ({ displayMode, simulator } as model) =
     , [ Container.centered [ class "Simulator" ]
             [ h1 [ class "mb-3" ] [ text "Simulateur" ]
             , div [ class "row" ]
-                [ div [ class "col-lg-7 col-xl-6" ]
+                [ div [ class "col-lg-7" ]
                     [ div [ class "row" ]
                         [ div [ class "col-md-6 mb-2" ]
                             [ productField simulator.inputs.product
@@ -312,7 +322,7 @@ view session ({ displayMode, simulator } as model) =
                             [ text "Réinitialiser le simulateur" ]
                         ]
                     ]
-                , div [ class "col-lg-5 col-xl-6" ]
+                , div [ class "col-lg-5" ]
                     [ div [ class "d-flex flex-column gap-3 sticky-md-top" ]
                         [ div [ class "Summary" ] [ SummaryView.view False simulator ]
                         , shareLinkView session model
