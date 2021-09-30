@@ -130,6 +130,11 @@ initCountries countries =
         >> processStepCountries
 
 
+initDyeingWeighting : Float -> LifeCycle -> LifeCycle
+initDyeingWeighting dyeingWeighting =
+    updateStep Step.Ennoblement (\step -> { step | dyeingWeighting = dyeingWeighting })
+
+
 processStepCountries : LifeCycle -> LifeCycle
 processStepCountries =
     Array.map (\step -> Step.updateCountry step.country step)

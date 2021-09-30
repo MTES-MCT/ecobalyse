@@ -9,6 +9,7 @@ import Data.Process as Process
 import Data.Product as Product exposing (Product)
 import Data.Session exposing (Session)
 import Data.Simulator as Simulator exposing (Simulator)
+import Data.Step as Step
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (onClick, onInput)
@@ -37,6 +38,7 @@ type Msg
     = CopyToClipBoard String
     | Reset
     | SwitchMode DisplayMode
+    | UpdateDyeingWeighting (Maybe Float)
     | UpdateMassInput String
     | UpdateMaterial Material
     | UpdateMaterialCategory Category
@@ -88,6 +90,10 @@ update session msg ({ simulator } as model) =
         SwitchMode displayMode ->
             ( { model | displayMode = displayMode }, session, Cmd.none )
 
+        UpdateDyeingWeighting dyeingWeighting ->
+            ( model, session, Cmd.none )
+                |> updateInputs { inputs | dyeingWeighting = dyeingWeighting }
+
         UpdateMassInput massInput ->
             case massInput |> String.toFloat |> Maybe.map Mass.kilograms of
                 Just mass ->
@@ -114,7 +120,11 @@ update session msg ({ simulator } as model) =
 
         UpdateStepCountry index country ->
             ( model, session, Cmd.none )
-                |> updateInputs { inputs | countries = inputs.countries |> Array.fromList |> Array.set index country |> Array.toList }
+                |> updateInputs
+                    { inputs
+                        | countries = inputs.countries |> Array.fromList |> Array.set index country |> Array.toList
+                        , dyeingWeighting = Just (Step.getDyeingWeighting country)
+                    }
 
         UpdateProduct product ->
             ( { model | massInput = product.mass |> Mass.inKilograms |> String.fromFloat }, session, Cmd.none )
@@ -221,6 +231,7 @@ lifeCycleStepsView { displayMode, simulator } =
                     , current = current
                     , next = Array.get (index + 1) simulator.lifeCycle
                     , updateCountry = UpdateStepCountry
+                    , updateDyeingWeighting = UpdateDyeingWeighting
                     }
             )
         |> Array.toList

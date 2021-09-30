@@ -3,7 +3,7 @@ module Data.Simulator exposing (..)
 import Data.CountryProcess as CountryProcess
 import Data.Inputs as Inputs exposing (Inputs)
 import Data.LifeCycle as LifeCycle exposing (LifeCycle)
-import Data.Process as Process exposing (Cat1(..))
+import Data.Process as Process
 import Data.Product as Product
 import Data.Step as Step exposing (Step)
 import Data.Transport as Transport
@@ -54,7 +54,10 @@ compute : Inputs -> Simulator
 compute inputs =
     { default
         | inputs = inputs
-        , lifeCycle = default.lifeCycle |> LifeCycle.initCountries inputs.countries
+        , lifeCycle =
+            default.lifeCycle
+                |> LifeCycle.initCountries inputs.countries
+                |> LifeCycle.initDyeingWeighting (inputs.dyeingWeighting |> Maybe.withDefault 0)
     }
         -- Ensure end product mass is first applied to the final Distribution step
         |> computeMaterialAndSpinningWaste
@@ -130,23 +133,28 @@ computeEnnoblementCo2Score =
     updateLifeCycleStep Step.Ennoblement
         (\step ->
             let
+                -- FIXME: reset default country value when switching country
                 processes =
                     CountryProcess.get step.country
 
-                dyeingProcess =
-                    processes |> Maybe.map .dyeing
+                highDyeingWeighting =
+                    step.dyeingWeighting
+
+                lowDyeingWeighting =
+                    1 - highDyeingWeighting
 
                 dyeingCo2 =
-                    dyeingProcess
-                        |> Maybe.map .climateChange
-                        |> Maybe.withDefault 0
-                        |> (*) (Mass.inKilograms step.mass)
+                    Mass.inKilograms step.mass
+                        * ((highDyeingWeighting * Process.dyeingHigh.climateChange)
+                            + (lowDyeingWeighting * Process.dyeingLow.climateChange)
+                          )
 
                 heatMJ =
-                    dyeingProcess
-                        |> Maybe.map .heat
-                        |> Maybe.withDefault (Energy.megajoules 0)
-                        |> Quantity.multiplyBy (Mass.inKilograms step.mass)
+                    Mass.inKilograms step.mass
+                        * ((highDyeingWeighting * Energy.inMegajoules Process.dyeingHigh.heat)
+                            + (lowDyeingWeighting * Energy.inMegajoules Process.dyeingLow.heat)
+                          )
+                        |> Energy.megajoules
 
                 heatCo2 =
                     processes
@@ -155,10 +163,11 @@ computeEnnoblementCo2Score =
                         |> (*) (Energy.inMegajoules heatMJ)
 
                 electricity =
-                    dyeingProcess
-                        |> Maybe.map .elec
-                        |> Maybe.withDefault (Energy.megajoules 0)
-                        |> Quantity.multiplyBy (Mass.inKilograms step.mass)
+                    Mass.inKilograms step.mass
+                        * ((highDyeingWeighting * Energy.inMegajoules Process.dyeingHigh.elec)
+                            + (lowDyeingWeighting * Energy.inMegajoules Process.dyeingLow.elec)
+                          )
+                        |> Energy.megajoules
 
                 elecCo2 =
                     processes

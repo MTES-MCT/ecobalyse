@@ -161,6 +161,16 @@ distribution =
     findByName "Transport en camion non spécifié France (dont parc, utilisation et infrastructure) (50%) [tkm], FR"
 
 
+dyeingHigh : Process
+dyeingHigh =
+    findByName "Teinture sur étoffe, procédé majorant, traitement inefficace des eaux usées"
+
+
+dyeingLow : Process
+dyeingLow =
+    findByName "Teinture sur étoffe, procédé représentatif, traitement très efficace des eaux usées"
+
+
 cat1 : Cat1 -> List Process -> List Process
 cat1 c1 =
     List.filter (.cat1 >> (==) c1)

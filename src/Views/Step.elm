@@ -5,7 +5,7 @@ import Data.Product exposing (Product)
 import Data.Step as Step exposing (Label(..), Step)
 import Energy
 import Html exposing (..)
-import Html.Attributes exposing (..)
+import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
 import Views.Format as Format
 import Views.Icon as Icon
@@ -19,7 +19,28 @@ type alias Config msg =
     , current : Step
     , next : Maybe Step
     , updateCountry : Int -> Country -> msg
+    , updateDyeingWeighting : Maybe Float -> msg
     }
+
+
+dyeingWeightingField : Config msg -> Html msg
+dyeingWeightingField { current, updateDyeingWeighting } =
+    div [ class "d-flex justify-content-between mt-2", style "height" "1em" ]
+        [ label [ for "dyeingWeighting", class "form-label fs-7", style "margin-top" "2px" ]
+            [ text <| Step.dyeingWeightingToString current.dyeingWeighting ]
+        , input
+            [ type_ "range"
+            , class "form-range"
+            , style "width" "50%"
+            , id "dyeingWeighting"
+            , onInput (String.toFloat >> updateDyeingWeighting)
+            , value (String.fromFloat current.dyeingWeighting)
+            , Attr.min "0"
+            , Attr.max "1"
+            , step "0.1"
+            ]
+            []
+        ]
 
 
 countryField : Config msg -> Html msg
@@ -76,7 +97,13 @@ simpleView ({ product, index, current } as config) =
             ]
         , div [ class "card-body row align-items-center" ]
             [ div [ class "col-sm-6 col-lg-7" ]
-                [ countryField config ]
+                [ countryField config
+                , if current.label == Step.Ennoblement then
+                    dyeingWeightingField config
+
+                  else
+                    text ""
+                ]
             , div [ class "col-sm-6 col-lg-5 text-center text-muted" ]
                 [ if current.label == Step.Distribution && current.co2 == 0 then
                     div [ class "fs-7" ]
@@ -133,7 +160,7 @@ detailedView ({ product, index, next, current } as config) =
                 [ li [ class "list-group-item text-muted" ] [ countryField config ]
                 , listItem current.processInfo.heat
                 , listItem current.processInfo.electricity
-                , listItem current.processInfo.dyeing
+                , listItem current.processInfo.dyeingWeighting
                 ]
             ]
         , div
