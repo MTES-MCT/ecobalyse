@@ -117,7 +117,12 @@ updateCountry country step =
     { step
         | country = country
         , processInfo = processCountryInfo step.label country
-        , dyeingWeighting = getDyeingWeighting country
+        , dyeingWeighting =
+            if step.label == Ennoblement then
+                getDyeingWeighting country
+
+            else
+                step.dyeingWeighting
     }
 
 

@@ -130,9 +130,16 @@ initCountries countries =
         >> processStepCountries
 
 
-initDyeingWeighting : Float -> LifeCycle -> LifeCycle
+initDyeingWeighting : Maybe Float -> LifeCycle -> LifeCycle
 initDyeingWeighting dyeingWeighting =
-    updateStep Step.Ennoblement (\step -> { step | dyeingWeighting = dyeingWeighting })
+    updateStep Step.Ennoblement
+        (\step ->
+            { step
+                | dyeingWeighting =
+                    dyeingWeighting
+                        |> Maybe.withDefault (Step.getDyeingWeighting step.country)
+            }
+        )
 
 
 processStepCountries : LifeCycle -> LifeCycle

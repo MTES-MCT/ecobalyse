@@ -57,7 +57,7 @@ compute inputs =
         , lifeCycle =
             default.lifeCycle
                 |> LifeCycle.initCountries inputs.countries
-                |> LifeCycle.initDyeingWeighting (inputs.dyeingWeighting |> Maybe.withDefault 0)
+                |> LifeCycle.initDyeingWeighting inputs.dyeingWeighting
     }
         -- Ensure end product mass is first applied to the final Distribution step
         |> computeMaterialAndSpinningWaste

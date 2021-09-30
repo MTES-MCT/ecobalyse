@@ -9,7 +9,6 @@ import Data.Process as Process
 import Data.Product as Product exposing (Product)
 import Data.Session exposing (Session)
 import Data.Simulator as Simulator exposing (Simulator)
-import Data.Step as Step
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (onClick, onInput)
@@ -121,10 +120,7 @@ update session msg ({ simulator } as model) =
         UpdateStepCountry index country ->
             ( model, session, Cmd.none )
                 |> updateInputs
-                    { inputs
-                        | countries = inputs.countries |> Array.fromList |> Array.set index country |> Array.toList
-                        , dyeingWeighting = Just (Step.getDyeingWeighting country)
-                    }
+                    { inputs | countries = inputs.countries |> Array.fromList |> Array.set index country |> Array.toList }
 
         UpdateProduct product ->
             ( { model | massInput = product.mass |> Mass.inKilograms |> String.fromFloat }, session, Cmd.none )
