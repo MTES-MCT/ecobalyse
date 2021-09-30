@@ -68,11 +68,11 @@ dyeingWeightingField { current, updateDyeingWeighting } =
                 , class "d-block form-range"
                 , style "margin-top" "2px"
                 , id "dyeingWeighting"
-                , onInput (String.toFloat >> updateDyeingWeighting)
-                , value (String.fromFloat current.dyeingWeighting)
+                , onInput (String.toInt >> Maybe.map (\x -> toFloat x / 100) >> updateDyeingWeighting)
+                , value (String.fromInt (round (current.dyeingWeighting * 100)))
                 , Attr.min "0"
-                , Attr.max "1"
-                , step "0.1"
+                , Attr.max "100"
+                , step "10"
                 ]
                 []
             ]
