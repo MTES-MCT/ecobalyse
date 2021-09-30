@@ -296,7 +296,7 @@ view session ({ displayMode, simulator } as model) =
     , [ Container.centered [ class "Simulator" ]
             [ h1 [ class "mb-3" ] [ text "Simulateur" ]
             , div [ class "row" ]
-                [ div [ class "col-lg-7 col-xl-6" ]
+                [ div [ class "col-lg-7" ]
                     [ div [ class "row" ]
                         [ div [ class "col-md-6 mb-2" ]
                             [ productField simulator.inputs.product
@@ -319,7 +319,7 @@ view session ({ displayMode, simulator } as model) =
                             [ text "Réinitialiser le simulateur" ]
                         ]
                     ]
-                , div [ class "col-lg-5 col-xl-6" ]
+                , div [ class "col-lg-5" ]
                     [ div [ class "d-flex flex-column gap-3 sticky-md-top" ]
                         [ div [ class "Summary" ] [ SummaryView.view False simulator ]
                         , shareLinkView session model

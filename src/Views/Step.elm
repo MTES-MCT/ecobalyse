@@ -2,7 +2,7 @@ module Views.Step exposing (..)
 
 import Data.Country as Country exposing (Country)
 import Data.Product exposing (Product)
-import Data.Step as Step exposing (Label(..), Step)
+import Data.Step as Step exposing (Step)
 import Energy
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
@@ -21,26 +21,6 @@ type alias Config msg =
     , updateCountry : Int -> Country -> msg
     , updateDyeingWeighting : Maybe Float -> msg
     }
-
-
-dyeingWeightingField : Config msg -> Html msg
-dyeingWeightingField { current, updateDyeingWeighting } =
-    div [ class "d-flex justify-content-between mt-2", style "height" "1em" ]
-        [ label [ for "dyeingWeighting", class "form-label fs-7", style "margin-top" "2px" ]
-            [ text <| Step.dyeingWeightingToString current.dyeingWeighting ]
-        , input
-            [ type_ "range"
-            , class "form-range"
-            , style "width" "50%"
-            , id "dyeingWeighting"
-            , onInput (String.toFloat >> updateDyeingWeighting)
-            , value (String.fromFloat current.dyeingWeighting)
-            , Attr.min "0"
-            , Attr.max "1"
-            , step "0.1"
-            ]
-            []
-        ]
 
 
 countryField : Config msg -> Html msg
@@ -75,6 +55,30 @@ countryField { current, index, updateCountry } =
         ]
 
 
+dyeingWeightingField : Config msg -> Html msg
+dyeingWeightingField { current, updateDyeingWeighting } =
+    div [ class "RangeSlider row" ]
+        [ div [ class "col-xxl-6" ]
+            [ label [ for "dyeingWeighting", class "form-label text-nowrap fs-7 mb-0" ]
+                [ text <| Step.dyeingWeightingToString current.dyeingWeighting ]
+            ]
+        , div [ class "col-xxl-6" ]
+            [ input
+                [ type_ "range"
+                , class "d-block form-range"
+                , style "margin-top" "2px"
+                , id "dyeingWeighting"
+                , onInput (String.toFloat >> updateDyeingWeighting)
+                , value (String.fromFloat current.dyeingWeighting)
+                , Attr.min "0"
+                , Attr.max "1"
+                , step "0.1"
+                ]
+                []
+            ]
+        ]
+
+
 simpleView : Config msg -> Html msg
 simpleView ({ product, index, current } as config) =
     let
@@ -99,7 +103,7 @@ simpleView ({ product, index, current } as config) =
             [ div [ class "col-sm-6 col-lg-7" ]
                 [ countryField config
                 , if current.label == Step.Ennoblement then
-                    dyeingWeightingField config
+                    div [ class "mt-2" ] [ dyeingWeightingField config ]
 
                   else
                     text ""
@@ -160,7 +164,13 @@ detailedView ({ product, index, next, current } as config) =
                 [ li [ class "list-group-item text-muted" ] [ countryField config ]
                 , listItem current.processInfo.heat
                 , listItem current.processInfo.electricity
-                , listItem current.processInfo.dyeingWeighting
+                ]
+            , div [ class "card-body py-2 text-muted" ]
+                [ if current.label == Step.Ennoblement then
+                    dyeingWeightingField config
+
+                  else
+                    text ""
                 ]
             ]
         , div
