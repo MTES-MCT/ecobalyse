@@ -1,7 +1,7 @@
 module Data.LifeCycle exposing (..)
 
 import Array exposing (Array)
-import Data.Country as Country exposing (Country)
+import Data.Country as Country
 import Data.Inputs exposing (Inputs)
 import Data.Process as Process
 import Data.Step as Step exposing (Step)
@@ -134,13 +134,6 @@ initCountries inputs =
 processStepCountries : Inputs -> LifeCycle -> LifeCycle
 processStepCountries inputs =
     Array.map (\step -> Step.updateCountry inputs.dyeingWeighting step.country step)
-
-
-updateStepCountry : Step.Label -> Country -> LifeCycle -> LifeCycle
-updateStepCountry label country =
-    -- Note: used only in tests
-    -- FIXME: move to test
-    updateStep label (Step.updateCountry Nothing country)
 
 
 updateStep : Step.Label -> (Step -> Step) -> LifeCycle -> LifeCycle
