@@ -27,7 +27,7 @@ type alias Store =
 
 defaultStore : Store
 defaultStore =
-    { inputs = Inputs.defaults }
+    { inputs = Inputs.default }
 
 
 decodeStore : Decoder Store

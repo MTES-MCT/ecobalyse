@@ -24,7 +24,7 @@ type alias Simulator =
 
 default : Simulator
 default =
-    { inputs = Inputs.defaults
+    { inputs = Inputs.default
     , lifeCycle = LifeCycle.default
     , co2 = 0
     , transport = Transport.defaultSummary

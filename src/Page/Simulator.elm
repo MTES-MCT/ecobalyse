@@ -84,7 +84,7 @@ update session msg ({ simulator } as model) =
 
         Reset ->
             ( model, session, Cmd.none )
-                |> updateInputs Inputs.defaults
+                |> updateInputs Inputs.default
 
         SwitchMode displayMode ->
             ( { model | displayMode = displayMode }, session, Cmd.none )

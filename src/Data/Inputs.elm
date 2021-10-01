@@ -78,14 +78,14 @@ updateStepCountry index country inputs =
     }
 
 
-defaults : Inputs
-defaults =
-    tShirtCotonFrance
+default : Inputs
+default =
+    tShirtCotonIndia
 
 
 defaultQuery : Query
 defaultQuery =
-    toQuery defaults
+    toQuery default
 
 
 tShirtCotonFrance : Inputs
@@ -116,6 +116,23 @@ tShirtCotonEurope =
             , Country.Spain
             , Country.France
             ]
+    }
+
+
+tShirtCotonIndia : Inputs
+tShirtCotonIndia =
+    -- T-shirt circuit France
+    { mass = Product.tShirt.mass
+    , material = Material.cotton
+    , product = Product.tShirt
+    , countries =
+        [ Country.China
+        , Country.India
+        , Country.India
+        , Country.India
+        , Country.France
+        ]
+    , dyeingWeighting = Nothing
     }
 
 
