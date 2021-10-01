@@ -121,7 +121,12 @@ update session msg ({ simulator } as model) =
             ( model, session, Cmd.none )
                 |> updateInputs
                     { inputs
-                        | dyeingWeighting = Nothing
+                        | dyeingWeighting =
+                            if index == 2 && Array.get index (Array.fromList inputs.countries) /= Just country then
+                                Nothing
+
+                            else
+                                inputs.dyeingWeighting
                         , countries = inputs.countries |> Array.fromList |> Array.set index country |> Array.toList
                     }
 

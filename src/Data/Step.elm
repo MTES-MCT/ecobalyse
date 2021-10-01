@@ -112,14 +112,18 @@ countryLabel step =
         Country.toString step.country
 
 
-updateCountry : Country -> Step -> Step
-updateCountry country step =
+updateCountry : Maybe Float -> Country -> Step -> Step
+updateCountry dyeingWeighting country step =
     { step
         | country = country
         , processInfo = processCountryInfo step.label country
         , dyeingWeighting =
             if step.label == Ennoblement then
-                getDyeingWeighting country
+                if country /= step.country then
+                    getDyeingWeighting country
+
+                else
+                    dyeingWeighting |> Maybe.withDefault (getDyeingWeighting country)
 
             else
                 step.dyeingWeighting
