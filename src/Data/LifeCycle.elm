@@ -1,7 +1,8 @@
 module Data.LifeCycle exposing (..)
 
 import Array exposing (Array)
-import Data.Country as Country exposing (Country)
+import Data.Country as Country
+import Data.Inputs exposing (Inputs)
 import Data.Process as Process
 import Data.Step as Step exposing (Step)
 import Data.Transport as Transport
@@ -115,41 +116,24 @@ getStep label =
     Array.filter (.label >> (==) label) >> Array.get 0
 
 
-initCountries : List Country -> LifeCycle -> LifeCycle
-initCountries countries =
+initCountries : Inputs -> LifeCycle -> LifeCycle
+initCountries inputs =
     Array.indexedMap
         (\index step ->
             { step
                 | country =
-                    countries
+                    inputs.countries
                         |> Array.fromList
                         |> Array.get index
                         |> Maybe.withDefault step.country
             }
         )
-        >> processStepCountries
+        >> processStepCountries inputs
 
 
-initDyeingWeighting : Maybe Float -> LifeCycle -> LifeCycle
-initDyeingWeighting dyeingWeighting =
-    updateStep Step.Ennoblement
-        (\step ->
-            { step
-                | dyeingWeighting =
-                    dyeingWeighting
-                        |> Maybe.withDefault (Step.getDyeingWeighting step.country)
-            }
-        )
-
-
-processStepCountries : LifeCycle -> LifeCycle
-processStepCountries =
-    Array.map (\step -> Step.updateCountry step.country step)
-
-
-updateStepCountry : Step.Label -> Country -> LifeCycle -> LifeCycle
-updateStepCountry label country =
-    updateStep label (Step.updateCountry country)
+processStepCountries : Inputs -> LifeCycle -> LifeCycle
+processStepCountries inputs =
+    Array.map (\step -> Step.updateCountry inputs.dyeingWeighting step.country step)
 
 
 updateStep : Step.Label -> (Step -> Step) -> LifeCycle -> LifeCycle

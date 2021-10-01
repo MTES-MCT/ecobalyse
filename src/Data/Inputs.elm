@@ -1,5 +1,6 @@
 module Data.Inputs exposing (..)
 
+import Array
 import Base64
 import Data.Country as Country exposing (Country)
 import Data.Material as Material exposing (Material)
@@ -60,6 +61,21 @@ toLabel { mass, material, product } =
         , "de"
         , FormatNumber.format { frenchLocale | decimals = Exact 2 } (Mass.inKilograms mass) ++ "\u{202F}kg"
         ]
+
+
+updateStepCountry : Int -> Country -> Inputs -> Inputs
+updateStepCountry index country inputs =
+    { inputs
+        | countries = inputs.countries |> Array.fromList |> Array.set index country |> Array.toList
+        , dyeingWeighting =
+            -- FIXME: index 2 is Ennoblement step; how could we use th step label instead?
+            if index == 2 && Array.get index (Array.fromList inputs.countries) /= Just country then
+                -- reset custom value as we just switched country, which dyeing weighting is totally different
+                Nothing
+
+            else
+                inputs.dyeingWeighting
+    }
 
 
 defaults : Inputs

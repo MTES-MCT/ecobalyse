@@ -119,11 +119,7 @@ update session msg ({ simulator } as model) =
 
         UpdateStepCountry index country ->
             ( model, session, Cmd.none )
-                |> updateInputs
-                    { inputs
-                        | dyeingWeighting = Nothing
-                        , countries = inputs.countries |> Array.fromList |> Array.set index country |> Array.toList
-                    }
+                |> updateInputs (Inputs.updateStepCountry index country inputs)
 
         UpdateProduct product ->
             ( { model | massInput = product.mass |> Mass.inKilograms |> String.fromFloat }, session, Cmd.none )

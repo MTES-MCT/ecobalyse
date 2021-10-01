@@ -54,10 +54,7 @@ compute : Inputs -> Simulator
 compute inputs =
     { default
         | inputs = inputs
-        , lifeCycle =
-            default.lifeCycle
-                |> LifeCycle.initCountries inputs.countries
-                |> LifeCycle.initDyeingWeighting inputs.dyeingWeighting
+        , lifeCycle = default.lifeCycle |> LifeCycle.initCountries inputs
     }
         -- Ensure end product mass is first applied to the final Distribution step
         |> computeMaterialAndSpinningWaste
