@@ -1,4 +1,4 @@
-module Views.Chart exposing (..)
+module Views.BarChart exposing (..)
 
 import Array
 import Data.Simulator exposing (Simulator)
@@ -6,6 +6,7 @@ import Data.Step as Step
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Views.Format as Format
+import Views.PieChart as PieChart
 
 
 type alias Bar msg =
@@ -87,6 +88,7 @@ barView bar =
             ]
         , td [ class "d-none d-sm-block text-end py-1 ps-2 text-truncate" ]
             [ Format.percent bar.percent ]
+        , td [ class "ps-2" ] [ PieChart.view bar.percent ]
         ]
 
 

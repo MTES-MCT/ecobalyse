@@ -8,7 +8,7 @@ import Data.Simulator exposing (Simulator)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Route exposing (Route(..))
-import Views.Chart as Chart
+import Views.BarChart as Chart
 import Views.Format as Format
 import Views.Transport as TransportView
 
