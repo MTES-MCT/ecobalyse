@@ -74,8 +74,8 @@ makeBars simulator =
 barView : Bar msg -> Html msg
 barView bar =
     tr [ class "fs-7" ]
-        [ th [ class "text-end text-truncate py-1 pe-2" ] [ bar.label ]
-        , td [ class "d-none d-sm-block text-end py-1 ps-2 pe-3 text-truncate" ]
+        [ th [ class "text-end text-truncate py-1 pe-1" ] [ bar.label ]
+        , td [ class "d-none d-sm-block text-end py-1 ps-1 pe-2 text-truncate" ]
             [ Format.kgCo2 2 bar.co2 ]
         , td [ class "w-100 py-1" ]
             [ div
