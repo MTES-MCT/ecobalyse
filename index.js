@@ -4,7 +4,6 @@ import { Elm } from "./src/Main.elm";
 const storeKey = "store";
 
 const app = Elm.Main.init({
-  node: document.getElementById("app"),
   flags: {
     clientUrl: location.origin + location.pathname,
     rawStore: localStorage[storeKey] || "",
@@ -38,17 +37,3 @@ window.addEventListener(
   },
   false
 );
-
-const _paq = window._paq || [];
-/* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-_paq.push(["trackPageView"]);
-_paq.push(["enableLinkTracking"]);
-(function () {
-  const u = "//stats.data.gouv.fr/";
-  _paq.push(["setTrackerUrl", u + "matomo.php"]);
-  _paq.push(["setSiteId", "196"]);
-  const t = document.createElement("script");
-  t.async = t.defer = true;
-  t.src = u + "matomo.js";
-  document.body.appendChild(t);
-})();
