@@ -198,6 +198,17 @@ blockquote {
   }
 }
 
+.GitbookContent {
+  font-size: 0.9rem;
+
+  h1 { font-size: 1.8em; }
+  h2 { font-size: 1.65em; }
+  h3 { font-size: 1.5em; }
+  h4 { font-size: 1.25em; }
+  img { max-width: 100%; }
+  table { width: 100%; margin-bottom: 1em; }
+}
+
 .Header {
   @media screen and (max-width: $viewport-sm) {
     position: sticky;

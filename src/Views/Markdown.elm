@@ -16,7 +16,10 @@ clean =
 
 renderer : Renderer (Html msg)
 renderer =
-    { defaultHtmlRenderer | link = renderLink }
+    { defaultHtmlRenderer
+        | link = renderLink
+        , image = renderImage
+    }
 
 
 renderLink : { title : Maybe String, destination : String } -> List (Html msg) -> Html msg
@@ -33,6 +36,26 @@ renderLink { title, destination } =
 
     else
         Link.internal attrs
+
+
+renderImage imageInfo =
+    case imageInfo.title of
+        Just title ->
+            Html.img
+                [ Attr.src imageInfo.src
+                , Attr.alt imageInfo.alt
+                , Attr.title title
+                , attribute "crossorigin" "anonymous"
+                ]
+                []
+
+        Nothing ->
+            Html.img
+                [ Attr.src imageInfo.src
+                , Attr.alt imageInfo.alt
+                , attribute "crossorigin" "anonymous"
+                ]
+                []
 
 
 view : List (Attribute msg) -> String -> Html msg

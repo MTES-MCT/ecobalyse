@@ -12,8 +12,10 @@ import Data.Simulator as Simulator exposing (Simulator)
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (onClick, onInput)
+import Http
 import Mass
 import Ports
+import Request.Gitbook as Gitbook
 import Route exposing (Route(..))
 import Views.Container as Container
 import Views.Icon as Icon
@@ -45,6 +47,7 @@ type ModalContent
 type Msg
     = CloseModal
     | CopyToClipBoard String
+    | ModalContentReceived (Result Http.Error String)
     | Reset
     | SwitchMode DisplayMode
     | UpdateDyeingWeighting (Maybe Float)
@@ -71,7 +74,7 @@ init maybeInputs ({ store } as session) =
       , modal = NoModal
       }
     , session
-    , Cmd.none
+    , Gitbook.getPage session "methodologie/teinture" ModalContentReceived
     )
 
 
@@ -95,6 +98,12 @@ update session msg ({ simulator } as model) =
 
         CopyToClipBoard shareableLink ->
             ( model, session, Ports.copyToClipboard shareableLink )
+
+        ModalContentReceived (Ok markdown) ->
+            ( { model | modal = MarkdownModal "Hello Markdown" markdown }, session, Cmd.none )
+
+        ModalContentReceived (Err error) ->
+            ( model, session, Cmd.none )
 
         Reset ->
             ( model, session, Cmd.none )
@@ -359,10 +368,18 @@ view session ({ displayMode, simulator } as model) =
 
             MarkdownModal title markdown ->
                 ModalView.view
-                    { size = ModalView.Small
+                    { size = ModalView.Large
                     , close = CloseModal
                     , title = title
-                    , content = [ MarkdownView.view [ class "px-3 py-2" ] markdown ]
+                    , content =
+                        [ markdown
+                            |> String.replace "$$" "```"
+                            |> String.replace "{% hint style=\"danger\" %}" "> "
+                            |> String.replace "{% hint style=\"warning\" %}" "> "
+                            |> String.replace "{% hint style=\"info\" %}" "> "
+                            |> String.replace "{% endhint %}" ""
+                            |> MarkdownView.view [ class "GitbookContent px-3 px-md-4 py-2 py-md-3" ]
+                        ]
                     }
       ]
     )
