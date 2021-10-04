@@ -12,12 +12,21 @@ type alias CountryProcess =
     }
 
 
+type alias CountryProcesses =
+    AnyDict String Country CountryProcess
+
+
 get : Country -> Maybe CountryProcess
 get country =
     Dict.get country countryProcesses
 
 
-countryProcesses : AnyDict String Country CountryProcess
+countries : CountryProcesses -> List Country
+countries =
+    Dict.keys
+
+
+countryProcesses : CountryProcesses
 countryProcesses =
     -- Q: should we rather work with uuids? Process names have the advantage of readability…
     Dict.fromList Country.toString
