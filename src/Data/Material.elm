@@ -1,7 +1,7 @@
 module Data.Material exposing (..)
 
 import Data.Material.Category as Category exposing (Category)
-import Data.Process as Process exposing (findByName)
+import Data.Process as Process exposing (Process, findByName)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
 
@@ -15,10 +15,14 @@ type alias Material =
 
 choices : List Material
 choices =
-    Process.processes
-        |> Process.cat1 Process.Textile
-        |> Process.cat2 Process.Material
-        |> List.map
+    fromProcesses Process.processes
+
+
+fromProcesses : List Process -> List Material
+fromProcesses =
+    Process.cat1 Process.Textile
+        >> Process.cat2 Process.Material
+        >> List.map
             (\{ uuid, name, cat3 } ->
                 { materialProcessUuid = uuid
                 , name = name
