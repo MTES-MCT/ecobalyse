@@ -9,6 +9,7 @@ import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
 import Views.Format as Format
 import Views.Icon as Icon
+import Views.Link as Link
 import Views.Transport as TransportView
 
 
@@ -79,6 +80,41 @@ dyeingWeightingField { current, updateDyeingWeighting } =
         ]
 
 
+documentationLink : Step.Label -> Html msg
+documentationLink label =
+    let
+        url =
+            case label of
+                Step.Default ->
+                    Nothing
+
+                Step.MaterialAndSpinning ->
+                    Just "/filature"
+
+                Step.WeavingKnitting ->
+                    Just "/tricotage-tissage"
+
+                Step.Ennoblement ->
+                    Just "/teinture"
+
+                Step.Making ->
+                    Just "/confection"
+
+                Step.Distribution ->
+                    Just "/distribution"
+    in
+    case url of
+        Just url_ ->
+            Link.external
+                [ class "fs-7"
+                , href <| "https://fabrique-numerique.gitbook.io/wikicarbone/methodologie/hypotheses" ++ url_
+                ]
+                [ text "Hypothèses" ]
+
+        Nothing ->
+            text ""
+
+
 simpleView : Config msg -> Html msg
 simpleView ({ product, index, current } as config) =
     let
@@ -94,10 +130,17 @@ simpleView ({ product, index, current } as config) =
                     Step.labelToString current.label
     in
     div [ class "card" ]
-        [ div [ class "card-header d-flex align-items-center" ]
-            [ span [ class "badge rounded-pill bg-primary me-1" ]
-                [ text (String.fromInt (index + 1)) ]
-            , text stepLabel
+        [ div [ class "card-header" ]
+            [ div [ class "row" ]
+                [ div [ class "col-6 d-flex align-items-center" ]
+                    [ span [ class "badge rounded-pill bg-primary me-1" ]
+                        [ text (String.fromInt (index + 1)) ]
+                    , text stepLabel
+                    ]
+                , div [ class "col-6 text-end" ]
+                    [ documentationLink current.label
+                    ]
+                ]
             ]
         , div [ class "card-body row align-items-center" ]
             [ div [ class "col-sm-6 col-lg-7" ]
@@ -155,10 +198,13 @@ detailedView ({ product, index, next, current } as config) =
     in
     div [ class "card-group" ]
         [ div [ class "card" ]
-            [ div [ class "card-header d-flex align-items-center" ]
-                [ span [ class "badge rounded-pill bg-primary me-1" ]
-                    [ text (String.fromInt (index + 1)) ]
-                , text stepLabel
+            [ div [ class "card-header d-flex justify-content-between align-items-center" ]
+                [ span [ class "d-flex align-items-center" ]
+                    [ span [ class "badge rounded-pill bg-primary me-1" ]
+                        [ text (String.fromInt (index + 1)) ]
+                    , text stepLabel
+                    ]
+                , documentationLink current.label
                 ]
             , ul [ class "list-group list-group-flush fs-7" ]
                 [ li [ class "list-group-item text-muted" ] [ countryField config ]
