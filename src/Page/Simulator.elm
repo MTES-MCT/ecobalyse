@@ -17,6 +17,7 @@ import Ports
 import Route exposing (Route(..))
 import Views.Container as Container
 import Views.Icon as Icon
+import Views.Link as Link
 import Views.Markdown as MarkdownView
 import Views.Modal as ModalView
 import Views.Step as StepView
@@ -302,6 +303,18 @@ displayModeView displayMode =
         ]
 
 
+feedbackView : Html msg
+feedbackView =
+    -- Note: only visible on smallest viewports
+    Link.external
+        [ class "d-block d-sm-none btn btn-outline-primary"
+        , href "https://hhvat39ihea.typeform.com/to/HnNn6rIY"
+        ]
+        [ span [ class "me-2" ] [ Icon.dialog ]
+        , text "Aidez-nous à améliorer ce simulateur"
+        ]
+
+
 view : Session -> Model -> ( String, List (Html Msg) )
 view session ({ displayMode, simulator } as model) =
     ( "Simulateur"
@@ -332,8 +345,9 @@ view session ({ displayMode, simulator } as model) =
                         ]
                     ]
                 , div [ class "col-lg-5" ]
-                    [ div [ class "d-flex flex-column gap-3 sticky-md-top" ]
+                    [ div [ class "d-flex flex-column gap-3 mb-3 sticky-md-top" ]
                         [ div [ class "Summary" ] [ SummaryView.view False simulator ]
+                        , feedbackView
                         , shareLinkView session model
                         ]
                     ]

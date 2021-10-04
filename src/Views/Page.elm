@@ -6,6 +6,7 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Route
 import Views.Container as Container
+import Views.Icon as Icon
 import Views.Link as Link
 
 
@@ -29,6 +30,7 @@ frame config ( title, content ) =
     { title = title ++ " | wikicarbone"
     , body =
         [ navbar config
+        , feedback
         , main_ [ class "bg-white pt-5" ] content
         , pageFooter
         ]
@@ -73,6 +75,24 @@ navbar { activePage } =
                     [ class "MainMenu navbar-nav justify-content-between flex-row"
                     , style "overflow" "auto"
                     ]
+            ]
+        ]
+
+
+feedback : Html msg
+feedback =
+    -- Note: only visible on larger viewports
+    Container.fluid [ class "d-none d-sm-block alert alert-info p-2 m-0 rounded-0 shadow-sm" ]
+        [ Container.centered [ class "text-center" ]
+            [ span []
+                [ span [ class "me-1" ] [ Icon.dialog ]
+                , text "Que pensez-vous de notre produit\u{00A0}? "
+                , Link.external
+                    [ href "https://hhvat39ihea.typeform.com/to/HnNn6rIY"
+                    ]
+                    [ text "Prenons-5 minutes pour voir comment l'améliorer"
+                    ]
+                ]
             ]
         ]
 

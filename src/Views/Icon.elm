@@ -29,6 +29,11 @@ clipboard =
     icon "clipboard"
 
 
+dialog : Html msg
+dialog =
+    icon "dialog"
+
+
 exclamation : Html msg
 exclamation =
     icon "exclamation"
