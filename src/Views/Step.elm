@@ -107,7 +107,7 @@ documentationLink label =
         Just url_ ->
             Link.external
                 [ class "fs-7"
-                , href <| "https://fabrique-numerique.gitbook.io/wikicarbone/methodologie/hypotheses" ++ url_
+                , href <| "https://fabrique-numerique.gitbook.io/wikicarbone/methodologie" ++ url_
                 ]
                 [ text "Hypothèses" ]
 
