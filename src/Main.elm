@@ -48,8 +48,8 @@ type Msg
     | UrlRequested Browser.UrlRequest
 
 
-setRoute : Maybe Route -> Model -> ( Model, Cmd Msg )
-setRoute maybeRoute model =
+setRoute : Maybe Route -> Model -> Cmd Msg -> ( Model, Cmd Msg )
+setRoute maybeRoute model cmds =
     let
         toPage page subInit subMsg =
             let
@@ -64,7 +64,7 @@ setRoute maybeRoute model =
                         Cmd.none
             in
             ( { model | session = newSession, page = page subModel }
-            , Cmd.batch [ Ports.scrollTo { x = 0, y = 0 }, Cmd.map subMsg subCmds, storeCmd ]
+            , Cmd.batch [ cmds, Ports.scrollTo { x = 0, y = 0 }, Cmd.map subMsg subCmds, storeCmd ]
             )
     in
     case maybeRoute of
@@ -102,6 +102,7 @@ init flags url navKey =
         { page = BlankPage
         , session = session
         }
+        (Ports.appStarted ())
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -153,7 +154,7 @@ update msg ({ page, session } as model) =
                     ( model, Nav.load href )
 
         ( UrlChanged url, _ ) ->
-            setRoute (Route.fromUrl url) model
+            setRoute (Route.fromUrl url) model Cmd.none
 
         ( _, NotFoundPage ) ->
             ( { model | page = NotFoundPage }, Cmd.none )

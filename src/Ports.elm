@@ -3,6 +3,9 @@ port module Ports exposing (..)
 -- Outgoing
 
 
+port appStarted : () -> Cmd msg
+
+
 port saveStore : String -> Cmd msg
 
 
