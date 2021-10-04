@@ -4,6 +4,7 @@ import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Markdown.Parser as Markdown
 import Markdown.Renderer exposing (Renderer, defaultHtmlRenderer)
+import Views.Link as Link
 
 
 clean : String -> String
@@ -22,18 +23,16 @@ renderLink : { title : Maybe String, destination : String } -> List (Html msg) -
 renderLink { title, destination } =
     let
         attrs =
-            [ Just [ Attr.href destination ]
-            , title |> Maybe.map (Attr.title >> List.singleton)
-            , if String.startsWith "http" destination then
-                Just [ target "_blank", rel "noopener noreferrer" ]
-
-              else
-                Nothing
-            ]
-                |> List.filterMap identity
-                |> List.concat
+            List.filterMap identity
+                [ Just (Attr.href destination)
+                , Maybe.map Attr.title title
+                ]
     in
-    Html.a attrs
+    if String.startsWith "http" destination then
+        Link.external attrs
+
+    else
+        Link.internal attrs
 
 
 view : List (Attribute msg) -> String -> Html msg
