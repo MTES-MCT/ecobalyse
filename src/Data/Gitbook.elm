@@ -5,7 +5,7 @@ import Json.Decode as Decode exposing (Decoder)
 
 type alias Page =
     { title : String
-    , description : String
+    , description : Maybe String
     , markdown : String
     , path : String
     }
@@ -31,6 +31,6 @@ decodePage : String -> Decoder Page
 decodePage path =
     Decode.map4 Page
         (Decode.field "title" Decode.string)
-        (Decode.field "description" Decode.string)
+        (Decode.field "description" (Decode.maybe Decode.string))
         (Decode.field "document" Decode.string)
         (Decode.succeed path)

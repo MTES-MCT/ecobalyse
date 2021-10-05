@@ -377,7 +377,13 @@ modalView modal =
                 , close = CloseModal
                 , title = gitbookPage.title
                 , content =
-                    [ if String.trim gitbookPage.markdown == "" then
+                    [ case gitbookPage.description of
+                        Just description ->
+                            p [ class "fw-bold text-muted fst-italic" ] [ text description ]
+
+                        Nothing ->
+                            text ""
+                    , if String.trim gitbookPage.markdown == "" then
                         div [ class "alert alert-info mb-0 d-flex align-items-center" ]
                             [ span [ class "fs-4 me-2" ] [ Icon.hammer ]
                             , text "Cette page est en cours de construction"
