@@ -34,6 +34,11 @@ dialog =
     icon "dialog"
 
 
+document : Html msg
+document =
+    icon "document"
+
+
 exclamation : Html msg
 exclamation =
     icon "exclamation"
@@ -62,6 +67,11 @@ pencil =
 plane : Html msg
 plane =
     icon "plane"
+
+
+question : Html msg
+question =
+    icon "question"
 
 
 search : Html msg

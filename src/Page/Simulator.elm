@@ -2,6 +2,7 @@ module Page.Simulator exposing (Model, Msg, init, update, view)
 
 import Array
 import Data.Country exposing (Country)
+import Data.Gitbook as Gitbook
 import Data.Inputs as Inputs exposing (Inputs)
 import Data.Material as Material exposing (Material)
 import Data.Material.Category as Category exposing (Category)
@@ -15,7 +16,7 @@ import Html.Events exposing (onClick, onInput)
 import Http
 import Mass
 import Ports
-import Request.Gitbook as Gitbook
+import Request.Gitbook as GitbookApi
 import Route exposing (Route(..))
 import Views.Container as Container
 import Views.Icon as Icon
@@ -41,13 +42,14 @@ type DisplayMode
 
 type ModalContent
     = NoModal
-    | MarkdownModal String String
+    | GitbookModal Gitbook.Page
 
 
 type Msg
     = CloseModal
     | CopyToClipBoard String
-    | ModalContentReceived (Result Http.Error String)
+    | ModalContentReceived (Result Http.Error Gitbook.Page)
+    | OpenDocModal String
     | Reset
     | SwitchMode DisplayMode
     | UpdateDyeingWeighting (Maybe Float)
@@ -74,7 +76,7 @@ init maybeInputs ({ store } as session) =
       , modal = NoModal
       }
     , session
-    , Gitbook.getPage session "methodologie/teinture" ModalContentReceived
+    , Cmd.none
     )
 
 
@@ -99,11 +101,14 @@ update session msg ({ simulator } as model) =
         CopyToClipBoard shareableLink ->
             ( model, session, Ports.copyToClipboard shareableLink )
 
-        ModalContentReceived (Ok markdown) ->
-            ( { model | modal = MarkdownModal "Hello Markdown" markdown }, session, Cmd.none )
+        ModalContentReceived (Ok gitbookPage) ->
+            ( { model | modal = GitbookModal gitbookPage }, session, Cmd.none )
 
         ModalContentReceived (Err error) ->
             ( model, session, Cmd.none )
+
+        OpenDocModal path ->
+            ( model, session, GitbookApi.getPage session path ModalContentReceived )
 
         Reset ->
             ( model, session, Cmd.none )
@@ -248,6 +253,7 @@ lifeCycleStepsView { displayMode, simulator } =
                     , product = simulator.inputs.product
                     , current = current
                     , next = Array.get (index + 1) simulator.lifeCycle
+                    , openDocModal = OpenDocModal
                     , updateCountry = UpdateStepCountry
                     , updateDyeingWeighting = UpdateDyeingWeighting
                     }
@@ -366,18 +372,14 @@ view session ({ displayMode, simulator } as model) =
             NoModal ->
                 text ""
 
-            MarkdownModal title markdown ->
+            GitbookModal gitbookPage ->
                 ModalView.view
                     { size = ModalView.Large
                     , close = CloseModal
-                    , title = title
+                    , title = gitbookPage.title
                     , content =
-                        [ markdown
-                            |> String.replace "$$" "```"
-                            |> String.replace "{% hint style=\"danger\" %}" "> "
-                            |> String.replace "{% hint style=\"warning\" %}" "> "
-                            |> String.replace "{% hint style=\"info\" %}" "> "
-                            |> String.replace "{% endhint %}" ""
+                        [ gitbookPage.markdown
+                            |> Gitbook.cleanMarkdown
                             |> MarkdownView.view [ class "GitbookContent px-3 px-md-4 py-2 py-md-3" ]
                         ]
                     }

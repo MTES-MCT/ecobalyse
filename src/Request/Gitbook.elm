@@ -1,5 +1,6 @@
 module Request.Gitbook exposing (..)
 
+import Data.Gitbook as Gitbook
 import Data.Session exposing (Session)
 import Http exposing (Error(..))
 import Json.Decode as Decode
@@ -24,14 +25,14 @@ errorToString error =
             "Unable to parse response body: " ++ body
 
 
-getPage : Session -> String -> (Result Error String -> msg) -> Cmd msg
+getPage : Session -> String -> (Result Error Gitbook.Page -> msg) -> Cmd msg
 getPage _ page event =
     Http.request
         { method = "GET"
         , headers = [ Http.header "Authorization" "Bearer UTZvYmUzbXRLWVA1a3hGMFdwcXpJbW1iSWkwMjotTWxDSm9nelJQQTF6VkFFQTFVQi0tTWxDSm9oLTVkd09ocUM3bFNIRw" ]
         , url = "https://api-beta.gitbook.com/v1/spaces/-MexpTrvmqKNzuVtxdad/content/v/master/url/" ++ page ++ "?format=markdown"
         , body = Http.emptyBody
-        , expect = Http.expectJson event (Decode.field "document" Decode.string)
+        , expect = Http.expectJson event Gitbook.decodePage
         , timeout = Nothing
         , tracker = Nothing
         }

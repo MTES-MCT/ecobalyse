@@ -9,7 +9,6 @@ import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
 import Views.Format as Format
 import Views.Icon as Icon
-import Views.Link as Link
 import Views.Transport as TransportView
 
 
@@ -19,6 +18,7 @@ type alias Config msg =
     , product : Product
     , current : Step
     , next : Maybe Step
+    , openDocModal : String -> msg
     , updateCountry : Int -> Country -> msg
     , updateDyeingWeighting : Maybe Float -> msg
     }
@@ -80,36 +80,38 @@ dyeingWeightingField { current, updateDyeingWeighting } =
         ]
 
 
-documentationLink : Step.Label -> Html msg
-documentationLink label =
+documentationLink : Config msg -> Step.Label -> Html msg
+documentationLink { openDocModal } label =
     let
-        url =
+        path =
             case label of
                 Step.Default ->
                     Nothing
 
                 Step.MaterialAndSpinning ->
-                    Just "/filature"
+                    Just "methodologie/filature"
 
                 Step.WeavingKnitting ->
-                    Just "/tricotage-tissage"
+                    Just "methodologie/tricotage-tissage"
 
                 Step.Ennoblement ->
-                    Just "/teinture"
+                    Just "methodologie/teinture"
 
                 Step.Making ->
-                    Just "/confection"
+                    Just "methodologie/confection"
 
                 Step.Distribution ->
-                    Just "/distribution"
+                    Just "methodologie/distribution"
     in
-    case url of
-        Just url_ ->
-            Link.external
-                [ class "fs-7"
-                , href <| "https://fabrique-numerique.gitbook.io/wikicarbone/methodologie" ++ url_
+    case path of
+        Just path_ ->
+            button
+                [ class "btn btn-sm btn-primary rounded-pill fs-7 py-0"
+                , onClick (openDocModal path_)
                 ]
-                [ text "Hypothèses" ]
+                [ span [ class "align-middle" ] [ Icon.question ]
+                , span [] [ text " docs" ]
+                ]
 
         Nothing ->
             text ""
@@ -138,7 +140,7 @@ simpleView ({ product, index, current } as config) =
                     , text stepLabel
                     ]
                 , div [ class "col-6 text-end" ]
-                    [ documentationLink current.label
+                    [ documentationLink config current.label
                     ]
                 ]
             ]
@@ -204,7 +206,7 @@ detailedView ({ product, index, next, current } as config) =
                         [ text (String.fromInt (index + 1)) ]
                     , text stepLabel
                     ]
-                , documentationLink current.label
+                , documentationLink config current.label
                 ]
             , ul [ class "list-group list-group-flush fs-7" ]
                 [ li [ class "list-group-item text-muted" ] [ countryField config ]
