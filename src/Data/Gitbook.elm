@@ -13,11 +13,13 @@ type alias Page =
 
 cleanMarkdown : String -> String
 cleanMarkdown =
+    -- Map Gitbook formulas to standard preformatted code blocks
     String.replace "$$" "```"
-        >> String.replace "{% hint style=\"danger\" %}" "> "
-        >> String.replace "{% hint style=\"warning\" %}" "> "
-        >> String.replace "{% hint style=\"info\" %}" "> "
-        >> String.replace "{% endhint %}" ""
+        -- Map Gitbook hints to bootstrap alerts
+        >> String.replace "{% hint style=\"danger\" %}" "<hint level=\"danger\">"
+        >> String.replace "{% hint style=\"warning\" %}" "<hint level=\"warning\">"
+        >> String.replace "{% hint style=\"info\" %}" "<hint level=\"info\">"
+        >> String.replace "{% endhint %}" "</hint>"
 
 
 publicUrl : String -> String
