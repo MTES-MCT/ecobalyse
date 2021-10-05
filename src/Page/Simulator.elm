@@ -377,18 +377,16 @@ modalView modal =
                 , close = CloseModal
                 , title = gitbookPage.title
                 , content =
-                    [ div [ class "px-3 px-md-4 py-2 py-md-3" ]
-                        [ if String.trim gitbookPage.markdown == "" then
-                            div [ class "alert alert-info mb-0 d-flex align-items-center" ]
-                                [ span [ class "fs-4 me-2" ] [ Icon.hammer ]
-                                , text "Cette page est en cours de construction"
-                                ]
+                    [ if String.trim gitbookPage.markdown == "" then
+                        div [ class "alert alert-info mb-0 d-flex align-items-center" ]
+                            [ span [ class "fs-4 me-2" ] [ Icon.hammer ]
+                            , text "Cette page est en cours de construction"
+                            ]
 
-                          else
-                            gitbookPage.markdown
-                                |> Gitbook.cleanMarkdown
-                                |> MarkdownView.view [ class "GitbookContent" ]
-                        ]
+                      else
+                        gitbookPage.markdown
+                            |> Gitbook.cleanMarkdown
+                            |> MarkdownView.view [ class "GitbookContent" ]
                     ]
                 , footer =
                     [ div [ class "text-end" ]
