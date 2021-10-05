@@ -206,7 +206,33 @@ blockquote {
   h3 { font-size: 1.5em; }
   h4 { font-size: 1.25em; }
   img { max-width: 100%; }
-  table { width: 100%; margin-bottom: 1em; }
+
+  table {
+    width: 100%;
+    margin-bottom: 1em;
+
+    thead {
+      background-color: $dark;
+      color: $white;
+
+      th {
+        padding: .25em .5em;
+      }
+    }
+    tbody {
+      tr {
+        border-bottom: 1px solid #ddd;
+
+        &:nth-child(even) {
+          background-color: #f0f0f0;
+        }
+
+        td {
+          padding: .25em .5em;
+        }
+      }
+    }
+  }
 }
 
 .Header {
