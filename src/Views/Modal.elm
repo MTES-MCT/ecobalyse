@@ -10,6 +10,7 @@ type alias Config msg =
     , close : msg
     , title : String
     , content : List (Html msg)
+    , footer : List (Html msg)
     }
 
 
@@ -40,9 +41,21 @@ view config =
                 [ div [ class "modal-content" ]
                     [ div [ class "modal-header bg-primary text-light" ]
                         [ h6 [ class "modal-title" ] [ text config.title ]
-                        , button [ type_ "button", class "btn-close invert", onClick config.close, attribute "aria-label" "Close" ] []
+                        , button
+                            [ type_ "button"
+                            , class "btn-close invert"
+                            , onClick config.close
+                            , attribute "aria-label" "Close"
+                            ]
+                            []
                         ]
-                    , div [ class "modal-body p-0" ] config.content
+                    , div [ class "modal-body p-0" ]
+                        config.content
+                    , if config.footer /= [] then
+                        div [ class "modal-footer bg-light" ] config.footer
+
+                      else
+                        text ""
                     ]
                 ]
             ]

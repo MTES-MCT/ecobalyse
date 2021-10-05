@@ -3,7 +3,6 @@ module Request.Gitbook exposing (..)
 import Data.Gitbook as Gitbook
 import Data.Session exposing (Session)
 import Http exposing (Error(..))
-import Json.Decode as Decode
 
 
 errorToString : Http.Error -> String
@@ -32,7 +31,7 @@ getPage _ page event =
         , headers = [ Http.header "Authorization" "Bearer UTZvYmUzbXRLWVA1a3hGMFdwcXpJbW1iSWkwMjotTWxDSm9nelJQQTF6VkFFQTFVQi0tTWxDSm9oLTVkd09ocUM3bFNIRw" ]
         , url = "https://api-beta.gitbook.com/v1/spaces/-MexpTrvmqKNzuVtxdad/content/v/master/url/" ++ page ++ "?format=markdown"
         , body = Http.emptyBody
-        , expect = Http.expectJson event Gitbook.decodePage
+        , expect = Http.expectJson event (Gitbook.decodePage page)
         , timeout = Nothing
         , tracker = Nothing
         }

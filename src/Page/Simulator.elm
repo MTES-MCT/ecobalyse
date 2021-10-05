@@ -378,9 +378,25 @@ view session ({ displayMode, simulator } as model) =
                     , close = CloseModal
                     , title = gitbookPage.title
                     , content =
-                        [ gitbookPage.markdown
-                            |> Gitbook.cleanMarkdown
-                            |> MarkdownView.view [ class "GitbookContent px-3 px-md-4 py-2 py-md-3" ]
+                        [ div [ class "px-3 px-md-4 py-2 py-md-3" ]
+                            [ if String.trim gitbookPage.markdown == "" then
+                                div [ class "alert alert-warning mb-0 d-flex align-items-center" ]
+                                    [ span [ class "fs-4 me-2" ] [ Icon.hammer ]
+                                    , text "Cette page est en cours de construction"
+                                    ]
+
+                              else
+                                gitbookPage.markdown
+                                    |> Gitbook.cleanMarkdown
+                                    |> MarkdownView.view [ class "GitbookContent" ]
+                            ]
+                        ]
+                    , footer =
+                        [ div [ class "text-end" ]
+                            [ Link.external [ href <| Gitbook.publicUrl gitbookPage.path ]
+                                [ text "Ouvrir cette page sur le site de documentation Wikicarbone"
+                                ]
+                            ]
                         ]
                     }
       ]

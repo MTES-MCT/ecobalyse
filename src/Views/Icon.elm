@@ -54,6 +54,11 @@ globe =
     icon "globe"
 
 
+hammer : Html msg
+hammer =
+    icon "hammer"
+
+
 info : Html msg
 info =
     icon "info"
