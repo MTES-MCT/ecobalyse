@@ -11,19 +11,19 @@ errorToString : Http.Error -> String
 errorToString error =
     case error of
         BadUrl url ->
-            "Bad url: " ++ url
+            "URL invalide: " ++ url
 
         Timeout ->
-            "Request timed out."
+            "Délai dépassé."
 
         NetworkError ->
-            "Network error. Are you online?"
+            "Erreur de communication réseau. Êtes-vous connecté ?"
 
         BadStatus status_code ->
-            "HTTP error " ++ String.fromInt status_code
+            "Erreur HTTP " ++ String.fromInt status_code
 
         BadBody body ->
-            "Unable to parse response body: " ++ body
+            "Échec de l'interprétation de la réponse HTTP: " ++ body
 
 
 config : RemoteData.Http.Config

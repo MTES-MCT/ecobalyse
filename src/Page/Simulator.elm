@@ -342,7 +342,10 @@ modalView modal =
                 , close = CloseModal
                 , title = "Chargement…"
                 , content =
-                    [ div [ class "d-flex flex-column gap-3 justify-content-center align-items-center", style "min-height" "25vh" ]
+                    [ div
+                        [ class "d-flex flex-column gap-3 justify-content-center align-items-center"
+                        , style "min-height" "25vh"
+                        ]
                         [ div [ class "spinner-border text-primary", attribute "role" "status" ]
                             [ span [ class "visually-hidden" ] [ text "Chargement…" ] ]
                         , p [ class "text-muted" ]
@@ -374,7 +377,7 @@ modalView modal =
                 , content =
                     [ div [ class "px-3 px-md-4 py-2 py-md-3" ]
                         [ if String.trim gitbookPage.markdown == "" then
-                            div [ class "alert alert-warning mb-0 d-flex align-items-center" ]
+                            div [ class "alert alert-info mb-0 d-flex align-items-center" ]
                                 [ span [ class "fs-4 me-2" ] [ Icon.hammer ]
                                 , text "Cette page est en cours de construction"
                                 ]
