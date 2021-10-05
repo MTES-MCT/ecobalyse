@@ -171,8 +171,9 @@ subscriptions model =
             HomePage _ ->
                 Sub.none
 
-            SimulatorPage _ ->
-                Sub.none
+            SimulatorPage subModel ->
+                Simulator.subscriptions subModel
+                    |> Sub.map SimulatorMsg
 
             EditorialPage _ ->
                 Sub.none

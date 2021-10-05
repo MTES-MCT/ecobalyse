@@ -1,9 +1,11 @@
-module Page.Simulator exposing (Model, Msg, init, update, view)
+module Page.Simulator exposing (..)
 
 import Array
+import Browser.Events
 import Data.Country exposing (Country)
 import Data.Gitbook as Gitbook
 import Data.Inputs as Inputs exposing (Inputs)
+import Data.Key as Key
 import Data.Material as Material exposing (Material)
 import Data.Material.Category as Category exposing (Category)
 import Data.Process as Process
@@ -439,3 +441,13 @@ view session ({ displayMode, simulator } as model) =
       , modalView model.modal
       ]
     )
+
+
+subscriptions : Model -> Sub Msg
+subscriptions { modal } =
+    case modal of
+        GitbookModal _ ->
+            Browser.Events.onKeyDown (Key.escape CloseModal)
+
+        NoModal ->
+            Sub.none
