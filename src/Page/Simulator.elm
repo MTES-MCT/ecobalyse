@@ -18,6 +18,7 @@ import Html.Events exposing (onClick, onInput)
 import Mass
 import Ports
 import RemoteData exposing (WebData)
+import Request.Common as HttpCommon
 import Request.Gitbook as GitbookApi
 import Route exposing (Route(..))
 import Views.Container as Container
@@ -365,7 +366,7 @@ modalView modal =
                 , content =
                     [ div [ class "alert alert-danger mb-0" ]
                         [ p [] [ text "Une erreur a été rencontrée" ]
-                        , p [] [ text <| GitbookApi.errorToString error ]
+                        , p [] [ text <| HttpCommon.errorToString error ]
                         ]
                     ]
                 , footer = []
