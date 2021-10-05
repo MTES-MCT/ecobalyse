@@ -13,9 +13,9 @@ import Data.Simulator as Simulator exposing (Simulator)
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (onClick, onInput)
-import Http
 import Mass
 import Ports
+import RemoteData exposing (WebData)
 import Request.Gitbook as GitbookApi
 import Route exposing (Route(..))
 import Views.Container as Container
@@ -42,13 +42,13 @@ type DisplayMode
 
 type ModalContent
     = NoModal
-    | GitbookModal Gitbook.Page
+    | GitbookModal (WebData Gitbook.Page)
 
 
 type Msg
     = CloseModal
     | CopyToClipBoard String
-    | ModalContentReceived (Result Http.Error Gitbook.Page)
+    | ModalContentReceived (WebData Gitbook.Page)
     | OpenDocModal String
     | Reset
     | SwitchMode DisplayMode
@@ -101,14 +101,11 @@ update session msg ({ simulator } as model) =
         CopyToClipBoard shareableLink ->
             ( model, session, Ports.copyToClipboard shareableLink )
 
-        ModalContentReceived (Ok gitbookPage) ->
-            ( { model | modal = GitbookModal gitbookPage }, session, Cmd.none )
-
-        ModalContentReceived (Err error) ->
-            ( model, session, Cmd.none )
+        ModalContentReceived gitbookData ->
+            ( { model | modal = GitbookModal gitbookData }, session, Cmd.none )
 
         OpenDocModal path ->
-            ( model, session, GitbookApi.getPage session path ModalContentReceived )
+            ( { model | modal = GitbookModal RemoteData.Loading }, session, GitbookApi.getPage session path ModalContentReceived )
 
         Reset ->
             ( model, session, Cmd.none )
@@ -330,6 +327,74 @@ feedbackView =
         ]
 
 
+modalView : ModalContent -> Html Msg
+modalView modal =
+    case modal of
+        NoModal ->
+            text ""
+
+        GitbookModal RemoteData.NotAsked ->
+            text ""
+
+        GitbookModal RemoteData.Loading ->
+            ModalView.view
+                { size = ModalView.Large
+                , close = CloseModal
+                , title = "Chargement…"
+                , content =
+                    [ div [ class "d-flex flex-column gap-3 justify-content-center align-items-center", style "min-height" "25vh" ]
+                        [ div [ class "spinner-border text-primary", attribute "role" "status" ]
+                            [ span [ class "visually-hidden" ] [ text "Chargement…" ] ]
+                        , p [ class "text-muted" ]
+                            [ text "Chargement de la documentation…" ]
+                        ]
+                    ]
+                , footer = []
+                }
+
+        GitbookModal (RemoteData.Failure error) ->
+            ModalView.view
+                { size = ModalView.Large
+                , close = CloseModal
+                , title = "Erreur"
+                , content =
+                    [ div [ class "alert alert-danger mb-0" ]
+                        [ p [] [ text "Une erreur a été rencontrée" ]
+                        , p [] [ text <| GitbookApi.errorToString error ]
+                        ]
+                    ]
+                , footer = []
+                }
+
+        GitbookModal (RemoteData.Success gitbookPage) ->
+            ModalView.view
+                { size = ModalView.Large
+                , close = CloseModal
+                , title = gitbookPage.title
+                , content =
+                    [ div [ class "px-3 px-md-4 py-2 py-md-3" ]
+                        [ if String.trim gitbookPage.markdown == "" then
+                            div [ class "alert alert-warning mb-0 d-flex align-items-center" ]
+                                [ span [ class "fs-4 me-2" ] [ Icon.hammer ]
+                                , text "Cette page est en cours de construction"
+                                ]
+
+                          else
+                            gitbookPage.markdown
+                                |> Gitbook.cleanMarkdown
+                                |> MarkdownView.view [ class "GitbookContent" ]
+                        ]
+                    ]
+                , footer =
+                    [ div [ class "text-end" ]
+                        [ Link.external [ href <| Gitbook.publicUrl gitbookPage.path ]
+                            [ text "Ouvrir cette page sur le site de documentation Wikicarbone"
+                            ]
+                        ]
+                    ]
+                }
+
+
 view : Session -> Model -> ( String, List (Html Msg) )
 view session ({ displayMode, simulator } as model) =
     ( "Simulateur"
@@ -368,36 +433,6 @@ view session ({ displayMode, simulator } as model) =
                     ]
                 ]
             ]
-      , case model.modal of
-            NoModal ->
-                text ""
-
-            GitbookModal gitbookPage ->
-                ModalView.view
-                    { size = ModalView.Large
-                    , close = CloseModal
-                    , title = gitbookPage.title
-                    , content =
-                        [ div [ class "px-3 px-md-4 py-2 py-md-3" ]
-                            [ if String.trim gitbookPage.markdown == "" then
-                                div [ class "alert alert-warning mb-0 d-flex align-items-center" ]
-                                    [ span [ class "fs-4 me-2" ] [ Icon.hammer ]
-                                    , text "Cette page est en cours de construction"
-                                    ]
-
-                              else
-                                gitbookPage.markdown
-                                    |> Gitbook.cleanMarkdown
-                                    |> MarkdownView.view [ class "GitbookContent" ]
-                            ]
-                        ]
-                    , footer =
-                        [ div [ class "text-end" ]
-                            [ Link.external [ href <| Gitbook.publicUrl gitbookPage.path ]
-                                [ text "Ouvrir cette page sur le site de documentation Wikicarbone"
-                                ]
-                            ]
-                        ]
-                    }
+      , modalView model.modal
       ]
     )

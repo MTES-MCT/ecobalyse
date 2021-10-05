@@ -18,6 +18,8 @@
             "elm/svg": "1.0.1",
             "elm/url": "1.0.0",
             "ianmackenzie/elm-units": "2.9.0",
+            "krisajenkins/remotedata": "6.0.1",
+            "ohanhi/remotedata-http": "4.0.0",
             "truqu/elm-base64": "2.0.4",
             "turboMaCk/any-dict": "2.4.0"
         },
