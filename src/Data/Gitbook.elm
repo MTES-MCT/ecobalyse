@@ -27,10 +27,28 @@ publicUrl path =
     "https://fabrique-numerique.gitbook.io/wikicarbone/" ++ path
 
 
+decodeMaybeString : Decoder (Maybe String)
+decodeMaybeString =
+    Decode.maybe Decode.string
+        |> Decode.andThen
+            (\maybeString ->
+                case maybeString of
+                    Just string ->
+                        if String.trim string == "" then
+                            Decode.succeed Nothing
+
+                        else
+                            Decode.succeed (Just string)
+
+                    Nothing ->
+                        Decode.succeed Nothing
+            )
+
+
 decodePage : String -> Decoder Page
 decodePage path =
     Decode.map4 Page
         (Decode.field "title" Decode.string)
-        (Decode.field "description" (Decode.maybe Decode.string))
+        (Decode.field "description" decodeMaybeString)
         (Decode.field "document" Decode.string)
         (Decode.succeed path)
