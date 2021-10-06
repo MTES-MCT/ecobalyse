@@ -4,6 +4,7 @@ import Browser exposing (Document)
 import Browser.Navigation as Nav
 import Data.Session as Session exposing (Session)
 import Html exposing (..)
+import Page.Changelog as Changelog
 import Page.Editorial as Editorial
 import Page.Examples as Examples
 import Page.Home as Home
@@ -24,9 +25,10 @@ type alias Flags =
 type Page
     = BlankPage
     | HomePage Home.Model
-    | SimulatorPage Simulator.Model
+    | ChangelogPage Changelog.Model
     | EditorialPage Editorial.Model
     | ExamplesPage Examples.Model
+    | SimulatorPage Simulator.Model
     | StatsPage Stats.Model
     | NotFoundPage
 
@@ -39,9 +41,10 @@ type alias Model =
 
 type Msg
     = HomeMsg Home.Msg
-    | SimulatorMsg Simulator.Msg
+    | ChangelogMsg Changelog.Msg
     | EditorialMsg Editorial.Msg
     | ExamplesMsg Examples.Msg
+    | SimulatorMsg Simulator.Msg
     | StatsMsg Stats.Msg
     | StoreChanged String
     | UrlChanged Url
@@ -76,14 +79,17 @@ setRoute maybeRoute model cmds =
         Just Route.Home ->
             toPage HomePage Home.init HomeMsg
 
-        Just (Route.Simulator maybeQuery) ->
-            toPage SimulatorPage (Simulator.init maybeQuery) SimulatorMsg
+        Just Route.Changelog ->
+            toPage ChangelogPage Changelog.init ChangelogMsg
 
         Just (Route.Editorial slug) ->
             toPage EditorialPage (Editorial.init slug) EditorialMsg
 
         Just Route.Examples ->
             toPage ExamplesPage Examples.init ExamplesMsg
+
+        Just (Route.Simulator maybeQuery) ->
+            toPage SimulatorPage (Simulator.init maybeQuery) SimulatorMsg
 
         Just Route.Stats ->
             toPage StatsPage Stats.init StatsMsg
@@ -128,14 +134,17 @@ update msg ({ page, session } as model) =
         ( HomeMsg homeMsg, HomePage homeModel ) ->
             toPage HomePage HomeMsg Home.update homeMsg homeModel
 
-        ( SimulatorMsg counterMsg, SimulatorPage counterModel ) ->
-            toPage SimulatorPage SimulatorMsg Simulator.update counterMsg counterModel
+        ( ChangelogMsg changelogMsg, ChangelogPage changelogModel ) ->
+            toPage ChangelogPage ChangelogMsg Changelog.update changelogMsg changelogModel
 
         ( EditorialMsg editorialMsg, EditorialPage editorialModel ) ->
             toPage EditorialPage EditorialMsg Editorial.update editorialMsg editorialModel
 
         ( ExamplesMsg examplesMsg, ExamplesPage examplesModel ) ->
             toPage ExamplesPage ExamplesMsg Examples.update examplesMsg examplesModel
+
+        ( SimulatorMsg counterMsg, SimulatorPage counterModel ) ->
+            toPage SimulatorPage SimulatorMsg Simulator.update counterMsg counterModel
 
         ( StatsMsg statsMsg, StatsPage statsModel ) ->
             toPage StatsPage StatsMsg Stats.update statsMsg statsModel
@@ -171,15 +180,18 @@ subscriptions model =
             HomePage _ ->
                 Sub.none
 
-            SimulatorPage subModel ->
-                Simulator.subscriptions subModel
-                    |> Sub.map SimulatorMsg
+            ChangelogPage _ ->
+                Sub.none
 
             EditorialPage _ ->
                 Sub.none
 
             ExamplesPage _ ->
                 Sub.none
+
+            SimulatorPage subModel ->
+                Simulator.subscriptions subModel
+                    |> Sub.map SimulatorMsg
 
             StatsPage _ ->
                 Sub.none
@@ -207,23 +219,28 @@ view { page, session } =
                 |> mapMsg HomeMsg
                 |> Page.frame (pageConfig Page.Home)
 
-        SimulatorPage counterModel ->
-            Simulator.view session counterModel
-                |> mapMsg SimulatorMsg
-                |> Page.frame (pageConfig Page.Simulator)
+        ChangelogPage changelogModel ->
+            Changelog.view session changelogModel
+                |> mapMsg ChangelogMsg
+                |> Page.frame (pageConfig Page.Changelog)
 
         EditorialPage editorialModel ->
             Editorial.view session editorialModel
                 |> mapMsg EditorialMsg
                 |> Page.frame (pageConfig (Page.Editorial editorialModel.slug))
 
-        ExamplesPage editorialModel ->
-            Examples.view session editorialModel
+        ExamplesPage examplesModel ->
+            Examples.view session examplesModel
                 |> mapMsg ExamplesMsg
                 |> Page.frame (pageConfig Page.Examples)
 
-        StatsPage editorialModel ->
-            Stats.view session editorialModel
+        SimulatorPage simulatorModel ->
+            Simulator.view session simulatorModel
+                |> mapMsg SimulatorMsg
+                |> Page.frame (pageConfig Page.Simulator)
+
+        StatsPage statsModel ->
+            Stats.view session statsModel
                 |> mapMsg StatsMsg
                 |> Page.frame (pageConfig Page.Stats)
 
