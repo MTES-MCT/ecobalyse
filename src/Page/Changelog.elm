@@ -79,7 +79,7 @@ commitView maybeTime commit =
                         , class "rounded-circle shadow-sm align-top me-2"
                         ]
                         []
-                    , Link.external [ class "text-decoration-none", href commit.sha ]
+                    , Link.external [ class "text-decoration-none", href <| "https://github.com/MTES-MCT/wikicarbone/commit/" ++ commit.sha ]
                         [ text title ]
                     ]
                 , if List.length rest > 0 then
