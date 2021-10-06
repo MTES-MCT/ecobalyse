@@ -14,7 +14,7 @@ import Data.Session exposing (Session)
 import Data.Simulator as Simulator exposing (Simulator)
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
-import Html.Events exposing (onClick, onInput)
+import Html.Events exposing (..)
 import Mass
 import Ports
 import RemoteData exposing (WebData)
@@ -52,6 +52,7 @@ type Msg
     = CloseModal
     | CopyToClipBoard String
     | ModalContentReceived (WebData Gitbook.Page)
+    | NoOp
     | OpenDocModal String
     | Reset
     | SwitchMode DisplayMode
@@ -106,6 +107,9 @@ update session msg ({ simulator } as model) =
 
         ModalContentReceived gitbookData ->
             ( { model | modal = GitbookModal gitbookData }, session, Cmd.none )
+
+        NoOp ->
+            ( model, session, Cmd.none )
 
         OpenDocModal path ->
             ( { model | modal = GitbookModal RemoteData.Loading }, session, GitbookApi.getPage session path ModalContentReceived )
@@ -343,6 +347,7 @@ modalView modal =
             ModalView.view
                 { size = ModalView.Large
                 , close = CloseModal
+                , noOp = NoOp
                 , title = "Chargement…"
                 , content =
                     [ div
@@ -362,6 +367,7 @@ modalView modal =
             ModalView.view
                 { size = ModalView.Large
                 , close = CloseModal
+                , noOp = NoOp
                 , title = "Erreur"
                 , content =
                     [ div [ class "alert alert-danger mb-0" ]
@@ -376,6 +382,7 @@ modalView modal =
             ModalView.view
                 { size = ModalView.Large
                 , close = CloseModal
+                , noOp = NoOp
                 , title = gitbookPage.title
                 , content =
                     [ case gitbookPage.description of
