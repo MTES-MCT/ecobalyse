@@ -12,9 +12,10 @@ import Views.Link as Link
 
 type ActivePage
     = Home
-    | Simulator
+    | Changelog
     | Editorial String
     | Examples
+    | Simulator
     | Stats
     | Other
 
@@ -56,6 +57,7 @@ footerMenuLinks =
     [ Internal "Accueil" Route.Home Home
     , Internal "Simulateur" (Route.Simulator Nothing) Simulator
     , Internal "Exemples" Route.Examples Examples
+    , Internal "Changelog" Route.Changelog Changelog
     , Internal "Statistiques" Route.Stats Stats
     , External "Code source" "https://github.com/MTES-MCT/wikicarbone/"
     , External "Documentation" "https://fabrique-numerique.gitbook.io/wikicarbone/"

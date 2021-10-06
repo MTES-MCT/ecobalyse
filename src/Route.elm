@@ -10,9 +10,10 @@ import Url.Parser as Parser exposing ((</>), Parser)
 
 type Route
     = Home
-    | Simulator (Maybe Inputs.Query)
+    | Changelog
     | Editorial String
     | Examples
+    | Simulator (Maybe Inputs.Query)
     | Stats
 
 
@@ -20,10 +21,11 @@ parser : Parser (Route -> a) a
 parser =
     Parser.oneOf
         [ Parser.map Home Parser.top
-        , Parser.map (Simulator Nothing) (Parser.s "simulator")
-        , Parser.map (Simulator << Just) (Parser.s "simulator" </> parseInputsQuery)
+        , Parser.map Changelog (Parser.s "changelog")
         , Parser.map Editorial (Parser.s "content" </> Parser.string)
         , Parser.map Examples (Parser.s "examples")
+        , Parser.map (Simulator Nothing) (Parser.s "simulator")
+        , Parser.map (Simulator << Just) (Parser.s "simulator" </> parseInputsQuery)
         , Parser.map Stats (Parser.s "stats")
         ]
 
@@ -85,17 +87,20 @@ toString route =
                 Home ->
                     []
 
-                Simulator (Just inputs) ->
-                    [ "simulator", Inputs.b64encode inputs ]
-
-                Simulator Nothing ->
-                    [ "simulator" ]
+                Changelog ->
+                    [ "changelog" ]
 
                 Editorial slug ->
                     [ "content", slug ]
 
                 Examples ->
                     [ "examples" ]
+
+                Simulator (Just inputs) ->
+                    [ "simulator", Inputs.b64encode inputs ]
+
+                Simulator Nothing ->
+                    [ "simulator" ]
 
                 Stats ->
                     [ "stats" ]

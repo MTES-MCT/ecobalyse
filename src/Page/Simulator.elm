@@ -26,6 +26,7 @@ import Views.Icon as Icon
 import Views.Link as Link
 import Views.Markdown as MarkdownView
 import Views.Modal as ModalView
+import Views.Spinner as SpinnerView
 import Views.Step as StepView
 import Views.Summary as SummaryView
 
@@ -349,17 +350,7 @@ modalView modal =
                 , close = CloseModal
                 , noOp = NoOp
                 , title = "Chargement…"
-                , content =
-                    [ div
-                        [ class "d-flex flex-column gap-3 justify-content-center align-items-center"
-                        , style "min-height" "25vh"
-                        ]
-                        [ div [ class "spinner-border text-primary", attribute "role" "status" ]
-                            [ span [ class "visually-hidden" ] [ text "Chargement…" ] ]
-                        , p [ class "text-muted" ]
-                            [ text "Chargement de la documentation…" ]
-                        ]
-                    ]
+                , content = [ SpinnerView.view ]
                 , footer = []
                 }
 

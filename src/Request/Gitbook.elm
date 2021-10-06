@@ -2,7 +2,7 @@ module Request.Gitbook exposing (..)
 
 import Data.Gitbook as Gitbook
 import Data.Session exposing (Session)
-import Http exposing (Error(..))
+import Http
 import RemoteData exposing (WebData)
 import RemoteData.Http exposing (defaultConfig)
 
