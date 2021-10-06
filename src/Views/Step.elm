@@ -168,6 +168,15 @@ simpleView ({ product, index, current } as config) =
         ]
 
 
+documentationPillLink : Config msg -> String -> Html msg
+documentationPillLink { openDocModal } path =
+    button
+        [ class "btn btn-sm text-secondary text-decoration-none btn-link p-0 ms-1"
+        , onClick (openDocModal path)
+        ]
+        [ Icon.question ]
+
+
 detailedView : Config msg -> Html msg
 detailedView ({ product, index, next, current } as config) =
     let
@@ -233,21 +242,34 @@ detailedView ({ product, index, next, current } as config) =
             , ul [ class "list-group list-group-flush fs-7" ]
                 [ li [ class "list-group-item text-muted d-flex justify-content-around" ]
                     [ span [] [ text "Masse\u{00A0}: ", Format.kg current.mass ]
-                    , span [] [ text "Perte\u{00A0}: ", Format.kg current.waste ]
+                    , span [ class "d-flex align-items-center" ]
+                        [ span [ class "me-1" ] [ text "Perte" ]
+                        , Format.kg current.waste
+                        , documentationPillLink config "methodologie/pertes-et-rebus"
+                        ]
                     ]
                 , if Energy.inKilojoules current.heat > 0 || Energy.inKilowattHours current.kwh > 0 then
                     li [ class "list-group-item text-muted d-flex justify-content-around" ]
-                        [ span [] [ text "Chaleur\u{00A0}: ", Format.megajoules current.heat ]
-                        , span [] [ text "Électricité\u{00A0}: ", Format.kilowattHours current.kwh ]
+                        [ span [ class "d-flex align-items-center" ]
+                            [ span [ class "me-1" ] [ text "Chaleur" ]
+                            , Format.megajoules current.heat
+                            , documentationPillLink config "methodologie/chaleur"
+                            ]
+                        , span [ class "d-flex align-items-center" ]
+                            [ span [ class "me-1" ] [ text "Électricité" ]
+                            , Format.kilowattHours current.kwh
+                            , documentationPillLink config "methodologie/electricite"
+                            ]
                         ]
 
                   else
                     text ""
                 , li [ class "list-group-item text-muted" ]
                     [ TransportView.view True current.transport ]
-                , li [ class "list-group-item text-muted" ]
+                , li [ class "list-group-item text-muted d-flex justify-content-center align-items-center" ]
                     [ strong [] [ text <| transportLabel ++ "\u{00A0}:\u{00A0}" ]
                     , Format.kgCo2 3 current.transport.co2
+                    , documentationPillLink config "methodologie/transport"
                     ]
                 ]
             ]
