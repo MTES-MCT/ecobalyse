@@ -3,7 +3,6 @@ module Data.LifeCycle exposing (..)
 import Array exposing (Array)
 import Data.Country as Country
 import Data.Inputs exposing (Inputs)
-import Data.Process as Process
 import Data.Step as Step exposing (Step)
 import Data.Transport as Transport
 import Json.Decode as Decode exposing (Decoder)
@@ -53,8 +52,8 @@ computeSummaryBetween current next =
 handleAirTransport : Step -> Transport.Summary -> Transport.Summary
 handleAirTransport { label } summary =
     -- Air transport can only concern finished products, so we only keep air travel distance
-    -- between the Making and Distribution and for the Distribution step itself steps.
-    if List.member label [ Step.Making, Step.Distribution ] then
+    -- between the Making and Distribution steps.
+    if List.member label [ Step.Making ] then
         summary
 
     else
@@ -73,19 +72,7 @@ computeTransportSummaries lifeCycle =
                             |> Maybe.withDefault current
                             |> computeSummaryBetween current
                             |> handleAirTransport current
-                            |> Transport.applyProcess current.mass
-                                (case current.label of
-                                    -- FIXME: in Excel, the distribution road distance is eventually
-                                    -- substracted from the one of the making step.
-                                    Step.Making ->
-                                        Process.roadTransportPostMaking
-
-                                    Step.Distribution ->
-                                        Process.distribution
-
-                                    _ ->
-                                        Process.roadTransportPreMaking
-                                )
+                            |> Step.computeTransports current
                 }
             )
 
@@ -135,12 +122,12 @@ init inputs lifeCycle =
 updateStep : Step.Label -> (Step -> Step) -> LifeCycle -> LifeCycle
 updateStep label update =
     Array.map
-        (\s ->
-            if s.label == label then
-                update s
+        (\step ->
+            if step.label == label then
+                update step
 
             else
-                s
+                step
         )
 
 

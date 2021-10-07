@@ -3,7 +3,7 @@ module Data.Step exposing (..)
 import Data.Country as Country exposing (Country)
 import Data.CountryProcess as CountryProcess
 import Data.Inputs exposing (Inputs)
-import Data.Process exposing (Cat3(..))
+import Data.Process as Process
 import Data.Transport as Transport
 import Energy exposing (Energy)
 import Json.Decode as Decode exposing (Decoder)
@@ -80,24 +80,23 @@ processCountryInfo : Label -> Country -> ProcessInfo
 processCountryInfo label country =
     case ( label, CountryProcess.get country ) of
         ( WeavingKnitting, Just { electricity } ) ->
-            { heat = Nothing
-            , electricity = Just electricity.name
-            , dyeingWeighting = Nothing
-            , airTransportRatio = Nothing
-            }
+            { defaultProcessInfo | electricity = Just electricity.name }
 
         ( Ennoblement, Just { heat, electricity, dyeingWeighting } ) ->
-            { heat = Just heat.name
-            , electricity = Just electricity.name
-            , dyeingWeighting = Just (dyeingWeightingToString dyeingWeighting)
-            , airTransportRatio = Nothing
+            { defaultProcessInfo
+                | heat = Just heat.name
+                , electricity = Just electricity.name
+                , dyeingWeighting = Just (dyeingWeightingToString dyeingWeighting)
             }
 
         ( Making, Just { electricity } ) ->
-            { heat = Nothing
-            , electricity = Just electricity.name
-            , dyeingWeighting = Nothing
-            , airTransportRatio = Nothing -- TODO: check if needed
+            { defaultProcessInfo
+                | electricity = Just electricity.name
+                , airTransportRatio =
+                    country
+                        |> Transport.defaultAirTransportRatio
+                        |> airTransportRatioToString
+                        |> Just
             }
 
         _ ->
@@ -107,6 +106,37 @@ processCountryInfo label country =
 getDyeingWeighting : Country -> Float
 getDyeingWeighting =
     CountryProcess.get >> Maybe.map .dyeingWeighting >> Maybe.withDefault 0
+
+
+computeTransports : Step -> Transport.Summary -> Transport.Summary
+computeTransports { label, mass } summary =
+    -- Note: summary_ is precomputed from the LifeCycle.computeTransportSummaries pipeline
+    -- TODO: refactor to a lesser mess
+    let
+        roadProcess =
+            case label of
+                -- FIXME: in Excel, the distribution road distance is eventually
+                -- substracted from the one of the making step.
+                Making ->
+                    Process.roadTransportPostMaking
+
+                Distribution ->
+                    Process.distribution
+
+                _ ->
+                    Process.roadTransportPreMaking
+
+        ( airTransportCo2, seaTransportCo2, roadTransportCo2 ) =
+            ( Process.airTransport |> .climateChange |> (*) (Mass.inMetricTons mass) |> (*) (toFloat summary.air)
+            , Process.seaTransport |> .climateChange |> (*) (Mass.inMetricTons mass) |> (*) (toFloat summary.sea)
+            , roadProcess |> .climateChange |> (*) (Mass.inMetricTons mass) |> (*) (toFloat summary.road)
+            )
+    in
+    -- Soit :
+    -- - t la part du transport terrestre rapportée au transport "terrestre + maritime"
+    -- - a la part du transport aérien rapportée au transport "aérien + terrestre + maritime"
+    -- co2 = a * ImpactAérien + (1 − a) * (t * ImpactTerrestre + (1 − t) * ImpactMaritime)
+    { summary | co2 = airTransportCo2 + seaTransportCo2 + roadTransportCo2 }
 
 
 countryLabel : Step -> String
@@ -121,7 +151,7 @@ countryLabel step =
 
 
 update : Inputs -> Maybe Step -> Step -> Step
-update { dyeingWeighting, airTransportRatio } maybeNext step =
+update { dyeingWeighting, airTransportRatio } _ step =
     { step
         | processInfo = processCountryInfo step.label step.country
         , dyeingWeighting =
@@ -132,8 +162,7 @@ update { dyeingWeighting, airTransportRatio } maybeNext step =
                 step.dyeingWeighting
         , airTransportRatio =
             if step.label == Making then
-                -- TODO: retrieve air transport ratio wrt next step country
-                airTransportRatio |> Maybe.withDefault 0.33
+                airTransportRatio |> Maybe.withDefault (Transport.defaultAirTransportRatio step.country)
 
             else
                 step.airTransportRatio

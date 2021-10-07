@@ -1,11 +1,9 @@
 module Data.Transport exposing (..)
 
 import Data.Country as Country exposing (..)
-import Data.Process as Process exposing (Process)
 import Dict.Any as Dict exposing (AnyDict)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
-import Mass exposing (Mass)
 
 
 type alias Km =
@@ -67,6 +65,30 @@ defaultInitial : Transport
 defaultInitial =
     -- Note: used as the defaults for the initial Material&Spinning step
     { road = ( 2000, 1 ), sea = ( 4000, 1 ), air = ( 0, 0 ) }
+
+
+roadSeaTransportRatio : Int -> Float
+roadSeaTransportRatio roadDistance =
+    -- FIXME: this is unused for now, but should be eventually for computing
+    -- road/sea transport ratios from initial distances. Meaning we'll eventually
+    -- get rid of the tuples in the Transport type.
+    if roadDistance < 1000 then
+        0.9
+
+    else if roadDistance < 2000 then
+        0.5
+
+    else
+        0.25
+
+
+defaultAirTransportRatio : Country -> Float
+defaultAirTransportRatio country =
+    if List.member country [ Bangladesh, China, India, Turkey ] then
+        0.33
+
+    else
+        0
 
 
 distances : Distances
@@ -150,18 +172,6 @@ addToSummary summary transport =
         , sea = summary.sea + calcInfo transport.sea
         , air = summary.air + calcInfo transport.air
     }
-
-
-applyProcess : Mass -> Process -> Summary -> Summary
-applyProcess mass roadProcess summary =
-    let
-        ( airTransportCo2, seaTransportCo2, roadTransportCo2 ) =
-            ( Process.airTransport |> .climateChange |> (*) (Mass.inKilograms mass) |> (*) (toFloat summary.air)
-            , Process.seaTransport |> .climateChange |> (*) (Mass.inKilograms mass) |> (*) (toFloat summary.sea)
-            , roadProcess |> .climateChange |> (*) (Mass.inKilograms mass) |> (*) (toFloat summary.road)
-            )
-    in
-    { summary | co2 = (airTransportCo2 + seaTransportCo2 + roadTransportCo2) / 1000 }
 
 
 calcInfo : Info -> Km
