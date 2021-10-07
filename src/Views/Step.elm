@@ -56,6 +56,31 @@ countryField { current, index, updateCountry } =
         ]
 
 
+airTransportRatioField : Config msg -> Html msg
+airTransportRatioField { current } =
+    div [ class "RangeSlider row" ]
+        [ div [ class "col-xxl-6" ]
+            [ label [ for "dyeingWeighting", class "form-label text-nowrap fs-7 mb-0" ]
+                [ text <| String.fromInt 100 ++ "% de transport aérien" ]
+            ]
+        , div [ class "col-xxl-6" ]
+            [ input
+                [ type_ "range"
+                , class "d-block form-range"
+                , style "margin-top" "2px"
+                , id "dyeingWeighting"
+
+                -- , onInput (String.toInt >> Maybe.map (\x -> toFloat x / 100) >> updateDyeingWeighting)
+                -- , value (String.fromInt (round (current.dyeingWeighting * 100)))
+                , Attr.min "0"
+                , Attr.max "100"
+                , step "10"
+                ]
+                []
+            ]
+        ]
+
+
 dyeingWeightingField : Config msg -> Html msg
 dyeingWeightingField { current, updateDyeingWeighting } =
     div [ class "RangeSlider row" ]
@@ -147,11 +172,15 @@ simpleView ({ product, index, current } as config) =
         , div [ class "card-body row align-items-center" ]
             [ div [ class "col-sm-6 col-lg-7" ]
                 [ countryField config
-                , if current.label == Step.Ennoblement then
-                    div [ class "mt-2" ] [ dyeingWeightingField config ]
+                , case current.label of
+                    Step.Ennoblement ->
+                        div [ class "mt-2" ] [ dyeingWeightingField config ]
 
-                  else
-                    text ""
+                    Step.Making ->
+                        div [ class "mt-2" ] [ airTransportRatioField config ]
+
+                    _ ->
+                        text ""
                 ]
             , div [ class "col-sm-6 col-lg-5 text-center text-muted" ]
                 [ if current.label == Step.Distribution && current.co2 == 0 then
@@ -223,11 +252,15 @@ detailedView ({ product, index, next, current } as config) =
                 , listItem current.processInfo.electricity
                 ]
             , div [ class "card-body py-2 text-muted" ]
-                [ if current.label == Step.Ennoblement then
-                    dyeingWeightingField config
+                [ case current.label of
+                    Step.Ennoblement ->
+                        dyeingWeightingField config
 
-                  else
-                    text ""
+                    Step.Making ->
+                        airTransportRatioField config
+
+                    _ ->
+                        text ""
                 ]
             ]
         , div
