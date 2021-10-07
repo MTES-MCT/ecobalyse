@@ -116,31 +116,20 @@ getStep label =
     Array.filter (.label >> (==) label) >> Array.get 0
 
 
-initCountries : Inputs -> LifeCycle -> LifeCycle
-initCountries inputs =
-    Array.indexedMap
-        (\index step ->
-            { step
-                | country =
-                    inputs.countries
-                        |> Array.fromList
-                        |> Array.get index
-                        |> Maybe.withDefault step.country
-            }
-        )
-        >> processStepCountries inputs
-
-
-processStepCountries : Inputs -> LifeCycle -> LifeCycle
-processStepCountries inputs =
-    Array.map
-        (\step ->
-            Step.updateCountry
-                inputs.dyeingWeighting
-                inputs.airTransportRatio
-                step.country
-                step
-        )
+init : Inputs -> LifeCycle -> LifeCycle
+init inputs lifeCycle =
+    lifeCycle
+        |> Array.indexedMap
+            (\index step ->
+                { step
+                    | country =
+                        inputs.countries
+                            |> Array.fromList
+                            |> Array.get index
+                            |> Maybe.withDefault step.country
+                }
+                    |> Step.update inputs (Array.get (index + 1) lifeCycle)
+            )
 
 
 updateStep : Step.Label -> (Step -> Step) -> LifeCycle -> LifeCycle

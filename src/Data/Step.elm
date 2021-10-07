@@ -2,6 +2,7 @@ module Data.Step exposing (..)
 
 import Data.Country as Country exposing (Country)
 import Data.CountryProcess as CountryProcess
+import Data.Inputs exposing (Inputs)
 import Data.Process exposing (Cat3(..))
 import Data.Transport as Transport
 import Energy exposing (Energy)
@@ -119,45 +120,23 @@ countryLabel step =
         Country.toString step.country
 
 
-updateCountry : Maybe Float -> Maybe Float -> Country -> Step -> Step
-updateCountry dyeingWeighting airTransportRatio country step =
+update : Inputs -> Maybe Step -> Step -> Step
+update { dyeingWeighting, airTransportRatio } maybeNext step =
     { step
-        | country = country
-        , processInfo = processCountryInfo step.label country
+        | processInfo = processCountryInfo step.label step.country
         , dyeingWeighting =
             if step.label == Ennoblement then
-                if country /= step.country then
-                    getDyeingWeighting country
-
-                else
-                    dyeingWeighting |> Maybe.withDefault (getDyeingWeighting country)
+                dyeingWeighting |> Maybe.withDefault (getDyeingWeighting step.country)
 
             else
                 step.dyeingWeighting
         , airTransportRatio =
             if step.label == Making then
-                if country /= step.country then
-                    -- TODO: retrieve air transport ratio wrt next step country
-                    0.33
-
-                else
-                    airTransportRatio |> Maybe.withDefault 0.33
+                -- TODO: retrieve air transport ratio wrt next step country
+                airTransportRatio |> Maybe.withDefault 0.33
 
             else
                 step.airTransportRatio
-    }
-
-
-updateDyeingWeighting : Float -> Step -> Step
-updateDyeingWeighting dyeingWeighting ({ processInfo } as step) =
-    { step
-        | dyeingWeighting = dyeingWeighting
-        , processInfo =
-            if step.label == Ennoblement then
-                { processInfo | dyeingWeighting = Just (dyeingWeightingToString dyeingWeighting) }
-
-            else
-                processInfo
     }
 
 
