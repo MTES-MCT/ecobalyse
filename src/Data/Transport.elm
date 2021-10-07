@@ -51,8 +51,11 @@ defaultSummary =
 
 defaultInitialSummary : Summary
 defaultInitialSummary =
-    -- Note: used as the defaults for the initial Material&Spinning step
-    { road = 2000, sea = 4000, air = 0, co2 = 0 }
+    { road = Tuple.first defaultInitial.road
+    , sea = Tuple.first defaultInitial.sea
+    , air = Tuple.first defaultInitial.air
+    , co2 = 0
+    }
 
 
 defaultInland : Transport
@@ -62,6 +65,7 @@ defaultInland =
 
 defaultInitial : Transport
 defaultInitial =
+    -- Note: used as the defaults for the initial Material&Spinning step
     { road = ( 2000, 1 ), sea = ( 4000, 1 ), air = ( 0, 0 ) }
 
 
@@ -71,11 +75,11 @@ distances =
         [ ( Turkey
           , Dict.fromList Country.toString
                 [ ( Bangladesh, { road = ( 5416, 0 ), sea = ( 9545, 1 ), air = ( 6000, 0.33 ) } )
-                , ( Portugal, { road = ( 3709, 0.9 ), sea = ( 4876, 0.1 ), air = ( 3200, 0.33 ) } )
+                , ( Portugal, { road = ( 3709, 0.25 ), sea = ( 4876, 0.75 ), air = ( 3200, 0.33 ) } )
                 , ( China, { road = ( 0, 0 ), sea = ( 16243, 1 ), air = ( 7100, 0.33 ) } )
-                , ( France, { road = ( 2798, 0.9 ), sea = ( 6226, 0.1 ), air = ( 2200, 0.33 ) } )
+                , ( France, { road = ( 2798, 0.25 ), sea = ( 6226, 0.75 ), air = ( 2200, 0.33 ) } )
                 , ( India, { road = ( 0, 0 ), sea = ( 6655, 1 ), air = ( 4600, 0.33 ) } )
-                , ( Spain, { road = ( 3312, 0.9 ), sea = ( 5576, 0.1 ), air = ( 2700, 0.33 ) } )
+                , ( Spain, { road = ( 3312, 0.25 ), sea = ( 5576, 0.75 ), air = ( 2700, 0.33 ) } )
                 , ( Tunisia, { road = ( 0, 0 ), sea = ( 2348, 1 ), air = ( 1700, 0.33 ) } )
                 , ( Turkey, defaultInland )
                 ]
@@ -93,7 +97,7 @@ distances =
           )
         , ( India
           , Dict.fromList Country.toString
-                [ ( Bangladesh, { road = ( 1222, 1 ), sea = ( 4631, 0 ), air = ( 1400, 0 ) } )
+                [ ( Bangladesh, { road = ( 1222, 0.5 ), sea = ( 4631, 0.5 ), air = ( 1400, 0 ) } )
                 , ( Portugal, { road = ( 8339, 0 ), sea = ( 10705, 1 ), air = ( 7800, 0.33 ) } )
                 , ( China, { road = ( 0, 0 ), sea = ( 11274, 1 ), air = ( 3800, 0.33 ) } )
                 , ( France, { road = ( 0, 0 ), sea = ( 11960, 1 ), air = ( 6600, 0.33 ) } )
@@ -104,7 +108,7 @@ distances =
         , ( France
           , Dict.fromList Country.toString
                 [ ( Bangladesh, { road = ( 7995, 0 ), sea = ( 14614, 1 ), air = ( 7900, 0.33 ) } )
-                , ( Portugal, { road = ( 1138, 0.9 ), sea = ( 2425, 0.1 ), air = ( 1500, 0.33 ) } )
+                , ( Portugal, { road = ( 1138, 0.5 ), sea = ( 2425, 0.5 ), air = ( 1500, 0.33 ) } )
                 , ( China, { road = ( 0, 0 ), sea = ( 21548, 1 ), air = ( 8200, 0.33 ) } )
                 , ( France, defaultInland )
                 , ( Spain, { road = ( 801, 0.9 ), sea = ( 1672, 0.1 ), air = ( 1100, 0 ) } )

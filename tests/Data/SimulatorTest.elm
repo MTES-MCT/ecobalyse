@@ -38,7 +38,7 @@ suite =
                     |> expectCo2 2071.72
                     |> asTest "should compute co2 score for manteauCircuitEurope"
                 , pantalonCircuitEurope
-                    |> expectCo2 25.49
+                    |> expectCo2 25.44
                     |> asTest "should compute co2 score for pantalonCircuitEurope"
                 , robeCircuitBangladesh
                     |> expectCo2 39.72
@@ -61,7 +61,7 @@ suite =
                     |> expectCo2 2064.69
                     |> asTest "should compute co2 score for manteauCircuitEurope using custom dyeing weighting"
                 , { pantalonCircuitEurope | dyeingWeighting = Just 0.5 }
-                    |> expectCo2 22.4
+                    |> expectCo2 22.34
                     |> asTest "should compute co2 score for pantalonCircuitEurope using custom dyeing weighting"
                 , { robeCircuitBangladesh | dyeingWeighting = Just 0.5 }
                     |> expectCo2 42.32
