@@ -23,6 +23,7 @@ type alias Step =
     , kwh : Energy
     , processInfo : ProcessInfo
     , dyeingWeighting : Float
+    , airTransportRatio : Float
     }
 
 
@@ -30,6 +31,7 @@ type alias ProcessInfo =
     { electricity : Maybe String
     , heat : Maybe String
     , dyeingWeighting : Maybe String
+    , airTransportRatio : Maybe String
     }
 
 
@@ -60,6 +62,7 @@ create label editable country =
     , kwh = Energy.kilowattHours 0
     , processInfo = processCountryInfo label country
     , dyeingWeighting = getDyeingWeighting country
+    , airTransportRatio = 0 -- Note: this depends on next step country, so we can't set an accurate default value initially
     }
 
 
@@ -68,6 +71,7 @@ defaultProcessInfo =
     { electricity = Nothing
     , heat = Nothing
     , dyeingWeighting = Nothing
+    , airTransportRatio = Nothing
     }
 
 
@@ -78,18 +82,21 @@ processCountryInfo label country =
             { heat = Nothing
             , electricity = Just electricity.name
             , dyeingWeighting = Nothing
+            , airTransportRatio = Nothing
             }
 
         ( Ennoblement, Just { heat, electricity, dyeingWeighting } ) ->
             { heat = Just heat.name
             , electricity = Just electricity.name
             , dyeingWeighting = Just (dyeingWeightingToString dyeingWeighting)
+            , airTransportRatio = Nothing
             }
 
         ( Making, Just { electricity } ) ->
             { heat = Nothing
             , electricity = Just electricity.name
             , dyeingWeighting = Nothing
+            , airTransportRatio = Nothing -- TODO: check if needed
             }
 
         _ ->
@@ -112,8 +119,8 @@ countryLabel step =
         Country.toString step.country
 
 
-updateCountry : Maybe Float -> Country -> Step -> Step
-updateCountry dyeingWeighting country step =
+updateCountry : Maybe Float -> Maybe Float -> Country -> Step -> Step
+updateCountry dyeingWeighting airTransportRatio country step =
     { step
         | country = country
         , processInfo = processCountryInfo step.label country
@@ -127,6 +134,17 @@ updateCountry dyeingWeighting country step =
 
             else
                 step.dyeingWeighting
+        , airTransportRatio =
+            if step.label == Making then
+                if country /= step.country then
+                    -- TODO: retrieve air transport ratio wrt next step country
+                    getDyeingWeighting country
+
+                else
+                    airTransportRatio |> Maybe.withDefault (getDyeingWeighting country)
+
+            else
+                step.airTransportRatio
     }
 
 
@@ -170,6 +188,7 @@ decode =
         |> Pipe.required "kwh" (Decode.map Energy.kilowattHours Decode.float)
         |> Pipe.required "processInfo" decodeProcessInfo
         |> Pipe.required "dyeingWeighting" Decode.float
+        |> Pipe.required "airTransportRatio" Decode.float
 
 
 encode : Step -> Encode.Value
@@ -185,6 +204,8 @@ encode v =
         , ( "heat", Encode.float (Energy.inMegajoules v.heat) )
         , ( "kwh", Encode.float (Energy.inKilowattHours v.kwh) )
         , ( "processInfo", encodeProcessInfo v.processInfo )
+        , ( "dyeingWeighting", Encode.float v.dyeingWeighting )
+        , ( "airTransportRatio", Encode.float v.airTransportRatio )
         ]
 
 
@@ -194,6 +215,7 @@ decodeProcessInfo =
         |> Pipe.required "electricity" (Decode.maybe Decode.string)
         |> Pipe.required "heat" (Decode.maybe Decode.string)
         |> Pipe.required "dyeingWeighting" (Decode.maybe Decode.string)
+        |> Pipe.required "airTransportRatio" (Decode.maybe Decode.string)
 
 
 encodeProcessInfo : ProcessInfo -> Encode.Value

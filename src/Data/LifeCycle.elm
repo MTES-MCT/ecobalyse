@@ -133,7 +133,14 @@ initCountries inputs =
 
 processStepCountries : Inputs -> LifeCycle -> LifeCycle
 processStepCountries inputs =
-    Array.map (\step -> Step.updateCountry inputs.dyeingWeighting step.country step)
+    Array.map
+        (\step ->
+            Step.updateCountry
+                inputs.dyeingWeighting
+                inputs.airTransportRatio
+                step.country
+                step
+        )
 
 
 updateStep : Step.Label -> (Step -> Step) -> LifeCycle -> LifeCycle

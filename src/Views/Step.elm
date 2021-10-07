@@ -21,6 +21,7 @@ type alias Config msg =
     , openDocModal : String -> msg
     , updateCountry : Int -> Country -> msg
     , updateDyeingWeighting : Maybe Float -> msg
+    , updateAirTransportRatio : Maybe Float -> msg
     }
 
 
@@ -57,21 +58,20 @@ countryField { current, index, updateCountry } =
 
 
 airTransportRatioField : Config msg -> Html msg
-airTransportRatioField { current } =
+airTransportRatioField { current, updateAirTransportRatio } =
     div [ class "RangeSlider row" ]
         [ div [ class "col-xxl-6" ]
-            [ label [ for "dyeingWeighting", class "form-label text-nowrap fs-7 mb-0" ]
-                [ text <| String.fromInt 100 ++ "% de transport aérien" ]
+            [ label [ for "airTransportRatio", class "form-label text-nowrap fs-7 mb-0" ]
+                [ text <| String.fromInt (round (current.airTransportRatio * 100)) ++ "% de transport aérien" ]
             ]
         , div [ class "col-xxl-6" ]
             [ input
                 [ type_ "range"
                 , class "d-block form-range"
                 , style "margin-top" "2px"
-                , id "dyeingWeighting"
-
-                -- , onInput (String.toInt >> Maybe.map (\x -> toFloat x / 100) >> updateDyeingWeighting)
-                -- , value (String.fromInt (round (current.dyeingWeighting * 100)))
+                , id "airTransportRatio"
+                , onInput (String.toInt >> Maybe.map (\x -> toFloat x / 100) >> updateAirTransportRatio)
+                , value (String.fromInt (round (current.airTransportRatio * 100)))
                 , Attr.min "0"
                 , Attr.max "100"
                 , step "10"

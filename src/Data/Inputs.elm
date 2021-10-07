@@ -19,6 +19,7 @@ type alias Inputs =
     , product : Product
     , countries : List Country
     , dyeingWeighting : Maybe Float
+    , airTransportRatio : Maybe Float
     }
 
 
@@ -29,6 +30,7 @@ type alias Query =
     , product : Product.Id
     , countries : List Country
     , dyeingWeighting : Maybe Float
+    , airTransportRatio : Maybe Float
     }
 
 
@@ -39,16 +41,18 @@ fromQuery query =
     , product = Product.findById query.product
     , countries = query.countries
     , dyeingWeighting = query.dyeingWeighting
+    , airTransportRatio = query.airTransportRatio
     }
 
 
 toQuery : Inputs -> Query
-toQuery { mass, material, product, countries, dyeingWeighting } =
+toQuery { mass, material, product, countries, airTransportRatio, dyeingWeighting } =
     { mass = mass
     , material = material.materialProcessUuid
     , product = product.id
     , countries = countries
     , dyeingWeighting = dyeingWeighting
+    , airTransportRatio = airTransportRatio
     }
 
 
@@ -102,6 +106,7 @@ tShirtCotonFrance =
         , Country.France
         ]
     , dyeingWeighting = Nothing
+    , airTransportRatio = Nothing
     }
 
 
@@ -133,6 +138,7 @@ tShirtCotonIndia =
         , Country.France
         ]
     , dyeingWeighting = Nothing
+    , airTransportRatio = Nothing
     }
 
 
@@ -164,6 +170,7 @@ jupeCircuitAsie =
         , Country.France
         ]
     , dyeingWeighting = Nothing
+    , airTransportRatio = Nothing
     }
 
 
@@ -181,6 +188,7 @@ manteauCircuitEurope =
         , Country.France
         ]
     , dyeingWeighting = Nothing
+    , airTransportRatio = Nothing
     }
 
 
@@ -197,6 +205,7 @@ pantalonCircuitEurope =
         , Country.France
         ]
     , dyeingWeighting = Nothing
+    , airTransportRatio = Nothing
     }
 
 
@@ -214,6 +223,7 @@ robeCircuitBangladesh =
         , Country.France
         ]
     , dyeingWeighting = Nothing
+    , airTransportRatio = Nothing
     }
 
 
@@ -230,12 +240,13 @@ presets =
 
 decode : Decoder Inputs
 decode =
-    Decode.map5 Inputs
+    Decode.map6 Inputs
         (Decode.field "mass" (Decode.map Mass.kilograms Decode.float))
         (Decode.field "material" Material.decode)
         (Decode.field "product" Product.decode)
         (Decode.field "countries" (Decode.list Country.decode))
         (Decode.field "dyeingWeighting" (Decode.maybe Decode.float))
+        (Decode.field "airTransportRatio" (Decode.maybe Decode.float))
 
 
 encode : Inputs -> Encode.Value
@@ -246,17 +257,19 @@ encode inputs =
         , ( "product", Product.encode inputs.product )
         , ( "countries", Encode.list Country.encode inputs.countries )
         , ( "dyeingWeighting", inputs.dyeingWeighting |> Maybe.map Encode.float |> Maybe.withDefault Encode.null )
+        , ( "airTransportRatio", inputs.airTransportRatio |> Maybe.map Encode.float |> Maybe.withDefault Encode.null )
         ]
 
 
 decodeQuery : Decoder Query
 decodeQuery =
-    Decode.map5 Query
+    Decode.map6 Query
         (Decode.field "mass" (Decode.map Mass.kilograms Decode.float))
         (Decode.field "material" (Decode.map Process.Uuid Decode.string))
         (Decode.field "product" (Decode.map Product.Id Decode.string))
         (Decode.field "countries" (Decode.list Country.decode))
         (Decode.field "dyeingWeighting" (Decode.maybe Decode.float))
+        (Decode.field "airTransportRatio" (Decode.maybe Decode.float))
 
 
 encodeQuery : Query -> Encode.Value
@@ -267,6 +280,7 @@ encodeQuery query =
         , ( "product", query.product |> Product.idToString |> Encode.string )
         , ( "countries", Encode.list Country.encode query.countries )
         , ( "dyeingWeighting", query.dyeingWeighting |> Maybe.map Encode.float |> Maybe.withDefault Encode.null )
+        , ( "airTransportRatio", query.airTransportRatio |> Maybe.map Encode.float |> Maybe.withDefault Encode.null )
         ]
 
 

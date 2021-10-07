@@ -57,6 +57,7 @@ type Msg
     | OpenDocModal String
     | Reset
     | SwitchMode DisplayMode
+    | UpdateAirTransportRatio (Maybe Float)
     | UpdateDyeingWeighting (Maybe Float)
     | UpdateMassInput String
     | UpdateMaterial Material
@@ -113,7 +114,10 @@ update session msg ({ simulator } as model) =
             ( model, session, Cmd.none )
 
         OpenDocModal path ->
-            ( { model | modal = GitbookModal RemoteData.Loading }, session, GitbookApi.getPage session path ModalContentReceived )
+            ( { model | modal = GitbookModal RemoteData.Loading }
+            , session
+            , GitbookApi.getPage session path ModalContentReceived
+            )
 
         Reset ->
             ( model, session, Cmd.none )
@@ -121,6 +125,10 @@ update session msg ({ simulator } as model) =
 
         SwitchMode displayMode ->
             ( { model | displayMode = displayMode }, session, Cmd.none )
+
+        UpdateAirTransportRatio airTransportRatio ->
+            ( model, session, Cmd.none )
+                |> updateInputs { inputs | airTransportRatio = airTransportRatio }
 
         UpdateDyeingWeighting dyeingWeighting ->
             ( model, session, Cmd.none )
@@ -260,6 +268,7 @@ lifeCycleStepsView { displayMode, simulator } =
                     , next = Array.get (index + 1) simulator.lifeCycle
                     , openDocModal = OpenDocModal
                     , updateCountry = UpdateStepCountry
+                    , updateAirTransportRatio = UpdateAirTransportRatio
                     , updateDyeingWeighting = UpdateDyeingWeighting
                     }
             )
