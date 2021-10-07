@@ -77,7 +77,7 @@ blockquote {
   }
 }
 
-.link-external {
+.link-external:not(.link-external-muted) {
   &::after {
     font-family: "icomoon" !important;
     content: "\e908";

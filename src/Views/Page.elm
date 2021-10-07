@@ -157,7 +157,7 @@ pageFooter =
                     ]
                 , Link.external
                     [ href "https://www.ecologique-solidaire.gouv.fr/"
-                    , class "col text-center bg-light px-3 m-3"
+                    , class "col text-center bg-light px-3 m-3 link-external-muted"
                     ]
                     [ img
                         [ src "img/logo_mte.svg"
@@ -169,7 +169,7 @@ pageFooter =
                     ]
                 , Link.external
                     [ href "https://www.cohesion-territoires.gouv.fr/"
-                    , class "col text-center bg-light px-3 m-3"
+                    , class "col text-center bg-light px-3 m-3 link-external-muted"
                     ]
                     [ img
                         [ src "img/logo_mct.svg"
@@ -181,7 +181,7 @@ pageFooter =
                     ]
                 , Link.external
                     [ href "https://www.ecologique-solidaire.gouv.fr/fabrique-numerique"
-                    , class "col text-center px-3 py-2"
+                    , class "col text-center px-3 py-2 link-external-muted"
                     ]
                     [ img
                         [ src "img/logo-fabriquenumerique.svg"
