@@ -138,10 +138,10 @@ updateCountry dyeingWeighting airTransportRatio country step =
             if step.label == Making then
                 if country /= step.country then
                     -- TODO: retrieve air transport ratio wrt next step country
-                    getDyeingWeighting country
+                    0.33
 
                 else
-                    airTransportRatio |> Maybe.withDefault (getDyeingWeighting country)
+                    airTransportRatio |> Maybe.withDefault 0.33
 
             else
                 step.airTransportRatio
@@ -159,6 +159,19 @@ updateDyeingWeighting dyeingWeighting ({ processInfo } as step) =
             else
                 processInfo
     }
+
+
+airTransportRatioToString : Float -> String
+airTransportRatioToString airTransportRatio =
+    let
+        p =
+            round (airTransportRatio * 100)
+    in
+    if p == 0 then
+        "Aucun transport aérien"
+
+    else
+        String.fromInt p ++ "% de transport aérien"
 
 
 dyeingWeightingToString : Float -> String

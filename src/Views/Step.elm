@@ -5,10 +5,11 @@ import Data.Product exposing (Product)
 import Data.Step as Step exposing (Step)
 import Energy
 import Html exposing (..)
-import Html.Attributes as Attr exposing (..)
+import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Views.Format as Format
 import Views.Icon as Icon
+import Views.RangeSlider as RangeSlider
 import Views.Transport as TransportView
 
 
@@ -59,50 +60,22 @@ countryField { current, index, updateCountry } =
 
 airTransportRatioField : Config msg -> Html msg
 airTransportRatioField { current, updateAirTransportRatio } =
-    div [ class "RangeSlider row" ]
-        [ div [ class "col-xxl-6" ]
-            [ label [ for "airTransportRatio", class "form-label text-nowrap fs-7 mb-0" ]
-                [ text <| String.fromInt (round (current.airTransportRatio * 100)) ++ "% de transport aérien" ]
-            ]
-        , div [ class "col-xxl-6" ]
-            [ input
-                [ type_ "range"
-                , class "d-block form-range"
-                , style "margin-top" "2px"
-                , id "airTransportRatio"
-                , onInput (String.toInt >> Maybe.map (\x -> toFloat x / 100) >> updateAirTransportRatio)
-                , value (String.fromInt (round (current.airTransportRatio * 100)))
-                , Attr.min "0"
-                , Attr.max "100"
-                , step "10"
-                ]
-                []
-            ]
-        ]
+    RangeSlider.view
+        { id = "airTransportRatio"
+        , update = updateAirTransportRatio
+        , value = current.airTransportRatio
+        , toString = Step.airTransportRatioToString
+        }
 
 
 dyeingWeightingField : Config msg -> Html msg
 dyeingWeightingField { current, updateDyeingWeighting } =
-    div [ class "RangeSlider row" ]
-        [ div [ class "col-xxl-6" ]
-            [ label [ for "dyeingWeighting", class "form-label text-nowrap fs-7 mb-0" ]
-                [ text <| Step.dyeingWeightingToString current.dyeingWeighting ]
-            ]
-        , div [ class "col-xxl-6" ]
-            [ input
-                [ type_ "range"
-                , class "d-block form-range"
-                , style "margin-top" "2px"
-                , id "dyeingWeighting"
-                , onInput (String.toInt >> Maybe.map (\x -> toFloat x / 100) >> updateDyeingWeighting)
-                , value (String.fromInt (round (current.dyeingWeighting * 100)))
-                , Attr.min "0"
-                , Attr.max "100"
-                , step "10"
-                ]
-                []
-            ]
-        ]
+    RangeSlider.view
+        { id = "dyeingWeighting"
+        , update = updateDyeingWeighting
+        , value = current.dyeingWeighting
+        , toString = Step.dyeingWeightingToString
+        }
 
 
 documentationLink : Config msg -> Step.Label -> Html msg
@@ -310,8 +283,8 @@ detailedView ({ product, index, next, current } as config) =
 
 
 view : Config msg -> Html msg
-view ({ detailed } as config) =
-    if detailed then
+view config =
+    if config.detailed then
         detailedView config
 
     else

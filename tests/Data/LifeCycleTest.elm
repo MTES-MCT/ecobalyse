@@ -21,7 +21,7 @@ suite =
             , test "should compute custom distances" <|
                 \_ ->
                     LifeCycle.default
-                        |> LifeCycle.updateStep Step.Ennoblement (Step.updateCountry Nothing India)
+                        |> LifeCycle.updateStep Step.Ennoblement (Step.updateCountry Nothing Nothing India)
                         |> LifeCycle.computeTransportSummaries
                         |> LifeCycle.computeTransportSummary
                         |> Expect.equal
