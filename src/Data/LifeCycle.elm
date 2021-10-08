@@ -34,46 +34,16 @@ encode =
     Encode.array Step.encode
 
 
-computeSummaryBetween : Step -> Step -> Transport.Summary
-computeSummaryBetween current next =
-    let
-        transport =
-            Transport.getTransportBetween current.country next.country
-    in
-    case ( current.label, next.label ) of
-        ( Step.MaterialAndSpinning, Step.WeavingKnitting ) ->
-            -- Note: First initial material step has specific defaults
-            transport |> Transport.addToSummary Transport.defaultInitialSummary
-
-        _ ->
-            Transport.toSummary transport
-
-
-handleAirTransport : Step -> Transport.Summary -> Transport.Summary
-handleAirTransport { label } summary =
-    -- Air transport can only concern finished products, so we only keep air travel distance
-    -- between the Making and Distribution steps.
-    if List.member label [ Step.Making ] then
-        summary
-
-    else
-        { summary | air = 0 }
-
-
 computeTransportSummaries : LifeCycle -> LifeCycle
 computeTransportSummaries lifeCycle =
     lifeCycle
         |> Array.indexedMap
-            (\index current ->
-                { current
-                    | transport =
-                        lifeCycle
-                            |> Array.get (index + 1)
-                            |> Maybe.withDefault current
-                            |> computeSummaryBetween current
-                            |> handleAirTransport current
-                            |> Step.computeTransports current
-                }
+            (\index step ->
+                Step.computeTransports
+                    (Array.get (index + 1) lifeCycle
+                        |> Maybe.withDefault step
+                    )
+                    step
             )
 
 

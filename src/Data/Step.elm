@@ -108,15 +108,34 @@ getDyeingWeighting =
     CountryProcess.get >> Maybe.map .dyeingWeighting >> Maybe.withDefault 0
 
 
-computeTransports : Step -> Transport.Summary -> Transport.Summary
-computeTransports { label, mass } summary =
-    -- Note: summary_ is precomputed from the LifeCycle.computeTransportSummaries pipeline
-    -- TODO: refactor to a lesser mess
+computeTransports : Step -> Step -> Step
+computeTransports next current =
+    -- Soit :
+    -- - a la part du transport aérien rapportée au transport "aérien + terrestre + maritime"
+    --   -> a = current.airTransportRatio
+    -- - t la part du transport terrestre rapportée au transport "terrestre + maritime"
+    --   -> t = Process.roadSeaRatio <country>
+    -- co2 = a * ImpactAérien + (1 − a) * (t * ImpactTerrestre + (1 − t) * ImpactMaritime)
     let
+        transport =
+            Transport.getTransportBetween current.country next.country
+
+        { road, sea, air } =
+            case current.label of
+                MaterialAndSpinning ->
+                    -- Fixed initial transport data from Asia for this step
+                    transport |> Transport.addToSummary Transport.defaultInitialSummary
+
+                Making ->
+                    -- Air transport only applies between Making and Distribution steps
+                    { road = transport.road, sea = transport.sea, air = transport.air, co2 = 0 }
+
+                _ ->
+                    -- All other steps don't use air transport
+                    { road = transport.road, sea = transport.sea, air = 0, co2 = 0 }
+
         roadProcess =
-            case label of
-                -- FIXME: in Excel, the distribution road distance is eventually
-                -- substracted from the one of the making step.
+            case current.label of
                 Making ->
                     Process.roadTransportPostMaking
 
@@ -126,17 +145,29 @@ computeTransports { label, mass } summary =
                 _ ->
                     Process.roadTransportPreMaking
 
-        ( airTransportCo2, seaTransportCo2, roadTransportCo2 ) =
-            ( Process.airTransport |> .climateChange |> (*) (Mass.inMetricTons mass) |> (*) (toFloat summary.air)
-            , Process.seaTransport |> .climateChange |> (*) (Mass.inMetricTons mass) |> (*) (toFloat summary.sea)
-            , roadProcess |> .climateChange |> (*) (Mass.inMetricTons mass) |> (*) (toFloat summary.road)
+        roadSeaRatio =
+            Transport.roadSeaTransportRatio (max road sea)
+
+        ( handledRoad, handledSea, handledAir ) =
+            ( (toFloat road * roadSeaRatio) * (1 - current.airTransportRatio)
+            , (toFloat sea * (1 - roadSeaRatio)) * (1 - current.airTransportRatio)
+            , toFloat air * current.airTransportRatio
+            )
+
+        ( roadCo2, seaCo2, airCo2 ) =
+            ( roadProcess |> .climateChange |> (*) (Mass.inMetricTons current.mass) |> (*) handledRoad
+            , Process.seaTransport |> .climateChange |> (*) (Mass.inMetricTons current.mass) |> (*) handledSea
+            , Process.airTransport |> .climateChange |> (*) (Mass.inMetricTons current.mass) |> (*) handledAir
             )
     in
-    -- Soit :
-    -- - t la part du transport terrestre rapportée au transport "terrestre + maritime"
-    -- - a la part du transport aérien rapportée au transport "aérien + terrestre + maritime"
-    -- co2 = a * ImpactAérien + (1 − a) * (t * ImpactTerrestre + (1 − t) * ImpactMaritime)
-    { summary | co2 = airTransportCo2 + seaTransportCo2 + roadTransportCo2 }
+    { current
+        | transport =
+            { road = round handledRoad
+            , sea = round handledSea
+            , air = round handledAir
+            , co2 = airCo2 + seaCo2 + roadCo2
+            }
+    }
 
 
 countryLabel : Step -> String
