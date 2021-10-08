@@ -3,8 +3,8 @@ module Data.Step exposing (..)
 import Data.Country as Country exposing (Country)
 import Data.CountryProcess as CountryProcess
 import Data.Inputs exposing (Inputs)
-import Data.Process as Process
-import Data.Transport as Transport
+import Data.Process as Process exposing (Process)
+import Data.Transport as Transport exposing (Transport)
 import Energy exposing (Energy)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
@@ -108,57 +108,23 @@ getDyeingWeighting =
     CountryProcess.get >> Maybe.map .dyeingWeighting >> Maybe.withDefault 0
 
 
+{-| Computes step transport distances and co2 scores regarding next step.
+
+Docs: <https://fabrique-numerique.gitbook.io/wikicarbone/methodologie/transport>
+
+-}
 computeTransports : Step -> Step -> Step
 computeTransports next current =
-    -- Soit :
-    -- - a la part du transport aérien rapportée au transport "aérien + terrestre + maritime"
-    --   -> a = current.airTransportRatio
-    -- - t la part du transport terrestre rapportée au transport "terrestre + maritime"
-    --   -> t = Process.roadSeaRatio <country>
-    -- co2 = a * ImpactAérien + (1 − a) * (t * ImpactTerrestre + (1 − t) * ImpactMaritime)
     let
-        transport =
-            Transport.getTransportBetween current.country next.country
-
         { road, sea, air } =
-            case current.label of
-                Ennoblement ->
-                    -- Doubled transports for internal Dyeing to Treatments step, no air transport (see excel)
-                    { road = transport.road * 2, sea = transport.sea * 2, air = 0, co2 = 0 }
+            Transport.getTransportBetween current.country next.country
+                |> computeTransportSummary current
 
-                Making ->
-                    -- Air transport only applies between the Making and the Distribution steps
-                    { road = transport.road, sea = transport.sea, air = transport.air, co2 = 0 }
-
-                _ ->
-                    -- All other steps don't use air transport at all
-                    { road = transport.road, sea = transport.sea, air = 0, co2 = 0 }
-
-        roadTransport =
-            case current.label of
-                Making ->
-                    Process.roadTransportPostMaking
-
-                Distribution ->
-                    Process.distribution
-
-                _ ->
-                    Process.roadTransportPreMaking
+        initial =
+            initialTransport current
 
         roadSeaRatio =
             Transport.roadSeaTransportRatio (max road sea)
-
-        initial =
-            case current.label of
-                MaterialAndSpinning ->
-                    -- Apply initial Material to Spinning step transport data (see excel)
-                    { road = toFloat Transport.materialAndSpinningSummary.road
-                    , sea = toFloat Transport.materialAndSpinningSummary.sea
-                    , air = toFloat Transport.materialAndSpinningSummary.air
-                    }
-
-                _ ->
-                    { road = 0, sea = 0, air = 0 }
 
         ( handledRoad, handledSea, handledAir ) =
             ( initial.road + ((toFloat road * roadSeaRatio) * (1 - current.airTransportRatio))
@@ -167,7 +133,7 @@ computeTransports next current =
             )
 
         ( roadCo2, seaCo2, airCo2 ) =
-            ( roadTransport |> .climateChange |> (*) (Mass.inMetricTons current.mass) |> (*) handledRoad
+            ( getRoadTransportProcess current |> .climateChange |> (*) (Mass.inMetricTons current.mass) |> (*) handledRoad
             , Process.seaTransport |> .climateChange |> (*) (Mass.inMetricTons current.mass) |> (*) handledSea
             , Process.airTransport |> .climateChange |> (*) (Mass.inMetricTons current.mass) |> (*) handledAir
             )
@@ -180,6 +146,49 @@ computeTransports next current =
             , co2 = airCo2 + seaCo2 + roadCo2
             }
     }
+
+
+initialTransport : Step -> { road : Float, sea : Float, air : Float }
+initialTransport { label } =
+    case label of
+        MaterialAndSpinning ->
+            -- Apply initial Material to Spinning step transport data (see Excel)
+            { road = toFloat Transport.materialAndSpinningSummary.road
+            , sea = toFloat Transport.materialAndSpinningSummary.sea
+            , air = toFloat Transport.materialAndSpinningSummary.air
+            }
+
+        _ ->
+            { road = 0, sea = 0, air = 0 }
+
+
+computeTransportSummary : Step -> Transport -> Transport.Summary
+computeTransportSummary step transport =
+    case step.label of
+        Ennoblement ->
+            -- Doubled transports for internal Dyeing to Treatments step, no air transport (see Excel)
+            { road = transport.road * 2, sea = transport.sea * 2, air = 0, co2 = 0 }
+
+        Making ->
+            -- Air transport only applies between the Making and the Distribution steps
+            { road = transport.road, sea = transport.sea, air = transport.air, co2 = 0 }
+
+        _ ->
+            -- All other steps don't use air transport at all
+            { road = transport.road, sea = transport.sea, air = 0, co2 = 0 }
+
+
+getRoadTransportProcess : Step -> Process
+getRoadTransportProcess { label } =
+    case label of
+        Making ->
+            Process.roadTransportPostMaking
+
+        Distribution ->
+            Process.distribution
+
+        _ ->
+            Process.roadTransportPreMaking
 
 
 countryLabel : Step -> String
