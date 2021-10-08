@@ -38,22 +38,22 @@ defaultSummary =
     { road = 0, sea = 0, air = 0, co2 = 0 }
 
 
-defaultInitialSummary : Summary
-defaultInitialSummary =
-    { road = defaultInitial.road
-    , sea = defaultInitial.sea
-    , air = defaultInitial.air
+defaultInland : Transport
+defaultInland =
+    { road = 500, sea = 0, air = 500 }
+
+
+materialAndSpinningSummary : Summary
+materialAndSpinningSummary =
+    { road = materialToSpinningTransport.road
+    , sea = materialToSpinningTransport.sea
+    , air = materialToSpinningTransport.air
     , co2 = 0
     }
 
 
-defaultInland : Transport
-defaultInland =
-    { road = 500, sea = 0, air = 0 }
-
-
-defaultInitial : Transport
-defaultInitial =
+materialToSpinningTransport : Transport
+materialToSpinningTransport =
     -- Note: used as the defaults for the initial Material&Spinning step
     { road = 2000, sea = 4000, air = 0 }
 
@@ -93,9 +93,6 @@ defaultAirTransportRatio country =
 
 distances : Distances
 distances =
-    -- FIXME: questions pour Pascal
-    -- - pourquoi la Tunisie à tout son transport routier à 0 ?
-    -- - Explication de la formule MVP feuille "Calculateur MVP", cellule C86
     Dict.fromList Country.toString
         [ ( Turkey
           , Dict.fromList Country.toString

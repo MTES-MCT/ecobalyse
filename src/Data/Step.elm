@@ -54,7 +54,7 @@ create label editable country =
     , waste = Mass.kilograms 0
     , transport =
         if label == MaterialAndSpinning then
-            Transport.defaultInitialSummary
+            Transport.materialAndSpinningSummary
 
         else
             Transport.defaultSummary
@@ -122,19 +122,19 @@ computeTransports next current =
 
         { road, sea, air } =
             case current.label of
-                MaterialAndSpinning ->
-                    -- Fixed initial transport data from Asia for this step
-                    transport |> Transport.addToSummary Transport.defaultInitialSummary
+                Ennoblement ->
+                    -- Doubled transports for internal Dyeing to Treatments step, no air transport (see excel)
+                    { road = transport.road * 2, sea = transport.sea * 2, air = 0, co2 = 0 }
 
                 Making ->
-                    -- Air transport only applies between Making and Distribution steps
+                    -- Air transport only applies between the Making and the Distribution steps
                     { road = transport.road, sea = transport.sea, air = transport.air, co2 = 0 }
 
                 _ ->
-                    -- All other steps don't use air transport
+                    -- All other steps don't use air transport at all
                     { road = transport.road, sea = transport.sea, air = 0, co2 = 0 }
 
-        roadProcess =
+        roadTransport =
             case current.label of
                 Making ->
                     Process.roadTransportPostMaking
@@ -148,14 +148,26 @@ computeTransports next current =
         roadSeaRatio =
             Transport.roadSeaTransportRatio (max road sea)
 
+        initial =
+            case current.label of
+                MaterialAndSpinning ->
+                    -- Apply initial Material to Spinning step transport data (see excel)
+                    { road = toFloat Transport.materialAndSpinningSummary.road
+                    , sea = toFloat Transport.materialAndSpinningSummary.sea
+                    , air = toFloat Transport.materialAndSpinningSummary.air
+                    }
+
+                _ ->
+                    { road = 0, sea = 0, air = 0 }
+
         ( handledRoad, handledSea, handledAir ) =
-            ( (toFloat road * roadSeaRatio) * (1 - current.airTransportRatio)
-            , (toFloat sea * (1 - roadSeaRatio)) * (1 - current.airTransportRatio)
-            , toFloat air * current.airTransportRatio
+            ( initial.road + ((toFloat road * roadSeaRatio) * (1 - current.airTransportRatio))
+            , initial.sea + ((toFloat sea * (1 - roadSeaRatio)) * (1 - current.airTransportRatio))
+            , initial.air + (toFloat air * current.airTransportRatio)
             )
 
         ( roadCo2, seaCo2, airCo2 ) =
-            ( roadProcess |> .climateChange |> (*) (Mass.inMetricTons current.mass) |> (*) handledRoad
+            ( roadTransport |> .climateChange |> (*) (Mass.inMetricTons current.mass) |> (*) handledRoad
             , Process.seaTransport |> .climateChange |> (*) (Mass.inMetricTons current.mass) |> (*) handledSea
             , Process.airTransport |> .climateChange |> (*) (Mass.inMetricTons current.mass) |> (*) handledAir
             )

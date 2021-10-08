@@ -130,7 +130,6 @@ computeEnnoblementCo2Score =
     updateLifeCycleStep Step.Ennoblement
         (\step ->
             let
-                -- FIXME: reset default country value when switching country
                 processes =
                     CountryProcess.get step.country
 

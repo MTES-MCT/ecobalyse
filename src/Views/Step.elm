@@ -156,15 +156,19 @@ simpleView ({ product, index, current } as config) =
                         text ""
                 ]
             , div [ class "col-sm-6 col-lg-5 text-center text-muted" ]
-                [ if current.label == Step.Distribution && current.co2 == 0 then
-                    div [ class "fs-7" ]
-                        [ Icon.info
-                        , text " Le coût du transport a été ajouté au transport total"
-                        ]
+                [ div []
+                    [ if current.label /= Step.Distribution then
+                        div [ class "fs-3 fw-normal text-secondary" ]
+                            [ Format.kgCo2 3 current.co2 ]
 
-                  else
-                    div [ class "fs-3 fw-normal text-secondary" ]
-                        [ Format.kgCo2 3 current.co2 ]
+                      else
+                        text ""
+                    , div [ class "fs-7" ]
+                        [ span [ class "me-1 align-middle" ] [ Icon.info ]
+                        , text "Transport\u{00A0}"
+                        , Format.kgCo2 3 current.transport.co2
+                        ]
+                    ]
                 ]
             ]
         ]
