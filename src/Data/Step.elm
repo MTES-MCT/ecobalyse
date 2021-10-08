@@ -214,28 +214,22 @@ update { dyeingWeighting, airTransportRatio } _ step =
 
 airTransportRatioToString : Float -> String
 airTransportRatioToString airTransportRatio =
-    let
-        p =
-            round (airTransportRatio * 100)
-    in
-    if p == 0 then
-        "Aucun transport aérien"
+    case round (airTransportRatio * 100) of
+        0 ->
+            "Aucun transport aérien"
 
-    else
-        String.fromInt p ++ "% de transport aérien"
+        p ->
+            String.fromInt p ++ "% de transport aérien"
 
 
 dyeingWeightingToString : Float -> String
 dyeingWeightingToString dyeingWeighting =
-    let
-        p =
-            round (dyeingWeighting * 100)
-    in
-    if p == 0 then
-        "Procédé représentatif"
+    case round (dyeingWeighting * 100) of
+        0 ->
+            "Procédé représentatif"
 
-    else
-        "Procédé " ++ String.fromInt p ++ "% majorant"
+        p ->
+            "Procédé " ++ String.fromInt p ++ "% majorant"
 
 
 decode : Decoder Step
