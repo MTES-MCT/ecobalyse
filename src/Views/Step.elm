@@ -5,10 +5,11 @@ import Data.Product exposing (Product)
 import Data.Step as Step exposing (Step)
 import Energy
 import Html exposing (..)
-import Html.Attributes as Attr exposing (..)
+import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Views.Format as Format
 import Views.Icon as Icon
+import Views.RangeSlider as RangeSlider
 import Views.Transport as TransportView
 
 
@@ -21,6 +22,7 @@ type alias Config msg =
     , openDocModal : String -> msg
     , updateCountry : Int -> Country -> msg
     , updateDyeingWeighting : Maybe Float -> msg
+    , updateAirTransportRatio : Maybe Float -> msg
     }
 
 
@@ -56,28 +58,24 @@ countryField { current, index, updateCountry } =
         ]
 
 
+airTransportRatioField : Config msg -> Html msg
+airTransportRatioField { current, updateAirTransportRatio } =
+    RangeSlider.view
+        { id = "airTransportRatio"
+        , update = updateAirTransportRatio
+        , value = current.airTransportRatio
+        , toString = Step.airTransportRatioToString
+        }
+
+
 dyeingWeightingField : Config msg -> Html msg
 dyeingWeightingField { current, updateDyeingWeighting } =
-    div [ class "RangeSlider row" ]
-        [ div [ class "col-xxl-6" ]
-            [ label [ for "dyeingWeighting", class "form-label text-nowrap fs-7 mb-0" ]
-                [ text <| Step.dyeingWeightingToString current.dyeingWeighting ]
-            ]
-        , div [ class "col-xxl-6" ]
-            [ input
-                [ type_ "range"
-                , class "d-block form-range"
-                , style "margin-top" "2px"
-                , id "dyeingWeighting"
-                , onInput (String.toInt >> Maybe.map (\x -> toFloat x / 100) >> updateDyeingWeighting)
-                , value (String.fromInt (round (current.dyeingWeighting * 100)))
-                , Attr.min "0"
-                , Attr.max "100"
-                , step "10"
-                ]
-                []
-            ]
-        ]
+    RangeSlider.view
+        { id = "dyeingWeighting"
+        , update = updateDyeingWeighting
+        , value = current.dyeingWeighting
+        , toString = Step.dyeingWeightingToString
+        }
 
 
 documentationLink : Config msg -> Step.Label -> Html msg
@@ -147,22 +145,30 @@ simpleView ({ product, index, current } as config) =
         , div [ class "card-body row align-items-center" ]
             [ div [ class "col-sm-6 col-lg-7" ]
                 [ countryField config
-                , if current.label == Step.Ennoblement then
-                    div [ class "mt-2" ] [ dyeingWeightingField config ]
+                , case current.label of
+                    Step.Ennoblement ->
+                        div [ class "mt-2" ] [ dyeingWeightingField config ]
 
-                  else
-                    text ""
+                    Step.Making ->
+                        div [ class "mt-2" ] [ airTransportRatioField config ]
+
+                    _ ->
+                        text ""
                 ]
             , div [ class "col-sm-6 col-lg-5 text-center text-muted" ]
-                [ if current.label == Step.Distribution && current.co2 == 0 then
-                    div [ class "fs-7" ]
-                        [ Icon.info
-                        , text " Le coût du transport a été ajouté au transport total"
-                        ]
+                [ div []
+                    [ if current.label /= Step.Distribution then
+                        div [ class "fs-3 fw-normal text-secondary" ]
+                            [ Format.kgCo2 3 current.co2 ]
 
-                  else
-                    div [ class "fs-3 fw-normal text-secondary" ]
-                        [ Format.kgCo2 3 current.co2 ]
+                      else
+                        text ""
+                    , div [ class "fs-7" ]
+                        [ span [ class "me-1 align-middle" ] [ Icon.info ]
+                        , text "Transport\u{00A0}"
+                        , Format.kgCo2 3 current.transport.co2
+                        ]
+                    ]
                 ]
             ]
         ]
@@ -223,11 +229,15 @@ detailedView ({ product, index, next, current } as config) =
                 , listItem current.processInfo.electricity
                 ]
             , div [ class "card-body py-2 text-muted" ]
-                [ if current.label == Step.Ennoblement then
-                    dyeingWeightingField config
+                [ case current.label of
+                    Step.Ennoblement ->
+                        dyeingWeightingField config
 
-                  else
-                    text ""
+                    Step.Making ->
+                        airTransportRatioField config
+
+                    _ ->
+                        text ""
                 ]
             ]
         , div
@@ -277,8 +287,8 @@ detailedView ({ product, index, next, current } as config) =
 
 
 view : Config msg -> Html msg
-view ({ detailed } as config) =
-    if detailed then
+view config =
+    if config.detailed then
         detailedView config
 
     else

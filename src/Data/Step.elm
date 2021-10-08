@@ -2,8 +2,9 @@ module Data.Step exposing (..)
 
 import Data.Country as Country exposing (Country)
 import Data.CountryProcess as CountryProcess
-import Data.Process exposing (Cat3(..))
-import Data.Transport as Transport
+import Data.Inputs exposing (Inputs)
+import Data.Process as Process exposing (Process)
+import Data.Transport as Transport exposing (Transport)
 import Energy exposing (Energy)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
@@ -23,6 +24,7 @@ type alias Step =
     , kwh : Energy
     , processInfo : ProcessInfo
     , dyeingWeighting : Float
+    , airTransportRatio : Float
     }
 
 
@@ -30,6 +32,7 @@ type alias ProcessInfo =
     { electricity : Maybe String
     , heat : Maybe String
     , dyeingWeighting : Maybe String
+    , airTransportRatio : Maybe String
     }
 
 
@@ -51,7 +54,7 @@ create label editable country =
     , waste = Mass.kilograms 0
     , transport =
         if label == MaterialAndSpinning then
-            Transport.defaultInitialSummary
+            Transport.materialAndSpinningSummary
 
         else
             Transport.defaultSummary
@@ -60,6 +63,7 @@ create label editable country =
     , kwh = Energy.kilowattHours 0
     , processInfo = processCountryInfo label country
     , dyeingWeighting = getDyeingWeighting country
+    , airTransportRatio = 0 -- Note: this depends on next step country, so we can't set an accurate default value initially
     }
 
 
@@ -68,6 +72,7 @@ defaultProcessInfo =
     { electricity = Nothing
     , heat = Nothing
     , dyeingWeighting = Nothing
+    , airTransportRatio = Nothing
     }
 
 
@@ -75,21 +80,23 @@ processCountryInfo : Label -> Country -> ProcessInfo
 processCountryInfo label country =
     case ( label, CountryProcess.get country ) of
         ( WeavingKnitting, Just { electricity } ) ->
-            { heat = Nothing
-            , electricity = Just electricity.name
-            , dyeingWeighting = Nothing
-            }
+            { defaultProcessInfo | electricity = Just electricity.name }
 
         ( Ennoblement, Just { heat, electricity, dyeingWeighting } ) ->
-            { heat = Just heat.name
-            , electricity = Just electricity.name
-            , dyeingWeighting = Just (dyeingWeightingToString dyeingWeighting)
+            { defaultProcessInfo
+                | heat = Just heat.name
+                , electricity = Just electricity.name
+                , dyeingWeighting = Just (dyeingWeightingToString dyeingWeighting)
             }
 
         ( Making, Just { electricity } ) ->
-            { heat = Nothing
-            , electricity = Just electricity.name
-            , dyeingWeighting = Nothing
+            { defaultProcessInfo
+                | electricity = Just electricity.name
+                , airTransportRatio =
+                    country
+                        |> Transport.defaultAirTransportRatio
+                        |> airTransportRatioToString
+                        |> Just
             }
 
         _ ->
@@ -99,6 +106,89 @@ processCountryInfo label country =
 getDyeingWeighting : Country -> Float
 getDyeingWeighting =
     CountryProcess.get >> Maybe.map .dyeingWeighting >> Maybe.withDefault 0
+
+
+{-| Computes step transport distances and co2 scores regarding next step.
+
+Docs: <https://fabrique-numerique.gitbook.io/wikicarbone/methodologie/transport>
+
+-}
+computeTransports : Step -> Step -> Step
+computeTransports next current =
+    let
+        { road, sea, air } =
+            Transport.getTransportBetween current.country next.country
+                |> computeTransportSummary current
+
+        initial =
+            initialTransport current
+
+        roadSeaRatio =
+            Transport.roadSeaTransportRatio (max road sea)
+
+        ( handledRoad, handledSea, handledAir ) =
+            ( initial.road + ((toFloat road * roadSeaRatio) * (1 - current.airTransportRatio))
+            , initial.sea + ((toFloat sea * (1 - roadSeaRatio)) * (1 - current.airTransportRatio))
+            , initial.air + (toFloat air * current.airTransportRatio)
+            )
+
+        ( roadCo2, seaCo2, airCo2 ) =
+            ( getRoadTransportProcess current |> .climateChange |> (*) (Mass.inMetricTons current.mass) |> (*) handledRoad
+            , Process.seaTransport |> .climateChange |> (*) (Mass.inMetricTons current.mass) |> (*) handledSea
+            , Process.airTransport |> .climateChange |> (*) (Mass.inMetricTons current.mass) |> (*) handledAir
+            )
+    in
+    { current
+        | transport =
+            { road = round handledRoad
+            , sea = round handledSea
+            , air = round handledAir
+            , co2 = airCo2 + seaCo2 + roadCo2
+            }
+    }
+
+
+initialTransport : Step -> { road : Float, sea : Float, air : Float }
+initialTransport { label } =
+    case label of
+        MaterialAndSpinning ->
+            -- Apply initial Material to Spinning step transport data (see Excel)
+            { road = toFloat Transport.materialAndSpinningSummary.road
+            , sea = toFloat Transport.materialAndSpinningSummary.sea
+            , air = toFloat Transport.materialAndSpinningSummary.air
+            }
+
+        _ ->
+            { road = 0, sea = 0, air = 0 }
+
+
+computeTransportSummary : Step -> Transport -> Transport.Summary
+computeTransportSummary step transport =
+    case step.label of
+        Ennoblement ->
+            -- Doubled transports for internal Dyeing to Treatments step, no air transport (see Excel)
+            { road = transport.road * 2, sea = transport.sea * 2, air = 0, co2 = 0 }
+
+        Making ->
+            -- Air transport only applies between the Making and the Distribution steps
+            { road = transport.road, sea = transport.sea, air = transport.air, co2 = 0 }
+
+        _ ->
+            -- All other steps don't use air transport at all
+            { road = transport.road, sea = transport.sea, air = 0, co2 = 0 }
+
+
+getRoadTransportProcess : Step -> Process
+getRoadTransportProcess { label } =
+    case label of
+        Making ->
+            Process.roadTransportPostMaking
+
+        Distribution ->
+            Process.distribution
+
+        _ ->
+            Process.roadTransportPreMaking
 
 
 countryLabel : Step -> String
@@ -112,48 +202,43 @@ countryLabel step =
         Country.toString step.country
 
 
-updateCountry : Maybe Float -> Country -> Step -> Step
-updateCountry dyeingWeighting country step =
+update : Inputs -> Maybe Step -> Step -> Step
+update { dyeingWeighting, airTransportRatio } _ step =
     { step
-        | country = country
-        , processInfo = processCountryInfo step.label country
+        | processInfo = processCountryInfo step.label step.country
         , dyeingWeighting =
             if step.label == Ennoblement then
-                if country /= step.country then
-                    getDyeingWeighting country
-
-                else
-                    dyeingWeighting |> Maybe.withDefault (getDyeingWeighting country)
+                dyeingWeighting |> Maybe.withDefault (getDyeingWeighting step.country)
 
             else
                 step.dyeingWeighting
-    }
-
-
-updateDyeingWeighting : Float -> Step -> Step
-updateDyeingWeighting dyeingWeighting ({ processInfo } as step) =
-    { step
-        | dyeingWeighting = dyeingWeighting
-        , processInfo =
-            if step.label == Ennoblement then
-                { processInfo | dyeingWeighting = Just (dyeingWeightingToString dyeingWeighting) }
+        , airTransportRatio =
+            if step.label == Making then
+                airTransportRatio |> Maybe.withDefault (Transport.defaultAirTransportRatio step.country)
 
             else
-                processInfo
+                step.airTransportRatio
     }
+
+
+airTransportRatioToString : Float -> String
+airTransportRatioToString airTransportRatio =
+    case round (airTransportRatio * 100) of
+        0 ->
+            "Aucun transport aérien"
+
+        p ->
+            String.fromInt p ++ "% de transport aérien"
 
 
 dyeingWeightingToString : Float -> String
 dyeingWeightingToString dyeingWeighting =
-    let
-        p =
-            round (dyeingWeighting * 100)
-    in
-    if p == 0 then
-        "Procédé représentatif"
+    case round (dyeingWeighting * 100) of
+        0 ->
+            "Procédé représentatif"
 
-    else
-        "Procédé " ++ String.fromInt p ++ "% majorant"
+        p ->
+            "Procédé " ++ String.fromInt p ++ "% majorant"
 
 
 decode : Decoder Step
@@ -170,6 +255,7 @@ decode =
         |> Pipe.required "kwh" (Decode.map Energy.kilowattHours Decode.float)
         |> Pipe.required "processInfo" decodeProcessInfo
         |> Pipe.required "dyeingWeighting" Decode.float
+        |> Pipe.required "airTransportRatio" Decode.float
 
 
 encode : Step -> Encode.Value
@@ -185,6 +271,8 @@ encode v =
         , ( "heat", Encode.float (Energy.inMegajoules v.heat) )
         , ( "kwh", Encode.float (Energy.inKilowattHours v.kwh) )
         , ( "processInfo", encodeProcessInfo v.processInfo )
+        , ( "dyeingWeighting", Encode.float v.dyeingWeighting )
+        , ( "airTransportRatio", Encode.float v.airTransportRatio )
         ]
 
 
@@ -194,6 +282,7 @@ decodeProcessInfo =
         |> Pipe.required "electricity" (Decode.maybe Decode.string)
         |> Pipe.required "heat" (Decode.maybe Decode.string)
         |> Pipe.required "dyeingWeighting" (Decode.maybe Decode.string)
+        |> Pipe.required "airTransportRatio" (Decode.maybe Decode.string)
 
 
 encodeProcessInfo : ProcessInfo -> Encode.Value

@@ -3,7 +3,6 @@ module Data.LifeCycle exposing (..)
 import Array exposing (Array)
 import Data.Country as Country
 import Data.Inputs exposing (Inputs)
-import Data.Process as Process
 import Data.Step as Step exposing (Step)
 import Data.Transport as Transport
 import Json.Decode as Decode exposing (Decoder)
@@ -35,58 +34,16 @@ encode =
     Encode.array Step.encode
 
 
-computeSummaryBetween : Step -> Step -> Transport.Summary
-computeSummaryBetween current next =
-    let
-        transport =
-            Transport.getTransportBetween current.country next.country
-    in
-    case ( current.label, next.label ) of
-        ( Step.MaterialAndSpinning, Step.WeavingKnitting ) ->
-            -- Note: First initial material step has specific defaults
-            transport |> Transport.addToSummary Transport.defaultInitialSummary
-
-        _ ->
-            Transport.toSummary transport
-
-
-handleAirTransport : Step -> Transport.Summary -> Transport.Summary
-handleAirTransport { label } summary =
-    -- Air transport can only concern finished products, so we only keep air travel distance
-    -- between the Making and Distribution and for the Distribution step itself steps.
-    if List.member label [ Step.Making, Step.Distribution ] then
-        summary
-
-    else
-        { summary | air = 0 }
-
-
 computeTransportSummaries : LifeCycle -> LifeCycle
 computeTransportSummaries lifeCycle =
     lifeCycle
         |> Array.indexedMap
-            (\index current ->
-                { current
-                    | transport =
-                        lifeCycle
-                            |> Array.get (index + 1)
-                            |> Maybe.withDefault current
-                            |> computeSummaryBetween current
-                            |> handleAirTransport current
-                            |> Transport.applyProcess current.mass
-                                (case current.label of
-                                    -- FIXME: in Excel, the distribution road distance is eventually
-                                    -- substracted from the one of the making step.
-                                    Step.Making ->
-                                        Process.roadTransportPostMaking
-
-                                    Step.Distribution ->
-                                        Process.distribution
-
-                                    _ ->
-                                        Process.roadTransportPreMaking
-                                )
-                }
+            (\index step ->
+                Step.computeTransports
+                    (Array.get (index + 1) lifeCycle
+                        |> Maybe.withDefault step
+                    )
+                    step
             )
 
 
@@ -116,35 +73,31 @@ getStep label =
     Array.filter (.label >> (==) label) >> Array.get 0
 
 
-initCountries : Inputs -> LifeCycle -> LifeCycle
-initCountries inputs =
-    Array.indexedMap
-        (\index step ->
-            { step
-                | country =
-                    inputs.countries
-                        |> Array.fromList
-                        |> Array.get index
-                        |> Maybe.withDefault step.country
-            }
-        )
-        >> processStepCountries inputs
-
-
-processStepCountries : Inputs -> LifeCycle -> LifeCycle
-processStepCountries inputs =
-    Array.map (\step -> Step.updateCountry inputs.dyeingWeighting step.country step)
+init : Inputs -> LifeCycle -> LifeCycle
+init inputs lifeCycle =
+    lifeCycle
+        |> Array.indexedMap
+            (\index step ->
+                { step
+                    | country =
+                        inputs.countries
+                            |> Array.fromList
+                            |> Array.get index
+                            |> Maybe.withDefault step.country
+                }
+                    |> Step.update inputs (Array.get (index + 1) lifeCycle)
+            )
 
 
 updateStep : Step.Label -> (Step -> Step) -> LifeCycle -> LifeCycle
 updateStep label update =
     Array.map
-        (\s ->
-            if s.label == label then
-                update s
+        (\step ->
+            if step.label == label then
+                update step
 
             else
-                s
+                step
         )
 
 
