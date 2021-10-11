@@ -58,15 +58,6 @@ materialToSpinningTransport =
     { road = 2000, sea = 4000, air = 0 }
 
 
-addToSummary : Summary -> Transport -> Summary
-addToSummary summary transport =
-    { summary
-        | road = summary.road + transport.road
-        , sea = summary.sea + transport.sea
-        , air = summary.air + transport.air
-    }
-
-
 roadSeaTransportRatio : Int -> Float
 roadSeaTransportRatio roadDistance =
     if roadDistance <= 500 then

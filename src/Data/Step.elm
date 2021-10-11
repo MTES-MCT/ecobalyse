@@ -124,7 +124,7 @@ computeTransports next current =
             initialTransport current
 
         roadSeaRatio =
-            Transport.roadSeaTransportRatio (max road sea)
+            Transport.roadSeaTransportRatio road
 
         ( handledRoad, handledSea, handledAir ) =
             ( initial.road + ((toFloat road * roadSeaRatio) * (1 - current.airTransportRatio))
