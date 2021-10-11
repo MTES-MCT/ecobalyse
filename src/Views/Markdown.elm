@@ -61,7 +61,10 @@ renderImage { title, src, alt } =
     Html.img
         (List.filterMap identity
             [ Maybe.map Attr.title title
-            , Just <| Attr.src src
+            , src
+                |> String.replace "../.gitbook/assets/" "https://raw.githubusercontent.com/MTES-MCT/wikicarbone/docs/.gitbook/assets/"
+                |> Attr.src
+                |> Just
             , Just <| Attr.alt alt
             , Just <| attribute "crossorigin" "anonymous"
             ]
