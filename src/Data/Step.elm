@@ -116,15 +116,17 @@ Docs: <https://fabrique-numerique.gitbook.io/wikicarbone/methodologie/transport>
 computeTransports : Step -> Step -> Step
 computeTransports next current =
     let
-        { road, sea, air } =
+        transport =
             Transport.getTransportBetween current.country next.country
-                |> computeTransportSummary current
+
+        ({ road, sea, air } as summary) =
+            computeTransportSummary current transport
 
         initial =
             initialTransport current
 
         roadSeaRatio =
-            Transport.roadSeaTransportRatio (max road sea)
+            Transport.roadSeaTransportRatio summary
 
         ( handledRoad, handledSea, handledAir ) =
             ( initial.road + ((toFloat road * roadSeaRatio) * (1 - current.airTransportRatio))
