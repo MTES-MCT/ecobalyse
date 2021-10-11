@@ -12,7 +12,7 @@ Le transport considéré est la somme des transports à prévoir entre chaque é
 
 Entre chaque étape, la masse à considérer est ajustée en fonction des [Pertes et rebus](pertes-et-rebus.md).
 
-| #Etape | Transport         |                             | Masse de produit considéré |
+| #Etape | De                | Vers                        | Masse de produit considéré |
 | ------ | ----------------- | --------------------------- | -------------------------- |
 | 1.     | Matière           | Filature                    | Matière première           |
 | 2.     | Filature          | Tissage/tricotage           | Matière première           |
