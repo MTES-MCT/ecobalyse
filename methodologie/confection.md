@@ -38,22 +38,22 @@ Remarque : pour les procédés de confection retenus (cf. ci-après), les coeffi
 
 Le choix de procédé réalisé dépend du vêtement considéré :
 
-| Vêtement  | Procédé                                             | UUID                                 |
-| --------- | --------------------------------------------------- | ------------------------------------ |
-| Châle     | Confection (ceinture, châle, chapeau, sac, écharpe) | 0a260a3f-260e-4b43-a0df-0cf673fda960 |
-| Echarpe   | Confection (ceinture, châle, chapeau, sac, écharpe) | 0a260a3f-260e-4b43-a0df-0cf673fda960 |
-| Débardeur | Confection (débardeur, tee-shirt, combinaison)      | 26e3ca02-9bc0-45b4-b8b4-73f4b3701ad5 |
-| T-shirt   | Confection (débardeur, tee-shirt, combinaison)      | 26e3ca02-9bc0-45b4-b8b4-73f4b3701ad5 |
-| Gilet     | Confection (gilet, jupe, pantalon, pull)            | 387059fc-72cb-4a92-b1e7-2ef9242f8380 |
-| Jupe      | Confection (gilet, jupe, pantalon, pull)            | 387059fc-72cb-4a92-b1e7-2ef9242f8380 |
-| Pantalon  | Confection (gilet, jupe, pantalon, pull)            | 387059fc-72cb-4a92-b1e7-2ef9242f8380 |
-| Pull      | Confection (gilet, jupe, pantalon, pull)            | 387059fc-72cb-4a92-b1e7-2ef9242f8380 |
-| Chemisier | Confection (chemisier, manteau, veste, cape, robe)  | 7fe48d7c-a568-4bd5-a3ac-cfa88255b4fe |
-| Manteau   | Confection (chemisier, manteau, veste, cape, robe)  | 7fe48d7c-a568-4bd5-a3ac-cfa88255b4fe |
-| Veste     | Confection (chemisier, manteau, veste, cape, robe)  | 7fe48d7c-a568-4bd5-a3ac-cfa88255b4fe |
-| Cape      | Confection (chemisier, manteau, veste, cape, robe)  | 7fe48d7c-a568-4bd5-a3ac-cfa88255b4fe |
-| Robe      | Confection (chemisier, manteau, veste, cape, robe)  | 7fe48d7c-a568-4bd5-a3ac-cfa88255b4fe |
-| Jean      | Confection (jeans)                                  | 1f428a50-73c0-4fc1-ab39-00fd312458ee |
+| Vêtement  | Procédé                                             | UUID                                   |
+| --------- | --------------------------------------------------- | -------------------------------------- |
+| Châle     | Confection (ceinture, châle, chapeau, sac, écharpe) | `0a260a3f-260e-4b43-a0df-0cf673fda960` |
+| Echarpe   | Confection (ceinture, châle, chapeau, sac, écharpe) | `0a260a3f-260e-4b43-a0df-0cf673fda960` |
+| Débardeur | Confection (débardeur, tee-shirt, combinaison)      | `26e3ca02-9bc0-45b4-b8b4-73f4b3701ad5` |
+| T-shirt   | Confection (débardeur, tee-shirt, combinaison)      | `26e3ca02-9bc0-45b4-b8b4-73f4b3701ad5` |
+| Gilet     | Confection (gilet, jupe, pantalon, pull)            | `387059fc-72cb-4a92-b1e7-2ef9242f8380` |
+| Jupe      | Confection (gilet, jupe, pantalon, pull)            | `387059fc-72cb-4a92-b1e7-2ef9242f8380` |
+| Pantalon  | Confection (gilet, jupe, pantalon, pull)            | `387059fc-72cb-4a92-b1e7-2ef9242f8380` |
+| Pull      | Confection (gilet, jupe, pantalon, pull)            | `387059fc-72cb-4a92-b1e7-2ef9242f8380` |
+| Chemisier | Confection (chemisier, manteau, veste, cape, robe)  | `7fe48d7c-a568-4bd5-a3ac-cfa88255b4fe` |
+| Manteau   | Confection (chemisier, manteau, veste, cape, robe)  | `7fe48d7c-a568-4bd5-a3ac-cfa88255b4fe` |
+| Veste     | Confection (chemisier, manteau, veste, cape, robe)  | `7fe48d7c-a568-4bd5-a3ac-cfa88255b4fe` |
+| Cape      | Confection (chemisier, manteau, veste, cape, robe)  | `7fe48d7c-a568-4bd5-a3ac-cfa88255b4fe` |
+| Robe      | Confection (chemisier, manteau, veste, cape, robe)  | `7fe48d7c-a568-4bd5-a3ac-cfa88255b4fe` |
+| Jean      | Confection (jeans)                                  | `1f428a50-73c0-4fc1-ab39-00fd312458ee` |
 
 {% hint style="info" %}
 Les 5 procédés mobilisés sont les seuls disponibles à ce jour dans la base Impacts. Il n'est donc pas possible en l'état de proposer d'alternative.
@@ -67,20 +67,20 @@ En revanche, des pertes sont bien mentionnées dans la documentation sectorielle
 
 | Vêtement  | Groupe   | Pertes (%) |
 | --------- | -------- | ---------- |
-| Châle     | Groupe 1 | 10%        |
-| Echarpe   | Groupe 1 | 10%        |
-| Débardeur | Groupe 2 | 15%        |
-| T-shirt   | Groupe 2 | 15%        |
-| Gilet     | Groupe 3 | 20%        |
-| Jupe      | Groupe 3 | 20%        |
-| Pantalon  | Groupe 3 | 20%        |
-| Pull      | Groupe 3 | 20%        |
-| Chemisier | Groupe 4 | 20%        |
-| Manteau   | Groupe 4 | 20%        |
-| Veste     | Groupe 4 | 20%        |
-| Cape      | Groupe 4 | 20%        |
-| Robe      | Groupe 4 | 20%        |
-| Jean      | Groupe 5 | 22%        |
+| Châle     | Groupe 1 | `10%`      |
+| Echarpe   | Groupe 1 | `10%`      |
+| Débardeur | Groupe 2 | `15%`      |
+| T-shirt   | Groupe 2 | `15%`      |
+| Gilet     | Groupe 3 | `20%`      |
+| Jupe      | Groupe 3 | `20%`      |
+| Pantalon  | Groupe 3 | `20%`      |
+| Pull      | Groupe 3 | `20%`      |
+| Chemisier | Groupe 4 | `20%`      |
+| Manteau   | Groupe 4 | `20%`      |
+| Veste     | Groupe 4 | `20%`      |
+| Cape      | Groupe 4 | `20%`      |
+| Robe      | Groupe 4 | `20%`      |
+| Jean      | Groupe 5 | `22%`      |
 
 La formule appliquée pour calculer la masse de tissu nécessaire, avant confection, pour obtenir l'habit confectionné est la suivante :
 
@@ -116,6 +116,6 @@ $$
 
 ## Limites
 
-\[à compléter avec les principales limites identifiées pour la modélisation de l'étapde de confection]
+\[à compléter avec les principales limites identifiées pour la modélisation de l'étape de confection]
 
 ##
