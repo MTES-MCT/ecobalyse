@@ -399,7 +399,6 @@ modalView modal =
 
                       else
                         gitbookPage.markdown
-                            |> Gitbook.cleanMarkdown
                             |> MarkdownView.view [ class "GitbookContent" ]
                     ]
                 , footer =

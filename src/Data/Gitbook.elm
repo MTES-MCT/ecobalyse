@@ -11,8 +11,8 @@ type alias Page =
     }
 
 
-cleanMarkdown : String -> String
-cleanMarkdown =
+transformMarkdown : String -> String
+transformMarkdown =
     -- Map Gitbook formulas to standard preformatted code blocks
     String.replace "$$" "```"
         -- Map Gitbook hints to bootstrap alerts
@@ -20,6 +20,48 @@ cleanMarkdown =
         >> String.replace "{% hint style=\"warning\" %}" "<hint level=\"warning\">"
         >> String.replace "{% hint style=\"info\" %}" "<hint level=\"info\">"
         >> String.replace "{% endhint %}" "</hint>"
+
+
+fromMarkdown : String -> String -> Page
+fromMarkdown path markdown =
+    let
+        blocks =
+            markdown |> transformMarkdown |> String.split "\n\n"
+
+        title =
+            blocks
+                |> List.filter (String.startsWith "# ")
+                |> List.head
+
+        finalTitle =
+            title
+                |> Maybe.map (String.replace "# " "")
+                |> Maybe.withDefault "Sans titre"
+
+        description =
+            blocks
+                |> List.filter (\block -> String.startsWith "---" block && String.endsWith "---" block)
+                |> List.head
+                |> Maybe.map
+                    (String.replace "---" ""
+                        >> String.replace "\n" ""
+                        >> String.replace "description:" ""
+                        >> String.replace ">-" ""
+                        >> String.trim
+                    )
+
+        final =
+            blocks
+                |> List.map String.trim
+                |> List.filter (\block -> not (String.startsWith "---\n" block && String.endsWith "---" block))
+                |> List.filter (\block -> title /= Just block)
+                |> String.join "\n\n"
+    in
+    { title = finalTitle
+    , description = description
+    , markdown = final
+    , path = path
+    }
 
 
 publicUrl : String -> String
