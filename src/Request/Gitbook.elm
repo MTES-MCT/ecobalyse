@@ -16,7 +16,6 @@ toPage path markdown =
             blocks
                 |> List.filter (String.startsWith "# ")
                 |> List.head
-                |> Debug.log "title"
 
         finalTitle =
             title
