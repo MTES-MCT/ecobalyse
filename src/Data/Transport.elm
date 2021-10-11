@@ -58,15 +58,29 @@ materialToSpinningTransport =
     { road = 2000, sea = 4000, air = 0 }
 
 
-roadSeaTransportRatio : Int -> Float
-roadSeaTransportRatio roadDistance =
-    if roadDistance <= 500 then
+{-| Determine road/sea transport ratio, so rad transport is priviledged
+for shorter distances. A few notes:
+
+  - When no road distance, we fully take sea distance
+  - When no sea distance, we fully take road distance
+  - Otherwise we can apply distinct ratios
+
+-}
+roadSeaTransportRatio : Summary -> Float
+roadSeaTransportRatio { road, sea } =
+    if road == 0 then
+        0
+
+    else if sea == 0 then
         1
 
-    else if roadDistance < 1000 then
+    else if road <= 500 then
+        1
+
+    else if road < 1000 then
         0.9
 
-    else if roadDistance < 2000 then
+    else if road < 2000 then
         0.5
 
     else
