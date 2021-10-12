@@ -10,7 +10,7 @@ description: >-
 
 Conformément à la documentation sectorielle textile de la [base Impacts](http://www.base-impacts.ademe.fr), le système "teinture" est schématisé comme suit :
 
-![](../.gitbook/assets/Confection.PNG)
+![](<../.gitbook/assets/Confection (1).PNG>)
 
 Par conséquent, l'impact global de l'étape de confection se comprend comme résultant de la somme de l'impact résultant du procédé de confection retenu (cf. intérieur du _system boundaries_) et des procédés externes devant être ajoutés, à savoir :
 
