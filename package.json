@@ -2,7 +2,7 @@
   "name": "wikicarbone",
   "version": "0.0.1",
   "description": "Accelérer l'affichage environnemental de la filière textile française",
-  "author": "MTES <contact@beta.gouv.fr>",
+  "author": "Wikicarbone <wikicarbone@beta.gouv.fr>",
   "license": "MIT",
   "private": true,
   "scripts": {

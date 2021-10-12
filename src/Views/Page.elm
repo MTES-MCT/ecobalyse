@@ -23,6 +23,7 @@ type ActivePage
 type MenuLink
     = Internal String Route.Route ActivePage
     | External String String
+    | MailTo String String
 
 
 type alias Config =
@@ -61,6 +62,8 @@ footerMenuLinks =
     , Internal "Statistiques" Route.Stats Stats
     , External "Code source" "https://github.com/MTES-MCT/wikicarbone/"
     , External "Documentation" "https://fabrique-numerique.gitbook.io/wikicarbone/"
+    , External "FAQ" "https://fabrique-numerique.gitbook.io/wikicarbone/faq"
+    , MailTo "Contact" "wikicarbone@beta.gouv.fr"
     ]
 
 
@@ -100,6 +103,9 @@ navbar { activePage } =
                             External label url ->
                                 Link.external [ class "nav-link pe-1", href url ]
                                     [ text label ]
+
+                            MailTo label email ->
+                                a [ class "link-email", href <| "mailto:" ++ email ] [ text label ]
                     )
                 |> div
                     [ class "MainMenu navbar-nav justify-content-between flex-row"
@@ -146,18 +152,17 @@ pageFooter =
                                     External label url ->
                                         Link.external [ class "text-white text-decoration-none", href url ]
                                             [ text label ]
+
+                                    MailTo label email ->
+                                        a [ class "text-white text-decoration-none link-email", href <| "mailto:" ++ email ]
+                                            [ text label ]
                             )
                         |> List.map (List.singleton >> li [])
                         |> ul [ class "list-unstyled" ]
-                    , p [ class "mb-0" ]
-                        [ text "Un produit "
-                        , Link.external [ href "https://beta.gouv.fr/startups/wikicarbone.html", class "text-light" ]
-                            [ img [ src "img/betagouv.svg", alt "beta.gouv.fr", style "width" "120px" ] [] ]
-                        ]
                     ]
                 , Link.external
                     [ href "https://www.ecologique-solidaire.gouv.fr/"
-                    , class "col text-center bg-light px-3 m-3 link-external-muted"
+                    , class "col text-center bg-white px-3 m-3 link-external-muted"
                     ]
                     [ img
                         [ src "img/logo_mte.svg"
@@ -169,7 +174,7 @@ pageFooter =
                     ]
                 , Link.external
                     [ href "https://www.cohesion-territoires.gouv.fr/"
-                    , class "col text-center bg-light px-3 m-3 link-external-muted"
+                    , class "col text-center bg-white px-3 m-3 link-external-muted"
                     ]
                     [ img
                         [ src "img/logo_mct.svg"
@@ -191,6 +196,11 @@ pageFooter =
                         ]
                         []
                     ]
+                ]
+            , div [ class "text-center pt-2" ]
+                [ text "Un produit "
+                , Link.external [ href "https://beta.gouv.fr/startups/wikicarbone.html", class "text-light" ]
+                    [ img [ src "img/betagouv.svg", alt "beta.gouv.fr", style "width" "120px" ] [] ]
                 ]
             ]
         ]

@@ -77,22 +77,44 @@ blockquote {
   }
 }
 
-.link-external:not(.link-external-muted) {
-  &::after {
-    font-family: "icomoon" !important;
-    content: "\e908";
-    display: inline-block;
-    text-indent: 2px;
-    font-size: .9em;
-    color: currentColor;
-    font-style: normal;
-    font-weight: normal;
-    font-variant: normal;
-    text-transform: none;
-    vertical-align: text-top;
-    line-height: 1;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+.link {
+  &-external:not(.link-external-muted) {
+    &::after {
+      font-family: "icomoon" !important;
+      content: "\e908";
+      display: inline-block;
+      text-indent: 2px;
+      font-size: .9em;
+      color: currentColor;
+      font-style: normal;
+      font-weight: normal;
+      font-variant: normal;
+      text-transform: none;
+      vertical-align: text-top;
+      line-height: 1;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+  }
+
+  &-email {
+    &::before {
+      font-family: "icomoon" !important;
+      content: "\f0e0";
+      display: inline-block;
+      text-indent: 2px;
+      font-size: .9em;
+      color: currentColor;
+      font-style: normal;
+      font-weight: normal;
+      font-variant: normal;
+      text-transform: none;
+      vertical-align: baseline;
+      line-height: 1;
+      margin-right: 3px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
   }
 }
 

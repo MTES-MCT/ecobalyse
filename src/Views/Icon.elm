@@ -64,6 +64,11 @@ info =
     icon "info"
 
 
+mail : Html msg
+mail =
+    icon "mail"
+
+
 pencil : Html msg
 pencil =
     icon "pencil"

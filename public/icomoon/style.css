@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?7sjgez');
-  src:  url('fonts/icomoon.eot?7sjgez#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?7sjgez') format('truetype'),
-    url('fonts/icomoon.woff?7sjgez') format('woff'),
-    url('fonts/icomoon.svg?7sjgez#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?i2jrdd');
+  src:  url('fonts/icomoon.eot?i2jrdd#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?i2jrdd') format('truetype'),
+    url('fonts/icomoon.woff?i2jrdd') format('woff'),
+    url('fonts/icomoon.svg?i2jrdd#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -66,6 +66,9 @@
 }
 .icon-truck:before {
   content: "\f0d1";
+}
+.icon-mail:before {
+  content: "\f0e0";
 }
 .icon-clipboard:before {
   content: "\f0ea";
