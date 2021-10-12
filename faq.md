@@ -5,7 +5,7 @@ description: Les réponses aux questions qu'on nous pose souvent...
 # FAQ
 
 {% hint style="info" %}
-Si vous avez d'autres interrogations, vous pouvez également [nous les adresser par email](mailto:pascal.dagras@beta.gouv.fr).
+Si vous avez d'autres interrogations, vous pouvez également nous les adresser [par email](mailto:wikicarbone@beta.gouv.fr).
 {% endhint %}
 
 ### Certains vêtements ne sont pas représentés
@@ -31,7 +31,7 @@ Mais questionnements sur la durabilité physique / non physique etc
 C'est normal, nous mettons à jour notre référentiel de données et affinons nos calculs continuellement ; il se peut donc que le score carbone évolue légèrement en fonction de ces évolutions. C'est plutôt une bonne chose, si on y réfléchit !
 
 {% hint style="info" %}
-Si vous avez d'autres interrogations, vous pouvez également [nous les adresser par email](mailto:pascal.dagras@beta.gouv.fr).
+Si vous avez d'autres interrogations, vous pouvez également nous les adresser [par email](mailto:wikicarbone@beta.gouv.fr).
 {% endhint %}
 
 

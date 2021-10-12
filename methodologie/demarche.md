@@ -24,7 +24,7 @@ En première approche, le simulateur est très incomplet :
 
 Dans une démarche _agile_, cette première version vise en priorité à recueillir des commentaires et des critiques des utilisateurs, dans le but d'orienter la suite des travaux dans les directions les plus importantes.
 
-Tout retour est d'ailleurs le bienvenu [par email](mailto:pascal.dagras@beta.gouv.fr?Subject=wikicarbone).
+Tout retour est d'ailleurs le bienvenu [par email](mailto:wikicarbone@beta.gouv.fr).
 
 ## Comment sont faites les hypothèses ?
 
@@ -40,7 +40,7 @@ Exemples :
 
 * mix électriques moyens de consommation par pays
 * taux de perte lors de la confection, par catégorie de vêtement (cf. section c. p28 de la méthodologie ADEME)
-* valeurs par défaut des grammages et duitages pour le tissage (cf. section d. p28 de la méthodologie ADEME)
+* valeurs par défaut du grammage et duitage pour le tissage (cf. section d. p28 de la méthodologie ADEME)
 * distance parcourue en camion pour la distribution, de l'entrepôt au point de vente ou de livraison
 * …
 
@@ -66,4 +66,4 @@ Quelques exemples :
 
 L'intérêt de l'outil repose notamment sur la pertinence de ces hypothèses supplémentaires. Dans quelle mesure sont-elles représentatives, ou majorantes, par rapport aux pratiques observées dans l'industrie (pour les phases de production et de fabrication) ?
 
-Dans une logique de commun numérique, Wikicarbone cherche notamment à servir de support aux échanges techniques qui permettraient de faire émerger des hypothèses par défaut pertinentes. En première approche, les remarques sont simplement collectées [par mail](mailto:pascal.dagras@beta.gouv.fr?Subject=wikicarbone). Des évolutions sont envisagées pour la suite pour chercher à recueillir les contributions directement sur l'outil.
+Dans une logique de commun numérique, Wikicarbone cherche notamment à servir de support aux échanges techniques qui permettraient de faire émerger des hypothèses par défaut pertinentes. En première approche, les remarques sont simplement collectées [par mail](mailto:wikicarbone@beta.gouv.fr). Des évolutions sont envisagées pour la suite pour chercher à recueillir les contributions directement sur l'outil.
