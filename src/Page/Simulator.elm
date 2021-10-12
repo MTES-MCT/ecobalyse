@@ -441,7 +441,7 @@ view session ({ displayMode, simulator } as model) =
                         ]
                     ]
                 , div [ class "col-lg-5" ]
-                    [ div [ class "d-flex flex-column gap-3 mb-3 sticky-md-top" ]
+                    [ div [ class "d-flex flex-column gap-3 mb-3 sticky-md-top", style "top" "7px" ]
                         [ div [ class "Summary" ] [ SummaryView.view False simulator ]
                         , feedbackView
                         , shareLinkView session model
