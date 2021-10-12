@@ -26,6 +26,10 @@ Nous sommes conscients de l'importance de ces étapes, qui permettent notamment 
 
 Mais questionnements sur la durabilité physique / non physique etc
 
+### Le résultat de ma simulation a changé entre deux visites !
+
+C'est normal, nous mettons à jour notre référentiel de données et affinons nos calculs continuellement ; il se peut donc que le score carbone évolue légèrement en fonction de ces évolutions. C'est plutôt une bonne chose, si on y réfléchit !
+
 {% hint style="info" %}
 Si vous avez d'autres interrogations, vous pouvez également [nous les adresser par email](mailto:pascal.dagras@beta.gouv.fr).
 {% endhint %}
