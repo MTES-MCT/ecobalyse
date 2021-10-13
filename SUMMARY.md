@@ -16,6 +16,7 @@
 * [Chaleur](methodologie/chaleur.md)
 * [Pertes et rebus](methodologie/pertes-et-rebus.md)
 * [Hypothèses par défaut](methodologie/hypotheses-par-defaut.md)
+* [Echelle comparative](methodologie/echelle-comparative.md)
 
 ***
 
