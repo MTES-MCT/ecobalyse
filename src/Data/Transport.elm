@@ -43,6 +43,16 @@ defaultInland =
     { road = 500, sea = 0, air = 500 }
 
 
+addSummary : Summary -> Summary -> Summary
+addSummary sA sB =
+    { sA
+        | road = sA.road + sB.road
+        , sea = sA.sea + sB.sea
+        , air = sA.air + sB.air
+        , co2 = sA.co2 + sB.co2
+    }
+
+
 materialAndSpinningSummary : Summary
 materialAndSpinningSummary =
     { road = materialToSpinningTransport.road

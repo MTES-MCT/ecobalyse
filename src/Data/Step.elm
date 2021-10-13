@@ -122,46 +122,61 @@ computeTransports next current =
         ({ road, sea, air } as summary) =
             computeTransportSummary current transport
 
-        initial =
-            initialTransport current
+        initialSummary =
+            initialTransportSummary current
 
         roadSeaRatio =
             Transport.roadSeaTransportRatio summary
 
         ( handledRoad, handledSea, handledAir ) =
-            ( initial.road + ((toFloat road * roadSeaRatio) * (1 - current.airTransportRatio))
-            , initial.sea + ((toFloat sea * (1 - roadSeaRatio)) * (1 - current.airTransportRatio))
-            , initial.air + (toFloat air * current.airTransportRatio)
+            ( (toFloat road * roadSeaRatio) * (1 - current.airTransportRatio)
+            , (toFloat sea * (1 - roadSeaRatio)) * (1 - current.airTransportRatio)
+            , toFloat air * current.airTransportRatio
             )
 
         ( roadCo2, seaCo2, airCo2 ) =
-            ( getRoadTransportProcess current |> .climateChange |> (*) (Mass.inMetricTons current.mass) |> (*) handledRoad
-            , Process.seaTransport |> .climateChange |> (*) (Mass.inMetricTons current.mass) |> (*) handledSea
-            , Process.airTransport |> .climateChange |> (*) (Mass.inMetricTons current.mass) |> (*) handledAir
+            ( getRoadTransportProcess current |> .climateChange |> (*) (Mass.inMetricTons next.mass) |> (*) handledRoad
+            , Process.seaTransport |> .climateChange |> (*) (Mass.inMetricTons next.mass) |> (*) handledSea
+            , Process.airTransport |> .climateChange |> (*) (Mass.inMetricTons next.mass) |> (*) handledAir
             )
-    in
-    { current
-        | transport =
+
+        stepSummary =
             { road = round handledRoad
             , sea = round handledSea
             , air = round handledAir
             , co2 = airCo2 + seaCo2 + roadCo2
             }
-    }
+    in
+    { current | transport = stepSummary |> Transport.addSummary initialSummary }
 
 
-initialTransport : Step -> { road : Float, sea : Float, air : Float }
-initialTransport { label } =
+initialTransportSummary : Step -> Transport.Summary
+initialTransportSummary { label, mass } =
     case label of
         MaterialAndSpinning ->
             -- Apply initial Material to Spinning step transport data (see Excel)
-            { road = toFloat Transport.materialAndSpinningSummary.road
-            , sea = toFloat Transport.materialAndSpinningSummary.sea
-            , air = toFloat Transport.materialAndSpinningSummary.air
+            let
+                { road, sea, air } =
+                    Transport.materialAndSpinningSummary
+            in
+            { road = road
+            , sea = sea
+            , air = air
+            , co2 =
+                (Process.roadTransportPreMaking
+                    |> .climateChange
+                    |> (*) (Mass.inMetricTons mass)
+                    |> (*) (toFloat road)
+                )
+                    + (Process.seaTransport
+                        |> .climateChange
+                        |> (*) (Mass.inMetricTons mass)
+                        |> (*) (toFloat sea)
+                      )
             }
 
         _ ->
-            { road = 0, sea = 0, air = 0 }
+            { road = 0, sea = 0, air = 0, co2 = 0 }
 
 
 computeTransportSummary : Step -> Transport -> Transport.Summary
