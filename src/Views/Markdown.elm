@@ -29,6 +29,7 @@ renderer =
                 [ MdHtml.tag "hint" (\level -> div [ class <| "alert alert-" ++ level ])
                     |> MdHtml.withAttribute "level"
                 , MdHtml.tag "p" (p [ class "mb-1" ]) -- NOTE: sometimes gitbook exposes raw HTML in markdown
+                , MdHtml.tag "em" (em []) -- NOTE: sometimes gitbook exposes raw HTML in markdown
                 ]
     }
 
