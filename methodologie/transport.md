@@ -137,7 +137,7 @@ Lorsque deux étapes successives sont réalisées dans un même pays, une distan
 | Pays X              | 500 km |
 
 {% hint style="warning" %}
-**Ce choix de distance par défaut relève d'une orientation spécifique à l'outil et devant être discutée. Le cas de deux étapes successives réalisées sur un même site, avec donc une distance nulle, pourrait être intégré. **
+**Ce choix de distance par défaut relève d'une orientation spécifique à l'outil et devant être discutée. Le cas de deux étapes successives réalisées sur un même site, avec donc une distance nulle, pourrait être intégré.**
 {% endhint %}
 
 Les distances ainsi calculées sont :
