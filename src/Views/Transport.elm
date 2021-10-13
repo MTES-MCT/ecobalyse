@@ -18,14 +18,14 @@ view fullWidth { road, air, sea } =
         ]
         [ span [ class "mx-2" ]
             [ span [ class "me-1" ] [ Icon.plane ]
-            , air |> Format.formatInt "km" |> text
+            , air |> Format.formatRichFloat 0 "km"
             ]
         , span [ class "mx-2" ]
             [ span [ class "me-1" ] [ Icon.boat ]
-            , sea |> Format.formatInt "km" |> text
+            , sea |> Format.formatRichFloat 0 "km"
             ]
         , span [ class "mx-2" ]
             [ span [ class "me-1" ] [ Icon.bus ]
-            , road |> Format.formatInt "km" |> text
+            , road |> Format.formatRichFloat 0 "km"
             ]
         ]

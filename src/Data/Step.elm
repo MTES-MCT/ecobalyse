@@ -52,12 +52,7 @@ create label editable country =
     , editable = editable
     , mass = Mass.kilograms 0
     , waste = Mass.kilograms 0
-    , transport =
-        if label == MaterialAndSpinning then
-            Transport.materialAndSpinningSummary
-
-        else
-            Transport.defaultSummary
+    , transport = Transport.defaultSummary
     , co2 = 0
     , heat = Energy.megajoules 0
     , kwh = Energy.kilowattHours 0
@@ -122,32 +117,33 @@ computeTransports next current =
         ({ road, sea, air } as summary) =
             computeTransportSummary current transport
 
-        initialSummary =
-            initialTransportSummary current
-
         roadSeaRatio =
             Transport.roadSeaTransportRatio summary
 
-        ( handledRoad, handledSea, handledAir ) =
-            ( (toFloat road * roadSeaRatio) * (1 - current.airTransportRatio)
-            , (toFloat sea * (1 - roadSeaRatio)) * (1 - current.airTransportRatio)
-            , toFloat air * current.airTransportRatio
-            )
-
-        ( roadCo2, seaCo2, airCo2 ) =
-            ( getRoadTransportProcess current |> .climateChange |> (*) (Mass.inMetricTons next.mass) |> (*) handledRoad
-            , Process.seaTransport |> .climateChange |> (*) (Mass.inMetricTons next.mass) |> (*) handledSea
-            , Process.airTransport |> .climateChange |> (*) (Mass.inMetricTons next.mass) |> (*) handledAir
-            )
-
         stepSummary =
-            { road = round handledRoad
-            , sea = round handledSea
-            , air = round handledAir
-            , co2 = airCo2 + seaCo2 + roadCo2
+            { road = (road * roadSeaRatio) * (1 - current.airTransportRatio)
+            , sea = (sea * (1 - roadSeaRatio)) * (1 - current.airTransportRatio)
+            , air = air * current.airTransportRatio
             }
+                |> computeTransportCo2 (getRoadTransportProcess current) next.mass
     in
-    { current | transport = stepSummary |> Transport.addSummary initialSummary }
+    { current | transport = stepSummary |> Transport.addSummary (initialTransportSummary current) }
+
+
+computeTransportCo2 : Process -> Mass -> Transport -> Transport.Summary
+computeTransportCo2 roadProcess mass { road, sea, air } =
+    let
+        ( roadCo2, seaCo2, airCo2 ) =
+            ( roadProcess |> .climateChange |> (*) (Mass.inMetricTons mass) |> (*) road
+            , Process.seaTransport |> .climateChange |> (*) (Mass.inMetricTons mass) |> (*) sea
+            , Process.airTransport |> .climateChange |> (*) (Mass.inMetricTons mass) |> (*) air
+            )
+    in
+    { road = road
+    , sea = sea
+    , air = air
+    , co2 = roadCo2 + seaCo2 + airCo2
+    }
 
 
 initialTransportSummary : Step -> Transport.Summary
@@ -155,25 +151,8 @@ initialTransportSummary { label, mass } =
     case label of
         MaterialAndSpinning ->
             -- Apply initial Material to Spinning step transport data (see Excel)
-            let
-                { road, sea, air } =
-                    Transport.materialAndSpinningSummary
-            in
-            { road = road
-            , sea = sea
-            , air = air
-            , co2 =
-                (Process.roadTransportPreMaking
-                    |> .climateChange
-                    |> (*) (Mass.inMetricTons mass)
-                    |> (*) (toFloat road)
-                )
-                    + (Process.seaTransport
-                        |> .climateChange
-                        |> (*) (Mass.inMetricTons mass)
-                        |> (*) (toFloat sea)
-                      )
-            }
+            Transport.materialToSpinningTransport
+                |> computeTransportCo2 Process.roadTransportPreMaking mass
 
         _ ->
             { road = 0, sea = 0, air = 0, co2 = 0 }

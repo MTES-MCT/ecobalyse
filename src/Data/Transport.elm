@@ -7,7 +7,7 @@ import Json.Encode as Encode
 
 
 type alias Km =
-    Int
+    Float
 
 
 type alias Ratio =
@@ -50,15 +50,6 @@ addSummary sA sB =
         , sea = sA.sea + sB.sea
         , air = sA.air + sB.air
         , co2 = sA.co2 + sB.co2
-    }
-
-
-materialAndSpinningSummary : Summary
-materialAndSpinningSummary =
-    { road = materialToSpinningTransport.road
-    , sea = materialToSpinningTransport.sea
-    , air = materialToSpinningTransport.air
-    , co2 = 0
     }
 
 
@@ -205,17 +196,17 @@ toSummary { road, air, sea } =
 decodeSummary : Decoder Summary
 decodeSummary =
     Decode.map4 Summary
-        (Decode.field "road" Decode.int)
-        (Decode.field "air" Decode.int)
-        (Decode.field "sea" Decode.int)
+        (Decode.field "road" Decode.float)
+        (Decode.field "air" Decode.float)
+        (Decode.field "sea" Decode.float)
         (Decode.field "co2" Decode.float)
 
 
 encodeSummary : Summary -> Encode.Value
 encodeSummary summary =
     Encode.object
-        [ ( "road", Encode.int summary.road )
-        , ( "air", Encode.int summary.air )
-        , ( "sea", Encode.int summary.sea )
+        [ ( "road", Encode.float summary.road )
+        , ( "air", Encode.float summary.air )
+        , ( "sea", Encode.float summary.sea )
         , ( "co2", Encode.float summary.co2 )
         ]
