@@ -20,20 +20,22 @@ En première approche, il n'est pas proposé de combiner des matières, que ce s
 Matières et filatures sont des procédés indissociables dans la base Impacts
 {% endhint %}
 
-| Matières naturelles            | UUID procédé                         |
-| ------------------------------ | ------------------------------------ |
-| Plume de canard                | d1f06ea5-d63f-453a-8f98-55ce78ae7579 |
-| Fil de soie                    | 94b4b0e1-61e4-4f4d-b9b2-efe7623b0e68 |
-| Fil de lin (filasse)           | e5a6d538-f932-4242-98b4-3a0c6439629c |
-| Fil de lin (étoupe)            | fcef1a31-bb18-49e4-bdb6-e53dfe015ba0 |
-| Fil de laine de mouton Mérinos | 4e035dbf-f48b-4b5a-94ea-0006c713958b |
-| Fil de laine de mouton         | 376bd165-d354-41aa-a6e3-fd3228413bb2 |
-| Fil de laine de chameau        | c191a4dd-5080-4eb6-9c59-b13c943327bc |
-| Fil de jute                    | 72010874-4d26-4c7a-95de-c6987dfdedeb |
-| Fil de coton conventionnel     | f211bbdb-415c-46fd-be4d-ddf199575b44 |
-| Fil de chanvre                 | 08601439-f338-4f94-ac8c-538061b65d16 |
-| Fil de cachemire               | 380c0d9c-2840-4390-bd3f-5c960f26f5ed |
-| Fibres de kapok                | 36cdbfc4-3f48-47b0-8ae0-294bb6017df1 |
+| Matières naturelles            | UUID procédé                         | Géographie considérée (base Impacts) | Pays de filature considéré (cf. Transport) |
+| ------------------------------ | ------------------------------------ | ------------------------------------ | ------------------------------------------ |
+| Plume de canard                | d1f06ea5-d63f-453a-8f98-55ce78ae7579 | à préciser                           | Chine                                      |
+| Fil de soie                    | 94b4b0e1-61e4-4f4d-b9b2-efe7623b0e68 | à préciser                           | Chine                                      |
+| Fil de lin (filasse)           | e5a6d538-f932-4242-98b4-3a0c6439629c | à préciser                           | Chine                                      |
+| Fil de lin (étoupe)            | fcef1a31-bb18-49e4-bdb6-e53dfe015ba0 | à préciser                           | Chine                                      |
+| Fil de laine de mouton Mérinos | 4e035dbf-f48b-4b5a-94ea-0006c713958b | à préciser                           | Chine                                      |
+| Fil de laine de mouton         | 376bd165-d354-41aa-a6e3-fd3228413bb2 | à préciser                           | Chine                                      |
+| Fil de laine de chameau        | c191a4dd-5080-4eb6-9c59-b13c943327bc | à préciser                           | Chine                                      |
+| Fil de jute                    | 72010874-4d26-4c7a-95de-c6987dfdedeb | à préciser                           | Chine                                      |
+| Fil de coton conventionnel     | f211bbdb-415c-46fd-be4d-ddf199575b44 | Asie                                 | Chine                                      |
+| Fil de chanvre                 | 08601439-f338-4f94-ac8c-538061b65d16 | à préciser                           | Chine                                      |
+| Fil de cachemire               | 380c0d9c-2840-4390-bd3f-5c960f26f5ed | à préciser                           | Chine                                      |
+| Fibres de kapok                | 36cdbfc4-3f48-47b0-8ae0-294bb6017df1 | à préciser                           | Chine                                      |
+
+
 
 | Matières synthétiques                           | UUID procédé                         |
 | ----------------------------------------------- | ------------------------------------ |

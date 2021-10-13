@@ -12,14 +12,16 @@ Le transport considéré est la somme des transports à prévoir entre chaque é
 
 Entre chaque étape, la masse à considérer est ajustée en fonction des [Pertes et rebus](pertes-et-rebus.md).
 
-| #Etape | De                | Vers                        | Masse de produit considéré |
-| ------ | ----------------- | --------------------------- | -------------------------- |
-| 1.     | Matière           | Filature                    | Matière première           |
-| 2.     | Filature          | Tissage/tricotage           | Matière première           |
-| 3.     | Tissage/tricotage | Teinture                    | Fil                        |
-| 4.     | Teinture          | Confection                  | Etoffe                     |
-| 5.     | Confection        | Entrepôt                    | Habit                      |
-| 6.     | Entrepôt          | Magasin ou Point de retrait | Habit                      |
+| #Etape | De                                                                                              | Vers                                                                                            | Masse de produit considéré |
+| ------ | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | -------------------------- |
+| 1.     | <p>Matière</p><p>Pays défini par défaut dans <a href="filature.md">Matière et filature</a></p>  | <p>Filature</p><p>Pays défini par défaut dans <a href="filature.md">Matière et filature</a></p> | Matière première           |
+| 2.     | <p>Filature</p><p>Pays défini par défaut dans <a href="filature.md">Matière et filature</a></p> | <p>Tissage/tricotage</p><p>Pays*</p>                                                            | Matière première           |
+| 3.     | <p>Tissage/tricotage</p><p>Pays*</p>                                                            | <p>Teinture</p><p>Pays*</p>                                                                     | Fil                        |
+| 4.     | <p>Teinture</p><p>Pays*</p>                                                                     | <p>Confection</p><p>Pays*</p>                                                                   | Etoffe                     |
+| 5.     | <p>Confection</p><p>Pays*</p>                                                                   | <p>Entrepôt</p><p>Pays : France</p>                                                             | Habit                      |
+| 6.     | <p>Entrepôt</p><p>Pays : France</p>                                                             | <p>Magasin ou Point de retrait</p><p>Pays : France</p>                                          | Habit                      |
+
+\*Pays paramétré directement dans le calculateur.
 
 $$
 ImpactTransport = ImpacTansport1 + ... + ImpactTransport6
@@ -98,6 +100,15 @@ Application à Inde - Bangladesh :
 | t      | Pays Y |
 | ------ | ------ |
 | Pays Z | 0%     |
+
+
+
+* Cas particulier des étapes 1 (Matière première --> Filature) et 2 (Filature --> Tricotage / Tissage)
+
+| Etape                                      | Distance terrestre                                                                                                                            | Distance maritime                                                                                                                             |
+| ------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| Etape 1 (Matière première --> Filature)    | 2 000 km                                                                                                                                      | 4 000 km                                                                                                                                      |
+| Etape 2 (Filature --> Tricotage / Tissage) | Distance par défaut entre le pays de Tricotage / Tissage et le pays par défaut attaché à la filature (cf. [Matière et filature](filature.md)) | Distance par défaut entre le pays de Tricotage / Tissage et le pays par défaut attaché à la filature (cf. [Matière et filature](filature.md)) |
 
 ### Part du transport aérien
 
