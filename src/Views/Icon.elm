@@ -99,6 +99,11 @@ study =
     icon "study"
 
 
+warning : Html msg
+warning =
+    icon "warning"
+
+
 zoomin : Html msg
 zoomin =
     icon "zoomin"

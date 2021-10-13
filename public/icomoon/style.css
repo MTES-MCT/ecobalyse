@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?i2jrdd');
-  src:  url('fonts/icomoon.eot?i2jrdd#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?i2jrdd') format('truetype'),
-    url('fonts/icomoon.woff?i2jrdd') format('woff'),
-    url('fonts/icomoon.svg?i2jrdd#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?59yucs');
+  src:  url('fonts/icomoon.eot?59yucs#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?59yucs') format('truetype'),
+    url('fonts/icomoon.woff?59yucs') format('woff'),
+    url('fonts/icomoon.svg?59yucs#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -54,6 +54,9 @@
 }
 .icon-exclamation:before {
   content: "\f06a";
+}
+.icon-warning:before {
+  content: "\f071";
 }
 .icon-plane:before {
   content: "\f072";
