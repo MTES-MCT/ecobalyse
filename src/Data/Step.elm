@@ -38,8 +38,7 @@ type alias ProcessInfo =
 
 
 type Label
-    = Default
-    | MaterialAndSpinning -- Matière & Filature
+    = MaterialAndSpinning -- Matière & Filature
     | WeavingKnitting -- Tissage & Tricotage
     | Ennoblement -- Ennoblement
     | Making -- Confection
@@ -247,7 +246,7 @@ dyeingWeightingToString dyeingWeighting =
 decode : Decoder Step
 decode =
     Decode.succeed Step
-        |> Pipe.required "label" (Decode.map labelFromString Decode.string)
+        |> Pipe.required "label" decodeLabel
         |> Pipe.required "country" Country.decode
         |> Pipe.required "editable" Decode.bool
         |> Pipe.required "mass" (Decode.map Mass.kilograms Decode.float)
@@ -259,6 +258,20 @@ decode =
         |> Pipe.required "processInfo" decodeProcessInfo
         |> Pipe.required "dyeingWeighting" Decode.float
         |> Pipe.required "airTransportRatio" Decode.float
+
+
+decodeLabel : Decoder Label
+decodeLabel =
+    Decode.string
+        |> Decode.andThen
+            (\label ->
+                case labelFromString label of
+                    Just decoded ->
+                        Decode.succeed decoded
+
+                    Nothing ->
+                        Decode.fail ("Invalid step : " ++ label)
+            )
 
 
 encode : Step -> Encode.Value
@@ -300,9 +313,6 @@ encodeProcessInfo v =
 labelToString : Label -> String
 labelToString label =
     case label of
-        Default ->
-            "Par défaut"
-
         MaterialAndSpinning ->
             "Matière & Filature"
 
@@ -319,45 +329,42 @@ labelToString label =
             "Distribution"
 
 
-labelFromString : String -> Label
+labelFromString : String -> Maybe Label
 labelFromString label =
     case label of
         "Matière & Filature" ->
-            MaterialAndSpinning
+            Just MaterialAndSpinning
 
         "Tissage & Tricotage" ->
-            WeavingKnitting
+            Just WeavingKnitting
 
         "Confection" ->
-            Making
+            Just Making
 
         "Teinture" ->
-            Ennoblement
+            Just Ennoblement
 
         "Distribution" ->
-            Distribution
+            Just Distribution
 
         _ ->
-            Default
-
-
-getStepGitbookPath : Label -> Maybe Gitbook.Path
-getStepGitbookPath label =
-    case label of
-        Default ->
             Nothing
 
+
+getStepGitbookPath : Label -> Gitbook.Path
+getStepGitbookPath label =
+    case label of
         MaterialAndSpinning ->
-            Just Gitbook.MaterialAndSpinning
+            Gitbook.MaterialAndSpinning
 
         WeavingKnitting ->
-            Just Gitbook.WeavingKnitting
+            Gitbook.WeavingKnitting
 
         Ennoblement ->
-            Just Gitbook.Dyeing
+            Gitbook.Dyeing
 
         Making ->
-            Just Gitbook.Making
+            Gitbook.Making
 
         Distribution ->
-            Just Gitbook.Distribution
+            Gitbook.Distribution

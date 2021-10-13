@@ -81,18 +81,13 @@ dyeingWeightingField { current, updateDyeingWeighting } =
 
 documentationLink : Config msg -> Step.Label -> Html msg
 documentationLink { openDocModal } label =
-    case Step.getStepGitbookPath label of
-        Just gitbookPath ->
-            button
-                [ class "btn btn-sm btn-primary rounded-pill fs-7 py-0"
-                , onClick (openDocModal gitbookPath)
-                ]
-                [ span [ class "align-middle" ] [ Icon.question ]
-                , span [] [ text " docs" ]
-                ]
-
-        Nothing ->
-            text ""
+    button
+        [ class "btn btn-sm btn-primary rounded-pill fs-7 py-0"
+        , onClick (openDocModal (Step.getStepGitbookPath label))
+        ]
+        [ span [ class "align-middle" ] [ Icon.question ]
+        , span [] [ text " docs" ]
+        ]
 
 
 simpleView : Config msg -> Html msg
