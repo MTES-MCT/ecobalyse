@@ -54,7 +54,7 @@ type Msg
     | CopyToClipBoard String
     | ModalContentReceived (WebData Gitbook.Page)
     | NoOp
-    | OpenDocModal String
+    | OpenDocModal Gitbook.Path
     | Reset
     | SwitchMode DisplayMode
     | UpdateAirTransportRatio (Maybe Float)
@@ -403,7 +403,7 @@ modalView modal =
                     ]
                 , footer =
                     [ div [ class "text-end" ]
-                        [ Link.external [ href <| Gitbook.publicUrl gitbookPage.path ]
+                        [ Link.external [ href <| Gitbook.publicUrlFromPath gitbookPage.path ]
                             [ text "Ouvrir cette page sur le site de documentation Wikicarbone"
                             ]
                         ]

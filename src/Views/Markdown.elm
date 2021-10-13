@@ -10,11 +10,6 @@ import Views.Icon as Icon
 import Views.Link as Link
 
 
-gitbookUrlPathPrefixes : List String
-gitbookUrlPathPrefixes =
-    [ "faq", "glossaire", "methodologie" ]
-
-
 clean : String -> String
 clean =
     String.split "\n\n" >> List.map String.trim >> String.join "\n\n"
@@ -63,11 +58,7 @@ renderLink : { title : Maybe String, destination : String } -> List (Html msg) -
 renderLink { title, destination } =
     let
         destination_ =
-            if gitbookUrlPathPrefixes |> List.any (\x -> String.startsWith x destination) then
-                Gitbook.publicUrl destination
-
-            else
-                destination
+            Gitbook.handleMarkdownGitbookLink destination
 
         attrs =
             List.filterMap identity

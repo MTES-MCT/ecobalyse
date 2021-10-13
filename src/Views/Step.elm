@@ -1,6 +1,7 @@
 module Views.Step exposing (..)
 
 import Data.Country as Country exposing (Country)
+import Data.Gitbook as Gitbook
 import Data.Product exposing (Product)
 import Data.Step as Step exposing (Step)
 import Energy
@@ -19,7 +20,7 @@ type alias Config msg =
     , product : Product
     , current : Step
     , next : Maybe Step
-    , openDocModal : String -> msg
+    , openDocModal : Gitbook.Path -> msg
     , updateCountry : Int -> Country -> msg
     , updateDyeingWeighting : Maybe Float -> msg
     , updateAirTransportRatio : Maybe Float -> msg
@@ -80,32 +81,11 @@ dyeingWeightingField { current, updateDyeingWeighting } =
 
 documentationLink : Config msg -> Step.Label -> Html msg
 documentationLink { openDocModal } label =
-    let
-        path =
-            case label of
-                Step.Default ->
-                    Nothing
-
-                Step.MaterialAndSpinning ->
-                    Just "methodologie/filature"
-
-                Step.WeavingKnitting ->
-                    Just "methodologie/tricotage-tissage"
-
-                Step.Ennoblement ->
-                    Just "methodologie/teinture"
-
-                Step.Making ->
-                    Just "methodologie/confection"
-
-                Step.Distribution ->
-                    Just "methodologie/distribution"
-    in
-    case path of
-        Just path_ ->
+    case Step.getStepGitbookPath label of
+        Just gitbookPath ->
             button
                 [ class "btn btn-sm btn-primary rounded-pill fs-7 py-0"
-                , onClick (openDocModal path_)
+                , onClick (openDocModal gitbookPath)
                 ]
                 [ span [ class "align-middle" ] [ Icon.question ]
                 , span [] [ text " docs" ]
@@ -174,7 +154,7 @@ simpleView ({ product, index, current } as config) =
         ]
 
 
-documentationPillLink : Config msg -> String -> Html msg
+documentationPillLink : Config msg -> Gitbook.Path -> Html msg
 documentationPillLink { openDocModal } path =
     button
         [ class "btn btn-sm text-secondary text-decoration-none btn-link p-0 ms-1"
@@ -255,7 +235,7 @@ detailedView ({ product, index, next, current } as config) =
                     , span [ class "d-flex align-items-center" ]
                         [ span [ class "me-1" ] [ text "Perte" ]
                         , Format.kg current.waste
-                        , documentationPillLink config "methodologie/pertes-et-rebus"
+                        , documentationPillLink config Gitbook.Waste
                         ]
                     ]
                 , if Energy.inKilojoules current.heat > 0 || Energy.inKilowattHours current.kwh > 0 then
@@ -263,12 +243,12 @@ detailedView ({ product, index, next, current } as config) =
                         [ span [ class "d-flex align-items-center" ]
                             [ span [ class "me-1" ] [ text "Chaleur" ]
                             , Format.megajoules current.heat
-                            , documentationPillLink config "methodologie/chaleur"
+                            , documentationPillLink config Gitbook.Heat
                             ]
                         , span [ class "d-flex align-items-center" ]
                             [ span [ class "me-1" ] [ text "Électricité" ]
                             , Format.kilowattHours current.kwh
-                            , documentationPillLink config "methodologie/electricite"
+                            , documentationPillLink config Gitbook.Electricity
                             ]
                         ]
 
@@ -279,7 +259,7 @@ detailedView ({ product, index, next, current } as config) =
                 , li [ class "list-group-item text-muted d-flex justify-content-center align-items-center" ]
                     [ strong [] [ text <| transportLabel ++ "\u{00A0}:\u{00A0}" ]
                     , Format.kgCo2 3 current.transport.co2
-                    , documentationPillLink config "methodologie/transport"
+                    , documentationPillLink config Gitbook.Transport
                     ]
                 ]
             ]

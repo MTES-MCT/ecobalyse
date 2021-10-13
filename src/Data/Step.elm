@@ -2,6 +2,7 @@ module Data.Step exposing (..)
 
 import Data.Country as Country exposing (Country)
 import Data.CountryProcess as CountryProcess
+import Data.Gitbook as Gitbook
 import Data.Inputs exposing (Inputs)
 import Data.Process as Process exposing (Process)
 import Data.Transport as Transport exposing (Transport)
@@ -338,3 +339,25 @@ labelFromString label =
 
         _ ->
             Default
+
+
+getStepGitbookPath : Label -> Maybe Gitbook.Path
+getStepGitbookPath label =
+    case label of
+        Default ->
+            Nothing
+
+        MaterialAndSpinning ->
+            Just Gitbook.MaterialAndSpinning
+
+        WeavingKnitting ->
+            Just Gitbook.WeavingKnitting
+
+        Ennoblement ->
+            Just Gitbook.Dyeing
+
+        Making ->
+            Just Gitbook.Making
+
+        Distribution ->
+            Just Gitbook.Distribution

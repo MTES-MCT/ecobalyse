@@ -7,8 +7,51 @@ type alias Page =
     { title : String
     , description : Maybe String
     , markdown : String
-    , path : String
+    , path : Path
     }
+
+
+type Path
+    = MaterialAndSpinning -- Matière & filature
+    | WeavingKnitting -- Tissage/Tricotage
+    | Dyeing -- Teinture
+    | Making -- Confection
+    | Distribution -- Distribution
+    | Electricity -- Électricité
+    | Transport -- Transport
+    | Heat -- Chaleur
+    | Waste -- Pertes et rebus
+
+
+pathToString : Path -> String
+pathToString path =
+    case path of
+        MaterialAndSpinning ->
+            "methodologie/filature"
+
+        WeavingKnitting ->
+            "methodologie/tricotage-tissage"
+
+        Dyeing ->
+            "methodologie/teinture"
+
+        Making ->
+            "methodologie/confection"
+
+        Distribution ->
+            "methodologie/distribution"
+
+        Electricity ->
+            "methodologie/electricite"
+
+        Transport ->
+            "methodologie/transport"
+
+        Heat ->
+            "methodologie/chaleur"
+
+        Waste ->
+            "methodologie/pertes-et-rebus"
 
 
 transformMarkdown : String -> String
@@ -22,7 +65,7 @@ transformMarkdown =
         >> String.replace "{% endhint %}" "</hint>"
 
 
-fromMarkdown : String -> String -> Page
+fromMarkdown : Path -> String -> Page
 fromMarkdown path markdown =
     let
         blocks =
@@ -64,9 +107,28 @@ fromMarkdown path markdown =
     }
 
 
-publicUrl : String -> String
-publicUrl path =
+pathPrefixes : List String
+pathPrefixes =
+    [ "faq", "glossaire", "methodologie" ]
+
+
+publicUrlFromPath : Path -> String
+publicUrlFromPath =
+    pathToString >> publicUrlFromString
+
+
+publicUrlFromString : String -> String
+publicUrlFromString path =
     "https://fabrique-numerique.gitbook.io/wikicarbone/" ++ path
+
+
+handleMarkdownGitbookLink : String -> String
+handleMarkdownGitbookLink link =
+    if List.any (\x -> String.startsWith x link) pathPrefixes then
+        publicUrlFromString link
+
+    else
+        link
 
 
 decodeMaybeString : Decoder (Maybe String)
@@ -87,7 +149,7 @@ decodeMaybeString =
             )
 
 
-decodePage : String -> Decoder Page
+decodePage : Path -> Decoder Page
 decodePage path =
     Decode.map4 Page
         (Decode.field "title" Decode.string)
