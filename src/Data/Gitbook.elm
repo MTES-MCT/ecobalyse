@@ -133,26 +133,29 @@ handleMarkdownGitbookLink maybePath link =
         case maybePath of
             Just path ->
                 -- check for current folder, eg. "filature.md", "../faq.md", "methodologie/transport.md"
-                let
-                    folder =
-                        case path |> pathToString |> String.split "/" of
-                            x :: _ ->
-                                if x == ".." then
-                                    []
-
-                                else
-                                    [ x ]
-
-                            _ ->
-                                []
-                in
-                publicUrlFromString (folder ++ [ String.replace ".md" "" link ] |> String.join "/")
+                (extractLinkFolder path ++ [ String.replace ".md" "" link ])
+                    |> String.join "/"
+                    |> publicUrlFromString
 
             Nothing ->
                 publicUrlFromString link
 
     else
         link
+
+
+extractLinkFolder : Path -> List String
+extractLinkFolder path =
+    case String.split "/" (pathToString path) of
+        folder :: _ ->
+            if folder == ".." then
+                []
+
+            else
+                [ folder ]
+
+        _ ->
+            []
 
 
 decodeMaybeString : Decoder (Maybe String)
