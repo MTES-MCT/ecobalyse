@@ -21,6 +21,7 @@ import RemoteData exposing (WebData)
 import Request.Common as HttpCommon
 import Request.Gitbook as GitbookApi
 import Route exposing (Route(..))
+import Views.Comparator as ComparatorView
 import Views.Container as Container
 import Views.Icon as Icon
 import Views.Link as Link
@@ -442,6 +443,7 @@ view session ({ displayMode, simulator } as model) =
                 , div [ class "col-lg-5" ]
                     [ div [ class "d-flex flex-column gap-3 mb-3 sticky-md-top", style "top" "7px" ]
                         [ div [ class "Summary" ] [ SummaryView.view False simulator ]
+                        , ComparatorView.view simulator
                         , feedbackView
                         , shareLinkView session model
                         ]
