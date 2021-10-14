@@ -71,7 +71,24 @@ view ({ simulator } as config) =
             , documentationPillLink config Gitbook.ComparativeScale
             ]
         , div [ class "card-body" ]
-            [ div [ class "progress rounded-0" ]
+            [ if p <= 50 then
+                div
+                    [ class "text-muted ps-1"
+                    , style "font-size" ".75em"
+                    , style "border-left" "1px solid #bbb"
+                    , style "margin-left" <| String.fromFloat p ++ "%"
+                    ]
+                    [ Format.kgCo2 2 simulator.co2 ]
+
+              else
+                div
+                    [ class "text-muted text-end pe-1"
+                    , style "font-size" ".75em"
+                    , style "border-right" "1px solid #bbb"
+                    , style "width" <| String.fromFloat p ++ "%"
+                    ]
+                    [ Format.kgCo2 2 simulator.co2 ]
+            , div [ class "progress rounded-0 mt-0" ]
                 [ div
                     [ class "progress-bar progress-bar-striped progress-bar-animated"
                     , style "background-color" (pColor p)
