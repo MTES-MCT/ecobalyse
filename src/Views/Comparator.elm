@@ -59,11 +59,10 @@ view ({ simulator } as config) =
         scale =
             bad.co2 - good.co2
 
-        point =
-            co2 - good.co2
-
-        p =
-            point / scale * 100
+        ( p, pMiddle ) =
+            ( (co2 - good.co2) / scale * 100
+            , (middle.co2 - good.co2) / scale * 100
+            )
     in
     div [ class "card" ]
         [ div [ class "card-header" ]
@@ -72,9 +71,9 @@ view ({ simulator } as config) =
             , documentationPillLink config Gitbook.ComparativeScale
             ]
         , div [ class "card-body" ]
-            [ div [ class "progress" ]
+            [ div [ class "progress rounded-0" ]
                 [ div
-                    [ class "progress-bar progress-bar-animated"
+                    [ class "progress-bar progress-bar-striped progress-bar-animated"
                     , style "background-color" (pColor p)
                     , style "filter" "brightness(0.9)"
                     , style "filter" "saturate(1)"
@@ -82,20 +81,36 @@ view ({ simulator } as config) =
                     ]
                     []
                 ]
+            , div [ class "d-flex" ]
+                [ div
+                    [ style "width" <| String.fromFloat pMiddle ++ "%"
+                    , style "height" ".65em"
+                    , style "border-left" "1px solid #bbb"
+                    ]
+                    []
+                , div
+                    [ class "flex-fill"
+                    , style "height" ".65em"
+                    , style "border-left" "1px solid #bbb"
+                    ]
+                    []
+                , div
+                    [ style "height" ".65em"
+                    , style "border-right" "1px solid #bbb"
+                    ]
+                    []
+                ]
             , div [ class "d-flex justify-content-between fs-7" ]
-                [ span [ class "text-center" ]
-                    [ text "Circuit France"
-                    , br [] []
+                [ div [ class "text-center" ]
+                    [ div [] [ text "Circuit France" ]
                     , Format.kgCo2 2 good.co2
                     ]
-                , span [ class "text-center" ]
-                    [ text "Circuit Turquie moyen"
-                    , br [] []
+                , div [ class "text-center" ]
+                    [ div [] [ text "Circuit Turquie moyen" ]
                     , Format.kgCo2 2 middle.co2
                     ]
-                , span [ class "text-center" ]
-                    [ text "Circuit Inde majorant"
-                    , br [] []
+                , div [ class "text-center" ]
+                    [ div [] [ text "Circuit Inde majorant" ]
                     , Format.kgCo2 2 bad.co2
                     ]
                 ]
