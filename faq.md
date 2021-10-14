@@ -12,11 +12,11 @@ Si vous avez d'autres interrogations, vous pouvez également nous les adresser [
 
 On y travaille !
 
-Les vêtements proposés en première approche sont ceux qui sont introduits dans la méthodologie ADEME ([http://www.base-impacts.ademe.fr](http://www.base-impacts.ademe.fr/#)).
+Les vêtements proposés en première approche sont ceux qui sont introduits dans la [méthodologie ADEME](http://www.base-impacts.ademe.fr).
 
 Il est possible d'en rajouter au besoin, si des informations sont fournies les concernant (taux de chute en confection ? tissage ou tricotage ?...).
 
-Merci de nous contacter dans ce but.
+Merci de [nous contacter](mailto:wikicarbone@beta.gouv.fr) dans ce but.
 
 ### Je ne peux pas choisir le cuir
 
@@ -25,8 +25,6 @@ Le cuir n'est pas proposé parmi les matières référencées dans la base Impac
 La prise en compte du cuir nécessiterait d'introduire un nouveau procédé pour couvrir cette matière. Aidez-nous à le faire ? Peut-on reprendre un procédé "chaussure" ? Des ACV publiques existent-elles ?...
 
 On y travaille !
-
-
 
 ### Seul l'impact CO2 est pris en compte
 
@@ -47,6 +45,3 @@ C'est normal, nous mettons à jour notre référentiel de données et affinons n
 {% hint style="info" %}
 Si vous avez d'autres interrogations, vous pouvez également nous les adresser [par email](mailto:wikicarbone@beta.gouv.fr).
 {% endhint %}
-
-
-
