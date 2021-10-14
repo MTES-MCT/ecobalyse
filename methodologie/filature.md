@@ -14,10 +14,8 @@ Les matières proposées dans le calculateur sont les matières des les impacts 
 
 {% hint style="danger" %}
 En première approche, il n'est pas proposé de combiner des matières, que ce soit pour modéliser un vêtement multi-matières ou pour prendre en compte l'intégration partielle de matières recyclées (exemple : coton 50% recyclé). Ces points pourront faire l'objet de compléments ultérieurs.
-{% endhint %}
 
-{% hint style="danger" %}
-Matières et filatures sont des procédés indissociables dans la base Impacts
+D'autre part, matières et filatures sont des procédés indissociables dans la [base Impacts](http://www.base-impacts.ademe.fr).
 {% endhint %}
 
 | Matières naturelles            | UUID procédé                         | Géographie considérée (base Impacts) | Pays de filature considéré (cf. Transport) |
@@ -115,6 +113,6 @@ Plus de détail sur la gestion des masses : [Pertes et rebus](pertes-et-rebus.md
 A prévoir :
 
 * Intégration de vêtements multi-matière
-* Intégration d'une combinaise de matière, notamment une part de matière recyclée
-* Prise en compte de la Circular Footprint Formula du projet de PEFCR Apparel & Footwear
+* Intégration d'une combinaison de matière, notamment une part de matière recyclée
+* Prise en compte de la _Circular Footprint Formula_ du projet de _PEFCR Apparel & Footwear_
 * Chercher à distinguer matières et filature pour pouvoir moduler ces deux étapes, et notamment la filature, en fonction du pays concerné
