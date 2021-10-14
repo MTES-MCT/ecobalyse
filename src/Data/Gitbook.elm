@@ -63,6 +63,8 @@ transformMarkdown =
         >> String.replace "{% hint style=\"warning\" %}" "<hint level=\"warning\">"
         >> String.replace "{% hint style=\"info\" %}" "<hint level=\"info\">"
         >> String.replace "{% endhint %}" "</hint>"
+        -- Typography
+        >> String.replace "-->" "→"
 
 
 fromMarkdown : Path -> String -> Page
@@ -122,10 +124,32 @@ publicUrlFromString path =
     "https://fabrique-numerique.gitbook.io/wikicarbone/" ++ path
 
 
-handleMarkdownGitbookLink : String -> String
-handleMarkdownGitbookLink link =
+handleMarkdownGitbookLink : Maybe Path -> String -> String
+handleMarkdownGitbookLink maybePath link =
     if List.any (\x -> String.startsWith x link) pathPrefixes then
         publicUrlFromString link
+
+    else if String.endsWith ".md" link then
+        case maybePath of
+            Just path ->
+                -- check for current folder, eg. "filature.md", "../faq.md", "methodologie/transport.md"
+                let
+                    folder =
+                        case path |> pathToString |> String.split "/" of
+                            x :: _ ->
+                                if x == ".." then
+                                    []
+
+                                else
+                                    [ x ]
+
+                            _ ->
+                                []
+                in
+                publicUrlFromString (folder ++ [ String.replace ".md" "" link ] |> String.join "/")
+
+            Nothing ->
+                publicUrlFromString link
 
     else
         link

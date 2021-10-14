@@ -10,22 +10,33 @@ import Views.Icon as Icon
 import Views.Link as Link
 
 
+type ContentType
+    = Simple String
+    | Gitbook Gitbook.Page
+
+
 clean : String -> String
 clean =
     String.split "\n\n" >> List.map String.trim >> String.join "\n\n"
 
 
-renderer : Renderer (Html msg)
-renderer =
+renderer : Maybe Gitbook.Path -> Renderer (Html msg)
+renderer maybePath =
     { defaultHtmlRenderer
-        | link = renderLink
+        | link = renderLink maybePath
         , image = renderImage
         , html =
             MdHtml.oneOf
                 [ MdHtml.tag "hint" renderHint
                     |> MdHtml.withAttribute "level"
-                , MdHtml.tag "p" (p [ class "mb-1" ]) -- NOTE: sometimes gitbook exposes raw HTML in markdown
-                , MdHtml.tag "em" (em []) -- NOTE: sometimes gitbook exposes raw HTML in markdown
+
+                -- NOTE: sometimes gitbook exposes raw HTML in markdown
+                , MdHtml.tag "p" (p [ class "mb-1" ])
+                , MdHtml.tag "em" (em [])
+                , MdHtml.tag "a"
+                    (\href title -> renderLink maybePath { title = title, destination = href })
+                    |> MdHtml.withAttribute "href"
+                    |> MdHtml.withOptionalAttribute "title"
                 ]
     }
 
@@ -54,11 +65,11 @@ renderHint level content =
         ]
 
 
-renderLink : { title : Maybe String, destination : String } -> List (Html msg) -> Html msg
-renderLink { title, destination } =
+renderLink : Maybe Gitbook.Path -> { title : Maybe String, destination : String } -> List (Html msg) -> Html msg
+renderLink maybePath { title, destination } =
     let
         destination_ =
-            Gitbook.handleMarkdownGitbookLink destination
+            Gitbook.handleMarkdownGitbookLink maybePath destination
 
         attrs =
             List.filterMap identity
@@ -89,14 +100,19 @@ renderImage { title, src, alt } =
         []
 
 
-view : List (Attribute msg) -> String -> Html msg
-view attrs markdown =
-    case
-        clean markdown
-            |> Parser.parse
-            |> Result.mapError (List.map Parser.deadEndToString >> String.join "\n")
-            |> Result.andThen (Markdown.Renderer.render renderer)
-    of
+gitbook : List (Attribute msg) -> Gitbook.Page -> Html msg
+gitbook attrs page =
+    view attrs (Gitbook page)
+
+
+simple : List (Attribute msg) -> String -> Html msg
+simple attrs markdown =
+    view attrs (Simple markdown)
+
+
+view : List (Attribute msg) -> ContentType -> Html msg
+view attrs content =
+    case parse content of
         Ok rendered ->
             div ([ class "Markdown bottomed-paragraphs" ] ++ attrs) rendered
 
@@ -105,3 +121,20 @@ view attrs markdown =
                 [ p [] [ text "Des erreurs ont été rencontrées\u{00A0}:" ]
                 , pre [] [ text errors ]
                 ]
+
+
+parse : ContentType -> Result String (List (Html msg))
+parse content =
+    let
+        ( markdown, path ) =
+            case content of
+                Simple string ->
+                    ( string, Nothing )
+
+                Gitbook page ->
+                    ( page.markdown, Just page.path )
+    in
+    clean markdown
+        |> Parser.parse
+        |> Result.mapError (List.map Parser.deadEndToString >> String.join "\n")
+        |> Result.andThen (Markdown.Renderer.render (renderer path))

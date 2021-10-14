@@ -77,7 +77,7 @@ view _ { state } =
                 [ h1 [ class "mb-3" ] [ text "Méthodologie" ]
                 , article [ class "row justify-content-center" ]
                     [ content
-                        |> Markdown.view
+                        |> Markdown.simple
                             [ style "columns" "30em"
                             , style "column-gap" "40px"
                             ]

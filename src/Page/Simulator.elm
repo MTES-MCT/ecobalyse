@@ -398,8 +398,7 @@ modalView modal =
                             ]
 
                       else
-                        gitbookPage.markdown
-                            |> MarkdownView.view [ class "GitbookContent" ]
+                        MarkdownView.gitbook [ class "GitbookContent" ] gitbookPage
                     ]
                 , footer =
                     [ div [ class "text-end" ]

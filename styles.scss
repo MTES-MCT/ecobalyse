@@ -256,6 +256,17 @@ blockquote {
 
         td {
           padding: .5em .5em;
+          p {
+            margin: 0;
+            a {
+              p {
+                // Note: This is because of two bugs:
+                // - Gitbook markdown exposes raw HTML within cells (paragraphs)
+                // - elm-markdown transforms all link node children as paragraphs
+                display: inline;
+              }
+            }
+          }
         }
       }
     }

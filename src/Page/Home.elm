@@ -92,7 +92,7 @@ view _ _ =
                         |> Column.add [ class "text-center px-lg-4" ]
                             [ h3 [ class "fw-light" ] [ span [ class "align-middle text-primary me-2" ] [ Icon.build ], text "Un projet en construction" ]
                             , hr [] []
-                            , Markdown.view [] """Incubé par la Fabrique Numérique du Ministère de la Transition Écologique et
+                            , Markdown.simple [] """Incubé par la Fabrique Numérique du Ministère de la Transition Écologique et
                             [beta.gouv.fr](https://beta.gouv.fr/startups/wikicarbone.html), ce projet est en phase de construction depuis
                             le 1er juillet 2021.
 
@@ -101,7 +101,7 @@ view _ _ =
                         |> Column.add [ class "text-center px-lg-4" ]
                             [ h3 [ class "fw-light" ] [ span [ class "align-middle text-primary me-2" ] [ Icon.study ], text "Un outil pédagogique" ]
                             , hr [] []
-                            , Markdown.view [] """pour comprendre les **impacts environnementaux de nos produits**,
+                            , Markdown.simple [] """pour comprendre les **impacts environnementaux de nos produits**,
                             en s'appuyant sur les **méthodes de référence** (Base Impacts ADEME, PEF européen).
 
                             Il doit être **accessible à tous**, y compris des PME/TPE voire des consommateurs curieux."""
@@ -109,7 +109,7 @@ view _ _ =
                         |> Column.add [ class "text-center px-lg-4" ]
                             [ h3 [ class "fw-light" ] [ span [ class "align-middle text-primary me-2" ] [ Icon.globe ], text "Un commun numérique" ]
                             , hr [] []
-                            , Markdown.view [] """**Les producteurs et les entreprises textiles connaissent leurs produits**.
+                            , Markdown.simple [] """**Les producteurs et les entreprises textiles connaissent leurs produits**.
 
                             Au travers d'un **outil collaboratif**, leurs contributions sont nécessaires pour comprendre et évaluer au mieux les impacts."""
                             ]
