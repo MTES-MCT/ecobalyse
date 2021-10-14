@@ -79,6 +79,14 @@ updateStepCountry index country inputs =
 
             else
                 inputs.dyeingWeighting
+        , airTransportRatio =
+            -- FIXME: index 3 is Making step; how could we use th step label instead?
+            if index == 3 && Array.get index (Array.fromList inputs.countries) /= Just country then
+                -- reset custom value as we just switched country
+                Nothing
+
+            else
+                inputs.airTransportRatio
     }
 
 
