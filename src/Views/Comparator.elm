@@ -1,16 +1,37 @@
 module Views.Comparator exposing (..)
 
 import Data.Country exposing (..)
+import Data.Gitbook as Gitbook
 import Data.Material as Material
 import Data.Simulator as Simulator exposing (Simulator)
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import Html.Events exposing (..)
 import Views.Format as Format
+import Views.Icon as Icon
 
 
-view : Simulator -> Html msg
-view { inputs, co2 } =
+type alias Config msg =
+    { simulator : Simulator
+    , openDocModal : Gitbook.Path -> msg
+    }
+
+
+documentationPillLink : Config msg -> Gitbook.Path -> Html msg
+documentationPillLink { openDocModal } path =
+    button
+        [ class "btn btn-sm text-secondary text-decoration-none btn-link p-0 ms-1"
+        , onClick (openDocModal path)
+        ]
+        [ Icon.question ]
+
+
+view : Config msg -> Html msg
+view ({ simulator } as config) =
     let
+        { inputs, co2 } =
+            simulator
+
         good =
             Simulator.compute
                 { inputs
@@ -48,6 +69,7 @@ view { inputs, co2 } =
         [ div [ class "card-header" ]
             [ text <| "Comparaison pour " ++ inputs.product.name ++ " en " ++ Material.shortName inputs.material ++ " de "
             , Format.kg inputs.mass
+            , documentationPillLink config Gitbook.ComparativeScale
             ]
         , div [ class "card-body" ]
             [ div [ class "progress" ]

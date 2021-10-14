@@ -443,7 +443,7 @@ view session ({ displayMode, simulator } as model) =
                 , div [ class "col-lg-5" ]
                     [ div [ class "d-flex flex-column gap-3 mb-3 sticky-md-top", style "top" "7px" ]
                         [ div [ class "Summary" ] [ SummaryView.view False simulator ]
-                        , ComparatorView.view simulator
+                        , ComparatorView.view { simulator = simulator, openDocModal = OpenDocModal }
                         , feedbackView
                         , shareLinkView session model
                         ]

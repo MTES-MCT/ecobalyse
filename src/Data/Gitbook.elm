@@ -21,6 +21,7 @@ type Path
     | Transport -- Transport
     | Heat -- Chaleur
     | Waste -- Pertes et rebus
+    | ComparativeScale -- Échelle comparative
 
 
 pathToString : Path -> String
@@ -52,6 +53,9 @@ pathToString path =
 
         Waste ->
             "methodologie/pertes-et-rebus"
+
+        ComparativeScale ->
+            "methodologie/echelle-comparative"
 
 
 transformMarkdown : String -> String
