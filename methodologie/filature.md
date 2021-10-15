@@ -90,7 +90,7 @@ $$
 
 Les procédés correspondant aux différents choix de matières sont listés dans les 3 tableaux en haut de cette page méthodologique.
 
-## Pertes et rebus
+## Pertes et rebut
 
 Les procédés de Matière et filature considérés prévoient qu'une partie de la matière première mobilisée soit perdue, comme cela est représenté sur les schémas _System Boundaries_ ci-dessus (Flux intermédiaire - Textile Waste - UUID: `1cc67763-7318-4077-af4a-bcd0ab5ef33f`).
 
@@ -106,7 +106,7 @@ $$
 MassePertes(kg) = MasseFilSortante(kg) * CoefPertesProcedeMatièreFilature
 $$
 
-Plus de détail sur la gestion des masses : [Pertes et rebus](pertes-et-rebus.md).
+Plus de détail sur la gestion des masses : [Pertes et rebut](pertes-et-rebus.md).
 
 ## Limites
 
