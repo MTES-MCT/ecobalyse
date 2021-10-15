@@ -4,7 +4,7 @@
 
 ## Méthodologie
 
-* [Accueil méthodo](methodologie/demarche.md)
+* [Démarche méthodologique](methodologie/demarche.md)
 * [Impacts considérés](methodologie/impacts-consideres.md)
 * [Matière et filature](methodologie/filature.md)
 * [Tricotage / Tissage](methodologie/tricotage-tissage.md)
