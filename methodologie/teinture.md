@@ -67,11 +67,11 @@ $$
 ImpactTeinture = a * ImpactProcédéMajorant + (1-a) * ImpactProcédéReprésentatif
 $$
 
-## Pertes et rebus
+## Pertes et rebut
 
 Les différents procédés de teinture ne prévoyant pas de perte (Flux intermédiaire - Textile Waste - UUID: `1cc67763-7318-4077-af4a-bcd0ab5ef33f`), les masses de produit en entrée et en sortie du procédé sont identiques.
 
-Plus de détail sur la gestion des masses : [Pertes et rebus](pertes-et-rebus.md).
+Plus de détail sur la gestion des masses : [Pertes et rebut](pertes-et-rebus.md).
 
 ## Chaleur
 
