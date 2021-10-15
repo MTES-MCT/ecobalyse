@@ -14,7 +14,7 @@
 * [Transport](methodologie/transport.md)
 * [Electricité](methodologie/electricite.md)
 * [Chaleur](methodologie/chaleur.md)
-* [Pertes et rebus](methodologie/pertes-et-rebus.md)
+* [Pertes et rebut](methodologie/pertes-et-rebus.md)
 * [Hypothèses par défaut](methodologie/hypotheses-par-defaut.md)
 * [Echelle comparative](methodologie/echelle-comparative.md)
 
