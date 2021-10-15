@@ -419,10 +419,10 @@ view session ({ displayMode, simulator } as model) =
             , div [ class "row" ]
                 [ div [ class "col-lg-7" ]
                     [ div [ class "row" ]
-                        [ div [ class "col-md-6 mb-2" ]
+                        [ div [ class "col-6 mb-2" ]
                             [ productField simulator.inputs.product
                             ]
-                        , div [ class "col-md-6 mb-2" ]
+                        , div [ class "col-6 mb-2" ]
                             [ massField model.massInput
                             ]
                         ]
