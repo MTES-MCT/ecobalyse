@@ -2,6 +2,7 @@ module Views.Comparator exposing (..)
 
 import Data.Country exposing (..)
 import Data.Gitbook as Gitbook
+import Data.Inputs exposing (Inputs)
 import Data.Material as Material
 import Data.Simulator as Simulator exposing (Simulator)
 import Html exposing (..)
@@ -26,35 +27,37 @@ documentationPillLink { openDocModal } path =
         [ Icon.question ]
 
 
+getComparatorData : Inputs -> ( Simulator, Simulator, Simulator )
+getComparatorData inputs =
+    ( Simulator.compute
+        { inputs
+            | countries = [ China, France, France, France, France ]
+            , dyeingWeighting = Just 0
+            , airTransportRatio = Just 0
+        }
+    , Simulator.compute
+        { inputs
+            | countries = [ China, Turkey, Turkey, Turkey, France ]
+            , dyeingWeighting = Just 0.5
+            , airTransportRatio = Just 0
+        }
+    , Simulator.compute
+        { inputs
+            | countries = [ China, India, India, India, France ]
+            , dyeingWeighting = Just 1
+            , airTransportRatio = Just 1
+        }
+    )
+
+
 view : Config msg -> Html msg
 view ({ simulator } as config) =
     let
         { inputs, co2 } =
             simulator
 
-        good =
-            Simulator.compute
-                { inputs
-                    | countries = [ China, France, France, France, France ]
-                    , dyeingWeighting = Just 0
-                    , airTransportRatio = Just 0
-                }
-
-        middle =
-            Simulator.compute
-                { inputs
-                    | countries = [ China, Turkey, Turkey, Turkey, France ]
-                    , dyeingWeighting = Just 0.5
-                    , airTransportRatio = Just 0
-                }
-
-        bad =
-            Simulator.compute
-                { inputs
-                    | countries = [ China, India, India, India, France ]
-                    , dyeingWeighting = Just 1
-                    , airTransportRatio = Just 1
-                }
+        ( good, middle, bad ) =
+            getComparatorData inputs
 
         scale =
             bad.co2 - good.co2
@@ -91,9 +94,7 @@ view ({ simulator } as config) =
             , div [ class "progress rounded-0 mt-0" ]
                 [ div
                     [ class "progress-bar progress-bar-striped progress-bar-animated"
-                    , style "background-color" (pColor p)
-                    , style "filter" "brightness(0.9)"
-                    , style "filter" "saturate(1)"
+                    , style "background-color" (percentageToHsl p 120 0)
                     , style "width" <| String.fromFloat p ++ "%"
                     ]
                     []
@@ -135,35 +136,7 @@ view ({ simulator } as config) =
         ]
 
 
-pColor : Float -> String
-pColor p =
-    List.take (ceiling (p / 5)) greenToRed
-        |> List.reverse
-        |> List.head
-        |> Maybe.withDefault "ff0000"
-
-
-greenToRed : List String
-greenToRed =
-    [ "#57bb8a"
-    , "#63b682"
-    , "#73b87e"
-    , "#84bb7b"
-    , "#94bd77"
-    , "#a4c073"
-    , "#b0be6e"
-    , "#c4c56d"
-    , "#d4c86a"
-    , "#e2c965"
-    , "#f5ce62"
-    , "#f3c563"
-    , "#e9b861"
-    , "#e6ad61"
-    , "#ecac67"
-    , "#e9a268"
-    , "#e79a69"
-    , "#e5926b"
-    , "#e2886c"
-    , "#e0816d"
-    , "#dd776e"
-    ]
+percentageToHsl : Float -> Int -> Int -> String
+percentageToHsl p h0 h1 =
+    -- Source: https://jsfiddle.net/r438s65s/
+    "hsl(" ++ String.fromFloat ((p / 100 * (toFloat h1 - toFloat h0)) + toFloat h0) ++ ", 45%, 55%)"
