@@ -59,7 +59,7 @@ Le choix de procédé réalisé dépend du vêtement considéré :
 Les 5 procédés mobilisés sont les seuls disponibles à ce jour dans la base Impacts. Il n'est donc pas possible en l'état de proposer d'alternative.
 {% endhint %}
 
-## Pertes et rebus
+## Pertes et rebut
 
 Les différents procédés de confection ne prévoient pas de perte dans la base Impacts, contrairement à ce qui peut être affiché dans le schéma "system boundaries" ci-dessus (Flux intermédiaire - Textile Waste - UUID: `1cc67763-7318-4077-af4a-bcd0ab5ef33f`).
 
@@ -92,7 +92,7 @@ $$
 Attention : le calcul des pertes est donc différent pour l'étape de confection par rapport aux autres étapes de la fabrication du vêtement.
 {% endhint %}
 
-Plus de détail sur la gestion des masses : [Pertes et rebus](pertes-et-rebus.md).
+Plus de détail sur la gestion des masses : [Pertes et rebut](pertes-et-rebus.md).
 
 ## Electricité
 
