@@ -82,7 +82,7 @@ D'autres procédés de tricotage sont proposé dans la base impacts et pourraien
 |  Tricotage circulaire, inventaire désagrégé                       |
 |  Tricotage chaussant                                              |
 
-### Pertes et rebus
+### Pertes et rebut
 
 Le procédé de tricotage considéré prévoit qu'une partie du fil mobilisé soit perdu, comme cela est représenté sur le schéma "system boundaries" ci-dessus (Flux intermédiaire - Textile Waste - UUID: `1cc67763-7318-4077-af4a-bcd0ab5ef33f`).
 
@@ -98,7 +98,7 @@ $$
 MassePertes(kg) = MasseEtoffeSortante(kg) * CoefPertesProcedeTricotage
 $$
 
-Plus de détail sur la gestion des masses : [Pertes et rebus](pertes-et-rebus.md).
+Plus de détail sur la gestion des masses : [Pertes et rebut](pertes-et-rebus.md).
 
 ### Electricité
 
@@ -176,7 +176,7 @@ D'autres procédés de tissage sont proposés dans la base impacts et pourraient
 | Production d'un non-tissé aiguilleté, inventaire désagrégé  |
 | Non tissé                                                   |
 
-### Pertes et rebus
+### Pertes et rebut
 
 Le procédé de tissage considéré prévoit qu'une partie du fil mobilisé soit perdu, comme cela est représenté sur le schéma "system boundaries" ci-dessus (Flux intermédiaire - Textile Waste - UUID: `1cc67763-7318-4077-af4a-bcd0ab5ef33f`).
 
@@ -192,7 +192,7 @@ $$
 MassePertes(kg) = MasseEtoffeSortante(kg) * CoefPertesProcedeTissage
 $$
 
-Plus de détail sur la gestion des masses : [Pertes et rebus](pertes-et-rebus.md).
+Plus de détail sur la gestion des masses : [Pertes et rebut](pertes-et-rebus.md).
 
 ### Electricité (par duite et par mètre)
 
