@@ -77,6 +77,47 @@ blockquote {
   }
 }
 
+.link {
+  &-external:not(.link-external-muted) {
+    &::after {
+      font-family: "icomoon" !important;
+      content: "\e908";
+      display: inline-block;
+      text-indent: 2px;
+      font-size: .9em;
+      color: currentColor;
+      font-style: normal;
+      font-weight: normal;
+      font-variant: normal;
+      text-transform: none;
+      vertical-align: text-top;
+      line-height: 1;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+  }
+
+  &-email {
+    &::before {
+      font-family: "icomoon" !important;
+      content: "\f0e0";
+      display: inline-block;
+      text-indent: 2px;
+      font-size: .9em;
+      color: currentColor;
+      font-style: normal;
+      font-weight: normal;
+      font-variant: normal;
+      text-transform: none;
+      vertical-align: baseline;
+      line-height: 1;
+      margin-right: 3px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+  }
+}
+
 .text-light-all {
   color: $white;
   a {
@@ -175,6 +216,59 @@ blockquote {
       border-bottom-right-radius: $chevrons-radius;
       border-top-right-radius: $chevrons-radius;
       margin-right: 0;
+    }
+  }
+}
+
+.GitbookContent {
+  font-size: 0.9rem;
+
+  h1 { font-size: 1.8em; }
+  h2 { font-size: 1.65em; }
+  h3 { font-size: 1.5em; }
+  h4 { font-size: 1.25em; }
+  img { max-width: 100%; }
+
+  table {
+    width: 100%;
+    margin-bottom: 1.5em;
+    border-radius: 4px;
+    border-collapse: collapse;
+    overflow: hidden;
+
+
+    thead {
+      background-color: $dark;
+      color: $white;
+
+      th {
+        padding: .5em .5em;
+      }
+    }
+
+    tbody {
+      tr {
+        border-bottom: 1px solid #ddd;
+
+        &:nth-child(even) {
+          background-color: #f0f0f0;
+        }
+
+        td {
+          padding: .5em .5em;
+          p {
+            margin: 0;
+            a {
+              p {
+                // Note: This is because of two bugs:
+                // - Gitbook markdown exposes raw HTML within cells (paragraphs)
+                // - elm-markdown transforms all link node children as paragraphs
+                display: inline;
+              }
+            }
+          }
+        }
+      }
     }
   }
 }

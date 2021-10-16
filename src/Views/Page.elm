@@ -12,11 +12,18 @@ import Views.Link as Link
 
 type ActivePage
     = Home
-    | Simulator
+    | Changelog
     | Editorial String
     | Examples
+    | Simulator
     | Stats
     | Other
+
+
+type MenuLink
+    = Internal String Route.Route ActivePage
+    | External String String
+    | MailTo String String
 
 
 type alias Config =
@@ -37,12 +44,26 @@ frame config ( title, content ) =
     }
 
 
-menuLinks : List ( ActivePage, Route.Route, String )
-menuLinks =
-    [ ( Home, Route.Home, "Accueil" )
-    , ( Simulator, Route.Simulator Nothing, "Simulateur" )
-    , ( Examples, Route.Examples, "Exemples" )
-    , ( Editorial "methodologie", Route.Editorial "methodologie", "Méthodologie" )
+headerMenuLinks : List MenuLink
+headerMenuLinks =
+    [ Internal "Accueil" Route.Home Home
+    , Internal "Simulateur" (Route.Simulator Nothing) Simulator
+    , Internal "Exemples" Route.Examples Examples
+    , External "Documentation" "https://fabrique-numerique.gitbook.io/wikicarbone/"
+    ]
+
+
+footerMenuLinks : List MenuLink
+footerMenuLinks =
+    [ Internal "Accueil" Route.Home Home
+    , Internal "Simulateur" (Route.Simulator Nothing) Simulator
+    , Internal "Exemples" Route.Examples Examples
+    , Internal "Changelog" Route.Changelog Changelog
+    , Internal "Statistiques" Route.Stats Stats
+    , External "Code source" "https://github.com/MTES-MCT/wikicarbone/"
+    , External "Documentation" "https://fabrique-numerique.gitbook.io/wikicarbone/"
+    , External "FAQ" "https://fabrique-numerique.gitbook.io/wikicarbone/faq"
+    , MailTo "Contact" "wikicarbone@beta.gouv.fr"
     ]
 
 
@@ -60,16 +81,31 @@ navbar { activePage } =
                     []
                 , span [ class "fs-3" ] [ text "wikicarbone" ]
                 ]
-            , menuLinks
+            , headerMenuLinks
                 |> List.map
-                    (\( page, route, label ) ->
-                        if page == activePage then
-                            a [ class "nav-link pe-1 active", Route.href route, attribute "aria-current" "page" ]
-                                [ text label ]
+                    (\link ->
+                        case link of
+                            Internal label route page ->
+                                Link.internal
+                                    ([ class "nav-link pe-1"
+                                     , classList [ ( "active", page == activePage ) ]
+                                     , Route.href route
+                                     ]
+                                        ++ (if page == activePage then
+                                                [ attribute "aria-current" "page" ]
 
-                        else
-                            a [ class "nav-link pe-1", Route.href route ]
-                                [ text label ]
+                                            else
+                                                []
+                                           )
+                                    )
+                                    [ text label ]
+
+                            External label url ->
+                                Link.external [ class "nav-link pe-1", href url ]
+                                    [ text label ]
+
+                            MailTo label email ->
+                                a [ class "link-email", href <| "mailto:" ++ email ] [ text label ]
                     )
                 |> div
                     [ class "MainMenu navbar-nav justify-content-between flex-row"
@@ -99,33 +135,34 @@ feedback =
 
 pageFooter : Html msg
 pageFooter =
-    let
-        appendList =
-            \new list -> list ++ [ new ]
-    in
     footer
         [ class "bg-dark text-light py-5 fs-7" ]
         [ Container.centered []
             [ div [ class "row d-flex align-items-center" ]
                 [ div [ class "col" ]
                     [ h3 [] [ text "wikicarbone" ]
-                    , menuLinks
-                        |> List.map (\( _, r, l ) -> a [ class "text-light", Route.href r ] [ text l ])
-                        |> appendList
-                            (a [ class "text-light", Route.href Route.Stats ] [ text "Statistiques" ])
-                        |> appendList
-                            (Link.external [ class "text-light", href "https://github.com/MTES-MCT/wikicarbone/" ] [ text "Code source" ])
+                    , footerMenuLinks
+                        |> List.map
+                            (\link ->
+                                case link of
+                                    Internal label route _ ->
+                                        Link.internal [ class "text-white text-decoration-none", Route.href route ]
+                                            [ text label ]
+
+                                    External label url ->
+                                        Link.external [ class "text-white text-decoration-none", href url ]
+                                            [ text label ]
+
+                                    MailTo label email ->
+                                        a [ class "text-white text-decoration-none link-email", href <| "mailto:" ++ email ]
+                                            [ text label ]
+                            )
                         |> List.map (List.singleton >> li [])
-                        |> ul []
-                    , p [ class "mb-0" ]
-                        [ text "Un produit "
-                        , Link.external [ href "https://beta.gouv.fr/startups/wikicarbone.html", class "text-light" ]
-                            [ img [ src "img/betagouv.svg", alt "beta.gouv.fr", style "width" "120px" ] [] ]
-                        ]
+                        |> ul [ class "list-unstyled" ]
                     ]
                 , Link.external
                     [ href "https://www.ecologique-solidaire.gouv.fr/"
-                    , class "col text-center bg-light px-3 m-3"
+                    , class "col text-center bg-white px-3 m-3 link-external-muted"
                     ]
                     [ img
                         [ src "img/logo_mte.svg"
@@ -137,7 +174,7 @@ pageFooter =
                     ]
                 , Link.external
                     [ href "https://www.cohesion-territoires.gouv.fr/"
-                    , class "col text-center bg-light px-3 m-3"
+                    , class "col text-center bg-white px-3 m-3 link-external-muted"
                     ]
                     [ img
                         [ src "img/logo_mct.svg"
@@ -149,7 +186,7 @@ pageFooter =
                     ]
                 , Link.external
                     [ href "https://www.ecologique-solidaire.gouv.fr/fabrique-numerique"
-                    , class "col text-center px-3 py-2"
+                    , class "col text-center px-3 py-2 link-external-muted"
                     ]
                     [ img
                         [ src "img/logo-fabriquenumerique.svg"
@@ -159,6 +196,11 @@ pageFooter =
                         ]
                         []
                     ]
+                ]
+            , div [ class "text-center pt-2" ]
+                [ text "Un produit "
+                , Link.external [ href "https://beta.gouv.fr/startups/wikicarbone.html", class "text-light" ]
+                    [ img [ src "img/betagouv.svg", alt "beta.gouv.fr", style "width" "120px" ] [] ]
                 ]
             ]
         ]

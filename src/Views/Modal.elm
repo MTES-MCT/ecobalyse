@@ -3,13 +3,16 @@ module Views.Modal exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
+import Json.Decode as Decode
 
 
 type alias Config msg =
     { size : Size
     , close : msg
+    , noOp : msg
     , title : String
     , content : List (Html msg)
+    , footer : List (Html msg)
     }
 
 
@@ -28,6 +31,13 @@ view config =
             , attribute "tabindex" "-1"
             , attribute "aria-modal" "true"
             , attribute "role" "dialog"
+            , custom "mouseup"
+                (Decode.succeed
+                    { message = config.close
+                    , stopPropagation = True
+                    , preventDefault = True
+                    }
+                )
             ]
             [ div
                 [ class "modal-dialog modal-dialog-centered modal-dialog-scrollable"
@@ -36,13 +46,35 @@ view config =
                     , ( "modal-lg", config.size == Large )
                     , ( "modal-sm", config.size == Small )
                     ]
+                , attribute "aria-modal" "true"
                 ]
-                [ div [ class "modal-content" ]
+                [ div
+                    [ class "modal-content"
+                    , custom "mouseup"
+                        (Decode.succeed
+                            { message = config.noOp
+                            , stopPropagation = True
+                            , preventDefault = True
+                            }
+                        )
+                    ]
                     [ div [ class "modal-header bg-primary text-light" ]
                         [ h6 [ class "modal-title" ] [ text config.title ]
-                        , button [ type_ "button", class "btn-close invert", onClick config.close, attribute "aria-label" "Close" ] []
+                        , button
+                            [ type_ "button"
+                            , class "btn-close invert"
+                            , onClick config.close
+                            , attribute "aria-label" "Close"
+                            ]
+                            []
                         ]
-                    , div [ class "modal-body p-0" ] config.content
+                    , div [ class "modal-body px-3 px-md-4 py-2 py-md-3" ]
+                        config.content
+                    , if config.footer /= [] then
+                        div [ class "modal-footer bg-light" ] config.footer
+
+                      else
+                        text ""
                     ]
                 ]
             ]

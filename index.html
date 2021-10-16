@@ -10,26 +10,11 @@
   <link rel="icon" type="image/svg" href="./public/img/logo.svg">
   <link href="./public/icomoon/style.css" rel="stylesheet">
   <link href="./styles.scss" rel="stylesheet">
+  <script type="module" src="index.js"></script>
 </head>
 <body>
-  <script type="module" src="index.js"></script>
-  <!-- Matomo -->
-  <script>
-    var _paq = window._paq = window._paq || [];
-    /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-    _paq.push(['trackPageView']);
-    _paq.push(['enableLinkTracking']);
-    (function() {
-      var u="https://stats.data.gouv.fr/";
-      _paq.push(['setTrackerUrl', u+'matomo.php']);
-      _paq.push(['setSiteId', '196']);
-      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-      g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
-    })();
-  </script>
   <noscript>
     <img src="https://stats.data.gouv.fr/matomo.php?idsite=196&amp;rec=1" style="border:0" alt="" />
   </noscript>
-  <!-- End Matomo Code -->
 </body>
 </html>

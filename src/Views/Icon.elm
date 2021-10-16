@@ -34,6 +34,11 @@ dialog =
     icon "dialog"
 
 
+document : Html msg
+document =
+    icon "document"
+
+
 exclamation : Html msg
 exclamation =
     icon "exclamation"
@@ -49,9 +54,19 @@ globe =
     icon "globe"
 
 
+hammer : Html msg
+hammer =
+    icon "hammer"
+
+
 info : Html msg
 info =
     icon "info"
+
+
+mail : Html msg
+mail =
+    icon "mail"
 
 
 pencil : Html msg
@@ -62,6 +77,11 @@ pencil =
 plane : Html msg
 plane =
     icon "plane"
+
+
+question : Html msg
+question =
+    icon "question"
 
 
 search : Html msg
@@ -77,6 +97,11 @@ shrink =
 study : Html msg
 study =
     icon "study"
+
+
+warning : Html msg
+warning =
+    icon "warning"
 
 
 zoomin : Html msg

@@ -24,7 +24,7 @@ add attrs elements columns =
 
 addMd : Attributes msg -> String -> List (Column msg) -> List (Column msg)
 addMd attrs md =
-    add attrs [ Markdown.view [ class "bottomed-paragraphs" ] md ]
+    add attrs [ Markdown.simple [ class "bottomed-paragraphs" ] md ]
 
 
 create : List (Column msg)

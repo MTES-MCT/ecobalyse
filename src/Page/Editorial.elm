@@ -4,6 +4,7 @@ import Data.Session exposing (Session)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Http
+import Request.Common as HttpCommon
 import Request.HttpClient as HttpClient
 import Views.Container as Container
 import Views.Markdown as Markdown
@@ -76,7 +77,7 @@ view _ { state } =
                 [ h1 [ class "mb-3" ] [ text "Méthodologie" ]
                 , article [ class "row justify-content-center" ]
                     [ content
-                        |> Markdown.view
+                        |> Markdown.simple
                             [ style "columns" "30em"
                             , style "column-gap" "40px"
                             ]
@@ -87,6 +88,6 @@ view _ { state } =
             page "Erreur"
                 [ div [ class "alert alert-warning" ]
                     [ p [] [ strong [] [ text "Impossible de charger le contenu de cette page\u{00A0}:" ] ]
-                    , p [ class "mb-0" ] [ text (HttpClient.errorToString error) ]
+                    , p [ class "mb-0" ] [ text (HttpCommon.errorToString error) ]
                     ]
                 ]

@@ -1,8 +1,11 @@
-module Page.Simulator exposing (Model, Msg, init, update, view)
+module Page.Simulator exposing (..)
 
 import Array
+import Browser.Events
 import Data.Country exposing (Country)
+import Data.Gitbook as Gitbook
 import Data.Inputs as Inputs exposing (Inputs)
+import Data.Key as Key
 import Data.Material as Material exposing (Material)
 import Data.Material.Category as Category exposing (Category)
 import Data.Process as Process
@@ -11,15 +14,20 @@ import Data.Session exposing (Session)
 import Data.Simulator as Simulator exposing (Simulator)
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
-import Html.Events exposing (onClick, onInput)
+import Html.Events exposing (..)
 import Mass
 import Ports
+import RemoteData exposing (WebData)
+import Request.Common as HttpCommon
+import Request.Gitbook as GitbookApi
 import Route exposing (Route(..))
+import Views.Comparator as ComparatorView
 import Views.Container as Container
 import Views.Icon as Icon
 import Views.Link as Link
 import Views.Markdown as MarkdownView
 import Views.Modal as ModalView
+import Views.Spinner as SpinnerView
 import Views.Step as StepView
 import Views.Summary as SummaryView
 
@@ -39,14 +47,18 @@ type DisplayMode
 
 type ModalContent
     = NoModal
-    | MarkdownModal String String
+    | GitbookModal (WebData Gitbook.Page)
 
 
 type Msg
     = CloseModal
     | CopyToClipBoard String
+    | ModalContentReceived (WebData Gitbook.Page)
+    | NoOp
+    | OpenDocModal Gitbook.Path
     | Reset
     | SwitchMode DisplayMode
+    | UpdateAirTransportRatio (Maybe Float)
     | UpdateDyeingWeighting (Maybe Float)
     | UpdateMassInput String
     | UpdateMaterial Material
@@ -96,12 +108,28 @@ update session msg ({ simulator } as model) =
         CopyToClipBoard shareableLink ->
             ( model, session, Ports.copyToClipboard shareableLink )
 
+        ModalContentReceived gitbookData ->
+            ( { model | modal = GitbookModal gitbookData }, session, Cmd.none )
+
+        NoOp ->
+            ( model, session, Cmd.none )
+
+        OpenDocModal path ->
+            ( { model | modal = GitbookModal RemoteData.Loading }
+            , session
+            , GitbookApi.getPage session path ModalContentReceived
+            )
+
         Reset ->
             ( model, session, Cmd.none )
                 |> updateInputs Inputs.default
 
         SwitchMode displayMode ->
             ( { model | displayMode = displayMode }, session, Cmd.none )
+
+        UpdateAirTransportRatio airTransportRatio ->
+            ( model, session, Cmd.none )
+                |> updateInputs { inputs | airTransportRatio = airTransportRatio }
 
         UpdateDyeingWeighting dyeingWeighting ->
             ( model, session, Cmd.none )
@@ -239,7 +267,9 @@ lifeCycleStepsView { displayMode, simulator } =
                     , product = simulator.inputs.product
                     , current = current
                     , next = Array.get (index + 1) simulator.lifeCycle
+                    , openDocModal = OpenDocModal
                     , updateCountry = UpdateStepCountry
+                    , updateAirTransportRatio = UpdateAirTransportRatio
                     , updateDyeingWeighting = UpdateDyeingWeighting
                     }
             )
@@ -315,6 +345,72 @@ feedbackView =
         ]
 
 
+modalView : ModalContent -> Html Msg
+modalView modal =
+    case modal of
+        NoModal ->
+            text ""
+
+        GitbookModal RemoteData.NotAsked ->
+            text ""
+
+        GitbookModal RemoteData.Loading ->
+            ModalView.view
+                { size = ModalView.Large
+                , close = CloseModal
+                , noOp = NoOp
+                , title = "Chargement…"
+                , content = [ SpinnerView.view ]
+                , footer = []
+                }
+
+        GitbookModal (RemoteData.Failure error) ->
+            ModalView.view
+                { size = ModalView.Large
+                , close = CloseModal
+                , noOp = NoOp
+                , title = "Erreur"
+                , content =
+                    [ div [ class "alert alert-danger mb-0" ]
+                        [ p [] [ text "Une erreur a été rencontrée" ]
+                        , p [] [ text <| HttpCommon.errorToString error ]
+                        ]
+                    ]
+                , footer = []
+                }
+
+        GitbookModal (RemoteData.Success gitbookPage) ->
+            ModalView.view
+                { size = ModalView.Large
+                , close = CloseModal
+                , noOp = NoOp
+                , title = gitbookPage.title
+                , content =
+                    [ case gitbookPage.description of
+                        Just description ->
+                            p [ class "fw-bold text-muted fst-italic" ] [ text description ]
+
+                        Nothing ->
+                            text ""
+                    , if String.trim gitbookPage.markdown == "" then
+                        div [ class "alert alert-info mb-0 d-flex align-items-center" ]
+                            [ span [ class "fs-4 me-2" ] [ Icon.hammer ]
+                            , text "Cette page est en cours de construction"
+                            ]
+
+                      else
+                        MarkdownView.gitbook [ class "GitbookContent" ] gitbookPage
+                    ]
+                , footer =
+                    [ div [ class "text-end" ]
+                        [ Link.external [ href <| Gitbook.publicUrlFromPath gitbookPage.path ]
+                            [ text "Ouvrir cette page sur le site de documentation Wikicarbone"
+                            ]
+                        ]
+                    ]
+                }
+
+
 view : Session -> Model -> ( String, List (Html Msg) )
 view session ({ displayMode, simulator } as model) =
     ( "Simulateur"
@@ -323,10 +419,10 @@ view session ({ displayMode, simulator } as model) =
             , div [ class "row" ]
                 [ div [ class "col-lg-7" ]
                     [ div [ class "row" ]
-                        [ div [ class "col-md-6 mb-2" ]
+                        [ div [ class "col-6 mb-2" ]
                             [ productField simulator.inputs.product
                             ]
-                        , div [ class "col-md-6 mb-2" ]
+                        , div [ class "col-6 mb-2" ]
                             [ massField model.massInput
                             ]
                         ]
@@ -345,24 +441,25 @@ view session ({ displayMode, simulator } as model) =
                         ]
                     ]
                 , div [ class "col-lg-5" ]
-                    [ div [ class "d-flex flex-column gap-3 mb-3 sticky-md-top" ]
+                    [ div [ class "d-flex flex-column gap-3 mb-3 sticky-md-top", style "top" "7px" ]
                         [ div [ class "Summary" ] [ SummaryView.view False simulator ]
+                        , ComparatorView.view { simulator = simulator, openDocModal = OpenDocModal }
                         , feedbackView
                         , shareLinkView session model
                         ]
                     ]
                 ]
             ]
-      , case model.modal of
-            NoModal ->
-                text ""
-
-            MarkdownModal title markdown ->
-                ModalView.view
-                    { size = ModalView.Small
-                    , close = CloseModal
-                    , title = title
-                    , content = [ MarkdownView.view [ class "px-3 py-2" ] markdown ]
-                    }
+      , modalView model.modal
       ]
     )
+
+
+subscriptions : Model -> Sub Msg
+subscriptions { modal } =
+    case modal of
+        GitbookModal _ ->
+            Browser.Events.onKeyDown (Key.escape CloseModal)
+
+        NoModal ->
+            Sub.none

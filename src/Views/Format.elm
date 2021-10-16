@@ -40,7 +40,7 @@ kgCo2 decimals =
 
 kg : Mass -> Html msg
 kg =
-    Mass.inKilograms >> formatRichFloat 2 "kg"
+    Mass.inKilograms >> formatRichFloat 3 "kg"
 
 
 kilowattHours : Energy -> Html msg
