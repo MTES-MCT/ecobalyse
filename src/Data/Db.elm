@@ -4,7 +4,6 @@ import Data.Country exposing (Country2)
 import Data.Material exposing (Material)
 import Data.Process exposing (Process)
 import Data.Product exposing (Product)
-import RemoteData exposing (WebData)
 
 
 
@@ -20,13 +19,6 @@ import RemoteData exposing (WebData)
 --
 -- Notes:
 -- - investigate using RemoteData.fromList https://package.elm-lang.org/packages/krisajenkins/remotedata/latest/RemoteData#fromList
-
-
-type alias LoadingState =
-    { processes : WebData (List Process)
-    , countries : WebData (List Country2)
-    , products : WebData (List Product)
-    }
 
 
 type alias Db =
