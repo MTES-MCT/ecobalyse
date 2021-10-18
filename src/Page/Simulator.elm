@@ -3,7 +3,7 @@ module Page.Simulator exposing (..)
 import Array
 import Browser.Events
 import Data.Country exposing (Country)
-import Data.Db as Db exposing (Db)
+import Data.Db exposing (Db)
 import Data.Gitbook as Gitbook
 import Data.Inputs as Inputs exposing (Inputs)
 import Data.Key as Key
