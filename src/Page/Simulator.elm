@@ -3,7 +3,7 @@ module Page.Simulator exposing (..)
 import Array
 import Browser.Events
 import Data.Country exposing (Country)
-import Data.Db as Db
+import Data.Db as Db exposing (Db)
 import Data.Gitbook as Gitbook
 import Data.Inputs as Inputs exposing (Inputs)
 import Data.Key as Key
@@ -55,6 +55,7 @@ type ModalContent
 type Msg
     = CloseModal
     | CopyToClipBoard String
+    | DbReceived (WebData Db)
     | ModalContentReceived (WebData Gitbook.Page)
     | NoOp
     | OpenDocModal Gitbook.Path
@@ -85,7 +86,7 @@ init maybeInputs ({ store } as session) =
       , modal = NoModal
       }
     , session
-    , Cmd.none
+    , Request.Db.loadDb session DbReceived
     )
 
 
@@ -109,6 +110,23 @@ update session msg ({ simulator } as model) =
 
         CopyToClipBoard shareableLink ->
             ( model, session, Ports.copyToClipboard shareableLink )
+
+        DbReceived (RemoteData.Success db) ->
+            let
+                _ =
+                    Debug.log "db" db
+            in
+            ( model, session, Cmd.none )
+
+        DbReceived (RemoteData.Failure error) ->
+            let
+                _ =
+                    Debug.log "error" (HttpCommon.errorToString error)
+            in
+            ( model, session, Cmd.none )
+
+        DbReceived _ ->
+            ( model, session, Cmd.none )
 
         ModalContentReceived gitbookData ->
             ( { model | modal = GitbookModal gitbookData }, session, Cmd.none )
