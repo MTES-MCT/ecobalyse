@@ -67,7 +67,7 @@ loadDb session event =
                         event wd
 
                     Err _ ->
-                        -- Note: this `Task () (WebData Db)` situation can never happen
+                        -- Note: this `Task () (WebData Db)` error situation can never happen
                         -- This is a limitation from the types returned by RemoteData.Http tasks
                         event RemoteData.NotAsked
             )

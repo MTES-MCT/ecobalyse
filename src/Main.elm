@@ -2,6 +2,7 @@ module Main exposing (main)
 
 import Browser exposing (Document)
 import Browser.Navigation as Nav
+import Data.Db exposing (Db)
 import Data.Session as Session exposing (Session)
 import Html exposing (..)
 import Page.Changelog as Changelog
@@ -11,7 +12,8 @@ import Page.Home as Home
 import Page.Simulator as Simulator
 import Page.Stats as Stats
 import Ports
-import RemoteData
+import RemoteData exposing (WebData)
+import Request.Db
 import Route exposing (Route)
 import Url exposing (Url)
 import Views.Page as Page
@@ -41,7 +43,8 @@ type alias Model =
 
 
 type Msg
-    = HomeMsg Home.Msg
+    = DbReceived Url (WebData Db)
+    | HomeMsg Home.Msg
     | ChangelogMsg Changelog.Msg
     | EditorialMsg Editorial.Msg
     | ExamplesMsg Examples.Msg
@@ -52,8 +55,26 @@ type Msg
     | UrlRequested Browser.UrlRequest
 
 
-setRoute : Maybe Route -> Model -> Cmd Msg -> ( Model, Cmd Msg )
-setRoute maybeRoute model cmds =
+init : Flags -> Url -> Nav.Key -> ( Model, Cmd Msg )
+init flags url navKey =
+    let
+        session =
+            { clientUrl = flags.clientUrl
+            , navKey = navKey
+            , store = Session.deserializeStore flags.rawStore
+            , db = RemoteData.NotAsked
+            }
+    in
+    ( { page = BlankPage, session = session }
+    , Cmd.batch
+        [ Ports.appStarted ()
+        , Request.Db.loadDb session (DbReceived url)
+        ]
+    )
+
+
+setRoute : Maybe Route -> ( Model, Cmd Msg ) -> ( Model, Cmd Msg )
+setRoute maybeRoute ( model, cmds ) =
     let
         toPage page subInit subMsg =
             let
@@ -68,14 +89,17 @@ setRoute maybeRoute model cmds =
                         Cmd.none
             in
             ( { model | session = newSession, page = page subModel }
-            , Cmd.batch [ cmds, Ports.scrollTo { x = 0, y = 0 }, Cmd.map subMsg subCmds, storeCmd ]
+            , Cmd.batch
+                [ cmds
+                , Ports.scrollTo { x = 0, y = 0 }
+                , Cmd.map subMsg subCmds
+                , storeCmd
+                ]
             )
     in
     case maybeRoute of
         Nothing ->
-            ( { model | page = NotFoundPage }
-            , Cmd.none
-            )
+            ( { model | page = NotFoundPage }, Cmd.none )
 
         Just Route.Home ->
             toPage HomePage Home.init HomeMsg
@@ -94,23 +118,6 @@ setRoute maybeRoute model cmds =
 
         Just Route.Stats ->
             toPage StatsPage Stats.init StatsMsg
-
-
-init : Flags -> Url -> Nav.Key -> ( Model, Cmd Msg )
-init flags url navKey =
-    let
-        session =
-            { clientUrl = flags.clientUrl
-            , navKey = navKey
-            , store = Session.deserializeStore flags.rawStore
-            , db = RemoteData.NotAsked
-            }
-    in
-    setRoute (Route.fromUrl url)
-        { page = BlankPage
-        , session = session
-        }
-        (Ports.appStarted ())
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -133,6 +140,7 @@ update msg ({ page, session } as model) =
             )
     in
     case ( msg, page ) of
+        -- Pages
         ( HomeMsg homeMsg, HomePage homeModel ) ->
             toPage HomePage HomeMsg Home.update homeMsg homeModel
 
@@ -151,22 +159,27 @@ update msg ({ page, session } as model) =
         ( StatsMsg statsMsg, StatsPage statsModel ) ->
             toPage StatsPage StatsMsg Stats.update statsMsg statsModel
 
+        -- Db
+        ( DbReceived url db, _ ) ->
+            ( { model | session = { session | db = db } }, Cmd.none )
+                |> setRoute (Route.fromUrl url)
+
+        -- Store
         ( StoreChanged json, _ ) ->
-            ( { model | session = { session | store = Session.deserializeStore json } }
-            , Cmd.none
-            )
+            ( { model | session = { session | store = Session.deserializeStore json } }, Cmd.none )
 
-        ( UrlRequested urlRequest, _ ) ->
-            case urlRequest of
-                Browser.Internal url ->
-                    ( model, Nav.pushUrl session.navKey (Url.toString url) )
-
-                Browser.External href ->
-                    ( model, Nav.load href )
-
+        -- Url
         ( UrlChanged url, _ ) ->
-            setRoute (Route.fromUrl url) model Cmd.none
+            ( model, Cmd.none )
+                |> setRoute (Route.fromUrl url)
 
+        ( UrlRequested (Browser.Internal url), _ ) ->
+            ( model, Nav.pushUrl session.navKey (Url.toString url) )
+
+        ( UrlRequested (Browser.External href), _ ) ->
+            ( model, Nav.load href )
+
+        -- Catch-all
         ( _, NotFoundPage ) ->
             ( { model | page = NotFoundPage }, Cmd.none )
 

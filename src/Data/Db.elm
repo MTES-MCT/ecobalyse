@@ -12,3 +12,12 @@ type alias Db =
     , processes : List Process
     , products : List Product
     }
+
+
+empty : Db
+empty =
+    { countries = []
+    , materials = []
+    , processes = []
+    , products = []
+    }

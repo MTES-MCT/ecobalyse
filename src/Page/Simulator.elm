@@ -3,7 +3,6 @@ module Page.Simulator exposing (..)
 import Array
 import Browser.Events
 import Data.Country exposing (Country)
-import Data.Db exposing (Db)
 import Data.Gitbook as Gitbook
 import Data.Inputs as Inputs exposing (Inputs)
 import Data.Key as Key
@@ -20,7 +19,6 @@ import Mass
 import Ports
 import RemoteData exposing (WebData)
 import Request.Common as HttpCommon
-import Request.Db
 import Request.Gitbook as GitbookApi
 import Route exposing (Route(..))
 import Views.Comparator as ComparatorView
@@ -55,7 +53,6 @@ type ModalContent
 type Msg
     = CloseModal
     | CopyToClipBoard String
-    | DbReceived (WebData Db)
     | ModalContentReceived (WebData Gitbook.Page)
     | NoOp
     | OpenDocModal Gitbook.Path
@@ -74,24 +71,20 @@ init : Maybe Inputs.Query -> Session -> ( Model, Session, Cmd Msg )
 init maybeInputs ({ store } as session) =
     let
         simulator =
-            -- TODO: is using store.simulator necessary? why should it be serialized in a first step?
             maybeInputs
                 |> Maybe.map Inputs.fromQuery
+                -- TODO: is using store.simulator necessary? why should it be serialized in a first step?
                 |> Maybe.withDefault store.inputs
                 |> Simulator.compute
     in
+    -- TODO: pass session.db to simulator if Db is loaded
     ( { simulator = simulator
       , massInput = simulator.inputs.mass |> Mass.inKilograms |> String.fromFloat
       , displayMode = SimpleMode
       , modal = NoModal
       }
     , session
-    , case session.db of
-        RemoteData.Success _ ->
-            Cmd.none
-
-        _ ->
-            Request.Db.loadDb session DbReceived
+    , Cmd.none
     )
 
 
@@ -115,9 +108,6 @@ update session msg ({ simulator } as model) =
 
         CopyToClipBoard shareableLink ->
             ( model, session, Ports.copyToClipboard shareableLink )
-
-        DbReceived db ->
-            ( model, { session | db = db }, Cmd.none )
 
         ModalContentReceived gitbookData ->
             ( { model | modal = GitbookModal gitbookData }, session, Cmd.none )
@@ -422,27 +412,6 @@ modalView modal =
                 }
 
 
-dbErrorView : Session -> Html Msg
-dbErrorView { db } =
-    case db of
-        RemoteData.Failure error ->
-            div [ class "card text-light bg-danger mb-3" ]
-                [ div [ class "card-header" ]
-                    [ span [ class "me-1" ] [ Icon.warning ]
-                    , text "Erreur lors du chargement des données\u{00A0}:"
-                    ]
-                , div [ class "card-body bg-light text-dark" ]
-                    [ pre [ class "fs-7 mb-0" ] [ error |> HttpCommon.errorToString |> text ]
-                    ]
-                ]
-
-        RemoteData.Loading ->
-            text "Loading…"
-
-        _ ->
-            text ""
-
-
 view : Session -> Model -> ( String, List (Html Msg) )
 view session ({ displayMode, simulator } as model) =
     ( "Simulateur"
@@ -450,8 +419,7 @@ view session ({ displayMode, simulator } as model) =
             [ h1 [ class "mb-3" ] [ text "Simulateur" ]
             , div [ class "row" ]
                 [ div [ class "col-lg-7" ]
-                    [ dbErrorView session
-                    , div [ class "row" ]
+                    [ div [ class "row" ]
                         [ div [ class "col-6 mb-2" ]
                             [ productField simulator.inputs.product
                             ]
