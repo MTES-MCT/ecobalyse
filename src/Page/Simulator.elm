@@ -1,10 +1,9 @@
 module Page.Simulator exposing (..)
 
--- import Data.Db as Db
-
 import Array
 import Browser.Events
 import Data.Country exposing (Country)
+import Data.Db as Db
 import Data.Gitbook as Gitbook
 import Data.Inputs as Inputs exposing (Inputs)
 import Data.Key as Key
@@ -21,6 +20,7 @@ import Mass
 import Ports
 import RemoteData exposing (WebData)
 import Request.Common as HttpCommon
+import Request.Db
 import Request.Gitbook as GitbookApi
 import Route exposing (Route(..))
 import Views.Comparator as ComparatorView

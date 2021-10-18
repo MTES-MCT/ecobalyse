@@ -1,7 +1,7 @@
 module Data.Db exposing (..)
 
 import Data.Country exposing (Country2)
-import Data.Material as Material exposing (Material)
+import Data.Material exposing (Material)
 import Data.Process exposing (Process)
 import Data.Product exposing (Product)
 import RemoteData exposing (WebData)
@@ -35,15 +35,3 @@ type alias Db =
     , processes : List Process
     , products : List Product
     }
-
-
-build : WebData (List Process) -> WebData (List Country2) -> WebData (List Product) -> WebData Db
-build =
-    RemoteData.map3
-        (\processes countries products ->
-            { processes = processes
-            , countries = countries
-            , materials = Material.fromProcesses processes
-            , products = products
-            }
-        )
