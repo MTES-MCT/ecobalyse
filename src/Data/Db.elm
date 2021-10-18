@@ -1,11 +1,9 @@
 module Data.Db exposing (..)
 
 import Data.Country as Country exposing (Country)
-import Data.CountryProcess as CountryProcess exposing (CountryProcesses)
 import Data.Material as Material exposing (Material)
 import Data.Process as Process exposing (Process)
 import Data.Product as Product exposing (Product)
-import Dict.Any as Dict exposing (AnyDict)
 import RemoteData exposing (WebData)
 
 
@@ -19,28 +17,20 @@ import RemoteData exposing (WebData)
 -- 1. processes (so we get materials)
 -- 2. country processes (so we get countries as well)
 -- 3. products
-
-
-type alias LoadingCountryProcesses =
-    AnyDict
-        String
-        Country
-        { electricity : Process.Uuid
-        , heat : Process.Uuid
-        , dyeingWeighting : Float
-        }
+--
+-- Notes:
+-- - investigate using RemoteData.fromList https://package.elm-lang.org/packages/krisajenkins/remotedata/latest/RemoteData#fromList
 
 
 type alias LoadingState =
     { processes : WebData (List Process)
-    , countryProcesses : WebData LoadingCountryProcesses
+    , countries : WebData (List Country)
     , products : WebData (List Product)
     }
 
 
 type alias Db =
     { countries : List Country
-    , countryProcesses : CountryProcesses
     , materials : List Material
     , processes : List Process
     , products : List Product
@@ -50,7 +40,6 @@ type alias Db =
 default : Db
 default =
     { countries = Country.choices
-    , countryProcesses = CountryProcess.countryProcesses
     , materials = Material.choices
     , processes = Process.processes
     , products = Product.choices
