@@ -6,7 +6,6 @@
     "elm-version": "0.19.1",
     "dependencies": {
         "direct": {
-            "BrianHicks/elm-csv": "3.0.2",
             "NoRedInk/elm-json-decode-pipeline": "1.0.0",
             "cuducos/elm-format-number": "8.1.4",
             "dillonkearns/elm-markdown": "7.0.0",
