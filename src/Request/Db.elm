@@ -47,6 +47,10 @@ buildDb =
 
 getDb : Session -> Task () (WebData Db)
 getDb session =
+    -- Loading order:
+    -- 1. processes (so we get materials)
+    -- 2. countries (so we can populate country processes)
+    -- 3. products
     Task.map3 buildDb
         (getProcessesTask session)
         (getCountriesTask session)
