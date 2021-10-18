@@ -11,6 +11,7 @@ import Page.Home as Home
 import Page.Simulator as Simulator
 import Page.Stats as Stats
 import Ports
+import RemoteData
 import Route exposing (Route)
 import Url exposing (Url)
 import Views.Page as Page
@@ -102,6 +103,7 @@ init flags url navKey =
             { clientUrl = flags.clientUrl
             , navKey = navKey
             , store = Session.deserializeStore flags.rawStore
+            , db = RemoteData.NotAsked
             }
     in
     setRoute (Route.fromUrl url)

@@ -111,22 +111,8 @@ update session msg ({ simulator } as model) =
         CopyToClipBoard shareableLink ->
             ( model, session, Ports.copyToClipboard shareableLink )
 
-        DbReceived (RemoteData.Success db) ->
-            let
-                _ =
-                    Debug.log "db" db
-            in
-            ( model, session, Cmd.none )
-
-        DbReceived (RemoteData.Failure error) ->
-            let
-                _ =
-                    Debug.log "error" (HttpCommon.errorToString error)
-            in
-            ( model, session, Cmd.none )
-
-        DbReceived _ ->
-            ( model, session, Cmd.none )
+        DbReceived db ->
+            ( model, { session | db = db }, Cmd.none )
 
         ModalContentReceived gitbookData ->
             ( { model | modal = GitbookModal gitbookData }, session, Cmd.none )
