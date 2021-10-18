@@ -422,6 +422,27 @@ modalView modal =
                 }
 
 
+dbErrorView : Session -> Html Msg
+dbErrorView { db } =
+    case db of
+        RemoteData.Failure error ->
+            div [ class "card text-light bg-danger mb-3" ]
+                [ div [ class "card-header" ]
+                    [ span [ class "me-1" ] [ Icon.warning ]
+                    , text "Erreur lors du chargement des données\u{00A0}:"
+                    ]
+                , div [ class "card-body bg-light text-dark" ]
+                    [ pre [ class "fs-7 mb-0" ] [ error |> HttpCommon.errorToString |> text ]
+                    ]
+                ]
+
+        RemoteData.Loading ->
+            text "Loading…"
+
+        _ ->
+            text ""
+
+
 view : Session -> Model -> ( String, List (Html Msg) )
 view session ({ displayMode, simulator } as model) =
     ( "Simulateur"
@@ -429,7 +450,8 @@ view session ({ displayMode, simulator } as model) =
             [ h1 [ class "mb-3" ] [ text "Simulateur" ]
             , div [ class "row" ]
                 [ div [ class "col-lg-7" ]
-                    [ div [ class "row" ]
+                    [ dbErrorView session
+                    , div [ class "row" ]
                         [ div [ class "col-6 mb-2" ]
                             [ productField simulator.inputs.product
                             ]
