@@ -16,8 +16,13 @@ type Country
     | Turkey
 
 
+type Id
+    = Id String
+
+
 type alias Country2 =
-    { name : String
+    -- The big idea: replace static country type (eg. France) with country db ids (Id "France")
+    { id : Id
     , electricity : Process.Uuid
     , heat : Process.Uuid
     , dyeingWeighting : Float
@@ -40,47 +45,57 @@ choices =
 
 choices2 : List Country2
 choices2 =
-    [ { name = "Bangladesh"
-      , electricity = Process.Uuid "Mix électrique réseau, BD"
-      , heat = Process.Uuid "Mix Vapeur (mix technologique|mix de production, en sortie de chaudière), RSA"
+    [ { id = Id "Bangladesh"
+      , electricity = Process.Uuid "1ee6061e-8e15-4558-9338-94ad87abf932"
+      , heat = Process.Uuid "2e8de6f6-0ea1-455b-adce-ea74d307d222"
       , dyeingWeighting = 1
       }
-    , { name = "China"
-      , electricity = Process.Uuid "Mix électrique réseau, CN"
-      , heat = Process.Uuid "Mix Vapeur (mix technologique|mix de production, en sortie de chaudière), RSA"
+    , { id = Id "Chine"
+      , electricity = Process.Uuid "8f923f3d-0bd2-4326-99e2-f984b4454226"
+      , heat = Process.Uuid "2e8de6f6-0ea1-455b-adce-ea74d307d222"
       , dyeingWeighting = 1
       }
-    , { name = "France"
-      , electricity = Process.Uuid "Mix électrique réseau, FR"
-      , heat = Process.Uuid "Mix Vapeur (mix technologique|mix de production, en sortie de chaudière), FR"
+    , { id = Id "Espagne"
+      , electricity = Process.Uuid "37301c44-c4cf-4214-a4ac-eee5785ccdc5"
+      , heat = Process.Uuid "618440a9-f4aa-65bc-21cb-ea40eee53f3d"
       , dyeingWeighting = 0
       }
-    , { name = "India"
-      , electricity = Process.Uuid "Mix électrique réseau, IN"
-      , heat = Process.Uuid "Mix Vapeur (mix technologique|mix de production, en sortie de chaudière), RSA"
-      , dyeingWeighting = 1
-      }
-    , { name = "Portugal"
-      , electricity = Process.Uuid "Mix électrique réseau, PT"
-      , heat = Process.Uuid "Vapeur à partir de gaz naturel (mix de technologies de combustion et d'épuration des effluents gazeux|en sortie de chaudière|Puissance non spécifiée), RER"
+    , { id = Id "France"
+      , electricity = Process.Uuid "05585055-9742-4fff-81ff-ad2e30e1b791"
+      , heat = Process.Uuid "12fc43f2-a007-423b-a619-619d725793ea"
       , dyeingWeighting = 0
       }
-    , { name = "Spain"
-      , electricity = Process.Uuid "Mix électrique réseau, ES"
-      , heat = Process.Uuid "Vapeur à partir de gaz naturel (mix de technologies de combustion et d'épuration des effluents gazeux|en sortie de chaudière|Puissance non spécifiée), ES"
-      , dyeingWeighting = 0
-      }
-    , { name = "Tunisia"
-      , electricity = Process.Uuid "Mix électrique réseau, TN"
-      , heat = Process.Uuid "Mix Vapeur (mix technologique|mix de production, en sortie de chaudière), RSA"
+    , { id = Id "Inde"
+      , electricity = Process.Uuid "1b470f5c-6ae6-404d-bd71-8546d33dbc17"
+      , heat = Process.Uuid "2e8de6f6-0ea1-455b-adce-ea74d307d222"
       , dyeingWeighting = 1
       }
-    , { name = "Turkey"
-      , electricity = Process.Uuid "Mix électrique réseau, TR"
-      , heat = Process.Uuid "Mix Vapeur (mix technologique|mix de production, en sortie de chaudière), RSA"
+    , { id = Id "Portugal"
+      , electricity = Process.Uuid "a1d83202-0052-4d10-b9d2-938564be6a0b"
+      , heat = Process.Uuid "59c4c64c-0916-868a-5dd6-a42c4c42222f"
+      , dyeingWeighting = 0
+      }
+    , { id = Id "Tunisie"
+      , electricity = Process.Uuid "f0eb64cd-468d-4f3c-a9a3-3b3661625955"
+      , heat = Process.Uuid "2e8de6f6-0ea1-455b-adce-ea74d307d222"
+      , dyeingWeighting = 1
+      }
+    , { id = Id "Turquie"
+      , electricity = Process.Uuid "6fad8643-de3e-49dd-a48b-8e17b4175c23"
+      , heat = Process.Uuid "2e8de6f6-0ea1-455b-adce-ea74d307d222"
       , dyeingWeighting = 1
       }
     ]
+
+
+idToString : Id -> String
+idToString (Id string) =
+    string
+
+
+toString2 : Country2 -> String
+toString2 =
+    .id >> idToString
 
 
 decode : Decoder Country

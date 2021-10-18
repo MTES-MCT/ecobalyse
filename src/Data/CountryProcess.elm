@@ -3,6 +3,7 @@ module Data.CountryProcess exposing (..)
 import Data.Country as Country exposing (..)
 import Data.Process as Process exposing (Process)
 import Dict.Any as Dict exposing (AnyDict)
+import Json.Encode as Encode
 
 
 type alias CountryProcess =
@@ -24,6 +25,22 @@ get country =
 countries : CountryProcesses -> List Country
 countries =
     Dict.keys
+
+
+encodeAll : String
+encodeAll =
+    countryProcesses
+        |> Dict.toList
+        |> Encode.list
+            (\( c, v ) ->
+                Encode.object
+                    [ ( "name", c |> Country.toString |> Encode.string )
+                    , ( "electricity", v.electricity.uuid |> Process.uuidToString |> Encode.string )
+                    , ( "heat", v.heat.uuid |> Process.uuidToString |> Encode.string )
+                    , ( "dyeingWeighting", Encode.float v.dyeingWeighting )
+                    ]
+            )
+        |> Encode.encode 0
 
 
 countryProcesses : CountryProcesses
