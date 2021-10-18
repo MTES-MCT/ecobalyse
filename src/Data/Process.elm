@@ -2,6 +2,8 @@ module Data.Process exposing (..)
 
 import Csv.Decode as Csv
 import Energy exposing (Energy)
+import Json.Decode as Decode exposing (Decoder)
+import Json.Encode as Encode
 import Mass exposing (Mass)
 
 
@@ -440,3 +442,26 @@ Transport;Routier;Flotte moyenne continentale;Transport en camion (dont parc, ut
 Transport;Routier;Flotte moyenne continentale;Transport en camion (dont parc, utilisation et infrastructure) (50%) [tkm], RER;c0397088-6a57-eea7-8950-1d6db2e6bfdb;c0397088-6a57-eea7-8950-1d6db2e6bfdb;0,156105;0;0;0;0
 Transport;Routier;Flotte moyenne française;Transport en camion non spécifié France (dont parc, utilisation et infrastructure) (50%) [tkm], FR;f49b27fa-f22e-c6e1-ab4b-e9f873e2e648;f49b27fa-f22e-c6e1-ab4b-e9f873e2e648;0,269575;0;0;0;0
 """
+
+
+encode : Process -> Encode.Value
+encode v =
+    Encode.object
+        [ ( "cat1", v.cat1 |> cat1ToString |> Encode.string )
+        , ( "cat2", v.cat2 |> cat2ToString |> Encode.string )
+        , ( "cat3", v.cat3 |> cat3ToString |> Encode.string )
+        , ( "name", Encode.string v.name )
+        , ( "uuid", v.uuid |> uuidToString |> Encode.string )
+        , ( "climateChange", Encode.float v.climateChange )
+        , ( "heat", v.heat |> Energy.inMegajoules |> Encode.float )
+        , ( "elec_pppm", Encode.float v.elec_pppm )
+        , ( "elec", v.elec |> Energy.inMegajoules |> Encode.float )
+        , ( "waste", v.waste |> Mass.inKilograms |> Encode.float )
+        ]
+
+
+encodeAll : String
+encodeAll =
+    processes
+        |> Encode.list encode
+        |> Encode.encode 0
