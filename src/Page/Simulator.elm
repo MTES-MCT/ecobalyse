@@ -86,7 +86,12 @@ init maybeInputs ({ store } as session) =
       , modal = NoModal
       }
     , session
-    , Request.Db.loadDb session DbReceived
+    , case session.db of
+        RemoteData.Success _ ->
+            Cmd.none
+
+        _ ->
+            Request.Db.loadDb session DbReceived
     )
 
 
