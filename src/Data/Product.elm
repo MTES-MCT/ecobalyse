@@ -220,6 +220,11 @@ decode =
         (Decode.field "makingProcessUuid" (Decode.map Process.Uuid Decode.string))
 
 
+decodeList : Decoder (List Product)
+decodeList =
+    Decode.list decode
+
+
 encode : Product -> Encode.Value
 encode v =
     Encode.object

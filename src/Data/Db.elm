@@ -1,9 +1,9 @@
 module Data.Db exposing (..)
 
-import Data.Country as Country exposing (Country)
+import Data.Country exposing (Country2)
 import Data.Material as Material exposing (Material)
-import Data.Process as Process exposing (Process)
-import Data.Product as Product exposing (Product)
+import Data.Process exposing (Process)
+import Data.Product exposing (Product)
 import RemoteData exposing (WebData)
 
 
@@ -24,23 +24,26 @@ import RemoteData exposing (WebData)
 
 type alias LoadingState =
     { processes : WebData (List Process)
-    , countries : WebData (List Country)
+    , countries : WebData (List Country2)
     , products : WebData (List Product)
     }
 
 
 type alias Db =
-    { countries : List Country
+    { countries : List Country2
     , materials : List Material
     , processes : List Process
     , products : List Product
     }
 
 
-default : Db
-default =
-    { countries = Country.choices
-    , materials = Material.choices
-    , processes = Process.processes
-    , products = Product.choices
-    }
+build : WebData (List Process) -> WebData (List Country2) -> WebData (List Product) -> WebData Db
+build =
+    RemoteData.map3
+        (\processes countries products ->
+            { processes = processes
+            , countries = countries
+            , materials = Material.fromProcesses processes
+            , products = products
+            }
+        )

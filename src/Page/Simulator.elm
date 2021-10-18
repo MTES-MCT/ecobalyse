@@ -1,5 +1,7 @@
 module Page.Simulator exposing (..)
 
+-- import Data.Db as Db
+
 import Array
 import Browser.Events
 import Data.Country exposing (Country)

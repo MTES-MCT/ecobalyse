@@ -104,6 +104,20 @@ decode =
         |> Decode.andThen (fromString >> Decode.succeed)
 
 
+decode2 : Decoder Country2
+decode2 =
+    Decode.map4 Country2
+        (Decode.field "id" (Decode.map Id Decode.string))
+        (Decode.field "electricity" (Decode.map Process.Uuid Decode.string))
+        (Decode.field "heat" (Decode.map Process.Uuid Decode.string))
+        (Decode.field "dyeingWeighting" Decode.float)
+
+
+decodeList2 : Decoder (List Country2)
+decodeList2 =
+    Decode.list decode2
+
+
 encode : Country -> Encode.Value
 encode country =
     Encode.string (toString country)

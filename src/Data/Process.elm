@@ -367,6 +367,11 @@ decode =
         |> Pipe.required "waste" (Decode.map Mass.kilograms Decode.float)
 
 
+decodeList : Decoder (List Process)
+decodeList =
+    Decode.list decode
+
+
 encode : Process -> Encode.Value
 encode v =
     Encode.object
