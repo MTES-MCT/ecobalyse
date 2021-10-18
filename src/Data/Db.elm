@@ -1,22 +1,44 @@
 module Data.Db exposing (..)
 
 import Data.Country as Country exposing (Country)
-import Data.CountryProcess as CountryProcess exposing (CountryProcess, CountryProcesses)
+import Data.CountryProcess as CountryProcess exposing (CountryProcesses)
 import Data.Material as Material exposing (Material)
 import Data.Process as Process exposing (Process)
 import Data.Product as Product exposing (Product)
+import Dict.Any as Dict exposing (AnyDict)
+import RemoteData exposing (WebData)
 
 
-type Db
-    = Empty
-    | Errored String
-    | ProcessesLoaded (List Process)
-    | CountryProcessesLoaded (List Process) (List Country) CountryProcesses
-    | ProductsLoaded (List Process) (List Country) CountryProcesses (List Product)
-    | Ready Data
+
+-- TODO:
+-- - refactor to have two types: Db and Data:
+--   * Data has all its members Maybe(WebData x)
+--   * Db has all its members set
+--
+-- Loading order:
+-- 1. processes (so we get materials)
+-- 2. country processes (so we get countries as well)
+-- 3. products
 
 
-type alias Data =
+type alias LoadingCountryProcesses =
+    AnyDict
+        String
+        Country
+        { electricity : Process.Uuid
+        , heat : Process.Uuid
+        , dyeingWeighting : Float
+        }
+
+
+type alias LoadingState =
+    { processes : WebData (List Process)
+    , countryProcesses : WebData LoadingCountryProcesses
+    , products : WebData (List Product)
+    }
+
+
+type alias Db =
     { countries : List Country
     , countryProcesses : CountryProcesses
     , materials : List Material
@@ -25,7 +47,7 @@ type alias Data =
     }
 
 
-default : Data
+default : Db
 default =
     { countries = Country.choices
     , countryProcesses = CountryProcess.countryProcesses
@@ -33,42 +55,3 @@ default =
     , processes = Process.processes
     , products = Product.choices
     }
-
-
-setProcesses : Result String (List Process) -> Db -> Db
-setProcesses result db =
-    case ( db, result ) of
-        ( Empty, Ok processes ) ->
-            ProcessesLoaded processes
-
-        ( _, Err error ) ->
-            Errored error
-
-        _ ->
-            Errored "Invalid db state"
-
-
-setCountries : Result String CountryProcesses -> Db -> Db
-setCountries result db =
-    case ( db, result ) of
-        ( ProcessesLoaded processes, Ok countryProcesses ) ->
-            CountryProcessesLoaded
-                processes
-                (CountryProcess.countries countryProcesses)
-                countryProcesses
-
-        ( _, Err error ) ->
-            Errored error
-
-        _ ->
-            Errored "Invalid db state"
-
-
-
--- setProducts : Result String (List Product) -> Db -> Db
--- setProducts result db =
---     case ( db, result ) of
---         ( ProcessesLoaded processes, Ok products ) ->
---             ProductsLoaded processes products
---         _ ->
---             Errored "Processes can only be set from the Empty state"
