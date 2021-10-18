@@ -6,15 +6,18 @@ module Data.Session exposing
     )
 
 import Browser.Navigation as Nav
+import Data.Db exposing (Db)
 import Data.Inputs as Inputs exposing (Inputs)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
+import RemoteData exposing (WebData)
 
 
 type alias Session =
     { navKey : Nav.Key
     , clientUrl : String
     , store : Store
+    , db : WebData Db
     }
 
 
