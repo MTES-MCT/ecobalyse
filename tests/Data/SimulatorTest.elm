@@ -1,6 +1,6 @@
 module Data.SimulatorTest exposing (..)
 
-import Data.Inputs exposing (..)
+import Data.Inputs as Inputs exposing (..)
 import Data.Simulator as Simulator
 import Expect exposing (Expectation)
 import Route exposing (Route(..))
@@ -13,13 +13,11 @@ asTest label =
     always >> test label
 
 
-expectCo2 : Float -> Inputs -> Expectation
-expectCo2 co2 inputs =
-    case testDb of
-        Ok db ->
-            inputs
-                |> Simulator.compute db
-                |> .co2
+expectCo2 : Float -> Inputs.Query -> Expectation
+expectCo2 co2 query =
+    case testDb |> Result.andThen (\db -> Simulator.compute db query) of
+        Ok simulator ->
+            simulator.co2
                 |> Expect.within (Expect.Absolute 0.01) co2
 
         Err error ->
