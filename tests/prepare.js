@@ -16,7 +16,7 @@ const finalJson = {
 };
 
 const elmTemplate = fs.readFileSync("tests/TestDb.elm-template").toString();
-const elmFixtures = elmTemplate.replace("%json", JSON.stringify(finalJson, 2));
+const elmFixtures = elmTemplate.replace("%json%", JSON.stringify(finalJson, 2));
 
 try {
   fs.writeFileSync("tests/TestDb.elm", elmFixtures);
