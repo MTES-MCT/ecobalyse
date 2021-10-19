@@ -1,8 +1,7 @@
 module Request.Db exposing (..)
 
 import Data.Country as Country exposing (Country2)
-import Data.Db exposing (Db)
-import Data.Material as Material
+import Data.Db as Db exposing (Db)
 import Data.Process as Process exposing (Process)
 import Data.Product as Product exposing (Product)
 import Data.Session exposing (Session)
@@ -33,25 +32,13 @@ getProductsTask _ =
     Http.getTaskWithConfig taskConfig "data/products.json" Product.decodeList
 
 
-buildDb : WebData (List Process) -> WebData (List Country2) -> WebData (List Product) -> WebData Db
-buildDb =
-    RemoteData.map3
-        (\processes countries products ->
-            { processes = processes
-            , countries = countries
-            , materials = Material.fromProcesses processes
-            , products = products
-            }
-        )
-
-
 getDb : Session -> Task () (WebData Db)
 getDb session =
     -- Loading order:
     -- 1. processes (so we get materials)
     -- 2. countries (so we can populate country processes)
     -- 3. products
-    Task.map3 buildDb
+    Task.map3 Db.build
         (getProcessesTask session)
         (getCountriesTask session)
         (getProductsTask session)

@@ -13,7 +13,8 @@
     "start:filewatch": "chokidar 'src/**/!(Main).elm' -c 'touch src/Main.elm'",
     "start:dev": "npm run build:init && concurrently -n \"watch,parcel\" -c \"blue,green\" -k \"npm run start:filewatch\" \"npm run start:parcel\"",
     "start": "PARCEL_ELM_NO_DEBUG=1 npm run start:dev",
-    "test": "elm-test"
+    "test:prepare": "node tests/prepare.js",
+    "test": "npm run test:prepare && elm-test"
   },
   "devDependencies": {
     "@parcel/transformer-elm": "^2.0.0-rc.0",

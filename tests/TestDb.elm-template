@@ -1,0 +1,10 @@
+module TestDb exposing (..)
+
+import Data.Db as Db exposing (Db)
+
+
+testDb : Db
+testDb =
+    """%json%"""
+        |> Db.buildFromJson
+        |> Result.withDefault Db.empty
