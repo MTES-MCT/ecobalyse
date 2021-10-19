@@ -2,7 +2,6 @@ module Data.Session exposing (..)
 
 import Browser.Navigation as Nav
 import Data.Db exposing (Db)
-import Data.Inputs as Inputs exposing (Inputs)
 import Http
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
@@ -44,25 +43,22 @@ notifyHttpError title error session =
 across browser restarts, typically in localStorage.
 -}
 type alias Store =
-    { inputs : Inputs }
+    {}
 
 
 defaultStore : Store
 defaultStore =
-    { inputs = Inputs.default }
+    {}
 
 
 decodeStore : Decoder Store
 decodeStore =
-    Decode.map Store
-        (Decode.field "mass" Inputs.decode)
+    Decode.succeed {}
 
 
 encodeStore : Store -> Encode.Value
-encodeStore v =
-    Encode.object
-        [ ( "simulator", Inputs.encode v.inputs )
-        ]
+encodeStore _ =
+    Encode.object []
 
 
 deserializeStore : String -> Store

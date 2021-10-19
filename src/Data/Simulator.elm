@@ -23,13 +23,17 @@ type alias Simulator =
     }
 
 
-default : Simulator
-default =
-    { inputs = Inputs.default
-    , lifeCycle = LifeCycle.default
-    , co2 = 0
-    , transport = Transport.defaultSummary
-    }
+default : Db -> Result String Simulator
+default db =
+    Inputs.fromQuery db Inputs.defaultQuery
+        |> Result.map
+            (\inputs ->
+                { inputs = inputs
+                , lifeCycle = LifeCycle.default
+                , co2 = 0
+                , transport = Transport.defaultSummary
+                }
+            )
 
 
 decode : Decoder Simulator
@@ -51,45 +55,52 @@ encode v =
         ]
 
 
-compute : Db -> Inputs -> Simulator
-compute db inputs =
-    { default
-        | inputs = inputs
-        , lifeCycle = default.lifeCycle |> LifeCycle.init inputs
-    }
+compute : Db -> Inputs.Query -> Result String Simulator
+compute db query =
+    query
+        |> Inputs.fromQuery db
+        |> Result.map
+            (\inputs ->
+                { inputs = inputs
+                , lifeCycle = LifeCycle.default |> LifeCycle.init inputs
+                , co2 = 0
+                , transport = Transport.defaultSummary
+                }
+            )
+        |> Result.map computeMaterialAndSpinningWaste
         -- Ensure end product mass is first applied to the final Distribution step
-        |> computeMaterialAndSpinningWaste
+        |> Result.map computeMaterialAndSpinningWaste
         --
         -- WASTE
         --
         -- Compute inital required material mass
-        |> computeMakingStepWaste db
+        |> Result.map (computeMakingStepWaste db)
         -- Compute Knitting/Weawing material waste
-        |> computeWeavingKnittingStepWaste
+        |> Result.map computeWeavingKnittingStepWaste
         -- Compute Material&Spinning material waste
-        |> computeMaterialStepWaste
+        |> Result.map computeMaterialStepWaste
         --
         -- CO2 SCORES
         --
         -- Compute Material & Spinning step co2 score
-        |> computeMaterialAndSpinningCo2Score
+        |> Result.map computeMaterialAndSpinningCo2Score
         -- Compute Weaving & Knitting step co2 score
-        |> computeWeavingKnittingCo2Score
+        |> Result.map computeWeavingKnittingCo2Score
         -- Compute Ennoblement step co2 score
-        |> computeEnnoblementCo2Score
+        |> Result.map computeEnnoblementCo2Score
         -- Compute Making step co2 score
-        |> computeMakingCo2Score
+        |> Result.map computeMakingCo2Score
         --
         -- TRANSPORTS
         --
         -- Compute step transport
-        |> computeTransportSummaries
+        |> Result.map computeTransportSummaries
         -- Compute transport summary
-        |> computeTransportSummary
+        |> Result.map computeTransportSummary
         --
         -- FINAL CO2 SCORE
         --
-        |> computeFinalCo2Score
+        |> Result.map computeFinalCo2Score
 
 
 computeMaterialAndSpinningWaste : Simulator -> Simulator

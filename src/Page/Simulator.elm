@@ -4,7 +4,7 @@ import Array
 import Browser.Events
 import Data.Country exposing (Country)
 import Data.Gitbook as Gitbook
-import Data.Inputs as Inputs exposing (Inputs)
+import Data.Inputs as Inputs
 import Data.Key as Key
 import Data.Material as Material exposing (Material)
 import Data.Material.Category as Category exposing (Category)
@@ -33,8 +33,9 @@ import Views.Summary as SummaryView
 
 
 type alias Model =
-    { simulator : Simulator
+    { simulator : Result String Simulator
     , massInput : String
+    , query : Inputs.Query
     , displayMode : DisplayMode
     , modal : ModalContent
     }
@@ -70,46 +71,39 @@ type Msg
 init : Maybe Inputs.Query -> Session -> ( Model, Session, Cmd Msg )
 init maybeQuery session =
     let
-        maybeInputs =
-            maybeQuery
-                |> Maybe.map (Inputs.fromQuery session.db)
-
         simulator =
-            maybeInputs
-                |> Maybe.map (Result.withDefault Inputs.default)
-                |> Maybe.withDefault Inputs.default
-                |> Simulator.compute session.db
+            maybeQuery |> Maybe.withDefault Inputs.defaultQuery |> Simulator.compute session.db
     in
-    -- TODO: pass session.db to simulator if Db is loaded
     ( { simulator = simulator
-      , massInput = simulator.inputs.mass |> Mass.inKilograms |> String.fromFloat
+      , massInput =
+            simulator
+                |> Result.map (.inputs >> .mass >> Mass.inKilograms >> String.fromFloat)
+                |> Result.toMaybe
+                |> Maybe.withDefault ""
+      , query = maybeQuery |> Maybe.withDefault Inputs.defaultQuery
       , displayMode = SimpleMode
       , modal = NoModal
       }
-    , case maybeInputs of
-        Just (Err error) ->
-            session |> Session.notifyError "Erreur de récupération des paramètres d'entrée" error
-
-        _ ->
+    , case simulator of
+        Ok _ ->
             session
+
+        Err error ->
+            session |> Session.notifyError "Erreur de récupération des paramètres d'entrée" error
     , Cmd.none
     )
 
 
-updateInputs : Inputs -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
-updateInputs inputs ( model, session, msg ) =
-    ( { model | simulator = Simulator.compute session.db inputs }
+updateQuery : Inputs.Query -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
+updateQuery query ( model, session, msg ) =
+    ( { model | query = query, simulator = Simulator.compute session.db query }
     , session
     , msg
     )
 
 
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
-update session msg ({ simulator } as model) =
-    let
-        { inputs } =
-            simulator
-    in
+update session msg ({ query } as model) =
     case msg of
         CloseModal ->
             ( { model | modal = NoModal }, session, Cmd.none )
@@ -131,50 +125,51 @@ update session msg ({ simulator } as model) =
 
         Reset ->
             ( model, session, Cmd.none )
-                |> updateInputs Inputs.default
+                |> updateQuery Inputs.defaultQuery
 
         SwitchMode displayMode ->
             ( { model | displayMode = displayMode }, session, Cmd.none )
 
         UpdateAirTransportRatio airTransportRatio ->
             ( model, session, Cmd.none )
-                |> updateInputs { inputs | airTransportRatio = airTransportRatio }
+                |> updateQuery { query | airTransportRatio = airTransportRatio }
 
         UpdateDyeingWeighting dyeingWeighting ->
             ( model, session, Cmd.none )
-                |> updateInputs { inputs | dyeingWeighting = dyeingWeighting }
+                |> updateQuery { query | dyeingWeighting = dyeingWeighting }
 
         UpdateMassInput massInput ->
             case massInput |> String.toFloat |> Maybe.map Mass.kilograms of
                 Just mass ->
                     ( { model | massInput = massInput }, session, Cmd.none )
-                        |> updateInputs { inputs | mass = mass }
+                        |> updateQuery { query | mass = mass }
 
                 Nothing ->
                     ( { model | massInput = massInput }, session, Cmd.none )
 
         UpdateMaterial material ->
             ( model, session, Cmd.none )
-                |> updateInputs { inputs | material = material }
+                |> updateQuery { query | material = material.materialProcessUuid }
 
         UpdateMaterialCategory category ->
             ( model, session, Cmd.none )
-                |> updateInputs
-                    { inputs
+                |> updateQuery
+                    { query
                         | material =
-                            Material.choices
+                            session.db.materials
                                 |> List.filter (.category >> (==) category)
                                 |> List.head
                                 |> Maybe.withDefault Material.cotton
+                                |> .materialProcessUuid
                     }
 
         UpdateStepCountry index country ->
             ( model, session, Cmd.none )
-                |> updateInputs (Inputs.updateStepCountry index country inputs)
+                |> updateQuery (Inputs.updateStepCountry index country query)
 
         UpdateProduct product ->
             ( { model | massInput = product.mass |> Mass.inKilograms |> String.fromFloat }, session, Cmd.none )
-                |> updateInputs { inputs | product = product, mass = product.mass }
+                |> updateQuery { query | product = product.id, mass = product.mass }
 
 
 massField : String -> Html Msg
@@ -265,8 +260,8 @@ downArrow =
     img [ src "img/down-arrow-icon.png" ] []
 
 
-lifeCycleStepsView : Model -> Html Msg
-lifeCycleStepsView { displayMode, simulator } =
+lifeCycleStepsView : DisplayMode -> Simulator -> Html Msg
+lifeCycleStepsView displayMode simulator =
     simulator.lifeCycle
         |> Array.indexedMap
             (\index current ->
@@ -287,8 +282,8 @@ lifeCycleStepsView { displayMode, simulator } =
         |> div [ class "pt-1" ]
 
 
-shareLinkView : Session -> Model -> Html Msg
-shareLinkView session { simulator } =
+shareLinkView : Session -> Simulator -> Html Msg
+shareLinkView session simulator =
     let
         shareableLink =
             simulator.inputs
@@ -420,44 +415,54 @@ modalView modal =
                 }
 
 
+simulatorView : Session -> Model -> Simulator -> Html Msg
+simulatorView session model simulator =
+    div [ class "row" ]
+        [ div [ class "col-lg-7" ]
+            [ div [ class "row" ]
+                [ div [ class "col-6 mb-2" ]
+                    [ productField simulator.inputs.product
+                    ]
+                , div [ class "col-6 mb-2" ]
+                    [ massField model.massInput
+                    ]
+                ]
+            , materialCategoryField simulator.inputs.material
+            , div [ class "mb-1" ] [ materialField simulator.inputs.material ]
+            , displayModeView model.displayMode
+            , lifeCycleStepsView model.displayMode simulator
+            , div [ class "d-flex align-items-center justify-content-between mt-3 mb-5" ]
+                [ a [ Route.href Route.Home ] [ text "« Retour à l'accueil" ]
+                , button
+                    [ class "btn btn-secondary"
+                    , onClick Reset
+                    , disabled (Simulator.default session.db == model.simulator)
+                    ]
+                    [ text "Réinitialiser le simulateur" ]
+                ]
+            ]
+        , div [ class "col-lg-5" ]
+            [ div [ class "d-flex flex-column gap-3 mb-3 sticky-md-top", style "top" "7px" ]
+                [ div [ class "Summary" ] [ SummaryView.view False model.simulator ]
+                , ComparatorView.view { session = session, simulator = simulator, openDocModal = OpenDocModal }
+                , feedbackView
+                , shareLinkView session simulator
+                ]
+            ]
+        ]
+
+
 view : Session -> Model -> ( String, List (Html Msg) )
-view session ({ displayMode, simulator } as model) =
+view session model =
     ( "Simulateur"
     , [ Container.centered [ class "Simulator" ]
             [ h1 [ class "mb-3" ] [ text "Simulateur" ]
-            , div [ class "row" ]
-                [ div [ class "col-lg-7" ]
-                    [ div [ class "row" ]
-                        [ div [ class "col-6 mb-2" ]
-                            [ productField simulator.inputs.product
-                            ]
-                        , div [ class "col-6 mb-2" ]
-                            [ massField model.massInput
-                            ]
-                        ]
-                    , materialCategoryField simulator.inputs.material
-                    , div [ class "mb-1" ] [ materialField simulator.inputs.material ]
-                    , displayModeView displayMode
-                    , lifeCycleStepsView model
-                    , div [ class "d-flex align-items-center justify-content-between mt-3 mb-5" ]
-                        [ a [ Route.href Route.Home ] [ text "« Retour à l'accueil" ]
-                        , button
-                            [ class "btn btn-secondary"
-                            , onClick Reset
-                            , disabled (Simulator.default == simulator)
-                            ]
-                            [ text "Réinitialiser le simulateur" ]
-                        ]
-                    ]
-                , div [ class "col-lg-5" ]
-                    [ div [ class "d-flex flex-column gap-3 mb-3 sticky-md-top", style "top" "7px" ]
-                        [ div [ class "Summary" ] [ SummaryView.view False simulator ]
-                        , ComparatorView.view { session = session, simulator = simulator, openDocModal = OpenDocModal }
-                        , feedbackView
-                        , shareLinkView session model
-                        ]
-                    ]
-                ]
+            , case model.simulator of
+                Ok simulator ->
+                    simulatorView session model simulator
+
+                Err error ->
+                    text <| "Error: " ++ error
             ]
       , modalView model.modal
       ]
