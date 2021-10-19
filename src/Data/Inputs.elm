@@ -3,6 +3,7 @@ module Data.Inputs exposing (..)
 import Array
 import Base64
 import Data.Country as Country exposing (Country)
+import Data.Db as Db exposing (Db)
 import Data.Material as Material exposing (Material)
 import Data.Process as Process
 import Data.Product as Product exposing (Product)
@@ -34,8 +35,8 @@ type alias Query =
     }
 
 
-fromQuery : Query -> Inputs
-fromQuery query =
+fromQuery : Db -> Query -> Inputs
+fromQuery db query =
     { mass = query.mass
     , material = Material.findByProcessUuid query.material
     , product = Product.findById query.product

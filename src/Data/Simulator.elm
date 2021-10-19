@@ -63,7 +63,7 @@ compute db inputs =
         -- WASTE
         --
         -- Compute inital required material mass
-        |> computeMakingStepWaste
+        |> computeMakingStepWaste db
         -- Compute Knitting/Weawing material waste
         |> computeWeavingKnittingStepWaste
         -- Compute Material&Spinning material waste
@@ -230,9 +230,10 @@ computeWeavingKnittingCo2Score ({ inputs } as simulator) =
             )
 
 
-computeMakingStepWaste : Simulator -> Simulator
-computeMakingStepWaste ({ inputs } as simulator) =
+computeMakingStepWaste : Db -> Simulator -> Simulator
+computeMakingStepWaste db ({ inputs } as simulator) =
     let
+        -- FIXME: use Db to query waste
         confectionWaste =
             Process.findByUuid inputs.product.makingProcessUuid |> .waste
 

@@ -73,10 +73,10 @@ init maybeInputs ({ store } as session) =
     let
         simulator =
             maybeInputs
-                |> Maybe.map Inputs.fromQuery
+                |> Maybe.map (Inputs.fromQuery session.db)
                 -- TODO: is using store.simulator necessary? why should it be serialized in a first step?
                 |> Maybe.withDefault store.inputs
-                |> Simulator.compute Db.empty
+                |> Simulator.compute session.db
     in
     -- TODO: pass session.db to simulator if Db is loaded
     ( { simulator = simulator

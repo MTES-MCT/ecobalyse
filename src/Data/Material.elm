@@ -63,6 +63,7 @@ findByProcessUuid materialProcessUuid =
 
 invalid : Material
 invalid =
+    -- FIXME: eradicate this
     { materialProcessUuid = Process.Uuid "<invalid>"
     , name = "<invalid>"
     , category = Category.Natural
