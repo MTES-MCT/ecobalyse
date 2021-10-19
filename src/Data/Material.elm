@@ -61,6 +61,13 @@ findByProcessUuid materialProcessUuid =
         |> Maybe.withDefault invalid
 
 
+findByProcessUuid2 : Process.Uuid -> List Material -> Result String Material
+findByProcessUuid2 materialProcessUuid =
+    List.filter (\m -> m.materialProcessUuid == materialProcessUuid)
+        >> List.head
+        >> Result.fromMaybe ("Impossible de récupérer la matière uuid=" ++ Process.uuidToString materialProcessUuid)
+
+
 invalid : Material
 invalid =
     -- FIXME: eradicate this

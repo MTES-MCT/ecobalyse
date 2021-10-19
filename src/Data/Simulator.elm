@@ -231,7 +231,7 @@ computeWeavingKnittingCo2Score ({ inputs } as simulator) =
 
 
 computeMakingStepWaste : Db -> Simulator -> Simulator
-computeMakingStepWaste db ({ inputs } as simulator) =
+computeMakingStepWaste _ ({ inputs } as simulator) =
     let
         -- FIXME: use Db to query waste
         confectionWaste =

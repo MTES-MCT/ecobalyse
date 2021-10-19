@@ -159,6 +159,13 @@ findById id =
         |> Maybe.withDefault invalid
 
 
+findById2 : Id -> List Product -> Result String Product
+findById2 id =
+    List.filter (.id >> (==) id)
+        >> List.head
+        >> Result.fromMaybe ("Produit non trouvé id=" ++ idToString id)
+
+
 findByName : String -> Product
 findByName name =
     choices
