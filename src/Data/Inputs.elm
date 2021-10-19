@@ -38,6 +38,7 @@ type alias Query =
 fromQuery : Db -> Query -> Result String Inputs
 fromQuery db query =
     -- FIXME: do we really need Inputs and Query now we have a Db? Can we only rely on Query for simplicity?
+    -- IDEA: put material, product, countries at the root of Simulator, and get rid of inputs?
     let
         ( material, product ) =
             ( db.materials |> Material.findByProcessUuid2 query.material
@@ -48,6 +49,8 @@ fromQuery db query =
             { mass = query.mass
             , material = material_
             , product = product_
+
+            -- TODO: resolve Country2 from Db
             , countries = query.countries
             , dyeingWeighting = query.dyeingWeighting
             , airTransportRatio = query.airTransportRatio
@@ -79,25 +82,25 @@ toLabel { mass, material, product } =
 
 
 updateStepCountry : Int -> Country -> Query -> Query
-updateStepCountry index country inputs =
-    { inputs
-        | countries = inputs.countries |> Array.fromList |> Array.set index country |> Array.toList
+updateStepCountry index country query =
+    { query
+        | countries = query.countries |> Array.fromList |> Array.set index country |> Array.toList
         , dyeingWeighting =
             -- FIXME: index 2 is Ennoblement step; how could we use th step label instead?
-            if index == 2 && Array.get index (Array.fromList inputs.countries) /= Just country then
+            if index == 2 && Array.get index (Array.fromList query.countries) /= Just country then
                 -- reset custom value as we just switched country, which dyeing weighting is totally different
                 Nothing
 
             else
-                inputs.dyeingWeighting
+                query.dyeingWeighting
         , airTransportRatio =
             -- FIXME: index 3 is Making step; how could we use th step label instead?
-            if index == 3 && Array.get index (Array.fromList inputs.countries) /= Just country then
+            if index == 3 && Array.get index (Array.fromList query.countries) /= Just country then
                 -- reset custom value as we just switched country
                 Nothing
 
             else
-                inputs.airTransportRatio
+                query.airTransportRatio
     }
 
 
