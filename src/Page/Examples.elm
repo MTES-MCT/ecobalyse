@@ -31,7 +31,7 @@ update session msg model =
 
 
 view : Session -> Model -> ( String, List (Html Msg) )
-view _ _ =
+view { db } _ =
     ( "Exemples"
     , [ Container.centered [ class "pb-5" ]
             [ div [ class "row mb-3" ]
@@ -47,7 +47,7 @@ view _ _ =
                     ]
                 ]
             , Inputs.presets
-                |> List.map (Simulator.compute >> SummaryView.view True >> (\v -> div [ class "col" ] [ v ]))
+                |> List.map (Simulator.compute db >> SummaryView.view True >> (\v -> div [ class "col" ] [ v ]))
                 |> div [ class "row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4" ]
             ]
       ]

@@ -1,9 +1,11 @@
 module Views.Comparator exposing (..)
 
 import Data.Country exposing (..)
+import Data.Db exposing (Db)
 import Data.Gitbook as Gitbook
 import Data.Inputs exposing (Inputs)
 import Data.Material as Material
+import Data.Session exposing (Session)
 import Data.Simulator as Simulator exposing (Simulator)
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -13,7 +15,8 @@ import Views.Icon as Icon
 
 
 type alias Config msg =
-    { simulator : Simulator
+    { session : Session
+    , simulator : Simulator
     , openDocModal : Gitbook.Path -> msg
     }
 
@@ -27,21 +30,21 @@ documentationPillLink { openDocModal } path =
         [ Icon.question ]
 
 
-getComparatorData : Inputs -> ( Simulator, Simulator, Simulator )
-getComparatorData inputs =
-    ( Simulator.compute
+getComparatorData : Db -> Inputs -> ( Simulator, Simulator, Simulator )
+getComparatorData db inputs =
+    ( Simulator.compute db
         { inputs
             | countries = [ China, France, France, France, France ]
             , dyeingWeighting = Just 0
             , airTransportRatio = Just 0
         }
-    , Simulator.compute
+    , Simulator.compute db
         { inputs
             | countries = [ China, Turkey, Turkey, Turkey, France ]
             , dyeingWeighting = Just 0.5
             , airTransportRatio = Just 0
         }
-    , Simulator.compute
+    , Simulator.compute db
         { inputs
             | countries = [ China, India, India, India, France ]
             , dyeingWeighting = Just 1
@@ -51,13 +54,13 @@ getComparatorData inputs =
 
 
 view : Config msg -> Html msg
-view ({ simulator } as config) =
+view ({ session, simulator } as config) =
     let
         { inputs, co2 } =
             simulator
 
         ( good, middle, bad ) =
-            getComparatorData inputs
+            getComparatorData session.db inputs
 
         scale =
             bad.co2 - good.co2

@@ -3,6 +3,7 @@ module Page.Simulator exposing (..)
 import Array
 import Browser.Events
 import Data.Country exposing (Country)
+import Data.Db as Db
 import Data.Gitbook as Gitbook
 import Data.Inputs as Inputs exposing (Inputs)
 import Data.Key as Key
@@ -75,7 +76,7 @@ init maybeInputs ({ store } as session) =
                 |> Maybe.map Inputs.fromQuery
                 -- TODO: is using store.simulator necessary? why should it be serialized in a first step?
                 |> Maybe.withDefault store.inputs
-                |> Simulator.compute
+                |> Simulator.compute Db.empty
     in
     -- TODO: pass session.db to simulator if Db is loaded
     ( { simulator = simulator
@@ -90,7 +91,7 @@ init maybeInputs ({ store } as session) =
 
 updateInputs : Inputs -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
 updateInputs inputs ( model, session, msg ) =
-    ( { model | simulator = Simulator.compute inputs }
+    ( { model | simulator = Simulator.compute session.db inputs }
     , session
     , msg
     )
@@ -444,7 +445,7 @@ view session ({ displayMode, simulator } as model) =
                 , div [ class "col-lg-5" ]
                     [ div [ class "d-flex flex-column gap-3 mb-3 sticky-md-top", style "top" "7px" ]
                         [ div [ class "Summary" ] [ SummaryView.view False simulator ]
-                        , ComparatorView.view { simulator = simulator, openDocModal = OpenDocModal }
+                        , ComparatorView.view { session = session, simulator = simulator, openDocModal = OpenDocModal }
                         , feedbackView
                         , shareLinkView session model
                         ]
