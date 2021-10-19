@@ -3,7 +3,7 @@ module Data.Inputs exposing (..)
 import Array
 import Base64
 import Data.Country as Country exposing (Country)
-import Data.Db as Db exposing (Db)
+import Data.Db exposing (Db)
 import Data.Material as Material exposing (Material)
 import Data.Process as Process
 import Data.Product as Product exposing (Product)
@@ -35,15 +35,25 @@ type alias Query =
     }
 
 
-fromQuery : Db -> Query -> Inputs
+fromQuery : Db -> Query -> Result String Inputs
 fromQuery db query =
-    { mass = query.mass
-    , material = Material.findByProcessUuid query.material
-    , product = Product.findById query.product
-    , countries = query.countries
-    , dyeingWeighting = query.dyeingWeighting
-    , airTransportRatio = query.airTransportRatio
-    }
+    -- FIXME: do we really need Inputs and Query now we have a Db? Can we only rely on Query for simplicity?
+    let
+        ( material, product ) =
+            ( db.materials |> Material.findByProcessUuid2 query.material
+            , db.products |> Product.findById2 query.product
+            )
+
+        build material_ product_ =
+            { mass = query.mass
+            , material = material_
+            , product = product_
+            , countries = query.countries
+            , dyeingWeighting = query.dyeingWeighting
+            , airTransportRatio = query.airTransportRatio
+            }
+    in
+    Result.map2 build material product
 
 
 toQuery : Inputs -> Query

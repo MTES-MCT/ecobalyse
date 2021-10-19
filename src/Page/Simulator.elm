@@ -3,7 +3,6 @@ module Page.Simulator exposing (..)
 import Array
 import Browser.Events
 import Data.Country exposing (Country)
-import Data.Db as Db
 import Data.Gitbook as Gitbook
 import Data.Inputs as Inputs exposing (Inputs)
 import Data.Key as Key
@@ -11,7 +10,7 @@ import Data.Material as Material exposing (Material)
 import Data.Material.Category as Category exposing (Category)
 import Data.Process as Process
 import Data.Product as Product exposing (Product)
-import Data.Session exposing (Session)
+import Data.Session as Session exposing (Session)
 import Data.Simulator as Simulator exposing (Simulator)
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
@@ -69,13 +68,16 @@ type Msg
 
 
 init : Maybe Inputs.Query -> Session -> ( Model, Session, Cmd Msg )
-init maybeInputs ({ store } as session) =
+init maybeQuery session =
     let
+        maybeInputs =
+            maybeQuery
+                |> Maybe.map (Inputs.fromQuery session.db)
+
         simulator =
             maybeInputs
-                |> Maybe.map (Inputs.fromQuery session.db)
-                -- TODO: is using store.simulator necessary? why should it be serialized in a first step?
-                |> Maybe.withDefault store.inputs
+                |> Maybe.map (Result.withDefault Inputs.default)
+                |> Maybe.withDefault Inputs.default
                 |> Simulator.compute session.db
     in
     -- TODO: pass session.db to simulator if Db is loaded
@@ -84,7 +86,12 @@ init maybeInputs ({ store } as session) =
       , displayMode = SimpleMode
       , modal = NoModal
       }
-    , session
+    , case maybeInputs of
+        Just (Err error) ->
+            session |> Session.notifyError "Erreur de récupération des paramètres d'entrée" error
+
+        _ ->
+            session
     , Cmd.none
     )
 
