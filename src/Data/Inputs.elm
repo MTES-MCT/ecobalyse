@@ -78,7 +78,7 @@ toLabel { mass, material, product } =
         ]
 
 
-updateStepCountry : Int -> Country -> Inputs -> Inputs
+updateStepCountry : Int -> Country -> Query -> Query
 updateStepCountry index country inputs =
     { inputs
         | countries = inputs.countries |> Array.fromList |> Array.set index country |> Array.toList
@@ -101,22 +101,17 @@ updateStepCountry index country inputs =
     }
 
 
-default : Inputs
-default =
+defaultQuery : Query
+defaultQuery =
     tShirtCotonIndia
 
 
-defaultQuery : Query
-defaultQuery =
-    toQuery default
-
-
-tShirtCotonFrance : Inputs
+tShirtCotonFrance : Query
 tShirtCotonFrance =
     -- T-shirt circuit France
-    { mass = Product.tShirt.mass
-    , material = Material.cotton
-    , product = Product.tShirt
+    { mass = Mass.kilograms 0.17
+    , material = Process.Uuid "f211bbdb-415c-46fd-be4d-ddf199575b44"
+    , product = Product.Id "13"
     , countries =
         [ Country.China
         , Country.France
@@ -129,7 +124,7 @@ tShirtCotonFrance =
     }
 
 
-tShirtCotonEurope : Inputs
+tShirtCotonEurope : Query
 tShirtCotonEurope =
     -- T-shirt circuit Europe
     { tShirtCotonFrance
@@ -143,25 +138,21 @@ tShirtCotonEurope =
     }
 
 
-tShirtCotonIndia : Inputs
+tShirtCotonIndia : Query
 tShirtCotonIndia =
-    -- T-shirt circuit France
-    { mass = Product.tShirt.mass
-    , material = Material.cotton
-    , product = Product.tShirt
-    , countries =
-        [ Country.China
-        , Country.India
-        , Country.India
-        , Country.India
-        , Country.France
-        ]
-    , dyeingWeighting = Nothing
-    , airTransportRatio = Nothing
+    -- T-shirt circuit Inde
+    { tShirtCotonFrance
+        | countries =
+            [ Country.China
+            , Country.India
+            , Country.India
+            , Country.India
+            , Country.France
+            ]
     }
 
 
-tShirtCotonAsie : Inputs
+tShirtCotonAsie : Query
 tShirtCotonAsie =
     -- T-shirt circuit Europe
     { tShirtCotonFrance
@@ -175,12 +166,12 @@ tShirtCotonAsie =
     }
 
 
-jupeCircuitAsie : Inputs
+jupeCircuitAsie : Query
 jupeCircuitAsie =
     -- Jupe circuit Asie
-    { mass = Product.findByName "Jupe" |> .mass
-    , material = Material.findByName "Filament d'acrylique"
-    , product = Product.findByName "Jupe"
+    { mass = Mass.kilograms 0.3
+    , material = Process.Uuid "aee6709f-0864-4fc5-8760-68cb644a0021"
+    , product = Product.Id "8"
     , countries =
         [ Country.China
         , Country.China
@@ -193,12 +184,12 @@ jupeCircuitAsie =
     }
 
 
-manteauCircuitEurope : Inputs
+manteauCircuitEurope : Query
 manteauCircuitEurope =
     -- Manteau circuit Europe
-    { mass = Product.findByName "Manteau" |> .mass
-    , material = Material.findByName "Fil de cachemire"
-    , product = Product.findByName "Manteau"
+    { mass = Mass.kilograms 0.95
+    , material = Process.Uuid "380c0d9c-2840-4390-bd3f-5c960f26f5ed"
+    , product = Product.Id "9"
     , countries =
         [ Country.China
         , Country.Turkey
@@ -211,11 +202,11 @@ manteauCircuitEurope =
     }
 
 
-pantalonCircuitEurope : Inputs
+pantalonCircuitEurope : Query
 pantalonCircuitEurope =
-    { mass = Product.findByName "Pantalon" |> .mass
-    , material = Material.findByName "Fil de lin (filasse)"
-    , product = Product.findByName "Pantalon"
+    { mass = Mass.kilograms 0.45
+    , material = Process.Uuid "e5a6d538-f932-4242-98b4-3a0c6439629c"
+    , product = Product.Id "10"
     , countries =
         [ Country.China
         , Country.Turkey
@@ -228,12 +219,12 @@ pantalonCircuitEurope =
     }
 
 
-robeCircuitBangladesh : Inputs
+robeCircuitBangladesh : Query
 robeCircuitBangladesh =
     -- Jupe circuit Asie
     { mass = Mass.kilograms 0.5
-    , material = Material.findByName "Filament d'aramide"
-    , product = Product.findByName "Robe"
+    , material = Process.Uuid "7a1ccc4a-2ea7-48dc-9ef0-d57066ea8fa5"
+    , product = Product.Id "12"
     , countries =
         [ Country.China
         , Country.Bangladesh
@@ -246,7 +237,7 @@ robeCircuitBangladesh =
     }
 
 
-presets : List Inputs
+presets : List Query
 presets =
     [ tShirtCotonFrance
     , tShirtCotonEurope

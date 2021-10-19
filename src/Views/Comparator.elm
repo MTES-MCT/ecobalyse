@@ -3,7 +3,7 @@ module Views.Comparator exposing (..)
 import Data.Country exposing (..)
 import Data.Db exposing (Db)
 import Data.Gitbook as Gitbook
-import Data.Inputs exposing (Inputs)
+import Data.Inputs as Inputs
 import Data.Material as Material
 import Data.Session exposing (Session)
 import Data.Simulator as Simulator exposing (Simulator)
@@ -30,38 +30,45 @@ documentationPillLink { openDocModal } path =
         [ Icon.question ]
 
 
-getComparatorData : Db -> Inputs -> ( Simulator, Simulator, Simulator )
-getComparatorData db inputs =
-    ( Simulator.compute db
-        { inputs
-            | countries = [ China, France, France, France, France ]
-            , dyeingWeighting = Just 0
-            , airTransportRatio = Just 0
-        }
-    , Simulator.compute db
-        { inputs
-            | countries = [ China, Turkey, Turkey, Turkey, France ]
-            , dyeingWeighting = Just 0.5
-            , airTransportRatio = Just 0
-        }
-    , Simulator.compute db
-        { inputs
-            | countries = [ China, India, India, India, France ]
-            , dyeingWeighting = Just 1
-            , airTransportRatio = Just 1
-        }
-    )
+getComparatorData : Db -> Inputs.Query -> Result String ( Simulator, Simulator, Simulator )
+getComparatorData db query =
+    Result.map3 (\a b c -> ( a, b, c ))
+        (Simulator.compute db
+            { query
+                | countries = [ China, France, France, France, France ]
+                , dyeingWeighting = Just 0
+                , airTransportRatio = Just 0
+            }
+        )
+        (Simulator.compute db
+            { query
+                | countries = [ China, Turkey, Turkey, Turkey, France ]
+                , dyeingWeighting = Just 0.5
+                , airTransportRatio = Just 0
+            }
+        )
+        (Simulator.compute db
+            { query
+                | countries = [ China, India, India, India, France ]
+                , dyeingWeighting = Just 1
+                , airTransportRatio = Just 1
+            }
+        )
 
 
 view : Config msg -> Html msg
 view ({ session, simulator } as config) =
+    case simulator.inputs |> Inputs.toQuery |> getComparatorData session.db of
+        Err error ->
+            text <| "Error: " ++ error
+
+        Ok result ->
+            viewComparator config simulator result
+
+
+viewComparator : Config msg -> Simulator -> ( Simulator, Simulator, Simulator ) -> Html msg
+viewComparator config { inputs, co2 } ( good, middle, bad ) =
     let
-        { inputs, co2 } =
-            simulator
-
-        ( good, middle, bad ) =
-            getComparatorData session.db inputs
-
         scale =
             bad.co2 - good.co2
 
@@ -84,7 +91,7 @@ view ({ session, simulator } as config) =
                     , style "border-left" "1px solid #bbb"
                     , style "margin-left" <| String.fromFloat p ++ "%"
                     ]
-                    [ Format.kgCo2 2 simulator.co2 ]
+                    [ Format.kgCo2 2 co2 ]
 
               else
                 div
@@ -93,7 +100,7 @@ view ({ session, simulator } as config) =
                     , style "border-right" "1px solid #bbb"
                     , style "width" <| String.fromFloat p ++ "%"
                     ]
-                    [ Format.kgCo2 2 simulator.co2 ]
+                    [ Format.kgCo2 2 co2 ]
             , div [ class "progress rounded-0 mt-0" ]
                 [ div
                     [ class "progress-bar progress-bar-striped progress-bar-animated"

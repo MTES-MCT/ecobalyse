@@ -13,8 +13,8 @@ import Views.Format as Format
 import Views.Transport as TransportView
 
 
-view : Bool -> Simulator -> Html msg
-view reusable simulator =
+summaryView : Bool -> Simulator -> Html msg
+summaryView reusable simulator =
     div [ class "card shadow-sm" ]
         [ div [ class "card-header text-white bg-primary d-flex justify-content-between" ]
             [ span [ class "text-nowrap" ] [ strong [] [ text simulator.inputs.product.name ] ]
@@ -59,3 +59,13 @@ view reusable simulator =
           else
             text ""
         ]
+
+
+view : Bool -> Result String Simulator -> Html msg
+view reusable result =
+    case result of
+        Ok simulator ->
+            summaryView reusable simulator
+
+        Err error ->
+            text <| "Error: " ++ error
