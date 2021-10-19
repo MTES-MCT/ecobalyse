@@ -5,6 +5,7 @@ import Data.Simulator as Simulator
 import Expect exposing (Expectation)
 import Route exposing (Route(..))
 import Test exposing (..)
+import TestDb exposing (testDb)
 
 
 asTest : String -> Expectation -> Test
@@ -14,7 +15,7 @@ asTest label =
 
 expectCo2 : Float -> Inputs -> Expectation
 expectCo2 co2 =
-    Simulator.compute >> .co2 >> Expect.within (Expect.Absolute 0.01) co2
+    Simulator.compute testDb >> .co2 >> Expect.within (Expect.Absolute 0.01) co2
 
 
 suite : Test
