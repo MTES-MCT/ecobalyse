@@ -2,7 +2,7 @@ module Main exposing (main)
 
 import Browser exposing (Document)
 import Browser.Navigation as Nav
-import Data.Db exposing (Db)
+import Data.Db as Db exposing (Db)
 import Data.Session as Session exposing (Session)
 import Html exposing (..)
 import Page.Changelog as Changelog
@@ -62,7 +62,8 @@ init flags url navKey =
             { clientUrl = flags.clientUrl
             , navKey = navKey
             , store = Session.deserializeStore flags.rawStore
-            , db = RemoteData.NotAsked
+            , db = Db.empty
+            , notifications = []
             }
     in
     ( { page = BlankPage, session = session }
@@ -160,9 +161,21 @@ update msg ({ page, session } as model) =
             toPage StatsPage StatsMsg Stats.update statsMsg statsModel
 
         -- Db
-        ( DbReceived url db, _ ) ->
-            ( { model | session = { session | db = db } }, Cmd.none )
-                |> setRoute (Route.fromUrl url)
+        ( DbReceived url (RemoteData.Success db), _ ) ->
+            -- Db successfully loaded, attach it to session and process to requested page.
+            -- That way, the page will always access a fully loaded Db.
+            setRoute (Route.fromUrl url)
+                ( { model | session = { session | db = db } }, Cmd.none )
+
+        ( DbReceived url (RemoteData.Failure httpError), _ ) ->
+            setRoute (Route.fromUrl url)
+                ( { model
+                    | session =
+                        session
+                            |> Session.notifyHttpError "Erreur lors du chargement des données" httpError
+                  }
+                , Cmd.none
+                )
 
         -- Store
         ( StoreChanged json, _ ) ->

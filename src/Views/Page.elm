@@ -1,11 +1,9 @@
 module Views.Page exposing (..)
 
 import Browser exposing (Document)
-import Data.Db exposing (Db)
-import Data.Session exposing (Session)
+import Data.Session as Session exposing (Session)
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import RemoteData exposing (WebData)
 import Request.Common as HttpCommon
 import Route
 import Views.Container as Container
@@ -42,7 +40,7 @@ frame config ( title, content ) =
         [ navbar config
         , feedback
         , main_ [ class "bg-white" ]
-            [ dbErrorView config.session.db
+            [ notificationListView config.session.notifications
             , div [ class "pt-5" ] content
             ]
         , pageFooter
@@ -139,28 +137,40 @@ feedback =
         ]
 
 
-dbErrorView : WebData Db -> Html msg
-dbErrorView db =
-    case db of
-        RemoteData.NotAsked ->
-            text ""
+notificationListView : List Session.Notification -> Html msg
+notificationListView notifications =
+    notifications
+        |> List.map notificationView
+        |> Container.centered [ class "bg-white" ]
 
-        RemoteData.Loading ->
-            text "Loading…"
 
-        RemoteData.Success _ ->
-            text ""
+notificationView : Session.Notification -> Html msg
+notificationView notification =
+    -- TODO:
+    -- - close button
+    -- - maybe switch to alert
+    -- - generic DRY view
+    -- - absolute positionning
+    case notification of
+        Session.HttpError title error ->
+            div [ class "card text-light bg-danger mb-3" ]
+                [ div [ class "card-header" ]
+                    [ span [ class "me-1" ] [ Icon.warning ]
+                    , text title
+                    ]
+                , div [ class "card-body bg-light text-dark" ]
+                    [ pre [ class "fs-7 mb-0" ] [ error |> HttpCommon.errorToString |> text ]
+                    ]
+                ]
 
-        RemoteData.Failure error ->
-            Container.centered [ class "bg-white pt-3" ]
-                [ div [ class "card text-light bg-danger mb-3" ]
-                    [ div [ class "card-header" ]
-                        [ span [ class "me-1" ] [ Icon.warning ]
-                        , text "Erreur lors du chargement des données\u{00A0}:"
-                        ]
-                    , div [ class "card-body bg-light text-dark" ]
-                        [ pre [ class "fs-7 mb-0" ] [ error |> HttpCommon.errorToString |> text ]
-                        ]
+        Session.GenericError title message ->
+            div [ class "card text-light bg-danger mb-3" ]
+                [ div [ class "card-header" ]
+                    [ span [ class "me-1" ] [ Icon.warning ]
+                    , text title
+                    ]
+                , div [ class "card-body bg-light text-dark" ]
+                    [ pre [ class "fs-7 mb-0" ] [ text message ]
                     ]
                 ]
 

@@ -1,6 +1,7 @@
 module Data.Simulator exposing (..)
 
 import Data.CountryProcess as CountryProcess
+import Data.Db exposing (Db)
 import Data.Inputs as Inputs exposing (Inputs)
 import Data.LifeCycle as LifeCycle exposing (LifeCycle)
 import Data.Process as Process
@@ -50,8 +51,8 @@ encode v =
         ]
 
 
-compute : Inputs -> Simulator
-compute inputs =
+compute : Db -> Inputs -> Simulator
+compute db inputs =
     { default
         | inputs = inputs
         , lifeCycle = default.lifeCycle |> LifeCycle.init inputs
