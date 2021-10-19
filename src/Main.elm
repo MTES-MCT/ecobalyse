@@ -75,13 +75,11 @@ init flags url navKey =
 
 
 setRoute : Maybe Route -> ( Model, Cmd Msg ) -> ( Model, Cmd Msg )
-setRoute maybeRoute ( model, cmds ) =
+setRoute maybeRoute ( { session } as model, cmds ) =
     let
-        toPage page subInit subMsg =
+        -- TODO: factor this with `update` internal `toPage`
+        toPage page subMsg ( subModel, newSession, subCmds ) =
             let
-                ( subModel, newSession, subCmds ) =
-                    subInit model.session
-
                 storeCmd =
                     if model.session.store /= newSession.store then
                         newSession.store |> Session.serializeStore |> Ports.saveStore
@@ -103,32 +101,36 @@ setRoute maybeRoute ( model, cmds ) =
             ( { model | page = NotFoundPage }, Cmd.none )
 
         Just Route.Home ->
-            toPage HomePage Home.init HomeMsg
+            Home.init session
+                |> toPage HomePage HomeMsg
 
         Just Route.Changelog ->
-            toPage ChangelogPage Changelog.init ChangelogMsg
+            Changelog.init session
+                |> toPage ChangelogPage ChangelogMsg
 
         Just (Route.Editorial slug) ->
-            toPage EditorialPage (Editorial.init slug) EditorialMsg
+            Editorial.init slug session
+                |> toPage EditorialPage EditorialMsg
 
         Just Route.Examples ->
-            toPage ExamplesPage Examples.init ExamplesMsg
+            Examples.init session
+                |> toPage ExamplesPage ExamplesMsg
 
         Just (Route.Simulator maybeQuery) ->
-            toPage SimulatorPage (Simulator.init maybeQuery) SimulatorMsg
+            Simulator.init maybeQuery session
+                |> toPage SimulatorPage SimulatorMsg
 
         Just Route.Stats ->
-            toPage StatsPage Stats.init StatsMsg
+            Stats.init session
+                |> toPage StatsPage StatsMsg
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg ({ page, session } as model) =
     let
-        toPage toModel toMsg subUpdate subMsg subModel =
+        -- TODO: factor this with `setRoute` internal `toPage`
+        toPage toModel toMsg ( newModel, newSession, newCmd ) =
             let
-                ( newModel, newSession, newCmd ) =
-                    subUpdate session subMsg subModel
-
                 storeCmd =
                     if session.store /= newSession.store then
                         newSession.store |> Session.serializeStore |> Ports.saveStore
@@ -143,22 +145,28 @@ update msg ({ page, session } as model) =
     case ( msg, page ) of
         -- Pages
         ( HomeMsg homeMsg, HomePage homeModel ) ->
-            toPage HomePage HomeMsg Home.update homeMsg homeModel
+            Home.update session homeMsg homeModel
+                |> toPage HomePage HomeMsg
 
         ( ChangelogMsg changelogMsg, ChangelogPage changelogModel ) ->
-            toPage ChangelogPage ChangelogMsg Changelog.update changelogMsg changelogModel
+            Changelog.update session changelogMsg changelogModel
+                |> toPage ChangelogPage ChangelogMsg
 
         ( EditorialMsg editorialMsg, EditorialPage editorialModel ) ->
-            toPage EditorialPage EditorialMsg Editorial.update editorialMsg editorialModel
+            Editorial.update session editorialMsg editorialModel
+                |> toPage EditorialPage EditorialMsg
 
         ( ExamplesMsg examplesMsg, ExamplesPage examplesModel ) ->
-            toPage ExamplesPage ExamplesMsg Examples.update examplesMsg examplesModel
+            Examples.update session examplesMsg examplesModel
+                |> toPage ExamplesPage ExamplesMsg
 
         ( SimulatorMsg counterMsg, SimulatorPage counterModel ) ->
-            toPage SimulatorPage SimulatorMsg Simulator.update counterMsg counterModel
+            Simulator.update session counterMsg counterModel
+                |> toPage SimulatorPage SimulatorMsg
 
         ( StatsMsg statsMsg, StatsPage statsModel ) ->
-            toPage StatsPage StatsMsg Stats.update statsMsg statsModel
+            Stats.update session statsMsg statsModel
+                |> toPage StatsPage StatsMsg
 
         -- Db
         ( DbReceived url (RemoteData.Success db), _ ) ->
