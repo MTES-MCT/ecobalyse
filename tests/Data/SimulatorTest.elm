@@ -14,8 +14,16 @@ asTest label =
 
 
 expectCo2 : Float -> Inputs -> Expectation
-expectCo2 co2 =
-    Simulator.compute testDb >> .co2 >> Expect.within (Expect.Absolute 0.01) co2
+expectCo2 co2 inputs =
+    case testDb of
+        Ok db ->
+            inputs
+                |> Simulator.compute db
+                |> .co2
+                |> Expect.within (Expect.Absolute 0.01) co2
+
+        Err error ->
+            Expect.fail error
 
 
 suite : Test
