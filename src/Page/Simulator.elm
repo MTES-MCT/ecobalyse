@@ -63,7 +63,7 @@ type Msg
     | UpdateAirTransportRatio (Maybe Float)
     | UpdateDyeingWeighting (Maybe Float)
     | UpdateMassInput String
-    | UpdateMaterial Material
+    | UpdateMaterial Process.Uuid
     | UpdateMaterialCategory Category
     | UpdateStepCountry Int Country
     | UpdateProduct Product.Id
@@ -148,21 +148,23 @@ update ({ db } as session) msg ({ query } as model) =
                 Nothing ->
                     ( { model | massInput = massInput }, session, Cmd.none )
 
-        UpdateMaterial material ->
-            ( model, session, Cmd.none )
-                |> updateQuery { query | material = material.uuid }
+        UpdateMaterial materialId ->
+            case Material.findByUuid materialId db.materials of
+                Ok material ->
+                    ( model, session, Cmd.none )
+                        |> updateQuery { query | material = material.uuid }
+
+                Err error ->
+                    ( model, session |> Session.notifyError "Erreur de matière première" error, Cmd.none )
 
         UpdateMaterialCategory category ->
-            ( model, session, Cmd.none )
-                |> updateQuery
-                    { query
-                        | material =
-                            session.db.materials
-                                |> List.filter (.category >> (==) category)
-                                |> List.head
-                                |> Maybe.withDefault Material.cotton
-                                |> .uuid
-                    }
+            case db.materials |> Material.firstFromCategory category |> Result.map .uuid of
+                Ok materialId ->
+                    ( model, session, Cmd.none )
+                        |> updateQuery { query | material = materialId }
+
+                Err error ->
+                    ( model, session |> Session.notifyError "Erreur de catégorie de matière" error, Cmd.none )
 
         UpdateStepCountry index country ->
             ( model, session, Cmd.none )
@@ -244,7 +246,7 @@ materialField db material =
         |> select
             [ id "material"
             , class "form-select"
-            , onInput (Process.Uuid >> Material.findByProcessUuid >> UpdateMaterial)
+            , onInput (Process.Uuid >> UpdateMaterial)
             ]
 
 
