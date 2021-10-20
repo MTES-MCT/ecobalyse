@@ -1,7 +1,7 @@
 module Data.Material exposing (..)
 
 import Data.Material.Category as Category exposing (Category)
-import Data.Process as Process exposing (Process, findByName)
+import Data.Process as Process exposing (Process)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
 
@@ -11,11 +11,6 @@ type alias Material =
     , name : String
     , category : Category
     }
-
-
-choices : List Material
-choices =
-    fromProcesses Process.processes
 
 
 fromProcesses : List Process -> List Material
@@ -40,41 +35,18 @@ fromProcesses =
             )
 
 
-cotton : Material
-cotton =
-    findByName "Fil de coton conventionnel, inventaire partiellement agrégé"
-
-
-findByName : String -> Material
-findByName name =
-    choices
-        |> List.filter (.name >> (==) name)
-        |> List.head
-        |> Maybe.withDefault invalid
-
-
-findByProcessUuid : Process.Uuid -> Material
-findByProcessUuid uuid =
-    choices
-        |> List.filter (\m -> m.uuid == uuid)
-        |> List.head
-        |> Maybe.withDefault invalid
-
-
-findByProcessUuid2 : Process.Uuid -> List Material -> Result String Material
-findByProcessUuid2 uuid =
+findByUuid : Process.Uuid -> List Material -> Result String Material
+findByUuid uuid =
     List.filter (\m -> m.uuid == uuid)
         >> List.head
         >> Result.fromMaybe ("Impossible de récupérer la matière uuid=" ++ Process.uuidToString uuid)
 
 
-invalid : Material
-invalid =
-    -- FIXME: eradicate this
-    { uuid = Process.Uuid "<invalid>"
-    , name = "<invalid>"
-    , category = Category.Natural
-    }
+firstFromCategory : Category -> List Material -> Result String Material
+firstFromCategory category =
+    List.filter (.category >> (==) category)
+        >> List.head
+        >> Result.fromMaybe "Catégorie de matière invalide"
 
 
 decode : Decoder Material

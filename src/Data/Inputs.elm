@@ -41,7 +41,7 @@ fromQuery db query =
     -- IDEA: put material, product, countries at the root of Simulator, and get rid of inputs?
     let
         ( material, product ) =
-            ( db.materials |> Material.findByProcessUuid2 query.material
+            ( db.materials |> Material.findByUuid query.material
             , db.products |> Product.findById2 query.product
             )
 
