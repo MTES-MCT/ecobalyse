@@ -195,7 +195,7 @@ computeMaterialAndSpinningCo2Score : Simulator -> Simulator
 computeMaterialAndSpinningCo2Score ({ inputs } as simulator) =
     let
         climateChange =
-            Process.findByUuid inputs.material.materialProcessUuid |> .climateChange
+            Process.findByUuid inputs.material.uuid |> .climateChange
     in
     simulator
         |> updateLifeCycleStep Step.MaterialAndSpinning
@@ -297,7 +297,7 @@ computeMaterialStepWaste ({ inputs } as simulator) =
                 |> Maybe.withDefault (Mass.kilograms 0)
 
         stepWaste =
-            Process.findByUuid inputs.material.materialProcessUuid
+            Process.findByUuid inputs.material.uuid
                 |> .waste
                 |> Quantity.multiplyBy (Mass.inKilograms baseMass)
 

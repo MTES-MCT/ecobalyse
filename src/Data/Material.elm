@@ -7,7 +7,7 @@ import Json.Encode as Encode
 
 
 type alias Material =
-    { materialProcessUuid : Process.Uuid
+    { uuid : Process.Uuid -- Note: we use the material + spinning process uuid here
     , name : String
     , category : Category
     }
@@ -24,7 +24,7 @@ fromProcesses =
         >> Process.cat2 Process.Material
         >> List.map
             (\{ uuid, name, cat3 } ->
-                { materialProcessUuid = uuid
+                { uuid = uuid
                 , name = name
                 , category =
                     case cat3 of
@@ -54,24 +54,24 @@ findByName name =
 
 
 findByProcessUuid : Process.Uuid -> Material
-findByProcessUuid materialProcessUuid =
+findByProcessUuid uuid =
     choices
-        |> List.filter (\m -> m.materialProcessUuid == materialProcessUuid)
+        |> List.filter (\m -> m.uuid == uuid)
         |> List.head
         |> Maybe.withDefault invalid
 
 
 findByProcessUuid2 : Process.Uuid -> List Material -> Result String Material
-findByProcessUuid2 materialProcessUuid =
-    List.filter (\m -> m.materialProcessUuid == materialProcessUuid)
+findByProcessUuid2 uuid =
+    List.filter (\m -> m.uuid == uuid)
         >> List.head
-        >> Result.fromMaybe ("Impossible de récupérer la matière uuid=" ++ Process.uuidToString materialProcessUuid)
+        >> Result.fromMaybe ("Impossible de récupérer la matière uuid=" ++ Process.uuidToString uuid)
 
 
 invalid : Material
 invalid =
     -- FIXME: eradicate this
-    { materialProcessUuid = Process.Uuid "<invalid>"
+    { uuid = Process.Uuid "<invalid>"
     , name = "<invalid>"
     , category = Category.Natural
     }
@@ -80,7 +80,7 @@ invalid =
 decode : Decoder Material
 decode =
     Decode.map3 Material
-        (Decode.field "materialProcessUuid" (Decode.map Process.Uuid Decode.string))
+        (Decode.field "uuid" (Decode.map Process.Uuid Decode.string))
         (Decode.field "name" Decode.string)
         (Decode.field "category" Category.decode)
 
@@ -88,7 +88,7 @@ decode =
 encode : Material -> Encode.Value
 encode v =
     Encode.object
-        [ ( "materialProcessUuid", Encode.string (Process.uuidToString v.materialProcessUuid) )
+        [ ( "uuid", Encode.string (Process.uuidToString v.uuid) )
         , ( "name", Encode.string v.name )
         , ( "category", Category.encode v.category )
         ]
