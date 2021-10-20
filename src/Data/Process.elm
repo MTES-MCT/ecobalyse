@@ -80,6 +80,17 @@ type Cat3
     | AverageFrenchFleet
 
 
+type alias WellKnown =
+    { airTransport : Uuid
+    , seaTransport : Uuid
+    , roadTransportPreMaking : Uuid
+    , roadTransportPostMaking : Uuid
+    , distribution : Uuid
+    , dyeingHigh : Uuid
+    , dyeingLow : Uuid
+    }
+
+
 noOp : Process
 noOp =
     { cat1 = Textile
@@ -97,47 +108,43 @@ noOp =
 
 findByUuid : Uuid -> Process
 findByUuid uuid =
+    -- FIXME: replace with findByUuid2
     processes |> List.filter (.uuid >> (==) uuid) |> List.head |> Maybe.withDefault noOp
 
 
 findByName : String -> Process
 findByName name =
+    -- FIXME: replace with findByName2
     processes |> List.filter (.name >> (==) name) |> List.head |> Maybe.withDefault noOp
 
 
-airTransport : Process
-airTransport =
-    findByName "Transport aérien long-courrier (dont flotte, utilisation et infrastructure) [tkm], GLO"
+findByUuid2 : Uuid -> List Process -> Result String Process
+findByUuid2 uuid =
+    List.filter (.uuid >> (==) uuid) >> List.head >> Result.fromMaybe ("Procédé introuvable: " ++ uuidToString uuid)
 
 
-seaTransport : Process
-seaTransport =
-    findByName "Transport maritime de conteneurs 27,500 t (dont flotte, utilisation et infrastructure) [tkm], GLO"
+findByName2 : String -> List Process -> Result String Process
+findByName2 name =
+    List.filter (.name >> (==) name) >> List.head >> Result.fromMaybe ("Procédé introuvable: " ++ name)
 
 
-roadTransportPreMaking : Process
-roadTransportPreMaking =
-    findByName "Transport en camion (dont parc, utilisation et infrastructure) (50%) [tkm], GLO"
-
-
-roadTransportPostMaking : Process
-roadTransportPostMaking =
-    findByName "Transport en camion (dont parc, utilisation et infrastructure) (50%) [tkm], RER"
-
-
-distribution : Process
-distribution =
-    findByName "Transport en camion non spécifié France (dont parc, utilisation et infrastructure) (50%) [tkm], FR"
-
-
-dyeingHigh : Process
-dyeingHigh =
-    findByName "Teinture sur étoffe, procédé majorant, traitement inefficace des eaux usées"
-
-
-dyeingLow : Process
-dyeingLow =
-    findByName "Teinture sur étoffe, procédé représentatif, traitement très efficace des eaux usées"
+wellKnown : WellKnown
+wellKnown =
+    { -- Transport aérien long-courrier (dont flotte, utilisation et infrastructure) [tkm], GLO
+      airTransport = Uuid "839b263d-5111-4318-9275-7026937e88b2"
+    , -- Transport maritime de conteneurs 27,500 t (dont flotte, utilisation et infrastructure) [tkm], GLO
+      seaTransport = Uuid "8dc4ce62-ff0f-4680-897f-867c3b31a923"
+    , -- Transport en camion (dont parc, utilisation et infrastructure) (50%) [tkm], GLO
+      roadTransportPreMaking = Uuid "cf6e9d81-358c-4f44-5ab7-0e7a89440576"
+    , -- Transport en camion (dont parc, utilisation et infrastructure) (50%) [tkm], RER
+      roadTransportPostMaking = Uuid "c0397088-6a57-eea7-8950-1d6db2e6bfdb"
+    , -- Transport en camion non spécifié France (dont parc, utilisation et infrastructure) (50%) [tkm], FR
+      distribution = Uuid "f49b27fa-f22e-c6e1-ab4b-e9f873e2e648"
+    , -- Teinture sur étoffe, procédé majorant, traitement inefficace des eaux usées
+      dyeingHigh = Uuid "cf001531-5f2d-48b1-b30a-4a17466a8b30"
+    , -- Teinture sur étoffe, procédé représentatif, traitement très efficace des eaux usées
+      dyeingLow = Uuid "fb4bea16-7ce1-43e2-9e03-462250214988"
+    }
 
 
 cat1 : Cat1 -> List Process -> List Process
@@ -153,6 +160,48 @@ cat2 c2 =
 cat3 : Cat3 -> List Process -> List Process
 cat3 c3 =
     List.filter (.cat3 >> (==) c3)
+
+
+airTransport : Process
+airTransport =
+    -- FIXME remove
+    findByName "Transport aérien long-courrier (dont flotte, utilisation et infrastructure) [tkm], GLO"
+
+
+seaTransport : Process
+seaTransport =
+    -- FIXME remove
+    findByName "Transport maritime de conteneurs 27,500 t (dont flotte, utilisation et infrastructure) [tkm], GLO"
+
+
+roadTransportPreMaking : Process
+roadTransportPreMaking =
+    -- FIXME remove
+    findByName "Transport en camion (dont parc, utilisation et infrastructure) (50%) [tkm], GLO"
+
+
+roadTransportPostMaking : Process
+roadTransportPostMaking =
+    -- FIXME remove
+    findByName "Transport en camion (dont parc, utilisation et infrastructure) (50%) [tkm], RER"
+
+
+distribution : Process
+distribution =
+    -- FIXME remove
+    findByName "Transport en camion non spécifié France (dont parc, utilisation et infrastructure) (50%) [tkm], FR"
+
+
+dyeingHigh : Process
+dyeingHigh =
+    -- FIXME remove
+    findByName "Teinture sur étoffe, procédé majorant, traitement inefficace des eaux usées"
+
+
+dyeingLow : Process
+dyeingLow =
+    -- FIXME remove
+    findByName "Teinture sur étoffe, procédé représentatif, traitement très efficace des eaux usées"
 
 
 cat1FromString : String -> Result String Cat1
@@ -326,17 +375,6 @@ cat3ToString c3 =
             "Flotte moyenne française"
 
 
-processes : List Process
-processes =
-    -- In a first iteration, processes data will statically live in memory; later on, we'll load them over HTTP.
-    case Decode.decodeString (Decode.list decode) jsonProcesses of
-        Ok decoded ->
-            decoded
-
-        Err _ ->
-            []
-
-
 uuidToString : Uuid -> String
 uuidToString (Uuid string) =
     string
@@ -388,13 +426,25 @@ encode v =
         ]
 
 
-encodeAll : String
+encodeAll : List Process -> String
 encodeAll =
-    processes |> Encode.list encode |> Encode.encode 0
+    Encode.list encode >> Encode.encode 0
+
+
+processes : List Process
+processes =
+    -- FIXME remove
+    case Decode.decodeString (Decode.list decode) jsonProcesses of
+        Ok decoded ->
+            decoded
+
+        Err _ ->
+            []
 
 
 jsonProcesses : String
 jsonProcesses =
+    -- FIXME remove
     """
 [
   {
