@@ -42,7 +42,7 @@ fromQuery db query =
     let
         ( material, product ) =
             ( db.materials |> Material.findByUuid query.material
-            , db.products |> Product.findById2 query.product
+            , db.products |> Product.findById query.product
             )
 
         build material_ product_ =
