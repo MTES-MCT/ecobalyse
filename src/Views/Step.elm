@@ -139,7 +139,7 @@ simpleView ({ product, index, current } as config) =
                       else
                         text ""
                     , div [ class "fs-7" ]
-                        [ span [ class "me-1 align-middle" ] [ Icon.info ]
+                        [ span [ class "me-1 align-bottom" ] [ Icon.info ]
                         , text "Transport\u{00A0}"
                         , Format.kgCo2 3 current.transport.co2
                         ]
