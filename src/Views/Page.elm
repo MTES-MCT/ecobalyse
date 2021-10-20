@@ -6,6 +6,7 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Request.Common as HttpCommon
 import Route
+import Views.Alert as Alert
 import Views.Container as Container
 import Views.Icon as Icon
 import Views.Link as Link
@@ -27,20 +28,21 @@ type MenuLink
     | MailTo String String
 
 
-type alias Config =
+type alias Config msg =
     { session : Session
+    , closeNotification : Session.Notification -> msg
     , activePage : ActivePage
     }
 
 
-frame : Config -> ( String, List (Html msg) ) -> Document msg
+frame : Config msg -> ( String, List (Html msg) ) -> Document msg
 frame config ( title, content ) =
     { title = title ++ " | wikicarbone"
     , body =
         [ navbar config
         , feedback
         , main_ [ class "bg-white" ]
-            [ notificationListView config.session.notifications
+            [ notificationListView config
             , div [ class "pt-5" ] content
             ]
         , pageFooter
@@ -71,7 +73,7 @@ footerMenuLinks =
     ]
 
 
-navbar : Config -> Html msg
+navbar : Config msg -> Html msg
 navbar { activePage } =
     nav [ class "Header navbar navbar-expand-lg navbar-dark bg-dark shadow" ]
         [ Container.centered []
@@ -137,15 +139,15 @@ feedback =
         ]
 
 
-notificationListView : List Session.Notification -> Html msg
-notificationListView notifications =
-    notifications
-        |> List.map notificationView
+notificationListView : Config msg -> Html msg
+notificationListView ({ session } as config) =
+    session.notifications
+        |> List.map (notificationView config)
         |> Container.centered [ class "bg-white" ]
 
 
-notificationView : Session.Notification -> Html msg
-notificationView notification =
+notificationView : Config msg -> Session.Notification -> Html msg
+notificationView { closeNotification } notification =
     -- TODO:
     -- - close button
     -- - maybe switch to alert
@@ -153,26 +155,20 @@ notificationView notification =
     -- - absolute positionning
     case notification of
         Session.HttpError title error ->
-            div [ class "card text-light bg-danger mb-3" ]
-                [ div [ class "card-header" ]
-                    [ span [ class "me-1" ] [ Icon.warning ]
-                    , text title
-                    ]
-                , div [ class "card-body bg-light text-dark" ]
-                    [ pre [ class "fs-7 mb-0" ] [ error |> HttpCommon.errorToString |> text ]
-                    ]
-                ]
+            Alert.preformatted
+                { level = Alert.Danger
+                , title = title
+                , close = Just (closeNotification notification)
+                , content = [ error |> HttpCommon.errorToString |> text ]
+                }
 
         Session.GenericError title message ->
-            div [ class "card text-light bg-danger mb-3" ]
-                [ div [ class "card-header" ]
-                    [ span [ class "me-1" ] [ Icon.warning ]
-                    , text title
-                    ]
-                , div [ class "card-body bg-light text-dark" ]
-                    [ pre [ class "fs-7 mb-0" ] [ text message ]
-                    ]
-                ]
+            Alert.simple
+                { level = Alert.Danger
+                , title = title
+                , close = Just (closeNotification notification)
+                , content = [ text message ]
+                }
 
 
 pageFooter : Html msg

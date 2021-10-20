@@ -43,7 +43,8 @@ type alias Model =
 
 
 type Msg
-    = DbReceived Url (WebData Db)
+    = CloseNotification Session.Notification
+    | DbReceived Url (WebData Db)
     | HomeMsg Home.Msg
     | ChangelogMsg Changelog.Msg
     | EditorialMsg Editorial.Msg
@@ -87,7 +88,7 @@ setRoute maybeRoute ( { session } as model, cmds ) =
                     else
                         Cmd.none
             in
-            ( { model | session = Session.clearNotifications newSession, page = page subModel }
+            ( { model | page = page subModel }
             , Cmd.batch
                 [ cmds
                 , Ports.scrollTo { x = 0, y = 0 }
@@ -185,6 +186,10 @@ update msg ({ page, session } as model) =
                 , Cmd.none
                 )
 
+        -- Notifications
+        ( CloseNotification notification, _ ) ->
+            ( { model | session = session |> Session.closeNotification notification }, Cmd.none )
+
         -- Store
         ( StoreChanged json, _ ) ->
             ( { model | session = { session | store = Session.deserializeStore json } }, Cmd.none )
@@ -244,7 +249,7 @@ view : Model -> Document Msg
 view { page, session } =
     let
         pageConfig =
-            Page.Config session
+            Page.Config session CloseNotification
 
         mapMsg msg ( title, content ) =
             ( title, content |> List.map (Html.map msg) )
