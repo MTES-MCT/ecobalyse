@@ -30,6 +30,11 @@ clearNotifications session =
     { session | notifications = [] }
 
 
+closeNotification : Notification -> Session -> Session
+closeNotification notification ({ notifications } as session) =
+    { session | notifications = notifications |> List.filter ((/=) notification) }
+
+
 notifyError : String -> String -> Session -> Session
 notifyError title error ({ notifications } as session) =
     { session | notifications = notifications ++ [ GenericError title error ] }
@@ -42,11 +47,11 @@ notifyHttpError title error ({ notifications } as session) =
 
 
 -- Store
+--
+-- A serializable data structure holding session information you want to share
+-- across browser restarts, typically in localStorage.
 
 
-{-| A serializable data structure holding session information you want to share
-across browser restarts, typically in localStorage.
--}
 type alias Store =
     {}
 

@@ -22,6 +22,7 @@ import RemoteData exposing (WebData)
 import Request.Common as HttpCommon
 import Request.Gitbook as GitbookApi
 import Route exposing (Route(..))
+import Views.Alert as Alert
 import Views.Comparator as ComparatorView
 import Views.Container as Container
 import Views.Icon as Icon
@@ -471,7 +472,12 @@ view session model =
                     simulatorView session model simulator
 
                 Err error ->
-                    text <| "Error: " ++ error
+                    Alert.simple
+                        { level = Alert.Danger
+                        , close = Nothing
+                        , title = "Erreur"
+                        , content = [ text error ]
+                        }
             ]
       , modalView model.modal
       ]
