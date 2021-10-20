@@ -171,7 +171,7 @@ update ({ db } as session) msg ({ query } as model) =
                 |> updateQuery (Inputs.updateStepCountry index country query)
 
         UpdateProduct productId ->
-            case Product.findById2 productId db.products of
+            case Product.findById productId db.products of
                 Ok product ->
                     ( { model | massInput = product.mass |> Mass.inKilograms |> String.fromFloat }, session, Cmd.none )
                         |> updateQuery { query | product = product.id, mass = product.mass }
