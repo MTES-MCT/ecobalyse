@@ -1,7 +1,8 @@
 module Data.Product exposing (..)
 
-import Data.Process as Process exposing (Process)
+import Data.Process as Process
 import Json.Decode as Decode exposing (Decoder)
+import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
 import Mass exposing (Mass)
 
@@ -14,6 +15,7 @@ type alias Product =
     , ppm : Int -- pick per meter
     , grammage : Int -- grammes per kg
     , knitted : Bool -- True: Tricotage (Knitting); False: Tissage (Weaving)
+    , weavingKnittingProcessUuid : Process.Uuid
     , makingProcessUuid : Process.Uuid
     }
 
@@ -29,15 +31,6 @@ findById id =
         >> Result.fromMaybe ("Produit non trouvé id=" ++ idToString id)
 
 
-getWeavingKnittingProcess : Product -> Process
-getWeavingKnittingProcess { knitted } =
-    if knitted then
-        Process.findByName "Tricotage"
-
-    else
-        Process.findByName "Tissage (habillement)"
-
-
 idToString : Id -> String
 idToString (Id string) =
     string
@@ -45,15 +38,16 @@ idToString (Id string) =
 
 decode : Decoder Product
 decode =
-    Decode.map8 Product
-        (Decode.field "id" (Decode.map Id Decode.string))
-        (Decode.field "name" Decode.string)
-        (Decode.field "mass" (Decode.map Mass.kilograms Decode.float))
-        (Decode.field "pcrWaste" Decode.float)
-        (Decode.field "ppm" Decode.int)
-        (Decode.field "grammage" Decode.int)
-        (Decode.field "knitted" Decode.bool)
-        (Decode.field "makingProcessUuid" (Decode.map Process.Uuid Decode.string))
+    Decode.succeed Product
+        |> Pipe.required "id" (Decode.map Id Decode.string)
+        |> Pipe.required "name" Decode.string
+        |> Pipe.required "mass" (Decode.map Mass.kilograms Decode.float)
+        |> Pipe.required "pcrWaste" Decode.float
+        |> Pipe.required "ppm" Decode.int
+        |> Pipe.required "grammage" Decode.int
+        |> Pipe.required "knitted" Decode.bool
+        |> Pipe.required "weavingKnittingProcessUuid" (Decode.map Process.Uuid Decode.string)
+        |> Pipe.required "makingProcessUuid" (Decode.map Process.Uuid Decode.string)
 
 
 decodeList : Decoder (List Product)
@@ -71,5 +65,6 @@ encode v =
         , ( "ppm", Encode.int v.ppm )
         , ( "grammage", Encode.int v.grammage )
         , ( "knitted", Encode.bool v.knitted )
+        , ( "weavingKnittingProcessUuid", Encode.string (Process.uuidToString v.makingProcessUuid) )
         , ( "makingProcessUuid", Encode.string (Process.uuidToString v.makingProcessUuid) )
         ]

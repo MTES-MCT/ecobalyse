@@ -192,18 +192,6 @@ distribution =
     findByName "Transport en camion non spécifié France (dont parc, utilisation et infrastructure) (50%) [tkm], FR"
 
 
-dyeingHigh : Process
-dyeingHigh =
-    -- FIXME remove
-    findByName "Teinture sur étoffe, procédé majorant, traitement inefficace des eaux usées"
-
-
-dyeingLow : Process
-dyeingLow =
-    -- FIXME remove
-    findByName "Teinture sur étoffe, procédé représentatif, traitement très efficace des eaux usées"
-
-
 cat1FromString : String -> Result String Cat1
 cat1FromString c1 =
     case c1 of
