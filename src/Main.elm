@@ -87,7 +87,7 @@ setRoute maybeRoute ( { session } as model, cmds ) =
                     else
                         Cmd.none
             in
-            ( { model | session = newSession, page = page subModel }
+            ( { model | session = Session.clearNotifications newSession, page = page subModel }
             , Cmd.batch
                 [ cmds
                 , Ports.scrollTo { x = 0, y = 0 }

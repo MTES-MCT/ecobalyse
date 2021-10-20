@@ -25,14 +25,19 @@ type Notification
     | GenericError String String
 
 
+clearNotifications : Session -> Session
+clearNotifications session =
+    { session | notifications = [] }
+
+
 notifyError : String -> String -> Session -> Session
-notifyError title error session =
-    { session | notifications = session.notifications ++ [ GenericError title error ] }
+notifyError title error ({ notifications } as session) =
+    { session | notifications = notifications ++ [ GenericError title error ] }
 
 
 notifyHttpError : String -> Http.Error -> Session -> Session
-notifyHttpError title error session =
-    { session | notifications = session.notifications ++ [ HttpError title error ] }
+notifyHttpError title error ({ notifications } as session) =
+    { session | notifications = notifications ++ [ HttpError title error ] }
 
 
 
