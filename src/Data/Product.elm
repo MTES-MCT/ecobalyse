@@ -153,6 +153,7 @@ choices =
 
 findById : Id -> Product
 findById id =
+    -- FIXME: remove and replace usage with findById2
     choices
         |> List.filter (.id >> (==) id)
         |> List.head
@@ -164,14 +165,6 @@ findById2 id =
     List.filter (.id >> (==) id)
         >> List.head
         >> Result.fromMaybe ("Produit non trouvé id=" ++ idToString id)
-
-
-findByName : String -> Product
-findByName name =
-    choices
-        |> List.filter (.name >> (==) name)
-        |> List.head
-        |> Maybe.withDefault invalid
 
 
 tShirt : Product

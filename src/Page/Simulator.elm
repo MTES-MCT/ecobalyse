@@ -66,7 +66,7 @@ type Msg
     | UpdateMaterial Material
     | UpdateMaterialCategory Category
     | UpdateStepCountry Int Country
-    | UpdateProduct Product
+    | UpdateProduct Product.Id
 
 
 init : Maybe Inputs.Query -> Session -> ( Model, Session, Cmd Msg )
@@ -104,7 +104,7 @@ updateQuery query ( model, session, msg ) =
 
 
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
-update session msg ({ query } as model) =
+update ({ db } as session) msg ({ query } as model) =
     case msg of
         CloseModal ->
             ( { model | modal = NoModal }, session, Cmd.none )
@@ -168,9 +168,14 @@ update session msg ({ query } as model) =
             ( model, session, Cmd.none )
                 |> updateQuery (Inputs.updateStepCountry index country query)
 
-        UpdateProduct product ->
-            ( { model | massInput = product.mass |> Mass.inKilograms |> String.fromFloat }, session, Cmd.none )
-                |> updateQuery { query | product = product.id, mass = product.mass }
+        UpdateProduct productId ->
+            case Product.findById2 productId db.products of
+                Ok product ->
+                    ( { model | massInput = product.mass |> Mass.inKilograms |> String.fromFloat }, session, Cmd.none )
+                        |> updateQuery { query | product = product.id, mass = product.mass }
+
+                Err error ->
+                    ( model, session |> Session.notifyError "Erreur de produit" error, Cmd.none )
 
 
 massField : String -> Html Msg
@@ -243,16 +248,16 @@ materialField db material =
             ]
 
 
-productField : Product -> Html Msg
-productField product =
+productField : Db -> Product -> Html Msg
+productField db product =
     div []
         [ label [ for "product", class "form-label fw-bold" ] [ text "Type de produit" ]
-        , Product.choices
+        , db.products
             |> List.map (\p -> option [ value (Product.idToString p.id), selected (product.id == p.id) ] [ text p.name ])
             |> select
                 [ id "product"
                 , class "form-select"
-                , onInput (Product.Id >> Product.findById >> UpdateProduct)
+                , onInput (Product.Id >> UpdateProduct)
                 ]
         ]
 
@@ -423,7 +428,7 @@ simulatorView ({ db } as session) model simulator =
         [ div [ class "col-lg-7" ]
             [ div [ class "row" ]
                 [ div [ class "col-6 mb-2" ]
-                    [ productField simulator.inputs.product
+                    [ productField db simulator.inputs.product
                     ]
                 , div [ class "col-6 mb-2" ]
                     [ massField model.massInput
