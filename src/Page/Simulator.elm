@@ -3,6 +3,7 @@ module Page.Simulator exposing (..)
 import Array
 import Browser.Events
 import Data.Country exposing (Country)
+import Data.Db exposing (Db)
 import Data.Gitbook as Gitbook
 import Data.Inputs as Inputs
 import Data.Key as Key
@@ -149,7 +150,7 @@ update session msg ({ query } as model) =
 
         UpdateMaterial material ->
             ( model, session, Cmd.none )
-                |> updateQuery { query | material = material.materialProcessUuid }
+                |> updateQuery { query | material = material.uuid }
 
         UpdateMaterialCategory category ->
             ( model, session, Cmd.none )
@@ -160,7 +161,7 @@ update session msg ({ query } as model) =
                                 |> List.filter (.category >> (==) category)
                                 |> List.head
                                 |> Maybe.withDefault Material.cotton
-                                |> .materialProcessUuid
+                                |> .uuid
                     }
 
         UpdateStepCountry index country ->
@@ -221,15 +222,16 @@ materialCategoryField material =
         ]
 
 
-materialField : Material -> Html Msg
-materialField material =
-    Material.choices
+materialField : Db -> Material -> Html Msg
+materialField db material =
+    db.processes
+        |> Material.fromProcesses
         |> List.filter (.category >> (==) material.category)
         |> List.map
             (\m ->
                 option
-                    [ value <| Process.uuidToString m.materialProcessUuid
-                    , selected (material.materialProcessUuid == m.materialProcessUuid)
+                    [ value <| Process.uuidToString m.uuid
+                    , selected (material.uuid == m.uuid)
                     , title m.name
                     ]
                     [ text m.name ]
@@ -416,7 +418,7 @@ modalView modal =
 
 
 simulatorView : Session -> Model -> Simulator -> Html Msg
-simulatorView session model simulator =
+simulatorView ({ db } as session) model simulator =
     div [ class "row" ]
         [ div [ class "col-lg-7" ]
             [ div [ class "row" ]
@@ -428,7 +430,8 @@ simulatorView session model simulator =
                     ]
                 ]
             , materialCategoryField simulator.inputs.material
-            , div [ class "mb-1" ] [ materialField simulator.inputs.material ]
+            , div [ class "mb-1" ]
+                [ materialField db simulator.inputs.material ]
             , displayModeView model.displayMode
             , lifeCycleStepsView model.displayMode simulator
             , div [ class "d-flex align-items-center justify-content-between mt-3 mb-5" ]
@@ -436,7 +439,7 @@ simulatorView session model simulator =
                 , button
                     [ class "btn btn-secondary"
                     , onClick Reset
-                    , disabled (Simulator.default session.db == model.simulator)
+                    , disabled (Simulator.default db == model.simulator)
                     ]
                     [ text "Réinitialiser le simulateur" ]
                 ]

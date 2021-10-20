@@ -62,7 +62,7 @@ fromQuery db query =
 toQuery : Inputs -> Query
 toQuery { mass, material, product, countries, airTransportRatio, dyeingWeighting } =
     { mass = mass
-    , material = material.materialProcessUuid
+    , material = material.uuid
     , product = product.id
     , countries = countries
     , dyeingWeighting = dyeingWeighting
