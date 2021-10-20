@@ -2,6 +2,7 @@ module Data.LifeCycle exposing (..)
 
 import Array exposing (Array)
 import Data.Country as Country
+import Data.Db exposing (Db)
 import Data.Inputs exposing (Inputs)
 import Data.Step as Step exposing (Step)
 import Data.Transport as Transport
@@ -34,15 +35,13 @@ encode =
     Encode.array Step.encode
 
 
-computeTransportSummaries : LifeCycle -> LifeCycle
-computeTransportSummaries lifeCycle =
+computeTransportSummaries : Db -> LifeCycle -> LifeCycle
+computeTransportSummaries db lifeCycle =
     lifeCycle
         |> Array.indexedMap
             (\index step ->
-                Step.computeTransports
-                    (Array.get (index + 1) lifeCycle
-                        |> Maybe.withDefault step
-                    )
+                Step.computeTransports db
+                    (Array.get (index + 1) lifeCycle |> Maybe.withDefault step)
                     step
             )
 

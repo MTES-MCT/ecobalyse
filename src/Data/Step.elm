@@ -2,6 +2,7 @@ module Data.Step exposing (..)
 
 import Data.Country as Country exposing (Country)
 import Data.CountryProcess as CountryProcess
+import Data.Db exposing (Db)
 import Data.Gitbook as Gitbook
 import Data.Inputs exposing (Inputs)
 import Data.Process as Process exposing (Process)
@@ -108,8 +109,8 @@ getDyeingWeighting =
 Docs: <https://fabrique-numerique.gitbook.io/wikicarbone/methodologie/transport>
 
 -}
-computeTransports : Step -> Step -> Step
-computeTransports next current =
+computeTransports : Db -> Step -> Step -> Step
+computeTransports db next current =
     let
         transport =
             Transport.getTransportBetween current.country next.country
@@ -125,13 +126,13 @@ computeTransports next current =
             , sea = (sea * (1 - roadSeaRatio)) * (1 - current.airTransportRatio)
             , air = air * current.airTransportRatio
             }
-                |> computeTransportCo2 (getRoadTransportProcess current) next.mass
+                |> computeTransportCo2 db (getRoadTransportProcess current) next.mass
     in
-    { current | transport = stepSummary |> Transport.addSummary (initialTransportSummary current) }
+    { current | transport = stepSummary |> Transport.addSummary (initialTransportSummary db current) }
 
 
-computeTransportCo2 : Process -> Mass -> Transport -> Transport.Summary
-computeTransportCo2 roadProcess mass { road, sea, air } =
+computeTransportCo2 : Db -> Process -> Mass -> Transport -> Transport.Summary
+computeTransportCo2 _ roadProcess mass { road, sea, air } =
     let
         ( roadCo2, seaCo2, airCo2 ) =
             ( roadProcess |> .climateChange |> (*) (Mass.inMetricTons mass) |> (*) road
@@ -146,13 +147,13 @@ computeTransportCo2 roadProcess mass { road, sea, air } =
     }
 
 
-initialTransportSummary : Step -> Transport.Summary
-initialTransportSummary { label, mass } =
+initialTransportSummary : Db -> Step -> Transport.Summary
+initialTransportSummary db { label, mass } =
     case label of
         MaterialAndSpinning ->
             -- Apply initial Material to Spinning step transport data (see Excel)
             Transport.materialToSpinningTransport
-                |> computeTransportCo2 Process.roadTransportPreMaking mass
+                |> computeTransportCo2 db Process.roadTransportPreMaking mass
 
         _ ->
             { road = 0, sea = 0, air = 0, co2 = 0 }
