@@ -23,19 +23,6 @@ type alias Simulator =
     }
 
 
-default : Db -> Result String Simulator
-default db =
-    Inputs.fromQuery db Inputs.defaultQuery
-        |> Result.map
-            (\inputs ->
-                { inputs = inputs
-                , lifeCycle = LifeCycle.default
-                , co2 = 0
-                , transport = Transport.defaultSummary
-                }
-            )
-
-
 decode : Decoder Simulator
 decode =
     Decode.map4 Simulator

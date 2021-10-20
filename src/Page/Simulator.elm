@@ -72,25 +72,24 @@ type Msg
 init : Maybe Inputs.Query -> Session -> ( Model, Session, Cmd Msg )
 init maybeQuery session =
     let
+        query =
+            Maybe.withDefault Inputs.defaultQuery maybeQuery
+
         simulator =
-            maybeQuery |> Maybe.withDefault Inputs.defaultQuery |> Simulator.compute session.db
+            Simulator.compute session.db query
     in
     ( { simulator = simulator
-      , massInput =
-            simulator
-                |> Result.map (.inputs >> .mass >> Mass.inKilograms >> String.fromFloat)
-                |> Result.toMaybe
-                |> Maybe.withDefault ""
-      , query = maybeQuery |> Maybe.withDefault Inputs.defaultQuery
+      , massInput = query.mass |> Mass.inKilograms |> String.fromFloat
+      , query = query
       , displayMode = SimpleMode
       , modal = NoModal
       }
     , case simulator of
-        Ok _ ->
-            session
-
         Err error ->
             session |> Session.notifyError "Erreur de récupération des paramètres d'entrée" error
+
+        Ok _ ->
+            session
     , Cmd.none
     )
 
@@ -446,7 +445,7 @@ simulatorView ({ db } as session) model simulator =
                 , button
                     [ class "btn btn-secondary"
                     , onClick Reset
-                    , disabled (Simulator.default db == model.simulator)
+                    , disabled (model.query == Inputs.defaultQuery)
                     ]
                     [ text "Réinitialiser le simulateur" ]
                 ]
