@@ -79,7 +79,7 @@ compute db query =
         -- TRANSPORTS
         --
         -- Compute step transport
-        |> Result.map (computeTransportSummaries db)
+        |> Result.andThen (computeTransportSummaries db)
         -- Compute transport summary
         |> Result.map computeTransportSummary
         --
@@ -308,9 +308,11 @@ computeMaterialStepWaste { processes } ({ inputs } as simulator) =
             )
 
 
-computeTransportSummaries : Db -> Simulator -> Simulator
-computeTransportSummaries db =
-    updateLifeCycle (LifeCycle.computeTransportSummaries db)
+computeTransportSummaries : Db -> Simulator -> Result String Simulator
+computeTransportSummaries db simulator =
+    simulator.lifeCycle
+        |> LifeCycle.computeTransportSummaries db
+        |> Result.map (\lifeCycle -> simulator |> updateLifeCycle (always lifeCycle))
 
 
 computeTransportSummary : Simulator -> Simulator

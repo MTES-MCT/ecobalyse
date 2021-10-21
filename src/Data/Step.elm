@@ -109,7 +109,7 @@ getDyeingWeighting =
 Docs: <https://fabrique-numerique.gitbook.io/wikicarbone/methodologie/transport>
 
 -}
-computeTransports : Db -> Step -> Step -> Step
+computeTransports : Db -> Step -> Step -> Result String Step
 computeTransports db next current =
     let
         transport =
@@ -128,7 +128,12 @@ computeTransports db next current =
             }
                 |> computeTransportCo2 db (getRoadTransportProcess current) next.mass
     in
-    { current | transport = stepSummary |> Transport.addSummary (initialTransportSummary db current) }
+    Ok
+        { current
+            | transport =
+                stepSummary
+                    |> Transport.addSummary (initialTransportSummary db current)
+        }
 
 
 computeTransportCo2 : Db -> Process -> Mass -> Transport -> Transport.Summary
