@@ -45,59 +45,6 @@ choices =
         ]
 
 
-choices2 : List Country2
-choices2 =
-    [ { code = Code "BD"
-      , name = "Bangladesh"
-      , electricity = Process.Uuid "1ee6061e-8e15-4558-9338-94ad87abf932"
-      , heat = Process.Uuid "2e8de6f6-0ea1-455b-adce-ea74d307d222"
-      , dyeingWeighting = 1
-      }
-    , { code = Code "CN"
-      , name = "Chine"
-      , electricity = Process.Uuid "8f923f3d-0bd2-4326-99e2-f984b4454226"
-      , heat = Process.Uuid "2e8de6f6-0ea1-455b-adce-ea74d307d222"
-      , dyeingWeighting = 1
-      }
-    , { code = Code "ES"
-      , name = "Espagne"
-      , electricity = Process.Uuid "37301c44-c4cf-4214-a4ac-eee5785ccdc5"
-      , heat = Process.Uuid "618440a9-f4aa-65bc-21cb-ea40eee53f3d"
-      , dyeingWeighting = 0
-      }
-    , { code = Code "FR"
-      , name = "France"
-      , electricity = Process.Uuid "05585055-9742-4fff-81ff-ad2e30e1b791"
-      , heat = Process.Uuid "12fc43f2-a007-423b-a619-619d725793ea"
-      , dyeingWeighting = 0
-      }
-    , { code = Code "IN"
-      , name = "Inde"
-      , electricity = Process.Uuid "1b470f5c-6ae6-404d-bd71-8546d33dbc17"
-      , heat = Process.Uuid "2e8de6f6-0ea1-455b-adce-ea74d307d222"
-      , dyeingWeighting = 1
-      }
-    , { code = Code "PT"
-      , name = "Portugal"
-      , electricity = Process.Uuid "a1d83202-0052-4d10-b9d2-938564be6a0b"
-      , heat = Process.Uuid "59c4c64c-0916-868a-5dd6-a42c4c42222f"
-      , dyeingWeighting = 0
-      }
-    , { code = Code "TN"
-      , name = "Tunisie"
-      , electricity = Process.Uuid "f0eb64cd-468d-4f3c-a9a3-3b3661625955"
-      , heat = Process.Uuid "2e8de6f6-0ea1-455b-adce-ea74d307d222"
-      , dyeingWeighting = 1
-      }
-    , { code = Code "TR"
-      , name = "Turquie"
-      , electricity = Process.Uuid "6fad8643-de3e-49dd-a48b-8e17b4175c23"
-      , heat = Process.Uuid "2e8de6f6-0ea1-455b-adce-ea74d307d222"
-      , dyeingWeighting = 1
-      }
-    ]
-
-
 codeToString : Code -> String
 codeToString (Code string) =
     string
@@ -145,11 +92,9 @@ encode2 v =
         ]
 
 
-encodeAll2 : String
+encodeAll2 : List Country2 -> String
 encodeAll2 =
-    choices2
-        |> Encode.list encode2
-        |> Encode.encode 0
+    Encode.list encode2 >> Encode.encode 0
 
 
 fromString : String -> Result String Country
@@ -211,7 +156,60 @@ toString country =
             "Turquie"
 
 
+codeToCountry : Code -> Result String Country
+codeToCountry code =
+    case code of
+        Code "BD" ->
+            Ok Bangladesh
 
--- TODO?
--- codeToCountry : Code -> Result String Country
--- codeToCountry code ->
+        Code "CN" ->
+            Ok China
+
+        Code "ES" ->
+            Ok Spain
+
+        Code "FR" ->
+            Ok France
+
+        Code "IN" ->
+            Ok India
+
+        Code "PT" ->
+            Ok Portugal
+
+        Code "TN" ->
+            Ok Tunisia
+
+        Code "TR" ->
+            Ok Turkey
+
+        _ ->
+            Err <| "Impossible de résoudre le code pays " ++ codeToString code
+
+
+countryToCode : Country -> Code
+countryToCode country =
+    case country of
+        Bangladesh ->
+            Code "BD"
+
+        China ->
+            Code "CN"
+
+        France ->
+            Code "FR"
+
+        India ->
+            Code "IN"
+
+        Portugal ->
+            Code "PT"
+
+        Spain ->
+            Code "ES"
+
+        Tunisia ->
+            Code "TN"
+
+        Turkey ->
+            Code "TR"
