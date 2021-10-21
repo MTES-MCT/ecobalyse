@@ -28,6 +28,7 @@ type alias Country2 =
     , electricity : Process.Uuid -- IDEA: replace by process record
     , heat : Process.Uuid -- IDEA: replace by process record
     , dyeingWeighting : Float
+    , airTransportRatio : Float
     }
 
 
@@ -63,12 +64,13 @@ decode =
 
 decode2 : Decoder Country2
 decode2 =
-    Decode.map5 Country2
+    Decode.map6 Country2
         (Decode.field "code" (Decode.map Code Decode.string))
         (Decode.field "name" Decode.string)
         (Decode.field "electricity" (Decode.map Process.Uuid Decode.string))
         (Decode.field "heat" (Decode.map Process.Uuid Decode.string))
         (Decode.field "dyeingWeighting" Decode.float)
+        (Decode.field "airTransportRatio" Decode.float)
 
 
 decodeList2 : Decoder (List Country2)
@@ -89,6 +91,7 @@ encode2 v =
         , ( "electricity", v.electricity |> Process.uuidToString |> Encode.string )
         , ( "heat", v.heat |> Process.uuidToString |> Encode.string )
         , ( "dyeingWeighting", Encode.float v.dyeingWeighting )
+        , ( "airTransportRatio", Encode.float v.airTransportRatio )
         ]
 
 

@@ -1,6 +1,6 @@
 module Data.Step exposing (..)
 
-import Data.Country as Country exposing (Country)
+import Data.Country as Country exposing (Country2)
 import Data.CountryProcess as CountryProcess
 import Data.Db exposing (Db)
 import Data.Gitbook as Gitbook
@@ -12,11 +12,12 @@ import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
 import Mass exposing (Mass)
+import Result.Extra as RE
 
 
 type alias Step =
     { label : Label
-    , country : Country
+    , country : Country2
     , editable : Bool
     , mass : Mass
     , waste : Mass
@@ -46,21 +47,25 @@ type Label
     | Distribution -- Distribution
 
 
-create : Label -> Bool -> Country -> Step
-create label editable country =
-    { label = label
-    , country = country
-    , editable = editable
-    , mass = Mass.kilograms 0
-    , waste = Mass.kilograms 0
-    , transport = Transport.defaultSummary
-    , co2 = 0
-    , heat = Energy.megajoules 0
-    , kwh = Energy.kilowattHours 0
-    , processInfo = processCountryInfo label country
-    , dyeingWeighting = getDyeingWeighting country
-    , airTransportRatio = 0 -- Note: this depends on next step country, so we can't set an accurate default value initially
-    }
+create : Db -> Label -> Bool -> Country2 -> Result String Step
+create db label editable country =
+    processCountryInfo db label country
+        |> Result.map
+            (\processInfo ->
+                { label = label
+                , country = country
+                , editable = editable
+                , mass = Mass.kilograms 0
+                , waste = Mass.kilograms 0
+                , transport = Transport.defaultSummary
+                , co2 = 0
+                , heat = Energy.megajoules 0
+                , kwh = Energy.kilowattHours 0
+                , processInfo = processInfo
+                , dyeingWeighting = country.dyeingWeighting
+                , airTransportRatio = 0 -- Note: this depends on next step country, so we can't set an accurate default value initially
+                }
+            )
 
 
 defaultProcessInfo : ProcessInfo
@@ -72,36 +77,36 @@ defaultProcessInfo =
     }
 
 
-processCountryInfo : Label -> Country -> ProcessInfo
-processCountryInfo label country =
-    case ( label, CountryProcess.get country ) of
-        ( WeavingKnitting, Just { electricity } ) ->
-            { defaultProcessInfo | electricity = Just electricity.name }
+processCountryInfo : Db -> Label -> Country2 -> Result String ProcessInfo
+processCountryInfo db label country =
+    Ok Tuple.pair
+        |> RE.andMap (db.processes |> Process.findByUuid2 country.electricity)
+        |> RE.andMap (db.processes |> Process.findByUuid2 country.heat)
+        |> Result.map
+            (\( electricity, heat ) ->
+                case label of
+                    WeavingKnitting ->
+                        { defaultProcessInfo | electricity = Just electricity.name }
 
-        ( Ennoblement, Just { heat, electricity, dyeingWeighting } ) ->
-            { defaultProcessInfo
-                | heat = Just heat.name
-                , electricity = Just electricity.name
-                , dyeingWeighting = Just (dyeingWeightingToString dyeingWeighting)
-            }
+                    Ennoblement ->
+                        { defaultProcessInfo
+                            | heat = Just heat.name
+                            , electricity = Just electricity.name
+                            , dyeingWeighting = Just (dyeingWeightingToString country.dyeingWeighting)
+                        }
 
-        ( Making, Just { electricity } ) ->
-            { defaultProcessInfo
-                | electricity = Just electricity.name
-                , airTransportRatio =
-                    country
-                        |> Transport.defaultAirTransportRatio
-                        |> airTransportRatioToString
-                        |> Just
-            }
+                    Making ->
+                        { defaultProcessInfo
+                            | electricity = Just electricity.name
+                            , airTransportRatio =
+                                country.airTransportRatio
+                                    |> airTransportRatioToString
+                                    |> Just
+                        }
 
-        _ ->
-            defaultProcessInfo
-
-
-getDyeingWeighting : Country -> Float
-getDyeingWeighting =
-    CountryProcess.get >> Maybe.map .dyeingWeighting >> Maybe.withDefault 0
+                    _ ->
+                        defaultProcessInfo
+            )
 
 
 {-| Computes step transport distances and co2 scores regarding next step.
@@ -118,7 +123,8 @@ computeTransports db next current =
                 let
                     transport =
                         -- TODO: use Db and handle this as a Result
-                        Transport.getTransportBetween current.country next.country
+                        -- Transport.getTransportBetween current.country next.country
+                        Transport.default
 
                     ({ road, sea, air } as summary) =
                         computeTransportSummary current transport
@@ -206,22 +212,22 @@ countryLabel step =
         "Asie"
 
     else
-        Country.toString step.country
+        step.country.name
 
 
-update : Inputs -> Maybe Step -> Step -> Step
-update { dyeingWeighting, airTransportRatio } _ step =
+update : Db -> Inputs -> Maybe Step -> Step -> Step
+update db { dyeingWeighting, airTransportRatio } _ step =
     { step
-        | processInfo = processCountryInfo step.label step.country
+        | processInfo = processCountryInfo db step.label step.country |> Result.withDefault defaultProcessInfo
         , dyeingWeighting =
             if step.label == Ennoblement then
-                dyeingWeighting |> Maybe.withDefault (getDyeingWeighting step.country)
+                dyeingWeighting |> Maybe.withDefault step.country.dyeingWeighting
 
             else
                 step.dyeingWeighting
         , airTransportRatio =
             if step.label == Making then
-                airTransportRatio |> Maybe.withDefault (Transport.defaultAirTransportRatio step.country)
+                airTransportRatio |> Maybe.withDefault step.country.airTransportRatio
 
             else
                 step.airTransportRatio
@@ -252,7 +258,7 @@ decode : Decoder Step
 decode =
     Decode.succeed Step
         |> Pipe.required "label" decodeLabel
-        |> Pipe.required "country" Country.decode
+        |> Pipe.required "country" Country.decode2
         |> Pipe.required "editable" Decode.bool
         |> Pipe.required "mass" (Decode.map Mass.kilograms Decode.float)
         |> Pipe.required "waste" (Decode.map Mass.kilograms Decode.float)
@@ -283,7 +289,7 @@ encode : Step -> Encode.Value
 encode v =
     Encode.object
         [ ( "label", Encode.string (labelToString v.label) )
-        , ( "country", Country.encode v.country )
+        , ( "country", Country.encode2 v.country )
         , ( "editable", Encode.bool v.editable )
         , ( "mass", Encode.float (Mass.inKilograms v.mass) )
         , ( "waste", Encode.float (Mass.inKilograms v.waste) )
