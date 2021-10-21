@@ -6,62 +6,106 @@ description: Transformation des fibres de matière première brute en fils.
 
 ## Matières proposées
 
-Les matières proposées dans le calculateur sont les matières des les impacts (couplés à la filature associée) sont modélisés dans la [Base Impacts® de l'ADEME](https://www.base-impacts.ademe.fr). 3 types de matières sont distinguées :
+Les matières proposées dans le calculateur sont les matières des les impacts (couplés à la filature associée) sont modélisés dans la [Base Impacts® de l'ADEME](https://www.base-impacts.ademe.fr).&#x20;
+
+3 types de matières sont distinguées dans la base Impacts :
 
 * Matières naturelles
 * Matières synthétiques ou artificielles
 * Matières recyclées
 
+Les matières sont réparties en 2 listes dans Wikicarbone
+
+* la liste principale, avec une sélection des matières les plus utilisées, proposées prioritairement
+* une liste secondaire, avec les autres matières qui \[<mark style="color:red;">ne sont pas proposées en première approche</mark>] / \[<mark style="color:red;">sont proposées dans un menu déroulant "autres matières"</mark>]
+
+## Liste principale
+
+A chacune des matières de la liste principale correspond peut correspondre une matière recyclée.
+
+{% hint style="danger" %}
+Pour le coton, le polyester et le polyamide, plusieurs matières recyclées sont proposées dans la base Impacts. Par défaut, une seule de ces matières recyclées est proposée dans la liste principale. Les autres sont renvoyées à la liste secondaire.
+{% endhint %}
+
+| Matière naturelles  | UUID                                   | Matières recyclées                               | UUID                                   |
+| ------------------- | -------------------------------------- | ------------------------------------------------ | -------------------------------------- |
+| Chanvre             | `08601439-f338-4f94-ac8c-538061b65d16` | Non                                              | N/A                                    |
+| Coton conventionnel | `f211bbdb-415c-46fd-be4d-ddf199575b44` | Coton recyclé à partir de déchets de production  | `2b24abb0-c1ec-4298-9b58-350904a26104` |
+| Laine de mouton     | `376bd165-d354-41aa-a6e3-fd3228413bb2` | Laine recyclée à partir de déchets de production | `92dfabc7-9441-463e-bda8-7bc5943c0e9d` |
+| Lin (étoupe)        | `fcef1a31-bb18-49e4-bdb6-e53dfe015ba0` | Non                                              | N/A                                    |
+| Lin (filasse)       | `5a6d538-f932-4242-98b4-3a0c6439629c`  | Non                                              | N/A                                    |
+
+| Matières synthétiques | UUID                                   | Matières recyclées                                                    | UUID                                   |
+| --------------------- | -------------------------------------- | --------------------------------------------------------------------- | -------------------------------------- |
+| Acrylique             | aee6709f-0864-4fc5-8760-68cb644a002    | Acrylique recyclé à partir de déchets de production                   | `7603beaa-c555-4283-b9f8-4d5d231b8490` |
+| Polyamide             | `182fa424-1f49-4728-b0f1-cb4e4ab36392` | Polyamide recyclé à partir de déchets de production                   | `af5d130d-f18b-438c-9f19-d1ee49756960` |
+| Polyester             | `4d57c51d-7d56-46e1-acde-02fbcdc943e4` | Polyester recyclé à partir de bouteilles (recyclage chimique partiel) | `e65e8157-9bd1-4711-9571-8e4a22c2d2b5` |
+| Viscose               | `81a67d97-3cd9-44ef-9ee2-159364364c0f` | Viscose recyclée à partir de déchets de production                    | `9671ae26-d772-4bb1-aad5-6b826555d0cd` |
+
 {% hint style="info" %}
-En première approche, il n'est pas proposé de combiner des matières, que ce soit pour modéliser un vêtement multi-matières ou pour prendre en compte l'intégration partielle de matières recyclées (exemple : coton 50% recyclé). Ces points pourront faire l'objet de compléments ultérieurs.
+En première approche, il n'est pas proposé de combiner des matières pour modéliser un vêtement multi-matières. En revanche, <mark style="color:red;">l'intégration d'une part de matière recyclée, pour les seules matières proposées dans la liste principale, va être bientôt intégrée.</mark>. Ces points pourront faire l'objet de compléments ultérieurs.
 
 D'autre part, matières et filatures sont des procédés indissociables dans la [base Impacts](http://www.base-impacts.ademe.fr).
 {% endhint %}
 
-| Matières naturelles            | UUID procédé                           | Géographie considérée (base Impacts) | Pays de filature considéré (cf. Transport) |
-| ------------------------------ | -------------------------------------- | ------------------------------------ | ------------------------------------------ |
-| Plume de canard                | `d1f06ea5-d63f-453a-8f98-55ce78ae7579` | à préciser                           | Chine                                      |
-| Fil de soie                    | `94b4b0e1-61e4-4f4d-b9b2-efe7623b0e68` | à préciser                           | Chine                                      |
-| Fil de lin (filasse)           | `e5a6d538-f932-4242-98b4-3a0c6439629c` | à préciser                           | Chine                                      |
-| Fil de lin (étoupe)            | `fcef1a31-bb18-49e4-bdb6-e53dfe015ba0` | à préciser                           | Chine                                      |
-| Fil de laine de mouton Mérinos | `4e035dbf-f48b-4b5a-94ea-0006c713958b` | à préciser                           | Chine                                      |
-| Fil de laine de mouton         | `376bd165-d354-41aa-a6e3-fd3228413bb2` | à préciser                           | Chine                                      |
-| Fil de laine de chameau        | `c191a4dd-5080-4eb6-9c59-b13c943327bc` | à préciser                           | Chine                                      |
-| Fil de jute                    | `72010874-4d26-4c7a-95de-c6987dfdedeb` | à préciser                           | Chine                                      |
-| Fil de coton conventionnel     | `f211bbdb-415c-46fd-be4d-ddf199575b44` | Asie                                 | Chine                                      |
-| Fil de chanvre                 | `08601439-f338-4f94-ac8c-538061b65d16` | à préciser                           | Chine                                      |
-| Fil de cachemire               | `380c0d9c-2840-4390-bd3f-5c960f26f5ed` | à préciser                           | Chine                                      |
-| Fibres de kapok                | `36cdbfc4-3f48-47b0-8ae0-294bb6017df1` | à préciser                           | Chine                                      |
+## Liste complète
+
+La liste complète des matières est précisée ci-après. Les matières de la liste principales sont identifiées en <mark style="color:blue;">bleu</mark>.
+
+En complément, il est précisé dans ce tableau (<mark style="color:red;">travail en cours à compléter</mark>) :&#x20;
+
+* la géographie considérée pour le procédé, ce qui renvoie notamment au mix électrique sous-jacent ;
+* le pays considéré, dans le simulateur, pour calculer ensuite la distance de transport vers l'étape suivante.
+
+{% hint style="warning" %}
+Lorsqu'un mélange de matières primaire et recyclée est considéré, on ne retient qu'un seul pays pour l'origine du fil.
+{% endhint %}
+
+| Matières naturelles                                         | UUID procédé                           | Géographie considérée (base Impacts) | Pays de filature considéré (cf. Transport) |
+| ----------------------------------------------------------- | -------------------------------------- | ------------------------------------ | ------------------------------------------ |
+| Plume de canard                                             | `d1f06ea5-d63f-453a-8f98-55ce78ae7579` | à préciser                           | Chine                                      |
+| Fil de soie                                                 | `94b4b0e1-61e4-4f4d-b9b2-efe7623b0e68` | à préciser                           | Chine                                      |
+| <mark style="color:blue;">Fil de lin (filasse)</mark>       | `e5a6d538-f932-4242-98b4-3a0c6439629c` | à préciser                           | Chine                                      |
+| <mark style="color:blue;">Fil de lin (étoupe)</mark>        | `fcef1a31-bb18-49e4-bdb6-e53dfe015ba0` | à préciser                           | Chine                                      |
+| Fil de laine de mouton Mérinos                              | `4e035dbf-f48b-4b5a-94ea-0006c713958b` | à préciser                           | Chine                                      |
+| <mark style="color:blue;">Fil de laine de mouton</mark>     | `376bd165-d354-41aa-a6e3-fd3228413bb2` | à préciser                           | Chine                                      |
+| Fil de laine de chameau                                     | `c191a4dd-5080-4eb6-9c59-b13c943327bc` | à préciser                           | Chine                                      |
+| Fil de jute                                                 | `72010874-4d26-4c7a-95de-c6987dfdedeb` | à préciser                           | Chine                                      |
+| <mark style="color:blue;">Fil de coton conventionnel</mark> | `f211bbdb-415c-46fd-be4d-ddf199575b44` | Asie                                 | Chine                                      |
+| <mark style="color:blue;">Fil de chanvre</mark>             | `08601439-f338-4f94-ac8c-538061b65d16` | à préciser                           | Chine                                      |
+| Fil de cachemire                                            | `380c0d9c-2840-4390-bd3f-5c960f26f5ed` | à préciser                           | Chine                                      |
+| Fibres de kapok                                             | `36cdbfc4-3f48-47b0-8ae0-294bb6017df1` | à préciser                           | Chine                                      |
 
 
 
-| Matières synthétiques                           | UUID procédé                           |
-| ----------------------------------------------- | -------------------------------------- |
-| Filament de viscose                             | `81a67d97-3cd9-44ef-9ee2-159364364c0f` |
-| Filament de polyuréthane                        | `c3738500-0a62-4b95-b4a2-b7beb12a9e1a` |
-| Filament de polytriméthylène téréphtalate (PTT) | `eca33573-0d09-4d79-9b28-da42bfcc7a4b` |
-| Filament de polytéréphtalate de butylène (PBT)  | `7f8bbfdc-fb65-4e3a-ac81-eda197ef17fc` |
-| Filament de polypropylène                       | `a30cfbde-393a-40db-9263-ea00bfced0b7` |
-| Filament de polylactide                         | `f2dd799d-1b69-4e7a-99bd-696bbbd5a978` |
-| Filament de polyéthylène                        | `088ed617-67fa-4d42-b3af-ee6cf39cf36f` |
-| Filament de polyester                           | `4d57c51d-7d56-46e1-acde-02fbcdc943e4` |
-| Filament de polyamide 66                        | `182fa424-1f49-4728-b0f1-cb4e4ab36392` |
-| Filament d'aramide                              | `7a1ccc4a-2ea7-48dc-9ef0-d57066ea8fa5` |
-| Filament bi-composant polypropylène/polyamide   | `37396ac4-13a2-484c-9cc6-5b5a93ff6e6e` |
-| Feuille de néoprène                             | `76fefff3-3781-49a2-8deb-c12945a6b71f` |
+| Matières synthétiques                                     | UUID procédé                           |
+| --------------------------------------------------------- | -------------------------------------- |
+| <mark style="color:blue;">Filament de viscose</mark>      | `81a67d97-3cd9-44ef-9ee2-159364364c0f` |
+| Filament de polyuréthane                                  | `c3738500-0a62-4b95-b4a2-b7beb12a9e1a` |
+| Filament de polytriméthylène téréphtalate (PTT)           | `eca33573-0d09-4d79-9b28-da42bfcc7a4b` |
+| Filament de polytéréphtalate de butylène (PBT)            | `7f8bbfdc-fb65-4e3a-ac81-eda197ef17fc` |
+| Filament de polypropylène                                 | `a30cfbde-393a-40db-9263-ea00bfced0b7` |
+| Filament de polylactide                                   | `f2dd799d-1b69-4e7a-99bd-696bbbd5a978` |
+| Filament de polyéthylène                                  | `088ed617-67fa-4d42-b3af-ee6cf39cf36f` |
+| <mark style="color:blue;">Filament de polyester</mark>    | `4d57c51d-7d56-46e1-acde-02fbcdc943e4` |
+| <mark style="color:blue;">Filament de polyamide 66</mark> | `182fa424-1f49-4728-b0f1-cb4e4ab36392` |
+| Filament d'aramide                                        | `7a1ccc4a-2ea7-48dc-9ef0-d57066ea8fa5` |
+| <mark style="color:blue;">Filament d'acrylique</mark>     | aee6709f-0864-4fc5-8760-68cb644a0021   |
+| Filament bi-composant polypropylène/polyamide             | `37396ac4-13a2-484c-9cc6-5b5a93ff6e6e` |
+| Feuille de néoprène                                       | `76fefff3-3781-49a2-8deb-c12945a6b71f` |
 
 | Matières recyclées                                                                                                                                       |                                        |
 | -------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------- |
 |  Production de filament de polyester recyclé (recyclage mécanique), traitement de bouteilles post-consommation                                           | `4072bfa2-1948-4d12-8de9-bbeb6cc628e1` |
-|  Production de filament de polyester recyclé (recyclage chimique partiel), traitement de bouteilles post-consommation                                    | `e65e8157-9bd1-4711-9571-8e4a22c2d2b5` |
+|  <mark style="color:blue;">Production de filament de polyester recyclé (recyclage chimique partiel), traitement de bouteilles post-consommation</mark>   | `e65e8157-9bd1-4711-9571-8e4a22c2d2b5` |
 |  Production de filament de polyester recyclé (recyclage chimique complet), traitement de bouteilles post-consommation                                    | `221067ba-5c2f-4dad-b09a-dd5af0a9ae31` |
 |  Production de filament de polyamide recyclé (recyclage chimique), traitement de déchets issus de filets de pêche, de tapis et de déchets de production  | `41ee61c2-9a98-4eec-8949-9d9b54289bd0` |
-|  Production de fil de viscose recyclé (recyclage mécanique), traitement de déchets de production textiles                                                | `9671ae26-d772-4bb1-aad5-6b826555d0cd` |
-|  Production de fil de polyamide recyclé (recyclage mécanique), traitement de déchets de production textiles                                              | `af5d130d-f18b-438c-9f19-d1ee49756960` |
-|  Production de fil de laine recyclé (recyclage mécanique), traitement de déchets de production textiles                                                  | `92dfabc7-9441-463e-bda8-7bc5943c0e9d` |
+|  <mark style="color:blue;">Production de fil de viscose recyclé (recyclage mécanique), traitement de déchets de production textiles</mark>               | `9671ae26-d772-4bb1-aad5-6b826555d0cd` |
+|  <mark style="color:blue;">Production de fil de polyamide recyclé (recyclage mécanique), traitement de déchets de production textiles</mark>             | `af5d130d-f18b-438c-9f19-d1ee49756960` |
+|  <mark style="color:blue;">Production de fil de laine recyclé (recyclage mécanique), traitement de déchets de production textiles</mark>                 | `92dfabc7-9441-463e-bda8-7bc5943c0e9d` |
 |  Production de fil de coton recyclé (recyclage mécanique), traitement de déchets textiles post-consommation                                              | `4d23093d-1346-4018-8c0f-7aae33c67bcd` |
-|  Production de fil de coton recyclé (recyclage mécanique), traitement de déchets de production textiles                                                  | `2b24abb0-c1ec-4298-9b58-350904a26104` |
-|  Production de fil d'acrylique recyclé (recyclage mécanique), traitement de déchets de production textiles                                               | `7603beaa-c555-4283-b9f8-4d5d231b8490` |
+|  <mark style="color:blue;">Production de fil de coton recyclé (recyclage mécanique), traitement de déchets de production textiles</mark>                 | `2b24abb0-c1ec-4298-9b58-350904a26104` |
+|  <mark style="color:blue;">Production de fil d'acrylique recyclé (recyclage mécanique), traitement de déchets de production textiles</mark>              | `7603beaa-c555-4283-b9f8-4d5d231b8490` |
 |  Production de fibres recyclées, traitement de déchets textiles post-consommation (recyclage mécanique)                                                  | `ca5dc5b3-7fa2-4779-af0b-aa6f31cd457f` |
 
 ## Schéma
@@ -72,12 +116,20 @@ Conformément à la documentation sectorielle textile de la [base Impacts](http:
 
 ![](../.gitbook/assets/FilViscose.PNG)
 
-Par conséquent, **pour les fibres naturelles**, le système "matière + filature" internalise les procédés externes, tels que l'énergie ou la chaleur. Ceux-ci ne sont donc pas paramétrables en fonction du contexte (pays notamment).
+Par conséquent, le système "matière + filature" internalise les procédés externes, tels que l'énergie ou la chaleur. Ceux-ci ne sont donc pas paramétrables en fonction du contexte (pays notamment).
 
 La formule suivante s'applique donc :
 
 $$
 ImpactMatière + ImpactFilature = ImpactProcédéMatièreFilature
+$$
+
+## Intégration d'une part de matière recyclée
+
+Dans le cas (<mark style="color:red;">à venir</mark>) où un pourcentage "r" de matière recyclée est introduit à partir du tableau des matières principales. le calcule de l'impact devient :&#x20;
+
+$$
+ImpactMatière + Impact Filature = (1-r)*ImpactProcédéMFPrimaire + r* ImpactProcédéMFRecyclée
 $$
 
 ## Procédé de matière et filature
@@ -113,6 +165,8 @@ Plus de détail sur la gestion des masses : [Pertes et rebut](pertes-et-rebus.m
 A prévoir :
 
 * Intégration de vêtements multi-matière
-* Intégration d'une combinaison de matière, notamment une part de matière recyclée
+* <mark style="color:red;">Intégration d'une combinaison de matière, notamment une part de matière recyclée</mark>
+* Lorsqu'une part de matière recyclée peut être introduire, ouvrir la possibilité de distinguer l'origine de la matière primaire et de la matière recyclée
+* Pour les matières qui peuvent être issues de différents types de recyclage, regrouper ces différentes sous-options dans le tableau principal
 * Prise en compte de la _Circular Footprint Formula_ du projet de _PEFCR Apparel & Footwear_
 * Chercher à distinguer matières et filature pour pouvoir moduler ces deux étapes, et notamment la filature, en fonction du pays concerné
