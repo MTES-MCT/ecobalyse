@@ -2,6 +2,7 @@ module Data.Country exposing (..)
 
 import Data.Process as Process
 import Json.Decode as Decode exposing (Decoder)
+import Json.Decode.Extra as DecodeExtra
 import Json.Encode as Encode
 
 
@@ -110,7 +111,7 @@ toString2 =
 decode : Decoder Country
 decode =
     Decode.string
-        |> Decode.andThen (fromString >> Decode.succeed)
+        |> Decode.andThen (fromString >> DecodeExtra.fromResult)
 
 
 decode2 : Decoder Country2
@@ -151,35 +152,35 @@ encodeAll2 =
         |> Encode.encode 0
 
 
-fromString : String -> Country
+fromString : String -> Result String Country
 fromString country =
     case country of
         "Bangladesh" ->
-            Bangladesh
+            Ok Bangladesh
 
         "Chine" ->
-            China
+            Ok China
 
         "France" ->
-            France
+            Ok France
 
         "Inde" ->
-            India
+            Ok India
 
         "Espagne" ->
-            Spain
+            Ok Spain
 
         "Portugal" ->
-            Portugal
+            Ok Portugal
 
         "Tunisie" ->
-            Tunisia
+            Ok Tunisia
 
         "Turquie" ->
-            Turkey
+            Ok Turkey
 
         _ ->
-            France
+            Err <| "Pays invalide " ++ country
 
 
 toString : Country -> String
@@ -208,3 +209,9 @@ toString country =
 
         Turkey ->
             "Turquie"
+
+
+
+-- TODO?
+-- codeToCountry : Code -> Result String Country
+-- codeToCountry code ->

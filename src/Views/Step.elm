@@ -21,7 +21,7 @@ type alias Config msg =
     , current : Step
     , next : Maybe Step
     , openDocModal : Gitbook.Path -> msg
-    , updateCountry : Int -> Country -> msg
+    , updateCountry : Int -> Result String Country -> msg
     , updateDyeingWeighting : Maybe Float -> msg
     , updateAirTransportRatio : Maybe Float -> msg
     }

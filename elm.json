@@ -17,6 +17,7 @@
             "elm/svg": "1.0.1",
             "elm/time": "1.0.0",
             "elm/url": "1.0.0",
+            "elm-community/json-extra": "4.3.0",
             "elm-community/list-extra": "8.5.1",
             "gingko/time-distance": "2.3.0",
             "ianmackenzie/elm-units": "2.9.0",

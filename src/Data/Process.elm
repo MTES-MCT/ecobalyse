@@ -2,6 +2,7 @@ module Data.Process exposing (..)
 
 import Energy exposing (Energy)
 import Json.Decode as Decode exposing (Decoder)
+import Json.Decode.Extra as DecodeExtra
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
 import Mass exposing (Mass)
@@ -368,22 +369,12 @@ uuidToString (Uuid string) =
     string
 
 
-fromResult : Result String a -> Decoder a
-fromResult result =
-    case result of
-        Ok great ->
-            Decode.succeed great
-
-        Err problem ->
-            Decode.fail problem
-
-
 decode : Decoder Process
 decode =
     Decode.succeed Process
-        |> Pipe.required "cat1" (Decode.string |> Decode.andThen (cat1FromString >> fromResult))
-        |> Pipe.required "cat2" (Decode.string |> Decode.andThen (cat2FromString >> fromResult))
-        |> Pipe.required "cat3" (Decode.string |> Decode.andThen (cat3FromString >> fromResult))
+        |> Pipe.required "cat1" (Decode.string |> Decode.andThen (cat1FromString >> DecodeExtra.fromResult))
+        |> Pipe.required "cat2" (Decode.string |> Decode.andThen (cat2FromString >> DecodeExtra.fromResult))
+        |> Pipe.required "cat3" (Decode.string |> Decode.andThen (cat3FromString >> DecodeExtra.fromResult))
         |> Pipe.required "name" Decode.string
         |> Pipe.required "uuid" (Decode.map Uuid Decode.string)
         |> Pipe.required "climateChange" Decode.float

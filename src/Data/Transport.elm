@@ -20,7 +20,7 @@ type alias Distances =
 
 type alias Transport =
     -- TODO: use elm-unit Distance.kilometers
-    { road : Km, air : Km, sea : Km }
+    { road : Km, sea : Km, air : Km }
 
 
 type alias Summary =
@@ -191,6 +191,15 @@ getTransportBetween cA cB =
 toSummary : Transport -> Summary
 toSummary { road, air, sea } =
     { road = road, air = air, sea = sea, co2 = 0 }
+
+
+encodeTransport : Transport -> Encode.Value
+encodeTransport v =
+    Encode.object
+        [ ( "road", Encode.float v.road )
+        , ( "sea", Encode.float v.sea )
+        , ( "air", Encode.float v.air )
+        ]
 
 
 decodeSummary : Decoder Summary

@@ -66,7 +66,7 @@ type Msg
     | UpdateMassInput String
     | UpdateMaterial Process.Uuid
     | UpdateMaterialCategory Category
-    | UpdateStepCountry Int Country
+    | UpdateStepCountry Int (Result String Country)
     | UpdateProduct Product.Id
 
 
@@ -166,9 +166,14 @@ update ({ db } as session) msg ({ query } as model) =
                 Err error ->
                     ( model, session |> Session.notifyError "Erreur de catégorie de matière" error, Cmd.none )
 
-        UpdateStepCountry index country ->
-            ( model, session, Cmd.none )
-                |> updateQuery (Inputs.updateStepCountry index country query)
+        UpdateStepCountry index countryResult ->
+            case countryResult of
+                Ok country ->
+                    ( model, session, Cmd.none )
+                        |> updateQuery (Inputs.updateStepCountry index country query)
+
+                Err error ->
+                    ( model, session |> Session.notifyError "Erreur de pays" error, Cmd.none )
 
         UpdateProduct productId ->
             case Product.findById productId db.products of
@@ -255,7 +260,14 @@ productField db product =
     div []
         [ label [ for "product", class "form-label fw-bold" ] [ text "Type de produit" ]
         , db.products
-            |> List.map (\p -> option [ value (Product.idToString p.id), selected (product.id == p.id) ] [ text p.name ])
+            |> List.map
+                (\p ->
+                    option
+                        [ value (Product.idToString p.id)
+                        , selected (product.id == p.id)
+                        ]
+                        [ text p.name ]
+                )
             |> select
                 [ id "product"
                 , class "form-select"
