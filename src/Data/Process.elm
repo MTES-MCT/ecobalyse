@@ -6,6 +6,7 @@ import Json.Decode.Extra as DecodeExtra
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
 import Mass exposing (Mass)
+import Result.Extra as RE
 
 
 type alias Process =
@@ -163,21 +164,16 @@ wellKnownUuids =
     }
 
 
-resolve : Result x a -> Result x (a -> b) -> Result x b
-resolve result =
-    Result.andThen (\partial -> Result.map partial result)
-
-
 loadWellKnown : List Process -> Result String WellKnown
 loadWellKnown p =
     Ok WellKnown
-        |> resolve (findByUuid2 wellKnownUuids.airTransport p)
-        |> resolve (findByUuid2 wellKnownUuids.seaTransport p)
-        |> resolve (findByUuid2 wellKnownUuids.roadTransportPreMaking p)
-        |> resolve (findByUuid2 wellKnownUuids.roadTransportPostMaking p)
-        |> resolve (findByUuid2 wellKnownUuids.distribution p)
-        |> resolve (findByUuid2 wellKnownUuids.dyeingHigh p)
-        |> resolve (findByUuid2 wellKnownUuids.dyeingLow p)
+        |> RE.andMap (findByUuid2 wellKnownUuids.airTransport p)
+        |> RE.andMap (findByUuid2 wellKnownUuids.seaTransport p)
+        |> RE.andMap (findByUuid2 wellKnownUuids.roadTransportPreMaking p)
+        |> RE.andMap (findByUuid2 wellKnownUuids.roadTransportPostMaking p)
+        |> RE.andMap (findByUuid2 wellKnownUuids.distribution p)
+        |> RE.andMap (findByUuid2 wellKnownUuids.dyeingHigh p)
+        |> RE.andMap (findByUuid2 wellKnownUuids.dyeingLow p)
 
 
 cat1 : Cat1 -> List Process -> List Process
@@ -193,24 +189,6 @@ cat2 c2 =
 cat3 : Cat3 -> List Process -> List Process
 cat3 c3 =
     List.filter (.cat3 >> (==) c3)
-
-
-airTransport : Process
-airTransport =
-    -- FIXME remove
-    findByName "Transport aérien long-courrier (dont flotte, utilisation et infrastructure) [tkm], GLO"
-
-
-seaTransport : Process
-seaTransport =
-    -- FIXME remove
-    findByName "Transport maritime de conteneurs 27,500 t (dont flotte, utilisation et infrastructure) [tkm], GLO"
-
-
-roadTransportPreMaking : Process
-roadTransportPreMaking =
-    -- FIXME remove
-    findByName "Transport en camion (dont parc, utilisation et infrastructure) (50%) [tkm], GLO"
 
 
 cat1FromString : String -> Result String Cat1
