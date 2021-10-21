@@ -135,19 +135,19 @@ computeTransports db next current =
                 { current
                     | transport =
                         stepSummary
-                            |> computeTransportCo2 db (getRoadTransportProcess wellKnown current) next.mass
-                            |> Transport.addSummary (initialTransportSummary db current)
+                            |> computeTransportCo2 wellKnown (getRoadTransportProcess wellKnown current) next.mass
+                            |> Transport.addSummary (initialTransportSummary wellKnown current)
                 }
             )
 
 
-computeTransportCo2 : Db -> Process -> Mass -> Transport -> Transport.Summary
-computeTransportCo2 _ roadProcess mass { road, sea, air } =
+computeTransportCo2 : Process.WellKnown -> Process -> Mass -> Transport -> Transport.Summary
+computeTransportCo2 wellKnown roadProcess mass { road, sea, air } =
     let
         ( roadCo2, seaCo2, airCo2 ) =
             ( roadProcess |> .climateChange |> (*) (Mass.inMetricTons mass) |> (*) road
-            , Process.seaTransport |> .climateChange |> (*) (Mass.inMetricTons mass) |> (*) sea
-            , Process.airTransport |> .climateChange |> (*) (Mass.inMetricTons mass) |> (*) air
+            , wellKnown.seaTransport |> .climateChange |> (*) (Mass.inMetricTons mass) |> (*) sea
+            , wellKnown.airTransport |> .climateChange |> (*) (Mass.inMetricTons mass) |> (*) air
             )
     in
     { road = road
@@ -157,13 +157,13 @@ computeTransportCo2 _ roadProcess mass { road, sea, air } =
     }
 
 
-initialTransportSummary : Db -> Step -> Transport.Summary
-initialTransportSummary db { label, mass } =
+initialTransportSummary : Process.WellKnown -> Step -> Transport.Summary
+initialTransportSummary wellKnown { label, mass } =
     case label of
         MaterialAndSpinning ->
             -- Apply initial Material to Spinning step transport data (see Excel)
             Transport.materialToSpinningTransport
-                |> computeTransportCo2 db Process.roadTransportPreMaking mass
+                |> computeTransportCo2 wellKnown wellKnown.roadTransportPreMaking mass
 
         _ ->
             { road = 0, sea = 0, air = 0, co2 = 0 }
