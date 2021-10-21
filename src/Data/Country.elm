@@ -25,8 +25,8 @@ type alias Country2 =
     -- The big idea: replace static country type (eg. France) with country db ids (Code "FR")
     { code : Code
     , name : String
-    , electricity : Process.Uuid
-    , heat : Process.Uuid
+    , electricity : Process.Uuid -- IDEA: replace by process record
+    , heat : Process.Uuid -- IDEA: replace by process record
     , dyeingWeighting : Float
     }
 

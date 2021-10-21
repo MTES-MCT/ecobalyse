@@ -35,7 +35,7 @@ encode =
     Encode.array Step.encode
 
 
-computeTransportSummaries : Db -> LifeCycle -> LifeCycle
+computeTransportSummaries : Db -> LifeCycle -> Result String LifeCycle
 computeTransportSummaries db lifeCycle =
     lifeCycle
         |> Array.indexedMap
@@ -44,6 +44,34 @@ computeTransportSummaries db lifeCycle =
                     (Array.get (index + 1) lifeCycle |> Maybe.withDefault step)
                     step
             )
+        |> Array.foldl
+            (\result acc ->
+                case ( result, acc ) of
+                    ( Ok step, Ok array ) ->
+                        Ok (Array.push step array)
+
+                    ( _, Err error ) ->
+                        Err error
+
+                    ( Err error, Ok _ ) ->
+                        Err error
+            )
+            (Ok Array.empty)
+
+
+filterMap : (a -> Maybe b) -> List a -> List b
+filterMap f xs =
+    List.foldr (maybeCons f) [] xs
+
+
+maybeCons : (a -> Maybe b) -> a -> List b -> List b
+maybeCons f mx xs =
+    case f mx of
+        Just x ->
+            x :: xs
+
+        Nothing ->
+            xs
 
 
 computeTransportSummary : LifeCycle -> Transport.Summary
