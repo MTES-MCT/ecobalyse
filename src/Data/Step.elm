@@ -1,6 +1,6 @@
 module Data.Step exposing (..)
 
-import Data.Country as Country exposing (Country)
+import Data.Country as Country exposing (Country, Country2)
 import Data.CountryProcess as CountryProcess
 import Data.Db exposing (Db)
 import Data.Gitbook as Gitbook
@@ -16,7 +16,7 @@ import Mass exposing (Mass)
 
 type alias Step =
     { label : Label
-    , country : Country
+    , country : Country2
     , editable : Bool
     , mass : Mass
     , waste : Mass
@@ -46,7 +46,7 @@ type Label
     | Distribution -- Distribution
 
 
-create : Label -> Bool -> Country -> Step
+create : Label -> Bool -> Country2 -> Step
 create label editable country =
     { label = label
     , country = country
@@ -58,7 +58,7 @@ create label editable country =
     , heat = Energy.megajoules 0
     , kwh = Energy.kilowattHours 0
     , processInfo = processCountryInfo label country
-    , dyeingWeighting = getDyeingWeighting country
+    , dyeingWeighting = getDyeingWeighting country2
     , airTransportRatio = 0 -- Note: this depends on next step country, so we can't set an accurate default value initially
     }
 
