@@ -81,7 +81,7 @@ type Cat3
     | AverageFrenchFleet
 
 
-type alias WellKnown =
+type alias WellKnownUuids =
     { airTransport : Uuid
     , seaTransport : Uuid
     , roadTransportPreMaking : Uuid
@@ -89,6 +89,17 @@ type alias WellKnown =
     , distribution : Uuid
     , dyeingHigh : Uuid
     , dyeingLow : Uuid
+    }
+
+
+type alias WellKnown =
+    { airTransport : Process
+    , seaTransport : Process
+    , roadTransportPreMaking : Process
+    , roadTransportPostMaking : Process
+    , distribution : Process
+    , dyeingHigh : Process
+    , dyeingLow : Process
     }
 
 
@@ -121,16 +132,20 @@ findByName name =
 
 findByUuid2 : Uuid -> List Process -> Result String Process
 findByUuid2 uuid =
-    List.filter (.uuid >> (==) uuid) >> List.head >> Result.fromMaybe ("Procédé introuvable: " ++ uuidToString uuid)
+    List.filter (.uuid >> (==) uuid)
+        >> List.head
+        >> Result.fromMaybe ("Procédé introuvable: " ++ uuidToString uuid)
 
 
 findByName2 : String -> List Process -> Result String Process
 findByName2 name =
-    List.filter (.name >> (==) name) >> List.head >> Result.fromMaybe ("Procédé introuvable: " ++ name)
+    List.filter (.name >> (==) name)
+        >> List.head
+        >> Result.fromMaybe ("Procédé introuvable: " ++ name)
 
 
-wellKnown : WellKnown
-wellKnown =
+wellKnownUuids : WellKnownUuids
+wellKnownUuids =
     { -- Transport aérien long-courrier (dont flotte, utilisation et infrastructure) [tkm], GLO
       airTransport = Uuid "839b263d-5111-4318-9275-7026937e88b2"
     , -- Transport maritime de conteneurs 27,500 t (dont flotte, utilisation et infrastructure) [tkm], GLO
@@ -146,6 +161,23 @@ wellKnown =
     , -- Teinture sur étoffe, procédé représentatif, traitement très efficace des eaux usées
       dyeingLow = Uuid "fb4bea16-7ce1-43e2-9e03-462250214988"
     }
+
+
+resolve : Result x a -> Result x (a -> b) -> Result x b
+resolve result =
+    Result.andThen (\partial -> Result.map partial result)
+
+
+loadWellKnown : List Process -> Result String WellKnown
+loadWellKnown p =
+    Ok WellKnown
+        |> resolve (findByUuid2 wellKnownUuids.airTransport p)
+        |> resolve (findByUuid2 wellKnownUuids.seaTransport p)
+        |> resolve (findByUuid2 wellKnownUuids.roadTransportPreMaking p)
+        |> resolve (findByUuid2 wellKnownUuids.roadTransportPostMaking p)
+        |> resolve (findByUuid2 wellKnownUuids.distribution p)
+        |> resolve (findByUuid2 wellKnownUuids.dyeingHigh p)
+        |> resolve (findByUuid2 wellKnownUuids.dyeingLow p)
 
 
 cat1 : Cat1 -> List Process -> List Process
@@ -179,18 +211,6 @@ roadTransportPreMaking : Process
 roadTransportPreMaking =
     -- FIXME remove
     findByName "Transport en camion (dont parc, utilisation et infrastructure) (50%) [tkm], GLO"
-
-
-roadTransportPostMaking : Process
-roadTransportPostMaking =
-    -- FIXME remove
-    findByName "Transport en camion (dont parc, utilisation et infrastructure) (50%) [tkm], RER"
-
-
-distribution : Process
-distribution =
-    -- FIXME remove
-    findByName "Transport en camion non spécifié France (dont parc, utilisation et infrastructure) (50%) [tkm], FR"
 
 
 cat1FromString : String -> Result String Cat1

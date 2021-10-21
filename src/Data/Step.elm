@@ -111,29 +111,34 @@ Docs: <https://fabrique-numerique.gitbook.io/wikicarbone/methodologie/transport>
 -}
 computeTransports : Db -> Step -> Step -> Result String Step
 computeTransports db next current =
-    let
-        transport =
-            Transport.getTransportBetween current.country next.country
+    db.processes
+        |> Process.loadWellKnown
+        |> Result.map
+            (\wellKnown ->
+                let
+                    transport =
+                        -- TODO: use Db and handle this as a Result
+                        Transport.getTransportBetween current.country next.country
 
-        ({ road, sea, air } as summary) =
-            computeTransportSummary current transport
+                    ({ road, sea, air } as summary) =
+                        computeTransportSummary current transport
 
-        roadSeaRatio =
-            Transport.roadSeaTransportRatio summary
+                    roadSeaRatio =
+                        Transport.roadSeaTransportRatio summary
 
-        stepSummary =
-            { road = (road * roadSeaRatio) * (1 - current.airTransportRatio)
-            , sea = (sea * (1 - roadSeaRatio)) * (1 - current.airTransportRatio)
-            , air = air * current.airTransportRatio
-            }
-                |> computeTransportCo2 db (getRoadTransportProcess current) next.mass
-    in
-    Ok
-        { current
-            | transport =
-                stepSummary
-                    |> Transport.addSummary (initialTransportSummary db current)
-        }
+                    stepSummary =
+                        { road = (road * roadSeaRatio) * (1 - current.airTransportRatio)
+                        , sea = (sea * (1 - roadSeaRatio)) * (1 - current.airTransportRatio)
+                        , air = air * current.airTransportRatio
+                        }
+                in
+                { current
+                    | transport =
+                        stepSummary
+                            |> computeTransportCo2 db (getRoadTransportProcess wellKnown current) next.mass
+                            |> Transport.addSummary (initialTransportSummary db current)
+                }
+            )
 
 
 computeTransportCo2 : Db -> Process -> Mass -> Transport -> Transport.Summary
@@ -180,17 +185,17 @@ computeTransportSummary step transport =
             { road = transport.road, sea = transport.sea, air = 0, co2 = 0 }
 
 
-getRoadTransportProcess : Step -> Process
-getRoadTransportProcess { label } =
+getRoadTransportProcess : Process.WellKnown -> Step -> Process
+getRoadTransportProcess wellKnown { label } =
     case label of
         Making ->
-            Process.roadTransportPostMaking
+            wellKnown.roadTransportPostMaking
 
         Distribution ->
-            Process.distribution
+            wellKnown.distribution
 
         _ ->
-            Process.roadTransportPreMaking
+            wellKnown.roadTransportPreMaking
 
 
 countryLabel : Step -> String
