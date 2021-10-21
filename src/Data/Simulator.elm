@@ -177,8 +177,8 @@ computeEnnoblementCo2Score { processes } simulator =
                         }
                     )
         )
-        (Process.findByUuid2 Process.wellKnown.dyeingHigh processes)
-        (Process.findByUuid2 Process.wellKnown.dyeingLow processes)
+        (Process.findByUuid2 Process.wellKnownUuids.dyeingHigh processes)
+        (Process.findByUuid2 Process.wellKnownUuids.dyeingLow processes)
 
 
 computeMaterialAndSpinningCo2Score : Db -> Simulator -> Result String Simulator
