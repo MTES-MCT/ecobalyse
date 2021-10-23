@@ -175,7 +175,7 @@ computeEnnoblementCo2Score { processes } simulator =
 
                             elecCo2 =
                                 processes
-                                    |> Process.findByUuid2 step.country.heat
+                                    |> Process.findByUuid2 step.country.electricity
                                     |> Result.map .climateChange
                                     |> Result.withDefault 0
                                     |> (*) (Energy.inKilowattHours electricity)
