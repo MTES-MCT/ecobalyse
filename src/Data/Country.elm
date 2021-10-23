@@ -10,8 +10,7 @@ type Code
     = Code String
 
 
-type alias Country2 =
-    -- The big idea: replace static country type (eg. France) with country db ids (Code "FR")
+type alias Country =
     { code : Code
     , name : String
     , electricity : Process.Uuid -- IDEA: replace by process record
@@ -21,7 +20,7 @@ type alias Country2 =
     }
 
 
-codes : List Country2 -> List Code
+codes : List Country -> List Code
 codes =
     List.map .code
 
@@ -36,28 +35,23 @@ codeToString (Code string) =
     string
 
 
-findByCode : Code -> List Country2 -> Result String Country2
+findByCode : Code -> List Country -> Result String Country
 findByCode code =
     List.filter (.code >> (==) code)
         >> List.head
         >> Result.fromMaybe ("Pays non trouvé code=" ++ codeToString code)
 
 
-findByCodes : List Code -> List Country2 -> Result String (List Country2)
+findByCodes : List Code -> List Country -> Result String (List Country)
 findByCodes codes_ countries =
     codes_
         |> List.map (\code -> findByCode code countries)
         |> RE.combine
 
 
-toString2 : Country2 -> String
-toString2 =
-    .code >> codeToString
-
-
-decode2 : Decoder Country2
-decode2 =
-    Decode.map6 Country2
+decode : Decoder Country
+decode =
+    Decode.map6 Country
         (Decode.field "code" (Decode.map Code Decode.string))
         (Decode.field "name" Decode.string)
         (Decode.field "electricity" (Decode.map Process.Uuid Decode.string))
@@ -66,13 +60,13 @@ decode2 =
         (Decode.field "airTransportRatio" Decode.float)
 
 
-decodeList2 : Decoder (List Country2)
-decodeList2 =
-    Decode.list decode2
+decodeList : Decoder (List Country)
+decodeList =
+    Decode.list decode
 
 
-encode2 : Country2 -> Encode.Value
-encode2 v =
+encode : Country -> Encode.Value
+encode v =
     Encode.object
         [ ( "code", v.code |> codeToString |> Encode.string )
         , ( "name", Encode.string v.name )
@@ -83,6 +77,6 @@ encode2 v =
         ]
 
 
-encodeAll2 : List Country2 -> String
-encodeAll2 =
-    Encode.list encode2 >> Encode.encode 0
+encodeAll : List Country -> String
+encodeAll =
+    Encode.list encode >> Encode.encode 0

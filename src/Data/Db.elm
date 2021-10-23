@@ -1,6 +1,6 @@
 module Data.Db exposing (..)
 
-import Data.Country as Country exposing (Country2)
+import Data.Country as Country exposing (Country)
 import Data.Material as Material exposing (Material)
 import Data.Process as Process exposing (Process)
 import Data.Product as Product exposing (Product)
@@ -10,7 +10,7 @@ import RemoteData exposing (WebData)
 
 
 type alias Db =
-    { countries : List Country2
+    { countries : List Country
     , materials : List Material
     , processes : List Process
     , products : List Product
@@ -19,7 +19,7 @@ type alias Db =
 
 
 type alias BaseData =
-    { countries : List Country2
+    { countries : List Country
     , processes : List Process
     , products : List Product
     , transports : Distances
@@ -36,7 +36,7 @@ empty =
         }
 
 
-build : WebData (List Process) -> WebData (List Country2) -> WebData (List Product) -> WebData Distances -> WebData Db
+build : WebData (List Process) -> WebData (List Country) -> WebData (List Product) -> WebData Distances -> WebData Db
 build processesData countriesData productsData transportsData =
     countriesData
         |> RemoteData.map BaseData
@@ -66,7 +66,7 @@ buildFromJson json =
 decodeBaseData : Decoder BaseData
 decodeBaseData =
     Decode.map4 BaseData
-        (Decode.field "countries" Country.decodeList2)
+        (Decode.field "countries" Country.decodeList)
         (Decode.field "processes" Process.decodeList)
         (Decode.field "products" Product.decodeList)
         (Decode.field "transports" Transport.decodeDistances)

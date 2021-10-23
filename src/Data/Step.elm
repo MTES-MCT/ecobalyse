@@ -1,6 +1,6 @@
 module Data.Step exposing (..)
 
-import Data.Country as Country exposing (Country2)
+import Data.Country as Country exposing (Country)
 import Data.Db exposing (Db)
 import Data.Gitbook as Gitbook
 import Data.Inputs exposing (Inputs)
@@ -16,7 +16,7 @@ import Result.Extra as RE
 
 type alias Step =
     { label : Label
-    , country : Country2
+    , country : Country
     , editable : Bool
     , mass : Mass
     , waste : Mass
@@ -46,7 +46,7 @@ type Label
     | Distribution -- Distribution
 
 
-create : Db -> Label -> Bool -> Country2 -> Result String Step
+create : Db -> Label -> Bool -> Country -> Result String Step
 create db label editable country =
     country
         |> processCountryInfo db label
@@ -77,7 +77,7 @@ defaultProcessInfo =
     }
 
 
-processCountryInfo : Db -> Label -> Country2 -> Result String ProcessInfo
+processCountryInfo : Db -> Label -> Country -> Result String ProcessInfo
 processCountryInfo db label country =
     Ok Tuple.pair
         |> RE.andMap (db.processes |> Process.findByUuid2 country.electricity)
@@ -256,7 +256,7 @@ decode : Decoder Step
 decode =
     Decode.succeed Step
         |> Pipe.required "label" decodeLabel
-        |> Pipe.required "country" Country.decode2
+        |> Pipe.required "country" Country.decode
         |> Pipe.required "editable" Decode.bool
         |> Pipe.required "mass" (Decode.map Mass.kilograms Decode.float)
         |> Pipe.required "waste" (Decode.map Mass.kilograms Decode.float)
@@ -287,7 +287,7 @@ encode : Step -> Encode.Value
 encode v =
     Encode.object
         [ ( "label", Encode.string (labelToString v.label) )
-        , ( "country", Country.encode2 v.country )
+        , ( "country", Country.encode v.country )
         , ( "editable", Encode.bool v.editable )
         , ( "mass", Encode.float (Mass.inKilograms v.mass) )
         , ( "waste", Encode.float (Mass.inKilograms v.waste) )
