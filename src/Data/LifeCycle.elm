@@ -33,34 +33,9 @@ computeTransportSummaries db lifeCycle =
                     (Array.get (index + 1) lifeCycle |> Maybe.withDefault step)
                     step
             )
-        |> Array.foldl
-            (\result acc ->
-                case ( result, acc ) of
-                    ( Ok step, Ok array ) ->
-                        Ok (Array.push step array)
-
-                    ( _, Err error ) ->
-                        Err error
-
-                    ( Err error, Ok _ ) ->
-                        Err error
-            )
-            (Ok Array.empty)
-
-
-filterMap : (a -> Maybe b) -> List a -> List b
-filterMap f xs =
-    List.foldr (maybeCons f) [] xs
-
-
-maybeCons : (a -> Maybe b) -> a -> List b -> List b
-maybeCons f mx xs =
-    case f mx of
-        Just x ->
-            x :: xs
-
-        Nothing ->
-            xs
+        |> Array.toList
+        |> RE.combine
+        |> Result.map Array.fromList
 
 
 computeTransportSummary : LifeCycle -> Transport.Summary
