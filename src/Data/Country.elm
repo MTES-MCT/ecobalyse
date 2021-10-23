@@ -46,6 +46,16 @@ choices =
         ]
 
 
+codes : List Country2 -> List Code
+codes =
+    List.map .code
+
+
+codeFromString : String -> Code
+codeFromString =
+    Code
+
+
 codeToString : Code -> String
 codeToString (Code string) =
     string

@@ -1,7 +1,6 @@
 module Data.Step exposing (..)
 
 import Data.Country as Country exposing (Country2)
-import Data.CountryProcess as CountryProcess
 import Data.Db exposing (Db)
 import Data.Gitbook as Gitbook
 import Data.Inputs exposing (Inputs)

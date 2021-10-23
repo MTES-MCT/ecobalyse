@@ -5,6 +5,7 @@ import Data.Db as Db exposing (Db)
 import Data.Process as Process exposing (Process)
 import Data.Product as Product exposing (Product)
 import Data.Session exposing (Session)
+import Data.Transport as Transport exposing (Distances)
 import RemoteData exposing (WebData)
 import RemoteData.Http as Http exposing (defaultTaskConfig)
 import Task exposing (Task)
@@ -32,16 +33,23 @@ getProductsTask _ =
     Http.getTaskWithConfig taskConfig "data/products.json" Product.decodeList
 
 
+getTransportsTask : Session -> Task () (WebData Distances)
+getTransportsTask _ =
+    Http.getTaskWithConfig taskConfig "data/transports.json" Transport.decodeDistances
+
+
 getDb : Session -> Task () (WebData Db)
 getDb session =
     -- Loading order:
     -- 1. processes (so we get materials)
     -- 2. countries (so we can populate country processes)
     -- 3. products
-    Task.map3 Db.build
+    -- 4. TODO transports
+    Task.map4 Db.build
         (getProcessesTask session)
         (getCountriesTask session)
         (getProductsTask session)
+        (getTransportsTask session)
 
 
 loadDb : Session -> (WebData Db -> msg) -> Cmd msg
