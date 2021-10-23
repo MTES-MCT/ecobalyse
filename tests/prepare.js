@@ -13,6 +13,7 @@ const finalJson = {
   countries: getJson("public/data/countries.json"),
   processes: getJson("public/data/processes.json"),
   products: getJson("public/data/products.json"),
+  transports: getJson("public/data/transports.json"),
 };
 
 const elmTemplate = fs.readFileSync("tests/TestDb.elm-template").toString();

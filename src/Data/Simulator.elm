@@ -1,6 +1,5 @@
 module Data.Simulator exposing (..)
 
-import Data.CountryProcess as CountryProcess
 import Data.Db exposing (Db)
 import Data.Inputs as Inputs exposing (Inputs)
 import Data.LifeCycle as LifeCycle exposing (LifeCycle)
@@ -12,6 +11,7 @@ import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
 import Mass
 import Quantity
+import Result.Extra as RE
 
 
 type alias Simulator =
@@ -47,12 +47,19 @@ compute db query =
         |> Inputs.fromQuery db
         |> Result.map
             (\inputs ->
-                { inputs = inputs
-                , lifeCycle = LifeCycle.default |> LifeCycle.init inputs
-                , co2 = 0
-                , transport = Transport.defaultSummary
-                }
+                inputs
+                    |> LifeCycle.init db
+                    |> Result.map
+                        (\lifeCycle ->
+                            { inputs = inputs
+                            , lifeCycle = lifeCycle
+                            , co2 = 0
+                            , transport = Transport.defaultSummary
+                            }
+                        )
             )
+        -- FIXME: refactor this
+        |> RE.join
         -- Ensure end product mass is first applied to the final Distribution step
         |> Result.map computeMaterialAndSpinningWaste
         --
@@ -111,9 +118,10 @@ computeMakingCo2Score { processes } ({ inputs } as simulator) =
                                     elec |> Quantity.multiplyBy (Mass.inKilograms step.mass)
 
                                 elecCo2 =
-                                    CountryProcess.get step.country
-                                        |> Maybe.map (.electricity >> .climateChange)
-                                        |> Maybe.withDefault 0
+                                    processes
+                                        |> Process.findByUuid2 step.country.electricity
+                                        |> Result.map .climateChange
+                                        |> Result.withDefault 0
                                         |> (*) (Energy.inKilowattHours electricity)
                             in
                             { step | co2 = makingCo2 + elecCo2, kwh = electricity }
@@ -129,9 +137,6 @@ computeEnnoblementCo2Score { processes } simulator =
                 |> updateLifeCycleStep Step.Ennoblement
                     (\step ->
                         let
-                            countryProcesses =
-                                CountryProcess.get step.country
-
                             highDyeingWeighting =
                                 step.dyeingWeighting
 
@@ -152,9 +157,10 @@ computeEnnoblementCo2Score { processes } simulator =
                                     |> Energy.megajoules
 
                             heatCo2 =
-                                countryProcesses
-                                    |> Maybe.map (.heat >> .climateChange)
-                                    |> Maybe.withDefault 0
+                                processes
+                                    |> Process.findByUuid2 step.country.heat
+                                    |> Result.map .climateChange
+                                    |> Result.withDefault 0
                                     |> (*) (Energy.inMegajoules heatMJ)
 
                             electricity =
@@ -165,9 +171,10 @@ computeEnnoblementCo2Score { processes } simulator =
                                     |> Energy.megajoules
 
                             elecCo2 =
-                                countryProcesses
-                                    |> Maybe.map (.electricity >> .climateChange)
-                                    |> Maybe.withDefault 0
+                                processes
+                                    |> Process.findByUuid2 step.country.heat
+                                    |> Result.map .climateChange
+                                    |> Result.withDefault 0
                                     |> (*) (Energy.inKilowattHours electricity)
                         in
                         { step
@@ -220,9 +227,10 @@ computeWeavingKnittingCo2Score { processes } ({ inputs } as simulator) =
                                             * elec_pppm
 
                                 climateChangeKgCo2e =
-                                    CountryProcess.get step.country
-                                        |> Maybe.map (.electricity >> .climateChange)
-                                        |> Maybe.withDefault 0
+                                    processes
+                                        |> Process.findByUuid2 step.country.electricity
+                                        |> Result.map .climateChange
+                                        |> Result.withDefault 0
                             in
                             { step
                                 | co2 = electricityKWh * climateChangeKgCo2e

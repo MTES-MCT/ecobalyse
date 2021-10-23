@@ -1,6 +1,5 @@
 module Views.Summary exposing (..)
 
-import Data.Country as Country
 import Data.Inputs as Inputs
 import Data.LifeCycle as LifeCycle
 import Data.Material as Material
@@ -37,7 +36,7 @@ summaryView reusable simulator =
                     [ Format.kgCo2 2 simulator.co2 ]
                 ]
             , simulator.inputs.countries
-                |> List.map (\country -> li [] [ span [] [ country |> Country.toString |> text ] ])
+                |> List.map (\{ name } -> li [] [ span [] [ text name ] ])
                 |> ul [ class "Chevrons" ]
             , simulator.lifeCycle
                 |> LifeCycle.computeTransportSummary

@@ -2,7 +2,7 @@ module Page.Simulator exposing (..)
 
 import Array
 import Browser.Events
-import Data.Country exposing (Country)
+import Data.Country as Country
 import Data.Db exposing (Db)
 import Data.Gitbook as Gitbook
 import Data.Inputs as Inputs
@@ -66,7 +66,7 @@ type Msg
     | UpdateMassInput String
     | UpdateMaterial Process.Uuid
     | UpdateMaterialCategory Category
-    | UpdateStepCountry Int (Result String Country)
+    | UpdateStepCountry Int Country.Code
     | UpdateProduct Product.Id
 
 
@@ -166,14 +166,9 @@ update ({ db } as session) msg ({ query } as model) =
                 Err error ->
                     ( model, session |> Session.notifyError "Erreur de catégorie de matière" error, Cmd.none )
 
-        UpdateStepCountry index countryResult ->
-            case countryResult of
-                Ok country ->
-                    ( model, session, Cmd.none )
-                        |> updateQuery (Inputs.updateStepCountry index country query)
-
-                Err error ->
-                    ( model, session |> Session.notifyError "Erreur de pays" error, Cmd.none )
+        UpdateStepCountry index code ->
+            ( model, session, Cmd.none )
+                |> updateQuery (Inputs.updateStepCountry index code query)
 
         UpdateProduct productId ->
             case Product.findById productId db.products of
@@ -281,13 +276,14 @@ downArrow =
     img [ src "img/down-arrow-icon.png" ] []
 
 
-lifeCycleStepsView : DisplayMode -> Simulator -> Html Msg
-lifeCycleStepsView displayMode simulator =
+lifeCycleStepsView : Db -> DisplayMode -> Simulator -> Html Msg
+lifeCycleStepsView db displayMode simulator =
     simulator.lifeCycle
         |> Array.indexedMap
             (\index current ->
                 StepView.view
-                    { detailed = displayMode == DetailedMode
+                    { db = db
+                    , detailed = displayMode == DetailedMode
                     , index = index
                     , product = simulator.inputs.product
                     , current = current
@@ -452,7 +448,7 @@ simulatorView ({ db } as session) model simulator =
             , div [ class "mb-1" ]
                 [ materialField db simulator.inputs.material ]
             , displayModeView model.displayMode
-            , lifeCycleStepsView model.displayMode simulator
+            , lifeCycleStepsView db model.displayMode simulator
             , div [ class "d-flex align-items-center justify-content-between mt-3 mb-5" ]
                 [ a [ Route.href Route.Home ] [ text "« Retour à l'accueil" ]
                 , button

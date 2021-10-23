@@ -1,6 +1,6 @@
 module Views.Comparator exposing (..)
 
-import Data.Country exposing (..)
+import Data.Country as Country
 import Data.Db exposing (Db)
 import Data.Gitbook as Gitbook
 import Data.Inputs as Inputs
@@ -35,21 +35,39 @@ getComparatorData db query =
     Result.map3 (\a b c -> ( a, b, c ))
         (Simulator.compute db
             { query
-                | countries = [ China, France, France, France, France ]
+                | countries =
+                    [ Country.Code "CN"
+                    , Country.Code "FR"
+                    , Country.Code "FR"
+                    , Country.Code "FR"
+                    , Country.Code "FR"
+                    ]
                 , dyeingWeighting = Just 0
                 , airTransportRatio = Just 0
             }
         )
         (Simulator.compute db
             { query
-                | countries = [ China, Turkey, Turkey, Turkey, France ]
+                | countries =
+                    [ Country.Code "CN"
+                    , Country.Code "TR"
+                    , Country.Code "TR"
+                    , Country.Code "TR"
+                    , Country.Code "FR"
+                    ]
                 , dyeingWeighting = Just 0.5
                 , airTransportRatio = Just 0
             }
         )
         (Simulator.compute db
             { query
-                | countries = [ China, India, India, India, France ]
+                | countries =
+                    [ Country.Code "CN"
+                    , Country.Code "IN"
+                    , Country.Code "IN"
+                    , Country.Code "IN"
+                    , Country.Code "FR"
+                    ]
                 , dyeingWeighting = Just 1
                 , airTransportRatio = Just 1
             }
