@@ -1,6 +1,6 @@
 module Views.Step exposing (..)
 
-import Data.Country as Country exposing (Country)
+import Data.Country as Country
 import Data.Db exposing (Db)
 import Data.Gitbook as Gitbook
 import Data.Product exposing (Product)
