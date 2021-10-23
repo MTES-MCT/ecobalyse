@@ -10,6 +10,7 @@ import Data.Simulator as Simulator exposing (Simulator)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
+import Views.Alert as Alert
 import Views.Format as Format
 import Views.Icon as Icon
 
@@ -78,7 +79,12 @@ view : Config msg -> Html msg
 view ({ session, simulator } as config) =
     case simulator.inputs |> Inputs.toQuery |> getComparatorData session.db of
         Err error ->
-            text <| "Error: " ++ error
+            Alert.simple
+                { level = Alert.Danger
+                , close = Nothing
+                , title = "Erreur"
+                , content = [ text error ]
+                }
 
         Ok result ->
             viewComparator config simulator result
