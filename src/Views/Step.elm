@@ -1,6 +1,7 @@
 module Views.Step exposing (..)
 
 import Data.Country as Country exposing (Country)
+import Data.Db exposing (Db)
 import Data.Gitbook as Gitbook
 import Data.Product exposing (Product)
 import Data.Step as Step exposing (Step)
@@ -15,31 +16,35 @@ import Views.Transport as TransportView
 
 
 type alias Config msg =
-    { detailed : Bool
+    { db : Db
+    , detailed : Bool
     , index : Int
     , product : Product
     , current : Step
     , next : Maybe Step
     , openDocModal : Gitbook.Path -> msg
-    , updateCountry : Int -> Result String Country -> msg
+    , updateCountry : Int -> Country.Code -> msg
     , updateDyeingWeighting : Maybe Float -> msg
     , updateAirTransportRatio : Maybe Float -> msg
     }
 
 
 countryField : Config msg -> Html msg
-countryField { current, index, updateCountry } =
+countryField { db, current, index, updateCountry } =
     div []
-        [ Country.choices
+        [ db.countries
             |> List.map
-                (\c ->
-                    option [ selected (current.country == c) ]
-                        [ text (Step.countryLabel { current | country = c }) ]
+                (\{ code, name } ->
+                    option
+                        [ selected (current.country.code == code)
+                        , value <| Country.codeToString code
+                        ]
+                        [ text name ]
                 )
             |> select
                 [ class "form-select"
                 , disabled (not current.editable)
-                , onInput (Country.fromString >> updateCountry index)
+                , onInput (Country.codeFromString >> updateCountry index)
                 ]
         , case current.label of
             Step.MaterialAndSpinning ->
@@ -164,7 +169,7 @@ detailedView ({ product, index, next, current } as config) =
         transportLabel =
             case next of
                 Just { country } ->
-                    "Transport vers " ++ Country.toString country
+                    "Transport vers " ++ country.name
 
                 Nothing ->
                     "Transport"

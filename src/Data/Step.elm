@@ -48,7 +48,8 @@ type Label
 
 create : Db -> Label -> Bool -> Country2 -> Result String Step
 create db label editable country =
-    processCountryInfo db label country
+    country
+        |> processCountryInfo db label
         |> Result.map
             (\processInfo ->
                 { label = label
@@ -121,9 +122,7 @@ computeTransports db next current =
             (\wellKnown ->
                 let
                     transport =
-                        -- TODO: use Db and handle this as a Result
-                        -- Transport.getTransportBetween current.country next.country
-                        Transport.default
+                        Transport.getTransportBetween current.country next.country db.transports
 
                     ({ road, sea, air } as summary) =
                         computeTransportSummary current transport

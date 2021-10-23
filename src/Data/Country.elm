@@ -4,6 +4,7 @@ import Data.Process as Process
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DecodeExtra
 import Json.Encode as Encode
+import Result.Extra as RE
 
 
 type Country
@@ -59,6 +60,20 @@ codeFromString =
 codeToString : Code -> String
 codeToString (Code string) =
     string
+
+
+findByCode : Code -> List Country2 -> Result String Country2
+findByCode code =
+    List.filter (.code >> (==) code)
+        >> List.head
+        >> Result.fromMaybe ("Pays non trouvé code=" ++ codeToString code)
+
+
+findByCodes : List Code -> List Country2 -> Result String (List Country2)
+findByCodes codes_ countries =
+    codes_
+        |> List.map (\code -> findByCode code countries)
+        |> RE.combine
 
 
 toString2 : Country2 -> String

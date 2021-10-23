@@ -97,99 +97,25 @@ roadSeaTransportRatio { road, sea } =
         0.25
 
 
-distances : Distances
-distances =
-    Dict.fromList Country.codeToString
-        [ ( Country.Code "TR"
-          , Dict.fromList Country.codeToString
-                [ ( Country.Code "BD", { road = 5416, sea = 9545, air = 6000 } )
-                , ( Country.Code "PT", { road = 3709, sea = 4876, air = 3200 } )
-                , ( Country.Code "CN", { road = 0, sea = 16243, air = 7100 } )
-                , ( Country.Code "FR", { road = 2798, sea = 6226, air = 2200 } )
-                , ( Country.Code "IN", { road = 0, sea = 6655, air = 4600 } )
-                , ( Country.Code "ES", { road = 3312, sea = 5576, air = 2700 } )
-                , ( Country.Code "TN", { road = 0, sea = 2348, air = 1700 } )
-                , ( Country.Code "TR", defaultInland )
-                ]
-          )
-        , ( Country.Code "TN"
-          , Dict.fromList Country.codeToString
-                [ ( Country.Code "BD", { road = 0, sea = 10605, air = 7600 } )
-                , ( Country.Code "PT", { road = 0, sea = 2660, air = 1700 } )
-                , ( Country.Code "CN", { road = 0, sea = 17637, air = 8600 } )
-                , ( Country.Code "FR", { road = 0, sea = 4343, air = 1500 } )
-                , ( Country.Code "IN", { road = 0, sea = 8048, air = 6200 } )
-                , ( Country.Code "ES", { road = 0, sea = 3693, air = 1300 } )
-                , ( Country.Code "TN", defaultInland )
-                ]
-          )
-        , ( Country.Code "IN"
-          , Dict.fromList Country.codeToString
-                [ ( Country.Code "BD", { road = 1222, sea = 4631, air = 1400 } )
-                , ( Country.Code "PT", { road = 8339, sea = 10705, air = 7800 } )
-                , ( Country.Code "CN", { road = 0, sea = 11274, air = 3800 } )
-                , ( Country.Code "FR", { road = 0, sea = 11960, air = 6600 } )
-                , ( Country.Code "IN", defaultInland )
-                , ( Country.Code "ES", { road = 0, sea = 11310, air = 7300 } )
-                ]
-          )
-        , ( Country.Code "FR"
-          , Dict.fromList Country.codeToString
-                [ ( Country.Code "BD", { road = 7995, sea = 14614, air = 7900 } )
-                , ( Country.Code "PT", { road = 1138, sea = 2425, air = 1500 } )
-                , ( Country.Code "CN", { road = 0, sea = 21548, air = 8200 } )
-                , ( Country.Code "FR", defaultInland )
-                , ( Country.Code "ES", { road = 801, sea = 1672, air = 1100 } )
-                ]
-          )
-        , ( Country.Code "ES"
-          , Dict.fromList Country.codeToString
-                [ ( Country.Code "BD", { road = 8653, sea = 13820, air = 8600 } )
-                , ( Country.Code "PT", { road = 399, sea = 1632, air = 500 } )
-                , ( Country.Code "CN", { road = 0, sea = 20898, air = 9200 } )
-                , ( Country.Code "ES", defaultInland )
-                ]
-          )
-        , ( Country.Code "CN"
-          , Dict.fromList Country.codeToString
-                [ ( Country.Code "BD", { road = 1897, sea = 9309, air = 3200 } )
-                , ( Country.Code "PT", { road = 9157, sea = 19863, air = 10700 } )
-                , ( Country.Code "CN", defaultInland )
-                ]
-          )
-        , ( Country.Code "BD"
-          , Dict.fromList Country.codeToString
-                [ ( Country.Code "BD", defaultInland )
-                , ( Country.Code "PT", { road = 9051, sea = 12723, air = 9200 } )
-                ]
-          )
-        , ( Country.Code "PT"
-          , Dict.fromList Country.codeToString
-                [ ( Country.Code "PT", defaultInland )
-                ]
-          )
-        ]
+getTransportBetween : Country2 -> Country2 -> Distances -> Transport
+getTransportBetween cA cB distances =
+    if cA == cB then
+        defaultInland
 
+    else
+        distances
+            |> Dict.get cA.code
+            |> Maybe.andThen
+                (\countries ->
+                    case Dict.get cB.code countries of
+                        Just transport ->
+                            Just transport
 
-getTransportBetween : Country2 -> Country2 -> Transport
-getTransportBetween cA cB =
-    -- FIXME:
-    -- - if cA == cB -> defaultTransportInland
-    -- - remove duplicates from transports.json
-    -- - make this a Result String Transport
-    distances
-        |> Dict.get cA.code
-        |> Maybe.andThen
-            (\countries ->
-                case Dict.get cB.code countries of
-                    Just transport ->
-                        Just transport
-
-                    Nothing ->
-                        -- reverse query source dict
-                        Just (getTransportBetween cB cA)
-            )
-        |> Maybe.withDefault default
+                        Nothing ->
+                            -- reverse query source dict
+                            Just (getTransportBetween cB cA distances)
+                )
+            |> Maybe.withDefault default
 
 
 toSummary : Transport -> Summary

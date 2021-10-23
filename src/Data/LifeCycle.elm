@@ -1,28 +1,17 @@
 module Data.LifeCycle exposing (..)
 
 import Array exposing (Array)
-import Data.Country as Country
 import Data.Db exposing (Db)
 import Data.Inputs exposing (Inputs)
 import Data.Step as Step exposing (Step)
 import Data.Transport as Transport
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
+import Result.Extra as RE
 
 
 type alias LifeCycle =
     Array Step
-
-
-default : LifeCycle
-default =
-    Array.fromList
-        [ Step.create Step.MaterialAndSpinning False Country.China
-        , Step.create Step.WeavingKnitting True Country.France
-        , Step.create Step.Ennoblement True Country.France
-        , Step.create Step.Making True Country.France
-        , Step.create Step.Distribution False Country.France
-        ]
 
 
 decode : Decoder LifeCycle
@@ -100,19 +89,29 @@ getStep label =
     Array.filter (.label >> (==) label) >> Array.get 0
 
 
-init : Inputs -> LifeCycle -> LifeCycle
-init inputs lifeCycle =
-    lifeCycle
-        |> Array.indexedMap
-            (\index step ->
-                { step
-                    | country =
-                        inputs.countries
-                            |> Array.fromList
-                            |> Array.get index
-                            |> Maybe.withDefault step.country
-                }
-                    |> Step.update inputs (Array.get (index + 1) lifeCycle)
+init : Db -> Inputs -> Result String LifeCycle
+init db inputs =
+    List.map2
+        (\code ( label, editable ) ->
+            Step.create db label editable code
+        )
+        inputs.countries
+        [ ( Step.MaterialAndSpinning, False )
+        , ( Step.WeavingKnitting, True )
+        , ( Step.Ennoblement, True )
+        , ( Step.Making, True )
+        , ( Step.Distribution, False )
+        ]
+        |> RE.combine
+        |> Result.map Array.fromList
+        |> Result.map
+            -- FIXME: refactor this mess
+            (\lifeCycle ->
+                lifeCycle
+                    |> Array.indexedMap
+                        (\index step_ ->
+                            Step.update db inputs (Array.get (index + 1) lifeCycle) step_
+                        )
             )
 
 
