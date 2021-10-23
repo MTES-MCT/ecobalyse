@@ -209,15 +209,16 @@ manteauCircuitEurope =
 
 pantalonCircuitEurope : Query
 pantalonCircuitEurope =
+    -- Pantalon circuit Europe
     { mass = Mass.kilograms 0.45
     , material = Process.Uuid "e5a6d538-f932-4242-98b4-3a0c6439629c"
     , product = Product.Id "10"
     , countries =
         [ Country.Code "CN"
         , Country.Code "TR"
-        , Country.Code "TN"
-        , Country.Code "TN"
-        , Country.Code "TN"
+        , Country.Code "TR"
+        , Country.Code "TR"
+        , Country.Code "FR"
         ]
     , dyeingWeighting = Nothing
     , airTransportRatio = Nothing
@@ -226,7 +227,7 @@ pantalonCircuitEurope =
 
 robeCircuitBangladesh : Query
 robeCircuitBangladesh =
-    -- Jupe circuit Asie
+    -- Robe circuit Bangladesh
     { mass = Mass.kilograms 0.5
     , material = Process.Uuid "7a1ccc4a-2ea7-48dc-9ef0-d57066ea8fa5"
     , product = Product.Id "12"
