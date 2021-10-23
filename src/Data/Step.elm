@@ -202,17 +202,6 @@ getRoadTransportProcess wellKnown { label } =
             wellKnown.roadTransportPreMaking
 
 
-countryLabel : Step -> String
-countryLabel step =
-    -- NOTE: because ADEME requires Asia as default for the Material & Spinning step,
-    -- we use Asia as a label and use China behind the scene
-    if step.label == MaterialAndSpinning then
-        "Asie"
-
-    else
-        step.country.name
-
-
 update : Db -> Inputs -> Maybe Step -> Step -> Step
 update db { dyeingWeighting, airTransportRatio } _ step =
     { step

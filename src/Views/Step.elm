@@ -34,12 +34,20 @@ countryField { db, current, index, updateCountry } =
     div []
         [ db.countries
             |> List.map
-                (\{ code } ->
+                (\{ code, name } ->
                     option
                         [ selected (current.country.code == code)
                         , value <| Country.codeToString code
                         ]
-                        [ text <| Step.countryLabel current ]
+                        [ -- NOTE: because ADEME requires Asia as default for the Material & Spinning step,
+                          -- we use Asia as a label and use China behind the scene
+                          case current.label of
+                            Step.MaterialAndSpinning ->
+                                text "Asie"
+
+                            _ ->
+                                text name
+                        ]
                 )
             |> select
                 [ class "form-select"
