@@ -34,12 +34,12 @@ countryField { db, current, index, updateCountry } =
     div []
         [ db.countries
             |> List.map
-                (\{ code, name } ->
+                (\{ code } ->
                     option
                         [ selected (current.country.code == code)
                         , value <| Country.codeToString code
                         ]
-                        [ text name ]
+                        [ text <| Step.countryLabel current ]
                 )
             |> select
                 [ class "form-select"
