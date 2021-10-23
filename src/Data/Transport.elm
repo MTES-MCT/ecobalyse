@@ -1,6 +1,6 @@
 module Data.Transport exposing (..)
 
-import Data.Country as Country exposing (Country2)
+import Data.Country as Country exposing (Country)
 import Dict.Any as Dict exposing (AnyDict)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
@@ -97,7 +97,7 @@ roadSeaTransportRatio { road, sea } =
         0.25
 
 
-getTransportBetween : Country2 -> Country2 -> Distances -> Transport
+getTransportBetween : Country -> Country -> Distances -> Transport
 getTransportBetween cA cB distances =
     if cA == cB then
         defaultInland

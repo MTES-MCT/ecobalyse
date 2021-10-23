@@ -2,7 +2,7 @@ module Data.Inputs exposing (..)
 
 import Array
 import Base64
-import Data.Country as Country exposing (Country2)
+import Data.Country as Country exposing (Country)
 import Data.Db exposing (Db)
 import Data.Material as Material exposing (Material)
 import Data.Process as Process
@@ -18,7 +18,7 @@ type alias Inputs =
     { mass : Mass
     , material : Material
     , product : Product
-    , countries : List Country2
+    , countries : List Country
     , dyeingWeighting : Maybe Float
     , airTransportRatio : Maybe Float
     }
@@ -259,7 +259,7 @@ decode =
         (Decode.field "mass" (Decode.map Mass.kilograms Decode.float))
         (Decode.field "material" Material.decode)
         (Decode.field "product" Product.decode)
-        (Decode.field "countries" (Decode.list Country.decode2))
+        (Decode.field "countries" (Decode.list Country.decode))
         (Decode.field "dyeingWeighting" (Decode.maybe Decode.float))
         (Decode.field "airTransportRatio" (Decode.maybe Decode.float))
 
@@ -270,7 +270,7 @@ encode inputs =
         [ ( "mass", Encode.float (Mass.inKilograms inputs.mass) )
         , ( "material", Material.encode inputs.material )
         , ( "product", Product.encode inputs.product )
-        , ( "countries", Encode.list Country.encode2 inputs.countries )
+        , ( "countries", Encode.list Country.encode inputs.countries )
         , ( "dyeingWeighting", inputs.dyeingWeighting |> Maybe.map Encode.float |> Maybe.withDefault Encode.null )
         , ( "airTransportRatio", inputs.airTransportRatio |> Maybe.map Encode.float |> Maybe.withDefault Encode.null )
         ]

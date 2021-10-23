@@ -1,6 +1,6 @@
 module Request.Db exposing (..)
 
-import Data.Country as Country exposing (Country2)
+import Data.Country as Country exposing (Country)
 import Data.Db as Db exposing (Db)
 import Data.Process as Process exposing (Process)
 import Data.Product as Product exposing (Product)
@@ -23,9 +23,9 @@ getProcessesTask _ =
     Http.getTaskWithConfig taskConfig "data/processes.json" Process.decodeList
 
 
-getCountriesTask : Session -> Task () (WebData (List Country2))
+getCountriesTask : Session -> Task () (WebData (List Country))
 getCountriesTask _ =
-    Http.getTaskWithConfig taskConfig "data/countries.json" Country.decodeList2
+    Http.getTaskWithConfig taskConfig "data/countries.json" Country.decodeList
 
 
 getProductsTask : Session -> Task () (WebData (List Product))
