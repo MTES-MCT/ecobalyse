@@ -120,15 +120,15 @@ getTransportBetween cA cB distances =
 
 toSummary : Transport -> Summary
 toSummary { road, air, sea } =
-    { road = road, air = air, sea = sea, co2 = 0 }
+    { road = road, sea = sea, air = air, co2 = 0 }
 
 
 decodeTransport : Decoder Transport
 decodeTransport =
     Decode.map3 Transport
         (Decode.field "road" Decode.float)
-        (Decode.field "air" Decode.float)
         (Decode.field "sea" Decode.float)
+        (Decode.field "air" Decode.float)
 
 
 encodeTransport : Transport -> Encode.Value
@@ -144,8 +144,8 @@ decodeSummary : Decoder Summary
 decodeSummary =
     Decode.map4 Summary
         (Decode.field "road" Decode.float)
-        (Decode.field "air" Decode.float)
         (Decode.field "sea" Decode.float)
+        (Decode.field "air" Decode.float)
         (Decode.field "co2" Decode.float)
 
 
@@ -153,8 +153,8 @@ encodeSummary : Summary -> Encode.Value
 encodeSummary summary =
     Encode.object
         [ ( "road", Encode.float summary.road )
-        , ( "air", Encode.float summary.air )
         , ( "sea", Encode.float summary.sea )
+        , ( "air", Encode.float summary.air )
         , ( "co2", Encode.float summary.co2 )
         ]
 
