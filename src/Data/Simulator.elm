@@ -41,11 +41,10 @@ encode v =
         ]
 
 
-compute : Db -> Inputs.Query -> Result String Simulator
-compute db query =
-    query
-        |> Inputs.fromQuery db
-        |> Result.map
+init : Db -> Inputs.Query -> Result String Simulator
+init db =
+    Inputs.fromQuery db
+        >> Result.map
             (\inputs ->
                 inputs
                     |> LifeCycle.init db
@@ -58,8 +57,12 @@ compute db query =
                             }
                         )
             )
-        -- FIXME: refactor this
-        |> RE.join
+        >> RE.join
+
+
+compute : Db -> Inputs.Query -> Result String Simulator
+compute db query =
+    init db query
         -- Ensure end product mass is first applied to the final Distribution step
         |> Result.map computeMaterialAndSpinningWaste
         --

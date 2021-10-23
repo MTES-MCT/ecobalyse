@@ -12,12 +12,12 @@ app.get("/", (req, res) => {
     return res.send(result);
   }
   server.ports.output.subscribe(handler);
-  const inputs = {
+  const inputs = JSON.stringify({
     mass: parseFloat(req.query.mass),
     product: req.query.product,
     material: req.query.material,
     countries: req.query.countries,
-  };
+  });
   console.log(inputs);
   server.ports.input.send(inputs);
 });

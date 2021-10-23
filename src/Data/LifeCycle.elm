@@ -92,16 +92,14 @@ getStep label =
 init : Db -> Inputs -> Result String LifeCycle
 init db inputs =
     List.map2
-        (\code ( label, editable ) ->
-            Step.create db label editable code
-        )
-        inputs.countries
+        (\( label, editable ) -> Step.create db label editable)
         [ ( Step.MaterialAndSpinning, False )
         , ( Step.WeavingKnitting, True )
         , ( Step.Ennoblement, True )
         , ( Step.Making, True )
         , ( Step.Distribution, False )
         ]
+        inputs.countries
         |> RE.combine
         |> Result.map Array.fromList
         |> Result.map
