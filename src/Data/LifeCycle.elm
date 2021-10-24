@@ -2,7 +2,7 @@ module Data.LifeCycle exposing (..)
 
 import Array exposing (Array)
 import Data.Db exposing (Db)
-import Data.Inputs exposing (Inputs)
+import Data.Inputs as Inputs exposing (Inputs)
 import Data.Step as Step exposing (Step)
 import Data.Transport as Transport
 import Json.Decode as Decode exposing (Decoder)
@@ -62,6 +62,11 @@ computeFinalCo2Score =
 getStep : Step.Label -> LifeCycle -> Maybe Step
 getStep label =
     Array.filter (.label >> (==) label) >> Array.get 0
+
+
+fromQuery : Db -> Inputs.Query -> Result String LifeCycle
+fromQuery db =
+    Inputs.fromQuery db >> Result.map (init db)
 
 
 init : Db -> Inputs -> LifeCycle
