@@ -203,7 +203,7 @@ computeMaterialAndSpinningCo2Score { processes } ({ inputs } as simulator) =
 computeWeavingKnittingCo2Score : Db -> Simulator -> Result String Simulator
 computeWeavingKnittingCo2Score { processes } ({ inputs } as simulator) =
     processes
-        |> Process.findByUuid inputs.product.weavingKnittingProcessUuid
+        |> Process.findByUuid inputs.product.fabricProcessUuid
         |> Result.map
             (\{ elec, elec_pppm } ->
                 simulator
@@ -267,7 +267,7 @@ computeMakingStepWaste { processes } ({ inputs } as simulator) =
 computeWeavingKnittingStepWaste : Db -> Simulator -> Result String Simulator
 computeWeavingKnittingStepWaste { processes } ({ inputs } as simulator) =
     processes
-        |> Process.findByUuid inputs.product.weavingKnittingProcessUuid
+        |> Process.findByUuid inputs.product.fabricProcessUuid
         |> Result.map
             (\{ waste } ->
                 let

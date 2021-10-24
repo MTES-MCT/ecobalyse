@@ -15,7 +15,7 @@ type alias Product =
     , ppm : Int -- pick per meter
     , grammage : Int -- grammes per kg
     , knitted : Bool -- True: Tricotage (Knitting); False: Tissage (Weaving)
-    , weavingKnittingProcessUuid : Process.Uuid
+    , fabricProcessUuid : Process.Uuid
     , makingProcessUuid : Process.Uuid
     }
 
@@ -46,7 +46,7 @@ decode =
         |> Pipe.required "ppm" Decode.int
         |> Pipe.required "grammage" Decode.int
         |> Pipe.required "knitted" Decode.bool
-        |> Pipe.required "weavingKnittingProcessUuid" (Decode.map Process.Uuid Decode.string)
+        |> Pipe.required "fabricProcessUuid" (Decode.map Process.Uuid Decode.string)
         |> Pipe.required "makingProcessUuid" (Decode.map Process.Uuid Decode.string)
 
 
@@ -65,6 +65,6 @@ encode v =
         , ( "ppm", Encode.int v.ppm )
         , ( "grammage", Encode.int v.grammage )
         , ( "knitted", Encode.bool v.knitted )
-        , ( "weavingKnittingProcessUuid", Encode.string (Process.uuidToString v.makingProcessUuid) )
+        , ( "fabricProcessUuid", Encode.string (Process.uuidToString v.makingProcessUuid) )
         , ( "makingProcessUuid", Encode.string (Process.uuidToString v.makingProcessUuid) )
         ]
