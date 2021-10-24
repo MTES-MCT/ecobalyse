@@ -29,6 +29,8 @@ renderer maybePath =
             MdHtml.oneOf
                 [ MdHtml.tag "hint" renderHint
                     |> MdHtml.withAttribute "level"
+                , MdHtml.tag "mark" renderMark
+                    |> MdHtml.withAttribute "style"
 
                 -- NOTE: sometimes gitbook exposes raw HTML in markdown
                 , MdHtml.tag "p" (p [ class "mb-1" ])
@@ -62,6 +64,14 @@ renderHint level content =
             _ ->
                 text ""
         , div [ class "flex-fill" ] content
+        ]
+
+
+renderMark style_ =
+    span
+        [ class "mark"
+        , attribute "style" style_
+        , style "background-color" "transparent"
         ]
 
 
