@@ -10,6 +10,7 @@ import Views.Alert as Alert
 import Views.Container as Container
 import Views.Icon as Icon
 import Views.Link as Link
+import Views.Spinner as Spinner
 
 
 type ActivePage
@@ -250,4 +251,11 @@ notFound =
         [ h1 [ class "mb-3" ] [ text "Page non trouvée" ]
         , p [] [ text "La page que vous avez demandé n'existe pas." ]
         , a [ Route.href Route.Home ] [ text "Retour à l'accueil" ]
+        ]
+
+
+loading : Html msg
+loading =
+    Container.centered [ class "pb-5" ]
+        [ Spinner.view
         ]

@@ -286,11 +286,11 @@ view { page, session } =
                 |> Page.frame (pageConfig Page.Stats)
 
         NotFoundPage ->
-            ( "Not Found", [ Page.notFound ] )
+            ( "Page manquante", [ Page.notFound ] )
                 |> Page.frame (pageConfig Page.Other)
 
         BlankPage ->
-            ( "", [] )
+            ( "Chargement…", [ Page.loading ] )
                 |> Page.frame (pageConfig Page.Other)
 
 
