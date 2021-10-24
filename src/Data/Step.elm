@@ -117,7 +117,7 @@ computeTransports db next current =
             (\wellKnown ->
                 let
                     transport =
-                        Transport.getTransportBetween current.country next.country db.transports
+                        Transport.getTransportBetween current.country.code next.country.code db.transports
 
                     ({ road, sea, air } as summary) =
                         computeTransportSummary current transport
