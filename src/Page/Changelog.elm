@@ -6,12 +6,12 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import List.Extra as LE
 import RemoteData exposing (WebData)
-import Request.Common as HttpCommon
 import Request.Github as GithubApi
 import Task
 import Time
 import Time.Distance as TimeDistance
 import Time.Distance.I18n as TimeDistanceI18n
+import Views.Alert as Alert
 import Views.Container as Container
 import Views.Link as Link
 import Views.Spinner as SpinnerView
@@ -119,8 +119,7 @@ view _ model =
                         |> div [ class "list-group" ]
 
                 RemoteData.Failure error ->
-                    div [ class "alert alert-danger" ]
-                        [ text <| HttpCommon.errorToString error ]
+                    Alert.httpError error
 
                 RemoteData.Loading ->
                     SpinnerView.view

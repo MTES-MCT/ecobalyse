@@ -150,9 +150,6 @@ notificationListView ({ session } as config) =
 notificationView : Config msg -> Session.Notification -> Html msg
 notificationView { closeNotification } notification =
     -- TODO:
-    -- - close button
-    -- - maybe switch to alert
-    -- - generic DRY view
     -- - absolute positionning
     case notification of
         Session.HttpError title error ->

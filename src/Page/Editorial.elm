@@ -4,8 +4,8 @@ import Data.Session exposing (Session)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Http
-import Request.Common as HttpCommon
 import Request.HttpClient as HttpClient
+import Views.Alert as Alert
 import Views.Container as Container
 import Views.Markdown as Markdown
 
@@ -85,9 +85,4 @@ view _ { state } =
                 ]
 
         Errored error ->
-            page "Erreur"
-                [ div [ class "alert alert-warning" ]
-                    [ p [] [ strong [] [ text "Impossible de charger le contenu de cette page\u{00A0}:" ] ]
-                    , p [ class "mb-0" ] [ text (HttpCommon.errorToString error) ]
-                    ]
-                ]
+            page "Erreur" [ Alert.httpError error ]

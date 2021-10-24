@@ -6,6 +6,7 @@ import Html.Attributes as Attr exposing (..)
 import Markdown.Html as MdHtml
 import Markdown.Parser as Parser
 import Markdown.Renderer exposing (Renderer, defaultHtmlRenderer)
+import Views.Alert as Alert
 import Views.Icon as Icon
 import Views.Link as Link
 
@@ -127,10 +128,12 @@ view attrs content =
             div ([ class "Markdown bottomed-paragraphs" ] ++ attrs) rendered
 
         Err errors ->
-            div [ class "alert alert-danger" ]
-                [ p [] [ text "Des erreurs ont été rencontrées\u{00A0}:" ]
-                , pre [] [ text errors ]
-                ]
+            Alert.preformatted
+                { title = "Des erreurs ont été rencontrées"
+                , close = Nothing
+                , level = Alert.Danger
+                , content = [ text errors ]
+                }
 
 
 parse : ContentType -> Result String (List (Html msg))

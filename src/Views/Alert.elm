@@ -3,6 +3,8 @@ module Views.Alert exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
+import Http
+import Request.Common as HttpCommon
 import Views.Icon as Icon
 
 
@@ -35,6 +37,16 @@ icon level =
 
         _ ->
             text ""
+
+
+httpError : Http.Error -> Html msg
+httpError error =
+    preformatted
+        { title = "Error lors de la requête"
+        , close = Nothing
+        , level = Danger
+        , content = [ text <| HttpCommon.errorToString error ]
+        }
 
 
 preformatted : Config msg -> Html msg

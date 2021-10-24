@@ -19,7 +19,6 @@ import Html.Events exposing (..)
 import Mass
 import Ports
 import RemoteData exposing (WebData)
-import Request.Common as HttpCommon
 import Request.Gitbook as GitbookApi
 import Route exposing (Route(..))
 import Views.Alert as Alert
@@ -391,12 +390,7 @@ modalView modal =
                 , close = CloseModal
                 , noOp = NoOp
                 , title = "Erreur"
-                , content =
-                    [ div [ class "alert alert-danger mb-0" ]
-                        [ p [] [ text "Une erreur a été rencontrée" ]
-                        , p [] [ text <| HttpCommon.errorToString error ]
-                        ]
-                    ]
+                , content = [ Alert.httpError error ]
                 , footer = []
                 }
 
@@ -414,10 +408,17 @@ modalView modal =
                         Nothing ->
                             text ""
                     , if String.trim gitbookPage.markdown == "" then
-                        div [ class "alert alert-info mb-0 d-flex align-items-center" ]
-                            [ span [ class "fs-4 me-2" ] [ Icon.hammer ]
-                            , text "Cette page est en cours de construction"
-                            ]
+                        Alert.preformatted
+                            { title = "Une erreur a été rencontrée"
+                            , close = Nothing
+                            , level = Alert.Info
+                            , content =
+                                [ div [ class "mb-0 d-flex align-items-center" ]
+                                    [ span [ class "fs-4 me-2" ] [ Icon.hammer ]
+                                    , text "Cette page est en cours de construction"
+                                    ]
+                                ]
+                            }
 
                       else
                         MarkdownView.gitbook [ class "GitbookContent" ] gitbookPage
