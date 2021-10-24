@@ -11,7 +11,6 @@ import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
 import Mass
 import Quantity
-import Result.Extra as RE
 
 
 type alias Simulator =
@@ -48,16 +47,14 @@ init db =
             (\inputs ->
                 inputs
                     |> LifeCycle.init db
-                    |> Result.map
-                        (\lifeCycle ->
+                    |> (\lifeCycle ->
                             { inputs = inputs
                             , lifeCycle = lifeCycle
                             , co2 = 0
                             , transport = Transport.defaultSummary
                             }
-                        )
+                       )
             )
-        >> RE.join
 
 
 compute : Db -> Inputs.Query -> Result String Simulator
