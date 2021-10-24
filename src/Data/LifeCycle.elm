@@ -64,36 +64,38 @@ getStep label =
     Array.filter (.label >> (==) label) >> Array.get 0
 
 
-init : Db -> Inputs -> Result String LifeCycle
+init : Db -> Inputs -> LifeCycle
 init db inputs =
-    List.map2
-        (\( label, editable ) -> Step.create db label editable)
-        [ ( Step.MaterialAndSpinning, False )
-        , ( Step.WeavingKnitting, True )
-        , ( Step.Ennoblement, True )
-        , ( Step.Making, True )
-        , ( Step.Distribution, False )
-        ]
-        inputs.countries
-        |> RE.combine
-        |> Result.map Array.fromList
-        |> Result.map
-            -- FIXME: refactor this mess
-            (\lifeCycle ->
-                lifeCycle
-                    |> Array.indexedMap
-                        (\index step_ ->
-                            Step.update db inputs (Array.get (index + 1) lifeCycle) step_
-                        )
-            )
+    initSteps inputs |> update db inputs
+
+
+update : Db -> Inputs -> LifeCycle -> LifeCycle
+update db inputs lifeCycle =
+    lifeCycle
+        |> Array.indexedMap
+            (\index -> Step.update db inputs (Array.get (index + 1) lifeCycle))
+
+
+initSteps : Inputs -> LifeCycle
+initSteps inputs =
+    inputs.countries
+        |> List.map2
+            (\( label, editable ) -> Step.create label editable)
+            [ ( Step.MaterialAndSpinning, False )
+            , ( Step.WeavingKnitting, True )
+            , ( Step.Ennoblement, True )
+            , ( Step.Making, True )
+            , ( Step.Distribution, False )
+            ]
+        |> Array.fromList
 
 
 updateStep : Step.Label -> (Step -> Step) -> LifeCycle -> LifeCycle
-updateStep label update =
+updateStep label update_ =
     Array.map
         (\step ->
             if step.label == label then
-                update step
+                update_ step
 
             else
                 step
@@ -101,5 +103,5 @@ updateStep label update =
 
 
 updateSteps : List Step.Label -> (Step -> Step) -> LifeCycle -> LifeCycle
-updateSteps labels update lifeCycle =
-    labels |> List.foldl (\label -> updateStep label update) lifeCycle
+updateSteps labels update_ lifeCycle =
+    labels |> List.foldl (\label -> updateStep label update_) lifeCycle

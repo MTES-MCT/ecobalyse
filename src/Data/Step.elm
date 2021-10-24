@@ -46,26 +46,21 @@ type Label
     | Distribution -- Distribution
 
 
-create : Db -> Label -> Bool -> Country -> Result String Step
-create db label editable country =
-    country
-        |> processCountryInfo db label
-        |> Result.map
-            (\processInfo ->
-                { label = label
-                , country = country
-                , editable = editable
-                , mass = Mass.kilograms 0
-                , waste = Mass.kilograms 0
-                , transport = Transport.defaultSummary
-                , co2 = 0
-                , heat = Energy.megajoules 0
-                , kwh = Energy.kilowattHours 0
-                , processInfo = processInfo
-                , dyeingWeighting = country.dyeingWeighting
-                , airTransportRatio = 0 -- Note: this depends on next step country, so we can't set an accurate default value initially
-                }
-            )
+create : Label -> Bool -> Country -> Step
+create label editable country =
+    { label = label
+    , country = country
+    , editable = editable
+    , mass = Mass.kilograms 0
+    , waste = Mass.kilograms 0
+    , transport = Transport.defaultSummary
+    , co2 = 0
+    , heat = Energy.megajoules 0
+    , kwh = Energy.kilowattHours 0
+    , processInfo = defaultProcessInfo
+    , dyeingWeighting = country.dyeingWeighting
+    , airTransportRatio = 0 -- Note: this depends on next step country, so we can't set an accurate default value initially
+    }
 
 
 defaultProcessInfo : ProcessInfo
