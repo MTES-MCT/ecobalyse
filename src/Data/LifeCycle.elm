@@ -7,6 +7,7 @@ import Data.Step as Step exposing (Step)
 import Data.Transport as Transport
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
+import Mass exposing (Mass)
 import Result.Extra as RE
 
 
@@ -62,6 +63,11 @@ computeFinalCo2Score =
 getStep : Step.Label -> LifeCycle -> Maybe Step
 getStep label =
     Array.filter (.label >> (==) label) >> Array.get 0
+
+
+getStepMass : Step.Label -> LifeCycle -> Mass
+getStepMass label =
+    getStep label >> Maybe.map .mass >> Maybe.withDefault (Mass.kilograms 0)
 
 
 fromQuery : Db -> Inputs.Query -> Result String LifeCycle
