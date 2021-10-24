@@ -119,15 +119,15 @@ noOp =
     }
 
 
-findByUuid2 : Uuid -> List Process -> Result String Process
-findByUuid2 uuid =
+findByUuid : Uuid -> List Process -> Result String Process
+findByUuid uuid =
     List.filter (.uuid >> (==) uuid)
         >> List.head
         >> Result.fromMaybe ("Procédé introuvable: " ++ uuidToString uuid)
 
 
-findByName2 : String -> List Process -> Result String Process
-findByName2 name =
+findByName : String -> List Process -> Result String Process
+findByName name =
     List.filter (.name >> (==) name)
         >> List.head
         >> Result.fromMaybe ("Procédé introuvable: " ++ name)
@@ -155,13 +155,13 @@ wellKnownUuids =
 loadWellKnown : List Process -> Result String WellKnown
 loadWellKnown p =
     Ok WellKnown
-        |> RE.andMap (findByUuid2 wellKnownUuids.airTransport p)
-        |> RE.andMap (findByUuid2 wellKnownUuids.seaTransport p)
-        |> RE.andMap (findByUuid2 wellKnownUuids.roadTransportPreMaking p)
-        |> RE.andMap (findByUuid2 wellKnownUuids.roadTransportPostMaking p)
-        |> RE.andMap (findByUuid2 wellKnownUuids.distribution p)
-        |> RE.andMap (findByUuid2 wellKnownUuids.dyeingHigh p)
-        |> RE.andMap (findByUuid2 wellKnownUuids.dyeingLow p)
+        |> RE.andMap (findByUuid wellKnownUuids.airTransport p)
+        |> RE.andMap (findByUuid wellKnownUuids.seaTransport p)
+        |> RE.andMap (findByUuid wellKnownUuids.roadTransportPreMaking p)
+        |> RE.andMap (findByUuid wellKnownUuids.roadTransportPostMaking p)
+        |> RE.andMap (findByUuid wellKnownUuids.distribution p)
+        |> RE.andMap (findByUuid wellKnownUuids.dyeingHigh p)
+        |> RE.andMap (findByUuid wellKnownUuids.dyeingLow p)
 
 
 cat1 : Cat1 -> List Process -> List Process

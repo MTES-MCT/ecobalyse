@@ -75,8 +75,8 @@ defaultProcessInfo =
 processCountryInfo : Db -> Label -> Country -> Result String ProcessInfo
 processCountryInfo db label country =
     Ok Tuple.pair
-        |> RE.andMap (db.processes |> Process.findByUuid2 country.electricity)
-        |> RE.andMap (db.processes |> Process.findByUuid2 country.heat)
+        |> RE.andMap (db.processes |> Process.findByUuid country.electricity)
+        |> RE.andMap (db.processes |> Process.findByUuid country.heat)
         |> Result.map
             (\( electricity, heat ) ->
                 case label of
