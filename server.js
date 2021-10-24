@@ -1,17 +1,16 @@
 const express = require("express");
 const { Elm } = require("./server-app");
 
-const server = Elm.Server.init({});
-
 const app = express();
 const port = 3000;
 
 app.get("/", (req, res) => {
+  const elmApp = Elm.Server.init({});
   function handler(result) {
-    server.ports.output.unsubscribe(handler);
+    elmApp.ports.output.unsubscribe(handler);
     return res.send(result);
   }
-  server.ports.output.subscribe(handler);
+  elmApp.ports.output.subscribe(handler);
   const inputs = JSON.stringify({
     mass: parseFloat(req.query.mass),
     product: req.query.product,
@@ -19,7 +18,7 @@ app.get("/", (req, res) => {
     countries: req.query.countries,
   });
   console.log(inputs);
-  server.ports.input.send(inputs);
+  elmApp.ports.input.send(inputs);
 });
 
 app.listen(port, () => {
