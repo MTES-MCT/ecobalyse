@@ -11,6 +11,7 @@ function getJson(path) {
 
 const finalJson = {
   countries: getJson("public/data/countries.json"),
+  materials: getJson("public/data/materials.json"),
   processes: getJson("public/data/processes.json"),
   products: getJson("public/data/products.json"),
   transports: getJson("public/data/transports.json"),

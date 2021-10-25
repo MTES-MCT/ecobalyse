@@ -1,11 +1,13 @@
 module Request.Db exposing (..)
 
 import Data.Country as Country exposing (Country)
-import Data.Db as Db exposing (Db)
+import Data.Db exposing (Db)
+import Data.Material as Material exposing (Material)
 import Data.Process as Process exposing (Process)
 import Data.Product as Product exposing (Product)
 import Data.Session exposing (Session)
 import Data.Transport as Transport exposing (Distances)
+import Json.Decode exposing (Decoder)
 import RemoteData exposing (WebData)
 import RemoteData.Http as Http exposing (defaultTaskConfig)
 import Task exposing (Task)
@@ -18,38 +20,40 @@ taskConfig =
     { defaultTaskConfig | headers = [] }
 
 
-getProcessesTask : Session -> Task () (WebData (List Process))
-getProcessesTask _ =
-    Http.getTaskWithConfig taskConfig "data/processes.json" Process.decodeList
+getJson : Decoder a -> String -> Task () (WebData a)
+getJson decoder file =
+    Http.getTaskWithConfig taskConfig ("data/" ++ file) decoder
 
 
-getCountriesTask : Session -> Task () (WebData (List Country))
-getCountriesTask _ =
-    Http.getTaskWithConfig taskConfig "data/countries.json" Country.decodeList
-
-
-getProductsTask : Session -> Task () (WebData (List Product))
-getProductsTask _ =
-    Http.getTaskWithConfig taskConfig "data/products.json" Product.decodeList
-
-
-getTransportsTask : Session -> Task () (WebData Distances)
-getTransportsTask _ =
-    Http.getTaskWithConfig taskConfig "data/transports.json" Transport.decodeDistances
+buildDb :
+    WebData (List Country)
+    -> WebData (List Material)
+    -> WebData (List Process)
+    -> WebData (List Product)
+    -> WebData Distances
+    -> WebData Db
+buildDb countries materials processes products transports =
+    RemoteData.succeed Db
+        |> RemoteData.andMap countries
+        |> RemoteData.andMap materials
+        |> RemoteData.andMap processes
+        |> RemoteData.andMap products
+        |> RemoteData.andMap transports
 
 
 getDb : Session -> Task () (WebData Db)
-getDb session =
-    -- Loading order:
-    -- 1. processes (so we get materials)
-    -- 2. countries (so we can populate country processes)
-    -- 3. products
-    -- 4. TODO transports
-    Task.map4 Db.build
-        (getProcessesTask session)
-        (getCountriesTask session)
-        (getProductsTask session)
-        (getTransportsTask session)
+getDb _ =
+    let
+        -- see https://github.com/alex-tan/task-extra/blob/1.1.0/src/Task/Extra.elm#L579-L581
+        andMap =
+            Task.map2 (|>)
+    in
+    Task.succeed buildDb
+        |> andMap (getJson Country.decodeList "countries.json")
+        |> andMap (getJson Material.decodeList "materials.json")
+        |> andMap (getJson Process.decodeList "processes.json")
+        |> andMap (getJson Product.decodeList "products.json")
+        |> andMap (getJson Transport.decodeDistances "transports.json")
 
 
 loadDb : Session -> (WebData Db -> msg) -> Cmd msg
