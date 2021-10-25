@@ -2,6 +2,7 @@ module Data.Step exposing (..)
 
 import Data.Country as Country exposing (Country)
 import Data.Db exposing (Db)
+import Data.Formula as Formula
 import Data.Gitbook as Gitbook
 import Data.Inputs exposing (Inputs)
 import Data.Process as Process exposing (Process)
@@ -117,24 +118,20 @@ computeTransports db next current =
             (\wellKnown ->
                 let
                     transport =
-                        Transport.getTransportBetween current.country.code next.country.code db.transports
-
-                    ({ road, sea, air } as summary) =
-                        computeTransportSummary current transport
-
-                    roadSeaRatio =
-                        Transport.roadSeaTransportRatio summary
+                        db.transports
+                            |> Transport.getTransportBetween current.country.code next.country.code
 
                     stepSummary =
-                        { road = (road * roadSeaRatio) * (1 - current.airTransportRatio)
-                        , sea = (sea * (1 - roadSeaRatio)) * (1 - current.airTransportRatio)
-                        , air = air * current.airTransportRatio
-                        }
+                        computeTransportSummary current transport
+                            |> Formula.transportRatio current.airTransportRatio
+
+                    roadTransportProcess =
+                        getRoadTransportProcess wellKnown current
                 in
                 { current
                     | transport =
                         stepSummary
-                            |> computeTransportCo2 wellKnown (getRoadTransportProcess wellKnown current) next.mass
+                            |> computeTransportCo2 wellKnown roadTransportProcess next.mass
                             |> Transport.addSummary (initialTransportSummary wellKnown current)
                 }
             )

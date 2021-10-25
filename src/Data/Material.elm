@@ -46,7 +46,7 @@ firstFromCategory : Category -> List Material -> Result String Material
 firstFromCategory category =
     List.filter (.category >> (==) category)
         >> List.head
-        >> Result.fromMaybe "Catégorie de matière invalide"
+        >> Result.fromMaybe ("Aucune matière dans la catégorie " ++ Category.toString category)
 
 
 decode : Decoder Material
