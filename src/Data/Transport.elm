@@ -68,12 +68,12 @@ materialToSpinningTransport =
     { road = 2000, sea = 4000, air = 0 }
 
 
-{-| Determine road/sea transport ratio, so rad transport is priviledged
+{-| Determine road/sea transport ratio, so road transport is priviledged
 for shorter distances. A few notes:
 
-  - When no road distance, we fully take sea distance
-  - When no sea distance, we fully take road distance
-  - Otherwise we can apply distinct ratios
+  - When road distance is 0, we fully take sea distance
+  - When sea distance is 0, we fully take road distance
+  - Otherwise we can apply specific ratios
 
 -}
 roadSeaTransportRatio : Summary -> Float

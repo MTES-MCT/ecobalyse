@@ -1,6 +1,7 @@
 module Data.Formula exposing (..)
 
 import Data.Process exposing (Process)
+import Data.Transport as Transport exposing (Transport)
 import Energy exposing (Energy)
 import Mass exposing (Mass)
 import Quantity
@@ -48,7 +49,7 @@ dyeingCo2 :
     -> Float
     -> Mass
     -> { co2 : Float, heat : Energy, kwh : Energy }
-dyeingCo2 ( dyeingLowProcess, dyeingHighProcess ) highDyeingWeighting heatClimateChange elecClimateChange baseMass =
+dyeingCo2 ( dyeingLowProcess, dyeingHighProcess ) highDyeingWeighting heatCC elecCC baseMass =
     let
         lowDyeingWeighting =
             1 - highDyeingWeighting
@@ -67,7 +68,7 @@ dyeingCo2 ( dyeingLowProcess, dyeingHighProcess ) highDyeingWeighting heatClimat
                 |> Energy.megajoules
 
         heatCo2 =
-            heatClimateChange
+            heatCC
                 |> (*) (Energy.inMegajoules heatMJ)
 
         electricity =
@@ -78,7 +79,7 @@ dyeingCo2 ( dyeingLowProcess, dyeingHighProcess ) highDyeingWeighting heatClimat
                 |> Energy.megajoules
 
         elecCo2 =
-            elecClimateChange
+            elecCC
                 |> (*) (Energy.inKilowattHours electricity)
     in
     { co2 = dyeingCo2_ + heatCo2 + elecCo2
@@ -93,7 +94,7 @@ materialCo2 process mass =
 
 
 makingCo2 : Process -> Float -> Mass -> { kwh : Energy, co2 : Float }
-makingCo2 makingProcess elecClimateChange baseMass =
+makingCo2 makingProcess elecCC baseMass =
     let
         makingCo2_ =
             makingProcess.climateChange
@@ -104,30 +105,46 @@ makingCo2 makingProcess elecClimateChange baseMass =
                 |> Quantity.multiplyBy (Mass.inKilograms baseMass)
 
         elecCo2 =
-            elecClimateChange
+            elecCC
                 |> (*) (Energy.inKilowattHours kwh)
     in
     { co2 = makingCo2_ + elecCo2, kwh = kwh }
 
 
 knittingCo2 : Process -> Float -> Mass -> { kwh : Energy, co2 : Float }
-knittingCo2 fabricProcess elecClimateChange baseMass =
+knittingCo2 fabricProcess elecCC baseMass =
     let
         electricityKWh =
             Mass.inKilograms baseMass * Energy.inKilowattHours fabricProcess.elec
     in
     { kwh = Energy.kilowattHours electricityKWh
-    , co2 = electricityKWh * elecClimateChange
+    , co2 = electricityKWh * elecCC
     }
 
 
 weavingCo2 : Process -> Float -> Int -> Int -> Mass -> { kwh : Energy, co2 : Float }
-weavingCo2 fabricProcess elecClimateChange ppm grammage baseMass =
+weavingCo2 fabricProcess elecCC ppm grammage baseMass =
     let
         electricityKWh =
             (Mass.inKilograms baseMass * 1000 * toFloat ppm / toFloat grammage)
                 * fabricProcess.elec_pppm
     in
     { kwh = Energy.kilowattHours electricityKWh
-    , co2 = electricityKWh * elecClimateChange
+    , co2 = electricityKWh * elecCC
+    }
+
+
+
+-- Transports
+
+
+transportRatio : Float -> Transport.Summary -> Transport
+transportRatio airTransportRatio ({ road, sea, air } as summary) =
+    let
+        roadSeaRatio =
+            Transport.roadSeaTransportRatio summary
+    in
+    { road = (road * roadSeaRatio) * (1 - airTransportRatio)
+    , sea = (sea * (1 - roadSeaRatio)) * (1 - airTransportRatio)
+    , air = air * airTransportRatio
     }

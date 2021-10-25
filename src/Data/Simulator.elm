@@ -107,18 +107,18 @@ computeMakingCo2Score { processes } ({ inputs } as simulator) =
             (\makingProcess ->
                 simulator
                     |> updateLifeCycleStep Step.Making
-                        (\step ->
+                        (\({ country } as step) ->
                             let
-                                elecClimateChange =
+                                elecCC =
                                     processes
                                         -- FIXME: handle result or provide direct access
-                                        |> Process.findByUuid step.country.electricity
+                                        |> Process.findByUuid country.electricity
                                         |> Result.map .climateChange
                                         |> Result.withDefault 0
 
                                 { kwh, co2 } =
                                     step.mass
-                                        |> Formula.makingCo2 makingProcess elecClimateChange
+                                        |> Formula.makingCo2 makingProcess elecCC
                             in
                             { step | kwh = kwh, co2 = co2 }
                         )
@@ -131,28 +131,25 @@ computeDyeingCo2Score { processes } simulator =
         (\dyeingHigh dyeingLow ->
             simulator
                 |> updateLifeCycleStep Step.Ennoblement
-                    (\step ->
+                    (\({ dyeingWeighting, country } as step) ->
                         let
-                            elecClimateChange =
+                            elecCC =
                                 processes
                                     -- FIXME: handle result or provide direct access
-                                    |> Process.findByUuid step.country.electricity
+                                    |> Process.findByUuid country.electricity
                                     |> Result.map .climateChange
                                     |> Result.withDefault 0
 
-                            heatClimateChange =
+                            heatCC =
                                 processes
                                     -- FIXME: handle result or provide direct access
-                                    |> Process.findByUuid step.country.heat
+                                    |> Process.findByUuid country.heat
                                     |> Result.map .climateChange
                                     |> Result.withDefault 0
 
                             { co2, heat, kwh } =
                                 step.mass
-                                    |> Formula.dyeingCo2 ( dyeingLow, dyeingHigh )
-                                        step.dyeingWeighting
-                                        heatClimateChange
-                                        elecClimateChange
+                                    |> Formula.dyeingCo2 ( dyeingLow, dyeingHigh ) dyeingWeighting heatCC elecCC
                         in
                         { step | co2 = co2, heat = heat, kwh = kwh }
                     )
@@ -181,12 +178,12 @@ computeWeavingKnittingCo2Score { processes } ({ inputs, lifeCycle } as simulator
             (\fabricProcess ->
                 simulator
                     |> updateLifeCycleStep Step.WeavingKnitting
-                        (\step ->
+                        (\({ country } as step) ->
                             let
-                                elecClimateChange =
+                                elecCC =
                                     processes
                                         -- FIXME: handle result or provide direct access
-                                        |> Process.findByUuid step.country.electricity
+                                        |> Process.findByUuid country.electricity
                                         |> Result.map .climateChange
                                         |> Result.withDefault 0
 
@@ -196,12 +193,12 @@ computeWeavingKnittingCo2Score { processes } ({ inputs, lifeCycle } as simulator
                                     if inputs.product.knitted then
                                         lifeCycle
                                             |> LifeCycle.getStepMass Step.Ennoblement
-                                            |> Formula.knittingCo2 fabricProcess elecClimateChange
+                                            |> Formula.knittingCo2 fabricProcess elecCC
 
                                     else
                                         step.mass
                                             |> Formula.weavingCo2 fabricProcess
-                                                elecClimateChange
+                                                elecCC
                                                 inputs.product.ppm
                                                 inputs.product.grammage
                             in
