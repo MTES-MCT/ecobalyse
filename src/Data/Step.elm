@@ -169,8 +169,13 @@ computeTransportSummary : Step -> Transport -> Transport.Summary
 computeTransportSummary step transport =
     case step.label of
         Ennoblement ->
-            -- Doubled transports for internal Dyeing to Treatments step, no air transport (see Excel)
-            { road = transport.road * 2, sea = transport.sea * 2, air = 0, co2 = 0 }
+            -- Added intermediary defaultInland transport step to materialize
+            -- Processing + Dyeing steps (see Excel)
+            { road = transport.road + Transport.defaultInland.road
+            , sea = transport.sea + Transport.defaultInland.sea
+            , air = 0
+            , co2 = 0
+            }
 
         Making ->
             -- Air transport only applies between the Making and the Distribution steps

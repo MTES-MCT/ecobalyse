@@ -37,7 +37,7 @@ suite =
                                 |> Result.andThen (LifeCycle.computeTransportSummaries db)
                                 |> Result.map LifeCycle.computeTransportSummary
                                 |> Expect.equal
-                                    (Ok { air = 0, road = 3000, sea = 61428, co2 = 0 })
+                                    (Ok { air = 0, co2 = 0, road = 3500, sea = 37508 })
                     ]
                 ]
 
