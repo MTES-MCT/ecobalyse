@@ -3,222 +3,259 @@
     "uuid": "d1f06ea5-d63f-453a-8f98-55ce78ae7579",
     "name": "Plume de canard, inventaire agrégé",
     "shortName": "Plume de canard",
-    "category": "Naturelles"
+    "category": "Naturelles",
+    "recycledUuid": null
   },
   {
     "uuid": "94b4b0e1-61e4-4f4d-b9b2-efe7623b0e68",
     "name": "Fil de soie",
     "shortName": "Soie",
-    "category": "Naturelles"
+    "category": "Naturelles",
+    "recycledUuid": null
   },
   {
     "uuid": "e5a6d538-f932-4242-98b4-3a0c6439629c",
     "name": "Fil de lin (filasse)",
     "shortName": "Lin (filasse)",
-    "category": "Naturelles"
+    "category": "Naturelles",
+    "recycledUuid": null
   },
   {
     "uuid": "fcef1a31-bb18-49e4-bdb6-e53dfe015ba0",
     "name": "Fil de lin (étoupe)",
     "shortName": "Lin (étoupe)",
-    "category": "Naturelles"
+    "category": "Naturelles",
+    "recycledUuid": null
   },
   {
     "uuid": "4e035dbf-f48b-4b5a-94ea-0006c713958b",
     "name": "Fil de laine de mouton Mérinos, inventaire partiellement agrégé",
     "shortName": "Laine de mouton Mérinos",
-    "category": "Naturelles"
+    "category": "Naturelles",
+    "recycledUuid": null
   },
   {
     "uuid": "376bd165-d354-41aa-a6e3-fd3228413bb2",
     "name": "Fil de laine de mouton",
     "shortName": "Laine de mouton",
-    "category": "Naturelles"
+    "category": "Naturelles",
+    "recycledUuid": "92dfabc7-9441-463e-bda8-7bc5943c0e9d"
   },
   {
     "uuid": "c191a4dd-5080-4eb6-9c59-b13c943327bc",
     "name": "Fil de laine de chameau",
     "shortName": "Laine de chameau",
-    "category": "Naturelles"
+    "category": "Naturelles",
+    "recycledUuid": null
   },
   {
     "uuid": "72010874-4d26-4c7a-95de-c6987dfdedeb",
     "name": "Fil de jute",
     "shortName": "Jute",
-    "category": "Naturelles"
+    "category": "Naturelles",
+    "recycledUuid": null
   },
   {
     "uuid": "f211bbdb-415c-46fd-be4d-ddf199575b44",
     "name": "Fil de coton conventionnel, inventaire partiellement agrégé",
-    "shortName": "Coton",
-    "category": "Naturelles"
+    "shortName": "Coton conventionnel",
+    "category": "Naturelles",
+    "recycledUuid": "2b24abb0-c1ec-4298-9b58-350904a26104"
   },
   {
     "uuid": "08601439-f338-4f94-ac8c-538061b65d16",
     "name": "Fil de chanvre",
     "shortName": "Chanvre",
-    "category": "Naturelles"
+    "category": "Naturelles",
+    "recycledUuid": null
   },
   {
     "uuid": "380c0d9c-2840-4390-bd3f-5c960f26f5ed",
     "name": "Fil de cachemire",
     "shortName": "Cachemire",
-    "category": "Naturelles"
+    "category": "Naturelles",
+    "recycledUuid": null
   },
   {
     "uuid": "29bddef1-d753-45af-9ca6-aec05e2d02b9",
     "name": "Fil d'angora",
     "shortName": "Angora",
-    "category": "Naturelles"
+    "category": "Naturelles",
+    "recycledUuid": null
   },
   {
     "uuid": "36cdbfc4-3f48-47b0-8ae0-294bb6017df1",
     "name": "Fibres de kapok, inventaire agrégé",
     "shortName": "Fibres de kapok",
-    "category": "Naturelles"
+    "category": "Naturelles",
+    "recycledUuid": null
   },
   {
     "uuid": "81a67d97-3cd9-44ef-9ee2-159364364c0f",
     "name": "Filament de viscose",
     "shortName": "Viscose",
-    "category": "Synthétiques et artificielles"
+    "category": "Synthétiques et artificielles",
+    "recycledUuid": "9671ae26-d772-4bb1-aad5-6b826555d0cd"
   },
   {
     "uuid": "c3738500-0a62-4b95-b4a2-b7beb12a9e1a",
     "name": "Filament de polyuréthane",
     "shortName": "Polyuréthane",
-    "category": "Synthétiques et artificielles"
+    "category": "Synthétiques et artificielles",
+    "recycledUuid": null
   },
   {
     "uuid": "eca33573-0d09-4d79-9b28-da42bfcc7a4b",
     "name": "Filament de polytriméthylène téréphtalate (PTT), inventaire partiellement agrégé",
     "shortName": "Polytriméthylène téréphtalate (PTT)",
-    "category": "Synthétiques et artificielles"
+    "category": "Synthétiques et artificielles",
+    "recycledUuid": null
   },
   {
     "uuid": "7f8bbfdc-fb65-4e3a-ac81-eda197ef17fc",
     "name": "Filament de polytéréphtalate de butylène (PBT), inventaire agrégé",
     "shortName": "Polytéréphtalate de butylène (PBT)",
-    "category": "Synthétiques et artificielles"
+    "category": "Synthétiques et artificielles",
+    "recycledUuid": null
   },
   {
     "uuid": "a30cfbde-393a-40db-9263-ea00bfced0b7",
     "name": "Filament de polypropylène",
     "shortName": "Polypropylène",
-    "category": "Synthétiques et artificielles"
+    "category": "Synthétiques et artificielles",
+    "recycledUuid": null
   },
   {
     "uuid": "f2dd799d-1b69-4e7a-99bd-696bbbd5a978",
     "name": "Filament de polylactide",
     "shortName": "Polylactide",
-    "category": "Synthétiques et artificielles"
+    "category": "Synthétiques et artificielles",
+    "recycledUuid": null
   },
   {
     "uuid": "088ed617-67fa-4d42-b3af-ee6cf39cf36f",
     "name": "Filament de polyéthylène",
     "shortName": "Polyéthylène",
-    "category": "Synthétiques et artificielles"
+    "category": "Synthétiques et artificielles",
+    "recycledUuid": null
   },
   {
     "uuid": "4d57c51d-7d56-46e1-acde-02fbcdc943e4",
     "name": "Filament de polyester, inventaire partiellement agrégé",
     "shortName": "Polyester",
-    "category": "Synthétiques et artificielles"
+    "category": "Synthétiques et artificielles",
+    "recycledUuid": "e65e8157-9bd1-4711-9571-8e4a22c2d2b5"
   },
   {
     "uuid": "182fa424-1f49-4728-b0f1-cb4e4ab36392",
     "name": "Filament de polyamide 66",
     "shortName": "Polyamide 66",
-    "category": "Synthétiques et artificielles"
+    "category": "Synthétiques et artificielles",
+    "recycledUuid": "af5d130d-f18b-438c-9f19-d1ee49756960"
   },
   {
     "uuid": "7a1ccc4a-2ea7-48dc-9ef0-d57066ea8fa5",
     "name": "Filament d'aramide",
     "shortName": "Aramide",
-    "category": "Synthétiques et artificielles"
+    "category": "Synthétiques et artificielles",
+    "recycledUuid": null
   },
   {
     "uuid": "aee6709f-0864-4fc5-8760-68cb644a0021",
     "name": "Filament d'acrylique",
     "shortName": "Acrylique",
-    "category": "Synthétiques et artificielles"
+    "category": "Synthétiques et artificielles",
+    "recycledUuid": "7603beaa-c555-4283-b9f8-4d5d231b8490"
   },
   {
     "uuid": "37396ac4-13a2-484c-9cc6-5b5a93ff6e6e",
     "name": "Filament bi-composant polypropylène/polyamide",
     "shortName": "Polypropylène/polyamide",
-    "category": "Synthétiques et artificielles"
+    "category": "Synthétiques et artificielles",
+    "recycledUuid": null
   },
   {
     "uuid": "76fefff3-3781-49a2-8deb-c12945a6b71f",
     "name": "Feuille de néoprène, inventaire agrégé",
     "shortName": "Néoprène",
-    "category": "Synthétiques et artificielles"
+    "category": "Synthétiques et artificielles",
+    "recycledUuid": null
   },
   {
     "uuid": "4072bfa2-1948-4d12-8de9-bbeb6cc628e1",
     "name": "Production de filament de polyester recyclé (recyclage mécanique), traitement de bouteilles post-consommation, inventaire partiellement agrégé",
     "shortName": "Polyester recyclé (recyclage mécanique)",
-    "category": "Recyclées"
+    "category": "Recyclées",
+    "recycledUuid": null
   },
   {
     "uuid": "e65e8157-9bd1-4711-9571-8e4a22c2d2b5",
     "name": "Production de filament de polyester recyclé (recyclage chimique partiel), traitement de bouteilles post-consommation, inventaire partiellement agrégé",
     "shortName": "Polyester recyclé (recyclage chimique partiel)",
-    "category": "Recyclées"
+    "category": "Recyclées",
+    "recycledUuid": null
   },
   {
     "uuid": "221067ba-5c2f-4dad-b09a-dd5af0a9ae31",
     "name": "Production de filament de polyester recyclé (recyclage chimique complet), traitement de bouteilles post-consommation, inventaire partiellement agrégé",
     "shortName": "Polyester recyclé (recyclage chimique complet)",
-    "category": "Recyclées"
+    "category": "Recyclées",
+    "recycledUuid": null
   },
   {
     "uuid": "41ee61c2-9a98-4eec-8949-9d9b54289bd0",
     "name": "Production de filament de polyamide recyclé (recyclage chimique), traitement de déchets issus de filets de pêche, de tapis et de déchets de production, inventaire partiellement agrégé",
     "shortName": "Polyamide recyclé (recyclage chimique)",
-    "category": "Recyclées"
+    "category": "Recyclées",
+    "recycledUuid": null
   },
   {
     "uuid": "9671ae26-d772-4bb1-aad5-6b826555d0cd",
     "name": "Production de fil de viscose recyclé (recyclage mécanique), traitement de déchets de production textiles, inventaire partiellement agrégé",
     "shortName": "Viscose recyclé",
-    "category": "Recyclées"
+    "category": "Recyclées",
+    "recycledUuid": null
   },
   {
     "uuid": "af5d130d-f18b-438c-9f19-d1ee49756960",
     "name": "Production de fil de polyamide recyclé (recyclage mécanique), traitement de déchets de production textiles, inventaire partiellement agrégé",
     "shortName": "Polyamide recyclé",
-    "category": "Recyclées"
+    "category": "Recyclées",
+    "recycledUuid": null
   },
   {
     "uuid": "92dfabc7-9441-463e-bda8-7bc5943c0e9d",
     "name": "Production de fil de laine recyclé (recyclage mécanique), traitement de déchets de production textiles, inventaire partiellement agrégé",
     "shortName": "Laine recyclée",
-    "category": "Recyclées"
+    "category": "Recyclées",
+    "recycledUuid": null
   },
   {
     "uuid": "4d23093d-1346-4018-8c0f-7aae33c67bcd",
     "name": "Production de fil de coton recyclé (recyclage mécanique), traitement de déchets textiles post-consommation, inventaire partiellement agrégé",
     "shortName": "Coton recyclé (déchets post-consommation)",
-    "category": "Recyclées"
+    "category": "Recyclées",
+    "recycledUuid": null
   },
   {
     "uuid": "2b24abb0-c1ec-4298-9b58-350904a26104",
     "name": "Production de fil de coton recyclé (recyclage mécanique), traitement de déchets de production textiles, inventaire partiellement agrégé",
     "shortName": "Coton recyclé (déchets de production)",
-    "category": "Recyclées"
+    "category": "Recyclées",
+    "recycledUuid": null
   },
   {
     "uuid": "7603beaa-c555-4283-b9f8-4d5d231b8490",
     "name": "Production de fil d'acrylique recyclé (recyclage mécanique), traitement de déchets de production textiles, inventaire partiellement agrégé",
     "shortName": "Acrylique recyclé",
-    "category": "Recyclées"
+    "category": "Recyclées",
+    "recycledUuid": null
   },
   {
     "uuid": "ca5dc5b3-7fa2-4779-af0b-aa6f31cd457f",
     "name": "Production de fibres recyclées, traitement de déchets textiles post-consommation (recyclage mécanique), inventaire partiellement agrégé",
     "shortName": "Fibres recyclées",
-    "category": "Recyclées"
+    "category": "Recyclées",
+    "recycledUuid": null
   }
 ]
