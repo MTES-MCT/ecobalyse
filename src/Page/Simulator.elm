@@ -64,6 +64,7 @@ type Msg
     | UpdateDyeingWeighting (Maybe Float)
     | UpdateMassInput String
     | UpdateMaterial Process.Uuid
+    | UpdateRecycledRatio (Maybe Float)
     | UpdateStepCountry Int Country.Code
     | UpdateProduct Product.Id
 
@@ -150,10 +151,14 @@ update ({ db } as session) msg ({ query } as model) =
             case Material.findByUuid materialId db.materials of
                 Ok material ->
                     ( model, session, Cmd.none )
-                        |> updateQuery { query | material = material.uuid }
+                        |> updateQuery (Inputs.updateMaterial material query)
 
                 Err error ->
                     ( model, session |> Session.notifyError "Erreur de matière première" error, Cmd.none )
+
+        UpdateRecycledRatio recycledRatio ->
+            ( model, session, Cmd.none )
+                |> updateQuery { query | recycledRatio = recycledRatio }
 
         UpdateStepCountry index code ->
             ( model, session, Cmd.none )
@@ -190,8 +195,8 @@ massField massInput =
         ]
 
 
-materialFormSet : Db -> Material -> Html Msg
-materialFormSet db material =
+materialFormSet : Db -> Maybe Float -> Material -> Html Msg
+materialFormSet db recycledRatio material =
     let
         ( ( natural1, synthetic1, recycled1 ), ( natural2, synthetic2, recycled2 ) ) =
             Material.groupAll db.materials
@@ -235,9 +240,9 @@ materialFormSet db material =
                 [ text "Part de matière recyclée" ]
             , RangeSlider.view
                 { id = "recycledRatio"
-                , update = always NoOp
-                , value = 0
-                , toString = always "Matière non-recyclée"
+                , update = UpdateRecycledRatio
+                , value = Maybe.withDefault 0 recycledRatio
+                , toString = Material.recycledRatioToString
                 , disabled = material.recycledUuid == Nothing
                 }
             ]
@@ -429,7 +434,7 @@ modalView modal =
 
 
 simulatorView : Session -> Model -> Simulator -> Html Msg
-simulatorView ({ db } as session) model simulator =
+simulatorView ({ db } as session) model ({ inputs } as simulator) =
     div [ class "row" ]
         [ div [ class "col-lg-7" ]
             [ div [ class "row" ]
@@ -440,11 +445,12 @@ simulatorView ({ db } as session) model simulator =
                     [ massField model.massInput
                     ]
                 ]
-            , materialFormSet db simulator.inputs.material
+            , materialFormSet db inputs.recycledRatio inputs.material
             , displayModeView model.displayMode
             , lifeCycleStepsView db model.displayMode simulator
             , div [ class "d-flex align-items-center justify-content-between mt-3 mb-5" ]
-                [ a [ Route.href Route.Home ] [ text "« Retour à l'accueil" ]
+                [ a [ Route.href Route.Home ]
+                    [ text "« Retour à l'accueil" ]
                 , button
                     [ class "btn btn-secondary"
                     , onClick Reset
@@ -455,8 +461,13 @@ simulatorView ({ db } as session) model simulator =
             ]
         , div [ class "col-lg-5" ]
             [ div [ class "d-flex flex-column gap-3 mb-3 sticky-md-top", style "top" "7px" ]
-                [ div [ class "Summary" ] [ SummaryView.view False model.simulator ]
-                , ComparatorView.view { session = session, simulator = simulator, openDocModal = OpenDocModal }
+                [ div [ class "Summary" ]
+                    [ SummaryView.view False model.simulator ]
+                , ComparatorView.view
+                    { session = session
+                    , simulator = simulator
+                    , openDocModal = OpenDocModal
+                    }
                 , feedbackView
                 , shareLinkView session simulator
                 ]

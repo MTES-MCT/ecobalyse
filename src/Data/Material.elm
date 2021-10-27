@@ -43,6 +43,16 @@ groupByCategories materials =
     )
 
 
+recycledRatioToString : Float -> String
+recycledRatioToString recycledRatio =
+    case round (recycledRatio * 100) of
+        0 ->
+            "Pas d'origine recyclée"
+
+        p ->
+            String.fromInt p ++ "% d'origine recyclée"
+
+
 decode : Decoder Material
 decode =
     Decode.map6 Material
