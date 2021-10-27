@@ -322,6 +322,7 @@ encodeQuery query =
         , ( "countries", Encode.list (Country.codeToString >> Encode.string) query.countries )
         , ( "dyeingWeighting", query.dyeingWeighting |> Maybe.map Encode.float |> Maybe.withDefault Encode.null )
         , ( "airTransportRatio", query.airTransportRatio |> Maybe.map Encode.float |> Maybe.withDefault Encode.null )
+        , ( "recycledRatio", query.recycledRatio |> Maybe.map Encode.float |> Maybe.withDefault Encode.null )
         ]
 
 

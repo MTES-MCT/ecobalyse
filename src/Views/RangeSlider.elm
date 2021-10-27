@@ -31,7 +31,7 @@ view config =
                 , value (String.fromInt (round (config.value * 100)))
                 , Attr.min "0"
                 , Attr.max "100"
-                , step "10"
+                , step "1"
                 , Attr.disabled config.disabled
                 ]
                 []

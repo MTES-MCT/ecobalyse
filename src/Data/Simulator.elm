@@ -4,6 +4,7 @@ import Data.Db exposing (Db)
 import Data.Formula as Formula
 import Data.Inputs as Inputs exposing (Inputs)
 import Data.LifeCycle as LifeCycle exposing (LifeCycle)
+import Data.Material as Material
 import Data.Process as Process
 import Data.Step as Step exposing (Step)
 import Data.Transport as Transport
@@ -160,14 +161,24 @@ computeDyeingCo2Score { processes } simulator =
 
 computeMaterialAndSpinningCo2Score : Db -> Simulator -> Result String Simulator
 computeMaterialAndSpinningCo2Score { processes } ({ inputs } as simulator) =
-    processes
-        |> Process.findByUuid inputs.material.uuid
-        |> Result.map
-            (\materialProcess ->
-                simulator
-                    |> updateLifeCycleStep Step.MaterialAndSpinning
-                        (\step -> { step | co2 = Formula.materialCo2 materialProcess step.mass })
-            )
+    Result.map2
+        (\materialProcess maybeRecycledProcess ->
+            simulator
+                |> updateLifeCycleStep Step.MaterialAndSpinning
+                    (\step ->
+                        { step
+                            | co2 =
+                                case ( maybeRecycledProcess, inputs.recycledRatio ) of
+                                    ( Just recycledProcess, Just ratio ) ->
+                                        Formula.materialRecycledCo2 materialProcess recycledProcess ratio step.mass
+
+                                    _ ->
+                                        Formula.materialCo2 materialProcess step.mass
+                        }
+                    )
+        )
+        (Process.findByUuid inputs.material.uuid processes)
+        (Material.getRecycledProcess inputs.material processes)
 
 
 computeWeavingKnittingCo2Score : Db -> Simulator -> Result String Simulator
@@ -267,18 +278,7 @@ computeMaterialStepWaste { processes } ({ inputs, lifeCycle } as simulator) =
                     (\step -> { step | mass = mass, waste = waste })
         )
         (Process.findByUuid inputs.material.uuid processes)
-        (case inputs.material.recycledUuid of
-            Just uuid ->
-                case Process.findByUuid uuid processes of
-                    Ok result ->
-                        Ok (Just result)
-
-                    Err error ->
-                        Err error
-
-            Nothing ->
-                Ok Nothing
-        )
+        (Material.getRecycledProcess inputs.material processes)
 
 
 computeTransportSummaries : Db -> Simulator -> Result String Simulator

@@ -1,7 +1,7 @@
 module Data.Material exposing (..)
 
 import Data.Material.Category as Category exposing (Category)
-import Data.Process as Process
+import Data.Process as Process exposing (Process)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
 
@@ -14,6 +14,21 @@ type alias Material =
     , recycledUuid : Maybe Process.Uuid
     , primary : Bool
     }
+
+
+getRecycledProcess : Material -> List Process -> Result String (Maybe Process)
+getRecycledProcess material processes =
+    case material.recycledUuid of
+        Just uuid ->
+            case Process.findByUuid uuid processes of
+                Ok result ->
+                    Ok (Just result)
+
+                Err error ->
+                    Err error
+
+        Nothing ->
+            Ok Nothing
 
 
 findByUuid : Process.Uuid -> List Material -> Result String Material

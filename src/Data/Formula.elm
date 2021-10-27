@@ -129,6 +129,21 @@ materialCo2 process mass =
     process.climateChange * Mass.inKilograms mass
 
 
+materialRecycledCo2 : Process -> Process -> Float -> Mass -> Float
+materialRecycledCo2 pristineProcess recycledProcess recycledRatio baseMass =
+    let
+        ( recycledCo2, pristineCo2 ) =
+            ( baseMass
+                |> Quantity.multiplyBy recycledRatio
+                |> Quantity.multiplyBy recycledProcess.climateChange
+            , baseMass
+                |> Quantity.multiplyBy (1 - recycledRatio)
+                |> Quantity.multiplyBy pristineProcess.climateChange
+            )
+    in
+    Quantity.plus recycledCo2 pristineCo2 |> Mass.inKilograms
+
+
 makingCo2 : Process -> Float -> Mass -> { kwh : Energy, co2 : Float }
 makingCo2 makingProcess elecCC baseMass =
     let
