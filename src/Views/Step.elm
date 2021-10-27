@@ -79,6 +79,7 @@ airTransportRatioField { current, updateAirTransportRatio } =
         , update = updateAirTransportRatio
         , value = current.airTransportRatio
         , toString = Step.airTransportRatioToString
+        , disabled = False
         }
 
 
@@ -89,6 +90,7 @@ dyeingWeightingField { current, updateDyeingWeighting } =
         , update = updateDyeingWeighting
         , value = current.dyeingWeighting
         , toString = Step.dyeingWeightingToString
+        , disabled = False
         }
 
 

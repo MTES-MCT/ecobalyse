@@ -27,6 +27,7 @@ import Views.Icon as Icon
 import Views.Link as Link
 import Views.Markdown as MarkdownView
 import Views.Modal as ModalView
+import Views.RangeSlider as RangeSlider
 import Views.Spinner as SpinnerView
 import Views.Step as StepView
 import Views.Summary as SummaryView
@@ -212,20 +213,34 @@ materialFormSet db material =
                     |> List.map toOption
                     |> optgroup [ attribute "label" name ]
     in
-    div [ class "mb-2" ]
-        [ div [ class "form-label fw-bold" ] [ text "Matières premières" ]
-        , [ toGroup "Matières naturelles" natural1
-          , toGroup "Matières synthétiques" synthetic1
-          , toGroup "Matières recyclées" recycled1
-          , toGroup "Autres matières naturelles" natural2
-          , toGroup "Autres matières synthétiques" synthetic2
-          , toGroup "Autres matières recyclées" recycled2
-          ]
-            |> select
-                [ id "material"
-                , class "form-select"
-                , onInput (Process.Uuid >> UpdateMaterial)
-                ]
+    div [ class "row mb-2" ]
+        [ div [ class "col-md-6" ]
+            [ div [ class "form-label fw-bold" ]
+                [ text "Matières premières" ]
+            , [ toGroup "Matières naturelles" natural1
+              , toGroup "Matières synthétiques" synthetic1
+              , toGroup "Matières recyclées" recycled1
+              , toGroup "Autres matières naturelles" natural2
+              , toGroup "Autres matières synthétiques" synthetic2
+              , toGroup "Autres matières recyclées" recycled2
+              ]
+                |> select
+                    [ id "material"
+                    , class "form-select"
+                    , onInput (Process.Uuid >> UpdateMaterial)
+                    ]
+            ]
+        , div [ class "col-md-6" ]
+            [ div [ class "form-label fw-bold mb-0 mb-xl-3" ]
+                [ text "Part de matière recyclée" ]
+            , RangeSlider.view
+                { id = "recycledRatio"
+                , update = always NoOp
+                , value = 0
+                , toString = always "Matière non-recyclée"
+                , disabled = material.recycledUuid == Nothing
+                }
+            ]
         ]
 
 
@@ -418,10 +433,10 @@ simulatorView ({ db } as session) model simulator =
     div [ class "row" ]
         [ div [ class "col-lg-7" ]
             [ div [ class "row" ]
-                [ div [ class "col-6 mb-2" ]
+                [ div [ class "col-md-6 mb-2" ]
                     [ productField db simulator.inputs.product
                     ]
-                , div [ class "col-6 mb-2" ]
+                , div [ class "col-md-6 mb-2" ]
                     [ massField model.massInput
                     ]
                 ]
