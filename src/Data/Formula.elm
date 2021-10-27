@@ -11,8 +11,44 @@ import Quantity
 -- Waste
 
 
-genericWaste : Process -> Mass -> { mass : Mass, waste : Mass }
-genericWaste process baseMass =
+materialWaste : Process -> Mass -> { mass : Mass, waste : Mass }
+materialWaste process baseMass =
+    let
+        waste =
+            Quantity.multiplyBy (Mass.inKilograms baseMass) process.waste
+
+        mass =
+            Quantity.plus baseMass waste
+    in
+    { mass = mass, waste = waste }
+
+
+materialRecycledWaste : Process -> Process -> Float -> Mass -> { mass : Mass, waste : Mass }
+materialRecycledWaste pristine recycled recycledRatio baseMass =
+    let
+        ( recycledMass, pristineMass ) =
+            ( baseMass |> Quantity.multiplyBy recycledRatio
+            , baseMass |> Quantity.multiplyBy (1 - recycledRatio)
+            )
+
+        ( recycledWaste, pristineWaste ) =
+            ( recycledMass |> Quantity.multiplyBy (Mass.inKilograms recycled.waste)
+            , pristineMass |> Quantity.multiplyBy (Mass.inKilograms pristine.waste)
+            )
+
+        waste =
+            Quantity.plus recycledWaste pristineWaste
+
+        mass =
+            recycledMass
+                |> Quantity.plus pristineMass
+                |> Quantity.plus waste
+    in
+    { mass = mass, waste = waste }
+
+
+weavingKnittingWaste : Process -> Mass -> { mass : Mass, waste : Mass }
+weavingKnittingWaste process baseMass =
     let
         waste =
             Quantity.multiplyBy (Mass.inKilograms baseMass) process.waste

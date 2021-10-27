@@ -236,7 +236,7 @@ computeWeavingKnittingStepWaste { processes } ({ inputs, lifeCycle } as simulato
                     { mass, waste } =
                         lifeCycle
                             |> LifeCycle.getStepMass Step.Making
-                            |> Formula.genericWaste fabricProcess
+                            |> Formula.weavingKnittingWaste fabricProcess
                 in
                 simulator
                     |> updateLifeCycleStep Step.WeavingKnitting
@@ -248,20 +248,37 @@ computeWeavingKnittingStepWaste { processes } ({ inputs, lifeCycle } as simulato
 
 computeMaterialStepWaste : Db -> Simulator -> Result String Simulator
 computeMaterialStepWaste { processes } ({ inputs, lifeCycle } as simulator) =
-    processes
-        |> Process.findByUuid inputs.material.uuid
-        |> Result.map
-            (\materialProcess ->
-                let
-                    { mass, waste } =
-                        lifeCycle
-                            |> LifeCycle.getStepMass Step.WeavingKnitting
-                            |> Formula.genericWaste materialProcess
-                in
-                simulator
-                    |> updateLifeCycleStep Step.MaterialAndSpinning
-                        (\step -> { step | mass = mass, waste = waste })
-            )
+    Result.map2
+        (\materialProcess maybeRecycledProcess ->
+            let
+                { mass, waste } =
+                    lifeCycle
+                        |> LifeCycle.getStepMass Step.WeavingKnitting
+                        |> (case ( maybeRecycledProcess, inputs.recycledRatio ) of
+                                ( Just recycledProcess, Just ratio ) ->
+                                    Formula.materialRecycledWaste materialProcess recycledProcess ratio
+
+                                _ ->
+                                    Formula.materialWaste materialProcess
+                           )
+            in
+            simulator
+                |> updateLifeCycleStep Step.MaterialAndSpinning
+                    (\step -> { step | mass = mass, waste = waste })
+        )
+        (Process.findByUuid inputs.material.uuid processes)
+        (case inputs.material.recycledUuid of
+            Just uuid ->
+                case Process.findByUuid uuid processes of
+                    Ok result ->
+                        Ok (Just result)
+
+                    Err error ->
+                        Err error
+
+            Nothing ->
+                Ok Nothing
+        )
 
 
 computeTransportSummaries : Db -> Simulator -> Result String Simulator
