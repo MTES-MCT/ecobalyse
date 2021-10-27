@@ -34,12 +34,13 @@ renderer maybePath =
                     |> MdHtml.withAttribute "style"
 
                 -- NOTE: sometimes gitbook exposes raw HTML in markdown
-                , MdHtml.tag "p" (p [ class "mb-1" ])
-                , MdHtml.tag "em" (em [])
                 , MdHtml.tag "a"
                     (\href title -> renderLink maybePath { title = title, destination = href })
                     |> MdHtml.withAttribute "href"
                     |> MdHtml.withOptionalAttribute "title"
+                , MdHtml.tag "code" (code [])
+                , MdHtml.tag "em" (em [])
+                , MdHtml.tag "p" (p [ class "mb-1" ])
                 ]
     }
 
