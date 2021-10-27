@@ -4,7 +4,6 @@ import Data.Country as Country
 import Data.Db exposing (Db)
 import Data.Gitbook as Gitbook
 import Data.Inputs as Inputs
-import Data.Material as Material
 import Data.Session exposing (Session)
 import Data.Simulator as Simulator exposing (Simulator)
 import Html exposing (..)
@@ -103,7 +102,7 @@ viewComparator config { inputs, co2 } ( good, middle, bad ) =
     in
     div [ class "card" ]
         [ div [ class "card-header" ]
-            [ text <| "Comparaison pour " ++ inputs.product.name ++ " en " ++ Material.shortName inputs.material ++ " de "
+            [ text <| "Comparaison pour " ++ inputs.product.name ++ " en " ++ inputs.material.shortName ++ " de "
             , Format.kg inputs.mass
             , documentationPillLink config Gitbook.ComparativeScale
             ]

@@ -2,7 +2,6 @@ module Views.Summary exposing (..)
 
 import Data.Inputs as Inputs
 import Data.LifeCycle as LifeCycle
-import Data.Material as Material
 import Data.Simulator exposing (Simulator)
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -13,20 +12,20 @@ import Views.Transport as TransportView
 
 
 summaryView : Bool -> Simulator -> Html msg
-summaryView reusable simulator =
+summaryView reusable ({ inputs, lifeCycle } as simulator) =
     div [ class "card shadow-sm" ]
         [ div [ class "card-header text-white bg-primary d-flex justify-content-between" ]
-            [ span [ class "text-nowrap" ] [ strong [] [ text simulator.inputs.product.name ] ]
+            [ span [ class "text-nowrap" ] [ strong [] [ text inputs.product.name ] ]
             , span
-                [ class "text-truncate", title simulator.inputs.material.name ]
-                [ text <| "\u{00A0}" ++ Material.shortName simulator.inputs.material ++ "\u{00A0}" ]
-            , span [ class "text-nowrap" ] [ strong [] [ Format.kg simulator.inputs.mass ] ]
+                [ class "text-truncate", title inputs.material.name ]
+                [ text <| "\u{00A0}" ++ inputs.material.shortName ++ "\u{00A0}" ]
+            , span [ class "text-nowrap" ] [ strong [] [ Format.kg inputs.mass ] ]
             ]
         , div [ class "card-body px-1 d-grid gap-3 text-white bg-primary" ]
             [ div [ class "d-flex justify-content-center align-items-center" ]
                 [ img
-                    [ src <| "img/product/" ++ simulator.inputs.product.name ++ ".svg"
-                    , alt <| simulator.inputs.product.name
+                    [ src <| "img/product/" ++ inputs.product.name ++ ".svg"
+                    , alt <| inputs.product.name
                     , class "invert me-2"
                     , style "width" "3em"
                     , style "height" "3em"
@@ -35,10 +34,10 @@ summaryView reusable simulator =
                 , div [ class "display-5" ]
                     [ Format.kgCo2 2 simulator.co2 ]
                 ]
-            , simulator.inputs.countries
+            , inputs.countries
                 |> List.map (\{ name } -> li [] [ span [] [ text name ] ])
                 |> ul [ class "Chevrons" ]
-            , simulator.lifeCycle
+            , lifeCycle
                 |> LifeCycle.computeTransportSummary
                 |> TransportView.view False
             ]
@@ -50,7 +49,7 @@ summaryView reusable simulator =
             div [ class "card-footer text-center" ]
                 [ a
                     [ class "btn btn-primary"
-                    , Route.href (Route.Simulator (simulator.inputs |> Inputs.toQuery |> Just))
+                    , Route.href (Route.Simulator (inputs |> Inputs.toQuery |> Just))
                     ]
                     [ text "Reprendre cette simulation" ]
                 ]

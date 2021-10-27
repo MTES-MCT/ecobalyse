@@ -230,8 +230,7 @@ materialCategoryField material =
 
 materialField : Db -> Material -> Html Msg
 materialField db material =
-    db.processes
-        |> Material.fromProcesses
+    db.materials
         |> List.filter (.category >> (==) material.category)
         |> List.map
             (\m ->

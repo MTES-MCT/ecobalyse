@@ -1,7 +1,7 @@
 module Data.Material exposing (..)
 
 import Data.Material.Category as Category exposing (Category)
-import Data.Process as Process exposing (Process)
+import Data.Process as Process
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
 
@@ -12,30 +12,6 @@ type alias Material =
     , shortName : String
     , category : Category
     }
-
-
-fromProcesses : List Process -> List Material
-fromProcesses =
-    -- FIXME: obsololete once we import materials.json -> REMOVE
-    Process.cat1 Process.Textile
-        >> Process.cat2 Process.Material
-        >> List.map
-            (\{ uuid, name, cat3 } ->
-                { uuid = uuid
-                , name = name
-                , shortName = ""
-                , category =
-                    case cat3 of
-                        Process.SyntheticMaterials ->
-                            Category.Synthetic
-
-                        Process.RecycledMaterials ->
-                            Category.Recycled
-
-                        _ ->
-                            Category.Natural
-                }
-            )
 
 
 findByUuid : Process.Uuid -> List Material -> Result String Material
@@ -96,7 +72,7 @@ encode v =
     Encode.object
         [ ( "uuid", v.uuid |> Process.uuidToString |> Encode.string )
         , ( "name", v.name |> Encode.string )
-        , ( "shortName", v |> shortName |> Encode.string )
+        , ( "shortName", Encode.string v.shortName )
         , ( "category", v.category |> Category.toString |> Encode.string )
         ]
 
