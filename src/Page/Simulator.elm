@@ -8,7 +8,6 @@ import Data.Gitbook as Gitbook
 import Data.Inputs as Inputs
 import Data.Key as Key
 import Data.Material as Material exposing (Material)
-import Data.Material.Category as Category exposing (Category)
 import Data.Process as Process
 import Data.Product as Product exposing (Product)
 import Data.Session as Session exposing (Session)
@@ -64,7 +63,6 @@ type Msg
     | UpdateDyeingWeighting (Maybe Float)
     | UpdateMassInput String
     | UpdateMaterial Process.Uuid
-    | UpdateMaterialCategory Category
     | UpdateStepCountry Int Country.Code
     | UpdateProduct Product.Id
 
@@ -156,15 +154,6 @@ update ({ db } as session) msg ({ query } as model) =
                 Err error ->
                     ( model, session |> Session.notifyError "Erreur de matière première" error, Cmd.none )
 
-        UpdateMaterialCategory category ->
-            case db.materials |> Material.firstFromCategory category |> Result.map .uuid of
-                Ok materialId ->
-                    ( model, session, Cmd.none )
-                        |> updateQuery { query | material = materialId }
-
-                Err error ->
-                    ( model, session |> Session.notifyError "Erreur de catégorie de matière" error, Cmd.none )
-
         UpdateStepCountry index code ->
             ( model, session, Cmd.none )
                 |> updateQuery (Inputs.updateStepCountry index code query)
@@ -200,52 +189,44 @@ massField massInput =
         ]
 
 
-materialCategoryField : Material -> Html Msg
-materialCategoryField material =
+materialFormSet : Db -> Material -> Html Msg
+materialFormSet db material =
+    let
+        ( ( natural1, synthetic1, recycled1 ), ( natural2, synthetic2, recycled2 ) ) =
+            Material.groupAll db.materials
+
+        toOption m =
+            option
+                [ value <| Process.uuidToString m.uuid
+                , selected (material.uuid == m.uuid)
+                , title m.name
+                ]
+                [ text m.shortName ]
+
+        toGroup name materials =
+            if materials == [] then
+                text ""
+
+            else
+                materials
+                    |> List.map toOption
+                    |> optgroup [ attribute "label" name ]
+    in
     div [ class "mb-2" ]
         [ div [ class "form-label fw-bold" ] [ text "Matières premières" ]
-        , [ ( Category.Natural, "leaf" )
-          , ( Category.Synthetic, "lab" )
-          , ( Category.Recycled, "recycle" )
+        , [ toGroup "Matières naturelles" natural1
+          , toGroup "Matières synthétiques" synthetic1
+          , toGroup "Matières recyclées" recycled1
+          , toGroup "Autres matières naturelles" natural2
+          , toGroup "Autres matières synthétiques" synthetic2
+          , toGroup "Autres matières recyclées" recycled2
           ]
-            |> List.map
-                (\( m, icon ) ->
-                    button
-                        [ type_ "button"
-                        , classList
-                            [ ( "btn", True )
-                            , ( "btn-outline-primary", material.category /= m )
-                            , ( "btn-primary", material.category == m )
-                            , ( "text-truncate", True )
-                            ]
-                        , onClick (UpdateMaterialCategory m)
-                        ]
-                        [ span [ class "me-1" ] [ Icon.icon icon ]
-                        , m |> Category.toString |> text
-                        ]
-                )
-            |> div [ class "btn-group w-100" ]
+            |> select
+                [ id "material"
+                , class "form-select"
+                , onInput (Process.Uuid >> UpdateMaterial)
+                ]
         ]
-
-
-materialField : Db -> Material -> Html Msg
-materialField db material =
-    db.materials
-        |> List.filter (.category >> (==) material.category)
-        |> List.map
-            (\m ->
-                option
-                    [ value <| Process.uuidToString m.uuid
-                    , selected (material.uuid == m.uuid)
-                    , title m.name
-                    ]
-                    [ text m.name ]
-            )
-        |> select
-            [ id "material"
-            , class "form-select"
-            , onInput (Process.Uuid >> UpdateMaterial)
-            ]
 
 
 productField : Db -> Product -> Html Msg
@@ -444,9 +425,7 @@ simulatorView ({ db } as session) model simulator =
                     [ massField model.massInput
                     ]
                 ]
-            , materialCategoryField simulator.inputs.material
-            , div [ class "mb-1" ]
-                [ materialField db simulator.inputs.material ]
+            , materialFormSet db simulator.inputs.material
             , displayModeView model.displayMode
             , lifeCycleStepsView db model.displayMode simulator
             , div [ class "d-flex align-items-center justify-content-between mt-3 mb-5" ]
