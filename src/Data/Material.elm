@@ -20,12 +20,9 @@ getRecycledProcess : Material -> List Process -> Result String (Maybe Process)
 getRecycledProcess material processes =
     case material.recycledUuid of
         Just uuid ->
-            case Process.findByUuid uuid processes of
-                Ok result ->
-                    Ok (Just result)
-
-                Err error ->
-                    Err error
+            processes
+                |> Process.findByUuid uuid
+                |> Result.map Just
 
         Nothing ->
             Ok Nothing
