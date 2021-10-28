@@ -126,11 +126,40 @@ $$
 
 ## Intégration d'une part de matière recyclée
 
-Dans le cas (<mark style="color:red;">à venir</mark>) où un pourcentage "r" de matière recyclée est introduit à partir du tableau des matières principales. le calcule de l'impact devient :&#x20;
+Dans le cas (<mark style="color:red;">à venir</mark>) où un pourcentage "r" de matière recyclée est introduit à partir du tableau des matières principales. le calcule de l'impact devient la combinaison des impacts des procédés "matière et filature" retenus pour la matière primaire et pour la matière recyclée :&#x20;
 
 $$
-ImpactMatière + Impact Filature = (1-r)*ImpactProcédéMFPrimaire + r* ImpactProcédéMFRecyclée
+ImpactMatière + Impact Filature = ImpactProcédéMFPrimaire +  ImpactProcédéMFRecyclée
 $$
+
+Pour calculer chacun de ces deux impacts, il faut distinguer la part de fil, en sortie de processus, qui provient de la matière primaire et celle qui provient de matières recyclée :  &#x20;
+
+$$
+MasseFilSortante (kg) = MasseFilMFPrimaire (kg) + MasseFilMFRecyclée (kg)
+$$
+
+Pour ce faire, on introduit le pourcentage "r" de matière recyclée, pourcentage qui s'applique à la masse de fil, en sortie donc de l'étape "matière et filature". Lorsqu'un choix de matière recyclée est proposé, ce pourcentage est représenté dans l'interface avec un curseur mobile.
+
+{% hint style="danger" %}
+Le pourcentage "r" de matière recyclée s'applique bien au fil (en sortie) et non à la matière première (en entrée). Les taux de perte étant différents pour la matière première et pour la matière recyclée, le ratio de matières premières serait différent.
+{% endhint %}
+
+En pratique, la masse de fil sortante est déterminée en premier, pour correspondre à la masse du produit fini qui est paramétrée (cf. [Pertes et rebut](filature.md#pertes-et-rebut), calcul des masses en remontant la chaîne de production).&#x20;
+
+Chacun des deux masses de fil à déterminer pour calculer ensuite les impacts des procédés "matière primaire" et "matière recyclée", sont établies comme suit :&#x20;
+
+$$
+MasseFilMFPrimaire (kg) = (1-r) * MasseFilSortante (kg)
+$$
+
+$$
+MasseFilMFRecyclée (kg) = r * MasseFilSortante (kg)
+$$
+
+Pour la suite du calcul, les formules ci-après s'applique, indépendemment pour la matière primaire et la matière recyclée afin de déterminer :&#x20;
+
+* la masse entrante de matière première à partir des pertes propres à chacun des deux procédés ;
+* l'impact de chacun des deux procédés.
 
 ## Procédé de matière et filature
 
