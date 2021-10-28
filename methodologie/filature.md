@@ -17,7 +17,7 @@ Les matières proposées dans le calculateur sont les matières des les impacts 
 Les matières sont réparties en 2 listes dans Wikicarbone
 
 * la liste principale, avec une sélection des matières les plus utilisées, proposées prioritairement
-* une liste secondaire, avec les autres matières qui \[<mark style="color:red;">ne sont pas proposées en première approche</mark>] / \[<mark style="color:red;">sont proposées dans un menu déroulant "autres matières"</mark>]
+* une liste secondaire, avec les autres matières
 
 ## Liste principale
 
@@ -35,6 +35,10 @@ Pour le coton, le polyester et le polyamide, plusieurs matières recyclées sont
 | Lin (étoupe)        | `fcef1a31-bb18-49e4-bdb6-e53dfe015ba0` | Non                                              | N/A                                    |
 | Lin (filasse)       | `5a6d538-f932-4242-98b4-3a0c6439629c`  | Non                                              | N/A                                    |
 
+{% hint style="danger" %}
+Pour les matières synthétiques, les procédés considérés sont les procédés de production de filaments. Les procédés de production de fils, proposés comme alternative dans la base Impacts, ne sont pas intégrés à ce stade.
+{% endhint %}
+
 | Matières synthétiques | UUID                                   | Matières recyclées                                                    | UUID                                   |
 | --------------------- | -------------------------------------- | --------------------------------------------------------------------- | -------------------------------------- |
 | Acrylique             | aee6709f-0864-4fc5-8760-68cb644a002    | Acrylique recyclé à partir de déchets de production                   | `7603beaa-c555-4283-b9f8-4d5d231b8490` |
@@ -43,7 +47,7 @@ Pour le coton, le polyester et le polyamide, plusieurs matières recyclées sont
 | Viscose               | `81a67d97-3cd9-44ef-9ee2-159364364c0f` | Viscose recyclée à partir de déchets de production                    | `9671ae26-d772-4bb1-aad5-6b826555d0cd` |
 
 {% hint style="info" %}
-En première approche, il n'est pas proposé de combiner des matières pour modéliser un vêtement multi-matières. En revanche, <mark style="color:red;">l'intégration d'une part de matière recyclée, pour les seules matières proposées dans la liste principale, va être bientôt intégrée.</mark>. Ces points pourront faire l'objet de compléments ultérieurs.
+En première approche, il n'est pas proposé de combiner des matières pour modéliser un vêtement multi-matières. En revanche, une part de matière recyclée peut être prise en compte pour les matières de la liste principale auxquelles des matières recyclées correspondent.
 
 D'autre part, matières et filatures sont des procédés indissociables dans la [base Impacts](http://www.base-impacts.ademe.fr).
 {% endhint %}
@@ -54,31 +58,33 @@ La liste complète des matières est précisée ci-après. Les matières de la l
 
 En complément, il est précisé dans ce tableau (<mark style="color:red;">travail en cours à compléter</mark>) :&#x20;
 
-* la géographie considérée pour le procédé, ce qui renvoie notamment au mix électrique sous-jacent ;
-* le pays considéré, dans le simulateur, pour calculer ensuite la distance de transport vers l'étape suivante.
+* la géographie considérée pour le procédé (et plus précisément pour la filature), ce qui renvoie notamment au mix électrique sous-jacent ;
+* le pays considéré, dans le simulateur, pour calculer ensuite la distance de transport vers l'étape suivante ;
+* les informations disponibles dans la documentation sectorielle de la base Impacts concernant les technologies de filature mises en oeuvre.
 
 {% hint style="warning" %}
 Lorsqu'un mélange de matières primaire et recyclée est considéré, on ne retient qu'un seul pays pour l'origine du fil.
 {% endhint %}
 
-| Matières naturelles                                         | UUID procédé                           | Géographie considérée (base Impacts) | Pays de filature considéré (cf. Transport) |
-| ----------------------------------------------------------- | -------------------------------------- | ------------------------------------ | ------------------------------------------ |
-| Plume de canard                                             | `d1f06ea5-d63f-453a-8f98-55ce78ae7579` | à préciser                           | Chine                                      |
-| Fil de soie                                                 | `94b4b0e1-61e4-4f4d-b9b2-efe7623b0e68` | à préciser                           | Chine                                      |
-| <mark style="color:blue;">Fil de lin (filasse)</mark>       | `e5a6d538-f932-4242-98b4-3a0c6439629c` | à préciser                           | Chine                                      |
-| <mark style="color:blue;">Fil de lin (étoupe)</mark>        | `fcef1a31-bb18-49e4-bdb6-e53dfe015ba0` | à préciser                           | Chine                                      |
-| Fil de laine de mouton Mérinos                              | `4e035dbf-f48b-4b5a-94ea-0006c713958b` | à préciser                           | Chine                                      |
-| <mark style="color:blue;">Fil de laine de mouton</mark>     | `376bd165-d354-41aa-a6e3-fd3228413bb2` | à préciser                           | Chine                                      |
-| Fil de laine de chameau                                     | `c191a4dd-5080-4eb6-9c59-b13c943327bc` | à préciser                           | Chine                                      |
-| Fil de jute                                                 | `72010874-4d26-4c7a-95de-c6987dfdedeb` | à préciser                           | Chine                                      |
-| <mark style="color:blue;">Fil de coton conventionnel</mark> | `f211bbdb-415c-46fd-be4d-ddf199575b44` | Asie                                 | Chine                                      |
-| <mark style="color:blue;">Fil de chanvre</mark>             | `08601439-f338-4f94-ac8c-538061b65d16` | à préciser                           | Chine                                      |
-| Fil de cachemire                                            | `380c0d9c-2840-4390-bd3f-5c960f26f5ed` | à préciser                           | Chine                                      |
-| Fibres de kapok                                             | `36cdbfc4-3f48-47b0-8ae0-294bb6017df1` | à préciser                           | Chine                                      |
+| Matières naturelles                                         | UUID procédé                           | Géographie considérée pour la filature (base Impacts) | Pays de filature considéré (cf. Transport) | Technologie de filature             |
+| ----------------------------------------------------------- | -------------------------------------- | ----------------------------------------------------- | ------------------------------------------ | ----------------------------------- |
+| Plume de canard                                             | `d1f06ea5-d63f-453a-8f98-55ce78ae7579` | Asie / Pacifique                                      | Chine                                      | Non précisé                         |
+| Fil d'angora                                                | 29bddef1-d753-45af-9ca6-aec05e2d02b9   | Asie                                                  | Chine                                      | Ring spinning                       |
+| Fil de soie                                                 | `94b4b0e1-61e4-4f4d-b9b2-efe7623b0e68` | Asie\*                                                | Chine                                      | Non précisé                         |
+| <mark style="color:blue;">Fil de lin (filasse)</mark>       | `e5a6d538-f932-4242-98b4-3a0c6439629c` | Asie                                                  | Chine                                      | wet spinning                        |
+| <mark style="color:blue;">Fil de lin (étoupe)</mark>        | `fcef1a31-bb18-49e4-bdb6-e53dfe015ba0` | Asie                                                  | Chine                                      | specific dry spinning process       |
+| Fil de laine de mouton Mérinos                              | `4e035dbf-f48b-4b5a-94ea-0006c713958b` | Asie / Pacifique                                      | Chine                                      | Non précisé                         |
+| <mark style="color:blue;">Fil de laine de mouton</mark>     | `376bd165-d354-41aa-a6e3-fd3228413bb2` | Asie                                                  | Chine                                      | average spinning process for wool   |
+| Fil de laine de chameau                                     | `c191a4dd-5080-4eb6-9c59-b13c943327bc` | Asie                                                  | Chine                                      | Traditionnal ring spinning          |
+| Fil de jute                                                 | `72010874-4d26-4c7a-95de-c6987dfdedeb` | Asie                                                  | Chine                                      | Non précisé                         |
+| <mark style="color:blue;">Fil de coton conventionnel</mark> | `f211bbdb-415c-46fd-be4d-ddf199575b44` | Asie                                                  | Chine                                      | average spinning process for cotton |
+| <mark style="color:blue;">Fil de chanvre</mark>             | `08601439-f338-4f94-ac8c-538061b65d16` | Asie                                                  | Chine                                      | Wet spinning                        |
+| Fil de cachemire                                            | `380c0d9c-2840-4390-bd3f-5c960f26f5ed` | Asie                                                  | Chine                                      | Traditionnal ring spinning          |
+| Fibres de kapok                                             | `36cdbfc4-3f48-47b0-8ae0-294bb6017df1` | Asie / Pacifique                                      | Chine                                      | Non précisé                         |
 
+\*pour le fil de soie, la documentation sectorielle indique simplement une géographie mondiale (GLO), en précisant que celle-ci correspond à la production mondiale. Considérant que cette production est très majoritairement asiatique ([source](https://www.planetoscope.com/matieres-premieres/1731-production-mondiale-de-soie.html)), on retient par défaut une géographie asiatique.
 
-
-| Matières synthétiques                                     | UUID procédé                           |
+| Matières synthétiques (filaments)                         | UUID procédé                           |
 | --------------------------------------------------------- | -------------------------------------- |
 | <mark style="color:blue;">Filament de viscose</mark>      | `81a67d97-3cd9-44ef-9ee2-159364364c0f` |
 | Filament de polyuréthane                                  | `c3738500-0a62-4b95-b4a2-b7beb12a9e1a` |
@@ -193,8 +199,8 @@ Plus de détail sur la gestion des masses : [Pertes et rebut](pertes-et-rebus.m
 
 A prévoir :
 
+* Intégrer les procédés de production de "fils" synthétiques, et non pas seulement les procédés de "filaments" synthétiques.
 * Intégration de vêtements multi-matière
-* <mark style="color:red;">Intégration d'une combinaison de matière, notamment une part de matière recyclée</mark>
 * Lorsqu'une part de matière recyclée peut être introduire, ouvrir la possibilité de distinguer l'origine de la matière primaire et de la matière recyclée
 * Pour les matières qui peuvent être issues de différents types de recyclage, regrouper ces différentes sous-options dans le tableau principal
 * Prise en compte de la _Circular Footprint Formula_ du projet de _PEFCR Apparel & Footwear_
