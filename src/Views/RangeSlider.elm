@@ -10,6 +10,7 @@ type alias Config msg =
     , update : Maybe Float -> msg
     , value : Float
     , toString : Float -> String
+    , disabled : Bool
     }
 
 
@@ -30,7 +31,8 @@ view config =
                 , value (String.fromInt (round (config.value * 100)))
                 , Attr.min "0"
                 , Attr.max "100"
-                , step "10"
+                , step "1"
+                , Attr.disabled config.disabled
                 ]
                 []
             ]

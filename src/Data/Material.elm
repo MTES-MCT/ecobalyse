@@ -1,7 +1,7 @@
 module Data.Material exposing (..)
 
 import Data.Material.Category as Category exposing (Category)
-import Data.Process as Process
+import Data.Process as Process exposing (Process)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
 
@@ -11,7 +11,21 @@ type alias Material =
     , name : String
     , shortName : String
     , category : Category
+    , recycledUuid : Maybe Process.Uuid
+    , primary : Bool
     }
+
+
+getRecycledProcess : Material -> List Process -> Result String (Maybe Process)
+getRecycledProcess material processes =
+    case material.recycledUuid of
+        Just uuid ->
+            processes
+                |> Process.findByUuid uuid
+                |> Result.map Just
+
+        Nothing ->
+            Ok Nothing
 
 
 findByUuid : Process.Uuid -> List Material -> Result String Material
@@ -21,45 +35,45 @@ findByUuid uuid =
         >> Result.fromMaybe ("Impossible de récupérer la matière uuid=" ++ Process.uuidToString uuid)
 
 
-firstFromCategory : Category -> List Material -> Result String Material
-firstFromCategory category =
-    List.filter (.category >> (==) category)
-        >> List.head
-        >> Result.fromMaybe ("Aucune matière dans la catégorie " ++ Category.toString category)
+groupAll :
+    List Material
+    ->
+        ( ( List Material, List Material, List Material )
+        , ( List Material, List Material, List Material )
+        )
+groupAll =
+    List.sortBy .shortName
+        >> List.partition (.primary >> (==) True)
+        >> Tuple.mapBoth groupByCategories groupByCategories
 
 
-shortName : Material -> String
-shortName =
-    .name
-        >> String.replace "Fil de " ""
-        >> String.replace "Fil d'" ""
-        >> String.replace "Filament de " ""
-        >> String.replace "Filament d'" ""
-        >> String.replace "Filament bi-composant " ""
-        >> String.replace "Feuille de " ""
-        >> String.replace "Production de filament de " ""
-        >> String.replace "Production de fil de " ""
-        >> String.replace "Production de fil d'" ""
-        >> ucFirst
+groupByCategories : List Material -> ( List Material, List Material, List Material )
+groupByCategories materials =
+    ( materials |> List.filter (.category >> (==) Category.Natural)
+    , materials |> List.filter (.category >> (==) Category.Synthetic)
+    , materials |> List.filter (.category >> (==) Category.Recycled)
+    )
 
 
-ucFirst : String -> String
-ucFirst string =
-    case String.split "" string of
-        x :: rest ->
-            String.toUpper x :: rest |> String.join ""
+recycledRatioToString : Float -> String
+recycledRatioToString recycledRatio =
+    case round (recycledRatio * 100) of
+        0 ->
+            "Pas d'origine recyclée"
 
-        [] ->
-            string
+        p ->
+            String.fromInt p ++ "% d'origine recyclée"
 
 
 decode : Decoder Material
 decode =
-    Decode.map4 Material
+    Decode.map6 Material
         (Decode.field "uuid" (Decode.map Process.Uuid Decode.string))
         (Decode.field "name" Decode.string)
         (Decode.field "shortName" Decode.string)
         (Decode.field "category" Category.decode)
+        (Decode.field "recycledUuid" (Decode.maybe (Decode.map Process.Uuid Decode.string)))
+        (Decode.field "primary" Decode.bool)
 
 
 decodeList : Decoder (List Material)
@@ -74,6 +88,12 @@ encode v =
         , ( "name", v.name |> Encode.string )
         , ( "shortName", Encode.string v.shortName )
         , ( "category", v.category |> Category.toString |> Encode.string )
+        , ( "recycledUuid"
+          , v.recycledUuid
+                |> Maybe.map (Process.uuidToString >> Encode.string)
+                |> Maybe.withDefault Encode.null
+          )
+        , ( "primary", Encode.bool v.primary )
         ]
 
 

@@ -21,6 +21,7 @@ type alias Inputs =
     , countries : List Country
     , dyeingWeighting : Maybe Float
     , airTransportRatio : Maybe Float
+    , recycledRatio : Maybe Float
     }
 
 
@@ -32,6 +33,7 @@ type alias Query =
     , countries : List Country.Code
     , dyeingWeighting : Maybe Float
     , airTransportRatio : Maybe Float
+    , recycledRatio : Maybe Float
     }
 
 
@@ -53,6 +55,7 @@ fromQuery db query =
             , countries = countries_
             , dyeingWeighting = query.dyeingWeighting
             , airTransportRatio = query.airTransportRatio
+            , recycledRatio = query.recycledRatio
             }
     in
     Result.map3 build
@@ -62,13 +65,14 @@ fromQuery db query =
 
 
 toQuery : Inputs -> Query
-toQuery { mass, material, product, countries, airTransportRatio, dyeingWeighting } =
+toQuery { mass, material, product, countries, airTransportRatio, dyeingWeighting, recycledRatio } =
     { mass = mass
     , material = material.uuid
     , product = product.id
     , countries = countries |> List.map .code
     , dyeingWeighting = dyeingWeighting
     , airTransportRatio = airTransportRatio
+    , recycledRatio = recycledRatio
     }
 
 
@@ -106,6 +110,20 @@ updateStepCountry index code query =
     }
 
 
+updateMaterial : Material -> Query -> Query
+updateMaterial material query =
+    { query
+        | material = material.uuid
+        , recycledRatio =
+            -- ensure resetting recycledRatio when material is changed
+            if material.uuid /= query.material then
+                Nothing
+
+            else
+                query.recycledRatio
+    }
+
+
 defaultQuery : Query
 defaultQuery =
     tShirtCotonIndia
@@ -126,6 +144,7 @@ tShirtCotonFrance =
         ]
     , dyeingWeighting = Nothing
     , airTransportRatio = Nothing
+    , recycledRatio = Nothing
     }
 
 
@@ -186,6 +205,7 @@ jupeCircuitAsie =
         ]
     , dyeingWeighting = Nothing
     , airTransportRatio = Nothing
+    , recycledRatio = Nothing
     }
 
 
@@ -204,6 +224,7 @@ manteauCircuitEurope =
         ]
     , dyeingWeighting = Nothing
     , airTransportRatio = Nothing
+    , recycledRatio = Nothing
     }
 
 
@@ -222,6 +243,7 @@ pantalonCircuitEurope =
         ]
     , dyeingWeighting = Nothing
     , airTransportRatio = Nothing
+    , recycledRatio = Nothing
     }
 
 
@@ -240,6 +262,7 @@ robeCircuitBangladesh =
         ]
     , dyeingWeighting = Nothing
     , airTransportRatio = Nothing
+    , recycledRatio = Nothing
     }
 
 
@@ -256,13 +279,14 @@ presets =
 
 decode : Decoder Inputs
 decode =
-    Decode.map6 Inputs
+    Decode.map7 Inputs
         (Decode.field "mass" (Decode.map Mass.kilograms Decode.float))
         (Decode.field "material" Material.decode)
         (Decode.field "product" Product.decode)
         (Decode.field "countries" (Decode.list Country.decode))
         (Decode.field "dyeingWeighting" (Decode.maybe Decode.float))
         (Decode.field "airTransportRatio" (Decode.maybe Decode.float))
+        (Decode.field "recycledRatio" (Decode.maybe Decode.float))
 
 
 encode : Inputs -> Encode.Value
@@ -279,13 +303,14 @@ encode inputs =
 
 decodeQuery : Decoder Query
 decodeQuery =
-    Decode.map6 Query
+    Decode.map7 Query
         (Decode.field "mass" (Decode.map Mass.kilograms Decode.float))
         (Decode.field "material" (Decode.map Process.Uuid Decode.string))
         (Decode.field "product" (Decode.map Product.Id Decode.string))
         (Decode.field "countries" (Decode.list (Decode.map Country.Code Decode.string)))
         (Decode.field "dyeingWeighting" (Decode.maybe Decode.float))
         (Decode.field "airTransportRatio" (Decode.maybe Decode.float))
+        (Decode.field "recycledRatio" (Decode.maybe Decode.float))
 
 
 encodeQuery : Query -> Encode.Value
@@ -297,6 +322,7 @@ encodeQuery query =
         , ( "countries", Encode.list (Country.codeToString >> Encode.string) query.countries )
         , ( "dyeingWeighting", query.dyeingWeighting |> Maybe.map Encode.float |> Maybe.withDefault Encode.null )
         , ( "airTransportRatio", query.airTransportRatio |> Maybe.map Encode.float |> Maybe.withDefault Encode.null )
+        , ( "recycledRatio", query.recycledRatio |> Maybe.map Encode.float |> Maybe.withDefault Encode.null )
         ]
 
 

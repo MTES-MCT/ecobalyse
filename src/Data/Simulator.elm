@@ -4,6 +4,7 @@ import Data.Db exposing (Db)
 import Data.Formula as Formula
 import Data.Inputs as Inputs exposing (Inputs)
 import Data.LifeCycle as LifeCycle exposing (LifeCycle)
+import Data.Material as Material
 import Data.Process as Process
 import Data.Step as Step exposing (Step)
 import Data.Transport as Transport
@@ -109,7 +110,7 @@ computeMakingCo2Score { processes } ({ inputs } as simulator) =
                     |> updateLifeCycleStep Step.Making
                         (\({ country } as step) ->
                             let
-                                elecCC =
+                                countryElecCC =
                                     processes
                                         -- FIXME: handle result or provide direct access
                                         |> Process.findByUuid country.electricity
@@ -118,7 +119,7 @@ computeMakingCo2Score { processes } ({ inputs } as simulator) =
 
                                 { kwh, co2 } =
                                     step.mass
-                                        |> Formula.makingCo2 makingProcess elecCC
+                                        |> Formula.makingCo2 makingProcess countryElecCC
                             in
                             { step | kwh = kwh, co2 = co2 }
                         )
@@ -160,14 +161,28 @@ computeDyeingCo2Score { processes } simulator =
 
 computeMaterialAndSpinningCo2Score : Db -> Simulator -> Result String Simulator
 computeMaterialAndSpinningCo2Score { processes } ({ inputs } as simulator) =
-    processes
-        |> Process.findByUuid inputs.material.uuid
-        |> Result.map
-            (\materialProcess ->
-                simulator
-                    |> updateLifeCycleStep Step.MaterialAndSpinning
-                        (\step -> { step | co2 = Formula.materialCo2 materialProcess step.mass })
-            )
+    Result.map2
+        (\materialProcess maybeRecycledProcess ->
+            simulator
+                |> updateLifeCycleStep Step.MaterialAndSpinning
+                    (\step ->
+                        { step
+                            | co2 =
+                                case ( maybeRecycledProcess, inputs.recycledRatio ) of
+                                    ( Just recycledProcess, Just ratio ) ->
+                                        Formula.materialRecycledCo2
+                                            materialProcess.climateChange
+                                            recycledProcess.climateChange
+                                            ratio
+                                            step.mass
+
+                                    _ ->
+                                        Formula.materialCo2 materialProcess.climateChange step.mass
+                        }
+                    )
+        )
+        (Process.findByUuid inputs.material.uuid processes)
+        (Material.getRecycledProcess inputs.material processes)
 
 
 computeWeavingKnittingCo2Score : Db -> Simulator -> Result String Simulator
@@ -216,7 +231,7 @@ computeMakingStepWaste { processes } ({ inputs } as simulator) =
                 let
                     { mass, waste } =
                         inputs.mass
-                            |> Formula.makingWaste makingProcess inputs.product.pcrWaste
+                            |> Formula.makingWaste makingProcess.waste inputs.product.pcrWaste
                 in
                 simulator
                     |> updateLifeCycleStep Step.Making (\step -> { step | mass = mass, waste = waste })
@@ -236,7 +251,7 @@ computeWeavingKnittingStepWaste { processes } ({ inputs, lifeCycle } as simulato
                     { mass, waste } =
                         lifeCycle
                             |> LifeCycle.getStepMass Step.Making
-                            |> Formula.genericWaste fabricProcess
+                            |> Formula.genericWaste fabricProcess.waste
                 in
                 simulator
                     |> updateLifeCycleStep Step.WeavingKnitting
@@ -248,20 +263,26 @@ computeWeavingKnittingStepWaste { processes } ({ inputs, lifeCycle } as simulato
 
 computeMaterialStepWaste : Db -> Simulator -> Result String Simulator
 computeMaterialStepWaste { processes } ({ inputs, lifeCycle } as simulator) =
-    processes
-        |> Process.findByUuid inputs.material.uuid
-        |> Result.map
-            (\materialProcess ->
-                let
-                    { mass, waste } =
-                        lifeCycle
-                            |> LifeCycle.getStepMass Step.WeavingKnitting
-                            |> Formula.genericWaste materialProcess
-                in
-                simulator
-                    |> updateLifeCycleStep Step.MaterialAndSpinning
-                        (\step -> { step | mass = mass, waste = waste })
-            )
+    Result.map2
+        (\materialProcess maybeRecycledProcess ->
+            let
+                { mass, waste } =
+                    lifeCycle
+                        |> LifeCycle.getStepMass Step.WeavingKnitting
+                        |> (case ( maybeRecycledProcess, inputs.recycledRatio ) of
+                                ( Just recycledProcess, Just ratio ) ->
+                                    Formula.materialRecycledWaste materialProcess.waste recycledProcess.waste ratio
+
+                                _ ->
+                                    Formula.genericWaste materialProcess.waste
+                           )
+            in
+            simulator
+                |> updateLifeCycleStep Step.MaterialAndSpinning
+                    (\step -> { step | mass = mass, waste = waste })
+        )
+        (Process.findByUuid inputs.material.uuid processes)
+        (Material.getRecycledProcess inputs.material processes)
 
 
 computeTransportSummaries : Db -> Simulator -> Result String Simulator

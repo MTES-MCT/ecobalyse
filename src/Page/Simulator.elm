@@ -8,7 +8,6 @@ import Data.Gitbook as Gitbook
 import Data.Inputs as Inputs
 import Data.Key as Key
 import Data.Material as Material exposing (Material)
-import Data.Material.Category as Category exposing (Category)
 import Data.Process as Process
 import Data.Product as Product exposing (Product)
 import Data.Session as Session exposing (Session)
@@ -28,6 +27,7 @@ import Views.Icon as Icon
 import Views.Link as Link
 import Views.Markdown as MarkdownView
 import Views.Modal as ModalView
+import Views.RangeSlider as RangeSlider
 import Views.Spinner as SpinnerView
 import Views.Step as StepView
 import Views.Summary as SummaryView
@@ -64,7 +64,7 @@ type Msg
     | UpdateDyeingWeighting (Maybe Float)
     | UpdateMassInput String
     | UpdateMaterial Process.Uuid
-    | UpdateMaterialCategory Category
+    | UpdateRecycledRatio (Maybe Float)
     | UpdateStepCountry Int Country.Code
     | UpdateProduct Product.Id
 
@@ -151,19 +151,14 @@ update ({ db } as session) msg ({ query } as model) =
             case Material.findByUuid materialId db.materials of
                 Ok material ->
                     ( model, session, Cmd.none )
-                        |> updateQuery { query | material = material.uuid }
+                        |> updateQuery (Inputs.updateMaterial material query)
 
                 Err error ->
                     ( model, session |> Session.notifyError "Erreur de matière première" error, Cmd.none )
 
-        UpdateMaterialCategory category ->
-            case db.materials |> Material.firstFromCategory category |> Result.map .uuid of
-                Ok materialId ->
-                    ( model, session, Cmd.none )
-                        |> updateQuery { query | material = materialId }
-
-                Err error ->
-                    ( model, session |> Session.notifyError "Erreur de catégorie de matière" error, Cmd.none )
+        UpdateRecycledRatio recycledRatio ->
+            ( model, session, Cmd.none )
+                |> updateQuery { query | recycledRatio = recycledRatio }
 
         UpdateStepCountry index code ->
             ( model, session, Cmd.none )
@@ -200,52 +195,58 @@ massField massInput =
         ]
 
 
-materialCategoryField : Material -> Html Msg
-materialCategoryField material =
-    div [ class "mb-2" ]
-        [ div [ class "form-label fw-bold" ] [ text "Matières premières" ]
-        , [ ( Category.Natural, "leaf" )
-          , ( Category.Synthetic, "lab" )
-          , ( Category.Recycled, "recycle" )
-          ]
-            |> List.map
-                (\( m, icon ) ->
-                    button
-                        [ type_ "button"
-                        , classList
-                            [ ( "btn", True )
-                            , ( "btn-outline-primary", material.category /= m )
-                            , ( "btn-primary", material.category == m )
-                            , ( "text-truncate", True )
-                            ]
-                        , onClick (UpdateMaterialCategory m)
-                        ]
-                        [ span [ class "me-1" ] [ Icon.icon icon ]
-                        , m |> Category.toString |> text
-                        ]
-                )
-            |> div [ class "btn-group w-100" ]
-        ]
+materialFormSet : Db -> Maybe Float -> Material -> Html Msg
+materialFormSet db recycledRatio material =
+    let
+        ( ( natural1, synthetic1, recycled1 ), ( natural2, synthetic2, recycled2 ) ) =
+            Material.groupAll db.materials
 
+        toOption m =
+            option
+                [ value <| Process.uuidToString m.uuid
+                , selected (material.uuid == m.uuid)
+                , title m.name
+                ]
+                [ text m.shortName ]
 
-materialField : Db -> Material -> Html Msg
-materialField db material =
-    db.materials
-        |> List.filter (.category >> (==) material.category)
-        |> List.map
-            (\m ->
-                option
-                    [ value <| Process.uuidToString m.uuid
-                    , selected (material.uuid == m.uuid)
-                    , title m.name
+        toGroup name materials =
+            if materials == [] then
+                text ""
+
+            else
+                materials
+                    |> List.map toOption
+                    |> optgroup [ attribute "label" name ]
+    in
+    div [ class "row mb-2" ]
+        [ div [ class "col-md-6" ]
+            [ div [ class "form-label fw-bold" ]
+                [ text "Matières premières" ]
+            , [ toGroup "Matières naturelles" natural1
+              , toGroup "Matières synthétiques" synthetic1
+              , toGroup "Matières recyclées" recycled1
+              , toGroup "Autres matières naturelles" natural2
+              , toGroup "Autres matières synthétiques" synthetic2
+              , toGroup "Autres matières recyclées" recycled2
+              ]
+                |> select
+                    [ id "material"
+                    , class "form-select"
+                    , onInput (Process.Uuid >> UpdateMaterial)
                     ]
-                    [ text m.name ]
-            )
-        |> select
-            [ id "material"
-            , class "form-select"
-            , onInput (Process.Uuid >> UpdateMaterial)
             ]
+        , div [ class "col-md-6" ]
+            [ div [ class "form-label fw-bold mb-0 mb-xl-3" ]
+                [ text "Part de matière recyclée" ]
+            , RangeSlider.view
+                { id = "recycledRatio"
+                , update = UpdateRecycledRatio
+                , value = Maybe.withDefault 0 recycledRatio
+                , toString = Material.recycledRatioToString
+                , disabled = material.recycledUuid == Nothing
+                }
+            ]
+        ]
 
 
 productField : Db -> Product -> Html Msg
@@ -433,24 +434,23 @@ modalView modal =
 
 
 simulatorView : Session -> Model -> Simulator -> Html Msg
-simulatorView ({ db } as session) model simulator =
+simulatorView ({ db } as session) model ({ inputs } as simulator) =
     div [ class "row" ]
         [ div [ class "col-lg-7" ]
             [ div [ class "row" ]
-                [ div [ class "col-6 mb-2" ]
+                [ div [ class "col-md-6 mb-2" ]
                     [ productField db simulator.inputs.product
                     ]
-                , div [ class "col-6 mb-2" ]
+                , div [ class "col-md-6 mb-2" ]
                     [ massField model.massInput
                     ]
                 ]
-            , materialCategoryField simulator.inputs.material
-            , div [ class "mb-1" ]
-                [ materialField db simulator.inputs.material ]
+            , materialFormSet db inputs.recycledRatio inputs.material
             , displayModeView model.displayMode
             , lifeCycleStepsView db model.displayMode simulator
             , div [ class "d-flex align-items-center justify-content-between mt-3 mb-5" ]
-                [ a [ Route.href Route.Home ] [ text "« Retour à l'accueil" ]
+                [ a [ Route.href Route.Home ]
+                    [ text "« Retour à l'accueil" ]
                 , button
                     [ class "btn btn-secondary"
                     , onClick Reset
@@ -461,8 +461,13 @@ simulatorView ({ db } as session) model simulator =
             ]
         , div [ class "col-lg-5" ]
             [ div [ class "d-flex flex-column gap-3 mb-3 sticky-md-top", style "top" "7px" ]
-                [ div [ class "Summary" ] [ SummaryView.view False model.simulator ]
-                , ComparatorView.view { session = session, simulator = simulator, openDocModal = OpenDocModal }
+                [ div [ class "Summary" ]
+                    [ SummaryView.view False model.simulator ]
+                , ComparatorView.view
+                    { session = session
+                    , simulator = simulator
+                    , openDocModal = OpenDocModal
+                    }
                 , feedbackView
                 , shareLinkView session simulator
                 ]
