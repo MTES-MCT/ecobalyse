@@ -55,14 +55,25 @@ groupByCategories materials =
     )
 
 
+fullName : Maybe Float -> Material -> String
+fullName recycledRatio material =
+    material.shortName
+        ++ (case recycledRatio of
+                Nothing ->
+                    ""
+
+                Just ratio ->
+                    if ratio == 0 then
+                        ""
+
+                    else
+                        " (" ++ recycledRatioToString ratio ++ ")"
+           )
+
+
 recycledRatioToString : Float -> String
 recycledRatioToString recycledRatio =
-    case round (recycledRatio * 100) of
-        0 ->
-            "Pas d'origine recyclée"
-
-        p ->
-            String.fromInt p ++ "% d'origine recyclée"
+    String.fromInt (round (recycledRatio * 100)) ++ "% d'origine recyclée"
 
 
 decode : Decoder Material

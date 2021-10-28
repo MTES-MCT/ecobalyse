@@ -2,6 +2,7 @@ module Views.Summary exposing (..)
 
 import Data.Inputs as Inputs
 import Data.LifeCycle as LifeCycle
+import Data.Material as Material
 import Data.Simulator exposing (Simulator)
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -18,7 +19,7 @@ summaryView reusable ({ inputs, lifeCycle } as simulator) =
             [ span [ class "text-nowrap" ] [ strong [] [ text inputs.product.name ] ]
             , span
                 [ class "text-truncate", title inputs.material.name ]
-                [ text <| "\u{00A0}" ++ inputs.material.shortName ++ "\u{00A0}" ]
+                [ text <| "\u{00A0}" ++ Material.fullName inputs.recycledRatio inputs.material ++ "\u{00A0}" ]
             , span [ class "text-nowrap" ] [ strong [] [ Format.kg inputs.mass ] ]
             ]
         , div [ class "card-body px-1 d-grid gap-3 text-white bg-primary" ]
