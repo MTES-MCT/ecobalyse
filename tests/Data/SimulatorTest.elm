@@ -97,5 +97,28 @@ suite =
                     |> expectCo2 40.22279738067047
                     |> asTest "should compute co2 score for robeCircuitBangladesh using custom air transport ratio"
                 ]
+            , describe "custom recycled ratio"
+                [ { tShirtCotonFrance | recycledRatio = Just 0.5 }
+                    |> expectCo2 3.4545956055533633
+                    |> asTest "should compute co2 score for tShirtCotonFrance using custom recycled ratio"
+                , { tShirtCotonEurope | recycledRatio = Just 0.5 }
+                    |> expectCo2 6.4992048523287105
+                    |> asTest "should compute co2 score for tShirtCotonEurope using custom recycled ratio"
+                , { tShirtCotonAsie | recycledRatio = Just 0.5 }
+                    |> expectCo2 7.784156574119172
+                    |> asTest "should compute co2 score for tShirtCotonAsie using custom recycled ratio"
+                , { jupeCircuitAsie | recycledRatio = Just 0.5 }
+                    |> expectCo2 31.109978958668865
+                    |> asTest "should compute co2 score for jupeCircuitAsie using custom recycled ratio"
+                , { manteauCircuitEurope | recycledRatio = Just 0.5 }
+                    |> expectCo2 2068.4385835709104
+                    |> asTest "should compute co2 score for manteauCircuitEurope using custom recycled ratio"
+                , { pantalonCircuitEurope | recycledRatio = Just 0.5 }
+                    |> expectCo2 25.228602127735577
+                    |> asTest "should compute co2 score for pantalonCircuitEurope using custom recycled ratio"
+                , { robeCircuitBangladesh | recycledRatio = Just 0.5 }
+                    |> expectCo2 39.82171491582047
+                    |> asTest "should compute co2 score for robeCircuitBangladesh using custom recycled ratio"
+                ]
             ]
         ]
