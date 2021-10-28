@@ -110,7 +110,7 @@ computeMakingCo2Score { processes } ({ inputs } as simulator) =
                     |> updateLifeCycleStep Step.Making
                         (\({ country } as step) ->
                             let
-                                elecCC =
+                                countryElecCC =
                                     processes
                                         -- FIXME: handle result or provide direct access
                                         |> Process.findByUuid country.electricity
@@ -119,7 +119,7 @@ computeMakingCo2Score { processes } ({ inputs } as simulator) =
 
                                 { kwh, co2 } =
                                     step.mass
-                                        |> Formula.makingCo2 makingProcess elecCC
+                                        |> Formula.makingCo2 makingProcess countryElecCC
                             in
                             { step | kwh = kwh, co2 = co2 }
                         )
@@ -170,10 +170,14 @@ computeMaterialAndSpinningCo2Score { processes } ({ inputs } as simulator) =
                             | co2 =
                                 case ( maybeRecycledProcess, inputs.recycledRatio ) of
                                     ( Just recycledProcess, Just ratio ) ->
-                                        Formula.materialRecycledCo2 materialProcess recycledProcess ratio step.mass
+                                        Formula.materialRecycledCo2
+                                            materialProcess.climateChange
+                                            recycledProcess.climateChange
+                                            ratio
+                                            step.mass
 
                                     _ ->
-                                        Formula.materialCo2 materialProcess step.mass
+                                        Formula.materialCo2 materialProcess.climateChange step.mass
                         }
                     )
         )
@@ -227,7 +231,7 @@ computeMakingStepWaste { processes } ({ inputs } as simulator) =
                 let
                     { mass, waste } =
                         inputs.mass
-                            |> Formula.makingWaste makingProcess inputs.product.pcrWaste
+                            |> Formula.makingWaste makingProcess.waste inputs.product.pcrWaste
                 in
                 simulator
                     |> updateLifeCycleStep Step.Making (\step -> { step | mass = mass, waste = waste })
@@ -247,7 +251,7 @@ computeWeavingKnittingStepWaste { processes } ({ inputs, lifeCycle } as simulato
                     { mass, waste } =
                         lifeCycle
                             |> LifeCycle.getStepMass Step.Making
-                            |> Formula.weavingKnittingWaste fabricProcess
+                            |> Formula.genericWaste fabricProcess.waste
                 in
                 simulator
                     |> updateLifeCycleStep Step.WeavingKnitting
@@ -267,10 +271,10 @@ computeMaterialStepWaste { processes } ({ inputs, lifeCycle } as simulator) =
                         |> LifeCycle.getStepMass Step.WeavingKnitting
                         |> (case ( maybeRecycledProcess, inputs.recycledRatio ) of
                                 ( Just recycledProcess, Just ratio ) ->
-                                    Formula.materialRecycledWaste materialProcess recycledProcess ratio
+                                    Formula.materialRecycledWaste materialProcess.waste recycledProcess.waste ratio
 
                                 _ ->
-                                    Formula.materialWaste materialProcess
+                                    Formula.genericWaste materialProcess.waste
                            )
             in
             simulator
