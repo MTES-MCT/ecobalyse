@@ -170,14 +170,16 @@ computeMaterialAndSpinningCo2Score { processes } ({ inputs } as simulator) =
                             | co2 =
                                 case ( maybeRecycledProcess, inputs.recycledRatio ) of
                                     ( Just recycledProcess, Just ratio ) ->
-                                        Formula.materialRecycledCo2
-                                            materialProcess.climateChange
-                                            recycledProcess.climateChange
-                                            ratio
-                                            step.mass
+                                        step.mass
+                                            |> Formula.materialRecycledCo2
+                                                { pristineClimateChange = materialProcess.climateChange
+                                                , recycledClimateChange = recycledProcess.climateChange
+                                                , recycledRatio = ratio
+                                                }
 
                                     _ ->
-                                        Formula.materialCo2 materialProcess.climateChange step.mass
+                                        step.mass
+                                            |> Formula.materialCo2 materialProcess.climateChange
                         }
                     )
         )
@@ -231,7 +233,10 @@ computeMakingStepWaste { processes } ({ inputs } as simulator) =
                 let
                     { mass, waste } =
                         inputs.mass
-                            |> Formula.makingWaste makingProcess.waste inputs.product.pcrWaste
+                            |> Formula.makingWaste
+                                { processWaste = makingProcess.waste
+                                , pcrWaste = inputs.product.pcrWaste
+                                }
                 in
                 simulator
                     |> updateLifeCycleStep Step.Making (\step -> { step | mass = mass, waste = waste })
@@ -271,7 +276,11 @@ computeMaterialStepWaste { processes } ({ inputs, lifeCycle } as simulator) =
                         |> LifeCycle.getStepMass Step.WeavingKnitting
                         |> (case ( maybeRecycledProcess, inputs.recycledRatio ) of
                                 ( Just recycledProcess, Just ratio ) ->
-                                    Formula.materialRecycledWaste materialProcess.waste recycledProcess.waste ratio
+                                    Formula.materialRecycledWaste
+                                        { pristineWaste = materialProcess.waste
+                                        , recycledWaste = recycledProcess.waste
+                                        , recycledRatio = ratio
+                                        }
 
                                 _ ->
                                     Formula.genericWaste materialProcess.waste
