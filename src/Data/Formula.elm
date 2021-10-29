@@ -156,19 +156,25 @@ materialRecycledCo2 { pristineClimateChange, recycledClimateChange, recycledRati
     Quantity.plus recycledCo2 pristineCo2 |> Mass.inKilograms
 
 
-makingCo2 : Process -> Float -> Mass -> { kwh : Energy, co2 : Float }
-makingCo2 makingProcess countryElecCC baseMass =
+makingCo2 :
+    { makingClimateChange : Float
+    , makingElec : Energy
+    , countryElecClimateChange : Float
+    }
+    -> Mass
+    -> { kwh : Energy, co2 : Float }
+makingCo2 { makingClimateChange, makingElec, countryElecClimateChange } baseMass =
     let
         makingCo2_ =
-            makingProcess.climateChange
+            makingClimateChange
                 |> (*) (Mass.inKilograms baseMass)
 
         kwh =
-            makingProcess.elec
+            makingElec
                 |> Quantity.multiplyBy (Mass.inKilograms baseMass)
 
         elecCo2 =
-            countryElecCC
+            countryElecClimateChange
                 |> (*) (Energy.inKilowattHours kwh)
     in
     { co2 = makingCo2_ + elecCo2, kwh = kwh }
