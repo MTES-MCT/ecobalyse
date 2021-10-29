@@ -16,7 +16,7 @@ type alias Process =
     , name : String
     , uuid : Uuid
     , climateChange : Float -- kgCO2e per kg of material to process
-    , heat : Energy -- MJ per kg of material to process
+    , heat : Energy --  MJ per kg of material to process
     , elec_pppm : Float -- kWh/(pick,m) per kg of material to process
     , elec : Energy -- MJ per kg of material to process
     , waste : Mass -- kg of textile wasted per kg of material to process

@@ -1,6 +1,7 @@
 module Data.FormulaTest exposing (..)
 
 import Data.Formula as Formula
+import Energy
 import Expect exposing (Expectation)
 import Mass exposing (Mass)
 import Test exposing (..)
@@ -23,7 +24,7 @@ suite =
             [ kg 1
                 |> Formula.genericWaste (kg 0.5)
                 |> Expect.equal { mass = kg 1.5, waste = kg 0.5 }
-                |> asTest "genericWaste should compute material waste"
+                |> asTest "should compute material waste"
             ]
         , describe "Formula.materialRecycledWaste"
             [ kg 1
@@ -33,7 +34,7 @@ suite =
                     , recycledRatio = 0.5
                     }
                 |> Expect.equal { mass = kg 1.375, waste = kg 0.375 }
-                |> asTest "materialRecycledWaste should compute material waste from ratioed recycled material"
+                |> asTest "should compute material waste from ratioed recycled material"
             ]
         , describe "Formula.makingWaste"
             [ kg 1
@@ -42,13 +43,13 @@ suite =
                     , pcrWaste = 0.5
                     }
                 |> Expect.equal { mass = kg 3, waste = kg 2 }
-                |> asTest "makingWaste should compute material waste from material and product waste data"
+                |> asTest "should compute material waste from material and product waste data"
             ]
         , describe "Formula.materialCo2"
             [ kg 1
                 |> Formula.materialCo2 0.5
                 |> Expect.within (Expect.Absolute 0.01) 0.5
-                |> asTest "materialCo2 should compute co2 from climate change process data"
+                |> asTest "should compute co2 from climate change process data"
             ]
         , describe "Formula.materialRecycledCo2"
             [ kg 1
@@ -58,6 +59,25 @@ suite =
                     , recycledRatio = 0.5
                     }
                 |> Expect.within (Expect.Absolute 0.01) 0.5
-                |> asTest "materialRecycledCo2 should compute co2 from ratioed recycled material"
+                |> asTest "should compute co2 from ratioed recycled material"
             ]
+        , describe "Formula.makingCo2"
+            (let
+                res =
+                    kg 1
+                        |> Formula.makingCo2
+                            { makingClimateChange = 0.5
+                            , makingElec = Energy.megajoules 0.5
+                            , countryElecClimateChange = 0.5
+                            }
+             in
+             [ res.co2
+                |> Expect.within (Expect.Absolute 0.01) 0.57
+                |> asTest "should compute Making step co2 from process and country data"
+             , res.kwh
+                |> Energy.inKilowattHours
+                |> Expect.within (Expect.Absolute 0.01) 0.138
+                |> asTest "should compute Making step kwh from process and country data"
+             ]
+            )
         ]

@@ -119,7 +119,11 @@ computeMakingCo2Score { processes } ({ inputs } as simulator) =
 
                                 { kwh, co2 } =
                                     step.mass
-                                        |> Formula.makingCo2 makingProcess countryElecCC
+                                        |> Formula.makingCo2
+                                            { makingClimateChange = makingProcess.climateChange
+                                            , makingElec = makingProcess.elec
+                                            , countryElecClimateChange = countryElecCC
+                                            }
                             in
                             { step | kwh = kwh, co2 = co2 }
                         )
