@@ -1,5 +1,6 @@
 module Data.LifeCycleTest exposing (..)
 
+import Data.Co2 as Co2
 import Data.Country as Country
 import Data.Inputs exposing (tShirtCotonFrance)
 import Data.LifeCycle as LifeCycle
@@ -21,7 +22,7 @@ suite =
                                 |> Result.andThen (LifeCycle.computeTransportSummaries db)
                                 |> Result.map LifeCycle.computeTransportSummary
                                 |> Expect.equal
-                                    (Ok { air = 0, road = 4500, sea = 25548, co2 = 0 })
+                                    (Ok { road = 4500, sea = 25548, air = 0, co2 = Co2.kgCo2e 0 })
                     , test "should compute custom distances" <|
                         \_ ->
                             LifeCycle.fromQuery db
@@ -37,7 +38,7 @@ suite =
                                 |> Result.andThen (LifeCycle.computeTransportSummaries db)
                                 |> Result.map LifeCycle.computeTransportSummary
                                 |> Expect.equal
-                                    (Ok { air = 0, co2 = 0, road = 3500, sea = 37508 })
+                                    (Ok { road = 3500, sea = 37508, air = 0, co2 = Co2.kgCo2e 0 })
                     ]
                 ]
 

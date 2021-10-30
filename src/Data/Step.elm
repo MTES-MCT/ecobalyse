@@ -4,10 +4,10 @@ import Data.Co2 as Co2 exposing (Co2e)
 import Data.Country as Country exposing (Country)
 import Data.Db exposing (Db)
 import Data.Formula as Formula
-import Data.Gitbook as Gitbook
+import Data.Gitbook as Gitbook exposing (Path(..))
 import Data.Inputs exposing (Inputs)
 import Data.Process as Process exposing (Process)
-import Data.Transport as Transport exposing (Transport)
+import Data.Transport as Transport exposing (Transport, defaultInland, defaultSummary)
 import Energy exposing (Energy)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
@@ -56,7 +56,7 @@ create label editable country =
     , editable = editable
     , mass = Mass.kilograms 0
     , waste = Mass.kilograms 0
-    , transport = Transport.defaultSummary
+    , transport = defaultSummary
     , co2 = Co2.kgCo2e 0
     , heat = Energy.megajoules 0
     , kwh = Energy.kilowattHours 0
@@ -151,7 +151,7 @@ computeTransportCo2 { seaTransport, airTransport } roadProcess mass { road, sea,
     { road = road
     , sea = sea
     , air = air
-    , co2 = roadCo2 |> Quantity.plus seaCo2 |> Quantity.plus airCo2 |> Co2.inKgCo2e
+    , co2 = roadCo2 |> Quantity.plus seaCo2 |> Quantity.plus airCo2
     }
 
 
@@ -164,7 +164,7 @@ initialTransportSummary wellKnown { label, mass } =
                 |> computeTransportCo2 wellKnown wellKnown.roadTransportPreMaking mass
 
         _ ->
-            { road = 0, sea = 0, air = 0, co2 = 0 }
+            defaultSummary
 
 
 computeTransportSummary : Step -> Transport -> Transport.Summary
@@ -173,19 +173,25 @@ computeTransportSummary step transport =
         Ennoblement ->
             -- Added intermediary defaultInland transport step to materialize
             -- Processing + Dyeing steps (see Excel)
-            { road = transport.road + Transport.defaultInland.road
-            , sea = transport.sea + Transport.defaultInland.sea
-            , air = 0
-            , co2 = 0
+            { defaultSummary
+                | road = transport.road + defaultInland.road
+                , sea = transport.sea + defaultInland.sea
             }
 
         Making ->
             -- Air transport only applies between the Making and the Distribution steps
-            { road = transport.road, sea = transport.sea, air = transport.air, co2 = 0 }
+            { defaultSummary
+                | road = transport.road
+                , sea = transport.sea
+                , air = transport.air
+            }
 
         _ ->
             -- All other steps don't use air transport at all
-            { road = transport.road, sea = transport.sea, air = 0, co2 = 0 }
+            { defaultSummary
+                | road = transport.road
+                , sea = transport.sea
+            }
 
 
 getRoadTransportProcess : Process.WellKnown -> Step -> Process

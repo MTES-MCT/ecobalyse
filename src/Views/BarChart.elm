@@ -24,7 +24,7 @@ makeBars simulator =
         maxScore =
             simulator.lifeCycle
                 |> Array.map (.co2 >> Co2.inKgCo2e)
-                |> Array.push simulator.transport.co2
+                |> Array.push (Co2.inKgCo2e simulator.transport.co2)
                 |> Array.toList
                 |> List.maximum
                 |> Maybe.withDefault 0
@@ -64,9 +64,9 @@ makeBars simulator =
 
         transportBar =
             { label = text "Transport total"
-            , co2 = simulator.transport.co2
-            , width = clamp 0 100 (simulator.transport.co2 / maxScore * toFloat 100)
-            , percent = simulator.transport.co2 / Co2.inKgCo2e simulator.co2 * toFloat 100
+            , co2 = Co2.inKgCo2e simulator.transport.co2
+            , width = clamp 0 100 (Co2.inKgCo2e simulator.transport.co2 / maxScore * toFloat 100)
+            , percent = Co2.inKgCo2e simulator.transport.co2 / Co2.inKgCo2e simulator.co2 * toFloat 100
             }
     in
     stepBars ++ [ transportBar ]
