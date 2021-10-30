@@ -1,7 +1,7 @@
 module Data.LifeCycle exposing (..)
 
 import Array exposing (Array)
-import Data.Co2 as Co2 exposing (Co2e)
+import Data.Co2 exposing (Co2e)
 import Data.Db exposing (Db)
 import Data.Inputs as Inputs exposing (Inputs)
 import Data.Step as Step exposing (Step)
@@ -59,11 +59,9 @@ computeFinalCo2Score : LifeCycle -> Co2e
 computeFinalCo2Score =
     Array.foldl
         (\{ co2, transport } finalScore ->
-            finalScore
-                |> Quantity.plus co2
-                |> Quantity.plus transport.co2
+            Quantity.sum [ finalScore, co2, transport.co2 ]
         )
-        (Co2.kgCo2e 0)
+        Quantity.zero
 
 
 getStep : Step.Label -> LifeCycle -> Maybe Step

@@ -46,7 +46,7 @@ emptyDistances =
 
 defaultSummary : Summary
 defaultSummary =
-    { road = 0, sea = 0, air = 0, co2 = Co2.kgCo2e 0 }
+    { road = 0, sea = 0, air = 0, co2 = Quantity.zero }
 
 
 defaultInland : Transport
@@ -122,7 +122,7 @@ getTransportBetween cA cB distances =
 
 toSummary : Transport -> Summary
 toSummary { road, air, sea } =
-    { road = road, sea = sea, air = air, co2 = Co2.kgCo2e 0 }
+    { road = road, sea = sea, air = air, co2 = Quantity.zero }
 
 
 decodeTransport : Decoder Transport
