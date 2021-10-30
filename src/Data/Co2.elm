@@ -38,12 +38,6 @@ inTonsCo2e (Quantity value) =
 co2ePerMass : Co2e -> Mass -> Co2e
 co2ePerMass cc =
     -- ref: https://github.com/ianmackenzie/elm-units/blob/master/doc/CustomUnits.md
-    -- > Mass.kilograms 0.170 |> Co2.co2ePerMass (Co2.kgCo2e 0.2) |> Co2.inKgCo2e
-    -- 0.034 : Float
-    -- > Mass.grams 170 |> Co2.co2ePerMass (Co2.kgCo2e 0.2) |> Co2.inKgCo2e
-    -- 0.034 : Float
-    -- > Mass.kilograms 0.170 |> Co2.co2ePerMass (Co2.kgCo2e 0.2)|>Co2.inGramsCo2e
-    -- 34 : Float
     Quantity.at (Quantity.per Mass.kilogram cc)
 
 
