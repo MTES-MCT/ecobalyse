@@ -1,5 +1,6 @@
 module Data.Formula exposing (..)
 
+import Data.Co2 as Co2 exposing (Co2)
 import Data.Process exposing (Process)
 import Data.Transport as Transport exposing (Transport)
 import Energy exposing (Energy)
@@ -128,9 +129,9 @@ dyeingCo2 ( dyeingLowProcess, dyeingHighProcess ) highDyeingWeighting heatCC ele
 
 {-| Compute co2 from climate change impact and mass
 -}
-materialCo2 : Float -> Mass -> Float
-materialCo2 climateChange mass =
-    climateChange * Mass.inKilograms mass
+materialCo2 : Co2.ClimateChange -> Mass -> Co2
+materialCo2 climateChange =
+    Co2.co2ePerMass climateChange
 
 
 {-| Compute co2 from ratioed material climate change impact and mass

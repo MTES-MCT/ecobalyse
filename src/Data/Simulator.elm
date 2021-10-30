@@ -1,5 +1,6 @@
 module Data.Simulator exposing (..)
 
+import Data.Co2 as Co2 exposing (Co2)
 import Data.Db exposing (Db)
 import Data.Formula as Formula
 import Data.Inputs as Inputs exposing (Inputs)
@@ -183,7 +184,8 @@ computeMaterialAndSpinningCo2Score { processes } ({ inputs } as simulator) =
 
                                     _ ->
                                         step.mass
-                                            |> Formula.materialCo2 materialProcess.climateChange
+                                            |> Co2.co2ePerMass (Co2.climateChange (Co2.kgCo2e materialProcess.climateChange))
+                                            |> Co2.inKgCo2e
                         }
                     )
         )

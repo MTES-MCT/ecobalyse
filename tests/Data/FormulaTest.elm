@@ -45,12 +45,13 @@ suite =
                 |> Expect.equal { mass = kg 3, waste = kg 2 }
                 |> asTest "should compute material waste from material and product waste data"
             ]
-        , describe "Formula.materialCo2"
-            [ kg 1
-                |> Formula.materialCo2 0.5
-                |> Expect.within (Expect.Absolute 0.01) 0.5
-                |> asTest "should compute co2 from climate change process data"
-            ]
+
+        -- , describe "Formula.materialCo2"
+        --     [ kg 1
+        --         |> Formula.materialCo2 0.5
+        --         |> Expect.within (Expect.Absolute 0.01) 0.5
+        --         |> asTest "should compute co2 from climate change process data"
+        --     ]
         , describe "Formula.materialRecycledCo2"
             [ kg 1
                 |> Formula.materialRecycledCo2
