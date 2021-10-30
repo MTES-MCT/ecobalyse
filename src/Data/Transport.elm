@@ -1,9 +1,11 @@
 module Data.Transport exposing (..)
 
+import Data.Co2 as Co2 exposing (Co2e)
 import Data.Country as Country
 import Dict.Any as Dict exposing (AnyDict)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
+import Quantity
 
 
 type alias Km =
@@ -29,7 +31,7 @@ type alias Transport =
 
 type alias Summary =
     -- TODO: use elm-unit Distance.kilometers
-    { road : Km, sea : Km, air : Km, co2 : Float }
+    { road : Km, sea : Km, air : Km, co2 : Co2e }
 
 
 default : Transport
@@ -44,7 +46,7 @@ emptyDistances =
 
 defaultSummary : Summary
 defaultSummary =
-    { road = 0, sea = 0, air = 0, co2 = 0 }
+    { road = 0, sea = 0, air = 0, co2 = Co2.kgCo2e 0 }
 
 
 defaultInland : Transport
@@ -58,7 +60,7 @@ addSummary sA sB =
         | road = sA.road + sB.road
         , sea = sA.sea + sB.sea
         , air = sA.air + sB.air
-        , co2 = sA.co2 + sB.co2
+        , co2 = sA.co2 |> Quantity.plus sB.co2
     }
 
 
@@ -120,7 +122,7 @@ getTransportBetween cA cB distances =
 
 toSummary : Transport -> Summary
 toSummary { road, air, sea } =
-    { road = road, sea = sea, air = air, co2 = 0 }
+    { road = road, sea = sea, air = air, co2 = Co2.kgCo2e 0 }
 
 
 decodeTransport : Decoder Transport
@@ -146,7 +148,7 @@ decodeSummary =
         (Decode.field "road" Decode.float)
         (Decode.field "sea" Decode.float)
         (Decode.field "air" Decode.float)
-        (Decode.field "co2" Decode.float)
+        (Decode.field "co2" Co2.decodeKgCo2e)
 
 
 encodeSummary : Summary -> Encode.Value
@@ -155,7 +157,7 @@ encodeSummary summary =
         [ ( "road", Encode.float summary.road )
         , ( "sea", Encode.float summary.sea )
         , ( "air", Encode.float summary.air )
-        , ( "co2", Encode.float summary.co2 )
+        , ( "co2", Co2.encodeKgCo2e summary.co2 )
         ]
 
 

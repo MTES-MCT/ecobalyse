@@ -157,7 +157,7 @@ simpleView ({ product, index, current } as config) =
                     , div [ class "fs-7" ]
                         [ span [ class "me-1 align-bottom" ] [ Icon.info ]
                         , text "Transport\u{00A0}"
-                        , Format.kgCo2 3 (Co2.kgCo2e current.transport.co2)
+                        , Format.kgCo2 3 current.transport.co2
                         ]
                     ]
                 ]
@@ -269,7 +269,7 @@ detailedView ({ product, index, next, current } as config) =
                     [ TransportView.view True current.transport ]
                 , li [ class "list-group-item text-muted d-flex justify-content-center align-items-center" ]
                     [ strong [] [ text <| transportLabel ++ "\u{00A0}:\u{00A0}" ]
-                    , Format.kgCo2 3 (Co2.kgCo2e current.transport.co2)
+                    , Format.kgCo2 3 current.transport.co2
                     , documentationPillLink config Gitbook.Transport
                     ]
                 ]

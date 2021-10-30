@@ -49,7 +49,7 @@ computeTransportSummary =
                 | road = summary.road + transport.road
                 , sea = summary.sea + transport.sea
                 , air = summary.air + transport.air
-                , co2 = summary.co2 + transport.co2
+                , co2 = summary.co2 |> Quantity.plus transport.co2
             }
         )
         Transport.defaultSummary
@@ -61,7 +61,7 @@ computeFinalCo2Score =
         (\{ co2, transport } finalScore ->
             finalScore
                 |> Quantity.plus co2
-                |> Quantity.plus (Co2.kgCo2e transport.co2)
+                |> Quantity.plus transport.co2
         )
         (Co2.kgCo2e 0)
 
