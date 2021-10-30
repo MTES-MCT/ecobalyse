@@ -1,6 +1,6 @@
 module Data.Step exposing (..)
 
-import Data.Co2 as Co2
+import Data.Co2 as Co2 exposing (Co2e)
 import Data.Country as Country exposing (Country)
 import Data.Db exposing (Db)
 import Data.Formula as Formula
@@ -24,7 +24,7 @@ type alias Step =
     , mass : Mass
     , waste : Mass
     , transport : Transport.Summary
-    , co2 : Float
+    , co2 : Co2e
     , heat : Energy
     , kwh : Energy
     , processInfo : ProcessInfo
@@ -57,7 +57,7 @@ create label editable country =
     , mass = Mass.kilograms 0
     , waste = Mass.kilograms 0
     , transport = Transport.defaultSummary
-    , co2 = 0
+    , co2 = Co2.kgCo2e 0
     , heat = Energy.megajoules 0
     , kwh = Energy.kilowattHours 0
     , processInfo = defaultProcessInfo
@@ -249,7 +249,7 @@ decode =
         |> Pipe.required "mass" (Decode.map Mass.kilograms Decode.float)
         |> Pipe.required "waste" (Decode.map Mass.kilograms Decode.float)
         |> Pipe.required "transport" Transport.decodeSummary
-        |> Pipe.required "co2" Decode.float
+        |> Pipe.required "co2" Co2.decodeKgCo2e
         |> Pipe.required "heat" (Decode.map Energy.megajoules Decode.float)
         |> Pipe.required "kwh" (Decode.map Energy.kilowattHours Decode.float)
         |> Pipe.required "processInfo" decodeProcessInfo
@@ -280,7 +280,7 @@ encode v =
         , ( "mass", Encode.float (Mass.inKilograms v.mass) )
         , ( "waste", Encode.float (Mass.inKilograms v.waste) )
         , ( "transport", Transport.encodeSummary v.transport )
-        , ( "co2", Encode.float v.co2 )
+        , ( "co2", Co2.encodeKgCo2e v.co2 )
         , ( "heat", Encode.float (Energy.inMegajoules v.heat) )
         , ( "kwh", Encode.float (Energy.inKilowattHours v.kwh) )
         , ( "processInfo", encodeProcessInfo v.processInfo )

@@ -1,5 +1,6 @@
 port module Server exposing (main)
 
+import Data.Co2 as Co2
 import Data.Db as Db
 import Data.Inputs as Inputs
 import Data.Simulator as Simulator
@@ -48,7 +49,7 @@ update msg model =
                 |> Result.mapError Decode.errorToString
                 -- FIXME: Db should be loaded at this point
                 |> Result.andThen (Simulator.compute Db.empty)
-                |> Result.map .co2
+                |> Result.map (.co2 >> Co2.inKgCo2e)
                 |> toResponse
             )
 

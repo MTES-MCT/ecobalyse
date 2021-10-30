@@ -364,7 +364,7 @@ decode =
         |> Pipe.required "cat3" (Decode.string |> Decode.andThen (cat3FromString >> DecodeExtra.fromResult))
         |> Pipe.required "name" Decode.string
         |> Pipe.required "uuid" (Decode.map Uuid Decode.string)
-        |> Pipe.required "climateChange" (Decode.float |> Decode.andThen (Co2.kgCo2e >> Decode.succeed))
+        |> Pipe.required "climateChange" Co2.decodeKgCo2e
         |> Pipe.required "heat" (Decode.map Energy.megajoules Decode.float)
         |> Pipe.required "elec_pppm" Decode.float
         |> Pipe.required "elec" (Decode.map Energy.megajoules Decode.float)
@@ -384,7 +384,7 @@ encode v =
         , ( "cat3", v.cat3 |> cat3ToString |> Encode.string )
         , ( "name", Encode.string v.name )
         , ( "uuid", v.uuid |> uuidToString |> Encode.string )
-        , ( "climateChange", v.climateChange |> Co2.inKgCo2e |> Encode.float )
+        , ( "climateChange", Co2.encodeKgCo2e v.climateChange )
         , ( "heat", v.heat |> Energy.inMegajoules |> Encode.float )
         , ( "elec_pppm", Encode.float v.elec_pppm )
         , ( "elec", v.elec |> Energy.inMegajoules |> Encode.float )

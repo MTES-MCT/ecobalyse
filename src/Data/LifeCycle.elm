@@ -1,6 +1,7 @@
 module Data.LifeCycle exposing (..)
 
 import Array exposing (Array)
+import Data.Co2 as Co2 exposing (Co2e)
 import Data.Db exposing (Db)
 import Data.Inputs as Inputs exposing (Inputs)
 import Data.Step as Step exposing (Step)
@@ -8,6 +9,7 @@ import Data.Transport as Transport
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
 import Mass exposing (Mass)
+import Quantity
 import Result.Extra as RE
 
 
@@ -53,11 +55,15 @@ computeTransportSummary =
         Transport.defaultSummary
 
 
-computeFinalCo2Score : LifeCycle -> Float
+computeFinalCo2Score : LifeCycle -> Co2e
 computeFinalCo2Score =
     Array.foldl
-        (\{ co2, transport } finalScore -> finalScore + co2 + transport.co2)
-        0
+        (\{ co2, transport } finalScore ->
+            finalScore
+                |> Quantity.plus co2
+                |> Quantity.plus (Co2.kgCo2e transport.co2)
+        )
+        (Co2.kgCo2e 0)
 
 
 getStep : Step.Label -> LifeCycle -> Maybe Step
