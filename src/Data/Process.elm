@@ -7,6 +7,7 @@ import Json.Decode.Extra as DecodeExtra
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
 import Mass exposing (Mass)
+import Quantity
 import Result.Extra as RE
 
 
@@ -112,7 +113,7 @@ noOp =
     , cat3 = NaturalMaterials
     , name = "void"
     , uuid = Uuid ""
-    , climateChange = Co2.kgCo2e 0
+    , climateChange = Quantity.zero
     , heat = Energy.megajoules 0
     , elec_pppm = 0
     , elec = Energy.megajoules 0

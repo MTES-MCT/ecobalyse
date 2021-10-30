@@ -11,6 +11,7 @@ import Data.Step as Step exposing (Step)
 import Data.Transport as Transport
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
+import Quantity
 
 
 type alias Simulator =
@@ -50,7 +51,7 @@ init db =
                     |> (\lifeCycle ->
                             { inputs = inputs
                             , lifeCycle = lifeCycle
-                            , co2 = Co2.kgCo2e 0
+                            , co2 = Quantity.zero
                             , transport = Transport.defaultSummary
                             }
                        )
@@ -116,7 +117,7 @@ computeMakingCo2Score { processes } ({ inputs } as simulator) =
                                         -- FIXME: handle result or provide direct access
                                         |> Process.findByUuid country.electricity
                                         |> Result.map .climateChange
-                                        |> Result.withDefault (Co2.kgCo2e 0)
+                                        |> Result.withDefault Quantity.zero
 
                                 { kwh, co2 } =
                                     step.mass
@@ -144,14 +145,14 @@ computeDyeingCo2Score { processes } simulator =
                                     -- FIXME: handle result or provide direct access
                                     |> Process.findByUuid country.electricity
                                     |> Result.map .climateChange
-                                    |> Result.withDefault (Co2.kgCo2e 0)
+                                    |> Result.withDefault Quantity.zero
 
                             heatCC =
                                 processes
                                     -- FIXME: handle result or provide direct access
                                     |> Process.findByUuid country.heat
                                     |> Result.map .climateChange
-                                    |> Result.withDefault (Co2.kgCo2e 0)
+                                    |> Result.withDefault Quantity.zero
 
                             { co2, heat, kwh } =
                                 step.mass
@@ -207,7 +208,7 @@ computeWeavingKnittingCo2Score { processes } ({ inputs, lifeCycle } as simulator
                                         -- FIXME: handle result or provide direct access
                                         |> Process.findByUuid country.electricity
                                         |> Result.map .climateChange
-                                        |> Result.withDefault (Co2.kgCo2e 0)
+                                        |> Result.withDefault Quantity.zero
 
                                 { kwh, co2 } =
                                     -- NOTE: knitted elec is computed against previous step mass,

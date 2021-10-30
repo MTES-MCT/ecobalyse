@@ -57,7 +57,7 @@ create label editable country =
     , mass = Mass.kilograms 0
     , waste = Mass.kilograms 0
     , transport = defaultSummary
-    , co2 = Co2.kgCo2e 0
+    , co2 = Quantity.zero
     , heat = Energy.megajoules 0
     , kwh = Energy.kilowattHours 0
     , processInfo = defaultProcessInfo
@@ -151,7 +151,7 @@ computeTransportCo2 { seaTransport, airTransport } roadProcess mass { road, sea,
     { road = road
     , sea = sea
     , air = air
-    , co2 = roadCo2 |> Quantity.plus seaCo2 |> Quantity.plus airCo2
+    , co2 = Quantity.sum [ roadCo2, seaCo2, airCo2 ]
     }
 
 
