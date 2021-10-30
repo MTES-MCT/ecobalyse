@@ -1,6 +1,8 @@
 module Data.Co2 exposing (..)
 
 import Energy exposing (Energy)
+import Json.Decode as Decode exposing (Decoder)
+import Json.Encode as Encode
 import Mass exposing (Mass)
 import Quantity exposing (Quantity(..))
 
@@ -48,3 +50,13 @@ co2ePerMass cc =
 co2ePerKWh : Co2e -> Energy -> Co2e
 co2ePerKWh cc =
     Quantity.at (Quantity.per (Energy.kilowattHours 1) cc)
+
+
+decodeKgCo2e : Decoder Co2e
+decodeKgCo2e =
+    Decode.float |> Decode.andThen (kgCo2e >> Decode.succeed)
+
+
+encodeKgCo2e : Co2e -> Encode.Value
+encodeKgCo2e =
+    inKgCo2e >> Encode.float

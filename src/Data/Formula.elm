@@ -87,7 +87,7 @@ dyeingCo2 :
     -> Co2e
     -> Co2e
     -> Mass
-    -> { co2 : Float, heat : Energy, kwh : Energy }
+    -> { co2 : Co2e, heat : Energy, kwh : Energy }
 dyeingCo2 ( dyeingLowProcess, dyeingHighProcess ) highDyeingWeighting heatCC elecCC baseMass =
     let
         lowDyeingWeighting =
@@ -125,7 +125,7 @@ dyeingCo2 ( dyeingLowProcess, dyeingHighProcess ) highDyeingWeighting heatCC ele
         elecCo2 =
             electricity |> Co2.co2ePerKWh elecCC
     in
-    { co2 = dyeingCo2_ |> Quantity.plus heatCo2 |> Quantity.plus elecCo2 |> Co2.inKgCo2e
+    { co2 = dyeingCo2_ |> Quantity.plus heatCo2 |> Quantity.plus elecCo2
     , heat = heatMJ
     , kwh = electricity
     }
@@ -167,7 +167,7 @@ makingCo2 :
     , countryElecClimateChange : Co2e
     }
     -> Mass
-    -> { kwh : Energy, co2 : Float }
+    -> { kwh : Energy, co2 : Co2e }
 makingCo2 { makingClimateChange, makingElec, countryElecClimateChange } baseMass =
     let
         makingCo2_ =
@@ -182,10 +182,10 @@ makingCo2 { makingClimateChange, makingElec, countryElecClimateChange } baseMass
             kwh
                 |> Co2.co2ePerKWh countryElecClimateChange
     in
-    { co2 = Quantity.plus makingCo2_ elecCo2 |> Co2.inKgCo2e, kwh = kwh }
+    { co2 = Quantity.plus makingCo2_ elecCo2, kwh = kwh }
 
 
-knittingCo2 : Process -> Co2e -> Mass -> { kwh : Energy, co2 : Float }
+knittingCo2 : Process -> Co2e -> Mass -> { kwh : Energy, co2 : Co2e }
 knittingCo2 fabricProcess elecCC baseMass =
     let
         electricityKWh =
@@ -193,11 +193,11 @@ knittingCo2 fabricProcess elecCC baseMass =
                 (Mass.inKilograms baseMass * Energy.inKilowattHours fabricProcess.elec)
     in
     { kwh = electricityKWh
-    , co2 = electricityKWh |> Co2.co2ePerKWh elecCC |> Co2.inKgCo2e
+    , co2 = electricityKWh |> Co2.co2ePerKWh elecCC
     }
 
 
-weavingCo2 : Process -> Co2e -> Int -> Int -> Mass -> { kwh : Energy, co2 : Float }
+weavingCo2 : Process -> Co2e -> Int -> Int -> Mass -> { kwh : Energy, co2 : Co2e }
 weavingCo2 fabricProcess elecCC ppm grammage baseMass =
     let
         electricityKWh =
@@ -206,7 +206,7 @@ weavingCo2 fabricProcess elecCC ppm grammage baseMass =
                 |> Energy.kilowattHours
     in
     { kwh = electricityKWh
-    , co2 = electricityKWh |> Co2.co2ePerKWh elecCC |> Co2.inKgCo2e
+    , co2 = electricityKWh |> Co2.co2ePerKWh elecCC
     }
 
 

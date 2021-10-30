@@ -1,5 +1,6 @@
 module Views.Comparator exposing (..)
 
+import Data.Co2 as Co2
 import Data.Country as Country
 import Data.Db exposing (Db)
 import Data.Gitbook as Gitbook
@@ -94,11 +95,11 @@ viewComparator : Config msg -> Simulator -> ( Simulator, Simulator, Simulator ) 
 viewComparator config { inputs, co2 } ( good, middle, bad ) =
     let
         scale =
-            bad.co2 - good.co2
+            Co2.inKgCo2e bad.co2 - Co2.inKgCo2e good.co2
 
         ( p, pMiddle ) =
-            ( (co2 - good.co2) / scale * 100
-            , (middle.co2 - good.co2) / scale * 100
+            ( (Co2.inKgCo2e co2 - Co2.inKgCo2e good.co2) / scale * 100
+            , (Co2.inKgCo2e middle.co2 - Co2.inKgCo2e good.co2) / scale * 100
             )
     in
     div [ class "card" ]

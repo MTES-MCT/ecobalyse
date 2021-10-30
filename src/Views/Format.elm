@@ -1,5 +1,6 @@
 module Views.Format exposing (..)
 
+import Data.Co2 as Co2 exposing (Co2e)
 import Energy exposing (Energy)
 import FormatNumber
 import FormatNumber.Locales exposing (Decimals(..), frenchLocale)
@@ -33,9 +34,9 @@ formatRichFloat decimals unit value =
         ]
 
 
-kgCo2 : Int -> Float -> Html msg
+kgCo2 : Int -> Co2e -> Html msg
 kgCo2 decimals =
-    formatRichFloat decimals "kgCO₂e"
+    Co2.inKgCo2e >> formatRichFloat decimals "kgCO₂e"
 
 
 kg : Mass -> Html msg

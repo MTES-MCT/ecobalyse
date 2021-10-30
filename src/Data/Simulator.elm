@@ -1,6 +1,6 @@
 module Data.Simulator exposing (..)
 
-import Data.Co2 as Co2
+import Data.Co2 as Co2 exposing (Co2e)
 import Data.Db exposing (Db)
 import Data.Formula as Formula
 import Data.Inputs as Inputs exposing (Inputs)
@@ -16,7 +16,7 @@ import Json.Encode as Encode
 type alias Simulator =
     { inputs : Inputs
     , lifeCycle : LifeCycle
-    , co2 : Float
+    , co2 : Co2e
     , transport : Transport.Summary
     }
 
@@ -26,7 +26,7 @@ decode =
     Decode.map4 Simulator
         (Decode.field "inputs" Inputs.decode)
         (Decode.field "lifeCycle" LifeCycle.decode)
-        (Decode.field "co2" Decode.float)
+        (Decode.field "co2" Co2.decodeKgCo2e)
         (Decode.field "transport" Transport.decodeSummary)
 
 
@@ -35,7 +35,7 @@ encode v =
     Encode.object
         [ ( "inputs", Inputs.encode v.inputs )
         , ( "lifeCycle", LifeCycle.encode v.lifeCycle )
-        , ( "co2", Encode.float v.co2 )
+        , ( "co2", Co2.encodeKgCo2e v.co2 )
         , ( "transport", Transport.encodeSummary v.transport )
         ]
 
@@ -50,7 +50,7 @@ init db =
                     |> (\lifeCycle ->
                             { inputs = inputs
                             , lifeCycle = lifeCycle
-                            , co2 = 0
+                            , co2 = Co2.kgCo2e 0
                             , transport = Transport.defaultSummary
                             }
                        )
@@ -181,12 +181,10 @@ computeMaterialAndSpinningCo2Score { processes } ({ inputs } as simulator) =
                                                 , recycledClimateChange = recycledProcess.climateChange
                                                 , recycledRatio = ratio
                                                 }
-                                            |> Co2.inKgCo2e
 
                                     _ ->
                                         step.mass
                                             |> Co2.co2ePerMass materialProcess.climateChange
-                                            |> Co2.inKgCo2e
                         }
                     )
         )

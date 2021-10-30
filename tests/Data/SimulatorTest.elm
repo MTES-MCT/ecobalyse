@@ -1,5 +1,6 @@
 module Data.SimulatorTest exposing (..)
 
+import Data.Co2 as Co2
 import Data.Inputs as Inputs exposing (..)
 import Data.Simulator as Simulator
 import Expect exposing (Expectation)
@@ -18,6 +19,7 @@ expectCo2 co2 query =
     case testDb |> Result.andThen (\db -> Simulator.compute db query) of
         Ok simulator ->
             simulator.co2
+                |> Co2.inKgCo2e
                 |> Expect.within (Expect.Absolute 0.01) co2
 
         Err error ->

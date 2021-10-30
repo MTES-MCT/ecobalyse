@@ -75,6 +75,7 @@ suite =
                             }
              in
              [ res.co2
+                |> Co2.inKgCo2e
                 |> Expect.within (Expect.Absolute 0.01) 0.57
                 |> asTest "should compute Making step co2 from process and country data"
              , res.kwh
