@@ -1,5 +1,6 @@
 module Data.FormulaTest exposing (..)
 
+import Data.Co2 as Co2
 import Data.Formula as Formula
 import Energy
 import Expect exposing (Expectation)
@@ -45,20 +46,21 @@ suite =
                 |> Expect.equal { mass = kg 3, waste = kg 2 }
                 |> asTest "should compute material waste from material and product waste data"
             ]
-
-        -- , describe "Formula.materialCo2"
-        --     [ kg 1
-        --         |> Formula.materialCo2 0.5
-        --         |> Expect.within (Expect.Absolute 0.01) 0.5
-        --         |> asTest "should compute co2 from climate change process data"
-        --     ]
+        , describe "Formula.materialCo2"
+            [ kg 1
+                |> Formula.materialCo2 (Co2.kgCo2e 0.5)
+                |> Co2.inKgCo2e
+                |> Expect.within (Expect.Absolute 0.01) 0.5
+                |> asTest "should compute co2 from climate change process data"
+            ]
         , describe "Formula.materialRecycledCo2"
             [ kg 1
                 |> Formula.materialRecycledCo2
-                    { pristineClimateChange = 0.25
-                    , recycledClimateChange = 0.75
+                    { pristineClimateChange = Co2.kgCo2e 0.25
+                    , recycledClimateChange = Co2.kgCo2e 0.75
                     , recycledRatio = 0.5
                     }
+                |> Co2.inKgCo2e
                 |> Expect.within (Expect.Absolute 0.01) 0.5
                 |> asTest "should compute co2 from ratioed recycled material"
             ]
@@ -67,9 +69,9 @@ suite =
                 res =
                     kg 1
                         |> Formula.makingCo2
-                            { makingClimateChange = 0.5
+                            { makingClimateChange = Co2.kgCo2e 0.5
                             , makingElec = Energy.megajoules 0.5
-                            , countryElecClimateChange = 0.5
+                            , countryElecClimateChange = Co2.kgCo2e 0.5
                             }
              in
              [ res.co2

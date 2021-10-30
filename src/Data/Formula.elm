@@ -1,6 +1,6 @@
 module Data.Formula exposing (..)
 
-import Data.Co2 as Co2 exposing (Co2)
+import Data.Co2 as Co2 exposing (Co2e)
 import Data.Process exposing (Process)
 import Data.Transport as Transport exposing (Transport)
 import Energy exposing (Energy)
@@ -84,8 +84,8 @@ makingWaste { processWaste, pcrWaste } baseMass =
 dyeingCo2 :
     ( Process, Process )
     -> Float
-    -> Float
-    -> Float
+    -> Co2e
+    -> Co2e
     -> Mass
     -> { co2 : Float, heat : Energy, kwh : Energy }
 dyeingCo2 ( dyeingLowProcess, dyeingHighProcess ) highDyeingWeighting heatCC elecCC baseMass =
@@ -93,11 +93,14 @@ dyeingCo2 ( dyeingLowProcess, dyeingHighProcess ) highDyeingWeighting heatCC ele
         lowDyeingWeighting =
             1 - highDyeingWeighting
 
+        ( lowDyeingMass, highDyeingMass ) =
+            ( baseMass |> Quantity.multiplyBy lowDyeingWeighting
+            , baseMass |> Quantity.multiplyBy highDyeingWeighting
+            )
+
         dyeingCo2_ =
-            Mass.inKilograms baseMass
-                * ((highDyeingWeighting * dyeingHighProcess.climateChange)
-                    + (lowDyeingWeighting * dyeingLowProcess.climateChange)
-                  )
+            Co2.co2ePerMass dyeingLowProcess.climateChange lowDyeingMass
+                |> Quantity.plus (Co2.co2ePerMass dyeingHighProcess.climateChange highDyeingMass)
 
         heatMJ =
             Mass.inKilograms baseMass
@@ -107,8 +110,10 @@ dyeingCo2 ( dyeingLowProcess, dyeingHighProcess ) highDyeingWeighting heatCC ele
                 |> Energy.megajoules
 
         heatCo2 =
-            heatCC
+            -- FIXME: bug in Excel, we should be using KWh here; keeping for BC for now
+            Co2.inKgCo2e heatCC
                 |> (*) (Energy.inMegajoules heatMJ)
+                |> Co2.kgCo2e
 
         electricity =
             Mass.inKilograms baseMass
@@ -118,10 +123,9 @@ dyeingCo2 ( dyeingLowProcess, dyeingHighProcess ) highDyeingWeighting heatCC ele
                 |> Energy.megajoules
 
         elecCo2 =
-            elecCC
-                |> (*) (Energy.inKilowattHours electricity)
+            electricity |> Co2.co2ePerKWh elecCC
     in
-    { co2 = dyeingCo2_ + heatCo2 + elecCo2
+    { co2 = dyeingCo2_ |> Quantity.plus heatCo2 |> Quantity.plus elecCo2 |> Co2.inKgCo2e
     , heat = heatMJ
     , kwh = electricity
     }
@@ -129,7 +133,7 @@ dyeingCo2 ( dyeingLowProcess, dyeingHighProcess ) highDyeingWeighting heatCC ele
 
 {-| Compute co2 from climate change impact and mass
 -}
-materialCo2 : Co2.ClimateChange -> Mass -> Co2
+materialCo2 : Co2e -> Mass -> Co2e
 materialCo2 climateChange =
     Co2.co2ePerMass climateChange
 
@@ -137,70 +141,72 @@ materialCo2 climateChange =
 {-| Compute co2 from ratioed material climate change impact and mass
 -}
 materialRecycledCo2 :
-    { pristineClimateChange : Float
-    , recycledClimateChange : Float
+    { pristineClimateChange : Co2e
+    , recycledClimateChange : Co2e
     , recycledRatio : Float
     }
     -> Mass
-    -> Float
+    -> Co2e
 materialRecycledCo2 { pristineClimateChange, recycledClimateChange, recycledRatio } baseMass =
     let
         ( recycledCo2, pristineCo2 ) =
             ( baseMass
                 |> Quantity.multiplyBy recycledRatio
-                |> Quantity.multiplyBy recycledClimateChange
+                |> Co2.co2ePerMass recycledClimateChange
             , baseMass
                 |> Quantity.multiplyBy (1 - recycledRatio)
-                |> Quantity.multiplyBy pristineClimateChange
+                |> Co2.co2ePerMass pristineClimateChange
             )
     in
-    Quantity.plus recycledCo2 pristineCo2 |> Mass.inKilograms
+    Quantity.plus recycledCo2 pristineCo2
 
 
 makingCo2 :
-    { makingClimateChange : Float
+    { makingClimateChange : Co2e
     , makingElec : Energy
-    , countryElecClimateChange : Float
+    , countryElecClimateChange : Co2e
     }
     -> Mass
     -> { kwh : Energy, co2 : Float }
 makingCo2 { makingClimateChange, makingElec, countryElecClimateChange } baseMass =
     let
         makingCo2_ =
-            makingClimateChange
-                |> (*) (Mass.inKilograms baseMass)
+            baseMass
+                |> Co2.co2ePerMass makingClimateChange
 
         kwh =
             makingElec
                 |> Quantity.multiplyBy (Mass.inKilograms baseMass)
 
         elecCo2 =
-            countryElecClimateChange
-                |> (*) (Energy.inKilowattHours kwh)
+            kwh
+                |> Co2.co2ePerKWh countryElecClimateChange
     in
-    { co2 = makingCo2_ + elecCo2, kwh = kwh }
+    { co2 = Quantity.plus makingCo2_ elecCo2 |> Co2.inKgCo2e, kwh = kwh }
 
 
-knittingCo2 : Process -> Float -> Mass -> { kwh : Energy, co2 : Float }
+knittingCo2 : Process -> Co2e -> Mass -> { kwh : Energy, co2 : Float }
 knittingCo2 fabricProcess elecCC baseMass =
     let
         electricityKWh =
-            Mass.inKilograms baseMass * Energy.inKilowattHours fabricProcess.elec
+            Energy.kilowattHours
+                (Mass.inKilograms baseMass * Energy.inKilowattHours fabricProcess.elec)
     in
-    { kwh = Energy.kilowattHours electricityKWh
-    , co2 = electricityKWh * elecCC
+    { kwh = electricityKWh
+    , co2 = electricityKWh |> Co2.co2ePerKWh elecCC |> Co2.inKgCo2e
     }
 
 
-weavingCo2 : Process -> Float -> Int -> Int -> Mass -> { kwh : Energy, co2 : Float }
+weavingCo2 : Process -> Co2e -> Int -> Int -> Mass -> { kwh : Energy, co2 : Float }
 weavingCo2 fabricProcess elecCC ppm grammage baseMass =
     let
         electricityKWh =
             (Mass.inKilograms baseMass * 1000 * toFloat ppm / toFloat grammage)
                 * fabricProcess.elec_pppm
+                |> Energy.kilowattHours
     in
-    { kwh = Energy.kilowattHours electricityKWh
-    , co2 = electricityKWh * elecCC
+    { kwh = electricityKWh
+    , co2 = electricityKWh |> Co2.co2ePerKWh elecCC |> Co2.inKgCo2e
     }
 
 

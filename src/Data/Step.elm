@@ -1,5 +1,6 @@
 module Data.Step exposing (..)
 
+import Data.Co2 as Co2
 import Data.Country as Country exposing (Country)
 import Data.Db exposing (Db)
 import Data.Formula as Formula
@@ -12,6 +13,7 @@ import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
 import Mass exposing (Mass)
+import Quantity
 import Result.Extra as RE
 
 
@@ -138,18 +140,18 @@ computeTransports db next current =
 
 
 computeTransportCo2 : Process.WellKnown -> Process -> Mass -> Transport -> Transport.Summary
-computeTransportCo2 wellKnown roadProcess mass { road, sea, air } =
+computeTransportCo2 { seaTransport, airTransport } roadProcess mass { road, sea, air } =
     let
         ( roadCo2, seaCo2, airCo2 ) =
-            ( roadProcess |> .climateChange |> (*) (Mass.inMetricTons mass) |> (*) road
-            , wellKnown.seaTransport |> .climateChange |> (*) (Mass.inMetricTons mass) |> (*) sea
-            , wellKnown.airTransport |> .climateChange |> (*) (Mass.inMetricTons mass) |> (*) air
+            ( mass |> Quantity.divideBy 1000 |> Co2.co2ePerMass roadProcess.climateChange |> Quantity.multiplyBy road
+            , mass |> Quantity.divideBy 1000 |> Co2.co2ePerMass seaTransport.climateChange |> Quantity.multiplyBy sea
+            , mass |> Quantity.divideBy 1000 |> Co2.co2ePerMass airTransport.climateChange |> Quantity.multiplyBy air
             )
     in
     { road = road
     , sea = sea
     , air = air
-    , co2 = roadCo2 + seaCo2 + airCo2
+    , co2 = roadCo2 |> Quantity.plus seaCo2 |> Quantity.plus airCo2 |> Co2.inKgCo2e
     }
 
 

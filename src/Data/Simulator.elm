@@ -1,6 +1,6 @@
 module Data.Simulator exposing (..)
 
-import Data.Co2 as Co2 exposing (Co2)
+import Data.Co2 as Co2
 import Data.Db exposing (Db)
 import Data.Formula as Formula
 import Data.Inputs as Inputs exposing (Inputs)
@@ -116,7 +116,7 @@ computeMakingCo2Score { processes } ({ inputs } as simulator) =
                                         -- FIXME: handle result or provide direct access
                                         |> Process.findByUuid country.electricity
                                         |> Result.map .climateChange
-                                        |> Result.withDefault 0
+                                        |> Result.withDefault (Co2.kgCo2e 0)
 
                                 { kwh, co2 } =
                                     step.mass
@@ -144,14 +144,14 @@ computeDyeingCo2Score { processes } simulator =
                                     -- FIXME: handle result or provide direct access
                                     |> Process.findByUuid country.electricity
                                     |> Result.map .climateChange
-                                    |> Result.withDefault 0
+                                    |> Result.withDefault (Co2.kgCo2e 0)
 
                             heatCC =
                                 processes
                                     -- FIXME: handle result or provide direct access
                                     |> Process.findByUuid country.heat
                                     |> Result.map .climateChange
-                                    |> Result.withDefault 0
+                                    |> Result.withDefault (Co2.kgCo2e 0)
 
                             { co2, heat, kwh } =
                                 step.mass
@@ -181,10 +181,11 @@ computeMaterialAndSpinningCo2Score { processes } ({ inputs } as simulator) =
                                                 , recycledClimateChange = recycledProcess.climateChange
                                                 , recycledRatio = ratio
                                                 }
+                                            |> Co2.inKgCo2e
 
                                     _ ->
                                         step.mass
-                                            |> Co2.co2ePerMass (Co2.climateChange (Co2.kgCo2e materialProcess.climateChange))
+                                            |> Co2.co2ePerMass materialProcess.climateChange
                                             |> Co2.inKgCo2e
                         }
                     )
@@ -208,7 +209,7 @@ computeWeavingKnittingCo2Score { processes } ({ inputs, lifeCycle } as simulator
                                         -- FIXME: handle result or provide direct access
                                         |> Process.findByUuid country.electricity
                                         |> Result.map .climateChange
-                                        |> Result.withDefault 0
+                                        |> Result.withDefault (Co2.kgCo2e 0)
 
                                 { kwh, co2 } =
                                     -- NOTE: knitted elec is computed against previous step mass,
