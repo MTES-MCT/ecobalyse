@@ -1,5 +1,6 @@
 module Data.Process exposing (..)
 
+import Data.Co2 as Co2 exposing (Co2e)
 import Energy exposing (Energy)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DecodeExtra
@@ -15,7 +16,7 @@ type alias Process =
     , cat3 : Cat3
     , name : String
     , uuid : Uuid
-    , climateChange : Float -- kgCO2e per kg of material to process
+    , climateChange : Co2e -- kgCO2e per {kg of material or KWh}
     , heat : Energy --  MJ per kg of material to process
     , elec_pppm : Float -- kWh/(pick,m) per kg of material to process
     , elec : Energy -- MJ per kg of material to process
@@ -111,7 +112,7 @@ noOp =
     , cat3 = NaturalMaterials
     , name = "void"
     , uuid = Uuid ""
-    , climateChange = 0
+    , climateChange = Co2.kgCo2e 0
     , heat = Energy.megajoules 0
     , elec_pppm = 0
     , elec = Energy.megajoules 0
@@ -363,7 +364,7 @@ decode =
         |> Pipe.required "cat3" (Decode.string |> Decode.andThen (cat3FromString >> DecodeExtra.fromResult))
         |> Pipe.required "name" Decode.string
         |> Pipe.required "uuid" (Decode.map Uuid Decode.string)
-        |> Pipe.required "climateChange" Decode.float
+        |> Pipe.required "climateChange" (Decode.float |> Decode.andThen (Co2.kgCo2e >> Decode.succeed))
         |> Pipe.required "heat" (Decode.map Energy.megajoules Decode.float)
         |> Pipe.required "elec_pppm" Decode.float
         |> Pipe.required "elec" (Decode.map Energy.megajoules Decode.float)
@@ -383,7 +384,7 @@ encode v =
         , ( "cat3", v.cat3 |> cat3ToString |> Encode.string )
         , ( "name", Encode.string v.name )
         , ( "uuid", v.uuid |> uuidToString |> Encode.string )
-        , ( "climateChange", Encode.float v.climateChange )
+        , ( "climateChange", v.climateChange |> Co2.inKgCo2e |> Encode.float )
         , ( "heat", v.heat |> Energy.inMegajoules |> Encode.float )
         , ( "elec_pppm", Encode.float v.elec_pppm )
         , ( "elec", v.elec |> Energy.inMegajoules |> Encode.float )
