@@ -3,6 +3,7 @@ module Data.Co2 exposing (..)
 import Energy exposing (Energy)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
+import Length exposing (Length)
 import Mass exposing (Mass)
 import Quantity exposing (Quantity(..))
 
@@ -39,6 +40,15 @@ co2ePerMass : Co2e -> Mass -> Co2e
 co2ePerMass =
     -- ref: https://github.com/ianmackenzie/elm-units/blob/master/doc/CustomUnits.md
     Quantity.per Mass.kilogram >> Quantity.at
+
+
+co2ePerKmPerMass : Co2e -> Length -> Mass -> Co2e
+co2ePerKmPerMass cc distance mass =
+    -- mass should be in tons
+    mass
+        |> Quantity.divideBy 1000
+        |> co2ePerMass cc
+        |> Quantity.multiplyBy (Length.inKilometers distance)
 
 
 co2ePerKWh : Co2e -> Energy -> Co2e

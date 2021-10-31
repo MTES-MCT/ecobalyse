@@ -46,9 +46,9 @@ computeTransportSummary =
     Array.foldl
         (\{ transport } summary ->
             { summary
-                | road = summary.road + transport.road
-                , sea = summary.sea + transport.sea
-                , air = summary.air + transport.air
+                | road = summary.road |> Quantity.plus transport.road
+                , sea = summary.sea |> Quantity.plus transport.sea
+                , air = summary.air |> Quantity.plus transport.air
                 , co2 = summary.co2 |> Quantity.plus transport.co2
             }
         )

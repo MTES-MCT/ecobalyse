@@ -5,8 +5,13 @@ import Data.Country as Country
 import Data.Inputs exposing (tShirtCotonFrance)
 import Data.LifeCycle as LifeCycle
 import Expect
+import Length
 import Test exposing (..)
 import TestDb exposing (testDb)
+
+
+km =
+    Length.kilometers
 
 
 suite : Test
@@ -22,7 +27,13 @@ suite =
                                 |> Result.andThen (LifeCycle.computeTransportSummaries db)
                                 |> Result.map LifeCycle.computeTransportSummary
                                 |> Expect.equal
-                                    (Ok { road = 4500, sea = 25548, air = 0, co2 = Co2.kgCo2e 0 })
+                                    (Ok
+                                        { road = km 4500
+                                        , sea = km 25548
+                                        , air = km 0
+                                        , co2 = Co2.kgCo2e 0
+                                        }
+                                    )
                     , test "should compute custom distances" <|
                         \_ ->
                             LifeCycle.fromQuery db
@@ -38,7 +49,13 @@ suite =
                                 |> Result.andThen (LifeCycle.computeTransportSummaries db)
                                 |> Result.map LifeCycle.computeTransportSummary
                                 |> Expect.equal
-                                    (Ok { road = 3500, sea = 37508, air = 0, co2 = Co2.kgCo2e 0 })
+                                    (Ok
+                                        { road = km 3500
+                                        , sea = km 37508
+                                        , air = km 0
+                                        , co2 = Co2.kgCo2e 0
+                                        }
+                                    )
                     ]
                 ]
 
