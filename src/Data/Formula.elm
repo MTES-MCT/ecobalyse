@@ -126,17 +126,17 @@ dyeingCo2 ( dyeingLowProcess, dyeingHighProcess ) highDyeingWeighting heatCC ele
 
 
 makingCo2 :
-    { makingClimateChange : Co2e
+    { makingCC : Co2e
     , makingElec : Energy
-    , countryElecClimateChange : Co2e
+    , countryElecCC : Co2e
     }
     -> Mass
     -> { kwh : Energy, co2 : Co2e }
-makingCo2 { makingClimateChange, makingElec, countryElecClimateChange } baseMass =
+makingCo2 { makingCC, makingElec, countryElecCC } baseMass =
     let
         makingCo2_ =
             baseMass
-                |> Co2.co2ePerMass makingClimateChange
+                |> Co2.co2ePerMass makingCC
 
         kwh =
             makingElec
@@ -144,7 +144,7 @@ makingCo2 { makingClimateChange, makingElec, countryElecClimateChange } baseMass
 
         elecCo2 =
             kwh
-                |> Co2.co2ePerKWh countryElecClimateChange
+                |> Co2.co2ePerKWh countryElecCC
     in
     { co2 = Quantity.plus makingCo2_ elecCo2, kwh = kwh }
 

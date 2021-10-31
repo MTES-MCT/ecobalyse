@@ -51,9 +51,9 @@ suite =
                 res =
                     kg 1
                         |> Formula.makingCo2
-                            { makingClimateChange = Co2.kgCo2e 0.5
+                            { makingCC = Co2.kgCo2e 0.5
                             , makingElec = Energy.megajoules 0.5
-                            , countryElecClimateChange = Co2.kgCo2e 0.5
+                            , countryElecCC = Co2.kgCo2e 0.5
                             }
              in
              [ res.co2
