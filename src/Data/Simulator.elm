@@ -177,11 +177,11 @@ computeMaterialAndSpinningCo2Score { processes } ({ inputs } as simulator) =
                                 case ( maybeRecycledProcess, inputs.recycledRatio ) of
                                     ( Just recycledProcess, Just ratio ) ->
                                         step.mass
-                                            |> Formula.materialRecycledCo2
-                                                { pristineClimateChange = materialProcess.climateChange
-                                                , recycledClimateChange = recycledProcess.climateChange
-                                                , recycledRatio = ratio
-                                                }
+                                            |> Co2.ratioedCo2ePerMass
+                                                ( materialProcess.climateChange
+                                                , recycledProcess.climateChange
+                                                )
+                                                ratio
 
                                     _ ->
                                         step.mass
@@ -220,10 +220,12 @@ computeWeavingKnittingCo2Score { processes } ({ inputs, lifeCycle } as simulator
 
                                     else
                                         step.mass
-                                            |> Formula.weavingCo2 fabricProcess
-                                                elecCC
-                                                inputs.product.ppm
-                                                inputs.product.grammage
+                                            |> Formula.weavingCo2
+                                                { elecPppm = fabricProcess.elec_pppm
+                                                , elecCC = elecCC
+                                                , grammage = inputs.product.grammage
+                                                , ppm = inputs.product.ppm
+                                                }
                             in
                             { step | co2 = co2, kwh = kwh }
                         )

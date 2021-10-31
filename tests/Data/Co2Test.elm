@@ -54,4 +54,18 @@ suite =
                 |> Expect.within (Expect.Absolute 0.0001) 0.2
                 |> asTest "inTonsCo2e should convert Tons"
             ]
+        , describe "Co2.ratioedCo2ePerMass"
+            [ Mass.kilograms 1
+                |> Co2.ratioedCo2ePerMass ( Co2.kgCo2e 0.25, Co2.kgCo2e 0.75 ) 0.5
+                |> Co2.inKgCo2e
+                |> Expect.within (Expect.Absolute 0.01) 0.5
+                |> asTest "should compute co2 from ratioed co2 impacts and mass"
+            ]
+        , describe "Co2.ratioedCo2ePerKWh"
+            [ Energy.kilowattHours 1
+                |> Co2.ratioedCo2ePerKWh ( Co2.kgCo2e 0.25, Co2.kgCo2e 0.75 ) 0.5
+                |> Co2.inKgCo2e
+                |> Expect.within (Expect.Absolute 0.01) 0.5
+                |> asTest "should compute co2 from ratioed co2 impacts and energy"
+            ]
         ]
