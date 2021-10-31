@@ -177,7 +177,7 @@ computeMaterialAndSpinningCo2Score { processes } ({ inputs } as simulator) =
                                 case ( maybeRecycledProcess, inputs.recycledRatio ) of
                                     ( Just recycledProcess, Just ratio ) ->
                                         step.mass
-                                            |> Co2.ratioedCo2ePerMass
+                                            |> Co2.ratioedCo2eForMass
                                                 ( materialProcess.climateChange
                                                 , recycledProcess.climateChange
                                                 )
@@ -185,7 +185,7 @@ computeMaterialAndSpinningCo2Score { processes } ({ inputs } as simulator) =
 
                                     _ ->
                                         step.mass
-                                            |> Co2.co2ePerMass materialProcess.climateChange
+                                            |> Co2.co2eForMass materialProcess.climateChange
                         }
                     )
         )

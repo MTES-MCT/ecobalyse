@@ -92,8 +92,8 @@ dyeingCo2 ( dyeingLowProcess, dyeingHighProcess ) highDyeingWeighting heatCC ele
 
         dyeingCo2_ =
             Quantity.sum
-                [ Co2.co2ePerMass dyeingLowProcess.climateChange lowDyeingMass
-                , Co2.co2ePerMass dyeingHighProcess.climateChange highDyeingMass
+                [ Co2.co2eForMass dyeingLowProcess.climateChange lowDyeingMass
+                , Co2.co2eForMass dyeingHighProcess.climateChange highDyeingMass
                 ]
 
         heatMJ =
@@ -117,7 +117,7 @@ dyeingCo2 ( dyeingLowProcess, dyeingHighProcess ) highDyeingWeighting heatCC ele
                 |> Energy.megajoules
 
         elecCo2 =
-            electricity |> Co2.co2ePerKWh elecCC
+            electricity |> Co2.co2eForKWh elecCC
     in
     { co2 = Quantity.sum [ dyeingCo2_, heatCo2, elecCo2 ]
     , heat = heatMJ
@@ -136,7 +136,7 @@ makingCo2 { makingCC, makingElec, countryElecCC } baseMass =
     let
         makingCo2_ =
             baseMass
-                |> Co2.co2ePerMass makingCC
+                |> Co2.co2eForMass makingCC
 
         kwh =
             makingElec
@@ -144,7 +144,7 @@ makingCo2 { makingCC, makingElec, countryElecCC } baseMass =
 
         elecCo2 =
             kwh
-                |> Co2.co2ePerKWh countryElecCC
+                |> Co2.co2eForKWh countryElecCC
     in
     { co2 = Quantity.plus makingCo2_ elecCo2, kwh = kwh }
 
@@ -157,7 +157,7 @@ knittingCo2 { elec, elecCC } baseMass =
                 (Mass.inKilograms baseMass * Energy.inKilowattHours elec)
     in
     { kwh = electricityKWh
-    , co2 = electricityKWh |> Co2.co2ePerKWh elecCC
+    , co2 = electricityKWh |> Co2.co2eForKWh elecCC
     }
 
 
@@ -173,7 +173,7 @@ weavingCo2 { elecPppm, elecCC, ppm, grammage } baseMass =
                 |> Energy.kilowattHours
     in
     { kwh = electricityKWh
-    , co2 = electricityKWh |> Co2.co2ePerKWh elecCC
+    , co2 = electricityKWh |> Co2.co2eForKWh elecCC
     }
 
 

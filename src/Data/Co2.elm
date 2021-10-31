@@ -36,39 +36,38 @@ inTonsCo2e (Quantity value) =
     value / 1000
 
 
-co2ePerMass : Co2e -> Mass -> Co2e
-co2ePerMass =
+co2eForMass : Co2e -> Mass -> Co2e
+co2eForMass =
     -- ref: https://github.com/ianmackenzie/elm-units/blob/master/doc/CustomUnits.md
     Quantity.per Mass.kilogram >> Quantity.at
 
 
-co2ePerKmPerMass : Co2e -> Length -> Mass -> Co2e
-co2ePerKmPerMass cc distance mass =
-    -- mass should be in tons
-    mass
-        |> Quantity.divideBy 1000
-        |> co2ePerMass cc
-        |> Quantity.multiplyBy (Length.inKilometers distance)
+co2eForMassAndDistance : Co2e -> Length -> Mass -> Co2e
+co2eForMassAndDistance cc distance =
+    -- Note: Climate Change Co2 values are for transported tons per km.
+    Quantity.divideBy 1000
+        >> co2eForMass cc
+        >> Quantity.multiplyBy (Length.inKilometers distance)
 
 
-co2ePerKWh : Co2e -> Energy -> Co2e
-co2ePerKWh =
+co2eForKWh : Co2e -> Energy -> Co2e
+co2eForKWh =
     Quantity.per (Energy.kilowattHours 1) >> Quantity.at
 
 
-ratioedCo2ePerMass : ( Co2e, Co2e ) -> Float -> Mass -> Co2e
-ratioedCo2ePerMass ( a, b ) ratio mass =
+ratioedCo2eForMass : ( Co2e, Co2e ) -> Float -> Mass -> Co2e
+ratioedCo2eForMass ( a, b ) ratio mass =
     Quantity.sum
-        [ co2ePerMass a mass |> Quantity.multiplyBy ratio
-        , co2ePerMass b mass |> Quantity.multiplyBy (1 - ratio)
+        [ co2eForMass a mass |> Quantity.multiplyBy ratio
+        , co2eForMass b mass |> Quantity.multiplyBy (1 - ratio)
         ]
 
 
-ratioedCo2ePerKWh : ( Co2e, Co2e ) -> Float -> Energy -> Co2e
-ratioedCo2ePerKWh ( a, b ) ratio energy =
+ratioedCo2eForKWh : ( Co2e, Co2e ) -> Float -> Energy -> Co2e
+ratioedCo2eForKWh ( a, b ) ratio energy =
     Quantity.sum
-        [ co2ePerKWh a energy |> Quantity.multiplyBy ratio
-        , co2ePerKWh b energy |> Quantity.multiplyBy (1 - ratio)
+        [ co2eForKWh a energy |> Quantity.multiplyBy ratio
+        , co2eForKWh b energy |> Quantity.multiplyBy (1 - ratio)
         ]
 
 
