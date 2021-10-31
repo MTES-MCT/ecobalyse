@@ -46,24 +46,6 @@ suite =
                 |> Expect.equal { mass = kg 3, waste = kg 2 }
                 |> asTest "should compute material waste from material and product waste data"
             ]
-        , describe "Formula.materialCo2"
-            [ kg 1
-                |> Formula.materialCo2 (Co2.kgCo2e 0.5)
-                |> Co2.inKgCo2e
-                |> Expect.within (Expect.Absolute 0.01) 0.5
-                |> asTest "should compute co2 from climate change process data"
-            ]
-        , describe "Formula.materialRecycledCo2"
-            [ kg 1
-                |> Formula.materialRecycledCo2
-                    { pristineClimateChange = Co2.kgCo2e 0.25
-                    , recycledClimateChange = Co2.kgCo2e 0.75
-                    , recycledRatio = 0.5
-                    }
-                |> Co2.inKgCo2e
-                |> Expect.within (Expect.Absolute 0.01) 0.5
-                |> asTest "should compute co2 from ratioed recycled material"
-            ]
         , describe "Formula.makingCo2"
             (let
                 res =
@@ -82,6 +64,27 @@ suite =
                 |> Energy.inKilowattHours
                 |> Expect.within (Expect.Absolute 0.01) 0.138
                 |> asTest "should compute Making step kwh from process and country data"
+             ]
+            )
+        , describe "Formula.weavingCo2"
+            (let
+                res =
+                    kg 1
+                        |> Formula.weavingCo2
+                            { elecPppm = 0.01
+                            , elecCC = Co2.kgCo2e 0.1
+                            , ppm = 400
+                            , grammage = 500
+                            }
+             in
+             [ res.co2
+                |> Co2.inKgCo2e
+                |> Expect.within (Expect.Absolute 0.01) 0.8
+                |> asTest "should compute KnittingWeaving step co2 from process and product data"
+             , res.kwh
+                |> Energy.inKilowattHours
+                |> Expect.within (Expect.Absolute 0.01) 8
+                |> asTest "should compute KnittingWeaving step kwh from process and product data"
              ]
             )
         ]

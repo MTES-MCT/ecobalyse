@@ -104,7 +104,7 @@ dyeingCo2 ( dyeingLowProcess, dyeingHighProcess ) highDyeingWeighting heatCC ele
                 |> Energy.megajoules
 
         heatCo2 =
-            -- FIXME: bug in Excel, we should be using KWh here; keeping for BC for now
+            -- FIXME: bug in Excel, we should be using KWh, not MJ here; keeping for BC for now
             Co2.inKgCo2e heatCC
                 |> (*) (Energy.inMegajoules heatMJ)
                 |> Co2.kgCo2e
@@ -123,36 +123,6 @@ dyeingCo2 ( dyeingLowProcess, dyeingHighProcess ) highDyeingWeighting heatCC ele
     , heat = heatMJ
     , kwh = electricity
     }
-
-
-{-| Compute co2 from climate change impact and mass
--}
-materialCo2 : Co2e -> Mass -> Co2e
-materialCo2 climateChange =
-    Co2.co2ePerMass climateChange
-
-
-{-| Compute co2 from ratioed material climate change impact and mass
--}
-materialRecycledCo2 :
-    { pristineClimateChange : Co2e
-    , recycledClimateChange : Co2e
-    , recycledRatio : Float
-    }
-    -> Mass
-    -> Co2e
-materialRecycledCo2 { pristineClimateChange, recycledClimateChange, recycledRatio } baseMass =
-    let
-        ( recycledCo2, pristineCo2 ) =
-            ( baseMass
-                |> Quantity.multiplyBy recycledRatio
-                |> Co2.co2ePerMass recycledClimateChange
-            , baseMass
-                |> Quantity.multiplyBy (1 - recycledRatio)
-                |> Co2.co2ePerMass pristineClimateChange
-            )
-    in
-    Quantity.plus recycledCo2 pristineCo2
 
 
 makingCo2 :
@@ -191,12 +161,15 @@ knittingCo2 fabricProcess elecCC baseMass =
     }
 
 
-weavingCo2 : Process -> Co2e -> Int -> Int -> Mass -> { kwh : Energy, co2 : Co2e }
-weavingCo2 fabricProcess elecCC ppm grammage baseMass =
+weavingCo2 :
+    { elecPppm : Float, elecCC : Co2e, ppm : Int, grammage : Int }
+    -> Mass
+    -> { kwh : Energy, co2 : Co2e }
+weavingCo2 { elecPppm, elecCC, ppm, grammage } baseMass =
     let
         electricityKWh =
             (Mass.inKilograms baseMass * 1000 * toFloat ppm / toFloat grammage)
-                * fabricProcess.elec_pppm
+                * elecPppm
                 |> Energy.kilowattHours
     in
     { kwh = electricityKWh

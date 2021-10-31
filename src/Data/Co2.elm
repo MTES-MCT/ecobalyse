@@ -46,6 +46,22 @@ co2ePerKWh =
     Quantity.per (Energy.kilowattHours 1) >> Quantity.at
 
 
+ratioedCo2ePerMass : ( Co2e, Co2e ) -> Float -> Mass -> Co2e
+ratioedCo2ePerMass ( a, b ) ratio mass =
+    Quantity.sum
+        [ co2ePerMass a mass |> Quantity.multiplyBy ratio
+        , co2ePerMass b mass |> Quantity.multiplyBy (1 - ratio)
+        ]
+
+
+ratioedCo2ePerKWh : ( Co2e, Co2e ) -> Float -> Energy -> Co2e
+ratioedCo2ePerKWh ( a, b ) ratio energy =
+    Quantity.sum
+        [ co2ePerKWh a energy |> Quantity.multiplyBy ratio
+        , co2ePerKWh b energy |> Quantity.multiplyBy (1 - ratio)
+        ]
+
+
 decodeKgCo2e : Decoder Co2e
 decodeKgCo2e =
     Decode.float |> Decode.andThen (kgCo2e >> Decode.succeed)
