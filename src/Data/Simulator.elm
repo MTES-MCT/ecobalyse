@@ -216,7 +216,7 @@ computeWeavingKnittingCo2Score { processes } ({ inputs, lifeCycle } as simulator
                                     if inputs.product.knitted then
                                         lifeCycle
                                             |> LifeCycle.getStepMass Step.Ennoblement
-                                            |> Formula.knittingCo2 fabricProcess elecCC
+                                            |> Formula.knittingCo2 { elec = fabricProcess.elec, elecCC = elecCC }
 
                                     else
                                         step.mass
