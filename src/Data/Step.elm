@@ -143,9 +143,9 @@ computeTransportCo2 : Process.WellKnown -> Process -> Mass -> Transport -> Trans
 computeTransportCo2 { seaTransport, airTransport } roadProcess mass { road, sea, air } =
     let
         ( roadCo2, seaCo2, airCo2 ) =
-            ( mass |> Quantity.divideBy 1000 |> Co2.co2ePerMass roadProcess.climateChange |> Quantity.multiplyBy road
-            , mass |> Quantity.divideBy 1000 |> Co2.co2ePerMass seaTransport.climateChange |> Quantity.multiplyBy sea
-            , mass |> Quantity.divideBy 1000 |> Co2.co2ePerMass airTransport.climateChange |> Quantity.multiplyBy air
+            ( mass |> Co2.co2ePerKmPerMass roadProcess.climateChange road
+            , mass |> Co2.co2ePerKmPerMass seaTransport.climateChange sea
+            , mass |> Co2.co2ePerKmPerMass airTransport.climateChange air
             )
     in
     { road = road
@@ -174,8 +174,8 @@ computeTransportSummary step transport =
             -- Added intermediary defaultInland transport step to materialize
             -- Processing + Dyeing steps (see Excel)
             { defaultSummary
-                | road = transport.road + defaultInland.road
-                , sea = transport.sea + defaultInland.sea
+                | road = transport.road |> Quantity.plus defaultInland.road
+                , sea = transport.sea |> Quantity.plus defaultInland.sea
             }
 
         Making ->
@@ -210,7 +210,9 @@ getRoadTransportProcess wellKnown { label } =
 update : Db -> Inputs -> Maybe Step -> Step -> Step
 update db { dyeingWeighting, airTransportRatio } _ step =
     { step
-        | processInfo = processCountryInfo db step.label step.country |> Result.withDefault defaultProcessInfo
+        | processInfo =
+            processCountryInfo db step.label step.country
+                |> Result.withDefault defaultProcessInfo
         , dyeingWeighting =
             if step.label == Ennoblement then
                 dyeingWeighting |> Maybe.withDefault step.country.dyeingWeighting

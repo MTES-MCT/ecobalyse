@@ -5,15 +5,8 @@ import Data.Country as Country
 import Dict.Any as Dict exposing (AnyDict)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
+import Length exposing (Length)
 import Quantity
-
-
-type alias Km =
-    Float
-
-
-type alias Ratio =
-    Float
 
 
 type alias Distance =
@@ -25,18 +18,19 @@ type alias Distances =
 
 
 type alias Transport =
-    -- TODO: use elm-unit Distance.kilometers
-    { road : Km, sea : Km, air : Km }
+    { road : Length, sea : Length, air : Length }
 
 
 type alias Summary =
-    -- TODO: use elm-unit Distance.kilometers
-    { road : Km, sea : Km, air : Km, co2 : Co2e }
+    { road : Length, sea : Length, air : Length, co2 : Co2e }
 
 
 default : Transport
 default =
-    { road = 0, sea = 0, air = 0 }
+    { road = Quantity.zero
+    , sea = Quantity.zero
+    , air = Quantity.zero
+    }
 
 
 emptyDistances : Distances
@@ -46,20 +40,27 @@ emptyDistances =
 
 defaultSummary : Summary
 defaultSummary =
-    { road = 0, sea = 0, air = 0, co2 = Quantity.zero }
+    { road = Quantity.zero
+    , sea = Quantity.zero
+    , air = Quantity.zero
+    , co2 = Quantity.zero
+    }
 
 
 defaultInland : Transport
 defaultInland =
-    { road = 500, sea = 0, air = 500 }
+    { road = Length.kilometers 500
+    , sea = Quantity.zero
+    , air = Length.kilometers 500
+    }
 
 
 addSummary : Summary -> Summary -> Summary
 addSummary sA sB =
     { sA
-        | road = sA.road + sB.road
-        , sea = sA.sea + sB.sea
-        , air = sA.air + sB.air
+        | road = sA.road |> Quantity.plus sB.road
+        , sea = sA.sea |> Quantity.plus sB.sea
+        , air = sA.air |> Quantity.plus sB.air
         , co2 = sA.co2 |> Quantity.plus sB.co2
     }
 
@@ -67,7 +68,10 @@ addSummary sA sB =
 materialToSpinningTransport : Transport
 materialToSpinningTransport =
     -- Note: used as the defaults for the initial Material&Spinning step
-    { road = 2000, sea = 4000, air = 0 }
+    { road = Length.kilometers 2000
+    , sea = Length.kilometers 4000
+    , air = Length.kilometers 0
+    }
 
 
 {-| Determine road/sea transport ratio, so road transport is priviledged
@@ -80,19 +84,19 @@ for shorter distances. A few notes:
 -}
 roadSeaTransportRatio : Summary -> Float
 roadSeaTransportRatio { road, sea } =
-    if road == 0 then
+    if Length.inKilometers road == 0 then
         0
 
-    else if sea == 0 then
+    else if Length.inKilometers sea == 0 then
         1
 
-    else if road <= 500 then
+    else if Length.inKilometers road <= 500 then
         1
 
-    else if road < 1000 then
+    else if Length.inKilometers road < 1000 then
         0.9
 
-    else if road < 2000 then
+    else if Length.inKilometers road < 2000 then
         0.5
 
     else
@@ -125,38 +129,48 @@ toSummary { road, air, sea } =
     { road = road, sea = sea, air = air, co2 = Quantity.zero }
 
 
+decodeKm : Decoder Length
+decodeKm =
+    Decode.float |> Decode.andThen (Length.kilometers >> Decode.succeed)
+
+
+encodeKm : Length -> Encode.Value
+encodeKm =
+    Length.inKilometers >> Encode.float
+
+
 decodeTransport : Decoder Transport
 decodeTransport =
     Decode.map3 Transport
-        (Decode.field "road" Decode.float)
-        (Decode.field "sea" Decode.float)
-        (Decode.field "air" Decode.float)
+        (Decode.field "road" decodeKm)
+        (Decode.field "sea" decodeKm)
+        (Decode.field "air" decodeKm)
 
 
 encodeTransport : Transport -> Encode.Value
 encodeTransport v =
     Encode.object
-        [ ( "road", Encode.float v.road )
-        , ( "sea", Encode.float v.sea )
-        , ( "air", Encode.float v.air )
+        [ ( "road", encodeKm v.road )
+        , ( "sea", encodeKm v.sea )
+        , ( "air", encodeKm v.air )
         ]
 
 
 decodeSummary : Decoder Summary
 decodeSummary =
     Decode.map4 Summary
-        (Decode.field "road" Decode.float)
-        (Decode.field "sea" Decode.float)
-        (Decode.field "air" Decode.float)
+        (Decode.field "road" decodeKm)
+        (Decode.field "sea" decodeKm)
+        (Decode.field "air" decodeKm)
         (Decode.field "co2" Co2.decodeKgCo2e)
 
 
 encodeSummary : Summary -> Encode.Value
 encodeSummary summary =
     Encode.object
-        [ ( "road", Encode.float summary.road )
-        , ( "sea", Encode.float summary.sea )
-        , ( "air", Encode.float summary.air )
+        [ ( "road", encodeKm summary.road )
+        , ( "sea", encodeKm summary.sea )
+        , ( "air", encodeKm summary.air )
         , ( "co2", Co2.encodeKgCo2e summary.co2 )
         ]
 

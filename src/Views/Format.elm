@@ -6,6 +6,7 @@ import FormatNumber
 import FormatNumber.Locales exposing (Decimals(..), frenchLocale)
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import Length exposing (Length)
 import Mass exposing (Mass)
 
 
@@ -42,6 +43,11 @@ kgCo2 decimals =
 kg : Mass -> Html msg
 kg =
     Mass.inKilograms >> formatRichFloat 3 "kg"
+
+
+km : Length -> Html msg
+km =
+    Length.inKilometers >> formatRichFloat 0 "km"
 
 
 kilowattHours : Energy -> Html msg

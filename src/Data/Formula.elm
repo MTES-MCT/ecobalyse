@@ -187,7 +187,7 @@ transportRatio airTransportRatio ({ road, sea, air } as summary) =
         roadSeaRatio =
             Transport.roadSeaTransportRatio summary
     in
-    { road = (road * roadSeaRatio) * (1 - airTransportRatio)
-    , sea = (sea * (1 - roadSeaRatio)) * (1 - airTransportRatio)
-    , air = air * airTransportRatio
+    { road = road |> Quantity.multiplyBy (roadSeaRatio * (1 - airTransportRatio))
+    , sea = sea |> Quantity.multiplyBy ((1 - roadSeaRatio) * (1 - airTransportRatio))
+    , air = air |> Quantity.multiplyBy airTransportRatio
     }
