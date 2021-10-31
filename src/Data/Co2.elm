@@ -36,14 +36,14 @@ inTonsCo2e (Quantity value) =
 
 
 co2ePerMass : Co2e -> Mass -> Co2e
-co2ePerMass cc =
+co2ePerMass =
     -- ref: https://github.com/ianmackenzie/elm-units/blob/master/doc/CustomUnits.md
-    Quantity.at (Quantity.per Mass.kilogram cc)
+    Quantity.per Mass.kilogram >> Quantity.at
 
 
 co2ePerKWh : Co2e -> Energy -> Co2e
-co2ePerKWh cc =
-    Quantity.at (Quantity.per (Energy.kilowattHours 1) cc)
+co2ePerKWh =
+    Quantity.per (Energy.kilowattHours 1) >> Quantity.at
 
 
 decodeKgCo2e : Decoder Co2e
