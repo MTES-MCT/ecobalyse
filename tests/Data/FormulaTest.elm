@@ -87,4 +87,23 @@ suite =
                 |> asTest "should compute KnittingWeaving step kwh from process and product data"
              ]
             )
+        , describe "Formula.knittingCo2"
+            (let
+                res =
+                    kg 1
+                        |> Formula.knittingCo2
+                            { elec = Energy.kilowattHours 5
+                            , elecCC = Co2.kgCo2e 0.2
+                            }
+             in
+             [ res.co2
+                |> Co2.inKgCo2e
+                |> Expect.within (Expect.Absolute 0.01) 1
+                |> asTest "should compute KnittingWeaving step co2 from process and product data"
+             , res.kwh
+                |> Energy.inKilowattHours
+                |> Expect.within (Expect.Absolute 0.01) 5
+                |> asTest "should compute KnittingWeaving step kwh from process and product data"
+             ]
+            )
         ]

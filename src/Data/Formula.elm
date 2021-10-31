@@ -149,12 +149,12 @@ makingCo2 { makingClimateChange, makingElec, countryElecClimateChange } baseMass
     { co2 = Quantity.plus makingCo2_ elecCo2, kwh = kwh }
 
 
-knittingCo2 : Process -> Co2e -> Mass -> { kwh : Energy, co2 : Co2e }
-knittingCo2 fabricProcess elecCC baseMass =
+knittingCo2 : { elec : Energy, elecCC : Co2e } -> Mass -> { kwh : Energy, co2 : Co2e }
+knittingCo2 { elec, elecCC } baseMass =
     let
         electricityKWh =
             Energy.kilowattHours
-                (Mass.inKilograms baseMass * Energy.inKilowattHours fabricProcess.elec)
+                (Mass.inKilograms baseMass * Energy.inKilowattHours elec)
     in
     { kwh = electricityKWh
     , co2 = electricityKWh |> Co2.co2ePerKWh elecCC
