@@ -25,48 +25,47 @@ getJson decoder file =
     Http.getTaskWithConfig taskConfig ("data/" ++ file) decoder
 
 
-buildDb :
-    WebData (List Process)
+buildFromWebData :
+    List Process
     -> WebData (List Country)
     -> WebData (List Material)
     -> WebData (List Product)
     -> WebData Distances
     -> WebData Db
-buildDb processes countries materials products transports =
-    RemoteData.succeed Db
-        |> RemoteData.andMap processes
+buildFromWebData processes countries materials products transports =
+    RemoteData.succeed (Db processes)
         |> RemoteData.andMap countries
         |> RemoteData.andMap materials
         |> RemoteData.andMap products
         |> RemoteData.andMap transports
 
 
-getDb : Session -> Task () (WebData Db)
-getDb _ =
+loadProcessesDependentData : List Process -> Task () (WebData Db)
+loadProcessesDependentData processes =
     let
         -- see https://github.com/alex-tan/task-extra/blob/1.1.0/src/Task/Extra.elm#L579-L581
         andMap =
             Task.map2 (|>)
     in
+    Task.succeed (buildFromWebData processes)
+        |> andMap (getJson (Country.decodeList processes) "countries.json")
+        |> andMap (getJson (Material.decodeList processes) "materials.json")
+        |> andMap (getJson (Product.decodeList processes) "products.json")
+        |> andMap (getJson Transport.decodeDistances "transports.json")
+
+
+loadDb : Session -> (WebData Db -> msg) -> Cmd msg
+loadDb _ event =
     getJson Process.decodeList "processes.json"
         |> Task.andThen
             (\processesData ->
                 case processesData of
                     RemoteData.Success processes ->
-                        Task.succeed (buildDb processesData)
-                            |> andMap (getJson (Country.decodeList processes) "countries.json")
-                            |> andMap (getJson (Material.decodeList processes) "materials.json")
-                            |> andMap (getJson (Product.decodeList processes) "products.json")
-                            |> andMap (getJson Transport.decodeDistances "transports.json")
+                        loadProcessesDependentData processes
 
                     _ ->
                         Task.fail ()
             )
-
-
-loadDb : Session -> (WebData Db -> msg) -> Cmd msg
-loadDb session event =
-    getDb session
         |> Task.attempt
             (\result ->
                 case result of
