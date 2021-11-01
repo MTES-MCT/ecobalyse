@@ -12,21 +12,9 @@ type alias Material =
     , shortName : String
     , category : Category
     , materialProcess : Process
-    , recycledUuid : Maybe Process.Uuid
+    , recycledProcess : Maybe Process
     , primary : Bool
     }
-
-
-getRecycledProcess : Material -> List Process -> Result String (Maybe Process)
-getRecycledProcess material processes =
-    case material.recycledUuid of
-        Just uuid ->
-            processes
-                |> Process.findByUuid uuid
-                |> Result.map Just
-
-        Nothing ->
-            Ok Nothing
 
 
 findByUuid : Process.Uuid -> List Material -> Result String Material
@@ -85,7 +73,7 @@ decode processes =
         (Decode.field "shortName" Decode.string)
         (Decode.field "category" Category.decode)
         (Decode.field "materialProcessUuid" (Process.decodeFromUuid processes))
-        (Decode.field "recycledUuid" (Decode.maybe (Decode.map Process.Uuid Decode.string)))
+        (Decode.field "recycledUuid" (Decode.maybe (Process.decodeFromUuid processes)))
         (Decode.field "primary" Decode.bool)
 
 
@@ -103,8 +91,8 @@ encode v =
         , ( "category", v.category |> Category.toString |> Encode.string )
         , ( "materialProcessUuid", v.materialProcess.uuid |> Process.uuidToString |> Encode.string )
         , ( "recycledUuid"
-          , v.recycledUuid
-                |> Maybe.map (Process.uuidToString >> Encode.string)
+          , v.recycledProcess
+                |> Maybe.map (.uuid >> Process.uuidToString >> Encode.string)
                 |> Maybe.withDefault Encode.null
           )
         , ( "primary", Encode.bool v.primary )

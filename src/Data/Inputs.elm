@@ -277,19 +277,6 @@ presets =
     ]
 
 
-
--- decode : Decoder Inputs
--- decode =
---     Decode.map7 Inputs
---         (Decode.field "mass" (Decode.map Mass.kilograms Decode.float))
---         (Decode.field "material" Material.decode)
---         (Decode.field "product" Product.decode)
---         (Decode.field "countries" (Decode.list Country.decode))
---         (Decode.field "dyeingWeighting" (Decode.maybe Decode.float))
---         (Decode.field "airTransportRatio" (Decode.maybe Decode.float))
---         (Decode.field "recycledRatio" (Decode.maybe Decode.float))
-
-
 encode : Inputs -> Encode.Value
 encode inputs =
     Encode.object
