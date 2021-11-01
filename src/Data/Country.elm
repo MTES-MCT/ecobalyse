@@ -13,8 +13,8 @@ type Code
 type alias Country =
     { code : Code
     , name : String
-    , electricity : Process
-    , heat : Process
+    , electricityProcess : Process
+    , heatProcess : Process
     , dyeingWeighting : Float
     , airTransportRatio : Float
     }
@@ -54,8 +54,8 @@ decode processes =
     Decode.map6 Country
         (Decode.field "code" (Decode.map Code Decode.string))
         (Decode.field "name" Decode.string)
-        (Decode.field "electricity" (Process.decodeFromUuid processes))
-        (Decode.field "heat" (Process.decodeFromUuid processes))
+        (Decode.field "electricityProcessUuid" (Process.decodeFromUuid processes))
+        (Decode.field "heatProcessUuid" (Process.decodeFromUuid processes))
         (Decode.field "dyeingWeighting" Decode.float)
         (Decode.field "airTransportRatio" Decode.float)
 
@@ -70,8 +70,8 @@ encode v =
     Encode.object
         [ ( "code", v.code |> codeToString |> Encode.string )
         , ( "name", Encode.string v.name )
-        , ( "electricity", v.electricity.uuid |> Process.uuidToString |> Encode.string )
-        , ( "heat", v.heat.uuid |> Process.uuidToString |> Encode.string )
+        , ( "electricityProcessUuid", v.electricityProcess.uuid |> Process.uuidToString |> Encode.string )
+        , ( "heatProcessUuid", v.heatProcess.uuid |> Process.uuidToString |> Encode.string )
         , ( "dyeingWeighting", Encode.float v.dyeingWeighting )
         , ( "airTransportRatio", Encode.float v.airTransportRatio )
         ]

@@ -109,7 +109,7 @@ computeMakingCo2Score ({ inputs } as simulator) =
                             |> Formula.makingCo2
                                 { makingCC = inputs.product.makingProcess.climateChange
                                 , makingElec = inputs.product.makingProcess.elec
-                                , countryElecCC = country.electricity.climateChange
+                                , countryElecCC = country.electricityProcess.climateChange
                                 }
                 in
                 { step | kwh = kwh, co2 = co2 }
@@ -128,8 +128,8 @@ computeDyeingCo2Score { processes } simulator =
                                 step.mass
                                     |> Formula.dyeingCo2 ( dyeingLow, dyeingHigh )
                                         dyeingWeighting
-                                        country.heat.climateChange
-                                        country.electricity.climateChange
+                                        country.heatProcess.climateChange
+                                        country.electricityProcess.climateChange
                         in
                         { step | co2 = co2, heat = heat, kwh = kwh }
                     )
@@ -175,14 +175,14 @@ computeWeavingKnittingCo2Score ({ inputs, lifeCycle } as simulator) =
                                 |> LifeCycle.getStepMass Step.Ennoblement
                                 |> Formula.knittingCo2
                                     { elec = inputs.product.fabricProcess.elec
-                                    , elecCC = country.electricity.climateChange
+                                    , elecCC = country.electricityProcess.climateChange
                                     }
 
                         else
                             step.mass
                                 |> Formula.weavingCo2
                                     { elecPppm = inputs.product.fabricProcess.elec_pppm
-                                    , elecCC = country.electricity.climateChange
+                                    , elecCC = country.electricityProcess.climateChange
                                     , grammage = inputs.product.grammage
                                     , ppm = inputs.product.ppm
                                     }

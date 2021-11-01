@@ -73,7 +73,7 @@ decode processes =
         (Decode.field "shortName" Decode.string)
         (Decode.field "category" Category.decode)
         (Decode.field "materialProcessUuid" (Process.decodeFromUuid processes))
-        (Decode.field "recycledUuid" (Decode.maybe (Process.decodeFromUuid processes)))
+        (Decode.field "recycledProcessUuid" (Decode.maybe (Process.decodeFromUuid processes)))
         (Decode.field "primary" Decode.bool)
 
 
@@ -90,7 +90,7 @@ encode v =
         , ( "shortName", Encode.string v.shortName )
         , ( "category", v.category |> Category.toString |> Encode.string )
         , ( "materialProcessUuid", v.materialProcess.uuid |> Process.uuidToString |> Encode.string )
-        , ( "recycledUuid"
+        , ( "recycledProcessUuid"
           , v.recycledProcess
                 |> Maybe.map (.uuid >> Process.uuidToString >> Encode.string)
                 |> Maybe.withDefault Encode.null

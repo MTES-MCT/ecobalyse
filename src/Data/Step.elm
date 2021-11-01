@@ -78,18 +78,18 @@ processCountryInfo : Label -> Country -> ProcessInfo
 processCountryInfo label country =
     case label of
         WeavingKnitting ->
-            { defaultProcessInfo | electricity = Just country.electricity.name }
+            { defaultProcessInfo | electricity = Just country.electricityProcess.name }
 
         Ennoblement ->
             { defaultProcessInfo
-                | heat = Just country.heat.name
-                , electricity = Just country.electricity.name
+                | heat = Just country.heatProcess.name
+                , electricity = Just country.electricityProcess.name
                 , dyeingWeighting = Just (dyeingWeightingToString country.dyeingWeighting)
             }
 
         Making ->
             { defaultProcessInfo
-                | electricity = Just country.electricity.name
+                | electricity = Just country.electricityProcess.name
                 , airTransportRatio =
                     country.airTransportRatio
                         |> airTransportRatioToString
