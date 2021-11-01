@@ -243,7 +243,7 @@ materialFormSet db recycledRatio material =
                 , update = UpdateRecycledRatio
                 , value = Maybe.withDefault 0 recycledRatio
                 , toString = Material.recycledRatioToString
-                , disabled = material.recycledUuid == Nothing
+                , disabled = material.recycledProcess == Nothing
                 }
             ]
         ]

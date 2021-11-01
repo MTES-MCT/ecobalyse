@@ -11,21 +11,10 @@ type alias Material =
     , name : String
     , shortName : String
     , category : Category
-    , recycledUuid : Maybe Process.Uuid
+    , materialProcess : Process
+    , recycledProcess : Maybe Process
     , primary : Bool
     }
-
-
-getRecycledProcess : Material -> List Process -> Result String (Maybe Process)
-getRecycledProcess material processes =
-    case material.recycledUuid of
-        Just uuid ->
-            processes
-                |> Process.findByUuid uuid
-                |> Result.map Just
-
-        Nothing ->
-            Ok Nothing
 
 
 findByUuid : Process.Uuid -> List Material -> Result String Material
@@ -76,20 +65,21 @@ recycledRatioToString recycledRatio =
     String.fromInt (round (recycledRatio * 100)) ++ "% d'origine recyclée"
 
 
-decode : Decoder Material
-decode =
-    Decode.map6 Material
+decode : List Process -> Decoder Material
+decode processes =
+    Decode.map7 Material
         (Decode.field "uuid" (Decode.map Process.Uuid Decode.string))
         (Decode.field "name" Decode.string)
         (Decode.field "shortName" Decode.string)
         (Decode.field "category" Category.decode)
-        (Decode.field "recycledUuid" (Decode.maybe (Decode.map Process.Uuid Decode.string)))
+        (Decode.field "materialProcessUuid" (Process.decodeFromUuid processes))
+        (Decode.field "recycledProcessUuid" (Decode.maybe (Process.decodeFromUuid processes)))
         (Decode.field "primary" Decode.bool)
 
 
-decodeList : Decoder (List Material)
-decodeList =
-    Decode.list decode
+decodeList : List Process -> Decoder (List Material)
+decodeList processes =
+    Decode.list (decode processes)
 
 
 encode : Material -> Encode.Value
@@ -99,9 +89,10 @@ encode v =
         , ( "name", v.name |> Encode.string )
         , ( "shortName", Encode.string v.shortName )
         , ( "category", v.category |> Category.toString |> Encode.string )
-        , ( "recycledUuid"
-          , v.recycledUuid
-                |> Maybe.map (Process.uuidToString >> Encode.string)
+        , ( "materialProcessUuid", v.materialProcess.uuid |> Process.uuidToString |> Encode.string )
+        , ( "recycledProcessUuid"
+          , v.recycledProcess
+                |> Maybe.map (.uuid >> Process.uuidToString >> Encode.string)
                 |> Maybe.withDefault Encode.null
           )
         , ( "primary", Encode.bool v.primary )

@@ -2,64 +2,64 @@
   {
     "code": "BD",
     "name": "Bangladesh",
-    "electricity": "1ee6061e-8e15-4558-9338-94ad87abf932",
-    "heat": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
+    "electricityProcessUuid": "1ee6061e-8e15-4558-9338-94ad87abf932",
+    "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
     "dyeingWeighting": 1,
     "airTransportRatio": 0.33
   },
   {
     "code": "CN",
     "name": "Chine",
-    "electricity": "8f923f3d-0bd2-4326-99e2-f984b4454226",
-    "heat": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
+    "electricityProcessUuid": "8f923f3d-0bd2-4326-99e2-f984b4454226",
+    "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
     "dyeingWeighting": 1,
     "airTransportRatio": 0.33
   },
   {
     "code": "ES",
     "name": "Espagne",
-    "electricity": "37301c44-c4cf-4214-a4ac-eee5785ccdc5",
-    "heat": "618440a9-f4aa-65bc-21cb-ea40eee53f3d",
+    "electricityProcessUuid": "37301c44-c4cf-4214-a4ac-eee5785ccdc5",
+    "heatProcessUuid": "618440a9-f4aa-65bc-21cb-ea40eee53f3d",
     "dyeingWeighting": 0,
     "airTransportRatio": 0
   },
   {
     "code": "FR",
     "name": "France",
-    "electricity": "05585055-9742-4fff-81ff-ad2e30e1b791",
-    "heat": "12fc43f2-a007-423b-a619-619d725793ea",
+    "electricityProcessUuid": "05585055-9742-4fff-81ff-ad2e30e1b791",
+    "heatProcessUuid": "12fc43f2-a007-423b-a619-619d725793ea",
     "dyeingWeighting": 0,
     "airTransportRatio": 0
   },
   {
     "code": "IN",
     "name": "Inde",
-    "electricity": "1b470f5c-6ae6-404d-bd71-8546d33dbc17",
-    "heat": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
+    "electricityProcessUuid": "1b470f5c-6ae6-404d-bd71-8546d33dbc17",
+    "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
     "dyeingWeighting": 1,
     "airTransportRatio": 0.33
   },
   {
     "code": "PT",
     "name": "Portugal",
-    "electricity": "a1d83202-0052-4d10-b9d2-938564be6a0b",
-    "heat": "59c4c64c-0916-868a-5dd6-a42c4c42222f",
+    "electricityProcessUuid": "a1d83202-0052-4d10-b9d2-938564be6a0b",
+    "heatProcessUuid": "59c4c64c-0916-868a-5dd6-a42c4c42222f",
     "dyeingWeighting": 0,
     "airTransportRatio": 0
   },
   {
     "code": "TN",
     "name": "Tunisie",
-    "electricity": "f0eb64cd-468d-4f3c-a9a3-3b3661625955",
-    "heat": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
+    "electricityProcessUuid": "f0eb64cd-468d-4f3c-a9a3-3b3661625955",
+    "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
     "dyeingWeighting": 1,
     "airTransportRatio": 0
   },
   {
     "code": "TR",
     "name": "Turquie",
-    "electricity": "6fad8643-de3e-49dd-a48b-8e17b4175c23",
-    "heat": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
+    "electricityProcessUuid": "6fad8643-de3e-49dd-a48b-8e17b4175c23",
+    "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
     "dyeingWeighting": 1,
     "airTransportRatio": 0.33
   }

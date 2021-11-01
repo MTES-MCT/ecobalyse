@@ -357,6 +357,17 @@ uuidToString (Uuid string) =
     string
 
 
+decodeFromUuid : List Process -> Decoder Process
+decodeFromUuid processes =
+    Decode.string
+        |> Decode.andThen
+            (\uuid ->
+                processes
+                    |> findByUuid (Uuid uuid)
+                    |> DecodeExtra.fromResult
+            )
+
+
 decode : Decoder Process
 decode =
     Decode.succeed Process
