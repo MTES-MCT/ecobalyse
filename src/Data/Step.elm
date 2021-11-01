@@ -76,7 +76,6 @@ defaultProcessInfo =
 
 processCountryInfo : Label -> Country -> ProcessInfo
 processCountryInfo label country =
-    -- FIXME: remove db dependency and don't return a Result
     case label of
         WeavingKnitting ->
             { defaultProcessInfo | electricity = Just country.electricity.name }

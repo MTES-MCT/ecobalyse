@@ -362,12 +362,9 @@ decodeFromUuid processes =
     Decode.string
         |> Decode.andThen
             (\uuid ->
-                case findByUuid (Uuid uuid) processes of
-                    Ok process ->
-                        Decode.succeed process
-
-                    Err error ->
-                        Decode.fail error
+                processes
+                    |> findByUuid (Uuid uuid)
+                    |> DecodeExtra.fromResult
             )
 
 
