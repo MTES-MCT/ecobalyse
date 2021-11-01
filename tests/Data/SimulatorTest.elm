@@ -100,9 +100,15 @@ suite =
                     |> asTest "should compute co2 score for robeCircuitBangladesh using custom air transport ratio"
                 ]
             , describe "custom recycled ratio"
-                [ { tShirtCotonFrance | recycledRatio = Just 0.5 }
+                [ { tShirtCotonFrance | recycledRatio = Just 0 }
+                    |> expectCo2 5.231201384993548
+                    |> asTest "should compute co2 score for tShirtCotonFrance using no recycled ratio"
+                , { tShirtCotonFrance | recycledRatio = Just 0.5 }
                     |> expectCo2 3.4545956055533633
-                    |> asTest "should compute co2 score for tShirtCotonFrance using custom recycled ratio"
+                    |> asTest "should compute co2 score for tShirtCotonFrance using half recycled ratio"
+                , { tShirtCotonFrance | recycledRatio = Just 1 }
+                    |> expectCo2 1.48543991839824
+                    |> asTest "should compute co2 score for tShirtCotonFrance using full recycled ratio"
                 , { tShirtCotonEurope | recycledRatio = Just 0.5 }
                     |> expectCo2 6.4992048523287105
                     |> asTest "should compute co2 score for tShirtCotonEurope using custom recycled ratio"
