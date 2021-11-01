@@ -26,17 +26,17 @@ getJson decoder file =
 
 
 buildDb :
-    WebData (List Country)
+    WebData (List Process)
+    -> WebData (List Country)
     -> WebData (List Material)
-    -> WebData (List Process)
     -> WebData (List Product)
     -> WebData Distances
     -> WebData Db
-buildDb countries materials processes products transports =
+buildDb processes countries materials products transports =
     RemoteData.succeed Db
+        |> RemoteData.andMap processes
         |> RemoteData.andMap countries
         |> RemoteData.andMap materials
-        |> RemoteData.andMap processes
         |> RemoteData.andMap products
         |> RemoteData.andMap transports
 
@@ -48,12 +48,20 @@ getDb _ =
         andMap =
             Task.map2 (|>)
     in
-    Task.succeed buildDb
-        |> andMap (getJson Country.decodeList "countries.json")
-        |> andMap (getJson Material.decodeList "materials.json")
-        |> andMap (getJson Process.decodeList "processes.json")
-        |> andMap (getJson Product.decodeList "products.json")
-        |> andMap (getJson Transport.decodeDistances "transports.json")
+    getJson Process.decodeList "processes.json"
+        |> Task.andThen
+            (\processesData ->
+                case processesData of
+                    RemoteData.Success processes ->
+                        Task.succeed (buildDb processesData)
+                            |> andMap (getJson (Country.decodeList processes) "countries.json")
+                            |> andMap (getJson (Material.decodeList processes) "materials.json")
+                            |> andMap (getJson (Product.decodeList processes) "products.json")
+                            |> andMap (getJson Transport.decodeDistances "transports.json")
+
+                    _ ->
+                        Task.fail ()
+            )
 
 
 loadDb : Session -> (WebData Db -> msg) -> Cmd msg

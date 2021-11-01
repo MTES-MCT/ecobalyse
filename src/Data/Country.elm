@@ -1,6 +1,6 @@
 module Data.Country exposing (..)
 
-import Data.Process as Process
+import Data.Process as Process exposing (Process)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
 import Result.Extra as RE
@@ -13,8 +13,8 @@ type Code
 type alias Country =
     { code : Code
     , name : String
-    , electricity : Process.Uuid -- IDEA: replace by process record
-    , heat : Process.Uuid -- IDEA: replace by process record
+    , electricity : Process
+    , heat : Process
     , dyeingWeighting : Float
     , airTransportRatio : Float
     }
@@ -49,20 +49,20 @@ findByCodes codes_ countries =
         |> RE.combine
 
 
-decode : Decoder Country
-decode =
+decode : List Process -> Decoder Country
+decode processes =
     Decode.map6 Country
         (Decode.field "code" (Decode.map Code Decode.string))
         (Decode.field "name" Decode.string)
-        (Decode.field "electricity" (Decode.map Process.Uuid Decode.string))
-        (Decode.field "heat" (Decode.map Process.Uuid Decode.string))
+        (Decode.field "electricity" (Process.decodeFromUuid processes))
+        (Decode.field "heat" (Process.decodeFromUuid processes))
         (Decode.field "dyeingWeighting" Decode.float)
         (Decode.field "airTransportRatio" Decode.float)
 
 
-decodeList : Decoder (List Country)
-decodeList =
-    Decode.list decode
+decodeList : List Process -> Decoder (List Country)
+decodeList processes =
+    Decode.list (decode processes)
 
 
 encode : Country -> Encode.Value
@@ -70,8 +70,8 @@ encode v =
     Encode.object
         [ ( "code", v.code |> codeToString |> Encode.string )
         , ( "name", Encode.string v.name )
-        , ( "electricity", v.electricity |> Process.uuidToString |> Encode.string )
-        , ( "heat", v.heat |> Process.uuidToString |> Encode.string )
+        , ( "electricity", v.electricity.uuid |> Process.uuidToString |> Encode.string )
+        , ( "heat", v.heat.uuid |> Process.uuidToString |> Encode.string )
         , ( "dyeingWeighting", Encode.float v.dyeingWeighting )
         , ( "airTransportRatio", Encode.float v.airTransportRatio )
         ]

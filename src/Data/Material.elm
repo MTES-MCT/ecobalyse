@@ -11,6 +11,7 @@ type alias Material =
     , name : String
     , shortName : String
     , category : Category
+    , materialProcess : Process
     , recycledUuid : Maybe Process.Uuid
     , primary : Bool
     }
@@ -76,20 +77,21 @@ recycledRatioToString recycledRatio =
     String.fromInt (round (recycledRatio * 100)) ++ "% d'origine recyclée"
 
 
-decode : Decoder Material
-decode =
-    Decode.map6 Material
+decode : List Process -> Decoder Material
+decode processes =
+    Decode.map7 Material
         (Decode.field "uuid" (Decode.map Process.Uuid Decode.string))
         (Decode.field "name" Decode.string)
         (Decode.field "shortName" Decode.string)
         (Decode.field "category" Category.decode)
+        (Decode.field "materialProcessUuid" (Process.decodeFromUuid processes))
         (Decode.field "recycledUuid" (Decode.maybe (Decode.map Process.Uuid Decode.string)))
         (Decode.field "primary" Decode.bool)
 
 
-decodeList : Decoder (List Material)
-decodeList =
-    Decode.list decode
+decodeList : List Process -> Decoder (List Material)
+decodeList processes =
+    Decode.list (decode processes)
 
 
 encode : Material -> Encode.Value
@@ -99,6 +101,7 @@ encode v =
         , ( "name", v.name |> Encode.string )
         , ( "shortName", Encode.string v.shortName )
         , ( "category", v.category |> Category.toString |> Encode.string )
+        , ( "materialProcessUuid", v.materialProcess.uuid |> Process.uuidToString |> Encode.string )
         , ( "recycledUuid"
           , v.recycledUuid
                 |> Maybe.map (Process.uuidToString >> Encode.string)

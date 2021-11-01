@@ -1,6 +1,6 @@
 module Data.Product exposing (..)
 
-import Data.Process as Process
+import Data.Process as Process exposing (Process)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
@@ -15,8 +15,8 @@ type alias Product =
     , ppm : Int -- pick per meter
     , grammage : Int -- grammes per kg
     , knitted : Bool -- True: Tricotage (Knitting); False: Tissage (Weaving)
-    , fabricProcessUuid : Process.Uuid
-    , makingProcessUuid : Process.Uuid
+    , fabricProcess : Process
+    , makingProcess : Process
     }
 
 
@@ -36,8 +36,8 @@ idToString (Id string) =
     string
 
 
-decode : Decoder Product
-decode =
+decode : List Process -> Decoder Product
+decode processes =
     Decode.succeed Product
         |> Pipe.required "id" (Decode.map Id Decode.string)
         |> Pipe.required "name" Decode.string
@@ -46,13 +46,13 @@ decode =
         |> Pipe.required "ppm" Decode.int
         |> Pipe.required "grammage" Decode.int
         |> Pipe.required "knitted" Decode.bool
-        |> Pipe.required "fabricProcessUuid" (Decode.map Process.Uuid Decode.string)
-        |> Pipe.required "makingProcessUuid" (Decode.map Process.Uuid Decode.string)
+        |> Pipe.required "fabricProcessUuid" (Process.decodeFromUuid processes)
+        |> Pipe.required "makingProcessUuid" (Process.decodeFromUuid processes)
 
 
-decodeList : Decoder (List Product)
-decodeList =
-    Decode.list decode
+decodeList : List Process -> Decoder (List Product)
+decodeList processes =
+    Decode.list (decode processes)
 
 
 encode : Product -> Encode.Value
@@ -65,6 +65,6 @@ encode v =
         , ( "ppm", Encode.int v.ppm )
         , ( "grammage", Encode.int v.grammage )
         , ( "knitted", Encode.bool v.knitted )
-        , ( "fabricProcessUuid", Encode.string (Process.uuidToString v.makingProcessUuid) )
-        , ( "makingProcessUuid", Encode.string (Process.uuidToString v.makingProcessUuid) )
+        , ( "fabricProcessUuid", v.makingProcess.uuid |> Process.uuidToString |> Encode.string )
+        , ( "makingProcessUuid", v.makingProcess.uuid |> Process.uuidToString |> Encode.string )
         ]

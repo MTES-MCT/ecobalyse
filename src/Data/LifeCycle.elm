@@ -6,7 +6,6 @@ import Data.Db exposing (Db)
 import Data.Inputs as Inputs exposing (Inputs)
 import Data.Step as Step exposing (Step)
 import Data.Transport as Transport
-import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
 import Mass exposing (Mass)
 import Quantity
@@ -15,11 +14,6 @@ import Result.Extra as RE
 
 type alias LifeCycle =
     Array Step
-
-
-decode : Decoder LifeCycle
-decode =
-    Decode.array Step.decode
 
 
 encode : LifeCycle -> Encode.Value
@@ -76,19 +70,19 @@ getStepMass label =
 
 fromQuery : Db -> Inputs.Query -> Result String LifeCycle
 fromQuery db =
-    Inputs.fromQuery db >> Result.map (init db)
+    Inputs.fromQuery db >> Result.map init
 
 
-init : Db -> Inputs -> LifeCycle
-init db inputs =
-    initSteps inputs |> update db inputs
+init : Inputs -> LifeCycle
+init inputs =
+    initSteps inputs |> update inputs
 
 
-update : Db -> Inputs -> LifeCycle -> LifeCycle
-update db inputs lifeCycle =
+update : Inputs -> LifeCycle -> LifeCycle
+update inputs lifeCycle =
     lifeCycle
         |> Array.indexedMap
-            (\index -> Step.update db inputs (Array.get (index + 1) lifeCycle))
+            (\index -> Step.update inputs (Array.get (index + 1) lifeCycle))
 
 
 initSteps : Inputs -> LifeCycle

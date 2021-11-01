@@ -1,5 +1,7 @@
 module Data.Simulator exposing (..)
 
+-- import Json.Decode as Decode exposing (Decoder)
+
 import Data.Co2 as Co2 exposing (Co2e)
 import Data.Db exposing (Db)
 import Data.Formula as Formula
@@ -9,7 +11,6 @@ import Data.Material as Material
 import Data.Process as Process
 import Data.Step as Step exposing (Step)
 import Data.Transport as Transport
-import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
 import Quantity
 
@@ -20,15 +21,6 @@ type alias Simulator =
     , co2 : Co2e
     , transport : Transport.Summary
     }
-
-
-decode : Decoder Simulator
-decode =
-    Decode.map4 Simulator
-        (Decode.field "inputs" Inputs.decode)
-        (Decode.field "lifeCycle" LifeCycle.decode)
-        (Decode.field "co2" Co2.decodeKgCo2e)
-        (Decode.field "transport" Transport.decodeSummary)
 
 
 encode : Simulator -> Encode.Value
@@ -47,7 +39,7 @@ init db =
         >> Result.map
             (\inputs ->
                 inputs
-                    |> LifeCycle.init db
+                    |> LifeCycle.init
                     |> (\lifeCycle ->
                             { inputs = inputs
                             , lifeCycle = lifeCycle
@@ -60,40 +52,47 @@ init db =
 
 compute : Db -> Inputs.Query -> Result String Simulator
 compute db query =
+    let
+        next =
+            Result.map
+
+        nextWithDb =
+            \fn -> Result.andThen (fn db)
+    in
     init db query
         -- Ensure end product mass is first applied to the final Distribution step
-        |> Result.map computeMaterialAndSpinningWaste
+        |> next computeMaterialAndSpinningWaste
         --
         -- WASTE
         --
         -- Compute inital required material mass
-        |> Result.andThen (computeMakingStepWaste db)
+        |> next computeMakingStepWaste
         -- Compute Knitting/Weawing material waste
-        |> Result.andThen (computeWeavingKnittingStepWaste db)
+        |> next computeWeavingKnittingStepWaste
         -- Compute Material&Spinning material waste
-        |> Result.andThen (computeMaterialStepWaste db)
+        |> nextWithDb computeMaterialStepWaste
         --
         -- CO2 SCORES
         --
         -- Compute Material & Spinning step co2 score
-        |> Result.andThen (computeMaterialAndSpinningCo2Score db)
+        |> nextWithDb computeMaterialAndSpinningCo2Score
         -- Compute Weaving & Knitting step co2 score
-        |> Result.andThen (computeWeavingKnittingCo2Score db)
+        |> next computeWeavingKnittingCo2Score
         -- Compute Ennoblement step co2 score
-        |> Result.andThen (computeDyeingCo2Score db)
+        |> nextWithDb computeDyeingCo2Score
         -- Compute Making step co2 score
-        |> Result.andThen (computeMakingCo2Score db)
+        |> next computeMakingCo2Score
         --
         -- TRANSPORTS
         --
         -- Compute step transport
-        |> Result.andThen (computeTransportSummaries db)
+        |> nextWithDb computeTransportSummaries
         -- Compute transport summary
-        |> Result.map computeTransportSummary
+        |> next computeTransportSummary
         --
         -- FINAL CO2 SCORE
         --
-        |> Result.map computeFinalCo2Score
+        |> next computeFinalCo2Score
 
 
 computeMaterialAndSpinningWaste : Simulator -> Simulator
@@ -102,33 +101,25 @@ computeMaterialAndSpinningWaste ({ inputs } as simulator) =
         |> updateLifeCycleStep Step.Distribution (\step -> { step | mass = inputs.mass })
 
 
-computeMakingCo2Score : Db -> Simulator -> Result String Simulator
-computeMakingCo2Score { processes } ({ inputs } as simulator) =
-    processes
-        |> Process.findByUuid inputs.product.makingProcessUuid
-        |> Result.map
-            (\makingProcess ->
-                simulator
-                    |> updateLifeCycleStep Step.Making
-                        (\({ country } as step) ->
-                            let
-                                countryElecCC =
-                                    processes
-                                        -- FIXME: handle result or provide direct access
-                                        |> Process.findByUuid country.electricity
-                                        |> Result.map .climateChange
-                                        |> Result.withDefault Quantity.zero
+computeMakingCo2Score : Simulator -> Simulator
+computeMakingCo2Score ({ inputs } as simulator) =
+    -- FIXME: drop requirement of Db, drop returned Result
+    simulator
+        |> updateLifeCycleStep Step.Making
+            (\({ country } as step) ->
+                let
+                    countryElecCC =
+                        country.electricity.climateChange
 
-                                { kwh, co2 } =
-                                    step.mass
-                                        |> Formula.makingCo2
-                                            { makingCC = makingProcess.climateChange
-                                            , makingElec = makingProcess.elec
-                                            , countryElecCC = countryElecCC
-                                            }
-                            in
-                            { step | kwh = kwh, co2 = co2 }
-                        )
+                    { kwh, co2 } =
+                        step.mass
+                            |> Formula.makingCo2
+                                { makingCC = inputs.product.makingProcess.climateChange
+                                , makingElec = inputs.product.makingProcess.elec
+                                , countryElecCC = countryElecCC
+                                }
+                in
+                { step | kwh = kwh, co2 = co2 }
             )
 
 
@@ -141,18 +132,10 @@ computeDyeingCo2Score { processes } simulator =
                     (\({ dyeingWeighting, country } as step) ->
                         let
                             elecCC =
-                                processes
-                                    -- FIXME: handle result or provide direct access
-                                    |> Process.findByUuid country.electricity
-                                    |> Result.map .climateChange
-                                    |> Result.withDefault Quantity.zero
+                                country.electricity.climateChange
 
                             heatCC =
-                                processes
-                                    -- FIXME: handle result or provide direct access
-                                    |> Process.findByUuid country.heat
-                                    |> Result.map .climateChange
-                                    |> Result.withDefault Quantity.zero
+                                country.heat.climateChange
 
                             { co2, heat, kwh } =
                                 step.mass
@@ -193,85 +176,67 @@ computeMaterialAndSpinningCo2Score { processes } ({ inputs } as simulator) =
         (Material.getRecycledProcess inputs.material processes)
 
 
-computeWeavingKnittingCo2Score : Db -> Simulator -> Result String Simulator
-computeWeavingKnittingCo2Score { processes } ({ inputs, lifeCycle } as simulator) =
-    processes
-        |> Process.findByUuid inputs.product.fabricProcessUuid
-        |> Result.map
-            (\fabricProcess ->
-                simulator
-                    |> updateLifeCycleStep Step.WeavingKnitting
-                        (\({ country } as step) ->
-                            let
-                                elecCC =
-                                    processes
-                                        -- FIXME: handle result or provide direct access
-                                        |> Process.findByUuid country.electricity
-                                        |> Result.map .climateChange
-                                        |> Result.withDefault Quantity.zero
-
-                                { kwh, co2 } =
-                                    -- NOTE: knitted elec is computed against previous step mass,
-                                    -- weaved elec is computed against current step mass
-                                    if inputs.product.knitted then
-                                        lifeCycle
-                                            |> LifeCycle.getStepMass Step.Ennoblement
-                                            |> Formula.knittingCo2 { elec = fabricProcess.elec, elecCC = elecCC }
-
-                                    else
-                                        step.mass
-                                            |> Formula.weavingCo2
-                                                { elecPppm = fabricProcess.elec_pppm
-                                                , elecCC = elecCC
-                                                , grammage = inputs.product.grammage
-                                                , ppm = inputs.product.ppm
-                                                }
-                            in
-                            { step | co2 = co2, kwh = kwh }
-                        )
-            )
-
-
-computeMakingStepWaste : Db -> Simulator -> Result String Simulator
-computeMakingStepWaste { processes } ({ inputs } as simulator) =
-    processes
-        |> Process.findByUuid inputs.product.makingProcessUuid
-        |> Result.map
-            (\makingProcess ->
+computeWeavingKnittingCo2Score : Simulator -> Simulator
+computeWeavingKnittingCo2Score ({ inputs, lifeCycle } as simulator) =
+    simulator
+        |> updateLifeCycleStep Step.WeavingKnitting
+            (\({ country } as step) ->
                 let
-                    { mass, waste } =
-                        inputs.mass
-                            |> Formula.makingWaste
-                                { processWaste = makingProcess.waste
-                                , pcrWaste = inputs.product.pcrWaste
-                                }
+                    elecCC =
+                        country.electricity.climateChange
+
+                    { kwh, co2 } =
+                        -- NOTE: knitted elec is computed against previous step mass,
+                        -- weaved elec is computed against current step mass
+                        if inputs.product.knitted then
+                            lifeCycle
+                                |> LifeCycle.getStepMass Step.Ennoblement
+                                |> Formula.knittingCo2 { elec = inputs.product.fabricProcess.elec, elecCC = elecCC }
+
+                        else
+                            step.mass
+                                |> Formula.weavingCo2
+                                    { elecPppm = inputs.product.fabricProcess.elec_pppm
+                                    , elecCC = elecCC
+                                    , grammage = inputs.product.grammage
+                                    , ppm = inputs.product.ppm
+                                    }
                 in
-                simulator
-                    |> updateLifeCycleStep Step.Making (\step -> { step | mass = mass, waste = waste })
-                    |> updateLifeCycleSteps
-                        [ Step.MaterialAndSpinning, Step.WeavingKnitting, Step.Ennoblement ]
-                        (\step -> { step | mass = mass })
+                { step | co2 = co2, kwh = kwh }
             )
 
 
-computeWeavingKnittingStepWaste : Db -> Simulator -> Result String Simulator
-computeWeavingKnittingStepWaste { processes } ({ inputs, lifeCycle } as simulator) =
-    processes
-        |> Process.findByUuid inputs.product.fabricProcessUuid
-        |> Result.map
-            (\fabricProcess ->
-                let
-                    { mass, waste } =
-                        lifeCycle
-                            |> LifeCycle.getStepMass Step.Making
-                            |> Formula.genericWaste fabricProcess.waste
-                in
-                simulator
-                    |> updateLifeCycleStep Step.WeavingKnitting
-                        (\step -> { step | mass = mass, waste = waste })
-                    |> updateLifeCycleSteps [ Step.MaterialAndSpinning ]
-                        (\step -> { step | mass = mass })
-            )
+computeMakingStepWaste : Simulator -> Simulator
+computeMakingStepWaste ({ inputs } as simulator) =
+    -- FIXME: drop requirement of Db, drop returned Result
+    let
+        { mass, waste } =
+            inputs.mass
+                |> Formula.makingWaste
+                    { processWaste = inputs.product.makingProcess.waste
+                    , pcrWaste = inputs.product.pcrWaste
+                    }
+    in
+    simulator
+        |> updateLifeCycleStep Step.Making (\step -> { step | mass = mass, waste = waste })
+        |> updateLifeCycleSteps
+            [ Step.MaterialAndSpinning, Step.WeavingKnitting, Step.Ennoblement ]
+            (\step -> { step | mass = mass })
+
+
+computeWeavingKnittingStepWaste : Simulator -> Simulator
+computeWeavingKnittingStepWaste ({ inputs, lifeCycle } as simulator) =
+    let
+        { mass, waste } =
+            lifeCycle
+                |> LifeCycle.getStepMass Step.Making
+                |> Formula.genericWaste inputs.product.fabricProcess.waste
+    in
+    simulator
+        |> updateLifeCycleStep Step.WeavingKnitting
+            (\step -> { step | mass = mass, waste = waste })
+        |> updateLifeCycleSteps [ Step.MaterialAndSpinning ]
+            (\step -> { step | mass = mass })
 
 
 computeMaterialStepWaste : Db -> Simulator -> Result String Simulator

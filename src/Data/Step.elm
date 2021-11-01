@@ -14,7 +14,6 @@ import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
 import Mass exposing (Mass)
 import Quantity
-import Result.Extra as RE
 
 
 type alias Step =
@@ -75,36 +74,31 @@ defaultProcessInfo =
     }
 
 
-processCountryInfo : Db -> Label -> Country -> Result String ProcessInfo
-processCountryInfo db label country =
-    Ok Tuple.pair
-        |> RE.andMap (db.processes |> Process.findByUuid country.electricity)
-        |> RE.andMap (db.processes |> Process.findByUuid country.heat)
-        |> Result.map
-            (\( electricity, heat ) ->
-                case label of
-                    WeavingKnitting ->
-                        { defaultProcessInfo | electricity = Just electricity.name }
+processCountryInfo : Label -> Country -> ProcessInfo
+processCountryInfo label country =
+    -- FIXME: remove db dependency and don't return a Result
+    case label of
+        WeavingKnitting ->
+            { defaultProcessInfo | electricity = Just country.electricity.name }
 
-                    Ennoblement ->
-                        { defaultProcessInfo
-                            | heat = Just heat.name
-                            , electricity = Just electricity.name
-                            , dyeingWeighting = Just (dyeingWeightingToString country.dyeingWeighting)
-                        }
+        Ennoblement ->
+            { defaultProcessInfo
+                | heat = Just country.heat.name
+                , electricity = Just country.electricity.name
+                , dyeingWeighting = Just (dyeingWeightingToString country.dyeingWeighting)
+            }
 
-                    Making ->
-                        { defaultProcessInfo
-                            | electricity = Just electricity.name
-                            , airTransportRatio =
-                                country.airTransportRatio
-                                    |> airTransportRatioToString
-                                    |> Just
-                        }
+        Making ->
+            { defaultProcessInfo
+                | electricity = Just country.electricity.name
+                , airTransportRatio =
+                    country.airTransportRatio
+                        |> airTransportRatioToString
+                        |> Just
+            }
 
-                    _ ->
-                        defaultProcessInfo
-            )
+        _ ->
+            defaultProcessInfo
 
 
 {-| Computes step transport distances and co2 scores regarding next step.
@@ -207,12 +201,11 @@ getRoadTransportProcess wellKnown { label } =
             wellKnown.roadTransportPreMaking
 
 
-update : Db -> Inputs -> Maybe Step -> Step -> Step
-update db { dyeingWeighting, airTransportRatio } _ step =
+update : Inputs -> Maybe Step -> Step -> Step
+update { dyeingWeighting, airTransportRatio } _ step =
     { step
         | processInfo =
-            processCountryInfo db step.label step.country
-                |> Result.withDefault defaultProcessInfo
+            processCountryInfo step.label step.country
         , dyeingWeighting =
             if step.label == Ennoblement then
                 dyeingWeighting |> Maybe.withDefault step.country.dyeingWeighting
@@ -246,23 +239,6 @@ dyeingWeightingToString dyeingWeighting =
 
         p ->
             "Procédé " ++ String.fromInt p ++ "% majorant"
-
-
-decode : Decoder Step
-decode =
-    Decode.succeed Step
-        |> Pipe.required "label" decodeLabel
-        |> Pipe.required "country" Country.decode
-        |> Pipe.required "editable" Decode.bool
-        |> Pipe.required "mass" (Decode.map Mass.kilograms Decode.float)
-        |> Pipe.required "waste" (Decode.map Mass.kilograms Decode.float)
-        |> Pipe.required "transport" Transport.decodeSummary
-        |> Pipe.required "co2" Co2.decodeKgCo2e
-        |> Pipe.required "heat" (Decode.map Energy.megajoules Decode.float)
-        |> Pipe.required "kwh" (Decode.map Energy.kilowattHours Decode.float)
-        |> Pipe.required "processInfo" decodeProcessInfo
-        |> Pipe.required "dyeingWeighting" Decode.float
-        |> Pipe.required "airTransportRatio" Decode.float
 
 
 decodeLabel : Decoder Label
