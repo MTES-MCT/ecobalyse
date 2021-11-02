@@ -22,6 +22,7 @@ type alias Process =
     , elec_pppm : Float -- kWh/(pick,m) per kg of material to process
     , elec : Energy -- MJ per kg of material to process
     , waste : Mass -- kg of textile wasted per kg of material to process
+    , alias : Maybe String
     }
 
 
@@ -118,6 +119,7 @@ noOp =
     , elec_pppm = 0
     , elec = Energy.megajoules 0
     , waste = Mass.kilograms 0
+    , alias = Nothing
     }
 
 
@@ -125,14 +127,21 @@ findByUuid : Uuid -> List Process -> Result String Process
 findByUuid uuid =
     List.filter (.uuid >> (==) uuid)
         >> List.head
-        >> Result.fromMaybe ("Procédé introuvable: " ++ uuidToString uuid)
+        >> Result.fromMaybe ("Procédé introuvable par UUID: " ++ uuidToString uuid)
 
 
 findByName : String -> List Process -> Result String Process
 findByName name =
     List.filter (.name >> (==) name)
         >> List.head
-        >> Result.fromMaybe ("Procédé introuvable: " ++ name)
+        >> Result.fromMaybe ("Procédé introuvable par nom: " ++ name)
+
+
+findByAlias : String -> List Process -> Result String Process
+findByAlias alias =
+    List.filter (.alias >> (==) (Just alias))
+        >> List.head
+        >> Result.fromMaybe ("Procédé introuvable par alias: " ++ alias)
 
 
 wellKnownUuids : WellKnownUuids
@@ -381,6 +390,7 @@ decode =
         |> Pipe.required "elec_pppm" Decode.float
         |> Pipe.required "elec" (Decode.map Energy.megajoules Decode.float)
         |> Pipe.required "waste" (Decode.map Mass.kilograms Decode.float)
+        |> Pipe.required "alias" (Decode.maybe Decode.string)
 
 
 decodeList : Decoder (List Process)
@@ -401,6 +411,7 @@ encode v =
         , ( "elec_pppm", Encode.float v.elec_pppm )
         , ( "elec", v.elec |> Energy.inMegajoules |> Encode.float )
         , ( "waste", v.waste |> Mass.inKilograms |> Encode.float )
+        , ( "alias", v.alias |> Maybe.map Encode.string |> Maybe.withDefault Encode.null )
         ]
 
 

@@ -9,7 +9,8 @@
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
-    "waste": 0
+    "waste": 0,
+    "alias": null
   },
   {
     "cat1": "Energie",
@@ -21,7 +22,8 @@
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
-    "waste": 0
+    "waste": 0,
+    "alias": null
   },
   {
     "cat1": "Energie",
@@ -33,7 +35,8 @@
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
-    "waste": 0
+    "waste": 0,
+    "alias": null
   },
   {
     "cat1": "Energie",
@@ -45,7 +48,8 @@
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
-    "waste": 0
+    "waste": 0,
+    "alias": null
   },
   {
     "cat1": "Energie",
@@ -57,7 +61,8 @@
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
-    "waste": 0
+    "waste": 0,
+    "alias": null
   },
   {
     "cat1": "Energie",
@@ -69,7 +74,8 @@
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
-    "waste": 0
+    "waste": 0,
+    "alias": null
   },
   {
     "cat1": "Energie",
@@ -81,7 +87,8 @@
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
-    "waste": 0
+    "waste": 0,
+    "alias": null
   },
   {
     "cat1": "Energie",
@@ -93,7 +100,8 @@
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
-    "waste": 0
+    "waste": 0,
+    "alias": null
   },
   {
     "cat1": "Energie",
@@ -105,7 +113,8 @@
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
-    "waste": 0
+    "waste": 0,
+    "alias": null
   },
   {
     "cat1": "Energie",
@@ -117,7 +126,8 @@
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
-    "waste": 0
+    "waste": 0,
+    "alias": null
   },
   {
     "cat1": "Energie",
@@ -129,7 +139,8 @@
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
-    "waste": 0
+    "waste": 0,
+    "alias": null
   },
   {
     "cat1": "Energie",
@@ -141,7 +152,8 @@
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
-    "waste": 0
+    "waste": 0,
+    "alias": null
   },
   {
     "cat1": "Textile",
@@ -153,7 +165,8 @@
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
-    "waste": 0
+    "waste": 0,
+    "alias": null
   },
   {
     "cat1": "Textile",
@@ -165,7 +178,8 @@
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
-    "waste": 7.79322
+    "waste": 7.79322,
+    "alias": null
   },
   {
     "cat1": "Textile",
@@ -177,7 +191,8 @@
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
-    "waste": 0.170215
+    "waste": 0.170215,
+    "alias": null
   },
   {
     "cat1": "Textile",
@@ -189,7 +204,8 @@
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
-    "waste": 0.288932
+    "waste": 0.288932,
+    "alias": null
   },
   {
     "cat1": "Textile",
@@ -201,7 +217,8 @@
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
-    "waste": 0.08696
+    "waste": 0.08696,
+    "alias": null
   },
   {
     "cat1": "Textile",
@@ -213,7 +230,8 @@
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
-    "waste": 0.672241
+    "waste": 0.672241,
+    "alias": null
   },
   {
     "cat1": "Textile",
@@ -225,7 +243,8 @@
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
-    "waste": 3.17851
+    "waste": 3.17851,
+    "alias": null
   },
   {
     "cat1": "Textile",
@@ -237,7 +256,8 @@
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
-    "waste": 0.270519
+    "waste": 0.270519,
+    "alias": null
   },
   {
     "cat1": "Textile",
@@ -249,7 +269,8 @@
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
-    "waste": 0.201201
+    "waste": 0.201201,
+    "alias": null
   },
   {
     "cat1": "Textile",
@@ -261,7 +282,8 @@
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
-    "waste": 0.221094
+    "waste": 0.221094,
+    "alias": null
   },
   {
     "cat1": "Textile",
@@ -273,7 +295,8 @@
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
-    "waste": 3.17851
+    "waste": 3.17851,
+    "alias": null
   },
   {
     "cat1": "Textile",
@@ -285,7 +308,8 @@
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
-    "waste": 0.672241
+    "waste": 0.672241,
+    "alias": null
   },
   {
     "cat1": "Textile",
@@ -297,7 +321,8 @@
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
-    "waste": 0
+    "waste": 0,
+    "alias": null
   },
   {
     "cat1": "Textile",
@@ -309,7 +334,8 @@
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
-    "waste": 0.0582011
+    "waste": 0.0582011,
+    "alias": null
   },
   {
     "cat1": "Textile",
@@ -321,7 +347,8 @@
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
-    "waste": 0.00796392
+    "waste": 0.00796392,
+    "alias": null
   },
   {
     "cat1": "Textile",
@@ -333,7 +360,8 @@
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
-    "waste": 0.0319569
+    "waste": 0.0319569,
+    "alias": null
   },
   {
     "cat1": "Textile",
@@ -345,7 +373,8 @@
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
-    "waste": 0
+    "waste": 0,
+    "alias": null
   },
   {
     "cat1": "Textile",
@@ -357,7 +386,8 @@
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
-    "waste": 0.0319569
+    "waste": 0.0319569,
+    "alias": null
   },
   {
     "cat1": "Textile",
@@ -369,7 +399,8 @@
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
-    "waste": 0.0319569
+    "waste": 0.0319569,
+    "alias": null
   },
   {
     "cat1": "Textile",
@@ -381,7 +412,8 @@
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
-    "waste": 0.0319569
+    "waste": 0.0319569,
+    "alias": null
   },
   {
     "cat1": "Textile",
@@ -393,7 +425,8 @@
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
-    "waste": 0.0319569
+    "waste": 0.0319569,
+    "alias": null
   },
   {
     "cat1": "Textile",
@@ -405,7 +438,8 @@
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
-    "waste": 0.0319569
+    "waste": 0.0319569,
+    "alias": null
   },
   {
     "cat1": "Textile",
@@ -417,7 +451,8 @@
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
-    "waste": 0
+    "waste": 0,
+    "alias": null
   },
   {
     "cat1": "Textile",
@@ -429,7 +464,8 @@
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
-    "waste": 0.00796392
+    "waste": 0.00796392,
+    "alias": null
   },
   {
     "cat1": "Textile",
@@ -441,7 +477,8 @@
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
-    "waste": 0.0319569
+    "waste": 0.0319569,
+    "alias": null
   },
   {
     "cat1": "Textile",
@@ -453,7 +490,8 @@
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
-    "waste": 0
+    "waste": 0,
+    "alias": null
   },
   {
     "cat1": "Textile",
@@ -465,7 +503,8 @@
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
-    "waste": 0.031957
+    "waste": 0.031957,
+    "alias": null
   },
   {
     "cat1": "Textile",
@@ -477,7 +516,8 @@
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
-    "waste": 0.032
+    "waste": 0.032,
+    "alias": null
   },
   {
     "cat1": "Textile",
@@ -489,7 +529,8 @@
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
-    "waste": 0.032
+    "waste": 0.032,
+    "alias": null
   },
   {
     "cat1": "Textile",
@@ -501,7 +542,8 @@
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
-    "waste": 0.0319681
+    "waste": 0.0319681,
+    "alias": null
   },
   {
     "cat1": "Textile",
@@ -513,7 +555,8 @@
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
-    "waste": 0.137851
+    "waste": 0.137851,
+    "alias": null
   },
   {
     "cat1": "Textile",
@@ -525,7 +568,8 @@
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
-    "waste": 0.137851
+    "waste": 0.137851,
+    "alias": null
   },
   {
     "cat1": "Textile",
@@ -537,7 +581,8 @@
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
-    "waste": 0.1688
+    "waste": 0.1688,
+    "alias": null
   },
   {
     "cat1": "Textile",
@@ -549,7 +594,8 @@
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
-    "waste": 0.77305
+    "waste": 0.77305,
+    "alias": null
   },
   {
     "cat1": "Textile",
@@ -561,7 +607,8 @@
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
-    "waste": 0.323
+    "waste": 0.323,
+    "alias": null
   },
   {
     "cat1": "Textile",
@@ -573,7 +620,8 @@
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
-    "waste": 0.137851
+    "waste": 0.137851,
+    "alias": null
   },
   {
     "cat1": "Textile",
@@ -585,7 +633,8 @@
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
-    "waste": 0.21
+    "waste": 0.21,
+    "alias": null
   },
   {
     "cat1": "Textile",
@@ -597,7 +646,8 @@
     "heat": 0,
     "elec_pppm": 0,
     "elec": 8.64,
-    "waste": 0.0576
+    "waste": 0.0576,
+    "alias": null
   },
   {
     "cat1": "Textile",
@@ -609,7 +659,8 @@
     "heat": 0,
     "elec_pppm": 0.0003145,
     "elec": 0,
-    "waste": 0.0667
+    "waste": 0.0667,
+    "alias": null
   },
   {
     "cat1": "Textile",
@@ -621,7 +672,8 @@
     "heat": 71.71,
     "elec_pppm": 0,
     "elec": 38.1,
-    "waste": 0
+    "waste": 0,
+    "alias": "dyeingHigh"
   },
   {
     "cat1": "Textile",
@@ -633,7 +685,8 @@
     "heat": 25.87,
     "elec_pppm": 0,
     "elec": 7.17,
-    "waste": 0
+    "waste": 0,
+    "alias": "dyeingLow"
   },
   {
     "cat1": "Textile",
@@ -645,7 +698,8 @@
     "heat": 0,
     "elec_pppm": 0,
     "elec": 9.612,
-    "waste": 0
+    "waste": 0,
+    "alias": null
   },
   {
     "cat1": "Textile",
@@ -657,7 +711,8 @@
     "heat": 0,
     "elec_pppm": 0,
     "elec": 2.232,
-    "waste": 0
+    "waste": 0,
+    "alias": null
   },
   {
     "cat1": "Textile",
@@ -669,7 +724,8 @@
     "heat": 0,
     "elec_pppm": 0,
     "elec": 1.8,
-    "waste": 0
+    "waste": 0,
+    "alias": null
   },
   {
     "cat1": "Textile",
@@ -681,7 +737,8 @@
     "heat": 0,
     "elec_pppm": 0,
     "elec": 3.204,
-    "waste": 0
+    "waste": 0,
+    "alias": null
   },
   {
     "cat1": "Textile",
@@ -693,7 +750,8 @@
     "heat": 0,
     "elec_pppm": 0,
     "elec": 1.512,
-    "waste": 0
+    "waste": 0,
+    "alias": null
   },
   {
     "cat1": "Transport",
@@ -705,7 +763,8 @@
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
-    "waste": 0
+    "waste": 0,
+    "alias": "seaTransport"
   },
   {
     "cat1": "Transport",
@@ -717,7 +776,8 @@
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
-    "waste": 0
+    "waste": 0,
+    "alias": "airTransport"
   },
   {
     "cat1": "Transport",
@@ -729,7 +789,8 @@
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
-    "waste": 0
+    "waste": 0,
+    "alias": "roadTransportPreMaking"
   },
   {
     "cat1": "Transport",
@@ -741,7 +802,8 @@
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
-    "waste": 0
+    "waste": 0,
+    "alias": "roadTransportPostMaking"
   },
   {
     "cat1": "Transport",
@@ -753,6 +815,7 @@
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
-    "waste": 0
+    "waste": 0,
+    "alias": "distribution"
   }
 ]
