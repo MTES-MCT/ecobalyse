@@ -219,7 +219,7 @@ materialFormSet db recycledRatio material =
                     |> optgroup [ attribute "label" name ]
     in
     div [ class "row mb-2" ]
-        [ div [ class "col-md-6" ]
+        [ div [ class "col-md-6 mb-2" ]
             [ div [ class "form-label fw-bold" ]
                 [ text "Matières premières" ]
             , [ toGroup "Matières naturelles" natural1
@@ -235,8 +235,8 @@ materialFormSet db recycledRatio material =
                     , onInput (Process.Uuid >> UpdateMaterial)
                     ]
             ]
-        , div [ class "col-md-6" ]
-            [ div [ class "form-label fw-bold mb-0 mb-xl-3" ]
+        , div [ class "col-md-6 mb-2" ]
+            [ div [ class "form-label fw-bold mb-0 mb-xxl-3" ]
                 [ text "Part de matière recyclée" ]
             , RangeSlider.view
                 { id = "recycledRatio"
