@@ -85,17 +85,6 @@ type Cat3
     | AverageFrenchFleet
 
 
-type alias WellKnownUuids =
-    { airTransport : Uuid
-    , seaTransport : Uuid
-    , roadTransportPreMaking : Uuid
-    , roadTransportPostMaking : Uuid
-    , distribution : Uuid
-    , dyeingHigh : Uuid
-    , dyeingLow : Uuid
-    }
-
-
 type alias WellKnown =
     { airTransport : Process
     , seaTransport : Process
@@ -144,35 +133,16 @@ findByAlias alias =
         >> Result.fromMaybe ("Procédé introuvable par alias: " ++ alias)
 
 
-wellKnownUuids : WellKnownUuids
-wellKnownUuids =
-    { -- Transport aérien long-courrier (dont flotte, utilisation et infrastructure) [tkm], GLO
-      airTransport = Uuid "839b263d-5111-4318-9275-7026937e88b2"
-    , -- Transport maritime de conteneurs 27,500 t (dont flotte, utilisation et infrastructure) [tkm], GLO
-      seaTransport = Uuid "8dc4ce62-ff0f-4680-897f-867c3b31a923"
-    , -- Transport en camion (dont parc, utilisation et infrastructure) (50%) [tkm], GLO
-      roadTransportPreMaking = Uuid "cf6e9d81-358c-4f44-5ab7-0e7a89440576"
-    , -- Transport en camion (dont parc, utilisation et infrastructure) (50%) [tkm], RER
-      roadTransportPostMaking = Uuid "c0397088-6a57-eea7-8950-1d6db2e6bfdb"
-    , -- Transport en camion non spécifié France (dont parc, utilisation et infrastructure) (50%) [tkm], FR
-      distribution = Uuid "f49b27fa-f22e-c6e1-ab4b-e9f873e2e648"
-    , -- Teinture sur étoffe, procédé majorant, traitement inefficace des eaux usées
-      dyeingHigh = Uuid "cf001531-5f2d-48b1-b30a-4a17466a8b30"
-    , -- Teinture sur étoffe, procédé représentatif, traitement très efficace des eaux usées
-      dyeingLow = Uuid "fb4bea16-7ce1-43e2-9e03-462250214988"
-    }
-
-
 loadWellKnown : List Process -> Result String WellKnown
 loadWellKnown p =
     Ok WellKnown
-        |> RE.andMap (findByUuid wellKnownUuids.airTransport p)
-        |> RE.andMap (findByUuid wellKnownUuids.seaTransport p)
-        |> RE.andMap (findByUuid wellKnownUuids.roadTransportPreMaking p)
-        |> RE.andMap (findByUuid wellKnownUuids.roadTransportPostMaking p)
-        |> RE.andMap (findByUuid wellKnownUuids.distribution p)
-        |> RE.andMap (findByUuid wellKnownUuids.dyeingHigh p)
-        |> RE.andMap (findByUuid wellKnownUuids.dyeingLow p)
+        |> RE.andMap (findByAlias "airTransport" p)
+        |> RE.andMap (findByAlias "seaTransport" p)
+        |> RE.andMap (findByAlias "roadTransportPreMaking" p)
+        |> RE.andMap (findByAlias "roadTransportPostMaking" p)
+        |> RE.andMap (findByAlias "distribution" p)
+        |> RE.andMap (findByAlias "dyeingHigh" p)
+        |> RE.andMap (findByAlias "dyeingLow" p)
 
 
 cat1 : Cat1 -> List Process -> List Process

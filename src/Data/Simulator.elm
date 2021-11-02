@@ -118,24 +118,24 @@ computeMakingCo2Score ({ inputs } as simulator) =
 
 computeDyeingCo2Score : Db -> Simulator -> Result String Simulator
 computeDyeingCo2Score { processes } simulator =
-    Result.map2
-        (\dyeingHigh dyeingLow ->
-            simulator
-                |> updateLifeCycleStep Step.Ennoblement
-                    (\({ dyeingWeighting, country } as step) ->
-                        let
-                            { co2, heat, kwh } =
-                                step.mass
-                                    |> Formula.dyeingCo2 ( dyeingLow, dyeingHigh )
-                                        dyeingWeighting
-                                        country.heatProcess.climateChange
-                                        country.electricityProcess.climateChange
-                        in
-                        { step | co2 = co2, heat = heat, kwh = kwh }
-                    )
-        )
-        (Process.findByUuid Process.wellKnownUuids.dyeingHigh processes)
-        (Process.findByUuid Process.wellKnownUuids.dyeingLow processes)
+    processes
+        |> Process.loadWellKnown
+        |> Result.map
+            (\{ dyeingHigh, dyeingLow } ->
+                simulator
+                    |> updateLifeCycleStep Step.Ennoblement
+                        (\({ dyeingWeighting, country } as step) ->
+                            let
+                                { co2, heat, kwh } =
+                                    step.mass
+                                        |> Formula.dyeingCo2 ( dyeingLow, dyeingHigh )
+                                            dyeingWeighting
+                                            country.heatProcess.climateChange
+                                            country.electricityProcess.climateChange
+                            in
+                            { step | co2 = co2, heat = heat, kwh = kwh }
+                        )
+            )
 
 
 computeMaterialAndSpinningCo2Score : Simulator -> Simulator
