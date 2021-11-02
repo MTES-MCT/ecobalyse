@@ -18,6 +18,7 @@ type alias Distances =
 
 
 type alias Transport =
+    -- FIXME: Transport could be just Summary with no Co2 by default?
     { road : Length, sea : Length, air : Length }
 
 

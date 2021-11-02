@@ -5,7 +5,7 @@ import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
 import Length exposing (Length)
 import Mass exposing (Mass)
-import Quantity exposing (Quantity(..))
+import Quantity exposing (Quantity(..), Rate)
 
 
 type KgCo2e
@@ -36,39 +36,66 @@ inTonsCo2e (Quantity value) =
     value / 1000
 
 
-co2eForMass : Co2e -> Mass -> Co2e
-co2eForMass =
+perKg : Co2e -> Quantity Float (Rate KgCo2e Mass.Kilograms)
+perKg =
+    Quantity.per Mass.kilogram
+
+
+perKWh : Co2e -> Quantity Float (Rate KgCo2e Energy.Joules)
+perKWh =
+    Quantity.per (Energy.kilowattHours 1)
+
+
+perMJ : Co2e -> Quantity Float (Rate KgCo2e Energy.Joules)
+perMJ =
+    Quantity.per (Energy.megajoules 1)
+
+
+forKg : Co2e -> Mass -> Co2e
+forKg =
     -- ref: https://github.com/ianmackenzie/elm-units/blob/master/doc/CustomUnits.md
-    Quantity.per Mass.kilogram >> Quantity.at
+    perKg >> Quantity.at
 
 
-co2eForMassAndDistance : Co2e -> Length -> Mass -> Co2e
-co2eForMassAndDistance cc distance =
-    -- Note: Climate Change Co2 values are for transported tons per km.
+forKgAndDistance : Co2e -> Length -> Mass -> Co2e
+forKgAndDistance cc distance =
+    -- Note: Climate Change Co2 rate is for transported tons per km.
     Quantity.divideBy 1000
-        >> co2eForMass cc
+        >> forKg cc
         >> Quantity.multiplyBy (Length.inKilometers distance)
 
 
-co2eForKWh : Co2e -> Energy -> Co2e
-co2eForKWh =
-    Quantity.per (Energy.kilowattHours 1) >> Quantity.at
+forKWh : Co2e -> Energy -> Co2e
+forKWh =
+    perKWh >> Quantity.at
 
 
-ratioedCo2eForMass : ( Co2e, Co2e ) -> Float -> Mass -> Co2e
-ratioedCo2eForMass ( a, b ) ratio mass =
+forMJ : Co2e -> Energy -> Co2e
+forMJ =
+    perMJ >> Quantity.at
+
+
+ratioed : (Co2e -> a -> Co2e) -> ( Co2e, Co2e ) -> Float -> a -> Co2e
+ratioed for ( a, b ) ratio mass =
     Quantity.sum
-        [ co2eForMass a mass |> Quantity.multiplyBy ratio
-        , co2eForMass b mass |> Quantity.multiplyBy (1 - ratio)
+        [ mass |> for a |> Quantity.multiplyBy ratio
+        , mass |> for b |> Quantity.multiplyBy (1 - ratio)
         ]
 
 
-ratioedCo2eForKWh : ( Co2e, Co2e ) -> Float -> Energy -> Co2e
-ratioedCo2eForKWh ( a, b ) ratio energy =
-    Quantity.sum
-        [ co2eForKWh a energy |> Quantity.multiplyBy ratio
-        , co2eForKWh b energy |> Quantity.multiplyBy (1 - ratio)
-        ]
+ratioedForKg : ( Co2e, Co2e ) -> Float -> Mass -> Co2e
+ratioedForKg =
+    ratioed forKg
+
+
+ratioedForKWh : ( Co2e, Co2e ) -> Float -> Energy -> Co2e
+ratioedForKWh =
+    ratioed forKWh
+
+
+ratioedForMJ : ( Co2e, Co2e ) -> Float -> Energy -> Co2e
+ratioedForMJ =
+    ratioed forMJ
 
 
 decodeKgCo2e : Decoder Co2e

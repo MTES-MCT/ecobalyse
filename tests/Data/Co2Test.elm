@@ -39,42 +39,54 @@ suite =
                 |> Expect.within (Expect.Absolute 0.0001) 0.001
                 |> asTest "inTonsCo2e should convert Tons"
             ]
-        , describe "Co2.co2eForMass"
+        , describe "Co2.forKg"
             [ Mass.kilograms 0.17
-                |> Co2.co2eForMass (Co2.kgCo2e 0.2)
+                |> Co2.forKg (Co2.kgCo2e 0.2)
                 |> Expect.equal (Co2.kgCo2e 0.034)
                 |> asTest "should compute kgCo2e for mass"
             , Mass.grams 170
-                |> Co2.co2eForMass (Co2.kgCo2e 0.2)
+                |> Co2.forKg (Co2.kgCo2e 0.2)
                 |> Expect.equal (Co2.kgCo2e 0.034)
                 |> asTest "should compute kgCo2e for mass from other scale unit"
             , Mass.grams 170
-                |> Co2.co2eForMass (Co2.kgCo2e -0.2)
+                |> Co2.forKg (Co2.kgCo2e -0.2)
                 |> Expect.equal (Co2.kgCo2e -0.034)
                 |> asTest "should compute negative kgCo2e for mass"
             ]
-        , describe "Co2.co2eForMassAndDistance"
+        , describe "Co2.forKgAndDistance"
             [ Mass.kilograms 1
-                |> Co2.co2eForMassAndDistance (Co2.kgCo2e 0.2) (Length.kilometers 2000)
+                |> Co2.forKgAndDistance (Co2.kgCo2e 0.2) (Length.kilometers 2000)
                 |> Expect.equal (Co2.kgCo2e 0.4)
                 |> asTest "should compute kgCo2e for mass and distance"
             ]
-        , describe "Co2.co2eForKWh"
+        , describe "Co2.forKWh"
             [ Energy.kilowattHours 1
-                |> Co2.co2eForKWh (Co2.kgCo2e 0.2)
+                |> Co2.forKWh (Co2.kgCo2e 0.2)
                 |> expectKgCo2Float 0.2
-                |> asTest "should compute kgCo2e per KWh"
+                |> asTest "should compute kgCo2e for energy expressed in KWh"
             ]
-        , describe "Co2.ratioedCo2eForMass"
+        , describe "Co2.forMJ"
+            [ Energy.megajoules 1
+                |> Co2.forMJ (Co2.kgCo2e 0.2)
+                |> expectKgCo2Float 0.2
+                |> asTest "should compute kgCo2e for energy expressed in MJ"
+            ]
+        , describe "Co2.ratioedForKg"
             [ Mass.kilograms 1
-                |> Co2.ratioedCo2eForMass ( Co2.kgCo2e 0.25, Co2.kgCo2e 0.75 ) 0.5
+                |> Co2.ratioedForKg ( Co2.kgCo2e 0.25, Co2.kgCo2e 0.75 ) 0.5
                 |> expectKgCo2Float 0.5
                 |> asTest "should compute co2 from ratioed co2 impacts and mass"
             ]
-        , describe "Co2.ratioedCo2eForKWh"
+        , describe "Co2.ratioedForKWh"
             [ Energy.kilowattHours 1
-                |> Co2.ratioedCo2eForKWh ( Co2.kgCo2e 0.25, Co2.kgCo2e 0.75 ) 0.5
+                |> Co2.ratioedForKWh ( Co2.kgCo2e 0.25, Co2.kgCo2e 0.75 ) 0.5
                 |> expectKgCo2Float 0.5
-                |> asTest "should compute co2 from ratioed co2 impacts and energy"
+                |> asTest "should compute co2 from ratioed co2 impacts and energy in KWh"
+            ]
+        , describe "Co2.ratioedForMJ"
+            [ Energy.megajoules 1
+                |> Co2.ratioedForMJ ( Co2.kgCo2e 0.25, Co2.kgCo2e 0.75 ) 0.5
+                |> expectKgCo2Float 0.5
+                |> asTest "should compute co2 from ratioed co2 impacts and energy in MJ"
             ]
         ]

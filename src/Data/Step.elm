@@ -136,9 +136,9 @@ computeTransportCo2 : Process.WellKnown -> Process -> Mass -> Transport -> Trans
 computeTransportCo2 { seaTransport, airTransport } roadProcess mass { road, sea, air } =
     let
         ( roadCo2, seaCo2, airCo2 ) =
-            ( mass |> Co2.co2eForMassAndDistance roadProcess.climateChange road
-            , mass |> Co2.co2eForMassAndDistance seaTransport.climateChange sea
-            , mass |> Co2.co2eForMassAndDistance airTransport.climateChange air
+            ( mass |> Co2.forKgAndDistance roadProcess.climateChange road
+            , mass |> Co2.forKgAndDistance seaTransport.climateChange sea
+            , mass |> Co2.forKgAndDistance airTransport.climateChange air
             )
     in
     { road = road
