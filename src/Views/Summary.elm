@@ -7,6 +7,7 @@ import Data.Simulator exposing (Simulator)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Route exposing (Route(..))
+import Views.Alert as Alert
 import Views.BarChart as Chart
 import Views.Format as Format
 import Views.Transport as TransportView
@@ -67,4 +68,9 @@ view reusable result =
             summaryView reusable simulator
 
         Err error ->
-            text <| "Error: " ++ error
+            Alert.simple
+                { level = Alert.Warning
+                , content = [ text error ]
+                , title = "Impossible de charger l'exemple"
+                , close = Nothing
+                }

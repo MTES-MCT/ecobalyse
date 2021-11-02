@@ -63,8 +63,14 @@ loadDb _ event =
                     RemoteData.Success processes ->
                         loadProcessesDependentData processes
 
-                    _ ->
-                        Task.fail ()
+                    RemoteData.Failure error ->
+                        Task.succeed (RemoteData.Failure error)
+
+                    RemoteData.NotAsked ->
+                        Task.succeed RemoteData.NotAsked
+
+                    RemoteData.Loading ->
+                        Task.succeed RemoteData.Loading
             )
         |> Task.attempt
             (\result ->

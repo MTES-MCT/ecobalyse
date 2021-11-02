@@ -144,7 +144,7 @@ notificationListView : Config msg -> Html msg
 notificationListView ({ session } as config) =
     session.notifications
         |> List.map (notificationView config)
-        |> Container.centered [ class "bg-white" ]
+        |> Container.centered [ class "bg-white pt-3" ]
 
 
 notificationView : Config msg -> Session.Notification -> Html msg
