@@ -7,8 +7,6 @@ import Data.Db exposing (Db)
 import Data.Material as Material exposing (Material)
 import Data.Process as Process
 import Data.Product as Product exposing (Product)
-import FormatNumber
-import FormatNumber.Locales exposing (Decimals(..), frenchLocale)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
 import Mass exposing (Mass)
@@ -74,17 +72,6 @@ toQuery { mass, material, product, countries, airTransportRatio, dyeingWeighting
     , airTransportRatio = airTransportRatio
     , recycledRatio = recycledRatio
     }
-
-
-toLabel : Inputs -> String
-toLabel { mass, material, product } =
-    String.join " "
-        [ product.name
-        , "en"
-        , material.name
-        , "de"
-        , FormatNumber.format { frenchLocale | decimals = Exact 2 } (Mass.inKilograms mass) ++ "\u{202F}kg"
-        ]
 
 
 updateStepCountry : Int -> Country.Code -> Query -> Query
