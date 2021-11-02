@@ -192,13 +192,14 @@ weavingCo2 { elecPppm, elecCC, ppm, grammage } baseMass =
 -- Transports
 
 
-transportRatio : Float -> Transport.Summary -> Transport
-transportRatio airTransportRatio ({ road, sea, air } as summary) =
+transportRatio : Float -> Transport -> Transport
+transportRatio airTransportRatio ({ road, sea, air } as transport) =
     let
         roadSeaRatio =
-            Transport.roadSeaTransportRatio summary
+            Transport.roadSeaTransportRatio transport
     in
-    { road = road |> Quantity.multiplyBy (roadSeaRatio * (1 - airTransportRatio))
-    , sea = sea |> Quantity.multiplyBy ((1 - roadSeaRatio) * (1 - airTransportRatio))
-    , air = air |> Quantity.multiplyBy airTransportRatio
+    { transport
+        | road = road |> Quantity.multiplyBy (roadSeaRatio * (1 - airTransportRatio))
+        , sea = sea |> Quantity.multiplyBy ((1 - roadSeaRatio) * (1 - airTransportRatio))
+        , air = air |> Quantity.multiplyBy airTransportRatio
     }

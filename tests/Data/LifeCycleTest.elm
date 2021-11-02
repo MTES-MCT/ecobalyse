@@ -24,8 +24,8 @@ suite =
                         \_ ->
                             tShirtCotonFrance
                                 |> LifeCycle.fromQuery db
-                                |> Result.andThen (LifeCycle.computeTransportSummaries db)
-                                |> Result.map LifeCycle.computeTransportSummary
+                                |> Result.andThen (LifeCycle.computeStepsTransport db)
+                                |> Result.map LifeCycle.computeTotalTransports
                                 |> Expect.equal
                                     (Ok
                                         { road = km 4500
@@ -46,8 +46,8 @@ suite =
                                         , Country.Code "FR"
                                         ]
                                 }
-                                |> Result.andThen (LifeCycle.computeTransportSummaries db)
-                                |> Result.map LifeCycle.computeTransportSummary
+                                |> Result.andThen (LifeCycle.computeStepsTransport db)
+                                |> Result.map LifeCycle.computeTotalTransports
                                 |> Expect.equal
                                     (Ok
                                         { road = km 3500

@@ -18,11 +18,6 @@ type alias Distances =
 
 
 type alias Transport =
-    -- FIXME: Transport could be just Summary with no Co2 by default?
-    { road : Length, sea : Length, air : Length }
-
-
-type alias Summary =
     { road : Length, sea : Length, air : Length, co2 : Co2e }
 
 
@@ -31,6 +26,7 @@ default =
     { road = Quantity.zero
     , sea = Quantity.zero
     , air = Quantity.zero
+    , co2 = Quantity.zero
     }
 
 
@@ -39,25 +35,17 @@ emptyDistances =
     Dict.fromList Country.codeToString []
 
 
-defaultSummary : Summary
-defaultSummary =
-    { road = Quantity.zero
-    , sea = Quantity.zero
-    , air = Quantity.zero
-    , co2 = Quantity.zero
-    }
-
-
 defaultInland : Transport
 defaultInland =
     { road = Length.kilometers 500
     , sea = Quantity.zero
     , air = Length.kilometers 500
+    , co2 = Quantity.zero
     }
 
 
-addSummary : Summary -> Summary -> Summary
-addSummary sA sB =
+add : Transport -> Transport -> Transport
+add sA sB =
     { sA
         | road = sA.road |> Quantity.plus sB.road
         , sea = sA.sea |> Quantity.plus sB.sea
@@ -72,6 +60,7 @@ materialToSpinningTransport =
     { road = Length.kilometers 2000
     , sea = Length.kilometers 4000
     , air = Length.kilometers 0
+    , co2 = Quantity.zero
     }
 
 
@@ -83,7 +72,7 @@ for shorter distances. A few notes:
   - Otherwise we can apply specific ratios
 
 -}
-roadSeaTransportRatio : Summary -> Float
+roadSeaTransportRatio : Transport -> Float
 roadSeaTransportRatio { road, sea } =
     if Length.inKilometers road == 0 then
         0
@@ -125,11 +114,6 @@ getTransportBetween cA cB distances =
             |> Maybe.withDefault default
 
 
-toSummary : Transport -> Summary
-toSummary { road, air, sea } =
-    { road = road, sea = sea, air = air, co2 = Quantity.zero }
-
-
 decodeKm : Decoder Length
 decodeKm =
     Decode.float |> Decode.andThen (Length.kilometers >> Decode.succeed)
@@ -140,39 +124,22 @@ encodeKm =
     Length.inKilometers >> Encode.float
 
 
-decodeTransport : Decoder Transport
-decodeTransport =
-    Decode.map3 Transport
+decode : Decoder Transport
+decode =
+    Decode.map4 Transport
         (Decode.field "road" decodeKm)
         (Decode.field "sea" decodeKm)
         (Decode.field "air" decodeKm)
+        (Decode.succeed Quantity.zero)
 
 
-encodeTransport : Transport -> Encode.Value
-encodeTransport v =
+encode : Transport -> Encode.Value
+encode v =
     Encode.object
         [ ( "road", encodeKm v.road )
         , ( "sea", encodeKm v.sea )
         , ( "air", encodeKm v.air )
-        ]
-
-
-decodeSummary : Decoder Summary
-decodeSummary =
-    Decode.map4 Summary
-        (Decode.field "road" decodeKm)
-        (Decode.field "sea" decodeKm)
-        (Decode.field "air" decodeKm)
-        (Decode.field "co2" Co2.decodeKgCo2e)
-
-
-encodeSummary : Summary -> Encode.Value
-encodeSummary summary =
-    Encode.object
-        [ ( "road", encodeKm summary.road )
-        , ( "sea", encodeKm summary.sea )
-        , ( "air", encodeKm summary.air )
-        , ( "co2", Co2.encodeKgCo2e summary.co2 )
+        , ( "co2", Co2.encodeKgCo2e v.co2 )
         ]
 
 
@@ -182,7 +149,7 @@ decodeDistance =
     Dict.decode
         (\str _ -> Country.codeFromString str)
         Country.codeToString
-        decodeTransport
+        decode
 
 
 decodeDistances : Decoder Distances

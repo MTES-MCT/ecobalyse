@@ -4,6 +4,7 @@ import Data.Country as Country
 import Data.Transport as Transport exposing (Transport)
 import Expect
 import Length
+import Quantity
 import Test exposing (..)
 import TestDb exposing (testDb)
 
@@ -14,7 +15,7 @@ km =
 
 franceChina : Transport
 franceChina =
-    { road = km 0, sea = km 21548, air = km 8200 }
+    { road = km 0, sea = km 21548, air = km 8200, co2 = Quantity.zero }
 
 
 suite : Test

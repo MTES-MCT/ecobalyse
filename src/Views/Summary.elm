@@ -40,7 +40,7 @@ summaryView reusable ({ inputs, lifeCycle } as simulator) =
                 |> List.map (\{ name } -> li [] [ span [] [ text name ] ])
                 |> ul [ class "Chevrons" ]
             , lifeCycle
-                |> LifeCycle.computeTransportSummary
+                |> LifeCycle.computeTotalTransports
                 |> TransportView.view False
             ]
         , div [ class "d-none d-sm-block card-body px-2" ]

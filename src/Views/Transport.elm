@@ -1,13 +1,13 @@
 module Views.Transport exposing (..)
 
-import Data.Transport as Transport
+import Data.Transport exposing (Transport)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Views.Format as Format
 import Views.Icon as Icon
 
 
-view : Bool -> Transport.Summary -> Html msg
+view : Bool -> Transport -> Html msg
 view fullWidth { road, air, sea } =
     div
         [ classList

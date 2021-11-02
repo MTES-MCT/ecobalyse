@@ -7,7 +7,7 @@ import Data.Inputs as Inputs exposing (Inputs)
 import Data.LifeCycle as LifeCycle exposing (LifeCycle)
 import Data.Process as Process
 import Data.Step as Step exposing (Step)
-import Data.Transport as Transport
+import Data.Transport as Transport exposing (Transport)
 import Json.Encode as Encode
 import Quantity
 
@@ -16,7 +16,7 @@ type alias Simulator =
     { inputs : Inputs
     , lifeCycle : LifeCycle
     , co2 : Co2e
-    , transport : Transport.Summary
+    , transport : Transport
     }
 
 
@@ -26,7 +26,7 @@ encode v =
         [ ( "inputs", Inputs.encode v.inputs )
         , ( "lifeCycle", LifeCycle.encode v.lifeCycle )
         , ( "co2", Co2.encodeKgCo2e v.co2 )
-        , ( "transport", Transport.encodeSummary v.transport )
+        , ( "transport", Transport.encode v.transport )
         ]
 
 
@@ -41,7 +41,7 @@ init db =
                             { inputs = inputs
                             , lifeCycle = lifeCycle
                             , co2 = Quantity.zero
-                            , transport = Transport.defaultSummary
+                            , transport = Transport.default
                             }
                        )
             )
@@ -83,9 +83,9 @@ compute db query =
         -- TRANSPORTS
         --
         -- Compute step transport
-        |> nextWithDb computeTransportSummaries
+        |> nextWithDb computeStepsTransport
         -- Compute transport summary
-        |> next computeTransportSummary
+        |> next computeTotalTransports
         --
         -- FINAL CO2 SCORE
         --
@@ -246,16 +246,16 @@ computeMaterialStepWaste ({ inputs, lifeCycle } as simulator) =
             (\step -> { step | mass = mass, waste = waste })
 
 
-computeTransportSummaries : Db -> Simulator -> Result String Simulator
-computeTransportSummaries db simulator =
+computeStepsTransport : Db -> Simulator -> Result String Simulator
+computeStepsTransport db simulator =
     simulator.lifeCycle
-        |> LifeCycle.computeTransportSummaries db
+        |> LifeCycle.computeStepsTransport db
         |> Result.map (\lifeCycle -> simulator |> updateLifeCycle (always lifeCycle))
 
 
-computeTransportSummary : Simulator -> Simulator
-computeTransportSummary simulator =
-    { simulator | transport = simulator.lifeCycle |> LifeCycle.computeTransportSummary }
+computeTotalTransports : Simulator -> Simulator
+computeTotalTransports simulator =
+    { simulator | transport = simulator.lifeCycle |> LifeCycle.computeTotalTransports }
 
 
 computeFinalCo2Score : Simulator -> Simulator

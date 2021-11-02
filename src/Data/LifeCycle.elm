@@ -5,7 +5,7 @@ import Data.Co2 exposing (Co2e)
 import Data.Db exposing (Db)
 import Data.Inputs as Inputs exposing (Inputs)
 import Data.Step as Step exposing (Step)
-import Data.Transport as Transport
+import Data.Transport as Transport exposing (Transport)
 import Json.Encode as Encode
 import Mass exposing (Mass)
 import Quantity
@@ -21,8 +21,8 @@ encode =
     Encode.array Step.encode
 
 
-computeTransportSummaries : Db -> LifeCycle -> Result String LifeCycle
-computeTransportSummaries db lifeCycle =
+computeStepsTransport : Db -> LifeCycle -> Result String LifeCycle
+computeStepsTransport db lifeCycle =
     lifeCycle
         |> Array.indexedMap
             (\index step ->
@@ -35,18 +35,18 @@ computeTransportSummaries db lifeCycle =
         |> Result.map Array.fromList
 
 
-computeTransportSummary : LifeCycle -> Transport.Summary
-computeTransportSummary =
+computeTotalTransports : LifeCycle -> Transport
+computeTotalTransports =
     Array.foldl
-        (\{ transport } summary ->
-            { summary
-                | road = summary.road |> Quantity.plus transport.road
-                , sea = summary.sea |> Quantity.plus transport.sea
-                , air = summary.air |> Quantity.plus transport.air
-                , co2 = summary.co2 |> Quantity.plus transport.co2
+        (\{ transport } acc ->
+            { acc
+                | road = acc.road |> Quantity.plus transport.road
+                , sea = acc.sea |> Quantity.plus transport.sea
+                , air = acc.air |> Quantity.plus transport.air
+                , co2 = acc.co2 |> Quantity.plus transport.co2
             }
         )
-        Transport.defaultSummary
+        Transport.default
 
 
 computeFinalCo2Score : LifeCycle -> Co2e

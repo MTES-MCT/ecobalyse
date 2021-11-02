@@ -7,10 +7,9 @@ import Data.Formula as Formula
 import Data.Gitbook as Gitbook exposing (Path(..))
 import Data.Inputs exposing (Inputs)
 import Data.Process as Process exposing (Process)
-import Data.Transport as Transport exposing (Transport, defaultInland, defaultSummary)
+import Data.Transport as Transport exposing (Transport, default, defaultInland)
 import Energy exposing (Energy)
 import Json.Decode as Decode exposing (Decoder)
-import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
 import Mass exposing (Mass)
 import Quantity
@@ -22,7 +21,7 @@ type alias Step =
     , editable : Bool
     , mass : Mass
     , waste : Mass
-    , transport : Transport.Summary
+    , transport : Transport
     , co2 : Co2e
     , heat : Energy
     , kwh : Energy
@@ -55,7 +54,7 @@ create label editable country =
     , editable = editable
     , mass = Mass.kilograms 0
     , waste = Mass.kilograms 0
-    , transport = defaultSummary
+    , transport = default
     , co2 = Quantity.zero
     , heat = Energy.megajoules 0
     , kwh = Energy.kilowattHours 0
@@ -127,12 +126,12 @@ computeTransports db next current =
                     | transport =
                         stepSummary
                             |> computeTransportCo2 wellKnown roadTransportProcess next.mass
-                            |> Transport.addSummary (initialTransportSummary wellKnown current)
+                            |> Transport.add (initialTransportSummary wellKnown current)
                 }
             )
 
 
-computeTransportCo2 : Process.WellKnown -> Process -> Mass -> Transport -> Transport.Summary
+computeTransportCo2 : Process.WellKnown -> Process -> Mass -> Transport -> Transport
 computeTransportCo2 { seaTransport, airTransport } roadProcess mass { road, sea, air } =
     let
         ( roadCo2, seaCo2, airCo2 ) =
@@ -148,7 +147,7 @@ computeTransportCo2 { seaTransport, airTransport } roadProcess mass { road, sea,
     }
 
 
-initialTransportSummary : Process.WellKnown -> Step -> Transport.Summary
+initialTransportSummary : Process.WellKnown -> Step -> Transport
 initialTransportSummary wellKnown { label, mass } =
     case label of
         MaterialAndSpinning ->
@@ -157,23 +156,23 @@ initialTransportSummary wellKnown { label, mass } =
                 |> computeTransportCo2 wellKnown wellKnown.roadTransportPreMaking mass
 
         _ ->
-            defaultSummary
+            default
 
 
-computeTransportSummary : Step -> Transport -> Transport.Summary
+computeTransportSummary : Step -> Transport -> Transport
 computeTransportSummary step transport =
     case step.label of
         Ennoblement ->
             -- Added intermediary defaultInland transport step to materialize
             -- Processing + Dyeing steps (see Excel)
-            { defaultSummary
+            { default
                 | road = transport.road |> Quantity.plus defaultInland.road
                 , sea = transport.sea |> Quantity.plus defaultInland.sea
             }
 
         Making ->
             -- Air transport only applies between the Making and the Distribution steps
-            { defaultSummary
+            { default
                 | road = transport.road
                 , sea = transport.sea
                 , air = transport.air
@@ -181,7 +180,7 @@ computeTransportSummary step transport =
 
         _ ->
             -- All other steps don't use air transport at all
-            { defaultSummary
+            { default
                 | road = transport.road
                 , sea = transport.sea
             }
@@ -262,7 +261,7 @@ encode v =
         , ( "editable", Encode.bool v.editable )
         , ( "mass", Encode.float (Mass.inKilograms v.mass) )
         , ( "waste", Encode.float (Mass.inKilograms v.waste) )
-        , ( "transport", Transport.encodeSummary v.transport )
+        , ( "transport", Transport.encode v.transport )
         , ( "co2", Co2.encodeKgCo2e v.co2 )
         , ( "heat", Encode.float (Energy.inMegajoules v.heat) )
         , ( "kwh", Encode.float (Energy.inKilowattHours v.kwh) )
@@ -270,15 +269,6 @@ encode v =
         , ( "dyeingWeighting", Encode.float v.dyeingWeighting )
         , ( "airTransportRatio", Encode.float v.airTransportRatio )
         ]
-
-
-decodeProcessInfo : Decoder ProcessInfo
-decodeProcessInfo =
-    Decode.succeed ProcessInfo
-        |> Pipe.required "electricity" (Decode.maybe Decode.string)
-        |> Pipe.required "heat" (Decode.maybe Decode.string)
-        |> Pipe.required "dyeingWeighting" (Decode.maybe Decode.string)
-        |> Pipe.required "airTransportRatio" (Decode.maybe Decode.string)
 
 
 encodeProcessInfo : ProcessInfo -> Encode.Value
