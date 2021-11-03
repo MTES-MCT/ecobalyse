@@ -17,7 +17,7 @@ type alias Process =
     , cat3 : Cat3
     , name : String
     , uuid : Uuid
-    , climateChange : Co2e -- kgCO2e per {kg of material or KWh}
+    , climateChange : Co2e -- kgCO2e per {kg of material, KWh or MJ}
     , heat : Energy --  MJ per kg of material to process
     , elec_pppm : Float -- kWh/(pick,m) per kg of material to process
     , elec : Energy -- MJ per kg of material to process

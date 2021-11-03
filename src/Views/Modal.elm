@@ -68,7 +68,7 @@ view config =
                             ]
                             []
                         ]
-                    , div [ class "modal-body px-3 px-md-4 py-2 py-md-3" ]
+                    , div [ class "modal-body" ]
                         config.content
                     , if config.footer /= [] then
                         div [ class "modal-footer bg-light" ] config.footer

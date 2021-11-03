@@ -10,6 +10,7 @@ import Energy
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
+import Views.Button as Button
 import Views.Format as Format
 import Views.Icon as Icon
 import Views.RangeSlider as RangeSlider
@@ -24,6 +25,7 @@ type alias Config msg =
     , current : Step
     , next : Maybe Step
     , openDocModal : Gitbook.Path -> msg
+    , openCustomCountryMixModal : Step -> msg
     , updateCountry : Int -> Country.Code -> msg
     , updateDyeingWeighting : Maybe Float -> msg
     , updateAirTransportRatio : Maybe Float -> msg
@@ -95,8 +97,15 @@ dyeingWeightingField { current, updateDyeingWeighting } =
         }
 
 
-documentationLink : Config msg -> Step.Label -> Html msg
-documentationLink { openDocModal } label =
+inlineDocumentationLink : Config msg -> Gitbook.Path -> Html msg
+inlineDocumentationLink { openDocModal } path =
+    Button.smallPill
+        [ onClick (openDocModal path) ]
+        [ Icon.question ]
+
+
+stepDocumentationLink : Config msg -> Step.Label -> Html msg
+stepDocumentationLink { openDocModal } label =
     button
         [ class "btn btn-sm btn-primary rounded-pill fs-7 py-0"
         , onClick (openDocModal (Step.getStepGitbookPath label))
@@ -129,7 +138,7 @@ simpleView ({ product, index, current } as config) =
                     , text stepLabel
                     ]
                 , div [ class "col-6 text-end" ]
-                    [ documentationLink config current.label
+                    [ stepDocumentationLink config current.label
                     ]
                 ]
             ]
@@ -165,15 +174,6 @@ simpleView ({ product, index, current } as config) =
         ]
 
 
-documentationPillLink : Config msg -> Gitbook.Path -> Html msg
-documentationPillLink { openDocModal } path =
-    button
-        [ class "btn btn-sm text-secondary text-decoration-none btn-link p-0 ms-1"
-        , onClick (openDocModal path)
-        ]
-        [ Icon.question ]
-
-
 detailedView : Config msg -> Html msg
 detailedView ({ product, index, next, current } as config) =
     let
@@ -195,14 +195,6 @@ detailedView ({ product, index, next, current } as config) =
 
                 _ ->
                     Step.labelToString current.label
-
-        listItem maybeValue =
-            case maybeValue of
-                Just value ->
-                    li [ class "list-group-item text-muted" ] [ text value ]
-
-                Nothing ->
-                    text ""
     in
     div [ class "card-group" ]
         [ div [ class "card" ]
@@ -212,12 +204,27 @@ detailedView ({ product, index, next, current } as config) =
                         [ text (String.fromInt (index + 1)) ]
                     , text stepLabel
                     ]
-                , documentationLink config current.label
+                , stepDocumentationLink config current.label
                 ]
             , ul [ class "list-group list-group-flush fs-7" ]
                 [ li [ class "list-group-item text-muted" ] [ countryField config ]
-                , listItem current.processInfo.heat
-                , listItem current.processInfo.electricity
+                , case current.processInfo.countryHeat of
+                    Just countryHeat ->
+                        li [ class "list-group-item text-muted" ] [ text countryHeat ]
+
+                    Nothing ->
+                        text ""
+                , case current.processInfo.countryElec of
+                    Just countryElec ->
+                        li [ class "list-group-item d-flex justify-content-between text-muted" ]
+                            [ span [] [ text countryElec ]
+                            , Button.smallPill
+                                [ onClick (config.openCustomCountryMixModal current) ]
+                                [ Icon.pencil ]
+                            ]
+
+                    Nothing ->
+                        text ""
                 ]
             , div [ class "card-body py-2 text-muted" ]
                 [ case current.label of
@@ -246,7 +253,7 @@ detailedView ({ product, index, next, current } as config) =
                     , span [ class "d-flex align-items-center" ]
                         [ span [ class "me-1" ] [ text "Perte" ]
                         , Format.kg current.waste
-                        , documentationPillLink config Gitbook.Waste
+                        , inlineDocumentationLink config Gitbook.Waste
                         ]
                     ]
                 , if Energy.inKilojoules current.heat > 0 || Energy.inKilowattHours current.kwh > 0 then
@@ -254,12 +261,12 @@ detailedView ({ product, index, next, current } as config) =
                         [ span [ class "d-flex align-items-center" ]
                             [ span [ class "me-1" ] [ text "Chaleur" ]
                             , Format.megajoules current.heat
-                            , documentationPillLink config Gitbook.Heat
+                            , inlineDocumentationLink config Gitbook.Heat
                             ]
                         , span [ class "d-flex align-items-center" ]
                             [ span [ class "me-1" ] [ text "Électricité" ]
                             , Format.kilowattHours current.kwh
-                            , documentationPillLink config Gitbook.Electricity
+                            , inlineDocumentationLink config Gitbook.Electricity
                             ]
                         ]
 
@@ -270,7 +277,7 @@ detailedView ({ product, index, next, current } as config) =
                 , li [ class "list-group-item text-muted d-flex justify-content-center align-items-center" ]
                     [ strong [] [ text <| transportLabel ++ "\u{00A0}:\u{00A0}" ]
                     , Format.kgCo2 3 current.transport.co2
-                    , documentationPillLink config Gitbook.Transport
+                    , inlineDocumentationLink config Gitbook.Transport
                     ]
                 ]
             ]

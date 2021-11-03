@@ -2,6 +2,7 @@ module Page.Simulator exposing (..)
 
 import Array
 import Browser.Events
+import Data.Co2 as Co2
 import Data.Country as Country
 import Data.Db exposing (Db)
 import Data.Gitbook as Gitbook
@@ -12,6 +13,7 @@ import Data.Process as Process
 import Data.Product as Product exposing (Product)
 import Data.Session as Session exposing (Session)
 import Data.Simulator as Simulator exposing (Simulator)
+import Data.Step as Step exposing (Step)
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
@@ -39,7 +41,16 @@ type alias Model =
     , query : Inputs.Query
     , displayMode : DisplayMode
     , modal : ModalContent
+    , customStepInputs : CustomStepInputs
     }
+
+
+type alias CustomStepInput =
+    { customCountryMix : Maybe String }
+
+
+type alias CustomStepInputs =
+    List ( Step.Label, CustomStepInput )
 
 
 type DisplayMode
@@ -49,6 +60,7 @@ type DisplayMode
 
 type ModalContent
     = NoModal
+    | CustomCountryMixModal Step
     | GitbookModal (WebData Gitbook.Page)
 
 
@@ -57,10 +69,14 @@ type Msg
     | CopyToClipBoard String
     | ModalContentReceived (WebData Gitbook.Page)
     | NoOp
+    | OpenCustomCountryMixModal Step
     | OpenDocModal Gitbook.Path
     | Reset
+    | ResetCustomCountryMix Step.Label
+    | SubmitCustomCountryMix Step.Label
     | SwitchMode DisplayMode
     | UpdateAirTransportRatio (Maybe Float)
+    | UpdateCustomCountryMixInput Step.Label String
     | UpdateDyeingWeighting (Maybe Float)
     | UpdateMassInput String
     | UpdateMaterial Process.Uuid
@@ -83,6 +99,11 @@ init maybeQuery session =
       , query = query
       , displayMode = SimpleMode
       , modal = NoModal
+      , customStepInputs =
+            [ ( Step.WeavingKnitting, { customCountryMix = Nothing } )
+            , ( Step.Ennoblement, { customCountryMix = Nothing } )
+            , ( Step.Making, { customCountryMix = Nothing } )
+            ]
       }
     , case simulator of
         Err error ->
@@ -102,8 +123,20 @@ updateQuery query ( model, session, msg ) =
     )
 
 
+updateCustomStepInputs : Step.Label -> CustomStepInput -> CustomStepInputs -> CustomStepInputs
+updateCustomStepInputs stepLabel updated =
+    List.map
+        (\( label, custom ) ->
+            if label == stepLabel then
+                ( label, updated )
+
+            else
+                ( label, custom )
+        )
+
+
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
-update ({ db } as session) msg ({ query } as model) =
+update ({ db } as session) msg ({ customStepInputs, query } as model) =
     case msg of
         CloseModal ->
             ( { model | modal = NoModal }, session, Cmd.none )
@@ -117,6 +150,12 @@ update ({ db } as session) msg ({ query } as model) =
         NoOp ->
             ( model, session, Cmd.none )
 
+        OpenCustomCountryMixModal step ->
+            ( { model | modal = CustomCountryMixModal step }
+            , session
+            , Cmd.none
+            )
+
         OpenDocModal path ->
             ( { model | modal = GitbookModal RemoteData.Loading }
             , session
@@ -127,12 +166,40 @@ update ({ db } as session) msg ({ query } as model) =
             ( model, session, Cmd.none )
                 |> updateQuery Inputs.defaultQuery
 
+        ResetCustomCountryMix stepLabel ->
+            ( { model
+                | customStepInputs =
+                    customStepInputs
+                        |> updateCustomStepInputs stepLabel { customCountryMix = Nothing }
+              }
+            , session
+            , Cmd.none
+            )
+
+        SubmitCustomCountryMix stepLabel ->
+            -- TODO: update query
+            -- case customCountryMixInput |> String.toFloat |> Maybe.map Co2.kgCo2e of
+            --         Just customCountryMix ->
+            -- update Query to list steps and not countries
+            -- |> updateQuery { query | countries = query.steps |> updateCustomValues… }
+            ( model, session, Cmd.none )
+
         SwitchMode displayMode ->
             ( { model | displayMode = displayMode }, session, Cmd.none )
 
         UpdateAirTransportRatio airTransportRatio ->
             ( model, session, Cmd.none )
                 |> updateQuery { query | airTransportRatio = airTransportRatio }
+
+        UpdateCustomCountryMixInput stepLabel customCountryMixInput ->
+            ( { model
+                | customStepInputs =
+                    customStepInputs
+                        |> updateCustomStepInputs stepLabel { customCountryMix = Just customCountryMixInput }
+              }
+            , session
+            , Cmd.none
+            )
 
         UpdateDyeingWeighting dyeingWeighting ->
             ( model, session, Cmd.none )
@@ -287,6 +354,7 @@ lifeCycleStepsView db displayMode simulator =
                     , product = simulator.inputs.product
                     , current = current
                     , next = Array.get (index + 1) simulator.lifeCycle
+                    , openCustomCountryMixModal = OpenCustomCountryMixModal
                     , openDocModal = OpenDocModal
                     , updateCountry = UpdateStepCountry
                     , updateAirTransportRatio = UpdateAirTransportRatio
@@ -365,16 +433,84 @@ feedbackView =
         ]
 
 
-modalView : ModalContent -> Html Msg
-modalView modal =
-    case modal of
-        NoModal ->
+customCountryMixModal : CustomStepInputs -> Step -> Html Msg
+customCountryMixModal customStepInputs step =
+    let
+        customCountryMixInput =
+            customStepInputs
+                |> List.filter (Tuple.first >> (==) step.label)
+                |> List.head
+                |> Maybe.map (Tuple.second >> .customCountryMix)
+                |> Maybe.withDefault Nothing
+                |> Maybe.withDefault
+                    (step.country.electricityProcess.climateChange
+                        |> Co2.inKgCo2e
+                        |> String.fromFloat
+                    )
+    in
+    ModalView.view
+        { size = ModalView.Standard
+        , close = CloseModal
+        , noOp = NoOp
+        , title =
+            String.join " "
+                [ "Personnalisation du mix"
+                , step.country.name
+                , "pour"
+                , Step.labelToString step.label
+                ]
+        , content =
+            [ div []
+                [ label [ class "form-label fw-bold", for "customCountryMix" ]
+                    [ text "Impact personnalisé" ]
+                , div [ class "input-group" ]
+                    [ input
+                        [ type_ "number"
+                        , id "customCountryMix"
+                        , class "form-control"
+                        , classList [ ( "is-invalid", String.toFloat customCountryMixInput == Nothing ) ]
+                        , Attr.min "0.001"
+                        , Attr.max "10"
+                        , Attr.step "0.0001"
+                        , onInput (UpdateCustomCountryMixInput step.label)
+                        , value customCountryMixInput
+                        ]
+                        []
+                    , span [ class "input-group-text" ] [ text "kgCO₂e" ]
+                    ]
+                , if String.toFloat customCountryMixInput == Nothing then
+                    div [ class "invalid-feedback", style "display" "block" ]
+                        [ text "Attention, cette valeur est invalide. Vérifiez votre saisie." ]
+
+                  else
+                    text ""
+                , div [ class "form-text" ]
+                    [ text "lorem ipsum lorem ipsum lorem ipsum" ]
+                ]
+            ]
+        , footer =
+            [ button
+                [ class "btn btn-secondary"
+                , onClick (ResetCustomCountryMix step.label)
+                ]
+                [ text "Réinitialiser" ]
+            , button
+                [ class "btn btn-primary"
+                , disabled (String.toFloat customCountryMixInput == Nothing)
+                , onClick (SubmitCustomCountryMix step.label)
+                ]
+                [ text "Valider" ]
+            ]
+        }
+
+
+gitbookModalView : WebData Gitbook.Page -> Html Msg
+gitbookModalView pageData =
+    case pageData of
+        RemoteData.NotAsked ->
             text ""
 
-        GitbookModal RemoteData.NotAsked ->
-            text ""
-
-        GitbookModal RemoteData.Loading ->
+        RemoteData.Loading ->
             ModalView.view
                 { size = ModalView.Large
                 , close = CloseModal
@@ -384,7 +520,7 @@ modalView modal =
                 , footer = []
                 }
 
-        GitbookModal (RemoteData.Failure error) ->
+        RemoteData.Failure error ->
             ModalView.view
                 { size = ModalView.Large
                 , close = CloseModal
@@ -394,7 +530,7 @@ modalView modal =
                 , footer = []
                 }
 
-        GitbookModal (RemoteData.Success gitbookPage) ->
+        RemoteData.Success gitbookPage ->
             ModalView.view
                 { size = ModalView.Large
                 , close = CloseModal
@@ -431,6 +567,19 @@ modalView modal =
                         ]
                     ]
                 }
+
+
+modalView : Model -> Html Msg
+modalView { modal, customStepInputs } =
+    case modal of
+        NoModal ->
+            text ""
+
+        CustomCountryMixModal step ->
+            customCountryMixModal customStepInputs step
+
+        GitbookModal pageData ->
+            gitbookModalView pageData
 
 
 simulatorView : Session -> Model -> Simulator -> Html Msg
@@ -492,7 +641,7 @@ view session model =
                         , content = [ text error ]
                         }
             ]
-      , modalView model.modal
+      , modalView model
       ]
     )
 
@@ -500,6 +649,9 @@ view session model =
 subscriptions : Model -> Sub Msg
 subscriptions { modal } =
     case modal of
+        CustomCountryMixModal _ ->
+            Browser.Events.onKeyDown (Key.escape CloseModal)
+
         GitbookModal _ ->
             Browser.Events.onKeyDown (Key.escape CloseModal)
 
