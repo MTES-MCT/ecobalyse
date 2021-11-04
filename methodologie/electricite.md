@@ -21,7 +21,21 @@ Le mix électrique appliqué dépend du pays dans lequel l'étape correspondante
 
 ## Limites
 
-Il peut être proposé : 
+Il peut être proposé :&#x20;
 
 * d'ajouter de nouveaux pays, et donc de nouveaux mix énergétiques ;
 * de proposer un mix énergétique sur mesure, permettant par exemple de modéliser un site industriel qui assurerait directement sa production énergétique pour l'électricité (panneaux photovoltaïques par exemple).
+
+## \[Projet] Paramétrage manuel
+
+A chaque étape de la production qui mobilise de l'électricité, il est proposé de paramétrer manuellement l'intensité carbone du mix énergétique.
+
+Par défaut, l'intensité carbone du mix énergétique est la valeur spécifiée dans la base Impacts, pour l'impact "changement climatique" (UUID : `b2ad6d9a-c78d-11e6-9d9d-cec0c932ce01)`, pour chacun des mix électriques nationaux mentionnés (ci-dessus).
+
+{% hint style="warning" %}
+Le paramétrage manuel ne concerne que le changement climatique et pas les autres impacts qui pourraient être prochainement intégrés dans l'outil Wikicarbone
+{% endhint %}
+
+{% hint style="warning" %}
+La modification manuelle de l'intensité carbone&#x20;
+{% endhint %}
