@@ -1,8 +1,9 @@
 module Page.Simulator exposing (..)
 
 import Array
+import Browser.Dom as Dom
 import Browser.Events
-import Data.Co2 as Co2
+import Data.Co2 as Co2 exposing (Co2e)
 import Data.Country as Country
 import Data.Db exposing (Db)
 import Data.Gitbook as Gitbook
@@ -22,6 +23,7 @@ import Ports
 import RemoteData exposing (WebData)
 import Request.Gitbook as GitbookApi
 import Route exposing (Route(..))
+import Task
 import Views.Alert as Alert
 import Views.Comparator as ComparatorView
 import Views.Container as Container
@@ -45,14 +47,6 @@ type alias Model =
     }
 
 
-type alias CustomStepInput =
-    { customCountryMix : Maybe String }
-
-
-type alias CustomStepInputs =
-    List ( Step.Label, CustomStepInput )
-
-
 type DisplayMode
     = DetailedMode
     | SimpleMode
@@ -67,13 +61,13 @@ type ModalContent
 type Msg
     = CloseModal
     | CopyToClipBoard String
-    | ModalContentReceived (WebData Gitbook.Page)
+    | GitbookContentReceived (WebData Gitbook.Page)
     | NoOp
     | OpenCustomCountryMixModal Step
     | OpenDocModal Gitbook.Path
     | Reset
     | ResetCustomCountryMix Step.Label
-    | SubmitCustomCountryMix Step.Label
+    | SubmitCustomCountryMix Step.Label (Maybe Co2e)
     | SwitchMode DisplayMode
     | UpdateAirTransportRatio (Maybe Float)
     | UpdateCustomCountryMixInput Step.Label String
@@ -83,6 +77,29 @@ type Msg
     | UpdateRecycledRatio (Maybe Float)
     | UpdateStepCountry Int Country.Code
     | UpdateProduct Product.Id
+
+
+type alias CustomStepInput =
+    { customCountryMix : Maybe String }
+
+
+type alias CustomStepInputs =
+    List ( Step.Label, CustomStepInput )
+
+
+getCustomCountryMixInput : Step.Label -> CustomStepInputs -> Maybe String
+getCustomCountryMixInput stepLabel =
+    List.filter (Tuple.first >> (==) stepLabel)
+        >> List.head
+        >> Maybe.map (Tuple.second >> .customCountryMix)
+        >> Maybe.withDefault Nothing
+
+
+validateCustomCountryMixInput : Step.Label -> CustomStepInputs -> Maybe Co2e
+validateCustomCountryMixInput stepLabel =
+    getCustomCountryMixInput stepLabel
+        >> Maybe.andThen String.toFloat
+        >> Maybe.map Co2.kgCo2e
 
 
 init : Maybe Inputs.Query -> Session -> ( Model, Session, Cmd Msg )
@@ -144,7 +161,7 @@ update ({ db } as session) msg ({ customStepInputs, query } as model) =
         CopyToClipBoard shareableLink ->
             ( model, session, Ports.copyToClipboard shareableLink )
 
-        ModalContentReceived gitbookData ->
+        GitbookContentReceived gitbookData ->
             ( { model | modal = GitbookModal gitbookData }, session, Cmd.none )
 
         NoOp ->
@@ -153,13 +170,13 @@ update ({ db } as session) msg ({ customStepInputs, query } as model) =
         OpenCustomCountryMixModal step ->
             ( { model | modal = CustomCountryMixModal step }
             , session
-            , Cmd.none
+            , Dom.focus "customCountryMix" |> Task.attempt (always NoOp)
             )
 
         OpenDocModal path ->
             ( { model | modal = GitbookModal RemoteData.Loading }
             , session
-            , GitbookApi.getPage session path ModalContentReceived
+            , GitbookApi.getPage session path GitbookContentReceived
             )
 
         Reset ->
@@ -176,13 +193,28 @@ update ({ db } as session) msg ({ customStepInputs, query } as model) =
             , Cmd.none
             )
 
-        SubmitCustomCountryMix stepLabel ->
+        SubmitCustomCountryMix stepLabel Nothing ->
+            -- No custom or valid country mix has been submitted, simply reset the raw input
+            -- value and close the modal
+            ( { model
+                | modal = NoModal
+                , customStepInputs =
+                    customStepInputs |> updateCustomStepInputs stepLabel { customCountryMix = Nothing }
+              }
+            , session
+            , Cmd.none
+            )
+
+        SubmitCustomCountryMix stepLabel (Just customCountryMix) ->
             -- TODO: update query
             -- case customCountryMixInput |> String.toFloat |> Maybe.map Co2.kgCo2e of
             --         Just customCountryMix ->
             -- update Query to list steps and not countries
             -- |> updateQuery { query | countries = query.steps |> updateCustomValues… }
-            ( model, session, Cmd.none )
+            ( { model | modal = NoModal }
+            , session
+            , Cmd.none
+            )
 
         SwitchMode displayMode ->
             ( { model | displayMode = displayMode }, session, Cmd.none )
@@ -195,7 +227,8 @@ update ({ db } as session) msg ({ customStepInputs, query } as model) =
             ( { model
                 | customStepInputs =
                     customStepInputs
-                        |> updateCustomStepInputs stepLabel { customCountryMix = Just customCountryMixInput }
+                        |> updateCustomStepInputs stepLabel
+                            { customCountryMix = Just customCountryMixInput }
               }
             , session
             , Cmd.none
@@ -438,15 +471,24 @@ customCountryMixModal customStepInputs step =
     let
         customCountryMixInput =
             customStepInputs
-                |> List.filter (Tuple.first >> (==) step.label)
-                |> List.head
-                |> Maybe.map (Tuple.second >> .customCountryMix)
-                |> Maybe.withDefault Nothing
-                |> Maybe.withDefault
-                    (step.country.electricityProcess.climateChange
-                        |> Co2.inKgCo2e
-                        |> String.fromFloat
-                    )
+                |> getCustomCountryMixInput step.label
+
+        countryDefault =
+            step.country.electricityProcess.climateChange
+                |> Co2.inKgCo2e
+                |> String.fromFloat
+
+        customCountryMixInputValue =
+            customCountryMixInput
+                |> Maybe.withDefault countryDefault
+
+        maybeCo2e =
+            customStepInputs
+                |> validateCustomCountryMixInput step.label
+
+        formIsValid =
+            (customCountryMixInput == Nothing)
+                || (Maybe.andThen String.toFloat customCountryMixInput /= Nothing)
     in
     ModalView.view
         { size = ModalView.Standard
@@ -459,6 +501,7 @@ customCountryMixModal customStepInputs step =
                 , "pour"
                 , Step.labelToString step.label
                 ]
+        , formAction = Just (SubmitCustomCountryMix step.label maybeCo2e)
         , content =
             [ div []
                 [ label [ class "form-label fw-bold", for "customCountryMix" ]
@@ -467,18 +510,18 @@ customCountryMixModal customStepInputs step =
                     [ input
                         [ type_ "number"
                         , id "customCountryMix"
-                        , class "form-control"
-                        , classList [ ( "is-invalid", String.toFloat customCountryMixInput == Nothing ) ]
-                        , Attr.min "0.001"
+                        , class "form-control no-arrows"
+                        , classList [ ( "is-invalid", not formIsValid ) ]
+                        , Attr.min "0"
                         , Attr.max "10"
-                        , Attr.step "0.0001"
+                        , Attr.step "0.00001"
                         , onInput (UpdateCustomCountryMixInput step.label)
-                        , value customCountryMixInput
+                        , value customCountryMixInputValue
                         ]
                         []
                     , span [ class "input-group-text" ] [ text "kgCO₂e" ]
                     ]
-                , if String.toFloat customCountryMixInput == Nothing then
+                , if not formIsValid then
                     div [ class "invalid-feedback", style "display" "block" ]
                         [ text "Attention, cette valeur est invalide. Vérifiez votre saisie." ]
 
@@ -490,14 +533,16 @@ customCountryMixModal customStepInputs step =
             ]
         , footer =
             [ button
-                [ class "btn btn-secondary"
+                [ type_ "button"
+                , class "btn btn-secondary"
+                , disabled (customCountryMixInputValue == countryDefault)
                 , onClick (ResetCustomCountryMix step.label)
                 ]
                 [ text "Réinitialiser" ]
             , button
-                [ class "btn btn-primary"
-                , disabled (String.toFloat customCountryMixInput == Nothing)
-                , onClick (SubmitCustomCountryMix step.label)
+                [ type_ "submit"
+                , class "btn btn-primary"
+                , disabled (not formIsValid)
                 ]
                 [ text "Valider" ]
             ]
@@ -516,6 +561,7 @@ gitbookModalView pageData =
                 , close = CloseModal
                 , noOp = NoOp
                 , title = "Chargement…"
+                , formAction = Nothing
                 , content = [ SpinnerView.view ]
                 , footer = []
                 }
@@ -526,6 +572,7 @@ gitbookModalView pageData =
                 , close = CloseModal
                 , noOp = NoOp
                 , title = "Erreur"
+                , formAction = Nothing
                 , content = [ Alert.httpError error ]
                 , footer = []
                 }
@@ -536,6 +583,7 @@ gitbookModalView pageData =
                 , close = CloseModal
                 , noOp = NoOp
                 , title = gitbookPage.title
+                , formAction = Nothing
                 , content =
                     [ case gitbookPage.description of
                         Just description ->
@@ -649,11 +697,8 @@ view session model =
 subscriptions : Model -> Sub Msg
 subscriptions { modal } =
     case modal of
-        CustomCountryMixModal _ ->
-            Browser.Events.onKeyDown (Key.escape CloseModal)
-
-        GitbookModal _ ->
-            Browser.Events.onKeyDown (Key.escape CloseModal)
-
         NoModal ->
             Sub.none
+
+        _ ->
+            Browser.Events.onKeyDown (Key.escape CloseModal)

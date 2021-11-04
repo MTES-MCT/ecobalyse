@@ -13,6 +13,7 @@ type alias Config msg =
     , title : String
     , content : List (Html msg)
     , footer : List (Html msg)
+    , formAction : Maybe msg
     }
 
 
@@ -25,6 +26,26 @@ type Size
 
 view : Config msg -> Html msg
 view config =
+    let
+        modalContentAttrs =
+            [ class "modal-content"
+            , custom "mouseup"
+                (Decode.succeed
+                    { message = config.noOp
+                    , stopPropagation = True
+                    , preventDefault = True
+                    }
+                )
+            ]
+
+        modalContentTag =
+            case config.formAction of
+                Just msg ->
+                    Html.form (modalContentAttrs ++ [ onSubmit msg ])
+
+                Nothing ->
+                    div modalContentAttrs
+    in
     div [ class "Modal" ]
         [ div
             [ class "modal d-block fade show"
@@ -48,16 +69,7 @@ view config =
                     ]
                 , attribute "aria-modal" "true"
                 ]
-                [ div
-                    [ class "modal-content"
-                    , custom "mouseup"
-                        (Decode.succeed
-                            { message = config.noOp
-                            , stopPropagation = True
-                            , preventDefault = True
-                            }
-                        )
-                    ]
+                [ modalContentTag
                     [ div [ class "modal-header bg-primary text-light" ]
                         [ h6 [ class "modal-title" ] [ text config.title ]
                         , button

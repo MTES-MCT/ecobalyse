@@ -34,6 +34,14 @@ _::-webkit-full-page-media, _:future, :root select {
   padding-right: 20px;
 }
 
+// Fixes a glitch in Chrome with input[number] making the arrows hardly
+// actionnable when float numbers are rounded
+input[type=number].no-arrows::-webkit-outer-spin-button,
+input[type=number].no-arrows::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 // App styles
 
 body {
@@ -72,7 +80,7 @@ blockquote {
     font-size: 0.85rem;
   }
 
-  &-70p {
+  &-80p {
     font-size: 80%;
   }
 }
