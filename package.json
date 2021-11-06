@@ -10,8 +10,7 @@
     "build:init": "mkdir -p dist && cp -r public/* dist/",
     "deploy": "npm run build && gh-pages --dist dist/",
     "start:parcel": "parcel serve index.html --no-cache",
-    "start:filewatch": "chokidar 'src/**/!(Main).elm' -c 'touch src/Main.elm'",
-    "start:dev": "npm run build:init && concurrently -n \"watch,parcel\" -c \"blue,green\" -k \"npm run start:filewatch\" \"npm run start:parcel\"",
+    "start:dev": "npm run build:init && npm run start:parcel",
     "start": "PARCEL_ELM_NO_DEBUG=1 npm run start:dev",
     "test:prepare": "node tests/prepare.js",
     "test": "npm run test:prepare && elm-test"
@@ -21,8 +20,6 @@
     "@parcel/transformer-image": "^2.0.0",
     "@parcel/transformer-sass": "^2.0.0",
     "bootstrap": "^5.1.1",
-    "chokidar-cli": "^3.0.0",
-    "concurrently": "^6.2.1",
     "elm": "^0.19.1-5",
     "elm-analyse": "^0.16.5",
     "elm-format": "^0.8.5",
