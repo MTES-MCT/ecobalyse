@@ -28,8 +28,8 @@ type alias Step =
     , processInfo : ProcessInfo
 
     -- TODO: move custom ratios to custom values?
-    , dyeingWeighting : Float
-    , airTransportRatio : Float
+    , dyeingWeighting : Float -- why not Maybe?
+    , airTransportRatio : Float -- why not Maybe?
     , customValues : CustomValues
     }
 
