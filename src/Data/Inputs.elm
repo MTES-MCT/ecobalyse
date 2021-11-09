@@ -71,7 +71,7 @@ fromQuery db query =
 
 
 toQuery : Inputs -> Query
-toQuery { mass, material, product, countries, airTransportRatio, dyeingWeighting, recycledRatio } =
+toQuery { mass, material, product, countries, airTransportRatio, dyeingWeighting, recycledRatio, customCountryMixes } =
     { mass = mass
     , material = material.uuid
     , product = product.id
@@ -79,7 +79,7 @@ toQuery { mass, material, product, countries, airTransportRatio, dyeingWeighting
     , dyeingWeighting = dyeingWeighting
     , airTransportRatio = airTransportRatio
     , recycledRatio = recycledRatio
-    , customCountryMixes = defaultCustomCountryMixes
+    , customCountryMixes = customCountryMixes
     }
 
 
