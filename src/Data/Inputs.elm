@@ -112,7 +112,7 @@ updateStepCountry index code query =
             else
                 query.airTransportRatio
 
-        -- TODO: reset custom country mix when step country is changed
+        -- FIXME: reset custom country mix when step country is changed
     }
 
 
@@ -327,6 +327,7 @@ decodeQuery =
         (Decode.field "dyeingWeighting" (Decode.maybe Decode.float))
         (Decode.field "airTransportRatio" (Decode.maybe Decode.float))
         (Decode.field "recycledRatio" (Decode.maybe Decode.float))
+        -- FIXME: improperly decoded when shared?
         (Decode.field "customCountryMixes" decodeCustomCountryMixes)
 
 
@@ -340,6 +341,8 @@ encodeQuery query =
         , ( "dyeingWeighting", query.dyeingWeighting |> Maybe.map Encode.float |> Maybe.withDefault Encode.null )
         , ( "airTransportRatio", query.airTransportRatio |> Maybe.map Encode.float |> Maybe.withDefault Encode.null )
         , ( "recycledRatio", query.recycledRatio |> Maybe.map Encode.float |> Maybe.withDefault Encode.null )
+
+        -- FIXME: improperly encoded when shared?
         , ( "customCountryMixes", encodeCustomCountryMixes query.customCountryMixes )
         ]
 
