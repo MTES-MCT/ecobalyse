@@ -111,6 +111,8 @@ updateStepCountry index code query =
 
             else
                 query.airTransportRatio
+
+        -- TODO: reset custom country mix when step country is changed
     }
 
 

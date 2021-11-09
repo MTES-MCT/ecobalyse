@@ -26,16 +26,9 @@ type alias Step =
     , heat : Energy
     , kwh : Energy
     , processInfo : ProcessInfo
-
-    -- TODO: move custom ratios to custom values?
-    , dyeingWeighting : Float -- why not Maybe?
-    , airTransportRatio : Float -- why not Maybe?
-    , customValues : CustomValues
-    }
-
-
-type alias CustomValues =
-    { countryMix : Maybe Co2e
+    , dyeingWeighting : Float -- FIXME: why not Maybe?
+    , airTransportRatio : Float -- FIXME: why not Maybe?
+    , customCountryMix : Maybe Co2e
     }
 
 
@@ -69,13 +62,7 @@ create label editable country =
     , processInfo = defaultProcessInfo
     , dyeingWeighting = country.dyeingWeighting
     , airTransportRatio = 0 -- Note: this depends on next step country, so we can't set an accurate default value initially
-    , customValues = defaultCustomValues
-    }
-
-
-defaultCustomValues : CustomValues
-defaultCustomValues =
-    { countryMix = Nothing
+    , customCountryMix = Nothing
     }
 
 
@@ -86,40 +73,6 @@ defaultProcessInfo =
     , dyeingWeighting = Nothing
     , airTransportRatio = Nothing
     }
-
-
-processInfo : Step -> ProcessInfo
-processInfo { label, country, customValues } =
-    let
-        countryElec =
-            customValues.countryMix
-                |> Maybe.map countryMixToString
-                |> Maybe.withDefault country.electricityProcess.name
-    in
-    case label of
-        WeavingKnitting ->
-            { defaultProcessInfo
-                | countryElec = Just countryElec
-            }
-
-        Ennoblement ->
-            { defaultProcessInfo
-                | countryHeat = Just country.heatProcess.name
-                , countryElec = Just countryElec
-                , dyeingWeighting = Just (dyeingWeightingToString country.dyeingWeighting)
-            }
-
-        Making ->
-            { defaultProcessInfo
-                | countryElec = Just countryElec
-                , airTransportRatio =
-                    country.airTransportRatio
-                        |> airTransportRatioToString
-                        |> Just
-            }
-
-        _ ->
-            defaultProcessInfo
 
 
 countryMixToString : Co2e -> String
@@ -232,29 +185,55 @@ getRoadTransportProcess wellKnown { label } =
             wellKnown.roadTransportPreMaking
 
 
-updateCustomValues : (CustomValues -> CustomValues) -> Step -> Step
-updateCustomValues update_ ({ customValues } as step) =
-    { step | customValues = update_ customValues }
-
-
 update : Inputs -> Maybe Step -> Step -> Step
-update { dyeingWeighting, airTransportRatio } _ step =
-    { step
-        | processInfo =
-            processInfo step
-        , dyeingWeighting =
-            if step.label == Ennoblement then
-                dyeingWeighting |> Maybe.withDefault step.country.dyeingWeighting
+update { dyeingWeighting, airTransportRatio, customCountryMixes } _ ({ label, country } as step) =
+    -- Note: only WeavingKnitting, Ennoblement and Making steps renders detailed processes info.
+    let
+        countryElecInfo =
+            Maybe.map countryMixToString
+                >> Maybe.withDefault country.electricityProcess.name
+                >> Just
+    in
+    case label of
+        WeavingKnitting ->
+            { step
+                | customCountryMix = customCountryMixes.fabric
+                , processInfo =
+                    { defaultProcessInfo
+                        | countryElec = countryElecInfo customCountryMixes.fabric
+                    }
+            }
 
-            else
-                step.dyeingWeighting
-        , airTransportRatio =
-            if step.label == Making then
-                airTransportRatio |> Maybe.withDefault step.country.airTransportRatio
+        Ennoblement ->
+            { step
+                | customCountryMix = customCountryMixes.dyeing
+                , dyeingWeighting =
+                    dyeingWeighting |> Maybe.withDefault step.country.dyeingWeighting
+                , processInfo =
+                    { defaultProcessInfo
+                        | countryHeat = Just country.heatProcess.name
+                        , countryElec = countryElecInfo customCountryMixes.dyeing
+                        , dyeingWeighting = Just (dyeingWeightingToString country.dyeingWeighting)
+                    }
+            }
 
-            else
-                step.airTransportRatio
-    }
+        Making ->
+            { step
+                | customCountryMix = customCountryMixes.making
+                , airTransportRatio =
+                    airTransportRatio |> Maybe.withDefault step.country.airTransportRatio
+                , processInfo =
+                    { defaultProcessInfo
+                        | countryElec = countryElecInfo customCountryMixes.making
+                        , airTransportRatio =
+                            country.airTransportRatio
+                                |> airTransportRatioToString
+                                |> Just
+                    }
+            }
+
+        _ ->
+            step
 
 
 airTransportRatioToString : Float -> String
@@ -306,14 +285,7 @@ encode v =
         , ( "processInfo", encodeProcessInfo v.processInfo )
         , ( "dyeingWeighting", Encode.float v.dyeingWeighting )
         , ( "airTransportRatio", Encode.float v.airTransportRatio )
-        , ( "customValues", encodeCustomValues v.customValues )
-        ]
-
-
-encodeCustomValues : CustomValues -> Encode.Value
-encodeCustomValues v =
-    Encode.object
-        [ ( "countryMix", v.countryMix |> Maybe.map Co2.encodeKgCo2e |> Maybe.withDefault Encode.null )
+        , ( "customCountryMix", v.customCountryMix |> Maybe.map Co2.encodeKgCo2e |> Maybe.withDefault Encode.null )
         ]
 
 

@@ -43,7 +43,7 @@ type alias Model =
     , query : Inputs.Query
     , displayMode : DisplayMode
     , modal : ModalContent
-    , customStepInputs : CustomStepInputs
+    , customCountryMixInputs : CustomCountryMixInputs
     }
 
 
@@ -87,15 +87,47 @@ type alias CustomStepInputs =
     List ( Step.Label, CustomStepInput )
 
 
-getCustomCountryMixInput : Step.Label -> CustomStepInputs -> Maybe String
-getCustomCountryMixInput stepLabel =
-    List.filter (Tuple.first >> (==) stepLabel)
-        >> List.head
-        >> Maybe.map (Tuple.second >> .customCountryMix)
-        >> Maybe.withDefault Nothing
+type alias CustomCountryMixInputs =
+    -- represents the current state of user raw form inputs for custom country mix values
+    { fabric : Maybe String
+    , dyeing : Maybe String
+    , making : Maybe String
+    }
 
 
-validateCustomCountryMixInput : Step.Label -> CustomStepInputs -> Maybe Co2e
+getCustomCountryMixInput : Step.Label -> CustomCountryMixInputs -> Maybe String
+getCustomCountryMixInput stepLabel values =
+    case stepLabel of
+        Step.WeavingKnitting ->
+            values.fabric
+
+        Step.Ennoblement ->
+            values.dyeing
+
+        Step.Making ->
+            values.making
+
+        _ ->
+            Nothing
+
+
+updateCustomCountryMixInputs : Step.Label -> Maybe String -> CustomCountryMixInputs -> CustomCountryMixInputs
+updateCustomCountryMixInputs stepLabel maybeValue values =
+    case stepLabel of
+        Step.WeavingKnitting ->
+            { values | fabric = maybeValue }
+
+        Step.Ennoblement ->
+            { values | dyeing = maybeValue }
+
+        Step.Making ->
+            { values | making = maybeValue }
+
+        _ ->
+            values
+
+
+validateCustomCountryMixInput : Step.Label -> CustomCountryMixInputs -> Maybe Co2e
 validateCustomCountryMixInput stepLabel =
     getCustomCountryMixInput stepLabel
         >> Maybe.andThen String.toFloat
@@ -116,11 +148,7 @@ init maybeQuery session =
       , query = query
       , displayMode = SimpleMode
       , modal = NoModal
-      , customStepInputs =
-            [ ( Step.WeavingKnitting, { customCountryMix = Nothing } )
-            , ( Step.Ennoblement, { customCountryMix = Nothing } )
-            , ( Step.Making, { customCountryMix = Nothing } )
-            ]
+      , customCountryMixInputs = { fabric = Nothing, dyeing = Nothing, making = Nothing }
       }
     , case simulator of
         Err error ->
@@ -140,20 +168,27 @@ updateQuery query ( model, session, msg ) =
     )
 
 
-updateCustomStepInputs : Step.Label -> CustomStepInput -> CustomStepInputs -> CustomStepInputs
-updateCustomStepInputs stepLabel updated =
-    List.map
-        (\( label, custom ) ->
-            if label == stepLabel then
-                ( label, updated )
+updateQueryCustomCountryMix : Step.Label -> Maybe Co2e -> Inputs.Query -> Inputs.Query
+updateQueryCustomCountryMix stepLabel maybeValue ({ customCountryMixes } as query) =
+    { query
+        | customCountryMixes =
+            case stepLabel of
+                Step.WeavingKnitting ->
+                    { customCountryMixes | fabric = maybeValue }
 
-            else
-                ( label, custom )
-        )
+                Step.Ennoblement ->
+                    { customCountryMixes | dyeing = maybeValue }
+
+                Step.Making ->
+                    { customCountryMixes | making = maybeValue }
+
+                _ ->
+                    customCountryMixes
+    }
 
 
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
-update ({ db } as session) msg ({ customStepInputs, query } as model) =
+update ({ db } as session) msg ({ customCountryMixInputs, query } as model) =
     case msg of
         CloseModal ->
             ( { model | modal = NoModal }, session, Cmd.none )
@@ -185,36 +220,22 @@ update ({ db } as session) msg ({ customStepInputs, query } as model) =
 
         ResetCustomCountryMix stepLabel ->
             ( { model
-                | customStepInputs =
-                    customStepInputs
-                        |> updateCustomStepInputs stepLabel { customCountryMix = Nothing }
+                | modal = NoModal
+                , customCountryMixInputs =
+                    customCountryMixInputs
+                        |> updateCustomCountryMixInputs stepLabel Nothing
               }
             , session
             , Cmd.none
             )
+                |> updateQuery (updateQueryCustomCountryMix stepLabel Nothing query)
 
         SubmitCustomCountryMix stepLabel Nothing ->
-            -- No custom or valid country mix has been submitted, simply reset the raw input
-            -- value and close the modal
-            ( { model
-                | modal = NoModal
-                , customStepInputs =
-                    customStepInputs |> updateCustomStepInputs stepLabel { customCountryMix = Nothing }
-              }
-            , session
-            , Cmd.none
-            )
+            model |> update session (ResetCustomCountryMix stepLabel)
 
         SubmitCustomCountryMix stepLabel (Just customCountryMix) ->
-            -- TODO: update query
-            -- case customCountryMixInput |> String.toFloat |> Maybe.map Co2.kgCo2e of
-            --         Just customCountryMix ->
-            -- update Query to list steps and not countries
-            -- |> updateQuery { query | countries = query.steps |> updateCustomValues… }
-            ( { model | modal = NoModal }
-            , session
-            , Cmd.none
-            )
+            ( { model | modal = NoModal }, session, Cmd.none )
+                |> updateQuery (updateQueryCustomCountryMix stepLabel (Just customCountryMix) query)
 
         SwitchMode displayMode ->
             ( { model | displayMode = displayMode }, session, Cmd.none )
@@ -225,10 +246,9 @@ update ({ db } as session) msg ({ customStepInputs, query } as model) =
 
         UpdateCustomCountryMixInput stepLabel customCountryMixInput ->
             ( { model
-                | customStepInputs =
-                    customStepInputs
-                        |> updateCustomStepInputs stepLabel
-                            { customCountryMix = Just customCountryMixInput }
+                | customCountryMixInputs =
+                    customCountryMixInputs
+                        |> updateCustomCountryMixInputs stepLabel (Just customCountryMixInput)
               }
             , session
             , Cmd.none
@@ -466,24 +486,24 @@ feedbackView =
         ]
 
 
-customCountryMixModal : CustomStepInputs -> Step -> Html Msg
-customCountryMixModal customStepInputs step =
+customCountryMixModal : Model -> Step -> Html Msg
+customCountryMixModal { customCountryMixInputs } step =
     let
-        customCountryMixInput =
-            customStepInputs
-                |> getCustomCountryMixInput step.label
-
         countryDefault =
             step.country.electricityProcess.climateChange
                 |> Co2.inKgCo2e
                 |> String.fromFloat
+
+        customCountryMixInput =
+            customCountryMixInputs
+                |> getCustomCountryMixInput step.label
 
         customCountryMixInputValue =
             customCountryMixInput
                 |> Maybe.withDefault countryDefault
 
         maybeCo2e =
-            customStepInputs
+            customCountryMixInputs
                 |> validateCustomCountryMixInput step.label
 
         formIsValid =
@@ -509,12 +529,12 @@ customCountryMixModal customStepInputs step =
                 , div [ class "input-group" ]
                     [ input
                         [ type_ "number"
-                        , id "customCountryMix"
+                        , id "customCountryMix" -- Note: only one widget instance on a single page
                         , class "form-control no-arrows"
                         , classList [ ( "is-invalid", not formIsValid ) ]
                         , Attr.min "0"
-                        , Attr.max "10"
-                        , Attr.step "0.00001"
+                        , Attr.max "1.7"
+                        , Attr.step "0.000001"
                         , onInput (UpdateCustomCountryMixInput step.label)
                         , value customCountryMixInputValue
                         ]
@@ -618,13 +638,13 @@ gitbookModalView pageData =
 
 
 modalView : Model -> Html Msg
-modalView { modal, customStepInputs } =
-    case modal of
+modalView model =
+    case model.modal of
         NoModal ->
             text ""
 
         CustomCountryMixModal step ->
-            customCountryMixModal customStepInputs step
+            customCountryMixModal model step
 
         GitbookModal pageData ->
             gitbookModalView pageData
