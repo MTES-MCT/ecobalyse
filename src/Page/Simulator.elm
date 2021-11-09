@@ -148,7 +148,7 @@ init maybeQuery session =
       , query = query
       , displayMode = SimpleMode
       , modal = NoModal
-      , customCountryMixInputs = { fabric = Nothing, dyeing = Nothing, making = Nothing }
+      , customCountryMixInputs = query.customCountryMixes |> toCustomCountryMixFormInputs
       }
     , case simulator of
         Err error ->
@@ -158,6 +158,20 @@ init maybeQuery session =
             session
     , Cmd.none
     )
+
+
+toCustomCountryMixFormInputs : Inputs.CustomCountryMixes -> CustomCountryMixInputs
+toCustomCountryMixFormInputs customCountryMixes =
+    { fabric =
+        customCountryMixes.fabric
+            |> Maybe.map (Co2.inKgCo2e >> String.fromFloat)
+    , dyeing =
+        customCountryMixes.dyeing
+            |> Maybe.map (Co2.inKgCo2e >> String.fromFloat)
+    , making =
+        customCountryMixes.making
+            |> Maybe.map (Co2.inKgCo2e >> String.fromFloat)
+    }
 
 
 updateQuery : Inputs.Query -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
