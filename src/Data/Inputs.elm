@@ -111,8 +111,28 @@ updateStepCountry index code query =
 
             else
                 query.airTransportRatio
+        , customCountryMixes =
+            let
+                customCountryMixes =
+                    query.customCountryMixes
+            in
+            case index of
+                1 ->
+                    -- FIXME: index 1 is WeavingKnitting step; how could we use th step label instead?
+                    { customCountryMixes | fabric = Nothing }
 
-        -- FIXME: reset custom country mix when step country is changed
+                2 ->
+                    -- FIXME: index 2 is Ennoblement step; how could we use th step label instead?
+                    { customCountryMixes | dyeing = Nothing }
+
+                3 ->
+                    -- FIXME: index 1 is Making step; how could we use th step label instead?
+                    { customCountryMixes | making = Nothing }
+
+                _ ->
+                    customCountryMixes
+
+        -- FIXME: reset the custom country mix form input value when changing country
     }
 
 
