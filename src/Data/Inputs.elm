@@ -131,8 +131,6 @@ updateStepCountry index code query =
 
                 _ ->
                     customCountryMixes
-
-        -- FIXME: reset the custom country mix form input value when changing country
     }
 
 

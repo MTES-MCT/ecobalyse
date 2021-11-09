@@ -281,7 +281,29 @@ update ({ db } as session) msg ({ customCountryMixInputs, query } as model) =
                 |> updateQuery { query | recycledRatio = recycledRatio }
 
         UpdateStepCountry index code ->
-            ( model, session, Cmd.none )
+            let
+                updatedCustomCountryMixInputs =
+                    -- Reset the step's custom country mix form input on country change
+                    case index of
+                        1 ->
+                            customCountryMixInputs
+                                |> updateCustomCountryMixInputs Step.WeavingKnitting Nothing
+
+                        2 ->
+                            customCountryMixInputs
+                                |> updateCustomCountryMixInputs Step.Ennoblement Nothing
+
+                        3 ->
+                            customCountryMixInputs
+                                |> updateCustomCountryMixInputs Step.Making Nothing
+
+                        _ ->
+                            customCountryMixInputs
+            in
+            ( { model | customCountryMixInputs = updatedCustomCountryMixInputs }
+            , session
+            , Cmd.none
+            )
                 |> updateQuery (Inputs.updateStepCountry index code query)
 
         UpdateProduct productId ->
