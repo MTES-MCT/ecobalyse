@@ -579,7 +579,7 @@ customCountryMixModal { customCountryMixInputs } step =
                     text ""
                 , div [ class "form-text mt-2 text-center" ]
                     [ """Vous trouverez de l'aide dans la
-                         [documentation dédiée](https://fabrique-numerique.gitbook.io/wikicarbone/methodologie/electricite)."""
+                         [documentation dédiée](https://fabrique-numerique.gitbook.io/wikicarbone/methodologie/electricite#parametrage-manuel-de-limpact-carbone)."""
                         |> MarkdownView.simple [ class "bottomed-paragraphs" ]
                     ]
                 ]
