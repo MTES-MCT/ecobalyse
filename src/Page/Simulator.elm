@@ -79,14 +79,6 @@ type Msg
     | UpdateProduct Product.Id
 
 
-type alias CustomStepInput =
-    { customCountryMix : Maybe String }
-
-
-type alias CustomStepInputs =
-    List ( Step.Label, CustomStepInput )
-
-
 type alias CustomCountryMixInputs =
     -- represents the current state of user raw form inputs for custom country mix values
     { fabric : Maybe String
