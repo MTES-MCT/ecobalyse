@@ -81,7 +81,7 @@ countryMixToString =
         >> String.fromFloat
         >> (\kgCo2e ->
                 -- FIXME: better format float number
-                "Mix électrique personnalisé\u{00A0}: " ++ kgCo2e ++ "kgCO₂e"
+                "Mix électrique personnalisé\u{00A0}: " ++ kgCo2e ++ "kgCO₂e/KWh"
            )
 
 
