@@ -52,6 +52,7 @@ type Msg
     | SimulatorMsg Simulator.Msg
     | StatsMsg Stats.Msg
     | StoreChanged String
+    | LoadUrl String
     | UrlChanged Url
     | UrlRequested Browser.UrlRequest
 
@@ -195,6 +196,9 @@ update msg ({ page, session } as model) =
             ( { model | session = { session | store = Session.deserializeStore json } }, Cmd.none )
 
         -- Url
+        ( LoadUrl url, _ ) ->
+            ( model, Nav.load url )
+
         ( UrlChanged url, _ ) ->
             ( model, Cmd.none )
                 |> setRoute (Route.fromUrl url)
@@ -249,7 +253,7 @@ view : Model -> Document Msg
 view { page, session } =
     let
         pageConfig =
-            Page.Config session CloseNotification
+            Page.Config session LoadUrl CloseNotification
 
         mapMsg msg ( title, content ) =
             ( title, content |> List.map (Html.map msg) )
