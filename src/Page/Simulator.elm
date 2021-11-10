@@ -546,7 +546,7 @@ customCountryMixModal { customCountryMixInputs } step =
         , noOp = NoOp
         , title =
             String.join " "
-                [ "Personnalisation du mix"
+                [ "Personnalisation du mix électrique"
                 , step.country.name
                 , "pour"
                 , Step.labelToString step.label
