@@ -345,8 +345,11 @@ blockquote {
   left: 0;
   right: 0;
   text-align: center;
-  padding: .2em;
   z-index: 1030;
+  font-size: 90%;
+  button {
+    font-size: 1em;
+  }
 }
 
 .Summary {
