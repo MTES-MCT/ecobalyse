@@ -19,7 +19,7 @@ Le mix électrique appliqué dépend du pays dans lequel l'étape correspondante
 | Tunisie    | Mix électrique réseau, TN | f0eb64cd-468d-4f3c-a9a3-3b3661625955 |
 | Turquie    | Mix électrique réseau, TR | 6fad8643-de3e-49dd-a48b-8e17b4175c23 |
 
-## \[Projet] Paramétrage manuel
+## Paramétrage manuel de l'impact carbone
 
 A chaque étape de la production qui mobilise de l'électricité, il est proposé de paramétrer manuellement l'intensité carbone du mix électrique.
 
