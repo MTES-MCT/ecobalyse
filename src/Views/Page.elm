@@ -40,7 +40,8 @@ frame : Config msg -> ( String, List (Html msg) ) -> Document msg
 frame config ( title, content ) =
     { title = title ++ " | wikicarbone"
     , body =
-        [ navbar config
+        [ stagingAlert config.session.clientUrl
+        , navbar config
         , feedback
         , main_ [ class "bg-white" ]
             [ notificationListView config
@@ -49,6 +50,18 @@ frame config ( title, content ) =
         , pageFooter
         ]
     }
+
+
+stagingAlert : String -> Html msg
+stagingAlert clientUrl =
+    if String.contains "/branches/" clientUrl then
+        div [ class "StagingAlert" ]
+            [ text "Vous êtes sur un environnement de recette. "
+            , a [ href "../../" ] [ text "Retourner vers l'environnement de production" ]
+            ]
+
+    else
+        text ""
 
 
 headerMenuLinks : List MenuLink
