@@ -128,5 +128,69 @@ suite =
                     |> expectCo2 39.82171491582047
                     |> asTest "should compute co2 score for robeCircuitBangladesh using custom recycled ratio"
                 ]
+            , describe "custom country mix"
+                [ describe "at the WeavingKnitting step"
+                    [ tShirtCotonFrance
+                        |> Inputs.setCustomCountryMix 1 (Just (Co2.kgCo2e 0))
+                        |> expectCo2 5.192166584993548
+                        |> asTest "should compute co2 score for tShirtCotonFrance using custom country mix of 0"
+                    , tShirtCotonFrance
+                        |> Inputs.setCustomCountryMix 1 (Just (Co2.kgCo2e 0.5))
+                        |> expectCo2 5.432166584993548
+                        |> asTest "should compute co2 score for tShirtCotonFrance using custom country mix of 0.5"
+                    , tShirtCotonFrance
+                        |> Inputs.setCustomCountryMix 1 (Just (Co2.kgCo2e 1.7))
+                        |> expectCo2 6.008166584993548
+                        |> asTest "should compute co2 score for tShirtCotonFrance using custom country mix of 1.7"
+                    ]
+                , describe "at the Dyeing step"
+                    [ tShirtCotonFrance
+                        |> Inputs.setCustomCountryMix 2 (Just (Co2.kgCo2e 0))
+                        |> expectCo2 5.192166584993548
+                        |> asTest "should compute co2 score for tShirtCotonFrance using custom country mix of 0"
+                    , tShirtCotonFrance
+                        |> Inputs.setCustomCountryMix 2 (Just (Co2.kgCo2e 0.5))
+                        |> expectCo2 5.397974589160214
+                        |> asTest "should compute co2 score for tShirtCotonFrance using custom country mix of 0.5"
+                    , tShirtCotonFrance
+                        |> Inputs.setCustomCountryMix 2 (Just (Co2.kgCo2e 1.7))
+                        |> expectCo2 5.875974589160214
+                        |> asTest "should compute co2 score for tShirtCotonFrance using custom country mix of 1.7"
+                    ]
+                , describe "at the Making step"
+                    [ tShirtCotonFrance
+                        |> Inputs.setCustomCountryMix 3 (Just (Co2.kgCo2e 0))
+                        |> expectCo2 5.223069134993548
+                        |> asTest "should compute co2 score for tShirtCotonFrance using custom country mix of 0"
+                    , tShirtCotonFrance
+                        |> Inputs.setCustomCountryMix 3 (Just (Co2.kgCo2e 0.5))
+                        |> expectCo2 5.2730691349935475
+                        |> asTest "should compute co2 score for tShirtCotonFrance using custom country mix of 0.5"
+                    , tShirtCotonFrance
+                        |> Inputs.setCustomCountryMix 3 (Just (Co2.kgCo2e 1.7))
+                        |> expectCo2 5.393069134993548
+                        |> asTest "should compute co2 score for tShirtCotonFrance using custom country mix of 1.7"
+                    ]
+                , describe "at multiple step levels"
+                    [ tShirtCotonFrance
+                        |> Inputs.setCustomCountryMix 1 (Just (Co2.kgCo2e 0))
+                        |> Inputs.setCustomCountryMix 2 (Just (Co2.kgCo2e 0))
+                        |> Inputs.setCustomCountryMix 3 (Just (Co2.kgCo2e 0))
+                        |> expectCo2 5.151640872493548
+                        |> asTest "should compute co2 score for tShirtCotonFrance using custom country mix of 0"
+                    , tShirtCotonFrance
+                        |> Inputs.setCustomCountryMix 1 (Just (Co2.kgCo2e 0.5))
+                        |> Inputs.setCustomCountryMix 2 (Just (Co2.kgCo2e 0.5))
+                        |> Inputs.setCustomCountryMix 3 (Just (Co2.kgCo2e 0.5))
+                        |> expectCo2 5.640807539160215
+                        |> asTest "should compute co2 score for tShirtCotonFrance using custom country mix of 0.5"
+                    , tShirtCotonFrance
+                        |> Inputs.setCustomCountryMix 1 (Just (Co2.kgCo2e 1.7))
+                        |> Inputs.setCustomCountryMix 2 (Just (Co2.kgCo2e 1.7))
+                        |> Inputs.setCustomCountryMix 3 (Just (Co2.kgCo2e 1.7))
+                        |> expectCo2 6.814807539160215
+                        |> asTest "should compute co2 score for tShirtCotonFrance using custom country mix of 1.7"
+                    ]
+                ]
             ]
         ]

@@ -16,11 +16,6 @@ type alias LifeCycle =
     Array Step
 
 
-encode : LifeCycle -> Encode.Value
-encode =
-    Encode.array Step.encode
-
-
 computeStepsTransport : Db -> LifeCycle -> Result String LifeCycle
 computeStepsTransport db lifeCycle =
     lifeCycle
@@ -78,13 +73,6 @@ init inputs =
     initSteps inputs |> update inputs
 
 
-update : Inputs -> LifeCycle -> LifeCycle
-update inputs lifeCycle =
-    lifeCycle
-        |> Array.indexedMap
-            (\index -> Step.update inputs (Array.get (index + 1) lifeCycle))
-
-
 initSteps : Inputs -> LifeCycle
 initSteps inputs =
     inputs.countries
@@ -97,6 +85,13 @@ initSteps inputs =
             , ( Step.Distribution, False )
             ]
         |> Array.fromList
+
+
+update : Inputs -> LifeCycle -> LifeCycle
+update inputs lifeCycle =
+    lifeCycle
+        |> Array.indexedMap
+            (\index -> Step.update inputs (Array.get (index + 1) lifeCycle))
 
 
 updateStep : Step.Label -> (Step -> Step) -> LifeCycle -> LifeCycle
@@ -114,3 +109,8 @@ updateStep label update_ =
 updateSteps : List Step.Label -> (Step -> Step) -> LifeCycle -> LifeCycle
 updateSteps labels update_ lifeCycle =
     labels |> List.foldl (\label -> updateStep label update_) lifeCycle
+
+
+encode : LifeCycle -> Encode.Value
+encode =
+    Encode.array Step.encode

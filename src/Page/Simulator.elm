@@ -161,16 +161,14 @@ init maybeQuery session =
 
 
 toCustomCountryMixFormInputs : Inputs.CustomCountryMixes -> CustomCountryMixInputs
-toCustomCountryMixFormInputs customCountryMixes =
-    { fabric =
-        customCountryMixes.fabric
-            |> Maybe.map (Co2.inKgCo2e >> String.fromFloat)
-    , dyeing =
-        customCountryMixes.dyeing
-            |> Maybe.map (Co2.inKgCo2e >> String.fromFloat)
-    , making =
-        customCountryMixes.making
-            |> Maybe.map (Co2.inKgCo2e >> String.fromFloat)
+toCustomCountryMixFormInputs { fabric, dyeing, making } =
+    let
+        mapToCo2e =
+            Maybe.map (Co2.inKgCo2e >> String.fromFloat)
+    in
+    { fabric = mapToCo2e fabric
+    , dyeing = mapToCo2e dyeing
+    , making = mapToCo2e making
     }
 
 
@@ -575,7 +573,7 @@ customCountryMixModal { customCountryMixInputs } step =
                         , value customCountryMixInputValue
                         ]
                         []
-                    , span [ class "input-group-text" ] [ text "kgCO₂e" ]
+                    , span [ class "input-group-text fs-7" ] [ text "kgCO₂e/KWh" ]
                     ]
                 , if not formIsValid then
                     div [ class "invalid-feedback", style "display" "block" ]
@@ -583,8 +581,11 @@ customCountryMixModal { customCountryMixInputs } step =
 
                   else
                     text ""
-                , div [ class "form-text" ]
-                    [ text "lorem ipsum lorem ipsum lorem ipsum" ]
+                , div [ class "form-text mt-2 text-center" ]
+                    [ """Vous trouverez de l'aide dans la
+                         [documentation dédiée](https://fabrique-numerique.gitbook.io/wikicarbone/methodologie/electricite)."""
+                        |> MarkdownView.simple [ class "bottomed-paragraphs" ]
+                    ]
                 ]
             ]
         , footer =
