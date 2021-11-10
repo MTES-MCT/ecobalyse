@@ -9,6 +9,8 @@ import Data.Inputs exposing (Inputs)
 import Data.Process as Process exposing (Process)
 import Data.Transport as Transport exposing (Transport, default, defaultInland)
 import Energy exposing (Energy)
+import FormatNumber
+import FormatNumber.Locales exposing (Decimals(..), frenchLocale)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
 import Mass exposing (Mass)
@@ -78,11 +80,8 @@ defaultProcessInfo =
 countryMixToString : Co2e -> String
 countryMixToString =
     Co2.inKgCo2e
-        >> String.fromFloat
-        >> (\kgCo2e ->
-                -- FIXME: better format float number
-                "Mix électrique personnalisé\u{00A0}: " ++ kgCo2e ++ "kgCO₂e/KWh"
-           )
+        >> FormatNumber.format { frenchLocale | decimals = Exact 3 }
+        >> (\kgCo2e -> "Mix électrique personnalisé: " ++ kgCo2e ++ "\u{202F}kgCO₂e/KWh")
 
 
 {-| Computes step transport distances and co2 scores regarding next step.
