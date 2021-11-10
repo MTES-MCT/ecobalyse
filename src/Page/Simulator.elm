@@ -140,7 +140,7 @@ init maybeQuery session =
       , query = query
       , displayMode = SimpleMode
       , modal = NoModal
-      , customCountryMixInputs = query.customCountryMixes |> toCustomCountryMixFormInputs
+      , customCountryMixInputs = toCustomCountryMixFormInputs query.customCountryMixes
       }
     , case simulator of
         Err error ->
@@ -166,7 +166,11 @@ toCustomCountryMixFormInputs { fabric, dyeing, making } =
 
 updateQuery : Inputs.Query -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
 updateQuery query ( model, session, msg ) =
-    ( { model | query = query, simulator = Simulator.compute session.db query }
+    ( { model
+        | query = query
+        , simulator = Simulator.compute session.db query
+        , customCountryMixInputs = toCustomCountryMixFormInputs query.customCountryMixes
+      }
     , session
     , msg
     )
