@@ -31,7 +31,7 @@ formatRichFloat decimals unit value =
                 formatFloat decimals value
             )
         , text "\u{202F}"
-        , span [ class "fs-70p" ] [ text unit ]
+        , span [ class "fs-80p" ] [ text unit ]
         ]
 
 

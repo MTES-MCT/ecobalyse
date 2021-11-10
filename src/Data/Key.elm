@@ -15,8 +15,8 @@ escape msg =
 
 succeedForKeyCode : Int -> msg -> Decoder msg
 succeedForKeyCode key msg =
-    Decode.andThen (forKeyCode key msg)
-        (Decode.field "keyCode" Decode.int)
+    Decode.field "keyCode" Decode.int
+        |> Decode.andThen (forKeyCode key msg)
 
 
 forKeyCode : Int -> msg -> Int -> Decoder msg

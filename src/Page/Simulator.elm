@@ -1,7 +1,9 @@
 module Page.Simulator exposing (..)
 
 import Array
+import Browser.Dom as Dom
 import Browser.Events
+import Data.Co2 as Co2 exposing (Co2e)
 import Data.Country as Country
 import Data.Db exposing (Db)
 import Data.Gitbook as Gitbook
@@ -12,6 +14,7 @@ import Data.Process as Process
 import Data.Product as Product exposing (Product)
 import Data.Session as Session exposing (Session)
 import Data.Simulator as Simulator exposing (Simulator)
+import Data.Step as Step exposing (Step)
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
@@ -20,6 +23,7 @@ import Ports
 import RemoteData exposing (WebData)
 import Request.Gitbook as GitbookApi
 import Route exposing (Route(..))
+import Task
 import Views.Alert as Alert
 import Views.Comparator as ComparatorView
 import Views.Container as Container
@@ -39,6 +43,7 @@ type alias Model =
     , query : Inputs.Query
     , displayMode : DisplayMode
     , modal : ModalContent
+    , customCountryMixInputs : CustomCountryMixInputs
     }
 
 
@@ -49,24 +54,76 @@ type DisplayMode
 
 type ModalContent
     = NoModal
+    | CustomCountryMixModal Step
     | GitbookModal (WebData Gitbook.Page)
 
 
 type Msg
     = CloseModal
     | CopyToClipBoard String
-    | ModalContentReceived (WebData Gitbook.Page)
+    | GitbookContentReceived (WebData Gitbook.Page)
     | NoOp
+    | OpenCustomCountryMixModal Step
     | OpenDocModal Gitbook.Path
     | Reset
+    | ResetCustomCountryMix Step.Label
+    | SubmitCustomCountryMix Step.Label (Maybe Co2e)
     | SwitchMode DisplayMode
     | UpdateAirTransportRatio (Maybe Float)
+    | UpdateCustomCountryMixInput Step.Label String
     | UpdateDyeingWeighting (Maybe Float)
     | UpdateMassInput String
     | UpdateMaterial Process.Uuid
     | UpdateRecycledRatio (Maybe Float)
     | UpdateStepCountry Int Country.Code
     | UpdateProduct Product.Id
+
+
+type alias CustomCountryMixInputs =
+    -- represents the current state of user raw form inputs for custom country mix values
+    { fabric : Maybe String
+    , dyeing : Maybe String
+    , making : Maybe String
+    }
+
+
+getCustomCountryMixInput : Step.Label -> CustomCountryMixInputs -> Maybe String
+getCustomCountryMixInput stepLabel values =
+    case stepLabel of
+        Step.WeavingKnitting ->
+            values.fabric
+
+        Step.Ennoblement ->
+            values.dyeing
+
+        Step.Making ->
+            values.making
+
+        _ ->
+            Nothing
+
+
+updateCustomCountryMixInputs : Step.Label -> Maybe String -> CustomCountryMixInputs -> CustomCountryMixInputs
+updateCustomCountryMixInputs stepLabel maybeValue values =
+    case stepLabel of
+        Step.WeavingKnitting ->
+            { values | fabric = maybeValue }
+
+        Step.Ennoblement ->
+            { values | dyeing = maybeValue }
+
+        Step.Making ->
+            { values | making = maybeValue }
+
+        _ ->
+            values
+
+
+validateCustomCountryMixInput : Step.Label -> CustomCountryMixInputs -> Maybe Co2e
+validateCustomCountryMixInput stepLabel =
+    getCustomCountryMixInput stepLabel
+        >> Maybe.andThen String.toFloat
+        >> Maybe.map Co2.kgCo2e
 
 
 init : Maybe Inputs.Query -> Session -> ( Model, Session, Cmd Msg )
@@ -83,6 +140,7 @@ init maybeQuery session =
       , query = query
       , displayMode = SimpleMode
       , modal = NoModal
+      , customCountryMixInputs = toCustomCountryMixFormInputs query.customCountryMixes
       }
     , case simulator of
         Err error ->
@@ -94,16 +152,51 @@ init maybeQuery session =
     )
 
 
+toCustomCountryMixFormInputs : Inputs.CustomCountryMixes -> CustomCountryMixInputs
+toCustomCountryMixFormInputs { fabric, dyeing, making } =
+    let
+        mapToCo2e =
+            Maybe.map (Co2.inKgCo2e >> String.fromFloat)
+    in
+    { fabric = mapToCo2e fabric
+    , dyeing = mapToCo2e dyeing
+    , making = mapToCo2e making
+    }
+
+
 updateQuery : Inputs.Query -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
 updateQuery query ( model, session, msg ) =
-    ( { model | query = query, simulator = Simulator.compute session.db query }
+    ( { model
+        | query = query
+        , simulator = Simulator.compute session.db query
+        , customCountryMixInputs = toCustomCountryMixFormInputs query.customCountryMixes
+      }
     , session
     , msg
     )
 
 
+updateQueryCustomCountryMix : Step.Label -> Maybe Co2e -> Inputs.Query -> Inputs.Query
+updateQueryCustomCountryMix stepLabel maybeValue ({ customCountryMixes } as query) =
+    { query
+        | customCountryMixes =
+            case stepLabel of
+                Step.WeavingKnitting ->
+                    { customCountryMixes | fabric = maybeValue }
+
+                Step.Ennoblement ->
+                    { customCountryMixes | dyeing = maybeValue }
+
+                Step.Making ->
+                    { customCountryMixes | making = maybeValue }
+
+                _ ->
+                    customCountryMixes
+    }
+
+
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
-update ({ db } as session) msg ({ query } as model) =
+update ({ db } as session) msg ({ customCountryMixInputs, query } as model) =
     case msg of
         CloseModal ->
             ( { model | modal = NoModal }, session, Cmd.none )
@@ -111,21 +204,46 @@ update ({ db } as session) msg ({ query } as model) =
         CopyToClipBoard shareableLink ->
             ( model, session, Ports.copyToClipboard shareableLink )
 
-        ModalContentReceived gitbookData ->
+        GitbookContentReceived gitbookData ->
             ( { model | modal = GitbookModal gitbookData }, session, Cmd.none )
 
         NoOp ->
             ( model, session, Cmd.none )
 
+        OpenCustomCountryMixModal step ->
+            ( { model | modal = CustomCountryMixModal step }
+            , session
+            , Dom.focus "customCountryMix" |> Task.attempt (always NoOp)
+            )
+
         OpenDocModal path ->
             ( { model | modal = GitbookModal RemoteData.Loading }
             , session
-            , GitbookApi.getPage session path ModalContentReceived
+            , GitbookApi.getPage session path GitbookContentReceived
             )
 
         Reset ->
             ( model, session, Cmd.none )
                 |> updateQuery Inputs.defaultQuery
+
+        ResetCustomCountryMix stepLabel ->
+            ( { model
+                | modal = NoModal
+                , customCountryMixInputs =
+                    customCountryMixInputs
+                        |> updateCustomCountryMixInputs stepLabel Nothing
+              }
+            , session
+            , Cmd.none
+            )
+                |> updateQuery (updateQueryCustomCountryMix stepLabel Nothing query)
+
+        SubmitCustomCountryMix stepLabel Nothing ->
+            model |> update session (ResetCustomCountryMix stepLabel)
+
+        SubmitCustomCountryMix stepLabel (Just customCountryMix) ->
+            ( { model | modal = NoModal }, session, Cmd.none )
+                |> updateQuery (updateQueryCustomCountryMix stepLabel (Just customCountryMix) query)
 
         SwitchMode displayMode ->
             ( { model | displayMode = displayMode }, session, Cmd.none )
@@ -133,6 +251,16 @@ update ({ db } as session) msg ({ query } as model) =
         UpdateAirTransportRatio airTransportRatio ->
             ( model, session, Cmd.none )
                 |> updateQuery { query | airTransportRatio = airTransportRatio }
+
+        UpdateCustomCountryMixInput stepLabel customCountryMixInput ->
+            ( { model
+                | customCountryMixInputs =
+                    customCountryMixInputs
+                        |> updateCustomCountryMixInputs stepLabel (Just customCountryMixInput)
+              }
+            , session
+            , Cmd.none
+            )
 
         UpdateDyeingWeighting dyeingWeighting ->
             ( model, session, Cmd.none )
@@ -161,7 +289,29 @@ update ({ db } as session) msg ({ query } as model) =
                 |> updateQuery { query | recycledRatio = recycledRatio }
 
         UpdateStepCountry index code ->
-            ( model, session, Cmd.none )
+            let
+                updatedCustomCountryMixInputs =
+                    -- Reset the step's custom country mix form input on country change
+                    case index of
+                        1 ->
+                            customCountryMixInputs
+                                |> updateCustomCountryMixInputs Step.WeavingKnitting Nothing
+
+                        2 ->
+                            customCountryMixInputs
+                                |> updateCustomCountryMixInputs Step.Ennoblement Nothing
+
+                        3 ->
+                            customCountryMixInputs
+                                |> updateCustomCountryMixInputs Step.Making Nothing
+
+                        _ ->
+                            customCountryMixInputs
+            in
+            ( { model | customCountryMixInputs = updatedCustomCountryMixInputs }
+            , session
+            , Cmd.none
+            )
                 |> updateQuery (Inputs.updateStepCountry index code query)
 
         UpdateProduct productId ->
@@ -287,6 +437,7 @@ lifeCycleStepsView db displayMode simulator =
                     , product = simulator.inputs.product
                     , current = current
                     , next = Array.get (index + 1) simulator.lifeCycle
+                    , openCustomCountryMixModal = OpenCustomCountryMixModal
                     , openDocModal = OpenDocModal
                     , updateCountry = UpdateStepCountry
                     , updateAirTransportRatio = UpdateAirTransportRatio
@@ -365,41 +516,127 @@ feedbackView =
         ]
 
 
-modalView : ModalContent -> Html Msg
-modalView modal =
-    case modal of
-        NoModal ->
+customCountryMixModal : Model -> Step -> Html Msg
+customCountryMixModal { customCountryMixInputs } step =
+    let
+        countryDefault =
+            step.country.electricityProcess.climateChange
+                |> Co2.inKgCo2e
+                |> String.fromFloat
+
+        customCountryMixInput =
+            customCountryMixInputs
+                |> getCustomCountryMixInput step.label
+
+        customCountryMixInputValue =
+            customCountryMixInput
+                |> Maybe.withDefault countryDefault
+
+        maybeCo2e =
+            customCountryMixInputs
+                |> validateCustomCountryMixInput step.label
+
+        formIsValid =
+            (customCountryMixInput == Nothing)
+                || (Maybe.andThen String.toFloat customCountryMixInput /= Nothing)
+    in
+    ModalView.view
+        { size = ModalView.Standard
+        , close = CloseModal
+        , noOp = NoOp
+        , title =
+            String.join " "
+                [ "Personnalisation du mix électrique"
+                , step.country.name
+                , "pour"
+                , Step.labelToString step.label
+                ]
+        , formAction = Just (SubmitCustomCountryMix step.label maybeCo2e)
+        , content =
+            [ div []
+                [ label [ class "form-label fw-bold", for "customCountryMix" ]
+                    [ text "Impact personnalisé" ]
+                , div [ class "input-group" ]
+                    [ input
+                        [ type_ "number"
+                        , id "customCountryMix" -- Note: only one widget instance on a single page
+                        , class "form-control no-arrows"
+                        , classList [ ( "is-invalid", not formIsValid ) ]
+                        , Attr.min "0"
+                        , Attr.max "1.7"
+                        , Attr.step "0.000001"
+                        , onInput (UpdateCustomCountryMixInput step.label)
+                        , value customCountryMixInputValue
+                        ]
+                        []
+                    , span [ class "input-group-text fs-7" ] [ text "kgCO₂e/KWh" ]
+                    ]
+                , if not formIsValid then
+                    div [ class "invalid-feedback", style "display" "block" ]
+                        [ text "Attention, cette valeur est invalide. Vérifiez votre saisie." ]
+
+                  else
+                    text ""
+                , div [ class "form-text mt-2 text-center" ]
+                    [ """Vous trouverez de l'aide dans la
+                         [documentation dédiée](https://fabrique-numerique.gitbook.io/wikicarbone/methodologie/electricite#parametrage-manuel-de-limpact-carbone)."""
+                        |> MarkdownView.simple [ class "bottomed-paragraphs" ]
+                    ]
+                ]
+            ]
+        , footer =
+            [ button
+                [ type_ "button"
+                , class "btn btn-secondary"
+                , disabled (customCountryMixInputValue == countryDefault)
+                , onClick (ResetCustomCountryMix step.label)
+                ]
+                [ text "Réinitialiser" ]
+            , button
+                [ type_ "submit"
+                , class "btn btn-primary"
+                , disabled (not formIsValid)
+                ]
+                [ text "Valider" ]
+            ]
+        }
+
+
+gitbookModalView : WebData Gitbook.Page -> Html Msg
+gitbookModalView pageData =
+    case pageData of
+        RemoteData.NotAsked ->
             text ""
 
-        GitbookModal RemoteData.NotAsked ->
-            text ""
-
-        GitbookModal RemoteData.Loading ->
+        RemoteData.Loading ->
             ModalView.view
                 { size = ModalView.Large
                 , close = CloseModal
                 , noOp = NoOp
                 , title = "Chargement…"
+                , formAction = Nothing
                 , content = [ SpinnerView.view ]
                 , footer = []
                 }
 
-        GitbookModal (RemoteData.Failure error) ->
+        RemoteData.Failure error ->
             ModalView.view
                 { size = ModalView.Large
                 , close = CloseModal
                 , noOp = NoOp
                 , title = "Erreur"
+                , formAction = Nothing
                 , content = [ Alert.httpError error ]
                 , footer = []
                 }
 
-        GitbookModal (RemoteData.Success gitbookPage) ->
+        RemoteData.Success gitbookPage ->
             ModalView.view
                 { size = ModalView.Large
                 , close = CloseModal
                 , noOp = NoOp
                 , title = gitbookPage.title
+                , formAction = Nothing
                 , content =
                     [ case gitbookPage.description of
                         Just description ->
@@ -431,6 +668,19 @@ modalView modal =
                         ]
                     ]
                 }
+
+
+modalView : Model -> Html Msg
+modalView model =
+    case model.modal of
+        NoModal ->
+            text ""
+
+        CustomCountryMixModal step ->
+            customCountryMixModal model step
+
+        GitbookModal pageData ->
+            gitbookModalView pageData
 
 
 simulatorView : Session -> Model -> Simulator -> Html Msg
@@ -492,7 +742,7 @@ view session model =
                         , content = [ text error ]
                         }
             ]
-      , modalView model.modal
+      , modalView model
       ]
     )
 
@@ -500,8 +750,8 @@ view session model =
 subscriptions : Model -> Sub Msg
 subscriptions { modal } =
     case modal of
-        GitbookModal _ ->
-            Browser.Events.onKeyDown (Key.escape CloseModal)
-
         NoModal ->
             Sub.none
+
+        _ ->
+            Browser.Events.onKeyDown (Key.escape CloseModal)

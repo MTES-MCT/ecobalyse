@@ -12,6 +12,7 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Views.Alert as Alert
+import Views.Button as Button
 import Views.Format as Format
 import Views.Icon as Icon
 
@@ -21,15 +22,6 @@ type alias Config msg =
     , simulator : Simulator
     , openDocModal : Gitbook.Path -> msg
     }
-
-
-documentationPillLink : Config msg -> Gitbook.Path -> Html msg
-documentationPillLink { openDocModal } path =
-    button
-        [ class "btn btn-sm text-secondary text-decoration-none btn-link p-0 ms-1"
-        , onClick (openDocModal path)
-        ]
-        [ Icon.question ]
 
 
 getComparatorData : Db -> Inputs.Query -> Result String ( Simulator, Simulator, Simulator )
@@ -113,7 +105,9 @@ viewComparator config { inputs, co2 } ( good, middle, bad ) =
                 |> String.join " "
                 |> text
             , Format.kg inputs.mass
-            , documentationPillLink config Gitbook.ComparativeScale
+            , Button.smallPill
+                [ onClick (config.openDocModal Gitbook.ComparativeScale) ]
+                [ Icon.question ]
             ]
         , div [ class "card-body" ]
             [ if p <= 50 then

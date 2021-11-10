@@ -4,6 +4,7 @@ import Browser exposing (Document)
 import Data.Session as Session exposing (Session)
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import Html.Events exposing (..)
 import Request.Common as HttpCommon
 import Route
 import Views.Alert as Alert
@@ -31,6 +32,7 @@ type MenuLink
 
 type alias Config msg =
     { session : Session
+    , loadUrl : String -> msg
     , closeNotification : Session.Notification -> msg
     , activePage : ActivePage
     }
@@ -40,7 +42,8 @@ frame : Config msg -> ( String, List (Html msg) ) -> Document msg
 frame config ( title, content ) =
     { title = title ++ " | wikicarbone"
     , body =
-        [ navbar config
+        [ stagingAlert config
+        , navbar config
         , feedback
         , main_ [ class "bg-white" ]
             [ notificationListView config
@@ -49,6 +52,31 @@ frame config ( title, content ) =
         , pageFooter
         ]
     }
+
+
+stagingAlert : Config msg -> Html msg
+stagingAlert { session, loadUrl } =
+    if String.contains "/branches/" session.clientUrl then
+        div [ class "StagingAlert d-block d-sm-flex justify-content-center align-items-center mt-3" ]
+            [ text "Vous êtes sur un environnement de recette. "
+            , button
+                [ type_ "button"
+                , class "btn btn-link"
+                , onClick
+                    (loadUrl
+                        (if String.contains "mtes-mct.github.io" session.clientUrl then
+                            "/wikicarbone/"
+
+                         else
+                            "/"
+                        )
+                    )
+                ]
+                [ text "Retourner vers l'environnement de production" ]
+            ]
+
+    else
+        text ""
 
 
 headerMenuLinks : List MenuLink

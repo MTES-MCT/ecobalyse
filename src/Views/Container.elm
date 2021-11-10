@@ -5,15 +5,15 @@ import Html.Attributes exposing (..)
 
 
 centered : List (Attribute msg) -> List (Html msg) -> Html msg
-centered attrs content =
-    div ([ class "container" ] ++ attrs) content
+centered attrs =
+    div ([ class "container" ] ++ attrs)
 
 
 fluid : List (Attribute msg) -> List (Html msg) -> Html msg
-fluid attrs content =
-    div ([ class "container-fluid" ] ++ attrs) content
+fluid attrs =
+    div ([ class "container-fluid" ] ++ attrs)
 
 
 full : List (Attribute msg) -> List (Html msg) -> Html msg
-full attrs content =
-    div attrs content
+full attrs =
+    div attrs

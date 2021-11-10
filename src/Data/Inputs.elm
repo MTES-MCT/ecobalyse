@@ -2,6 +2,7 @@ module Data.Inputs exposing (..)
 
 import Array
 import Base64
+import Data.Co2 as Co2 exposing (Co2e)
 import Data.Country as Country exposing (Country)
 import Data.Db exposing (Db)
 import Data.Material as Material exposing (Material)
@@ -20,6 +21,7 @@ type alias Inputs =
     , dyeingWeighting : Maybe Float
     , airTransportRatio : Maybe Float
     , recycledRatio : Maybe Float
+    , customCountryMixes : CustomCountryMixes
     }
 
 
@@ -32,6 +34,14 @@ type alias Query =
     , dyeingWeighting : Maybe Float
     , airTransportRatio : Maybe Float
     , recycledRatio : Maybe Float
+    , customCountryMixes : CustomCountryMixes
+    }
+
+
+type alias CustomCountryMixes =
+    { fabric : Maybe Co2e
+    , dyeing : Maybe Co2e
+    , making : Maybe Co2e
     }
 
 
@@ -54,16 +64,14 @@ fromQuery db query =
             , dyeingWeighting = query.dyeingWeighting
             , airTransportRatio = query.airTransportRatio
             , recycledRatio = query.recycledRatio
+            , customCountryMixes = query.customCountryMixes
             }
     in
-    Result.map3 build
-        material
-        product
-        countries
+    Result.map3 build material product countries
 
 
 toQuery : Inputs -> Query
-toQuery { mass, material, product, countries, airTransportRatio, dyeingWeighting, recycledRatio } =
+toQuery { mass, material, product, countries, airTransportRatio, dyeingWeighting, recycledRatio, customCountryMixes } =
     { mass = mass
     , material = material.uuid
     , product = product.id
@@ -71,6 +79,37 @@ toQuery { mass, material, product, countries, airTransportRatio, dyeingWeighting
     , dyeingWeighting = dyeingWeighting
     , airTransportRatio = airTransportRatio
     , recycledRatio = recycledRatio
+    , customCountryMixes = customCountryMixes
+    }
+
+
+defaultCustomCountryMixes : CustomCountryMixes
+defaultCustomCountryMixes =
+    { fabric = Nothing
+    , dyeing = Nothing
+    , making = Nothing
+    }
+
+
+setCustomCountryMix : Int -> Maybe Co2e -> Query -> Query
+setCustomCountryMix index value ({ customCountryMixes } as query) =
+    { query
+        | customCountryMixes =
+            case index of
+                1 ->
+                    -- FIXME: index 1 is WeavingKnitting step; how could we use th step label instead?
+                    { customCountryMixes | fabric = value }
+
+                2 ->
+                    -- FIXME: index 2 is Ennoblement step; how could we use th step label instead?
+                    { customCountryMixes | dyeing = value }
+
+                3 ->
+                    -- FIXME: index 3 is Making step; how could we use th step label instead?
+                    { customCountryMixes | making = value }
+
+                _ ->
+                    customCountryMixes
     }
 
 
@@ -95,6 +134,7 @@ updateStepCountry index code query =
             else
                 query.airTransportRatio
     }
+        |> setCustomCountryMix index Nothing
 
 
 updateMaterial : Material -> Query -> Query
@@ -132,6 +172,7 @@ tShirtCotonFrance =
     , dyeingWeighting = Nothing
     , airTransportRatio = Nothing
     , recycledRatio = Nothing
+    , customCountryMixes = defaultCustomCountryMixes
     }
 
 
@@ -193,6 +234,7 @@ jupeCircuitAsie =
     , dyeingWeighting = Nothing
     , airTransportRatio = Nothing
     , recycledRatio = Nothing
+    , customCountryMixes = defaultCustomCountryMixes
     }
 
 
@@ -212,6 +254,7 @@ manteauCircuitEurope =
     , dyeingWeighting = Nothing
     , airTransportRatio = Nothing
     , recycledRatio = Nothing
+    , customCountryMixes = defaultCustomCountryMixes
     }
 
 
@@ -231,6 +274,7 @@ pantalonCircuitEurope =
     , dyeingWeighting = Nothing
     , airTransportRatio = Nothing
     , recycledRatio = Nothing
+    , customCountryMixes = defaultCustomCountryMixes
     }
 
 
@@ -250,6 +294,7 @@ robeCircuitBangladesh =
     , dyeingWeighting = Nothing
     , airTransportRatio = Nothing
     , recycledRatio = Nothing
+    , customCountryMixes = defaultCustomCountryMixes
     }
 
 
@@ -276,9 +321,26 @@ encode inputs =
         ]
 
 
+decodeCustomCountryMixes : Decoder CustomCountryMixes
+decodeCustomCountryMixes =
+    Decode.map3 CustomCountryMixes
+        (Decode.field "fabric" (Decode.maybe Co2.decodeKgCo2e))
+        (Decode.field "dyeing" (Decode.maybe Co2.decodeKgCo2e))
+        (Decode.field "making" (Decode.maybe Co2.decodeKgCo2e))
+
+
+encodeCustomCountryMixes : CustomCountryMixes -> Encode.Value
+encodeCustomCountryMixes v =
+    Encode.object
+        [ ( "fabric", v.fabric |> Maybe.map Co2.encodeKgCo2e |> Maybe.withDefault Encode.null )
+        , ( "dyeing", v.dyeing |> Maybe.map Co2.encodeKgCo2e |> Maybe.withDefault Encode.null )
+        , ( "making", v.making |> Maybe.map Co2.encodeKgCo2e |> Maybe.withDefault Encode.null )
+        ]
+
+
 decodeQuery : Decoder Query
 decodeQuery =
-    Decode.map7 Query
+    Decode.map8 Query
         (Decode.field "mass" (Decode.map Mass.kilograms Decode.float))
         (Decode.field "material" (Decode.map Process.Uuid Decode.string))
         (Decode.field "product" (Decode.map Product.Id Decode.string))
@@ -286,6 +348,7 @@ decodeQuery =
         (Decode.field "dyeingWeighting" (Decode.maybe Decode.float))
         (Decode.field "airTransportRatio" (Decode.maybe Decode.float))
         (Decode.field "recycledRatio" (Decode.maybe Decode.float))
+        (Decode.field "customCountryMixes" decodeCustomCountryMixes)
 
 
 encodeQuery : Query -> Encode.Value
@@ -298,6 +361,7 @@ encodeQuery query =
         , ( "dyeingWeighting", query.dyeingWeighting |> Maybe.map Encode.float |> Maybe.withDefault Encode.null )
         , ( "airTransportRatio", query.airTransportRatio |> Maybe.map Encode.float |> Maybe.withDefault Encode.null )
         , ( "recycledRatio", query.recycledRatio |> Maybe.map Encode.float |> Maybe.withDefault Encode.null )
+        , ( "customCountryMixes", encodeCustomCountryMixes query.customCountryMixes )
         ]
 
 
