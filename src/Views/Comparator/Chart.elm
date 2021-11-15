@@ -8,7 +8,6 @@ import Data.Co2 as Co2 exposing (Co2e)
 import Html as H exposing (Html)
 import Html.Attributes as HA
 import Html.Events as HE
-import List.Extra as LE
 import Svg as S
 import Svg.Attributes as SA
 import Svg.Events as SE
@@ -19,15 +18,13 @@ import Svg.Events as SE
 fillLabels : List String -> List (C.Element data msg)
 fillLabels labels =
     let
-        baseWidth =
-            100 / toFloat (clamp 1 100 (List.length labels))
-
-        padding =
-            7
+        ( baseWidth, leftPadding ) =
+            ( 100 / toFloat (clamp 1 100 (List.length labels))
+            , 7
+            )
     in
     labels
-        |> List.indexedMap (\i _ -> toFloat i * baseWidth + padding)
-        |> LE.zip labels
+        |> List.indexedMap (\i label -> ( label, toFloat i * baseWidth + leftPadding ))
         |> List.map
             (\( label, x ) ->
                 C.labelAt (CA.percent x)
