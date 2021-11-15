@@ -58,11 +58,11 @@ compute db query =
     in
     init db query
         -- Ensure end product mass is first applied to the final Distribution step
-        |> next computeMaterialAndSpinningWaste
+        |> next initializeFinalMass
         --
-        -- WASTE
+        -- WASTE: compute the initial required material mass
         --
-        -- Compute inital required material mass
+        -- Compute Making material mass waste
         |> next computeMakingStepWaste
         -- Compute Knitting/Weawing material waste
         |> next computeWeavingKnittingStepWaste
@@ -92,8 +92,8 @@ compute db query =
         |> next computeFinalCo2Score
 
 
-computeMaterialAndSpinningWaste : Simulator -> Simulator
-computeMaterialAndSpinningWaste ({ inputs } as simulator) =
+initializeFinalMass : Simulator -> Simulator
+initializeFinalMass ({ inputs } as simulator) =
     simulator
         |> updateLifeCycleStep Step.Distribution (\step -> { step | mass = inputs.mass })
 
