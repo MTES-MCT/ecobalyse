@@ -11,6 +11,7 @@ import Html.Events as HE
 import Svg as S
 import Svg.Attributes as SA
 import Svg.Events as SE
+import Views.Format as Format
 
 
 {-| Create vertical labels from percentages on the x-axis.
@@ -65,7 +66,9 @@ view current ( good, middle, bad ) =
             ]
 
         xValues =
-            []
+            [ C.binLabels (\{ val } -> Format.formatFloat 2 val ++ "\u{202F}kgCO₂e")
+                [ CA.moveDown 23, CA.attrs [ SA.fontSize "13" ] ]
+            ]
     in
     (verticalLabels ++ xValues ++ bars)
         |> C.chart [ CA.height 220, CA.width 550 ]

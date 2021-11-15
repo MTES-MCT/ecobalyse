@@ -106,7 +106,7 @@ viewComparator config { inputs, co2 } ( good, middle, bad ) =
                 [ onClick (config.openDocModal Gitbook.ComparativeScale) ]
                 [ Icon.question ]
             ]
-        , div [ class "card-body ps-5 pt-3 pb-3 pe-3" ]
+        , div [ class "card-body", style "padding" "20px 0 30px 40px" ]
             [ Chart.view co2 ( good, middle, bad )
             ]
         ]
