@@ -1,6 +1,6 @@
 module Views.Comparator exposing (..)
 
-import Data.Co2 as Co2
+import Data.Co2 as Co2 exposing (Co2e)
 import Data.Country as Country
 import Data.Db exposing (Db)
 import Data.Gitbook as Gitbook
@@ -13,6 +13,7 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Views.Alert as Alert
 import Views.Button as Button
+import Views.Comparator.Chart as Chart
 import Views.Format as Format
 import Views.Icon as Icon
 
@@ -24,10 +25,15 @@ type alias Config msg =
     }
 
 
-getComparatorData : Db -> Inputs.Query -> Result String ( Simulator, Simulator, Simulator )
+getScore : Db -> Inputs.Query -> Result String Co2e
+getScore db =
+    Simulator.compute db >> Result.map .co2
+
+
+getComparatorData : Db -> Inputs.Query -> Result String ( Co2e, Co2e, Co2e )
 getComparatorData db query =
     Result.map3 (\a b c -> ( a, b, c ))
-        (Simulator.compute db
+        (getScore db
             { query
                 | countries =
                     [ Country.Code "CN"
@@ -40,7 +46,7 @@ getComparatorData db query =
                 , airTransportRatio = Just 0
             }
         )
-        (Simulator.compute db
+        (getScore db
             { query
                 | countries =
                     [ Country.Code "CN"
@@ -53,7 +59,7 @@ getComparatorData db query =
                 , airTransportRatio = Just 0
             }
         )
-        (Simulator.compute db
+        (getScore db
             { query
                 | countries =
                     [ Country.Code "CN"
@@ -83,17 +89,8 @@ view ({ session, simulator } as config) =
             viewComparator config simulator result
 
 
-viewComparator : Config msg -> Simulator -> ( Simulator, Simulator, Simulator ) -> Html msg
+viewComparator : Config msg -> Simulator -> ( Co2e, Co2e, Co2e ) -> Html msg
 viewComparator config { inputs, co2 } ( good, middle, bad ) =
-    let
-        scale =
-            Co2.inKgCo2e bad.co2 - Co2.inKgCo2e good.co2
-
-        ( p, pMiddle ) =
-            ( (Co2.inKgCo2e co2 - Co2.inKgCo2e good.co2) / scale * 100
-            , (Co2.inKgCo2e middle.co2 - Co2.inKgCo2e good.co2) / scale * 100
-            )
-    in
     div [ class "card" ]
         [ div [ class "card-header" ]
             [ [ "Comparaison pour"
@@ -109,70 +106,7 @@ viewComparator config { inputs, co2 } ( good, middle, bad ) =
                 [ onClick (config.openDocModal Gitbook.ComparativeScale) ]
                 [ Icon.question ]
             ]
-        , div [ class "card-body" ]
-            [ if p <= 50 then
-                div
-                    [ class "text-muted ps-1"
-                    , style "font-size" ".75em"
-                    , style "border-left" "1px solid #bbb"
-                    , style "margin-left" <| String.fromFloat p ++ "%"
-                    ]
-                    [ Format.kgCo2 2 co2 ]
-
-              else
-                div
-                    [ class "text-muted text-end pe-1"
-                    , style "font-size" ".75em"
-                    , style "border-right" "1px solid #bbb"
-                    , style "width" <| String.fromFloat p ++ "%"
-                    ]
-                    [ Format.kgCo2 2 co2 ]
-            , div [ class "progress rounded-0 mt-0" ]
-                [ div
-                    [ class "progress-bar progress-bar-striped progress-bar-animated"
-                    , style "background-color" (percentageToHsl p 120 0)
-                    , style "width" <| String.fromFloat p ++ "%"
-                    ]
-                    []
-                ]
-            , div [ class "d-flex" ]
-                [ div
-                    [ style "width" <| String.fromFloat pMiddle ++ "%"
-                    , style "height" ".65em"
-                    , style "border-left" "1px solid #bbb"
-                    ]
-                    []
-                , div
-                    [ class "flex-fill"
-                    , style "height" ".65em"
-                    , style "border-left" "1px solid #bbb"
-                    ]
-                    []
-                , div
-                    [ style "height" ".65em"
-                    , style "border-right" "1px solid #bbb"
-                    ]
-                    []
-                ]
-            , div [ class "d-flex justify-content-between fs-7" ]
-                [ div [ class "text-center" ]
-                    [ div [] [ text "Circuit France" ]
-                    , Format.kgCo2 2 good.co2
-                    ]
-                , div [ class "text-center" ]
-                    [ div [] [ text "Circuit Turquie moyen" ]
-                    , Format.kgCo2 2 middle.co2
-                    ]
-                , div [ class "text-center" ]
-                    [ div [] [ text "Circuit Inde majorant" ]
-                    , Format.kgCo2 2 bad.co2
-                    ]
-                ]
+        , div [ class "card-body ps-5 pt-3 pb-3 pe-3" ]
+            [ Chart.view co2 ( good, middle, bad )
             ]
         ]
-
-
-percentageToHsl : Float -> Int -> Int -> String
-percentageToHsl p h0 h1 =
-    -- Source: https://jsfiddle.net/r438s65s/
-    "hsl(" ++ String.fromFloat ((p / 100 * (toFloat h1 - toFloat h0)) + toFloat h0) ++ ", 45%, 55%)"
