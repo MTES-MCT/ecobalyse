@@ -56,13 +56,13 @@ fullName recycledRatio material =
                         ""
 
                     else
-                        " (" ++ recycledRatioToString ratio ++ ")"
+                        " (" ++ recycledRatioToString "♲" ratio ++ ")"
            )
 
 
-recycledRatioToString : Float -> String
-recycledRatioToString recycledRatio =
-    String.fromInt (round (recycledRatio * 100)) ++ "% d'origine recyclée"
+recycledRatioToString : String -> Float -> String
+recycledRatioToString unit recycledRatio =
+    String.fromInt (round (recycledRatio * 100)) ++ "\u{202F}%\u{00A0}" ++ unit
 
 
 decode : List Process -> Decoder Material
