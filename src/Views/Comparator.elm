@@ -175,8 +175,7 @@ viewComparator : Config msg -> Inputs.Inputs -> List Entry -> Html msg
 viewComparator config inputs entries =
     div [ class "card" ]
         [ div [ class "card-header" ]
-            [ [ "Comparaison pour"
-              , inputs.product.name
+            [ [ inputs.product.name
               , "en"
               , Material.fullName inputs.recycledRatio inputs.material
               , "de "
