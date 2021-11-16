@@ -2,6 +2,7 @@ module Views.Comparator exposing (..)
 
 import Chart as C
 import Chart.Attributes as CA
+import Chart.Item as CI
 import Data.Co2 as Co2
 import Data.Country as Country
 import Data.Db exposing (Db)
@@ -230,7 +231,7 @@ fillLabels labels =
     let
         ( baseWidth, leftPadding ) =
             ( 100 / toFloat (clamp 1 100 (List.length labels))
-            , 4.5
+            , 4.2
             )
     in
     labels
@@ -257,28 +258,30 @@ chart entries =
         bars =
             [ entries
                 |> C.bars [ CA.margin 0.32 ]
-                    -- There's an unfortunate bug in Elm chart where legend colors are inverted
+                    -- There's an unfortunate bug in elm-charts where legend colors are inverted
                     -- see https://github.com/terezka/elm-charts/issues/101
-                    -- FIXME: revert this mess when an official patch is released
-                    -- [ C.stacked
-                    --     [ C.bar .materialAndSpinning []
-                    --         |> C.named "Matière"
-                    --         |> C.variation barStyleVariation
-                    --     , C.bar .weavingKnitting []
-                    --         |> C.named "Tissage/Tricotage"
-                    --         |> C.variation barStyleVariation
-                    --     , C.bar .dyeing []
-                    --         |> C.named "Teinture"
-                    --         |> C.variation barStyleVariation
-                    --     , C.bar .making []
-                    --         |> C.named "Confection"
-                    --         |> C.variation barStyleVariation
-                    --     , C.bar .transport []
-                    --         |> C.named "Transport"
-                    --         |> C.variation barStyleVariation
-                    --     ]
-                    [ C.stacked
-                        (LE.zip
+                    -- FIXME: once an official fix is released, the right implementation is:
+                    -- [ [ ( "Matière", .materialAndSpinning )
+                    --   , ( "Tissage/Tricotage", .weavingKnitting )
+                    --   , ( "Teinture", .dyeing )
+                    --   , ( "Confection", .making )
+                    --   , ( "Transport", .transport )
+                    --   ]
+                    --     |> List.map
+                    --         (\( label, getter ) ->
+                    --             C.bar getter []
+                    --                 |> C.named label
+                    --                 |> C.variation barStyleVariation
+                    --         )
+                    --     |> C.stacked
+                    -- ]
+                    [ [ "Matière"
+                      , "Tissage/Tricotage"
+                      , "Teinture"
+                      , "Confection"
+                      , "Transport"
+                      ]
+                        |> LE.zip
                             (List.reverse
                                 [ .materialAndSpinning
                                 , .weavingKnitting
@@ -287,19 +290,13 @@ chart entries =
                                 , .transport
                                 ]
                             )
-                            [ "Matière"
-                            , "Tissage/Tricotage"
-                            , "Teinture"
-                            , "Confection"
-                            , "Transport"
-                            ]
-                            |> List.map
-                                (\( getter, label ) ->
-                                    C.bar getter []
-                                        |> C.named label
-                                        |> C.variation barStyleVariation
-                                )
-                        )
+                        |> List.map
+                            (\( getter, label ) ->
+                                C.bar getter []
+                                    |> C.named label
+                                    |> C.variation barStyleVariation
+                            )
+                        |> C.stacked
                     ]
             ]
 
@@ -309,7 +306,7 @@ chart entries =
             ]
 
         yLabels =
-            [ C.yLabels [ CA.withGrid ] ]
+            [ C.yLabels [ CA.withGrid, CA.fontSize 13 ] ]
 
         legends =
             [ C.legendsAt
@@ -321,6 +318,18 @@ chart entries =
 
         verticalLabels =
             entries |> List.map .label |> fillLabels
+
+        -- barLabels =
+        --     [ C.barLabels
+        --         [ CA.alignLeft
+        --         , CA.moveRight 20
+        --         , CA.moveDown 3
+        --         , CA.position CI.getCenter
+        --         , CA.color "#999"
+        --         , CA.format (CI.getY >> Format.formatFloat 2)
+        --         , CA.fontSize 10
+        --         ]
+        --     ]
     in
     (bars ++ xLabels ++ yLabels ++ legends ++ verticalLabels)
         |> C.chart
