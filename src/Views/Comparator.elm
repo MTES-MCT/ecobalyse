@@ -260,8 +260,14 @@ chart entries =
             [ C.yLabels [ CA.withGrid ]
             , entries
                 |> C.bars [ CA.margin 0.32 ]
-                    [ C.bar .kgCo2e [ CA.color "#075ea2" ]
-                        |> C.variation barStyleVariation
+                    [ C.stacked
+                        [ C.bar .materialAndSpinning [] |> C.variation barStyleVariation
+                        , C.bar .weavingKnitting [] |> C.variation barStyleVariation
+                        , C.bar .dyeing [] |> C.variation barStyleVariation
+                        , C.bar .making [] |> C.variation barStyleVariation
+                        , C.bar .distribution [] |> C.variation barStyleVariation
+                        , C.bar .transport [] |> C.variation barStyleVariation
+                        ]
                     ]
             ]
 
