@@ -171,6 +171,21 @@ view ({ session, simulator } as config) =
                 }
 
 
+onlyChart : Session -> Simulator -> Html msg
+onlyChart session simulator =
+    case simulator.inputs |> Inputs.toQuery |> getEntries session.db of
+        Ok entries ->
+            chart entries
+
+        Err error ->
+            Alert.simple
+                { level = Alert.Danger
+                , close = Nothing
+                , title = "Erreur"
+                , content = [ text error ]
+                }
+
+
 viewComparator : Config msg -> Inputs.Inputs -> List Entry -> Html msg
 viewComparator config inputs entries =
     div [ class "card" ]

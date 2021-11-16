@@ -3,18 +3,20 @@ module Views.Summary exposing (..)
 import Data.Inputs as Inputs
 import Data.LifeCycle as LifeCycle
 import Data.Material as Material
+import Data.Session exposing (Session)
 import Data.Simulator exposing (Simulator)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Route exposing (Route(..))
 import Views.Alert as Alert
 import Views.BarChart as Chart
+import Views.Comparator as Comparator
 import Views.Format as Format
 import Views.Transport as TransportView
 
 
-summaryView : Bool -> Simulator -> Html msg
-summaryView reusable ({ inputs, lifeCycle } as simulator) =
+summaryView : Session -> Bool -> Simulator -> Html msg
+summaryView session reusable ({ inputs, lifeCycle } as simulator) =
     div [ class "card shadow-sm" ]
         [ div [ class "card-header text-white bg-primary d-flex justify-content-between" ]
             [ span [ class "text-nowrap" ] [ strong [] [ text inputs.product.name ] ]
@@ -43,9 +45,13 @@ summaryView reusable ({ inputs, lifeCycle } as simulator) =
                 |> LifeCycle.computeTotalTransports
                 |> TransportView.view False
             ]
-        , div [ class "d-none d-sm-block card-body px-2" ]
+        , div [ class "d-none d-sm-block card-body px-2 py-2 border-bottom" ]
             -- TODO: render an horiz stacked barchart for smaller viewports?
             [ Chart.view simulator
+            ]
+        , div [ class "d-none d-sm-block card-body", style "padding" "10px 0 35px 40px" ]
+            -- TODO: how/where to render this for smaller viewports?
+            [ Comparator.onlyChart session simulator
             ]
         , if reusable then
             div [ class "card-footer text-center" ]
@@ -61,11 +67,11 @@ summaryView reusable ({ inputs, lifeCycle } as simulator) =
         ]
 
 
-view : Bool -> Result String Simulator -> Html msg
-view reusable result =
+view : Session -> Bool -> Result String Simulator -> Html msg
+view session reusable result =
     case result of
         Ok simulator ->
-            summaryView reusable simulator
+            summaryView session reusable simulator
 
         Err error ->
             Alert.simple

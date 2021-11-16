@@ -35,7 +35,7 @@ update session msg model =
 
 
 view : Session -> Model -> ( String, List (Html Msg) )
-view { db } _ =
+view session _ =
     ( "Accueil"
     , [ div [ class "d-flex flex-column gap-5" ]
             [ Container.centered []
@@ -58,8 +58,8 @@ view { db } _ =
                         ]
                     , div [ class "col-lg-5" ]
                         [ Inputs.tShirtCotonFrance
-                            |> Simulator.compute db
-                            |> SummaryView.view False
+                            |> Simulator.compute session.db
+                            |> SummaryView.view session False
                         ]
                     ]
                 ]

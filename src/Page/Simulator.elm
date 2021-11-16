@@ -25,7 +25,6 @@ import Request.Gitbook as GitbookApi
 import Route exposing (Route(..))
 import Task
 import Views.Alert as Alert
-import Views.Comparator as ComparatorView
 import Views.Container as Container
 import Views.Icon as Icon
 import Views.Link as Link
@@ -712,12 +711,7 @@ simulatorView ({ db } as session) model ({ inputs } as simulator) =
         , div [ class "col-lg-5" ]
             [ div [ class "d-flex flex-column gap-3 mb-3 sticky-md-top", style "top" "7px" ]
                 [ div [ class "Summary" ]
-                    [ SummaryView.view False model.simulator ]
-                , ComparatorView.view
-                    { session = session
-                    , simulator = simulator
-                    , openDocModal = OpenDocModal
-                    }
+                    [ SummaryView.view session False model.simulator ]
                 , feedbackView
                 , shareLinkView session simulator
                 ]
