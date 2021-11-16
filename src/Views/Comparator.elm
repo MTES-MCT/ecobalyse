@@ -7,9 +7,11 @@ import Data.Country as Country
 import Data.Db exposing (Db)
 import Data.Gitbook as Gitbook
 import Data.Inputs as Inputs
+import Data.LifeCycle as LifeCycle
 import Data.Material as Material
 import Data.Session exposing (Session)
 import Data.Simulator as Simulator exposing (Simulator)
+import Data.Step as Step
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -33,6 +35,12 @@ type alias Entry =
     { label : String
     , highlight : Bool
     , kgCo2e : Float
+    , materialAndSpinning : Float
+    , weavingKnitting : Float
+    , dyeing : Float
+    , making : Float
+    , distribution : Float
+    , transport : Float
     }
 
 
@@ -124,36 +132,42 @@ toNonRecycledIndia query =
     )
 
 
-createEntry : Db -> ( String, Inputs.Query ) -> Result String Entry
-createEntry db ( label, query ) =
+createEntry : Db -> Bool -> ( String, Inputs.Query ) -> Result String Entry
+createEntry db highlight ( label, query ) =
+    let
+        stepCo2Float stepLabel =
+            LifeCycle.getStepCo2 stepLabel
+                >> Maybe.map Co2.inKgCo2e
+                >> Maybe.withDefault 0
+    in
     query
-        |> getScore db
-        |> Result.map (Entry label False)
-
-
-createHighlightedEntry : Db -> ( String, Inputs.Query ) -> Result String Entry
-createHighlightedEntry db ( label, query ) =
-    query
-        |> getScore db
-        |> Result.map (Entry label True)
+        |> Simulator.compute db
+        |> Result.map
+            (\{ lifeCycle, transport, co2 } ->
+                { label = label
+                , highlight = highlight
+                , kgCo2e = Co2.inKgCo2e co2
+                , materialAndSpinning = lifeCycle |> stepCo2Float Step.MaterialAndSpinning
+                , weavingKnitting = lifeCycle |> stepCo2Float Step.WeavingKnitting
+                , dyeing = lifeCycle |> stepCo2Float Step.Ennoblement
+                , making = lifeCycle |> stepCo2Float Step.Making
+                , distribution = lifeCycle |> stepCo2Float Step.Distribution
+                , transport = Co2.inKgCo2e transport.co2
+                }
+            )
 
 
 getEntries : Db -> Inputs.Query -> Result String (List Entry)
 getEntries db query =
-    [ createHighlightedEntry db ( "Votre simulation", query )
-    , query |> toRecycledFrance |> createEntry db
-    , query |> toNonRecycledFrance |> createEntry db
-    , query |> toIndiaTurkeyPartiallyRecycled |> createEntry db
-    , query |> toRecycledIndia |> createEntry db
-    , query |> toNonRecycledIndia |> createEntry db
+    [ createEntry db True ( "Votre simulation", query )
+    , query |> toRecycledFrance |> createEntry db False
+    , query |> toNonRecycledFrance |> createEntry db False
+    , query |> toIndiaTurkeyPartiallyRecycled |> createEntry db False
+    , query |> toRecycledIndia |> createEntry db False
+    , query |> toNonRecycledIndia |> createEntry db False
     ]
         |> RE.combine
         |> Result.map (List.sortBy .kgCo2e)
-
-
-getScore : Db -> Inputs.Query -> Result String Float
-getScore db =
-    Simulator.compute db >> Result.map (.co2 >> Co2.inKgCo2e)
 
 
 view : Config msg -> Html msg
