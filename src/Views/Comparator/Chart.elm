@@ -2,15 +2,10 @@ module Views.Comparator.Chart exposing (..)
 
 import Chart as C
 import Chart.Attributes as CA
-import Chart.Events as CE
-import Chart.Item as CI
 import Data.Co2 as Co2 exposing (Co2e)
-import Html as H exposing (Html)
-import Html.Attributes as HA
-import Html.Events as HE
+import Html exposing (Html)
 import Svg as S
 import Svg.Attributes as SA
-import Svg.Events as SE
 import Views.Format as Format
 
 

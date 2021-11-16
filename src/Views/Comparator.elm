@@ -1,6 +1,6 @@
 module Views.Comparator exposing (..)
 
-import Data.Co2 as Co2 exposing (Co2e)
+import Data.Co2 exposing (Co2e)
 import Data.Country as Country
 import Data.Db exposing (Db)
 import Data.Gitbook as Gitbook
