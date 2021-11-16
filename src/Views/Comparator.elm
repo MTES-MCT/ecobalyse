@@ -15,6 +15,7 @@ import Data.Step as Step
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
+import List.Extra as LE
 import Result.Extra as RE
 import Svg as S
 import Svg.Attributes as SA
@@ -39,7 +40,6 @@ type alias Entry =
     , weavingKnitting : Float
     , dyeing : Float
     , making : Float
-    , distribution : Float
     , transport : Float
     }
 
@@ -75,6 +75,7 @@ toNonRecycledFrance query =
             ]
         , dyeingWeighting = Just 0
         , airTransportRatio = Just 0
+        , recycledRatio = Just 0
       }
     )
 
@@ -128,6 +129,7 @@ toNonRecycledIndia query =
             ]
         , dyeingWeighting = Just 1
         , airTransportRatio = Just 1
+        , recycledRatio = Just 0
       }
     )
 
@@ -151,7 +153,6 @@ createEntry db highlight ( label, query ) =
                 , weavingKnitting = lifeCycle |> stepCo2Float Step.WeavingKnitting
                 , dyeing = lifeCycle |> stepCo2Float Step.Ennoblement
                 , making = lifeCycle |> stepCo2Float Step.Making
-                , distribution = lifeCycle |> stepCo2Float Step.Distribution
                 , transport = Co2.inKgCo2e transport.co2
                 }
             )
@@ -238,7 +239,7 @@ fillLabels labels =
             (\( label, x ) ->
                 C.labelAt (CA.percent x)
                     (CA.percent 0)
-                    [ CA.rotate 90, CA.attrs [ SA.style "text-anchor: start" ] ]
+                    [ CA.rotate 90, CA.attrs [ SA.fontSize "13", SA.style "text-anchor: start" ] ]
                     [ S.text label ]
             )
 
@@ -246,9 +247,6 @@ fillLabels labels =
 chart : List Entry -> Html msg
 chart entries =
     let
-        verticalLabels =
-            entries |> List.map .label |> fillLabels
-
         barStyleVariation _ { highlight } =
             if not highlight then
                 [ CA.striped [] ]
@@ -257,24 +255,76 @@ chart entries =
                 []
 
         bars =
-            [ C.yLabels [ CA.withGrid ]
-            , entries
+            [ entries
                 |> C.bars [ CA.margin 0.32 ]
+                    -- There's an unfortunate bug in Elm chart where legend colors are inverted
+                    -- see https://github.com/terezka/elm-charts/issues/101
+                    -- FIXME: revert this mess when an official patch is released
+                    -- [ C.stacked
+                    --     [ C.bar .materialAndSpinning []
+                    --         |> C.named "Matière"
+                    --         |> C.variation barStyleVariation
+                    --     , C.bar .weavingKnitting []
+                    --         |> C.named "Tissage/Tricotage"
+                    --         |> C.variation barStyleVariation
+                    --     , C.bar .dyeing []
+                    --         |> C.named "Teinture"
+                    --         |> C.variation barStyleVariation
+                    --     , C.bar .making []
+                    --         |> C.named "Confection"
+                    --         |> C.variation barStyleVariation
+                    --     , C.bar .transport []
+                    --         |> C.named "Transport"
+                    --         |> C.variation barStyleVariation
+                    --     ]
                     [ C.stacked
-                        [ C.bar .materialAndSpinning [] |> C.variation barStyleVariation
-                        , C.bar .weavingKnitting [] |> C.variation barStyleVariation
-                        , C.bar .dyeing [] |> C.variation barStyleVariation
-                        , C.bar .making [] |> C.variation barStyleVariation
-                        , C.bar .distribution [] |> C.variation barStyleVariation
-                        , C.bar .transport [] |> C.variation barStyleVariation
-                        ]
+                        (LE.zip
+                            (List.reverse
+                                [ .materialAndSpinning
+                                , .weavingKnitting
+                                , .dyeing
+                                , .making
+                                , .transport
+                                ]
+                            )
+                            [ "Matière"
+                            , "Tissage/Tricotage"
+                            , "Teinture"
+                            , "Confection"
+                            , "Transport"
+                            ]
+                            |> List.map
+                                (\( getter, label ) ->
+                                    C.bar getter []
+                                        |> C.named label
+                                        |> C.variation barStyleVariation
+                                )
+                        )
                     ]
             ]
 
-        xValues =
+        xLabels =
             [ C.binLabels (\{ kgCo2e } -> Format.formatFloat 2 kgCo2e ++ "\u{202F}kgCO₂e")
-                [ CA.moveDown 23, CA.attrs [ SA.fontSize "13" ] ]
+                [ CA.moveDown 23, CA.attrs [ SA.fontSize "12" ] ]
             ]
+
+        yLabels =
+            [ C.yLabels [ CA.withGrid ] ]
+
+        legends =
+            [ C.legendsAt
+                (\{ min } -> min - 0.3)
+                (\{ max } -> max * 1.1)
+                [ CA.spacing 7 ]
+                [ CA.spacing 2, CA.fontSize 11 ]
+            ]
+
+        verticalLabels =
+            entries |> List.map .label |> fillLabels
     in
-    (verticalLabels ++ xValues ++ bars)
-        |> C.chart [ CA.height 220, CA.width 550 ]
+    (bars ++ xLabels ++ yLabels ++ legends ++ verticalLabels)
+        |> C.chart
+            [ CA.height 250
+            , CA.width 550
+            , CA.margin { top = 20, bottom = 20, left = 22, right = -10 }
+            ]

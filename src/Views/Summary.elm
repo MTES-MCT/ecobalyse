@@ -49,7 +49,7 @@ summaryView session reusable ({ inputs, lifeCycle } as simulator) =
             -- TODO: render an horiz stacked barchart for smaller viewports?
             [ Chart.view simulator
             ]
-        , div [ class "d-none d-sm-block card-body", style "padding" "10px 0 35px 40px" ]
+        , div [ class "d-none d-sm-block card-body" ]
             -- TODO: how/where to render this for smaller viewports?
             [ Comparator.onlyChart session simulator
             ]
