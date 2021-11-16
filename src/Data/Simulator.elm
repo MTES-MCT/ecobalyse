@@ -95,7 +95,7 @@ compute db query =
 initializeFinalMass : Simulator -> Simulator
 initializeFinalMass ({ inputs } as simulator) =
     simulator
-        |> updateLifeCycleStep Step.Distribution (\step -> { step | mass = inputs.mass })
+        |> updateLifeCycleStep Step.Distribution (\step -> { step | inputMass = inputs.mass })
 
 
 computeMakingCo2Score : Simulator -> Simulator
@@ -105,7 +105,7 @@ computeMakingCo2Score ({ inputs } as simulator) =
             (\({ country } as step) ->
                 let
                     { kwh, co2 } =
-                        step.mass
+                        step.inputMass
                             |> Formula.makingCo2
                                 { makingCC = inputs.product.makingProcess.climateChange
                                 , makingElec = inputs.product.makingProcess.elec
@@ -129,7 +129,7 @@ computeDyeingCo2Score { processes } simulator =
                         (\({ dyeingWeighting, country } as step) ->
                             let
                                 { co2, heat, kwh } =
-                                    step.mass
+                                    step.inputMass
                                         |> Formula.dyeingCo2 ( dyeingLow, dyeingHigh )
                                             dyeingWeighting
                                             country.heatProcess.climateChange
@@ -151,7 +151,7 @@ computeMaterialAndSpinningCo2Score ({ inputs } as simulator) =
                     | co2 =
                         case ( inputs.material.recycledProcess, inputs.recycledRatio ) of
                             ( Just recycledProcess, Just ratio ) ->
-                                step.mass
+                                step.inputMass
                                     |> Co2.ratioedForKg
                                         ( recycledProcess.climateChange
                                         , inputs.material.materialProcess.climateChange
@@ -159,7 +159,7 @@ computeMaterialAndSpinningCo2Score ({ inputs } as simulator) =
                                         ratio
 
                             _ ->
-                                step.mass
+                                step.inputMass
                                     |> Co2.forKg inputs.material.materialProcess.climateChange
                 }
             )
@@ -185,7 +185,7 @@ computeWeavingKnittingCo2Score ({ inputs, lifeCycle } as simulator) =
                                     }
 
                         else
-                            step.mass
+                            step.inputMass
                                 |> Formula.weavingCo2
                                     { elecPppm = inputs.product.fabricProcess.elec_pppm
                                     , elecCC =
@@ -210,10 +210,10 @@ computeMakingStepWaste ({ inputs } as simulator) =
                     }
     in
     simulator
-        |> updateLifeCycleStep Step.Making (\step -> { step | mass = mass, waste = waste })
+        |> updateLifeCycleStep Step.Making (\step -> { step | inputMass = mass, waste = waste })
         |> updateLifeCycleSteps
             [ Step.MaterialAndSpinning, Step.WeavingKnitting, Step.Ennoblement ]
-            (\step -> { step | mass = mass })
+            (\step -> { step | inputMass = mass })
 
 
 computeWeavingKnittingStepWaste : Simulator -> Simulator
@@ -226,9 +226,9 @@ computeWeavingKnittingStepWaste ({ inputs, lifeCycle } as simulator) =
     in
     simulator
         |> updateLifeCycleStep Step.WeavingKnitting
-            (\step -> { step | mass = mass, waste = waste })
+            (\step -> { step | inputMass = mass, waste = waste })
         |> updateLifeCycleSteps [ Step.MaterialAndSpinning ]
-            (\step -> { step | mass = mass })
+            (\step -> { step | inputMass = mass })
 
 
 computeMaterialStepWaste : Simulator -> Simulator
@@ -251,7 +251,7 @@ computeMaterialStepWaste ({ inputs, lifeCycle } as simulator) =
     in
     simulator
         |> updateLifeCycleStep Step.MaterialAndSpinning
-            (\step -> { step | mass = mass, waste = waste })
+            (\step -> { step | inputMass = mass, waste = waste })
 
 
 computeStepsTransport : Db -> Simulator -> Result String Simulator

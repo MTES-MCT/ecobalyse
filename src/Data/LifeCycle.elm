@@ -60,7 +60,7 @@ getStep label =
 
 getStepMass : Step.Label -> LifeCycle -> Mass
 getStepMass label =
-    getStep label >> Maybe.map .mass >> Maybe.withDefault (Mass.kilograms 0)
+    getStep label >> Maybe.map .inputMass >> Maybe.withDefault (Mass.kilograms 0)
 
 
 fromQuery : Db -> Inputs.Query -> Result String LifeCycle

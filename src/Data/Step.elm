@@ -21,7 +21,7 @@ type alias Step =
     { label : Label
     , country : Country
     , editable : Bool
-    , mass : Mass
+    , inputMass : Mass
     , waste : Mass
     , transport : Transport
     , co2 : Co2e
@@ -55,7 +55,7 @@ create label editable country =
     { label = label
     , country = country
     , editable = editable
-    , mass = Mass.kilograms 0
+    , inputMass = Mass.kilograms 0
     , waste = Mass.kilograms 0
     , transport = default
     , co2 = Quantity.zero
@@ -110,7 +110,7 @@ computeTransports db next current =
                 { current
                     | transport =
                         stepSummary
-                            |> computeTransportCo2 wellKnown roadTransportProcess next.mass
+                            |> computeTransportCo2 wellKnown roadTransportProcess next.inputMass
                             |> Transport.add (initialTransportSummary wellKnown current)
                 }
             )
@@ -133,12 +133,12 @@ computeTransportCo2 { seaTransport, airTransport } roadProcess mass { road, sea,
 
 
 initialTransportSummary : Process.WellKnown -> Step -> Transport
-initialTransportSummary wellKnown { label, mass } =
+initialTransportSummary wellKnown { label, inputMass } =
     case label of
         MaterialAndSpinning ->
             -- Apply initial Material to Spinning step transport data (see Excel)
             Transport.materialToSpinningTransport
-                |> computeTransportCo2 wellKnown wellKnown.roadTransportPreMaking mass
+                |> computeTransportCo2 wellKnown wellKnown.roadTransportPreMaking inputMass
 
         _ ->
             default
@@ -275,7 +275,7 @@ encode v =
         [ ( "label", Encode.string (labelToString v.label) )
         , ( "country", Country.encode v.country )
         , ( "editable", Encode.bool v.editable )
-        , ( "mass", Encode.float (Mass.inKilograms v.mass) )
+        , ( "inputMass", Encode.float (Mass.inKilograms v.inputMass) )
         , ( "waste", Encode.float (Mass.inKilograms v.waste) )
         , ( "transport", Transport.encode v.transport )
         , ( "co2", Co2.encodeKgCo2e v.co2 )

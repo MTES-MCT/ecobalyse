@@ -249,7 +249,7 @@ detailedView ({ product, index, next, current } as config) =
                 ]
             , ul [ class "list-group list-group-flush fs-7" ]
                 [ li [ class "list-group-item text-muted d-flex justify-content-around" ]
-                    [ span [] [ text "Masse\u{00A0}: ", Format.kg current.mass ]
+                    [ span [] [ text "Masse\u{00A0}: ", Format.kg current.inputMass ]
                     , span [ class "d-flex align-items-center" ]
                         [ span [ class "me-1" ] [ text "Perte" ]
                         , Format.kg current.waste
