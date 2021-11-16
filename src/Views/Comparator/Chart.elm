@@ -45,7 +45,7 @@ view current ( good, middle, bad ) =
             data |> List.map .label |> fillLabels
 
         barStyleVariation _ { highlight } =
-            if highlight then
+            if not highlight then
                 [ CA.striped [] ]
 
             else
