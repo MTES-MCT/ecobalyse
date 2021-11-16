@@ -1,6 +1,8 @@
 module Views.Comparator exposing (..)
 
-import Data.Co2 exposing (Co2e)
+import Chart as C
+import Chart.Attributes as CA
+import Data.Co2 as Co2
 import Data.Country as Country
 import Data.Db exposing (Db)
 import Data.Gitbook as Gitbook
@@ -11,9 +13,11 @@ import Data.Simulator as Simulator exposing (Simulator)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
+import Result.Extra as RE
+import Svg as S
+import Svg.Attributes as SA
 import Views.Alert as Alert
 import Views.Button as Button
-import Views.Comparator.Chart as Chart
 import Views.Format as Format
 import Views.Icon as Icon
 
@@ -25,58 +29,139 @@ type alias Config msg =
     }
 
 
-getScore : Db -> Inputs.Query -> Result String Co2e
+type alias Entry =
+    { label : String
+    , highlight : Bool
+    , kgCo2e : Float
+    }
+
+
+toRecycledFrance : Inputs.Query -> ( String, Inputs.Query )
+toRecycledFrance query =
+    ( "France 100% recyclé"
+    , { query
+        | countries =
+            [ Country.Code "CN"
+            , Country.Code "FR"
+            , Country.Code "FR"
+            , Country.Code "FR"
+            , Country.Code "FR"
+            ]
+        , dyeingWeighting = Just 0
+        , airTransportRatio = Just 0
+        , recycledRatio = Just 1
+      }
+    )
+
+
+toNonRecycledFrance : Inputs.Query -> ( String, Inputs.Query )
+toNonRecycledFrance query =
+    ( "France 0% recyclé"
+    , { query
+        | countries =
+            [ Country.Code "CN"
+            , Country.Code "FR"
+            , Country.Code "FR"
+            , Country.Code "FR"
+            , Country.Code "FR"
+            ]
+        , dyeingWeighting = Just 0
+        , airTransportRatio = Just 0
+      }
+    )
+
+
+toIndiaTurkeyPartiallyRecycled : Inputs.Query -> ( String, Inputs.Query )
+toIndiaTurkeyPartiallyRecycled query =
+    ( "Inde-Turquie 20% recyclé"
+    , { query
+        | countries =
+            [ Country.Code "CN"
+            , Country.Code "IN"
+            , Country.Code "TR"
+            , Country.Code "TR"
+            , Country.Code "FR"
+            ]
+        , dyeingWeighting = Just 0.5
+        , airTransportRatio = Just 0
+        , recycledRatio = Just 0.2
+      }
+    )
+
+
+toRecycledIndia : Inputs.Query -> ( String, Inputs.Query )
+toRecycledIndia query =
+    ( "Inde 100% recyclé"
+    , { query
+        | countries =
+            [ Country.Code "CN"
+            , Country.Code "IN"
+            , Country.Code "IN"
+            , Country.Code "IN"
+            , Country.Code "FR"
+            ]
+        , dyeingWeighting = Just 1
+        , airTransportRatio = Just 1
+        , recycledRatio = Just 1
+      }
+    )
+
+
+toNonRecycledIndia : Inputs.Query -> ( String, Inputs.Query )
+toNonRecycledIndia query =
+    ( "Inde 0% recyclé"
+    , { query
+        | countries =
+            [ Country.Code "CN"
+            , Country.Code "IN"
+            , Country.Code "IN"
+            , Country.Code "IN"
+            , Country.Code "FR"
+            ]
+        , dyeingWeighting = Just 1
+        , airTransportRatio = Just 1
+      }
+    )
+
+
+createEntry : Db -> ( String, Inputs.Query ) -> Result String Entry
+createEntry db ( label, query ) =
+    query
+        |> getScore db
+        |> Result.map (Entry label False)
+
+
+createHighlightedEntry : Db -> ( String, Inputs.Query ) -> Result String Entry
+createHighlightedEntry db ( label, query ) =
+    query
+        |> getScore db
+        |> Result.map (Entry label True)
+
+
+getEntries : Db -> Inputs.Query -> Result String (List Entry)
+getEntries db query =
+    [ createHighlightedEntry db ( "Votre simulation", query )
+    , query |> toRecycledFrance |> createEntry db
+    , query |> toNonRecycledFrance |> createEntry db
+    , query |> toIndiaTurkeyPartiallyRecycled |> createEntry db
+    , query |> toRecycledIndia |> createEntry db
+    , query |> toNonRecycledIndia |> createEntry db
+    ]
+        |> RE.combine
+        |> Result.map (List.sortBy .kgCo2e)
+
+
+getScore : Db -> Inputs.Query -> Result String Float
 getScore db =
-    Simulator.compute db >> Result.map .co2
-
-
-getComparatorData : Db -> Inputs.Query -> Result String ( Co2e, Co2e, Co2e )
-getComparatorData db query =
-    Result.map3 (\a b c -> ( a, b, c ))
-        (getScore db
-            { query
-                | countries =
-                    [ Country.Code "CN"
-                    , Country.Code "FR"
-                    , Country.Code "FR"
-                    , Country.Code "FR"
-                    , Country.Code "FR"
-                    ]
-                , dyeingWeighting = Just 0
-                , airTransportRatio = Just 0
-            }
-        )
-        (getScore db
-            { query
-                | countries =
-                    [ Country.Code "CN"
-                    , Country.Code "TR"
-                    , Country.Code "TR"
-                    , Country.Code "TR"
-                    , Country.Code "FR"
-                    ]
-                , dyeingWeighting = Just 0.5
-                , airTransportRatio = Just 0
-            }
-        )
-        (getScore db
-            { query
-                | countries =
-                    [ Country.Code "CN"
-                    , Country.Code "IN"
-                    , Country.Code "IN"
-                    , Country.Code "IN"
-                    , Country.Code "FR"
-                    ]
-                , dyeingWeighting = Just 1
-                , airTransportRatio = Just 1
-            }
-        )
+    Simulator.compute db >> Result.map (.co2 >> Co2.inKgCo2e)
 
 
 view : Config msg -> Html msg
 view ({ session, simulator } as config) =
-    case simulator.inputs |> Inputs.toQuery |> getComparatorData session.db of
+    case simulator.inputs |> Inputs.toQuery |> getEntries session.db of
+        Ok result ->
+            viewComparator config simulator.inputs result
+
         Err error ->
             Alert.simple
                 { level = Alert.Danger
@@ -85,12 +170,9 @@ view ({ session, simulator } as config) =
                 , content = [ text error ]
                 }
 
-        Ok result ->
-            viewComparator config simulator result
 
-
-viewComparator : Config msg -> Simulator -> ( Co2e, Co2e, Co2e ) -> Html msg
-viewComparator config { inputs, co2 } ( good, middle, bad ) =
+viewComparator : Config msg -> Inputs.Inputs -> List Entry -> Html msg
+viewComparator config inputs entries =
     div [ class "card" ]
         [ div [ class "card-header" ]
             [ [ "Comparaison pour"
@@ -107,6 +189,58 @@ viewComparator config { inputs, co2 } ( good, middle, bad ) =
                 [ Icon.question ]
             ]
         , div [ class "card-body", style "padding" "20px 0 30px 40px" ]
-            [ Chart.view co2 ( good, middle, bad )
+            [ chart entries
             ]
         ]
+
+
+{-| Create vertical labels from percentages on the x-axis.
+-}
+fillLabels : List String -> List (C.Element data msg)
+fillLabels labels =
+    let
+        ( baseWidth, leftPadding ) =
+            ( 100 / toFloat (clamp 1 100 (List.length labels))
+            , 4.5
+            )
+    in
+    labels
+        |> List.indexedMap (\i label -> ( label, toFloat i * baseWidth + leftPadding ))
+        |> List.map
+            (\( label, x ) ->
+                C.labelAt (CA.percent x)
+                    (CA.percent 0)
+                    [ CA.rotate 90, CA.attrs [ SA.style "text-anchor: start" ] ]
+                    [ S.text label ]
+            )
+
+
+chart : List Entry -> Html msg
+chart entries =
+    let
+        verticalLabels =
+            entries |> List.map .label |> fillLabels
+
+        barStyleVariation _ { highlight } =
+            if not highlight then
+                [ CA.striped [] ]
+
+            else
+                []
+
+        bars =
+            [ C.yLabels [ CA.withGrid ]
+            , entries
+                |> C.bars [ CA.margin 0.32 ]
+                    [ C.bar .kgCo2e [ CA.color "#075ea2" ]
+                        |> C.variation barStyleVariation
+                    ]
+            ]
+
+        xValues =
+            [ C.binLabels (\{ kgCo2e } -> Format.formatFloat 2 kgCo2e ++ "\u{202F}kgCO₂e")
+                [ CA.moveDown 23, CA.attrs [ SA.fontSize "13" ] ]
+            ]
+    in
+    (verticalLabels ++ xValues ++ bars)
+        |> C.chart [ CA.height 220, CA.width 550 ]
