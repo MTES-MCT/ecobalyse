@@ -162,7 +162,7 @@ createEntry db highlight ( label, query ) =
 
 getEntries : Db -> Inputs.Query -> Result String (List Entry)
 getEntries db query =
-    [ createEntry db True ( "Votre simulation", query )
+    [ ( "Votre simulation", query ) |> createEntry db True -- user simulation
     , query |> toRecycledFrance |> createEntry db False
     , query |> toNonRecycledFrance |> createEntry db False
     , query |> toIndiaTurkeyPartiallyRecycled |> createEntry db False
