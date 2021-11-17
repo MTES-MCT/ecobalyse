@@ -15,8 +15,14 @@ import Views.Format as Format
 import Views.Transport as TransportView
 
 
-summaryView : Session -> Bool -> Simulator -> Html msg
-summaryView session reusable ({ inputs, lifeCycle } as simulator) =
+type alias Config =
+    { session : Session
+    , reusable : Bool
+    }
+
+
+summaryView : Config -> Simulator -> Html msg
+summaryView { session, reusable } ({ inputs, lifeCycle } as simulator) =
     div [ class "card shadow-sm" ]
         [ div [ class "card-header text-white bg-primary d-flex justify-content-between" ]
             [ span [ class "text-nowrap" ] [ strong [] [ text inputs.product.name ] ]
@@ -43,13 +49,13 @@ summaryView session reusable ({ inputs, lifeCycle } as simulator) =
                 |> ul [ class "Chevrons" ]
             , lifeCycle
                 |> LifeCycle.computeTotalTransports
-                |> TransportView.view False
+                |> TransportView.view { fullWidth = False }
             ]
-
-        -- , div [ class "d-none d-sm-block card-body px-2 py-2 border-bottom" ]
-        --     -- TODO: render an horiz stacked barchart for smaller viewports?
-        --     [ Chart.view simulator
-        --     ]
+        , details [ class "d-none d-sm-block card-body px-2 py-2 border-bottom" ]
+            -- TODO: render an horiz stacked barchart for smaller viewports?
+            [ summary [ class "text-muted fs-7" ] [ text "Détails des postes" ]
+            , Chart.view simulator
+            ]
         , div [ class "d-none d-sm-block card-body" ]
             -- TODO: how/where to render this for smaller viewports?
             [ Comparator.onlyChart session simulator
@@ -68,11 +74,11 @@ summaryView session reusable ({ inputs, lifeCycle } as simulator) =
         ]
 
 
-view : Session -> Bool -> Result String Simulator -> Html msg
-view session reusable result =
+view : Config -> Result String Simulator -> Html msg
+view config result =
     case result of
         Ok simulator ->
-            summaryView session reusable simulator
+            summaryView config simulator
 
         Err error ->
             Alert.simple

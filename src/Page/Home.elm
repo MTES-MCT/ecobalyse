@@ -59,7 +59,7 @@ view session _ =
                     , div [ class "col-lg-5" ]
                         [ Inputs.tShirtCotonFrance
                             |> Simulator.compute session.db
-                            |> SummaryView.view session False
+                            |> SummaryView.view { session = session, reusable = False }
                         ]
                     ]
                 ]

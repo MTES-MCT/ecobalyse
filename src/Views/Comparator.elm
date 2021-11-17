@@ -2,7 +2,6 @@ module Views.Comparator exposing (..)
 
 import Chart as C
 import Chart.Attributes as CA
-import Chart.Item as CI
 import Data.Co2 as Co2
 import Data.Country as Country
 import Data.Db exposing (Db)
@@ -311,27 +310,15 @@ chart entries =
         legends =
             [ C.legendsAt
                 (\{ min } -> min - 0.3)
-                (\{ max } -> max * 1.1)
+                (\{ max } -> max * 1.15)
                 [ CA.spacing 7 ]
                 [ CA.spacing 2, CA.fontSize 11 ]
             ]
 
         verticalLabels =
             entries |> List.map .label |> fillLabels
-
-        -- barLabels =
-        --     [ C.barLabels
-        --         [ CA.alignLeft
-        --         , CA.moveRight 20
-        --         , CA.moveDown 3
-        --         , CA.position CI.getCenter
-        --         , CA.color "#999"
-        --         , CA.format (CI.getY >> Format.formatFloat 2)
-        --         , CA.fontSize 10
-        --         ]
-        --     ]
     in
-    (bars ++ xLabels ++ yLabels ++ legends ++ verticalLabels)
+    (xLabels ++ yLabels ++ bars ++ legends ++ verticalLabels)
         |> C.chart
             [ CA.height 250
             , CA.width 550

@@ -7,8 +7,12 @@ import Views.Format as Format
 import Views.Icon as Icon
 
 
-view : Bool -> Transport -> Html msg
-view fullWidth { road, air, sea } =
+type alias Config =
+    { fullWidth : Bool }
+
+
+view : Config -> Transport -> Html msg
+view { fullWidth } { road, air, sea } =
     div
         [ classList
             [ ( "d-flex fs-7", True )
