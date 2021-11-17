@@ -58,6 +58,7 @@ toRecycledFrance query =
         , dyeingWeighting = Just 0
         , airTransportRatio = Just 0
         , recycledRatio = Just 1
+        , customCountryMixes = Inputs.defaultCustomCountryMixes
       }
     )
 
@@ -76,6 +77,7 @@ toNonRecycledFrance query =
         , dyeingWeighting = Just 0
         , airTransportRatio = Just 0
         , recycledRatio = Just 0
+        , customCountryMixes = Inputs.defaultCustomCountryMixes
       }
     )
 
@@ -94,6 +96,7 @@ toIndiaTurkeyPartiallyRecycled query =
         , dyeingWeighting = Just 0.5
         , airTransportRatio = Just 0
         , recycledRatio = Just 0.2
+        , customCountryMixes = Inputs.defaultCustomCountryMixes
       }
     )
 
@@ -112,6 +115,7 @@ toRecycledIndia query =
         , dyeingWeighting = Just 1
         , airTransportRatio = Just 1
         , recycledRatio = Just 1
+        , customCountryMixes = Inputs.defaultCustomCountryMixes
       }
     )
 
@@ -130,6 +134,7 @@ toNonRecycledIndia query =
         , dyeingWeighting = Just 1
         , airTransportRatio = Just 1
         , recycledRatio = Just 0
+        , customCountryMixes = Inputs.defaultCustomCountryMixes
       }
     )
 
@@ -140,21 +145,18 @@ createEntry db highlight ( label, query ) =
         stepCo2Float stepLabel =
             LifeCycle.getStepCo2 stepLabel
                 >> Maybe.map Co2.inKgCo2e
-                >> Maybe.withDefault 0
+                >> Result.fromMaybe "Impact d'étape non trouvé"
     in
     query
         |> Simulator.compute db
-        |> Result.map
+        |> Result.andThen
             (\{ lifeCycle, transport, co2 } ->
-                { label = label
-                , highlight = highlight
-                , kgCo2e = Co2.inKgCo2e co2
-                , materialAndSpinning = lifeCycle |> stepCo2Float Step.MaterialAndSpinning
-                , weavingKnitting = lifeCycle |> stepCo2Float Step.WeavingKnitting
-                , dyeing = lifeCycle |> stepCo2Float Step.Ennoblement
-                , making = lifeCycle |> stepCo2Float Step.Making
-                , transport = Co2.inKgCo2e transport.co2
-                }
+                Ok (Entry label highlight (Co2.inKgCo2e co2))
+                    |> RE.andMap (stepCo2Float Step.MaterialAndSpinning lifeCycle)
+                    |> RE.andMap (stepCo2Float Step.WeavingKnitting lifeCycle)
+                    |> RE.andMap (stepCo2Float Step.Ennoblement lifeCycle)
+                    |> RE.andMap (stepCo2Float Step.Making lifeCycle)
+                    |> RE.andMap (Ok (Co2.inKgCo2e transport.co2))
             )
 
 
