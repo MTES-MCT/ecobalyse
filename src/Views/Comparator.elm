@@ -5,7 +5,6 @@ import Chart.Attributes as CA
 import Data.Co2 as Co2
 import Data.Country as Country
 import Data.Db exposing (Db)
-import Data.Gitbook as Gitbook
 import Data.Inputs as Inputs exposing (Inputs)
 import Data.LifeCycle as LifeCycle
 import Data.Session exposing (Session)
@@ -22,10 +21,9 @@ import Views.Alert as Alert
 import Views.Format as Format
 
 
-type alias Config msg =
+type alias Config =
     { session : Session
     , simulator : Simulator
-    , openDocModal : Gitbook.Path -> msg
     }
 
 
@@ -205,8 +203,8 @@ getEntries db ({ material } as inputs) =
         |> Result.map (List.sortBy .kgCo2e)
 
 
-view : Session -> Simulator -> Html msg
-view session simulator =
+view : Config -> Html msg
+view { session, simulator } =
     case simulator.inputs |> getEntries session.db of
         Ok entries ->
             chart entries
@@ -326,5 +324,5 @@ chart entries =
         |> C.chart
             [ CA.height 250
             , CA.width 550
-            , CA.margin { top = 20, bottom = 20, left = 22, right = -10 }
+            , CA.margin { top = 22, bottom = 10, left = 22, right = -10 }
             ]

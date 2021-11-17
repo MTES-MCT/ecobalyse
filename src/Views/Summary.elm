@@ -58,7 +58,18 @@ summaryView { session, reusable } ({ inputs, lifeCycle } as simulator) =
             ]
         , div [ class "d-none d-sm-block card-body" ]
             -- TODO: how/where to render this for smaller viewports?
-            [ Comparator.view session simulator
+            [ Comparator.view { session = session, simulator = simulator }
+            ]
+        , div [ class "d-none d-sm-block card-body text-center text-muted fs-7 px-2 py-2" ]
+            [ [ "Comparaison pour"
+              , simulator.inputs.product.name
+              , "en"
+              , Material.fullName simulator.inputs.recycledRatio simulator.inputs.material
+              , "de "
+              ]
+                |> String.join " "
+                |> text
+            , Format.kg simulator.inputs.mass
             ]
         , if reusable then
             div [ class "card-footer text-center" ]
