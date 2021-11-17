@@ -6,7 +6,7 @@ import Data.Co2 as Co2
 import Data.Country as Country
 import Data.Db exposing (Db)
 import Data.Gitbook as Gitbook
-import Data.Inputs as Inputs
+import Data.Inputs as Inputs exposing (Inputs)
 import Data.LifeCycle as LifeCycle
 import Data.Session exposing (Session)
 import Data.Simulator as Simulator exposing (Simulator)
@@ -99,6 +99,25 @@ toIndiaTurkeyPartiallyRecycled query =
     )
 
 
+toIndiaTurkeyNonRecycled : Inputs.Query -> ( String, Inputs.Query )
+toIndiaTurkeyNonRecycled query =
+    ( "Inde-Turquie 0% recyclé"
+    , { query
+        | countries =
+            [ Country.Code "CN"
+            , Country.Code "IN"
+            , Country.Code "TR"
+            , Country.Code "TR"
+            , Country.Code "FR"
+            ]
+        , dyeingWeighting = Just 0.5
+        , airTransportRatio = Just 0
+        , recycledRatio = Just 0
+        , customCountryMixes = Inputs.defaultCustomCountryMixes
+      }
+    )
+
+
 toRecycledIndia : Inputs.Query -> ( String, Inputs.Query )
 toRecycledIndia query =
     ( "Inde 100% recyclé"
@@ -158,22 +177,37 @@ createEntry db highlight ( label, query ) =
             )
 
 
-getEntries : Db -> Inputs.Query -> Result String (List Entry)
-getEntries db query =
-    [ ( "Votre simulation", query ) |> createEntry db True -- user simulation
-    , query |> toRecycledFrance |> createEntry db False
-    , query |> toNonRecycledFrance |> createEntry db False
-    , query |> toIndiaTurkeyPartiallyRecycled |> createEntry db False
-    , query |> toRecycledIndia |> createEntry db False
-    , query |> toNonRecycledIndia |> createEntry db False
-    ]
+getEntries : Db -> Inputs -> Result String (List Entry)
+getEntries db ({ material } as inputs) =
+    let
+        query =
+            Inputs.toQuery inputs
+
+        entries =
+            if material.recycledProcess /= Nothing then
+                [ ( "Votre simulation", query ) |> createEntry db True -- user simulation
+                , query |> toRecycledFrance |> createEntry db False
+                , query |> toNonRecycledFrance |> createEntry db False
+                , query |> toIndiaTurkeyPartiallyRecycled |> createEntry db False
+                , query |> toRecycledIndia |> createEntry db False
+                , query |> toNonRecycledIndia |> createEntry db False
+                ]
+
+            else
+                [ ( "Votre simulation", query ) |> createEntry db True -- user simulation
+                , query |> toNonRecycledFrance |> createEntry db False
+                , query |> toIndiaTurkeyNonRecycled |> createEntry db False
+                , query |> toNonRecycledIndia |> createEntry db False
+                ]
+    in
+    entries
         |> RE.combine
         |> Result.map (List.sortBy .kgCo2e)
 
 
 view : Session -> Simulator -> Html msg
 view session simulator =
-    case simulator.inputs |> Inputs.toQuery |> getEntries session.db of
+    case simulator.inputs |> getEntries session.db of
         Ok entries ->
             chart entries
 
