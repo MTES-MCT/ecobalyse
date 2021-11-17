@@ -145,7 +145,7 @@ createEntry db highlight ( label, query ) =
         stepCo2Float stepLabel =
             LifeCycle.getStepCo2 stepLabel
                 >> Maybe.map Co2.inKgCo2e
-                >> Result.fromMaybe "Impact d'étape non trouvé"
+                >> Result.fromMaybe ("Impact d'étape non trouvé: " ++ Step.labelToString stepLabel)
     in
     query
         |> Simulator.compute db
