@@ -80,8 +80,8 @@ toNonRecycledFrance query =
     )
 
 
-toIndiaTurkeyPartiallyRecycled : Inputs.Query -> ( String, Inputs.Query )
-toIndiaTurkeyPartiallyRecycled query =
+toPartiallyRecycledIndiaTurkey : Inputs.Query -> ( String, Inputs.Query )
+toPartiallyRecycledIndiaTurkey query =
     ( "Inde-Turquie 20% recyclé"
     , { query
         | countries =
@@ -99,8 +99,8 @@ toIndiaTurkeyPartiallyRecycled query =
     )
 
 
-toIndiaTurkeyNonRecycled : Inputs.Query -> ( String, Inputs.Query )
-toIndiaTurkeyNonRecycled query =
+toNonRecycledIndiaTurkey : Inputs.Query -> ( String, Inputs.Query )
+toNonRecycledIndiaTurkey query =
     ( "Inde-Turquie 0% recyclé"
     , { query
         | countries =
@@ -188,7 +188,7 @@ getEntries db ({ material } as inputs) =
                 [ ( "Votre simulation", query ) |> createEntry db True -- user simulation
                 , query |> toRecycledFrance |> createEntry db False
                 , query |> toNonRecycledFrance |> createEntry db False
-                , query |> toIndiaTurkeyPartiallyRecycled |> createEntry db False
+                , query |> toPartiallyRecycledIndiaTurkey |> createEntry db False
                 , query |> toRecycledIndia |> createEntry db False
                 , query |> toNonRecycledIndia |> createEntry db False
                 ]
@@ -196,7 +196,7 @@ getEntries db ({ material } as inputs) =
             else
                 [ ( "Votre simulation", query ) |> createEntry db True -- user simulation
                 , query |> toNonRecycledFrance |> createEntry db False
-                , query |> toIndiaTurkeyNonRecycled |> createEntry db False
+                , query |> toNonRecycledIndiaTurkey |> createEntry db False
                 , query |> toNonRecycledIndia |> createEntry db False
                 ]
     in
