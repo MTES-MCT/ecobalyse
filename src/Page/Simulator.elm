@@ -392,7 +392,7 @@ materialFormSet db recycledRatio material =
                 { id = "recycledRatio"
                 , update = UpdateRecycledRatio
                 , value = Maybe.withDefault 0 recycledRatio
-                , toString = Material.recycledRatioToString
+                , toString = Material.recycledRatioToString "d'origine recyclée"
                 , disabled = material.recycledProcess == Nothing
                 }
             ]
