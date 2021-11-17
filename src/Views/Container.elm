@@ -4,13 +4,13 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 
 
-type Size
-    = Xs
-    | Sm
-    | Md
-    | Lg
-    | Xl
-    | Xxl
+type Breakpoint
+    = XS
+    | SM
+    | MD
+    | LG
+    | XL
+    | XXL
 
 
 centered : List (Attribute msg) -> List (Html msg) -> Html msg
@@ -28,27 +28,28 @@ full attrs =
     div attrs
 
 
-fluidUntil : Size -> List (Attribute msg) -> List (Html msg) -> Html msg
-fluidUntil size attrs =
-    let
-        vp =
-            case size of
-                Xs ->
-                    "xs"
+fluidUpto : Breakpoint -> List (Attribute msg) -> List (Html msg) -> Html msg
+fluidUpto breakpoint attrs =
+    div ([ class <| "container-" ++ breakpointToString breakpoint ] ++ attrs)
 
-                Sm ->
-                    "sm"
 
-                Md ->
-                    "md"
+breakpointToString : Breakpoint -> String
+breakpointToString breakpoint =
+    case breakpoint of
+        XS ->
+            "xs"
 
-                Lg ->
-                    "lg"
+        SM ->
+            "sm"
 
-                Xl ->
-                    "xl"
+        MD ->
+            "md"
 
-                Xxl ->
-                    "xxl"
-    in
-    div ([ class <| "container-" ++ vp ] ++ attrs)
+        LG ->
+            "lg"
+
+        XL ->
+            "xl"
+
+        XXL ->
+            "xxl"
