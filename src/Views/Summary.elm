@@ -58,7 +58,7 @@ summaryView { session, reusable } ({ inputs, lifeCycle } as simulator) =
             ]
         , div [ class "d-none d-sm-block card-body" ]
             -- TODO: how/where to render this for smaller viewports?
-            [ Comparator.onlyChart session simulator
+            [ Comparator.view session simulator
             ]
         , if reusable then
             div [ class "card-footer text-center" ]

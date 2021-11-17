@@ -173,23 +173,8 @@ getEntries db query =
         |> Result.map (List.sortBy .kgCo2e)
 
 
-view : Config msg -> Html msg
-view ({ session, simulator } as config) =
-    case simulator.inputs |> Inputs.toQuery |> getEntries session.db of
-        Ok result ->
-            viewComparator config simulator.inputs result
-
-        Err error ->
-            Alert.simple
-                { level = Alert.Danger
-                , close = Nothing
-                , title = "Erreur"
-                , content = [ text error ]
-                }
-
-
-onlyChart : Session -> Simulator -> Html msg
-onlyChart session simulator =
+view : Session -> Simulator -> Html msg
+view session simulator =
     case simulator.inputs |> Inputs.toQuery |> getEntries session.db of
         Ok entries ->
             chart entries
@@ -201,28 +186,6 @@ onlyChart session simulator =
                 , title = "Erreur"
                 , content = [ text error ]
                 }
-
-
-viewComparator : Config msg -> Inputs.Inputs -> List Entry -> Html msg
-viewComparator config inputs entries =
-    div [ class "card" ]
-        [ div [ class "card-header" ]
-            [ [ inputs.product.name
-              , "en"
-              , Material.fullName inputs.recycledRatio inputs.material
-              , "de "
-              ]
-                |> String.join " "
-                |> text
-            , Format.kg inputs.mass
-            , Button.smallPill
-                [ onClick (config.openDocModal Gitbook.ComparativeScale) ]
-                [ Icon.question ]
-            ]
-        , div [ class "card-body", style "padding" "20px 0 30px 40px" ]
-            [ chart entries
-            ]
-        ]
 
 
 {-| Create vertical labels from percentages on the x-axis.
