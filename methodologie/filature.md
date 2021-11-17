@@ -134,7 +134,7 @@ $$
 
 ## Intégration d'une part de matière recyclée
 
-Dans le cas (<mark style="color:red;">à venir</mark>) où un pourcentage "r" de matière recyclée est introduit à partir du tableau des matières principales. le calcule de l'impact devient la combinaison des impacts des procédés "matière et filature" retenus pour la matière primaire et pour la matière recyclée :&#x20;
+Dans le cas où un pourcentage "r" de matière recyclée est introduit à partir du tableau des matières principales. le calcule de l'impact devient la combinaison des impacts des procédés "matière et filature" retenus pour la matière primaire et pour la matière recyclée :&#x20;
 
 $$
 ImpactMatière + Impact Filature = ImpactProcédéMFPrimaire +  ImpactProcédéMFRecyclée
@@ -207,3 +207,101 @@ A prévoir :
 * Pour les matières qui peuvent être issues de différents types de recyclage, regrouper ces différentes sous-options dans le tableau principal
 * Prise en compte de la _Circular Footprint Formula_ du projet de _PEFCR Apparel & Footwear_
 * Chercher à distinguer matières et filature pour pouvoir moduler ces deux étapes, et notamment la filature, en fonction du pays concerné
+
+## \[A venir] Calcul contextualisé de la filature
+
+Pour apporter plus de précision dans le calcul, en fonction du pays dans lequel la filature serait réalisée, des hypothèses sont faites pour évaluer l'impact de la filature, considéré comme un sous-ensemble du procédé "matière et filature".
+
+$$
+ImpactFilatureEstimé = ImpactElecEstimé + ImpactChaleurEstimé
+$$
+
+L'estimation des impacts de la filature permet ensuite, par soustraction, d'estimer l'impact des autres étapes couvertes dans le procédé "matière et filature", regroupées par simplification sous le terme "matière".
+
+$$
+ImpactMatièreEstimée = ImpactProcédéMatièreFilature - ImpactFilatureEstimée(PaysParDéfaut)
+$$
+
+{% hint style="danger" %}
+Pour calculer l'impact "matière", il convient de soustraire l'impact de la filature estimé pour la géographie de référence retenue dans la base Impacts. Pour chaque matière, la géographie de référence est précisée dans les 3 tableaux supra (colonne géographie ou pays de filature).
+
+En revanche, l'impact de la filature peut bien être calculé pour différentes géographies (et donc différents mix électriques ou mix de chaleur), afin de rendre compte d'une filature qui serait réalisée sur un autre pays/géographie que celui de référence de la base Impacts.
+{% endhint %}
+
+Concernant le détail du calcul de l'impact filature, pour l'électricité :&#x20;
+
+$$
+ImpactElecEstimé = ElecConsommée (kWh) * ImpactProcédéElec
+$$
+
+$$
+ElecConsommée (kWh) = MasseSortante (kg) * CoefElecFilature (kWh/kg)
+$$
+
+et pour la chaleur :&#x20;
+
+$$
+ImpactChaleurEstimé = ChaleurConsommée (MJ) * ImpactProcédéChaleur
+$$
+
+$$
+ChaleurConsommée (kWh) = MasseSortante (kg) * CoefChaleurFilature (kWh/kg)
+$$
+
+{% hint style="danger" %}
+Les coefficients sont ici définis en kWh/kg, et non en MJ/kg comme dans la base Impacts
+{% endhint %}
+
+Pour estimer l'impact de la filature, il convient donc, pour chaque matière, d'arrêter les paramètres suivants :&#x20;
+
+| Matières naturelles                                         | UUID procédé                           | CoefElecFilature (kWh/kg) | CoefElecChaleur (kWh/kg) | Source / commentaire                                           |
+| ----------------------------------------------------------- | -------------------------------------- | ------------------------- | ------------------------ | -------------------------------------------------------------- |
+| Plume de canard                                             | `d1f06ea5-d63f-453a-8f98-55ce78ae7579` | 10                        | 9                        | <p>Cycleco - 2011</p><p>Données pour les fibres naturelles</p> |
+| Fil d'angora                                                | 29bddef1-d753-45af-9ca6-aec05e2d02b9   | 10                        | 9                        | <p>Cycleco - 2011</p><p>Données pour les fibres naturelles</p> |
+| Fil de soie                                                 | `94b4b0e1-61e4-4f4d-b9b2-efe7623b0e68` | 10                        | 9                        | <p>Cycleco - 2011</p><p>Données pour les fibres naturelles</p> |
+| <mark style="color:blue;">Fil de lin (filasse)</mark>       | `e5a6d538-f932-4242-98b4-3a0c6439629c` | 10                        | 9                        | <p>Cycleco - 2011</p><p>Données pour les fibres naturelles</p> |
+| <mark style="color:blue;">Fil de lin (étoupe)</mark>        | `fcef1a31-bb18-49e4-bdb6-e53dfe015ba0` | 10                        | 9                        | <p>Cycleco - 2011</p><p>Données pour les fibres naturelles</p> |
+| Fil de laine de mouton Mérinos                              | `4e035dbf-f48b-4b5a-94ea-0006c713958b` | 10                        | 9                        | <p>Cycleco - 2011</p><p>Données pour les fibres naturelles</p> |
+| <mark style="color:blue;">Fil de laine de mouton</mark>     | `376bd165-d354-41aa-a6e3-fd3228413bb2` | 10                        | 9                        | <p>Cycleco - 2011</p><p>Données pour les fibres naturelles</p> |
+| Fil de laine de chameau                                     | `c191a4dd-5080-4eb6-9c59-b13c943327bc` | 10                        | 9                        | <p>Cycleco - 2011</p><p>Données pour les fibres naturelles</p> |
+| Fil de jute                                                 | `72010874-4d26-4c7a-95de-c6987dfdedeb` | 10                        | 9                        | <p>Cycleco - 2011</p><p>Données pour les fibres naturelles</p> |
+| <mark style="color:blue;">Fil de coton conventionnel</mark> | `f211bbdb-415c-46fd-be4d-ddf199575b44` | 10                        | 9                        | <p>Cycleco - 2011</p><p>Données pour les fibres naturelles</p> |
+| <mark style="color:blue;">Fil de chanvre</mark>             | `08601439-f338-4f94-ac8c-538061b65d16` | 10                        | 9                        | <p>Cycleco - 2011</p><p>Données pour les fibres naturelles</p> |
+| Fil de cachemire                                            | `380c0d9c-2840-4390-bd3f-5c960f26f5ed` | 10                        | 9                        | <p>Cycleco - 2011</p><p>Données pour les fibres naturelles</p> |
+| Fibres de kapok                                             | `36cdbfc4-3f48-47b0-8ae0-294bb6017df1` | 10                        | 9                        | <p>Cycleco - 2011</p><p>Données pour les fibres naturelles</p> |
+
+
+
+| Matières synthétiques (filaments)                         | UUID procédé                           | CoefElecFilature (kWh/kg) | CoefElecChaleur (kWh/kg) | Source / commentaire                                             |
+| --------------------------------------------------------- | -------------------------------------- | ------------------------- | ------------------------ | ---------------------------------------------------------------- |
+| <mark style="color:blue;">Filament de viscose</mark>      | `81a67d97-3cd9-44ef-9ee2-159364364c0f` | 12                        | 0                        | <p>Cycleco - 2011</p><p>Données pour les fibres synthétiques</p> |
+| Filament de polyuréthane                                  | `c3738500-0a62-4b95-b4a2-b7beb12a9e1a` | 12                        | 0                        | <p>Cycleco - 2011</p><p>Données pour les fibres synthétiques</p> |
+| Filament de polytriméthylène téréphtalate (PTT)           | `eca33573-0d09-4d79-9b28-da42bfcc7a4b` | 12                        | 0                        | <p>Cycleco - 2011</p><p>Données pour les fibres synthétiques</p> |
+| Filament de polytéréphtalate de butylène (PBT)            | `7f8bbfdc-fb65-4e3a-ac81-eda197ef17fc` | 12                        | 0                        | <p>Cycleco - 2011</p><p>Données pour les fibres synthétiques</p> |
+| Filament de polypropylène                                 | `a30cfbde-393a-40db-9263-ea00bfced0b7` | 12                        | 0                        | <p>Cycleco - 2011</p><p>Données pour les fibres synthétiques</p> |
+| Filament de polylactide                                   | `f2dd799d-1b69-4e7a-99bd-696bbbd5a978` | 12                        | 0                        | <p>Cycleco - 2011</p><p>Données pour les fibres synthétiques</p> |
+| Filament de polyéthylène                                  | `088ed617-67fa-4d42-b3af-ee6cf39cf36f` | 12                        | 0                        | <p>Cycleco - 2011</p><p>Données pour les fibres synthétiques</p> |
+| <mark style="color:blue;">Filament de polyester</mark>    | `4d57c51d-7d56-46e1-acde-02fbcdc943e4` | 12                        | 0                        | <p>Cycleco - 2011</p><p>Données pour les fibres synthétiques</p> |
+| <mark style="color:blue;">Filament de polyamide 66</mark> | `182fa424-1f49-4728-b0f1-cb4e4ab36392` | 12                        | 0                        | <p>Cycleco - 2011</p><p>Données pour les fibres synthétiques</p> |
+| Filament d'aramide                                        | `7a1ccc4a-2ea7-48dc-9ef0-d57066ea8fa5` | 12                        | 0                        | <p>Cycleco - 2011</p><p>Données pour les fibres synthétiques</p> |
+| <mark style="color:blue;">Filament d'acrylique</mark>     | aee6709f-0864-4fc5-8760-68cb644a0021   | 12                        | 0                        | <p>Cycleco - 2011</p><p>Données pour les fibres synthétiques</p> |
+| Filament bi-composant polypropylène/polyamide             | `37396ac4-13a2-484c-9cc6-5b5a93ff6e6e` | 12                        | 0                        | <p>Cycleco - 2011</p><p>Données pour les fibres synthétiques</p> |
+| Feuille de néoprène                                       | `76fefff3-3781-49a2-8deb-c12945a6b71f` | 12                        | 0                        | <p>Cycleco - 2011</p><p>Données pour les fibres synthétiques</p> |
+
+
+
+| Matières recyclées                                                                                                                                       | UUID                                   | CoefElecFilature (kWh/kg) | CoefElecChaleur (kWh/kg) | Source / commentaire                   |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------- | ------------------------- | ------------------------ | -------------------------------------- |
+|  Production de filament de polyester recyclé (recyclage mécanique), traitement de bouteilles post-consommation                                           | `4072bfa2-1948-4d12-8de9-bbeb6cc628e1` |                           |                          |                                        |
+|  <mark style="color:blue;">Production de filament de polyester recyclé (recyclage chimique partiel), traitement de bouteilles post-consommation</mark>   | `e65e8157-9bd1-4711-9571-8e4a22c2d2b5` |                           |                          |                                        |
+|  Production de filament de polyester recyclé (recyclage chimique complet), traitement de bouteilles post-consommation                                    | `221067ba-5c2f-4dad-b09a-dd5af0a9ae31` |                           |                          |                                        |
+|  Production de filament de polyamide recyclé (recyclage chimique), traitement de déchets issus de filets de pêche, de tapis et de déchets de production  | `41ee61c2-9a98-4eec-8949-9d9b54289bd0` |                           |                          |                                        |
+|  <mark style="color:blue;">Production de fil de viscose recyclé (recyclage mécanique), traitement de déchets de production textiles</mark>               | `9671ae26-d772-4bb1-aad5-6b826555d0cd` |                           |                          |                                        |
+|  <mark style="color:blue;">Production de fil de polyamide recyclé (recyclage mécanique), traitement de déchets de production textiles</mark>             | `af5d130d-f18b-438c-9f19-d1ee49756960` |                           |                          |                                        |
+|  <mark style="color:blue;">Production de fil de laine recyclé (recyclage mécanique), traitement de déchets de production textiles</mark>                 | `92dfabc7-9441-463e-bda8-7bc5943c0e9d` | 2,87                      | 0                        | Base Impacts (méta données du procédé) |
+|  Production de fil de coton recyclé (recyclage mécanique), traitement de déchets textiles post-consommation                                              | `4d23093d-1346-4018-8c0f-7aae33c67bcd` |                           |                          |                                        |
+|  <mark style="color:blue;">Production de fil de coton recyclé (recyclage mécanique), traitement de déchets de production textiles</mark>                 | `2b24abb0-c1ec-4298-9b58-350904a26104` |                           |                          |                                        |
+|  <mark style="color:blue;">Production de fil d'acrylique recyclé (recyclage mécanique), traitement de déchets de production textiles</mark>              | `7603beaa-c555-4283-b9f8-4d5d231b8490` |                           |                          |                                        |
+|  Production de fibres recyclées, traitement de déchets textiles post-consommation (recyclage mécanique)                                                  | `ca5dc5b3-7fa2-4779-af0b-aa6f31cd457f` |                           |                          |                                        |
+
+Le rapport de Cycleco pris comme référence est accessible sur [ce lien](https://textile.cycleco.eu/ecrans/references/cycleco\_proposition\_bdd\_semi\_specifiques\_06122011.pdf).
