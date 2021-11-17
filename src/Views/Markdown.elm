@@ -45,6 +45,7 @@ renderer maybePath =
     }
 
 
+renderHint : String -> List (Html msg) -> Html msg
 renderHint level content =
     let
         makeIcon icon =
@@ -69,6 +70,7 @@ renderHint level content =
         ]
 
 
+renderMark : String -> List (Html msg) -> Html msg
 renderMark style_ =
     span
         [ class "mark"
