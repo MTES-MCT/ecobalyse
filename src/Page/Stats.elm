@@ -6,10 +6,6 @@ import Html.Attributes exposing (..)
 import Views.Container as Container
 
 
-
--- import Views.ElmChartsBug as ElmChartsBug
-
-
 type alias Model =
     ()
 
@@ -35,10 +31,6 @@ view _ _ =
     ( "Statistiques"
     , [ Container.centered []
             [ h1 [ class "mb-3" ] [ text "Statistiques" ]
-
-            -- , div [ style "width" "500px", style "height" "500px", class "my-5" ]
-            --     [ ElmChartsBug.chart
-            --     ]
             , div [ id "widgetIframe" ]
                 [ iframe
                     [ attribute "frameborder" "0"
