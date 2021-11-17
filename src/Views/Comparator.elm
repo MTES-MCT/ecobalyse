@@ -313,9 +313,9 @@ chart entries =
 
         legends =
             [ C.legendsAt
-                (\{ min } -> min - 0.3)
+                (\{ max } -> max / 2)
                 (\{ max } -> max * 1.15)
-                [ CA.spacing 7 ]
+                [ CA.alignMiddle ]
                 [ CA.spacing 2, CA.fontSize 11 ]
             ]
 
