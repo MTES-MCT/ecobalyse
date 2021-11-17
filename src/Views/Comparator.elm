@@ -8,7 +8,6 @@ import Data.Db exposing (Db)
 import Data.Gitbook as Gitbook
 import Data.Inputs as Inputs
 import Data.LifeCycle as LifeCycle
-import Data.Material as Material
 import Data.Session exposing (Session)
 import Data.Simulator as Simulator exposing (Simulator)
 import Data.Step as Step
@@ -20,9 +19,7 @@ import Result.Extra as RE
 import Svg as S
 import Svg.Attributes as SA
 import Views.Alert as Alert
-import Views.Button as Button
 import Views.Format as Format
-import Views.Icon as Icon
 
 
 type alias Config msg =
