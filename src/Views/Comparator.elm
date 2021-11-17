@@ -32,6 +32,7 @@ type alias Config msg =
 type alias Entry =
     { label : String
     , highlight : Bool
+    , knitted : Bool
     , kgCo2e : Float
     , materialAndSpinning : Float
     , weavingKnitting : Float
@@ -147,8 +148,8 @@ createEntry db highlight ( label, query ) =
     query
         |> Simulator.compute db
         |> Result.andThen
-            (\{ lifeCycle, transport, co2 } ->
-                Ok (Entry label highlight (Co2.inKgCo2e co2))
+            (\{ lifeCycle, inputs, transport, co2 } ->
+                Ok (Entry label highlight inputs.product.knitted (Co2.inKgCo2e co2))
                     |> RE.andMap (stepCo2Float Step.MaterialAndSpinning lifeCycle)
                     |> RE.andMap (stepCo2Float Step.WeavingKnitting lifeCycle)
                     |> RE.andMap (stepCo2Float Step.Ennoblement lifeCycle)
@@ -209,6 +210,9 @@ fillLabels labels =
 chart : List Entry -> Html msg
 chart entries =
     let
+        knitted =
+            entries |> List.head |> Maybe.map .knitted |> Maybe.withDefault False
+
         barStyleVariation _ { highlight } =
             if not highlight then
                 [ CA.striped [] ]
@@ -237,7 +241,11 @@ chart entries =
                     --     |> C.stacked
                     -- ]
                     [ [ "Matière"
-                      , "Tissage/Tricotage"
+                      , if knitted then
+                            "Tricotage"
+
+                        else
+                            "Tissage"
                       , "Teinture"
                       , "Confection"
                       , "Transport"
