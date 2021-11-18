@@ -724,7 +724,7 @@ simulatorView ({ db } as session) model ({ inputs } as simulator) =
 view : Session -> Model -> ( String, List (Html Msg) )
 view session model =
     ( "Simulateur"
-    , [ Container.fluidUpto Container.XL
+    , [ Container.centered
             [ class "Simulator pb-3" ]
             [ h1 [ class "mb-3" ] [ text "Simulateur" ]
             , case model.simulator of

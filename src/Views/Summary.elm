@@ -38,9 +38,7 @@ summaryView { session, reusable } ({ inputs, lifeCycle } as simulator) =
                 [ img
                     [ src <| "img/product/" ++ inputs.product.name ++ ".svg"
                     , alt <| inputs.product.name
-                    , class "invert me-2"
-                    , style "width" "3em"
-                    , style "height" "3em"
+                    , class "SummaryProductImage invert me-2"
                     ]
                     []
                 , div [ class "display-5" ]
@@ -53,8 +51,7 @@ summaryView { session, reusable } ({ inputs, lifeCycle } as simulator) =
                 |> LifeCycle.computeTotalTransports
                 |> TransportView.view { fullWidth = False }
             ]
-        , details [ class "d-none d-sm-block card-body p-2 border-bottom" ]
-            -- TODO: render an horiz stacked barchart for smaller viewports?
+        , details [ class "card-body p-2 border-bottom" ]
             [ summary [ class "text-muted fs-7" ] [ text "Détails des postes" ]
             , Chart.view simulator
             ]
