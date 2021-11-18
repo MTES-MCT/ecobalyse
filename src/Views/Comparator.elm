@@ -218,25 +218,42 @@ view { session, simulator } =
                 }
 
 
+chartTextColor : String
+chartTextColor =
+    "#5d5b7e"
+
+
 {-| Create vertical labels from percentages on the x-axis.
 -}
-fillLabels : List String -> List (C.Element data msg)
-fillLabels labels =
+fillLabels : List Entry -> List (C.Element data msg)
+fillLabels entries =
     let
         ( baseWidth, leftPadding ) =
-            ( 100 / toFloat (clamp 1 100 (List.length labels))
-            , 4.2
+            ( 100 / toFloat (clamp 1 100 (List.length entries))
+            , 3.8
             )
+
+        createLabel ( { label, highlight }, xPosition ) =
+            C.labelAt
+                (CA.percent xPosition)
+                (CA.percent 0)
+                [ CA.rotate 90
+                , CA.color chartTextColor
+                , CA.attrs
+                    [ SA.fontSize "14"
+                    , SA.style "text-anchor: start"
+                    , if highlight then
+                        SA.fontWeight "bold"
+
+                      else
+                        SA.fontWeight "normal"
+                    ]
+                ]
+                [ S.text label ]
     in
-    labels
-        |> List.indexedMap (\i label -> ( label, toFloat i * baseWidth + leftPadding ))
-        |> List.map
-            (\( label, x ) ->
-                C.labelAt (CA.percent x)
-                    (CA.percent 0)
-                    [ CA.rotate 90, CA.attrs [ SA.fontSize "13", SA.style "text-anchor: start" ] ]
-                    [ S.text label ]
-            )
+    entries
+        |> List.indexedMap (\i entry -> ( entry, toFloat i * baseWidth + leftPadding ))
+        |> List.map createLabel
 
 
 chart : List Entry -> Html msg
@@ -247,50 +264,50 @@ chart entries =
 
         barStyleVariation _ { highlight } =
             if not highlight then
-                [ CA.striped [] ]
+                [ CA.opacity 0.35 ]
 
             else
                 []
 
+        barsData =
+            -- There's an unfortunate bug in elm-charts where legend colors are inverted
+            -- see https://github.com/terezka/elm-charts/issues/101
+            -- FIXME: once an official fix is released, the expected implementation is:
+            -- [ ( "Matière", .materialAndSpinning )
+            -- , ( if knitted then
+            --       "Tricotage"
+            --     else
+            --       "Tissage"
+            --   , .weavingKnitting
+            --   )
+            -- , ( "Teinture", .dyeing )
+            -- , ( "Confection", .making )
+            -- , ( "Transport", .transport )
+            -- ]
+            [ "Matière"
+            , if knitted then
+                "Tricotage"
+
+              else
+                "Tissage"
+            , "Teinture"
+            , "Confection"
+            , "Transport"
+            ]
+                |> LE.zip
+                    (List.reverse
+                        [ .materialAndSpinning
+                        , .weavingKnitting
+                        , .dyeing
+                        , .making
+                        , .transport
+                        ]
+                    )
+
         bars =
             [ entries
-                |> C.bars [ CA.margin 0.32 ]
-                    -- There's an unfortunate bug in elm-charts where legend colors are inverted
-                    -- see https://github.com/terezka/elm-charts/issues/101
-                    -- FIXME: once an official fix is released, the right implementation is:
-                    -- [ [ ( "Matière", .materialAndSpinning )
-                    --   , ( "Tissage/Tricotage", .weavingKnitting )
-                    --   , ( "Teinture", .dyeing )
-                    --   , ( "Confection", .making )
-                    --   , ( "Transport", .transport )
-                    --   ]
-                    --     |> List.map
-                    --         (\( label, getter ) ->
-                    --             C.bar getter []
-                    --                 |> C.named label
-                    --                 |> C.variation barStyleVariation
-                    --         )
-                    --     |> C.stacked
-                    -- ]
-                    [ [ "Matière"
-                      , if knitted then
-                            "Tricotage"
-
-                        else
-                            "Tissage"
-                      , "Teinture"
-                      , "Confection"
-                      , "Transport"
-                      ]
-                        |> LE.zip
-                            (List.reverse
-                                [ .materialAndSpinning
-                                , .weavingKnitting
-                                , .dyeing
-                                , .making
-                                , .transport
-                                ]
-                            )
+                |> C.bars [ CA.margin 0.28 ]
+                    [ barsData
                         |> List.map
                             (\( getter, label ) ->
                                 C.bar getter []
@@ -303,11 +320,11 @@ chart entries =
 
         xLabels =
             [ C.binLabels (\{ kgCo2e } -> Format.formatFloat 2 kgCo2e ++ "\u{202F}kgCO₂e")
-                [ CA.moveDown 23, CA.attrs [ SA.fontSize "12" ] ]
+                [ CA.moveDown 23, CA.color chartTextColor, CA.attrs [ SA.fontSize "12" ] ]
             ]
 
         yLabels =
-            [ C.yLabels [ CA.withGrid, CA.fontSize 13 ] ]
+            [ C.yLabels [ CA.withGrid, CA.fontSize 13, CA.color chartTextColor ] ]
 
         legends =
             [ C.legendsAt
@@ -318,9 +335,10 @@ chart entries =
             ]
 
         verticalLabels =
-            entries |> List.map .label |> fillLabels
+            fillLabels entries
     in
-    (xLabels ++ yLabels ++ bars ++ legends ++ verticalLabels)
+    [ xLabels, yLabels, bars, legends, verticalLabels ]
+        |> List.concat
         |> C.chart
             [ CA.height 250
             , CA.width 550
