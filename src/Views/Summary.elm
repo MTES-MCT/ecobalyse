@@ -12,6 +12,8 @@ import Views.Alert as Alert
 import Views.BarChart as Chart
 import Views.Comparator as Comparator
 import Views.Format as Format
+import Views.Icon as Icon
+import Views.Link as Link
 import Views.Transport as TransportView
 
 
@@ -51,7 +53,7 @@ summaryView { session, reusable } ({ inputs, lifeCycle } as simulator) =
                 |> LifeCycle.computeTotalTransports
                 |> TransportView.view { fullWidth = False }
             ]
-        , details [ class "d-none d-sm-block card-body px-2 py-2 border-bottom" ]
+        , details [ class "d-none d-sm-block card-body p-2 border-bottom" ]
             -- TODO: render an horiz stacked barchart for smaller viewports?
             [ summary [ class "text-muted fs-7" ] [ text "Détails des postes" ]
             , Chart.view simulator
@@ -70,6 +72,9 @@ summaryView { session, reusable } ({ inputs, lifeCycle } as simulator) =
                 |> String.join " "
                 |> text
             , Format.kg simulator.inputs.mass
+            , Link.smallPillExternal
+                [ href "https://fabrique-numerique.gitbook.io/wikicarbone/methodologie/echelle-comparative" ]
+                [ Icon.info ]
             ]
         , if reusable then
             div [ class "card-footer text-center" ]
