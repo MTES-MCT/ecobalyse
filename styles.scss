@@ -20,6 +20,7 @@ $viewport-sm: 576px;
 $viewport-md: 768px;
 $viewport-lg: 992px;
 $viewport-xl: 1200px;
+$viewport-xxl: 1320px;
 
 @import "./node_modules/bootstrap/scss/bootstrap.scss";
 
@@ -353,12 +354,22 @@ blockquote {
 }
 
 .Summary {
+  &ProductImage {
+    width: 3em;
+    height: 3em;
+  }
+
   @media screen and (max-width: $viewport-sm) {
     position: fixed;
     z-index: 1020;
     top: 100px;
     left: 0;
     right: 0;
+
+    &ProductImage {
+      width: 2em;
+      height: 2em;
+    }
 
     .card {
       border: 0;

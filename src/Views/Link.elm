@@ -12,3 +12,14 @@ external attrs =
 internal : List (Attribute msg) -> List (Html msg) -> Html msg
 internal attrs =
     a attrs
+
+
+smallPillExternal : List (Attribute msg) -> List (Html msg) -> Html msg
+smallPillExternal attrs =
+    a
+        ([ target "_blank"
+         , rel "noopener noreferrer"
+         , class "btn btn-sm text-secondary text-decoration-none btn-link p-0 ms-1"
+         ]
+            ++ attrs
+        )

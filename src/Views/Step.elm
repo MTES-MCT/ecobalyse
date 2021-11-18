@@ -273,7 +273,7 @@ detailedView ({ product, index, next, current } as config) =
                   else
                     text ""
                 , li [ class "list-group-item text-muted" ]
-                    [ TransportView.view True current.transport ]
+                    [ current.transport |> TransportView.view { fullWidth = True } ]
                 , li [ class "list-group-item text-muted d-flex justify-content-center align-items-center" ]
                     [ strong [] [ text <| transportLabel ++ "\u{00A0}:\u{00A0}" ]
                     , Format.kgCo2 3 current.transport.co2

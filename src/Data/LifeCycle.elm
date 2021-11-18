@@ -58,6 +58,11 @@ getStep label =
     Array.filter (.label >> (==) label) >> Array.get 0
 
 
+getStepCo2 : Step.Label -> LifeCycle -> Maybe Co2e
+getStepCo2 label =
+    getStep label >> Maybe.map .co2
+
+
 getStepMass : Step.Label -> LifeCycle -> Mass
 getStepMass label =
     getStep label >> Maybe.map .mass >> Maybe.withDefault (Mass.kilograms 0)
