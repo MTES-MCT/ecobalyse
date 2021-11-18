@@ -295,6 +295,7 @@ encode v =
         , ( "country", Country.encode v.country )
         , ( "editable", Encode.bool v.editable )
         , ( "inputMass", Encode.float (Mass.inKilograms v.inputMass) )
+        , ( "outputMass", Encode.float (Mass.inKilograms v.outputMass) )
         , ( "waste", Encode.float (Mass.inKilograms v.waste) )
         , ( "transport", Transport.encode v.transport )
         , ( "co2", Co2.encodeKgCo2e v.co2 )
