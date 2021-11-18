@@ -7,7 +7,6 @@ import Data.Inputs as Inputs exposing (Inputs)
 import Data.Step as Step exposing (Step)
 import Data.Transport as Transport exposing (Transport)
 import Json.Encode as Encode
-import Mass exposing (Mass)
 import Quantity
 import Result.Extra as RE
 
