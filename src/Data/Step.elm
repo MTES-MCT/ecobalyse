@@ -22,6 +22,7 @@ type alias Step =
     , country : Country
     , editable : Bool
     , inputMass : Mass
+    , outputMass : Mass
     , waste : Mass
     , transport : Transport
     , co2 : Co2e
@@ -56,6 +57,7 @@ create label editable country =
     , country = country
     , editable = editable
     , inputMass = Mass.kilograms 0
+    , outputMass = Mass.kilograms 0
     , waste = Mass.kilograms 0
     , transport = default
     , co2 = Quantity.zero
