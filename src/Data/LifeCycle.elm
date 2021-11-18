@@ -58,9 +58,9 @@ getStep label =
     Array.filter (.label >> (==) label) >> Array.get 0
 
 
-getStepMass : Step.Label -> LifeCycle -> Mass
-getStepMass label =
-    getStep label >> Maybe.map .inputMass >> Maybe.withDefault (Mass.kilograms 0)
+getStepProp : Step.Label -> (Step -> a) -> a -> LifeCycle -> a
+getStepProp label prop default =
+    getStep label >> Maybe.map prop >> Maybe.withDefault default
 
 
 fromQuery : Db -> Inputs.Query -> Result String LifeCycle

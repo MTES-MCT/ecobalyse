@@ -218,7 +218,7 @@ computeWeavingKnittingStepWaste ({ inputs, lifeCycle } as simulator) =
     let
         { mass, waste } =
             lifeCycle
-                |> LifeCycle.getStepMass Step.Making
+                |> LifeCycle.getStepProp Step.Making .inputMass Quantity.zero
                 |> Formula.genericWaste inputs.product.fabricProcess.waste
     in
     simulator
@@ -231,7 +231,7 @@ computeMaterialStepWaste ({ inputs, lifeCycle } as simulator) =
     let
         { mass, waste } =
             lifeCycle
-                |> LifeCycle.getStepMass Step.WeavingKnitting
+                |> LifeCycle.getStepProp Step.WeavingKnitting .inputMass Quantity.zero
                 |> (case ( inputs.material.recycledProcess, inputs.recycledRatio ) of
                         ( Just recycledProcess, Just ratio ) ->
                             Formula.materialRecycledWaste
