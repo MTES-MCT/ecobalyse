@@ -1,16 +1,16 @@
 # Echelle comparative
 
-Lorsqu'une simulation est réalisée, l'impact calculé est positionné sur une échelle, au regard des impacts de 3 configurations "repères".
+Lorsqu'une simulation est réalisée, l'impact calculé est positionné sur une échelle, au regard des impacts de 5 configurations "repères".
 
-L'échelle permet de comparer des simulations dont le paramètres suivants sont identiques : 
+L'échelle permet de comparer des simulations dont le paramètres suivants sont identiques :&#x20;
 
 * Type de produit / vêtement
 * Masse de produit fini
-* Matière première
+* Matière première (en associant une matière pr
 
 Dès lors, c'est bien le paramétrage des autres aspects (Tricotage / Tissage, Teinture, Confection, Transport aérien...) qui est à l'origine de la distribution illustrée par l'échelle comparative.
 
-3 repères sont pré-positionnés sur l'échelle comparative : 
+3 repères sont pré-positionnés sur l'échelle comparative :&#x20;
 
 * Un repère "bas" : Circuit France
 * Un repère "moyen" : Circuit Turquie moyen
