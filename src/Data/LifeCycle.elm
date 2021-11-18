@@ -7,7 +7,6 @@ import Data.Inputs as Inputs exposing (Inputs)
 import Data.Step as Step exposing (Step)
 import Data.Transport as Transport exposing (Transport)
 import Json.Encode as Encode
-import Mass exposing (Mass)
 import Quantity
 import Result.Extra as RE
 
@@ -58,14 +57,9 @@ getStep label =
     Array.filter (.label >> (==) label) >> Array.get 0
 
 
-getStepCo2 : Step.Label -> LifeCycle -> Maybe Co2e
-getStepCo2 label =
-    getStep label >> Maybe.map .co2
-
-
-getStepMass : Step.Label -> LifeCycle -> Mass
-getStepMass label =
-    getStep label >> Maybe.map .mass >> Maybe.withDefault (Mass.kilograms 0)
+getStepProp : Step.Label -> (Step -> a) -> a -> LifeCycle -> a
+getStepProp label prop default =
+    getStep label >> Maybe.map prop >> Maybe.withDefault default
 
 
 fromQuery : Db -> Inputs.Query -> Result String LifeCycle

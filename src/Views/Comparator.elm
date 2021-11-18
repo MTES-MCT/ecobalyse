@@ -14,6 +14,7 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import List.Extra as LE
+import Quantity
 import Result.Extra as RE
 import Svg as S
 import Svg.Attributes as SA
@@ -157,21 +158,25 @@ toNonRecycledIndia query =
 createEntry : Db -> Bool -> ( String, Inputs.Query ) -> Result String Entry
 createEntry db highlight ( label, query ) =
     let
-        stepCo2Float stepLabel =
-            LifeCycle.getStepCo2 stepLabel
-                >> Maybe.map Co2.inKgCo2e
-                >> Result.fromMaybe ("Impact d'étape non trouvé: " ++ Step.labelToString stepLabel)
+        stepCo2Float stepLabel lifeCycle =
+            lifeCycle
+                |> LifeCycle.getStepProp stepLabel .co2 Quantity.zero
+                |> Co2.inKgCo2e
     in
     query
         |> Simulator.compute db
-        |> Result.andThen
+        |> Result.map
             (\{ lifeCycle, inputs, transport, co2 } ->
-                Ok (Entry label highlight inputs.product.knitted (Co2.inKgCo2e co2))
-                    |> RE.andMap (stepCo2Float Step.MaterialAndSpinning lifeCycle)
-                    |> RE.andMap (stepCo2Float Step.WeavingKnitting lifeCycle)
-                    |> RE.andMap (stepCo2Float Step.Ennoblement lifeCycle)
-                    |> RE.andMap (stepCo2Float Step.Making lifeCycle)
-                    |> RE.andMap (Ok (Co2.inKgCo2e transport.co2))
+                { label = label
+                , highlight = highlight
+                , knitted = inputs.product.knitted
+                , kgCo2e = Co2.inKgCo2e co2
+                , materialAndSpinning = lifeCycle |> stepCo2Float Step.MaterialAndSpinning
+                , weavingKnitting = lifeCycle |> stepCo2Float Step.WeavingKnitting
+                , dyeing = lifeCycle |> stepCo2Float Step.Ennoblement
+                , making = lifeCycle |> stepCo2Float Step.Making
+                , transport = Co2.inKgCo2e transport.co2
+                }
             )
 
 
