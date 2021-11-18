@@ -2,7 +2,7 @@
 
 > Accélerer la mise en place de l'affichage environnemental
 
-![](https://i.imgur.com/s6wAYhZ.png)
+![image](https://user-images.githubusercontent.com/41547/142401805-56783edf-75c8-4f15-97ba-b86a876c6c31.png)
 
 L'application est accessible [à cette adresse](https://wikicarbone.beta.gouv.fr/).
 

@@ -18,7 +18,11 @@ type alias Distances =
 
 
 type alias Transport =
-    { road : Length, sea : Length, air : Length, co2 : Co2e }
+    { road : Length
+    , sea : Length
+    , air : Length
+    , co2 : Co2e
+    }
 
 
 default : Transport
