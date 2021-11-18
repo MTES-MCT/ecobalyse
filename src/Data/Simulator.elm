@@ -111,7 +111,7 @@ computeMakingCo2Score ({ inputs } as simulator) =
             (\({ country } as step) ->
                 let
                     { kwh, co2 } =
-                        step.inputMass
+                        step.outputMass
                             |> Formula.makingCo2
                                 { makingCC = inputs.product.makingProcess.climateChange
                                 , makingElec = inputs.product.makingProcess.elec
@@ -135,7 +135,7 @@ computeDyeingCo2Score { processes } simulator =
                         (\({ dyeingWeighting, country } as step) ->
                             let
                                 { co2, heat, kwh } =
-                                    step.inputMass
+                                    step.outputMass
                                         |> Formula.dyeingCo2 ( dyeingLow, dyeingHigh )
                                             dyeingWeighting
                                             country.heatProcess.climateChange
@@ -157,7 +157,7 @@ computeMaterialAndSpinningCo2Score ({ inputs } as simulator) =
                     | co2 =
                         case ( inputs.material.recycledProcess, inputs.recycledRatio ) of
                             ( Just recycledProcess, Just ratio ) ->
-                                step.inputMass
+                                step.outputMass
                                     |> Co2.ratioedForKg
                                         ( recycledProcess.climateChange
                                         , inputs.material.materialProcess.climateChange
@@ -165,24 +165,21 @@ computeMaterialAndSpinningCo2Score ({ inputs } as simulator) =
                                         ratio
 
                             _ ->
-                                step.inputMass
+                                step.outputMass
                                     |> Co2.forKg inputs.material.materialProcess.climateChange
                 }
             )
 
 
 computeWeavingKnittingCo2Score : Simulator -> Simulator
-computeWeavingKnittingCo2Score ({ inputs, lifeCycle } as simulator) =
+computeWeavingKnittingCo2Score ({ inputs } as simulator) =
     simulator
         |> updateLifeCycleStep Step.WeavingKnitting
             (\({ country } as step) ->
                 let
                     { kwh, co2 } =
-                        -- NOTE: knitted elec is computed against previous step mass,
-                        -- weaved elec is computed against current step mass
                         if inputs.product.knitted then
-                            lifeCycle
-                                |> LifeCycle.getStepMass Step.Ennoblement
+                            step.outputMass
                                 |> Formula.knittingCo2
                                     { elec = inputs.product.fabricProcess.elec
                                     , elecCC =
@@ -191,7 +188,7 @@ computeWeavingKnittingCo2Score ({ inputs, lifeCycle } as simulator) =
                                     }
 
                         else
-                            step.inputMass
+                            step.outputMass
                                 |> Formula.weavingCo2
                                     { elecPppm = inputs.product.fabricProcess.elec_pppm
                                     , elecCC =
