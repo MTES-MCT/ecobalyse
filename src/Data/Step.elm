@@ -237,6 +237,23 @@ update { dyeingWeighting, airTransportRatio, customCountryMixes } _ ({ label, co
             step
 
 
+initMass : Mass -> Step -> Step
+initMass mass step =
+    { step
+        | inputMass = mass
+        , outputMass = mass
+    }
+
+
+updateWaste : Mass -> Mass -> Step -> Step
+updateWaste waste mass step =
+    { step
+        | waste = waste
+        , inputMass = mass
+        , outputMass = Quantity.difference mass waste
+    }
+
+
 airTransportRatioToString : Float -> String
 airTransportRatioToString airTransportRatio =
     case round (airTransportRatio * 100) of
