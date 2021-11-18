@@ -53,10 +53,10 @@ $$
 
 ### Procédé de tricotage
 
-L'impact du procédé de tricotage retenu est le produit de la masse "entrante", en l'occurrence la masse de fil en sortie de filature, avec le coefficient d'impact considéré (cf. [Impacts considérés](impacts-consideres.md)).
+L'impact du procédé de tricotage retenu est le produit de la masse "sortante", en l'occurrence la masse d'étoffe, avec le coefficient d'impact considéré (cf. [Impacts considérés](impacts-consideres.md)).
 
 $$
-ImpactProcédéTricotage = MasseEntrante(kg) * CoefImpactProcédéTricotage
+ImpactProcédéTricotage = MasseSortante(kg) * CoefImpactProcédéTricotage
 $$
 
 {% hint style="warning" %}
@@ -150,10 +150,10 @@ $$
 
 ### Procédé de tissage
 
-L'impact du procédé de tissage retenu est le produit de la masse "entrante", en l'occurrence la masse de fil en sortie de filature, avec le coefficient d'impact considéré (cf. [Impacts considérés](impacts-consideres.md)).
+L'impact du procédé de tissage retenu est le produit de la masse "sortante", en l'occurrence la masse d'étoffe, avec le coefficient d'impact considéré (cf. [Impacts considérés](impacts-consideres.md)).
 
 $$
-ImpactProcédéTissage = MasseEntrante(kg) * CoefImpactProcédéTissage
+ImpactProcédéTissage = MasseSortante(kg) * CoefImpactProcédéTissage
 $$
 
 {% hint style="warning" %}
