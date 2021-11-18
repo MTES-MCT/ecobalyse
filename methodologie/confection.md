@@ -26,10 +26,10 @@ $$
 
 ## Procédé de confection
 
-L'impact du procédé de confection retenu est le produit de la masse "entrante", en l'occurrence la masse de tissu en sortie d'ennoblissement (teinture), avec le coefficient d'impact considéré (cf. [Impacts considérés](impacts-consideres.md)).
+L'impact du procédé de confection retenu est le produit de la masse "sortante" avec le coefficient d'impact considéré (cf. [Impacts considérés](impacts-consideres.md)).
 
 $$
-ImpactProcédéConfection = MasseEntrante(kg) * CoefImpactProcédéConfection
+ImpactProcédéConfection = MasseSortante(kg) * CoefImpactProcédéConfection
 $$
 
 {% hint style="warning" %}
