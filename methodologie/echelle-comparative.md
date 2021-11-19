@@ -6,13 +6,14 @@ L'échelle permet de comparer des simulations dont le paramètres suivants sont 
 
 * Type de produit / vêtement
 * Masse de produit fini
-* Matière première (en associant une matière pr
+* Matière première (en associant une matière première recyclée lorsque celle-ci est définie dans la page [Matière et filature](filature.md))
 
 Dès lors, c'est bien le paramétrage des autres aspects (Tricotage / Tissage, Teinture, Confection, Transport aérien...) qui est à l'origine de la distribution illustrée par l'échelle comparative.
 
-3 repères sont pré-positionnés sur l'échelle comparative :&#x20;
+5 repères sont pré-positionnés sur l'échelle comparative :&#x20;
 
-* Un repère "bas" : Circuit France
+* Un repère "France 100% recyclé"
+* Un repère "France 0% recyclé"
 * Un repère "moyen" : Circuit Turquie moyen
 * Un repère "haut" : Circuit Inde majorant
 
