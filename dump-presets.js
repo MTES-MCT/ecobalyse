@@ -10,20 +10,13 @@
  */
 const fs = require("fs");
 const { Elm } = require("./dump-presets-app");
+const { buildJsonDb } = require("./lib");
 
-function getJson(path) {
-  return JSON.parse(fs.readFileSync(path).toString());
-}
-
-const jsonDb = JSON.stringify({
-  countries: getJson("public/data/countries.json"),
-  materials: getJson("public/data/materials.json"),
-  processes: getJson("public/data/processes.json"),
-  products: getJson("public/data/products.json"),
-  transports: getJson("public/data/transports.json"),
+const elmApp = Elm.DumpPresets.init({
+  flags: {
+    jsonDb: buildJsonDb(),
+  },
 });
-
-const elmApp = Elm.DumpPresets.init({ flags: { jsonDb } });
 
 elmApp.ports.output.subscribe((result) => {
   // Exit with error if the process failed
