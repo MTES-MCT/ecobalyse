@@ -54,7 +54,7 @@ update msg model =
             )
 
 
-main : Program Model Model Msg
+main : Program Flags Model Msg
 main =
     Platform.worker
         { init = init

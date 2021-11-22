@@ -26,9 +26,17 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
 
-    - run: npm ci
-    - run: npm run build --if-present
-    - run: npm test
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Run tests
+      run: npm test
+
+    - name: Dump test presets
+      run: npm run dump:presets
+
+    - name: Build app
+      run: npm run build --if-present
 
     - name: Get branch names
       id: branch-name

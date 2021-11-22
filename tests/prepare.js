@@ -4,21 +4,10 @@
  * is impossible in an Elm test environment.
  */
 const fs = require("fs");
-
-function getJson(path) {
-  return JSON.parse(fs.readFileSync(path).toString());
-}
-
-const finalJson = {
-  countries: getJson("public/data/countries.json"),
-  materials: getJson("public/data/materials.json"),
-  processes: getJson("public/data/processes.json"),
-  products: getJson("public/data/products.json"),
-  transports: getJson("public/data/transports.json"),
-};
+const { buildJsonDb } = require("../lib");
 
 const elmTemplate = fs.readFileSync("tests/TestDb.elm-template").toString();
-const elmFixtures = elmTemplate.replace("%json%", JSON.stringify(finalJson, 2));
+const elmFixtures = elmTemplate.replace("%json%", buildJsonDb());
 
 try {
   fs.writeFileSync("tests/TestDb.elm", elmFixtures);

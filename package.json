@@ -8,6 +8,7 @@
   "scripts": {
     "build": "rimraf dist && npm run build:init && parcel build index.html --public-url ./",
     "build:init": "mkdir -p dist && cp -r public/* dist/",
+    "dump:presets": "elm make src/DumpPresets.elm --optimize --output=dump-presets-app.js && node dump-presets.js",
     "deploy": "npm run build && gh-pages --dist dist/",
     "start:parcel": "parcel serve index.html --no-cache",
     "start:filewatch": "chokidar 'src/**/!(Main).elm' -c 'touch src/Main.elm'",

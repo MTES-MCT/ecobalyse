@@ -5,6 +5,8 @@
 /public/app.js
 /public/main.css
 /public/main.css.map
+/public/data/dump-presets.json
+/dump-presets-app.js
 /server-app.js
 /tests/TestDb.elm
 /xls
