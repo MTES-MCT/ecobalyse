@@ -753,7 +753,7 @@
     "elec_pppm": 0,
     "elec": 9.612,
     "waste": 0,
-    "alias": "dyeingLow"
+    "alias": null
   },
   {
     "cat1": "Textile",
@@ -767,7 +767,7 @@
     "elec_pppm": 0,
     "elec": 2.232,
     "waste": 0,
-    "alias": "dyeingLow"
+    "alias": null
   },
   {
     "cat1": "Textile",
@@ -781,7 +781,7 @@
     "elec_pppm": 0,
     "elec": 1.8,
     "waste": 0,
-    "alias": "dyeingLow"
+    "alias": null
   },
   {
     "cat1": "Textile",
@@ -795,7 +795,7 @@
     "elec_pppm": 0,
     "elec": 3.204,
     "waste": 0,
-    "alias": "dyeingLow"
+    "alias": null
   },
   {
     "cat1": "Textile",
@@ -809,7 +809,7 @@
     "elec_pppm": 0,
     "elec": 1.512,
     "waste": 0,
-    "alias": "dyeingLow"
+    "alias": null
   },
   {
     "cat1": "Transport",
