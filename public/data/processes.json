@@ -341,7 +341,7 @@
       "cat3": "Matières naturelles",
       "name": "Fibres de kapok, inventaire agrégé",
       "uuid": "36cdbfc4-3f48-47b0-8ae0-294bb6017df1",
-      "climateChange": "-0.0280245",
+      "climateChange": -0.0280245,
       "freshwaterEutrophication": 0.00551453,
       "heat": 0,
       "elec_pppm": 0,
