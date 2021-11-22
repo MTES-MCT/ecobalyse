@@ -58,16 +58,6 @@ add sA sB =
     }
 
 
-materialToSpinningTransport : Transport
-materialToSpinningTransport =
-    -- Note: used as the defaults for the initial Material&Spinning step
-    { road = Length.kilometers 2000
-    , sea = Length.kilometers 4000
-    , air = Length.kilometers 0
-    , co2 = Quantity.zero
-    }
-
-
 {-| Determine road/sea transport ratio, so road transport is priviledged
 for shorter distances. A few notes:
 

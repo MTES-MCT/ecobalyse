@@ -28,8 +28,8 @@ suite =
                                 |> Result.map LifeCycle.computeTotalTransports
                                 |> Expect.equal
                                     (Ok
-                                        { road = km 4500
-                                        , sea = km 25548
+                                        { road = km 2500
+                                        , sea = km 21548
                                         , air = km 0
                                         , co2 = Co2.kgCo2e 0
                                         }
@@ -50,8 +50,8 @@ suite =
                                 |> Result.map LifeCycle.computeTotalTransports
                                 |> Expect.equal
                                     (Ok
-                                        { road = km 3500
-                                        , sea = km 37508
+                                        { road = km 1500
+                                        , sea = km 33508
                                         , air = km 0
                                         , co2 = Co2.kgCo2e 0
                                         }
