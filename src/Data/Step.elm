@@ -113,7 +113,6 @@ computeTransports db next current =
                     | transport =
                         stepSummary
                             |> computeTransportCo2 wellKnown roadTransportProcess next.inputMass
-                            |> Transport.add (initialTransportSummary wellKnown current)
                 }
             )
 
@@ -132,18 +131,6 @@ computeTransportCo2 { seaTransport, airTransport } roadProcess mass { road, sea,
     , air = air
     , co2 = Quantity.sum [ roadCo2, seaCo2, airCo2 ]
     }
-
-
-initialTransportSummary : Process.WellKnown -> Step -> Transport
-initialTransportSummary wellKnown { label, inputMass } =
-    case label of
-        MaterialAndSpinning ->
-            -- Apply initial Material to Spinning step transport data (see Excel)
-            Transport.materialToSpinningTransport
-                |> computeTransportCo2 wellKnown wellKnown.roadTransportPreMaking inputMass
-
-        _ ->
-            default
 
 
 computeTransportSummary : Step -> Transport -> Transport
