@@ -1,9 +1,8 @@
 port module Server exposing (main)
 
-import Data.Co2 as Co2
 import Data.Db as Db exposing (Db)
 import Data.Inputs as Inputs
-import Data.Simulator as Simulator
+import Data.Simulator as Simulator exposing (Simulator)
 import Json.Decode as Decode
 import Json.Encode as Encode
 
@@ -37,11 +36,12 @@ sendResponse httpStatus jsResponseHandler body =
         |> output
 
 
-toResponse : Encode.Value -> Result String Float -> Cmd Msg
+toResponse : Encode.Value -> Result String Simulator -> Cmd Msg
 toResponse jsResponseHandler result =
     case result of
-        Ok score ->
-            Encode.object [ ( "score", Encode.float score ) ]
+        Ok simulator ->
+            simulator
+                |> Simulator.encode
                 |> sendResponse 200 jsResponseHandler
 
         Err error ->
@@ -58,7 +58,6 @@ update msg model =
                 |> Decode.decodeValue Inputs.decodeQuery
                 |> Result.mapError Decode.errorToString
                 |> Result.andThen (Simulator.compute db)
-                |> Result.map (.co2 >> Co2.inKgCo2e)
                 |> toResponse jsResponseHandler
             )
 
