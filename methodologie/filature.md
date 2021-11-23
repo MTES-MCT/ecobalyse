@@ -223,7 +223,7 @@ ImpactMatièreEstimée = ImpactProcédéMatièreFilature - ImpactFilatureEstimé
 $$
 
 {% hint style="danger" %}
-Pour calculer l'impact "matière", il convient de soustraire l'impact de la filature estimé pour la géographie de référence retenue dans la base Impacts. Pour chaque matière, la géographie de référence est précisée dans les 3 tableaux supra (colonne géographie ou pays de filature).
+Pour calculer l'impact "matière", il convient de soustraire l'impact de la filature estimé pour la géographie de référence retenue dans la base Impacts. Pour chaque matière, la géographie de référence est précisée dans les 3 tableaux supra (colonne géographie).
 
 En revanche, l'impact de la filature peut bien être calculé pour différentes géographies (et donc différents mix électriques ou mix de chaleur), afin de rendre compte d'une filature qui serait réalisée sur un autre pays/géographie que celui de référence de la base Impacts.
 {% endhint %}
