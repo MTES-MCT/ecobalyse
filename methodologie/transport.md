@@ -107,7 +107,7 @@ Application à Inde - Bangladesh :
 
 | Etape                                      | Distance terrestre                                                                                                                            | Distance maritime                                                                                                                             |
 | ------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| Etape 1 (Matière première --> Filature)    | 2 000 km                                                                                                                                      | 4 000 km                                                                                                                                      |
+| Etape 1 (Matière première --> Filature)    | Non pris en compte. Distance internalisée dans le procédé unique                                                                              | Non pris en compte. Distance internalisée dans le procédé unique                                                                              |
 | Etape 2 (Filature --> Tricotage / Tissage) | Distance par défaut entre le pays de Tricotage / Tissage et le pays par défaut attaché à la filature (cf. [Matière et filature](filature.md)) | Distance par défaut entre le pays de Tricotage / Tissage et le pays par défaut attaché à la filature (cf. [Matière et filature](filature.md)) |
 
 ### Part du transport aérien
@@ -135,11 +135,11 @@ Les distances entre pays sont considérées à partir des calculateurs mis en av
 
 Ainsi :
 
-| Type de transport | Site de référence                                                                                          |
-| ----------------- | ---------------------------------------------------------------------------------------------------------- |
-| Terrestre         | [https://www.searates.com/services/distances-time/](https://www.searates.com/services/distances-time/)     |
-| Maritime          | [https://www.searates.com/services/distances-time/](https://www.searates.com/services/distances-time/)     |
-| Aérien            | [https://co2.myclimate.org/en/flight_calculators/new](https://co2.myclimate.org/en/flight_calculators/new) |
+| Type de transport | Site de référence                                                                                            |
+| ----------------- | ------------------------------------------------------------------------------------------------------------ |
+| Terrestre         | [https://www.searates.com/services/distances-time/](https://www.searates.com/services/distances-time/)       |
+| Maritime          | [https://www.searates.com/services/distances-time/](https://www.searates.com/services/distances-time/)       |
+| Aérien            | [https://co2.myclimate.org/en/flight\_calculators/new](https://co2.myclimate.org/en/flight\_calculators/new) |
 
 Lorsque deux étapes successives sont réalisées dans un même pays, une distance par défaut est considérée. Cette distance est également considérée pour du transport aérien si le curseur "transport aérien" est utilisé.
 
