@@ -10,6 +10,7 @@
     "build:init": "mkdir -p dist && cp -r public/* dist/",
     "dump:presets": "elm make src/DumpPresets.elm --optimize --output=dump-presets-app.js && node dump-presets.js",
     "deploy": "npm run build && gh-pages --dist dist/",
+    "server:start": "elm make src/Server.elm --output=server-app.js && node server.js",
     "start:parcel": "parcel serve index.html --no-cache",
     "start:filewatch": "chokidar 'src/**/!(Main).elm' -c 'touch src/Main.elm'",
     "start:dev": "npm run build:init && concurrently -n \"watch,parcel\" -c \"blue,green\" -k \"npm run start:filewatch\" \"npm run start:parcel\"",
@@ -24,7 +25,6 @@
     "bootstrap": "^5.1.1",
     "chokidar-cli": "^3.0.0",
     "concurrently": "^6.2.1",
-    "elm": "^0.19.1-5",
     "elm-analyse": "^0.16.5",
     "elm-format": "^0.8.5",
     "elm-test": "^0.19.1-revision7",
@@ -33,6 +33,7 @@
     "rimraf": "^3.0.2"
   },
   "dependencies": {
+    "elm": "^0.19.1-5",
     "express": "^4.17.1"
   }
 }

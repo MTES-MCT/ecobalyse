@@ -14,6 +14,8 @@ Cette application est écrite en [Elm](https://elm-lang.org/). Vous devez dispos
 
     $ npm install
 
+# Frontend (client Web)
+
 ## Développement
 
 Le serveur local de développement se lance au moyen de la commande suivante :
@@ -44,4 +46,10 @@ Il est cependant possible de déployer l'application manuellement au moyen de la
 
 ```
 $ npm run deploy
+```
+
+# Backend (serveur d'API)
+
+```
+$ npm run server:start
 ```

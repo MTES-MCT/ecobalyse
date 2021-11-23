@@ -1,7 +1,7 @@
 port module Server exposing (main)
 
 import Data.Co2 as Co2
-import Data.Db as Db
+import Data.Db as Db exposing (Db)
 import Data.Inputs as Inputs
 import Data.Simulator as Simulator
 import Json.Decode as Decode
@@ -9,48 +9,62 @@ import Json.Encode as Encode
 
 
 type alias Flags =
-    {}
+    { jsonDb : String }
 
 
 type alias Model =
-    {}
+    { db : Result String Db }
 
 
 type Msg
-    = Received String
+    = Received { inputs : Encode.Value, jsResponseHandler : Encode.Value }
 
 
 init : Flags -> ( Model, Cmd Msg )
-init _ =
-    -- TODO: pass json string as a flag, parse to init Db, store Db result in model
-    --       alternative: generate static Db elm module as we do for tests -> mutualize
-    ( {}
+init { jsonDb } =
+    ( { db = Db.buildFromJson jsonDb }
     , Cmd.none
     )
 
 
-toResponse : Result String Float -> Cmd Msg
-toResponse result =
+sendResponse : Int -> Encode.Value -> Encode.Value -> Cmd Msg
+sendResponse httpStatus jsResponseHandler body =
+    Encode.object
+        [ ( "status", Encode.int httpStatus )
+        , ( "body", body )
+        , ( "jsResponseHandler", jsResponseHandler )
+        ]
+        |> output
+
+
+toResponse : Encode.Value -> Result String Float -> Cmd Msg
+toResponse jsResponseHandler result =
     case result of
         Ok score ->
-            Encode.object [ ( "score", Encode.float score ) ] |> output
+            Encode.object [ ( "score", Encode.float score ) ]
+                |> sendResponse 200 jsResponseHandler
 
         Err error ->
-            Encode.object [ ( "error", Encode.string error ) ] |> output
+            Encode.object [ ( "error", Encode.string error ) ]
+                |> sendResponse 400 jsResponseHandler
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
-    case msg of
-        Received json ->
+    case ( msg, model.db ) of
+        ( Received { inputs, jsResponseHandler }, Ok db ) ->
             ( model
-            , json
-                |> Decode.decodeString Inputs.decodeQuery
+            , inputs
+                |> Decode.decodeValue Inputs.decodeQuery
                 |> Result.mapError Decode.errorToString
-                -- FIXME: Db should be loaded at this point
-                |> Result.andThen (Simulator.compute Db.empty)
+                |> Result.andThen (Simulator.compute db)
                 |> Result.map (.co2 >> Co2.inKgCo2e)
-                |> toResponse
+                |> toResponse jsResponseHandler
+            )
+
+        ( Received { jsResponseHandler }, Err error ) ->
+            ( model
+            , Err error |> toResponse jsResponseHandler
             )
 
 
@@ -63,7 +77,7 @@ main =
         }
 
 
-port input : (String -> msg) -> Sub msg
+port input : ({ inputs : Encode.Value, jsResponseHandler : Encode.Value } -> msg) -> Sub msg
 
 
 port output : Encode.Value -> Cmd msg
