@@ -2,7 +2,8 @@ const express = require("express");
 const { Elm } = require("./server-app");
 
 const app = express();
-const port = 3000;
+const host = "0.0.0.0";
+const port = process.env.PORT || 3000;
 const { buildJsonDb } = require("./lib");
 
 const elmApp = Elm.Server.init({
@@ -41,6 +42,6 @@ app.get("/", ({ query }, res) => {
   });
 });
 
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
+app.listen(port, host, () => {
+  console.log(`Example app listening at http://${host}:${port}`);
 });
