@@ -226,15 +226,17 @@ detailedView ({ product, index, next, current } as config) =
                     Nothing ->
                         text ""
                 ]
-            , case current.label of
-                Step.Ennoblement ->
-                    div [ class "card-body py-2 text-muted" ] [ dyeingWeightingField config ]
+            , div [ class "card-body py-2 text-muted" ]
+                [ case current.label of
+                    Step.Ennoblement ->
+                        dyeingWeightingField config
 
-                Step.Making ->
-                    div [ class "card-body py-2 text-muted" ] [ airTransportRatioField config ]
+                    Step.Making ->
+                        airTransportRatioField config
 
-                _ ->
-                    text ""
+                    _ ->
+                        text ""
+                ]
             ]
         , div
             [ class "card text-center" ]
