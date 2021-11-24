@@ -49,7 +49,12 @@ summaryView { session, reusable } ({ inputs, lifeCycle } as simulator) =
                 |> ul [ class "Chevrons" ]
             , lifeCycle
                 |> LifeCycle.computeTotalTransports
-                |> TransportView.view { fullWidth = False }
+                |> TransportView.view
+                    { fullWidth = False
+                    , airTransportLabel = Just "Transport aérien total"
+                    , seaTransportLabel = Just "Transport maritime total"
+                    , roadTransportLabel = Just "Transport routier total"
+                    }
             ]
         , details [ class "card-body p-2 border-bottom" ]
             [ summary [ class "text-muted fs-7" ] [ text "Détails des postes" ]

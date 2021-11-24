@@ -69,28 +69,17 @@ fromQuery db =
 
 init : Inputs -> LifeCycle
 init inputs =
-    initSteps inputs |> update inputs
-
-
-initSteps : Inputs -> LifeCycle
-initSteps inputs =
     inputs.countries
         |> List.map2
-            (\( label, editable ) -> Step.create label editable)
+            (\( label, editable ) country -> Step.create label editable country)
             [ ( Step.MaterialAndSpinning, False )
             , ( Step.WeavingKnitting, True )
             , ( Step.Ennoblement, True )
             , ( Step.Making, True )
             , ( Step.Distribution, False )
             ]
+        |> List.map (Step.updateFromInputs inputs)
         |> Array.fromList
-
-
-update : Inputs -> LifeCycle -> LifeCycle
-update inputs lifeCycle =
-    lifeCycle
-        |> Array.indexedMap
-            (\index -> Step.update inputs (Array.get (index + 1) lifeCycle))
 
 
 updateStep : Step.Label -> (Step -> Step) -> LifeCycle -> LifeCycle
