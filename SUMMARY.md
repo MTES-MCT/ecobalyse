@@ -22,3 +22,4 @@
 
 * [FAQ](faq.md)
 * [Glossaire](glossaire.md)
+* [API](api.md)
