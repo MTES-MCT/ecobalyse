@@ -12,21 +12,63 @@ Cette API est en version alpha, l'implémentation et le contrat d'interface est 
 
 ### Effectuer une simulation
 
-Exemple :
+{% swagger method="get" path="" baseUrl="https://wikicarbone.osc-fr1.scalingo.io/" summary="" %}
+{% swagger-description %}
+Effectue une simulation à partir des paramètres fournis.
+{% endswagger-description %}
+
+{% swagger-parameter in="query" name="mass" type="Float" required="true" %}
+Masse du produit en kg
+{% endswagger-parameter %}
+
+{% swagger-parameter in="query" name="product" type="String" required="true" %}
+Identifiant du produit
+{% endswagger-parameter %}
+
+{% swagger-parameter in="query" name="material" required="true" type="String" %}
+UUID de matière première
+{% endswagger-parameter %}
+
+{% swagger-parameter in="query" name="countries" type="String[]" required="true" %}
+Liste des codes pays pour chaque étape
+{% endswagger-parameter %}
+
+{% swagger-parameter in="query" name="dyeingWeighting" type="Float" %}
+Taux de majoration du procédé de teinture (entre 0 et 1)
+{% endswagger-parameter %}
+
+{% swagger-parameter in="query" name="airTransportRatio" type="Float" %}
+Part de transport aérien entre l'étape de confection et de distribution (entre 0 et 1)
+{% endswagger-parameter %}
+
+{% swagger-parameter in="query" name="recycledRatio" type="Float" %}
+Part de matière recyclée (entre 0 et 1)
+{% endswagger-parameter %}
+
+{% swagger-parameter in="query" name="customCountryMixes.fabric" type="Float" %}
+Impact du mix énergétique du pays à l'étape de Tissage/Tricotage, exprimé en kgCO₂/KWh
+{% endswagger-parameter %}
+
+{% swagger-parameter in="query" name="customCountryMixes.dyeing" type="Float" %}
+Impact du mix énergétique du pays à l'étape de Teinture, exprimé en kgCO₂/KWh
+{% endswagger-parameter %}
+
+{% swagger-parameter in="query" name="customCountryMixes.making" type="Float" %}
+Impact du mix énergétique du pays à l'étape de Confection, exprimé en kgCO₂/KWh
+{% endswagger-parameter %}
+{% endswagger %}
+
+#### Exemple de requête
 
 ```
-$ http https://wikicarbone.osc-fr1.scalingo.io/\?mass\=0.17\&product\=13\&material\=f211bbdb-415c-46fd-be4d-ddf199575b44\&countries\[\]\=CN\&countries\[\]\=FR\&countries\[\]\=FR\&countries\[\]\=FR\&countries\[\]\=FR\&dyeingWeighting\=\&airTransportRatio\=\&recycledRatio\=\&customCountryMixes.fabric\=\&customCountryMixes.dyeing\=\&customCountryMixes.making\=
-HTTP/1.1 200 OK
-Connection: keep-alive
-Content-Encoding: gzip
-Content-Type: application/json; charset=utf-8
-Date: Wed, 24 Nov 2021 08:44:57 GMT
-ETag: W/"1194-a9n2u1I/AUc2aJEy2lkUPHJ/bv0"
-Server: openresty
-Transfer-Encoding: chunked
-X-Powered-By: Express
-X-Request-ID: d19c06ec-ebdb-4c5f-8807-a725127d1c34
+$ http https://wikicarbone.osc-fr1.scalingo.io/?mass=0.17&product=13&material=f211bbdb-415c-46fd-be4d-ddf199575b44&countries[]=CN&countries[]=FR&countries[]=FR&countries[]=FR&countries[]=FR&dyeingWeighting=&airTransportRatio=&recycledRatio=&customCountryMixes.fabric=&customCountryMixes.dyeing=&customCountryMixes.making=
+```
 
+Ou [cliquez sur ce lien](https://wikicarbone.osc-fr1.scalingo.io/?mass=0.17\&product=13\&material=f211bbdb-415c-46fd-be4d-ddf199575b44\&countries\[]=CN\&countries\[]=FR\&countries\[]=FR\&countries\[]=FR\&countries\[]=FR\&dyeingWeighting=\&airTransportRatio=\&recycledRatio=\&customCountryMixes.fabric=\&customCountryMixes.dyeing=\&customCountryMixes.making=).
+
+#### Exemple de réponse
+
+```json
 {
     "co2": 4.380278341466434,
     "inputs": {
@@ -266,51 +308,5 @@ X-Request-ID: d19c06ec-ebdb-4c5f-8807-a725127d1c34
     }
 }
 ```
-
-{% swagger method="get" path="" baseUrl="https://wikicarbone.osc-fr1.scalingo.io/" summary="" %}
-{% swagger-description %}
-Effectue une simulation à partir des paramètres fournis.
-{% endswagger-description %}
-
-{% swagger-parameter in="query" name="mass" type="Float" required="true" %}
-Masse du produit en kg
-{% endswagger-parameter %}
-
-{% swagger-parameter in="query" name="product" type="String" required="true" %}
-Identifiant du produit
-{% endswagger-parameter %}
-
-{% swagger-parameter in="query" name="material" required="true" type="String" %}
-UUID de matière première
-{% endswagger-parameter %}
-
-{% swagger-parameter in="query" name="countries" type="String[]" required="true" %}
-Liste des codes pays pour chaque étape
-{% endswagger-parameter %}
-
-{% swagger-parameter in="query" name="dyeingWeighting" type="Float" %}
-Taux de majoration du procédé de teinture (entre 0 et 1)
-{% endswagger-parameter %}
-
-{% swagger-parameter in="query" name="airTransportRatio" type="Float" %}
-Part de transport aérien entre l'étape de confection et de distribution (entre 0 et 1)
-{% endswagger-parameter %}
-
-{% swagger-parameter in="query" name="recycledRatio" type="Float" %}
-Part de matière recyclée (entre 0 et 1)
-{% endswagger-parameter %}
-
-{% swagger-parameter in="query" name="customCountryMixes.fabric" type="Float" %}
-Impact du mix énergétique du pays à l'étape de Tissage/Tricotage, exprimé en kgCO₂/KWh
-{% endswagger-parameter %}
-
-{% swagger-parameter in="query" name="customCountryMixes.dyeing" type="Float" %}
-Impact du mix énergétique du pays à l'étape de Teinture, exprimé en kgCO₂/KWh
-{% endswagger-parameter %}
-
-{% swagger-parameter in="query" name="customCountryMixes.making" type="Float" %}
-Impact du mix énergétique du pays à l'étape de Confection, exprimé en kgCO₂/KWh
-{% endswagger-parameter %}
-{% endswagger %}
 
 &#x20;
