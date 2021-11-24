@@ -23,7 +23,7 @@ Masse du produit en kg
 Identifiant du produit
 {% endswagger-parameter %}
 
-{% swagger-parameter in="query" name="material" required="true" %}
+{% swagger-parameter in="query" name="material" required="true" type="String" %}
 UUID de matière première
 {% endswagger-parameter %}
 
@@ -47,11 +47,11 @@ Part de matière recyclée (entre 0 et 1)
 Impact du mix énergétique du pays à l'étape de Tissage/Tricotage, exprimé en kgCO₂/KWh
 {% endswagger-parameter %}
 
-{% swagger-parameter in="query" name="customCountryMixes.dyeing" %}
+{% swagger-parameter in="query" name="customCountryMixes.dyeing" type="Float" %}
 Impact du mix énergétique du pays à l'étape de Teinture, exprimé en kgCO₂/KWh
 {% endswagger-parameter %}
 
-{% swagger-parameter in="query" name="customCountryMixes.making" %}
+{% swagger-parameter in="query" name="customCountryMixes.making" type="Float" %}
 Impact du mix énergétique du pays à l'étape de Confection, exprimé en kgCO₂/KWh
 {% endswagger-parameter %}
 {% endswagger %}
