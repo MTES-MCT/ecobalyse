@@ -226,17 +226,15 @@ detailedView ({ product, index, next, current } as config) =
                     Nothing ->
                         text ""
                 ]
-            , div [ class "card-body py-2 text-muted" ]
-                [ case current.label of
-                    Step.Ennoblement ->
-                        dyeingWeightingField config
+            , case current.label of
+                Step.Ennoblement ->
+                    div [ class "card-body py-2 text-muted" ] [ dyeingWeightingField config ]
 
-                    Step.Making ->
-                        airTransportRatioField config
+                Step.Making ->
+                    div [ class "card-body py-2 text-muted" ] [ airTransportRatioField config ]
 
-                    _ ->
-                        text ""
-                ]
+                _ ->
+                    text ""
             ]
         , div
             [ class "card text-center" ]
@@ -273,11 +271,20 @@ detailedView ({ product, index, next, current } as config) =
                   else
                     text ""
                 , li [ class "list-group-item text-muted" ]
-                    [ current.transport |> TransportView.view { fullWidth = True } ]
-                , li [ class "list-group-item text-muted d-flex justify-content-center align-items-center" ]
-                    [ strong [] [ text <| transportLabel ++ "\u{00A0}:\u{00A0}" ]
-                    , Format.kgCo2 3 current.transport.co2
-                    , inlineDocumentationLink config Gitbook.Transport
+                    [ current.transport
+                        |> TransportView.view
+                            { fullWidth = True
+                            , airTransportLabel = current.processInfo.airTransport |> Maybe.map .name
+                            , seaTransportLabel = current.processInfo.seaTransport |> Maybe.map .name
+                            , roadTransportLabel = current.processInfo.roadTransport |> Maybe.map .name
+                            }
+                    ]
+                , li [ class "list-group-item text-muted" ]
+                    [ div [ class "d-flex justify-content-center align-items-center" ]
+                        [ strong [] [ text <| transportLabel ++ "\u{00A0}:\u{00A0}" ]
+                        , Format.kgCo2 3 current.transport.co2
+                        , inlineDocumentationLink config Gitbook.Transport
+                        ]
                     ]
                 ]
             ]

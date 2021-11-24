@@ -40,6 +40,9 @@ type alias ProcessInfo =
     , countryHeat : Maybe String
     , dyeingWeighting : Maybe String
     , airTransportRatio : Maybe String
+    , airTransport : Maybe Process
+    , seaTransport : Maybe Process
+    , roadTransport : Maybe Process
     }
 
 
@@ -76,6 +79,9 @@ defaultProcessInfo =
     , countryHeat = Nothing
     , dyeingWeighting = Nothing
     , airTransportRatio = Nothing
+    , airTransport = Nothing
+    , seaTransport = Nothing
+    , roadTransport = Nothing
     }
 
 
@@ -92,7 +98,7 @@ Docs: <https://fabrique-numerique.gitbook.io/wikicarbone/methodologie/transport>
 
 -}
 computeTransports : Db -> Step -> Step -> Result String Step
-computeTransports db next current =
+computeTransports db next ({ processInfo } as current) =
     db.processes
         |> Process.loadWellKnown
         |> Result.map
@@ -110,7 +116,13 @@ computeTransports db next current =
                         getRoadTransportProcess wellKnown current
                 in
                 { current
-                    | transport =
+                    | processInfo =
+                        { processInfo
+                            | roadTransport = Just roadTransportProcess
+                            , seaTransport = Just wellKnown.seaTransport
+                            , airTransport = Just wellKnown.airTransport
+                        }
+                    , transport =
                         stepSummary
                             |> computeTransportCo2 wellKnown roadTransportProcess next.inputMass
                 }
@@ -173,15 +185,15 @@ getRoadTransportProcess wellKnown { label } =
             wellKnown.roadTransportPreMaking
 
 
-update : Inputs -> Maybe Step -> Step -> Step
-update { dyeingWeighting, airTransportRatio, customCountryMixes } _ ({ label, country } as step) =
-    -- Note: only WeavingKnitting, Ennoblement and Making steps renders detailed processes info.
+updateFromInputs : Inputs -> Step -> Step
+updateFromInputs { dyeingWeighting, airTransportRatio, customCountryMixes } ({ label, country } as step) =
     let
         countryElecInfo =
             Maybe.map countryMixToString
                 >> Maybe.withDefault country.electricityProcess.name
                 >> Just
     in
+    -- Note: only WeavingKnitting, Ennoblement and Making steps render detailed processes info.
     case label of
         WeavingKnitting ->
             { step
@@ -196,7 +208,7 @@ update { dyeingWeighting, airTransportRatio, customCountryMixes } _ ({ label, co
             { step
                 | customCountryMix = customCountryMixes.dyeing
                 , dyeingWeighting =
-                    dyeingWeighting |> Maybe.withDefault step.country.dyeingWeighting
+                    dyeingWeighting |> Maybe.withDefault country.dyeingWeighting
                 , processInfo =
                     { defaultProcessInfo
                         | countryHeat = Just country.heatProcess.name
@@ -209,7 +221,7 @@ update { dyeingWeighting, airTransportRatio, customCountryMixes } _ ({ label, co
             { step
                 | customCountryMix = customCountryMixes.making
                 , airTransportRatio =
-                    airTransportRatio |> Maybe.withDefault step.country.airTransportRatio
+                    airTransportRatio |> Maybe.withDefault country.airTransportRatio
                 , processInfo =
                     { defaultProcessInfo
                         | countryElec = countryElecInfo customCountryMixes.making
@@ -297,10 +309,18 @@ encode v =
 
 encodeProcessInfo : ProcessInfo -> Encode.Value
 encodeProcessInfo v =
+    let
+        encodeMaybeString =
+            Maybe.map Encode.string >> Maybe.withDefault Encode.null
+    in
     Encode.object
-        [ ( "electricity", Maybe.map Encode.string v.countryElec |> Maybe.withDefault Encode.null )
-        , ( "heat", Maybe.map Encode.string v.countryHeat |> Maybe.withDefault Encode.null )
-        , ( "dyeing", Maybe.map Encode.string v.dyeingWeighting |> Maybe.withDefault Encode.null )
+        [ ( "electricity", encodeMaybeString v.countryElec )
+        , ( "heat", encodeMaybeString v.countryHeat )
+        , ( "dyeing", encodeMaybeString v.dyeingWeighting )
+        , ( "airTransportRatio", encodeMaybeString v.airTransportRatio )
+        , ( "airTransport", v.airTransport |> Maybe.map Process.encode |> Maybe.withDefault Encode.null )
+        , ( "seaTransport", v.seaTransport |> Maybe.map Process.encode |> Maybe.withDefault Encode.null )
+        , ( "roadTransport", v.roadTransport |> Maybe.map Process.encode |> Maybe.withDefault Encode.null )
         ]
 
 
