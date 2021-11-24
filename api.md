@@ -22,15 +22,27 @@ Masse du produit en kg
 {% endswagger-parameter %}
 
 {% swagger-parameter in="query" name="product" type="String" required="true" %}
-Identifiant du produit
+
+
+[Identifiant du produit](https://github.com/MTES-MCT/wikicarbone/blob/master/public/data/products.json)
+
+
 {% endswagger-parameter %}
 
 {% swagger-parameter in="query" name="material" required="true" type="String" %}
-UUID de matière première
+
+
+[UUID de matière première](https://github.com/MTES-MCT/wikicarbone/blob/master/public/data/materials.json)
+
+
 {% endswagger-parameter %}
 
 {% swagger-parameter in="query" name="countries" type="String[]" required="true" %}
-Liste des codes pays pour chaque étape
+
+
+[Liste des codes pays pour chaque étape](https://github.com/MTES-MCT/wikicarbone/blob/master/public/data/countries.json)
+
+
 {% endswagger-parameter %}
 
 {% swagger-parameter in="query" name="dyeingWeighting" type="Float" %}
