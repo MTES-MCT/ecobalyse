@@ -12,11 +12,18 @@ type alias Flags =
 
 
 type alias Model =
-    { db : Result String Db }
+    { db : Result String Db
+    }
+
+
+type alias Request =
+    { inputs : Encode.Value
+    , jsResponseHandler : Encode.Value
+    }
 
 
 type Msg
-    = Received { inputs : Encode.Value, jsResponseHandler : Encode.Value }
+    = Received Request
 
 
 init : Flags -> ( Model, Cmd Msg )
@@ -76,7 +83,7 @@ main =
         }
 
 
-port input : ({ inputs : Encode.Value, jsResponseHandler : Encode.Value } -> msg) -> Sub msg
+port input : (Request -> msg) -> Sub msg
 
 
 port output : Encode.Value -> Cmd msg
