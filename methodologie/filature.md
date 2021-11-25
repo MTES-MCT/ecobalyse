@@ -171,10 +171,10 @@ Pour la suite du calcul, les formules ci-après s'applique, indépendemment pour
 
 ## Procédé de matière et filature
 
-L'impact du procédé de confection retenu est le produit de la masse "entrante", en l'occurrence le fil, avec le coefficient d'impact considéré (cf. [Impacts considérés](impacts-consideres.md)).
+L'impact du procédé de confection retenu est le produit de la masse "sortante", en l'occurrence le fil, avec le coefficient d'impact considéré (cf. [Impacts considérés](impacts-consideres.md)).
 
 $$
-ImpactProcédéMatièreFilature = MasseEntrante(kg) * CoefImpactProcédéMatièreFilature
+ImpactProcédéMatièreFilature = MasseSortante(kg) * CoefImpactProcédéMatièreFilature
 $$
 
 Les procédés correspondant aux différents choix de matières sont listés dans les 3 tableaux en haut de cette page méthodologique.

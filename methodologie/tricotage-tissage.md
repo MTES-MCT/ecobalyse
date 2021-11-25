@@ -53,10 +53,10 @@ $$
 
 ### Procédé de tricotage
 
-L'impact du procédé de tricotage retenu est le produit de la masse "entrante", en l'occurrence la masse d'étoffe, avec le coefficient d'impact considéré (cf. [Impacts considérés](impacts-consideres.md)).
+L'impact du procédé de tricotage retenu est le produit de la masse "sortante", en l'occurrence la masse d'étoffe, avec le coefficient d'impact considéré (cf. [Impacts considérés](impacts-consideres.md)).
 
 $$
-ImpactProcédéTricotage = MasseEntrante(kg) * CoefImpactProcédéTricotage
+ImpactProcédéTricotage = MasseSortante(kg) * CoefImpactProcédéTricotage
 $$
 
 {% hint style="warning" %}
@@ -102,12 +102,12 @@ Plus de détail sur la gestion des masses : [Pertes et rebut](pertes-et-rebus.md
 
 ### Electricité
 
-La quantité d'électricité à mobiliser pour actionner le procédé de tricotage est le produit de la masse "entrante", en l'occurrence la masse de fil en sortie de filature, avec le coefficient du flux intermédiaire correspondant à l'électricité (`de442ef0-d725-4c3a-a5e2-b29f51a1186c`).
+La quantité d'électricité à mobiliser pour actionner le procédé de tricotage est le produit de la masse "sortante", en l'occurrence la masse de fil en sortie de filature, avec le coefficient du flux intermédiaire correspondant à l'électricité (`de442ef0-d725-4c3a-a5e2-b29f51a1186c`).
 
 Elle s'exprime en MJ dans la table des flux intermédiaires attachés au procédé de teinture.
 
 $$
-ElecConsommée(MJ) = MasseEntrante(kg) * CoefFluxElecProcédéTrictotage
+ElecConsommée(MJ) = MasseSortante(kg) * CoefFluxElecProcédéTrictotage
 $$
 
 Le calcul d'impact de l'électricité ainsi mobilisée est détaillé dans la page suivante : [Electricité](electricite.md).
@@ -150,10 +150,10 @@ $$
 
 ### Procédé de tissage
 
-L'impact du procédé de tissage retenu est le produit de la masse "entrante", en l'occurrence la masse d'étoffe, avec le coefficient d'impact considéré (cf. [Impacts considérés](impacts-consideres.md)).
+L'impact du procédé de tissage retenu est le produit de la masse "sortante", en l'occurrence la masse d'étoffe, avec le coefficient d'impact considéré (cf. [Impacts considérés](impacts-consideres.md)).
 
 $$
-ImpactProcédéTissage = MasseEntrante(kg) * CoefImpactProcédéTissage
+ImpactProcédéTissage = MasseSortante(kg) * CoefImpactProcédéTissage
 $$
 
 {% hint style="warning" %}

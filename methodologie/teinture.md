@@ -28,10 +28,10 @@ $$
 
 ## Procédé de teinture
 
-L'impact du procédé de teinture retenu est le produit de la masse "entrante" avec le coefficient d'impact considéré (cf. [Impacts considérés](impacts-consideres.md)).
+L'impact du procédé de teinture retenu est le produit de la masse "sortante" avec le coefficient d'impact considéré (cf. [Impacts considérés](impacts-consideres.md)).
 
 $$
-ImpactProcédéTeinture = MasseEntrante(kg) * CoefImpactProcédéTeinture
+ImpactProcédéTeinture = MasseSortante(kg) * CoefImpactProcédéTeinture
 $$
 
 Suivant le pays dans lequel la teinture est réalisée, un choix de procédé par défaut est réalisé.&#x20;
@@ -75,12 +75,12 @@ Plus de détail sur la gestion des masses : [Pertes et rebut](pertes-et-rebus.md
 
 ## Chaleur
 
-La quantité de chaleur à mobiliser pour actionner le procédé de teinture est le produit de la masse "entrante", par exemple la masse d'étoffe en sortie de tissage-tricotage, avec le coefficient du flux intermédiaire correspondant à la chaleur (`32045a18-e8a3-4068-9078-d17c72cea73d`).
+La quantité de chaleur à mobiliser pour actionner le procédé de teinture est le produit de la masse "sortante", par exemple la masse d'étoffe en sortie de tissage-tricotage, avec le coefficient du flux intermédiaire correspondant à la chaleur (`32045a18-e8a3-4068-9078-d17c72cea73d`).
 
 Elle s'exprime en MJ.
 
 $$
-ChaleurConsommée(MJ) = MasseEntrante(kg) * CoefFluxChaleurProcédéTeinture
+ChaleurConsommée(MJ) = MasseSortante(kg) * CoefFluxChaleurProcédéTeinture
 $$
 
 Le calcul d'impact de la chaleur ainsi mobilisée est détaillé dans la page [Chaleur](chaleur.md).
@@ -91,12 +91,12 @@ $$
 
 ## Electricité
 
-La quantité d'électricité à mobiliser pour actionner le procédé de teinture est le produit de la masse "entrante", par exemple la masse d'étoffe en sortie de tissage-tricotage, avec le coefficient du flux intermédiaire correspondant à l'électricité (`de442ef0-d725-4c3a-a5e2-b29f51a1186c`).
+La quantité d'électricité à mobiliser pour actionner le procédé de teinture est le produit de la masse "sortante", par exemple la masse d'étoffe en sortie de tissage-tricotage, avec le coefficient du flux intermédiaire correspondant à l'électricité (`de442ef0-d725-4c3a-a5e2-b29f51a1186c`).
 
 Elle s'exprime en MJ dans la table des flux intermédiaires attachés au procédé de teinture.
 
 $$
-ElecConsommée(MJ) = MasseEntrante(kg) * CoefFluxElecProcédéTeinture
+ElecConsommée(MJ) = MasseSortante(kg) * CoefFluxElecProcédéTeinture
 $$
 
 Le calcul d'impact de l'électricité ainsi mobilisée est détaillé dans la page suivante : [Electricité](electricite.md).

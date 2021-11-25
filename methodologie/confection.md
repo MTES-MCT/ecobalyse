@@ -26,10 +26,10 @@ $$
 
 ## Procédé de confection
 
-L'impact du procédé de confection retenu est le produit de la masse "entrante" avec le coefficient d'impact considéré (cf. [Impacts considérés](impacts-consideres.md)).
+L'impact du procédé de confection retenu est le produit de la masse "sortante" avec le coefficient d'impact considéré (cf. [Impacts considérés](impacts-consideres.md)).
 
 $$
-ImpactProcédéConfection = MasseEntrante(kg) * CoefImpactProcédéConfection
+ImpactProcédéConfection = MasseSortante(kg) * CoefImpactProcédéConfection
 $$
 
 {% hint style="warning" %}
@@ -96,12 +96,12 @@ Plus de détail sur la gestion des masses : [Pertes et rebut](pertes-et-rebus.md
 
 ## Electricité
 
-La quantité d'électricité à mobiliser pour actionner le procédé de confection est le produit de la masse "entrante", en l'occurrence la masse de tissu en sortie d'ennoblissement (teinture), avec le coefficient du flux intermédiaire correspondant à l'électricité (`de442ef0-d725-4c3a-a5e2-b29f51a1186c`).
+La quantité d'électricité à mobiliser pour actionner le procédé de confection est le produit de la masse "sortante", en l'occurrence la masse de tissu en sortie d'ennoblissement (teinture), avec le coefficient du flux intermédiaire correspondant à l'électricité (`de442ef0-d725-4c3a-a5e2-b29f51a1186c`).
 
 Elle s'exprime en MJ dans la table des flux intermédiaires attachés au procédé de teinture.
 
 $$
-ElecConsommée(MJ) = MasseEntrante(kg) * CoefFluxElecProcédéTeinture
+ElecConsommée(MJ) = MasseSortante(kg) * CoefFluxElecProcédéTeinture
 $$
 
 Le calcul d'impact de l'électricité ainsi mobilisée est détaillé dans la page suivante : [Electricité](electricite.md).
