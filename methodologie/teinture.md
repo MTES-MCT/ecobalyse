@@ -28,10 +28,10 @@ $$
 
 ## Procédé de teinture
 
-L'impact du procédé de teinture retenu est le produit de la masse "sortante" avec le coefficient d'impact considéré (cf. [Impacts considérés](impacts-consideres.md)).
+L'impact du procédé de teinture retenu est le produit de la masse "entrante" avec le coefficient d'impact considéré (cf. [Impacts considérés](impacts-consideres.md)).
 
 $$
-ImpactProcédéTeinture = MasseSortante(kg) * CoefImpactProcédéTeinture
+ImpactProcédéTeinture = MasseEntrante(kg) * CoefImpactProcédéTeinture
 $$
 
 Suivant le pays dans lequel la teinture est réalisée, un choix de procédé par défaut est réalisé.&#x20;

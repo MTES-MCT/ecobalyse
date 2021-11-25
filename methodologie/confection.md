@@ -26,10 +26,10 @@ $$
 
 ## Procédé de confection
 
-L'impact du procédé de confection retenu est le produit de la masse "sortante" avec le coefficient d'impact considéré (cf. [Impacts considérés](impacts-consideres.md)).
+L'impact du procédé de confection retenu est le produit de la masse "entrante" avec le coefficient d'impact considéré (cf. [Impacts considérés](impacts-consideres.md)).
 
 $$
-ImpactProcédéConfection = MasseSortante(kg) * CoefImpactProcédéConfection
+ImpactProcédéConfection = MasseEntrante(kg) * CoefImpactProcédéConfection
 $$
 
 {% hint style="warning" %}
