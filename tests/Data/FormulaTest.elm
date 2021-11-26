@@ -51,14 +51,13 @@ suite =
                 res =
                     kg 1
                         |> Formula.makingCo2
-                            { makingCC = Co2.kgCo2e 0.5
-                            , makingElec = Energy.megajoules 0.5
+                            { makingProcess = { elec = Energy.megajoules 0.5 }
                             , countryElecCC = Co2.kgCo2e 0.5
                             }
              in
              [ res.co2
                 |> Co2.inKgCo2e
-                |> Expect.within (Expect.Absolute 0.01) 0.57
+                |> Expect.within (Expect.Absolute 0.01) 0.07
                 |> asTest "should compute Making step co2 from process and country data"
              , res.kwh
                 |> Energy.inKilowattHours
