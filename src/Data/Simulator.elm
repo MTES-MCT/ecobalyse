@@ -129,11 +129,19 @@ computeDyeingCo2Score { processes } simulator =
                             let
                                 { co2, heat, kwh } =
                                     step.outputMass
-                                        |> Formula.dyeingCo2 ( dyeingLow, dyeingHigh )
+                                        |> Formula.dyeingImpacts ( dyeingLow, dyeingHigh )
                                             dyeingWeighting
-                                            country.heatProcess.climateChange
-                                            (step.customCountryMix
-                                                |> Maybe.withDefault country.electricityProcess.climateChange
+                                            country.heatProcess
+                                            (case step.customCountryMix of
+                                                Just customCountryMix ->
+                                                    let
+                                                        { electricityProcess } =
+                                                            country
+                                                    in
+                                                    { electricityProcess | climateChange = customCountryMix }
+
+                                                Nothing ->
+                                                    country.electricityProcess
                                             )
                             in
                             { step | co2 = co2, heat = heat, kwh = kwh }

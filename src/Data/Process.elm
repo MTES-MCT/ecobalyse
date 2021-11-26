@@ -1,6 +1,7 @@
 module Data.Process exposing (..)
 
 import Data.Co2 as Co2 exposing (Co2e)
+import Data.FwE as FwE exposing (Pe)
 import Energy exposing (Energy)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DecodeExtra
@@ -17,7 +18,22 @@ type alias Process =
     , cat3 : Cat3
     , name : String
     , uuid : Uuid
-    , climateChange : Co2e -- kgCO2e per {kg of material, KWh or MJ}
+
+    -- Inbound:
+    --   kgCO2e per kg of material
+    -- Outbound:
+    --   kgCO2e per, depending on process type:
+    --   * for heat process: per MJ
+    --   * for elec process: per KWh
+    , climateChange : Co2e
+
+    -- Inbound:
+    --   kgPe per kg of material
+    -- Outbound:
+    --   kgPe per, depending on process type:
+    --   * for heat process: per MJ
+    --   * for elec process: per KWh
+    , freshwaterEutrophication : Pe
     , heat : Energy --  MJ per kg of material to process
     , elec_pppm : Float -- kWh/(pick,m) per kg of material to process
     , elec : Energy -- MJ per kg of material to process
@@ -104,6 +120,7 @@ noOp =
     , name = "void"
     , uuid = Uuid ""
     , climateChange = Quantity.zero
+    , freshwaterEutrophication = Quantity.zero
     , heat = Energy.megajoules 0
     , elec_pppm = 0
     , elec = Energy.megajoules 0
@@ -356,6 +373,7 @@ decode =
         |> Pipe.required "name" Decode.string
         |> Pipe.required "uuid" (Decode.map Uuid Decode.string)
         |> Pipe.required "climateChange" Co2.decodeKgCo2e
+        |> Pipe.required "freshwaterEutrophication" FwE.decodeKgPe
         |> Pipe.required "heat" (Decode.map Energy.megajoules Decode.float)
         |> Pipe.required "elec_pppm" Decode.float
         |> Pipe.required "elec" (Decode.map Energy.megajoules Decode.float)
@@ -377,6 +395,7 @@ encode v =
         , ( "name", Encode.string v.name )
         , ( "uuid", v.uuid |> uuidToString |> Encode.string )
         , ( "climateChange", Co2.encodeKgCo2e v.climateChange )
+        , ( "freshwaterEutrophication", FwE.encodeKgPe v.freshwaterEutrophication )
         , ( "heat", v.heat |> Energy.inMegajoules |> Encode.float )
         , ( "elec_pppm", Encode.float v.elec_pppm )
         , ( "elec", v.elec |> Energy.inMegajoules |> Encode.float )

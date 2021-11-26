@@ -1,6 +1,7 @@
 module Data.Formula exposing (..)
 
 import Data.Co2 as Co2 exposing (Co2e)
+import Data.FwE as FwE exposing (Pe)
 import Data.Process exposing (Process)
 import Data.Transport as Transport exposing (Transport)
 import Energy exposing (Energy)
@@ -78,14 +79,14 @@ makingWaste { processWaste, pcrWaste } baseMass =
 -- Co2 score
 
 
-dyeingCo2 :
-    ( Process, Process )
-    -> Float
-    -> Co2e
-    -> Co2e
+dyeingImpacts :
+    ( Process, Process ) -- Inbound: Dyeing processes (low, high)
+    -> Float -- Low/high dyeing process ratio
+    -> Process -- Outbound: country heat impact
+    -> Process -- Outbound: country electricity impact
     -> Mass
-    -> { co2 : Co2e, heat : Energy, kwh : Energy }
-dyeingCo2 ( dyeingLowProcess, dyeingHighProcess ) highDyeingWeighting heatCC elecCC baseMass =
+    -> { co2 : Co2e, fwe : Pe, heat : Energy, kwh : Energy }
+dyeingImpacts ( dyeingLowProcess, dyeingHighProcess ) highDyeingWeighting heatProcess elecProcess baseMass =
     let
         lowDyeingWeighting =
             1 - highDyeingWeighting
@@ -101,6 +102,12 @@ dyeingCo2 ( dyeingLowProcess, dyeingHighProcess ) highDyeingWeighting heatCC ele
                 , Co2.forKg dyeingHighProcess.climateChange highDyeingMass
                 ]
 
+        dyeingFwe =
+            Quantity.sum
+                [ FwE.forKg dyeingLowProcess.freshwaterEutrophication lowDyeingMass
+                , FwE.forKg dyeingHighProcess.freshwaterEutrophication highDyeingMass
+                ]
+
         heatMJ =
             Mass.inKilograms baseMass
                 * ((highDyeingWeighting * Energy.inMegajoules dyeingHighProcess.heat)
@@ -109,7 +116,10 @@ dyeingCo2 ( dyeingLowProcess, dyeingHighProcess ) highDyeingWeighting heatCC ele
                 |> Energy.megajoules
 
         heatCo2 =
-            heatMJ |> Co2.forMJ heatCC
+            heatMJ |> Co2.forMJ heatProcess.climateChange
+
+        heatFwe =
+            heatMJ |> FwE.forMJ heatProcess.freshwaterEutrophication
 
         electricity =
             Mass.inKilograms baseMass
@@ -119,9 +129,13 @@ dyeingCo2 ( dyeingLowProcess, dyeingHighProcess ) highDyeingWeighting heatCC ele
                 |> Energy.megajoules
 
         elecCo2 =
-            electricity |> Co2.forKWh elecCC
+            electricity |> Co2.forKWh elecProcess.climateChange
+
+        elecFwe =
+            electricity |> FwE.forKWh elecProcess.freshwaterEutrophication
     in
     { co2 = Quantity.sum [ dyeingCo2_, heatCo2, elecCo2 ]
+    , fwe = Quantity.sum [ dyeingFwe, heatFwe, elecFwe ]
     , heat = heatMJ
     , kwh = electricity
     }
