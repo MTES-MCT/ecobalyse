@@ -5,7 +5,9 @@ import Data.Inputs as Inputs exposing (..)
 
 
 type alias SampleData =
-    { query : Query, expected : Co2e }
+    { query : Query
+    , expected : Co2e
+    }
 
 
 type SectionOrSample
@@ -215,7 +217,7 @@ samples =
                 }
             ]
         , section "at multiple step levels"
-            [ sample "should compute co2 score for tShirtCotonFrance using custom country mix of 0"
+            [ sample "co2 score for tShirtCotonFrance using custom country mix of 0"
                 { query =
                     tShirtCotonFrance
                         |> Inputs.setCustomCountryMix 1 (Just (Co2.kgCo2e 0))
@@ -223,7 +225,7 @@ samples =
                         |> Inputs.setCustomCountryMix 3 (Just (Co2.kgCo2e 0))
                 , expected = Co2.kgCo2e 4.301937666466434
                 }
-            , sample "should compute co2 score for tShirtCotonFrance using custom country mix of 0.5"
+            , sample "co2 score for tShirtCotonFrance using custom country mix of 0.5"
                 { query =
                     tShirtCotonFrance
                         |> Inputs.setCustomCountryMix 1 (Just (Co2.kgCo2e 0.5))
@@ -231,7 +233,7 @@ samples =
                         |> Inputs.setCustomCountryMix 3 (Just (Co2.kgCo2e 0.5))
                 , expected = Co2.kgCo2e 4.991104333133101
                 }
-            , sample "should compute co2 score for tShirtCotonFrance using custom country mix of 1.7"
+            , sample "co2 score for tShirtCotonFrance using custom country mix of 1.7"
                 { query =
                     tShirtCotonFrance
                         |> Inputs.setCustomCountryMix 1 (Just (Co2.kgCo2e 1.7))
@@ -242,3 +244,19 @@ samples =
             ]
         ]
     ]
+
+
+hasTests : List SectionOrSample -> Bool
+hasTests sectionOrSamples =
+    List.length sectionOrSamples
+        == 0
+        || List.any
+            (\s ->
+                case s of
+                    Section _ _ ->
+                        False
+
+                    Sample _ _ ->
+                        True
+            )
+            sectionOrSamples

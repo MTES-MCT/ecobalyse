@@ -1,4 +1,4 @@
-module Page.Home exposing (Model, Msg, init, update, view)
+module Page.Home exposing (..)
 
 import Data.Inputs as Inputs
 import Data.Session exposing (Session)
