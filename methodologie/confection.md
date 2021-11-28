@@ -26,14 +26,19 @@ $$
 
 ## Procédé de confection
 
-L'impact du procédé de confection retenu est le produit de la masse "sortante" avec le coefficient d'impact considéré (cf. [Impacts considérés](impacts-consideres.md)).
+L'impact du procédé de confection retenu est le produit du nombre d'articles / vêtements par le coefficient d'impact considéré (cf. [Impacts considérés](impacts-consideres.md)).
 
 $$
-ImpactProcédéConfection = MasseSortante(kg) * CoefImpactProcédéConfection
+ImpactProcédéConfection = NbrArticles * CoefImpactProcédéConfection
 $$
 
 {% hint style="warning" %}
 Remarque : pour les procédés de confection retenus (cf. ci-après), les coefficients d'impact sont tous nuls, de sorte que l'impact de l'étape de confection se limite finalement à l'impact de l'électricité nécessaire pour opérer ce processus.
+
+Une ambigüité apparaît dans la méthodologie entre :&#x20;
+
+* la documentation sectorielle textile qui précise, pour la section "making of clothing" (1.2.2.3.4.), que "the inventory refers to the production of 1 item of clothing"
+* la documentation du procédé de la base impacts qui une unité de référence en kg.&#x20;
 {% endhint %}
 
 Le choix de procédé réalisé dépend du vêtement considéré :
@@ -96,13 +101,20 @@ Plus de détail sur la gestion des masses : [Pertes et rebut](pertes-et-rebus.md
 
 ## Electricité
 
-La quantité d'électricité à mobiliser pour actionner le procédé de confection est le produit de la masse "sortante", en l'occurrence la masse de tissu en sortie d'ennoblissement (teinture), avec le coefficient du flux intermédiaire correspondant à l'électricité (`de442ef0-d725-4c3a-a5e2-b29f51a1186c`).
+La quantité d'électricité à mobiliser pour actionner le procédé de confection est le produit du nombre d'articles / vêtements, avec le coefficient du flux intermédiaire correspondant à l'électricité (`de442ef0-d725-4c3a-a5e2-b29f51a1186c`).
 
 Elle s'exprime en MJ dans la table des flux intermédiaires attachés au procédé de teinture.
 
 $$
-ElecConsommée(MJ) = MasseSortante(kg) * CoefFluxElecProcédéTeinture
+ElecConsommée(MJ) = NbrArticles * CoefFluxElecProcédéTeinture
 $$
+
+{% hint style="warning" %}
+Une ambigüité apparaît dans la méthodologie entre :&#x20;
+
+* la documentation sectorielle textile qui précise, pour la section "making of clothing" (1.2.2.3.4.), que "the inventory refers to the production of 1 item of clothing"
+* la documentation du procédé de la base impacts qui une unité de référence en kg.&#x20;
+{% endhint %}
 
 Le calcul d'impact de l'électricité ainsi mobilisée est détaillé dans la page suivante : [Electricité](electricite.md).
 
@@ -116,6 +128,6 @@ $$
 
 ## Limites
 
-\[à compléter avec les principales limites identifiées pour la modélisation de l'étape de confection]
+* Lever l'ambigüité méthodologique sur la prise en compte du nombre d'articles ou de la masse sortante dans les calculs d'impacts et d'électricité mobilisée
 
 ##
