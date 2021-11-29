@@ -3,6 +3,7 @@ module Data.Simulator exposing (..)
 import Data.Co2 as Co2 exposing (Co2e)
 import Data.Db exposing (Db)
 import Data.Formula as Formula
+import Data.FwE as FwE exposing (Pe)
 import Data.Inputs as Inputs exposing (Inputs)
 import Data.LifeCycle as LifeCycle exposing (LifeCycle)
 import Data.Process as Process
@@ -16,6 +17,7 @@ type alias Simulator =
     { inputs : Inputs
     , lifeCycle : LifeCycle
     , co2 : Co2e
+    , fwe : Pe
     , transport : Transport
     }
 
@@ -26,6 +28,7 @@ encode v =
         [ ( "inputs", Inputs.encode v.inputs )
         , ( "lifeCycle", LifeCycle.encode v.lifeCycle )
         , ( "co2", Co2.encodeKgCo2e v.co2 )
+        , ( "fwe", FwE.encodeKgPe v.fwe )
         , ( "transport", Transport.encode v.transport )
         ]
 
@@ -41,6 +44,7 @@ init db =
                             { inputs = inputs
                             , lifeCycle = lifeCycle
                             , co2 = Quantity.zero
+                            , fwe = Quantity.zero
                             , transport = Transport.default
                             }
                        )
@@ -127,7 +131,7 @@ computeDyeingCo2Score { processes } simulator =
                     |> updateLifeCycleStep Step.Ennoblement
                         (\({ dyeingWeighting, country } as step) ->
                             let
-                                { co2, heat, kwh } =
+                                { co2, fwe, heat, kwh } =
                                     step.outputMass
                                         |> Formula.dyeingImpacts ( dyeingLow, dyeingHigh )
                                             dyeingWeighting
@@ -144,7 +148,7 @@ computeDyeingCo2Score { processes } simulator =
                                                     country.electricityProcess
                                             )
                             in
-                            { step | co2 = co2, heat = heat, kwh = kwh }
+                            { step | co2 = co2, fwe = fwe, heat = heat, kwh = kwh }
                         )
             )
 

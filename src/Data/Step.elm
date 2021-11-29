@@ -4,6 +4,7 @@ import Data.Co2 as Co2 exposing (Co2e)
 import Data.Country as Country exposing (Country)
 import Data.Db exposing (Db)
 import Data.Formula as Formula
+import Data.FwE as FwE exposing (Pe)
 import Data.Gitbook as Gitbook exposing (Path(..))
 import Data.Inputs exposing (Inputs)
 import Data.Process as Process exposing (Process)
@@ -26,6 +27,7 @@ type alias Step =
     , waste : Mass
     , transport : Transport
     , co2 : Co2e
+    , fwe : Pe
     , heat : Energy
     , kwh : Energy
     , processInfo : ProcessInfo
@@ -64,6 +66,7 @@ create label editable country =
     , waste = Mass.kilograms 0
     , transport = default
     , co2 = Quantity.zero
+    , fwe = Quantity.zero
     , heat = Energy.megajoules 0
     , kwh = Energy.kilowattHours 0
     , processInfo = defaultProcessInfo
@@ -298,6 +301,7 @@ encode v =
         , ( "waste", Encode.float (Mass.inKilograms v.waste) )
         , ( "transport", Transport.encode v.transport )
         , ( "co2", Co2.encodeKgCo2e v.co2 )
+        , ( "fwe", FwE.encodeKgPe v.fwe )
         , ( "heat", Encode.float (Energy.inMegajoules v.heat) )
         , ( "kwh", Encode.float (Energy.inKilowattHours v.kwh) )
         , ( "processInfo", encodeProcessInfo v.processInfo )
