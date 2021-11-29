@@ -29,6 +29,9 @@ jobs:
     - name: Install dependencies
       run: npm ci
 
+    - name: Run static analysis
+      run: npx elm-analyse
+
     - name: Run tests
       run: npm test
 
