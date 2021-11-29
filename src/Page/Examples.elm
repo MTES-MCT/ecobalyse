@@ -8,7 +8,6 @@ import Data.Simulator as Simulator
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Route
-import Views.Alert as Alert
 import Views.Container as Container
 import Views.Format as Format
 import Views.Summary as SummaryView
@@ -190,12 +189,6 @@ viewSamples session =
     div [ class "py-5" ]
         [ div [ class "row mb-3" ]
             [ h2 [ class "mb-3" ] [ text "Suite de test" ]
-            , Alert.simple
-                { level = Alert.Info
-                , close = Nothing
-                , title = "Note"
-                , content = [ text "Les tableaux ne font apparaître que les paramètres personnalisés, pas les valeurs par défaut." ]
-                }
             ]
         , Sample.samples
             |> List.map (viewSectionOrSample session)
