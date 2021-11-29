@@ -27,7 +27,7 @@ sample =
 
 samples : List SectionOrSample
 samples =
-    [ section "default dyeing weighting"
+    [ section "Aucun paramétrage personnalisé"
         [ sample "co2 score for tShirtCotonFrance"
             { query = tShirtCotonFrance
             , expected = Co2.kgCo2e 4.4140271789664345
@@ -57,7 +57,7 @@ samples =
             , expected = Co2.kgCo2e 38.38642250859547
             }
         ]
-    , section "custom dyeing weighting"
+    , section "Majoration de teinture personnalisée"
         [ sample "co2 score for tShirtCotonFrance using custom dyeing weighting"
             { query = { tShirtCotonFrance | dyeingWeighting = Just 0.5 }
             , expected = Co2.kgCo2e 4.877918477816435
@@ -87,7 +87,7 @@ samples =
             , expected = Co2.kgCo2e 40.993996361512146
             }
         ]
-    , section "custom air transport ratio"
+    , section "Transport aérien personnalisé"
         [ sample "co2 score for tShirtCotonFrance using custom air transport ratio"
             { query = { tShirtCotonFrance | airTransportRatio = Just 0.5 }
             , expected = Co2.kgCo2e 4.4587926414664345
@@ -117,7 +117,7 @@ samples =
             , expected = Co2.kgCo2e 38.78750497344547
             }
         ]
-    , section "custom recycled ratio"
+    , section "Part de matière recyclée personnalisée"
         [ sample "co2 score for tShirtCotonFrance using no recycled ratio"
             { query = { tShirtCotonFrance | recycledRatio = Just 0 }
             , expected = Co2.kgCo2e 4.4140271789664345
@@ -155,8 +155,8 @@ samples =
             , expected = Co2.kgCo2e 38.38642250859547
             }
         ]
-    , section "custom country mix"
-        [ Section "at the WeavingKnitting step"
+    , section "Mix énergétique personnalisé"
+        [ Section "À l'étape Tissage/Tricotage"
             [ sample "co2 score for tShirtCotonFrance using custom country mix of 0"
                 { query =
                     tShirtCotonFrance
@@ -176,7 +176,7 @@ samples =
                 , expected = Co2.kgCo2e 5.190992378966434
                 }
             ]
-        , section "at the Dyeing step"
+        , section "À l'étape de Teinture"
             [ sample "co2 score for tShirtCotonFrance using custom country mix of 0"
                 { query =
                     tShirtCotonFrance
@@ -196,7 +196,7 @@ samples =
                 , expected = Co2.kgCo2e 5.058800383133101
                 }
             ]
-        , section "at the Making step"
+        , section "À l'étape de Confection"
             [ sample "co2 score for tShirtCotonFrance using custom country mix of 0"
                 { query =
                     tShirtCotonFrance
@@ -216,7 +216,7 @@ samples =
                 , expected = Co2.kgCo2e 5.223365928966434
                 }
             ]
-        , section "at multiple step levels"
+        , section "À toutes les étapes"
             [ sample "co2 score for tShirtCotonFrance using custom country mix of 0"
                 { query =
                     tShirtCotonFrance
@@ -248,15 +248,13 @@ samples =
 
 hasTests : List SectionOrSample -> Bool
 hasTests sectionOrSamples =
-    List.length sectionOrSamples
-        == 0
-        || List.any
-            (\s ->
-                case s of
-                    Section _ _ ->
-                        False
+    List.any
+        (\s ->
+            case s of
+                Section _ _ ->
+                    False
 
-                    Sample _ _ ->
-                        True
-            )
-            sectionOrSamples
+                Sample _ _ ->
+                    True
+        )
+        sectionOrSamples
