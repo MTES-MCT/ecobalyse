@@ -128,27 +128,20 @@ dyeingCo2 ( dyeingLowProcess, dyeingHighProcess ) highDyeingWeighting heatCC ele
 
 
 makingCo2 :
-    { makingCC : Co2e
-    , makingElec : Energy
+    { makingProcess : { process | elec : Energy }
     , countryElecCC : Co2e
     }
     -> Mass
     -> { kwh : Energy, co2 : Co2e }
-makingCo2 { makingCC, makingElec, countryElecCC } baseMass =
+makingCo2 { makingProcess, countryElecCC } _ =
+    -- Note: In Base Impacts, Energy for the Making step is expressed
+    --       in MJ per item, so it's not mass-dependent.
     let
-        makingCo2_ =
-            baseMass
-                |> Co2.forKg makingCC
-
-        kwh =
-            makingElec
-                |> Quantity.multiplyBy (Mass.inKilograms baseMass)
-
-        elecCo2 =
-            kwh
+        co2 =
+            makingProcess.elec
                 |> Co2.forKWh countryElecCC
     in
-    { co2 = Quantity.plus makingCo2_ elecCo2, kwh = kwh }
+    { co2 = co2, kwh = makingProcess.elec }
 
 
 knittingCo2 :
