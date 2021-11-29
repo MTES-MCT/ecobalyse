@@ -8,6 +8,7 @@ import Data.Simulator as Simulator
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Route
+import Views.Alert as Alert
 import Views.Container as Container
 import Views.Format as Format
 import Views.Summary as SummaryView
@@ -139,10 +140,27 @@ viewSectionOrSample session sectionOrSample =
                         [ td [] [ text simulator.inputs.product.name ]
                         , td [] [ text simulator.inputs.material.shortName ]
                         , td [ class "text-end" ] [ Format.kg simulator.inputs.mass ]
-                        , td [] [ query.countries |> List.map Country.codeToString |> String.join "→" |> text ]
-                        , td [] [ query.recycledRatio |> Maybe.map ((*) 100 >> Format.percent) |> Maybe.withDefault (text "Non") ]
-                        , td [] [ query.dyeingWeighting |> Maybe.map ((*) 100 >> Format.percent) |> Maybe.withDefault (text "Non") ]
-                        , td [] [ query.airTransportRatio |> Maybe.map ((*) 100 >> Format.percent) |> Maybe.withDefault (text "Non") ]
+                        , td []
+                            [ query.countries
+                                |> List.map Country.codeToString
+                                |> String.join "→"
+                                |> text
+                            ]
+                        , td []
+                            [ query.recycledRatio
+                                |> Maybe.map ((*) 100 >> Format.percent)
+                                |> Maybe.withDefault (text "Non")
+                            ]
+                        , td []
+                            [ query.dyeingWeighting
+                                |> Maybe.map ((*) 100 >> Format.percent)
+                                |> Maybe.withDefault (text "Non")
+                            ]
+                        , td []
+                            [ query.airTransportRatio
+                                |> Maybe.map ((*) 100 >> Format.percent)
+                                |> Maybe.withDefault (text "Non")
+                            ]
                         , td [] [ formatCustomCountryMixes query.customCountryMixes ]
                         , td [ class "text-end" ]
                             [ if success then
@@ -172,6 +190,12 @@ viewSamples session =
     div [ class "py-5" ]
         [ div [ class "row mb-3" ]
             [ h2 [ class "mb-3" ] [ text "Suite de test" ]
+            , Alert.simple
+                { level = Alert.Info
+                , close = Nothing
+                , title = "Note"
+                , content = [ text "Les tableaux ne font apparaître que les paramètres personnalisés, pas les valeurs par défaut." ]
+                }
             ]
         , Sample.samples
             |> List.map (viewSectionOrSample session)
