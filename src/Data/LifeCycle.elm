@@ -3,6 +3,7 @@ module Data.LifeCycle exposing (..)
 import Array exposing (Array)
 import Data.Co2 exposing (Co2e)
 import Data.Db exposing (Db)
+import Data.FwE exposing (Pe)
 import Data.Inputs as Inputs exposing (Inputs)
 import Data.Step as Step exposing (Step)
 import Data.Transport as Transport exposing (Transport)
@@ -48,6 +49,15 @@ computeFinalCo2Score =
     Array.foldl
         (\{ co2, transport } finalScore ->
             Quantity.sum [ finalScore, co2, transport.co2 ]
+        )
+        Quantity.zero
+
+
+computeFinalFwEScore : LifeCycle -> Pe
+computeFinalFwEScore =
+    Array.foldl
+        (\{ fwe, transport } finalScore ->
+            Quantity.sum [ finalScore, fwe, transport.fwe ]
         )
         Quantity.zero
 

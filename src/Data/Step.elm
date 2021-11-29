@@ -140,11 +140,18 @@ computeTransportCo2 { seaTransport, airTransport } roadProcess mass { road, sea,
             , mass |> Co2.forKgAndDistance seaTransport.climateChange sea
             , mass |> Co2.forKgAndDistance airTransport.climateChange air
             )
+
+        ( roadFwe, seaFwe, airFwe ) =
+            ( mass |> FwE.forKgAndDistance roadProcess.freshwaterEutrophication road
+            , mass |> FwE.forKgAndDistance seaTransport.freshwaterEutrophication sea
+            , mass |> FwE.forKgAndDistance airTransport.freshwaterEutrophication air
+            )
     in
     { road = road
     , sea = sea
     , air = air
     , co2 = Quantity.sum [ roadCo2, seaCo2, airCo2 ]
+    , fwe = Quantity.sum [ roadFwe, seaFwe, airFwe ]
     }
 
 

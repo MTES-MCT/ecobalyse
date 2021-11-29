@@ -2,6 +2,7 @@ module Data.LifeCycleTest exposing (..)
 
 import Data.Co2 as Co2
 import Data.Country as Country
+import Data.FwE as FwE
 import Data.Inputs exposing (tShirtCotonFrance)
 import Data.LifeCycle as LifeCycle
 import Expect
@@ -32,6 +33,7 @@ suite =
                                         , sea = km 21548
                                         , air = km 0
                                         , co2 = Co2.kgCo2e 0
+                                        , fwe = FwE.kgPe 0
                                         }
                                     )
                     , test "should compute custom distances" <|
@@ -54,6 +56,7 @@ suite =
                                         , sea = km 33508
                                         , air = km 0
                                         , co2 = Co2.kgCo2e 0
+                                        , fwe = FwE.kgPe 0
                                         }
                                     )
                     ]

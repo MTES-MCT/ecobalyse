@@ -273,7 +273,10 @@ computeTotalTransports simulator =
 
 computeFinalCo2Score : Simulator -> Simulator
 computeFinalCo2Score simulator =
-    { simulator | co2 = LifeCycle.computeFinalCo2Score simulator.lifeCycle }
+    { simulator
+        | co2 = LifeCycle.computeFinalCo2Score simulator.lifeCycle
+        , fwe = LifeCycle.computeFinalFwEScore simulator.lifeCycle
+    }
 
 
 updateLifeCycle : (LifeCycle -> LifeCycle) -> Simulator -> Simulator

@@ -2,6 +2,7 @@ module Data.Transport exposing (..)
 
 import Data.Co2 as Co2 exposing (Co2e)
 import Data.Country as Country
+import Data.FwE as FwE exposing (Pe)
 import Dict.Any as Dict exposing (AnyDict)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
@@ -22,6 +23,7 @@ type alias Transport =
     , sea : Length
     , air : Length
     , co2 : Co2e
+    , fwe : Pe
     }
 
 
@@ -31,6 +33,7 @@ default =
     , sea = Quantity.zero
     , air = Quantity.zero
     , co2 = Quantity.zero
+    , fwe = Quantity.zero
     }
 
 
@@ -45,6 +48,7 @@ defaultInland =
     , sea = Quantity.zero
     , air = Length.kilometers 500
     , co2 = Quantity.zero
+    , fwe = Quantity.zero
     }
 
 
@@ -120,10 +124,11 @@ encodeKm =
 
 decode : Decoder Transport
 decode =
-    Decode.map4 Transport
+    Decode.map5 Transport
         (Decode.field "road" decodeKm)
         (Decode.field "sea" decodeKm)
         (Decode.field "air" decodeKm)
+        (Decode.succeed Quantity.zero)
         (Decode.succeed Quantity.zero)
 
 
@@ -134,6 +139,7 @@ encode v =
         , ( "sea", encodeKm v.sea )
         , ( "air", encodeKm v.air )
         , ( "co2", Co2.encodeKgCo2e v.co2 )
+        , ( "fwe", FwE.encodeKgPe v.fwe )
         ]
 
 
