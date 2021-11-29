@@ -149,17 +149,17 @@ viewSectionOrSample session sectionOrSample =
                         , td []
                             [ query.recycledRatio
                                 |> Maybe.map ((*) 100 >> Format.percent)
-                                |> Maybe.withDefault (text "Non")
+                                |> Maybe.withDefault (text "Par défaut")
                             ]
                         , td []
                             [ query.dyeingWeighting
                                 |> Maybe.map ((*) 100 >> Format.percent)
-                                |> Maybe.withDefault (text "Non")
+                                |> Maybe.withDefault (text "Par défaut")
                             ]
                         , td []
                             [ query.airTransportRatio
                                 |> Maybe.map ((*) 100 >> Format.percent)
-                                |> Maybe.withDefault (text "Non")
+                                |> Maybe.withDefault (text "Par défaut")
                             ]
                         , td [] [ formatCustomCountryMixes query.customCountryMixes ]
                         , td [ class "text-end" ]
