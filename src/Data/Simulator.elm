@@ -79,7 +79,7 @@ compute db query =
         -- Compute Weaving & Knitting step co2 score
         |> next computeWeavingKnittingCo2Score
         -- Compute Ennoblement step co2 score
-        |> nextWithDb computeDyeingCo2Score
+        |> nextWithDb computeDyeingImpacts
         -- Compute Making step co2 score
         |> next computeMakingCo2Score
         --
@@ -120,8 +120,8 @@ computeMakingCo2Score ({ inputs } as simulator) =
             )
 
 
-computeDyeingCo2Score : Db -> Simulator -> Result String Simulator
-computeDyeingCo2Score { processes } simulator =
+computeDyeingImpacts : Db -> Simulator -> Result String Simulator
+computeDyeingImpacts { processes } simulator =
     processes
         |> Process.loadWellKnown
         |> Result.map
