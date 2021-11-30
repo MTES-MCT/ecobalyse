@@ -126,13 +126,13 @@ computeTransports db next ({ processInfo } as current) =
                         }
                     , transport =
                         stepSummary
-                            |> computeTransportCo2 wellKnown roadTransportProcess next.inputMass
+                            |> computeTransportImpacts wellKnown roadTransportProcess next.inputMass
                 }
             )
 
 
-computeTransportCo2 : Process.WellKnown -> Process -> Mass -> Transport -> Transport
-computeTransportCo2 { seaTransport, airTransport } roadProcess mass { road, sea, air } =
+computeTransportImpacts : Process.WellKnown -> Process -> Mass -> Transport -> Transport
+computeTransportImpacts { seaTransport, airTransport } roadProcess mass { road, sea, air } =
     let
         ( roadCo2, seaCo2, airCo2 ) =
             ( mass |> Unit.forKgAndDistance roadProcess.climateChange road
