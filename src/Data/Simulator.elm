@@ -75,13 +75,13 @@ compute db query =
         -- CO2 SCORES
         --
         -- Compute Material & Spinning step co2 score
-        |> next computeMaterialAndSpinningCo2Score
+        |> next computeMaterialAndSpinningImpacts
         -- Compute Weaving & Knitting step co2 score
-        |> next computeWeavingKnittingCo2Score
+        |> next computeWeavingKnittingImpacts
         -- Compute Ennoblement step co2 score
         |> nextWithDb computeDyeingImpacts
         -- Compute Making step co2 score
-        |> next computeMakingCo2Score
+        |> next computeMakingImpacts
         --
         -- TRANSPORTS
         --
@@ -92,7 +92,7 @@ compute db query =
         --
         -- FINAL CO2 SCORE
         --
-        |> next computeFinalCo2Score
+        |> next computeFinalImpacts
 
 
 initializeFinalMass : Simulator -> Simulator
@@ -101,8 +101,8 @@ initializeFinalMass ({ inputs } as simulator) =
         |> updateLifeCycleStep Step.Distribution (Step.initMass inputs.mass)
 
 
-computeMakingCo2Score : Simulator -> Simulator
-computeMakingCo2Score ({ inputs } as simulator) =
+computeMakingImpacts : Simulator -> Simulator
+computeMakingImpacts ({ inputs } as simulator) =
     simulator
         |> updateLifeCycleStep Step.Making
             (\({ country } as step) ->
@@ -142,8 +142,8 @@ computeDyeingImpacts { processes } simulator =
             )
 
 
-computeMaterialAndSpinningCo2Score : Simulator -> Simulator
-computeMaterialAndSpinningCo2Score ({ inputs } as simulator) =
+computeMaterialAndSpinningImpacts : Simulator -> Simulator
+computeMaterialAndSpinningImpacts ({ inputs } as simulator) =
     simulator
         |> updateLifeCycleStep Step.MaterialAndSpinning
             (\step ->
@@ -165,8 +165,8 @@ computeMaterialAndSpinningCo2Score ({ inputs } as simulator) =
             )
 
 
-computeWeavingKnittingCo2Score : Simulator -> Simulator
-computeWeavingKnittingCo2Score ({ inputs } as simulator) =
+computeWeavingKnittingImpacts : Simulator -> Simulator
+computeWeavingKnittingImpacts ({ inputs } as simulator) =
     simulator
         |> updateLifeCycleStep Step.WeavingKnitting
             (\({ country } as step) ->
@@ -260,11 +260,11 @@ computeTotalTransports simulator =
     { simulator | transport = simulator.lifeCycle |> LifeCycle.computeTotalTransports }
 
 
-computeFinalCo2Score : Simulator -> Simulator
-computeFinalCo2Score simulator =
+computeFinalImpacts : Simulator -> Simulator
+computeFinalImpacts ({ lifeCycle } as simulator) =
     { simulator
-        | co2 = LifeCycle.computeFinalCo2Score simulator.lifeCycle
-        , fwe = LifeCycle.computeFinalFwEScore simulator.lifeCycle
+        | co2 = LifeCycle.computeFinalCo2Score lifeCycle
+        , fwe = LifeCycle.computeFinalFwEScore lifeCycle
     }
 
 
