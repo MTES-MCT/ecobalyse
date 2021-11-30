@@ -3,7 +3,6 @@ module Page.Simulator exposing (..)
 import Array
 import Browser.Dom as Dom
 import Browser.Events
-import Data.Co2 as Co2 exposing (Co2e)
 import Data.Country as Country
 import Data.Db exposing (Db)
 import Data.Gitbook as Gitbook
@@ -15,6 +14,7 @@ import Data.Product as Product exposing (Product)
 import Data.Session as Session exposing (Session)
 import Data.Simulator as Simulator exposing (Simulator)
 import Data.Step as Step exposing (Step)
+import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
@@ -66,7 +66,7 @@ type Msg
     | OpenDocModal Gitbook.Path
     | Reset
     | ResetCustomCountryMix Step.Label
-    | SubmitCustomCountryMix Step.Label (Maybe Co2e)
+    | SubmitCustomCountryMix Step.Label (Maybe Unit.Co2e)
     | SwitchMode DisplayMode
     | UpdateAirTransportRatio (Maybe Float)
     | UpdateCustomCountryMixInput Step.Label String
@@ -118,11 +118,11 @@ updateCustomCountryMixInputs stepLabel maybeValue values =
             values
 
 
-validateCustomCountryMixInput : Step.Label -> CustomCountryMixInputs -> Maybe Co2e
+validateCustomCountryMixInput : Step.Label -> CustomCountryMixInputs -> Maybe Unit.Co2e
 validateCustomCountryMixInput stepLabel =
     getCustomCountryMixInput stepLabel
         >> Maybe.andThen String.toFloat
-        >> Maybe.map Co2.kgCo2e
+        >> Maybe.map Unit.kgCo2e
 
 
 init : Maybe Inputs.Query -> Session -> ( Model, Session, Cmd Msg )
@@ -155,7 +155,7 @@ toCustomCountryMixFormInputs : Inputs.CustomCountryMixes -> CustomCountryMixInpu
 toCustomCountryMixFormInputs { fabric, dyeing, making } =
     let
         mapToCo2e =
-            Maybe.map (Co2.inKgCo2e >> String.fromFloat)
+            Maybe.map (Unit.inKgCo2e >> String.fromFloat)
     in
     { fabric = mapToCo2e fabric
     , dyeing = mapToCo2e dyeing
@@ -175,7 +175,7 @@ updateQuery query ( model, session, msg ) =
     )
 
 
-updateQueryCustomCountryMix : Step.Label -> Maybe Co2e -> Inputs.Query -> Inputs.Query
+updateQueryCustomCountryMix : Step.Label -> Maybe Unit.Co2e -> Inputs.Query -> Inputs.Query
 updateQueryCustomCountryMix stepLabel maybeValue ({ customCountryMixes } as query) =
     { query
         | customCountryMixes =
@@ -520,7 +520,7 @@ customCountryMixModal { customCountryMixInputs } step =
     let
         countryDefault =
             step.country.electricityProcess.climateChange
-                |> Co2.inKgCo2e
+                |> Unit.inKgCo2e
                 |> String.fromFloat
 
         customCountryMixInput =

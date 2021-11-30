@@ -1,9 +1,8 @@
 module Data.Formula exposing (..)
 
-import Data.Co2 as Co2 exposing (Co2e)
-import Data.FwE as FwE exposing (Pe)
 import Data.Process exposing (Process)
 import Data.Transport as Transport exposing (Transport)
+import Data.Unit as Unit
 import Energy exposing (Energy)
 import Mass exposing (Mass)
 import Quantity
@@ -85,7 +84,7 @@ dyeingImpacts :
     -> Process -- Outbound: country heat impact
     -> Process -- Outbound: country electricity impact
     -> Mass
-    -> { co2 : Co2e, fwe : Pe, heat : Energy, kwh : Energy }
+    -> { co2 : Unit.Co2e, fwe : Unit.Pe, heat : Energy, kwh : Energy }
 dyeingImpacts ( dyeingLowProcess, dyeingHighProcess ) highDyeingWeighting heatProcess elecProcess baseMass =
     let
         lowDyeingWeighting =
@@ -98,14 +97,14 @@ dyeingImpacts ( dyeingLowProcess, dyeingHighProcess ) highDyeingWeighting heatPr
 
         dyeingCo2_ =
             Quantity.sum
-                [ Co2.forKg dyeingLowProcess.climateChange lowDyeingMass
-                , Co2.forKg dyeingHighProcess.climateChange highDyeingMass
+                [ Unit.forKg dyeingLowProcess.climateChange lowDyeingMass
+                , Unit.forKg dyeingHighProcess.climateChange highDyeingMass
                 ]
 
         dyeingFwe =
             Quantity.sum
-                [ FwE.forKg dyeingLowProcess.freshwaterEutrophication lowDyeingMass
-                , FwE.forKg dyeingHighProcess.freshwaterEutrophication highDyeingMass
+                [ Unit.forKg dyeingLowProcess.freshwaterEutrophication lowDyeingMass
+                , Unit.forKg dyeingHighProcess.freshwaterEutrophication highDyeingMass
                 ]
 
         heatMJ =
@@ -116,10 +115,10 @@ dyeingImpacts ( dyeingLowProcess, dyeingHighProcess ) highDyeingWeighting heatPr
                 |> Energy.megajoules
 
         heatCo2 =
-            heatMJ |> Co2.forMJ heatProcess.climateChange
+            heatMJ |> Unit.forMJ heatProcess.climateChange
 
         heatFwe =
-            heatMJ |> FwE.forMJ heatProcess.freshwaterEutrophication
+            heatMJ |> Unit.forMJ heatProcess.freshwaterEutrophication
 
         electricity =
             Mass.inKilograms baseMass
@@ -129,10 +128,10 @@ dyeingImpacts ( dyeingLowProcess, dyeingHighProcess ) highDyeingWeighting heatPr
                 |> Energy.megajoules
 
         elecCo2 =
-            electricity |> Co2.forKWh elecProcess.climateChange
+            electricity |> Unit.forKWh elecProcess.climateChange
 
         elecFwe =
-            electricity |> FwE.forKWh elecProcess.freshwaterEutrophication
+            electricity |> Unit.forKWh elecProcess.freshwaterEutrophication
     in
     { co2 = Quantity.sum [ dyeingCo2_, heatCo2, elecCo2 ]
     , fwe = Quantity.sum [ dyeingFwe, heatFwe, elecFwe ]
@@ -143,27 +142,27 @@ dyeingImpacts ( dyeingLowProcess, dyeingHighProcess ) highDyeingWeighting heatPr
 
 makingCo2 :
     { makingProcess : { process | elec : Energy }
-    , countryElecCC : Co2e
+    , countryElecCC : Unit.Co2e
     }
     -> Mass
-    -> { kwh : Energy, co2 : Co2e }
+    -> { kwh : Energy, co2 : Unit.Co2e }
 makingCo2 { makingProcess, countryElecCC } _ =
     -- Note: In Base Impacts, Energy for the Making step is expressed
     --       in MJ per item, so it's not mass-dependent.
     let
         co2 =
             makingProcess.elec
-                |> Co2.forKWh countryElecCC
+                |> Unit.forKWh countryElecCC
     in
     { co2 = co2, kwh = makingProcess.elec }
 
 
 knittingCo2 :
     { elec : Energy
-    , elecCC : Co2e
+    , elecCC : Unit.Co2e
     }
     -> Mass
-    -> { kwh : Energy, co2 : Co2e }
+    -> { kwh : Energy, co2 : Unit.Co2e }
 knittingCo2 { elec, elecCC } baseMass =
     let
         electricityKWh =
@@ -171,18 +170,18 @@ knittingCo2 { elec, elecCC } baseMass =
                 (Mass.inKilograms baseMass * Energy.inKilowattHours elec)
     in
     { kwh = electricityKWh
-    , co2 = electricityKWh |> Co2.forKWh elecCC
+    , co2 = electricityKWh |> Unit.forKWh elecCC
     }
 
 
 weavingCo2 :
     { elecPppm : Float
-    , elecCC : Co2e
+    , elecCC : Unit.Co2e
     , ppm : Int
     , grammage : Int
     }
     -> Mass
-    -> { kwh : Energy, co2 : Co2e }
+    -> { kwh : Energy, co2 : Unit.Co2e }
 weavingCo2 { elecPppm, elecCC, ppm, grammage } baseMass =
     let
         electricityKWh =
@@ -191,7 +190,7 @@ weavingCo2 { elecPppm, elecCC, ppm, grammage } baseMass =
                 |> Energy.kilowattHours
     in
     { kwh = electricityKWh
-    , co2 = electricityKWh |> Co2.forKWh elecCC
+    , co2 = electricityKWh |> Unit.forKWh elecCC
     }
 
 

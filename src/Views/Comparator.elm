@@ -2,7 +2,6 @@ module Views.Comparator exposing (..)
 
 import Chart as C
 import Chart.Attributes as CA
-import Data.Co2 as Co2
 import Data.Country as Country
 import Data.Db exposing (Db)
 import Data.Inputs as Inputs exposing (Inputs)
@@ -10,6 +9,7 @@ import Data.LifeCycle as LifeCycle
 import Data.Session exposing (Session)
 import Data.Simulator as Simulator exposing (Simulator)
 import Data.Step as Step
+import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -161,7 +161,7 @@ createEntry db highlight ( label, query ) =
         stepCo2Float stepLabel lifeCycle =
             lifeCycle
                 |> LifeCycle.getStepProp stepLabel .co2 Quantity.zero
-                |> Co2.inKgCo2e
+                |> Unit.inKgCo2e
     in
     query
         |> Simulator.compute db
@@ -170,12 +170,12 @@ createEntry db highlight ( label, query ) =
                 { label = label
                 , highlight = highlight
                 , knitted = inputs.product.knitted
-                , kgCo2e = Co2.inKgCo2e co2
+                , kgCo2e = Unit.inKgCo2e co2
                 , materialAndSpinning = lifeCycle |> stepCo2Float Step.MaterialAndSpinning
                 , weavingKnitting = lifeCycle |> stepCo2Float Step.WeavingKnitting
                 , dyeing = lifeCycle |> stepCo2Float Step.Ennoblement
                 , making = lifeCycle |> stepCo2Float Step.Making
-                , transport = Co2.inKgCo2e transport.co2
+                , transport = Unit.inKgCo2e transport.co2
                 }
             )
 

@@ -1,8 +1,7 @@
 module Data.Transport exposing (..)
 
-import Data.Co2 as Co2 exposing (Co2e)
 import Data.Country as Country
-import Data.FwE as FwE exposing (Pe)
+import Data.Unit as Unit
 import Dict.Any as Dict exposing (AnyDict)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
@@ -22,8 +21,8 @@ type alias Transport =
     { road : Length
     , sea : Length
     , air : Length
-    , co2 : Co2e
-    , fwe : Pe
+    , co2 : Unit.Co2e
+    , fwe : Unit.Pe
     }
 
 
@@ -138,8 +137,8 @@ encode v =
         [ ( "road", encodeKm v.road )
         , ( "sea", encodeKm v.sea )
         , ( "air", encodeKm v.air )
-        , ( "co2", Co2.encodeKgCo2e v.co2 )
-        , ( "fwe", FwE.encodeKgPe v.fwe )
+        , ( "co2", Unit.encodeKgCo2e v.co2 )
+        , ( "fwe", Unit.encodeKgPe v.fwe )
         ]
 
 

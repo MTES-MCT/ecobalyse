@@ -1,7 +1,7 @@
 module Data.FormulaTest exposing (..)
 
-import Data.Co2 as Co2
 import Data.Formula as Formula
+import Data.Unit as Unit
 import Energy
 import Expect exposing (Expectation)
 import Mass exposing (Mass)
@@ -52,11 +52,11 @@ suite =
                     kg 1
                         |> Formula.makingCo2
                             { makingProcess = { elec = Energy.megajoules 0.5 }
-                            , countryElecCC = Co2.kgCo2e 0.5
+                            , countryElecCC = Unit.kgCo2e 0.5
                             }
              in
              [ res.co2
-                |> Co2.inKgCo2e
+                |> Unit.inKgCo2e
                 |> Expect.within (Expect.Absolute 0.01) 0.07
                 |> asTest "should compute Making step co2 from process and country data"
              , res.kwh
@@ -71,13 +71,13 @@ suite =
                     kg 1
                         |> Formula.weavingCo2
                             { elecPppm = 0.01
-                            , elecCC = Co2.kgCo2e 0.1
+                            , elecCC = Unit.kgCo2e 0.1
                             , ppm = 400
                             , grammage = 500
                             }
              in
              [ res.co2
-                |> Co2.inKgCo2e
+                |> Unit.inKgCo2e
                 |> Expect.within (Expect.Absolute 0.01) 0.8
                 |> asTest "should compute KnittingWeaving step co2 from process and product data"
              , res.kwh
@@ -92,11 +92,11 @@ suite =
                     kg 1
                         |> Formula.knittingCo2
                             { elec = Energy.kilowattHours 5
-                            , elecCC = Co2.kgCo2e 0.2
+                            , elecCC = Unit.kgCo2e 0.2
                             }
              in
              [ res.co2
-                |> Co2.inKgCo2e
+                |> Unit.inKgCo2e
                 |> Expect.within (Expect.Absolute 0.01) 1
                 |> asTest "should compute KnittingWeaving step co2 from process and product data"
              , res.kwh

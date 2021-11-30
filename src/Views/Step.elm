@@ -1,11 +1,11 @@
 module Views.Step exposing (..)
 
-import Data.Co2 as Co2
 import Data.Country as Country
 import Data.Db exposing (Db)
 import Data.Gitbook as Gitbook
 import Data.Product exposing (Product)
 import Data.Step as Step exposing (Step)
+import Data.Unit as Unit
 import Energy
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -241,7 +241,7 @@ detailedView ({ product, index, next, current } as config) =
         , div
             [ class "card text-center" ]
             [ div [ class "card-header text-muted" ]
-                [ if Co2.inKgCo2e current.co2 > 0 then
+                [ if Unit.inKgCo2e current.co2 > 0 then
                     span [ class "fw-bold" ] [ Format.kgCo2 3 current.co2 ]
 
                   else

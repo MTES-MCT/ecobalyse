@@ -1,14 +1,13 @@
 module Data.Simulator exposing (..)
 
-import Data.Co2 as Co2 exposing (Co2e)
 import Data.Db exposing (Db)
 import Data.Formula as Formula
-import Data.FwE as FwE exposing (Pe)
 import Data.Inputs as Inputs exposing (Inputs)
 import Data.LifeCycle as LifeCycle exposing (LifeCycle)
 import Data.Process as Process
 import Data.Step as Step exposing (Step)
 import Data.Transport as Transport exposing (Transport)
+import Data.Unit as Unit
 import Json.Encode as Encode
 import Quantity
 
@@ -16,8 +15,8 @@ import Quantity
 type alias Simulator =
     { inputs : Inputs
     , lifeCycle : LifeCycle
-    , co2 : Co2e
-    , fwe : Pe
+    , co2 : Unit.Co2e
+    , fwe : Unit.Pe
     , transport : Transport
     }
 
@@ -27,8 +26,8 @@ encode v =
     Encode.object
         [ ( "inputs", Inputs.encode v.inputs )
         , ( "lifeCycle", LifeCycle.encode v.lifeCycle )
-        , ( "co2", Co2.encodeKgCo2e v.co2 )
-        , ( "fwe", FwE.encodeKgPe v.fwe )
+        , ( "co2", Unit.encodeKgCo2e v.co2 )
+        , ( "fwe", Unit.encodeKgPe v.fwe )
         , ( "transport", Transport.encode v.transport )
         ]
 
@@ -163,7 +162,7 @@ computeMaterialAndSpinningCo2Score ({ inputs } as simulator) =
                         case ( inputs.material.recycledProcess, inputs.recycledRatio ) of
                             ( Just recycledProcess, Just ratio ) ->
                                 step.outputMass
-                                    |> Co2.ratioedForKg
+                                    |> Unit.ratioedForKg
                                         ( recycledProcess.climateChange
                                         , inputs.material.materialProcess.climateChange
                                         )
@@ -171,7 +170,7 @@ computeMaterialAndSpinningCo2Score ({ inputs } as simulator) =
 
                             _ ->
                                 step.outputMass
-                                    |> Co2.forKg inputs.material.materialProcess.climateChange
+                                    |> Unit.forKg inputs.material.materialProcess.climateChange
                 }
             )
 

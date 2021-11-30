@@ -1,9 +1,9 @@
 module Data.SimulatorTest exposing (..)
 
-import Data.Co2 as Co2
 import Data.Inputs as Inputs exposing (..)
 import Data.Sample as Sample
 import Data.Simulator as Simulator
+import Data.Unit as Unit
 import Expect exposing (Expectation)
 import Route exposing (Route(..))
 import Test exposing (..)
@@ -20,7 +20,7 @@ expectCo2 co2 query =
     case testDb |> Result.andThen (\db -> Simulator.compute db query) of
         Ok simulator ->
             simulator.co2
-                |> Co2.inKgCo2e
+                |> Unit.inKgCo2e
                 |> Expect.within (Expect.Absolute 0.01) co2
 
         Err error ->
@@ -35,7 +35,7 @@ convert sectionOrSample =
 
         Sample.Sample title { query, expected } ->
             query
-                |> expectCo2 (Co2.inKgCo2e expected)
+                |> expectCo2 (Unit.inKgCo2e expected)
                 |> asTest title
 
 

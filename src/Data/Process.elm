@@ -1,7 +1,6 @@
 module Data.Process exposing (..)
 
-import Data.Co2 as Co2 exposing (Co2e)
-import Data.FwE as FwE exposing (Pe)
+import Data.Unit as Unit exposing (Co2e, Pe)
 import Energy exposing (Energy)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DecodeExtra
@@ -372,8 +371,8 @@ decode =
         |> Pipe.required "cat3" (Decode.string |> Decode.andThen (cat3FromString >> DecodeExtra.fromResult))
         |> Pipe.required "name" Decode.string
         |> Pipe.required "uuid" (Decode.map Uuid Decode.string)
-        |> Pipe.required "climateChange" Co2.decodeKgCo2e
-        |> Pipe.required "freshwaterEutrophication" FwE.decodeKgPe
+        |> Pipe.required "climateChange" Unit.decodeKgCo2e
+        |> Pipe.required "freshwaterEutrophication" Unit.decodeKgPe
         |> Pipe.required "heat" (Decode.map Energy.megajoules Decode.float)
         |> Pipe.required "elec_pppm" Decode.float
         |> Pipe.required "elec" (Decode.map Energy.megajoules Decode.float)
@@ -394,8 +393,8 @@ encode v =
         , ( "cat3", v.cat3 |> cat3ToString |> Encode.string )
         , ( "name", Encode.string v.name )
         , ( "uuid", v.uuid |> uuidToString |> Encode.string )
-        , ( "climateChange", Co2.encodeKgCo2e v.climateChange )
-        , ( "freshwaterEutrophication", FwE.encodeKgPe v.freshwaterEutrophication )
+        , ( "climateChange", Unit.encodeKgCo2e v.climateChange )
+        , ( "freshwaterEutrophication", Unit.encodeKgPe v.freshwaterEutrophication )
         , ( "heat", v.heat |> Energy.inMegajoules |> Encode.float )
         , ( "elec_pppm", Encode.float v.elec_pppm )
         , ( "elec", v.elec |> Energy.inMegajoules |> Encode.float )

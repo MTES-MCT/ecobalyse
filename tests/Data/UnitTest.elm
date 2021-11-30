@@ -1,6 +1,6 @@
-module Data.Co2Test exposing (..)
+module Data.UnitTest exposing (..)
 
-import Data.Co2 as Co2 exposing (Co2e)
+import Data.Unit as Unit
 import Energy
 import Expect exposing (Expectation)
 import Length
@@ -13,79 +13,79 @@ asTest label =
     always >> test label
 
 
-expectKgCo2Float : Float -> Co2e -> Expectation
+expectKgCo2Float : Float -> Unit.Co2e -> Expectation
 expectKgCo2Float value co2 =
-    co2 |> Co2.inKgCo2e |> Expect.within (Expect.Absolute 0.01) value
+    co2 |> Unit.inKgCo2e |> Expect.within (Expect.Absolute 0.01) value
 
 
 suite : Test
 suite =
-    describe "Data.Co2"
-        [ describe "Co2.inGramsCo2e"
-            [ Co2.kgCo2e 1
-                |> Co2.inGramsCo2e
+    describe "Data.Unit"
+        [ describe "Unit.inGramsCo2e"
+            [ Unit.kgCo2e 1
+                |> Unit.inGramsCo2e
                 |> Expect.equal 1000
                 |> asTest "inGramsCo2e should convert Grams"
             ]
-        , describe "Co2.inKgCo2e"
-            [ Co2.kgCo2e 1
-                |> Co2.inKgCo2e
+        , describe "Unit.inKgCo2e"
+            [ Unit.kgCo2e 1
+                |> Unit.inKgCo2e
                 |> Expect.equal 1
                 |> asTest "inKgCo2e should convert Kg"
             ]
-        , describe "Co2.inTonsCo2e"
-            [ Co2.kgCo2e 1
-                |> Co2.inTonsCo2e
+        , describe "Unit.inTonsCo2e"
+            [ Unit.kgCo2e 1
+                |> Unit.inTonsCo2e
                 |> Expect.within (Expect.Absolute 0.0001) 0.001
                 |> asTest "inTonsCo2e should convert Tons"
             ]
-        , describe "Co2.forKg"
+        , describe "Unit.forKg"
             [ Mass.kilograms 0.17
-                |> Co2.forKg (Co2.kgCo2e 0.2)
-                |> Expect.equal (Co2.kgCo2e 0.034)
+                |> Unit.forKg (Unit.kgCo2e 0.2)
+                |> Expect.equal (Unit.kgCo2e 0.034)
                 |> asTest "should compute kgCo2e for mass"
             , Mass.grams 170
-                |> Co2.forKg (Co2.kgCo2e 0.2)
-                |> Expect.equal (Co2.kgCo2e 0.034)
+                |> Unit.forKg (Unit.kgCo2e 0.2)
+                |> Expect.equal (Unit.kgCo2e 0.034)
                 |> asTest "should compute kgCo2e for mass from other scale unit"
             , Mass.grams 170
-                |> Co2.forKg (Co2.kgCo2e -0.2)
-                |> Expect.equal (Co2.kgCo2e -0.034)
+                |> Unit.forKg (Unit.kgCo2e -0.2)
+                |> Expect.equal (Unit.kgCo2e -0.034)
                 |> asTest "should compute negative kgCo2e for mass"
             ]
-        , describe "Co2.forKgAndDistance"
+        , describe "Unit.forKgAndDistance"
             [ Mass.kilograms 1
-                |> Co2.forKgAndDistance (Co2.kgCo2e 0.2) (Length.kilometers 2000)
-                |> Expect.equal (Co2.kgCo2e 0.4)
+                |> Unit.forKgAndDistance (Unit.kgCo2e 0.2) (Length.kilometers 2000)
+                |> Expect.equal (Unit.kgCo2e 0.4)
                 |> asTest "should compute kgCo2e for mass and distance"
             ]
-        , describe "Co2.forKWh"
+        , describe "Unit.forKWh"
             [ Energy.kilowattHours 1
-                |> Co2.forKWh (Co2.kgCo2e 0.2)
+                |> Unit.forKWh (Unit.kgCo2e 0.2)
                 |> expectKgCo2Float 0.2
                 |> asTest "should compute kgCo2e for energy expressed in KWh"
             ]
-        , describe "Co2.forMJ"
+        , describe "Unit.forMJ"
             [ Energy.megajoules 1
-                |> Co2.forMJ (Co2.kgCo2e 0.2)
+                |> Unit.forMJ (Unit.kgCo2e 0.2)
                 |> expectKgCo2Float 0.2
                 |> asTest "should compute kgCo2e for energy expressed in MJ"
             ]
-        , describe "Co2.ratioedForKg"
+        , describe "Unit.ratioedForKg"
             [ Mass.kilograms 1
-                |> Co2.ratioedForKg ( Co2.kgCo2e 0.25, Co2.kgCo2e 0.75 ) 0.5
+                |> Unit.ratioedForKg ( Unit.kgCo2e 0.25, Unit.kgCo2e 0.75 ) 0.5
                 |> expectKgCo2Float 0.5
                 |> asTest "should compute co2 from ratioed co2 impacts and mass"
             ]
-        , describe "Co2.ratioedForKWh"
+        , describe "Unit.ratioedForKWh"
             [ Energy.kilowattHours 1
-                |> Co2.ratioedForKWh ( Co2.kgCo2e 0.25, Co2.kgCo2e 0.75 ) 0.5
+                |> Unit.ratioedForKWh ( Unit.kgCo2e 0.25, Unit.kgCo2e 0.75 ) 0.5
                 |> expectKgCo2Float 0.5
                 |> asTest "should compute co2 from ratioed co2 impacts and energy in KWh"
             ]
-        , describe "Co2.ratioedForMJ"
+        , describe "Unit.ratioedForMJ"
             [ Energy.megajoules 1
-                |> Co2.ratioedForMJ ( Co2.kgCo2e 0.25, Co2.kgCo2e 0.75 ) 0.5
+                |> Unit.ratioedForMJ ( Unit.kgCo2e 0.25, Unit.kgCo2e 0.75 ) 0.5
                 |> expectKgCo2Float 0.5
                 |> asTest "should compute co2 from ratioed co2 impacts and energy in MJ"
             ]
