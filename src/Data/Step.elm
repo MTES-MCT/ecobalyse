@@ -87,6 +87,20 @@ defaultProcessInfo =
     }
 
 
+getCountryElectricityProcess : Step -> Process
+getCountryElectricityProcess { country, customCountryMix } =
+    let
+        { electricityProcess } =
+            country
+    in
+    case customCountryMix of
+        Just mix ->
+            { electricityProcess | climateChange = mix }
+
+        Nothing ->
+            electricityProcess
+
+
 countryMixToString : Unit.Co2e -> String
 countryMixToString =
     Unit.inKgCo2e

@@ -1,6 +1,6 @@
 module Data.Process exposing (..)
 
-import Data.Unit as Unit exposing (Co2e, Pe)
+import Data.Unit as Unit
 import Energy exposing (Energy)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DecodeExtra
@@ -24,7 +24,7 @@ type alias Process =
     --   kgCO2e per, depending on process type:
     --   * for heat process: per MJ
     --   * for elec process: per KWh
-    , climateChange : Co2e
+    , climateChange : Unit.Co2e
 
     -- Inbound:
     --   kgPe per kg of material
@@ -32,7 +32,7 @@ type alias Process =
     --   kgPe per, depending on process type:
     --   * for heat process: per MJ
     --   * for elec process: per KWh
-    , freshwaterEutrophication : Pe
+    , freshwaterEutrophication : Unit.Pe
     , heat : Energy --  MJ per kg of material to process
     , elec_pppm : Float -- kWh/(pick,m) per kg of material to process
     , elec : Energy -- MJ per kg of material to process

@@ -135,17 +135,7 @@ computeDyeingImpacts { processes } simulator =
                                         |> Formula.dyeingImpacts ( dyeingLow, dyeingHigh )
                                             dyeingWeighting
                                             country.heatProcess
-                                            (case step.customCountryMix of
-                                                Just customCountryMix ->
-                                                    let
-                                                        { electricityProcess } =
-                                                            country
-                                                    in
-                                                    { electricityProcess | climateChange = customCountryMix }
-
-                                                Nothing ->
-                                                    country.electricityProcess
-                                            )
+                                            (Step.getCountryElectricityProcess step)
                             in
                             { step | co2 = co2, fwe = fwe, heat = heat, kwh = kwh }
                         )
