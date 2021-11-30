@@ -16,7 +16,8 @@
     "start:dev": "npm run build:init && concurrently -n \"watch,parcel\" -c \"blue,green\" -k \"npm run start:filewatch\" \"npm run start:parcel\"",
     "start": "PARCEL_ELM_NO_DEBUG=1 npm run start:dev",
     "test:prepare": "node tests/prepare.js",
-    "test": "npm run test:prepare && elm-test"
+    "test": "npm run test:prepare && elm-test",
+    "server:test": "jest --silent=false"
   },
   "devDependencies": {
     "@parcel/transformer-elm": "^2.0.0",
@@ -30,7 +31,9 @@
     "elm-test": "^0.19.1-revision7",
     "gh-pages": "^3.2.3",
     "parcel": "^2.0.0",
-    "rimraf": "^3.0.2"
+    "rimraf": "^3.0.2",
+    "jest": "^27.4.2",
+    "supertest": "^6.1.6"
   },
   "dependencies": {
     "elm": "^0.19.1-5",
