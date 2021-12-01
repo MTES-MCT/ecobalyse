@@ -1,6 +1,7 @@
 module Data.FormulaTest exposing (..)
 
 import Data.Formula as Formula
+import Data.Process exposing (noOpProcess)
 import Data.Unit as Unit
 import Energy
 import Expect exposing (Expectation)
@@ -46,13 +47,20 @@ suite =
                 |> Expect.equal { mass = kg 3, waste = kg 2 }
                 |> asTest "should compute material waste from material and product waste data"
             ]
-        , describe "Formula.makingCo2"
+        , describe "Formula.makingImpacts"
             (let
                 res =
                     kg 1
-                        |> Formula.makingCo2
-                            { makingProcess = { elec = Energy.megajoules 0.5 }
-                            , countryElecCC = Unit.kgCo2e 0.5
+                        |> Formula.makingImpacts
+                            { makingProcess =
+                                { noOpProcess
+                                    | elec = Energy.megajoules 0.5
+                                }
+                            , countryElecProcess =
+                                { noOpProcess
+                                    | climateChange = Unit.kgCo2e 0.5
+                                    , freshwaterEutrophication = Unit.kgPe 0.5
+                                }
                             }
              in
              [ res.co2
@@ -63,6 +71,10 @@ suite =
                 |> Energy.inKilowattHours
                 |> Expect.within (Expect.Absolute 0.01) 0.138
                 |> asTest "should compute Making step kwh from process and country data"
+             , res.fwe
+                |> Unit.inKgPe
+                |> Expect.within (Expect.Absolute 0.01) 0.07
+                |> asTest "should compute Making step fwe from process and country data"
              ]
             )
         , describe "Formula.weavingCo2"

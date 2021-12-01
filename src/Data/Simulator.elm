@@ -105,15 +105,13 @@ computeMakingImpacts : Simulator -> Simulator
 computeMakingImpacts ({ inputs } as simulator) =
     simulator
         |> updateLifeCycleStep Step.Making
-            (\({ country } as step) ->
+            (\step ->
                 let
                     { kwh, co2 } =
                         step.outputMass
-                            |> Formula.makingCo2
+                            |> Formula.makingImpacts
                                 { makingProcess = inputs.product.makingProcess
-                                , countryElecCC =
-                                    step.customCountryMix
-                                        |> Maybe.withDefault country.electricityProcess.climateChange
+                                , countryElecProcess = Step.getCountryElectricityProcess step
                                 }
                 in
                 { step | kwh = kwh, co2 = co2 }

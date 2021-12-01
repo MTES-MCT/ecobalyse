@@ -140,21 +140,23 @@ dyeingImpacts ( dyeingLowProcess, dyeingHighProcess ) highDyeingWeighting heatPr
     }
 
 
-makingCo2 :
-    { makingProcess : { process | elec : Energy }
-    , countryElecCC : Unit.Co2e
-    }
+makingImpacts :
+    { makingProcess : Process, countryElecProcess : Process }
     -> Mass
-    -> { kwh : Energy, co2 : Unit.Co2e }
-makingCo2 { makingProcess, countryElecCC } _ =
-    -- Note: In Base Impacts, Energy for the Making step is expressed
-    --       in MJ per item, so it's not mass-dependent.
+    -> { kwh : Energy, co2 : Unit.Co2e, fwe : Unit.Pe }
+makingImpacts { makingProcess, countryElecProcess } _ =
+    -- Note: In Base Impacts, impacts are precomputed per "item", and are
+    --       therefore not mass-dependent.
     let
         co2 =
             makingProcess.elec
-                |> Unit.forKWh countryElecCC
+                |> Unit.forKWh countryElecProcess.climateChange
+
+        fwe =
+            makingProcess.elec
+                |> Unit.forKWh countryElecProcess.freshwaterEutrophication
     in
-    { co2 = co2, kwh = makingProcess.elec }
+    { co2 = co2, fwe = fwe, kwh = makingProcess.elec }
 
 
 knittingCo2 :

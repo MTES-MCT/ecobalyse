@@ -111,8 +111,8 @@ type alias WellKnown =
     }
 
 
-noOp : Process
-noOp =
+noOpProcess : Process
+noOpProcess =
     { cat1 = Textile
     , cat2 = Material
     , cat3 = NaturalMaterials
