@@ -97,27 +97,34 @@ encodeKgPe =
 
 
 forKg : Quantity Float unit -> Mass -> Quantity Float unit
-forKg =
+forKg forOneKg =
     -- ref: https://github.com/ianmackenzie/elm-units/blob/master/doc/CustomUnits.md
-    Quantity.per Mass.kilogram >> Quantity.at
+    forOneKg
+        |> Quantity.per Mass.kilogram
+        |> Quantity.at
 
 
 forKgAndDistance : Quantity Float unit -> Length -> Mass -> Quantity Float unit
-forKgAndDistance cc distance =
-    -- Note: Climate Change Co2 rate is for transported tons per km.
-    Quantity.divideBy 1000
-        >> forKg cc
-        >> Quantity.multiplyBy (Length.inKilometers distance)
+forKgAndDistance cc distance mass =
+    -- Note: unit rate is for transported tons per km.
+    mass
+        |> Quantity.divideBy 1000
+        |> forKg cc
+        |> Quantity.multiplyBy (Length.inKilometers distance)
 
 
 forKWh : Quantity Float unit -> Energy -> Quantity Float unit
-forKWh =
-    Quantity.per (Energy.kilowattHours 1) >> Quantity.at
+forKWh forOneKWh =
+    forOneKWh
+        |> Quantity.per (Energy.kilowattHours 1)
+        |> Quantity.at
 
 
 forMJ : Quantity Float unit -> Energy -> Quantity Float unit
-forMJ =
-    Quantity.per (Energy.megajoules 1) >> Quantity.at
+forMJ forOneMJ =
+    forOneMJ
+        |> Quantity.per (Energy.megajoules 1)
+        |> Quantity.at
 
 
 ratioed :
