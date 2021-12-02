@@ -107,14 +107,14 @@ computeMakingImpacts ({ inputs } as simulator) =
         |> updateLifeCycleStep Step.Making
             (\step ->
                 let
-                    { kwh, co2 } =
+                    { kwh, co2, fwe } =
                         step.outputMass
                             |> Formula.makingImpacts
                                 { makingProcess = inputs.product.makingProcess
                                 , countryElecProcess = Step.getCountryElectricityProcess step
                                 }
                 in
-                { step | kwh = kwh, co2 = co2 }
+                { step | co2 = co2, fwe = fwe, kwh = kwh }
             )
 
 
@@ -145,21 +145,32 @@ computeMaterialAndSpinningImpacts ({ inputs } as simulator) =
     simulator
         |> updateLifeCycleStep Step.MaterialAndSpinning
             (\step ->
-                { step
-                    | co2 =
+                let
+                    ( co2, fwe ) =
                         case ( inputs.material.recycledProcess, inputs.recycledRatio ) of
                             ( Just recycledProcess, Just ratio ) ->
-                                step.outputMass
+                                ( step.outputMass
                                     |> Unit.ratioedForKg
                                         ( recycledProcess.climateChange
                                         , inputs.material.materialProcess.climateChange
                                         )
                                         ratio
+                                , step.outputMass
+                                    |> Unit.ratioedForKg
+                                        ( recycledProcess.freshwaterEutrophication
+                                        , inputs.material.materialProcess.freshwaterEutrophication
+                                        )
+                                        ratio
+                                )
 
                             _ ->
-                                step.outputMass
+                                ( step.outputMass
                                     |> Unit.forKg inputs.material.materialProcess.climateChange
-                }
+                                , step.outputMass
+                                    |> Unit.forKg inputs.material.materialProcess.freshwaterEutrophication
+                                )
+                in
+                { step | co2 = co2, fwe = fwe }
             )
 
 
