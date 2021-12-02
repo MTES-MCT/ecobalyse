@@ -18,7 +18,7 @@ formatImpact impact { co2, fwe } =
             kgCo2 2 co2
 
         Impact.FreshwaterEutrophication ->
-            kgP 3 fwe
+            kgP 2 fwe
 
 
 formatInt : String -> Int -> String
@@ -53,7 +53,7 @@ kgCo2 decimals =
 
 kgP : Int -> Unit.Pe -> Html msg
 kgP decimals =
-    Unit.inKgPe >> formatRichFloat decimals "kgPe"
+    Unit.inGramsPe >> formatRichFloat decimals "E-03 kgPe"
 
 
 kg : Mass -> Html msg

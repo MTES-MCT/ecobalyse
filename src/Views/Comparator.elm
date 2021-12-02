@@ -346,7 +346,21 @@ chart impact entries =
             ]
 
         yLabels =
-            [ C.yLabels [ CA.withGrid, CA.fontSize 13, CA.color chartTextColor ] ]
+            [ C.yLabels
+                [ CA.withGrid
+                , CA.fontSize 11
+                , CA.color chartTextColor
+                , CA.format
+                    (\num ->
+                        case impact of
+                            Impact.ClimateChange ->
+                                String.fromFloat num
+
+                            Impact.FreshwaterEutrophication ->
+                                Format.formatFloat 1 (num * 1000) ++ "\u{00A0}E-3"
+                    )
+                ]
+            ]
 
         legends =
             [ C.legendsAt
@@ -364,5 +378,5 @@ chart impact entries =
         |> C.chart
             [ CA.height 250
             , CA.width 550
-            , CA.margin { top = 22, bottom = 10, left = 22, right = -10 }
+            , CA.margin { top = 22, bottom = 10, left = 35, right = -10 }
             ]
