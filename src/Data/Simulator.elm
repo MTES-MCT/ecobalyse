@@ -178,30 +178,26 @@ computeWeavingKnittingImpacts : Simulator -> Simulator
 computeWeavingKnittingImpacts ({ inputs } as simulator) =
     simulator
         |> updateLifeCycleStep Step.WeavingKnitting
-            (\({ country } as step) ->
+            (\step ->
                 let
-                    { kwh, co2 } =
+                    { kwh, co2, fwe } =
                         if inputs.product.knitted then
                             step.outputMass
                                 |> Formula.knittingCo2
                                     { elec = inputs.product.fabricProcess.elec
-                                    , elecCC =
-                                        step.customCountryMix
-                                            |> Maybe.withDefault country.electricityProcess.climateChange
+                                    , countryElecProcess = Step.getCountryElectricityProcess step
                                     }
 
                         else
                             step.outputMass
                                 |> Formula.weavingCo2
                                     { elecPppm = inputs.product.fabricProcess.elec_pppm
-                                    , elecCC =
-                                        step.customCountryMix
-                                            |> Maybe.withDefault country.electricityProcess.climateChange
+                                    , countryElecProcess = Step.getCountryElectricityProcess step
                                     , grammage = inputs.product.grammage
                                     , ppm = inputs.product.ppm
                                     }
                 in
-                { step | co2 = co2, kwh = kwh }
+                { step | co2 = co2, fwe = fwe, kwh = kwh }
             )
 
 

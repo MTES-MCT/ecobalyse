@@ -83,7 +83,11 @@ suite =
                     kg 1
                         |> Formula.weavingCo2
                             { elecPppm = 0.01
-                            , elecCC = Unit.kgCo2e 0.1
+                            , countryElecProcess =
+                                { noOpProcess
+                                    | climateChange = Unit.kgCo2e 0.1
+                                    , freshwaterEutrophication = Unit.kgPe 0.5
+                                }
                             , ppm = 400
                             , grammage = 500
                             }
@@ -92,6 +96,10 @@ suite =
                 |> Unit.inKgCo2e
                 |> Expect.within (Expect.Absolute 0.01) 0.8
                 |> asTest "should compute KnittingWeaving step co2 from process and product data"
+             , res.fwe
+                |> Unit.inKgPe
+                |> Expect.within (Expect.Absolute 0.01) 4
+                |> asTest "should compute KnittingWeaving step fwe from process and product data"
              , res.kwh
                 |> Energy.inKilowattHours
                 |> Expect.within (Expect.Absolute 0.01) 8
@@ -104,13 +112,21 @@ suite =
                     kg 1
                         |> Formula.knittingCo2
                             { elec = Energy.kilowattHours 5
-                            , elecCC = Unit.kgCo2e 0.2
+                            , countryElecProcess =
+                                { noOpProcess
+                                    | climateChange = Unit.kgCo2e 0.2
+                                    , freshwaterEutrophication = Unit.kgPe 0.5
+                                }
                             }
              in
              [ res.co2
                 |> Unit.inKgCo2e
                 |> Expect.within (Expect.Absolute 0.01) 1
                 |> asTest "should compute KnittingWeaving step co2 from process and product data"
+             , res.fwe
+                |> Unit.inKgPe
+                |> Expect.within (Expect.Absolute 0.01) 2.5
+                |> asTest "should compute KnittingWeaving step fwe from process and product data"
              , res.kwh
                 |> Energy.inKilowattHours
                 |> Expect.within (Expect.Absolute 0.01) 5
