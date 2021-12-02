@@ -7,6 +7,7 @@ import Data.Session exposing (Session)
 import Data.Simulator exposing (Simulator)
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import Page.Simulator.Impact as Impact
 import Route exposing (Route(..))
 import Views.Alert as Alert
 import Views.BarChart as Chart
@@ -19,12 +20,13 @@ import Views.Transport as TransportView
 
 type alias Config =
     { session : Session
+    , impact : Impact.Impact
     , reusable : Bool
     }
 
 
 summaryView : Config -> Simulator -> Html msg
-summaryView { session, reusable } ({ inputs, lifeCycle } as simulator) =
+summaryView { session, impact, reusable } ({ inputs, lifeCycle } as simulator) =
     div [ class "card shadow-sm" ]
         [ div [ class "card-header text-white bg-primary d-flex justify-content-between" ]
             [ span [ class "text-nowrap" ] [ strong [] [ text inputs.product.name ] ]
@@ -42,7 +44,8 @@ summaryView { session, reusable } ({ inputs, lifeCycle } as simulator) =
                     ]
                     []
                 , div [ class "display-5" ]
-                    [ Format.kgCo2 2 simulator.co2 ]
+                    [ Format.formatImpact impact simulator
+                    ]
                 ]
             , inputs.countries
                 |> List.map (\{ name } -> li [] [ span [] [ text name ] ])
@@ -62,7 +65,11 @@ summaryView { session, reusable } ({ inputs, lifeCycle } as simulator) =
             ]
         , div [ class "d-none d-sm-block card-body" ]
             -- TODO: how/where to render this for smaller viewports?
-            [ Comparator.view { session = session, simulator = simulator }
+            [ Comparator.view
+                { session = session
+                , impact = impact
+                , simulator = simulator
+                }
             ]
         , div [ class "d-none d-sm-block card-body text-center text-muted fs-7 px-2 py-2" ]
             [ [ "Comparaison pour"

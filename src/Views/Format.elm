@@ -8,6 +8,17 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Length exposing (Length)
 import Mass exposing (Mass)
+import Page.Simulator.Impact as Impact exposing (Impact)
+
+
+formatImpact : Impact -> { a | co2 : Unit.Co2e, fwe : Unit.Pe } -> Html msg
+formatImpact impact { co2, fwe } =
+    case impact of
+        Impact.ClimateChange ->
+            kgCo2 3 co2
+
+        Impact.FreshwaterEutrophication ->
+            kgP 3 fwe
 
 
 formatInt : String -> Int -> String

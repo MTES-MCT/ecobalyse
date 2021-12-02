@@ -1,5 +1,6 @@
 module Page.Simulator.Impact exposing (..)
 
+import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
@@ -46,6 +47,16 @@ impactFromString string =
             Err <| "Impact inconnu: " ++ string
 
 
+toFloat : Impact -> { a | co2 : Unit.Co2e, fwe : Unit.Pe } -> Float
+toFloat impact { co2, fwe } =
+    case impact of
+        ClimateChange ->
+            Unit.inKgCo2e co2
+
+        FreshwaterEutrophication ->
+            Unit.inKgPe fwe
+
+
 selector : Config msg -> Html msg
 selector { selected, switch } =
     impacts
@@ -54,4 +65,4 @@ selector { selected, switch } =
                 option [ Attr.selected (selected == impact) ]
                     [ text <| impactToString impact ]
             )
-        |> select [ onInput (impactFromString >> switch) ]
+        |> select [ class "form-select", onInput (impactFromString >> switch) ]

@@ -722,7 +722,11 @@ simulatorView ({ db } as session) model ({ inputs } as simulator) =
             [ div [ class "d-flex flex-column gap-3 mb-3 sticky-md-top", style "top" "7px" ]
                 [ div [ class "Summary" ]
                     [ model.simulator
-                        |> SummaryView.view { session = session, reusable = False }
+                        |> SummaryView.view
+                            { session = session
+                            , impact = model.impact
+                            , reusable = False
+                            }
                     ]
                 , feedbackView
                 , shareLinkView session simulator
@@ -737,10 +741,10 @@ view session model =
     , [ Container.centered
             [ class "Simulator pb-3" ]
             [ div [ class "row" ]
-                [ div [ class "col-sm-6" ]
+                [ div [ class "col-sm-7" ]
                     [ h1 [ class "mb-3" ] [ text "Simulateur" ]
                     ]
-                , div [ class "col-sm-6" ]
+                , div [ class "col-sm-5" ]
                     [ Impact.selector
                         { selected = model.impact, switch = SwitchImpact }
                     ]

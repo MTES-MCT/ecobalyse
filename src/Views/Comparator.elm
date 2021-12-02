@@ -14,6 +14,7 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import List.Extra as LE
+import Page.Simulator.Impact as Impact exposing (Impact)
 import Quantity
 import Result.Extra as RE
 import Svg as S
@@ -24,6 +25,7 @@ import Views.Format as Format
 
 type alias Config =
     { session : Session
+    , impact : Impact
     , simulator : Simulator
     }
 
@@ -32,7 +34,7 @@ type alias Entry =
     { label : String
     , highlight : Bool
     , knitted : Bool
-    , kgCo2e : Float
+    , score : Float
     , materialAndSpinning : Float
     , weavingKnitting : Float
     , dyeing : Float
@@ -155,64 +157,71 @@ toNonRecycledIndia query =
     )
 
 
-createEntry : Db -> Bool -> ( String, Inputs.Query ) -> Result String Entry
-createEntry db highlight ( label, query ) =
+createEntry : Db -> Impact -> Bool -> ( String, Inputs.Query ) -> Result String Entry
+createEntry db impact highlight ( label, query ) =
     let
-        stepCo2Float stepLabel lifeCycle =
-            lifeCycle
-                |> LifeCycle.getStepProp stepLabel .co2 Quantity.zero
-                |> Unit.inKgCo2e
+        stepScore stepLabel lifeCycle =
+            case impact of
+                Impact.ClimateChange ->
+                    lifeCycle
+                        |> LifeCycle.getStepProp stepLabel .co2 Quantity.zero
+                        |> Unit.inKgCo2e
+
+                Impact.FreshwaterEutrophication ->
+                    lifeCycle
+                        |> LifeCycle.getStepProp stepLabel .fwe Quantity.zero
+                        |> Unit.inKgPe
     in
     query
         |> Simulator.compute db
         |> Result.map
-            (\{ lifeCycle, inputs, transport, co2 } ->
+            (\({ lifeCycle, inputs, transport } as simulator) ->
                 { label = label
                 , highlight = highlight
                 , knitted = inputs.product.knitted
-                , kgCo2e = Unit.inKgCo2e co2
-                , materialAndSpinning = lifeCycle |> stepCo2Float Step.MaterialAndSpinning
-                , weavingKnitting = lifeCycle |> stepCo2Float Step.WeavingKnitting
-                , dyeing = lifeCycle |> stepCo2Float Step.Ennoblement
-                , making = lifeCycle |> stepCo2Float Step.Making
-                , transport = Unit.inKgCo2e transport.co2
+                , score = Impact.toFloat impact simulator
+                , materialAndSpinning = lifeCycle |> stepScore Step.MaterialAndSpinning
+                , weavingKnitting = lifeCycle |> stepScore Step.WeavingKnitting
+                , dyeing = lifeCycle |> stepScore Step.Ennoblement
+                , making = lifeCycle |> stepScore Step.Making
+                , transport = Impact.toFloat impact transport
                 }
             )
 
 
-getEntries : Db -> Inputs -> Result String (List Entry)
-getEntries db ({ material } as inputs) =
+getEntries : Db -> Impact -> Inputs -> Result String (List Entry)
+getEntries db impact ({ material } as inputs) =
     let
         query =
             Inputs.toQuery inputs
 
         entries =
             if material.recycledProcess /= Nothing then
-                [ ( "Votre simulation", query ) |> createEntry db True -- user simulation
-                , query |> toRecycledFrance |> createEntry db False
-                , query |> toNonRecycledFrance |> createEntry db False
-                , query |> toPartiallyRecycledIndiaTurkey |> createEntry db False
-                , query |> toRecycledIndia |> createEntry db False
-                , query |> toNonRecycledIndia |> createEntry db False
+                [ ( "Votre simulation", query ) |> createEntry db impact True -- user simulation
+                , query |> toRecycledFrance |> createEntry db impact False
+                , query |> toNonRecycledFrance |> createEntry db impact False
+                , query |> toPartiallyRecycledIndiaTurkey |> createEntry db impact False
+                , query |> toRecycledIndia |> createEntry db impact False
+                , query |> toNonRecycledIndia |> createEntry db impact False
                 ]
 
             else
-                [ ( "Votre simulation", query ) |> createEntry db True -- user simulation
-                , query |> toNonRecycledFrance |> createEntry db False
-                , query |> toNonRecycledIndiaTurkey |> createEntry db False
-                , query |> toNonRecycledIndia |> createEntry db False
+                [ ( "Votre simulation", query ) |> createEntry db impact True -- user simulation
+                , query |> toNonRecycledFrance |> createEntry db impact False
+                , query |> toNonRecycledIndiaTurkey |> createEntry db impact False
+                , query |> toNonRecycledIndia |> createEntry db impact False
                 ]
     in
     entries
         |> RE.combine
-        |> Result.map (List.sortBy .kgCo2e)
+        |> Result.map (List.sortBy .score)
 
 
 view : Config -> Html msg
-view { session, simulator } =
-    case simulator.inputs |> getEntries session.db of
+view { session, impact, simulator } =
+    case simulator.inputs |> getEntries session.db impact of
         Ok entries ->
-            chart entries
+            chart impact entries
 
         Err error ->
             Alert.simple
@@ -261,8 +270,8 @@ fillLabels entries =
         |> List.map createLabel
 
 
-chart : List Entry -> Html msg
-chart entries =
+chart : Impact -> List Entry -> Html msg
+chart impact entries =
     let
         knitted =
             entries |> List.head |> Maybe.map .knitted |> Maybe.withDefault False
@@ -323,8 +332,16 @@ chart entries =
                     ]
             ]
 
+        unit =
+            case impact of
+                Impact.ClimateChange ->
+                    "kgCO₂e"
+
+                Impact.FreshwaterEutrophication ->
+                    "kPe"
+
         xLabels =
-            [ C.binLabels (\{ kgCo2e } -> Format.formatFloat 2 kgCo2e ++ "\u{202F}kgCO₂e")
+            [ C.binLabels (\{ score } -> Format.formatFloat 2 score ++ "\u{202F}" ++ unit)
                 [ CA.moveDown 23, CA.color chartTextColor, CA.attrs [ SA.fontSize "12" ] ]
             ]
 
