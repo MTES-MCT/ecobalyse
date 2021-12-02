@@ -19,6 +19,7 @@ import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
 import Mass
+import Page.Simulator.Impact as Impact exposing (Impact)
 import Ports
 import RemoteData exposing (WebData)
 import Request.Gitbook as GitbookApi
@@ -43,6 +44,7 @@ type alias Model =
     , displayMode : DisplayMode
     , modal : ModalContent
     , customCountryMixInputs : CustomCountryMixInputs
+    , impact : Impact
     }
 
 
@@ -67,6 +69,7 @@ type Msg
     | Reset
     | ResetCustomCountryMix Step.Label
     | SubmitCustomCountryMix Step.Label (Maybe Unit.Co2e)
+    | SwitchImpact (Result String Impact)
     | SwitchMode DisplayMode
     | UpdateAirTransportRatio (Maybe Float)
     | UpdateCustomCountryMixInput Step.Label String
@@ -140,6 +143,7 @@ init maybeQuery session =
       , displayMode = SimpleMode
       , modal = NoModal
       , customCountryMixInputs = toCustomCountryMixFormInputs query.customCountryMixes
+      , impact = Impact.ClimateChange
       }
     , case simulator of
         Err error ->
@@ -243,6 +247,12 @@ update ({ db } as session) msg ({ customCountryMixInputs, query } as model) =
         SubmitCustomCountryMix stepLabel (Just customCountryMix) ->
             ( { model | modal = NoModal }, session, Cmd.none )
                 |> updateQuery (updateQueryCustomCountryMix stepLabel (Just customCountryMix) query)
+
+        SwitchImpact (Ok impact) ->
+            ( { model | impact = impact }, session, Cmd.none )
+
+        SwitchImpact (Err error) ->
+            ( model, session |> Session.notifyError "Erreur de sélection d'impact" error, Cmd.none )
 
         SwitchMode displayMode ->
             ( { model | displayMode = displayMode }, session, Cmd.none )
@@ -726,7 +736,15 @@ view session model =
     ( "Simulateur"
     , [ Container.centered
             [ class "Simulator pb-3" ]
-            [ h1 [ class "mb-3" ] [ text "Simulateur" ]
+            [ div [ class "row" ]
+                [ div [ class "col-sm-6" ]
+                    [ h1 [ class "mb-3" ] [ text "Simulateur" ]
+                    ]
+                , div [ class "col-sm-6" ]
+                    [ Impact.selector
+                        { selected = model.impact, switch = SwitchImpact }
+                    ]
+                ]
             , case model.simulator of
                 Ok simulator ->
                     simulatorView session model simulator
