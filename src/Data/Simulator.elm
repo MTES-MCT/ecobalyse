@@ -53,11 +53,11 @@ init db =
 compute : Db -> Inputs.Query -> Result String Simulator
 compute db query =
     let
-        next =
-            Result.map
+        next fn =
+            Result.map fn
 
-        nextWithDb =
-            \fn -> Result.andThen (fn db)
+        nextWithDb fn =
+            Result.andThen (fn db)
     in
     init db query
         -- Ensure end product mass is first applied to the final Distribution step
@@ -146,29 +146,18 @@ computeMaterialAndSpinningImpacts ({ inputs } as simulator) =
         |> updateLifeCycleStep Step.MaterialAndSpinning
             (\step ->
                 let
-                    ( co2, fwe ) =
+                    { co2, fwe } =
                         case ( inputs.material.recycledProcess, inputs.recycledRatio ) of
                             ( Just recycledProcess, Just ratio ) ->
-                                ( step.outputMass
-                                    |> Unit.ratioedForKg
-                                        ( recycledProcess.climateChange
-                                        , inputs.material.materialProcess.climateChange
-                                        )
+                                step.outputMass
+                                    |> Formula.materialAndSpinningImpacts
+                                        ( recycledProcess, inputs.material.materialProcess )
                                         ratio
-                                , step.outputMass
-                                    |> Unit.ratioedForKg
-                                        ( recycledProcess.freshwaterEutrophication
-                                        , inputs.material.materialProcess.freshwaterEutrophication
-                                        )
-                                        ratio
-                                )
 
                             _ ->
-                                ( step.outputMass
-                                    |> Unit.forKg inputs.material.materialProcess.climateChange
-                                , step.outputMass
-                                    |> Unit.forKg inputs.material.materialProcess.freshwaterEutrophication
-                                )
+                                step.outputMass
+                                    |> Formula.pureMaterialAndSpinningImpacts
+                                        inputs.material.materialProcess
                 in
                 { step | co2 = co2, fwe = fwe }
             )

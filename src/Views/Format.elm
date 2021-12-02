@@ -40,6 +40,11 @@ kgCo2 decimals =
     Unit.inKgCo2e >> formatRichFloat decimals "kgCO₂e"
 
 
+kgP : Int -> Unit.Pe -> Html msg
+kgP decimals =
+    Unit.inKgPe >> formatRichFloat decimals "kgPe"
+
+
 kg : Mass -> Html msg
 kg =
     Mass.inKilograms >> formatRichFloat 3 "kg"

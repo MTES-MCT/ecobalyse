@@ -75,7 +75,37 @@ makingWaste { processWaste, pcrWaste } baseMass =
 
 
 
--- Co2 score
+-- Impacts
+
+
+materialAndSpinningImpacts :
+    ( Process, Process ) -- Inbound: Material processes (recycled, non-recycled)
+    -> Float -- Ratio of recycled material (bewteen 0 and 1)
+    -> Mass
+    -> { co2 : Unit.Co2e, fwe : Unit.Pe }
+materialAndSpinningImpacts ( recycledProcess, nonRecycledProcess ) ratio baseMass =
+    { co2 =
+        baseMass
+            |> Unit.ratioedForKg
+                ( recycledProcess.climateChange
+                , nonRecycledProcess.climateChange
+                )
+                ratio
+    , fwe =
+        baseMass
+            |> Unit.ratioedForKg
+                ( recycledProcess.freshwaterEutrophication
+                , nonRecycledProcess.freshwaterEutrophication
+                )
+                ratio
+    }
+
+
+pureMaterialAndSpinningImpacts : Process -> Mass -> { co2 : Unit.Co2e, fwe : Unit.Pe }
+pureMaterialAndSpinningImpacts process baseMass =
+    { co2 = baseMass |> Unit.forKg process.climateChange
+    , fwe = baseMass |> Unit.forKg process.freshwaterEutrophication
+    }
 
 
 dyeingImpacts :
