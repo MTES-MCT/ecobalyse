@@ -15,7 +15,7 @@ formatImpact : Impact -> { a | co2 : Unit.Co2e, fwe : Unit.Pe } -> Html msg
 formatImpact impact { co2, fwe } =
     case impact of
         Impact.ClimateChange ->
-            kgCo2 3 co2
+            kgCo2 2 co2
 
         Impact.FreshwaterEutrophication ->
             kgP 3 fwe

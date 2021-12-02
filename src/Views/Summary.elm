@@ -61,7 +61,7 @@ summaryView { session, impact, reusable } ({ inputs, lifeCycle } as simulator) =
             ]
         , details [ class "card-body p-2 border-bottom" ]
             [ summary [ class "text-muted fs-7" ] [ text "Détails des postes" ]
-            , Chart.view simulator
+            , Chart.view { impact = impact, simulator = simulator }
             ]
         , div [ class "d-none d-sm-block card-body" ]
             -- TODO: how/where to render this for smaller viewports?

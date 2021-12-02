@@ -434,14 +434,15 @@ downArrow =
     img [ src "img/down-arrow-icon.png" ] []
 
 
-lifeCycleStepsView : Db -> DisplayMode -> Simulator -> Html Msg
-lifeCycleStepsView db displayMode simulator =
+lifeCycleStepsView : Db -> Model -> Simulator -> Html Msg
+lifeCycleStepsView db { displayMode, impact } simulator =
     simulator.lifeCycle
         |> Array.indexedMap
             (\index current ->
                 StepView.view
                     { db = db
                     , detailed = displayMode == DetailedMode
+                    , impact = impact
                     , index = index
                     , product = simulator.inputs.product
                     , current = current
@@ -706,7 +707,7 @@ simulatorView ({ db } as session) model ({ inputs } as simulator) =
                 ]
             , materialFormSet db inputs.recycledRatio inputs.material
             , displayModeView model.displayMode
-            , lifeCycleStepsView db model.displayMode simulator
+            , lifeCycleStepsView db model simulator
             , div [ class "d-flex align-items-center justify-content-between mt-3 mb-5" ]
                 [ a [ Route.href Route.Home ]
                     [ text "« Retour à l'accueil" ]
