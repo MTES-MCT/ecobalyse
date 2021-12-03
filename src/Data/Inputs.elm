@@ -149,6 +149,7 @@ updateMaterial material query =
             else
                 query.recycledRatio
     }
+        |> updateStepCountry 0 material.defaultCountry
 
 
 defaultQuery : Query
