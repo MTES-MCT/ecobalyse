@@ -28,7 +28,24 @@ formatInt unit int =
 
 formatFloat : Int -> Float -> String
 formatFloat decimals float =
-    FormatNumber.format { frenchLocale | decimals = Exact decimals } float
+    let
+        ( newFloat, expStr ) =
+            if float == 0 then
+                ( float, "" )
+
+            else if float < 0.000000001 then
+                ( float * 1000 * 1000 * 1000, "E-9" )
+
+            else if float < 0.000001 then
+                ( float * 1000 * 1000, "E-6" )
+
+            else if float < 0.001 then
+                ( float * 1000, "E-3" )
+
+            else
+                ( float, "" )
+    in
+    FormatNumber.format { frenchLocale | decimals = Exact decimals } newFloat ++ expStr
 
 
 formatRichFloat : Int -> String -> Float -> Html msg
@@ -53,7 +70,7 @@ kgCo2 decimals =
 
 kgP : Int -> Unit.Pe -> Html msg
 kgP decimals =
-    Unit.inGramsPe >> formatRichFloat decimals "E-03 kgPe"
+    Unit.inKgPe >> formatRichFloat decimals "kgPe"
 
 
 kg : Mass -> Html msg

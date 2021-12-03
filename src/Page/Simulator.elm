@@ -742,10 +742,10 @@ view session model =
     , [ Container.centered
             [ class "Simulator pb-3" ]
             [ div [ class "row" ]
-                [ div [ class "col-sm-7" ]
-                    [ h1 [ class "mb-3" ] [ text "Simulateur" ]
+                [ div [ class "col-sm-7 mb-2" ]
+                    [ h1 [] [ text "Simulateur" ]
                     ]
-                , div [ class "col-sm-5" ]
+                , div [ class "col-sm-5 mb-2" ]
                     [ Impact.selector
                         { selected = model.impact, switch = SwitchImpact }
                     ]

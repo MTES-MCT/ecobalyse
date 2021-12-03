@@ -36,11 +36,6 @@ default =
     }
 
 
-emptyDistances : Distances
-emptyDistances =
-    Dict.fromList Country.codeToString []
-
-
 defaultInland : Transport
 defaultInland =
     { road = Length.kilometers 500
@@ -51,14 +46,9 @@ defaultInland =
     }
 
 
-add : Transport -> Transport -> Transport
-add sA sB =
-    { sA
-        | road = sA.road |> Quantity.plus sB.road
-        , sea = sA.sea |> Quantity.plus sB.sea
-        , air = sA.air |> Quantity.plus sB.air
-        , co2 = sA.co2 |> Quantity.plus sB.co2
-    }
+emptyDistances : Distances
+emptyDistances =
+    Dict.fromList Country.codeToString []
 
 
 {-| Determine road/sea transport ratio, so road transport is priviledged

@@ -275,12 +275,12 @@ formatLabel impact num =
     case impact of
         Impact.ClimateChange ->
             { x = Format.formatFloat 2 num ++ "\u{202F}kgCO₂e"
-            , y = String.fromFloat num
+            , y = Format.formatFloat 2 num
             }
 
         Impact.FreshwaterEutrophication ->
-            { x = Format.formatFloat 2 (num * 1000) ++ "E-03\u{202F}kPe"
-            , y = Format.formatFloat 1 (num * 1000) ++ "E-3"
+            { x = Format.formatFloat 2 num ++ "\u{202F}kPe"
+            , y = Format.formatFloat 1 num
             }
 
 
