@@ -1,8 +1,10 @@
 module Data.Material exposing (..)
 
+import Data.Country as Country
 import Data.Material.Category as Category exposing (Category)
 import Data.Process as Process exposing (Process)
 import Json.Decode as Decode exposing (Decoder)
+import Json.Decode.Pipeline as DecodePipeline
 import Json.Encode as Encode
 
 
@@ -14,6 +16,8 @@ type alias Material =
     , materialProcess : Process
     , recycledProcess : Maybe Process
     , primary : Bool
+    , continent : String
+    , defaultCountry : Country.Code
     }
 
 
@@ -67,14 +71,16 @@ recycledRatioToString unit recycledRatio =
 
 decode : List Process -> Decoder Material
 decode processes =
-    Decode.map7 Material
-        (Decode.field "uuid" (Decode.map Process.Uuid Decode.string))
-        (Decode.field "name" Decode.string)
-        (Decode.field "shortName" Decode.string)
-        (Decode.field "category" Category.decode)
-        (Decode.field "materialProcessUuid" (Process.decodeFromUuid processes))
-        (Decode.field "recycledProcessUuid" (Decode.maybe (Process.decodeFromUuid processes)))
-        (Decode.field "primary" Decode.bool)
+    Decode.succeed Material
+        |> DecodePipeline.required "uuid" (Decode.map Process.Uuid Decode.string)
+        |> DecodePipeline.required "name" Decode.string
+        |> DecodePipeline.required "shortName" Decode.string
+        |> DecodePipeline.required "category" Category.decode
+        |> DecodePipeline.required "materialProcessUuid" (Process.decodeFromUuid processes)
+        |> DecodePipeline.required "recycledProcessUuid" (Decode.maybe (Process.decodeFromUuid processes))
+        |> DecodePipeline.required "primary" Decode.bool
+        |> DecodePipeline.required "continent" Decode.string
+        |> DecodePipeline.required "defaultCountry" (Decode.string |> Decode.map Country.codeFromString)
 
 
 decodeList : List Process -> Decoder (List Material)
