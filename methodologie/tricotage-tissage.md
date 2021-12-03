@@ -89,7 +89,7 @@ Le procédé de tricotage considéré prévoit qu'une partie du fil mobilisé so
 Ces pertes sont prises en compte comme suit :
 
 $$
-MasseEtoffeSortante(kg) = MasseFilEntrant(kg) + MassePertes(kg)
+MasseEtoffeSortante(kg) + MassePertes(kg) = MasseFilEntrant(kg)
 $$
 
 Avec :
