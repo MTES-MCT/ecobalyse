@@ -280,7 +280,7 @@ formatLabel impact num =
 
         Impact.FreshwaterEutrophication ->
             { x = Format.formatFloat 2 (num * 1000) ++ "E-03\u{202F}kPe"
-            , y = Format.formatFloat 1 (num * 1000) ++ "\u{00A0}E-3"
+            , y = Format.formatFloat 1 (num * 1000) ++ "E-3"
             }
 
 
