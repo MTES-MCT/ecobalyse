@@ -28,6 +28,7 @@ formatInt unit int =
 
 formatFloat : Int -> Float -> String
 formatFloat decimals float =
+    -- FIXME: there must be a simpler way…
     let
         ( newFloat, expStr ) =
             if float == 0 then
@@ -36,11 +37,29 @@ formatFloat decimals float =
             else if float < 0.000000001 then
                 ( float * 1000 * 1000 * 1000, "E-9" )
 
+            else if float < 0.00000001 then
+                ( float * 100000000, "E-8" )
+
+            else if float < 0.0000001 then
+                ( float * 10000000, "E-7" )
+
             else if float < 0.000001 then
-                ( float * 1000 * 1000, "E-6" )
+                ( float * 1000000, "E-6" )
+
+            else if float < 0.00001 then
+                ( float * 100000, "E-5" )
+
+            else if float < 0.0001 then
+                ( float * 10000, "E-4" )
 
             else if float < 0.001 then
                 ( float * 1000, "E-3" )
+
+            else if float < 0.01 then
+                ( float * 100, "E-2" )
+
+            else if float < 0.1 then
+                ( float * 10, "E-1" )
 
             else
                 ( float, "" )

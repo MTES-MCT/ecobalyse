@@ -97,7 +97,8 @@ viewSectionOrSample session sectionOrSample =
             , th [ scope "col" ] [ text "Teinture majorée" ]
             , th [ scope "col" ] [ text "Transport avion" ]
             , th [ scope "col" ] [ text "Mix modifié" ]
-            , th [ scope "col", class "text-center" ] [ text "Impact" ]
+            , th [ scope "col", class "text-center", title "Changement climatique" ] [ text "Ch. Climatique" ]
+            , th [ scope "col", class "text-center", title "Eutrophisation eau douce" ] [ text "Eutrophisation" ]
             , th [ scope "col", class "text-center" ] [ text "Action" ]
             ]
     in
@@ -125,7 +126,7 @@ viewSectionOrSample session sectionOrSample =
                        )
                 ]
 
-        Sample.Sample sampleTitle { query, expected } ->
+        Sample.Sample sampleTitle { query, co2, fwe } ->
             case Simulator.compute session.db query of
                 Err error ->
                     tr [ class "table-danger" ]
@@ -134,11 +135,16 @@ viewSectionOrSample session sectionOrSample =
                 Ok simulator ->
                     let
                         success =
-                            simulator.co2 == expected
+                            simulator.co2
+                                == co2
+                                && simulator.fwe
+                                == fwe
                     in
                     tr
                         [ class "fs-7"
-                        , classList [ ( "table-success", success ), ( "table-danger", not success ) ]
+                        , classList
+                            [ ( "table-warning", not success )
+                            ]
                         , title sampleTitle
                         ]
                         [ td [] [ text simulator.inputs.product.name ]
@@ -166,17 +172,42 @@ viewSectionOrSample session sectionOrSample =
                                 |> Maybe.withDefault (text "Par défaut")
                             ]
                         , td [] [ formatCustomCountryMixes query.customCountryMixes ]
-                        , td [ class "text-end" ]
-                            [ if success then
-                                Format.kgCo2 3 expected
+                        , td
+                            [ class "text-end"
+                            , classList
+                                [ ( "table-success", simulator.co2 == co2 )
+                                , ( "table-danger", simulator.co2 /= co2 )
+                                ]
+                            ]
+                            [ if simulator.co2 == co2 then
+                                Format.kgCo2 2 co2
 
                               else
                                 div []
                                     [ text "Attendu: "
-                                    , Format.kgCo2 3 expected
+                                    , Format.kgCo2 2 co2
                                     , br [] []
-                                    , text "Calculé: "
-                                    , Format.kgCo2 3 simulator.co2
+                                    , text "Obtenu: "
+                                    , Format.kgCo2 2 simulator.co2
+                                    ]
+                            ]
+                        , td
+                            [ class "text-end"
+                            , classList
+                                [ ( "table-success", simulator.fwe == fwe )
+                                , ( "table-danger", simulator.fwe /= fwe )
+                                ]
+                            ]
+                            [ if simulator.fwe == fwe then
+                                Format.kgP 2 fwe
+
+                              else
+                                div []
+                                    [ text "Attendu: "
+                                    , Format.kgP 2 fwe
+                                    , br [] []
+                                    , text "Obtenu: "
+                                    , Format.kgP 2 simulator.fwe
                                     ]
                             ]
                         , td [ class "text-center" ]

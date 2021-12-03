@@ -27,16 +27,33 @@ expectCo2 co2 query =
             Expect.fail error
 
 
+expectFwE : Float -> Inputs.Query -> Expectation
+expectFwE fwe query =
+    case testDb |> Result.andThen (\db -> Simulator.compute db query) of
+        Ok simulator ->
+            simulator.fwe
+                |> Unit.inKgPe
+                |> Expect.within (Expect.Absolute 0.000001) fwe
+
+        Err error ->
+            Expect.fail error
+
+
 convert : Sample.SectionOrSample -> Test
 convert sectionOrSample =
     case sectionOrSample of
         Sample.Section title samples ->
             describe title (List.map convert samples)
 
-        Sample.Sample title { query, expected } ->
-            query
-                |> expectCo2 (Unit.inKgCo2e expected)
-                |> asTest title
+        Sample.Sample title { query, co2, fwe } ->
+            describe title
+                [ query
+                    |> expectCo2 (Unit.inKgCo2e co2)
+                    |> asTest "climate change"
+                , query
+                    |> expectFwE (Unit.inKgPe fwe)
+                    |> asTest "freshwater eutrophication"
+                ]
 
 
 suite : Test
