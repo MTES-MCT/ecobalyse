@@ -270,6 +270,20 @@ fillLabels entries =
         |> List.map createLabel
 
 
+formatLabel : Impact -> Float -> { x : String, y : String }
+formatLabel impact num =
+    case impact of
+        Impact.ClimateChange ->
+            { x = Format.formatFloat 2 num ++ "\u{202F}kgCO₂e"
+            , y = String.fromFloat num
+            }
+
+        Impact.FreshwaterEutrophication ->
+            { x = Format.formatFloat 2 (num * 1000) ++ "E-03\u{202F}kPe"
+            , y = Format.formatFloat 1 (num * 1000) ++ "\u{00A0}E-3"
+            }
+
+
 chart : Impact -> List Entry -> Html msg
 chart impact entries =
     let
@@ -332,17 +346,12 @@ chart impact entries =
                     ]
             ]
 
-        unit =
-            case impact of
-                Impact.ClimateChange ->
-                    "kgCO₂e"
-
-                Impact.FreshwaterEutrophication ->
-                    "kPe"
-
         xLabels =
-            [ C.binLabels (\{ score } -> Format.formatFloat 2 score ++ "\u{202F}" ++ unit)
-                [ CA.moveDown 23, CA.color chartTextColor, CA.attrs [ SA.fontSize "12" ] ]
+            [ C.binLabels (.score >> formatLabel impact >> .x)
+                [ CA.moveDown 23
+                , CA.color chartTextColor
+                , CA.attrs [ SA.fontSize "12" ]
+                ]
             ]
 
         yLabels =
@@ -350,15 +359,7 @@ chart impact entries =
                 [ CA.withGrid
                 , CA.fontSize 11
                 , CA.color chartTextColor
-                , CA.format
-                    (\num ->
-                        case impact of
-                            Impact.ClimateChange ->
-                                String.fromFloat num
-
-                            Impact.FreshwaterEutrophication ->
-                                Format.formatFloat 1 (num * 1000) ++ "\u{00A0}E-3"
-                    )
+                , CA.format (formatLabel impact >> .y)
                 ]
             ]
 
