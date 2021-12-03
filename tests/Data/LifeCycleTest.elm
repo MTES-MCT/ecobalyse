@@ -51,7 +51,7 @@ suite =
                                 |> Expect.equal
                                     (Ok
                                         { road = km 1500
-                                        , sea = km 33508
+                                        , sea = km 45468
                                         , air = km 0
                                         , co2 = Co2.kgCo2e 0
                                         }

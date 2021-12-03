@@ -34,7 +34,7 @@ samples =
             }
         , sample "co2 score for tShirtCotonEurope"
             { query = tShirtCotonEurope
-            , expected = Co2.kgCo2e 7.6132286257417805
+            , expected = Co2.kgCo2e 7.64890610786178
             }
         , sample "co2 score for tShirtCotonAsie"
             { query = tShirtCotonAsie
@@ -46,7 +46,7 @@ samples =
             }
         , sample "co2 score for manteauCircuitEurope"
             { query = manteauCircuitEurope
-            , expected = Co2.kgCo2e 512.9529752362356
+            , expected = Co2.kgCo2e 513.1648102863231
             }
         , sample "co2 score for pantalonCircuitEurope"
             { query = pantalonCircuitEurope
@@ -54,7 +54,7 @@ samples =
             }
         , sample "co2 score for robeCircuitBangladesh"
             { query = robeCircuitBangladesh
-            , expected = Co2.kgCo2e 38.38642250859547
+            , expected = Co2.kgCo2e 39.70980200899512
             }
         ]
     , section "Majoration de teinture personnalisée"
@@ -64,7 +64,7 @@ samples =
             }
         , sample "co2 score for tShirtCotonEurope using custom dyeing weighting"
             { query = { tShirtCotonEurope | dyeingWeighting = Just 0.5 }
-            , expected = Co2.kgCo2e 6.427684641075113
+            , expected = Co2.kgCo2e 6.463362123195113
             }
         , sample "co2 score for tShirtCotonAsie using custom dyeing weighting"
             { query = { tShirtCotonAsie | dyeingWeighting = Just 0.5 }
@@ -76,7 +76,7 @@ samples =
             }
         , sample "co2 score for manteauCircuitEurope using custom dyeing weighting"
             { query = { manteauCircuitEurope | dyeingWeighting = Just 0.5 }
-            , expected = Co2.kgCo2e 505.91380782727737
+            , expected = Co2.kgCo2e 506.1256428773649
             }
         , sample "co2 score for pantalonCircuitEurope using custom dyeing weighting"
             { query = { pantalonCircuitEurope | dyeingWeighting = Just 0.5 }
@@ -84,7 +84,7 @@ samples =
             }
         , sample "co2 score for robeCircuitBangladesh using custom dyeing weighting"
             { query = { robeCircuitBangladesh | dyeingWeighting = Just 0.5 }
-            , expected = Co2.kgCo2e 40.993996361512146
+            , expected = Co2.kgCo2e 42.31737586191179
             }
         ]
     , section "Transport aérien personnalisé"
@@ -94,7 +94,7 @@ samples =
             }
         , sample "co2 score for tShirtCotonEurope using custom air transport ratio"
             { query = { tShirtCotonEurope | airTransportRatio = Just 0.5 }
-            , expected = Co2.kgCo2e 7.716056393418881
+            , expected = Co2.kgCo2e 7.75173387553888
             }
         , sample "co2 score for tShirtCotonAsie using custom air transport ratio"
             { query = { tShirtCotonAsie | airTransportRatio = Just 0.5 }
@@ -106,7 +106,7 @@ samples =
             }
         , sample "co2 score for manteauCircuitEurope using custom air transport ratio"
             { query = { manteauCircuitEurope | airTransportRatio = Just 0.5 }
-            , expected = Co2.kgCo2e 513.527600996784
+            , expected = Co2.kgCo2e 513.7394360468716
             }
         , sample "co2 score for pantalonCircuitEurope using custom air transport ratio"
             { query = { pantalonCircuitEurope | airTransportRatio = Just 0.5 }
@@ -114,7 +114,7 @@ samples =
             }
         , sample "co2 score for robeCircuitBangladesh using custom air transport ratio"
             { query = { robeCircuitBangladesh | airTransportRatio = Just 0.5 }
-            , expected = Co2.kgCo2e 38.78750497344547
+            , expected = Co2.kgCo2e 40.110884473845125
             }
         ]
     , section "Part de matière recyclée personnalisée"
@@ -132,7 +132,7 @@ samples =
             }
         , sample "co2 score for tShirtCotonEurope using custom recycled ratio"
             { query = { tShirtCotonEurope | recycledRatio = Just 0.5 }
-            , expected = Co2.kgCo2e 6.03234612494178
+            , expected = Co2.kgCo2e 6.06802360706178
             }
         , sample "co2 score for tShirtCotonAsie using custom recycled ratio"
             { query = { tShirtCotonAsie | recycledRatio = Just 0.5 }
@@ -144,7 +144,7 @@ samples =
             }
         , sample "co2 score for manteauCircuitEurope using custom recycled ratio"
             { query = { manteauCircuitEurope | recycledRatio = Just 0.5 }
-            , expected = Co2.kgCo2e 512.9529752362356
+            , expected = Co2.kgCo2e 513.1648102863231
             }
         , sample "co2 score for pantalonCircuitEurope using custom recycled ratio"
             { query = { pantalonCircuitEurope | recycledRatio = Just 0.5 }
@@ -152,7 +152,7 @@ samples =
             }
         , sample "co2 score for robeCircuitBangladesh using custom recycled ratio"
             { query = { robeCircuitBangladesh | recycledRatio = Just 0.5 }
-            , expected = Co2.kgCo2e 38.38642250859547
+            , expected = Co2.kgCo2e 39.709802008995126
             }
         ]
     , section "Mix énergétique personnalisé"
