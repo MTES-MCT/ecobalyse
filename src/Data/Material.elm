@@ -102,6 +102,8 @@ encode v =
                 |> Maybe.withDefault Encode.null
           )
         , ( "primary", Encode.bool v.primary )
+        , ( "continent", Encode.string v.continent )
+        , ( "defaultCountry", v.defaultCountry |> Country.codeToString |> Encode.string )
         ]
 
 
