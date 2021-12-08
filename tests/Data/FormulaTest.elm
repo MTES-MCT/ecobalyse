@@ -77,11 +77,11 @@ suite =
                 |> asTest "should compute Making step fwe from process and country data"
              ]
             )
-        , describe "Formula.weavingCo2"
+        , describe "Formula.weavingImpacts"
             (let
                 res =
                     kg 1
-                        |> Formula.weavingCo2
+                        |> Formula.weavingImpacts
                             { elecPppm = 0.01
                             , countryElecProcess =
                                 { noOpProcess
@@ -106,11 +106,11 @@ suite =
                 |> asTest "should compute KnittingWeaving step kwh from process and product data"
              ]
             )
-        , describe "Formula.knittingCo2"
+        , describe "Formula.knittingImpacts"
             (let
                 res =
                     kg 1
-                        |> Formula.knittingCo2
+                        |> Formula.knittingImpacts
                             { elec = Energy.kilowattHours 5
                             , countryElecProcess =
                                 { noOpProcess

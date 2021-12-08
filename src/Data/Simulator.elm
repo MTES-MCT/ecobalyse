@@ -172,14 +172,14 @@ computeWeavingKnittingImpacts ({ inputs } as simulator) =
                     { kwh, co2, fwe } =
                         if inputs.product.knitted then
                             step.outputMass
-                                |> Formula.knittingCo2
+                                |> Formula.knittingImpacts
                                     { elec = inputs.product.fabricProcess.elec
                                     , countryElecProcess = Step.getCountryElectricityProcess step
                                     }
 
                         else
                             step.outputMass
-                                |> Formula.weavingCo2
+                                |> Formula.weavingImpacts
                                     { elecPppm = inputs.product.fabricProcess.elec_pppm
                                     , countryElecProcess = Step.getCountryElectricityProcess step
                                     , grammage = inputs.product.grammage

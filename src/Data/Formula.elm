@@ -189,11 +189,11 @@ makingImpacts { makingProcess, countryElecProcess } _ =
     { co2 = co2, fwe = fwe, kwh = makingProcess.elec }
 
 
-knittingCo2 :
+knittingImpacts :
     { elec : Energy, countryElecProcess : Process }
     -> Mass
     -> { kwh : Energy, co2 : Unit.Co2e, fwe : Unit.Pe }
-knittingCo2 { elec, countryElecProcess } baseMass =
+knittingImpacts { elec, countryElecProcess } baseMass =
     let
         electricityKWh =
             Energy.kilowattHours
@@ -205,7 +205,7 @@ knittingCo2 { elec, countryElecProcess } baseMass =
     }
 
 
-weavingCo2 :
+weavingImpacts :
     { elecPppm : Float
     , countryElecProcess : Process
     , ppm : Int
@@ -213,7 +213,7 @@ weavingCo2 :
     }
     -> Mass
     -> { kwh : Energy, co2 : Unit.Co2e, fwe : Unit.Pe }
-weavingCo2 { elecPppm, countryElecProcess, ppm, grammage } baseMass =
+weavingImpacts { elecPppm, countryElecProcess, ppm, grammage } baseMass =
     let
         electricityKWh =
             (Mass.inKilograms baseMass * 1000 * toFloat ppm / toFloat grammage)
