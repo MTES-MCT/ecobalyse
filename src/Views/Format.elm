@@ -1,6 +1,6 @@
 module Views.Format exposing (..)
 
-import Data.Co2 as Co2 exposing (Co2e)
+import Data.Unit as Unit
 import Energy exposing (Energy)
 import FormatNumber
 import FormatNumber.Locales exposing (Decimals(..), frenchLocale)
@@ -8,6 +8,17 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Length exposing (Length)
 import Mass exposing (Mass)
+import Page.Simulator.Impact as Impact exposing (Impact)
+
+
+formatImpact : Impact -> { a | co2 : Unit.Co2e, fwe : Unit.Pe } -> Html msg
+formatImpact impact { co2, fwe } =
+    case impact of
+        Impact.ClimateChange ->
+            kgCo2 2 co2
+
+        Impact.FreshwaterEutrophication ->
+            kgP 2 fwe
 
 
 formatInt : String -> Int -> String
@@ -17,7 +28,43 @@ formatInt unit int =
 
 formatFloat : Int -> Float -> String
 formatFloat decimals float =
-    FormatNumber.format { frenchLocale | decimals = Exact decimals } float
+    -- FIXME: there must be a simpler way…
+    let
+        ( newFloat, expStr ) =
+            if float == 0 then
+                ( float, "" )
+
+            else if float < 0.000000001 then
+                ( float * 1000 * 1000 * 1000, "E-9" )
+
+            else if float < 0.00000001 then
+                ( float * 100000000, "E-8" )
+
+            else if float < 0.0000001 then
+                ( float * 10000000, "E-7" )
+
+            else if float < 0.000001 then
+                ( float * 1000000, "E-6" )
+
+            else if float < 0.00001 then
+                ( float * 100000, "E-5" )
+
+            else if float < 0.0001 then
+                ( float * 10000, "E-4" )
+
+            else if float < 0.001 then
+                ( float * 1000, "E-3" )
+
+            else if float < 0.01 then
+                ( float * 100, "E-2" )
+
+            else if float < 0.1 then
+                ( float * 10, "E-1" )
+
+            else
+                ( float, "" )
+    in
+    FormatNumber.format { frenchLocale | decimals = Exact decimals } newFloat ++ expStr
 
 
 formatRichFloat : Int -> String -> Float -> Html msg
@@ -35,9 +82,14 @@ formatRichFloat decimals unit value =
         ]
 
 
-kgCo2 : Int -> Co2e -> Html msg
+kgCo2 : Int -> Unit.Co2e -> Html msg
 kgCo2 decimals =
-    Co2.inKgCo2e >> formatRichFloat decimals "kgCO₂e"
+    Unit.inKgCo2e >> formatRichFloat decimals "kgCO₂e"
+
+
+kgP : Int -> Unit.Pe -> Html msg
+kgP decimals =
+    Unit.inKgPe >> formatRichFloat decimals "kgPe"
 
 
 kg : Mass -> Html msg

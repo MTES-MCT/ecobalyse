@@ -1,7 +1,8 @@
 module Data.FormulaTest exposing (..)
 
-import Data.Co2 as Co2
 import Data.Formula as Formula
+import Data.Process exposing (noOpProcess)
+import Data.Unit as Unit
 import Energy
 import Expect exposing (Expectation)
 import Mass exposing (Mass)
@@ -46,59 +47,86 @@ suite =
                 |> Expect.equal { mass = kg 3, waste = kg 2 }
                 |> asTest "should compute material waste from material and product waste data"
             ]
-        , describe "Formula.makingCo2"
+        , describe "Formula.makingImpacts"
             (let
                 res =
                     kg 1
-                        |> Formula.makingCo2
-                            { makingProcess = { elec = Energy.megajoules 0.5 }
-                            , countryElecCC = Co2.kgCo2e 0.5
+                        |> Formula.makingImpacts
+                            { makingProcess =
+                                { noOpProcess
+                                    | elec = Energy.megajoules 0.5
+                                }
+                            , countryElecProcess =
+                                { noOpProcess
+                                    | climateChange = Unit.kgCo2e 0.5
+                                    , freshwaterEutrophication = Unit.kgPe 0.5
+                                }
                             }
              in
              [ res.co2
-                |> Co2.inKgCo2e
+                |> Unit.inKgCo2e
                 |> Expect.within (Expect.Absolute 0.01) 0.07
                 |> asTest "should compute Making step co2 from process and country data"
              , res.kwh
                 |> Energy.inKilowattHours
                 |> Expect.within (Expect.Absolute 0.01) 0.138
                 |> asTest "should compute Making step kwh from process and country data"
+             , res.fwe
+                |> Unit.inKgPe
+                |> Expect.within (Expect.Absolute 0.01) 0.07
+                |> asTest "should compute Making step fwe from process and country data"
              ]
             )
-        , describe "Formula.weavingCo2"
+        , describe "Formula.weavingImpacts"
             (let
                 res =
                     kg 1
-                        |> Formula.weavingCo2
+                        |> Formula.weavingImpacts
                             { elecPppm = 0.01
-                            , elecCC = Co2.kgCo2e 0.1
+                            , countryElecProcess =
+                                { noOpProcess
+                                    | climateChange = Unit.kgCo2e 0.1
+                                    , freshwaterEutrophication = Unit.kgPe 0.5
+                                }
                             , ppm = 400
                             , grammage = 500
                             }
              in
              [ res.co2
-                |> Co2.inKgCo2e
+                |> Unit.inKgCo2e
                 |> Expect.within (Expect.Absolute 0.01) 0.8
                 |> asTest "should compute KnittingWeaving step co2 from process and product data"
+             , res.fwe
+                |> Unit.inKgPe
+                |> Expect.within (Expect.Absolute 0.01) 4
+                |> asTest "should compute KnittingWeaving step fwe from process and product data"
              , res.kwh
                 |> Energy.inKilowattHours
                 |> Expect.within (Expect.Absolute 0.01) 8
                 |> asTest "should compute KnittingWeaving step kwh from process and product data"
              ]
             )
-        , describe "Formula.knittingCo2"
+        , describe "Formula.knittingImpacts"
             (let
                 res =
                     kg 1
-                        |> Formula.knittingCo2
+                        |> Formula.knittingImpacts
                             { elec = Energy.kilowattHours 5
-                            , elecCC = Co2.kgCo2e 0.2
+                            , countryElecProcess =
+                                { noOpProcess
+                                    | climateChange = Unit.kgCo2e 0.2
+                                    , freshwaterEutrophication = Unit.kgPe 0.5
+                                }
                             }
              in
              [ res.co2
-                |> Co2.inKgCo2e
+                |> Unit.inKgCo2e
                 |> Expect.within (Expect.Absolute 0.01) 1
                 |> asTest "should compute KnittingWeaving step co2 from process and product data"
+             , res.fwe
+                |> Unit.inKgPe
+                |> Expect.within (Expect.Absolute 0.01) 2.5
+                |> asTest "should compute KnittingWeaving step fwe from process and product data"
              , res.kwh
                 |> Energy.inKilowattHours
                 |> Expect.within (Expect.Absolute 0.01) 5

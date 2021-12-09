@@ -1,7 +1,7 @@
 module Data.Transport exposing (..)
 
-import Data.Co2 as Co2 exposing (Co2e)
 import Data.Country as Country
+import Data.Unit as Unit
 import Dict.Any as Dict exposing (AnyDict)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
@@ -21,7 +21,8 @@ type alias Transport =
     { road : Length
     , sea : Length
     , air : Length
-    , co2 : Co2e
+    , co2 : Unit.Co2e
+    , fwe : Unit.Pe
     }
 
 
@@ -31,12 +32,8 @@ default =
     , sea = Quantity.zero
     , air = Quantity.zero
     , co2 = Quantity.zero
+    , fwe = Quantity.zero
     }
-
-
-emptyDistances : Distances
-emptyDistances =
-    Dict.fromList Country.codeToString []
 
 
 defaultInland : Transport
@@ -45,17 +42,13 @@ defaultInland =
     , sea = Quantity.zero
     , air = Length.kilometers 500
     , co2 = Quantity.zero
+    , fwe = Quantity.zero
     }
 
 
-add : Transport -> Transport -> Transport
-add sA sB =
-    { sA
-        | road = sA.road |> Quantity.plus sB.road
-        , sea = sA.sea |> Quantity.plus sB.sea
-        , air = sA.air |> Quantity.plus sB.air
-        , co2 = sA.co2 |> Quantity.plus sB.co2
-    }
+emptyDistances : Distances
+emptyDistances =
+    Dict.fromList Country.codeToString []
 
 
 {-| Determine road/sea transport ratio, so road transport is priviledged
@@ -120,10 +113,11 @@ encodeKm =
 
 decode : Decoder Transport
 decode =
-    Decode.map4 Transport
+    Decode.map5 Transport
         (Decode.field "road" decodeKm)
         (Decode.field "sea" decodeKm)
         (Decode.field "air" decodeKm)
+        (Decode.succeed Quantity.zero)
         (Decode.succeed Quantity.zero)
 
 
@@ -133,7 +127,8 @@ encode v =
         [ ( "road", encodeKm v.road )
         , ( "sea", encodeKm v.sea )
         , ( "air", encodeKm v.air )
-        , ( "co2", Co2.encodeKgCo2e v.co2 )
+        , ( "co2", Unit.encodeKgCo2e v.co2 )
+        , ( "fwe", Unit.encodeKgPe v.fwe )
         ]
 
 
