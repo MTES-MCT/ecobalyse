@@ -318,6 +318,8 @@ encode inputs =
         , ( "countries", Encode.list Country.encode inputs.countries )
         , ( "dyeingWeighting", inputs.dyeingWeighting |> Maybe.map Encode.float |> Maybe.withDefault Encode.null )
         , ( "airTransportRatio", inputs.airTransportRatio |> Maybe.map Encode.float |> Maybe.withDefault Encode.null )
+        , ( "recycledRatio", inputs.recycledRatio |> Maybe.map Encode.float |> Maybe.withDefault Encode.null )
+        , ( "customCountryMixes", encodeCustomCountryMixes inputs.customCountryMixes )
         ]
 
 

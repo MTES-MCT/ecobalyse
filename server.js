@@ -24,16 +24,15 @@ app.get("/", ({ query }, res) => {
     product: query.product,
     material: query.material,
     countries: query.countries,
-    dyeingWeighting: query.dyeingWeighting || null,
-    airTransportRatio: query.airTransportRatio || null,
-    recycledRatio: query.recycledRatio || null,
+    dyeingWeighting: parseFloat(query.dyeingWeighting) || null,
+    airTransportRatio: parseFloat(query.airTransportRatio) || null,
+    recycledRatio: parseFloat(query.recycledRatio) || null,
     customCountryMixes: {
       fabric: query["customCountryMixes.fabric"] || null,
       making: query["customCountryMixes.making"] || null,
       dyeing: query["customCountryMixes.dyeing"] || null,
     },
   };
-  // console.log(inputs);
   elmApp.ports.input.send({
     inputs,
     jsResponseHandler: ({ status, body }) => {
