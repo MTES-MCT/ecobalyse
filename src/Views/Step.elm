@@ -4,6 +4,7 @@ import Data.Co2 as Co2
 import Data.Country as Country
 import Data.Db exposing (Db)
 import Data.Gitbook as Gitbook
+import Data.Inputs exposing (Inputs)
 import Data.Product exposing (Product)
 import Data.Step as Step exposing (Step)
 import Energy
@@ -19,6 +20,7 @@ import Views.Transport as TransportView
 
 type alias Config msg =
     { db : Db
+    , inputs : Inputs
     , detailed : Bool
     , index : Int
     , product : Product
@@ -33,7 +35,7 @@ type alias Config msg =
 
 
 countryField : Config msg -> Html msg
-countryField { db, current, index, updateCountry } =
+countryField { db, current, inputs, index, updateCountry } =
     div []
         [ db.countries
             |> List.map
@@ -42,11 +44,10 @@ countryField { db, current, index, updateCountry } =
                         [ selected (current.country.code == code)
                         , value <| Country.codeToString code
                         ]
-                        [ -- NOTE: because ADEME requires Asia as default for the Material & Spinning step,
-                          -- we use Asia as a label and use China behind the scene
+                        [ -- NOTE: display a continent instead of the country for the Material & Spinning step,
                           case current.label of
                             Step.MaterialAndSpinning ->
-                                text "Asie"
+                                text inputs.material.continent
 
                             _ ->
                                 text name

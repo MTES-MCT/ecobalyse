@@ -431,6 +431,7 @@ lifeCycleStepsView db displayMode simulator =
             (\index current ->
                 StepView.view
                     { db = db
+                    , inputs = simulator.inputs
                     , detailed = displayMode == DetailedMode
                     , index = index
                     , product = simulator.inputs.product
