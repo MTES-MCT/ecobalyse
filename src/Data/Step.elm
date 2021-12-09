@@ -126,7 +126,6 @@ computeTransports db next ({ processInfo } as current) =
 
                     stepSummary =
                         computeTransportSummary current transport
-                            |> Formula.transportRatio current.airTransportRatio
 
                     roadTransportProcess =
                         getRoadTransportProcess wellKnown current
@@ -186,6 +185,7 @@ computeTransportSummary step transport =
                 , sea = transport.sea
                 , air = transport.air
             }
+                |> Formula.transportRatio step.airTransportRatio
 
         _ ->
             -- All other steps don't use air transport at all

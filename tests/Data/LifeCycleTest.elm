@@ -52,7 +52,7 @@ suite =
                                 |> Expect.equal
                                     (Ok
                                         { road = km 1500
-                                        , sea = km 33508
+                                        , sea = km 45468
                                         , air = km 0
                                         , co2 = Unit.kgCo2e 0
                                         , fwe = Unit.kgPe 0
