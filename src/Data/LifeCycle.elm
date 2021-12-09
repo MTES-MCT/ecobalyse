@@ -38,6 +38,7 @@ computeTotalTransports =
                 , sea = acc.sea |> Quantity.plus transport.sea
                 , air = acc.air |> Quantity.plus transport.air
                 , co2 = acc.co2 |> Quantity.plus transport.co2
+                , fwe = acc.fwe |> Quantity.plus transport.fwe
             }
         )
         Transport.default
