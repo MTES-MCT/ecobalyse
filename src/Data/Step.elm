@@ -1,6 +1,5 @@
 module Data.Step exposing (..)
 
-import Data.Co2 as Co2 exposing (Co2e)
 import Data.Country as Country exposing (Country)
 import Data.Db exposing (Db)
 import Data.Formula as Formula
@@ -8,6 +7,7 @@ import Data.Gitbook as Gitbook exposing (Path(..))
 import Data.Inputs exposing (Inputs)
 import Data.Process as Process exposing (Process)
 import Data.Transport as Transport exposing (Transport, default, defaultInland)
+import Data.Unit as Unit
 import Energy exposing (Energy)
 import FormatNumber
 import FormatNumber.Locales exposing (Decimals(..), frenchLocale)
@@ -25,13 +25,14 @@ type alias Step =
     , outputMass : Mass
     , waste : Mass
     , transport : Transport
-    , co2 : Co2e
+    , co2 : Unit.Co2e
+    , fwe : Unit.Pe
     , heat : Energy
     , kwh : Energy
     , processInfo : ProcessInfo
     , dyeingWeighting : Float -- FIXME: why not Maybe?
     , airTransportRatio : Float -- FIXME: why not Maybe?
-    , customCountryMix : Maybe Co2e
+    , customCountryMix : Maybe Unit.Co2e
     }
 
 
@@ -59,13 +60,14 @@ create label editable country =
     { label = label
     , country = country
     , editable = editable
-    , inputMass = Mass.kilograms 0
-    , outputMass = Mass.kilograms 0
-    , waste = Mass.kilograms 0
-    , transport = default
+    , inputMass = Quantity.zero
+    , outputMass = Quantity.zero
+    , waste = Quantity.zero
+    , transport = Transport.default
     , co2 = Quantity.zero
-    , heat = Energy.megajoules 0
-    , kwh = Energy.kilowattHours 0
+    , fwe = Quantity.zero
+    , heat = Quantity.zero
+    , kwh = Quantity.zero
     , processInfo = defaultProcessInfo
     , dyeingWeighting = country.dyeingWeighting
     , airTransportRatio = 0 -- Note: this depends on next step country, so we can't set an accurate default value initially
@@ -85,9 +87,23 @@ defaultProcessInfo =
     }
 
 
-countryMixToString : Co2e -> String
+getCountryElectricityProcess : Step -> Process
+getCountryElectricityProcess { country, customCountryMix } =
+    let
+        { electricityProcess } =
+            country
+    in
+    case customCountryMix of
+        Just mix ->
+            { electricityProcess | climateChange = mix }
+
+        Nothing ->
+            electricityProcess
+
+
+countryMixToString : Unit.Co2e -> String
 countryMixToString =
-    Co2.inKgCo2e
+    Unit.inKgCo2e
         >> FormatNumber.format { frenchLocale | decimals = Exact 3 }
         >> (\kgCo2e -> "Mix électrique personnalisé: " ++ kgCo2e ++ "\u{202F}kgCO₂e/KWh")
 
@@ -124,24 +140,31 @@ computeTransports db next ({ processInfo } as current) =
                         }
                     , transport =
                         stepSummary
-                            |> computeTransportCo2 wellKnown roadTransportProcess next.inputMass
+                            |> computeTransportImpacts wellKnown roadTransportProcess next.inputMass
                 }
             )
 
 
-computeTransportCo2 : Process.WellKnown -> Process -> Mass -> Transport -> Transport
-computeTransportCo2 { seaTransport, airTransport } roadProcess mass { road, sea, air } =
+computeTransportImpacts : Process.WellKnown -> Process -> Mass -> Transport -> Transport
+computeTransportImpacts { seaTransport, airTransport } roadProcess mass { road, sea, air } =
     let
         ( roadCo2, seaCo2, airCo2 ) =
-            ( mass |> Co2.forKgAndDistance roadProcess.climateChange road
-            , mass |> Co2.forKgAndDistance seaTransport.climateChange sea
-            , mass |> Co2.forKgAndDistance airTransport.climateChange air
+            ( mass |> Unit.forKgAndDistance roadProcess.climateChange road
+            , mass |> Unit.forKgAndDistance seaTransport.climateChange sea
+            , mass |> Unit.forKgAndDistance airTransport.climateChange air
+            )
+
+        ( roadFwe, seaFwe, airFwe ) =
+            ( mass |> Unit.forKgAndDistance roadProcess.freshwaterEutrophication road
+            , mass |> Unit.forKgAndDistance seaTransport.freshwaterEutrophication sea
+            , mass |> Unit.forKgAndDistance airTransport.freshwaterEutrophication air
             )
     in
     { road = road
     , sea = sea
     , air = air
     , co2 = Quantity.sum [ roadCo2, seaCo2, airCo2 ]
+    , fwe = Quantity.sum [ roadFwe, seaFwe, airFwe ]
     }
 
 
@@ -297,13 +320,14 @@ encode v =
         , ( "outputMass", Encode.float (Mass.inKilograms v.outputMass) )
         , ( "waste", Encode.float (Mass.inKilograms v.waste) )
         , ( "transport", Transport.encode v.transport )
-        , ( "co2", Co2.encodeKgCo2e v.co2 )
+        , ( "co2", Unit.encodeKgCo2e v.co2 )
+        , ( "fwe", Unit.encodeKgPe v.fwe )
         , ( "heat", Encode.float (Energy.inMegajoules v.heat) )
         , ( "kwh", Encode.float (Energy.inKilowattHours v.kwh) )
         , ( "processInfo", encodeProcessInfo v.processInfo )
         , ( "dyeingWeighting", Encode.float v.dyeingWeighting )
         , ( "airTransportRatio", Encode.float v.airTransportRatio )
-        , ( "customCountryMix", v.customCountryMix |> Maybe.map Co2.encodeKgCo2e |> Maybe.withDefault Encode.null )
+        , ( "customCountryMix", v.customCountryMix |> Maybe.map Unit.encodeKgCo2e |> Maybe.withDefault Encode.null )
         ]
 
 

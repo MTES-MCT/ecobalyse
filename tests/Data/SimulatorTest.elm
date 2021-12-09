@@ -1,9 +1,9 @@
 module Data.SimulatorTest exposing (..)
 
-import Data.Co2 as Co2
 import Data.Inputs as Inputs exposing (..)
 import Data.Sample as Sample
 import Data.Simulator as Simulator
+import Data.Unit as Unit
 import Expect exposing (Expectation)
 import Route exposing (Route(..))
 import Test exposing (..)
@@ -20,8 +20,20 @@ expectCo2 co2 query =
     case testDb |> Result.andThen (\db -> Simulator.compute db query) of
         Ok simulator ->
             simulator.co2
-                |> Co2.inKgCo2e
+                |> Unit.inKgCo2e
                 |> Expect.within (Expect.Absolute 0.01) co2
+
+        Err error ->
+            Expect.fail error
+
+
+expectFwE : Float -> Inputs.Query -> Expectation
+expectFwE fwe query =
+    case testDb |> Result.andThen (\db -> Simulator.compute db query) of
+        Ok simulator ->
+            simulator.fwe
+                |> Unit.inKgPe
+                |> Expect.within (Expect.Absolute 0.000001) fwe
 
         Err error ->
             Expect.fail error
@@ -33,10 +45,15 @@ convert sectionOrSample =
         Sample.Section title samples ->
             describe title (List.map convert samples)
 
-        Sample.Sample title { query, expected } ->
-            query
-                |> expectCo2 (Co2.inKgCo2e expected)
-                |> asTest title
+        Sample.Sample title { query, co2, fwe } ->
+            describe title
+                [ query
+                    |> expectCo2 (Unit.inKgCo2e co2)
+                    |> asTest "climate change"
+                , query
+                    |> expectFwE (Unit.inKgPe fwe)
+                    |> asTest "freshwater eutrophication"
+                ]
 
 
 suite : Test
