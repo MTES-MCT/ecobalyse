@@ -34,6 +34,11 @@ samples =
             , co2 = Unit.kgCo2e 4.4140271789664345
             , fwe = Unit.kgPe 0.0003521486305115451
             }
+        , sample "impacts for tShirtPolyamideFrance"
+            { query = tShirtPolyamideFrance
+            , co2 = Unit.kgCo2e 3.63950716554
+            , fwe = Unit.kgPe 0.00008881966487864669
+            }
         , sample "impacts for tShirtCotonEurope"
             { query = tShirtCotonEurope
             , co2 = Unit.kgCo2e 7.64890610786178
@@ -71,6 +76,11 @@ samples =
             , co2 = Unit.kgCo2e 4.877918477816435
             , fwe = Unit.kgPe 0.00048420985564356846
             }
+        , sample "impacts for tShirtPolyamideFrance using custom dyeing weighting"
+            { query = { tShirtPolyamideFrance | dyeingWeighting = Just 0.5 }
+            , co2 = Unit.kgCo2e 4.103398464390001
+            , fwe = Unit.kgPe 0.00022088089001067005
+            }
         , sample "impacts for tShirtCotonEurope using custom dyeing weighting"
             { query = { tShirtCotonEurope | dyeingWeighting = Just 0.5 }
             , co2 = Unit.kgCo2e 6.463362123195113
@@ -107,6 +117,11 @@ samples =
             { query = { tShirtCotonFrance | airTransportRatio = Just 0.5 }
             , co2 = Unit.kgCo2e 4.4587926414664345
             , fwe = Unit.kgPe 0.0003521474420415451
+            }
+        , sample "impacts for tShirtPolyamideFrance using custom air transport ratio"
+            { query = { tShirtPolyamideFrance | airTransportRatio = Just 0.5 }
+            , co2 = Unit.kgCo2e 3.68427262804
+            , fwe = Unit.kgPe 0.00008881847640864668
             }
         , sample "impacts for tShirtCotonEurope using custom air transport ratio"
             { query = { tShirtCotonEurope | airTransportRatio = Just 0.5 }
@@ -154,6 +169,11 @@ samples =
             { query = { tShirtCotonFrance | recycledRatio = Just 1 }
             , co2 = Unit.kgCo2e 1.2522621773664322
             , fwe = Unit.kgPe 0.00009461076235154518
+            }
+        , sample "impacts for tShirtPolyamideFrance using custom recycled ratio"
+            { query = { tShirtPolyamideFrance | recycledRatio = Just 0.5 }
+            , co2 = Unit.kgCo2e 2.748975179940001
+            , fwe = Unit.kgPe 0.00011238870391864669
             }
         , sample "impacts for tShirtCotonEurope using custom recycled ratio"
             { query = { tShirtCotonEurope | recycledRatio = Just 0.5 }

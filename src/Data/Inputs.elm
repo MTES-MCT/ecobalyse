@@ -177,6 +177,21 @@ tShirtCotonFrance =
     }
 
 
+tShirtPolyamideFrance : Query
+tShirtPolyamideFrance =
+    -- T-shirt polyamide (provenance France) circuit France
+    { tShirtCotonFrance
+        | material = Process.Uuid "182fa424-1f49-4728-b0f1-cb4e4ab36392"
+        , countries =
+            [ Country.Code "FR"
+            , Country.Code "FR"
+            , Country.Code "FR"
+            , Country.Code "FR"
+            , Country.Code "FR"
+            ]
+    }
+
+
 tShirtCotonEurope : Query
 tShirtCotonEurope =
     -- T-shirt circuit Europe
