@@ -2,12 +2,12 @@ module Data.Inputs exposing (..)
 
 import Array
 import Base64
-import Data.Co2 as Co2 exposing (Co2e)
 import Data.Country as Country exposing (Country)
 import Data.Db exposing (Db)
 import Data.Material as Material exposing (Material)
 import Data.Process as Process
 import Data.Product as Product exposing (Product)
+import Data.Unit as Unit
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
 import Mass exposing (Mass)
@@ -39,9 +39,9 @@ type alias Query =
 
 
 type alias CustomCountryMixes =
-    { fabric : Maybe Co2e
-    , dyeing : Maybe Co2e
-    , making : Maybe Co2e
+    { fabric : Maybe Unit.Co2e
+    , dyeing : Maybe Unit.Co2e
+    , making : Maybe Unit.Co2e
     }
 
 
@@ -91,7 +91,7 @@ defaultCustomCountryMixes =
     }
 
 
-setCustomCountryMix : Int -> Maybe Co2e -> Query -> Query
+setCustomCountryMix : Int -> Maybe Unit.Co2e -> Query -> Query
 setCustomCountryMix index value ({ customCountryMixes } as query) =
     { query
         | customCountryMixes =
@@ -319,23 +319,25 @@ encode inputs =
         , ( "countries", Encode.list Country.encode inputs.countries )
         , ( "dyeingWeighting", inputs.dyeingWeighting |> Maybe.map Encode.float |> Maybe.withDefault Encode.null )
         , ( "airTransportRatio", inputs.airTransportRatio |> Maybe.map Encode.float |> Maybe.withDefault Encode.null )
+        , ( "recycledRatio", inputs.recycledRatio |> Maybe.map Encode.float |> Maybe.withDefault Encode.null )
+        , ( "customCountryMixes", encodeCustomCountryMixes inputs.customCountryMixes )
         ]
 
 
 decodeCustomCountryMixes : Decoder CustomCountryMixes
 decodeCustomCountryMixes =
     Decode.map3 CustomCountryMixes
-        (Decode.field "fabric" (Decode.maybe Co2.decodeKgCo2e))
-        (Decode.field "dyeing" (Decode.maybe Co2.decodeKgCo2e))
-        (Decode.field "making" (Decode.maybe Co2.decodeKgCo2e))
+        (Decode.field "fabric" (Decode.maybe Unit.decodeKgCo2e))
+        (Decode.field "dyeing" (Decode.maybe Unit.decodeKgCo2e))
+        (Decode.field "making" (Decode.maybe Unit.decodeKgCo2e))
 
 
 encodeCustomCountryMixes : CustomCountryMixes -> Encode.Value
 encodeCustomCountryMixes v =
     Encode.object
-        [ ( "fabric", v.fabric |> Maybe.map Co2.encodeKgCo2e |> Maybe.withDefault Encode.null )
-        , ( "dyeing", v.dyeing |> Maybe.map Co2.encodeKgCo2e |> Maybe.withDefault Encode.null )
-        , ( "making", v.making |> Maybe.map Co2.encodeKgCo2e |> Maybe.withDefault Encode.null )
+        [ ( "fabric", v.fabric |> Maybe.map Unit.encodeKgCo2e |> Maybe.withDefault Encode.null )
+        , ( "dyeing", v.dyeing |> Maybe.map Unit.encodeKgCo2e |> Maybe.withDefault Encode.null )
+        , ( "making", v.making |> Maybe.map Unit.encodeKgCo2e |> Maybe.withDefault Encode.null )
         ]
 
 

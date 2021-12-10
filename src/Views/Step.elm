@@ -1,6 +1,5 @@
 module Views.Step exposing (..)
 
-import Data.Co2 as Co2
 import Data.Country as Country
 import Data.Db exposing (Db)
 import Data.Gitbook as Gitbook
@@ -11,6 +10,7 @@ import Energy
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
+import Page.Simulator.Impact as Impact exposing (Impact)
 import Views.Button as Button
 import Views.Format as Format
 import Views.Icon as Icon
@@ -22,6 +22,7 @@ type alias Config msg =
     { db : Db
     , inputs : Inputs
     , detailed : Bool
+    , impact : Impact
     , index : Int
     , product : Product
     , current : Step
@@ -117,7 +118,7 @@ stepDocumentationLink { openDocModal } label =
 
 
 simpleView : Config msg -> Html msg
-simpleView ({ product, index, current } as config) =
+simpleView ({ product, impact, index, current } as config) =
     let
         stepLabel =
             case ( current.label, product.knitted ) of
@@ -160,14 +161,15 @@ simpleView ({ product, index, current } as config) =
                 [ div []
                     [ if current.label /= Step.Distribution then
                         div [ class "fs-3 fw-normal text-secondary" ]
-                            [ Format.kgCo2 3 current.co2 ]
+                            [ Format.formatImpact impact current
+                            ]
 
                       else
                         text ""
                     , div [ class "fs-7" ]
                         [ span [ class "me-1 align-bottom" ] [ Icon.info ]
                         , text "Transport\u{00A0}"
-                        , Format.kgCo2 3 current.transport.co2
+                        , Format.formatImpact impact current.transport
                         ]
                     ]
                 ]
@@ -176,7 +178,7 @@ simpleView ({ product, index, current } as config) =
 
 
 detailedView : Config msg -> Html msg
-detailedView ({ product, index, next, current } as config) =
+detailedView ({ product, impact, index, next, current } as config) =
     let
         transportLabel =
             case next of
@@ -242,8 +244,8 @@ detailedView ({ product, index, next, current } as config) =
         , div
             [ class "card text-center" ]
             [ div [ class "card-header text-muted" ]
-                [ if Co2.inKgCo2e current.co2 > 0 then
-                    span [ class "fw-bold" ] [ Format.kgCo2 3 current.co2 ]
+                [ if Impact.toFloat impact current > 0 then
+                    span [ class "fw-bold" ] [ Format.formatImpact impact current ]
 
                   else
                     text "\u{00A0}"
@@ -285,7 +287,7 @@ detailedView ({ product, index, next, current } as config) =
                 , li [ class "list-group-item text-muted" ]
                     [ div [ class "d-flex justify-content-center align-items-center" ]
                         [ strong [] [ text <| transportLabel ++ "\u{00A0}:\u{00A0}" ]
-                        , Format.kgCo2 3 current.transport.co2
+                        , Format.formatImpact impact current.transport
                         , inlineDocumentationLink config Gitbook.Transport
                         ]
                     ]

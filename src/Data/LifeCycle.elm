@@ -1,11 +1,11 @@
 module Data.LifeCycle exposing (..)
 
 import Array exposing (Array)
-import Data.Co2 exposing (Co2e)
 import Data.Db exposing (Db)
 import Data.Inputs as Inputs exposing (Inputs)
 import Data.Step as Step exposing (Step)
 import Data.Transport as Transport exposing (Transport)
+import Data.Unit as Unit
 import Json.Encode as Encode
 import Quantity
 import Result.Extra as RE
@@ -38,16 +38,26 @@ computeTotalTransports =
                 , sea = acc.sea |> Quantity.plus transport.sea
                 , air = acc.air |> Quantity.plus transport.air
                 , co2 = acc.co2 |> Quantity.plus transport.co2
+                , fwe = acc.fwe |> Quantity.plus transport.fwe
             }
         )
         Transport.default
 
 
-computeFinalCo2Score : LifeCycle -> Co2e
+computeFinalCo2Score : LifeCycle -> Unit.Co2e
 computeFinalCo2Score =
     Array.foldl
         (\{ co2, transport } finalScore ->
             Quantity.sum [ finalScore, co2, transport.co2 ]
+        )
+        Quantity.zero
+
+
+computeFinalFwEScore : LifeCycle -> Unit.Pe
+computeFinalFwEScore =
+    Array.foldl
+        (\{ fwe, transport } finalScore ->
+            Quantity.sum [ finalScore, fwe, transport.fwe ]
         )
         Quantity.zero
 

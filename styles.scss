@@ -127,6 +127,13 @@ blockquote {
   }
 }
 
+.no-scroll-chaining {
+  // Avoid y-scroll chaining
+  // @see https://ishadeed.com/article/prevent-scroll-chaining-overscroll-behavior/
+  overscroll-behavior-y: contain;
+  overflow-y: auto;
+}
+
 .text-light-all {
   color: $white;
   a {

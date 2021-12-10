@@ -1,9 +1,9 @@
 module Data.LifeCycleTest exposing (..)
 
-import Data.Co2 as Co2
 import Data.Country as Country
 import Data.Inputs exposing (tShirtCotonFrance)
 import Data.LifeCycle as LifeCycle
+import Data.Unit as Unit
 import Expect
 import Length
 import Test exposing (..)
@@ -31,7 +31,8 @@ suite =
                                         { road = km 2500
                                         , sea = km 21548
                                         , air = km 0
-                                        , co2 = Co2.kgCo2e 0
+                                        , co2 = Unit.kgCo2e 0
+                                        , fwe = Unit.kgPe 0
                                         }
                                     )
                     , test "should compute custom distances" <|
@@ -51,9 +52,10 @@ suite =
                                 |> Expect.equal
                                     (Ok
                                         { road = km 1500
-                                        , sea = km 33508
+                                        , sea = km 45468
                                         , air = km 0
-                                        , co2 = Co2.kgCo2e 0
+                                        , co2 = Unit.kgCo2e 0
+                                        , fwe = Unit.kgPe 0
                                         }
                                     )
                     ]

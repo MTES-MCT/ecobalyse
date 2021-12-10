@@ -6,12 +6,12 @@
     "name": "Mix électrique réseau, TR",
     "uuid": "6fad8643-de3e-49dd-a48b-8e17b4175c23",
     "climateChange": 0.706988,
-    "freshwaterEutrophication": 0.00829332,
+    "freshwaterEutrophication": 0.0000000113407,
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
     "waste": 0,
-    "alias": null
+    "alias": "null"
   },
   {
     "cat1": "Energie",
@@ -20,12 +20,12 @@
     "name": "Mix électrique réseau, TN",
     "uuid": "f0eb64cd-468d-4f3c-a9a3-3b3661625955",
     "climateChange": 0.80722,
-    "freshwaterEutrophication": 0.00575964,
+    "freshwaterEutrophication": 0.0000000135556,
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
     "waste": 0,
-    "alias": null
+    "alias": "null"
   },
   {
     "cat1": "Energie",
@@ -34,12 +34,12 @@
     "name": "Mix électrique réseau, IN",
     "uuid": "1b470f5c-6ae6-404d-bd71-8546d33dbc17",
     "climateChange": 1.58299,
-    "freshwaterEutrophication": 0.00115603,
+    "freshwaterEutrophication": 0.0000000463076,
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
     "waste": 0,
-    "alias": null
+    "alias": "null"
   },
   {
     "cat1": "Energie",
@@ -48,12 +48,12 @@
     "name": "Mix électrique réseau, FR",
     "uuid": "05585055-9742-4fff-81ff-ad2e30e1b791",
     "climateChange": 0.0813225,
-    "freshwaterEutrophication": 0.0120145,
+    "freshwaterEutrophication": 0.0000000326897,
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
     "waste": 0,
-    "alias": null
+    "alias": "null"
   },
   {
     "cat1": "Energie",
@@ -62,12 +62,12 @@
     "name": "Mix électrique réseau, CN",
     "uuid": "8f923f3d-0bd2-4326-99e2-f984b4454226",
     "climateChange": 1.05738,
-    "freshwaterEutrophication": 0.000255719,
+    "freshwaterEutrophication": 0.0000000221258,
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
     "waste": 0,
-    "alias": null
+    "alias": "null"
   },
   {
     "cat1": "Energie",
@@ -76,12 +76,12 @@
     "name": "Mix électrique réseau, ES",
     "uuid": "37301c44-c4cf-4214-a4ac-eee5785ccdc5",
     "climateChange": 0.467803,
-    "freshwaterEutrophication": 0.00595156,
+    "freshwaterEutrophication": 0.0000000228166,
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
     "waste": 0,
-    "alias": null
+    "alias": "null"
   },
   {
     "cat1": "Energie",
@@ -90,12 +90,12 @@
     "name": "Mix électrique réseau, PT",
     "uuid": "a1d83202-0052-4d10-b9d2-938564be6a0b",
     "climateChange": 0.571172,
-    "freshwaterEutrophication": 0.00229703,
+    "freshwaterEutrophication": 0.0000000254454,
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
     "waste": 0,
-    "alias": null
+    "alias": "null"
   },
   {
     "cat1": "Energie",
@@ -104,12 +104,12 @@
     "name": "Mix électrique réseau, BD",
     "uuid": "1ee6061e-8e15-4558-9338-94ad87abf932",
     "climateChange": 0.795168,
-    "freshwaterEutrophication": 0.000641618,
+    "freshwaterEutrophication": 0.000000013234,
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
     "waste": 0,
-    "alias": null
+    "alias": "null"
   },
   {
     "cat1": "Energie",
@@ -118,12 +118,12 @@
     "name": "Mix Vapeur (mix technologique|mix de production, en sortie de chaudière), RSA",
     "uuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
     "climateChange": 0.106827,
-    "freshwaterEutrophication": 0.0100736,
+    "freshwaterEutrophication": 0.00000000261878,
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
     "waste": 0,
-    "alias": null
+    "alias": "null"
   },
   {
     "cat1": "Energie",
@@ -132,12 +132,12 @@
     "name": "Vapeur à partir de gaz naturel (mix de technologies de combustion et d'épuration des effluents gazeux|en sortie de chaudière|Puissance non spécifiée), RER",
     "uuid": "59c4c64c-0916-868a-5dd6-a42c4c42222f",
     "climateChange": 0.0744719,
-    "freshwaterEutrophication": 0.0013209,
+    "freshwaterEutrophication": 0.00000000213861,
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
     "waste": 0,
-    "alias": null
+    "alias": "null"
   },
   {
     "cat1": "Energie",
@@ -146,12 +146,12 @@
     "name": "Mix Vapeur (mix technologique|mix de production, en sortie de chaudière), FR",
     "uuid": "12fc43f2-a007-423b-a619-619d725793ea",
     "climateChange": 0.0854514,
-    "freshwaterEutrophication": 0.0200646,
+    "freshwaterEutrophication": 0.00000000415341,
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
     "waste": 0,
-    "alias": null
+    "alias": "null"
   },
   {
     "cat1": "Energie",
@@ -160,12 +160,12 @@
     "name": "Vapeur à partir de gaz naturel (mix de technologies de combustion et d'épuration des effluents gazeux|en sortie de chaudière|Puissance non spécifiée), ES",
     "uuid": "618440a9-f4aa-65bc-21cb-ea40eee53f3d",
     "climateChange": 0.0830517,
-    "freshwaterEutrophication": 0.0011613,
+    "freshwaterEutrophication": 0.000000000767049,
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
     "waste": 0,
-    "alias": null
+    "alias": "null"
   },
   {
     "cat1": "Textile",
@@ -174,12 +174,12 @@
     "name": "Plume de canard, inventaire agrégé",
     "uuid": "d1f06ea5-d63f-453a-8f98-55ce78ae7579",
     "climateChange": 16.238,
-    "freshwaterEutrophication": 0.0207603,
+    "freshwaterEutrophication": 0.00170385,
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
     "waste": 0,
-    "alias": null
+    "alias": "null"
   },
   {
     "cat1": "Textile",
@@ -188,12 +188,12 @@
     "name": "Fil de soie",
     "uuid": "94b4b0e1-61e4-4f4d-b9b2-efe7623b0e68",
     "climateChange": 18.5727,
-    "freshwaterEutrophication": 7.20749,
+    "freshwaterEutrophication": 0.000899851,
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
     "waste": 7.79322,
-    "alias": null
+    "alias": "null"
   },
   {
     "cat1": "Textile",
@@ -202,12 +202,12 @@
     "name": "Fil de lin (filasse)",
     "uuid": "e5a6d538-f932-4242-98b4-3a0c6439629c",
     "climateChange": 16.7281,
-    "freshwaterEutrophication": 6.39218,
+    "freshwaterEutrophication": 0.00125111,
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
     "waste": 0.170215,
-    "alias": null
+    "alias": "null"
   },
   {
     "cat1": "Textile",
@@ -216,12 +216,12 @@
     "name": "Fil de lin (étoupe)",
     "uuid": "fcef1a31-bb18-49e4-bdb6-e53dfe015ba0",
     "climateChange": 15.1829,
-    "freshwaterEutrophication": 0.24293,
+    "freshwaterEutrophication": 0.000716424,
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
     "waste": 0.288932,
-    "alias": null
+    "alias": "null"
   },
   {
     "cat1": "Textile",
@@ -230,12 +230,12 @@
     "name": "Fil de laine de mouton Mérinos, inventaire partiellement agrégé",
     "uuid": "4e035dbf-f48b-4b5a-94ea-0006c713958b",
     "climateChange": 73.8467,
-    "freshwaterEutrophication": 0.352476,
+    "freshwaterEutrophication": 0.00303343,
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
     "waste": 0.08696,
-    "alias": null
+    "alias": "null"
   },
   {
     "cat1": "Textile",
@@ -244,12 +244,12 @@
     "name": "Fil de laine de mouton",
     "uuid": "376bd165-d354-41aa-a6e3-fd3228413bb2",
     "climateChange": 80.2769,
-    "freshwaterEutrophication": 0.318022,
+    "freshwaterEutrophication": 0.00796636,
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
     "waste": 0.672241,
-    "alias": null
+    "alias": "null"
   },
   {
     "cat1": "Textile",
@@ -258,12 +258,12 @@
     "name": "Fil de laine de chameau",
     "uuid": "c191a4dd-5080-4eb6-9c59-b13c943327bc",
     "climateChange": 175.102,
-    "freshwaterEutrophication": 29.4712,
+    "freshwaterEutrophication": 0.000297625,
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
     "waste": 3.17851,
-    "alias": null
+    "alias": "null"
   },
   {
     "cat1": "Textile",
@@ -272,12 +272,12 @@
     "name": "Fil de jute",
     "uuid": "72010874-4d26-4c7a-95de-c6987dfdedeb",
     "climateChange": 12.9611,
-    "freshwaterEutrophication": 11.6477,
+    "freshwaterEutrophication": 0.000874196,
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
     "waste": 0.270519,
-    "alias": null
+    "alias": "null"
   },
   {
     "cat1": "Textile",
@@ -286,12 +286,12 @@
     "name": "Fil de coton conventionnel, inventaire partiellement agrégé",
     "uuid": "f211bbdb-415c-46fd-be4d-ddf199575b44",
     "climateChange": 16.3699,
-    "freshwaterEutrophication": 0.0963742,
+    "freshwaterEutrophication": 0.00158826,
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
     "waste": 0.201201,
-    "alias": null
+    "alias": "null"
   },
   {
     "cat1": "Textile",
@@ -300,12 +300,12 @@
     "name": "Fil de chanvre",
     "uuid": "08601439-f338-4f94-ac8c-538061b65d16",
     "climateChange": 19.5483,
-    "freshwaterEutrophication": 0.000285272,
+    "freshwaterEutrophication": 0.00110588,
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
     "waste": 0.221094,
-    "alias": null
+    "alias": "null"
   },
   {
     "cat1": "Textile",
@@ -314,12 +314,12 @@
     "name": "Fil de cachemire",
     "uuid": "380c0d9c-2840-4390-bd3f-5c960f26f5ed",
     "climateChange": 385.476,
-    "freshwaterEutrophication": 0.0327909,
+    "freshwaterEutrophication": 0.000965391,
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
     "waste": 3.17851,
-    "alias": null
+    "alias": "null"
   },
   {
     "cat1": "Textile",
@@ -328,12 +328,12 @@
     "name": "Fil d'angora",
     "uuid": "29bddef1-d753-45af-9ca6-aec05e2d02b9",
     "climateChange": 45.1782,
-    "freshwaterEutrophication": 0.0391569,
+    "freshwaterEutrophication": 0.00323338,
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
     "waste": 0.672241,
-    "alias": null
+    "alias": "null"
   },
   {
     "cat1": "Textile",
@@ -342,12 +342,12 @@
     "name": "Fibres de kapok, inventaire agrégé",
     "uuid": "36cdbfc4-3f48-47b0-8ae0-294bb6017df1",
     "climateChange": -0.0280245,
-    "freshwaterEutrophication": 0.00551453,
+    "freshwaterEutrophication": -0.000510209,
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
     "waste": 0,
-    "alias": null
+    "alias": "null"
   },
   {
     "cat1": "Textile",
@@ -356,12 +356,12 @@
     "name": "Filament de viscose",
     "uuid": "81a67d97-3cd9-44ef-9ee2-159364364c0f",
     "climateChange": 7.99002,
-    "freshwaterEutrophication": 0.0273836,
+    "freshwaterEutrophication": 0.000861022,
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
     "waste": 0.0582011,
-    "alias": null
+    "alias": "null"
   },
   {
     "cat1": "Textile",
@@ -370,12 +370,12 @@
     "name": "Filament de polyuréthane",
     "uuid": "c3738500-0a62-4b95-b4a2-b7beb12a9e1a",
     "climateChange": 20.6809,
-    "freshwaterEutrophication": 0.0939001,
+    "freshwaterEutrophication": 0.000386296,
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
     "waste": 0.00796392,
-    "alias": null
+    "alias": "null"
   },
   {
     "cat1": "Textile",
@@ -384,12 +384,12 @@
     "name": "Filament de polytriméthylène téréphtalate (PTT), inventaire partiellement agrégé",
     "uuid": "eca33573-0d09-4d79-9b28-da42bfcc7a4b",
     "climateChange": 12.0842,
-    "freshwaterEutrophication": 0.0273944,
+    "freshwaterEutrophication": 0.000826427,
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
     "waste": 0.0319569,
-    "alias": null
+    "alias": "null"
   },
   {
     "cat1": "Textile",
@@ -398,12 +398,12 @@
     "name": "Filament de polytéréphtalate de butylène (PBT), inventaire agrégé",
     "uuid": "7f8bbfdc-fb65-4e3a-ac81-eda197ef17fc",
     "climateChange": 10.1195,
-    "freshwaterEutrophication": 0.128688,
+    "freshwaterEutrophication": 0.000763859,
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
     "waste": 0,
-    "alias": null
+    "alias": "null"
   },
   {
     "cat1": "Textile",
@@ -412,12 +412,12 @@
     "name": "Filament de polypropylène",
     "uuid": "a30cfbde-393a-40db-9263-ea00bfced0b7",
     "climateChange": 6.91894,
-    "freshwaterEutrophication": 0.0374048,
+    "freshwaterEutrophication": 0.000262079,
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
     "waste": 0.0319569,
-    "alias": null
+    "alias": "null"
   },
   {
     "cat1": "Textile",
@@ -426,12 +426,12 @@
     "name": "Filament de polylactide",
     "uuid": "f2dd799d-1b69-4e7a-99bd-696bbbd5a978",
     "climateChange": 9.35683,
-    "freshwaterEutrophication": 0.0614476,
+    "freshwaterEutrophication": 0.000456785,
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
     "waste": 0.0319569,
-    "alias": null
+    "alias": "null"
   },
   {
     "cat1": "Textile",
@@ -440,12 +440,12 @@
     "name": "Filament de polyéthylène",
     "uuid": "088ed617-67fa-4d42-b3af-ee6cf39cf36f",
     "climateChange": 6.91078,
-    "freshwaterEutrophication": 0.292909,
+    "freshwaterEutrophication": 0.000266425,
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
     "waste": 0.0319569,
-    "alias": null
+    "alias": "null"
   },
   {
     "cat1": "Textile",
@@ -454,12 +454,12 @@
     "name": "Filament de polyester, inventaire partiellement agrégé",
     "uuid": "4d57c51d-7d56-46e1-acde-02fbcdc943e4",
     "climateChange": 10.2505,
-    "freshwaterEutrophication": 0.0292923,
+    "freshwaterEutrophication": 0.000767668,
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
     "waste": 0.0319569,
-    "alias": null
+    "alias": "null"
   },
   {
     "cat1": "Textile",
@@ -468,12 +468,12 @@
     "name": "Filament de polyamide 66",
     "uuid": "182fa424-1f49-4728-b0f1-cb4e4ab36392",
     "climateChange": 13.6468,
-    "freshwaterEutrophication": 2.08908,
+    "freshwaterEutrophication": 0.000343227,
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
     "waste": 0.0319569,
-    "alias": null
+    "alias": "null"
   },
   {
     "cat1": "Textile",
@@ -482,12 +482,12 @@
     "name": "Filament d'aramide",
     "uuid": "7a1ccc4a-2ea7-48dc-9ef0-d57066ea8fa5",
     "climateChange": 22.3103,
-    "freshwaterEutrophication": 0.225852,
+    "freshwaterEutrophication": 0.000311432,
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
     "waste": 0,
-    "alias": null
+    "alias": "null"
   },
   {
     "cat1": "Textile",
@@ -496,12 +496,12 @@
     "name": "Filament d'acrylique",
     "uuid": "aee6709f-0864-4fc5-8760-68cb644a0021",
     "climateChange": 18.4288,
-    "freshwaterEutrophication": 0.206896,
+    "freshwaterEutrophication": 0.000341635,
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
     "waste": 0.00796392,
-    "alias": null
+    "alias": "null"
   },
   {
     "cat1": "Textile",
@@ -510,12 +510,12 @@
     "name": "Filament bi-composant polypropylène/polyamide",
     "uuid": "37396ac4-13a2-484c-9cc6-5b5a93ff6e6e",
     "climateChange": 8.26356,
-    "freshwaterEutrophication": 0.471136,
+    "freshwaterEutrophication": 0.000278646,
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
     "waste": 0.0319569,
-    "alias": null
+    "alias": "null"
   },
   {
     "cat1": "Textile",
@@ -524,12 +524,12 @@
     "name": "Feuille de néoprène, inventaire agrégé",
     "uuid": "76fefff3-3781-49a2-8deb-c12945a6b71f",
     "climateChange": 9.87734,
-    "freshwaterEutrophication": 0.000589758,
+    "freshwaterEutrophication": 0.000243907,
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
     "waste": 0,
-    "alias": null
+    "alias": "null"
   },
   {
     "cat1": "Textile",
@@ -538,12 +538,12 @@
     "name": "Production de filament de polyester recyclé (recyclage mécanique), traitement de bouteilles post-consommation, inventaire partiellement agrégé",
     "uuid": "4072bfa2-1948-4d12-8de9-bbeb6cc628e1",
     "climateChange": 6.58922,
-    "freshwaterEutrophication": 0.0869738,
+    "freshwaterEutrophication": 0.000625874,
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
     "waste": 0.031957,
-    "alias": null
+    "alias": "null"
   },
   {
     "cat1": "Textile",
@@ -552,12 +552,12 @@
     "name": "Production de filament de polyester recyclé (recyclage chimique partiel), traitement de bouteilles post-consommation, inventaire partiellement agrégé",
     "uuid": "e65e8157-9bd1-4711-9571-8e4a22c2d2b5",
     "climateChange": 22.3377,
-    "freshwaterEutrophication": 0.0520093,
+    "freshwaterEutrophication": 0.00155739,
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
     "waste": 0.032,
-    "alias": null
+    "alias": "null"
   },
   {
     "cat1": "Textile",
@@ -566,12 +566,12 @@
     "name": "Production de filament de polyester recyclé (recyclage chimique complet), traitement de bouteilles post-consommation, inventaire partiellement agrégé",
     "uuid": "221067ba-5c2f-4dad-b09a-dd5af0a9ae31",
     "climateChange": 6.99213,
-    "freshwaterEutrophication": 0.00251755,
+    "freshwaterEutrophication": 0.000653595,
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
     "waste": 0.032,
-    "alias": null
+    "alias": "null"
   },
   {
     "cat1": "Textile",
@@ -580,12 +580,12 @@
     "name": "Production de filament de polyamide recyclé (recyclage chimique), traitement de déchets issus de filets de pêche, de tapis et de déchets de production, inventaire partiellement agrégé",
     "uuid": "41ee61c2-9a98-4eec-8949-9d9b54289bd0",
     "climateChange": 8.55458,
-    "freshwaterEutrophication": 0.00365224,
+    "freshwaterEutrophication": 0.000632213,
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
     "waste": 0.0319681,
-    "alias": null
+    "alias": "null"
   },
   {
     "cat1": "Textile",
@@ -594,12 +594,12 @@
     "name": "Production de fil de viscose recyclé (recyclage mécanique), traitement de déchets de production textiles, inventaire partiellement agrégé",
     "uuid": "9671ae26-d772-4bb1-aad5-6b826555d0cd",
     "climateChange": 6.46416,
-    "freshwaterEutrophication": 0.00443397,
+    "freshwaterEutrophication": 0.000576042,
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
     "waste": 0.137851,
-    "alias": null
+    "alias": "null"
   },
   {
     "cat1": "Textile",
@@ -608,12 +608,12 @@
     "name": "Production de fil de polyamide recyclé (recyclage mécanique), traitement de déchets de production textiles, inventaire partiellement agrégé",
     "uuid": "af5d130d-f18b-438c-9f19-d1ee49756960",
     "climateChange": 5.22649,
-    "freshwaterEutrophication": 0.0878088,
+    "freshwaterEutrophication": 0.000566081,
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
     "waste": 0.137851,
-    "alias": null
+    "alias": "null"
   },
   {
     "cat1": "Textile",
@@ -622,12 +622,12 @@
     "name": "Production de fil de laine recyclé (recyclage mécanique), traitement de déchets de production textiles, inventaire partiellement agrégé",
     "uuid": "92dfabc7-9441-463e-bda8-7bc5943c0e9d",
     "climateChange": 0.495013,
-    "freshwaterEutrophication": 0.000650187,
+    "freshwaterEutrophication": 0.000328764,
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
     "waste": 0.1688,
-    "alias": null
+    "alias": "null"
   },
   {
     "cat1": "Textile",
@@ -636,12 +636,12 @@
     "name": "Production de fil de coton recyclé (recyclage mécanique), traitement de déchets textiles post-consommation, inventaire partiellement agrégé",
     "uuid": "4d23093d-1346-4018-8c0f-7aae33c67bcd",
     "climateChange": 1.02499,
-    "freshwaterEutrophication": 0.000997755,
+    "freshwaterEutrophication": 0.000359982,
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
     "waste": 0.77305,
-    "alias": null
+    "alias": "null"
   },
   {
     "cat1": "Textile",
@@ -650,12 +650,12 @@
     "name": "Production de fil de coton recyclé (recyclage mécanique), traitement de déchets de production textiles, inventaire partiellement agrégé",
     "uuid": "2b24abb0-c1ec-4298-9b58-350904a26104",
     "climateChange": 1.42207,
-    "freshwaterEutrophication": 0.126991,
+    "freshwaterEutrophication": 0.000370702,
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
     "waste": 0.323,
-    "alias": null
+    "alias": "null"
   },
   {
     "cat1": "Textile",
@@ -664,12 +664,12 @@
     "name": "Production de fil d'acrylique recyclé (recyclage mécanique), traitement de déchets de production textiles, inventaire partiellement agrégé",
     "uuid": "7603beaa-c555-4283-b9f8-4d5d231b8490",
     "climateChange": 6.56515,
-    "freshwaterEutrophication": 0.131283,
+    "freshwaterEutrophication": 0.000579953,
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
     "waste": 0.137851,
-    "alias": null
+    "alias": "null"
   },
   {
     "cat1": "Textile",
@@ -678,12 +678,12 @@
     "name": "Production de fibres recyclées, traitement de déchets textiles post-consommation (recyclage mécanique), inventaire partiellement agrégé",
     "uuid": "ca5dc5b3-7fa2-4779-af0b-aa6f31cd457f",
     "climateChange": 0.250572,
-    "freshwaterEutrophication": 0.000193938,
+    "freshwaterEutrophication": 0.000168832,
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
     "waste": 0.21,
-    "alias": null
+    "alias": "null"
   },
   {
     "cat1": "Textile",
@@ -692,12 +692,12 @@
     "name": "Tricotage",
     "uuid": "9c478d79-ff6b-45e1-9396-c3bd897faa1d",
     "climateChange": 0,
-    "freshwaterEutrophication": 0.00000989927,
+    "freshwaterEutrophication": 0,
     "heat": 0,
     "elec_pppm": 0,
     "elec": 8.64,
     "waste": 0.0576,
-    "alias": null
+    "alias": "null"
   },
   {
     "cat1": "Textile",
@@ -706,12 +706,12 @@
     "name": "Tissage (habillement)",
     "uuid": "f9686809-f55e-4b96-b1f0-3298959de7d0",
     "climateChange": 0,
-    "freshwaterEutrophication": 0.0304887,
+    "freshwaterEutrophication": 0,
     "heat": 0,
     "elec_pppm": 0.0003145,
     "elec": 0,
     "waste": 0.0667,
-    "alias": null
+    "alias": "null"
   },
   {
     "cat1": "Textile",
@@ -720,7 +720,7 @@
     "name": "Teinture sur étoffe, procédé majorant, traitement inefficace des eaux usées",
     "uuid": "cf001531-5f2d-48b1-b30a-4a17466a8b30",
     "climateChange": 0.420837,
-    "freshwaterEutrophication": 0.00290816,
+    "freshwaterEutrophication": 0.00140002,
     "heat": 71.71,
     "elec_pppm": 0,
     "elec": 38.1,
@@ -734,7 +734,7 @@
     "name": "Teinture sur étoffe, procédé représentatif, traitement très efficace des eaux usées",
     "uuid": "fb4bea16-7ce1-43e2-9e03-462250214988",
     "climateChange": 0.397712,
-    "freshwaterEutrophication": 0.00117059,
+    "freshwaterEutrophication": 0.000079879,
     "heat": 25.87,
     "elec_pppm": 0,
     "elec": 7.17,
@@ -753,7 +753,7 @@
     "elec_pppm": 0,
     "elec": 9.612,
     "waste": 0,
-    "alias": null
+    "alias": "null"
   },
   {
     "cat1": "Textile",
@@ -762,12 +762,12 @@
     "name": "Confection (gilet, jupe, pantalon, pull)",
     "uuid": "387059fc-72cb-4a92-b1e7-2ef9242f8380",
     "climateChange": 0,
-    "freshwaterEutrophication": 0.00000111423,
+    "freshwaterEutrophication": 0,
     "heat": 0,
     "elec_pppm": 0,
     "elec": 2.232,
     "waste": 0,
-    "alias": null
+    "alias": "null"
   },
   {
     "cat1": "Textile",
@@ -776,12 +776,12 @@
     "name": "Confection (débardeur, tee-shirt, combinaison)",
     "uuid": "26e3ca02-9bc0-45b4-b8b4-73f4b3701ad5",
     "climateChange": 0,
-    "freshwaterEutrophication": 0.0000533028,
+    "freshwaterEutrophication": 0,
     "heat": 0,
     "elec_pppm": 0,
     "elec": 1.8,
     "waste": 0,
-    "alias": null
+    "alias": "null"
   },
   {
     "cat1": "Textile",
@@ -790,12 +790,12 @@
     "name": "Confection (chemisier, manteau, veste, cape, robe)",
     "uuid": "7fe48d7c-a568-4bd5-a3ac-cfa88255b4fe",
     "climateChange": 0,
-    "freshwaterEutrophication": 0.0000335455,
+    "freshwaterEutrophication": 0,
     "heat": 0,
     "elec_pppm": 0,
     "elec": 3.204,
     "waste": 0,
-    "alias": null
+    "alias": "null"
   },
   {
     "cat1": "Textile",
@@ -804,12 +804,12 @@
     "name": "Confection (ceinture, châle, chapeau, sac, écharpe)",
     "uuid": "0a260a3f-260e-4b43-a0df-0cf673fda960",
     "climateChange": 0,
-    "freshwaterEutrophication": 0.000451644,
+    "freshwaterEutrophication": 0,
     "heat": 0,
     "elec_pppm": 0,
     "elec": 1.512,
     "waste": 0,
-    "alias": null
+    "alias": "null"
   },
   {
     "cat1": "Transport",
@@ -818,7 +818,7 @@
     "name": "Transport maritime de conteneurs 27,500 t (dont flotte, utilisation et infrastructure) [tkm], GLO",
     "uuid": "8dc4ce62-ff0f-4680-897f-867c3b31a923",
     "climateChange": 0.0483042,
-    "freshwaterEutrophication": 0.000245687,
+    "freshwaterEutrophication": 0.00000000433885,
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
@@ -832,7 +832,7 @@
     "name": "Transport aérien long-courrier (dont flotte, utilisation et infrastructure) [tkm], GLO",
     "uuid": "839b263d-5111-4318-9275-7026937e88b2",
     "climateChange": 1.20941,
-    "freshwaterEutrophication": 0.00000351358,
+    "freshwaterEutrophication": 0.000000152,
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
@@ -846,7 +846,7 @@
     "name": "Transport en camion (dont parc, utilisation et infrastructure) (50%) [tkm], GLO",
     "uuid": "cf6e9d81-358c-4f44-5ab7-0e7a89440576",
     "climateChange": 0.204544,
-    "freshwaterEutrophication": 0.0208997,
+    "freshwaterEutrophication": 0.000000380014,
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
@@ -860,7 +860,7 @@
     "name": "Transport en camion (dont parc, utilisation et infrastructure) (50%) [tkm], RER",
     "uuid": "c0397088-6a57-eea7-8950-1d6db2e6bfdb",
     "climateChange": 0.156105,
-    "freshwaterEutrophication": 0.0110263,
+    "freshwaterEutrophication": 0.000000179964,
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,
@@ -874,7 +874,7 @@
     "name": "Transport en camion non spécifié France (dont parc, utilisation et infrastructure) (50%) [tkm], FR",
     "uuid": "f49b27fa-f22e-c6e1-ab4b-e9f873e2e648",
     "climateChange": 0.269575,
-    "freshwaterEutrophication": 0.00265173,
+    "freshwaterEutrophication": 0.0000000994279,
     "heat": 0,
     "elec_pppm": 0,
     "elec": 0,

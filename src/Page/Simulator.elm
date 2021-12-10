@@ -3,7 +3,6 @@ module Page.Simulator exposing (..)
 import Array
 import Browser.Dom as Dom
 import Browser.Events
-import Data.Co2 as Co2 exposing (Co2e)
 import Data.Country as Country
 import Data.Db exposing (Db)
 import Data.Gitbook as Gitbook
@@ -15,10 +14,12 @@ import Data.Product as Product exposing (Product)
 import Data.Session as Session exposing (Session)
 import Data.Simulator as Simulator exposing (Simulator)
 import Data.Step as Step exposing (Step)
+import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
 import Mass
+import Page.Simulator.Impact as Impact exposing (Impact)
 import Ports
 import RemoteData exposing (WebData)
 import Request.Gitbook as GitbookApi
@@ -43,6 +44,7 @@ type alias Model =
     , displayMode : DisplayMode
     , modal : ModalContent
     , customCountryMixInputs : CustomCountryMixInputs
+    , impact : Impact
     }
 
 
@@ -66,7 +68,8 @@ type Msg
     | OpenDocModal Gitbook.Path
     | Reset
     | ResetCustomCountryMix Step.Label
-    | SubmitCustomCountryMix Step.Label (Maybe Co2e)
+    | SubmitCustomCountryMix Step.Label (Maybe Unit.Co2e)
+    | SwitchImpact (Result String Impact)
     | SwitchMode DisplayMode
     | UpdateAirTransportRatio (Maybe Float)
     | UpdateCustomCountryMixInput Step.Label String
@@ -118,11 +121,11 @@ updateCustomCountryMixInputs stepLabel maybeValue values =
             values
 
 
-validateCustomCountryMixInput : Step.Label -> CustomCountryMixInputs -> Maybe Co2e
+validateCustomCountryMixInput : Step.Label -> CustomCountryMixInputs -> Maybe Unit.Co2e
 validateCustomCountryMixInput stepLabel =
     getCustomCountryMixInput stepLabel
         >> Maybe.andThen String.toFloat
-        >> Maybe.map Co2.kgCo2e
+        >> Maybe.map Unit.kgCo2e
 
 
 init : Maybe Inputs.Query -> Session -> ( Model, Session, Cmd Msg )
@@ -140,6 +143,7 @@ init maybeQuery session =
       , displayMode = SimpleMode
       , modal = NoModal
       , customCountryMixInputs = toCustomCountryMixFormInputs query.customCountryMixes
+      , impact = Impact.ClimateChange
       }
     , case simulator of
         Err error ->
@@ -155,7 +159,7 @@ toCustomCountryMixFormInputs : Inputs.CustomCountryMixes -> CustomCountryMixInpu
 toCustomCountryMixFormInputs { fabric, dyeing, making } =
     let
         mapToCo2e =
-            Maybe.map (Co2.inKgCo2e >> String.fromFloat)
+            Maybe.map (Unit.inKgCo2e >> String.fromFloat)
     in
     { fabric = mapToCo2e fabric
     , dyeing = mapToCo2e dyeing
@@ -175,7 +179,7 @@ updateQuery query ( model, session, msg ) =
     )
 
 
-updateQueryCustomCountryMix : Step.Label -> Maybe Co2e -> Inputs.Query -> Inputs.Query
+updateQueryCustomCountryMix : Step.Label -> Maybe Unit.Co2e -> Inputs.Query -> Inputs.Query
 updateQueryCustomCountryMix stepLabel maybeValue ({ customCountryMixes } as query) =
     { query
         | customCountryMixes =
@@ -243,6 +247,12 @@ update ({ db } as session) msg ({ customCountryMixInputs, query } as model) =
         SubmitCustomCountryMix stepLabel (Just customCountryMix) ->
             ( { model | modal = NoModal }, session, Cmd.none )
                 |> updateQuery (updateQueryCustomCountryMix stepLabel (Just customCountryMix) query)
+
+        SwitchImpact (Ok impact) ->
+            ( { model | impact = impact }, session, Cmd.none )
+
+        SwitchImpact (Err error) ->
+            ( model, session |> Session.notifyError "Erreur de sélection d'impact" error, Cmd.none )
 
         SwitchMode displayMode ->
             ( { model | displayMode = displayMode }, session, Cmd.none )
@@ -424,8 +434,8 @@ downArrow =
     img [ src "img/down-arrow-icon.png" ] []
 
 
-lifeCycleStepsView : Db -> DisplayMode -> Simulator -> Html Msg
-lifeCycleStepsView db displayMode simulator =
+lifeCycleStepsView : Db -> Model -> Simulator -> Html Msg
+lifeCycleStepsView db { displayMode, impact } simulator =
     simulator.lifeCycle
         |> Array.indexedMap
             (\index current ->
@@ -433,6 +443,7 @@ lifeCycleStepsView db displayMode simulator =
                     { db = db
                     , inputs = simulator.inputs
                     , detailed = displayMode == DetailedMode
+                    , impact = impact
                     , index = index
                     , product = simulator.inputs.product
                     , current = current
@@ -521,7 +532,7 @@ customCountryMixModal { customCountryMixInputs } step =
     let
         countryDefault =
             step.country.electricityProcess.climateChange
-                |> Co2.inKgCo2e
+                |> Unit.inKgCo2e
                 |> String.fromFloat
 
         customCountryMixInput =
@@ -697,7 +708,7 @@ simulatorView ({ db } as session) model ({ inputs } as simulator) =
                 ]
             , materialFormSet db inputs.recycledRatio inputs.material
             , displayModeView model.displayMode
-            , lifeCycleStepsView db model.displayMode simulator
+            , lifeCycleStepsView db model simulator
             , div [ class "d-flex align-items-center justify-content-between mt-3 mb-5" ]
                 [ a [ Route.href Route.Home ]
                     [ text "« Retour à l'accueil" ]
@@ -713,7 +724,11 @@ simulatorView ({ db } as session) model ({ inputs } as simulator) =
             [ div [ class "d-flex flex-column gap-3 mb-3 sticky-md-top", style "top" "7px" ]
                 [ div [ class "Summary" ]
                     [ model.simulator
-                        |> SummaryView.view { session = session, reusable = False }
+                        |> SummaryView.view
+                            { session = session
+                            , impact = model.impact
+                            , reusable = False
+                            }
                     ]
                 , feedbackView
                 , shareLinkView session simulator
@@ -727,7 +742,15 @@ view session model =
     ( "Simulateur"
     , [ Container.centered
             [ class "Simulator pb-3" ]
-            [ h1 [ class "mb-3" ] [ text "Simulateur" ]
+            [ div [ class "row" ]
+                [ div [ class "col-sm-7 mb-2" ]
+                    [ h1 [] [ text "Simulateur" ]
+                    ]
+                , div [ class "col-sm-5 mb-2" ]
+                    [ Impact.selector
+                        { selected = model.impact, switch = SwitchImpact }
+                    ]
+                ]
             , case model.simulator of
                 Ok simulator ->
                     simulatorView session model simulator
