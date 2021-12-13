@@ -87,6 +87,19 @@ defaultProcessInfo =
     }
 
 
+displayLabel : { knitted : Bool } -> Label -> String
+displayLabel { knitted } label =
+    case ( label, knitted ) of
+        ( WeavingKnitting, True ) ->
+            "Tricotage"
+
+        ( WeavingKnitting, False ) ->
+            "Tissage"
+
+        _ ->
+            labelToString label
+
+
 getCountryElectricityProcess : Step -> Process
 getCountryElectricityProcess { country, customCountryMix } =
     let

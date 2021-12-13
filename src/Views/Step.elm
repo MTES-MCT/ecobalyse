@@ -117,25 +117,15 @@ stepDocumentationLink { openDocModal } label =
 
 simpleView : Config msg -> Html msg
 simpleView ({ inputs, impact, index, current } as config) =
-    let
-        stepLabel =
-            case ( current.label, inputs.product.knitted ) of
-                ( Step.WeavingKnitting, True ) ->
-                    "Tricotage"
-
-                ( Step.WeavingKnitting, False ) ->
-                    "Tissage"
-
-                _ ->
-                    Step.labelToString current.label
-    in
     div [ class "card" ]
         [ div [ class "card-header" ]
             [ div [ class "row" ]
                 [ div [ class "col-6 d-flex align-items-center" ]
                     [ span [ class "badge rounded-pill bg-primary me-1" ]
                         [ text (String.fromInt (index + 1)) ]
-                    , text stepLabel
+                    , current.label
+                        |> Step.displayLabel { knitted = inputs.product.knitted }
+                        |> text
                     ]
                 , div [ class "col-6 text-end" ]
                     [ stepDocumentationLink config current.label
@@ -185,17 +175,6 @@ detailedView ({ inputs, impact, index, next, current } as config) =
 
                 Nothing ->
                     "Transport"
-
-        stepLabel =
-            case ( current.label, inputs.product.knitted ) of
-                ( Step.WeavingKnitting, True ) ->
-                    "Tricotage"
-
-                ( Step.WeavingKnitting, False ) ->
-                    "Tissage"
-
-                _ ->
-                    Step.labelToString current.label
     in
     div [ class "card-group" ]
         [ div [ class "card" ]
@@ -203,7 +182,9 @@ detailedView ({ inputs, impact, index, next, current } as config) =
                 [ span [ class "d-flex align-items-center" ]
                     [ span [ class "badge rounded-pill bg-primary me-1" ]
                         [ text (String.fromInt (index + 1)) ]
-                    , text stepLabel
+                    , current.label
+                        |> Step.displayLabel { knitted = inputs.product.knitted }
+                        |> text
                     ]
                 , stepDocumentationLink config current.label
                 ]
