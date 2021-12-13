@@ -4,7 +4,6 @@ import Data.Country as Country
 import Data.Db exposing (Db)
 import Data.Gitbook as Gitbook
 import Data.Inputs exposing (Inputs)
-import Data.Product exposing (Product)
 import Data.Step as Step exposing (Step)
 import Energy
 import Html exposing (..)
@@ -24,7 +23,6 @@ type alias Config msg =
     , detailed : Bool
     , impact : Impact
     , index : Int
-    , product : Product
     , current : Step
     , next : Maybe Step
     , openDocModal : Gitbook.Path -> msg
@@ -118,10 +116,10 @@ stepDocumentationLink { openDocModal } label =
 
 
 simpleView : Config msg -> Html msg
-simpleView ({ product, impact, index, current } as config) =
+simpleView ({ inputs, impact, index, current } as config) =
     let
         stepLabel =
-            case ( current.label, product.knitted ) of
+            case ( current.label, inputs.product.knitted ) of
                 ( Step.WeavingKnitting, True ) ->
                     "Tricotage"
 
@@ -178,7 +176,7 @@ simpleView ({ product, impact, index, current } as config) =
 
 
 detailedView : Config msg -> Html msg
-detailedView ({ product, impact, index, next, current } as config) =
+detailedView ({ inputs, impact, index, next, current } as config) =
     let
         transportLabel =
             case next of
@@ -189,7 +187,7 @@ detailedView ({ product, impact, index, next, current } as config) =
                     "Transport"
 
         stepLabel =
-            case ( current.label, product.knitted ) of
+            case ( current.label, inputs.product.knitted ) of
                 ( Step.WeavingKnitting, True ) ->
                     "Tricotage"
 

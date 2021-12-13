@@ -445,7 +445,6 @@ lifeCycleStepsView db { displayMode, impact } simulator =
                     , detailed = displayMode == DetailedMode
                     , impact = impact
                     , index = index
-                    , product = simulator.inputs.product
                     , current = current
                     , next = Array.get (index + 1) simulator.lifeCycle
                     , openCustomCountryMixModal = OpenCustomCountryMixModal
