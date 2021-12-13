@@ -1,0 +1,90 @@
+{
+    "acd": {
+        "label_en": "Acidification",
+        "label_fr": "Acidification",
+        "unit_fr": "mol éq. H+",
+        "unit_en": "mol H+ eq"
+    },
+    "ozd": {
+        "label_fr": "Appauvrissement de la couche d'ozone",
+        "unit_fr": "kg éq. CFC 11",
+        "unit_en": "kg CVC11 eq"
+    },
+    "cch": {
+        "label_fr": "Changement climatique",
+        "unit_fr": "kg éq. CO2",
+        "unit_en": "kg CO2 eq"
+    },
+    "ccb": {
+        "label_en": "Climate change-Biogenic",
+        "label_fr": "Changement climatique - Biogénique",
+        "unit_fr": "kg éq. CO2",
+        "unit_en": "kg CO2 eq"
+    },
+    "ccf": {
+        "label_en": "Climate change-Fossil",
+        "label_fr": "Changement climatique - Fossile",
+        "unit_fr": "kg éq. CO2",
+        "unit_en": "kg CO2 eq"
+    },
+    "ccl": {
+        "label_en": "Climate change-Land use",
+        "label_fr": "Changement climatique - Usage des sols",
+        "unit_fr": "kg éq. CO2",
+        "unit_en": "kg CO2 eq"
+    },
+    "fwe": {
+        "label_en": "FreshwaterEutrophication",
+        "label_fr": "Eutrophisation eaux douces",
+        "unit_fr": "kg éq. P",
+        "unit_en": "kg P eq"
+    },
+    "swe": {
+        "label_en": "Marine eutrophication",
+        "label_fr": "Eutrophisation marine",
+        "unit_fr": "kg éq. N",
+        "unit_en": "kg N eq"
+    },
+    "tre": {
+        "label_en": "Terrestrial eutrophication",
+        "label_fr": "Eutrophisation terrestre",
+        "unit_fr": "mol éq. N",
+        "unit_en": "mol N eq"
+    },
+    "pco": {
+        "label_en": "Photochemical ozone formation",
+        "label_fr": "Formation d'ozone photochimique",
+        "unit_fr": "kg éq. COVNM",
+        "unit_en": "kg NMVOC eq"
+    },
+    "pma": {
+        "label_en": "Particulate matter",
+        "label_fr": "Particules",
+        "unit_fr": "incidence de maladie",
+        "unit_en": "disease inc."
+    },
+    "ior": {
+        "label_en": "Ionising radiation",
+        "label_fr": "Radiations ionisantes",
+        "unit_fr": "éq. kBq U235",
+        "unit_en": "kBq U-235 eq"
+    },
+    "fru": {
+        "label_en": "Fossile resource use",
+        "label_fr": "Utilisation de ressources fossiles",
+        "unit_fr": "MJ",
+        "unit_en": "MJ"
+    },
+    "mru": {
+        "label_en": "Minerals and metal resource use",
+        "label_fr": "Utilisation de ressources minérales et métalliques",
+        "unit_fr": "kg éq. Sb",
+        "unit_en": "kg Sb eq"
+    },
+    "ldu": {
+        "label_en": "Land use",
+        "label_fr": "Utilisation des sols",
+        "unit_fr": "sans dimension (pt)",
+        "unit_en": "Pt"
+    }
+}
