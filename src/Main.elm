@@ -179,11 +179,7 @@ update msg ({ page, session } as model) =
 
         ( DbReceived url (RemoteData.Failure httpError), _ ) ->
             setRoute (Route.fromUrl url)
-                ( { model
-                    | session =
-                        session
-                            |> Session.notifyHttpError "Erreur lors du chargement des données" httpError
-                  }
+                ( { model | session = session |> Session.notifyHttpError httpError }
                 , Cmd.none
                 )
 

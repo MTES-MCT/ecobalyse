@@ -21,7 +21,7 @@ type alias Session =
 
 
 type Notification
-    = HttpError String Http.Error
+    = HttpError Http.Error
     | GenericError String String
 
 
@@ -40,9 +40,9 @@ notifyError title error ({ notifications } as session) =
     { session | notifications = notifications ++ [ GenericError title error ] }
 
 
-notifyHttpError : String -> Http.Error -> Session -> Session
-notifyHttpError title error ({ notifications } as session) =
-    { session | notifications = notifications ++ [ HttpError title error ] }
+notifyHttpError : Http.Error -> Session -> Session
+notifyHttpError error ({ notifications } as session) =
+    { session | notifications = notifications ++ [ HttpError error ] }
 
 
 

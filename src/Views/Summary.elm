@@ -107,7 +107,7 @@ view config result =
 
         Err error ->
             Alert.simple
-                { level = Alert.Warning
+                { level = Alert.Info
                 , content = [ text error ]
                 , title = "Impossible de charger l'exemple"
                 , close = Nothing

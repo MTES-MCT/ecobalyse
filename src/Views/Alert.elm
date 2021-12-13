@@ -41,11 +41,36 @@ icon level =
 
 httpError : Http.Error -> Html msg
 httpError error =
-    preformatted
-        { title = "Error lors de la requête"
+    simple
+        { title = "Erreur de chargement des données"
         , close = Nothing
-        , level = Danger
-        , content = [ text <| HttpCommon.errorToString error ]
+        , level = Info
+        , content =
+            case error |> HttpCommon.errorToString |> String.lines of
+                [] ->
+                    []
+
+                [ line ] ->
+                    [ text line ]
+
+                firstLine :: rest ->
+                    [ div []
+                        [ p [ class "mb-2" ] [ text "Une erreur serveur a été rencontrée\u{00A0}:" ]
+                        , pre [ class "mb-1" ] [ text firstLine ]
+                        , details [ class "mb-2" ]
+                            [ summary [] [ text "Afficher les détails de l'erreur" ]
+                            , pre [ class "mt-1" ]
+                                [ rest |> String.join "\n" |> String.trim |> text ]
+                            ]
+                        , a
+                            [ class "btn btn-primary"
+                            , HttpCommon.errorToString error
+                                |> (++) "mailto:wikicarbone@beta.gouv.fr?Subject=[Wikicarbone]+Erreur+rencontrée&Body="
+                                |> href
+                            ]
+                            [ text "Envoyer un rapport d'incident" ]
+                        ]
+                    ]
         }
 
 
@@ -60,11 +85,18 @@ simple { level, content, title, close } =
         [ class <| "alert alert-" ++ levelToClass level
         , classList [ ( "alert-dismissible", close /= Nothing ) ]
         ]
-        [ h5 [ class "alert-heading" ] [ icon level, text title ]
+        [ h5 [ class "alert-heading d-flex align-items-center" ] [ icon level, text title ]
         , div [] content
         , case close of
             Just closeMsg ->
-                button [ type_ "button", class "btn-close", attribute "aria-label" "Fermer", attribute "data-bs-dismiss" "alert", onClick closeMsg ] []
+                button
+                    [ type_ "button"
+                    , class "btn-close"
+                    , attribute "aria-label" "Fermer"
+                    , attribute "data-bs-dismiss" "alert"
+                    , onClick closeMsg
+                    ]
+                    []
 
             Nothing ->
                 text ""
