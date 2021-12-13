@@ -15,7 +15,7 @@ import Quantity
 type alias Simulator =
     { inputs : Inputs
     , lifeCycle : LifeCycle
-    , co2 : Unit.Co2e
+    , cch : Unit.Co2e
     , fwe : Unit.Pe
     , transport : Transport
     }
@@ -26,7 +26,7 @@ encode v =
     Encode.object
         [ ( "inputs", Inputs.encode v.inputs )
         , ( "lifeCycle", LifeCycle.encode v.lifeCycle )
-        , ( "co2", Unit.encodeKgCo2e v.co2 )
+        , ( "cch", Unit.encodeKgCo2e v.cch )
         , ( "fwe", Unit.encodeKgPe v.fwe )
         , ( "transport", Transport.encode v.transport )
         ]
@@ -42,7 +42,7 @@ init db =
                     |> (\lifeCycle ->
                             { inputs = inputs
                             , lifeCycle = lifeCycle
-                            , co2 = Quantity.zero
+                            , cch = Quantity.zero
                             , fwe = Quantity.zero
                             , transport = Transport.default
                             }
@@ -74,13 +74,13 @@ compute db query =
         --
         -- CO2 SCORES
         --
-        -- Compute Material & Spinning step co2 score
+        -- Compute Material & Spinning step cch score
         |> next computeMaterialAndSpinningImpacts
-        -- Compute Weaving & Knitting step co2 score
+        -- Compute Weaving & Knitting step cch score
         |> next computeWeavingKnittingImpacts
-        -- Compute Ennoblement step co2 score
+        -- Compute Ennoblement step cch score
         |> nextWithDb computeDyeingImpacts
-        -- Compute Making step co2 score
+        -- Compute Making step cch score
         |> next computeMakingImpacts
         --
         -- TRANSPORTS
@@ -107,14 +107,14 @@ computeMakingImpacts ({ inputs } as simulator) =
         |> updateLifeCycleStep Step.Making
             (\step ->
                 let
-                    { kwh, co2, fwe } =
+                    { kwh, cch, fwe } =
                         step.outputMass
                             |> Formula.makingImpacts
                                 { makingProcess = inputs.product.makingProcess
                                 , countryElecProcess = Step.getCountryElectricityProcess step
                                 }
                 in
-                { step | co2 = co2, fwe = fwe, kwh = kwh }
+                { step | cch = cch, fwe = fwe, kwh = kwh }
             )
 
 
@@ -128,14 +128,14 @@ computeDyeingImpacts { processes } simulator =
                     |> updateLifeCycleStep Step.Ennoblement
                         (\({ dyeingWeighting, country } as step) ->
                             let
-                                { co2, fwe, heat, kwh } =
+                                { cch, fwe, heat, kwh } =
                                     step.outputMass
                                         |> Formula.dyeingImpacts ( dyeingLow, dyeingHigh )
                                             dyeingWeighting
                                             country.heatProcess
                                             (Step.getCountryElectricityProcess step)
                             in
-                            { step | co2 = co2, fwe = fwe, heat = heat, kwh = kwh }
+                            { step | cch = cch, fwe = fwe, heat = heat, kwh = kwh }
                         )
             )
 
@@ -146,7 +146,7 @@ computeMaterialAndSpinningImpacts ({ inputs } as simulator) =
         |> updateLifeCycleStep Step.MaterialAndSpinning
             (\step ->
                 let
-                    { co2, fwe } =
+                    { cch, fwe } =
                         case ( inputs.material.recycledProcess, inputs.recycledRatio ) of
                             ( Just recycledProcess, Just ratio ) ->
                                 step.outputMass
@@ -159,7 +159,7 @@ computeMaterialAndSpinningImpacts ({ inputs } as simulator) =
                                     |> Formula.pureMaterialAndSpinningImpacts
                                         inputs.material.materialProcess
                 in
-                { step | co2 = co2, fwe = fwe }
+                { step | cch = cch, fwe = fwe }
             )
 
 
@@ -169,7 +169,7 @@ computeWeavingKnittingImpacts ({ inputs } as simulator) =
         |> updateLifeCycleStep Step.WeavingKnitting
             (\step ->
                 let
-                    { kwh, co2, fwe } =
+                    { kwh, cch, fwe } =
                         if inputs.product.knitted then
                             step.outputMass
                                 |> Formula.knittingImpacts
@@ -186,7 +186,7 @@ computeWeavingKnittingImpacts ({ inputs } as simulator) =
                                     , ppm = inputs.product.ppm
                                     }
                 in
-                { step | co2 = co2, fwe = fwe, kwh = kwh }
+                { step | cch = cch, fwe = fwe, kwh = kwh }
             )
 
 
@@ -257,7 +257,7 @@ computeTotalTransports simulator =
 computeFinalImpacts : Simulator -> Simulator
 computeFinalImpacts ({ lifeCycle } as simulator) =
     { simulator
-        | co2 = LifeCycle.computeFinalCo2Score lifeCycle
+        | cch = LifeCycle.computeFinalCo2Score lifeCycle
         , fwe = LifeCycle.computeFinalFwEScore lifeCycle
     }
 

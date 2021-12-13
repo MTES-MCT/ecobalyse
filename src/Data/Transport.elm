@@ -21,7 +21,7 @@ type alias Transport =
     { road : Length
     , sea : Length
     , air : Length
-    , co2 : Unit.Co2e
+    , cch : Unit.Co2e
     , fwe : Unit.Pe
     }
 
@@ -31,7 +31,7 @@ default =
     { road = Quantity.zero
     , sea = Quantity.zero
     , air = Quantity.zero
-    , co2 = Quantity.zero
+    , cch = Quantity.zero
     , fwe = Quantity.zero
     }
 
@@ -41,7 +41,7 @@ defaultInland =
     { road = Length.kilometers 500
     , sea = Quantity.zero
     , air = Length.kilometers 500
-    , co2 = Quantity.zero
+    , cch = Quantity.zero
     , fwe = Quantity.zero
     }
 
@@ -127,7 +127,7 @@ encode v =
         [ ( "road", encodeKm v.road )
         , ( "sea", encodeKm v.sea )
         , ( "air", encodeKm v.air )
-        , ( "co2", Unit.encodeKgCo2e v.co2 )
+        , ( "cch", Unit.encodeKgCo2e v.cch )
         , ( "fwe", Unit.encodeKgPe v.fwe )
         ]
 

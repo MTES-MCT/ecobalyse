@@ -58,15 +58,15 @@ suite =
                                 }
                             , countryElecProcess =
                                 { noOpProcess
-                                    | climateChange = Unit.kgCo2e 0.5
-                                    , freshwaterEutrophication = Unit.kgPe 0.5
+                                    | cch = Unit.kgCo2e 0.5
+                                    , fwe = Unit.kgPe 0.5
                                 }
                             }
              in
-             [ res.co2
+             [ res.cch
                 |> Unit.inKgCo2e
                 |> Expect.within (Expect.Absolute 0.01) 0.07
-                |> asTest "should compute Making step co2 from process and country data"
+                |> asTest "should compute Making step cch from process and country data"
              , res.kwh
                 |> Energy.inKilowattHours
                 |> Expect.within (Expect.Absolute 0.01) 0.138
@@ -85,17 +85,17 @@ suite =
                             { elecPppm = 0.01
                             , countryElecProcess =
                                 { noOpProcess
-                                    | climateChange = Unit.kgCo2e 0.1
-                                    , freshwaterEutrophication = Unit.kgPe 0.5
+                                    | cch = Unit.kgCo2e 0.1
+                                    , fwe = Unit.kgPe 0.5
                                 }
                             , ppm = 400
                             , grammage = 500
                             }
              in
-             [ res.co2
+             [ res.cch
                 |> Unit.inKgCo2e
                 |> Expect.within (Expect.Absolute 0.01) 0.8
-                |> asTest "should compute KnittingWeaving step co2 from process and product data"
+                |> asTest "should compute KnittingWeaving step cch from process and product data"
              , res.fwe
                 |> Unit.inKgPe
                 |> Expect.within (Expect.Absolute 0.01) 4
@@ -114,15 +114,15 @@ suite =
                             { elec = Energy.kilowattHours 5
                             , countryElecProcess =
                                 { noOpProcess
-                                    | climateChange = Unit.kgCo2e 0.2
-                                    , freshwaterEutrophication = Unit.kgPe 0.5
+                                    | cch = Unit.kgCo2e 0.2
+                                    , fwe = Unit.kgPe 0.5
                                 }
                             }
              in
-             [ res.co2
+             [ res.cch
                 |> Unit.inKgCo2e
                 |> Expect.within (Expect.Absolute 0.01) 1
-                |> asTest "should compute KnittingWeaving step co2 from process and product data"
+                |> asTest "should compute KnittingWeaving step cch from process and product data"
              , res.fwe
                 |> Unit.inKgPe
                 |> Expect.within (Expect.Absolute 0.01) 2.5

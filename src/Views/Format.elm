@@ -11,11 +11,11 @@ import Mass exposing (Mass)
 import Page.Simulator.Impact as Impact exposing (Impact)
 
 
-formatImpact : Impact -> { a | co2 : Unit.Co2e, fwe : Unit.Pe } -> Html msg
-formatImpact impact { co2, fwe } =
+formatImpact : Impact -> { a | cch : Unit.Co2e, fwe : Unit.Pe } -> Html msg
+formatImpact impact { cch, fwe } =
     case impact of
         Impact.ClimateChange ->
-            kgCo2 2 co2
+            kgCo2 2 cch
 
         Impact.FreshwaterEutrophication ->
             kgP 2 fwe

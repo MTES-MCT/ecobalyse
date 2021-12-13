@@ -530,7 +530,7 @@ customCountryMixModal : Model -> Step -> Html Msg
 customCountryMixModal { customCountryMixInputs } step =
     let
         countryDefault =
-            step.country.electricityProcess.climateChange
+            step.country.electricityProcess.cch
                 |> Unit.inKgCo2e
                 |> String.fromFloat
 

@@ -24,7 +24,7 @@ type alias Process =
     --   kgCO2e per, depending on process type:
     --   * for heat process: per MJ
     --   * for elec process: per KWh
-    , climateChange : Unit.Co2e
+    , cch : Unit.Co2e
 
     -- Inbound:
     --   kgPe per kg of material
@@ -32,7 +32,7 @@ type alias Process =
     --   kgPe per, depending on process type:
     --   * for heat process: per MJ
     --   * for elec process: per KWh
-    , freshwaterEutrophication : Unit.Pe
+    , fwe : Unit.Pe
     , heat : Energy --  MJ per kg of material to process
     , elec_pppm : Float -- kWh/(pick,m) per kg of material to process
     , elec : Energy -- MJ per kg of material to process
@@ -118,8 +118,8 @@ noOpProcess =
     , cat3 = NaturalMaterials
     , name = "void"
     , uuid = Uuid ""
-    , climateChange = Quantity.zero
-    , freshwaterEutrophication = Quantity.zero
+    , cch = Quantity.zero
+    , fwe = Quantity.zero
     , heat = Energy.megajoules 0
     , elec_pppm = 0
     , elec = Energy.megajoules 0
@@ -371,8 +371,8 @@ decode =
         |> Pipe.required "cat3" (Decode.string |> Decode.andThen (cat3FromString >> DecodeExtra.fromResult))
         |> Pipe.required "name" Decode.string
         |> Pipe.required "uuid" (Decode.map Uuid Decode.string)
-        |> Pipe.required "climateChange" Unit.decodeKgCo2e
-        |> Pipe.required "freshwaterEutrophication" Unit.decodeKgPe
+        |> Pipe.required "cch" Unit.decodeKgCo2e
+        |> Pipe.required "fwe" Unit.decodeKgPe
         |> Pipe.required "heat" (Decode.map Energy.megajoules Decode.float)
         |> Pipe.required "elec_pppm" Decode.float
         |> Pipe.required "elec" (Decode.map Energy.megajoules Decode.float)
@@ -393,8 +393,8 @@ encode v =
         , ( "cat3", v.cat3 |> cat3ToString |> Encode.string )
         , ( "name", Encode.string v.name )
         , ( "uuid", v.uuid |> uuidToString |> Encode.string )
-        , ( "climateChange", Unit.encodeKgCo2e v.climateChange )
-        , ( "freshwaterEutrophication", Unit.encodeKgPe v.freshwaterEutrophication )
+        , ( "cch", Unit.encodeKgCo2e v.cch )
+        , ( "fwe", Unit.encodeKgPe v.fwe )
         , ( "heat", v.heat |> Energy.inMegajoules |> Encode.float )
         , ( "elec_pppm", Encode.float v.elec_pppm )
         , ( "elec", v.elec |> Energy.inMegajoules |> Encode.float )
