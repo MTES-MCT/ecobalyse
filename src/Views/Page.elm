@@ -5,7 +5,6 @@ import Data.Session as Session exposing (Session)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import Request.Common as HttpCommon
 import Route
 import Views.Alert as Alert
 import Views.Container as Container
@@ -180,13 +179,8 @@ notificationView { closeNotification } notification =
     -- TODO:
     -- - absolute positionning
     case notification of
-        Session.HttpError title error ->
-            Alert.preformatted
-                { level = Alert.Danger
-                , title = title
-                , close = Just (closeNotification notification)
-                , content = [ error |> HttpCommon.errorToString |> text ]
-                }
+        Session.HttpError error ->
+            Alert.httpError error
 
         Session.GenericError title message ->
             Alert.simple

@@ -25,7 +25,7 @@ type alias Step =
     , outputMass : Mass
     , waste : Mass
     , transport : Transport
-    , co2 : Unit.Co2e
+    , cch : Unit.Co2e
     , fwe : Unit.Pe
     , heat : Energy
     , kwh : Energy
@@ -64,7 +64,7 @@ create label editable country =
     , outputMass = Quantity.zero
     , waste = Quantity.zero
     , transport = Transport.default
-    , co2 = Quantity.zero
+    , cch = Quantity.zero
     , fwe = Quantity.zero
     , heat = Quantity.zero
     , kwh = Quantity.zero
@@ -108,7 +108,7 @@ getCountryElectricityProcess { country, customCountryMix } =
     in
     case customCountryMix of
         Just mix ->
-            { electricityProcess | climateChange = mix }
+            { electricityProcess | cch = mix }
 
         Nothing ->
             electricityProcess
@@ -121,7 +121,7 @@ countryMixToString =
         >> (\kgCo2e -> "Mix électrique personnalisé: " ++ kgCo2e ++ "\u{202F}kgCO₂e/KWh")
 
 
-{-| Computes step transport distances and co2 scores regarding next step.
+{-| Computes step transport distances and cch scores regarding next step.
 
 Docs: <https://fabrique-numerique.gitbook.io/wikicarbone/methodologie/transport>
 
@@ -161,21 +161,21 @@ computeTransportImpacts : Process.WellKnown -> Process -> Mass -> Transport -> T
 computeTransportImpacts { seaTransport, airTransport } roadProcess mass { road, sea, air } =
     let
         ( roadCo2, seaCo2, airCo2 ) =
-            ( mass |> Unit.forKgAndDistance roadProcess.climateChange road
-            , mass |> Unit.forKgAndDistance seaTransport.climateChange sea
-            , mass |> Unit.forKgAndDistance airTransport.climateChange air
+            ( mass |> Unit.forKgAndDistance roadProcess.cch road
+            , mass |> Unit.forKgAndDistance seaTransport.cch sea
+            , mass |> Unit.forKgAndDistance airTransport.cch air
             )
 
         ( roadFwe, seaFwe, airFwe ) =
-            ( mass |> Unit.forKgAndDistance roadProcess.freshwaterEutrophication road
-            , mass |> Unit.forKgAndDistance seaTransport.freshwaterEutrophication sea
-            , mass |> Unit.forKgAndDistance airTransport.freshwaterEutrophication air
+            ( mass |> Unit.forKgAndDistance roadProcess.fwe road
+            , mass |> Unit.forKgAndDistance seaTransport.fwe sea
+            , mass |> Unit.forKgAndDistance airTransport.fwe air
             )
     in
     { road = road
     , sea = sea
     , air = air
-    , co2 = Quantity.sum [ roadCo2, seaCo2, airCo2 ]
+    , cch = Quantity.sum [ roadCo2, seaCo2, airCo2 ]
     , fwe = Quantity.sum [ roadFwe, seaFwe, airFwe ]
     }
 
@@ -333,7 +333,7 @@ encode v =
         , ( "outputMass", Encode.float (Mass.inKilograms v.outputMass) )
         , ( "waste", Encode.float (Mass.inKilograms v.waste) )
         , ( "transport", Transport.encode v.transport )
-        , ( "co2", Unit.encodeKgCo2e v.co2 )
+        , ( "cch", Unit.encodeKgCo2e v.cch )
         , ( "fwe", Unit.encodeKgPe v.fwe )
         , ( "heat", Encode.float (Energy.inMegajoules v.heat) )
         , ( "kwh", Encode.float (Energy.inKilowattHours v.kwh) )

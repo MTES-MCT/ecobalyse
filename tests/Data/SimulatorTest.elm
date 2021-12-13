@@ -16,12 +16,12 @@ asTest label =
 
 
 expectCo2 : Float -> Inputs.Query -> Expectation
-expectCo2 co2 query =
+expectCo2 cch query =
     case testDb |> Result.andThen (\db -> Simulator.compute db query) of
         Ok simulator ->
-            simulator.co2
+            simulator.cch
                 |> Unit.inKgCo2e
-                |> Expect.within (Expect.Absolute 0.01) co2
+                |> Expect.within (Expect.Absolute 0.01) cch
 
         Err error ->
             Expect.fail error
@@ -45,10 +45,10 @@ convert sectionOrSample =
         Sample.Section title samples ->
             describe title (List.map convert samples)
 
-        Sample.Sample title { query, co2, fwe } ->
+        Sample.Sample title { query, cch, fwe } ->
             describe title
                 [ query
-                    |> expectCo2 (Unit.inKgCo2e co2)
+                    |> expectCo2 (Unit.inKgCo2e cch)
                     |> asTest "climate change"
                 , query
                     |> expectFwE (Unit.inKgPe fwe)
