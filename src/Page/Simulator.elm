@@ -441,10 +441,10 @@ lifeCycleStepsView db { displayMode, impact } simulator =
             (\index current ->
                 StepView.view
                     { db = db
+                    , inputs = simulator.inputs
                     , detailed = displayMode == DetailedMode
                     , impact = impact
                     , index = index
-                    , product = simulator.inputs.product
                     , current = current
                     , next = Array.get (index + 1) simulator.lifeCycle
                     , openCustomCountryMixModal = OpenCustomCountryMixModal

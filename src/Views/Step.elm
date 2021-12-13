@@ -3,7 +3,7 @@ module Views.Step exposing (..)
 import Data.Country as Country
 import Data.Db exposing (Db)
 import Data.Gitbook as Gitbook
-import Data.Product exposing (Product)
+import Data.Inputs exposing (Inputs)
 import Data.Step as Step exposing (Step)
 import Energy
 import Html exposing (..)
@@ -19,10 +19,10 @@ import Views.Transport as TransportView
 
 type alias Config msg =
     { db : Db
+    , inputs : Inputs
     , detailed : Bool
     , impact : Impact
     , index : Int
-    , product : Product
     , current : Step
     , next : Maybe Step
     , openDocModal : Gitbook.Path -> msg
@@ -34,7 +34,7 @@ type alias Config msg =
 
 
 countryField : Config msg -> Html msg
-countryField { db, current, index, updateCountry } =
+countryField { db, current, inputs, index, updateCountry } =
     div []
         [ db.countries
             |> List.map
@@ -43,11 +43,10 @@ countryField { db, current, index, updateCountry } =
                         [ selected (current.country.code == code)
                         , value <| Country.codeToString code
                         ]
-                        [ -- NOTE: because ADEME requires Asia as default for the Material & Spinning step,
-                          -- we use Asia as a label and use China behind the scene
+                        [ -- NOTE: display a continent instead of the country for the Material & Spinning step,
                           case current.label of
                             Step.MaterialAndSpinning ->
-                                text "Asie"
+                                text inputs.material.continent
 
                             _ ->
                                 text name
@@ -117,26 +116,16 @@ stepDocumentationLink { openDocModal } label =
 
 
 simpleView : Config msg -> Html msg
-simpleView ({ product, impact, index, current } as config) =
-    let
-        stepLabel =
-            case ( current.label, product.knitted ) of
-                ( Step.WeavingKnitting, True ) ->
-                    "Tricotage"
-
-                ( Step.WeavingKnitting, False ) ->
-                    "Tissage"
-
-                _ ->
-                    Step.labelToString current.label
-    in
+simpleView ({ inputs, impact, index, current } as config) =
     div [ class "card" ]
         [ div [ class "card-header" ]
             [ div [ class "row" ]
                 [ div [ class "col-6 d-flex align-items-center" ]
                     [ span [ class "badge rounded-pill bg-primary me-1" ]
                         [ text (String.fromInt (index + 1)) ]
-                    , text stepLabel
+                    , current.label
+                        |> Step.displayLabel { knitted = inputs.product.knitted }
+                        |> text
                     ]
                 , div [ class "col-6 text-end" ]
                     [ stepDocumentationLink config current.label
@@ -177,7 +166,7 @@ simpleView ({ product, impact, index, current } as config) =
 
 
 detailedView : Config msg -> Html msg
-detailedView ({ product, impact, index, next, current } as config) =
+detailedView ({ inputs, impact, index, next, current } as config) =
     let
         transportLabel =
             case next of
@@ -186,17 +175,6 @@ detailedView ({ product, impact, index, next, current } as config) =
 
                 Nothing ->
                     "Transport"
-
-        stepLabel =
-            case ( current.label, product.knitted ) of
-                ( Step.WeavingKnitting, True ) ->
-                    "Tricotage"
-
-                ( Step.WeavingKnitting, False ) ->
-                    "Tissage"
-
-                _ ->
-                    Step.labelToString current.label
     in
     div [ class "card-group" ]
         [ div [ class "card" ]
@@ -204,7 +182,9 @@ detailedView ({ product, impact, index, next, current } as config) =
                 [ span [ class "d-flex align-items-center" ]
                     [ span [ class "badge rounded-pill bg-primary me-1" ]
                         [ text (String.fromInt (index + 1)) ]
-                    , text stepLabel
+                    , current.label
+                        |> Step.displayLabel { knitted = inputs.product.knitted }
+                        |> text
                     ]
                 , stepDocumentationLink config current.label
                 ]
