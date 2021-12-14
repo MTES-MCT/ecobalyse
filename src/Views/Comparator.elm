@@ -164,7 +164,7 @@ createEntry db impact highlight ( label, query ) =
             case impact of
                 Impact.ClimateChange ->
                     lifeCycle
-                        |> LifeCycle.getStepProp stepLabel .co2 Quantity.zero
+                        |> LifeCycle.getStepProp stepLabel .cch Quantity.zero
                         |> Unit.inKgCo2e
 
                 Impact.FreshwaterEutrophication ->

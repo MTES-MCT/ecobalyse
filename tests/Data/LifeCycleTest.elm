@@ -31,7 +31,7 @@ suite =
                                         { road = km 2500
                                         , sea = km 21548
                                         , air = km 0
-                                        , co2 = Unit.kgCo2e 0
+                                        , cch = Unit.kgCo2e 0
                                         , fwe = Unit.kgPe 0
                                         }
                                     )
@@ -54,7 +54,7 @@ suite =
                                         { road = km 1500
                                         , sea = km 45468
                                         , air = km 0
-                                        , co2 = Unit.kgCo2e 0
+                                        , cch = Unit.kgCo2e 0
                                         , fwe = Unit.kgPe 0
                                         }
                                     )

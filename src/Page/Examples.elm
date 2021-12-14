@@ -126,7 +126,7 @@ viewSectionOrSample session sectionOrSample =
                        )
                 ]
 
-        Sample.Sample sampleTitle { query, co2, fwe } ->
+        Sample.Sample sampleTitle { query, cch, fwe } ->
             case Simulator.compute session.db query of
                 Err error ->
                     tr [ class "table-danger" ]
@@ -135,8 +135,8 @@ viewSectionOrSample session sectionOrSample =
                 Ok simulator ->
                     let
                         success =
-                            simulator.co2
-                                == co2
+                            simulator.cch
+                                == cch
                                 && simulator.fwe
                                 == fwe
                     in
@@ -175,20 +175,20 @@ viewSectionOrSample session sectionOrSample =
                         , td
                             [ class "text-end"
                             , classList
-                                [ ( "table-success", simulator.co2 == co2 )
-                                , ( "table-danger", simulator.co2 /= co2 )
+                                [ ( "table-success", simulator.cch == cch )
+                                , ( "table-danger", simulator.cch /= cch )
                                 ]
                             ]
-                            [ if simulator.co2 == co2 then
-                                Format.kgCo2 2 co2
+                            [ if simulator.cch == cch then
+                                Format.kgCo2 2 cch
 
                               else
                                 div []
                                     [ text "Attendu: "
-                                    , Format.kgCo2 2 co2
+                                    , Format.kgCo2 2 cch
                                     , br [] []
                                     , text "Obtenu: "
-                                    , Format.kgCo2 2 simulator.co2
+                                    , Format.kgCo2 2 simulator.cch
                                     ]
                             ]
                         , td

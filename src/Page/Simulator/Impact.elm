@@ -47,11 +47,11 @@ impactFromString string =
             Err <| "Impact inconnu: " ++ string
 
 
-toFloat : Impact -> { a | co2 : Unit.Co2e, fwe : Unit.Pe } -> Float
-toFloat impact { co2, fwe } =
+toFloat : Impact -> { a | cch : Unit.Co2e, fwe : Unit.Pe } -> Float
+toFloat impact { cch, fwe } =
     case impact of
         ClimateChange ->
-            Unit.inKgCo2e co2
+            Unit.inKgCo2e cch
 
         FreshwaterEutrophication ->
             Unit.inKgPe fwe
