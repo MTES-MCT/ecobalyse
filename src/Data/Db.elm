@@ -1,6 +1,7 @@
 module Data.Db exposing (..)
 
 import Data.Country as Country exposing (Country)
+import Data.Impact as Impact exposing (Impacts)
 import Data.Material as Material exposing (Material)
 import Data.Process as Process exposing (Process)
 import Data.Product as Product exposing (Product)
@@ -14,6 +15,7 @@ type alias Db =
     , materials : List Material
     , products : List Product
     , transports : Distances
+    , impacts : Impacts
     }
 
 
@@ -24,6 +26,7 @@ empty =
     , countries = []
     , products = []
     , transports = Transport.emptyDistances
+    , impacts = Impact.emptyImpacts
     }
 
 
@@ -38,10 +41,11 @@ decode =
     Decode.field "processes" Process.decodeList
         |> Decode.andThen
             (\processes ->
-                Decode.map5 Db
+                Decode.map6 Db
                     (Decode.succeed processes)
                     (Decode.field "countries" (Country.decodeList processes))
                     (Decode.field "materials" (Material.decodeList processes))
                     (Decode.field "products" (Product.decodeList processes))
                     (Decode.field "transports" Transport.decodeDistances)
+                    (Decode.field "impacts" Impact.decodeImpacts)
             )

@@ -2,6 +2,7 @@ module Request.Db exposing (..)
 
 import Data.Country as Country exposing (Country)
 import Data.Db exposing (Db)
+import Data.Impact as Impact exposing (Impacts)
 import Data.Material as Material exposing (Material)
 import Data.Process as Process exposing (Process)
 import Data.Product as Product exposing (Product)
@@ -31,13 +32,15 @@ buildFromWebData :
     -> WebData (List Material)
     -> WebData (List Product)
     -> WebData Distances
+    -> WebData Impacts
     -> WebData Db
-buildFromWebData processes countries materials products transports =
+buildFromWebData processes countries materials products transports impacts =
     RemoteData.succeed (Db processes)
         |> RemoteData.andMap countries
         |> RemoteData.andMap materials
         |> RemoteData.andMap products
         |> RemoteData.andMap transports
+        |> RemoteData.andMap impacts
 
 
 loadProcessesDependentData : List Process -> Task () (WebData Db)
@@ -52,6 +55,7 @@ loadProcessesDependentData processes =
         |> andMap (getJson (Material.decodeList processes) "materials.json")
         |> andMap (getJson (Product.decodeList processes) "products.json")
         |> andMap (getJson Transport.decodeDistances "transports.json")
+        |> andMap (getJson Impact.decodeImpacts "impacts.json")
 
 
 loadDb : Session -> (WebData Db -> msg) -> Cmd msg
