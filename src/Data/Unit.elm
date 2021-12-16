@@ -9,6 +9,39 @@ import Quantity exposing (Quantity(..))
 
 
 
+-- Abstract Impact
+
+
+type ImpactUnit
+    = ImpactUnit
+
+
+type alias Impact =
+    Quantity Float ImpactUnit
+
+
+impactFromFloat : Float -> Impact
+impactFromFloat value =
+    Quantity value
+
+
+impactToFloat : Impact -> Float
+impactToFloat (Quantity value) =
+    value
+
+
+decodeImpact : Decoder Impact
+decodeImpact =
+    Decode.float
+        |> Decode.andThen (impactFromFloat >> Decode.succeed)
+
+
+encodeImpact : Impact -> Encode.Value
+encodeImpact =
+    impactToFloat >> Encode.float
+
+
+
 -- Climate change (Co2)
 
 
@@ -25,19 +58,9 @@ kgCo2e value =
     Quantity value
 
 
-inGramsCo2e : Co2e -> Float
-inGramsCo2e (Quantity value) =
-    value * 1000
-
-
 inKgCo2e : Co2e -> Float
 inKgCo2e (Quantity value) =
     value
-
-
-inTonsCo2e : Co2e -> Float
-inTonsCo2e (Quantity value) =
-    value / 1000
 
 
 decodeKgCo2e : Decoder Co2e
@@ -67,19 +90,9 @@ kgPe value =
     Quantity value
 
 
-inGramsPe : Pe -> Float
-inGramsPe (Quantity value) =
-    value * 1000
-
-
 inKgPe : Pe -> Float
 inKgPe (Quantity value) =
     value
-
-
-inTonsPe : Pe -> Float
-inTonsPe (Quantity value) =
-    value / 1000
 
 
 decodeKgPe : Decoder Pe

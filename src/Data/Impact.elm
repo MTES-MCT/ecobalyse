@@ -3,6 +3,7 @@ module Data.Impact exposing (..)
 import Dict
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
+import Quantity exposing (Quantity(..))
 
 
 type Trigram
@@ -14,10 +15,6 @@ type alias Impact =
     , label : String
     , unit : String
     }
-
-
-type Unit
-    = Unit Float Trigram
 
 
 default : Impact
@@ -57,11 +54,6 @@ encodeImpact v =
         , ( "label", Encode.string v.label )
         , ( "unit", Encode.string v.unit )
         ]
-
-
-unitToFloat : Unit -> Float
-unitToFloat (Unit float _) =
-    float
 
 
 trigramToString : Trigram -> String

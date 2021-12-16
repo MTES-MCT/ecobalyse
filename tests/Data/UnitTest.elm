@@ -21,23 +21,11 @@ expectKgCo2Float value co2 =
 suite : Test
 suite =
     describe "Data.Unit"
-        [ describe "Unit.inGramsCo2e"
-            [ Unit.kgCo2e 1
-                |> Unit.inGramsCo2e
-                |> Expect.equal 1000
-                |> asTest "inGramsCo2e should convert Grams"
-            ]
-        , describe "Unit.inKgCo2e"
+        [ describe "Unit.inKgCo2e"
             [ Unit.kgCo2e 1
                 |> Unit.inKgCo2e
                 |> Expect.equal 1
                 |> asTest "inKgCo2e should convert Kg"
-            ]
-        , describe "Unit.inTonsCo2e"
-            [ Unit.kgCo2e 1
-                |> Unit.inTonsCo2e
-                |> Expect.within (Expect.Absolute 0.0001) 0.001
-                |> asTest "inTonsCo2e should convert Tons"
             ]
         , describe "Unit.forKg"
             [ Mass.kilograms 0.17
