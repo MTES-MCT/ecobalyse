@@ -1,6 +1,8 @@
 module Data.Process exposing (..)
 
+import Data.Impact as Impact
 import Data.Unit as Unit
+import Dict.Any as AnyDict exposing (AnyDict)
 import Energy exposing (Energy)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DecodeExtra
@@ -33,6 +35,7 @@ type alias Process =
     --   * for heat process: per MJ
     --   * for elec process: per KWh
     , fwe : Unit.Pe
+    , impacts : Impacts
     , heat : Energy --  MJ per kg of material to process
     , elec_pppm : Float -- kWh/(pick,m) per kg of material to process
     , elec : Energy -- MJ per kg of material to process
@@ -43,6 +46,10 @@ type alias Process =
 
 type Uuid
     = Uuid String
+
+
+type alias Impacts =
+    AnyDict String Impact.Trigram Unit.Impact
 
 
 type Cat1
@@ -120,12 +127,18 @@ noOpProcess =
     , uuid = Uuid ""
     , cch = Quantity.zero
     , fwe = Quantity.zero
+    , impacts = noImpacts
     , heat = Energy.megajoules 0
     , elec_pppm = 0
     , elec = Energy.megajoules 0
     , waste = Mass.kilograms 0
     , alias = Nothing
     }
+
+
+noImpacts : Impacts
+noImpacts =
+    AnyDict.fromList (always "") []
 
 
 findByUuid : Uuid -> List Process -> Result String Process
@@ -371,8 +384,10 @@ decode =
         |> Pipe.required "cat3" (Decode.string |> Decode.andThen (cat3FromString >> DecodeExtra.fromResult))
         |> Pipe.required "name" Decode.string
         |> Pipe.required "uuid" (Decode.map Uuid Decode.string)
-        |> Pipe.required "cch" Unit.decodeKgCo2e
-        |> Pipe.required "fwe" Unit.decodeKgPe
+        -- TODO: remove these next two guys after we eventually use impacts
+        |> Pipe.requiredAt [ "impacts", "cch" ] Unit.decodeKgCo2e
+        |> Pipe.requiredAt [ "impacts", "fwe" ] Unit.decodeKgPe
+        |> Pipe.required "impacts" decodeImpacts
         |> Pipe.required "heat" (Decode.map Energy.megajoules Decode.float)
         |> Pipe.required "elec_pppm" Decode.float
         |> Pipe.required "elec" (Decode.map Energy.megajoules Decode.float)
@@ -383,6 +398,13 @@ decode =
 decodeList : Decoder (List Process)
 decodeList =
     Decode.list decode
+
+
+decodeImpacts : Decoder Impacts
+decodeImpacts =
+    AnyDict.decode (\str _ -> Impact.trigramFromString str)
+        Impact.trigramToString
+        Unit.decodeImpact
 
 
 encode : Process -> Encode.Value
