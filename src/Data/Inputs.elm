@@ -165,6 +165,7 @@ updateMaterial material query =
 
 defaultQuery : Impact.Trigram -> Query
 defaultQuery =
+    -- FIXME: provide a query |> forImpact (Trigram "xxx") helper
     tShirtCotonIndia
 
 

@@ -1,5 +1,6 @@
 module Views.Format exposing (..)
 
+import Data.Impact as Impact2
 import Data.Unit as Unit
 import Energy exposing (Energy)
 import FormatNumber
@@ -19,6 +20,11 @@ formatImpact impact { cch, fwe } =
 
         Impact.FreshwaterEutrophication ->
             kgP 2 fwe
+
+
+formatImpact2 : Impact2.Impact -> Unit.Impact -> Html msg
+formatImpact2 { unit } =
+    Unit.impactToFloat >> formatRichFloat 2 unit
 
 
 formatInt : String -> Int -> String

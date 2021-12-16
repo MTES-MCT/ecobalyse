@@ -8,27 +8,24 @@ import Html.Events exposing (..)
 
 type alias Config msg =
     { impacts : List Impact
-    , selected : Impact
-    , switch : Result String Impact -> msg
+    , selected : Impact.Trigram
+    , switch : Impact.Trigram -> msg
     }
 
 
 selector : Config msg -> Html msg
 selector { impacts, selected, switch } =
     impacts
+        |> List.sortBy .label
         |> List.map
             (\({ trigram, label } as impact) ->
                 option
-                    [ Attr.selected (selected == impact)
+                    [ Attr.selected (selected == impact.trigram)
                     , value <| Impact.trigramToString trigram
                     ]
                     [ text label ]
             )
         |> select
             [ class "form-select"
-            , onInput
-                (Impact.trigramFromString
-                    >> (\trigram -> Impact.get trigram impacts)
-                    >> switch
-                )
+            , onInput (Impact.trigramFromString >> switch)
             ]
