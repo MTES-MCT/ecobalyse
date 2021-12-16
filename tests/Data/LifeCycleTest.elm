@@ -25,7 +25,7 @@ suite =
                         \_ ->
                             tShirtCotonFrance Impact.defaultTrigram
                                 |> LifeCycle.fromQuery db
-                                |> Result.andThen (LifeCycle.computeStepsTransport db)
+                                |> Result.andThen (LifeCycle.computeStepsTransport db Impact.default)
                                 |> Result.map LifeCycle.computeTotalTransports
                                 |> Expect.equal
                                     (Ok
@@ -34,6 +34,7 @@ suite =
                                         , air = km 0
                                         , cch = Unit.kgCo2e 0
                                         , fwe = Unit.kgPe 0
+                                        , impact = Unit.impactFromFloat 0
                                         }
                                     )
                     , test "should compute custom distances" <|
@@ -52,7 +53,7 @@ suite =
                                         , Country.Code "FR"
                                         ]
                                 }
-                                |> Result.andThen (LifeCycle.computeStepsTransport db)
+                                |> Result.andThen (LifeCycle.computeStepsTransport db Impact.default)
                                 |> Result.map LifeCycle.computeTotalTransports
                                 |> Expect.equal
                                     (Ok
@@ -61,6 +62,7 @@ suite =
                                         , air = km 0
                                         , cch = Unit.kgCo2e 0
                                         , fwe = Unit.kgPe 0
+                                        , impact = Unit.impactFromFloat 0
                                         }
                                     )
                     ]

@@ -4,6 +4,7 @@ import Data.Country as Country exposing (Country)
 import Data.Db exposing (Db)
 import Data.Formula as Formula
 import Data.Gitbook as Gitbook exposing (Path(..))
+import Data.Impact exposing (Impact)
 import Data.Inputs exposing (Inputs)
 import Data.Process as Process exposing (Process)
 import Data.Transport as Transport exposing (Transport, default, defaultInland)
@@ -25,8 +26,11 @@ type alias Step =
     , outputMass : Mass
     , waste : Mass
     , transport : Transport
+
+    -- FIXME: remove cch and fwe, keep just impact
     , cch : Unit.Co2e
     , fwe : Unit.Pe
+    , impact : Unit.Impact
     , heat : Energy
     , kwh : Energy
     , processInfo : ProcessInfo
@@ -64,8 +68,11 @@ create label editable country =
     , outputMass = Quantity.zero
     , waste = Quantity.zero
     , transport = Transport.default
+
+    -- FIXME: remove cch and fwe, keep just impact
     , cch = Quantity.zero
     , fwe = Quantity.zero
+    , impact = Quantity.zero
     , heat = Quantity.zero
     , kwh = Quantity.zero
     , processInfo = defaultProcessInfo
@@ -126,8 +133,8 @@ countryMixToString =
 Docs: <https://fabrique-numerique.gitbook.io/wikicarbone/methodologie/transport>
 
 -}
-computeTransports : Db -> Step -> Step -> Result String Step
-computeTransports db next ({ processInfo } as current) =
+computeTransports : Db -> Impact -> Step -> Step -> Result String Step
+computeTransports db impact next ({ processInfo } as current) =
     db.processes
         |> Process.loadWellKnown
         |> Result.map
@@ -152,13 +159,16 @@ computeTransports db next ({ processInfo } as current) =
                         }
                     , transport =
                         stepSummary
-                            |> computeTransportImpacts wellKnown roadTransportProcess next.inputMass
+                            |> computeTransportImpacts impact
+                                wellKnown
+                                roadTransportProcess
+                                next.inputMass
                 }
             )
 
 
-computeTransportImpacts : Process.WellKnown -> Process -> Mass -> Transport -> Transport
-computeTransportImpacts { seaTransport, airTransport } roadProcess mass { road, sea, air } =
+computeTransportImpacts : Impact -> Process.WellKnown -> Process -> Mass -> Transport -> Transport
+computeTransportImpacts impact { seaTransport, airTransport } roadProcess mass { road, sea, air } =
     let
         ( roadCo2, seaCo2, airCo2 ) =
             ( mass |> Unit.forKgAndDistance roadProcess.cch road
@@ -171,12 +181,22 @@ computeTransportImpacts { seaTransport, airTransport } roadProcess mass { road, 
             , mass |> Unit.forKgAndDistance seaTransport.fwe sea
             , mass |> Unit.forKgAndDistance airTransport.fwe air
             )
+
+        ( roadImpact, seaImpact, airImpact ) =
+            -- TODO: refactor/simplify
+            ( mass |> Unit.forKgAndDistance (Process.getImpact impact.trigram roadProcess) road
+            , mass |> Unit.forKgAndDistance (Process.getImpact impact.trigram seaTransport) sea
+            , mass |> Unit.forKgAndDistance (Process.getImpact impact.trigram airTransport) air
+            )
     in
     { road = road
     , sea = sea
     , air = air
+
+    -- FIXME: remove cch and fwe, keep just impact
     , cch = Quantity.sum [ roadCo2, seaCo2, airCo2 ]
     , fwe = Quantity.sum [ roadFwe, seaFwe, airFwe ]
+    , impact = Quantity.sum [ roadImpact, seaImpact, airImpact ]
     }
 
 
@@ -193,12 +213,12 @@ computeTransportSummary step transport =
 
         Making ->
             -- Air transport only applies between the Making and the Distribution steps
-            { default
-                | road = transport.road
-                , sea = transport.sea
-                , air = transport.air
-            }
-                |> Formula.transportRatio step.airTransportRatio
+            Formula.transportRatio step.airTransportRatio
+                { default
+                    | road = transport.road
+                    , sea = transport.sea
+                    , air = transport.air
+                }
 
         _ ->
             -- All other steps don't use air transport at all
@@ -333,8 +353,11 @@ encode v =
         , ( "outputMass", Encode.float (Mass.inKilograms v.outputMass) )
         , ( "waste", Encode.float (Mass.inKilograms v.waste) )
         , ( "transport", Transport.encode v.transport )
+
+        -- FIXME: remove cch and fwe, keep just impact
         , ( "cch", Unit.encodeKgCo2e v.cch )
         , ( "fwe", Unit.encodeKgPe v.fwe )
+        , ( "impact", Unit.encodeImpact v.impact )
         , ( "heat", Encode.float (Energy.inMegajoules v.heat) )
         , ( "kwh", Encode.float (Energy.inKilowattHours v.kwh) )
         , ( "processInfo", encodeProcessInfo v.processInfo )

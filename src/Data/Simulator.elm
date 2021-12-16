@@ -15,8 +15,11 @@ import Quantity
 type alias Simulator =
     { inputs : Inputs
     , lifeCycle : LifeCycle
+
+    -- FIXME: remove cch and fwe, keep just impact
     , cch : Unit.Co2e
     , fwe : Unit.Pe
+    , impact : Unit.Impact
     , transport : Transport
     }
 
@@ -26,8 +29,11 @@ encode v =
     Encode.object
         [ ( "inputs", Inputs.encode v.inputs )
         , ( "lifeCycle", LifeCycle.encode v.lifeCycle )
+
+        -- FIXME: remove cch and fwe, keep just impact
         , ( "cch", Unit.encodeKgCo2e v.cch )
         , ( "fwe", Unit.encodeKgPe v.fwe )
+        , ( "impact", Unit.encodeImpact v.impact )
         , ( "transport", Transport.encode v.transport )
         ]
 
@@ -42,8 +48,11 @@ init db =
                     |> (\lifeCycle ->
                             { inputs = inputs
                             , lifeCycle = lifeCycle
+
+                            -- FIXME: remove cch and fwe, keep just impact
                             , cch = Quantity.zero
                             , fwe = Quantity.zero
+                            , impact = Quantity.zero
                             , transport = Transport.default
                             }
                        )
@@ -245,7 +254,7 @@ computeMaterialStepWaste ({ inputs, lifeCycle } as simulator) =
 computeStepsTransport : Db -> Simulator -> Result String Simulator
 computeStepsTransport db simulator =
     simulator.lifeCycle
-        |> LifeCycle.computeStepsTransport db
+        |> LifeCycle.computeStepsTransport db simulator.inputs.impact
         |> Result.map (\lifeCycle -> simulator |> updateLifeCycle (always lifeCycle))
 
 
@@ -259,6 +268,7 @@ computeFinalImpacts ({ lifeCycle } as simulator) =
     { simulator
         | cch = LifeCycle.computeFinalCo2Score lifeCycle
         , fwe = LifeCycle.computeFinalFwEScore lifeCycle
+        , impact = LifeCycle.computeFinalImpactScore lifeCycle
     }
 
 

@@ -20,6 +20,7 @@ franceChina =
     , air = km 8200
     , cch = Quantity.zero
     , fwe = Quantity.zero
+    , impact = Quantity.zero
     }
 
 

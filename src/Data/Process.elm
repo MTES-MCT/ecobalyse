@@ -162,6 +162,13 @@ findByAlias alias =
         >> Result.fromMaybe ("Procédé introuvable par alias: " ++ alias)
 
 
+getImpact : Impact.Trigram -> Process -> Unit.Impact
+getImpact trigram =
+    .impacts
+        >> AnyDict.get trigram
+        >> Maybe.withDefault Quantity.zero
+
+
 loadWellKnown : List Process -> Result String WellKnown
 loadWellKnown p =
     Ok WellKnown

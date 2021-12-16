@@ -2,6 +2,7 @@ module Data.LifeCycle exposing (..)
 
 import Array exposing (Array)
 import Data.Db exposing (Db)
+import Data.Impact exposing (Impact)
 import Data.Inputs as Inputs exposing (Inputs)
 import Data.Step as Step exposing (Step)
 import Data.Transport as Transport exposing (Transport)
@@ -15,12 +16,13 @@ type alias LifeCycle =
     Array Step
 
 
-computeStepsTransport : Db -> LifeCycle -> Result String LifeCycle
-computeStepsTransport db lifeCycle =
+computeStepsTransport : Db -> Impact -> LifeCycle -> Result String LifeCycle
+computeStepsTransport db impact lifeCycle =
     lifeCycle
         |> Array.indexedMap
             (\index step ->
                 Step.computeTransports db
+                    impact
                     (Array.get (index + 1) lifeCycle |> Maybe.withDefault step)
                     step
             )
@@ -39,6 +41,7 @@ computeTotalTransports =
                 , air = acc.air |> Quantity.plus transport.air
                 , cch = acc.cch |> Quantity.plus transport.cch
                 , fwe = acc.fwe |> Quantity.plus transport.fwe
+                , impact = acc.impact |> Quantity.plus transport.impact
             }
         )
         Transport.default
@@ -46,6 +49,7 @@ computeTotalTransports =
 
 computeFinalCo2Score : LifeCycle -> Unit.Co2e
 computeFinalCo2Score =
+    -- FIXME: remove me
     Array.foldl
         (\{ cch, transport } finalScore ->
             Quantity.sum [ finalScore, cch, transport.cch ]
@@ -53,8 +57,18 @@ computeFinalCo2Score =
         Quantity.zero
 
 
+computeFinalImpactScore : LifeCycle -> Unit.Impact
+computeFinalImpactScore =
+    Array.foldl
+        (\{ impact, transport } finalScore ->
+            Quantity.sum [ finalScore, impact, transport.impact ]
+        )
+        Quantity.zero
+
+
 computeFinalFwEScore : LifeCycle -> Unit.Pe
 computeFinalFwEScore =
+    -- FIXME: remove me
     Array.foldl
         (\{ fwe, transport } finalScore ->
             Quantity.sum [ finalScore, fwe, transport.fwe ]
