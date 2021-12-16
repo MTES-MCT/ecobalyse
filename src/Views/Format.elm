@@ -18,7 +18,10 @@ formatImpact { unit } =
 
 formatInt : String -> Int -> String
 formatInt unit int =
-    FormatNumber.format { frenchLocale | decimals = Exact 0 } (toFloat int) ++ "\u{202F}" ++ unit
+    FormatNumber.format { frenchLocale | decimals = Exact 0 }
+        (toFloat int)
+        ++ "\u{202F}"
+        ++ unit
 
 
 formatFloat : Int -> Float -> String
@@ -75,16 +78,6 @@ formatRichFloat decimals unit value =
         , text "\u{202F}"
         , span [ class "fs-80p" ] [ text unit ]
         ]
-
-
-kgCo2 : Int -> Unit.Co2e -> Html msg
-kgCo2 decimals =
-    Unit.inKgCo2e >> formatRichFloat decimals "kgCO₂e"
-
-
-kgP : Int -> Unit.Pe -> Html msg
-kgP decimals =
-    Unit.inKgPe >> formatRichFloat decimals "kgPe"
 
 
 kg : Mass -> Html msg

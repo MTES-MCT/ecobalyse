@@ -4,12 +4,10 @@ import Data.Impact as Impact
 import Data.Inputs as Inputs
 import Data.Session exposing (Session)
 import Data.Simulator as Simulator
-import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Route
 import Views.Container as Container
-import Views.Format as Format
 import Views.Summary as SummaryView
 
 
@@ -60,41 +58,6 @@ viewExamples session =
                 )
             |> div [ class "row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4" ]
         ]
-
-
-formatCustomCountryMixes : Inputs.CustomCountryMixes -> Html Msg
-formatCustomCountryMixes { fabric, dyeing, making } =
-    let
-        mixes =
-            [ ( "Tissage/Tricotage", fabric )
-            , ( "Teinture", dyeing )
-            , ( "Confection", making )
-            ]
-                |> List.filterMap
-                    (\( step, mix ) ->
-                        mix
-                            |> Maybe.map
-                                (\mix_ ->
-                                    span []
-                                        [ text step
-                                        , text "\u{00A0}: "
-
-                                        -- FIXME: we shouldn't need to do that
-                                        , mix_
-                                            |> Unit.impactToFloat
-                                            |> Unit.kgCo2e
-                                            |> Format.kgCo2 3
-                                        ]
-                                )
-                    )
-    in
-    if List.length mixes == 0 then
-        text "Aucun"
-
-    else
-        mixes
-            |> List.intersperse (br [] [])
-            |> div []
 
 
 view : Session -> Model -> ( String, List (Html Msg) )
