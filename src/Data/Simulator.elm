@@ -84,13 +84,13 @@ compute db query =
         -- CO2 SCORES
         --
         -- Compute Material & Spinning step cch score
-        |> next computeMaterialAndSpinningImpacts
+        |> next computeMaterialAndSpinningImpact
         -- Compute Weaving & Knitting step cch score
-        |> next computeWeavingKnittingImpacts
+        |> next computeWeavingKnittingImpact
         -- Compute Ennoblement step cch score
-        |> nextWithDb computeDyeingImpacts
+        |> nextWithDb computeDyeingImpact
         -- Compute Making step cch score
-        |> next computeMakingImpacts
+        |> next computeMakingImpact
         --
         -- TRANSPORTS
         --
@@ -110,25 +110,26 @@ initializeFinalMass ({ inputs } as simulator) =
         |> updateLifeCycleStep Step.Distribution (Step.initMass inputs.mass)
 
 
-computeMakingImpacts : Simulator -> Simulator
-computeMakingImpacts ({ inputs } as simulator) =
+computeMakingImpact : Simulator -> Simulator
+computeMakingImpact ({ inputs } as simulator) =
     simulator
         |> updateLifeCycleStep Step.Making
             (\step ->
                 let
-                    { kwh, cch, fwe } =
+                    { kwh, impact } =
                         step.outputMass
-                            |> Formula.makingImpacts
+                            |> Formula.makingImpact
+                                inputs.impact.trigram
                                 { makingProcess = inputs.product.makingProcess
                                 , countryElecProcess = Step.getCountryElectricityProcess step
                                 }
                 in
-                { step | cch = cch, fwe = fwe, kwh = kwh }
+                { step | impact = impact, kwh = kwh }
             )
 
 
-computeDyeingImpacts : Db -> Simulator -> Result String Simulator
-computeDyeingImpacts { processes } simulator =
+computeDyeingImpact : Db -> Simulator -> Result String Simulator
+computeDyeingImpact { processes } ({ inputs } as simulator) =
     processes
         |> Process.loadWellKnown
         |> Result.map
@@ -137,65 +138,68 @@ computeDyeingImpacts { processes } simulator =
                     |> updateLifeCycleStep Step.Ennoblement
                         (\({ dyeingWeighting, country } as step) ->
                             let
-                                { cch, fwe, heat, kwh } =
+                                { heat, kwh, impact } =
                                     step.outputMass
-                                        |> Formula.dyeingImpacts ( dyeingLow, dyeingHigh )
+                                        |> Formula.dyeingImpact inputs.impact.trigram
+                                            ( dyeingLow, dyeingHigh )
                                             dyeingWeighting
                                             country.heatProcess
                                             (Step.getCountryElectricityProcess step)
                             in
-                            { step | cch = cch, fwe = fwe, heat = heat, kwh = kwh }
+                            { step | heat = heat, kwh = kwh, impact = impact }
                         )
             )
 
 
-computeMaterialAndSpinningImpacts : Simulator -> Simulator
-computeMaterialAndSpinningImpacts ({ inputs } as simulator) =
+computeMaterialAndSpinningImpact : Simulator -> Simulator
+computeMaterialAndSpinningImpact ({ inputs } as simulator) =
     simulator
         |> updateLifeCycleStep Step.MaterialAndSpinning
-            (\step ->
-                let
-                    { cch, fwe } =
-                        case ( inputs.material.recycledProcess, inputs.recycledRatio ) of
-                            ( Just recycledProcess, Just ratio ) ->
-                                step.outputMass
-                                    |> Formula.materialAndSpinningImpacts
-                                        ( recycledProcess, inputs.material.materialProcess )
-                                        ratio
+            (Step.updateImpact
+                (\mass ->
+                    case ( inputs.material.recycledProcess, inputs.recycledRatio ) of
+                        ( Just recycledProcess, Just ratio ) ->
+                            mass
+                                |> Formula.materialAndSpinningImpact
+                                    inputs.impact.trigram
+                                    ( recycledProcess, inputs.material.materialProcess )
+                                    ratio
 
-                            _ ->
-                                step.outputMass
-                                    |> Formula.pureMaterialAndSpinningImpacts
-                                        inputs.material.materialProcess
-                in
-                { step | cch = cch, fwe = fwe }
+                        _ ->
+                            mass
+                                |> Formula.pureMaterialAndSpinningImpact
+                                    inputs.impact.trigram
+                                    inputs.material.materialProcess
+                )
             )
 
 
-computeWeavingKnittingImpacts : Simulator -> Simulator
-computeWeavingKnittingImpacts ({ inputs } as simulator) =
+computeWeavingKnittingImpact : Simulator -> Simulator
+computeWeavingKnittingImpact ({ inputs } as simulator) =
     simulator
         |> updateLifeCycleStep Step.WeavingKnitting
             (\step ->
                 let
-                    { kwh, cch, fwe } =
+                    { kwh, impact } =
                         if inputs.product.knitted then
                             step.outputMass
-                                |> Formula.knittingImpacts
+                                |> Formula.knittingImpact
+                                    inputs.impact.trigram
                                     { elec = inputs.product.fabricProcess.elec
                                     , countryElecProcess = Step.getCountryElectricityProcess step
                                     }
 
                         else
                             step.outputMass
-                                |> Formula.weavingImpacts
+                                |> Formula.weavingImpact
+                                    inputs.impact.trigram
                                     { elecPppm = inputs.product.fabricProcess.elec_pppm
                                     , countryElecProcess = Step.getCountryElectricityProcess step
                                     , grammage = inputs.product.grammage
                                     , ppm = inputs.product.ppm
                                     }
                 in
-                { step | cch = cch, fwe = fwe, kwh = kwh }
+                { step | impact = impact, kwh = kwh }
             )
 
 

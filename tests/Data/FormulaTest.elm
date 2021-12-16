@@ -1,6 +1,7 @@
 module Data.FormulaTest exposing (..)
 
 import Data.Formula as Formula
+import Data.Impact as Impact
 import Data.Process exposing (noOpProcess)
 import Data.Unit as Unit
 import Energy
@@ -47,11 +48,12 @@ suite =
                 |> Expect.equal { mass = kg 3, waste = kg 2 }
                 |> asTest "should compute material waste from material and product waste data"
             ]
-        , describe "Formula.makingImpacts"
+        , describe "Formula.makingImpact"
             (let
                 res =
                     kg 1
-                        |> Formula.makingImpacts
+                        |> Formula.makingImpact
+                            Impact.defaultTrigram
                             { makingProcess =
                                 { noOpProcess
                                     | elec = Energy.megajoules 0.5
@@ -63,25 +65,22 @@ suite =
                                 }
                             }
              in
-             [ res.cch
-                |> Unit.inKgCo2e
+             [ res.impact
+                |> Unit.impactToFloat
                 |> Expect.within (Expect.Absolute 0.01) 0.07
                 |> asTest "should compute Making step cch from process and country data"
              , res.kwh
                 |> Energy.inKilowattHours
                 |> Expect.within (Expect.Absolute 0.01) 0.138
                 |> asTest "should compute Making step kwh from process and country data"
-             , res.fwe
-                |> Unit.inKgPe
-                |> Expect.within (Expect.Absolute 0.01) 0.07
-                |> asTest "should compute Making step fwe from process and country data"
              ]
             )
-        , describe "Formula.weavingImpacts"
+        , describe "Formula.weavingImpact"
             (let
                 res =
                     kg 1
-                        |> Formula.weavingImpacts
+                        |> Formula.weavingImpact
+                            Impact.defaultTrigram
                             { elecPppm = 0.01
                             , countryElecProcess =
                                 { noOpProcess
@@ -92,25 +91,22 @@ suite =
                             , grammage = 500
                             }
              in
-             [ res.cch
-                |> Unit.inKgCo2e
+             [ res.impact
+                |> Unit.impactToFloat
                 |> Expect.within (Expect.Absolute 0.01) 0.8
                 |> asTest "should compute KnittingWeaving step cch from process and product data"
-             , res.fwe
-                |> Unit.inKgPe
-                |> Expect.within (Expect.Absolute 0.01) 4
-                |> asTest "should compute KnittingWeaving step fwe from process and product data"
              , res.kwh
                 |> Energy.inKilowattHours
                 |> Expect.within (Expect.Absolute 0.01) 8
                 |> asTest "should compute KnittingWeaving step kwh from process and product data"
              ]
             )
-        , describe "Formula.knittingImpacts"
+        , describe "Formula.knittingImpact"
             (let
                 res =
                     kg 1
-                        |> Formula.knittingImpacts
+                        |> Formula.knittingImpact
+                            Impact.defaultTrigram
                             { elec = Energy.kilowattHours 5
                             , countryElecProcess =
                                 { noOpProcess
@@ -119,14 +115,10 @@ suite =
                                 }
                             }
              in
-             [ res.cch
-                |> Unit.inKgCo2e
+             [ res.impact
+                |> Unit.impactToFloat
                 |> Expect.within (Expect.Absolute 0.01) 1
                 |> asTest "should compute KnittingWeaving step cch from process and product data"
-             , res.fwe
-                |> Unit.inKgPe
-                |> Expect.within (Expect.Absolute 0.01) 2.5
-                |> asTest "should compute KnittingWeaving step fwe from process and product data"
              , res.kwh
                 |> Energy.inKilowattHours
                 |> Expect.within (Expect.Absolute 0.01) 5

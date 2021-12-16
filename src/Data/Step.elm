@@ -309,6 +309,11 @@ updateWaste waste mass step =
     }
 
 
+updateImpact : (Mass -> Unit.Impact) -> Step -> Step
+updateImpact compute step =
+    { step | impact = compute step.outputMass }
+
+
 airTransportRatioToString : Float -> String
 airTransportRatioToString airTransportRatio =
     case round (airTransportRatio * 100) of
