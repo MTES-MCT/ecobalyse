@@ -1,6 +1,6 @@
 module Data.Impact exposing (..)
 
-import Dict.Any as AnyDict exposing (AnyDict)
+import Dict
 import Json.Decode as Decode exposing (Decoder)
 
 
@@ -8,37 +8,34 @@ type Trigram
     = Trigram String
 
 
-type Unit
-    = Unit Float Trigram
-
-
-type alias Impacts =
-    AnyDict String Trigram Info
-
-
-type alias Info =
-    { label : String
+type alias Impact =
+    { trigram : Trigram
+    , label : String
     , unit : String
     }
 
 
-emptyImpacts : Impacts
-emptyImpacts =
-    AnyDict.fromList trigramToString []
+type Unit
+    = Unit Float Trigram
 
 
-decodeImpacts : Decoder Impacts
-decodeImpacts =
-    AnyDict.decode (\str _ -> trigramFromString str)
-        trigramToString
-        decodeInfo
-
-
-decodeInfo : Decoder Info
-decodeInfo =
-    Decode.map2 Info
-        (Decode.field "label_fr" Decode.string)
-        (Decode.field "unit_fr" Decode.string)
+decodeList : Decoder (List Impact)
+decodeList =
+    let
+        decodeDictValue =
+            Decode.map2 (\a b -> { label = a, unit = b })
+                (Decode.field "label_fr" Decode.string)
+                (Decode.field "unit_fr" Decode.string)
+    in
+    Decode.dict decodeDictValue
+        |> Decode.andThen
+            (Dict.toList
+                >> List.map
+                    (\( trigram, { label, unit } ) ->
+                        Impact (Trigram trigram) label unit
+                    )
+                >> Decode.succeed
+            )
 
 
 trigramToString : Trigram -> String
