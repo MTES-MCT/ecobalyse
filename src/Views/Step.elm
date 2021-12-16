@@ -3,13 +3,14 @@ module Views.Step exposing (..)
 import Data.Country as Country
 import Data.Db exposing (Db)
 import Data.Gitbook as Gitbook
+import Data.Impact exposing (Impact)
 import Data.Inputs exposing (Inputs)
 import Data.Step as Step exposing (Step)
+import Data.Unit as Unit
 import Energy
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import Page.Simulator.Impact as Impact exposing (Impact)
 import Views.Button as Button
 import Views.Format as Format
 import Views.Icon as Icon
@@ -149,7 +150,7 @@ simpleView ({ inputs, impact, index, current } as config) =
                 [ div []
                     [ if current.label /= Step.Distribution then
                         div [ class "fs-3 fw-normal text-secondary" ]
-                            [ Format.formatImpact impact current
+                            [ Format.formatImpact impact current.impact
                             ]
 
                       else
@@ -157,7 +158,7 @@ simpleView ({ inputs, impact, index, current } as config) =
                     , div [ class "fs-7" ]
                         [ span [ class "me-1 align-bottom" ] [ Icon.info ]
                         , text "Transport\u{00A0}"
-                        , Format.formatImpact impact current.transport
+                        , Format.formatImpact impact current.transport.impact
                         ]
                     ]
                 ]
@@ -223,8 +224,8 @@ detailedView ({ inputs, impact, index, next, current } as config) =
         , div
             [ class "card text-center" ]
             [ div [ class "card-header text-muted" ]
-                [ if Impact.toFloat impact current > 0 then
-                    span [ class "fw-bold" ] [ Format.formatImpact impact current ]
+                [ if Unit.impactToFloat current.impact > 0 then
+                    span [ class "fw-bold" ] [ Format.formatImpact impact current.impact ]
 
                   else
                     text "\u{00A0}"
@@ -266,7 +267,7 @@ detailedView ({ inputs, impact, index, next, current } as config) =
                 , li [ class "list-group-item text-muted" ]
                     [ div [ class "d-flex justify-content-center align-items-center" ]
                         [ strong [] [ text <| transportLabel ++ "\u{00A0}:\u{00A0}" ]
-                        , Format.formatImpact impact current.transport
+                        , Format.formatImpact impact current.transport.impact
                         , inlineDocumentationLink config Gitbook.Transport
                         ]
                     ]

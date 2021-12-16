@@ -6,7 +6,7 @@ import Browser.Events
 import Data.Country as Country
 import Data.Db exposing (Db)
 import Data.Gitbook as Gitbook
-import Data.Impact as Impact2
+import Data.Impact as Impact
 import Data.Inputs as Inputs
 import Data.Key as Key
 import Data.Material as Material exposing (Material)
@@ -20,7 +20,6 @@ import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
 import Mass
-import Page.Simulator.Impact as Impact exposing (Impact)
 import Ports
 import RemoteData exposing (WebData)
 import Request.Gitbook as GitbookApi
@@ -46,10 +45,7 @@ type alias Model =
     , displayMode : DisplayMode
     , modal : ModalContent
     , customCountryMixInputs : CustomCountryMixInputs
-
-    -- FIXME: remove me after we get rid of Page.Simulator.Impact
-    , impact : Impact
-    , impact2 : Impact2.Trigram
+    , impact : Impact.Trigram
     }
 
 
@@ -74,9 +70,7 @@ type Msg
     | Reset
     | ResetCustomCountryMix Step.Label
     | SubmitCustomCountryMix Step.Label (Maybe Unit.Co2e)
-      -- FIXME: remove me after we get rid of Page.Simulator.Impact
-    | SwitchImpact (Result String Impact)
-    | SwitchImpact2 Impact2.Trigram
+    | SwitchImpact Impact.Trigram
     | SwitchMode DisplayMode
     | UpdateAirTransportRatio (Maybe Float)
     | UpdateCustomCountryMixInput Step.Label String
@@ -140,7 +134,7 @@ init maybeQuery session =
     let
         query =
             maybeQuery
-                |> Maybe.withDefault (Inputs.defaultQuery Impact2.defaultTrigram)
+                |> Maybe.withDefault (Inputs.defaultQuery Impact.defaultTrigram)
 
         simulator =
             Simulator.compute session.db query
@@ -151,10 +145,7 @@ init maybeQuery session =
       , displayMode = SimpleMode
       , modal = NoModal
       , customCountryMixInputs = toCustomCountryMixFormInputs query.customCountryMixes
-
-      -- FIXME: remove me after we get rid of Page.Simulator.Impact
-      , impact = Impact.ClimateChange
-      , impact2 = query.impact
+      , impact = query.impact
       }
     , case simulator of
         Err error ->
@@ -238,7 +229,7 @@ update ({ db } as session) msg ({ customCountryMixInputs, query } as model) =
 
         Reset ->
             ( model, session, Cmd.none )
-                |> updateQuery (Inputs.defaultQuery Impact2.defaultTrigram)
+                |> updateQuery (Inputs.defaultQuery Impact.defaultTrigram)
 
         ResetCustomCountryMix stepLabel ->
             ( { model
@@ -259,16 +250,14 @@ update ({ db } as session) msg ({ customCountryMixInputs, query } as model) =
             ( { model | modal = NoModal }, session, Cmd.none )
                 |> updateQuery (updateQueryCustomCountryMix stepLabel (Just customCountryMix) query)
 
-        SwitchImpact (Ok impact) ->
-            -- FIXME: remove me after we get rid of Page.Simulator.Impact
-            ( { model | impact = impact }, session, Cmd.none )
-
-        SwitchImpact (Err error) ->
-            -- FIXME: remove me after we get rid of Page.Simulator.Impact
-            ( model, session |> Session.notifyError "Erreur de sélection d'impact" error, Cmd.none )
-
-        SwitchImpact2 trigram ->
-            ( { model | impact2 = trigram }, session, Cmd.none )
+        SwitchImpact trigram ->
+            ( { model
+                | impact = trigram
+                , query = { query | impact = trigram }
+              }
+            , session
+            , Cmd.none
+            )
 
         SwitchMode displayMode ->
             ( { model | displayMode = displayMode }, session, Cmd.none )
@@ -459,7 +448,9 @@ lifeCycleStepsView db { displayMode, impact } simulator =
                     { db = db
                     , inputs = simulator.inputs
                     , detailed = displayMode == DetailedMode
-                    , impact = impact
+
+                    -- FIXME: we should rather render an error than defaulting here
+                    , impact = db.impacts |> Impact.get impact |> Result.withDefault Impact.default
                     , index = index
                     , current = current
                     , next = Array.get (index + 1) simulator.lifeCycle
@@ -730,7 +721,7 @@ simulatorView ({ db } as session) model ({ inputs } as simulator) =
                 , button
                     [ class "btn btn-secondary"
                     , onClick Reset
-                    , disabled (model.query == Inputs.defaultQuery Impact2.defaultTrigram)
+                    , disabled (model.query == Inputs.defaultQuery Impact.defaultTrigram)
                     ]
                     [ text "Réinitialiser le simulateur" ]
                 ]
@@ -741,7 +732,9 @@ simulatorView ({ db } as session) model ({ inputs } as simulator) =
                     [ model.simulator
                         |> SummaryView.view
                             { session = session
-                            , impact = model.impact
+
+                            -- FIXME: we should rather render an error than defaulting here
+                            , impact = db.impacts |> Impact.get model.impact |> Result.withDefault Impact.default
                             , reusable = False
                             }
                     ]
@@ -762,12 +755,10 @@ view session model =
                     [ h1 [] [ text "Simulateur" ]
                     ]
                 , div [ class "col-sm-5 mb-2" ]
-                    [ Impact.selector
-                        { selected = model.impact, switch = SwitchImpact }
-                    , ImpactView.selector
+                    [ ImpactView.selector
                         { impacts = session.db.impacts
-                        , selected = model.impact2
-                        , switch = SwitchImpact2
+                        , selected = model.impact
+                        , switch = SwitchImpact
                         }
                     ]
                 ]

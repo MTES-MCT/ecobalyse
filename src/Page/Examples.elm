@@ -8,7 +8,6 @@ import Data.Session exposing (Session)
 import Data.Simulator as Simulator
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Page.Simulator.Impact as Impact
 import Route
 import Views.Container as Container
 import Views.Format as Format
@@ -55,7 +54,7 @@ viewExamples session =
                 (Simulator.compute session.db
                     >> SummaryView.view
                         { session = session
-                        , impact = Impact.ClimateChange
+                        , impact = Impact.default
                         , reusable = True
                         }
                     >> (\v -> div [ class "col" ] [ v ])

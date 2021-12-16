@@ -1,12 +1,12 @@
 module Views.BarChart exposing (..)
 
 import Array
+import Data.Impact exposing (Impact)
 import Data.Simulator exposing (Simulator)
 import Data.Step as Step
 import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Page.Simulator.Impact as Impact exposing (Impact)
 import Views.Format as Format
 import Views.PieChart as PieChart
 
@@ -26,12 +26,12 @@ type alias Bar msg =
 
 
 makeBars : Config -> List (Bar msg)
-makeBars { impact, simulator } =
+makeBars { simulator } =
     let
         maxScore =
             simulator.lifeCycle
-                |> Array.map (Impact.toFloat impact)
-                |> Array.push (Impact.toFloat impact simulator.transport)
+                |> Array.map (.impact >> Unit.impactToFloat)
+                |> Array.push (Unit.impactToFloat simulator.transport.impact)
                 |> Array.toList
                 |> List.maximum
                 |> Maybe.withDefault 0
@@ -63,17 +63,17 @@ makeBars { impact, simulator } =
                                     _ ->
                                         text (Step.labelToString step.label)
                                 ]
-                        , score = Impact.toFloat impact step
-                        , width = clamp 0 100 (Impact.toFloat impact step / maxScore * toFloat 100)
-                        , percent = Impact.toFloat impact step / Impact.toFloat impact simulator * toFloat 100
+                        , score = Unit.impactToFloat step.impact
+                        , width = clamp 0 100 (Unit.impactToFloat step.impact / maxScore * toFloat 100)
+                        , percent = Unit.impactToFloat step.impact / Unit.impactToFloat simulator.impact * toFloat 100
                         }
                     )
 
         transportBar =
             { label = text "Transport total"
-            , score = Impact.toFloat impact simulator.transport
-            , width = clamp 0 100 (Impact.toFloat impact simulator.transport / maxScore * toFloat 100)
-            , percent = Impact.toFloat impact simulator.transport / Impact.toFloat impact simulator * toFloat 100
+            , score = Unit.impactToFloat simulator.transport.impact
+            , width = clamp 0 100 (Unit.impactToFloat simulator.transport.impact / maxScore * toFloat 100)
+            , percent = Unit.impactToFloat simulator.transport.impact / Unit.impactToFloat simulator.impact * toFloat 100
             }
     in
     stepBars ++ [ transportBar ]
@@ -84,12 +84,7 @@ barView { impact } bar =
     tr [ class "fs-7" ]
         [ th [ class "text-end text-truncate py-1 pe-1" ] [ bar.label ]
         , td [ class "d-none d-sm-block text-end py-1 ps-1 pe-2 text-truncate" ]
-            [ case impact of
-                Impact.ClimateChange ->
-                    Format.kgCo2 2 (Unit.kgCo2e bar.score)
-
-                Impact.FreshwaterEutrophication ->
-                    Format.kgP 2 (Unit.kgPe bar.score)
+            [ Format.formatImpact impact (Unit.impactFromFloat bar.score)
             ]
         , td [ class "w-100 py-1" ]
             [ div

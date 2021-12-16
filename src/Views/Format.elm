@@ -9,21 +9,10 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Length exposing (Length)
 import Mass exposing (Mass)
-import Page.Simulator.Impact as Impact exposing (Impact)
 
 
-formatImpact : Impact -> { a | cch : Unit.Co2e, fwe : Unit.Pe } -> Html msg
-formatImpact impact { cch, fwe } =
-    case impact of
-        Impact.ClimateChange ->
-            kgCo2 2 cch
-
-        Impact.FreshwaterEutrophication ->
-            kgP 2 fwe
-
-
-formatImpact2 : Impact2.Impact -> Unit.Impact -> Html msg
-formatImpact2 { unit } =
+formatImpact : Impact2.Impact -> Unit.Impact -> Html msg
+formatImpact { unit } =
     Unit.impactToFloat >> formatRichFloat 2 unit
 
 

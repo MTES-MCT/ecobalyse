@@ -4,6 +4,7 @@ import Chart as C
 import Chart.Attributes as CA
 import Data.Country as Country
 import Data.Db exposing (Db)
+import Data.Impact exposing (Impact)
 import Data.Inputs as Inputs exposing (Inputs)
 import Data.LifeCycle as LifeCycle
 import Data.Session exposing (Session)
@@ -14,7 +15,6 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import List.Extra as LE
-import Page.Simulator.Impact as Impact exposing (Impact)
 import Quantity
 import Result.Extra as RE
 import Svg as S
@@ -157,20 +157,13 @@ toNonRecycledIndia query =
     )
 
 
-createEntry : Db -> Impact -> Bool -> ( String, Inputs.Query ) -> Result String Entry
-createEntry db impact highlight ( label, query ) =
+createEntry : Db -> Bool -> ( String, Inputs.Query ) -> Result String Entry
+createEntry db highlight ( label, query ) =
     let
         stepScore stepLabel lifeCycle =
-            case impact of
-                Impact.ClimateChange ->
-                    lifeCycle
-                        |> LifeCycle.getStepProp stepLabel .cch Quantity.zero
-                        |> Unit.inKgCo2e
-
-                Impact.FreshwaterEutrophication ->
-                    lifeCycle
-                        |> LifeCycle.getStepProp stepLabel .fwe Quantity.zero
-                        |> Unit.inKgPe
+            lifeCycle
+                |> LifeCycle.getStepProp stepLabel .impact Quantity.zero
+                |> Unit.impactToFloat
     in
     query
         |> Simulator.compute db
@@ -179,37 +172,37 @@ createEntry db impact highlight ( label, query ) =
                 { label = label
                 , highlight = highlight
                 , knitted = inputs.product.knitted
-                , score = Impact.toFloat impact simulator
+                , score = Unit.impactToFloat simulator.impact
                 , materialAndSpinning = lifeCycle |> stepScore Step.MaterialAndSpinning
                 , weavingKnitting = lifeCycle |> stepScore Step.WeavingKnitting
                 , dyeing = lifeCycle |> stepScore Step.Ennoblement
                 , making = lifeCycle |> stepScore Step.Making
-                , transport = Impact.toFloat impact transport
+                , transport = Unit.impactToFloat transport.impact
                 }
             )
 
 
-getEntries : Db -> Impact -> Inputs -> Result String (List Entry)
-getEntries db impact ({ material } as inputs) =
+getEntries : Db -> Inputs -> Result String (List Entry)
+getEntries db ({ material } as inputs) =
     let
         query =
             Inputs.toQuery inputs
 
         entries =
             if material.recycledProcess /= Nothing then
-                [ ( "Votre simulation", query ) |> createEntry db impact True -- user simulation
-                , query |> toRecycledFrance |> createEntry db impact False
-                , query |> toNonRecycledFrance |> createEntry db impact False
-                , query |> toPartiallyRecycledIndiaTurkey |> createEntry db impact False
-                , query |> toRecycledIndia |> createEntry db impact False
-                , query |> toNonRecycledIndia |> createEntry db impact False
+                [ ( "Votre simulation", query ) |> createEntry db True -- user simulation
+                , query |> toRecycledFrance |> createEntry db False
+                , query |> toNonRecycledFrance |> createEntry db False
+                , query |> toPartiallyRecycledIndiaTurkey |> createEntry db False
+                , query |> toRecycledIndia |> createEntry db False
+                , query |> toNonRecycledIndia |> createEntry db False
                 ]
 
             else
-                [ ( "Votre simulation", query ) |> createEntry db impact True -- user simulation
-                , query |> toNonRecycledFrance |> createEntry db impact False
-                , query |> toNonRecycledIndiaTurkey |> createEntry db impact False
-                , query |> toNonRecycledIndia |> createEntry db impact False
+                [ ( "Votre simulation", query ) |> createEntry db True -- user simulation
+                , query |> toNonRecycledFrance |> createEntry db False
+                , query |> toNonRecycledIndiaTurkey |> createEntry db False
+                , query |> toNonRecycledIndia |> createEntry db False
                 ]
     in
     entries
@@ -219,7 +212,7 @@ getEntries db impact ({ material } as inputs) =
 
 view : Config -> Html msg
 view { session, impact, simulator } =
-    case simulator.inputs |> getEntries session.db impact of
+    case simulator.inputs |> getEntries session.db of
         Ok entries ->
             chart impact entries
 
@@ -271,17 +264,10 @@ fillLabels entries =
 
 
 formatLabel : Impact -> Float -> { x : String, y : String }
-formatLabel impact num =
-    case impact of
-        Impact.ClimateChange ->
-            { x = Format.formatFloat 2 num ++ "\u{202F}kgCO₂e"
-            , y = Format.formatFloat 2 num
-            }
-
-        Impact.FreshwaterEutrophication ->
-            { x = Format.formatFloat 2 num ++ "\u{202F}kPe"
-            , y = Format.formatFloat 1 num
-            }
+formatLabel { unit } num =
+    { x = Format.formatFloat 2 num ++ "\u{202F}" ++ unit
+    , y = Format.formatFloat 2 num
+    }
 
 
 chart : Impact -> List Entry -> Html msg
