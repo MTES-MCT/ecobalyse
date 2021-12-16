@@ -21,10 +21,6 @@ type alias Transport =
     { road : Length
     , sea : Length
     , air : Length
-
-    -- FIXME: remove cch and fwe, keep just impact
-    , cch : Unit.Co2e
-    , fwe : Unit.Pe
     , impact : Unit.Impact
     }
 
@@ -34,10 +30,6 @@ default =
     { road = Quantity.zero
     , sea = Quantity.zero
     , air = Quantity.zero
-
-    -- FIXME: remove cch and fwe, keep just impact
-    , cch = Quantity.zero
-    , fwe = Quantity.zero
     , impact = Quantity.zero
     }
 
@@ -47,10 +39,6 @@ defaultInland =
     { road = Length.kilometers 500
     , sea = Quantity.zero
     , air = Length.kilometers 500
-
-    -- FIXME: remove cch and fwe, keep just impact
-    , cch = Quantity.zero
-    , fwe = Quantity.zero
     , impact = Quantity.zero
     }
 
@@ -122,13 +110,10 @@ encodeKm =
 
 decode : Decoder Transport
 decode =
-    Decode.map6 Transport
+    Decode.map4 Transport
         (Decode.field "road" decodeKm)
         (Decode.field "sea" decodeKm)
         (Decode.field "air" decodeKm)
-        -- FIXME: remove cch and fwe, keep just impact
-        (Decode.succeed Quantity.zero)
-        (Decode.succeed Quantity.zero)
         (Decode.succeed Quantity.zero)
 
 
@@ -138,10 +123,6 @@ encode v =
         [ ( "road", encodeKm v.road )
         , ( "sea", encodeKm v.sea )
         , ( "air", encodeKm v.air )
-
-        -- FIXME: remove cch and fwe, keep just impact
-        , ( "cch", Unit.encodeKgCo2e v.cch )
-        , ( "fwe", Unit.encodeKgPe v.fwe )
         , ( "impact", Unit.encodeImpact v.impact )
         ]
 

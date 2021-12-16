@@ -4,6 +4,7 @@ import Data.Formula as Formula
 import Data.Impact as Impact
 import Data.Process exposing (noOpProcess)
 import Data.Unit as Unit
+import Dict.Any as AnyDict
 import Energy
 import Expect exposing (Expectation)
 import Mass exposing (Mass)
@@ -60,8 +61,11 @@ suite =
                                 }
                             , countryElecProcess =
                                 { noOpProcess
-                                    | cch = Unit.kgCo2e 0.5
-                                    , fwe = Unit.kgPe 0.5
+                                    | impacts =
+                                        AnyDict.fromList Impact.trigramToString
+                                            [ ( Impact.Trigram "cch", Unit.impactFromFloat 0.5 )
+                                            , ( Impact.Trigram "fwe", Unit.impactFromFloat 0.5 )
+                                            ]
                                 }
                             }
              in
@@ -84,8 +88,11 @@ suite =
                             { elecPppm = 0.01
                             , countryElecProcess =
                                 { noOpProcess
-                                    | cch = Unit.kgCo2e 0.1
-                                    , fwe = Unit.kgPe 0.5
+                                    | impacts =
+                                        AnyDict.fromList Impact.trigramToString
+                                            [ ( Impact.Trigram "cch", Unit.impactFromFloat 0.1 )
+                                            , ( Impact.Trigram "fwe", Unit.impactFromFloat 0.5 )
+                                            ]
                                 }
                             , ppm = 400
                             , grammage = 500
@@ -110,8 +117,11 @@ suite =
                             { elec = Energy.kilowattHours 5
                             , countryElecProcess =
                                 { noOpProcess
-                                    | cch = Unit.kgCo2e 0.2
-                                    , fwe = Unit.kgPe 0.5
+                                    | impacts =
+                                        AnyDict.fromList Impact.trigramToString
+                                            [ ( Impact.Trigram "cch", Unit.impactFromFloat 0.2 )
+                                            , ( Impact.Trigram "fwe", Unit.impactFromFloat 0.5 )
+                                            ]
                                 }
                             }
              in

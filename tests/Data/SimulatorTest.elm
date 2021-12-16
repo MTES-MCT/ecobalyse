@@ -1,5 +1,6 @@
 module Data.SimulatorTest exposing (..)
 
+import Data.Impact as Impact
 import Data.Inputs as Inputs exposing (..)
 import Data.Sample as Sample
 import Data.Simulator as Simulator
@@ -15,25 +16,13 @@ asTest label =
     always >> test label
 
 
-expectCo2 : Float -> Inputs.Query -> Expectation
-expectCo2 cch query =
+expectImpact : Float -> Inputs.Query -> Expectation
+expectImpact cch query =
     case testDb |> Result.andThen (\db -> Simulator.compute db query) of
         Ok simulator ->
-            simulator.cch
-                |> Unit.inKgCo2e
+            simulator.impact
+                |> Unit.impactToFloat
                 |> Expect.within (Expect.Absolute 0.01) cch
-
-        Err error ->
-            Expect.fail error
-
-
-expectFwE : Float -> Inputs.Query -> Expectation
-expectFwE fwe query =
-    case testDb |> Result.andThen (\db -> Simulator.compute db query) of
-        Ok simulator ->
-            simulator.fwe
-                |> Unit.inKgPe
-                |> Expect.within (Expect.Absolute 0.000001) fwe
 
         Err error ->
             Expect.fail error
@@ -48,10 +37,12 @@ convert sectionOrSample =
         Sample.Sample title { query, cch, fwe } ->
             describe title
                 [ query
-                    |> expectCo2 (Unit.inKgCo2e cch)
+                    |> setQueryImpact (Impact.Trigram "cch")
+                    |> expectImpact (Unit.impactToFloat cch)
                     |> asTest "climate change"
                 , query
-                    |> expectFwE (Unit.inKgPe fwe)
+                    |> setQueryImpact (Impact.Trigram "fwe")
+                    |> expectImpact (Unit.impactToFloat fwe)
                     |> asTest "freshwater eutrophication"
                 ]
 

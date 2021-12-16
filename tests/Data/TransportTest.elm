@@ -18,8 +18,6 @@ franceChina =
     { road = km 0
     , sea = km 21548
     , air = km 8200
-    , cch = Quantity.zero
-    , fwe = Quantity.zero
     , impact = Quantity.zero
     }
 

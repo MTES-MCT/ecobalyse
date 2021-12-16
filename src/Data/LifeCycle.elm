@@ -39,22 +39,10 @@ computeTotalTransports =
                 | road = acc.road |> Quantity.plus transport.road
                 , sea = acc.sea |> Quantity.plus transport.sea
                 , air = acc.air |> Quantity.plus transport.air
-                , cch = acc.cch |> Quantity.plus transport.cch
-                , fwe = acc.fwe |> Quantity.plus transport.fwe
                 , impact = acc.impact |> Quantity.plus transport.impact
             }
         )
         Transport.default
-
-
-computeFinalCo2Score : LifeCycle -> Unit.Co2e
-computeFinalCo2Score =
-    -- FIXME: remove me
-    Array.foldl
-        (\{ cch, transport } finalScore ->
-            Quantity.sum [ finalScore, cch, transport.cch ]
-        )
-        Quantity.zero
 
 
 computeFinalImpactScore : LifeCycle -> Unit.Impact
@@ -62,16 +50,6 @@ computeFinalImpactScore =
     Array.foldl
         (\{ impact, transport } finalScore ->
             Quantity.sum [ finalScore, impact, transport.impact ]
-        )
-        Quantity.zero
-
-
-computeFinalFwEScore : LifeCycle -> Unit.Pe
-computeFinalFwEScore =
-    -- FIXME: remove me
-    Array.foldl
-        (\{ fwe, transport } finalScore ->
-            Quantity.sum [ finalScore, fwe, transport.fwe ]
         )
         Quantity.zero
 

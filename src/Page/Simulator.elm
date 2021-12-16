@@ -69,7 +69,7 @@ type Msg
     | OpenDocModal Gitbook.Path
     | Reset
     | ResetCustomCountryMix Step.Label
-    | SubmitCustomCountryMix Step.Label (Maybe Unit.Co2e)
+    | SubmitCustomCountryMix Step.Label (Maybe Unit.Impact)
     | SwitchImpact Impact.Trigram
     | SwitchMode DisplayMode
     | UpdateAirTransportRatio (Maybe Float)
@@ -122,11 +122,11 @@ updateCustomCountryMixInputs stepLabel maybeValue values =
             values
 
 
-validateCustomCountryMixInput : Step.Label -> CustomCountryMixInputs -> Maybe Unit.Co2e
+validateCustomCountryMixInput : Step.Label -> CustomCountryMixInputs -> Maybe Unit.Impact
 validateCustomCountryMixInput stepLabel =
     getCustomCountryMixInput stepLabel
         >> Maybe.andThen String.toFloat
-        >> Maybe.map Unit.kgCo2e
+        >> Maybe.map Unit.impactFromFloat
 
 
 init : Maybe Inputs.Query -> Session -> ( Model, Session, Cmd Msg )
@@ -160,12 +160,12 @@ init maybeQuery session =
 toCustomCountryMixFormInputs : Inputs.CustomCountryMixes -> CustomCountryMixInputs
 toCustomCountryMixFormInputs { fabric, dyeing, making } =
     let
-        mapToCo2e =
-            Maybe.map (Unit.inKgCo2e >> String.fromFloat)
+        mapToImpact =
+            Maybe.map (Unit.impactToFloat >> String.fromFloat)
     in
-    { fabric = mapToCo2e fabric
-    , dyeing = mapToCo2e dyeing
-    , making = mapToCo2e making
+    { fabric = mapToImpact fabric
+    , dyeing = mapToImpact dyeing
+    , making = mapToImpact making
     }
 
 
@@ -181,7 +181,7 @@ updateQuery query ( model, session, msg ) =
     )
 
 
-updateQueryCustomCountryMix : Step.Label -> Maybe Unit.Co2e -> Inputs.Query -> Inputs.Query
+updateQueryCustomCountryMix : Step.Label -> Maybe Unit.Impact -> Inputs.Query -> Inputs.Query
 updateQueryCustomCountryMix stepLabel maybeValue ({ customCountryMixes } as query) =
     { query
         | customCountryMixes =
@@ -251,13 +251,8 @@ update ({ db } as session) msg ({ customCountryMixInputs, query } as model) =
                 |> updateQuery (updateQueryCustomCountryMix stepLabel (Just customCountryMix) query)
 
         SwitchImpact trigram ->
-            ( { model
-                | impact = trigram
-                , query = { query | impact = trigram }
-              }
-            , session
-            , Cmd.none
-            )
+            ( { model | impact = trigram }, session, Cmd.none )
+                |> updateQuery { query | impact = trigram }
 
         SwitchMode displayMode ->
             ( { model | displayMode = displayMode }, session, Cmd.none )
@@ -537,8 +532,9 @@ customCountryMixModal : Model -> Step -> Html Msg
 customCountryMixModal { customCountryMixInputs } step =
     let
         countryDefault =
-            step.country.electricityProcess.cch
-                |> Unit.inKgCo2e
+            step.country.electricityProcess
+                |> Process.getImpact (Impact.Trigram "cch")
+                |> Unit.impactToFloat
                 |> String.fromFloat
 
         customCountryMixInput =
@@ -752,9 +748,8 @@ view session model =
             [ class "Simulator pb-3" ]
             [ div [ class "row" ]
                 [ div [ class "col-sm-7 mb-2" ]
-                    [ h1 [] [ text "Simulateur" ]
-                    ]
-                , div [ class "col-sm-5 mb-2" ]
+                    [ h1 [] [ text "Simulateur" ] ]
+                , div [ class "col-sm-5 mb-2 d-flex align-items-center" ]
                     [ ImpactView.selector
                         { impacts = session.db.impacts
                         , selected = model.impact

@@ -43,9 +43,9 @@ type alias Query =
 
 
 type alias CustomCountryMixes =
-    { fabric : Maybe Unit.Co2e
-    , dyeing : Maybe Unit.Co2e
-    , making : Maybe Unit.Co2e
+    { fabric : Maybe Unit.Impact
+    , dyeing : Maybe Unit.Impact
+    , making : Maybe Unit.Impact
     }
 
 
@@ -102,7 +102,7 @@ defaultCustomCountryMixes =
     }
 
 
-setCustomCountryMix : Int -> Maybe Unit.Co2e -> Query -> Query
+setCustomCountryMix : Int -> Maybe Unit.Impact -> Query -> Query
 setCustomCountryMix index value ({ customCountryMixes } as query) =
     { query
         | customCountryMixes =
@@ -163,9 +163,14 @@ updateMaterial material query =
         |> updateStepCountry 0 material.defaultCountry
 
 
+setQueryImpact : Impact.Trigram -> Query -> Query
+setQueryImpact trigram query =
+    { query | impact = trigram }
+
+
 defaultQuery : Impact.Trigram -> Query
 defaultQuery =
-    -- FIXME: provide a query |> forImpact (Trigram "xxx") helper
+    -- FIXME: provide a query |> setQueryImpact (Trigram "xxx") helper
     tShirtCotonIndia
 
 
@@ -376,17 +381,17 @@ encode inputs =
 decodeCustomCountryMixes : Decoder CustomCountryMixes
 decodeCustomCountryMixes =
     Decode.map3 CustomCountryMixes
-        (Decode.field "fabric" (Decode.maybe Unit.decodeKgCo2e))
-        (Decode.field "dyeing" (Decode.maybe Unit.decodeKgCo2e))
-        (Decode.field "making" (Decode.maybe Unit.decodeKgCo2e))
+        (Decode.field "fabric" (Decode.maybe Unit.decodeImpact))
+        (Decode.field "dyeing" (Decode.maybe Unit.decodeImpact))
+        (Decode.field "making" (Decode.maybe Unit.decodeImpact))
 
 
 encodeCustomCountryMixes : CustomCountryMixes -> Encode.Value
 encodeCustomCountryMixes v =
     Encode.object
-        [ ( "fabric", v.fabric |> Maybe.map Unit.encodeKgCo2e |> Maybe.withDefault Encode.null )
-        , ( "dyeing", v.dyeing |> Maybe.map Unit.encodeKgCo2e |> Maybe.withDefault Encode.null )
-        , ( "making", v.making |> Maybe.map Unit.encodeKgCo2e |> Maybe.withDefault Encode.null )
+        [ ( "fabric", v.fabric |> Maybe.map Unit.encodeImpact |> Maybe.withDefault Encode.null )
+        , ( "dyeing", v.dyeing |> Maybe.map Unit.encodeImpact |> Maybe.withDefault Encode.null )
+        , ( "making", v.making |> Maybe.map Unit.encodeImpact |> Maybe.withDefault Encode.null )
         ]
 
 

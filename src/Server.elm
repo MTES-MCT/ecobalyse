@@ -65,9 +65,9 @@ decodeExpressQuery =
         |> Pipe.optional "recycledRatio" (Decode.maybe decodeStringFloat) Nothing
         |> Pipe.optional "customCountryMixes"
             (Decode.succeed Inputs.CustomCountryMixes
-                |> Pipe.optional "fabric" (Decode.maybe (decodeStringFloat |> Decode.map Unit.kgCo2e)) Nothing
-                |> Pipe.optional "dyeing" (Decode.maybe (decodeStringFloat |> Decode.map Unit.kgCo2e)) Nothing
-                |> Pipe.optional "making" (Decode.maybe (decodeStringFloat |> Decode.map Unit.kgCo2e)) Nothing
+                |> Pipe.optional "fabric" (Decode.maybe (decodeStringFloat |> Decode.map Unit.impactFromFloat)) Nothing
+                |> Pipe.optional "dyeing" (Decode.maybe (decodeStringFloat |> Decode.map Unit.impactFromFloat)) Nothing
+                |> Pipe.optional "making" (Decode.maybe (decodeStringFloat |> Decode.map Unit.impactFromFloat)) Nothing
             )
             Inputs.defaultCustomCountryMixes
 

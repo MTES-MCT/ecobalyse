@@ -15,10 +15,6 @@ import Quantity
 type alias Simulator =
     { inputs : Inputs
     , lifeCycle : LifeCycle
-
-    -- FIXME: remove cch and fwe, keep just impact
-    , cch : Unit.Co2e
-    , fwe : Unit.Pe
     , impact : Unit.Impact
     , transport : Transport
     }
@@ -29,10 +25,6 @@ encode v =
     Encode.object
         [ ( "inputs", Inputs.encode v.inputs )
         , ( "lifeCycle", LifeCycle.encode v.lifeCycle )
-
-        -- FIXME: remove cch and fwe, keep just impact
-        , ( "cch", Unit.encodeKgCo2e v.cch )
-        , ( "fwe", Unit.encodeKgPe v.fwe )
         , ( "impact", Unit.encodeImpact v.impact )
         , ( "transport", Transport.encode v.transport )
         ]
@@ -48,10 +40,6 @@ init db =
                     |> (\lifeCycle ->
                             { inputs = inputs
                             , lifeCycle = lifeCycle
-
-                            -- FIXME: remove cch and fwe, keep just impact
-                            , cch = Quantity.zero
-                            , fwe = Quantity.zero
                             , impact = Quantity.zero
                             , transport = Transport.default
                             }
@@ -83,13 +71,13 @@ compute db query =
         --
         -- CO2 SCORES
         --
-        -- Compute Material & Spinning step cch score
+        -- Compute Material & Spinning step impact
         |> next computeMaterialAndSpinningImpact
-        -- Compute Weaving & Knitting step cch score
+        -- Compute Weaving & Knitting step impact
         |> next computeWeavingKnittingImpact
-        -- Compute Ennoblement step cch score
+        -- Compute Ennoblement step impact
         |> nextWithDb computeDyeingImpact
-        -- Compute Making step cch score
+        -- Compute Making step impact
         |> next computeMakingImpact
         --
         -- TRANSPORTS
@@ -269,11 +257,7 @@ computeTotalTransports simulator =
 
 computeFinalImpacts : Simulator -> Simulator
 computeFinalImpacts ({ lifeCycle } as simulator) =
-    { simulator
-        | cch = LifeCycle.computeFinalCo2Score lifeCycle
-        , fwe = LifeCycle.computeFinalFwEScore lifeCycle
-        , impact = LifeCycle.computeFinalImpactScore lifeCycle
-    }
+    { simulator | impact = LifeCycle.computeFinalImpactScore lifeCycle }
 
 
 updateLifeCycle : (LifeCycle -> LifeCycle) -> Simulator -> Simulator

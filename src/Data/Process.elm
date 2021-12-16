@@ -19,22 +19,6 @@ type alias Process =
     , cat3 : Cat3
     , name : String
     , uuid : Uuid
-
-    -- Inbound:
-    --   kgCO2e per kg of material
-    -- Outbound:
-    --   kgCO2e per, depending on process type:
-    --   * for heat process: per MJ
-    --   * for elec process: per KWh
-    , cch : Unit.Co2e
-
-    -- Inbound:
-    --   kgPe per kg of material
-    -- Outbound:
-    --   kgPe per, depending on process type:
-    --   * for heat process: per MJ
-    --   * for elec process: per KWh
-    , fwe : Unit.Pe
     , impacts : Impacts
     , heat : Energy --  MJ per kg of material to process
     , elec_pppm : Float -- kWh/(pick,m) per kg of material to process
@@ -125,8 +109,6 @@ noOpProcess =
     , cat3 = NaturalMaterials
     , name = "void"
     , uuid = Uuid ""
-    , cch = Quantity.zero
-    , fwe = Quantity.zero
     , impacts = noImpacts
     , heat = Energy.megajoules 0
     , elec_pppm = 0
@@ -167,6 +149,16 @@ getImpact trigram =
     .impacts
         >> AnyDict.get trigram
         >> Maybe.withDefault Quantity.zero
+
+
+updateImpact : Impact.Trigram -> Unit.Impact -> Process -> Process
+updateImpact trigram value process =
+    { process
+        | impacts =
+            process.impacts
+                |> AnyDict.update trigram
+                    (Maybe.map (always value))
+    }
 
 
 loadWellKnown : List Process -> Result String WellKnown
@@ -391,9 +383,6 @@ decode =
         |> Pipe.required "cat3" (Decode.string |> Decode.andThen (cat3FromString >> DecodeExtra.fromResult))
         |> Pipe.required "name" Decode.string
         |> Pipe.required "uuid" (Decode.map Uuid Decode.string)
-        -- TODO: remove these next two guys after we eventually use impacts
-        |> Pipe.requiredAt [ "impacts", "cch" ] Unit.decodeKgCo2e
-        |> Pipe.requiredAt [ "impacts", "fwe" ] Unit.decodeKgPe
         |> Pipe.required "impacts" decodeImpacts
         |> Pipe.required "heat" (Decode.map Energy.megajoules Decode.float)
         |> Pipe.required "elec_pppm" Decode.float
@@ -414,6 +403,11 @@ decodeImpacts =
         Unit.decodeImpact
 
 
+encodeImpacts : Impacts -> Encode.Value
+encodeImpacts =
+    AnyDict.encode Impact.trigramToString Unit.encodeImpact
+
+
 encode : Process -> Encode.Value
 encode v =
     Encode.object
@@ -422,8 +416,7 @@ encode v =
         , ( "cat3", v.cat3 |> cat3ToString |> Encode.string )
         , ( "name", Encode.string v.name )
         , ( "uuid", v.uuid |> uuidToString |> Encode.string )
-        , ( "cch", Unit.encodeKgCo2e v.cch )
-        , ( "fwe", Unit.encodeKgPe v.fwe )
+        , ( "impacts", encodeImpacts v.impacts )
         , ( "heat", v.heat |> Energy.inMegajoules |> Encode.float )
         , ( "elec_pppm", Encode.float v.elec_pppm )
         , ( "elec", v.elec |> Energy.inMegajoules |> Encode.float )
