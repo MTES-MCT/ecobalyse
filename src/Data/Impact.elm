@@ -20,6 +20,21 @@ type Unit
     = Unit Float Trigram
 
 
+default : Impact
+default =
+    { trigram = Trigram "cch"
+    , label = "Changement climatique"
+    , unit = "kg éq. CO2"
+    }
+
+
+get : Trigram -> List Impact -> Result String Impact
+get trigram =
+    List.filter (.trigram >> (==) trigram)
+        >> List.head
+        >> Result.fromMaybe ("Impact " ++ trigramToString trigram ++ " invalide")
+
+
 decodeList : Decoder (List Impact)
 decodeList =
     let
@@ -42,6 +57,11 @@ encodeImpact v =
         , ( "label", Encode.string v.label )
         , ( "unit", Encode.string v.unit )
         ]
+
+
+unitToFloat : Unit -> Float
+unitToFloat (Unit float _) =
+    float
 
 
 trigramToString : Trigram -> String
