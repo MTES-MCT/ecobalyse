@@ -1,6 +1,7 @@
 port module DumpPresets exposing (..)
 
 import Data.Db as Db
+import Data.Impact as Impact
 import Data.Inputs as Inputs
 import Data.Simulator as Simulator
 import Json.Encode as Encode
@@ -11,6 +12,11 @@ type alias Flags =
     { jsonDb : String }
 
 
+tmpDefaultTrigram : Impact.Trigram
+tmpDefaultTrigram =
+    Impact.trigramFromString "cch"
+
+
 init : Flags -> ( (), Cmd msg )
 init { jsonDb } =
     let
@@ -19,7 +25,7 @@ init { jsonDb } =
                 |> Db.buildFromJson
                 |> Result.andThen
                     (\db ->
-                        Inputs.presets
+                        Inputs.presets tmpDefaultTrigram
                             |> List.map (Simulator.compute db)
                             |> RE.combine
                     )

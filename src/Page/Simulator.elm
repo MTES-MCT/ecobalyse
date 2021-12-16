@@ -6,6 +6,7 @@ import Browser.Events
 import Data.Country as Country
 import Data.Db exposing (Db)
 import Data.Gitbook as Gitbook
+import Data.Impact as Impact
 import Data.Inputs as Inputs
 import Data.Key as Key
 import Data.Material as Material exposing (Material)
@@ -132,7 +133,7 @@ init : Maybe Inputs.Query -> Session -> ( Model, Session, Cmd Msg )
 init maybeQuery session =
     let
         query =
-            Maybe.withDefault Inputs.defaultQuery maybeQuery
+            Maybe.withDefault (Inputs.defaultQuery Impact.defaultTrigram) maybeQuery
 
         simulator =
             Simulator.compute session.db query
@@ -227,7 +228,7 @@ update ({ db } as session) msg ({ customCountryMixInputs, query } as model) =
 
         Reset ->
             ( model, session, Cmd.none )
-                |> updateQuery Inputs.defaultQuery
+                |> updateQuery (Inputs.defaultQuery Impact.defaultTrigram)
 
         ResetCustomCountryMix stepLabel ->
             ( { model
@@ -714,7 +715,7 @@ simulatorView ({ db } as session) model ({ inputs } as simulator) =
                 , button
                     [ class "btn btn-secondary"
                     , onClick Reset
-                    , disabled (model.query == Inputs.defaultQuery)
+                    , disabled (model.query == Inputs.defaultQuery Impact.defaultTrigram)
                     ]
                     [ text "Réinitialiser le simulateur" ]
                 ]

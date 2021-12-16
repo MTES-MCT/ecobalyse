@@ -2,6 +2,7 @@ port module Server exposing (main)
 
 import Data.Country as Country
 import Data.Db as Db exposing (Db)
+import Data.Impact as Impact
 import Data.Inputs as Inputs
 import Data.Process as Process
 import Data.Product as Product
@@ -54,6 +55,7 @@ decodeExpressQuery =
                     )
     in
     Decode.succeed Inputs.Query
+        |> Pipe.required "impact" (Decode.map Impact.Trigram Decode.string)
         |> Pipe.required "mass" (decodeStringFloat |> Decode.map Mass.kilograms)
         |> Pipe.required "material" (Decode.map Process.Uuid Decode.string)
         |> Pipe.required "product" (Decode.map Product.Id Decode.string)

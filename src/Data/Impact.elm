@@ -25,6 +25,11 @@ default =
     }
 
 
+defaultTrigram : Trigram
+defaultTrigram =
+    trigramFromString "cch"
+
+
 get : Trigram -> List Impact -> Result String Impact
 get trigram =
     List.filter (.trigram >> (==) trigram)
@@ -50,10 +55,15 @@ decodeList =
 encodeImpact : Impact -> Encode.Value
 encodeImpact v =
     Encode.object
-        [ ( "trigram", v.trigram |> trigramToString |> Encode.string )
+        [ ( "trigram", encodeTrigram v.trigram )
         , ( "label", Encode.string v.label )
         , ( "unit", Encode.string v.unit )
         ]
+
+
+encodeTrigram : Trigram -> Encode.Value
+encodeTrigram =
+    trigramToString >> Encode.string
 
 
 trigramToString : Trigram -> String

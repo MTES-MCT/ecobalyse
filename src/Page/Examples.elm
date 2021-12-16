@@ -1,6 +1,7 @@
 module Page.Examples exposing (..)
 
 import Data.Country as Country
+import Data.Impact as Impact
 import Data.Inputs as Inputs
 import Data.Sample as Sample
 import Data.Session exposing (Session)
@@ -49,7 +50,7 @@ viewExamples session =
                     [ text "Faire une simulation" ]
                 ]
             ]
-        , Inputs.presets
+        , Inputs.presets Impact.defaultTrigram
             |> List.map
                 (Simulator.compute session.db
                     >> SummaryView.view

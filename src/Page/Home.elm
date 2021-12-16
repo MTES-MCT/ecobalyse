@@ -1,5 +1,6 @@
 module Page.Home exposing (..)
 
+import Data.Impact as Impact
 import Data.Inputs as Inputs
 import Data.Session exposing (Session)
 import Data.Simulator as Simulator
@@ -58,7 +59,7 @@ view session _ =
                             ]
                         ]
                     , div [ class "col-lg-5" ]
-                        [ Inputs.tShirtCotonFrance
+                        [ Inputs.tShirtCotonFrance Impact.defaultTrigram
                             |> Simulator.compute session.db
                             |> SummaryView.view
                                 { session = session

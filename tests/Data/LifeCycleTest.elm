@@ -1,6 +1,7 @@
 module Data.LifeCycleTest exposing (..)
 
 import Data.Country as Country
+import Data.Impact as Impact
 import Data.Inputs exposing (tShirtCotonFrance)
 import Data.LifeCycle as LifeCycle
 import Data.Unit as Unit
@@ -22,7 +23,7 @@ suite =
                 [ describe "computeTransportSummary"
                     [ test "should compute default distances" <|
                         \_ ->
-                            tShirtCotonFrance
+                            tShirtCotonFrance Impact.defaultTrigram
                                 |> LifeCycle.fromQuery db
                                 |> Result.andThen (LifeCycle.computeStepsTransport db)
                                 |> Result.map LifeCycle.computeTotalTransports
@@ -37,8 +38,12 @@ suite =
                                     )
                     , test "should compute custom distances" <|
                         \_ ->
+                            let
+                                query =
+                                    tShirtCotonFrance Impact.defaultTrigram
+                            in
                             LifeCycle.fromQuery db
-                                { tShirtCotonFrance
+                                { query
                                     | countries =
                                         [ Country.Code "CN"
                                         , Country.Code "FR"
