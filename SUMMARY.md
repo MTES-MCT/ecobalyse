@@ -17,6 +17,7 @@
 * [Pertes et rebut](methodologie/pertes-et-rebus.md)
 * [Hypothèses par défaut](methodologie/hypotheses-par-defaut.md)
 * [Echelle comparative](methodologie/echelle-comparative.md)
+* [Ajout d'un pays](methodologie/ajout-dun-pays.md)
 
 ***
 
