@@ -410,7 +410,8 @@ decodeQuery =
 encodeQuery : Query -> Encode.Value
 encodeQuery query =
     Encode.object
-        [ ( "mass", Encode.float (Mass.inKilograms query.mass) )
+        [ ( "impact", Encode.string (Impact.trigramToString query.impact) )
+        , ( "mass", Encode.float (Mass.inKilograms query.mass) )
         , ( "material", query.material |> Process.uuidToString |> Encode.string )
         , ( "product", query.product |> Product.idToString |> Encode.string )
         , ( "countries", Encode.list (Country.codeToString >> Encode.string) query.countries )
