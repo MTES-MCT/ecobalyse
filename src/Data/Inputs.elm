@@ -51,10 +51,8 @@ type alias CustomCountryMixes =
 
 fromQuery : Db -> Query -> Result String Inputs
 fromQuery db query =
-    -- FIXME: do we really need Inputs and Query now we have a Db? Can we only rely on Query for simplicity?
-    -- IDEA: put material, product, countries at the root of Simulator, and get rid of inputs?
     let
-        resolved =
+        lookups =
             { impact = db.impacts |> Impact.get query.impact
             , material = db.materials |> Material.findByUuid query.material
             , product = db.products |> Product.findById query.product
@@ -74,10 +72,10 @@ fromQuery db query =
             }
     in
     Result.map4 build
-        resolved.impact
-        resolved.material
-        resolved.product
-        resolved.countries
+        lookups.impact
+        lookups.material
+        lookups.product
+        lookups.countries
 
 
 toQuery : Inputs -> Query

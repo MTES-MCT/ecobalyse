@@ -12,11 +12,6 @@ type alias Flags =
     { jsonDb : String }
 
 
-tmpDefaultTrigram : Impact.Trigram
-tmpDefaultTrigram =
-    Impact.trigramFromString "cch"
-
-
 init : Flags -> ( (), Cmd msg )
 init { jsonDb } =
     let
@@ -25,7 +20,7 @@ init { jsonDb } =
                 |> Db.buildFromJson
                 |> Result.andThen
                     (\db ->
-                        Inputs.presets tmpDefaultTrigram
+                        Inputs.presets Impact.defaultTrigram
                             |> List.map (Simulator.compute db)
                             |> RE.combine
                     )
