@@ -1,15 +1,13 @@
 module Data.Process exposing (..)
 
-import Data.Impact as Impact
+import Data.Impact as Impact exposing (Impacts)
 import Data.Unit as Unit
-import Dict.Any as AnyDict exposing (AnyDict)
 import Energy exposing (Energy)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DecodeExtra
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
 import Mass exposing (Mass)
-import Quantity
 import Result.Extra as RE
 
 
@@ -30,10 +28,6 @@ type alias Process =
 
 type Uuid
     = Uuid String
-
-
-type alias Impacts =
-    AnyDict String Impact.Trigram Unit.Impact
 
 
 type Cat1
@@ -109,18 +103,13 @@ noOpProcess =
     , cat3 = NaturalMaterials
     , name = "void"
     , uuid = Uuid ""
-    , impacts = noImpacts
+    , impacts = Impact.noImpacts
     , heat = Energy.megajoules 0
     , elec_pppm = 0
     , elec = Energy.megajoules 0
     , waste = Mass.kilograms 0
     , alias = Nothing
     }
-
-
-noImpacts : Impacts
-noImpacts =
-    AnyDict.fromList (always "") []
 
 
 findByUuid : Uuid -> List Process -> Result String Process
@@ -146,9 +135,7 @@ findByAlias alias =
 
 getImpact : Impact.Trigram -> Process -> Unit.Impact
 getImpact trigram =
-    .impacts
-        >> AnyDict.get trigram
-        >> Maybe.withDefault Quantity.zero
+    .impacts >> Impact.getImpact trigram
 
 
 updateImpact : Impact.Trigram -> Unit.Impact -> Process -> Process
@@ -156,8 +143,7 @@ updateImpact trigram value process =
     { process
         | impacts =
             process.impacts
-                |> AnyDict.update trigram
-                    (Maybe.map (always value))
+                |> Impact.updateImpact trigram value
     }
 
 
@@ -383,7 +369,7 @@ decode =
         |> Pipe.required "cat3" (Decode.string |> Decode.andThen (cat3FromString >> DecodeExtra.fromResult))
         |> Pipe.required "name" Decode.string
         |> Pipe.required "uuid" (Decode.map Uuid Decode.string)
-        |> Pipe.required "impacts" decodeImpacts
+        |> Pipe.required "impacts" Impact.decodeImpacts
         |> Pipe.required "heat" (Decode.map Energy.megajoules Decode.float)
         |> Pipe.required "elec_pppm" Decode.float
         |> Pipe.required "elec" (Decode.map Energy.megajoules Decode.float)
@@ -396,18 +382,6 @@ decodeList =
     Decode.list decode
 
 
-decodeImpacts : Decoder Impacts
-decodeImpacts =
-    AnyDict.decode (\str _ -> Impact.trg str)
-        Impact.toString
-        Unit.decodeImpact
-
-
-encodeImpacts : Impacts -> Encode.Value
-encodeImpacts =
-    AnyDict.encode Impact.toString Unit.encodeImpact
-
-
 encode : Process -> Encode.Value
 encode v =
     Encode.object
@@ -416,7 +390,7 @@ encode v =
         , ( "cat3", v.cat3 |> cat3ToString |> Encode.string )
         , ( "name", Encode.string v.name )
         , ( "uuid", v.uuid |> uuidToString |> Encode.string )
-        , ( "impacts", encodeImpacts v.impacts )
+        , ( "impacts", Impact.encodeImpacts v.impacts )
         , ( "heat", v.heat |> Energy.inMegajoules |> Encode.float )
         , ( "elec_pppm", Encode.float v.elec_pppm )
         , ( "elec", v.elec |> Energy.inMegajoules |> Encode.float )

@@ -1,7 +1,7 @@
 module Views.BarChart exposing (..)
 
 import Array
-import Data.Impact exposing (Impact)
+import Data.Impact as Impact
 import Data.Simulator exposing (Simulator)
 import Data.Step as Step
 import Data.Unit as Unit
@@ -12,7 +12,7 @@ import Views.PieChart as PieChart
 
 
 type alias Config =
-    { impact : Impact
+    { impact : Impact.Definition
     , simulator : Simulator
     }
 

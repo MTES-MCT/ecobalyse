@@ -4,7 +4,7 @@ import Data.Country as Country exposing (Country)
 import Data.Db exposing (Db)
 import Data.Formula as Formula
 import Data.Gitbook as Gitbook exposing (Path(..))
-import Data.Impact as Impact exposing (Impact)
+import Data.Impact as Impact
 import Data.Inputs exposing (Inputs)
 import Data.Process as Process exposing (Process)
 import Data.Transport as Transport exposing (Transport, default, defaultInland)
@@ -126,7 +126,7 @@ countryMixToString =
 Docs: <https://fabrique-numerique.gitbook.io/wikicarbone/methodologie/transport>
 
 -}
-computeTransports : Db -> Impact -> Step -> Step -> Result String Step
+computeTransports : Db -> Impact.Definition -> Step -> Step -> Result String Step
 computeTransports db impact next ({ processInfo } as current) =
     db.processes
         |> Process.loadWellKnown
@@ -160,7 +160,7 @@ computeTransports db impact next ({ processInfo } as current) =
             )
 
 
-computeTransportImpacts : Impact -> Process.WellKnown -> Process -> Mass -> Transport -> Transport
+computeTransportImpacts : Impact.Definition -> Process.WellKnown -> Process -> Mass -> Transport -> Transport
 computeTransportImpacts impact { seaTransport, airTransport } roadProcess mass { road, sea, air } =
     let
         ( roadImpact, seaImpact, airImpact ) =

@@ -3,7 +3,7 @@ module Views.Step exposing (..)
 import Data.Country as Country
 import Data.Db exposing (Db)
 import Data.Gitbook as Gitbook
-import Data.Impact exposing (Impact)
+import Data.Impact as Impact
 import Data.Inputs exposing (Inputs)
 import Data.Step as Step exposing (Step)
 import Data.Unit as Unit
@@ -22,7 +22,7 @@ type alias Config msg =
     { db : Db
     , inputs : Inputs
     , detailed : Bool
-    , impact : Impact
+    , impact : Impact.Definition
     , index : Int
     , current : Step
     , next : Maybe Step

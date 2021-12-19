@@ -11,7 +11,7 @@ import Length exposing (Length)
 import Mass exposing (Mass)
 
 
-formatImpact : Impact.Impact -> Unit.Impact -> Html msg
+formatImpact : Impact.Definition -> Unit.Impact -> Html msg
 formatImpact { unit } =
     Unit.impactToFloat >> formatRichFloat 2 unit
 

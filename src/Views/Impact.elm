@@ -1,13 +1,13 @@
 module Views.Impact exposing (..)
 
-import Data.Impact as Impact exposing (Impact)
+import Data.Impact as Impact
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
 
 
 type alias Config msg =
-    { impacts : List Impact
+    { impacts : List Impact.Definition
     , selected : Impact.Trigram
     , switch : Impact.Trigram -> msg
     }

@@ -6,7 +6,7 @@ import Browser.Events
 import Data.Country as Country
 import Data.Db exposing (Db)
 import Data.Gitbook as Gitbook
-import Data.Impact as Impact exposing (Impact)
+import Data.Impact as Impact
 import Data.Inputs as Inputs
 import Data.Key as Key
 import Data.Material as Material exposing (Material)
@@ -45,7 +45,7 @@ type alias Model =
     , displayMode : DisplayMode
     , modal : ModalContent
     , customCountryMixInputs : CustomCountryMixInputs
-    , impact : Impact
+    , impact : Impact.Definition
     }
 
 
@@ -145,7 +145,7 @@ init maybeQuery ({ db } as session) =
       , displayMode = SimpleMode
       , modal = NoModal
       , customCountryMixInputs = toCustomCountryMixFormInputs query.customCountryMixes
-      , impact = db.impacts |> Impact.get query.impact |> Result.withDefault Impact.default
+      , impact = db.impacts |> Impact.getDefinition query.impact |> Result.withDefault Impact.default
       }
     , case simulator of
         Err error ->
@@ -254,7 +254,7 @@ update ({ db } as session) msg ({ customCountryMixInputs, query } as model) =
             ( { model
                 | impact =
                     db.impacts
-                        |> Impact.get trigram
+                        |> Impact.getDefinition trigram
                         |> Result.withDefault Impact.default
               }
             , session

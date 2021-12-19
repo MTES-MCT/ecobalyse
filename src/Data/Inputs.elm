@@ -4,7 +4,7 @@ import Array
 import Base64
 import Data.Country as Country exposing (Country)
 import Data.Db exposing (Db)
-import Data.Impact as Impact exposing (Impact)
+import Data.Impact as Impact
 import Data.Material as Material exposing (Material)
 import Data.Process as Process
 import Data.Product as Product exposing (Product)
@@ -16,7 +16,7 @@ import Mass exposing (Mass)
 
 
 type alias Inputs =
-    { impact : Impact
+    { impact : Impact.Definition
     , mass : Mass
     , material : Material
     , product : Product
@@ -53,7 +53,7 @@ fromQuery : Db -> Query -> Result String Inputs
 fromQuery db query =
     let
         lookups =
-            { impact = db.impacts |> Impact.get query.impact
+            { impact = db.impacts |> Impact.getDefinition query.impact
             , material = db.materials |> Material.findByUuid query.material
             , product = db.products |> Product.findById query.product
             , countries = db.countries |> Country.findByCodes query.countries
@@ -364,7 +364,7 @@ presets trigram =
 encode : Inputs -> Encode.Value
 encode inputs =
     Encode.object
-        [ ( "impact", Impact.encodeImpact inputs.impact )
+        [ ( "impact", Impact.encodeDefinition inputs.impact )
         , ( "mass", Encode.float (Mass.inKilograms inputs.mass) )
         , ( "material", Material.encode inputs.material )
         , ( "product", Product.encode inputs.product )

@@ -1,7 +1,7 @@
 module Data.Db exposing (..)
 
 import Data.Country as Country exposing (Country)
-import Data.Impact as Impact exposing (Impact)
+import Data.Impact as Impact
 import Data.Material as Material exposing (Material)
 import Data.Process as Process exposing (Process)
 import Data.Product as Product exposing (Product)
@@ -11,7 +11,7 @@ import Json.Decode as Decode exposing (Decoder)
 
 type alias Db =
     { processes : List Process
-    , impacts : List Impact
+    , impacts : List Impact.Definition
     , countries : List Country
     , materials : List Material
     , products : List Product

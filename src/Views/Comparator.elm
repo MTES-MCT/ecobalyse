@@ -4,7 +4,7 @@ import Chart as C
 import Chart.Attributes as CA
 import Data.Country as Country
 import Data.Db exposing (Db)
-import Data.Impact exposing (Impact)
+import Data.Impact as Impact
 import Data.Inputs as Inputs exposing (Inputs)
 import Data.LifeCycle as LifeCycle
 import Data.Session exposing (Session)
@@ -25,7 +25,7 @@ import Views.Format as Format
 
 type alias Config =
     { session : Session
-    , impact : Impact
+    , impact : Impact.Definition
     , simulator : Simulator
     }
 
@@ -263,14 +263,14 @@ fillLabels entries =
         |> List.map createLabel
 
 
-formatLabel : Impact -> Float -> { x : String, y : String }
+formatLabel : Impact.Definition -> Float -> { x : String, y : String }
 formatLabel { unit } num =
     { x = Format.formatFloat 2 num ++ "\u{202F}" ++ unit
     , y = Format.formatFloat 2 num
     }
 
 
-chart : Impact -> List Entry -> Html msg
+chart : Impact.Definition -> List Entry -> Html msg
 chart impact entries =
     let
         knitted =

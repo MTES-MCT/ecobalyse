@@ -2,7 +2,7 @@ module Request.Db exposing (..)
 
 import Data.Country as Country exposing (Country)
 import Data.Db exposing (Db)
-import Data.Impact as Impact exposing (Impact)
+import Data.Impact as Impact
 import Data.Material as Material exposing (Material)
 import Data.Process as Process exposing (Process)
 import Data.Product as Product exposing (Product)
@@ -28,7 +28,7 @@ getJson decoder file =
 
 buildFromWebData :
     List Process
-    -> WebData (List Impact)
+    -> WebData (List Impact.Definition)
     -> WebData (List Country)
     -> WebData (List Material)
     -> WebData (List Product)

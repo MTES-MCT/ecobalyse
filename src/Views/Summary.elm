@@ -1,6 +1,6 @@
 module Views.Summary exposing (..)
 
-import Data.Impact exposing (Impact)
+import Data.Impact as Impact
 import Data.Inputs as Inputs
 import Data.LifeCycle as LifeCycle
 import Data.Material as Material
@@ -20,7 +20,7 @@ import Views.Transport as TransportView
 
 type alias Config =
     { session : Session
-    , impact : Impact
+    , impact : Impact.Definition
     , reusable : Bool
     }
 

@@ -2,7 +2,7 @@ module Data.LifeCycle exposing (..)
 
 import Array exposing (Array)
 import Data.Db exposing (Db)
-import Data.Impact exposing (Impact)
+import Data.Impact as Impact
 import Data.Inputs as Inputs exposing (Inputs)
 import Data.Step as Step exposing (Step)
 import Data.Transport as Transport exposing (Transport)
@@ -16,7 +16,7 @@ type alias LifeCycle =
     Array Step
 
 
-computeStepsTransport : Db -> Impact -> LifeCycle -> Result String LifeCycle
+computeStepsTransport : Db -> Impact.Definition -> LifeCycle -> Result String LifeCycle
 computeStepsTransport db impact lifeCycle =
     lifeCycle
         |> Array.indexedMap
