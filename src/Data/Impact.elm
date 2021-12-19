@@ -43,7 +43,7 @@ decodeList =
         decodeDictValue =
             Decode.map2 (\label unit -> { label = label, unit = unit })
                 (Decode.field "label_fr" Decode.string)
-                (Decode.field "unit_fr" Decode.string)
+                (Decode.field "short_unit" Decode.string)
 
         toImpact ( key, { label, unit } ) =
             Impact (trigramFromString key) label unit

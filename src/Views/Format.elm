@@ -1,6 +1,6 @@
 module Views.Format exposing (..)
 
-import Data.Impact as Impact2
+import Data.Impact as Impact
 import Data.Unit as Unit
 import Energy exposing (Energy)
 import FormatNumber
@@ -11,7 +11,7 @@ import Length exposing (Length)
 import Mass exposing (Mass)
 
 
-formatImpact : Impact2.Impact -> Unit.Impact -> Html msg
+formatImpact : Impact.Impact -> Unit.Impact -> Html msg
 formatImpact { unit } =
     Unit.impactToFloat >> formatRichFloat 2 unit
 

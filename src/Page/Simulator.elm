@@ -6,7 +6,7 @@ import Browser.Events
 import Data.Country as Country
 import Data.Db exposing (Db)
 import Data.Gitbook as Gitbook
-import Data.Impact as Impact
+import Data.Impact as Impact exposing (Impact)
 import Data.Inputs as Inputs
 import Data.Key as Key
 import Data.Material as Material exposing (Material)
@@ -45,7 +45,7 @@ type alias Model =
     , displayMode : DisplayMode
     , modal : ModalContent
     , customCountryMixInputs : CustomCountryMixInputs
-    , impact : Impact.Trigram
+    , impact : Impact
     }
 
 
@@ -130,14 +130,14 @@ validateCustomCountryMixInput stepLabel =
 
 
 init : Maybe Inputs.Query -> Session -> ( Model, Session, Cmd Msg )
-init maybeQuery session =
+init maybeQuery ({ db } as session) =
     let
         query =
             maybeQuery
                 |> Maybe.withDefault (Inputs.defaultQuery Impact.defaultTrigram)
 
         simulator =
-            Simulator.compute session.db query
+            Simulator.compute db query
     in
     ( { simulator = simulator
       , massInput = query.mass |> Mass.inKilograms |> String.fromFloat
@@ -145,7 +145,7 @@ init maybeQuery session =
       , displayMode = SimpleMode
       , modal = NoModal
       , customCountryMixInputs = toCustomCountryMixFormInputs query.customCountryMixes
-      , impact = query.impact
+      , impact = db.impacts |> Impact.get query.impact |> Result.withDefault Impact.default
       }
     , case simulator of
         Err error ->
@@ -251,7 +251,15 @@ update ({ db } as session) msg ({ customCountryMixInputs, query } as model) =
                 |> updateQuery (updateQueryCustomCountryMix stepLabel (Just customCountryMix) query)
 
         SwitchImpact trigram ->
-            ( { model | impact = trigram }, session, Cmd.none )
+            ( { model
+                | impact =
+                    db.impacts
+                        |> Impact.get trigram
+                        |> Result.withDefault Impact.default
+              }
+            , session
+            , Cmd.none
+            )
                 |> updateQuery { query | impact = trigram }
 
         SwitchMode displayMode ->
@@ -443,9 +451,7 @@ lifeCycleStepsView db { displayMode, impact } simulator =
                     { db = db
                     , inputs = simulator.inputs
                     , detailed = displayMode == DetailedMode
-
-                    -- FIXME: we should rather render an error than defaulting here
-                    , impact = db.impacts |> Impact.get impact |> Result.withDefault Impact.default
+                    , impact = impact
                     , index = index
                     , current = current
                     , next = Array.get (index + 1) simulator.lifeCycle
@@ -728,9 +734,7 @@ simulatorView ({ db } as session) model ({ inputs } as simulator) =
                     [ model.simulator
                         |> SummaryView.view
                             { session = session
-
-                            -- FIXME: we should rather render an error than defaulting here
-                            , impact = db.impacts |> Impact.get model.impact |> Result.withDefault Impact.default
+                            , impact = model.impact
                             , reusable = False
                             }
                     ]
@@ -752,7 +756,7 @@ view session model =
                 , div [ class "col-sm-5 mb-2 d-flex align-items-center" ]
                     [ ImpactView.selector
                         { impacts = session.db.impacts
-                        , selected = model.impact
+                        , selected = model.impact.trigram
                         , switch = SwitchImpact
                         }
                     ]
