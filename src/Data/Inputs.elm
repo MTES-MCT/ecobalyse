@@ -396,7 +396,7 @@ encodeCustomCountryMixes v =
 decodeQuery : Decoder Query
 decodeQuery =
     Decode.succeed Query
-        |> Pipe.required "impact" (Decode.map Impact.Trigram Decode.string)
+        |> Pipe.required "impact" Impact.decodeTrigram
         |> Pipe.required "mass" (Decode.map Mass.kilograms Decode.float)
         |> Pipe.required "material" (Decode.map Process.Uuid Decode.string)
         |> Pipe.required "product" (Decode.map Product.Id Decode.string)
@@ -410,7 +410,7 @@ decodeQuery =
 encodeQuery : Query -> Encode.Value
 encodeQuery query =
     Encode.object
-        [ ( "impact", Encode.string (Impact.trigramToString query.impact) )
+        [ ( "impact", Encode.string (Impact.toString query.impact) )
         , ( "mass", Encode.float (Mass.inKilograms query.mass) )
         , ( "material", query.material |> Process.uuidToString |> Encode.string )
         , ( "product", query.product |> Product.idToString |> Encode.string )

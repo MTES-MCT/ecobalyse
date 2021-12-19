@@ -21,11 +21,11 @@ selector { impacts, selected, switch } =
             (\({ trigram, label } as impact) ->
                 option
                     [ Attr.selected (selected == impact.trigram)
-                    , value <| Impact.trigramToString trigram
+                    , value <| Impact.toString trigram
                     ]
                     [ text label ]
             )
         |> select
             [ class "form-select"
-            , onInput (Impact.trigramFromString >> switch)
+            , onInput (Impact.trg >> switch)
             ]

@@ -62,9 +62,9 @@ suite =
                             , countryElecProcess =
                                 { noOpProcess
                                     | impacts =
-                                        AnyDict.fromList Impact.trigramToString
-                                            [ ( Impact.Trigram "cch", Unit.impactFromFloat 0.5 )
-                                            , ( Impact.Trigram "fwe", Unit.impactFromFloat 0.5 )
+                                        AnyDict.fromList Impact.toString
+                                            [ ( Impact.trg "cch", Unit.impactFromFloat 0.5 )
+                                            , ( Impact.trg "fwe", Unit.impactFromFloat 0.5 )
                                             ]
                                 }
                             }
@@ -89,9 +89,9 @@ suite =
                             , countryElecProcess =
                                 { noOpProcess
                                     | impacts =
-                                        AnyDict.fromList Impact.trigramToString
-                                            [ ( Impact.Trigram "cch", Unit.impactFromFloat 0.1 )
-                                            , ( Impact.Trigram "fwe", Unit.impactFromFloat 0.5 )
+                                        AnyDict.fromList Impact.toString
+                                            [ ( Impact.trg "cch", Unit.impactFromFloat 0.1 )
+                                            , ( Impact.trg "fwe", Unit.impactFromFloat 0.5 )
                                             ]
                                 }
                             , ppm = 400
@@ -118,9 +118,9 @@ suite =
                             , countryElecProcess =
                                 { noOpProcess
                                     | impacts =
-                                        AnyDict.fromList Impact.trigramToString
-                                            [ ( Impact.Trigram "cch", Unit.impactFromFloat 0.2 )
-                                            , ( Impact.Trigram "fwe", Unit.impactFromFloat 0.5 )
+                                        AnyDict.fromList Impact.toString
+                                            [ ( Impact.trg "cch", Unit.impactFromFloat 0.2 )
+                                            , ( Impact.trg "fwe", Unit.impactFromFloat 0.5 )
                                             ]
                                 }
                             }

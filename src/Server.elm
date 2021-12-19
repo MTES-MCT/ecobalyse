@@ -55,7 +55,7 @@ decodeExpressQuery =
                     )
     in
     Decode.succeed Inputs.Query
-        |> Pipe.optional "impact" (Decode.map Impact.Trigram Decode.string) (Impact.Trigram "cch")
+        |> Pipe.optional "impact" Impact.decodeTrigram (Impact.trg "cch")
         |> Pipe.required "mass" (decodeStringFloat |> Decode.map Mass.kilograms)
         |> Pipe.required "material" (Decode.map Process.Uuid Decode.string)
         |> Pipe.required "product" (Decode.map Product.Id Decode.string)

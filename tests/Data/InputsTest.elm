@@ -14,7 +14,7 @@ asTest label =
 
 sampleQuery : Inputs.Query
 sampleQuery =
-    Inputs.jupeCircuitAsie (Impact.Trigram "fwe")
+    Inputs.jupeCircuitAsie (Impact.trg "fwe")
 
 
 suite : Test

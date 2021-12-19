@@ -398,14 +398,14 @@ decodeList =
 
 decodeImpacts : Decoder Impacts
 decodeImpacts =
-    AnyDict.decode (\str _ -> Impact.trigramFromString str)
-        Impact.trigramToString
+    AnyDict.decode (\str _ -> Impact.trg str)
+        Impact.toString
         Unit.decodeImpact
 
 
 encodeImpacts : Impacts -> Encode.Value
 encodeImpacts =
-    AnyDict.encode Impact.trigramToString Unit.encodeImpact
+    AnyDict.encode Impact.toString Unit.encodeImpact
 
 
 encode : Process -> Encode.Value

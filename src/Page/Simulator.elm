@@ -539,7 +539,7 @@ customCountryMixModal { customCountryMixInputs } step =
     let
         countryDefault =
             step.country.electricityProcess
-                |> Process.getImpact (Impact.Trigram "cch")
+                |> Process.getImpact (Impact.trg "cch")
                 |> Unit.impactToFloat
                 |> String.fromFloat
 

@@ -37,11 +37,11 @@ convert sectionOrSample =
         Sample.Sample title { query, cch, fwe } ->
             describe title
                 [ query
-                    |> setQueryImpact (Impact.Trigram "cch")
+                    |> setQueryImpact (Impact.trg "cch")
                     |> expectImpact (Unit.impactToFloat cch)
                     |> asTest "climate change"
                 , query
-                    |> setQueryImpact (Impact.Trigram "fwe")
+                    |> setQueryImpact (Impact.trg "fwe")
                     |> expectImpact (Unit.impactToFloat fwe)
                     |> asTest "freshwater eutrophication"
                 ]

@@ -108,7 +108,7 @@ getCountryElectricityProcess { country, customCountryMix } =
     case customCountryMix of
         Just mix ->
             electricityProcess
-                |> Process.updateImpact (Impact.Trigram "cch") mix
+                |> Process.updateImpact (Impact.trg "cch") mix
 
         Nothing ->
             electricityProcess

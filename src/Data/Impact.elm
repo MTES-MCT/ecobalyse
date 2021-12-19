@@ -19,22 +19,22 @@ type alias Impact =
 
 default : Impact
 default =
-    { trigram = Trigram "cch"
+    { trigram = defaultTrigram
     , label = "Changement climatique"
-    , unit = "kg éq. CO2"
+    , unit = "kgCO₂e"
     }
 
 
 defaultTrigram : Trigram
 defaultTrigram =
-    trigramFromString "cch"
+    trg "cch"
 
 
 get : Trigram -> List Impact -> Result String Impact
 get trigram =
     List.filter (.trigram >> (==) trigram)
         >> List.head
-        >> Result.fromMaybe ("Impact " ++ trigramToString trigram ++ " invalide")
+        >> Result.fromMaybe ("Impact " ++ toString trigram ++ " invalide")
 
 
 decodeList : Decoder (List Impact)
@@ -46,10 +46,15 @@ decodeList =
                 (Decode.field "short_unit" Decode.string)
 
         toImpact ( key, { label, unit } ) =
-            Impact (trigramFromString key) label unit
+            Impact (trg key) label unit
     in
     Decode.dict decodeDictValue
         |> Decode.andThen (Dict.toList >> List.map toImpact >> Decode.succeed)
+
+
+decodeTrigram : Decoder Trigram
+decodeTrigram =
+    Decode.map Trigram Decode.string
 
 
 encodeImpact : Impact -> Encode.Value
@@ -63,14 +68,14 @@ encodeImpact v =
 
 encodeTrigram : Trigram -> Encode.Value
 encodeTrigram =
-    trigramToString >> Encode.string
+    toString >> Encode.string
 
 
-trigramToString : Trigram -> String
-trigramToString (Trigram string) =
+toString : Trigram -> String
+toString (Trigram string) =
     string
 
 
-trigramFromString : String -> Trigram
-trigramFromString =
+trg : String -> Trigram
+trg =
     Trigram
