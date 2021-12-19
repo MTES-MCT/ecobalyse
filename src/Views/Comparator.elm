@@ -336,6 +336,7 @@ chart impact entries =
             [ C.binLabels (.score >> formatLabel impact >> .x)
                 [ CA.moveDown 23
                 , CA.color chartTextColor
+                , CA.rotate 12
                 , CA.attrs [ SA.fontSize "12" ]
                 ]
             ]
@@ -365,5 +366,5 @@ chart impact entries =
         |> C.chart
             [ CA.height 250
             , CA.width 550
-            , CA.margin { top = 22, bottom = 10, left = 35, right = -10 }
+            , CA.margin { top = 22, bottom = 10, left = 40, right = 0 }
             ]
