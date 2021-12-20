@@ -47,6 +47,10 @@ En s'appuyant sur la documentation adossée au projet de PEFCR Apparel & Footwea
 * normalisation de chacun des impacts
 * pondération des impacts normalisés pour obtenir le score
 
+{% hint style="warning" %}
+Dans un premier temps, les impacts suivants ne sont pas pris en compte car ils n'apparaissent pas dans la base Impacts : épuisement des ressources en eau, ecotoxicité eau douce, toxicité humaine (cancer), toxicité humaine (non cancer).
+{% endhint %}
+
 ### Normalisation
 
 $$
