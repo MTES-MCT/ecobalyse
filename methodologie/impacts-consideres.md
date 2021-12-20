@@ -39,3 +39,31 @@ La base Impacts ne couvre en revanche pas les impacts suivants du référentiel 
 | Epuisement des ressources en eau                    |
 | Toxicité humaine, cancer                            |
 | Toxicité humaine, non cancer                        |
+
+## Score PEF
+
+En s'appuyant sur la documentation adossée au projet de PEFCR Apparel & Footwear, tel que mis en consultation à l'été 2021, un calcul d'un score PEF est réalisé, suite aux opérations suivantes :&#x20;
+
+* normalisation de chacun des impacts
+* pondération des impacts normalisés pour obtenir le score
+
+### Normalisation
+
+$$
+ImpactNormalisé = Impact / CoefNormalisation
+$$
+
+### Pondération
+
+$$
+ScorePEF = Somme (ImpactNormalisé * CoefPondération)
+$$
+
+### Coefficients
+
+| Impact | Coef de normalisation | Coef de pondération |
+| ------ | --------------------- | ------------------- |
+|        |                       |                     |
+|        |                       |                     |
+|        |                       |                     |
+
