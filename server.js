@@ -16,10 +16,9 @@ elmApp.ports.output.subscribe(({ status, body, jsResponseHandler }) => {
   return jsResponseHandler({ status, body });
 });
 
-app.get("/", ({ query }, res) => {
-  // sample query string:
-  // http://localhost:3000/?mass=0.17&product=13&material=f211bbdb-415c-46fd-be4d-ddf199575b44&countries[]=CN&countries[]=FR&countries[]=FR&countries[]=FR&countries[]=FR&dyeingWeighting=&airTransportRatio=&recycledRatio=&customCountryMixes[fabric]=&customCountryMixes[dyeing]=&customCountryMixes[making]=
+app.get(/(.*)/, ({ query, path }, res) => {
   elmApp.ports.input.send({
+    expressPath: path,
     expressQuery: query,
     jsResponseHandler: ({ status, body }) => {
       res.status(status).send(body);
