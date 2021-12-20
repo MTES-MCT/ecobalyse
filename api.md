@@ -17,6 +17,10 @@ Cette API est en version alpha, l'implémentation et le contrat d'interface est 
 Effectue une simulation à partir des paramètres fournis.
 {% endswagger-description %}
 
+{% swagger-parameter in="query" name="impact" type="String" %}
+Code de l'impact étudié (TODO: lien vers la page listant les 15 impacts et leur trigramme)
+{% endswagger-parameter %}
+
 {% swagger-parameter in="query" name="mass" type="Float" required="true" %}
 Masse du produit en kg
 {% endswagger-parameter %}
