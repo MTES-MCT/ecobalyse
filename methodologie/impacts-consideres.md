@@ -65,9 +65,22 @@ $$
 
 ### Coefficients
 
-| Impact | Coef de normalisation | Coef de pondération |
-| ------ | --------------------- | ------------------- |
-|        |                       |                     |
-|        |                       |                     |
-|        |                       |                     |
+| Impact                                              | Coef de normalisation                                                | Coef de pondération                 |
+| --------------------------------------------------- | -------------------------------------------------------------------- | ----------------------------------- |
+| Changement climatique                               | 8,10E+03 kg CO2e                                                     | 21,06 %                             |
+| Appauvrissement de la couche d'ozone                | 5,36E-02 kg CFC-11                                                   | 6,31 %                              |
+| Toxicité humaine (cancer)                           | <p>1,69E-05<br>Non pris en compte</p>                                | <p>2,13 %<br>Non pris en compte</p> |
+| Toxicité humaine (non cancer)                       | <p>2,30E-04<br>Non pris en compte</p>                                | <p>1,84 %<br>Non pris en compte</p> |
+| Particules                                          | 5,95E-04 diseases incicences                                         | 8,96 %                              |
+| Radiations ionisantes                               | 4,22E+03 kBq U-235 eq                                                | 5,01 %                              |
+| Formation d'ozone photochimique                     | 4,01E+01 kg NMVOC eq                                                 | 4,78 %                              |
+| Acidification                                       | 5,56E+01 mol H+eq                                                    | 6,20 %                              |
+| Eutrophisation terrestre                            | 1,77E+02 mol N eq                                                    | 3,71 %                              |
+| Eutrophisation eaux douces                          | 1,61E+00 kg P eq                                                     | 2,80 %                              |
+| Eutrophisation marine                               | 1,95E+01 kg N eq                                                     | 2,96 %                              |
+| Utilisation des sols                                | 8,19E+05 pt                                                          | 7,94 %                              |
+| Ecotoxicité eaux douces                             | <p>4,27E+04 CTUe<br>Non pris en compte</p>                           | <p>1,92 %<br>Non pris en compte</p> |
+| Epuisement des ressources en eau                    | <p>1,15E+04 m3 water eq of deprived water <br>Non pris en compte</p> | <p>8,51 %<br>Non pris en compte</p> |
+| Utilisation de ressources fossiles                  | 6,50E+04 MJ                                                          | 8,32 %                              |
+| Utilisation des ressources minérales et métalliques | 6,36E-02 kg Sb eq                                                    | 7,55 %                              |
 
