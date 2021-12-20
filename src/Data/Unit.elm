@@ -9,87 +9,36 @@ import Quantity exposing (Quantity(..))
 
 
 
--- Climate change (Co2)
+-- Abstract Impact
 
 
-type KgCo2e
-    = KgCo2e
+type ImpactUnit
+    = ImpactUnit
 
 
-type alias Co2e =
-    Quantity Float KgCo2e
+type alias Impact =
+    Quantity Float ImpactUnit
 
 
-kgCo2e : Float -> Co2e
-kgCo2e value =
+impactFromFloat : Float -> Impact
+impactFromFloat value =
     Quantity value
 
 
-inGramsCo2e : Co2e -> Float
-inGramsCo2e (Quantity value) =
-    value * 1000
-
-
-inKgCo2e : Co2e -> Float
-inKgCo2e (Quantity value) =
+impactToFloat : Impact -> Float
+impactToFloat (Quantity value) =
     value
 
 
-inTonsCo2e : Co2e -> Float
-inTonsCo2e (Quantity value) =
-    value / 1000
+decodeImpact : Decoder Impact
+decodeImpact =
+    Decode.float
+        |> Decode.andThen (impactFromFloat >> Decode.succeed)
 
 
-decodeKgCo2e : Decoder Co2e
-decodeKgCo2e =
-    Decode.float |> Decode.andThen (kgCo2e >> Decode.succeed)
-
-
-encodeKgCo2e : Co2e -> Encode.Value
-encodeKgCo2e =
-    inKgCo2e >> Encode.float
-
-
-
--- Freshwater eutrophication (P)
-
-
-type KgPe
-    = KgPe
-
-
-type alias Pe =
-    Quantity Float KgPe
-
-
-kgPe : Float -> Pe
-kgPe value =
-    Quantity value
-
-
-inGramsPe : Pe -> Float
-inGramsPe (Quantity value) =
-    value * 1000
-
-
-inKgPe : Pe -> Float
-inKgPe (Quantity value) =
-    value
-
-
-inTonsPe : Pe -> Float
-inTonsPe (Quantity value) =
-    value / 1000
-
-
-decodeKgPe : Decoder Pe
-decodeKgPe =
-    Decode.float |> Decode.andThen (kgPe >> Decode.succeed)
-
-
-encodeKgPe : Pe -> Encode.Value
-encodeKgPe =
-    inKgPe >> Encode.float
+encodeImpact : Impact -> Encode.Value
+encodeImpact =
+    impactToFloat >> Encode.float
 
 
 

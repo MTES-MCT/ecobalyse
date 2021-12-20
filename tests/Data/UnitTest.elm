@@ -13,80 +13,68 @@ asTest label =
     always >> test label
 
 
-expectKgCo2Float : Float -> Unit.Co2e -> Expectation
-expectKgCo2Float value co2 =
-    co2 |> Unit.inKgCo2e |> Expect.within (Expect.Absolute 0.01) value
+expectImpactFloat : Float -> Unit.Impact -> Expectation
+expectImpactFloat value =
+    Unit.impactToFloat >> Expect.within (Expect.Absolute 0.01) value
 
 
 suite : Test
 suite =
     describe "Data.Unit"
-        [ describe "Unit.inGramsCo2e"
-            [ Unit.kgCo2e 1
-                |> Unit.inGramsCo2e
-                |> Expect.equal 1000
-                |> asTest "inGramsCo2e should convert Grams"
-            ]
-        , describe "Unit.inKgCo2e"
-            [ Unit.kgCo2e 1
-                |> Unit.inKgCo2e
+        [ describe "Unit.impactFromFloat"
+            [ Unit.impactFromFloat 1
+                |> Unit.impactToFloat
                 |> Expect.equal 1
-                |> asTest "inKgCo2e should convert Kg"
-            ]
-        , describe "Unit.inTonsCo2e"
-            [ Unit.kgCo2e 1
-                |> Unit.inTonsCo2e
-                |> Expect.within (Expect.Absolute 0.0001) 0.001
-                |> asTest "inTonsCo2e should convert Tons"
+                |> asTest "should convert impact to float and the other way around"
             ]
         , describe "Unit.forKg"
             [ Mass.kilograms 0.17
-                |> Unit.forKg (Unit.kgCo2e 0.2)
-                |> Expect.equal (Unit.kgCo2e 0.034)
-                |> asTest "should compute kgCo2e for mass"
+                |> Unit.forKg (Unit.impactFromFloat 0.2)
+                |> Expect.equal (Unit.impactFromFloat 0.034)
+                |> asTest "should compute impact for mass"
             , Mass.grams 170
-                |> Unit.forKg (Unit.kgCo2e 0.2)
-                |> Expect.equal (Unit.kgCo2e 0.034)
-                |> asTest "should compute kgCo2e for mass from other scale unit"
+                |> Unit.forKg (Unit.impactFromFloat 0.2)
+                |> Expect.equal (Unit.impactFromFloat 0.034)
+                |> asTest "should compute impact for mass from other scale unit"
             , Mass.grams 170
-                |> Unit.forKg (Unit.kgCo2e -0.2)
-                |> Expect.equal (Unit.kgCo2e -0.034)
-                |> asTest "should compute negative kgCo2e for mass"
+                |> Unit.forKg (Unit.impactFromFloat -0.2)
+                |> Expect.equal (Unit.impactFromFloat -0.034)
+                |> asTest "should compute negative impact for mass"
             ]
         , describe "Unit.forKgAndDistance"
             [ Mass.kilograms 1
-                |> Unit.forKgAndDistance (Unit.kgCo2e 0.2) (Length.kilometers 2000)
-                |> Expect.equal (Unit.kgCo2e 0.4)
-                |> asTest "should compute kgCo2e for mass and distance"
+                |> Unit.forKgAndDistance (Unit.impactFromFloat 0.2) (Length.kilometers 2000)
+                |> Expect.equal (Unit.impactFromFloat 0.4)
+                |> asTest "should compute impact for mass and distance"
             ]
         , describe "Unit.forKWh"
             [ Energy.kilowattHours 1
-                |> Unit.forKWh (Unit.kgCo2e 0.2)
-                |> expectKgCo2Float 0.2
-                |> asTest "should compute kgCo2e for energy expressed in KWh"
+                |> Unit.forKWh (Unit.impactFromFloat 0.2)
+                |> expectImpactFloat 0.2
+                |> asTest "should compute impact for energy expressed in KWh"
             ]
         , describe "Unit.forMJ"
             [ Energy.megajoules 1
-                |> Unit.forMJ (Unit.kgCo2e 0.2)
-                |> expectKgCo2Float 0.2
-                |> asTest "should compute kgCo2e for energy expressed in MJ"
+                |> Unit.forMJ (Unit.impactFromFloat 0.2)
+                |> expectImpactFloat 0.2
+                |> asTest "should compute impact for energy expressed in MJ"
             ]
         , describe "Unit.ratioedForKg"
             [ Mass.kilograms 1
-                |> Unit.ratioedForKg ( Unit.kgCo2e 0.25, Unit.kgCo2e 0.75 ) 0.5
-                |> expectKgCo2Float 0.5
-                |> asTest "should compute co2 from ratioed co2 impacts and mass"
+                |> Unit.ratioedForKg ( Unit.impactFromFloat 0.25, Unit.impactFromFloat 0.75 ) 0.5
+                |> expectImpactFloat 0.5
+                |> asTest "should compute impact from ratioed impact and mass"
             ]
         , describe "Unit.ratioedForKWh"
             [ Energy.kilowattHours 1
-                |> Unit.ratioedForKWh ( Unit.kgCo2e 0.25, Unit.kgCo2e 0.75 ) 0.5
-                |> expectKgCo2Float 0.5
-                |> asTest "should compute co2 from ratioed co2 impacts and energy in KWh"
+                |> Unit.ratioedForKWh ( Unit.impactFromFloat 0.25, Unit.impactFromFloat 0.75 ) 0.5
+                |> expectImpactFloat 0.5
+                |> asTest "should compute impact from ratioed impact and energy in KWh"
             ]
         , describe "Unit.ratioedForMJ"
             [ Energy.megajoules 1
-                |> Unit.ratioedForMJ ( Unit.kgCo2e 0.25, Unit.kgCo2e 0.75 ) 0.5
-                |> expectKgCo2Float 0.5
-                |> asTest "should compute co2 from ratioed co2 impacts and energy in MJ"
+                |> Unit.ratioedForMJ ( Unit.impactFromFloat 0.25, Unit.impactFromFloat 0.75 ) 0.5
+                |> expectImpactFloat 0.5
+                |> asTest "should compute impact from ratioed impact and energy in MJ"
             ]
         ]

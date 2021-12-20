@@ -2,6 +2,7 @@ port module Server exposing (main)
 
 import Data.Country as Country
 import Data.Db as Db exposing (Db)
+import Data.Impact as Impact
 import Data.Inputs as Inputs
 import Data.Process as Process
 import Data.Product as Product
@@ -54,6 +55,7 @@ decodeExpressQuery =
                     )
     in
     Decode.succeed Inputs.Query
+        |> Pipe.optional "impact" Impact.decodeTrigram (Impact.trg "cch")
         |> Pipe.required "mass" (decodeStringFloat |> Decode.map Mass.kilograms)
         |> Pipe.required "material" (Decode.map Process.Uuid Decode.string)
         |> Pipe.required "product" (Decode.map Product.Id Decode.string)
@@ -63,9 +65,9 @@ decodeExpressQuery =
         |> Pipe.optional "recycledRatio" (Decode.maybe decodeStringFloat) Nothing
         |> Pipe.optional "customCountryMixes"
             (Decode.succeed Inputs.CustomCountryMixes
-                |> Pipe.optional "fabric" (Decode.maybe (decodeStringFloat |> Decode.map Unit.kgCo2e)) Nothing
-                |> Pipe.optional "dyeing" (Decode.maybe (decodeStringFloat |> Decode.map Unit.kgCo2e)) Nothing
-                |> Pipe.optional "making" (Decode.maybe (decodeStringFloat |> Decode.map Unit.kgCo2e)) Nothing
+                |> Pipe.optional "fabric" (Decode.maybe (decodeStringFloat |> Decode.map Unit.impactFromFloat)) Nothing
+                |> Pipe.optional "dyeing" (Decode.maybe (decodeStringFloat |> Decode.map Unit.impactFromFloat)) Nothing
+                |> Pipe.optional "making" (Decode.maybe (decodeStringFloat |> Decode.map Unit.impactFromFloat)) Nothing
             )
             Inputs.defaultCustomCountryMixes
 
@@ -89,7 +91,7 @@ toResponse jsResponseHandler result =
                 |> sendResponse 200 jsResponseHandler
 
         Err error ->
-            Encode.object [ ( "error", Encode.string error ) ]
+            Encode.object [ ( "error", error |> String.lines |> Encode.list Encode.string ) ]
                 |> sendResponse 400 jsResponseHandler
 
 

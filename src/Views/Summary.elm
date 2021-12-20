@@ -1,5 +1,6 @@
 module Views.Summary exposing (..)
 
+import Data.Impact as Impact
 import Data.Inputs as Inputs
 import Data.LifeCycle as LifeCycle
 import Data.Material as Material
@@ -7,7 +8,6 @@ import Data.Session exposing (Session)
 import Data.Simulator exposing (Simulator)
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Page.Simulator.Impact as Impact
 import Route exposing (Route(..))
 import Views.Alert as Alert
 import Views.BarChart as Chart
@@ -20,7 +20,7 @@ import Views.Transport as TransportView
 
 type alias Config =
     { session : Session
-    , impact : Impact.Impact
+    , impact : Impact.Definition
     , reusable : Bool
     }
 
@@ -44,7 +44,7 @@ summaryView { session, impact, reusable } ({ inputs, lifeCycle } as simulator) =
                     ]
                     []
                 , div [ class "display-5" ]
-                    [ Format.formatImpact impact simulator
+                    [ Format.formatImpact impact simulator.impact
                     ]
                 ]
             , inputs.countries

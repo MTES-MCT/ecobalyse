@@ -6,6 +6,7 @@ import Browser.Events
 import Data.Country as Country
 import Data.Db exposing (Db)
 import Data.Gitbook as Gitbook
+import Data.Impact as Impact
 import Data.Inputs as Inputs
 import Data.Key as Key
 import Data.Material as Material exposing (Material)
@@ -19,7 +20,6 @@ import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
 import Mass
-import Page.Simulator.Impact as Impact exposing (Impact)
 import Ports
 import RemoteData exposing (WebData)
 import Request.Gitbook as GitbookApi
@@ -28,6 +28,7 @@ import Task
 import Views.Alert as Alert
 import Views.Container as Container
 import Views.Icon as Icon
+import Views.Impact as ImpactView
 import Views.Link as Link
 import Views.Markdown as MarkdownView
 import Views.Modal as ModalView
@@ -44,7 +45,7 @@ type alias Model =
     , displayMode : DisplayMode
     , modal : ModalContent
     , customCountryMixInputs : CustomCountryMixInputs
-    , impact : Impact
+    , impact : Impact.Definition
     }
 
 
@@ -68,8 +69,8 @@ type Msg
     | OpenDocModal Gitbook.Path
     | Reset
     | ResetCustomCountryMix Step.Label
-    | SubmitCustomCountryMix Step.Label (Maybe Unit.Co2e)
-    | SwitchImpact (Result String Impact)
+    | SubmitCustomCountryMix Step.Label (Maybe Unit.Impact)
+    | SwitchImpact Impact.Trigram
     | SwitchMode DisplayMode
     | UpdateAirTransportRatio (Maybe Float)
     | UpdateCustomCountryMixInput Step.Label String
@@ -121,21 +122,22 @@ updateCustomCountryMixInputs stepLabel maybeValue values =
             values
 
 
-validateCustomCountryMixInput : Step.Label -> CustomCountryMixInputs -> Maybe Unit.Co2e
+validateCustomCountryMixInput : Step.Label -> CustomCountryMixInputs -> Maybe Unit.Impact
 validateCustomCountryMixInput stepLabel =
     getCustomCountryMixInput stepLabel
         >> Maybe.andThen String.toFloat
-        >> Maybe.map Unit.kgCo2e
+        >> Maybe.map Unit.impactFromFloat
 
 
 init : Maybe Inputs.Query -> Session -> ( Model, Session, Cmd Msg )
-init maybeQuery session =
+init maybeQuery ({ db } as session) =
     let
         query =
-            Maybe.withDefault Inputs.defaultQuery maybeQuery
+            maybeQuery
+                |> Maybe.withDefault (Inputs.defaultQuery Impact.defaultTrigram)
 
         simulator =
-            Simulator.compute session.db query
+            Simulator.compute db query
     in
     ( { simulator = simulator
       , massInput = query.mass |> Mass.inKilograms |> String.fromFloat
@@ -143,7 +145,7 @@ init maybeQuery session =
       , displayMode = SimpleMode
       , modal = NoModal
       , customCountryMixInputs = toCustomCountryMixFormInputs query.customCountryMixes
-      , impact = Impact.ClimateChange
+      , impact = db.impacts |> Impact.getDefinition query.impact |> Result.withDefault Impact.default
       }
     , case simulator of
         Err error ->
@@ -158,12 +160,12 @@ init maybeQuery session =
 toCustomCountryMixFormInputs : Inputs.CustomCountryMixes -> CustomCountryMixInputs
 toCustomCountryMixFormInputs { fabric, dyeing, making } =
     let
-        mapToCo2e =
-            Maybe.map (Unit.inKgCo2e >> String.fromFloat)
+        mapToImpact =
+            Maybe.map (Unit.impactToFloat >> String.fromFloat)
     in
-    { fabric = mapToCo2e fabric
-    , dyeing = mapToCo2e dyeing
-    , making = mapToCo2e making
+    { fabric = mapToImpact fabric
+    , dyeing = mapToImpact dyeing
+    , making = mapToImpact making
     }
 
 
@@ -179,7 +181,7 @@ updateQuery query ( model, session, msg ) =
     )
 
 
-updateQueryCustomCountryMix : Step.Label -> Maybe Unit.Co2e -> Inputs.Query -> Inputs.Query
+updateQueryCustomCountryMix : Step.Label -> Maybe Unit.Impact -> Inputs.Query -> Inputs.Query
 updateQueryCustomCountryMix stepLabel maybeValue ({ customCountryMixes } as query) =
     { query
         | customCountryMixes =
@@ -227,7 +229,7 @@ update ({ db } as session) msg ({ customCountryMixInputs, query } as model) =
 
         Reset ->
             ( model, session, Cmd.none )
-                |> updateQuery Inputs.defaultQuery
+                |> updateQuery (Inputs.defaultQuery Impact.defaultTrigram)
 
         ResetCustomCountryMix stepLabel ->
             ( { model
@@ -248,11 +250,17 @@ update ({ db } as session) msg ({ customCountryMixInputs, query } as model) =
             ( { model | modal = NoModal }, session, Cmd.none )
                 |> updateQuery (updateQueryCustomCountryMix stepLabel (Just customCountryMix) query)
 
-        SwitchImpact (Ok impact) ->
-            ( { model | impact = impact }, session, Cmd.none )
-
-        SwitchImpact (Err error) ->
-            ( model, session |> Session.notifyError "Erreur de sélection d'impact" error, Cmd.none )
+        SwitchImpact trigram ->
+            ( { model
+                | impact =
+                    db.impacts
+                        |> Impact.getDefinition trigram
+                        |> Result.withDefault Impact.default
+              }
+            , session
+            , Cmd.none
+            )
+                |> updateQuery { query | impact = trigram }
 
         SwitchMode displayMode ->
             ( { model | displayMode = displayMode }, session, Cmd.none )
@@ -530,8 +538,9 @@ customCountryMixModal : Model -> Step -> Html Msg
 customCountryMixModal { customCountryMixInputs } step =
     let
         countryDefault =
-            step.country.electricityProcess.cch
-                |> Unit.inKgCo2e
+            step.country.electricityProcess
+                |> Process.getImpact (Impact.trg "cch")
+                |> Unit.impactToFloat
                 |> String.fromFloat
 
         customCountryMixInput =
@@ -714,7 +723,7 @@ simulatorView ({ db } as session) model ({ inputs } as simulator) =
                 , button
                     [ class "btn btn-secondary"
                     , onClick Reset
-                    , disabled (model.query == Inputs.defaultQuery)
+                    , disabled (model.query == Inputs.defaultQuery Impact.defaultTrigram)
                     ]
                     [ text "Réinitialiser le simulateur" ]
                 ]
@@ -743,11 +752,13 @@ view session model =
             [ class "Simulator pb-3" ]
             [ div [ class "row" ]
                 [ div [ class "col-sm-7 mb-2" ]
-                    [ h1 [] [ text "Simulateur" ]
-                    ]
-                , div [ class "col-sm-5 mb-2" ]
-                    [ Impact.selector
-                        { selected = model.impact, switch = SwitchImpact }
+                    [ h1 [] [ text "Simulateur" ] ]
+                , div [ class "col-sm-5 mb-2 d-flex align-items-center" ]
+                    [ ImpactView.selector
+                        { impacts = session.db.impacts
+                        , selected = model.impact.trigram
+                        , switch = SwitchImpact
+                        }
                     ]
                 ]
             , case model.simulator of

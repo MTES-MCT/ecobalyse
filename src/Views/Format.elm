@@ -1,5 +1,6 @@
 module Views.Format exposing (..)
 
+import Data.Impact as Impact
 import Data.Unit as Unit
 import Energy exposing (Energy)
 import FormatNumber
@@ -8,22 +9,19 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Length exposing (Length)
 import Mass exposing (Mass)
-import Page.Simulator.Impact as Impact exposing (Impact)
 
 
-formatImpact : Impact -> { a | cch : Unit.Co2e, fwe : Unit.Pe } -> Html msg
-formatImpact impact { cch, fwe } =
-    case impact of
-        Impact.ClimateChange ->
-            kgCo2 2 cch
-
-        Impact.FreshwaterEutrophication ->
-            kgP 2 fwe
+formatImpact : Impact.Definition -> Unit.Impact -> Html msg
+formatImpact { unit } =
+    Unit.impactToFloat >> formatRichFloat 2 unit
 
 
 formatInt : String -> Int -> String
 formatInt unit int =
-    FormatNumber.format { frenchLocale | decimals = Exact 0 } (toFloat int) ++ "\u{202F}" ++ unit
+    FormatNumber.format { frenchLocale | decimals = Exact 0 }
+        (toFloat int)
+        ++ "\u{202F}"
+        ++ unit
 
 
 formatFloat : Int -> Float -> String
@@ -80,16 +78,6 @@ formatRichFloat decimals unit value =
         , text "\u{202F}"
         , span [ class "fs-80p" ] [ text unit ]
         ]
-
-
-kgCo2 : Int -> Unit.Co2e -> Html msg
-kgCo2 decimals =
-    Unit.inKgCo2e >> formatRichFloat decimals "kgCO₂e"
-
-
-kgP : Int -> Unit.Pe -> Html msg
-kgP decimals =
-    Unit.inKgPe >> formatRichFloat decimals "kgPe"
 
 
 kg : Mass -> Html msg

@@ -1,5 +1,6 @@
 module Data.Process exposing (..)
 
+import Data.Impact as Impact exposing (Impacts)
 import Data.Unit as Unit
 import Energy exposing (Energy)
 import Json.Decode as Decode exposing (Decoder)
@@ -7,7 +8,6 @@ import Json.Decode.Extra as DecodeExtra
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
 import Mass exposing (Mass)
-import Quantity
 import Result.Extra as RE
 
 
@@ -17,22 +17,7 @@ type alias Process =
     , cat3 : Cat3
     , name : String
     , uuid : Uuid
-
-    -- Inbound:
-    --   kgCO2e per kg of material
-    -- Outbound:
-    --   kgCO2e per, depending on process type:
-    --   * for heat process: per MJ
-    --   * for elec process: per KWh
-    , cch : Unit.Co2e
-
-    -- Inbound:
-    --   kgPe per kg of material
-    -- Outbound:
-    --   kgPe per, depending on process type:
-    --   * for heat process: per MJ
-    --   * for elec process: per KWh
-    , fwe : Unit.Pe
+    , impacts : Impacts
     , heat : Energy --  MJ per kg of material to process
     , elec_pppm : Float -- kWh/(pick,m) per kg of material to process
     , elec : Energy -- MJ per kg of material to process
@@ -118,8 +103,7 @@ noOpProcess =
     , cat3 = NaturalMaterials
     , name = "void"
     , uuid = Uuid ""
-    , cch = Quantity.zero
-    , fwe = Quantity.zero
+    , impacts = Impact.noImpacts
     , heat = Energy.megajoules 0
     , elec_pppm = 0
     , elec = Energy.megajoules 0
@@ -147,6 +131,20 @@ findByAlias alias =
     List.filter (.alias >> (==) (Just alias))
         >> List.head
         >> Result.fromMaybe ("Procédé introuvable par alias: " ++ alias)
+
+
+getImpact : Impact.Trigram -> Process -> Unit.Impact
+getImpact trigram =
+    .impacts >> Impact.getImpact trigram
+
+
+updateImpact : Impact.Trigram -> Unit.Impact -> Process -> Process
+updateImpact trigram value process =
+    { process
+        | impacts =
+            process.impacts
+                |> Impact.updateImpact trigram value
+    }
 
 
 loadWellKnown : List Process -> Result String WellKnown
@@ -371,8 +369,7 @@ decode =
         |> Pipe.required "cat3" (Decode.string |> Decode.andThen (cat3FromString >> DecodeExtra.fromResult))
         |> Pipe.required "name" Decode.string
         |> Pipe.required "uuid" (Decode.map Uuid Decode.string)
-        |> Pipe.required "cch" Unit.decodeKgCo2e
-        |> Pipe.required "fwe" Unit.decodeKgPe
+        |> Pipe.required "impacts" Impact.decodeImpacts
         |> Pipe.required "heat" (Decode.map Energy.megajoules Decode.float)
         |> Pipe.required "elec_pppm" Decode.float
         |> Pipe.required "elec" (Decode.map Energy.megajoules Decode.float)
@@ -393,8 +390,7 @@ encode v =
         , ( "cat3", v.cat3 |> cat3ToString |> Encode.string )
         , ( "name", Encode.string v.name )
         , ( "uuid", v.uuid |> uuidToString |> Encode.string )
-        , ( "cch", Unit.encodeKgCo2e v.cch )
-        , ( "fwe", Unit.encodeKgPe v.fwe )
+        , ( "impacts", Impact.encodeImpacts v.impacts )
         , ( "heat", v.heat |> Energy.inMegajoules |> Encode.float )
         , ( "elec_pppm", Encode.float v.elec_pppm )
         , ( "elec", v.elec |> Energy.inMegajoules |> Encode.float )

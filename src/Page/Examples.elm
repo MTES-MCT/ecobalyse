@@ -1,16 +1,13 @@
 module Page.Examples exposing (..)
 
-import Data.Country as Country
+import Data.Impact as Impact
 import Data.Inputs as Inputs
-import Data.Sample as Sample
 import Data.Session exposing (Session)
 import Data.Simulator as Simulator
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Page.Simulator.Impact as Impact
 import Route
 import Views.Container as Container
-import Views.Format as Format
 import Views.Summary as SummaryView
 
 
@@ -49,12 +46,12 @@ viewExamples session =
                     [ text "Faire une simulation" ]
                 ]
             ]
-        , Inputs.presets
+        , Inputs.presets Impact.defaultTrigram
             |> List.map
                 (Simulator.compute session.db
                     >> SummaryView.view
                         { session = session
-                        , impact = Impact.ClimateChange
+                        , impact = Impact.default
                         , reusable = True
                         }
                     >> (\v -> div [ class "col" ] [ v ])
@@ -63,181 +60,11 @@ viewExamples session =
         ]
 
 
-formatCustomCountryMixes : Inputs.CustomCountryMixes -> Html Msg
-formatCustomCountryMixes { fabric, dyeing, making } =
-    let
-        mixes =
-            [ ( "Tissage/Tricotage", fabric )
-            , ( "Teinture", dyeing )
-            , ( "Confection", making )
-            ]
-                |> List.filterMap
-                    (\( step, mix ) ->
-                        mix |> Maybe.map (\mix_ -> span [] [ text step, text "\u{00A0}: ", Format.kgCo2 3 mix_ ])
-                    )
-    in
-    if List.length mixes == 0 then
-        text "Aucun"
-
-    else
-        mixes
-            |> List.intersperse (br [] [])
-            |> div []
-
-
-viewSectionOrSample : Session -> Sample.SectionOrSample -> Html Msg
-viewSectionOrSample session sectionOrSample =
-    let
-        headers =
-            [ th [ scope "col" ] [ text "Produit" ]
-            , th [ scope "col" ] [ text "Matière" ]
-            , th [ scope "col" ] [ text "Masse" ]
-            , th [ scope "col" ] [ text "Circuit" ]
-            , th [ scope "col" ] [ text "Matière recyclée" ]
-            , th [ scope "col" ] [ text "Teinture majorée" ]
-            , th [ scope "col" ] [ text "Transport avion" ]
-            , th [ scope "col" ] [ text "Mix modifié" ]
-            , th [ scope "col", class "text-center", title "Changement climatique" ] [ text "Ch. Climatique" ]
-            , th [ scope "col", class "text-center", title "Eutrophisation eau douce" ] [ text "Eutrophisation" ]
-            , th [ scope "col", class "text-center" ] [ text "Action" ]
-            ]
-    in
-    case sectionOrSample of
-        Sample.Section title samples ->
-            div []
-                [ tr []
-                    [ td [] [ h3 [ class "fs-4" ] [ text title ] ]
-                    ]
-                , samples
-                    |> List.map (viewSectionOrSample session)
-                    |> (\rows ->
-                            div [ class "table-responsive" ]
-                                [ table [ class "table table-sm table-hover align-middle" ]
-                                    [ if Sample.hasTests samples then
-                                        thead []
-                                            [ tr [ class "fs-7" ] headers
-                                            ]
-
-                                      else
-                                        text ""
-                                    , tbody [] rows
-                                    ]
-                                ]
-                       )
-                ]
-
-        Sample.Sample sampleTitle { query, cch, fwe } ->
-            case Simulator.compute session.db query of
-                Err error ->
-                    tr [ class "table-danger" ]
-                        [ td [ headers |> List.length |> colspan ] [ text error ] ]
-
-                Ok simulator ->
-                    let
-                        success =
-                            simulator.cch
-                                == cch
-                                && simulator.fwe
-                                == fwe
-                    in
-                    tr
-                        [ class "fs-7"
-                        , classList
-                            [ ( "table-warning", not success )
-                            ]
-                        , title sampleTitle
-                        ]
-                        [ td [] [ text simulator.inputs.product.name ]
-                        , td [] [ text simulator.inputs.material.shortName ]
-                        , td [ class "text-end" ] [ Format.kg simulator.inputs.mass ]
-                        , td []
-                            [ query.countries
-                                |> List.map Country.codeToString
-                                |> String.join "→"
-                                |> text
-                            ]
-                        , td []
-                            [ query.recycledRatio
-                                |> Maybe.map ((*) 100 >> Format.percent)
-                                |> Maybe.withDefault (text "Par défaut")
-                            ]
-                        , td []
-                            [ query.dyeingWeighting
-                                |> Maybe.map ((*) 100 >> Format.percent)
-                                |> Maybe.withDefault (text "Par défaut")
-                            ]
-                        , td []
-                            [ query.airTransportRatio
-                                |> Maybe.map ((*) 100 >> Format.percent)
-                                |> Maybe.withDefault (text "Par défaut")
-                            ]
-                        , td [] [ formatCustomCountryMixes query.customCountryMixes ]
-                        , td
-                            [ class "text-end"
-                            , classList
-                                [ ( "table-success", simulator.cch == cch )
-                                , ( "table-danger", simulator.cch /= cch )
-                                ]
-                            ]
-                            [ if simulator.cch == cch then
-                                Format.kgCo2 2 cch
-
-                              else
-                                div []
-                                    [ text "Attendu: "
-                                    , Format.kgCo2 2 cch
-                                    , br [] []
-                                    , text "Obtenu: "
-                                    , Format.kgCo2 2 simulator.cch
-                                    ]
-                            ]
-                        , td
-                            [ class "text-end"
-                            , classList
-                                [ ( "table-success", simulator.fwe == fwe )
-                                , ( "table-danger", simulator.fwe /= fwe )
-                                ]
-                            ]
-                            [ if simulator.fwe == fwe then
-                                Format.kgP 2 fwe
-
-                              else
-                                div []
-                                    [ text "Attendu: "
-                                    , Format.kgP 2 fwe
-                                    , br [] []
-                                    , text "Obtenu: "
-                                    , Format.kgP 2 simulator.fwe
-                                    ]
-                            ]
-                        , td [ class "text-center" ]
-                            [ a
-                                [ class "btn btn-sm btn-primary"
-                                , Route.href (Route.Simulator (Just query))
-                                ]
-                                [ text "Charger" ]
-                            ]
-                        ]
-
-
-viewSamples : Session -> Html Msg
-viewSamples session =
-    div [ class "py-5" ]
-        [ div [ class "row mb-3" ]
-            [ h2 [ class "mb-3" ] [ text "Suite de test" ]
-            ]
-        , Sample.samples
-            |> List.map (viewSectionOrSample session)
-            |> div []
-        ]
-
-
 view : Session -> Model -> ( String, List (Html Msg) )
 view session _ =
     ( "Exemples"
     , [ Container.centered [ class "pb-5" ]
             [ viewExamples session
-            , viewSamples session
             ]
       ]
     )

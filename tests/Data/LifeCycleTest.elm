@@ -1,6 +1,7 @@
 module Data.LifeCycleTest exposing (..)
 
 import Data.Country as Country
+import Data.Impact as Impact
 import Data.Inputs exposing (tShirtCotonFrance)
 import Data.LifeCycle as LifeCycle
 import Data.Unit as Unit
@@ -22,23 +23,26 @@ suite =
                 [ describe "computeTransportSummary"
                     [ test "should compute default distances" <|
                         \_ ->
-                            tShirtCotonFrance
+                            tShirtCotonFrance Impact.defaultTrigram
                                 |> LifeCycle.fromQuery db
-                                |> Result.andThen (LifeCycle.computeStepsTransport db)
+                                |> Result.andThen (LifeCycle.computeStepsTransport db Impact.default)
                                 |> Result.map LifeCycle.computeTotalTransports
                                 |> Expect.equal
                                     (Ok
                                         { road = km 2500
                                         , sea = km 21548
                                         , air = km 0
-                                        , cch = Unit.kgCo2e 0
-                                        , fwe = Unit.kgPe 0
+                                        , impact = Unit.impactFromFloat 0
                                         }
                                     )
                     , test "should compute custom distances" <|
                         \_ ->
+                            let
+                                query =
+                                    tShirtCotonFrance Impact.defaultTrigram
+                            in
                             LifeCycle.fromQuery db
-                                { tShirtCotonFrance
+                                { query
                                     | countries =
                                         [ Country.Code "CN"
                                         , Country.Code "FR"
@@ -47,15 +51,14 @@ suite =
                                         , Country.Code "FR"
                                         ]
                                 }
-                                |> Result.andThen (LifeCycle.computeStepsTransport db)
+                                |> Result.andThen (LifeCycle.computeStepsTransport db Impact.default)
                                 |> Result.map LifeCycle.computeTotalTransports
                                 |> Expect.equal
                                     (Ok
                                         { road = km 1500
                                         , sea = km 45468
                                         , air = km 0
-                                        , cch = Unit.kgCo2e 0
-                                        , fwe = Unit.kgPe 0
+                                        , impact = Unit.impactFromFloat 0
                                         }
                                     )
                     ]

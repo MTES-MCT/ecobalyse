@@ -4,6 +4,7 @@ import Data.Country as Country exposing (Country)
 import Data.Db exposing (Db)
 import Data.Formula as Formula
 import Data.Gitbook as Gitbook exposing (Path(..))
+import Data.Impact as Impact
 import Data.Inputs exposing (Inputs)
 import Data.Process as Process exposing (Process)
 import Data.Transport as Transport exposing (Transport, default, defaultInland)
@@ -25,14 +26,13 @@ type alias Step =
     , outputMass : Mass
     , waste : Mass
     , transport : Transport
-    , cch : Unit.Co2e
-    , fwe : Unit.Pe
+    , impact : Unit.Impact
     , heat : Energy
     , kwh : Energy
     , processInfo : ProcessInfo
     , dyeingWeighting : Float -- FIXME: why not Maybe?
     , airTransportRatio : Float -- FIXME: why not Maybe?
-    , customCountryMix : Maybe Unit.Co2e
+    , customCountryMix : Maybe Unit.Impact
     }
 
 
@@ -64,8 +64,7 @@ create label editable country =
     , outputMass = Quantity.zero
     , waste = Quantity.zero
     , transport = Transport.default
-    , cch = Quantity.zero
-    , fwe = Quantity.zero
+    , impact = Quantity.zero
     , heat = Quantity.zero
     , kwh = Quantity.zero
     , processInfo = defaultProcessInfo
@@ -108,26 +107,27 @@ getCountryElectricityProcess { country, customCountryMix } =
     in
     case customCountryMix of
         Just mix ->
-            { electricityProcess | cch = mix }
+            electricityProcess
+                |> Process.updateImpact (Impact.trg "cch") mix
 
         Nothing ->
             electricityProcess
 
 
-countryMixToString : Unit.Co2e -> String
+countryMixToString : Unit.Impact -> String
 countryMixToString =
-    Unit.inKgCo2e
+    Unit.impactToFloat
         >> FormatNumber.format { frenchLocale | decimals = Exact 3 }
         >> (\kgCo2e -> "Mix électrique personnalisé: " ++ kgCo2e ++ "\u{202F}kgCO₂e/KWh")
 
 
-{-| Computes step transport distances and cch scores regarding next step.
+{-| Computes step transport distances and impact regarding next step.
 
 Docs: <https://fabrique-numerique.gitbook.io/wikicarbone/methodologie/transport>
 
 -}
-computeTransports : Db -> Step -> Step -> Result String Step
-computeTransports db next ({ processInfo } as current) =
+computeTransports : Db -> Impact.Definition -> Step -> Step -> Result String Step
+computeTransports db impact next ({ processInfo } as current) =
     db.processes
         |> Process.loadWellKnown
         |> Result.map
@@ -152,31 +152,28 @@ computeTransports db next ({ processInfo } as current) =
                         }
                     , transport =
                         stepSummary
-                            |> computeTransportImpacts wellKnown roadTransportProcess next.inputMass
+                            |> computeTransportImpacts impact
+                                wellKnown
+                                roadTransportProcess
+                                next.inputMass
                 }
             )
 
 
-computeTransportImpacts : Process.WellKnown -> Process -> Mass -> Transport -> Transport
-computeTransportImpacts { seaTransport, airTransport } roadProcess mass { road, sea, air } =
+computeTransportImpacts : Impact.Definition -> Process.WellKnown -> Process -> Mass -> Transport -> Transport
+computeTransportImpacts impact { seaTransport, airTransport } roadProcess mass { road, sea, air } =
     let
-        ( roadCo2, seaCo2, airCo2 ) =
-            ( mass |> Unit.forKgAndDistance roadProcess.cch road
-            , mass |> Unit.forKgAndDistance seaTransport.cch sea
-            , mass |> Unit.forKgAndDistance airTransport.cch air
-            )
-
-        ( roadFwe, seaFwe, airFwe ) =
-            ( mass |> Unit.forKgAndDistance roadProcess.fwe road
-            , mass |> Unit.forKgAndDistance seaTransport.fwe sea
-            , mass |> Unit.forKgAndDistance airTransport.fwe air
+        ( roadImpact, seaImpact, airImpact ) =
+            -- TODO: refactor/simplify
+            ( mass |> Unit.forKgAndDistance (Process.getImpact impact.trigram roadProcess) road
+            , mass |> Unit.forKgAndDistance (Process.getImpact impact.trigram seaTransport) sea
+            , mass |> Unit.forKgAndDistance (Process.getImpact impact.trigram airTransport) air
             )
     in
     { road = road
     , sea = sea
     , air = air
-    , cch = Quantity.sum [ roadCo2, seaCo2, airCo2 ]
-    , fwe = Quantity.sum [ roadFwe, seaFwe, airFwe ]
+    , impact = Quantity.sum [ roadImpact, seaImpact, airImpact ]
     }
 
 
@@ -193,12 +190,12 @@ computeTransportSummary step transport =
 
         Making ->
             -- Air transport only applies between the Making and the Distribution steps
-            { default
-                | road = transport.road
-                , sea = transport.sea
-                , air = transport.air
-            }
-                |> Formula.transportRatio step.airTransportRatio
+            Formula.transportRatio step.airTransportRatio
+                { default
+                    | road = transport.road
+                    , sea = transport.sea
+                    , air = transport.air
+                }
 
         _ ->
             -- All other steps don't use air transport at all
@@ -289,6 +286,11 @@ updateWaste waste mass step =
     }
 
 
+updateImpact : (Mass -> Unit.Impact) -> Step -> Step
+updateImpact compute step =
+    { step | impact = compute step.outputMass }
+
+
 airTransportRatioToString : Float -> String
 airTransportRatioToString airTransportRatio =
     case round (airTransportRatio * 100) of
@@ -333,14 +335,13 @@ encode v =
         , ( "outputMass", Encode.float (Mass.inKilograms v.outputMass) )
         , ( "waste", Encode.float (Mass.inKilograms v.waste) )
         , ( "transport", Transport.encode v.transport )
-        , ( "cch", Unit.encodeKgCo2e v.cch )
-        , ( "fwe", Unit.encodeKgPe v.fwe )
+        , ( "impact", Unit.encodeImpact v.impact )
         , ( "heat", Encode.float (Energy.inMegajoules v.heat) )
         , ( "kwh", Encode.float (Energy.inKilowattHours v.kwh) )
         , ( "processInfo", encodeProcessInfo v.processInfo )
         , ( "dyeingWeighting", Encode.float v.dyeingWeighting )
         , ( "airTransportRatio", Encode.float v.airTransportRatio )
-        , ( "customCountryMix", v.customCountryMix |> Maybe.map Unit.encodeKgCo2e |> Maybe.withDefault Encode.null )
+        , ( "customCountryMix", v.customCountryMix |> Maybe.map Unit.encodeImpact |> Maybe.withDefault Encode.null )
         ]
 
 
