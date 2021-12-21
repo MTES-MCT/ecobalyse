@@ -2,6 +2,7 @@ module Data.Simulator exposing (..)
 
 import Data.Db exposing (Db)
 import Data.Formula as Formula
+import Data.Impact as Impact exposing (Impacts)
 import Data.Inputs as Inputs exposing (Inputs)
 import Data.LifeCycle as LifeCycle exposing (LifeCycle)
 import Data.Process as Process
@@ -10,6 +11,7 @@ import Data.Transport as Transport exposing (Transport)
 import Data.Unit as Unit
 import Json.Encode as Encode
 import Quantity
+import Result.Extra as RE
 
 
 type alias Simulator =
@@ -47,6 +49,21 @@ init db =
             )
 
 
+{-| Computes all impacts. Takes a Query and runs a simulation for each known impact.
+-}
+computeAll : Db -> Inputs.Query -> Result String Impacts
+computeAll ({ impacts } as db) query =
+    impacts
+        |> List.map (\{ trigram } -> compute db { query | impact = trigram })
+        |> RE.combine
+        |> Result.map
+            (List.map (\{ impact, inputs } -> ( inputs.impact.trigram, impact ))
+                >> Impact.impactsFromList
+            )
+
+
+{-| Computes a single impact.
+-}
 compute : Db -> Inputs.Query -> Result String Simulator
 compute db query =
     let

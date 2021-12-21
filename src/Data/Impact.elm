@@ -100,6 +100,17 @@ noImpacts =
     AnyDict.fromList (always "") []
 
 
+impactsFromDefinitons : List Definition -> Impacts
+impactsFromDefinitons =
+    List.map (\{ trigram } -> ( trigram, Quantity.zero ))
+        >> AnyDict.fromList toString
+
+
+impactsFromList : List ( Trigram, Unit.Impact ) -> Impacts
+impactsFromList =
+    AnyDict.fromList toString
+
+
 getImpact : Trigram -> Impacts -> Unit.Impact
 getImpact trigram =
     AnyDict.get trigram
