@@ -37,6 +37,16 @@ La base Impacts ne couvre en revanche pas les impacts suivants du référentiel 
 | Toxicité humaine, cancer                            |
 | Toxicité humaine, non cancer                        |
 
+#### **Niveaux de recommandation**
+
+| Niveau     | Description succincte                                    | Description complète                                                                                                                                                                                                                                                                                                                                                                              |
+| ---------- | -------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Niveau I   | Qualité satisfaisante                                    | <p></p><ul><li>Il s’agit de la meilleure méthode disponible et dont la qualité a été jugée satisfaisante.</li><li>Elle peut être appliquée à tous types d’études basées sur des approches de cycle de vie.</li></ul>                                                                                                                                                                              |
+| Niveau II  | Qualité satisfaisante mais nécessitant des améliorations | <p></p><ul><li>Il s’agit de la meilleure méthode disponible et dont la qualité a été jugée satisfaisante mais nécessitant des améliorations futures.</li><li>Elle peut être appliquée à tous types d’études basées sur des approches de cycle de vie.</li><li>Les résultats issus de cet indicateur doivent cependant être interprétés avec précaution notamment en cas de comparaison.</li></ul> |
+| Niveau III | Donnée incomplète à utiliser avec prudence               | <p></p><ul><li>Il s’agit de la meilleure méthode disponible mais à utiliser avec beaucoup de prudence compte tenu de la grande incertitude et du manque de complétude de la méthode.</li><li>Elle doit être utilisé avec réserve en cas de comparaison. Il est ainsi recommandé de présenter les résultats et discuter de la comparaison avec et sans cette méthode.</li></ul>                    |
+
+Référence : [base Impacts FAQ](http://www.base-impacts.ademe.fr/Personalspace/faq).
+
 ## Score PEF
 
 En s'appuyant sur la documentation adossée au projet de PEFCR Apparel & Footwear, tel que mis en consultation à l'été 2021, un calcul d'un score PEF est réalisé, suite aux opérations suivantes :&#x20;
