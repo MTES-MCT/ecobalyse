@@ -117,6 +117,11 @@ getImpact trigram =
         >> Maybe.withDefault Quantity.zero
 
 
+mapImpacts : (Trigram -> Unit.Impact -> Unit.Impact) -> Impacts -> Impacts
+mapImpacts fn =
+    AnyDict.map fn
+
+
 updateImpact : Trigram -> Unit.Impact -> Impacts -> Impacts
 updateImpact trigram value =
     AnyDict.update trigram (Maybe.map (always value))
