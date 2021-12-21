@@ -55,16 +55,19 @@ Les principes à appliquer pour opéré ces choix sont introduit dans la page su
 
 **Support de teinture** : alternativement, des teintures sur fil ou sur article pourraient être modélisées
 
-**Positionnement** : le choix de positionnement, majorant ou représentatif est très impactant, notamment pour les impacts en matière de changement climatique. Afin que la sensibilité de se paramètre puisse être appréciée, il est proposé de moduler le caractère représentatif ou majorant du procédé de teinture retenu en déplaçant le curseur de sélection entre ces deux situations extrêmes. Dans ce cas, l'impact du procédé de teinture résulte d'une pondération entre les impacts potentiels de ces deux procédés.
+**Positionnement** : le choix de positionnement, majorant ou représentatif est très impactant, notamment pour les impacts en matière de changement climatique. L'efficacité du traitement de l'eau est par ailleurs très impactante sur l'eutrophisation eau douce. Afin que la sensibilité de ces paramètres puisse être appréciée, il est proposé de moduler le caractère représentatif ou majorant du procédé de teinture, ainsi que l'efficacité du traitement des eaux usées, retenus en déplaçant le curseur de sélection entre ces deux situations extrêmes. Dans ce cas, l'impact du procédé de teinture résulte d'une pondération entre les impacts potentiels de ces deux procédés :&#x20;
+
+* procédé représentatif / traitement très efficace des eaux usées dans le cas le plus favorable (curseur à gauche)
+* procédé majorant / traitement inefficace des eaux usées dans le cas le plus défavorable (curseur à droite)
 
 {% hint style="info" %}
 Curseur ajustable permettant d'ajuster le caractère majorant du procédé de teinture retenu
 {% endhint %}
 
-Si le curseur de sélection est utilisé, avec `a` le pourcentage (%) traduisant le caractère majorant retenu (`100%` pour un procédé complètement majorant et `0%` pour un procédé complètement représentatif) :
+Si le curseur de sélection est utilisé, avec `a` le pourcentage (%) traduisant le caractère majorant retenu (`100%` pour un procédé complètement majorant/inefficace et `0%` pour un procédé complètement représentatif/efficace) :
 
 $$
-ImpactTeinture = a * ImpactProcédéMajorant + (1-a) * ImpactProcédéReprésentatif
+ImpactTeinture = a * ImpactProcédéMajorantInefficace + (1-a) * ImpactProcédéReprésentatifEfficace
 $$
 
 ## Pertes et rebut
