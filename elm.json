@@ -7,6 +7,7 @@
     "dependencies": {
         "direct": {
             "NoRedInk/elm-json-decode-pipeline": "1.0.0",
+            "chain-partners/elm-bignum": "1.0.1",
             "cuducos/elm-format-number": "8.1.4",
             "dillonkearns/elm-markdown": "7.0.0",
             "elm/browser": "1.0.2",

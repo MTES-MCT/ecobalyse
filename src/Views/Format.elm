@@ -2,6 +2,7 @@ module Views.Format exposing (..)
 
 import Data.Impact as Impact
 import Data.Unit as Unit
+import Decimal
 import Energy exposing (Energy)
 import FormatNumber
 import FormatNumber.Locales exposing (Decimals(..), frenchLocale)
@@ -26,43 +27,31 @@ formatInt unit int =
 
 formatFloat : Int -> Float -> String
 formatFloat decimals float =
-    -- FIXME: there must be a simpler way…
     let
-        ( newFloat, expStr ) =
-            if float == 0 then
-                ( float, "" )
-
-            else if float < 0.000000001 then
-                ( float * 1000 * 1000 * 1000, "E-9" )
-
-            else if float < 0.00000001 then
-                ( float * 100000000, "E-8" )
-
-            else if float < 0.0000001 then
-                ( float * 10000000, "E-7" )
-
-            else if float < 0.000001 then
-                ( float * 1000000, "E-6" )
-
-            else if float < 0.00001 then
-                ( float * 100000, "E-5" )
-
-            else if float < 0.0001 then
-                ( float * 10000, "E-4" )
-
-            else if float < 0.001 then
-                ( float * 1000, "E-3" )
-
-            else if float < 0.01 then
-                ( float * 100, "E-2" )
-
-            else if float < 0.1 then
-                ( float * 10, "E-1" )
-
-            else
-                ( float, "" )
+        simpleFmt =
+            FormatNumber.format { frenchLocale | decimals = Exact decimals }
+                >> String.replace "−" "-"
     in
-    FormatNumber.format { frenchLocale | decimals = Exact decimals } newFloat ++ expStr
+    if abs float < 0.01 then
+        let
+            sci =
+                float
+                    |> Decimal.fromFloat
+                    |> Decimal.roundTo -12
+                    |> Decimal.toStringIn Decimal.Sci
+
+            formatFloatStr =
+                String.toFloat >> Maybe.withDefault 0 >> simpleFmt
+        in
+        case String.split "e" sci of
+            [ floatStr, exp ] ->
+                formatFloatStr floatStr ++ "e" ++ exp
+
+            _ ->
+                simpleFmt float
+
+    else
+        simpleFmt float
 
 
 formatRichFloat : Int -> String -> Float -> Html msg
@@ -76,7 +65,7 @@ formatRichFloat decimals unit value =
                 formatFloat decimals value
             )
         , text "\u{202F}"
-        , span [ class "fs-80p" ] [ text unit ]
+        , span [ class "fs-unit" ] [ text unit ]
         ]
 
 
