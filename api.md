@@ -643,7 +643,7 @@ Impact du mix énergétique du pays à l'étape de Confection, exprimé en kgCO�
 #### Exemple de requête
 
 ```
-$ http https://wikicarbone.osc-fr1.scalingo.io/?mass=0.17&product=13&material=f211bbdb-415c-46fd-be4d-ddf199575b44&countries[]=CN&countries[]=FR&countries[]=FR&countries[]=FR&countries[]=FR&dyeingWeighting=&airTransportRatio=&recycledRatio=&customCountryMixes[fabric]=&customCountryMixes[dyeing]=&customCountryMixes[making]=
+$ http https://wikicarbone.osc-fr1.scalingo.io/simulator/?mass=0.17&product=13&material=f211bbdb-415c-46fd-be4d-ddf199575b44&countries[]=CN&countries[]=FR&countries[]=FR&countries[]=FR&countries[]=FR&dyeingWeighting=&airTransportRatio=&recycledRatio=&customCountryMixes[fabric]=&customCountryMixes[dyeing]=&customCountryMixes[making]=
 ```
 
 #### Exemple de réponse
