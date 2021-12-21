@@ -64,8 +64,7 @@ formatRichFloat decimals unit value =
              else
                 formatFloat decimals value
             )
-        , text "\u{202F}"
-        , span [ class "fs-unit" ] [ text unit ]
+        , span [ class "fs-unit" ] [ text "\u{202F}", text unit ]
         ]
 
 
