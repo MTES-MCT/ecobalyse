@@ -127,7 +127,7 @@ computeMakingImpact ({ inputs } as simulator) =
 
 
 computeDyeingImpact : Db -> Simulator -> Result String Simulator
-computeDyeingImpact { processes } ({ inputs } as simulator) =
+computeDyeingImpact { processes } simulator =
     processes
         |> Process.loadWellKnown
         |> Result.map

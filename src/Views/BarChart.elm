@@ -26,11 +26,14 @@ type alias Bar msg =
 
 
 makeBars : Config -> List (Bar msg)
-makeBars { simulator } =
+makeBars { simulator, impact } =
     let
+        grabImpact =
+            .impacts >> Impact.getImpact impact.trigram >> Unit.impactToFloat
+
         maxScore =
             simulator.lifeCycle
-                |> Array.map (.impact >> Unit.impactToFloat)
+                |> Array.map grabImpact
                 |> Array.push (Unit.impactToFloat simulator.transport.impact)
                 |> Array.toList
                 |> List.maximum
@@ -63,9 +66,9 @@ makeBars { simulator } =
                                     _ ->
                                         text (Step.labelToString step.label)
                                 ]
-                        , score = Unit.impactToFloat step.impact
-                        , width = clamp 0 100 (Unit.impactToFloat step.impact / maxScore * toFloat 100)
-                        , percent = Unit.impactToFloat step.impact / Unit.impactToFloat simulator.impact * toFloat 100
+                        , score = grabImpact step
+                        , width = clamp 0 100 (grabImpact step / maxScore * toFloat 100)
+                        , percent = grabImpact step / grabImpact simulator * toFloat 100
                         }
                     )
 
@@ -73,7 +76,7 @@ makeBars { simulator } =
             { label = text "Transport total"
             , score = Unit.impactToFloat simulator.transport.impact
             , width = clamp 0 100 (Unit.impactToFloat simulator.transport.impact / maxScore * toFloat 100)
-            , percent = Unit.impactToFloat simulator.transport.impact / Unit.impactToFloat simulator.impact * toFloat 100
+            , percent = Unit.impactToFloat simulator.transport.impact / grabImpact simulator * toFloat 100
             }
     in
     stepBars ++ [ transportBar ]

@@ -150,7 +150,10 @@ simpleView ({ inputs, impact, index, current } as config) =
                 [ div []
                     [ if current.label /= Step.Distribution then
                         div [ class "fs-3 fw-normal text-secondary" ]
-                            [ Format.formatImpact impact current.impact
+                            [ -- FIXME: do not duplicate impact requirement
+                              current.impacts
+                                |> Impact.getImpact impact.trigram
+                                |> Format.formatImpact impact
                             ]
 
                       else
@@ -224,8 +227,15 @@ detailedView ({ inputs, impact, index, next, current } as config) =
         , div
             [ class "card text-center" ]
             [ div [ class "card-header text-muted" ]
-                [ if Unit.impactToFloat current.impact > 0 then
-                    span [ class "fw-bold" ] [ Format.formatImpact impact current.impact ]
+                [ let
+                    impactValue =
+                        -- FIXME: do not duplicate impact requirement
+                        current.impacts
+                            |> Impact.getImpact impact.trigram
+                  in
+                  if Unit.impactToFloat impactValue > 0 then
+                    span [ class "fw-bold" ]
+                        [ Format.formatImpact impact impactValue ]
 
                   else
                     text "\u{00A0}"

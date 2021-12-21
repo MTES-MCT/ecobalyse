@@ -157,12 +157,17 @@ toNonRecycledIndia query =
     )
 
 
-createEntry : Db -> Bool -> ( String, Inputs.Query ) -> Result String Entry
-createEntry db highlight ( label, query ) =
+createEntry : Db -> Impact.Definition -> Bool -> ( String, Inputs.Query ) -> Result String Entry
+createEntry db { trigram } highlight ( label, query ) =
     let
+        grabImpact =
+            .impacts >> Impact.getImpact trigram >> Unit.impactToFloat
+
         stepScore stepLabel lifeCycle =
             lifeCycle
-                |> LifeCycle.getStepProp stepLabel .impact Quantity.zero
+                |> LifeCycle.getStepProp stepLabel
+                    (.impacts >> Impact.getImpact trigram)
+                    Quantity.zero
                 |> Unit.impactToFloat
     in
     query
@@ -172,7 +177,7 @@ createEntry db highlight ( label, query ) =
                 { label = label
                 , highlight = highlight
                 , knitted = inputs.product.knitted
-                , score = Unit.impactToFloat simulator.impact
+                , score = grabImpact simulator
                 , materialAndSpinning = lifeCycle |> stepScore Step.MaterialAndSpinning
                 , weavingKnitting = lifeCycle |> stepScore Step.WeavingKnitting
                 , dyeing = lifeCycle |> stepScore Step.Ennoblement
@@ -182,27 +187,27 @@ createEntry db highlight ( label, query ) =
             )
 
 
-getEntries : Db -> Inputs -> Result String (List Entry)
-getEntries db ({ material } as inputs) =
+getEntries : Db -> Impact.Definition -> Inputs -> Result String (List Entry)
+getEntries db impact ({ material } as inputs) =
     let
         query =
             Inputs.toQuery inputs
 
         entries =
             if material.recycledProcess /= Nothing then
-                [ ( "Votre simulation", query ) |> createEntry db True -- user simulation
-                , query |> toRecycledFrance |> createEntry db False
-                , query |> toNonRecycledFrance |> createEntry db False
-                , query |> toPartiallyRecycledIndiaTurkey |> createEntry db False
-                , query |> toRecycledIndia |> createEntry db False
-                , query |> toNonRecycledIndia |> createEntry db False
+                [ ( "Votre simulation", query ) |> createEntry db impact True -- user simulation
+                , query |> toRecycledFrance |> createEntry db impact False
+                , query |> toNonRecycledFrance |> createEntry db impact False
+                , query |> toPartiallyRecycledIndiaTurkey |> createEntry db impact False
+                , query |> toRecycledIndia |> createEntry db impact False
+                , query |> toNonRecycledIndia |> createEntry db impact False
                 ]
 
             else
-                [ ( "Votre simulation", query ) |> createEntry db True -- user simulation
-                , query |> toNonRecycledFrance |> createEntry db False
-                , query |> toNonRecycledIndiaTurkey |> createEntry db False
-                , query |> toNonRecycledIndia |> createEntry db False
+                [ ( "Votre simulation", query ) |> createEntry db impact True -- user simulation
+                , query |> toNonRecycledFrance |> createEntry db impact False
+                , query |> toNonRecycledIndiaTurkey |> createEntry db impact False
+                , query |> toNonRecycledIndia |> createEntry db impact False
                 ]
     in
     entries
@@ -212,7 +217,7 @@ getEntries db ({ material } as inputs) =
 
 view : Config -> Html msg
 view { session, impact, simulator } =
-    case simulator.inputs |> getEntries session.db of
+    case simulator.inputs |> getEntries session.db impact of
         Ok entries ->
             chart impact entries
 

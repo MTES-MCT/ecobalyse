@@ -22,7 +22,9 @@ expectImpact : Db -> Float -> Inputs.Query -> Expectation
 expectImpact db cch query =
     case Simulator.compute db query of
         Ok simulator ->
-            simulator.impact
+            simulator.impacts
+                -- FIXME: avoid relying on query.impact here
+                |> Impact.getImpact query.impact
                 |> Unit.impactToFloat
                 |> Expect.within (Expect.Absolute 0.01) cch
 
