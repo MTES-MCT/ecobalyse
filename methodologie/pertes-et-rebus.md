@@ -14,4 +14,4 @@ A chaque étape de la production, des pertes et rebut sont pris en compte. Les f
 | Tissu            | Habit          | [Confection](confection.md)                 |
 | Habit            | Habit          | [Distribution](distribution.md)             |
 
-Le paramètre proposé dans le paramétrage du calculateur en ligne est la masse d'habit, donc la masse à la fin des différentes étapes. Le calcul des masses se fait donc **en remontant la chaîne de production **: d'abord la masse de tissu, puis la masse d'étoffe, puis la masse de fil, puis la masse de matière première.&#x20;
+Le paramètre proposé dans le paramétrage du calculateur en ligne est la masse d'habit, donc la masse à la fin des différentes étapes. Le calcul des masses se fait donc **en remontant la chaîne de production** : d'abord la masse de tissu, puis la masse d'étoffe, puis la masse de fil, puis la masse de matière première.&#x20;

@@ -37,7 +37,7 @@ Paramétrage :&#x20;
 {% hint style="warning" %}
 * Le paramétrage manuel **ne concerne que le changement climatique** et pas les autres impacts qui pourraient être prochainement intégrés dans l'outil Wikicarbone
 * La modification manuelle de l'intensité carbone du mix électrique **ne s'applique qu'à l'étape considérée** (par exemple la teinture). Elle ne modifie pas le mix électrique mobilisé pour une autre étape qui serait réalisée dans le même pays (par exemple la confection).
-* La revendication d'un mix électrique différent de celui du réseau national, par exemple une énergie 100% renouvelable, **nécessite que des conditions soient remplies **\[à préciser pour lister les critères à remplir pour revendiquer une énergie verte en ACV].
+* La revendication d'un mix électrique différent de celui du réseau national, par exemple une énergie 100% renouvelable, **nécessite que des conditions soient remplies** \[à préciser pour lister les critères à remplir pour revendiquer une énergie verte en ACV].
 {% endhint %}
 
 ### Repères utiles
@@ -50,7 +50,7 @@ Pour déterminer l'intensité carbone d'un mix électrique, il est possible de c
 {% hint style="warning" %}
 * La modification manuelle de l'intensité carbone d'un mix électrique **ne modifie pas le pays considéré pour les différentes étapes de transport**. Si l'intensité carbone d'un autre mix électrique national est renseigné dans le champ, les transports restent calculés pour le pays dans lequel l'étape est réalisée.
 * Les intensités carbone des différents moyens de production présentés dans la base Carbone / bilan GES de l'ADEME concernent l'utilisation de ces moyens en France. **La transposition à d'autres pays peut impliquer des modifications**.
-* Les intensités carbone des mix électriques nationaux **présentent des valeurs différentes dans la base Impacts et dans la base Carbone / bilan GES de l'ADEME **([lien](https://www.bilans-ges.ademe.fr/fr/accueil/documentation-gene/index/page/Moyenne\_par\_pays)). Ces écarts doivent être mieux compris pour éviter des erreurs.
+* Les intensités carbone des mix électriques nationaux **présentent des valeurs différentes dans la base Impacts et dans la base Carbone / bilan GES de l'ADEME** ([lien](https://www.bilans-ges.ademe.fr/fr/accueil/documentation-gene/index/page/Moyenne\_par\_pays)). Ces écarts doivent être mieux compris pour éviter des erreurs.
 {% endhint %}
 
 ## Limites
