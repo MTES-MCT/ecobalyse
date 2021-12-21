@@ -27,7 +27,6 @@ type alias Model =
 type Route
     = Home
     | Simulator
-    | SimulatorAll
     | NotFound
 
 
@@ -64,9 +63,6 @@ parseRoute path =
         "/simulator/" ->
             Simulator
 
-        "/simulator/all/" ->
-            SimulatorAll
-
         _ ->
             NotFound
 
@@ -80,9 +76,6 @@ routeToString route =
         Simulator ->
             Just "/simulator/"
 
-        SimulatorAll ->
-            Just "/simulator/all/"
-
         NotFound ->
             Nothing
 
@@ -91,7 +84,6 @@ routes : List Route
 routes =
     [ Home
     , Simulator
-    , SimulatorAll
     , NotFound
     ]
 
@@ -187,11 +179,6 @@ handleRequest db ({ expressPath, expressQuery } as request) =
         Simulator ->
             decodeQuery expressQuery
                 |> Result.andThen (Simulator.compute db >> Result.map Simulator.encode)
-                |> toResponse request
-
-        SimulatorAll ->
-            decodeQuery expressQuery
-                |> Result.andThen (Simulator.computeAll db >> Result.map Impact.encodeImpacts)
                 |> toResponse request
 
         NotFound ->

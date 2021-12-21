@@ -47,14 +47,6 @@ init db =
             )
 
 
-{-| Computes all impacts. Takes a Query and runs a simulation for each known impact.
--}
-computeAll : Db -> Inputs.Query -> Result String Impacts
-computeAll { impacts } _ =
-    -- FIXME: obsolete, remove me
-    Ok <| Impact.impactsFromDefinitons impacts
-
-
 {-| Computes a single impact.
 -}
 compute : Db -> Inputs.Query -> Result String Simulator
