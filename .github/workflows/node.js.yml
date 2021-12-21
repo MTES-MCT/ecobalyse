@@ -32,8 +32,11 @@ jobs:
     - name: Run static analysis
       run: npx elm-analyse
 
-    - name: Run tests
+    - name: Run ui tests
       run: npm test
+
+    - name: Run server tests
+      run: npm run server:test
 
     - name: Dump test presets
       run: npm run dump:presets

@@ -26,6 +26,8 @@ app.get(/(.*)/, ({ query, path }, res) => {
   });
 });
 
-app.listen(port, host, () => {
+const server = app.listen(port, host, () => {
   console.log(`Example app listening at http://${host}:${port}`);
 });
+
+module.exports = server;
