@@ -38,7 +38,7 @@ init db =
         >> Result.map
             (\inputs ->
                 inputs
-                    |> LifeCycle.init
+                    |> LifeCycle.init db
                     |> (\lifeCycle ->
                             { inputs = inputs
                             , lifeCycle = lifeCycle

@@ -66,14 +66,21 @@ getStepProp label prop default =
 
 fromQuery : Db -> Inputs.Query -> Result String LifeCycle
 fromQuery db =
-    Inputs.fromQuery db >> Result.map init
+    Inputs.fromQuery db >> Result.map (init db)
 
 
-init : Inputs -> LifeCycle
-init inputs =
+init : Db -> Inputs -> LifeCycle
+init db inputs =
     inputs.countries
         |> List.map2
-            (\( label, editable ) country -> Step.create label editable country)
+            (\( label, editable ) country ->
+                Step.create
+                    { db = db
+                    , label = label
+                    , editable = editable
+                    , country = country
+                    }
+            )
             [ ( Step.MaterialAndSpinning, False )
             , ( Step.WeavingKnitting, True )
             , ( Step.Ennoblement, True )

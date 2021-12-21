@@ -55,8 +55,12 @@ type Label
     | Distribution -- Distribution
 
 
-create : Label -> Bool -> Country -> Step
-create label editable country =
+create : { db : Db, label : Label, editable : Bool, country : Country } -> Step
+create { db, label, editable, country } =
+    let
+        impacts =
+            Impact.impactsFromDefinitons db.impacts
+    in
     { label = label
     , country = country
     , editable = editable
