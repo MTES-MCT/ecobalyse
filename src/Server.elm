@@ -37,6 +37,7 @@ type alias Request =
     -- - `expressQuery` is ExpressJS `query` object representing query
     --   string params, which uses the qs package under the hood:
     --   https://www.npmjs.com/package/qs
+    -- - `jsResponseHandler` is an ExpressJS response callback function
     { expressPath : String
     , expressQuery : Encode.Value
     , jsResponseHandler : Encode.Value
@@ -54,8 +55,8 @@ init { jsonDb } =
     )
 
 
-parsePath : String -> Route
-parsePath path =
+parseRoute : String -> Route
+parseRoute path =
     case path of
         "/" ->
             Home
@@ -68,6 +69,36 @@ parsePath path =
 
         _ ->
             NotFound
+
+
+routeToString : Route -> Maybe String
+routeToString route =
+    case route of
+        Home ->
+            Just "/"
+
+        Simulator ->
+            Just "/simulator/"
+
+        SimulatorAll ->
+            Just "/simulator/all/"
+
+        NotFound ->
+            Nothing
+
+
+routes : List Route
+routes =
+    [ Home
+    , Simulator
+    , SimulatorAll
+    , NotFound
+    ]
+
+
+apiDocUrl : String
+apiDocUrl =
+    "https://fabrique-numerique.gitbook.io/wikicarbone/api"
 
 
 expressQueryDecoder : Decoder Inputs.Query
@@ -110,10 +141,12 @@ decodeQuery =
         >> Result.mapError Decode.errorToString
 
 
-sendResponse : Int -> Encode.Value -> Encode.Value -> Cmd Msg
-sendResponse httpStatus jsResponseHandler body =
+sendResponse : Int -> Request -> Encode.Value -> Cmd Msg
+sendResponse httpStatus { expressPath, expressQuery, jsResponseHandler } body =
     Encode.object
         [ ( "status", Encode.int httpStatus )
+        , ( "path", Encode.string expressPath )
+        , ( "query", expressQuery )
         , ( "body", body )
         , ( "jsResponseHandler", jsResponseHandler )
         ]
@@ -124,59 +157,60 @@ encodeStringError : String -> Encode.Value
 encodeStringError error =
     Encode.object
         [ ( "error", error |> String.lines |> Encode.list Encode.string )
-        , ( "documentation", Encode.string "https://fabrique-numerique.gitbook.io/wikicarbone/api" )
+        , ( "documentation", Encode.string apiDocUrl )
         ]
 
 
-toResponse : Encode.Value -> Result String Encode.Value -> Cmd Msg
-toResponse jsResponseHandler encodedResult =
+toResponse : Request -> Result String Encode.Value -> Cmd Msg
+toResponse request encodedResult =
     case encodedResult of
         Ok encoded ->
-            encoded |> sendResponse 200 jsResponseHandler
+            encoded
+                |> sendResponse 200 request
 
         Err error ->
-            encodeStringError error |> sendResponse 400 jsResponseHandler
+            encodeStringError error
+                |> sendResponse 400 request
 
 
-handleRequest : Result String Db -> Request -> Cmd Msg
-handleRequest dbResult { expressPath, expressQuery, jsResponseHandler } =
-    case parsePath expressPath of
+handleRequest : Db -> Request -> Cmd Msg
+handleRequest db ({ expressPath, expressQuery } as request) =
+    case parseRoute expressPath of
         Home ->
-            Encode.object [ ( "hello", Encode.string "world" ) ]
-                |> sendResponse 200 jsResponseHandler
+            Encode.object
+                [ ( "service", Encode.string "Wikicarbone" )
+                , ( "documentation", Encode.string apiDocUrl )
+                , ( "endpoints", routes |> List.filterMap routeToString |> Encode.list Encode.string )
+                ]
+                |> sendResponse 200 request
 
         Simulator ->
-            case dbResult of
-                Ok db ->
-                    decodeQuery expressQuery
-                        |> Result.andThen (Simulator.compute db >> Result.map Simulator.encode)
-                        |> toResponse jsResponseHandler
-
-                Err dbError ->
-                    encodeStringError dbError
-                        |> sendResponse 500 jsResponseHandler
+            decodeQuery expressQuery
+                |> Result.andThen (Simulator.compute db >> Result.map Simulator.encode)
+                |> toResponse request
 
         SimulatorAll ->
-            case dbResult of
-                Ok db ->
-                    decodeQuery expressQuery
-                        |> Result.andThen (Simulator.computeAll db >> Result.map Impact.encodeImpacts)
-                        |> toResponse jsResponseHandler
-
-                Err dbError ->
-                    encodeStringError dbError
-                        |> sendResponse 500 jsResponseHandler
+            decodeQuery expressQuery
+                |> Result.andThen (Simulator.computeAll db >> Result.map Impact.encodeImpacts)
+                |> toResponse request
 
         NotFound ->
             encodeStringError "Endpoint doesn't exist"
-                |> sendResponse 404 jsResponseHandler
+                |> sendResponse 404 request
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         Received request ->
-            ( model, request |> handleRequest model.db )
+            case model.db of
+                Err dbError ->
+                    ( model
+                    , encodeStringError dbError |> sendResponse 500 request
+                    )
+
+                Ok db ->
+                    ( model, handleRequest db request )
 
 
 main : Program Flags Model Msg
