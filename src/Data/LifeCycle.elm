@@ -2,11 +2,10 @@ module Data.LifeCycle exposing (..)
 
 import Array exposing (Array)
 import Data.Db exposing (Db)
-import Data.Impact as Impact
+import Data.Impact as Impact exposing (Impacts)
 import Data.Inputs as Inputs exposing (Inputs)
 import Data.Step as Step exposing (Step)
 import Data.Transport as Transport exposing (Transport)
-import Data.Unit as Unit
 import Json.Encode as Encode
 import Quantity
 import Result.Extra as RE
@@ -45,13 +44,21 @@ computeTotalTransports =
         Transport.default
 
 
-computeFinalImpactScore : LifeCycle -> Unit.Impact
-computeFinalImpactScore =
+computeFinalImpactScore : Db -> LifeCycle -> Impacts
+computeFinalImpactScore db =
     Array.foldl
-        (\{ impact, transport } finalScore ->
-            Quantity.sum [ finalScore, impact, transport.impact ]
+        (\{ impacts, transport } finalImpacts ->
+            finalImpacts
+                |> Impact.mapImpacts
+                    (\trigram impact ->
+                        Quantity.sum
+                            [ Impact.getImpact trigram impacts
+                            , impact
+                            , transport.impact
+                            ]
+                    )
         )
-        Quantity.zero
+        (Impact.impactsFromDefinitons db.impacts)
 
 
 getStep : Step.Label -> LifeCycle -> Maybe Step

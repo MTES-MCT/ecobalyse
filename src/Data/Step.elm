@@ -4,7 +4,7 @@ import Data.Country as Country exposing (Country)
 import Data.Db exposing (Db)
 import Data.Formula as Formula
 import Data.Gitbook as Gitbook exposing (Path(..))
-import Data.Impact as Impact
+import Data.Impact as Impact exposing (Impacts)
 import Data.Inputs exposing (Inputs)
 import Data.Process as Process exposing (Process)
 import Data.Transport as Transport exposing (Transport, default, defaultInland)
@@ -26,7 +26,7 @@ type alias Step =
     , outputMass : Mass
     , waste : Mass
     , transport : Transport
-    , impact : Unit.Impact
+    , impacts : Impacts
     , heat : Energy
     , kwh : Energy
     , processInfo : ProcessInfo
@@ -57,10 +57,6 @@ type Label
 
 create : { db : Db, label : Label, editable : Bool, country : Country } -> Step
 create { db, label, editable, country } =
-    let
-        impacts =
-            Impact.impactsFromDefinitons db.impacts
-    in
     { label = label
     , country = country
     , editable = editable
@@ -68,7 +64,7 @@ create { db, label, editable, country } =
     , outputMass = Quantity.zero
     , waste = Quantity.zero
     , transport = Transport.default
-    , impact = Quantity.zero
+    , impacts = Impact.impactsFromDefinitons db.impacts
     , heat = Quantity.zero
     , kwh = Quantity.zero
     , processInfo = defaultProcessInfo
@@ -290,11 +286,6 @@ updateWaste waste mass step =
     }
 
 
-updateImpact : (Mass -> Unit.Impact) -> Step -> Step
-updateImpact compute step =
-    { step | impact = compute step.outputMass }
-
-
 airTransportRatioToString : Float -> String
 airTransportRatioToString airTransportRatio =
     case round (airTransportRatio * 100) of
@@ -339,7 +330,7 @@ encode v =
         , ( "outputMass", Encode.float (Mass.inKilograms v.outputMass) )
         , ( "waste", Encode.float (Mass.inKilograms v.waste) )
         , ( "transport", Transport.encode v.transport )
-        , ( "impact", Unit.encodeImpact v.impact )
+        , ( "impacts", Impact.encodeImpacts v.impacts )
         , ( "heat", Encode.float (Energy.inMegajoules v.heat) )
         , ( "kwh", Encode.float (Energy.inKilowattHours v.kwh) )
         , ( "processInfo", encodeProcessInfo v.processInfo )
