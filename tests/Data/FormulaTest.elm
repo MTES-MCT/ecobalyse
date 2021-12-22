@@ -1,13 +1,14 @@
 module Data.FormulaTest exposing (..)
 
 import Data.Formula as Formula
-import Data.Impact as Impact
+import Data.Impact as Impact exposing (Impacts)
 import Data.Process exposing (noOpProcess)
 import Data.Unit as Unit
 import Dict.Any as AnyDict
 import Energy
 import Expect exposing (Expectation)
 import Mass exposing (Mass)
+import Quantity
 import Test exposing (..)
 
 
@@ -19,6 +20,14 @@ asTest label =
 kg : Float -> Mass
 kg =
     Mass.kilograms
+
+
+defaultImpacts : Impacts
+defaultImpacts =
+    AnyDict.fromList Impact.toString
+        [ ( Impact.trg "cch", Quantity.zero )
+        , ( Impact.trg "fwe", Quantity.zero )
+        ]
 
 
 suite : Test
@@ -53,8 +62,8 @@ suite =
             (let
                 res =
                     kg 1
-                        |> Formula.makingImpact
-                            Impact.defaultTrigram
+                        |> Formula.makingImpacts
+                            defaultImpacts
                             { makingProcess =
                                 { noOpProcess
                                     | elec = Energy.megajoules 0.5
@@ -64,15 +73,21 @@ suite =
                                     | impacts =
                                         AnyDict.fromList Impact.toString
                                             [ ( Impact.trg "cch", Unit.impactFromFloat 0.5 )
-                                            , ( Impact.trg "fwe", Unit.impactFromFloat 0.5 )
+                                            , ( Impact.trg "fwe", Unit.impactFromFloat 1.5 )
                                             ]
                                 }
                             }
              in
-             [ res.impact
+             [ res.impacts
+                |> Impact.getImpact (Impact.trg "cch")
                 |> Unit.impactToFloat
                 |> Expect.within (Expect.Absolute 0.01) 0.07
                 |> asTest "should compute Making step cch from process and country data"
+             , res.impacts
+                |> Impact.getImpact (Impact.trg "fwe")
+                |> Unit.impactToFloat
+                |> Expect.within (Expect.Absolute 0.01) 0.208
+                |> asTest "should compute Making step fwe from process and country data"
              , res.kwh
                 |> Energy.inKilowattHours
                 |> Expect.within (Expect.Absolute 0.01) 0.138
@@ -83,8 +98,8 @@ suite =
             (let
                 res =
                     kg 1
-                        |> Formula.weavingImpact
-                            Impact.defaultTrigram
+                        |> Formula.weavingImpacts
+                            defaultImpacts
                             { elecPppm = 0.01
                             , countryElecProcess =
                                 { noOpProcess
@@ -98,10 +113,16 @@ suite =
                             , grammage = 500
                             }
              in
-             [ res.impact
+             [ res.impacts
+                |> Impact.getImpact (Impact.trg "cch")
                 |> Unit.impactToFloat
                 |> Expect.within (Expect.Absolute 0.01) 0.8
                 |> asTest "should compute KnittingWeaving step cch from process and product data"
+             , res.impacts
+                |> Impact.getImpact (Impact.trg "fwe")
+                |> Unit.impactToFloat
+                |> Expect.within (Expect.Absolute 0.01) 4
+                |> asTest "should compute KnittingWeaving step fwe from process and product data"
              , res.kwh
                 |> Energy.inKilowattHours
                 |> Expect.within (Expect.Absolute 0.01) 8
@@ -112,8 +133,8 @@ suite =
             (let
                 res =
                     kg 1
-                        |> Formula.knittingImpact
-                            Impact.defaultTrigram
+                        |> Formula.knittingImpacts
+                            defaultImpacts
                             { elec = Energy.kilowattHours 5
                             , countryElecProcess =
                                 { noOpProcess
@@ -125,10 +146,16 @@ suite =
                                 }
                             }
              in
-             [ res.impact
+             [ res.impacts
+                |> Impact.getImpact (Impact.trg "cch")
                 |> Unit.impactToFloat
                 |> Expect.within (Expect.Absolute 0.01) 1
                 |> asTest "should compute KnittingWeaving step cch from process and product data"
+             , res.impacts
+                |> Impact.getImpact (Impact.trg "fwe")
+                |> Unit.impactToFloat
+                |> Expect.within (Expect.Absolute 0.01) 2.5
+                |> asTest "should compute KnittingWeaving step fwe from process and product data"
              , res.kwh
                 |> Energy.inKilowattHours
                 |> Expect.within (Expect.Absolute 0.01) 5
