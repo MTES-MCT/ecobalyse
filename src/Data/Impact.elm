@@ -127,9 +127,18 @@ updateImpact trigram value =
     AnyDict.update trigram (Maybe.map (always value))
 
 
-decodeImpacts : Decoder Impacts
-decodeImpacts =
-    AnyDict.decode (\str _ -> trg str) toString Unit.decodeImpact
+decodeImpacts : List Definition -> Decoder Impacts
+decodeImpacts definitions =
+    AnyDict.decode_
+        (\str _ ->
+            if definitions |> List.map .trigram |> List.member (trg str) then
+                Ok (trg str)
+
+            else
+                Err <| "Trigramme d'impact inconnu: " ++ str
+        )
+        toString
+        Unit.decodeImpact
 
 
 encodeImpacts : Impacts -> Encode.Value
