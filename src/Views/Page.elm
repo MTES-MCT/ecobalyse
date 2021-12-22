@@ -8,7 +8,6 @@ import Html.Events exposing (..)
 import Route
 import Views.Alert as Alert
 import Views.Container as Container
-import Views.Icon as Icon
 import Views.Link as Link
 import Views.Spinner as Spinner
 
@@ -43,7 +42,6 @@ frame config ( title, content ) =
     , body =
         [ stagingAlert config
         , navbar config
-        , feedback
         , main_ [ class "bg-white" ]
             [ notificationListView config
             , div [ class "pt-5" ] content
@@ -145,24 +143,6 @@ navbar { activePage } =
                     [ class "MainMenu navbar-nav justify-content-between flex-row"
                     , style "overflow" "auto"
                     ]
-            ]
-        ]
-
-
-feedback : Html msg
-feedback =
-    -- Note: only visible on larger viewports
-    Container.fluid [ class "d-none d-sm-block alert alert-info p-2 m-0 rounded-0 shadow-sm" ]
-        [ Container.centered [ class "text-center" ]
-            [ span []
-                [ span [ class "me-1" ] [ Icon.dialog ]
-                , text "Que pensez-vous de notre produit\u{00A0}? "
-                , Link.external
-                    [ href "https://hhvat39ihea.typeform.com/to/HnNn6rIY"
-                    ]
-                    [ text "Prenons-5 minutes pour voir comment l'améliorer"
-                    ]
-                ]
             ]
         ]
 
