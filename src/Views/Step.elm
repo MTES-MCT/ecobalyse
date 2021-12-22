@@ -161,7 +161,11 @@ simpleView ({ inputs, impact, index, current } as config) =
                     , div [ class "fs-7" ]
                         [ span [ class "me-1 align-bottom" ] [ Icon.info ]
                         , text "Transport\u{00A0}"
-                        , Format.formatImpact impact current.transport.impact
+
+                        -- FIXME: do not duplicate impact requirement
+                        , current.transport.impacts
+                            |> Impact.getImpact impact.trigram
+                            |> Format.formatImpact impact
                         ]
                     ]
                 ]
@@ -277,7 +281,11 @@ detailedView ({ inputs, impact, index, next, current } as config) =
                 , li [ class "list-group-item text-muted" ]
                     [ div [ class "d-flex justify-content-center align-items-center" ]
                         [ strong [] [ text <| transportLabel ++ "\u{00A0}:\u{00A0}" ]
-                        , Format.formatImpact impact current.transport.impact
+
+                        -- FIXME: do not duplicate impact requirement
+                        , current.transport.impacts
+                            |> Impact.getImpact impact.trigram
+                            |> Format.formatImpact impact
                         , inlineDocumentationLink config Gitbook.Transport
                         ]
                     ]

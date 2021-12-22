@@ -160,6 +160,7 @@ toNonRecycledIndia query =
 createEntry : Db -> Impact.Definition -> Bool -> ( String, Inputs.Query ) -> Result String Entry
 createEntry db { trigram } highlight ( label, query ) =
     let
+        -- FIXME: mutualize grabImpact
         grabImpact =
             .impacts >> Impact.getImpact trigram >> Unit.impactToFloat
 
@@ -182,7 +183,7 @@ createEntry db { trigram } highlight ( label, query ) =
                 , weavingKnitting = lifeCycle |> stepScore Step.WeavingKnitting
                 , dyeing = lifeCycle |> stepScore Step.Ennoblement
                 , making = lifeCycle |> stepScore Step.Making
-                , transport = Unit.impactToFloat transport.impact
+                , transport = grabImpact transport
                 }
             )
 

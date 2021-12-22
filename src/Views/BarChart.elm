@@ -28,13 +28,14 @@ type alias Bar msg =
 makeBars : Config -> List (Bar msg)
 makeBars { simulator, impact } =
     let
+        -- FIXME: mutualize grabImpact
         grabImpact =
             .impacts >> Impact.getImpact impact.trigram >> Unit.impactToFloat
 
         maxScore =
             simulator.lifeCycle
                 |> Array.map grabImpact
-                |> Array.push (Unit.impactToFloat simulator.transport.impact)
+                |> Array.push (grabImpact simulator.transport)
                 |> Array.toList
                 |> List.maximum
                 |> Maybe.withDefault 0
@@ -74,9 +75,9 @@ makeBars { simulator, impact } =
 
         transportBar =
             { label = text "Transport total"
-            , score = Unit.impactToFloat simulator.transport.impact
-            , width = clamp 0 100 (Unit.impactToFloat simulator.transport.impact / maxScore * toFloat 100)
-            , percent = Unit.impactToFloat simulator.transport.impact / grabImpact simulator * toFloat 100
+            , score = grabImpact simulator.transport
+            , width = clamp 0 100 (grabImpact simulator.transport / maxScore * toFloat 100)
+            , percent = grabImpact simulator.transport / grabImpact simulator * toFloat 100
             }
     in
     stepBars ++ [ transportBar ]

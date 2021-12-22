@@ -40,8 +40,10 @@ init db =
                     |> (\lifeCycle ->
                             { inputs = inputs
                             , lifeCycle = lifeCycle
+
+                            -- FIXME: mutualize default impacts
                             , impacts = Impact.impactsFromDefinitons db.impacts
-                            , transport = Transport.default
+                            , transport = Transport.default (Impact.impactsFromDefinitons db.impacts)
                             }
                        )
             )
@@ -87,7 +89,7 @@ compute db query =
         -- Compute step transport
         |> nextWithDb computeStepsTransport
         -- Compute transport summary
-        |> next computeTotalTransports
+        |> next (computeTotalTransports db)
         --
         -- FINAL CO2 SCORE
         --
@@ -249,13 +251,13 @@ computeMaterialStepWaste ({ inputs, lifeCycle } as simulator) =
 computeStepsTransport : Db -> Simulator -> Result String Simulator
 computeStepsTransport db simulator =
     simulator.lifeCycle
-        |> LifeCycle.computeStepsTransport db simulator.inputs.impact
+        |> LifeCycle.computeStepsTransport db
         |> Result.map (\lifeCycle -> simulator |> updateLifeCycle (always lifeCycle))
 
 
-computeTotalTransports : Simulator -> Simulator
-computeTotalTransports simulator =
-    { simulator | transport = simulator.lifeCycle |> LifeCycle.computeTotalTransports }
+computeTotalTransports : Db -> Simulator -> Simulator
+computeTotalTransports db simulator =
+    { simulator | transport = simulator.lifeCycle |> LifeCycle.computeTotalTransports db }
 
 
 computeFinalImpacts : Db -> Simulator -> Simulator

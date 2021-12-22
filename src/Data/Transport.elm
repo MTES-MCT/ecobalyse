@@ -1,7 +1,7 @@
 module Data.Transport exposing (..)
 
 import Data.Country as Country
-import Data.Unit as Unit
+import Data.Impact as Impact exposing (Impacts)
 import Dict.Any as Dict exposing (AnyDict)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
@@ -21,25 +21,25 @@ type alias Transport =
     { road : Length
     , sea : Length
     , air : Length
-    , impact : Unit.Impact
+    , impacts : Impacts
     }
 
 
-default : Transport
-default =
+default : Impacts -> Transport
+default impacts =
     { road = Quantity.zero
     , sea = Quantity.zero
     , air = Quantity.zero
-    , impact = Quantity.zero
+    , impacts = impacts
     }
 
 
-defaultInland : Transport
-defaultInland =
+defaultInland : Impacts -> Transport
+defaultInland impacts =
     { road = Length.kilometers 500
     , sea = Quantity.zero
     , air = Length.kilometers 500
-    , impact = Quantity.zero
+    , impacts = impacts
     }
 
 
@@ -77,10 +77,15 @@ roadSeaTransportRatio { road, sea } =
         0.25
 
 
-getTransportBetween : Country.Code -> Country.Code -> Distances -> Transport
-getTransportBetween cA cB distances =
+getTransportBetween :
+    Impacts
+    -> Country.Code
+    -> Country.Code
+    -> Distances
+    -> Transport
+getTransportBetween impacts cA cB distances =
     if cA == cB then
-        defaultInland
+        defaultInland impacts
 
     else
         distances
@@ -89,13 +94,13 @@ getTransportBetween cA cB distances =
                 (\countries ->
                     case Dict.get cB countries of
                         Just transport ->
-                            Just transport
+                            Just { transport | impacts = impacts }
 
                         Nothing ->
                             -- reverse query source dict
-                            Just (getTransportBetween cB cA distances)
+                            Just (getTransportBetween impacts cB cA distances)
                 )
-            |> Maybe.withDefault default
+            |> Maybe.withDefault (default impacts)
 
 
 decodeKm : Decoder Length
@@ -114,7 +119,7 @@ decode =
         (Decode.field "road" decodeKm)
         (Decode.field "sea" decodeKm)
         (Decode.field "air" decodeKm)
-        (Decode.succeed Quantity.zero)
+        (Decode.succeed Impact.noImpacts)
 
 
 encode : Transport -> Encode.Value
@@ -123,7 +128,7 @@ encode v =
         [ ( "road", encodeKm v.road )
         , ( "sea", encodeKm v.sea )
         , ( "air", encodeKm v.air )
-        , ( "impact", Unit.encodeImpact v.impact )
+        , ( "impacts", Impact.encodeImpacts v.impacts )
         ]
 
 

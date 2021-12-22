@@ -54,7 +54,7 @@ summaryView { session, impact, reusable } ({ inputs, lifeCycle } as simulator) =
                 |> List.map (\{ name } -> li [] [ span [] [ text name ] ])
                 |> ul [ class "Chevrons" ]
             , lifeCycle
-                |> LifeCycle.computeTotalTransports
+                |> LifeCycle.computeTotalTransports session.db
                 |> TransportView.view
                     { fullWidth = False
                     , airTransportLabel = Just "Transport aérien total"

@@ -15,13 +15,12 @@ type alias LifeCycle =
     Array Step
 
 
-computeStepsTransport : Db -> Impact.Definition -> LifeCycle -> Result String LifeCycle
-computeStepsTransport db impact lifeCycle =
+computeStepsTransport : Db -> LifeCycle -> Result String LifeCycle
+computeStepsTransport db lifeCycle =
     lifeCycle
         |> Array.indexedMap
             (\index step ->
                 Step.computeTransports db
-                    impact
                     (Array.get (index + 1) lifeCycle |> Maybe.withDefault step)
                     step
             )
@@ -30,18 +29,26 @@ computeStepsTransport db impact lifeCycle =
         |> Result.map Array.fromList
 
 
-computeTotalTransports : LifeCycle -> Transport
-computeTotalTransports =
+computeTotalTransports : Db -> LifeCycle -> Transport
+computeTotalTransports db =
     Array.foldl
         (\{ transport } acc ->
             { acc
                 | road = acc.road |> Quantity.plus transport.road
                 , sea = acc.sea |> Quantity.plus transport.sea
                 , air = acc.air |> Quantity.plus transport.air
-                , impact = acc.impact |> Quantity.plus transport.impact
+                , impacts =
+                    acc.impacts
+                        |> Impact.mapImpacts
+                            (\trigram impact ->
+                                Quantity.sum
+                                    [ impact
+                                    , Impact.getImpact trigram transport.impacts
+                                    ]
+                            )
             }
         )
-        Transport.default
+        (Transport.default (Impact.impactsFromDefinitons db.impacts))
 
 
 computeFinalImpactScore : Db -> LifeCycle -> Impacts
@@ -54,7 +61,7 @@ computeFinalImpactScore db =
                         Quantity.sum
                             [ Impact.getImpact trigram impacts
                             , impact
-                            , transport.impact
+                            , Impact.getImpact trigram transport.impacts
                             ]
                     )
         )
