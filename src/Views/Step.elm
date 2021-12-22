@@ -150,10 +150,7 @@ simpleView ({ inputs, impact, index, current } as config) =
                 [ div []
                     [ if current.label /= Step.Distribution then
                         div [ class "fs-3 fw-normal text-secondary" ]
-                            [ -- FIXME: do not duplicate impact requirement
-                              current.impacts
-                                |> Impact.getImpact impact.trigram
-                                |> Format.formatImpact impact
+                            [ current.impacts |> Format.formatImpact impact
                             ]
 
                       else
@@ -161,11 +158,7 @@ simpleView ({ inputs, impact, index, current } as config) =
                     , div [ class "fs-7" ]
                         [ span [ class "me-1 align-bottom" ] [ Icon.info ]
                         , text "Transport\u{00A0}"
-
-                        -- FIXME: do not duplicate impact requirement
-                        , current.transport.impacts
-                            |> Impact.getImpact impact.trigram
-                            |> Format.formatImpact impact
+                        , current.transport.impacts |> Format.formatImpact impact
                         ]
                     ]
                 ]
@@ -231,15 +224,9 @@ detailedView ({ inputs, impact, index, next, current } as config) =
         , div
             [ class "card text-center" ]
             [ div [ class "card-header text-muted" ]
-                [ let
-                    impactValue =
-                        -- FIXME: do not duplicate impact requirement
-                        current.impacts
-                            |> Impact.getImpact impact.trigram
-                  in
-                  if Unit.impactToFloat impactValue > 0 then
+                [ if (current.impacts |> Impact.getImpact impact.trigram |> Unit.impactToFloat) > 0 then
                     span [ class "fw-bold" ]
-                        [ Format.formatImpact impact impactValue ]
+                        [ current.impacts |> Format.formatImpact impact ]
 
                   else
                     text "\u{00A0}"
@@ -281,11 +268,7 @@ detailedView ({ inputs, impact, index, next, current } as config) =
                 , li [ class "list-group-item text-muted" ]
                     [ div [ class "d-flex justify-content-center align-items-center" ]
                         [ strong [] [ text <| transportLabel ++ "\u{00A0}:\u{00A0}" ]
-
-                        -- FIXME: do not duplicate impact requirement
-                        , current.transport.impacts
-                            |> Impact.getImpact impact.trigram
-                            |> Format.formatImpact impact
+                        , current.transport.impacts |> Format.formatImpact impact
                         , inlineDocumentationLink config Gitbook.Transport
                         ]
                     ]

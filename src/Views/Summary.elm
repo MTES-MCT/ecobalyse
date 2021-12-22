@@ -44,10 +44,7 @@ summaryView { session, impact, reusable } ({ inputs, lifeCycle } as simulator) =
                     ]
                     []
                 , div [ class "display-5" ]
-                    [ -- FIXME: do not duplicate impact requirement
-                      simulator.impacts
-                        |> Impact.getImpact impact.trigram
-                        |> Format.formatImpact impact
+                    [ simulator.impacts |> Format.formatImpact impact
                     ]
                 ]
             , inputs.countries
