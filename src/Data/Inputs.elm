@@ -16,8 +16,7 @@ import Mass exposing (Mass)
 
 
 type alias Inputs =
-    { impact : Impact.Definition
-    , mass : Mass
+    { mass : Mass
     , material : Material
     , product : Product
     , countries : List Country
@@ -53,15 +52,13 @@ fromQuery : Db -> Query -> Result String Inputs
 fromQuery db query =
     let
         lookups =
-            { impact = db.impacts |> Impact.getDefinition query.impact
-            , material = db.materials |> Material.findByUuid query.material
+            { material = db.materials |> Material.findByUuid query.material
             , product = db.products |> Product.findById query.product
             , countries = db.countries |> Country.findByCodes query.countries
             }
 
-        build impact_ material_ product_ countries_ =
-            { impact = impact_
-            , mass = query.mass
+        build material_ product_ countries_ =
+            { mass = query.mass
             , material = material_
             , product = product_
             , countries = countries_
@@ -71,16 +68,15 @@ fromQuery db query =
             , customCountryMixes = query.customCountryMixes
             }
     in
-    Result.map4 build
-        lookups.impact
+    Result.map3 build
         lookups.material
         lookups.product
         lookups.countries
 
 
-toQuery : Inputs -> Query
-toQuery inputs =
-    { impact = inputs.impact.trigram
+toQuery : Impact.Trigram -> Inputs -> Query
+toQuery trigram inputs =
+    { impact = trigram
     , mass = inputs.mass
     , material = inputs.material.uuid
     , product = inputs.product.id
@@ -364,8 +360,7 @@ presets trigram =
 encode : Inputs -> Encode.Value
 encode inputs =
     Encode.object
-        [ ( "impact", Impact.encodeDefinition inputs.impact )
-        , ( "mass", Encode.float (Mass.inKilograms inputs.mass) )
+        [ ( "mass", Encode.float (Mass.inKilograms inputs.mass) )
         , ( "material", Material.encode inputs.material )
         , ( "product", Product.encode inputs.product )
         , ( "countries", Encode.list Country.encode inputs.countries )

@@ -192,7 +192,7 @@ getEntries : Db -> Impact.Definition -> Inputs -> Result String (List Entry)
 getEntries db impact ({ material } as inputs) =
     let
         query =
-            Inputs.toQuery inputs
+            Inputs.toQuery impact.trigram inputs
 
         entries =
             if material.recycledProcess /= Nothing then

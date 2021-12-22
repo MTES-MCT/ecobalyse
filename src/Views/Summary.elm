@@ -92,7 +92,12 @@ summaryView { session, impact, reusable } ({ inputs, lifeCycle } as simulator) =
             div [ class "card-footer text-center" ]
                 [ a
                     [ class "btn btn-primary"
-                    , Route.href (Route.Simulator (inputs |> Inputs.toQuery |> Just))
+                    , Route.href
+                        (inputs
+                            |> Inputs.toQuery Impact.defaultTrigram
+                            |> Just
+                            |> Route.Simulator
+                        )
                     ]
                     [ text "Reprendre cette simulation" ]
                 ]

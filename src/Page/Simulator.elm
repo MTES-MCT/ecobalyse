@@ -467,12 +467,12 @@ lifeCycleStepsView db { displayMode, impact } simulator =
         |> div [ class "pt-1" ]
 
 
-shareLinkView : Session -> Simulator -> Html Msg
-shareLinkView session simulator =
+shareLinkView : Session -> Impact.Trigram -> Simulator -> Html Msg
+shareLinkView session trigram simulator =
     let
         shareableLink =
             simulator.inputs
-                |> (Inputs.toQuery >> Just)
+                |> (Inputs.toQuery trigram >> Just)
                 |> Route.Simulator
                 |> Route.toString
                 |> (++) session.clientUrl
@@ -739,7 +739,7 @@ simulatorView ({ db } as session) model ({ inputs } as simulator) =
                             }
                     ]
                 , feedbackView
-                , shareLinkView session simulator
+                , shareLinkView session model.impact.trigram simulator
                 ]
             ]
         ]

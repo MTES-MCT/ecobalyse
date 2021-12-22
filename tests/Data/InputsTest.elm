@@ -25,7 +25,7 @@ suite =
                 [ describe "Encoding and decoding queries"
                     [ sampleQuery
                         |> Inputs.fromQuery db
-                        |> Result.map Inputs.toQuery
+                        |> Result.map (Inputs.toQuery (Impact.trg "fwe"))
                         |> Expect.equal (Ok sampleQuery)
                         |> asTest "should encode and decode a query"
                     ]
