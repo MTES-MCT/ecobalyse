@@ -3,6 +3,7 @@ module Page.Simulator exposing (..)
 import Array
 import Browser.Dom as Dom
 import Browser.Events
+import Browser.Navigation as Navigation
 import Data.Country as Country
 import Data.Db exposing (Db)
 import Data.Gitbook as Gitbook
@@ -23,7 +24,7 @@ import Mass
 import Ports
 import RemoteData exposing (WebData)
 import Request.Gitbook as GitbookApi
-import Route exposing (Route(..))
+import Route
 import Task
 import Views.Alert as Alert
 import Views.Container as Container
@@ -129,13 +130,9 @@ validateCustomCountryMixInput stepLabel =
         >> Maybe.map Unit.impactFromFloat
 
 
-init : Maybe Inputs.Query -> Session -> ( Model, Session, Cmd Msg )
-init maybeQuery ({ db } as session) =
+init : Impact.Trigram -> Maybe Inputs.Query -> Session -> ( Model, Session, Cmd Msg )
+init trigram maybeQuery ({ db } as session) =
     let
-        trigram =
-            -- FIXME: retrieve from route
-            Impact.defaultTrigram
-
         query =
             maybeQuery
                 |> Maybe.withDefault Inputs.defaultQuery
@@ -208,7 +205,7 @@ updateQueryCustomCountryMix stepLabel maybeValue ({ customCountryMixes } as quer
 
 
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
-update ({ db } as session) msg ({ customCountryMixInputs, query } as model) =
+update ({ db, navKey } as session) msg ({ customCountryMixInputs, query } as model) =
     case msg of
         CloseModal ->
             ( { model | modal = NoModal }, session, Cmd.none )
@@ -258,15 +255,11 @@ update ({ db } as session) msg ({ customCountryMixInputs, query } as model) =
                 |> updateQuery (updateQueryCustomCountryMix stepLabel (Just customCountryMix) query)
 
         SwitchImpact trigram ->
-            -- FIXME: should be handled from route
-            ( { model
-                | impact =
-                    db.impacts
-                        |> Impact.getDefinition trigram
-                        |> Result.withDefault Impact.default
-              }
+            ( model
             , session
-            , Cmd.none
+            , Route.Simulator trigram (Just query)
+                |> Route.toString
+                |> Navigation.pushUrl navKey
             )
 
         SwitchMode displayMode ->
@@ -481,7 +474,7 @@ shareLinkView session { impact } simulator =
         shareableLink =
             simulator.inputs
                 |> (Inputs.toQuery >> Just)
-                |> Route.Simulator
+                |> Route.Simulator impact.trigram
                 |> Route.toString
                 |> (++) session.clientUrl
     in

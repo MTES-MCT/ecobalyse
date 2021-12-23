@@ -1,6 +1,7 @@
 module Route exposing (Route(..), fromUrl, href, pushUrl, toString)
 
 import Browser.Navigation as Nav
+import Data.Impact as Impact
 import Data.Inputs as Inputs
 import Html exposing (Attribute)
 import Html.Attributes as Attr
@@ -13,7 +14,7 @@ type Route
     | Changelog
     | Editorial String
     | Examples
-    | Simulator (Maybe Inputs.Query)
+    | Simulator Impact.Trigram (Maybe Inputs.Query)
     | Stats
 
 
@@ -24,20 +25,34 @@ parser =
         , Parser.map Changelog (Parser.s "changelog")
         , Parser.map Editorial (Parser.s "content" </> Parser.string)
         , Parser.map Examples (Parser.s "examples")
-        , Parser.map (Simulator Nothing) (Parser.s "simulator")
-        , Parser.map (Simulator << Just) (Parser.s "simulator" </> parseInputsQuery)
+        , Parser.map (Simulator Impact.defaultTrigram Nothing) (Parser.s "simulator")
+        , Parser.map Simulator (Parser.s "simulator" </> parseTrigram </> parseInputsQuery)
         , Parser.map Stats (Parser.s "stats")
         ]
 
 
-parseInputsQuery : Parser (Inputs.Query -> a) a
+parseTrigram : Parser (Impact.Trigram -> a) a
+parseTrigram =
+    let
+        trigrams =
+            "acd,ozd,cch,ccb,ccf,ccl,fwe,swe,tre,pco,pma,ior,fru,mru,ldu"
+                |> String.split ","
+    in
+    Parser.custom "TRIGRAM" <|
+        \trg ->
+            if List.member trg trigrams then
+                Just (Impact.trg trg)
+
+            else
+                Just Impact.defaultTrigram
+
+
+parseInputsQuery : Parser (Maybe Inputs.Query -> a) a
 parseInputsQuery =
-    Parser.string
-        |> Parser.map
-            (Inputs.b64decode
-                >> Result.toMaybe
-                >> Maybe.withDefault Inputs.defaultQuery
-            )
+    Parser.custom "QUERY" <|
+        Inputs.b64decode
+            >> Result.toMaybe
+            >> Just
 
 
 {-| Note: as elm-kitten relies on URL fragment based routing, the source URL is
@@ -96,11 +111,14 @@ toString route =
                 Examples ->
                     [ "examples" ]
 
-                Simulator (Just inputs) ->
-                    [ "simulator", Inputs.b64encode inputs ]
+                Simulator trigram (Just inputs) ->
+                    [ "simulator", Impact.toString trigram, Inputs.b64encode inputs ]
 
-                Simulator Nothing ->
+                Simulator (Impact.Trigram "cch") Nothing ->
                     [ "simulator" ]
+
+                Simulator trigram Nothing ->
+                    [ "simulator", Impact.toString trigram ]
 
                 Stats ->
                     [ "stats" ]

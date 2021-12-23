@@ -93,7 +93,7 @@ summaryView { session, impact, reusable } ({ inputs, lifeCycle } as simulator) =
                         (inputs
                             |> Inputs.toQuery
                             |> Just
-                            |> Route.Simulator
+                            |> Route.Simulator Impact.defaultTrigram
                         )
                     ]
                     [ text "Reprendre cette simulation" ]

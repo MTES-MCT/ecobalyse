@@ -48,7 +48,7 @@ view session _ =
                             [ text "Comprendre, contribuer et faire émerger des valeurs de référence" ]
                         , div [ class "row mb-4" ]
                             [ div [ class "col-md-6 text-center text-md-end py-2" ]
-                                [ a [ class "btn btn-lg btn-primary", Route.href (Route.Simulator Nothing) ]
+                                [ a [ class "btn btn-lg btn-primary", Route.href (Route.Simulator Impact.defaultTrigram Nothing) ]
                                     [ text "Faire une simulation" ]
                                 ]
                             , div [ class "col-md-6 text-center text-md-start py-2" ]
