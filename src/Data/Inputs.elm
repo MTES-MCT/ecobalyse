@@ -12,6 +12,7 @@ import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
 import Mass exposing (Mass)
+import Url.Parser as Parser exposing (Parser)
 
 
 type alias Inputs =
@@ -398,3 +399,15 @@ b64decode =
 b64encode : Query -> String
 b64encode =
     encodeQuery >> Encode.encode 0 >> Base64.encode
+
+
+
+-- Parser
+
+
+parseBase64Query : Parser (Maybe Query -> a) a
+parseBase64Query =
+    Parser.custom "QUERY" <|
+        b64decode
+            >> Result.toMaybe
+            >> Just

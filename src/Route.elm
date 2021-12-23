@@ -26,33 +26,9 @@ parser =
         , Parser.map Editorial (Parser.s "content" </> Parser.string)
         , Parser.map Examples (Parser.s "examples")
         , Parser.map (Simulator Impact.defaultTrigram Nothing) (Parser.s "simulator")
-        , Parser.map Simulator (Parser.s "simulator" </> parseTrigram </> parseInputsQuery)
+        , Parser.map Simulator (Parser.s "simulator" </> Impact.parseTrigram </> Inputs.parseBase64Query)
         , Parser.map Stats (Parser.s "stats")
         ]
-
-
-parseTrigram : Parser (Impact.Trigram -> a) a
-parseTrigram =
-    let
-        trigrams =
-            "acd,ozd,cch,ccb,ccf,ccl,fwe,swe,tre,pco,pma,ior,fru,mru,ldu"
-                |> String.split ","
-    in
-    Parser.custom "TRIGRAM" <|
-        \trg ->
-            if List.member trg trigrams then
-                Just (Impact.trg trg)
-
-            else
-                Just Impact.defaultTrigram
-
-
-parseInputsQuery : Parser (Maybe Inputs.Query -> a) a
-parseInputsQuery =
-    Parser.custom "QUERY" <|
-        Inputs.b64decode
-            >> Result.toMaybe
-            >> Just
 
 
 {-| Note: as elm-kitten relies on URL fragment based routing, the source URL is
