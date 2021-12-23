@@ -136,10 +136,8 @@ Impact du mix énergétique du pays à l'étape de Confection, exprimé en kgCO�
 {% endswagger-response %}
 {% endswagger %}
 
-{% swagger method="get" path="simulator/<impact>" baseUrl="https://wikicarbone.osc-fr1.scalingo.io/" summary="Effectue une simulation sur tous les impacts à partir des paramètres fournis." %}
+{% swagger method="get" path="simulator/:impact" baseUrl="https://wikicarbone.osc-fr1.scalingo.io/" summary="Effectue une simulation sur tous les impacts à partir des paramètres fournis." %}
 {% swagger-description %}
-`Le`&#x20;
-
 Le paramètre `impact` est le type d'impact étudié, dont le code est parmi les suivants :
 
 `acd`: **Acidification**, unité: `mol éq. H+`
@@ -223,6 +221,10 @@ Impact du mix énergétique du pays à l'étape de Teinture, exprimé en kgCO₂
 
 {% swagger-parameter in="query" name="customCountryMixes[making]" type="Float" %}
 Impact du mix énergétique du pays à l'étape de Confection, exprimé en kgCO₂/KWh
+{% endswagger-parameter %}
+
+{% swagger-parameter in="path" name="impact" required="true" %}
+Type d'impact à étudier
 {% endswagger-parameter %}
 
 {% swagger-response status="200: OK" description="La simulation a été effectuée avec succès" %}
