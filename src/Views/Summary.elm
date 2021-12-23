@@ -44,14 +44,14 @@ summaryView { session, impact, reusable } ({ inputs, lifeCycle } as simulator) =
                     ]
                     []
                 , div [ class "display-5" ]
-                    [ Format.formatImpact impact simulator.impact
+                    [ simulator.impacts |> Format.formatImpact impact
                     ]
                 ]
             , inputs.countries
                 |> List.map (\{ name } -> li [] [ span [] [ text name ] ])
                 |> ul [ class "Chevrons" ]
             , lifeCycle
-                |> LifeCycle.computeTotalTransports
+                |> LifeCycle.computeTotalTransports session.db
                 |> TransportView.view
                     { fullWidth = False
                     , airTransportLabel = Just "Transport aérien total"
@@ -89,7 +89,12 @@ summaryView { session, impact, reusable } ({ inputs, lifeCycle } as simulator) =
             div [ class "card-footer text-center" ]
                 [ a
                     [ class "btn btn-primary"
-                    , Route.href (Route.Simulator (inputs |> Inputs.toQuery |> Just))
+                    , Route.href
+                        (inputs
+                            |> Inputs.toQuery
+                            |> Just
+                            |> Route.Simulator Impact.defaultTrigram
+                        )
                     ]
                     [ text "Reprendre cette simulation" ]
                 ]

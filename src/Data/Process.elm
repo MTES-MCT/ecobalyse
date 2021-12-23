@@ -361,15 +361,15 @@ decodeFromUuid processes =
             )
 
 
-decode : Decoder Process
-decode =
+decode : List Impact.Definition -> Decoder Process
+decode impacts =
     Decode.succeed Process
         |> Pipe.required "cat1" (Decode.string |> Decode.andThen (cat1FromString >> DecodeExtra.fromResult))
         |> Pipe.required "cat2" (Decode.string |> Decode.andThen (cat2FromString >> DecodeExtra.fromResult))
         |> Pipe.required "cat3" (Decode.string |> Decode.andThen (cat3FromString >> DecodeExtra.fromResult))
         |> Pipe.required "name" Decode.string
         |> Pipe.required "uuid" (Decode.map Uuid Decode.string)
-        |> Pipe.required "impacts" Impact.decodeImpacts
+        |> Pipe.required "impacts" (Impact.decodeImpacts impacts)
         |> Pipe.required "heat" (Decode.map Energy.megajoules Decode.float)
         |> Pipe.required "elec_pppm" Decode.float
         |> Pipe.required "elec" (Decode.map Energy.megajoules Decode.float)
@@ -377,9 +377,9 @@ decode =
         |> Pipe.required "alias" (Decode.maybe Decode.string)
 
 
-decodeList : Decoder (List Process)
-decodeList =
-    Decode.list decode
+decodeList : List Impact.Definition -> Decoder (List Process)
+decodeList impacts =
+    Decode.list (decode impacts)
 
 
 encode : Process -> Encode.Value

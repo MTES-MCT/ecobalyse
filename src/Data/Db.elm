@@ -10,8 +10,8 @@ import Json.Decode as Decode exposing (Decoder)
 
 
 type alias Db =
-    { processes : List Process
-    , impacts : List Impact.Definition
+    { impacts : List Impact.Definition
+    , processes : List Process
     , countries : List Country
     , materials : List Material
     , products : List Product
@@ -21,8 +21,8 @@ type alias Db =
 
 empty : Db
 empty =
-    { processes = []
-    , impacts = []
+    { impacts = []
+    , processes = []
     , countries = []
     , materials = []
     , products = []
@@ -38,13 +38,16 @@ buildFromJson json =
 
 decode : Decoder Db
 decode =
-    Decode.field "processes" Process.decodeList
+    Decode.field "impacts" Impact.decodeList
         |> Decode.andThen
-            (\processes ->
-                Decode.map5 (Db processes)
-                    (Decode.field "impacts" Impact.decodeList)
-                    (Decode.field "countries" (Country.decodeList processes))
-                    (Decode.field "materials" (Material.decodeList processes))
-                    (Decode.field "products" (Product.decodeList processes))
-                    (Decode.field "transports" Transport.decodeDistances)
+            (\impacts ->
+                Decode.field "processes" (Process.decodeList impacts)
+                    |> Decode.andThen
+                        (\processes ->
+                            Decode.map4 (Db impacts processes)
+                                (Decode.field "countries" (Country.decodeList processes))
+                                (Decode.field "materials" (Material.decodeList processes))
+                                (Decode.field "products" (Product.decodeList processes))
+                                (Decode.field "transports" Transport.decodeDistances)
+                        )
             )

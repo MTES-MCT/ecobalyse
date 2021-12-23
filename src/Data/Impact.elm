@@ -6,6 +6,7 @@ import Dict.Any as AnyDict exposing (AnyDict)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
 import Quantity exposing (Quantity(..))
+import Url.Parser as Parser exposing (Parser)
 
 
 
@@ -117,16 +118,60 @@ getImpact trigram =
         >> Maybe.withDefault Quantity.zero
 
 
+grabImpactFloat : Trigram -> { a | impacts : Impacts } -> Float
+grabImpactFloat trigram { impacts } =
+    impacts |> getImpact trigram |> Unit.impactToFloat
+
+
+filterImpacts : (Trigram -> Unit.Impact -> Bool) -> Impacts -> Impacts
+filterImpacts fn =
+    AnyDict.filter fn
+
+
+mapImpacts : (Trigram -> Unit.Impact -> Unit.Impact) -> Impacts -> Impacts
+mapImpacts fn =
+    AnyDict.map fn
+
+
 updateImpact : Trigram -> Unit.Impact -> Impacts -> Impacts
 updateImpact trigram value =
     AnyDict.update trigram (Maybe.map (always value))
 
 
-decodeImpacts : Decoder Impacts
-decodeImpacts =
-    AnyDict.decode (\str _ -> trg str) toString Unit.decodeImpact
+decodeImpacts : List Definition -> Decoder Impacts
+decodeImpacts definitions =
+    AnyDict.decode_
+        (\str _ ->
+            if definitions |> List.map .trigram |> List.member (trg str) then
+                Ok (trg str)
+
+            else
+                Err <| "Trigramme d'impact inconnu: " ++ str
+        )
+        toString
+        Unit.decodeImpact
 
 
 encodeImpacts : Impacts -> Encode.Value
 encodeImpacts =
     AnyDict.encode toString Unit.encodeImpact
+
+
+
+-- Parser
+
+
+parseTrigram : Parser (Trigram -> a) a
+parseTrigram =
+    let
+        trigrams =
+            "acd,ozd,cch,ccb,ccf,ccl,fwe,swe,tre,pco,pma,ior,fru,mru,ldu"
+                |> String.split ","
+    in
+    Parser.custom "TRIGRAM" <|
+        \trigram ->
+            if List.member trigram trigrams then
+                Just (trg trigram)
+
+            else
+                Just defaultTrigram

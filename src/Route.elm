@@ -14,7 +14,7 @@ type Route
     | Changelog
     | Editorial String
     | Examples
-    | Simulator (Maybe Inputs.Query)
+    | Simulator Impact.Trigram (Maybe Inputs.Query)
     | Stats
 
 
@@ -25,20 +25,10 @@ parser =
         , Parser.map Changelog (Parser.s "changelog")
         , Parser.map Editorial (Parser.s "content" </> Parser.string)
         , Parser.map Examples (Parser.s "examples")
-        , Parser.map (Simulator Nothing) (Parser.s "simulator")
-        , Parser.map (Simulator << Just) (Parser.s "simulator" </> parseInputsQuery)
+        , Parser.map (Simulator Impact.defaultTrigram Nothing) (Parser.s "simulator")
+        , Parser.map Simulator (Parser.s "simulator" </> Impact.parseTrigram </> Inputs.parseBase64Query)
         , Parser.map Stats (Parser.s "stats")
         ]
-
-
-parseInputsQuery : Parser (Inputs.Query -> a) a
-parseInputsQuery =
-    Parser.string
-        |> Parser.map
-            (Inputs.b64decode
-                >> Result.toMaybe
-                >> Maybe.withDefault (Inputs.defaultQuery Impact.defaultTrigram)
-            )
 
 
 {-| Note: as elm-kitten relies on URL fragment based routing, the source URL is
@@ -97,11 +87,14 @@ toString route =
                 Examples ->
                     [ "examples" ]
 
-                Simulator (Just inputs) ->
-                    [ "simulator", Inputs.b64encode inputs ]
+                Simulator trigram (Just inputs) ->
+                    [ "simulator", Impact.toString trigram, Inputs.b64encode inputs ]
 
-                Simulator Nothing ->
+                Simulator (Impact.Trigram "cch") Nothing ->
                     [ "simulator" ]
+
+                Simulator trigram Nothing ->
+                    [ "simulator", Impact.toString trigram ]
 
                 Stats ->
                     [ "stats" ]

@@ -4,10 +4,10 @@ import Data.Country as Country exposing (Country)
 import Data.Db exposing (Db)
 import Data.Formula as Formula
 import Data.Gitbook as Gitbook exposing (Path(..))
-import Data.Impact as Impact
+import Data.Impact as Impact exposing (Impacts)
 import Data.Inputs exposing (Inputs)
 import Data.Process as Process exposing (Process)
-import Data.Transport as Transport exposing (Transport, default, defaultInland)
+import Data.Transport as Transport exposing (Transport)
 import Data.Unit as Unit
 import Energy exposing (Energy)
 import FormatNumber
@@ -26,7 +26,7 @@ type alias Step =
     , outputMass : Mass
     , waste : Mass
     , transport : Transport
-    , impact : Unit.Impact
+    , impacts : Impacts
     , heat : Energy
     , kwh : Energy
     , processInfo : ProcessInfo
@@ -55,16 +55,20 @@ type Label
     | Distribution -- Distribution
 
 
-create : Label -> Bool -> Country -> Step
-create label editable country =
+create : { db : Db, label : Label, editable : Bool, country : Country } -> Step
+create { db, label, editable, country } =
+    let
+        defaultImpacts =
+            Impact.impactsFromDefinitons db.impacts
+    in
     { label = label
     , country = country
     , editable = editable
     , inputMass = Quantity.zero
     , outputMass = Quantity.zero
     , waste = Quantity.zero
-    , transport = Transport.default
-    , impact = Quantity.zero
+    , transport = Transport.default defaultImpacts
+    , impacts = defaultImpacts
     , heat = Quantity.zero
     , kwh = Quantity.zero
     , processInfo = defaultProcessInfo
@@ -126,8 +130,8 @@ countryMixToString =
 Docs: <https://fabrique-numerique.gitbook.io/wikicarbone/methodologie/transport>
 
 -}
-computeTransports : Db -> Impact.Definition -> Step -> Step -> Result String Step
-computeTransports db impact next ({ processInfo } as current) =
+computeTransports : Db -> Step -> Step -> Result String Step
+computeTransports db next ({ processInfo } as current) =
     db.processes
         |> Process.loadWellKnown
         |> Result.map
@@ -135,7 +139,10 @@ computeTransports db impact next ({ processInfo } as current) =
                 let
                     transport =
                         db.transports
-                            |> Transport.getTransportBetween current.country.code next.country.code
+                            |> Transport.getTransportBetween
+                                current.transport.impacts
+                                current.country.code
+                                next.country.code
 
                     stepSummary =
                         computeTransportSummary current transport
@@ -152,7 +159,7 @@ computeTransports db impact next ({ processInfo } as current) =
                         }
                     , transport =
                         stepSummary
-                            |> computeTransportImpacts impact
+                            |> computeTransportImpacts current.transport.impacts
                                 wellKnown
                                 roadTransportProcess
                                 next.inputMass
@@ -160,29 +167,41 @@ computeTransports db impact next ({ processInfo } as current) =
             )
 
 
-computeTransportImpacts : Impact.Definition -> Process.WellKnown -> Process -> Mass -> Transport -> Transport
-computeTransportImpacts impact { seaTransport, airTransport } roadProcess mass { road, sea, air } =
-    let
-        ( roadImpact, seaImpact, airImpact ) =
-            -- TODO: refactor/simplify
-            ( mass |> Unit.forKgAndDistance (Process.getImpact impact.trigram roadProcess) road
-            , mass |> Unit.forKgAndDistance (Process.getImpact impact.trigram seaTransport) sea
-            , mass |> Unit.forKgAndDistance (Process.getImpact impact.trigram airTransport) air
-            )
-    in
+computeTransportImpacts : Impacts -> Process.WellKnown -> Process -> Mass -> Transport -> Transport
+computeTransportImpacts impacts { seaTransport, airTransport } roadProcess mass { road, sea, air } =
     { road = road
     , sea = sea
     , air = air
-    , impact = Quantity.sum [ roadImpact, seaImpact, airImpact ]
+    , impacts =
+        impacts
+            |> Impact.mapImpacts
+                (\trigram _ ->
+                    let
+                        ( roadImpact, seaImpact, airImpact ) =
+                            ( mass |> Unit.forKgAndDistance (Process.getImpact trigram roadProcess) road
+                            , mass |> Unit.forKgAndDistance (Process.getImpact trigram seaTransport) sea
+                            , mass |> Unit.forKgAndDistance (Process.getImpact trigram airTransport) air
+                            )
+                    in
+                    Quantity.sum [ roadImpact, seaImpact, airImpact ]
+                )
     }
 
 
 computeTransportSummary : Step -> Transport -> Transport
 computeTransportSummary step transport =
+    let
+        -- TODO: define transport records
+        default =
+            Transport.default step.transport.impacts
+
+        defaultInland =
+            Transport.defaultInland step.transport.impacts
+    in
     case step.label of
         Ennoblement ->
-            -- Added intermediary defaultInland transport step to materialize
-            -- Processing + Dyeing steps (see Excel)
+            -- Added intermediary inland transport step
+            -- to materialize Processing + Dyeing steps (see Excel)
             { default
                 | road = transport.road |> Quantity.plus defaultInland.road
                 , sea = transport.sea |> Quantity.plus defaultInland.sea
@@ -286,11 +305,6 @@ updateWaste waste mass step =
     }
 
 
-updateImpact : (Mass -> Unit.Impact) -> Step -> Step
-updateImpact compute step =
-    { step | impact = compute step.outputMass }
-
-
 airTransportRatioToString : Float -> String
 airTransportRatioToString airTransportRatio =
     case round (airTransportRatio * 100) of
@@ -335,7 +349,7 @@ encode v =
         , ( "outputMass", Encode.float (Mass.inKilograms v.outputMass) )
         , ( "waste", Encode.float (Mass.inKilograms v.waste) )
         , ( "transport", Transport.encode v.transport )
-        , ( "impact", Unit.encodeImpact v.impact )
+        , ( "impacts", Impact.encodeImpacts v.impacts )
         , ( "heat", Encode.float (Energy.inMegajoules v.heat) )
         , ( "kwh", Encode.float (Energy.inKilowattHours v.kwh) )
         , ( "processInfo", encodeProcessInfo v.processInfo )

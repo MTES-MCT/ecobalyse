@@ -1,6 +1,7 @@
 module Views.Page exposing (..)
 
 import Browser exposing (Document)
+import Data.Impact as Impact
 import Data.Session as Session exposing (Session)
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -79,7 +80,7 @@ stagingAlert { session, loadUrl } =
 headerMenuLinks : List MenuLink
 headerMenuLinks =
     [ Internal "Accueil" Route.Home Home
-    , Internal "Simulateur" (Route.Simulator Nothing) Simulator
+    , Internal "Simulateur" (Route.Simulator Impact.defaultTrigram Nothing) Simulator
     , Internal "Exemples" Route.Examples Examples
     , External "Documentation" "https://fabrique-numerique.gitbook.io/wikicarbone/"
     ]
@@ -88,7 +89,7 @@ headerMenuLinks =
 footerMenuLinks : List MenuLink
 footerMenuLinks =
     [ Internal "Accueil" Route.Home Home
-    , Internal "Simulateur" (Route.Simulator Nothing) Simulator
+    , Internal "Simulateur" (Route.Simulator Impact.defaultTrigram Nothing) Simulator
     , Internal "Exemples" Route.Examples Examples
     , Internal "Changelog" Route.Changelog Changelog
     , Internal "Statistiques" Route.Stats Stats

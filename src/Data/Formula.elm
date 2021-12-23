@@ -1,6 +1,6 @@
 module Data.Formula exposing (..)
 
-import Data.Impact as Impact
+import Data.Impact as Impact exposing (Impacts)
 import Data.Process as Process exposing (Process)
 import Data.Transport as Transport exposing (Transport)
 import Data.Unit as Unit
@@ -79,34 +79,44 @@ makingWaste { processWaste, pcrWaste } baseMass =
 -- Impacts
 
 
-materialAndSpinningImpact :
-    Impact.Trigram
+materialAndSpinningImpacts :
+    Impacts
     -> ( Process, Process ) -- Inbound: Material processes (recycled, non-recycled)
     -> Float -- Ratio of recycled material (bewteen 0 and 1)
     -> Mass
-    -> Unit.Impact
-materialAndSpinningImpact trigram ( recycledProcess, nonRecycledProcess ) ratio =
-    Unit.ratioedForKg
-        ( Process.getImpact trigram recycledProcess
-        , Process.getImpact trigram nonRecycledProcess
-        )
-        ratio
+    -> Impacts
+materialAndSpinningImpacts impacts ( recycledProcess, nonRecycledProcess ) ratio mass =
+    impacts
+        |> Impact.mapImpacts
+            (\trigram _ ->
+                mass
+                    |> Unit.ratioedForKg
+                        ( Process.getImpact trigram recycledProcess
+                        , Process.getImpact trigram nonRecycledProcess
+                        )
+                        ratio
+            )
 
 
-pureMaterialAndSpinningImpact : Impact.Trigram -> Process -> Mass -> Unit.Impact
-pureMaterialAndSpinningImpact trigram process =
-    Unit.forKg (Process.getImpact trigram process)
+pureMaterialAndSpinningImpacts : Impacts -> Process -> Mass -> Impacts
+pureMaterialAndSpinningImpacts impacts process mass =
+    impacts
+        |> Impact.mapImpacts
+            (\trigram _ ->
+                mass
+                    |> Unit.forKg (Process.getImpact trigram process)
+            )
 
 
-dyeingImpact :
-    Impact.Trigram
+dyeingImpacts :
+    Impacts
     -> ( Process, Process ) -- Inbound: Dyeing processes (low, high)
     -> Float -- Low/high dyeing process ratio
     -> Process -- Outbound: country heat impact
     -> Process -- Outbound: country electricity impact
     -> Mass
-    -> { heat : Energy, kwh : Energy, impact : Unit.Impact }
-dyeingImpact trigram ( dyeingLowProcess, dyeingHighProcess ) highDyeingWeighting heatProcess elecProcess baseMass =
+    -> { heat : Energy, kwh : Energy, impacts : Impacts }
+dyeingImpacts impacts ( dyeingLowProcess, dyeingHighProcess ) highDyeingWeighting heatProcess elecProcess baseMass =
     let
         lowDyeingWeighting =
             1 - highDyeingWeighting
@@ -116,12 +126,6 @@ dyeingImpact trigram ( dyeingLowProcess, dyeingHighProcess ) highDyeingWeighting
             , baseMass |> Quantity.multiplyBy highDyeingWeighting
             )
 
-        dyeingImpact_ =
-            Quantity.sum
-                [ Unit.forKg (Process.getImpact trigram dyeingLowProcess) lowDyeingMass
-                , Unit.forKg (Process.getImpact trigram dyeingHighProcess) highDyeingMass
-                ]
-
         heatMJ =
             Mass.inKilograms baseMass
                 * ((highDyeingWeighting * Energy.inMegajoules dyeingHighProcess.heat)
@@ -129,58 +133,80 @@ dyeingImpact trigram ( dyeingLowProcess, dyeingHighProcess ) highDyeingWeighting
                   )
                 |> Energy.megajoules
 
-        heatImpact =
-            heatMJ |> Unit.forMJ (Process.getImpact trigram heatProcess)
-
         electricity =
             Mass.inKilograms baseMass
                 * ((highDyeingWeighting * Energy.inMegajoules dyeingHighProcess.elec)
                     + (lowDyeingWeighting * Energy.inMegajoules dyeingLowProcess.elec)
                   )
                 |> Energy.megajoules
-
-        elecImpact =
-            electricity |> Unit.forKWh (Process.getImpact trigram elecProcess)
     in
-    { impact = Quantity.sum [ dyeingImpact_, heatImpact, elecImpact ]
-    , heat = heatMJ
+    { heat = heatMJ
     , kwh = electricity
+    , impacts =
+        impacts
+            |> Impact.mapImpacts
+                (\trigram _ ->
+                    let
+                        dyeingImpact_ =
+                            Quantity.sum
+                                [ Unit.forKg (Process.getImpact trigram dyeingLowProcess) lowDyeingMass
+                                , Unit.forKg (Process.getImpact trigram dyeingHighProcess) highDyeingMass
+                                ]
+
+                        heatImpact =
+                            heatMJ |> Unit.forMJ (Process.getImpact trigram heatProcess)
+
+                        elecImpact =
+                            electricity |> Unit.forKWh (Process.getImpact trigram elecProcess)
+                    in
+                    Quantity.sum [ dyeingImpact_, heatImpact, elecImpact ]
+                )
     }
 
 
-makingImpact :
-    Impact.Trigram
+makingImpacts :
+    Impacts
     -> { makingProcess : Process, countryElecProcess : Process }
     -> Mass
-    -> { kwh : Energy, impact : Unit.Impact }
-makingImpact trigram { makingProcess, countryElecProcess } _ =
+    -> { kwh : Energy, impacts : Impacts }
+makingImpacts impacts { makingProcess, countryElecProcess } _ =
     -- Note: In Base Impacts, impacts are precomputed per "item", and are
     --       therefore not mass-dependent.
     { kwh = makingProcess.elec
-    , impact =
-        makingProcess.elec
-            |> Unit.forKWh (Process.getImpact trigram countryElecProcess)
+    , impacts =
+        impacts
+            |> Impact.mapImpacts
+                (\trigram _ ->
+                    makingProcess.elec
+                        |> Unit.forKWh (Process.getImpact trigram countryElecProcess)
+                )
     }
 
 
-knittingImpact :
-    Impact.Trigram
+knittingImpacts :
+    Impacts
     -> { elec : Energy, countryElecProcess : Process }
     -> Mass
-    -> { kwh : Energy, impact : Unit.Impact }
-knittingImpact trigram { elec, countryElecProcess } baseMass =
+    -> { kwh : Energy, impacts : Impacts }
+knittingImpacts impacts { elec, countryElecProcess } baseMass =
     let
         electricityKWh =
             Energy.kilowattHours
                 (Mass.inKilograms baseMass * Energy.inKilowattHours elec)
     in
     { kwh = electricityKWh
-    , impact = electricityKWh |> Unit.forKWh (Process.getImpact trigram countryElecProcess)
+    , impacts =
+        impacts
+            |> Impact.mapImpacts
+                (\trigram _ ->
+                    electricityKWh
+                        |> Unit.forKWh (Process.getImpact trigram countryElecProcess)
+                )
     }
 
 
-weavingImpact :
-    Impact.Trigram
+weavingImpacts :
+    Impacts
     ->
         { elecPppm : Float
         , countryElecProcess : Process
@@ -188,8 +214,8 @@ weavingImpact :
         , grammage : Int
         }
     -> Mass
-    -> { kwh : Energy, impact : Unit.Impact }
-weavingImpact trigram { elecPppm, countryElecProcess, ppm, grammage } baseMass =
+    -> { kwh : Energy, impacts : Impacts }
+weavingImpacts impacts { elecPppm, countryElecProcess, ppm, grammage } baseMass =
     let
         electricityKWh =
             (Mass.inKilograms baseMass * 1000 * toFloat ppm / toFloat grammage)
@@ -197,7 +223,13 @@ weavingImpact trigram { elecPppm, countryElecProcess, ppm, grammage } baseMass =
                 |> Energy.kilowattHours
     in
     { kwh = electricityKWh
-    , impact = electricityKWh |> Unit.forKWh (Process.getImpact trigram countryElecProcess)
+    , impacts =
+        impacts
+            |> Impact.mapImpacts
+                (\trigram _ ->
+                    electricityKWh
+                        |> Unit.forKWh (Process.getImpact trigram countryElecProcess)
+                )
     }
 
 

@@ -2,11 +2,10 @@ module Data.LifeCycle exposing (..)
 
 import Array exposing (Array)
 import Data.Db exposing (Db)
-import Data.Impact as Impact
+import Data.Impact as Impact exposing (Impacts)
 import Data.Inputs as Inputs exposing (Inputs)
 import Data.Step as Step exposing (Step)
 import Data.Transport as Transport exposing (Transport)
-import Data.Unit as Unit
 import Json.Encode as Encode
 import Quantity
 import Result.Extra as RE
@@ -16,13 +15,12 @@ type alias LifeCycle =
     Array Step
 
 
-computeStepsTransport : Db -> Impact.Definition -> LifeCycle -> Result String LifeCycle
-computeStepsTransport db impact lifeCycle =
+computeStepsTransport : Db -> LifeCycle -> Result String LifeCycle
+computeStepsTransport db lifeCycle =
     lifeCycle
         |> Array.indexedMap
             (\index step ->
                 Step.computeTransports db
-                    impact
                     (Array.get (index + 1) lifeCycle |> Maybe.withDefault step)
                     step
             )
@@ -31,27 +29,43 @@ computeStepsTransport db impact lifeCycle =
         |> Result.map Array.fromList
 
 
-computeTotalTransports : LifeCycle -> Transport
-computeTotalTransports =
+computeTotalTransports : Db -> LifeCycle -> Transport
+computeTotalTransports db =
     Array.foldl
         (\{ transport } acc ->
             { acc
                 | road = acc.road |> Quantity.plus transport.road
                 , sea = acc.sea |> Quantity.plus transport.sea
                 , air = acc.air |> Quantity.plus transport.air
-                , impact = acc.impact |> Quantity.plus transport.impact
+                , impacts =
+                    acc.impacts
+                        |> Impact.mapImpacts
+                            (\trigram impact ->
+                                Quantity.sum
+                                    [ impact
+                                    , Impact.getImpact trigram transport.impacts
+                                    ]
+                            )
             }
         )
-        Transport.default
+        (Transport.default (Impact.impactsFromDefinitons db.impacts))
 
 
-computeFinalImpactScore : LifeCycle -> Unit.Impact
-computeFinalImpactScore =
+computeFinalImpactScore : Db -> LifeCycle -> Impacts
+computeFinalImpactScore db =
     Array.foldl
-        (\{ impact, transport } finalScore ->
-            Quantity.sum [ finalScore, impact, transport.impact ]
+        (\{ impacts, transport } finalImpacts ->
+            finalImpacts
+                |> Impact.mapImpacts
+                    (\trigram impact ->
+                        Quantity.sum
+                            [ Impact.getImpact trigram impacts
+                            , impact
+                            , Impact.getImpact trigram transport.impacts
+                            ]
+                    )
         )
-        Quantity.zero
+        (Impact.impactsFromDefinitons db.impacts)
 
 
 getStep : Step.Label -> LifeCycle -> Maybe Step
@@ -66,14 +80,21 @@ getStepProp label prop default =
 
 fromQuery : Db -> Inputs.Query -> Result String LifeCycle
 fromQuery db =
-    Inputs.fromQuery db >> Result.map init
+    Inputs.fromQuery db >> Result.map (init db)
 
 
-init : Inputs -> LifeCycle
-init inputs =
+init : Db -> Inputs -> LifeCycle
+init db inputs =
     inputs.countries
         |> List.map2
-            (\( label, editable ) country -> Step.create label editable country)
+            (\( label, editable ) country ->
+                Step.create
+                    { db = db
+                    , label = label
+                    , editable = editable
+                    , country = country
+                    }
+            )
             [ ( Step.MaterialAndSpinning, False )
             , ( Step.WeavingKnitting, True )
             , ( Step.Ennoblement, True )

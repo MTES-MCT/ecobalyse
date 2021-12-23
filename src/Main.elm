@@ -118,8 +118,8 @@ setRoute maybeRoute ( { session } as model, cmds ) =
             Examples.init session
                 |> toPage ExamplesPage ExamplesMsg
 
-        Just (Route.Simulator maybeQuery) ->
-            Simulator.init maybeQuery session
+        Just (Route.Simulator trigram maybeQuery) ->
+            Simulator.init trigram maybeQuery session
                 |> toPage SimulatorPage SimulatorMsg
 
         Just Route.Stats ->

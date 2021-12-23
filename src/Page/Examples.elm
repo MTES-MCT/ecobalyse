@@ -40,13 +40,13 @@ viewExamples session =
                 ]
             , div [ class "col-md-5 col-lg-4 col-xl-3 text-center text-md-end" ]
                 [ a
-                    [ Route.href (Route.Simulator Nothing)
+                    [ Route.href (Route.Simulator Impact.defaultTrigram Nothing)
                     , class "btn btn-primary w-100"
                     ]
                     [ text "Faire une simulation" ]
                 ]
             ]
-        , Inputs.presets Impact.defaultTrigram
+        , Inputs.presets
             |> List.map
                 (Simulator.compute session.db
                     >> SummaryView.view

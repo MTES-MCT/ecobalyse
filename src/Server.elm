@@ -13,6 +13,8 @@ import Json.Decode.Extra as DecodeExtra
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
 import Mass
+import Url
+import Url.Parser as Parser exposing ((</>), Parser)
 
 
 type alias Flags =
@@ -24,11 +26,8 @@ type alias Model =
     }
 
 
-type Route
-    = Home
-    | Simulator
-    | SimulatorAll
-    | NotFound
+type Msg
+    = Received Request
 
 
 type alias Request =
@@ -44,8 +43,11 @@ type alias Request =
     }
 
 
-type Msg
-    = Received Request
+type Route
+    = Home
+    | Simulator -- Simple version of all impacts
+    | SimulatorDetailed -- Detailed version for all impacts
+    | SimulatorSingle Impact.Trigram -- Simple version for one specific impact
 
 
 init : Flags -> ( Model, Cmd Msg )
@@ -55,45 +57,20 @@ init { jsonDb } =
     )
 
 
-parseRoute : String -> Route
-parseRoute path =
-    case path of
-        "/" ->
-            Home
-
-        "/simulator/" ->
-            Simulator
-
-        "/simulator/all/" ->
-            SimulatorAll
-
-        _ ->
-            NotFound
+parser : Parser (Route -> a) a
+parser =
+    Parser.oneOf
+        [ Parser.map Home Parser.top
+        , Parser.map Simulator (Parser.s "simulator")
+        , Parser.map SimulatorDetailed (Parser.s "simulator" </> Parser.s "detailed")
+        , Parser.map SimulatorSingle (Parser.s "simulator" </> Impact.parseTrigram)
+        ]
 
 
-routeToString : Route -> Maybe String
-routeToString route =
-    case route of
-        Home ->
-            Just "/"
-
-        Simulator ->
-            Just "/simulator/"
-
-        SimulatorAll ->
-            Just "/simulator/all/"
-
-        NotFound ->
-            Nothing
-
-
-routes : List Route
-routes =
-    [ Home
-    , Simulator
-    , SimulatorAll
-    , NotFound
-    ]
+parseRoute : String -> Maybe Route
+parseRoute expressPath =
+    Url.fromString ("http://x" ++ expressPath)
+        |> Maybe.andThen (Parser.parse parser)
 
 
 apiDocUrl : String
@@ -118,7 +95,6 @@ expressQueryDecoder =
                 |> Decode.maybe
     in
     Decode.succeed Inputs.Query
-        |> Pipe.optional "impact" Impact.decodeTrigram (Impact.trg "cch")
         |> Pipe.required "mass" (decodeStringFloat |> Decode.map Mass.kilograms)
         |> Pipe.required "material" (Decode.map Process.Uuid Decode.string)
         |> Pipe.required "product" (Decode.map Product.Id Decode.string)
@@ -173,28 +149,69 @@ toResponse request encodedResult =
                 |> sendResponse 400 request
 
 
+toAllImpactsSimple : Simulator -> Encode.Value
+toAllImpactsSimple { inputs, impacts } =
+    Encode.object
+        [ ( "impacts", Impact.encodeImpacts impacts )
+        , ( "query", inputs |> Inputs.toQuery |> Inputs.encodeQuery )
+        ]
+
+
+toSingleImpactSimple : Impact.Trigram -> Simulator -> Encode.Value
+toSingleImpactSimple trigram { inputs, impacts } =
+    Encode.object
+        [ ( "impact"
+          , impacts
+                |> Impact.filterImpacts (\trg _ -> trigram == trg)
+                |> Impact.encodeImpacts
+          )
+        , ( "query", inputs |> Inputs.toQuery |> Inputs.encodeQuery )
+        ]
+
+
+executeQuery : Db -> (Simulator -> Encode.Value) -> Request -> Cmd Msg
+executeQuery db fn request =
+    decodeQuery request.expressQuery
+        |> Result.andThen (Simulator.compute db >> Result.map fn)
+        |> toResponse request
+
+
 handleRequest : Db -> Request -> Cmd Msg
-handleRequest db ({ expressPath, expressQuery } as request) =
+handleRequest db ({ expressPath } as request) =
     case parseRoute expressPath of
-        Home ->
+        Just Home ->
             Encode.object
                 [ ( "service", Encode.string "Wikicarbone" )
                 , ( "documentation", Encode.string apiDocUrl )
-                , ( "endpoints", routes |> List.filterMap routeToString |> Encode.list Encode.string )
+                , ( "endpoints"
+                  , Encode.object
+                        [ ( "GET /simulator/"
+                          , Encode.string "Simple version of all impacts"
+                          )
+                        , ( "GET /simulator/detailed/"
+                          , Encode.string "Detailed version for all impacts"
+                          )
+                        , ( "GET /simulator/<impact>/"
+                          , Encode.string "Simple version for one specific impact"
+                          )
+                        ]
+                  )
                 ]
                 |> sendResponse 200 request
 
-        Simulator ->
-            decodeQuery expressQuery
-                |> Result.andThen (Simulator.compute db >> Result.map Simulator.encode)
-                |> toResponse request
+        Just Simulator ->
+            request
+                |> executeQuery db toAllImpactsSimple
 
-        SimulatorAll ->
-            decodeQuery expressQuery
-                |> Result.andThen (Simulator.computeAll db >> Result.map Impact.encodeImpacts)
-                |> toResponse request
+        Just SimulatorDetailed ->
+            request
+                |> executeQuery db Simulator.encode
 
-        NotFound ->
+        Just (SimulatorSingle trigram) ->
+            request
+                |> executeQuery db (toSingleImpactSimple trigram)
+
+        Nothing ->
             encodeStringError "Endpoint doesn't exist"
                 |> sendResponse 404 request
 

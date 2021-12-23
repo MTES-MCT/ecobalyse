@@ -18,6 +18,7 @@
     "start:dev": "npm run build:init && concurrently -n \"watch,parcel\" -c \"blue,green\" -k \"npm run start:filewatch\" \"npm run start:parcel\"",
     "start": "PARCEL_ELM_NO_DEBUG=1 npm run start:dev",
     "test:prepare": "node tests/prepare.js",
+    "test:all": "npm test && npm run server:test",
     "test": "npm run test:prepare && elm-test"
   },
   "devDependencies": {

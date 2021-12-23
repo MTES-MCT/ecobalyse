@@ -1,6 +1,5 @@
 module Data.InputsTest exposing (..)
 
-import Data.Impact as Impact
 import Data.Inputs as Inputs
 import Expect exposing (Expectation)
 import Test exposing (..)
@@ -14,7 +13,7 @@ asTest label =
 
 sampleQuery : Inputs.Query
 sampleQuery =
-    Inputs.jupeCircuitAsie (Impact.trg "fwe")
+    Inputs.jupeCircuitAsie
 
 
 suite : Test

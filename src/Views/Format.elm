@@ -1,6 +1,6 @@
 module Views.Format exposing (..)
 
-import Data.Impact as Impact
+import Data.Impact as Impact exposing (Impacts)
 import Data.Unit as Unit
 import Decimal
 import Energy exposing (Energy)
@@ -12,9 +12,16 @@ import Length exposing (Length)
 import Mass exposing (Mass)
 
 
-formatImpact : Impact.Definition -> Unit.Impact -> Html msg
-formatImpact { unit } =
-    Unit.impactToFloat >> formatRichFloat 2 unit
+formatImpact : Impact.Definition -> Impacts -> Html msg
+formatImpact { trigram, unit } =
+    Impact.getImpact trigram
+        >> Unit.impactToFloat
+        >> formatRichFloat 2 unit
+
+
+formatImpactFloat : Impact.Definition -> Float -> Html msg
+formatImpactFloat { unit } =
+    formatRichFloat 2 unit
 
 
 formatInt : String -> Int -> String

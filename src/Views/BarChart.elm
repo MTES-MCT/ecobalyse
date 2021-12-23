@@ -4,7 +4,6 @@ import Array
 import Data.Impact as Impact
 import Data.Simulator exposing (Simulator)
 import Data.Step as Step
-import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Views.Format as Format
@@ -26,12 +25,15 @@ type alias Bar msg =
 
 
 makeBars : Config -> List (Bar msg)
-makeBars { simulator } =
+makeBars { simulator, impact } =
     let
+        grabImpact =
+            Impact.grabImpactFloat impact.trigram
+
         maxScore =
             simulator.lifeCycle
-                |> Array.map (.impact >> Unit.impactToFloat)
-                |> Array.push (Unit.impactToFloat simulator.transport.impact)
+                |> Array.map grabImpact
+                |> Array.push (grabImpact simulator.transport)
                 |> Array.toList
                 |> List.maximum
                 |> Maybe.withDefault 0
@@ -63,17 +65,17 @@ makeBars { simulator } =
                                     _ ->
                                         text (Step.labelToString step.label)
                                 ]
-                        , score = Unit.impactToFloat step.impact
-                        , width = clamp 0 100 (Unit.impactToFloat step.impact / maxScore * toFloat 100)
-                        , percent = Unit.impactToFloat step.impact / Unit.impactToFloat simulator.impact * toFloat 100
+                        , score = grabImpact step
+                        , width = clamp 0 100 (grabImpact step / maxScore * toFloat 100)
+                        , percent = grabImpact step / grabImpact simulator * toFloat 100
                         }
                     )
 
         transportBar =
             { label = text "Transport total"
-            , score = Unit.impactToFloat simulator.transport.impact
-            , width = clamp 0 100 (Unit.impactToFloat simulator.transport.impact / maxScore * toFloat 100)
-            , percent = Unit.impactToFloat simulator.transport.impact / Unit.impactToFloat simulator.impact * toFloat 100
+            , score = grabImpact simulator.transport
+            , width = clamp 0 100 (grabImpact simulator.transport / maxScore * toFloat 100)
+            , percent = grabImpact simulator.transport / grabImpact simulator * toFloat 100
             }
     in
     stepBars ++ [ transportBar ]
@@ -84,7 +86,7 @@ barView { impact } bar =
     tr [ class "fs-7" ]
         [ th [ class "text-end text-truncate py-1 pe-1" ] [ bar.label ]
         , td [ class "d-none d-sm-block text-end py-1 ps-1 pe-2 text-truncate" ]
-            [ Format.formatImpact impact (Unit.impactFromFloat bar.score)
+            [ Format.formatImpactFloat impact bar.score
             ]
         , td [ class "w-100 py-1" ]
             [ div
