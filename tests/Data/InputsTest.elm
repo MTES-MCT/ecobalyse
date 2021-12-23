@@ -1,6 +1,5 @@
 module Data.InputsTest exposing (..)
 
-import Data.Impact as Impact
 import Data.Inputs as Inputs
 import Expect exposing (Expectation)
 import Test exposing (..)
@@ -14,7 +13,7 @@ asTest label =
 
 sampleQuery : Inputs.Query
 sampleQuery =
-    Inputs.jupeCircuitAsie (Impact.trg "fwe")
+    Inputs.jupeCircuitAsie
 
 
 suite : Test
@@ -25,7 +24,7 @@ suite =
                 [ describe "Encoding and decoding queries"
                     [ sampleQuery
                         |> Inputs.fromQuery db
-                        |> Result.map (Inputs.toQuery (Impact.trg "fwe"))
+                        |> Result.map Inputs.toQuery
                         |> Expect.equal (Ok sampleQuery)
                         |> asTest "should encode and decode a query"
                     ]

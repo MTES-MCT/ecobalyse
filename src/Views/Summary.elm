@@ -91,7 +91,7 @@ summaryView { session, impact, reusable } ({ inputs, lifeCycle } as simulator) =
                     [ class "btn btn-primary"
                     , Route.href
                         (inputs
-                            |> Inputs.toQuery Impact.defaultTrigram
+                            |> Inputs.toQuery
                             |> Just
                             |> Route.Simulator
                         )

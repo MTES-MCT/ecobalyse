@@ -58,7 +58,7 @@ view session _ =
                             ]
                         ]
                     , div [ class "col-lg-5" ]
-                        [ Inputs.tShirtCotonFrance Impact.defaultTrigram
+                        [ Inputs.tShirtCotonFrance
                             |> Simulator.compute session.db
                             |> SummaryView.view
                                 { session = session

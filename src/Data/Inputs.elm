@@ -4,7 +4,6 @@ import Array
 import Base64
 import Data.Country as Country exposing (Country)
 import Data.Db exposing (Db)
-import Data.Impact as Impact
 import Data.Material as Material exposing (Material)
 import Data.Process as Process
 import Data.Product as Product exposing (Product)
@@ -29,8 +28,7 @@ type alias Inputs =
 
 type alias Query =
     -- a shorter version than Inputs (identifiers only)
-    { impact : Impact.Trigram
-    , mass : Mass
+    { mass : Mass
     , material : Process.Uuid
     , product : Product.Id
     , countries : List Country.Code
@@ -74,10 +72,9 @@ fromQuery db query =
         lookups.countries
 
 
-toQuery : Impact.Trigram -> Inputs -> Query
-toQuery trigram inputs =
-    { impact = trigram
-    , mass = inputs.mass
+toQuery : Inputs -> Query
+toQuery inputs =
+    { mass = inputs.mass
     , material = inputs.material.uuid
     , product = inputs.product.id
     , countries = inputs.countries |> List.map .code
@@ -157,22 +154,16 @@ updateMaterial material query =
         |> updateStepCountry 0 material.defaultCountry
 
 
-setQueryImpact : Impact.Trigram -> Query -> Query
-setQueryImpact trigram query =
-    { query | impact = trigram }
-
-
-defaultQuery : Impact.Trigram -> Query
+defaultQuery : Query
 defaultQuery =
     -- FIXME: provide a query |> setQueryImpact (Trigram "xxx") helper
     tShirtCotonIndia
 
 
-tShirtCotonFrance : Impact.Trigram -> Query
-tShirtCotonFrance trigram =
+tShirtCotonFrance : Query
+tShirtCotonFrance =
     -- T-shirt circuit France
-    { impact = trigram
-    , mass = Mass.kilograms 0.17
+    { mass = Mass.kilograms 0.17
     , material = Process.Uuid "f211bbdb-415c-46fd-be4d-ddf199575b44"
     , product = Product.Id "13"
     , countries =
@@ -189,14 +180,10 @@ tShirtCotonFrance trigram =
     }
 
 
-tShirtPolyamideFrance : Impact.Trigram -> Query
-tShirtPolyamideFrance trigram =
-    let
-        query =
-            tShirtCotonFrance trigram
-    in
+tShirtPolyamideFrance : Query
+tShirtPolyamideFrance =
     -- T-shirt polyamide (provenance France) circuit France
-    { query
+    { tShirtCotonFrance
         | material = Process.Uuid "182fa424-1f49-4728-b0f1-cb4e4ab36392"
         , countries =
             [ Country.Code "FR"
@@ -208,14 +195,10 @@ tShirtPolyamideFrance trigram =
     }
 
 
-tShirtCotonEurope : Impact.Trigram -> Query
-tShirtCotonEurope trigram =
-    let
-        query =
-            tShirtCotonFrance trigram
-    in
+tShirtCotonEurope : Query
+tShirtCotonEurope =
     -- T-shirt circuit Europe
-    { query
+    { tShirtCotonFrance
         | countries =
             [ Country.Code "CN"
             , Country.Code "TR"
@@ -226,14 +209,10 @@ tShirtCotonEurope trigram =
     }
 
 
-tShirtCotonIndia : Impact.Trigram -> Query
-tShirtCotonIndia trigram =
-    let
-        query =
-            tShirtCotonFrance trigram
-    in
+tShirtCotonIndia : Query
+tShirtCotonIndia =
     -- T-shirt circuit Inde
-    { query
+    { tShirtCotonFrance
         | countries =
             [ Country.Code "CN"
             , Country.Code "IN"
@@ -244,14 +223,10 @@ tShirtCotonIndia trigram =
     }
 
 
-tShirtCotonAsie : Impact.Trigram -> Query
-tShirtCotonAsie trigram =
-    let
-        query =
-            tShirtCotonFrance trigram
-    in
-    -- T-shirt circuit Europe
-    { query
+tShirtCotonAsie : Query
+tShirtCotonAsie =
+    -- T-shirt circuit Asie
+    { tShirtCotonFrance
         | countries =
             [ Country.Code "CN"
             , Country.Code "CN"
@@ -262,11 +237,10 @@ tShirtCotonAsie trigram =
     }
 
 
-jupeCircuitAsie : Impact.Trigram -> Query
-jupeCircuitAsie trigram =
+jupeCircuitAsie : Query
+jupeCircuitAsie =
     -- Jupe circuit Asie
-    { impact = trigram
-    , mass = Mass.kilograms 0.3
+    { mass = Mass.kilograms 0.3
     , material = Process.Uuid "aee6709f-0864-4fc5-8760-68cb644a0021"
     , product = Product.Id "8"
     , countries =
@@ -283,11 +257,10 @@ jupeCircuitAsie trigram =
     }
 
 
-manteauCircuitEurope : Impact.Trigram -> Query
-manteauCircuitEurope trigram =
+manteauCircuitEurope : Query
+manteauCircuitEurope =
     -- Manteau circuit Europe
-    { impact = trigram
-    , mass = Mass.kilograms 0.95
+    { mass = Mass.kilograms 0.95
     , material = Process.Uuid "380c0d9c-2840-4390-bd3f-5c960f26f5ed"
     , product = Product.Id "9"
     , countries =
@@ -304,11 +277,10 @@ manteauCircuitEurope trigram =
     }
 
 
-pantalonCircuitEurope : Impact.Trigram -> Query
-pantalonCircuitEurope trigram =
+pantalonCircuitEurope : Query
+pantalonCircuitEurope =
     -- Pantalon circuit Europe
-    { impact = trigram
-    , mass = Mass.kilograms 0.45
+    { mass = Mass.kilograms 0.45
     , material = Process.Uuid "e5a6d538-f932-4242-98b4-3a0c6439629c"
     , product = Product.Id "10"
     , countries =
@@ -325,11 +297,10 @@ pantalonCircuitEurope trigram =
     }
 
 
-robeCircuitBangladesh : Impact.Trigram -> Query
-robeCircuitBangladesh trigram =
+robeCircuitBangladesh : Query
+robeCircuitBangladesh =
     -- Robe circuit Bangladesh
-    { impact = trigram
-    , mass = Mass.kilograms 0.5
+    { mass = Mass.kilograms 0.5
     , material = Process.Uuid "7a1ccc4a-2ea7-48dc-9ef0-d57066ea8fa5"
     , product = Product.Id "12"
     , countries =
@@ -346,14 +317,14 @@ robeCircuitBangladesh trigram =
     }
 
 
-presets : Impact.Trigram -> List Query
-presets trigram =
-    [ tShirtCotonFrance trigram
-    , tShirtCotonEurope trigram
-    , tShirtCotonAsie trigram
-    , jupeCircuitAsie trigram
-    , manteauCircuitEurope trigram
-    , pantalonCircuitEurope trigram
+presets : List Query
+presets =
+    [ tShirtCotonFrance
+    , tShirtCotonEurope
+    , tShirtCotonAsie
+    , jupeCircuitAsie
+    , manteauCircuitEurope
+    , pantalonCircuitEurope
     ]
 
 
@@ -391,7 +362,6 @@ encodeCustomCountryMixes v =
 decodeQuery : Decoder Query
 decodeQuery =
     Decode.succeed Query
-        |> Pipe.required "impact" Impact.decodeTrigram
         |> Pipe.required "mass" (Decode.map Mass.kilograms Decode.float)
         |> Pipe.required "material" (Decode.map Process.Uuid Decode.string)
         |> Pipe.required "product" (Decode.map Product.Id Decode.string)
@@ -405,8 +375,7 @@ decodeQuery =
 encodeQuery : Query -> Encode.Value
 encodeQuery query =
     Encode.object
-        [ ( "impact", Encode.string (Impact.toString query.impact) )
-        , ( "mass", Encode.float (Mass.inKilograms query.mass) )
+        [ ( "mass", Encode.float (Mass.inKilograms query.mass) )
         , ( "material", query.material |> Process.uuidToString |> Encode.string )
         , ( "product", query.product |> Product.idToString |> Encode.string )
         , ( "countries", Encode.list (Country.codeToString >> Encode.string) query.countries )

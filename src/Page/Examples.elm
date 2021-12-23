@@ -46,7 +46,7 @@ viewExamples session =
                     [ text "Faire une simulation" ]
                 ]
             ]
-        , Inputs.presets Impact.defaultTrigram
+        , Inputs.presets
             |> List.map
                 (Simulator.compute session.db
                     >> SummaryView.view

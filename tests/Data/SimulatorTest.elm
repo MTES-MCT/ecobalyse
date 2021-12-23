@@ -17,13 +17,13 @@ asTest label =
     always >> test label
 
 
-expectImpact : Db -> Float -> Inputs.Query -> Expectation
-expectImpact db cch query =
+expectImpact : Db -> Impact.Trigram -> Float -> Inputs.Query -> Expectation
+expectImpact db trigram cch query =
     case Simulator.compute db query of
         Ok simulator ->
             simulator.impacts
                 -- FIXME: avoid relying on query.impact here
-                |> Impact.getImpact query.impact
+                |> Impact.getImpact trigram
                 |> Unit.impactToFloat
                 |> Expect.within (Expect.Absolute 0.01) cch
 
@@ -40,12 +40,10 @@ convertToTests db sectionOrSample =
         Sample.Sample title { query, cch, fwe } ->
             describe title
                 [ query
-                    |> setQueryImpact (Impact.trg "cch")
-                    |> expectImpact db (Unit.impactToFloat cch)
+                    |> expectImpact db (Impact.trg "cch") (Unit.impactToFloat cch)
                     |> asTest "climate change"
                 , query
-                    |> setQueryImpact (Impact.trg "fwe")
-                    |> expectImpact db (Unit.impactToFloat fwe)
+                    |> expectImpact db (Impact.trg "fwe") (Unit.impactToFloat fwe)
                     |> asTest "freshwater eutrophication"
                 ]
 

@@ -132,9 +132,13 @@ validateCustomCountryMixInput stepLabel =
 init : Maybe Inputs.Query -> Session -> ( Model, Session, Cmd Msg )
 init maybeQuery ({ db } as session) =
     let
+        trigram =
+            -- FIXME: retrieve from route
+            Impact.defaultTrigram
+
         query =
             maybeQuery
-                |> Maybe.withDefault (Inputs.defaultQuery Impact.defaultTrigram)
+                |> Maybe.withDefault Inputs.defaultQuery
 
         simulator =
             Simulator.compute db query
@@ -145,7 +149,10 @@ init maybeQuery ({ db } as session) =
       , displayMode = SimpleMode
       , modal = NoModal
       , customCountryMixInputs = toCustomCountryMixFormInputs query.customCountryMixes
-      , impact = db.impacts |> Impact.getDefinition query.impact |> Result.withDefault Impact.default
+      , impact =
+            db.impacts
+                |> Impact.getDefinition trigram
+                |> Result.withDefault Impact.default
       }
     , case simulator of
         Err error ->
@@ -229,7 +236,7 @@ update ({ db } as session) msg ({ customCountryMixInputs, query } as model) =
 
         Reset ->
             ( model, session, Cmd.none )
-                |> updateQuery (Inputs.defaultQuery Impact.defaultTrigram)
+                |> updateQuery Inputs.defaultQuery
 
         ResetCustomCountryMix stepLabel ->
             ( { model
@@ -251,6 +258,7 @@ update ({ db } as session) msg ({ customCountryMixInputs, query } as model) =
                 |> updateQuery (updateQueryCustomCountryMix stepLabel (Just customCountryMix) query)
 
         SwitchImpact trigram ->
+            -- FIXME: should be handled from route
             ( { model
                 | impact =
                     db.impacts
@@ -260,7 +268,6 @@ update ({ db } as session) msg ({ customCountryMixInputs, query } as model) =
             , session
             , Cmd.none
             )
-                |> updateQuery { query | impact = trigram }
 
         SwitchMode displayMode ->
             ( { model | displayMode = displayMode }, session, Cmd.none )
@@ -467,12 +474,13 @@ lifeCycleStepsView db { displayMode, impact } simulator =
         |> div [ class "pt-1" ]
 
 
-shareLinkView : Session -> Impact.Trigram -> Simulator -> Html Msg
-shareLinkView session trigram simulator =
+shareLinkView : Session -> Model -> Simulator -> Html Msg
+shareLinkView session { impact } simulator =
     let
+        -- FIXME: add trigram to sharebable link
         shareableLink =
             simulator.inputs
-                |> (Inputs.toQuery trigram >> Just)
+                |> (Inputs.toQuery >> Just)
                 |> Route.Simulator
                 |> Route.toString
                 |> (++) session.clientUrl
@@ -723,7 +731,9 @@ simulatorView ({ db } as session) model ({ inputs } as simulator) =
                 , button
                     [ class "btn btn-secondary"
                     , onClick Reset
-                    , disabled (model.query == Inputs.defaultQuery Impact.defaultTrigram)
+
+                    -- FIXME: store initial query and comare to it
+                    , disabled (model.query == Inputs.defaultQuery)
                     ]
                     [ text "Réinitialiser le simulateur" ]
                 ]
@@ -739,7 +749,7 @@ simulatorView ({ db } as session) model ({ inputs } as simulator) =
                             }
                     ]
                 , feedbackView
-                , shareLinkView session model.impact.trigram simulator
+                , shareLinkView session model simulator
                 ]
             ]
         ]

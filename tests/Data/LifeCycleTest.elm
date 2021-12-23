@@ -26,7 +26,7 @@ suite =
                 [ describe "computeTransportSummary"
                     [ test "should compute default distances" <|
                         \_ ->
-                            tShirtCotonFrance Impact.defaultTrigram
+                            tShirtCotonFrance
                                 |> LifeCycle.fromQuery db
                                 |> Result.andThen (LifeCycle.computeStepsTransport db)
                                 |> Result.map (LifeCycle.computeTotalTransports db)
@@ -42,7 +42,7 @@ suite =
                         \_ ->
                             let
                                 query =
-                                    tShirtCotonFrance Impact.defaultTrigram
+                                    tShirtCotonFrance
                             in
                             LifeCycle.fromQuery db
                                 { query

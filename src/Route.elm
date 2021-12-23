@@ -1,7 +1,6 @@
 module Route exposing (Route(..), fromUrl, href, pushUrl, toString)
 
 import Browser.Navigation as Nav
-import Data.Impact as Impact
 import Data.Inputs as Inputs
 import Html exposing (Attribute)
 import Html.Attributes as Attr
@@ -37,7 +36,7 @@ parseInputsQuery =
         |> Parser.map
             (Inputs.b64decode
                 >> Result.toMaybe
-                >> Maybe.withDefault (Inputs.defaultQuery Impact.defaultTrigram)
+                >> Maybe.withDefault Inputs.defaultQuery
             )
 
 
