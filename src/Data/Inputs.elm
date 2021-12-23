@@ -157,7 +157,6 @@ updateMaterial material query =
 
 defaultQuery : Query
 defaultQuery =
-    -- FIXME: provide a query |> setQueryImpact (Trigram "xxx") helper
     tShirtCotonIndia
 
 

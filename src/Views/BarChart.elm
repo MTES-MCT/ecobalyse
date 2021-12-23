@@ -4,7 +4,6 @@ import Array
 import Data.Impact as Impact
 import Data.Simulator exposing (Simulator)
 import Data.Step as Step
-import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Views.Format as Format
@@ -28,9 +27,8 @@ type alias Bar msg =
 makeBars : Config -> List (Bar msg)
 makeBars { simulator, impact } =
     let
-        -- FIXME: mutualize grabImpact
         grabImpact =
-            .impacts >> Impact.getImpact impact.trigram >> Unit.impactToFloat
+            Impact.grabImpactFloat impact.trigram
 
         maxScore =
             simulator.lifeCycle

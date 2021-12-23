@@ -203,7 +203,6 @@ computeTransportSummary step transport =
             -- Added intermediary inland transport step
             -- to materialize Processing + Dyeing steps (see Excel)
             { default
-              -- FIXME: use defaultInland
                 | road = transport.road |> Quantity.plus defaultInland.road
                 , sea = transport.sea |> Quantity.plus defaultInland.sea
             }

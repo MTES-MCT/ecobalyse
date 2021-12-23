@@ -42,6 +42,7 @@ import Views.Summary as SummaryView
 type alias Model =
     { simulator : Result String Simulator
     , massInput : String
+    , initialQuery : Inputs.Query
     , query : Inputs.Query
     , displayMode : DisplayMode
     , modal : ModalContent
@@ -142,6 +143,7 @@ init trigram maybeQuery ({ db } as session) =
     in
     ( { simulator = simulator
       , massInput = query.mass |> Mass.inKilograms |> String.fromFloat
+      , initialQuery = query
       , query = query
       , displayMode = SimpleMode
       , modal = NoModal
@@ -470,7 +472,6 @@ lifeCycleStepsView db { displayMode, impact } simulator =
 shareLinkView : Session -> Model -> Simulator -> Html Msg
 shareLinkView session { impact } simulator =
     let
-        -- FIXME: add trigram to sharebable link
         shareableLink =
             simulator.inputs
                 |> (Inputs.toQuery >> Just)
@@ -724,9 +725,7 @@ simulatorView ({ db } as session) model ({ inputs } as simulator) =
                 , button
                     [ class "btn btn-secondary"
                     , onClick Reset
-
-                    -- FIXME: store initial query and comare to it
-                    , disabled (model.query == Inputs.defaultQuery)
+                    , disabled (model.query == model.initialQuery)
                     ]
                     [ text "Réinitialiser le simulateur" ]
                 ]

@@ -32,6 +32,10 @@ encode v =
 
 init : Db -> Inputs.Query -> Result String Simulator
 init db =
+    let
+        defaultImpacts =
+            Impact.impactsFromDefinitons db.impacts
+    in
     Inputs.fromQuery db
         >> Result.map
             (\inputs ->
@@ -40,10 +44,8 @@ init db =
                     |> (\lifeCycle ->
                             { inputs = inputs
                             , lifeCycle = lifeCycle
-
-                            -- FIXME: mutualize default impacts
-                            , impacts = Impact.impactsFromDefinitons db.impacts
-                            , transport = Transport.default (Impact.impactsFromDefinitons db.impacts)
+                            , impacts = defaultImpacts
+                            , transport = Transport.default defaultImpacts
                             }
                        )
             )

@@ -118,6 +118,11 @@ getImpact trigram =
         >> Maybe.withDefault Quantity.zero
 
 
+grabImpactFloat : Trigram -> { a | impacts : Impacts } -> Float
+grabImpactFloat trigram { impacts } =
+    impacts |> getImpact trigram |> Unit.impactToFloat
+
+
 filterImpacts : (Trigram -> Unit.Impact -> Bool) -> Impacts -> Impacts
 filterImpacts fn =
     AnyDict.filter fn

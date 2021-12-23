@@ -22,7 +22,6 @@ expectImpact db trigram cch query =
     case Simulator.compute db query of
         Ok simulator ->
             simulator.impacts
-                -- FIXME: avoid relying on query.impact here
                 |> Impact.getImpact trigram
                 |> Unit.impactToFloat
                 |> Expect.within (Expect.Absolute 0.01) cch
