@@ -50,7 +50,9 @@ paths:
       - $ref: '#/components/parameters/recycledRatioParam'
       - $ref: '#/components/parameters/dyeingWeightingParam'
       - $ref: '#/components/parameters/airTransportRatioParam'
-      - $ref: '#/components/parameters/customCountryMixesParam'
+      - $ref: '#/components/parameters/customCountryMixFabricParam'
+      - $ref: '#/components/parameters/customCountryMixDyeingParam'
+      - $ref: '#/components/parameters/customCountryMixMakingParam'
       responses:
         200:
           description: Opération réussie
@@ -78,6 +80,7 @@ paths:
           type: string
           minLength: 3
           maxLength: 3
+          default: "cch"
           enum:
           - "acd"
           - "ozd"
@@ -101,7 +104,9 @@ paths:
       - $ref: '#/components/parameters/recycledRatioParam'
       - $ref: '#/components/parameters/dyeingWeightingParam'
       - $ref: '#/components/parameters/airTransportRatioParam'
-      - $ref: '#/components/parameters/customCountryMixesParam'
+      - $ref: '#/components/parameters/customCountryMixFabricParam'
+      - $ref: '#/components/parameters/customCountryMixDyeingParam'
+      - $ref: '#/components/parameters/customCountryMixMakingParam'
       responses:
         200:
           description: successful operation
@@ -129,7 +134,9 @@ paths:
       - $ref: '#/components/parameters/recycledRatioParam'
       - $ref: '#/components/parameters/dyeingWeightingParam'
       - $ref: '#/components/parameters/airTransportRatioParam'
-      - $ref: '#/components/parameters/customCountryMixesParam'
+      - $ref: '#/components/parameters/customCountryMixFabricParam'
+      - $ref: '#/components/parameters/customCountryMixDyeingParam'
+      - $ref: '#/components/parameters/customCountryMixMakingParam'
       responses:
         200:
           description: Opération réussie
@@ -148,7 +155,7 @@ components:
     massParam:
       name: mass
       in: query
-      description: Masse du produit fini, en kilogrammes
+      description: Masse du produit fini, **exprimée en kilogrammes**
       required: true
       style: form
       schema:
@@ -211,7 +218,7 @@ components:
     dyeingWeightingParam:
       name: dyeingWeighting
       in: query
-      description: Majoration du procédé de teinture, entre `0` et `1`
+      description: Majoration de l'impact du **procédé de Teinture**, entre `0` et `1`
       required: false
       style: form
       schema:
@@ -221,32 +228,40 @@ components:
     airTransportRatioParam:
       name: airTransportRatio
       in: query
-      description: Part de transport aérien entre l'étape de confection et l'étape de distribution, entre `0` et `1`
+      description: Part de **transport aérien** entre l'étape de **Confection** et l'étape de **Distribution**, entre `0` et `1`
       required: false
       style: form
       schema:
         type: number
         minimum: 0
         maximum: 1
-    customCountryMixesParam:
-      name: customCountryMixes
+    customCountryMixFabricParam:
+      name: customCountryMixes[fabric]
       in: query
-      description: "Mix énergétiques pays personnalisés pour certaines étapes clés, exprimés pour chacun en **kg éq. CO2 par KWh**. Les étapes correspondantes sont : `fabric` pour l'étape de tissage/tricotage, `deying` pour l'étape de teinture et `making` pour l'étape de confection."
+      description: "Impact du mix énergétique du pays à l'étape de **Tissage/Tricotage**, exprimé en **kg éq. CO2 par KWh**"
       required: false
-      style: deepObject
-      explode: true
+      style: form
       schema:
-        type: object
-        properties:
-          fabric:
-            type: number
-            minimum: 0
-          dyeing:
-            type: number
-            minimum: 0
-          making:
-            type: number
-            minimum: 0
+        type: number
+        minimum: 0
+    customCountryMixDyeingParam:
+      name: customCountryMixes[dyeing]
+      in: query
+      description: "Impact du mix énergétique du pays à l'étape de **Teinture**, exprimé en **kg éq. CO2 par KWh**"
+      required: false
+      style: form
+      schema:
+        type: number
+        minimum: 0
+    customCountryMixMakingParam:
+      name: customCountryMixes[making]
+      in: query
+      description: "Impact du mix énergétique du pays à l'étape de **Confection**, exprimé en **kg éq. CO2 par KWh**"
+      required: false
+      style: form
+      schema:
+        type: number
+        minimum: 0
   schemas:
     InvalidParametersError:
       type: object
