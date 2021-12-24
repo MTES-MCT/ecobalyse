@@ -1,0 +1,284 @@
+openapi: 3.0.1
+info:
+  title: Wikicarbone
+  description: Calculer les impacts environnementaux des produits textiles
+  version: 0.0.1-alpha
+externalDocs:
+  description: Visiter le site
+  url: https://wikicarbone.beta.gouv.fr
+servers:
+- url: https://wikicarbone.osc-fr1.scalingo.io/
+tags:
+- name: Simulateur
+  description: Impact environnemental de produits textiles
+  externalDocs:
+    description: À propos
+    url: https://fabrique-numerique.gitbook.io/wikicarbone
+paths:
+  /simulator:
+    get:
+      tags:
+      - Simulateur
+      summary: Calculer les 15 impacts environnementaux d'un produit textile
+      parameters:
+      - $ref: '#/components/parameters/massParam'
+      - $ref: '#/components/parameters/materialParam'
+      - $ref: '#/components/parameters/productParam'
+      - $ref: '#/components/parameters/countriesParam'
+      - $ref: '#/components/parameters/recycledRatioParam'
+      - $ref: '#/components/parameters/dyeingWeightingParam'
+      - $ref: '#/components/parameters/airTransportRatioParam'
+      - $ref: '#/components/parameters/customCountryMixesParam'
+      responses:
+        200:
+          description: Opération réussie
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MultipleImpactsResponse'
+        400:
+          description: Paramètres invalides
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidParametersError'
+  /simulator/{impact}:
+    get:
+      tags:
+      - Simulateur
+      summary: Calculer un impact environnemental spécifique d'un produit textile
+      parameters:
+      - name: impact
+        in: path
+        description: Trigramme de l'impact étudié ([la liste est documenté ici](https://fabrique-numerique.gitbook.io/wikicarbone/methodologie/impacts-consideres))
+        required: true
+        schema:
+          type: string
+          minLength: 3
+          maxLength: 3
+          enum:
+          - "acd"
+          - "ozd"
+          - "cch"
+          - "ccb"
+          - "ccf"
+          - "ccl"
+          - "fwe"
+          - "swe"
+          - "tre"
+          - "pco"
+          - "pma"
+          - "ior"
+          - "fru"
+          - "mru"
+          - "ldu"
+      - $ref: '#/components/parameters/massParam'
+      - $ref: '#/components/parameters/materialParam'
+      - $ref: '#/components/parameters/productParam'
+      - $ref: '#/components/parameters/countriesParam'
+      - $ref: '#/components/parameters/recycledRatioParam'
+      - $ref: '#/components/parameters/dyeingWeightingParam'
+      - $ref: '#/components/parameters/airTransportRatioParam'
+      - $ref: '#/components/parameters/customCountryMixesParam'
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SingleImpactResponse'
+        400:
+          description: Paramètres invalides
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidParametersError'
+  /simulator/detailed:
+    get:
+      tags:
+      - Simulateur
+      summary: Calculer exhaustivement les 15 impacts environnementaux d'un produit textile
+      description: L'intégralité des calculs intermédiaires sont présentés dans une réponse verbeuses
+      parameters:
+      - $ref: '#/components/parameters/massParam'
+      - $ref: '#/components/parameters/materialParam'
+      - $ref: '#/components/parameters/productParam'
+      - $ref: '#/components/parameters/countriesParam'
+      - $ref: '#/components/parameters/recycledRatioParam'
+      - $ref: '#/components/parameters/dyeingWeightingParam'
+      - $ref: '#/components/parameters/airTransportRatioParam'
+      - $ref: '#/components/parameters/customCountryMixesParam'
+      responses:
+        200:
+          description: Opération réussie
+          content:
+            application/json:
+              schema:
+                type: object
+        400:
+          description: Paramètres invalides
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidParametersError'
+components:
+  parameters:
+    massParam:
+      name: mass
+      in: query
+      description: Masse du produit fini, en kilogrammes
+      required: true
+      style: form
+      schema:
+        type: number
+        minimum: 0.01
+      example: 0.17
+    materialParam:
+      name: material
+      in: query
+      description: Identifiant de la matière composant le produit
+      required: true
+      style: form
+      schema:
+        type: string
+        minLength: 36
+        maxLength: 36
+      example: "f211bbdb-415c-46fd-be4d-ddf199575b44"
+    productParam:
+      name: product
+      in: query
+      description: Identifiant du produit
+      required: true
+      style: form
+      schema:
+        type: string
+      example: "13"
+    countriesParam:
+      name: countries
+      in: query
+      description: Liste des codes pays pour chacune des 5 étapes du cycle de vie du produit
+      required: true
+      schema:
+        type: array
+        items:
+          type: string
+        minItems: 5
+        maxItems: 5
+      style: form
+      explode: true # FIXME: see if it works with express querystring format, and if we should switch to countries=CN,FR,FR,FR,FR (explose: false)
+      examples:
+        asia:
+          summary: Circuit Asie
+          value: ["CN", "CN", "CN", "CN", "FR"]
+        europe:
+          summary: Circuit Europe
+          value: ["CN", "TR", "TN", "TN", "FR"]
+        france:
+          summary: Circuit France
+          value: ["CN", "FR", "FR", "FR", "FR"]
+    recycledRatioParam:
+      name: recycledRatio
+      in: query
+      description: Part de matière recyclée, entre `0` et `1`
+      required: false
+      style: form
+      schema:
+        type: number
+        minimum: 0
+        maximum: 1
+    dyeingWeightingParam:
+      name: dyeingWeighting
+      in: query
+      description: Majoration du procédé de teinture, entre `0` et `1`
+      required: false
+      style: form
+      schema:
+        type: number
+        minimum: 0
+        maximum: 1
+    airTransportRatioParam:
+      name: airTransportRatio
+      in: query
+      description: Part de transport aérien entre l'étape de confection et l'étape de distribution, entre `0` et `1`
+      required: false
+      style: form
+      schema:
+        type: number
+        minimum: 0
+        maximum: 1
+    customCountryMixesParam:
+      name: customCountryMixes
+      in: query
+      description: "Mix énergétiques pays personnalisés pour certaines étapes clés, exprimés pour chacun en **kg éq. CO2 par KWh**. Les étapes correspondantes sont : `fabric` pour l'étape de tissage/tricotage, `deying` pour l'étape de teinture et `making` pour l'étape de confection."
+      required: false
+      style: deepObject
+      explode: true
+      schema:
+        type: object
+        properties:
+          fabric:
+            type: number
+            minimum: 0
+          dyeing:
+            type: number
+            minimum: 0
+          making:
+            type: number
+            minimum: 0
+  schemas:
+    InvalidParametersError:
+      type: object
+      properties:
+        error:
+          type: array
+          description: Description de l'erreur de validation des paramètres fournis
+          items:
+            type: string
+        documentation:
+          type: string
+          description: "Lien hypertexte vers la documentation de l'API"
+    MultipleImpactsResponse:
+      type: object
+      description: "Impacts environnementaux exprimés dans leurs unités respectives, dont [la documentation est disponible ici](https://fabrique-numerique.gitbook.io/wikicarbone/methodologie/impacts-consideres)."
+      properties:
+        impacts:
+          type: object
+          properties:
+            acd:
+              type: number
+            ozd:
+              type: number
+            cch:
+              type: number
+            ccb:
+              type: number
+            ccf:
+              type: number
+            ccl:
+              type: number
+            fwe:
+              type: number
+            swe:
+              type: number
+            tre:
+              type: number
+            pco:
+              type: number
+            pma:
+              type: number
+            ior:
+              type: number
+            fru:
+              type: number
+            mru:
+              type: number
+            ldu:
+              type: number
+    SingleImpactResponse:
+      type: object
+      properties:
+        impacts:
+          type: object
+          properties:
+            "{impact}":
+              type: number
