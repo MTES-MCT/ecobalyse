@@ -64,7 +64,18 @@ view : Session -> Model -> ( String, List (Html Msg) )
 view session _ =
     ( "Exemples"
     , [ Container.centered [ class "pb-5" ]
-            [ viewExamples session
+            [ node "rapi-doc"
+                [ attribute "spec-url" "https://wikicarbone.beta.gouv.fr/data/openapi.yaml"
+                , attribute "theme" "light"
+                , attribute "render-style" "view"
+                , attribute "show-header" "false"
+                , attribute "schema-description-expanded" "true"
+                , attribute "allow-authentication" "false"
+                , attribute "allow-server-selection" "false"
+                , attribute "allow-api-list-style-selection" "false"
+                ]
+                []
+            , viewExamples session
             ]
       ]
     )
