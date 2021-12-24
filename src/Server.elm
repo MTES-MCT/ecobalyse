@@ -75,7 +75,7 @@ parseRoute expressPath =
 
 apiDocUrl : String
 apiDocUrl =
-    "https://fabrique-numerique.gitbook.io/wikicarbone/api"
+    "https://wikicarbone.beta.gouv.fr/#/api"
 
 
 expressQueryDecoder : Decoder Inputs.Query

@@ -9,12 +9,34 @@ externalDocs:
 servers:
 - url: https://wikicarbone.osc-fr1.scalingo.io/
 tags:
+- name: Accueil
+  description: Informations générales sur l'état du service
 - name: Simulateur
   description: Impact environnemental de produits textiles
   externalDocs:
     description: À propos
     url: https://fabrique-numerique.gitbook.io/wikicarbone
 paths:
+  /:
+    get:
+      tags:
+      - Accueil
+      summary: Racine de l'API
+      responses:
+        200:
+          description: Le serveur est opérationnel
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  service:
+                    type: string
+                    description: Le nom du service
+                  documentation:
+                    type: string
+                    description: URL vers la documentation
+
   /simulator:
     get:
       tags:
