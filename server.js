@@ -1,10 +1,14 @@
 const express = require("express");
 const { Elm } = require("./server-app");
+const cors = require("cors");
+const { buildJsonDb } = require("./lib");
 
 const app = express();
 const host = "0.0.0.0";
 const port = process.env.PORT || 3000;
-const { buildJsonDb } = require("./lib");
+
+// Enable CORS for all requests
+app.use(cors());
 
 const elmApp = Elm.Server.init({
   flags: {
