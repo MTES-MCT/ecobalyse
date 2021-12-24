@@ -5,6 +5,7 @@ import Browser.Navigation as Nav
 import Data.Db as Db exposing (Db)
 import Data.Session as Session exposing (Session)
 import Html exposing (..)
+import Page.Api as Api
 import Page.Changelog as Changelog
 import Page.Editorial as Editorial
 import Page.Examples as Examples
@@ -31,6 +32,7 @@ type Page
     | ChangelogPage Changelog.Model
     | EditorialPage Editorial.Model
     | ExamplesPage Examples.Model
+    | ApiPage Api.Model
     | SimulatorPage Simulator.Model
     | StatsPage Stats.Model
     | NotFoundPage
@@ -49,6 +51,7 @@ type Msg
     | ChangelogMsg Changelog.Msg
     | EditorialMsg Editorial.Msg
     | ExamplesMsg Examples.Msg
+    | ApiMsg Api.Msg
     | SimulatorMsg Simulator.Msg
     | StatsMsg Stats.Msg
     | StoreChanged String
@@ -117,6 +120,10 @@ setRoute maybeRoute ( { session } as model, cmds ) =
         Just Route.Examples ->
             Examples.init session
                 |> toPage ExamplesPage ExamplesMsg
+
+        Just Route.Api ->
+            Api.init session
+                |> toPage ApiPage ApiMsg
 
         Just (Route.Simulator trigram maybeQuery) ->
             Simulator.init trigram maybeQuery session
@@ -230,6 +237,9 @@ subscriptions model =
             ExamplesPage _ ->
                 Sub.none
 
+            ApiPage _ ->
+                Sub.none
+
             SimulatorPage subModel ->
                 Simulator.subscriptions subModel
                     |> Sub.map SimulatorMsg
@@ -274,6 +284,11 @@ view { page, session } =
             Examples.view session examplesModel
                 |> mapMsg ExamplesMsg
                 |> Page.frame (pageConfig Page.Examples)
+
+        ApiPage examplesModel ->
+            Api.view session examplesModel
+                |> mapMsg ApiMsg
+                |> Page.frame (pageConfig Page.Api)
 
         SimulatorPage simulatorModel ->
             Simulator.view session simulatorModel

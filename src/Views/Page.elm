@@ -18,6 +18,7 @@ type ActivePage
     | Changelog
     | Editorial String
     | Examples
+    | Api
     | Simulator
     | Stats
     | Other
@@ -91,6 +92,7 @@ footerMenuLinks =
     [ Internal "Accueil" Route.Home Home
     , Internal "Simulateur" (Route.Simulator Impact.defaultTrigram Nothing) Simulator
     , Internal "Exemples" Route.Examples Examples
+    , Internal "Api documentation" Route.Api Api
     , Internal "Changelog" Route.Changelog Changelog
     , Internal "Statistiques" Route.Stats Stats
     , External "Code source" "https://github.com/MTES-MCT/wikicarbone/"

@@ -14,6 +14,7 @@ type Route
     | Changelog
     | Editorial String
     | Examples
+    | Api
     | Simulator Impact.Trigram (Maybe Inputs.Query)
     | Stats
 
@@ -25,6 +26,7 @@ parser =
         , Parser.map Changelog (Parser.s "changelog")
         , Parser.map Editorial (Parser.s "content" </> Parser.string)
         , Parser.map Examples (Parser.s "examples")
+        , Parser.map Api (Parser.s "api")
         , Parser.map (Simulator Impact.defaultTrigram Nothing) (Parser.s "simulator")
         , Parser.map Simulator (Parser.s "simulator" </> Impact.parseTrigram </> Inputs.parseBase64Query)
         , Parser.map Stats (Parser.s "stats")
@@ -86,6 +88,9 @@ toString route =
 
                 Examples ->
                     [ "examples" ]
+
+                Api ->
+                    [ "api" ]
 
                 Simulator trigram (Just inputs) ->
                     [ "simulator", Impact.toString trigram, Inputs.b64encode inputs ]

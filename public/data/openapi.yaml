@@ -1,7 +1,7 @@
 openapi: 3.0.1
 info:
-  title: Wikicarbone
-  description: Calculer les impacts environnementaux des produits textiles
+  title: API Wikicarbone
+  description: L'API HTTP Wikicarbone permet de calculer les impacts environnementaux des produits textiles.
   version: 0.0.1-alpha
 externalDocs:
   description: Visiter le site
@@ -246,34 +246,49 @@ components:
           properties:
             acd:
               type: number
+              description: "Acidification (mol éq. H+)"
             ozd:
               type: number
+              description: "Appauvrissement de la couche d'ozone (kg éq. CFC 11)"
             cch:
               type: number
+              description: "Changement climatique (kg éq. CO2)"
             ccb:
               type: number
+              description: "Changement climatique - Biogénique (kg éq. CO2)"
             ccf:
               type: number
+              description: "Changement climatique - Fossile (kg éq. CO2)"
             ccl:
               type: number
+              description: "Changement climatique - Usage des sols (kg éq. CO2)"
             fwe:
               type: number
+              description: "Eutrophisation eaux douces (kg éq. P)"
             swe:
               type: number
+              description: "Eutrophisation marine (kg éq. N)"
             tre:
               type: number
+              description: "Eutrophisation terrestre (mol éq. N)"
             pco:
               type: number
+              description: "Formation d'ozone photochimique (kg éq. COVNM)"
             pma:
               type: number
+              description: "Particules (incidence de maladie)"
             ior:
               type: number
+              description: "Radiations ionisantes (éq. kBq U235)"
             fru:
               type: number
+              description: "Utilisation de ressources fossiles (MJ)"
             mru:
               type: number
+              description: "Utilisation de ressources minérales et métalliques (kg éq. Sb)"
             ldu:
               type: number
+              description: "Utilisation des sols (sans dimension (pt))"
     SingleImpactResponse:
       type: object
       properties:
