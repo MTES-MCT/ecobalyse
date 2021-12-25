@@ -91,7 +91,7 @@ expressQueryDecoder =
 
         decodeMaybeUnit =
             decodeStringFloat
-                |> Decode.map Unit.impactFromFloat
+                |> Decode.map Unit.impact
                 |> Decode.maybe
     in
     Decode.succeed Inputs.Query
@@ -99,9 +99,9 @@ expressQueryDecoder =
         |> Pipe.required "material" (Decode.map Process.Uuid Decode.string)
         |> Pipe.required "product" (Decode.map Product.Id Decode.string)
         |> Pipe.required "countries" (Decode.list (Decode.map Country.Code Decode.string))
-        |> Pipe.optional "dyeingWeighting" (Decode.maybe decodeStringFloat) Nothing
-        |> Pipe.optional "airTransportRatio" (Decode.maybe decodeStringFloat) Nothing
-        |> Pipe.optional "recycledRatio" (Decode.maybe decodeStringFloat) Nothing
+        |> Pipe.optional "dyeingWeighting" (Decode.maybe Unit.decodeRatio) Nothing
+        |> Pipe.optional "airTransportRatio" (Decode.maybe Unit.decodeRatio) Nothing
+        |> Pipe.optional "recycledRatio" (Decode.maybe Unit.decodeRatio) Nothing
         |> Pipe.optional "customCountryMixes"
             (Decode.succeed Inputs.CustomCountryMixes
                 |> Pipe.optional "fabric" decodeMaybeUnit Nothing

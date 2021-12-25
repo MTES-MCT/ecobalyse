@@ -9,6 +9,44 @@ import Quantity exposing (Quantity(..))
 
 
 
+-- Ratio
+
+
+type
+    Ratio
+    -- FIXME: validate between 0 and 1
+    = Ratio Float
+
+
+ratio : Float -> Ratio
+ratio float =
+    Ratio (clamp 0 1 float)
+
+
+ratioToFloat : Ratio -> Float
+ratioToFloat (Ratio float) =
+    float
+
+
+decodeRatio : Decoder Ratio
+decodeRatio =
+    Decode.float
+        |> Decode.andThen
+            (\float ->
+                if float < 0 || float > 1 then
+                    Decode.fail "Ratio must be comprised between 0 and 1."
+
+                else
+                    Decode.succeed (Ratio float)
+            )
+
+
+encodeRatio : Ratio -> Encode.Value
+encodeRatio (Ratio float) =
+    Encode.float float
+
+
+
 -- Abstract Impact
 
 
@@ -20,8 +58,8 @@ type alias Impact =
     Quantity Float ImpactUnit
 
 
-impactFromFloat : Float -> Impact
-impactFromFloat value =
+impact : Float -> Impact
+impact value =
     Quantity value
 
 
@@ -33,7 +71,7 @@ impactToFloat (Quantity value) =
 decodeImpact : Decoder Impact
 decodeImpact =
     Decode.float
-        |> Decode.andThen (impactFromFloat >> Decode.succeed)
+        |> Decode.andThen (impact >> Decode.succeed)
 
 
 encodeImpact : Impact -> Encode.Value
@@ -79,26 +117,26 @@ forMJ forOneMJ =
 ratioed :
     (Quantity Float unit -> a -> Quantity Float unit)
     -> ( Quantity Float unit, Quantity Float unit )
-    -> Float
+    -> Ratio
     -> a
     -> Quantity Float unit
-ratioed for ( a, b ) ratio input =
+ratioed for ( a, b ) (Ratio ratio_) input =
     Quantity.sum
-        [ input |> for a |> Quantity.multiplyBy ratio
-        , input |> for b |> Quantity.multiplyBy (1 - ratio)
+        [ input |> for a |> Quantity.multiplyBy ratio_
+        , input |> for b |> Quantity.multiplyBy (1 - ratio_)
         ]
 
 
-ratioedForKg : ( Quantity Float unit, Quantity Float unit ) -> Float -> Mass -> Quantity Float unit
+ratioedForKg : ( Quantity Float unit, Quantity Float unit ) -> Ratio -> Mass -> Quantity Float unit
 ratioedForKg =
     ratioed forKg
 
 
-ratioedForKWh : ( Quantity Float unit, Quantity Float unit ) -> Float -> Energy -> Quantity Float unit
+ratioedForKWh : ( Quantity Float unit, Quantity Float unit ) -> Ratio -> Energy -> Quantity Float unit
 ratioedForKWh =
     ratioed forKWh
 
 
-ratioedForMJ : ( Quantity Float unit, Quantity Float unit ) -> Float -> Energy -> Quantity Float unit
+ratioedForMJ : ( Quantity Float unit, Quantity Float unit ) -> Ratio -> Energy -> Quantity Float unit
 ratioedForMJ =
     ratioed forMJ

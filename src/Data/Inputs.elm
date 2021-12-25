@@ -20,9 +20,9 @@ type alias Inputs =
     , material : Material
     , product : Product
     , countries : List Country
-    , dyeingWeighting : Maybe Float
-    , airTransportRatio : Maybe Float
-    , recycledRatio : Maybe Float
+    , dyeingWeighting : Maybe Unit.Ratio
+    , airTransportRatio : Maybe Unit.Ratio
+    , recycledRatio : Maybe Unit.Ratio
     , customCountryMixes : CustomCountryMixes
     }
 
@@ -33,9 +33,9 @@ type alias Query =
     , material : Process.Uuid
     , product : Product.Id
     , countries : List Country.Code
-    , dyeingWeighting : Maybe Float
-    , airTransportRatio : Maybe Float
-    , recycledRatio : Maybe Float
+    , dyeingWeighting : Maybe Unit.Ratio
+    , airTransportRatio : Maybe Unit.Ratio
+    , recycledRatio : Maybe Unit.Ratio
     , customCountryMixes : CustomCountryMixes
     }
 
@@ -335,9 +335,9 @@ encode inputs =
         , ( "material", Material.encode inputs.material )
         , ( "product", Product.encode inputs.product )
         , ( "countries", Encode.list Country.encode inputs.countries )
-        , ( "dyeingWeighting", inputs.dyeingWeighting |> Maybe.map Encode.float |> Maybe.withDefault Encode.null )
-        , ( "airTransportRatio", inputs.airTransportRatio |> Maybe.map Encode.float |> Maybe.withDefault Encode.null )
-        , ( "recycledRatio", inputs.recycledRatio |> Maybe.map Encode.float |> Maybe.withDefault Encode.null )
+        , ( "dyeingWeighting", inputs.dyeingWeighting |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
+        , ( "airTransportRatio", inputs.airTransportRatio |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
+        , ( "recycledRatio", inputs.recycledRatio |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
         , ( "customCountryMixes", encodeCustomCountryMixes inputs.customCountryMixes )
         ]
 
@@ -366,9 +366,9 @@ decodeQuery =
         |> Pipe.required "material" (Decode.map Process.Uuid Decode.string)
         |> Pipe.required "product" (Decode.map Product.Id Decode.string)
         |> Pipe.required "countries" (Decode.list (Decode.map Country.Code Decode.string))
-        |> Pipe.required "dyeingWeighting" (Decode.maybe Decode.float)
-        |> Pipe.required "airTransportRatio" (Decode.maybe Decode.float)
-        |> Pipe.required "recycledRatio" (Decode.maybe Decode.float)
+        |> Pipe.required "dyeingWeighting" (Decode.maybe Unit.decodeRatio)
+        |> Pipe.required "airTransportRatio" (Decode.maybe Unit.decodeRatio)
+        |> Pipe.required "recycledRatio" (Decode.maybe Unit.decodeRatio)
         |> Pipe.required "customCountryMixes" decodeCustomCountryMixes
 
 
@@ -379,9 +379,9 @@ encodeQuery query =
         , ( "material", query.material |> Process.uuidToString |> Encode.string )
         , ( "product", query.product |> Product.idToString |> Encode.string )
         , ( "countries", Encode.list (Country.codeToString >> Encode.string) query.countries )
-        , ( "dyeingWeighting", query.dyeingWeighting |> Maybe.map Encode.float |> Maybe.withDefault Encode.null )
-        , ( "airTransportRatio", query.airTransportRatio |> Maybe.map Encode.float |> Maybe.withDefault Encode.null )
-        , ( "recycledRatio", query.recycledRatio |> Maybe.map Encode.float |> Maybe.withDefault Encode.null )
+        , ( "dyeingWeighting", query.dyeingWeighting |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
+        , ( "airTransportRatio", query.airTransportRatio |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
+        , ( "recycledRatio", query.recycledRatio |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
         , ( "customCountryMixes", encodeCustomCountryMixes query.customCountryMixes )
         ]
 

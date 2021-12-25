@@ -1,6 +1,7 @@
 module Data.Country exposing (..)
 
 import Data.Process as Process exposing (Process)
+import Data.Unit as Unit
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
 import Result.Extra as RE
@@ -15,8 +16,8 @@ type alias Country =
     , name : String
     , electricityProcess : Process
     , heatProcess : Process
-    , dyeingWeighting : Float
-    , airTransportRatio : Float
+    , dyeingWeighting : Unit.Ratio
+    , airTransportRatio : Unit.Ratio
     }
 
 
@@ -56,8 +57,8 @@ decode processes =
         (Decode.field "name" Decode.string)
         (Decode.field "electricityProcessUuid" (Process.decodeFromUuid processes))
         (Decode.field "heatProcessUuid" (Process.decodeFromUuid processes))
-        (Decode.field "dyeingWeighting" Decode.float)
-        (Decode.field "airTransportRatio" Decode.float)
+        (Decode.field "dyeingWeighting" Unit.decodeRatio)
+        (Decode.field "airTransportRatio" Unit.decodeRatio)
 
 
 decodeList : List Process -> Decoder (List Country)
@@ -72,8 +73,8 @@ encode v =
         , ( "name", Encode.string v.name )
         , ( "electricityProcessUuid", v.electricityProcess.uuid |> Process.uuidToString |> Encode.string )
         , ( "heatProcessUuid", v.heatProcess.uuid |> Process.uuidToString |> Encode.string )
-        , ( "dyeingWeighting", Encode.float v.dyeingWeighting )
-        , ( "airTransportRatio", Encode.float v.airTransportRatio )
+        , ( "dyeingWeighting", Unit.encodeRatio v.dyeingWeighting )
+        , ( "airTransportRatio", Unit.encodeRatio v.airTransportRatio )
         ]
 
 

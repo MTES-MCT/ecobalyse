@@ -74,12 +74,12 @@ type Msg
     | SubmitCustomCountryMix Step.Label (Maybe Unit.Impact)
     | SwitchImpact Impact.Trigram
     | SwitchMode DisplayMode
-    | UpdateAirTransportRatio (Maybe Float)
+    | UpdateAirTransportRatio (Maybe Unit.Ratio)
     | UpdateCustomCountryMixInput Step.Label String
-    | UpdateDyeingWeighting (Maybe Float)
+    | UpdateDyeingWeighting (Maybe Unit.Ratio)
     | UpdateMassInput String
     | UpdateMaterial Process.Uuid
-    | UpdateRecycledRatio (Maybe Float)
+    | UpdateRecycledRatio (Maybe Unit.Ratio)
     | UpdateStepCountry Int Country.Code
     | UpdateProduct Product.Id
 
@@ -128,7 +128,7 @@ validateCustomCountryMixInput : Step.Label -> CustomCountryMixInputs -> Maybe Un
 validateCustomCountryMixInput stepLabel =
     getCustomCountryMixInput stepLabel
         >> Maybe.andThen String.toFloat
-        >> Maybe.map Unit.impactFromFloat
+        >> Maybe.map Unit.impact
 
 
 init : Impact.Trigram -> Maybe Inputs.Query -> Session -> ( Model, Session, Cmd Msg )
@@ -364,7 +364,7 @@ massField massInput =
         ]
 
 
-materialFormSet : Db -> Maybe Float -> Material -> Html Msg
+materialFormSet : Db -> Maybe Unit.Ratio -> Material -> Html Msg
 materialFormSet db recycledRatio material =
     let
         ( ( natural1, synthetic1, recycled1 ), ( natural2, synthetic2, recycled2 ) ) =
@@ -410,7 +410,7 @@ materialFormSet db recycledRatio material =
             , RangeSlider.view
                 { id = "recycledRatio"
                 , update = UpdateRecycledRatio
-                , value = Maybe.withDefault 0 recycledRatio
+                , value = Maybe.withDefault (Unit.ratio 0) recycledRatio
                 , toString = Material.recycledRatioToString "d'origine recyclée"
                 , disabled = material.recycledProcess == Nothing
                 }

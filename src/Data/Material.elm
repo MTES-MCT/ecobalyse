@@ -3,6 +3,7 @@ module Data.Material exposing (..)
 import Data.Country as Country
 import Data.Material.Category as Category exposing (Category)
 import Data.Process as Process exposing (Process)
+import Data.Unit as Unit
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as DecodePipeline
 import Json.Encode as Encode
@@ -48,7 +49,7 @@ groupByCategories materials =
     )
 
 
-fullName : Maybe Float -> Material -> String
+fullName : Maybe Unit.Ratio -> Material -> String
 fullName recycledRatio material =
     material.shortName
         ++ (case recycledRatio of
@@ -56,7 +57,7 @@ fullName recycledRatio material =
                     ""
 
                 Just ratio ->
-                    if ratio == 0 then
+                    if Unit.ratioToFloat ratio == 0 then
                         ""
 
                     else
@@ -64,8 +65,8 @@ fullName recycledRatio material =
            )
 
 
-recycledRatioToString : String -> Float -> String
-recycledRatioToString unit recycledRatio =
+recycledRatioToString : String -> Unit.Ratio -> String
+recycledRatioToString unit (Unit.Ratio recycledRatio) =
     String.fromInt (round (recycledRatio * 100)) ++ "\u{202F}%\u{00A0}" ++ unit
 
 
