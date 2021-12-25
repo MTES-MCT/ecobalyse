@@ -6,8 +6,8 @@
     "unit_en": "mol H+ eq",
     "short_unit": "molH+e",
     "pef": {
-      "normalization": 5.56e1,
-      "weighting": 6.2
+      "normalization": 55.6,
+      "weighting": 0.062
     }
   },
   "ozd": {
@@ -17,8 +17,8 @@
     "unit_en": "kg CVC11 eq",
     "short_unit": "kgCVC11e",
     "pef": {
-      "normalization": 5.36e-2,
-      "weighting": 6.31
+      "normalization": 0.0536,
+      "weighting": 0.0631
     }
   },
   "cch": {
@@ -28,8 +28,8 @@
     "unit_en": "kg CO2 eq",
     "short_unit": "kgCO₂e",
     "pef": {
-      "normalization": 8.1e3,
-      "weighting": 21.06
+      "normalization": 8100,
+      "weighting": 0.2106
     }
   },
   "ccb": {
@@ -64,7 +64,7 @@
     "short_unit": "kgPe",
     "pef": {
       "normalization": 1.61,
-      "weighting": 2.8
+      "weighting": 0.028
     }
   },
   "swe": {
@@ -74,8 +74,8 @@
     "unit_en": "kg N eq",
     "short_unit": "kgNe",
     "pef": {
-      "normalization": 1.95e1,
-      "weighting": 2.96
+      "normalization": 19.5,
+      "weighting": 0.0296
     }
   },
   "tre": {
@@ -85,8 +85,8 @@
     "unit_en": "mol N eq",
     "short_unit": "molNe",
     "pef": {
-      "normalization": 1.77e2,
-      "weighting": 3.71
+      "normalization": 177,
+      "weighting": 0.0371
     }
   },
   "pco": {
@@ -96,8 +96,8 @@
     "unit_en": "kg NMVOC eq",
     "short_unit": "kgNMVOCe",
     "pef": {
-      "normalization": 4.01e1,
-      "weighting": 4.78
+      "normalization": 40.1,
+      "weighting": 0.0478
     }
   },
   "pma": {
@@ -107,8 +107,8 @@
     "unit_en": "disease inc.",
     "short_unit": "dis.inc.",
     "pef": {
-      "normalization": 5.95e-4,
-      "weighting": 8.96
+      "normalization": 0.000595,
+      "weighting": 0.0896
     }
   },
   "ior": {
@@ -118,8 +118,8 @@
     "unit_en": "kBq U-235 eq",
     "short_unit": "kBqU235e",
     "pef": {
-      "normalization": 4.22e3,
-      "weighting": 5.01
+      "normalization": 4220,
+      "weighting": 0.0501
     }
   },
   "fru": {
@@ -129,8 +129,8 @@
     "unit_en": "MJ",
     "short_unit": "MJ",
     "pef": {
-      "normalization": 6.5e4,
-      "weighting": 8.32
+      "normalization": 65000,
+      "weighting": 0.0832
     }
   },
   "mru": {
@@ -140,8 +140,8 @@
     "unit_en": "kg Sb eq",
     "short_unit": "kgSbe",
     "pef": {
-      "normalization": 6.36e-2,
-      "weighting": 7.55
+      "normalization": 0.0636,
+      "weighting": 0.0755
     }
   },
   "ldu": {
@@ -151,8 +151,8 @@
     "unit_en": "Pt",
     "short_unit": "Pt",
     "pef": {
-      "normalization": 8.19e5,
-      "weighting": 7.94
+      "normalization": 819000,
+      "weighting": 0.0794
     }
   }
 }
