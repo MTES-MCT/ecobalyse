@@ -17,10 +17,17 @@ type Trigram
     = Trigram String
 
 
+type alias PefData =
+    { normalization : Unit.Impact
+    , weighting : Unit.Ratio
+    }
+
+
 type alias Definition =
     { trigram : Trigram
     , label : String
     , unit : String
+    , pefData : Maybe PefData
     }
 
 
@@ -29,6 +36,7 @@ default =
     { trigram = defaultTrigram
     , label = "Changement climatique"
     , unit = "kgCO₂e"
+    , pefData = Nothing
     }
 
 
@@ -48,20 +56,54 @@ decodeList : Decoder (List Definition)
 decodeList =
     let
         decodeDictValue =
-            Decode.map2 (\label unit -> { label = label, unit = unit })
+            Decode.map3 (\label unit pefData -> { label = label, unit = unit, pefData = pefData })
                 (Decode.field "label_fr" Decode.string)
                 (Decode.field "short_unit" Decode.string)
+                (Decode.field "pef" (Decode.maybe decodePefData))
 
-        toImpact ( key, { label, unit } ) =
-            Definition (trg key) label unit
+        toImpact ( key, { label, unit, pefData } ) =
+            Definition (trg key) label unit pefData
     in
     Decode.dict decodeDictValue
         |> Decode.andThen (Dict.toList >> List.map toImpact >> Decode.succeed)
 
 
+decodePefData : Decoder PefData
+decodePefData =
+    Decode.map2 PefData
+        (Decode.field "normalization" Unit.decodeImpact)
+        (Decode.field "weighting" (Decode.map convertPEFWeighing Unit.decodeRatio))
+
+
+convertPEFWeighing : Unit.Ratio -> Unit.Ratio
+convertPEFWeighing (Unit.Ratio weighing) =
+    -- Pef score weighting is provided using percentages for each impact, though
+    -- we don't currently take them all into account, so the actual weighting
+    -- total we're basing on is 85.6%, not 100%.
+    -- The PEF impacts not currently taken into account are:
+    -- - Toxicité humaine (cancer): 2,13 %
+    -- - Toxicité humaine (non cancer): 1,84 %
+    -- - Ecotoxicité eaux douces: 1,92 %
+    -- - Epuisement des ressources en eau: 8,51 %
+    Unit.Ratio (weighing * 100 / 0.856)
+
+
+encodePefData : PefData -> Encode.Value
+encodePefData v =
+    Encode.object
+        [ ( "normalization", Unit.encodeImpact v.normalization )
+        , ( "weighting", Unit.encodeRatio v.weighting )
+        ]
+
+
 decodeTrigram : Decoder Trigram
 decodeTrigram =
     Decode.map Trigram Decode.string
+
+
+encodeTrigram : Trigram -> Encode.Value
+encodeTrigram =
+    toString >> Encode.string
 
 
 encodeDefinition : Definition -> Encode.Value
@@ -70,12 +112,8 @@ encodeDefinition v =
         [ ( "trigram", encodeTrigram v.trigram )
         , ( "label", Encode.string v.label )
         , ( "unit", Encode.string v.unit )
+        , ( "pef", v.pefData |> Maybe.map encodePefData |> Maybe.withDefault Encode.null )
         ]
-
-
-encodeTrigram : Trigram -> Encode.Value
-encodeTrigram =
-    toString >> Encode.string
 
 
 toString : Trigram -> String
