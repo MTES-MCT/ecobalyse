@@ -98,3 +98,8 @@ megajoules =
 percent : Float -> Html msg
 percent =
     formatRichFloat 2 "%"
+
+
+pefScore : Unit.PefScore -> Html msg
+pefScore =
+    Unit.pefScoreToFloat >> formatRichFloat 2 "PEF"

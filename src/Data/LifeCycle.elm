@@ -51,8 +51,8 @@ computeTotalTransports db =
         (Transport.default (Impact.impactsFromDefinitons db.impacts))
 
 
-computeFinalImpactScore : Db -> LifeCycle -> Impacts
-computeFinalImpactScore db =
+computeFinalImpacts : Db -> LifeCycle -> Impacts
+computeFinalImpacts db =
     Array.foldl
         (\{ impacts, transport } finalImpacts ->
             finalImpacts

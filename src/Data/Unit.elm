@@ -12,9 +12,7 @@ import Quantity exposing (Quantity(..))
 -- Ratio
 
 
-type
-    Ratio
-    -- FIXME: validate between 0 and 1
+type Ratio
     = Ratio Float
 
 
@@ -77,6 +75,39 @@ decodeImpact =
 encodeImpact : Impact -> Encode.Value
 encodeImpact =
     impactToFloat >> Encode.float
+
+
+
+-- PEF score
+
+
+type PefScore
+    = PefScore Float
+
+
+pefScore : Float -> PefScore
+pefScore float =
+    PefScore float
+
+
+pefScoreToFloat : PefScore -> Float
+pefScoreToFloat (PefScore float) =
+    float
+
+
+addPefScore : PefScore -> PefScore -> PefScore
+addPefScore (PefScore a) (PefScore b) =
+    PefScore (a + b)
+
+
+decodePefScore : Decoder PefScore
+decodePefScore =
+    Decode.map PefScore Decode.float
+
+
+encodePefScore : PefScore -> Encode.Value
+encodePefScore (PefScore float) =
+    Encode.float float
 
 
 

@@ -195,6 +195,31 @@ encodeImpacts =
     AnyDict.encode toString Unit.encodeImpact
 
 
+computePefScore : List Definition -> Impacts -> Unit.PefScore
+computePefScore defs =
+    AnyDict.map
+        (\trigram impact ->
+            case getDefinition trigram defs of
+                Ok { pefData } ->
+                    case pefData of
+                        Just { normalization, weighting } ->
+                            impact
+                                |> Quantity.divideBy (Unit.impactToFloat normalization)
+                                |> Quantity.multiplyBy (Unit.ratioToFloat weighting)
+                                |> Unit.impactToFloat
+                                |> Unit.pefScore
+
+                        Nothing ->
+                            Unit.pefScore 0
+
+                Err _ ->
+                    Unit.pefScore 0
+        )
+        >> AnyDict.foldl
+            (\_ a b -> Unit.addPefScore a b)
+            (Unit.pefScore 0)
+
+
 
 -- Parser
 
