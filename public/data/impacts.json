@@ -4,104 +4,155 @@
     "label_fr": "Acidification",
     "unit_fr": "mol éq. H+",
     "unit_en": "mol H+ eq",
-    "short_unit": "molH+e"
+    "short_unit": "molH+e",
+    "pef": {
+      "normalization": 5.56e1,
+      "weighting": 6.2
+    }
   },
   "ozd": {
     "label_en": "Ozone depletion",
     "label_fr": "Appauvrissement de la couche d'ozone",
     "unit_fr": "kg éq. CFC 11",
     "unit_en": "kg CVC11 eq",
-    "short_unit": "kgCVC11e"
+    "short_unit": "kgCVC11e",
+    "pef": {
+      "normalization": 5.36e-2,
+      "weighting": 6.31
+    }
   },
   "cch": {
     "label_en": "Climate change",
     "label_fr": "Changement climatique",
     "unit_fr": "kg éq. CO2",
     "unit_en": "kg CO2 eq",
-    "short_unit": "kgCO₂e"
+    "short_unit": "kgCO₂e",
+    "pef": {
+      "normalization": 8.1e3,
+      "weighting": 21.06
+    }
   },
   "ccb": {
     "label_en": "Climate change-Biogenic",
     "label_fr": "Changement climatique - Biogénique",
     "unit_fr": "kg éq. CO2",
     "unit_en": "kg CO2 eq",
-    "short_unit": "kgCO₂e"
+    "short_unit": "kgCO₂e",
+    "pef": null
   },
   "ccf": {
     "label_en": "Climate change-Fossil",
     "label_fr": "Changement climatique - Fossile",
     "unit_fr": "kg éq. CO2",
     "unit_en": "kg CO2 eq",
-    "short_unit": "kgCO₂e"
+    "short_unit": "kgCO₂e",
+    "pef": null
   },
   "ccl": {
     "label_en": "Climate change-Land use",
     "label_fr": "Changement climatique - Usage des sols",
     "unit_fr": "kg éq. CO2",
     "unit_en": "kg CO2 eq",
-    "short_unit": "kgCO₂e"
+    "short_unit": "kgCO₂e",
+    "pef": null
   },
   "fwe": {
-    "label_en": "FreshwaterEutrophication",
+    "label_en": "Freshwater Eutrophication",
     "label_fr": "Eutrophisation eaux douces",
     "unit_fr": "kg éq. P",
     "unit_en": "kg P eq",
-    "short_unit": "kgPe"
+    "short_unit": "kgPe",
+    "pef": {
+      "normalization": 1.61,
+      "weighting": 2.8
+    }
   },
   "swe": {
     "label_en": "Marine eutrophication",
     "label_fr": "Eutrophisation marine",
     "unit_fr": "kg éq. N",
     "unit_en": "kg N eq",
-    "short_unit": "kgNe"
+    "short_unit": "kgNe",
+    "pef": {
+      "normalization": 1.95e1,
+      "weighting": 2.96
+    }
   },
   "tre": {
     "label_en": "Terrestrial eutrophication",
     "label_fr": "Eutrophisation terrestre",
     "unit_fr": "mol éq. N",
     "unit_en": "mol N eq",
-    "short_unit": "molNe"
+    "short_unit": "molNe",
+    "pef": {
+      "normalization": 1.77e2,
+      "weighting": 3.71
+    }
   },
   "pco": {
     "label_en": "Photochemical ozone formation",
     "label_fr": "Formation d'ozone photochimique",
     "unit_fr": "kg éq. COVNM",
     "unit_en": "kg NMVOC eq",
-    "short_unit": "kgNMVOCe"
+    "short_unit": "kgNMVOCe",
+    "pef": {
+      "normalization": 4.01e1,
+      "weighting": 4.78
+    }
   },
   "pma": {
     "label_en": "Particulate matter",
     "label_fr": "Particules",
     "unit_fr": "incidence de maladie",
     "unit_en": "disease inc.",
-    "short_unit": "dis.inc."
+    "short_unit": "dis.inc.",
+    "pef": {
+      "normalization": 5.95e-4,
+      "weighting": 8.96
+    }
   },
   "ior": {
     "label_en": "Ionising radiation",
     "label_fr": "Radiations ionisantes",
     "unit_fr": "éq. kBq U235",
     "unit_en": "kBq U-235 eq",
-    "short_unit": "kBqU235e"
+    "short_unit": "kBqU235e",
+    "pef": {
+      "normalization": 4.22e3,
+      "weighting": 5.01
+    }
   },
   "fru": {
     "label_en": "Fossile resource use",
     "label_fr": "Utilisation de ressources fossiles",
     "unit_fr": "MJ",
     "unit_en": "MJ",
-    "short_unit": "MJ"
+    "short_unit": "MJ",
+    "pef": {
+      "normalization": 6.5e4,
+      "weighting": 8.32
+    }
   },
   "mru": {
     "label_en": "Minerals and metal resource use",
     "label_fr": "Utilisation de ressources minérales et métalliques",
     "unit_fr": "kg éq. Sb",
     "unit_en": "kg Sb eq",
-    "short_unit": "kgSbe"
+    "short_unit": "kgSbe",
+    "pef": {
+      "normalization": 6.36e-2,
+      "weighting": 7.55
+    }
   },
   "ldu": {
     "label_en": "Land use",
     "label_fr": "Utilisation des sols",
     "unit_fr": "sans dimension (pt)",
     "unit_en": "Pt",
-    "short_unit": "Pt"
+    "short_unit": "Pt",
+    "pef": {
+      "normalization": 8.19e5,
+      "weighting": 7.94
+    }
   }
 }
