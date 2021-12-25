@@ -326,6 +326,9 @@ components:
             ldu:
               type: number
               description: "Utilisation des sols (sans dimension (pt))"
+        pefScore:
+          type: number
+          description: Score PEF
     SingleImpactResponse:
       type: object
       properties:
@@ -334,3 +337,7 @@ components:
           properties:
             "{impact}":
               type: number
+              description: Valeur de l'impact recherché
+        pefScore:
+          type: number
+          description: Score PEF
