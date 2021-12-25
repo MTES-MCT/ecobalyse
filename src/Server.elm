@@ -91,7 +91,7 @@ expressQueryDecoder =
 
         decodeMaybeUnit =
             decodeStringFloat
-                |> Decode.map Unit.impactFromFloat
+                |> Decode.map Unit.impact
                 |> Decode.maybe
     in
     Decode.succeed Inputs.Query

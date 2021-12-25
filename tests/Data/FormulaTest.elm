@@ -72,8 +72,8 @@ suite =
                                 { noOpProcess
                                     | impacts =
                                         AnyDict.fromList Impact.toString
-                                            [ ( Impact.trg "cch", Unit.impactFromFloat 0.5 )
-                                            , ( Impact.trg "fwe", Unit.impactFromFloat 1.5 )
+                                            [ ( Impact.trg "cch", Unit.impact 0.5 )
+                                            , ( Impact.trg "fwe", Unit.impact 1.5 )
                                             ]
                                 }
                             }
@@ -105,8 +105,8 @@ suite =
                                 { noOpProcess
                                     | impacts =
                                         AnyDict.fromList Impact.toString
-                                            [ ( Impact.trg "cch", Unit.impactFromFloat 0.1 )
-                                            , ( Impact.trg "fwe", Unit.impactFromFloat 0.5 )
+                                            [ ( Impact.trg "cch", Unit.impact 0.1 )
+                                            , ( Impact.trg "fwe", Unit.impact 0.5 )
                                             ]
                                 }
                             , ppm = 400
@@ -140,8 +140,8 @@ suite =
                                 { noOpProcess
                                     | impacts =
                                         AnyDict.fromList Impact.toString
-                                            [ ( Impact.trg "cch", Unit.impactFromFloat 0.2 )
-                                            , ( Impact.trg "fwe", Unit.impactFromFloat 0.5 )
+                                            [ ( Impact.trg "cch", Unit.impact 0.2 )
+                                            , ( Impact.trg "fwe", Unit.impact 0.5 )
                                             ]
                                 }
                             }

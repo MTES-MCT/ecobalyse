@@ -58,8 +58,8 @@ type alias Impact =
     Quantity Float ImpactUnit
 
 
-impactFromFloat : Float -> Impact
-impactFromFloat value =
+impact : Float -> Impact
+impact value =
     Quantity value
 
 
@@ -71,7 +71,7 @@ impactToFloat (Quantity value) =
 decodeImpact : Decoder Impact
 decodeImpact =
     Decode.float
-        |> Decode.andThen (impactFromFloat >> Decode.succeed)
+        |> Decode.andThen (impact >> Decode.succeed)
 
 
 encodeImpact : Impact -> Encode.Value

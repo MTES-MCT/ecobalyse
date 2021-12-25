@@ -128,7 +128,7 @@ validateCustomCountryMixInput : Step.Label -> CustomCountryMixInputs -> Maybe Un
 validateCustomCountryMixInput stepLabel =
     getCustomCountryMixInput stepLabel
         >> Maybe.andThen String.toFloat
-        >> Maybe.map Unit.impactFromFloat
+        >> Maybe.map Unit.impact
 
 
 init : Impact.Trigram -> Maybe Inputs.Query -> Session -> ( Model, Session, Cmd Msg )
