@@ -4,6 +4,7 @@ import Array
 import Data.Impact as Impact
 import Data.Simulator exposing (Simulator)
 import Data.Step as Step
+import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Views.Format as Format
@@ -58,7 +59,7 @@ makeBars { simulator, impact } =
                                             [ strong [] [ text "Teinture" ]
                                             , text " ("
                                             , abbr [ class "Abbr" ]
-                                                [ text <| Format.formatInt "%" (round (step.dyeingWeighting * 100)) ]
+                                                [ text <| Format.formatInt "%" (round (Unit.ratioToFloat step.dyeingWeighting * 100)) ]
                                             , text ")"
                                             ]
 

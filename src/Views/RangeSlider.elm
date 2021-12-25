@@ -1,5 +1,6 @@
 module Views.RangeSlider exposing (..)
 
+import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
@@ -7,9 +8,9 @@ import Html.Events exposing (..)
 
 type alias Config msg =
     { id : String
-    , update : Maybe Float -> msg
-    , value : Float
-    , toString : Float -> String
+    , update : Maybe Unit.Ratio -> msg
+    , value : Unit.Ratio
+    , toString : Unit.Ratio -> String
     , disabled : Bool
     }
 
@@ -27,8 +28,8 @@ view config =
                 , class "d-block form-range"
                 , style "margin-top" "2px"
                 , id config.id
-                , onInput (String.toInt >> Maybe.map (\x -> toFloat x / 100) >> config.update)
-                , value (String.fromInt (round (config.value * 100)))
+                , onInput (String.toInt >> Maybe.map (\x -> Unit.ratio (toFloat x / 100)) >> config.update)
+                , value (String.fromInt (round (Unit.ratioToFloat config.value * 100)))
                 , Attr.min "0"
                 , Attr.max "100"
                 , step "1"

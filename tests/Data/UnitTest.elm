@@ -61,19 +61,19 @@ suite =
             ]
         , describe "Unit.ratioedForKg"
             [ Mass.kilograms 1
-                |> Unit.ratioedForKg ( Unit.impactFromFloat 0.25, Unit.impactFromFloat 0.75 ) 0.5
+                |> Unit.ratioedForKg ( Unit.impactFromFloat 0.25, Unit.impactFromFloat 0.75 ) (Unit.Ratio 0.5)
                 |> expectImpactFloat 0.5
                 |> asTest "should compute impact from ratioed impact and mass"
             ]
         , describe "Unit.ratioedForKWh"
             [ Energy.kilowattHours 1
-                |> Unit.ratioedForKWh ( Unit.impactFromFloat 0.25, Unit.impactFromFloat 0.75 ) 0.5
+                |> Unit.ratioedForKWh ( Unit.impactFromFloat 0.25, Unit.impactFromFloat 0.75 ) (Unit.Ratio 0.5)
                 |> expectImpactFloat 0.5
                 |> asTest "should compute impact from ratioed impact and energy in KWh"
             ]
         , describe "Unit.ratioedForMJ"
             [ Energy.megajoules 1
-                |> Unit.ratioedForMJ ( Unit.impactFromFloat 0.25, Unit.impactFromFloat 0.75 ) 0.5
+                |> Unit.ratioedForMJ ( Unit.impactFromFloat 0.25, Unit.impactFromFloat 0.75 ) (Unit.Ratio 0.5)
                 |> expectImpactFloat 0.5
                 |> asTest "should compute impact from ratioed impact and energy in MJ"
             ]

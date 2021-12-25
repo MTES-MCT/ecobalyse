@@ -30,8 +30,8 @@ type alias Step =
     , heat : Energy
     , kwh : Energy
     , processInfo : ProcessInfo
-    , dyeingWeighting : Float -- FIXME: why not Maybe?
-    , airTransportRatio : Float -- FIXME: why not Maybe?
+    , dyeingWeighting : Unit.Ratio -- FIXME: why not Maybe?
+    , airTransportRatio : Unit.Ratio -- FIXME: why not Maybe?
     , customCountryMix : Maybe Unit.Impact
     }
 
@@ -73,7 +73,7 @@ create { db, label, editable, country } =
     , kwh = Quantity.zero
     , processInfo = defaultProcessInfo
     , dyeingWeighting = country.dyeingWeighting
-    , airTransportRatio = 0 -- Note: this depends on next step country, so we can't set an accurate default value initially
+    , airTransportRatio = Unit.ratio 0 -- Note: this depends on next step country, so we can't set an accurate default value initially
     , customCountryMix = Nothing
     }
 
@@ -305,8 +305,8 @@ updateWaste waste mass step =
     }
 
 
-airTransportRatioToString : Float -> String
-airTransportRatioToString airTransportRatio =
+airTransportRatioToString : Unit.Ratio -> String
+airTransportRatioToString (Unit.Ratio airTransportRatio) =
     case round (airTransportRatio * 100) of
         0 ->
             "Aucun transport aérien"
@@ -315,8 +315,8 @@ airTransportRatioToString airTransportRatio =
             String.fromInt p ++ "% de transport aérien"
 
 
-dyeingWeightingToString : Float -> String
-dyeingWeightingToString dyeingWeighting =
+dyeingWeightingToString : Unit.Ratio -> String
+dyeingWeightingToString (Unit.Ratio dyeingWeighting) =
     case round (dyeingWeighting * 100) of
         0 ->
             "Procédé représentatif"
@@ -353,8 +353,8 @@ encode v =
         , ( "heat", Encode.float (Energy.inMegajoules v.heat) )
         , ( "kwh", Encode.float (Energy.inKilowattHours v.kwh) )
         , ( "processInfo", encodeProcessInfo v.processInfo )
-        , ( "dyeingWeighting", Encode.float v.dyeingWeighting )
-        , ( "airTransportRatio", Encode.float v.airTransportRatio )
+        , ( "dyeingWeighting", Unit.encodeRatio v.dyeingWeighting )
+        , ( "airTransportRatio", Unit.encodeRatio v.airTransportRatio )
         , ( "customCountryMix", v.customCountryMix |> Maybe.map Unit.encodeImpact |> Maybe.withDefault Encode.null )
         ]
 

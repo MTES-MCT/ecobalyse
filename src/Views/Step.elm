@@ -29,8 +29,8 @@ type alias Config msg =
     , openDocModal : Gitbook.Path -> msg
     , openCustomCountryMixModal : Step -> msg
     , updateCountry : Int -> Country.Code -> msg
-    , updateDyeingWeighting : Maybe Float -> msg
-    , updateAirTransportRatio : Maybe Float -> msg
+    , updateDyeingWeighting : Maybe Unit.Ratio -> msg
+    , updateAirTransportRatio : Maybe Unit.Ratio -> msg
     }
 
 

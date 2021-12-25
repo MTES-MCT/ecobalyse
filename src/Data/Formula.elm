@@ -31,15 +31,15 @@ ratioed pristine/recycled material processes data.
 materialRecycledWaste :
     { pristineWaste : Mass
     , recycledWaste : Mass
-    , recycledRatio : Float
+    , recycledRatio : Unit.Ratio
     }
     -> Mass
     -> { waste : Mass, mass : Mass }
 materialRecycledWaste { pristineWaste, recycledWaste, recycledRatio } baseMass =
     let
         ( recycledMass, pristineMass ) =
-            ( baseMass |> Quantity.multiplyBy recycledRatio
-            , baseMass |> Quantity.multiplyBy (1 - recycledRatio)
+            ( baseMass |> Quantity.multiplyBy (Unit.ratioToFloat recycledRatio)
+            , baseMass |> Quantity.multiplyBy (1 - Unit.ratioToFloat recycledRatio)
             )
 
         ( ratioedRecycledWaste, ratioedPristineWaste ) =
@@ -82,7 +82,7 @@ makingWaste { processWaste, pcrWaste } baseMass =
 materialAndSpinningImpacts :
     Impacts
     -> ( Process, Process ) -- Inbound: Material processes (recycled, non-recycled)
-    -> Float -- Ratio of recycled material (bewteen 0 and 1)
+    -> Unit.Ratio -- Ratio of recycled material (bewteen 0 and 1)
     -> Mass
     -> Impacts
 materialAndSpinningImpacts impacts ( recycledProcess, nonRecycledProcess ) ratio mass =
@@ -111,12 +111,12 @@ pureMaterialAndSpinningImpacts impacts process mass =
 dyeingImpacts :
     Impacts
     -> ( Process, Process ) -- Inbound: Dyeing processes (low, high)
-    -> Float -- Low/high dyeing process ratio
+    -> Unit.Ratio -- Low/high dyeing process ratio
     -> Process -- Outbound: country heat impact
     -> Process -- Outbound: country electricity impact
     -> Mass
     -> { heat : Energy, kwh : Energy, impacts : Impacts }
-dyeingImpacts impacts ( dyeingLowProcess, dyeingHighProcess ) highDyeingWeighting heatProcess elecProcess baseMass =
+dyeingImpacts impacts ( dyeingLowProcess, dyeingHighProcess ) (Unit.Ratio highDyeingWeighting) heatProcess elecProcess baseMass =
     let
         lowDyeingWeighting =
             1 - highDyeingWeighting
@@ -237,14 +237,14 @@ weavingImpacts impacts { elecPppm, countryElecProcess, ppm, grammage } baseMass 
 -- Transports
 
 
-transportRatio : Float -> Transport -> Transport
+transportRatio : Unit.Ratio -> Transport -> Transport
 transportRatio airTransportRatio ({ road, sea, air } as transport) =
     let
         roadSeaRatio =
             Transport.roadSeaTransportRatio transport
     in
     { transport
-        | road = road |> Quantity.multiplyBy (roadSeaRatio * (1 - airTransportRatio))
-        , sea = sea |> Quantity.multiplyBy ((1 - roadSeaRatio) * (1 - airTransportRatio))
-        , air = air |> Quantity.multiplyBy airTransportRatio
+        | road = road |> Quantity.multiplyBy (roadSeaRatio * (1 - Unit.ratioToFloat airTransportRatio))
+        , sea = sea |> Quantity.multiplyBy ((1 - roadSeaRatio) * (1 - Unit.ratioToFloat airTransportRatio))
+        , air = air |> Quantity.multiplyBy (Unit.ratioToFloat airTransportRatio)
     }
