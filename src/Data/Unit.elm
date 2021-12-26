@@ -66,6 +66,15 @@ impactToFloat (Quantity value) =
     value
 
 
+impactPefScore : Impact -> Ratio -> Impact -> PefScore
+impactPefScore normalization weighting =
+    Quantity.divideBy (impactToFloat normalization)
+        >> Quantity.multiplyBy (ratioToFloat weighting)
+        >> impactToFloat
+        >> (*) 1000
+        >> pefScore
+
+
 decodeImpact : Decoder Impact
 decodeImpact =
     Decode.float

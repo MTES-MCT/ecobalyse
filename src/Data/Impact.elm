@@ -13,6 +13,14 @@ import Url.Parser as Parser exposing (Parser)
 -- Impact definitions
 
 
+type alias Definition =
+    { trigram : Trigram
+    , label : String
+    , unit : String
+    , pefData : Maybe PefData
+    }
+
+
 type Trigram
     = Trigram String
 
@@ -20,14 +28,6 @@ type Trigram
 type alias PefData =
     { normalization : Unit.Impact
     , weighting : Unit.Ratio
-    }
-
-
-type alias Definition =
-    { trigram : Trigram
-    , label : String
-    , unit : String
-    , pefData : Maybe PefData
     }
 
 
@@ -72,11 +72,11 @@ decodePefData : Decoder PefData
 decodePefData =
     Decode.map2 PefData
         (Decode.field "normalization" Unit.decodeImpact)
-        (Decode.field "weighting" (Decode.map convertPEFWeighing Unit.decodeRatio))
+        (Decode.field "weighting" (Decode.map convertPEFWeighting Unit.decodeRatio))
 
 
-convertPEFWeighing : Unit.Ratio -> Unit.Ratio
-convertPEFWeighing (Unit.Ratio weighing) =
+convertPEFWeighting : Unit.Ratio -> Unit.Ratio
+convertPEFWeighting (Unit.Ratio weighting) =
     -- Pef score weighting is provided using percentages for each impact, though
     -- we don't currently take them all into account, so the actual weighting
     -- total we're basing on is 85.6%, not 100%.
@@ -85,7 +85,7 @@ convertPEFWeighing (Unit.Ratio weighing) =
     -- - Toxicité humaine (non cancer): 1,84 %
     -- - Ecotoxicité eaux douces: 1,92 %
     -- - Epuisement des ressources en eau: 8,51 %
-    Unit.Ratio (weighing / 0.856)
+    Unit.Ratio (weighting / 0.856)
 
 
 encodePefData : PefData -> Encode.Value
@@ -204,11 +204,7 @@ computePefScore defs =
                     case pefData of
                         Just { normalization, weighting } ->
                             impact
-                                |> Quantity.divideBy (Unit.impactToFloat normalization)
-                                |> Quantity.multiplyBy (Unit.ratioToFloat weighting)
-                                |> Unit.impactToFloat
-                                |> (*) 1000
-                                |> Unit.pefScore
+                                |> Unit.impactPefScore normalization weighting
 
                         Nothing ->
                             Unit.pefScore 0
@@ -216,9 +212,7 @@ computePefScore defs =
                 Err _ ->
                     Unit.pefScore 0
         )
-        >> AnyDict.foldl
-            (\_ a b -> Unit.addPefScore a b)
-            (Unit.pefScore 0)
+        >> AnyDict.foldl (\_ -> Unit.addPefScore) (Unit.pefScore 0)
 
 
 
