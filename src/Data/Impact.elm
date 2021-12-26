@@ -207,6 +207,7 @@ computePefScore defs =
                                 |> Quantity.divideBy (Unit.impactToFloat normalization)
                                 |> Quantity.multiplyBy (Unit.ratioToFloat weighting)
                                 |> Unit.impactToFloat
+                                |> (*) 1000
                                 |> Unit.pefScore
 
                         Nothing ->
