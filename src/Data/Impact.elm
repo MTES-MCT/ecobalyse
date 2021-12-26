@@ -85,7 +85,7 @@ convertPEFWeighing (Unit.Ratio weighing) =
     -- - Toxicité humaine (non cancer): 1,84 %
     -- - Ecotoxicité eaux douces: 1,92 %
     -- - Epuisement des ressources en eau: 8,51 %
-    Unit.Ratio (weighing * 100 / 0.856)
+    Unit.Ratio (weighing / 0.856)
 
 
 encodePefData : PefData -> Encode.Value
