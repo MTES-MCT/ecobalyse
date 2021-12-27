@@ -66,13 +66,11 @@ impactToFloat (Quantity value) =
     value
 
 
-impactPefScore : Impact -> Ratio -> Impact -> PefScore
+impactPefScore : Impact -> Ratio -> Impact -> Impact
 impactPefScore normalization weighting =
     Quantity.divideBy (impactToFloat normalization)
         >> Quantity.multiplyBy (ratioToFloat weighting)
-        >> impactToFloat
-        >> (*) 1000
-        >> pefScore
+        >> Quantity.multiplyBy 1000
 
 
 decodeImpact : Decoder Impact
@@ -84,39 +82,6 @@ decodeImpact =
 encodeImpact : Impact -> Encode.Value
 encodeImpact =
     impactToFloat >> Encode.float
-
-
-
--- PEF score
-
-
-type PefScore
-    = PefScore Float
-
-
-pefScore : Float -> PefScore
-pefScore float =
-    PefScore float
-
-
-pefScoreToFloat : PefScore -> Float
-pefScoreToFloat (PefScore float) =
-    float
-
-
-addPefScore : PefScore -> PefScore -> PefScore
-addPefScore (PefScore a) (PefScore b) =
-    PefScore (a + b)
-
-
-decodePefScore : Decoder PefScore
-decodePefScore =
-    Decode.map PefScore Decode.float
-
-
-encodePefScore : PefScore -> Encode.Value
-encodePefScore (PefScore float) =
-    Encode.float float
 
 
 

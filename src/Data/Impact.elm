@@ -195,7 +195,7 @@ encodeImpacts =
     AnyDict.encode toString Unit.encodeImpact
 
 
-computePefScore : List Definition -> Impacts -> Unit.PefScore
+computePefScore : List Definition -> Impacts -> Unit.Impact
 computePefScore defs =
     AnyDict.map
         (\trigram impact ->
@@ -207,12 +207,12 @@ computePefScore defs =
                                 |> Unit.impactPefScore normalization weighting
 
                         Nothing ->
-                            Unit.pefScore 0
+                            Quantity.zero
 
                 Err _ ->
-                    Unit.pefScore 0
+                    Quantity.zero
         )
-        >> AnyDict.foldl (\_ -> Unit.addPefScore) (Unit.pefScore 0)
+        >> AnyDict.foldl (\_ -> Quantity.plus) Quantity.zero
 
 
 
@@ -223,7 +223,7 @@ parseTrigram : Parser (Trigram -> a) a
 parseTrigram =
     let
         trigrams =
-            "acd,ozd,cch,ccb,ccf,ccl,fwe,swe,tre,pco,pma,ior,fru,mru,ldu"
+            "acd,ozd,cch,ccb,ccf,ccl,fwe,swe,tre,pco,pma,ior,fru,mru,ldu,pef"
                 |> String.split ","
     in
     Parser.custom "TRIGRAM" <|

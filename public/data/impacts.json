@@ -154,5 +154,13 @@
       "normalization": 819000,
       "weighting": 0.0794
     }
+  },
+  "pef": {
+    "label_en": "PEF Score",
+    "label_fr": "Score PEF",
+    "unit_fr": "PEF",
+    "unit_en": "PEF",
+    "short_unit": "PEF",
+    "pef": null
   }
 }

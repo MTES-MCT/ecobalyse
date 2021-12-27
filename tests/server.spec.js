@@ -32,11 +32,11 @@ describe("API server tests", () => {
       expect(response.body.error).toContain("Expecting an OBJECT with a field named `countries`");
     });
 
-    it("should perform a simulation featuring 15 impacts", async () => {
+    it("should perform a simulation featuring 16 impacts", async () => {
       const response = await sampleSucessfulRequest("/simulator/");
 
       expect(response.statusCode).toBe(200);
-      expect(Object.keys(response.body.impacts)).toHaveLength(15);
+      expect(Object.keys(response.body.impacts)).toHaveLength(16);
     });
   });
 
@@ -72,11 +72,11 @@ describe("API server tests", () => {
       expect(response.body.error).toContain("Expecting an OBJECT with a field named `countries`");
     });
 
-    it("should perform a simulation featuring 15 impacts", async () => {
+    it("should perform a simulation featuring 16 impacts", async () => {
       const response = await sampleSucessfulRequest("/simulator/detailed/");
 
       expect(response.statusCode).toBe(200);
-      expect(Object.keys(response.body.impacts)).toHaveLength(15);
+      expect(Object.keys(response.body.impacts)).toHaveLength(16);
     });
   });
 });

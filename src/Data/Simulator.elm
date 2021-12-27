@@ -8,7 +8,6 @@ import Data.LifeCycle as LifeCycle exposing (LifeCycle)
 import Data.Process as Process
 import Data.Step as Step exposing (Step)
 import Data.Transport as Transport exposing (Transport)
-import Data.Unit as Unit
 import Json.Encode as Encode
 import Quantity
 import Route exposing (Route(..))
@@ -18,7 +17,6 @@ type alias Simulator =
     { inputs : Inputs
     , lifeCycle : LifeCycle
     , impacts : Impacts
-    , pefScore : Unit.PefScore
     , transport : Transport
     }
 
@@ -29,7 +27,6 @@ encode v =
         [ ( "inputs", Inputs.encode v.inputs )
         , ( "lifeCycle", LifeCycle.encode v.lifeCycle )
         , ( "impacts", Impact.encodeImpacts v.impacts )
-        , ( "pefScore", Unit.encodePefScore v.pefScore )
         , ( "transport", Transport.encode v.transport )
         ]
 
@@ -49,7 +46,6 @@ init db =
                             { inputs = inputs
                             , lifeCycle = lifeCycle
                             , impacts = defaultImpacts
-                            , pefScore = Unit.pefScore 0
                             , transport = Transport.default defaultImpacts
                             }
                        )
@@ -90,6 +86,8 @@ compute db query =
         |> nextWithDb computeDyeingImpacts
         -- Compute Making step impacts
         |> next computeMakingImpacts
+        -- Compute PEF impact scores
+        |> next (computePEFScores db)
         --
         -- TRANSPORTS
         --
@@ -101,12 +99,21 @@ compute db query =
         -- Final impacts
         --
         |> next (computeFinalImpacts db)
-        |> next (computePefScore db)
 
 
-computePefScore : Db -> Simulator -> Simulator
-computePefScore db ({ impacts } as simulator) =
-    { simulator | pefScore = Impact.computePefScore db.impacts impacts }
+computePEFScores : Db -> Simulator -> Simulator
+computePEFScores db =
+    updateLifeCycle
+        (LifeCycle.mapSteps
+            (\({ impacts } as step) ->
+                { step
+                    | impacts =
+                        impacts
+                            |> Impact.updateImpact (Impact.trg "pef")
+                                (Impact.computePefScore db.impacts impacts)
+                }
+            )
+        )
 
 
 initializeFinalMass : Simulator -> Simulator

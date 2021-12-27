@@ -26,7 +26,7 @@ type alias Config =
 
 
 summaryView : Config -> Simulator -> Html msg
-summaryView { session, impact, reusable } ({ inputs, pefScore, lifeCycle } as simulator) =
+summaryView { session, impact, reusable } ({ inputs, lifeCycle } as simulator) =
     div [ class "card shadow-sm" ]
         [ div [ class "card-header text-white bg-primary d-flex justify-content-between" ]
             [ span [ class "text-nowrap" ] [ strong [] [ text inputs.product.name ] ]
@@ -43,12 +43,8 @@ summaryView { session, impact, reusable } ({ inputs, pefScore, lifeCycle } as si
                     , class "SummaryProductImage invert me-2"
                     ]
                     []
-                , div []
-                    [ div [ class "fs-1 lh-1" ]
-                        [ simulator.impacts |> Format.formatImpact impact ]
-                    , div [ class "fs-bold ps-1" ]
-                        [ Format.pefScore pefScore ]
-                    ]
+                , div [ class "display-5" ]
+                    [ simulator.impacts |> Format.formatImpact impact ]
                 ]
             , inputs.countries
                 |> List.map (\{ name } -> li [] [ span [] [ text name ] ])

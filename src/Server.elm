@@ -150,23 +150,21 @@ toResponse request encodedResult =
 
 
 toAllImpactsSimple : Simulator -> Encode.Value
-toAllImpactsSimple { inputs, impacts, pefScore } =
+toAllImpactsSimple { inputs, impacts } =
     Encode.object
         [ ( "impacts", Impact.encodeImpacts impacts )
-        , ( "pefScore", Unit.encodePefScore pefScore )
         , ( "query", inputs |> Inputs.toQuery |> Inputs.encodeQuery )
         ]
 
 
 toSingleImpactSimple : Impact.Trigram -> Simulator -> Encode.Value
-toSingleImpactSimple trigram { inputs, impacts, pefScore } =
+toSingleImpactSimple trigram { inputs, impacts } =
     Encode.object
         [ ( "impact"
           , impacts
                 |> Impact.filterImpacts (\trg _ -> trigram == trg)
                 |> Impact.encodeImpacts
           )
-        , ( "pefScore", Unit.encodePefScore pefScore )
         , ( "query", inputs |> Inputs.toQuery |> Inputs.encodeQuery )
         ]
 

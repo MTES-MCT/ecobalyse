@@ -117,6 +117,11 @@ updateStep label update_ =
         )
 
 
+mapSteps : (Step -> Step) -> LifeCycle -> LifeCycle
+mapSteps =
+    Array.map
+
+
 updateSteps : List Step.Label -> (Step -> Step) -> LifeCycle -> LifeCycle
 updateSteps labels update_ lifeCycle =
     labels |> List.foldl (\label -> updateStep label update_) lifeCycle
