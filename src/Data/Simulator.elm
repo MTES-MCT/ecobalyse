@@ -86,8 +86,6 @@ compute db query =
         |> nextWithDb computeDyeingImpacts
         -- Compute Making step impacts
         |> next computeMakingImpacts
-        -- Compute PEF impact scores
-        |> next (computePEFScores db)
         --
         -- TRANSPORTS
         --
@@ -96,6 +94,11 @@ compute db query =
         -- Compute transport summary
         |> next (computeTotalTransports db)
         --
+        -- PEF scores
+        --
+        -- Compute PEF impact scores
+        |> next (computePEFScores db)
+        --
         -- Final impacts
         --
         |> next (computeFinalImpacts db)
@@ -103,14 +106,18 @@ compute db query =
 
 computePEFScores : Db -> Simulator -> Simulator
 computePEFScores db =
+    let
+        updatePefImpact impacts_ =
+            impacts_
+                |> Impact.updateImpact (Impact.trg "pef")
+                    (Impact.computePefScore db.impacts impacts_)
+    in
     updateLifeCycle
         (LifeCycle.mapSteps
-            (\({ impacts } as step) ->
+            (\({ impacts, transport } as step) ->
                 { step
-                    | impacts =
-                        impacts
-                            |> Impact.updateImpact (Impact.trg "pef")
-                                (Impact.computePefScore db.impacts impacts)
+                    | impacts = updatePefImpact impacts
+                    , transport = { transport | impacts = updatePefImpact transport.impacts }
                 }
             )
         )
