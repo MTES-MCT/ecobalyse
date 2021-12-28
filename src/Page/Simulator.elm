@@ -667,7 +667,7 @@ gitbookModalView pageData =
                             text ""
                     , if String.trim gitbookPage.markdown == "" then
                         Alert.preformatted
-                            { title = "Une erreur a été rencontrée"
+                            { title = Just "Une erreur a été rencontrée"
                             , close = Nothing
                             , level = Alert.Info
                             , content =
@@ -771,7 +771,7 @@ view session model =
                     Alert.simple
                         { level = Alert.Danger
                         , close = Nothing
-                        , title = "Erreur"
+                        , title = Just "Erreur"
                         , content = [ text error ]
                         }
             ]

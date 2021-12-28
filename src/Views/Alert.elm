@@ -11,7 +11,7 @@ import Views.Icon as Icon
 type alias Config msg =
     { level : Level
     , close : Maybe msg
-    , title : String
+    , title : Maybe String
     , content : List (Html msg)
     }
 
@@ -42,7 +42,7 @@ icon level =
 httpError : Http.Error -> Html msg
 httpError error =
     simple
-        { title = "Erreur de chargement des données"
+        { title = Just "Erreur de chargement des données"
         , close = Nothing
         , level = Info
         , content =
@@ -85,7 +85,13 @@ simple { level, content, title, close } =
         [ class <| "alert alert-" ++ levelToClass level
         , classList [ ( "alert-dismissible", close /= Nothing ) ]
         ]
-        [ h5 [ class "alert-heading d-flex align-items-center" ] [ icon level, text title ]
+        [ case title of
+            Just title_ ->
+                h5 [ class "alert-heading d-flex align-items-center" ]
+                    [ icon level, text title_ ]
+
+            Nothing ->
+                text ""
         , div [] content
         , case close of
             Just closeMsg ->

@@ -222,7 +222,7 @@ view { session, impact, simulator } =
             Alert.simple
                 { level = Alert.Danger
                 , close = Nothing
-                , title = "Erreur"
+                , title = Just "Erreur"
                 , content = [ text error ]
                 }
 

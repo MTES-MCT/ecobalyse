@@ -132,7 +132,7 @@ view attrs content =
 
         Err errors ->
             Alert.preformatted
-                { title = "Des erreurs ont été rencontrées"
+                { title = Just "Des erreurs ont été rencontrées"
                 , close = Nothing
                 , level = Alert.Danger
                 , content = [ text errors ]

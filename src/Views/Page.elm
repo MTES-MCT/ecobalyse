@@ -168,7 +168,7 @@ notificationView { closeNotification } notification =
         Session.GenericError title message ->
             Alert.simple
                 { level = Alert.Danger
-                , title = title
+                , title = Just title
                 , close = Just (closeNotification notification)
                 , content = [ text message ]
                 }
