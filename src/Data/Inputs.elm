@@ -12,6 +12,7 @@ import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
 import Mass exposing (Mass)
+import Result.Extra as RE
 import Url.Parser as Parser exposing (Parser)
 
 
@@ -49,28 +50,40 @@ type alias CustomCountryMixes =
 
 fromQuery : Db -> Query -> Result String Inputs
 fromQuery db query =
-    let
-        lookups =
-            { material = db.materials |> Material.findByUuid query.material
-            , product = db.products |> Product.findById query.product
-            , countries = db.countries |> Country.findByCodes query.countries
-            }
+    Ok Inputs
+        -- mass
+        |> RE.andMap (Ok query.mass)
+        -- material
+        |> RE.andMap (db.materials |> Material.findByUuid query.material)
+        -- product
+        |> RE.andMap (db.products |> Product.findById query.product)
+        -- countries
+        -- FIXME: valide length + country codes one by one
+        |> RE.andMap (db.countries |> Country.findByCodes query.countries)
+        -- dyeingWeighting
+        |> RE.andMap (validateRatio query.dyeingWeighting)
+        -- airTransportRatio
+        |> RE.andMap (validateRatio query.airTransportRatio)
+        -- recycledRatio
+        |> RE.andMap (validateRatio query.recycledRatio)
+        -- customCountryMixes
+        -- FIXME: validate custom country mixes
+        |> RE.andMap (Ok query.customCountryMixes)
 
-        build material_ product_ countries_ =
-            { mass = query.mass
-            , material = material_
-            , product = product_
-            , countries = countries_
-            , dyeingWeighting = query.dyeingWeighting
-            , airTransportRatio = query.airTransportRatio
-            , recycledRatio = query.recycledRatio
-            , customCountryMixes = query.customCountryMixes
-            }
-    in
-    Result.map3 build
-        lookups.material
-        lookups.product
-        lookups.countries
+
+validateRatio : Maybe Unit.Ratio -> Result String (Maybe Unit.Ratio)
+validateRatio maybeRatio =
+    case maybeRatio of
+        Just (Unit.Ratio float) ->
+            case Unit.validateRatio float of
+                Ok ratio ->
+                    Ok (Just ratio)
+
+                Err error ->
+                    Err error
+
+        Nothing ->
+            Ok maybeRatio
 
 
 toQuery : Inputs -> Query

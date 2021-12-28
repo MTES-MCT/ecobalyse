@@ -28,6 +28,39 @@ update session msg model =
             ( model, session, Cmd.none )
 
 
+apiBrowser : Session -> Html Msg
+apiBrowser { clientUrl } =
+    let
+        -- RapiDoc options: https://mrin9.github.io/RapiDoc/api.html
+        baseOptions =
+            [ attribute "spec-url" (clientUrl ++ "data/openapi.yaml")
+            , attribute "theme" "light"
+            , attribute "font-size" "largest"
+            , attribute "load-fonts" "false"
+            , attribute "layout" "column"
+            , attribute "show-info" "false"
+            , attribute "update-route" "false"
+            , attribute "render-style" "view"
+            , attribute "show-header" "false"
+            , attribute "show-components" "true"
+            , attribute "schema-description-expanded" "true"
+            , attribute "allow-authentication" "false"
+            , attribute "allow-server-selection" "false"
+            , attribute "allow-api-list-style-selection" "false"
+            ]
+
+        options =
+            if String.contains "localhost" clientUrl then
+                attribute "server-url" "http://localhost:3000"
+                    :: attribute "default-api-server" "http://localhost:3000"
+                    :: baseOptions
+
+            else
+                baseOptions
+    in
+    node "rapi-doc" options []
+
+
 view : Session -> Model -> ( String, List (Html Msg) )
 view session _ =
     ( "Exemples"
@@ -46,29 +79,7 @@ view session _ =
                     ]
                 }
             , p [] [ text "L'API HTTP Wikicarbone permet de calculer les impacts environnementaux des produits textiles." ]
-            , p []
-                [ text "La spécification de l'API est par ailleurs disponible "
-                , a [ href "./data/openapi.yaml", target "_blank" ] [ text "au format OpenAPI" ]
-                , text "."
-                ]
-            , node "rapi-doc"
-                -- RapiDoc options: https://mrin9.github.io/RapiDoc/api.html
-                [ attribute "spec-url" (session.clientUrl ++ "data/openapi.yaml")
-                , attribute "theme" "light"
-                , attribute "font-size" "largest"
-                , attribute "load-fonts" "false"
-                , attribute "layout" "column"
-                , attribute "show-info" "false"
-                , attribute "update-route" "false"
-                , attribute "render-style" "view"
-                , attribute "show-header" "false"
-                , attribute "show-components" "true"
-                , attribute "schema-description-expanded" "true"
-                , attribute "allow-authentication" "false"
-                , attribute "allow-server-selection" "false"
-                , attribute "allow-api-list-style-selection" "false"
-                ]
-                []
+            , apiBrowser session
             ]
       ]
     )
