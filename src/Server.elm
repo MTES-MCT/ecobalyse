@@ -100,6 +100,19 @@ expressQueryDecoder =
                             Decode.succeed (Mass.kilograms float)
                     )
 
+        decodeCountries =
+            Decode.string
+                |> Decode.map Country.Code
+                |> Decode.list
+                |> Decode.andThen
+                    (\countries ->
+                        if List.length countries /= 5 then
+                            Decode.fail "La liste de pays doit contenir 5 pays."
+
+                        else
+                            Decode.succeed countries
+                    )
+
         decodeRatioString =
             decodeStringFloat
                 |> Decode.andThen (Unit.validateRatio >> DecodeExtra.fromResult)
@@ -119,7 +132,7 @@ expressQueryDecoder =
         |> Pipe.required "mass" decodeMassString
         |> Pipe.required "material" (Decode.map Process.Uuid Decode.string)
         |> Pipe.required "product" (Decode.map Product.Id Decode.string)
-        |> Pipe.required "countries" (Decode.list (Decode.map Country.Code Decode.string))
+        |> Pipe.required "countries" decodeCountries
         |> Pipe.optional "dyeingWeighting" (Decode.map Just decodeRatioString) Nothing
         |> Pipe.optional "airTransportRatio" (Decode.map Just decodeRatioString) Nothing
         |> Pipe.optional "recycledRatio" (Decode.map Just decodeRatioString) Nothing

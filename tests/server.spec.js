@@ -5,7 +5,7 @@ async function makeRequest(path, query) {
   return await request(app).get(path).query(query);
 }
 
-const sucessQuery = {
+const successQuery = {
   // Minimalistic successful query params.
   // Note: it's important to pass query string parameters as actual strings here,
   // so we can test for actual qs parsing from the server.
@@ -34,7 +34,7 @@ describe("API server tests", () => {
     });
 
     it("should perform a simulation featuring 15 impacts", async () => {
-      const response = await makeRequest("/simulator/", sucessQuery);
+      const response = await makeRequest("/simulator/", successQuery);
 
       expect(response.statusCode).toBe(200);
       expect(Object.keys(response.body.impacts)).toHaveLength(15);
@@ -42,8 +42,8 @@ describe("API server tests", () => {
 
     it("should validate the mass parameter", async () => {
       const testQueries = [
-        { ...sucessQuery, mass: "0" },
-        { ...sucessQuery, mass: "-1" },
+        { ...successQuery, mass: "0" },
+        { ...successQuery, mass: "-1" },
       ];
 
       for (const query of testQueries) {
@@ -53,14 +53,27 @@ describe("API server tests", () => {
       }
     });
 
+    it("should validate the countries parameter", async () => {
+      const testQueries = [
+        { ...successQuery, countries: ["FR", "FR", "FR", "FR", "FR", "FR"] },
+        { ...successQuery, countries: ["FR", "FR"] },
+      ];
+
+      for (const query of testQueries) {
+        const response = await makeRequest("/simulator/", query);
+        expect(response.statusCode).toBe(400);
+        expect(response.body.error).toContain("La liste de pays doit contenir 5 pays.");
+      }
+    });
+
     it("should validate ratio parameters", async () => {
       const testQueries = [
-        { ...sucessQuery, recycledRatio: "1.1" },
-        { ...sucessQuery, airTransportRatio: "1.1" },
-        { ...sucessQuery, dyeingWeighting: "1.1" },
-        { ...sucessQuery, recycledRatio: "-1" },
-        { ...sucessQuery, airTransportRatio: "-1" },
-        { ...sucessQuery, dyeingWeighting: "-1" },
+        { ...successQuery, recycledRatio: "1.1" },
+        { ...successQuery, recycledRatio: "-1" },
+        { ...successQuery, airTransportRatio: "1.1" },
+        { ...successQuery, airTransportRatio: "-1" },
+        { ...successQuery, dyeingWeighting: "1.1" },
+        { ...successQuery, dyeingWeighting: "-1" },
       ];
 
       for (const query of testQueries) {
@@ -80,14 +93,14 @@ describe("API server tests", () => {
     });
 
     it("should default to cch on unknown impact trigram", async () => {
-      const response = await makeRequest("/simulator/xxx/", sucessQuery);
+      const response = await makeRequest("/simulator/xxx/", successQuery);
 
       expect(response.statusCode).toBe(200);
       expect(Object.keys(response.body.impact)).toEqual(["cch"]);
     });
 
     it("should perform a simulation featuring a single impact", async () => {
-      const response = await makeRequest("/simulator/fwe/", sucessQuery);
+      const response = await makeRequest("/simulator/fwe/", successQuery);
 
       expect(response.statusCode).toBe(200);
       expect(Object.keys(response.body.impact)).toEqual(["fwe"]);
@@ -104,7 +117,7 @@ describe("API server tests", () => {
     });
 
     it("should perform a simulation featuring 15 impacts", async () => {
-      const response = await makeRequest("/simulator/detailed/", sucessQuery);
+      const response = await makeRequest("/simulator/detailed/", successQuery);
 
       expect(response.statusCode).toBe(200);
       expect(Object.keys(response.body.impacts)).toHaveLength(15);
