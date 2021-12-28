@@ -46,6 +46,11 @@ view session _ =
                     ]
                 }
             , p [] [ text "L'API HTTP Wikicarbone permet de calculer les impacts environnementaux des produits textiles." ]
+            , p []
+                [ text "La spécification de l'API est par ailleurs disponible "
+                , a [ href "./data/openapi.yaml", target "_blank" ] [ text "au format OpenAPI" ]
+                , text "."
+                ]
             , node "rapi-doc"
                 -- RapiDoc options: https://mrin9.github.io/RapiDoc/api.html
                 [ attribute "spec-url" (session.clientUrl ++ "data/openapi.yaml")
