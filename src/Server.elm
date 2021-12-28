@@ -85,28 +85,38 @@ expressQueryDecoder =
             Decode.string
                 |> Decode.andThen
                     (String.toFloat
-                        >> Result.fromMaybe "Invalid float"
+                        >> Result.fromMaybe "Valeur décimale invalide."
                         >> DecodeExtra.fromResult
                     )
 
-        decodeMaybeUnit =
+        decodeRatioString =
             decodeStringFloat
-                |> Decode.map Unit.impact
-                |> Decode.maybe
+                |> Decode.andThen (Unit.validateRatio >> DecodeExtra.fromResult)
+
+        decodeImpactString =
+            decodeStringFloat
+                |> Decode.andThen
+                    (\float ->
+                        if float < 0 then
+                            Decode.fail "Un impact de mix énergétique ne peut être négatif."
+
+                        else
+                            Decode.succeed (Unit.impact float)
+                    )
     in
     Decode.succeed Inputs.Query
         |> Pipe.required "mass" (decodeStringFloat |> Decode.map Mass.kilograms)
         |> Pipe.required "material" (Decode.map Process.Uuid Decode.string)
         |> Pipe.required "product" (Decode.map Product.Id Decode.string)
         |> Pipe.required "countries" (Decode.list (Decode.map Country.Code Decode.string))
-        |> Pipe.optional "dyeingWeighting" (Decode.maybe Unit.decodeRatio) Nothing
-        |> Pipe.optional "airTransportRatio" (Decode.maybe Unit.decodeRatio) Nothing
-        |> Pipe.optional "recycledRatio" (Decode.maybe Unit.decodeRatio) Nothing
+        |> Pipe.optional "dyeingWeighting" (Decode.map Just decodeRatioString) Nothing
+        |> Pipe.optional "airTransportRatio" (Decode.map Just decodeRatioString) Nothing
+        |> Pipe.optional "recycledRatio" (Decode.map Just decodeRatioString) Nothing
         |> Pipe.optional "customCountryMixes"
             (Decode.succeed Inputs.CustomCountryMixes
-                |> Pipe.optional "fabric" decodeMaybeUnit Nothing
-                |> Pipe.optional "dyeing" decodeMaybeUnit Nothing
-                |> Pipe.optional "making" decodeMaybeUnit Nothing
+                |> Pipe.optional "fabric" (Decode.map Just decodeImpactString) Nothing
+                |> Pipe.optional "dyeing" (Decode.map Just decodeImpactString) Nothing
+                |> Pipe.optional "making" (Decode.map Just decodeImpactString) Nothing
             )
             Inputs.defaultCustomCountryMixes
 
