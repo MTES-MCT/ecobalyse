@@ -89,6 +89,17 @@ expressQueryDecoder =
                         >> DecodeExtra.fromResult
                     )
 
+        decodeMassString =
+            decodeStringFloat
+                |> Decode.andThen
+                    (\float ->
+                        if float <= 0 then
+                            Decode.fail "La masse doit être strictement supérieure à zéro."
+
+                        else
+                            Decode.succeed (Mass.kilograms float)
+                    )
+
         decodeRatioString =
             decodeStringFloat
                 |> Decode.andThen (Unit.validateRatio >> DecodeExtra.fromResult)
@@ -105,7 +116,7 @@ expressQueryDecoder =
                     )
     in
     Decode.succeed Inputs.Query
-        |> Pipe.required "mass" (decodeStringFloat |> Decode.map Mass.kilograms)
+        |> Pipe.required "mass" decodeMassString
         |> Pipe.required "material" (Decode.map Process.Uuid Decode.string)
         |> Pipe.required "product" (Decode.map Product.Id Decode.string)
         |> Pipe.required "countries" (Decode.list (Decode.map Country.Code Decode.string))

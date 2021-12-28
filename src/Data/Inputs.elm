@@ -52,7 +52,7 @@ fromQuery : Db -> Query -> Result String Inputs
 fromQuery db query =
     Ok Inputs
         -- mass
-        |> RE.andMap (validateMass query.mass)
+        |> RE.andMap (Ok query.mass)
         -- material
         |> RE.andMap (db.materials |> Material.findByUuid query.material)
         -- product
@@ -69,15 +69,6 @@ fromQuery db query =
         -- customCountryMixes
         -- FIXME: validate custom country mixes
         |> RE.andMap (Ok query.customCountryMixes)
-
-
-validateMass : Mass -> Result String Mass
-validateMass mass =
-    if Mass.inKilograms mass <= 0 then
-        Err "La masse doit être supérieure à zéro."
-
-    else
-        Ok mass
 
 
 validateRatio : Maybe Unit.Ratio -> Result String (Maybe Unit.Ratio)

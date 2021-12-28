@@ -49,7 +49,7 @@ describe("API server tests", () => {
       for (const query of testQueries) {
         const response = await makeRequest("/simulator/", query);
         expect(response.statusCode).toBe(400);
-        expect(response.body.error).toContain("La masse doit être supérieure à zéro.");
+        expect(response.body.error).toContain("La masse doit être strictement supérieure à zéro.");
       }
     });
 
