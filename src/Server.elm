@@ -7,7 +7,7 @@ import Data.Simulator as Simulator exposing (Simulator)
 import Json.Encode as Encode
 import Server.Query as Query
 import Url
-import Url.Parser as Parser exposing ((</>), Parser)
+import Url.Parser as Parser exposing ((</>), (<?>), Parser)
 
 
 type alias Flags =
@@ -34,17 +34,17 @@ type alias Request =
     -- - `jsResponseHandler` is an ExpressJS response callback function
     { method : String
     , url : String
-    , path : String
-    , expressQuery : Encode.Value
+    , path : String --FIXME: remove me
+    , expressQuery : Encode.Value --FIXME: remove me
     , jsResponseHandler : Encode.Value
     }
 
 
 type Route
     = Home
-    | Simulator -- Simple version of all impacts
-    | SimulatorDetailed -- Detailed version for all impacts
-    | SimulatorSingle Impact.Trigram -- Simple version for one specific impact
+    | Simulator Inputs.Query -- Simple version of all impacts
+    | SimulatorDetailed Inputs.Query -- Detailed version for all impacts
+    | SimulatorSingle Impact.Trigram Inputs.Query -- Simple version for one specific impact
 
 
 init : Flags -> ( Model, Cmd Msg )
@@ -58,15 +58,15 @@ parser : Parser (Route -> a) a
 parser =
     Parser.oneOf
         [ Parser.map Home Parser.top
-        , Parser.map Simulator (Parser.s "simulator")
-        , Parser.map SimulatorDetailed (Parser.s "simulator" </> Parser.s "detailed")
-        , Parser.map SimulatorSingle (Parser.s "simulator" </> Impact.parseTrigram)
+        , Parser.map Simulator (Parser.s "simulator" <?> Query.parseQueryString)
+        , Parser.map SimulatorDetailed (Parser.s "simulator" </> Parser.s "detailed" <?> Query.parseQueryString)
+        , Parser.map SimulatorSingle (Parser.s "simulator" </> Impact.parseTrigram <?> Query.parseQueryString)
         ]
 
 
 parseRoute : String -> Maybe Route
-parseRoute path =
-    Url.fromString ("http://x" ++ path)
+parseRoute urlPath =
+    Url.fromString ("http://x" ++ urlPath)
         |> Maybe.andThen (Parser.parse parser)
 
 
@@ -127,11 +127,11 @@ toSingleImpactSimple trigram { inputs, impacts } =
         ]
 
 
-executeQuery : Db -> (Simulator -> Encode.Value) -> Request -> Cmd Msg
-executeQuery db fn request =
-    Query.decodeExpressQuery request.expressQuery
-        |> Result.andThen (Simulator.compute db >> Result.map fn)
-        |> toResponse request
+executeQuery : Db -> Request -> (Simulator -> Encode.Value) -> Inputs.Query -> Cmd Msg
+executeQuery db request fn =
+    Simulator.compute db
+        >> Result.map fn
+        >> toResponse request
 
 
 handleRequest : Db -> Request -> Cmd Msg
@@ -157,17 +157,17 @@ handleRequest db ({ url } as request) =
                 ]
                 |> sendResponse 200 request
 
-        Just Simulator ->
-            request
-                |> executeQuery db toAllImpactsSimple
+        Just (Simulator query) ->
+            query
+                |> executeQuery db request toAllImpactsSimple
 
-        Just SimulatorDetailed ->
-            request
-                |> executeQuery db Simulator.encode
+        Just (SimulatorDetailed query) ->
+            query
+                |> executeQuery db request Simulator.encode
 
-        Just (SimulatorSingle trigram) ->
-            request
-                |> executeQuery db (toSingleImpactSimple trigram)
+        Just (SimulatorSingle trigram query) ->
+            query
+                |> executeQuery db request (toSingleImpactSimple trigram)
 
         Nothing ->
             encodeStringError "Endpoint doesn't exist"

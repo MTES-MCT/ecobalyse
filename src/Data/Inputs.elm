@@ -58,8 +58,12 @@ fromQuery db query =
         -- product
         |> RE.andMap (db.products |> Product.findById query.product)
         -- countries
-        -- FIXME: valide length + country codes one by one
-        |> RE.andMap (db.countries |> Country.findByCodes query.countries)
+        |> RE.andMap
+            (db.countries
+                -- FIXME: valide length + country codes one by one
+                |> Country.findByCodes query.countries
+             -- |> validateCountries
+            )
         -- dyeingWeighting
         |> RE.andMap (validateRatio query.dyeingWeighting)
         -- airTransportRatio

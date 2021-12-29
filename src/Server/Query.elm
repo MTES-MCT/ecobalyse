@@ -17,12 +17,13 @@ import Url.Parser.Query as Query
 -- Query String
 
 
-fromQueryString : Query.Parser Inputs.Query
-fromQueryString =
+parseQueryString : Query.Parser Inputs.Query
+parseQueryString =
     Query.map Inputs.Query
         (massParser "mass")
         |> apply (materialParser "material")
         |> apply (productParser "product")
+        -- FIXME: handle countries[] format…
         |> apply (countriesParser "countries")
         |> apply (ratioParser "dyeingWeighting")
         |> apply (ratioParser "airTransportRatio")
