@@ -39,11 +39,11 @@ type alias Request =
 type Route
     = Home
       -- Simple version of all impacts
-    | Simulator (Result String Inputs.Query)
+    | Simulator (Result Inputs.QueryErrors Inputs.Query)
       -- Detailed version for all impacts
-    | SimulatorDetailed (Result String Inputs.Query)
+    | SimulatorDetailed (Result Inputs.QueryErrors Inputs.Query)
       -- Simple version for one specific impact
-    | SimulatorSingle Impact.Trigram (Result String Inputs.Query)
+    | SimulatorSingle Impact.Trigram (Result Inputs.QueryErrors Inputs.Query)
 
 
 init : Flags -> ( Model, Cmd Msg )
@@ -159,22 +159,22 @@ handleRequest db ({ url } as request) =
         Just (Simulator (Ok query)) ->
             query |> executeQuery db request toAllImpactsSimple
 
-        Just (Simulator (Err error)) ->
-            encodeStringError error
+        Just (Simulator (Err errors)) ->
+            Inputs.encodeQueryErrors errors
                 |> sendResponse 400 request
 
         Just (SimulatorDetailed (Ok query)) ->
             query |> executeQuery db request Simulator.encode
 
-        Just (SimulatorDetailed (Err error)) ->
-            encodeStringError error
+        Just (SimulatorDetailed (Err errors)) ->
+            Inputs.encodeQueryErrors errors
                 |> sendResponse 400 request
 
         Just (SimulatorSingle trigram (Ok query)) ->
             query |> executeQuery db request (toSingleImpactSimple trigram)
 
-        Just (SimulatorSingle _ (Err error)) ->
-            encodeStringError error
+        Just (SimulatorSingle _ (Err errors)) ->
+            Inputs.encodeQueryErrors errors
                 |> sendResponse 400 request
 
         Nothing ->

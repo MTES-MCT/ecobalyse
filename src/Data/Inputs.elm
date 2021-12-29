@@ -8,6 +8,7 @@ import Data.Material as Material exposing (Material)
 import Data.Process as Process
 import Data.Product as Product exposing (Product)
 import Data.Unit as Unit
+import Dict exposing (Dict)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
@@ -48,6 +49,11 @@ type alias CustomCountryMixes =
     }
 
 
+type alias QueryErrors =
+    -- FieldName, ErrorMessage
+    Dict String String
+
+
 fromQuery : Db -> Query -> Result String Inputs
 fromQuery db query =
     Ok Inputs
@@ -72,6 +78,11 @@ fromQuery db query =
         -- customCountryMixes
         -- FIXME: validate custom country mixes
         |> RE.andMap (Ok query.customCountryMixes)
+
+
+validateQuery : Query -> Result QueryErrors Query
+validateQuery query =
+    Ok query
 
 
 validateMass : Mass -> Result String Mass
@@ -421,6 +432,11 @@ encodeQuery query =
         , ( "recycledRatio", query.recycledRatio |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
         , ( "customCountryMixes", encodeCustomCountryMixes query.customCountryMixes )
         ]
+
+
+encodeQueryErrors : QueryErrors -> Encode.Value
+encodeQueryErrors =
+    Encode.dict identity Encode.string
 
 
 b64decode : String -> Result String Query

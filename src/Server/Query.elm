@@ -13,7 +13,7 @@ import Url.Parser.Query as Query
 -- Query String
 
 
-parseQueryString : Query.Parser (Result String Inputs.Query)
+parseQueryString : Query.Parser (Result Inputs.QueryErrors Inputs.Query)
 parseQueryString =
     -- TODO: have a global query validation function to be used in here and Inputs.fromQuery.
     -- This function would return `Result (Dict String Error) Inputs.Query` (one message per
@@ -28,7 +28,7 @@ parseQueryString =
         |> apply (ratioParser "airTransportRatio")
         |> apply (ratioParser "recycledRatio")
         |> apply customCountryMixesParser
-        |> Query.map Ok
+        |> Query.map Inputs.validateQuery
 
 
 apply : Query.Parser a -> Query.Parser (a -> b) -> Query.Parser b
