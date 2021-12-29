@@ -52,7 +52,7 @@ fromQuery : Db -> Query -> Result String Inputs
 fromQuery db query =
     Ok Inputs
         -- mass
-        |> RE.andMap (Ok query.mass)
+        |> RE.andMap (validateMass query.mass)
         -- material
         |> RE.andMap (db.materials |> Material.findByUuid query.material)
         -- product
@@ -60,9 +60,8 @@ fromQuery db query =
         -- countries
         |> RE.andMap
             (db.countries
-                -- FIXME: valide length + country codes one by one
                 |> Country.findByCodes query.countries
-             -- |> validateCountries
+                |> validateCountries
             )
         -- dyeingWeighting
         |> RE.andMap (validateRatio query.dyeingWeighting)
@@ -73,6 +72,27 @@ fromQuery db query =
         -- customCountryMixes
         -- FIXME: validate custom country mixes
         |> RE.andMap (Ok query.customCountryMixes)
+
+
+validateMass : Mass -> Result String Mass
+validateMass mass =
+    if Mass.inKilograms mass < 0 then
+        Err "La masse doit être supérieure ou égale à zéro."
+
+    else
+        Ok mass
+
+
+validateCountries : Result String (List Country) -> Result String (List Country)
+validateCountries =
+    Result.andThen
+        (\countries ->
+            if List.length countries /= 5 then
+                Err "La liste de pays doit contenir 5 pays."
+
+            else
+                Ok countries
+        )
 
 
 validateRatio : Maybe Unit.Ratio -> Result String (Maybe Unit.Ratio)

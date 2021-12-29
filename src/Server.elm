@@ -27,24 +27,23 @@ type alias Request =
     -- Notes:
     -- - `method` is ExpressJS `method` string (HTTP verb: GET, POST, etc.)
     -- - `url` is ExpressJS `url` string
-    -- - `path` is ExpressJS `path` string
-    -- - `expressQuery` is ExpressJS `query` object representing query
     --   string params, which uses the qs package under the hood:
     --   https://www.npmjs.com/package/qs
     -- - `jsResponseHandler` is an ExpressJS response callback function
     { method : String
     , url : String
-    , path : String --FIXME: remove me
-    , expressQuery : Encode.Value --FIXME: remove me
     , jsResponseHandler : Encode.Value
     }
 
 
 type Route
     = Home
-    | Simulator Inputs.Query -- Simple version of all impacts
-    | SimulatorDetailed Inputs.Query -- Detailed version for all impacts
-    | SimulatorSingle Impact.Trigram Inputs.Query -- Simple version for one specific impact
+      -- Simple version of all impacts
+    | Simulator (Result String Inputs.Query)
+      -- Detailed version for all impacts
+    | SimulatorDetailed (Result String Inputs.Query)
+      -- Simple version for one specific impact
+    | SimulatorSingle Impact.Trigram (Result String Inputs.Query)
 
 
 init : Flags -> ( Model, Cmd Msg )
@@ -76,11 +75,11 @@ apiDocUrl =
 
 
 sendResponse : Int -> Request -> Encode.Value -> Cmd Msg
-sendResponse httpStatus { path, expressQuery, jsResponseHandler } body =
+sendResponse httpStatus { method, url, jsResponseHandler } body =
     Encode.object
         [ ( "status", Encode.int httpStatus )
-        , ( "path", Encode.string path )
-        , ( "query", expressQuery )
+        , ( "method", Encode.string method )
+        , ( "url", Encode.string url )
         , ( "body", body )
         , ( "jsResponseHandler", jsResponseHandler )
         ]
@@ -118,7 +117,7 @@ toAllImpactsSimple { inputs, impacts } =
 toSingleImpactSimple : Impact.Trigram -> Simulator -> Encode.Value
 toSingleImpactSimple trigram { inputs, impacts } =
     Encode.object
-        [ ( "impact"
+        [ ( "impacts"
           , impacts
                 |> Impact.filterImpacts (\trg _ -> trigram == trg)
                 |> Impact.encodeImpacts
@@ -157,17 +156,26 @@ handleRequest db ({ url } as request) =
                 ]
                 |> sendResponse 200 request
 
-        Just (Simulator query) ->
-            query
-                |> executeQuery db request toAllImpactsSimple
+        Just (Simulator (Ok query)) ->
+            query |> executeQuery db request toAllImpactsSimple
 
-        Just (SimulatorDetailed query) ->
-            query
-                |> executeQuery db request Simulator.encode
+        Just (Simulator (Err error)) ->
+            encodeStringError error
+                |> sendResponse 400 request
 
-        Just (SimulatorSingle trigram query) ->
-            query
-                |> executeQuery db request (toSingleImpactSimple trigram)
+        Just (SimulatorDetailed (Ok query)) ->
+            query |> executeQuery db request Simulator.encode
+
+        Just (SimulatorDetailed (Err error)) ->
+            encodeStringError error
+                |> sendResponse 400 request
+
+        Just (SimulatorSingle trigram (Ok query)) ->
+            query |> executeQuery db request (toSingleImpactSimple trigram)
+
+        Just (SimulatorSingle _ (Err error)) ->
+            encodeStringError error
+                |> sendResponse 400 request
 
         Nothing ->
             encodeStringError "Endpoint doesn't exist"
@@ -181,8 +189,7 @@ update msg model =
             case model.db of
                 Err dbError ->
                     ( model
-                      -- FIXME: not 500 but service unavailable maybe
-                    , encodeStringError dbError |> sendResponse 500 request
+                    , encodeStringError dbError |> sendResponse 503 request
                     )
 
                 Ok db ->
