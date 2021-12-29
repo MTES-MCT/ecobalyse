@@ -1,10 +1,14 @@
 module Server.Query exposing (..)
 
 import Data.Country as Country
+import Data.Db exposing (Db)
 import Data.Inputs as Inputs
+import Data.Material as Material
 import Data.Process as Process
 import Data.Product as Product
 import Data.Unit as Unit
+import Dict exposing (Dict)
+import Json.Encode as Encode
 import Mass exposing (Mass)
 import Url.Parser.Query as Query
 
@@ -13,22 +17,34 @@ import Url.Parser.Query as Query
 -- Query String
 
 
-parseQueryString : Query.Parser (Result Inputs.QueryErrors Inputs.Query)
-parseQueryString =
-    -- TODO: have a global query validation function to be used in here and Inputs.fromQuery.
-    -- This function would return `Result (Dict String Error) Inputs.Query` (one message per
-    -- errored field) so we could render all errors at once to the user or in the API response.
+type alias FieldName =
+    String
+
+
+type alias ErrorMessage =
+    String
+
+
+type alias Errors =
+    Dict FieldName ErrorMessage
+
+
+parse : Db -> Query.Parser (Result Errors Inputs.Query)
+parse db =
     Query.map Inputs.Query
         (massParser "mass")
         |> apply (materialParser "material")
         |> apply (productParser "product")
-        -- FIXME: handle countries=XX&countries=YY format…
-        |> apply (countriesParser "countries[]")
+        |> apply (countriesParser "countries")
         |> apply (ratioParser "dyeingWeighting")
         |> apply (ratioParser "airTransportRatio")
         |> apply (ratioParser "recycledRatio")
         |> apply customCountryMixesParser
-        |> Query.map Inputs.validateQuery
+        |> Query.map (validateQuery db)
+
+
+
+-- Parsers
 
 
 apply : Query.Parser a -> Query.Parser (a -> b) -> Query.Parser b
@@ -63,7 +79,7 @@ productParser key =
     Query.string key
         |> Query.map
             (Maybe.map Product.Id
-                >> Maybe.withDefault (Product.Id "<empty>")
+                >> Maybe.withDefault (Product.Id "")
             )
 
 
@@ -72,16 +88,18 @@ materialParser key =
     Query.string key
         |> Query.map
             (Maybe.map Process.Uuid
-                >> Maybe.withDefault (Process.Uuid "<empty>")
+                >> Maybe.withDefault (Process.Uuid "")
             )
 
 
 countriesParser : String -> Query.Parser (List Country.Code)
 countriesParser key =
-    Query.custom key <|
-        \stringList ->
-            -- if List.length countries == 0 && not (String.contains "[]" key) then
-            List.map Country.Code stringList
+    Query.string key
+        |> Query.map
+            (Maybe.map
+                (String.split "," >> List.map Country.Code)
+                >> Maybe.withDefault []
+            )
 
 
 ratioParser : String -> Query.Parser (Maybe Unit.Ratio)
@@ -102,3 +120,99 @@ customCountryMixesParser =
         (impactParser "customCountryMix[fabric]")
         (impactParser "customCountryMix[dyeing]")
         (impactParser "customCountryMix[making]")
+
+
+
+-- Validation
+
+
+validateQuery : Db -> Inputs.Query -> Result Errors Inputs.Query
+validateQuery db query =
+    let
+        errorsList =
+            List.filterMap (\( f, msg ) -> msg |> Maybe.map (\m -> ( f, m )))
+                [ ( "mass", validateMass query.mass )
+                , ( "material", validateMaterial db query.material )
+                , ( "product", validateProduct db query.product )
+                , ( "countries", validateCountries db query.countries )
+                , ( "dyeingWeighting", validateRatio query.dyeingWeighting )
+                , ( "airTransportRatio", validateRatio query.airTransportRatio )
+                , ( "recycledRatio", validateRatio query.recycledRatio )
+                ]
+    in
+    case errorsList of
+        [] ->
+            Ok query
+
+        errors ->
+            Err (Dict.fromList errors)
+
+
+validateMass : Mass -> Maybe ErrorMessage
+validateMass mass =
+    if Mass.inKilograms mass < 0 then
+        Just "La masse doit être supérieure ou égale à zéro."
+
+    else
+        Nothing
+
+
+validateMaterial : Db -> Process.Uuid -> Maybe ErrorMessage
+validateMaterial db uuid =
+    case Material.findByUuid uuid db.materials of
+        Err _ ->
+            Just "Identifiant de la matière manquant ou invalide."
+
+        Ok _ ->
+            Nothing
+
+
+validateProduct : Db -> Product.Id -> Maybe ErrorMessage
+validateProduct db id =
+    case Product.findById id db.products of
+        Err _ ->
+            Just "Identifiant du type de produit manquant ou invalide."
+
+        Ok _ ->
+            Nothing
+
+
+validateCountries : Db -> List Country.Code -> Maybe ErrorMessage
+validateCountries db countries =
+    if List.length countries /= 5 then
+        Just "La liste de pays doit contenir 5 pays."
+
+    else
+        case Country.findByCodes countries db.countries of
+            Err error ->
+                Just error
+
+            Ok _ ->
+                Nothing
+
+
+validateRatio : Maybe Unit.Ratio -> Maybe ErrorMessage
+validateRatio maybeRatio =
+    maybeRatio
+        |> Maybe.andThen
+            (\(Unit.Ratio float) ->
+                if float < 0 || float > 1 then
+                    Just "Un ratio doit être compris entre 0 et 1 inclus."
+
+                else
+                    Nothing
+            )
+
+
+
+-- Encoders
+
+
+encodeErrors : Errors -> Encode.Value
+encodeErrors errors =
+    Encode.object
+        [ ( "errors"
+          , errors
+                |> Encode.dict identity Encode.string
+          )
+        ]

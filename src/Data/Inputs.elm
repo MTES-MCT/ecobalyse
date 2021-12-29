@@ -8,7 +8,6 @@ import Data.Material as Material exposing (Material)
 import Data.Process as Process
 import Data.Product as Product exposing (Product)
 import Data.Unit as Unit
-import Dict exposing (Dict)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
@@ -49,76 +48,17 @@ type alias CustomCountryMixes =
     }
 
 
-type alias QueryErrors =
-    -- FieldName, ErrorMessage
-    Dict String String
-
-
 fromQuery : Db -> Query -> Result String Inputs
 fromQuery db query =
     Ok Inputs
-        -- mass
-        |> RE.andMap (validateMass query.mass)
-        -- material
+        |> RE.andMap (Ok query.mass)
         |> RE.andMap (db.materials |> Material.findByUuid query.material)
-        -- product
         |> RE.andMap (db.products |> Product.findById query.product)
-        -- countries
-        |> RE.andMap
-            (db.countries
-                |> Country.findByCodes query.countries
-                |> validateCountries
-            )
-        -- dyeingWeighting
-        |> RE.andMap (validateRatio query.dyeingWeighting)
-        -- airTransportRatio
-        |> RE.andMap (validateRatio query.airTransportRatio)
-        -- recycledRatio
-        |> RE.andMap (validateRatio query.recycledRatio)
-        -- customCountryMixes
-        -- FIXME: validate custom country mixes
+        |> RE.andMap (db.countries |> Country.findByCodes query.countries)
+        |> RE.andMap (Ok query.dyeingWeighting)
+        |> RE.andMap (Ok query.airTransportRatio)
+        |> RE.andMap (Ok query.recycledRatio)
         |> RE.andMap (Ok query.customCountryMixes)
-
-
-validateQuery : Query -> Result QueryErrors Query
-validateQuery query =
-    Ok query
-
-
-validateMass : Mass -> Result String Mass
-validateMass mass =
-    if Mass.inKilograms mass < 0 then
-        Err "La masse doit être supérieure ou égale à zéro."
-
-    else
-        Ok mass
-
-
-validateCountries : Result String (List Country) -> Result String (List Country)
-validateCountries =
-    Result.andThen
-        (\countries ->
-            if List.length countries /= 5 then
-                Err "La liste de pays doit contenir 5 pays."
-
-            else
-                Ok countries
-        )
-
-
-validateRatio : Maybe Unit.Ratio -> Result String (Maybe Unit.Ratio)
-validateRatio maybeRatio =
-    case maybeRatio of
-        Just (Unit.Ratio float) ->
-            case Unit.validateRatio float of
-                Ok ratio ->
-                    Ok (Just ratio)
-
-                Err error ->
-                    Err error
-
-        Nothing ->
-            Ok maybeRatio
 
 
 toQuery : Inputs -> Query
@@ -432,11 +372,6 @@ encodeQuery query =
         , ( "recycledRatio", query.recycledRatio |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
         , ( "customCountryMixes", encodeCustomCountryMixes query.customCountryMixes )
         ]
-
-
-encodeQueryErrors : QueryErrors -> Encode.Value
-encodeQueryErrors =
-    Encode.dict identity Encode.string
 
 
 b64decode : String -> Result String Query

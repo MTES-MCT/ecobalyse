@@ -39,11 +39,11 @@ type alias Request =
 type Route
     = Home
       -- Simple version of all impacts
-    | Simulator (Result Inputs.QueryErrors Inputs.Query)
+    | Simulator (Result Query.Errors Inputs.Query)
       -- Detailed version for all impacts
-    | SimulatorDetailed (Result Inputs.QueryErrors Inputs.Query)
+    | SimulatorDetailed (Result Query.Errors Inputs.Query)
       -- Simple version for one specific impact
-    | SimulatorSingle Impact.Trigram (Result Inputs.QueryErrors Inputs.Query)
+    | SimulatorSingle Impact.Trigram (Result Query.Errors Inputs.Query)
 
 
 init : Flags -> ( Model, Cmd Msg )
@@ -53,20 +53,20 @@ init { jsonDb } =
     )
 
 
-parser : Parser (Route -> a) a
-parser =
+parser : Db -> Parser (Route -> a) a
+parser db =
     Parser.oneOf
         [ Parser.map Home Parser.top
-        , Parser.map Simulator (Parser.s "simulator" <?> Query.parseQueryString)
-        , Parser.map SimulatorDetailed (Parser.s "simulator" </> Parser.s "detailed" <?> Query.parseQueryString)
-        , Parser.map SimulatorSingle (Parser.s "simulator" </> Impact.parseTrigram <?> Query.parseQueryString)
+        , Parser.map Simulator (Parser.s "simulator" <?> Query.parse db)
+        , Parser.map SimulatorDetailed (Parser.s "simulator" </> Parser.s "detailed" <?> Query.parse db)
+        , Parser.map SimulatorSingle (Parser.s "simulator" </> Impact.parseTrigram <?> Query.parse db)
         ]
 
 
-parseRoute : String -> Maybe Route
-parseRoute urlPath =
+parseRoute : Db -> String -> Maybe Route
+parseRoute db urlPath =
     Url.fromString ("http://x" ++ urlPath)
-        |> Maybe.andThen (Parser.parse parser)
+        |> Maybe.andThen (Parser.parse (parser db))
 
 
 apiDocUrl : String
@@ -127,32 +127,22 @@ toSingleImpactSimple trigram { inputs, impacts } =
 
 
 executeQuery : Db -> Request -> (Simulator -> Encode.Value) -> Inputs.Query -> Cmd Msg
-executeQuery db request fn =
+executeQuery db request encoder =
     Simulator.compute db
-        >> Result.map fn
+        >> Result.map encoder
         >> toResponse request
 
 
 handleRequest : Db -> Request -> Cmd Msg
 handleRequest db ({ url } as request) =
-    case parseRoute url of
+    case parseRoute db url of
         Just Home ->
             Encode.object
                 [ ( "service", Encode.string "Wikicarbone" )
                 , ( "documentation", Encode.string apiDocUrl )
-                , ( "endpoints"
-                  , Encode.object
-                        [ ( "GET /simulator/"
-                          , Encode.string "Simple version of all impacts"
-                          )
-                        , ( "GET /simulator/detailed/"
-                          , Encode.string "Detailed version for all impacts"
-                          )
-                        , ( "GET /simulator/<impact>/"
-                          , Encode.string "Simple version for one specific impact"
-                          )
-                        ]
-                  )
+
+                -- FIXME: the openapi document should be served by some /openapi API endpoint
+                , ( "openapi", Encode.string "https://wikicarbone.beta.gouv.fr/data/openapi.yaml" )
                 ]
                 |> sendResponse 200 request
 
@@ -160,21 +150,21 @@ handleRequest db ({ url } as request) =
             query |> executeQuery db request toAllImpactsSimple
 
         Just (Simulator (Err errors)) ->
-            Inputs.encodeQueryErrors errors
+            Query.encodeErrors errors
                 |> sendResponse 400 request
 
         Just (SimulatorDetailed (Ok query)) ->
             query |> executeQuery db request Simulator.encode
 
         Just (SimulatorDetailed (Err errors)) ->
-            Inputs.encodeQueryErrors errors
+            Query.encodeErrors errors
                 |> sendResponse 400 request
 
         Just (SimulatorSingle trigram (Ok query)) ->
             query |> executeQuery db request (toSingleImpactSimple trigram)
 
         Just (SimulatorSingle _ (Err errors)) ->
-            Inputs.encodeQueryErrors errors
+            Query.encodeErrors errors
                 |> sendResponse 400 request
 
         Nothing ->
