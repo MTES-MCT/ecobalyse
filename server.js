@@ -20,9 +20,21 @@ elmApp.ports.output.subscribe(({ status, body, jsResponseHandler }) => {
   return jsResponseHandler({ status, body });
 });
 
-app.get(/(.*)/, ({ query, path }, res) => {
+app.all(/(.*)/, (req, res) => {
+  const { method, url, path, query } = req;
+  // console.log({
+  //   url: req.url,
+  //   method: req.method,
+  //   baseUrl: req.baseUrl,
+  //   originalUrl: req.originalUrl,
+  //   params: req.params,
+  //   query: req.query,
+  // });
   elmApp.ports.input.send({
-    expressPath: path,
+    // TODO: headers?
+    method,
+    url,
+    path, // FIXME: remove me
     expressQuery: query,
     jsResponseHandler: ({ status, body }) => {
       res.status(status).send(body);

@@ -1,18 +1,11 @@
 port module Server exposing (main)
 
-import Data.Country as Country
 import Data.Db as Db exposing (Db)
 import Data.Impact as Impact
 import Data.Inputs as Inputs
-import Data.Process as Process
-import Data.Product as Product
 import Data.Simulator as Simulator exposing (Simulator)
-import Data.Unit as Unit
-import Json.Decode as Decode exposing (Decoder)
-import Json.Decode.Extra as DecodeExtra
-import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
-import Mass
+import Server.Query as Query
 import Url
 import Url.Parser as Parser exposing ((</>), Parser)
 
@@ -32,12 +25,16 @@ type Msg
 
 type alias Request =
     -- Notes:
-    -- - `expressPath` is ExpressJS `path` string
+    -- - `method` is ExpressJS `method` string (HTTP verb: GET, POST, etc.)
+    -- - `url` is ExpressJS `url` string
+    -- - `path` is ExpressJS `path` string
     -- - `expressQuery` is ExpressJS `query` object representing query
     --   string params, which uses the qs package under the hood:
     --   https://www.npmjs.com/package/qs
     -- - `jsResponseHandler` is an ExpressJS response callback function
-    { expressPath : String
+    { method : String
+    , url : String
+    , path : String
     , expressQuery : Encode.Value
     , jsResponseHandler : Encode.Value
     }
@@ -68,8 +65,8 @@ parser =
 
 
 parseRoute : String -> Maybe Route
-parseRoute expressPath =
-    Url.fromString ("http://x" ++ expressPath)
+parseRoute path =
+    Url.fromString ("http://x" ++ path)
         |> Maybe.andThen (Parser.parse parser)
 
 
@@ -78,84 +75,11 @@ apiDocUrl =
     "https://wikicarbone.beta.gouv.fr/#/api"
 
 
-expressQueryDecoder : Decoder Inputs.Query
-expressQueryDecoder =
-    let
-        decodeStringFloat =
-            Decode.string
-                |> Decode.andThen
-                    (String.toFloat
-                        >> Result.fromMaybe "Valeur décimale invalide."
-                        >> DecodeExtra.fromResult
-                    )
-
-        decodeMassString =
-            decodeStringFloat
-                |> Decode.andThen
-                    (\float ->
-                        if float <= 0 then
-                            Decode.fail "La masse doit être strictement supérieure à zéro."
-
-                        else
-                            Decode.succeed (Mass.kilograms float)
-                    )
-
-        decodeCountries =
-            Decode.string
-                |> Decode.map Country.Code
-                |> Decode.list
-                |> Decode.andThen
-                    (\countries ->
-                        if List.length countries /= 5 then
-                            Decode.fail "La liste de pays doit contenir 5 pays."
-
-                        else
-                            Decode.succeed countries
-                    )
-
-        decodeRatioString =
-            decodeStringFloat
-                |> Decode.andThen (Unit.validateRatio >> DecodeExtra.fromResult)
-
-        decodeImpactString =
-            decodeStringFloat
-                |> Decode.andThen
-                    (\float ->
-                        if float < 0 then
-                            Decode.fail "Un impact de mix énergétique ne peut être négatif."
-
-                        else
-                            Decode.succeed (Unit.impact float)
-                    )
-    in
-    Decode.succeed Inputs.Query
-        |> Pipe.required "mass" decodeMassString
-        |> Pipe.required "material" (Decode.map Process.Uuid Decode.string)
-        |> Pipe.required "product" (Decode.map Product.Id Decode.string)
-        |> Pipe.required "countries" decodeCountries
-        |> Pipe.optional "dyeingWeighting" (Decode.map Just decodeRatioString) Nothing
-        |> Pipe.optional "airTransportRatio" (Decode.map Just decodeRatioString) Nothing
-        |> Pipe.optional "recycledRatio" (Decode.map Just decodeRatioString) Nothing
-        |> Pipe.optional "customCountryMixes"
-            (Decode.succeed Inputs.CustomCountryMixes
-                |> Pipe.optional "fabric" (Decode.map Just decodeImpactString) Nothing
-                |> Pipe.optional "dyeing" (Decode.map Just decodeImpactString) Nothing
-                |> Pipe.optional "making" (Decode.map Just decodeImpactString) Nothing
-            )
-            Inputs.defaultCustomCountryMixes
-
-
-decodeQuery : Encode.Value -> Result String Inputs.Query
-decodeQuery =
-    Decode.decodeValue expressQueryDecoder
-        >> Result.mapError Decode.errorToString
-
-
 sendResponse : Int -> Request -> Encode.Value -> Cmd Msg
-sendResponse httpStatus { expressPath, expressQuery, jsResponseHandler } body =
+sendResponse httpStatus { path, expressQuery, jsResponseHandler } body =
     Encode.object
         [ ( "status", Encode.int httpStatus )
-        , ( "path", Encode.string expressPath )
+        , ( "path", Encode.string path )
         , ( "query", expressQuery )
         , ( "body", body )
         , ( "jsResponseHandler", jsResponseHandler )
@@ -205,14 +129,14 @@ toSingleImpactSimple trigram { inputs, impacts } =
 
 executeQuery : Db -> (Simulator -> Encode.Value) -> Request -> Cmd Msg
 executeQuery db fn request =
-    decodeQuery request.expressQuery
+    Query.decodeExpressQuery request.expressQuery
         |> Result.andThen (Simulator.compute db >> Result.map fn)
         |> toResponse request
 
 
 handleRequest : Db -> Request -> Cmd Msg
-handleRequest db ({ expressPath } as request) =
-    case parseRoute expressPath of
+handleRequest db ({ url } as request) =
+    case parseRoute url of
         Just Home ->
             Encode.object
                 [ ( "service", Encode.string "Wikicarbone" )
@@ -257,6 +181,7 @@ update msg model =
             case model.db of
                 Err dbError ->
                     ( model
+                      -- FIXME: not 500 but service unavailable maybe
                     , encodeStringError dbError |> sendResponse 500 request
                     )
 
