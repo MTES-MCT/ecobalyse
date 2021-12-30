@@ -63,7 +63,7 @@ apiBrowser { clientUrl } =
 
 view : Session -> Model -> ( String, List (Html Msg) )
 view session _ =
-    ( "Exemples"
+    ( "API"
     , [ Container.centered [ class "pb-5" ]
             [ h1 [ class "mb-3" ] [ text "API Wikicarbone" ]
             , Alert.simple

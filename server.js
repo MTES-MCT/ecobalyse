@@ -20,10 +20,11 @@ elmApp.ports.output.subscribe(({ status, body, jsResponseHandler }) => {
   return jsResponseHandler({ status, body });
 });
 
-app.get(/(.*)/, ({ query, path }, res) => {
+app.all(/(.*)/, ({ method, url }, res) => {
   elmApp.ports.input.send({
-    expressPath: path,
-    expressQuery: query,
+    // TODO: headers?
+    method,
+    url,
     jsResponseHandler: ({ status, body }) => {
       res.status(status).send(body);
     },
