@@ -40,7 +40,7 @@ findByCode : Code -> List Country -> Result String Country
 findByCode code =
     List.filter (.code >> (==) code)
         >> List.head
-        >> Result.fromMaybe ("Pays non trouvé code=" ++ codeToString code)
+        >> Result.fromMaybe ("Code pays invalide: " ++ codeToString code)
 
 
 findByCodes : List Code -> List Country -> Result String (List Country)

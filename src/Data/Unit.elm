@@ -2,7 +2,6 @@ module Data.Unit exposing (..)
 
 import Energy exposing (Energy)
 import Json.Decode as Decode exposing (Decoder)
-import Json.Decode.Extra as DecodeExtra
 import Json.Encode as Encode
 import Length exposing (Length)
 import Mass exposing (Mass)
@@ -13,15 +12,13 @@ import Quantity exposing (Quantity(..))
 -- Ratio
 
 
-type
-    Ratio
-    -- FIXME: validate between 0 and 1
+type Ratio
     = Ratio Float
 
 
 ratio : Float -> Ratio
 ratio float =
-    Ratio (clamp 0 1 float)
+    Ratio float
 
 
 ratioToFloat : Ratio -> Float
@@ -31,17 +28,7 @@ ratioToFloat (Ratio float) =
 
 decodeRatio : Decoder Ratio
 decodeRatio =
-    Decode.float
-        |> Decode.andThen (validateRatio >> DecodeExtra.fromResult)
-
-
-validateRatio : Float -> Result String Ratio
-validateRatio float =
-    if float < 0 || float > 1 then
-        Err "Un ratio doit être compris entre 0 et 1."
-
-    else
-        Ok (Ratio float)
+    Decode.map ratio Decode.float
 
 
 encodeRatio : Ratio -> Encode.Value

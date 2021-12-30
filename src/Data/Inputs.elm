@@ -51,39 +51,14 @@ type alias CustomCountryMixes =
 fromQuery : Db -> Query -> Result String Inputs
 fromQuery db query =
     Ok Inputs
-        -- mass
         |> RE.andMap (Ok query.mass)
-        -- material
         |> RE.andMap (db.materials |> Material.findByUuid query.material)
-        -- product
         |> RE.andMap (db.products |> Product.findById query.product)
-        -- countries
-        -- FIXME: valide length + country codes one by one
         |> RE.andMap (db.countries |> Country.findByCodes query.countries)
-        -- dyeingWeighting
-        |> RE.andMap (validateRatio query.dyeingWeighting)
-        -- airTransportRatio
-        |> RE.andMap (validateRatio query.airTransportRatio)
-        -- recycledRatio
-        |> RE.andMap (validateRatio query.recycledRatio)
-        -- customCountryMixes
-        -- FIXME: validate custom country mixes
+        |> RE.andMap (Ok query.dyeingWeighting)
+        |> RE.andMap (Ok query.airTransportRatio)
+        |> RE.andMap (Ok query.recycledRatio)
         |> RE.andMap (Ok query.customCountryMixes)
-
-
-validateRatio : Maybe Unit.Ratio -> Result String (Maybe Unit.Ratio)
-validateRatio maybeRatio =
-    case maybeRatio of
-        Just (Unit.Ratio float) ->
-            case Unit.validateRatio float of
-                Ok ratio ->
-                    Ok (Just ratio)
-
-                Err error ->
-                    Err error
-
-        Nothing ->
-            Ok maybeRatio
 
 
 toQuery : Inputs -> Query

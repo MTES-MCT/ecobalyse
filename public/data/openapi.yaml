@@ -188,23 +188,21 @@ components:
       description: Liste des codes pays pour chacune des 5 étapes du cycle de vie du produit
       required: true
       schema:
-        type: array
-        items:
-          type: string
-        minItems: 5
-        maxItems: 5
+        type: string
+        minLength: 14
+        maxLength: 14
       style: form
-      explode: true # FIXME: see if it works with express querystring format, and if we should switch to countries=CN,FR,FR,FR,FR (explose: false)
+      explode: false
       examples:
         asia:
           summary: Circuit Asie
-          value: ["CN", "CN", "CN", "CN", "FR"]
+          value: "CN,CN,CN,CN,FR"
         europe:
           summary: Circuit Europe
-          value: ["CN", "TR", "TN", "TN", "FR"]
+          value: "CN,TR,TN,TN,FR"
         france:
           summary: Circuit France
-          value: ["CN", "FR", "FR", "FR", "FR"]
+          value: "CN,FR,FR,FR,FR"
     recycledRatioParam:
       name: recycledRatio
       in: query
