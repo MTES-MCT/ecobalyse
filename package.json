@@ -9,15 +9,16 @@
     "build": "rimraf dist && npm run build:init && parcel build index.html --public-url ./",
     "build:init": "mkdir -p dist && cp -r public/* dist/",
     "server:build": "elm make src/Server.elm --optimize --output=server-app.js",
+    "server:dev": "npm run server:build && nodemon server.js",
     "server:start": "npm run server:build && node server.js",
     "server:test": "npm run server:build && jest",
     "start:parcel": "parcel serve index.html --no-cache",
-    "start:filewatch": "chokidar 'src/**/!(Main).elm' -c 'touch src/Main.elm'",
-    "start:dev": "npm run build:init && concurrently -n \"watch,parcel\" -c \"blue,green\" -k \"npm run start:filewatch\" \"npm run start:parcel\"",
+    "start:dev": "npm run build:init && concurrently -n \"watch,parcel,server\" -c \"blue,green,cyan\" -k \"npm run watch:elm\" \"npm run start:parcel\" \"npm run server:dev\"",
     "start": "PARCEL_ELM_NO_DEBUG=1 npm run start:dev",
     "test:prepare": "node tests/prepare.js",
     "test:all": "npm test && npm run server:test",
-    "test": "npm run test:prepare && elm-test"
+    "test": "npm run test:prepare && elm-test",
+    "watch:elm": "chokidar 'src/**/!(Main).elm' -c 'touch src/Main.elm && npm run server:build'"
   },
   "dependencies": {
     "@parcel/transformer-elm": "^2.0.1",
@@ -36,6 +37,7 @@
     "elm-format": "^0.8.5",
     "elm-test": "^0.19.1-revision7",
     "jest": "^27.4.5",
+    "nodemon": "^2.0.15",
     "rimraf": "^3.0.2",
     "supertest": "^6.1.6"
   }
