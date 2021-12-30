@@ -16,6 +16,7 @@
     "start:parcel": "parcel serve index.html --no-cache",
     "start:filewatch": "chokidar 'src/**/!(Main).elm' -c 'touch src/Main.elm'",
     "start:dev": "npm run build:init && concurrently -n \"watch,parcel\" -c \"blue,green\" -k \"npm run start:filewatch\" \"npm run start:parcel\"",
+    "start:prod": "npm run build && npm run server:start",
     "start": "PARCEL_ELM_NO_DEBUG=1 npm run start:dev",
     "test:prepare": "node tests/prepare.js",
     "test:all": "npm test && npm run server:test",
