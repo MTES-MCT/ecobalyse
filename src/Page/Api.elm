@@ -64,12 +64,20 @@ view session _ =
                 , content =
                     [ div [ class "fs-7" ]
                         [ """Cette API est en version *alpha*, l'implémentation et le contrat d'interface sont susceptibles
-                    de changer à tout moment. Vous êtes vivement invité à **ne pas exploiter cette API en production**."""
+                             de changer à tout moment. Vous êtes vivement invité à **ne pas exploiter cette API en production**."""
                             |> Markdown.simple []
                         ]
                     ]
                 }
-            , p [] [ text "L'API HTTP Wikicarbone permet de calculer les impacts environnementaux des produits textiles." ]
+            , p [ class "fw-bold" ]
+                [ text "L'API HTTP Wikicarbone permet de calculer les impacts environnementaux des produits textiles." ]
+            , p []
+                [ text "Elle est accessible à l'adresse "
+                , code [] [ text <| session.clientUrl ++ "api" ]
+                , text " et documentée au format "
+                , a [ href "/data/openapi.yaml", target "_blank" ] [ text "OpenAPI" ]
+                , text "."
+                ]
             , apiBrowser session
             ]
       ]
