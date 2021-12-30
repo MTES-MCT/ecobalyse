@@ -1,4 +1,4 @@
-port module Server exposing (main)
+port module Server exposing (..)
 
 import Data.Db as Db exposing (Db)
 import Data.Impact as Impact
@@ -6,8 +6,8 @@ import Data.Inputs as Inputs
 import Data.Simulator as Simulator exposing (Simulator)
 import Json.Encode as Encode
 import Server.Query as Query
-import Url
-import Url.Parser as Parser exposing ((</>), (<?>), Parser)
+import Server.Request exposing (Request)
+import Server.Route as Route
 
 
 type alias Flags =
@@ -23,94 +23,11 @@ type Msg
     = Received Request
 
 
-type alias Request =
-    -- Notes:
-    -- - `method` is ExpressJS `method` string (HTTP verb: GET, POST, etc.)
-    -- - `url` is ExpressJS `url` string
-    --   string params, which uses the qs package under the hood:
-    --   https://www.npmjs.com/package/qs
-    -- - `jsResponseHandler` is an ExpressJS response callback function
-    { method : String
-    , url : String
-    , jsResponseHandler : Encode.Value
-    }
-
-
-type Route
-    = Home
-      -- Simple version of all impacts
-    | Simulator (Result Query.Errors Inputs.Query)
-      -- Detailed version for all impacts
-    | SimulatorDetailed (Result Query.Errors Inputs.Query)
-      -- Simple version for one specific impact
-    | SimulatorSingle Impact.Trigram (Result Query.Errors Inputs.Query)
-
-
-type Endpoint
-    = Get Route
-    | Head Route
-    | Post Route
-    | Put Route
-    | Delete Route
-    | Connect Route
-    | Options Route
-    | Trace Route
-    | Path Route
-
-
 init : Flags -> ( Model, Cmd Msg )
 init { jsonDb } =
     ( { db = Db.buildFromJson jsonDb }
     , Cmd.none
     )
-
-
-parser : Db -> Parser (Route -> a) a
-parser db =
-    Parser.oneOf
-        [ Parser.map Home Parser.top
-        , Parser.map Simulator (Parser.s "simulator" <?> Query.parse db)
-        , Parser.map SimulatorDetailed (Parser.s "simulator" </> Parser.s "detailed" <?> Query.parse db)
-        , Parser.map SimulatorSingle (Parser.s "simulator" </> Impact.parseTrigram <?> Query.parse db)
-        ]
-
-
-endpoint : Db -> Request -> Maybe Endpoint
-endpoint db { method, url } =
-    Url.fromString ("http://x" ++ url)
-        |> Maybe.andThen (Parser.parse (parser db))
-        |> Maybe.map (mapMethod method)
-
-
-mapMethod : String -> Route -> Endpoint
-mapMethod method route =
-    case String.toUpper method of
-        "HEAD" ->
-            Head route
-
-        "POST" ->
-            Post route
-
-        "PUT" ->
-            Put route
-
-        "DELETE" ->
-            Delete route
-
-        "CONNECT" ->
-            Connect route
-
-        "OPTIONS" ->
-            Options route
-
-        "TRACE" ->
-            Trace route
-
-        "PATH" ->
-            Path route
-
-        _ ->
-            Get route
 
 
 apiDocUrl : String
@@ -179,8 +96,8 @@ executeQuery db request encoder =
 
 handleRequest : Db -> Request -> Cmd Msg
 handleRequest db request =
-    case endpoint db request of
-        Just (Get Home) ->
+    case Route.endpoint db request of
+        Just (Route.Get Route.Home) ->
             Encode.object
                 [ ( "service", Encode.string "Wikicarbone" )
                 , ( "documentation", Encode.string apiDocUrl )
@@ -190,24 +107,24 @@ handleRequest db request =
                 ]
                 |> sendResponse 200 request
 
-        Just (Get (Simulator (Ok query))) ->
+        Just (Route.Get (Route.Simulator (Ok query))) ->
             query |> executeQuery db request toAllImpactsSimple
 
-        Just (Get (Simulator (Err errors))) ->
+        Just (Route.Get (Route.Simulator (Err errors))) ->
             Query.encodeErrors errors
                 |> sendResponse 400 request
 
-        Just (Get (SimulatorDetailed (Ok query))) ->
+        Just (Route.Get (Route.SimulatorDetailed (Ok query))) ->
             query |> executeQuery db request Simulator.encode
 
-        Just (Get (SimulatorDetailed (Err errors))) ->
+        Just (Route.Get (Route.SimulatorDetailed (Err errors))) ->
             Query.encodeErrors errors
                 |> sendResponse 400 request
 
-        Just (Get (SimulatorSingle trigram (Ok query))) ->
+        Just (Route.Get (Route.SimulatorSingle trigram (Ok query))) ->
             query |> executeQuery db request (toSingleImpactSimple trigram)
 
-        Just (Get (SimulatorSingle _ (Err errors))) ->
+        Just (Route.Get (Route.SimulatorSingle _ (Err errors))) ->
             Query.encodeErrors errors
                 |> sendResponse 400 request
 
