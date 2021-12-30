@@ -30,35 +30,26 @@ update session msg model =
 
 apiBrowser : Session -> Html Msg
 apiBrowser { clientUrl } =
-    let
+    node "rapi-doc"
         -- RapiDoc options: https://mrin9.github.io/RapiDoc/api.html
-        baseOptions =
-            [ attribute "spec-url" (clientUrl ++ "data/openapi.yaml")
-            , attribute "theme" "light"
-            , attribute "font-size" "largest"
-            , attribute "load-fonts" "false"
-            , attribute "layout" "column"
-            , attribute "show-info" "false"
-            , attribute "update-route" "false"
-            , attribute "render-style" "view"
-            , attribute "show-header" "false"
-            , attribute "show-components" "true"
-            , attribute "schema-description-expanded" "true"
-            , attribute "allow-authentication" "false"
-            , attribute "allow-server-selection" "false"
-            , attribute "allow-api-list-style-selection" "false"
-            ]
-
-        options =
-            if String.contains "localhost" clientUrl then
-                attribute "server-url" "http://localhost:3000/api"
-                    :: attribute "default-api-server" "http://localhost:3000/api"
-                    :: baseOptions
-
-            else
-                baseOptions
-    in
-    node "rapi-doc" options []
+        [ attribute "spec-url" (clientUrl ++ "data/openapi.yaml")
+        , attribute "server-url" (clientUrl ++ "api")
+        , attribute "default-api-server" (clientUrl ++ "api")
+        , attribute "theme" "light"
+        , attribute "font-size" "largest"
+        , attribute "load-fonts" "false"
+        , attribute "layout" "column"
+        , attribute "show-info" "false"
+        , attribute "update-route" "false"
+        , attribute "render-style" "view"
+        , attribute "show-header" "false"
+        , attribute "show-components" "true"
+        , attribute "schema-description-expanded" "true"
+        , attribute "allow-authentication" "false"
+        , attribute "allow-server-selection" "false"
+        , attribute "allow-api-list-style-selection" "false"
+        ]
+        []
 
 
 view : Session -> Model -> ( String, List (Html Msg) )
