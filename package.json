@@ -6,7 +6,8 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "build": "rimraf dist && npm run build:init && parcel build index.html --public-url ./",
+    "build": "rimraf dist && npm run build:prod",
+    "build:prod": "npm run build:init && parcel build index.html --public-url ./",
     "build:init": "mkdir -p dist && cp -r public/* dist/",
     "dump:presets": "elm make src/DumpPresets.elm --optimize --output=dump-presets-app.js && node dump-presets.js",
     "deploy": "npm run build && gh-pages --dist dist/",
@@ -30,8 +31,7 @@
     "cors": "^2.8.5",
     "elm": "^0.19.1-5",
     "express": "^4.17.1",
-    "parcel": "^2.0.1",
-    "rimraf": "^3.0.2"
+    "parcel": "^2.0.1"
   },
   "devDependencies": {
     "chokidar-cli": "^3.0.0",
@@ -41,6 +41,7 @@
     "elm-test": "^0.19.1-revision7",
     "gh-pages": "^3.2.3",
     "jest": "^27.4.5",
+    "rimraf": "^3.0.2",
     "supertest": "^6.1.6"
   }
 }
