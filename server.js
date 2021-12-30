@@ -12,6 +12,10 @@ const port = process.env.PORT || 3000;
 
 app.use(express.static("dist"));
 
+app.get("/stats", (_, res) => {
+  res.redirect("/#/stats");
+});
+
 // API
 
 const elmApp = Elm.Server.init({
