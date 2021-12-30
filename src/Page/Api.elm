@@ -51,8 +51,8 @@ apiBrowser { clientUrl } =
 
         options =
             if String.contains "localhost" clientUrl then
-                attribute "server-url" "http://localhost:3000"
-                    :: attribute "default-api-server" "http://localhost:3000"
+                attribute "server-url" "http://localhost:3000/api"
+                    :: attribute "default-api-server" "http://localhost:3000/api"
                     :: baseOptions
 
             else

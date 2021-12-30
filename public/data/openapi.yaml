@@ -7,7 +7,9 @@ externalDocs:
   description: Visiter le site
   url: https://wikicarbone.beta.gouv.fr
 servers:
-- url: https://wikicarbone.osc-fr1.scalingo.io/
+# FIXME: once Scalingo CNAME points to wikicarbone.beta.gouv.fr,
+# update server API url to https://wikicarbone.beta.gouv.fr/api
+- url: https://wikicarbone.osc-fr1.scalingo.io/api
 tags:
 - name: Accueil
   description: Informations générales sur l'état du service
