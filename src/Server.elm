@@ -46,6 +46,18 @@ type Route
     | SimulatorSingle Impact.Trigram (Result Query.Errors Inputs.Query)
 
 
+type Endpoint
+    = Get Route
+    | Head Route
+    | Post Route
+    | Put Route
+    | Delete Route
+    | Connect Route
+    | Options Route
+    | Trace Route
+    | Path Route
+
+
 init : Flags -> ( Model, Cmd Msg )
 init { jsonDb } =
     ( { db = Db.buildFromJson jsonDb }
@@ -63,10 +75,42 @@ parser db =
         ]
 
 
-parseRoute : Db -> String -> Maybe Route
-parseRoute db urlPath =
-    Url.fromString ("http://x" ++ urlPath)
+endpoint : Db -> Request -> Maybe Endpoint
+endpoint db { method, url } =
+    Url.fromString ("http://x" ++ url)
         |> Maybe.andThen (Parser.parse (parser db))
+        |> Maybe.map (mapMethod method)
+
+
+mapMethod : String -> Route -> Endpoint
+mapMethod method route =
+    case String.toUpper method of
+        "HEAD" ->
+            Head route
+
+        "POST" ->
+            Post route
+
+        "PUT" ->
+            Put route
+
+        "DELETE" ->
+            Delete route
+
+        "CONNECT" ->
+            Connect route
+
+        "OPTIONS" ->
+            Options route
+
+        "TRACE" ->
+            Trace route
+
+        "PATH" ->
+            Path route
+
+        _ ->
+            Get route
 
 
 apiDocUrl : String
@@ -134,9 +178,9 @@ executeQuery db request encoder =
 
 
 handleRequest : Db -> Request -> Cmd Msg
-handleRequest db ({ url } as request) =
-    case parseRoute db url of
-        Just Home ->
+handleRequest db request =
+    case endpoint db request of
+        Just (Get Home) ->
             Encode.object
                 [ ( "service", Encode.string "Wikicarbone" )
                 , ( "documentation", Encode.string apiDocUrl )
@@ -146,26 +190,30 @@ handleRequest db ({ url } as request) =
                 ]
                 |> sendResponse 200 request
 
-        Just (Simulator (Ok query)) ->
+        Just (Get (Simulator (Ok query))) ->
             query |> executeQuery db request toAllImpactsSimple
 
-        Just (Simulator (Err errors)) ->
+        Just (Get (Simulator (Err errors))) ->
             Query.encodeErrors errors
                 |> sendResponse 400 request
 
-        Just (SimulatorDetailed (Ok query)) ->
+        Just (Get (SimulatorDetailed (Ok query))) ->
             query |> executeQuery db request Simulator.encode
 
-        Just (SimulatorDetailed (Err errors)) ->
+        Just (Get (SimulatorDetailed (Err errors))) ->
             Query.encodeErrors errors
                 |> sendResponse 400 request
 
-        Just (SimulatorSingle trigram (Ok query)) ->
+        Just (Get (SimulatorSingle trigram (Ok query))) ->
             query |> executeQuery db request (toSingleImpactSimple trigram)
 
-        Just (SimulatorSingle _ (Err errors)) ->
+        Just (Get (SimulatorSingle _ (Err errors))) ->
             Query.encodeErrors errors
                 |> sendResponse 400 request
+
+        Just _ ->
+            encodeStringError "Method not allowed"
+                |> sendResponse 405 request
 
         Nothing ->
             encodeStringError "Endpoint doesn't exist"
