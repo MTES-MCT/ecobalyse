@@ -32,6 +32,9 @@ jobs:
     - name: Run static analysis
       run: npx elm-analyse
 
+    - name: Build app
+      run: npm run build --if-present
+
     - name: Run ui tests
       run: npm test
 
@@ -40,9 +43,6 @@ jobs:
 
     - name: Dump test presets
       run: npm run dump:presets
-
-    - name: Build app
-      run: npm run build --if-present
 
     - name: Get branch names
       id: branch-name
