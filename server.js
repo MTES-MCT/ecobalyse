@@ -28,11 +28,8 @@ elmApp.ports.output.subscribe(({ status, body, jsResponseHandler }) => {
   return jsResponseHandler({ status, body });
 });
 
-api.all(/(.*)/, (req, res) => {
-  const { method, url } = req;
-  // console.log(req);
+api.all(/(.*)/, ({ method, url }, res) => {
   elmApp.ports.input.send({
-    // TODO: headers?
     method,
     url,
     jsResponseHandler: ({ status, body }) => {
