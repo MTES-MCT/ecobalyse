@@ -9,7 +9,7 @@
     "build": "rimraf dist && npm run build:init && parcel build index.html --public-url ./",
     "build:init": "mkdir -p dist && cp -r public/* dist/",
     "server:build": "elm make src/Server.elm --optimize --output=server-app.js",
-    "server:dev": "npm run server:build && nodemon server.js",
+    "server:dev": "npm run server:build && nodemon server.js -i tests/",
     "server:start": "npm run server:build && node server.js",
     "server:test": "npm run server:build && jest",
     "start:parcel": "parcel serve index.html --no-cache",
