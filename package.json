@@ -28,7 +28,8 @@
     "cors": "^2.8.5",
     "elm": "^0.19.1-5",
     "express": "^4.17.1",
-    "parcel": "^2.0.1"
+    "parcel": "^2.0.1",
+    "rapidoc": "^9.1.3"
   },
   "devDependencies": {
     "chokidar-cli": "^3.0.0",

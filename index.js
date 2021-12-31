@@ -1,3 +1,4 @@
+import "rapidoc";
 import { Elm } from "./src/Main.elm";
 
 // The localStorage key to use to store serialized session data
@@ -14,8 +15,11 @@ app.ports.copyToClipboard.subscribe((text) => {
   navigator.clipboard.writeText(text).then(
     function () {},
     function (err) {
-      alert("Votre navigateur ne supporte pas la copie automatique; vous pouvez copier l'adresse manuellement");
-    }
+      alert(
+        `Votre navigateur ne supporte pas la copie automatique;
+         vous pouvez copier l'adresse manuellement`,
+      );
+    },
   );
 });
 
@@ -50,5 +54,5 @@ window.addEventListener(
       app.ports.storeChanged.send(event.newValue);
     }
   },
-  false
+  false,
 );
