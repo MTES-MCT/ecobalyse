@@ -8,38 +8,37 @@
   "scripts": {
     "build": "rimraf dist && npm run build:init && parcel build index.html --public-url ./",
     "build:init": "mkdir -p dist && cp -r public/* dist/",
-    "dump:presets": "elm make src/DumpPresets.elm --optimize --output=dump-presets-app.js && node dump-presets.js",
-    "deploy": "npm run build && gh-pages --dist dist/",
     "server:build": "elm make src/Server.elm --optimize --output=server-app.js",
+    "server:dev": "npm run server:build && nodemon server.js -i tests/",
     "server:start": "npm run server:build && node server.js",
     "server:test": "npm run server:build && jest",
     "start:parcel": "parcel serve index.html --no-cache",
-    "start:filewatch": "chokidar 'src/**/!(Main).elm' -c 'touch src/Main.elm'",
-    "start:dev": "npm run build:init && concurrently -n \"watch,parcel\" -c \"blue,green\" -k \"npm run start:filewatch\" \"npm run start:parcel\"",
+    "start:dev": "npm run build:init && concurrently -n \"watch,parcel,server\" -c \"blue,green,cyan\" -k \"npm run watch:elm\" \"npm run start:parcel\" \"npm run server:dev\"",
     "start": "PARCEL_ELM_NO_DEBUG=1 npm run start:dev",
     "test:prepare": "node tests/prepare.js",
     "test:all": "npm test && npm run server:test",
-    "test": "npm run test:prepare && elm-test"
+    "test": "npm run test:prepare && elm-test",
+    "watch:elm": "chokidar 'src/**/!(Main).elm' -c 'touch src/Main.elm && npm run server:build'"
   },
-  "devDependencies": {
+  "dependencies": {
     "@parcel/transformer-elm": "^2.0.1",
     "@parcel/transformer-image": "^2.0.1",
     "@parcel/transformer-sass": "^2.0.1",
     "bootstrap": "^5.1.1",
+    "cors": "^2.8.5",
+    "elm": "^0.19.1-5",
+    "express": "^4.17.1",
+    "parcel": "^2.0.1"
+  },
+  "devDependencies": {
     "chokidar-cli": "^3.0.0",
     "concurrently": "^6.2.1",
     "elm-analyse": "^0.16.5",
     "elm-format": "^0.8.5",
     "elm-test": "^0.19.1-revision7",
-    "gh-pages": "^3.2.3",
     "jest": "^27.4.5",
-    "parcel": "^2.0.1",
+    "nodemon": "^2.0.15",
     "rimraf": "^3.0.2",
     "supertest": "^6.1.6"
-  },
-  "dependencies": {
-    "cors": "^2.8.5",
-    "elm": "^0.19.1-5",
-    "express": "^4.17.1"
   }
 }

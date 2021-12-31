@@ -3,12 +3,20 @@ const { Elm } = require("./server-app");
 const cors = require("cors");
 const { buildJsonDb } = require("./lib");
 
-const app = express();
+const app = express(); // web app
+const api = express(); // api app
 const host = "0.0.0.0";
 const port = process.env.PORT || 3000;
 
-// Enable CORS for all requests
-app.use(cors());
+// Web
+
+app.use(express.static("dist"));
+
+app.get("/stats", (_, res) => {
+  res.redirect("/#/stats");
+});
+
+// API
 
 const elmApp = Elm.Server.init({
   flags: {
@@ -20,9 +28,8 @@ elmApp.ports.output.subscribe(({ status, body, jsResponseHandler }) => {
   return jsResponseHandler({ status, body });
 });
 
-app.all(/(.*)/, ({ method, url }, res) => {
+api.all(/(.*)/, ({ method, url }, res) => {
   elmApp.ports.input.send({
-    // TODO: headers?
     method,
     url,
     jsResponseHandler: ({ status, body }) => {
@@ -31,8 +38,11 @@ app.all(/(.*)/, ({ method, url }, res) => {
   });
 });
 
+api.use(cors()); // Enable CORS for all API requests
+app.use("/api", api);
+
 const server = app.listen(port, host, () => {
-  console.log(`Example app listening at http://${host}:${port}`);
+  console.log(`Server listening at http://${host}:${port}`);
 });
 
 module.exports = server;

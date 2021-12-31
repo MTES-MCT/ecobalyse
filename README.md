@@ -22,13 +22,18 @@ Le serveur local de développement se lance au moyen de la commande suivante :
 
     $ npm start
 
-L'instance de développement est alors accessible via [localhost:1234](http://localhost:1234/).
+Deux instances de développement sont alors accessibles :
+
+- [localhost:3000](http://localhost:3000/) sert le frontend et le backend (API) ;
+- [localhost:1234](http://localhost:1234/) sert seulement le frontend en mode *hot-reload*, permettant de mettre à jour en temps-réel l'interface Web à chaque modification du code frontend.
 
 ### Mode de débogage
 
 Pour lancer le serveur de développement en mode de débuggage :
 
     $ npm run start:dev
+
+Un server frontend de débogage est alors disponible sur [localhost:1234](http://localhost:1234/).
 
 ## Build
 
@@ -40,16 +45,18 @@ Les fichiers sont alors générés dans le répertoire `build` à la racine du p
 
 ## Déploiement
 
-L'application est déployée automatiquement sur [Github Pages](https://pages.github.com/) pour toute mise à jour de la branche `master`.
+L'application est déployée automatiquement sur la plateforme [Scalingo](https://scalingo.com/) pour toute mise à jour de la branche `master`.
 
-Il est cependant possible de déployer l'application manuellement au moyen de la commande suivante :
+Chaque *Pull Request* effectuée sur le dépôt est également automatiquement déploayée sur une instance de revue spécifique, par exemple `https://wikicarbone-pr44.osc-fr1.scalingo.io/` pour le pull request #44.
 
-```
-$ npm run deploy
-```
+# Serveur de production
 
-# Backend (serveur d'API)
+Pour lancer le serveur applicatif complet (frontend + backend), par exemple depuis un envorinnement de production, la démarche est la suivante :
 
 ```
-$ npm run server:start
+$ npm run build        # build frontend code
+$ npm run server:build # build backend code
+$ npm run server:start # run app server
 ```
+
+L'application est alors servie sur le port défini par la variable d'environnement `PORT` (par défaut: `3000`).

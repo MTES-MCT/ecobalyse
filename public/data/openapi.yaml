@@ -7,7 +7,7 @@ externalDocs:
   description: Visiter le site
   url: https://wikicarbone.beta.gouv.fr
 servers:
-- url: https://wikicarbone.osc-fr1.scalingo.io/
+- url: https://wikicarbone.beta.gouv.fr/api
 tags:
 - name: Accueil
   description: Informations générales sur l'état du service
