@@ -28,13 +28,23 @@ update session msg model =
             ( model, session, Cmd.none )
 
 
+getApiServerUrl : Session -> String
+getApiServerUrl { clientUrl } =
+    -- If we're using local parcel dev server, use the ExpressJS API server
+    if String.contains ":1234" clientUrl then
+        "http://localhost:3000/api"
+
+    else
+        clientUrl ++ "api"
+
+
 apiBrowser : Session -> Html Msg
-apiBrowser { clientUrl } =
+apiBrowser session =
     node "rapi-doc"
         -- RapiDoc options: https://mrin9.github.io/RapiDoc/api.html
-        [ attribute "spec-url" (clientUrl ++ "data/openapi.yaml")
-        , attribute "server-url" (clientUrl ++ "api")
-        , attribute "default-api-server" (clientUrl ++ "api")
+        [ attribute "spec-url" (session.clientUrl ++ "data/openapi.yaml")
+        , attribute "server-url" (getApiServerUrl session)
+        , attribute "default-api-server" (getApiServerUrl session)
         , attribute "theme" "light"
         , attribute "font-size" "largest"
         , attribute "load-fonts" "false"
@@ -73,7 +83,7 @@ view session _ =
                 [ text "L'API HTTP Wikicarbone permet de calculer les impacts environnementaux des produits textiles." ]
             , p []
                 [ text "Elle est accessible à l'adresse "
-                , code [] [ text <| session.clientUrl ++ "api" ]
+                , code [] [ text <| getApiServerUrl session ]
                 , text " et documentée au format "
                 , a [ href "/data/openapi.yaml", target "_blank" ] [ text "OpenAPI" ]
                 , text "."
