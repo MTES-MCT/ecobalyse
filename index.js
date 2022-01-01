@@ -29,6 +29,7 @@ app.ports.appStarted.subscribe(() => {
   _paq.push(["enableLinkTracking"]);
   var u = "https://stats.data.gouv.fr/";
   _paq.push(["setTrackerUrl", u + "matomo.php"]);
+  _paq.push(["disableCookies"]);
   _paq.push(["setSiteId", "196"]);
   var d = document,
     g = d.createElement("script"),
