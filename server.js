@@ -1,6 +1,7 @@
 const express = require("express");
-const { Elm } = require("./server-app");
 const cors = require("cors");
+const helmet = require("helmet");
+const { Elm } = require("./server-app");
 const { buildJsonDb } = require("./lib");
 
 const app = express(); // web app
@@ -9,6 +10,25 @@ const host = "0.0.0.0";
 const port = process.env.PORT || 3000;
 
 // Web
+
+app.use(
+  // Important note: this has to be called prior to any other
+  // middleware to be effective!
+  helmet({
+    contentSecurityPolicy: {
+      useDefaults: true,
+      directives: {
+        "default-src": [
+          "'self'",
+          "https://stats.data.gouv.fr",
+          "https://raw.githubusercontent.com",
+        ],
+        "img-src": ["'self'", "data:", "https://raw.githubusercontent.com"],
+        "script-src": ["'self'", "https://stats.data.gouv.fr"],
+      },
+    },
+  }),
+);
 
 app.use(express.static("dist"));
 

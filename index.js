@@ -1,3 +1,4 @@
+import "rapidoc";
 import { Elm } from "./src/Main.elm";
 
 // The localStorage key to use to store serialized session data
@@ -14,8 +15,11 @@ app.ports.copyToClipboard.subscribe((text) => {
   navigator.clipboard.writeText(text).then(
     function () {},
     function (err) {
-      alert("Votre navigateur ne supporte pas la copie automatique; vous pouvez copier l'adresse manuellement");
-    }
+      alert(
+        `Votre navigateur ne supporte pas la copie automatique;
+         vous pouvez copier l'adresse manuellement`,
+      );
+    },
   );
 });
 
@@ -25,6 +29,7 @@ app.ports.appStarted.subscribe(() => {
   _paq.push(["enableLinkTracking"]);
   var u = "https://stats.data.gouv.fr/";
   _paq.push(["setTrackerUrl", u + "matomo.php"]);
+  _paq.push(["disableCookies"]);
   _paq.push(["setSiteId", "196"]);
   var d = document,
     g = d.createElement("script"),
@@ -50,5 +55,5 @@ window.addEventListener(
       app.ports.storeChanged.send(event.newValue);
     }
   },
-  false
+  false,
 );
