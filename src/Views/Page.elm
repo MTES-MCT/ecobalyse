@@ -16,7 +16,6 @@ import Views.Spinner as Spinner
 type ActivePage
     = Home
     | Changelog
-    | Editorial String
     | Examples
     | Api
     | Simulator

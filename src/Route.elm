@@ -12,7 +12,6 @@ import Url.Parser as Parser exposing ((</>), Parser)
 type Route
     = Home
     | Changelog
-    | Editorial String
     | Examples
     | Api
     | Simulator Impact.Trigram (Maybe Inputs.Query)
@@ -24,7 +23,6 @@ parser =
     Parser.oneOf
         [ Parser.map Home Parser.top
         , Parser.map Changelog (Parser.s "changelog")
-        , Parser.map Editorial (Parser.s "content" </> Parser.string)
         , Parser.map Examples (Parser.s "examples")
         , Parser.map Api (Parser.s "api")
         , Parser.map (Simulator Impact.defaultTrigram Nothing) (Parser.s "simulator")
@@ -82,9 +80,6 @@ toString route =
 
                 Changelog ->
                     [ "changelog" ]
-
-                Editorial slug ->
-                    [ "content", slug ]
 
                 Examples ->
                     [ "examples" ]
