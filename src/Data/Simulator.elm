@@ -255,7 +255,7 @@ computeStepsTransport : Db -> Simulator -> Result String Simulator
 computeStepsTransport db simulator =
     simulator.lifeCycle
         |> LifeCycle.computeStepsTransport db
-        |> Result.map (\lifeCycle -> simulator |> updateLifeCycle (always lifeCycle))
+        |> Result.map (\lifeCycle -> { simulator | lifeCycle = lifeCycle })
 
 
 computeTotalTransports : Db -> Simulator -> Simulator
