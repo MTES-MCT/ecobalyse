@@ -99,13 +99,9 @@ Le total des pondérations considérées est par conséquent inférieur à 100% 
 
 ### Unité
 
-Le score PEF ainsi calculé est sans unité. Il s'exprime en "Points". Comme la normalisation s'effectue à partir d'impacts moyens annuels pour un européen, le total des points pour un vêtement est généralement très faible. Une conversion en milli points (m pt) ou en micro points (micro pts) peut être réalisée.
+Le score PEF ainsi calculé est sans unité. En sortie de formule, il s'exprime en "Points". Comme la normalisation s'effectue à partir d'impacts moyens annuels pour un européen, le total des points pour un vêtement est très faible. Une conversion en milli points (mPt) est donc appliquée systématiquement dans l'outil Wikicarbone.
 
 $$
 1 mpt = 1 pt / 1 000
-$$
-
-$$
-1 micro pt = 1 pt / 1 000 000
 $$
 
