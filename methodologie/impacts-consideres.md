@@ -92,6 +92,20 @@ $$
 | Utilisation des ressources minérales et métalliques | 6,36E-02 kg Sb eq                                                    | 7,55 %                              |
 
 {% hint style="info" %}
-Les 3 sous-indicateurs du changement climatique (biongénique, fossile, usage des sols) ne sont pas considérés pour la normalisation et la pondération PEF
+Les 3 sous-indicateurs du changement climatique (biongénique, fossile, usage des sols) ne sont pas considérés pour la normalisation et la pondération PEF.
+
+Le total des pondérations considérées est par conséquent inférieur à 100% (85,6%). Il n'est pas appliqué de "règle de 3" pour rapporter à un score qui serait calculé avec une somme de pondération de 100%.
 {% endhint %}
+
+### Unité
+
+Le score PEF ainsi calculé est sans unité. Il s'exprime en "Points". Comme la normalisation s'effectue à partir d'impacts moyens annuels pour un européen, le total des points pour un vêtement est généralement très faible. Une conversion en milli points (m pt) ou en micro points (micro pts) peut être réalisée.
+
+$$
+1 mpt = 1 pt / 1 000
+$$
+
+$$
+1 micro pt = 1 pt / 1 000 000
+$$
 
