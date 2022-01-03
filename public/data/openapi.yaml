@@ -185,7 +185,7 @@ components:
     countriesParam:
       name: countries
       in: query
-      description: Liste des codes pays pour chacune des 5 étapes du cycle de vie du produit
+      description: Liste des codes pays pour chacune des 5 étapes du cycle de vie du produit (/!\ ATTENTION, pour le moment, le premier pays n'est pas pris en compte car c'est le pays par défaut de la matière première qui est utilisé pour le calcul)
       required: true
       schema:
         type: string
