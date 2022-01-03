@@ -72,20 +72,27 @@ decodePefData : Decoder PefData
 decodePefData =
     Decode.map2 PefData
         (Decode.field "normalization" Unit.decodeImpact)
-        (Decode.field "weighting" (Decode.map convertPEFWeighting Unit.decodeRatio))
+        (Decode.field "weighting" (Decode.map getPefWeighting Unit.decodeRatio))
 
 
-convertPEFWeighting : Unit.Ratio -> Unit.Ratio
-convertPEFWeighting (Unit.Ratio weighting) =
+getPefWeighting : Unit.Ratio -> Unit.Ratio
+getPefWeighting weighting =
     -- Pef score weighting is provided using percentages for each impact, though
-    -- we don't currently take them all into account, so the actual weighting
+    -- we don't have data to take them all into account, so the actual weighting
     -- total we're basing on is 85.6%, not 100%.
+    --
     -- The PEF impacts not currently taken into account are:
     -- - Toxicité humaine (cancer): 2,13 %
     -- - Toxicité humaine (non cancer): 1,84 %
     -- - Ecotoxicité eaux douces: 1,92 %
     -- - Epuisement des ressources en eau: 8,51 %
-    Unit.Ratio (weighting / 0.856)
+    --
+    -- If we want to have results normalized to 100%, we can uncomment this line:
+    --
+    -- Unit.Ratio (weighting / 0.856)
+    --
+    -- Otherwise, PEF scores are documented incomplete.
+    weighting
 
 
 encodePefData : PefData -> Encode.Value
