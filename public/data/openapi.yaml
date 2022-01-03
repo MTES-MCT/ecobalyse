@@ -327,7 +327,7 @@ components:
               description: "Utilisation des sols (sans dimension (pt))"
             pef:
               type: number
-              description: "Score PEF (pt)"
+              description: "Score PEF (mPt)"
     SingleImpactResponse:
       type: object
       properties:

@@ -147,7 +147,7 @@
   "ldu": {
     "label_en": "Land use",
     "label_fr": "Utilisation des sols",
-    "unit_fr": "sans dimension (pt)",
+    "unit_fr": "sans dimension (Pt)",
     "unit_en": "Pt",
     "short_unit": "Pt",
     "pef": {
@@ -158,9 +158,9 @@
   "pef": {
     "label_en": "PEF Score",
     "label_fr": "Score PEF",
-    "unit_fr": "PEF",
-    "unit_en": "PEF",
-    "short_unit": "PEF",
+    "unit_fr": "mPt PEF",
+    "unit_en": "mPt PEF",
+    "short_unit": "mPt PEF",
     "pef": null
   }
 }
