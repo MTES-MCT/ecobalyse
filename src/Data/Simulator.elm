@@ -270,19 +270,10 @@ computeFinalImpacts db ({ lifeCycle } as simulator) =
 
 computePefScores : Db -> Simulator -> Simulator
 computePefScores db =
-    let
-        updatePefImpact impacts_ =
-            impacts_
-                |> Impact.updateImpact (Impact.trg "pef")
-                    (Impact.computePefScore db.impacts impacts_)
-    in
     updateLifeCycle
         (LifeCycle.mapSteps
-            (\({ impacts, transport } as step) ->
-                { step
-                    | impacts = updatePefImpact impacts
-                    , transport = { transport | impacts = updatePefImpact transport.impacts }
-                }
+            (\({ impacts } as step) ->
+                { step | impacts = Impact.updatePefImpact db.impacts impacts }
             )
         )
 

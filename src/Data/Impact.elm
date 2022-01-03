@@ -195,6 +195,13 @@ encodeImpacts =
     AnyDict.encode toString Unit.encodeImpact
 
 
+updatePefImpact : List Definition -> Impacts -> Impacts
+updatePefImpact definitions impacts =
+    impacts
+        |> updateImpact (trg "pef")
+            (computePefScore definitions impacts)
+
+
 computePefScore : List Definition -> Impacts -> Unit.Impact
 computePefScore defs =
     AnyDict.map
