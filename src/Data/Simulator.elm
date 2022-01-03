@@ -92,12 +92,12 @@ compute db query =
         -- Compute step transport
         |> nextWithDb computeStepsTransport
         -- Compute transport summary
-        |> next (computeTotalTransports db)
+        |> next (computeTotalTransportImpacts db)
         --
         -- PEF scores
         --
         -- Compute PEF impact scores
-        |> next (computePEFScores db)
+        |> next (computePefScores db)
         --
         -- Final impacts
         --
@@ -258,9 +258,9 @@ computeStepsTransport db simulator =
         |> Result.map (\lifeCycle -> { simulator | lifeCycle = lifeCycle })
 
 
-computeTotalTransports : Db -> Simulator -> Simulator
-computeTotalTransports db simulator =
-    { simulator | transport = simulator.lifeCycle |> LifeCycle.computeTotalTransports db }
+computeTotalTransportImpacts : Db -> Simulator -> Simulator
+computeTotalTransportImpacts db simulator =
+    { simulator | transport = simulator.lifeCycle |> LifeCycle.computeTotalTransportImpacts db }
 
 
 computeFinalImpacts : Db -> Simulator -> Simulator
@@ -268,8 +268,8 @@ computeFinalImpacts db ({ lifeCycle } as simulator) =
     { simulator | impacts = LifeCycle.computeFinalImpacts db lifeCycle }
 
 
-computePEFScores : Db -> Simulator -> Simulator
-computePEFScores db =
+computePefScores : Db -> Simulator -> Simulator
+computePefScores db =
     let
         updatePefImpact impacts_ =
             impacts_

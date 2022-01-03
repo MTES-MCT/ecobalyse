@@ -29,8 +29,8 @@ computeStepsTransport db lifeCycle =
         |> Result.map Array.fromList
 
 
-computeTotalTransports : Db -> LifeCycle -> Transport
-computeTotalTransports db =
+computeTotalTransportImpacts : Db -> LifeCycle -> Transport
+computeTotalTransportImpacts db =
     Array.foldl
         (\{ transport } acc ->
             { acc
