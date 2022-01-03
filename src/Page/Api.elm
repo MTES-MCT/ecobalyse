@@ -30,12 +30,7 @@ update session msg model =
 
 getApiServerUrl : Session -> String
 getApiServerUrl { clientUrl } =
-    -- If we're using local parcel dev server, use the ExpressJS API server
-    if String.contains ":1234" clientUrl then
-        "http://localhost:3000/api"
-
-    else
-        clientUrl ++ "api"
+    clientUrl ++ "api"
 
 
 apiBrowser : Session -> Html Msg
