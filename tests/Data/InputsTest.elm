@@ -1,7 +1,7 @@
 module Data.InputsTest exposing (..)
 
 import Data.Country as Country
-import Data.Inputs as Inputs
+import Data.Inputs as Inputs exposing (tShirtCotonAsie)
 import Expect exposing (Expectation)
 import List.Extra as LE
 import Test exposing (..)
@@ -38,19 +38,9 @@ suite =
                         |> asTest "should base64 encode and decode a query"
                     ]
                 , describe "A list of countries with a first country different than the material's default country"
-                    [ Inputs.tShirtCotonAsie
-                        |> (\query ->
-                                let
-                                    badCountries =
-                                        query.countries
-                                            |> LE.setAt 0 (Country.codeFromString "FR")
-                                in
-                                { query | countries = badCountries }
-                           )
+                    [ { tShirtCotonAsie | countries = List.map Country.Code [ "FR", "CN", "CN", "CN", "FR" ] }
                         |> Inputs.fromQuery db
-                        |> Result.map Inputs.toQuery
-                        |> Result.map .countries
-                        |> Result.andThen (List.head >> Result.fromMaybe "Couldn't get the first country from the list")
+                        |> Result.andThen (.countries >> LE.getAt 0 >> Maybe.map .code >> Result.fromMaybe "")
                         |> Expect.equal (Ok (Country.codeFromString "CN"))
                         |> asTest "should replace the first country with the material's default country"
                     ]
