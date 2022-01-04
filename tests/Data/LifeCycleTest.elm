@@ -15,20 +15,6 @@ km =
     Length.kilometers
 
 
-suite : Test
-suite =
-    describe "Data.LifeCycle"
-        (case testDb of
-            Ok db ->
-                suite_ db
-
-            Err error ->
-                [ test "should load test database" <|
-                    \_ -> Expect.fail <| "Couldn't parse test database: " ++ error
-                ]
-        )
-
-
 suite_ : Db -> List Test
 suite_ db =
     let
@@ -78,3 +64,17 @@ suite_ db =
                         )
         ]
     ]
+
+
+suite : Test
+suite =
+    describe "Data.LifeCycle"
+        (case testDb of
+            Ok db ->
+                suite_ db
+
+            Err error ->
+                [ test "should load test database" <|
+                    \_ -> Expect.fail <| "Couldn't parse test database: " ++ error
+                ]
+        )
