@@ -116,20 +116,15 @@ updatedCountryList material countriesDB countries =
             (\{ defaultCountry } ->
                 countries
                     -- Update the list of countries: the first country (from the material step) is constrained to be the material's default country
-                    |> updateCountryList 0 defaultCountry
+                    |> LE.setAt 0 defaultCountry
                     |> (\updatedCountries -> Country.findByCodes updatedCountries countriesDB)
             )
-
-
-updateCountryList : Int -> Country.Code -> List Country.Code -> List Country.Code
-updateCountryList index code countryList =
-    LE.setAt index code countryList
 
 
 updateStepCountry : Int -> Country.Code -> Query -> Query
 updateStepCountry index code query =
     { query
-        | countries = updateCountryList index code query.countries
+        | countries = LE.setAt index code query.countries
         , dyeingWeighting =
             -- FIXME: index 2 is Ennoblement step; how could we use th step label instead?
             if index == 2 && Array.get index (Array.fromList query.countries) /= Just code then
