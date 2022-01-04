@@ -1,0 +1,8 @@
+{
+  "env": {
+    "NODE_ENV": "development"
+  },
+  "ext": "js,mjs,json,elm,yaml",
+  "ignore": ["tests/", ".git", "node_modules/**/node_modules"],
+  "watch": ["server.js", "server-app.js", "lib", "public/data"]
+}
