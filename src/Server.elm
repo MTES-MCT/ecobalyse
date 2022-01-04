@@ -97,16 +97,6 @@ executeQuery db request encoder =
 handleRequest : Db -> Request -> Cmd Msg
 handleRequest db request =
     case Route.endpoint db request of
-        Just (Route.Get Route.Home) ->
-            Encode.object
-                [ ( "service", Encode.string "Wikicarbone" )
-                , ( "documentation", Encode.string apiDocUrl )
-
-                -- FIXME: the openapi document should be served by some /openapi API endpoint
-                , ( "openapi", Encode.string "/data/openapi.yaml" )
-                ]
-                |> sendResponse 200 request
-
         Just (Route.Get (Route.Simulator (Ok query))) ->
             query |> executeQuery db request toAllImpactsSimple
 

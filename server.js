@@ -1,5 +1,7 @@
+const fs = require("fs");
 const express = require("express");
 const cors = require("cors");
+const yaml = require("js-yaml");
 const helmet = require("helmet");
 const { Elm } = require("./server-app");
 const { buildJsonDb } = require("./lib");
@@ -38,6 +40,8 @@ app.get("/stats", (_, res) => {
 
 // API
 
+const openApiContents = yaml.load(fs.readFileSync("openapi.yaml"));
+
 const elmApp = Elm.Server.init({
   flags: {
     jsonDb: buildJsonDb(),
@@ -46,6 +50,10 @@ const elmApp = Elm.Server.init({
 
 elmApp.ports.output.subscribe(({ status, body, jsResponseHandler }) => {
   return jsResponseHandler({ status, body });
+});
+
+api.get("/", (_, res) => {
+  res.status(200).send(openApiContents);
 });
 
 api.all(/(.*)/, ({ method, url }, res) => {

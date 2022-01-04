@@ -37,7 +37,7 @@ apiBrowser : Session -> Html Msg
 apiBrowser session =
     node "rapi-doc"
         -- RapiDoc options: https://mrin9.github.io/RapiDoc/api.html
-        [ attribute "spec-url" (session.clientUrl ++ "data/openapi.yaml")
+        [ attribute "spec-url" (session.clientUrl ++ "api")
         , attribute "server-url" (getApiServerUrl session)
         , attribute "default-api-server" (getApiServerUrl session)
         , attribute "theme" "light"
