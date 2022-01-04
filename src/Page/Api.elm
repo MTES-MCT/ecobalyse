@@ -37,7 +37,7 @@ apiBrowser : Session -> Html Msg
 apiBrowser session =
     node "rapi-doc"
         -- RapiDoc options: https://mrin9.github.io/RapiDoc/api.html
-        [ attribute "spec-url" (session.clientUrl ++ "api")
+        [ attribute "spec-url" (getApiServerUrl session)
         , attribute "server-url" (getApiServerUrl session)
         , attribute "default-api-server" (getApiServerUrl session)
         , attribute "theme" "light"
@@ -79,8 +79,10 @@ view session _ =
             , p []
                 [ text "Elle est accessible à l'adresse "
                 , code [] [ text <| getApiServerUrl session ]
-                , text " et documentée au format "
-                , a [ href "/data/openapi.yaml", target "_blank" ] [ text "OpenAPI" ]
+                , text " et "
+                , a [ href (getApiServerUrl session), target "_blank" ] [ text "documentée" ]
+                , text " au format "
+                , a [ href "https://swagger.io/specification/", target "_blank" ] [ text "OpenAPI" ]
                 , text "."
                 ]
             , apiBrowser session
