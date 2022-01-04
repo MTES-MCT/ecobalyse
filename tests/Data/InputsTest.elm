@@ -48,9 +48,10 @@ suite =
                                 { query | countries = badCountries }
                            )
                         |> Inputs.fromQuery db
+                        |> Result.map Inputs.toQuery
                         |> Result.map .countries
                         |> Result.andThen (List.head >> Result.fromMaybe "Couldn't get the first country from the list")
-                        |> Expect.equal (Country.findByCode (Country.codeFromString "CN") db.countries)
+                        |> Expect.equal (Ok (Country.codeFromString "CN"))
                         |> asTest "should replace the first country with the material's default country"
                     ]
                 ]
