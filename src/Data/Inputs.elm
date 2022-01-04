@@ -11,6 +11,7 @@ import Data.Unit as Unit
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
+import List.Extra as LE
 import Mass exposing (Mass)
 import Result.Extra as RE
 import Url.Parser as Parser exposing (Parser)
@@ -50,11 +51,15 @@ type alias CustomCountryMixes =
 
 fromQuery : Db -> Query -> Result String Inputs
 fromQuery db query =
+    let
+        material =
+            db.materials |> Material.findByUuid query.material
+    in
     Ok Inputs
         |> RE.andMap (Ok query.mass)
-        |> RE.andMap (db.materials |> Material.findByUuid query.material)
+        |> RE.andMap material
         |> RE.andMap (db.products |> Product.findById query.product)
-        |> RE.andMap (db.countries |> Country.findByCodes query.countries)
+        |> RE.andMap (updatedCountryList material db.countries query.countries)
         |> RE.andMap (Ok query.dyeingWeighting)
         |> RE.andMap (Ok query.airTransportRatio)
         |> RE.andMap (Ok query.recycledRatio)
@@ -104,10 +109,22 @@ setCustomCountryMix index value ({ customCountryMixes } as query) =
     }
 
 
+updatedCountryList : Result String Material -> List Country -> List Country.Code -> Result String (List Country)
+updatedCountryList material countriesDB countries =
+    material
+        |> Result.andThen
+            (\{ defaultCountry } ->
+                countries
+                    -- Update the list of countries: the first country (from the material step) is constrained to be the material's default country
+                    |> LE.setAt 0 defaultCountry
+                    |> (\updatedCountries -> Country.findByCodes updatedCountries countriesDB)
+            )
+
+
 updateStepCountry : Int -> Country.Code -> Query -> Query
 updateStepCountry index code query =
     { query
-        | countries = query.countries |> Array.fromList |> Array.set index code |> Array.toList
+        | countries = LE.setAt index code query.countries
         , dyeingWeighting =
             -- FIXME: index 2 is Ennoblement step; how could we use th step label instead?
             if index == 2 && Array.get index (Array.fromList query.countries) /= Just code then
@@ -140,7 +157,6 @@ updateMaterial material query =
             else
                 query.recycledRatio
     }
-        |> updateStepCountry 0 material.defaultCountry
 
 
 defaultQuery : Query

@@ -1,7 +1,9 @@
 module Data.InputsTest exposing (..)
 
-import Data.Inputs as Inputs
+import Data.Country as Country
+import Data.Inputs as Inputs exposing (tShirtCotonAsie)
 import Expect exposing (Expectation)
+import List.Extra as LE
 import Test exposing (..)
 import TestDb exposing (testDb)
 
@@ -21,19 +23,32 @@ suite =
     case testDb of
         Ok db ->
             describe "Data.Inputs"
-                [ describe "Encoding and decoding queries"
-                    [ sampleQuery
-                        |> Inputs.fromQuery db
-                        |> Result.map Inputs.toQuery
-                        |> Expect.equal (Ok sampleQuery)
-                        |> asTest "should encode and decode a query"
+                [ describe "Base64"
+                    [ describe "Encoding and decoding queries"
+                        [ sampleQuery
+                            |> Inputs.fromQuery db
+                            |> Result.map Inputs.toQuery
+                            |> Expect.equal (Ok sampleQuery)
+                            |> asTest "should encode and decode a query"
+                        ]
+                    , describe "Base64 encoding and decoding queries"
+                        [ sampleQuery
+                            |> Inputs.b64encode
+                            |> Inputs.b64decode
+                            |> Expect.equal (Ok sampleQuery)
+                            |> asTest "should base64 encode and decode a query"
+                        ]
                     ]
-                , describe "Base64 encoding and decoding queries"
-                    [ sampleQuery
-                        |> Inputs.b64encode
-                        |> Inputs.b64decode
-                        |> Expect.equal (Ok sampleQuery)
-                        |> asTest "should base64 encode and decode a query"
+                , describe "Query countries validation"
+                    [ { tShirtCotonAsie | countries = List.map Country.Code [ "FR", "CN", "CN", "CN", "FR" ] }
+                        |> Inputs.fromQuery db
+                        |> Result.andThen (.countries >> LE.getAt 0 >> Maybe.map .code >> Result.fromMaybe "")
+                        |> Expect.equal (Ok (Country.codeFromString "CN"))
+                        |> asTest "should replace the first country with the material's default country"
+                    , { tShirtCotonAsie | countries = List.map Country.Code [ "FR", "XX", "CN", "CN", "FR" ] }
+                        |> Inputs.fromQuery db
+                        |> Expect.equal (Err "Code pays invalide: XX")
+                        |> asTest "should validate country codes"
                     ]
                 ]
 

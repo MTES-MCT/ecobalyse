@@ -103,7 +103,7 @@ handleRequest db request =
                 , ( "documentation", Encode.string apiDocUrl )
 
                 -- FIXME: the openapi document should be served by some /openapi API endpoint
-                , ( "openapi", Encode.string "https://wikicarbone.beta.gouv.fr/data/openapi.yaml" )
+                , ( "openapi", Encode.string "/data/openapi.yaml" )
                 ]
                 |> sendResponse 200 request
 
