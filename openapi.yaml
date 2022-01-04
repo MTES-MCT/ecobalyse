@@ -9,8 +9,8 @@ externalDocs:
 servers:
 - url: https://wikicarbone.beta.gouv.fr/api
 tags:
-- name: Accueil
-  description: Informations générales sur l'état du service
+- name: Racine
+  description: Documentation de l'API au format OpenAPI
 - name: Simulateur
   description: Impact environnemental de produits textiles
   externalDocs:
@@ -20,22 +20,12 @@ paths:
   /:
     get:
       tags:
-      - Accueil
+      - Racine
       summary: Racine de l'API
+      description: Sert la documentation de l'API au format [OpenAPI](https://swagger.io/specification/)
       responses:
         200:
-          description: Le serveur est opérationnel
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  service:
-                    type: string
-                    description: Le nom du service
-                  documentation:
-                    type: string
-                    description: URL vers la documentation
+          description: Documentation de l'API au format OpenAPI.
 
   /simulator:
     get:

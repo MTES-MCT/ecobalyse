@@ -43,11 +43,12 @@ describe("API", () => {
   });
 
   describe("/api", () => {
-    it("should render the expected response", async () => {
+    it("should render the OpenAPI documentation", async () => {
       const response = await request(app).get("/api");
 
       expect(response.statusCode).toBe(200);
-      expect(response.body.service).toEqual("Wikicarbone");
+      expect(response.body.openapi).toEqual("3.0.1");
+      expect(response.body.info.title).toEqual("API Wikicarbone");
     });
   });
 
