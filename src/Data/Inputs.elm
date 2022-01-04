@@ -11,7 +11,7 @@ import Data.Unit as Unit
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
-import List.Extra
+import List.Extra as LE
 import Mass exposing (Mass)
 import Result.Extra as RE
 import Url.Parser as Parser exposing (Parser)
@@ -123,7 +123,7 @@ updatedCountryList material countriesDB countries =
 
 updateCountryList : Int -> Country.Code -> List Country.Code -> List Country.Code
 updateCountryList index code countryList =
-    List.Extra.setAt index code countryList
+    LE.setAt index code countryList
 
 
 updateStepCountry : Int -> Country.Code -> Query -> Query
