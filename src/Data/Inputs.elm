@@ -11,6 +11,7 @@ import Data.Unit as Unit
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
+import List.Extra
 import Mass exposing (Mass)
 import Result.Extra as RE
 import Url.Parser as Parser exposing (Parser)
@@ -58,16 +59,7 @@ fromQuery db query =
         |> RE.andMap (Ok query.mass)
         |> RE.andMap material
         |> RE.andMap (db.products |> Product.findById query.product)
-        |> RE.andMap
-            (material
-                |> Result.andThen
-                    (\{ defaultCountry } ->
-                        query.countries
-                            -- Update the list of countries: the first country (from the material step) is constrained to be the material's default country
-                            |> updateCountryList 0 defaultCountry
-                            |> (\updatedCountries -> Country.findByCodes updatedCountries db.countries)
-                    )
-            )
+        |> RE.andMap (updatedCountryList material db.countries query.countries)
         |> RE.andMap (Ok query.dyeingWeighting)
         |> RE.andMap (Ok query.airTransportRatio)
         |> RE.andMap (Ok query.recycledRatio)
@@ -117,12 +109,21 @@ setCustomCountryMix index value ({ customCountryMixes } as query) =
     }
 
 
+updatedCountryList : Result String Material -> List Country -> List Country.Code -> Result String (List Country)
+updatedCountryList material countriesDB countries =
+    material
+        |> Result.andThen
+            (\{ defaultCountry } ->
+                countries
+                    -- Update the list of countries: the first country (from the material step) is constrained to be the material's default country
+                    |> updateCountryList 0 defaultCountry
+                    |> (\updatedCountries -> Country.findByCodes updatedCountries countriesDB)
+            )
+
+
 updateCountryList : Int -> Country.Code -> List Country.Code -> List Country.Code
 updateCountryList index code countryList =
-    countryList
-        |> Array.fromList
-        |> Array.set index code
-        |> Array.toList
+    List.Extra.setAt index code countryList
 
 
 updateStepCountry : Int -> Country.Code -> Query -> Query
