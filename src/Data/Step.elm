@@ -159,7 +159,8 @@ computeTransports db next ({ processInfo } as current) =
                         }
                     , transport =
                         stepSummary
-                            |> computeTransportImpacts current.transport.impacts
+                            |> computeTransportImpacts db
+                                current.transport.impacts
                                 wellKnown
                                 roadTransportProcess
                                 next.inputMass
@@ -167,8 +168,8 @@ computeTransports db next ({ processInfo } as current) =
             )
 
 
-computeTransportImpacts : Impacts -> Process.WellKnown -> Process -> Mass -> Transport -> Transport
-computeTransportImpacts impacts { seaTransport, airTransport } roadProcess mass { road, sea, air } =
+computeTransportImpacts : Db -> Impacts -> Process.WellKnown -> Process -> Mass -> Transport -> Transport
+computeTransportImpacts db impacts { seaTransport, airTransport } roadProcess mass { road, sea, air } =
     { road = road
     , sea = sea
     , air = air
@@ -185,6 +186,7 @@ computeTransportImpacts impacts { seaTransport, airTransport } roadProcess mass 
                     in
                     Quantity.sum [ roadImpact, seaImpact, airImpact ]
                 )
+            |> Impact.updatePefImpact db.impacts
     }
 
 

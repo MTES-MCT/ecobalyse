@@ -97,6 +97,7 @@ paths:
           - "fru"
           - "mru"
           - "ldu"
+          - "pef"
       - $ref: '#/components/parameters/massParam'
       - $ref: '#/components/parameters/materialParam'
       - $ref: '#/components/parameters/productParam'
@@ -324,6 +325,9 @@ components:
             ldu:
               type: number
               description: "Utilisation des sols (sans dimension (pt))"
+            pef:
+              type: number
+              description: "Score PEF (mPt)"
     SingleImpactResponse:
       type: object
       properties:
@@ -332,3 +336,4 @@ components:
           properties:
             "{impact}":
               type: number
+              description: Valeur de l'impact recherché

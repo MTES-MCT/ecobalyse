@@ -44,14 +44,13 @@ summaryView { session, impact, reusable } ({ inputs, lifeCycle } as simulator) =
                     ]
                     []
                 , div [ class "display-5" ]
-                    [ simulator.impacts |> Format.formatImpact impact
-                    ]
+                    [ simulator.impacts |> Format.formatImpact impact ]
                 ]
             , inputs.countries
                 |> List.map (\{ name } -> li [] [ span [] [ text name ] ])
                 |> ul [ class "Chevrons" ]
             , lifeCycle
-                |> LifeCycle.computeTotalTransports session.db
+                |> LifeCycle.computeTotalTransportImpacts session.db
                 |> TransportView.view
                     { fullWidth = False
                     , airTransportLabel = Just "Transport aérien total"

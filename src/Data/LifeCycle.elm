@@ -29,8 +29,8 @@ computeStepsTransport db lifeCycle =
         |> Result.map Array.fromList
 
 
-computeTotalTransports : Db -> LifeCycle -> Transport
-computeTotalTransports db =
+computeTotalTransportImpacts : Db -> LifeCycle -> Transport
+computeTotalTransportImpacts db =
     Array.foldl
         (\{ transport } acc ->
             { acc
@@ -51,8 +51,8 @@ computeTotalTransports db =
         (Transport.default (Impact.impactsFromDefinitons db.impacts))
 
 
-computeFinalImpactScore : Db -> LifeCycle -> Impacts
-computeFinalImpactScore db =
+computeFinalImpacts : Db -> LifeCycle -> Impacts
+computeFinalImpacts db =
     Array.foldl
         (\{ impacts, transport } finalImpacts ->
             finalImpacts
@@ -115,6 +115,11 @@ updateStep label update_ =
             else
                 step
         )
+
+
+mapSteps : (Step -> Step) -> LifeCycle -> LifeCycle
+mapSteps =
+    Array.map
 
 
 updateSteps : List Step.Label -> (Step -> Step) -> LifeCycle -> LifeCycle

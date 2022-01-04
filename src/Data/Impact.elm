@@ -13,14 +13,21 @@ import Url.Parser as Parser exposing (Parser)
 -- Impact definitions
 
 
-type Trigram
-    = Trigram String
-
-
 type alias Definition =
     { trigram : Trigram
     , label : String
     , unit : String
+    , pefData : Maybe PefData
+    }
+
+
+type Trigram
+    = Trigram String
+
+
+type alias PefData =
+    { normalization : Unit.Impact
+    , weighting : Unit.Ratio
     }
 
 
@@ -29,6 +36,7 @@ default =
     { trigram = defaultTrigram
     , label = "Changement climatique"
     , unit = "kgCO₂e"
+    , pefData = Nothing
     }
 
 
@@ -48,20 +56,61 @@ decodeList : Decoder (List Definition)
 decodeList =
     let
         decodeDictValue =
-            Decode.map2 (\label unit -> { label = label, unit = unit })
+            Decode.map3 (\label unit pefData -> { label = label, unit = unit, pefData = pefData })
                 (Decode.field "label_fr" Decode.string)
                 (Decode.field "short_unit" Decode.string)
+                (Decode.field "pef" (Decode.maybe decodePefData))
 
-        toImpact ( key, { label, unit } ) =
-            Definition (trg key) label unit
+        toImpact ( key, { label, unit, pefData } ) =
+            Definition (trg key) label unit pefData
     in
     Decode.dict decodeDictValue
         |> Decode.andThen (Dict.toList >> List.map toImpact >> Decode.succeed)
 
 
+decodePefData : Decoder PefData
+decodePefData =
+    Decode.map2 PefData
+        (Decode.field "normalization" Unit.decodeImpact)
+        (Decode.field "weighting" (Decode.map getPefWeighting Unit.decodeRatio))
+
+
+getPefWeighting : Unit.Ratio -> Unit.Ratio
+getPefWeighting weighting =
+    -- Pef score weighting is provided using percentages for each impact, though
+    -- we don't have data to take them all into account, so the actual weighting
+    -- total we're basing on is 85.6%, not 100%.
+    --
+    -- The PEF impacts not currently taken into account are:
+    -- - Toxicité humaine (cancer): 2,13 %
+    -- - Toxicité humaine (non cancer): 1,84 %
+    -- - Ecotoxicité eaux douces: 1,92 %
+    -- - Epuisement des ressources en eau: 8,51 %
+    --
+    -- If we want to have results normalized to 100%, we can uncomment this line:
+    --
+    -- Unit.Ratio (weighting / 0.856)
+    --
+    -- Otherwise, PEF scores are documented incomplete.
+    weighting
+
+
+encodePefData : PefData -> Encode.Value
+encodePefData v =
+    Encode.object
+        [ ( "normalization", Unit.encodeImpact v.normalization )
+        , ( "weighting", Unit.encodeRatio v.weighting )
+        ]
+
+
 decodeTrigram : Decoder Trigram
 decodeTrigram =
     Decode.map Trigram Decode.string
+
+
+encodeTrigram : Trigram -> Encode.Value
+encodeTrigram =
+    toString >> Encode.string
 
 
 encodeDefinition : Definition -> Encode.Value
@@ -70,12 +119,8 @@ encodeDefinition v =
         [ ( "trigram", encodeTrigram v.trigram )
         , ( "label", Encode.string v.label )
         , ( "unit", Encode.string v.unit )
+        , ( "pef", v.pefData |> Maybe.map encodePefData |> Maybe.withDefault Encode.null )
         ]
-
-
-encodeTrigram : Trigram -> Encode.Value
-encodeTrigram =
-    toString >> Encode.string
 
 
 toString : Trigram -> String
@@ -157,6 +202,33 @@ encodeImpacts =
     AnyDict.encode toString Unit.encodeImpact
 
 
+updatePefImpact : List Definition -> Impacts -> Impacts
+updatePefImpact definitions impacts =
+    impacts
+        |> updateImpact (trg "pef")
+            (computePefScore definitions impacts)
+
+
+computePefScore : List Definition -> Impacts -> Unit.Impact
+computePefScore defs =
+    AnyDict.map
+        (\trigram impact ->
+            case getDefinition trigram defs of
+                Ok { pefData } ->
+                    case pefData of
+                        Just { normalization, weighting } ->
+                            impact
+                                |> Unit.impactPefScore normalization weighting
+
+                        Nothing ->
+                            Quantity.zero
+
+                Err _ ->
+                    Quantity.zero
+        )
+        >> AnyDict.foldl (\_ -> Quantity.plus) Quantity.zero
+
+
 
 -- Parser
 
@@ -165,7 +237,7 @@ parseTrigram : Parser (Trigram -> a) a
 parseTrigram =
     let
         trigrams =
-            "acd,ozd,cch,ccb,ccf,ccl,fwe,swe,tre,pco,pma,ior,fru,mru,ldu"
+            "acd,ozd,cch,ccb,ccf,ccl,fwe,swe,tre,pco,pma,ior,fru,mru,ldu,pef"
                 |> String.split ","
     in
     Parser.custom "TRIGRAM" <|
