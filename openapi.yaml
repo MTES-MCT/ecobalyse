@@ -22,9 +22,10 @@ paths:
       tags:
       - Racine
       summary: Racine de l'API
+      description: Sert la documentation de l'API au format [OpenAPI](https://swagger.io/specification/)
       responses:
         200:
-          description: Sert la documentation de l'API au format OpenAPI.
+          description: Documentation de l'API au format OpenAPI.
 
   /simulator:
     get:
