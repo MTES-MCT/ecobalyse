@@ -44,6 +44,13 @@ suite =
                         |> Expect.equal (Ok (Country.codeFromString "CN"))
                         |> asTest "should replace the first country with the material's default country"
                     ]
+                , describe "Validate country"
+                    [ { tShirtCotonAsie | countries = List.map Country.Code [ "FR", "XX", "CN", "CN", "FR" ] }
+                        |> Inputs.fromQuery db
+                        |> Result.andThen (.countries >> LE.getAt 0 >> Maybe.map .code >> Result.fromMaybe "")
+                        |> Expect.equal (Err "Code pays invalide: XX")
+                        |> asTest "should replace the first country with the material's default country"
+                    ]
                 ]
 
         Err error ->
