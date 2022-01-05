@@ -30,10 +30,10 @@ selector { impacts, selected, switch } =
         [ impacts
             |> List.filter (\{ trigram } -> trigram == Impact.trg "pef")
             |> List.map toOption
-            |> optgroup [ attribute "label" "PEF" ]
+            |> optgroup [ attribute "label" "Impacts agrégés" ]
         , impacts
             |> List.filter (\{ trigram } -> trigram /= Impact.trg "pef")
             |> List.sortBy .label
             |> List.map toOption
-            |> optgroup [ attribute "label" "Autres impacts" ]
+            |> optgroup [ attribute "label" "Impacts détaillés" ]
         ]
