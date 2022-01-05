@@ -15,17 +15,25 @@ type alias Config msg =
 
 selector : Config msg -> Html msg
 selector { impacts, selected, switch } =
-    impacts
-        |> List.sortBy .label
-        |> List.map
-            (\({ trigram, label } as impact) ->
-                option
-                    [ Attr.selected (selected == impact.trigram)
-                    , value <| Impact.toString trigram
-                    ]
-                    [ text label ]
-            )
-        |> select
-            [ class "form-select"
-            , onInput (Impact.trg >> switch)
-            ]
+    let
+        toOption ({ trigram, label } as impact) =
+            option
+                [ Attr.selected (selected == impact.trigram)
+                , value <| Impact.toString trigram
+                ]
+                [ text label ]
+    in
+    select
+        [ class "form-select"
+        , onInput (Impact.trg >> switch)
+        ]
+        [ impacts
+            |> List.filter (\{ trigram } -> trigram == Impact.trg "pef")
+            |> List.map toOption
+            |> optgroup [ attribute "label" "PEF" ]
+        , impacts
+            |> List.filter (\{ trigram } -> trigram /= Impact.trg "pef")
+            |> List.sortBy .label
+            |> List.map toOption
+            |> optgroup [ attribute "label" "Autres impacts" ]
+        ]
