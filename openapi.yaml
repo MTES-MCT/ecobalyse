@@ -36,7 +36,9 @@ paths:
       - $ref: '#/components/parameters/massParam'
       - $ref: '#/components/parameters/materialParam'
       - $ref: '#/components/parameters/productParam'
-      - $ref: '#/components/parameters/countriesParam'
+      - $ref: '#/components/parameters/countryFabricParam'
+      - $ref: '#/components/parameters/countryDyeingParam'
+      - $ref: '#/components/parameters/countryMakingParam'
       - $ref: '#/components/parameters/recycledRatioParam'
       - $ref: '#/components/parameters/dyeingWeightingParam'
       - $ref: '#/components/parameters/airTransportRatioParam'
@@ -92,7 +94,9 @@ paths:
       - $ref: '#/components/parameters/massParam'
       - $ref: '#/components/parameters/materialParam'
       - $ref: '#/components/parameters/productParam'
-      - $ref: '#/components/parameters/countriesParam'
+      - $ref: '#/components/parameters/countryFabricParam'
+      - $ref: '#/components/parameters/countryDyeingParam'
+      - $ref: '#/components/parameters/countryMakingParam'
       - $ref: '#/components/parameters/recycledRatioParam'
       - $ref: '#/components/parameters/dyeingWeightingParam'
       - $ref: '#/components/parameters/airTransportRatioParam'
@@ -123,7 +127,9 @@ paths:
       - $ref: '#/components/parameters/massParam'
       - $ref: '#/components/parameters/materialParam'
       - $ref: '#/components/parameters/productParam'
-      - $ref: '#/components/parameters/countriesParam'
+      - $ref: '#/components/parameters/countryFabricParam'
+      - $ref: '#/components/parameters/countryDyeingParam'
+      - $ref: '#/components/parameters/countryMakingParam'
       - $ref: '#/components/parameters/recycledRatioParam'
       - $ref: '#/components/parameters/dyeingWeightingParam'
       - $ref: '#/components/parameters/airTransportRatioParam'
@@ -176,27 +182,39 @@ components:
       schema:
         type: string
       example: "13"
-    countriesParam:
-      name: countries
+    countryFabricParam:
+      name: countryFabric
       in: query
-      description: Liste des codes pays pour chacune des 6 étapes du cycle de vie du produit (/!\ ATTENTION, pour le moment, le premier pays n'est pas pris en compte car c'est le [pays par défaut](https://fabrique-numerique.gitbook.io/wikicarbone/methodologie/filature#liste-complete) de la matière première qui est utilisé pour le calcul)
+      description: "Code pays pour l'étape de **Tissage/Tricotage**"
       required: true
+      style: form
       schema:
         type: string
-        minLength: 17
-        maxLength: 17
+        minLength: 2
+        maxLength: 2
+      example: "CN"
+    countryDyeingParam:
+      name: countryDyeing
+      in: query
+      description: "Code pays pour l'étape de **Teinture**"
+      required: true
       style: form
-      explode: false
-      examples:
-        asia:
-          summary: Circuit Asie
-          value: "CN,CN,CN,CN,FR,FR"
-        europe:
-          summary: Circuit Europe
-          value: "CN,TR,TN,TN,FR,FR"
-        france:
-          summary: Circuit France
-          value: "CN,FR,FR,FR,FR,FR"
+      schema:
+        type: string
+        minLength: 2
+        maxLength: 2
+      example: "CN"
+    countryMakingParam:
+      name: countryMaking
+      in: query
+      description: "Code pays pour l'étape de **Confection**"
+      required: true
+      style: form
+      schema:
+        type: string
+        minLength: 2
+        maxLength: 2
+      example: "CN"
     recycledRatioParam:
       name: recycledRatio
       in: query

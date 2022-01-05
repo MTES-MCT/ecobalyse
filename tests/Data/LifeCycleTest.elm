@@ -44,14 +44,9 @@ suite_ db =
                 in
                 LifeCycle.fromQuery db
                     { query
-                        | countries =
-                            [ Country.Code "CN"
-                            , Country.Code "FR"
-                            , Country.Code "IN" -- Ennoblement in India
-                            , Country.Code "FR"
-                            , Country.Code "FR"
-                            , Country.Code "FR"
-                            ]
+                        | countryFabric = Country.Code "FR"
+                        , countryDyeing = Country.Code "IN" -- Ennoblement in India
+                        , countryMaking = Country.Code "FR"
                     }
                     |> Result.andThen (LifeCycle.computeStepsTransport db)
                     |> Result.map (LifeCycle.computeTotalTransportImpacts db)

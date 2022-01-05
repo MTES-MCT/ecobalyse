@@ -3,7 +3,7 @@ module Data.LifeCycle exposing (..)
 import Array exposing (Array)
 import Data.Db exposing (Db)
 import Data.Impact as Impact exposing (Impacts)
-import Data.Inputs as Inputs exposing (Inputs)
+import Data.Inputs as Inputs exposing (Inputs, countryList)
 import Data.Step as Step exposing (Step)
 import Data.Transport as Transport exposing (Transport)
 import Json.Encode as Encode
@@ -85,7 +85,8 @@ fromQuery db =
 
 init : Db -> Inputs -> LifeCycle
 init db inputs =
-    inputs.countries
+    inputs
+        |> countryList
         |> List.map2
             (\( label, editable ) country ->
                 Step.create
