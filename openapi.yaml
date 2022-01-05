@@ -31,7 +31,7 @@ paths:
     get:
       tags:
       - Simulateur
-      summary: Calculer les 15 impacts environnementaux d'un produit textile
+      summary: Calculer les impacts environnementaux d'un produit textile
       parameters:
       - $ref: '#/components/parameters/massParam'
       - $ref: '#/components/parameters/materialParam'
@@ -115,8 +115,8 @@ paths:
     get:
       tags:
       - Simulateur
-      summary: Calculer exhaustivement les 15 impacts environnementaux d'un produit textile
-      description: L'intégralité des calculs intermédiaires sont présentés dans une réponse verbeuses
+      summary: Calcul exhaustif des impacts environnementaux d'un produit textile
+      description: L'intégralité des calculs intermédiaires sont présentés dans une réponse détaillée
       parameters:
       - $ref: '#/components/parameters/massParam'
       - $ref: '#/components/parameters/materialParam'
