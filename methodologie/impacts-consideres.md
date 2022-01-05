@@ -92,7 +92,7 @@ $$
 | Utilisation des ressources minérales et métalliques | 6,36E-02 kg Sb eq                                                    | 7,55 %                              |
 
 {% hint style="info" %}
-Les 3 sous-indicateurs du changement climatique (biongénique, fossile, usage des sols) ne sont pas considérés pour la normalisation et la pondération PEF.
+Les 3 sous-indicateurs du changement climatique (biogénique, fossile, usage des sols) ne sont pas considérés pour la normalisation et la pondération PEF.
 
 Le total des pondérations considérées est par conséquent inférieur à 100% (85,6%). Il n'est pas appliqué de "règle de 3" pour rapporter à un score qui serait calculé avec une somme de pondération de 100%.
 {% endhint %}
