@@ -11,9 +11,50 @@ import Route
 import Views.Table as Table
 
 
-details : Db -> Process.Uuid -> Html msg
-details db uuid =
-    div [] [ text "material details" ]
+details : Db -> Material -> Html msg
+details _ material =
+    Table.responsiveDefault []
+        [ tbody []
+            [ tr []
+                [ th [] [ text "Identifiant" ]
+                , td [] [ code [] [ text (Process.uuidToString material.uuid) ] ]
+                ]
+            , tr []
+                [ th [] [ text "Nom" ]
+                , td [] [ text material.name ]
+                ]
+            , tr []
+                [ th [] [ text "Catégorie" ]
+                , td [] [ material.category |> Category.toString |> text ]
+                ]
+            , tr []
+                [ th [] [ text "Procédé" ]
+                , td [] [ text material.materialProcess.name ]
+                ]
+            , tr []
+                [ th [] [ text "Procédé de recyclage" ]
+                , td [] [ material.recycledProcess |> Maybe.map (.name >> text) |> Maybe.withDefault (text "N/A") ]
+                ]
+            , tr []
+                [ th [] [ text "Primaire" ]
+                , td []
+                    [ if material.primary then
+                        text "Oui"
+
+                      else
+                        text "Non"
+                    ]
+                ]
+            , tr []
+                [ th [] [ text "Continent" ]
+                , td [] [ text material.continent ]
+                ]
+            , tr []
+                [ th [] [ text "Pays par défaut" ]
+                , td [] [ material.defaultCountry |> Country.codeToString |> text ]
+                ]
+            ]
+        ]
 
 
 view : List Material -> Html msg

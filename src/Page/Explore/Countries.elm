@@ -9,9 +9,36 @@ import Views.Format as Format
 import Views.Table as Table
 
 
-details : Db -> Country.Code -> Html msg
-details db code =
-    div [] [ text "country details" ]
+details : Db -> Country -> Html msg
+details _ country =
+    Table.responsiveDefault []
+        [ tbody []
+            [ tr []
+                [ th [] [ text "Code" ]
+                , td [] [ code [] [ text (Country.codeToString country.code) ] ]
+                ]
+            , tr []
+                [ th [] [ text "Nom" ]
+                , td [] [ text country.name ]
+                ]
+            , tr []
+                [ th [] [ text "Mix éléctrique" ]
+                , td [] [ text country.electricityProcess.name ]
+                ]
+            , tr []
+                [ th [] [ text "Chaleur" ]
+                , td [] [ text country.heatProcess.name ]
+                ]
+            , tr []
+                [ th [] [ text "Majoration de teinture" ]
+                , td [] [ Format.ratio country.dyeingWeighting ]
+                ]
+            , tr []
+                [ th [] [ text "Part du transport aérien" ]
+                , td [] [ Format.ratio country.airTransportRatio ]
+                ]
+            ]
+        ]
 
 
 view : List Country -> Html msg
@@ -23,8 +50,6 @@ view countries =
                 , th [] [ text "Nom" ]
                 , th [] [ text "Mix éléctrique" ]
                 , th [] [ text "Chaleur" ]
-                , th [] [ text "Majoration de teinture" ]
-                , th [] [ text "Part du transport aérien" ]
                 ]
             ]
         , countries
@@ -40,9 +65,7 @@ row country =
             [ a [ Route.href (Route.Explore (Db.Countries (Just country.code))) ]
                 [ code [] [ text (Country.codeToString country.code) ] ]
             ]
-        , td [] [ country.name |> text ]
+        , td [] [ text country.name ]
         , td [] [ text country.electricityProcess.name ]
         , td [] [ text country.heatProcess.name ]
-        , td [] [ Format.ratio country.dyeingWeighting ]
-        , td [] [ Format.ratio country.airTransportRatio ]
         ]

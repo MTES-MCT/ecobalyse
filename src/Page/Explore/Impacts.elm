@@ -10,9 +10,40 @@ import Views.Format as Format
 import Views.Table as Table
 
 
-details : Db -> Impact.Trigram -> Html msg
-details db trigram =
-    div [] [ text "impact details" ]
+details : Db -> Definition -> Html msg
+details _ def =
+    Table.responsiveDefault []
+        [ tbody []
+            [ tr []
+                [ th [] [ text "Trigramme" ]
+                , td [] [ code [] [ text (Impact.toString def.trigram) ] ]
+                ]
+            , tr []
+                [ th [] [ text "Nom" ]
+                , td [] [ text def.label ]
+                ]
+            , tr []
+                [ th [] [ text "Unité" ]
+                , td [] [ text def.unit ]
+                ]
+            , tr []
+                [ th [] [ text "Coéf. normalisation PEF" ]
+                , td []
+                    [ def.pefData
+                        |> Maybe.map (.normalization >> Unit.impactToFloat >> Format.formatRichFloat 2 def.unit)
+                        |> Maybe.withDefault (text "N/A")
+                    ]
+                ]
+            , tr []
+                [ th [] [ text "Pondération PEF" ]
+                , td []
+                    [ def.pefData
+                        |> Maybe.map (.weighting >> Format.ratio)
+                        |> Maybe.withDefault (text "N/A")
+                    ]
+                ]
+            ]
+        ]
 
 
 view : List Definition -> Html msg

@@ -9,9 +9,66 @@ import Views.Format as Format
 import Views.Table as Table
 
 
-details : Db -> Product.Id -> Html msg
-details db id =
-    div [] [ text "country details" ]
+details : Db -> Product -> Html msg
+details _ product =
+    Table.responsiveDefault []
+        [ tbody []
+            [ tr []
+                [ th [] [ text "Identifiant" ]
+                , td [] [ code [] [ text (Product.idToString product.id) ] ]
+                ]
+            , tr []
+                [ th [] [ text "Nom" ]
+                , td [] [ text product.name ]
+                ]
+            , tr []
+                [ th [] [ text "Masse par défaut" ]
+                , td [] [ Format.kg product.mass ]
+                ]
+            , tr []
+                [ th [] [ text "Taux de perte (PCR)" ]
+                , td [] [ Format.ratio product.pcrWaste ]
+                ]
+            , tr []
+                [ th [] [ text "Type de procédé" ]
+                , td []
+                    [ if product.knitted then
+                        text "Tricotage"
+
+                      else
+                        text "Tissage"
+                    ]
+                ]
+            , tr []
+                [ th [] [ text "Pick-per-meter" ]
+                , td []
+                    [ if product.knitted then
+                        text "N/A"
+
+                      else
+                        text <| Format.formatInt "picks-per-meter" product.ppm
+                    ]
+                ]
+            , tr []
+                [ th [] [ text "Grammage" ]
+                , td []
+                    [ if product.knitted then
+                        text "N/A"
+
+                      else
+                        text <| Format.formatInt "gr. per kg" product.grammage
+                    ]
+                ]
+            , tr []
+                [ th [] [ text "Procédé" ]
+                , td [] [ text product.fabricProcess.name ]
+                ]
+            , tr []
+                [ th [] [ text "Confection" ]
+                , td [] [ text product.makingProcess.name ]
+                ]
+            ]
+        ]
 
 
 view : List Product -> Html msg

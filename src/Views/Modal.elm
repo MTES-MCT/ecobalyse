@@ -27,9 +27,6 @@ type Size
 view : Config msg -> Html msg
 view config =
     let
-        _ =
-            Debug.log "in ModalView.view" config.close
-
         modalContentAttrs =
             [ class "modal-content"
             , custom "mouseup"

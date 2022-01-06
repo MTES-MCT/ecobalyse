@@ -1,7 +1,11 @@
 module Page.Explore exposing (..)
 
 import Browser.Navigation as Nav
+import Data.Country as Country
 import Data.Db as Db exposing (Db)
+import Data.Impact as Impact
+import Data.Material as Material
+import Data.Product as Product
 import Data.Session exposing (Session)
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -10,6 +14,7 @@ import Page.Explore.Impacts as ExploreImpacts
 import Page.Explore.Materials as ExploreMaterials
 import Page.Explore.Products as ExploreProducts
 import Route
+import Views.Alert as Alert
 import Views.Container as Container
 import Views.Modal as ModalView
 
@@ -104,39 +109,89 @@ detailsModal content =
         }
 
 
+alert : String -> Html Msg
+alert error =
+    Alert.simple
+        { level = Alert.Danger
+        , content = [ text error ]
+        , title = Just "Erreur"
+        , close = Nothing
+        }
+
+
 explore : Db -> Db.Dataset -> Html Msg
 explore db dataset =
     case dataset of
         Db.Countries maybeId ->
             div []
                 [ ExploreCountries.view db.countries
-                , maybeId
-                    |> Maybe.map (ExploreCountries.details db >> detailsModal)
-                    |> Maybe.withDefault (text "")
+                , case maybeId of
+                    Just code ->
+                        case Country.findByCode code db.countries of
+                            Ok country ->
+                                country
+                                    |> ExploreCountries.details db
+                                    |> detailsModal
+
+                            Err error ->
+                                alert error
+
+                    Nothing ->
+                        text ""
                 ]
 
         Db.Impacts maybeId ->
             div []
                 [ ExploreImpacts.view db.impacts
-                , maybeId
-                    |> Maybe.map (ExploreImpacts.details db >> detailsModal)
-                    |> Maybe.withDefault (text "")
+                , case maybeId of
+                    Just trigram ->
+                        case Impact.getDefinition trigram db.impacts of
+                            Ok definition ->
+                                definition
+                                    |> ExploreImpacts.details db
+                                    |> detailsModal
+
+                            Err error ->
+                                alert error
+
+                    Nothing ->
+                        text ""
                 ]
 
         Db.Materials maybeId ->
             div []
                 [ ExploreMaterials.view db.materials
-                , maybeId
-                    |> Maybe.map (ExploreMaterials.details db >> detailsModal)
-                    |> Maybe.withDefault (text "")
+                , case maybeId of
+                    Just uuid ->
+                        case Material.findByUuid uuid db.materials of
+                            Ok material ->
+                                material
+                                    |> ExploreMaterials.details db
+                                    |> detailsModal
+
+                            Err error ->
+                                alert error
+
+                    Nothing ->
+                        text ""
                 ]
 
         Db.Products maybeId ->
             div []
                 [ ExploreProducts.view db.products
-                , maybeId
-                    |> Maybe.map (ExploreProducts.details db >> detailsModal)
-                    |> Maybe.withDefault (text "")
+                , case maybeId of
+                    Just id ->
+                        case Product.findById id db.products of
+                            Ok product ->
+                                product
+                                    |> ExploreProducts.details db
+                                    |> detailsModal
+
+                            Err error ->
+                                alert error
+
+                    Nothing ->
+                        text ""
                 ]
 
 
