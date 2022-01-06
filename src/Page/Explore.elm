@@ -1,9 +1,11 @@
 module Page.Explore exposing (..)
 
+import Browser.Events
 import Browser.Navigation as Nav
 import Data.Country as Country
 import Data.Db as Db exposing (Db)
 import Data.Impact as Impact
+import Data.Key as Key
 import Data.Material as Material
 import Data.Product as Product
 import Data.Session exposing (Session)
@@ -75,6 +77,25 @@ isActive a b =
             True
 
         ( Db.Materials _, Db.Materials _ ) ->
+            True
+
+        _ ->
+            False
+
+
+modalOpened : Db.Dataset -> Bool
+modalOpened dataset =
+    case dataset of
+        Db.Countries (Just _) ->
+            True
+
+        Db.Impacts (Just _) ->
+            True
+
+        Db.Products (Just _) ->
+            True
+
+        Db.Materials (Just _) ->
             True
 
         _ ->
@@ -217,3 +238,12 @@ view session { dataset } =
             ]
       ]
     )
+
+
+subscriptions : Model -> Sub Msg
+subscriptions { dataset } =
+    if modalOpened dataset then
+        Browser.Events.onKeyDown (Key.escape CloseModal)
+
+    else
+        Sub.none

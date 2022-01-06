@@ -241,8 +241,9 @@ subscriptions model =
             ExamplesPage _ ->
                 Sub.none
 
-            ExplorePage _ ->
-                Sub.none
+            ExplorePage subModel ->
+                Explore.subscriptions subModel
+                    |> Sub.map ExploreMsg
 
             SimulatorPage subModel ->
                 Simulator.subscriptions subModel
