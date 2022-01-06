@@ -6,6 +6,7 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Page.Explore.Countries as ExploreCountries
 import Page.Explore.Impacts as ExploreImpacts
+import Page.Explore.Materials as ExploreMaterials
 import Page.Explore.Products as ExploreProducts
 import Route
 import Views.Alert as Alert
@@ -47,7 +48,7 @@ menu dataset =
                     ]
                     [ text (Db.datasetLabel ds) ]
             )
-        |> nav [ class "nav nav-pills nav-fill" ]
+        |> nav [ class "nav nav-pills" ]
 
 
 explore : Db -> Db.Dataset -> Html Msg
@@ -62,6 +63,9 @@ explore db dataset =
         Db.Products ->
             ExploreProducts.view db.products
 
+        Db.Materials ->
+            ExploreMaterials.view db.materials
+
         _ ->
             Alert.simple
                 { level = Alert.Info
@@ -75,12 +79,18 @@ view : Session -> Model -> ( String, List (Html Msg) )
 view session { dataset } =
     ( Db.datasetLabel dataset ++ " | Explorer "
     , [ Container.centered [ class "pb-5" ]
-            [ h1 [ class "mb-3" ]
-                [ text "Explorer "
-                , small [ class "text-muted" ]
-                    [ text <| "les " ++ String.toLower (Db.datasetLabel dataset) ]
+            [ div [ class "row" ]
+                [ div [ class "col-sm-6" ]
+                    [ h1 [ class "m-0" ]
+                        [ text "Explorer "
+                        , small [ class "text-muted" ]
+                            [ text <| "les " ++ String.toLower (Db.datasetLabel dataset) ]
+                        ]
+                    ]
+                , div [ class "col-sm-6 d-flex justify-content-end" ]
+                    [ div [] [ menu dataset ]
+                    ]
                 ]
-            , menu dataset
             , div [ class "py-3" ]
                 [ explore session.db dataset
                 ]
