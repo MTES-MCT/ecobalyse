@@ -72,17 +72,37 @@ menu dataset =
 explore : Db -> Db.Dataset -> Html Msg
 explore db dataset =
     case dataset of
-        Db.Countries _ ->
-            ExploreCountries.view db.countries
+        Db.Countries maybeId ->
+            div []
+                [ ExploreCountries.view db.countries
+                , maybeId
+                    |> Maybe.map (ExploreCountries.details db)
+                    |> Maybe.withDefault (text "")
+                ]
 
-        Db.Impacts _ ->
-            ExploreImpacts.view db.impacts
+        Db.Impacts maybeId ->
+            div []
+                [ ExploreImpacts.view db.impacts
+                , maybeId
+                    |> Maybe.map (ExploreImpacts.details db)
+                    |> Maybe.withDefault (text "")
+                ]
 
-        Db.Products _ ->
-            ExploreProducts.view db.products
+        Db.Materials maybeId ->
+            div []
+                [ ExploreMaterials.view db.materials
+                , maybeId
+                    |> Maybe.map (ExploreMaterials.details db)
+                    |> Maybe.withDefault (text "")
+                ]
 
-        Db.Materials _ ->
-            ExploreMaterials.view db.materials
+        Db.Products maybeId ->
+            div []
+                [ ExploreProducts.view db.products
+                , maybeId
+                    |> Maybe.map (ExploreProducts.details db)
+                    |> Maybe.withDefault (text "")
+                ]
 
 
 view : Session -> Model -> ( String, List (Html Msg) )

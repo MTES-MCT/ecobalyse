@@ -1,12 +1,17 @@
 module Page.Explore.Countries exposing (..)
 
 import Data.Country as Country exposing (Country)
-import Data.Db as Db
+import Data.Db as Db exposing (Db)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Route
 import Views.Format as Format
 import Views.Table as Table
+
+
+details : Db -> Country.Code -> Html msg
+details db code =
+    div [] [ text "country details" ]
 
 
 view : List Country -> Html msg

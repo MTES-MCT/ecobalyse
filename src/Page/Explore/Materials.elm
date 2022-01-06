@@ -1,7 +1,7 @@
 module Page.Explore.Materials exposing (..)
 
 import Data.Country as Country
-import Data.Db as Db
+import Data.Db as Db exposing (Db)
 import Data.Material exposing (Material)
 import Data.Material.Category as Category
 import Data.Process as Process
@@ -9,6 +9,11 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Route
 import Views.Table as Table
+
+
+details : Db -> Process.Uuid -> Html msg
+details db uuid =
+    div [] [ text "material details" ]
 
 
 view : List Material -> Html msg

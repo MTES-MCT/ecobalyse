@@ -1,12 +1,17 @@
 module Page.Explore.Products exposing (..)
 
-import Data.Db as Db
+import Data.Db as Db exposing (Db)
 import Data.Product as Product exposing (Product)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Route
 import Views.Format as Format
 import Views.Table as Table
+
+
+details : Db -> Product.Id -> Html msg
+details db id =
+    div [] [ text "country details" ]
 
 
 view : List Product -> Html msg

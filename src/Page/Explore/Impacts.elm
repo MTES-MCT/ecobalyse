@@ -1,6 +1,6 @@
 module Page.Explore.Impacts exposing (..)
 
-import Data.Db as Db
+import Data.Db as Db exposing (Db)
 import Data.Impact as Impact exposing (Definition)
 import Data.Unit as Unit
 import Html exposing (..)
@@ -8,6 +8,11 @@ import Html.Attributes exposing (..)
 import Route
 import Views.Format as Format
 import Views.Table as Table
+
+
+details : Db -> Impact.Trigram -> Html msg
+details db trigram =
+    div [] [ text "impact details" ]
 
 
 view : List Definition -> Html msg
