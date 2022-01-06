@@ -1,8 +1,10 @@
 module Page.Explore.Countries exposing (..)
 
 import Data.Country as Country exposing (Country)
+import Data.Db as Db
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import Route
 import Views.Format as Format
 import Views.Table as Table
 
@@ -29,7 +31,10 @@ view countries =
 row : Country -> Html msg
 row country =
     tr []
-        [ td [] [ code [] [ text (Country.codeToString country.code) ] ]
+        [ td []
+            [ a [ Route.href (Route.Explore (Db.Countries (Just country.code))) ]
+                [ code [] [ text (Country.codeToString country.code) ] ]
+            ]
         , td [] [ country.name |> text ]
         , td [] [ text country.electricityProcess.name ]
         , td [] [ text country.heatProcess.name ]

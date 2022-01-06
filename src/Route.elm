@@ -38,10 +38,10 @@ parser =
 
 toExploreWithId : Db.Dataset -> String -> Route
 toExploreWithId dataset idString =
-    Explore (Db.parseDatasetSlugWithId dataset idString)
+    Explore (Db.datasetSlugWithId dataset idString)
 
 
-{-| Note: as elm-kitten relies on URL fragment based routing, the source URL is
+{-| Note: as the app relies on URL fragment based routing, the source URL is
 updated so that the `fragment` part becomes the `path` one.
 -}
 fromUrl : Url -> Maybe Route
@@ -101,7 +101,7 @@ toString route =
                     [ "explore" ]
 
                 Explore dataset ->
-                    [ "explore", dataset |> Db.datasetStrings |> .slug ]
+                    "explore" :: Db.toDatasetRoutePath dataset
 
                 Simulator trigram (Just inputs) ->
                     [ "simulator", Impact.toString trigram, Inputs.b64encode inputs ]

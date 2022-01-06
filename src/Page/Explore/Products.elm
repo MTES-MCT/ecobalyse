@@ -1,8 +1,10 @@
 module Page.Explore.Products exposing (..)
 
+import Data.Db as Db
 import Data.Product as Product exposing (Product)
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import Route
 import Views.Format as Format
 import Views.Table as Table
 
@@ -32,7 +34,10 @@ view products =
 row : Product -> Html msg
 row product =
     tr []
-        [ td [] [ code [] [ text (Product.idToString product.id) ] ]
+        [ td []
+            [ a [ Route.href (Route.Explore (Db.Products (Just product.id))) ]
+                [ code [] [ text (Product.idToString product.id) ] ]
+            ]
         , td [] [ text product.name ]
         , td [] [ Format.kg product.mass ]
         , td [] [ Format.ratio product.pcrWaste ]

@@ -35,6 +35,25 @@ update session msg model =
             ( model, session, Cmd.none )
 
 
+isActive : Db.Dataset -> Db.Dataset -> Bool
+isActive a b =
+    case ( a, b ) of
+        ( Db.Countries _, Db.Countries _ ) ->
+            True
+
+        ( Db.Impacts _, Db.Impacts _ ) ->
+            True
+
+        ( Db.Products _, Db.Products _ ) ->
+            True
+
+        ( Db.Materials _, Db.Materials _ ) ->
+            True
+
+        _ ->
+            False
+
+
 menu : Db.Dataset -> Html Msg
 menu dataset =
     Db.datasets
@@ -42,7 +61,7 @@ menu dataset =
             (\ds ->
                 a
                     [ class "nav-link"
-                    , classList [ ( "active", ds == dataset ) ]
+                    , classList [ ( "active", isActive ds dataset ) ]
                     , Route.href (Route.Explore ds)
                     ]
                     [ text (Db.datasetLabel ds) ]

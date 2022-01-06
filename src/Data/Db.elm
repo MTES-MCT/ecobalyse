@@ -20,13 +20,6 @@ type alias Db =
     }
 
 
-type Dataset
-    = Impacts (Maybe Impact.Trigram)
-    | Countries (Maybe Country.Code)
-    | Materials (Maybe Process.Uuid)
-    | Products (Maybe Product.Id)
-
-
 empty : Db
 empty =
     { impacts = []
@@ -63,6 +56,18 @@ decode =
 
 
 -- Dataset
+
+
+{-| A Dataset represents a target dataset and an optional id in this dataset.
+
+It's used by Page.Explore and related routes.
+
+-}
+type Dataset
+    = Impacts (Maybe Impact.Trigram)
+    | Countries (Maybe Country.Code)
+    | Materials (Maybe Process.Uuid)
+    | Products (Maybe Product.Id)
 
 
 datasets : List Dataset
@@ -111,8 +116,9 @@ datasetLabel =
     datasetStrings >> .label
 
 
-
--- Parser
+datasetSlug : Dataset -> String
+datasetSlug =
+    datasetStrings >> .slug
 
 
 parseDatasetSlug : Parser (Dataset -> a) a
@@ -122,8 +128,8 @@ parseDatasetSlug =
             Just (datasetFromSlug string)
 
 
-parseDatasetSlugWithId : Dataset -> String -> Dataset
-parseDatasetSlugWithId dataset idString =
+datasetSlugWithId : Dataset -> String -> Dataset
+datasetSlugWithId dataset idString =
     case dataset of
         Countries _ ->
             Countries (Just (Country.codeFromString idString))
@@ -136,3 +142,31 @@ parseDatasetSlugWithId dataset idString =
 
         Materials _ ->
             Materials (Just (Process.Uuid idString))
+
+
+toDatasetRoutePath : Dataset -> List String
+toDatasetRoutePath dataset =
+    case dataset of
+        Countries Nothing ->
+            []
+
+        Countries (Just code) ->
+            [ datasetSlug dataset, Country.codeToString code ]
+
+        Impacts Nothing ->
+            [ datasetSlug dataset ]
+
+        Impacts (Just trigram) ->
+            [ datasetSlug dataset, Impact.toString trigram ]
+
+        Products Nothing ->
+            [ datasetSlug dataset ]
+
+        Products (Just id) ->
+            [ datasetSlug dataset, Product.idToString id ]
+
+        Materials Nothing ->
+            [ datasetSlug dataset ]
+
+        Materials (Just uuid) ->
+            [ datasetSlug dataset, Process.uuidToString uuid ]

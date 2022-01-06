@@ -1,9 +1,11 @@
 module Page.Explore.Impacts exposing (..)
 
+import Data.Db as Db
 import Data.Impact as Impact exposing (Definition)
 import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import Route
 import Views.Format as Format
 import Views.Table as Table
 
@@ -29,7 +31,10 @@ view impacts =
 row : Definition -> Html msg
 row def =
     tr []
-        [ td [] [ code [] [ text (Impact.toString def.trigram) ] ]
+        [ td []
+            [ a [ Route.href (Route.Explore (Db.Impacts (Just def.trigram))) ]
+                [ code [] [ text (Impact.toString def.trigram) ] ]
+            ]
         , td [] [ text def.label ]
         , td [] [ text def.unit ]
         , td []

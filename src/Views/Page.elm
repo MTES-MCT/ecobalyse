@@ -84,7 +84,7 @@ headerMenuLinks =
     [ Internal "Accueil" Route.Home Home
     , Internal "Simulateur" (Route.Simulator Impact.defaultTrigram Nothing) Simulator
     , Internal "Exemples" Route.Examples Examples
-    , Internal "Explorer" (Route.Explore (Db.Countries Nothing)) Explore
+    , Internal "Explorateur" (Route.Explore (Db.Countries Nothing)) Explore
     , External "Documentation" "https://fabrique-numerique.gitbook.io/wikicarbone/"
     ]
 

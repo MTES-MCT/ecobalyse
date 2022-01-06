@@ -1,11 +1,13 @@
 module Page.Explore.Materials exposing (..)
 
 import Data.Country as Country
+import Data.Db as Db
 import Data.Material exposing (Material)
 import Data.Material.Category as Category
 import Data.Process as Process
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import Route
 import Views.Table as Table
 
 
@@ -33,7 +35,10 @@ view materials =
 row : Material -> Html msg
 row material =
     tr []
-        [ td [] [ code [] [ text (Process.uuidToString material.uuid) ] ]
+        [ td []
+            [ a [ Route.href (Route.Explore (Db.Materials (Just material.uuid))) ]
+                [ code [] [ text (Process.uuidToString material.uuid) ] ]
+            ]
         , td [] [ text material.name ]
         , td [] [ material.category |> Category.toString |> text ]
         , td [] [ text material.materialProcess.name ]
