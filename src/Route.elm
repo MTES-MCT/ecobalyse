@@ -1,6 +1,7 @@
 module Route exposing (Route(..), fromUrl, href, pushUrl, toString)
 
 import Browser.Navigation as Nav
+import Data.Db as Db
 import Data.Impact as Impact
 import Data.Inputs as Inputs
 import Html exposing (Attribute)
@@ -11,9 +12,10 @@ import Url.Parser as Parser exposing ((</>), Parser)
 
 type Route
     = Home
-    | Changelog
-    | Examples
     | Api
+    | Changelog
+    | Explore (Maybe Db.Dataset)
+    | Examples
     | Simulator Impact.Trigram (Maybe Inputs.Query)
     | Stats
 
@@ -22,9 +24,11 @@ parser : Parser (Route -> a) a
 parser =
     Parser.oneOf
         [ Parser.map Home Parser.top
+        , Parser.map Api (Parser.s "api")
         , Parser.map Changelog (Parser.s "changelog")
         , Parser.map Examples (Parser.s "examples")
-        , Parser.map Api (Parser.s "api")
+        , Parser.map (Explore Nothing) (Parser.s "explore")
+        , Parser.map (Explore << Just) (Parser.s "explore" </> Db.parseDatasetSlug)
         , Parser.map (Simulator Impact.defaultTrigram Nothing) (Parser.s "simulator")
         , Parser.map Simulator (Parser.s "simulator" </> Impact.parseTrigram </> Inputs.parseBase64Query)
         , Parser.map Stats (Parser.s "stats")
@@ -78,14 +82,20 @@ toString route =
                 Home ->
                     []
 
+                Api ->
+                    [ "api" ]
+
                 Changelog ->
                     [ "changelog" ]
 
                 Examples ->
                     [ "examples" ]
 
-                Api ->
-                    [ "api" ]
+                Explore Nothing ->
+                    [ "explore" ]
+
+                Explore (Just dataset) ->
+                    [ "explore", dataset |> Db.datasetStrings |> .slug ]
 
                 Simulator trigram (Just inputs) ->
                     [ "simulator", Impact.toString trigram, Inputs.b64encode inputs ]

@@ -8,6 +8,7 @@ import Html exposing (..)
 import Page.Api as Api
 import Page.Changelog as Changelog
 import Page.Examples as Examples
+import Page.Explore as Explore
 import Page.Home as Home
 import Page.Simulator as Simulator
 import Page.Stats as Stats
@@ -30,6 +31,7 @@ type Page
     | HomePage Home.Model
     | ChangelogPage Changelog.Model
     | ExamplesPage Examples.Model
+    | ExplorePage Explore.Model
     | ApiPage Api.Model
     | SimulatorPage Simulator.Model
     | StatsPage Stats.Model
@@ -48,6 +50,7 @@ type Msg
     | HomeMsg Home.Msg
     | ChangelogMsg Changelog.Msg
     | ExamplesMsg Examples.Msg
+    | ExploreMsg Explore.Msg
     | ApiMsg Api.Msg
     | SimulatorMsg Simulator.Msg
     | StatsMsg Stats.Msg
@@ -106,6 +109,10 @@ setRoute maybeRoute ( { session } as model, cmds ) =
             Home.init session
                 |> toPage HomePage HomeMsg
 
+        Just Route.Api ->
+            Api.init session
+                |> toPage ApiPage ApiMsg
+
         Just Route.Changelog ->
             Changelog.init session
                 |> toPage ChangelogPage ChangelogMsg
@@ -114,9 +121,9 @@ setRoute maybeRoute ( { session } as model, cmds ) =
             Examples.init session
                 |> toPage ExamplesPage ExamplesMsg
 
-        Just Route.Api ->
-            Api.init session
-                |> toPage ApiPage ApiMsg
+        Just (Route.Explore dataset) ->
+            Explore.init dataset session
+                |> toPage ExplorePage ExploreMsg
 
         Just (Route.Simulator trigram maybeQuery) ->
             Simulator.init trigram maybeQuery session
@@ -149,6 +156,10 @@ update msg ({ page, session } as model) =
         ( HomeMsg homeMsg, HomePage homeModel ) ->
             Home.update session homeMsg homeModel
                 |> toPage HomePage HomeMsg
+
+        ( ApiMsg changelogMsg, ApiPage changelogModel ) ->
+            Api.update session changelogMsg changelogModel
+                |> toPage ApiPage ApiMsg
 
         ( ChangelogMsg changelogMsg, ChangelogPage changelogModel ) ->
             Changelog.update session changelogMsg changelogModel
@@ -217,13 +228,16 @@ subscriptions model =
             HomePage _ ->
                 Sub.none
 
+            ApiPage _ ->
+                Sub.none
+
             ChangelogPage _ ->
                 Sub.none
 
             ExamplesPage _ ->
                 Sub.none
 
-            ApiPage _ ->
+            ExplorePage _ ->
                 Sub.none
 
             SimulatorPage subModel ->
@@ -256,6 +270,11 @@ view { page, session } =
                 |> mapMsg HomeMsg
                 |> Page.frame (pageConfig Page.Home)
 
+        ApiPage examplesModel ->
+            Api.view session examplesModel
+                |> mapMsg ApiMsg
+                |> Page.frame (pageConfig Page.Api)
+
         ChangelogPage changelogModel ->
             Changelog.view session changelogModel
                 |> mapMsg ChangelogMsg
@@ -266,10 +285,10 @@ view { page, session } =
                 |> mapMsg ExamplesMsg
                 |> Page.frame (pageConfig Page.Examples)
 
-        ApiPage examplesModel ->
-            Api.view session examplesModel
-                |> mapMsg ApiMsg
-                |> Page.frame (pageConfig Page.Api)
+        ExplorePage examplesModel ->
+            Explore.view session examplesModel
+                |> mapMsg ExploreMsg
+                |> Page.frame (pageConfig Page.Explore)
 
         SimulatorPage simulatorModel ->
             Simulator.view session simulatorModel

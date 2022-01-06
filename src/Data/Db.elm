@@ -7,6 +7,7 @@ import Data.Process as Process exposing (Process)
 import Data.Product as Product exposing (Product)
 import Data.Transport as Transport exposing (Distances)
 import Json.Decode as Decode exposing (Decoder)
+import Url.Parser as Parser exposing (Parser)
 
 
 type alias Db =
@@ -17,6 +18,15 @@ type alias Db =
     , products : List Product
     , transports : Distances
     }
+
+
+type Dataset
+    = Impacts
+    | Processes
+    | Countries
+    | Materials
+    | Products
+    | Transports
 
 
 empty : Db
@@ -51,3 +61,78 @@ decode =
                                 (Decode.field "transports" Transport.decodeDistances)
                         )
             )
+
+
+
+-- Dataset
+
+
+datasets : List Dataset
+datasets =
+    [ Countries
+    , Impacts
+    , Products
+    , Materials
+    , Processes
+    , Transports
+    ]
+
+
+datasetStrings : Dataset -> { slug : String, label : String }
+datasetStrings dataset =
+    case dataset of
+        Impacts ->
+            { slug = "impacts", label = "Impacts" }
+
+        Processes ->
+            { slug = "processes", label = "Procédés" }
+
+        Countries ->
+            { slug = "countries", label = "Pays" }
+
+        Materials ->
+            { slug = "materials", label = "Matières" }
+
+        Products ->
+            { slug = "products", label = "Produits" }
+
+        Transports ->
+            { slug = "transports", label = "Transports" }
+
+
+datasetFromSlug : String -> Dataset
+datasetFromSlug string =
+    case string of
+        "impacts" ->
+            Impacts
+
+        "processes" ->
+            Processes
+
+        "materials" ->
+            Materials
+
+        "products" ->
+            Products
+
+        "transports" ->
+            Transports
+
+        _ ->
+            Countries
+
+
+datasetLabel : Dataset -> String
+datasetLabel =
+    datasetStrings >> .label
+
+
+
+-- Parser
+
+
+parseDatasetSlug : Parser (Dataset -> a) a
+parseDatasetSlug =
+    Parser.custom "DATASET" <|
+        \string ->
+            Just (datasetFromSlug string)
