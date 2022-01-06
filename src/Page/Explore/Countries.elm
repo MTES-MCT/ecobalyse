@@ -28,7 +28,7 @@ view countries =
 row : Country -> Html msg
 row country =
     tr []
-        [ td [] [ country.code |> Country.codeToString |> text ]
+        [ td [] [ code [] [ text (Country.codeToString country.code) ] ]
         , td [] [ country.name |> text ]
         , td [] [ text country.electricityProcess.name ]
         , td [] [ text country.heatProcess.name ]

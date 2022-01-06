@@ -5,6 +5,7 @@ import Data.Session exposing (Session)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Page.Explore.Countries as ExploreCountries
+import Page.Explore.Impacts as ExploreImpacts
 import Route
 import Views.Alert as Alert
 import Views.Container as Container
@@ -53,6 +54,9 @@ explore db dataset =
     case dataset of
         Db.Countries ->
             ExploreCountries.view db.countries
+
+        Db.Impacts ->
+            ExploreImpacts.view db.impacts
 
         _ ->
             Alert.simple
