@@ -56,7 +56,7 @@ frame config ( title, content ) =
 
 stagingAlert : Config msg -> Html msg
 stagingAlert { session, loadUrl } =
-    if String.contains "/branches/" session.clientUrl then
+    if String.contains "wikicarbone-pr" session.clientUrl then
         div [ class "StagingAlert d-block d-sm-flex justify-content-center align-items-center mt-3" ]
             [ text "Vous êtes sur un environnement de recette. "
             , button
