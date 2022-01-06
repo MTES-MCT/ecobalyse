@@ -5,11 +5,12 @@ import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Views.Format as Format
+import Views.Table as Table
 
 
 view : List Definition -> Html msg
-view countries =
-    table [ class "table table-striped table-hover table-responsive" ]
+view impacts =
+    Table.responsiveDefault []
         [ thead []
             [ tr []
                 [ th [] [ text "Trigramme" ]
@@ -19,7 +20,7 @@ view countries =
                 , th [] [ text "Pondération PEF" ]
                 ]
             ]
-        , countries
+        , impacts
             |> List.map row
             |> tbody []
         ]

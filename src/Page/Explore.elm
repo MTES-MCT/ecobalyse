@@ -6,6 +6,7 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Page.Explore.Countries as ExploreCountries
 import Page.Explore.Impacts as ExploreImpacts
+import Page.Explore.Products as ExploreProducts
 import Route
 import Views.Alert as Alert
 import Views.Container as Container
@@ -57,6 +58,9 @@ explore db dataset =
 
         Db.Impacts ->
             ExploreImpacts.view db.impacts
+
+        Db.Products ->
+            ExploreProducts.view db.products
 
         _ ->
             Alert.simple

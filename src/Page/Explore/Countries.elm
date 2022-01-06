@@ -4,11 +4,12 @@ import Data.Country as Country exposing (Country)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Views.Format as Format
+import Views.Table as Table
 
 
 view : List Country -> Html msg
 view countries =
-    table [ class "table table-striped table-hover table-responsive" ]
+    Table.responsiveDefault []
         [ thead []
             [ tr []
                 [ th [] [ text "Code" ]
