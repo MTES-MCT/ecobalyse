@@ -169,6 +169,10 @@ update msg ({ page, session } as model) =
             Examples.update session examplesMsg examplesModel
                 |> toPage ExamplesPage ExamplesMsg
 
+        ( ExploreMsg examplesMsg, ExplorePage examplesModel ) ->
+            Explore.update session examplesMsg examplesModel
+                |> toPage ExplorePage ExploreMsg
+
         ( SimulatorMsg counterMsg, SimulatorPage counterModel ) ->
             Simulator.update session counterMsg counterModel
                 |> toPage SimulatorPage SimulatorMsg

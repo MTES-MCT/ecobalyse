@@ -1,5 +1,6 @@
 module Page.Explore exposing (..)
 
+import Browser.Navigation as Nav
 import Data.Db as Db exposing (Db)
 import Data.Session exposing (Session)
 import Html exposing (..)
@@ -10,6 +11,7 @@ import Page.Explore.Materials as ExploreMaterials
 import Page.Explore.Products as ExploreProducts
 import Route
 import Views.Container as Container
+import Views.Modal as ModalView
 
 
 type alias Model =
@@ -18,6 +20,7 @@ type alias Model =
 
 type Msg
     = NoOp
+    | CloseModal
 
 
 init : Db.Dataset -> Session -> ( Model, Session, Cmd Msg )
@@ -33,6 +36,25 @@ update session msg model =
     case msg of
         NoOp ->
             ( model, session, Cmd.none )
+
+        CloseModal ->
+            ( model
+            , session
+            , Nav.pushUrl session.navKey
+                (case model.dataset of
+                    Db.Countries _ ->
+                        Route.toString <| Route.Explore (Db.Countries Nothing)
+
+                    Db.Impacts _ ->
+                        Route.toString <| Route.Explore (Db.Impacts Nothing)
+
+                    Db.Products _ ->
+                        Route.toString <| Route.Explore (Db.Products Nothing)
+
+                    Db.Materials _ ->
+                        Route.toString <| Route.Explore (Db.Materials Nothing)
+                )
+            )
 
 
 isActive : Db.Dataset -> Db.Dataset -> Bool
@@ -69,6 +91,19 @@ menu dataset =
         |> nav [ class "nav nav-pills flex-column flex-sm-row" ]
 
 
+detailsModal : Html Msg -> Html Msg
+detailsModal content =
+    ModalView.view
+        { size = ModalView.Large
+        , close = CloseModal
+        , noOp = NoOp
+        , title = "Détail de l'enregistrement"
+        , formAction = Nothing
+        , content = [ content ]
+        , footer = []
+        }
+
+
 explore : Db -> Db.Dataset -> Html Msg
 explore db dataset =
     case dataset of
@@ -76,7 +111,7 @@ explore db dataset =
             div []
                 [ ExploreCountries.view db.countries
                 , maybeId
-                    |> Maybe.map (ExploreCountries.details db)
+                    |> Maybe.map (ExploreCountries.details db >> detailsModal)
                     |> Maybe.withDefault (text "")
                 ]
 
@@ -84,7 +119,7 @@ explore db dataset =
             div []
                 [ ExploreImpacts.view db.impacts
                 , maybeId
-                    |> Maybe.map (ExploreImpacts.details db)
+                    |> Maybe.map (ExploreImpacts.details db >> detailsModal)
                     |> Maybe.withDefault (text "")
                 ]
 
@@ -92,7 +127,7 @@ explore db dataset =
             div []
                 [ ExploreMaterials.view db.materials
                 , maybeId
-                    |> Maybe.map (ExploreMaterials.details db)
+                    |> Maybe.map (ExploreMaterials.details db >> detailsModal)
                     |> Maybe.withDefault (text "")
                 ]
 
@@ -100,7 +135,7 @@ explore db dataset =
             div []
                 [ ExploreProducts.view db.products
                 , maybeId
-                    |> Maybe.map (ExploreProducts.details db)
+                    |> Maybe.map (ExploreProducts.details db >> detailsModal)
                     |> Maybe.withDefault (text "")
                 ]
 
