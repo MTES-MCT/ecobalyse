@@ -9,7 +9,6 @@ import Page.Explore.Impacts as ExploreImpacts
 import Page.Explore.Materials as ExploreMaterials
 import Page.Explore.Products as ExploreProducts
 import Route
-import Views.Alert as Alert
 import Views.Container as Container
 
 
@@ -21,9 +20,9 @@ type Msg
     = NoOp
 
 
-init : Maybe Db.Dataset -> Session -> ( Model, Session, Cmd Msg )
+init : Db.Dataset -> Session -> ( Model, Session, Cmd Msg )
 init dataset session =
-    ( { dataset = dataset |> Maybe.withDefault Db.Countries }
+    ( { dataset = dataset }
     , session
     , Cmd.none
     )
@@ -44,7 +43,7 @@ menu dataset =
                 a
                     [ class "nav-link"
                     , classList [ ( "active", ds == dataset ) ]
-                    , Route.href (Route.Explore (Just ds))
+                    , Route.href (Route.Explore ds)
                     ]
                     [ text (Db.datasetLabel ds) ]
             )
@@ -54,25 +53,17 @@ menu dataset =
 explore : Db -> Db.Dataset -> Html Msg
 explore db dataset =
     case dataset of
-        Db.Countries ->
+        Db.Countries _ ->
             ExploreCountries.view db.countries
 
-        Db.Impacts ->
+        Db.Impacts _ ->
             ExploreImpacts.view db.impacts
 
-        Db.Products ->
+        Db.Products _ ->
             ExploreProducts.view db.products
 
-        Db.Materials ->
+        Db.Materials _ ->
             ExploreMaterials.view db.materials
-
-        _ ->
-            Alert.simple
-                { level = Alert.Info
-                , close = Nothing
-                , title = Nothing
-                , content = [ text "Cette vue n'est pas encore implémentée." ]
-                }
 
 
 view : Session -> Model -> ( String, List (Html Msg) )

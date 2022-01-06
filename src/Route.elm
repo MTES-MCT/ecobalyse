@@ -14,7 +14,7 @@ type Route
     = Home
     | Api
     | Changelog
-    | Explore (Maybe Db.Dataset)
+    | Explore Db.Dataset
     | Examples
     | Simulator Impact.Trigram (Maybe Inputs.Query)
     | Stats
@@ -27,8 +27,8 @@ parser =
         , Parser.map Api (Parser.s "api")
         , Parser.map Changelog (Parser.s "changelog")
         , Parser.map Examples (Parser.s "examples")
-        , Parser.map (Explore Nothing) (Parser.s "explore")
-        , Parser.map (Explore << Just) (Parser.s "explore" </> Db.parseDatasetSlug)
+        , Parser.map (Explore (Db.Countries Nothing)) (Parser.s "explore")
+        , Parser.map Explore (Parser.s "explore" </> Db.parseDatasetSlug)
         , Parser.map (Simulator Impact.defaultTrigram Nothing) (Parser.s "simulator")
         , Parser.map Simulator (Parser.s "simulator" </> Impact.parseTrigram </> Inputs.parseBase64Query)
         , Parser.map Stats (Parser.s "stats")
@@ -91,10 +91,10 @@ toString route =
                 Examples ->
                     [ "examples" ]
 
-                Explore Nothing ->
+                Explore (Db.Countries Nothing) ->
                     [ "explore" ]
 
-                Explore (Just dataset) ->
+                Explore dataset ->
                     [ "explore", dataset |> Db.datasetStrings |> .slug ]
 
                 Simulator trigram (Just inputs) ->

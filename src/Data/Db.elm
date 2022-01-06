@@ -21,12 +21,10 @@ type alias Db =
 
 
 type Dataset
-    = Impacts
-    | Processes
-    | Countries
-    | Materials
-    | Products
-    | Transports
+    = Impacts (Maybe Impact.Trigram)
+    | Countries (Maybe Country.Code)
+    | Materials (Maybe Process.Uuid)
+    | Products (Maybe Product.Id)
 
 
 empty : Db
@@ -69,59 +67,43 @@ decode =
 
 datasets : List Dataset
 datasets =
-    [ Countries
-    , Impacts
-    , Products
-    , Materials
-
-    -- Note: We're not sure we want to expose these two just yet
-    -- , Processes
-    -- , Transports
+    [ Countries Nothing
+    , Impacts Nothing
+    , Products Nothing
+    , Materials Nothing
     ]
 
 
 datasetStrings : Dataset -> { slug : String, label : String }
 datasetStrings dataset =
     case dataset of
-        Impacts ->
-            { slug = "impacts", label = "Impacts" }
-
-        Processes ->
-            { slug = "processes", label = "Procédés" }
-
-        Countries ->
+        Countries _ ->
             { slug = "countries", label = "Pays" }
 
-        Materials ->
-            { slug = "materials", label = "Matières" }
+        Impacts _ ->
+            { slug = "impacts", label = "Impacts" }
 
-        Products ->
+        Products _ ->
             { slug = "products", label = "Produits" }
 
-        Transports ->
-            { slug = "transports", label = "Transports" }
+        Materials _ ->
+            { slug = "materials", label = "Matières" }
 
 
 datasetFromSlug : String -> Dataset
 datasetFromSlug string =
     case string of
         "impacts" ->
-            Impacts
-
-        "processes" ->
-            Processes
+            Impacts Nothing
 
         "materials" ->
-            Materials
+            Materials Nothing
 
         "products" ->
-            Products
-
-        "transports" ->
-            Transports
+            Products Nothing
 
         _ ->
-            Countries
+            Countries Nothing
 
 
 datasetLabel : Dataset -> String

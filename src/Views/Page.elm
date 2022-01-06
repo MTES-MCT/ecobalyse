@@ -1,6 +1,7 @@
 module Views.Page exposing (..)
 
 import Browser exposing (Document)
+import Data.Db as Db
 import Data.Impact as Impact
 import Data.Session as Session exposing (Session)
 import Html exposing (..)
@@ -83,7 +84,7 @@ headerMenuLinks =
     [ Internal "Accueil" Route.Home Home
     , Internal "Simulateur" (Route.Simulator Impact.defaultTrigram Nothing) Simulator
     , Internal "Exemples" Route.Examples Examples
-    , Internal "Explorer" (Route.Explore Nothing) Explore
+    , Internal "Explorer" (Route.Explore (Db.Countries Nothing)) Explore
     , External "Documentation" "https://fabrique-numerique.gitbook.io/wikicarbone/"
     ]
 
