@@ -29,10 +29,16 @@ parser =
         , Parser.map Examples (Parser.s "examples")
         , Parser.map (Explore (Db.Countries Nothing)) (Parser.s "explore")
         , Parser.map Explore (Parser.s "explore" </> Db.parseDatasetSlug)
+        , Parser.map toExploreWithId (Parser.s "explore" </> Db.parseDatasetSlug </> Parser.string)
         , Parser.map (Simulator Impact.defaultTrigram Nothing) (Parser.s "simulator")
         , Parser.map Simulator (Parser.s "simulator" </> Impact.parseTrigram </> Inputs.parseBase64Query)
         , Parser.map Stats (Parser.s "stats")
         ]
+
+
+toExploreWithId : Db.Dataset -> String -> Route
+toExploreWithId dataset idString =
+    Explore (Db.parseDatasetSlugWithId dataset idString)
 
 
 {-| Note: as elm-kitten relies on URL fragment based routing, the source URL is

@@ -120,3 +120,19 @@ parseDatasetSlug =
     Parser.custom "DATASET" <|
         \string ->
             Just (datasetFromSlug string)
+
+
+parseDatasetSlugWithId : Dataset -> String -> Dataset
+parseDatasetSlugWithId dataset idString =
+    case dataset of
+        Countries _ ->
+            Countries (Just (Country.codeFromString idString))
+
+        Impacts _ ->
+            Impacts (Just (Impact.trg idString))
+
+        Products _ ->
+            Products (Just (Product.Id idString))
+
+        Materials _ ->
+            Materials (Just (Process.Uuid idString))
