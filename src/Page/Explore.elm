@@ -48,7 +48,7 @@ menu dataset =
                     ]
                     [ text (Db.datasetLabel ds) ]
             )
-        |> nav [ class "nav nav-pills" ]
+        |> nav [ class "nav nav-pills flex-column flex-sm-row" ]
 
 
 explore : Db -> Db.Dataset -> Html Msg
@@ -81,13 +81,13 @@ view session { dataset } =
     , [ Container.centered [ class "pb-5" ]
             [ div [ class "row" ]
                 [ div [ class "col-sm-6" ]
-                    [ h1 [ class "m-0" ]
+                    [ h1 [ class "m-0 mb-1" ]
                         [ text "Explorer "
                         , small [ class "text-muted" ]
                             [ text <| "les " ++ String.toLower (Db.datasetLabel dataset) ]
                         ]
                     ]
-                , div [ class "col-sm-6 d-flex justify-content-end" ]
+                , div [ class "col-sm-6 d-sm-flex justify-content-end" ]
                     [ div [] [ menu dataset ]
                     ]
                 ]
