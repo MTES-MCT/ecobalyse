@@ -63,14 +63,7 @@ stagingAlert { session, loadUrl } =
                 [ type_ "button"
                 , class "btn btn-link"
                 , onClick
-                    (loadUrl
-                        (if String.contains "mtes-mct.github.io" session.clientUrl then
-                            "/wikicarbone/"
-
-                         else
-                            "/"
-                        )
-                    )
+                    (loadUrl "https://wikicarbone.beta.gouv.fr/")
                 ]
                 [ text "Retourner vers l'environnement de production" ]
             ]
