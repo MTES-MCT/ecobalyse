@@ -5,6 +5,8 @@
     "unit_fr": "mol éq. H+",
     "unit_en": "mol H+ eq",
     "short_unit": "molH+e",
+    "description_en": "Impact category that addresses impacts due to acidifying substances in the environment. Emissions of NOx, NH3 and SOx contributes to the acidification of soils and water, resulting in forest decline and lake acidification.",
+    "description_fr": "Catégorie d'impact qui traite des impacts dus aux substances acidifiantes dans l'environnement. Les émissions de NOx, NH3 et SOx contribuent à l'acidification des sols et de l'eau, ce qui entraîne le déclin des forêts et l'acidification des lacs.",
     "pef": {
       "normalization": 55.6,
       "weighting": 0.062
@@ -16,6 +18,8 @@
     "unit_fr": "kg éq. CFC 11",
     "unit_en": "kg CVC11 eq",
     "short_unit": "kgCVC11e",
+    "description_en": "Impact category that accounts for the degradation of stratospheric ozone due to emissions of ozone-depleting substances (e.g. chlorofluorocarbons (CFCs), hydrochlorofluorocarbons (HCFCs), halons).",
+    "description_fr": "Catégorie d'impact qui tient compte de la dégradation de l'ozone stratosphérique due aux émissions de substances appauvrissant la couche d'ozone (ex: chlorofluorocarbons (CFCs), hydrochlorofluorocarbons (HCFCs), halogènes).",
     "pef": {
       "normalization": 0.0536,
       "weighting": 0.0631
@@ -27,6 +31,8 @@
     "unit_fr": "kg éq. CO2",
     "unit_en": "kg CO2 eq",
     "short_unit": "kgCO₂e",
+    "description_en": "Impact category considering all inputs and outputs that result in greenhouse gas (GHG) emissions. The consequences include increased average global temperatures and sudden regional climatic changes",
+    "description_fr": "Catégorie d'impact considérant tout ce qui entraînent des émissions de gaz à effet de serre (GES). Les conséquences   sont, entre autres, une augmentation des températures moyennes mondiales et des changements climatiques régionaux soudains.",
     "pef": {
       "normalization": 8100,
       "weighting": 0.2106
@@ -35,6 +41,8 @@
   "ccb": {
     "label_en": "Climate change-Biogenic",
     "label_fr": "Changement climatique - Biogénique",
+    "description_en": "Impact category considering greenhouse gas (GHG) emissions as a result of the combustion or decomposition of organic material, that is biomass and its derivatives.",
+    "description_fr": "Catégorie d'impact considérant les émissions de gaz à effet de serre (GES) provenant de la combustion ou de la décomposition de matière organique (bois, biomasse,...).",
     "unit_fr": "kg éq. CO2",
     "unit_en": "kg CO2 eq",
     "short_unit": "kgCO₂e",
@@ -43,6 +51,8 @@
   "ccf": {
     "label_en": "Climate change-Fossil",
     "label_fr": "Changement climatique - Fossile",
+    "description_en": "Impact category considering the greenhouse gases (GHG) released as a result of the combustion of fossil fuels (coal, gas, oil).",
+    "description_fr": "Catégorie d'impact considérant les émissions de gaz à effet de serre (GES) provenant de la combustion de combustible fossiles (charbon, gaz, pétrole).",    
     "unit_fr": "kg éq. CO2",
     "unit_en": "kg CO2 eq",
     "short_unit": "kgCO₂e",
@@ -51,6 +61,8 @@
   "ccl": {
     "label_en": "Climate change-Land use",
     "label_fr": "Changement climatique - Usage des sols",
+    "description_en": "Impact category related to emissions and removals of greenhouse gases (GHG) resulting from direct human-induced land use such as settlements and commercial uses, land-use change, and forestry activities.",
+    "description_fr": "Catégorie d'impact recouvrant les émissions et les absorptions de gaz à effet de serre (GES) résultant de l'utilisation directe des terres par l'homme, comme les implantations humaines et les utilisations commerciales, le changement d'affectation des terres et les activités forestières.",        
     "unit_fr": "kg éq. CO2",
     "unit_en": "kg CO2 eq",
     "short_unit": "kgCO₂e",
@@ -61,6 +73,8 @@
     "label_fr": "Eutrophisation eaux douces",
     "unit_fr": "kg éq. P",
     "unit_en": "kg P eq",
+    "description_en": "Impact category related to the excess of nutrients (mainly nitrogen and phosphorus) from sewage and agricultural fertilizers outfalls, which leads to accelerate the growth of algae and other vegetation in freshwater ecosystems such as lakes, reservoirs and rivers.",
+    "description_fr": "Catégorie d'impact liée à l'excès de nutriments (principalement l'azote et le phosphore) provenant des rejets d'eaux usées et d'engrais agricoles, qui conduit à accélérer la croissance des algues et d'autres végétaux dans les écosystèmes d'eau douce tels que les lacs, les réservoirs et les rivières.",    
     "short_unit": "kgPe",
     "pef": {
       "normalization": 1.61,
@@ -72,6 +86,8 @@
     "label_fr": "Eutrophisation marine",
     "unit_fr": "kg éq. N",
     "unit_en": "kg N eq",
+    "description_en": "Impact category related to the excess of nutrients (mainly nitrogen and phosphorus) from sewage and agricultural fertilizers outfalls, which leads to accelerate the growth of algae and other vegetation in marine waters.",
+    "description_fr": "Catégorie d'impact liée à l'excès de nutriments (principalement de l'azote et du phosphore) provenant des déversements d'eaux usées et d'engrais agricoles, qui accélère la croissance des algues et d'autres végétaux dans les eaux marines.",    
     "short_unit": "kgNe",
     "pef": {
       "normalization": 19.5,
@@ -83,6 +99,8 @@
     "label_fr": "Eutrophisation terrestre",
     "unit_fr": "mol éq. N",
     "unit_en": "mol N eq",
+    "description_en": "Impact category related to the excess of nutrients (mainly nitrogen and phosphorus) from sewage and agricultural fertilizers outfalls in soils.",
+    "description_fr": "Catégorie d'impact liée à l'excès de nutriments (principalement l'azote et le phosphore) provenant des rejets d'eaux usées et d'engrais agricoles dans les sols.",    
     "short_unit": "molNe",
     "pef": {
       "normalization": 177,
@@ -94,6 +112,8 @@
     "label_fr": "Formation d'ozone photochimique",
     "unit_fr": "kg éq. COVNM",
     "unit_en": "kg NMVOC eq",
+    "description_en": "Impact category that accounts for the formation of ozone at the ground level of the troposphere caused by photochemical oxidation of volatile organic compounds (VOCs) and carbon monoxide (CO) in the presence of nitrogen oxides (NOx) and sunlight.",
+    "description_fr": "Catégorie d'impact qui rend compte de la formation d'ozone au niveau du sol de la troposphère, causée par l'oxydation photochimique des composés organiques volatils (COV) et du monoxyde de carbone (CO) en présence d'oxydes d'azote (NOx) et de la lumière du soleil.",    
     "short_unit": "kgNMVOCe",
     "pef": {
       "normalization": 40.1,
@@ -105,6 +125,8 @@
     "label_fr": "Particules",
     "unit_fr": "incidence de maladie",
     "unit_en": "disease inc.",
+    "description_en": "Impact category that accounts for the adverse effects on human health caused by emissions of particulate matter (PM) and its precursors (NOx, SOx, NH3).",
+    "description_fr": "Catégorie d'impact qui tient compte des effets négatifs sur la santé humaine causés par les émissions de particules (PM) et de leurs précurseurs (NOx, SOx, NH3).",    
     "short_unit": "dis.inc.",
     "pef": {
       "normalization": 0.000595,
@@ -116,6 +138,8 @@
     "label_fr": "Radiations ionisantes",
     "unit_fr": "éq. kBq U235",
     "unit_en": "kBq U-235 eq",
+    "description_en": "Catégorie d'impact qui tient compte des effets négatifs sur la santé humaine causés par les rejets radioactifs.",
+    "description_fr": "Impact category that accounts for the adverse health effects on human health caused by radioactive releases.",    
     "short_unit": "kBqU235e",
     "pef": {
       "normalization": 4220,
@@ -127,6 +151,8 @@
     "label_fr": "Utilisation de ressources fossiles",
     "unit_fr": "MJ",
     "unit_en": "MJ",
+    "description_en": "Impact category that addresses the use of non-renewable fossil natural resources (e.g. natural gas, coal, oil).",
+    "description_fr": "Catégorie d'impact qui concerne l'utilisation de ressources naturelles fossiles non renouvelables (ex: le gaz, le charbon, le pétrole).",    
     "short_unit": "MJ",
     "pef": {
       "normalization": 65000,
@@ -138,6 +164,8 @@
     "label_fr": "Utilisation de ressources minérales et métalliques",
     "unit_fr": "kg éq. Sb",
     "unit_en": "kg Sb eq",
+    "description_en": "Impact category that addresses the use of non-renewable abiotic natural resources (minerals and metals).",
+    "description_fr": "Catégorie d'impact qui concerne l'utilisation de ressources naturelles abiotiques non renouvelables (minéraux et métaux).",    
     "short_unit": "kgSbe",
     "pef": {
       "normalization": 0.0636,
@@ -149,6 +177,8 @@
     "label_fr": "Utilisation des sols",
     "unit_fr": "sans dimension (Pt)",
     "unit_en": "Pt",
+    "description_en": "Impact category related to use (occupation) and conversion (transformation) of land area by activities such as agriculture, forestry, roads, housing, mining, etc.",
+    "description_fr": "Catégorie d'impact liée à l'utilisation (occupation) et à la conversion (transformation) des terres par des activités telles que l'agriculture, la foresterie, les routes, le logement, l'exploitation minière, etc.",    
     "short_unit": "Pt",
     "pef": {
       "normalization": 819000,
@@ -160,6 +190,8 @@
     "label_fr": "Score PEF",
     "unit_fr": "mPt PEF",
     "unit_en": "mPt PEF",
+    "description_en": "Aggregated impact : sum of the weighted and normalized impact of all environmental impact categories.",
+    "description_fr": "Impact aggrégé : somme des impacts normalisées et pondérées de chaque catégorie d'impact.",    
     "short_unit": "mPt PEF",
     "pef": null
   }
