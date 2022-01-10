@@ -64,10 +64,10 @@ It's used by Page.Explore and related routes.
 
 -}
 type Dataset
-    = Impacts (Maybe Impact.Trigram)
-    | Countries (Maybe Country.Code)
-    | Materials (Maybe Process.Uuid)
+    = Countries (Maybe Country.Code)
+    | Impacts (Maybe Impact.Trigram)
     | Products (Maybe Product.Id)
+    | Materials (Maybe Process.Uuid)
 
 
 datasets : List Dataset
@@ -101,11 +101,11 @@ datasetFromSlug string =
         "impacts" ->
             Impacts Nothing
 
-        "materials" ->
-            Materials Nothing
-
         "products" ->
             Products Nothing
+
+        "materials" ->
+            Materials Nothing
 
         _ ->
             Countries Nothing
