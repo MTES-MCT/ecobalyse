@@ -29,7 +29,7 @@ Un certain nombre de procédés sont ensuite à confirmer, ou à choisir :&#x20;
 Le choix de la source de chaleur est un paramètre important, notamment sur l'étape de teinture, et qui impose un choix complexe.
 {% endhint %}
 
-* **Le procédé de teinture.** En première approche, le choix du procédé de teinture peut nécessiter de se positionner sur 3 questions. Les choix retenus pour les premiers pays proposés dans l'outil sont listés sur la page [Teinture](etape-du-cycle-de-vie/teinture.md) :&#x20;
+* **Le procédé de teinture.** En première approche, le choix du procédé de teinture peut nécessiter de se positionner sur 3 questions. Les choix retenus pour les premiers pays proposés dans l'outil sont listés sur la page [Teinture](teinture.md) :&#x20;
   * Quel support ? Fil, étoffe, article ? Par défaut, une teinture sur étoffe est considérée.
   * Quel positionnement, notamment en matière de consommation d'électricité et de chaleur ? Majorant ou représentatif ?
   * Quelle efficacité pour le système de traitement des eaux ? Inefficace, moyen ou très efficace ?
@@ -54,7 +54,7 @@ Exemple pour le Bangladesh :&#x20;
 
 Enfin, il convient de spécifier toutes les distances entre le nouveau pays ajouté et les autres pays proposés dans Wikicarbone.
 
-Ces distances doivent être proposées pour les trois types de transport (terrestre, maritime et aérien), en s'appuyant sur les simulateurs de distance de référence identifiés dans la page [Transport](etape-du-cycle-de-vie/transport.md).
+Ces distances doivent être proposées pour les trois types de transport (terrestre, maritime et aérien), en s'appuyant sur les simulateurs de distance de référence identifiés dans la page [Transport](transport.md).
 
 Un large tableau doit donc être complété :&#x20;
 
