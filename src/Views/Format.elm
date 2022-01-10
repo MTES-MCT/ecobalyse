@@ -98,3 +98,9 @@ megajoules =
 percent : Float -> Html msg
 percent =
     formatRichFloat 2 "%"
+
+
+ratio : Unit.Ratio -> Html msg
+ratio (Unit.Ratio float) =
+    (float * 100)
+        |> formatRichFloat 2 "%"
