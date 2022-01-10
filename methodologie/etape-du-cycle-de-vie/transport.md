@@ -10,7 +10,7 @@ description: >-
 
 Le transport considéré est la somme des transports à prévoir entre chaque étape du cycle de production.
 
-Entre chaque étape, la masse à considérer est ajustée en fonction des [Pertes et rebut](pertes-et-rebus.md).
+Entre chaque étape, la masse à considérer est ajustée en fonction des [Pertes et rebut](../pertes-et-rebus.md).
 
 | #Etape | De                                                                                              | Vers                                                                                            | Masse de produit considéré |
 | ------ | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | -------------------------- |

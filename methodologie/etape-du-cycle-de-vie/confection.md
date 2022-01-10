@@ -10,7 +10,7 @@ description: >-
 
 Conformément à la documentation sectorielle textile de la [base Impacts](http://www.base-impacts.ademe.fr), le système "teinture" est schématisé comme suit :
 
-![](<../.gitbook/assets/Confection (1).PNG>)
+![](<../../.gitbook/assets/Confection (1).PNG>)
 
 Par conséquent, l'impact global de l'étape de confection se comprend comme résultant de la somme de l'impact résultant du procédé de confection retenu (cf. intérieur du _system boundaries_) et des procédés externes devant être ajoutés, à savoir :
 
@@ -26,7 +26,7 @@ $$
 
 ## Procédé de confection
 
-L'impact du procédé de confection retenu est le produit du nombre d'articles / vêtements par le coefficient d'impact considéré (cf. [Impacts considérés](impacts-consideres.md)).
+L'impact du procédé de confection retenu est le produit du nombre d'articles / vêtements par le coefficient d'impact considéré (cf. [Impacts considérés](../impacts-consideres.md)).
 
 $$
 ImpactProcédéConfection = NbrArticles * CoefImpactProcédéConfection
@@ -97,7 +97,7 @@ $$
 Attention : le calcul des pertes est donc différent pour l'étape de confection par rapport aux autres étapes de la fabrication du vêtement.
 {% endhint %}
 
-Plus de détail sur la gestion des masses : [Pertes et rebut](pertes-et-rebus.md).
+Plus de détail sur la gestion des masses : [Pertes et rebut](../pertes-et-rebus.md).
 
 ## Electricité
 
@@ -116,7 +116,7 @@ Une ambigüité apparaît dans la méthodologie entre :&#x20;
 * la documentation du procédé de la base impacts qui une unité de référence en kg.&#x20;
 {% endhint %}
 
-Le calcul d'impact de l'électricité ainsi mobilisée est détaillé dans la page suivante : [Electricité](electricite.md).
+Le calcul d'impact de l'électricité ainsi mobilisée est détaillé dans la page suivante : [Electricité](../electricite.md).
 
 {% hint style="danger" %}
 L'électricité s'exprime en KWh dans la formule ci-dessous. Une division par 3,6 est donc nécessaire pour assurer le changement d'unité par rapport à l'électricité consommée, calculée d'abord en MJ.

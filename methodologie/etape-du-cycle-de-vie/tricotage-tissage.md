@@ -35,7 +35,7 @@ Le choix par défaut d'une opération de tissage ou de tricotage est un parti pr
 
 Conformément à la documentation sectorielle textile de la [base Impacts](http://www.base-impacts.ademe.fr), le système "tricotage" est schématisé comme suit :
 
-![](<../.gitbook/assets/Tricotage (1).PNG>)
+![](<../../.gitbook/assets/Tricotage (1).PNG>)
 
 
 
@@ -53,7 +53,7 @@ $$
 
 ### Procédé de tricotage
 
-L'impact du procédé de tricotage retenu est le produit de la masse "sortante", en l'occurrence la masse d'étoffe, avec le coefficient d'impact considéré (cf. [Impacts considérés](impacts-consideres.md)).
+L'impact du procédé de tricotage retenu est le produit de la masse "sortante", en l'occurrence la masse d'étoffe, avec le coefficient d'impact considéré (cf. [Impacts considérés](../impacts-consideres.md)).
 
 $$
 ImpactProcédéTricotage = MasseSortante(kg) * CoefImpactProcédéTricotage
@@ -98,7 +98,7 @@ $$
 MassePertes(kg) = MasseEtoffeSortante(kg) * CoefPertesProcedeTricotage
 $$
 
-Plus de détail sur la gestion des masses : [Pertes et rebut](pertes-et-rebus.md).
+Plus de détail sur la gestion des masses : [Pertes et rebut](../pertes-et-rebus.md).
 
 ### Electricité
 
@@ -110,7 +110,7 @@ $$
 ElecConsommée(MJ) = MasseSortante(kg) * CoefFluxElecProcédéTrictotage
 $$
 
-Le calcul d'impact de l'électricité ainsi mobilisée est détaillé dans la page suivante : [Electricité](electricite.md).
+Le calcul d'impact de l'électricité ainsi mobilisée est détaillé dans la page suivante : [Electricité](../electricite.md).
 
 {% hint style="danger" %}
 L'électricité s'exprime en KWh dans la formule ci-dessous. Une division par 3,6 est donc nécessaire pour assurer le changement d'unité par rapport à l'électricité consommée, calculée d'abord en MJ.
@@ -130,7 +130,7 @@ $$
 
 Conformément à la documentation sectorielle textile de la [base Impacts](http://www.base-impacts.ademe.fr), le système "tissage" est schématisé comme suit :
 
-![](../.gitbook/assets/Tissage.PNG)
+![](../../.gitbook/assets/Tissage.PNG)
 
 Par conséquent, l'impact global du trissage se comprend comme résultant de la somme de l'impact résultant du procédé de tissage retenu (cf. intérieur du _system boundaries_) et des procédés externes devant être ajoutés, à savoir :
 
@@ -150,7 +150,7 @@ $$
 
 ### Procédé de tissage
 
-L'impact du procédé de tissage retenu est le produit de la masse "sortante", en l'occurrence la masse d'étoffe, avec le coefficient d'impact considéré (cf. [Impacts considérés](impacts-consideres.md)).
+L'impact du procédé de tissage retenu est le produit de la masse "sortante", en l'occurrence la masse d'étoffe, avec le coefficient d'impact considéré (cf. [Impacts considérés](../impacts-consideres.md)).
 
 $$
 ImpactProcédéTissage = MasseSortante(kg) * CoefImpactProcédéTissage
@@ -192,7 +192,7 @@ $$
 MassePertes(kg) = MasseEtoffeSortante(kg) * CoefPertesProcedeTissage
 $$
 
-Plus de détail sur la gestion des masses : [Pertes et rebut](pertes-et-rebus.md).
+Plus de détail sur la gestion des masses : [Pertes et rebut](../pertes-et-rebus.md).
 
 ### Electricité (par duite et par mètre)
 
@@ -231,7 +231,7 @@ Toujours en application de la documentation sectorielle ADEME (tableau p28), des
 Les vêtements doublés ne sont pas pris en compte à ce stade. Les valeurs par défaut des duitages et grammages sont différentes dans la méthodologie pour les vêtements doublés.
 {% endhint %}
 
-Le calcul d'impact de l'électricité ainsi mobilisée est détaillé dans la page suivante : [Electricité](electricite.md).
+Le calcul d'impact de l'électricité ainsi mobilisée est détaillé dans la page suivante : [Electricité](../electricite.md).
 
 {% hint style="danger" %}
 L'électricité s'exprime en KWh dans la formule ci-dessous. Contrairement aux autres procédés, il n'est pas nécessaire de faire une conversion de MJ à kWh dans ce cas.

@@ -8,7 +8,7 @@ description: Blanchiment puis imprégnation du tissu par des colorants.
 
 Conformément à la documentation sectorielle textile de la [base Impacts](http://www.base-impacts.ademe.fr), le système "teinture" est schématisé comme suit :
 
-![Teinture - Schéma de synthèse](../.gitbook/assets/Teinture.png)
+![Teinture - Schéma de synthèse](../../.gitbook/assets/Teinture.png)
 
 Par conséquent, l'impact global de l'étape de teinture se comprend comme résultant de la somme de l'impact résultant du procédé de teinture retenu (cf. intérieur du _system boundaries_) et des procédés externes devant être ajoutés, à savoir :
 
@@ -28,7 +28,7 @@ $$
 
 ## Procédé de teinture
 
-L'impact du procédé de teinture retenu est le produit de la masse "sortante" avec le coefficient d'impact considéré (cf. [Impacts considérés](impacts-consideres.md)).
+L'impact du procédé de teinture retenu est le produit de la masse "sortante" avec le coefficient d'impact considéré (cf. [Impacts considérés](../impacts-consideres.md)).
 
 $$
 ImpactProcédéTeinture = MasseSortante(kg) * CoefImpactProcédéTeinture
@@ -40,7 +40,7 @@ Suivant le pays dans lequel la teinture est réalisée, un choix de procédé pa
 **Ce choix de procédé relève d'une orientation spécifique à l'outil et devant être confrontée aux pratiques effectivement observées dans l'industrie**.
 {% endhint %}
 
-Les principes à appliquer pour opéré ces choix sont introduit dans la page suivante : [Hypothèses par défaut](hypotheses-par-defaut.md)
+Les principes à appliquer pour opéré ces choix sont introduit dans la page suivante : [Hypothèses par défaut](../hypotheses-par-defaut.md)
 
 | Pays       | Support de teinture | Positionnement | Traitement des eaux | UUID                                   |
 | ---------- | ------------------- | -------------- | ------------------- | -------------------------------------- |
@@ -74,7 +74,7 @@ $$
 
 Les différents procédés de teinture ne prévoyant pas de perte (Flux intermédiaire - Textile Waste - UUID: `1cc67763-7318-4077-af4a-bcd0ab5ef33f`), les masses de produit en entrée et en sortie du procédé sont identiques.
 
-Plus de détail sur la gestion des masses : [Pertes et rebut](pertes-et-rebus.md).
+Plus de détail sur la gestion des masses : [Pertes et rebut](../pertes-et-rebus.md).
 
 ## Chaleur
 
@@ -86,7 +86,7 @@ $$
 ChaleurConsommée(MJ) = MasseSortante(kg) * CoefFluxChaleurProcédéTeinture
 $$
 
-Le calcul d'impact de la chaleur ainsi mobilisée est détaillé dans la page [Chaleur](chaleur.md).
+Le calcul d'impact de la chaleur ainsi mobilisée est détaillé dans la page [Chaleur](../chaleur.md).
 
 $$
 ImpactChaleur = ChaleurConsommée (MJ) * ImpactProcédéChaleur
@@ -102,7 +102,7 @@ $$
 ElecConsommée(MJ) = MasseSortante(kg) * CoefFluxElecProcédéTeinture
 $$
 
-Le calcul d'impact de l'électricité ainsi mobilisée est détaillé dans la page suivante : [Electricité](electricite.md).
+Le calcul d'impact de l'électricité ainsi mobilisée est détaillé dans la page suivante : [Electricité](../electricite.md).
 
 {% hint style="danger" %}
 L'électricité s'exprime en KWh dans la formule ci-dessous. Une division par 3,6 est donc nécessaire pour assurer le changement d'unité par rapport à l'électricité consommée, calculée d'abord en MJ.

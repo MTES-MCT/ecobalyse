@@ -120,9 +120,9 @@ Lorsqu'un mélange de matières primaire et recyclée est considéré, on ne ret
 
 Conformément à la documentation sectorielle textile de la [base Impacts](http://www.base-impacts.ademe.fr), le système "matière et filature", est schématisé comme suit (exemple de la fibre de laine de mouton et du filament de viscose) :
 
-![](../.gitbook/assets/FibreLaine.PNG)
+![](../../.gitbook/assets/FibreLaine.PNG)
 
-![](../.gitbook/assets/FilViscose.PNG)
+![](../../.gitbook/assets/FilViscose.PNG)
 
 Par conséquent, le système "matière + filature" internalise les procédés externes, tels que l'énergie ou la chaleur. Ceux-ci ne sont donc pas paramétrables en fonction du contexte (pays notamment).
 
@@ -171,7 +171,7 @@ Pour la suite du calcul, les formules ci-après s'applique, indépendemment pour
 
 ## Procédé de matière et filature
 
-L'impact du procédé de confection retenu est le produit de la masse "sortante", en l'occurrence le fil, avec le coefficient d'impact considéré (cf. [Impacts considérés](impacts-consideres.md)).
+L'impact du procédé de confection retenu est le produit de la masse "sortante", en l'occurrence le fil, avec le coefficient d'impact considéré (cf. [Impacts considérés](../impacts-consideres.md)).
 
 $$
 ImpactProcédéMatièreFilature = MasseSortante(kg) * CoefImpactProcédéMatièreFilature
@@ -195,7 +195,7 @@ $$
 MassePertes(kg) = MasseFilSortante(kg) * CoefPertesProcedeMatièreFilature
 $$
 
-Plus de détail sur la gestion des masses : [Pertes et rebut](pertes-et-rebus.md).
+Plus de détail sur la gestion des masses : [Pertes et rebut](../pertes-et-rebus.md).
 
 ## Limites
 
