@@ -1,6 +1,7 @@
 module Data.Product exposing (..)
 
 import Data.Process as Process exposing (Process)
+import Data.Unit as Unit
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
@@ -11,7 +12,7 @@ type alias Product =
     { id : Id
     , name : String
     , mass : Mass
-    , pcrWaste : Float -- PCR product waste ratio
+    , pcrWaste : Unit.Ratio -- PCR product waste ratio
     , ppm : Int -- pick per meter
     , grammage : Int -- grammes per kg
     , knitted : Bool -- True: Tricotage (Knitting); False: Tissage (Weaving)
@@ -42,7 +43,7 @@ decode processes =
         |> Pipe.required "id" (Decode.map Id Decode.string)
         |> Pipe.required "name" Decode.string
         |> Pipe.required "mass" (Decode.map Mass.kilograms Decode.float)
-        |> Pipe.required "pcrWaste" Decode.float
+        |> Pipe.required "pcrWaste" Unit.decodeRatio
         |> Pipe.required "ppm" Decode.int
         |> Pipe.required "grammage" Decode.int
         |> Pipe.required "knitted" Decode.bool
@@ -61,7 +62,7 @@ encode v =
         [ ( "id", Encode.string (idToString v.id) )
         , ( "name", Encode.string v.name )
         , ( "mass", Encode.float (Mass.inKilograms v.mass) )
-        , ( "pcrWaste", Encode.float v.pcrWaste )
+        , ( "pcrWaste", Unit.encodeRatio v.pcrWaste )
         , ( "ppm", Encode.int v.ppm )
         , ( "grammage", Encode.int v.grammage )
         , ( "knitted", Encode.bool v.knitted )

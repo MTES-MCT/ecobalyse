@@ -1,6 +1,7 @@
 module Route exposing (Route(..), fromUrl, href, pushUrl, toString)
 
 import Browser.Navigation as Nav
+import Data.Db as Db
 import Data.Impact as Impact
 import Data.Inputs as Inputs
 import Html exposing (Attribute)
@@ -11,9 +12,10 @@ import Url.Parser as Parser exposing ((</>), Parser)
 
 type Route
     = Home
-    | Changelog
-    | Examples
     | Api
+    | Changelog
+    | Explore Db.Dataset
+    | Examples
     | Simulator Impact.Trigram (Maybe Inputs.Query)
     | Stats
 
@@ -22,16 +24,24 @@ parser : Parser (Route -> a) a
 parser =
     Parser.oneOf
         [ Parser.map Home Parser.top
+        , Parser.map Api (Parser.s "api")
         , Parser.map Changelog (Parser.s "changelog")
         , Parser.map Examples (Parser.s "examples")
-        , Parser.map Api (Parser.s "api")
+        , Parser.map (Explore (Db.Countries Nothing)) (Parser.s "explore")
+        , Parser.map Explore (Parser.s "explore" </> Db.parseDatasetSlug)
+        , Parser.map toExploreWithId (Parser.s "explore" </> Db.parseDatasetSlug </> Parser.string)
         , Parser.map (Simulator Impact.defaultTrigram Nothing) (Parser.s "simulator")
         , Parser.map Simulator (Parser.s "simulator" </> Impact.parseTrigram </> Inputs.parseBase64Query)
         , Parser.map Stats (Parser.s "stats")
         ]
 
 
-{-| Note: as elm-kitten relies on URL fragment based routing, the source URL is
+toExploreWithId : Db.Dataset -> String -> Route
+toExploreWithId dataset idString =
+    Explore (Db.datasetSlugWithId dataset idString)
+
+
+{-| Note: as the app relies on URL fragment based routing, the source URL is
 updated so that the `fragment` part becomes the `path` one.
 -}
 fromUrl : Url -> Maybe Route
@@ -78,14 +88,20 @@ toString route =
                 Home ->
                     []
 
+                Api ->
+                    [ "api" ]
+
                 Changelog ->
                     [ "changelog" ]
 
                 Examples ->
                     [ "examples" ]
 
-                Api ->
-                    [ "api" ]
+                Explore (Db.Countries Nothing) ->
+                    [ "explore" ]
+
+                Explore dataset ->
+                    "explore" :: Db.toDatasetRoutePath dataset
 
                 Simulator trigram (Just inputs) ->
                     [ "simulator", Impact.toString trigram, Inputs.b64encode inputs ]

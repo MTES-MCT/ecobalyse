@@ -7,6 +7,7 @@ import Data.Process as Process exposing (Process)
 import Data.Product as Product exposing (Product)
 import Data.Transport as Transport exposing (Distances)
 import Json.Decode as Decode exposing (Decoder)
+import Url.Parser as Parser exposing (Parser)
 
 
 type alias Db =
@@ -51,3 +52,121 @@ decode =
                                 (Decode.field "transports" Transport.decodeDistances)
                         )
             )
+
+
+
+-- Dataset
+
+
+{-| A Dataset represents a target dataset and an optional id in this dataset.
+
+It's used by Page.Explore and related routes.
+
+-}
+type Dataset
+    = Countries (Maybe Country.Code)
+    | Impacts (Maybe Impact.Trigram)
+    | Products (Maybe Product.Id)
+    | Materials (Maybe Process.Uuid)
+
+
+datasets : List Dataset
+datasets =
+    [ Countries Nothing
+    , Impacts Nothing
+    , Products Nothing
+    , Materials Nothing
+    ]
+
+
+datasetStrings : Dataset -> { slug : String, label : String }
+datasetStrings dataset =
+    case dataset of
+        Countries _ ->
+            { slug = "countries", label = "Pays" }
+
+        Impacts _ ->
+            { slug = "impacts", label = "Impacts" }
+
+        Products _ ->
+            { slug = "products", label = "Produits" }
+
+        Materials _ ->
+            { slug = "materials", label = "Matières" }
+
+
+datasetFromSlug : String -> Dataset
+datasetFromSlug string =
+    case string of
+        "impacts" ->
+            Impacts Nothing
+
+        "products" ->
+            Products Nothing
+
+        "materials" ->
+            Materials Nothing
+
+        _ ->
+            Countries Nothing
+
+
+datasetLabel : Dataset -> String
+datasetLabel =
+    datasetStrings >> .label
+
+
+datasetSlug : Dataset -> String
+datasetSlug =
+    datasetStrings >> .slug
+
+
+parseDatasetSlug : Parser (Dataset -> a) a
+parseDatasetSlug =
+    Parser.custom "DATASET" <|
+        \string ->
+            Just (datasetFromSlug string)
+
+
+datasetSlugWithId : Dataset -> String -> Dataset
+datasetSlugWithId dataset idString =
+    case dataset of
+        Countries _ ->
+            Countries (Just (Country.codeFromString idString))
+
+        Impacts _ ->
+            Impacts (Just (Impact.trg idString))
+
+        Products _ ->
+            Products (Just (Product.Id idString))
+
+        Materials _ ->
+            Materials (Just (Process.Uuid idString))
+
+
+toDatasetRoutePath : Dataset -> List String
+toDatasetRoutePath dataset =
+    case dataset of
+        Countries Nothing ->
+            []
+
+        Countries (Just code) ->
+            [ datasetSlug dataset, Country.codeToString code ]
+
+        Impacts Nothing ->
+            [ datasetSlug dataset ]
+
+        Impacts (Just trigram) ->
+            [ datasetSlug dataset, Impact.toString trigram ]
+
+        Products Nothing ->
+            [ datasetSlug dataset ]
+
+        Products (Just id) ->
+            [ datasetSlug dataset, Product.idToString id ]
+
+        Materials Nothing ->
+            [ datasetSlug dataset ]
+
+        Materials (Just uuid) ->
+            [ datasetSlug dataset, Process.uuidToString uuid ]

@@ -53,7 +53,7 @@ suite =
             [ kg 1
                 |> Formula.makingWaste
                     { processWaste = kg 0.5
-                    , pcrWaste = 0.5
+                    , pcrWaste = Unit.ratio 0.5
                     }
                 |> Expect.equal { mass = kg 3, waste = kg 2 }
                 |> asTest "should compute material waste from material and product waste data"

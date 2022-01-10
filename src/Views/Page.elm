@@ -1,6 +1,7 @@
 module Views.Page exposing (..)
 
 import Browser exposing (Document)
+import Data.Db as Db
 import Data.Impact as Impact
 import Data.Session as Session exposing (Session)
 import Html exposing (..)
@@ -17,6 +18,7 @@ type ActivePage
     = Home
     | Changelog
     | Examples
+    | Explore
     | Api
     | Simulator
     | Stats
@@ -54,21 +56,14 @@ frame config ( title, content ) =
 
 stagingAlert : Config msg -> Html msg
 stagingAlert { session, loadUrl } =
-    if String.contains "/branches/" session.clientUrl then
+    if String.contains "wikicarbone-pr" session.clientUrl then
         div [ class "StagingAlert d-block d-sm-flex justify-content-center align-items-center mt-3" ]
             [ text "Vous êtes sur un environnement de recette. "
             , button
                 [ type_ "button"
                 , class "btn btn-link"
                 , onClick
-                    (loadUrl
-                        (if String.contains "mtes-mct.github.io" session.clientUrl then
-                            "/wikicarbone/"
-
-                         else
-                            "/"
-                        )
-                    )
+                    (loadUrl "https://wikicarbone.beta.gouv.fr/")
                 ]
                 [ text "Retourner vers l'environnement de production" ]
             ]
@@ -82,6 +77,7 @@ headerMenuLinks =
     [ Internal "Accueil" Route.Home Home
     , Internal "Simulateur" (Route.Simulator Impact.defaultTrigram Nothing) Simulator
     , Internal "Exemples" Route.Examples Examples
+    , Internal "Explorateur" (Route.Explore (Db.Countries Nothing)) Explore
     , External "Documentation" "https://fabrique-numerique.gitbook.io/wikicarbone/"
     ]
 

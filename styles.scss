@@ -240,6 +240,15 @@ blockquote {
   }
 }
 
+.DatasetTable {
+  th {
+    min-width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
 .GitbookContent {
   font-size: 0.9rem;
 
