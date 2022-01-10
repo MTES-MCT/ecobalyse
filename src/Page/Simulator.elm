@@ -708,10 +708,7 @@ simulatorView : Session -> Model -> Simulator -> Html Msg
 simulatorView ({ db } as session) model ({ inputs } as simulator) =
     div [ class "row" ]
         [ div [ class "col-lg-7" ]
-            [ div [ class "d-none d-sm-block text-muted fw-bold" ]
-                [ text "Impact étudié\u{00A0}: ", text model.impact.label ]
-            , p [ class "text-muted fs-7" ]
-                [ text model.impact.description ]
+            [ ImpactView.description model.impact
             , div [ class "row" ]
                 [ div [ class "col-md-6 mb-2" ]
                     [ productField db simulator.inputs.product

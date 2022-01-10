@@ -13,6 +13,16 @@ type alias Config msg =
     }
 
 
+description : Impact.Definition -> Html msg
+description definition =
+    div []
+        [ div [ class "d-none d-sm-block text-muted fw-bold" ]
+            [ text "Impact étudié\u{00A0}: ", text definition.label ]
+        , p [ class "text-muted fs-7" ]
+            [ text definition.description ]
+        ]
+
+
 selector : Config msg -> Html msg
 selector { impacts, selected, switch } =
     let

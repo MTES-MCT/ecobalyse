@@ -40,6 +40,10 @@ viewExamples session { impact } =
         [ div [ class "row mb-3" ]
             [ div [ class "col-md-7 col-lg-8 col-xl-9" ]
                 [ h1 [ class "mb-3" ] [ text "Exemples de simulation" ]
+                , session.db.impacts
+                    |> Impact.getDefinition impact
+                    |> Result.map ImpactView.description
+                    |> Result.withDefault (text "")
                 ]
             , div [ class "col-md-5 col-lg-4 col-xl-3 text-center text-md-end" ]
                 [ ImpactView.selector
