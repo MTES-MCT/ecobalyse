@@ -19,7 +19,7 @@
     "unit_en": "kg CVC11 eq",
     "short_unit": "kgCVC11e",
     "description_en": "Impact category that accounts for the degradation of stratospheric ozone due to emissions of ozone-depleting substances (e.g. chlorofluorocarbons (CFCs), hydrochlorofluorocarbons (HCFCs), halons).",
-    "description_fr": "Catégorie d'impact qui tient compte de la dégradation de l'ozone stratosphérique due aux émissions de substances appauvrissant la couche d'ozone (ex: chlorofluorocarbons (CFCs), hydrochlorofluorocarbons (HCFCs), halogènes).",
+    "description_fr": "Catégorie d'impact qui rend compte de la dégradation de l'ozone stratosphérique due aux émissions de substances appauvrissant la couche d'ozone (ex: chlorofluorocarbons (CFCs), hydrochlorofluorocarbons (HCFCs), halogènes).",
     "pef": {
       "normalization": 0.0536,
       "weighting": 0.0631
@@ -113,7 +113,7 @@
     "unit_fr": "kg éq. COVNM",
     "unit_en": "kg NMVOC eq",
     "description_en": "Impact category that accounts for the formation of ozone at the ground level of the troposphere caused by photochemical oxidation of volatile organic compounds (VOCs) and carbon monoxide (CO) in the presence of nitrogen oxides (NOx) and sunlight.",
-    "description_fr": "Catégorie d'impact qui rend compte de la formation d'ozone au niveau du sol de la troposphère, causée par l'oxydation photochimique des composés organiques volatiles (COV) et du monoxyde de carbone (CO) en présence d'oxydes d'azote (NOx) et de la lumière du soleil.",    
+    "description_fr": "Catégorie d'impact qui rend compte de la formation d'ozone au niveau du sol, causée par l'oxydation photochimique des composés organiques volatiles (COV) et du monoxyde de carbone (CO) en présence d'oxydes d'azote (NOx) et de la lumière du soleil.",    
     "short_unit": "kgNMVOCe",
     "pef": {
       "normalization": 40.1,
@@ -126,7 +126,7 @@
     "unit_fr": "incidence de maladie",
     "unit_en": "disease inc.",
     "description_en": "Impact category that accounts for the adverse effects on human health caused by emissions of particulate matter (PM) and its precursors (NOx, SOx, NH3).",
-    "description_fr": "Catégorie d'impact qui tient compte des effets négatifs sur la santé humaine causés par les émissions de particules (PM) et de leurs précurseurs (NOx, SOx, NH3).",    
+    "description_fr": "Catégorie d'impact qui rend compte des effets négatifs sur la santé humaine causés par les émissions de particules (PM) et de leurs précurseurs (NOx, SOx, NH3).",    
     "short_unit": "dis.inc.",
     "pef": {
       "normalization": 0.000595,
@@ -139,7 +139,7 @@
     "unit_fr": "éq. kBq U235",
     "unit_en": "kBq U-235 eq",  
     "description_en": "Impact category that accounts for the adverse health effects on human health caused by radioactive releases.",    
-    "description_fr": "Catégorie d'impact qui tient compte des effets négatifs sur la santé humaine causés par les rejets radioactifs.",
+    "description_fr": "Catégorie d'impact qui rend compte des effets négatifs sur la santé humaine causés par les rejets radioactifs.",
     "short_unit": "kBqU235e",
     "pef": {
       "normalization": 4220,
@@ -191,7 +191,7 @@
     "unit_fr": "mPt PEF",
     "unit_en": "mPt PEF",
     "description_en": "Aggregated impact : sum of the weighted and normalized impact of all environmental impact categories according to the PEF methodology.",
-    "description_fr": "Impact aggrégé : somme des impacts normalisées et pondérées de chaque catégorie d'impact selon la méthode PEF.",    
+    "description_fr": "Impact agrégé : somme des impacts normalisés et pondérés de chaque catégorie d'impact. 12 impacts différents pris en compte à ce stade. 4 encore à ajouter.",    
     "short_unit": "mPt PEF",
     "pef": null
   }
