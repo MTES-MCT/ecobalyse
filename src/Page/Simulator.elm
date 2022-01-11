@@ -708,7 +708,8 @@ simulatorView : Session -> Model -> Simulator -> Html Msg
 simulatorView ({ db } as session) model ({ inputs } as simulator) =
     div [ class "row" ]
         [ div [ class "col-lg-7" ]
-            [ div [ class "row" ]
+            [ ImpactView.viewDefinition model.impact
+            , div [ class "row" ]
                 [ div [ class "col-md-6 mb-2" ]
                     [ productField db simulator.inputs.product
                     ]
@@ -754,7 +755,7 @@ view session model =
             [ class "Simulator pb-3" ]
             [ div [ class "row" ]
                 [ div [ class "col-sm-7 mb-2" ]
-                    [ h1 [] [ text "Simulateur" ] ]
+                    [ h1 [] [ text "Simulateur " ] ]
                 , div [ class "col-sm-5 mb-2 d-flex align-items-center" ]
                     [ ImpactView.selector
                         { impacts = session.db.impacts

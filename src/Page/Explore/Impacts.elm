@@ -7,6 +7,7 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Route
 import Views.Format as Format
+import Views.Markdown as Markdown
 import Views.Table as Table
 
 
@@ -21,6 +22,13 @@ details _ def =
             , tr []
                 [ th [] [ text "Nom" ]
                 , td [] [ text def.label ]
+                ]
+            , tr []
+                [ th [] [ text "Description" ]
+                , td []
+                    [ def.description
+                        |> Markdown.simple []
+                    ]
                 ]
             , tr []
                 [ th [] [ text "Unité" ]

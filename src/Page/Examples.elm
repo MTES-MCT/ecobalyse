@@ -37,7 +37,7 @@ update session msg model =
 viewExamples : Session -> Model -> Html Msg
 viewExamples session { impact } =
     div []
-        [ div [ class "row mb-3" ]
+        [ div [ class "row" ]
             [ div [ class "col-md-7 col-lg-8 col-xl-9" ]
                 [ h1 [ class "mb-3" ] [ text "Exemples de simulation" ]
                 ]
@@ -49,6 +49,10 @@ viewExamples session { impact } =
                     }
                 ]
             ]
+        , session.db.impacts
+            |> Impact.getDefinition impact
+            |> Result.map ImpactView.viewDefinition
+            |> Result.withDefault (text "")
         , Inputs.presets
             |> List.map
                 (Simulator.compute session.db

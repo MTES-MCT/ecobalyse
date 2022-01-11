@@ -314,6 +314,12 @@ blockquote {
   }
 }
 
+.ImpactDefinition {
+  p:not(:last-child) {
+    margin-bottom: 5px;
+  }
+}
+
 .MainMenu {
   @media screen and (max-width: $viewport-sm) {
     width: 100%;
