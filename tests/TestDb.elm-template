@@ -6,4 +6,7 @@ import Data.Db as Db exposing (Db)
 testDb : Result String Db
 testDb =
     """%json%"""
+        -- NOTE: Elm template strings mess with double carriage returns when
+        -- interpolated, we need to convert them back to what they were
+        |> String.replace "\n\n" "\\n\\n"
         |> Db.buildFromJson
