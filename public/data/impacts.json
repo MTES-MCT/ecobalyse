@@ -52,7 +52,7 @@
     "label_en": "Climate change-Fossil",
     "label_fr": "Changement climatique - Fossile",
     "description_en": "Impact category considering the greenhouse gases (GHG) released as a result of the combustion of fossil fuels (coal, gas, oil).",
-    "description_fr": "Indicateur correspondant aux émissions de gaz à effet de serre (GES) provenant combustion d'énergies fossiles (charbon, gaz, pétrole).\n\nIl se mesure en kg équivalent CO2, le principal gaz à effet de serre.",    
+    "description_fr": "Indicateur correspondant aux émissions de gaz à effet de serre (GES) provenant combustion d'énergies fossiles (charbon, gaz, pétrole).\n\nIl se mesure en kg équivalent CO2, le principal gaz à effet de serre.",
     "unit_fr": "kg éq. CO2",
     "unit_en": "kg CO2 eq",
     "short_unit": "kgCO₂e",
@@ -62,7 +62,7 @@
     "label_en": "Climate change-Land use",
     "label_fr": "Changement climatique - Usage des sols",
     "description_en": "Impact category related to emissions and removals of greenhouse gases (GHG) resulting from direct human-induced land use such as settlements and commercial uses, land-use change, and forestry activities.",
-    "description_fr": "Indicateur correspondant aux émissions et aux absorptions de gaz à effet de serre (GES) résultant de l'utilisation directe des terres par l'homme, comme les implantations humaines et les utilisations commerciales, le changement d'affectation des terres et les activités forestières.\n\nIl se mesure en kg équivalent CO2, le principal gaz à effet de serre.",        
+    "description_fr": "Indicateur correspondant aux émissions et aux absorptions de gaz à effet de serre (GES) résultant de l'utilisation directe des terres par l'homme, comme les implantations humaines et les utilisations commerciales, le changement d'affectation des terres et les activités forestières.\n\nIl se mesure en kg équivalent CO2, le principal gaz à effet de serre.",
     "unit_fr": "kg éq. CO2",
     "unit_en": "kg CO2 eq",
     "short_unit": "kgCO₂e",
@@ -74,7 +74,7 @@
     "unit_fr": "kg éq. P",
     "unit_en": "kg P eq",
     "description_en": "Indicator of the enrichment of the fresh water ecosystem with nutritional elements, due to the emission of nitrogen or phosphor containing compounds.",
-    "description_fr": "Indicateur correspondant à un enrichissement excessif des milieux naturels en nutriments, ce qui conduit à une prolifération et une asphyxie (zone morte). C'est ce phénomène qui est à l'origine des algues vertes. On peut le retrouver en rivière et en lac également.\n\nCet indicateur se mesure en kg d'équivalent Phosphore (P), le phosphore étant l'un des éléments responsables de l'eutrophisation des eaux douces.",    
+    "description_fr": "Indicateur correspondant à un enrichissement excessif des milieux naturels en nutriments, ce qui conduit à une prolifération et une asphyxie (zone morte). C'est ce phénomène qui est à l'origine des algues vertes. On peut le retrouver en rivière et en lac également.\n\nCet indicateur se mesure en kg d'équivalent Phosphore (P), le phosphore étant l'un des éléments responsables de l'eutrophisation des eaux douces.",
     "short_unit": "kgPe",
     "pef": {
       "normalization": 1.61,
@@ -87,7 +87,7 @@
     "unit_fr": "kg éq. N",
     "unit_en": "kg N eq",
     "description_en": "Indicator of the enrichment of the marine ecosystem with nutritional elements, due to the emission of nitrogen containing compounds.",
-    "description_fr": "Indicateur correspondant à un enrichissement excessif des milieux naturels en nutriments, ce qui conduit à une prolifération et une asphyxie (zone morte). C'est ce phénomène qui est à l'origine des algues vertes.\n\nCet indicateur se mesure en kg d'équivalent azote (N), l'azote étant l'un des éléments responsables de l'eutrophisation des eaux marines.",    
+    "description_fr": "Indicateur correspondant à un enrichissement excessif des milieux naturels en nutriments, ce qui conduit à une prolifération et une asphyxie (zone morte). C'est ce phénomène qui est à l'origine des algues vertes.\n\nCet indicateur se mesure en kg d'équivalent azote (N), l'azote étant l'un des éléments responsables de l'eutrophisation des eaux marines.",
     "short_unit": "kgNe",
     "pef": {
       "normalization": 19.5,
@@ -100,7 +100,7 @@
     "unit_fr": "mol éq. N",
     "unit_en": "mol N eq",
     "description_en": "Indicator of the enrichment of the terrestrial ecosystem with nutritional elements, due to the emission of nitrogen containing compounds.",
-    "description_fr": "Comme dans l'eau, l'eutrophisation terrestre correspond à un enrichissement excessif du milieu, en azote en particulier, conduisant a un déséquilibre et un appauvrissement de l'écosystème. Ceci concerne principalement les sols agricoles.\n\nCet indicateur se mesure en mol d'équivalent azote (N).",      
+    "description_fr": "Comme dans l'eau, l'eutrophisation terrestre correspond à un enrichissement excessif du milieu, en azote en particulier, conduisant a un déséquilibre et un appauvrissement de l'écosystème. Ceci concerne principalement les sols agricoles.\n\nCet indicateur se mesure en mol d'équivalent azote (N).",
     "short_unit": "molNe",
     "pef": {
       "normalization": 177,
@@ -113,7 +113,7 @@
     "unit_fr": "kg éq. COVNM",
     "unit_en": "kg NMVOC eq",
     "description_en": "Indicator of emissions of gases that affect the creation of photochemical ozone in the lower atmosphere (smog) catalysed by sunlight.",
-    "description_fr": "Indicateur correspondant à la dégradation de la qualité de l'air, principalement via la formation de brouillard de basse altitude nommé \"smog\". Il a des conséquences néfastes sur la santé.\n\nCet indicateur se mesure en kg d'équivalent Composés Organiques Volatiles Non Méthaniques (COVNM), un ensemble de composés organiques (alcools, arômatiques,...) contribuant à la formation d'ozone photochimique.",    
+    "description_fr": "Indicateur correspondant à la dégradation de la qualité de l'air, principalement via la formation de brouillard de basse altitude nommé *smog*. Il a des conséquences néfastes sur la santé.\n\nCet indicateur se mesure en kg d'équivalent Composés Organiques Volatiles Non Méthaniques (COVNM), un ensemble de composés organiques (alcools, arômatiques,...) contribuant à la formation d'ozone photochimique.",
     "short_unit": "kgNMVOCe",
     "pef": {
       "normalization": 40.1,
@@ -126,7 +126,7 @@
     "unit_fr": "incidence de maladie",
     "unit_en": "disease inc.",
     "description_en": "Indicator of the potential incidence of disease due to particulate matter emissions.",
-    "description_fr": "Indicateur correspondant aux effets négatifs sur la santé humaine causés par les émissions de particules (PM) et de leurs précurseurs (NOx, SOx, NH3).\n\nCet indicateur se mesure en incidence de maladie supplémentaire due aux particules",    
+    "description_fr": "Indicateur correspondant aux effets négatifs sur la santé humaine causés par les émissions de particules (PM) et de leurs précurseurs (NOx, SOx, NH3).\n\nCet indicateur se mesure en incidence de maladie supplémentaire due aux particules",
     "short_unit": "dis.inc.",
     "pef": {
       "normalization": 0.000595,
@@ -137,8 +137,8 @@
     "label_en": "Ionising radiation",
     "label_fr": "Radiations ionisantes",
     "unit_fr": "éq. kBq U235",
-    "unit_en": "kBq U-235 eq",  
-    "description_en": "Damage to human health and ecosystems linked to the emissions of radionuclides.",    
+    "unit_en": "kBq U-235 eq",
+    "description_en": "Damage to human health and ecosystems linked to the emissions of radionuclides.",
     "description_fr": "Indicateur correspondant aux dommages pour la santé humaine et les écosystèmes liés aux émissions de radionucléides.\n\nIl se mesure en kilobecquerel d'equivalent Uranium 235.",
     "short_unit": "kBqU235e",
     "pef": {
@@ -152,7 +152,7 @@
     "unit_fr": "MJ",
     "unit_en": "MJ",
     "description_en": "Indicator of the depletion of natural fossil fuel resources (e.g. natural gas, coal, oil).",
-    "description_fr": "Indicateur de l'épuisement des ressources naturelles en combustibles fossiles (gaz, charbon, pétrole).\n\nIl se mesure en mégajoules (MJ), la quantité d'énergie fossile utilisée.",    
+    "description_fr": "Indicateur de l'épuisement des ressources naturelles en combustibles fossiles (gaz, charbon, pétrole).\n\nIl se mesure en mégajoules (MJ), la quantité d'énergie fossile utilisée.",
     "short_unit": "MJ",
     "pef": {
       "normalization": 65000,
@@ -165,7 +165,7 @@
     "unit_fr": "kg éq. Sb",
     "unit_en": "kg Sb eq",
     "description_en": "Indicator of the depletion of natural non-fossil resources.",
-    "description_fr": "Indicateur de l'épuisement des ressources naturelles non fossiles.\n\nIl se mesure en kg d'équivalent d'antimoine (Sb) (élément métallique).",    
+    "description_fr": "Indicateur de l'épuisement des ressources naturelles non fossiles.\n\nIl se mesure en kg d'équivalent d'antimoine (Sb) (élément métallique).",
     "short_unit": "kgSbe",
     "pef": {
       "normalization": 0.0636,
@@ -178,7 +178,7 @@
     "unit_fr": "sans dimension (Pt)",
     "unit_en": "Pt",
     "description_en": "Measure of the changes in soil quality (Biotic production, Erosion resistance, Mechanical filtration).",
-    "description_fr": "Mesure de l'évolution de la qualité des sols (production biotique, résistance à l'érosion, filtration mécanique).\n\nCet indicateur n'a pas de dimension, il se mesure en Points (Pt).",    
+    "description_fr": "Mesure de l'évolution de la qualité des sols (production biotique, résistance à l'érosion, filtration mécanique).\n\nCet indicateur n'a pas de dimension, il se mesure en Points (Pt).",
     "short_unit": "Pt",
     "pef": {
       "normalization": 819000,
@@ -191,7 +191,7 @@
     "unit_fr": "mPt PEF",
     "unit_en": "mPt PEF",
     "description_en": "Aggregated impact : sum of the weighted and normalized impact of all environmental impact categories according to the PEF methodology.",
-    "description_fr": "Impact agrégé : somme des impacts normalisés et pondérés de chaque catégorie d'impact selon la méthode single score du PEF. 12 impacts différents pris en compte à ce stade. 4 encore à ajouter.\n\nCet indicateur n'a pas de dimension, il se mesure en Points (Pt) ou en milliPoints (mPt) avec 1 Pt = 1000 mPt. 1 Pt correspond à l'impact total d'un européen sur une année.",    
+    "description_fr": "Impact *agrégé* : somme des impacts normalisés et pondérés de chaque catégorie d'impact selon la méthode *single score* du PEF. 12 impacts différents pris en compte à ce stade. 4 encore à ajouter.\n\nCet indicateur n'a **pas de dimension**, il se mesure en **Points (Pt)** ou en **milliPoints (mPt)** avec 1 Pt = 1000 mPt. 1 Pt correspond à l'impact total d'un européen sur une année.",
     "short_unit": "mPt PEF",
     "pef": null
   }

@@ -708,7 +708,7 @@ simulatorView : Session -> Model -> Simulator -> Html Msg
 simulatorView ({ db } as session) model ({ inputs } as simulator) =
     div [ class "row" ]
         [ div [ class "col-lg-7" ]
-            [ ImpactView.description model.impact
+            [ ImpactView.viewDefinition model.impact
             , div [ class "row" ]
                 [ div [ class "col-md-6 mb-2" ]
                     [ productField db simulator.inputs.product
