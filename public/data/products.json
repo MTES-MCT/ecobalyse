@@ -1,6 +1,6 @@
 [
   {
-    "id": "1",
+    "id": 1,
     "name": "Cape",
     "mass": 0.95,
     "pcrWaste": 0.2,
@@ -8,10 +8,15 @@
     "grammage": 140,
     "knitted": false,
     "fabricProcessUuid": "f9686809-f55e-4b96-b1f0-3298959de7d0",
-    "makingProcessUuid": "7fe48d7c-a568-4bd5-a3ac-cfa88255b4fe"
+    "makingProcessUuid": "7fe48d7c-a568-4bd5-a3ac-cfa88255b4fe",
+    "ratioDryer": 0.25,
+    "ratioIroning": 0.05,
+    "timeIroning": 0.07,
+    "useIroningProcessUuid": "b0c1f4d5-e061-4ee5-b91f-1c04f783f9f2",
+    "useOtherProcessUuid": "8f5b445d-8648-43f4-aabb-ccdeba103d31"
   },
   {
-    "id": "2",
+    "id": 2,
     "name": "Châle",
     "mass": 0.11,
     "pcrWaste": 0.1,
@@ -19,10 +24,15 @@
     "grammage": 140,
     "knitted": false,
     "fabricProcessUuid": "f9686809-f55e-4b96-b1f0-3298959de7d0",
-    "makingProcessUuid": "0a260a3f-260e-4b43-a0df-0cf673fda960"
+    "makingProcessUuid": "0a260a3f-260e-4b43-a0df-0cf673fda960",
+    "ratioDryer": 0.12,
+    "ratioIroning": 0.25,
+    "timeIroning": 0.03,
+    "useIroningProcessUuid": "e60d7e90-fc97-4644-9534-b4bf3ee1df34",
+    "useOtherProcessUuid": "ebe0d692-4685-4159-befa-c994ca311cf0"
   },
   {
-    "id": "3",
+    "id": 3,
     "name": "Chemisier",
     "mass": 0.25,
     "pcrWaste": 0.2,
@@ -30,10 +40,15 @@
     "grammage": 40,
     "knitted": false,
     "fabricProcessUuid": "f9686809-f55e-4b96-b1f0-3298959de7d0",
-    "makingProcessUuid": "7fe48d7c-a568-4bd5-a3ac-cfa88255b4fe"
+    "makingProcessUuid": "7fe48d7c-a568-4bd5-a3ac-cfa88255b4fe",
+    "ratioDryer": 0.12,
+    "ratioIroning": 0.7,
+    "timeIroning": 0.04,
+    "useIroningProcessUuid": "60081437-337c-440b-82e1-7e2a57d260b9",
+    "useOtherProcessUuid": "351ca6d8-819e-4ace-b5a8-cf0542165dd3"
   },
   {
-    "id": "4",
+    "id": 4,
     "name": "Débardeur",
     "mass": 0.17,
     "pcrWaste": 0.15,
@@ -41,10 +56,15 @@
     "grammage": 0,
     "knitted": true,
     "fabricProcessUuid": "9c478d79-ff6b-45e1-9396-c3bd897faa1d",
-    "makingProcessUuid": "26e3ca02-9bc0-45b4-b8b4-73f4b3701ad5"
+    "makingProcessUuid": "26e3ca02-9bc0-45b4-b8b4-73f4b3701ad5",
+    "ratioDryer": 0.30,
+    "ratioIroning": 0.4,
+    "timeIroning": 0.04,
+    "useIroningProcessUuid": "638ae5b6-4ec9-4426-a314-cbf9b900d72f",
+    "useOtherProcessUuid": "0f1407fe-9f53-4495-953a-a2861e3896a4"
   },
   {
-    "id": "5",
+    "id": 5,
     "name": "Echarpe",
     "mass": 0.11,
     "pcrWaste": 0.1,
@@ -52,10 +72,15 @@
     "grammage": 140,
     "knitted": false,
     "fabricProcessUuid": "f9686809-f55e-4b96-b1f0-3298959de7d0",
-    "makingProcessUuid": "0a260a3f-260e-4b43-a0df-0cf673fda960"
+    "makingProcessUuid": "0a260a3f-260e-4b43-a0df-0cf673fda960",
+    "ratioDryer": 0.12,
+    "ratioIroning": 0.25,
+    "timeIroning": 0.03,
+    "useIroningProcessUuid": "9ef6686b-e737-42f2-ad88-3fba999fd154",
+    "useOtherProcessUuid": "ef73a24a-626b-455b-8066-62f1588ae0e3"
   },
   {
-    "id": "6",
+    "id": 6,
     "name": "Gilet",
     "mass": 0.5,
     "pcrWaste": 0.2,
@@ -63,10 +88,15 @@
     "grammage": 0,
     "knitted": true,
     "fabricProcessUuid": "9c478d79-ff6b-45e1-9396-c3bd897faa1d",
-    "makingProcessUuid": "387059fc-72cb-4a92-b1e7-2ef9242f8380"
+    "makingProcessUuid": "387059fc-72cb-4a92-b1e7-2ef9242f8380",
+    "ratioDryer": 0.30,
+    "ratioIroning": 0,
+    "timeIroning": 0.00,
+    "useIroningProcessUuid": "5f359e19-c8c3-44bb-b1bf-1ccca69bc334",
+    "useOtherProcessUuid": "e85c16ab-4f5a-46be-9f3e-b5217009c4a7"
   },
   {
-    "id": "7",
+    "id": 7,
     "name": "Jean",
     "mass": 0.45,
     "pcrWaste": 0.22,
@@ -74,10 +104,15 @@
     "grammage": 140,
     "knitted": false,
     "fabricProcessUuid": "f9686809-f55e-4b96-b1f0-3298959de7d0",
-    "makingProcessUuid": "1f428a50-73c0-4fc1-ab39-00fd312458ee"
+    "makingProcessUuid": "1f428a50-73c0-4fc1-ab39-00fd312458ee",
+    "ratioDryer": 0.30,
+    "ratioIroning": 0.63,
+    "timeIroning": 0.07,
+    "useIroningProcessUuid": "cd74422a-67d5-4435-9289-9cace3a62867",
+    "useOtherProcessUuid": "658924c7-47a3-4e65-9bf6-434a8765def3"
   },
   {
-    "id": "8",
+    "id": 8,
     "name": "Jupe",
     "mass": 0.3,
     "pcrWaste": 0.2,
@@ -85,10 +120,15 @@
     "grammage": 40,
     "knitted": false,
     "fabricProcessUuid": "f9686809-f55e-4b96-b1f0-3298959de7d0",
-    "makingProcessUuid": "387059fc-72cb-4a92-b1e7-2ef9242f8380"
+    "makingProcessUuid": "387059fc-72cb-4a92-b1e7-2ef9242f8380",
+    "ratioDryer": 0.12,
+    "ratioIroning": 0.18,
+    "timeIroning": 0.08,
+    "useIroningProcessUuid": "7660230e-7108-4c79-b9d7-50a8ca96dbfb",
+    "useOtherProcessUuid": "23f73b42-4906-4520-8863-28fb357f07fe"
   },
   {
-    "id": "9",
+    "id": 9,
     "name": "Manteau",
     "mass": 0.95,
     "pcrWaste": 0.2,
@@ -96,10 +136,15 @@
     "grammage": 140,
     "knitted": false,
     "fabricProcessUuid": "f9686809-f55e-4b96-b1f0-3298959de7d0",
-    "makingProcessUuid": "7fe48d7c-a568-4bd5-a3ac-cfa88255b4fe"
+    "makingProcessUuid": "7fe48d7c-a568-4bd5-a3ac-cfa88255b4fe",
+    "ratioDryer": 0.25,
+    "ratioIroning": 0.05,
+    "timeIroning": 0.07,
+    "useIroningProcessUuid": "b41944cd-33e8-471a-a364-0df972235fb2",
+    "useOtherProcessUuid": "241ef0b6-d9e6-477c-90ae-1861e98c3032"
   },
   {
-    "id": "10",
+    "id": 10,
     "name": "Pantalon",
     "mass": 0.45,
     "pcrWaste": 0.2,
@@ -107,10 +152,15 @@
     "grammage": 140,
     "knitted": false,
     "fabricProcessUuid": "f9686809-f55e-4b96-b1f0-3298959de7d0",
-    "makingProcessUuid": "387059fc-72cb-4a92-b1e7-2ef9242f8380"
+    "makingProcessUuid": "387059fc-72cb-4a92-b1e7-2ef9242f8380",
+    "ratioDryer": 0.30,
+    "ratioIroning": 0.63,
+    "timeIroning": 0.07,
+    "useIroningProcessUuid": "14a5b128-a798-4352-9af0-85874bfb5bca",
+    "useOtherProcessUuid": "90728da7-b47f-41bc-9337-ed91868d7644"
   },
   {
-    "id": "11",
+    "id": 11,
     "name": "Pull",
     "mass": 0.5,
     "pcrWaste": 0.2,
@@ -118,10 +168,15 @@
     "grammage": 0,
     "knitted": true,
     "fabricProcessUuid": "9c478d79-ff6b-45e1-9396-c3bd897faa1d",
-    "makingProcessUuid": "387059fc-72cb-4a92-b1e7-2ef9242f8380"
+    "makingProcessUuid": "387059fc-72cb-4a92-b1e7-2ef9242f8380",
+    "ratioDryer": 0.30,
+    "ratioIroning": 0,
+    "timeIroning": 0.00,
+    "useIroningProcessUuid": "701c3212-de25-4405-bb16-4015a7c0bc93",
+    "useOtherProcessUuid": "f4df3cb6-9b40-4fbf-922f-26cef87f6ea1"
   },
   {
-    "id": "12",
+    "id": 12,
     "name": "Robe",
     "mass": 0.3,
     "pcrWaste": 0.2,
@@ -129,10 +184,15 @@
     "grammage": 40,
     "knitted": false,
     "fabricProcessUuid": "f9686809-f55e-4b96-b1f0-3298959de7d0",
-    "makingProcessUuid": "7fe48d7c-a568-4bd5-a3ac-cfa88255b4fe"
+    "makingProcessUuid": "7fe48d7c-a568-4bd5-a3ac-cfa88255b4fe",
+    "ratioDryer": 0.12,
+    "ratioIroning": 0.18,
+    "timeIroning": 0.08,
+    "useIroningProcessUuid": "0e1652ca-f2e7-45ad-aadb-b1519b4c80c5",
+    "useOtherProcessUuid": "7d6314dc-e318-4e44-8649-38bd976b4fb8"
   },
   {
-    "id": "13",
+    "id": 13,
     "name": "T-shirt",
     "mass": 0.17,
     "pcrWaste": 0.15,
@@ -140,10 +200,15 @@
     "grammage": 0,
     "knitted": true,
     "fabricProcessUuid": "9c478d79-ff6b-45e1-9396-c3bd897faa1d",
-    "makingProcessUuid": "26e3ca02-9bc0-45b4-b8b4-73f4b3701ad5"
+    "makingProcessUuid": "26e3ca02-9bc0-45b4-b8b4-73f4b3701ad5",
+    "ratioDryer": 0.30,
+    "ratioIroning": 0.4,
+    "timeIroning": 0.04,
+    "useIroningProcessUuid": "d749fe0b-6982-4ca7-8d83-1d9404142cf9",
+    "useOtherProcessUuid": "166eb4c0-05d1-48a9-8896-afb02e0b1725"
   },
   {
-    "id": "14",
+    "id": 14,
     "name": "Veste",
     "mass": 0.95,
     "pcrWaste": 0.2,
@@ -151,6 +216,11 @@
     "grammage": 140,
     "knitted": false,
     "fabricProcessUuid": "f9686809-f55e-4b96-b1f0-3298959de7d0",
-    "makingProcessUuid": "7fe48d7c-a568-4bd5-a3ac-cfa88255b4fe"
+    "makingProcessUuid": "7fe48d7c-a568-4bd5-a3ac-cfa88255b4fe",
+    "ratioDryer": 0.25,
+    "ratioIroning": 0.05,
+    "timeIroning": 0.07,
+    "useIroningProcessUuid": "d30bf77e-faee-4543-886f-bf1140177b0a",
+    "useOtherProcessUuid": "eb423c4c-6a88-4a01-b8b0-2a012361eb92"
   }
 ]
