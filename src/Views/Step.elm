@@ -71,6 +71,12 @@ countryField { db, current, inputs, index, updateCountry } =
                     , text " Champ non paramétrable"
                     ]
 
+            Step.Use ->
+                div [ class "form-text fs-7 mb-0" ]
+                    [ Icon.exclamation
+                    , text " Champ non paramétrable"
+                    ]
+
             _ ->
                 text ""
         ]

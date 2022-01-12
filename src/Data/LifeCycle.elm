@@ -100,6 +100,7 @@ init db inputs =
             , ( Step.Ennoblement, True )
             , ( Step.Making, True )
             , ( Step.Distribution, False )
+            , ( Step.Use, False )
             ]
         |> List.map (Step.updateFromInputs inputs)
         |> Array.fromList

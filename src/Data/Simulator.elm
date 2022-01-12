@@ -107,7 +107,7 @@ compute db query =
 initializeFinalMass : Simulator -> Simulator
 initializeFinalMass ({ inputs } as simulator) =
     simulator
-        |> updateLifeCycleStep Step.Distribution (Step.initMass inputs.mass)
+        |> updateLifeCycleSteps [ Step.Distribution, Step.Use ] (Step.initMass inputs.mass)
 
 
 computeMakingImpacts : Simulator -> Simulator

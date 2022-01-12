@@ -53,6 +53,7 @@ type Label
     | Ennoblement -- Ennoblement
     | Making -- Confection
     | Distribution -- Distribution
+    | Use -- Utilisation
 
 
 create : { db : Db, label : Label, editable : Bool, country : Country } -> Step
@@ -217,6 +218,10 @@ computeTransportSummary step transport =
                     , sea = transport.sea
                     , air = transport.air
                 }
+
+        Use ->
+            -- Product Use leverages no transports
+            default
 
         _ ->
             -- All other steps don't use air transport at all
@@ -396,6 +401,9 @@ labelToString label =
         Distribution ->
             "Distribution"
 
+        Use ->
+            "Utilisation"
+
 
 labelFromString : String -> Maybe Label
 labelFromString label =
@@ -414,6 +422,9 @@ labelFromString label =
 
         "Distribution" ->
             Just Distribution
+
+        "Use" ->
+            Just Use
 
         _ ->
             Nothing
@@ -436,3 +447,6 @@ getStepGitbookPath label =
 
         Distribution ->
             Gitbook.Distribution
+
+        Use ->
+            Gitbook.Use

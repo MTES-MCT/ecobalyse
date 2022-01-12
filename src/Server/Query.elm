@@ -179,8 +179,8 @@ validateProduct db id =
 
 validateCountries : Db -> List Country.Code -> Maybe ErrorMessage
 validateCountries db countries =
-    if List.length countries /= 5 then
-        Just "La liste de pays doit contenir 5 pays."
+    if List.length countries /= 6 then
+        Just "La liste de pays doit contenir 6 pays."
 
     else
         case Country.findByCodes countries db.countries of

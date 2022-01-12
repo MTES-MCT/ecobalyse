@@ -17,6 +17,7 @@ type Path
     | Dyeing -- Teinture
     | Making -- Confection
     | Distribution -- Distribution
+    | Use -- Utilisation
     | Electricity -- Électricité
     | Transport -- Transport
     | Heat -- Chaleur
@@ -41,6 +42,9 @@ pathToString path =
 
         Distribution ->
             "methodologie/distribution"
+
+        Use ->
+            "methodologie/etape-6-utilisation"
 
         Electricity ->
             "methodologie/electricite"

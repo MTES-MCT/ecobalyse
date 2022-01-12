@@ -24,7 +24,7 @@ describe("API", () => {
       "mass=0.17",
       "product=13",
       "material=f211bbdb-415c-46fd-be4d-ddf199575b44",
-      "countries=CN,CN,CN,CN,FR",
+      "countries=CN,CN,CN,CN,FR,FR",
     ];
 
   function expectFieldErrorMessage(response, field, message) {
@@ -88,13 +88,13 @@ describe("API", () => {
       expectFieldErrorMessage(
         await makeRequest("/api/simulator", ["countries=FR"]),
         "countries",
-        /5 pays/,
+        /6 pays/,
       );
     });
 
     it("should validate the countries param (invalid codes)", async () => {
       expectFieldErrorMessage(
-        await makeRequest("/api/simulator", ["countries=FR,FR,XX,FR,FR"]),
+        await makeRequest("/api/simulator", ["countries=FR,FR,XX,FR,FR,FR"]),
         "countries",
         /Code pays invalide: XX/,
       );
@@ -130,7 +130,7 @@ describe("API", () => {
       const response = await makeRequest("/api/simulator/detailed", successQuery);
 
       expect(response.statusCode).toBe(200);
-      expect(response.body.lifeCycle.length).toBe(5);
+      expect(response.body.lifeCycle.length).toBe(6);
     });
   });
 });

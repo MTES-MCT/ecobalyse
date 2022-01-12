@@ -176,6 +176,7 @@ tShirtCotonFrance =
         , Country.Code "FR"
         , Country.Code "FR"
         , Country.Code "FR"
+        , Country.Code "FR"
         ]
     , dyeingWeighting = Nothing
     , airTransportRatio = Nothing
@@ -195,6 +196,7 @@ tShirtPolyamideFrance =
             , Country.Code "FR"
             , Country.Code "FR"
             , Country.Code "FR"
+            , Country.Code "FR"
             ]
     }
 
@@ -208,6 +210,7 @@ tShirtCotonEurope =
             , Country.Code "TR"
             , Country.Code "TN"
             , Country.Code "ES"
+            , Country.Code "FR"
             , Country.Code "FR"
             ]
     }
@@ -223,6 +226,7 @@ tShirtCotonIndia =
             , Country.Code "IN"
             , Country.Code "IN"
             , Country.Code "FR"
+            , Country.Code "FR"
             ]
     }
 
@@ -236,6 +240,7 @@ tShirtCotonAsie =
             , Country.Code "CN"
             , Country.Code "CN"
             , Country.Code "CN"
+            , Country.Code "FR"
             , Country.Code "FR"
             ]
     }
@@ -252,6 +257,7 @@ jupeCircuitAsie =
         , Country.Code "CN"
         , Country.Code "CN"
         , Country.Code "CN"
+        , Country.Code "FR"
         , Country.Code "FR"
         ]
     , dyeingWeighting = Nothing
@@ -273,6 +279,7 @@ manteauCircuitEurope =
         , Country.Code "TN"
         , Country.Code "ES"
         , Country.Code "FR"
+        , Country.Code "FR"
         ]
     , dyeingWeighting = Nothing
     , airTransportRatio = Nothing
@@ -293,6 +300,7 @@ pantalonCircuitEurope =
         , Country.Code "TR"
         , Country.Code "TR"
         , Country.Code "FR"
+        , Country.Code "FR"
         ]
     , dyeingWeighting = Nothing
     , airTransportRatio = Nothing
@@ -312,6 +320,7 @@ robeCircuitBangladesh =
         , Country.Code "BD"
         , Country.Code "PT"
         , Country.Code "TN"
+        , Country.Code "FR"
         , Country.Code "FR"
         ]
     , dyeingWeighting = Nothing
