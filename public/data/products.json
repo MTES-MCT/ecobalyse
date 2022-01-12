@@ -9,11 +9,12 @@
     "knitted": false,
     "fabricProcessUuid": "f9686809-f55e-4b96-b1f0-3298959de7d0",
     "makingProcessUuid": "7fe48d7c-a568-4bd5-a3ac-cfa88255b4fe",
-    "ratioDryer": 0.25,
-    "ratioIroning": 0.05,
-    "timeIroning": 0.07,
-    "useIroningProcessUuid": "b0c1f4d5-e061-4ee5-b91f-1c04f783f9f2",
-    "useOtherProcessUuid": "8f5b445d-8648-43f4-aabb-ccdeba103d31"
+    "useDefaultNbCycles": 5,
+    "useRatioDryer": 0.25,
+    "useRatioIroning": 0.05,
+    "useTimeIroning": 0.067,
+    "useIroningProcessUuid": "b877ae15-96e0-43aa-bafa-a6abcfedbca3",
+    "useNonIroningProcessUuid": "86db560b-d31f-4745-a01e-ec74be00f865"
   },
   {
     "id": "2",
@@ -25,11 +26,12 @@
     "knitted": false,
     "fabricProcessUuid": "f9686809-f55e-4b96-b1f0-3298959de7d0",
     "makingProcessUuid": "0a260a3f-260e-4b43-a0df-0cf673fda960",
-    "ratioDryer": 0.12,
-    "ratioIroning": 0.25,
-    "timeIroning": 0.03,
-    "useIroningProcessUuid": "e60d7e90-fc97-4644-9534-b4bf3ee1df34",
-    "useOtherProcessUuid": "ebe0d692-4685-4159-befa-c994ca311cf0"
+    "useDefaultNbCycles": 5,
+    "useRatioDryer": 0.12,
+    "useRatioIroning": 0.25,
+    "useTimeIroning": 0.033,
+    "useIroningProcessUuid": "70067861-aa8d-4ddb-9921-c045012b7c76",
+    "useNonIroningProcessUuid": "81264b4c-dfb5-4cb1-b9e7-51b04a6f47d6"
   },
   {
     "id": "3",
@@ -41,11 +43,12 @@
     "knitted": false,
     "fabricProcessUuid": "f9686809-f55e-4b96-b1f0-3298959de7d0",
     "makingProcessUuid": "7fe48d7c-a568-4bd5-a3ac-cfa88255b4fe",
-    "ratioDryer": 0.12,
-    "ratioIroning": 0.7,
-    "timeIroning": 0.04,
-    "useIroningProcessUuid": "60081437-337c-440b-82e1-7e2a57d260b9",
-    "useOtherProcessUuid": "351ca6d8-819e-4ace-b5a8-cf0542165dd3"
+    "useDefaultNbCycles": 20,
+    "useRatioDryer": 0.12,
+    "useRatioIroning": 0.70,
+    "useTimeIroning": 0.043,
+    "useIroningProcessUuid": "33773966-2704-4420-8663-ea4231a12040",
+    "useNonIroningProcessUuid": "406d1f98-1052-458d-8f50-1901853d896d"
   },
   {
     "id": "4",
@@ -57,11 +60,12 @@
     "knitted": true,
     "fabricProcessUuid": "9c478d79-ff6b-45e1-9396-c3bd897faa1d",
     "makingProcessUuid": "26e3ca02-9bc0-45b4-b8b4-73f4b3701ad5",
-    "ratioDryer": 0.30,
-    "ratioIroning": 0.4,
-    "timeIroning": 0.04,
-    "useIroningProcessUuid": "638ae5b6-4ec9-4426-a314-cbf9b900d72f",
-    "useOtherProcessUuid": "0f1407fe-9f53-4495-953a-a2861e3896a4"
+    "useDefaultNbCycles": 45,
+    "useRatioDryer": 0.3,
+    "useRatioIroning": 0.40,
+    "useTimeIroning": 0.043,
+    "useIroningProcessUuid": "fcb8c240-1c4e-4413-925f-0b6a7465e5dd",
+    "useNonIroningProcessUuid": "24e2ff0a-75c6-471f-a375-d3f075ffad44"
   },
   {
     "id": "5",
@@ -73,11 +77,12 @@
     "knitted": false,
     "fabricProcessUuid": "f9686809-f55e-4b96-b1f0-3298959de7d0",
     "makingProcessUuid": "0a260a3f-260e-4b43-a0df-0cf673fda960",
-    "ratioDryer": 0.12,
-    "ratioIroning": 0.25,
-    "timeIroning": 0.03,
-    "useIroningProcessUuid": "9ef6686b-e737-42f2-ad88-3fba999fd154",
-    "useOtherProcessUuid": "ef73a24a-626b-455b-8066-62f1588ae0e3"
+    "useDefaultNbCycles": 5,
+    "useRatioDryer": 0.12,
+    "useRatioIroning": 0.25,
+    "useTimeIroning": 0.033,
+    "useIroningProcessUuid": "6efbbe3c-2ad2-47d4-9d8d-2bcbf5b19ada",
+    "useNonIroningProcessUuid": "d88c97c6-6f9a-477e-a61c-01fc5aed0a3b"
   },
   {
     "id": "6",
@@ -89,11 +94,12 @@
     "knitted": true,
     "fabricProcessUuid": "9c478d79-ff6b-45e1-9396-c3bd897faa1d",
     "makingProcessUuid": "387059fc-72cb-4a92-b1e7-2ef9242f8380",
-    "ratioDryer": 0.30,
-    "ratioIroning": 0,
-    "timeIroning": 0.00,
-    "useIroningProcessUuid": "5f359e19-c8c3-44bb-b1bf-1ccca69bc334",
-    "useOtherProcessUuid": "e85c16ab-4f5a-46be-9f3e-b5217009c4a7"
+    "useDefaultNbCycles": 17,
+    "useRatioDryer": 0.3,
+    "useRatioIroning": 0.00,
+    "useTimeIroning": 0.000,
+    "useIroningProcessUuid": "c47a19ae-3d49-41aa-b38d-b8eef6ee8d8e",
+    "useNonIroningProcessUuid": "1ecbfc31-9e9c-45de-9ed2-718b1c64357b"
   },
   {
     "id": "7",
@@ -105,11 +111,12 @@
     "knitted": false,
     "fabricProcessUuid": "f9686809-f55e-4b96-b1f0-3298959de7d0",
     "makingProcessUuid": "1f428a50-73c0-4fc1-ab39-00fd312458ee",
-    "ratioDryer": 0.30,
-    "ratioIroning": 0.63,
-    "timeIroning": 0.07,
-    "useIroningProcessUuid": "cd74422a-67d5-4435-9289-9cace3a62867",
-    "useOtherProcessUuid": "658924c7-47a3-4e65-9bf6-434a8765def3"
+    "useDefaultNbCycles": 23,
+    "useRatioDryer": 0.3,
+    "useRatioIroning": 0.63,
+    "useTimeIroning": 0.072,
+    "useIroningProcessUuid": "6d71fdef-b7a8-4a67-81e9-dc0e3f01a007",
+    "useNonIroningProcessUuid": "4964273a-cdbd-43cf-8cf8-4b017aee4f03"
   },
   {
     "id": "8",
@@ -121,11 +128,12 @@
     "knitted": false,
     "fabricProcessUuid": "f9686809-f55e-4b96-b1f0-3298959de7d0",
     "makingProcessUuid": "387059fc-72cb-4a92-b1e7-2ef9242f8380",
-    "ratioDryer": 0.12,
-    "ratioIroning": 0.18,
-    "timeIroning": 0.08,
-    "useIroningProcessUuid": "7660230e-7108-4c79-b9d7-50a8ca96dbfb",
-    "useOtherProcessUuid": "23f73b42-4906-4520-8863-28fb357f07fe"
+    "useDefaultNbCycles": 23,
+    "useRatioDryer": 0.12,
+    "useRatioIroning": 0.18,
+    "useTimeIroning": 0.075,
+    "useIroningProcessUuid": "2de2f5e5-79fb-4a4a-8399-a722012e82dc",
+    "useNonIroningProcessUuid": "2572015b-7320-4ce1-bc99-cc6de371a654"
   },
   {
     "id": "9",
@@ -137,11 +145,12 @@
     "knitted": false,
     "fabricProcessUuid": "f9686809-f55e-4b96-b1f0-3298959de7d0",
     "makingProcessUuid": "7fe48d7c-a568-4bd5-a3ac-cfa88255b4fe",
-    "ratioDryer": 0.25,
-    "ratioIroning": 0.05,
-    "timeIroning": 0.07,
-    "useIroningProcessUuid": "b41944cd-33e8-471a-a364-0df972235fb2",
-    "useOtherProcessUuid": "241ef0b6-d9e6-477c-90ae-1861e98c3032"
+    "useDefaultNbCycles": 5,
+    "useRatioDryer": 0.25,
+    "useRatioIroning": 0.05,
+    "useTimeIroning": 0.067,
+    "useIroningProcessUuid": "60147175-ca20-49aa-8991-9ed6f172c47b",
+    "useNonIroningProcessUuid": "8c040f35-e137-424b-a67f-2e50b628c1bf"
   },
   {
     "id": "10",
@@ -153,11 +162,12 @@
     "knitted": false,
     "fabricProcessUuid": "f9686809-f55e-4b96-b1f0-3298959de7d0",
     "makingProcessUuid": "387059fc-72cb-4a92-b1e7-2ef9242f8380",
-    "ratioDryer": 0.30,
-    "ratioIroning": 0.63,
-    "timeIroning": 0.07,
-    "useIroningProcessUuid": "14a5b128-a798-4352-9af0-85874bfb5bca",
-    "useOtherProcessUuid": "90728da7-b47f-41bc-9337-ed91868d7644"
+    "useDefaultNbCycles": 23,
+    "useRatioDryer": 0.3,
+    "useRatioIroning": 0.63,
+    "useTimeIroning": 0.072,
+    "useIroningProcessUuid": "f6b685ed-d5bd-40a0-af16-7c30838f3627",
+    "useNonIroningProcessUuid": "ea7afeed-c058-4dbb-be01-66704a9afb1f"
   },
   {
     "id": "11",
@@ -169,11 +179,12 @@
     "knitted": true,
     "fabricProcessUuid": "9c478d79-ff6b-45e1-9396-c3bd897faa1d",
     "makingProcessUuid": "387059fc-72cb-4a92-b1e7-2ef9242f8380",
-    "ratioDryer": 0.30,
-    "ratioIroning": 0,
-    "timeIroning": 0.00,
-    "useIroningProcessUuid": "701c3212-de25-4405-bb16-4015a7c0bc93",
-    "useOtherProcessUuid": "f4df3cb6-9b40-4fbf-922f-26cef87f6ea1"
+    "useDefaultNbCycles": 17,
+    "useRatioDryer": 0.3,
+    "useRatioIroning": 0.00,
+    "useTimeIroning": 0.000,
+    "useIroningProcessUuid": "4a94e796-cc40-4d74-b5ad-72ef0192a391",
+    "useNonIroningProcessUuid": "2b39a7ac-38bd-435f-85a4-783023d845bf"
   },
   {
     "id": "12",
@@ -185,11 +196,12 @@
     "knitted": false,
     "fabricProcessUuid": "f9686809-f55e-4b96-b1f0-3298959de7d0",
     "makingProcessUuid": "7fe48d7c-a568-4bd5-a3ac-cfa88255b4fe",
-    "ratioDryer": 0.12,
-    "ratioIroning": 0.18,
-    "timeIroning": 0.08,
-    "useIroningProcessUuid": "0e1652ca-f2e7-45ad-aadb-b1519b4c80c5",
-    "useOtherProcessUuid": "7d6314dc-e318-4e44-8649-38bd976b4fb8"
+    "useDefaultNbCycles": 23,
+    "useRatioDryer": 0.12,
+    "useRatioIroning": 0.18,
+    "useTimeIroning": 0.075,
+    "useIroningProcessUuid": "ce224ffa-3d46-4eb9-b624-2e34d4b5a419",
+    "useNonIroningProcessUuid": "d3bff7b7-efc1-459b-856d-ea0801d6912f"
   },
   {
     "id": "13",
@@ -201,11 +213,12 @@
     "knitted": true,
     "fabricProcessUuid": "9c478d79-ff6b-45e1-9396-c3bd897faa1d",
     "makingProcessUuid": "26e3ca02-9bc0-45b4-b8b4-73f4b3701ad5",
-    "ratioDryer": 0.30,
-    "ratioIroning": 0.4,
-    "timeIroning": 0.04,
-    "useIroningProcessUuid": "d749fe0b-6982-4ca7-8d83-1d9404142cf9",
-    "useOtherProcessUuid": "166eb4c0-05d1-48a9-8896-afb02e0b1725"
+    "useDefaultNbCycles": 45,
+    "useRatioDryer": 0.3,
+    "useRatioIroning": 0.40,
+    "useTimeIroning": 0.043,
+    "useIroningProcessUuid": "974659b8-4635-43ba-86c5-73a186ea6f21",
+    "useNonIroningProcessUuid": "7f76529e-521d-4795-bb36-ff896c4692da"
   },
   {
     "id": "14",
@@ -217,10 +230,11 @@
     "knitted": false,
     "fabricProcessUuid": "f9686809-f55e-4b96-b1f0-3298959de7d0",
     "makingProcessUuid": "7fe48d7c-a568-4bd5-a3ac-cfa88255b4fe",
-    "ratioDryer": 0.25,
-    "ratioIroning": 0.05,
-    "timeIroning": 0.07,
-    "useIroningProcessUuid": "d30bf77e-faee-4543-886f-bf1140177b0a",
-    "useOtherProcessUuid": "eb423c4c-6a88-4a01-b8b0-2a012361eb92"
+    "useDefaultNbCycles": 5,
+    "useRatioDryer": 0.25,
+    "useRatioIroning": 0.05,
+    "useTimeIroning": 0.067,
+    "useIroningProcessUuid": "12a83d8f-24e4-414f-9087-a7d37fefce91",
+    "useNonIroningProcessUuid": "493c32d2-506d-48c1-b8d7-0646fba88571"
   }
 ]
