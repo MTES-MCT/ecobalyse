@@ -1,9 +1,7 @@
 [
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, CN",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "8f923f3d-0bd2-4326-99e2-f984b4454226",
     "impacts": {
       "acd": 0.00896069,
@@ -29,10 +27,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, ES",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "37301c44-c4cf-4214-a4ac-eee5785ccdc5",
     "impacts": {
       "acd": 0.000229486,
@@ -58,10 +54,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, FR",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "05585055-9742-4fff-81ff-ad2e30e1b791",
     "impacts": {
       "acd": 0.000209809,
@@ -87,10 +81,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, IN",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "1b470f5c-6ae6-404d-bd71-8546d33dbc17",
     "impacts": {
       "acd": 0.0162766,
@@ -116,10 +108,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, PT",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "a1d83202-0052-4d10-b9d2-938564be6a0b",
     "impacts": {
       "acd": 0.00013267,
@@ -145,10 +135,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Chaleur",
-    "cat3": "Valeur par énergie primaire",
     "name": "Vapeur à partir de gaz naturel (mix de technologies de combustion et d'épuration des effluents gazeux|en sortie de chaudière|Puissance non spécifiée), ES",
+    "info": "Energie > Chaleur > Valeur par énergie primaire",
     "uuid": "618440a9-f4aa-65bc-21cb-ea40eee53f3d",
     "impacts": {
       "acd": 0.0002348,
@@ -174,10 +162,8 @@
     "alias": null
   },
   {
-    "cat1": "Textile",
-    "cat2": "Matières",
-    "cat3": "Matières naturelles",
     "name": "Plume de canard, inventaire agrégé",
+    "info": "Textile > Matières > Matières naturelles",
     "uuid": "d1f06ea5-d63f-453a-8f98-55ce78ae7579",
     "impacts": {
       "acd": 0.223509,
@@ -203,10 +189,8 @@
     "alias": null
   },
   {
-    "cat1": "Textile",
-    "cat2": "Matières",
-    "cat3": "Matières naturelles",
     "name": "Fil de soie",
+    "info": "Textile > Matières > Matières naturelles",
     "uuid": "94b4b0e1-61e4-4f4d-b9b2-efe7623b0e68",
     "impacts": {
       "acd": 0.48183,
@@ -232,10 +216,8 @@
     "alias": null
   },
   {
-    "cat1": "Textile",
-    "cat2": "Matières",
-    "cat3": "Matières naturelles",
     "name": "Fil de lin (filasse)",
+    "info": "Textile > Matières > Matières naturelles",
     "uuid": "e5a6d538-f932-4242-98b4-3a0c6439629c",
     "impacts": {
       "acd": 0.112007,
@@ -261,10 +243,8 @@
     "alias": null
   },
   {
-    "cat1": "Textile",
-    "cat2": "Matières",
-    "cat3": "Matières naturelles",
     "name": "Fil de lin (étoupe)",
+    "info": "Textile > Matières > Matières naturelles",
     "uuid": "fcef1a31-bb18-49e4-bdb6-e53dfe015ba0",
     "impacts": {
       "acd": 0.101654,
@@ -290,10 +270,8 @@
     "alias": null
   },
   {
-    "cat1": "Textile",
-    "cat2": "Matières",
-    "cat3": "Matières naturelles",
     "name": "Fil de laine de mouton Mérinos, inventaire partiellement agrégé",
+    "info": "Textile > Matières > Matières naturelles",
     "uuid": "4e035dbf-f48b-4b5a-94ea-0006c713958b",
     "impacts": {
       "acd": 0.2585,
@@ -319,10 +297,8 @@
     "alias": null
   },
   {
-    "cat1": "Textile",
-    "cat2": "Matières",
-    "cat3": "Matières naturelles",
     "name": "Fil de laine de mouton",
+    "info": "Textile > Matières > Matières naturelles",
     "uuid": "376bd165-d354-41aa-a6e3-fd3228413bb2",
     "impacts": {
       "acd": 1.6899,
@@ -348,10 +324,8 @@
     "alias": null
   },
   {
-    "cat1": "Textile",
-    "cat2": "Matières",
-    "cat3": "Matières naturelles",
     "name": "Fil de laine de chameau",
+    "info": "Textile > Matières > Matières naturelles",
     "uuid": "c191a4dd-5080-4eb6-9c59-b13c943327bc",
     "impacts": {
       "acd": 1.72489,
@@ -377,10 +351,8 @@
     "alias": null
   },
   {
-    "cat1": "Textile",
-    "cat2": "Matières",
-    "cat3": "Matières naturelles",
     "name": "Fil de jute",
+    "info": "Textile > Matières > Matières naturelles",
     "uuid": "72010874-4d26-4c7a-95de-c6987dfdedeb",
     "impacts": {
       "acd": 0.0914814,
@@ -406,10 +378,8 @@
     "alias": null
   },
   {
-    "cat1": "Textile",
-    "cat2": "Matières",
-    "cat3": "Matières naturelles",
     "name": "Fil de coton conventionnel, inventaire partiellement agrégé",
+    "info": "Textile > Matières > Matières naturelles",
     "uuid": "f211bbdb-415c-46fd-be4d-ddf199575b44",
     "impacts": {
       "acd": 0.153118,
@@ -435,10 +405,8 @@
     "alias": null
   },
   {
-    "cat1": "Textile",
-    "cat2": "Matières",
-    "cat3": "Matières naturelles",
     "name": "Fil de chanvre",
+    "info": "Textile > Matières > Matières naturelles",
     "uuid": "08601439-f338-4f94-ac8c-538061b65d16",
     "impacts": {
       "acd": 0.148329,
@@ -464,10 +432,8 @@
     "alias": null
   },
   {
-    "cat1": "Textile",
-    "cat2": "Matières",
-    "cat3": "Matières naturelles",
     "name": "Fil de cachemire",
+    "info": "Textile > Matières > Matières naturelles",
     "uuid": "380c0d9c-2840-4390-bd3f-5c960f26f5ed",
     "impacts": {
       "acd": 6.70835,
@@ -493,10 +459,8 @@
     "alias": null
   },
   {
-    "cat1": "Textile",
-    "cat2": "Matières",
-    "cat3": "Matières naturelles",
     "name": "Fil d'angora",
+    "info": "Textile > Matières > Matières naturelles",
     "uuid": "29bddef1-d753-45af-9ca6-aec05e2d02b9",
     "impacts": {
       "acd": 2.67922,
@@ -522,10 +486,8 @@
     "alias": null
   },
   {
-    "cat1": "Textile",
-    "cat2": "Matières",
-    "cat3": "Matières naturelles",
     "name": "Fibres de kapok, inventaire agrégé",
+    "info": "Textile > Matières > Matières naturelles",
     "uuid": "36cdbfc4-3f48-47b0-8ae0-294bb6017df1",
     "impacts": {
       "acd": 0.0006616,
@@ -551,10 +513,8 @@
     "alias": null
   },
   {
-    "cat1": "Textile",
-    "cat2": "Matières",
-    "cat3": "Matières synthétiques",
     "name": "Filament de viscose",
+    "info": "Textile > Matières > Matières synthétiques",
     "uuid": "81a67d97-3cd9-44ef-9ee2-159364364c0f",
     "impacts": {
       "acd": 0.0777808,
@@ -580,10 +540,8 @@
     "alias": null
   },
   {
-    "cat1": "Textile",
-    "cat2": "Matières",
-    "cat3": "Matières synthétiques",
     "name": "Filament de polyuréthane",
+    "info": "Textile > Matières > Matières synthétiques",
     "uuid": "c3738500-0a62-4b95-b4a2-b7beb12a9e1a",
     "impacts": {
       "acd": 0.130114,
@@ -609,10 +567,8 @@
     "alias": null
   },
   {
-    "cat1": "Textile",
-    "cat2": "Matières",
-    "cat3": "Matières synthétiques",
     "name": "Filament de polytriméthylène téréphtalate (PTT), inventaire partiellement agrégé",
+    "info": "Textile > Matières > Matières synthétiques",
     "uuid": "eca33573-0d09-4d79-9b28-da42bfcc7a4b",
     "impacts": {
       "acd": 0.0738927,
@@ -638,10 +594,8 @@
     "alias": null
   },
   {
-    "cat1": "Textile",
-    "cat2": "Matières",
-    "cat3": "Matières synthétiques",
     "name": "Filament de polytéréphtalate de butylène (PBT), inventaire agrégé",
+    "info": "Textile > Matières > Matières synthétiques",
     "uuid": "7f8bbfdc-fb65-4e3a-ac81-eda197ef17fc",
     "impacts": {
       "acd": 0.0747791,
@@ -667,10 +621,8 @@
     "alias": null
   },
   {
-    "cat1": "Textile",
-    "cat2": "Matières",
-    "cat3": "Matières synthétiques",
     "name": "Filament de polypropylène",
+    "info": "Textile > Matières > Matières synthétiques",
     "uuid": "a30cfbde-393a-40db-9263-ea00bfced0b7",
     "impacts": {
       "acd": 0.0286206,
@@ -696,10 +648,8 @@
     "alias": null
   },
   {
-    "cat1": "Textile",
-    "cat2": "Matières",
-    "cat3": "Matières synthétiques",
     "name": "Filament de polylactide",
+    "info": "Textile > Matières > Matières synthétiques",
     "uuid": "f2dd799d-1b69-4e7a-99bd-696bbbd5a978",
     "impacts": {
       "acd": 0.047873,
@@ -725,10 +675,8 @@
     "alias": null
   },
   {
-    "cat1": "Textile",
-    "cat2": "Matières",
-    "cat3": "Matières synthétiques",
     "name": "Filament de polyéthylène",
+    "info": "Textile > Matières > Matières synthétiques",
     "uuid": "088ed617-67fa-4d42-b3af-ee6cf39cf36f",
     "impacts": {
       "acd": 0.0291494,
@@ -754,10 +702,8 @@
     "alias": null
   },
   {
-    "cat1": "Textile",
-    "cat2": "Matières",
-    "cat3": "Matières synthétiques",
     "name": "Filament de polyester, inventaire partiellement agrégé",
+    "info": "Textile > Matières > Matières synthétiques",
     "uuid": "4d57c51d-7d56-46e1-acde-02fbcdc943e4",
     "impacts": {
       "acd": 0.0688135,
@@ -783,10 +729,8 @@
     "alias": null
   },
   {
-    "cat1": "Textile",
-    "cat2": "Matières",
-    "cat3": "Matières synthétiques",
     "name": "Filament de polyamide 66",
+    "info": "Textile > Matières > Matières synthétiques",
     "uuid": "182fa424-1f49-4728-b0f1-cb4e4ab36392",
     "impacts": {
       "acd": 0.0500436,
@@ -812,10 +756,8 @@
     "alias": null
   },
   {
-    "cat1": "Textile",
-    "cat2": "Matières",
-    "cat3": "Matières synthétiques",
     "name": "Filament d'aramide",
+    "info": "Textile > Matières > Matières synthétiques",
     "uuid": "7a1ccc4a-2ea7-48dc-9ef0-d57066ea8fa5",
     "impacts": {
       "acd": 0.0790202,
@@ -841,10 +783,8 @@
     "alias": null
   },
   {
-    "cat1": "Textile",
-    "cat2": "Matières",
-    "cat3": "Matières synthétiques",
     "name": "Filament d'acrylique",
+    "info": "Textile > Matières > Matières synthétiques",
     "uuid": "aee6709f-0864-4fc5-8760-68cb644a0021",
     "impacts": {
       "acd": 0.143457,
@@ -870,10 +810,8 @@
     "alias": null
   },
   {
-    "cat1": "Textile",
-    "cat2": "Matières",
-    "cat3": "Matières synthétiques",
     "name": "Filament bi-composant polypropylène/polyamide",
+    "info": "Textile > Matières > Matières synthétiques",
     "uuid": "37396ac4-13a2-484c-9cc6-5b5a93ff6e6e",
     "impacts": {
       "acd": 0.0328683,
@@ -899,10 +837,8 @@
     "alias": null
   },
   {
-    "cat1": "Textile",
-    "cat2": "Matières",
-    "cat3": "Matières synthétiques",
     "name": "Feuille de néoprène, inventaire agrégé",
+    "info": "Textile > Matières > Matières synthétiques",
     "uuid": "76fefff3-3781-49a2-8deb-c12945a6b71f",
     "impacts": {
       "acd": 0.0259965,
@@ -928,10 +864,8 @@
     "alias": null
   },
   {
-    "cat1": "Textile",
-    "cat2": "Matières",
-    "cat3": "Matières recyclées",
     "name": "Production de filament de polyester recyclé (recyclage mécanique), traitement de bouteilles post-consommation, inventaire partiellement agrégé",
+    "info": "Textile > Matières > Matières recyclées",
     "uuid": "4072bfa2-1948-4d12-8de9-bbeb6cc628e1",
     "impacts": {
       "acd": 0.0482881,
@@ -957,10 +891,8 @@
     "alias": null
   },
   {
-    "cat1": "Textile",
-    "cat2": "Matières",
-    "cat3": "Matières recyclées",
     "name": "Production de filament de polyester recyclé (recyclage chimique partiel), traitement de bouteilles post-consommation, inventaire partiellement agrégé",
+    "info": "Textile > Matières > Matières recyclées",
     "uuid": "e65e8157-9bd1-4711-9571-8e4a22c2d2b5",
     "impacts": {
       "acd": 0.143765,
@@ -986,10 +918,8 @@
     "alias": null
   },
   {
-    "cat1": "Textile",
-    "cat2": "Matières",
-    "cat3": "Matières recyclées",
     "name": "Production de filament de polyester recyclé (recyclage chimique complet), traitement de bouteilles post-consommation, inventaire partiellement agrégé",
+    "info": "Textile > Matières > Matières recyclées",
     "uuid": "221067ba-5c2f-4dad-b09a-dd5af0a9ae31",
     "impacts": {
       "acd": 0.0548083,
@@ -1015,10 +945,8 @@
     "alias": null
   },
   {
-    "cat1": "Textile",
-    "cat2": "Matières",
-    "cat3": "Matières recyclées",
     "name": "Production de filament de polyamide recyclé (recyclage chimique), traitement de déchets issus de filets de pêche, de tapis et de déchets de production, inventaire partiellement agrégé",
+    "info": "Textile > Matières > Matières recyclées",
     "uuid": "41ee61c2-9a98-4eec-8949-9d9b54289bd0",
     "impacts": {
       "acd": 0.0645523,
@@ -1044,10 +972,8 @@
     "alias": null
   },
   {
-    "cat1": "Textile",
-    "cat2": "Matières",
-    "cat3": "Matières recyclées",
     "name": "Production de fil de viscose recyclé (recyclage mécanique), traitement de déchets de production textiles, inventaire partiellement agrégé",
+    "info": "Textile > Matières > Matières recyclées",
     "uuid": "9671ae26-d772-4bb1-aad5-6b826555d0cd",
     "impacts": {
       "acd": 0.0504579,
@@ -1073,10 +999,8 @@
     "alias": null
   },
   {
-    "cat1": "Textile",
-    "cat2": "Matières",
-    "cat3": "Matières recyclées",
     "name": "Production de fil de polyamide recyclé (recyclage mécanique), traitement de déchets de production textiles, inventaire partiellement agrégé",
+    "info": "Textile > Matières > Matières recyclées",
     "uuid": "af5d130d-f18b-438c-9f19-d1ee49756960",
     "impacts": {
       "acd": 0.0410623,
@@ -1102,10 +1026,8 @@
     "alias": null
   },
   {
-    "cat1": "Textile",
-    "cat2": "Matières",
-    "cat3": "Matières recyclées",
     "name": "Production de fil de laine recyclé (recyclage mécanique), traitement de déchets de production textiles, inventaire partiellement agrégé",
+    "info": "Textile > Matières > Matières recyclées",
     "uuid": "92dfabc7-9441-463e-bda8-7bc5943c0e9d",
     "impacts": {
       "acd": 0.00204209,
@@ -1131,10 +1053,8 @@
     "alias": null
   },
   {
-    "cat1": "Textile",
-    "cat2": "Matières",
-    "cat3": "Matières recyclées",
     "name": "Production de fil de coton recyclé (recyclage mécanique), traitement de déchets textiles post-consommation, inventaire partiellement agrégé",
+    "info": "Textile > Matières > Matières recyclées",
     "uuid": "4d23093d-1346-4018-8c0f-7aae33c67bcd",
     "impacts": {
       "acd": 0.0033238,
@@ -1160,10 +1080,8 @@
     "alias": null
   },
   {
-    "cat1": "Textile",
-    "cat2": "Matières",
-    "cat3": "Matières recyclées",
     "name": "Production de fil de coton recyclé (recyclage mécanique), traitement de déchets de production textiles, inventaire partiellement agrégé",
+    "info": "Textile > Matières > Matières recyclées",
     "uuid": "2b24abb0-c1ec-4298-9b58-350904a26104",
     "impacts": {
       "acd": 0.004112,
@@ -1189,10 +1107,8 @@
     "alias": null
   },
   {
-    "cat1": "Textile",
-    "cat2": "Matières",
-    "cat3": "Matières recyclées",
     "name": "Production de fil d'acrylique recyclé (recyclage mécanique), traitement de déchets de production textiles, inventaire partiellement agrégé",
+    "info": "Textile > Matières > Matières recyclées",
     "uuid": "7603beaa-c555-4283-b9f8-4d5d231b8490",
     "impacts": {
       "acd": 0.0513796,
@@ -1218,10 +1134,8 @@
     "alias": null
   },
   {
-    "cat1": "Textile",
-    "cat2": "Matières",
-    "cat3": "Matières recyclées",
     "name": "Production de fibres recyclées, traitement de déchets textiles post-consommation (recyclage mécanique), inventaire partiellement agrégé",
+    "info": "Textile > Matières > Matières recyclées",
     "uuid": "ca5dc5b3-7fa2-4779-af0b-aa6f31cd457f",
     "impacts": {
       "acd": 0.000819605,
@@ -1247,10 +1161,8 @@
     "alias": null
   },
   {
-    "cat1": "Textile",
-    "cat2": "Mise en forme",
-    "cat3": "Tricotage",
     "name": "Tricotage",
+    "info": "Textile > Mise en forme > Tricotage",
     "uuid": "9c478d79-ff6b-45e1-9396-c3bd897faa1d",
     "impacts": {
       "acd": 0,
@@ -1276,10 +1188,8 @@
     "alias": null
   },
   {
-    "cat1": "Textile",
-    "cat2": "Mise en forme",
-    "cat3": "Tissage",
     "name": "Tissage (habillement)",
+    "info": "Textile > Mise en forme > Tissage",
     "uuid": "f9686809-f55e-4b96-b1f0-3298959de7d0",
     "impacts": {
       "acd": 0,
@@ -1305,10 +1215,8 @@
     "alias": null
   },
   {
-    "cat1": "Textile",
-    "cat2": "Ennoblissement",
-    "cat3": "Teinture",
     "name": "Teinture sur étoffe, procédé majorant, traitement inefficace des eaux usées",
+    "info": "Textile > Ennoblissement > Teinture",
     "uuid": "cf001531-5f2d-48b1-b30a-4a17466a8b30",
     "impacts": {
       "acd": 0.00889336,
@@ -1334,10 +1242,8 @@
     "alias": "dyeingHigh"
   },
   {
-    "cat1": "Textile",
-    "cat2": "Ennoblissement",
-    "cat3": "Teinture",
     "name": "Teinture sur étoffe, procédé représentatif, traitement très efficace des eaux usées",
+    "info": "Textile > Ennoblissement > Teinture",
     "uuid": "fb4bea16-7ce1-43e2-9e03-462250214988",
     "impacts": {
       "acd": 0.0088468,
@@ -1363,10 +1269,8 @@
     "alias": "dyeingLow"
   },
   {
-    "cat1": "Textile",
-    "cat2": "Mise en forme",
-    "cat3": "Confection",
     "name": "Confection (jeans)",
+    "info": "Textile > Mise en forme > Confection",
     "uuid": "1f428a50-73c0-4fc1-ab39-00fd312458ee",
     "impacts": {
       "acd": 0,
@@ -1392,10 +1296,8 @@
     "alias": null
   },
   {
-    "cat1": "Textile",
-    "cat2": "Mise en forme",
-    "cat3": "Confection",
     "name": "Confection (gilet, jupe, pantalon, pull)",
+    "info": "Textile > Mise en forme > Confection",
     "uuid": "387059fc-72cb-4a92-b1e7-2ef9242f8380",
     "impacts": {
       "acd": 0,
@@ -1421,10 +1323,8 @@
     "alias": null
   },
   {
-    "cat1": "Textile",
-    "cat2": "Mise en forme",
-    "cat3": "Confection",
     "name": "Confection (débardeur, tee-shirt, combinaison)",
+    "info": "Textile > Mise en forme > Confection",
     "uuid": "26e3ca02-9bc0-45b4-b8b4-73f4b3701ad5",
     "impacts": {
       "acd": 0,
@@ -1450,10 +1350,8 @@
     "alias": null
   },
   {
-    "cat1": "Textile",
-    "cat2": "Mise en forme",
-    "cat3": "Confection",
     "name": "Confection (chemisier, manteau, veste, cape, robe)",
+    "info": "Textile > Mise en forme > Confection",
     "uuid": "7fe48d7c-a568-4bd5-a3ac-cfa88255b4fe",
     "impacts": {
       "acd": 0,
@@ -1479,10 +1377,8 @@
     "alias": null
   },
   {
-    "cat1": "Textile",
-    "cat2": "Mise en forme",
-    "cat3": "Confection",
     "name": "Confection (ceinture, châle, chapeau, sac, écharpe)",
+    "info": "Textile > Mise en forme > Confection",
     "uuid": "0a260a3f-260e-4b43-a0df-0cf673fda960",
     "impacts": {
       "acd": 0,
@@ -1508,10 +1404,8 @@
     "alias": null
   },
   {
-    "cat1": "Transport",
-    "cat2": "Maritime",
-    "cat3": "Flotte moyenne",
     "name": "Transport maritime de conteneurs 27,500 t (dont flotte, utilisation et infrastructure) [tkm], GLO",
+    "info": "Transport > Maritime > Flotte moyenne",
     "uuid": "8dc4ce62-ff0f-4680-897f-867c3b31a923",
     "impacts": {
       "acd": 0.000766767,
@@ -1537,10 +1431,8 @@
     "alias": "seaTransport"
   },
   {
-    "cat1": "Transport",
-    "cat2": "Aérien",
-    "cat3": "Flotte moyenne",
     "name": "Transport aérien long-courrier (dont flotte, utilisation et infrastructure) [tkm], GLO",
+    "info": "Transport > Aérien > Flotte moyenne",
     "uuid": "839b263d-5111-4318-9275-7026937e88b2",
     "impacts": {
       "acd": 0.00518438,
@@ -1566,10 +1458,8 @@
     "alias": "airTransport"
   },
   {
-    "cat1": "Transport",
-    "cat2": "Routier",
-    "cat3": "Flotte moyenne continentale",
     "name": "Transport en camion (dont parc, utilisation et infrastructure) (50%) [tkm], GLO",
+    "info": "Transport > Routier > Flotte moyenne continentale",
     "uuid": "cf6e9d81-358c-4f44-5ab7-0e7a89440576",
     "impacts": {
       "acd": 0.00208954,
@@ -1595,10 +1485,8 @@
     "alias": "roadTransportPreMaking"
   },
   {
-    "cat1": "Transport",
-    "cat2": "Routier",
-    "cat3": "Flotte moyenne continentale",
     "name": "Transport en camion (dont parc, utilisation et infrastructure) (50%) [tkm], RER",
+    "info": "Transport > Routier > Flotte moyenne continentale",
     "uuid": "c0397088-6a57-eea7-8950-1d6db2e6bfdb",
     "impacts": {
       "acd": 0.00128435,
@@ -1624,10 +1512,8 @@
     "alias": "roadTransportPostMaking"
   },
   {
-    "cat1": "Transport",
-    "cat2": "Routier",
-    "cat3": "Flotte moyenne française",
     "name": "Transport en camion non spécifié France (dont parc, utilisation et infrastructure) (50%) [tkm], FR",
+    "info": "Transport > Routier > Flotte moyenne française",
     "uuid": "f49b27fa-f22e-c6e1-ab4b-e9f873e2e648",
     "impacts": {
       "acd": 0.0016869,
@@ -1653,10 +1539,8 @@
     "alias": "distribution"
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, GR",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "2de25500-c6a5-4723-be3d-9fc674bce785",
     "impacts": {
       "acd": 0.0000921877,
@@ -1682,10 +1566,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, TN",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "f0eb64cd-468d-4f3c-a9a3-3b3661625955",
     "impacts": {
       "acd": 0.00582212,
@@ -1711,10 +1593,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, TR",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "6fad8643-de3e-49dd-a48b-8e17b4175c23",
     "impacts": {
       "acd": 0.0117462,
@@ -1740,10 +1620,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, AE",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "c7e85736-75e5-4abf-bee3-1c80f46d7579",
     "impacts": {
       "acd": 0.00330672,
@@ -1769,10 +1647,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, AL",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "945f8fc8-a7cb-4cbd-98aa-7ab364b482a0",
     "impacts": {
       "acd": 0.0000031651,
@@ -1798,10 +1674,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, AM",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "3db02940-b3ac-4c6f-bd80-848ef8c34689",
     "impacts": {
       "acd": 0.000726222,
@@ -1827,10 +1701,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, AN",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "e6e86c36-24c1-459b-b5cb-ead34792f884",
     "impacts": {
       "acd": 0.0107951,
@@ -1856,10 +1728,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, AO",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "2f02c7ed-624a-45ef-910c-6a7a7ccde5ad",
     "impacts": {
       "acd": 0.0113371,
@@ -1885,10 +1755,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, AR",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "8acb140b-8038-4d68-9087-aaf08bd4ae73",
     "impacts": {
       "acd": 0.00327536,
@@ -1914,10 +1782,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, AT",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "05b80a56-6be6-44bf-af87-d486822c7ae4",
     "impacts": {
       "acd": 0.000185756,
@@ -1943,10 +1809,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, AU",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "df14f763-d397-4cbe-9278-c0c4c8ce5145",
     "impacts": {
       "acd": 0.00631493,
@@ -1972,10 +1836,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, AZ",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "685ee114-1663-4324-adaf-44bfebedd38f",
     "impacts": {
       "acd": 0.00262851,
@@ -2001,10 +1863,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, BA",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "2388a87f-e9ab-47ba-9ae5-4839445723ae",
     "impacts": {
       "acd": 0.0019801,
@@ -2030,10 +1890,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, BD",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "1ee6061e-8e15-4558-9338-94ad87abf932",
     "impacts": {
       "acd": 0.00324881,
@@ -2059,10 +1917,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, BE",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "082fe936-dd69-4735-9a38-3dd218e9c128",
     "impacts": {
       "acd": 0.000786419,
@@ -2088,10 +1944,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, BG",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "c8fe6120-0280-4f47-a538-2c3155841691",
     "impacts": {
       "acd": 0.000850411,
@@ -2117,10 +1971,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, BH",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "8ddf6980-9d1a-486a-aa1a-aa66aa8afd1c",
     "impacts": {
       "acd": 0.00213309,
@@ -2146,10 +1998,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, BJ",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "cb300b29-989b-4bd1-a23b-67f87de5cf62",
     "impacts": {
       "acd": 0.0298067,
@@ -2175,10 +2025,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, BN",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "81b11380-a558-48ae-b9a8-bbcc24f8ff9d",
     "impacts": {
       "acd": 0.0018839,
@@ -2204,10 +2052,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, BO",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "4903d969-55a4-43ee-b13d-529911789d59",
     "impacts": {
       "acd": 0.00164035,
@@ -2233,10 +2079,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, BR",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "5f95d446-59c1-4456-a0c3-e90a84c4f2d3",
     "impacts": {
       "acd": 0.00166165,
@@ -2262,10 +2106,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, BW",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "9fa3fd7a-0768-4a2b-8178-2b6241e5f2fd",
     "impacts": {
       "acd": 0.0273757,
@@ -2291,10 +2133,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, BY",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "059a4c75-dc6b-4263-aadb-7a9b2759d72d",
     "impacts": {
       "acd": 0.000986305,
@@ -2320,10 +2160,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, CA",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "4264dd00-58df-4c19-9db2-62de23f1a8e5",
     "impacts": {
       "acd": 0.00144613,
@@ -2349,10 +2187,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, CD",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "e74d577b-561b-4c73-8b7c-ff95bb719726",
     "impacts": {
       "acd": 0.0000586592,
@@ -2378,10 +2214,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, CG",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "e899a63c-3e17-4998-8c7d-53866c73fa9f",
     "impacts": {
       "acd": 0.00241418,
@@ -2407,10 +2241,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, CH",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "8ff8fa00-8358-482c-a78e-11050ea1dc74",
     "impacts": {
       "acd": 0.0000404326,
@@ -2436,10 +2268,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, CI",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "ef83a82c-43fa-4e85-8653-39c2683406ba",
     "impacts": {
       "acd": 0.00280879,
@@ -2465,10 +2295,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, CL",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "da84677c-03ab-4e27-aca2-1425d9ec56ae",
     "impacts": {
       "acd": 0.00986434,
@@ -2494,10 +2322,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, CM",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "cb89897e-4291-428e-ae57-d698621d82cb",
     "impacts": {
       "acd": 0.00713268,
@@ -2523,10 +2349,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, CO",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "7dda3b94-b470-4aa9-a327-bac0d9673272",
     "impacts": {
       "acd": 0.00190121,
@@ -2552,10 +2376,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, CR",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "52d21862-8e61-4f1a-9c7b-d785a95ea968",
     "impacts": {
       "acd": 0.00227557,
@@ -2581,10 +2403,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, CU",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "860a9da4-1810-46c9-bece-022795aae698",
     "impacts": {
       "acd": 0.0329449,
@@ -2610,10 +2430,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, CY",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "c3333775-6d00-4405-84af-e8517fc43f04",
     "impacts": {
       "acd": 0.00918807,
@@ -2639,10 +2457,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, CZ",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "3a453d41-341d-4f00-b23e-1c0326fdda50",
     "impacts": {
       "acd": 8.37957,
@@ -2668,10 +2484,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, DE",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "2f4ccc4d-d96d-4f9b-a462-487c914f88d5",
     "impacts": {
       "acd": 0.00176241,
@@ -2697,10 +2511,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, DK",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "5f3af148-c79f-4317-99ea-6fcd6f88f76a",
     "impacts": {
       "acd": 0.00187003,
@@ -2726,10 +2538,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, DO",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "2e422560-35f7-40c7-994b-bc9ed7b325bf",
     "impacts": {
       "acd": 0.0202354,
@@ -2755,10 +2565,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, DZ",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "99927484-5fb1-460b-b155-73c3f989a54c",
     "impacts": {
       "acd": 0.00320257,
@@ -2784,10 +2592,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, EC",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "ea6aa75f-afbb-44d7-bda1-be2dcb300c11",
     "impacts": {
       "acd": 0.015548,
@@ -2813,10 +2619,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, EE",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "93bbe2ad-1ce7-4a5a-b1dd-7cda0ac8df9b",
     "impacts": {
       "acd": 0.00291674,
@@ -2842,10 +2646,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, EG",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "92df3ca1-8f77-495f-83d1-0d1970585cea",
     "impacts": {
       "acd": 0.00574836,
@@ -2871,10 +2673,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, ER",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "61b0ce81-b3c3-4b4e-930d-65010af45f28",
     "impacts": {
       "acd": 0.0283053,
@@ -2900,10 +2700,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, ET",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "65ec9860-bfb4-4c3a-bd72-e0e8bbcefea1",
     "impacts": {
       "acd": 0.0049108,
@@ -2929,10 +2727,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, FI",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "a1eacc5b-82b5-43ea-b94e-dc59684c09c4",
     "impacts": {
       "acd": 0.000301427,
@@ -2958,10 +2754,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, GA",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "e0f7d67f-0e2e-4eb1-a816-60b67d96d715",
     "impacts": {
       "acd": 0.00983877,
@@ -2987,10 +2781,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, GB",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "17c53aa0-ee44-4d2e-8923-5410a6fb1bba",
     "impacts": {
       "acd": 0.00216912,
@@ -3016,10 +2808,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, GE",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "9e1420d5-8fe0-4493-bd4f-43fccf0ecaef",
     "impacts": {
       "acd": 0.000293755,
@@ -3045,10 +2835,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, GH",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "29c6e4af-f482-43a1-8cb8-2821fe5eb4c9",
     "impacts": {
       "acd": 0.0123342,
@@ -3074,10 +2862,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, GI",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "af6575cb-f188-4ba8-a634-69991b8da288",
     "impacts": {
       "acd": 0.00509549,
@@ -3103,10 +2889,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, GT",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "9245342a-3227-46a7-ad12-a90cab6e1c8f",
     "impacts": {
       "acd": 0.0148761,
@@ -3132,10 +2916,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, HK",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "7e18ffdc-dab7-4b0a-9e45-bf1982211b20",
     "impacts": {
       "acd": 0.00659989,
@@ -3161,10 +2943,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, HN",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "b8290e73-098b-4933-a5fd-0ae1ff1aacd4",
     "impacts": {
       "acd": 0.0171573,
@@ -3190,10 +2970,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, HR",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "8ae6ae20-b2b8-4f64-9220-e4161cec0cac",
     "impacts": {
       "acd": 0.000455381,
@@ -3219,10 +2997,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, HT",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "9657780a-9160-4afd-9933-54cd2c57824c",
     "impacts": {
       "acd": 0.0353956,
@@ -3248,10 +3024,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, HU",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "ec323bac-9705-4d67-a12c-9d240b5a68c2",
     "impacts": {
       "acd": 0.000351881,
@@ -3277,10 +3051,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, ID",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "99b2c503-f32f-4228-95ba-eb30a503d0b3",
     "impacts": {
       "acd": 0.0101653,
@@ -3306,10 +3078,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, IE",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "ba818146-fade-4095-9e8d-578dc97fae13",
     "impacts": {
       "acd": 0.00116532,
@@ -3335,10 +3105,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, IL",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "a8209f1a-8822-45a4-a136-2ccb0e8c20cb",
     "impacts": {
       "acd": 0.004751,
@@ -3364,10 +3132,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, IQ",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "10691eca-a2f3-4309-bc59-830111504d0b",
     "impacts": {
       "acd": 0.0412593,
@@ -3393,10 +3159,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, IR",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "59fe07e3-cc97-4489-b49c-3dd4d6a1aac5",
     "impacts": {
       "acd": 0.0137834,
@@ -3422,10 +3186,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, IS",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "ca0beee4-e330-4135-8e06-63a091cd863c",
     "impacts": {
       "acd": 0.00000520141,
@@ -3451,10 +3213,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, IT",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "f23b9dd6-9400-4451-a7c4-ad44834b8400",
     "impacts": {
       "acd": 0.000133352,
@@ -3480,10 +3240,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, JM",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "ef6056f3-0a1a-433d-9f2b-d99efa978ca0",
     "impacts": {
       "acd": 0.0295359,
@@ -3509,10 +3267,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, JO",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "646e00c9-a5cb-4b57-8731-5cfed5bea9f9",
     "impacts": {
       "acd": 0.00647612,
@@ -3538,10 +3294,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, JP",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "c0c628fb-302c-45c6-9f83-cf77d85040b8",
     "impacts": {
       "acd": 0.00118065,
@@ -3567,10 +3321,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, KE",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "eac80c30-22c6-4445-b574-32d21e3be8d3",
     "impacts": {
       "acd": 0.0138865,
@@ -3596,10 +3348,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, KG",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "1a3ee749-ac23-4965-8f8e-61c602eeaee3",
     "impacts": {
       "acd": 0.000866085,
@@ -3625,10 +3375,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, KH",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "89039edc-900f-49dd-82cc-6a27f7cad4ad",
     "impacts": {
       "acd": 0.0423186,
@@ -3654,10 +3402,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, KP",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "6291670d-4fc4-450f-98b8-b709117a1dd2",
     "impacts": {
       "acd": 0.0100174,
@@ -3683,10 +3429,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, KR",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "37f91862-d812-46b5-a028-6f570c38f28e",
     "impacts": {
       "acd": 0.00119496,
@@ -3712,10 +3456,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, KW",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "7c70c227-3d7b-4ac5-9320-976cea319acc",
     "impacts": {
       "acd": 0.020822,
@@ -3741,10 +3483,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, KZ",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "687e2ab6-2147-49d5-8b96-d353d5d914d5",
     "impacts": {
       "acd": 0.015495,
@@ -3770,10 +3510,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, LB",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "9e192c24-3d05-470f-9339-74ce6db5af0b",
     "impacts": {
       "acd": 0.0265856,
@@ -3799,10 +3537,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, LK",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "a422bb06-6d07-436b-be71-9e2034272a2b",
     "impacts": {
       "acd": 0.0106068,
@@ -3828,10 +3564,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, LT",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "a077ab04-0ddc-4ec7-8f4d-55a352be4a3f",
     "impacts": {
       "acd": 0.000196951,
@@ -3857,10 +3591,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, LU",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "e4976da2-8029-49ec-ae14-b598e5fc72f6",
     "impacts": {
       "acd": 0.000455209,
@@ -3886,10 +3618,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, LV",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "440c2957-1d86-455f-8528-c4ddf0a46d40",
     "impacts": {
       "acd": 0.00011583,
@@ -3915,10 +3645,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, LY",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "f41dcd87-8d1e-43d4-9976-74e78cb3c21a",
     "impacts": {
       "acd": 0.0286137,
@@ -3944,10 +3672,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, MA",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "7f879b58-013e-472c-8637-67d2d536f4e2",
     "impacts": {
       "acd": 0.0136214,
@@ -3973,10 +3699,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, MD",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "5b60dc0f-9e91-4c08-8b3c-3bedb0e08aef",
     "impacts": {
       "acd": 0.000269757,
@@ -4002,10 +3726,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, MK",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "8965de1d-c700-43b2-bd9c-c69f3f9431ff",
     "impacts": {
       "acd": 0.000984843,
@@ -4031,10 +3753,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, MM",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "11fbcf50-22e3-4db0-b19f-c841bf7f8692",
     "impacts": {
       "acd": 0.00458418,
@@ -4060,10 +3780,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, MN",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "c9fbe09f-17c7-4f21-a5cc-73233e3d2508",
     "impacts": {
       "acd": 0.0497006,
@@ -4089,10 +3807,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, moyenne, RER",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "a7a4ad1e-0107-4153-cfdc-257ab9d8491f",
     "impacts": {
       "acd": 0.223813,
@@ -4118,10 +3834,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, MT",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "33d35cac-2f8a-4fbd-b0cd-01e4a948b4f9",
     "impacts": {
       "acd": 0.0125114,
@@ -4147,10 +3861,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, MX",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "62fcb814-f4cd-4b85-a309-7844930c93b3",
     "impacts": {
       "acd": 0.00942221,
@@ -4176,10 +3888,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, MY",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "7c9c7dbc-d77c-46f9-8a51-f807b064a317",
     "impacts": {
       "acd": 0.0056805,
@@ -4205,10 +3915,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, MZ",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "0c2270d9-d90e-4439-9498-b56fa3c119e8",
     "impacts": {
       "acd": 0.0000138435,
@@ -4234,10 +3942,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, NA",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "fe81e4db-e027-4c73-bb29-cad340963101",
     "impacts": {
       "acd": 0.00462983,
@@ -4263,10 +3969,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, NG",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "c8644e9a-d3f0-4b85-a282-688da9899e9c",
     "impacts": {
       "acd": 0.00443329,
@@ -4292,10 +3996,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, NI",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "948756fd-23f8-4a22-94be-3bfad0cc193c",
     "impacts": {
       "acd": 0.0253725,
@@ -4321,10 +4023,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, NL",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "e06b4e70-a9a6-4d9f-ad94-6fe3ff797da8",
     "impacts": {
       "acd": 0.00105822,
@@ -4350,10 +4050,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, NO",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "ce912f39-9ffa-42c7-b0dc-d106be7a52c9",
     "impacts": {
       "acd": 0.0000431434,
@@ -4379,10 +4077,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, non spécifié",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "0048ee22-f0cd-ad5e-6b84-a1373f37aa82",
     "impacts": {
       "acd": 2.32766,
@@ -4408,10 +4104,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, NP",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "8df8dd5b-1d89-4338-ad4f-597bedfd6055",
     "impacts": {
       "acd": 0.000128768,
@@ -4437,10 +4131,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, NZ",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "b0ccaaaa-d72c-4d83-ad9d-3e414c494d58",
     "impacts": {
       "acd": 0.00151872,
@@ -4466,10 +4158,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, OM",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "11e6d6e8-105d-40a7-9afb-b2f6b238371e",
     "impacts": {
       "acd": 0.0118503,
@@ -4495,10 +4185,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, PA",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "7393f0a8-66e9-4f47-86db-34a8dea3890b",
     "impacts": {
       "acd": 0.0118683,
@@ -4524,10 +4212,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, PE",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "eb99f3b1-d1d0-4b8c-9573-ad558ade66e7",
     "impacts": {
       "acd": 0.00213338,
@@ -4553,10 +4239,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, PH",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "cdfec7ba-7e0f-49e8-af0d-40900e0aa91a",
     "impacts": {
       "acd": 0.00761762,
@@ -4582,10 +4266,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, PK",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "5235ba76-4f83-473c-9521-8f3e1c084a37",
     "impacts": {
       "acd": 0.00740151,
@@ -4611,10 +4293,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, PL",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "280eb6f6-2c6b-49a4-9c11-cbe1a373bc28",
     "impacts": {
       "acd": 0.00949766,
@@ -4640,10 +4320,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, PY",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "6b5a00df-9543-41e2-ab2f-eb9010603c7d",
     "impacts": {
       "acd": 0.00000757481,
@@ -4669,10 +4347,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, QA",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "dbe5a642-6f81-4842-95cc-1248be86b1f3",
     "impacts": {
       "acd": 0.00160631,
@@ -4698,10 +4374,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, RO",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "9dadf1cf-d142-42c7-a269-da69c7bd0016",
     "impacts": {
       "acd": 0.00166774,
@@ -4727,10 +4401,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, RS",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "7c2df8c0-7c85-4dd1-b8d3-a316aac9e784",
     "impacts": {
       "acd": 0.041515,
@@ -4756,10 +4428,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, RU",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "09149fe5-5055-4d49-9e84-a285d5c418d4",
     "impacts": {
       "acd": 0.000142687,
@@ -4785,10 +4455,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, SA",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "bf81e73f-c7e0-4fc7-810e-a3995548e810",
     "impacts": {
       "acd": 0.0157798,
@@ -4814,10 +4482,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, SD",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "7966130c-45a6-4960-8dc8-258267af5f45",
     "impacts": {
       "acd": 0.0275295,
@@ -4843,10 +4509,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, SE",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "4df980bd-8034-4ad4-9686-bc98e4aab6e5",
     "impacts": {
       "acd": 0.000205792,
@@ -4872,10 +4536,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, SG",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "f6392de9-90d7-4bd0-9caf-5fb4dd225763",
     "impacts": {
       "acd": 0.00617875,
@@ -4901,10 +4563,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, SI",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "2ed648ae-5b6c-4a90-a9a9-ebfad55b8e54",
     "impacts": {
       "acd": 0.000317265,
@@ -4930,10 +4590,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, SK",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "438da214-9b93-4a0e-bffe-40e20dc58dd9",
     "impacts": {
       "acd": 0.00158928,
@@ -4959,10 +4617,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, SN",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "e9332938-4e34-4cb6-ae16-9913c23089ea",
     "impacts": {
       "acd": 0.0275064,
@@ -4988,10 +4644,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, SV",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "d80c4039-432e-4c05-9ee7-bcf7a42318a4",
     "impacts": {
       "acd": 0.0111793,
@@ -5017,10 +4671,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, SY",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "2b8ab4df-294c-4e43-b0be-535f2f4fd485",
     "impacts": {
       "acd": 0.0233106,
@@ -5046,10 +4698,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, TG",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "2b0ff1d0-1f93-4382-9173-6534df5b2c2c",
     "impacts": {
       "acd": 0.0127167,
@@ -5075,10 +4725,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, TH",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "15f545fb-2cbc-4a75-8217-c31526f8d07a",
     "impacts": {
       "acd": 0.00709655,
@@ -5104,10 +4752,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, TJ",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "098ba960-3e74-4684-88ca-1df4e718752d",
     "impacts": {
       "acd": 0.0000684273,
@@ -5133,10 +4779,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, TM",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "e4844a0e-68c8-4506-bc9a-9e4b2ac8b607",
     "impacts": {
       "acd": 0.00304619,
@@ -5162,10 +4806,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, TT",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "4d4de2d0-3cbd-4c67-95c7-5b9a9a832116",
     "impacts": {
       "acd": 0.00245014,
@@ -5191,10 +4833,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, TW",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "b1fda481-0247-4b08-a86f-09847e695e9d",
     "impacts": {
       "acd": 0.00861254,
@@ -5220,10 +4860,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, TZ",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "205d1157-f5e0-47ba-bffc-e5d2169a412a",
     "impacts": {
       "acd": 0.00155966,
@@ -5249,10 +4887,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, UA",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "c122dc36-0df3-4d91-8aae-b91a1199509b",
     "impacts": {
       "acd": 0.000894734,
@@ -5278,10 +4914,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, US",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "09c094a1-2ba7-4177-9258-4ec1e0c12cb8",
     "impacts": {
       "acd": 0.0036712,
@@ -5307,10 +4941,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, UY",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "ae328b49-10da-4e3d-80d3-62154515906c",
     "impacts": {
       "acd": 0.00834624,
@@ -5336,10 +4968,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, UZ",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "fc173956-47e6-40df-8145-16353207c965",
     "impacts": {
       "acd": 0.00348012,
@@ -5365,10 +4995,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, VE",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "d48e579d-1ecc-4d22-be24-81f0b6893f6b",
     "impacts": {
       "acd": 0.00558046,
@@ -5394,10 +5022,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, VN",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "0007ed7f-ef14-47a0-859c-d8ca92309f66",
     "impacts": {
       "acd": 0.00452596,
@@ -5423,10 +5049,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, YE",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "0e3d40d6-894e-459c-8360-f8d4560f8387",
     "impacts": {
       "acd": 0.0322861,
@@ -5452,10 +5076,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, ZA",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "226df310-a28b-4ee8-a30d-f526539d6a67",
     "impacts": {
       "acd": 0.0151197,
@@ -5481,10 +5103,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, ZM",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "bf146eaa-b363-4c87-b961-7739850d2ebf",
     "impacts": {
       "acd": 0.000153449,
@@ -5510,10 +5130,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Electricité",
-    "cat3": "Mix moyen",
     "name": "Mix électrique réseau, ZW",
+    "info": "Energie > Electricité > Mix moyen",
     "uuid": "2c39bba1-6bd3-4ff0-8a18-9f386b3f05c8",
     "impacts": {
       "acd": 0.0108432,
@@ -5539,10 +5157,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Chaleur",
-    "cat3": "Mix moyen",
     "name": "Mix Vapeur (mix technologique|mix de production, en sortie de chaudière), FR",
+    "info": "Energie > Chaleur > Mix moyen",
     "uuid": "12fc43f2-a007-423b-a619-619d725793ea",
     "impacts": {
       "acd": 0.000396607,
@@ -5568,10 +5184,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Chaleur",
-    "cat3": "Mix moyen",
     "name": "Mix Vapeur (mix technologique|mix de production, en sortie de chaudière), RSA",
+    "info": "Energie > Chaleur > Mix moyen",
     "uuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
     "impacts": {
       "acd": 0.00116505,
@@ -5597,10 +5211,8 @@
     "alias": null
   },
   {
-    "cat1": "Energie",
-    "cat2": "Chaleur",
-    "cat3": "Mix moyen",
     "name": "Vapeur à partir de gaz naturel (mix de technologies de combustion et d'épuration des effluents gazeux|en sortie de chaudière|Puissance non spécifiée), RER",
+    "info": "Energie > Chaleur > Mix moyen",
     "uuid": "59c4c64c-0916-868a-5dd6-a42c4c42222f",
     "impacts": {
       "acd": 0.000247951,
@@ -5626,10 +5238,8 @@
     "alias": null
   },
   {
-    "cat1": "Utilisation",
-    "cat2": "Electricité",
-    "cat3": "Repassage",
     "name": "Utilisation : Repassage - Ironing (Cape)",
+    "info": "Utilisation > Electricité > Repassage",
     "uuid": "b877ae15-96e0-43aa-bafa-a6abcfedbca3",
     "impacts": {
       "acd": 0,
@@ -5655,10 +5265,8 @@
     "alias": null
   },
   {
-    "cat1": "Utilisation",
-    "cat2": "Electricité",
-    "cat3": "Repassage",
     "name": "Utilisation : Repassage - Ironing (Châle)",
+    "info": "Utilisation > Electricité > Repassage",
     "uuid": "70067861-aa8d-4ddb-9921-c045012b7c76",
     "impacts": {
       "acd": 0,
@@ -5684,10 +5292,8 @@
     "alias": null
   },
   {
-    "cat1": "Utilisation",
-    "cat2": "Electricité",
-    "cat3": "Repassage",
     "name": "Utilisation : Repassage - Ironing (Chemisier)",
+    "info": "Utilisation > Electricité > Repassage",
     "uuid": "33773966-2704-4420-8663-ea4231a12040",
     "impacts": {
       "acd": 0,
@@ -5713,10 +5319,8 @@
     "alias": null
   },
   {
-    "cat1": "Utilisation",
-    "cat2": "Electricité",
-    "cat3": "Repassage",
     "name": "Utilisation : Repassage - Ironing (Débardeur)",
+    "info": "Utilisation > Electricité > Repassage",
     "uuid": "fcb8c240-1c4e-4413-925f-0b6a7465e5dd",
     "impacts": {
       "acd": 0,
@@ -5742,10 +5346,8 @@
     "alias": null
   },
   {
-    "cat1": "Utilisation",
-    "cat2": "Electricité",
-    "cat3": "Repassage",
     "name": "Utilisation : Repassage - Ironing (Echarpe)",
+    "info": "Utilisation > Electricité > Repassage",
     "uuid": "6efbbe3c-2ad2-47d4-9d8d-2bcbf5b19ada",
     "impacts": {
       "acd": 0,
@@ -5771,10 +5373,8 @@
     "alias": null
   },
   {
-    "cat1": "Utilisation",
-    "cat2": "Electricité",
-    "cat3": "Repassage",
     "name": "Utilisation : Repassage - Ironing (Gilet)",
+    "info": "Utilisation > Electricité > Repassage",
     "uuid": "c47a19ae-3d49-41aa-b38d-b8eef6ee8d8e",
     "impacts": {
       "acd": 0,
@@ -5800,10 +5400,8 @@
     "alias": null
   },
   {
-    "cat1": "Utilisation",
-    "cat2": "Electricité",
-    "cat3": "Repassage",
     "name": "Utilisation : Repassage - Ironing (Jean)",
+    "info": "Utilisation > Electricité > Repassage",
     "uuid": "6d71fdef-b7a8-4a67-81e9-dc0e3f01a007",
     "impacts": {
       "acd": 0,
@@ -5829,10 +5427,8 @@
     "alias": null
   },
   {
-    "cat1": "Utilisation",
-    "cat2": "Electricité",
-    "cat3": "Repassage",
     "name": "Utilisation : Repassage - Ironing (Jupe)",
+    "info": "Utilisation > Electricité > Repassage",
     "uuid": "2de2f5e5-79fb-4a4a-8399-a722012e82dc",
     "impacts": {
       "acd": 0,
@@ -5858,10 +5454,8 @@
     "alias": null
   },
   {
-    "cat1": "Utilisation",
-    "cat2": "Electricité",
-    "cat3": "Repassage",
     "name": "Utilisation : Repassage - Ironing (Manteau)",
+    "info": "Utilisation > Electricité > Repassage",
     "uuid": "60147175-ca20-49aa-8991-9ed6f172c47b",
     "impacts": {
       "acd": 0,
@@ -5887,10 +5481,8 @@
     "alias": null
   },
   {
-    "cat1": "Utilisation",
-    "cat2": "Electricité",
-    "cat3": "Repassage",
     "name": "Utilisation : Repassage - Ironing (Pantalon)",
+    "info": "Utilisation > Electricité > Repassage",
     "uuid": "f6b685ed-d5bd-40a0-af16-7c30838f3627",
     "impacts": {
       "acd": 0,
@@ -5916,10 +5508,8 @@
     "alias": null
   },
   {
-    "cat1": "Utilisation",
-    "cat2": "Electricité",
-    "cat3": "Repassage",
     "name": "Utilisation : Repassage - Ironing (Pull)",
+    "info": "Utilisation > Electricité > Repassage",
     "uuid": "4a94e796-cc40-4d74-b5ad-72ef0192a391",
     "impacts": {
       "acd": 0,
@@ -5945,10 +5535,8 @@
     "alias": null
   },
   {
-    "cat1": "Utilisation",
-    "cat2": "Electricité",
-    "cat3": "Repassage",
     "name": "Utilisation : Repassage - Ironing (Robe)",
+    "info": "Utilisation > Electricité > Repassage",
     "uuid": "ce224ffa-3d46-4eb9-b624-2e34d4b5a419",
     "impacts": {
       "acd": 0,
@@ -5974,10 +5562,8 @@
     "alias": null
   },
   {
-    "cat1": "Utilisation",
-    "cat2": "Electricité",
-    "cat3": "Repassage",
     "name": "Utilisation : Repassage - Ironing (T-shirt)",
+    "info": "Utilisation > Electricité > Repassage",
     "uuid": "974659b8-4635-43ba-86c5-73a186ea6f21",
     "impacts": {
       "acd": 0,
@@ -6003,10 +5589,8 @@
     "alias": null
   },
   {
-    "cat1": "Utilisation",
-    "cat2": "Electricité",
-    "cat3": "Repassage",
     "name": "Utilisation : Repassage - Ironing (Veste)",
+    "info": "Utilisation > Electricité > Repassage",
     "uuid": "12a83d8f-24e4-414f-9087-a7d37fefce91",
     "impacts": {
       "acd": 0,
@@ -6032,10 +5616,8 @@
     "alias": null
   },
   {
-    "cat1": "Utilisation",
-    "cat2": "Aggrégation multi-impacts",
-    "cat3": "Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "name": "Utilisation : Impact hors repassage (électricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées)  (Cape) - Non ironing impact",
+    "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "uuid": "86db560b-d31f-4745-a01e-ec74be00f865",
     "impacts": {
       "acd": 0.000093940053,
@@ -6061,10 +5643,8 @@
     "alias": null
   },
   {
-    "cat1": "Utilisation",
-    "cat2": "Aggrégation multi-impacts",
-    "cat3": "Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "name": "Utilisation : Impact hors repassage (électricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées)  (Châle) - Non ironing impact",
+    "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "uuid": "81264b4c-dfb5-4cb1-b9e7-51b04a6f47d6",
     "impacts": {
       "acd": 0.000093940053,
@@ -6090,10 +5670,8 @@
     "alias": null
   },
   {
-    "cat1": "Utilisation",
-    "cat2": "Aggrégation multi-impacts",
-    "cat3": "Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "name": "Utilisation : Impact hors repassage (électricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées)  (Chemisier) - Non ironing impact",
+    "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "uuid": "406d1f98-1052-458d-8f50-1901853d896d",
     "impacts": {
       "acd": 0.000093940053,
@@ -6119,10 +5697,8 @@
     "alias": null
   },
   {
-    "cat1": "Utilisation",
-    "cat2": "Aggrégation multi-impacts",
-    "cat3": "Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "name": "Utilisation : Impact hors repassage (électricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées)  (Débardeur) - Non ironing impact",
+    "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "uuid": "24e2ff0a-75c6-471f-a375-d3f075ffad44",
     "impacts": {
       "acd": 0.000093940053,
@@ -6148,10 +5724,8 @@
     "alias": null
   },
   {
-    "cat1": "Utilisation",
-    "cat2": "Aggrégation multi-impacts",
-    "cat3": "Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "name": "Utilisation : Impact hors repassage (électricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées)  (Echarpe) - Non ironing impact",
+    "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "uuid": "d88c97c6-6f9a-477e-a61c-01fc5aed0a3b",
     "impacts": {
       "acd": 0.000093940053,
@@ -6177,10 +5751,8 @@
     "alias": null
   },
   {
-    "cat1": "Utilisation",
-    "cat2": "Aggrégation multi-impacts",
-    "cat3": "Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "name": "Utilisation : Impact hors repassage (électricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées)  (Gilet) - Non ironing impact",
+    "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "uuid": "1ecbfc31-9e9c-45de-9ed2-718b1c64357b",
     "impacts": {
       "acd": 0.000093940053,
@@ -6206,10 +5778,8 @@
     "alias": null
   },
   {
-    "cat1": "Utilisation",
-    "cat2": "Aggrégation multi-impacts",
-    "cat3": "Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "name": "Utilisation : Impact hors repassage (électricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées)  (Jean) - Non ironing impact",
+    "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "uuid": "4964273a-cdbd-43cf-8cf8-4b017aee4f03",
     "impacts": {
       "acd": 0.000093940053,
@@ -6235,10 +5805,8 @@
     "alias": null
   },
   {
-    "cat1": "Utilisation",
-    "cat2": "Aggrégation multi-impacts",
-    "cat3": "Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "name": "Utilisation : Impact hors repassage (électricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées)  (Jupe) - Non ironing impact",
+    "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "uuid": "2572015b-7320-4ce1-bc99-cc6de371a654",
     "impacts": {
       "acd": 0.000093940053,
@@ -6264,10 +5832,8 @@
     "alias": null
   },
   {
-    "cat1": "Utilisation",
-    "cat2": "Aggrégation multi-impacts",
-    "cat3": "Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "name": "Utilisation : Impact hors repassage (électricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées)  (Manteau) - Non ironing impact",
+    "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "uuid": "8c040f35-e137-424b-a67f-2e50b628c1bf",
     "impacts": {
       "acd": 0.000093940053,
@@ -6293,10 +5859,8 @@
     "alias": null
   },
   {
-    "cat1": "Utilisation",
-    "cat2": "Aggrégation multi-impacts",
-    "cat3": "Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "name": "Utilisation : Impact hors repassage (électricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées)  (Pantalon) - Non ironing impact",
+    "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "uuid": "ea7afeed-c058-4dbb-be01-66704a9afb1f",
     "impacts": {
       "acd": 0.000093940053,
@@ -6322,10 +5886,8 @@
     "alias": null
   },
   {
-    "cat1": "Utilisation",
-    "cat2": "Aggrégation multi-impacts",
-    "cat3": "Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "name": "Utilisation : Impact hors repassage (électricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées)  (Pull) - Non ironing impact",
+    "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "uuid": "2b39a7ac-38bd-435f-85a4-783023d845bf",
     "impacts": {
       "acd": 0.000093940053,
@@ -6351,10 +5913,8 @@
     "alias": null
   },
   {
-    "cat1": "Utilisation",
-    "cat2": "Aggrégation multi-impacts",
-    "cat3": "Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "name": "Utilisation : Impact hors repassage (électricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées)  (Robe) - Non ironing impact",
+    "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "uuid": "d3bff7b7-efc1-459b-856d-ea0801d6912f",
     "impacts": {
       "acd": 0.000093940053,
@@ -6380,10 +5940,8 @@
     "alias": null
   },
   {
-    "cat1": "Utilisation",
-    "cat2": "Aggrégation multi-impacts",
-    "cat3": "Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "name": "Utilisation : Impact hors repassage (électricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées)  (T-shirt) - Non ironing impact",
+    "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "uuid": "7f76529e-521d-4795-bb36-ff896c4692da",
     "impacts": {
       "acd": 0.000093940053,
@@ -6409,10 +5967,8 @@
     "alias": null
   },
   {
-    "cat1": "Utilisation",
-    "cat2": "Aggrégation multi-impacts",
-    "cat3": "Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "name": "Utilisation : Impact hors repassage (électricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées)  (Veste) - Non ironing impact",
+    "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "uuid": "493c32d2-506d-48c1-b8d7-0646fba88571",
     "impacts": {
       "acd": 0.000093940053,
