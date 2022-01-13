@@ -44,6 +44,8 @@ type alias ProcessInfo =
     , airTransport : Maybe Process
     , seaTransport : Maybe Process
     , roadTransport : Maybe Process
+    , useIroning : Maybe Process
+    , useNonIroning : Maybe Process
     }
 
 
@@ -88,6 +90,8 @@ defaultProcessInfo =
     , airTransport = Nothing
     , seaTransport = Nothing
     , roadTransport = Nothing
+    , useIroning = Nothing
+    , useNonIroning = Nothing
     }
 
 
@@ -245,7 +249,7 @@ getRoadTransportProcess wellKnown { label } =
 
 
 updateFromInputs : Inputs -> Step -> Step
-updateFromInputs { dyeingWeighting, airTransportRatio, customCountryMixes } ({ label, country } as step) =
+updateFromInputs ({ dyeingWeighting, airTransportRatio, customCountryMixes } as inputs) ({ label, country } as step) =
     let
         countryElecInfo =
             Maybe.map countryMixToString
@@ -288,6 +292,16 @@ updateFromInputs { dyeingWeighting, airTransportRatio, customCountryMixes } ({ l
                             country.airTransportRatio
                                 |> airTransportRatioToString
                                 |> Just
+                    }
+            }
+
+        Use ->
+            { step
+                | processInfo =
+                    { defaultProcessInfo
+                        | countryElec = Just country.electricityProcess.name
+                        , useIroning = Just inputs.product.useIroningProcess
+                        , useNonIroning = Just inputs.product.useNonIroningProcess
                     }
             }
 

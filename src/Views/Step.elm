@@ -207,10 +207,26 @@ detailedView ({ inputs, impact, index, next, current } as config) =
                     Just countryElec ->
                         li [ class "list-group-item d-flex justify-content-between text-muted" ]
                             [ span [] [ text countryElec ]
-                            , Button.smallPill
-                                [ onClick (config.openCustomCountryMixModal current) ]
-                                [ Icon.pencil ]
+                            , if current.label /= Step.Use then
+                                Button.smallPill
+                                    [ onClick (config.openCustomCountryMixModal current) ]
+                                    [ Icon.pencil ]
+
+                              else
+                                text ""
                             ]
+
+                    Nothing ->
+                        text ""
+                , case current.processInfo.useIroning of
+                    Just process ->
+                        li [ class "list-group-item text-muted" ] [ text process.name ]
+
+                    Nothing ->
+                        text ""
+                , case current.processInfo.useNonIroning of
+                    Just process ->
+                        li [ class "list-group-item text-muted" ] [ text process.name ]
 
                     Nothing ->
                         text ""

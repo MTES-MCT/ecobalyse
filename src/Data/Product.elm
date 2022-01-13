@@ -48,10 +48,10 @@ type alias Product =
     , useTimeIroning : Duration
 
     -- Procédé de repassage
-    , useIroningProcessUuid : Process
+    , useIroningProcess : Process
 
     -- Procédé composite d'utilisation hors-repassage
-    , useNonIroningProcessUuid : Process
+    , useNonIroningProcess : Process
     }
 
 
@@ -112,6 +112,6 @@ encode v =
         , ( "useRatioDryer", Unit.encodeRatio v.useRatioDryer )
         , ( "useRatioIroning", Unit.encodeRatio v.useRatioIroning )
         , ( "useTimeIroning", Encode.float (Duration.inHours v.useTimeIroning) )
-        , ( "useIroningProcessUuid", Process.encodeUuid v.useIroningProcessUuid.uuid )
-        , ( "useNonIroningProcessUuid", Process.encodeUuid v.useNonIroningProcessUuid.uuid )
+        , ( "useIroningProcessUuid", Process.encodeUuid v.useIroningProcess.uuid )
+        , ( "useNonIroningProcessUuid", Process.encodeUuid v.useNonIroningProcess.uuid )
         ]
