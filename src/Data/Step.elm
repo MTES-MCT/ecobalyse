@@ -303,7 +303,6 @@ updateFromInputs inputs ({ label, country } as step) =
         Use ->
             { step
                 | useNbCycles =
-                    -- FIXME: ensure this is updated when switching Product
                     useNbCycles |> Maybe.withDefault inputs.product.useDefaultNbCycles
                 , processInfo =
                     { defaultProcessInfo

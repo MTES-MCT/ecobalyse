@@ -43,6 +43,7 @@ paths:
       - $ref: '#/components/parameters/customCountryMixFabricParam'
       - $ref: '#/components/parameters/customCountryMixDyeingParam'
       - $ref: '#/components/parameters/customCountryMixMakingParam'
+      - $ref: '#/components/parameters/useNbCyclesParam'
       responses:
         200:
           description: Opération réussie
@@ -98,6 +99,7 @@ paths:
       - $ref: '#/components/parameters/customCountryMixFabricParam'
       - $ref: '#/components/parameters/customCountryMixDyeingParam'
       - $ref: '#/components/parameters/customCountryMixMakingParam'
+      - $ref: '#/components/parameters/useNbCyclesParam'
       responses:
         200:
           description: successful operation
@@ -128,6 +130,7 @@ paths:
       - $ref: '#/components/parameters/customCountryMixFabricParam'
       - $ref: '#/components/parameters/customCountryMixDyeingParam'
       - $ref: '#/components/parameters/customCountryMixMakingParam'
+      - $ref: '#/components/parameters/useNbCyclesParam'
       responses:
         200:
           description: Opération réussie
@@ -176,24 +179,24 @@ components:
     countriesParam:
       name: countries
       in: query
-      description: Liste des codes pays pour chacune des 5 étapes du cycle de vie du produit (/!\ ATTENTION, pour le moment, le premier pays n'est pas pris en compte car c'est le [pays par défaut](https://fabrique-numerique.gitbook.io/wikicarbone/methodologie/filature#liste-complete) de la matière première qui est utilisé pour le calcul)
+      description: Liste des codes pays pour chacune des 6 étapes du cycle de vie du produit (/!\ ATTENTION, pour le moment, le premier pays n'est pas pris en compte car c'est le [pays par défaut](https://fabrique-numerique.gitbook.io/wikicarbone/methodologie/filature#liste-complete) de la matière première qui est utilisé pour le calcul)
       required: true
       schema:
         type: string
-        minLength: 14
-        maxLength: 14
+        minLength: 17
+        maxLength: 17
       style: form
       explode: false
       examples:
         asia:
           summary: Circuit Asie
-          value: "CN,CN,CN,CN,FR"
+          value: "CN,CN,CN,CN,FR,FR"
         europe:
           summary: Circuit Europe
-          value: "CN,TR,TN,TN,FR"
+          value: "CN,TR,TN,TN,FR,FR"
         france:
           summary: Circuit France
-          value: "CN,FR,FR,FR,FR"
+          value: "CN,FR,FR,FR,FR,FR"
     recycledRatioParam:
       name: recycledRatio
       in: query
@@ -251,6 +254,16 @@ components:
       schema:
         type: number
         minimum: 0
+    useNbCyclesParam:
+      name: useNbCycles
+      in: query
+      description: Nombre de cycle d'entretien en pahse d'utilisation
+      required: false
+      style: form
+      schema:
+        type: number
+        minimum: 0
+        maximum: 100
   schemas:
     InvalidParametersError:
       type: object
