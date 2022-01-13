@@ -7,6 +7,7 @@ import Data.Step as Step
 import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import List.Extra as LE
 import Views.Format as Format
 import Views.PieChart as PieChart
 
@@ -79,7 +80,9 @@ makeBars { simulator, impact } =
             , percent = grabImpact simulator.transport / grabImpact simulator * toFloat 100
             }
     in
-    stepBars ++ [ transportBar ]
+    (stepBars ++ [ transportBar ])
+        -- Move transport bar at penultimate position
+        |> LE.swapAt (List.length stepBars) (List.length stepBars - 1)
 
 
 barView : Config -> Bar msg -> Html msg
