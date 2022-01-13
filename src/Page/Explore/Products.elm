@@ -6,6 +6,7 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Route
 import Views.Format as Format
+import Views.Icon as Icon
 import Views.Table as Table
 
 
@@ -60,12 +61,63 @@ details _ product =
                     ]
                 ]
             , tr []
-                [ th [] [ text "Procédé" ]
+                [ th []
+                    [ text <|
+                        "Procédé de "
+                            ++ (if product.knitted then
+                                    "Tricotage"
+
+                                else
+                                    "Tissage"
+                               )
+                    ]
                 , td [] [ text product.fabricProcess.name ]
                 ]
             , tr []
                 [ th [] [ text "Confection" ]
                 , td [] [ text product.makingProcess.name ]
+                ]
+            , tr []
+                [ th [] [ text "Nombre par défaut de cycles d'entretien" ]
+                , td [] [ text (String.fromInt product.useDefaultNbCycles) ]
+                ]
+            , tr []
+                [ th [] [ text "Procédé de repassage" ]
+                , td [] [ text product.useIroningProcess.name ]
+                ]
+            , tr []
+                [ th [] [ text "Procédé composite d'utilisation hors-repassage" ]
+                , td [] [ text product.useNonIroningProcess.name ]
+                ]
+            , tr []
+                [ th [] [ text "Ratio de séchage électrique" ]
+                , td []
+                    [ div [] [ Format.ratio product.useRatioDryer ]
+                    , div [ class "text-muted fs-7" ]
+                        [ span [ class "me-1" ] [ Icon.info ]
+                        , text "Affichage pour information, valeur intégrée dans les précalculs de procédé"
+                        ]
+                    ]
+                ]
+            , tr []
+                [ th [] [ text "Ratio de repassage" ]
+                , td []
+                    [ div [] [ Format.ratio product.useRatioIroning ]
+                    , div [ class "text-muted fs-7" ]
+                        [ span [ class "me-1" ] [ Icon.info ]
+                        , text "Affichage pour information, valeur intégrée dans les précalculs de procédé"
+                        ]
+                    ]
+                ]
+            , tr []
+                [ th [] [ text "Temps de repassage" ]
+                , td []
+                    [ div [] [ Format.hours product.useTimeIroning ]
+                    , div [ class "text-muted fs-7" ]
+                        [ span [ class "me-1" ] [ Icon.info ]
+                        , text "Affichage pour information, valeur intégrée dans les précalculs de procédé"
+                        ]
+                    ]
                 ]
             ]
         ]
