@@ -61,16 +61,7 @@ details _ product =
                     ]
                 ]
             , tr []
-                [ th []
-                    [ text <|
-                        "Procédé de "
-                            ++ (if product.knitted then
-                                    "Tricotage"
-
-                                else
-                                    "Tissage"
-                               )
-                    ]
+                [ th [] [ text "Type de procédé" ]
                 , td [] [ text product.fabricProcess.name ]
                 ]
             , tr []
