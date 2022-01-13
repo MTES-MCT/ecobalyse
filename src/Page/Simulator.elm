@@ -77,12 +77,12 @@ type Msg
     | UpdateAirTransportRatio (Maybe Unit.Ratio)
     | UpdateCustomCountryMixInput Step.Label String
     | UpdateDyeingWeighting (Maybe Unit.Ratio)
-    | UpdateUseNbCycles (Maybe Int)
     | UpdateMassInput String
     | UpdateMaterial Process.Uuid
+    | UpdateProduct Product.Id
     | UpdateRecycledRatio (Maybe Unit.Ratio)
     | UpdateStepCountry Int Country.Code
-    | UpdateProduct Product.Id
+    | UpdateUseNbCycles (Maybe Int)
 
 
 type alias CustomCountryMixInputs =
@@ -286,10 +286,6 @@ update ({ db, navKey } as session) msg ({ customCountryMixInputs, query } as mod
             ( model, session, Cmd.none )
                 |> updateQuery { query | dyeingWeighting = dyeingWeighting }
 
-        UpdateUseNbCycles useNbCycles ->
-            ( model, session, Cmd.none )
-                |> updateQuery { query | useNbCycles = useNbCycles }
-
         UpdateMassInput massInput ->
             case massInput |> String.toFloat |> Maybe.map Mass.kilograms of
                 Just mass ->
@@ -307,6 +303,15 @@ update ({ db, navKey } as session) msg ({ customCountryMixInputs, query } as mod
 
                 Err error ->
                     ( model, session |> Session.notifyError "Erreur de matière première" error, Cmd.none )
+
+        UpdateProduct productId ->
+            case Product.findById productId db.products of
+                Ok product ->
+                    ( { model | massInput = product.mass |> Mass.inKilograms |> String.fromFloat }, session, Cmd.none )
+                        |> updateQuery (Inputs.updateProduct product query)
+
+                Err error ->
+                    ( model, session |> Session.notifyError "Erreur de produit" error, Cmd.none )
 
         UpdateRecycledRatio recycledRatio ->
             ( model, session, Cmd.none )
@@ -338,14 +343,9 @@ update ({ db, navKey } as session) msg ({ customCountryMixInputs, query } as mod
             )
                 |> updateQuery (Inputs.updateStepCountry index code query)
 
-        UpdateProduct productId ->
-            case Product.findById productId db.products of
-                Ok product ->
-                    ( { model | massInput = product.mass |> Mass.inKilograms |> String.fromFloat }, session, Cmd.none )
-                        |> updateQuery { query | product = product.id, mass = product.mass }
-
-                Err error ->
-                    ( model, session |> Session.notifyError "Erreur de produit" error, Cmd.none )
+        UpdateUseNbCycles useNbCycles ->
+            ( model, session, Cmd.none )
+                |> updateQuery { query | useNbCycles = useNbCycles }
 
 
 massField : String -> Html Msg

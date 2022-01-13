@@ -163,6 +163,20 @@ updateMaterial material query =
     }
 
 
+updateProduct : Product -> Query -> Query
+updateProduct product query =
+    { query
+        | product = product.id
+        , useNbCycles =
+            -- ensure resetting useNbCycles when product is changed
+            if product.id /= query.product then
+                Nothing
+
+            else
+                query.useNbCycles
+    }
+
+
 defaultQuery : Query
 defaultQuery =
     tShirtCotonIndia
