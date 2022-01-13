@@ -23,9 +23,13 @@ I_{utilisation} = I_{élec\_lavage} + I_{lessive} +
 I_{eaux\_usées} + I_{élec\_séchage} + I_{élec\_repassage}
 $$
 
-Certaines grandeurs sont dépendantes du type de produit (jupe, pantalon, t-shirt). Pour indiquer cette dépendance on les noteras (p). Par exemple le nombre de cycles d'entretien par défaut est différent pour chaque type de produit. Il est de 45 pour un T-shirt et de 5 pour un manteau.
+Certaines grandeurs sont dépendantes du type de produit (jupe, pantalon, t-shirt,...). Pour indiquer cette dépendance on les noteras (p). Par exemple le nombre de cycles d'entretien par défaut est différent pour chaque type de produit. Il est de 45 pour un t-shirt et de 5 pour un manteau, ce qui exprime le fait que l'on va plus laver un t-shirt qu'un manteau.
 
-### Détail des calculs&#x20;
+Tous les valeurs dépendantes du type de produit (p) sont à retrouver dans [l'explorateur de la table des produits](https://wikicarbone.beta.gouv.fr/#/explore/products).&#x20;
+
+
+
+## Détail des calculs&#x20;
 
 ### Lavage
 
@@ -41,11 +45,11 @@ _I_\__élec\_lavage : l'impact dans l'indicateur sélectionné de l'électricit�
 
 _n\_cycles(p) :_ nombre de cycles d'entretien par défaut (unité : sans unité)
 
-_m_ : la masse de la pièce textile (kg)
+_m_ : la masse de la pièce textile (unité : kg)
 
-_FkWh/kglavage : la quantité d'électricité nécessaire à laver 1 kg de vêtement (kWh/kg). En accord avec la documentation ADEME on prend une valeur de 0.1847 kWh/kg_
+_F\_kWh/kg\_lavage : la quantité d'électricité nécessaire à laver 1 kg de vêtement (unité : kWh/kg). En accord avec la documentation ADEME on prend une valeur de 0.1847 kWh/kg_
 
-_C\_impact/kWh :  l'impact de la production d'1 kWh d'électricité dans le pays concerné (impact/kWh)_
+_C\_impact/kWh :  l'impact de la production d'1 kWh d'électricité dans le pays concerné (unité : impact/kWh)_
 
 #### Lessive
 
@@ -53,9 +57,9 @@ $$
 I_{lessive} = n_{cycles}(p) \times m \times F_{kg\_lessive/kg\_lavage} \times C_{impact/kg\_lessive}
 $$
 
-_F\_kg\_lessive/kg\_lavage : la masse de lessive nécessaire à laver 1 kg de vêtement (unité : sans unité). En accord avec la documentation ADEME on prend une valeur de 0.036 kg lessive par kg de linge lavé._
+_F\_kg\_lessive/kg\_lavage : la masse de lessive nécessaire à laver 1 kg de vêtement (unité : kg/kg = sans unité). En accord avec la documentation ADEME on prend une valeur de 0.036 kg lessive par kg de linge lavé._
 
-_C\_impact/kg\_lessive :  l'impact de la production d'1 kg de lessive (impact/kg)_
+_C\_impact/kg\_lessive :  l'impact de la production d'1 kg de lessive (unité : impact/kg)_
 
 #### Traitement des eaux usées
 
