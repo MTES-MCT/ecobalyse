@@ -39,6 +39,7 @@ type alias Entry =
     , weavingKnitting : Float
     , dyeing : Float
     , making : Float
+    , use : Float
     , transport : Float
     }
 
@@ -179,6 +180,7 @@ createEntry db { trigram } highlight ( label, query ) =
                 , weavingKnitting = lifeCycle |> stepScore Step.WeavingKnitting
                 , dyeing = lifeCycle |> stepScore Step.Ennoblement
                 , making = lifeCycle |> stepScore Step.Making
+                , use = lifeCycle |> stepScore Step.Use
                 , transport = Impact.grabImpactFloat trigram transport
                 }
             )
@@ -298,6 +300,7 @@ chart impact entries =
             --   )
             -- , ( "Teinture", .dyeing )
             -- , ( "Confection", .making )
+            -- , ( "Utilisation", .use )
             -- , ( "Transport", .transport )
             -- ]
             [ "Matière"
@@ -308,6 +311,7 @@ chart impact entries =
                 "Tissage"
             , "Teinture"
             , "Confection"
+            , "Utilisation"
             , "Transport"
             ]
                 |> LE.zip
@@ -316,6 +320,7 @@ chart impact entries =
                         , .weavingKnitting
                         , .dyeing
                         , .making
+                        , .use
                         , .transport
                         ]
                     )

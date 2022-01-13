@@ -6,7 +6,7 @@ import Data.Transport as Transport exposing (Transport)
 import Data.Unit as Unit
 import Energy exposing (Energy)
 import Mass exposing (Mass)
-import Quantity exposing (Quantity)
+import Quantity
 
 
 
