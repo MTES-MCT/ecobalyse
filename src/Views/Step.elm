@@ -190,6 +190,16 @@ simpleView ({ inputs, impact, index, current } as config) =
         ]
 
 
+truncatableProcessDescription : String -> Html msg
+truncatableProcessDescription description =
+    li
+        [ class "list-group-item text-muted text-truncate"
+        , title description
+        , style "cursor" "help"
+        ]
+        [ text description ]
+
+
 detailedView : Config msg -> Html msg
 detailedView ({ inputs, impact, index, next, current } as config) =
     let
@@ -217,7 +227,7 @@ detailedView ({ inputs, impact, index, next, current } as config) =
                 [ li [ class "list-group-item text-muted" ] [ countryField config ]
                 , case current.processInfo.countryHeat of
                     Just countryHeat ->
-                        li [ class "list-group-item text-muted" ] [ text countryHeat ]
+                        truncatableProcessDescription countryHeat
 
                     Nothing ->
                         text ""
@@ -238,13 +248,13 @@ detailedView ({ inputs, impact, index, next, current } as config) =
                         text ""
                 , case current.processInfo.useIroning of
                     Just process ->
-                        li [ class "list-group-item text-muted" ] [ text process.name ]
+                        truncatableProcessDescription process.name
 
                     Nothing ->
                         text ""
                 , case current.processInfo.useNonIroning of
                     Just process ->
-                        li [ class "list-group-item text-muted" ] [ text process.name ]
+                        truncatableProcessDescription process.name
 
                     Nothing ->
                         text ""
