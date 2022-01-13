@@ -40,12 +40,12 @@ suite =
                         ]
                     ]
                 , describe "Query countries validation"
-                    [ { tShirtCotonAsie | countries = List.map Country.Code [ "FR", "CN", "CN", "CN", "FR" ] }
+                    [ { tShirtCotonAsie | countries = List.map Country.Code [ "FR", "CN", "CN", "CN", "FR", "FR" ] }
                         |> Inputs.fromQuery db
                         |> Result.andThen (.countries >> LE.getAt 0 >> Maybe.map .code >> Result.fromMaybe "")
                         |> Expect.equal (Ok (Country.codeFromString "CN"))
                         |> asTest "should replace the first country with the material's default country"
-                    , { tShirtCotonAsie | countries = List.map Country.Code [ "FR", "XX", "CN", "CN", "FR" ] }
+                    , { tShirtCotonAsie | countries = List.map Country.Code [ "FR", "XX", "CN", "CN", "FR", "FR" ] }
                         |> Inputs.fromQuery db
                         |> Expect.equal (Err "Code pays invalide: XX")
                         |> asTest "should validate country codes"

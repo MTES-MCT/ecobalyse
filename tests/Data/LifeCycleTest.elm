@@ -50,6 +50,7 @@ suite_ db =
                             , Country.Code "IN" -- Ennoblement in India
                             , Country.Code "FR"
                             , Country.Code "FR"
+                            , Country.Code "FR"
                             ]
                     }
                     |> Result.andThen (LifeCycle.computeStepsTransport db)

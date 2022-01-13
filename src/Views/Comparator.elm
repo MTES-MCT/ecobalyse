@@ -54,6 +54,7 @@ toRecycledFrance query =
             , Country.Code "FR"
             , Country.Code "FR"
             , Country.Code "FR"
+            , Country.Code "FR"
             ]
         , dyeingWeighting = Just (Unit.ratio 0)
         , airTransportRatio = Just (Unit.ratio 0)
@@ -69,6 +70,7 @@ toNonRecycledFrance query =
     , { query
         | countries =
             [ Country.Code "CN"
+            , Country.Code "FR"
             , Country.Code "FR"
             , Country.Code "FR"
             , Country.Code "FR"
@@ -92,6 +94,7 @@ toPartiallyRecycledIndiaTurkey query =
             , Country.Code "TR"
             , Country.Code "TR"
             , Country.Code "FR"
+            , Country.Code "FR"
             ]
         , dyeingWeighting = Just (Unit.ratio 0.5)
         , airTransportRatio = Just (Unit.ratio 0)
@@ -110,6 +113,7 @@ toNonRecycledIndiaTurkey query =
             , Country.Code "IN"
             , Country.Code "TR"
             , Country.Code "TR"
+            , Country.Code "FR"
             , Country.Code "FR"
             ]
         , dyeingWeighting = Just (Unit.ratio 0.5)
@@ -130,6 +134,7 @@ toRecycledIndia query =
             , Country.Code "IN"
             , Country.Code "IN"
             , Country.Code "FR"
+            , Country.Code "FR"
             ]
         , dyeingWeighting = Just (Unit.ratio 1)
         , airTransportRatio = Just (Unit.ratio 1)
@@ -148,6 +153,7 @@ toNonRecycledIndia query =
             , Country.Code "IN"
             , Country.Code "IN"
             , Country.Code "IN"
+            , Country.Code "FR"
             , Country.Code "FR"
             ]
         , dyeingWeighting = Just (Unit.ratio 1)

@@ -67,6 +67,15 @@ fromQuery db query =
         |> RE.andMap (Ok query.recycledRatio)
         |> RE.andMap (Ok query.customCountryMixes)
         |> RE.andMap (Ok query.useNbCycles)
+        |> Result.andThen
+            (\inputs ->
+                -- TODO: revamp countries typing & validation
+                if List.length inputs.countries /= 6 then
+                    Err "La liste des pays est incomplète."
+
+                else
+                    Ok inputs
+            )
 
 
 toQuery : Inputs -> Query
