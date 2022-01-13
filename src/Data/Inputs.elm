@@ -26,6 +26,7 @@ type alias Inputs =
     , airTransportRatio : Maybe Unit.Ratio
     , recycledRatio : Maybe Unit.Ratio
     , customCountryMixes : CustomCountryMixes
+    , useNbCycles : Maybe Int
     }
 
 
@@ -39,6 +40,7 @@ type alias Query =
     , airTransportRatio : Maybe Unit.Ratio
     , recycledRatio : Maybe Unit.Ratio
     , customCountryMixes : CustomCountryMixes
+    , useNbCycles : Maybe Int
     }
 
 
@@ -64,6 +66,7 @@ fromQuery db query =
         |> RE.andMap (Ok query.airTransportRatio)
         |> RE.andMap (Ok query.recycledRatio)
         |> RE.andMap (Ok query.customCountryMixes)
+        |> RE.andMap (Ok query.useNbCycles)
 
 
 toQuery : Inputs -> Query
@@ -76,6 +79,7 @@ toQuery inputs =
     , airTransportRatio = inputs.airTransportRatio
     , recycledRatio = inputs.recycledRatio
     , customCountryMixes = inputs.customCountryMixes
+    , useNbCycles = inputs.useNbCycles
     }
 
 
@@ -182,6 +186,7 @@ tShirtCotonFrance =
     , airTransportRatio = Nothing
     , recycledRatio = Nothing
     , customCountryMixes = defaultCustomCountryMixes
+    , useNbCycles = Nothing
     }
 
 
@@ -264,6 +269,7 @@ jupeCircuitAsie =
     , airTransportRatio = Nothing
     , recycledRatio = Nothing
     , customCountryMixes = defaultCustomCountryMixes
+    , useNbCycles = Nothing
     }
 
 
@@ -285,6 +291,7 @@ manteauCircuitEurope =
     , airTransportRatio = Nothing
     , recycledRatio = Nothing
     , customCountryMixes = defaultCustomCountryMixes
+    , useNbCycles = Nothing
     }
 
 
@@ -306,6 +313,7 @@ pantalonCircuitEurope =
     , airTransportRatio = Nothing
     , recycledRatio = Nothing
     , customCountryMixes = defaultCustomCountryMixes
+    , useNbCycles = Nothing
     }
 
 
@@ -327,6 +335,7 @@ robeCircuitBangladesh =
     , airTransportRatio = Nothing
     , recycledRatio = Nothing
     , customCountryMixes = defaultCustomCountryMixes
+    , useNbCycles = Nothing
     }
 
 
@@ -383,6 +392,7 @@ decodeQuery =
         |> Pipe.required "airTransportRatio" (Decode.maybe Unit.decodeRatio)
         |> Pipe.required "recycledRatio" (Decode.maybe Unit.decodeRatio)
         |> Pipe.required "customCountryMixes" decodeCustomCountryMixes
+        |> Pipe.required "useNbCycles" (Decode.maybe Decode.int)
 
 
 encodeQuery : Query -> Encode.Value
@@ -396,6 +406,7 @@ encodeQuery query =
         , ( "airTransportRatio", query.airTransportRatio |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
         , ( "recycledRatio", query.recycledRatio |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
         , ( "customCountryMixes", encodeCustomCountryMixes query.customCountryMixes )
+        , ( "useNbCycles", query.useNbCycles |> Maybe.map Encode.int |> Maybe.withDefault Encode.null )
         ]
 
 

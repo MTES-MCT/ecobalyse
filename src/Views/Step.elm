@@ -30,6 +30,7 @@ type alias Config msg =
     , openCustomCountryMixModal : Step -> msg
     , updateCountry : Int -> Country.Code -> msg
     , updateDyeingWeighting : Maybe Unit.Ratio -> msg
+    , updateUseNbCycles : Maybe Int -> msg
     , updateAirTransportRatio : Maybe Unit.Ratio -> msg
     }
 
@@ -84,7 +85,7 @@ countryField { db, current, inputs, index, updateCountry } =
 
 airTransportRatioField : Config msg -> Html msg
 airTransportRatioField { current, updateAirTransportRatio } =
-    RangeSlider.view
+    RangeSlider.ratio
         { id = "airTransportRatio"
         , update = updateAirTransportRatio
         , value = current.airTransportRatio
@@ -95,11 +96,25 @@ airTransportRatioField { current, updateAirTransportRatio } =
 
 dyeingWeightingField : Config msg -> Html msg
 dyeingWeightingField { current, updateDyeingWeighting } =
-    RangeSlider.view
+    RangeSlider.ratio
         { id = "dyeingWeighting"
         , update = updateDyeingWeighting
         , value = current.dyeingWeighting
         , toString = Step.dyeingWeightingToString
+        , disabled = False
+        }
+
+
+useNbCyclesField : Config msg -> Html msg
+useNbCyclesField { current, updateUseNbCycles } =
+    RangeSlider.int
+        { id = "useNbCycles"
+        , min = 0
+        , max = 100
+        , step = 1
+        , update = updateUseNbCycles
+        , value = current.useNbCycles
+        , toString = Step.useNbCyclesToString
         , disabled = False
         }
 
@@ -238,6 +253,9 @@ detailedView ({ inputs, impact, index, next, current } as config) =
 
                     Step.Making ->
                         airTransportRatioField config
+
+                    Step.Use ->
+                        useNbCyclesField config
 
                     _ ->
                         text ""

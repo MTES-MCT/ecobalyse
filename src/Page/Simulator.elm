@@ -77,6 +77,7 @@ type Msg
     | UpdateAirTransportRatio (Maybe Unit.Ratio)
     | UpdateCustomCountryMixInput Step.Label String
     | UpdateDyeingWeighting (Maybe Unit.Ratio)
+    | UpdateUseNbCycles (Maybe Int)
     | UpdateMassInput String
     | UpdateMaterial Process.Uuid
     | UpdateRecycledRatio (Maybe Unit.Ratio)
@@ -285,6 +286,10 @@ update ({ db, navKey } as session) msg ({ customCountryMixInputs, query } as mod
             ( model, session, Cmd.none )
                 |> updateQuery { query | dyeingWeighting = dyeingWeighting }
 
+        UpdateUseNbCycles useNbCycles ->
+            ( model, session, Cmd.none )
+                |> updateQuery { query | useNbCycles = useNbCycles }
+
         UpdateMassInput massInput ->
             case massInput |> String.toFloat |> Maybe.map Mass.kilograms of
                 Just mass ->
@@ -407,7 +412,7 @@ materialFormSet db recycledRatio material =
         , div [ class "col-md-6 mb-2" ]
             [ div [ class "form-label fw-bold mb-0 mb-xxl-3" ]
                 [ text "Part de matière recyclée" ]
-            , RangeSlider.view
+            , RangeSlider.ratio
                 { id = "recycledRatio"
                 , update = UpdateRecycledRatio
                 , value = Maybe.withDefault (Unit.ratio 0) recycledRatio
@@ -462,6 +467,7 @@ lifeCycleStepsView db { displayMode, impact } simulator =
                     , updateCountry = UpdateStepCountry
                     , updateAirTransportRatio = UpdateAirTransportRatio
                     , updateDyeingWeighting = UpdateDyeingWeighting
+                    , updateUseNbCycles = UpdateUseNbCycles
                     }
             )
         |> Array.toList

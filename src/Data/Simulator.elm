@@ -116,12 +116,12 @@ computeUseImpacts : Simulator -> Simulator
 computeUseImpacts ({ inputs } as simulator) =
     simulator
         |> updateLifeCycleStep Step.Use
-            (\step ->
+            (\({ useNbCycles } as step) ->
                 let
                     { kwh, impacts } =
                         step.outputMass
                             |> Formula.useImpacts step.impacts
-                                { useNbCycles = inputs.product.useDefaultNbCycles
+                                { useNbCycles = useNbCycles
                                 , ironingProcess = inputs.product.useIroningProcess
                                 , nonIroningProcess = inputs.product.useNonIroningProcess
                                 , countryElecProcess = Step.getCountryElectricityProcess step
