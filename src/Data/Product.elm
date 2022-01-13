@@ -2,6 +2,7 @@ module Data.Product exposing (..)
 
 import Data.Process as Process exposing (Process)
 import Data.Unit as Unit
+import Duration exposing (Duration)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
@@ -16,8 +17,14 @@ type alias Product =
     , ppm : Int -- pick per meter
     , grammage : Int -- grammes per kg
     , knitted : Bool -- True: Tricotage (Knitting); False: Tissage (Weaving)
-    , fabricProcess : Process
-    , makingProcess : Process
+    , fabricProcess : Process -- Procédé de Tissage/Tricotage
+    , makingProcess : Process -- Procédé de Confection
+    , useDefaultNbCycles : Int -- Nombre de cycles d'entretien
+    , useRatioDryer : Unit.Ratio -- Ratio de séchage électrique
+    , useRatioIroning : Unit.Ratio -- Ratio de repassage
+    , useTimeIroning : Duration -- Temps de repassage
+    , useIroningProcessUuid : Process -- Procédé de repassage
+    , useNonIroningProcessUuid : Process -- Procédé composite d'utilisation hors-repassage
     }
 
 
@@ -49,6 +56,12 @@ decode processes =
         |> Pipe.required "knitted" Decode.bool
         |> Pipe.required "fabricProcessUuid" (Process.decodeFromUuid processes)
         |> Pipe.required "makingProcessUuid" (Process.decodeFromUuid processes)
+        |> Pipe.required "useDefaultNbCycles" Decode.int
+        |> Pipe.required "useRatioDryer" Unit.decodeRatio
+        |> Pipe.required "useRatioIroning" Unit.decodeRatio
+        |> Pipe.required "useTimeIroning" (Decode.map Duration.hours Decode.float)
+        |> Pipe.required "useIroningProcessUuid" (Process.decodeFromUuid processes)
+        |> Pipe.required "useNonIroningProcessUuid" (Process.decodeFromUuid processes)
 
 
 decodeList : List Process -> Decoder (List Product)
@@ -66,6 +79,12 @@ encode v =
         , ( "ppm", Encode.int v.ppm )
         , ( "grammage", Encode.int v.grammage )
         , ( "knitted", Encode.bool v.knitted )
-        , ( "fabricProcessUuid", v.makingProcess.uuid |> Process.uuidToString |> Encode.string )
-        , ( "makingProcessUuid", v.makingProcess.uuid |> Process.uuidToString |> Encode.string )
+        , ( "fabricProcessUuid", Process.encodeUuid v.makingProcess.uuid )
+        , ( "makingProcessUuid", Process.encodeUuid v.makingProcess.uuid )
+        , ( "useDefaultNbCycles", Encode.int v.useDefaultNbCycles )
+        , ( "useRatioDryer", Unit.encodeRatio v.useRatioDryer )
+        , ( "useRatioIroning", Unit.encodeRatio v.useRatioIroning )
+        , ( "useTimeIroning", Encode.float (Duration.inHours v.useTimeIroning) )
+        , ( "useIroningProcessUuid", Process.encodeUuid v.useIroningProcessUuid.uuid )
+        , ( "useNonIroningProcessUuid", Process.encodeUuid v.useNonIroningProcessUuid.uuid )
         ]

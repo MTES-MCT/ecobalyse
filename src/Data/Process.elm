@@ -140,7 +140,7 @@ encode v =
     Encode.object
         [ ( "name", Encode.string v.name )
         , ( "info", Encode.string v.name )
-        , ( "uuid", v.uuid |> uuidToString |> Encode.string )
+        , ( "uuid", encodeUuid v.uuid )
         , ( "impacts", Impact.encodeImpacts v.impacts )
         , ( "heat", v.heat |> Energy.inMegajoules |> Encode.float )
         , ( "elec_pppm", Encode.float v.elec_pppm )
@@ -148,6 +148,11 @@ encode v =
         , ( "waste", v.waste |> Mass.inKilograms |> Encode.float )
         , ( "alias", v.alias |> Maybe.map Encode.string |> Maybe.withDefault Encode.null )
         ]
+
+
+encodeUuid : Uuid -> Encode.Value
+encodeUuid =
+    uuidToString >> Encode.string
 
 
 encodeAll : List Process -> String
