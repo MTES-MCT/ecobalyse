@@ -164,6 +164,9 @@ simpleView ({ inputs, impact, index, current } as config) =
                     Step.Making ->
                         div [ class "mt-2" ] [ airTransportRatioField config ]
 
+                    Step.Use ->
+                        div [ class "mt-2" ] [ useNbCyclesField config ]
+
                     _ ->
                         text ""
                 ]
