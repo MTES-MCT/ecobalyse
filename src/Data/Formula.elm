@@ -6,7 +6,7 @@ import Data.Transport as Transport exposing (Transport)
 import Data.Unit as Unit
 import Energy exposing (Energy)
 import Mass exposing (Mass)
-import Quantity
+import Quantity exposing (Quantity)
 
 
 
@@ -229,6 +229,46 @@ weavingImpacts impacts { elecPppm, countryElecProcess, ppm, grammage } baseMass 
                 (\trigram _ ->
                     electricityKWh
                         |> Unit.forKWh (Process.getImpact trigram countryElecProcess)
+                )
+    }
+
+
+useImpacts :
+    Impacts
+    ->
+        { useNbCycles : Int
+        , ironingProcess : Process
+        , nonIroningProcess : Process
+        , countryElecProcess : Process
+        }
+    -> Mass
+    -> { kwh : Energy, impacts : Impacts }
+useImpacts impacts { useNbCycles, ironingProcess, nonIroningProcess, countryElecProcess } baseMass =
+    -- Note: Ironing is expressed per-item, non-ironing is mass-depdendent
+    let
+        nonIroningKWh =
+            Energy.kilowattHours
+                (Mass.inKilograms baseMass * Energy.inKilowattHours nonIroningProcess.elec)
+
+        totalKWh =
+            [ ironingProcess.elec, nonIroningKWh ]
+                |> Quantity.sum
+                |> Quantity.multiplyBy (toFloat useNbCycles)
+    in
+    { kwh = totalKWh
+    , impacts =
+        impacts
+            |> Impact.mapImpacts
+                (\trigram _ ->
+                    Quantity.sum
+                        [ totalKWh
+                            |> Unit.forKWh (Process.getImpact trigram countryElecProcess)
+                        , Process.getImpact trigram ironingProcess
+                            |> Quantity.multiplyBy (toFloat useNbCycles)
+                        , baseMass
+                            |> Unit.forKg (Process.getImpact trigram nonIroningProcess)
+                            |> Quantity.multiplyBy (toFloat useNbCycles)
+                        ]
                 )
     }
 

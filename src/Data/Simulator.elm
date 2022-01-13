@@ -86,6 +86,8 @@ compute db query =
         |> nextWithDb computeDyeingImpacts
         -- Compute Making step impacts
         |> next computeMakingImpacts
+        -- Compute product Use impacts
+        |> next computeUseImpacts
         --
         -- TRANSPORTS
         --
@@ -108,6 +110,25 @@ initializeFinalMass : Simulator -> Simulator
 initializeFinalMass ({ inputs } as simulator) =
     simulator
         |> updateLifeCycleSteps [ Step.Distribution, Step.Use ] (Step.initMass inputs.mass)
+
+
+computeUseImpacts : Simulator -> Simulator
+computeUseImpacts ({ inputs } as simulator) =
+    simulator
+        |> updateLifeCycleStep Step.Use
+            (\step ->
+                let
+                    { kwh, impacts } =
+                        step.outputMass
+                            |> Formula.useImpacts step.impacts
+                                { useNbCycles = inputs.product.useDefaultNbCycles
+                                , ironingProcess = inputs.product.useIroningProcessUuid
+                                , nonIroningProcess = inputs.product.useNonIroningProcessUuid
+                                , countryElecProcess = Step.getCountryElectricityProcess step
+                                }
+                in
+                { step | impacts = impacts, kwh = kwh }
+            )
 
 
 computeMakingImpacts : Simulator -> Simulator

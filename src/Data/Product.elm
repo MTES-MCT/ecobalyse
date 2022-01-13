@@ -13,18 +13,45 @@ type alias Product =
     { id : Id
     , name : String
     , mass : Mass
-    , pcrWaste : Unit.Ratio -- PCR product waste ratio
-    , ppm : Int -- pick per meter
-    , grammage : Int -- grammes per kg
-    , knitted : Bool -- True: Tricotage (Knitting); False: Tissage (Weaving)
-    , fabricProcess : Process -- Procédé de Tissage/Tricotage
-    , makingProcess : Process -- Procédé de Confection
-    , useDefaultNbCycles : Int -- Nombre de cycles d'entretien
-    , useRatioDryer : Unit.Ratio -- Ratio de séchage électrique
-    , useRatioIroning : Unit.Ratio -- Ratio de repassage
-    , useTimeIroning : Duration -- Temps de repassage
-    , useIroningProcessUuid : Process -- Procédé de repassage
-    , useNonIroningProcessUuid : Process -- Procédé composite d'utilisation hors-repassage
+
+    -- PCR product waste ratio
+    , pcrWaste : Unit.Ratio --
+
+    -- pick per meter
+    , ppm : Int
+
+    -- grammes per kg
+    , grammage : Int
+
+    -- True: Tricotage (Knitting); False: Tissage (Weaving)
+    , knitted : Bool
+
+    -- Procédé de Tissage/Tricotage
+    , fabricProcess : Process
+
+    -- Procédé de Confection
+    , makingProcess : Process
+
+    -- Nombre par défaut de cycles d'entretien
+    , useDefaultNbCycles : Int
+
+    -- Ratio de séchage électrique
+    -- Note: only for information, not used in computations
+    , useRatioDryer : Unit.Ratio
+
+    -- Ratio de repassage
+    -- Note: only for information, not used in computations
+    , useRatioIroning : Unit.Ratio
+
+    -- Temps de repassage
+    -- Note: only for information, not used in computations
+    , useTimeIroning : Duration
+
+    -- Procédé de repassage
+    , useIroningProcessUuid : Process
+
+    -- Procédé composite d'utilisation hors-repassage
+    , useNonIroningProcessUuid : Process
     }
 
 
