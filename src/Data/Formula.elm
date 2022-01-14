@@ -244,14 +244,13 @@ useImpacts :
     -> Mass
     -> { kwh : Energy, impacts : Impacts }
 useImpacts impacts { useNbCycles, ironingProcess, nonIroningProcess, countryElecProcess } baseMass =
-    -- Note: Ironing is expressed per-item, non-ironing is mass-depdendent
     let
-        nonIroningKWh =
-            Energy.kilowattHours
-                (Mass.inKilograms baseMass * Energy.inKilowattHours nonIroningProcess.elec)
-
         totalKWh =
-            [ ironingProcess.elec, nonIroningKWh ]
+            -- Note: Ironing is expressed per-item, non-ironing is mass-depdendent
+            [ ironingProcess.elec
+            , nonIroningProcess.elec
+                |> Quantity.multiplyBy (Mass.inKilograms baseMass)
+            ]
                 |> Quantity.sum
                 |> Quantity.multiplyBy (toFloat useNbCycles)
     in
