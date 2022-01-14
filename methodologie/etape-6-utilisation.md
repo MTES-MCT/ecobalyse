@@ -25,7 +25,7 @@ $$
 
 Certaines grandeurs sont dépendantes du type de produit (jupe, pantalon, t-shirt,...). Pour indiquer cette dépendance on les noteras (p). Par exemple le nombre de cycles d'entretien par défaut est différent pour chaque type de produit. Il est de 45 pour un t-shirt et de 5 pour un manteau, ce qui exprime le fait que l'on va plus laver un t-shirt qu'un manteau.
 
-Tous les valeurs dépendantes du type de produit (p) sont à retrouver dans [l'explorateur de la table des produits](https://wikicarbone.beta.gouv.fr/#/explore/products).&#x20;
+Toutes les valeurs dépendantes du type de produit (p) sont à retrouver dans [l'explorateur de la table des produits](https://wikicarbone.beta.gouv.fr/#/explore/products).&#x20;
 
 
 
@@ -75,7 +75,7 @@ _C\_impact/m3\_eaux :  l'impact du traitement d'1 m3 d'eaux usées (unité : imp
 
 #### Electricité
 
-Pour l'étape de séchage en sèche-linge, en accord avec le PEFCR Apparel & Footwear (Table 33) on applique un ratio de produits séchés en sèche-linge différent pour chaque type de produit. Par exemple on fait l'hypothèse qu'un T-Shirt est séché en sèche-linge 30% du temps tandis qu'une jupe n'est séché en sèche-linge que 12% du temps.
+Pour l'étape de séchage en sèche-linge, en accord avec le projet de PEFCR Apparel & Footwear (Table 33 - version de l'été 2021) on applique un ratio de produits séchés en sèche-linge différent pour chaque type de produit. Par exemple on fait l'hypothèse qu'un T-Shirt est séché en sèche-linge 30% du temps tandis qu'une jupe n'est séché en sèche-linge que 12% du temps.
 
 $$
 I_{élec\_séchage} = n_{cycles}(p) \times m\times ratio_{sèche-linge}(p) \times F_{kWh/kg\_sèche-linge} \times C_{impact/kWh}
@@ -89,7 +89,7 @@ _F\_kWh/kg\_sèche-linge : la quantité d'électricité nécessaire à sécher 1
 
 #### Electricité
 
-Pour l'étape de repassage, en accord avec le PEFCR Apparel & Footwear (Table 33) on applique un ratio de produits repassés différent pour chaque type de produit. Par exemple on fait l'hypothèse qu'une chemise est repassé 70% du temps tandis qu'un pull n'est jamais repassé. De plus on fait l'hypothèse que le temps de repassage est différent pour chaque type de vêtement. Ainsi on suppose qu'un T-Shirt a un temps de repassage de 2 min tandis qu'un pantalon a un temps de repassage de 4,3 min.
+Pour l'étape de repassage, en accord avec le projet de PEFCR Apparel & Footwear (Table 33 - version de l'été 2021) on applique un ratio de produits repassés différent pour chaque type de produit. Par exemple on fait l'hypothèse qu'une chemise est repassé 70% du temps tandis qu'un pull n'est jamais repassé. De plus on fait l'hypothèse que le temps de repassage est différent pour chaque type de vêtement. Ainsi on suppose qu'un T-Shirt a un temps de repassage de 2 min tandis qu'un pantalon a un temps de repassage de 4,3 min.
 
 $$
 I_{élec\_rpsg} = n_{cycles}(p)\times ratio_{rpsg}(p) \times tps_{rpsg}(p) \times F_{kWh/tps\_rpsg} \times C_{impact/kWh}
