@@ -51,6 +51,11 @@ _F\_kWh/kg\_lavage : la quantité d'électricité nécessaire à laver 1 kg de v
 
 _C\_impact/kWh :  l'impact de la production d'1 kWh d'électricité dans le pays concerné (unité : impact/kWh)_
 
+{% hint style="info" %}
+_Sur l'interface, il est proposé de faire varier le nombre de cycles d'entretien (n\_cycles(p)), afin de visualiser les modifications d'impacts si un vêtement est entretenu plus souvent, ce qui correspond généralement à un vêtement porté plus longtemps._\
+_Si l'impact global augmente avec le nombre de cycle d'entretien, l'impact par nombre de jour d'utilisation du même vêtement va en revanche diminuer. Cet aspect sera exploré prochainement à travers le projet de PERCR Apparel & Footwear._
+{% endhint %}
+
 #### Lessive
 
 $$
