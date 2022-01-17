@@ -30,6 +30,7 @@ type alias Config msg =
     , openCustomCountryMixModal : Step -> msg
     , updateCountry : Int -> Country.Code -> msg
     , updateDyeingWeighting : Maybe Unit.Ratio -> msg
+    , updateUseNbCycles : Maybe Int -> msg
     , updateAirTransportRatio : Maybe Unit.Ratio -> msg
     }
 
@@ -71,6 +72,12 @@ countryField { db, current, inputs, index, updateCountry } =
                     , text " Champ non paramétrable"
                     ]
 
+            Step.Use ->
+                div [ class "form-text fs-7 mb-0" ]
+                    [ Icon.exclamation
+                    , text " Champ non paramétrable"
+                    ]
+
             _ ->
                 text ""
         ]
@@ -78,7 +85,7 @@ countryField { db, current, inputs, index, updateCountry } =
 
 airTransportRatioField : Config msg -> Html msg
 airTransportRatioField { current, updateAirTransportRatio } =
-    RangeSlider.view
+    RangeSlider.ratio
         { id = "airTransportRatio"
         , update = updateAirTransportRatio
         , value = current.airTransportRatio
@@ -89,11 +96,25 @@ airTransportRatioField { current, updateAirTransportRatio } =
 
 dyeingWeightingField : Config msg -> Html msg
 dyeingWeightingField { current, updateDyeingWeighting } =
-    RangeSlider.view
+    RangeSlider.ratio
         { id = "dyeingWeighting"
         , update = updateDyeingWeighting
         , value = current.dyeingWeighting
         , toString = Step.dyeingWeightingToString
+        , disabled = False
+        }
+
+
+useNbCyclesField : Config msg -> Html msg
+useNbCyclesField { current, updateUseNbCycles } =
+    RangeSlider.int
+        { id = "useNbCycles"
+        , min = 0
+        , max = 100
+        , step = 1
+        , update = updateUseNbCycles
+        , value = current.useNbCycles
+        , toString = Step.useNbCyclesToString
         , disabled = False
         }
 
@@ -143,6 +164,9 @@ simpleView ({ inputs, impact, index, current } as config) =
                     Step.Making ->
                         div [ class "mt-2" ] [ airTransportRatioField config ]
 
+                    Step.Use ->
+                        div [ class "mt-2" ] [ useNbCyclesField config ]
+
                     _ ->
                         text ""
                 ]
@@ -164,6 +188,16 @@ simpleView ({ inputs, impact, index, current } as config) =
                 ]
             ]
         ]
+
+
+truncatableProcessDescription : String -> Html msg
+truncatableProcessDescription description =
+    li
+        [ class "list-group-item text-muted text-truncate"
+        , title description
+        , style "cursor" "help"
+        ]
+        [ text description ]
 
 
 detailedView : Config msg -> Html msg
@@ -193,7 +227,7 @@ detailedView ({ inputs, impact, index, next, current } as config) =
                 [ li [ class "list-group-item text-muted" ] [ countryField config ]
                 , case current.processInfo.countryHeat of
                     Just countryHeat ->
-                        li [ class "list-group-item text-muted" ] [ text countryHeat ]
+                        truncatableProcessDescription countryHeat
 
                     Nothing ->
                         text ""
@@ -201,10 +235,26 @@ detailedView ({ inputs, impact, index, next, current } as config) =
                     Just countryElec ->
                         li [ class "list-group-item d-flex justify-content-between text-muted" ]
                             [ span [] [ text countryElec ]
-                            , Button.smallPill
-                                [ onClick (config.openCustomCountryMixModal current) ]
-                                [ Icon.pencil ]
+                            , if current.label /= Step.Use then
+                                Button.smallPill
+                                    [ onClick (config.openCustomCountryMixModal current) ]
+                                    [ Icon.pencil ]
+
+                              else
+                                text ""
                             ]
+
+                    Nothing ->
+                        text ""
+                , case current.processInfo.useIroning of
+                    Just process ->
+                        truncatableProcessDescription process.name
+
+                    Nothing ->
+                        text ""
+                , case current.processInfo.useNonIroning of
+                    Just process ->
+                        truncatableProcessDescription process.name
 
                     Nothing ->
                         text ""
@@ -216,6 +266,9 @@ detailedView ({ inputs, impact, index, next, current } as config) =
 
                     Step.Making ->
                         airTransportRatioField config
+
+                    Step.Use ->
+                        useNbCyclesField config
 
                     _ ->
                         text ""

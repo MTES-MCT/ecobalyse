@@ -79,9 +79,10 @@ type Msg
     | UpdateDyeingWeighting (Maybe Unit.Ratio)
     | UpdateMassInput String
     | UpdateMaterial Process.Uuid
+    | UpdateProduct Product.Id
     | UpdateRecycledRatio (Maybe Unit.Ratio)
     | UpdateStepCountry Int Country.Code
-    | UpdateProduct Product.Id
+    | UpdateUseNbCycles (Maybe Int)
 
 
 type alias CustomCountryMixInputs =
@@ -303,6 +304,15 @@ update ({ db, navKey } as session) msg ({ customCountryMixInputs, query } as mod
                 Err error ->
                     ( model, session |> Session.notifyError "Erreur de matière première" error, Cmd.none )
 
+        UpdateProduct productId ->
+            case Product.findById productId db.products of
+                Ok product ->
+                    ( { model | massInput = product.mass |> Mass.inKilograms |> String.fromFloat }, session, Cmd.none )
+                        |> updateQuery (Inputs.updateProduct product query)
+
+                Err error ->
+                    ( model, session |> Session.notifyError "Erreur de produit" error, Cmd.none )
+
         UpdateRecycledRatio recycledRatio ->
             ( model, session, Cmd.none )
                 |> updateQuery { query | recycledRatio = recycledRatio }
@@ -333,14 +343,9 @@ update ({ db, navKey } as session) msg ({ customCountryMixInputs, query } as mod
             )
                 |> updateQuery (Inputs.updateStepCountry index code query)
 
-        UpdateProduct productId ->
-            case Product.findById productId db.products of
-                Ok product ->
-                    ( { model | massInput = product.mass |> Mass.inKilograms |> String.fromFloat }, session, Cmd.none )
-                        |> updateQuery { query | product = product.id, mass = product.mass }
-
-                Err error ->
-                    ( model, session |> Session.notifyError "Erreur de produit" error, Cmd.none )
+        UpdateUseNbCycles useNbCycles ->
+            ( model, session, Cmd.none )
+                |> updateQuery { query | useNbCycles = useNbCycles }
 
 
 massField : String -> Html Msg
@@ -407,7 +412,7 @@ materialFormSet db recycledRatio material =
         , div [ class "col-md-6 mb-2" ]
             [ div [ class "form-label fw-bold mb-0 mb-xxl-3" ]
                 [ text "Part de matière recyclée" ]
-            , RangeSlider.view
+            , RangeSlider.ratio
                 { id = "recycledRatio"
                 , update = UpdateRecycledRatio
                 , value = Maybe.withDefault (Unit.ratio 0) recycledRatio
@@ -462,6 +467,7 @@ lifeCycleStepsView db { displayMode, impact } simulator =
                     , updateCountry = UpdateStepCountry
                     , updateAirTransportRatio = UpdateAirTransportRatio
                     , updateDyeingWeighting = UpdateDyeingWeighting
+                    , updateUseNbCycles = UpdateUseNbCycles
                     }
             )
         |> Array.toList

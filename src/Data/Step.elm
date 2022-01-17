@@ -33,6 +33,7 @@ type alias Step =
     , dyeingWeighting : Unit.Ratio -- FIXME: why not Maybe?
     , airTransportRatio : Unit.Ratio -- FIXME: why not Maybe?
     , customCountryMix : Maybe Unit.Impact
+    , useNbCycles : Int
     }
 
 
@@ -44,6 +45,8 @@ type alias ProcessInfo =
     , airTransport : Maybe Process
     , seaTransport : Maybe Process
     , roadTransport : Maybe Process
+    , useIroning : Maybe Process
+    , useNonIroning : Maybe Process
     }
 
 
@@ -53,6 +56,7 @@ type Label
     | Ennoblement -- Ennoblement
     | Making -- Confection
     | Distribution -- Distribution
+    | Use -- Utilisation
 
 
 create : { db : Db, label : Label, editable : Bool, country : Country } -> Step
@@ -75,6 +79,7 @@ create { db, label, editable, country } =
     , dyeingWeighting = country.dyeingWeighting
     , airTransportRatio = Unit.ratio 0 -- Note: this depends on next step country, so we can't set an accurate default value initially
     , customCountryMix = Nothing
+    , useNbCycles = 0
     }
 
 
@@ -87,6 +92,8 @@ defaultProcessInfo =
     , airTransport = Nothing
     , seaTransport = Nothing
     , roadTransport = Nothing
+    , useIroning = Nothing
+    , useNonIroning = Nothing
     }
 
 
@@ -218,6 +225,10 @@ computeTransportSummary step transport =
                     , air = transport.air
                 }
 
+        Use ->
+            -- Product Use leverages no transports
+            default
+
         _ ->
             -- All other steps don't use air transport at all
             { default
@@ -240,14 +251,17 @@ getRoadTransportProcess wellKnown { label } =
 
 
 updateFromInputs : Inputs -> Step -> Step
-updateFromInputs { dyeingWeighting, airTransportRatio, customCountryMixes } ({ label, country } as step) =
+updateFromInputs inputs ({ label, country } as step) =
     let
+        { dyeingWeighting, airTransportRatio, customCountryMixes, useNbCycles } =
+            inputs
+
         countryElecInfo =
             Maybe.map countryMixToString
                 >> Maybe.withDefault country.electricityProcess.name
                 >> Just
     in
-    -- Note: only WeavingKnitting, Ennoblement and Making steps render detailed processes info.
+    -- Note: only WeavingKnitting, Ennoblement, Making and Use steps render detailed processes info.
     case label of
         WeavingKnitting ->
             { step
@@ -283,6 +297,18 @@ updateFromInputs { dyeingWeighting, airTransportRatio, customCountryMixes } ({ l
                             country.airTransportRatio
                                 |> airTransportRatioToString
                                 |> Just
+                    }
+            }
+
+        Use ->
+            { step
+                | useNbCycles =
+                    useNbCycles |> Maybe.withDefault inputs.product.useDefaultNbCycles
+                , processInfo =
+                    { defaultProcessInfo
+                        | countryElec = Just country.electricityProcess.name
+                        , useIroning = Just inputs.product.useIroningProcess
+                        , useNonIroning = Just inputs.product.useNonIroningProcess
                     }
             }
 
@@ -327,6 +353,19 @@ dyeingWeightingToString (Unit.Ratio dyeingWeighting) =
             "Procédé " ++ String.fromInt p ++ "% majorant"
 
 
+useNbCyclesToString : Int -> String
+useNbCyclesToString useNbCycles =
+    case useNbCycles of
+        0 ->
+            "Aucun cycle d'entretien"
+
+        1 ->
+            "Un cycle d'entretien"
+
+        p ->
+            String.fromInt p ++ " cycles d'entretien"
+
+
 decodeLabel : Decoder Label
 decodeLabel =
     Decode.string
@@ -358,6 +397,7 @@ encode v =
         , ( "dyeingWeighting", Unit.encodeRatio v.dyeingWeighting )
         , ( "airTransportRatio", Unit.encodeRatio v.airTransportRatio )
         , ( "customCountryMix", v.customCountryMix |> Maybe.map Unit.encodeImpact |> Maybe.withDefault Encode.null )
+        , ( "useNbCycles", Encode.int v.useNbCycles )
         ]
 
 
@@ -396,6 +436,9 @@ labelToString label =
         Distribution ->
             "Distribution"
 
+        Use ->
+            "Utilisation"
+
 
 labelFromString : String -> Maybe Label
 labelFromString label =
@@ -414,6 +457,9 @@ labelFromString label =
 
         "Distribution" ->
             Just Distribution
+
+        "Use" ->
+            Just Use
 
         _ ->
             Nothing
@@ -436,3 +482,6 @@ getStepGitbookPath label =
 
         Distribution ->
             Gitbook.Distribution
+
+        Use ->
+            Gitbook.Use

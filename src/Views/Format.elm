@@ -3,6 +3,7 @@ module Views.Format exposing (..)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Unit as Unit
 import Decimal
+import Duration exposing (Duration)
 import Energy exposing (Energy)
 import FormatNumber
 import FormatNumber.Locales exposing (Decimals(..), frenchLocale)
@@ -104,3 +105,8 @@ ratio : Unit.Ratio -> Html msg
 ratio (Unit.Ratio float) =
     (float * 100)
         |> formatRichFloat 2 "%"
+
+
+hours : Duration -> Html msg
+hours =
+    Duration.inHours >> formatRichFloat 2 "h"

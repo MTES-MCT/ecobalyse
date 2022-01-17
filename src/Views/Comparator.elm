@@ -39,6 +39,7 @@ type alias Entry =
     , weavingKnitting : Float
     , dyeing : Float
     , making : Float
+    , use : Float
     , transport : Float
     }
 
@@ -49,6 +50,7 @@ toRecycledFrance query =
     , { query
         | countries =
             [ Country.Code "CN"
+            , Country.Code "FR"
             , Country.Code "FR"
             , Country.Code "FR"
             , Country.Code "FR"
@@ -72,6 +74,7 @@ toNonRecycledFrance query =
             , Country.Code "FR"
             , Country.Code "FR"
             , Country.Code "FR"
+            , Country.Code "FR"
             ]
         , dyeingWeighting = Just (Unit.ratio 0)
         , airTransportRatio = Just (Unit.ratio 0)
@@ -90,6 +93,7 @@ toPartiallyRecycledIndiaTurkey query =
             , Country.Code "IN"
             , Country.Code "TR"
             , Country.Code "TR"
+            , Country.Code "FR"
             , Country.Code "FR"
             ]
         , dyeingWeighting = Just (Unit.ratio 0.5)
@@ -110,6 +114,7 @@ toNonRecycledIndiaTurkey query =
             , Country.Code "TR"
             , Country.Code "TR"
             , Country.Code "FR"
+            , Country.Code "FR"
             ]
         , dyeingWeighting = Just (Unit.ratio 0.5)
         , airTransportRatio = Just (Unit.ratio 0)
@@ -129,6 +134,7 @@ toRecycledIndia query =
             , Country.Code "IN"
             , Country.Code "IN"
             , Country.Code "FR"
+            , Country.Code "FR"
             ]
         , dyeingWeighting = Just (Unit.ratio 1)
         , airTransportRatio = Just (Unit.ratio 1)
@@ -147,6 +153,7 @@ toNonRecycledIndia query =
             , Country.Code "IN"
             , Country.Code "IN"
             , Country.Code "IN"
+            , Country.Code "FR"
             , Country.Code "FR"
             ]
         , dyeingWeighting = Just (Unit.ratio 1)
@@ -179,6 +186,7 @@ createEntry db { trigram } highlight ( label, query ) =
                 , weavingKnitting = lifeCycle |> stepScore Step.WeavingKnitting
                 , dyeing = lifeCycle |> stepScore Step.Ennoblement
                 , making = lifeCycle |> stepScore Step.Making
+                , use = lifeCycle |> stepScore Step.Use
                 , transport = Impact.grabImpactFloat trigram transport
                 }
             )
@@ -298,6 +306,7 @@ chart impact entries =
             --   )
             -- , ( "Teinture", .dyeing )
             -- , ( "Confection", .making )
+            -- , ( "Utilisation", .use )
             -- , ( "Transport", .transport )
             -- ]
             [ "Matière"
@@ -308,6 +317,7 @@ chart impact entries =
                 "Tissage"
             , "Teinture"
             , "Confection"
+            , "Utilisation"
             , "Transport"
             ]
                 |> LE.zip
@@ -316,6 +326,7 @@ chart impact entries =
                         , .weavingKnitting
                         , .dyeing
                         , .making
+                        , .use
                         , .transport
                         ]
                     )

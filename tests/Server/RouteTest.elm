@@ -28,13 +28,13 @@ getEndpoint db method url =
 suite_ : Db -> Test
 suite_ db =
     describe "Server.endpoint"
-        [ getEndpoint db "GET" "/simulator?mass=0.17&product=13&material=f211bbdb-415c-46fd-be4d-ddf199575b44&countries=CN,FR,FR,FR,FR"
+        [ getEndpoint db "GET" "/simulator?mass=0.17&product=13&material=f211bbdb-415c-46fd-be4d-ddf199575b44&countries=CN,FR,FR,FR,FR,FR"
             |> Expect.equal (Just <| Route.Get <| Route.Simulator <| Ok Inputs.tShirtCotonFrance)
             |> asTest "should handle the /simulator endpoint"
-        , getEndpoint db "GET" "/simulator/fwe?mass=0.17&product=13&material=f211bbdb-415c-46fd-be4d-ddf199575b44&countries=CN,FR,FR,FR,FR"
+        , getEndpoint db "GET" "/simulator/fwe?mass=0.17&product=13&material=f211bbdb-415c-46fd-be4d-ddf199575b44&countries=CN,FR,FR,FR,FR,FR"
             |> Expect.equal (Just <| Route.Get <| Route.SimulatorSingle (Impact.trg "fwe") <| Ok Inputs.tShirtCotonFrance)
             |> asTest "should handle the /simulator/{impact} endpoint"
-        , getEndpoint db "GET" "/simulator/detailed?mass=0.17&product=13&material=f211bbdb-415c-46fd-be4d-ddf199575b44&countries=CN,FR,FR,FR,FR"
+        , getEndpoint db "GET" "/simulator/detailed?mass=0.17&product=13&material=f211bbdb-415c-46fd-be4d-ddf199575b44&countries=CN,FR,FR,FR,FR,FR"
             |> Expect.equal (Just <| Route.Get <| Route.SimulatorDetailed <| Ok Inputs.tShirtCotonFrance)
             |> asTest "should handle the /simulator/detailed endpoint"
         , getEndpoint db "GET" "/simulator"
@@ -44,7 +44,7 @@ suite_ db =
                         Route.Simulator <|
                             Err <|
                                 Dict.fromList
-                                    [ ( "countries", "La liste de pays doit contenir 5 pays." )
+                                    [ ( "countries", "La liste de pays doit contenir 6 pays." )
                                     , ( "mass", "La masse doit être supérieure ou égale à zéro." )
                                     , ( "material", "Identifiant de la matière manquant ou invalide." )
                                     , ( "product", "Identifiant du type de produit manquant ou invalide." )

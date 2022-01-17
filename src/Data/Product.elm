@@ -2,6 +2,7 @@ module Data.Product exposing (..)
 
 import Data.Process as Process exposing (Process)
 import Data.Unit as Unit
+import Duration exposing (Duration)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
@@ -12,12 +13,45 @@ type alias Product =
     { id : Id
     , name : String
     , mass : Mass
-    , pcrWaste : Unit.Ratio -- PCR product waste ratio
-    , ppm : Int -- pick per meter
-    , grammage : Int -- grammes per kg
-    , knitted : Bool -- True: Tricotage (Knitting); False: Tissage (Weaving)
+
+    -- PCR product waste ratio
+    , pcrWaste : Unit.Ratio --
+
+    -- pick per meter
+    , ppm : Int
+
+    -- grammes per kg
+    , grammage : Int
+
+    -- True: Tricotage (Knitting); False: Tissage (Weaving)
+    , knitted : Bool
+
+    -- Procédé de Tissage/Tricotage
     , fabricProcess : Process
+
+    -- Procédé de Confection
     , makingProcess : Process
+
+    -- Nombre par défaut de cycles d'entretien
+    , useDefaultNbCycles : Int
+
+    -- Ratio de séchage électrique
+    -- Note: only for information, not used in computations
+    , useRatioDryer : Unit.Ratio
+
+    -- Ratio de repassage
+    -- Note: only for information, not used in computations
+    , useRatioIroning : Unit.Ratio
+
+    -- Temps de repassage
+    -- Note: only for information, not used in computations
+    , useTimeIroning : Duration
+
+    -- Procédé de repassage
+    , useIroningProcess : Process
+
+    -- Procédé composite d'utilisation hors-repassage
+    , useNonIroningProcess : Process
     }
 
 
@@ -49,6 +83,12 @@ decode processes =
         |> Pipe.required "knitted" Decode.bool
         |> Pipe.required "fabricProcessUuid" (Process.decodeFromUuid processes)
         |> Pipe.required "makingProcessUuid" (Process.decodeFromUuid processes)
+        |> Pipe.required "useDefaultNbCycles" Decode.int
+        |> Pipe.required "useRatioDryer" Unit.decodeRatio
+        |> Pipe.required "useRatioIroning" Unit.decodeRatio
+        |> Pipe.required "useTimeIroning" (Decode.map Duration.hours Decode.float)
+        |> Pipe.required "useIroningProcessUuid" (Process.decodeFromUuid processes)
+        |> Pipe.required "useNonIroningProcessUuid" (Process.decodeFromUuid processes)
 
 
 decodeList : List Process -> Decoder (List Product)
@@ -66,6 +106,12 @@ encode v =
         , ( "ppm", Encode.int v.ppm )
         , ( "grammage", Encode.int v.grammage )
         , ( "knitted", Encode.bool v.knitted )
-        , ( "fabricProcessUuid", v.makingProcess.uuid |> Process.uuidToString |> Encode.string )
-        , ( "makingProcessUuid", v.makingProcess.uuid |> Process.uuidToString |> Encode.string )
+        , ( "fabricProcessUuid", Process.encodeUuid v.makingProcess.uuid )
+        , ( "makingProcessUuid", Process.encodeUuid v.makingProcess.uuid )
+        , ( "useDefaultNbCycles", Encode.int v.useDefaultNbCycles )
+        , ( "useRatioDryer", Unit.encodeRatio v.useRatioDryer )
+        , ( "useRatioIroning", Unit.encodeRatio v.useRatioIroning )
+        , ( "useTimeIroning", Encode.float (Duration.inHours v.useTimeIroning) )
+        , ( "useIroningProcessUuid", Process.encodeUuid v.useIroningProcess.uuid )
+        , ( "useNonIroningProcessUuid", Process.encodeUuid v.useNonIroningProcess.uuid )
         ]

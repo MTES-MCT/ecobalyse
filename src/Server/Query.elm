@@ -40,6 +40,7 @@ parse db =
         |> apply (ratioParser "airTransportRatio")
         |> apply (ratioParser "recycledRatio")
         |> apply customCountryMixesParser
+        |> apply (Query.int "useNbCycles")
         |> Query.map (validateQuery db)
 
 
@@ -138,6 +139,7 @@ validateQuery db query =
                 , ( "dyeingWeighting", validateRatio query.dyeingWeighting )
                 , ( "airTransportRatio", validateRatio query.airTransportRatio )
                 , ( "recycledRatio", validateRatio query.recycledRatio )
+                , ( "useNbCycles", validateUseNbCycles query.useNbCycles )
                 ]
     in
     case errorsList of
@@ -179,8 +181,8 @@ validateProduct db id =
 
 validateCountries : Db -> List Country.Code -> Maybe ErrorMessage
 validateCountries db countries =
-    if List.length countries /= 5 then
-        Just "La liste de pays doit contenir 5 pays."
+    if List.length countries /= 6 then
+        Just "La liste de pays doit contenir 6 pays."
 
     else
         case Country.findByCodes countries db.countries of
@@ -198,6 +200,19 @@ validateRatio maybeRatio =
             (\(Unit.Ratio float) ->
                 if float < 0 || float > 1 then
                     Just "Un ratio doit être compris entre 0 et 1 inclus."
+
+                else
+                    Nothing
+            )
+
+
+validateUseNbCycles : Maybe Int -> Maybe ErrorMessage
+validateUseNbCycles maybeUseNbCycles =
+    maybeUseNbCycles
+        |> Maybe.andThen
+            (\int ->
+                if int < 0 || int > 100 then
+                    Just "Un nombre de cycles d'entretien doit être compris entre 0 et 100 inclus."
 
                 else
                     Nothing

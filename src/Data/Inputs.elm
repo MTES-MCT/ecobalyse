@@ -26,6 +26,7 @@ type alias Inputs =
     , airTransportRatio : Maybe Unit.Ratio
     , recycledRatio : Maybe Unit.Ratio
     , customCountryMixes : CustomCountryMixes
+    , useNbCycles : Maybe Int
     }
 
 
@@ -39,6 +40,7 @@ type alias Query =
     , airTransportRatio : Maybe Unit.Ratio
     , recycledRatio : Maybe Unit.Ratio
     , customCountryMixes : CustomCountryMixes
+    , useNbCycles : Maybe Int
     }
 
 
@@ -64,6 +66,16 @@ fromQuery db query =
         |> RE.andMap (Ok query.airTransportRatio)
         |> RE.andMap (Ok query.recycledRatio)
         |> RE.andMap (Ok query.customCountryMixes)
+        |> RE.andMap (Ok query.useNbCycles)
+        |> Result.andThen
+            (\inputs ->
+                -- TODO: revamp countries typing & validation
+                if List.length inputs.countries /= 6 then
+                    Err "La liste des pays est incomplète."
+
+                else
+                    Ok inputs
+            )
 
 
 toQuery : Inputs -> Query
@@ -76,6 +88,7 @@ toQuery inputs =
     , airTransportRatio = inputs.airTransportRatio
     , recycledRatio = inputs.recycledRatio
     , customCountryMixes = inputs.customCountryMixes
+    , useNbCycles = inputs.useNbCycles
     }
 
 
@@ -159,6 +172,20 @@ updateMaterial material query =
     }
 
 
+updateProduct : Product -> Query -> Query
+updateProduct product query =
+    { query
+        | product = product.id
+        , useNbCycles =
+            -- ensure resetting useNbCycles when product is changed
+            if product.id /= query.product then
+                Nothing
+
+            else
+                query.useNbCycles
+    }
+
+
 defaultQuery : Query
 defaultQuery =
     tShirtCotonIndia
@@ -176,11 +203,13 @@ tShirtCotonFrance =
         , Country.Code "FR"
         , Country.Code "FR"
         , Country.Code "FR"
+        , Country.Code "FR"
         ]
     , dyeingWeighting = Nothing
     , airTransportRatio = Nothing
     , recycledRatio = Nothing
     , customCountryMixes = defaultCustomCountryMixes
+    , useNbCycles = Nothing
     }
 
 
@@ -191,6 +220,7 @@ tShirtPolyamideFrance =
         | material = Process.Uuid "182fa424-1f49-4728-b0f1-cb4e4ab36392"
         , countries =
             [ Country.Code "FR"
+            , Country.Code "FR"
             , Country.Code "FR"
             , Country.Code "FR"
             , Country.Code "FR"
@@ -209,6 +239,7 @@ tShirtCotonEurope =
             , Country.Code "TN"
             , Country.Code "ES"
             , Country.Code "FR"
+            , Country.Code "FR"
             ]
     }
 
@@ -223,6 +254,7 @@ tShirtCotonIndia =
             , Country.Code "IN"
             , Country.Code "IN"
             , Country.Code "FR"
+            , Country.Code "FR"
             ]
     }
 
@@ -236,6 +268,7 @@ tShirtCotonAsie =
             , Country.Code "CN"
             , Country.Code "CN"
             , Country.Code "CN"
+            , Country.Code "FR"
             , Country.Code "FR"
             ]
     }
@@ -253,11 +286,13 @@ jupeCircuitAsie =
         , Country.Code "CN"
         , Country.Code "CN"
         , Country.Code "FR"
+        , Country.Code "FR"
         ]
     , dyeingWeighting = Nothing
     , airTransportRatio = Nothing
     , recycledRatio = Nothing
     , customCountryMixes = defaultCustomCountryMixes
+    , useNbCycles = Nothing
     }
 
 
@@ -273,11 +308,13 @@ manteauCircuitEurope =
         , Country.Code "TN"
         , Country.Code "ES"
         , Country.Code "FR"
+        , Country.Code "FR"
         ]
     , dyeingWeighting = Nothing
     , airTransportRatio = Nothing
     , recycledRatio = Nothing
     , customCountryMixes = defaultCustomCountryMixes
+    , useNbCycles = Nothing
     }
 
 
@@ -293,11 +330,13 @@ pantalonCircuitEurope =
         , Country.Code "TR"
         , Country.Code "TR"
         , Country.Code "FR"
+        , Country.Code "FR"
         ]
     , dyeingWeighting = Nothing
     , airTransportRatio = Nothing
     , recycledRatio = Nothing
     , customCountryMixes = defaultCustomCountryMixes
+    , useNbCycles = Nothing
     }
 
 
@@ -313,11 +352,13 @@ robeCircuitBangladesh =
         , Country.Code "PT"
         , Country.Code "TN"
         , Country.Code "FR"
+        , Country.Code "FR"
         ]
     , dyeingWeighting = Nothing
     , airTransportRatio = Nothing
     , recycledRatio = Nothing
     , customCountryMixes = defaultCustomCountryMixes
+    , useNbCycles = Nothing
     }
 
 
@@ -374,6 +415,7 @@ decodeQuery =
         |> Pipe.required "airTransportRatio" (Decode.maybe Unit.decodeRatio)
         |> Pipe.required "recycledRatio" (Decode.maybe Unit.decodeRatio)
         |> Pipe.required "customCountryMixes" decodeCustomCountryMixes
+        |> Pipe.required "useNbCycles" (Decode.maybe Decode.int)
 
 
 encodeQuery : Query -> Encode.Value
@@ -387,6 +429,7 @@ encodeQuery query =
         , ( "airTransportRatio", query.airTransportRatio |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
         , ( "recycledRatio", query.recycledRatio |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
         , ( "customCountryMixes", encodeCustomCountryMixes query.customCountryMixes )
+        , ( "useNbCycles", query.useNbCycles |> Maybe.map Encode.int |> Maybe.withDefault Encode.null )
         ]
 
 
