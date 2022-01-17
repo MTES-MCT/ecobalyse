@@ -4,7 +4,7 @@ description: >-
   produit fini.
 ---
 
-# Confection
+# 👗 Etape 4 - Confection
 
 ## Schéma
 

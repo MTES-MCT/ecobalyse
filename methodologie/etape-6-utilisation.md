@@ -4,7 +4,7 @@ description: >-
   d'un vêtement
 ---
 
-# Etape 6 - Utilisation
+# 🌀 Etape 6 - Utilisation
 
 ## Impacts pris en compte
 
@@ -108,5 +108,61 @@ _F\_kWh/tps\_rpsg : la quantité d'électricité nécessaire à repasser 1 h (un
 
 
 
+### Exemple de calcul
 
+Pour une jupe, on a n\_cycles = 23 et m = 0.3 kg
+
+On sépare le calcul en 2 procédés :&#x20;
+
+* 1 procédé de repassage, proportionnel au nombre de cycles d'entretien n\_cycles
+* 1 procédé hors repassage comprenant les 4 autres procédés (élec lavage, élec séchage, lessive, eaux usées), proportionnel au nombre de cycles d'entretien et à la masse à laver
+
+#### Procédé de repassage (ironing)
+
+```
+élec_ironing = n_cycles * P_ironing_élec
+Avec  P_ironing_élec : la quantité d'électricité (MJ) nécessaire pour l'étape repassage du cycle d'entretien d'une jupe.
+
+élec_ironing = 23 * 0.0729
+élec_ironing = 1.6767 MJ
+élec_ironing = 0.46575 kWh
+
+impact_ironing = élec_ironing * P_élec_fr_cch
+Avec P_élec_fr_cch : la quantité de kgCO2e émise pour produire 1 kWh d'électricité française
+impact_ironing = 0.46575 * 0.0813225
+impact_ironing = 0.03787595438 kgCO2e
+```
+
+#### Procédé hors repassage (non ironing)
+
+```
+élec_non_ironing = n_cycles * m * P_non_ironing_élec
+Avec  P_non_ironing_élec : la quantité d'électricité (MJ) nécessaire pour l'étape hors repassage (lave-linge, sèche-linge) du cycle d'entretien d'une jupe.
+élec_non_ironing = 23 * 0.3 * 0.8095200001
+élec_non_ironing = 5.585688001 MJ
+élec_non_ironing = 1.55158 kWh
+
+élec_total = élec_ironing + élec_non_ironing
+élec_total = 0.46575 + 1.55158
+élec_total = 2.01733 kWh
+
+impact_élec_non_ironing = élec_non_ironing * P_élec_fr_cch
+Avec P_élec_fr_cch : la quantité de kgCO2e émise pour produire 1 kWh d'électricité française
+impact_élec_non_ironing = 1.55158 * 0.0813225
+impact_élec_non_ironing = 0.1261783646 kgCO2e
+
+
+impact_eaux_lessive_non_ironing = n_cycles * m * P_non_ironing_cch
+Avec P_non_ironing_cch : la quantité de kgCO2e émise pour le processus hors ironing (lessive + traitement des eaux usées) pour 1 kg de linge à laver.
+impact_eaux_lessive_non_ironing = 23 * 0.3 * 3.4019290E-02
+impact_eaux_lessive_non_ironing = 0.234738 kgCO2e
+```
+
+Finalement on a :
+
+```
+impact = impact_ironing + impact_élec_non_ironing + impact_eaux_lessive_non_ironing
+impact = 0.03787595438 + 0.1261783646 + 0.234738
+impact = 0.398792319 kgCO2e
+```
 
