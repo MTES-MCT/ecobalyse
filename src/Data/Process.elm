@@ -41,7 +41,7 @@ type alias WellKnown =
 
 noOpProcess : Process
 noOpProcess =
-    { name = "void"
+    { name = "Default"
     , info = ""
     , uuid = Uuid ""
     , impacts = Impact.noImpacts

@@ -257,7 +257,7 @@ components:
     useNbCyclesParam:
       name: useNbCycles
       in: query
-      description: Nombre de cycle d'entretien en pahse d'utilisation
+      description: Nombre de cycles d'entretien en phase d'utilisation. Si non spécifié, le calculateur utilise le nombre de cycles d'entretiens par défaut du produit sélectionné.
       required: false
       style: form
       schema:
