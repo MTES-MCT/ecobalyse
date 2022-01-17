@@ -18,7 +18,7 @@
     "test:prepare": "node tests/prepare.js",
     "test:all": "npm test && npm run server:test",
     "test": "npm run test:prepare && elm-test",
-    "watch:elm": "chokidar 'src/**/!(Main).elm' -c 'touch src/Main.elm && npm run server:build'"
+    "watch:elm": "chokidar 'src/**/!(Main).elm' -c 'touch index.js && npm run server:build'"
   },
   "dependencies": {
     "@parcel/transformer-elm": "^2.0.1",
