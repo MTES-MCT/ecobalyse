@@ -338,7 +338,7 @@ chart impact entries =
                 (\{ max } -> max / 2)
                 (\{ max } -> max * 1.15)
                 [ CA.alignMiddle ]
-                [ CA.spacing 2, CA.fontSize 11 ]
+                [ CA.spacing 1, CA.htmlAttrs [ style "font-size" "calc(1vw/1.5)" ] ]
             ]
 
         verticalLabels =
