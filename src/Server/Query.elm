@@ -1,11 +1,11 @@
 module Server.Query exposing (..)
 
-import Data.Country as Country
+import Data.Country as Country exposing (Country)
 import Data.Db exposing (Db)
 import Data.Inputs as Inputs exposing (CustomCountryMixes)
-import Data.Material as Material
+import Data.Material as Material exposing (Material)
 import Data.Process as Process
-import Data.Product as Product
+import Data.Product as Product exposing (Product)
 import Data.Unit as Unit
 import Dict exposing (Dict)
 import Json.Encode as Encode
@@ -123,7 +123,7 @@ massParser key =
             )
 
 
-productParser : String -> List Product.Product -> Query.Parser (ParseResult Product.Id)
+productParser : String -> List Product -> Query.Parser (ParseResult Product.Id)
 productParser key products =
     Query.string key
         |> Query.map (Result.fromMaybe ( key, "Identifiant du type de produit manquant." ))
@@ -138,7 +138,7 @@ productParser key products =
             )
 
 
-materialParser : String -> List Material.Material -> Query.Parser (ParseResult Process.Uuid)
+materialParser : String -> List Material -> Query.Parser (ParseResult Process.Uuid)
 materialParser key materials =
     Query.string key
         |> Query.map (Result.fromMaybe ( key, "Identifiant de la matière manquant." ))
@@ -153,7 +153,7 @@ materialParser key materials =
             )
 
 
-countryParser : String -> List Country.Country -> Query.Parser (ParseResult Country.Code)
+countryParser : String -> List Country -> Query.Parser (ParseResult Country.Code)
 countryParser key countries =
     Query.string key
         |> Query.map (Result.fromMaybe ( key, "Code pays manquant." ))
