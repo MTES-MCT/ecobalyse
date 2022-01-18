@@ -132,8 +132,14 @@ viewPitch =
 viewIsIsntColumn : Bool -> Maybe Int -> ( String, List ( String, String ) ) -> Html Msg
 viewIsIsntColumn positive isIsntSectionIndex ( title, sections ) =
     div [ class "mt-3" ]
-        [ h2 [ class "h4 fw-bold text-center text-primary mb-3" ]
-            [ title |> String.replace "*" "" |> text ]
+        [ h2 [ class "h3 fw-light text-center mb-3" ]
+            [ if positive then
+                span [ class "text-success me-1" ] [ Icon.check ]
+
+              else
+                span [ class "text-danger me-1" ] [ Icon.times ]
+            , title |> String.replace "*" "" |> text
+            ]
         , sections
             |> List.indexedMap
                 (\index ( sectionTitle, markdown ) ->
@@ -142,20 +148,14 @@ viewIsIsntColumn positive isIsntSectionIndex ( title, sections ) =
                             [ button
                                 [ type_ "button"
                                 , class "accordion-button fw-bold"
-                                , classList
-                                    [ ( "collapsed", isIsntSectionIndex /= Just index )
-                                    , ( "text-success", positive )
-                                    , ( "text-danger", not positive )
-                                    ]
+                                , classList [ ( "collapsed", isIsntSectionIndex /= Just index ) ]
                                 , onClick (ToggleIsIsntIndex index)
                                 ]
-                                [ span [ class "me-1" ]
-                                    [ if positive then
-                                        Icon.check
+                                [ if positive then
+                                    span [ class "text-success me-1" ] [ Icon.check ]
 
-                                      else
-                                        Icon.times
-                                    ]
+                                  else
+                                    span [ class "text-danger me-1" ] [ Icon.times ]
                                 , index + 1 |> String.fromInt |> text
                                 , text ". "
                                 , sectionTitle |> String.replace "*" "" |> text
