@@ -40,13 +40,21 @@ suite =
                         ]
                     ]
                 , describe "Query countries validation"
-                    [ { tShirtCotonAsie | countryFabric = Country.Code "CN", countryDyeing = Country.Code "CN", countryMaking = Country.Code "CN" }
+                    [ { tShirtCotonAsie
+                        | countryFabric = Country.Code "CN"
+                        , countryDyeing = Country.Code "CN"
+                        , countryMaking = Country.Code "CN"
+                      }
                         |> Inputs.fromQuery db
                         |> Result.map Inputs.countryList
                         |> Result.andThen (LE.getAt 0 >> Maybe.map .code >> Result.fromMaybe "")
                         |> Expect.equal (Ok (Country.codeFromString "CN"))
                         |> asTest "should replace the first country with the material's default country"
-                    , { tShirtCotonAsie | countryFabric = Country.Code "XX", countryDyeing = Country.Code "CN", countryMaking = Country.Code "CN" }
+                    , { tShirtCotonAsie
+                        | countryFabric = Country.Code "XX"
+                        , countryDyeing = Country.Code "CN"
+                        , countryMaking = Country.Code "CN"
+                      }
                         |> Inputs.fromQuery db
                         |> Expect.equal (Err "Code pays invalide: XX.")
                         |> asTest "should validate country codes"
