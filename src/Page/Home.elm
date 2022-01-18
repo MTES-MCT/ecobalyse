@@ -72,7 +72,7 @@ update session msg model =
 
 viewHero : Session -> Html Msg
 viewHero session =
-    Container.centered []
+    Container.centered [ class "pb-5" ]
         [ div [ class "row align-items-center", style "min-height" "57vh" ]
             [ div [ class "col-lg-7 text-center" ]
                 [ h2 [ class "display-5" ]
@@ -103,10 +103,36 @@ viewHero session =
         ]
 
 
+viewPitch : Html Msg
+viewPitch =
+    Container.full [ class "bg-primary-gradient shadow text-light-all" ]
+        [ Container.centered []
+            [ Column.create
+                |> Column.add [ class "text-center px-3 px-sm-2" ]
+                    [ blockquote [ class "fs-4 mb-1" ]
+                        [ q [] [ text "74% des Français aimeraient avoir plus d’informations sur l’impact environnemental et sociétal des produits qu’ils achètent" ] ]
+                    , p [ class "text-center" ]
+                        [ text "Source\u{00A0}:\u{00A0}"
+                        , Link.external
+                            [ class "text-light"
+                            , href "https://presse.ademe.fr/wp-content/uploads/2021/05/CP-Barometre-de-la-consommation-responsable-Version-Finale.pdf"
+                            ]
+                            [ text "14ème baromètre de la consommation responsable 2021" ]
+                        ]
+                    ]
+                |> Column.addMd [ class "fs-5 mt-1 px-4 px-sm-2" ]
+                    """Répondant à cette demande, [la loi Climat et Résilience rend obligatoire l'affichage
+                            environnemental](https://www.legifrance.gouv.fr/loda/article_lc/LEGIARTI000043957692).
+                            La mise en œuvre de cette nouvelle obligation va prendre du temps et **nécessite un travail collectif**."""
+                |> Column.render [ class "d-flex align-items-start py-5" ]
+            ]
+        ]
+
+
 viewIsIsntColumn : Maybe Int -> ( String, List ( String, String ) ) -> Html Msg
 viewIsIsntColumn isIsntSectionIndex ( title, sections ) =
-    div []
-        [ h2 [ class "h4 fw-bold mb-3 text-center" ]
+    div [ class "mt-3" ]
+        [ h2 [ class "h4 fw-bold text-center text-primary mb-3" ]
             [ title |> String.replace "*" "" |> text ]
         , sections
             |> List.indexedMap
@@ -137,7 +163,7 @@ viewIsIsntColumn isIsntSectionIndex ( title, sections ) =
 
 viewIsIsnt : Maybe Int -> Gitbook.IsIsnt -> Html Msg
 viewIsIsnt isIsntSectionIndex { is, isnt } =
-    Container.full [ class "py-3" ]
+    Container.full [ class "bg-light pt-3 pb-5" ]
         [ Container.centered []
             [ div [ class "row" ]
                 [ div [ class "col-sm-6" ] [ viewIsIsntColumn isIsntSectionIndex is ]
@@ -150,30 +176,9 @@ viewIsIsnt isIsntSectionIndex { is, isnt } =
 view : Session -> Model -> ( String, List (Html Msg) )
 view session { content, isIsntSectionIndex } =
     ( "Accueil"
-    , [ div [ class "d-flex flex-column gap-5" ]
+    , [ div [ class "d-flex flex-column" ]
             [ viewHero session
-            , Container.full [ class "bg-primary-gradient shadow text-light-all" ]
-                [ Container.centered []
-                    [ Column.create
-                        |> Column.add [ class "text-center px-3 px-sm-2" ]
-                            [ blockquote [ class "fs-4 mb-1" ]
-                                [ q [] [ text "74% des Français aimeraient avoir plus d’informations sur l’impact environnemental et sociétal des produits qu’ils achètent" ] ]
-                            , p [ class "text-center" ]
-                                [ text "Source\u{00A0}:\u{00A0}"
-                                , Link.external
-                                    [ class "text-light"
-                                    , href "https://presse.ademe.fr/wp-content/uploads/2021/05/CP-Barometre-de-la-consommation-responsable-Version-Finale.pdf"
-                                    ]
-                                    [ text "14ème baromètre de la consommation responsable 2021" ]
-                                ]
-                            ]
-                        |> Column.addMd [ class "fs-5 mt-1 px-4 px-sm-2" ]
-                            """Répondant à cette demande, [la loi Climat et Résilience rend obligatoire l'affichage
-                            environnemental](https://www.legifrance.gouv.fr/loda/article_lc/LEGIARTI000043957692).
-                            La mise en œuvre de cette nouvelle obligation va prendre du temps et **nécessite un travail collectif**."""
-                        |> Column.render [ class "d-flex align-items-start py-5" ]
-                    ]
-                ]
+            , viewPitch
             , case content of
                 RemoteData.Success { markdown } ->
                     case Gitbook.parseIsIsnt markdown of
@@ -185,7 +190,7 @@ view session { content, isIsntSectionIndex } =
 
                 _ ->
                     text ""
-            , Container.full [ class "py-3" ]
+            , Container.full [ class "py-5" ]
                 [ Container.centered []
                     [ Column.create
                         |> Column.add [ class "text-center px-lg-4" ]
