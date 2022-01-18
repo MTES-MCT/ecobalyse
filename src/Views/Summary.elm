@@ -46,7 +46,8 @@ summaryView { session, impact, reusable } ({ inputs, lifeCycle } as simulator) =
                 , div [ class "display-5" ]
                     [ simulator.impacts |> Format.formatImpact impact ]
                 ]
-            , inputs.countries
+            , inputs
+                |> Inputs.countryList
                 |> List.map (\{ name } -> li [] [ span [] [ text name ] ])
                 |> ul [ class "Chevrons" ]
             , lifeCycle

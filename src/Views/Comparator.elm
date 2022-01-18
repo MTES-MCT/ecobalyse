@@ -48,14 +48,9 @@ toRecycledFrance : Inputs.Query -> ( String, Inputs.Query )
 toRecycledFrance query =
     ( "France 100% recyclé"
     , { query
-        | countries =
-            [ Country.Code "CN"
-            , Country.Code "FR"
-            , Country.Code "FR"
-            , Country.Code "FR"
-            , Country.Code "FR"
-            , Country.Code "FR"
-            ]
+        | countryFabric = Country.Code "FR"
+        , countryDyeing = Country.Code "FR"
+        , countryMaking = Country.Code "FR"
         , dyeingWeighting = Just (Unit.ratio 0)
         , airTransportRatio = Just (Unit.ratio 0)
         , recycledRatio = Just (Unit.ratio 1)
@@ -68,14 +63,9 @@ toNonRecycledFrance : Inputs.Query -> ( String, Inputs.Query )
 toNonRecycledFrance query =
     ( "France 0% recyclé"
     , { query
-        | countries =
-            [ Country.Code "CN"
-            , Country.Code "FR"
-            , Country.Code "FR"
-            , Country.Code "FR"
-            , Country.Code "FR"
-            , Country.Code "FR"
-            ]
+        | countryFabric = Country.Code "FR"
+        , countryDyeing = Country.Code "FR"
+        , countryMaking = Country.Code "FR"
         , dyeingWeighting = Just (Unit.ratio 0)
         , airTransportRatio = Just (Unit.ratio 0)
         , recycledRatio = Just (Unit.ratio 0)
@@ -88,14 +78,9 @@ toPartiallyRecycledIndiaTurkey : Inputs.Query -> ( String, Inputs.Query )
 toPartiallyRecycledIndiaTurkey query =
     ( "Inde-Turquie 20% recyclé"
     , { query
-        | countries =
-            [ Country.Code "CN"
-            , Country.Code "IN"
-            , Country.Code "TR"
-            , Country.Code "TR"
-            , Country.Code "FR"
-            , Country.Code "FR"
-            ]
+        | countryFabric = Country.Code "IN"
+        , countryDyeing = Country.Code "TR"
+        , countryMaking = Country.Code "TR"
         , dyeingWeighting = Just (Unit.ratio 0.5)
         , airTransportRatio = Just (Unit.ratio 0)
         , recycledRatio = Just (Unit.ratio 0.2)
@@ -108,14 +93,9 @@ toNonRecycledIndiaTurkey : Inputs.Query -> ( String, Inputs.Query )
 toNonRecycledIndiaTurkey query =
     ( "Inde-Turquie 0% recyclé"
     , { query
-        | countries =
-            [ Country.Code "CN"
-            , Country.Code "IN"
-            , Country.Code "TR"
-            , Country.Code "TR"
-            , Country.Code "FR"
-            , Country.Code "FR"
-            ]
+        | countryFabric = Country.Code "IN"
+        , countryDyeing = Country.Code "TR"
+        , countryMaking = Country.Code "TR"
         , dyeingWeighting = Just (Unit.ratio 0.5)
         , airTransportRatio = Just (Unit.ratio 0)
         , recycledRatio = Just (Unit.ratio 0)
@@ -128,14 +108,9 @@ toRecycledIndia : Inputs.Query -> ( String, Inputs.Query )
 toRecycledIndia query =
     ( "Inde 100% recyclé"
     , { query
-        | countries =
-            [ Country.Code "CN"
-            , Country.Code "IN"
-            , Country.Code "IN"
-            , Country.Code "IN"
-            , Country.Code "FR"
-            , Country.Code "FR"
-            ]
+        | countryFabric = Country.Code "IN"
+        , countryDyeing = Country.Code "IN"
+        , countryMaking = Country.Code "IN"
         , dyeingWeighting = Just (Unit.ratio 1)
         , airTransportRatio = Just (Unit.ratio 1)
         , recycledRatio = Just (Unit.ratio 1)
@@ -148,14 +123,9 @@ toNonRecycledIndia : Inputs.Query -> ( String, Inputs.Query )
 toNonRecycledIndia query =
     ( "Inde 0% recyclé"
     , { query
-        | countries =
-            [ Country.Code "CN"
-            , Country.Code "IN"
-            , Country.Code "IN"
-            , Country.Code "IN"
-            , Country.Code "FR"
-            , Country.Code "FR"
-            ]
+        | countryFabric = Country.Code "IN"
+        , countryDyeing = Country.Code "IN"
+        , countryMaking = Country.Code "IN"
         , dyeingWeighting = Just (Unit.ratio 1)
         , airTransportRatio = Just (Unit.ratio 1)
         , recycledRatio = Just (Unit.ratio 0)

@@ -1,11 +1,11 @@
 module Server.Query exposing (..)
 
-import Data.Country as Country
+import Data.Country as Country exposing (Country)
 import Data.Db exposing (Db)
-import Data.Inputs as Inputs
-import Data.Material as Material
+import Data.Inputs as Inputs exposing (CustomCountryMixes)
+import Data.Material as Material exposing (Material)
 import Data.Process as Process
-import Data.Product as Product
+import Data.Product as Product exposing (Product)
 import Data.Unit as Unit
 import Dict exposing (Dict)
 import Json.Encode as Encode
@@ -29,29 +29,70 @@ type alias Errors =
     Dict FieldName ErrorMessage
 
 
+type alias ParseResult a =
+    Result ( FieldName, String ) a
+
+
+succeed : a -> Query.Parser a
+succeed =
+    -- Kind of a hack: we don't have access to the Query.Parser constructor, so
+    -- we use Query.custom to wrap our thing in a Query.Parser
+    always >> Query.custom ""
+
+
 parse : Db -> Query.Parser (Result Errors Inputs.Query)
 parse db =
-    Query.map Inputs.Query
-        (massParser "mass")
-        |> apply (materialParser "material")
-        |> apply (productParser "product")
-        |> apply (countriesParser "countries")
-        |> apply (ratioParser "dyeingWeighting")
-        |> apply (ratioParser "airTransportRatio")
-        |> apply (ratioParser "recycledRatio")
-        |> apply customCountryMixesParser
-        |> apply (Query.int "useNbCycles")
-        |> Query.map (validateQuery db)
+    succeed (Ok Inputs.Query)
+        |> apply (massParser "mass")
+        |> apply (materialParser "material" db.materials)
+        |> apply (productParser "product" db.products)
+        |> apply (countryParser "countryFabric" db.countries)
+        |> apply (countryParser "countryDyeing" db.countries)
+        |> apply (countryParser "countryMaking" db.countries)
+        |> apply (maybeRatioParser "dyeingWeighting")
+        |> apply (maybeRatioParser "airTransportRatio")
+        |> apply (maybeRatioParser "recycledRatio")
+        |> apply (Query.map Ok customCountryMixesParser)
+        |> apply (maybeUseNbCycles "useNbCycles")
 
 
+toErrors : ParseResult a -> Result Errors a
+toErrors =
+    Result.mapError
+        (\( key, errorMessage ) ->
+            Dict.singleton key errorMessage
+        )
 
--- Parsers
+
+builder :
+    Result (Dict comparable v) a
+    -> Result (Dict comparable v) (a -> b)
+    -> Result (Dict comparable v) b
+builder result accumulator =
+    case ( result, accumulator ) of
+        ( Err a, Err b ) ->
+            -- Merge the error dicts
+            Err <| Dict.union a b
+
+        ( Ok _, Err b ) ->
+            -- No error in "result", but the accumulator is errored: return the errored accumulator
+            Err b
+
+        ( valueOrError, Ok fn ) ->
+            Result.map fn valueOrError
 
 
-apply : Query.Parser a -> Query.Parser (a -> b) -> Query.Parser b
+apply :
+    Query.Parser (ParseResult a)
+    -> Query.Parser (Result Errors (a -> b))
+    -> Query.Parser (Result Errors b)
 apply argParser funcParser =
-    -- See https://package.elm-lang.org/packages/elm/url/latest/Url-Parser-Query#map8
-    Query.map2 (<|) funcParser argParser
+    -- Adapted from https://package.elm-lang.org/packages/elm/url/latest/Url-Parser-Query#map8
+    -- with the full list of errors returned, instead of just the first one encountered.
+    Query.map2
+        builder
+        (Query.map toErrors argParser)
+        funcParser
 
 
 floatParser : String -> Query.Parser (Maybe Float)
@@ -66,47 +107,81 @@ floatParser key =
                     Nothing
 
 
-massParser : String -> Query.Parser Mass
+massParser : String -> Query.Parser (ParseResult Mass)
 massParser key =
     floatParser key
+        |> Query.map (Result.fromMaybe ( key, "La masse est manquante." ))
         |> Query.map
-            (Maybe.map Mass.kilograms
-                >> Maybe.withDefault (Mass.kilograms -1)
+            (Result.andThen
+                (\mass ->
+                    if mass < 0 then
+                        Err ( key, "La masse doit être supérieure ou égale à zéro." )
+
+                    else
+                        Ok <| Mass.kilograms mass
+                )
             )
 
 
-productParser : String -> Query.Parser Product.Id
-productParser key =
+productParser : String -> List Product -> Query.Parser (ParseResult Product.Id)
+productParser key products =
     Query.string key
+        |> Query.map (Result.fromMaybe ( key, "Identifiant du type de produit manquant." ))
         |> Query.map
-            (Maybe.map Product.Id
-                >> Maybe.withDefault (Product.Id "")
+            (Result.andThen
+                (\id ->
+                    products
+                        |> Product.findById (Product.Id id)
+                        |> Result.map .id
+                        |> Result.mapError (\err -> ( key, err ))
+                )
             )
 
 
-materialParser : String -> Query.Parser Process.Uuid
-materialParser key =
+materialParser : String -> List Material -> Query.Parser (ParseResult Process.Uuid)
+materialParser key materials =
     Query.string key
+        |> Query.map (Result.fromMaybe ( key, "Identifiant de la matière manquant." ))
         |> Query.map
-            (Maybe.map Process.Uuid
-                >> Maybe.withDefault (Process.Uuid "")
+            (Result.andThen
+                (\uuid ->
+                    materials
+                        |> Material.findByUuid (Process.Uuid uuid)
+                        |> Result.map .uuid
+                        |> Result.mapError (\err -> ( key, err ))
+                )
             )
 
 
-countriesParser : String -> Query.Parser (List Country.Code)
-countriesParser key =
+countryParser : String -> List Country -> Query.Parser (ParseResult Country.Code)
+countryParser key countries =
     Query.string key
+        |> Query.map (Result.fromMaybe ( key, "Code pays manquant." ))
+        |> Query.map
+            (Result.andThen
+                (\code ->
+                    countries
+                        |> Country.findByCode (Country.Code code)
+                        |> Result.map .code
+                        |> Result.mapError (\err -> ( key, err ))
+                )
+            )
+
+
+maybeRatioParser : String -> Query.Parser (ParseResult (Maybe Unit.Ratio))
+maybeRatioParser key =
+    floatParser key
         |> Query.map
             (Maybe.map
-                (String.split "," >> List.map Country.Code)
-                >> Maybe.withDefault []
+                (\float ->
+                    if float < 0 || float > 1 then
+                        Err ( key, "Un ratio doit être compris entre 0 et 1 inclus." )
+
+                    else
+                        Ok (Just (Unit.ratio float))
+                )
+                >> Maybe.withDefault (Ok Nothing)
             )
-
-
-ratioParser : String -> Query.Parser (Maybe Unit.Ratio)
-ratioParser key =
-    floatParser key
-        |> Query.map (Maybe.map Unit.ratio)
 
 
 impactParser : String -> Query.Parser (Maybe Unit.Impact)
@@ -115,107 +190,27 @@ impactParser key =
         |> Query.map (Maybe.map Unit.impact)
 
 
-customCountryMixesParser : Query.Parser Inputs.CustomCountryMixes
+customCountryMixesParser : Query.Parser CustomCountryMixes
 customCountryMixesParser =
-    Query.map3 Inputs.CustomCountryMixes
+    Query.map3 CustomCountryMixes
         (impactParser "customCountryMix[fabric]")
         (impactParser "customCountryMix[dyeing]")
         (impactParser "customCountryMix[making]")
 
 
+maybeUseNbCycles : String -> Query.Parser (ParseResult (Maybe Int))
+maybeUseNbCycles key =
+    Query.int key
+        |> Query.map
+            (Maybe.map
+                (\int ->
+                    if int < 0 || int > 100 then
+                        Err ( key, "Un nombre de cycles d'entretien doit être compris entre 0 et 100 inclus." )
 
--- Validation
-
-
-validateQuery : Db -> Inputs.Query -> Result Errors Inputs.Query
-validateQuery db query =
-    let
-        errorsList =
-            List.filterMap (\( f, msg ) -> msg |> Maybe.map (\m -> ( f, m )))
-                [ ( "mass", validateMass query.mass )
-                , ( "material", validateMaterial db query.material )
-                , ( "product", validateProduct db query.product )
-                , ( "countries", validateCountries db query.countries )
-                , ( "dyeingWeighting", validateRatio query.dyeingWeighting )
-                , ( "airTransportRatio", validateRatio query.airTransportRatio )
-                , ( "recycledRatio", validateRatio query.recycledRatio )
-                , ( "useNbCycles", validateUseNbCycles query.useNbCycles )
-                ]
-    in
-    case errorsList of
-        [] ->
-            Ok query
-
-        errors ->
-            Err (Dict.fromList errors)
-
-
-validateMass : Mass -> Maybe ErrorMessage
-validateMass mass =
-    if Mass.inKilograms mass < 0 then
-        Just "La masse doit être supérieure ou égale à zéro."
-
-    else
-        Nothing
-
-
-validateMaterial : Db -> Process.Uuid -> Maybe ErrorMessage
-validateMaterial db uuid =
-    case Material.findByUuid uuid db.materials of
-        Err _ ->
-            Just "Identifiant de la matière manquant ou invalide."
-
-        Ok _ ->
-            Nothing
-
-
-validateProduct : Db -> Product.Id -> Maybe ErrorMessage
-validateProduct db id =
-    case Product.findById id db.products of
-        Err _ ->
-            Just "Identifiant du type de produit manquant ou invalide."
-
-        Ok _ ->
-            Nothing
-
-
-validateCountries : Db -> List Country.Code -> Maybe ErrorMessage
-validateCountries db countries =
-    if List.length countries /= 6 then
-        Just "La liste de pays doit contenir 6 pays."
-
-    else
-        case Country.findByCodes countries db.countries of
-            Err error ->
-                Just error
-
-            Ok _ ->
-                Nothing
-
-
-validateRatio : Maybe Unit.Ratio -> Maybe ErrorMessage
-validateRatio maybeRatio =
-    maybeRatio
-        |> Maybe.andThen
-            (\(Unit.Ratio float) ->
-                if float < 0 || float > 1 then
-                    Just "Un ratio doit être compris entre 0 et 1 inclus."
-
-                else
-                    Nothing
-            )
-
-
-validateUseNbCycles : Maybe Int -> Maybe ErrorMessage
-validateUseNbCycles maybeUseNbCycles =
-    maybeUseNbCycles
-        |> Maybe.andThen
-            (\int ->
-                if int < 0 || int > 100 then
-                    Just "Un nombre de cycles d'entretien doit être compris entre 0 et 100 inclus."
-
-                else
-                    Nothing
+                    else
+                        Ok (Just int)
+                )
+                >> Maybe.withDefault (Ok Nothing)
             )
 
 

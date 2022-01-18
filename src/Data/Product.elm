@@ -63,7 +63,7 @@ findById : Id -> List Product -> Result String Product
 findById id =
     List.filter (.id >> (==) id)
         >> List.head
-        >> Result.fromMaybe ("Produit non trouvé id=" ++ idToString id)
+        >> Result.fromMaybe ("Produit non trouvé id=" ++ idToString id ++ ".")
 
 
 idToString : Id -> String

@@ -24,7 +24,9 @@ describe("API", () => {
       "mass=0.17",
       "product=13",
       "material=f211bbdb-415c-46fd-be4d-ddf199575b44",
-      "countries=CN,CN,CN,CN,FR,FR",
+      "countryFabric=CN",
+      "countryDyeing=CN",
+      "countryMaking=CN",
     ];
 
   function expectFieldErrorMessage(response, field, message) {
@@ -72,7 +74,7 @@ describe("API", () => {
       expectFieldErrorMessage(
         await makeRequest("/api/simulator", ["material=xxx"]),
         "material",
-        /matière manquant ou invalide/,
+        /Impossible de récupérer la matière uuid=xxx./,
       );
     });
 
@@ -80,25 +82,42 @@ describe("API", () => {
       expectFieldErrorMessage(
         await makeRequest("/api/simulator", ["product=xxx"]),
         "product",
-        /produit manquant ou invalide/,
+        /Produit non trouvé id=xxx./,
       );
     });
 
-    it("should validate the countries param (length)", async () => {
+    it("should validate the country params are present", async () => {
       expectFieldErrorMessage(
-        await makeRequest("/api/simulator", ["countries=FR"]),
-        "countries",
-        /6 pays/,
+        await makeRequest("/api/simulator", ["countryFabric=FR,countryDyeing=FR"]),
+        "countryMaking",
+        /Code pays manquant./,
       );
     });
 
-    it("should validate the countries param (invalid codes)", async () => {
+    it("should validate the countryFabric param (invalid code)", async () => {
       expectFieldErrorMessage(
-        await makeRequest("/api/simulator", ["countries=FR,FR,XX,FR,FR,FR"]),
-        "countries",
-        /Code pays invalide: XX/,
+        await makeRequest("/api/simulator", ["countryFabric=XX"]),
+        "countryFabric",
+        /Code pays invalide: XX./,
       );
     });
+
+    it("should validate the countryDyeing param (invalid code)", async () => {
+      expectFieldErrorMessage(
+        await makeRequest("/api/simulator", ["countryDyeing=XX"]),
+        "countryDyeing",
+        /Code pays invalide: XX./,
+      );
+    });
+
+    it("should validate the countryMaking param (invalid code)", async () => {
+      expectFieldErrorMessage(
+        await makeRequest("/api/simulator", ["countryMaking=XX"]),
+        "countryMaking",
+        /Code pays invalide: XX./,
+      );
+    });
+
 
     it("should perform a simulation featuring 16 impacts", async () => {
       const response = await makeRequest("/api/simulator/", successQuery);
