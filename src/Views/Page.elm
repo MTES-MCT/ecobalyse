@@ -117,7 +117,7 @@ navbar { activePage } =
                         case link of
                             Internal label route page ->
                                 Link.internal
-                                    ([ class "nav-link pe-1"
+                                    ([ class "nav-link pe-3"
                                      , classList [ ( "active", page == activePage ) ]
                                      , Route.href route
                                      ]
@@ -131,7 +131,7 @@ navbar { activePage } =
                                     [ text label ]
 
                             External label url ->
-                                Link.external [ class "nav-link pe-1", href url ]
+                                Link.external [ class "nav-link link-external-muted pe-2", href url ]
                                     [ text label ]
 
                             MailTo label email ->
