@@ -1,10 +1,18 @@
 @font-face {
   font-family: 'icomoon';
+<<<<<<< HEAD
   src:  url('fonts/icomoon.eot?wzlg4n');
   src:  url('fonts/icomoon.eot?wzlg4n#iefix') format('embedded-opentype'),
     url('fonts/icomoon.ttf?wzlg4n') format('truetype'),
     url('fonts/icomoon.woff?wzlg4n') format('woff'),
     url('fonts/icomoon.svg?wzlg4n#icomoon') format('svg');
+=======
+  src:  url('fonts/icomoon.eot?5czj0x');
+  src:  url('fonts/icomoon.eot?5czj0x#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?5czj0x') format('truetype'),
+    url('fonts/icomoon.woff?5czj0x') format('woff'),
+    url('fonts/icomoon.svg?5czj0x#icomoon') format('svg');
+>>>>>>> Distinguish entry colors in is/isn't section.
   font-weight: normal;
   font-style: normal;
   font-display: block;

@@ -129,8 +129,8 @@ viewPitch =
         ]
 
 
-viewIsIsntColumn : Maybe Int -> ( String, List ( String, String ) ) -> Html Msg
-viewIsIsntColumn isIsntSectionIndex ( title, sections ) =
+viewIsIsntColumn : Bool -> Maybe Int -> ( String, List ( String, String ) ) -> Html Msg
+viewIsIsntColumn positive isIsntSectionIndex ( title, sections ) =
     div [ class "mt-3" ]
         [ h2 [ class "h4 fw-bold text-center text-primary mb-3" ]
             [ title |> String.replace "*" "" |> text ]
@@ -142,10 +142,21 @@ viewIsIsntColumn isIsntSectionIndex ( title, sections ) =
                             [ button
                                 [ type_ "button"
                                 , class "accordion-button fw-bold"
-                                , classList [ ( "collapsed", isIsntSectionIndex /= Just index ) ]
+                                , classList
+                                    [ ( "collapsed", isIsntSectionIndex /= Just index )
+                                    , ( "text-success", positive )
+                                    , ( "text-danger", not positive )
+                                    ]
                                 , onClick (ToggleIsIsntIndex index)
                                 ]
-                                [ index + 1 |> String.fromInt |> text
+                                [ span [ class "me-1" ]
+                                    [ if positive then
+                                        Icon.check
+
+                                      else
+                                        Icon.times
+                                    ]
+                                , index + 1 |> String.fromInt |> text
                                 , text ". "
                                 , sectionTitle |> String.replace "*" "" |> text
                                 ]
@@ -166,8 +177,8 @@ viewIsIsnt isIsntSectionIndex { is, isnt } =
     Container.full [ class "bg-light pt-3 pb-5" ]
         [ Container.centered []
             [ div [ class "row" ]
-                [ div [ class "col-sm-6" ] [ viewIsIsntColumn isIsntSectionIndex is ]
-                , div [ class "col-sm-6" ] [ viewIsIsntColumn isIsntSectionIndex isnt ]
+                [ div [ class "col-sm-6" ] [ viewIsIsntColumn True isIsntSectionIndex is ]
+                , div [ class "col-sm-6" ] [ viewIsIsntColumn False isIsntSectionIndex isnt ]
                 ]
             ]
         ]
