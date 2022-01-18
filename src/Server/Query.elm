@@ -103,66 +103,61 @@ floatParser key =
 massParser : String -> Query.Parser (Result ( FieldName, String ) Mass)
 massParser key =
     floatParser key
+        |> Query.map (Result.fromMaybe ( key, "La masse est manquante." ))
         |> Query.map
-            (Maybe.andThen
+            (Result.andThen
                 (\mass ->
                     if mass < 0 then
-                        Nothing
+                        Err ( key, "La masse doit être supérieure ou égale à zéro." )
 
                     else
-                        Just <| Mass.kilograms mass
+                        Ok <| Mass.kilograms mass
                 )
             )
-        |> Query.map (Result.fromMaybe ( key, "La masse doit être supérieure ou égale à zéro." ))
 
 
 productParser : String -> List Product.Product -> Query.Parser (Result ( FieldName, String ) Product.Id)
 productParser key products =
     Query.string key
+        |> Query.map (Result.fromMaybe ( key, "Identifiant du type de produit manquant." ))
         |> Query.map
-            (Maybe.andThen
+            (Result.andThen
                 (\id ->
-                    case Product.findById (Product.Id id) products of
-                        Err _ ->
-                            Nothing
-
-                        Ok _ ->
-                            Just (Product.Id id)
+                    products
+                        |> Product.findById (Product.Id id)
+                        |> Result.map .id
+                        |> Result.mapError (\err -> ( key, err ))
                 )
             )
-        |> Query.map (Result.fromMaybe ( key, "Identifiant du type de produit manquant ou invalide." ))
 
 
 materialParser : String -> List Material.Material -> Query.Parser (Result ( FieldName, String ) Process.Uuid)
 materialParser key materials =
     Query.string key
+        |> Query.map (Result.fromMaybe ( key, "Identifiant de la matière manquant." ))
         |> Query.map
-            (Maybe.andThen
+            (Result.andThen
                 (\uuid ->
-                    case Material.findByUuid (Process.Uuid uuid) materials of
-                        Err _ ->
-                            Nothing
-
-                        Ok _ ->
-                            Just (Process.Uuid uuid)
+                    materials
+                        |> Material.findByUuid (Process.Uuid uuid)
+                        |> Result.map .uuid
+                        |> Result.mapError (\err -> ( key, err ))
                 )
             )
-        |> Query.map (Result.fromMaybe ( key, "Identifiant de la matière manquant ou invalide." ))
 
 
 countryParser : String -> List Country.Country -> Query.Parser (Result ( FieldName, String ) Country.Code)
 countryParser key countries =
     Query.string key
+        |> Query.map (Result.fromMaybe ( key, "Code pays manquant." ))
         |> Query.map
-            (\maybeCode ->
-                maybeCode
-                    |> Result.fromMaybe ( key, "Code pays manquant" )
-                    |> Result.andThen
-                        (\code ->
-                            Country.findByCode (Country.Code code) countries
-                                |> Result.map .code
-                                |> Result.mapError (\errorMessage -> ( key, errorMessage ))
-                        )
+            (Result.andThen
+                (\code ->
+                    countries
+                        |> Country.findByCode (Country.Code code)
+                        |> Result.map .code
+                        |> Result.mapError (\err -> ( key, err ))
+                )
             )
 
 
@@ -170,17 +165,15 @@ maybeRatioParser : String -> Query.Parser (Result ( FieldName, String ) (Maybe U
 maybeRatioParser key =
     floatParser key
         |> Query.map
-            (\maybeFloat ->
-                case maybeFloat of
-                    Nothing ->
-                        Ok Nothing
+            (Maybe.map
+                (\float ->
+                    if float < 0 || float > 1 then
+                        Err ( key, "Un ratio doit être compris entre 0 et 1 inclus." )
 
-                    Just float ->
-                        if float < 0 || float > 1 then
-                            Err ( key, "Un ratio doit être compris entre 0 et 1 inclus." )
-
-                        else
-                            Ok (Just (Unit.ratio float))
+                    else
+                        Ok (Just (Unit.ratio float))
+                )
+                >> Maybe.withDefault (Ok Nothing)
             )
 
 
@@ -202,17 +195,15 @@ maybeUseNbCycles : String -> Query.Parser (Result ( FieldName, String ) (Maybe I
 maybeUseNbCycles key =
     Query.int key
         |> Query.map
-            (\maybeInt ->
-                case maybeInt of
-                    Nothing ->
-                        Ok Nothing
+            (Maybe.map
+                (\int ->
+                    if int < 0 || int > 100 then
+                        Err ( key, "Un nombre de cycles d'entretien doit être compris entre 0 et 100 inclus." )
 
-                    Just int ->
-                        if int < 0 || int > 100 then
-                            Err ( key, "Un nombre de cycles d'entretien doit être compris entre 0 et 100 inclus." )
-
-                        else
-                            Ok (Just int)
+                    else
+                        Ok (Just int)
+                )
+                >> Maybe.withDefault (Ok Nothing)
             )
 
 
