@@ -26,4 +26,41 @@ suite =
                 |> Expect.equal "https://fabrique-numerique.gitbook.io/wikicarbone/methodologie/foo/bar"
                 |> asTest "should resolve an internal link from current page path up a folder level"
             ]
+        , describe "parseIsIsnt"
+            [ let
+                sampleMarkdown =
+                    String.join "\n\n"
+                        [ "# title"
+                        , "stuff"
+                        , "## is"
+                        , "### isitem1"
+                        , "desc_is_item1"
+                        , "### isitem2"
+                        , "desc_is_item2"
+                        , "## isnt"
+                        , "### isntitem1"
+                        , "desc_isnt_item1"
+                        , "### isntitem2"
+                        , "desc_isnt_item2"
+                        ]
+              in
+              Gitbook.parseIsIsnt sampleMarkdown
+                |> Expect.equal
+                    (Just
+                        { is =
+                            ( "is"
+                            , [ ( "isitem1", "desc_is_item1" )
+                              , ( "isitem2", "desc_is_item2" )
+                              ]
+                            )
+                        , isnt =
+                            ( "isnt"
+                            , [ ( "isntitem1", "desc_isnt_item1" )
+                              , ( "isntitem2", "desc_isnt_item2" )
+                              ]
+                            )
+                        }
+                    )
+                |> asTest "should parse Wikicarbone is/isn't Markown content"
+            ]
         ]
