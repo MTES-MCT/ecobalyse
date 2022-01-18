@@ -74,7 +74,7 @@ describe("API", () => {
       expectFieldErrorMessage(
         await makeRequest("/api/simulator", ["material=xxx"]),
         "material",
-        /matière manquant ou invalide/,
+        /Impossible de récupérer la matière uuid=xxx./,
       );
     });
 
@@ -82,7 +82,7 @@ describe("API", () => {
       expectFieldErrorMessage(
         await makeRequest("/api/simulator", ["product=xxx"]),
         "product",
-        /produit manquant ou invalide/,
+        /Produit non trouvé id=xxx./,
       );
     });
 
@@ -90,7 +90,7 @@ describe("API", () => {
       expectFieldErrorMessage(
         await makeRequest("/api/simulator", ["countryFabric=FR,countryDyeing=FR"]),
         "countryMaking",
-        /Code pays manquant/,
+        /Code pays manquant./,
       );
     });
 
@@ -98,7 +98,7 @@ describe("API", () => {
       expectFieldErrorMessage(
         await makeRequest("/api/simulator", ["countryFabric=XX"]),
         "countryFabric",
-        /Code pays invalide: XX/,
+        /Code pays invalide: XX./,
       );
     });
 
@@ -106,7 +106,7 @@ describe("API", () => {
       expectFieldErrorMessage(
         await makeRequest("/api/simulator", ["countryDyeing=XX"]),
         "countryDyeing",
-        /Code pays invalide: XX/,
+        /Code pays invalide: XX./,
       );
     });
 
@@ -114,7 +114,7 @@ describe("API", () => {
       expectFieldErrorMessage(
         await makeRequest("/api/simulator", ["countryMaking=XX"]),
         "countryMaking",
-        /Code pays invalide: XX/,
+        /Code pays invalide: XX./,
       );
     });
 

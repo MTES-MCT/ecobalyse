@@ -48,7 +48,7 @@ suite =
                         |> asTest "should replace the first country with the material's default country"
                     , { tShirtCotonAsie | countryFabric = Country.Code "XX", countryDyeing = Country.Code "CN", countryMaking = Country.Code "CN" }
                         |> Inputs.fromQuery db
-                        |> Expect.equal (Err "Code pays invalide: XX")
+                        |> Expect.equal (Err "Code pays invalide: XX.")
                         |> asTest "should validate country codes"
                     ]
                 ]

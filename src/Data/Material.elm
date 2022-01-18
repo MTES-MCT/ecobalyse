@@ -26,7 +26,7 @@ findByUuid : Process.Uuid -> List Material -> Result String Material
 findByUuid uuid =
     List.filter (\m -> m.uuid == uuid)
         >> List.head
-        >> Result.fromMaybe ("Impossible de récupérer la matière uuid=" ++ Process.uuidToString uuid)
+        >> Result.fromMaybe ("Impossible de récupérer la matière uuid=" ++ Process.uuidToString uuid ++ ".")
 
 
 groupAll :

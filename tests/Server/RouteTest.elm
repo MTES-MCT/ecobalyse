@@ -44,15 +44,31 @@ suite_ db =
                         Route.Simulator <|
                             Err <|
                                 Dict.fromList
-                                    [ ( "countryFabric", "Code pays manquant" )
-                                    , ( "countryDyeing", "Code pays manquant" )
-                                    , ( "countryMaking", "Code pays manquant" )
-                                    , ( "mass", "La masse doit être supérieure ou égale à zéro." )
-                                    , ( "material", "Identifiant de la matière manquant ou invalide." )
-                                    , ( "product", "Identifiant du type de produit manquant ou invalide." )
+                                    [ ( "countryFabric", "Code pays manquant." )
+                                    , ( "countryDyeing", "Code pays manquant." )
+                                    , ( "countryMaking", "Code pays manquant." )
+                                    , ( "mass", "La masse est manquante." )
+                                    , ( "material", "Identifiant de la matière manquant." )
+                                    , ( "product", "Identifiant du type de produit manquant." )
                                     ]
                 )
             |> asTest "should expose query validation errors"
+        , getEndpoint db "GET" "/simulator?mass=-0.17&product=notAProductID&material=notAnUUID&countryFabric=notACountryCode&countryDyeing=notACountryCode&countryMaking=notACountryCode"
+            |> Expect.equal
+                (Just <|
+                    Route.Get <|
+                        Route.Simulator <|
+                            Err <|
+                                Dict.fromList
+                                    [ ( "countryFabric", "Code pays invalide: notACountryCode." )
+                                    , ( "countryDyeing", "Code pays invalide: notACountryCode." )
+                                    , ( "countryMaking", "Code pays invalide: notACountryCode." )
+                                    , ( "mass", "La masse doit être supérieure ou égale à zéro." )
+                                    , ( "material", "Impossible de récupérer la matière uuid=notAnUUID." )
+                                    , ( "product", "Produit non trouvé id=notAProductID." )
+                                    ]
+                )
+            |> asTest "should expose detailed query validation errors"
         ]
 
 
