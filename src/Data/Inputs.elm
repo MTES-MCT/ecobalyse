@@ -115,15 +115,15 @@ setCustomCountryMix index value ({ customCountryMixes } as query) =
         | customCountryMixes =
             case index of
                 1 ->
-                    -- FIXME: index 1 is WeavingKnitting step; how could we use th step label instead?
+                    -- FIXME: index 1 is WeavingKnitting step; how could we use the step label instead?
                     { customCountryMixes | fabric = value }
 
                 2 ->
-                    -- FIXME: index 2 is Ennoblement step; how could we use th step label instead?
+                    -- FIXME: index 2 is Ennoblement step; how could we use the step label instead?
                     { customCountryMixes | dyeing = value }
 
                 3 ->
-                    -- FIXME: index 3 is Making step; how could we use th step label instead?
+                    -- FIXME: index 3 is Making step; how could we use the step label instead?
                     { customCountryMixes | making = value }
 
                 _ ->
@@ -148,12 +148,15 @@ updateStepCountry index code query =
         updatedQuery =
             case index of
                 1 ->
+                    -- FIXME: index 1 is WeavingKnitting step; how could we use the step label instead?
                     { query | countryFabric = code }
 
                 2 ->
+                    -- FIXME: index 2 is Ennoblement step; how could we use the step label instead?
                     { query | countryDyeing = code }
 
                 3 ->
+                    -- FIXME: index 3 is Making step; how could we use the step label instead?
                     { query | countryMaking = code }
 
                 _ ->

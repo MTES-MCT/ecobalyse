@@ -29,6 +29,10 @@ type alias Errors =
     Dict FieldName ErrorMessage
 
 
+type alias ParseResult a =
+    Result ( FieldName, String ) a
+
+
 succeed : a -> Query.Parser a
 succeed =
     -- Kind of a hack: we don't have access to the Query.Parser constructor, so
@@ -52,36 +56,39 @@ parse db =
         |> apply (maybeUseNbCycles "useNbCycles")
 
 
-toErrors : Result ( FieldName, String ) a -> Result Errors a
-toErrors result =
-    Result.mapError (\( key, errorMessage ) -> Dict.singleton key errorMessage) result
+toErrors : ParseResult a -> Result Errors a
+toErrors =
+    Result.mapError
+        (\( key, errorMessage ) ->
+            Dict.singleton key errorMessage
+        )
+
+
+builder :
+    Result (Dict comparable v) a
+    -> Result (Dict comparable v) (a -> b)
+    -> Result (Dict comparable v) b
+builder result accumulator =
+    case ( result, accumulator ) of
+        ( Err a, Err b ) ->
+            -- Merge the error dicts
+            Err <| Dict.union a b
+
+        ( Ok _, Err b ) ->
+            -- No error in "result", but the accumulator is errored: return the errored accumulator
+            Err b
+
+        ( valueOrError, Ok fn ) ->
+            Result.map fn valueOrError
 
 
 apply :
-    Query.Parser (Result ( String, String ) a)
+    Query.Parser (ParseResult a)
     -> Query.Parser (Result Errors (a -> b))
     -> Query.Parser (Result Errors b)
 apply argParser funcParser =
     -- Adapted from https://package.elm-lang.org/packages/elm/url/latest/Url-Parser-Query#map8
     -- with the full list of errors returned, instead of just the first one encountered.
-    let
-        builder :
-            Result (Dict comparable v) a
-            -> Result (Dict comparable v) (a -> b)
-            -> Result (Dict comparable v) b
-        builder result accumulator =
-            case ( result, accumulator ) of
-                ( Err a, Err b ) ->
-                    -- Merge the error dicts
-                    Err <| Dict.union a b
-
-                ( Ok _, Err b ) ->
-                    -- No error in "result", but the accumulator is errored: return the errored accumulator
-                    Err b
-
-                ( valueOrError, Ok fn ) ->
-                    Result.map fn valueOrError
-    in
     Query.map2
         builder
         (Query.map toErrors argParser)
@@ -100,7 +107,7 @@ floatParser key =
                     Nothing
 
 
-massParser : String -> Query.Parser (Result ( FieldName, String ) Mass)
+massParser : String -> Query.Parser (ParseResult Mass)
 massParser key =
     floatParser key
         |> Query.map (Result.fromMaybe ( key, "La masse est manquante." ))
@@ -116,7 +123,7 @@ massParser key =
             )
 
 
-productParser : String -> List Product.Product -> Query.Parser (Result ( FieldName, String ) Product.Id)
+productParser : String -> List Product.Product -> Query.Parser (ParseResult Product.Id)
 productParser key products =
     Query.string key
         |> Query.map (Result.fromMaybe ( key, "Identifiant du type de produit manquant." ))
@@ -131,7 +138,7 @@ productParser key products =
             )
 
 
-materialParser : String -> List Material.Material -> Query.Parser (Result ( FieldName, String ) Process.Uuid)
+materialParser : String -> List Material.Material -> Query.Parser (ParseResult Process.Uuid)
 materialParser key materials =
     Query.string key
         |> Query.map (Result.fromMaybe ( key, "Identifiant de la matière manquant." ))
@@ -146,7 +153,7 @@ materialParser key materials =
             )
 
 
-countryParser : String -> List Country.Country -> Query.Parser (Result ( FieldName, String ) Country.Code)
+countryParser : String -> List Country.Country -> Query.Parser (ParseResult Country.Code)
 countryParser key countries =
     Query.string key
         |> Query.map (Result.fromMaybe ( key, "Code pays manquant." ))
@@ -161,7 +168,7 @@ countryParser key countries =
             )
 
 
-maybeRatioParser : String -> Query.Parser (Result ( FieldName, String ) (Maybe Unit.Ratio))
+maybeRatioParser : String -> Query.Parser (ParseResult (Maybe Unit.Ratio))
 maybeRatioParser key =
     floatParser key
         |> Query.map
@@ -191,7 +198,7 @@ customCountryMixesParser =
         (impactParser "customCountryMix[making]")
 
 
-maybeUseNbCycles : String -> Query.Parser (Result ( FieldName, String ) (Maybe Int))
+maybeUseNbCycles : String -> Query.Parser (ParseResult (Maybe Int))
 maybeUseNbCycles key =
     Query.int key
         |> Query.map
