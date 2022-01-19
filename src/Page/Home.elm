@@ -221,6 +221,7 @@ view session { content, isIsntSectionIndex } =
     , [ div [ class "d-flex flex-column" ]
             [ viewHero session
             , viewPitch
+            , viewFeatures
             , content
                 |> RemoteData.map
                     (.markdown
@@ -229,7 +230,6 @@ view session { content, isIsntSectionIndex } =
                         >> Maybe.withDefault (text "")
                     )
                 |> RemoteData.withDefault (text "")
-            , viewFeatures
             ]
       ]
     )
