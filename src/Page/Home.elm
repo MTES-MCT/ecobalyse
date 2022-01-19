@@ -151,14 +151,18 @@ viewIsIsntColumn positive isIsntSectionIndex ( title, sections ) =
                                 , classList [ ( "collapsed", isIsntSectionIndex /= Just index ) ]
                                 , onClick (ToggleIsIsntIndex index)
                                 ]
-                                [ if positive then
-                                    span [ class "text-success me-1" ] [ Icon.check ]
+                                [ span [ class "d-flex align-items-start" ]
+                                    [ if positive then
+                                        span [ class "text-success me-1" ] [ Icon.check ]
 
-                                  else
-                                    span [ class "text-danger me-1" ] [ Icon.times ]
-                                , index + 1 |> String.fromInt |> text
-                                , text ". "
-                                , sectionTitle |> String.replace "*" "" |> text
+                                      else
+                                        span [ class "text-danger me-1" ] [ Icon.times ]
+                                    , span []
+                                        [ index + 1 |> String.fromInt |> text
+                                        , text ". "
+                                        , sectionTitle |> String.replace "*" "" |> text
+                                        ]
+                                    ]
                                 ]
                             ]
                         , markdown
