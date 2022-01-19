@@ -183,6 +183,12 @@ blockquote {
       }
     }
 
+    @media screen and (max-width: $viewport-xl) {
+      span {
+        font-size: 10px;
+      }
+    }
+
     &:before, &:after {
       position: absolute;
       right: 100%;
