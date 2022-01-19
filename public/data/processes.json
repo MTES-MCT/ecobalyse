@@ -6489,9 +6489,9 @@
       "swe": 7.18398e-4,
       "tre": 2.56664e-3
     },
-    "heat": 0.0,
+    "heat": 1.56529E+00,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec": 8.37319E-01,
     "waste": 0.0,
     "alias": null
   }
