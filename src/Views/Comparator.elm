@@ -339,15 +339,25 @@ chart impact entries =
 
         legends =
             [ C.legendsAt
-                (\{ max } -> max / 2)
-                (\{ max } -> max * 1.15)
-                [ CA.alignMiddle ]
-                [ CA.spacing 0.5
+                .min
+                .max
+                [ CA.alignMiddle
                 , CA.htmlAttrs
-                    [ class "d-flex gap-1"
-                    , style "margin" "0 1px"
-                    , style "font-size" "clamp(10px, calc(1vw/1.5), 12px)"
+                    [ style "left" "unset"
+                    , style "top" "unset"
+                    , style "margin" "-10px 10% -30px 10%"
+                    , style "position" "unset"
+                    , style "transform" "unset"
+                    , style "display" "flex"
+                    , style "align-items" "center"
+                    , style "flex-wrap" "wrap"
+                    , style "justify-content" "center"
                     ]
+                , CA.moveDown 20
+                ]
+                [ CA.spacing 3
+                , CA.fontSize 12
+                , CA.htmlAttrs [ style "margin" "2px 3px" ]
                 ]
             ]
 
