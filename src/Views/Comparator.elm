@@ -276,8 +276,8 @@ chart impact entries =
             --   )
             -- , ( "Teinture", .dyeing )
             -- , ( "Confection", .making )
-            -- , ( "Utilisation", .use )
             -- , ( "Transport", .transport )
+            -- , ( "Utilisation", .use )
             -- ]
             [ "Matière"
             , if knitted then
@@ -287,8 +287,8 @@ chart impact entries =
                 "Tissage"
             , "Teinture"
             , "Confection"
-            , "Utilisation"
             , "Transport"
+            , "Utilisation"
             ]
                 |> LE.zip
                     (List.reverse
@@ -296,8 +296,8 @@ chart impact entries =
                         , .weavingKnitting
                         , .dyeing
                         , .making
-                        , .use
                         , .transport
+                        , .use
                         ]
                     )
 
