@@ -118,7 +118,6 @@ describe("API", () => {
       );
     });
 
-
     it("should perform a simulation featuring 16 impacts", async () => {
       const response = await makeRequest("/api/simulator/", successQuery);
 
@@ -149,7 +148,7 @@ describe("API", () => {
       const response = await makeRequest("/api/simulator/detailed", successQuery);
 
       expect(response.statusCode).toBe(200);
-      expect(response.body.lifeCycle.length).toBe(6);
+      expect(response.body.lifeCycle.length).toBe(7);
     });
   });
 });
