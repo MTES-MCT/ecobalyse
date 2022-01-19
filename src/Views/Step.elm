@@ -6,6 +6,7 @@ import Data.Gitbook as Gitbook
 import Data.Impact as Impact
 import Data.Inputs exposing (Inputs)
 import Data.Step as Step exposing (Step)
+import Data.Transport as Transport
 import Data.Unit as Unit
 import Energy
 import Html exposing (..)
@@ -212,7 +213,11 @@ detailedView ({ inputs, impact, index, next, current } as config) =
         transportLabel =
             case next of
                 Just { country } ->
-                    "Transport vers " ++ country.name
+                    if country /= current.country then
+                        "Transport vers " ++ country.name
+
+                    else
+                        "Transport"
 
                 Nothing ->
                     "Transport"
@@ -332,22 +337,30 @@ detailedView ({ inputs, impact, index, next, current } as config) =
 
                   else
                     text ""
-                , li [ class "list-group-item text-muted" ]
-                    [ current.transport
-                        |> TransportView.view
-                            { fullWidth = True
-                            , airTransportLabel = current.processInfo.airTransport |> Maybe.map .name
-                            , seaTransportLabel = current.processInfo.seaTransport |> Maybe.map .name
-                            , roadTransportLabel = current.processInfo.roadTransport |> Maybe.map .name
-                            }
-                    ]
-                , li [ class "list-group-item text-muted" ]
-                    [ div [ class "d-flex justify-content-center align-items-center" ]
-                        [ strong [] [ text <| transportLabel ++ "\u{00A0}:\u{00A0}" ]
-                        , current.transport.impacts |> Format.formatImpact impact
-                        , inlineDocumentationLink config Gitbook.Transport
+                , if Transport.totalKm current.transport > 0 then
+                    li [ class "list-group-item text-muted" ]
+                        [ current.transport
+                            |> TransportView.view
+                                { fullWidth = True
+                                , airTransportLabel = current.processInfo.airTransport |> Maybe.map .name
+                                , seaTransportLabel = current.processInfo.seaTransport |> Maybe.map .name
+                                , roadTransportLabel = current.processInfo.roadTransport |> Maybe.map .name
+                                }
                         ]
-                    ]
+
+                  else
+                    text ""
+                , if Transport.totalKm current.transport > 0 then
+                    li [ class "list-group-item text-muted" ]
+                        [ div [ class "d-flex justify-content-center align-items-center" ]
+                            [ strong [] [ text <| transportLabel ++ "\u{00A0}:\u{00A0}" ]
+                            , current.transport.impacts |> Format.formatImpact impact
+                            , inlineDocumentationLink config Gitbook.Transport
+                            ]
+                        ]
+
+                  else
+                    text ""
                 ]
             ]
         ]

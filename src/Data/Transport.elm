@@ -48,6 +48,12 @@ emptyDistances =
     Dict.fromList Country.codeToString []
 
 
+totalKm : Transport -> Float
+totalKm { road, sea, air } =
+    Quantity.sum [ road, sea, air ]
+        |> Length.inKilometers
+
+
 {-| Determine road/sea transport ratio, so road transport is priviledged
 for shorter distances. A few notes:
 
