@@ -123,17 +123,18 @@ computeEndOfLifeImpacts { processes } simulator =
             (\{ passengerCar, endOfLife } ->
                 simulator
                     |> updateLifeCycleStep Step.EndOfLife
-                        (\step ->
+                        (\({ country } as step) ->
                             let
-                                { kwh, impacts } =
+                                { kwh, heat, impacts } =
                                     step.outputMass
                                         |> Formula.endOfLifeImpacts step.impacts
                                             { passengerCar = passengerCar
                                             , endOfLife = endOfLife
                                             , countryElecProcess = Step.getCountryElectricityProcess step
+                                            , heatProcess = country.heatProcess
                                             }
                             in
-                            { step | impacts = impacts, kwh = kwh }
+                            { step | impacts = impacts, kwh = kwh, heat = heat }
                         )
             )
 

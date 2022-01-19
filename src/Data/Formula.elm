@@ -278,10 +278,11 @@ endOfLifeImpacts :
         { passengerCar : Process
         , endOfLife : Process
         , countryElecProcess : Process
+        , heatProcess : Process
         }
     -> Mass
-    -> { kwh : Energy, impacts : Impacts }
-endOfLifeImpacts impacts { passengerCar, endOfLife, countryElecProcess } baseMass =
+    -> { kwh : Energy, heat : Energy, impacts : Impacts }
+endOfLifeImpacts impacts { passengerCar, endOfLife, countryElecProcess, heatProcess } baseMass =
     -- Notes:
     -- - passengerCar is expressed per-item
     -- - endOfLife is mass-depdendent
@@ -295,8 +296,16 @@ endOfLifeImpacts impacts { passengerCar, endOfLife, countryElecProcess } baseMas
                 , endOfLife.elec
                     |> Quantity.multiplyBy (Mass.inKilograms baseMass)
                 ]
+
+        totalHeat =
+            Quantity.sum
+                [ passengerCar.heat
+                , endOfLife.heat
+                    |> Quantity.multiplyBy (Mass.inKilograms baseMass)
+                ]
     in
     { kwh = totalKWh
+    , heat = totalHeat
     , impacts =
         impacts
             |> Impact.mapImpacts
@@ -304,6 +313,8 @@ endOfLifeImpacts impacts { passengerCar, endOfLife, countryElecProcess } baseMas
                     Quantity.sum
                         [ totalKWh
                             |> Unit.forKWh (Process.getImpact trigram countryElecProcess)
+                        , totalHeat
+                            |> Unit.forMJ (Process.getImpact trigram heatProcess)
                         , Process.getImpact trigram passengerCar
                         , baseMass
                             |> Unit.forKg (Process.getImpact trigram endOfLife)

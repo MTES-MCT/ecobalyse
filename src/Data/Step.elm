@@ -326,6 +326,7 @@ updateFromInputs { processes } inputs ({ label, country } as step) =
                 processInfo =
                     { defaultProcessInfo
                         | countryElec = Just country.electricityProcess.name
+                        , countryHeat = Just country.heatProcess.name
                     }
             in
             processes

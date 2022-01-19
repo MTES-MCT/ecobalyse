@@ -280,20 +280,22 @@ detailedView ({ inputs, impact, index, next, current } as config) =
                     Nothing ->
                         text ""
                 ]
-            , div [ class "card-body py-2 text-muted" ]
-                [ case current.label of
-                    Step.Ennoblement ->
-                        dyeingWeightingField config
+            , case current.label of
+                Step.Ennoblement ->
+                    div [ class "card-body py-2 text-muted" ]
+                        [ dyeingWeightingField config ]
 
-                    Step.Making ->
-                        airTransportRatioField config
+                Step.Making ->
+                    div [ class "card-body py-2 text-muted" ]
+                        [ airTransportRatioField config
+                        ]
 
-                    Step.Use ->
-                        useNbCyclesField config
+                Step.Use ->
+                    div [ class "card-body py-2 text-muted" ]
+                        [ useNbCyclesField config ]
 
-                    _ ->
-                        text ""
-                ]
+                _ ->
+                    text ""
             ]
         , div
             [ class "card text-center" ]
