@@ -47,6 +47,8 @@ type alias ProcessInfo =
     , roadTransport : Maybe Process
     , useIroning : Maybe Process
     , useNonIroning : Maybe Process
+    , passengerCar : Maybe Process
+    , endOfLife : Maybe Process
     }
 
 
@@ -57,6 +59,7 @@ type Label
     | Making -- Confection
     | Distribution -- Distribution
     | Use -- Utilisation
+    | EndOfLife -- Fin de vie
 
 
 create : { db : Db, label : Label, editable : Bool, country : Country } -> Step
@@ -94,6 +97,8 @@ defaultProcessInfo =
     , roadTransport = Nothing
     , useIroning = Nothing
     , useNonIroning = Nothing
+    , passengerCar = Nothing
+    , endOfLife = Nothing
     }
 
 
@@ -229,6 +234,10 @@ computeTransportSummary step transport =
             -- Product Use leverages no transports
             default
 
+        EndOfLife ->
+            -- End of life leverages no transports
+            default
+
         _ ->
             -- All other steps don't use air transport at all
             { default
@@ -250,8 +259,8 @@ getRoadTransportProcess wellKnown { label } =
             wellKnown.roadTransportPreMaking
 
 
-updateFromInputs : Inputs -> Step -> Step
-updateFromInputs inputs ({ label, country } as step) =
+updateFromInputs : Db -> Inputs -> Step -> Step
+updateFromInputs { processes } inputs ({ label, country } as step) =
     let
         { dyeingWeighting, airTransportRatio, customCountryMixes, useNbCycles } =
             inputs
@@ -311,6 +320,27 @@ updateFromInputs inputs ({ label, country } as step) =
                         , useNonIroning = Just inputs.product.useNonIroningProcess
                     }
             }
+
+        EndOfLife ->
+            let
+                processInfo =
+                    { defaultProcessInfo
+                        | countryElec = Just country.electricityProcess.name
+                    }
+            in
+            processes
+                |> Process.loadWellKnown
+                |> Result.map
+                    (\{ passengerCar, endOfLife } ->
+                        { step
+                            | processInfo =
+                                { processInfo
+                                    | passengerCar = Just passengerCar
+                                    , endOfLife = Just endOfLife
+                                }
+                        }
+                    )
+                |> Result.withDefault { step | processInfo = processInfo }
 
         _ ->
             step
@@ -439,6 +469,9 @@ labelToString label =
         Use ->
             "Utilisation"
 
+        EndOfLife ->
+            "Fin de vie"
+
 
 labelFromString : String -> Maybe Label
 labelFromString label =
@@ -485,3 +518,6 @@ getStepGitbookPath label =
 
         Use ->
             Gitbook.Use
+
+        EndOfLife ->
+            Gitbook.EndOfLife

@@ -40,6 +40,7 @@ type alias Entry =
     , dyeing : Float
     , making : Float
     , use : Float
+    , endOfLife : Float
     , transport : Float
     }
 
@@ -157,6 +158,7 @@ createEntry db { trigram } highlight ( label, query ) =
                 , dyeing = lifeCycle |> stepScore Step.Ennoblement
                 , making = lifeCycle |> stepScore Step.Making
                 , use = lifeCycle |> stepScore Step.Use
+                , endOfLife = lifeCycle |> stepScore Step.EndOfLife
                 , transport = Impact.grabImpactFloat trigram transport
                 }
             )
@@ -289,6 +291,7 @@ chart impact entries =
             , "Confection"
             , "Transport"
             , "Utilisation"
+            , "Fin de vie"
             ]
                 |> LE.zip
                     (List.reverse
@@ -298,6 +301,7 @@ chart impact entries =
                         , .making
                         , .transport
                         , .use
+                        , .endOfLife
                         ]
                     )
 
@@ -338,7 +342,13 @@ chart impact entries =
                 (\{ max } -> max / 2)
                 (\{ max } -> max * 1.15)
                 [ CA.alignMiddle ]
-                [ CA.spacing 1, CA.htmlAttrs [ style "font-size" "calc(1vw/1.5)" ] ]
+                [ CA.spacing 0.5
+                , CA.htmlAttrs
+                    [ class "d-flex gap-1"
+                    , style "margin" "0 1px"
+                    , style "font-size" "clamp(10px, calc(1vw/1.5), 12px)"
+                    ]
+                ]
             ]
 
         verticalLabels =

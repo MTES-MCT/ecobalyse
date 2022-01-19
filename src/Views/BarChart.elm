@@ -80,9 +80,10 @@ makeBars { simulator, impact } =
             , percent = grabImpact simulator.transport / grabImpact simulator * toFloat 100
             }
     in
-    (stepBars ++ [ transportBar ])
-        -- Move transport bar at penultimate position
-        |> LE.swapAt (List.length stepBars) (List.length stepBars - 1)
+    stepBars
+        -- Move transport bar at ante-penultimate position
+        |> LE.splitAt 4
+        |> (\( a, b ) -> a ++ [ transportBar ] ++ b)
 
 
 barView : Config -> Bar msg -> Html msg

@@ -272,6 +272,46 @@ useImpacts impacts { useNbCycles, ironingProcess, nonIroningProcess, countryElec
     }
 
 
+endOfLifeImpacts :
+    Impacts
+    ->
+        { passengerCar : Process
+        , endOfLife : Process
+        , countryElecProcess : Process
+        }
+    -> Mass
+    -> { kwh : Energy, impacts : Impacts }
+endOfLifeImpacts impacts { passengerCar, endOfLife, countryElecProcess } baseMass =
+    -- Notes:
+    -- - passengerCar is expressed per-item
+    -- - endOfLife is mass-depdendent
+    -- - At the time this is implemented, neither process comsumes Energy, both
+    --   only feature precomputed impacts. We keep fetching and adding energy data
+    --   in case we eventually add some in the future.
+    let
+        totalKWh =
+            Quantity.sum
+                [ passengerCar.elec
+                , endOfLife.elec
+                    |> Quantity.multiplyBy (Mass.inKilograms baseMass)
+                ]
+    in
+    { kwh = totalKWh
+    , impacts =
+        impacts
+            |> Impact.mapImpacts
+                (\trigram _ ->
+                    Quantity.sum
+                        [ totalKWh
+                            |> Unit.forKWh (Process.getImpact trigram countryElecProcess)
+                        , Process.getImpact trigram passengerCar
+                        , baseMass
+                            |> Unit.forKg (Process.getImpact trigram endOfLife)
+                        ]
+                )
+    }
+
+
 
 -- Transports
 

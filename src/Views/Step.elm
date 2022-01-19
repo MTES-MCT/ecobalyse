@@ -78,6 +78,12 @@ countryField { db, current, inputs, index, updateCountry } =
                     , text " Champ non paramétrable"
                     ]
 
+            Step.EndOfLife ->
+                div [ class "form-text fs-7 mb-0" ]
+                    [ Icon.exclamation
+                    , text " Champ non paramétrable"
+                    ]
+
             _ ->
                 text ""
         ]
@@ -235,7 +241,10 @@ detailedView ({ inputs, impact, index, next, current } as config) =
                     Just countryElec ->
                         li [ class "list-group-item d-flex justify-content-between text-muted" ]
                             [ span [] [ text countryElec ]
-                            , if current.label /= Step.Use then
+                            , if
+                                List.member current.label
+                                    [ Step.WeavingKnitting, Step.Ennoblement, Step.Making ]
+                              then
                                 Button.smallPill
                                     [ onClick (config.openCustomCountryMixModal current) ]
                                     [ Icon.pencil ]
@@ -253,6 +262,18 @@ detailedView ({ inputs, impact, index, next, current } as config) =
                     Nothing ->
                         text ""
                 , case current.processInfo.useNonIroning of
+                    Just process ->
+                        truncatableProcessDescription process.name
+
+                    Nothing ->
+                        text ""
+                , case current.processInfo.passengerCar of
+                    Just process ->
+                        truncatableProcessDescription process.name
+
+                    Nothing ->
+                        text ""
+                , case current.processInfo.endOfLife of
                     Just process ->
                         truncatableProcessDescription process.name
 

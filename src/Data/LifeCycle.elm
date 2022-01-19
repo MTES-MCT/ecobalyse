@@ -102,8 +102,9 @@ init db inputs =
             , ( Step.Making, True )
             , ( Step.Distribution, False )
             , ( Step.Use, False )
+            , ( Step.EndOfLife, False )
             ]
-        |> List.map (Step.updateFromInputs inputs)
+        |> List.map (Step.updateFromInputs db inputs)
         |> Array.fromList
 
 
