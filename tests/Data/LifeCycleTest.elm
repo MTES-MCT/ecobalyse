@@ -9,6 +9,7 @@ import Expect
 import Length
 import Test exposing (..)
 import TestDb exposing (testDb)
+import TestUtils exposing (asTest)
 
 
 km =
@@ -22,42 +23,36 @@ suite_ db =
             Impact.impactsFromDefinitons db.impacts
     in
     [ describe "computeTransportSummary"
-        [ test "should compute default distances" <|
-            \_ ->
-                tShirtCotonFrance
-                    |> LifeCycle.fromQuery db
-                    |> Result.andThen (LifeCycle.computeStepsTransport db)
-                    |> Result.map (LifeCycle.computeTotalTransportImpacts db)
-                    |> Expect.equal
-                        (Ok
-                            { road = km 2500
-                            , sea = km 21548
-                            , air = km 0
-                            , impacts = defaultImpacts
-                            }
-                        )
-        , test "should compute custom distances" <|
-            \_ ->
-                let
-                    query =
-                        tShirtCotonFrance
-                in
-                LifeCycle.fromQuery db
-                    { query
-                        | countryFabric = Country.Code "FR"
-                        , countryDyeing = Country.Code "IN" -- Ennoblement in India
-                        , countryMaking = Country.Code "FR"
+        [ tShirtCotonFrance
+            |> LifeCycle.fromQuery db
+            |> Result.andThen (LifeCycle.computeStepsTransport db)
+            |> Result.map (LifeCycle.computeTotalTransportImpacts db)
+            |> Expect.equal
+                (Ok
+                    { road = km 2500
+                    , sea = km 21548
+                    , air = km 0
+                    , impacts = defaultImpacts
                     }
-                    |> Result.andThen (LifeCycle.computeStepsTransport db)
-                    |> Result.map (LifeCycle.computeTotalTransportImpacts db)
-                    |> Expect.equal
-                        (Ok
-                            { road = km 1500
-                            , sea = km 45468
-                            , air = km 0
-                            , impacts = defaultImpacts
-                            }
-                        )
+                )
+            |> asTest "should compute default distances"
+        , LifeCycle.fromQuery db
+            { tShirtCotonFrance
+                | countryFabric = Country.Code "FR"
+                , countryDyeing = Country.Code "IN" -- Ennoblement in India
+                , countryMaking = Country.Code "FR"
+            }
+            |> Result.andThen (LifeCycle.computeStepsTransport db)
+            |> Result.map (LifeCycle.computeTotalTransportImpacts db)
+            |> Expect.equal
+                (Ok
+                    { road = km 1500
+                    , sea = km 45468
+                    , air = km 0
+                    , impacts = defaultImpacts
+                    }
+                )
+            |> asTest "should compute custom distances"
         ]
     ]
 

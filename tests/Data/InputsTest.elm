@@ -2,15 +2,11 @@ module Data.InputsTest exposing (..)
 
 import Data.Country as Country
 import Data.Inputs as Inputs exposing (tShirtCotonAsie)
-import Expect exposing (Expectation)
+import Expect
 import List.Extra as LE
 import Test exposing (..)
 import TestDb exposing (testDb)
-
-
-asTest : String -> Expectation -> Test
-asTest label =
-    always >> test label
+import TestUtils exposing (asTest)
 
 
 sampleQuery : Inputs.Query

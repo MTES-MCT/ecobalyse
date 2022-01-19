@@ -4,16 +4,12 @@ import Data.Db exposing (Db)
 import Data.Impact as Impact
 import Data.Inputs as Inputs
 import Dict
-import Expect exposing (Expectation)
+import Expect
 import Json.Encode as Encode
 import Server.Route as Route
 import Test exposing (..)
 import TestDb exposing (testDb)
-
-
-asTest : String -> Expectation -> Test
-asTest label =
-    always >> test label
+import TestUtils exposing (asTest)
 
 
 getEndpoint : Db -> String -> String -> Maybe Route.Endpoint

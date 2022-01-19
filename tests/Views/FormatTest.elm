@@ -1,13 +1,9 @@
 module Views.FormatTest exposing (..)
 
-import Expect exposing (Expectation)
+import Expect
 import Test exposing (..)
+import TestUtils exposing (asTest)
 import Views.Format as Format
-
-
-asTest : String -> Expectation -> Test
-asTest label =
-    always >> test label
 
 
 suite : Test

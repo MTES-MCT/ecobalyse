@@ -7,6 +7,7 @@ import Expect
 import Length
 import Test exposing (..)
 import TestDb exposing (testDb)
+import TestUtils exposing (asTest)
 
 
 km =
@@ -32,22 +33,18 @@ suite =
             in
             describe "Data.Transport"
                 [ describe "getTransportBetween"
-                    [ test "should retrieve distance between two countries" <|
-                        \_ ->
-                            db.transports
-                                |> Transport.getTransportBetween defaultImpacts (Country.Code "FR") (Country.Code "CN")
-                                |> Expect.equal (franceChina defaultImpacts)
-                    , test "should retrieve distance between two swapped countries" <|
-                        \_ ->
-                            db.transports
-                                |> Transport.getTransportBetween defaultImpacts (Country.Code "CN") (Country.Code "FR")
-                                |> Expect.equal (franceChina defaultImpacts)
-                    , test "should apply default inland transport when country is the same" <|
-                        \_ ->
-                            db.transports
-                                |> Transport.getTransportBetween defaultImpacts (Country.Code "FR") (Country.Code "FR")
-                                |> Expect.equal
-                                    (Transport.defaultInland defaultImpacts)
+                    [ db.transports
+                        |> Transport.getTransportBetween defaultImpacts (Country.Code "FR") (Country.Code "CN")
+                        |> Expect.equal (franceChina defaultImpacts)
+                        |> asTest "should retrieve distance between two countries"
+                    , db.transports
+                        |> Transport.getTransportBetween defaultImpacts (Country.Code "CN") (Country.Code "FR")
+                        |> Expect.equal (franceChina defaultImpacts)
+                        |> asTest "should retrieve distance between two swapped countries"
+                    , db.transports
+                        |> Transport.getTransportBetween defaultImpacts (Country.Code "FR") (Country.Code "FR")
+                        |> Expect.equal (Transport.defaultInland defaultImpacts)
+                        |> asTest "should apply default inland transport when country is the same"
                     ]
                 ]
 

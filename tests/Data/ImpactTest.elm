@@ -3,14 +3,10 @@ module Data.ImpactTest exposing (..)
 import Data.Db exposing (Db)
 import Data.Impact as Impact
 import Data.Unit as Unit
-import Expect exposing (Expectation)
+import Expect
 import Test exposing (..)
 import TestDb exposing (testDb)
-
-
-asTest : String -> Expectation -> Test
-asTest label =
-    always >> test label
+import TestUtils exposing (asTest)
 
 
 suite_ : Db -> List Test

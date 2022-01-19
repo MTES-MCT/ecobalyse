@@ -1,13 +1,9 @@
 module Data.GitbookTest exposing (..)
 
 import Data.Gitbook as Gitbook
-import Expect exposing (Expectation)
+import Expect
 import Test exposing (..)
-
-
-asTest : String -> Expectation -> Test
-asTest label =
-    always >> test label
+import TestUtils exposing (asTest)
 
 
 suite : Test

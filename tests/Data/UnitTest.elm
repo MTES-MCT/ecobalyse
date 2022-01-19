@@ -6,11 +6,7 @@ import Expect exposing (Expectation)
 import Length
 import Mass
 import Test exposing (..)
-
-
-asTest : String -> Expectation -> Test
-asTest label =
-    always >> test label
+import TestUtils exposing (asTest)
 
 
 expectImpactFloat : Float -> Unit.Impact -> Expectation

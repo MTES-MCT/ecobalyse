@@ -10,11 +10,7 @@ import Expect exposing (Expectation)
 import Route exposing (Route(..))
 import Test exposing (..)
 import TestDb exposing (testDb)
-
-
-asTest : String -> Expectation -> Test
-asTest label =
-    always >> test label
+import TestUtils exposing (asTest)
 
 
 expectImpact : Db -> Impact.Trigram -> Float -> Inputs.Query -> Expectation

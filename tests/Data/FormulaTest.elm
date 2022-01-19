@@ -6,15 +6,11 @@ import Data.Process exposing (noOpProcess)
 import Data.Unit as Unit
 import Dict.Any as AnyDict
 import Energy
-import Expect exposing (Expectation)
+import Expect
 import Mass exposing (Mass)
 import Quantity
 import Test exposing (..)
-
-
-asTest : String -> Expectation -> Test
-asTest label =
-    always >> test label
+import TestUtils exposing (asTest)
 
 
 kg : Float -> Mass

@@ -73,6 +73,8 @@ transformMarkdown =
         >> String.replace "{% endhint %}" "</hint>"
         -- Typography
         >> String.replace "-->" "→"
+        -- HTML entities
+        >> String.replace " & " " &amp; "
 
 
 fromMarkdown : Path -> String -> Page
