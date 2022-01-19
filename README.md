@@ -50,7 +50,7 @@ L’équipe en charge du service public numérique Wikicarbone ne dispose pas d�
 
 La mise en place d’une **gouvernance** doit être envisagée en 2022 afin que des orientations techniques pertinentes et partagées émergent du débat.
 
-En toute première approche, un [groupe Slack](https://wikicarbone.slack.com) est mis en place et ouvert à toute personne intéressée par le projet.
+En toute première approche, un [groupe Slack](https://wikicarbone.slack.com) est mis en place et ouvert à toute personne intéressée par le projet sur simple [demande par email](mailto:wikicarbone@beta.gouv.fr?Subject=Slack).
 
 ### Une base **concurrente** des bases de données de référence
 
