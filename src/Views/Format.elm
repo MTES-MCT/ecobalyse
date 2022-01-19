@@ -88,7 +88,7 @@ km =
 
 kilowattHours : Energy -> Html msg
 kilowattHours =
-    Energy.inKilowattHours >> formatRichFloat 2 "KWh"
+    Energy.inKilowattHours >> formatRichFloat 2 "kWh"
 
 
 megajoules : Energy -> Html msg

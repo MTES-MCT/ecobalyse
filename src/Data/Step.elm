@@ -129,7 +129,7 @@ countryMixToString : Unit.Impact -> String
 countryMixToString =
     Unit.impactToFloat
         >> FormatNumber.format { frenchLocale | decimals = Exact 3 }
-        >> (\kgCo2e -> "Mix électrique personnalisé: " ++ kgCo2e ++ "\u{202F}kgCO₂e/KWh")
+        >> (\kgCo2e -> "Mix électrique personnalisé: " ++ kgCo2e ++ "\u{202F}kgCO₂e/kWh")
 
 
 {-| Computes step transport distances and impact regarding next step.

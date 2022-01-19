@@ -596,7 +596,7 @@ customCountryMixModal { customCountryMixInputs } step =
                         , value customCountryMixInputValue
                         ]
                         []
-                    , span [ class "input-group-text fs-7" ] [ text "kgCO₂e/KWh" ]
+                    , span [ class "input-group-text fs-7" ] [ text "kgCO₂e/kWh" ]
                     ]
                 , if not formIsValid then
                     div [ class "invalid-feedback", style "display" "block" ]
