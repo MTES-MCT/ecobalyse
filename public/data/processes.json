@@ -6464,7 +6464,7 @@
     "elec_pppm": 0.0,
     "elec": 0.0,
     "waste": 0.0,
-    "alias": null
+    "alias": "passengerCar"
   },
   {
     "name": "Fin de vie hors voiture (transport en camion, incinération, mise en décharge)",
@@ -6493,6 +6493,6 @@
     "elec_pppm": 0.0,
     "elec": 8.37319E-01,
     "waste": 0.0,
-    "alias": null
+    "alias": "endOfLife"
   }
 ]
