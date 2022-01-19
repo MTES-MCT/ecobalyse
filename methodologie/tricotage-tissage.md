@@ -2,7 +2,7 @@
 description: Fabrication d'un tissu (étoffe) à partir des fils.
 ---
 
-# Tricotage / Tissage
+# 〰 Etape 2 - Tricotage / Tissage
 
 ## Tissage ou tricotage ?
 

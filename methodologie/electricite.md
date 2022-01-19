@@ -2,7 +2,7 @@
 description: Choix du mix électrique à appliquer en fonction du pays
 ---
 
-# Electricité
+# ⚡ Electricité
 
 ## Procédés
 

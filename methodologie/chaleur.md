@@ -2,7 +2,7 @@
 description: Choix du procédé de chaleur en fonction du pays
 ---
 
-# Chaleur
+# 🔥 Chaleur
 
 ## Procédés
 
@@ -20,7 +20,7 @@ Le procédé de chaleur appliqué dépend du pays dans lequel l'étape correspon
 | Turquie    | Mix Vapeur (mix technologique\|mix de production, en sortie de chaudière), RSA                                                                               | 2e8de6f6-0ea1-455b-adce-ea74d307d222 |
 
 {% hint style="warning" %}
-Ces choix de procédés doivent être discutés. Ils sont sélectionnés parmi les procédés proposés dans la base Impacts. Plusieurs points discutables apparaissent : 
+Ces choix de procédés doivent être discutés. Ils sont sélectionnés parmi les procédés proposés dans la base Impacts. Plusieurs points discutables apparaissent :&#x20;
 
 * La Tunisie et la Turquie se voient appliquer, par défaut, un procédé de mix vapeur pensé plutôt pour les pays asiatiques (RSA).
 * Pour l'Espagne et le Portugal, on est sur des procédés de vapeur produite à partir de gaz naturel. Le procédé est spécifique à l'Espagne mais Européen pour le Portugal (faute de procédé spécifique).
@@ -29,7 +29,7 @@ Ces choix de procédés doivent être discutés. Ils sont sélectionnés parmi l
 
 ## Limites
 
-Il peut être proposé : 
+Il peut être proposé :&#x20;
 
 * d'ajouter de nouveaux pays ;
 * de proposer une source de chaleur paramétrable, en tirant profit des procédés disponibles dans la base Impacts (Gaz naturel, Fuel lourd, Fuel léger, Charbon, Bois) ;

@@ -2,7 +2,7 @@
 description: Blanchiment puis imprégnation du tissu par des colorants.
 ---
 
-# Teinture
+# 🌈 Etape 3 - Teinture
 
 ## Schéma
 

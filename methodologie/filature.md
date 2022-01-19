@@ -2,7 +2,7 @@
 description: Transformation des fibres de matière première brute en fils.
 ---
 
-# Matière et filature
+# 🐑 Etape 1 - Matière et filature
 
 ## Matières proposées
 
