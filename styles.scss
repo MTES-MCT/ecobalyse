@@ -246,6 +246,24 @@ blockquote {
   }
 }
 
+.ComparatorChart {
+  &Legends {
+    left: unset !important;
+    top: unset !important;
+    margin: -10px 10% -20px 10% !important;
+    position: unset !important;
+    transform: unset !important;
+    display: flex !important;
+    align-items: center !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+  }
+
+  &Legend {
+    margin: 2px 3px !important;
+  }
+}
+
 .DatasetTable {
   th {
     min-width: 120px;

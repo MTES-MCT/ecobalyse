@@ -342,22 +342,12 @@ chart impact entries =
                 .min
                 .max
                 [ CA.alignMiddle
-                , CA.htmlAttrs
-                    [ style "left" "unset"
-                    , style "top" "unset"
-                    , style "margin" "-10px 10% -30px 10%"
-                    , style "position" "unset"
-                    , style "transform" "unset"
-                    , style "display" "flex"
-                    , style "align-items" "center"
-                    , style "flex-wrap" "wrap"
-                    , style "justify-content" "center"
-                    ]
+                , CA.htmlAttrs [ class "ComparatorChartLegends" ]
                 , CA.moveDown 20
                 ]
                 [ CA.spacing 3
                 , CA.fontSize 12
-                , CA.htmlAttrs [ style "margin" "2px 3px" ]
+                , CA.htmlAttrs [ class "ComparatorChartLegend" ]
                 ]
             ]
 
@@ -370,4 +360,5 @@ chart impact entries =
             [ CA.height 250
             , CA.width 550
             , CA.margin { top = 22, bottom = 10, left = 40, right = 0 }
+            , CA.htmlAttrs [ class "ComparatorChart" ]
             ]
