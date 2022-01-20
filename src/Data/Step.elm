@@ -336,7 +336,12 @@ updateFromInputs { processes } inputs ({ label, country } as step) =
                         { step
                             | processInfo =
                                 { processInfo
-                                    | passengerCar = Just passengerCar
+                                  -- FIXME: better use strings directly
+                                    | passengerCar =
+                                        Just
+                                            { passengerCar
+                                                | name = "Transport en voiture vers point de collecte (1km)"
+                                            }
                                     , endOfLife = Just endOfLife
                                 }
                         }
