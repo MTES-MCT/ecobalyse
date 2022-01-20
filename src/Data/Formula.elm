@@ -245,7 +245,7 @@ useImpacts :
     -> { kwh : Energy, impacts : Impacts }
 useImpacts impacts { useNbCycles, ironingProcess, nonIroningProcess, countryElecProcess } baseMass =
     let
-        totalKWh =
+        totalEnergy =
             -- Note: Ironing is expressed per-item, non-ironing is mass-depdendent
             [ ironingProcess.elec
             , nonIroningProcess.elec
@@ -254,13 +254,13 @@ useImpacts impacts { useNbCycles, ironingProcess, nonIroningProcess, countryElec
                 |> Quantity.sum
                 |> Quantity.multiplyBy (toFloat useNbCycles)
     in
-    { kwh = totalKWh
+    { kwh = totalEnergy
     , impacts =
         impacts
             |> Impact.mapImpacts
                 (\trigram _ ->
                     Quantity.sum
-                        [ totalKWh
+                        [ totalEnergy
                             |> Unit.forKWh (Process.getImpact trigram countryElecProcess)
                         , Process.getImpact trigram ironingProcess
                             |> Quantity.multiplyBy (toFloat useNbCycles)
@@ -283,39 +283,35 @@ endOfLifeImpacts :
     -> Mass
     -> { kwh : Energy, heat : Energy, impacts : Impacts }
 endOfLifeImpacts impacts { passengerCar, endOfLife, countryElecProcess, heatProcess } baseMass =
-    -- Notes:
-    -- - passengerCar is expressed per-item
-    -- - endOfLife is mass-depdendent
-    -- - At the time this is implemented, neither process comsumes Energy, both
-    --   only feature precomputed impacts. We keep fetching and adding energy data
-    --   in case we eventually add some in the future.
     let
-        totalKWh =
-            Quantity.sum
+        -- Notes:
+        -- - passengerCar is expressed per-item
+        -- - endOfLife is mass-dependent
+        ( elecEnergy, heatEnergy ) =
+            ( Quantity.sum
                 [ passengerCar.elec
                 , endOfLife.elec
                     |> Quantity.multiplyBy (Mass.inKilograms baseMass)
                 ]
-
-        totalHeat =
-            Quantity.sum
+            , Quantity.sum
                 [ passengerCar.heat
                 , endOfLife.heat
                     |> Quantity.multiplyBy (Mass.inKilograms baseMass)
                 ]
+            )
     in
-    { kwh = totalKWh
-    , heat = totalHeat
+    { kwh = elecEnergy
+    , heat = heatEnergy
     , impacts =
         impacts
             |> Impact.mapImpacts
                 (\trigram _ ->
                     Quantity.sum
-                        [ totalKWh
+                        [ Process.getImpact trigram passengerCar
+                        , elecEnergy
                             |> Unit.forKWh (Process.getImpact trigram countryElecProcess)
-                        , totalHeat
+                        , heatEnergy
                             |> Unit.forMJ (Process.getImpact trigram heatProcess)
-                        , Process.getImpact trigram passengerCar
                         , baseMass
                             |> Unit.forKg (Process.getImpact trigram endOfLife)
                         ]
