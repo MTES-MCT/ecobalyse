@@ -257,7 +257,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 1.70215e-1,
+    "waste": 0.170215,
     "alias": null
   },
   {
@@ -286,7 +286,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 2.88932e-1,
+    "waste": 0.288932,
     "alias": null
   },
   {
@@ -315,7 +315,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 8.696e-2,
+    "waste": 0.08696,
     "alias": null
   },
   {
@@ -344,7 +344,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 6.72241e-1,
+    "waste": 0.672241,
     "alias": null
   },
   {
@@ -402,7 +402,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 2.70519e-1,
+    "waste": 0.270519,
     "alias": null
   },
   {
@@ -431,7 +431,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 2.01201e-1,
+    "waste": 0.201201,
     "alias": null
   },
   {
@@ -460,7 +460,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 2.21094e-1,
+    "waste": 0.221094,
     "alias": null
   },
   {
@@ -518,7 +518,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 6.72241e-1,
+    "waste": 0.672241,
     "alias": null
   },
   {
@@ -576,7 +576,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 5.82011e-2,
+    "waste": 0.0582011,
     "alias": null
   },
   {
@@ -605,7 +605,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 7.96392e-3,
+    "waste": 0.00796392,
     "alias": null
   },
   {
@@ -634,7 +634,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 3.19569e-2,
+    "waste": 0.0319569,
     "alias": null
   },
   {
@@ -692,7 +692,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 3.19569e-2,
+    "waste": 0.0319569,
     "alias": null
   },
   {
@@ -721,7 +721,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 3.19569e-2,
+    "waste": 0.0319569,
     "alias": null
   },
   {
@@ -750,7 +750,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 3.19569e-2,
+    "waste": 0.0319569,
     "alias": null
   },
   {
@@ -779,7 +779,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 3.19569e-2,
+    "waste": 0.0319569,
     "alias": null
   },
   {
@@ -808,7 +808,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 3.19569e-2,
+    "waste": 0.0319569,
     "alias": null
   },
   {
@@ -866,7 +866,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 7.96392e-3,
+    "waste": 0.00796392,
     "alias": null
   },
   {
@@ -895,7 +895,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 3.19569e-2,
+    "waste": 0.0319569,
     "alias": null
   },
   {
@@ -953,7 +953,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 3.1957e-2,
+    "waste": 0.031957,
     "alias": null
   },
   {
@@ -982,7 +982,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 3.2e-2,
+    "waste": 0.032,
     "alias": null
   },
   {
@@ -1011,7 +1011,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 3.2e-2,
+    "waste": 0.032,
     "alias": null
   },
   {
@@ -1040,7 +1040,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 3.19681e-2,
+    "waste": 0.0319681,
     "alias": null
   },
   {
@@ -1069,7 +1069,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 1.37851e-1,
+    "waste": 0.137851,
     "alias": null
   },
   {
@@ -1098,7 +1098,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 1.37851e-1,
+    "waste": 0.137851,
     "alias": null
   },
   {
@@ -1127,7 +1127,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 1.688e-1,
+    "waste": 0.1688,
     "alias": null
   },
   {
@@ -1156,7 +1156,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 7.7305e-1,
+    "waste": 0.77305,
     "alias": null
   },
   {
@@ -1185,7 +1185,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 3.23e-1,
+    "waste": 0.323,
     "alias": null
   },
   {
@@ -1214,7 +1214,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 1.37851e-1,
+    "waste": 0.137851,
     "alias": null
   },
   {
@@ -1243,7 +1243,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 2.1e-1,
+    "waste": 0.21,
     "alias": null
   },
   {
@@ -1272,7 +1272,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 8.64,
-    "waste": 5.76e-2,
+    "waste": 0.0576,
     "alias": null
   },
   {
@@ -1299,9 +1299,9 @@
       "tre": 0.0
     },
     "heat": 0.0,
-    "elec_pppm": 3.145e-4,
+    "elec_pppm": 0.0003145,
     "elec": 0.0,
-    "waste": 6.67e-2,
+    "waste": 0.0667,
     "alias": null
   },
   {
@@ -1327,9 +1327,9 @@
       "swe": 1.60159e-2,
       "tre": 1.17059e-3
     },
-    "heat": 7.171e1,
+    "heat": 71.71,
     "elec_pppm": 0.0,
-    "elec": 3.81e1,
+    "elec": 38.1,
     "waste": 0.0,
     "alias": "dyeingHigh"
   },
@@ -1356,7 +1356,7 @@
       "swe": 2.65273e-3,
       "tre": 1.15881e-3
     },
-    "heat": 2.587e1,
+    "heat": 25.87,
     "elec_pppm": 0.0,
     "elec": 7.17,
     "waste": 0.0,
@@ -6441,24 +6441,24 @@
     "name": "Passenger car",
     "info": "Transport > Routier > Voiture individuelle",
     "unit": "Item(s)",
-    "source": "Base Impacts",
+    "source": "EF2.0",
     "uuid": "1ead35dd-fc71-4b0c-9410-7e39da95c7dc",
     "impacts": {
       "acd": 5.9e-4,
-      "ccb": 4.45e-13,
-      "ccf": 1.8713e-1,
-      "cch": 1.3e-4,
-      "ccl": 1.863e-1,
-      "fru": 7.1e-4,
+      "ccb": 1.3e-4,
+      "ccf": 1.863e-1,
+      "cch": 1.8713e-1,
+      "ccl": 7.1e-4,
+      "fru": 2.42018,
       "fwe": 9.68e-7,
-      "ior": 1.9e-4,
-      "ldu": 2.44e-3,
-      "mru": 4.7e-4,
-      "ozd": 5.1e-9,
-      "pco": 3.8e-4,
-      "pma": 2.42018,
-      "swe": 1.39e-8,
-      "tre": 7.502e-1
+      "ior": 3.8e-4,
+      "ldu": 7.502e-1,
+      "mru": 1.39e-8,
+      "ozd": 4.45e-13,
+      "pco": 4.7e-4,
+      "pma": 5.1e-9,
+      "swe": 1.9e-4,
+      "tre": 2.44e-3
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
@@ -6470,7 +6470,7 @@
     "name": "Fin de vie hors voiture (transport en camion, incinération, mise en décharge)",
     "info": "Fin de vie > Aggrégation multi-impacts > ",
     "unit": "kg",
-    "source": "EF2.0",
+    "source": "Base Impacts",
     "uuid": "266fa378-77c0-11ec-90d6-0242ac120003 ",
     "impacts": {
       "acd": 4.55901e-4,
@@ -6489,9 +6489,9 @@
       "swe": 7.18398e-4,
       "tre": 2.56664e-3
     },
-    "heat": 1.56529E+00,
+    "heat": 1.56529,
     "elec_pppm": 0.0,
-    "elec": 8.37319E-01,
+    "elec": 8.37319e-1,
     "waste": 0.0,
     "alias": "endOfLife"
   }
