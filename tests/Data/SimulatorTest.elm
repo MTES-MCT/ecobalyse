@@ -32,7 +32,7 @@ convertToTests db sectionOrSample =
         Sample.Section title samples ->
             describe title (List.map (convertToTests db) samples)
 
-        Sample.Sample title { query, cch, fwe } ->
+        Sample.Sample title { query, fwe, cch } ->
             describe title
                 [ query
                     |> expectImpact db (Impact.trg "cch") (Unit.impactToFloat cch)

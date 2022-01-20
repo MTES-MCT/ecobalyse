@@ -40,6 +40,7 @@ type alias Entry =
     , dyeing : Float
     , making : Float
     , use : Float
+    , endOfLife : Float
     , transport : Float
     }
 
@@ -157,6 +158,7 @@ createEntry db { trigram } highlight ( label, query ) =
                 , dyeing = lifeCycle |> stepScore Step.Ennoblement
                 , making = lifeCycle |> stepScore Step.Making
                 , use = lifeCycle |> stepScore Step.Use
+                , endOfLife = lifeCycle |> stepScore Step.EndOfLife
                 , transport = Impact.grabImpactFloat trigram transport
                 }
             )
@@ -289,6 +291,7 @@ chart impact entries =
             , "Confection"
             , "Transport"
             , "Utilisation"
+            , "Fin de vie"
             ]
                 |> LE.zip
                     (List.reverse
@@ -298,6 +301,7 @@ chart impact entries =
                         , .making
                         , .transport
                         , .use
+                        , .endOfLife
                         ]
                     )
 
@@ -356,4 +360,5 @@ chart impact entries =
             [ CA.height 250
             , CA.width 550
             , CA.margin { top = 22, bottom = 10, left = 40, right = 0 }
+            , CA.htmlAttrs [ class "ComparatorChart" ]
             ]

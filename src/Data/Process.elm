@@ -14,6 +14,7 @@ import Result.Extra as RE
 type alias Process =
     { name : String
     , info : String
+    , unit : String
     , uuid : Uuid
     , impacts : Impacts
     , heat : Energy --  MJ per kg of material to process
@@ -36,6 +37,8 @@ type alias WellKnown =
     , distribution : Process
     , dyeingHigh : Process
     , dyeingLow : Process
+    , passengerCar : Process
+    , endOfLife : Process
     }
 
 
@@ -43,6 +46,7 @@ noOpProcess : Process
 noOpProcess =
     { name = "Default"
     , info = ""
+    , unit = ""
     , uuid = Uuid ""
     , impacts = Impact.noImpacts
     , heat = Energy.megajoules 0
@@ -98,6 +102,8 @@ loadWellKnown p =
         |> RE.andMap (findByAlias "distribution" p)
         |> RE.andMap (findByAlias "dyeingHigh" p)
         |> RE.andMap (findByAlias "dyeingLow" p)
+        |> RE.andMap (findByAlias "passengerCar" p)
+        |> RE.andMap (findByAlias "endOfLife" p)
 
 
 uuidToString : Uuid -> String
@@ -121,6 +127,7 @@ decode impacts =
     Decode.succeed Process
         |> Pipe.required "name" Decode.string
         |> Pipe.required "info" Decode.string
+        |> Pipe.required "unit" Decode.string
         |> Pipe.required "uuid" (Decode.map Uuid Decode.string)
         |> Pipe.required "impacts" (Impact.decodeImpacts impacts)
         |> Pipe.required "heat" (Decode.map Energy.megajoules Decode.float)
@@ -140,6 +147,7 @@ encode v =
     Encode.object
         [ ( "name", Encode.string v.name )
         , ( "info", Encode.string v.name )
+        , ( "unit", Encode.string v.unit )
         , ( "uuid", encodeUuid v.uuid )
         , ( "impacts", Impact.encodeImpacts v.impacts )
         , ( "heat", v.heat |> Energy.inMegajoules |> Encode.float )

@@ -88,6 +88,8 @@ compute db query =
         |> next computeMakingImpacts
         -- Compute product Use impacts
         |> next computeUseImpacts
+        -- Compute product Use impacts
+        |> nextWithDb computeEndOfLifeImpacts
         --
         -- TRANSPORTS
         --
@@ -109,7 +111,32 @@ compute db query =
 initializeFinalMass : Simulator -> Simulator
 initializeFinalMass ({ inputs } as simulator) =
     simulator
-        |> updateLifeCycleSteps [ Step.Distribution, Step.Use ] (Step.initMass inputs.mass)
+        |> updateLifeCycleSteps [ Step.Distribution, Step.Use, Step.EndOfLife ]
+            (Step.initMass inputs.mass)
+
+
+computeEndOfLifeImpacts : Db -> Simulator -> Result String Simulator
+computeEndOfLifeImpacts { processes } simulator =
+    processes
+        |> Process.loadWellKnown
+        |> Result.map
+            (\{ passengerCar, endOfLife } ->
+                simulator
+                    |> updateLifeCycleStep Step.EndOfLife
+                        (\({ country } as step) ->
+                            let
+                                { kwh, heat, impacts } =
+                                    step.outputMass
+                                        |> Formula.endOfLifeImpacts step.impacts
+                                            { passengerCar = passengerCar
+                                            , endOfLife = endOfLife
+                                            , countryElecProcess = Step.getCountryElectricityProcess step
+                                            , heatProcess = country.heatProcess
+                                            }
+                            in
+                            { step | impacts = impacts, kwh = kwh, heat = heat }
+                        )
+            )
 
 
 computeUseImpacts : Simulator -> Simulator

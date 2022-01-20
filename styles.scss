@@ -183,6 +183,12 @@ blockquote {
       }
     }
 
+    @media screen and (max-width: $viewport-xl) {
+      span {
+        font-size: 10px;
+      }
+    }
+
     &:before, &:after {
       position: absolute;
       right: 100%;
@@ -255,6 +261,15 @@ blockquote {
 
   &Legend {
     margin: 2px 3px !important;
+    color: $text-dark;
+  }
+
+  /* Horrible hack to make the ComparatorChart EoL stage segments black.
+   * @see src/Views/Comparator.elm#chart
+   * @see https://github.com/terezka/elm-charts/issues/101
+   */
+  .elm-charts__bar[fill='#22d2ba'] {
+    filter: brightness(0);
   }
 }
 

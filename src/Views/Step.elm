@@ -6,6 +6,7 @@ import Data.Gitbook as Gitbook
 import Data.Impact as Impact
 import Data.Inputs exposing (Inputs)
 import Data.Step as Step exposing (Step)
+import Data.Transport as Transport
 import Data.Unit as Unit
 import Energy
 import Html exposing (..)
@@ -73,6 +74,12 @@ countryField { db, current, inputs, index, updateCountry } =
                     ]
 
             Step.Use ->
+                div [ class "form-text fs-7 mb-0" ]
+                    [ Icon.exclamation
+                    , text " Champ non paramétrable"
+                    ]
+
+            Step.EndOfLife ->
                 div [ class "form-text fs-7 mb-0" ]
                     [ Icon.exclamation
                     , text " Champ non paramétrable"
@@ -206,7 +213,11 @@ detailedView ({ inputs, impact, index, next, current } as config) =
         transportLabel =
             case next of
                 Just { country } ->
-                    "Transport vers " ++ country.name
+                    if country /= current.country then
+                        "Transport vers " ++ country.name
+
+                    else
+                        "Transport"
 
                 Nothing ->
                     "Transport"
@@ -235,7 +246,10 @@ detailedView ({ inputs, impact, index, next, current } as config) =
                     Just countryElec ->
                         li [ class "list-group-item d-flex justify-content-between text-muted" ]
                             [ span [] [ text countryElec ]
-                            , if current.label /= Step.Use then
+                            , if
+                                List.member current.label
+                                    [ Step.WeavingKnitting, Step.Ennoblement, Step.Making ]
+                              then
                                 Button.smallPill
                                     [ onClick (config.openCustomCountryMixModal current) ]
                                     [ Icon.pencil ]
@@ -258,21 +272,35 @@ detailedView ({ inputs, impact, index, next, current } as config) =
 
                     Nothing ->
                         text ""
-                ]
-            , div [ class "card-body py-2 text-muted" ]
-                [ case current.label of
-                    Step.Ennoblement ->
-                        dyeingWeightingField config
+                , case current.processInfo.passengerCar of
+                    Just process ->
+                        truncatableProcessDescription process.name
 
-                    Step.Making ->
-                        airTransportRatioField config
+                    Nothing ->
+                        text ""
+                , case current.processInfo.endOfLife of
+                    Just process ->
+                        truncatableProcessDescription process.name
 
-                    Step.Use ->
-                        useNbCyclesField config
-
-                    _ ->
+                    Nothing ->
                         text ""
                 ]
+            , case current.label of
+                Step.Ennoblement ->
+                    div [ class "card-body py-2 text-muted" ]
+                        [ dyeingWeightingField config ]
+
+                Step.Making ->
+                    div [ class "card-body py-2 text-muted" ]
+                        [ airTransportRatioField config
+                        ]
+
+                Step.Use ->
+                    div [ class "card-body py-2 text-muted" ]
+                        [ useNbCyclesField config ]
+
+                _ ->
+                    text ""
             ]
         , div
             [ class "card text-center" ]
@@ -309,22 +337,30 @@ detailedView ({ inputs, impact, index, next, current } as config) =
 
                   else
                     text ""
-                , li [ class "list-group-item text-muted" ]
-                    [ current.transport
-                        |> TransportView.view
-                            { fullWidth = True
-                            , airTransportLabel = current.processInfo.airTransport |> Maybe.map .name
-                            , seaTransportLabel = current.processInfo.seaTransport |> Maybe.map .name
-                            , roadTransportLabel = current.processInfo.roadTransport |> Maybe.map .name
-                            }
-                    ]
-                , li [ class "list-group-item text-muted" ]
-                    [ div [ class "d-flex justify-content-center align-items-center" ]
-                        [ strong [] [ text <| transportLabel ++ "\u{00A0}:\u{00A0}" ]
-                        , current.transport.impacts |> Format.formatImpact impact
-                        , inlineDocumentationLink config Gitbook.Transport
+                , if Transport.totalKm current.transport > 0 then
+                    li [ class "list-group-item text-muted" ]
+                        [ current.transport
+                            |> TransportView.view
+                                { fullWidth = True
+                                , airTransportLabel = current.processInfo.airTransport |> Maybe.map .name
+                                , seaTransportLabel = current.processInfo.seaTransport |> Maybe.map .name
+                                , roadTransportLabel = current.processInfo.roadTransport |> Maybe.map .name
+                                }
                         ]
-                    ]
+
+                  else
+                    text ""
+                , if Transport.totalKm current.transport > 0 then
+                    li [ class "list-group-item text-muted" ]
+                        [ div [ class "d-flex justify-content-center align-items-center" ]
+                            [ strong [] [ text <| transportLabel ++ "\u{00A0}:\u{00A0}" ]
+                            , current.transport.impacts |> Format.formatImpact impact
+                            , inlineDocumentationLink config Gitbook.Transport
+                            ]
+                        ]
+
+                  else
+                    text ""
                 ]
             ]
         ]

@@ -18,6 +18,7 @@ type Path
     | Making -- Confection
     | Distribution -- Distribution
     | Use -- Utilisation
+    | EndOfLife -- Fin de vie
     | Electricity -- Électricité
     | Transport -- Transport
     | Heat -- Chaleur
@@ -45,6 +46,9 @@ pathToString path =
 
         Use ->
             "methodologie/etape-6-utilisation"
+
+        EndOfLife ->
+            "methodologie/etape-7-fin-de-vie"
 
         Electricity ->
             "methodologie/electricite"

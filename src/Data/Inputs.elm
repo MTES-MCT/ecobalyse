@@ -25,6 +25,7 @@ type alias Inputs =
     , countryMaking : Country
     , countryDistribution : Country
     , countryUse : Country
+    , countryEndOfLife : Country
     , dyeingWeighting : Maybe Unit.Ratio
     , airTransportRatio : Maybe Unit.Ratio
     , recycledRatio : Maybe Unit.Ratio
@@ -77,6 +78,8 @@ fromQuery db query =
         -- The distribution country is always France
         |> RE.andMap franceResult
         -- The use country is always France
+        |> RE.andMap franceResult
+        -- The end of life country is always France
         |> RE.andMap franceResult
         |> RE.andMap (Ok query.dyeingWeighting)
         |> RE.andMap (Ok query.airTransportRatio)
@@ -139,6 +142,7 @@ countryList inputs =
     , inputs.countryMaking
     , inputs.countryDistribution
     , inputs.countryUse
+    , inputs.countryEndOfLife
     ]
 
 
