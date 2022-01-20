@@ -32,13 +32,12 @@ convertToTests db sectionOrSample =
         Sample.Section title samples ->
             describe title (List.map (convertToTests db) samples)
 
-        Sample.Sample title { query, fwe } ->
+        Sample.Sample title { query, fwe, cch } ->
             describe title
-                [ -- FIXME: uncomment when test results are validated by Paul
-                  -- query
-                  -- |> expectImpact db (Impact.trg "cch") (Unit.impactToFloat cch)
-                  -- |> asTest "climate change"
-                  query
+                [ query
+                    |> expectImpact db (Impact.trg "cch") (Unit.impactToFloat cch)
+                    |> asTest "climate change"
+                , query
                     |> expectImpact db (Impact.trg "fwe") (Unit.impactToFloat fwe)
                     |> asTest "freshwater eutrophication"
                 ]
