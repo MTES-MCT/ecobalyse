@@ -1,4 +1,4 @@
-module Data.Github exposing (..)
+module Data.Github exposing (Commit, decodeCommit)
 
 import Iso8601
 import Json.Decode as Decode exposing (Decoder)
