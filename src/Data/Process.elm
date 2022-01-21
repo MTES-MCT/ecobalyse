@@ -1,4 +1,16 @@
-module Data.Process exposing (..)
+module Data.Process exposing
+    ( Process
+    , Uuid(..)
+    , WellKnown
+    , decodeFromUuid
+    , decodeList
+    , encode
+    , encodeUuid
+    , getImpact
+    , loadWellKnown
+    , updateImpact
+    , uuidToString
+    )
 
 import Data.Impact as Impact exposing (Impacts)
 import Data.Unit as Unit
@@ -42,33 +54,11 @@ type alias WellKnown =
     }
 
 
-noOpProcess : Process
-noOpProcess =
-    { name = "Default"
-    , info = ""
-    , unit = ""
-    , uuid = Uuid ""
-    , impacts = Impact.noImpacts
-    , heat = Energy.megajoules 0
-    , elec_pppm = 0
-    , elec = Energy.megajoules 0
-    , waste = Mass.kilograms 0
-    , alias = Nothing
-    }
-
-
 findByUuid : Uuid -> List Process -> Result String Process
 findByUuid uuid =
     List.filter (.uuid >> (==) uuid)
         >> List.head
         >> Result.fromMaybe ("Procédé introuvable par UUID: " ++ uuidToString uuid)
-
-
-findByName : String -> List Process -> Result String Process
-findByName name =
-    List.filter (.name >> (==) name)
-        >> List.head
-        >> Result.fromMaybe ("Procédé introuvable par nom: " ++ name)
 
 
 findByAlias : String -> List Process -> Result String Process
@@ -161,8 +151,3 @@ encode v =
 encodeUuid : Uuid -> Encode.Value
 encodeUuid =
     uuidToString >> Encode.string
-
-
-encodeAll : List Process -> String
-encodeAll =
-    Encode.list encode >> Encode.encode 0

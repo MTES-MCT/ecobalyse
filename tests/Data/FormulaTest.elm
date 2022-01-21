@@ -2,7 +2,7 @@ module Data.FormulaTest exposing (..)
 
 import Data.Formula as Formula
 import Data.Impact as Impact exposing (Impacts)
-import Data.Process exposing (noOpProcess)
+import Data.Process as Process exposing (Process)
 import Data.Unit as Unit
 import Dict.Any as AnyDict
 import Energy
@@ -24,6 +24,21 @@ defaultImpacts =
         [ ( Impact.trg "cch", Quantity.zero )
         , ( Impact.trg "fwe", Quantity.zero )
         ]
+
+
+noOpProcess : Process
+noOpProcess =
+    { name = "Default"
+    , info = ""
+    , unit = ""
+    , uuid = Process.Uuid ""
+    , impacts = Impact.noImpacts
+    , heat = Energy.megajoules 0
+    , elec_pppm = 0
+    , elec = Energy.megajoules 0
+    , waste = Mass.kilograms 0
+    , alias = Nothing
+    }
 
 
 suite : Test
