@@ -1,4 +1,8 @@
-module Server.Query exposing (..)
+module Server.Query exposing
+    ( Errors
+    , encodeErrors
+    , parse
+    )
 
 import Data.Country as Country exposing (Country)
 import Data.Db exposing (Db)
