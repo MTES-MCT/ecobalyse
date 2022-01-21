@@ -1,4 +1,4 @@
-module Views.Summary exposing (..)
+module Views.Summary exposing (view)
 
 import Data.Impact as Impact
 import Data.Inputs as Inputs

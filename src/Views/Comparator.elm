@@ -1,4 +1,4 @@
-module Views.Comparator exposing (..)
+module Views.Comparator exposing (view)
 
 import Chart as C
 import Chart.Attributes as CA

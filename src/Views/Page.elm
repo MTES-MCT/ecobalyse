@@ -1,4 +1,10 @@
-module Views.Page exposing (..)
+module Views.Page exposing
+    ( ActivePage(..)
+    , Config
+    , frame
+    , loading
+    , notFound
+    )
 
 import Browser exposing (Document)
 import Data.Db as Db

@@ -1,4 +1,4 @@
-module Views.PieChart exposing (..)
+module Views.PieChart exposing (view)
 
 import Html exposing (Html)
 import Svg exposing (..)

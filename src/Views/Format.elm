@@ -1,4 +1,17 @@
-module Views.Format exposing (..)
+module Views.Format exposing
+    ( formatFloat
+    , formatImpact
+    , formatImpactFloat
+    , formatInt
+    , formatRichFloat
+    , hours
+    , kg
+    , kilowattHours
+    , km
+    , megajoules
+    , percent
+    , ratio
+    )
 
 import Data.Impact as Impact exposing (Impacts)
 import Data.Unit as Unit

@@ -1,4 +1,4 @@
-module Views.BarChart exposing (..)
+module Views.BarChart exposing (view)
 
 import Array
 import Data.Impact as Impact

@@ -1,4 +1,9 @@
-module Views.Markdown exposing (..)
+module Views.Markdown exposing
+    ( ContentType(..)
+    , gitbook
+    , parse
+    , simple
+    )
 
 import Data.Gitbook as Gitbook
 import Html exposing (..)

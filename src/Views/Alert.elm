@@ -1,4 +1,9 @@
-module Views.Alert exposing (..)
+module Views.Alert exposing
+    ( Level(..)
+    , httpError
+    , preformatted
+    , simple
+    )
 
 import Html exposing (..)
 import Html.Attributes exposing (..)

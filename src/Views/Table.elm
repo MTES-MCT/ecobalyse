@@ -1,4 +1,4 @@
-module Views.Table exposing (..)
+module Views.Table exposing (responsiveDefault)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)

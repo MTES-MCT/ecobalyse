@@ -1,4 +1,4 @@
-module Views.Button exposing (..)
+module Views.Button exposing (smallPill)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)

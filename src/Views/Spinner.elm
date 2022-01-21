@@ -1,4 +1,4 @@
-module Views.Spinner exposing (..)
+module Views.Spinner exposing (view)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)

@@ -1,4 +1,4 @@
-module Views.RangeSlider exposing (..)
+module Views.RangeSlider exposing (int, ratio)
 
 import Data.Unit as Unit
 import Html exposing (..)
