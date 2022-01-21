@@ -1,5 +1,6 @@
 module Data.Unit exposing
     ( Impact
+    , ImpactUnit(..)
     , Ratio(..)
     , decodeImpact
     , decodeRatio
