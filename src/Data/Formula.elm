@@ -1,4 +1,17 @@
-module Data.Formula exposing (..)
+module Data.Formula exposing
+    ( dyeingImpacts
+    , endOfLifeImpacts
+    , genericWaste
+    , knittingImpacts
+    , makingImpacts
+    , makingWaste
+    , materialAndSpinningImpacts
+    , materialRecycledWaste
+    , pureMaterialAndSpinningImpacts
+    , transportRatio
+    , useImpacts
+    , weavingImpacts
+    )
 
 import Data.Impact as Impact exposing (Impacts)
 import Data.Process as Process exposing (Process)
