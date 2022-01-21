@@ -1,4 +1,12 @@
-module Data.Material exposing (..)
+module Data.Material exposing
+    ( Material
+    , decodeList
+    , encode
+    , findByUuid
+    , fullName
+    , groupAll
+    , recycledRatioToString
+    )
 
 import Data.Country as Country
 import Data.Material.Category as Category exposing (Category)
@@ -106,8 +114,3 @@ encode v =
         , ( "continent", Encode.string v.continent )
         , ( "defaultCountry", v.defaultCountry |> Country.codeToString |> Encode.string )
         ]
-
-
-encodeAll : List Material -> String
-encodeAll =
-    Encode.list encode >> Encode.encode 0
