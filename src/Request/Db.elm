@@ -1,4 +1,4 @@
-module Request.Db exposing (..)
+module Request.Db exposing (loadDb)
 
 import Data.Country as Country exposing (Country)
 import Data.Db exposing (Db)

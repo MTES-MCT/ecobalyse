@@ -1,4 +1,4 @@
-module Request.Gitbook exposing (..)
+module Request.Gitbook exposing (getPage)
 
 import Data.Gitbook as Gitbook
 import Data.Session exposing (Session)

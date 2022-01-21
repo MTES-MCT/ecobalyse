@@ -1,4 +1,4 @@
-module Request.Github exposing (..)
+module Request.Github exposing (getChangelog)
 
 import Data.Github as Github
 import Data.Session exposing (Session)
