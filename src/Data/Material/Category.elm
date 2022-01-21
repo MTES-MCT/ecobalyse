@@ -1,4 +1,9 @@
-module Data.Material.Category exposing (..)
+module Data.Material.Category exposing
+    ( Category(..)
+    , decode
+    , encode
+    , toString
+    )
 
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
