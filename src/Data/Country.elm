@@ -1,10 +1,17 @@
-module Data.Country exposing (..)
+module Data.Country exposing
+    ( Code(..)
+    , Country
+    , codeFromString
+    , codeToString
+    , decodeList
+    , encode
+    , findByCode
+    )
 
 import Data.Process as Process exposing (Process)
 import Data.Unit as Unit
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
-import Result.Extra as RE
 
 
 type Code
@@ -19,11 +26,6 @@ type alias Country =
     , dyeingWeighting : Unit.Ratio
     , airTransportRatio : Unit.Ratio
     }
-
-
-codes : List Country -> List Code
-codes =
-    List.map .code
 
 
 codeFromString : String -> Code
@@ -41,13 +43,6 @@ findByCode code =
     List.filter (.code >> (==) code)
         >> List.head
         >> Result.fromMaybe ("Code pays invalide: " ++ codeToString code ++ ".")
-
-
-findByCodes : List Code -> List Country -> Result String (List Country)
-findByCodes codes_ countries =
-    codes_
-        |> List.map (\code -> findByCode code countries)
-        |> RE.combine
 
 
 decode : List Process -> Decoder Country
@@ -76,8 +71,3 @@ encode v =
         , ( "dyeingWeighting", Unit.encodeRatio v.dyeingWeighting )
         , ( "airTransportRatio", Unit.encodeRatio v.airTransportRatio )
         ]
-
-
-encodeAll : List Country -> String
-encodeAll =
-    Encode.list encode >> Encode.encode 0
