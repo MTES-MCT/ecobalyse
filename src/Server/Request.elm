@@ -1,4 +1,4 @@
-module Server.Request exposing (..)
+module Server.Request exposing (Request)
 
 import Json.Encode as Encode
 

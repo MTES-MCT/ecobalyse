@@ -1,4 +1,15 @@
-module Data.Transport exposing (..)
+module Data.Transport exposing
+    ( Distances
+    , Transport
+    , decodeDistances
+    , default
+    , defaultInland
+    , emptyDistances
+    , encode
+    , getTransportBetween
+    , roadSeaTransportRatio
+    , totalKm
+    )
 
 import Data.Country as Country
 import Data.Impact as Impact exposing (Impacts)

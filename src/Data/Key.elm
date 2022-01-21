@@ -1,4 +1,4 @@
-module Data.Key exposing (..)
+module Data.Key exposing (decode, escape)
 
 import Json.Decode as Decode exposing (Decoder)
 

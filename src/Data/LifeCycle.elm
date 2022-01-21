@@ -1,4 +1,16 @@
-module Data.LifeCycle exposing (..)
+module Data.LifeCycle exposing
+    ( LifeCycle
+    , computeFinalImpacts
+    , computeStepsTransport
+    , computeTotalTransportImpacts
+    , encode
+    , fromQuery
+    , getStepProp
+    , init
+    , mapSteps
+    , updateStep
+    , updateSteps
+    )
 
 import Array exposing (Array)
 import Data.Db exposing (Db)

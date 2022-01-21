@@ -1,6 +1,11 @@
-module Data.Gitbook exposing (..)
-
-import Json.Decode as Decode exposing (Decoder)
+module Data.Gitbook exposing
+    ( Page
+    , Path(..)
+    , fromMarkdown
+    , handleMarkdownGitbookLink
+    , pathToString
+    , publicUrlFromPath
+    )
 
 
 type alias Page =
@@ -170,30 +175,3 @@ extractLinkFolder path =
 
         _ ->
             []
-
-
-decodeMaybeString : Decoder (Maybe String)
-decodeMaybeString =
-    Decode.maybe Decode.string
-        |> Decode.andThen
-            (\maybeString ->
-                case maybeString of
-                    Just string ->
-                        if String.trim string == "" then
-                            Decode.succeed Nothing
-
-                        else
-                            Decode.succeed (Just string)
-
-                    Nothing ->
-                        Decode.succeed Nothing
-            )
-
-
-decodePage : Path -> Decoder Page
-decodePage path =
-    Decode.map4 Page
-        (Decode.field "title" Decode.string)
-        (Decode.field "description" decodeMaybeString)
-        (Decode.field "document" Decode.string)
-        (Decode.succeed path)

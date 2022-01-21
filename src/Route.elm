@@ -1,4 +1,10 @@
-module Route exposing (Route(..), fromUrl, href, pushUrl, toString)
+module Route exposing
+    ( Route(..)
+    , fromUrl
+    , href
+    , pushUrl
+    , toString
+    )
 
 import Browser.Navigation as Nav
 import Data.Db as Db

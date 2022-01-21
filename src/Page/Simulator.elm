@@ -1,4 +1,11 @@
-module Page.Simulator exposing (..)
+module Page.Simulator exposing
+    ( Model
+    , Msg(..)
+    , init
+    , subscriptions
+    , update
+    , view
+    )
 
 import Array
 import Browser.Dom as Dom

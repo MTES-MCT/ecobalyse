@@ -1,4 +1,4 @@
-module Views.Modal exposing (..)
+module Views.Modal exposing (Size(..), view)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)

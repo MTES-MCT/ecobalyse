@@ -1,4 +1,10 @@
-module Page.Api exposing (..)
+module Page.Api exposing
+    ( Model
+    , Msg(..)
+    , init
+    , update
+    , view
+    )
 
 import Data.Session exposing (Session)
 import Html exposing (..)

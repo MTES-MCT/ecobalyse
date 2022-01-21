@@ -1,4 +1,4 @@
-module Views.Transport exposing (..)
+module Views.Transport exposing (view)
 
 import Data.Transport exposing (Transport)
 import Html exposing (..)

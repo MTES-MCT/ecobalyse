@@ -1,4 +1,10 @@
-module Page.Changelog exposing (..)
+module Page.Changelog exposing
+    ( Model
+    , Msg(..)
+    , init
+    , update
+    , view
+    )
 
 import Data.Github as Github
 import Data.Session exposing (Session)

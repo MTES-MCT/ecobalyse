@@ -1,4 +1,20 @@
-module Data.Step exposing (..)
+module Data.Step exposing
+    ( Label(..)
+    , Step
+    , airTransportRatioToString
+    , computeTransports
+    , create
+    , displayLabel
+    , dyeingWeightingToString
+    , encode
+    , getCountryElectricityProcess
+    , getStepGitbookPath
+    , initMass
+    , labelToString
+    , updateFromInputs
+    , updateWaste
+    , useNbCyclesToString
+    )
 
 import Data.Country as Country exposing (Country)
 import Data.Db exposing (Db)
@@ -12,7 +28,6 @@ import Data.Unit as Unit
 import Energy exposing (Energy)
 import FormatNumber
 import FormatNumber.Locales exposing (Decimals(..), frenchLocale)
-import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
 import Mass exposing (Mass)
 import Quantity
@@ -402,20 +417,6 @@ useNbCyclesToString useNbCycles =
             String.fromInt p ++ " cycles d'entretien"
 
 
-decodeLabel : Decoder Label
-decodeLabel =
-    Decode.string
-        |> Decode.andThen
-            (\label ->
-                case labelFromString label of
-                    Just decoded ->
-                        Decode.succeed decoded
-
-                    Nothing ->
-                        Decode.fail ("Invalid step : " ++ label)
-            )
-
-
 encode : Step -> Encode.Value
 encode v =
     Encode.object
@@ -477,31 +478,6 @@ labelToString label =
 
         EndOfLife ->
             "Fin de vie"
-
-
-labelFromString : String -> Maybe Label
-labelFromString label =
-    case label of
-        "Matière & Filature" ->
-            Just MaterialAndSpinning
-
-        "Tissage & Tricotage" ->
-            Just WeavingKnitting
-
-        "Confection" ->
-            Just Making
-
-        "Teinture" ->
-            Just Ennoblement
-
-        "Distribution" ->
-            Just Distribution
-
-        "Use" ->
-            Just Use
-
-        _ ->
-            Nothing
 
 
 getStepGitbookPath : Label -> Gitbook.Path

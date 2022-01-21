@@ -1,4 +1,8 @@
-module Server.Route exposing (..)
+module Server.Route exposing
+    ( Endpoint(..)
+    , Route(..)
+    , endpoint
+    )
 
 import Data.Db exposing (Db)
 import Data.Impact as Impact

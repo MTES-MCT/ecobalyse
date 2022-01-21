@@ -1,4 +1,14 @@
-module Data.Db exposing (..)
+module Data.Db exposing
+    ( Dataset(..)
+    , Db
+    , buildFromJson
+    , datasetLabel
+    , datasetSlugWithId
+    , datasets
+    , empty
+    , parseDatasetSlug
+    , toDatasetRoutePath
+    )
 
 import Data.Country as Country exposing (Country)
 import Data.Impact as Impact

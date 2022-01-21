@@ -1,4 +1,9 @@
-module Views.Column exposing (..)
+module Views.Column exposing
+    ( add
+    , addMd
+    , create
+    , render
+    )
 
 import Html exposing (..)
 import Html.Attributes exposing (..)

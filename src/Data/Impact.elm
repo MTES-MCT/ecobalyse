@@ -1,4 +1,27 @@
-module Data.Impact exposing (..)
+module Data.Impact exposing
+    ( Definition
+    , Impacts
+    , Trigram(..)
+    , computePefScore
+    , decodeImpacts
+    , decodeList
+    , default
+    , defaultTrigram
+    , encodeDefinition
+    , encodeImpacts
+    , filterImpacts
+    , getDefinition
+    , getImpact
+    , grabImpactFloat
+    , impactsFromDefinitons
+    , mapImpacts
+    , noImpacts
+    , parseTrigram
+    , toString
+    , trg
+    , updateImpact
+    , updatePefImpact
+    )
 
 import Data.Unit as Unit
 import Dict
@@ -113,11 +136,6 @@ encodePefData v =
         ]
 
 
-decodeTrigram : Decoder Trigram
-decodeTrigram =
-    Decode.map Trigram Decode.string
-
-
 encodeTrigram : Trigram -> Encode.Value
 encodeTrigram =
     toString >> Encode.string
@@ -160,11 +178,6 @@ impactsFromDefinitons : List Definition -> Impacts
 impactsFromDefinitons =
     List.map (\{ trigram } -> ( trigram, Quantity.zero ))
         >> AnyDict.fromList toString
-
-
-impactsFromList : List ( Trigram, Unit.Impact ) -> Impacts
-impactsFromList =
-    AnyDict.fromList toString
 
 
 getImpact : Trigram -> Impacts -> Unit.Impact

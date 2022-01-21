@@ -1,4 +1,4 @@
-module Request.Common exposing (..)
+module Request.Common exposing (errorToString)
 
 import Http exposing (..)
 

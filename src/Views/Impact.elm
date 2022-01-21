@@ -1,4 +1,4 @@
-module Views.Impact exposing (..)
+module Views.Impact exposing (selector, viewDefinition)
 
 import Data.Impact as Impact
 import Html exposing (..)

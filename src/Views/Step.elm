@@ -1,4 +1,4 @@
-module Views.Step exposing (..)
+module Views.Step exposing (view)
 
 import Data.Country as Country
 import Data.Db exposing (Db)

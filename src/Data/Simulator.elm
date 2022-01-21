@@ -1,4 +1,8 @@
-module Data.Simulator exposing (..)
+module Data.Simulator exposing
+    ( Simulator
+    , compute
+    , encode
+    )
 
 import Data.Db exposing (Db)
 import Data.Formula as Formula
