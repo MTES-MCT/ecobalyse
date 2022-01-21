@@ -1,4 +1,11 @@
-module Data.Product exposing (..)
+module Data.Product exposing
+    ( Id(..)
+    , Product
+    , decodeList
+    , encode
+    , findById
+    , idToString
+    )
 
 import Data.Process as Process exposing (Process)
 import Data.Unit as Unit
