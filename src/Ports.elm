@@ -1,4 +1,10 @@
-port module Ports exposing (..)
+port module Ports exposing
+    ( appStarted
+    , copyToClipboard
+    , saveStore
+    , scrollTo
+    , storeChanged
+    )
 
 -- Outgoing
 
