@@ -1,4 +1,4 @@
-module Data.Sample exposing (..)
+module Data.Sample exposing (SampleData, SectionOrSample(..), samples)
 
 import Data.Inputs as Inputs exposing (..)
 import Data.Unit as Unit exposing (Ratio(..))
@@ -307,17 +307,3 @@ samples =
             ]
         ]
     ]
-
-
-hasTests : List SectionOrSample -> Bool
-hasTests sectionOrSamples =
-    List.any
-        (\s ->
-            case s of
-                Section _ _ ->
-                    False
-
-                Sample _ _ ->
-                    True
-        )
-        sectionOrSamples
