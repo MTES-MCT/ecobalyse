@@ -1,4 +1,11 @@
-module Page.Explore exposing (..)
+module Page.Explore exposing
+    ( Model
+    , Msg(..)
+    , init
+    , subscriptions
+    , update
+    , view
+    )
 
 import Browser.Events
 import Browser.Navigation as Nav

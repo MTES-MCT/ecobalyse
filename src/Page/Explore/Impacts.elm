@@ -1,4 +1,4 @@
-module Page.Explore.Impacts exposing (..)
+module Page.Explore.Impacts exposing (details, view)
 
 import Data.Db as Db exposing (Db)
 import Data.Impact as Impact exposing (Definition)

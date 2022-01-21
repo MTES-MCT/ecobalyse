@@ -1,4 +1,4 @@
-module Page.Explore.Countries exposing (..)
+module Page.Explore.Countries exposing (details, view)
 
 import Data.Country as Country exposing (Country)
 import Data.Db as Db exposing (Db)

@@ -1,4 +1,4 @@
-module Page.Explore.Materials exposing (..)
+module Page.Explore.Materials exposing (details, view)
 
 import Data.Country as Country
 import Data.Db as Db exposing (Db)

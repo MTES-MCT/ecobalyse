@@ -1,4 +1,4 @@
-module Page.Explore.Products exposing (..)
+module Page.Explore.Products exposing (details, view)
 
 import Data.Db as Db exposing (Db)
 import Data.Product as Product exposing (Product)

@@ -1,4 +1,10 @@
-module Page.Stats exposing (..)
+module Page.Stats exposing
+    ( Model
+    , Msg(..)
+    , init
+    , update
+    , view
+    )
 
 import Data.Session exposing (Session)
 import Html exposing (..)

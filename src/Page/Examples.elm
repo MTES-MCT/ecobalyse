@@ -1,4 +1,10 @@
-module Page.Examples exposing (..)
+module Page.Examples exposing
+    ( Model
+    , Msg(..)
+    , init
+    , update
+    , view
+    )
 
 import Data.Impact as Impact
 import Data.Inputs as Inputs
