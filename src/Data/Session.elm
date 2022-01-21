@@ -1,4 +1,12 @@
-module Data.Session exposing (..)
+module Data.Session exposing
+    ( Notification(..)
+    , Session
+    , closeNotification
+    , deserializeStore
+    , notifyError
+    , notifyHttpError
+    , serializeStore
+    )
 
 import Browser.Navigation as Nav
 import Data.Db exposing (Db)
@@ -23,11 +31,6 @@ type alias Session =
 type Notification
     = HttpError Http.Error
     | GenericError String String
-
-
-clearNotifications : Session -> Session
-clearNotifications session =
-    { session | notifications = [] }
 
 
 closeNotification : Notification -> Session -> Session
