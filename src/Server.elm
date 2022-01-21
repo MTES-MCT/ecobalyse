@@ -1,4 +1,8 @@
-port module Server exposing (..)
+port module Server exposing
+    ( input
+    , main
+    , output
+    )
 
 import Data.Db as Db exposing (Db)
 import Data.Impact as Impact
