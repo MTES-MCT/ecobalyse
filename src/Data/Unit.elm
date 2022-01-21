@@ -1,4 +1,23 @@
-module Data.Unit exposing (..)
+module Data.Unit exposing
+    ( Impact
+    , Ratio(..)
+    , decodeImpact
+    , decodeRatio
+    , encodeImpact
+    , encodeRatio
+    , forKWh
+    , forKg
+    , forKgAndDistance
+    , forMJ
+    , impact
+    , impactPefScore
+    , impactToFloat
+    , ratio
+    , ratioToFloat
+    , ratioedForKWh
+    , ratioedForKg
+    , ratioedForMJ
+    )
 
 import Energy exposing (Energy)
 import Json.Decode as Decode exposing (Decoder)
