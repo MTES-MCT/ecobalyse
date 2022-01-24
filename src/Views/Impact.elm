@@ -1,5 +1,10 @@
-module Views.Impact exposing (selector, viewDefinition)
+module Views.Impact exposing
+    ( impactQuality
+    , selector
+    , viewDefinition
+    )
 
+import Data.Gitbook as Gitbook
 import Data.Impact as Impact
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
@@ -10,7 +15,7 @@ import Views.Markdown as Markdown
 
 qualityDocumentationUrl : String
 qualityDocumentationUrl =
-    "https://fabrique-numerique.gitbook.io/wikicarbone/methodologie/impacts-consideres#niveaux-de-recommandation"
+    Gitbook.publicUrlFromPath Gitbook.ImpactQuality
 
 
 viewDefinition : Impact.Definition -> Html msg

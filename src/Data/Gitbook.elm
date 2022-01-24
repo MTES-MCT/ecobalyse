@@ -29,6 +29,7 @@ type Path
     | Heat -- Chaleur
     | Waste -- Pertes et rebus
     | ComparativeScale -- Échelle comparative
+    | ImpactQuality -- Niveau de qualité d'impact
 
 
 pathToString : Path -> String
@@ -69,6 +70,9 @@ pathToString path =
 
         ComparativeScale ->
             "methodologie/echelle-comparative"
+
+        ImpactQuality ->
+            "methodologie/impacts-consideres#niveaux-de-recommandation"
 
 
 transformMarkdown : String -> String
