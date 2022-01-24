@@ -39,13 +39,13 @@ impactQuality quality =
         maybeInfo =
             case quality of
                 Impact.GoodQuality ->
-                    Just ( "success", "I", "Qualité satisfaisante" )
+                    Just ( "text-white bg-success", "I", "Qualité satisfaisante" )
 
                 Impact.AverageQuality ->
-                    Just ( "info", "II", "Qualité satisfaisante mais nécessitant des améliorations" )
+                    Just ( "text-white bg-info", "II", "Qualité satisfaisante mais nécessitant des améliorations" )
 
                 Impact.BadQuality ->
-                    Just ( "warning text-dark", "III", "Donnée incomplète à utiliser avec prudence" )
+                    Just ( "text-dark bg-warning", "III", "Donnée incomplète à utiliser avec prudence" )
 
                 Impact.UnknownQuality ->
                     Nothing
@@ -53,7 +53,7 @@ impactQuality quality =
     case maybeInfo of
         Just ( level, label, description ) ->
             [ a
-                [ class <| "badge rounded-pill text-white bg-" ++ level ++ " text-decoration-none"
+                [ class <| "badge rounded-pill text-decoration-none " ++ level
                 , target "_blank"
                 , href qualityDocumentationUrl
                 , title description
