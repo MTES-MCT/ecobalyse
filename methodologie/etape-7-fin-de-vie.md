@@ -92,3 +92,6 @@ Impact_décharge = 0.17 * 45.705% * 2.22265
 Impact_décharge = 0.17269 kgCO2e
 ```
 
+{% hint style="danger" %}
+Limite : nous n'avons pour l'instant pas pris en compte l'impact de potentiel production d'énergie (chaleur, électricité) pendant la phase de fin de vie.&#x20;
+{% endhint %}
