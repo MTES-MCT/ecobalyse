@@ -164,7 +164,7 @@ blockquote {
   margin: 0;
   display: flex;
   justify-content: center;
-  overflow-x: auto;
+  overflow-x: hidden;
 
   li {
     display: inline-block;
