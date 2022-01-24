@@ -122,21 +122,3 @@ Il conviendrait, d'intégrer progressivement les différents traitements qui peu
 * apprêts mécaniques
 * enduction
 * impression
-
-## Modifications à apporter
-
-Modification du tableau par pays pour y intégrer la Grèce
-
-
-
-| Pays       | Support de teinture | Positionnement                              | Traitement des eaux                           | UUID                                                                                                              |
-| ---------- | ------------------- | ------------------------------------------- | --------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
-| Bangladesh | étoffe              | majorant                                    | inefficace                                    | `cf001531-5f2d-48b1-b30a-4a17466a8b30`                                                                            |
-| Chine      | étoffe              | majorant                                    | inefficace                                    | `cf001531-5f2d-48b1-b30a-4a17466a8b30`                                                                            |
-| Espagne    | étoffe              | représentatif                               | très efficace                                 | `fb4bea16-7ce1-43e2-9e03-462250214988`                                                                            |
-| France     | étoffe              | représentatif                               | très efficace                                 | `fb4bea16-7ce1-43e2-9e03-462250214988`                                                                            |
-| Grèce      | étoffe              | <p>50% représentatif</p><p>50% majorant</p> | <p>50% très efficace</p><p>50% inefficace</p> | <p>50% - <code>fb4bea16-7ce1-43e2-9e03-462250214988</code></p><p><code>50% - 2d-48b1-b30a-4a17466a8b30</code></p> |
-| Inde       | étoffe              | majorant                                    | inefficace                                    | `cf001531-5f2d-48b1-b30a-4a17466a8b30`                                                                            |
-| Portugal   | étoffe              | représentatif                               | très efficace                                 | `fb4bea16-7ce1-43e2-9e03-462250214988`                                                                            |
-| Tunisie    | étoffe              | majorant                                    | inefficace                                    | `cf001531-5f2d-48b1-b30a-4a17466a8b30`                                                                            |
-| Turquie    | étoffe              | majorant                                    | inefficace                                    | `cf001531-5f2d-48b1-b30a-4a17466a8b30`                                                                            |
