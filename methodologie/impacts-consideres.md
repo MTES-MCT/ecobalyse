@@ -6,7 +6,7 @@ description: >-
 
 # Impacts considérés
 
-Dans un premier temps, l'outil Wikicarbone s'appuie sur le référentiel méthodologique de l'ADEME.
+Dans un premier temps, l'outil Wikicarbone s'appuie sur le [référentiel méthodologique de l'ADEME](https://base-impacts.ademe.fr).
 
 Cela permet que soient pris en compte les 15 impacts suivants.
 
