@@ -1,6 +1,7 @@
 module Data.Impact exposing
     ( Definition
     , Impacts
+    , Quality(..)
     , Trigram(..)
     , computePefScore
     , decodeImpacts
@@ -41,12 +42,20 @@ type alias Definition =
     , label : String
     , description : String
     , unit : String
+    , quality : Quality
     , pefData : Maybe PefData
     }
 
 
 type Trigram
     = Trigram String
+
+
+type Quality
+    = GoodQuality
+    | AverageQuality
+    | BadQuality
+    | UnknownQuality
 
 
 type alias PefData =
@@ -61,6 +70,7 @@ default =
     , label = "Changement climatique"
     , description = "Changement climatique"
     , unit = "kgCO₂e"
+    , quality = GoodQuality
     , pefData = Nothing
     }
 
@@ -81,21 +91,23 @@ decodeList : Decoder (List Definition)
 decodeList =
     let
         decodeDictValue =
-            Decode.map4
-                (\label description unit pefData ->
+            Decode.map5
+                (\label description unit quality pefData ->
                     { label = label
                     , description = description
                     , unit = unit
+                    , quality = quality
                     , pefData = pefData
                     }
                 )
                 (Decode.field "label_fr" Decode.string)
                 (Decode.field "description_fr" Decode.string)
                 (Decode.field "short_unit" Decode.string)
+                (Decode.field "quality" decodeQuality)
                 (Decode.field "pef" (Decode.maybe decodePefData))
 
-        toImpact ( key, { label, description, unit, pefData } ) =
-            Definition (trg key) label description unit pefData
+        toImpact ( key, { label, description, unit, quality, pefData } ) =
+            Definition (trg key) label description unit quality pefData
     in
     Decode.dict decodeDictValue
         |> Decode.andThen (Dict.toList >> List.map toImpact >> Decode.succeed)
@@ -128,6 +140,26 @@ getPefWeighting weighting =
     weighting
 
 
+decodeQuality : Decoder Quality
+decodeQuality =
+    Decode.maybe Decode.int
+        |> Decode.andThen
+            (\maybeInt ->
+                case maybeInt of
+                    Just 1 ->
+                        Decode.succeed GoodQuality
+
+                    Just 2 ->
+                        Decode.succeed AverageQuality
+
+                    Just 3 ->
+                        Decode.succeed BadQuality
+
+                    _ ->
+                        Decode.succeed UnknownQuality
+            )
+
+
 encodePefData : PefData -> Encode.Value
 encodePefData v =
     Encode.object
@@ -147,8 +179,25 @@ encodeDefinition v =
         [ ( "trigram", encodeTrigram v.trigram )
         , ( "label", Encode.string v.label )
         , ( "unit", Encode.string v.unit )
+        , ( "quality", encodeQuality v.quality )
         , ( "pef", v.pefData |> Maybe.map encodePefData |> Maybe.withDefault Encode.null )
         ]
+
+
+encodeQuality : Quality -> Encode.Value
+encodeQuality v =
+    case v of
+        GoodQuality ->
+            Encode.int 1
+
+        AverageQuality ->
+            Encode.int 2
+
+        BadQuality ->
+            Encode.int 3
+
+        UnknownQuality ->
+            Encode.null
 
 
 toString : Trigram -> String
