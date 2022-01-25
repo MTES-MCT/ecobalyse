@@ -7,6 +7,7 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Route
 import Views.Format as Format
+import Views.Impact as ImpactView
 import Views.Markdown as Markdown
 import Views.Table as Table
 
@@ -29,6 +30,11 @@ details _ def =
                     [ def.description
                         |> Markdown.simple []
                     ]
+                ]
+            , tr []
+                [ th [] [ text "Niveau de qualité" ]
+                , ImpactView.impactQuality def.quality
+                    |> td []
                 ]
             , tr []
                 [ th [] [ text "Unité" ]
@@ -64,6 +70,7 @@ view impacts =
                 , th [] [ text "Unité" ]
                 , th [] [ text "Coéf. normalisation PEF" ]
                 , th [] [ text "Pondération PEF" ]
+                , th [ class "text-center" ] [ text "Qualité" ]
                 ]
             ]
         , impacts
@@ -91,4 +98,11 @@ row def =
                 |> Maybe.map (.weighting >> Format.ratio)
                 |> Maybe.withDefault (text "N/A")
             ]
+        , case def.trigram of
+            Impact.Trigram "pef" ->
+                td [ class "text-center" ] [ text "N/A" ]
+
+            _ ->
+                ImpactView.impactQuality def.quality
+                    |> td [ class "text-center" ]
         ]

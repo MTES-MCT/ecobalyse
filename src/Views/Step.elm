@@ -135,13 +135,9 @@ inlineDocumentationLink { openDocModal } path =
 
 stepDocumentationLink : Config msg -> Step.Label -> Html msg
 stepDocumentationLink { openDocModal } label =
-    button
-        [ class "btn btn-sm btn-primary rounded-pill fs-7 py-0"
-        , onClick (openDocModal (Step.getStepGitbookPath label))
-        ]
-        [ span [ class "align-middle" ] [ Icon.question ]
-        , span [] [ text " docs" ]
-        ]
+    Button.docsPill
+        [ onClick (openDocModal (Step.getStepGitbookPath label)) ]
+        [ Icon.question, text "docs" ]
 
 
 simpleView : Config msg -> Html msg
