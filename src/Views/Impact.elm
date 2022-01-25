@@ -9,6 +9,7 @@ import Data.Impact as Impact
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
+import Views.Button as Button
 import Views.Icon as Icon
 import Views.Markdown as Markdown
 
@@ -23,7 +24,7 @@ viewDefinition { label, description, quality } =
     div [ class "ImpactDefinition d-none d-sm-block card shadow-sm text-dark bg-light px-2 py-1 mb-3" ]
         [ div [ class "row" ]
             [ div [ class "col-9" ]
-                [ h2 [ class "fs-6 text-muted fw-bold my-1" ]
+                [ h2 [ class "fs-6 lh-base text-muted fw-bold my-1" ]
                     [ span [ class "me-1" ] [ Icon.info ]
                     , text "Impact étudié\u{00A0}: "
                     , text label
@@ -44,27 +45,43 @@ impactQuality quality =
         maybeInfo =
             case quality of
                 Impact.GoodQuality ->
-                    Just ( "text-white bg-success", "I", "Qualité satisfaisante" )
+                    Just
+                        { cls = "btn-success"
+                        , icon = Icon.checkCircle
+                        , label = "I"
+                        , help = "Qualité satisfaisante"
+                        }
 
                 Impact.AverageQuality ->
-                    Just ( "text-white bg-info", "II", "Qualité satisfaisante mais nécessitant des améliorations" )
+                    Just
+                        { cls = "btn-info"
+                        , icon = Icon.info
+                        , label = "II"
+                        , help = "Qualité satisfaisante mais nécessitant des améliorations"
+                        }
 
                 Impact.BadQuality ->
-                    Just ( "text-dark bg-warning", "III", "Donnée incomplète à utiliser avec prudence" )
+                    Just
+                        { cls = "btn-warning"
+                        , icon = Icon.warning
+                        , label = "III"
+                        , help = "Donnée incomplète à utiliser avec prudence"
+                        }
 
                 Impact.UnknownQuality ->
                     Nothing
     in
     case maybeInfo of
-        Just ( level, label, description ) ->
+        Just { cls, icon, label, help } ->
             [ a
-                [ class <| "badge rounded-pill text-decoration-none " ++ level
+                [ class <| Button.pillClasses ++ " fs-7 py-0 " ++ cls
                 , target "_blank"
                 , href qualityDocumentationUrl
-                , title description
+                , title help
                 ]
-                [ text "Qualité\u{00A0}: "
-                , text label
+                [ icon
+                , text "Qualité\u{00A0}: "
+                , strong [] [ text label ]
                 ]
             ]
 
