@@ -29,6 +29,11 @@ check =
     icon "check"
 
 
+clock : Html msg
+clock =
+    icon "clock"
+
+
 checkCircle : Html msg
 checkCircle =
     icon "check-circle"
@@ -112,6 +117,11 @@ study =
 times : Html msg
 times =
     icon "times"
+
+
+tShirt : Html msg
+tShirt =
+    icon "tshirt"
 
 
 warning : Html msg

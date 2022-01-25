@@ -6,6 +6,7 @@ module Views.Impact exposing
 
 import Data.Gitbook as Gitbook
 import Data.Impact as Impact
+import Data.Impact.FunctionalUnit as FunctionalUnit
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
@@ -105,18 +106,39 @@ selector { impacts, selected, switch } =
                 , value <| Impact.toString trigram
                 ]
                 [ text label ]
+
+        impactSelector =
+            -- FIXME: move to own fn
+            select
+                [ class "form-select"
+                , onInput (Impact.trg >> switch)
+                ]
+                [ impacts
+                    |> List.filter (\{ trigram } -> trigram == Impact.trg "pef")
+                    |> List.map toOption
+                    |> optgroup [ attribute "label" "Impacts agrégés" ]
+                , impacts
+                    |> List.filter (\{ trigram } -> trigram /= Impact.trg "pef")
+                    |> List.sortBy .label
+                    |> List.map toOption
+                    |> optgroup [ attribute "label" "Impacts détaillés" ]
+                ]
+
+        functionalUnitSelector =
+            -- FIXME: move to own fn
+            [ ( FunctionalUnit.PerItem, Icon.tShirt )
+            , ( FunctionalUnit.PerDayOfWear, Icon.clock )
+            ]
+                |> List.map
+                    (\( funit, icon ) ->
+                        button
+                            [ type_ "button"
+                            , class "btn btn-primary d-flex align-items-center gap-1"
+                            , title <| FunctionalUnit.toString funit
+                            ]
+                            [ icon ]
+                    )
     in
-    select
-        [ class "form-select"
-        , onInput (Impact.trg >> switch)
-        ]
-        [ impacts
-            |> List.filter (\{ trigram } -> trigram == Impact.trg "pef")
-            |> List.map toOption
-            |> optgroup [ attribute "label" "Impacts agrégés" ]
-        , impacts
-            |> List.filter (\{ trigram } -> trigram /= Impact.trg "pef")
-            |> List.sortBy .label
-            |> List.map toOption
-            |> optgroup [ attribute "label" "Impacts détaillés" ]
-        ]
+    impactSelector
+        :: functionalUnitSelector
+        |> div [ class "input-group" ]

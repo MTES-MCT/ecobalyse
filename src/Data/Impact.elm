@@ -33,10 +33,6 @@ import Quantity exposing (Quantity(..))
 import Url.Parser as Parser exposing (Parser)
 
 
-
--- Impact definitions
-
-
 type alias Definition =
     { trigram : Trigram
     , label : String
