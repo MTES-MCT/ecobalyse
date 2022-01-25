@@ -14,7 +14,8 @@
     "useRatioIroning": 0.05,
     "useTimeIroning": 0.067,
     "useIroningProcessUuid": "b877ae15-96e0-43aa-bafa-a6abcfedbca3",
-    "useNonIroningProcessUuid": "86db560b-d31f-4745-a01e-ec74be00f865"
+    "useNonIroningProcessUuid": "86db560b-d31f-4745-a01e-ec74be00f865",
+    "daysOfWear": 70
   },
   {
     "id": "2",
@@ -31,7 +32,8 @@
     "useRatioIroning": 0.25,
     "useTimeIroning": 0.033,
     "useIroningProcessUuid": "70067861-aa8d-4ddb-9921-c045012b7c76",
-    "useNonIroningProcessUuid": "81264b4c-dfb5-4cb1-b9e7-51b04a6f47d6"
+    "useNonIroningProcessUuid": "81264b4c-dfb5-4cb1-b9e7-51b04a6f47d6",
+    "daysOfWear": 70
   },
   {
     "id": "3",
@@ -48,7 +50,8 @@
     "useRatioIroning": 0.7,
     "useTimeIroning": 0.043,
     "useIroningProcessUuid": "33773966-2704-4420-8663-ea4231a12040",
-    "useNonIroningProcessUuid": "406d1f98-1052-458d-8f50-1901853d896d"
+    "useNonIroningProcessUuid": "406d1f98-1052-458d-8f50-1901853d896d",
+    "daysOfWear": 70
   },
   {
     "id": "4",
@@ -65,7 +68,8 @@
     "useRatioIroning": 0.4,
     "useTimeIroning": 0.043,
     "useIroningProcessUuid": "fcb8c240-1c4e-4413-925f-0b6a7465e5dd",
-    "useNonIroningProcessUuid": "24e2ff0a-75c6-471f-a375-d3f075ffad44"
+    "useNonIroningProcessUuid": "24e2ff0a-75c6-471f-a375-d3f075ffad44",
+    "daysOfWear": 70
   },
   {
     "id": "5",
@@ -82,7 +86,8 @@
     "useRatioIroning": 0.25,
     "useTimeIroning": 0.033,
     "useIroningProcessUuid": "6efbbe3c-2ad2-47d4-9d8d-2bcbf5b19ada",
-    "useNonIroningProcessUuid": "d88c97c6-6f9a-477e-a61c-01fc5aed0a3b"
+    "useNonIroningProcessUuid": "d88c97c6-6f9a-477e-a61c-01fc5aed0a3b",
+    "daysOfWear": 70
   },
   {
     "id": "6",
@@ -99,7 +104,8 @@
     "useRatioIroning": 0.0,
     "useTimeIroning": 0.0,
     "useIroningProcessUuid": "c47a19ae-3d49-41aa-b38d-b8eef6ee8d8e",
-    "useNonIroningProcessUuid": "1ecbfc31-9e9c-45de-9ed2-718b1c64357b"
+    "useNonIroningProcessUuid": "1ecbfc31-9e9c-45de-9ed2-718b1c64357b",
+    "daysOfWear": 70
   },
   {
     "id": "7",
@@ -116,7 +122,8 @@
     "useRatioIroning": 0.63,
     "useTimeIroning": 0.072,
     "useIroningProcessUuid": "6d71fdef-b7a8-4a67-81e9-dc0e3f01a007",
-    "useNonIroningProcessUuid": "4964273a-cdbd-43cf-8cf8-4b017aee4f03"
+    "useNonIroningProcessUuid": "4964273a-cdbd-43cf-8cf8-4b017aee4f03",
+    "daysOfWear": 70
   },
   {
     "id": "8",
@@ -133,7 +140,8 @@
     "useRatioIroning": 0.18,
     "useTimeIroning": 0.075,
     "useIroningProcessUuid": "2de2f5e5-79fb-4a4a-8399-a722012e82dc",
-    "useNonIroningProcessUuid": "2572015b-7320-4ce1-bc99-cc6de371a654"
+    "useNonIroningProcessUuid": "2572015b-7320-4ce1-bc99-cc6de371a654",
+    "daysOfWear": 70
   },
   {
     "id": "9",
@@ -150,7 +158,8 @@
     "useRatioIroning": 0.05,
     "useTimeIroning": 0.067,
     "useIroningProcessUuid": "60147175-ca20-49aa-8991-9ed6f172c47b",
-    "useNonIroningProcessUuid": "8c040f35-e137-424b-a67f-2e50b628c1bf"
+    "useNonIroningProcessUuid": "8c040f35-e137-424b-a67f-2e50b628c1bf",
+    "daysOfWear": 70
   },
   {
     "id": "10",
@@ -167,7 +176,8 @@
     "useRatioIroning": 0.63,
     "useTimeIroning": 0.072,
     "useIroningProcessUuid": "f6b685ed-d5bd-40a0-af16-7c30838f3627",
-    "useNonIroningProcessUuid": "ea7afeed-c058-4dbb-be01-66704a9afb1f"
+    "useNonIroningProcessUuid": "ea7afeed-c058-4dbb-be01-66704a9afb1f",
+    "daysOfWear": 70
   },
   {
     "id": "11",
@@ -184,7 +194,8 @@
     "useRatioIroning": 0.0,
     "useTimeIroning": 0.0,
     "useIroningProcessUuid": "4a94e796-cc40-4d74-b5ad-72ef0192a391",
-    "useNonIroningProcessUuid": "2b39a7ac-38bd-435f-85a4-783023d845bf"
+    "useNonIroningProcessUuid": "2b39a7ac-38bd-435f-85a4-783023d845bf",
+    "daysOfWear": 70
   },
   {
     "id": "12",
@@ -201,7 +212,8 @@
     "useRatioIroning": 0.18,
     "useTimeIroning": 0.075,
     "useIroningProcessUuid": "ce224ffa-3d46-4eb9-b624-2e34d4b5a419",
-    "useNonIroningProcessUuid": "d3bff7b7-efc1-459b-856d-ea0801d6912f"
+    "useNonIroningProcessUuid": "d3bff7b7-efc1-459b-856d-ea0801d6912f",
+    "daysOfWear": 70
   },
   {
     "id": "13",
@@ -218,7 +230,8 @@
     "useRatioIroning": 0.4,
     "useTimeIroning": 0.043,
     "useIroningProcessUuid": "974659b8-4635-43ba-86c5-73a186ea6f21",
-    "useNonIroningProcessUuid": "7f76529e-521d-4795-bb36-ff896c4692da"
+    "useNonIroningProcessUuid": "7f76529e-521d-4795-bb36-ff896c4692da",
+    "daysOfWear": 70
   },
   {
     "id": "14",
@@ -235,6 +248,7 @@
     "useRatioIroning": 0.05,
     "useTimeIroning": 0.067,
     "useIroningProcessUuid": "12a83d8f-24e4-414f-9087-a7d37fefce91",
-    "useNonIroningProcessUuid": "493c32d2-506d-48c1-b8d7-0646fba88571"
+    "useNonIroningProcessUuid": "493c32d2-506d-48c1-b8d7-0646fba88571",
+    "daysOfWear": 70
   }
 ]

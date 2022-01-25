@@ -59,6 +59,9 @@ type alias Product =
 
     -- Procédé composite d'utilisation hors-repassage
     , useNonIroningProcess : Process
+
+    -- Nombre de jour de porter du vêtement
+    , daysOfWear : Duration
     }
 
 
@@ -96,6 +99,7 @@ decode processes =
         |> Pipe.required "useTimeIroning" (Decode.map Duration.hours Decode.float)
         |> Pipe.required "useIroningProcessUuid" (Process.decodeFromUuid processes)
         |> Pipe.required "useNonIroningProcessUuid" (Process.decodeFromUuid processes)
+        |> Pipe.required "daysOfWear" (Decode.map Duration.days Decode.float)
 
 
 decodeList : List Process -> Decoder (List Product)
@@ -121,4 +125,5 @@ encode v =
         , ( "useTimeIroning", Encode.float (Duration.inHours v.useTimeIroning) )
         , ( "useIroningProcessUuid", Process.encodeUuid v.useIroningProcess.uuid )
         , ( "useNonIroningProcessUuid", Process.encodeUuid v.useNonIroningProcess.uuid )
+        , ( "daysOfWear", Encode.float (Duration.inDays v.daysOfWear) )
         ]

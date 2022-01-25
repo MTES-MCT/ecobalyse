@@ -1,5 +1,6 @@
 module Views.Format exposing
-    ( formatFloat
+    ( days
+    , formatFloat
     , formatImpact
     , formatImpactFloat
     , formatInt
@@ -118,6 +119,11 @@ ratio : Unit.Ratio -> Html msg
 ratio (Unit.Ratio float) =
     (float * 100)
         |> formatRichFloat 2 "%"
+
+
+days : Duration -> Html msg
+days =
+    Duration.inDays >> formatRichFloat 0 "j"
 
 
 hours : Duration -> Html msg
