@@ -3,6 +3,11 @@
 /tests/elm-stuff
 /node_modules
 /public/app.js
+/public/icomoon/*.txt
+/public/icomoon/*.zip
+/public/icomoon/demo-files
+/public/icomoon/demo-files
+/public/icomoon/demo.html
 /public/main.css
 /public/main.css.map
 /server-app.js

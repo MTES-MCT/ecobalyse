@@ -24,6 +24,11 @@ bus =
     icon "truck"
 
 
+check : Html msg
+check =
+    icon "check"
+
+
 checkCircle : Html msg
 checkCircle =
     icon "check-circle"
@@ -102,6 +107,11 @@ shrink =
 study : Html msg
 study =
     icon "study"
+
+
+times : Html msg
+times =
+    icon "times"
 
 
 warning : Html msg

@@ -1,11 +1,15 @@
 module Data.Gitbook exposing
-    ( Page
+    ( IsIsnt
+    , Page
     , Path(..)
     , fromMarkdown
     , handleMarkdownGitbookLink
+    , parseIsIsnt
     , pathToString
     , publicUrlFromPath
     )
+
+import List.Extra as LE
 
 
 type alias Page =
@@ -17,7 +21,8 @@ type alias Page =
 
 
 type Path
-    = MaterialAndSpinning -- Matière & filature
+    = Home -- Page d'accueil
+    | MaterialAndSpinning -- Matière & filature
     | WeavingKnitting -- Tissage/Tricotage
     | Dyeing -- Teinture
     | Making -- Confection
@@ -35,6 +40,9 @@ type Path
 pathToString : Path -> String
 pathToString path =
     case path of
+        Home ->
+            "README"
+
         MaterialAndSpinning ->
             "methodologie/filature"
 
@@ -179,3 +187,64 @@ extractLinkFolder path =
 
         _ ->
             []
+
+
+{-| A data structure representing the Homepage content, parsed
+from the Gitbook homepage markdown content string, which contains
+these hierarchically structured informations:
+
+  - What is Wikicarbone:
+      - it is A
+          - argument A.1
+          - argument A.2
+      - it is B
+          - argument B.1
+          - argument B.2
+  - What isn't Wikicarbone:
+      - it isn't C
+          - argument C.1
+          - argument C.2
+      - it isn't D
+          - argument D.1
+          - argument D.2
+
+See tests for a sample Markdown document to parse.
+
+-}
+type alias IsIsnt =
+    { is : ( String, List ( String, String ) )
+    , isnt : ( String, List ( String, String ) )
+    }
+
+
+parseIsIsnt : String -> Maybe IsIsnt
+parseIsIsnt markdown =
+    let
+        splitMap delim fn =
+            String.split delim
+                >> List.map String.trim
+                >> LE.uncons
+                >> Maybe.map fn
+
+        toIsIsnt list =
+            case list of
+                [ is, isnt ] ->
+                    Just { is = is, isnt = isnt }
+
+                _ ->
+                    Nothing
+    in
+    markdown
+        |> String.split "\n## "
+        |> List.drop 1
+        |> List.filterMap
+            (splitMap "\n### "
+                (\( title, mdrest ) ->
+                    ( title
+                    , mdrest
+                        |> List.filterMap
+                            (splitMap "\n\n" (Tuple.mapSecond (String.join "\n\n")))
+                    )
+                )
+            )
+        |> toIsIsnt
