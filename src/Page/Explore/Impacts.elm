@@ -14,7 +14,7 @@ import Views.Table as Table
 
 details : Db -> Definition -> Html msg
 details _ def =
-    Table.responsiveDefault []
+    Table.responsiveDefault [ class "view-details" ]
         [ tbody []
             [ tr []
                 [ th [] [ text "Trigramme" ]
@@ -62,7 +62,7 @@ details _ def =
 
 view : List Definition -> Html msg
 view impacts =
-    Table.responsiveDefault []
+    Table.responsiveDefault [ class "view-list" ]
         [ thead []
             [ tr []
                 [ th [] [ text "Trigramme" ]

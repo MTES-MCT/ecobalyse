@@ -274,11 +274,27 @@ blockquote {
 }
 
 .DatasetTable {
-  th {
-    min-width: 120px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+  .table {
+    &.view-list {
+      tbody {
+        td {
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          max-width: 360px;
+        }
+      }
+    }
+
+    th, td {
+      font-size: .9rem;
+    }
+
+    th {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
   }
 }
 

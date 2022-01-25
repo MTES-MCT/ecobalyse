@@ -11,7 +11,7 @@ import Views.Table as Table
 
 details : Db -> Country -> Html msg
 details _ country =
-    Table.responsiveDefault []
+    Table.responsiveDefault [ class "view-details" ]
         [ tbody []
             [ tr []
                 [ th [] [ text "Code" ]
@@ -43,7 +43,7 @@ details _ country =
 
 view : List Country -> Html msg
 view countries =
-    Table.responsiveDefault []
+    Table.responsiveDefault [ class "view-list" ]
         [ thead []
             [ tr []
                 [ th [] [ text "Code" ]

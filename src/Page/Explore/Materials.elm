@@ -13,7 +13,7 @@ import Views.Table as Table
 
 details : Db -> Material -> Html msg
 details _ material =
-    Table.responsiveDefault []
+    Table.responsiveDefault [ class "view-details" ]
         [ tbody []
             [ tr []
                 [ th [] [ text "Identifiant" ]
@@ -59,7 +59,7 @@ details _ material =
 
 view : List Material -> Html msg
 view materials =
-    Table.responsiveDefault []
+    Table.responsiveDefault [ class "view-list" ]
         [ thead []
             [ tr []
                 [ th [] [ text "Identifiant" ]

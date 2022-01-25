@@ -12,7 +12,7 @@ import Views.Table as Table
 
 details : Db -> Product -> Html msg
 details _ product =
-    Table.responsiveDefault []
+    Table.responsiveDefault [ class "view-details" ]
         [ tbody []
             [ tr []
                 [ th [] [ text "Identifiant" ]
@@ -116,7 +116,7 @@ details _ product =
 
 view : List Product -> Html msg
 view products =
-    Table.responsiveDefault []
+    Table.responsiveDefault [ class "view-list" ]
         [ thead []
             [ tr []
                 [ th [] [ text "Identifiant" ]
@@ -128,6 +128,12 @@ view products =
                 , th [] [ text "Grammage" ]
                 , th [] [ text "Procédé" ]
                 , th [] [ text "Confection" ]
+                , th [] [ text "Cycles d'entretien (par défaut)" ]
+                , th [] [ text "Repassage" ]
+                , th [] [ text "Hors-repassage" ]
+                , th [] [ text "Séchage électrique" ]
+                , th [] [ text "Repassage (part)" ]
+                , th [] [ text "Repassage (temps)" ]
                 ]
             ]
         , products
@@ -169,4 +175,10 @@ row product =
             ]
         , td [] [ text product.fabricProcess.name ]
         , td [] [ text product.makingProcess.name ]
+        , td [ class "text-end" ] [ text (String.fromInt product.useDefaultNbCycles) ]
+        , td [] [ text product.useIroningProcess.name ]
+        , td [] [ text product.useNonIroningProcess.name ]
+        , td [ class "text-end" ] [ Format.ratio product.useRatioDryer ]
+        , td [ class "text-end" ] [ Format.ratio product.useRatioIroning ]
+        , td [ class "text-end" ] [ Format.hours product.useTimeIroning ]
         ]
