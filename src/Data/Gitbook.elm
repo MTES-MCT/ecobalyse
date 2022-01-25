@@ -96,6 +96,8 @@ transformMarkdown =
         >> String.replace "-->" "→"
         -- HTML entities
         >> String.replace " & " " &amp; "
+        -- Gitbook preformated text escaping
+        >> String.replace "\\_" "_"
 
 
 fromMarkdown : Path -> String -> Page
