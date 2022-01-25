@@ -44,6 +44,11 @@ clipboard =
     icon "clipboard"
 
 
+day : Html msg
+day =
+    icon "day"
+
+
 dialog : Html msg
 dialog =
     icon "dialog"
