@@ -99,8 +99,8 @@ type alias SelectorConfig msg =
     }
 
 
-selector : SelectorConfig msg -> Html msg
-selector { impacts, selectedImpact, switchImpact, selectedFunctionalUnit, switchFunctionalUnit } =
+impactSelector : SelectorConfig msg -> Html msg
+impactSelector { impacts, selectedImpact, switchImpact } =
     let
         toOption ({ trigram, label } as impact) =
             option
@@ -108,44 +108,46 @@ selector { impacts, selectedImpact, switchImpact, selectedFunctionalUnit, switch
                 , value <| Impact.toString trigram
                 ]
                 [ text label ]
-
-        impactSelector =
-            -- FIXME: move to own fn
-            select
-                [ class "form-select"
-                , onInput (Impact.trg >> switchImpact)
-                ]
-                [ impacts
-                    |> List.filter (\{ trigram } -> trigram == Impact.trg "pef")
-                    |> List.map toOption
-                    |> optgroup [ attribute "label" "Impacts agrégés" ]
-                , impacts
-                    |> List.filter (\{ trigram } -> trigram /= Impact.trg "pef")
-                    |> List.sortBy .label
-                    |> List.map toOption
-                    |> optgroup [ attribute "label" "Impacts détaillés" ]
-                ]
-
-        functionalUnitSelector =
-            -- FIXME: move to own fn
-            [ ( FunctionalUnit.PerItem, Icon.tShirt )
-            , ( FunctionalUnit.PerDayOfWear, Icon.clock )
-            ]
-                |> List.map
-                    (\( funit, icon ) ->
-                        button
-                            [ type_ "button"
-                            , title <| FunctionalUnit.toString funit
-                            , class "btn d-flex align-items-center gap-1"
-                            , classList
-                                [ ( "btn-primary", funit == selectedFunctionalUnit )
-                                , ( "btn-outline-primary", funit /= selectedFunctionalUnit )
-                                ]
-                            , onClick (switchFunctionalUnit funit)
-                            ]
-                            [ icon ]
-                    )
     in
-    impactSelector
-        :: functionalUnitSelector
+    select
+        [ class "form-select"
+        , onInput (Impact.trg >> switchImpact)
+        ]
+        [ impacts
+            |> List.filter (\{ trigram } -> trigram == Impact.trg "pef")
+            |> List.map toOption
+            |> optgroup [ attribute "label" "Impacts agrégés" ]
+        , impacts
+            |> List.filter (\{ trigram } -> trigram /= Impact.trg "pef")
+            |> List.sortBy .label
+            |> List.map toOption
+            |> optgroup [ attribute "label" "Impacts détaillés" ]
+        ]
+
+
+functionalUnitSelector : SelectorConfig msg -> List (Html msg)
+functionalUnitSelector { selectedFunctionalUnit, switchFunctionalUnit } =
+    [ ( FunctionalUnit.PerItem, Icon.tShirt )
+    , ( FunctionalUnit.PerDayOfWear, Icon.day )
+    ]
+        |> List.map
+            (\( funit, icon ) ->
+                button
+                    [ type_ "button"
+                    , title <| FunctionalUnit.toString funit
+                    , class "btn d-flex align-items-center gap-1"
+                    , classList
+                        [ ( "btn-primary", funit == selectedFunctionalUnit )
+                        , ( "btn-outline-primary", funit /= selectedFunctionalUnit )
+                        ]
+                    , onClick (switchFunctionalUnit funit)
+                    ]
+                    [ icon ]
+            )
+
+
+selector : SelectorConfig msg -> Html msg
+selector config =
+    impactSelector config
+        :: functionalUnitSelector config
         |> div [ class "input-group" ]
