@@ -98,6 +98,11 @@ row def =
                 |> Maybe.map (.weighting >> Format.ratio)
                 |> Maybe.withDefault (text "N/A")
             ]
-        , ImpactView.impactQuality def.quality
-            |> td [ class "text-center" ]
+        , case def.trigram of
+            Impact.Trigram "pef" ->
+                td [ class "text-center" ] [ text "N/A" ]
+
+            _ ->
+                ImpactView.impactQuality def.quality
+                    |> td [ class "text-center" ]
         ]
