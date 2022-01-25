@@ -15,6 +15,7 @@ import Data.Country as Country
 import Data.Db exposing (Db)
 import Data.Gitbook as Gitbook
 import Data.Impact as Impact
+import Data.Impact.FunctionalUnit as FunctionalUnit exposing (FunctionalUnit)
 import Data.Inputs as Inputs
 import Data.Key as Key
 import Data.Material as Material exposing (Material)
@@ -55,6 +56,7 @@ type alias Model =
     , modal : ModalContent
     , customCountryMixInputs : CustomCountryMixInputs
     , impact : Impact.Definition
+    , functionalUnit : FunctionalUnit
     }
 
 
@@ -79,6 +81,7 @@ type Msg
     | Reset
     | ResetCustomCountryMix Step.Label
     | SubmitCustomCountryMix Step.Label (Maybe Unit.Impact)
+    | SwitchFunctionalUnit FunctionalUnit
     | SwitchImpact Impact.Trigram
     | SwitchMode DisplayMode
     | UpdateAirTransportRatio (Maybe Unit.Ratio)
@@ -160,6 +163,7 @@ init trigram maybeQuery ({ db } as session) =
             db.impacts
                 |> Impact.getDefinition trigram
                 |> Result.withDefault Impact.default
+      , functionalUnit = FunctionalUnit.PerItem
       }
     , case simulator of
         Err error ->
@@ -263,6 +267,12 @@ update ({ db, navKey } as session) msg ({ customCountryMixInputs, query } as mod
         SubmitCustomCountryMix stepLabel (Just customCountryMix) ->
             ( { model | modal = NoModal }, session, Cmd.none )
                 |> updateQuery (updateQueryCustomCountryMix stepLabel (Just customCountryMix) query)
+
+        SwitchFunctionalUnit functionalUnit ->
+            ( { model | functionalUnit = functionalUnit }
+            , session
+            , Cmd.none
+            )
 
         SwitchImpact trigram ->
             ( model
@@ -772,8 +782,10 @@ view session model =
                 , div [ class "col-sm-5 mb-2 d-flex align-items-center" ]
                     [ ImpactView.selector
                         { impacts = session.db.impacts
-                        , selected = model.impact.trigram
-                        , switch = SwitchImpact
+                        , selectedImpact = model.impact.trigram
+                        , switchImpact = SwitchImpact
+                        , selectedFunctionalUnit = model.functionalUnit
+                        , switchFunctionalUnit = SwitchFunctionalUnit
                         }
                     ]
                 ]

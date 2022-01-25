@@ -7,6 +7,7 @@ module Page.Examples exposing
     )
 
 import Data.Impact as Impact
+import Data.Impact.FunctionalUnit as FunctionalUnit exposing (FunctionalUnit)
 import Data.Inputs as Inputs
 import Data.Session exposing (Session)
 import Data.Simulator as Simulator
@@ -18,16 +19,21 @@ import Views.Summary as SummaryView
 
 
 type alias Model =
-    { impact : Impact.Trigram }
+    { impact : Impact.Trigram
+    , functionalUnit : FunctionalUnit
+    }
 
 
 type Msg
     = SwitchImpact Impact.Trigram
+    | SwitchFunctionalUnit FunctionalUnit
 
 
 init : Session -> ( Model, Session, Cmd Msg )
 init session =
-    ( { impact = Impact.trg "cch" }
+    ( { impact = Impact.trg "cch"
+      , functionalUnit = FunctionalUnit.PerItem
+      }
     , session
     , Cmd.none
     )
@@ -39,9 +45,12 @@ update session msg model =
         SwitchImpact impact ->
             ( { model | impact = impact }, session, Cmd.none )
 
+        SwitchFunctionalUnit functionalUnit ->
+            ( { model | functionalUnit = functionalUnit }, session, Cmd.none )
+
 
 viewExamples : Session -> Model -> Html Msg
-viewExamples session { impact } =
+viewExamples session { impact, functionalUnit } =
     div []
         [ div [ class "row" ]
             [ div [ class "col-md-7 col-lg-8 col-xl-9" ]
@@ -50,8 +59,10 @@ viewExamples session { impact } =
             , div [ class "col-md-5 col-lg-4 col-xl-3 text-center text-md-end" ]
                 [ ImpactView.selector
                     { impacts = session.db.impacts
-                    , selected = impact
-                    , switch = SwitchImpact
+                    , selectedImpact = impact
+                    , switchImpact = SwitchImpact
+                    , selectedFunctionalUnit = functionalUnit
+                    , switchFunctionalUnit = SwitchFunctionalUnit
                     }
                 ]
             ]

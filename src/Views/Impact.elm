@@ -6,7 +6,7 @@ module Views.Impact exposing
 
 import Data.Gitbook as Gitbook
 import Data.Impact as Impact
-import Data.Impact.FunctionalUnit as FunctionalUnit
+import Data.Impact.FunctionalUnit as FunctionalUnit exposing (FunctionalUnit)
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
@@ -92,17 +92,19 @@ impactQuality quality =
 
 type alias SelectorConfig msg =
     { impacts : List Impact.Definition
-    , selected : Impact.Trigram
-    , switch : Impact.Trigram -> msg
+    , selectedImpact : Impact.Trigram
+    , switchImpact : Impact.Trigram -> msg
+    , selectedFunctionalUnit : FunctionalUnit
+    , switchFunctionalUnit : FunctionalUnit -> msg
     }
 
 
 selector : SelectorConfig msg -> Html msg
-selector { impacts, selected, switch } =
+selector { impacts, selectedImpact, switchImpact, selectedFunctionalUnit, switchFunctionalUnit } =
     let
         toOption ({ trigram, label } as impact) =
             option
-                [ Attr.selected (selected == impact.trigram)
+                [ Attr.selected (selectedImpact == impact.trigram)
                 , value <| Impact.toString trigram
                 ]
                 [ text label ]
@@ -111,7 +113,7 @@ selector { impacts, selected, switch } =
             -- FIXME: move to own fn
             select
                 [ class "form-select"
-                , onInput (Impact.trg >> switch)
+                , onInput (Impact.trg >> switchImpact)
                 ]
                 [ impacts
                     |> List.filter (\{ trigram } -> trigram == Impact.trg "pef")
@@ -133,8 +135,13 @@ selector { impacts, selected, switch } =
                     (\( funit, icon ) ->
                         button
                             [ type_ "button"
-                            , class "btn btn-primary d-flex align-items-center gap-1"
                             , title <| FunctionalUnit.toString funit
+                            , class "btn d-flex align-items-center gap-1"
+                            , classList
+                                [ ( "btn-primary", funit == selectedFunctionalUnit )
+                                , ( "btn-outline-primary", funit /= selectedFunctionalUnit )
+                                ]
+                            , onClick (switchFunctionalUnit funit)
                             ]
                             [ icon ]
                     )
