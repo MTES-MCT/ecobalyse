@@ -50,6 +50,8 @@ view countries =
                 , th [] [ text "Nom" ]
                 , th [] [ text "Mix éléctrique" ]
                 , th [] [ text "Chaleur" ]
+                , th [] [ text "Majoration de teinture" ]
+                , th [] [ text "Part du transport aérien" ]
                 ]
             ]
         , countries
@@ -68,4 +70,6 @@ row country =
         , td [] [ text country.name ]
         , td [] [ text country.electricityProcess.name ]
         , td [] [ text country.heatProcess.name ]
+        , td [ class "text-end" ] [ Format.ratio country.dyeingWeighting ]
+        , td [ class "text-end" ] [ Format.ratio country.airTransportRatio ]
         ]
