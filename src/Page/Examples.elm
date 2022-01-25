@@ -7,10 +7,10 @@ module Page.Examples exposing
     )
 
 import Data.Impact as Impact
-import Data.Impact.FunctionalUnit as FunctionalUnit exposing (FunctionalUnit)
 import Data.Inputs as Inputs
 import Data.Session exposing (Session)
 import Data.Simulator as Simulator
+import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Views.Container as Container
@@ -20,19 +20,19 @@ import Views.Summary as SummaryView
 
 type alias Model =
     { impact : Impact.Trigram
-    , functionalUnit : FunctionalUnit
+    , functionalUnit : Unit.Functional
     }
 
 
 type Msg
     = SwitchImpact Impact.Trigram
-    | SwitchFunctionalUnit FunctionalUnit
+    | SwitchFunctionalUnit Unit.Functional
 
 
 init : Session -> ( Model, Session, Cmd Msg )
 init session =
     ( { impact = Impact.trg "cch"
-      , functionalUnit = FunctionalUnit.PerItem
+      , functionalUnit = Unit.PerItem
       }
     , session
     , Cmd.none
@@ -49,7 +49,7 @@ update session msg model =
             ( { model | functionalUnit = functionalUnit }, session, Cmd.none )
 
 
-viewExample : Session -> FunctionalUnit -> Impact.Trigram -> Inputs.Query -> Html msg
+viewExample : Session -> Unit.Functional -> Impact.Trigram -> Inputs.Query -> Html msg
 viewExample session functionalUnit impact query =
     query
         |> Simulator.compute session.db

@@ -1,5 +1,6 @@
 module Data.Unit exposing
-    ( Impact
+    ( Functional(..)
+    , Impact
     , ImpactUnit(..)
     , Ratio(..)
     , decodeImpact
@@ -10,6 +11,7 @@ module Data.Unit exposing
     , forKg
     , forKgAndDistance
     , forMJ
+    , functionalToString
     , impact
     , impactPefScore
     , impactToFloat
@@ -26,6 +28,25 @@ import Json.Encode as Encode
 import Length exposing (Length)
 import Mass exposing (Mass)
 import Quantity exposing (Quantity(..))
+
+
+
+-- Functional unit
+
+
+type Functional
+    = PerDayOfWear
+    | PerItem
+
+
+functionalToString : Functional -> String
+functionalToString unit =
+    case unit of
+        PerDayOfWear ->
+            "Jour porté"
+
+        PerItem ->
+            "Vêtement"
 
 
 

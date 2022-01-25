@@ -1,12 +1,12 @@
 module Views.Summary exposing (view)
 
 import Data.Impact as Impact
-import Data.Impact.FunctionalUnit exposing (FunctionalUnit)
 import Data.Inputs as Inputs
 import Data.LifeCycle as LifeCycle
 import Data.Material as Material
 import Data.Session exposing (Session)
 import Data.Simulator exposing (Simulator)
+import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Route exposing (Route(..))
@@ -22,7 +22,7 @@ import Views.Transport as TransportView
 type alias Config =
     { session : Session
     , impact : Impact.Definition
-    , functionalUnit : FunctionalUnit
+    , functionalUnit : Unit.Functional
     , reusable : Bool
     }
 

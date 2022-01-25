@@ -15,7 +15,6 @@ import Data.Country as Country
 import Data.Db exposing (Db)
 import Data.Gitbook as Gitbook
 import Data.Impact as Impact
-import Data.Impact.FunctionalUnit as FunctionalUnit exposing (FunctionalUnit)
 import Data.Inputs as Inputs
 import Data.Key as Key
 import Data.Material as Material exposing (Material)
@@ -56,7 +55,7 @@ type alias Model =
     , modal : ModalContent
     , customCountryMixInputs : CustomCountryMixInputs
     , impact : Impact.Definition
-    , functionalUnit : FunctionalUnit
+    , functionalUnit : Unit.Functional
     }
 
 
@@ -81,7 +80,7 @@ type Msg
     | Reset
     | ResetCustomCountryMix Step.Label
     | SubmitCustomCountryMix Step.Label (Maybe Unit.Impact)
-    | SwitchFunctionalUnit FunctionalUnit
+    | SwitchFunctionalUnit Unit.Functional
     | SwitchImpact Impact.Trigram
     | SwitchMode DisplayMode
     | UpdateAirTransportRatio (Maybe Unit.Ratio)
@@ -163,7 +162,7 @@ init trigram maybeQuery ({ db } as session) =
             db.impacts
                 |> Impact.getDefinition trigram
                 |> Result.withDefault Impact.default
-      , functionalUnit = FunctionalUnit.PerItem
+      , functionalUnit = Unit.PerItem
       }
     , case simulator of
         Err error ->

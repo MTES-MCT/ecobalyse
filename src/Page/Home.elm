@@ -8,10 +8,10 @@ module Page.Home exposing
 
 import Data.Gitbook as Gitbook
 import Data.Impact as Impact
-import Data.Impact.FunctionalUnit as FunctionalUnit
 import Data.Inputs as Inputs
 import Data.Session exposing (Session)
 import Data.Simulator as Simulator
+import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -97,7 +97,7 @@ viewHero session =
                     |> SummaryView.view
                         { session = session
                         , impact = Impact.default
-                        , functionalUnit = FunctionalUnit.PerItem
+                        , functionalUnit = Unit.PerItem
                         , reusable = False
                         }
                 ]

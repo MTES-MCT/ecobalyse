@@ -6,7 +6,7 @@ module Views.Impact exposing
 
 import Data.Gitbook as Gitbook
 import Data.Impact as Impact
-import Data.Impact.FunctionalUnit as FunctionalUnit exposing (FunctionalUnit)
+import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
@@ -94,8 +94,8 @@ type alias SelectorConfig msg =
     { impacts : List Impact.Definition
     , selectedImpact : Impact.Trigram
     , switchImpact : Impact.Trigram -> msg
-    , selectedFunctionalUnit : FunctionalUnit
-    , switchFunctionalUnit : FunctionalUnit -> msg
+    , selectedFunctionalUnit : Unit.Functional
+    , switchFunctionalUnit : Unit.Functional -> msg
     }
 
 
@@ -127,14 +127,14 @@ impactSelector { impacts, selectedImpact, switchImpact } =
 
 functionalUnitSelector : SelectorConfig msg -> List (Html msg)
 functionalUnitSelector { selectedFunctionalUnit, switchFunctionalUnit } =
-    [ ( FunctionalUnit.PerItem, Icon.tShirt )
-    , ( FunctionalUnit.PerDayOfWear, Icon.day )
+    [ ( Unit.PerItem, Icon.tShirt )
+    , ( Unit.PerDayOfWear, Icon.day )
     ]
         |> List.map
             (\( funit, icon ) ->
                 button
                     [ type_ "button"
-                    , title <| FunctionalUnit.toString funit
+                    , title <| Unit.functionalToString funit
                     , class "btn d-flex align-items-center gap-1"
                     , classList
                         [ ( "btn-primary", funit == selectedFunctionalUnit )
