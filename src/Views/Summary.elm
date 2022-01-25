@@ -1,6 +1,7 @@
 module Views.Summary exposing (view)
 
 import Data.Impact as Impact
+import Data.Impact.FunctionalUnit exposing (FunctionalUnit)
 import Data.Inputs as Inputs
 import Data.LifeCycle as LifeCycle
 import Data.Material as Material
@@ -21,6 +22,7 @@ import Views.Transport as TransportView
 type alias Config =
     { session : Session
     , impact : Impact.Definition
+    , functionalUnit : FunctionalUnit
     , reusable : Bool
     }
 
@@ -44,7 +46,9 @@ summaryView { session, impact, reusable } ({ inputs, lifeCycle } as simulator) =
                     ]
                     []
                 , div [ class "display-5" ]
-                    [ simulator.impacts |> Format.formatImpact impact ]
+                    [ simulator.impacts
+                        |> Format.formatImpact impact
+                    ]
                 ]
             , inputs
                 |> Inputs.countryList

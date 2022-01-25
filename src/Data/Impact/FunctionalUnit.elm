@@ -1,23 +1,14 @@
 module Data.Impact.FunctionalUnit exposing
     ( FunctionalUnit(..)
-    , fromString
     , toString
     )
+
+-- FIXME: move to Data.Unit?
 
 
 type FunctionalUnit
     = PerDayOfWear
     | PerItem
-
-
-fromString : String -> FunctionalUnit
-fromString string =
-    case string of
-        "Jour porté" ->
-            PerDayOfWear
-
-        _ ->
-            PerItem
 
 
 toString : FunctionalUnit -> String

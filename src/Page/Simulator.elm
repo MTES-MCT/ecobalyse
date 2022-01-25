@@ -761,6 +761,7 @@ simulatorView ({ db } as session) model ({ inputs } as simulator) =
                         |> SummaryView.view
                             { session = session
                             , impact = model.impact
+                            , functionalUnit = model.functionalUnit
                             , reusable = False
                             }
                     ]

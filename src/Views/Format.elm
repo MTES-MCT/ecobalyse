@@ -28,10 +28,11 @@ import Mass exposing (Mass)
 
 
 formatImpact : Impact.Definition -> Impacts -> Html msg
-formatImpact { trigram, unit } =
-    Impact.getImpact trigram
-        >> Unit.impactToFloat
-        >> formatRichFloat 2 unit
+formatImpact { trigram, unit } def =
+    def
+        |> Impact.getImpact trigram
+        |> Unit.impactToFloat
+        |> formatRichFloat 2 unit
 
 
 formatImpactFloat : Impact.Definition -> Float -> Html msg

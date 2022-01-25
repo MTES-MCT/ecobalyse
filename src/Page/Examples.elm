@@ -49,6 +49,21 @@ update session msg model =
             ( { model | functionalUnit = functionalUnit }, session, Cmd.none )
 
 
+viewExample : Session -> FunctionalUnit -> Impact.Trigram -> Inputs.Query -> Html msg
+viewExample session functionalUnit impact query =
+    query
+        |> Simulator.compute session.db
+        |> SummaryView.view
+            { session = session
+            , impact =
+                Impact.getDefinition impact session.db.impacts
+                    |> Result.withDefault Impact.default
+            , functionalUnit = functionalUnit
+            , reusable = True
+            }
+        |> (\v -> div [ class "col" ] [ v ])
+
+
 viewExamples : Session -> Model -> Html Msg
 viewExamples session { impact, functionalUnit } =
     div []
@@ -71,17 +86,7 @@ viewExamples session { impact, functionalUnit } =
             |> Result.map ImpactView.viewDefinition
             |> Result.withDefault (text "")
         , Inputs.presets
-            |> List.map
-                (Simulator.compute session.db
-                    >> SummaryView.view
-                        { session = session
-                        , impact =
-                            Impact.getDefinition impact session.db.impacts
-                                |> Result.withDefault Impact.default
-                        , reusable = True
-                        }
-                    >> (\v -> div [ class "col" ] [ v ])
-                )
+            |> List.map (viewExample session functionalUnit impact)
             |> div [ class "row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4" ]
         ]
 
