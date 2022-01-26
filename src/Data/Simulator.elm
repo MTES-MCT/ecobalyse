@@ -10,6 +10,7 @@ import Data.Impact as Impact exposing (Impacts)
 import Data.Inputs as Inputs exposing (Inputs)
 import Data.LifeCycle as LifeCycle exposing (LifeCycle)
 import Data.Process as Process
+import Data.Product as Product
 import Data.Step as Step exposing (Step)
 import Data.Transport as Transport exposing (Transport)
 import Json.Encode as Encode
@@ -22,6 +23,7 @@ type alias Simulator =
     , lifeCycle : LifeCycle
     , impacts : Impacts
     , transport : Transport
+    , daysOfWear : Int
     }
 
 
@@ -32,6 +34,7 @@ encode v =
         , ( "lifeCycle", LifeCycle.encode v.lifeCycle )
         , ( "impacts", Impact.encodeImpacts v.impacts )
         , ( "transport", Transport.encode v.transport )
+        , ( "daysOfWear", Encode.int v.daysOfWear )
         ]
 
 
@@ -51,6 +54,9 @@ init db =
                             , lifeCycle = lifeCycle
                             , impacts = defaultImpacts
                             , transport = Transport.default defaultImpacts
+                            , daysOfWear =
+                                inputs.product
+                                    |> Product.customDaysOfWear inputs.useNbCycles
                             }
                        )
             )

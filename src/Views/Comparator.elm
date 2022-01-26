@@ -7,7 +7,6 @@ import Data.Db exposing (Db)
 import Data.Impact as Impact
 import Data.Inputs as Inputs exposing (Inputs)
 import Data.LifeCycle as LifeCycle
-import Data.Product as Product
 import Data.Session exposing (Session)
 import Data.Simulator as Simulator exposing (Simulator)
 import Data.Step as Step
@@ -142,23 +141,14 @@ createEntry db funit { trigram } highlight ( label, query ) =
     query
         |> Simulator.compute db
         |> Result.map
-            (\({ lifeCycle, inputs, transport } as simulator) ->
+            (\({ lifeCycle, inputs, daysOfWear, transport } as simulator) ->
                 let
-                    daysOfWear =
-                        case funit of
-                            Unit.PerDayOfWear ->
-                                inputs.product
-                                    |> Product.customDaysOfWear inputs.useNbCycles
-
-                            Unit.PerItem ->
-                                1
-
                     stepScore stepLabel =
                         lifeCycle
                             |> LifeCycle.getStepProp stepLabel
                                 (.impacts >> Impact.getImpact trigram)
                                 Quantity.zero
-                            |> Quantity.divideBy (toFloat daysOfWear)
+                            |> Unit.inFunctionalUnit funit daysOfWear
                             |> Unit.impactToFloat
                 in
                 { label = label
@@ -211,7 +201,7 @@ view : Config -> Html msg
 view { session, impact, funit, simulator } =
     case simulator.inputs |> getEntries session.db funit impact of
         Ok entries ->
-            chart impact entries
+            chart funit impact simulator.daysOfWear entries
 
         Err error ->
             Alert.simple
@@ -260,15 +250,24 @@ fillLabels entries =
         |> List.map createLabel
 
 
-formatLabel : Impact.Definition -> Float -> { x : String, y : String }
-formatLabel { unit } num =
-    { x = Format.formatFloat 2 num ++ "\u{202F}" ++ unit
-    , y = Format.formatFloat 2 num
+formatLabel : Unit.Functional -> Impact.Definition -> Int -> Float -> { x : String, y : String }
+formatLabel funit { unit } daysOfWear num =
+    let
+        inFunctionalUnit =
+            case funit of
+                Unit.PerDayOfWear ->
+                    num / toFloat daysOfWear
+
+                Unit.PerItem ->
+                    num
+    in
+    { x = Format.formatFloat 2 inFunctionalUnit ++ "\u{202F}" ++ unit
+    , y = Format.formatFloat 2 inFunctionalUnit
     }
 
 
-chart : Impact.Definition -> List Entry -> Html msg
-chart impact entries =
+chart : Unit.Functional -> Impact.Definition -> Int -> List Entry -> Html msg
+chart funit impact daysOfWear entries =
     let
         knitted =
             entries |> List.head |> Maybe.map .knitted |> Maybe.withDefault False
@@ -335,7 +334,7 @@ chart impact entries =
             ]
 
         xLabels =
-            [ C.binLabels (.score >> formatLabel impact >> .x)
+            [ C.binLabels (.score >> formatLabel funit impact daysOfWear >> .x)
                 [ CA.moveDown 23
                 , CA.color chartTextColor
                 , CA.rotate 12
@@ -348,7 +347,7 @@ chart impact entries =
                 [ CA.withGrid
                 , CA.fontSize 11
                 , CA.color chartTextColor
-                , CA.format (formatLabel impact >> .y)
+                , CA.format (formatLabel funit impact daysOfWear >> .y)
                 ]
             ]
 

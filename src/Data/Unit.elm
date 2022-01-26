@@ -16,6 +16,7 @@ module Data.Unit exposing
     , impact
     , impactPefScore
     , impactToFloat
+    , inFunctionalUnit
     , parseFunctional
     , ratio
     , ratioToFloat
@@ -145,6 +146,16 @@ decodeImpact =
 encodeImpact : Impact -> Encode.Value
 encodeImpact =
     impactToFloat >> Encode.float
+
+
+inFunctionalUnit : Functional -> Int -> Impact -> Impact
+inFunctionalUnit funit daysOfWear =
+    case funit of
+        PerItem ->
+            identity
+
+        PerDayOfWear ->
+            Quantity.divideBy (toFloat daysOfWear)
 
 
 
