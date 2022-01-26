@@ -22,7 +22,7 @@ import Views.Transport as TransportView
 type alias Config =
     { session : Session
     , impact : Impact.Definition
-    , functionalUnit : Unit.Functional
+    , funit : Unit.Functional
     , reusable : Bool
     }
 
@@ -98,7 +98,7 @@ summaryView { session, impact, reusable } ({ inputs, lifeCycle } as simulator) =
                         (inputs
                             |> Inputs.toQuery
                             |> Just
-                            |> Route.Simulator Impact.defaultTrigram
+                            |> Route.Simulator Impact.defaultTrigram Unit.PerItem
                         )
                     ]
                     [ text "Reprendre cette simulation" ]

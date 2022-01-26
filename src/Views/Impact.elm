@@ -125,8 +125,8 @@ impactSelector { impacts, selectedImpact, switchImpact } =
         ]
 
 
-functionalUnitSelector : SelectorConfig msg -> List (Html msg)
-functionalUnitSelector { selectedFunctionalUnit, switchFunctionalUnit } =
+funitSelector : SelectorConfig msg -> List (Html msg)
+funitSelector { selectedFunctionalUnit, switchFunctionalUnit } =
     [ ( Unit.PerItem, Icon.tShirt )
     , ( Unit.PerDayOfWear, Icon.day )
     ]
@@ -149,5 +149,5 @@ functionalUnitSelector { selectedFunctionalUnit, switchFunctionalUnit } =
 selector : SelectorConfig msg -> Html msg
 selector config =
     impactSelector config
-        :: functionalUnitSelector config
+        :: funitSelector config
         |> div [ class "input-group" ]

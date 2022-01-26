@@ -82,7 +82,10 @@ viewHero session =
                     [ text "Comprendre, contribuer et faire émerger des valeurs de référence" ]
                 , div [ class "row mb-4" ]
                     [ div [ class "col-md-6 text-center text-md-end py-2" ]
-                        [ a [ class "btn btn-lg btn-primary", Route.href (Route.Simulator Impact.defaultTrigram Nothing) ]
+                        [ a
+                            [ class "btn btn-lg btn-primary"
+                            , Route.href (Route.Simulator Impact.defaultTrigram Unit.PerItem Nothing)
+                            ]
                             [ text "Faire une simulation" ]
                         ]
                     , div [ class "col-md-6 text-center text-md-start py-2" ]
@@ -97,7 +100,7 @@ viewHero session =
                     |> SummaryView.view
                         { session = session
                         , impact = Impact.default
-                        , functionalUnit = Unit.PerItem
+                        , funit = Unit.PerItem
                         , reusable = False
                         }
                 ]

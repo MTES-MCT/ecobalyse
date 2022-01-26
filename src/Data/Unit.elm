@@ -11,10 +11,12 @@ module Data.Unit exposing
     , forKg
     , forKgAndDistance
     , forMJ
+    , functionalToSlug
     , functionalToString
     , impact
     , impactPefScore
     , impactToFloat
+    , parseFunctional
     , ratio
     , ratioToFloat
     , ratioedForKWh
@@ -28,6 +30,7 @@ import Json.Encode as Encode
 import Length exposing (Length)
 import Mass exposing (Mass)
 import Quantity exposing (Quantity(..))
+import Url.Parser as Parser exposing (Parser)
 
 
 type alias Qty unit =
@@ -51,6 +54,28 @@ functionalToString unit =
 
         PerItem ->
             "Vêtement"
+
+
+functionalToSlug : Functional -> String
+functionalToSlug funit =
+    case funit of
+        PerDayOfWear ->
+            "per-day"
+
+        PerItem ->
+            "per-item"
+
+
+parseFunctional : Parser (Functional -> a) a
+parseFunctional =
+    Parser.custom "FUNCTIONAL_UNIT" <|
+        \string ->
+            case string of
+                "per-day" ->
+                    Just PerDayOfWear
+
+                _ ->
+                    Just PerItem
 
 
 
