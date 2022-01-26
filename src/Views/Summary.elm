@@ -28,7 +28,7 @@ type alias Config =
 
 
 summaryView : Config -> Simulator -> Html msg
-summaryView { session, impact, reusable } ({ inputs, lifeCycle } as simulator) =
+summaryView { session, impact, funit, reusable } ({ inputs, lifeCycle } as simulator) =
     div [ class "card shadow-sm" ]
         [ div [ class "card-header text-white bg-primary d-flex justify-content-between" ]
             [ span [ class "text-nowrap" ] [ strong [] [ text inputs.product.name ] ]
@@ -45,9 +45,19 @@ summaryView { session, impact, reusable } ({ inputs, lifeCycle } as simulator) =
                     , class "SummaryProductImage invert me-2"
                     ]
                     []
-                , div [ class "display-5" ]
-                    [ simulator.impacts
-                        |> Format.formatImpact impact
+                , div [ class "SummaryScore d-flex flex-column" ]
+                    [ div [ class "display-5" ]
+                        [ simulator.impacts
+                            |> Format.formatImpact impact
+                        ]
+                    , small [ class "SummaryScoreFunit text-end" ]
+                        [ case funit of
+                            Unit.PerItem ->
+                                text "par vêtement"
+
+                            Unit.PerDayOfWear ->
+                                text "par jour porté"
+                        ]
                     ]
                 ]
             , inputs
