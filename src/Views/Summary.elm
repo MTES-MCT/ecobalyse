@@ -83,6 +83,7 @@ summaryView { session, impact, funit, reusable } ({ inputs, lifeCycle } as simul
             [ Comparator.view
                 { session = session
                 , impact = impact
+                , funit = funit
                 , simulator = simulator
                 }
             ]

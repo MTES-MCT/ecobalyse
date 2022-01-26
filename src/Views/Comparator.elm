@@ -26,6 +26,7 @@ import Views.Format as Format
 type alias Config =
     { session : Session
     , impact : Impact.Definition
+    , funit : Unit.Functional
     , simulator : Simulator
     }
 
@@ -135,8 +136,8 @@ toNonRecycledIndia query =
     )
 
 
-createEntry : Db -> Impact.Definition -> Bool -> ( String, Inputs.Query ) -> Result String Entry
-createEntry db { trigram } highlight ( label, query ) =
+createEntry : Db -> Unit.Functional -> Impact.Definition -> Bool -> ( String, Inputs.Query ) -> Result String Entry
+createEntry db funit { trigram } highlight ( label, query ) =
     let
         stepScore stepLabel lifeCycle =
             lifeCycle
@@ -146,7 +147,7 @@ createEntry db { trigram } highlight ( label, query ) =
                 |> Unit.impactToFloat
     in
     query
-        |> Simulator.compute db
+        |> Simulator.compute db funit
         |> Result.map
             (\({ lifeCycle, inputs, transport } as simulator) ->
                 { label = label
@@ -164,27 +165,30 @@ createEntry db { trigram } highlight ( label, query ) =
             )
 
 
-getEntries : Db -> Impact.Definition -> Inputs -> Result String (List Entry)
-getEntries db impact ({ material } as inputs) =
+getEntries : Db -> Unit.Functional -> Impact.Definition -> Inputs -> Result String (List Entry)
+getEntries db funit impact ({ material } as inputs) =
     let
         query =
             Inputs.toQuery inputs
 
+        createEntry_ =
+            createEntry db funit impact
+
         entries =
             if material.recycledProcess /= Nothing then
-                [ ( "Votre simulation", query ) |> createEntry db impact True -- user simulation
-                , query |> toRecycledFrance |> createEntry db impact False
-                , query |> toNonRecycledFrance |> createEntry db impact False
-                , query |> toPartiallyRecycledIndiaTurkey |> createEntry db impact False
-                , query |> toRecycledIndia |> createEntry db impact False
-                , query |> toNonRecycledIndia |> createEntry db impact False
+                [ ( "Votre simulation", query ) |> createEntry_ True -- user simulation
+                , query |> toRecycledFrance |> createEntry_ False
+                , query |> toNonRecycledFrance |> createEntry_ False
+                , query |> toPartiallyRecycledIndiaTurkey |> createEntry_ False
+                , query |> toRecycledIndia |> createEntry_ False
+                , query |> toNonRecycledIndia |> createEntry_ False
                 ]
 
             else
-                [ ( "Votre simulation", query ) |> createEntry db impact True -- user simulation
-                , query |> toNonRecycledFrance |> createEntry db impact False
-                , query |> toNonRecycledIndiaTurkey |> createEntry db impact False
-                , query |> toNonRecycledIndia |> createEntry db impact False
+                [ ( "Votre simulation", query ) |> createEntry_ True -- user simulation
+                , query |> toNonRecycledFrance |> createEntry_ False
+                , query |> toNonRecycledIndiaTurkey |> createEntry_ False
+                , query |> toNonRecycledIndia |> createEntry_ False
                 ]
     in
     entries
@@ -193,8 +197,8 @@ getEntries db impact ({ material } as inputs) =
 
 
 view : Config -> Html msg
-view { session, impact, simulator } =
-    case simulator.inputs |> getEntries session.db impact of
+view { session, impact, funit, simulator } =
+    case simulator.inputs |> getEntries session.db funit impact of
         Ok entries ->
             chart impact entries
 

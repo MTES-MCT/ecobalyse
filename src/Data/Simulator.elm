@@ -12,6 +12,7 @@ import Data.LifeCycle as LifeCycle exposing (LifeCycle)
 import Data.Process as Process
 import Data.Step as Step exposing (Step)
 import Data.Transport as Transport exposing (Transport)
+import Data.Unit as Unit
 import Json.Encode as Encode
 import Quantity
 import Route exposing (Route(..))
@@ -58,8 +59,8 @@ init db =
 
 {-| Computes a single impact.
 -}
-compute : Db -> Inputs.Query -> Result String Simulator
-compute db query =
+compute : Db -> Unit.Functional -> Inputs.Query -> Result String Simulator
+compute db funit query =
     let
         next fn =
             Result.map fn
