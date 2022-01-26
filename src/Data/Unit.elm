@@ -30,6 +30,10 @@ import Mass exposing (Mass)
 import Quantity exposing (Quantity(..))
 
 
+type alias Qty unit =
+    Quantity Float unit
+
+
 
 -- Functional unit
 
@@ -122,7 +126,7 @@ encodeImpact =
 -- Generic helpers
 
 
-forKg : Quantity Float unit -> Mass -> Quantity Float unit
+forKg : Qty unit -> Mass -> Qty unit
 forKg forOneKg =
     -- ref: https://github.com/ianmackenzie/elm-units/blob/master/doc/CustomUnits.md
     forOneKg
@@ -130,7 +134,7 @@ forKg forOneKg =
         |> Quantity.at
 
 
-forKgAndDistance : Quantity Float unit -> Length -> Mass -> Quantity Float unit
+forKgAndDistance : Qty unit -> Length -> Mass -> Qty unit
 forKgAndDistance cc distance mass =
     -- Note: unit rate is for transported tons per km.
     mass
@@ -139,14 +143,14 @@ forKgAndDistance cc distance mass =
         |> Quantity.multiplyBy (Length.inKilometers distance)
 
 
-forKWh : Quantity Float unit -> Energy -> Quantity Float unit
+forKWh : Qty unit -> Energy -> Qty unit
 forKWh forOneKWh =
     forOneKWh
         |> Quantity.per (Energy.kilowattHours 1)
         |> Quantity.at
 
 
-forMJ : Quantity Float unit -> Energy -> Quantity Float unit
+forMJ : Qty unit -> Energy -> Qty unit
 forMJ forOneMJ =
     forOneMJ
         |> Quantity.per (Energy.megajoules 1)
@@ -154,11 +158,11 @@ forMJ forOneMJ =
 
 
 ratioed :
-    (Quantity Float unit -> a -> Quantity Float unit)
-    -> ( Quantity Float unit, Quantity Float unit )
+    (Qty unit -> a -> Qty unit)
+    -> ( Qty unit, Qty unit )
     -> Ratio
     -> a
-    -> Quantity Float unit
+    -> Qty unit
 ratioed for ( a, b ) (Ratio ratio_) input =
     Quantity.sum
         [ input |> for a |> Quantity.multiplyBy ratio_
@@ -166,16 +170,16 @@ ratioed for ( a, b ) (Ratio ratio_) input =
         ]
 
 
-ratioedForKg : ( Quantity Float unit, Quantity Float unit ) -> Ratio -> Mass -> Quantity Float unit
+ratioedForKg : ( Qty unit, Qty unit ) -> Ratio -> Mass -> Qty unit
 ratioedForKg =
     ratioed forKg
 
 
-ratioedForKWh : ( Quantity Float unit, Quantity Float unit ) -> Ratio -> Energy -> Quantity Float unit
+ratioedForKWh : ( Qty unit, Qty unit ) -> Ratio -> Energy -> Qty unit
 ratioedForKWh =
     ratioed forKWh
 
 
-ratioedForMJ : ( Quantity Float unit, Quantity Float unit ) -> Ratio -> Energy -> Quantity Float unit
+ratioedForMJ : ( Qty unit, Qty unit ) -> Ratio -> Energy -> Qty unit
 ratioedForMJ =
     ratioed forMJ

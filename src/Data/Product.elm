@@ -1,6 +1,7 @@
 module Data.Product exposing
     ( Id(..)
     , Product
+    , customDaysOfWear
     , decodeList
     , encode
     , findById
@@ -127,3 +128,14 @@ encode v =
         , ( "useNonIroningProcessUuid", Process.encodeUuid v.useNonIroningProcess.uuid )
         , ( "daysOfWear", Encode.float (Duration.inDays v.daysOfWear) )
         ]
+
+
+{-| Computes the number of wears for a custom number of maintainance cycles.
+-}
+customDaysOfWear : Int -> { product | daysOfWear : Duration, useDefaultNbCycles : Int } -> Float
+customDaysOfWear useCustomNbCycles { daysOfWear, useDefaultNbCycles } =
+    let
+        nbWearsBeforeWash =
+            Duration.inDays daysOfWear / toFloat useDefaultNbCycles
+    in
+    nbWearsBeforeWash * toFloat useCustomNbCycles
