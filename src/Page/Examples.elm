@@ -52,7 +52,7 @@ update session msg model =
 viewExample : Session -> Unit.Functional -> Impact.Trigram -> Inputs.Query -> Html msg
 viewExample session funit impact query =
     query
-        |> Simulator.compute session.db funit
+        |> Simulator.compute session.db
         |> SummaryView.view
             { session = session
             , impact =

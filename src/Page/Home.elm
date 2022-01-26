@@ -96,7 +96,7 @@ viewHero session =
                 ]
             , div [ class "col-lg-5" ]
                 [ Inputs.tShirtCotonFrance
-                    |> Simulator.compute session.db Unit.PerItem
+                    |> Simulator.compute session.db
                     |> SummaryView.view
                         { session = session
                         , impact = Impact.default

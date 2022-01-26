@@ -7,6 +7,7 @@ import Data.Db exposing (Db)
 import Data.Impact as Impact
 import Data.Inputs as Inputs exposing (Inputs)
 import Data.LifeCycle as LifeCycle
+import Data.Product as Product
 import Data.Session exposing (Session)
 import Data.Simulator as Simulator exposing (Simulator)
 import Data.Step as Step
@@ -138,28 +139,38 @@ toNonRecycledIndia query =
 
 createEntry : Db -> Unit.Functional -> Impact.Definition -> Bool -> ( String, Inputs.Query ) -> Result String Entry
 createEntry db funit { trigram } highlight ( label, query ) =
-    let
-        stepScore stepLabel lifeCycle =
-            lifeCycle
-                |> LifeCycle.getStepProp stepLabel
-                    (.impacts >> Impact.getImpact trigram)
-                    Quantity.zero
-                |> Unit.impactToFloat
-    in
     query
-        |> Simulator.compute db funit
+        |> Simulator.compute db
         |> Result.map
             (\({ lifeCycle, inputs, transport } as simulator) ->
+                let
+                    daysOfWear =
+                        case funit of
+                            Unit.PerDayOfWear ->
+                                inputs.product
+                                    |> Product.customDaysOfWear inputs.useNbCycles
+
+                            Unit.PerItem ->
+                                1
+
+                    stepScore stepLabel =
+                        lifeCycle
+                            |> LifeCycle.getStepProp stepLabel
+                                (.impacts >> Impact.getImpact trigram)
+                                Quantity.zero
+                            |> Quantity.divideBy (toFloat daysOfWear)
+                            |> Unit.impactToFloat
+                in
                 { label = label
                 , highlight = highlight
                 , knitted = inputs.product.knitted
                 , score = Impact.grabImpactFloat trigram simulator
-                , materialAndSpinning = lifeCycle |> stepScore Step.MaterialAndSpinning
-                , weavingKnitting = lifeCycle |> stepScore Step.WeavingKnitting
-                , dyeing = lifeCycle |> stepScore Step.Ennoblement
-                , making = lifeCycle |> stepScore Step.Making
-                , use = lifeCycle |> stepScore Step.Use
-                , endOfLife = lifeCycle |> stepScore Step.EndOfLife
+                , materialAndSpinning = stepScore Step.MaterialAndSpinning
+                , weavingKnitting = stepScore Step.WeavingKnitting
+                , dyeing = stepScore Step.Ennoblement
+                , making = stepScore Step.Making
+                , use = stepScore Step.Use
+                , endOfLife = stepScore Step.EndOfLife
                 , transport = Impact.grabImpactFloat trigram transport
                 }
             )

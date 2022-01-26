@@ -149,7 +149,7 @@ init trigram funit maybeQuery ({ db } as session) =
                 |> Maybe.withDefault Inputs.defaultQuery
 
         simulator =
-            Simulator.compute db funit query
+            Simulator.compute db query
     in
     ( { simulator = simulator
       , massInput = query.mass |> Mass.inKilograms |> String.fromFloat
@@ -187,7 +187,7 @@ updateQuery : Inputs.Query -> ( Model, Session, Cmd Msg ) -> ( Model, Session, C
 updateQuery query ( model, session, msg ) =
     ( { model
         | query = query
-        , simulator = Simulator.compute session.db model.funit query
+        , simulator = Simulator.compute session.db query
         , customCountryMixInputs = toCustomCountryMixFormInputs query.customCountryMixes
       }
     , session

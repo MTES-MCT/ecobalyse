@@ -8,7 +8,6 @@ import Data.Db as Db exposing (Db)
 import Data.Impact as Impact
 import Data.Inputs as Inputs
 import Data.Simulator as Simulator exposing (Simulator)
-import Data.Unit as Unit
 import Json.Encode as Encode
 import Server.Query as Query
 import Server.Request exposing (Request)
@@ -92,9 +91,9 @@ toSingleImpactSimple trigram { inputs, impacts } =
         ]
 
 
-executeQuery : Db -> Unit.Functional -> Request -> (Simulator -> Encode.Value) -> Inputs.Query -> Cmd Msg
-executeQuery db funit request encoder =
-    Simulator.compute db funit
+executeQuery : Db -> Request -> (Simulator -> Encode.Value) -> Inputs.Query -> Cmd Msg
+executeQuery db request encoder =
+    Simulator.compute db
         >> Result.map encoder
         >> toResponse request
 
@@ -103,21 +102,21 @@ handleRequest : Db -> Request -> Cmd Msg
 handleRequest db request =
     case Route.endpoint db request of
         Just (Route.Get (Route.Simulator (Ok query))) ->
-            query |> executeQuery db Unit.PerItem request toAllImpactsSimple
+            query |> executeQuery db request toAllImpactsSimple
 
         Just (Route.Get (Route.Simulator (Err errors))) ->
             Query.encodeErrors errors
                 |> sendResponse 400 request
 
         Just (Route.Get (Route.SimulatorDetailed (Ok query))) ->
-            query |> executeQuery db Unit.PerItem request Simulator.encode
+            query |> executeQuery db request Simulator.encode
 
         Just (Route.Get (Route.SimulatorDetailed (Err errors))) ->
             Query.encodeErrors errors
                 |> sendResponse 400 request
 
         Just (Route.Get (Route.SimulatorSingle trigram (Ok query))) ->
-            query |> executeQuery db Unit.PerItem request (toSingleImpactSimple trigram)
+            query |> executeQuery db request (toSingleImpactSimple trigram)
 
         Just (Route.Get (Route.SimulatorSingle _ (Err errors))) ->
             Query.encodeErrors errors

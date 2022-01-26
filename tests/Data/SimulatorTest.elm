@@ -15,7 +15,7 @@ import TestUtils exposing (asTest)
 
 expectImpact : Db -> Impact.Trigram -> Float -> Inputs.Query -> Expectation
 expectImpact db trigram cch query =
-    case Simulator.compute db Unit.PerItem query of
+    case Simulator.compute db query of
         Ok simulator ->
             simulator.impacts
                 |> Impact.getImpact trigram

@@ -12,7 +12,6 @@ import Data.LifeCycle as LifeCycle exposing (LifeCycle)
 import Data.Process as Process
 import Data.Step as Step exposing (Step)
 import Data.Transport as Transport exposing (Transport)
-import Data.Unit as Unit
 import Json.Encode as Encode
 import Quantity
 import Route exposing (Route(..))
@@ -59,8 +58,8 @@ init db =
 
 {-| Computes a single impact.
 -}
-compute : Db -> Unit.Functional -> Inputs.Query -> Result String Simulator
-compute db funit query =
+compute : Db -> Inputs.Query -> Result String Simulator
+compute db query =
     let
         next fn =
             Result.map fn
@@ -111,21 +110,6 @@ compute db funit query =
         -- Final impacts
         --
         |> next (computeFinalImpacts db)
-        --
-        -- Functional unit conversion
-        --
-        |> next (convertFunctionalUnit funit)
-
-
-convertFunctionalUnit : Unit.Functional -> Simulator -> Simulator
-convertFunctionalUnit funit simulator =
-    case funit of
-        Unit.PerItem ->
-            simulator
-
-        Unit.PerDayOfWear ->
-            -- TODO: get product days of wear, divide *all* impacts by this number
-            simulator
 
 
 initializeFinalMass : Simulator -> Simulator
