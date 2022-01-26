@@ -5,6 +5,7 @@ import Data.Db exposing (Db)
 import Data.Gitbook as Gitbook
 import Data.Impact as Impact
 import Data.Inputs exposing (Inputs)
+import Data.Product as Product
 import Data.Step as Step exposing (Step)
 import Data.Transport as Transport
 import Data.Unit as Unit
@@ -295,7 +296,15 @@ detailedView ({ inputs, impact, index, next, current } as config) =
 
                 Step.Use ->
                     div [ class "card-body py-2 text-muted" ]
-                        [ useNbCyclesField config ]
+                        [ useNbCyclesField config
+                        , small [ class "fs-7" ]
+                            [ text "Nombre de jours portés\u{00A0}: "
+                            , inputs.product
+                                |> Product.customDaysOfWear inputs.useNbCycles
+                                |> String.fromInt
+                                |> text
+                            ]
+                        ]
 
                 _ ->
                     text ""
