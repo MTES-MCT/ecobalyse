@@ -136,6 +136,7 @@ customDaysOfWear : Int -> { product | daysOfWear : Duration, useDefaultNbCycles 
 customDaysOfWear useCustomNbCycles { daysOfWear, useDefaultNbCycles } =
     let
         nbWearsBeforeWash =
-            Duration.inDays daysOfWear / toFloat useDefaultNbCycles
+            Duration.inDays daysOfWear
+                / toFloat (clamp 1 useDefaultNbCycles useDefaultNbCycles)
     in
     nbWearsBeforeWash * toFloat useCustomNbCycles

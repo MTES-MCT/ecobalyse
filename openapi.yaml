@@ -280,7 +280,7 @@ components:
       style: form
       schema:
         type: number
-        minimum: 0
+        minimum: 1
         maximum: 100
   schemas:
     InvalidParametersError:

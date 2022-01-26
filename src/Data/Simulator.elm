@@ -111,6 +111,21 @@ compute db funit query =
         -- Final impacts
         --
         |> next (computeFinalImpacts db)
+        --
+        -- Functional unit conversion
+        --
+        |> next (convertFunctionalUnit funit)
+
+
+convertFunctionalUnit : Unit.Functional -> Simulator -> Simulator
+convertFunctionalUnit funit simulator =
+    case funit of
+        Unit.PerItem ->
+            simulator
+
+        Unit.PerDayOfWear ->
+            -- TODO: get product days of wear, divide *all* impacts by this number
+            simulator
 
 
 initializeFinalMass : Simulator -> Simulator

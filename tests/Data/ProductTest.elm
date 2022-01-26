@@ -7,12 +7,17 @@ import Test exposing (..)
 import TestUtils exposing (asTest)
 
 
-suite : List Test
+suite : Test
 suite =
-    [ describe "customDaysOfWear"
-        [ { daysOfWear = Duration.days 100, useDefaultNbCycles = 5 }
-            |> Product.customDaysOfWear 10
-            |> Expect.equal 200
-            |> asTest "should compute custom number of days of wear"
+    describe "Data.Product"
+        [ describe "customDaysOfWear"
+            [ { daysOfWear = Duration.days 100, useDefaultNbCycles = 5 }
+                |> Product.customDaysOfWear 10
+                |> Expect.equal 200
+                |> asTest "should compute custom number of days of wear"
+            , { daysOfWear = Duration.days 100, useDefaultNbCycles = 0 }
+                |> Product.customDaysOfWear 10
+                |> Expect.within (Expect.Absolute 0.01) 1000
+                |> asTest "should compute custom number of days of wear when custom use cycles is 0"
+            ]
         ]
-    ]

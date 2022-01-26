@@ -116,7 +116,7 @@ useNbCyclesField : Config msg -> Html msg
 useNbCyclesField { current, updateUseNbCycles } =
     RangeSlider.int
         { id = "useNbCycles"
-        , min = 0
+        , min = 1
         , max = 100
         , step = 1
         , update = updateUseNbCycles
