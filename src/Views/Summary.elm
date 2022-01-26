@@ -48,7 +48,7 @@ summaryView { session, impact, funit, reusable } ({ inputs, lifeCycle } as simul
                 , div [ class "SummaryScore d-flex flex-column" ]
                     [ div [ class "display-5" ]
                         [ simulator.impacts
-                            |> Format.formatImpact impact
+                            |> Format.formatImpact funit impact simulator.daysOfWear
                         ]
                     , small [ class "SummaryScoreFunit text-end" ]
                         [ case funit of

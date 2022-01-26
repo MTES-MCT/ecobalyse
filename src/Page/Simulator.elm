@@ -465,7 +465,7 @@ downArrow =
 
 
 lifeCycleStepsView : Db -> Model -> Simulator -> Html Msg
-lifeCycleStepsView db { displayMode, impact } simulator =
+lifeCycleStepsView db { displayMode, funit, impact } simulator =
     simulator.lifeCycle
         |> Array.indexedMap
             (\index current ->
@@ -474,6 +474,8 @@ lifeCycleStepsView db { displayMode, impact } simulator =
                     , inputs = simulator.inputs
                     , detailed = displayMode == DetailedMode
                     , impact = impact
+                    , funit = funit
+                    , daysOfWear = simulator.daysOfWear
                     , index = index
                     , current = current
                     , next = Array.get (index + 1) simulator.lifeCycle

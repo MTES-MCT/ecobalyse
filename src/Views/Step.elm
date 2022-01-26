@@ -23,8 +23,10 @@ import Views.Transport as TransportView
 type alias Config msg =
     { db : Db
     , inputs : Inputs
+    , daysOfWear : Int
     , detailed : Bool
     , impact : Impact.Definition
+    , funit : Unit.Functional
     , index : Int
     , current : Step
     , next : Maybe Step
@@ -142,7 +144,7 @@ stepDocumentationLink { openDocModal } label =
 
 
 simpleView : Config msg -> Html msg
-simpleView ({ inputs, impact, index, current } as config) =
+simpleView ({ funit, inputs, daysOfWear, impact, index, current } as config) =
     div [ class "card" ]
         [ div [ class "card-header" ]
             [ div [ class "row" ]
@@ -179,7 +181,7 @@ simpleView ({ inputs, impact, index, current } as config) =
                     [ if current.label /= Step.Distribution then
                         div [ class "fs-3 fw-normal text-secondary" ]
                             [ current.impacts
-                                |> Format.formatImpact impact
+                                |> Format.formatImpact funit impact daysOfWear
                             ]
 
                       else
@@ -188,7 +190,7 @@ simpleView ({ inputs, impact, index, current } as config) =
                         [ span [ class "me-1 align-bottom" ] [ Icon.info ]
                         , text "Transport\u{00A0}"
                         , current.transport.impacts
-                            |> Format.formatImpact impact
+                            |> Format.formatImpact funit impact daysOfWear
                         ]
                     ]
                 ]
@@ -207,7 +209,7 @@ truncatableProcessDescription description =
 
 
 detailedView : Config msg -> Html msg
-detailedView ({ inputs, impact, index, next, current } as config) =
+detailedView ({ inputs, funit, impact, daysOfWear, index, next, current } as config) =
     let
         transportLabel =
             case next of
@@ -315,7 +317,7 @@ detailedView ({ inputs, impact, index, next, current } as config) =
                 [ if (current.impacts |> Impact.getImpact impact.trigram |> Unit.impactToFloat) > 0 then
                     span [ class "fw-bold" ]
                         [ current.impacts
-                            |> Format.formatImpact impact
+                            |> Format.formatImpact funit impact daysOfWear
                         ]
 
                   else
@@ -364,7 +366,7 @@ detailedView ({ inputs, impact, index, next, current } as config) =
                         [ div [ class "d-flex justify-content-center align-items-center" ]
                             [ strong [] [ text <| transportLabel ++ "\u{00A0}:\u{00A0}" ]
                             , current.transport.impacts
-                                |> Format.formatImpact impact
+                                |> Format.formatImpact funit impact daysOfWear
                             , inlineDocumentationLink config Gitbook.Transport
                             ]
                         ]

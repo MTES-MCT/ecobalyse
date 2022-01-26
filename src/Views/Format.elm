@@ -27,10 +27,11 @@ import Length exposing (Length)
 import Mass exposing (Mass)
 
 
-formatImpact : Impact.Definition -> Impacts -> Html msg
-formatImpact { trigram, unit } def =
+formatImpact : Unit.Functional -> Impact.Definition -> Int -> Impacts -> Html msg
+formatImpact funit { trigram, unit } daysOfWear def =
     def
         |> Impact.getImpact trigram
+        |> Unit.inFunctionalUnit funit daysOfWear
         |> Unit.impactToFloat
         |> formatRichFloat 2 unit
 
