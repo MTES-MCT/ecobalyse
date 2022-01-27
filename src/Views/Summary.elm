@@ -57,7 +57,7 @@ summaryView { session, impact, funit, reusable } ({ inputs, lifeCycle } as simul
                                 text "par vêtement"
 
                             Unit.PerDayOfWear ->
-                                text "par jour"
+                                text "par jour d'utilisation"
                         ]
                     ]
                 ]
