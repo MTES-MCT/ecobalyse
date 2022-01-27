@@ -125,8 +125,8 @@ setRoute maybeRoute ( { session } as model, cmds ) =
             Explore.init dataset session
                 |> toPage ExplorePage ExploreMsg
 
-        Just (Route.Simulator trigram maybeQuery) ->
-            Simulator.init trigram maybeQuery session
+        Just (Route.Simulator trigram funit maybeQuery) ->
+            Simulator.init trigram funit maybeQuery session
                 |> toPage SimulatorPage SimulatorMsg
 
         Just Route.Stats ->

@@ -1,5 +1,6 @@
 module Data.Unit exposing
-    ( Impact
+    ( Functional(..)
+    , Impact
     , ImpactUnit(..)
     , Ratio(..)
     , decodeImpact
@@ -10,9 +11,13 @@ module Data.Unit exposing
     , forKg
     , forKgAndDistance
     , forMJ
+    , functionalToSlug
+    , functionalToString
     , impact
     , impactPefScore
     , impactToFloat
+    , inFunctionalUnit
+    , parseFunctional
     , ratio
     , ratioToFloat
     , ratioedForKWh
@@ -20,12 +25,59 @@ module Data.Unit exposing
     , ratioedForMJ
     )
 
+import Duration exposing (Duration)
 import Energy exposing (Energy)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
 import Length exposing (Length)
 import Mass exposing (Mass)
 import Quantity exposing (Quantity(..))
+import Url.Parser as Parser exposing (Parser)
+
+
+type alias Qty unit =
+    Quantity Float unit
+
+
+
+-- Functional unit
+
+
+type Functional
+    = PerDayOfWear
+    | PerItem
+
+
+functionalToString : Functional -> String
+functionalToString funit =
+    case funit of
+        PerDayOfWear ->
+            "par jour d'utilisation"
+
+        PerItem ->
+            "par vêtement"
+
+
+functionalToSlug : Functional -> String
+functionalToSlug funit =
+    case funit of
+        PerDayOfWear ->
+            "per-day"
+
+        PerItem ->
+            "per-item"
+
+
+parseFunctional : Parser (Functional -> a) a
+parseFunctional =
+    Parser.custom "FUNCTIONAL_UNIT" <|
+        \string ->
+            case string of
+                "per-day" ->
+                    Just PerDayOfWear
+
+                _ ->
+                    Just PerItem
 
 
 
@@ -97,11 +149,21 @@ encodeImpact =
     impactToFloat >> Encode.float
 
 
+inFunctionalUnit : Functional -> Duration -> Impact -> Impact
+inFunctionalUnit funit daysOfWear =
+    case funit of
+        PerItem ->
+            identity
+
+        PerDayOfWear ->
+            Quantity.divideBy (Duration.inDays daysOfWear)
+
+
 
 -- Generic helpers
 
 
-forKg : Quantity Float unit -> Mass -> Quantity Float unit
+forKg : Qty unit -> Mass -> Qty unit
 forKg forOneKg =
     -- ref: https://github.com/ianmackenzie/elm-units/blob/master/doc/CustomUnits.md
     forOneKg
@@ -109,7 +171,7 @@ forKg forOneKg =
         |> Quantity.at
 
 
-forKgAndDistance : Quantity Float unit -> Length -> Mass -> Quantity Float unit
+forKgAndDistance : Qty unit -> Length -> Mass -> Qty unit
 forKgAndDistance cc distance mass =
     -- Note: unit rate is for transported tons per km.
     mass
@@ -118,14 +180,14 @@ forKgAndDistance cc distance mass =
         |> Quantity.multiplyBy (Length.inKilometers distance)
 
 
-forKWh : Quantity Float unit -> Energy -> Quantity Float unit
+forKWh : Qty unit -> Energy -> Qty unit
 forKWh forOneKWh =
     forOneKWh
         |> Quantity.per (Energy.kilowattHours 1)
         |> Quantity.at
 
 
-forMJ : Quantity Float unit -> Energy -> Quantity Float unit
+forMJ : Qty unit -> Energy -> Qty unit
 forMJ forOneMJ =
     forOneMJ
         |> Quantity.per (Energy.megajoules 1)
@@ -133,11 +195,11 @@ forMJ forOneMJ =
 
 
 ratioed :
-    (Quantity Float unit -> a -> Quantity Float unit)
-    -> ( Quantity Float unit, Quantity Float unit )
+    (Qty unit -> a -> Qty unit)
+    -> ( Qty unit, Qty unit )
     -> Ratio
     -> a
-    -> Quantity Float unit
+    -> Qty unit
 ratioed for ( a, b ) (Ratio ratio_) input =
     Quantity.sum
         [ input |> for a |> Quantity.multiplyBy ratio_
@@ -145,16 +207,16 @@ ratioed for ( a, b ) (Ratio ratio_) input =
         ]
 
 
-ratioedForKg : ( Quantity Float unit, Quantity Float unit ) -> Ratio -> Mass -> Quantity Float unit
+ratioedForKg : ( Qty unit, Qty unit ) -> Ratio -> Mass -> Qty unit
 ratioedForKg =
     ratioed forKg
 
 
-ratioedForKWh : ( Quantity Float unit, Quantity Float unit ) -> Ratio -> Energy -> Quantity Float unit
+ratioedForKWh : ( Qty unit, Qty unit ) -> Ratio -> Energy -> Qty unit
 ratioedForKWh =
     ratioed forKWh
 
 
-ratioedForMJ : ( Quantity Float unit, Quantity Float unit ) -> Ratio -> Energy -> Quantity Float unit
+ratioedForMJ : ( Qty unit, Qty unit ) -> Ratio -> Energy -> Qty unit
 ratioedForMJ =
     ratioed forMJ

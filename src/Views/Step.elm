@@ -5,9 +5,11 @@ import Data.Db exposing (Db)
 import Data.Gitbook as Gitbook
 import Data.Impact as Impact
 import Data.Inputs exposing (Inputs)
+import Data.Product as Product
 import Data.Step as Step exposing (Step)
 import Data.Transport as Transport
 import Data.Unit as Unit
+import Duration exposing (Duration)
 import Energy
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -22,8 +24,10 @@ import Views.Transport as TransportView
 type alias Config msg =
     { db : Db
     , inputs : Inputs
+    , daysOfWear : Duration
     , detailed : Bool
     , impact : Impact.Definition
+    , funit : Unit.Functional
     , index : Int
     , current : Step
     , next : Maybe Step
@@ -116,7 +120,7 @@ useNbCyclesField : Config msg -> Html msg
 useNbCyclesField { current, updateUseNbCycles } =
     RangeSlider.int
         { id = "useNbCycles"
-        , min = 0
+        , min = 1
         , max = 100
         , step = 1
         , update = updateUseNbCycles
@@ -141,7 +145,7 @@ stepDocumentationLink { openDocModal } label =
 
 
 simpleView : Config msg -> Html msg
-simpleView ({ inputs, impact, index, current } as config) =
+simpleView ({ funit, inputs, daysOfWear, impact, index, current } as config) =
     div [ class "card" ]
         [ div [ class "card-header" ]
             [ div [ class "row" ]
@@ -177,7 +181,8 @@ simpleView ({ inputs, impact, index, current } as config) =
                 [ div []
                     [ if current.label /= Step.Distribution then
                         div [ class "fs-3 fw-normal text-secondary" ]
-                            [ current.impacts |> Format.formatImpact impact
+                            [ current.impacts
+                                |> Format.formatImpact funit impact daysOfWear
                             ]
 
                       else
@@ -185,7 +190,8 @@ simpleView ({ inputs, impact, index, current } as config) =
                     , div [ class "fs-7" ]
                         [ span [ class "me-1 align-bottom" ] [ Icon.info ]
                         , text "Transport\u{00A0}"
-                        , current.transport.impacts |> Format.formatImpact impact
+                        , current.transport.impacts
+                            |> Format.formatImpact funit impact daysOfWear
                         ]
                     ]
                 ]
@@ -204,7 +210,7 @@ truncatableProcessDescription description =
 
 
 detailedView : Config msg -> Html msg
-detailedView ({ inputs, impact, index, next, current } as config) =
+detailedView ({ inputs, funit, impact, daysOfWear, index, next, current } as config) =
     let
         transportLabel =
             case next of
@@ -293,7 +299,14 @@ detailedView ({ inputs, impact, index, next, current } as config) =
 
                 Step.Use ->
                     div [ class "card-body py-2 text-muted" ]
-                        [ useNbCyclesField config ]
+                        [ useNbCyclesField config
+                        , small [ class "fs-7" ]
+                            [ text "Nombre de jours portés\u{00A0}: "
+                            , inputs.product
+                                |> Product.customDaysOfWear inputs.useNbCycles
+                                |> Format.days
+                            ]
+                        ]
 
                 _ ->
                     text ""
@@ -303,7 +316,9 @@ detailedView ({ inputs, impact, index, next, current } as config) =
             [ div [ class "card-header text-muted" ]
                 [ if (current.impacts |> Impact.getImpact impact.trigram |> Unit.impactToFloat) > 0 then
                     span [ class "fw-bold" ]
-                        [ current.impacts |> Format.formatImpact impact ]
+                        [ current.impacts
+                            |> Format.formatImpact funit impact daysOfWear
+                        ]
 
                   else
                     text "\u{00A0}"
@@ -350,7 +365,8 @@ detailedView ({ inputs, impact, index, next, current } as config) =
                     li [ class "list-group-item text-muted" ]
                         [ div [ class "d-flex justify-content-center align-items-center" ]
                             [ strong [] [ text <| transportLabel ++ "\u{00A0}:\u{00A0}" ]
-                            , current.transport.impacts |> Format.formatImpact impact
+                            , current.transport.impacts
+                                |> Format.formatImpact funit impact daysOfWear
                             , inlineDocumentationLink config Gitbook.Transport
                             ]
                         ]

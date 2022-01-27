@@ -10,6 +10,7 @@ import Data.Impact as Impact
 import Data.Inputs as Inputs
 import Data.Session exposing (Session)
 import Data.Simulator as Simulator
+import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Views.Container as Container
@@ -18,16 +19,21 @@ import Views.Summary as SummaryView
 
 
 type alias Model =
-    { impact : Impact.Trigram }
+    { impact : Impact.Trigram
+    , funit : Unit.Functional
+    }
 
 
 type Msg
     = SwitchImpact Impact.Trigram
+    | SwitchFunctionalUnit Unit.Functional
 
 
 init : Session -> ( Model, Session, Cmd Msg )
 init session =
-    ( { impact = Impact.trg "cch" }
+    ( { impact = Impact.trg "cch"
+      , funit = Unit.PerItem
+      }
     , session
     , Cmd.none
     )
@@ -39,9 +45,27 @@ update session msg model =
         SwitchImpact impact ->
             ( { model | impact = impact }, session, Cmd.none )
 
+        SwitchFunctionalUnit funit ->
+            ( { model | funit = funit }, session, Cmd.none )
+
+
+viewExample : Session -> Unit.Functional -> Impact.Trigram -> Inputs.Query -> Html msg
+viewExample session funit impact query =
+    query
+        |> Simulator.compute session.db
+        |> SummaryView.view
+            { session = session
+            , impact =
+                Impact.getDefinition impact session.db.impacts
+                    |> Result.withDefault Impact.default
+            , funit = funit
+            , reusable = True
+            }
+        |> (\v -> div [ class "col" ] [ v ])
+
 
 viewExamples : Session -> Model -> Html Msg
-viewExamples session { impact } =
+viewExamples session { impact, funit } =
     div []
         [ div [ class "row" ]
             [ div [ class "col-md-7 col-lg-8 col-xl-9" ]
@@ -50,8 +74,10 @@ viewExamples session { impact } =
             , div [ class "col-md-5 col-lg-4 col-xl-3 text-center text-md-end" ]
                 [ ImpactView.selector
                     { impacts = session.db.impacts
-                    , selected = impact
-                    , switch = SwitchImpact
+                    , selectedImpact = impact
+                    , switchImpact = SwitchImpact
+                    , selectedFunctionalUnit = funit
+                    , switchFunctionalUnit = SwitchFunctionalUnit
                     }
                 ]
             ]
@@ -60,17 +86,7 @@ viewExamples session { impact } =
             |> Result.map ImpactView.viewDefinition
             |> Result.withDefault (text "")
         , Inputs.presets
-            |> List.map
-                (Simulator.compute session.db
-                    >> SummaryView.view
-                        { session = session
-                        , impact =
-                            Impact.getDefinition impact session.db.impacts
-                                |> Result.withDefault Impact.default
-                        , reusable = True
-                        }
-                    >> (\v -> div [ class "col" ] [ v ])
-                )
+            |> List.map (viewExample session funit impact)
             |> div [ class "row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4" ]
         ]
 

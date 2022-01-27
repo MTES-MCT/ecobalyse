@@ -430,8 +430,8 @@ blockquote {
 
 .Summary {
   &ProductImage {
-    width: 3.5em;
-    height: 3.5em;
+    width: 4.35em;
+    height: 4.35em;
   }
 
   @media screen and (max-width: $viewport-sm) {
@@ -442,8 +442,8 @@ blockquote {
     right: 0;
 
     &ProductImage {
-      width: 2em;
-      height: 2em;
+      width: 3.2em;
+      height: 3.2em;
     }
 
     .card {
@@ -458,6 +458,12 @@ blockquote {
 
     .card-header {
       color: red;
+    }
+  }
+
+  &Score {
+    &Funit {
+      margin-top: -5px;
     }
   }
 }

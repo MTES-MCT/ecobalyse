@@ -6,6 +6,7 @@ import Data.LifeCycle as LifeCycle
 import Data.Material as Material
 import Data.Session exposing (Session)
 import Data.Simulator exposing (Simulator)
+import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Route exposing (Route(..))
@@ -21,19 +22,21 @@ import Views.Transport as TransportView
 type alias Config =
     { session : Session
     , impact : Impact.Definition
+    , funit : Unit.Functional
     , reusable : Bool
     }
 
 
 summaryView : Config -> Simulator -> Html msg
-summaryView { session, impact, reusable } ({ inputs, lifeCycle } as simulator) =
+summaryView { session, impact, funit, reusable } ({ inputs, lifeCycle } as simulator) =
     div [ class "card shadow-sm" ]
         [ div [ class "card-header text-white bg-primary d-flex justify-content-between" ]
             [ span [ class "text-nowrap" ] [ strong [] [ text inputs.product.name ] ]
             , span
                 [ class "text-truncate", title inputs.material.name ]
                 [ text <| "\u{00A0}" ++ Material.fullName inputs.recycledRatio inputs.material ++ "\u{00A0}" ]
-            , span [ class "text-nowrap" ] [ strong [] [ Format.kg inputs.mass ] ]
+            , span [ class "text-nowrap" ] [ Format.kg inputs.mass ]
+            , span [ class "text-nowrap" ] [ Icon.day, Format.days simulator.daysOfWear ]
             ]
         , div [ class "card-body px-1 d-grid gap-3 text-white bg-primary" ]
             [ div [ class "d-flex justify-content-center align-items-center" ]
@@ -43,8 +46,16 @@ summaryView { session, impact, reusable } ({ inputs, lifeCycle } as simulator) =
                     , class "SummaryProductImage invert me-2"
                     ]
                     []
-                , div [ class "display-5" ]
-                    [ simulator.impacts |> Format.formatImpact impact ]
+                , div [ class "SummaryScore d-flex flex-column" ]
+                    [ div [ class "display-5" ]
+                        [ simulator.impacts
+                            |> Format.formatImpact funit impact simulator.daysOfWear
+                        ]
+                    , small [ class "SummaryScoreFunit text-end" ]
+                        [ Unit.functionalToString funit
+                            |> text
+                        ]
+                    ]
                 ]
             , inputs
                 |> Inputs.countryList
@@ -62,29 +73,39 @@ summaryView { session, impact, reusable } ({ inputs, lifeCycle } as simulator) =
             ]
         , details [ class "card-body p-2 border-bottom" ]
             [ summary [ class "text-muted fs-7" ] [ text "Détails des postes" ]
-            , Chart.view { impact = impact, simulator = simulator }
+            , Chart.view
+                { simulator = simulator
+                , impact = impact
+                , funit = funit
+                }
             ]
         , div [ class "d-none d-sm-block card-body" ]
             -- TODO: how/where to render this for smaller viewports?
             [ Comparator.view
                 { session = session
                 , impact = impact
+                , funit = funit
                 , simulator = simulator
                 }
             ]
         , div [ class "d-none d-sm-block card-body text-center text-muted fs-7 px-2 py-2" ]
-            [ [ "Comparaison pour"
-              , simulator.inputs.product.name
-              , "en"
-              , Material.fullName simulator.inputs.recycledRatio simulator.inputs.material
-              , "de "
+            [ [ text "Comparaison pour"
+              , text simulator.inputs.product.name
+              , text "en"
+              , simulator.inputs.material |> Material.fullName simulator.inputs.recycledRatio |> text
+              , text "de"
+              , Format.kg simulator.inputs.mass
+              , span [ class "text-nowrap" ]
+                    [ funit |> Unit.functionalToString |> text
+                    , Link.smallPillExternal
+                        [ class "ms-0"
+                        , href "https://fabrique-numerique.gitbook.io/wikicarbone/methodologie/echelle-comparative"
+                        ]
+                        [ Icon.info ]
+                    ]
               ]
-                |> String.join " "
-                |> text
-            , Format.kg simulator.inputs.mass
-            , Link.smallPillExternal
-                [ href "https://fabrique-numerique.gitbook.io/wikicarbone/methodologie/echelle-comparative" ]
-                [ Icon.info ]
+                |> List.intersperse (text " ")
+                |> span []
             ]
         , if reusable then
             div [ class "card-footer text-center" ]
@@ -94,7 +115,7 @@ summaryView { session, impact, reusable } ({ inputs, lifeCycle } as simulator) =
                         (inputs
                             |> Inputs.toQuery
                             |> Just
-                            |> Route.Simulator Impact.defaultTrigram
+                            |> Route.Simulator Impact.defaultTrigram Unit.PerItem
                         )
                     ]
                     [ text "Reprendre cette simulation" ]

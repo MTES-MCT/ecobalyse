@@ -10,6 +10,7 @@ import Browser.Navigation as Nav
 import Data.Db as Db
 import Data.Impact as Impact
 import Data.Inputs as Inputs
+import Data.Unit as Unit
 import Html exposing (Attribute)
 import Html.Attributes as Attr
 import Url exposing (Url)
@@ -22,7 +23,7 @@ type Route
     | Changelog
     | Explore Db.Dataset
     | Examples
-    | Simulator Impact.Trigram (Maybe Inputs.Query)
+    | Simulator Impact.Trigram Unit.Functional (Maybe Inputs.Query)
     | Stats
 
 
@@ -36,8 +37,8 @@ parser =
         , Parser.map (Explore (Db.Countries Nothing)) (Parser.s "explore")
         , Parser.map Explore (Parser.s "explore" </> Db.parseDatasetSlug)
         , Parser.map toExploreWithId (Parser.s "explore" </> Db.parseDatasetSlug </> Parser.string)
-        , Parser.map (Simulator Impact.defaultTrigram Nothing) (Parser.s "simulator")
-        , Parser.map Simulator (Parser.s "simulator" </> Impact.parseTrigram </> Inputs.parseBase64Query)
+        , Parser.map (Simulator Impact.defaultTrigram Unit.PerItem Nothing) (Parser.s "simulator")
+        , Parser.map Simulator (Parser.s "simulator" </> Impact.parseTrigram </> Unit.parseFunctional </> Inputs.parseBase64Query)
         , Parser.map Stats (Parser.s "stats")
         ]
 
@@ -109,14 +110,14 @@ toString route =
                 Explore dataset ->
                     "explore" :: Db.toDatasetRoutePath dataset
 
-                Simulator trigram (Just inputs) ->
-                    [ "simulator", Impact.toString trigram, Inputs.b64encode inputs ]
+                Simulator trigram funit (Just inputs) ->
+                    [ "simulator", Impact.toString trigram, Unit.functionalToSlug funit, Inputs.b64encode inputs ]
 
-                Simulator (Impact.Trigram "cch") Nothing ->
+                Simulator (Impact.Trigram "cch") Unit.PerItem Nothing ->
                     [ "simulator" ]
 
-                Simulator trigram Nothing ->
-                    [ "simulator", Impact.toString trigram ]
+                Simulator trigram funit Nothing ->
+                    [ "simulator", Impact.toString trigram, Unit.functionalToSlug funit ]
 
                 Stats ->
                     [ "stats" ]

@@ -81,33 +81,31 @@ details _ product =
                 , td [] [ text product.useNonIroningProcess.name ]
                 ]
             , tr []
+                [ th [] [ text "Nombre de jours porté" ]
+                , td []
+                    [ Format.days product.daysOfWear
+                    , forInfoNotice
+                    ]
+                ]
+            , tr []
                 [ th [] [ text "Ratio de séchage électrique" ]
                 , td []
                     [ div [] [ Format.ratio product.useRatioDryer ]
-                    , div [ class "text-muted fs-7" ]
-                        [ span [ class "me-1" ] [ Icon.info ]
-                        , text "Affichage pour information, valeur intégrée dans les précalculs de procédé"
-                        ]
+                    , forInfoNotice
                     ]
                 ]
             , tr []
                 [ th [] [ text "Ratio de repassage" ]
                 , td []
                     [ div [] [ Format.ratio product.useRatioIroning ]
-                    , div [ class "text-muted fs-7" ]
-                        [ span [ class "me-1" ] [ Icon.info ]
-                        , text "Affichage pour information, valeur intégrée dans les précalculs de procédé"
-                        ]
+                    , forInfoNotice
                     ]
                 ]
             , tr []
                 [ th [] [ text "Temps de repassage" ]
                 , td []
                     [ div [] [ Format.hours product.useTimeIroning ]
-                    , div [ class "text-muted fs-7" ]
-                        [ span [ class "me-1" ] [ Icon.info ]
-                        , text "Affichage pour information, valeur intégrée dans les précalculs de procédé"
-                        ]
+                    , forInfoNotice
                     ]
                 ]
             ]
@@ -128,6 +126,8 @@ view products =
                 , th [] [ text "Grammage" ]
                 , th [] [ text "Procédé" ]
                 , th [] [ text "Confection" ]
+                , th [] [ text "Nombre de jours porté" ]
+                , th [] [ text "Utilisations avant lavage" ]
                 , th [] [ text "Cycles d'entretien (par défaut)" ]
                 , th [] [ text "Repassage" ]
                 , th [] [ text "Hors-repassage" ]
@@ -175,10 +175,20 @@ row product =
             ]
         , td [] [ text product.fabricProcess.name ]
         , td [] [ text product.makingProcess.name ]
+        , td [ class "text-end" ] [ Format.days product.daysOfWear ]
+        , td [ class "text-end" ] [ product.wearsPerCycle |> String.fromInt |> text ]
         , td [ class "text-end" ] [ text (String.fromInt product.useDefaultNbCycles) ]
         , td [] [ text product.useIroningProcess.name ]
         , td [] [ text product.useNonIroningProcess.name ]
         , td [ class "text-end" ] [ Format.ratio product.useRatioDryer ]
         , td [ class "text-end" ] [ Format.ratio product.useRatioIroning ]
         , td [ class "text-end" ] [ Format.hours product.useTimeIroning ]
+        ]
+
+
+forInfoNotice : Html msg
+forInfoNotice =
+    div [ class "text-muted fs-7" ]
+        [ span [ class "me-1" ] [ Icon.info ]
+        , text "Affichage pour information, valeur intégrée dans les précalculs de procédé"
         ]

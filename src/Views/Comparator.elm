@@ -11,6 +11,7 @@ import Data.Session exposing (Session)
 import Data.Simulator as Simulator exposing (Simulator)
 import Data.Step as Step
 import Data.Unit as Unit
+import Duration exposing (Duration)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -26,6 +27,7 @@ import Views.Format as Format
 type alias Config =
     { session : Session
     , impact : Impact.Definition
+    , funit : Unit.Functional
     , simulator : Simulator
     }
 
@@ -135,56 +137,60 @@ toNonRecycledIndia query =
     )
 
 
-createEntry : Db -> Impact.Definition -> Bool -> ( String, Inputs.Query ) -> Result String Entry
-createEntry db { trigram } highlight ( label, query ) =
-    let
-        stepScore stepLabel lifeCycle =
-            lifeCycle
-                |> LifeCycle.getStepProp stepLabel
-                    (.impacts >> Impact.getImpact trigram)
-                    Quantity.zero
-                |> Unit.impactToFloat
-    in
+createEntry : Db -> Unit.Functional -> Impact.Definition -> Bool -> ( String, Inputs.Query ) -> Result String Entry
+createEntry db funit { trigram } highlight ( label, query ) =
     query
         |> Simulator.compute db
         |> Result.map
-            (\({ lifeCycle, inputs, transport } as simulator) ->
+            (\({ lifeCycle, inputs, daysOfWear, transport } as simulator) ->
+                let
+                    stepScore stepLabel =
+                        lifeCycle
+                            |> LifeCycle.getStepProp stepLabel
+                                (.impacts >> Impact.getImpact trigram)
+                                Quantity.zero
+                            |> Unit.inFunctionalUnit funit daysOfWear
+                            |> Unit.impactToFloat
+                in
                 { label = label
                 , highlight = highlight
                 , knitted = inputs.product.knitted
-                , score = Impact.grabImpactFloat trigram simulator
-                , materialAndSpinning = lifeCycle |> stepScore Step.MaterialAndSpinning
-                , weavingKnitting = lifeCycle |> stepScore Step.WeavingKnitting
-                , dyeing = lifeCycle |> stepScore Step.Ennoblement
-                , making = lifeCycle |> stepScore Step.Making
-                , use = lifeCycle |> stepScore Step.Use
-                , endOfLife = lifeCycle |> stepScore Step.EndOfLife
-                , transport = Impact.grabImpactFloat trigram transport
+                , score = Impact.grabImpactFloat funit daysOfWear trigram simulator
+                , materialAndSpinning = stepScore Step.MaterialAndSpinning
+                , weavingKnitting = stepScore Step.WeavingKnitting
+                , dyeing = stepScore Step.Ennoblement
+                , making = stepScore Step.Making
+                , use = stepScore Step.Use
+                , endOfLife = stepScore Step.EndOfLife
+                , transport = Impact.grabImpactFloat funit daysOfWear trigram transport
                 }
             )
 
 
-getEntries : Db -> Impact.Definition -> Inputs -> Result String (List Entry)
-getEntries db impact ({ material } as inputs) =
+getEntries : Db -> Unit.Functional -> Impact.Definition -> Inputs -> Result String (List Entry)
+getEntries db funit impact ({ material } as inputs) =
     let
         query =
             Inputs.toQuery inputs
 
+        createEntry_ =
+            createEntry db funit impact
+
         entries =
             if material.recycledProcess /= Nothing then
-                [ ( "Votre simulation", query ) |> createEntry db impact True -- user simulation
-                , query |> toRecycledFrance |> createEntry db impact False
-                , query |> toNonRecycledFrance |> createEntry db impact False
-                , query |> toPartiallyRecycledIndiaTurkey |> createEntry db impact False
-                , query |> toRecycledIndia |> createEntry db impact False
-                , query |> toNonRecycledIndia |> createEntry db impact False
+                [ ( "Votre simulation", query ) |> createEntry_ True -- user simulation
+                , query |> toRecycledFrance |> createEntry_ False
+                , query |> toNonRecycledFrance |> createEntry_ False
+                , query |> toPartiallyRecycledIndiaTurkey |> createEntry_ False
+                , query |> toRecycledIndia |> createEntry_ False
+                , query |> toNonRecycledIndia |> createEntry_ False
                 ]
 
             else
-                [ ( "Votre simulation", query ) |> createEntry db impact True -- user simulation
-                , query |> toNonRecycledFrance |> createEntry db impact False
-                , query |> toNonRecycledIndiaTurkey |> createEntry db impact False
-                , query |> toNonRecycledIndia |> createEntry db impact False
+                [ ( "Votre simulation", query ) |> createEntry_ True -- user simulation
+                , query |> toNonRecycledFrance |> createEntry_ False
+                , query |> toNonRecycledIndiaTurkey |> createEntry_ False
+                , query |> toNonRecycledIndia |> createEntry_ False
                 ]
     in
     entries
@@ -193,10 +199,10 @@ getEntries db impact ({ material } as inputs) =
 
 
 view : Config -> Html msg
-view { session, impact, simulator } =
-    case simulator.inputs |> getEntries session.db impact of
+view { session, impact, funit, simulator } =
+    case simulator.inputs |> getEntries session.db funit impact of
         Ok entries ->
-            chart impact entries
+            chart funit impact simulator.daysOfWear entries
 
         Err error ->
             Alert.simple
@@ -245,15 +251,24 @@ fillLabels entries =
         |> List.map createLabel
 
 
-formatLabel : Impact.Definition -> Float -> { x : String, y : String }
-formatLabel { unit } num =
-    { x = Format.formatFloat 2 num ++ "\u{202F}" ++ unit
-    , y = Format.formatFloat 2 num
+formatLabel : Unit.Functional -> Impact.Definition -> Duration -> Float -> { x : String, y : String }
+formatLabel funit { unit } daysOfWear num =
+    let
+        inFunctionalUnit =
+            case funit of
+                Unit.PerDayOfWear ->
+                    num / Duration.inDays daysOfWear
+
+                Unit.PerItem ->
+                    num
+    in
+    { x = Format.formatFloat 2 inFunctionalUnit ++ "\u{202F}" ++ unit
+    , y = Format.formatFloat 2 inFunctionalUnit
     }
 
 
-chart : Impact.Definition -> List Entry -> Html msg
-chart impact entries =
+chart : Unit.Functional -> Impact.Definition -> Duration -> List Entry -> Html msg
+chart funit impact daysOfWear entries =
     let
         knitted =
             entries |> List.head |> Maybe.map .knitted |> Maybe.withDefault False
@@ -320,7 +335,7 @@ chart impact entries =
             ]
 
         xLabels =
-            [ C.binLabels (.score >> formatLabel impact >> .x)
+            [ C.binLabels (.score >> formatLabel funit impact daysOfWear >> .x)
                 [ CA.moveDown 23
                 , CA.color chartTextColor
                 , CA.rotate 12
@@ -333,7 +348,7 @@ chart impact entries =
                 [ CA.withGrid
                 , CA.fontSize 11
                 , CA.color chartTextColor
-                , CA.format (formatLabel impact >> .y)
+                , CA.format (formatLabel funit impact daysOfWear >> .y)
                 ]
             ]
 
