@@ -89,20 +89,23 @@ summaryView { session, impact, funit, reusable } ({ inputs, lifeCycle } as simul
                 }
             ]
         , div [ class "d-none d-sm-block card-body text-center text-muted fs-7 px-2 py-2" ]
-            [ [ "Comparaison pour"
-              , simulator.inputs.product.name
-              , "en"
-              , Material.fullName simulator.inputs.recycledRatio simulator.inputs.material
-              , "de "
+            [ [ text "Comparaison pour"
+              , text simulator.inputs.product.name
+              , text "en"
+              , simulator.inputs.material |> Material.fullName simulator.inputs.recycledRatio |> text
+              , text "de"
+              , Format.kg simulator.inputs.mass
+              , span [ class "text-nowrap" ]
+                    [ funit |> Unit.functionalToString |> text
+                    , Link.smallPillExternal
+                        [ class "ms-0"
+                        , href "https://fabrique-numerique.gitbook.io/wikicarbone/methodologie/echelle-comparative"
+                        ]
+                        [ Icon.info ]
+                    ]
               ]
-                |> String.join " "
-                |> text
-            , Format.kg simulator.inputs.mass
-            , text "porté"
-            , Format.days simulator.daysOfWear
-            , Link.smallPillExternal
-                [ href "https://fabrique-numerique.gitbook.io/wikicarbone/methodologie/echelle-comparative" ]
-                [ Icon.info ]
+                |> List.intersperse (text " ")
+                |> span []
             ]
         , if reusable then
             div [ class "card-footer text-center" ]
