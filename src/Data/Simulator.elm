@@ -13,6 +13,7 @@ import Data.Process as Process
 import Data.Product as Product
 import Data.Step as Step exposing (Step)
 import Data.Transport as Transport exposing (Transport)
+import Duration exposing (Duration)
 import Json.Encode as Encode
 import Quantity
 import Route exposing (Route(..))
@@ -23,7 +24,7 @@ type alias Simulator =
     , lifeCycle : LifeCycle
     , impacts : Impacts
     , transport : Transport
-    , daysOfWear : Int
+    , daysOfWear : Duration
     }
 
 
@@ -34,7 +35,7 @@ encode v =
         , ( "lifeCycle", LifeCycle.encode v.lifeCycle )
         , ( "impacts", Impact.encodeImpacts v.impacts )
         , ( "transport", Transport.encode v.transport )
-        , ( "daysOfWear", Encode.int v.daysOfWear )
+        , ( "daysOfWear", v.daysOfWear |> Duration.inDays |> Encode.float )
         ]
 
 

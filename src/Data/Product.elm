@@ -138,11 +138,15 @@ encode v =
 
 {-| Computes the number of wears for a custom number of maintainance cycles.
 -}
-customDaysOfWear : Maybe Int -> { product | wearsPerCycle : Int, useDefaultNbCycles : Int } -> Int
+customDaysOfWear : Maybe Int -> { product | wearsPerCycle : Int, useDefaultNbCycles : Int } -> Duration
 customDaysOfWear maybeCustomNbCycles { wearsPerCycle, useDefaultNbCycles } =
-    case maybeCustomNbCycles of
-        Just customNbCycles ->
-            clamp 1 100 customNbCycles * wearsPerCycle
+    let
+        days =
+            case maybeCustomNbCycles of
+                Just customNbCycles ->
+                    clamp 1 100 customNbCycles * wearsPerCycle
 
-        Nothing ->
-            useDefaultNbCycles * wearsPerCycle
+                Nothing ->
+                    useDefaultNbCycles * wearsPerCycle
+    in
+    days |> toFloat |> Duration.days

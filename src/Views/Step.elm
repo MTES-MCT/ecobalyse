@@ -9,6 +9,7 @@ import Data.Product as Product
 import Data.Step as Step exposing (Step)
 import Data.Transport as Transport
 import Data.Unit as Unit
+import Duration exposing (Duration)
 import Energy
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -23,7 +24,7 @@ import Views.Transport as TransportView
 type alias Config msg =
     { db : Db
     , inputs : Inputs
-    , daysOfWear : Int
+    , daysOfWear : Duration
     , detailed : Bool
     , impact : Impact.Definition
     , funit : Unit.Functional
@@ -303,8 +304,7 @@ detailedView ({ inputs, funit, impact, daysOfWear, index, next, current } as con
                             [ text "Nombre de jours portés\u{00A0}: "
                             , inputs.product
                                 |> Product.customDaysOfWear inputs.useNbCycles
-                                |> String.fromInt
-                                |> text
+                                |> Format.days
                             ]
                         ]
 

@@ -25,6 +25,7 @@ module Data.Unit exposing
     , ratioedForMJ
     )
 
+import Duration exposing (Duration)
 import Energy exposing (Energy)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
@@ -148,14 +149,14 @@ encodeImpact =
     impactToFloat >> Encode.float
 
 
-inFunctionalUnit : Functional -> Int -> Impact -> Impact
+inFunctionalUnit : Functional -> Duration -> Impact -> Impact
 inFunctionalUnit funit daysOfWear =
     case funit of
         PerItem ->
             identity
 
         PerDayOfWear ->
-            Quantity.divideBy (toFloat daysOfWear)
+            Quantity.divideBy (Duration.inDays daysOfWear)
 
 
 

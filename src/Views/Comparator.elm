@@ -11,6 +11,7 @@ import Data.Session exposing (Session)
 import Data.Simulator as Simulator exposing (Simulator)
 import Data.Step as Step
 import Data.Unit as Unit
+import Duration exposing (Duration)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -260,13 +261,13 @@ fillLabels entries =
         |> List.map createLabel
 
 
-formatLabel : Unit.Functional -> Impact.Definition -> Int -> Float -> { x : String, y : String }
+formatLabel : Unit.Functional -> Impact.Definition -> Duration -> Float -> { x : String, y : String }
 formatLabel funit { unit } daysOfWear num =
     let
         inFunctionalUnit =
             case funit of
                 Unit.PerDayOfWear ->
-                    num / toFloat daysOfWear
+                    num / Duration.inDays daysOfWear
 
                 Unit.PerItem ->
                     num
@@ -276,7 +277,7 @@ formatLabel funit { unit } daysOfWear num =
     }
 
 
-chart : Unit.Functional -> Impact.Definition -> Int -> List Entry -> Html msg
+chart : Unit.Functional -> Impact.Definition -> Duration -> List Entry -> Html msg
 chart funit impact daysOfWear entries =
     let
         knitted =

@@ -35,7 +35,8 @@ summaryView { session, impact, funit, reusable } ({ inputs, lifeCycle } as simul
             , span
                 [ class "text-truncate", title inputs.material.name ]
                 [ text <| "\u{00A0}" ++ Material.fullName inputs.recycledRatio inputs.material ++ "\u{00A0}" ]
-            , span [ class "text-nowrap" ] [ strong [] [ Format.kg inputs.mass ] ]
+            , span [ class "text-nowrap" ] [ Format.kg inputs.mass ]
+            , span [ class "text-nowrap" ] [ Icon.day, Format.days simulator.daysOfWear ]
             ]
         , div [ class "card-body px-1 d-grid gap-3 text-white bg-primary" ]
             [ div [ class "d-flex justify-content-center align-items-center" ]
@@ -56,7 +57,7 @@ summaryView { session, impact, funit, reusable } ({ inputs, lifeCycle } as simul
                                 text "par vêtement"
 
                             Unit.PerDayOfWear ->
-                                text "par jour porté"
+                                text "par jour"
                         ]
                     ]
                 ]
@@ -101,6 +102,8 @@ summaryView { session, impact, funit, reusable } ({ inputs, lifeCycle } as simul
                 |> String.join " "
                 |> text
             , Format.kg simulator.inputs.mass
+            , text "porté"
+            , Format.days simulator.daysOfWear
             , Link.smallPillExternal
                 [ href "https://fabrique-numerique.gitbook.io/wikicarbone/methodologie/echelle-comparative" ]
                 [ Icon.info ]
