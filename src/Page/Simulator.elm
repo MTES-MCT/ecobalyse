@@ -55,6 +55,7 @@ type alias Model =
     , modal : ModalContent
     , customCountryMixInputs : CustomCountryMixInputs
     , impact : Impact.Definition
+    , funit : Unit.Functional
     }
 
 
@@ -79,6 +80,7 @@ type Msg
     | Reset
     | ResetCustomCountryMix Step.Label
     | SubmitCustomCountryMix Step.Label (Maybe Unit.Impact)
+    | SwitchFunctionalUnit Unit.Functional
     | SwitchImpact Impact.Trigram
     | SwitchMode DisplayMode
     | UpdateAirTransportRatio (Maybe Unit.Ratio)
@@ -139,8 +141,8 @@ validateCustomCountryMixInput stepLabel =
         >> Maybe.map Unit.impact
 
 
-init : Impact.Trigram -> Maybe Inputs.Query -> Session -> ( Model, Session, Cmd Msg )
-init trigram maybeQuery ({ db } as session) =
+init : Impact.Trigram -> Unit.Functional -> Maybe Inputs.Query -> Session -> ( Model, Session, Cmd Msg )
+init trigram funit maybeQuery ({ db } as session) =
     let
         query =
             maybeQuery
@@ -156,10 +158,8 @@ init trigram maybeQuery ({ db } as session) =
       , displayMode = SimpleMode
       , modal = NoModal
       , customCountryMixInputs = toCustomCountryMixFormInputs query.customCountryMixes
-      , impact =
-            db.impacts
-                |> Impact.getDefinition trigram
-                |> Result.withDefault Impact.default
+      , impact = db.impacts |> Impact.getDefinition trigram |> Result.withDefault Impact.default
+      , funit = funit
       }
     , case simulator of
         Err error ->
@@ -264,10 +264,18 @@ update ({ db, navKey } as session) msg ({ customCountryMixInputs, query } as mod
             ( { model | modal = NoModal }, session, Cmd.none )
                 |> updateQuery (updateQueryCustomCountryMix stepLabel (Just customCountryMix) query)
 
+        SwitchFunctionalUnit funit ->
+            ( model
+            , session
+            , Route.Simulator model.impact.trigram funit (Just query)
+                |> Route.toString
+                |> Navigation.pushUrl navKey
+            )
+
         SwitchImpact trigram ->
             ( model
             , session
-            , Route.Simulator trigram (Just query)
+            , Route.Simulator trigram model.funit (Just query)
                 |> Route.toString
                 |> Navigation.pushUrl navKey
             )
@@ -457,7 +465,7 @@ downArrow =
 
 
 lifeCycleStepsView : Db -> Model -> Simulator -> Html Msg
-lifeCycleStepsView db { displayMode, impact } simulator =
+lifeCycleStepsView db { displayMode, funit, impact } simulator =
     simulator.lifeCycle
         |> Array.indexedMap
             (\index current ->
@@ -466,6 +474,8 @@ lifeCycleStepsView db { displayMode, impact } simulator =
                     , inputs = simulator.inputs
                     , detailed = displayMode == DetailedMode
                     , impact = impact
+                    , funit = funit
+                    , daysOfWear = simulator.daysOfWear
                     , index = index
                     , current = current
                     , next = Array.get (index + 1) simulator.lifeCycle
@@ -483,12 +493,12 @@ lifeCycleStepsView db { displayMode, impact } simulator =
 
 
 shareLinkView : Session -> Model -> Simulator -> Html Msg
-shareLinkView session { impact } simulator =
+shareLinkView session { impact, funit } simulator =
     let
         shareableLink =
             simulator.inputs
                 |> (Inputs.toQuery >> Just)
-                |> Route.Simulator impact.trigram
+                |> Route.Simulator impact.trigram funit
                 |> Route.toString
                 |> (++) session.clientUrl
     in
@@ -751,6 +761,7 @@ simulatorView ({ db } as session) model ({ inputs } as simulator) =
                         |> SummaryView.view
                             { session = session
                             , impact = model.impact
+                            , funit = model.funit
                             , reusable = False
                             }
                     ]
@@ -772,8 +783,10 @@ view session model =
                 , div [ class "col-sm-5 mb-2 d-flex align-items-center" ]
                     [ ImpactView.selector
                         { impacts = session.db.impacts
-                        , selected = model.impact.trigram
-                        , switch = SwitchImpact
+                        , selectedImpact = model.impact.trigram
+                        , switchImpact = SwitchImpact
+                        , selectedFunctionalUnit = model.funit
+                        , switchFunctionalUnit = SwitchFunctionalUnit
                         }
                     ]
                 ]

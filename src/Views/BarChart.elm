@@ -13,8 +13,9 @@ import Views.PieChart as PieChart
 
 
 type alias Config =
-    { impact : Impact.Definition
-    , simulator : Simulator
+    { simulator : Simulator
+    , impact : Impact.Definition
+    , funit : Unit.Functional
     }
 
 
@@ -27,10 +28,10 @@ type alias Bar msg =
 
 
 makeBars : Config -> List (Bar msg)
-makeBars { simulator, impact } =
+makeBars { simulator, impact, funit } =
     let
         grabImpact =
-            Impact.grabImpactFloat impact.trigram
+            Impact.grabImpactFloat funit simulator.daysOfWear impact.trigram
 
         maxScore =
             simulator.lifeCycle

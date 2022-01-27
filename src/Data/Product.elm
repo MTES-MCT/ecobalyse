@@ -1,6 +1,7 @@
 module Data.Product exposing
     ( Id(..)
     , Product
+    , customDaysOfWear
     , decodeList
     , encode
     , findById
@@ -59,6 +60,13 @@ type alias Product =
 
     -- Procédé composite d'utilisation hors-repassage
     , useNonIroningProcess : Process
+
+    -- Nombre de jour de porter du vêtement
+    -- Note: only for information, not used in computations
+    , daysOfWear : Duration
+
+    -- Nombre de jour porté par cycle d'entretien
+    , wearsPerCycle : Int
     }
 
 
@@ -96,6 +104,8 @@ decode processes =
         |> Pipe.required "useTimeIroning" (Decode.map Duration.hours Decode.float)
         |> Pipe.required "useIroningProcessUuid" (Process.decodeFromUuid processes)
         |> Pipe.required "useNonIroningProcessUuid" (Process.decodeFromUuid processes)
+        |> Pipe.required "daysOfWear" (Decode.map Duration.days Decode.float)
+        |> Pipe.required "wearsPerCycle" Decode.int
 
 
 decodeList : List Process -> Decoder (List Product)
@@ -121,4 +131,22 @@ encode v =
         , ( "useTimeIroning", Encode.float (Duration.inHours v.useTimeIroning) )
         , ( "useIroningProcessUuid", Process.encodeUuid v.useIroningProcess.uuid )
         , ( "useNonIroningProcessUuid", Process.encodeUuid v.useNonIroningProcess.uuid )
+        , ( "daysOfWear", Encode.float (Duration.inDays v.daysOfWear) )
+        , ( "wearsPerCycle", Encode.int v.wearsPerCycle )
         ]
+
+
+{-| Computes the number of wears for a custom number of maintainance cycles.
+-}
+customDaysOfWear : Maybe Int -> { product | wearsPerCycle : Int, useDefaultNbCycles : Int } -> Duration
+customDaysOfWear maybeCustomNbCycles { wearsPerCycle, useDefaultNbCycles } =
+    let
+        days =
+            case maybeCustomNbCycles of
+                Just customNbCycles ->
+                    clamp 1 100 customNbCycles * wearsPerCycle
+
+                Nothing ->
+                    useDefaultNbCycles * wearsPerCycle
+    in
+    days |> toFloat |> Duration.days

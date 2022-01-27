@@ -27,14 +27,11 @@ module Data.Impact exposing
 import Data.Unit as Unit
 import Dict
 import Dict.Any as AnyDict exposing (AnyDict)
+import Duration exposing (Duration)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
 import Quantity exposing (Quantity(..))
 import Url.Parser as Parser exposing (Parser)
-
-
-
--- Impact definitions
 
 
 type alias Definition =
@@ -235,9 +232,12 @@ getImpact trigram =
         >> Maybe.withDefault Quantity.zero
 
 
-grabImpactFloat : Trigram -> { a | impacts : Impacts } -> Float
-grabImpactFloat trigram { impacts } =
-    impacts |> getImpact trigram |> Unit.impactToFloat
+grabImpactFloat : Unit.Functional -> Duration -> Trigram -> { a | impacts : Impacts } -> Float
+grabImpactFloat funit daysOfWear trigram { impacts } =
+    impacts
+        |> getImpact trigram
+        |> Unit.inFunctionalUnit funit daysOfWear
+        |> Unit.impactToFloat
 
 
 filterImpacts : (Trigram -> Unit.Impact -> Bool) -> Impacts -> Impacts

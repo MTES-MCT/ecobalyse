@@ -1,5 +1,6 @@
 module Views.Format exposing
-    ( formatFloat
+    ( days
+    , formatFloat
     , formatImpact
     , formatImpactFloat
     , formatInt
@@ -26,11 +27,13 @@ import Length exposing (Length)
 import Mass exposing (Mass)
 
 
-formatImpact : Impact.Definition -> Impacts -> Html msg
-formatImpact { trigram, unit } =
-    Impact.getImpact trigram
-        >> Unit.impactToFloat
-        >> formatRichFloat 2 unit
+formatImpact : Unit.Functional -> Impact.Definition -> Duration -> Impacts -> Html msg
+formatImpact funit { trigram, unit } daysOfWear def =
+    def
+        |> Impact.getImpact trigram
+        |> Unit.inFunctionalUnit funit daysOfWear
+        |> Unit.impactToFloat
+        |> formatRichFloat 2 unit
 
 
 formatImpactFloat : Impact.Definition -> Float -> Html msg
@@ -118,6 +121,11 @@ ratio : Unit.Ratio -> Html msg
 ratio (Unit.Ratio float) =
     (float * 100)
         |> formatRichFloat 2 "%"
+
+
+days : Duration -> Html msg
+days =
+    Duration.inDays >> formatRichFloat 0 "j"
 
 
 hours : Duration -> Html msg
