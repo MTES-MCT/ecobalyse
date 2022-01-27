@@ -286,6 +286,12 @@ detailedView ({ inputs, funit, impact, daysOfWear, index, next, current } as con
 
                     Nothing ->
                         text ""
+                , case current.processInfo.knittingWeaving of
+                    Just process ->
+                        truncatableProcessDescription process.name
+
+                    Nothing ->
+                        text ""
                 ]
             , case current.label of
                 Step.Ennoblement ->
