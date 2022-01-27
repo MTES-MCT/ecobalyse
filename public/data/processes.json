@@ -257,7 +257,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 0.170215,
+    "waste": 1.70215e-1,
     "alias": null
   },
   {
@@ -286,7 +286,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 0.288932,
+    "waste": 2.88932e-1,
     "alias": null
   },
   {
@@ -315,7 +315,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 0.08696,
+    "waste": 8.696e-2,
     "alias": null
   },
   {
@@ -344,7 +344,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 0.672241,
+    "waste": 6.72241e-1,
     "alias": null
   },
   {
@@ -402,7 +402,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 0.270519,
+    "waste": 2.70519e-1,
     "alias": null
   },
   {
@@ -431,7 +431,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 0.201201,
+    "waste": 2.01201e-1,
     "alias": null
   },
   {
@@ -460,7 +460,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 0.221094,
+    "waste": 2.21094e-1,
     "alias": null
   },
   {
@@ -518,7 +518,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 0.672241,
+    "waste": 6.72241e-1,
     "alias": null
   },
   {
@@ -576,7 +576,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 0.0582011,
+    "waste": 5.82011e-2,
     "alias": null
   },
   {
@@ -605,7 +605,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 0.00796392,
+    "waste": 7.96392e-3,
     "alias": null
   },
   {
@@ -634,7 +634,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 0.0319569,
+    "waste": 3.19569e-2,
     "alias": null
   },
   {
@@ -692,7 +692,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 0.0319569,
+    "waste": 3.19569e-2,
     "alias": null
   },
   {
@@ -721,7 +721,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 0.0319569,
+    "waste": 3.19569e-2,
     "alias": null
   },
   {
@@ -750,7 +750,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 0.0319569,
+    "waste": 3.19569e-2,
     "alias": null
   },
   {
@@ -779,7 +779,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 0.0319569,
+    "waste": 3.19569e-2,
     "alias": null
   },
   {
@@ -808,7 +808,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 0.0319569,
+    "waste": 3.19569e-2,
     "alias": null
   },
   {
@@ -866,7 +866,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 0.00796392,
+    "waste": 7.96392e-3,
     "alias": null
   },
   {
@@ -895,7 +895,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 0.0319569,
+    "waste": 3.19569e-2,
     "alias": null
   },
   {
@@ -953,7 +953,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 0.031957,
+    "waste": 3.1957e-2,
     "alias": null
   },
   {
@@ -982,7 +982,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 0.032,
+    "waste": 3.2e-2,
     "alias": null
   },
   {
@@ -1011,7 +1011,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 0.032,
+    "waste": 3.2e-2,
     "alias": null
   },
   {
@@ -1040,7 +1040,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 0.0319681,
+    "waste": 3.19681e-2,
     "alias": null
   },
   {
@@ -1069,7 +1069,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 0.137851,
+    "waste": 1.37851e-1,
     "alias": null
   },
   {
@@ -1098,7 +1098,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 0.137851,
+    "waste": 1.37851e-1,
     "alias": null
   },
   {
@@ -1127,7 +1127,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 0.1688,
+    "waste": 1.688e-1,
     "alias": null
   },
   {
@@ -1156,7 +1156,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 0.77305,
+    "waste": 7.7305e-1,
     "alias": null
   },
   {
@@ -1185,7 +1185,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 0.323,
+    "waste": 3.23e-1,
     "alias": null
   },
   {
@@ -1214,7 +1214,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 0.137851,
+    "waste": 1.37851e-1,
     "alias": null
   },
   {
@@ -1243,7 +1243,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 0.21,
+    "waste": 2.1e-1,
     "alias": null
   },
   {
@@ -1272,7 +1272,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 8.64,
-    "waste": 0.0576,
+    "waste": 5.76e-2,
     "alias": null
   },
   {
@@ -1299,9 +1299,9 @@
       "tre": 0.0
     },
     "heat": 0.0,
-    "elec_pppm": 0.0003145,
+    "elec_pppm": 3.145e-4,
     "elec": 0.0,
-    "waste": 0.0667,
+    "waste": 6.67e-2,
     "alias": null
   },
   {
@@ -1327,9 +1327,9 @@
       "swe": 1.60159e-2,
       "tre": 1.17059e-3
     },
-    "heat": 71.71,
+    "heat": 7.171e1,
     "elec_pppm": 0.0,
-    "elec": 38.1,
+    "elec": 3.81e1,
     "waste": 0.0,
     "alias": "dyeingHigh"
   },
@@ -1356,7 +1356,7 @@
       "swe": 2.65273e-3,
       "tre": 1.15881e-3
     },
-    "heat": 25.87,
+    "heat": 2.587e1,
     "elec_pppm": 0.0,
     "elec": 7.17,
     "waste": 0.0,
@@ -6463,7 +6463,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 0,
+    "waste": 0.0,
     "alias": "passengerCar"
   },
   {
@@ -6494,5 +6494,63 @@
     "elec": 0.0,
     "waste": 0.0,
     "alias": "endOfLife"
+  },
+  {
+    "name": "Tricotage rectiligne, inventaire désagrégé",
+    "info": "Textile > Mise en forme > Tricotage",
+    "unit": "kg",
+    "source": "Base Impacts",
+    "uuid": "364298ad-2058-4ec4-b2d0-47f5214abffb",
+    "impacts": {
+      "acd": 0.0,
+      "ccb": 0.0,
+      "ccf": 0.0,
+      "cch": 0.0,
+      "ccl": 0.0,
+      "fru": 0.0,
+      "fwe": 0.0,
+      "ior": 0.0,
+      "ldu": 0.0,
+      "mru": 0.0,
+      "ozd": 0.0,
+      "pco": 0.0,
+      "pma": 0.0,
+      "swe": 0.0,
+      "tre": 0.0
+    },
+    "heat": 0.0,
+    "elec_pppm": 0.0,
+    "elec": 4.194,
+    "waste": 4.17e-2,
+    "alias": null
+  },
+  {
+    "name": "Tricotage circulaire, inventaire désagrégé",
+    "info": "Textile > Mise en forme > Tricotage",
+    "unit": "kg",
+    "source": "Base Impacts",
+    "uuid": "2e16787c-7a89-4883-acdf-37d3d362bdab",
+    "impacts": {
+      "acd": 0.0,
+      "ccb": 0.0,
+      "ccf": 0.0,
+      "cch": 0.0,
+      "ccl": 0.0,
+      "fru": 0.0,
+      "fwe": 0.0,
+      "ior": 0.0,
+      "ldu": 0.0,
+      "mru": 0.0,
+      "ozd": 0.0,
+      "pco": 0.0,
+      "pma": 0.0,
+      "swe": 0.0,
+      "tre": 0.0
+    },
+    "heat": 0.0,
+    "elec_pppm": 0.0,
+    "elec": 4.25101,
+    "waste": 3.51967e-2,
+    "alias": null
   }
 ]

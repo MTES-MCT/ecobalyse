@@ -64,6 +64,7 @@ type alias ProcessInfo =
     , useNonIroning : Maybe Process
     , passengerCar : Maybe Process
     , endOfLife : Maybe Process
+    , knittingWeaving : Maybe Process
     }
 
 
@@ -114,6 +115,7 @@ defaultProcessInfo =
     , useNonIroning = Nothing
     , passengerCar = Nothing
     , endOfLife = Nothing
+    , knittingWeaving = Nothing
     }
 
 
@@ -293,6 +295,7 @@ updateFromInputs { processes } inputs ({ label, country } as step) =
                 , processInfo =
                     { defaultProcessInfo
                         | countryElec = countryElecInfo customCountryMixes.fabric
+                        , knittingWeaving = Just inputs.product.fabricProcess
                     }
             }
 
