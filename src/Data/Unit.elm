@@ -49,13 +49,13 @@ type Functional
 
 
 functionalToString : Functional -> String
-functionalToString unit =
-    case unit of
+functionalToString funit =
+    case funit of
         PerDayOfWear ->
-            "Jour porté"
+            "par jour d'utilisation"
 
         PerItem ->
-            "Vêtement"
+            "par vêtement"
 
 
 functionalToSlug : Functional -> String

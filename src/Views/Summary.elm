@@ -52,12 +52,8 @@ summaryView { session, impact, funit, reusable } ({ inputs, lifeCycle } as simul
                             |> Format.formatImpact funit impact simulator.daysOfWear
                         ]
                     , small [ class "SummaryScoreFunit text-end" ]
-                        [ case funit of
-                            Unit.PerItem ->
-                                text "par vêtement"
-
-                            Unit.PerDayOfWear ->
-                                text "par jour d'utilisation"
+                        [ Unit.functionalToString funit
+                            |> text
                         ]
                     ]
                 ]
