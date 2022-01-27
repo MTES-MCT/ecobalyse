@@ -155,24 +155,14 @@ createEntry db funit { trigram } highlight ( label, query ) =
                 { label = label
                 , highlight = highlight
                 , knitted = inputs.product.knitted
-                , score =
-                    -- FIXME: factor in grabImpactFloat
-                    Impact.grabImpactFloat trigram simulator
-                        |> Unit.impact
-                        |> Unit.inFunctionalUnit funit daysOfWear
-                        |> Unit.impactToFloat
+                , score = Impact.grabImpactFloat funit daysOfWear trigram simulator
                 , materialAndSpinning = stepScore Step.MaterialAndSpinning
                 , weavingKnitting = stepScore Step.WeavingKnitting
                 , dyeing = stepScore Step.Ennoblement
                 , making = stepScore Step.Making
                 , use = stepScore Step.Use
                 , endOfLife = stepScore Step.EndOfLife
-                , transport =
-                    -- FIXME: factor in grabImpactFloat
-                    Impact.grabImpactFloat trigram transport
-                        |> Unit.impact
-                        |> Unit.inFunctionalUnit funit daysOfWear
-                        |> Unit.impactToFloat
+                , transport = Impact.grabImpactFloat funit daysOfWear trigram transport
                 }
             )
 

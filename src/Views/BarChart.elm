@@ -31,11 +31,7 @@ makeBars : Config -> List (Bar msg)
 makeBars { simulator, impact, funit } =
     let
         grabImpact =
-            -- FIXME: factor in grabImpactFloat
-            Impact.grabImpactFloat impact.trigram
-                >> Unit.impact
-                >> Unit.inFunctionalUnit funit simulator.daysOfWear
-                >> Unit.impactToFloat
+            Impact.grabImpactFloat funit simulator.daysOfWear impact.trigram
 
         maxScore =
             simulator.lifeCycle
