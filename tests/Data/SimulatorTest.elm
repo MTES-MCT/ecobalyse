@@ -9,8 +9,7 @@ import Data.Unit as Unit
 import Expect exposing (Expectation)
 import Route exposing (Route(..))
 import Test exposing (..)
-import TestDb exposing (testDb)
-import TestUtils exposing (asTest)
+import TestUtils exposing (asTest, suiteWithDb)
 
 
 expectImpact : Db -> Impact.Trigram -> Float -> Inputs.Query -> Expectation
@@ -45,13 +44,8 @@ convertToTests db sectionOrSample =
 
 suite : Test
 suite =
-    describe "Data.Simulator"
-        [ case testDb of
-            Ok db ->
-                describe "compute"
-                    (List.map (convertToTests db) Sample.samples)
-
-            Err error ->
-                test "should load test database" <|
-                    \_ -> Expect.fail <| "Couldn't parse test database: " ++ error
-        ]
+    suiteWithDb "Data.Simulator"
+        (\db ->
+            Sample.samples
+                |> List.map (convertToTests db)
+        )
