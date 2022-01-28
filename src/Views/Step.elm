@@ -324,7 +324,7 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                     text ""
             ]
         , div
-            [ class "card text-center" ]
+            [ class "card text-center mb-0" ]
             [ div [ class "card-header text-muted" ]
                 [ if (current.impacts |> Impact.getImpact impact.trigram |> Unit.impactToFloat) > 0 then
                     span [ class "fw-bold" ]
