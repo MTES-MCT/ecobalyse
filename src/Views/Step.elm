@@ -199,14 +199,41 @@ simpleView ({ funit, inputs, daysOfWear, impact, index, current } as config) =
         ]
 
 
-truncatableProcessDescription : String -> Html msg
-truncatableProcessDescription description =
-    li
-        [ class "list-group-item text-muted text-truncate"
-        , title description
-        , style "cursor" "help"
-        ]
-        [ text description ]
+viewProcessInfo : Maybe String -> Html msg
+viewProcessInfo processName =
+    case processName of
+        Just name ->
+            li
+                [ class "list-group-item text-muted text-truncate"
+                , title name
+                , style "cursor" "help"
+                ]
+                [ text name ]
+
+        Nothing ->
+            text ""
+
+
+viewCountryElecProcessInfo : (Step -> msg) -> Step -> Html msg
+viewCountryElecProcessInfo editMsg step =
+    case step.processInfo.countryElec of
+        Just countryElec ->
+            li [ class "list-group-item d-flex justify-content-between text-muted" ]
+                [ span [] [ text countryElec ]
+                , if
+                    List.member step.label
+                        [ Step.WeavingKnitting, Step.Ennoblement, Step.Making ]
+                  then
+                    Button.smallPill
+                        [ onClick (editMsg step) ]
+                        [ Icon.pencil ]
+
+                  else
+                    text ""
+                ]
+
+        Nothing ->
+            text ""
 
 
 detailedView : Config msg -> Html msg
@@ -238,60 +265,14 @@ detailedView ({ inputs, funit, impact, daysOfWear, index, next, current } as con
                 ]
             , ul [ class "list-group list-group-flush fs-7" ]
                 [ li [ class "list-group-item text-muted" ] [ countryField config ]
-                , case current.processInfo.countryHeat of
-                    Just countryHeat ->
-                        truncatableProcessDescription countryHeat
-
-                    Nothing ->
-                        text ""
-                , case current.processInfo.countryElec of
-                    Just countryElec ->
-                        li [ class "list-group-item d-flex justify-content-between text-muted" ]
-                            [ span [] [ text countryElec ]
-                            , if
-                                List.member current.label
-                                    [ Step.WeavingKnitting, Step.Ennoblement, Step.Making ]
-                              then
-                                Button.smallPill
-                                    [ onClick (config.openCustomCountryMixModal current) ]
-                                    [ Icon.pencil ]
-
-                              else
-                                text ""
-                            ]
-
-                    Nothing ->
-                        text ""
-                , case current.processInfo.useIroning of
-                    Just process ->
-                        truncatableProcessDescription process.name
-
-                    Nothing ->
-                        text ""
-                , case current.processInfo.useNonIroning of
-                    Just process ->
-                        truncatableProcessDescription process.name
-
-                    Nothing ->
-                        text ""
-                , case current.processInfo.passengerCar of
-                    Just process ->
-                        truncatableProcessDescription process.name
-
-                    Nothing ->
-                        text ""
-                , case current.processInfo.endOfLife of
-                    Just process ->
-                        truncatableProcessDescription process.name
-
-                    Nothing ->
-                        text ""
-                , case current.processInfo.knittingWeaving of
-                    Just process ->
-                        truncatableProcessDescription process.name
-
-                    Nothing ->
-                        text ""
+                , viewProcessInfo current.processInfo.countryHeat
+                , viewCountryElecProcessInfo config.openCustomCountryMixModal current
+                , viewProcessInfo current.processInfo.distribution
+                , viewProcessInfo current.processInfo.useIroning
+                , viewProcessInfo current.processInfo.useNonIroning
+                , viewProcessInfo current.processInfo.passengerCar
+                , viewProcessInfo current.processInfo.endOfLife
+                , viewProcessInfo current.processInfo.knittingWeaving
                 ]
             , case current.label of
                 Step.Ennoblement ->
@@ -359,9 +340,9 @@ detailedView ({ inputs, funit, impact, daysOfWear, index, next, current } as con
                         [ current.transport
                             |> TransportView.view
                                 { fullWidth = True
-                                , airTransportLabel = current.processInfo.airTransport |> Maybe.map .name
-                                , seaTransportLabel = current.processInfo.seaTransport |> Maybe.map .name
-                                , roadTransportLabel = current.processInfo.roadTransport |> Maybe.map .name
+                                , airTransportLabel = current.processInfo.airTransport
+                                , seaTransportLabel = current.processInfo.seaTransport
+                                , roadTransportLabel = current.processInfo.roadTransport
                                 }
                         ]
 

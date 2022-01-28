@@ -57,14 +57,15 @@ type alias ProcessInfo =
     , countryHeat : Maybe String
     , dyeingWeighting : Maybe String
     , airTransportRatio : Maybe String
-    , airTransport : Maybe Process
-    , seaTransport : Maybe Process
-    , roadTransport : Maybe Process
-    , useIroning : Maybe Process
-    , useNonIroning : Maybe Process
-    , passengerCar : Maybe Process
-    , endOfLife : Maybe Process
-    , knittingWeaving : Maybe Process
+    , airTransport : Maybe String
+    , seaTransport : Maybe String
+    , roadTransport : Maybe String
+    , useIroning : Maybe String
+    , useNonIroning : Maybe String
+    , passengerCar : Maybe String
+    , endOfLife : Maybe String
+    , knittingWeaving : Maybe String
+    , distribution : Maybe String
     }
 
 
@@ -116,6 +117,7 @@ defaultProcessInfo =
     , passengerCar = Nothing
     , endOfLife = Nothing
     , knittingWeaving = Nothing
+    , distribution = Nothing
     }
 
 
@@ -182,9 +184,9 @@ computeTransports db next ({ processInfo } as current) =
                 { current
                     | processInfo =
                         { processInfo
-                            | roadTransport = Just roadTransportProcess
-                            , seaTransport = Just wellKnown.seaTransport
-                            , airTransport = Just wellKnown.airTransport
+                            | roadTransport = Just roadTransportProcess.name
+                            , seaTransport = Just wellKnown.seaTransport.name
+                            , airTransport = Just wellKnown.airTransport.name
                         }
                     , transport =
                         stepSummary
@@ -295,7 +297,7 @@ updateFromInputs { processes } inputs ({ label, country } as step) =
                 , processInfo =
                     { defaultProcessInfo
                         | countryElec = countryElecInfo customCountryMixes.fabric
-                        , knittingWeaving = Just inputs.product.fabricProcess
+                        , knittingWeaving = Just inputs.product.fabricProcess.name
                     }
             }
 
@@ -327,6 +329,18 @@ updateFromInputs { processes } inputs ({ label, country } as step) =
                     }
             }
 
+        Distribution ->
+            processes
+                |> Process.loadWellKnown
+                |> Result.map
+                    (\{ distribution } ->
+                        { step
+                            | processInfo =
+                                { defaultProcessInfo | distribution = Just distribution.name }
+                        }
+                    )
+                |> Result.withDefault step
+
         Use ->
             { step
                 | useNbCycles =
@@ -334,14 +348,14 @@ updateFromInputs { processes } inputs ({ label, country } as step) =
                 , processInfo =
                     { defaultProcessInfo
                         | countryElec = Just country.electricityProcess.name
-                        , useIroning = Just inputs.product.useIroningProcess
-                        , useNonIroning = Just inputs.product.useNonIroningProcess
+                        , useIroning = Just inputs.product.useIroningProcess.name
+                        , useNonIroning = Just inputs.product.useNonIroningProcess.name
                     }
             }
 
         EndOfLife ->
             let
-                processInfo =
+                newProcessInfo =
                     { defaultProcessInfo
                         | countryElec = Just country.electricityProcess.name
                         , countryHeat = Just country.heatProcess.name
@@ -350,21 +364,16 @@ updateFromInputs { processes } inputs ({ label, country } as step) =
             processes
                 |> Process.loadWellKnown
                 |> Result.map
-                    (\{ passengerCar, endOfLife } ->
+                    (\{ endOfLife } ->
                         { step
                             | processInfo =
-                                { processInfo
-                                  -- FIXME: better use strings directly
-                                    | passengerCar =
-                                        Just
-                                            { passengerCar
-                                                | name = "Transport en voiture vers point de collecte (1km)"
-                                            }
-                                    , endOfLife = Just endOfLife
+                                { newProcessInfo
+                                    | passengerCar = Just "Transport en voiture vers point de collecte (1km)"
+                                    , endOfLife = Just endOfLife.name
                                 }
                         }
                     )
-                |> Result.withDefault { step | processInfo = processInfo }
+                |> Result.withDefault { step | processInfo = newProcessInfo }
 
         _ ->
             step
@@ -448,13 +457,19 @@ encodeProcessInfo v =
             Maybe.map Encode.string >> Maybe.withDefault Encode.null
     in
     Encode.object
-        [ ( "electricity", encodeMaybeString v.countryElec )
-        , ( "heat", encodeMaybeString v.countryHeat )
-        , ( "dyeing", encodeMaybeString v.dyeingWeighting )
+        [ ( "countryElec", encodeMaybeString v.countryElec )
+        , ( "countryHeat", encodeMaybeString v.countryHeat )
+        , ( "dyeingWeighting", encodeMaybeString v.dyeingWeighting )
         , ( "airTransportRatio", encodeMaybeString v.airTransportRatio )
-        , ( "airTransport", v.airTransport |> Maybe.map Process.encode |> Maybe.withDefault Encode.null )
-        , ( "seaTransport", v.seaTransport |> Maybe.map Process.encode |> Maybe.withDefault Encode.null )
-        , ( "roadTransport", v.roadTransport |> Maybe.map Process.encode |> Maybe.withDefault Encode.null )
+        , ( "airTransport", encodeMaybeString v.airTransport )
+        , ( "seaTransport", encodeMaybeString v.seaTransport )
+        , ( "roadTransport", encodeMaybeString v.roadTransport )
+        , ( "useIroning", encodeMaybeString v.useIroning )
+        , ( "useNonIroning", encodeMaybeString v.useNonIroning )
+        , ( "passengerCar", encodeMaybeString v.passengerCar )
+        , ( "endOfLife", encodeMaybeString v.endOfLife )
+        , ( "knittingWeaving", encodeMaybeString v.knittingWeaving )
+        , ( "distribution", encodeMaybeString v.distribution )
         ]
 
 
