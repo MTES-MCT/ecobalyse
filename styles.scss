@@ -428,6 +428,17 @@ blockquote {
   }
 }
 
+.Step {
+  &Number {
+    display: inline-flex;
+    align-items: center;
+    justify-items: center;
+    width: 22px;
+    height: 22px;
+    margin-right: 6px;
+  }
+}
+
 .Summary {
   &ProductImage {
     width: 4.35em;

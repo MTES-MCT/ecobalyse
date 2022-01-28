@@ -150,7 +150,7 @@ simpleView ({ funit, inputs, daysOfWear, impact, index, current } as config) =
         [ div [ class "card-header" ]
             [ div [ class "row" ]
                 [ div [ class "col-6 d-flex align-items-center" ]
-                    [ span [ class "badge rounded-pill bg-primary me-1" ]
+                    [ span [ class "StepNumber badge rounded-pill bg-primary" ]
                         [ text (String.fromInt (index + 1)) ]
                     , current.label
                         |> Step.displayLabel { knitted = inputs.product.knitted }
@@ -255,7 +255,7 @@ detailedView ({ inputs, funit, impact, daysOfWear, index, next, current } as con
         [ div [ class "card" ]
             [ div [ class "card-header d-flex justify-content-between align-items-center" ]
                 [ span [ class "d-flex align-items-center" ]
-                    [ span [ class "badge rounded-pill bg-primary me-1" ]
+                    [ span [ class "StepNumber badge rounded-pill bg-primary" ]
                         [ text (String.fromInt (index + 1)) ]
                     , current.label
                         |> Step.displayLabel { knitted = inputs.product.knitted }
