@@ -59,6 +59,11 @@ document =
     icon "document"
 
 
+dyeing : Html msg
+dyeing =
+    icon "dyeing"
+
+
 exclamation : Html msg
 exclamation =
     icon "exclamation"
@@ -67,6 +72,11 @@ exclamation =
 expand : Html msg
 expand =
     icon "expand"
+
+
+fabric : Html msg
+fabric =
+    icon "fabric"
 
 
 globe : Html msg
@@ -89,6 +99,16 @@ mail =
     icon "mail"
 
 
+making : Html msg
+making =
+    icon "making"
+
+
+material : Html msg
+material =
+    icon "material"
+
+
 pencil : Html msg
 pencil =
     icon "pencil"
@@ -102,6 +122,11 @@ plane =
 question : Html msg
 question =
     icon "question"
+
+
+recycle : Html msg
+recycle =
+    icon "recycle"
 
 
 search : Html msg
@@ -127,6 +152,11 @@ times =
 tShirt : Html msg
 tShirt =
     icon "tshirt"
+
+
+use : Html msg
+use =
+    icon "use"
 
 
 warning : Html msg

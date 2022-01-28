@@ -40,6 +40,33 @@ type alias Config msg =
     }
 
 
+stepIcon : Step.Label -> Html msg
+stepIcon label =
+    span [ class "StepIcon bg-primary text-white rounded-pill" ]
+        [ case label of
+            Step.MaterialAndSpinning ->
+                Icon.material
+
+            Step.WeavingKnitting ->
+                Icon.fabric
+
+            Step.Ennoblement ->
+                Icon.dyeing
+
+            Step.Making ->
+                Icon.making
+
+            Step.Distribution ->
+                Icon.bus
+
+            Step.Use ->
+                Icon.use
+
+            Step.EndOfLife ->
+                Icon.recycle
+        ]
+
+
 countryField : Config msg -> Html msg
 countryField { db, current, inputs, index, updateCountry } =
     div []
@@ -145,13 +172,12 @@ stepDocumentationLink { openDocModal } label =
 
 
 simpleView : Config msg -> Html msg
-simpleView ({ funit, inputs, daysOfWear, impact, index, current } as config) =
+simpleView ({ funit, inputs, daysOfWear, impact, current } as config) =
     div [ class "card" ]
         [ div [ class "card-header" ]
             [ div [ class "row" ]
                 [ div [ class "col-6 d-flex align-items-center" ]
-                    [ span [ class "StepNumber badge rounded-pill bg-primary" ]
-                        [ text (String.fromInt (index + 1)) ]
+                    [ stepIcon current.label
                     , current.label
                         |> Step.displayLabel { knitted = inputs.product.knitted }
                         |> text
@@ -237,7 +263,7 @@ viewCountryElecProcessInfo editMsg step =
 
 
 detailedView : Config msg -> Html msg
-detailedView ({ inputs, funit, impact, daysOfWear, index, next, current } as config) =
+detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
     let
         transportLabel =
             case next of
@@ -255,8 +281,7 @@ detailedView ({ inputs, funit, impact, daysOfWear, index, next, current } as con
         [ div [ class "card" ]
             [ div [ class "card-header d-flex justify-content-between align-items-center" ]
                 [ span [ class "d-flex align-items-center" ]
-                    [ span [ class "StepNumber badge rounded-pill bg-primary" ]
-                        [ text (String.fromInt (index + 1)) ]
+                    [ stepIcon current.label
                     , current.label
                         |> Step.displayLabel { knitted = inputs.product.knitted }
                         |> text
