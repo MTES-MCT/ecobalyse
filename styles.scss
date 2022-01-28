@@ -158,7 +158,7 @@ blockquote {
 .Chevrons {
   $chevrons-radius: 4px;
   $chevrons-size: 12px;
-  font-size: 0.75em;
+  font-size: 0.85em;
   font-weight: bold;
   padding: 0;
   margin: 0;
@@ -185,7 +185,7 @@ blockquote {
 
     @media screen and (max-width: $viewport-xl) {
       span {
-        font-size: 10px;
+        font-size: $chevrons-size;
       }
     }
 
@@ -430,8 +430,10 @@ blockquote {
 
 .Step {
   &Number {
-    display: inline-flex;
+    display: grid;
     align-items: center;
+    align-content: center;
+    justify-content: center;
     justify-items: center;
     width: 22px;
     height: 22px;
