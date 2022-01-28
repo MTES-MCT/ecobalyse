@@ -67,7 +67,7 @@ viewExample session funit impact query =
 viewExamples : Session -> Model -> Html Msg
 viewExamples session { impact, funit } =
     div []
-        [ div [ class "row" ]
+        [ div [ class "row mb-3 mb-sm-0" ]
             [ div [ class "col-md-7 col-lg-8 col-xl-9" ]
                 [ h1 [ class "mb-3" ] [ text "Exemples de simulation" ]
                 ]
