@@ -21,52 +21,28 @@ type alias Product =
     { id : Id
     , name : String
     , mass : Mass
+    , pcrWaste : Unit.Ratio -- PCR product waste ratio
+    , ppm : Int -- pick per meter
+    , grammage : Int -- grammes per kg
+    , knitted : Bool -- True: Tricotage (Knitting); False: Tissage (Weaving)
+    , fabricProcess : Process -- Procédé de Tissage/Tricotage
+    , makingProcess : Process -- Procédé de Confection
+    , useDefaultNbCycles : Int -- Nombre par défaut de cycles d'entretien
+    , useIroningProcess : Process -- Procédé de repassage
+    , useNonIroningProcess : Process -- Procédé composite d'utilisation hors-repassage
+    , wearsPerCycle : Int -- Nombre de jours porté par cycle d'entretien
 
-    -- PCR product waste ratio
-    , pcrWaste : Unit.Ratio --
-
-    -- pick per meter
-    , ppm : Int
-
-    -- grammes per kg
-    , grammage : Int
-
-    -- True: Tricotage (Knitting); False: Tissage (Weaving)
-    , knitted : Bool
-
-    -- Procédé de Tissage/Tricotage
-    , fabricProcess : Process
-
-    -- Procédé de Confection
-    , makingProcess : Process
-
-    -- Nombre par défaut de cycles d'entretien
-    , useDefaultNbCycles : Int
-
-    -- Ratio de séchage électrique
     -- Note: only for information, not used in computations
-    , useRatioDryer : Unit.Ratio
+    , useRatioDryer : Unit.Ratio -- Ratio de séchage électrique
 
-    -- Ratio de repassage
     -- Note: only for information, not used in computations
-    , useRatioIroning : Unit.Ratio
+    , useRatioIroning : Unit.Ratio -- Ratio de repassage
 
-    -- Temps de repassage
     -- Note: only for information, not used in computations
-    , useTimeIroning : Duration
+    , useTimeIroning : Duration -- Temps de repassage
 
-    -- Procédé de repassage
-    , useIroningProcess : Process
-
-    -- Procédé composite d'utilisation hors-repassage
-    , useNonIroningProcess : Process
-
-    -- Nombre de jour de porter du vêtement
     -- Note: only for information, not used in computations
-    , daysOfWear : Duration
-
-    -- Nombre de jour porté par cycle d'entretien
-    , wearsPerCycle : Int
+    , daysOfWear : Duration -- Nombre de jour de porter du vêtement
     }
 
 
@@ -99,13 +75,13 @@ decode processes =
         |> Pipe.required "fabricProcessUuid" (Process.decodeFromUuid processes)
         |> Pipe.required "makingProcessUuid" (Process.decodeFromUuid processes)
         |> Pipe.required "useDefaultNbCycles" Decode.int
+        |> Pipe.required "useIroningProcessUuid" (Process.decodeFromUuid processes)
+        |> Pipe.required "useNonIroningProcessUuid" (Process.decodeFromUuid processes)
+        |> Pipe.required "wearsPerCycle" Decode.int
         |> Pipe.required "useRatioDryer" Unit.decodeRatio
         |> Pipe.required "useRatioIroning" Unit.decodeRatio
         |> Pipe.required "useTimeIroning" (Decode.map Duration.hours Decode.float)
-        |> Pipe.required "useIroningProcessUuid" (Process.decodeFromUuid processes)
-        |> Pipe.required "useNonIroningProcessUuid" (Process.decodeFromUuid processes)
         |> Pipe.required "daysOfWear" (Decode.map Duration.days Decode.float)
-        |> Pipe.required "wearsPerCycle" Decode.int
 
 
 decodeList : List Process -> Decoder (List Product)
@@ -126,13 +102,13 @@ encode v =
         , ( "fabricProcessUuid", Process.encodeUuid v.makingProcess.uuid )
         , ( "makingProcessUuid", Process.encodeUuid v.makingProcess.uuid )
         , ( "useDefaultNbCycles", Encode.int v.useDefaultNbCycles )
+        , ( "useIroningProcessUuid", Process.encodeUuid v.useIroningProcess.uuid )
+        , ( "useNonIroningProcessUuid", Process.encodeUuid v.useNonIroningProcess.uuid )
+        , ( "wearsPerCycle", Encode.int v.wearsPerCycle )
         , ( "useRatioDryer", Unit.encodeRatio v.useRatioDryer )
         , ( "useRatioIroning", Unit.encodeRatio v.useRatioIroning )
         , ( "useTimeIroning", Encode.float (Duration.inHours v.useTimeIroning) )
-        , ( "useIroningProcessUuid", Process.encodeUuid v.useIroningProcess.uuid )
-        , ( "useNonIroningProcessUuid", Process.encodeUuid v.useNonIroningProcess.uuid )
         , ( "daysOfWear", Encode.float (Duration.inDays v.daysOfWear) )
-        , ( "wearsPerCycle", Encode.int v.wearsPerCycle )
         ]
 
 
