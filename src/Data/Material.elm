@@ -49,11 +49,16 @@ groupAll =
         >> Tuple.mapBoth groupByCategories groupByCategories
 
 
+fromCategory : Category -> List Material -> List Material
+fromCategory category =
+    List.filter (.category >> (==) category)
+
+
 groupByCategories : List Material -> ( List Material, List Material, List Material )
 groupByCategories materials =
-    ( materials |> List.filter (.category >> (==) Category.Natural)
-    , materials |> List.filter (.category >> (==) Category.Synthetic)
-    , materials |> List.filter (.category >> (==) Category.Recycled)
+    ( materials |> fromCategory Category.Natural
+    , materials |> fromCategory Category.Synthetic
+    , materials |> fromCategory Category.Recycled
     )
 
 
@@ -104,11 +109,9 @@ encode v =
         , ( "name", v.name |> Encode.string )
         , ( "shortName", Encode.string v.shortName )
         , ( "category", v.category |> Category.toString |> Encode.string )
-        , ( "materialProcessUuid", v.materialProcess.uuid |> Process.uuidToString |> Encode.string )
+        , ( "materialProcessUuid", Process.encodeUuid v.materialProcess.uuid )
         , ( "recycledProcessUuid"
-          , v.recycledProcess
-                |> Maybe.map (.uuid >> Process.uuidToString >> Encode.string)
-                |> Maybe.withDefault Encode.null
+          , v.recycledProcess |> Maybe.map (.uuid >> Process.encodeUuid) |> Maybe.withDefault Encode.null
           )
         , ( "primary", Encode.bool v.primary )
         , ( "continent", Encode.string v.continent )
