@@ -38,7 +38,7 @@ summaryView { session, impact, funit, reusable } ({ inputs, lifeCycle } as simul
             , span [ class "text-nowrap" ] [ Format.kg inputs.mass ]
             , span [ class "text-nowrap" ] [ Icon.day, Format.days simulator.daysOfWear ]
             ]
-        , div [ class "card-body px-1 d-grid gap-3 text-white bg-primary" ]
+        , div [ class "card-body px-1 py-2 py-sm-3 d-grid gap-2 gap-sm-3 text-white bg-primary" ]
             [ div [ class "d-flex justify-content-center align-items-center" ]
                 [ img
                     [ src <| "img/product/" ++ inputs.product.name ++ ".svg"

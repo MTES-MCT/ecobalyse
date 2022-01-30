@@ -17,6 +17,7 @@ import Html.Events exposing (..)
 import Route
 import Views.Alert as Alert
 import Views.Container as Container
+import Views.Icon as Icon
 import Views.Link as Link
 import Views.Spinner as Spinner
 
@@ -40,6 +41,9 @@ type MenuLink
 
 type alias Config msg =
     { session : Session
+    , mobileNavigationOpened : Bool
+    , closeMobileNavigation : msg
+    , openMobileNavigation : msg
     , loadUrl : String -> msg
     , closeNotification : Session.Notification -> msg
     , activePage : ActivePage
@@ -52,9 +56,14 @@ frame config ( title, content ) =
     , body =
         [ stagingAlert config
         , navbar config
+        , if config.mobileNavigationOpened then
+            mobileNavigation config
+
+          else
+            text ""
         , main_ [ class "bg-white" ]
             [ notificationListView config
-            , div [ class "pt-5" ] content
+            , div [ class "pt-2 pt-sm-5" ] content
             ]
         , pageFooter
         ]
@@ -69,8 +78,7 @@ stagingAlert { session, loadUrl } =
             , button
                 [ type_ "button"
                 , class "btn btn-link"
-                , onClick
-                    (loadUrl "https://wikicarbone.beta.gouv.fr/")
+                , onClick (loadUrl "https://wikicarbone.beta.gouv.fr/")
                 ]
                 [ text "Retourner vers l'environnement de production" ]
             ]
@@ -105,7 +113,7 @@ footerMenuLinks =
 
 
 navbar : Config msg -> Html msg
-navbar { activePage } =
+navbar { activePage, openMobileNavigation } =
     nav [ class "Header navbar navbar-expand-lg navbar-dark bg-dark shadow" ]
         [ Container.centered []
             [ a [ class "navbar-brand", Route.href Route.Home ]
@@ -119,37 +127,47 @@ navbar { activePage } =
                 , span [ class "fs-3" ] [ text "wikicarbone" ]
                 ]
             , headerMenuLinks
-                |> List.map
-                    (\link ->
-                        case link of
-                            Internal label route page ->
-                                Link.internal
-                                    ([ class "nav-link pe-3"
-                                     , classList [ ( "active", page == activePage ) ]
-                                     , Route.href route
-                                     ]
-                                        ++ (if page == activePage then
-                                                [ attribute "aria-current" "page" ]
-
-                                            else
-                                                []
-                                           )
-                                    )
-                                    [ text label ]
-
-                            External label url ->
-                                Link.external [ class "nav-link link-external-muted pe-2", href url ]
-                                    [ text label ]
-
-                            MailTo label email ->
-                                a [ class "link-email", href <| "mailto:" ++ email ] [ text label ]
-                    )
+                |> List.map (viewNavigationLink activePage)
                 |> div
-                    [ class "MainMenu navbar-nav justify-content-between flex-row"
+                    [ class "d-none d-sm-flex MainMenu navbar-nav justify-content-between flex-row"
                     , style "overflow" "auto"
                     ]
+            , button
+                [ type_ "button"
+                , class "d-inline-block d-sm-none btn btn-dark m-0 p-0"
+                , attribute "aria-label" "Ouvrir la navigation"
+                , title "Ouvrir la navigation"
+                , onClick openMobileNavigation
+                ]
+                [ Icon.verticalDots ]
             ]
         ]
+
+
+viewNavigationLink : ActivePage -> MenuLink -> Html msg
+viewNavigationLink activePage link =
+    case link of
+        Internal label route page ->
+            Link.internal
+                ([ class "nav-link pe-3"
+                 , classList [ ( "active", page == activePage ) ]
+                 , Route.href route
+                 ]
+                    ++ (if page == activePage then
+                            [ attribute "aria-current" "page" ]
+
+                        else
+                            []
+                       )
+                )
+                [ text label ]
+
+        External label url ->
+            Link.external [ class "nav-link link-external-muted pe-2", href url ]
+                [ text label ]
+
+        MailTo label email ->
+            a [ class "nav-link", href <| "mailto:" ++ email ] [ text label ]
 
 
 notificationListView : Config msg -> Html msg
@@ -262,4 +280,37 @@ loading : Html msg
 loading =
     Container.centered [ class "pb-5" ]
         [ Spinner.view
+        ]
+
+
+mobileNavigation : Config msg -> Html msg
+mobileNavigation { activePage, closeMobileNavigation } =
+    div []
+        [ div
+            [ class "offcanvas offcanvas-start show"
+            , style "visibility" "visible"
+            , id "navigation"
+            , attribute "tabindex" "-1"
+            , attribute "aria-labelledby" "navigationLabel"
+            , attribute "arial-modal" "true"
+            , attribute "role" "dialog"
+            ]
+            [ div [ class "offcanvas-header" ]
+                [ h5 [ class "offcanvas-title", id "navigationLabel" ]
+                    [ text "Navigation" ]
+                , button
+                    [ type_ "button"
+                    , class "btn-close text-reset"
+                    , attribute "aria-label" "Close"
+                    , onClick closeMobileNavigation
+                    ]
+                    []
+                ]
+            , div [ class "offcanvas-body" ]
+                [ footerMenuLinks
+                    |> List.map (viewNavigationLink activePage)
+                    |> div [ class "nav nav-pills flex-column" ]
+                ]
+            ]
+        , div [ class "offcanvas-backdrop fade show" ] []
         ]

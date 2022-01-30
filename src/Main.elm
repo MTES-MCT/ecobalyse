@@ -41,6 +41,7 @@ type Page
 type alias Model =
     { page : Page
     , session : Session
+    , mobileNavigationOpened : Bool
     }
 
 
@@ -56,6 +57,8 @@ type Msg
     | StatsMsg Stats.Msg
     | StoreChanged String
     | LoadUrl String
+    | CloseMobileNavigation
+    | OpenMobileNavigation
     | UrlChanged Url
     | UrlRequested Browser.UrlRequest
 
@@ -71,7 +74,10 @@ init flags url navKey =
             , notifications = []
             }
     in
-    ( { page = BlankPage, session = session }
+    ( { page = BlankPage
+      , mobileNavigationOpened = False
+      , session = session
+      }
     , Cmd.batch
         [ Ports.appStarted ()
         , Request.Db.loadDb session (DbReceived url)
@@ -202,12 +208,19 @@ update msg ({ page, session } as model) =
         ( StoreChanged json, _ ) ->
             ( { model | session = { session | store = Session.deserializeStore json } }, Cmd.none )
 
+        -- Mobile navigation menu
+        ( CloseMobileNavigation, _ ) ->
+            ( { model | mobileNavigationOpened = False }, Cmd.none )
+
+        ( OpenMobileNavigation, _ ) ->
+            ( { model | mobileNavigationOpened = True }, Cmd.none )
+
         -- Url
         ( LoadUrl url, _ ) ->
             ( model, Nav.load url )
 
         ( UrlChanged url, _ ) ->
-            ( model, Cmd.none )
+            ( { model | mobileNavigationOpened = False }, Cmd.none )
                 |> setRoute (Route.fromUrl url)
 
         ( UrlRequested (Browser.Internal url), _ ) ->
@@ -261,10 +274,15 @@ subscriptions model =
 
 
 view : Model -> Document Msg
-view { page, session } =
+view { page, mobileNavigationOpened, session } =
     let
         pageConfig =
-            Page.Config session LoadUrl CloseNotification
+            Page.Config session
+                mobileNavigationOpened
+                CloseMobileNavigation
+                OpenMobileNavigation
+                LoadUrl
+                CloseNotification
 
         mapMsg msg ( title, content ) =
             ( title, content |> List.map (Html.map msg) )

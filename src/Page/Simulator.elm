@@ -529,20 +529,20 @@ shareLinkView session { impact, funit } simulator =
 
 displayModeView : DisplayMode -> Html Msg
 displayModeView displayMode =
-    ul [ class "nav nav-pills nav-fill py-2 bg-white sticky-md-top" ]
+    ul [ class "nav nav-pills nav-fill py-2 bg-white sticky-md-top justify-content-between justify-content-sm-end align-items-center gap-0 gap-sm-2" ]
         [ li [ class "nav-item" ]
             [ button
                 [ classList [ ( "nav-link", True ), ( "active", displayMode == SimpleMode ) ]
                 , onClick (SwitchMode SimpleMode)
                 ]
-                [ span [ class "me-2" ] [ Icon.zoomout ], text "Affichage simple" ]
+                [ span [ class "me-1" ] [ Icon.zoomout ], text "Affichage simple" ]
             ]
         , li [ class "nav-item" ]
             [ button
                 [ classList [ ( "nav-link", True ), ( "active", displayMode == DetailedMode ) ]
                 , onClick (SwitchMode DetailedMode)
                 ]
-                [ span [ class "me-2" ] [ Icon.zoomin ], text "Affichage détaillé" ]
+                [ span [ class "me-1" ] [ Icon.zoomin ], text "Affichage détaillé" ]
             ]
         ]
 

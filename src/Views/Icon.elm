@@ -159,6 +159,11 @@ use =
     icon "use"
 
 
+verticalDots : Html msg
+verticalDots =
+    icon "dots-vertical"
+
+
 warning : Html msg
 warning =
     icon "warning"
