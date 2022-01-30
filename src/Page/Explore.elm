@@ -121,7 +121,7 @@ menu dataset =
                     ]
                     [ text (Db.datasetLabel ds) ]
             )
-        |> nav [ class "nav nav-pills flex-column flex-sm-row" ]
+        |> nav [ class "nav nav-pills d-flex justify-content-between justify-content-sm-end align-items-center gap-0 gap-sm-2" ]
 
 
 detailsModal : Html Msg -> Html Msg
@@ -147,101 +147,92 @@ alert error =
         }
 
 
-explore : Db -> Db.Dataset -> Html Msg
+explore : Db -> Db.Dataset -> List (Html Msg)
 explore db dataset =
     case dataset of
         Db.Countries maybeId ->
-            div []
-                [ ExploreCountries.view db.countries
-                , case maybeId of
-                    Just code ->
-                        case Country.findByCode code db.countries of
-                            Ok country ->
-                                country
-                                    |> ExploreCountries.details db
-                                    |> detailsModal
+            [ ExploreCountries.view db.countries
+            , case maybeId of
+                Just code ->
+                    case Country.findByCode code db.countries of
+                        Ok country ->
+                            country
+                                |> ExploreCountries.details db
+                                |> detailsModal
 
-                            Err error ->
-                                alert error
+                        Err error ->
+                            alert error
 
-                    Nothing ->
-                        text ""
-                ]
+                Nothing ->
+                    text ""
+            ]
 
         Db.Impacts maybeId ->
-            div []
-                [ ExploreImpacts.view db.impacts
-                , case maybeId of
-                    Just trigram ->
-                        case Impact.getDefinition trigram db.impacts of
-                            Ok definition ->
-                                definition
-                                    |> ExploreImpacts.details db
-                                    |> detailsModal
+            [ ExploreImpacts.view db.impacts
+            , case maybeId of
+                Just trigram ->
+                    case Impact.getDefinition trigram db.impacts of
+                        Ok definition ->
+                            definition
+                                |> ExploreImpacts.details db
+                                |> detailsModal
 
-                            Err error ->
-                                alert error
+                        Err error ->
+                            alert error
 
-                    Nothing ->
-                        text ""
-                ]
+                Nothing ->
+                    text ""
+            ]
 
         Db.Materials maybeId ->
-            div []
-                [ ExploreMaterials.view db.materials
-                , case maybeId of
-                    Just uuid ->
-                        case Material.findByUuid uuid db.materials of
-                            Ok material ->
-                                material
-                                    |> ExploreMaterials.details db
-                                    |> detailsModal
+            [ ExploreMaterials.view db.materials
+            , case maybeId of
+                Just uuid ->
+                    case Material.findByUuid uuid db.materials of
+                        Ok material ->
+                            material
+                                |> ExploreMaterials.details db
+                                |> detailsModal
 
-                            Err error ->
-                                alert error
+                        Err error ->
+                            alert error
 
-                    Nothing ->
-                        text ""
-                ]
+                Nothing ->
+                    text ""
+            ]
 
         Db.Products maybeId ->
-            div []
-                [ ExploreProducts.view db.products
-                , case maybeId of
-                    Just id ->
-                        case Product.findById id db.products of
-                            Ok product ->
-                                product
-                                    |> ExploreProducts.details db
-                                    |> detailsModal
+            [ ExploreProducts.view db.products
+            , case maybeId of
+                Just id ->
+                    case Product.findById id db.products of
+                        Ok product ->
+                            product
+                                |> ExploreProducts.details db
+                                |> detailsModal
 
-                            Err error ->
-                                alert error
+                        Err error ->
+                            alert error
 
-                    Nothing ->
-                        text ""
-                ]
+                Nothing ->
+                    text ""
+            ]
 
 
 view : Session -> Model -> ( String, List (Html Msg) )
 view session { dataset } =
     ( Db.datasetLabel dataset ++ " | Explorer "
-    , [ Container.centered [ class "pb-5" ]
-            [ div [ class "row" ]
-                [ div [ class "col-sm-6" ]
-                    [ h1 [ class "m-0 mb-1" ]
-                        [ text "Explorer "
-                        , small [ class "text-muted" ]
-                            [ text <| "les " ++ String.toLower (Db.datasetLabel dataset) ]
-                        ]
+    , [ Container.centered [ class "pb-3" ]
+            [ div [ class "d-block d-sm-flex justify-content-between align-items-center" ]
+                [ h1 []
+                    [ text "Explorer "
+                    , small [ class "text-muted" ]
+                        [ text <| "les " ++ String.toLower (Db.datasetLabel dataset) ]
                     ]
-                , div [ class "col-sm-6 d-sm-flex justify-content-end" ]
-                    [ div [] [ menu dataset ]
-                    ]
+                , menu dataset
                 ]
-            , div [ class "py-3" ]
-                [ explore session.db dataset
-                ]
+            , explore session.db dataset
+                |> div [ class "mt-3" ]
             ]
       ]
     )
