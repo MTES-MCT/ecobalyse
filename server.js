@@ -29,7 +29,7 @@ app.use(
         "img-src": [
           "'self'",
           "data:",
-          "https://api.github.com",
+          "https://avatars.githubusercontent.com",
           "https://raw.githubusercontent.com",
         ],
         "script-src": ["'self'", "https://stats.data.gouv.fr"],
