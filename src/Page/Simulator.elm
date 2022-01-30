@@ -775,12 +775,11 @@ simulatorView ({ db } as session) model ({ inputs } as simulator) =
 view : Session -> Model -> ( String, List (Html Msg) )
 view session model =
     ( "Simulateur"
-    , [ Container.centered
-            [ class "Simulator pb-3" ]
+    , [ Container.centered [ class "Simulator pb-3" ]
             [ div [ class "row" ]
-                [ div [ class "col-sm-7 mb-2" ]
+                [ div [ class "col-md-7 mb-2" ]
                     [ h1 [] [ text "Simulateur " ] ]
-                , div [ class "col-sm-5 mb-2 d-flex align-items-center" ]
+                , div [ class "col-md-5 mb-2 d-flex align-items-center" ]
                     [ ImpactView.selector
                         { impacts = session.db.impacts
                         , selectedImpact = model.impact.trigram

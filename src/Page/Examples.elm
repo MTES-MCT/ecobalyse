@@ -64,38 +64,30 @@ viewExample session funit impact query =
         |> (\v -> div [ class "col" ] [ v ])
 
 
-viewExamples : Session -> Model -> Html Msg
-viewExamples session { impact, funit } =
-    div []
-        [ div [ class "row mb-3 mb-sm-0" ]
-            [ div [ class "col-md-7 col-lg-8 col-xl-9" ]
-                [ h1 [ class "mb-3" ] [ text "Exemples de simulation" ]
-                ]
-            , div [ class "col-md-5 col-lg-4 col-xl-3 text-center text-md-end" ]
-                [ ImpactView.selector
-                    { impacts = session.db.impacts
-                    , selectedImpact = impact
-                    , switchImpact = SwitchImpact
-                    , selectedFunctionalUnit = funit
-                    , switchFunctionalUnit = SwitchFunctionalUnit
-                    }
-                ]
-            ]
-        , session.db.impacts
-            |> Impact.getDefinition impact
-            |> Result.map ImpactView.viewDefinition
-            |> Result.withDefault (text "")
-        , Inputs.presets
-            |> List.map (viewExample session funit impact)
-            |> div [ class "row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4" ]
-        ]
-
-
 view : Session -> Model -> ( String, List (Html Msg) )
-view session model =
+view session { impact, funit } =
     ( "Exemples"
-    , [ Container.centered [ class "pb-5" ]
-            [ viewExamples session model
+    , [ Container.centered [ class "pb-3" ]
+            [ div [ class "row" ]
+                [ div [ class "col-md-7 mb-2" ]
+                    [ h1 [] [ text "Exemples de simulation" ] ]
+                , div [ class "col-md-5 mb-2 d-flex align-items-center" ]
+                    [ ImpactView.selector
+                        { impacts = session.db.impacts
+                        , selectedImpact = impact
+                        , switchImpact = SwitchImpact
+                        , selectedFunctionalUnit = funit
+                        , switchFunctionalUnit = SwitchFunctionalUnit
+                        }
+                    ]
+                ]
+            , session.db.impacts
+                |> Impact.getDefinition impact
+                |> Result.map ImpactView.viewDefinition
+                |> Result.withDefault (text "")
+            , Inputs.presets
+                |> List.map (viewExample session funit impact)
+                |> div [ class "row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4" ]
             ]
       ]
     )
