@@ -22,8 +22,9 @@ app.use(
       directives: {
         "default-src": [
           "'self'",
-          "https://stats.data.gouv.fr",
+          "https://api.github.com",
           "https://raw.githubusercontent.com",
+          "https://stats.data.gouv.fr",
         ],
         "img-src": ["'self'", "data:", "https://raw.githubusercontent.com"],
         "script-src": ["'self'", "https://stats.data.gouv.fr"],
