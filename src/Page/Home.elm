@@ -88,7 +88,7 @@ viewHero session =
                     [ div [ class "col-md-6 text-center text-md-end py-2" ]
                         [ a
                             [ class "btn btn-lg btn-primary"
-                            , Route.href (Route.Simulator Impact.defaultTrigram Unit.PerItem Nothing)
+                            , Route.href (Route.Simulator Impact.defaultTrigram Unit.PerItem { detailed = False } Nothing)
                             ]
                             [ text "Faire une simulation" ]
                         ]
