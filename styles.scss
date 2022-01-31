@@ -377,7 +377,7 @@ blockquote {
     bottom: 0;
     left: 0;
     right: 0;
-    z-index: 1099;
+    z-index: 1044; // a notch behind mobile navigation overlay
 
     select, button {
       border-radius: 0;
