@@ -30,6 +30,7 @@ module Data.Unit exposing
     , ratioedForKWh
     , ratioedForKg
     , ratioedForMJ
+    , standardQuality
     )
 
 import Duration exposing (Duration)
@@ -122,6 +123,11 @@ type Quality
 minQuality : Quality
 minQuality =
     Quality 0.67
+
+
+standardQuality : Quality
+standardQuality =
+    Quality 1
 
 
 maxQuality : Quality

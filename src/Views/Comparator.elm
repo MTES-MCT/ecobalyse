@@ -137,9 +137,24 @@ toNonRecycledIndia query =
     )
 
 
-createEntry : Db -> Unit.Functional -> Impact.Definition -> Bool -> ( String, Inputs.Query ) -> Result String Entry
+createEntry :
+    Db
+    -> Unit.Functional
+    -> Impact.Definition
+    -> Bool
+    -> ( String, Inputs.Query )
+    -> Result String Entry
 createEntry db funit { trigram } highlight ( label, query ) =
-    query
+    let
+        adjustedQuery =
+            -- Current simulation comparison is always made against products with average quality
+            if not highlight then
+                { query | quality = Just <| Unit.quality 1 }
+
+            else
+                query
+    in
+    adjustedQuery
         |> Simulator.compute db
         |> Result.map
             (\({ lifeCycle, inputs, daysOfWear, transport } as simulator) ->

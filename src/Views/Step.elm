@@ -35,7 +35,7 @@ type alias Config msg =
     , openCustomCountryMixModal : Step -> msg
     , updateCountry : Int -> Country.Code -> msg
     , updateDyeingWeighting : Maybe Unit.Ratio -> msg
-    , updateUseNbCycles : Maybe Int -> msg
+    , updateQuality : Maybe Unit.Quality -> msg
     , updateAirTransportRatio : Maybe Unit.Ratio -> msg
     }
 
@@ -143,16 +143,13 @@ dyeingWeightingField { current, updateDyeingWeighting } =
         }
 
 
-useNbCyclesField : Config msg -> Html msg
-useNbCyclesField { current, updateUseNbCycles } =
-    RangeSlider.int
-        { id = "useNbCycles"
-        , min = 1
-        , max = 100
-        , step = 1
-        , update = updateUseNbCycles
-        , value = current.useNbCycles
-        , toString = Step.useNbCyclesToString
+qualityField : Config msg -> Html msg
+qualityField { current, updateQuality } =
+    RangeSlider.quality
+        { id = "quality"
+        , update = updateQuality
+        , value = current.quality
+        , toString = Step.qualityToString
         , disabled = False
         }
 
@@ -198,7 +195,7 @@ simpleView ({ funit, inputs, daysOfWear, impact, current } as config) =
                         div [ class "mt-2" ] [ airTransportRatioField config ]
 
                     Step.Use ->
-                        div [ class "mt-2" ] [ useNbCyclesField config ]
+                        div [ class "mt-2" ] [ qualityField config ]
 
                     _ ->
                         text ""
@@ -310,13 +307,26 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                         ]
 
                 Step.Use ->
+                    let
+                        info =
+                            inputs.product
+                                |> Product.customDaysOfWear inputs.quality
+                    in
                     div [ class "card-body py-2 text-muted" ]
-                        [ useNbCyclesField config
+                        [ qualityField config
                         , small [ class "fs-7" ]
-                            [ text "Nombre de jours portés\u{00A0}: "
-                            , inputs.product
-                                |> Product.customDaysOfWear inputs.useNbCycles
-                                |> Format.days
+                            [ Format.days info.daysOfWear
+                            , text " portés, "
+                            , text <| String.fromInt info.useNbCycles
+                            , text <|
+                                " cycle"
+                                    ++ (if info.useNbCycles > 1 then
+                                            "s"
+
+                                        else
+                                            ""
+                                       )
+                                    ++ " d'entretien"
                             ]
                         ]
 

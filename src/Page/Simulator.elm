@@ -89,9 +89,9 @@ type Msg
     | UpdateMassInput String
     | UpdateMaterial Process.Uuid
     | UpdateProduct Product.Id
+    | UpdateQuality (Maybe Unit.Quality)
     | UpdateRecycledRatio (Maybe Unit.Ratio)
     | UpdateStepCountry Int Country.Code
-    | UpdateUseNbCycles (Maybe Int)
 
 
 type alias CustomCountryMixInputs =
@@ -328,6 +328,10 @@ update ({ db, navKey } as session) msg ({ customCountryMixInputs, query } as mod
                 Err error ->
                     ( model, session |> Session.notifyError "Erreur de produit" error, Cmd.none )
 
+        UpdateQuality quality ->
+            ( model, session, Cmd.none )
+                |> updateQuery { query | quality = quality }
+
         UpdateRecycledRatio recycledRatio ->
             ( model, session, Cmd.none )
                 |> updateQuery { query | recycledRatio = recycledRatio }
@@ -357,10 +361,6 @@ update ({ db, navKey } as session) msg ({ customCountryMixInputs, query } as mod
             , Cmd.none
             )
                 |> updateQuery (Inputs.updateStepCountry index code query)
-
-        UpdateUseNbCycles useNbCycles ->
-            ( model, session, Cmd.none )
-                |> updateQuery { query | useNbCycles = useNbCycles }
 
 
 massField : String -> Html Msg
@@ -484,7 +484,7 @@ lifeCycleStepsView db { displayMode, funit, impact } simulator =
                     , updateCountry = UpdateStepCountry
                     , updateAirTransportRatio = UpdateAirTransportRatio
                     , updateDyeingWeighting = UpdateDyeingWeighting
-                    , updateUseNbCycles = UpdateUseNbCycles
+                    , updateQuality = UpdateQuality
                     }
             )
         |> Array.toList

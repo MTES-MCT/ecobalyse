@@ -1,4 +1,7 @@
-module Views.RangeSlider exposing (int, ratio)
+module Views.RangeSlider exposing
+    ( quality
+    , ratio
+    )
 
 import Data.Unit as Unit
 import Html exposing (..)
@@ -6,20 +9,21 @@ import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
 
 
-type alias IntConfig msg =
+type alias QualityConfig msg =
     { id : String
-    , min : Int
-    , max : Int
-    , step : Int
-    , update : Maybe Int -> msg
-    , value : Int
-    , toString : Int -> String
+    , update : Maybe Unit.Quality -> msg
+    , value : Unit.Quality
+    , toString : Unit.Quality -> String
     , disabled : Bool
     }
 
 
-int : IntConfig msg -> Html msg
-int config =
+quality : QualityConfig msg -> Html msg
+quality config =
+    let
+        fromFloat =
+            Unit.qualityToFloat >> String.fromFloat
+    in
     div [ class "RangeSlider row" ]
         [ div [ class "col-xxl-6" ]
             [ label [ for config.id, class "form-label text-nowrap fs-7 mb-0" ]
@@ -31,11 +35,14 @@ int config =
                 , class "d-block form-range"
                 , style "margin-top" "2px"
                 , id config.id
-                , onInput (String.toInt >> config.update)
-                , value (String.fromInt config.value)
-                , Attr.min (String.fromInt config.min)
-                , Attr.max (String.fromInt config.max)
-                , step (String.fromInt config.step)
+                , onInput (String.toFloat >> Maybe.map Unit.quality >> config.update)
+                , Attr.min (fromFloat Unit.minQuality)
+                , Attr.max (fromFloat Unit.maxQuality)
+
+                -- WARNING: be careful when reordering attributes: for obscure reasons,
+                -- the `value` one MUST be set AFTER the `step` one.
+                , step "0.01"
+                , value (fromFloat config.value)
                 , Attr.disabled config.disabled
                 ]
                 []

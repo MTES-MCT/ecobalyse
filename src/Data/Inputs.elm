@@ -58,7 +58,6 @@ type alias Inputs =
     , airTransportRatio : Maybe Unit.Ratio
     , recycledRatio : Maybe Unit.Ratio
     , customCountryMixes : CustomCountryMixes
-    , useNbCycles : Maybe Int
     , quality : Maybe Unit.Quality
     }
 
@@ -75,7 +74,6 @@ type alias Query =
     , airTransportRatio : Maybe Unit.Ratio
     , recycledRatio : Maybe Unit.Ratio
     , customCountryMixes : CustomCountryMixes
-    , useNbCycles : Maybe Int
     , quality : Maybe Unit.Quality
     }
 
@@ -115,7 +113,6 @@ fromQuery db query =
         |> RE.andMap (Ok query.airTransportRatio)
         |> RE.andMap (Ok query.recycledRatio)
         |> RE.andMap (Ok query.customCountryMixes)
-        |> RE.andMap (Ok query.useNbCycles)
         |> RE.andMap (Ok query.quality)
 
 
@@ -131,7 +128,6 @@ toQuery inputs =
     , airTransportRatio = inputs.airTransportRatio
     , recycledRatio = inputs.recycledRatio
     , customCountryMixes = inputs.customCountryMixes
-    , useNbCycles = inputs.useNbCycles
     , quality = inputs.quality
     }
 
@@ -237,13 +233,13 @@ updateProduct : Product -> Query -> Query
 updateProduct product query =
     { query
         | product = product.id
-        , useNbCycles =
-            -- ensure resetting useNbCycles when product is changed
+        , quality =
+            -- ensure resetting quality when product is changed
             if product.id /= query.product then
                 Nothing
 
             else
-                query.useNbCycles
+                query.quality
     }
 
 
@@ -265,8 +261,7 @@ tShirtCotonFrance =
     , airTransportRatio = Nothing
     , recycledRatio = Nothing
     , customCountryMixes = defaultCustomCountryMixes
-    , useNbCycles = Nothing
-    , quality = Just Unit.minQuality
+    , quality = Nothing
     }
 
 
@@ -324,8 +319,7 @@ jupeCircuitAsie =
     , airTransportRatio = Nothing
     , recycledRatio = Nothing
     , customCountryMixes = defaultCustomCountryMixes
-    , useNbCycles = Nothing
-    , quality = Just Unit.minQuality
+    , quality = Nothing
     }
 
 
@@ -342,8 +336,7 @@ manteauCircuitEurope =
     , airTransportRatio = Nothing
     , recycledRatio = Nothing
     , customCountryMixes = defaultCustomCountryMixes
-    , useNbCycles = Nothing
-    , quality = Just Unit.minQuality
+    , quality = Nothing
     }
 
 
@@ -360,8 +353,7 @@ pantalonCircuitEurope =
     , airTransportRatio = Nothing
     , recycledRatio = Nothing
     , customCountryMixes = defaultCustomCountryMixes
-    , useNbCycles = Nothing
-    , quality = Just Unit.minQuality
+    , quality = Nothing
     }
 
 
@@ -378,8 +370,7 @@ robeCircuitBangladesh =
     , airTransportRatio = Nothing
     , recycledRatio = Nothing
     , customCountryMixes = defaultCustomCountryMixes
-    , useNbCycles = Nothing
-    , quality = Just Unit.minQuality
+    , quality = Nothing
     }
 
 
@@ -441,7 +432,6 @@ decodeQuery =
         |> Pipe.required "airTransportRatio" (Decode.maybe Unit.decodeRatio)
         |> Pipe.required "recycledRatio" (Decode.maybe Unit.decodeRatio)
         |> Pipe.required "customCountryMixes" decodeCustomCountryMixes
-        |> Pipe.required "useNbCycles" (Decode.maybe Decode.int)
         |> Pipe.required "quality" (Decode.maybe Unit.decodeQuality)
 
 
@@ -458,7 +448,6 @@ encodeQuery query =
         , ( "airTransportRatio", query.airTransportRatio |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
         , ( "recycledRatio", query.recycledRatio |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
         , ( "customCountryMixes", encodeCustomCountryMixes query.customCountryMixes )
-        , ( "useNbCycles", query.useNbCycles |> Maybe.map Encode.int |> Maybe.withDefault Encode.null )
         , ( "quality", query.quality |> Maybe.map Unit.encodeQuality |> Maybe.withDefault Encode.null )
         ]
 

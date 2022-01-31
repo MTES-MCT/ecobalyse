@@ -15,6 +15,7 @@ import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
 import Mass exposing (Mass)
+import Quantity
 
 
 type alias Product =
@@ -27,10 +28,13 @@ type alias Product =
     , knitted : Bool -- True: Tricotage (Knitting); False: Tissage (Weaving)
     , fabricProcess : Process -- Procédé de Tissage/Tricotage
     , makingProcess : Process -- Procédé de Confection
-    , useDefaultNbCycles : Int -- Nombre par défaut de cycles d'entretien
     , useIroningProcess : Process -- Procédé de repassage
     , useNonIroningProcess : Process -- Procédé composite d'utilisation hors-repassage
     , wearsPerCycle : Int -- Nombre de jours porté par cycle d'entretien
+
+    -- Nombre par défaut de cycles d'entretien
+    -- Note: only for information, not used in computations
+    , useDefaultNbCycles : Int
 
     -- Note: only for information, not used in computations
     , useRatioDryer : Unit.Ratio -- Ratio de séchage électrique
@@ -42,7 +46,7 @@ type alias Product =
     , useTimeIroning : Duration -- Temps de repassage
 
     -- Note: only for information, not used in computations
-    , daysOfWear : Duration -- Nombre de jour de porter du vêtement
+    , daysOfWear : Duration -- Nombre de jour d'utilisation du vêtement (pour qualité=1.0)
     }
 
 
@@ -74,9 +78,9 @@ decode processes =
         |> Pipe.required "knitted" Decode.bool
         |> Pipe.required "fabricProcessUuid" (Process.decodeFromUuid processes)
         |> Pipe.required "makingProcessUuid" (Process.decodeFromUuid processes)
-        |> Pipe.required "useDefaultNbCycles" Decode.int
         |> Pipe.required "useIroningProcessUuid" (Process.decodeFromUuid processes)
         |> Pipe.required "useNonIroningProcessUuid" (Process.decodeFromUuid processes)
+        |> Pipe.required "useDefaultNbCycles" Decode.int
         |> Pipe.required "wearsPerCycle" Decode.int
         |> Pipe.required "useRatioDryer" Unit.decodeRatio
         |> Pipe.required "useRatioIroning" Unit.decodeRatio
@@ -101,9 +105,9 @@ encode v =
         , ( "knitted", Encode.bool v.knitted )
         , ( "fabricProcessUuid", Process.encodeUuid v.makingProcess.uuid )
         , ( "makingProcessUuid", Process.encodeUuid v.makingProcess.uuid )
-        , ( "useDefaultNbCycles", Encode.int v.useDefaultNbCycles )
         , ( "useIroningProcessUuid", Process.encodeUuid v.useIroningProcess.uuid )
         , ( "useNonIroningProcessUuid", Process.encodeUuid v.useNonIroningProcess.uuid )
+        , ( "useDefaultNbCycles", Encode.int v.useDefaultNbCycles )
         , ( "wearsPerCycle", Encode.int v.wearsPerCycle )
         , ( "useRatioDryer", Unit.encodeRatio v.useRatioDryer )
         , ( "useRatioIroning", Unit.encodeRatio v.useRatioIroning )
@@ -112,17 +116,26 @@ encode v =
         ]
 
 
-{-| Computes the number of wears for a custom number of maintainance cycles.
+{-| Computes the number of wears and the number of maintainance cycles against a
+custom product intrinsic quality coefficient.
 -}
-customDaysOfWear : Maybe Int -> { product | wearsPerCycle : Int, useDefaultNbCycles : Int } -> Duration
-customDaysOfWear maybeCustomNbCycles { wearsPerCycle, useDefaultNbCycles } =
+customDaysOfWear :
+    Maybe Unit.Quality
+    -> { product | daysOfWear : Duration, useDefaultNbCycles : Int }
+    -> { daysOfWear : Duration, useNbCycles : Int }
+customDaysOfWear maybeQuality { daysOfWear, useDefaultNbCycles } =
     let
-        days =
-            case maybeCustomNbCycles of
-                Just customNbCycles ->
-                    clamp 1 100 customNbCycles * wearsPerCycle
+        quality =
+            maybeQuality
+                |> Maybe.withDefault Unit.standardQuality
 
-                Nothing ->
-                    useDefaultNbCycles * wearsPerCycle
+        newDaysOfWear =
+            daysOfWear
+                |> Quantity.multiplyBy (Unit.qualityToFloat quality)
     in
-    days |> toFloat |> Duration.days
+    { daysOfWear = newDaysOfWear
+    , useNbCycles =
+        Duration.inDays newDaysOfWear
+            / toFloat (clamp 0 useDefaultNbCycles useDefaultNbCycles)
+            |> round
+    }
