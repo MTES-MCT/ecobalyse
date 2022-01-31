@@ -136,6 +136,6 @@ customDaysOfWear maybeQuality { daysOfWear, useDefaultNbCycles } =
     { daysOfWear = newDaysOfWear
     , useNbCycles =
         Duration.inDays newDaysOfWear
-            / toFloat (clamp 0 useDefaultNbCycles useDefaultNbCycles)
+            / toFloat (clamp 1 useDefaultNbCycles useDefaultNbCycles)
             |> round
     }
