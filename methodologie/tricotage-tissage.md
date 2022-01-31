@@ -63,11 +63,13 @@ $$
 Remarque : pour les procédés de tricotage retenus (cf. ci-après), les coefficients d'impact sont tous nuls, de sorte que l'impact de l'étape de tricotage se limite finalement à l'impact de l'électricité nécessaire pour opérer ce processus.
 {% endhint %}
 
-Un seul procédé de tricotage est considéré :
+Trois procédés de tricotage sont considérés :
 
-| Procédé   | UUID                                 |
-| --------- | ------------------------------------ |
-| Tricotage | 9c478d79-ff6b-45e1-9396-c3bd897faa1d |
+| Procédé                                    | Champs d'application | UUID                                 |
+| ------------------------------------------ | -------------------- | ------------------------------------ |
+| Tricotage circulaire, inventaire désagrégé | Débardeur, t-shirt   | 2e16787c-7a89-4883-acdf-37d3d362bdab |
+| Tricotage rectiligne, inventaire désagrégé | Pull, gilet          | 364298ad-2058-4ec4-b2d0-47f5214abffb |
+| Tricotage                                  | Autre vêtement       | 9c478d79-ff6b-45e1-9396-c3bd897faa1d |
 
 {% hint style="info" %}
 D'autres procédés de tricotage sont proposé dans la base impacts et pourraient, au besoin, être proposés en option ultérieurement.
@@ -77,9 +79,7 @@ D'autres procédés de tricotage sont proposé dans la base impacts et pourraien
 | ----------------------------------------------------------------- |
 |  Tricotage, mailles jetées (indémaillable), inventaire désagrégé  |
 |  Tricotage sans couture, inventaire désagrégé                     |
-|  Tricotage rectiligne, inventaire désagrégé                       |
 |  Tricotage fully-fashioned, inventaire désagrégé                  |
-|  Tricotage circulaire, inventaire désagrégé                       |
 |  Tricotage chaussant                                              |
 
 ### Pertes et rebut
