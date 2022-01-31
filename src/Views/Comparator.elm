@@ -49,7 +49,7 @@ type alias Entry =
 
 toRecycledFrance : Inputs.Query -> ( String, Inputs.Query )
 toRecycledFrance query =
-    ( "France 100% recyclé"
+    ( "France 100% recyclé, Q=1"
     , { query
         | countryFabric = Country.Code "FR"
         , countryDyeing = Country.Code "FR"
@@ -58,13 +58,14 @@ toRecycledFrance query =
         , airTransportRatio = Just (Unit.ratio 0)
         , recycledRatio = Just (Unit.ratio 1)
         , customCountryMixes = Inputs.defaultCustomCountryMixes
+        , quality = Just Unit.standardQuality
       }
     )
 
 
 toNonRecycledFrance : Inputs.Query -> ( String, Inputs.Query )
 toNonRecycledFrance query =
-    ( "France 0% recyclé"
+    ( "France 0% recyclé, Q=1"
     , { query
         | countryFabric = Country.Code "FR"
         , countryDyeing = Country.Code "FR"
@@ -73,13 +74,14 @@ toNonRecycledFrance query =
         , airTransportRatio = Just (Unit.ratio 0)
         , recycledRatio = Just (Unit.ratio 0)
         , customCountryMixes = Inputs.defaultCustomCountryMixes
+        , quality = Just Unit.standardQuality
       }
     )
 
 
 toPartiallyRecycledIndiaTurkey : Inputs.Query -> ( String, Inputs.Query )
 toPartiallyRecycledIndiaTurkey query =
-    ( "Inde-Turquie 20% recyclé"
+    ( "Inde-Turquie 20% recyclé, Q=1"
     , { query
         | countryFabric = Country.Code "IN"
         , countryDyeing = Country.Code "TR"
@@ -88,13 +90,14 @@ toPartiallyRecycledIndiaTurkey query =
         , airTransportRatio = Just (Unit.ratio 0)
         , recycledRatio = Just (Unit.ratio 0.2)
         , customCountryMixes = Inputs.defaultCustomCountryMixes
+        , quality = Just Unit.standardQuality
       }
     )
 
 
 toNonRecycledIndiaTurkey : Inputs.Query -> ( String, Inputs.Query )
 toNonRecycledIndiaTurkey query =
-    ( "Inde-Turquie 0% recyclé"
+    ( "Inde-Turquie 0% recyclé, Q=1"
     , { query
         | countryFabric = Country.Code "IN"
         , countryDyeing = Country.Code "TR"
@@ -103,13 +106,14 @@ toNonRecycledIndiaTurkey query =
         , airTransportRatio = Just (Unit.ratio 0)
         , recycledRatio = Just (Unit.ratio 0)
         , customCountryMixes = Inputs.defaultCustomCountryMixes
+        , quality = Just Unit.standardQuality
       }
     )
 
 
 toRecycledIndia : Inputs.Query -> ( String, Inputs.Query )
 toRecycledIndia query =
-    ( "Inde 100% recyclé"
+    ( "Inde 100% recyclé, Q=1"
     , { query
         | countryFabric = Country.Code "IN"
         , countryDyeing = Country.Code "IN"
@@ -118,13 +122,14 @@ toRecycledIndia query =
         , airTransportRatio = Just (Unit.ratio 1)
         , recycledRatio = Just (Unit.ratio 1)
         , customCountryMixes = Inputs.defaultCustomCountryMixes
+        , quality = Just Unit.standardQuality
       }
     )
 
 
 toNonRecycledIndia : Inputs.Query -> ( String, Inputs.Query )
 toNonRecycledIndia query =
-    ( "Inde 0% recyclé"
+    ( "Inde 0% recyclé, Q=1"
     , { query
         | countryFabric = Country.Code "IN"
         , countryDyeing = Country.Code "IN"
@@ -133,6 +138,7 @@ toNonRecycledIndia query =
         , airTransportRatio = Just (Unit.ratio 1)
         , recycledRatio = Just (Unit.ratio 0)
         , customCountryMixes = Inputs.defaultCustomCountryMixes
+        , quality = Just Unit.standardQuality
       }
     )
 
@@ -145,16 +151,7 @@ createEntry :
     -> ( String, Inputs.Query )
     -> Result String Entry
 createEntry db funit { trigram } highlight ( label, query ) =
-    let
-        adjustedQuery =
-            -- Current simulation comparison is always made against products with average quality
-            if not highlight then
-                { query | quality = Just <| Unit.quality 1 }
-
-            else
-                query
-    in
-    adjustedQuery
+    query
         |> Simulator.compute db
         |> Result.map
             (\({ lifeCycle, inputs, daysOfWear, transport } as simulator) ->
@@ -188,12 +185,19 @@ getEntries db funit impact ({ material } as inputs) =
         query =
             Inputs.toQuery inputs
 
+        currentName =
+            query.quality
+                |> Maybe.withDefault Unit.standardQuality
+                |> Unit.qualityToFloat
+                |> String.fromFloat
+                |> (++) "Votre simulation, Q="
+
         createEntry_ =
             createEntry db funit impact
 
         entries =
             if material.recycledProcess /= Nothing then
-                [ ( "Votre simulation", query ) |> createEntry_ True -- user simulation
+                [ ( currentName, query ) |> createEntry_ True -- user simulation
                 , query |> toRecycledFrance |> createEntry_ False
                 , query |> toNonRecycledFrance |> createEntry_ False
                 , query |> toPartiallyRecycledIndiaTurkey |> createEntry_ False
@@ -202,7 +206,7 @@ getEntries db funit impact ({ material } as inputs) =
                 ]
 
             else
-                [ ( "Votre simulation", query ) |> createEntry_ True -- user simulation
+                [ ( currentName, query ) |> createEntry_ True -- user simulation
                 , query |> toNonRecycledFrance |> createEntry_ False
                 , query |> toNonRecycledIndiaTurkey |> createEntry_ False
                 , query |> toNonRecycledIndia |> createEntry_ False
