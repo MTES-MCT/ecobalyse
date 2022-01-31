@@ -58,6 +58,7 @@ parse db =
         |> apply (maybeRatioParser "recycledRatio")
         |> apply (Query.map Ok customCountryMixesParser)
         |> apply (maybeUseNbCycles "useNbCycles")
+        |> apply (maybeQuality "quality")
 
 
 toErrors : ParseResult a -> Result Errors a
@@ -213,6 +214,22 @@ maybeUseNbCycles key =
 
                     else
                         Ok (Just int)
+                )
+                >> Maybe.withDefault (Ok Nothing)
+            )
+
+
+maybeQuality : String -> Query.Parser (ParseResult (Maybe Unit.Quality))
+maybeQuality key =
+    floatParser key
+        |> Query.map
+            (Maybe.map
+                (\float ->
+                    if float < Unit.qualityToFloat Unit.minQuality || float > Unit.qualityToFloat Unit.maxQuality then
+                        Err ( key, "Le coefficient de qualité intrinsèque doit être compris entre 0.67 et 1.45." )
+
+                    else
+                        Ok (Just (Unit.quality float))
                 )
                 >> Maybe.withDefault (Ok Nothing)
             )
