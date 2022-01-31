@@ -731,7 +731,8 @@ simulatorView : Session -> Model -> Simulator -> Html Msg
 simulatorView ({ db } as session) model ({ inputs } as simulator) =
     div [ class "row" ]
         [ div [ class "col-lg-7" ]
-            [ ImpactView.viewDefinition model.impact
+            [ h1 [] [ text "Simulateur " ]
+            , ImpactView.viewDefinition model.impact
             , div [ class "row" ]
                 [ div [ class "col-md-6 mb-2" ]
                     [ productField db simulator.inputs.product
@@ -754,9 +755,16 @@ simulatorView ({ db } as session) model ({ inputs } as simulator) =
                     [ text "Réinitialiser le simulateur" ]
                 ]
             ]
-        , div [ class "col-lg-5" ]
+        , div [ class "col-lg-5 bg-white" ]
             [ div [ class "d-flex flex-column gap-3 mb-3 sticky-md-top", style "top" "7px" ]
-                [ div [ class "Summary" ]
+                [ ImpactView.selector
+                    { impacts = session.db.impacts
+                    , selectedImpact = model.impact.trigram
+                    , switchImpact = SwitchImpact
+                    , selectedFunctionalUnit = model.funit
+                    , switchFunctionalUnit = SwitchFunctionalUnit
+                    }
+                , div [ class "Summary" ]
                     [ model.simulator
                         |> SummaryView.view
                             { session = session
@@ -776,20 +784,7 @@ view : Session -> Model -> ( String, List (Html Msg) )
 view session model =
     ( "Simulateur"
     , [ Container.centered [ class "Simulator pb-3" ]
-            [ div [ class "row" ]
-                [ div [ class "col-md-7 mb-2" ]
-                    [ h1 [] [ text "Simulateur " ] ]
-                , div [ class "col-md-5 mb-2 d-flex align-items-center" ]
-                    [ ImpactView.selector
-                        { impacts = session.db.impacts
-                        , selectedImpact = model.impact.trigram
-                        , switchImpact = SwitchImpact
-                        , selectedFunctionalUnit = model.funit
-                        , switchFunctionalUnit = SwitchFunctionalUnit
-                        }
-                    ]
-                ]
-            , case model.simulator of
+            [ case model.simulator of
                 Ok simulator ->
                     simulatorView session model simulator
 

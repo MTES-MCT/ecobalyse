@@ -150,4 +150,4 @@ selector : SelectorConfig msg -> Html msg
 selector config =
     impactSelector config
         :: funitSelector config
-        |> div [ class "input-group" ]
+        |> div [ class "ImpactSelector input-group" ]
