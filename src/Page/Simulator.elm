@@ -427,13 +427,18 @@ materialFormSet db recycledRatio material =
         , div [ class "col-md-6 mb-2" ]
             [ div [ class "form-label fw-bold mb-0 mb-xxl-3" ]
                 [ text "Part de matière recyclée" ]
-            , RangeSlider.ratio
-                { id = "recycledRatio"
-                , update = UpdateRecycledRatio
-                , value = Maybe.withDefault (Unit.ratio 0) recycledRatio
-                , toString = Material.recycledRatioToString "d'origine recyclée"
-                , disabled = material.recycledProcess == Nothing
-                }
+            , span
+                [ title
+                    "Pourcentage de matière recyclée appliqué à la masse de fil en sortie d‘étape “Matière et Filature”."
+                ]
+                [ RangeSlider.ratio
+                    { id = "recycledRatio"
+                    , update = UpdateRecycledRatio
+                    , value = Maybe.withDefault (Unit.ratio 0) recycledRatio
+                    , toString = Material.recycledRatioToString "d'origine recyclée"
+                    , disabled = material.recycledProcess == Nothing
+                    }
+                ]
             ]
         ]
 
