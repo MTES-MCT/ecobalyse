@@ -167,7 +167,12 @@ init trigram funit maybeQuery ({ db } as session) =
 
         Ok _ ->
             session
-    , Cmd.none
+    , case maybeQuery of
+        Nothing ->
+            Ports.scrollTo { x = 0, y = 0 }
+
+        Just _ ->
+            Cmd.none
     )
 
 

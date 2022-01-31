@@ -13,6 +13,7 @@ import Data.Simulator as Simulator
 import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import Ports
 import Views.Container as Container
 import Views.Impact as ImpactView
 import Views.Summary as SummaryView
@@ -35,7 +36,7 @@ init session =
       , funit = Unit.PerItem
       }
     , session
-    , Cmd.none
+    , Ports.scrollTo { x = 0, y = 0 }
     )
 
 

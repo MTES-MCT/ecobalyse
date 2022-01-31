@@ -9,6 +9,7 @@ module Page.Stats exposing
 import Data.Session exposing (Session)
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import Ports
 import Views.Container as Container
 
 
@@ -22,7 +23,7 @@ type Msg
 
 init : Session -> ( Model, Session, Cmd Msg )
 init session =
-    ( (), session, Cmd.none )
+    ( (), session, Ports.scrollTo { x = 0, y = 0 } )
 
 
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )

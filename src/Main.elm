@@ -101,7 +101,6 @@ setRoute maybeRoute ( { session } as model, cmds ) =
             ( { model | page = page subModel }
             , Cmd.batch
                 [ cmds
-                , Ports.scrollTo { x = 0, y = 0 }
                 , Cmd.map subMsg subCmds
                 , storeCmd
                 ]
