@@ -217,11 +217,12 @@
     "unit_fr": "m3",
     "unit_en": "m3",
     "description_en": "Indicator of water consumption contributing to the depletion of available water. The impact is expressed in **cubic meters (m3)** of water use",
-    "description_fr": "Indicateur de la consommation d'eau et son épuisement dans certaines régions. \n Cet indicateur se mesure en **mètre cube (m3)** d'eau consommé.",  
+    "description_fr": "Indicateur de la consommation d'eau et son épuisement dans certaines régions. \n Cet indicateur se mesure en **mètre cube (m3)** d'eau consommé.",
     "short_unit": "m3",
     "quality": 3,
     "pef": {
-      "normalization": 1.15E+04,
+      "normalization": 1.15e4,
       "weighting": 0.0851
     }
+  }
 }
