@@ -1,6 +1,7 @@
 module Data.Transport exposing
     ( Distances
     , Transport
+    , add
     , decodeDistances
     , default
     , defaultInland
@@ -38,6 +39,7 @@ type alias Transport =
 
 default : Impacts -> Transport
 default impacts =
+    -- FIXME: check that passing zero impacts really necessary
     { road = Quantity.zero
     , sea = Quantity.zero
     , air = Quantity.zero
@@ -47,10 +49,20 @@ default impacts =
 
 defaultInland : Impacts -> Transport
 defaultInland impacts =
+    -- FIXME: check that passing zero impacts really necessary
     { road = Length.kilometers 500
     , sea = Quantity.zero
     , air = Length.kilometers 500
     , impacts = impacts
+    }
+
+
+add : Transport -> Transport -> Transport
+add a b =
+    { b
+        | road = b.road |> Quantity.plus a.road
+        , sea = b.sea |> Quantity.plus a.sea
+        , air = b.air |> Quantity.plus a.air
     }
 
 

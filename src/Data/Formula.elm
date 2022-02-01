@@ -339,11 +339,14 @@ endOfLifeImpacts impacts { passengerCar, endOfLife, countryElecProcess, heatProc
 transportRatio : Unit.Ratio -> Transport -> Transport
 transportRatio airTransportRatio ({ road, sea, air } as transport) =
     let
-        roadSeaRatio =
+        roadRatio =
             Transport.roadSeaTransportRatio transport
+
+        seaRatio =
+            1 - roadRatio
     in
     { transport
-        | road = road |> Quantity.multiplyBy (roadSeaRatio * (1 - Unit.ratioToFloat airTransportRatio))
-        , sea = sea |> Quantity.multiplyBy ((1 - roadSeaRatio) * (1 - Unit.ratioToFloat airTransportRatio))
+        | road = road |> Quantity.multiplyBy (roadRatio * (1 - Unit.ratioToFloat airTransportRatio))
+        , sea = sea |> Quantity.multiplyBy (seaRatio * (1 - Unit.ratioToFloat airTransportRatio))
         , air = air |> Quantity.multiplyBy (Unit.ratioToFloat airTransportRatio)
     }

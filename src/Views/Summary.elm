@@ -79,15 +79,16 @@ summaryView { session, impact, funit, reusable } ({ inputs, lifeCycle } as simul
                 , funit = funit
                 }
             ]
-        , div [ class "d-none d-sm-block card-body" ]
-            -- TODO: how/where to render this for smaller viewports?
-            [ Comparator.view
-                { session = session
-                , impact = impact
-                , funit = funit
-                , simulator = simulator
-                }
-            ]
+
+        -- , div [ class "d-none d-sm-block card-body" ]
+        --     -- TODO: how/where to render this for smaller viewports?
+        --     [ Comparator.view
+        --         { session = session
+        --         , impact = impact
+        --         , funit = funit
+        --         , simulator = simulator
+        --         }
+        --     ]
         , div [ class "d-none d-sm-block card-body text-center text-muted fs-7 px-2 py-2" ]
             [ [ text "Comparaison pour"
               , text simulator.inputs.product.name
