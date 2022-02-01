@@ -26,6 +26,14 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
 
+    - name: Cache Elm dependencies
+      uses: actions/cache@v2
+      with:
+        path: ~/.elm
+        key: ${{ runner.OS }}-elm-cache-${{ hashFiles('elm.json') }}
+        restore-keys: |
+          ${{ runner.OS }}-elm-cache-
+
     - name: Install dependencies
       run: npm ci
 
