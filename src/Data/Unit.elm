@@ -2,10 +2,13 @@ module Data.Unit exposing
     ( Functional(..)
     , Impact
     , ImpactUnit(..)
+    , Quality(..)
     , Ratio(..)
     , decodeImpact
+    , decodeQuality
     , decodeRatio
     , encodeImpact
+    , encodeQuality
     , encodeRatio
     , forKWh
     , forKg
@@ -17,12 +20,17 @@ module Data.Unit exposing
     , impactPefScore
     , impactToFloat
     , inFunctionalUnit
+    , maxQuality
+    , minQuality
     , parseFunctional
+    , quality
+    , qualityToFloat
     , ratio
     , ratioToFloat
     , ratioedForKWh
     , ratioedForKg
     , ratioedForMJ
+    , standardQuality
     )
 
 import Duration exposing (Duration)
@@ -33,10 +41,6 @@ import Length exposing (Length)
 import Mass exposing (Mass)
 import Quantity exposing (Quantity(..))
 import Url.Parser as Parser exposing (Parser)
-
-
-type alias Qty unit =
-    Quantity Float unit
 
 
 
@@ -109,6 +113,49 @@ encodeRatio (Ratio float) =
 
 
 
+-- Quality
+
+
+type Quality
+    = Quality Float
+
+
+minQuality : Quality
+minQuality =
+    Quality 0.67
+
+
+standardQuality : Quality
+standardQuality =
+    Quality 1
+
+
+maxQuality : Quality
+maxQuality =
+    Quality 1.45
+
+
+quality : Float -> Quality
+quality =
+    Quality
+
+
+qualityToFloat : Quality -> Float
+qualityToFloat (Quality float) =
+    float
+
+
+decodeQuality : Decoder Quality
+decodeQuality =
+    Decode.map quality Decode.float
+
+
+encodeQuality : Quality -> Encode.Value
+encodeQuality (Quality float) =
+    Encode.float float
+
+
+
 -- Abstract Impact
 
 
@@ -163,7 +210,7 @@ inFunctionalUnit funit daysOfWear =
 -- Generic helpers
 
 
-forKg : Qty unit -> Mass -> Qty unit
+forKg : Quantity Float unit -> Mass -> Quantity Float unit
 forKg forOneKg =
     -- ref: https://github.com/ianmackenzie/elm-units/blob/master/doc/CustomUnits.md
     forOneKg
@@ -171,7 +218,7 @@ forKg forOneKg =
         |> Quantity.at
 
 
-forKgAndDistance : Qty unit -> Length -> Mass -> Qty unit
+forKgAndDistance : Quantity Float unit -> Length -> Mass -> Quantity Float unit
 forKgAndDistance cc distance mass =
     -- Note: unit rate is for transported tons per km.
     mass
@@ -180,14 +227,14 @@ forKgAndDistance cc distance mass =
         |> Quantity.multiplyBy (Length.inKilometers distance)
 
 
-forKWh : Qty unit -> Energy -> Qty unit
+forKWh : Quantity Float unit -> Energy -> Quantity Float unit
 forKWh forOneKWh =
     forOneKWh
         |> Quantity.per (Energy.kilowattHours 1)
         |> Quantity.at
 
 
-forMJ : Qty unit -> Energy -> Qty unit
+forMJ : Quantity Float unit -> Energy -> Quantity Float unit
 forMJ forOneMJ =
     forOneMJ
         |> Quantity.per (Energy.megajoules 1)
@@ -195,11 +242,11 @@ forMJ forOneMJ =
 
 
 ratioed :
-    (Qty unit -> a -> Qty unit)
-    -> ( Qty unit, Qty unit )
+    (Quantity Float unit -> a -> Quantity Float unit)
+    -> ( Quantity Float unit, Quantity Float unit )
     -> Ratio
     -> a
-    -> Qty unit
+    -> Quantity Float unit
 ratioed for ( a, b ) (Ratio ratio_) input =
     Quantity.sum
         [ input |> for a |> Quantity.multiplyBy ratio_
@@ -207,16 +254,16 @@ ratioed for ( a, b ) (Ratio ratio_) input =
         ]
 
 
-ratioedForKg : ( Qty unit, Qty unit ) -> Ratio -> Mass -> Qty unit
+ratioedForKg : ( Quantity Float unit, Quantity Float unit ) -> Ratio -> Mass -> Quantity Float unit
 ratioedForKg =
     ratioed forKg
 
 
-ratioedForKWh : ( Qty unit, Qty unit ) -> Ratio -> Energy -> Qty unit
+ratioedForKWh : ( Quantity Float unit, Quantity Float unit ) -> Ratio -> Energy -> Quantity Float unit
 ratioedForKWh =
     ratioed forKWh
 
 
-ratioedForMJ : ( Qty unit, Qty unit ) -> Ratio -> Energy -> Qty unit
+ratioedForMJ : ( Quantity Float unit, Quantity Float unit ) -> Ratio -> Energy -> Quantity Float unit
 ratioedForMJ =
     ratioed forMJ

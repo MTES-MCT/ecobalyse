@@ -2,7 +2,8 @@ module Server.RouteTest exposing (..)
 
 import Data.Db exposing (Db)
 import Data.Impact as Impact
-import Data.Inputs as Inputs
+import Data.Inputs exposing (tShirtCotonFrance)
+import Data.Unit as Unit
 import Dict
 import Expect
 import Json.Encode as Encode
@@ -26,13 +27,16 @@ suite =
         (\db ->
             [ describe "Server.endpoint"
                 [ getEndpoint db "GET" "/simulator?mass=0.17&product=13&material=f211bbdb-415c-46fd-be4d-ddf199575b44&countryFabric=FR&countryDyeing=FR&countryMaking=FR"
-                    |> Expect.equal (Just <| Route.Get <| Route.Simulator <| Ok Inputs.tShirtCotonFrance)
+                    |> Expect.equal (Just <| Route.Get <| Route.Simulator <| Ok tShirtCotonFrance)
                     |> asTest "should handle the /simulator endpoint"
+                , getEndpoint db "GET" "/simulator?mass=0.17&product=13&material=f211bbdb-415c-46fd-be4d-ddf199575b44&countryFabric=FR&countryDyeing=FR&countryMaking=FR&quality=1.2"
+                    |> Expect.equal (Just <| Route.Get <| Route.Simulator <| Ok { tShirtCotonFrance | quality = Just (Unit.quality 1.2) })
+                    |> asTest "should handle the /simulator endpoint with the quality parameter set"
                 , getEndpoint db "GET" "/simulator/fwe?mass=0.17&product=13&material=f211bbdb-415c-46fd-be4d-ddf199575b44&countryFabric=FR&countryDyeing=FR&countryMaking=FR"
-                    |> Expect.equal (Just <| Route.Get <| Route.SimulatorSingle (Impact.trg "fwe") <| Ok Inputs.tShirtCotonFrance)
+                    |> Expect.equal (Just <| Route.Get <| Route.SimulatorSingle (Impact.trg "fwe") <| Ok tShirtCotonFrance)
                     |> asTest "should handle the /simulator/{impact} endpoint"
                 , getEndpoint db "GET" "/simulator/detailed?mass=0.17&product=13&material=f211bbdb-415c-46fd-be4d-ddf199575b44&countryFabric=FR&countryDyeing=FR&countryMaking=FR"
-                    |> Expect.equal (Just <| Route.Get <| Route.SimulatorDetailed <| Ok Inputs.tShirtCotonFrance)
+                    |> Expect.equal (Just <| Route.Get <| Route.SimulatorDetailed <| Ok tShirtCotonFrance)
                     |> asTest "should handle the /simulator/detailed endpoint"
                 , getEndpoint db "GET" "/simulator"
                     |> Expect.equal

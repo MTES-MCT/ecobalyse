@@ -11,9 +11,9 @@ module Data.Step exposing
     , getStepGitbookPath
     , initMass
     , labelToString
+    , qualityToString
     , updateFromInputs
     , updateWaste
-    , useNbCyclesToString
     )
 
 import Data.Country as Country exposing (Country)
@@ -48,7 +48,7 @@ type alias Step =
     , dyeingWeighting : Unit.Ratio -- FIXME: why not Maybe?
     , airTransportRatio : Unit.Ratio -- FIXME: why not Maybe?
     , customCountryMix : Maybe Unit.Impact
-    , useNbCycles : Int
+    , quality : Unit.Quality
     }
 
 
@@ -99,7 +99,7 @@ create { db, label, editable, country } =
     , dyeingWeighting = country.dyeingWeighting
     , airTransportRatio = Unit.ratio 0 -- Note: this depends on next step country, so we can't set an accurate default value initially
     , customCountryMix = Nothing
-    , useNbCycles = 0
+    , quality = Unit.standardQuality
     }
 
 
@@ -224,7 +224,6 @@ computeTransportImpacts db impacts { seaTransport, airTransport } roadProcess ma
 computeTransportSummary : Step -> Transport -> Transport
 computeTransportSummary step transport =
     let
-        -- TODO: define transport records
         default =
             Transport.default step.transport.impacts
 
@@ -281,7 +280,7 @@ getRoadTransportProcess wellKnown { label } =
 updateFromInputs : Db -> Inputs -> Step -> Step
 updateFromInputs { processes } inputs ({ label, country } as step) =
     let
-        { dyeingWeighting, airTransportRatio, customCountryMixes, useNbCycles } =
+        { dyeingWeighting, airTransportRatio, customCountryMixes, quality } =
             inputs
 
         countryElecInfo =
@@ -343,8 +342,8 @@ updateFromInputs { processes } inputs ({ label, country } as step) =
 
         Use ->
             { step
-                | useNbCycles =
-                    useNbCycles |> Maybe.withDefault inputs.product.useDefaultNbCycles
+                | quality =
+                    quality |> Maybe.withDefault Unit.standardQuality
                 , processInfo =
                     { defaultProcessInfo
                         | countryElec = Just country.electricityProcess.name
@@ -416,17 +415,9 @@ dyeingWeightingToString (Unit.Ratio dyeingWeighting) =
             "Procédé " ++ String.fromInt p ++ "% majorant"
 
 
-useNbCyclesToString : Int -> String
-useNbCyclesToString useNbCycles =
-    case useNbCycles of
-        0 ->
-            "Aucun cycle d'entretien"
-
-        1 ->
-            "Un cycle d'entretien"
-
-        p ->
-            String.fromInt p ++ " cycles d'entretien"
+qualityToString : Unit.Quality -> String
+qualityToString (Unit.Quality float) =
+    "Qualité intrinsèque\u{00A0}: " ++ String.fromFloat float
 
 
 encode : Step -> Encode.Value
@@ -446,7 +437,7 @@ encode v =
         , ( "dyeingWeighting", Unit.encodeRatio v.dyeingWeighting )
         , ( "airTransportRatio", Unit.encodeRatio v.airTransportRatio )
         , ( "customCountryMix", v.customCountryMix |> Maybe.map Unit.encodeImpact |> Maybe.withDefault Encode.null )
-        , ( "useNbCycles", Encode.int v.useNbCycles )
+        , ( "quality", Unit.encodeQuality v.quality )
         ]
 
 

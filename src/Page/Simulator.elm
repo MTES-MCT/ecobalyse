@@ -51,17 +51,12 @@ type alias Model =
     , massInput : String
     , initialQuery : Inputs.Query
     , query : Inputs.Query
-    , displayMode : DisplayMode
+    , detailed : Bool
     , modal : ModalContent
     , customCountryMixInputs : CustomCountryMixInputs
     , impact : Impact.Definition
     , funit : Unit.Functional
     }
-
-
-type DisplayMode
-    = DetailedMode
-    | SimpleMode
 
 
 type ModalContent
@@ -82,16 +77,15 @@ type Msg
     | SubmitCustomCountryMix Step.Label (Maybe Unit.Impact)
     | SwitchFunctionalUnit Unit.Functional
     | SwitchImpact Impact.Trigram
-    | SwitchMode DisplayMode
     | UpdateAirTransportRatio (Maybe Unit.Ratio)
     | UpdateCustomCountryMixInput Step.Label String
     | UpdateDyeingWeighting (Maybe Unit.Ratio)
     | UpdateMassInput String
     | UpdateMaterial Process.Uuid
     | UpdateProduct Product.Id
+    | UpdateQuality (Maybe Unit.Quality)
     | UpdateRecycledRatio (Maybe Unit.Ratio)
     | UpdateStepCountry Int Country.Code
-    | UpdateUseNbCycles (Maybe Int)
 
 
 type alias CustomCountryMixInputs =
@@ -141,8 +135,14 @@ validateCustomCountryMixInput stepLabel =
         >> Maybe.map Unit.impact
 
 
-init : Impact.Trigram -> Unit.Functional -> Maybe Inputs.Query -> Session -> ( Model, Session, Cmd Msg )
-init trigram funit maybeQuery ({ db } as session) =
+init :
+    Impact.Trigram
+    -> Unit.Functional
+    -> { detailed : Bool }
+    -> Maybe Inputs.Query
+    -> Session
+    -> ( Model, Session, Cmd Msg )
+init trigram funit { detailed } maybeQuery ({ db } as session) =
     let
         query =
             maybeQuery
@@ -155,7 +155,7 @@ init trigram funit maybeQuery ({ db } as session) =
       , massInput = query.mass |> Mass.inKilograms |> String.fromFloat
       , initialQuery = query
       , query = query
-      , displayMode = SimpleMode
+      , detailed = detailed
       , modal = NoModal
       , customCountryMixInputs = toCustomCountryMixFormInputs query.customCountryMixes
       , impact = db.impacts |> Impact.getDefinition trigram |> Result.withDefault Impact.default
@@ -167,7 +167,12 @@ init trigram funit maybeQuery ({ db } as session) =
 
         Ok _ ->
             session
-    , Cmd.none
+    , case maybeQuery of
+        Nothing ->
+            Ports.scrollTo { x = 0, y = 0 }
+
+        Just _ ->
+            Cmd.none
     )
 
 
@@ -267,7 +272,7 @@ update ({ db, navKey } as session) msg ({ customCountryMixInputs, query } as mod
         SwitchFunctionalUnit funit ->
             ( model
             , session
-            , Route.Simulator model.impact.trigram funit (Just query)
+            , Route.Simulator model.impact.trigram funit { detailed = model.detailed } (Just query)
                 |> Route.toString
                 |> Navigation.pushUrl navKey
             )
@@ -275,13 +280,10 @@ update ({ db, navKey } as session) msg ({ customCountryMixInputs, query } as mod
         SwitchImpact trigram ->
             ( model
             , session
-            , Route.Simulator trigram model.funit (Just query)
+            , Route.Simulator trigram model.funit { detailed = model.detailed } (Just query)
                 |> Route.toString
                 |> Navigation.pushUrl navKey
             )
-
-        SwitchMode displayMode ->
-            ( { model | displayMode = displayMode }, session, Cmd.none )
 
         UpdateAirTransportRatio airTransportRatio ->
             ( model, session, Cmd.none )
@@ -328,6 +330,10 @@ update ({ db, navKey } as session) msg ({ customCountryMixInputs, query } as mod
                 Err error ->
                     ( model, session |> Session.notifyError "Erreur de produit" error, Cmd.none )
 
+        UpdateQuality quality ->
+            ( model, session, Cmd.none )
+                |> updateQuery { query | quality = quality }
+
         UpdateRecycledRatio recycledRatio ->
             ( model, session, Cmd.none )
                 |> updateQuery { query | recycledRatio = recycledRatio }
@@ -357,10 +363,6 @@ update ({ db, navKey } as session) msg ({ customCountryMixInputs, query } as mod
             , Cmd.none
             )
                 |> updateQuery (Inputs.updateStepCountry index code query)
-
-        UpdateUseNbCycles useNbCycles ->
-            ( model, session, Cmd.none )
-                |> updateQuery { query | useNbCycles = useNbCycles }
 
 
 massField : String -> Html Msg
@@ -427,13 +429,18 @@ materialFormSet db recycledRatio material =
         , div [ class "col-md-6 mb-2" ]
             [ div [ class "form-label fw-bold mb-0 mb-xxl-3" ]
                 [ text "Part de matière recyclée" ]
-            , RangeSlider.ratio
-                { id = "recycledRatio"
-                , update = UpdateRecycledRatio
-                , value = Maybe.withDefault (Unit.ratio 0) recycledRatio
-                , toString = Material.recycledRatioToString "d'origine recyclée"
-                , disabled = material.recycledProcess == Nothing
-                }
+            , span
+                [ title
+                    "Pourcentage de matière recyclée appliqué à la masse de fil en sortie d‘étape “Matière et Filature”."
+                ]
+                [ RangeSlider.ratio
+                    { id = "recycledRatio"
+                    , update = UpdateRecycledRatio
+                    , value = Maybe.withDefault (Unit.ratio 0) recycledRatio
+                    , toString = Material.recycledRatioToString "d'origine recyclée"
+                    , disabled = material.recycledProcess == Nothing
+                    }
+                ]
             ]
         ]
 
@@ -465,14 +472,14 @@ downArrow =
 
 
 lifeCycleStepsView : Db -> Model -> Simulator -> Html Msg
-lifeCycleStepsView db { displayMode, funit, impact } simulator =
+lifeCycleStepsView db { detailed, funit, impact } simulator =
     simulator.lifeCycle
         |> Array.indexedMap
             (\index current ->
                 StepView.view
                     { db = db
                     , inputs = simulator.inputs
-                    , detailed = displayMode == DetailedMode
+                    , detailed = detailed
                     , impact = impact
                     , funit = funit
                     , daysOfWear = simulator.daysOfWear
@@ -484,7 +491,7 @@ lifeCycleStepsView db { displayMode, funit, impact } simulator =
                     , updateCountry = UpdateStepCountry
                     , updateAirTransportRatio = UpdateAirTransportRatio
                     , updateDyeingWeighting = UpdateDyeingWeighting
-                    , updateUseNbCycles = UpdateUseNbCycles
+                    , updateQuality = UpdateQuality
                     }
             )
         |> Array.toList
@@ -493,12 +500,12 @@ lifeCycleStepsView db { displayMode, funit, impact } simulator =
 
 
 shareLinkView : Session -> Model -> Simulator -> Html Msg
-shareLinkView session { impact, funit } simulator =
+shareLinkView session { impact, funit, detailed } simulator =
     let
         shareableLink =
             simulator.inputs
                 |> (Inputs.toQuery >> Just)
-                |> Route.Simulator impact.trigram funit
+                |> Route.Simulator impact.trigram funit { detailed = detailed }
                 |> Route.toString
                 |> (++) session.clientUrl
     in
@@ -527,23 +534,23 @@ shareLinkView session { impact, funit } simulator =
         ]
 
 
-displayModeView : DisplayMode -> Html Msg
-displayModeView displayMode =
-    ul [ class "nav nav-pills nav-fill py-2 bg-white sticky-md-top justify-content-between justify-content-sm-end align-items-center gap-0 gap-sm-2" ]
-        [ li [ class "nav-item" ]
-            [ button
-                [ classList [ ( "nav-link", True ), ( "active", displayMode == SimpleMode ) ]
-                , onClick (SwitchMode SimpleMode)
-                ]
-                [ span [ class "me-1" ] [ Icon.zoomout ], text "Affichage simple" ]
+displayModeView : Impact.Trigram -> Unit.Functional -> Bool -> Inputs.Query -> Html Msg
+displayModeView trigram funit detailed query =
+    nav [ class "nav nav-pills nav-fill py-2 bg-white sticky-md-top justify-content-between justify-content-sm-end align-items-center gap-0 gap-sm-2" ]
+        [ a
+            [ classList [ ( "nav-link", True ), ( "active", not detailed ) ]
+            , Just query
+                |> Route.Simulator trigram funit { detailed = False }
+                |> Route.href
             ]
-        , li [ class "nav-item" ]
-            [ button
-                [ classList [ ( "nav-link", True ), ( "active", displayMode == DetailedMode ) ]
-                , onClick (SwitchMode DetailedMode)
-                ]
-                [ span [ class "me-1" ] [ Icon.zoomin ], text "Affichage détaillé" ]
+            [ span [ class "me-1" ] [ Icon.zoomout ], text "Affichage simple" ]
+        , a
+            [ classList [ ( "nav-link", True ), ( "active", detailed ) ]
+            , Just query
+                |> Route.Simulator trigram funit { detailed = True }
+                |> Route.href
             ]
+            [ span [ class "me-1" ] [ Icon.zoomin ], text "Affichage détaillé" ]
         ]
 
 
@@ -728,10 +735,11 @@ modalView model =
 
 
 simulatorView : Session -> Model -> Simulator -> Html Msg
-simulatorView ({ db } as session) model ({ inputs } as simulator) =
+simulatorView ({ db } as session) ({ impact, funit, query, detailed } as model) ({ inputs } as simulator) =
     div [ class "row" ]
         [ div [ class "col-lg-7" ]
-            [ ImpactView.viewDefinition model.impact
+            [ h1 [] [ text "Simulateur " ]
+            , ImpactView.viewDefinition model.impact
             , div [ class "row" ]
                 [ div [ class "col-md-6 mb-2" ]
                     [ productField db simulator.inputs.product
@@ -741,7 +749,8 @@ simulatorView ({ db } as session) model ({ inputs } as simulator) =
                     ]
                 ]
             , materialFormSet db inputs.recycledRatio inputs.material
-            , displayModeView model.displayMode
+            , query
+                |> displayModeView impact.trigram funit detailed
             , lifeCycleStepsView db model simulator
             , div [ class "d-flex align-items-center justify-content-between mt-3 mb-5" ]
                 [ a [ Route.href Route.Home ]
@@ -754,9 +763,16 @@ simulatorView ({ db } as session) model ({ inputs } as simulator) =
                     [ text "Réinitialiser le simulateur" ]
                 ]
             ]
-        , div [ class "col-lg-5" ]
+        , div [ class "col-lg-5 bg-white" ]
             [ div [ class "d-flex flex-column gap-3 mb-3 sticky-md-top", style "top" "7px" ]
-                [ div [ class "Summary" ]
+                [ ImpactView.selector
+                    { impacts = session.db.impacts
+                    , selectedImpact = model.impact.trigram
+                    , switchImpact = SwitchImpact
+                    , selectedFunctionalUnit = model.funit
+                    , switchFunctionalUnit = SwitchFunctionalUnit
+                    }
+                , div [ class "Summary" ]
                     [ model.simulator
                         |> SummaryView.view
                             { session = session
@@ -776,20 +792,7 @@ view : Session -> Model -> ( String, List (Html Msg) )
 view session model =
     ( "Simulateur"
     , [ Container.centered [ class "Simulator pb-3" ]
-            [ div [ class "row" ]
-                [ div [ class "col-md-7 mb-2" ]
-                    [ h1 [] [ text "Simulateur " ] ]
-                , div [ class "col-md-5 mb-2 d-flex align-items-center" ]
-                    [ ImpactView.selector
-                        { impacts = session.db.impacts
-                        , selectedImpact = model.impact.trigram
-                        , switchImpact = SwitchImpact
-                        , selectedFunctionalUnit = model.funit
-                        , switchFunctionalUnit = SwitchFunctionalUnit
-                        }
-                    ]
-                ]
-            , case model.simulator of
+            [ case model.simulator of
                 Ok simulator ->
                     simulatorView session model simulator
 

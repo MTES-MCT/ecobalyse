@@ -45,7 +45,7 @@ paths:
       - $ref: '#/components/parameters/customCountryMixFabricParam'
       - $ref: '#/components/parameters/customCountryMixDyeingParam'
       - $ref: '#/components/parameters/customCountryMixMakingParam'
-      - $ref: '#/components/parameters/useNbCyclesParam'
+      - $ref: '#/components/parameters/qualityParam'
       responses:
         200:
           description: Opération réussie
@@ -103,7 +103,7 @@ paths:
       - $ref: '#/components/parameters/customCountryMixFabricParam'
       - $ref: '#/components/parameters/customCountryMixDyeingParam'
       - $ref: '#/components/parameters/customCountryMixMakingParam'
-      - $ref: '#/components/parameters/useNbCyclesParam'
+      - $ref: '#/components/parameters/qualityParam'
       responses:
         200:
           description: successful operation
@@ -136,7 +136,7 @@ paths:
       - $ref: '#/components/parameters/customCountryMixFabricParam'
       - $ref: '#/components/parameters/customCountryMixDyeingParam'
       - $ref: '#/components/parameters/customCountryMixMakingParam'
-      - $ref: '#/components/parameters/useNbCyclesParam'
+      - $ref: '#/components/parameters/qualityParam'
       responses:
         200:
           description: Opération réussie
@@ -272,16 +272,16 @@ components:
       schema:
         type: number
         minimum: 0
-    useNbCyclesParam:
-      name: useNbCycles
+    qualityParam:
+      name: quality
       in: query
-      description: Nombre de cycles d'entretien en phase d'utilisation. Si non spécifié, le calculateur utilise le nombre de cycles d'entretiens par défaut du produit sélectionné.
+      description: Qualité intrinsèque du produit. Le coefficient de qualité intrinsèque représente à quel point le produit va durer dans le temps. Il varie entre 0.67 (peu durable) et 1.45 (très durable). Il est calculé à partir du résultat d’une série de tests de durabilité. Il est utilisé en coefficient multiplicateur du nombre de jours d’utilisation du produit.
       required: false
       style: form
       schema:
         type: number
-        minimum: 1
-        maximum: 100
+        minimum: 0.67
+        maximum: 1.45
   schemas:
     InvalidParametersError:
       type: object
