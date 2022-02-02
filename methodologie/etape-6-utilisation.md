@@ -6,6 +6,15 @@ description: >-
 
 # 🌀 Etape 6 - Utilisation
 
+## Qualité intrinsèque
+
+La qualité intrinsèque est défini dans le réferentiel PEFCR de la comission européenne. C'est un nombre entre 0.67 et 1.45 qui represente la durabilité du vêtement. Pour le calculer un vêtement  doit passer des tests de durabilité physique. Les résultats de ces tests donneront un score entre 0.67 et 1.45. Si un vêtement ne passe pas de tests, il a une qualité par défaut de 0.67.
+
+Ce score est ensuite appliqué en coefficient multiplicateur du nombre de jours d'utilisations.&#x20;
+
+Prenons l'exemple d'une veste. Elle a par défaut 100 jours d'utilisation dans le réferentiel PEFCR. Avec une qualité intrinsèque de 0.67, elle aura 67 jours d'utilisation. Etant donné qu'elle fera moins de cycle d'entretiens l'impact de cette veste va légèrement diminuer. Par contre l'impact **par jour d'utilisation** lui va augmenter fortement (environ 1/0.67 = +50%) car on va diviser par un nombre plus petit .\
+De la même manière, avec une qualité intrinsèque à 1.45, cette veste aura 145 jours d'utilisation. Son impact va augmenter légèrement (plus de cycle d'entretien). Mais l'impact **par jour d'utilisation** va diminuer fortement (environ 1/1.45 = -30%).
+
 ## Impacts pris en compte
 
 Les impacts de la phase d'utilisation viennent en fait exclusivement de la phase d'entretien du produit. Conformément à la documentation textile de la [base Impacts](http://www.base-impacts.ademe.fr) nous prenons en compte les impacts suivants :&#x20;
