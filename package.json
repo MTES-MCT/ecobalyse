@@ -42,5 +42,9 @@
     "nodemon": "^2.0.15",
     "rimraf": "^3.0.2",
     "supertest": "^6.1.6"
-  }
+  },
+  "cacheDirectories": [
+    "node_modules",
+    "~/.elm"
+  ]
 }
