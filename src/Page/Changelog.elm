@@ -11,6 +11,7 @@ import Data.Session exposing (Session)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import List.Extra as LE
+import Ports
 import RemoteData exposing (WebData)
 import Request.Github as GithubApi
 import Task
@@ -39,7 +40,8 @@ init session =
     ( { changelog = RemoteData.NotAsked, time = Just (Time.millisToPosix 0) }
     , session
     , Cmd.batch
-        [ GithubApi.getChangelog session ChangelogReceived
+        [ Ports.scrollTo { x = 0, y = 0 }
+        , GithubApi.getChangelog session ChangelogReceived
         , Task.perform NewTime Time.now
         ]
     )

@@ -9,6 +9,7 @@ module Page.Api exposing
 import Data.Session exposing (Session)
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import Ports
 import Views.Alert as Alert
 import Views.Container as Container
 import Views.Markdown as Markdown
@@ -24,7 +25,7 @@ type Msg
 
 init : Session -> ( Model, Session, Cmd Msg )
 init session =
-    ( (), session, Cmd.none )
+    ( (), session, Ports.scrollTo { x = 0, y = 0 } )
 
 
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )

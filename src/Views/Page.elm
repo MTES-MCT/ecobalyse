@@ -90,7 +90,7 @@ stagingAlert { session, loadUrl } =
 headerMenuLinks : List MenuLink
 headerMenuLinks =
     [ Internal "Accueil" Route.Home Home
-    , Internal "Simulateur" (Route.Simulator Impact.defaultTrigram Unit.PerItem Nothing) Simulator
+    , Internal "Simulateur" (Route.Simulator Impact.defaultTrigram Unit.PerItem { detailed = False } Nothing) Simulator
     , Internal "Exemples" Route.Examples Examples
     , Internal "Explorateur" (Route.Explore (Db.Countries Nothing)) Explore
     , External "Documentation" "https://fabrique-numerique.gitbook.io/wikicarbone/"
@@ -100,7 +100,7 @@ headerMenuLinks =
 footerMenuLinks : List MenuLink
 footerMenuLinks =
     [ Internal "Accueil" Route.Home Home
-    , Internal "Simulateur" (Route.Simulator Impact.defaultTrigram Unit.PerItem Nothing) Simulator
+    , Internal "Simulateur" (Route.Simulator Impact.defaultTrigram Unit.PerItem { detailed = False } Nothing) Simulator
     , Internal "Exemples" Route.Examples Examples
     , Internal "Api documentation" Route.Api Api
     , Internal "Changelog" Route.Changelog Changelog

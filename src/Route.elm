@@ -23,7 +23,7 @@ type Route
     | Changelog
     | Explore Db.Dataset
     | Examples
-    | Simulator Impact.Trigram Unit.Functional (Maybe Inputs.Query)
+    | Simulator Impact.Trigram Unit.Functional { detailed : Bool } (Maybe Inputs.Query)
     | Stats
 
 
@@ -34,11 +34,24 @@ parser =
         , Parser.map Api (Parser.s "api")
         , Parser.map Changelog (Parser.s "changelog")
         , Parser.map Examples (Parser.s "examples")
+
+        -- Explorer
         , Parser.map (Explore (Db.Countries Nothing)) (Parser.s "explore")
         , Parser.map Explore (Parser.s "explore" </> Db.parseDatasetSlug)
         , Parser.map toExploreWithId (Parser.s "explore" </> Db.parseDatasetSlug </> Parser.string)
-        , Parser.map (Simulator Impact.defaultTrigram Unit.PerItem Nothing) (Parser.s "simulator")
-        , Parser.map Simulator (Parser.s "simulator" </> Impact.parseTrigram </> Unit.parseFunctional </> Inputs.parseBase64Query)
+
+        -- Simulator
+        , Parser.map (Simulator Impact.defaultTrigram Unit.PerItem { detailed = False } Nothing)
+            (Parser.s "simulator")
+        , Parser.map Simulator
+            (Parser.s "simulator"
+                </> Impact.parseTrigram
+                </> Unit.parseFunctional
+                </> parseDetailedBool
+                </> Inputs.parseBase64Query
+            )
+
+        -- Stats
         , Parser.map Stats (Parser.s "stats")
         ]
 
@@ -46,6 +59,13 @@ parser =
 toExploreWithId : Db.Dataset -> String -> Route
 toExploreWithId dataset idString =
     Explore (Db.datasetSlugWithId dataset idString)
+
+
+parseDetailedBool : Parser ({ detailed : Bool } -> a) a
+parseDetailedBool =
+    Parser.custom "DETAILED" <|
+        \string ->
+            Just { detailed = string == "detailed" }
 
 
 {-| Note: as the app relies on URL fragment based routing, the source URL is
@@ -90,6 +110,13 @@ pushUrl key route =
 toString : Route -> String
 toString route =
     let
+        detailedSegment bool =
+            if bool then
+                "detailed"
+
+            else
+                "simple"
+
         pieces =
             case route of
                 Home ->
@@ -110,14 +137,23 @@ toString route =
                 Explore dataset ->
                     "explore" :: Db.toDatasetRoutePath dataset
 
-                Simulator trigram funit (Just inputs) ->
-                    [ "simulator", Impact.toString trigram, Unit.functionalToSlug funit, Inputs.b64encode inputs ]
+                Simulator trigram funit { detailed } (Just inputs) ->
+                    [ "simulator"
+                    , Impact.toString trigram
+                    , Unit.functionalToSlug funit
+                    , detailedSegment detailed
+                    , Inputs.b64encode inputs
+                    ]
 
-                Simulator (Impact.Trigram "cch") Unit.PerItem Nothing ->
+                Simulator (Impact.Trigram "cch") Unit.PerItem _ Nothing ->
                     [ "simulator" ]
 
-                Simulator trigram funit Nothing ->
-                    [ "simulator", Impact.toString trigram, Unit.functionalToSlug funit ]
+                Simulator trigram funit { detailed } Nothing ->
+                    [ "simulator"
+                    , Impact.toString trigram
+                    , Unit.functionalToSlug funit
+                    , detailedSegment detailed
+                    ]
 
                 Stats ->
                     [ "stats" ]
