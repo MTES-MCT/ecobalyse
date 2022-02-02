@@ -22,6 +22,7 @@ import Page.Explore.Countries as ExploreCountries
 import Page.Explore.Impacts as ExploreImpacts
 import Page.Explore.Materials as ExploreMaterials
 import Page.Explore.Products as ExploreProducts
+import Ports
 import Route
 import Views.Alert as Alert
 import Views.Container as Container
@@ -41,7 +42,7 @@ init : Db.Dataset -> Session -> ( Model, Session, Cmd Msg )
 init dataset session =
     ( { dataset = dataset }
     , session
-    , Cmd.none
+    , Ports.scrollTo { x = 0, y = 0 }
     )
 
 

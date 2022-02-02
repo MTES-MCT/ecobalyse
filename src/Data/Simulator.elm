@@ -25,6 +25,7 @@ type alias Simulator =
     , impacts : Impacts
     , transport : Transport
     , daysOfWear : Duration
+    , useNbCycles : Int
     }
 
 
@@ -36,6 +37,7 @@ encode v =
         , ( "impacts", Impact.encodeImpacts v.impacts )
         , ( "transport", Transport.encode v.transport )
         , ( "daysOfWear", v.daysOfWear |> Duration.inDays |> Encode.float )
+        , ( "useNbCycles", Encode.int v.useNbCycles )
         ]
 
 
@@ -51,13 +53,17 @@ init db =
                 inputs
                     |> LifeCycle.init db
                     |> (\lifeCycle ->
+                            let
+                                { daysOfWear, useNbCycles } =
+                                    inputs.product
+                                        |> Product.customDaysOfWear inputs.quality
+                            in
                             { inputs = inputs
                             , lifeCycle = lifeCycle
                             , impacts = defaultImpacts
                             , transport = Transport.default defaultImpacts
-                            , daysOfWear =
-                                inputs.product
-                                    |> Product.customDaysOfWear inputs.useNbCycles
+                            , daysOfWear = daysOfWear
+                            , useNbCycles = useNbCycles
                             }
                        )
             )
@@ -151,10 +157,10 @@ computeEndOfLifeImpacts { processes } simulator =
 
 
 computeUseImpacts : Simulator -> Simulator
-computeUseImpacts ({ inputs } as simulator) =
+computeUseImpacts ({ inputs, useNbCycles } as simulator) =
     simulator
         |> updateLifeCycleStep Step.Use
-            (\({ useNbCycles } as step) ->
+            (\step ->
                 let
                     { kwh, impacts } =
                         step.outputMass

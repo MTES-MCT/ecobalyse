@@ -15,6 +15,7 @@ import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
+import Ports
 import RemoteData exposing (WebData)
 import Request.Gitbook exposing (getPage)
 import Route
@@ -44,7 +45,10 @@ init session =
       , isIsntSectionIndex = Nothing
       }
     , session
-    , getPage session Gitbook.Home GitbookContentReceived
+    , Cmd.batch
+        [ Ports.scrollTo { x = 0, y = 0 }
+        , getPage session Gitbook.Home GitbookContentReceived
+        ]
     )
 
 
@@ -84,7 +88,7 @@ viewHero session =
                     [ div [ class "col-md-6 text-center text-md-end py-2" ]
                         [ a
                             [ class "btn btn-lg btn-primary"
-                            , Route.href (Route.Simulator Impact.defaultTrigram Unit.PerItem Nothing)
+                            , Route.href (Route.Simulator Impact.defaultTrigram Unit.PerItem { detailed = False } Nothing)
                             ]
                             [ text "Faire une simulation" ]
                         ]

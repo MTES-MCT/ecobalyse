@@ -115,7 +115,7 @@ summaryView { session, impact, funit, reusable } ({ inputs, lifeCycle } as simul
                         (inputs
                             |> Inputs.toQuery
                             |> Just
-                            |> Route.Simulator Impact.defaultTrigram Unit.PerItem
+                            |> Route.Simulator Impact.defaultTrigram Unit.PerItem { detailed = False }
                         )
                     ]
                     [ text "Reprendre cette simulation" ]

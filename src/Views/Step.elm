@@ -35,7 +35,7 @@ type alias Config msg =
     , openCustomCountryMixModal : Step -> msg
     , updateCountry : Int -> Country.Code -> msg
     , updateDyeingWeighting : Maybe Unit.Ratio -> msg
-    , updateUseNbCycles : Maybe Int -> msg
+    , updateQuality : Maybe Unit.Quality -> msg
     , updateAirTransportRatio : Maybe Unit.Ratio -> msg
     }
 
@@ -123,38 +123,57 @@ countryField { db, current, inputs, index, updateCountry } =
 
 airTransportRatioField : Config msg -> Html msg
 airTransportRatioField { current, updateAirTransportRatio } =
-    RangeSlider.ratio
-        { id = "airTransportRatio"
-        , update = updateAirTransportRatio
-        , value = current.airTransportRatio
-        , toString = Step.airTransportRatioToString
-        , disabled = False
-        }
+    span
+        [ title "Part de transport aérien pour le transport entre la confection et l'entrepôt en France."
+        ]
+        [ RangeSlider.ratio
+            { id = "airTransportRatio"
+            , update = updateAirTransportRatio
+            , value = current.airTransportRatio
+            , toString = Step.airTransportRatioToString
+            , disabled = False
+            }
+        ]
 
 
 dyeingWeightingField : Config msg -> Html msg
 dyeingWeightingField { current, updateDyeingWeighting } =
-    RangeSlider.ratio
-        { id = "dyeingWeighting"
-        , update = updateDyeingWeighting
-        , value = current.dyeingWeighting
-        , toString = Step.dyeingWeightingToString
-        , disabled = False
-        }
+    span
+        [ [ "Procédé représentatif\u{00A0}: traitement très efficace des eaux usées."
+          , "Procédé majorant\u{00A0}: traitement inefficace des eaux usées."
+          ]
+            |> String.join " "
+            |> title
+        ]
+        [ RangeSlider.ratio
+            { id = "dyeingWeighting"
+            , update = updateDyeingWeighting
+            , value = current.dyeingWeighting
+            , toString = Step.dyeingWeightingToString
+            , disabled = False
+            }
+        ]
 
 
-useNbCyclesField : Config msg -> Html msg
-useNbCyclesField { current, updateUseNbCycles } =
-    RangeSlider.int
-        { id = "useNbCycles"
-        , min = 1
-        , max = 100
-        , step = 1
-        , update = updateUseNbCycles
-        , value = current.useNbCycles
-        , toString = Step.useNbCyclesToString
-        , disabled = False
-        }
+qualityField : Config msg -> Html msg
+qualityField { current, updateQuality } =
+    span
+        [ [ "Le coefficient de qualité intrinsèque représente à quel point le produit va durer dans le temps."
+          , "Il varie entre 0.67 (peu durable) et 1.45 (très durable)."
+          , "Il est calculé à partir du résultat d’une série de tests de durabilité."
+          , "Il est utilisé en coefficient multiplicateur du nombre de jours d’utilisation du produit."
+          ]
+            |> String.join " "
+            |> title
+        ]
+        [ RangeSlider.quality
+            { id = "quality"
+            , update = updateQuality
+            , value = current.quality
+            , toString = Step.qualityToString
+            , disabled = False
+            }
+        ]
 
 
 inlineDocumentationLink : Config msg -> Gitbook.Path -> Html msg
@@ -198,7 +217,7 @@ simpleView ({ funit, inputs, daysOfWear, impact, current } as config) =
                         div [ class "mt-2" ] [ airTransportRatioField config ]
 
                     Step.Use ->
-                        div [ class "mt-2" ] [ useNbCyclesField config ]
+                        div [ class "mt-2" ] [ qualityField config ]
 
                     _ ->
                         text ""
@@ -251,7 +270,9 @@ viewCountryElecProcessInfo editMsg step =
                         [ Step.WeavingKnitting, Step.Ennoblement, Step.Making ]
                   then
                     Button.smallPill
-                        [ onClick (editMsg step) ]
+                        [ title "Personnaliser l'impact du mix énergétique du pays"
+                        , onClick (editMsg step)
+                        ]
                         [ Icon.pencil ]
 
                   else
@@ -310,13 +331,26 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                         ]
 
                 Step.Use ->
+                    let
+                        info =
+                            inputs.product
+                                |> Product.customDaysOfWear inputs.quality
+                    in
                     div [ class "card-body py-2 text-muted" ]
-                        [ useNbCyclesField config
+                        [ qualityField config
                         , small [ class "fs-7" ]
-                            [ text "Nombre de jours portés\u{00A0}: "
-                            , inputs.product
-                                |> Product.customDaysOfWear inputs.useNbCycles
-                                |> Format.days
+                            [ Format.days info.daysOfWear
+                            , text " portés, "
+                            , text <| String.fromInt info.useNbCycles
+                            , text <|
+                                " cycle"
+                                    ++ (if info.useNbCycles > 1 then
+                                            "s"
+
+                                        else
+                                            ""
+                                       )
+                                    ++ " d'entretien"
                             ]
                         ]
 
