@@ -201,7 +201,7 @@ components:
     materialParam:
       name: material
       in: query
-      description: Identifiant de la matière composant le produit
+      description: Identifiant de la matière composant le produit (liste disponible sur le point d'entrée dédié)
       required: true
       style: form
       schema:
@@ -212,7 +212,7 @@ components:
     productParam:
       name: product
       in: query
-      description: Identifiant du produit
+      description: Identifiant du produit (liste disponible sur le point d'entrée dédié)
       required: true
       style: form
       schema:
@@ -221,7 +221,7 @@ components:
     countryFabricParam:
       name: countryFabric
       in: query
-      description: "Code pays pour l'étape de **Tissage/Tricotage**"
+      description: "Code pays pour l'étape de **Tissage/Tricotage** (liste disponible sur le point d'entrée dédié)"
       required: true
       style: form
       schema:
@@ -232,7 +232,7 @@ components:
     countryDyeingParam:
       name: countryDyeing
       in: query
-      description: "Code pays pour l'étape de **Teinture**"
+      description: "Code pays pour l'étape de **Teinture** (liste disponible sur le point d'entrée dédié)"
       required: true
       style: form
       schema:
@@ -243,7 +243,7 @@ components:
     countryMakingParam:
       name: countryMaking
       in: query
-      description: "Code pays pour l'étape de **Confection**"
+      description: "Code pays pour l'étape de **Confection** (liste disponible sur le point d'entrée dédié)"
       required: true
       style: form
       schema:
