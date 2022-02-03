@@ -26,11 +26,22 @@ paths:
       responses:
         200:
           description: Documentation de l'API au format OpenAPI.
-
+  /materials:
+    get:
+      tags:
+      - Matières
+      summary: Récupérer la liste des matières
+      responses:
+        200:
+          description: Opération réussie
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MaterialListResponse'
   /products:
     get:
       tags:
-      - Product
+      - Produits
       summary: Récupérer la liste des types de produits textiles
       responses:
         200:
@@ -102,6 +113,7 @@ paths:
           - "fru"
           - "mru"
           - "ldu"
+          - "wtu"
           - "pef"
       - $ref: '#/components/parameters/massParam'
       - $ref: '#/components/parameters/materialParam'
@@ -306,9 +318,19 @@ components:
         documentation:
           type: string
           description: "Lien hypertexte vers la documentation de l'API"
+    MaterialListResponse:
+      type: array
+      description: Liste des matières
+      items:
+        type: object
+        properties:
+          uuid:
+            type: string
+          name:
+            type: string
     ProductListResponse:
       type: array
-      description: List des types de produits
+      description: Liste des types de produits
       items:
         type: object
         properties:
@@ -368,6 +390,9 @@ components:
             ldu:
               type: number
               description: "Utilisation des sols (sans dimension (pt))"
+            wtu:
+              type: number
+              description: "Utilisation de ressources en eau (m³)"
             pef:
               type: number
               description: "Score PEF (mPt)"

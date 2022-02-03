@@ -7,6 +7,8 @@ port module Server exposing
 import Data.Db as Db exposing (Db)
 import Data.Impact as Impact
 import Data.Inputs as Inputs
+import Data.Material exposing (Material)
+import Data.Process as Process
 import Data.Product as Product exposing (Product)
 import Data.Simulator as Simulator exposing (Simulator)
 import Json.Encode as Encode
@@ -110,9 +112,24 @@ encodeProductList =
         )
 
 
+encodeMaterialList : List Material -> Encode.Value
+encodeMaterialList =
+    Encode.list
+        (\{ uuid, name } ->
+            Encode.object
+                [ ( "uuid", Process.encodeUuid uuid )
+                , ( "name", Encode.string name )
+                ]
+        )
+
+
 handleRequest : Db -> Request -> Cmd Msg
 handleRequest db request =
     case Route.endpoint db request of
+        Just (Route.Get Route.MaterialList) ->
+            encodeMaterialList db.materials
+                |> sendResponse 200 request
+
         Just (Route.Get Route.ProductList) ->
             encodeProductList db.products
                 |> sendResponse 200 request

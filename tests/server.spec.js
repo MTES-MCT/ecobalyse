@@ -54,6 +54,18 @@ describe("API", () => {
     });
   });
 
+  describe("/materials", () => {
+    it("should render with materials list", async () => {
+      const response = await request(app).get("/api/materials");
+
+      expect(response.statusCode).toBe(200);
+      expect(response.body).toContainObject({
+        uuid: "f211bbdb-415c-46fd-be4d-ddf199575b44",
+        name: "Fil de coton conventionnel, inventaire partiellement agrégé",
+      });
+    });
+  });
+
   describe("/products", () => {
     it("should render with products list", async () => {
       const response = await request(app).get("/api/products");
