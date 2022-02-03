@@ -85,7 +85,7 @@ describe("API", () => {
   });
 
   describe("/api/simulator", () => {
-    it("should validate a valid query", async () => {
+    it("should accept a valid query", async () => {
       const response = await makeRequest("/api/simulator", successQuery);
 
       expect(response.statusCode).toBe(200);
@@ -165,7 +165,7 @@ describe("API", () => {
   });
 
   describe("/api/simulator/fwe", () => {
-    it("should validate a valid query", async () => {
+    it("should accept a valid query", async () => {
       const response = await makeRequest("/api/simulator/fwe", successQuery);
 
       expect(response.statusCode).toBe(200);
@@ -174,7 +174,7 @@ describe("API", () => {
   });
 
   describe("/api/simulator/detailed", () => {
-    it("should validate a valid query", async () => {
+    it("should accept a valid query", async () => {
       const response = await makeRequest("/api/simulator/detailed", successQuery);
 
       expect(response.statusCode).toBe(200);

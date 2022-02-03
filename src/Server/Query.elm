@@ -49,6 +49,7 @@ parse db =
     succeed (Ok Inputs.Query)
         |> apply (massParser "mass")
         |> apply (materialParser "material" db.materials)
+        |> apply (materialListParser "materials" db.materials)
         |> apply (productParser "product" db.products)
         |> apply (countryParser "countryFabric" db.countries)
         |> apply (countryParser "countryDyeing" db.countries)
@@ -155,6 +156,13 @@ materialParser key materials =
                         |> Result.mapError (\err -> ( key, err ))
                 )
             )
+
+
+materialListParser : String -> List Material -> Query.Parser (ParseResult (List Inputs.QueryMaterials))
+materialListParser key _ =
+    Query.string key
+        |> Query.map (Result.fromMaybe ( key, "Identifiant de la matière manquant." ))
+        |> Query.map (always (Ok []))
 
 
 countryParser : String -> List Country -> Query.Parser (ParseResult Country.Code)

@@ -1,7 +1,9 @@
 module Data.Inputs exposing
     ( CustomCountryMixes
     , Inputs
+    , InputsMaterials
     , Query
+    , QueryMaterials
     , b64decode
     , b64encode
     , countryList
@@ -43,9 +45,17 @@ import Result.Extra as RE
 import Url.Parser as Parser exposing (Parser)
 
 
+type alias InputsMaterials =
+    { material : Material
+    , share : Unit.Ratio
+    , recycledRatio : Unit.Ratio
+    }
+
+
 type alias Inputs =
     { mass : Mass
     , material : Material
+    , materials : List InputsMaterials
     , product : Product
     , countryMaterial : Country
     , countryFabric : Country
@@ -62,10 +72,18 @@ type alias Inputs =
     }
 
 
+type alias QueryMaterials =
+    { uuid : Process.Uuid
+    , share : Unit.Ratio
+    , recycledRatio : Unit.Ratio
+    }
+
+
 type alias Query =
     -- a shorter version than Inputs (identifiers only)
     { mass : Mass
     , material : Process.Uuid
+    , materials : List QueryMaterials
     , product : Product.Id
     , countryFabric : Country.Code
     , countryDyeing : Country.Code
@@ -97,6 +115,7 @@ fromQuery db query =
     Ok Inputs
         |> RE.andMap (Ok query.mass)
         |> RE.andMap material
+        |> RE.andMap (Ok [])
         |> RE.andMap (db.products |> Product.findById query.product)
         -- The material country is constrained to be the material's default country
         |> RE.andMap (material |> Result.andThen (\{ defaultCountry } -> Country.findByCode defaultCountry db.countries))
@@ -120,6 +139,7 @@ toQuery : Inputs -> Query
 toQuery inputs =
     { mass = inputs.mass
     , material = inputs.material.uuid
+    , materials = []
     , product = inputs.product.id
     , countryFabric = inputs.countryFabric.code
     , countryDyeing = inputs.countryDyeing.code
@@ -253,6 +273,7 @@ tShirtCotonFrance =
     -- T-shirt circuit France
     { mass = Mass.kilograms 0.17
     , material = Process.Uuid "f211bbdb-415c-46fd-be4d-ddf199575b44"
+    , materials = []
     , product = Product.Id "13"
     , countryFabric = Country.Code "FR"
     , countryDyeing = Country.Code "FR"
@@ -311,6 +332,7 @@ jupeCircuitAsie =
     -- Jupe circuit Asie
     { mass = Mass.kilograms 0.3
     , material = Process.Uuid "aee6709f-0864-4fc5-8760-68cb644a0021"
+    , materials = []
     , product = Product.Id "8"
     , countryFabric = Country.Code "CN"
     , countryDyeing = Country.Code "CN"
@@ -328,6 +350,7 @@ manteauCircuitEurope =
     -- Manteau circuit Europe
     { mass = Mass.kilograms 0.95
     , material = Process.Uuid "380c0d9c-2840-4390-bd3f-5c960f26f5ed"
+    , materials = []
     , product = Product.Id "9"
     , countryFabric = Country.Code "TR"
     , countryDyeing = Country.Code "TN"
@@ -345,6 +368,7 @@ pantalonCircuitEurope =
     -- Pantalon circuit Europe
     { mass = Mass.kilograms 0.45
     , material = Process.Uuid "e5a6d538-f932-4242-98b4-3a0c6439629c"
+    , materials = []
     , product = Product.Id "10"
     , countryFabric = Country.Code "TR"
     , countryDyeing = Country.Code "TR"
@@ -362,6 +386,7 @@ robeCircuitBangladesh =
     -- Robe circuit Bangladesh
     { mass = Mass.kilograms 0.5
     , material = Process.Uuid "7a1ccc4a-2ea7-48dc-9ef0-d57066ea8fa5"
+    , materials = []
     , product = Product.Id "12"
     , countryFabric = Country.Code "BD"
     , countryDyeing = Country.Code "PT"
@@ -424,6 +449,7 @@ decodeQuery =
     Decode.succeed Query
         |> Pipe.required "mass" (Decode.map Mass.kilograms Decode.float)
         |> Pipe.required "material" (Decode.map Process.Uuid Decode.string)
+        |> Pipe.required "material" (Decode.succeed [])
         |> Pipe.required "product" (Decode.map Product.Id Decode.string)
         |> Pipe.required "countryFabric" (Decode.map Country.Code Decode.string)
         |> Pipe.required "countryDyeing" (Decode.map Country.Code Decode.string)
@@ -440,6 +466,8 @@ encodeQuery query =
     Encode.object
         [ ( "mass", Encode.float (Mass.inKilograms query.mass) )
         , ( "material", query.material |> Process.uuidToString |> Encode.string )
+
+        -- , ( "materials", query.materials |> Encode.list )
         , ( "product", query.product |> Product.idToString |> Encode.string )
         , ( "countryFabric", query.countryFabric |> Country.codeToString |> Encode.string )
         , ( "countryDyeing", query.countryDyeing |> Country.codeToString |> Encode.string )
