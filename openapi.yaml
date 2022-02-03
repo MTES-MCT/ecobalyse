@@ -26,7 +26,42 @@ paths:
       responses:
         200:
           description: Documentation de l'API au format OpenAPI.
-
+  /countries:
+    get:
+      tags:
+      - Pays
+      summary: Récupérer la liste des pays
+      responses:
+        200:
+          description: Opération réussie
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CountryListResponse'
+  /materials:
+    get:
+      tags:
+      - Matières
+      summary: Récupérer la liste des matières
+      responses:
+        200:
+          description: Opération réussie
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MaterialListResponse'
+  /products:
+    get:
+      tags:
+      - Produits
+      summary: Récupérer la liste des types de produits textiles
+      responses:
+        200:
+          description: Opération réussie
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductListResponse'
   /simulator:
     get:
       tags:
@@ -90,6 +125,7 @@ paths:
           - "fru"
           - "mru"
           - "ldu"
+          - "wtu"
           - "pef"
       - $ref: '#/components/parameters/massParam'
       - $ref: '#/components/parameters/materialParam'
@@ -165,7 +201,7 @@ components:
     materialParam:
       name: material
       in: query
-      description: Identifiant de la matière composant le produit
+      description: Identifiant de la matière composant le produit (liste disponible sur le point d'entrée dédié)
       required: true
       style: form
       schema:
@@ -176,7 +212,7 @@ components:
     productParam:
       name: product
       in: query
-      description: Identifiant du produit
+      description: Identifiant du produit (liste disponible sur le point d'entrée dédié)
       required: true
       style: form
       schema:
@@ -185,7 +221,7 @@ components:
     countryFabricParam:
       name: countryFabric
       in: query
-      description: "Code pays pour l'étape de **Tissage/Tricotage**"
+      description: "Code pays pour l'étape de **Tissage/Tricotage** (liste disponible sur le point d'entrée dédié)"
       required: true
       style: form
       schema:
@@ -196,7 +232,7 @@ components:
     countryDyeingParam:
       name: countryDyeing
       in: query
-      description: "Code pays pour l'étape de **Teinture**"
+      description: "Code pays pour l'étape de **Teinture** (liste disponible sur le point d'entrée dédié)"
       required: true
       style: form
       schema:
@@ -207,7 +243,7 @@ components:
     countryMakingParam:
       name: countryMaking
       in: query
-      description: "Code pays pour l'étape de **Confection**"
+      description: "Code pays pour l'étape de **Confection** (liste disponible sur le point d'entrée dédié)"
       required: true
       style: form
       schema:
@@ -294,6 +330,36 @@ components:
         documentation:
           type: string
           description: "Lien hypertexte vers la documentation de l'API"
+    CountryListResponse:
+      type: array
+      description: Liste des pays
+      items:
+        type: object
+        properties:
+          code:
+            type: string
+          name:
+            type: string
+    MaterialListResponse:
+      type: array
+      description: Liste des matières
+      items:
+        type: object
+        properties:
+          uuid:
+            type: string
+          name:
+            type: string
+    ProductListResponse:
+      type: array
+      description: Liste des types de produits
+      items:
+        type: object
+        properties:
+          id:
+            type: string
+          name:
+            type: string
     MultipleImpactsResponse:
       type: object
       description: "Impacts environnementaux exprimés dans leurs unités respectives, dont [la documentation est disponible ici](https://fabrique-numerique.gitbook.io/wikicarbone/methodologie/impacts-consideres)."
@@ -346,6 +412,9 @@ components:
             ldu:
               type: number
               description: "Utilisation des sols (sans dimension (pt))"
+            wtu:
+              type: number
+              description: "Utilisation de ressources en eau (m³)"
             pef:
               type: number
               description: "Score PEF (mPt)"

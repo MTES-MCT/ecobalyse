@@ -4,6 +4,7 @@ module Data.Product exposing
     , customDaysOfWear
     , decodeList
     , encode
+    , encodeId
     , findById
     , idToString
     )
@@ -96,7 +97,7 @@ decodeList processes =
 encode : Product -> Encode.Value
 encode v =
     Encode.object
-        [ ( "id", Encode.string (idToString v.id) )
+        [ ( "id", encodeId v.id )
         , ( "name", Encode.string v.name )
         , ( "mass", Encode.float (Mass.inKilograms v.mass) )
         , ( "pcrWaste", Unit.encodeRatio v.pcrWaste )
@@ -114,6 +115,11 @@ encode v =
         , ( "useTimeIroning", Encode.float (Duration.inHours v.useTimeIroning) )
         , ( "daysOfWear", Encode.float (Duration.inDays v.daysOfWear) )
         ]
+
+
+encodeId : Id -> Encode.Value
+encodeId =
+    idToString >> Encode.string
 
 
 {-| Computes the number of wears and the number of maintainance cycles against a

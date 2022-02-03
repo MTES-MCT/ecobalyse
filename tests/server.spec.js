@@ -54,6 +54,36 @@ describe("API", () => {
     });
   });
 
+  describe("/countries", () => {
+    it("should render with countries list", async () => {
+      const response = await request(app).get("/api/countries");
+
+      expect(response.statusCode).toBe(200);
+      expect(response.body).toContainObject({ code: "FR", name: "France" });
+    });
+  });
+
+  describe("/materials", () => {
+    it("should render with materials list", async () => {
+      const response = await request(app).get("/api/materials");
+
+      expect(response.statusCode).toBe(200);
+      expect(response.body).toContainObject({
+        uuid: "f211bbdb-415c-46fd-be4d-ddf199575b44",
+        name: "Fil de coton conventionnel, inventaire partiellement agrégé",
+      });
+    });
+  });
+
+  describe("/products", () => {
+    it("should render with products list", async () => {
+      const response = await request(app).get("/api/products");
+
+      expect(response.statusCode).toBe(200);
+      expect(response.body).toContainObject({ id: "13", name: "T-shirt" });
+    });
+  });
+
   describe("/api/simulator", () => {
     it("should validate a valid query", async () => {
       const response = await makeRequest("/api/simulator", successQuery);
@@ -151,4 +181,26 @@ describe("API", () => {
       expect(response.body.lifeCycle.length).toBe(7);
     });
   });
+});
+
+// https://medium.com/@andrei.pfeiffer/jest-matching-objects-in-array-50fe2f4d6b98
+expect.extend({
+  toContainObject(received, argument) {
+    if (this.equals(received, expect.arrayContaining([expect.objectContaining(argument)]))) {
+      return {
+        message: () =>
+          `expected ${this.utils.printReceived(
+            received,
+          )} not to contain object ${this.utils.printExpected(argument)}`,
+        pass: true,
+      };
+    }
+    return {
+      message: () =>
+        `expected ${this.utils.printReceived(
+          received,
+        )} to contain object ${this.utils.printExpected(argument)}`,
+      pass: false,
+    };
+  },
 });

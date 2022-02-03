@@ -4,9 +4,13 @@ port module Server exposing
     , output
     )
 
+import Data.Country as Country exposing (Country)
 import Data.Db as Db exposing (Db)
 import Data.Impact as Impact
 import Data.Inputs as Inputs
+import Data.Material exposing (Material)
+import Data.Process as Process
+import Data.Product as Product exposing (Product)
 import Data.Simulator as Simulator exposing (Simulator)
 import Json.Encode as Encode
 import Server.Query as Query
@@ -98,9 +102,48 @@ executeQuery db request encoder =
         >> toResponse request
 
 
+encodeCountry : Country -> Encode.Value
+encodeCountry { code, name } =
+    Encode.object
+        [ ( "code", Country.encodeCode code )
+        , ( "name", Encode.string name )
+        ]
+
+
+encodeMaterial : Material -> Encode.Value
+encodeMaterial { uuid, name } =
+    Encode.object
+        [ ( "uuid", Process.encodeUuid uuid )
+        , ( "name", Encode.string name )
+        ]
+
+
+encodeProduct : Product -> Encode.Value
+encodeProduct { id, name } =
+    Encode.object
+        [ ( "id", Product.encodeId id )
+        , ( "name", Encode.string name )
+        ]
+
+
 handleRequest : Db -> Request -> Cmd Msg
 handleRequest db request =
     case Route.endpoint db request of
+        Just (Route.Get Route.CountryList) ->
+            db.countries
+                |> Encode.list encodeCountry
+                |> sendResponse 200 request
+
+        Just (Route.Get Route.MaterialList) ->
+            db.materials
+                |> Encode.list encodeMaterial
+                |> sendResponse 200 request
+
+        Just (Route.Get Route.ProductList) ->
+            db.products
+                |> Encode.list encodeProduct
+                |> sendResponse 200 request
+
         Just (Route.Get (Route.Simulator (Ok query))) ->
             query |> executeQuery db request toAllImpactsSimple
 
