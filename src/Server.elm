@@ -102,52 +102,46 @@ executeQuery db request encoder =
         >> toResponse request
 
 
-encodeCountryList : List Country -> Encode.Value
-encodeCountryList =
-    Encode.list
-        (\{ code, name } ->
-            Encode.object
-                [ ( "code", Country.encodeCode code )
-                , ( "name", Encode.string name )
-                ]
-        )
+encodeCountry : Country -> Encode.Value
+encodeCountry { code, name } =
+    Encode.object
+        [ ( "code", Country.encodeCode code )
+        , ( "name", Encode.string name )
+        ]
 
 
-encodeMaterialList : List Material -> Encode.Value
-encodeMaterialList =
-    Encode.list
-        (\{ uuid, name } ->
-            Encode.object
-                [ ( "uuid", Process.encodeUuid uuid )
-                , ( "name", Encode.string name )
-                ]
-        )
+encodeMaterial : Material -> Encode.Value
+encodeMaterial { uuid, name } =
+    Encode.object
+        [ ( "uuid", Process.encodeUuid uuid )
+        , ( "name", Encode.string name )
+        ]
 
 
-encodeProductList : List Product -> Encode.Value
-encodeProductList =
-    Encode.list
-        (\{ id, name } ->
-            Encode.object
-                [ ( "id", Product.encodeId id )
-                , ( "name", Encode.string name )
-                ]
-        )
+encodeProduct : Product -> Encode.Value
+encodeProduct { id, name } =
+    Encode.object
+        [ ( "id", Product.encodeId id )
+        , ( "name", Encode.string name )
+        ]
 
 
 handleRequest : Db -> Request -> Cmd Msg
 handleRequest db request =
     case Route.endpoint db request of
         Just (Route.Get Route.CountryList) ->
-            encodeCountryList db.countries
+            db.countries
+                |> Encode.list encodeCountry
                 |> sendResponse 200 request
 
         Just (Route.Get Route.MaterialList) ->
-            encodeMaterialList db.materials
+            db.materials
+                |> Encode.list encodeMaterial
                 |> sendResponse 200 request
 
         Just (Route.Get Route.ProductList) ->
-            encodeProductList db.products
+            db.products
+                |> Encode.list encodeProduct
                 |> sendResponse 200 request
 
         Just (Route.Get (Route.Simulator (Ok query))) ->
