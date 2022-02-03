@@ -7,6 +7,7 @@ port module Server exposing
 import Data.Db as Db exposing (Db)
 import Data.Impact as Impact
 import Data.Inputs as Inputs
+import Data.Product as Product exposing (Product)
 import Data.Simulator as Simulator exposing (Simulator)
 import Json.Encode as Encode
 import Server.Query as Query
@@ -98,9 +99,24 @@ executeQuery db request encoder =
         >> toResponse request
 
 
+encodeProductList : List Product -> Encode.Value
+encodeProductList =
+    Encode.list
+        (\{ id, name } ->
+            Encode.object
+                [ ( "id", Product.encodeId id )
+                , ( "name", Encode.string name )
+                ]
+        )
+
+
 handleRequest : Db -> Request -> Cmd Msg
 handleRequest db request =
     case Route.endpoint db request of
+        Just (Route.Get Route.ProductList) ->
+            encodeProductList db.products
+                |> sendResponse 200 request
+
         Just (Route.Get (Route.Simulator (Ok query))) ->
             query |> executeQuery db request toAllImpactsSimple
 

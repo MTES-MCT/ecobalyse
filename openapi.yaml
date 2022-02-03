@@ -27,6 +27,18 @@ paths:
         200:
           description: Documentation de l'API au format OpenAPI.
 
+  /products:
+    get:
+      tags:
+      - Product
+      summary: Récupérer la liste des types de produits textiles
+      responses:
+        200:
+          description: Opération réussie
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductListResponse'
   /simulator:
     get:
       tags:
@@ -294,6 +306,16 @@ components:
         documentation:
           type: string
           description: "Lien hypertexte vers la documentation de l'API"
+    ProductListResponse:
+      type: array
+      description: List des types de produits
+      items:
+        type: object
+        properties:
+          id:
+            type: string
+          name:
+            type: string
     MultipleImpactsResponse:
       type: object
       description: "Impacts environnementaux exprimés dans leurs unités respectives, dont [la documentation est disponible ici](https://fabrique-numerique.gitbook.io/wikicarbone/methodologie/impacts-consideres)."
