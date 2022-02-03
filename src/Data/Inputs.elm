@@ -48,7 +48,8 @@ import Url.Parser as Parser exposing (Parser)
 type alias InputsMaterials =
     { material : Material
     , share : Unit.Ratio
-    , recycledRatio : Unit.Ratio
+
+    -- , recycledRatio : Unit.Ratio
     }
 
 
@@ -75,7 +76,8 @@ type alias Inputs =
 type alias QueryMaterials =
     { uuid : Process.Uuid
     , share : Unit.Ratio
-    , recycledRatio : Unit.Ratio
+
+    -- , recycledRatio : Unit.Ratio
     }
 
 
@@ -109,13 +111,18 @@ fromQuery db query =
         material =
             db.materials |> Material.findByUuid query.material
 
+        materials =
+            query.materials
+                |> List.map (\{ uuid } -> Material.findByUuid uuid db.materials)
+                |> RE.combine
+
         franceResult =
             Country.findByCode (Country.Code "FR") db.countries
     in
     Ok Inputs
         |> RE.andMap (Ok query.mass)
         |> RE.andMap material
-        |> RE.andMap (Ok [])
+        |> RE.andMap materials
         |> RE.andMap (db.products |> Product.findById query.product)
         -- The material country is constrained to be the material's default country
         |> RE.andMap (material |> Result.andThen (\{ defaultCountry } -> Country.findByCode defaultCountry db.countries))
@@ -291,6 +298,12 @@ tShirtPolyamideFrance =
     -- T-shirt polyamide (provenance France) circuit France
     { tShirtCotonFrance
         | material = Process.Uuid "182fa424-1f49-4728-b0f1-cb4e4ab36392"
+        , materials =
+            [ { uuid = Process.Uuid "182fa424-1f49-4728-b0f1-cb4e4ab36392"
+              , share = Unit.ratio 1
+              , recycledRatio = Unit.ratio 0
+              }
+            ]
         , countryFabric = Country.Code "FR"
         , countryDyeing = Country.Code "FR"
         , countryMaking = Country.Code "FR"
