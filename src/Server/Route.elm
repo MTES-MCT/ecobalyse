@@ -32,8 +32,9 @@ ExpressJS server directly (see server.js).
 
 -}
 type Route
-    = -- Material list
-      MaterialList
+    = CountryList
+      -- Material list
+    | MaterialList
       -- Product list
     | ProductList
       -- Simple version of all impacts
@@ -47,7 +48,8 @@ type Route
 parser : Db -> Parser (Route -> a) a
 parser db =
     Parser.oneOf
-        [ Parser.map MaterialList (Parser.s "materials")
+        [ Parser.map CountryList (Parser.s "countries")
+        , Parser.map MaterialList (Parser.s "materials")
         , Parser.map ProductList (Parser.s "products")
         , Parser.map Simulator (Parser.s "simulator" <?> Query.parse db)
         , Parser.map SimulatorDetailed (Parser.s "simulator" </> Parser.s "detailed" <?> Query.parse db)

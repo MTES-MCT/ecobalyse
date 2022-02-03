@@ -26,6 +26,18 @@ paths:
       responses:
         200:
           description: Documentation de l'API au format OpenAPI.
+  /countries:
+    get:
+      tags:
+      - Pays
+      summary: Récupérer la liste des pays
+      responses:
+        200:
+          description: Opération réussie
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CountryListResponse'
   /materials:
     get:
       tags:
@@ -318,6 +330,16 @@ components:
         documentation:
           type: string
           description: "Lien hypertexte vers la documentation de l'API"
+    CountryListResponse:
+      type: array
+      description: Liste des pays
+      items:
+        type: object
+        properties:
+          code:
+            type: string
+          name:
+            type: string
     MaterialListResponse:
       type: array
       description: Liste des matières

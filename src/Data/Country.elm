@@ -5,6 +5,7 @@ module Data.Country exposing
     , codeToString
     , decodeList
     , encode
+    , encodeCode
     , findByCode
     )
 
@@ -64,10 +65,15 @@ decodeList processes =
 encode : Country -> Encode.Value
 encode v =
     Encode.object
-        [ ( "code", v.code |> codeToString |> Encode.string )
+        [ ( "code", encodeCode v.code )
         , ( "name", Encode.string v.name )
         , ( "electricityProcessUuid", v.electricityProcess.uuid |> Process.uuidToString |> Encode.string )
         , ( "heatProcessUuid", v.heatProcess.uuid |> Process.uuidToString |> Encode.string )
         , ( "dyeingWeighting", Unit.encodeRatio v.dyeingWeighting )
         , ( "airTransportRatio", Unit.encodeRatio v.airTransportRatio )
         ]
+
+
+encodeCode : Code -> Encode.Value
+encodeCode =
+    codeToString >> Encode.string

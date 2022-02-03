@@ -4,6 +4,7 @@ port module Server exposing
     , output
     )
 
+import Data.Country as Country exposing (Country)
 import Data.Db as Db exposing (Db)
 import Data.Impact as Impact
 import Data.Inputs as Inputs
@@ -101,12 +102,12 @@ executeQuery db request encoder =
         >> toResponse request
 
 
-encodeProductList : List Product -> Encode.Value
-encodeProductList =
+encodeCountryList : List Country -> Encode.Value
+encodeCountryList =
     Encode.list
-        (\{ id, name } ->
+        (\{ code, name } ->
             Encode.object
-                [ ( "id", Product.encodeId id )
+                [ ( "code", Country.encodeCode code )
                 , ( "name", Encode.string name )
                 ]
         )
@@ -123,9 +124,24 @@ encodeMaterialList =
         )
 
 
+encodeProductList : List Product -> Encode.Value
+encodeProductList =
+    Encode.list
+        (\{ id, name } ->
+            Encode.object
+                [ ( "id", Product.encodeId id )
+                , ( "name", Encode.string name )
+                ]
+        )
+
+
 handleRequest : Db -> Request -> Cmd Msg
 handleRequest db request =
     case Route.endpoint db request of
+        Just (Route.Get Route.CountryList) ->
+            encodeCountryList db.countries
+                |> sendResponse 200 request
+
         Just (Route.Get Route.MaterialList) ->
             encodeMaterialList db.materials
                 |> sendResponse 200 request

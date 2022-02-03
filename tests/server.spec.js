@@ -54,6 +54,15 @@ describe("API", () => {
     });
   });
 
+  describe("/countries", () => {
+    it("should render with countries list", async () => {
+      const response = await request(app).get("/api/countries");
+
+      expect(response.statusCode).toBe(200);
+      expect(response.body).toContainObject({ code: "FR", name: "France" });
+    });
+  });
+
   describe("/materials", () => {
     it("should render with materials list", async () => {
       const response = await request(app).get("/api/materials");
