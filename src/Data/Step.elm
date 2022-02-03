@@ -224,44 +224,38 @@ computeTransportImpacts db impacts { seaTransport, airTransport } roadProcess ma
 computeTransportSummary : Step -> Transport -> Transport
 computeTransportSummary step transport =
     let
-        default =
-            Transport.default step.transport.impacts
-
-        defaultInland =
-            Transport.defaultInland step.transport.impacts
+        ( noTransports, defaultInland ) =
+            ( Transport.default step.transport.impacts
+            , Transport.defaultInland step.transport.impacts
+            )
     in
     case step.label of
         Ennoblement ->
-            -- Added intermediary inland transport step
-            -- to materialize Processing + Dyeing steps (see Excel)
-            { default
-                | road = transport.road |> Quantity.plus defaultInland.road
-                , sea = transport.sea |> Quantity.plus defaultInland.sea
-            }
+            transport
+                -- Note: no air transport ratio at the Ennoblement step
+                |> Formula.transportRatio (Unit.ratio 0)
+                -- Added intermediary inland transport distances to materialize
+                -- "processing" + "dyeing" steps (see Excel)
+                -- Also ensure we don't add unnecessary air transport
+                |> Transport.add { defaultInland | air = Quantity.zero }
 
         Making ->
             -- Air transport only applies between the Making and the Distribution steps
-            Formula.transportRatio step.airTransportRatio
-                { default
-                    | road = transport.road
-                    , sea = transport.sea
-                    , air = transport.air
-                }
+            transport
+                |> Formula.transportRatio step.airTransportRatio
 
         Use ->
             -- Product Use leverages no transports
-            default
+            noTransports
 
         EndOfLife ->
             -- End of life leverages no transports
-            default
+            noTransports
 
         _ ->
-            -- All other steps don't use air transport at all
-            { default
-                | road = transport.road
-                , sea = transport.sea
-            }
+            -- All other steps don't use air transport, force a 0 ratio
+            transport
+                |> Formula.transportRatio (Unit.ratio 0)
 
 
 getRoadTransportProcess : Process.WellKnown -> Step -> Process

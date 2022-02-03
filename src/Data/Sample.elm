@@ -66,7 +66,7 @@ samples =
             }
         , sample "impacts for robeCircuitBangladesh"
             { query = robeCircuitBangladesh
-            , cch = Unit.impact 40.97694758762013
+            , cch = Unit.impact 39.73387381972047
             , fwe = Unit.impact 0.0002608076513636336
             }
         ]
@@ -108,7 +108,7 @@ samples =
             }
         , sample "impacts for robeCircuitBangladesh using custom dyeing weighting"
             { query = { robeCircuitBangladesh | dyeingWeighting = Just (Ratio 0.5) }
-            , cch = Unit.impact 43.58452144053679
+            , cch = Unit.impact 42.341447672637145
             , fwe = Unit.impact 0.0006734506677003212
             }
         ]
@@ -150,7 +150,7 @@ samples =
             }
         , sample "impacts for robeCircuitBangladesh using custom air transport ratio"
             { query = { robeCircuitBangladesh | airTransportRatio = Just (Ratio 0.5) }
-            , cch = Unit.impact 41.37803005247012
+            , cch = Unit.impact 40.134956284570464
             , fwe = Unit.impact 0.0002608599404572461
             }
         ]
@@ -202,7 +202,7 @@ samples =
             }
         , sample "impacts for robeCircuitBangladesh using custom recycled ratio"
             { query = { robeCircuitBangladesh | recycledRatio = Just (Ratio 0.5) }
-            , cch = Unit.impact 40.97694758762013
+            , cch = Unit.impact 39.73387381972047
             , fwe = Unit.impact 0.0002608076513636336
             }
         ]

@@ -7,6 +7,7 @@ import Data.Unit as Unit
 import Dict.Any as AnyDict
 import Energy
 import Expect
+import Length exposing (Length)
 import Mass exposing (Mass)
 import Quantity
 import Test exposing (..)
@@ -16,6 +17,11 @@ import TestUtils exposing (asTest)
 kg : Float -> Mass
 kg =
     Mass.kilograms
+
+
+km : Float -> Length
+km =
+    Length.kilometers
 
 
 defaultImpacts : Impacts
@@ -173,4 +179,54 @@ suite =
                 |> asTest "should compute KnittingWeaving step kwh from process and product data"
              ]
             )
+        , describe "Formula.transportRatio"
+            [ describe "no air transport ratio"
+                [ { road = 0, sea = 0, air = 0 }
+                    |> testTransportRatio (Unit.ratio 0)
+                    |> Expect.equal ( 0, 0, 0 )
+                    |> asTest "should handle ratio with empty distances"
+                , { road = 400, sea = 200, air = 0 }
+                    |> testTransportRatio (Unit.ratio 0)
+                    |> Expect.equal ( 400, 0, 0 )
+                    |> asTest "should handle ratio for road < 500km"
+                , { road = 900, sea = 1000, air = 0 }
+                    |> testTransportRatio (Unit.ratio 0)
+                    |> Expect.equal ( 810, 100, 0 )
+                    |> asTest "should handle ratio for road < 1000km"
+                , { road = 1800, sea = 1000, air = 0 }
+                    |> testTransportRatio (Unit.ratio 0)
+                    |> Expect.equal ( 900, 500, 0 )
+                    |> asTest "should handle ratio for road < 2000km"
+                , { road = 4000, sea = 10000, air = 0 }
+                    |> testTransportRatio (Unit.ratio 0)
+                    |> Expect.equal ( 1000, 7500, 0 )
+                    |> asTest "should handle ratio for road > 2000km"
+                , { road = 0, sea = 11310, air = 7300 }
+                    |> testTransportRatio (Unit.ratio 0)
+                    |> Expect.equal ( 0, 11310, 0 )
+                    |> asTest "should handle case where road=0km"
+                ]
+            , describe "with air transport ratio"
+                [ { road = 1000, sea = 5000, air = 5000 }
+                    |> testTransportRatio (Unit.ratio 0.5)
+                    |> Expect.equal ( 250, 1250, 2500 )
+                    |> asTest "should handle air transport ratio"
+                ]
+            ]
         ]
+
+
+testTransportRatio : Unit.Ratio -> { road : Float, sea : Float, air : Float } -> ( Int, Int, Int )
+testTransportRatio airTransportRatio { road, sea, air } =
+    { road = km road
+    , sea = km sea
+    , air = km air
+    , impacts = defaultImpacts
+    }
+        |> Formula.transportRatio airTransportRatio
+        |> (\t ->
+                ( t.road |> Length.inKilometers |> round
+                , t.sea |> Length.inKilometers |> round
+                , t.air |> Length.inKilometers |> round
+                )
+           )
