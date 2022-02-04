@@ -12,14 +12,14 @@ suite : Test
 suite =
     describe "Data.Product"
         [ describe "customDaysOfWear"
-            [ { daysOfWear = Duration.days 100, useDefaultNbCycles = 20 }
+            [ { daysOfWear = Duration.days 100, wearsPerCycle = 20 }
                 |> Product.customDaysOfWear (Just (Unit.quality 1))
                 |> Expect.equal
                     { daysOfWear = Duration.days 100
                     , useNbCycles = 5
                     }
                 |> asTest "should compute custom number of days of wear"
-            , { daysOfWear = Duration.days 100, useDefaultNbCycles = 20 }
+            , { daysOfWear = Duration.days 100, wearsPerCycle = 20 }
                 |> Product.customDaysOfWear (Just (Unit.quality 0.8))
                 |> Expect.equal
                     { daysOfWear = Duration.days 80

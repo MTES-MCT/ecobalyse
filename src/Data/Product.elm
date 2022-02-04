@@ -81,8 +81,8 @@ decode processes =
         |> Pipe.required "makingProcessUuid" (Process.decodeFromUuid processes)
         |> Pipe.required "useIroningProcessUuid" (Process.decodeFromUuid processes)
         |> Pipe.required "useNonIroningProcessUuid" (Process.decodeFromUuid processes)
-        |> Pipe.required "useDefaultNbCycles" Decode.int
         |> Pipe.required "wearsPerCycle" Decode.int
+        |> Pipe.required "useDefaultNbCycles" Decode.int
         |> Pipe.required "useRatioDryer" Unit.decodeRatio
         |> Pipe.required "useRatioIroning" Unit.decodeRatio
         |> Pipe.required "useTimeIroning" (Decode.map Duration.hours Decode.float)
@@ -108,8 +108,8 @@ encode v =
         , ( "makingProcessUuid", Process.encodeUuid v.makingProcess.uuid )
         , ( "useIroningProcessUuid", Process.encodeUuid v.useIroningProcess.uuid )
         , ( "useNonIroningProcessUuid", Process.encodeUuid v.useNonIroningProcess.uuid )
-        , ( "useDefaultNbCycles", Encode.int v.useDefaultNbCycles )
         , ( "wearsPerCycle", Encode.int v.wearsPerCycle )
+        , ( "useDefaultNbCycles", Encode.int v.useDefaultNbCycles )
         , ( "useRatioDryer", Unit.encodeRatio v.useRatioDryer )
         , ( "useRatioIroning", Unit.encodeRatio v.useRatioIroning )
         , ( "useTimeIroning", Encode.float (Duration.inHours v.useTimeIroning) )
@@ -127,9 +127,9 @@ custom product intrinsic quality coefficient.
 -}
 customDaysOfWear :
     Maybe Unit.Quality
-    -> { product | daysOfWear : Duration, useDefaultNbCycles : Int }
+    -> { product | daysOfWear : Duration, wearsPerCycle : Int }
     -> { daysOfWear : Duration, useNbCycles : Int }
-customDaysOfWear maybeQuality { daysOfWear, useDefaultNbCycles } =
+customDaysOfWear maybeQuality { daysOfWear, wearsPerCycle } =
     let
         quality =
             maybeQuality
@@ -142,6 +142,6 @@ customDaysOfWear maybeQuality { daysOfWear, useDefaultNbCycles } =
     { daysOfWear = newDaysOfWear
     , useNbCycles =
         Duration.inDays newDaysOfWear
-            / toFloat (clamp 1 useDefaultNbCycles useDefaultNbCycles)
+            / toFloat (clamp 1 wearsPerCycle wearsPerCycle)
             |> round
     }
