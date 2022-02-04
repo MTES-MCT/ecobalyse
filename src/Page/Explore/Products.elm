@@ -6,7 +6,6 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Route
 import Views.Format as Format
-import Views.Icon as Icon
 import Views.Table as Table
 
 
