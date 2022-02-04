@@ -11,49 +11,64 @@ import Route
 import Views.Table as Table
 
 
-details : Db -> Material -> Html msg
-details _ material =
-    Table.responsiveDefault [ class "view-details" ]
-        [ tbody []
-            [ tr []
-                [ th [] [ text "Identifiant" ]
-                , td [] [ code [] [ text (Process.uuidToString material.uuid) ] ]
-                ]
-            , tr []
-                [ th [] [ text "Nom" ]
-                , td [] [ text material.name ]
-                ]
-            , tr []
-                [ th [] [ text "Catégorie" ]
-                , td [] [ material.category |> Category.toString |> text ]
-                ]
-            , tr []
-                [ th [] [ text "Procédé" ]
-                , td [] [ text material.materialProcess.name ]
-                ]
-            , tr []
-                [ th [] [ text "Procédé de recyclage" ]
-                , td [] [ material.recycledProcess |> Maybe.map (.name >> text) |> Maybe.withDefault (text "N/A") ]
-                ]
-            , tr []
-                [ th [] [ text "Primaire" ]
-                , td []
+table : { detailed : Bool } -> List { label : String, toCell : Material -> Html msg }
+table { detailed } =
+    [ { label = "Identifiant"
+      , toCell =
+            \material ->
+                td []
+                    [ if detailed then
+                        code [] [ text (Process.uuidToString material.uuid) ]
+
+                      else
+                        a [ Route.href (Route.Explore (Db.Materials (Just material.uuid))) ]
+                            [ code [] [ text (Process.uuidToString material.uuid) ] ]
+                    ]
+      }
+    , { label = "Nom"
+      , toCell = \material -> td [] [ text material.name ]
+      }
+    , { label = "Catégorie"
+      , toCell = \material -> td [] [ material.category |> Category.toString |> text ]
+      }
+    , { label = "Procédé"
+      , toCell = \material -> td [] [ text material.materialProcess.name ]
+      }
+    , { label = "Procédé de recyclage"
+      , toCell = \material -> td [] [ material.recycledProcess |> Maybe.map (.name >> text) |> Maybe.withDefault (text "N/A") ]
+      }
+    , { label = "Primaire"
+      , toCell =
+            \material ->
+                td []
                     [ if material.primary then
                         text "Oui"
 
                       else
                         text "Non"
                     ]
-                ]
-            , tr []
-                [ th [] [ text "Continent" ]
-                , td [] [ text material.continent ]
-                ]
-            , tr []
-                [ th [] [ text "Pays par défaut" ]
-                , td [] [ material.defaultCountry |> Country.codeToString |> text ]
-                ]
-            ]
+      }
+    , { label = "Continent"
+      , toCell = \material -> td [] [ text material.continent ]
+      }
+    , { label = "Pays par défaut"
+      , toCell = \material -> td [] [ material.defaultCountry |> Country.codeToString |> text ]
+      }
+    ]
+
+
+details : Db -> Material -> Html msg
+details _ material =
+    Table.responsiveDefault [ class "view-details" ]
+        [ table { detailed = True }
+            |> List.map
+                (\{ label, toCell } ->
+                    tr []
+                        [ th [] [ text label ]
+                        , toCell material
+                        ]
+                )
+            |> tbody []
         ]
 
 
@@ -61,41 +76,16 @@ view : List Material -> Html msg
 view materials =
     Table.responsiveDefault [ class "view-list" ]
         [ thead []
-            [ tr []
-                [ th [] [ text "Identifiant" ]
-                , th [] [ text "Nom" ]
-                , th [] [ text "Catégorie" ]
-                , th [] [ text "Procédé" ]
-                , th [] [ text "Procédé de recyclage" ]
-                , th [] [ text "Primaire" ]
-                , th [] [ text "Continent" ]
-                , th [] [ text "Pays par défaut" ]
-                ]
+            [ table { detailed = False }
+                |> List.map (\{ label } -> th [] [ text label ])
+                |> tr []
             ]
         , materials
-            |> List.map row
+            |> List.map
+                (\material ->
+                    table { detailed = False }
+                        |> List.map (\{ toCell } -> toCell material)
+                        |> tr []
+                )
             |> tbody []
-        ]
-
-
-row : Material -> Html msg
-row material =
-    tr []
-        [ td []
-            [ a [ Route.href (Route.Explore (Db.Materials (Just material.uuid))) ]
-                [ code [] [ text (Process.uuidToString material.uuid) ] ]
-            ]
-        , td [] [ text material.name ]
-        , td [] [ material.category |> Category.toString |> text ]
-        , td [] [ text material.materialProcess.name ]
-        , td [] [ material.recycledProcess |> Maybe.map (.name >> text) |> Maybe.withDefault (text "N/A") ]
-        , td []
-            [ if material.primary then
-                text "Oui"
-
-              else
-                text "Non"
-            ]
-        , td [] [ text material.continent ]
-        , td [] [ material.defaultCountry |> Country.codeToString |> text ]
         ]
