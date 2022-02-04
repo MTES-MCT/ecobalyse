@@ -11,7 +11,7 @@ import Views.Format as Format
 
 table : { detailed : Bool } -> Table Country msg
 table { detailed } =
-    [ { label = "Identifiant"
+    [ { label = "Code"
       , toCell =
             \country ->
                 td []
@@ -22,12 +22,6 @@ table { detailed } =
                         a [ Route.href (Route.Explore (Db.Countries (Just country.code))) ]
                             [ code [] [ text (Country.codeToString country.code) ] ]
                     ]
-      }
-    , { label = "Nom"
-      , toCell = \country -> text country.name
-      }
-    , { label = "Code"
-      , toCell = \country -> code [] [ text (Country.codeToString country.code) ]
       }
     , { label = "Nom"
       , toCell = \country -> text country.name
