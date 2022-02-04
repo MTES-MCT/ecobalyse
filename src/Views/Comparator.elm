@@ -79,30 +79,14 @@ toNonRecycledFrance query =
     )
 
 
-toPartiallyRecycledIndiaTurkey : Inputs.Query -> ( String, Inputs.Query )
-toPartiallyRecycledIndiaTurkey query =
-    ( "Inde-Turquie 20% recyclé, Q=1"
+toNonRecycledPortugal : Inputs.Query -> ( String, Inputs.Query )
+toNonRecycledPortugal query =
+    ( "Portugal 0% recyclé, Q=1"
     , { query
-        | countryFabric = Country.Code "IN"
-        , countryDyeing = Country.Code "TR"
-        , countryMaking = Country.Code "TR"
-        , dyeingWeighting = Just (Unit.ratio 0.5)
-        , airTransportRatio = Just (Unit.ratio 0)
-        , recycledRatio = Just (Unit.ratio 0.2)
-        , customCountryMixes = Inputs.defaultCustomCountryMixes
-        , quality = Just Unit.standardQuality
-      }
-    )
-
-
-toNonRecycledIndiaTurkey : Inputs.Query -> ( String, Inputs.Query )
-toNonRecycledIndiaTurkey query =
-    ( "Inde-Turquie 0% recyclé, Q=1"
-    , { query
-        | countryFabric = Country.Code "IN"
-        , countryDyeing = Country.Code "TR"
-        , countryMaking = Country.Code "TR"
-        , dyeingWeighting = Just (Unit.ratio 0.5)
+        | countryFabric = Country.Code "PT"
+        , countryDyeing = Country.Code "PT"
+        , countryMaking = Country.Code "PT"
+        , dyeingWeighting = Just (Unit.ratio 0)
         , airTransportRatio = Just (Unit.ratio 0)
         , recycledRatio = Just (Unit.ratio 0)
         , customCountryMixes = Inputs.defaultCustomCountryMixes
@@ -200,7 +184,7 @@ getEntries db funit impact ({ material } as inputs) =
                 [ ( currentName, query ) |> createEntry_ True -- user simulation
                 , query |> toRecycledFrance |> createEntry_ False
                 , query |> toNonRecycledFrance |> createEntry_ False
-                , query |> toPartiallyRecycledIndiaTurkey |> createEntry_ False
+                , query |> toNonRecycledPortugal |> createEntry_ False
                 , query |> toRecycledIndia |> createEntry_ False
                 , query |> toNonRecycledIndia |> createEntry_ False
                 ]
@@ -208,7 +192,7 @@ getEntries db funit impact ({ material } as inputs) =
             else
                 [ ( currentName, query ) |> createEntry_ True -- user simulation
                 , query |> toNonRecycledFrance |> createEntry_ False
-                , query |> toNonRecycledIndiaTurkey |> createEntry_ False
+                , query |> toNonRecycledPortugal |> createEntry_ False
                 , query |> toNonRecycledIndia |> createEntry_ False
                 ]
     in
