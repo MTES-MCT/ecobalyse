@@ -22,6 +22,7 @@ import Page.Explore.Countries as ExploreCountries
 import Page.Explore.Impacts as ExploreImpacts
 import Page.Explore.Materials as ExploreMaterials
 import Page.Explore.Products as ExploreProducts
+import Page.Explore.Table as Table
 import Ports
 import Route
 import Views.Alert as Alert
@@ -152,13 +153,14 @@ explore : Db -> Db.Dataset -> List (Html Msg)
 explore db dataset =
     case dataset of
         Db.Countries maybeId ->
-            [ ExploreCountries.view db.countries
+            [ db.countries
+                |> Table.viewList ExploreCountries.table
             , case maybeId of
                 Just code ->
                     case Country.findByCode code db.countries of
                         Ok country ->
                             country
-                                |> ExploreCountries.details db
+                                |> Table.viewDetails ExploreCountries.table
                                 |> detailsModal
 
                         Err error ->
@@ -169,13 +171,14 @@ explore db dataset =
             ]
 
         Db.Impacts maybeId ->
-            [ ExploreImpacts.view db.impacts
+            [ db.impacts
+                |> Table.viewList ExploreImpacts.table
             , case maybeId of
                 Just trigram ->
                     case Impact.getDefinition trigram db.impacts of
                         Ok definition ->
                             definition
-                                |> ExploreImpacts.details db
+                                |> Table.viewDetails ExploreImpacts.table
                                 |> detailsModal
 
                         Err error ->
@@ -186,13 +189,14 @@ explore db dataset =
             ]
 
         Db.Materials maybeId ->
-            [ ExploreMaterials.view db.materials
+            [ db.materials
+                |> Table.viewList ExploreMaterials.table
             , case maybeId of
                 Just uuid ->
                     case Material.findByUuid uuid db.materials of
                         Ok material ->
                             material
-                                |> ExploreMaterials.details db
+                                |> Table.viewDetails ExploreMaterials.table
                                 |> detailsModal
 
                         Err error ->
@@ -203,13 +207,14 @@ explore db dataset =
             ]
 
         Db.Products maybeId ->
-            [ ExploreProducts.view db.products
+            [ db.products
+                |> Table.viewList ExploreProducts.table
             , case maybeId of
                 Just id ->
                     case Product.findById id db.products of
                         Ok product ->
                             product
-                                |> ExploreProducts.details db
+                                |> Table.viewDetails ExploreProducts.table
                                 |> detailsModal
 
                         Err error ->

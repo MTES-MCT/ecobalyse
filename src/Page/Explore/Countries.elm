@@ -1,15 +1,15 @@
-module Page.Explore.Countries exposing (details, view)
+module Page.Explore.Countries exposing (table)
 
 import Data.Country as Country exposing (Country)
-import Data.Db as Db exposing (Db)
+import Data.Db as Db
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import Page.Explore.Table exposing (Table)
 import Route
 import Views.Format as Format
-import Views.Table as Table
 
 
-table : { detailed : Bool } -> List { label : String, toCell : Country -> Html msg }
+table : { detailed : Bool } -> Table Country msg
 table { detailed } =
     [ { label = "Identifiant"
       , toCell =
@@ -45,37 +45,3 @@ table { detailed } =
       , toCell = \country -> Format.ratio country.airTransportRatio
       }
     ]
-
-
-details : Db -> Country -> Html msg
-details _ country =
-    Table.responsiveDefault [ class "view-details" ]
-        [ table { detailed = True }
-            |> List.map
-                (\{ label, toCell } ->
-                    tr []
-                        [ th [] [ text label ]
-                        , td [] [ toCell country ]
-                        ]
-                )
-            |> tbody []
-        ]
-
-
-view : List Country -> Html msg
-view countries =
-    Table.responsiveDefault [ class "view-list" ]
-        [ thead []
-            [ table { detailed = False }
-                |> List.map (\{ label } -> th [] [ text label ])
-                |> tr []
-            ]
-        , countries
-            |> List.map
-                (\country ->
-                    table { detailed = False }
-                        |> List.map (\{ toCell } -> td [] [ toCell country ])
-                        |> tr []
-                )
-            |> tbody []
-        ]

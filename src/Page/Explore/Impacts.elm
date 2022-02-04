@@ -1,18 +1,18 @@
-module Page.Explore.Impacts exposing (details, view)
+module Page.Explore.Impacts exposing (table)
 
-import Data.Db as Db exposing (Db)
+import Data.Db as Db
 import Data.Impact as Impact exposing (Definition)
 import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import Page.Explore.Table exposing (Table)
 import Route
 import Views.Format as Format
 import Views.Impact as ImpactView
 import Views.Markdown as Markdown
-import Views.Table as Table
 
 
-table : { detailed : Bool } -> List { label : String, toCell : Definition -> Html msg }
+table : { detailed : Bool } -> Table Definition msg
 table { detailed } =
     [ { label = "Identifiant"
       , toCell =
@@ -59,37 +59,3 @@ table { detailed } =
       , toCell = \def -> ImpactView.impactQuality def.quality |> div []
       }
     ]
-
-
-details : Db -> Definition -> Html msg
-details _ def =
-    Table.responsiveDefault [ class "view-details" ]
-        [ table { detailed = True }
-            |> List.map
-                (\{ label, toCell } ->
-                    tr []
-                        [ th [] [ text label ]
-                        , td [] [ toCell def ]
-                        ]
-                )
-            |> tbody []
-        ]
-
-
-view : List Definition -> Html msg
-view definitions =
-    Table.responsiveDefault [ class "view-list" ]
-        [ thead []
-            [ table { detailed = False }
-                |> List.map (\{ label } -> th [] [ text label ])
-                |> tr []
-            ]
-        , definitions
-            |> List.map
-                (\def ->
-                    table { detailed = False }
-                        |> List.map (\{ toCell } -> td [] [ toCell def ])
-                        |> tr []
-                )
-            |> tbody []
-        ]

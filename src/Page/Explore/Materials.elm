@@ -1,17 +1,17 @@
-module Page.Explore.Materials exposing (details, view)
+module Page.Explore.Materials exposing (table)
 
 import Data.Country as Country
-import Data.Db as Db exposing (Db)
+import Data.Db as Db
 import Data.Material exposing (Material)
 import Data.Material.Category as Category
 import Data.Process as Process
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import Page.Explore.Table exposing (Table)
 import Route
-import Views.Table as Table
 
 
-table : { detailed : Bool } -> List { label : String, toCell : Material -> Html msg }
+table : { detailed : Bool } -> Table Material msg
 table { detailed } =
     [ { label = "Identifiant"
       , toCell =
@@ -51,37 +51,3 @@ table { detailed } =
       , toCell = \material -> material.defaultCountry |> Country.codeToString |> text
       }
     ]
-
-
-details : Db -> Material -> Html msg
-details _ material =
-    Table.responsiveDefault [ class "view-details" ]
-        [ table { detailed = True }
-            |> List.map
-                (\{ label, toCell } ->
-                    tr []
-                        [ th [] [ text label ]
-                        , td [] [ toCell material ]
-                        ]
-                )
-            |> tbody []
-        ]
-
-
-view : List Material -> Html msg
-view materials =
-    Table.responsiveDefault [ class "view-list" ]
-        [ thead []
-            [ table { detailed = False }
-                |> List.map (\{ label } -> th [] [ text label ])
-                |> tr []
-            ]
-        , materials
-            |> List.map
-                (\material ->
-                    table { detailed = False }
-                        |> List.map (\{ toCell } -> td [] [ toCell material ])
-                        |> tr []
-                )
-            |> tbody []
-        ]
