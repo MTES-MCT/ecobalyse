@@ -12,97 +12,92 @@ import Views.Markdown as Markdown
 import Views.Table as Table
 
 
-details : Db -> Definition -> Html msg
-details _ def =
-    Table.responsiveDefault [ class "view-details" ]
-        [ tbody []
-            [ tr []
-                [ th [] [ text "Trigramme" ]
-                , td [] [ code [] [ text (Impact.toString def.trigram) ] ]
-                ]
-            , tr []
-                [ th [] [ text "Nom" ]
-                , td [] [ text def.label ]
-                ]
-            , tr []
-                [ th [] [ text "Description" ]
-                , td []
-                    [ def.description
-                        |> Markdown.simple []
+table : { detailed : Bool } -> List { label : String, toCell : Definition -> Html msg }
+table { detailed } =
+    [ { label = "Identifiant"
+      , toCell =
+            \def ->
+                td []
+                    [ if detailed then
+                        code [] [ text (Impact.toString def.trigram) ]
+
+                      else
+                        a [ Route.href (Route.Explore (Db.Impacts (Just def.trigram))) ]
+                            [ code [] [ text (Impact.toString def.trigram) ] ]
                     ]
-                ]
-            , tr []
-                [ th [] [ text "Niveau de qualité" ]
-                , ImpactView.impactQuality def.quality
-                    |> td []
-                ]
-            , tr []
-                [ th [] [ text "Unité" ]
-                , td [] [ text def.unit ]
-                ]
-            , tr []
-                [ th [] [ text "Coéf. normalisation PEF" ]
-                , td []
+      }
+    , { label = "Nom"
+      , toCell = \def -> td [] [ text def.label ]
+      }
+    , { label = "Description"
+      , toCell =
+            \def ->
+                td []
+                    [ if detailed then
+                        def.description |> Markdown.simple []
+
+                      else
+                        def.description
+                            |> String.replace "*" ""
+                            |> text
+                    ]
+      }
+    , { label = "Unité"
+      , toCell = \def -> td [] [ code [] [ text def.unit ] ]
+      }
+    , { label = "Coéf. normalisation PEF"
+      , toCell =
+            \def ->
+                td []
                     [ def.pefData
                         |> Maybe.map (.normalization >> Unit.impactToFloat >> Format.formatRichFloat 2 def.unit)
                         |> Maybe.withDefault (text "N/A")
                     ]
-                ]
-            , tr []
-                [ th [] [ text "Pondération PEF" ]
-                , td []
+      }
+    , { label = "Pondération PEF"
+      , toCell =
+            \def ->
+                td []
                     [ def.pefData
                         |> Maybe.map (.weighting >> Format.ratio)
                         |> Maybe.withDefault (text "N/A")
                     ]
-                ]
-            ]
-        ]
+      }
+    , { label = "Niveau de qualité"
+      , toCell = \def -> ImpactView.impactQuality def.quality |> td []
+      }
+    ]
 
 
-view : List Definition -> Html msg
-view impacts =
-    Table.responsiveDefault [ class "view-list" ]
-        [ thead []
-            [ tr []
-                [ th [] [ text "Trigramme" ]
-                , th [] [ text "Nom" ]
-                , th [] [ text "Unité" ]
-                , th [] [ text "Coéf. normalisation PEF" ]
-                , th [] [ text "Pondération PEF" ]
-                , th [ class "text-center" ] [ text "Qualité" ]
-                ]
-            ]
-        , impacts
-            |> List.map row
+details : Db -> Definition -> Html msg
+details _ def =
+    Table.responsiveDefault [ class "view-details" ]
+        [ table { detailed = True }
+            |> List.map
+                (\{ label, toCell } ->
+                    tr []
+                        [ th [] [ text label ]
+                        , toCell def
+                        ]
+                )
             |> tbody []
         ]
 
 
-row : Definition -> Html msg
-row def =
-    tr []
-        [ td []
-            [ a [ Route.href (Route.Explore (Db.Impacts (Just def.trigram))) ]
-                [ code [] [ text (Impact.toString def.trigram) ] ]
+view : List Definition -> Html msg
+view definitions =
+    Table.responsiveDefault [ class "view-list" ]
+        [ thead []
+            [ table { detailed = False }
+                |> List.map (\{ label } -> th [] [ text label ])
+                |> tr []
             ]
-        , td [] [ text def.label ]
-        , td [] [ text def.unit ]
-        , td []
-            [ def.pefData
-                |> Maybe.map (.normalization >> Unit.impactToFloat >> Format.formatRichFloat 2 def.unit)
-                |> Maybe.withDefault (text "N/A")
-            ]
-        , td []
-            [ def.pefData
-                |> Maybe.map (.weighting >> Format.ratio)
-                |> Maybe.withDefault (text "N/A")
-            ]
-        , case def.trigram of
-            Impact.Trigram "pef" ->
-                td [ class "text-center" ] [ text "N/A" ]
-
-            _ ->
-                ImpactView.impactQuality def.quality
-                    |> td [ class "text-center" ]
+        , definitions
+            |> List.map
+                (\def ->
+                    table { detailed = False }
+                        |> List.map (\{ toCell } -> toCell def)
+                        |> tr []
+                )
+            |> tbody []
         ]

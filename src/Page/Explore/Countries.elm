@@ -63,14 +63,14 @@ details _ country =
 
 
 view : List Country -> Html msg
-view countrys =
+view countries =
     Table.responsiveDefault [ class "view-list" ]
         [ thead []
             [ table { detailed = False }
                 |> List.map (\{ label } -> th [] [ text label ])
                 |> tr []
             ]
-        , countrys
+        , countries
             |> List.map
                 (\country ->
                     table { detailed = False }
