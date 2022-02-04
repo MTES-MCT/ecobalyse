@@ -9,67 +9,73 @@ import Views.Format as Format
 import Views.Table as Table
 
 
+table : { detailed : Bool } -> List { label : String, toCell : Country -> Html msg }
+table { detailed } =
+    [ { label = "Identifiant"
+      , toCell =
+            \country ->
+                td []
+                    [ if detailed then
+                        code [] [ text (Country.codeToString country.code) ]
+
+                      else
+                        a [ Route.href (Route.Explore (Db.Countries (Just country.code))) ]
+                            [ code [] [ text (Country.codeToString country.code) ] ]
+                    ]
+      }
+    , { label = "Nom"
+      , toCell = \country -> td [] [ text country.name ]
+      }
+    , { label = "Code"
+      , toCell = \country -> td [] [ code [] [ text (Country.codeToString country.code) ] ]
+      }
+    , { label = "Nom"
+      , toCell = \country -> td [] [ text country.name ]
+      }
+    , { label = "Mix éléctrique"
+      , toCell = \country -> td [] [ text country.electricityProcess.name ]
+      }
+    , { label = "Chaleur"
+      , toCell = \country -> td [] [ text country.heatProcess.name ]
+      }
+    , { label = "Majoration de teinture"
+      , toCell = \country -> td [] [ Format.ratio country.dyeingWeighting ]
+      }
+    , { label = "Part du transport aérien"
+      , toCell = \country -> td [] [ Format.ratio country.airTransportRatio ]
+      }
+    ]
+
+
 details : Db -> Country -> Html msg
 details _ country =
     Table.responsiveDefault [ class "view-details" ]
-        [ tbody []
-            [ tr []
-                [ th [] [ text "Code" ]
-                , td [] [ code [] [ text (Country.codeToString country.code) ] ]
-                ]
-            , tr []
-                [ th [] [ text "Nom" ]
-                , td [] [ text country.name ]
-                ]
-            , tr []
-                [ th [] [ text "Mix éléctrique" ]
-                , td [] [ text country.electricityProcess.name ]
-                ]
-            , tr []
-                [ th [] [ text "Chaleur" ]
-                , td [] [ text country.heatProcess.name ]
-                ]
-            , tr []
-                [ th [] [ text "Majoration de teinture" ]
-                , td [] [ Format.ratio country.dyeingWeighting ]
-                ]
-            , tr []
-                [ th [] [ text "Part du transport aérien" ]
-                , td [] [ Format.ratio country.airTransportRatio ]
-                ]
-            ]
-        ]
-
-
-view : List Country -> Html msg
-view countries =
-    Table.responsiveDefault [ class "view-list" ]
-        [ thead []
-            [ tr []
-                [ th [] [ text "Code" ]
-                , th [] [ text "Nom" ]
-                , th [] [ text "Mix éléctrique" ]
-                , th [] [ text "Chaleur" ]
-                , th [] [ text "Majoration de teinture" ]
-                , th [] [ text "Part du transport aérien" ]
-                ]
-            ]
-        , countries
-            |> List.map row
+        [ table { detailed = True }
+            |> List.map
+                (\{ label, toCell } ->
+                    tr []
+                        [ th [] [ text label ]
+                        , toCell country
+                        ]
+                )
             |> tbody []
         ]
 
 
-row : Country -> Html msg
-row country =
-    tr []
-        [ td []
-            [ a [ Route.href (Route.Explore (Db.Countries (Just country.code))) ]
-                [ code [] [ text (Country.codeToString country.code) ] ]
+view : List Country -> Html msg
+view countrys =
+    Table.responsiveDefault [ class "view-list" ]
+        [ thead []
+            [ table { detailed = False }
+                |> List.map (\{ label } -> th [] [ text label ])
+                |> tr []
             ]
-        , td [] [ text country.name ]
-        , td [] [ text country.electricityProcess.name ]
-        , td [] [ text country.heatProcess.name ]
-        , td [ class "text-end" ] [ Format.ratio country.dyeingWeighting ]
-        , td [ class "text-end" ] [ Format.ratio country.airTransportRatio ]
+        , countrys
+            |> List.map
+                (\country ->
+                    table { detailed = False }
+                        |> List.map (\{ toCell } -> toCell country)
+                        |> tr []
+                )
+            |> tbody []
         ]
