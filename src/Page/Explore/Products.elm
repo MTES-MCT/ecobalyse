@@ -14,86 +14,78 @@ table { detailed } =
     [ { label = "Identifiant"
       , toCell =
             \product ->
-                td []
-                    [ if detailed then
-                        code [] [ text (Product.idToString product.id) ]
+                if detailed then
+                    code [] [ text (Product.idToString product.id) ]
 
-                      else
-                        a [ Route.href (Route.Explore (Db.Products (Just product.id))) ]
-                            [ code [] [ text (Product.idToString product.id) ] ]
-                    ]
+                else
+                    a [ Route.href (Route.Explore (Db.Products (Just product.id))) ]
+                        [ code [] [ text (Product.idToString product.id) ] ]
       }
     , { label = "Nom"
-      , toCell = \product -> td [] [ text product.name ]
+      , toCell = \product -> text product.name
       }
     , { label = "Masse par défaut"
-      , toCell = \product -> td [] [ Format.kg product.mass ]
+      , toCell = \product -> Format.kg product.mass
       }
     , { label = "Taux de perte (PCR)"
-      , toCell = \product -> td [] [ Format.ratio product.pcrWaste ]
+      , toCell = \product -> Format.ratio product.pcrWaste
       }
     , { label = "Type de procédé"
       , toCell =
             \product ->
-                td []
-                    [ if product.knitted then
-                        text "Tricotage"
+                if product.knitted then
+                    text "Tricotage"
 
-                      else
-                        text "Tissage"
-                    ]
+                else
+                    text "Tissage"
       }
     , { label = "Pick-per-meter"
       , toCell =
             \product ->
-                td []
-                    [ if product.knitted then
-                        text "N/A"
+                if product.knitted then
+                    text "N/A"
 
-                      else
-                        text <| Format.formatInt "picks/m" product.ppm
-                    ]
+                else
+                    text <| Format.formatInt "picks/m" product.ppm
       }
     , { label = "Grammage"
       , toCell =
             \product ->
-                td []
-                    [ if product.knitted then
-                        text "N/A"
+                if product.knitted then
+                    text "N/A"
 
-                      else
-                        text <| Format.formatInt "gr/kg" product.grammage
-                    ]
+                else
+                    text <| Format.formatInt "gr/kg" product.grammage
       }
     , { label = "Procédé"
-      , toCell = \product -> td [] [ text product.fabricProcess.name ]
+      , toCell = \product -> text product.fabricProcess.name
       }
     , { label = "Confection"
-      , toCell = \product -> td [] [ text product.makingProcess.name ]
+      , toCell = \product -> text product.makingProcess.name
       }
     , { label = "Nombre de jours porté"
-      , toCell = \product -> td [] [ Format.days product.daysOfWear ]
+      , toCell = \product -> Format.days product.daysOfWear
       }
     , { label = "Cycles d'entretien (par défaut)"
-      , toCell = \product -> td [] [ product.wearsPerCycle |> String.fromInt |> text ]
+      , toCell = \product -> product.wearsPerCycle |> String.fromInt |> text
       }
     , { label = "Utilisations avant lavage"
-      , toCell = \product -> td [] [ text (String.fromInt product.useDefaultNbCycles) ]
+      , toCell = \product -> text (String.fromInt product.useDefaultNbCycles)
       }
     , { label = "Procédé de repassage"
-      , toCell = \product -> td [] [ text product.useIroningProcess.name ]
+      , toCell = \product -> text product.useIroningProcess.name
       }
     , { label = "Procédé d'utilisation hors-repassage"
-      , toCell = \product -> td [] [ text product.useNonIroningProcess.name ]
+      , toCell = \product -> text product.useNonIroningProcess.name
       }
     , { label = "Séchage électrique"
-      , toCell = \product -> td [] [ Format.ratio product.useRatioDryer ]
+      , toCell = \product -> Format.ratio product.useRatioDryer
       }
     , { label = "Repassage (part)"
-      , toCell = \product -> td [] [ Format.ratio product.useRatioIroning ]
+      , toCell = \product -> Format.ratio product.useRatioIroning
       }
     , { label = "Repassage (temps)"
-      , toCell = \product -> td [] [ Format.hours product.useTimeIroning ]
+      , toCell = \product -> Format.hours product.useTimeIroning
       }
     ]
 
@@ -106,7 +98,7 @@ details _ product =
                 (\{ label, toCell } ->
                     tr []
                         [ th [] [ text label ]
-                        , toCell product
+                        , td [] [ toCell product ]
                         ]
                 )
             |> tbody []
@@ -125,7 +117,7 @@ view products =
             |> List.map
                 (\product ->
                     table { detailed = False }
-                        |> List.map (\{ toCell } -> toCell product)
+                        |> List.map (\{ toCell } -> td [] [ toCell product ])
                         |> tr []
                 )
             |> tbody []

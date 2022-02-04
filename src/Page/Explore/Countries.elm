@@ -24,25 +24,25 @@ table { detailed } =
                     ]
       }
     , { label = "Nom"
-      , toCell = \country -> td [] [ text country.name ]
+      , toCell = \country -> text country.name
       }
     , { label = "Code"
-      , toCell = \country -> td [] [ code [] [ text (Country.codeToString country.code) ] ]
+      , toCell = \country -> code [] [ text (Country.codeToString country.code) ]
       }
     , { label = "Nom"
-      , toCell = \country -> td [] [ text country.name ]
+      , toCell = \country -> text country.name
       }
     , { label = "Mix éléctrique"
-      , toCell = \country -> td [] [ text country.electricityProcess.name ]
+      , toCell = \country -> text country.electricityProcess.name
       }
     , { label = "Chaleur"
-      , toCell = \country -> td [] [ text country.heatProcess.name ]
+      , toCell = \country -> text country.heatProcess.name
       }
     , { label = "Majoration de teinture"
-      , toCell = \country -> td [] [ Format.ratio country.dyeingWeighting ]
+      , toCell = \country -> Format.ratio country.dyeingWeighting
       }
     , { label = "Part du transport aérien"
-      , toCell = \country -> td [] [ Format.ratio country.airTransportRatio ]
+      , toCell = \country -> Format.ratio country.airTransportRatio
       }
     ]
 
@@ -55,7 +55,7 @@ details _ country =
                 (\{ label, toCell } ->
                     tr []
                         [ th [] [ text label ]
-                        , toCell country
+                        , td [] [ toCell country ]
                         ]
                 )
             |> tbody []
@@ -74,7 +74,7 @@ view countries =
             |> List.map
                 (\country ->
                     table { detailed = False }
-                        |> List.map (\{ toCell } -> toCell country)
+                        |> List.map (\{ toCell } -> td [] [ toCell country ])
                         |> tr []
                 )
             |> tbody []

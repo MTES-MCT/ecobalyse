@@ -16,43 +16,39 @@ table { detailed } =
     [ { label = "Identifiant"
       , toCell =
             \material ->
-                td []
-                    [ if detailed then
-                        code [] [ text (Process.uuidToString material.uuid) ]
+                if detailed then
+                    code [] [ text (Process.uuidToString material.uuid) ]
 
-                      else
-                        a [ Route.href (Route.Explore (Db.Materials (Just material.uuid))) ]
-                            [ code [] [ text (Process.uuidToString material.uuid) ] ]
-                    ]
+                else
+                    a [ Route.href (Route.Explore (Db.Materials (Just material.uuid))) ]
+                        [ code [] [ text (Process.uuidToString material.uuid) ] ]
       }
     , { label = "Nom"
-      , toCell = \material -> td [] [ text material.name ]
+      , toCell = \material -> text material.name
       }
     , { label = "Catégorie"
-      , toCell = \material -> td [] [ material.category |> Category.toString |> text ]
+      , toCell = \material -> material.category |> Category.toString |> text
       }
     , { label = "Procédé"
-      , toCell = \material -> td [] [ text material.materialProcess.name ]
+      , toCell = \material -> text material.materialProcess.name
       }
     , { label = "Procédé de recyclage"
-      , toCell = \material -> td [] [ material.recycledProcess |> Maybe.map (.name >> text) |> Maybe.withDefault (text "N/A") ]
+      , toCell = \material -> material.recycledProcess |> Maybe.map (.name >> text) |> Maybe.withDefault (text "N/A")
       }
     , { label = "Primaire"
       , toCell =
             \material ->
-                td []
-                    [ if material.primary then
-                        text "Oui"
+                if material.primary then
+                    text "Oui"
 
-                      else
-                        text "Non"
-                    ]
+                else
+                    text "Non"
       }
     , { label = "Continent"
-      , toCell = \material -> td [] [ text material.continent ]
+      , toCell = \material -> text material.continent
       }
     , { label = "Pays par défaut"
-      , toCell = \material -> td [] [ material.defaultCountry |> Country.codeToString |> text ]
+      , toCell = \material -> material.defaultCountry |> Country.codeToString |> text
       }
     ]
 
@@ -65,7 +61,7 @@ details _ material =
                 (\{ label, toCell } ->
                     tr []
                         [ th [] [ text label ]
-                        , toCell material
+                        , td [] [ toCell material ]
                         ]
                 )
             |> tbody []
@@ -84,7 +80,7 @@ view materials =
             |> List.map
                 (\material ->
                     table { detailed = False }
-                        |> List.map (\{ toCell } -> toCell material)
+                        |> List.map (\{ toCell } -> td [] [ toCell material ])
                         |> tr []
                 )
             |> tbody []
