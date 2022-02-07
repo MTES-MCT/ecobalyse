@@ -253,7 +253,7 @@ tShirtCotonFrance =
     -- T-shirt circuit France
     { mass = Mass.kilograms 0.17
     , material = Process.Uuid "f211bbdb-415c-46fd-be4d-ddf199575b44"
-    , product = Product.Id "13"
+    , product = Product.Id "tshirt"
     , countryFabric = Country.Code "FR"
     , countryDyeing = Country.Code "FR"
     , countryMaking = Country.Code "FR"
@@ -311,7 +311,7 @@ jupeCircuitAsie =
     -- Jupe circuit Asie
     { mass = Mass.kilograms 0.3
     , material = Process.Uuid "aee6709f-0864-4fc5-8760-68cb644a0021"
-    , product = Product.Id "8"
+    , product = Product.Id "jupe"
     , countryFabric = Country.Code "CN"
     , countryDyeing = Country.Code "CN"
     , countryMaking = Country.Code "CN"
@@ -328,7 +328,7 @@ manteauCircuitEurope =
     -- Manteau circuit Europe
     { mass = Mass.kilograms 0.95
     , material = Process.Uuid "380c0d9c-2840-4390-bd3f-5c960f26f5ed"
-    , product = Product.Id "9"
+    , product = Product.Id "manteau"
     , countryFabric = Country.Code "TR"
     , countryDyeing = Country.Code "TN"
     , countryMaking = Country.Code "ES"
@@ -345,7 +345,7 @@ pantalonCircuitEurope =
     -- Pantalon circuit Europe
     { mass = Mass.kilograms 0.45
     , material = Process.Uuid "e5a6d538-f932-4242-98b4-3a0c6439629c"
-    , product = Product.Id "10"
+    , product = Product.Id "pantalon"
     , countryFabric = Country.Code "TR"
     , countryDyeing = Country.Code "TR"
     , countryMaking = Country.Code "TR"
@@ -362,7 +362,7 @@ robeCircuitBangladesh =
     -- Robe circuit Bangladesh
     { mass = Mass.kilograms 0.5
     , material = Process.Uuid "7a1ccc4a-2ea7-48dc-9ef0-d57066ea8fa5"
-    , product = Product.Id "12"
+    , product = Product.Id "robe"
     , countryFabric = Country.Code "BD"
     , countryDyeing = Country.Code "PT"
     , countryMaking = Country.Code "TN"

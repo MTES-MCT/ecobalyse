@@ -22,7 +22,7 @@ describe("API", () => {
     // so we can test for actual qs parsing from the server.
     [
       "mass=0.17",
-      "product=13",
+      "product=tshirt",
       "material=f211bbdb-415c-46fd-be4d-ddf199575b44",
       "countryFabric=CN",
       "countryDyeing=CN",
@@ -80,7 +80,7 @@ describe("API", () => {
       const response = await request(app).get("/api/products");
 
       expect(response.statusCode).toBe(200);
-      expect(response.body).toContainObject({ id: "13", name: "T-shirt" });
+      expect(response.body).toContainObject({ id: "tshirt", name: "T-shirt" });
     });
   });
 

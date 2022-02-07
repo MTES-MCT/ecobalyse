@@ -1,6 +1,6 @@
 [
   {
-    "id": "1",
+    "id": "cape",
     "name": "Cape",
     "mass": 0.95,
     "pcrWaste": 0.2,
@@ -19,7 +19,7 @@
     "useNonIroningProcessUuid": "86db560b-d31f-4745-a01e-ec74be00f865"
   },
   {
-    "id": "2",
+    "id": "chale",
     "name": "Châle",
     "mass": 0.11,
     "pcrWaste": 0.1,
@@ -38,7 +38,7 @@
     "useNonIroningProcessUuid": "81264b4c-dfb5-4cb1-b9e7-51b04a6f47d6"
   },
   {
-    "id": "3",
+    "id": "chemisier",
     "name": "Chemisier",
     "mass": 0.25,
     "pcrWaste": 0.2,
@@ -57,7 +57,7 @@
     "useNonIroningProcessUuid": "406d1f98-1052-458d-8f50-1901853d896d"
   },
   {
-    "id": "4",
+    "id": "debardeur",
     "name": "Débardeur",
     "mass": 0.17,
     "pcrWaste": 0.15,
@@ -76,7 +76,7 @@
     "useNonIroningProcessUuid": "24e2ff0a-75c6-471f-a375-d3f075ffad44"
   },
   {
-    "id": "5",
+    "id": "echarpe",
     "name": "Echarpe",
     "mass": 0.11,
     "pcrWaste": 0.1,
@@ -95,7 +95,7 @@
     "useNonIroningProcessUuid": "d88c97c6-6f9a-477e-a61c-01fc5aed0a3b"
   },
   {
-    "id": "6",
+    "id": "gilet",
     "name": "Gilet",
     "mass": 0.5,
     "pcrWaste": 0.2,
@@ -114,7 +114,7 @@
     "useNonIroningProcessUuid": "1ecbfc31-9e9c-45de-9ed2-718b1c64357b"
   },
   {
-    "id": "7",
+    "id": "jean",
     "name": "Jean",
     "mass": 0.45,
     "pcrWaste": 0.22,
@@ -133,7 +133,7 @@
     "useNonIroningProcessUuid": "4964273a-cdbd-43cf-8cf8-4b017aee4f03"
   },
   {
-    "id": "8",
+    "id": "jupe",
     "name": "Jupe",
     "mass": 0.3,
     "pcrWaste": 0.2,
@@ -152,7 +152,7 @@
     "useNonIroningProcessUuid": "2572015b-7320-4ce1-bc99-cc6de371a654"
   },
   {
-    "id": "9",
+    "id": "manteau",
     "name": "Manteau",
     "mass": 0.95,
     "pcrWaste": 0.2,
@@ -171,7 +171,7 @@
     "useNonIroningProcessUuid": "8c040f35-e137-424b-a67f-2e50b628c1bf"
   },
   {
-    "id": "10",
+    "id": "pantalon",
     "name": "Pantalon",
     "mass": 0.45,
     "pcrWaste": 0.2,
@@ -190,7 +190,7 @@
     "useNonIroningProcessUuid": "ea7afeed-c058-4dbb-be01-66704a9afb1f"
   },
   {
-    "id": "11",
+    "id": "pull",
     "name": "Pull",
     "mass": 0.5,
     "pcrWaste": 0.2,
@@ -209,7 +209,7 @@
     "useNonIroningProcessUuid": "2b39a7ac-38bd-435f-85a4-783023d845bf"
   },
   {
-    "id": "12",
+    "id": "robe",
     "name": "Robe",
     "mass": 0.3,
     "pcrWaste": 0.2,
@@ -228,7 +228,7 @@
     "useNonIroningProcessUuid": "d3bff7b7-efc1-459b-856d-ea0801d6912f"
   },
   {
-    "id": "13",
+    "id": "tshirt",
     "name": "T-shirt",
     "mass": 0.17,
     "pcrWaste": 0.15,
@@ -247,7 +247,7 @@
     "useNonIroningProcessUuid": "7f76529e-521d-4795-bb36-ff896c4692da"
   },
   {
-    "id": "14",
+    "id": "veste",
     "name": "Veste",
     "mass": 0.95,
     "pcrWaste": 0.2,

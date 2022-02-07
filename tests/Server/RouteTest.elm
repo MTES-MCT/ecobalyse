@@ -26,16 +26,16 @@ suite =
     suiteWithDb "Server"
         (\db ->
             [ describe "Server.endpoint"
-                [ getEndpoint db "GET" "/simulator?mass=0.17&product=13&material=f211bbdb-415c-46fd-be4d-ddf199575b44&countryFabric=FR&countryDyeing=FR&countryMaking=FR"
+                [ getEndpoint db "GET" "/simulator?mass=0.17&product=tshirt&material=f211bbdb-415c-46fd-be4d-ddf199575b44&countryFabric=FR&countryDyeing=FR&countryMaking=FR"
                     |> Expect.equal (Just <| Route.Get <| Route.Simulator <| Ok tShirtCotonFrance)
                     |> asTest "should handle the /simulator endpoint"
-                , getEndpoint db "GET" "/simulator?mass=0.17&product=13&material=f211bbdb-415c-46fd-be4d-ddf199575b44&countryFabric=FR&countryDyeing=FR&countryMaking=FR&quality=1.2"
+                , getEndpoint db "GET" "/simulator?mass=0.17&product=tshirt&material=f211bbdb-415c-46fd-be4d-ddf199575b44&countryFabric=FR&countryDyeing=FR&countryMaking=FR&quality=1.2"
                     |> Expect.equal (Just <| Route.Get <| Route.Simulator <| Ok { tShirtCotonFrance | quality = Just (Unit.quality 1.2) })
                     |> asTest "should handle the /simulator endpoint with the quality parameter set"
-                , getEndpoint db "GET" "/simulator/fwe?mass=0.17&product=13&material=f211bbdb-415c-46fd-be4d-ddf199575b44&countryFabric=FR&countryDyeing=FR&countryMaking=FR"
+                , getEndpoint db "GET" "/simulator/fwe?mass=0.17&product=tshirt&material=f211bbdb-415c-46fd-be4d-ddf199575b44&countryFabric=FR&countryDyeing=FR&countryMaking=FR"
                     |> Expect.equal (Just <| Route.Get <| Route.SimulatorSingle (Impact.trg "fwe") <| Ok tShirtCotonFrance)
                     |> asTest "should handle the /simulator/{impact} endpoint"
-                , getEndpoint db "GET" "/simulator/detailed?mass=0.17&product=13&material=f211bbdb-415c-46fd-be4d-ddf199575b44&countryFabric=FR&countryDyeing=FR&countryMaking=FR"
+                , getEndpoint db "GET" "/simulator/detailed?mass=0.17&product=tshirt&material=f211bbdb-415c-46fd-be4d-ddf199575b44&countryFabric=FR&countryDyeing=FR&countryMaking=FR"
                     |> Expect.equal (Just <| Route.Get <| Route.SimulatorDetailed <| Ok tShirtCotonFrance)
                     |> asTest "should handle the /simulator/detailed endpoint"
                 , getEndpoint db "GET" "/simulator"
