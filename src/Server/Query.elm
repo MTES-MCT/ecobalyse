@@ -147,9 +147,9 @@ materialParser key materials =
         |> Query.map (Result.fromMaybe ( key, "Identifiant de la matière manquant." ))
         |> Query.map
             (Result.andThen
-                (\uuid ->
+                (\id ->
                     materials
-                        |> Material.findById (Material.Id uuid)
+                        |> Material.findById (Material.Id id)
                         |> Result.map .id
                         |> Result.mapError (\err -> ( key, err ))
                 )
