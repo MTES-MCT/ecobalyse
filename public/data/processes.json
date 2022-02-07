@@ -6778,5 +6778,35 @@
     "elec": 4.25101,
     "waste": 3.51967e-2,
     "alias": null
+  },
+  {
+    "name": "Mix Vapeur (mix technologique|mix de production, en sortie de chaudière), RER/Steam Mix (technology mix|production mix, at steam plant), RER",
+    "info": "Energie > Chaleur > Mix moyen",
+    "unit": "MJ",
+    "source": "Base Impacts",
+    "uuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
+    "impacts": {
+      "acd": 4.13488e-4,
+      "ccb": 0.0,
+      "ccf": 8.73996e-2,
+      "cch": 8.73996e-2,
+      "ccl": 0.0,
+      "fru": 1.18461,
+      "fwe": 3.51786e-9,
+      "ior": 3.63908e-3,
+      "ldu": 0.0,
+      "mru": 9.59961e-9,
+      "ozd": 6.86356e-13,
+      "pco": 2.55543e-4,
+      "pma": 2.48288e-9,
+      "swe": 1.39163e-4,
+      "tre": 1.52571e-3,
+      "wtu": 0.0
+    },
+    "heat": 0.0,
+    "elec_pppm": 0.0,
+    "elec": 0.0,
+    "waste": 0.0,
+    "alias": null
   }
 ]
