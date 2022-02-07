@@ -192,8 +192,8 @@ explore db dataset =
             [ db.materials
                 |> Table.viewList ExploreMaterials.table
             , case maybeId of
-                Just uuid ->
-                    case Material.findByUuid uuid db.materials of
+                Just id ->
+                    case Material.findById id db.materials of
                         Ok material ->
                             material
                                 |> Table.viewDetails ExploreMaterials.table

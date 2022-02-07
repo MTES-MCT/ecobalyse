@@ -8,8 +8,7 @@ import Data.Country as Country exposing (Country)
 import Data.Db as Db exposing (Db)
 import Data.Impact as Impact
 import Data.Inputs as Inputs
-import Data.Material exposing (Material)
-import Data.Process as Process
+import Data.Material as Material exposing (Material)
 import Data.Product as Product exposing (Product)
 import Data.Simulator as Simulator exposing (Simulator)
 import Json.Encode as Encode
@@ -111,9 +110,9 @@ encodeCountry { code, name } =
 
 
 encodeMaterial : Material -> Encode.Value
-encodeMaterial { uuid, name } =
+encodeMaterial { id, name } =
     Encode.object
-        [ ( "uuid", Process.encodeUuid uuid )
+        [ ( "id", Material.encodeId id )
         , ( "name", Encode.string name )
         ]
 
