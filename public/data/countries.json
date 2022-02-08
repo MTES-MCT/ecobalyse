@@ -19,7 +19,7 @@
     "code": "ES",
     "name": "Espagne",
     "electricityProcessUuid": "37301c44-c4cf-4214-a4ac-eee5785ccdc5",
-    "heatProcessUuid": "618440a9-f4aa-65bc-21cb-ea40eee53f3d",
+    "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
     "dyeingWeighting": 0,
     "airTransportRatio": 0
   },
@@ -43,7 +43,7 @@
     "code": "PT",
     "name": "Portugal",
     "electricityProcessUuid": "a1d83202-0052-4d10-b9d2-938564be6a0b",
-    "heatProcessUuid": "59c4c64c-0916-868a-5dd6-a42c4c42222f",
+    "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
     "dyeingWeighting": 0,
     "airTransportRatio": 0
   },
