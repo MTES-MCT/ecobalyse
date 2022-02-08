@@ -77,9 +77,6 @@ paths:
       - $ref: '#/components/parameters/recycledRatioParam'
       - $ref: '#/components/parameters/dyeingWeightingParam'
       - $ref: '#/components/parameters/airTransportRatioParam'
-      - $ref: '#/components/parameters/customCountryMixFabricParam'
-      - $ref: '#/components/parameters/customCountryMixDyeingParam'
-      - $ref: '#/components/parameters/customCountryMixMakingParam'
       - $ref: '#/components/parameters/qualityParam'
       responses:
         200:
@@ -136,9 +133,6 @@ paths:
       - $ref: '#/components/parameters/recycledRatioParam'
       - $ref: '#/components/parameters/dyeingWeightingParam'
       - $ref: '#/components/parameters/airTransportRatioParam'
-      - $ref: '#/components/parameters/customCountryMixFabricParam'
-      - $ref: '#/components/parameters/customCountryMixDyeingParam'
-      - $ref: '#/components/parameters/customCountryMixMakingParam'
       - $ref: '#/components/parameters/qualityParam'
       responses:
         200:
@@ -169,9 +163,6 @@ paths:
       - $ref: '#/components/parameters/recycledRatioParam'
       - $ref: '#/components/parameters/dyeingWeightingParam'
       - $ref: '#/components/parameters/airTransportRatioParam'
-      - $ref: '#/components/parameters/customCountryMixFabricParam'
-      - $ref: '#/components/parameters/customCountryMixDyeingParam'
-      - $ref: '#/components/parameters/customCountryMixMakingParam'
       - $ref: '#/components/parameters/qualityParam'
       responses:
         200:
@@ -301,33 +292,6 @@ components:
         type: number
         minimum: 0
         maximum: 1
-    customCountryMixFabricParam:
-      name: customCountryMixes[fabric]
-      in: query
-      description: "Impact du mix énergétique du pays à l'étape de **Tissage/Tricotage**, exprimé en **kg éq. CO2 par KWh**"
-      required: false
-      style: form
-      schema:
-        type: number
-        minimum: 0
-    customCountryMixDyeingParam:
-      name: customCountryMixes[dyeing]
-      in: query
-      description: "Impact du mix énergétique du pays à l'étape de **Teinture**, exprimé en **kg éq. CO2 par KWh**"
-      required: false
-      style: form
-      schema:
-        type: number
-        minimum: 0
-    customCountryMixMakingParam:
-      name: customCountryMixes[making]
-      in: query
-      description: "Impact du mix énergétique du pays à l'étape de **Confection**, exprimé en **kg éq. CO2 par KWh**"
-      required: false
-      style: form
-      schema:
-        type: number
-        minimum: 0
     qualityParam:
       name: quality
       in: query

@@ -147,7 +147,7 @@ computeEndOfLifeImpacts { processes } simulator =
                                         |> Formula.endOfLifeImpacts step.impacts
                                             { passengerCar = passengerCar
                                             , endOfLife = endOfLife
-                                            , countryElecProcess = Step.getCountryElectricityProcess step
+                                            , countryElecProcess = country.electricityProcess
                                             , heatProcess = country.heatProcess
                                             }
                             in
@@ -160,7 +160,7 @@ computeUseImpacts : Simulator -> Simulator
 computeUseImpacts ({ inputs, useNbCycles } as simulator) =
     simulator
         |> updateLifeCycleStep Step.Use
-            (\step ->
+            (\({ country } as step) ->
                 let
                     { kwh, impacts } =
                         step.outputMass
@@ -168,7 +168,7 @@ computeUseImpacts ({ inputs, useNbCycles } as simulator) =
                                 { useNbCycles = useNbCycles
                                 , ironingProcess = inputs.product.useIroningProcess
                                 , nonIroningProcess = inputs.product.useNonIroningProcess
-                                , countryElecProcess = Step.getCountryElectricityProcess step
+                                , countryElecProcess = country.electricityProcess
                                 }
                 in
                 { step | impacts = impacts, kwh = kwh }
@@ -179,13 +179,13 @@ computeMakingImpacts : Simulator -> Simulator
 computeMakingImpacts ({ inputs } as simulator) =
     simulator
         |> updateLifeCycleStep Step.Making
-            (\step ->
+            (\({ country } as step) ->
                 let
                     { kwh, impacts } =
                         step.outputMass
                             |> Formula.makingImpacts step.impacts
                                 { makingProcess = inputs.product.makingProcess
-                                , countryElecProcess = Step.getCountryElectricityProcess step
+                                , countryElecProcess = country.electricityProcess
                                 }
                 in
                 { step | impacts = impacts, kwh = kwh }
@@ -208,7 +208,7 @@ computeDyeingImpacts { processes } simulator =
                                             ( dyeingLow, dyeingHigh )
                                             dyeingWeighting
                                             country.heatProcess
-                                            (Step.getCountryElectricityProcess step)
+                                            country.electricityProcess
                             in
                             { step | heat = heat, kwh = kwh, impacts = impacts }
                         )
@@ -241,21 +241,21 @@ computeWeavingKnittingImpacts : Simulator -> Simulator
 computeWeavingKnittingImpacts ({ inputs } as simulator) =
     simulator
         |> updateLifeCycleStep Step.WeavingKnitting
-            (\step ->
+            (\({ country } as step) ->
                 let
                     { kwh, impacts } =
                         if inputs.product.knitted then
                             step.outputMass
                                 |> Formula.knittingImpacts step.impacts
                                     { elec = inputs.product.fabricProcess.elec
-                                    , countryElecProcess = Step.getCountryElectricityProcess step
+                                    , countryElecProcess = country.electricityProcess
                                     }
 
                         else
                             step.outputMass
                                 |> Formula.weavingImpacts step.impacts
                                     { elecPppm = inputs.product.fabricProcess.elec_pppm
-                                    , countryElecProcess = Step.getCountryElectricityProcess step
+                                    , countryElecProcess = country.electricityProcess
                                     , grammage = inputs.product.grammage
                                     , ppm = inputs.product.ppm
                                     }
