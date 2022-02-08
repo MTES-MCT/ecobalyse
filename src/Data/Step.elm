@@ -7,7 +7,6 @@ module Data.Step exposing
     , displayLabel
     , dyeingWeightingToString
     , encode
-    , getCountryElectricityProcess
     , getStepGitbookPath
     , initMass
     , labelToString
@@ -26,8 +25,7 @@ import Data.Process as Process exposing (Process)
 import Data.Transport as Transport exposing (Transport)
 import Data.Unit as Unit
 import Energy exposing (Energy)
-import FormatNumber
-import FormatNumber.Locales exposing (Decimals(..), frenchLocale)
+import FormatNumber.Locales exposing (Decimals(..))
 import Json.Encode as Encode
 import Mass exposing (Mass)
 import Quantity
@@ -47,7 +45,6 @@ type alias Step =
     , processInfo : ProcessInfo
     , dyeingWeighting : Unit.Ratio -- FIXME: why not Maybe?
     , airTransportRatio : Unit.Ratio -- FIXME: why not Maybe?
-    , customCountryMix : Maybe Unit.Impact
     , quality : Unit.Quality
     }
 
@@ -98,7 +95,6 @@ create { db, label, editable, country } =
     , processInfo = defaultProcessInfo
     , dyeingWeighting = country.dyeingWeighting
     , airTransportRatio = Unit.ratio 0 -- Note: this depends on next step country, so we can't set an accurate default value initially
-    , customCountryMix = Nothing
     , quality = Unit.standardQuality
     }
 
@@ -132,28 +128,6 @@ displayLabel { knitted } label =
 
         _ ->
             labelToString label
-
-
-getCountryElectricityProcess : Step -> Process
-getCountryElectricityProcess { country, customCountryMix } =
-    let
-        { electricityProcess } =
-            country
-    in
-    case customCountryMix of
-        Just mix ->
-            electricityProcess
-                |> Process.updateImpact (Impact.trg "cch") mix
-
-        Nothing ->
-            electricityProcess
-
-
-countryMixToString : Unit.Impact -> String
-countryMixToString =
-    Unit.impactToFloat
-        >> FormatNumber.format { frenchLocale | decimals = Exact 3 }
-        >> (\kgCo2e -> "Mix électrique personnalisé: " ++ kgCo2e ++ "\u{202F}kgCO₂e/kWh")
 
 
 {-| Computes step transport distances and impact regarding next step.
@@ -274,47 +248,39 @@ getRoadTransportProcess wellKnown { label } =
 updateFromInputs : Db -> Inputs -> Step -> Step
 updateFromInputs { processes } inputs ({ label, country } as step) =
     let
-        { dyeingWeighting, airTransportRatio, customCountryMixes, quality } =
+        { dyeingWeighting, airTransportRatio, quality } =
             inputs
-
-        countryElecInfo =
-            Maybe.map countryMixToString
-                >> Maybe.withDefault country.electricityProcess.name
-                >> Just
     in
     -- Note: only WeavingKnitting, Ennoblement, Making and Use steps render detailed processes info.
     case label of
         WeavingKnitting ->
             { step
-                | customCountryMix = customCountryMixes.fabric
-                , processInfo =
+                | processInfo =
                     { defaultProcessInfo
-                        | countryElec = countryElecInfo customCountryMixes.fabric
+                        | countryElec = Just country.electricityProcess.name
                         , knittingWeaving = Just inputs.product.fabricProcess.name
                     }
             }
 
         Ennoblement ->
             { step
-                | customCountryMix = customCountryMixes.dyeing
-                , dyeingWeighting =
+                | dyeingWeighting =
                     dyeingWeighting |> Maybe.withDefault country.dyeingWeighting
                 , processInfo =
                     { defaultProcessInfo
                         | countryHeat = Just country.heatProcess.name
-                        , countryElec = countryElecInfo customCountryMixes.dyeing
+                        , countryElec = Just country.electricityProcess.name
                         , dyeingWeighting = Just (dyeingWeightingToString country.dyeingWeighting)
                     }
             }
 
         Making ->
             { step
-                | customCountryMix = customCountryMixes.making
-                , airTransportRatio =
+                | airTransportRatio =
                     airTransportRatio |> Maybe.withDefault country.airTransportRatio
                 , processInfo =
                     { defaultProcessInfo
-                        | countryElec = countryElecInfo customCountryMixes.making
+                        | countryElec = Just country.electricityProcess.name
                         , airTransportRatio =
                             country.airTransportRatio
                                 |> airTransportRatioToString
@@ -430,7 +396,6 @@ encode v =
         , ( "processInfo", encodeProcessInfo v.processInfo )
         , ( "dyeingWeighting", Unit.encodeRatio v.dyeingWeighting )
         , ( "airTransportRatio", Unit.encodeRatio v.airTransportRatio )
-        , ( "customCountryMix", v.customCountryMix |> Maybe.map Unit.encodeImpact |> Maybe.withDefault Encode.null )
         , ( "quality", Unit.encodeQuality v.quality )
         ]
 

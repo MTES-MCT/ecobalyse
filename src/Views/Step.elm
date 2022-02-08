@@ -32,7 +32,6 @@ type alias Config msg =
     , current : Step
     , next : Maybe Step
     , openDocModal : Gitbook.Path -> msg
-    , openCustomCountryMixModal : Step -> msg
     , updateCountry : Int -> Country.Code -> msg
     , updateDyeingWeighting : Maybe Unit.Ratio -> msg
     , updateQuality : Maybe Unit.Quality -> msg
@@ -259,30 +258,6 @@ viewProcessInfo processName =
             text ""
 
 
-viewCountryElecProcessInfo : (Step -> msg) -> Step -> Html msg
-viewCountryElecProcessInfo editMsg step =
-    case step.processInfo.countryElec of
-        Just countryElec ->
-            li [ class "list-group-item d-flex justify-content-between text-muted" ]
-                [ span [] [ text countryElec ]
-                , if
-                    List.member step.label
-                        [ Step.WeavingKnitting, Step.Ennoblement, Step.Making ]
-                  then
-                    Button.smallPill
-                        [ title "Personnaliser l'impact du mix énergétique du pays"
-                        , onClick (editMsg step)
-                        ]
-                        [ Icon.pencil ]
-
-                  else
-                    text ""
-                ]
-
-        Nothing ->
-            text ""
-
-
 detailedView : Config msg -> Html msg
 detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
     let
@@ -311,8 +286,8 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                 ]
             , ul [ class "list-group list-group-flush fs-7" ]
                 [ li [ class "list-group-item text-muted" ] [ countryField config ]
+                , viewProcessInfo current.processInfo.countryElec
                 , viewProcessInfo current.processInfo.countryHeat
-                , viewCountryElecProcessInfo config.openCustomCountryMixModal current
                 , viewProcessInfo current.processInfo.distribution
                 , viewProcessInfo current.processInfo.useIroning
                 , viewProcessInfo current.processInfo.useNonIroning

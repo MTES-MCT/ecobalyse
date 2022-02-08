@@ -1,11 +1,9 @@
 module Data.Inputs exposing
-    ( CustomCountryMixes
-    , Inputs
+    ( Inputs
     , Query
     , b64decode
     , b64encode
     , countryList
-    , defaultCustomCountryMixes
     , defaultQuery
     , encode
     , encodeQuery
@@ -16,7 +14,6 @@ module Data.Inputs exposing
     , parseBase64Query
     , presets
     , robeCircuitBangladesh
-    , setCustomCountryMix
     , tShirtCotonAsie
     , tShirtCotonEurope
     , tShirtCotonFrance
@@ -56,7 +53,6 @@ type alias Inputs =
     , dyeingWeighting : Maybe Unit.Ratio
     , airTransportRatio : Maybe Unit.Ratio
     , recycledRatio : Maybe Unit.Ratio
-    , customCountryMixes : CustomCountryMixes
     , quality : Maybe Unit.Quality
     }
 
@@ -72,15 +68,7 @@ type alias Query =
     , dyeingWeighting : Maybe Unit.Ratio
     , airTransportRatio : Maybe Unit.Ratio
     , recycledRatio : Maybe Unit.Ratio
-    , customCountryMixes : CustomCountryMixes
     , quality : Maybe Unit.Quality
-    }
-
-
-type alias CustomCountryMixes =
-    { fabric : Maybe Unit.Impact
-    , dyeing : Maybe Unit.Impact
-    , making : Maybe Unit.Impact
     }
 
 
@@ -111,7 +99,6 @@ fromQuery db query =
         |> RE.andMap (Ok query.dyeingWeighting)
         |> RE.andMap (Ok query.airTransportRatio)
         |> RE.andMap (Ok query.recycledRatio)
-        |> RE.andMap (Ok query.customCountryMixes)
         |> RE.andMap (Ok query.quality)
 
 
@@ -126,38 +113,7 @@ toQuery inputs =
     , dyeingWeighting = inputs.dyeingWeighting
     , airTransportRatio = inputs.airTransportRatio
     , recycledRatio = inputs.recycledRatio
-    , customCountryMixes = inputs.customCountryMixes
     , quality = inputs.quality
-    }
-
-
-defaultCustomCountryMixes : CustomCountryMixes
-defaultCustomCountryMixes =
-    { fabric = Nothing
-    , dyeing = Nothing
-    , making = Nothing
-    }
-
-
-setCustomCountryMix : Int -> Maybe Unit.Impact -> Query -> Query
-setCustomCountryMix index value ({ customCountryMixes } as query) =
-    { query
-        | customCountryMixes =
-            case index of
-                1 ->
-                    -- FIXME: index 1 is WeavingKnitting step; how could we use the step label instead?
-                    { customCountryMixes | fabric = value }
-
-                2 ->
-                    -- FIXME: index 2 is Ennoblement step; how could we use the step label instead?
-                    { customCountryMixes | dyeing = value }
-
-                3 ->
-                    -- FIXME: index 3 is Making step; how could we use the step label instead?
-                    { customCountryMixes | making = value }
-
-                _ ->
-                    customCountryMixes
     }
 
 
@@ -211,7 +167,6 @@ updateStepCountry index code query =
             else
                 query.airTransportRatio
     }
-        |> setCustomCountryMix index Nothing
 
 
 updateMaterial : Material -> Query -> Query
@@ -259,7 +214,6 @@ tShirtCotonFrance =
     , dyeingWeighting = Nothing
     , airTransportRatio = Nothing
     , recycledRatio = Nothing
-    , customCountryMixes = defaultCustomCountryMixes
     , quality = Nothing
     }
 
@@ -317,7 +271,6 @@ jupeCircuitAsie =
     , dyeingWeighting = Nothing
     , airTransportRatio = Nothing
     , recycledRatio = Nothing
-    , customCountryMixes = defaultCustomCountryMixes
     , quality = Nothing
     }
 
@@ -334,7 +287,6 @@ manteauCircuitEurope =
     , dyeingWeighting = Nothing
     , airTransportRatio = Nothing
     , recycledRatio = Nothing
-    , customCountryMixes = defaultCustomCountryMixes
     , quality = Nothing
     }
 
@@ -351,7 +303,6 @@ pantalonCircuitEurope =
     , dyeingWeighting = Nothing
     , airTransportRatio = Nothing
     , recycledRatio = Nothing
-    , customCountryMixes = defaultCustomCountryMixes
     , quality = Nothing
     }
 
@@ -368,7 +319,6 @@ robeCircuitBangladesh =
     , dyeingWeighting = Nothing
     , airTransportRatio = Nothing
     , recycledRatio = Nothing
-    , customCountryMixes = defaultCustomCountryMixes
     , quality = Nothing
     }
 
@@ -396,25 +346,7 @@ encode inputs =
         , ( "dyeingWeighting", inputs.dyeingWeighting |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
         , ( "airTransportRatio", inputs.airTransportRatio |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
         , ( "recycledRatio", inputs.recycledRatio |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
-        , ( "customCountryMixes", encodeCustomCountryMixes inputs.customCountryMixes )
         , ( "quality", inputs.quality |> Maybe.map Unit.encodeQuality |> Maybe.withDefault Encode.null )
-        ]
-
-
-decodeCustomCountryMixes : Decoder CustomCountryMixes
-decodeCustomCountryMixes =
-    Decode.map3 CustomCountryMixes
-        (Decode.field "fabric" (Decode.maybe Unit.decodeImpact))
-        (Decode.field "dyeing" (Decode.maybe Unit.decodeImpact))
-        (Decode.field "making" (Decode.maybe Unit.decodeImpact))
-
-
-encodeCustomCountryMixes : CustomCountryMixes -> Encode.Value
-encodeCustomCountryMixes v =
-    Encode.object
-        [ ( "fabric", v.fabric |> Maybe.map Unit.encodeImpact |> Maybe.withDefault Encode.null )
-        , ( "dyeing", v.dyeing |> Maybe.map Unit.encodeImpact |> Maybe.withDefault Encode.null )
-        , ( "making", v.making |> Maybe.map Unit.encodeImpact |> Maybe.withDefault Encode.null )
         ]
 
 
@@ -430,7 +362,6 @@ decodeQuery =
         |> Pipe.required "dyeingWeighting" (Decode.maybe Unit.decodeRatio)
         |> Pipe.required "airTransportRatio" (Decode.maybe Unit.decodeRatio)
         |> Pipe.required "recycledRatio" (Decode.maybe Unit.decodeRatio)
-        |> Pipe.required "customCountryMixes" decodeCustomCountryMixes
         |> Pipe.required "quality" (Decode.maybe Unit.decodeQuality)
 
 
@@ -446,7 +377,6 @@ encodeQuery query =
         , ( "dyeingWeighting", query.dyeingWeighting |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
         , ( "airTransportRatio", query.airTransportRatio |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
         , ( "recycledRatio", query.recycledRatio |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
-        , ( "customCountryMixes", encodeCustomCountryMixes query.customCountryMixes )
         , ( "quality", query.quality |> Maybe.map Unit.encodeQuality |> Maybe.withDefault Encode.null )
         ]
 

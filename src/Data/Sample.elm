@@ -1,6 +1,6 @@
 module Data.Sample exposing (SampleData, SectionOrSample(..), samples)
 
-import Data.Inputs as Inputs exposing (..)
+import Data.Inputs exposing (..)
 import Data.Unit as Unit exposing (Ratio(..))
 
 
@@ -205,105 +205,5 @@ samples =
             , cch = Unit.impact 39.942898569095476
             , fwe = Unit.impact 0.0002608076513636336
             }
-        ]
-    , section "Mix énergétique personnalisé"
-        [ section "À l'étape Tissage/Tricotage"
-            [ sample "impacts for tShirtCotonFrance using custom country mix of 0"
-                { query =
-                    tShirtCotonFrance
-                        |> Inputs.setCustomCountryMix 1 (Just (Unit.impact 0))
-                , cch = Unit.impact 5.067301524798891
-                , fwe = Unit.impact 0.0003521486305115451
-                }
-            , sample "impacts for tShirtCotonFrance using custom country mix of 0.5"
-                { query =
-                    tShirtCotonFrance
-                        |> Inputs.setCustomCountryMix 1 (Just (Unit.impact 0.5))
-                , cch = Unit.impact 5.1853851359100025
-                , fwe = Unit.impact 0.0003521486305115451
-                }
-            , sample "impacts for tShirtCotonFrance using custom country mix of 1.7"
-                { query =
-                    tShirtCotonFrance
-                        |> Inputs.setCustomCountryMix 1 (Just (Unit.impact 1.7))
-                , cch = Unit.impact 5.468785802576669
-                , fwe = Unit.impact 0.0003521486305115451
-                }
-            ]
-        , section "À l'étape de Teinture"
-            [ sample "impacts for tShirtCotonFrance using custom country mix of 0"
-                { query =
-                    tShirtCotonFrance
-                        |> Inputs.setCustomCountryMix 2 (Just (Unit.impact 0))
-                , cch = Unit.impact 5.054113771228058
-                , fwe = Unit.impact 0.0003521486305115451
-                }
-            , sample "impacts for tShirtCotonFrance using custom country mix of 0.5"
-                { query =
-                    tShirtCotonFrance
-                        |> Inputs.setCustomCountryMix 2 (Just (Unit.impact 0.5))
-                , cch = Unit.impact 5.253280437894725
-                , fwe = Unit.impact 0.0003521486305115451
-                }
-            , sample "impacts for tShirtCotonFrance using custom country mix of 1.7"
-                { query =
-                    tShirtCotonFrance
-                        |> Inputs.setCustomCountryMix 2 (Just (Unit.impact 1.7))
-                , cch = Unit.impact 5.731280437894725
-                , fwe = Unit.impact 0.0003521486305115451
-                }
-            ]
-        , section "À l'étape de Confection"
-            [ sample "impacts for tShirtCotonFrance using custom country mix of 0"
-                { query =
-                    tShirtCotonFrance
-                        |> Inputs.setCustomCountryMix 3 (Just (Unit.impact 0))
-                , cch = Unit.impact 5.045845983728058
-                , fwe = Unit.impact 0.0003521486305115451
-                }
-            , sample "impacts for tShirtCotonFrance using custom country mix of 0.5"
-                { query =
-                    tShirtCotonFrance
-                        |> Inputs.setCustomCountryMix 3 (Just (Unit.impact 0.5))
-                , cch = Unit.impact 5.295845983728058
-                , fwe = Unit.impact 0.0003521486305115451
-                }
-            , sample "impacts for tShirtCotonFrance using custom country mix of 1.7"
-                { query =
-                    tShirtCotonFrance
-                        |> Inputs.setCustomCountryMix 3 (Just (Unit.impact 1.7))
-                , cch = Unit.impact 5.895845983728058
-                , fwe = Unit.impact 0.0003521486305115451
-                }
-            ]
-        , section "À toutes les étapes"
-            [ sample "impacts for tShirtCotonFrance using custom country mix of 0"
-                { query =
-                    tShirtCotonFrance
-                        |> Inputs.setCustomCountryMix 1 (Just (Unit.impact 0))
-                        |> Inputs.setCustomCountryMix 2 (Just (Unit.impact 0))
-                        |> Inputs.setCustomCountryMix 3 (Just (Unit.impact 0))
-                , cch = Unit.impact 4.994246812298891
-                , fwe = Unit.impact 0.0003521486305115451
-                }
-            , sample "impacts for tShirtCotonFrance using custom country mix of 0.5"
-                { query =
-                    tShirtCotonFrance
-                        |> Inputs.setCustomCountryMix 1 (Just (Unit.impact 0.5))
-                        |> Inputs.setCustomCountryMix 2 (Just (Unit.impact 0.5))
-                        |> Inputs.setCustomCountryMix 3 (Just (Unit.impact 0.5))
-                , cch = Unit.impact 5.561497090076669
-                , fwe = Unit.impact 0.0003521486305115451
-                }
-            , sample "impacts for tShirtCotonFrance using custom country mix of 1.7"
-                { query =
-                    tShirtCotonFrance
-                        |> Inputs.setCustomCountryMix 1 (Just (Unit.impact 1.7))
-                        |> Inputs.setCustomCountryMix 2 (Just (Unit.impact 1.7))
-                        |> Inputs.setCustomCountryMix 3 (Just (Unit.impact 1.7))
-                , cch = Unit.impact 6.922897756743335
-                , fwe = Unit.impact 0.0003521486305115451
-                }
-            ]
         ]
     ]

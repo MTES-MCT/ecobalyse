@@ -57,7 +57,6 @@ toRecycledFrance query =
         , dyeingWeighting = Just (Unit.ratio 0)
         , airTransportRatio = Just (Unit.ratio 0)
         , recycledRatio = Just (Unit.ratio 1)
-        , customCountryMixes = Inputs.defaultCustomCountryMixes
         , quality = Just Unit.standardQuality
       }
     )
@@ -73,7 +72,6 @@ toNonRecycledFrance query =
         , dyeingWeighting = Just (Unit.ratio 0)
         , airTransportRatio = Just (Unit.ratio 0)
         , recycledRatio = Just (Unit.ratio 0)
-        , customCountryMixes = Inputs.defaultCustomCountryMixes
         , quality = Just Unit.standardQuality
       }
     )
@@ -89,7 +87,6 @@ toNonRecycledPortugal query =
         , dyeingWeighting = Just (Unit.ratio 0)
         , airTransportRatio = Just (Unit.ratio 0)
         , recycledRatio = Just (Unit.ratio 0)
-        , customCountryMixes = Inputs.defaultCustomCountryMixes
         , quality = Just Unit.standardQuality
       }
     )
@@ -105,7 +102,6 @@ toRecycledIndia query =
         , dyeingWeighting = Just (Unit.ratio 1)
         , airTransportRatio = Just (Unit.ratio 1)
         , recycledRatio = Just (Unit.ratio 1)
-        , customCountryMixes = Inputs.defaultCustomCountryMixes
         , quality = Just Unit.standardQuality
       }
     )
@@ -121,7 +117,6 @@ toNonRecycledIndia query =
         , dyeingWeighting = Just (Unit.ratio 1)
         , airTransportRatio = Just (Unit.ratio 1)
         , recycledRatio = Just (Unit.ratio 0)
-        , customCountryMixes = Inputs.defaultCustomCountryMixes
         , quality = Just Unit.standardQuality
       }
     )
