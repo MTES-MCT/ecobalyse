@@ -32,7 +32,6 @@ import Base64
 import Data.Country as Country exposing (Country)
 import Data.Db exposing (Db)
 import Data.Material as Material exposing (Material)
-import Data.Process as Process
 import Data.Product as Product exposing (Product)
 import Data.Unit as Unit
 import Json.Decode as Decode exposing (Decoder)
@@ -65,7 +64,7 @@ type alias Inputs =
 type alias Query =
     -- a shorter version than Inputs (identifiers only)
     { mass : Mass
-    , material : Process.Uuid
+    , material : Material.Id
     , product : Product.Id
     , countryFabric : Country.Code
     , countryDyeing : Country.Code
@@ -89,7 +88,7 @@ fromQuery : Db -> Query -> Result String Inputs
 fromQuery db query =
     let
         material =
-            db.materials |> Material.findByUuid query.material
+            db.materials |> Material.findById query.material
 
         franceResult =
             Country.findByCode (Country.Code "FR") db.countries
@@ -119,7 +118,7 @@ fromQuery db query =
 toQuery : Inputs -> Query
 toQuery inputs =
     { mass = inputs.mass
-    , material = inputs.material.uuid
+    , material = inputs.material.id
     , product = inputs.product.id
     , countryFabric = inputs.countryFabric.code
     , countryDyeing = inputs.countryDyeing.code
@@ -218,10 +217,10 @@ updateStepCountry index code query =
 updateMaterial : Material -> Query -> Query
 updateMaterial material query =
     { query
-        | material = material.uuid
+        | material = material.id
         , recycledRatio =
             -- ensure resetting recycledRatio when material is changed
-            if material.uuid /= query.material then
+            if material.id /= query.material then
                 Nothing
 
             else
@@ -252,8 +251,8 @@ tShirtCotonFrance : Query
 tShirtCotonFrance =
     -- T-shirt circuit France
     { mass = Mass.kilograms 0.17
-    , material = Process.Uuid "f211bbdb-415c-46fd-be4d-ddf199575b44"
-    , product = Product.Id "13"
+    , material = Material.Id "coton"
+    , product = Product.Id "tshirt"
     , countryFabric = Country.Code "FR"
     , countryDyeing = Country.Code "FR"
     , countryMaking = Country.Code "FR"
@@ -269,7 +268,7 @@ tShirtPolyamideFrance : Query
 tShirtPolyamideFrance =
     -- T-shirt polyamide (provenance France) circuit France
     { tShirtCotonFrance
-        | material = Process.Uuid "182fa424-1f49-4728-b0f1-cb4e4ab36392"
+        | material = Material.Id "pa"
         , countryFabric = Country.Code "FR"
         , countryDyeing = Country.Code "FR"
         , countryMaking = Country.Code "FR"
@@ -310,8 +309,8 @@ jupeCircuitAsie : Query
 jupeCircuitAsie =
     -- Jupe circuit Asie
     { mass = Mass.kilograms 0.3
-    , material = Process.Uuid "aee6709f-0864-4fc5-8760-68cb644a0021"
-    , product = Product.Id "8"
+    , material = Material.Id "acrylique"
+    , product = Product.Id "jupe"
     , countryFabric = Country.Code "CN"
     , countryDyeing = Country.Code "CN"
     , countryMaking = Country.Code "CN"
@@ -327,8 +326,8 @@ manteauCircuitEurope : Query
 manteauCircuitEurope =
     -- Manteau circuit Europe
     { mass = Mass.kilograms 0.95
-    , material = Process.Uuid "380c0d9c-2840-4390-bd3f-5c960f26f5ed"
-    , product = Product.Id "9"
+    , material = Material.Id "cachemire"
+    , product = Product.Id "manteau"
     , countryFabric = Country.Code "TR"
     , countryDyeing = Country.Code "TN"
     , countryMaking = Country.Code "ES"
@@ -344,8 +343,8 @@ pantalonCircuitEurope : Query
 pantalonCircuitEurope =
     -- Pantalon circuit Europe
     { mass = Mass.kilograms 0.45
-    , material = Process.Uuid "e5a6d538-f932-4242-98b4-3a0c6439629c"
-    , product = Product.Id "10"
+    , material = Material.Id "lin-filasse"
+    , product = Product.Id "pantalon"
     , countryFabric = Country.Code "TR"
     , countryDyeing = Country.Code "TR"
     , countryMaking = Country.Code "TR"
@@ -361,8 +360,8 @@ robeCircuitBangladesh : Query
 robeCircuitBangladesh =
     -- Robe circuit Bangladesh
     { mass = Mass.kilograms 0.5
-    , material = Process.Uuid "7a1ccc4a-2ea7-48dc-9ef0-d57066ea8fa5"
-    , product = Product.Id "12"
+    , material = Material.Id "aramide"
+    , product = Product.Id "robe"
     , countryFabric = Country.Code "BD"
     , countryDyeing = Country.Code "PT"
     , countryMaking = Country.Code "TN"
@@ -423,7 +422,7 @@ decodeQuery : Decoder Query
 decodeQuery =
     Decode.succeed Query
         |> Pipe.required "mass" (Decode.map Mass.kilograms Decode.float)
-        |> Pipe.required "material" (Decode.map Process.Uuid Decode.string)
+        |> Pipe.required "material" (Decode.map Material.Id Decode.string)
         |> Pipe.required "product" (Decode.map Product.Id Decode.string)
         |> Pipe.required "countryFabric" (Decode.map Country.Code Decode.string)
         |> Pipe.required "countryDyeing" (Decode.map Country.Code Decode.string)
@@ -439,7 +438,7 @@ encodeQuery : Query -> Encode.Value
 encodeQuery query =
     Encode.object
         [ ( "mass", Encode.float (Mass.inKilograms query.mass) )
-        , ( "material", query.material |> Process.uuidToString |> Encode.string )
+        , ( "material", Material.encodeId query.material )
         , ( "product", query.product |> Product.idToString |> Encode.string )
         , ( "countryFabric", query.countryFabric |> Country.codeToString |> Encode.string )
         , ( "countryDyeing", query.countryDyeing |> Country.codeToString |> Encode.string )

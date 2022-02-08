@@ -81,7 +81,7 @@ type Msg
     | UpdateCustomCountryMixInput Step.Label String
     | UpdateDyeingWeighting (Maybe Unit.Ratio)
     | UpdateMassInput String
-    | UpdateMaterial Process.Uuid
+    | UpdateMaterial Material.Id
     | UpdateProduct Product.Id
     | UpdateQuality (Maybe Unit.Quality)
     | UpdateRecycledRatio (Maybe Unit.Ratio)
@@ -313,7 +313,7 @@ update ({ db, navKey } as session) msg ({ customCountryMixInputs, query } as mod
                     ( { model | massInput = massInput }, session, Cmd.none )
 
         UpdateMaterial materialId ->
-            case Material.findByUuid materialId db.materials of
+            case Material.findById materialId db.materials of
                 Ok material ->
                     ( model, session, Cmd.none )
                         |> updateQuery (Inputs.updateMaterial material query)
@@ -394,8 +394,8 @@ materialFormSet db recycledRatio material =
 
         toOption m =
             option
-                [ value <| Process.uuidToString m.uuid
-                , selected (material.uuid == m.uuid)
+                [ value <| Material.idToString m.id
+                , selected (material.id == m.id)
                 , title m.name
                 ]
                 [ text m.shortName ]
@@ -423,7 +423,7 @@ materialFormSet db recycledRatio material =
                 |> select
                     [ id "material"
                     , class "form-select"
-                    , onInput (Process.Uuid >> UpdateMaterial)
+                    , onInput (Material.Id >> UpdateMaterial)
                     ]
             ]
         , div [ class "col-md-6 mb-2" ]

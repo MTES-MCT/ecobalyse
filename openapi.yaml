@@ -208,7 +208,11 @@ components:
         type: string
         minLength: 36
         maxLength: 36
-      example: "f211bbdb-415c-46fd-be4d-ddf199575b44"
+      examples:
+        coton:
+          value: "coton"
+        acrylique:
+          value: "acrylique"
     productParam:
       name: product
       in: query
@@ -217,7 +221,11 @@ components:
       style: form
       schema:
         type: string
-      example: "13"
+      examples:
+        tshirt:
+          value: "tshirt"
+        pantalon:
+          value: "pantalon"
     countryFabricParam:
       name: countryFabric
       in: query
@@ -228,7 +236,11 @@ components:
         type: string
         minLength: 2
         maxLength: 2
-      example: "CN"
+      examples:
+        Chine:
+          value: "CN"
+        France:
+          value: "FR"
     countryDyeingParam:
       name: countryDyeing
       in: query
@@ -239,7 +251,11 @@ components:
         type: string
         minLength: 2
         maxLength: 2
-      example: "CN"
+      examples:
+        Chine:
+          value: "CN"
+        France:
+          value: "FR"
     countryMakingParam:
       name: countryMaking
       in: query
@@ -250,7 +266,11 @@ components:
         type: string
         minLength: 2
         maxLength: 2
-      example: "CN"
+      examples:
+        Chine:
+          value: "CN"
+        France:
+          value: "FR"
     recycledRatioParam:
       name: recycledRatio
       in: query

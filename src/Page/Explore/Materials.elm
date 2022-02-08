@@ -2,9 +2,8 @@ module Page.Explore.Materials exposing (table)
 
 import Data.Country as Country
 import Data.Db as Db
-import Data.Material exposing (Material)
+import Data.Material as Material exposing (Material)
 import Data.Material.Category as Category
-import Data.Process as Process
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Page.Explore.Table exposing (Table)
@@ -17,11 +16,11 @@ table { detailed } =
       , toCell =
             \material ->
                 if detailed then
-                    code [] [ text (Process.uuidToString material.uuid) ]
+                    code [] [ text (Material.idToString material.id) ]
 
                 else
-                    a [ Route.href (Route.Explore (Db.Materials (Just material.uuid))) ]
-                        [ code [] [ text (Process.uuidToString material.uuid) ] ]
+                    a [ Route.href (Route.Explore (Db.Materials (Just material.id))) ]
+                        [ code [] [ text (Material.idToString material.id) ] ]
       }
     , { label = "Nom"
       , toCell = \material -> text material.name

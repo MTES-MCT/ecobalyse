@@ -8,7 +8,6 @@ import Data.Country as Country exposing (Country)
 import Data.Db exposing (Db)
 import Data.Inputs as Inputs exposing (CustomCountryMixes)
 import Data.Material as Material exposing (Material)
-import Data.Process as Process
 import Data.Product as Product exposing (Product)
 import Data.Unit as Unit
 import Dict exposing (Dict)
@@ -142,16 +141,16 @@ productParser key products =
             )
 
 
-materialParser : String -> List Material -> Query.Parser (ParseResult Process.Uuid)
+materialParser : String -> List Material -> Query.Parser (ParseResult Material.Id)
 materialParser key materials =
     Query.string key
         |> Query.map (Result.fromMaybe ( key, "Identifiant de la matière manquant." ))
         |> Query.map
             (Result.andThen
-                (\uuid ->
+                (\id ->
                     materials
-                        |> Material.findByUuid (Process.Uuid uuid)
-                        |> Result.map .uuid
+                        |> Material.findById (Material.Id id)
+                        |> Result.map .id
                         |> Result.mapError (\err -> ( key, err ))
                 )
             )
