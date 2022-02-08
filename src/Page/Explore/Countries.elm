@@ -14,28 +14,26 @@ table { detailed } =
     [ { label = "Code"
       , toCell =
             \country ->
-                td []
-                    [ if detailed then
-                        code [] [ text (Country.codeToString country.code) ]
+                if detailed then
+                    code [] [ text (Country.codeToString country.code) ]
 
-                      else
-                        a [ Route.href (Route.Explore (Db.Countries (Just country.code))) ]
-                            [ code [] [ text (Country.codeToString country.code) ] ]
-                    ]
+                else
+                    a [ Route.href (Route.Explore (Db.Countries (Just country.code))) ]
+                        [ code [] [ text (Country.codeToString country.code) ] ]
       }
     , { label = "Nom"
-      , toCell = \country -> text country.name
+      , toCell = .name >> text
       }
     , { label = "Mix éléctrique"
-      , toCell = \country -> text country.electricityProcess.name
+      , toCell = .electricityProcess >> .name >> text
       }
     , { label = "Chaleur"
-      , toCell = \country -> text country.heatProcess.name
+      , toCell = .heatProcess >> .name >> text
       }
     , { label = "Majoration de teinture"
-      , toCell = \country -> Format.ratio country.dyeingWeighting
+      , toCell = .dyeingWeighting >> Format.ratio
       }
     , { label = "Part du transport aérien"
-      , toCell = \country -> Format.ratio country.airTransportRatio
+      , toCell = .airTransportRatio >> Format.ratio
       }
     ]

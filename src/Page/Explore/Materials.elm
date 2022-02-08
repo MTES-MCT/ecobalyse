@@ -23,16 +23,16 @@ table { detailed } =
                         [ code [] [ text (Material.idToString material.id) ] ]
       }
     , { label = "Nom"
-      , toCell = \material -> text material.name
+      , toCell = .name >> text
       }
     , { label = "Catégorie"
       , toCell = \material -> material.category |> Category.toString |> text
       }
     , { label = "Procédé"
-      , toCell = \material -> text material.materialProcess.name
+      , toCell = .materialProcess >> .name >> text
       }
     , { label = "Procédé de recyclage"
-      , toCell = \material -> material.recycledProcess |> Maybe.map (.name >> text) |> Maybe.withDefault (text "N/A")
+      , toCell = .recycledProcess >> Maybe.map (.name >> text) >> Maybe.withDefault (text "N/A")
       }
     , { label = "Primaire"
       , toCell =
@@ -44,9 +44,9 @@ table { detailed } =
                     text "Non"
       }
     , { label = "Continent"
-      , toCell = \material -> text material.continent
+      , toCell = .continent >> text
       }
     , { label = "Pays par défaut"
-      , toCell = \material -> material.defaultCountry |> Country.codeToString |> text
+      , toCell = .defaultCountry >> Country.codeToString >> text
       }
     ]

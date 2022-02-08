@@ -22,13 +22,13 @@ table { detailed } =
                         [ code [] [ text (Product.idToString product.id) ] ]
       }
     , { label = "Nom"
-      , toCell = \product -> text product.name
+      , toCell = .name >> text
       }
     , { label = "Masse par défaut"
-      , toCell = \product -> Format.kg product.mass
+      , toCell = .mass >> Format.kg
       }
     , { label = "Taux de perte (PCR)"
-      , toCell = \product -> Format.ratio product.pcrWaste
+      , toCell = .pcrWaste >> Format.ratio
       }
     , { label = "Type de procédé"
       , toCell =
@@ -58,33 +58,33 @@ table { detailed } =
                     text <| Format.formatInt "gr/kg" product.grammage
       }
     , { label = "Procédé"
-      , toCell = \product -> text product.fabricProcess.name
+      , toCell = .fabricProcess >> .name >> text
       }
     , { label = "Confection"
-      , toCell = \product -> text product.makingProcess.name
+      , toCell = .makingProcess >> .name >> text
       }
     , { label = "Nombre de jours porté"
-      , toCell = \product -> Format.days product.daysOfWear
+      , toCell = .daysOfWear >> Format.days
       }
     , { label = "Cycles d'entretien (par défaut)"
-      , toCell = \product -> product.wearsPerCycle |> String.fromInt |> text
+      , toCell = .wearsPerCycle >> String.fromInt >> text
       }
     , { label = "Utilisations avant lavage"
-      , toCell = \product -> text (String.fromInt product.useDefaultNbCycles)
+      , toCell = .useDefaultNbCycles >> String.fromInt >> text
       }
     , { label = "Procédé de repassage"
-      , toCell = \product -> text product.useIroningProcess.name
+      , toCell = .useIroningProcess >> .name >> text
       }
     , { label = "Procédé d'utilisation hors-repassage"
-      , toCell = \product -> text product.useNonIroningProcess.name
+      , toCell = .useNonIroningProcess >> .name >> text
       }
     , { label = "Séchage électrique"
-      , toCell = \product -> Format.ratio product.useRatioDryer
+      , toCell = .useRatioDryer >> Format.ratio
       }
     , { label = "Repassage (part)"
-      , toCell = \product -> Format.ratio product.useRatioIroning
+      , toCell = .useRatioIroning >> Format.ratio
       }
     , { label = "Repassage (temps)"
-      , toCell = \product -> Format.hours product.useTimeIroning
+      , toCell = .useTimeIroning >> Format.hours
       }
     ]

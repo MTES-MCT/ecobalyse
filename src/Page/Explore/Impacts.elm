@@ -25,13 +25,13 @@ table { detailed } =
                         [ code [] [ text (Impact.toString def.trigram) ] ]
       }
     , { label = "Nom"
-      , toCell = \def -> text def.label
+      , toCell = .label >> text
       }
     , { label = "Description"
       , toCell =
             \def ->
                 if detailed then
-                    def.description |> Markdown.simple []
+                    Markdown.simple [] def.description
 
                 else
                     def.description
@@ -39,7 +39,7 @@ table { detailed } =
                         |> text
       }
     , { label = "Unité"
-      , toCell = \def -> td [] [ code [] [ text def.unit ] ]
+      , toCell = \def -> code [] [ text def.unit ]
       }
     , { label = "Coéf. normalisation PEF"
       , toCell =
@@ -56,6 +56,6 @@ table { detailed } =
                     |> Maybe.withDefault (text "N/A")
       }
     , { label = "Niveau de qualité"
-      , toCell = \def -> ImpactView.impactQuality def.quality |> div []
+      , toCell = .quality >> ImpactView.impactQuality >> div []
       }
     ]
