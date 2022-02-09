@@ -25,10 +25,16 @@ table { detailed } =
       , toCell = .name >> text
       }
     , { label = "Masse par défaut"
-      , toCell = .mass >> Format.kg
+      , toCell =
+            \product ->
+                div [ classList [ ( "text-end", not detailed ) ] ]
+                    [ Format.kg product.mass ]
       }
     , { label = "Taux de perte (PCR)"
-      , toCell = .pcrWaste >> Format.ratio
+      , toCell =
+            \product ->
+                div [ classList [ ( "text-end", not detailed ) ] ]
+                    [ Format.ratio product.pcrWaste ]
       }
     , { label = "Type de procédé"
       , toCell =
@@ -42,20 +48,24 @@ table { detailed } =
     , { label = "Pick-per-meter"
       , toCell =
             \product ->
-                if product.knitted then
-                    text "N/A"
+                div [ classList [ ( "text-end", not detailed ) ] ]
+                    [ if product.knitted then
+                        text "N/A"
 
-                else
-                    text <| Format.formatInt "picks/m" product.ppm
+                      else
+                        text <| Format.formatInt "picks/m" product.ppm
+                    ]
       }
     , { label = "Grammage"
       , toCell =
             \product ->
-                if product.knitted then
-                    text "N/A"
+                div [ classList [ ( "text-end", not detailed ) ] ]
+                    [ if product.knitted then
+                        text "N/A"
 
-                else
-                    text <| Format.formatInt "gr/kg" product.grammage
+                      else
+                        text <| Format.formatInt "gr/kg" product.grammage
+                    ]
       }
     , { label = "Procédé"
       , toCell = .fabricProcess >> .name >> text
@@ -64,13 +74,22 @@ table { detailed } =
       , toCell = .makingProcess >> .name >> text
       }
     , { label = "Nombre de jours porté"
-      , toCell = .daysOfWear >> Format.days
+      , toCell =
+            \product ->
+                div [ classList [ ( "text-end", not detailed ) ] ]
+                    [ Format.days product.daysOfWear ]
       }
     , { label = "Cycles d'entretien (par défaut)"
-      , toCell = .wearsPerCycle >> String.fromInt >> text
+      , toCell =
+            \product ->
+                div [ classList [ ( "text-end", not detailed ) ] ]
+                    [ text <| String.fromInt product.wearsPerCycle ]
       }
     , { label = "Utilisations avant lavage"
-      , toCell = .useDefaultNbCycles >> String.fromInt >> text
+      , toCell =
+            \product ->
+                div [ classList [ ( "text-end", not detailed ) ] ]
+                    [ text <| String.fromInt product.useDefaultNbCycles ]
       }
     , { label = "Procédé de repassage"
       , toCell = .useIroningProcess >> .name >> text
@@ -79,12 +98,21 @@ table { detailed } =
       , toCell = .useNonIroningProcess >> .name >> text
       }
     , { label = "Séchage électrique"
-      , toCell = .useRatioDryer >> Format.ratio
+      , toCell =
+            \product ->
+                div [ classList [ ( "text-end", not detailed ) ] ]
+                    [ Format.ratio product.useRatioDryer ]
       }
     , { label = "Repassage (part)"
-      , toCell = .useRatioIroning >> Format.ratio
+      , toCell =
+            \product ->
+                div [ classList [ ( "text-end", not detailed ) ] ]
+                    [ Format.ratio product.useRatioIroning ]
       }
     , { label = "Repassage (temps)"
-      , toCell = .useTimeIroning >> Format.hours
+      , toCell =
+            \product ->
+                div [ classList [ ( "text-end", not detailed ) ] ]
+                    [ Format.hours product.useTimeIroning ]
       }
     ]
