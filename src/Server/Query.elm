@@ -6,9 +6,8 @@ module Server.Query exposing
 
 import Data.Country as Country exposing (Country)
 import Data.Db exposing (Db)
-import Data.Inputs as Inputs exposing (CustomCountryMixes)
+import Data.Inputs as Inputs
 import Data.Material as Material exposing (Material)
-import Data.Process as Process
 import Data.Product as Product exposing (Product)
 import Data.Unit as Unit
 import Dict exposing (Dict)
@@ -57,7 +56,6 @@ parse db =
         |> apply (maybeRatioParser "dyeingWeighting")
         |> apply (maybeRatioParser "airTransportRatio")
         |> apply (maybeRatioParser "recycledRatio")
-        |> apply (Query.map Ok customCountryMixesParser)
         |> apply (maybeQuality "quality")
 
 
@@ -143,22 +141,22 @@ productParser key products =
             )
 
 
-materialParser : String -> List Material -> Query.Parser (ParseResult Process.Uuid)
+materialParser : String -> List Material -> Query.Parser (ParseResult Material.Id)
 materialParser key materials =
     Query.string key
         |> Query.map (Result.fromMaybe ( key, "Identifiant de la matière manquant." ))
         |> Query.map
             (Result.andThen
-                (\uuid ->
+                (\id ->
                     materials
-                        |> Material.findByUuid (Process.Uuid uuid)
-                        |> Result.map .uuid
+                        |> Material.findById (Material.Id id)
+                        |> Result.map .id
                         |> Result.mapError (\err -> ( key, err ))
                 )
             )
 
 
-materialListParser : String -> List Material -> Query.Parser (ParseResult (List Inputs.QueryMaterials))
+materialListParser : String -> List Material -> Query.Parser (ParseResult (List Inputs.MaterialQuery))
 materialListParser key _ =
     Query.string key
         |> Query.map (Result.fromMaybe ( key, "Identifiant de la matière manquant." ))
@@ -194,20 +192,6 @@ maybeRatioParser key =
                 )
                 >> Maybe.withDefault (Ok Nothing)
             )
-
-
-impactParser : String -> Query.Parser (Maybe Unit.Impact)
-impactParser key =
-    floatParser key
-        |> Query.map (Maybe.map Unit.impact)
-
-
-customCountryMixesParser : Query.Parser CustomCountryMixes
-customCountryMixesParser =
-    Query.map3 CustomCountryMixes
-        (impactParser "customCountryMix[fabric]")
-        (impactParser "customCountryMix[dyeing]")
-        (impactParser "customCountryMix[making]")
 
 
 maybeQuality : String -> Query.Parser (ParseResult (Maybe Unit.Quality))

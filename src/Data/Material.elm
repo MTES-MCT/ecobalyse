@@ -1,10 +1,13 @@
 module Data.Material exposing
-    ( Material
+    ( Id(..)
+    , Material
     , decodeList
     , encode
-    , findByUuid
+    , encodeId
+    , findById
     , fullName
     , groupAll
+    , idToString
     , recycledRatioToString
     )
 
@@ -18,7 +21,7 @@ import Json.Encode as Encode
 
 
 type alias Material =
-    { uuid : Process.Uuid -- Note: we use the material + spinning process uuid here
+    { id : Id
     , name : String
     , shortName : String
     , category : Category
@@ -30,11 +33,15 @@ type alias Material =
     }
 
 
-findByUuid : Process.Uuid -> List Material -> Result String Material
-findByUuid uuid =
-    List.filter (\m -> m.uuid == uuid)
+type Id
+    = Id String
+
+
+findById : Id -> List Material -> Result String Material
+findById id =
+    List.filter (.id >> (==) id)
         >> List.head
-        >> Result.fromMaybe ("Impossible de récupérer la matière uuid=" ++ Process.uuidToString uuid ++ ".")
+        >> Result.fromMaybe ("Matière non trouvée id=" ++ idToString id ++ ".")
 
 
 groupAll :
@@ -86,7 +93,7 @@ recycledRatioToString unit (Unit.Ratio recycledRatio) =
 decode : List Process -> Decoder Material
 decode processes =
     Decode.succeed Material
-        |> DecodePipeline.required "uuid" (Decode.map Process.Uuid Decode.string)
+        |> DecodePipeline.required "id" (Decode.map Id Decode.string)
         |> DecodePipeline.required "name" Decode.string
         |> DecodePipeline.required "shortName" Decode.string
         |> DecodePipeline.required "category" Category.decode
@@ -105,7 +112,7 @@ decodeList processes =
 encode : Material -> Encode.Value
 encode v =
     Encode.object
-        [ ( "uuid", v.uuid |> Process.uuidToString |> Encode.string )
+        [ ( "id", encodeId v.id )
         , ( "name", v.name |> Encode.string )
         , ( "shortName", Encode.string v.shortName )
         , ( "category", v.category |> Category.toString |> Encode.string )
@@ -117,3 +124,13 @@ encode v =
         , ( "continent", Encode.string v.continent )
         , ( "defaultCountry", v.defaultCountry |> Country.codeToString |> Encode.string )
         ]
+
+
+encodeId : Id -> Encode.Value
+encodeId =
+    idToString >> Encode.string
+
+
+idToString : Id -> String
+idToString (Id string) =
+    string

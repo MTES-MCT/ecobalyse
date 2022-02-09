@@ -35,6 +35,7 @@ type Path
     | Waste -- Pertes et rebus
     | ComparativeScale -- Échelle comparative
     | ImpactQuality -- Niveau de qualité d'impact
+    | CountryHypothesis -- Procédés et hypothèses spécifiques aux pays
 
 
 pathToString : Path -> String
@@ -81,6 +82,9 @@ pathToString path =
 
         ImpactQuality ->
             "methodologie/impacts-consideres#niveaux-de-recommandation"
+
+        CountryHypothesis ->
+            "methodologie/ajout-dun-pays#procedes-specifiques-au-pays"
 
 
 transformMarkdown : String -> String

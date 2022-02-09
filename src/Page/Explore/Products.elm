@@ -22,13 +22,19 @@ table { detailed } =
                         [ code [] [ text (Product.idToString product.id) ] ]
       }
     , { label = "Nom"
-      , toCell = \product -> text product.name
+      , toCell = .name >> text
       }
     , { label = "Masse par défaut"
-      , toCell = \product -> Format.kg product.mass
+      , toCell =
+            \product ->
+                div [ classList [ ( "text-end", not detailed ) ] ]
+                    [ Format.kg product.mass ]
       }
     , { label = "Taux de perte (PCR)"
-      , toCell = \product -> Format.ratio product.pcrWaste
+      , toCell =
+            \product ->
+                div [ classList [ ( "text-end", not detailed ) ] ]
+                    [ Format.ratio product.pcrWaste ]
       }
     , { label = "Type de procédé"
       , toCell =
@@ -42,49 +48,71 @@ table { detailed } =
     , { label = "Pick-per-meter"
       , toCell =
             \product ->
-                if product.knitted then
-                    text "N/A"
+                div [ classList [ ( "text-end", not detailed ) ] ]
+                    [ if product.knitted then
+                        text "N/A"
 
-                else
-                    text <| Format.formatInt "picks/m" product.ppm
+                      else
+                        text <| Format.formatInt "picks/m" product.ppm
+                    ]
       }
     , { label = "Grammage"
       , toCell =
             \product ->
-                if product.knitted then
-                    text "N/A"
+                div [ classList [ ( "text-end", not detailed ) ] ]
+                    [ if product.knitted then
+                        text "N/A"
 
-                else
-                    text <| Format.formatInt "gr/kg" product.grammage
+                      else
+                        text <| Format.formatInt "gr/kg" product.grammage
+                    ]
       }
     , { label = "Procédé"
-      , toCell = \product -> text product.fabricProcess.name
+      , toCell = .fabricProcess >> .name >> text
       }
     , { label = "Confection"
-      , toCell = \product -> text product.makingProcess.name
+      , toCell = .makingProcess >> .name >> text
       }
     , { label = "Nombre de jours porté"
-      , toCell = \product -> Format.days product.daysOfWear
+      , toCell =
+            \product ->
+                div [ classList [ ( "text-end", not detailed ) ] ]
+                    [ Format.days product.daysOfWear ]
       }
     , { label = "Cycles d'entretien (par défaut)"
-      , toCell = \product -> product.wearsPerCycle |> String.fromInt |> text
+      , toCell =
+            \product ->
+                div [ classList [ ( "text-end", not detailed ) ] ]
+                    [ text <| String.fromInt product.wearsPerCycle ]
       }
     , { label = "Utilisations avant lavage"
-      , toCell = \product -> text (String.fromInt product.useDefaultNbCycles)
+      , toCell =
+            \product ->
+                div [ classList [ ( "text-end", not detailed ) ] ]
+                    [ text <| String.fromInt product.useDefaultNbCycles ]
       }
     , { label = "Procédé de repassage"
-      , toCell = \product -> text product.useIroningProcess.name
+      , toCell = .useIroningProcess >> .name >> text
       }
     , { label = "Procédé d'utilisation hors-repassage"
-      , toCell = \product -> text product.useNonIroningProcess.name
+      , toCell = .useNonIroningProcess >> .name >> text
       }
     , { label = "Séchage électrique"
-      , toCell = \product -> Format.ratio product.useRatioDryer
+      , toCell =
+            \product ->
+                div [ classList [ ( "text-end", not detailed ) ] ]
+                    [ Format.ratio product.useRatioDryer ]
       }
     , { label = "Repassage (part)"
-      , toCell = \product -> Format.ratio product.useRatioIroning
+      , toCell =
+            \product ->
+                div [ classList [ ( "text-end", not detailed ) ] ]
+                    [ Format.ratio product.useRatioIroning ]
       }
     , { label = "Repassage (temps)"
-      , toCell = \product -> Format.hours product.useTimeIroning
+      , toCell =
+            \product ->
+                div [ classList [ ( "text-end", not detailed ) ] ]
+                    [ Format.hours product.useTimeIroning ]
       }
     ]

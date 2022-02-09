@@ -25,13 +25,13 @@ table { detailed } =
                         [ code [] [ text (Impact.toString def.trigram) ] ]
       }
     , { label = "Nom"
-      , toCell = \def -> text def.label
+      , toCell = .label >> text
       }
     , { label = "Description"
       , toCell =
             \def ->
                 if detailed then
-                    def.description |> Markdown.simple []
+                    Markdown.simple [] def.description
 
                 else
                     def.description
@@ -39,23 +39,31 @@ table { detailed } =
                         |> text
       }
     , { label = "Unité"
-      , toCell = \def -> td [] [ code [] [ text def.unit ] ]
+      , toCell = \def -> code [] [ text def.unit ]
       }
     , { label = "Coéf. normalisation PEF"
       , toCell =
             \def ->
-                def.pefData
-                    |> Maybe.map (.normalization >> Unit.impactToFloat >> Format.formatRichFloat 2 def.unit)
-                    |> Maybe.withDefault (text "N/A")
+                div [ classList [ ( "text-end", not detailed ) ] ]
+                    [ def.pefData
+                        |> Maybe.map (.normalization >> Unit.impactToFloat >> Format.formatRichFloat 2 def.unit)
+                        |> Maybe.withDefault (text "N/A")
+                    ]
       }
     , { label = "Pondération PEF"
       , toCell =
             \def ->
-                def.pefData
-                    |> Maybe.map (.weighting >> Format.ratio)
-                    |> Maybe.withDefault (text "N/A")
+                div [ classList [ ( "text-end", not detailed ) ] ]
+                    [ def.pefData
+                        |> Maybe.map (.weighting >> Format.ratio)
+                        |> Maybe.withDefault (text "N/A")
+                    ]
       }
     , { label = "Niveau de qualité"
-      , toCell = \def -> ImpactView.impactQuality def.quality |> div []
+      , toCell =
+            \def ->
+                def.quality
+                    |> ImpactView.impactQuality
+                    |> div [ classList [ ( "text-center", not detailed ) ] ]
       }
     ]

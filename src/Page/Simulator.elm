@@ -8,7 +8,6 @@ module Page.Simulator exposing
     )
 
 import Array
-import Browser.Dom as Dom
 import Browser.Events
 import Browser.Navigation as Navigation
 import Data.Country as Country
@@ -18,11 +17,9 @@ import Data.Impact as Impact
 import Data.Inputs as Inputs
 import Data.Key as Key
 import Data.Material as Material exposing (Material)
-import Data.Process as Process
 import Data.Product as Product exposing (Product)
 import Data.Session as Session exposing (Session)
 import Data.Simulator as Simulator exposing (Simulator)
-import Data.Step as Step exposing (Step)
 import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
@@ -32,7 +29,6 @@ import Ports
 import RemoteData exposing (WebData)
 import Request.Gitbook as GitbookApi
 import Route
-import Task
 import Views.Alert as Alert
 import Views.Container as Container
 import Views.Icon as Icon
@@ -53,7 +49,6 @@ type alias Model =
     , query : Inputs.Query
     , detailed : Bool
     , modal : ModalContent
-    , customCountryMixInputs : CustomCountryMixInputs
     , impact : Impact.Definition
     , funit : Unit.Functional
     }
@@ -61,7 +56,6 @@ type alias Model =
 
 type ModalContent
     = NoModal
-    | CustomCountryMixModal Step
     | GitbookModal (WebData Gitbook.Page)
 
 
@@ -70,69 +64,18 @@ type Msg
     | CopyToClipBoard String
     | GitbookContentReceived (WebData Gitbook.Page)
     | NoOp
-    | OpenCustomCountryMixModal Step
     | OpenDocModal Gitbook.Path
     | Reset
-    | ResetCustomCountryMix Step.Label
-    | SubmitCustomCountryMix Step.Label (Maybe Unit.Impact)
     | SwitchFunctionalUnit Unit.Functional
     | SwitchImpact Impact.Trigram
     | UpdateAirTransportRatio (Maybe Unit.Ratio)
-    | UpdateCustomCountryMixInput Step.Label String
     | UpdateDyeingWeighting (Maybe Unit.Ratio)
     | UpdateMassInput String
-    | UpdateMaterial Process.Uuid
+    | UpdateMaterial Material.Id
     | UpdateProduct Product.Id
     | UpdateQuality (Maybe Unit.Quality)
     | UpdateRecycledRatio (Maybe Unit.Ratio)
     | UpdateStepCountry Int Country.Code
-
-
-type alias CustomCountryMixInputs =
-    -- represents the current state of user raw form inputs for custom country mix values
-    { fabric : Maybe String
-    , dyeing : Maybe String
-    , making : Maybe String
-    }
-
-
-getCustomCountryMixInput : Step.Label -> CustomCountryMixInputs -> Maybe String
-getCustomCountryMixInput stepLabel values =
-    case stepLabel of
-        Step.WeavingKnitting ->
-            values.fabric
-
-        Step.Ennoblement ->
-            values.dyeing
-
-        Step.Making ->
-            values.making
-
-        _ ->
-            Nothing
-
-
-updateCustomCountryMixInputs : Step.Label -> Maybe String -> CustomCountryMixInputs -> CustomCountryMixInputs
-updateCustomCountryMixInputs stepLabel maybeValue values =
-    case stepLabel of
-        Step.WeavingKnitting ->
-            { values | fabric = maybeValue }
-
-        Step.Ennoblement ->
-            { values | dyeing = maybeValue }
-
-        Step.Making ->
-            { values | making = maybeValue }
-
-        _ ->
-            values
-
-
-validateCustomCountryMixInput : Step.Label -> CustomCountryMixInputs -> Maybe Unit.Impact
-validateCustomCountryMixInput stepLabel =
-    getCustomCountryMixInput stepLabel
-        >> Maybe.andThen String.toFloat
-        >> Maybe.map Unit.impact
 
 
 init :
@@ -157,7 +100,6 @@ init trigram funit { detailed } maybeQuery ({ db } as session) =
       , query = query
       , detailed = detailed
       , modal = NoModal
-      , customCountryMixInputs = toCustomCountryMixFormInputs query.customCountryMixes
       , impact = db.impacts |> Impact.getDefinition trigram |> Result.withDefault Impact.default
       , funit = funit
       }
@@ -176,51 +118,19 @@ init trigram funit { detailed } maybeQuery ({ db } as session) =
     )
 
 
-toCustomCountryMixFormInputs : Inputs.CustomCountryMixes -> CustomCountryMixInputs
-toCustomCountryMixFormInputs { fabric, dyeing, making } =
-    let
-        mapToImpact =
-            Maybe.map (Unit.impactToFloat >> String.fromFloat)
-    in
-    { fabric = mapToImpact fabric
-    , dyeing = mapToImpact dyeing
-    , making = mapToImpact making
-    }
-
-
 updateQuery : Inputs.Query -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
 updateQuery query ( model, session, msg ) =
     ( { model
         | query = query
         , simulator = Simulator.compute session.db query
-        , customCountryMixInputs = toCustomCountryMixFormInputs query.customCountryMixes
       }
     , session
     , msg
     )
 
 
-updateQueryCustomCountryMix : Step.Label -> Maybe Unit.Impact -> Inputs.Query -> Inputs.Query
-updateQueryCustomCountryMix stepLabel maybeValue ({ customCountryMixes } as query) =
-    { query
-        | customCountryMixes =
-            case stepLabel of
-                Step.WeavingKnitting ->
-                    { customCountryMixes | fabric = maybeValue }
-
-                Step.Ennoblement ->
-                    { customCountryMixes | dyeing = maybeValue }
-
-                Step.Making ->
-                    { customCountryMixes | making = maybeValue }
-
-                _ ->
-                    customCountryMixes
-    }
-
-
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
-update ({ db, navKey } as session) msg ({ customCountryMixInputs, query } as model) =
+update ({ db, navKey } as session) msg ({ query } as model) =
     case msg of
         CloseModal ->
             ( { model | modal = NoModal }, session, Cmd.none )
@@ -234,12 +144,6 @@ update ({ db, navKey } as session) msg ({ customCountryMixInputs, query } as mod
         NoOp ->
             ( model, session, Cmd.none )
 
-        OpenCustomCountryMixModal step ->
-            ( { model | modal = CustomCountryMixModal step }
-            , session
-            , Dom.focus "customCountryMix" |> Task.attempt (always NoOp)
-            )
-
         OpenDocModal path ->
             ( { model | modal = GitbookModal RemoteData.Loading }
             , session
@@ -249,25 +153,6 @@ update ({ db, navKey } as session) msg ({ customCountryMixInputs, query } as mod
         Reset ->
             ( model, session, Cmd.none )
                 |> updateQuery Inputs.defaultQuery
-
-        ResetCustomCountryMix stepLabel ->
-            ( { model
-                | modal = NoModal
-                , customCountryMixInputs =
-                    customCountryMixInputs
-                        |> updateCustomCountryMixInputs stepLabel Nothing
-              }
-            , session
-            , Cmd.none
-            )
-                |> updateQuery (updateQueryCustomCountryMix stepLabel Nothing query)
-
-        SubmitCustomCountryMix stepLabel Nothing ->
-            model |> update session (ResetCustomCountryMix stepLabel)
-
-        SubmitCustomCountryMix stepLabel (Just customCountryMix) ->
-            ( { model | modal = NoModal }, session, Cmd.none )
-                |> updateQuery (updateQueryCustomCountryMix stepLabel (Just customCountryMix) query)
 
         SwitchFunctionalUnit funit ->
             ( model
@@ -289,16 +174,6 @@ update ({ db, navKey } as session) msg ({ customCountryMixInputs, query } as mod
             ( model, session, Cmd.none )
                 |> updateQuery { query | airTransportRatio = airTransportRatio }
 
-        UpdateCustomCountryMixInput stepLabel customCountryMixInput ->
-            ( { model
-                | customCountryMixInputs =
-                    customCountryMixInputs
-                        |> updateCustomCountryMixInputs stepLabel (Just customCountryMixInput)
-              }
-            , session
-            , Cmd.none
-            )
-
         UpdateDyeingWeighting dyeingWeighting ->
             ( model, session, Cmd.none )
                 |> updateQuery { query | dyeingWeighting = dyeingWeighting }
@@ -313,7 +188,7 @@ update ({ db, navKey } as session) msg ({ customCountryMixInputs, query } as mod
                     ( { model | massInput = massInput }, session, Cmd.none )
 
         UpdateMaterial materialId ->
-            case Material.findByUuid materialId db.materials of
+            case Material.findById materialId db.materials of
                 Ok material ->
                     ( model, session, Cmd.none )
                         |> updateQuery (Inputs.updateMaterial material query)
@@ -339,29 +214,7 @@ update ({ db, navKey } as session) msg ({ customCountryMixInputs, query } as mod
                 |> updateQuery { query | recycledRatio = recycledRatio }
 
         UpdateStepCountry index code ->
-            let
-                updatedCustomCountryMixInputs =
-                    -- Reset the step's custom country mix form input on country change
-                    case index of
-                        1 ->
-                            customCountryMixInputs
-                                |> updateCustomCountryMixInputs Step.WeavingKnitting Nothing
-
-                        2 ->
-                            customCountryMixInputs
-                                |> updateCustomCountryMixInputs Step.Ennoblement Nothing
-
-                        3 ->
-                            customCountryMixInputs
-                                |> updateCustomCountryMixInputs Step.Making Nothing
-
-                        _ ->
-                            customCountryMixInputs
-            in
-            ( { model | customCountryMixInputs = updatedCustomCountryMixInputs }
-            , session
-            , Cmd.none
-            )
+            ( model, session, Cmd.none )
                 |> updateQuery (Inputs.updateStepCountry index code query)
 
 
@@ -394,8 +247,8 @@ materialFormSet db recycledRatio material =
 
         toOption m =
             option
-                [ value <| Process.uuidToString m.uuid
-                , selected (material.uuid == m.uuid)
+                [ value <| Material.idToString m.id
+                , selected (material.id == m.id)
                 , title m.name
                 ]
                 [ text m.shortName ]
@@ -423,7 +276,7 @@ materialFormSet db recycledRatio material =
                 |> select
                     [ id "material"
                     , class "form-select"
-                    , onInput (Process.Uuid >> UpdateMaterial)
+                    , onInput (Material.Id >> UpdateMaterial)
                     ]
             ]
         , div [ class "col-md-6 mb-2" ]
@@ -486,7 +339,6 @@ lifeCycleStepsView db { detailed, funit, impact } simulator =
                     , index = index
                     , current = current
                     , next = Array.get (index + 1) simulator.lifeCycle
-                    , openCustomCountryMixModal = OpenCustomCountryMixModal
                     , openDocModal = OpenDocModal
                     , updateCountry = UpdateStepCountry
                     , updateAirTransportRatio = UpdateAirTransportRatio
@@ -566,93 +418,6 @@ feedbackView =
         ]
 
 
-customCountryMixModal : Model -> Step -> Html Msg
-customCountryMixModal { customCountryMixInputs } step =
-    let
-        countryDefault =
-            step.country.electricityProcess
-                |> Process.getImpact (Impact.trg "cch")
-                |> Unit.impactToFloat
-                |> String.fromFloat
-
-        customCountryMixInput =
-            customCountryMixInputs
-                |> getCustomCountryMixInput step.label
-
-        customCountryMixInputValue =
-            customCountryMixInput
-                |> Maybe.withDefault countryDefault
-
-        maybeCo2e =
-            customCountryMixInputs
-                |> validateCustomCountryMixInput step.label
-
-        formIsValid =
-            (customCountryMixInput == Nothing)
-                || (Maybe.andThen String.toFloat customCountryMixInput /= Nothing)
-    in
-    ModalView.view
-        { size = ModalView.Standard
-        , close = CloseModal
-        , noOp = NoOp
-        , title =
-            String.join " "
-                [ "Personnalisation du mix électrique"
-                , step.country.name
-                , "pour"
-                , Step.labelToString step.label
-                ]
-        , formAction = Just (SubmitCustomCountryMix step.label maybeCo2e)
-        , content =
-            [ div []
-                [ label [ class "form-label fw-bold", for "customCountryMix" ]
-                    [ text "Impact personnalisé" ]
-                , div [ class "input-group" ]
-                    [ input
-                        [ type_ "number"
-                        , id "customCountryMix" -- Note: only one widget instance on a single page
-                        , class "form-control no-arrows"
-                        , classList [ ( "is-invalid", not formIsValid ) ]
-                        , Attr.min "0"
-                        , Attr.max "1.7"
-                        , Attr.step "0.000001"
-                        , onInput (UpdateCustomCountryMixInput step.label)
-                        , value customCountryMixInputValue
-                        ]
-                        []
-                    , span [ class "input-group-text fs-7" ] [ text "kgCO₂e/kWh" ]
-                    ]
-                , if not formIsValid then
-                    div [ class "invalid-feedback", style "display" "block" ]
-                        [ text "Attention, cette valeur est invalide. Vérifiez votre saisie." ]
-
-                  else
-                    text ""
-                , div [ class "form-text mt-2 text-center" ]
-                    [ """Vous trouverez de l'aide dans la
-                         [documentation dédiée](https://fabrique-numerique.gitbook.io/wikicarbone/methodologie/electricite#parametrage-manuel-de-limpact-carbone)."""
-                        |> MarkdownView.simple [ class "bottomed-paragraphs" ]
-                    ]
-                ]
-            ]
-        , footer =
-            [ button
-                [ type_ "button"
-                , class "btn btn-secondary"
-                , disabled (customCountryMixInputValue == countryDefault)
-                , onClick (ResetCustomCountryMix step.label)
-                ]
-                [ text "Réinitialiser" ]
-            , button
-                [ type_ "submit"
-                , class "btn btn-primary"
-                , disabled (not formIsValid)
-                ]
-                [ text "Valider" ]
-            ]
-        }
-
-
 gitbookModalView : WebData Gitbook.Page -> Html Msg
 gitbookModalView pageData =
     case pageData of
@@ -726,9 +491,6 @@ modalView model =
     case model.modal of
         NoModal ->
             text ""
-
-        CustomCountryMixModal step ->
-            customCountryMixModal model step
 
         GitbookModal pageData ->
             gitbookModalView pageData

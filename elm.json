@@ -22,7 +22,6 @@
             "elm-community/list-extra": "8.5.1",
             "elm-community/result-extra": "2.4.0",
             "gingko/time-distance": "2.3.0",
-            "hrldcpr/elm-cons": "3.1.0",
             "ianmackenzie/elm-units": "2.9.0",
             "krisajenkins/remotedata": "6.0.1",
             "ohanhi/remotedata-http": "4.0.0",

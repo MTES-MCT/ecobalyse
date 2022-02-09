@@ -1,13 +1,11 @@
 module Data.Inputs exposing
-    ( CustomCountryMixes
-    , Inputs
-    , InputsMaterials
+    ( Inputs
+    , MaterialInput
+    , MaterialQuery
     , Query
-    , QueryMaterials
     , b64decode
     , b64encode
     , countryList
-    , defaultCustomCountryMixes
     , defaultQuery
     , encode
     , encodeQuery
@@ -18,7 +16,7 @@ module Data.Inputs exposing
     , parseBase64Query
     , presets
     , robeCircuitBangladesh
-    , setCustomCountryMix
+    , tShirtCotonAcryliqueFrance
     , tShirtCotonAsie
     , tShirtCotonEurope
     , tShirtCotonFrance
@@ -34,7 +32,6 @@ import Base64
 import Data.Country as Country exposing (Country)
 import Data.Db exposing (Db)
 import Data.Material as Material exposing (Material)
-import Data.Process as Process
 import Data.Product as Product exposing (Product)
 import Data.Unit as Unit
 import Json.Decode as Decode exposing (Decoder)
@@ -45,18 +42,17 @@ import Result.Extra as RE
 import Url.Parser as Parser exposing (Parser)
 
 
-type alias InputsMaterials =
+type alias MaterialInput =
     { material : Material
     , share : Unit.Ratio
-
-    -- , recycledRatio : Unit.Ratio
+    , recycledRatio : Unit.Ratio
     }
 
 
 type alias Inputs =
     { mass : Mass
     , material : Material
-    , materials : List InputsMaterials
+    , materials : List MaterialInput
     , product : Product
     , countryMaterial : Country
     , countryFabric : Country
@@ -68,24 +64,22 @@ type alias Inputs =
     , dyeingWeighting : Maybe Unit.Ratio
     , airTransportRatio : Maybe Unit.Ratio
     , recycledRatio : Maybe Unit.Ratio
-    , customCountryMixes : CustomCountryMixes
     , quality : Maybe Unit.Quality
     }
 
 
-type alias QueryMaterials =
-    { uuid : Process.Uuid
+type alias MaterialQuery =
+    { id : Material.Id
     , share : Unit.Ratio
-
-    -- , recycledRatio : Unit.Ratio
+    , recycledRatio : Unit.Ratio
     }
 
 
 type alias Query =
-    -- a shorter version than Inputs (identifiers only)
+    -- a shorter version than of (identifiers only)
     { mass : Mass
-    , material : Process.Uuid
-    , materials : List QueryMaterials
+    , material : Material.Id
+    , materials : List MaterialQuery
     , product : Product.Id
     , countryFabric : Country.Code
     , countryDyeing : Country.Code
@@ -93,15 +87,7 @@ type alias Query =
     , dyeingWeighting : Maybe Unit.Ratio
     , airTransportRatio : Maybe Unit.Ratio
     , recycledRatio : Maybe Unit.Ratio
-    , customCountryMixes : CustomCountryMixes
     , quality : Maybe Unit.Quality
-    }
-
-
-type alias CustomCountryMixes =
-    { fabric : Maybe Unit.Impact
-    , dyeing : Maybe Unit.Impact
-    , making : Maybe Unit.Impact
     }
 
 
@@ -109,11 +95,22 @@ fromQuery : Db -> Query -> Result String Inputs
 fromQuery db query =
     let
         material =
-            db.materials |> Material.findByUuid query.material
+            db.materials |> Material.findById query.material
 
         materials =
             query.materials
-                |> List.map (\{ uuid } -> Material.findByUuid uuid db.materials)
+                |> List.map
+                    -- FIXME: move to fn
+                    (\{ id, share, recycledRatio } ->
+                        Material.findById id db.materials
+                            |> Result.map
+                                (\material_ ->
+                                    { material = material_
+                                    , share = share
+                                    , recycledRatio = recycledRatio
+                                    }
+                                )
+                    )
                 |> RE.combine
 
         franceResult =
@@ -125,7 +122,13 @@ fromQuery db query =
         |> RE.andMap materials
         |> RE.andMap (db.products |> Product.findById query.product)
         -- The material country is constrained to be the material's default country
-        |> RE.andMap (material |> Result.andThen (\{ defaultCountry } -> Country.findByCode defaultCountry db.countries))
+        |> RE.andMap
+            (material
+                |> Result.andThen
+                    (\{ defaultCountry } ->
+                        Country.findByCode defaultCountry db.countries
+                    )
+            )
         |> RE.andMap (db.countries |> Country.findByCode query.countryFabric)
         |> RE.andMap (db.countries |> Country.findByCode query.countryDyeing)
         |> RE.andMap (db.countries |> Country.findByCode query.countryMaking)
@@ -138,15 +141,22 @@ fromQuery db query =
         |> RE.andMap (Ok query.dyeingWeighting)
         |> RE.andMap (Ok query.airTransportRatio)
         |> RE.andMap (Ok query.recycledRatio)
-        |> RE.andMap (Ok query.customCountryMixes)
         |> RE.andMap (Ok query.quality)
 
 
 toQuery : Inputs -> Query
 toQuery inputs =
     { mass = inputs.mass
-    , material = inputs.material.uuid
-    , materials = []
+    , material = inputs.material.id
+    , materials =
+        inputs.materials
+            |> List.map
+                (\{ material, share, recycledRatio } ->
+                    { id = material.id
+                    , share = share
+                    , recycledRatio = recycledRatio
+                    }
+                )
     , product = inputs.product.id
     , countryFabric = inputs.countryFabric.code
     , countryDyeing = inputs.countryDyeing.code
@@ -154,38 +164,7 @@ toQuery inputs =
     , dyeingWeighting = inputs.dyeingWeighting
     , airTransportRatio = inputs.airTransportRatio
     , recycledRatio = inputs.recycledRatio
-    , customCountryMixes = inputs.customCountryMixes
     , quality = inputs.quality
-    }
-
-
-defaultCustomCountryMixes : CustomCountryMixes
-defaultCustomCountryMixes =
-    { fabric = Nothing
-    , dyeing = Nothing
-    , making = Nothing
-    }
-
-
-setCustomCountryMix : Int -> Maybe Unit.Impact -> Query -> Query
-setCustomCountryMix index value ({ customCountryMixes } as query) =
-    { query
-        | customCountryMixes =
-            case index of
-                1 ->
-                    -- FIXME: index 1 is WeavingKnitting step; how could we use the step label instead?
-                    { customCountryMixes | fabric = value }
-
-                2 ->
-                    -- FIXME: index 2 is Ennoblement step; how could we use the step label instead?
-                    { customCountryMixes | dyeing = value }
-
-                3 ->
-                    -- FIXME: index 3 is Making step; how could we use the step label instead?
-                    { customCountryMixes | making = value }
-
-                _ ->
-                    customCountryMixes
     }
 
 
@@ -239,16 +218,15 @@ updateStepCountry index code query =
             else
                 query.airTransportRatio
     }
-        |> setCustomCountryMix index Nothing
 
 
 updateMaterial : Material -> Query -> Query
 updateMaterial material query =
     { query
-        | material = material.uuid
+        | material = material.id
         , recycledRatio =
             -- ensure resetting recycledRatio when material is changed
-            if material.uuid /= query.material then
+            if material.id /= query.material then
                 Nothing
 
             else
@@ -279,16 +257,46 @@ tShirtCotonFrance : Query
 tShirtCotonFrance =
     -- T-shirt circuit France
     { mass = Mass.kilograms 0.17
-    , material = Process.Uuid "f211bbdb-415c-46fd-be4d-ddf199575b44"
-    , materials = []
-    , product = Product.Id "13"
+    , material = Material.Id "coton"
+    , materials =
+        [ { id = Material.Id "coton"
+          , share = Unit.ratio 1
+          , recycledRatio = Unit.ratio 0
+          }
+        ]
+    , product = Product.Id "tshirt"
     , countryFabric = Country.Code "FR"
     , countryDyeing = Country.Code "FR"
     , countryMaking = Country.Code "FR"
     , dyeingWeighting = Nothing
     , airTransportRatio = Nothing
     , recycledRatio = Nothing
-    , customCountryMixes = defaultCustomCountryMixes
+    , quality = Nothing
+    }
+
+
+tShirtCotonAcryliqueFrance : Query
+tShirtCotonAcryliqueFrance =
+    -- T-shirt circuit France
+    { mass = Mass.kilograms 0.17
+    , material = Material.Id "coton"
+    , materials =
+        [ { id = Material.Id "coton"
+          , share = Unit.ratio 0.5
+          , recycledRatio = Unit.ratio 0
+          }
+        , { id = Material.Id "acrylique"
+          , share = Unit.ratio 0.5
+          , recycledRatio = Unit.ratio 0
+          }
+        ]
+    , product = Product.Id "tshirt"
+    , countryFabric = Country.Code "FR"
+    , countryDyeing = Country.Code "FR"
+    , countryMaking = Country.Code "FR"
+    , dyeingWeighting = Nothing
+    , airTransportRatio = Nothing
+    , recycledRatio = Nothing
     , quality = Nothing
     }
 
@@ -297,9 +305,9 @@ tShirtPolyamideFrance : Query
 tShirtPolyamideFrance =
     -- T-shirt polyamide (provenance France) circuit France
     { tShirtCotonFrance
-        | material = Process.Uuid "182fa424-1f49-4728-b0f1-cb4e4ab36392"
+        | material = Material.Id "pa"
         , materials =
-            [ { uuid = Process.Uuid "182fa424-1f49-4728-b0f1-cb4e4ab36392"
+            [ { id = Material.Id "pa"
               , share = Unit.ratio 1
               , recycledRatio = Unit.ratio 0
               }
@@ -344,16 +352,20 @@ jupeCircuitAsie : Query
 jupeCircuitAsie =
     -- Jupe circuit Asie
     { mass = Mass.kilograms 0.3
-    , material = Process.Uuid "aee6709f-0864-4fc5-8760-68cb644a0021"
-    , materials = []
-    , product = Product.Id "8"
+    , material = Material.Id "acrylique"
+    , materials =
+        [ { id = Material.Id "acrylique"
+          , share = Unit.ratio 1
+          , recycledRatio = Unit.ratio 0
+          }
+        ]
+    , product = Product.Id "jupe"
     , countryFabric = Country.Code "CN"
     , countryDyeing = Country.Code "CN"
     , countryMaking = Country.Code "CN"
     , dyeingWeighting = Nothing
     , airTransportRatio = Nothing
     , recycledRatio = Nothing
-    , customCountryMixes = defaultCustomCountryMixes
     , quality = Nothing
     }
 
@@ -362,16 +374,20 @@ manteauCircuitEurope : Query
 manteauCircuitEurope =
     -- Manteau circuit Europe
     { mass = Mass.kilograms 0.95
-    , material = Process.Uuid "380c0d9c-2840-4390-bd3f-5c960f26f5ed"
-    , materials = []
-    , product = Product.Id "9"
+    , material = Material.Id "cachemire"
+    , materials =
+        [ { id = Material.Id "cachemire"
+          , share = Unit.ratio 1
+          , recycledRatio = Unit.ratio 0
+          }
+        ]
+    , product = Product.Id "manteau"
     , countryFabric = Country.Code "TR"
     , countryDyeing = Country.Code "TN"
     , countryMaking = Country.Code "ES"
     , dyeingWeighting = Nothing
     , airTransportRatio = Nothing
     , recycledRatio = Nothing
-    , customCountryMixes = defaultCustomCountryMixes
     , quality = Nothing
     }
 
@@ -380,16 +396,20 @@ pantalonCircuitEurope : Query
 pantalonCircuitEurope =
     -- Pantalon circuit Europe
     { mass = Mass.kilograms 0.45
-    , material = Process.Uuid "e5a6d538-f932-4242-98b4-3a0c6439629c"
-    , materials = []
-    , product = Product.Id "10"
+    , material = Material.Id "lin-filasse"
+    , materials =
+        [ { id = Material.Id "lin-filasse"
+          , share = Unit.ratio 1
+          , recycledRatio = Unit.ratio 0
+          }
+        ]
+    , product = Product.Id "pantalon"
     , countryFabric = Country.Code "TR"
     , countryDyeing = Country.Code "TR"
     , countryMaking = Country.Code "TR"
     , dyeingWeighting = Nothing
     , airTransportRatio = Nothing
     , recycledRatio = Nothing
-    , customCountryMixes = defaultCustomCountryMixes
     , quality = Nothing
     }
 
@@ -398,16 +418,20 @@ robeCircuitBangladesh : Query
 robeCircuitBangladesh =
     -- Robe circuit Bangladesh
     { mass = Mass.kilograms 0.5
-    , material = Process.Uuid "7a1ccc4a-2ea7-48dc-9ef0-d57066ea8fa5"
-    , materials = []
-    , product = Product.Id "12"
+    , material = Material.Id "aramide"
+    , materials =
+        [ { id = Material.Id "aramide"
+          , share = Unit.ratio 1
+          , recycledRatio = Unit.ratio 0
+          }
+        ]
+    , product = Product.Id "robe"
     , countryFabric = Country.Code "BD"
     , countryDyeing = Country.Code "PT"
     , countryMaking = Country.Code "TN"
     , dyeingWeighting = Nothing
     , airTransportRatio = Nothing
     , recycledRatio = Nothing
-    , customCountryMixes = defaultCustomCountryMixes
     , quality = Nothing
     }
 
@@ -428,6 +452,7 @@ encode inputs =
     Encode.object
         [ ( "mass", Encode.float (Mass.inKilograms inputs.mass) )
         , ( "material", Material.encode inputs.material )
+        , ( "materials", Encode.list encodeMaterialInput inputs.materials )
         , ( "product", Product.encode inputs.product )
         , ( "countryFabric", Country.encode inputs.countryFabric )
         , ( "countryDyeing", Country.encode inputs.countryDyeing )
@@ -435,25 +460,16 @@ encode inputs =
         , ( "dyeingWeighting", inputs.dyeingWeighting |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
         , ( "airTransportRatio", inputs.airTransportRatio |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
         , ( "recycledRatio", inputs.recycledRatio |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
-        , ( "customCountryMixes", encodeCustomCountryMixes inputs.customCountryMixes )
         , ( "quality", inputs.quality |> Maybe.map Unit.encodeQuality |> Maybe.withDefault Encode.null )
         ]
 
 
-decodeCustomCountryMixes : Decoder CustomCountryMixes
-decodeCustomCountryMixes =
-    Decode.map3 CustomCountryMixes
-        (Decode.field "fabric" (Decode.maybe Unit.decodeImpact))
-        (Decode.field "dyeing" (Decode.maybe Unit.decodeImpact))
-        (Decode.field "making" (Decode.maybe Unit.decodeImpact))
-
-
-encodeCustomCountryMixes : CustomCountryMixes -> Encode.Value
-encodeCustomCountryMixes v =
+encodeMaterialInput : MaterialInput -> Encode.Value
+encodeMaterialInput v =
     Encode.object
-        [ ( "fabric", v.fabric |> Maybe.map Unit.encodeImpact |> Maybe.withDefault Encode.null )
-        , ( "dyeing", v.dyeing |> Maybe.map Unit.encodeImpact |> Maybe.withDefault Encode.null )
-        , ( "making", v.making |> Maybe.map Unit.encodeImpact |> Maybe.withDefault Encode.null )
+        [ ( "material", Material.encode v.material )
+        , ( "share", Unit.encodeRatio v.share )
+        , ( "recycledRatio", Unit.encodeRatio v.recycledRatio )
         ]
 
 
@@ -461,8 +477,8 @@ decodeQuery : Decoder Query
 decodeQuery =
     Decode.succeed Query
         |> Pipe.required "mass" (Decode.map Mass.kilograms Decode.float)
-        |> Pipe.required "material" (Decode.map Process.Uuid Decode.string)
-        |> Pipe.required "material" (Decode.succeed [])
+        |> Pipe.required "material" (Decode.map Material.Id Decode.string)
+        |> Pipe.required "materials" (Decode.list decodeMaterialQuery)
         |> Pipe.required "product" (Decode.map Product.Id Decode.string)
         |> Pipe.required "countryFabric" (Decode.map Country.Code Decode.string)
         |> Pipe.required "countryDyeing" (Decode.map Country.Code Decode.string)
@@ -470,17 +486,23 @@ decodeQuery =
         |> Pipe.required "dyeingWeighting" (Decode.maybe Unit.decodeRatio)
         |> Pipe.required "airTransportRatio" (Decode.maybe Unit.decodeRatio)
         |> Pipe.required "recycledRatio" (Decode.maybe Unit.decodeRatio)
-        |> Pipe.required "customCountryMixes" decodeCustomCountryMixes
         |> Pipe.required "quality" (Decode.maybe Unit.decodeQuality)
+
+
+decodeMaterialQuery : Decoder MaterialQuery
+decodeMaterialQuery =
+    Decode.succeed MaterialQuery
+        |> Pipe.required "id" (Decode.map Material.Id Decode.string)
+        |> Pipe.required "share" Unit.decodeRatio
+        |> Pipe.required "ratio" Unit.decodeRatio
 
 
 encodeQuery : Query -> Encode.Value
 encodeQuery query =
     Encode.object
         [ ( "mass", Encode.float (Mass.inKilograms query.mass) )
-        , ( "material", query.material |> Process.uuidToString |> Encode.string )
-
-        -- , ( "materials", query.materials |> Encode.list )
+        , ( "material", Material.encodeId query.material )
+        , ( "materials", Encode.list encodeMaterialQuery query.materials )
         , ( "product", query.product |> Product.idToString |> Encode.string )
         , ( "countryFabric", query.countryFabric |> Country.codeToString |> Encode.string )
         , ( "countryDyeing", query.countryDyeing |> Country.codeToString |> Encode.string )
@@ -488,8 +510,16 @@ encodeQuery query =
         , ( "dyeingWeighting", query.dyeingWeighting |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
         , ( "airTransportRatio", query.airTransportRatio |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
         , ( "recycledRatio", query.recycledRatio |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
-        , ( "customCountryMixes", encodeCustomCountryMixes query.customCountryMixes )
         , ( "quality", query.quality |> Maybe.map Unit.encodeQuality |> Maybe.withDefault Encode.null )
+        ]
+
+
+encodeMaterialQuery : MaterialQuery -> Encode.Value
+encodeMaterialQuery v =
+    Encode.object
+        [ ( "id", Material.encodeId v.id )
+        , ( "share", Unit.encodeRatio v.share )
+        , ( "recycledRatio", Unit.encodeRatio v.recycledRatio )
         ]
 
 

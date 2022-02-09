@@ -77,7 +77,7 @@ type Dataset
     = Countries (Maybe Country.Code)
     | Impacts (Maybe Impact.Trigram)
     | Products (Maybe Product.Id)
-    | Materials (Maybe Process.Uuid)
+    | Materials (Maybe Material.Id)
 
 
 datasets : List Dataset
@@ -151,7 +151,7 @@ datasetSlugWithId dataset idString =
             Products (Just (Product.Id idString))
 
         Materials _ ->
-            Materials (Just (Process.Uuid idString))
+            Materials (Just (Material.Id idString))
 
 
 toDatasetRoutePath : Dataset -> List String
@@ -178,5 +178,5 @@ toDatasetRoutePath dataset =
         Materials Nothing ->
             [ datasetSlug dataset ]
 
-        Materials (Just uuid) ->
-            [ datasetSlug dataset, Process.uuidToString uuid ]
+        Materials (Just id) ->
+            [ datasetSlug dataset, Material.idToString id ]
