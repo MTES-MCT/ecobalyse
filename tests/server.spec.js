@@ -17,13 +17,15 @@ describe("Web", () => {
 
 describe("API", () => {
   const successQuery =
-    // Minimalistic successful query params.
+    // Successful query params.
     // Note: it's important to pass query string parameters as actual strings here,
     // so we can test for actual qs parsing from the server.
     [
       "mass=0.17",
       "product=tshirt",
       "material=coton",
+      "materials[]=coton;0.5;0",
+      "materials[]=acrylique;0.5;0",
       "countryFabric=CN",
       "countryDyeing=CN",
       "countryMaking=CN",
@@ -104,6 +106,14 @@ describe("API", () => {
       expectFieldErrorMessage(
         await makeRequest("/api/simulator", ["material=xxx"]),
         "material",
+        /Matière non trouvée id=xxx./,
+      );
+    });
+
+    it("should validate the materials param", async () => {
+      expectFieldErrorMessage(
+        await makeRequest("/api/simulator", ["materials[]=xxx;1;0"]),
+        "materials",
         /Matière non trouvée id=xxx./,
       );
     });

@@ -494,7 +494,7 @@ decodeMaterialQuery =
     Decode.succeed MaterialQuery
         |> Pipe.required "id" (Decode.map Material.Id Decode.string)
         |> Pipe.required "share" Unit.decodeRatio
-        |> Pipe.required "ratio" Unit.decodeRatio
+        |> Pipe.required "recycledRatio" Unit.decodeRatio
 
 
 encodeQuery : Query -> Encode.Value
