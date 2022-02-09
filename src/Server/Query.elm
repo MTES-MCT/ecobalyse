@@ -162,25 +162,7 @@ materialListParser key materials =
     Query.custom (key ++ "[]")
         (List.map (parseMaterial_ materials)
             >> RE.combine
-            >> Result.andThen
-                (\list ->
-                    if list == [] then
-                        Err "La liste des matières est vide."
-
-                    else
-                        let
-                            total =
-                                list |> List.map (.share >> Unit.ratioToFloat) |> List.sum
-                        in
-                        if total /= 1 then
-                            Err <|
-                                "La somme des parts de matières doit être égale à 1 (ici : "
-                                    ++ String.fromFloat total
-                                    ++ ")"
-
-                        else
-                            Ok list
-                )
+            >> Result.andThen validateMaterialList
             >> Result.mapError (\err -> ( key, err ))
         )
 
@@ -225,6 +207,26 @@ parseRatio_ string =
                     Ok ratio
             )
         |> Result.map Unit.ratio
+
+
+validateMaterialList : List Inputs.MaterialQuery -> Result String (List Inputs.MaterialQuery)
+validateMaterialList list =
+    if list == [] then
+        Err "La liste des matières est vide."
+
+    else
+        let
+            total =
+                list |> List.map (.share >> Unit.ratioToFloat) |> List.sum
+        in
+        if total /= 1 then
+            Err <|
+                "La somme des parts de matières doit être égale à 1 (ici : "
+                    ++ String.fromFloat total
+                    ++ ")"
+
+        else
+            Ok list
 
 
 countryParser : String -> List Country -> Query.Parser (ParseResult Country.Code)

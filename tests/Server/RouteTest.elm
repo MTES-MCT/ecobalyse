@@ -20,21 +20,88 @@ suite =
             -- FIXME: when done with multiple materials, remove single material query string param
             [ describe "Server.endpoint"
                 [ describe "endpoints"
-                    [ getEndpoint db "GET" "/simulator?mass=0.17&product=tshirt&material=coton&materials[]=coton;1;0&countryFabric=FR&countryDyeing=FR&countryMaking=FR"
-                        |> Expect.equal (Just <| Route.Get <| Route.Simulator <| Ok tShirtCotonFrance)
+                    [ [ "/simulator?mass=0.17"
+                      , "product=tshirt"
+                      , "material=coton"
+                      , "materials[]=coton;1;0"
+                      , "countryFabric=FR"
+                      , "countryDyeing=FR"
+                      , "countryMaking=FR"
+                      ]
+                        |> String.join "&"
+                        |> getEndpoint db "GET"
+                        |> Expect.equal
+                            (Just <|
+                                Route.Get <|
+                                    Route.Simulator <|
+                                        Ok tShirtCotonFrance
+                            )
                         |> asTest "should handle the /simulator endpoint"
-                    , getEndpoint db "GET" "/simulator?mass=0.17&product=tshirt&material=coton&materials[]=coton;1;0&countryFabric=FR&countryDyeing=FR&countryMaking=FR&quality=1.2"
-                        |> Expect.equal (Just <| Route.Get <| Route.Simulator <| Ok { tShirtCotonFrance | quality = Just (Unit.quality 1.2) })
+                    , [ "/simulator?mass=0.17"
+                      , "product=tshirt"
+                      , "material=coton"
+                      , "materials[]=coton;1;0"
+                      , "countryFabric=FR"
+                      , "countryDyeing=FR"
+                      , "countryMaking=FR"
+                      , "quality=1.2"
+                      ]
+                        |> String.join "&"
+                        |> getEndpoint db "GET"
+                        |> Expect.equal
+                            (Just <|
+                                Route.Get <|
+                                    Route.Simulator <|
+                                        Ok { tShirtCotonFrance | quality = Just (Unit.quality 1.2) }
+                            )
                         |> asTest "should handle the /simulator endpoint with the quality parameter set"
-                    , getEndpoint db "GET" "/simulator/fwe?mass=0.17&product=tshirt&material=coton&materials[]=coton;1;0&countryFabric=FR&countryDyeing=FR&countryMaking=FR"
-                        |> Expect.equal (Just <| Route.Get <| Route.SimulatorSingle (Impact.trg "fwe") <| Ok tShirtCotonFrance)
+                    , [ "/simulator/fwe?mass=0.17"
+                      , "product=tshirt"
+                      , "material=coton"
+                      , "materials[]=coton;1;0"
+                      , "countryFabric=FR"
+                      , "countryDyeing=FR"
+                      , "countryMaking=FR"
+                      ]
+                        |> String.join "&"
+                        |> getEndpoint db "GET"
+                        |> Expect.equal
+                            (Just <|
+                                Route.Get <|
+                                    Route.SimulatorSingle (Impact.trg "fwe") <|
+                                        Ok tShirtCotonFrance
+                            )
                         |> asTest "should handle the /simulator/{impact} endpoint"
-                    , getEndpoint db "GET" "/simulator/detailed?mass=0.17&product=tshirt&material=coton&materials[]=coton;1;0&countryFabric=FR&countryDyeing=FR&countryMaking=FR"
-                        |> Expect.equal (Just <| Route.Get <| Route.SimulatorDetailed <| Ok tShirtCotonFrance)
+                    , [ "/simulator/detailed?mass=0.17"
+                      , "product=tshirt"
+                      , "material=coton"
+                      , "materials[]=coton;1;0"
+                      , "countryFabric=FR"
+                      , "countryDyeing=FR"
+                      , "countryMaking=FR"
+                      ]
+                        |> String.join "&"
+                        |> getEndpoint db "GET"
+                        |> Expect.equal
+                            (Just <|
+                                Route.Get <|
+                                    Route.SimulatorDetailed <|
+                                        Ok tShirtCotonFrance
+                            )
                         |> asTest "should handle the /simulator/detailed endpoint"
                     ]
                 , describe "materials param checks"
-                    [ getEndpoint db "GET" "/simulator?mass=0.17&product=tshirt&material=coton&materials[]=coton;0.5;0&materials[]=acrylique;0.5;0&countryFabric=FR&countryDyeing=FR&countryMaking=FR"
+                    [ [ "/simulator?mass=0.17"
+                      , "product=tshirt"
+                      , "material=coton"
+                      , "materials[]=coton;0.5;0"
+                      , "materials[]=acrylique;0.5;0"
+                      , "countryFabric=FR"
+                      , "countryDyeing=FR"
+                      , "countryMaking=FR"
+                      ]
+                        |> String.join "&"
+                        |> getEndpoint db "GET"
                         |> Maybe.andThen extractQuery
                         |> Maybe.map .materials
                         |> Expect.equal
@@ -92,7 +159,16 @@ suite =
                                 |> Just
                             )
                         |> asTest "should expose query validation errors"
-                    , getEndpoint db "GET" "/simulator?mass=-0.17&product=notAProductID&material=notAnID&materials[]=notAnID&countryFabric=notACountryCode&countryDyeing=notACountryCode&countryMaking=notACountryCode"
+                    , [ "/simulator?mass=-0.17"
+                      , "product=notAProductID"
+                      , "material=notAnID"
+                      , "materials[]=notAnID"
+                      , "countryFabric=notACountryCode"
+                      , "countryDyeing=notACountryCode"
+                      , "countryMaking=notACountryCode"
+                      ]
+                        |> String.join "&"
+                        |> getEndpoint db "GET"
                         |> Maybe.andThen extractErrors
                         |> Expect.equal
                             (Dict.fromList
