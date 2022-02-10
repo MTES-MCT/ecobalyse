@@ -37,6 +37,7 @@ import Data.Unit as Unit
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
+import List.Extra as LE
 import Mass exposing (Mass)
 import Result.Extra as RE
 import Url.Parser as Parser exposing (Parser)
@@ -51,7 +52,6 @@ type alias MaterialInput =
 
 type alias Inputs =
     { mass : Mass
-    , material : Material
     , materials : List MaterialInput
     , product : Product
     , countryMaterial : Country
@@ -78,7 +78,6 @@ type alias MaterialQuery =
 type alias Query =
     -- a shorter version than of (identifiers only)
     { mass : Mass
-    , material : Material.Id
     , materials : List MaterialQuery
     , product : Product.Id
     , countryFabric : Country.Code
@@ -91,44 +90,47 @@ type alias Query =
     }
 
 
+toMaterialInputs : List Material -> List MaterialQuery -> Result String (List MaterialInput)
+toMaterialInputs materials =
+    List.map
+        (\{ id, share, recycledRatio } ->
+            Material.findById id materials
+                |> Result.map
+                    (\material_ ->
+                        { material = material_
+                        , share = share
+                        , recycledRatio = recycledRatio
+                        }
+                    )
+        )
+        >> RE.combine
+
+
+firstMaterialCountry : List Country -> List MaterialInput -> Result String Country
+firstMaterialCountry countries =
+    List.head
+        >> Maybe.map
+            (\{ material } -> Country.findByCode material.defaultCountry countries)
+        >> Result.fromMaybe "La liste de matières est vide."
+        >> RE.join
+
+
 fromQuery : Db -> Query -> Result String Inputs
 fromQuery db query =
     let
-        material =
-            db.materials |> Material.findById query.material
-
         materials =
             query.materials
-                |> List.map
-                    -- FIXME: move to fn
-                    (\{ id, share, recycledRatio } ->
-                        Material.findById id db.materials
-                            |> Result.map
-                                (\material_ ->
-                                    { material = material_
-                                    , share = share
-                                    , recycledRatio = recycledRatio
-                                    }
-                                )
-                    )
-                |> RE.combine
+                |> toMaterialInputs db.materials
 
         franceResult =
             Country.findByCode (Country.Code "FR") db.countries
     in
     Ok Inputs
         |> RE.andMap (Ok query.mass)
-        |> RE.andMap material
         |> RE.andMap materials
         |> RE.andMap (db.products |> Product.findById query.product)
-        -- The material country is constrained to be the material's default country
-        |> RE.andMap
-            (material
-                |> Result.andThen
-                    (\{ defaultCountry } ->
-                        Country.findByCode defaultCountry db.countries
-                    )
-            )
+        -- The material country is constrained to be the first material's default country
+        |> RE.andMap (materials |> Result.andThen (firstMaterialCountry db.countries))
         |> RE.andMap (db.countries |> Country.findByCode query.countryFabric)
         |> RE.andMap (db.countries |> Country.findByCode query.countryDyeing)
         |> RE.andMap (db.countries |> Country.findByCode query.countryMaking)
@@ -147,7 +149,6 @@ fromQuery db query =
 toQuery : Inputs -> Query
 toQuery inputs =
     { mass = inputs.mass
-    , material = inputs.material.id
     , materials =
         inputs.materials
             |> List.map
@@ -220,17 +221,29 @@ updateStepCountry index code query =
     }
 
 
-updateMaterial : Material -> Query -> Query
-updateMaterial material query =
+updateMaterial : Int -> Material -> Query -> Query
+updateMaterial index { id } query =
     { query
-        | material = material.id
-        , recycledRatio =
-            -- ensure resetting recycledRatio when material is changed
-            if material.id /= query.material then
-                Nothing
+        | materials =
+            query.materials
+                |> LE.updateAt index
+                    (\({ share } as m) ->
+                        { m
+                            | id = id
+                            , share = share
+                            , recycledRatio = Unit.ratio 0
+                        }
+                    )
 
-            else
-                query.recycledRatio
+        -- FIXME: check for default material country according to new materials
+        --        selected (see firstMaterialCountry)
+        -- FIXME: ensure we should not do the same with multiple materials
+        -- , recycledRatio =
+        --     -- ensure resetting recycledRatio when material is changed
+        --     if material.id /= query.material then
+        --         Nothing
+        --     else
+        --         query.recycledRatio
     }
 
 
@@ -257,7 +270,6 @@ tShirtCotonFrance : Query
 tShirtCotonFrance =
     -- T-shirt circuit France
     { mass = Mass.kilograms 0.17
-    , material = Material.Id "coton"
     , materials =
         [ { id = Material.Id "coton"
           , share = Unit.ratio 1
@@ -279,7 +291,6 @@ tShirtCotonAcryliqueFrance : Query
 tShirtCotonAcryliqueFrance =
     -- T-shirt circuit France
     { mass = Mass.kilograms 0.17
-    , material = Material.Id "coton"
     , materials =
         [ { id = Material.Id "coton"
           , share = Unit.ratio 0.5
@@ -305,8 +316,7 @@ tShirtPolyamideFrance : Query
 tShirtPolyamideFrance =
     -- T-shirt polyamide (provenance France) circuit France
     { tShirtCotonFrance
-        | material = Material.Id "pa"
-        , materials =
+        | materials =
             [ { id = Material.Id "pa"
               , share = Unit.ratio 1
               , recycledRatio = Unit.ratio 0
@@ -352,7 +362,6 @@ jupeCircuitAsie : Query
 jupeCircuitAsie =
     -- Jupe circuit Asie
     { mass = Mass.kilograms 0.3
-    , material = Material.Id "acrylique"
     , materials =
         [ { id = Material.Id "acrylique"
           , share = Unit.ratio 1
@@ -374,7 +383,6 @@ manteauCircuitEurope : Query
 manteauCircuitEurope =
     -- Manteau circuit Europe
     { mass = Mass.kilograms 0.95
-    , material = Material.Id "cachemire"
     , materials =
         [ { id = Material.Id "cachemire"
           , share = Unit.ratio 1
@@ -396,7 +404,6 @@ pantalonCircuitEurope : Query
 pantalonCircuitEurope =
     -- Pantalon circuit Europe
     { mass = Mass.kilograms 0.45
-    , material = Material.Id "lin-filasse"
     , materials =
         [ { id = Material.Id "lin-filasse"
           , share = Unit.ratio 1
@@ -418,7 +425,6 @@ robeCircuitBangladesh : Query
 robeCircuitBangladesh =
     -- Robe circuit Bangladesh
     { mass = Mass.kilograms 0.5
-    , material = Material.Id "aramide"
     , materials =
         [ { id = Material.Id "aramide"
           , share = Unit.ratio 1
@@ -451,7 +457,6 @@ encode : Inputs -> Encode.Value
 encode inputs =
     Encode.object
         [ ( "mass", Encode.float (Mass.inKilograms inputs.mass) )
-        , ( "material", Material.encode inputs.material )
         , ( "materials", Encode.list encodeMaterialInput inputs.materials )
         , ( "product", Product.encode inputs.product )
         , ( "countryFabric", Country.encode inputs.countryFabric )
@@ -477,7 +482,6 @@ decodeQuery : Decoder Query
 decodeQuery =
     Decode.succeed Query
         |> Pipe.required "mass" (Decode.map Mass.kilograms Decode.float)
-        |> Pipe.required "material" (Decode.map Material.Id Decode.string)
         |> Pipe.required "materials" (Decode.list decodeMaterialQuery)
         |> Pipe.required "product" (Decode.map Product.Id Decode.string)
         |> Pipe.required "countryFabric" (Decode.map Country.Code Decode.string)
@@ -501,7 +505,6 @@ encodeQuery : Query -> Encode.Value
 encodeQuery query =
     Encode.object
         [ ( "mass", Encode.float (Mass.inKilograms query.mass) )
-        , ( "material", Material.encodeId query.material )
         , ( "materials", Encode.list encodeMaterialQuery query.materials )
         , ( "product", query.product |> Product.idToString |> Encode.string )
         , ( "countryFabric", query.countryFabric |> Country.codeToString |> Encode.string )

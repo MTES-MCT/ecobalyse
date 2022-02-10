@@ -27,14 +27,38 @@ type alias Config =
     }
 
 
+viewMaterials : List Inputs.MaterialInput -> Html msg
+viewMaterials materials =
+    materials
+        |> List.map
+            (\{ material, share, recycledRatio } ->
+                span []
+                    [ Format.ratio share
+                    , text " "
+                    , material
+                        |> Material.fullName
+                            -- FIXME: check out this maybe recycledRatio
+                            (material.recycledProcess |> Maybe.map (always recycledRatio))
+                        |> text
+                    ]
+            )
+        |> List.intersperse (text ", ")
+        |> span []
+
+
 summaryView : Config -> Simulator -> Html msg
 summaryView { session, impact, funit, reusable } ({ inputs, lifeCycle } as simulator) =
     div [ class "card shadow-sm" ]
         [ div [ class "card-header text-white bg-primary d-flex justify-content-between" ]
             [ span [ class "text-nowrap" ] [ strong [] [ text inputs.product.name ] ]
             , span
-                [ class "text-truncate", title inputs.material.name ]
-                [ text <| "\u{00A0}" ++ Material.fullName inputs.recycledRatio inputs.material ++ "\u{00A0}" ]
+                [ class "text-truncate"
+
+                -- FIXME: implement
+                -- , title inputs.material.name
+                ]
+                [ viewMaterials inputs.materials
+                ]
             , span [ class "text-nowrap" ] [ Format.kg inputs.mass ]
             , span [ class "text-nowrap" ] [ Icon.day, Format.days simulator.daysOfWear ]
             ]
@@ -91,8 +115,8 @@ summaryView { session, impact, funit, reusable } ({ inputs, lifeCycle } as simul
         , div [ class "d-none d-sm-block card-body text-center text-muted fs-7 px-2 py-2" ]
             [ [ text "Comparaison pour"
               , text simulator.inputs.product.name
-              , text "en"
-              , simulator.inputs.material |> Material.fullName simulator.inputs.recycledRatio |> text
+              , text ", "
+              , viewMaterials simulator.inputs.materials
               , text "de"
               , Format.kg simulator.inputs.mass
               , span [ class "text-nowrap" ]

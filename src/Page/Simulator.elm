@@ -71,7 +71,7 @@ type Msg
     | UpdateAirTransportRatio (Maybe Unit.Ratio)
     | UpdateDyeingWeighting (Maybe Unit.Ratio)
     | UpdateMassInput String
-    | UpdateMaterial Material.Id
+    | UpdateMaterial Int Material.Id
     | UpdateProduct Product.Id
     | UpdateQuality (Maybe Unit.Quality)
     | UpdateRecycledRatio (Maybe Unit.Ratio)
@@ -187,11 +187,11 @@ update ({ db, navKey } as session) msg ({ query } as model) =
                 Nothing ->
                     ( { model | massInput = massInput }, session, Cmd.none )
 
-        UpdateMaterial materialId ->
+        UpdateMaterial index materialId ->
             case Material.findById materialId db.materials of
                 Ok material ->
                     ( model, session, Cmd.none )
-                        |> updateQuery (Inputs.updateMaterial material query)
+                        |> updateQuery (Inputs.updateMaterial index material query)
 
                 Err error ->
                     ( model, session |> Session.notifyError "Erreur de matière première" error, Cmd.none )
@@ -262,6 +262,7 @@ materialFormSet db recycledRatio material =
                     |> List.map toOption
                     |> optgroup [ attribute "label" name ]
     in
+    -- FIXME: make this a list of formsets so we can handle multiple materials
     div [ class "row mb-2" ]
         [ div [ class "col-md-6 mb-2" ]
             [ div [ class "form-label fw-bold" ]

@@ -79,7 +79,11 @@ countryField { db, current, inputs, index, updateCountry } =
                         [ -- NOTE: display a continent instead of the country for the Material & Spinning step,
                           case current.label of
                             Step.MaterialAndSpinning ->
-                                text inputs.material.continent
+                                inputs.materials
+                                    |> List.head
+                                    |> Maybe.map (.material >> .continent)
+                                    |> Maybe.withDefault "N/A"
+                                    |> text
 
                             _ ->
                                 text name

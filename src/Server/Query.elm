@@ -48,7 +48,6 @@ parse : Db -> Query.Parser (Result Errors Inputs.Query)
 parse db =
     succeed (Ok Inputs.Query)
         |> apply (massParser "mass")
-        |> apply (materialParser "material" db.materials)
         |> apply (materialListParser "materials" db.materials)
         |> apply (productParser "product" db.products)
         |> apply (countryParser "countryFabric" db.countries)
@@ -136,21 +135,6 @@ productParser key products =
                 (\id ->
                     products
                         |> Product.findById (Product.Id id)
-                        |> Result.map .id
-                        |> Result.mapError (\err -> ( key, err ))
-                )
-            )
-
-
-materialParser : String -> List Material -> Query.Parser (ParseResult Material.Id)
-materialParser key materials =
-    Query.string key
-        |> Query.map (Result.fromMaybe ( key, "Identifiant de la matière manquant." ))
-        |> Query.map
-            (Result.andThen
-                (\id ->
-                    materials
-                        |> Material.findById (Material.Id id)
                         |> Result.map .id
                         |> Result.mapError (\err -> ( key, err ))
                 )

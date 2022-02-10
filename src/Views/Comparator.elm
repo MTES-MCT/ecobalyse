@@ -159,7 +159,7 @@ createEntry db funit { trigram } highlight ( label, query ) =
 
 
 getEntries : Db -> Unit.Functional -> Impact.Definition -> Inputs -> Result String (List Entry)
-getEntries db funit impact ({ material } as inputs) =
+getEntries db funit impact ({ materials } as inputs) =
     let
         query =
             Inputs.toQuery inputs
@@ -175,21 +175,21 @@ getEntries db funit impact ({ material } as inputs) =
             createEntry db funit impact
 
         entries =
-            if material.recycledProcess /= Nothing then
-                [ ( currentName, query ) |> createEntry_ True -- user simulation
-                , query |> toRecycledFrance |> createEntry_ False
-                , query |> toNonRecycledFrance |> createEntry_ False
-                , query |> toNonRecycledPortugal |> createEntry_ False
-                , query |> toRecycledIndia |> createEntry_ False
-                , query |> toNonRecycledIndia |> createEntry_ False
-                ]
-
-            else
-                [ ( currentName, query ) |> createEntry_ True -- user simulation
-                , query |> toNonRecycledFrance |> createEntry_ False
-                , query |> toNonRecycledPortugal |> createEntry_ False
-                , query |> toNonRecycledIndia |> createEntry_ False
-                ]
+            -- FIXME: find meaningful compraison points
+            -- if material.recycledProcess /= Nothing then
+            --     [ ( currentName, query ) |> createEntry_ True -- user simulation
+            --     , query |> toRecycledFrance |> createEntry_ False
+            --     , query |> toNonRecycledFrance |> createEntry_ False
+            --     , query |> toNonRecycledPortugal |> createEntry_ False
+            --     , query |> toRecycledIndia |> createEntry_ False
+            --     , query |> toNonRecycledIndia |> createEntry_ False
+            --     ]
+            -- else
+            [ ( currentName, query ) |> createEntry_ True -- user simulation
+            , query |> toNonRecycledFrance |> createEntry_ False
+            , query |> toNonRecycledPortugal |> createEntry_ False
+            , query |> toNonRecycledIndia |> createEntry_ False
+            ]
     in
     entries
         |> RE.combine
