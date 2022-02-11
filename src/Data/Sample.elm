@@ -156,52 +156,52 @@ samples =
         ]
     , section "Part de matière recyclée personnalisée"
         [ sample "impacts for tShirtCotonFrance using no recycled ratio"
-            { query = { tShirtCotonFrance | recycledRatio = Just (Ratio 0) }
+            { query = tShirtCotonFrance |> updateMaterialRecycledRatio 0 (Ratio 0)
             , cch = Unit.impact 5.086507233728058
             , fwe = Unit.impact 0.0003521486305115451
             }
         , sample "impacts for tShirtCotonFrance using half recycled ratio"
-            { query = { tShirtCotonFrance | recycledRatio = Just (Ratio 0.5) }
+            { query = tShirtCotonFrance |> updateMaterialRecycledRatio 0 (Ratio 0.5)
             , cch = Unit.impact 3.539112804911957
             , fwe = Unit.impact 0.00022337969643154514
             }
         , sample "impacts for tShirtCotonFrance using full recycled ratio"
-            { query = { tShirtCotonFrance | recycledRatio = Just (Ratio 1) }
+            { query = tShirtCotonFrance |> updateMaterialRecycledRatio 0 (Ratio 1)
             , cch = Unit.impact 1.991718376095856
             , fwe = Unit.impact 0.00009461076235154518
             }
         , sample "impacts for tShirtPolyamideFrance using custom recycled ratio"
-            { query = { tShirtPolyamideFrance | recycledRatio = Just (Ratio 0.5) }
+            { query = tShirtPolyamideFrance |> updateMaterialRecycledRatio 0 (Ratio 0.5)
             , cch = Unit.impact 3.4567262818364473
             , fwe = Unit.impact 0.00011238870391864669
             }
         , sample "impacts for tShirtCotonEurope using custom recycled ratio"
-            { query = { tShirtCotonEurope | recycledRatio = Just (Ratio 0.5) }
+            { query = tShirtCotonEurope |> updateMaterialRecycledRatio 0 (Ratio 0.5)
             , cch = Unit.impact 6.622582163048957
             , fwe = Unit.impact 0.0004873525000073962
             }
         , sample "impacts for tShirtCotonAsie using custom recycled ratio"
-            { query = { tShirtCotonAsie | recycledRatio = Just (Ratio 0.5) }
+            { query = tShirtCotonAsie |> updateMaterialRecycledRatio 0 (Ratio 0.5)
             , cch = Unit.impact 8.025307450768455
             , fwe = Unit.impact 0.00048753311369641655
             }
         , sample "impacts for jupeCircuitAsie using custom recycled ratio"
-            { query = { jupeCircuitAsie | recycledRatio = Just (Ratio 0.5) }
+            { query = jupeCircuitAsie |> updateMaterialRecycledRatio 0 (Ratio 0.5)
             , cch = Unit.impact 30.64706623923409
             , fwe = Unit.impact 0.0007102758576861996
             }
         , sample "impacts for manteauCircuitEurope using custom recycled ratio"
-            { query = { manteauCircuitEurope | recycledRatio = Just (Ratio 0.5) }
+            { query = manteauCircuitEurope |> updateMaterialRecycledRatio 0 (Ratio 0.5)
             , cch = Unit.impact 514.5920039171044
             , fwe = Unit.impact 0.0028863508114862564
             }
         , sample "impacts for pantalonCircuitEurope using custom recycled ratio"
-            { query = { pantalonCircuitEurope | recycledRatio = Just (Ratio 0.5) }
+            { query = pantalonCircuitEurope |> updateMaterialRecycledRatio 0 (Ratio 0.5)
             , cch = Unit.impact 24.397644117086543
             , fwe = Unit.impact 0.001538902892541837
             }
         , sample "impacts for robeCircuitBangladesh using custom recycled ratio"
-            { query = { robeCircuitBangladesh | recycledRatio = Just (Ratio 0.5) }
+            { query = robeCircuitBangladesh |> updateMaterialRecycledRatio 0 (Ratio 0.5)
             , cch = Unit.impact 39.942898569095476
             , fwe = Unit.impact 0.0002608076513636336
             }
