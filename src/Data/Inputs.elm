@@ -3,6 +3,7 @@ module Data.Inputs exposing
     , MaterialInput
     , MaterialQuery
     , Query
+    , addMaterial
     , b64decode
     , b64encode
     , countryList
@@ -221,6 +222,36 @@ updateStepCountry index code query =
             else
                 query.airTransportRatio
     }
+
+
+addMaterial : Db -> Query -> Query
+addMaterial db query =
+    -- FIXME: filter already present materials from new material default choice
+    let
+        alreadyUsed =
+            query.materials |> List.map .id
+
+        newMaterial =
+            db.materials
+                |> List.filter .primary
+                |> List.filter (\{ id } -> not <| List.member id alreadyUsed)
+                |> List.head
+    in
+    case newMaterial of
+        Just material ->
+            { query
+                | materials =
+                    query.materials
+                        ++ [ { id = material.id
+                             , share = Unit.ratio 0
+                             , recycledRatio = Unit.ratio 0
+                             }
+                           ]
+            }
+
+        Nothing ->
+            -- Error?
+            query
 
 
 updateMaterialAt : Int -> (MaterialQuery -> MaterialQuery) -> Query -> Query

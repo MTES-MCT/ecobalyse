@@ -47,19 +47,20 @@ type alias Entry =
     }
 
 
-toRecycledFrance : Inputs.Query -> ( String, Inputs.Query )
-toRecycledFrance query =
-    ( "France 100% recyclé, Q=1"
-    , { query
-        | countryFabric = Country.Code "FR"
-        , countryDyeing = Country.Code "FR"
-        , countryMaking = Country.Code "FR"
-        , dyeingWeighting = Just (Unit.ratio 0)
-        , airTransportRatio = Just (Unit.ratio 0)
-        , recycledRatio = Just (Unit.ratio 1)
-        , quality = Just Unit.standardQuality
-      }
-    )
+
+-- toRecycledFrance : Inputs.Query -> ( String, Inputs.Query )
+-- toRecycledFrance query =
+--     ( "France 100% recyclé, Q=1"
+--     , { query
+--         | countryFabric = Country.Code "FR"
+--         , countryDyeing = Country.Code "FR"
+--         , countryMaking = Country.Code "FR"
+--         , dyeingWeighting = Just (Unit.ratio 0)
+--         , airTransportRatio = Just (Unit.ratio 0)
+--         , recycledRatio = Just (Unit.ratio 1)
+--         , quality = Just Unit.standardQuality
+--       }
+--     )
 
 
 toNonRecycledFrance : Inputs.Query -> ( String, Inputs.Query )
@@ -92,19 +93,20 @@ toNonRecycledPortugal query =
     )
 
 
-toRecycledIndia : Inputs.Query -> ( String, Inputs.Query )
-toRecycledIndia query =
-    ( "Inde 100% recyclé, Q=1"
-    , { query
-        | countryFabric = Country.Code "IN"
-        , countryDyeing = Country.Code "IN"
-        , countryMaking = Country.Code "IN"
-        , dyeingWeighting = Just (Unit.ratio 1)
-        , airTransportRatio = Just (Unit.ratio 1)
-        , recycledRatio = Just (Unit.ratio 1)
-        , quality = Just Unit.standardQuality
-      }
-    )
+
+-- toRecycledIndia : Inputs.Query -> ( String, Inputs.Query )
+-- toRecycledIndia query =
+--     ( "Inde 100% recyclé, Q=1"
+--     , { query
+--         | countryFabric = Country.Code "IN"
+--         , countryDyeing = Country.Code "IN"
+--         , countryMaking = Country.Code "IN"
+--         , dyeingWeighting = Just (Unit.ratio 1)
+--         , airTransportRatio = Just (Unit.ratio 1)
+--         , recycledRatio = Just (Unit.ratio 1)
+--         , quality = Just Unit.standardQuality
+--       }
+--     )
 
 
 toNonRecycledIndia : Inputs.Query -> ( String, Inputs.Query )

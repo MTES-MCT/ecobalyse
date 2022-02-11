@@ -60,7 +60,8 @@ type ModalContent
 
 
 type Msg
-    = CloseModal
+    = AddMaterial
+    | CloseModal
     | CopyToClipBoard String
     | GitbookContentReceived (WebData Gitbook.Page)
     | NoOp
@@ -133,6 +134,10 @@ updateQuery query ( model, session, msg ) =
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
 update ({ db, navKey } as session) msg ({ query } as model) =
     case msg of
+        AddMaterial ->
+            ( model, session, Cmd.none )
+                |> updateQuery (Inputs.addMaterial db query)
+
         CloseModal ->
             ( { model | modal = NoModal }, session, Cmd.none )
 
@@ -246,15 +251,47 @@ massField massInput =
 
 materialFormSet : Db -> List Inputs.MaterialInput -> Html Msg
 materialFormSet db materials =
-    -- FIXME: make this a list of formsets so we can handle multiple materials
-    materials
-        |> List.indexedMap (materialField db)
-        |> div []
+    let
+        ( total, exclude ) =
+            ( List.length materials
+            , List.map (.material >> .id) materials
+            )
+
+        fields =
+            materials
+                |> List.indexedMap
+                    (\index ->
+                        materialField db
+                            { index = index
+                            , total = total
+                            , exclude = exclude
+                            }
+                    )
+    in
+    div []
+        (fields
+            ++ (if total < 3 then
+                    [ div [ class "text-end" ]
+                        [ button
+                            [ class "btn btn-primary"
+                            , onClick AddMaterial
+                            ]
+                            [ text "Ajouter une matière" ]
+                        ]
+                    ]
+
+                else
+                    [ text "" ]
+               )
+        )
 
 
-materialField : Db -> Int -> Inputs.MaterialInput -> Html Msg
-materialField db index { material, share, recycledRatio } =
-    -- FIXME: render share, allow adjusting (UpdateMaterialShare)
+materialField :
+    Db
+    -> { index : Int, total : Int, exclude : List Material.Id }
+    -> Inputs.MaterialInput
+    -> Html Msg
+materialField db { index, exclude } { material, share, recycledRatio } =
     let
         ( ( natural1, synthetic1, recycled1 ), ( natural2, synthetic2, recycled2 ) ) =
             Material.groupAll db.materials
@@ -262,7 +299,8 @@ materialField db index { material, share, recycledRatio } =
         toOption m =
             option
                 [ value <| Material.idToString m.id
-                , selected (material.id == m.id)
+                , selected <| material.id == m.id
+                , disabled <| List.member m.id exclude
                 , title m.name
                 ]
                 [ text m.shortName ]
@@ -313,7 +351,7 @@ materialField db index { material, share, recycledRatio } =
             [ div [ class "form-label fw-bold mb-0 mb-xxl-3" ]
                 [ text "Part du vêtement" ]
             , span
-                [ title "Pourcentage de matière utilisée pour ce vêtement." ]
+                [ title "Part de cette matière utilisée dans ce vêtement." ]
                 [ RangeSlider.ratio
                     { id = "share"
                     , update = Maybe.withDefault (Unit.ratio 0) >> UpdateMaterialShare index
