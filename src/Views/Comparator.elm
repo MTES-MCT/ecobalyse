@@ -47,78 +47,71 @@ type alias Entry =
     }
 
 
-
--- toRecycledFrance : Inputs.Query -> ( String, Inputs.Query )
--- toRecycledFrance query =
---     ( "France 100% recyclé, Q=1"
---     , { query
---         | countryFabric = Country.Code "FR"
---         , countryDyeing = Country.Code "FR"
---         , countryMaking = Country.Code "FR"
---         , dyeingWeighting = Just (Unit.ratio 0)
---         , airTransportRatio = Just (Unit.ratio 0)
---         , recycledRatio = Just (Unit.ratio 1)
---         , quality = Just Unit.standardQuality
---       }
---     )
-
-
-toNonRecycledFrance : Inputs.Query -> ( String, Inputs.Query )
-toNonRecycledFrance query =
-    ( "France 0% recyclé, Q=1"
+toFrance : Inputs.Query -> ( String, Inputs.Query )
+toFrance query =
+    ( "France, Q=1"
     , { query
         | countryFabric = Country.Code "FR"
         , countryDyeing = Country.Code "FR"
         , countryMaking = Country.Code "FR"
-        , dyeingWeighting = Just (Unit.ratio 0)
-        , airTransportRatio = Just (Unit.ratio 0)
-        , recycledRatio = Just (Unit.ratio 0)
+        , dyeingWeighting = Nothing
+        , airTransportRatio = Nothing
         , quality = Just Unit.standardQuality
       }
     )
 
 
-toNonRecycledPortugal : Inputs.Query -> ( String, Inputs.Query )
-toNonRecycledPortugal query =
-    ( "Portugal 0% recyclé, Q=1"
+toPortugal : Inputs.Query -> ( String, Inputs.Query )
+toPortugal query =
+    ( "Portugal, Q=1"
     , { query
         | countryFabric = Country.Code "PT"
         , countryDyeing = Country.Code "PT"
         , countryMaking = Country.Code "PT"
-        , dyeingWeighting = Just (Unit.ratio 0)
-        , airTransportRatio = Just (Unit.ratio 0)
-        , recycledRatio = Just (Unit.ratio 0)
+        , dyeingWeighting = Nothing
+        , airTransportRatio = Nothing
         , quality = Just Unit.standardQuality
       }
     )
 
 
-
--- toRecycledIndia : Inputs.Query -> ( String, Inputs.Query )
--- toRecycledIndia query =
---     ( "Inde 100% recyclé, Q=1"
---     , { query
---         | countryFabric = Country.Code "IN"
---         , countryDyeing = Country.Code "IN"
---         , countryMaking = Country.Code "IN"
---         , dyeingWeighting = Just (Unit.ratio 1)
---         , airTransportRatio = Just (Unit.ratio 1)
---         , recycledRatio = Just (Unit.ratio 1)
---         , quality = Just Unit.standardQuality
---       }
---     )
+toTunisia : Inputs.Query -> ( String, Inputs.Query )
+toTunisia query =
+    ( "Tunisie, Q=1"
+    , { query
+        | countryFabric = Country.Code "TN"
+        , countryDyeing = Country.Code "TN"
+        , countryMaking = Country.Code "TN"
+        , dyeingWeighting = Nothing
+        , airTransportRatio = Nothing
+        , quality = Just Unit.standardQuality
+      }
+    )
 
 
-toNonRecycledIndia : Inputs.Query -> ( String, Inputs.Query )
-toNonRecycledIndia query =
-    ( "Inde 0% recyclé, Q=1"
+toBangladesh : Inputs.Query -> ( String, Inputs.Query )
+toBangladesh query =
+    ( "Bangladesh, Q=1"
+    , { query
+        | countryFabric = Country.Code "BD"
+        , countryDyeing = Country.Code "BD"
+        , countryMaking = Country.Code "BD"
+        , dyeingWeighting = Nothing
+        , airTransportRatio = Nothing
+        , quality = Just Unit.standardQuality
+      }
+    )
+
+
+toIndia : Inputs.Query -> ( String, Inputs.Query )
+toIndia query =
+    ( "Inde, Q=1"
     , { query
         | countryFabric = Country.Code "IN"
         , countryDyeing = Country.Code "IN"
         , countryMaking = Country.Code "IN"
-        , dyeingWeighting = Just (Unit.ratio 1)
-        , airTransportRatio = Just (Unit.ratio 1)
-        , recycledRatio = Just (Unit.ratio 0)
+        , dyeingWeighting = Nothing
+        , airTransportRatio = Nothing
         , quality = Just Unit.standardQuality
       }
     )
@@ -161,7 +154,7 @@ createEntry db funit { trigram } highlight ( label, query ) =
 
 
 getEntries : Db -> Unit.Functional -> Impact.Definition -> Inputs -> Result String (List Entry)
-getEntries db funit impact ({ materials } as inputs) =
+getEntries db funit impact inputs =
     let
         query =
             Inputs.toQuery inputs
@@ -177,20 +170,12 @@ getEntries db funit impact ({ materials } as inputs) =
             createEntry db funit impact
 
         entries =
-            -- FIXME: find meaningful compraison points
-            -- if material.recycledProcess /= Nothing then
-            --     [ ( currentName, query ) |> createEntry_ True -- user simulation
-            --     , query |> toRecycledFrance |> createEntry_ False
-            --     , query |> toNonRecycledFrance |> createEntry_ False
-            --     , query |> toNonRecycledPortugal |> createEntry_ False
-            --     , query |> toRecycledIndia |> createEntry_ False
-            --     , query |> toNonRecycledIndia |> createEntry_ False
-            --     ]
-            -- else
             [ ( currentName, query ) |> createEntry_ True -- user simulation
-            , query |> toNonRecycledFrance |> createEntry_ False
-            , query |> toNonRecycledPortugal |> createEntry_ False
-            , query |> toNonRecycledIndia |> createEntry_ False
+            , query |> toFrance |> createEntry_ False
+            , query |> toPortugal |> createEntry_ False
+            , query |> toTunisia |> createEntry_ False
+            , query |> toIndia |> createEntry_ False
+            , query |> toBangladesh |> createEntry_ False
             ]
     in
     entries
