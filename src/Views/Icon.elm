@@ -139,6 +139,11 @@ shrink =
     icon "shrink"
 
 
+slice : Html msg
+slice =
+    icon "slice"
+
+
 study : Html msg
 study =
     icon "study"

@@ -276,12 +276,14 @@ materialFormSet db materials =
     div []
         (fields
             ++ (if total < 3 then
-                    [ div [ class "text-end" ]
-                        [ button
-                            [ class "btn btn-outline-primary"
-                            , onClick AddMaterial
+                    [ div [ class "row mb-2" ]
+                        [ div [ class "col-sm-5" ]
+                            [ button
+                                [ class "btn btn-outline-primary w-100"
+                                , onClick AddMaterial
+                                ]
+                                [ text "Ajouter une matière" ]
                             ]
-                            [ text "Ajouter une matière" ]
                         ]
                     ]
 
