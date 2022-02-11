@@ -69,12 +69,11 @@ paths:
       summary: Calculer les impacts environnementaux d'un produit textile
       parameters:
       - $ref: '#/components/parameters/massParam'
-      - $ref: '#/components/parameters/materialParam'
+      - $ref: '#/components/parameters/materialsParam'
       - $ref: '#/components/parameters/productParam'
       - $ref: '#/components/parameters/countryFabricParam'
       - $ref: '#/components/parameters/countryDyeingParam'
       - $ref: '#/components/parameters/countryMakingParam'
-      - $ref: '#/components/parameters/recycledRatioParam'
       - $ref: '#/components/parameters/dyeingWeightingParam'
       - $ref: '#/components/parameters/airTransportRatioParam'
       - $ref: '#/components/parameters/qualityParam'
@@ -125,12 +124,11 @@ paths:
           - "wtu"
           - "pef"
       - $ref: '#/components/parameters/massParam'
-      - $ref: '#/components/parameters/materialParam'
+      - $ref: '#/components/parameters/materialsParam'
       - $ref: '#/components/parameters/productParam'
       - $ref: '#/components/parameters/countryFabricParam'
       - $ref: '#/components/parameters/countryDyeingParam'
       - $ref: '#/components/parameters/countryMakingParam'
-      - $ref: '#/components/parameters/recycledRatioParam'
       - $ref: '#/components/parameters/dyeingWeightingParam'
       - $ref: '#/components/parameters/airTransportRatioParam'
       - $ref: '#/components/parameters/qualityParam'
@@ -155,12 +153,11 @@ paths:
       description: L'intégralité des calculs intermédiaires sont présentés dans une réponse détaillée
       parameters:
       - $ref: '#/components/parameters/massParam'
-      - $ref: '#/components/parameters/materialParam'
+      - $ref: '#/components/parameters/materialsParam'
       - $ref: '#/components/parameters/productParam'
       - $ref: '#/components/parameters/countryFabricParam'
       - $ref: '#/components/parameters/countryDyeingParam'
       - $ref: '#/components/parameters/countryMakingParam'
-      - $ref: '#/components/parameters/recycledRatioParam'
       - $ref: '#/components/parameters/dyeingWeightingParam'
       - $ref: '#/components/parameters/airTransportRatioParam'
       - $ref: '#/components/parameters/qualityParam'
@@ -189,21 +186,27 @@ components:
         type: number
         minimum: 0.01
       example: 0.17
-    materialParam:
-      name: material
+    materialsParam:
+      name: "materials[]"
       in: query
-      description: Identifiant de la matière composant le produit (liste disponible sur le point d'entrée dédié)
+      description: |
+        Liste des matières composant le produit (liste disponible sur le point d'entrée dédié). Le format de chaque entrée est composé de l'identifiant de la matière, de la part du produit qu'elle représente et de la proportion de matière recyclée entrant dans sa composition.
+
+        Par exemple :
+
+        - `coton;1;0` signifie *100% coton non-recyclé*;
+        - `acrylique;0.5;0.7` signifie *50% acrylique à 70% d'origine recyclée*.
       required: true
       style: form
       schema:
-        type: string
-        minLength: 36
-        maxLength: 36
+        type: array
+        items:
+          type: string
       examples:
         coton:
-          value: "coton"
+          value: ["coton;1;0"]
         acrylique:
-          value: "acrylique"
+          value: ["coton;0.7;0", "acrylique;0.3;0.5"]
     productParam:
       name: product
       in: query
@@ -262,16 +265,6 @@ components:
           value: "CN"
         France:
           value: "FR"
-    recycledRatioParam:
-      name: recycledRatio
-      in: query
-      description: Part de matière recyclée, entre `0` et `1`
-      required: false
-      style: form
-      schema:
-        type: number
-        minimum: 0
-        maximum: 1
     dyeingWeightingParam:
       name: dyeingWeighting
       in: query

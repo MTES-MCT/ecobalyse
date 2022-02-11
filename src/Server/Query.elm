@@ -55,7 +55,6 @@ parse db =
         |> apply (countryParser "countryMaking" db.countries)
         |> apply (maybeRatioParser "dyeingWeighting")
         |> apply (maybeRatioParser "airTransportRatio")
-        |> apply (maybeRatioParser "recycledRatio")
         |> apply (maybeQuality "quality")
 
 

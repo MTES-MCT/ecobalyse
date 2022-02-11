@@ -67,7 +67,6 @@ type alias Inputs =
     , countryEndOfLife : Country
     , dyeingWeighting : Maybe Unit.Ratio
     , airTransportRatio : Maybe Unit.Ratio
-    , recycledRatio : Maybe Unit.Ratio
     , quality : Maybe Unit.Quality
     }
 
@@ -89,7 +88,6 @@ type alias Query =
     , countryMaking : Country.Code
     , dyeingWeighting : Maybe Unit.Ratio
     , airTransportRatio : Maybe Unit.Ratio
-    , recycledRatio : Maybe Unit.Ratio
     , quality : Maybe Unit.Quality
     }
 
@@ -146,7 +144,6 @@ fromQuery db query =
         |> RE.andMap franceResult
         |> RE.andMap (Ok query.dyeingWeighting)
         |> RE.andMap (Ok query.airTransportRatio)
-        |> RE.andMap (Ok query.recycledRatio)
         |> RE.andMap (Ok query.quality)
 
 
@@ -168,7 +165,6 @@ toQuery inputs =
     , countryMaking = inputs.countryMaking.code
     , dyeingWeighting = inputs.dyeingWeighting
     , airTransportRatio = inputs.airTransportRatio
-    , recycledRatio = inputs.recycledRatio
     , quality = inputs.quality
     }
 
@@ -320,7 +316,6 @@ tShirtCotonFrance =
     , countryMaking = Country.Code "FR"
     , dyeingWeighting = Nothing
     , airTransportRatio = Nothing
-    , recycledRatio = Nothing
     , quality = Nothing
     }
 
@@ -345,7 +340,6 @@ tShirtCotonAcryliqueFrance =
     , countryMaking = Country.Code "FR"
     , dyeingWeighting = Nothing
     , airTransportRatio = Nothing
-    , recycledRatio = Nothing
     , quality = Nothing
     }
 
@@ -412,7 +406,6 @@ jupeCircuitAsie =
     , countryMaking = Country.Code "CN"
     , dyeingWeighting = Nothing
     , airTransportRatio = Nothing
-    , recycledRatio = Nothing
     , quality = Nothing
     }
 
@@ -433,7 +426,6 @@ manteauCircuitEurope =
     , countryMaking = Country.Code "ES"
     , dyeingWeighting = Nothing
     , airTransportRatio = Nothing
-    , recycledRatio = Nothing
     , quality = Nothing
     }
 
@@ -454,7 +446,6 @@ pantalonCircuitEurope =
     , countryMaking = Country.Code "TR"
     , dyeingWeighting = Nothing
     , airTransportRatio = Nothing
-    , recycledRatio = Nothing
     , quality = Nothing
     }
 
@@ -475,7 +466,6 @@ robeCircuitBangladesh =
     , countryMaking = Country.Code "TN"
     , dyeingWeighting = Nothing
     , airTransportRatio = Nothing
-    , recycledRatio = Nothing
     , quality = Nothing
     }
 
@@ -502,7 +492,6 @@ encode inputs =
         , ( "countryMaking", Country.encode inputs.countryMaking )
         , ( "dyeingWeighting", inputs.dyeingWeighting |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
         , ( "airTransportRatio", inputs.airTransportRatio |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
-        , ( "recycledRatio", inputs.recycledRatio |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
         , ( "quality", inputs.quality |> Maybe.map Unit.encodeQuality |> Maybe.withDefault Encode.null )
         ]
 
@@ -527,7 +516,6 @@ decodeQuery =
         |> Pipe.required "countryMaking" (Decode.map Country.Code Decode.string)
         |> Pipe.required "dyeingWeighting" (Decode.maybe Unit.decodeRatio)
         |> Pipe.required "airTransportRatio" (Decode.maybe Unit.decodeRatio)
-        |> Pipe.required "recycledRatio" (Decode.maybe Unit.decodeRatio)
         |> Pipe.required "quality" (Decode.maybe Unit.decodeQuality)
 
 
@@ -550,7 +538,6 @@ encodeQuery query =
         , ( "countryMaking", query.countryMaking |> Country.codeToString |> Encode.string )
         , ( "dyeingWeighting", query.dyeingWeighting |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
         , ( "airTransportRatio", query.airTransportRatio |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
-        , ( "recycledRatio", query.recycledRatio |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
         , ( "quality", query.quality |> Maybe.map Unit.encodeQuality |> Maybe.withDefault Encode.null )
         ]
 
