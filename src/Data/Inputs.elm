@@ -16,6 +16,7 @@ module Data.Inputs exposing
     , pantalonCircuitEurope
     , parseBase64Query
     , presets
+    , removeMaterial
     , robeCircuitBangladesh
     , tShirtCotonAcryliqueFrance
     , tShirtCotonAsie
@@ -227,6 +228,7 @@ updateStepCountry index code query =
 addMaterial : Db -> Query -> Query
 addMaterial db query =
     -- FIXME: filter already present materials from new material default choice
+    -- FIXME: recompute shares
     let
         alreadyUsed =
             query.materials |> List.map .id
@@ -252,6 +254,12 @@ addMaterial db query =
         Nothing ->
             -- Error?
             query
+
+
+removeMaterial : Int -> Query -> Query
+removeMaterial index query =
+    -- FIXME: recompute shares
+    { query | materials = query.materials |> LE.removeAt index }
 
 
 updateMaterialAt : Int -> (MaterialQuery -> MaterialQuery) -> Query -> Query

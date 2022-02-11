@@ -102,14 +102,6 @@ describe("API", () => {
       );
     });
 
-    it("should validate the material param", async () => {
-      expectFieldErrorMessage(
-        await makeRequest("/api/simulator", ["material=xxx"]),
-        "material",
-        /Matière non trouvée id=xxx./,
-      );
-    });
-
     it("should validate the materials param", async () => {
       expectFieldErrorMessage(
         await makeRequest("/api/simulator", ["materials[]=xxx;1;0"]),

@@ -66,6 +66,7 @@ type Msg
     | GitbookContentReceived (WebData Gitbook.Page)
     | NoOp
     | OpenDocModal Gitbook.Path
+    | RemoveMaterial Int
     | Reset
     | SwitchFunctionalUnit Unit.Functional
     | SwitchImpact Impact.Trigram
@@ -155,6 +156,10 @@ update ({ db, navKey } as session) msg ({ query } as model) =
             , session
             , GitbookApi.getPage session path GitbookContentReceived
             )
+
+        RemoveMaterial index ->
+            ( model, session, Cmd.none )
+                |> updateQuery (Inputs.removeMaterial index query)
 
         Reset ->
             ( model, session, Cmd.none )
@@ -291,7 +296,7 @@ materialField :
     -> { index : Int, total : Int, exclude : List Material.Id }
     -> Inputs.MaterialInput
     -> Html Msg
-materialField db { index, exclude } { material, share, recycledRatio } =
+materialField db { index, total, exclude } { material, share, recycledRatio } =
     let
         ( ( natural1, synthetic1, recycled1 ), ( natural2, synthetic2, recycled2 ) ) =
             Material.groupAll db.materials
@@ -315,9 +320,13 @@ materialField db { index, exclude } { material, share, recycledRatio } =
                     |> optgroup [ attribute "label" name ]
     in
     div [ class "row mb-2" ]
-        [ div [ class "col-md-4 mb-2" ]
-            [ div [ class "form-label fw-bold" ]
-                [ text "Matières premières" ]
+        [ div [ class "col-md-5 mb-2" ]
+            [ if index == 0 then
+                div [ class "form-label fw-bold" ]
+                    [ text "Matières premières" ]
+
+              else
+                text ""
             , [ toGroup "Matières naturelles" natural1
               , toGroup "Matières synthétiques" synthetic1
               , toGroup "Matières recyclées" recycled1
@@ -331,9 +340,13 @@ materialField db { index, exclude } { material, share, recycledRatio } =
                     , onInput (Material.Id >> UpdateMaterial index)
                     ]
             ]
-        , div [ class "col-md-4 mb-2" ]
-            [ div [ class "form-label fw-bold mb-0 mb-xxl-3" ]
-                [ text "Part de matière recyclée" ]
+        , div [ class "col-md-3 mb-2" ]
+            [ if index == 0 then
+                div [ class "form-label fw-bold mb-0 mb-xxl-3" ]
+                    [ text "Part recyclée" ]
+
+              else
+                text ""
             , span
                 [ title
                     "Pourcentage de matière recyclée appliqué à la masse de fil en sortie d‘étape “Matière et Filature”."
@@ -347,9 +360,13 @@ materialField db { index, exclude } { material, share, recycledRatio } =
                     }
                 ]
             ]
-        , div [ class "col-md-4 mb-2" ]
-            [ div [ class "form-label fw-bold mb-0 mb-xxl-3" ]
-                [ text "Part du vêtement" ]
+        , div [ class "col-md-3 mb-2" ]
+            [ if index == 0 then
+                div [ class "form-label fw-bold mb-0 mb-xxl-3" ]
+                    [ text "Part du vêtement" ]
+
+              else
+                text ""
             , span
                 [ title "Part de cette matière utilisée dans ce vêtement." ]
                 [ RangeSlider.ratio
@@ -360,6 +377,14 @@ materialField db { index, exclude } { material, share, recycledRatio } =
                     , disabled = False
                     }
                 ]
+            ]
+        , div [ class "col-md-1 d-flex align-items-end" ]
+            [ button
+                [ class "btn btn-sm btn-primary"
+                , onClick (RemoveMaterial index)
+                , disabled <| total < 2
+                ]
+                [ Icon.times ]
             ]
         ]
 

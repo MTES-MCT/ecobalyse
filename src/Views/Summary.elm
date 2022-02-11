@@ -30,6 +30,7 @@ type alias Config =
 viewMaterials : List Inputs.MaterialInput -> Html msg
 viewMaterials materials =
     materials
+        |> List.filter (\{ share } -> Unit.ratioToFloat share > 0)
         |> List.map
             (\{ material, share, recycledRatio } ->
                 span []
