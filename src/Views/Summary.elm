@@ -49,18 +49,17 @@ viewMaterials materials =
 summaryView : Config -> Simulator -> Html msg
 summaryView { session, impact, funit, reusable } ({ inputs, lifeCycle } as simulator) =
     div [ class "card shadow-sm" ]
-        [ div [ class "card-header text-white bg-primary d-flex justify-content-between" ]
-            [ span [ class "text-nowrap" ] [ strong [] [ text inputs.product.name ] ]
+        [ div [ class "card-header text-white bg-primary d-flex justify-content-between gap-1" ]
+            [ span [ class "text-nowrap" ]
+                [ strong [] [ text inputs.product.name ] ]
             , span
-                [ class "text-truncate"
-
-                -- FIXME: implement
-                -- , title inputs.material.name
-                ]
+                [ class "text-truncate" ]
                 [ viewMaterials inputs.materials
                 ]
-            , span [ class "text-nowrap" ] [ Format.kg inputs.mass ]
-            , span [ class "text-nowrap" ] [ Icon.day, Format.days simulator.daysOfWear ]
+            , span [ class "text-nowrap" ]
+                [ Format.kg inputs.mass ]
+            , span [ class "text-nowrap" ]
+                [ Icon.day, Format.days simulator.daysOfWear ]
             ]
         , div [ class "card-body px-1 py-2 py-sm-3 d-grid gap-2 gap-sm-3 text-white bg-primary" ]
             [ div [ class "d-flex justify-content-center align-items-center" ]
