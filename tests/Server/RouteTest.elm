@@ -152,7 +152,6 @@ suite =
                                 , ( "countryDyeing", "Code pays manquant." )
                                 , ( "countryMaking", "Code pays manquant." )
                                 , ( "mass", "La masse est manquante." )
-                                , ( "material", "Identifiant de la matière manquant." )
                                 , ( "materials", "La liste des matières est vide." )
                                 , ( "product", "Identifiant du type de produit manquant." )
                                 ]
@@ -176,7 +175,6 @@ suite =
                                 , ( "countryDyeing", "Code pays invalide: notACountryCode." )
                                 , ( "countryMaking", "Code pays invalide: notACountryCode." )
                                 , ( "mass", "La masse doit être supérieure ou égale à zéro." )
-                                , ( "material", "Matière non trouvée id=notAnID." )
                                 , ( "materials", "Format de matière invalide ou incomplet : notAnID." )
                                 , ( "product", "Produit non trouvé id=notAProductID." )
                                 ]

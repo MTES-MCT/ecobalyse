@@ -16,7 +16,7 @@ import Data.Gitbook as Gitbook
 import Data.Impact as Impact
 import Data.Inputs as Inputs
 import Data.Key as Key
-import Data.Material as Material exposing (Material)
+import Data.Material as Material
 import Data.Product as Product exposing (Product)
 import Data.Session as Session exposing (Session)
 import Data.Simulator as Simulator exposing (Simulator)
@@ -72,9 +72,10 @@ type Msg
     | UpdateDyeingWeighting (Maybe Unit.Ratio)
     | UpdateMassInput String
     | UpdateMaterial Int Material.Id
+    | UpdateMaterialRecycledRatio Int Unit.Ratio
+    | UpdateMaterialShare Int Unit.Ratio
     | UpdateProduct Product.Id
     | UpdateQuality (Maybe Unit.Quality)
-    | UpdateRecycledRatio (Maybe Unit.Ratio)
     | UpdateStepCountry Int Country.Code
 
 
@@ -196,6 +197,14 @@ update ({ db, navKey } as session) msg ({ query } as model) =
                 Err error ->
                     ( model, session |> Session.notifyError "Erreur de matière première" error, Cmd.none )
 
+        UpdateMaterialRecycledRatio index recycledRatio ->
+            ( model, session, Cmd.none )
+                |> updateQuery (Inputs.updateMaterialRecycledRatio index recycledRatio query)
+
+        UpdateMaterialShare index share ->
+            ( model, session, Cmd.none )
+                |> updateQuery (Inputs.updateMaterialShare index share query)
+
         UpdateProduct productId ->
             case Product.findById productId db.products of
                 Ok product ->
@@ -208,10 +217,6 @@ update ({ db, navKey } as session) msg ({ query } as model) =
         UpdateQuality quality ->
             ( model, session, Cmd.none )
                 |> updateQuery { query | quality = quality }
-
-        UpdateRecycledRatio recycledRatio ->
-            ( model, session, Cmd.none )
-                |> updateQuery { query | recycledRatio = recycledRatio }
 
         UpdateStepCountry index code ->
             ( model, session, Cmd.none )
@@ -239,8 +244,17 @@ massField massInput =
         ]
 
 
-materialFormSet : Db -> Maybe Unit.Ratio -> Material -> Html Msg
-materialFormSet db recycledRatio material =
+materialFormSet : Db -> List Inputs.MaterialInput -> Html Msg
+materialFormSet db materials =
+    -- FIXME: make this a list of formsets so we can handle multiple materials
+    materials
+        |> List.indexedMap (materialField db)
+        |> div []
+
+
+materialField : Db -> Int -> Inputs.MaterialInput -> Html Msg
+materialField db index { material, share, recycledRatio } =
+    -- FIXME: render share, allow adjusting (UpdateMaterialShare)
     let
         ( ( natural1, synthetic1, recycled1 ), ( natural2, synthetic2, recycled2 ) ) =
             Material.groupAll db.materials
@@ -262,9 +276,8 @@ materialFormSet db recycledRatio material =
                     |> List.map toOption
                     |> optgroup [ attribute "label" name ]
     in
-    -- FIXME: make this a list of formsets so we can handle multiple materials
     div [ class "row mb-2" ]
-        [ div [ class "col-md-6 mb-2" ]
+        [ div [ class "col-md-4 mb-2" ]
             [ div [ class "form-label fw-bold" ]
                 [ text "Matières premières" ]
             , [ toGroup "Matières naturelles" natural1
@@ -277,10 +290,10 @@ materialFormSet db recycledRatio material =
                 |> select
                     [ id "material"
                     , class "form-select"
-                    , onInput (Material.Id >> UpdateMaterial)
+                    , onInput (Material.Id >> UpdateMaterial index)
                     ]
             ]
-        , div [ class "col-md-6 mb-2" ]
+        , div [ class "col-md-4 mb-2" ]
             [ div [ class "form-label fw-bold mb-0 mb-xxl-3" ]
                 [ text "Part de matière recyclée" ]
             , span
@@ -289,10 +302,24 @@ materialFormSet db recycledRatio material =
                 ]
                 [ RangeSlider.ratio
                     { id = "recycledRatio"
-                    , update = UpdateRecycledRatio
-                    , value = Maybe.withDefault (Unit.ratio 0) recycledRatio
+                    , update = Maybe.withDefault (Unit.ratio 0) >> UpdateMaterialRecycledRatio index
+                    , value = recycledRatio
                     , toString = Material.recycledRatioToString "d'origine recyclée"
                     , disabled = material.recycledProcess == Nothing
+                    }
+                ]
+            ]
+        , div [ class "col-md-4 mb-2" ]
+            [ div [ class "form-label fw-bold mb-0 mb-xxl-3" ]
+                [ text "Part du vêtement" ]
+            , span
+                [ title "Pourcentage de matière utilisée pour ce vêtement." ]
+                [ RangeSlider.ratio
+                    { id = "share"
+                    , update = Maybe.withDefault (Unit.ratio 0) >> UpdateMaterialShare index
+                    , value = share
+                    , toString = Unit.ratioToFloat >> String.fromFloat
+                    , disabled = False
                     }
                 ]
             ]
@@ -511,7 +538,8 @@ simulatorView ({ db } as session) ({ impact, funit, query, detailed } as model) 
                     [ massField model.massInput
                     ]
                 ]
-            , materialFormSet db inputs.recycledRatio inputs.material
+            , inputs.materials
+                |> materialFormSet db
             , query
                 |> displayModeView impact.trigram funit detailed
             , lifeCycleStepsView db model simulator

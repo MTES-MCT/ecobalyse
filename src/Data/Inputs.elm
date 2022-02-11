@@ -24,6 +24,8 @@ module Data.Inputs exposing
     , tShirtPolyamideFrance
     , toQuery
     , updateMaterial
+    , updateMaterialRecycledRatio
+    , updateMaterialShare
     , updateProduct
     , updateStepCountry
     )
@@ -221,30 +223,29 @@ updateStepCountry index code query =
     }
 
 
-updateMaterial : Int -> Material -> Query -> Query
-updateMaterial index { id } query =
-    { query
-        | materials =
-            query.materials
-                |> LE.updateAt index
-                    (\({ share } as m) ->
-                        { m
-                            | id = id
-                            , share = share
-                            , recycledRatio = Unit.ratio 0
-                        }
-                    )
+updateMaterialAt : Int -> (MaterialQuery -> MaterialQuery) -> Query -> Query
+updateMaterialAt index update query =
+    { query | materials = query.materials |> LE.updateAt index update }
 
-        -- FIXME: check for default material country according to new materials
-        --        selected (see firstMaterialCountry)
-        -- FIXME: ensure we should not do the same with multiple materials
-        -- , recycledRatio =
-        --     -- ensure resetting recycledRatio when material is changed
-        --     if material.id /= query.material then
-        --         Nothing
-        --     else
-        --         query.recycledRatio
-    }
+
+updateMaterial : Int -> Material -> Query -> Query
+updateMaterial index { id } =
+    -- FIXME: check for default material country according to new materials
+    --        selected (see firstMaterialCountry)
+    updateMaterialAt index
+        (\({ share } as m) ->
+            { m | id = id, share = share, recycledRatio = Unit.ratio 0 }
+        )
+
+
+updateMaterialRecycledRatio : Int -> Unit.Ratio -> Query -> Query
+updateMaterialRecycledRatio index recycledRatio =
+    updateMaterialAt index (\m -> { m | recycledRatio = recycledRatio })
+
+
+updateMaterialShare : Int -> Unit.Ratio -> Query -> Query
+updateMaterialShare index share =
+    updateMaterialAt index (\m -> { m | share = share })
 
 
 updateProduct : Product -> Query -> Query
