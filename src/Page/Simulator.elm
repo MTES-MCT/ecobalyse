@@ -374,7 +374,7 @@ materialField db { index, total, exclude } { material, share, recycledRatio } =
                     , update = Maybe.withDefault (Unit.ratio 0) >> UpdateMaterialShare index
                     , value = share
                     , toString = Unit.ratioToFloat >> String.fromFloat
-                    , disabled = False
+                    , disabled = total == 1
                     }
                 ]
             ]

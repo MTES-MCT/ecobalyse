@@ -227,8 +227,6 @@ updateStepCountry index code query =
 
 addMaterial : Db -> Query -> Query
 addMaterial db query =
-    -- FIXME: filter already present materials from new material default choice
-    -- FIXME: recompute shares
     let
         alreadyUsed =
             query.materials |> List.map .id
