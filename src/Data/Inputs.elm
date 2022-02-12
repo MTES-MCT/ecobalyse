@@ -250,12 +250,6 @@ addMaterial db query =
             query
 
 
-removeMaterial : Int -> Query -> Query
-removeMaterial index query =
-    -- FIXME: recompute shares
-    { query | materials = query.materials |> LE.removeAt index }
-
-
 updateMaterialAt : Int -> (MaterialQuery -> MaterialQuery) -> Query -> Query
 updateMaterialAt index update query =
     { query | materials = query.materials |> LE.updateAt index update }
@@ -263,8 +257,7 @@ updateMaterialAt index update query =
 
 updateMaterial : Int -> Material -> Query -> Query
 updateMaterial index { id } =
-    -- FIXME: check for default material country according to new materials
-    --        selected (see firstMaterialCountry)
+    -- Note: The first material country is always extracted and applied in `fromQuery`.
     updateMaterialAt index
         (\({ share } as m) ->
             { m | id = id, share = share, recycledRatio = Unit.ratio 0 }
@@ -279,6 +272,11 @@ updateMaterialRecycledRatio index recycledRatio =
 updateMaterialShare : Int -> Unit.Ratio -> Query -> Query
 updateMaterialShare index share =
     updateMaterialAt index (\m -> { m | share = share })
+
+
+removeMaterial : Int -> Query -> Query
+removeMaterial index query =
+    { query | materials = query.materials |> LE.removeAt index }
 
 
 updateProduct : Product -> Query -> Query
