@@ -24,7 +24,6 @@ import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
-import List.Extra as LE
 import Mass
 import Ports
 import RemoteData exposing (WebData)
@@ -52,17 +51,12 @@ type alias Model =
     , modal : ModalContent
     , impact : Impact.Definition
     , funit : Unit.Functional
-    , materialShares : List Int
     }
 
 
 type ModalContent
     = NoModal
     | GitbookModal (WebData Gitbook.Page)
-
-
-type alias PseudoShare =
-    Int
 
 
 type Msg
@@ -81,7 +75,7 @@ type Msg
     | UpdateMassInput String
     | UpdateMaterial Int Material.Id
     | UpdateMaterialRecycledRatio Int Unit.Ratio
-    | UpdateMaterialShare Int PseudoShare
+    | UpdateMaterialShare Int Unit.Ratio
     | UpdateProduct Product.Id
     | UpdateQuality (Maybe Unit.Quality)
     | UpdateStepCountry Int Country.Code
@@ -111,7 +105,6 @@ init trigram funit { detailed } maybeQuery ({ db } as session) =
       , modal = NoModal
       , impact = db.impacts |> Impact.getDefinition trigram |> Result.withDefault Impact.default
       , funit = funit
-      , materialShares = materialSharesFromQuery query.materials
       }
     , case simulator of
         Err error ->
@@ -139,26 +132,12 @@ updateQuery query ( model, session, msg ) =
     )
 
 
-materialSharesFromQuery : List Inputs.MaterialQuery -> List PseudoShare
-materialSharesFromQuery =
-    List.map (\{ share } -> ceiling (Unit.ratioToFloat share * 100))
-
-
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
 update ({ db, navKey } as session) msg ({ query } as model) =
     case msg of
         AddMaterial ->
-            let
-                newQuery =
-                    query
-                        |> Inputs.addMaterial db
-                        |> updateMaterialsQuery (model.materialShares ++ [ 1 ])
-            in
-            updateQuery newQuery
-                ( { model | materialShares = materialSharesFromQuery newQuery.materials }
-                , session
-                , Cmd.none
-                )
+            ( model, session, Cmd.none )
+                |> updateQuery (Inputs.addMaterial db query)
 
         CloseModal ->
             ( { model | modal = NoModal }, session, Cmd.none )
@@ -179,17 +158,8 @@ update ({ db, navKey } as session) msg ({ query } as model) =
             )
 
         RemoveMaterial index ->
-            let
-                newQuery =
-                    query
-                        |> Inputs.removeMaterial index
-                        |> updateMaterialsQuery (LE.removeAt index model.materialShares)
-            in
-            updateQuery newQuery
-                ( { model | materialShares = materialSharesFromQuery newQuery.materials }
-                , session
-                , Cmd.none
-                )
+            ( model, session, Cmd.none )
+                |> updateQuery (Inputs.removeMaterial index query)
 
         Reset ->
             ( model, session, Cmd.none )
@@ -241,18 +211,9 @@ update ({ db, navKey } as session) msg ({ query } as model) =
             ( model, session, Cmd.none )
                 |> updateQuery (Inputs.updateMaterialRecycledRatio index recycledRatio query)
 
-        UpdateMaterialShare index pseudoShare ->
-            let
-                newQuery =
-                    query
-                        |> updateMaterialsQuery
-                            (LE.updateAt index (always pseudoShare) model.materialShares)
-            in
-            updateQuery newQuery
-                ( { model | materialShares = materialSharesFromQuery newQuery.materials }
-                , session
-                , Cmd.none
-                )
+        UpdateMaterialShare index share ->
+            ( model, session, Cmd.none )
+                |> updateQuery (Inputs.updateMaterialShare index share query)
 
         UpdateProduct productId ->
             case Product.findById productId db.products of
@@ -270,27 +231,6 @@ update ({ db, navKey } as session) msg ({ query } as model) =
         UpdateStepCountry index code ->
             ( model, session, Cmd.none )
                 |> updateQuery (Inputs.updateStepCountry index code query)
-
-
-updateMaterialsQuery : List PseudoShare -> Inputs.Query -> Inputs.Query
-updateMaterialsQuery pseudoShares query =
-    if List.length pseudoShares == 1 then
-        -- Ensure a single entry has always 100% of shares
-        query |> Inputs.updateMaterialShare 0 (Unit.ratio 1)
-
-    else
-        let
-            pseudoTotal =
-                List.sum pseudoShares
-        in
-        pseudoShares
-            |> List.indexedMap Tuple.pair
-            |> List.foldl
-                (\( idx, pseudoShare ) ->
-                    Inputs.updateMaterialShare idx
-                        (Unit.ratio (toFloat pseudoShare / toFloat pseudoTotal))
-                )
-                query
 
 
 massField : String -> Html Msg
@@ -314,13 +254,19 @@ massField massInput =
         ]
 
 
-materialFormSet : Db -> List Int -> List Inputs.MaterialInput -> Html Msg
-materialFormSet db pseudoShares materials =
+materialFormSet : Db -> List Inputs.MaterialInput -> Html Msg
+materialFormSet db materials =
     let
         ( length, exclude ) =
             ( List.length materials
             , List.map (.material >> .id) materials
             )
+
+        totalShares =
+            materials |> List.map (.share >> Unit.ratioToFloat) |> List.sum
+
+        valid =
+            round (totalShares * 100) == 100
 
         fields =
             materials
@@ -330,7 +276,7 @@ materialFormSet db pseudoShares materials =
                             { index = index
                             , length = length
                             , exclude = exclude
-                            , pseudoShare = LE.getAt index pseudoShares |> Maybe.withDefault 0
+                            , valid = valid
                             }
                     )
     in
@@ -342,21 +288,37 @@ materialFormSet db pseudoShares materials =
             ]
          ]
             ++ fields
-            ++ (if length < 3 then
-                    [ div [ class "row mb-2" ]
-                        [ div [ class "col-sm-5" ]
-                            [ button
-                                [ class "btn btn-outline-primary w-100"
-                                , onClick AddMaterial
-                                ]
-                                [ text "Ajouter une matière" ]
+            ++ [ div [ class "row d-flex align-items-center mb-2" ]
+                    [ div [ class "col-sm-5" ]
+                        [ button
+                            [ class "btn btn-outline-primary w-100"
+                            , onClick AddMaterial
+                            , disabled <| length >= 3
                             ]
+                            [ text "Ajouter une matière" ]
                         ]
-                    ]
+                    , div [ class "col-sm-3" ] []
+                    , if length > 1 then
+                        div
+                            [ class "col-sm-3 text-center"
+                            , classList
+                                [ ( "text-danger", not valid )
+                                , ( "text-success", valid )
+                                ]
+                            ]
+                            [ if valid then
+                                Icon.check
 
-                else
-                    [ text "" ]
-               )
+                              else
+                                Icon.warning
+                            , text " Total : "
+                            , Format.ratioToDecimals 0 (Unit.ratio totalShares)
+                            ]
+
+                      else
+                        text ""
+                    ]
+               ]
         )
 
 
@@ -366,11 +328,11 @@ materialField :
         { index : Int
         , length : Int
         , exclude : List Material.Id
-        , pseudoShare : Int
+        , valid : Bool
         }
     -> Inputs.MaterialInput
     -> Html Msg
-materialField db { index, length, exclude, pseudoShare } { material, share, recycledRatio } =
+materialField db { index, length, exclude, valid } { material, share, recycledRatio } =
     let
         ( ( natural1, synthetic1, recycled1 ), ( natural2, synthetic2, recycled2 ) ) =
             Material.groupAll db.materials
@@ -437,17 +399,40 @@ materialField db { index, length, exclude, pseudoShare } { material, share, recy
                 [ input
                     [ type_ "range"
                     , class "d-block form-range"
-                    , onInput (String.toInt >> Maybe.withDefault 0 >> UpdateMaterialShare index)
-                    , Attr.min "1"
-                    , Attr.max "100"
-                    , step "1"
-                    , value (String.fromInt pseudoShare)
+                    , onInput
+                        (String.toFloat
+                            >> Maybe.withDefault 0
+                            >> Unit.ratio
+                            >> UpdateMaterialShare index
+                        )
+                    , Attr.min "0"
+                    , Attr.max "1"
+                    , step "0.1"
+                    , value (share |> Unit.ratioToFloat |> String.fromFloat)
                     , Attr.disabled <| length == 1
                     ]
                     []
-                , div [ class "fs-7 text-end", style "min-width" "34px" ]
-                    [ Format.ratioToDecimals 0 share
-                    ]
+                , if length > 1 then
+                    div
+                        [ class "fs-7"
+                        , classList
+                            [ ( "text-danger", not valid )
+                            , ( "text-success", valid )
+                            ]
+                        , style "min-width" "34px"
+                        ]
+                        [ span [ style "margin-right" "2px" ]
+                            [ if not valid then
+                                Icon.warning
+
+                              else
+                                Icon.check
+                            ]
+                        , Format.ratioToDecimals 0 share
+                        ]
+
+                  else
+                    text ""
                 ]
 
         removeButton =
@@ -687,8 +672,7 @@ simulatorView ({ db } as session) ({ impact, funit, query, detailed } as model) 
                     [ massField model.massInput
                     ]
                 ]
-            , inputs.materials
-                |> materialFormSet db model.materialShares
+            , materialFormSet db inputs.materials
             , query
                 |> displayModeView impact.trigram funit detailed
             , lifeCycleStepsView db model simulator

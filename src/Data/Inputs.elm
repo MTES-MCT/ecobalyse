@@ -239,14 +239,13 @@ addMaterial db query =
                 | materials =
                     query.materials
                         ++ [ { id = material.id
-                             , share = Unit.ratio 0.01
+                             , share = Unit.ratio 0
                              , recycledRatio = Unit.ratio 0
                              }
                            ]
             }
 
         Nothing ->
-            -- Error?
             query
 
 
@@ -277,6 +276,14 @@ updateMaterialShare index share =
 removeMaterial : Int -> Query -> Query
 removeMaterial index query =
     { query | materials = query.materials |> LE.removeAt index }
+        |> (\({ materials } as q) ->
+                -- set share to 100% when a single material remains
+                if List.length materials == 1 then
+                    updateMaterialShare 0 (Unit.ratio 1) q
+
+                else
+                    q
+           )
 
 
 updateProduct : Product -> Query -> Query
