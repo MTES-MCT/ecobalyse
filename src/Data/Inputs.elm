@@ -239,7 +239,7 @@ addMaterial db query =
                 | materials =
                     query.materials
                         ++ [ { id = material.id
-                             , share = Unit.ratio 0
+                             , share = Unit.ratio 0.01
                              , recycledRatio = Unit.ratio 0
                              }
                            ]

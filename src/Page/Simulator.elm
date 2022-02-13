@@ -152,7 +152,7 @@ update ({ db, navKey } as session) msg ({ query } as model) =
                 newQuery =
                     query
                         |> Inputs.addMaterial db
-                        |> updateMaterialsQuery (model.materialShares ++ [ 0 ])
+                        |> updateMaterialsQuery (model.materialShares ++ [ 1 ])
             in
             updateQuery newQuery
                 ( { model | materialShares = materialSharesFromQuery newQuery.materials }
@@ -274,19 +274,23 @@ update ({ db, navKey } as session) msg ({ query } as model) =
 
 updateMaterialsQuery : List PseudoShare -> Inputs.Query -> Inputs.Query
 updateMaterialsQuery pseudoShares query =
-    let
-        -- FIXME: check for a single entry, ensure it has 100% shares
-        pseudoTotal =
-            List.sum pseudoShares
-    in
-    pseudoShares
-        |> List.indexedMap Tuple.pair
-        |> List.foldl
-            (\( idx, pseudoShare ) ->
-                Inputs.updateMaterialShare idx
-                    (Unit.ratio (toFloat pseudoShare / toFloat pseudoTotal))
-            )
-            query
+    if List.length pseudoShares == 1 then
+        -- Ensure a single entry has always 100% of shares
+        query |> Inputs.updateMaterialShare 0 (Unit.ratio 1)
+
+    else
+        let
+            pseudoTotal =
+                List.sum pseudoShares
+        in
+        pseudoShares
+            |> List.indexedMap Tuple.pair
+            |> List.foldl
+                (\( idx, pseudoShare ) ->
+                    Inputs.updateMaterialShare idx
+                        (Unit.ratio (toFloat pseudoShare / toFloat pseudoTotal))
+                )
+                query
 
 
 massField : String -> Html Msg
@@ -434,7 +438,7 @@ materialField db { index, length, exclude, pseudoShare } { material, share, recy
                     [ type_ "range"
                     , class "d-block form-range"
                     , onInput (String.toInt >> Maybe.withDefault 0 >> UpdateMaterialShare index)
-                    , Attr.min "0"
+                    , Attr.min "1"
                     , Attr.max "100"
                     , step "1"
                     , value (String.fromInt pseudoShare)
