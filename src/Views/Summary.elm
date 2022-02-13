@@ -34,11 +34,10 @@ viewMaterials materials =
         |> List.map
             (\{ material, share, recycledRatio } ->
                 span []
-                    [ Format.ratio share
+                    [ Format.ratioToDecimals 0 share
                     , text " "
                     , material
                         |> Material.fullName
-                            -- FIXME: check out this maybe recycledRatio
                             (material.recycledProcess |> Maybe.map (always recycledRatio))
                         |> text
                     ]

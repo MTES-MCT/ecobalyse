@@ -38,7 +38,6 @@ import Views.Impact as ImpactView
 import Views.Link as Link
 import Views.Markdown as MarkdownView
 import Views.Modal as ModalView
-import Views.RangeSlider as RangeSlider
 import Views.Spinner as SpinnerView
 import Views.Step as StepView
 import Views.Summary as SummaryView
@@ -276,6 +275,7 @@ update ({ db, navKey } as session) msg ({ query } as model) =
 updateMaterialsQuery : List PseudoShare -> Inputs.Query -> Inputs.Query
 updateMaterialsQuery pseudoShares query =
     let
+        -- FIXME: check for a single entry, ensure it has 100% shares
         pseudoTotal =
             List.sum pseudoShares
     in
@@ -331,7 +331,13 @@ materialFormSet db pseudoShares materials =
                     )
     in
     div []
-        (fields
+        ([ div [ class "row mb-2" ]
+            [ div [ class "col-5 fw-bold" ] [ text "Matières premières" ]
+            , div [ class "col-3 fw-bold" ] [ text "Part recyclée" ]
+            , div [ class "col-4 fw-bold" ] [ text "Part du vêtement" ]
+            ]
+         ]
+            ++ fields
             ++ (if length < 3 then
                     [ div [ class "row mb-2" ]
                         [ div [ class "col-sm-5" ]
@@ -382,88 +388,85 @@ materialField db { index, length, exclude, pseudoShare } { material, share, recy
                 materials
                     |> List.map toOption
                     |> optgroup [ attribute "label" name ]
-    in
-    div [ class "row mb-2" ]
-        [ div [ class "col-md-5 mb-2" ]
-            [ if index == 0 then
-                div [ class "form-label fw-bold" ]
-                    [ text "Matières premières" ]
 
-              else
-                text ""
-            , [ toGroup "Matières naturelles" natural1
-              , toGroup "Matières synthétiques" synthetic1
-              , toGroup "Matières recyclées" recycled1
-              , toGroup "Autres matières naturelles" natural2
-              , toGroup "Autres matières synthétiques" synthetic2
-              , toGroup "Autres matières recyclées" recycled2
-              ]
+        materialSelector =
+            [ toGroup "Matières naturelles" natural1
+            , toGroup "Matières synthétiques" synthetic1
+            , toGroup "Matières recyclées" recycled1
+            , toGroup "Autres matières naturelles" natural2
+            , toGroup "Autres matières synthétiques" synthetic2
+            , toGroup "Autres matières recyclées" recycled2
+            ]
                 |> select
                     [ id "material"
                     , class "form-select"
                     , onInput (Material.Id >> UpdateMaterial index)
                     ]
-            ]
-        , div [ class "col-md-3 mb-2" ]
-            [ if index == 0 then
-                div [ class "form-label fw-bold mb-0 mb-xxl-3" ]
-                    [ text "Part recyclée" ]
 
-              else
-                text ""
-            , span
-                [ title
-                    "Pourcentage de matière recyclée appliqué à la masse de fil en sortie d‘étape “Matière et Filature”."
-                ]
-                [ RangeSlider.ratio
-                    { id = "recycledRatio"
-                    , update = Maybe.withDefault (Unit.ratio 0) >> UpdateMaterialRecycledRatio index
-                    , value = recycledRatio
-                    , toString = Material.recycledRatioToString "♻"
-                    , disabled = material.recycledProcess == Nothing
-                    }
-                ]
-            ]
-        , div [ class "col-md-3 mb-2" ]
-            [ if index == 0 then
-                div [ class "form-label fw-bold mb-0 mb-xxl-3" ]
-                    [ text "Part du vêtement" ]
+        recycledRatioRangeSlider =
+            div [ class "d-flex gap-1 align-items-center" ]
+                [ input
+                    [ type_ "range"
+                    , class "d-block form-range"
+                    , onInput
+                        (String.toFloat
+                            >> Maybe.withDefault 0
+                            >> Unit.ratio
+                            >> UpdateMaterialRecycledRatio index
+                        )
+                    , Attr.min "0"
+                    , Attr.max "1"
+                    , step "0.01"
 
-              else
-                text ""
-            , span
-                [ title "Part de cette matière utilisée dans ce vêtement." ]
-                [ div []
-                    [ input
-                        [ type_ "range"
-                        , class "d-block form-range"
-                        , onInput (String.toInt >> Maybe.withDefault 0 >> UpdateMaterialShare index)
-                        , value (String.fromInt pseudoShare)
-                        , Attr.min "0"
-                        , Attr.max "100"
-                        , step "10"
-                        , Attr.disabled <| length == 1
-                        ]
-                        []
-                    , span [ class "fs-7" ]
-                        [ Format.ratio share
-                        ]
+                    -- Note: 'value' attr should always be set after 'step' attr
+                    , recycledRatio |> Unit.ratioToFloat |> String.fromFloat |> value
+                    , Attr.disabled <| material.recycledProcess == Nothing
+                    ]
+                    []
+                , div [ class "fs-7 text-end", style "min-width" "34px" ]
+                    [ Format.ratioToDecimals 0 recycledRatio
                     ]
                 ]
-            ]
-        , div
-            [ class "col-md-1 d-flex"
-            , classList
-                [ ( "align-items-end", index == 0 )
-                , ( "align-items-center", index > 0 )
+
+        shareRangeSlider =
+            div [ class "d-flex gap-1 align-items-center" ]
+                [ input
+                    [ type_ "range"
+                    , class "d-block form-range"
+                    , onInput (String.toInt >> Maybe.withDefault 0 >> UpdateMaterialShare index)
+                    , Attr.min "0"
+                    , Attr.max "100"
+                    , step "1"
+                    , value (String.fromInt pseudoShare)
+                    , Attr.disabled <| length == 1
+                    ]
+                    []
+                , div [ class "fs-7 text-end", style "min-width" "34px" ]
+                    [ Format.ratioToDecimals 0 share
+                    ]
                 ]
-            ]
-            [ button
+
+        removeButton =
+            button
                 [ class "btn btn-sm btn-primary"
                 , onClick (RemoveMaterial index)
                 , disabled <| length < 2
                 ]
                 [ Icon.times ]
+    in
+    div [ class "row mb-2 d-flex align-items-center" ]
+        [ div [ class "col-5" ]
+            [ materialSelector
+            ]
+        , div [ class "col-3" ]
+            [ recycledRatioRangeSlider
+            ]
+        , div [ class "col-3" ]
+            [ shareRangeSlider
+            ]
+        , div
+            [ class "col-1 text-end" ]
+            [ removeButton
             ]
         ]
 
