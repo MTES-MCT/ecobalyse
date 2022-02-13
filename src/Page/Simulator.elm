@@ -111,9 +111,7 @@ init trigram funit { detailed } maybeQuery ({ db } as session) =
       , modal = NoModal
       , impact = db.impacts |> Impact.getDefinition trigram |> Result.withDefault Impact.default
       , funit = funit
-      , materialShares =
-            query.materials
-                |> List.map (\{ share } -> ceiling (Unit.ratioToFloat share * 100))
+      , materialShares = materialSharesFromQuery query.materials
       }
     , case simulator of
         Err error ->
@@ -141,23 +139,26 @@ updateQuery query ( model, session, msg ) =
     )
 
 
+materialSharesFromQuery : List Inputs.MaterialQuery -> List PseudoShare
+materialSharesFromQuery =
+    List.map (\{ share } -> ceiling (Unit.ratioToFloat share * 100))
+
+
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
 update ({ db, navKey } as session) msg ({ query } as model) =
     case msg of
         AddMaterial ->
             let
-                materialShares =
-                    model.materialShares ++ [ 0 ]
-            in
-            ( { model | materialShares = materialShares }
-            , session
-            , Cmd.none
-            )
-                |> updateQuery
-                    (query
+                newQuery =
+                    query
                         |> Inputs.addMaterial db
-                        |> updateMaterialsQuery materialShares
-                    )
+                        |> updateMaterialsQuery (model.materialShares ++ [ 0 ])
+            in
+            updateQuery newQuery
+                ( { model | materialShares = materialSharesFromQuery newQuery.materials }
+                , session
+                , Cmd.none
+                )
 
         CloseModal ->
             ( { model | modal = NoModal }, session, Cmd.none )
@@ -179,18 +180,16 @@ update ({ db, navKey } as session) msg ({ query } as model) =
 
         RemoveMaterial index ->
             let
-                materialShares =
-                    model.materialShares |> LE.removeAt index
-            in
-            ( { model | materialShares = materialShares }
-            , session
-            , Cmd.none
-            )
-                |> updateQuery
-                    (query
+                newQuery =
+                    query
                         |> Inputs.removeMaterial index
-                        |> updateMaterialsQuery materialShares
-                    )
+                        |> updateMaterialsQuery (LE.removeAt index model.materialShares)
+            in
+            updateQuery newQuery
+                ( { model | materialShares = materialSharesFromQuery newQuery.materials }
+                , session
+                , Cmd.none
+                )
 
         Reset ->
             ( model, session, Cmd.none )
@@ -244,15 +243,16 @@ update ({ db, navKey } as session) msg ({ query } as model) =
 
         UpdateMaterialShare index pseudoShare ->
             let
-                materialShares =
-                    model.materialShares
-                        |> LE.updateAt index (always pseudoShare)
+                newQuery =
+                    query
+                        |> updateMaterialsQuery
+                            (LE.updateAt index (always pseudoShare) model.materialShares)
             in
-            ( { model | materialShares = materialShares }
-            , session
-            , Cmd.none
-            )
-                |> updateQuery (query |> updateMaterialsQuery materialShares)
+            updateQuery newQuery
+                ( { model | materialShares = materialSharesFromQuery newQuery.materials }
+                , session
+                , Cmd.none
+                )
 
         UpdateProduct productId ->
             case Product.findById productId db.products of
