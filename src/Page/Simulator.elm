@@ -301,20 +301,28 @@ materialFormSet db materials =
                         ]
                     , div [ class "col-sm-3" ] []
                     , if length > 1 then
-                        div
-                            [ class "col-sm-3 text-center"
-                            , classList
-                                [ ( "text-danger", not valid )
-                                , ( "text-success", valid )
-                                ]
-                            ]
-                            [ if valid then
-                                Icon.check
+                        div [ class "col-sm-3" ]
+                            [ div [ class "input-group" ]
+                                [ span
+                                    [ class "form-control text-end d-flex justify-content-between align-items-center gap-1"
+                                    , classList
+                                        [ ( "text-success feedback-valid", valid )
+                                        , ( "text-danger feedback-invalid", not valid )
+                                        ]
+                                    ]
+                                    [ if valid then
+                                        Icon.check
 
-                              else
-                                Icon.warning
-                            , text " Total : "
-                            , Format.ratioToDecimals 0 (Unit.ratio totalShares)
+                                      else
+                                        Icon.warning
+                                    , round (totalShares * 100) |> String.fromInt |> text
+                                    ]
+                                , span
+                                    [ class "input-group-text fs-7"
+                                    , classList [ ( "bg-danger", not valid ), ( "text-white", not valid ) ]
+                                    ]
+                                    [ text "%" ]
+                                ]
                             ]
 
                       else
@@ -415,7 +423,11 @@ materialField db { index, length, exclude, valid } { material, share, recycledRa
                     [ input
                         [ type_ "number"
                         , class "form-control ps-2 text-end"
-                        , classList [ ( "incdec-arrows-left", length > 1 ) ]
+                        , classList
+                            [ ( "incdec-arrows-left", length > 1 )
+                            , ( "feedback-valid", valid )
+                            , ( "feedback-invalid", not valid )
+                            ]
                         , placeholder "100%"
                         , dir "rtl"
                         , Attr.step "1"

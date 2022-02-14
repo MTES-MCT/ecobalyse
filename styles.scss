@@ -6,6 +6,7 @@ $body-color: #111;
 $dark: #333;
 $primary: #075ea2;
 $success: #167d2e;
+$danger: #dc3545;
 $info: #097182;
 $input-border-color: #969696;
 $navbar-dark-color: rgba($white, 0.8);
@@ -48,6 +49,16 @@ input[type=number].no-arrows::-webkit-inner-spin-button {
   &[type=number]::-webkit-inner-spin-button,
   &[type=number]::-webkit-outer-spin-button {
      opacity: 1;
+  }
+}
+
+.feedback {
+  &-valid {
+    border-color: $success;
+  }
+
+  &-invalid {
+    border-color: $danger;
   }
 }
 
