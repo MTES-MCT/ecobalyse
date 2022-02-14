@@ -119,6 +119,11 @@ plane =
     icon "plane"
 
 
+plus : Html msg
+plus =
+    icon "plus"
+
+
 question : Html msg
 question =
     icon "question"

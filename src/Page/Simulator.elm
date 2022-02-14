@@ -291,11 +291,13 @@ materialFormSet db materials =
             ++ [ div [ class "row d-flex align-items-center mb-2" ]
                     [ div [ class "col-sm-6" ]
                         [ button
-                            [ class "btn btn-outline-primary w-100"
+                            [ class "btn btn-outline-primary w-100 d-flex justify-content-center align-items-center gap-1"
                             , onClick AddMaterial
                             , disabled <| length >= 3
                             ]
-                            [ text "Ajouter une matière" ]
+                            [ Icon.plus
+                            , text "Ajouter une matière"
+                            ]
                         ]
                     , div [ class "col-sm-3" ] []
                     , if length > 1 then
@@ -412,7 +414,8 @@ materialField db { index, length, exclude, valid } { material, share, recycledRa
                 [ div [ class "input-group" ]
                     [ input
                         [ type_ "number"
-                        , class "form-control incdec-arrows-left ps-2 text-end"
+                        , class "form-control ps-2 text-end"
+                        , classList [ ( "incdec-arrows-left", length > 1 ) ]
                         , placeholder "100%"
                         , dir "rtl"
                         , Attr.step "1"
