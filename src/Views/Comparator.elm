@@ -47,84 +47,15 @@ type alias Entry =
     }
 
 
-toFrance : Inputs.Query -> ( String, Inputs.Query )
-toFrance query =
-    ( "France, Q=1"
-    , { query
-        | countryFabric = Country.Code "FR"
-        , countryDyeing = Country.Code "FR"
-        , countryMaking = Country.Code "FR"
-        , dyeingWeighting = Nothing
-        , airTransportRatio = Nothing
-        , quality = Just Unit.standardQuality
-      }
-    )
-
-
-toPortugal : Inputs.Query -> ( String, Inputs.Query )
-toPortugal query =
-    ( "Portugal, Q=1"
-    , { query
-        | countryFabric = Country.Code "PT"
-        , countryDyeing = Country.Code "PT"
-        , countryMaking = Country.Code "PT"
-        , dyeingWeighting = Nothing
-        , airTransportRatio = Nothing
-        , quality = Just Unit.standardQuality
-      }
-    )
-
-
-toTunisia : Inputs.Query -> ( String, Inputs.Query )
-toTunisia query =
-    ( "Tunisie, Q=1"
-    , { query
-        | countryFabric = Country.Code "TN"
-        , countryDyeing = Country.Code "TN"
-        , countryMaking = Country.Code "TN"
-        , dyeingWeighting = Nothing
-        , airTransportRatio = Nothing
-        , quality = Just Unit.standardQuality
-      }
-    )
-
-
-toBangladesh : Inputs.Query -> ( String, Inputs.Query )
-toBangladesh query =
-    ( "Bangladesh, Q=1"
-    , { query
-        | countryFabric = Country.Code "BD"
-        , countryDyeing = Country.Code "BD"
-        , countryMaking = Country.Code "BD"
-        , dyeingWeighting = Nothing
-        , airTransportRatio = Nothing
-        , quality = Just Unit.standardQuality
-      }
-    )
-
-
-toIndia : Inputs.Query -> ( String, Inputs.Query )
-toIndia query =
-    ( "Inde, Q=1"
-    , { query
-        | countryFabric = Country.Code "IN"
-        , countryDyeing = Country.Code "IN"
-        , countryMaking = Country.Code "IN"
-        , dyeingWeighting = Nothing
-        , airTransportRatio = Nothing
-        , quality = Just Unit.standardQuality
-      }
-    )
-
-
 createEntry :
     Db
     -> Unit.Functional
     -> Impact.Definition
     -> Bool
-    -> ( String, Inputs.Query )
+    -> String
+    -> Inputs.Query
     -> Result String Entry
-createEntry db funit { trigram } highlight ( label, query ) =
+createEntry db funit { trigram } highlight label query =
     query
         |> Simulator.compute db
         |> Result.map
@@ -153,6 +84,51 @@ createEntry db funit { trigram } highlight ( label, query ) =
             )
 
 
+fromUserQuery : Inputs.Query -> Inputs.Query
+fromUserQuery query =
+    { query
+        | dyeingWeighting = Nothing
+        , airTransportRatio = Nothing
+        , quality = Just Unit.standardQuality
+    }
+
+
+toCountry : Country.Code -> Inputs.Query -> Inputs.Query
+toCountry code query =
+    { query
+        | countryFabric = code
+        , countryDyeing = code
+        , countryMaking = code
+    }
+
+
+toRecycled : Bool -> Inputs.Query -> Inputs.Query
+toRecycled recycled query =
+    { query
+        | materials =
+            query.materials
+                |> List.map
+                    (\material ->
+                        { material
+                            | recycledRatio =
+                                if recycled then
+                                    Unit.ratio 1
+
+                                else
+                                    Unit.ratio 0
+                        }
+                    )
+    }
+
+
+hasRecycledMaterials : Inputs.Inputs -> Bool
+hasRecycledMaterials { materials } =
+    materials
+        |> List.filter (.material >> .recycledProcess >> (/=) Nothing)
+        |> List.length
+        |> (/=) 0
+
+
 getEntries : Db -> Unit.Functional -> Impact.Definition -> Inputs -> Result String (List Entry)
 getEntries db funit impact inputs =
     let
@@ -170,13 +146,46 @@ getEntries db funit impact inputs =
             createEntry db funit impact
 
         entries =
-            [ ( currentName, query ) |> createEntry_ True -- user simulation
-            , query |> toFrance |> createEntry_ False
-            , query |> toPortugal |> createEntry_ False
-            , query |> toTunisia |> createEntry_ False
-            , query |> toIndia |> createEntry_ False
-            , query |> toBangladesh |> createEntry_ False
-            ]
+            -- Comparison with several (non-)recycled equivalents
+            if hasRecycledMaterials inputs then
+                [ query
+                    |> createEntry_ True currentName
+                , fromUserQuery query
+                    |> toCountry (Country.Code "FR")
+                    |> toRecycled True
+                    |> createEntry_ False "France 100% recyclé, Q=1"
+                , fromUserQuery query
+                    |> toCountry (Country.Code "FR")
+                    |> toRecycled False
+                    |> createEntry_ False "France 0% recyclé, Q=1"
+                , fromUserQuery query
+                    |> toCountry (Country.Code "PT")
+                    |> toRecycled True
+                    |> createEntry_ False "Portugal 100% recyclé, Q=1"
+                , fromUserQuery query
+                    |> toCountry (Country.Code "IN")
+                    |> toRecycled True
+                    |> createEntry_ False "Inde 100% recyclé, Q=1"
+                , fromUserQuery query
+                    |> toCountry (Country.Code "IN")
+                    |> toRecycled False
+                    |> createEntry_ False "Inde 0% recyclé, Q=1"
+                ]
+
+            else
+                -- Simple comparison as there's no recycalbe materials involved
+                [ query
+                    |> createEntry_ True currentName
+                , fromUserQuery query
+                    |> toCountry (Country.Code "FR")
+                    |> createEntry_ False "France 0% recyclé, Q=1"
+                , fromUserQuery query
+                    |> toCountry (Country.Code "PT")
+                    |> createEntry_ False "Portugal 0% recyclé, Q=1"
+                , fromUserQuery query
+                    |> toCountry (Country.Code "IN")
+                    |> createEntry_ False "Inde 0% recyclé, Q=1"
+                ]
     in
     entries
         |> RE.combine
