@@ -46,9 +46,12 @@ input[type=number].no-arrows::-webkit-inner-spin-button {
 
 // Force-show number <input/> inc-dec arrows to the left of the field
 .incdec-arrows-left {
+  display: flex;
+
   &[type=number]::-webkit-inner-spin-button,
   &[type=number]::-webkit-outer-spin-button {
-     opacity: 1;
+    opacity: 1;
+    margin-left: 4px;
   }
 }
 

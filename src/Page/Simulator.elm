@@ -422,14 +422,13 @@ materialField db { index, length, exclude, valid } { material, share, recycledRa
                 [ div [ class "input-group" ]
                     [ input
                         [ type_ "number"
-                        , class "form-control ps-2 text-end"
+                        , class "form-control text-end pe-2"
                         , classList
                             [ ( "incdec-arrows-left", length > 1 )
                             , ( "feedback-valid", valid )
                             , ( "feedback-invalid", not valid )
                             ]
                         , placeholder "100%"
-                        , dir "rtl"
                         , Attr.step "1"
                         , Attr.min "0"
                         , Attr.max "100"
