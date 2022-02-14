@@ -394,45 +394,45 @@ materialField db { index, length, exclude, valid } { material, share, recycledRa
                     ]
                 ]
 
-        shareRangeSlider =
+        shareSelector =
             div [ class "d-flex gap-1 align-items-center" ]
-                [ input
-                    [ type_ "range"
-                    , class "d-block form-range"
-                    , onInput
-                        (String.toFloat
-                            >> Maybe.withDefault 0
-                            >> Unit.ratio
-                            >> UpdateMaterialShare index
-                        )
-                    , Attr.min "0"
-                    , Attr.max "1"
-                    , step "0.1"
-                    , value (share |> Unit.ratioToFloat |> String.fromFloat)
-                    , Attr.disabled <| length == 1
-                    ]
-                    []
-                , if length > 1 then
+                [ if length > 1 then
                     div
                         [ class "fs-7"
                         , classList
                             [ ( "text-danger", not valid )
                             , ( "text-success", valid )
                             ]
-                        , style "min-width" "34px"
                         ]
-                        [ span [ style "margin-right" "2px" ]
-                            [ if not valid then
-                                Icon.warning
+                        [ if not valid then
+                            Icon.warning
 
-                              else
-                                Icon.check
-                            ]
-                        , Format.ratioToDecimals 0 share
+                          else
+                            Icon.check
                         ]
 
                   else
                     text ""
+                , List.range 0 100
+                    |> List.map (\x -> ( toFloat x / 100, String.fromInt x ++ "%" ))
+                    |> List.map
+                        (\( value, label ) ->
+                            option
+                                [ Attr.value <| String.fromFloat value
+                                , selected <| value == Unit.ratioToFloat share
+                                ]
+                                [ text label ]
+                        )
+                    |> select
+                        [ class "form-select"
+                        , Attr.disabled <| length == 1
+                        , onInput
+                            (String.toFloat
+                                >> Maybe.withDefault 0
+                                >> Unit.ratio
+                                >> UpdateMaterialShare index
+                            )
+                        ]
                 ]
 
         removeButton =
@@ -451,7 +451,8 @@ materialField db { index, length, exclude, valid } { material, share, recycledRa
             [ recycledRatioRangeSlider
             ]
         , div [ class "col-3" ]
-            [ shareRangeSlider
+            [ -- shareRangeSlider
+              shareSelector
             ]
         , div
             [ class "col-1 text-end" ]
