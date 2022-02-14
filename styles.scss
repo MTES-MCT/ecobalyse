@@ -43,9 +43,12 @@ input[type=number].no-arrows::-webkit-inner-spin-button {
   margin: 0;
 }
 
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
-   opacity: 1;
+// Force-show number <input/> inc-dec arrows to the left of the field
+.incdec-arrows-left {
+  &[type=number]::-webkit-inner-spin-button,
+  &[type=number]::-webkit-outer-spin-button {
+     opacity: 1;
+  }
 }
 
 // App styles

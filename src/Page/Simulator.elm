@@ -412,8 +412,9 @@ materialField db { index, length, exclude, valid } { material, share, recycledRa
                 [ div [ class "input-group" ]
                     [ input
                         [ type_ "number"
-                        , class "form-control text-end"
+                        , class "form-control incdec-arrows-left ps-2 text-end"
                         , placeholder "100%"
+                        , dir "rtl"
                         , Attr.step "1"
                         , Attr.min "0"
                         , Attr.max "100"
