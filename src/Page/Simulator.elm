@@ -282,14 +282,14 @@ materialFormSet db materials =
     in
     div []
         ([ div [ class "row mb-2" ]
-            [ div [ class "col-5 fw-bold" ] [ text "Matières premières" ]
-            , div [ class "col-4 fw-bold" ] [ text "Part recyclée" ]
+            [ div [ class "col-6 fw-bold" ] [ text "Matières premières" ]
+            , div [ class "col-3 fw-bold" ] [ text "Part recyclée" ]
             , div [ class "col-3 fw-bold" ] [ text "Part du vêtement" ]
             ]
          ]
             ++ fields
             ++ [ div [ class "row d-flex align-items-center mb-2" ]
-                    [ div [ class "col-sm-5" ]
+                    [ div [ class "col-sm-6" ]
                         [ button
                             [ class "btn btn-outline-primary w-100"
                             , onClick AddMaterial
@@ -297,7 +297,7 @@ materialFormSet db materials =
                             ]
                             [ text "Ajouter une matière" ]
                         ]
-                    , div [ class "col-sm-4" ] []
+                    , div [ class "col-sm-3" ] []
                     , if length > 1 then
                         div
                             [ class "col-sm-3 text-center"
@@ -442,10 +442,10 @@ materialField db { index, length, exclude, valid } { material, share, recycledRa
                 ]
     in
     div [ class "row mb-2 d-flex align-items-center" ]
-        [ div [ class "col-5" ]
+        [ div [ class "col-6" ]
             [ materialSelector
             ]
-        , div [ class "col-4" ]
+        , div [ class "col-3" ]
             [ recycledRatioRangeSlider
             ]
         , div [ class "col-3" ]
