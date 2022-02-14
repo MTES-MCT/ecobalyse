@@ -43,6 +43,11 @@ input[type=number].no-arrows::-webkit-inner-spin-button {
   margin: 0;
 }
 
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+   opacity: 1;
+}
+
 // App styles
 
 body {

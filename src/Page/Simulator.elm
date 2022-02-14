@@ -283,8 +283,8 @@ materialFormSet db materials =
     div []
         ([ div [ class "row mb-2" ]
             [ div [ class "col-5 fw-bold" ] [ text "Matières premières" ]
-            , div [ class "col-3 fw-bold" ] [ text "Part recyclée" ]
-            , div [ class "col-4 fw-bold" ] [ text "Part du vêtement" ]
+            , div [ class "col-4 fw-bold" ] [ text "Part recyclée" ]
+            , div [ class "col-3 fw-bold" ] [ text "Part du vêtement" ]
             ]
          ]
             ++ fields
@@ -297,7 +297,7 @@ materialFormSet db materials =
                             ]
                             [ text "Ajouter une matière" ]
                         ]
-                    , div [ class "col-sm-3" ] []
+                    , div [ class "col-sm-4" ] []
                     , if length > 1 then
                         div
                             [ class "col-sm-3 text-center"
@@ -356,18 +356,31 @@ materialField db { index, length, exclude, valid } { material, share, recycledRa
                     |> optgroup [ attribute "label" name ]
 
         materialSelector =
-            [ toGroup "Matières naturelles" natural1
-            , toGroup "Matières synthétiques" synthetic1
-            , toGroup "Matières recyclées" recycled1
-            , toGroup "Autres matières naturelles" natural2
-            , toGroup "Autres matières synthétiques" synthetic2
-            , toGroup "Autres matières recyclées" recycled2
-            ]
-                |> select
-                    [ id "material"
-                    , class "form-select"
-                    , onInput (Material.Id >> UpdateMaterial index)
-                    ]
+            div [ class "input-group" ]
+                [ if length > 1 then
+                    button
+                        [ class "btn btn-primary"
+                        , onClick (RemoveMaterial index)
+                        , disabled <| length < 2
+                        , tabindex -1
+                        ]
+                        [ Icon.times ]
+
+                  else
+                    text ""
+                , [ toGroup "Matières naturelles" natural1
+                  , toGroup "Matières synthétiques" synthetic1
+                  , toGroup "Matières recyclées" recycled1
+                  , toGroup "Autres matières naturelles" natural2
+                  , toGroup "Autres matières synthétiques" synthetic2
+                  , toGroup "Autres matières recyclées" recycled2
+                  ]
+                    |> select
+                        [ id "material"
+                        , class "form-select"
+                        , onInput (Material.Id >> UpdateMaterial index)
+                        ]
+                ]
 
         recycledRatioRangeSlider =
             div [ class "d-flex gap-1 align-items-center" ]
@@ -394,69 +407,49 @@ materialField db { index, length, exclude, valid } { material, share, recycledRa
                     ]
                 ]
 
-        shareSelector =
+        shareField =
             div [ class "d-flex gap-1 align-items-center" ]
-                [ if length > 1 then
-                    div
-                        [ class "fs-7"
-                        , classList
-                            [ ( "text-danger", not valid )
-                            , ( "text-success", valid )
-                            ]
-                        ]
-                        [ if not valid then
-                            Icon.warning
-
-                          else
-                            Icon.check
-                        ]
-
-                  else
-                    text ""
-                , List.range 0 100
-                    |> List.map (\x -> ( toFloat x / 100, String.fromInt x ++ "%" ))
-                    |> List.map
-                        (\( value, label ) ->
-                            option
-                                [ Attr.value <| String.fromFloat value
-                                , selected <| value == Unit.ratioToFloat share
-                                ]
-                                [ text label ]
-                        )
-                    |> select
-                        [ class "form-select"
+                [ div [ class "input-group" ]
+                    [ input
+                        [ type_ "number"
+                        , class "form-control text-end"
+                        , placeholder "100%"
+                        , Attr.step "1"
+                        , Attr.min "0"
+                        , Attr.max "100"
+                        , Unit.ratioToFloat share
+                            * 100
+                            |> round
+                            |> clamp 0 100
+                            |> String.fromInt
+                            |> value
                         , Attr.disabled <| length == 1
                         , onInput
-                            (String.toFloat
+                            (String.toInt
                                 >> Maybe.withDefault 0
+                                >> (\int -> toFloat int / 100)
                                 >> Unit.ratio
                                 >> UpdateMaterialShare index
                             )
                         ]
+                        []
+                    , span
+                        [ class "input-group-text fs-7"
+                        , classList [ ( "bg-danger", not valid ), ( "text-white", not valid ) ]
+                        ]
+                        [ text "%" ]
+                    ]
                 ]
-
-        removeButton =
-            button
-                [ class "btn btn-sm btn-primary"
-                , onClick (RemoveMaterial index)
-                , disabled <| length < 2
-                ]
-                [ Icon.times ]
     in
     div [ class "row mb-2 d-flex align-items-center" ]
         [ div [ class "col-5" ]
             [ materialSelector
             ]
-        , div [ class "col-3" ]
+        , div [ class "col-4" ]
             [ recycledRatioRangeSlider
             ]
         , div [ class "col-3" ]
-            [ -- shareRangeSlider
-              shareSelector
-            ]
-        , div
-            [ class "col-1 text-end" ]
-            [ removeButton
+            [ shareField
             ]
         ]
 
