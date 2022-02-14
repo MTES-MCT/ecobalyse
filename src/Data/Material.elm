@@ -30,6 +30,7 @@ type alias Material =
     , primary : Bool
     , continent : String
     , defaultCountry : Country.Code
+    , priority : Int
     }
 
 
@@ -102,6 +103,7 @@ decode processes =
         |> DecodePipeline.required "primary" Decode.bool
         |> DecodePipeline.required "continent" Decode.string
         |> DecodePipeline.required "defaultCountry" (Decode.string |> Decode.map Country.codeFromString)
+        |> DecodePipeline.required "priority" Decode.int
 
 
 decodeList : List Process -> Decoder (List Material)
@@ -123,6 +125,7 @@ encode v =
         , ( "primary", Encode.bool v.primary )
         , ( "continent", Encode.string v.continent )
         , ( "defaultCountry", v.defaultCountry |> Country.codeToString |> Encode.string )
+        , ( "priority", Encode.int v.priority )
         ]
 
 

@@ -8,7 +8,8 @@
     "category": "Naturelles",
     "primary": false,
     "continent": "Asie - Pacifique",
-    "defaultCountry": "CN"
+    "defaultCountry": "CN",
+    "priority": 0
   },
   {
     "id": "soie",
@@ -19,7 +20,8 @@
     "category": "Naturelles",
     "primary": false,
     "continent": "Asie - Pacifique",
-    "defaultCountry": "CN"
+    "defaultCountry": "CN",
+    "priority": 0
   },
   {
     "id": "lin-filasse",
@@ -30,7 +32,8 @@
     "category": "Naturelles",
     "primary": true,
     "continent": "Asie - Pacifique",
-    "defaultCountry": "CN"
+    "defaultCountry": "CN",
+    "priority": 0
   },
   {
     "id": "lin-etoupe",
@@ -41,7 +44,8 @@
     "category": "Naturelles",
     "primary": true,
     "continent": "Asie - Pacifique",
-    "defaultCountry": "CN"
+    "defaultCountry": "CN",
+    "priority": 0
   },
   {
     "id": "laine-merinos",
@@ -52,7 +56,8 @@
     "category": "Naturelles",
     "primary": false,
     "continent": "Asie - Pacifique",
-    "defaultCountry": "CN"
+    "defaultCountry": "CN",
+    "priority": 0
   },
   {
     "id": "laine-mouton",
@@ -63,7 +68,8 @@
     "category": "Naturelles",
     "primary": true,
     "continent": "Asie - Pacifique",
-    "defaultCountry": "CN"
+    "defaultCountry": "CN",
+    "priority": 0
   },
   {
     "id": "laine-chameau",
@@ -74,7 +80,8 @@
     "category": "Naturelles",
     "primary": false,
     "continent": "Asie - Pacifique",
-    "defaultCountry": "CN"
+    "defaultCountry": "CN",
+    "priority": 0
   },
   {
     "id": "jute",
@@ -85,7 +92,8 @@
     "category": "Naturelles",
     "primary": false,
     "continent": "Asie - Pacifique",
-    "defaultCountry": "CN"
+    "defaultCountry": "CN",
+    "priority": 0
   },
   {
     "id": "coton",
@@ -96,7 +104,8 @@
     "category": "Naturelles",
     "primary": true,
     "continent": "Asie - Pacifique",
-    "defaultCountry": "CN"
+    "defaultCountry": "CN",
+    "priority": 100
   },
   {
     "id": "chanvre",
@@ -107,7 +116,8 @@
     "category": "Naturelles",
     "primary": true,
     "continent": "Asie - Pacifique",
-    "defaultCountry": "CN"
+    "defaultCountry": "CN",
+    "priority": 0
   },
   {
     "id": "cachemire",
@@ -118,7 +128,8 @@
     "category": "Naturelles",
     "primary": false,
     "continent": "Asie - Pacifique",
-    "defaultCountry": "CN"
+    "defaultCountry": "CN",
+    "priority": 0
   },
   {
     "id": "angora",
@@ -129,7 +140,8 @@
     "category": "Naturelles",
     "primary": false,
     "continent": "Asie - Pacifique",
-    "defaultCountry": "CN"
+    "defaultCountry": "CN",
+    "priority": 0
   },
   {
     "id": "kapok",
@@ -140,7 +152,8 @@
     "category": "Naturelles",
     "primary": false,
     "continent": "Asie - Pacifique",
-    "defaultCountry": "CN"
+    "defaultCountry": "CN",
+    "priority": 0
   },
   {
     "id": "viscose",
@@ -151,18 +164,20 @@
     "category": "Synthétiques et artificielles",
     "primary": true,
     "continent": "Asie - Pacifique",
-    "defaultCountry": "CN"
+    "defaultCountry": "CN",
+    "priority": 0
   },
   {
     "id": "pu",
     "materialProcessUuid": "c3738500-0a62-4b95-b4a2-b7beb12a9e1a",
     "recycledProcessUuid": null,
-    "name": "Filament de polyuréthane",
-    "shortName": "Polyuréthane",
+    "name": "Filament de polyuréthane / Élasthanne",
+    "shortName": "Polyuréthane/Élasthanne",
     "category": "Synthétiques et artificielles",
     "primary": false,
     "continent": "Asie - Pacifique",
-    "defaultCountry": "CN"
+    "defaultCountry": "CN",
+    "priority": 60
   },
   {
     "id": "ptt",
@@ -173,7 +188,8 @@
     "category": "Synthétiques et artificielles",
     "primary": false,
     "continent": "Asie - Pacifique",
-    "defaultCountry": "CN"
+    "defaultCountry": "CN",
+    "priority": 0
   },
   {
     "id": "pbt",
@@ -184,7 +200,8 @@
     "category": "Synthétiques et artificielles",
     "primary": false,
     "continent": "Asie - Pacifique",
-    "defaultCountry": "CN"
+    "defaultCountry": "CN",
+    "priority": 0
   },
   {
     "id": "pp",
@@ -195,7 +212,8 @@
     "category": "Synthétiques et artificielles",
     "primary": false,
     "continent": "Europe",
-    "defaultCountry": "FR"
+    "defaultCountry": "FR",
+    "priority": 0
   },
   {
     "id": "pla",
@@ -206,7 +224,8 @@
     "category": "Synthétiques et artificielles",
     "primary": false,
     "continent": "Asie - Pacifique",
-    "defaultCountry": "CN"
+    "defaultCountry": "CN",
+    "priority": 0
   },
   {
     "id": "pe",
@@ -217,7 +236,8 @@
     "category": "Synthétiques et artificielles",
     "primary": false,
     "continent": "Europe",
-    "defaultCountry": "FR"
+    "defaultCountry": "FR",
+    "priority": 0
   },
   {
     "id": "pet",
@@ -228,7 +248,8 @@
     "category": "Synthétiques et artificielles",
     "primary": true,
     "continent": "Asie - Pacifique",
-    "defaultCountry": "CN"
+    "defaultCountry": "CN",
+    "priority": 80
   },
   {
     "id": "pa",
@@ -239,7 +260,8 @@
     "category": "Synthétiques et artificielles",
     "primary": true,
     "continent": "Europe",
-    "defaultCountry": "FR"
+    "defaultCountry": "FR",
+    "priority": 0
   },
   {
     "id": "aramide",
@@ -250,7 +272,8 @@
     "category": "Synthétiques et artificielles",
     "primary": false,
     "continent": "Asie - Pacifique",
-    "defaultCountry": "CN"
+    "defaultCountry": "CN",
+    "priority": 0
   },
   {
     "id": "acrylique",
@@ -261,7 +284,8 @@
     "category": "Synthétiques et artificielles",
     "primary": true,
     "continent": "Asie - Pacifique",
-    "defaultCountry": "CN"
+    "defaultCountry": "CN",
+    "priority": 0
   },
   {
     "id": "pp-pa",
@@ -272,7 +296,8 @@
     "category": "Synthétiques et artificielles",
     "primary": false,
     "continent": "Europe",
-    "defaultCountry": "FR"
+    "defaultCountry": "FR",
+    "priority": 0
   },
   {
     "id": "neoprene",
@@ -283,7 +308,8 @@
     "category": "Synthétiques et artificielles",
     "primary": false,
     "continent": "Asie - Pacifique",
-    "defaultCountry": "CN"
+    "defaultCountry": "CN",
+    "priority": 0
   },
   {
     "id": "pet-rm",
@@ -294,7 +320,8 @@
     "category": "Recyclées",
     "primary": false,
     "continent": "Asie - Pacifique",
-    "defaultCountry": "CN"
+    "defaultCountry": "CN",
+    "priority": 0
   },
   {
     "id": "pet-rcp",
@@ -305,7 +332,8 @@
     "category": "Recyclées",
     "primary": false,
     "continent": "Asie - Pacifique",
-    "defaultCountry": "CN"
+    "defaultCountry": "CN",
+    "priority": 0
   },
   {
     "id": "pet-rcc",
@@ -316,7 +344,8 @@
     "category": "Recyclées",
     "primary": false,
     "continent": "Asie - Pacifique",
-    "defaultCountry": "CN"
+    "defaultCountry": "CN",
+    "priority": 0
   },
   {
     "id": "pa-rc",
@@ -327,7 +356,8 @@
     "category": "Recyclées",
     "primary": false,
     "continent": "Europe puis Asie",
-    "defaultCountry": "CN"
+    "defaultCountry": "CN",
+    "priority": 0
   },
   {
     "id": "viscose-r",
@@ -338,7 +368,8 @@
     "category": "Recyclées",
     "primary": false,
     "continent": "Asie - Pacifique",
-    "defaultCountry": "CN"
+    "defaultCountry": "CN",
+    "priority": 0
   },
   {
     "id": "pa-rm",
@@ -349,7 +380,8 @@
     "category": "Recyclées",
     "primary": false,
     "continent": "Europe",
-    "defaultCountry": "FR"
+    "defaultCountry": "FR",
+    "priority": 0
   },
   {
     "id": "laine-r",
@@ -360,7 +392,8 @@
     "category": "Recyclées",
     "primary": false,
     "continent": "France",
-    "defaultCountry": "FR"
+    "defaultCountry": "FR",
+    "priority": 0
   },
   {
     "id": "coton-rdpc",
@@ -371,7 +404,8 @@
     "category": "Recyclées",
     "primary": false,
     "continent": "France",
-    "defaultCountry": "FR"
+    "defaultCountry": "FR",
+    "priority": 0
   },
   {
     "id": "coton-rdp",
@@ -382,7 +416,8 @@
     "category": "Recyclées",
     "primary": false,
     "continent": "Espagne & France",
-    "defaultCountry": "FR"
+    "defaultCountry": "FR",
+    "priority": 0
   },
   {
     "id": "acrylique-r",
@@ -393,7 +428,8 @@
     "category": "Recyclées",
     "primary": false,
     "continent": "Asie - Pacifique",
-    "defaultCountry": "CN"
+    "defaultCountry": "CN",
+    "priority": 0
   },
   {
     "id": "fibres-r",
@@ -404,6 +440,7 @@
     "category": "Recyclées",
     "primary": false,
     "continent": "France",
-    "defaultCountry": "FR"
+    "defaultCountry": "FR",
+    "priority": 0
   }
 ]

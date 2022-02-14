@@ -229,9 +229,9 @@ addMaterial db query =
 
         newMaterial =
             db.materials
-                |> List.filter .primary
                 |> List.filter (\{ id } -> not <| List.member id alreadyUsed)
-                |> List.head
+                |> List.sortBy .priority
+                |> LE.last
     in
     case newMaterial of
         Just material ->
