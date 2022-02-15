@@ -61,7 +61,8 @@ formSet ({ materials } as config) =
             ++ [ div [ class "row d-flex align-items-center mb-2" ]
                     [ div [ class "col-8 col-sm-6" ]
                         [ button
-                            [ class "btn btn-outline-primary w-100 d-flex justify-content-center align-items-center gap-1"
+                            [ class "btn btn-outline-primary w-100"
+                            , class "d-flex justify-content-center align-items-center gap-1"
                             , onClick config.add
                             , disabled <| length >= 3
                             ]
@@ -74,7 +75,8 @@ formSet ({ materials } as config) =
                         div [ class "col-4 col-sm-3" ]
                             [ div [ class "input-group" ]
                                 [ span
-                                    [ class "form-control text-end d-flex justify-content-between align-items-center gap-1"
+                                    [ class "form-control text-end"
+                                    , class "d-flex justify-content-between align-items-center gap-1"
                                     , classList
                                         [ ( "text-success feedback-valid", valid )
                                         , ( "text-danger feedback-invalid", not valid )

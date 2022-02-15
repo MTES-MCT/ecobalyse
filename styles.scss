@@ -25,6 +25,15 @@ $viewport-xxl: 1320px;
 
 @import "./node_modules/bootstrap/scss/bootstrap.scss";
 
+body {
+  @media screen and (max-width: $viewport-sm) {
+    font-size: 14px !important;
+    select, input, button, .form-control, .btn {
+      font-size: 14px !important;
+    }
+  }
+}
+
 // Browser Hacks
 
 _::-webkit-full-page-media, _:future, :root select {
