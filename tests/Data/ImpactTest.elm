@@ -3,6 +3,7 @@ module Data.ImpactTest exposing (..)
 import Data.Impact as Impact
 import Data.Unit as Unit
 import Expect
+import Quantity
 import Test exposing (..)
 import TestUtils exposing (asTest, suiteWithDb)
 
@@ -31,6 +32,33 @@ suite =
                     |> Impact.computePefScore db.impacts
                     |> expectPefScore 17.4
                     |> asTest "should compute PEF score from fwe impact"
+                ]
+            , describe "mapImpacts"
+                [ defaultImpacts
+                    |> Impact.updateImpact (Impact.trg "cch") (Unit.impact 1)
+                    |> Impact.mapImpacts (\_ -> Quantity.multiplyBy 2)
+                    |> Impact.getImpact (Impact.trg "cch")
+                    |> Expect.equal (Unit.impact 2)
+                    |> asTest "should map impacts"
+                ]
+            , describe "sumImpacts"
+                [ []
+                    |> Impact.sumImpacts db.impacts
+                    |> Expect.equal defaultImpacts
+                    |> asTest "should sum an empty impacts list"
+                , [ defaultImpacts |> Impact.mapImpacts (\_ _ -> Unit.impact 1)
+                  , defaultImpacts |> Impact.mapImpacts (\_ _ -> Unit.impact 2)
+                  ]
+                    |> Impact.sumImpacts db.impacts
+                    |> Expect.equal (defaultImpacts |> Impact.mapImpacts (\_ _ -> Unit.impact 3))
+                    |> asTest "should sum a non-empty impacts list"
+                ]
+            , describe "updateImpact"
+                [ defaultImpacts
+                    |> Impact.updateImpact (Impact.trg "cch") (Unit.impact 9)
+                    |> Impact.getImpact (Impact.trg "cch")
+                    |> Expect.equal (Unit.impact 9)
+                    |> asTest "should update a given impact"
                 ]
             , describe "updatePefImpact"
                 [ defaultImpacts
