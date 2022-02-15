@@ -257,7 +257,8 @@ massField massInput =
 productField : Db -> Product -> Html Msg
 productField db product =
     div []
-        [ label [ for "product", class "form-label fw-bold" ] [ text "Type de produit" ]
+        [ label [ for "product", class "form-label fw-bold" ]
+            [ text "Type de produit" ]
         , db.products
             |> List.map
                 (\p ->
@@ -447,10 +448,10 @@ simulatorView ({ db } as session) ({ impact, funit, query, detailed } as model) 
             [ h1 [] [ text "Simulateur " ]
             , ImpactView.viewDefinition model.impact
             , div [ class "row" ]
-                [ div [ class "col-md-6 mb-2" ]
+                [ div [ class "col-md-7 mb-2" ]
                     [ productField db simulator.inputs.product
                     ]
-                , div [ class "col-md-6 mb-2" ]
+                , div [ class "col-md-5 mb-2" ]
                     [ massField model.massInput
                     ]
                 ]
