@@ -1,7 +1,6 @@
 module Data.Sample exposing (SampleData, SectionOrSample(..), samples)
 
 import Data.Inputs exposing (..)
-import Data.Material as Material
 import Data.Unit as Unit exposing (Ratio(..))
 
 
@@ -208,26 +207,10 @@ samples =
             }
         ]
     , section "Multi-matières"
-        [ sample "impacts for tShirtCotonFrance using multiple materials"
-            { query =
-                { tShirtCotonFrance
-                    | materials =
-                        [ { id = Material.Id "coton"
-                          , share = Unit.ratio 0.9
-                          , recycledRatio = Unit.ratio 1
-                          }
-                        , { id = Material.Id "pet"
-                          , share = Unit.ratio 0.07
-                          , recycledRatio = Unit.ratio 0.5
-                          }
-                        , { id = Material.Id "pu"
-                          , share = Unit.ratio 0.03
-                          , recycledRatio = Unit.ratio 0
-                          }
-                        ]
-                }
-            , cch = Unit.impact 2.212755687281124
-            , fwe = Unit.impact 0.00018438995602474895
+        [ sample "impacts for tShirtCotonPetPuFrance using multiple materials"
+            { query = tShirtCotonPetPuFrance
+            , cch = Unit.impact 2.502519251892844
+            , fwe = Unit.impact 0.00019789177813564097
             }
         ]
     ]

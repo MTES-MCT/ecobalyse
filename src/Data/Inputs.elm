@@ -18,11 +18,11 @@ module Data.Inputs exposing
     , presets
     , removeMaterial
     , robeCircuitBangladesh
-    , tShirtCotonAcryliqueFrance
     , tShirtCotonAsie
     , tShirtCotonEurope
     , tShirtCotonFrance
     , tShirtCotonIndia
+    , tShirtCotonPetPuFrance
     , tShirtPolyamideFrance
     , toQuery
     , updateMaterial
@@ -328,17 +328,21 @@ tShirtCotonFrance =
     }
 
 
-tShirtCotonAcryliqueFrance : Query
-tShirtCotonAcryliqueFrance =
+tShirtCotonPetPuFrance : Query
+tShirtCotonPetPuFrance =
     -- T-shirt circuit France
     { mass = Mass.kilograms 0.17
     , materials =
         [ { id = Material.Id "coton"
-          , share = Unit.ratio 0.5
-          , recycledRatio = Unit.ratio 0
+          , share = Unit.ratio 0.7
+          , recycledRatio = Unit.ratio 1
           }
-        , { id = Material.Id "acrylique"
-          , share = Unit.ratio 0.5
+        , { id = Material.Id "pet"
+          , share = Unit.ratio 0.27
+          , recycledRatio = Unit.ratio 0.5
+          }
+        , { id = Material.Id "pu"
+          , share = Unit.ratio 0.03
           , recycledRatio = Unit.ratio 0
           }
         ]
