@@ -452,15 +452,24 @@ blockquote {
 }
 
 .Materials {
+  .ShareInput {
+    flex: .5 1 auto;
+    max-width: 70px;
+
+    @media screen and (max-width: $viewport-sm) {
+      max-width: 50px;
+    }
+  }
+
   .SharesTotal {
     width: 125px;
     min-width: 125px;
     max-width: 125px;
 
     @media screen and (max-width: $viewport-sm) {
-      width: 98px;
-      min-width: 98px;
-      max-width: 98px;
+      width: 102px;
+      min-width: 102px;
+      max-width: 102px;
     }
   }
 }

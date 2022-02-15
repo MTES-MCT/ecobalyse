@@ -201,15 +201,12 @@ shareField :
 shareField index { length, valid, update } share =
     [ Html.input
         [ type_ "number"
-        , class "form-control bg-white border-end-0 text-end pe-2"
+        , class "ShareInput form-control bg-white border-end-0 text-end pe-2"
         , classList
             [ ( "incdec-arrows-left", length > 1 )
-            , ( "feedback-valid", valid )
             , ( "feedback-invalid", not valid )
             , ( "text-danger", not valid )
             ]
-        , style "flex" ".5 1 auto"
-        , style "max-width" "70px"
         , placeholder "100%"
         , maxlength 3
         , Attr.step "1"
@@ -233,7 +230,7 @@ shareField index { length, valid, update } share =
         []
     , span
         [ class "input-group-text bg-white ps-0 pe-1 fs-7"
-        , classList [ ( "text-danger", not valid ) ]
+        , classList [ ( "text-danger feedback-invalid", not valid ) ]
         ]
         [ text "%" ]
     ]
