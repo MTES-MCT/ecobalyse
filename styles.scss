@@ -451,6 +451,20 @@ blockquote {
   }
 }
 
+.Materials {
+  .SharesTotal {
+    width: 125px;
+    min-width: 125px;
+    max-width: 125px;
+
+    @media screen and (max-width: $viewport-sm) {
+      width: 98px;
+      min-width: 98px;
+      max-width: 98px;
+    }
+  }
+}
+
 .Simulator {
   @media screen and (max-width: $viewport-sm) {
     margin-top: 190px;

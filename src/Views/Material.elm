@@ -50,30 +50,24 @@ formSet ({ materials } as config) =
                             }
                     )
     in
-    div []
+    div [ class "Materials" ]
         ([ div [ class "row mb-2" ]
             [ div [ class "col-7 fw-bold" ] [ text "Matières premières" ]
-            , div [ class "col-5 fw-bold" ] [ text "Part d'origine recyclée" ]
+            , div [ class "d-none d-sm-block col-5 fw-bold" ] [ text "Part d'origine recyclée" ]
             ]
          ]
             ++ fields
             ++ [ div [ class "row mb-2" ]
-                    [ div [ class "col-7" ]
+                    [ div [ class "col-sm-7" ]
                         [ div [ class "input-group" ]
                             [ if length > 1 then
-                                -- FIXME: broken on mobile
                                 span
-                                    [ class "form-control text-end"
+                                    [ class "SharesTotal form-control text-end"
                                     , class "d-flex justify-content-between align-items-center gap-1"
                                     , classList
                                         [ ( "text-success feedback-valid", valid )
                                         , ( "text-danger feedback-invalid", not valid )
                                         ]
-
-                                    -- FIXME: factorize and/or move to SCSS
-                                    , style "width" "125px"
-                                    , style "min-width" "125px"
-                                    , style "max-width" "125px"
                                     ]
                                     [ if valid then
                                         Icon.check
@@ -114,7 +108,7 @@ field :
     -> Html msg
 field config { index, length, exclude, valid } input =
     div [ class "row mb-2 d-flex align-items-center" ]
-        [ div [ class "col-7" ]
+        [ div [ class "col-sm-7" ]
             [ [ if length > 1 then
                     [ button
                         [ class "btn btn-primary"
@@ -145,7 +139,7 @@ field config { index, length, exclude, valid } input =
                 |> List.concat
                 |> div [ class "input-group" ]
             ]
-        , div [ class "col-5" ]
+        , div [ class "col-sm-5 pt-2" ]
             [ input
                 |> recycledRatioField index config.updateRecycledRatio
             ]
@@ -253,6 +247,7 @@ recycledRatioField :
 recycledRatioField index update { material, recycledRatio } =
     div [ class "d-flex gap-2 align-items-center" ]
         [ span [ class "fs-5 text-primary lh-1" ] [ Icon.recycle ]
+        , span [ class "d-block d-sm-none fw-bold" ] [ text "Recyclé\u{00A0}à" ]
         , input
             [ type_ "range"
             , class "d-block form-range"
@@ -271,7 +266,7 @@ recycledRatioField index update { material, recycledRatio } =
             , Attr.disabled <| material.recycledProcess == Nothing
             ]
             []
-        , div [ class "fs-7 text-end", style "min-width" "34px" ]
+        , div [ class "text-end", style "min-width" "34px" ]
             [ Format.ratioToDecimals 0 recycledRatio
             ]
         ]
