@@ -448,16 +448,16 @@ simulatorView ({ db } as session) ({ impact, funit, query, detailed } as model) 
             [ h1 [] [ text "Simulateur " ]
             , ImpactView.viewDefinition model.impact
             , div [ class "row" ]
-                [ div [ class "col-md-7 mb-2" ]
+                [ div [ class "col-6 col-md-7 mb-2" ]
                     [ productField db simulator.inputs.product
                     ]
-                , div [ class "col-md-5 mb-2" ]
+                , div [ class "col-6 col-md-5 mb-2" ]
                     [ massField model.massInput
                     ]
                 ]
             , MaterialView.formSet
-                { db = db
-                , materials = inputs.materials
+                { materials = db.materials
+                , inputs = inputs.materials
                 , add = AddMaterial
                 , remove = RemoveMaterial
                 , update = UpdateMaterial

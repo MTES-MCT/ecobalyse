@@ -1,6 +1,5 @@
 module Views.Material exposing (formSet)
 
-import Data.Db exposing (Db)
 import Data.Inputs as Inputs
 import Data.Material as Material exposing (Material)
 import Data.Unit as Unit
@@ -12,8 +11,8 @@ import Views.Icon as Icon
 
 
 type alias FormSetConfig msg =
-    { db : Db
-    , materials : List Inputs.MaterialInput
+    { materials : List Material
+    , inputs : List Inputs.MaterialInput
     , add : msg
     , remove : Int -> msg
     , update : Int -> Material.Id -> msg
@@ -23,77 +22,75 @@ type alias FormSetConfig msg =
 
 
 formSet : FormSetConfig msg -> Html msg
-formSet ({ materials } as config) =
+formSet ({ add, inputs } as config) =
     let
         ( length, exclude ) =
-            ( List.length materials
-            , List.map (.material >> .id) materials
+            ( List.length inputs
+            , List.map (.material >> .id) inputs
             )
 
         totalShares =
-            materials
+            inputs
                 |> List.map (.share >> Unit.ratioToFloat)
                 |> List.sum
 
         valid =
             round (totalShares * 100) == 100
-
-        fields =
-            materials
-                |> List.indexedMap
-                    (\index ->
-                        field config
-                            { index = index
-                            , length = length
-                            , exclude = exclude
-                            , valid = valid
-                            }
-                    )
     in
     div [ class "Materials" ]
-        ([ div [ class "row mb-2" ]
-            [ div [ class "col-7 fw-bold" ] [ text "Matières premières" ]
-            , div [ class "d-none d-sm-block col-5 fw-bold" ] [ text "Part d'origine recyclée" ]
+        [ div [ class "row mb-2" ]
+            [ div [ class "col-7 fw-bold" ]
+                [ text "Matières premières" ]
+            , div [ class "d-none d-sm-block col-5 fw-bold" ]
+                [ text "Part d'origine recyclée" ]
             ]
-         ]
-            ++ fields
-            ++ [ div [ class "row mb-2" ]
-                    [ div [ class "col-sm-7" ]
-                        [ div [ class "input-group" ]
-                            [ if length > 1 then
-                                span
-                                    [ class "SharesTotal form-control text-end"
-                                    , class "d-flex justify-content-between align-items-center gap-1"
-                                    , classList
-                                        [ ( "text-success feedback-valid", valid )
-                                        , ( "text-danger feedback-invalid", not valid )
-                                        ]
-                                    ]
-                                    [ if valid then
-                                        Icon.check
-
-                                      else
-                                        Icon.warning
-                                    , round (totalShares * 100) |> String.fromInt |> text
-                                    , text "%"
-                                    ]
-
-                              else
-                                text ""
-                            , button
-                                [ class "btn btn-outline-primary flex-fill"
-                                , class "d-flex justify-content-center align-items-center gap-1"
-                                , onClick config.add
-                                , disabled <| length >= 3
-                                ]
-                                [ Icon.plus
-                                , text "Ajouter une matière"
+        , inputs
+            |> List.indexedMap
+                (\index ->
+                    field config
+                        { index = index
+                        , length = length
+                        , exclude = exclude
+                        , valid = valid
+                        }
+                )
+            |> div []
+        , div [ class "row mb-2" ]
+            [ div [ class "col-sm-7" ]
+                [ div [ class "input-group" ]
+                    [ if length > 1 then
+                        span
+                            [ class "SharesTotal form-control text-end"
+                            , class "d-flex justify-content-between align-items-center gap-1"
+                            , classList
+                                [ ( "text-success feedback-valid", valid )
+                                , ( "text-danger feedback-invalid", not valid )
                                 ]
                             ]
+                            [ if valid then
+                                Icon.check
+
+                              else
+                                Icon.warning
+                            , round (totalShares * 100) |> String.fromInt |> text
+                            , text "%"
+                            ]
+
+                      else
+                        text ""
+                    , button
+                        [ class "btn btn-outline-primary flex-fill"
+                        , class "d-flex justify-content-center align-items-center gap-1"
+                        , onClick add
+                        , disabled <| length >= 3
+                        ]
+                        [ Icon.plus
+                        , text "Ajouter une matière"
                         ]
                     ]
-               ]
-        )
+                ]
+            ]
+        ]
 
 
 field :
@@ -131,7 +128,7 @@ field config { index, length, exclude, valid } input =
                         }
               , input.material.id
                     |> materialSelector index
-                        { materials = config.db.materials
+                        { materials = config.materials
                         , exclude = exclude
                         , update = config.update
                         }
@@ -139,7 +136,7 @@ field config { index, length, exclude, valid } input =
                 |> List.concat
                 |> div [ class "input-group" ]
             ]
-        , div [ class "col-sm-5 pt-2" ]
+        , div [ class "col-sm-5 pt-2 pt-sm-0" ]
             [ input
                 |> recycledRatioField index config.updateRecycledRatio
             ]
@@ -195,7 +192,11 @@ materialSelector index { materials, exclude, update } id =
 
 shareField :
     Int
-    -> { length : Int, valid : Bool, update : Int -> Unit.Ratio -> msg }
+    ->
+        { length : Int
+        , valid : Bool
+        , update : Int -> Unit.Ratio -> msg
+        }
     -> Unit.Ratio
     -> List (Html msg)
 shareField index { length, valid, update } share =
