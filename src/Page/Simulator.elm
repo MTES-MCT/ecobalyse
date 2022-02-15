@@ -289,7 +289,7 @@ materialFormSet db materials =
          ]
             ++ fields
             ++ [ div [ class "row d-flex align-items-center mb-2" ]
-                    [ div [ class "col-sm-6" ]
+                    [ div [ class "col-8 col-sm-6" ]
                         [ button
                             [ class "btn btn-outline-primary w-100 d-flex justify-content-center align-items-center gap-1"
                             , onClick AddMaterial
@@ -299,9 +299,9 @@ materialFormSet db materials =
                             , text "Ajouter une matière"
                             ]
                         ]
-                    , div [ class "col-sm-3" ] []
+                    , div [ class "d-none d-sm-block col-sm-3" ] []
                     , if length > 1 then
-                        div [ class "col-sm-3" ]
+                        div [ class "col-4 col-sm-3" ]
                             [ div [ class "input-group" ]
                                 [ span
                                     [ class "form-control text-end d-flex justify-content-between align-items-center gap-1"
@@ -449,7 +449,7 @@ materialField db { index, length, exclude, valid } { material, share, recycledRa
                         ]
                         []
                     , span
-                        [ class "input-group-text fs-7"
+                        [ class "d-none d-sm-block input-group-text fs-7"
                         , classList [ ( "bg-danger", not valid ), ( "text-white", not valid ) ]
                         ]
                         [ text "%" ]
