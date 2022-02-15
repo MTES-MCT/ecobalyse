@@ -108,6 +108,17 @@ toMaterialInputs materials =
         >> RE.combine
 
 
+toMaterialQuery : List MaterialInput -> List MaterialQuery
+toMaterialQuery =
+    List.map
+        (\{ material, share, recycledRatio } ->
+            { id = material.id
+            , share = share
+            , recycledRatio = recycledRatio
+            }
+        )
+
+
 firstMaterialCountry : List Country -> List MaterialInput -> Result String Country
 firstMaterialCountry countries =
     List.head
@@ -150,15 +161,7 @@ fromQuery db query =
 toQuery : Inputs -> Query
 toQuery inputs =
     { mass = inputs.mass
-    , materials =
-        inputs.materials
-            |> List.map
-                (\{ material, share, recycledRatio } ->
-                    { id = material.id
-                    , share = share
-                    , recycledRatio = recycledRatio
-                    }
-                )
+    , materials = toMaterialQuery inputs.materials
     , product = inputs.product.id
     , countryFabric = inputs.countryFabric.code
     , countryDyeing = inputs.countryDyeing.code
