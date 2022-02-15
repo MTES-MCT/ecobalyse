@@ -362,18 +362,6 @@ displayModeView trigram funit detailed query =
         ]
 
 
-feedbackView : Html msg
-feedbackView =
-    -- Note: only visible on smallest viewports
-    Link.external
-        [ class "d-block d-sm-none btn btn-outline-primary"
-        , href "https://hhvat39ihea.typeform.com/to/HnNn6rIY"
-        ]
-        [ span [ class "me-2" ] [ Icon.dialog ]
-        , text "Aidez-nous à améliorer ce simulateur"
-        ]
-
-
 gitbookModalView : WebData Gitbook.Page -> Html Msg
 gitbookModalView pageData =
     case pageData of
@@ -507,7 +495,6 @@ simulatorView ({ db } as session) ({ impact, funit, query, detailed } as model) 
                             , reusable = False
                             }
                     ]
-                , feedbackView
                 , shareLinkView session model simulator
                 ]
             ]
