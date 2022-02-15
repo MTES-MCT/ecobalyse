@@ -61,6 +61,7 @@ formSet ({ materials } as config) =
                     [ div [ class "col-7" ]
                         [ div [ class "input-group" ]
                             [ if length > 1 then
+                                -- FIXME: broken on mobile
                                 span
                                     [ class "form-control text-end"
                                     , class "d-flex justify-content-between align-items-center gap-1"
@@ -68,6 +69,8 @@ formSet ({ materials } as config) =
                                         [ ( "text-success feedback-valid", valid )
                                         , ( "text-danger feedback-invalid", not valid )
                                         ]
+
+                                    -- FIXME: factorize and/or move to SCSS
                                     , style "width" "125px"
                                     , style "min-width" "125px"
                                     , style "max-width" "125px"

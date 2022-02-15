@@ -227,21 +227,38 @@ updateStepCountry index code query =
 addMaterial : Db -> Query -> Query
 addMaterial db query =
     let
-        alreadyUsed =
-            query.materials |> List.map .id
+        ( length, polyester, elasthanne ) =
+            ( List.length query.materials
+            , Material.Id "pet"
+            , Material.Id "pu"
+            )
 
-        newMaterial =
-            db.materials
-                |> List.filter (\{ id } -> not <| List.member id alreadyUsed)
-                |> List.sortBy .priority
-                |> LE.last
+        notUsed id =
+            query.materials
+                |> List.map .id
+                |> List.member id
+                |> not
+
+        newMaterialId =
+            if length == 1 && notUsed polyester then
+                Just polyester
+
+            else if length == 2 && notUsed elasthanne then
+                Just elasthanne
+
+            else
+                db.materials
+                    |> List.filter (.id >> notUsed)
+                    |> List.sortBy .priority
+                    |> List.map .id
+                    |> LE.last
     in
-    case newMaterial of
-        Just material ->
+    case newMaterialId of
+        Just id ->
             { query
                 | materials =
                     query.materials
-                        ++ [ { id = material.id
+                        ++ [ { id = id
                              , share = Unit.ratio 0
                              , recycledRatio = Unit.ratio 0
                              }
