@@ -21,27 +21,27 @@
     "test": "npm run test:prepare && elm-test"
   },
   "dependencies": {
-    "@parcel/transformer-elm": "^2.3.1",
-    "@parcel/transformer-image": "^2.3.1",
-    "@parcel/transformer-sass": "^2.3.1",
-    "bootstrap": "^5.1.3",
+    "@parcel/transformer-elm": "^2.2.1",
+    "@parcel/transformer-image": "^2.2.1",
+    "@parcel/transformer-sass": "^2.2.1",
+    "bootstrap": "^5.1.1",
     "cors": "^2.8.5",
     "elm": "^0.19.1-5",
     "express": "^4.17.1",
-    "helmet": "^5.0.2",
+    "helmet": "^4.6.0",
     "js-yaml": "^3.14.1",
-    "parcel": "^2.3.1",
+    "parcel": "^2.2.1",
     "rapidoc": "^9.1.4"
   },
   "devDependencies": {
-    "concurrently": "^6.5.1",
+    "concurrently": "^6.2.1",
     "elm-analyse": "^0.16.5",
     "elm-format": "^0.8.5",
     "elm-test": "^0.19.1-revision7",
-    "jest": "^27.5.1",
+    "jest": "^27.4.5",
     "nodemon": "^2.0.15",
     "rimraf": "^3.0.2",
-    "supertest": "^6.2.2"
+    "supertest": "^6.1.6"
   },
   "cacheDirectories": [
     "node_modules",
