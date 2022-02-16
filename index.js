@@ -47,6 +47,12 @@ app.ports.scrollTo.subscribe((pos) => {
   window.scrollTo(pos.x, pos.y);
 });
 
+app.ports.selectInputText.subscribe((id) => {
+  try {
+    document.getElementById(id).select();
+  } catch (_) {}
+});
+
 // Ensure session is refreshed when it changes in another tab/window
 window.addEventListener(
   "storage",

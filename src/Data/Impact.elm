@@ -18,6 +18,7 @@ module Data.Impact exposing
     , mapImpacts
     , noImpacts
     , parseTrigram
+    , sumImpacts
     , toString
     , trg
     , updateImpact
@@ -248,6 +249,18 @@ filterImpacts fn =
 mapImpacts : (Trigram -> Unit.Impact -> Unit.Impact) -> Impacts -> Impacts
 mapImpacts fn =
     AnyDict.map fn
+
+
+sumImpacts : List Definition -> List Impacts -> Impacts
+sumImpacts defs =
+    List.foldl
+        (\impacts ->
+            mapImpacts
+                (\trigram impact ->
+                    Quantity.sum [ getImpact trigram impacts, impact ]
+                )
+        )
+        (impactsFromDefinitons defs)
 
 
 updateImpact : Trigram -> Unit.Impact -> Impacts -> Impacts

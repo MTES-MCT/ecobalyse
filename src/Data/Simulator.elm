@@ -13,6 +13,7 @@ import Data.Process as Process
 import Data.Product as Product
 import Data.Step as Step exposing (Step)
 import Data.Transport as Transport exposing (Transport)
+import Data.Unit as Unit
 import Duration exposing (Duration)
 import Json.Encode as Encode
 import Quantity
@@ -86,17 +87,17 @@ compute db query =
         --
         -- WASTE: compute the initial required material mass
         --
-        -- Compute Making material mass waste
+        -- Compute Making mass waste
         |> next computeMakingStepWaste
-        -- Compute Knitting/Weawing material waste
+        -- Compute Knitting/Weawing waste
         |> next computeWeavingKnittingStepWaste
-        -- Compute Material&Spinning material waste
+        -- Compute Material&Spinning waste
         |> next computeMaterialStepWaste
         --
         -- CO2 SCORES
         --
         -- Compute Material & Spinning step impacts
-        |> next computeMaterialAndSpinningImpacts
+        |> next (computeMaterialAndSpinningImpacts db)
         -- Compute Weaving & Knitting step impacts
         |> next computeWeavingKnittingImpacts
         -- Compute Ennoblement step impacts
@@ -215,24 +216,34 @@ computeDyeingImpacts { processes } simulator =
             )
 
 
-computeMaterialAndSpinningImpacts : Simulator -> Simulator
-computeMaterialAndSpinningImpacts ({ inputs } as simulator) =
+computeMaterialAndSpinningImpacts : Db -> Simulator -> Simulator
+computeMaterialAndSpinningImpacts db ({ inputs } as simulator) =
     simulator
         |> updateLifeCycleStep Step.MaterialAndSpinning
             (\step ->
                 { step
                     | impacts =
-                        case ( inputs.material.recycledProcess, inputs.recycledRatio ) of
-                            ( Just recycledProcess, Just ratio ) ->
-                                step.outputMass
-                                    |> Formula.materialAndSpinningImpacts step.impacts
-                                        ( recycledProcess, inputs.material.materialProcess )
-                                        ratio
+                        inputs.materials
+                            |> List.map
+                                (\{ material, share, recycledRatio } ->
+                                    (case material.recycledProcess of
+                                        Just recycledProcess ->
+                                            step.outputMass
+                                                |> Formula.materialAndSpinningImpacts step.impacts
+                                                    ( recycledProcess, material.materialProcess )
+                                                    recycledRatio
 
-                            _ ->
-                                step.outputMass
-                                    |> Formula.pureMaterialAndSpinningImpacts step.impacts
-                                        inputs.material.materialProcess
+                                        _ ->
+                                            step.outputMass
+                                                |> Formula.pureMaterialAndSpinningImpacts step.impacts
+                                                    material.materialProcess
+                                    )
+                                        |> Impact.mapImpacts
+                                            (\_ impact ->
+                                                impact |> Quantity.multiplyBy (Unit.ratioToFloat share)
+                                            )
+                                )
+                            |> Impact.sumImpacts db.impacts
                 }
             )
 
@@ -300,16 +311,32 @@ computeMaterialStepWaste ({ inputs, lifeCycle } as simulator) =
         { mass, waste } =
             lifeCycle
                 |> LifeCycle.getStepProp Step.WeavingKnitting .inputMass Quantity.zero
-                |> (case ( inputs.material.recycledProcess, inputs.recycledRatio ) of
-                        ( Just recycledProcess, Just ratio ) ->
-                            Formula.materialRecycledWaste
-                                { pristineWaste = inputs.material.materialProcess.waste
-                                , recycledWaste = recycledProcess.waste
-                                , recycledRatio = ratio
-                                }
+                |> (\inputMass ->
+                        -- TODO: for each material, take its share, apply waste, retrieve mass
+                        -- then add all masses
+                        inputs.materials
+                            |> List.map
+                                (\{ material, share, recycledRatio } ->
+                                    case material.recycledProcess of
+                                        Just recycledProcess ->
+                                            Formula.materialRecycledWaste
+                                                { pristineWaste = material.materialProcess.waste
+                                                , recycledWaste = recycledProcess.waste
+                                                , recycledRatio = recycledRatio
+                                                }
+                                                (inputMass |> Quantity.multiplyBy (Unit.ratioToFloat share))
 
-                        _ ->
-                            Formula.genericWaste inputs.material.materialProcess.waste
+                                        _ ->
+                                            Formula.genericWaste material.materialProcess.waste
+                                                (inputMass |> Quantity.multiplyBy (Unit.ratioToFloat share))
+                                )
+                            |> List.foldl
+                                (\curr acc ->
+                                    { mass = curr.mass |> Quantity.plus acc.mass
+                                    , waste = curr.waste |> Quantity.plus acc.waste
+                                    }
+                                )
+                                { mass = Quantity.zero, waste = Quantity.zero }
                    )
     in
     simulator

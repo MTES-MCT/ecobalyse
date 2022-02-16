@@ -17,13 +17,15 @@ describe("Web", () => {
 
 describe("API", () => {
   const successQuery =
-    // Minimalistic successful query params.
+    // Successful query params.
     // Note: it's important to pass query string parameters as actual strings here,
     // so we can test for actual qs parsing from the server.
     [
       "mass=0.17",
       "product=tshirt",
       "material=coton",
+      "materials[]=coton;0.5;0",
+      "materials[]=acrylique;0.5;0",
       "countryFabric=CN",
       "countryDyeing=CN",
       "countryMaking=CN",
@@ -85,7 +87,7 @@ describe("API", () => {
   });
 
   describe("/api/simulator", () => {
-    it("should validate a valid query", async () => {
+    it("should accept a valid query", async () => {
       const response = await makeRequest("/api/simulator", successQuery);
 
       expect(response.statusCode).toBe(200);
@@ -100,10 +102,10 @@ describe("API", () => {
       );
     });
 
-    it("should validate the material param", async () => {
+    it("should validate the materials param", async () => {
       expectFieldErrorMessage(
-        await makeRequest("/api/simulator", ["material=xxx"]),
-        "material",
+        await makeRequest("/api/simulator", ["materials[]=xxx;1;0"]),
+        "materials",
         /Matière non trouvée id=xxx./,
       );
     });
@@ -165,7 +167,7 @@ describe("API", () => {
   });
 
   describe("/api/simulator/fwe", () => {
-    it("should validate a valid query", async () => {
+    it("should accept a valid query", async () => {
       const response = await makeRequest("/api/simulator/fwe", successQuery);
 
       expect(response.statusCode).toBe(200);
@@ -174,7 +176,7 @@ describe("API", () => {
   });
 
   describe("/api/simulator/detailed", () => {
-    it("should validate a valid query", async () => {
+    it("should accept a valid query", async () => {
       const response = await makeRequest("/api/simulator/detailed", successQuery);
 
       expect(response.statusCode).toBe(200);

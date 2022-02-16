@@ -12,6 +12,7 @@ module Views.Format exposing
     , megajoules
     , percent
     , ratio
+    , ratioToDecimals
     )
 
 import Data.Impact as Impact exposing (Impacts)
@@ -118,9 +119,14 @@ percent =
 
 
 ratio : Unit.Ratio -> Html msg
-ratio (Unit.Ratio float) =
+ratio =
+    ratioToDecimals 2
+
+
+ratioToDecimals : Int -> Unit.Ratio -> Html msg
+ratioToDecimals decimals (Unit.Ratio float) =
     (float * 100)
-        |> formatRichFloat 2 "%"
+        |> formatRichFloat decimals "%"
 
 
 days : Duration -> Html msg

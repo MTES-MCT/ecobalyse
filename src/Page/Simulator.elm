@@ -16,7 +16,7 @@ import Data.Gitbook as Gitbook
 import Data.Impact as Impact
 import Data.Inputs as Inputs
 import Data.Key as Key
-import Data.Material as Material exposing (Material)
+import Data.Material as Material
 import Data.Product as Product exposing (Product)
 import Data.Session as Session exposing (Session)
 import Data.Simulator as Simulator exposing (Simulator)
@@ -35,8 +35,8 @@ import Views.Icon as Icon
 import Views.Impact as ImpactView
 import Views.Link as Link
 import Views.Markdown as MarkdownView
+import Views.Material as MaterialView
 import Views.Modal as ModalView
-import Views.RangeSlider as RangeSlider
 import Views.Spinner as SpinnerView
 import Views.Step as StepView
 import Views.Summary as SummaryView
@@ -60,21 +60,25 @@ type ModalContent
 
 
 type Msg
-    = CloseModal
+    = AddMaterial
+    | CloseModal
     | CopyToClipBoard String
     | GitbookContentReceived (WebData Gitbook.Page)
     | NoOp
     | OpenDocModal Gitbook.Path
+    | RemoveMaterial Int
     | Reset
+    | SelectInputText String
     | SwitchFunctionalUnit Unit.Functional
     | SwitchImpact Impact.Trigram
     | UpdateAirTransportRatio (Maybe Unit.Ratio)
     | UpdateDyeingWeighting (Maybe Unit.Ratio)
     | UpdateMassInput String
-    | UpdateMaterial Material.Id
+    | UpdateMaterial Int Material.Id
+    | UpdateMaterialRecycledRatio Int Unit.Ratio
+    | UpdateMaterialShare Int Unit.Ratio
     | UpdateProduct Product.Id
     | UpdateQuality (Maybe Unit.Quality)
-    | UpdateRecycledRatio (Maybe Unit.Ratio)
     | UpdateStepCountry Int Country.Code
 
 
@@ -132,6 +136,10 @@ updateQuery query ( model, session, msg ) =
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
 update ({ db, navKey } as session) msg ({ query } as model) =
     case msg of
+        AddMaterial ->
+            ( model, session, Cmd.none )
+                |> updateQuery (Inputs.addMaterial db query)
+
         CloseModal ->
             ( { model | modal = NoModal }, session, Cmd.none )
 
@@ -150,9 +158,16 @@ update ({ db, navKey } as session) msg ({ query } as model) =
             , GitbookApi.getPage session path GitbookContentReceived
             )
 
+        RemoveMaterial index ->
+            ( model, session, Cmd.none )
+                |> updateQuery (Inputs.removeMaterial index query)
+
         Reset ->
             ( model, session, Cmd.none )
                 |> updateQuery Inputs.defaultQuery
+
+        SelectInputText index ->
+            ( model, session, Ports.selectInputText index )
 
         SwitchFunctionalUnit funit ->
             ( model
@@ -187,14 +202,22 @@ update ({ db, navKey } as session) msg ({ query } as model) =
                 Nothing ->
                     ( { model | massInput = massInput }, session, Cmd.none )
 
-        UpdateMaterial materialId ->
+        UpdateMaterial index materialId ->
             case Material.findById materialId db.materials of
                 Ok material ->
                     ( model, session, Cmd.none )
-                        |> updateQuery (Inputs.updateMaterial material query)
+                        |> updateQuery (Inputs.updateMaterial index material query)
 
                 Err error ->
                     ( model, session |> Session.notifyError "Erreur de matière première" error, Cmd.none )
+
+        UpdateMaterialRecycledRatio index recycledRatio ->
+            ( model, session, Cmd.none )
+                |> updateQuery (Inputs.updateMaterialRecycledRatio index recycledRatio query)
+
+        UpdateMaterialShare index share ->
+            ( model, session, Cmd.none )
+                |> updateQuery (Inputs.updateMaterialShare index share query)
 
         UpdateProduct productId ->
             case Product.findById productId db.products of
@@ -208,10 +231,6 @@ update ({ db, navKey } as session) msg ({ query } as model) =
         UpdateQuality quality ->
             ( model, session, Cmd.none )
                 |> updateQuery { query | quality = quality }
-
-        UpdateRecycledRatio recycledRatio ->
-            ( model, session, Cmd.none )
-                |> updateQuery { query | recycledRatio = recycledRatio }
 
         UpdateStepCountry index code ->
             ( model, session, Cmd.none )
@@ -239,69 +258,11 @@ massField massInput =
         ]
 
 
-materialFormSet : Db -> Maybe Unit.Ratio -> Material -> Html Msg
-materialFormSet db recycledRatio material =
-    let
-        ( ( natural1, synthetic1, recycled1 ), ( natural2, synthetic2, recycled2 ) ) =
-            Material.groupAll db.materials
-
-        toOption m =
-            option
-                [ value <| Material.idToString m.id
-                , selected (material.id == m.id)
-                , title m.name
-                ]
-                [ text m.shortName ]
-
-        toGroup name materials =
-            if materials == [] then
-                text ""
-
-            else
-                materials
-                    |> List.map toOption
-                    |> optgroup [ attribute "label" name ]
-    in
-    div [ class "row mb-2" ]
-        [ div [ class "col-md-6 mb-2" ]
-            [ div [ class "form-label fw-bold" ]
-                [ text "Matières premières" ]
-            , [ toGroup "Matières naturelles" natural1
-              , toGroup "Matières synthétiques" synthetic1
-              , toGroup "Matières recyclées" recycled1
-              , toGroup "Autres matières naturelles" natural2
-              , toGroup "Autres matières synthétiques" synthetic2
-              , toGroup "Autres matières recyclées" recycled2
-              ]
-                |> select
-                    [ id "material"
-                    , class "form-select"
-                    , onInput (Material.Id >> UpdateMaterial)
-                    ]
-            ]
-        , div [ class "col-md-6 mb-2" ]
-            [ div [ class "form-label fw-bold mb-0 mb-xxl-3" ]
-                [ text "Part de matière recyclée" ]
-            , span
-                [ title
-                    "Pourcentage de matière recyclée appliqué à la masse de fil en sortie d‘étape “Matière et Filature”."
-                ]
-                [ RangeSlider.ratio
-                    { id = "recycledRatio"
-                    , update = UpdateRecycledRatio
-                    , value = Maybe.withDefault (Unit.ratio 0) recycledRatio
-                    , toString = Material.recycledRatioToString "d'origine recyclée"
-                    , disabled = material.recycledProcess == Nothing
-                    }
-                ]
-            ]
-        ]
-
-
 productField : Db -> Product -> Html Msg
 productField db product =
     div []
-        [ label [ for "product", class "form-label fw-bold" ] [ text "Type de produit" ]
+        [ label [ for "product", class "form-label fw-bold" ]
+            [ text "Type de produit" ]
         , db.products
             |> List.map
                 (\p ->
@@ -381,14 +342,17 @@ shareLinkView session { impact, funit, detailed } simulator =
                     ]
                 ]
             , div [ class "form-text fs-7" ]
-                [ text "Copiez cette adresse pour partager votre simulation" ]
+                [ text "Copiez cette adresse pour partager ou sauvegarder votre simulation" ]
             ]
         ]
 
 
 displayModeView : Impact.Trigram -> Unit.Functional -> Bool -> Inputs.Query -> Html Msg
 displayModeView trigram funit detailed query =
-    nav [ class "nav nav-pills nav-fill py-2 bg-white sticky-md-top justify-content-between justify-content-sm-end align-items-center gap-0 gap-sm-2" ]
+    nav
+        [ class "nav nav-pills nav-fill py-2 bg-white sticky-md-top justify-content-between"
+        , class "justify-content-sm-end align-items-center gap-0 gap-sm-2"
+        ]
         [ a
             [ classList [ ( "nav-link", True ), ( "active", not detailed ) ]
             , Just query
@@ -403,18 +367,6 @@ displayModeView trigram funit detailed query =
                 |> Route.href
             ]
             [ span [ class "me-1" ] [ Icon.zoomin ], text "Affichage détaillé" ]
-        ]
-
-
-feedbackView : Html msg
-feedbackView =
-    -- Note: only visible on smallest viewports
-    Link.external
-        [ class "d-block d-sm-none btn btn-outline-primary"
-        , href "https://hhvat39ihea.typeform.com/to/HnNn6rIY"
-        ]
-        [ span [ class "me-2" ] [ Icon.dialog ]
-        , text "Aidez-nous à améliorer ce simulateur"
         ]
 
 
@@ -503,14 +455,23 @@ simulatorView ({ db } as session) ({ impact, funit, query, detailed } as model) 
             [ h1 [] [ text "Simulateur " ]
             , ImpactView.viewDefinition model.impact
             , div [ class "row" ]
-                [ div [ class "col-md-6 mb-2" ]
-                    [ productField db simulator.inputs.product
+                [ div [ class "col-6 col-md-7 mb-2" ]
+                    [ productField db inputs.product
                     ]
-                , div [ class "col-md-6 mb-2" ]
+                , div [ class "col-6 col-md-5 mb-2" ]
                     [ massField model.massInput
                     ]
                 ]
-            , materialFormSet db inputs.recycledRatio inputs.material
+            , MaterialView.formSet
+                { materials = db.materials
+                , inputs = inputs.materials
+                , add = AddMaterial
+                , remove = RemoveMaterial
+                , update = UpdateMaterial
+                , updateRecycledRatio = UpdateMaterialRecycledRatio
+                , updateShare = UpdateMaterialShare
+                , selectInputText = SelectInputText
+                }
             , query
                 |> displayModeView impact.trigram funit detailed
             , lifeCycleStepsView db model simulator
@@ -543,7 +504,6 @@ simulatorView ({ db } as session) ({ impact, funit, query, detailed } as model) 
                             , reusable = False
                             }
                     ]
-                , feedbackView
                 , shareLinkView session model simulator
                 ]
             ]

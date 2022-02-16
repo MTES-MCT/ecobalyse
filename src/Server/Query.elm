@@ -13,6 +13,7 @@ import Data.Unit as Unit
 import Dict exposing (Dict)
 import Json.Encode as Encode
 import Mass exposing (Mass)
+import Result.Extra as RE
 import Url.Parser.Query as Query
 
 
@@ -47,14 +48,13 @@ parse : Db -> Query.Parser (Result Errors Inputs.Query)
 parse db =
     succeed (Ok Inputs.Query)
         |> apply (massParser "mass")
-        |> apply (materialParser "material" db.materials)
+        |> apply (materialListParser "materials" db.materials)
         |> apply (productParser "product" db.products)
         |> apply (countryParser "countryFabric" db.countries)
         |> apply (countryParser "countryDyeing" db.countries)
         |> apply (countryParser "countryMaking" db.countries)
         |> apply (maybeRatioParser "dyeingWeighting")
         |> apply (maybeRatioParser "airTransportRatio")
-        |> apply (maybeRatioParser "recycledRatio")
         |> apply (maybeQuality "quality")
 
 
@@ -140,19 +140,76 @@ productParser key products =
             )
 
 
-materialParser : String -> List Material -> Query.Parser (ParseResult Material.Id)
-materialParser key materials =
-    Query.string key
-        |> Query.map (Result.fromMaybe ( key, "Identifiant de la matière manquant." ))
-        |> Query.map
-            (Result.andThen
-                (\id ->
-                    materials
-                        |> Material.findById (Material.Id id)
-                        |> Result.map .id
-                        |> Result.mapError (\err -> ( key, err ))
-                )
+materialListParser : String -> List Material -> Query.Parser (ParseResult (List Inputs.MaterialQuery))
+materialListParser key materials =
+    Query.custom (key ++ "[]")
+        (List.map (parseMaterial_ materials)
+            >> RE.combine
+            >> Result.andThen validateMaterialList
+            >> Result.mapError (\err -> ( key, err ))
+        )
+
+
+parseMaterial_ : List Material -> String -> Result String Inputs.MaterialQuery
+parseMaterial_ materials string =
+    case String.split ";" string of
+        [ id, share, recycledRatio ] ->
+            Ok Inputs.MaterialQuery
+                |> RE.andMap (parseMaterialId_ materials id)
+                |> RE.andMap (parseRatio_ share)
+                |> RE.andMap (parseRatio_ recycledRatio)
+
+        [ "" ] ->
+            Err <| "Format de matière vide."
+
+        _ ->
+            Err <| "Format de matière invalide ou incomplet : " ++ string ++ "."
+
+
+parseMaterialId_ : List Material -> String -> Result String Material.Id
+parseMaterialId_ materials string =
+    materials
+        |> Material.findById (Material.Id string)
+        |> Result.map .id
+
+
+parseRatio_ : String -> Result String Unit.Ratio
+parseRatio_ string =
+    string
+        |> String.toFloat
+        |> Result.fromMaybe ("Ratio invalide : " ++ string)
+        |> Result.andThen
+            (\ratio ->
+                if ratio < 0 || ratio > 1 then
+                    Err <|
+                        "Un ratio doit être compris entre 0 et 1 inclus (ici : "
+                            ++ String.fromFloat ratio
+                            ++ ")."
+
+                else
+                    Ok ratio
             )
+        |> Result.map Unit.ratio
+
+
+validateMaterialList : List Inputs.MaterialQuery -> Result String (List Inputs.MaterialQuery)
+validateMaterialList list =
+    if list == [] then
+        Err "La liste des matières est vide."
+
+    else
+        let
+            total =
+                list |> List.map (.share >> Unit.ratioToFloat) |> List.sum
+        in
+        if total /= 1 then
+            Err <|
+                "La somme des parts de matières doit être égale à 1 (ici : "
+                    ++ String.fromFloat total
+                    ++ ")"
+
+        else
+            Ok list
 
 
 countryParser : String -> List Country -> Query.Parser (ParseResult Country.Code)

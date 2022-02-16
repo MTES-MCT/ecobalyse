@@ -6,6 +6,7 @@ $body-color: #111;
 $dark: #333;
 $primary: #075ea2;
 $success: #167d2e;
+$danger: #dc3545;
 $info: #097182;
 $input-border-color: #969696;
 $navbar-dark-color: rgba($white, 0.8);
@@ -24,6 +25,15 @@ $viewport-xxl: 1320px;
 
 @import "./node_modules/bootstrap/scss/bootstrap.scss";
 
+body {
+  @media screen and (max-width: $viewport-sm) {
+    font-size: 14px !important;
+    select, input, button, .form-control, .btn {
+      font-size: 14px !important;
+    }
+  }
+}
+
 // Browser Hacks
 
 _::-webkit-full-page-media, _:future, :root select {
@@ -41,6 +51,27 @@ input[type=number].no-arrows::-webkit-outer-spin-button,
 input[type=number].no-arrows::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+// Force-show number <input/> inc-dec arrows to the left of the field
+.incdec-arrows-left {
+  display: flex;
+
+  &[type=number]::-webkit-inner-spin-button,
+  &[type=number]::-webkit-outer-spin-button {
+    opacity: 1;
+    margin-left: 4px;
+  }
+}
+
+.feedback {
+  &-valid {
+    border-color: $success;
+  }
+
+  &-invalid {
+    border-color: $danger;
+  }
 }
 
 // App styles
@@ -417,6 +448,29 @@ blockquote {
     border-radius: 8px;
     color: #fff;
     padding: 1em;
+  }
+}
+
+.Materials {
+  .ShareInput {
+    flex: .5 1 auto;
+    max-width: 70px;
+
+    @media screen and (max-width: $viewport-sm) {
+      max-width: 50px;
+    }
+  }
+
+  .SharesTotal {
+    width: 125px;
+    min-width: 125px;
+    max-width: 125px;
+
+    @media screen and (max-width: $viewport-sm) {
+      width: 102px;
+      min-width: 102px;
+      max-width: 102px;
+    }
   }
 }
 

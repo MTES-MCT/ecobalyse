@@ -3,6 +3,7 @@ port module Ports exposing
     , copyToClipboard
     , saveStore
     , scrollTo
+    , selectInputText
     , storeChanged
     )
 
@@ -19,6 +20,9 @@ port copyToClipboard : String -> Cmd msg
 
 
 port scrollTo : { x : Float, y : Float } -> Cmd msg
+
+
+port selectInputText : String -> Cmd msg
 
 
 

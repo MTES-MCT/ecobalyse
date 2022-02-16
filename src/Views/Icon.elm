@@ -119,6 +119,11 @@ plane =
     icon "plane"
 
 
+plus : Html msg
+plus =
+    icon "plus"
+
+
 question : Html msg
 question =
     icon "question"
@@ -137,6 +142,11 @@ search =
 shrink : Html msg
 shrink =
     icon "shrink"
+
+
+slice : Html msg
+slice =
+    icon "slice"
 
 
 study : Html msg

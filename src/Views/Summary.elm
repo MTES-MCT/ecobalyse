@@ -27,16 +27,39 @@ type alias Config =
     }
 
 
+viewMaterials : List Inputs.MaterialInput -> Html msg
+viewMaterials materials =
+    materials
+        |> List.filter (\{ share } -> Unit.ratioToFloat share > 0)
+        |> List.map
+            (\{ material, share, recycledRatio } ->
+                span []
+                    [ Format.ratioToDecimals 0 share
+                    , text " "
+                    , material
+                        |> Material.fullName
+                            (material.recycledProcess |> Maybe.map (always recycledRatio))
+                        |> text
+                    ]
+            )
+        |> List.intersperse (text ", ")
+        |> span []
+
+
 summaryView : Config -> Simulator -> Html msg
 summaryView { session, impact, funit, reusable } ({ inputs, lifeCycle } as simulator) =
     div [ class "card shadow-sm" ]
-        [ div [ class "card-header text-white bg-primary d-flex justify-content-between" ]
-            [ span [ class "text-nowrap" ] [ strong [] [ text inputs.product.name ] ]
+        [ div [ class "card-header text-white bg-primary d-flex justify-content-between gap-1" ]
+            [ span [ class "text-nowrap" ]
+                [ strong [] [ text inputs.product.name ] ]
             , span
-                [ class "text-truncate", title inputs.material.name ]
-                [ text <| "\u{00A0}" ++ Material.fullName inputs.recycledRatio inputs.material ++ "\u{00A0}" ]
-            , span [ class "text-nowrap" ] [ Format.kg inputs.mass ]
-            , span [ class "text-nowrap" ] [ Icon.day, Format.days simulator.daysOfWear ]
+                [ class "text-truncate" ]
+                [ viewMaterials inputs.materials
+                ]
+            , span [ class "text-nowrap" ]
+                [ Format.kg inputs.mass ]
+            , span [ class "text-nowrap" ]
+                [ Icon.day, Format.days simulator.daysOfWear ]
             ]
         , div [ class "card-body px-1 py-2 py-sm-3 d-grid gap-2 gap-sm-3 text-white bg-primary" ]
             [ div [ class "d-flex justify-content-center align-items-center" ]
@@ -91,8 +114,8 @@ summaryView { session, impact, funit, reusable } ({ inputs, lifeCycle } as simul
         , div [ class "d-none d-sm-block card-body text-center text-muted fs-7 px-2 py-2" ]
             [ [ text "Comparaison pour"
               , text simulator.inputs.product.name
-              , text "en"
-              , simulator.inputs.material |> Material.fullName simulator.inputs.recycledRatio |> text
+              , text ", "
+              , viewMaterials simulator.inputs.materials
               , text "de"
               , Format.kg simulator.inputs.mass
               , span [ class "text-nowrap" ]
