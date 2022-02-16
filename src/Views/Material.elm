@@ -253,7 +253,14 @@ recycledRatioField :
     -> Html msg
 recycledRatioField index update { material, recycledRatio } =
     div [ class "d-flex gap-2 align-items-center" ]
-        [ span [ class "fs-5 text-primary lh-1" ] [ Icon.recycle ]
+        [ span
+            [ class "fs-5 lh-1"
+            , classList
+                [ ( "text-primary", material.recycledProcess /= Nothing )
+                , ( "text-secondary", material.recycledProcess == Nothing )
+                ]
+            ]
+            [ Icon.recycle ]
         , span [ class "d-block d-sm-none fw-bold" ] [ text "Recyclé\u{00A0}à" ]
         , input
             [ type_ "range"
