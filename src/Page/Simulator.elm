@@ -342,7 +342,7 @@ shareLinkView session { impact, funit, detailed } simulator =
                     ]
                 ]
             , div [ class "form-text fs-7" ]
-                [ text "Copiez cette adresse pour partager votre simulation" ]
+                [ text "Copiez cette adresse pour partager ou sauvegarder votre simulation" ]
             ]
         ]
 
