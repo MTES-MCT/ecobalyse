@@ -18,6 +18,7 @@ type alias FormSetConfig msg =
     , update : Int -> Material.Id -> msg
     , updateRecycledRatio : Int -> Unit.Ratio -> msg
     , updateShare : Int -> Unit.Ratio -> msg
+    , selectInputText : String -> msg
     }
 
 
@@ -124,6 +125,7 @@ field config { index, length, exclude, valid } input =
                     |> shareField index
                         { length = length
                         , valid = valid
+                        , selectInputText = config.selectInputText
                         , update = config.updateShare
                         }
               , input.material.id
@@ -195,13 +197,19 @@ shareField :
     ->
         { length : Int
         , valid : Bool
+        , selectInputText : String -> msg
         , update : Int -> Unit.Ratio -> msg
         }
     -> Unit.Ratio
     -> List (Html msg)
-shareField index { length, valid, update } share =
-    [ Html.input
+shareField index { length, valid, selectInputText, update } share =
+    let
+        domId =
+            "material-" ++ String.fromInt index
+    in
+    [ input
         [ type_ "number"
+        , id domId
         , class "ShareInput form-control bg-white border-end-0 text-end pe-2"
         , classList
             [ ( "incdec-arrows-left", length > 1 )
@@ -227,6 +235,7 @@ shareField index { length, valid, update } share =
                 >> Unit.ratio
                 >> update index
             )
+        , onFocus (selectInputText domId)
         ]
         []
     , span

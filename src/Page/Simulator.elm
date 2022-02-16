@@ -68,6 +68,7 @@ type Msg
     | OpenDocModal Gitbook.Path
     | RemoveMaterial Int
     | Reset
+    | SelectInputText String
     | SwitchFunctionalUnit Unit.Functional
     | SwitchImpact Impact.Trigram
     | UpdateAirTransportRatio (Maybe Unit.Ratio)
@@ -164,6 +165,9 @@ update ({ db, navKey } as session) msg ({ query } as model) =
         Reset ->
             ( model, session, Cmd.none )
                 |> updateQuery Inputs.defaultQuery
+
+        SelectInputText index ->
+            ( model, session, Ports.selectInputText index )
 
         SwitchFunctionalUnit funit ->
             ( model
@@ -345,7 +349,10 @@ shareLinkView session { impact, funit, detailed } simulator =
 
 displayModeView : Impact.Trigram -> Unit.Functional -> Bool -> Inputs.Query -> Html Msg
 displayModeView trigram funit detailed query =
-    nav [ class "nav nav-pills nav-fill py-2 bg-white sticky-md-top justify-content-between justify-content-sm-end align-items-center gap-0 gap-sm-2" ]
+    nav
+        [ class "nav nav-pills nav-fill py-2 bg-white sticky-md-top justify-content-between"
+        , class "justify-content-sm-end align-items-center gap-0 gap-sm-2"
+        ]
         [ a
             [ classList [ ( "nav-link", True ), ( "active", not detailed ) ]
             , Just query
@@ -449,7 +456,7 @@ simulatorView ({ db } as session) ({ impact, funit, query, detailed } as model) 
             , ImpactView.viewDefinition model.impact
             , div [ class "row" ]
                 [ div [ class "col-6 col-md-7 mb-2" ]
-                    [ productField db simulator.inputs.product
+                    [ productField db inputs.product
                     ]
                 , div [ class "col-6 col-md-5 mb-2" ]
                     [ massField model.massInput
@@ -463,6 +470,7 @@ simulatorView ({ db } as session) ({ impact, funit, query, detailed } as model) 
                 , update = UpdateMaterial
                 , updateRecycledRatio = UpdateMaterialRecycledRatio
                 , updateShare = UpdateMaterialShare
+                , selectInputText = SelectInputText
                 }
             , query
                 |> displayModeView impact.trigram funit detailed
