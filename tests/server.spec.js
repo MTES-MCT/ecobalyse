@@ -1,5 +1,8 @@
+const fs = require("fs");
 const request = require("supertest");
 const app = require("../server");
+
+const e2eOutput = [];
 
 async function makeRequest(path, query = []) {
   return await request(app).get(path).query(query.join("&"));
@@ -23,7 +26,6 @@ describe("API", () => {
     [
       "mass=0.17",
       "product=tshirt",
-      "material=coton",
       "materials[]=coton;0.5;0",
       "materials[]=acrylique;0.5;0",
       "countryFabric=CN",
@@ -183,6 +185,31 @@ describe("API", () => {
       expect(response.body.lifeCycle.length).toBe(7);
     });
   });
+});
+
+describe("End to end simulations", () => {
+  const e2e = JSON.parse(fs.readFileSync(`${__dirname}/e2e.json`).toString());
+
+  for (const { name, query, impacts } of e2e) {
+    it(name, async () => {
+      const response = await makeRequest("/api/simulator", query);
+      expect(response.statusCode).toBe(200);
+      expect(response.body.impacts).toEqual(impacts);
+      e2eOutput.push({
+        name,
+        query,
+        impacts: response.body.impacts,
+      });
+    });
+  }
+});
+
+afterAll(() => {
+  // Write the output result to a new file, in case we want to update the old one
+  // with its contents.
+  const target = `${__dirname}/e2e-output.json`;
+  fs.writeFileSync(target, JSON.stringify(e2eOutput, null, 2));
+  console.info(`E2e tests output written to ${target}.`);
 });
 
 // https://medium.com/@andrei.pfeiffer/jest-matching-objects-in-array-50fe2f4d6b98
