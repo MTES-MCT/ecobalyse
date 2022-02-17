@@ -13,8 +13,10 @@ const port = process.env.PORT || 3000;
 
 // Web
 
+app.use(express.static("dist"));
+
 app.use(
-  // Important note: this has to be called prior to any other
+  // Important note: this has to be called *after* any other
   // middleware to be effective!
   helmet({
     contentSecurityPolicy: {
@@ -37,8 +39,6 @@ app.use(
     },
   }),
 );
-
-app.use(express.static("dist"));
 
 app.get("/stats", (_, res) => {
   res.redirect("/#/stats");
