@@ -1,15 +1,24 @@
 import olca
-import pandas as pd
+
+
+"""
+STRANGE : After testing with multiple parameters combination, we can't reproduce with this script the impact result we get manually for cheese ham pizza
+"""
+
+# connect to openlca
+# to connect to openlca, you need to
+# 1) open openlca app
+# 2) open the database you want to query
+# 3) start IPC server : Tools > Developer Tools > IPC Server
 
 client = olca.Client(8080)
 
-# test with process "pizza, ham and cheese"
+# test with process "pizza, ham and cheese in agribalyse"
 pizza_uuid = "895b79bc-fbef-3296-ab43-807fda09e300"
-elec_fr_uuid = "33e73a05-ceb0-4e48-a680-b7e026f11222"
 
 # create product system
 product_system = client.create_product_system(
-    elec_fr_uuid, default_providers="prefer", preferred_type="UNIT_PROCESSES"
+    pizza_uuid, default_providers="prefer", preferred_type="UNIT_PROCESSES"
 )
 
 ef = "Environmental Footprint (Mid-point indicator)"
@@ -18,7 +27,7 @@ ef3 = "EF 3.0 Method"
 # setup calculation
 setup = olca.CalculationSetup(
     calculation_type=olca.CalculationType.SIMPLE_CALCULATION,
-    impact_method=client.find(olca.ImpactMethod, ef),
+    impact_method=client.find(olca.ImpactMethod, ef3),
     product_system=product_system,
     allocation_method=olca.AllocationType.PHYSICAL_ALLOCATION,
 )
@@ -33,3 +42,5 @@ for impact_result in calc_result.impact_results:
     )
 
 client.dispose(calc_result)
+
+# returns a climate change impact of 3.11 kgCO2e but when doing it manually in openLCA we get 2.46 kgCO2e
