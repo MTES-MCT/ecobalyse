@@ -1,14 +1,20 @@
 import olca
 import pandas as pd
 
+
+# connect to openlca
+# to connect to openlca, you need to
+# 1) open openlca app
+# 2) open the database you want to query
+# 3) start IPC server : Tools > Developer Tools > IPC Server
+
 client = olca.Client(8080)
 
-result = client.find(
-    olca.Process,
-    "Electricity grid mix 1kV-60kV, consumption mix, to consumer, AC, technology mix, 1kV - 60kV",
-)
-print(result)
+# select processes you want to export
+search_string = "Electricity grid mix 1kV-60kV, consumption mix, to consumer, AC, technology mix, 1kV - 60kV"
 
+
+# get all processes in a df
 process_descriptor = client.get_descriptors(olca.Process)
 
 process_list = []
@@ -24,20 +30,26 @@ for process in process_descriptor:
 
 
 processes_df = pd.DataFrame(
-    list(zip(process_list, id_list, des_list, loc_list)),
-    columns=["name", "id", "desc", "loc"],
+    list(
+        zip(
+            loc_list,
+            process_list,
+            id_list,
+            des_list,
+        )
+    ),
+    columns=["loc", "name", "id", "desc"],
 )
 
-search_df = processes_df[
-    processes_df["name"].str.contains(
-        r"Electricity grid mix 1kV-60kV, consumption mix, to consumer, AC, technology mix, 1kV - 60kV"
-    )
-]
+# search for processes
+
+search_df = processes_df[processes_df["name"].str.contains(search_string)]
 
 search_df.reset_index(drop=True, inplace=True)
-print(search_df["name"])
 
 output_df = search_df.copy()
+
+# iterate on found processes to export impacts in a csv
 for i, row in search_df.iterrows():
 
     # create product system
@@ -45,19 +57,18 @@ for i, row in search_df.iterrows():
         row["id"], default_providers="prefer", preferred_type="UNIT_PROCESSES"
     )
 
-    ef = "Environmental Footprint (Mid-point indicator)"
-    ef3 = "EF 3.0 Method"
-
-    # setup calculation
+    # setup calculation with parameters
     setup = olca.CalculationSetup(
         calculation_type=olca.CalculationType.SIMPLE_CALCULATION,
-        impact_method=client.find(olca.ImpactMethod, ef),
+        impact_method=client.find(
+            olca.ImpactMethod, "Environmental Footprint (Mid-point indicator)"
+        ),
         product_system=product_system,
         allocation_method=olca.AllocationType.PHYSICAL_ALLOCATION,
     )
 
     calc_result = client.calculate(setup)
-    # print results
+    # print results in a df
     for impact_result in calc_result.impact_results:
         output_df.at[i, impact_result.impact_category.name] = impact_result.value
         output_df.at[
@@ -66,4 +77,4 @@ for i, row in search_df.iterrows():
 
     client.dispose(calc_result)
 
-output_df.to_csv("output.csv")
+output_df.to_csv("processes_impact.csv")
