@@ -194,12 +194,12 @@ describe("End to end simulations", () => {
     it(name, async () => {
       const response = await makeRequest("/api/simulator", query);
       expect(response.statusCode).toBe(200);
-      expect(response.body.impacts).toEqual(impacts);
       e2eOutput.push({
         name,
         query,
         impacts: response.body.impacts,
       });
+      expect(response.body.impacts).toEqual(impacts);
     });
   }
 });
