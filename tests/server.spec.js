@@ -98,7 +98,7 @@ describe("API", () => {
       expectFieldErrorMessage(
         await makeRequest("/api/simulator", ["mass=-1"]),
         "mass",
-        /supérieure ou égale à zéro/,
+        /supérieure ou égale à zéro/
       );
     });
 
@@ -106,7 +106,7 @@ describe("API", () => {
       expectFieldErrorMessage(
         await makeRequest("/api/simulator", ["materials[]=xxx;1;0"]),
         "materials",
-        /Matière non trouvée id=xxx./,
+        /Matière non trouvée id=xxx/
       );
     });
 
@@ -114,7 +114,7 @@ describe("API", () => {
       expectFieldErrorMessage(
         await makeRequest("/api/simulator", ["product=xxx"]),
         "product",
-        /Produit non trouvé id=xxx./,
+        /Produit non trouvé id=xxx/
       );
     });
 
@@ -122,7 +122,7 @@ describe("API", () => {
       expectFieldErrorMessage(
         await makeRequest("/api/simulator", ["countryFabric=FR,countryDyeing=FR"]),
         "countryMaking",
-        /Code pays manquant./,
+        /Code pays manquant/
       );
     });
 
@@ -130,7 +130,7 @@ describe("API", () => {
       expectFieldErrorMessage(
         await makeRequest("/api/simulator", ["countryFabric=XX"]),
         "countryFabric",
-        /Code pays invalide: XX./,
+        /Code pays invalide: XX/
       );
     });
 
@@ -138,7 +138,7 @@ describe("API", () => {
       expectFieldErrorMessage(
         await makeRequest("/api/simulator", ["countryDyeing=XX"]),
         "countryDyeing",
-        /Code pays invalide: XX./,
+        /Code pays invalide: XX/
       );
     });
 
@@ -146,7 +146,7 @@ describe("API", () => {
       expectFieldErrorMessage(
         await makeRequest("/api/simulator", ["countryMaking=XX"]),
         "countryMaking",
-        /Code pays invalide: XX./,
+        /Code pays invalide: XX/
       );
     });
 
@@ -161,7 +161,7 @@ describe("API", () => {
       expectFieldErrorMessage(
         await makeRequest("/api/simulator", ["airTransportRatio=2"]),
         "airTransportRatio",
-        /entre 0 et 1/,
+        /entre 0 et 1/
       );
     });
   });
@@ -192,7 +192,7 @@ expect.extend({
       return {
         message: () =>
           `expected ${this.utils.printReceived(
-            received,
+            received
           )} not to contain object ${this.utils.printExpected(argument)}`,
         pass: true,
       };
@@ -200,7 +200,7 @@ expect.extend({
     return {
       message: () =>
         `expected ${this.utils.printReceived(
-          received,
+          received
         )} to contain object ${this.utils.printExpected(argument)}`,
       pass: false,
     };
