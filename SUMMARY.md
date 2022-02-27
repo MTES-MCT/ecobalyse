@@ -17,6 +17,7 @@
 * [⚡ Electricité](methodologie/electricite.md)
 * [🔥 Chaleur](methodologie/chaleur.md)
 * [Pertes et rebut](methodologie/pertes-et-rebus.md)
+* [🤯 Circular Footpring Formula (CFF)](methodologie/circular-footpring-formula-cff.md)
 * [Hypothèses par défaut](methodologie/hypotheses-par-defaut.md)
 * [Echelle comparative](methodologie/echelle-comparative.md)
 * [Ajout d'un pays](methodologie/ajout-dun-pays.md)
