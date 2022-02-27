@@ -202,10 +202,10 @@ L'impact sur le résultat reste limité. Il est même nul lorsque Qsin/Qp = 1.
 * **A** - Coefficient l'allocation des impacts et crédits entre le fournisseur et l'utilisateur de matériaux recyclés.
 
 {% hint style="info" %}
-Cas limites. Tous les impacts liés au recyclage de la matière recyclée utilisés sont imputés
+Cas limites. Tous les impacts liés au recyclage de la matière recyclée utilisée sont imputés
 
-* A = 1 ->  A son utilisateurs, donc à l'étape "matière" de la modélisation qui implique une part R1 de matière recyclée.
-* A = 0 -> A son fournisseur, donc à l'étape "fin de vie" de la modélisation de tous les produits qui utilisent de la matière dont le recyclage va permettre la production de la part R1 de matière recyclée dans la présente modélisation.
+* A = 1 ->  A son utilisateurs, donc à l'étape "matière" de la modélisation qui implique une part R1 de matière recyclée. Impact : **R1\*A\*Erec**
+* A = 0 -> A son fournisseur, donc à l'étape "fin de vie" de la modélisation de tous les produits qui utilisent de la matière dont le recyclage va permettre la production de la part R1 de matière recyclée dans la présente modélisation. Un système de compensation conduit toutefois à introduire l'impact de la matière primaire qui n'a pas réellement été consommée dans le cas présent mais qui devra l'être dans d'autres produits vu que la matière recyclée n'est plus disponible. Impact : **R1\*(1-A)\*Ev\*Qsin/Qp**.
 {% endhint %}
 
 * **Qsin/Qp** - Rapport entre la qualité de la matière recyclée utilisée et la qualité de la matière primaire correspondante, avant recyclage donc.
