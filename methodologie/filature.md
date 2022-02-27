@@ -134,10 +134,16 @@ $$
 
 ## Intégration d'une part de matière recyclée
 
-Dans le cas où un pourcentage "r" de matière recyclée est introduit à partir du tableau des matières principales. le calcule de l'impact devient la combinaison des impacts des procédés "matière et filature" retenus pour la matière primaire et pour la matière recyclée :&#x20;
+Dans le cas où un pourcentage R1 de matière recyclée est introduit à partir du tableau des matières principales. Le calcul de l'impact devient la combinaison des impacts des procédés "matière et filature" retenus pour la matière primaire et pour la matière recyclée :&#x20;
 
 $$
 ImpactMatière + Impact Filature = ImpactProcédéMFPrimaire +  ImpactProcédéMFRecyclée
+$$
+
+En intégrant la [Circular Footprint Formula (CFF)](filature.md#circular-footprint-formula-cff), cette équation s'écrit plus précisément (détail dans la section suivante) :&#x20;
+
+$$
+ImpactMatière + ImpactFilature = (1-R1) Ev + R1(AErec + (1-A)EvQsin/Qp)
 $$
 
 Pour calculer chacun de ces deux impacts, il faut distinguer la part de fil, en sortie de processus, qui provient de la matière primaire et celle qui provient de matières recyclée :  &#x20;
@@ -146,10 +152,10 @@ $$
 MasseFilSortante (kg) = MasseFilMFPrimaire (kg) + MasseFilMFRecyclée (kg)
 $$
 
-Pour ce faire, on introduit le pourcentage "r" de matière recyclée, pourcentage qui s'applique à la masse de fil, en sortie donc de l'étape "matière et filature". Lorsqu'un choix de matière recyclée est proposé, ce pourcentage est représenté dans l'interface avec un curseur mobile.
+Pour ce faire, on introduit le pourcentage R1 de matière recyclée, pourcentage qui s'applique à la masse de fil, en sortie donc de l'étape "matière et filature". Lorsqu'un choix de matière recyclée est proposé, ce pourcentage est représenté dans l'interface avec un curseur mobile.
 
 {% hint style="danger" %}
-Le pourcentage "r" de matière recyclée s'applique bien au fil (en sortie) et non à la matière première (en entrée). Les taux de perte étant différents pour la matière première et pour la matière recyclée, le ratio de matières premières serait différent.
+Conformément à la méthodologie PEF, le pourcentage R1 de matière recyclée s'applique bien au fil (en sortie) et non à la matière première (en entrée). Les taux de perte étant différents pour la matière première et pour la matière recyclée, le ratio de matières premières serait différent.
 {% endhint %}
 
 En pratique, la masse de fil sortante est déterminée en premier, pour correspondre à la masse du produit fini qui est paramétrée (cf. [Pertes et rebut](filature.md#pertes-et-rebut), calcul des masses en remontant la chaîne de production).&#x20;
@@ -157,17 +163,78 @@ En pratique, la masse de fil sortante est déterminée en premier, pour correspo
 Chacun des deux masses de fil à déterminer pour calculer ensuite les impacts des procédés "matière primaire" et "matière recyclée", sont établies comme suit :&#x20;
 
 $$
-MasseFilMFPrimaire (kg) = (1-r) * MasseFilSortante (kg)
+MasseFilMFPrimaire (kg) = (1-R1) * MasseFilSortante (kg)
 $$
 
 $$
-MasseFilMFRecyclée (kg) = r * MasseFilSortante (kg)
+MasseFilMFRecyclée (kg) = R1 * MasseFilSortante (kg)
 $$
 
 Pour la suite du calcul, les formules ci-après s'applique, indépendemment pour la matière primaire et la matière recyclée afin de déterminer :&#x20;
 
 * la masse entrante de matière première à partir des pertes propres à chacun des deux procédés ;
 * l'impact de chacun des deux procédés.
+
+## Circular Footprint Formula (CFF)
+
+En application de la méthodologie PEF, et plus particulièrement du projet de PEFCR Apparel & Footwear (A\&F), la CFF est prise en compte pour modéliser l'intégration de matériaux recyclés (ie. cette section) et la fin de vie (**lien à ajouter**).
+
+Pour les matières premières, la formule à considérer est :&#x20;
+
+![PEFCR A\&F - v1.2 - ligne 1157](../.gitbook/assets/CaptureCFFMaterial.PNG)
+
+$$
+(1-R1)Ev + R1(AErec + (1-A)EvQsin/Qp)
+$$
+
+### Définition des paramètres CFF&#x20;
+
+* **R1** -  Proportion de matière recyclée en sortie de l'étpe "matière". Ce nombre a déjà été introduit dans la section [Intégration d'une part de matière](filature.md#integration-dune-part-de-matiere-recyclee) recyclée ci-dessus.
+* **Ev** - Impacts (émissions et ressources consommées) correspondant à la matière primaire vierge, non recyclée, mobilisée.
+* **Erec** - Impacts (émissions et ressources consommées) correspondant à la matière recyclée utilisée mobilisée.
+
+{% hint style="danger" %}
+Les impacts Ev et Erec sont considérés pour les étapes de "Matière" et de "Filature" considérées ensemble. En toute rigueur, la formule devrait seulement s'appliquer à l'étape "Matière", ce qui pourra être fait lorsque les étapes de "Matière" et de "Filature" seront séparées.&#x20;
+
+L'impact sur le résultat reste limité. Il est même nul lorsque Qsin/Qp = 1.
+{% endhint %}
+
+* **A** - Coefficient l'allocation des impacts et crédits entre le fournisseur et l'utilisateur de matériaux recyclés.
+
+{% hint style="info" %}
+Cas limites. Tous les impacts liés au recyclage de la matière recyclée utilisés sont imputés
+
+* A = 1 ->  A son utilisateurs, donc à l'étape "matière" de la modélisation qui implique une part R1 de matière recyclée.
+* A = 0 -> A son fournisseur, donc à l'étape "fin de vie" de la modélisation de tous les produits qui utilisent de la matière dont le recyclage va permettre la production de la part R1 de matière recyclée dans la présente modélisation.
+{% endhint %}
+
+* **Qsin/Qp** - Rapport entre la qualité de la matière recyclée utilisée et la qualité de la matière primaire correspondante, avant recyclage donc.
+
+{% hint style="info" %}
+Cas limites :&#x20;
+
+* Qsin/Qp = 1 -> La matière recyclée et la matière primaire ont la même qualité.
+* Qsin/Qp < 1 -> La matière recyclée est de moins bonne qualité que la matière primaire. Utiliser de la matière recyclée nécessite un effort supplémentaire (ou une dégradation de la qualité), ce qui justifie une diminution de l'impact imputé.&#x20;
+{% endhint %}
+
+### Valeurs des paramètres CFF
+
+* **R1**
+  * Pour les matières de la liste principales, R1 est la position du curseur "part d'origine recyclée"
+  * Pour les autres matières de la liste complète, R1=0% pour les matières primaires, R1=100% pour les matières recyclées.
+* **Ev** et **Erec** correspondent aux impacts des matières primaires et recyclées tel qu'issues de la base Impacts.
+
+$$
+= ImpactProcédéMFPrimaire +  ImpactProcédéMFRecyclée
+$$
+
+$$
+= ImpactProcédéMFPrimaire +  ImpactProcédéMFRecyclée
+$$
+
+$$
+f(x) = x * e^{2 pi i \xi x}
+$$
 
 ## Procédé de matière et filature
 
