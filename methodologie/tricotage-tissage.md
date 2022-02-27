@@ -183,7 +183,7 @@ Le procédé de tissage considéré prévoit qu'une partie du fil mobilisé soit
 Ces pertes sont prises en compte comme suit :
 
 $$
-MasseEtoffeSortante(kg) = MasseFilEntrant(kg) + MassePertes(kg)
+MasseEtoffeSortante(kg)+ MassePertes(kg) = MasseFilEntrant(kg)
 $$
 
 Avec :
