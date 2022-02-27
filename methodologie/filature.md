@@ -140,11 +140,11 @@ $$
 ImpactMatière + Impact Filature = ImpactProcédéMFPrimaire +  ImpactProcédéMFRecyclée
 $$
 
-En intégrant la [Circular Footprint Formula (CFF)](filature.md#circular-footprint-formula-cff), cette équation s'écrit plus précisément (détail dans la section suivante) :&#x20;
+{% hint style="warning" %}
+Cette formule, proposée en première approche, n'intègre par la Circular Footprint Formula (CFF) qui est prise en compte dans le calcul et décrite au [paragraphe suivant](filature.md#circular-footprint-formula-cff).
 
-$$
-ImpactMatière + ImpactFilature = (1-R1) Ev + R1(AErec + (1-A)EvQsin/Qp)
-$$
+La CFF vient moduler la prise en compte de matière recyclée en introduisant une allocation entre fournisseur et utilisateur (A), ainsi qu'une perte de qualité au recyclage (Qsin/Qp).
+{% endhint %}
 
 Pour calculer chacun de ces deux impacts, il faut distinguer la part de fil, en sortie de processus, qui provient de la matière primaire et celle qui provient de matières recyclée :  &#x20;
 
@@ -225,16 +225,29 @@ Cas limites :&#x20;
 * **Ev** et **Erec** correspondent aux impacts des matières primaires et recyclées tel qu'issues de la base Impacts.
 
 $$
-= ImpactProcédéMFPrimaire +  ImpactProcédéMFRecyclée
+ImpactProcédéMFPrimaire = (1-R1) Ev
 $$
 
 $$
-= ImpactProcédéMFPrimaire +  ImpactProcédéMFRecyclée
+ImpactProcédéMFRecyclée =  R1*Erec
 $$
 
-$$
-f(x) = x * e^{2 pi i \xi x}
-$$
+
+
+* **A** et **Qsin/Qp** sont établis, pour chaque matière, conformément au projet de PEFCR A\&F (v1.2, table 21, ligne 1181).
+
+| Matière recyclée                                         | A                                                                  | Qsin / Qp                                   |
+| -------------------------------------------------------- | ------------------------------------------------------------------ | ------------------------------------------- |
+| Polyester issu de PET recyclé                            | <p>0,5<br>Impact partagé entre le fournisseur et l'utilisateur</p> | <p>1<br>Pas de perte de qualité</p>         |
+| Polyester issu de bouteilles PET                         | <p>0,5<br>Impact partagé entre le fournisseur et l'utilisateur</p> | <p>0,7<br>Perte de qualité au recyclage</p> |
+| Fibres synthétiques issues de produits textiles recyclés | <p>0,8<br>Impact majoritairement porté par l'utilisateur</p>       | <p>1<br>Pas de perte de qualité</p>         |
+| Fibres naturelles\* issues de produits textiles recyclés | <p>0,8<br>Impact majoritairement porté par l'utilisateur</p>       | <p>0,5<br>Perte de qualité au recyclage</p> |
+
+{% hint style="warning" %}
+\*Le projet de PEFCR A\&F mentionne la "production of cellulosic virgin fibres" pour Ev. Par extension, il est considéré que cela couvre toutes les fibres naturelles.
+{% endhint %}
+
+L'application de ce tableau aux différentes matières présentées dans le simulateur sera bientôt visible dans la [rubrique "Produits" de l'explorateur](https://wikicarbone.beta.gouv.fr/#/explore/products).
 
 ## Procédé de matière et filature
 
