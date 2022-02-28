@@ -13,12 +13,11 @@ const port = process.env.PORT || 3000;
 
 // Web
 
-app.use(express.static("dist"));
-
+// Important note: helmet middlewares have to be called *before* any
+// other middleware to be effective!
 app.use(
-  // Important note: this has to be called *after* any other
-  // middleware to be effective!
   helmet({
+    crossOriginEmbedderPolicy: false,
     contentSecurityPolicy: {
       useDefaults: true,
       directives: {
@@ -26,19 +25,25 @@ app.use(
           "'self'",
           "https://api.github.com",
           "https://raw.githubusercontent.com",
-          "https://stats.data.gouv.fr",
+          "*.gouv.fr",
         ],
+        "frame-src": ["'self'", "https://stats.data.gouv.fr"],
         "img-src": [
           "'self'",
           "data:",
-          "https://avatars.githubusercontent.com",
+          "https://avatars.githubusercontent.com/",
           "https://raw.githubusercontent.com",
         ],
-        "script-src": ["'self'", "https://stats.data.gouv.fr"],
+        // FIXME: We should be able to remove 'unsafe-inline' as soon as the Matomo
+        // server sends the appropriate `Access-Control-Allow-Origin` header
+        // @see https://matomo.org/faq/how-to/faq_18694/
+        "script-src": ["'self'", "'unsafe-inline'", "https://stats.data.gouv.fr"],
       },
     },
   }),
 );
+
+app.use(express.static("dist"));
 
 app.get("/stats", (_, res) => {
   res.redirect("/#/stats");

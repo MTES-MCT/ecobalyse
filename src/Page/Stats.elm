@@ -40,7 +40,8 @@ view _ _ =
             [ h1 [ class "mb-3" ] [ text "Statistiques" ]
             , div [ id "widgetIframe" ]
                 [ iframe
-                    [ attribute "frameborder" "0"
+                    [ attribute "crossorigin" "anonymous"
+                    , attribute "frameborder" "0"
                     , attribute "height" "850"
                     , attribute "marginheight" "0"
                     , attribute "marginwidth" "0"

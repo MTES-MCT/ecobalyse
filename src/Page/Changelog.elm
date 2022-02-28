@@ -83,6 +83,7 @@ commitView maybeTime commit =
                     [ img
                         [ src commit.authorAvatar
                         , alt commit.authorName
+                        , attribute "crossorigin" "anonymous"
                         , width 24
                         , class "rounded-circle shadow-sm align-top me-2"
                         ]
