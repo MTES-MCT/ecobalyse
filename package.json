@@ -34,7 +34,7 @@
     "rapidoc": "^9.1.4"
   },
   "devDependencies": {
-    "concurrently": "^6.5.1",
+    "concurrently": "^7.0.0",
     "elm-analyse": "^0.16.5",
     "elm-format": "^0.8.5",
     "elm-test": "^0.19.1-revision7",
