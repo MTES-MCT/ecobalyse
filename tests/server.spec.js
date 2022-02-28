@@ -12,8 +12,7 @@ describe("Web", () => {
   it("should render the homepage", async () => {
     const response = await request(app).get("/");
 
-    expect(response.statusCode).toBe(200);
-    expect(response.type).toEqual("text/html");
+    expectStatus(response, 200, "text/html");
     expect(response.text).toContain("<title>wikicarbone</title>");
   });
 });
@@ -34,7 +33,7 @@ describe("API", () => {
     ];
 
   function expectFieldErrorMessage(response, field, message) {
-    expect(response.statusCode).toBe(400);
+    expectStatus(response, 400);
     expect("errors" in response.body).toEqual(true);
     expect(field in response.body.errors).toEqual(true);
     expect(response.body.errors[field]).toMatch(message);
@@ -44,7 +43,7 @@ describe("API", () => {
     it("should render a 404 response", async () => {
       const response = await request(app).get("/xxx");
 
-      expect(response.statusCode).toBe(404);
+      expectStatus(response, 404, "text/html");
     });
   });
 
@@ -52,7 +51,7 @@ describe("API", () => {
     it("should render the OpenAPI documentation", async () => {
       const response = await request(app).get("/api");
 
-      expect(response.statusCode).toBe(200);
+      expectStatus(response, 200);
       expect(response.body.openapi).toEqual("3.0.1");
       expect(response.body.info.title).toEqual("API Wikicarbone");
     });
@@ -62,7 +61,7 @@ describe("API", () => {
     it("should render with countries list", async () => {
       const response = await request(app).get("/api/countries");
 
-      expect(response.statusCode).toBe(200);
+      expectStatus(response, 200);
       expect(response.body).toContainObject({ code: "FR", name: "France" });
     });
   });
@@ -71,7 +70,7 @@ describe("API", () => {
     it("should render with materials list", async () => {
       const response = await request(app).get("/api/materials");
 
-      expect(response.statusCode).toBe(200);
+      expectStatus(response, 200);
       expect(response.body).toContainObject({
         id: "coton",
         name: "Fil de coton conventionnel, inventaire partiellement agrégé",
@@ -83,7 +82,7 @@ describe("API", () => {
     it("should render with products list", async () => {
       const response = await request(app).get("/api/products");
 
-      expect(response.statusCode).toBe(200);
+      expectStatus(response, 200);
       expect(response.body).toContainObject({ id: "tshirt", name: "T-shirt" });
     });
   });
@@ -92,7 +91,7 @@ describe("API", () => {
     it("should accept a valid query", async () => {
       const response = await makeRequest("/api/simulator", successQuery);
 
-      expect(response.statusCode).toBe(200);
+      expectStatus(response, 200);
       expect(response.body.impacts.cch).toBeGreaterThan(0);
     });
 
@@ -155,7 +154,7 @@ describe("API", () => {
     it("should perform a simulation featuring 17 impacts", async () => {
       const response = await makeRequest("/api/simulator/", successQuery);
 
-      expect(response.statusCode).toBe(200);
+      expectStatus(response, 200);
       expect(Object.keys(response.body.impacts)).toHaveLength(17);
     });
 
@@ -172,7 +171,7 @@ describe("API", () => {
     it("should accept a valid query", async () => {
       const response = await makeRequest("/api/simulator/fwe", successQuery);
 
-      expect(response.statusCode).toBe(200);
+      expectStatus(response, 200);
       expect(response.body.impacts.fwe).toBeGreaterThan(0);
     });
   });
@@ -181,7 +180,7 @@ describe("API", () => {
     it("should accept a valid query", async () => {
       const response = await makeRequest("/api/simulator/detailed", successQuery);
 
-      expect(response.statusCode).toBe(200);
+      expectStatus(response, 200);
       expect(response.body.lifeCycle.length).toBe(7);
     });
   });
@@ -193,7 +192,7 @@ describe("End to end simulations", () => {
   for (const { name, query, impacts } of e2e) {
     it(name, async () => {
       const response = await makeRequest("/api/simulator", query);
-      expect(response.statusCode).toBe(200);
+      expectStatus(response, 200);
       e2eOutput.push({
         name,
         query,
@@ -211,6 +210,11 @@ afterAll(() => {
   fs.writeFileSync(target, JSON.stringify(e2eOutput, null, 2));
   console.info(`E2e tests output written to ${target}.`);
 });
+
+function expectStatus(response, code, type = "application/json") {
+  expect(response.type).toBe(type);
+  expect(response.statusCode).toBe(code);
+}
 
 // https://medium.com/@andrei.pfeiffer/jest-matching-objects-in-array-50fe2f4d6b98
 expect.extend({
