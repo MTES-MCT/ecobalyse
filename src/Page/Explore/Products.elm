@@ -64,7 +64,7 @@ table { detailed } =
                         text "N/A"
 
                       else
-                        text <| Format.formatInt "gr/kg" product.grammage
+                        text <| Format.formatInt "gr/m²" product.grammage
                     ]
       }
     , { label = "Procédé"
