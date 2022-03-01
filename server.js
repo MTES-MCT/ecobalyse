@@ -18,6 +18,7 @@ const port = process.env.PORT || 3000;
 app.use(
   helmet({
     crossOriginEmbedderPolicy: false,
+    hsts: false,
     contentSecurityPolicy: {
       useDefaults: true,
       directives: {
