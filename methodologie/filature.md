@@ -47,9 +47,7 @@ Pour les matières synthétiques, les procédés considérés sont les procédé
 | Viscose               | `81a67d97-3cd9-44ef-9ee2-159364364c0f` | Viscose recyclée à partir de déchets de production             | `9671ae26-d772-4bb1-aad5-6b826555d0cd` |
 
 {% hint style="info" %}
-En première approche, il n'est pas proposé de combiner des matières pour modéliser un vêtement multi-matières. En revanche, une part de matière recyclée peut être prise en compte pour les matières de la liste principale auxquelles des matières recyclées correspondent.
-
-D'autre part, matières et filatures sont des procédés indissociables dans la [base Impacts](http://www.base-impacts.ademe.fr).
+Matière et filature sont des procédés indissociables dans la [base Impacts](http://www.base-impacts.ademe.fr).
 {% endhint %}
 
 ## Liste complète
