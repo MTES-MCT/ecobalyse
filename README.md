@@ -49,6 +49,14 @@ Chaque *Pull Request* effectuée sur le dépôt est également automatiquement d
 
 # Serveur de production
 
+## Variables d'environnement
+
+Certaines variables d'environnement peuvent ou doivent être configurées via l'interface de [configuration Scalingo](https://dashboard.scalingo.com/apps/osc-fr1/wikicarbone/environment) :
+
+- `SENTRY_DSN`: le DSN [Sentry](https://sentry.io) à utiliser pour les rapports d'erreur.
+
+## Lancement du serveur
+
 Pour lancer le serveur applicatif complet (frontend + backend), par exemple depuis un environnement de production, la démarche est la suivante :
 
 ```

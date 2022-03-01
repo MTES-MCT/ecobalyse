@@ -11,10 +11,10 @@ const app = express(); // web app
 const api = express(); // api app
 const host = "0.0.0.0";
 const port = process.env.PORT || 3000;
-
+const { SENTRY_DSN } = process.env;
 // Sentry
 
-if (process.env.SENTRY_DSN) {
+if (SENTRY_DSN) {
   Sentry.init({ dsn: SENTRY_DSN, tracesSampleRate: 0 });
   // Note: Sentry middleware *must* be the very first applied to be effective
   app.use(Sentry.Handlers.requestHandler());
@@ -105,7 +105,7 @@ app.use("/api", api);
 
 // Sentry error handler
 // Note: *must* be called *before* any other error handler
-if (process.env.SENTRY_DSN) {
+if (SENTRY_DSN) {
   app.use(Sentry.Handlers.errorHandler());
 }
 
