@@ -37,6 +37,7 @@ app.use(
           "'self'",
           "https://api.github.com",
           "https://raw.githubusercontent.com",
+          "https://o548798.ingest.sentry.io",
           "*.gouv.fr",
         ],
         "frame-src": ["'self'", "https://stats.data.gouv.fr"],
