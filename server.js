@@ -3,6 +3,7 @@ const express = require("express");
 const cors = require("cors");
 const yaml = require("js-yaml");
 const helmet = require("helmet");
+const Sentry = require("@sentry/node");
 const { Elm } = require("./server-app");
 const { buildJsonDb } = require("./lib");
 
@@ -11,10 +12,19 @@ const api = express(); // api app
 const host = "0.0.0.0";
 const port = process.env.PORT || 3000;
 
+// Sentry
+
+const { SENTRY_DSN } = process.env;
+if (SENTRY_DSN) {
+  Sentry.init({ dsn: SENTRY_DSN, tracesSampleRate: 0 });
+  // Note: Sentry middleware *must* be the very first applied to be effective
+  app.use(Sentry.Handlers.requestHandler());
+}
+
 // Web
 
-// Important note: helmet middlewares have to be called *before* any
-// other middleware to be effective!
+// Note: helmet middlewares have to be called *after* the Sentry middleware
+// but *before* other middlewares to be applied effectively
 app.use(
   helmet({
     crossOriginEmbedderPolicy: false,
@@ -27,6 +37,7 @@ app.use(
           "'self'",
           "https://api.github.com",
           "https://raw.githubusercontent.com",
+          "https://o548798.ingest.sentry.io",
           "*.gouv.fr",
         ],
         "frame-src": ["'self'", "https://stats.data.gouv.fr"],
@@ -89,6 +100,12 @@ api.all(/(.*)/, ({ method, url }, res) => {
 
 api.use(cors()); // Enable CORS for all API requests
 app.use("/api", api);
+
+// Sentry error handler
+// Note: *must* be called *before* any other error handler
+if (SENTRY_DSN) {
+  app.use(Sentry.Handlers.errorHandler());
+}
 
 const server = app.listen(port, host, () => {
   console.log(`Server listening at http://${host}:${port}`);

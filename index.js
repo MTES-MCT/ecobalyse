@@ -1,5 +1,16 @@
 import "rapidoc";
 import { Elm } from "./src/Main.elm";
+import * as Sentry from "@sentry/browser";
+import { BrowserTracing } from "@sentry/tracing";
+
+// Sentry
+if (process.env.SENTRY_DSN) {
+  Sentry.init({
+    dsn: process.env.SENTRY_DSN,
+    integrations: [new BrowserTracing()],
+    tracesSampleRate: 0,
+  });
+}
 
 // The localStorage key to use to store serialized session data
 const storeKey = "store";
