@@ -1,3 +1,4 @@
+/.env
 /dist
 /elm-stuff
 /tests/elm-stuff
