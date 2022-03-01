@@ -9,7 +9,9 @@
     "primary": false,
     "continent": "Asie - Pacifique",
     "defaultCountry": "CN",
-    "priority": 0
+    "priority": 0,
+    "manufacturerAllocation": null,
+    "recycledQualityRatio": null
   },
   {
     "id": "soie",
@@ -21,7 +23,9 @@
     "primary": false,
     "continent": "Asie - Pacifique",
     "defaultCountry": "CN",
-    "priority": 0
+    "priority": 0,
+    "manufacturerAllocation": null,
+    "recycledQualityRatio": null
   },
   {
     "id": "lin-filasse",
@@ -33,7 +37,9 @@
     "primary": true,
     "continent": "Asie - Pacifique",
     "defaultCountry": "CN",
-    "priority": 0
+    "priority": 0,
+    "manufacturerAllocation": null,
+    "recycledQualityRatio": null
   },
   {
     "id": "lin-etoupe",
@@ -45,7 +51,9 @@
     "primary": true,
     "continent": "Asie - Pacifique",
     "defaultCountry": "CN",
-    "priority": 0
+    "priority": 0,
+    "manufacturerAllocation": null,
+    "recycledQualityRatio": null
   },
   {
     "id": "laine-merinos",
@@ -57,7 +65,9 @@
     "primary": false,
     "continent": "Asie - Pacifique",
     "defaultCountry": "CN",
-    "priority": 0
+    "priority": 0,
+    "manufacturerAllocation": null,
+    "recycledQualityRatio": null
   },
   {
     "id": "laine-mouton",
@@ -69,7 +79,9 @@
     "primary": true,
     "continent": "Asie - Pacifique",
     "defaultCountry": "CN",
-    "priority": 0
+    "priority": 0,
+    "manufacturerAllocation": null,
+    "recycledQualityRatio": null
   },
   {
     "id": "laine-chameau",
@@ -81,7 +93,9 @@
     "primary": false,
     "continent": "Asie - Pacifique",
     "defaultCountry": "CN",
-    "priority": 0
+    "priority": 0,
+    "manufacturerAllocation": null,
+    "recycledQualityRatio": null
   },
   {
     "id": "jute",
@@ -93,7 +107,9 @@
     "primary": false,
     "continent": "Asie - Pacifique",
     "defaultCountry": "CN",
-    "priority": 0
+    "priority": 0,
+    "manufacturerAllocation": null,
+    "recycledQualityRatio": null
   },
   {
     "id": "coton",
@@ -105,7 +121,9 @@
     "primary": true,
     "continent": "Asie - Pacifique",
     "defaultCountry": "CN",
-    "priority": 100
+    "priority": 100,
+    "manufacturerAllocation": null,
+    "recycledQualityRatio": null
   },
   {
     "id": "chanvre",
@@ -117,7 +135,9 @@
     "primary": true,
     "continent": "Asie - Pacifique",
     "defaultCountry": "CN",
-    "priority": 0
+    "priority": 0,
+    "manufacturerAllocation": null,
+    "recycledQualityRatio": null
   },
   {
     "id": "cachemire",
@@ -129,7 +149,9 @@
     "primary": false,
     "continent": "Asie - Pacifique",
     "defaultCountry": "CN",
-    "priority": 0
+    "priority": 0,
+    "manufacturerAllocation": null,
+    "recycledQualityRatio": null
   },
   {
     "id": "angora",
@@ -141,7 +163,9 @@
     "primary": false,
     "continent": "Asie - Pacifique",
     "defaultCountry": "CN",
-    "priority": 0
+    "priority": 0,
+    "manufacturerAllocation": null,
+    "recycledQualityRatio": null
   },
   {
     "id": "kapok",
@@ -153,7 +177,9 @@
     "primary": false,
     "continent": "Asie - Pacifique",
     "defaultCountry": "CN",
-    "priority": 0
+    "priority": 0,
+    "manufacturerAllocation": null,
+    "recycledQualityRatio": null
   },
   {
     "id": "viscose",
@@ -165,7 +191,9 @@
     "primary": true,
     "continent": "Asie - Pacifique",
     "defaultCountry": "CN",
-    "priority": 0
+    "priority": 0,
+    "manufacturerAllocation": null,
+    "recycledQualityRatio": null
   },
   {
     "id": "pu",
@@ -177,7 +205,9 @@
     "primary": false,
     "continent": "Asie - Pacifique",
     "defaultCountry": "CN",
-    "priority": 60
+    "priority": 60,
+    "manufacturerAllocation": null,
+    "recycledQualityRatio": null
   },
   {
     "id": "ptt",
@@ -189,7 +219,9 @@
     "primary": false,
     "continent": "Asie - Pacifique",
     "defaultCountry": "CN",
-    "priority": 0
+    "priority": 0,
+    "manufacturerAllocation": null,
+    "recycledQualityRatio": null
   },
   {
     "id": "pbt",
@@ -201,7 +233,9 @@
     "primary": false,
     "continent": "Asie - Pacifique",
     "defaultCountry": "CN",
-    "priority": 0
+    "priority": 0,
+    "manufacturerAllocation": null,
+    "recycledQualityRatio": null
   },
   {
     "id": "pp",
@@ -213,7 +247,9 @@
     "primary": false,
     "continent": "Europe",
     "defaultCountry": "FR",
-    "priority": 0
+    "priority": 0,
+    "manufacturerAllocation": null,
+    "recycledQualityRatio": null
   },
   {
     "id": "pla",
@@ -225,7 +261,9 @@
     "primary": false,
     "continent": "Asie - Pacifique",
     "defaultCountry": "CN",
-    "priority": 0
+    "priority": 0,
+    "manufacturerAllocation": null,
+    "recycledQualityRatio": null
   },
   {
     "id": "pe",
@@ -237,7 +275,9 @@
     "primary": false,
     "continent": "Europe",
     "defaultCountry": "FR",
-    "priority": 0
+    "priority": 0,
+    "manufacturerAllocation": null,
+    "recycledQualityRatio": null
   },
   {
     "id": "pet",
@@ -249,7 +289,9 @@
     "primary": true,
     "continent": "Asie - Pacifique",
     "defaultCountry": "CN",
-    "priority": 80
+    "priority": 80,
+    "manufacturerAllocation": null,
+    "recycledQualityRatio": null
   },
   {
     "id": "pa",
@@ -261,7 +303,9 @@
     "primary": true,
     "continent": "Europe",
     "defaultCountry": "FR",
-    "priority": 0
+    "priority": 0,
+    "manufacturerAllocation": null,
+    "recycledQualityRatio": null
   },
   {
     "id": "aramide",
@@ -273,7 +317,9 @@
     "primary": false,
     "continent": "Asie - Pacifique",
     "defaultCountry": "CN",
-    "priority": 0
+    "priority": 0,
+    "manufacturerAllocation": null,
+    "recycledQualityRatio": null
   },
   {
     "id": "acrylique",
@@ -285,7 +331,9 @@
     "primary": true,
     "continent": "Asie - Pacifique",
     "defaultCountry": "CN",
-    "priority": 0
+    "priority": 0,
+    "manufacturerAllocation": null,
+    "recycledQualityRatio": null
   },
   {
     "id": "pp-pa",
@@ -297,7 +345,9 @@
     "primary": false,
     "continent": "Europe",
     "defaultCountry": "FR",
-    "priority": 0
+    "priority": 0,
+    "manufacturerAllocation": null,
+    "recycledQualityRatio": null
   },
   {
     "id": "neoprene",
@@ -309,7 +359,9 @@
     "primary": false,
     "continent": "Asie - Pacifique",
     "defaultCountry": "CN",
-    "priority": 0
+    "priority": 0,
+    "manufacturerAllocation": null,
+    "recycledQualityRatio": null
   },
   {
     "id": "pet-rm",
@@ -321,7 +373,9 @@
     "primary": false,
     "continent": "Asie - Pacifique",
     "defaultCountry": "CN",
-    "priority": 0
+    "priority": 0,
+    "manufacturerAllocation": 0.5,
+    "recycledQualityRatio": 0.7
   },
   {
     "id": "pet-rcp",
@@ -333,7 +387,9 @@
     "primary": false,
     "continent": "Asie - Pacifique",
     "defaultCountry": "CN",
-    "priority": 0
+    "priority": 0,
+    "manufacturerAllocation": 0.5,
+    "recycledQualityRatio": 0.7
   },
   {
     "id": "pet-rcc",
@@ -345,7 +401,9 @@
     "primary": false,
     "continent": "Asie - Pacifique",
     "defaultCountry": "CN",
-    "priority": 0
+    "priority": 0,
+    "manufacturerAllocation": 0.5,
+    "recycledQualityRatio": 0.7
   },
   {
     "id": "pa-rc",
@@ -357,7 +415,9 @@
     "primary": false,
     "continent": "Europe puis Asie",
     "defaultCountry": "CN",
-    "priority": 0
+    "priority": 0,
+    "manufacturerAllocation": 0.8,
+    "recycledQualityRatio": 1
   },
   {
     "id": "viscose-r",
@@ -369,7 +429,9 @@
     "primary": false,
     "continent": "Asie - Pacifique",
     "defaultCountry": "CN",
-    "priority": 0
+    "priority": 0,
+    "manufacturerAllocation": 0.8,
+    "recycledQualityRatio": 1
   },
   {
     "id": "pa-rm",
@@ -381,7 +443,9 @@
     "primary": false,
     "continent": "Europe",
     "defaultCountry": "FR",
-    "priority": 0
+    "priority": 0,
+    "manufacturerAllocation": 0.8,
+    "recycledQualityRatio": 1
   },
   {
     "id": "laine-r",
@@ -393,7 +457,9 @@
     "primary": false,
     "continent": "France",
     "defaultCountry": "FR",
-    "priority": 0
+    "priority": 0,
+    "manufacturerAllocation": 0.8,
+    "recycledQualityRatio": 0.5
   },
   {
     "id": "coton-rdpc",
@@ -405,7 +471,9 @@
     "primary": false,
     "continent": "France",
     "defaultCountry": "FR",
-    "priority": 0
+    "priority": 0,
+    "manufacturerAllocation": 0.8,
+    "recycledQualityRatio": 0.5
   },
   {
     "id": "coton-rdp",
@@ -417,7 +485,9 @@
     "primary": false,
     "continent": "Espagne & France",
     "defaultCountry": "FR",
-    "priority": 0
+    "priority": 0,
+    "manufacturerAllocation": 0.8,
+    "recycledQualityRatio": 0.5
   },
   {
     "id": "acrylique-r",
@@ -429,7 +499,9 @@
     "primary": false,
     "continent": "Asie - Pacifique",
     "defaultCountry": "CN",
-    "priority": 0
+    "priority": 0,
+    "manufacturerAllocation": 0.8,
+    "recycledQualityRatio": 1
   },
   {
     "id": "fibres-r",
@@ -441,6 +513,8 @@
     "primary": false,
     "continent": "France",
     "defaultCountry": "FR",
-    "priority": 0
+    "priority": 0,
+    "manufacturerAllocation": 0.8,
+    "recycledQualityRatio": 0.5
   }
 ]
