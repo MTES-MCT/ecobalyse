@@ -19,6 +19,7 @@ app.use(
   helmet({
     crossOriginEmbedderPolicy: false,
     hsts: false,
+    xssFilter: false,
     contentSecurityPolicy: {
       useDefaults: true,
       directives: {
@@ -44,7 +45,15 @@ app.use(
   }),
 );
 
-app.use(express.static("dist"));
+app.use(
+  express.static("dist", {
+    setHeaders: (res) => {
+      // Note: helmet sets this header to `0` by default and doesn't allow overriding
+      // this value
+      res.set("X-XSS-Protection", "1; mode=block");
+    },
+  }),
+);
 
 app.get("/stats", (_, res) => {
   res.redirect("/#/stats");
