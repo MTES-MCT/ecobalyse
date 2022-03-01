@@ -9,7 +9,9 @@
     "primary": false,
     "continent": "Asie - Pacifique",
     "defaultCountry": "CN",
-    "priority": 0
+    "priority": 0,
+    "A": null,
+    "Qsin/Qp": null
   },
   {
     "id": "soie",
@@ -21,7 +23,9 @@
     "primary": false,
     "continent": "Asie - Pacifique",
     "defaultCountry": "CN",
-    "priority": 0
+    "priority": 0,
+    "A": null,
+    "Qsin/Qp": null
   },
   {
     "id": "lin-filasse",
@@ -30,10 +34,12 @@
     "name": "Fil de lin (filasse)",
     "shortName": "Lin (filasse)",
     "category": "Naturelles",
-    "primary": true,
+    "primary": "true",
     "continent": "Asie - Pacifique",
     "defaultCountry": "CN",
-    "priority": 0
+    "priority": 0,
+    "A": null,
+    "Qsin/Qp": null
   },
   {
     "id": "lin-etoupe",
@@ -42,10 +48,12 @@
     "name": "Fil de lin (étoupe)",
     "shortName": "Lin (étoupe)",
     "category": "Naturelles",
-    "primary": true,
+    "primary": "true",
     "continent": "Asie - Pacifique",
     "defaultCountry": "CN",
-    "priority": 0
+    "priority": 0,
+    "A": null,
+    "Qsin/Qp": null
   },
   {
     "id": "laine-merinos",
@@ -57,7 +65,9 @@
     "primary": false,
     "continent": "Asie - Pacifique",
     "defaultCountry": "CN",
-    "priority": 0
+    "priority": 0,
+    "A": null,
+    "Qsin/Qp": null
   },
   {
     "id": "laine-mouton",
@@ -66,10 +76,12 @@
     "name": "Fil de laine de mouton",
     "shortName": "Laine de mouton",
     "category": "Naturelles",
-    "primary": true,
+    "primary": "true",
     "continent": "Asie - Pacifique",
     "defaultCountry": "CN",
-    "priority": 0
+    "priority": 0,
+    "A": null,
+    "Qsin/Qp": null
   },
   {
     "id": "laine-chameau",
@@ -81,7 +93,9 @@
     "primary": false,
     "continent": "Asie - Pacifique",
     "defaultCountry": "CN",
-    "priority": 0
+    "priority": 0,
+    "A": null,
+    "Qsin/Qp": null
   },
   {
     "id": "jute",
@@ -93,7 +107,9 @@
     "primary": false,
     "continent": "Asie - Pacifique",
     "defaultCountry": "CN",
-    "priority": 0
+    "priority": 0,
+    "A": null,
+    "Qsin/Qp": null
   },
   {
     "id": "coton",
@@ -102,10 +118,12 @@
     "name": "Fil de coton conventionnel, inventaire partiellement agrégé",
     "shortName": "Coton",
     "category": "Naturelles",
-    "primary": true,
+    "primary": "true",
     "continent": "Asie - Pacifique",
     "defaultCountry": "CN",
-    "priority": 100
+    "priority": 100,
+    "A": null,
+    "Qsin/Qp": null
   },
   {
     "id": "chanvre",
@@ -114,10 +132,12 @@
     "name": "Fil de chanvre",
     "shortName": "Chanvre",
     "category": "Naturelles",
-    "primary": true,
+    "primary": "true",
     "continent": "Asie - Pacifique",
     "defaultCountry": "CN",
-    "priority": 0
+    "priority": 0,
+    "A": null,
+    "Qsin/Qp": null
   },
   {
     "id": "cachemire",
@@ -129,7 +149,9 @@
     "primary": false,
     "continent": "Asie - Pacifique",
     "defaultCountry": "CN",
-    "priority": 0
+    "priority": 0,
+    "A": null,
+    "Qsin/Qp": null
   },
   {
     "id": "angora",
@@ -141,7 +163,9 @@
     "primary": false,
     "continent": "Asie - Pacifique",
     "defaultCountry": "CN",
-    "priority": 0
+    "priority": 0,
+    "A": null,
+    "Qsin/Qp": null
   },
   {
     "id": "kapok",
@@ -153,7 +177,9 @@
     "primary": false,
     "continent": "Asie - Pacifique",
     "defaultCountry": "CN",
-    "priority": 0
+    "priority": 0,
+    "A": null,
+    "Qsin/Qp": null
   },
   {
     "id": "viscose",
@@ -162,10 +188,12 @@
     "name": "Filament de viscose",
     "shortName": "Viscose",
     "category": "Synthétiques et artificielles",
-    "primary": true,
+    "primary": "true",
     "continent": "Asie - Pacifique",
     "defaultCountry": "CN",
-    "priority": 0
+    "priority": 0,
+    "A": null,
+    "Qsin/Qp": null
   },
   {
     "id": "pu",
@@ -177,7 +205,9 @@
     "primary": false,
     "continent": "Asie - Pacifique",
     "defaultCountry": "CN",
-    "priority": 60
+    "priority": 60,
+    "A": null,
+    "Qsin/Qp": null
   },
   {
     "id": "ptt",
@@ -189,7 +219,9 @@
     "primary": false,
     "continent": "Asie - Pacifique",
     "defaultCountry": "CN",
-    "priority": 0
+    "priority": 0,
+    "A": null,
+    "Qsin/Qp": null
   },
   {
     "id": "pbt",
@@ -201,7 +233,9 @@
     "primary": false,
     "continent": "Asie - Pacifique",
     "defaultCountry": "CN",
-    "priority": 0
+    "priority": 0,
+    "A": null,
+    "Qsin/Qp": null
   },
   {
     "id": "pp",
@@ -213,7 +247,9 @@
     "primary": false,
     "continent": "Europe",
     "defaultCountry": "FR",
-    "priority": 0
+    "priority": 0,
+    "A": null,
+    "Qsin/Qp": null
   },
   {
     "id": "pla",
@@ -225,7 +261,9 @@
     "primary": false,
     "continent": "Asie - Pacifique",
     "defaultCountry": "CN",
-    "priority": 0
+    "priority": 0,
+    "A": null,
+    "Qsin/Qp": null
   },
   {
     "id": "pe",
@@ -237,7 +275,9 @@
     "primary": false,
     "continent": "Europe",
     "defaultCountry": "FR",
-    "priority": 0
+    "priority": 0,
+    "A": null,
+    "Qsin/Qp": null
   },
   {
     "id": "pet",
@@ -246,10 +286,12 @@
     "name": "Filament de polyester, inventaire partiellement agrégé",
     "shortName": "Polyester",
     "category": "Synthétiques et artificielles",
-    "primary": true,
+    "primary": "true",
     "continent": "Asie - Pacifique",
     "defaultCountry": "CN",
-    "priority": 80
+    "priority": 80,
+    "A": null,
+    "Qsin/Qp": null
   },
   {
     "id": "pa",
@@ -258,10 +300,12 @@
     "name": "Filament de polyamide 66",
     "shortName": "Polyamide",
     "category": "Synthétiques et artificielles",
-    "primary": true,
+    "primary": "true",
     "continent": "Europe",
     "defaultCountry": "FR",
-    "priority": 0
+    "priority": 0,
+    "A": null,
+    "Qsin/Qp": null
   },
   {
     "id": "aramide",
@@ -273,7 +317,9 @@
     "primary": false,
     "continent": "Asie - Pacifique",
     "defaultCountry": "CN",
-    "priority": 0
+    "priority": 0,
+    "A": null,
+    "Qsin/Qp": null
   },
   {
     "id": "acrylique",
@@ -282,10 +328,12 @@
     "name": "Filament d'acrylique",
     "shortName": "Acrylique",
     "category": "Synthétiques et artificielles",
-    "primary": true,
+    "primary": "true",
     "continent": "Asie - Pacifique",
     "defaultCountry": "CN",
-    "priority": 0
+    "priority": 0,
+    "A": null,
+    "Qsin/Qp": null
   },
   {
     "id": "pp-pa",
@@ -297,7 +345,9 @@
     "primary": false,
     "continent": "Europe",
     "defaultCountry": "FR",
-    "priority": 0
+    "priority": 0,
+    "A": null,
+    "Qsin/Qp": null
   },
   {
     "id": "neoprene",
@@ -309,7 +359,9 @@
     "primary": false,
     "continent": "Asie - Pacifique",
     "defaultCountry": "CN",
-    "priority": 0
+    "priority": 0,
+    "A": null,
+    "Qsin/Qp": null
   },
   {
     "id": "pet-rm",
@@ -321,7 +373,9 @@
     "primary": false,
     "continent": "Asie - Pacifique",
     "defaultCountry": "CN",
-    "priority": 0
+    "priority": 0,
+    "A": 0.5,
+    "Qsin/Qp": 0.7
   },
   {
     "id": "pet-rcp",
@@ -333,7 +387,9 @@
     "primary": false,
     "continent": "Asie - Pacifique",
     "defaultCountry": "CN",
-    "priority": 0
+    "priority": 0,
+    "A": 0.5,
+    "Qsin/Qp": 0.7
   },
   {
     "id": "pet-rcc",
@@ -345,7 +401,9 @@
     "primary": false,
     "continent": "Asie - Pacifique",
     "defaultCountry": "CN",
-    "priority": 0
+    "priority": 0,
+    "A": 0.5,
+    "Qsin/Qp": 0.7
   },
   {
     "id": "pa-rc",
@@ -357,7 +415,9 @@
     "primary": false,
     "continent": "Europe puis Asie",
     "defaultCountry": "CN",
-    "priority": 0
+    "priority": 0,
+    "A": 0.8,
+    "Qsin/Qp": 1
   },
   {
     "id": "viscose-r",
@@ -369,7 +429,9 @@
     "primary": false,
     "continent": "Asie - Pacifique",
     "defaultCountry": "CN",
-    "priority": 0
+    "priority": 0,
+    "A": 0.8,
+    "Qsin/Qp": 1
   },
   {
     "id": "pa-rm",
@@ -381,7 +443,9 @@
     "primary": false,
     "continent": "Europe",
     "defaultCountry": "FR",
-    "priority": 0
+    "priority": 0,
+    "A": 0.8,
+    "Qsin/Qp": 1
   },
   {
     "id": "laine-r",
@@ -393,7 +457,9 @@
     "primary": false,
     "continent": "France",
     "defaultCountry": "FR",
-    "priority": 0
+    "priority": 0,
+    "A": 0.8,
+    "Qsin/Qp": 0.5
   },
   {
     "id": "coton-rdpc",
@@ -405,7 +471,9 @@
     "primary": false,
     "continent": "France",
     "defaultCountry": "FR",
-    "priority": 0
+    "priority": 0,
+    "A": 0.8,
+    "Qsin/Qp": 0.5
   },
   {
     "id": "coton-rdp",
@@ -417,7 +485,9 @@
     "primary": false,
     "continent": "Espagne & France",
     "defaultCountry": "FR",
-    "priority": 0
+    "priority": 0,
+    "A": 0.8,
+    "Qsin/Qp": 0.5
   },
   {
     "id": "acrylique-r",
@@ -429,7 +499,9 @@
     "primary": false,
     "continent": "Asie - Pacifique",
     "defaultCountry": "CN",
-    "priority": 0
+    "priority": 0,
+    "A": 0.8,
+    "Qsin/Qp": 1
   },
   {
     "id": "fibres-r",
@@ -441,6 +513,8 @@
     "primary": false,
     "continent": "France",
     "defaultCountry": "FR",
-    "priority": 0
+    "priority": 0,
+    "A": 0.8,
+    "Qsin/Qp": 0.5
   }
 ]
