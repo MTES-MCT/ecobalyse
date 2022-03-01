@@ -11,9 +11,10 @@ const app = express(); // web app
 const api = express(); // api app
 const host = "0.0.0.0";
 const port = process.env.PORT || 3000;
-const { SENTRY_DSN } = process.env;
+
 // Sentry
 
+const { SENTRY_DSN } = process.env;
 if (SENTRY_DSN) {
   Sentry.init({ dsn: SENTRY_DSN, tracesSampleRate: 0 });
   // Note: Sentry middleware *must* be the very first applied to be effective
@@ -66,10 +67,6 @@ app.use(
 
 app.get("/stats", (_, res) => {
   res.redirect("/#/stats");
-});
-
-app.get("/debug-sentry", () => {
-  throw new Error("Wikicarbone Sentry test error");
 });
 
 // API
