@@ -6928,5 +6928,35 @@
     "elec": 0.0,
     "waste": 0.0,
     "alias": null
+  },
+  {
+    "name": "Délavage",
+    "info": "Textile > Ennoblissement > Delavage",
+    "unit": "kg",
+    "source": "Base Impacts",
+    "uuid": "becdbf84-6093-4470-b975-8808aa1c1f8f",
+    "impacts": {
+      "acd": 1.207e-3,
+      "ccb": 5.46646e-4,
+      "ccf": 1.73765e-1,
+      "cch": 1.74311e-1,
+      "ccl": 0.0,
+      "fru": 1.98915,
+      "fwe": 3.49598e-4,
+      "ior": 3.43317e-3,
+      "ldu": 8.23349e-1,
+      "mru": 6.47194e-7,
+      "ozd": 1.02794e-8,
+      "pco": 3.69207e-4,
+      "pma": 1.09852e-8,
+      "swe": 3.36439e-3,
+      "tre": 4.86737e-4,
+      "wtu": 0.0
+    },
+    "heat": 3.781e1,
+    "elec_pppm": 0.0,
+    "elec": 6.53,
+    "waste": 0.0,
+    "alias": null
   }
 ]
