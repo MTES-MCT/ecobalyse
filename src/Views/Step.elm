@@ -4,7 +4,7 @@ import Data.Country as Country
 import Data.Db exposing (Db)
 import Data.Gitbook as Gitbook
 import Data.Impact as Impact
-import Data.Inputs exposing (Inputs)
+import Data.Inputs as Inputs exposing (Inputs)
 import Data.Product as Product
 import Data.Step as Step exposing (Step)
 import Data.Transport as Transport
@@ -14,6 +14,7 @@ import Energy
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
+import Route
 import Views.Button as Button
 import Views.Format as Format
 import Views.Icon as Icon
@@ -186,11 +187,42 @@ inlineDocumentationLink { openDocModal } path =
         [ Icon.question ]
 
 
-stepDocumentationLink : Config msg -> Step.Label -> Html msg
-stepDocumentationLink { openDocModal } label =
-    Button.docsPill
-        [ onClick (openDocModal (Step.getStepGitbookPath label)) ]
-        [ Icon.question, text "docs" ]
+stepActions : Config msg -> Step.Label -> Html msg
+stepActions { detailed, inputs, impact, funit, openDocModal } label =
+    div [ class "btn-group" ]
+        [ button
+            [ class "d-inline-flex align-items-center"
+            , class "btn btn-secondary btn-sm gap-1 rounded-pill fs-7 py-1 rounded-end"
+            , onClick (openDocModal (Step.getStepGitbookPath label))
+            , title "Documentation"
+            ]
+            [ Icon.question ]
+        , let
+            query =
+                Inputs.toQuery inputs
+          in
+          a
+            [ class "d-inline-flex align-items-center"
+            , class "btn btn-secondary btn-sm gap-1 rounded-pill fs-7 py-1 rounded-start"
+            , title <|
+                "Affichage "
+                    ++ (if detailed then
+                            "simplifié"
+
+                        else
+                            "détaillé"
+                       )
+            , Just query
+                |> Route.Simulator impact.trigram funit { detailed = not detailed }
+                |> Route.href
+            ]
+            [ if detailed then
+                Icon.zoomout
+
+              else
+                Icon.zoomin
+            ]
+        ]
 
 
 simpleView : Config msg -> Html msg
@@ -205,7 +237,7 @@ simpleView ({ funit, inputs, daysOfWear, impact, current } as config) =
                         |> text
                     ]
                 , div [ class "col-6 text-end" ]
-                    [ stepDocumentationLink config current.label
+                    [ stepActions config current.label
                     ]
                 ]
             ]
@@ -286,7 +318,7 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                         |> Step.displayLabel { knitted = inputs.product.knitted }
                         |> text
                     ]
-                , stepDocumentationLink config current.label
+                , stepActions config current.label
                 ]
             , ul [ class "list-group list-group-flush fs-7" ]
                 [ li [ class "list-group-item text-muted" ] [ countryField config ]
