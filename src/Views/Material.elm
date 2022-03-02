@@ -274,6 +274,12 @@ recycledRatioField index update { material, recycledRatio } =
             , Attr.min "0"
             , Attr.max "1"
             , step "0.01"
+            , case material.recycledProcess of
+                Just { name } ->
+                    title name
+
+                Nothing ->
+                    title "Pas d'équivalent recyclé"
 
             -- Note: 'value' attr should always be set after 'step' attr
             , recycledRatio |> Unit.ratioToFloat |> String.fromFloat |> value
