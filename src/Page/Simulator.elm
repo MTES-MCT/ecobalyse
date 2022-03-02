@@ -22,6 +22,7 @@ import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
 import Mass
+import Page.Simulator.ViewMode as ViewMode exposing (ViewMode)
 import Ports
 import Route
 import Views.Alert as Alert
@@ -38,7 +39,7 @@ type alias Model =
     , massInput : String
     , initialQuery : Inputs.Query
     , query : Inputs.Query
-    , detailed : Bool
+    , viewMode : ViewMode
     , impact : Impact.Definition
     , funit : Unit.Functional
     }
@@ -53,6 +54,7 @@ type Msg
     | SelectInputText String
     | SwitchFunctionalUnit Unit.Functional
     | SwitchImpact Impact.Trigram
+    | ToggleStepViewMode Int
     | UpdateAirTransportRatio (Maybe Unit.Ratio)
     | UpdateDyeingWeighting (Maybe Unit.Ratio)
     | UpdateMassInput String
@@ -67,11 +69,11 @@ type Msg
 init :
     Impact.Trigram
     -> Unit.Functional
-    -> { detailed : Bool }
+    -> ViewMode
     -> Maybe Inputs.Query
     -> Session
     -> ( Model, Session, Cmd Msg )
-init trigram funit { detailed } maybeQuery ({ db } as session) =
+init trigram funit viewMode maybeQuery ({ db } as session) =
     let
         query =
             maybeQuery
@@ -84,7 +86,7 @@ init trigram funit { detailed } maybeQuery ({ db } as session) =
       , massInput = query.mass |> Mass.inKilograms |> String.fromFloat
       , initialQuery = query
       , query = query
-      , detailed = detailed
+      , viewMode = viewMode
       , impact = db.impacts |> Impact.getDefinition trigram |> Result.withDefault Impact.default
       , funit = funit
       }
@@ -141,7 +143,7 @@ update ({ db, navKey } as session) msg ({ query } as model) =
         SwitchFunctionalUnit funit ->
             ( model
             , session
-            , Route.Simulator model.impact.trigram funit { detailed = model.detailed } (Just query)
+            , Route.Simulator model.impact.trigram funit model.viewMode (Just query)
                 |> Route.toString
                 |> Navigation.pushUrl navKey
             )
@@ -149,9 +151,15 @@ update ({ db, navKey } as session) msg ({ query } as model) =
         SwitchImpact trigram ->
             ( model
             , session
-            , Route.Simulator trigram model.funit { detailed = model.detailed } (Just query)
+            , Route.Simulator trigram model.funit model.viewMode (Just query)
                 |> Route.toString
                 |> Navigation.pushUrl navKey
+            )
+
+        ToggleStepViewMode index ->
+            ( { model | viewMode = model.viewMode |> ViewMode.toggle index }
+            , session
+            , Cmd.none
             )
 
         UpdateAirTransportRatio airTransportRatio ->
@@ -255,20 +263,21 @@ downArrow =
 
 
 lifeCycleStepsView : Db -> Model -> Simulator -> Html Msg
-lifeCycleStepsView db { detailed, funit, impact } simulator =
+lifeCycleStepsView db { viewMode, funit, impact } simulator =
     simulator.lifeCycle
         |> Array.indexedMap
             (\index current ->
                 StepView.view
                     { db = db
                     , inputs = simulator.inputs
-                    , detailed = detailed
+                    , viewMode = viewMode
                     , impact = impact
                     , funit = funit
                     , daysOfWear = simulator.daysOfWear
                     , index = index
                     , current = current
                     , next = Array.get (index + 1) simulator.lifeCycle
+                    , toggleStepViewMode = ToggleStepViewMode
                     , updateCountry = UpdateStepCountry
                     , updateAirTransportRatio = UpdateAirTransportRatio
                     , updateDyeingWeighting = UpdateDyeingWeighting
@@ -281,12 +290,12 @@ lifeCycleStepsView db { detailed, funit, impact } simulator =
 
 
 shareLinkView : Session -> Model -> Simulator -> Html Msg
-shareLinkView session { impact, funit, detailed } simulator =
+shareLinkView session { impact, funit, viewMode } simulator =
     let
         shareableLink =
             simulator.inputs
                 |> (Inputs.toQuery >> Just)
-                |> Route.Simulator impact.trigram funit { detailed = detailed }
+                |> Route.Simulator impact.trigram funit viewMode
                 |> Route.toString
                 |> (++) session.clientUrl
     in
@@ -315,23 +324,35 @@ shareLinkView session { impact, funit, detailed } simulator =
         ]
 
 
-displayModeView : Impact.Trigram -> Unit.Functional -> Bool -> Inputs.Query -> Html Msg
-displayModeView trigram funit detailed query =
+displayModeView : Impact.Trigram -> Unit.Functional -> ViewMode -> Inputs.Query -> Html Msg
+displayModeView trigram funit viewMode query =
+    let
+        isDetailedView =
+            case viewMode of
+                ViewMode.Simple ->
+                    False
+
+                ViewMode.DetailedAll ->
+                    True
+
+                ViewMode.DetailedStep _ ->
+                    False
+    in
     nav
         [ class "nav nav-pills nav-fill py-2 bg-white sticky-md-top justify-content-between"
         , class "justify-content-sm-end align-items-center gap-0 gap-sm-2"
         ]
         [ a
-            [ classList [ ( "nav-link", True ), ( "active", not detailed ) ]
+            [ classList [ ( "nav-link", True ), ( "active", not isDetailedView ) ]
             , Just query
-                |> Route.Simulator trigram funit { detailed = False }
+                |> Route.Simulator trigram funit ViewMode.Simple
                 |> Route.href
             ]
             [ span [ class "me-1" ] [ Icon.zoomout ], text "Affichage simple" ]
         , a
-            [ classList [ ( "nav-link", True ), ( "active", detailed ) ]
+            [ classList [ ( "nav-link", True ), ( "active", isDetailedView ) ]
             , Just query
-                |> Route.Simulator trigram funit { detailed = True }
+                |> Route.Simulator trigram funit ViewMode.DetailedAll
                 |> Route.href
             ]
             [ span [ class "me-1" ] [ Icon.zoomin ], text "Affichage détaillé" ]
@@ -339,7 +360,7 @@ displayModeView trigram funit detailed query =
 
 
 simulatorView : Session -> Model -> Simulator -> Html Msg
-simulatorView ({ db } as session) ({ impact, funit, query, detailed } as model) ({ inputs } as simulator) =
+simulatorView ({ db } as session) ({ impact, funit, query, viewMode } as model) ({ inputs } as simulator) =
     div [ class "row" ]
         [ div [ class "col-lg-7" ]
             [ h1 [] [ text "Simulateur " ]
@@ -363,7 +384,7 @@ simulatorView ({ db } as session) ({ impact, funit, query, detailed } as model) 
                 , selectInputText = SelectInputText
                 }
             , query
-                |> displayModeView impact.trigram funit detailed
+                |> displayModeView impact.trigram funit viewMode
             , lifeCycleStepsView db model simulator
             , div [ class "d-flex align-items-center justify-content-between mt-3 mb-5" ]
                 [ a [ Route.href Route.Home ]

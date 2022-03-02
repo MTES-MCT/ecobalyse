@@ -15,6 +15,7 @@ import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
+import Page.Simulator.ViewMode as ViewMode
 import Ports
 import RemoteData exposing (WebData)
 import Request.Gitbook exposing (getPage)
@@ -88,7 +89,7 @@ viewHero session =
                     [ div [ class "col-md-6 text-center text-md-end py-2" ]
                         [ a
                             [ class "btn btn-lg btn-primary"
-                            , Route.href (Route.Simulator Impact.defaultTrigram Unit.PerItem { detailed = False } Nothing)
+                            , Route.href (Route.Simulator Impact.defaultTrigram Unit.PerItem ViewMode.Simple Nothing)
                             ]
                             [ text "Faire une simulation" ]
                         ]

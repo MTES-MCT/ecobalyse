@@ -9,6 +9,7 @@ import Data.Simulator exposing (Simulator)
 import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import Page.Simulator.ViewMode as ViewMode
 import Route exposing (Route(..))
 import Views.Alert as Alert
 import Views.BarChart as Chart
@@ -138,7 +139,7 @@ summaryView { session, impact, funit, reusable } ({ inputs, lifeCycle } as simul
                         (inputs
                             |> Inputs.toQuery
                             |> Just
-                            |> Route.Simulator Impact.defaultTrigram Unit.PerItem { detailed = False }
+                            |> Route.Simulator Impact.defaultTrigram Unit.PerItem ViewMode.Simple
                         )
                     ]
                     [ text "Reprendre cette simulation" ]

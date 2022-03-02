@@ -4,7 +4,7 @@ import Data.Country as Country
 import Data.Db exposing (Db)
 import Data.Gitbook as Gitbook
 import Data.Impact as Impact
-import Data.Inputs as Inputs exposing (Inputs)
+import Data.Inputs exposing (Inputs)
 import Data.Product as Product
 import Data.Step as Step exposing (Step)
 import Data.Transport as Transport
@@ -14,7 +14,7 @@ import Energy
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import Route
+import Page.Simulator.ViewMode as ViewMode exposing (ViewMode)
 import Views.Button as Button
 import Views.Format as Format
 import Views.Icon as Icon
@@ -26,12 +26,13 @@ type alias Config msg =
     { db : Db
     , inputs : Inputs
     , daysOfWear : Duration
-    , detailed : Bool
+    , viewMode : ViewMode
     , impact : Impact.Definition
     , funit : Unit.Functional
     , index : Int
     , current : Step
     , next : Maybe Step
+    , toggleStepViewMode : Int -> msg
     , updateCountry : Int -> Country.Code -> msg
     , updateDyeingWeighting : Maybe Unit.Ratio -> msg
     , updateQuality : Maybe Unit.Quality -> msg
@@ -189,7 +190,7 @@ inlineDocumentationLink _ path =
 
 
 stepActions : Config msg -> Step.Label -> Html msg
-stepActions { detailed, inputs, impact, funit } label =
+stepActions { viewMode, index, toggleStepViewMode } label =
     div [ class "btn-group" ]
         [ Button.docsPillLink
             [ class "btn btn-primary py-1 rounded-end"
@@ -198,29 +199,29 @@ stepActions { detailed, inputs, impact, funit } label =
             , target "_blank"
             ]
             [ Icon.question ]
-        , let
-            query =
-                Inputs.toQuery inputs
-          in
-          Button.docsPillLink
+        , Button.docsPill
             [ class "btn btn-primary py-1 rounded-start"
-            , title <|
-                "Affichage "
-                    ++ (if detailed then
-                            "simplifié"
+            , case viewMode of
+                ViewMode.Simple ->
+                    title "Détailler cette étape"
 
-                        else
-                            "détaillé"
-                       )
-            , Just query
-                |> Route.Simulator impact.trigram funit { detailed = not detailed }
-                |> Route.href
+                _ ->
+                    title "Affichage simplifié"
+            , onClick (toggleStepViewMode index)
             ]
-            [ if detailed then
-                Icon.zoomout
+            [ case viewMode of
+                ViewMode.Simple ->
+                    Icon.zoomin
 
-              else
-                Icon.zoomin
+                ViewMode.DetailedAll ->
+                    Icon.zoomout
+
+                ViewMode.DetailedStep current ->
+                    if index == current then
+                        Icon.zoomout
+
+                    else
+                        Icon.zoomin
             ]
         ]
 
@@ -437,8 +438,16 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
 
 view : Config msg -> Html msg
 view config =
-    if config.detailed then
-        detailedView config
+    case config.viewMode of
+        ViewMode.Simple ->
+            simpleView config
 
-    else
-        simpleView config
+        ViewMode.DetailedAll ->
+            detailedView config
+
+        ViewMode.DetailedStep index ->
+            if config.index == index then
+                detailedView config
+
+            else
+                simpleView config
