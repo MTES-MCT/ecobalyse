@@ -8,14 +8,11 @@ module Page.Simulator exposing
     )
 
 import Array
-import Browser.Events
 import Browser.Navigation as Navigation
 import Data.Country as Country
 import Data.Db exposing (Db)
-import Data.Gitbook as Gitbook
 import Data.Impact as Impact
 import Data.Inputs as Inputs
-import Data.Key as Key
 import Data.Material as Material
 import Data.Product as Product exposing (Product)
 import Data.Session as Session exposing (Session)
@@ -26,18 +23,12 @@ import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
 import Mass
 import Ports
-import RemoteData exposing (WebData)
-import Request.Gitbook as GitbookApi
 import Route
 import Views.Alert as Alert
 import Views.Container as Container
 import Views.Icon as Icon
 import Views.Impact as ImpactView
-import Views.Link as Link
-import Views.Markdown as MarkdownView
 import Views.Material as MaterialView
-import Views.Modal as ModalView
-import Views.Spinner as SpinnerView
 import Views.Step as StepView
 import Views.Summary as SummaryView
 
@@ -48,24 +39,15 @@ type alias Model =
     , initialQuery : Inputs.Query
     , query : Inputs.Query
     , detailed : Bool
-    , modal : ModalContent
     , impact : Impact.Definition
     , funit : Unit.Functional
     }
 
 
-type ModalContent
-    = NoModal
-    | GitbookModal (WebData Gitbook.Page)
-
-
 type Msg
     = AddMaterial
-    | CloseModal
     | CopyToClipBoard String
-    | GitbookContentReceived (WebData Gitbook.Page)
     | NoOp
-    | OpenDocModal Gitbook.Path
     | RemoveMaterial Int
     | Reset
     | SelectInputText String
@@ -103,7 +85,6 @@ init trigram funit { detailed } maybeQuery ({ db } as session) =
       , initialQuery = query
       , query = query
       , detailed = detailed
-      , modal = NoModal
       , impact = db.impacts |> Impact.getDefinition trigram |> Result.withDefault Impact.default
       , funit = funit
       }
@@ -140,23 +121,11 @@ update ({ db, navKey } as session) msg ({ query } as model) =
             ( model, session, Cmd.none )
                 |> updateQuery (Inputs.addMaterial db query)
 
-        CloseModal ->
-            ( { model | modal = NoModal }, session, Cmd.none )
-
         CopyToClipBoard shareableLink ->
             ( model, session, Ports.copyToClipboard shareableLink )
 
-        GitbookContentReceived gitbookData ->
-            ( { model | modal = GitbookModal gitbookData }, session, Cmd.none )
-
         NoOp ->
             ( model, session, Cmd.none )
-
-        OpenDocModal path ->
-            ( { model | modal = GitbookModal RemoteData.Loading }
-            , session
-            , GitbookApi.getPage session path GitbookContentReceived
-            )
 
         RemoveMaterial index ->
             ( model, session, Cmd.none )
@@ -300,7 +269,6 @@ lifeCycleStepsView db { detailed, funit, impact } simulator =
                     , index = index
                     , current = current
                     , next = Array.get (index + 1) simulator.lifeCycle
-                    , openDocModal = OpenDocModal
                     , updateCountry = UpdateStepCountry
                     , updateAirTransportRatio = UpdateAirTransportRatio
                     , updateDyeingWeighting = UpdateDyeingWeighting
@@ -368,84 +336,6 @@ displayModeView trigram funit detailed query =
             ]
             [ span [ class "me-1" ] [ Icon.zoomin ], text "Affichage détaillé" ]
         ]
-
-
-gitbookModalView : WebData Gitbook.Page -> Html Msg
-gitbookModalView pageData =
-    case pageData of
-        RemoteData.NotAsked ->
-            text ""
-
-        RemoteData.Loading ->
-            ModalView.view
-                { size = ModalView.Large
-                , close = CloseModal
-                , noOp = NoOp
-                , title = "Chargement…"
-                , formAction = Nothing
-                , content = [ SpinnerView.view ]
-                , footer = []
-                }
-
-        RemoteData.Failure error ->
-            ModalView.view
-                { size = ModalView.Large
-                , close = CloseModal
-                , noOp = NoOp
-                , title = "Erreur"
-                , formAction = Nothing
-                , content = [ Alert.httpError error ]
-                , footer = []
-                }
-
-        RemoteData.Success gitbookPage ->
-            ModalView.view
-                { size = ModalView.Large
-                , close = CloseModal
-                , noOp = NoOp
-                , title = gitbookPage.title
-                , formAction = Nothing
-                , content =
-                    [ case gitbookPage.description of
-                        Just description ->
-                            p [ class "fw-bold text-muted fst-italic" ] [ text description ]
-
-                        Nothing ->
-                            text ""
-                    , if String.trim gitbookPage.markdown == "" then
-                        Alert.preformatted
-                            { title = Just "Une erreur a été rencontrée"
-                            , close = Nothing
-                            , level = Alert.Info
-                            , content =
-                                [ div [ class "mb-0 d-flex align-items-center" ]
-                                    [ span [ class "fs-4 me-2" ] [ Icon.hammer ]
-                                    , text "Cette page est en cours de construction"
-                                    ]
-                                ]
-                            }
-
-                      else
-                        MarkdownView.gitbook [ class "GitbookContent" ] gitbookPage
-                    ]
-                , footer =
-                    [ div [ class "text-end" ]
-                        [ Link.external [ href <| Gitbook.publicUrlFromPath gitbookPage.path ]
-                            [ text "Ouvrir cette page sur le site de documentation Wikicarbone"
-                            ]
-                        ]
-                    ]
-                }
-
-
-modalView : Model -> Html Msg
-modalView model =
-    case model.modal of
-        NoModal ->
-            text ""
-
-        GitbookModal pageData ->
-            gitbookModalView pageData
 
 
 simulatorView : Session -> Model -> Simulator -> Html Msg
@@ -526,16 +416,10 @@ view session model =
                         , content = [ text error ]
                         }
             ]
-      , modalView model
       ]
     )
 
 
 subscriptions : Model -> Sub Msg
-subscriptions { modal } =
-    case modal of
-        NoModal ->
-            Sub.none
-
-        _ ->
-            Browser.Events.onKeyDown (Key.escape CloseModal)
+subscriptions _ =
+    Sub.none

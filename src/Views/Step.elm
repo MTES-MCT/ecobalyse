@@ -32,7 +32,6 @@ type alias Config msg =
     , index : Int
     , current : Step
     , next : Maybe Step
-    , openDocModal : Gitbook.Path -> msg
     , updateCountry : Int -> Country.Code -> msg
     , updateDyeingWeighting : Maybe Unit.Ratio -> msg
     , updateQuality : Maybe Unit.Quality -> msg
@@ -181,29 +180,30 @@ qualityField { current, updateQuality } =
 
 
 inlineDocumentationLink : Config msg -> Gitbook.Path -> Html msg
-inlineDocumentationLink { openDocModal } path =
-    Button.smallPill
-        [ onClick (openDocModal path) ]
+inlineDocumentationLink _ path =
+    Button.smallPillLink
+        [ href (Gitbook.publicUrlFromPath path)
+        , target "_blank"
+        ]
         [ Icon.question ]
 
 
 stepActions : Config msg -> Step.Label -> Html msg
-stepActions { detailed, inputs, impact, funit, openDocModal } label =
+stepActions { detailed, inputs, impact, funit } label =
     div [ class "btn-group" ]
-        [ button
-            [ class "d-inline-flex align-items-center"
-            , class "btn btn-secondary btn-sm gap-1 rounded-pill fs-7 py-1 rounded-end"
-            , onClick (openDocModal (Step.getStepGitbookPath label))
+        [ Button.docsPillLink
+            [ class "btn btn-primary py-1 rounded-end"
+            , href (Gitbook.publicUrlFromPath (Step.getStepGitbookPath label))
             , title "Documentation"
+            , target "_blank"
             ]
             [ Icon.question ]
         , let
             query =
                 Inputs.toQuery inputs
           in
-          a
-            [ class "d-inline-flex align-items-center"
-            , class "btn btn-secondary btn-sm gap-1 rounded-pill fs-7 py-1 rounded-start"
+          Button.docsPillLink
+            [ class "btn btn-primary py-1 rounded-start"
             , title <|
                 "Affichage "
                     ++ (if detailed then
