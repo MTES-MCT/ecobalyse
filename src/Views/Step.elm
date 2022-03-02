@@ -31,7 +31,6 @@ type alias Config msg =
     , index : Int
     , current : Step
     , next : Maybe Step
-    , openDocModal : Gitbook.Path -> msg
     , updateCountry : Int -> Country.Code -> msg
     , updateDyeingWeighting : Maybe Unit.Ratio -> msg
     , updateQuality : Maybe Unit.Quality -> msg
@@ -180,16 +179,20 @@ qualityField { current, updateQuality } =
 
 
 inlineDocumentationLink : Config msg -> Gitbook.Path -> Html msg
-inlineDocumentationLink { openDocModal } path =
-    Button.smallPill
-        [ onClick (openDocModal path) ]
+inlineDocumentationLink _ path =
+    Button.smallPillLink
+        [ href (Gitbook.publicUrlFromPath path)
+        , target "_blank"
+        ]
         [ Icon.question ]
 
 
 stepDocumentationLink : Config msg -> Step.Label -> Html msg
-stepDocumentationLink { openDocModal } label =
-    Button.docsPill
-        [ onClick (openDocModal (Step.getStepGitbookPath label)) ]
+stepDocumentationLink _ label =
+    Button.docsPillLink
+        [ href (Gitbook.publicUrlFromPath (Step.getStepGitbookPath label))
+        , target "_blank"
+        ]
         [ Icon.question, text "docs" ]
 
 
