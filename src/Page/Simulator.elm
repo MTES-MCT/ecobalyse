@@ -290,12 +290,12 @@ lifeCycleStepsView db { viewMode, funit, impact } simulator =
 
 
 shareLinkView : Session -> Model -> Simulator -> Html Msg
-shareLinkView session { impact, funit, viewMode } simulator =
+shareLinkView session { impact, funit } simulator =
     let
         shareableLink =
             simulator.inputs
                 |> (Inputs.toQuery >> Just)
-                |> Route.Simulator impact.trigram funit viewMode
+                |> Route.Simulator impact.trigram funit ViewMode.Simple
                 |> Route.toString
                 |> (++) session.clientUrl
     in
