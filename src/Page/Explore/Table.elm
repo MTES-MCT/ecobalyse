@@ -1,4 +1,8 @@
-module Page.Explore.Table exposing (..)
+module Page.Explore.Table exposing
+    ( Table
+    , viewDetails
+    , viewList
+    )
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
