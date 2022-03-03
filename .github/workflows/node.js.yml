@@ -24,6 +24,7 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node-version }}
+        cache: 'npm'
 
     - name: Cache node_modules
       id: cache-node_modules
@@ -40,7 +41,6 @@ jobs:
         key: elm-cache-${{ hashFiles('elm.json') }}
         restore-keys: elm-cache-
 
-
     - name: Install dependencies
       run: npm ci --prefer-offline --no-audit
 
@@ -48,7 +48,7 @@ jobs:
       run: npm run build --if-present
 
     - name: Run elm-review
-      run: npm test:review
+      run: npm run test:review
 
     - name: Run elm tests
       run: npm test
