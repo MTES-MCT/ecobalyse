@@ -191,7 +191,7 @@ inlineDocumentationLink _ path =
 
 stepActions : Config msg -> Step.Label -> Html msg
 stepActions { viewMode, index, toggleStepViewMode } label =
-    div [ class "btn-group" ]
+    div [ class "StepActions btn-group" ]
         [ Button.docsPillLink
             [ class "btn btn-primary py-1 rounded-end"
             , href (Gitbook.publicUrlFromPath (Step.getStepGitbookPath label))
@@ -319,7 +319,8 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                         |> Step.displayLabel { knitted = inputs.product.knitted }
                         |> text
                     ]
-                , stepActions config current.label
+                , -- Note: hide on desktop, show on mobile
+                  div [ class "d-block d-sm-none" ] [ stepActions config current.label ]
                 ]
             , ul [ class "list-group list-group-flush fs-7" ]
                 [ li [ class "list-group-item text-muted" ] [ countryField config ]
@@ -371,15 +372,17 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
             ]
         , div
             [ class "card text-center mb-0" ]
-            [ div [ class "card-header text-muted" ]
+            [ div [ class "card-header d-flex text-muted" ]
                 [ if (current.impacts |> Impact.getImpact impact.trigram |> Unit.impactToFloat) > 0 then
-                    span [ class "fw-bold" ]
+                    span [ class "fw-bold flex-fill" ]
                         [ current.impacts
                             |> Format.formatImpact funit impact daysOfWear
                         ]
 
                   else
-                    text "\u{00A0}"
+                    span [] [ text "\u{00A0}" ]
+                , -- Note: show on desktop, hide on mobile
+                  div [ class "d-none d-sm-block" ] [ stepActions config current.label ]
                 ]
             , ul [ class "list-group list-group-flush fs-7" ]
                 [ li [ class "list-group-item text-muted d-flex justify-content-around" ]
