@@ -1,5 +1,6 @@
 module ReviewConfig exposing (config)
 
+
 import NoExposingEverything
 import NoImportingEverything
 import NoMissingTypeAnnotation
