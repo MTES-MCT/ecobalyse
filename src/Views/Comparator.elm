@@ -14,7 +14,6 @@ import Data.Unit as Unit
 import Duration exposing (Duration)
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Html.Events exposing (..)
 import List.Extra as LE
 import Quantity
 import Result.Extra as RE

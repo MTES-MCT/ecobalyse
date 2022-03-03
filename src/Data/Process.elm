@@ -4,11 +4,9 @@ module Data.Process exposing
     , WellKnown
     , decodeFromUuid
     , decodeList
-    , encode
     , encodeUuid
     , getImpact
     , loadWellKnown
-    , updateImpact
     , uuidToString
     )
 
@@ -73,15 +71,6 @@ getImpact trigram =
     .impacts >> Impact.getImpact trigram
 
 
-updateImpact : Impact.Trigram -> Unit.Impact -> Process -> Process
-updateImpact trigram value process =
-    { process
-        | impacts =
-            process.impacts
-                |> Impact.updateImpact trigram value
-    }
-
-
 loadWellKnown : List Process -> Result String WellKnown
 loadWellKnown p =
     Ok WellKnown
@@ -130,22 +119,6 @@ decode impacts =
 decodeList : List Impact.Definition -> Decoder (List Process)
 decodeList impacts =
     Decode.list (decode impacts)
-
-
-encode : Process -> Encode.Value
-encode v =
-    Encode.object
-        [ ( "name", Encode.string v.name )
-        , ( "info", Encode.string v.name )
-        , ( "unit", Encode.string v.unit )
-        , ( "uuid", encodeUuid v.uuid )
-        , ( "impacts", Impact.encodeImpacts v.impacts )
-        , ( "heat", v.heat |> Energy.inMegajoules |> Encode.float )
-        , ( "elec_pppm", Encode.float v.elec_pppm )
-        , ( "elec", v.elec |> Energy.inMegajoules |> Encode.float )
-        , ( "waste", v.waste |> Mass.inKilograms |> Encode.float )
-        , ( "alias", v.alias |> Maybe.map Encode.string |> Maybe.withDefault Encode.null )
-        ]
 
 
 encodeUuid : Uuid -> Encode.Value

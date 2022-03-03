@@ -35,8 +35,7 @@ type alias Model =
 
 
 type Msg
-    = NoOp
-    | GitbookContentReceived (WebData Gitbook.Page)
+    = GitbookContentReceived (WebData Gitbook.Page)
     | ToggleIsIsntIndex Int
 
 
@@ -56,9 +55,6 @@ init session =
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
 update session msg model =
     case msg of
-        NoOp ->
-            ( model, session, Cmd.none )
-
         GitbookContentReceived gitbookData ->
             ( { model | content = gitbookData }, session, Cmd.none )
 

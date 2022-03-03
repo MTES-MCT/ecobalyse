@@ -17,7 +17,8 @@
     "start:dev": "npm run build:init && concurrently -n \"watch,parcel,server\" -c \"green,cyan\" \"npm run start:parcel\" \"npm run server:dev\"",
     "start": "PARCEL_ELM_NO_DEBUG=1 npm run start:dev",
     "test:prepare": "node tests/prepare.js",
-    "test:all": "npm test && npm run server:test",
+    "test:all": "npm run test:review && npm test && npm run server:test",
+    "test:review": "npx elm-review",
     "test": "npm run test:prepare && elm-test"
   },
   "dependencies": {
@@ -38,8 +39,8 @@
   },
   "devDependencies": {
     "concurrently": "^7.0.0",
-    "elm-analyse": "^0.16.5",
     "elm-format": "^0.8.5",
+    "elm-review": "^2.7.0",
     "elm-test": "^0.19.1-revision7",
     "jest": "^27.5.1",
     "nodemon": "^2.0.15",

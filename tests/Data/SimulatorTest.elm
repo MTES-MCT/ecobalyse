@@ -6,7 +6,6 @@ import Data.Inputs as Inputs exposing (..)
 import Data.Simulator as Simulator
 import Data.Unit as Unit
 import Expect exposing (Expectation)
-import Route exposing (Route(..))
 import Test exposing (..)
 import TestUtils exposing (asTest, suiteWithDb)
 

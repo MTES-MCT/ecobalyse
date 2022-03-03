@@ -1,6 +1,5 @@
 module Views.Markdown exposing
     ( ContentType(..)
-    , gitbook
     , parse
     , simple
     )
@@ -117,11 +116,6 @@ renderImage { title, src, alt } =
             ]
         )
         []
-
-
-gitbook : List (Attribute msg) -> Gitbook.Page -> Html msg
-gitbook attrs page =
-    view attrs (Gitbook page)
 
 
 simple : List (Attribute msg) -> String -> Html msg

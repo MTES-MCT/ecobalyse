@@ -4,7 +4,7 @@ import Browser exposing (Document)
 import Browser.Navigation as Nav
 import Data.Db as Db exposing (Db)
 import Data.Session as Session exposing (Session)
-import Html exposing (..)
+import Html
 import Page.Api as Api
 import Page.Changelog as Changelog
 import Page.Examples as Examples

@@ -18,7 +18,7 @@ type alias Model =
 
 
 type Msg
-    = NoOp
+    = NoOp Never
 
 
 init : Session -> ( Model, Session, Cmd Msg )
@@ -29,7 +29,7 @@ init session =
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
 update session msg model =
     case msg of
-        NoOp ->
+        NoOp _ ->
             ( model, session, Cmd.none )
 
 

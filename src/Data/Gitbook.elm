@@ -33,7 +33,6 @@ type Path
     | Transport -- Transport
     | Heat -- Chaleur
     | Waste -- Pertes et rebus
-    | ComparativeScale -- Échelle comparative
     | ImpactQuality -- Niveau de qualité d'impact
     | CountryHypothesis -- Procédés et hypothèses spécifiques aux pays
 
@@ -76,9 +75,6 @@ pathToString path =
 
         Waste ->
             "methodologie/pertes-et-rebus"
-
-        ComparativeScale ->
-            "methodologie/echelle-comparative"
 
         ImpactQuality ->
             "methodologie/impacts-consideres#niveaux-de-recommandation"

@@ -48,7 +48,6 @@ type alias Model =
 type Msg
     = AddMaterial
     | CopyToClipBoard String
-    | NoOp
     | RemoveMaterial Int
     | Reset
     | SelectInputText String
@@ -125,9 +124,6 @@ update ({ db, navKey } as session) msg ({ query } as model) =
 
         CopyToClipBoard shareableLink ->
             ( model, session, Ports.copyToClipboard shareableLink )
-
-        NoOp ->
-            ( model, session, Cmd.none )
 
         RemoveMaterial index ->
             ( model, session, Cmd.none )

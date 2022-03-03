@@ -5,7 +5,7 @@ import Expect
 import Html exposing (..)
 import Test exposing (..)
 import TestUtils exposing (asTest)
-import Views.Markdown as Markdown exposing (ContentType(..))
+import Views.Markdown as Markdown
 
 
 gitbookPage : String -> Gitbook.Page

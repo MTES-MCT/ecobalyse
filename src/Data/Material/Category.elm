@@ -1,12 +1,10 @@
 module Data.Material.Category exposing
     ( Category(..)
     , decode
-    , encode
     , toString
     )
 
 import Json.Decode as Decode exposing (Decoder)
-import Json.Encode as Encode
 
 
 type Category
@@ -18,11 +16,6 @@ type Category
 decode : Decoder Category
 decode =
     Decode.map fromString Decode.string
-
-
-encode : Category -> Encode.Value
-encode =
-    toString >> Encode.string
 
 
 fromString : String -> Category
