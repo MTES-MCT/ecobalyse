@@ -1,22 +1,22 @@
 module Request.Common exposing (errorToString)
 
-import Http exposing (..)
+import Http
 
 
 errorToString : Http.Error -> String
 errorToString error =
     case error of
-        BadUrl url ->
+        Http.BadUrl url ->
             "URL invalide: " ++ url
 
-        Timeout ->
+        Http.Timeout ->
             "Délai dépassé."
 
-        NetworkError ->
+        Http.NetworkError ->
             "Erreur de communication réseau. Êtes-vous connecté ?"
 
-        BadStatus status_code ->
+        Http.BadStatus status_code ->
             "Erreur HTTP " ++ String.fromInt status_code
 
-        BadBody body ->
+        Http.BadBody body ->
             "Échec de l'interprétation de la réponse HTTP: " ++ body
