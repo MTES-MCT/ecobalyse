@@ -14,6 +14,7 @@ import Energy
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
+import Page.Simulator.ViewMode as ViewMode exposing (ViewMode)
 import Views.Button as Button
 import Views.Format as Format
 import Views.Icon as Icon
@@ -25,12 +26,13 @@ type alias Config msg =
     { db : Db
     , inputs : Inputs
     , daysOfWear : Duration
-    , detailed : Bool
+    , viewMode : ViewMode
     , impact : Impact.Definition
     , funit : Unit.Functional
     , index : Int
     , current : Step
     , next : Maybe Step
+    , toggleStepViewMode : Int -> msg
     , updateCountry : Int -> Country.Code -> msg
     , updateDyeingWeighting : Maybe Unit.Ratio -> msg
     , updateQuality : Maybe Unit.Quality -> msg
@@ -187,13 +189,41 @@ inlineDocumentationLink _ path =
         [ Icon.question ]
 
 
-stepDocumentationLink : Config msg -> Step.Label -> Html msg
-stepDocumentationLink _ label =
-    Button.docsPillLink
-        [ href (Gitbook.publicUrlFromPath (Step.getStepGitbookPath label))
-        , target "_blank"
+stepActions : Config msg -> Step.Label -> Html msg
+stepActions { viewMode, index, toggleStepViewMode } label =
+    div [ class "StepActions btn-group" ]
+        [ Button.docsPillLink
+            [ class "btn btn-primary py-1 rounded-end"
+            , href (Gitbook.publicUrlFromPath (Step.getStepGitbookPath label))
+            , title "Documentation"
+            , target "_blank"
+            ]
+            [ Icon.question ]
+        , Button.docsPill
+            [ class "btn btn-primary py-1 rounded-start"
+            , case viewMode of
+                ViewMode.Simple ->
+                    title "Détailler cette étape"
+
+                _ ->
+                    title "Affichage simplifié"
+            , onClick (toggleStepViewMode index)
+            ]
+            [ case viewMode of
+                ViewMode.Simple ->
+                    Icon.zoomin
+
+                ViewMode.DetailedAll ->
+                    Icon.zoomout
+
+                ViewMode.DetailedStep current ->
+                    if index == current then
+                        Icon.zoomout
+
+                    else
+                        Icon.zoomin
+            ]
         ]
-        [ Icon.question, text "docs" ]
 
 
 simpleView : Config msg -> Html msg
@@ -208,7 +238,7 @@ simpleView ({ funit, inputs, daysOfWear, impact, current } as config) =
                         |> text
                     ]
                 , div [ class "col-6 text-end" ]
-                    [ stepDocumentationLink config current.label
+                    [ stepActions config current.label
                     ]
                 ]
             ]
@@ -289,7 +319,8 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                         |> Step.displayLabel { knitted = inputs.product.knitted }
                         |> text
                     ]
-                , stepDocumentationLink config current.label
+                , -- Note: hide on desktop, show on mobile
+                  div [ class "d-block d-sm-none" ] [ stepActions config current.label ]
                 ]
             , ul [ class "list-group list-group-flush fs-7" ]
                 [ li [ class "list-group-item text-muted" ] [ countryField config ]
@@ -341,15 +372,17 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
             ]
         , div
             [ class "card text-center mb-0" ]
-            [ div [ class "card-header text-muted" ]
+            [ div [ class "card-header d-flex text-muted" ]
                 [ if (current.impacts |> Impact.getImpact impact.trigram |> Unit.impactToFloat) > 0 then
-                    span [ class "fw-bold" ]
+                    span [ class "fw-bold flex-fill" ]
                         [ current.impacts
                             |> Format.formatImpact funit impact daysOfWear
                         ]
 
                   else
-                    text "\u{00A0}"
+                    span [] [ text "\u{00A0}" ]
+                , -- Note: show on desktop, hide on mobile
+                  div [ class "d-none d-sm-block" ] [ stepActions config current.label ]
                 ]
             , ul [ class "list-group list-group-flush fs-7" ]
                 [ li [ class "list-group-item text-muted d-flex justify-content-around" ]
@@ -408,8 +441,16 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
 
 view : Config msg -> Html msg
 view config =
-    if config.detailed then
-        detailedView config
+    case config.viewMode of
+        ViewMode.Simple ->
+            simpleView config
 
-    else
-        simpleView config
+        ViewMode.DetailedAll ->
+            detailedView config
+
+        ViewMode.DetailedStep index ->
+            if config.index == index then
+                detailedView config
+
+            else
+                simpleView config

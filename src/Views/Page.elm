@@ -14,6 +14,7 @@ import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
+import Page.Simulator.ViewMode as ViewMode
 import Route
 import Views.Alert as Alert
 import Views.Container as Container
@@ -90,7 +91,7 @@ stagingAlert { session, loadUrl } =
 headerMenuLinks : List MenuLink
 headerMenuLinks =
     [ Internal "Accueil" Route.Home Home
-    , Internal "Simulateur" (Route.Simulator Impact.defaultTrigram Unit.PerItem { detailed = False } Nothing) Simulator
+    , Internal "Simulateur" (Route.Simulator Impact.defaultTrigram Unit.PerItem ViewMode.Simple Nothing) Simulator
     , Internal "Exemples" Route.Examples Examples
     , Internal "Explorateur" (Route.Explore (Db.Countries Nothing)) Explore
     , External "Documentation" "https://fabrique-numerique.gitbook.io/wikicarbone/"
@@ -100,7 +101,7 @@ headerMenuLinks =
 footerMenuLinks : List MenuLink
 footerMenuLinks =
     [ Internal "Accueil" Route.Home Home
-    , Internal "Simulateur" (Route.Simulator Impact.defaultTrigram Unit.PerItem { detailed = False } Nothing) Simulator
+    , Internal "Simulateur" (Route.Simulator Impact.defaultTrigram Unit.PerItem ViewMode.Simple Nothing) Simulator
     , Internal "Exemples" Route.Examples Examples
     , Internal "Api documentation" Route.Api Api
     , Internal "Changelog" Route.Changelog Changelog

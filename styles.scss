@@ -499,6 +499,10 @@ blockquote {
 }
 
 .Step {
+  &Actions {
+    margin: -2px 0;
+  }
+
   &Icon {
     display: grid;
     align-items: center;
