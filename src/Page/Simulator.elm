@@ -326,31 +326,19 @@ shareLinkView session { impact, funit } simulator =
 
 displayModeView : Impact.Trigram -> Unit.Functional -> ViewMode -> Inputs.Query -> Html Msg
 displayModeView trigram funit viewMode query =
-    let
-        isDetailedView =
-            case viewMode of
-                ViewMode.Simple ->
-                    False
-
-                ViewMode.DetailedAll ->
-                    True
-
-                ViewMode.DetailedStep _ ->
-                    False
-    in
     nav
         [ class "nav nav-pills nav-fill py-2 bg-white sticky-md-top justify-content-between"
         , class "justify-content-sm-end align-items-center gap-0 gap-sm-2"
         ]
         [ a
-            [ classList [ ( "nav-link", True ), ( "active", not isDetailedView ) ]
+            [ classList [ ( "nav-link", True ), ( "active", not (ViewMode.isDetailed viewMode) ) ]
             , Just query
                 |> Route.Simulator trigram funit ViewMode.Simple
                 |> Route.href
             ]
             [ span [ class "me-1" ] [ Icon.zoomout ], text "Affichage simple" ]
         , a
-            [ classList [ ( "nav-link", True ), ( "active", isDetailedView ) ]
+            [ classList [ ( "nav-link", True ), ( "active", ViewMode.isDetailed viewMode ) ]
             , Just query
                 |> Route.Simulator trigram funit ViewMode.DetailedAll
                 |> Route.href

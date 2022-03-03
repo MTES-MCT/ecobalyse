@@ -1,5 +1,6 @@
 module Page.Simulator.ViewMode exposing
     ( ViewMode(..)
+    , isDetailed
     , parse
     , toUrlSegment
     , toggle
@@ -12,6 +13,21 @@ type ViewMode
     = Simple
     | DetailedAll
     | DetailedStep Int
+
+
+isDetailed : ViewMode -> Bool
+isDetailed viewMode =
+    case viewMode of
+        Simple ->
+            False
+
+        DetailedAll ->
+            True
+
+        DetailedStep _ ->
+            -- Even if a step is opened in detailed mode, we consider
+            -- the general view mode "simple".
+            False
 
 
 toggle : Int -> ViewMode -> ViewMode
