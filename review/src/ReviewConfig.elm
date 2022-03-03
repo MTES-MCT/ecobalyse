@@ -1,6 +1,7 @@
 module ReviewConfig exposing (config)
 
 
+import NoDebug.TodoOrToString
 import NoExposingEverything
 import NoImportingEverything
 import NoMissingTypeAnnotation
@@ -14,11 +15,12 @@ import NoUnused.Patterns
 import NoUnused.Variables
 import Review.Rule as Rule exposing (Rule)
 
-
 config : List Rule
 config =
-    [ -- Common
-      NoExposingEverything.rule
+    [ -- NoDebug
+      NoDebug.TodoOrToString.rule
+      -- Common
+    , NoExposingEverything.rule
         |> Rule.ignoreErrorsForDirectories [ "tests/" ]
         |> Rule.ignoreErrorsForFiles [ "src/Views/Icon.elm" ]
     , NoImportingEverything.rule
