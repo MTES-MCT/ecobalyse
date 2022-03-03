@@ -8,7 +8,6 @@ module Data.Impact exposing
     , decodeList
     , default
     , defaultTrigram
-    , encodeDefinition
     , encodeImpacts
     , filterImpacts
     , getDefinition
@@ -31,7 +30,7 @@ import Dict.Any as AnyDict exposing (AnyDict)
 import Duration exposing (Duration)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
-import Quantity exposing (Quantity(..))
+import Quantity
 import Url.Parser as Parser exposing (Parser)
 
 
@@ -156,46 +155,6 @@ decodeQuality =
                     _ ->
                         Decode.succeed UnknownQuality
             )
-
-
-encodePefData : PefData -> Encode.Value
-encodePefData v =
-    Encode.object
-        [ ( "normalization", Unit.encodeImpact v.normalization )
-        , ( "weighting", Unit.encodeRatio v.weighting )
-        ]
-
-
-encodeTrigram : Trigram -> Encode.Value
-encodeTrigram =
-    toString >> Encode.string
-
-
-encodeDefinition : Definition -> Encode.Value
-encodeDefinition v =
-    Encode.object
-        [ ( "trigram", encodeTrigram v.trigram )
-        , ( "label", Encode.string v.label )
-        , ( "unit", Encode.string v.unit )
-        , ( "quality", encodeQuality v.quality )
-        , ( "pef", v.pefData |> Maybe.map encodePefData |> Maybe.withDefault Encode.null )
-        ]
-
-
-encodeQuality : Quality -> Encode.Value
-encodeQuality v =
-    case v of
-        GoodQuality ->
-            Encode.int 1
-
-        AverageQuality ->
-            Encode.int 2
-
-        BadQuality ->
-            Encode.int 3
-
-        UnknownQuality ->
-            Encode.null
 
 
 toString : Trigram -> String

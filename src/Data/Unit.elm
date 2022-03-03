@@ -160,7 +160,7 @@ encodeQuality (Quality float) =
 
 
 type ImpactUnit
-    = ImpactUnit
+    = ImpactUnit Never
 
 
 type alias Impact =

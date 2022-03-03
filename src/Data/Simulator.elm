@@ -17,7 +17,6 @@ import Data.Unit as Unit
 import Duration exposing (Duration)
 import Json.Encode as Encode
 import Quantity
-import Route exposing (Route(..))
 
 
 type alias Simulator =

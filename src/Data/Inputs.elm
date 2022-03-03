@@ -12,18 +12,11 @@ module Data.Inputs exposing
     , encodeQuery
     , fromQuery
     , jupeCircuitAsie
-    , manteauCircuitEurope
-    , pantalonCircuitEurope
     , parseBase64Query
     , presets
     , removeMaterial
-    , robeCircuitBangladesh
     , tShirtCotonAsie
-    , tShirtCotonEurope
     , tShirtCotonFrance
-    , tShirtCotonIndia
-    , tShirtCotonPetPuFrance
-    , tShirtPolyamideFrance
     , toQuery
     , updateMaterial
     , updateMaterialRecycledRatio
@@ -345,50 +338,6 @@ tShirtCotonFrance =
     }
 
 
-tShirtCotonPetPuFrance : Query
-tShirtCotonPetPuFrance =
-    -- T-shirt circuit France
-    { mass = Mass.kilograms 0.17
-    , materials =
-        [ { id = Material.Id "coton"
-          , share = Unit.ratio 0.7
-          , recycledRatio = Unit.ratio 1
-          }
-        , { id = Material.Id "pet"
-          , share = Unit.ratio 0.27
-          , recycledRatio = Unit.ratio 0.5
-          }
-        , { id = Material.Id "pu"
-          , share = Unit.ratio 0.03
-          , recycledRatio = Unit.ratio 0
-          }
-        ]
-    , product = Product.Id "tshirt"
-    , countryFabric = Country.Code "FR"
-    , countryDyeing = Country.Code "FR"
-    , countryMaking = Country.Code "FR"
-    , dyeingWeighting = Nothing
-    , airTransportRatio = Nothing
-    , quality = Nothing
-    }
-
-
-tShirtPolyamideFrance : Query
-tShirtPolyamideFrance =
-    -- T-shirt polyamide (provenance France) circuit France
-    { tShirtCotonFrance
-        | materials =
-            [ { id = Material.Id "pa"
-              , share = Unit.ratio 1
-              , recycledRatio = Unit.ratio 0
-              }
-            ]
-        , countryFabric = Country.Code "FR"
-        , countryDyeing = Country.Code "FR"
-        , countryMaking = Country.Code "FR"
-    }
-
-
 tShirtCotonEurope : Query
 tShirtCotonEurope =
     -- T-shirt circuit Europe
@@ -473,26 +422,6 @@ pantalonCircuitEurope =
     , countryFabric = Country.Code "TR"
     , countryDyeing = Country.Code "TR"
     , countryMaking = Country.Code "TR"
-    , dyeingWeighting = Nothing
-    , airTransportRatio = Nothing
-    , quality = Nothing
-    }
-
-
-robeCircuitBangladesh : Query
-robeCircuitBangladesh =
-    -- Robe circuit Bangladesh
-    { mass = Mass.kilograms 0.5
-    , materials =
-        [ { id = Material.Id "aramide"
-          , share = Unit.ratio 1
-          , recycledRatio = Unit.ratio 0
-          }
-        ]
-    , product = Product.Id "robe"
-    , countryFabric = Country.Code "BD"
-    , countryDyeing = Country.Code "PT"
-    , countryMaking = Country.Code "TN"
     , dyeingWeighting = Nothing
     , airTransportRatio = Nothing
     , quality = Nothing

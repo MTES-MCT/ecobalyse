@@ -2,11 +2,9 @@ module Route exposing
     ( Route(..)
     , fromUrl
     , href
-    , pushUrl
     , toString
     )
 
-import Browser.Navigation as Nav
 import Data.Db as Db
 import Data.Impact as Impact
 import Data.Inputs as Inputs
@@ -100,11 +98,6 @@ fromUrl url =
 href : Route -> Attribute msg
 href route =
     Attr.href (toString route)
-
-
-pushUrl : Nav.Key -> Route -> Cmd msg
-pushUrl key route =
-    Nav.pushUrl key (toString route)
 
 
 toString : Route -> String

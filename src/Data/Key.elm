@@ -1,11 +1,6 @@
-module Data.Key exposing (decode, escape)
+module Data.Key exposing (escape)
 
 import Json.Decode as Decode exposing (Decoder)
-
-
-decode : Decode.Decoder String
-decode =
-    Decode.field "key" Decode.string
 
 
 escape : msg -> Decoder msg

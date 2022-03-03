@@ -23,9 +23,7 @@ type alias Config msg =
 
 type Level
     = Danger
-    | Warning
     | Info
-    | Success
 
 
 icon : Level -> Html msg
@@ -34,14 +32,8 @@ icon level =
         Danger ->
             span [ class "me-1" ] [ Icon.warning ]
 
-        Warning ->
-            span [ class "me-1" ] [ Icon.warning ]
-
         Info ->
             span [ class "me-1" ] [ Icon.info ]
-
-        _ ->
-            text ""
 
 
 httpError : Http.Error -> Html msg
@@ -120,11 +112,5 @@ levelToClass level =
         Danger ->
             "danger"
 
-        Warning ->
-            "warning"
-
         Info ->
             "info"
-
-        Success ->
-            "success"

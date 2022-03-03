@@ -8,7 +8,6 @@ module Data.Material exposing
     , fullName
     , groupAll
     , idToString
-    , recycledRatioToString
     )
 
 import Data.Country as Country

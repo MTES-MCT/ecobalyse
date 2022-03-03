@@ -5,7 +5,6 @@ import Data.Db as Db
 import Data.Material as Material exposing (Material)
 import Data.Material.Category as Category
 import Html exposing (..)
-import Html.Attributes exposing (..)
 import Page.Explore.Table exposing (Table)
 import Route
 

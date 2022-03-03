@@ -18,14 +18,13 @@ module Data.Step exposing
 import Data.Country as Country exposing (Country)
 import Data.Db exposing (Db)
 import Data.Formula as Formula
-import Data.Gitbook as Gitbook exposing (Path(..))
+import Data.Gitbook as Gitbook
 import Data.Impact as Impact exposing (Impacts)
 import Data.Inputs exposing (Inputs)
 import Data.Process as Process exposing (Process)
 import Data.Transport as Transport exposing (Transport)
 import Data.Unit as Unit
 import Energy exposing (Energy)
-import FormatNumber.Locales exposing (Decimals(..))
 import Json.Encode as Encode
 import Mass exposing (Mass)
 import Quantity

@@ -9,7 +9,7 @@ import Data.Simulator exposing (Simulator)
 import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Route exposing (Route(..))
+import Route
 import Views.Alert as Alert
 import Views.BarChart as Chart
 import Views.Comparator as Comparator
