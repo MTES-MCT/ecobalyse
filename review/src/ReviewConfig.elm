@@ -2,6 +2,7 @@ module ReviewConfig exposing (config)
 
 import NoExposingEverything
 import NoImportingEverything
+import NoMissingTypeAnnotation
 import NoUnused.CustomTypeConstructorArgs
 import NoUnused.CustomTypeConstructors
 import NoUnused.Dependencies
@@ -26,6 +27,8 @@ config =
         , "Svg"
         , "Svg.Attributes"
         ]
+        |> Rule.ignoreErrorsForDirectories [ "tests/" ]
+    , NoMissingTypeAnnotation.rule
         |> Rule.ignoreErrorsForDirectories [ "tests/" ]
       -- NoUnused
     , NoUnused.CustomTypeConstructors.rule []
