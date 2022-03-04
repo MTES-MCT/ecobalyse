@@ -9,7 +9,7 @@ import Html.Attributes exposing (..)
 
 centered : List (Attribute msg) -> List (Html msg) -> Html msg
 centered attrs =
-    div ([ class "container" ] ++ attrs)
+    div (class "container" :: attrs)
 
 
 full : List (Attribute msg) -> List (Html msg) -> Html msg

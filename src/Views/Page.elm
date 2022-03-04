@@ -150,11 +150,10 @@ viewNavigationLink activePage link =
     case link of
         Internal label route page ->
             Link.internal
-                ([ class "nav-link pe-3"
-                 , classList [ ( "active", page == activePage ) ]
-                 , Route.href route
-                 ]
-                    ++ (if page == activePage then
+                (class "nav-link pe-3"
+                    :: classList [ ( "active", page == activePage ) ]
+                    :: Route.href route
+                    :: (if page == activePage then
                             [ attribute "aria-current" "page" ]
 
                         else

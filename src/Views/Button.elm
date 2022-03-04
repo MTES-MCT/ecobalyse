@@ -22,12 +22,12 @@ smallPillClasses =
 
 smallPill : List (Attribute msg) -> List (Html msg) -> Html msg
 smallPill attrs =
-    button ([ class smallPillClasses ] ++ attrs)
+    button (class smallPillClasses :: attrs)
 
 
 smallPillLink : List (Attribute msg) -> List (Html msg) -> Html msg
 smallPillLink attrs =
-    a ([ class smallPillClasses ] ++ attrs)
+    a (class smallPillClasses :: attrs)
 
 
 docsPillClasses : String
@@ -37,9 +37,9 @@ docsPillClasses =
 
 docsPill : List (Attribute msg) -> List (Html msg) -> Html msg
 docsPill attrs =
-    button ([ class docsPillClasses ] ++ attrs)
+    button (class docsPillClasses :: attrs)
 
 
 docsPillLink : List (Attribute msg) -> List (Html msg) -> Html msg
 docsPillLink attrs =
-    a ([ class docsPillClasses ] ++ attrs)
+    a (class docsPillClasses :: attrs)

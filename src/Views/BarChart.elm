@@ -84,7 +84,7 @@ makeBars { simulator, impact, funit } =
     stepBars
         -- Move transport bar at ante-penultimate position
         |> LE.splitAt 4
-        |> (\( a, b ) -> a ++ [ transportBar ] ++ b)
+        |> (\( a, b ) -> a ++ transportBar :: b)
 
 
 barView : Config -> Bar msg -> Html msg

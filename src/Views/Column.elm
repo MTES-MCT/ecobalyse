@@ -72,4 +72,4 @@ render wrapAttrs columns =
                 in
                 div (attrs ++ [ class <| "py-2 col-" ++ breakpoint ++ "-" ++ String.fromInt col ]) elements
             )
-        |> div ([ class "row" ] ++ wrapAttrs)
+        |> div (class "row" :: wrapAttrs)

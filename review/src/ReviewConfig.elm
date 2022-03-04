@@ -5,6 +5,7 @@ import NoDebug.TodoOrToString
 import NoExposingEverything
 import NoImportingEverything
 import NoMissingTypeAnnotation
+import NoRedundantConcat
 import NoUnused.CustomTypeConstructorArgs
 import NoUnused.CustomTypeConstructors
 import NoUnused.Dependencies
@@ -33,6 +34,7 @@ config =
         |> Rule.ignoreErrorsForDirectories [ "tests/" ]
     , NoMissingTypeAnnotation.rule
         |> Rule.ignoreErrorsForDirectories [ "tests/" ]
+    , NoRedundantConcat.rule
       -- NoUnused
     , NoUnused.CustomTypeConstructors.rule []
         |> Rule.ignoreErrorsForFiles [ "src/Views/Modal.elm" ]

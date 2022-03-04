@@ -127,7 +127,7 @@ view : List (Attribute msg) -> ContentType -> Html msg
 view attrs content =
     case parse content of
         Ok rendered ->
-            div ([ class "Markdown bottomed-paragraphs" ] ++ attrs) rendered
+            div (class "Markdown bottomed-paragraphs" :: attrs) rendered
 
         Err errors ->
             Alert.preformatted
