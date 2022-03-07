@@ -2,8 +2,13 @@ module Data.InputsTest exposing (..)
 
 import Data.Country as Country
 import Data.Inputs as Inputs exposing (tShirtCotonAsie)
+import Data.LifeCycle as LifeCycle
+import Data.Product as Product
+import Data.Simulator as Simulator
+import Data.Step as Step
 import Expect
 import List.Extra as LE
+import Quantity
 import Test exposing (..)
 import TestUtils exposing (asTest, suiteWithDb)
 
@@ -52,6 +57,20 @@ suite =
                     |> Inputs.fromQuery db
                     |> Expect.equal (Err "Code pays invalide: XX.")
                     |> asTest "should validate country codes"
+                ]
+            , describe "Product update"
+                [ asTest "should update step masses"
+                    (case Product.findById (Product.Id "jean") db.products of
+                        Ok jean ->
+                            tShirtCotonAsie
+                                |> Inputs.updateProduct jean
+                                |> Simulator.compute db
+                                |> Result.map (.lifeCycle >> LifeCycle.getStepProp Step.Distribution .inputMass Quantity.zero)
+                                |> Expect.equal (Ok jean.mass)
+
+                        Err error ->
+                            Expect.fail error
+                    )
                 ]
             ]
         )
