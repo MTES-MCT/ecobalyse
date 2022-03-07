@@ -220,7 +220,7 @@ makingImpacts impacts { makingProcess, fadingProcess, countryElecProcess, countr
                         , fadingElec
                             |> Unit.forKWh (Process.getImpact trigram countryElecProcess)
                         , fadingHeat
-                            |> Unit.forKWh (Process.getImpact trigram countryHeatProcess)
+                            |> Unit.forMJ (Process.getImpact trigram countryHeatProcess)
                         ]
                 )
     }
