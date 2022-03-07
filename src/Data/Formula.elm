@@ -198,9 +198,11 @@ makingImpacts impacts { makingProcess, fadingProcess, countryElecProcess, countr
             ( fadingProcess
                 |> Maybe.map .elec
                 |> Maybe.withDefault Quantity.zero
+                |> Quantity.multiplyBy (Mass.inKilograms outputMass)
             , fadingProcess
                 |> Maybe.map .heat
                 |> Maybe.withDefault Quantity.zero
+                |> Quantity.multiplyBy (Mass.inKilograms outputMass)
             )
     in
     { kwh = Quantity.sum [ makingProcess.elec, fadingElec ]
@@ -217,10 +219,8 @@ makingImpacts impacts { makingProcess, fadingProcess, countryElecProcess, countr
                         -- Fading process (mass-dependent)
                         , fadingElec
                             |> Unit.forKWh (Process.getImpact trigram countryElecProcess)
-                            |> Quantity.multiplyBy (Mass.inKilograms outputMass)
                         , fadingHeat
                             |> Unit.forKWh (Process.getImpact trigram countryHeatProcess)
-                            |> Quantity.multiplyBy (Mass.inKilograms outputMass)
                         ]
                 )
     }
