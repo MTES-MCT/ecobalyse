@@ -49,6 +49,7 @@ type alias WellKnown =
     , dyeingLow : Process
     , passengerCar : Process
     , endOfLife : Process
+    , fading : Process
     }
 
 
@@ -83,6 +84,7 @@ loadWellKnown p =
         |> RE.andMap (findByAlias "dyeingLow" p)
         |> RE.andMap (findByAlias "passengerCar" p)
         |> RE.andMap (findByAlias "endOfLife" p)
+        |> RE.andMap (findByAlias "fading" p)
 
 
 uuidToString : Uuid -> String

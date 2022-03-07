@@ -73,6 +73,15 @@ table { detailed } =
     , { label = "Confection"
       , toCell = .makingProcess >> .name >> text
       }
+    , { label = "Délavage"
+      , toCell =
+            \product ->
+                if product.faded then
+                    text "Oui"
+
+                else
+                    text "Non"
+      }
     , { label = "Nombre de jours porté"
       , toCell =
             \product ->

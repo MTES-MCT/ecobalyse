@@ -85,7 +85,16 @@ suite =
                                 { noOpProcess
                                     | elec = Energy.megajoules 0.5
                                 }
+                            , fadingProcess = Nothing
                             , countryElecProcess =
+                                { noOpProcess
+                                    | impacts =
+                                        AnyDict.fromList Impact.toString
+                                            [ ( Impact.trg "cch", Unit.impact 0.5 )
+                                            , ( Impact.trg "fwe", Unit.impact 1.5 )
+                                            ]
+                                }
+                            , countryHeatProcess =
                                 { noOpProcess
                                     | impacts =
                                         AnyDict.fromList Impact.toString

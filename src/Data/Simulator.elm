@@ -102,7 +102,7 @@ compute db query =
         -- Compute Ennoblement step impacts
         |> nextWithDb computeDyeingImpacts
         -- Compute Making step impacts
-        |> next computeMakingImpacts
+        |> nextWithDb computeMakingImpacts
         -- Compute product Use impacts
         |> next computeUseImpacts
         -- Compute product Use impacts
@@ -175,20 +175,33 @@ computeUseImpacts ({ inputs, useNbCycles } as simulator) =
             )
 
 
-computeMakingImpacts : Simulator -> Simulator
-computeMakingImpacts ({ inputs } as simulator) =
-    simulator
-        |> updateLifeCycleStep Step.Making
-            (\({ country } as step) ->
-                let
-                    { kwh, impacts } =
-                        step.outputMass
-                            |> Formula.makingImpacts step.impacts
-                                { makingProcess = inputs.product.makingProcess
-                                , countryElecProcess = country.electricityProcess
-                                }
-                in
-                { step | impacts = impacts, kwh = kwh }
+computeMakingImpacts : Db -> Simulator -> Result String Simulator
+computeMakingImpacts { processes } ({ inputs } as simulator) =
+    processes
+        |> Process.loadWellKnown
+        |> Result.map
+            (\{ fading } ->
+                simulator
+                    |> updateLifeCycleStep Step.Making
+                        (\({ country } as step) ->
+                            let
+                                { kwh, heat, impacts } =
+                                    step.outputMass
+                                        |> Formula.makingImpacts step.impacts
+                                            { makingProcess = inputs.product.makingProcess
+                                            , fadingProcess =
+                                                -- Note: in the future, we may have distinct fading processes per countries
+                                                if inputs.product.faded then
+                                                    Just fading
+
+                                                else
+                                                    Nothing
+                                            , countryElecProcess = country.electricityProcess
+                                            , countryHeatProcess = country.heatProcess
+                                            }
+                            in
+                            { step | impacts = impacts, kwh = kwh, heat = heat }
+                        )
             )
 
 
