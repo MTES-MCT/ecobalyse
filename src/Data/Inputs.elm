@@ -303,6 +303,7 @@ updateProduct : Product -> Query -> Query
 updateProduct product query =
     { query
         | product = product.id
+        , mass = product.mass
         , quality =
             -- ensure resetting quality when product is changed
             if product.id /= query.product then
