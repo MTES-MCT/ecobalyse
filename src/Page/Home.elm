@@ -78,7 +78,7 @@ viewHero session =
                 [ h2 [ class "display-5" ]
                     [ "Accélérer la mise en place de l’affichage environnemental" |> Markdown.simple [] ]
                 , div [ class "fs-4 text-muted mt-4 mb-5" ]
-                    [ "Autour d’un calculateur pédagogique et collaboratif" |> Markdown.simple [] ]
+                    [ "autour d’un calculateur pédagogique et collaboratif" |> Markdown.simple [] ]
                 , div [ class "row mb-4" ]
                     [ div [ class "col-md-6 text-center text-md-end py-2" ]
                         [ a
@@ -154,7 +154,7 @@ viewIsIsntColumn positive isIsntSectionIndex ( title, sections ) =
 
 viewIsIsnt : Maybe Int -> Gitbook.IsIsnt -> Html Msg
 viewIsIsnt isIsntSectionIndex { is, isnt } =
-    Container.full [ class "bg-primary-gradient bg-primary-gradient shadow pt-3 pb-5" ]
+    Container.full [ class "bg-info shadow pt-3 pb-5" ]
         [ Container.centered []
             [ div [ class "row" ]
                 [ div [ class "col-sm-6" ] [ viewIsIsntColumn True isIsntSectionIndex is ]
