@@ -10,7 +10,7 @@ Bienvenue sur l'espace documentaire [Wikicarbone](https://wikicarbone.beta.gouv.
 
 ## Ce qu’est Wikicarbone
 
-### **Un CALCULATEUR d’impacts environnementaux simplifié, public et ouvert**
+### **Un calculateur d’impacts environnementaux simplifié, public et ouvert**
 
 Wikicarbone permet très rapidement d’estimer les impacts environnementaux d’un vêtement, à partir de quelques critères simples : traçabilité, matière, recyclage…
 
@@ -18,13 +18,13 @@ Ce positionnement correspond à l’approche semi-spécifique [proposée par le 
 
 Le calculateur est encore en construction. Avec plusieurs fédérations professionnelles, il sera testé dans le cadre de l’[expérimentation Xtex](https://agirpourlatransition.ademe.fr/entreprises/aides-financieres/20210920/xtex2021-191) engagée en application de la [loi Climat et Résilience](https://www.legifrance.gouv.fr/loda/article\_lc/LEGIARTI000043957692?init=true\&page=1\&query=loi+climat+et+r%C3%A9silience\&searchField=ALL\&tab\_selection=all).
 
-### Un outil PEDAGOGIQUE pour **comprendre** les méthodologies de référence
+### Un outil **pédagogique** pour **comprendre** les méthodologies de référence
 
 En décomposant les étapes du cycle de vie et en affichant immédiatement l’impact calculé en fonction du paramétrage, Wikicarbone doit aider des utilisateurs non experts à appréhender les méthodes de référence sur lesquelles l’outil s’appuie (PEFCR Apparel & Footwear, socle technique ADEME).
 
 Le soin apporté à la [documentation](https://fabrique-numerique.gitbook.io/wikicarbone/) et à l’[explorateur](https://wikicarbone.beta.gouv.fr/#/explore) doit en outre permettre d’expliciter et de partager les orientations prises dans le but de simplifier les calculs.
 
-### Un outil COLLABORATIF, **catalyseur** de débat entre experts, marques et industries
+### Un outil **collaboratif**, **catalyseur** de débat entre experts, marques et industries
 
 Simplifier le calcul nécessite de faire des choix : quels paramètres doivent rester modifiables ? quels paramètres doivent être fixés par défaut ? Comment ?&#x20;
 
@@ -36,19 +36,19 @@ Au S2 2022, une réflexion sera à conduire en vue de doter l’outil d’une go
 
 ## Ce que n’est pas Wikicarbone
 
-### Un bureau d’études qui accompagnerait les entreprises pour leurs calculs d’impacts
+### Un **bureau d’études** qui accompagnerait les entreprises pour leurs calculs d’impacts
 
 Faire des calculs est une chose. Accompagner les entreprises qui produisent et commercialisent des vêtements en est une autre : identifier les bons paramètres, s’intégrer dans un système d’information, proposer des calculs plus précis, des axes d’amélioration…&#x20;
 
 Wikicarbone est plutôt un outil pour les experts qui accompagnent les entreprises en leur proposant notamment un [accès en API au calculateur](https://wikicarbone.beta.gouv.fr/#/api) (non encore stabilisé).
 
-### Un concurrent des méthodologies de référence : PEFCR AF et socle technique ADEME
+### Un **concurrent des méthodologies de référence** : PEFCR AF et socle technique ADEME
 
 Wikicarbone s’appuie au maximum sur les méthodes de référence : PEFCR Apparel & Footwear, socle technique ADEME.&#x20;
 
 Si des choix méthodologiques doivent être faits, c’est toujours en complément du cadre de référence et dans le but de faciliter les calculs. Par exemple, un choix de mix chaleur est attaché par défaut à chaque pays, afin que l’utilisateur n’ait pas à rechercher cette information au moment du calcul. Tous ces choix sont explicités dans la [documentation](https://fabrique-numerique.gitbook.io/wikicarbone/) et sur l’[explorateur](https://wikicarbone.beta.gouv.fr/#/explore).
 
-### Un outil d'information pour le grand public
+### Un outil d'information pour le **grand public**
 
 Wikicarbone n’a pas pour objectif d’informer directement le grand public.&#x20;
 
