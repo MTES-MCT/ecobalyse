@@ -111,12 +111,14 @@ viewIsIsntColumn : Bool -> Maybe Int -> ( String, List ( String, String ) ) -> H
 viewIsIsntColumn positive isIsntSectionIndex ( title, sections ) =
     div [ class "mt-3" ]
         [ h2 [ class "h3 fw-light text-light text-center mb-3" ]
-            [ if positive then
-                span [ class "text-white me-1" ] [ Icon.check ]
+            [ span [ class "text-white me-1" ]
+                [ if positive then
+                    Icon.check
 
-              else
-                span [ class "text-white me-1" ] [ Icon.times ]
-            , title |> String.replace "*" "" |> text
+                  else
+                    Icon.times
+                ]
+            , text title
             ]
         , sections
             |> List.indexedMap
@@ -125,21 +127,17 @@ viewIsIsntColumn positive isIsntSectionIndex ( title, sections ) =
                         [ h3 [ class "accordion-header" ]
                             [ button
                                 [ type_ "button"
-                                , class "accordion-button fw-bold"
+                                , class "AccordionButton accordion-button fw-bold py-0"
                                 , classList [ ( "collapsed", isIsntSectionIndex /= Just index ) ]
                                 , onClick (ToggleIsIsntIndex index)
                                 ]
-                                [ span [ class "d-flex align-items-start" ]
+                                [ span [ class "d-flex align-items-start lh-base" ]
                                     [ if positive then
                                         span [ class "text-success me-1" ] [ Icon.check ]
 
                                       else
                                         span [ class "text-danger me-1" ] [ Icon.times ]
-                                    , span []
-                                        [ index + 1 |> String.fromInt |> text
-                                        , text ". "
-                                        , sectionTitle |> String.replace "*" "" |> text
-                                        ]
+                                    , Markdown.simple [ class "fw-normal inline-paragraphs" ] sectionTitle
                                     ]
                                 ]
                             ]
