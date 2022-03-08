@@ -9,7 +9,7 @@
     "description_fr": "Indicateur de l'**acidification potentielle des sols et des eaux** due à la libération de gaz tels que les oxydes d'azote et les oxydes de soufre.\n\nCet indicateur se mesure en mol (quantité de matière) d'équivalent d'ions hydrogène (`H+`).",
     "quality": 2,
     "pef": {
-      "normalization": 55.6,
+      "normalization": 5.55695e1,
       "weighting": 0.062
     }
   },
@@ -23,7 +23,7 @@
     "description_fr": "La couche d'ozone est située en haute altitude dans l'atmosphère, elle protège des rayons ultra-violets solaires. Son appauvrissement augmente l'**exposition de l'ensemble des êtres vivants à ces radiations négatives** (cancérigènes en particulier).\n\nCet indicateur se mesure en kg d'équivalent `CFC 11`, le CFC 11 (trichlorofluorométhane) étant l'un des gaz responsable de l'appauvrissement de la couche d'ozone.",
     "quality": 1,
     "pef": {
-      "normalization": 0.0536,
+      "normalization": 5.3648e-2,
       "weighting": 0.0631
     }
   },
@@ -37,7 +37,7 @@
     "description_fr": "Indicateur le plus connu, correspond à la **modification du climat**, affectant l'écosystème global.\n\nCet indicateur se mesure en kg équivalent `CO₂`, le principal gaz à effet de serre.",
     "quality": 1,
     "pef": {
-      "normalization": 8100,
+      "normalization": 8.09553e3,
       "weighting": 0.2106
     }
   },
@@ -84,7 +84,7 @@
     "short_unit": "kgPe",
     "quality": 2,
     "pef": {
-      "normalization": 1.61,
+      "normalization": 1.60685,
       "weighting": 0.028
     }
   },
@@ -98,7 +98,7 @@
     "short_unit": "kgNe",
     "quality": 2,
     "pef": {
-      "normalization": 19.5,
+      "normalization": 1.95e1,
       "weighting": 0.0296
     }
   },
@@ -112,7 +112,7 @@
     "short_unit": "molNe",
     "quality": 2,
     "pef": {
-      "normalization": 177,
+      "normalization": 1.76755e2,
       "weighting": 0.0371
     }
   },
@@ -126,7 +126,7 @@
     "short_unit": "kgNMVOCe",
     "quality": 1,
     "pef": {
-      "normalization": 40.1,
+      "normalization": 4.06014e1,
       "weighting": 0.0478
     }
   },
@@ -140,7 +140,7 @@
     "short_unit": "dis.inc.",
     "quality": 2,
     "pef": {
-      "normalization": 0.000595,
+      "normalization": 5.95387e-4,
       "weighting": 0.0896
     }
   },
@@ -154,7 +154,7 @@
     "short_unit": "kBqU235e",
     "quality": 2,
     "pef": {
-      "normalization": 4220,
+      "normalization": 4.22016e3,
       "weighting": 0.0501
     }
   },
@@ -168,7 +168,7 @@
     "short_unit": "MJ",
     "quality": 3,
     "pef": {
-      "normalization": 65000,
+      "normalization": 6.50043e4,
       "weighting": 0.0832
     }
   },
@@ -182,7 +182,7 @@
     "short_unit": "kgSbe",
     "quality": 3,
     "pef": {
-      "normalization": 0.0636,
+      "normalization": 6.36403e-2,
       "weighting": 0.0755
     }
   },
@@ -196,7 +196,7 @@
     "short_unit": "Pt",
     "quality": 3,
     "pef": {
-      "normalization": 819000,
+      "normalization": 8.19498e5,
       "weighting": 0.0794
     }
   },
@@ -221,7 +221,7 @@
     "short_unit": "m³",
     "quality": 3,
     "pef": {
-      "normalization": 1.15e4,
+      "normalization": 1.14687e4,
       "weighting": 0.0851
     }
   }
