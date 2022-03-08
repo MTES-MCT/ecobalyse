@@ -10,7 +10,7 @@ Bienvenue sur l'espace documentaire [Wikicarbone](https://wikicarbone.beta.gouv.
 
 ## Ce qu’est Wikicarbone
 
-### **Un calculateur d’impacts environnementaux simplifié, public et ouvert**
+### Un calculateur d’**impacts environnementaux** simplifié, public et ouvert
 
 Wikicarbone permet très rapidement d’estimer les impacts environnementaux d’un vêtement, à partir de quelques critères simples : traçabilité, matière, recyclage…
 
