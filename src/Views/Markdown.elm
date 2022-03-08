@@ -20,6 +20,11 @@ type ContentType
     | Gitbook Gitbook.Page
 
 
+siteUrl : String
+siteUrl =
+    "https://wikicarbone.beta.gouv.fr"
+
+
 clean : String -> String
 clean =
     String.split "\n\n" >> List.map String.trim >> String.join "\n\n"
@@ -89,17 +94,19 @@ renderLink maybePath { title, destination } =
         destination_ =
             Gitbook.handleMarkdownGitbookLink maybePath destination
 
-        attrs =
+        baseAttrs =
             List.filterMap identity
-                [ Just (Attr.href destination_)
-                , Maybe.map Attr.title title
+                [ Maybe.map Attr.title title
                 ]
     in
-    if String.startsWith "http" destination_ then
-        Link.external attrs
+    if String.startsWith siteUrl destination_ then
+        Link.internal (Attr.href (String.replace siteUrl "" destination_) :: baseAttrs)
+
+    else if String.startsWith "http" destination_ then
+        Link.external (Attr.href destination_ :: baseAttrs)
 
     else
-        Link.internal attrs
+        Link.internal (Attr.href destination_ :: baseAttrs)
 
 
 renderImage : { title : Maybe String, alt : String, src : String } -> Html msg
@@ -108,7 +115,8 @@ renderImage { title, src, alt } =
         (List.filterMap identity
             [ Maybe.map Attr.title title
             , src
-                |> String.replace "../.gitbook/assets/" "https://raw.githubusercontent.com/MTES-MCT/wikicarbone/docs/.gitbook/assets/"
+                |> String.replace "../.gitbook/assets/"
+                    "https://raw.githubusercontent.com/MTES-MCT/wikicarbone/docs/.gitbook/assets/"
                 |> Attr.src
                 |> Just
             , Just <| Attr.alt alt
