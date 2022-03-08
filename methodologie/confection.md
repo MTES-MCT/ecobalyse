@@ -130,4 +130,14 @@ $$
 
 * Lever l'ambigüité méthodologique sur la prise en compte du nombre d'articles ou de la masse sortante dans les calculs d'impacts et d'électricité mobilisée
 
-##
+## Cas particulier du Jean : Délavage
+
+Pour le jean on intègre dans l'étape confection le délavage. Le délavage est un procédé qui s'applique après la confection et qui a un impact environmental important. En effet le délavage demande des quantités significatives de chaleur, d'électricité et d'eau.
+
+Il existe différents procédés de délavage dans la base impacts :&#x20;
+
+* mécanique ou chimique
+* représentatif ou majorant
+* traitement des eaux très efficace à inefficace
+
+Pour l'instant nous ne prenons que le procédé par défaut qui est le plus impactant (chimique, majorant, traitement des eaux inefficace).
