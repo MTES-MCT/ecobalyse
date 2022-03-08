@@ -102,6 +102,12 @@ blockquote {
   }
 }
 
+.inline-paragraphs {
+  p {
+    display: inline;
+  }
+}
+
 .bg-primary-gradient {
   background: $primary;
   background: linear-gradient(15deg, #054a80, $primary);
@@ -184,6 +190,10 @@ blockquote {
   font-weight: normal;
   cursor: help;
   border-bottom: 1px dashed $primary;
+}
+
+.AccordionButton {
+  min-height: 70px;
 }
 
 .Chevrons {
