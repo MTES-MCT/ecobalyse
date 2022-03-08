@@ -16,6 +16,8 @@ Wikicarbone permet très rapidement d’estimer les impacts environnementaux d�
 
 Ce positionnement correspond à l’approche semi-spécifique [proposée par le conseil scientifique sur l’alimentation](https://www.ademe.fr/sites/default/files/assets/documents/affichage-environnemental-produits-alimentairs-synthese-conseil-scientifique.pdf).
 
+Le calculateur est encore en construction. Avec plusieurs fédérations professionnelles, il sera testé dans le cadre de l’[expérimentation Xtex](https://agirpourlatransition.ademe.fr/entreprises/aides-financieres/20210920/xtex2021-191) engagée en application de la [loi Climat et Résilience](https://www.legifrance.gouv.fr/loda/article\_lc/LEGIARTI000043957692?init=true\&page=1\&query=loi+climat+et+r%C3%A9silience\&searchField=ALL\&tab\_selection=all).
+
 ### Un outil PEDAGOGIQUE pour **comprendre** les méthodologies de référence
 
 En décomposant les étapes du cycle de vie et en affichant immédiatement l’impact calculé en fonction du paramétrage, Wikicarbone doit aider des utilisateurs non experts à appréhender les méthodes de référence sur lesquelles l’outil s’appuie (PEFCR Apparel & Footwear, socle technique ADEME).
