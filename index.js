@@ -9,6 +9,14 @@ if (process.env.SENTRY_DSN) {
     dsn: process.env.SENTRY_DSN,
     integrations: [new BrowserTracing()],
     tracesSampleRate: 0,
+    allowUrls: [
+      /^https:\/\/wikicarbone.beta.gouv.fr/,
+      /^https:\/\/wikicarbone(.*).osc-fr1.scalingo.io/,
+    ],
+    ignoreErrors: [
+      // Most often due to DOM-aggressive browser extensions
+      /_VirtualDom_applyPatch/,
+    ],
   });
 }
 
