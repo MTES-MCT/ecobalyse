@@ -42,7 +42,7 @@ Faire des calculs est une chose. Accompagner les entreprises qui produisent et c
 
 Wikicarbone est plutôt un outil pour les experts qui accompagnent les entreprises en leur proposant notamment un [accès en API au calculateur](https://wikicarbone.beta.gouv.fr/#/api) (non encore stabilisé).
 
-### Un concurrent des méthodologies de référence : PEFCR Apparel & Footwear et socle technique ADEME
+### Un concurrent des méthodologies de référence : PEFCR AF et socle technique ADEME
 
 Wikicarbone s’appuie au maximum sur les méthodes de référence : PEFCR Apparel & Footwear, socle technique ADEME.&#x20;
 
