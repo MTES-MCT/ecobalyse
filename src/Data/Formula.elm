@@ -215,8 +215,16 @@ makingImpacts impacts { makingProcess, fadingProcess, countryElecProcess, countr
                         [ -- Making process (per-item)
                           makingProcess.elec
                             |> Unit.forKWh (Process.getImpact trigram countryElecProcess)
+                        , makingProcess.heat
+                            |> Unit.forMJ (Process.getImpact trigram countryElecProcess)
 
                         -- Fading process (mass-dependent)
+                        , outputMass
+                            |> Unit.forKg
+                                (fadingProcess
+                                    |> Maybe.map (Process.getImpact trigram)
+                                    |> Maybe.withDefault Quantity.zero
+                                )
                         , fadingElec
                             |> Unit.forKWh (Process.getImpact trigram countryElecProcess)
                         , fadingHeat
