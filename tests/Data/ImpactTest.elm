@@ -30,7 +30,7 @@ suite =
                 , defaultImpacts
                     |> Impact.updateImpact (Impact.trg "fwe") (Unit.impact 1)
                     |> Impact.computePefScore db.impacts
-                    |> expectPefScore 17.4
+                    |> expectPefScore 17.425397516880857
                     |> asTest "should compute PEF score from fwe impact"
                 ]
             , describe "mapImpacts"
@@ -66,7 +66,7 @@ suite =
                     |> Impact.updateImpact (Impact.trg "fwe") (Unit.impact 1)
                     |> Impact.updatePefImpact db.impacts
                     |> Impact.getImpact (Impact.trg "pef")
-                    |> expectPefScore 17.42
+                    |> expectPefScore 17.45141187295143
                     |> asTest "should update PEF impact score"
                 ]
             ]
