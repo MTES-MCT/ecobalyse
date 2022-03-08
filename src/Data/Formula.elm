@@ -179,19 +179,57 @@ dyeingImpacts impacts ( dyeingLowProcess, dyeingHighProcess ) (Unit.Ratio highDy
 
 makingImpacts :
     Impacts
-    -> { makingProcess : Process, countryElecProcess : Process }
+    ->
+        { makingProcess : Process
+        , fadingProcess : Maybe Process
+        , countryElecProcess : Process
+        , countryHeatProcess : Process
+        }
     -> Mass
-    -> { kwh : Energy, impacts : Impacts }
-makingImpacts impacts { makingProcess, countryElecProcess } _ =
-    -- Note: In Base Impacts, impacts are precomputed per "item", and are
-    --       therefore not mass-dependent.
-    { kwh = makingProcess.elec
+    -> { kwh : Energy, heat : Energy, impacts : Impacts }
+makingImpacts impacts { makingProcess, fadingProcess, countryElecProcess, countryHeatProcess } outputMass =
+    -- Note: Fading, when enabled, is applied at the Making step because
+    -- it can only be applied on finished products (using step output mass).
+    -- Also:
+    -- - Making impacts are precomputed per "item" (not mass-dependent)
+    -- - Fading process, when defined, is mass-dependent
+    let
+        ( fadingElec, fadingHeat ) =
+            ( fadingProcess
+                |> Maybe.map .elec
+                |> Maybe.withDefault Quantity.zero
+                |> Quantity.multiplyBy (Mass.inKilograms outputMass)
+            , fadingProcess
+                |> Maybe.map .heat
+                |> Maybe.withDefault Quantity.zero
+                |> Quantity.multiplyBy (Mass.inKilograms outputMass)
+            )
+    in
+    { kwh = Quantity.sum [ makingProcess.elec, fadingElec ]
+    , heat = Quantity.sum [ makingProcess.heat, fadingHeat ]
     , impacts =
         impacts
             |> Impact.mapImpacts
                 (\trigram _ ->
-                    makingProcess.elec
-                        |> Unit.forKWh (Process.getImpact trigram countryElecProcess)
+                    Quantity.sum
+                        [ -- Making process (per-item)
+                          makingProcess.elec
+                            |> Unit.forKWh (Process.getImpact trigram countryElecProcess)
+                        , makingProcess.heat
+                            |> Unit.forMJ (Process.getImpact trigram countryElecProcess)
+
+                        -- Fading process (mass-dependent)
+                        , outputMass
+                            |> Unit.forKg
+                                (fadingProcess
+                                    |> Maybe.map (Process.getImpact trigram)
+                                    |> Maybe.withDefault Quantity.zero
+                                )
+                        , fadingElec
+                            |> Unit.forKWh (Process.getImpact trigram countryElecProcess)
+                        , fadingHeat
+                            |> Unit.forMJ (Process.getImpact trigram countryHeatProcess)
+                        ]
                 )
     }
 

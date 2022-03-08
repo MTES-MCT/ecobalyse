@@ -234,7 +234,10 @@ simpleView ({ funit, inputs, daysOfWear, impact, current } as config) =
                 [ div [ class "col-6 d-flex align-items-center" ]
                     [ stepIcon current.label
                     , current.label
-                        |> Step.displayLabel { knitted = inputs.product.knitted }
+                        |> Step.displayLabel
+                            { knitted = inputs.product.knitted
+                            , faded = inputs.product.faded
+                            }
                         |> text
                     ]
                 , div [ class "col-6 text-end" ]
@@ -316,7 +319,10 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                 [ span [ class "d-flex align-items-center" ]
                     [ stepIcon current.label
                     , current.label
-                        |> Step.displayLabel { knitted = inputs.product.knitted }
+                        |> Step.displayLabel
+                            { knitted = inputs.product.knitted
+                            , faded = inputs.product.faded
+                            }
                         |> text
                     ]
                 , -- Note: hide on desktop, show on mobile
@@ -332,6 +338,7 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                 , viewProcessInfo current.processInfo.passengerCar
                 , viewProcessInfo current.processInfo.endOfLife
                 , viewProcessInfo current.processInfo.knittingWeaving
+                , viewProcessInfo current.processInfo.fading
                 ]
             , case current.label of
                 Step.Ennoblement ->

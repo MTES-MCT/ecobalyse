@@ -62,6 +62,7 @@ type alias ProcessInfo =
     , endOfLife : Maybe String
     , knittingWeaving : Maybe String
     , distribution : Maybe String
+    , fading : Maybe String
     }
 
 
@@ -113,16 +114,23 @@ defaultProcessInfo =
     , endOfLife = Nothing
     , knittingWeaving = Nothing
     , distribution = Nothing
+    , fading = Nothing
     }
 
 
-displayLabel : { knitted : Bool } -> Label -> String
-displayLabel { knitted } label =
-    case ( label, knitted ) of
-        ( WeavingKnitting, True ) ->
+displayLabel : { knitted : Bool, faded : Bool } -> Label -> String
+displayLabel { knitted, faded } label =
+    case ( label, knitted, faded ) of
+        ( Making, _, True ) ->
+            "Confection & Délavage"
+
+        ( Making, _, False ) ->
+            "Confection"
+
+        ( WeavingKnitting, True, _ ) ->
             "Tricotage"
 
-        ( WeavingKnitting, False ) ->
+        ( WeavingKnitting, False, _ ) ->
             "Tissage"
 
         _ ->
@@ -280,6 +288,15 @@ updateFromInputs { processes } inputs ({ label, country } as step) =
                 , processInfo =
                     { defaultProcessInfo
                         | countryElec = Just country.electricityProcess.name
+                        , fading =
+                            if inputs.product.faded then
+                                processes
+                                    |> Process.loadWellKnown
+                                    |> Result.map (.fading >> .name)
+                                    |> Result.toMaybe
+
+                            else
+                                Nothing
                         , airTransportRatio =
                             country.airTransportRatio
                                 |> airTransportRatioToString

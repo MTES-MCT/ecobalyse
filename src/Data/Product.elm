@@ -27,6 +27,7 @@ type alias Product =
     , ppm : Int -- pick per meter
     , grammage : Int -- grammes per kg
     , knitted : Bool -- True: Tricotage (Knitting); False: Tissage (Weaving)
+    , faded : Bool -- Should this product be faded?
     , fabricProcess : Process -- Procédé de Tissage/Tricotage
     , makingProcess : Process -- Procédé de Confection
     , useIroningProcess : Process -- Procédé de repassage
@@ -77,6 +78,7 @@ decode processes =
         |> Pipe.required "ppm" Decode.int
         |> Pipe.required "grammage" Decode.int
         |> Pipe.required "knitted" Decode.bool
+        |> Pipe.required "faded" Decode.bool
         |> Pipe.required "fabricProcessUuid" (Process.decodeFromUuid processes)
         |> Pipe.required "makingProcessUuid" (Process.decodeFromUuid processes)
         |> Pipe.required "useIroningProcessUuid" (Process.decodeFromUuid processes)
@@ -104,6 +106,7 @@ encode v =
         , ( "ppm", Encode.int v.ppm )
         , ( "grammage", Encode.int v.grammage )
         , ( "knitted", Encode.bool v.knitted )
+        , ( "faded", Encode.bool v.faded )
         , ( "fabricProcessUuid", Process.encodeUuid v.makingProcess.uuid )
         , ( "makingProcessUuid", Process.encodeUuid v.makingProcess.uuid )
         , ( "useIroningProcessUuid", Process.encodeUuid v.useIroningProcess.uuid )
