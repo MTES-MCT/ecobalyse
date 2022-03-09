@@ -18,13 +18,13 @@ Ce positionnement correspond à l’approche semi-spécifique [proposée par le 
 
 Le calculateur est encore en construction. Avec plusieurs fédérations professionnelles, il sera testé dans le cadre de l’[expérimentation Xtex](https://agirpourlatransition.ademe.fr/entreprises/aides-financieres/20210920/xtex2021-191) engagée en application de la [loi Climat et Résilience](https://www.legifrance.gouv.fr/loda/article\_lc/LEGIARTI000043957692?init=true\&page=1\&query=loi+climat+et+r%C3%A9silience\&searchField=ALL\&tab\_selection=all).
 
-### Un outil **pédagogique** pour **comprendre** les méthodologies de référence
+### Un outil **pédagogique** pour comprendre les **méthodologies de référence**
 
 En décomposant les étapes du cycle de vie et en affichant immédiatement l’impact calculé en fonction du paramétrage, Wikicarbone doit aider des utilisateurs non experts à appréhender les méthodes de référence sur lesquelles l’outil s’appuie (PEFCR Apparel & Footwear, socle technique ADEME).
 
 Le soin apporté à la [documentation](https://fabrique-numerique.gitbook.io/wikicarbone/) et à l’[explorateur](https://wikicarbone.beta.gouv.fr/#/explore) doit en outre permettre d’expliciter et de partager les orientations prises dans le but de simplifier les calculs.
 
-### Un outil **collaboratif**, **catalyseur** de débat entre experts, marques et industries
+### Un outil **collaboratif**, catalyseur de débat entre **experts, marques et industries**
 
 Simplifier le calcul nécessite de faire des choix : quels paramètres doivent rester modifiables ? quels paramètres doivent être fixés par défaut ? Comment ?&#x20;
 
