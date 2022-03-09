@@ -1,6 +1,7 @@
 module Page.Explore.Products exposing (table)
 
-import Data.Db as Db
+import Data.Db as Db exposing (Db)
+import Data.Process as Process
 import Data.Product as Product exposing (Product)
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -9,8 +10,8 @@ import Route
 import Views.Format as Format
 
 
-table : { detailed : Bool } -> Table Product msg
-table { detailed } =
+table : Db -> { detailed : Bool } -> Table Product msg
+table db { detailed } =
     [ { label = "Identifiant"
       , toCell =
             \product ->
@@ -77,10 +78,13 @@ table { detailed } =
       , toCell =
             \product ->
                 if product.faded then
-                    text "Oui"
+                    db.processes
+                        |> Process.loadWellKnown
+                        |> Result.map (.fading >> .name >> text)
+                        |> Result.withDefault (text "Erreur, procédé de délavage introuvable")
 
                 else
-                    text "Non"
+                    text "N/A"
       }
     , { label = "Nombre de jours porté"
       , toCell =

@@ -208,13 +208,13 @@ explore db dataset =
 
         Db.Products maybeId ->
             [ db.products
-                |> Table.viewList ExploreProducts.table
+                |> Table.viewList (ExploreProducts.table db)
             , case maybeId of
                 Just id ->
                     case Product.findById id db.products of
                         Ok product ->
                             product
-                                |> Table.viewDetails ExploreProducts.table
+                                |> Table.viewDetails (ExploreProducts.table db)
                                 |> detailsModal
 
                         Err error ->
