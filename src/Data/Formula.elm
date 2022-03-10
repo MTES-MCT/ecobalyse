@@ -14,6 +14,7 @@ module Data.Formula exposing
     )
 
 import Data.Impact as Impact exposing (Impacts)
+import Data.Material exposing (CFFData)
 import Data.Process as Process exposing (Process)
 import Data.Transport as Transport exposing (Transport)
 import Data.Unit as Unit
@@ -96,18 +97,53 @@ materialAndSpinningImpacts :
     Impacts
     -> ( Process, Process ) -- Inbound: Material processes (recycled, non-recycled)
     -> Unit.Ratio -- Ratio of recycled material (bewteen 0 and 1)
+    -> Maybe CFFData -- Circular Footprint Formula data
     -> Mass
     -> Impacts
-materialAndSpinningImpacts impacts ( recycledProcess, nonRecycledProcess ) ratio mass =
+materialAndSpinningImpacts impacts ( recycledProcess, nonRecycledProcess ) ratio cffData mass =
     impacts
         |> Impact.mapImpacts
             (\trigram _ ->
-                mass
-                    |> Unit.ratioedForKg
-                        ( Process.getImpact trigram recycledProcess
-                        , Process.getImpact trigram nonRecycledProcess
-                        )
-                        ratio
+                case cffData of
+                    Just { manufacturerAllocation, recycledQualityRatio } ->
+                        -- CFF
+                        -- A: manufacturerAllocation
+                        -- Qsin/Qp: recycledQualityRatio
+                        -- Impact_coton =  0.6 * m * Impact_coton_par_kg
+                        -- Impact_coton_recyclé = 0.4 * m ( A * Impact_coton_recyclé_par_kg + (1-A) * Qsin/Qp * Impact_coton_par_kg)
+                        let
+                            ( recycledImpactPerKg, nonRecycledImpactPerKg ) =
+                                ( Process.getImpact trigram recycledProcess |> Unit.impactToFloat
+                                , Process.getImpact trigram nonRecycledProcess |> Unit.impactToFloat
+                                )
+
+                            nonRecycledImpact =
+                                (1 - Unit.ratioToFloat ratio)
+                                    * Mass.inKilograms mass
+                                    * nonRecycledImpactPerKg
+
+                            recycledImpact =
+                                Unit.ratioToFloat ratio
+                                    * Mass.inKilograms mass
+                                    * (Unit.ratioToFloat manufacturerAllocation
+                                        * recycledImpactPerKg
+                                        + (1 - Unit.ratioToFloat manufacturerAllocation)
+                                        * Unit.ratioToFloat recycledQualityRatio
+                                        * nonRecycledImpact
+                                      )
+                        in
+                        Quantity.sum
+                            [ Unit.impact nonRecycledImpact
+                            , Unit.impact recycledImpact
+                            ]
+
+                    Nothing ->
+                        mass
+                            |> Unit.ratioedForKg
+                                ( Process.getImpact trigram recycledProcess
+                                , Process.getImpact trigram nonRecycledProcess
+                                )
+                                ratio
             )
 
 

@@ -9,6 +9,7 @@ import Data.Formula as Formula
 import Data.Impact as Impact exposing (Impacts)
 import Data.Inputs as Inputs exposing (Inputs)
 import Data.LifeCycle as LifeCycle exposing (LifeCycle)
+import Data.Material as Material
 import Data.Process as Process
 import Data.Product as Product
 import Data.Step as Step exposing (Step)
@@ -240,20 +241,24 @@ computeMaterialAndSpinningImpacts db ({ inputs } as simulator) =
                                 (\{ material, share, recycledRatio } ->
                                     (case material.recycledProcess of
                                         Just recycledProcess ->
+                                            let
+                                                cffData =
+                                                    db.materials
+                                                        |> Material.findByProcessUuid recycledProcess.uuid
+                                                        |> Maybe.andThen .cffData
+                                            in
                                             step.outputMass
                                                 |> Formula.materialAndSpinningImpacts step.impacts
                                                     ( recycledProcess, material.materialProcess )
                                                     recycledRatio
+                                                    cffData
 
                                         _ ->
                                             step.outputMass
                                                 |> Formula.pureMaterialAndSpinningImpacts step.impacts
                                                     material.materialProcess
                                     )
-                                        |> Impact.mapImpacts
-                                            (\_ impact ->
-                                                impact |> Quantity.multiplyBy (Unit.ratioToFloat share)
-                                            )
+                                        |> Impact.mapImpacts (\_ -> Quantity.multiplyBy (Unit.ratioToFloat share))
                                 )
                             |> Impact.sumImpacts db.impacts
                 }
