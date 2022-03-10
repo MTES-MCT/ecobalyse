@@ -129,7 +129,7 @@ materialAndSpinningImpacts impacts ( recycledProcess, nonRecycledProcess ) ratio
                                         * recycledImpactPerKg
                                         + (1 - Unit.ratioToFloat manufacturerAllocation)
                                         * Unit.ratioToFloat recycledQualityRatio
-                                        * nonRecycledImpact
+                                        * nonRecycledImpactPerKg
                                       )
                         in
                         Quantity.sum
