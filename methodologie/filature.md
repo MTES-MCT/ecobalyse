@@ -245,6 +245,33 @@ $$
 
 L'application de ce tableau aux différentes matières présentées dans le simulateur sera bientôt visible dans la [rubrique "Produits" de l'explorateur](https://wikicarbone.beta.gouv.fr/#/explore/products).
 
+#### Exemple de calcul
+
+Pour un vêtement de masse m de composition 60% coton, 40% coton recyclé (post consommation)
+
+```
+Impact_matière = Impact_coton + Impact_coton_recyclé
+
+Impact_coton =  0.6 * m * Impact_coton_par_kg
+
+Impact_coton_recyclé = 0.4 * m ( A * Impact_coton_recyclé_par_kg + (1-A) * Qsin/Qp * Impact_coton_par_kg)
+
+```
+
+Pour un vêtement de masse m de composition 40% coton, 30% coton recyclé (post consommation),  20% polyester, 10% polyester recyclé.
+
+```
+Impact_matière = Impact_coton + Impact_coton_recyclé + Impact_polyester + Impact_polyester_recyclé
+
+Impact_coton =  0.4 * m * Impact_coton_par_kg
+
+Impact_coton_recyclé = 0.3 * m ( A * Impact_coton_recyclé_par_kg + (1-A) * Qsin/Qp * Impact_coton_par_kg)
+
+Impact_polyester = 0.2 * m * Impact_pet_par_kg
+
+Impact_polyester_recyclé = 0.1 * m ( A * Impact_pet_recyclé_par_kg + (1-A) * Qsin/Qp * Impact_pet_par_kg)
+```
+
 ## Procédé de matière et filature
 
 L'impact du procédé de confection retenu est le produit de la masse "sortante", en l'occurrence le fil, avec le coefficient d'impact considéré (cf. [Impacts considérés](impacts-consideres.md)).
