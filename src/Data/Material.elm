@@ -1,10 +1,12 @@
 module Data.Material exposing
-    ( Id(..)
+    ( CFFData
+    , Id(..)
     , Material
     , decodeList
     , encode
     , encodeId
     , findById
+    , findByProcessUuid
     , fullName
     , groupAll
     , idToString
@@ -15,7 +17,7 @@ import Data.Material.Category as Category exposing (Category)
 import Data.Process as Process exposing (Process)
 import Data.Unit as Unit
 import Json.Decode as Decode exposing (Decoder)
-import Json.Decode.Pipeline as DecodePipeline
+import Json.Decode.Pipeline as JDP
 import Json.Encode as Encode
 
 
@@ -26,10 +28,12 @@ type alias Material =
     , category : Category
     , materialProcess : Process
     , recycledProcess : Maybe Process
+    , recycledFrom : Maybe Id
     , primary : Bool
     , continent : String
     , defaultCountry : Country.Code
     , priority : Int
+    , cffData : Maybe CFFData
     }
 
 
@@ -37,11 +41,24 @@ type Id
     = Id String
 
 
+type alias CFFData =
+    -- Circular Footprint Formula data
+    { manufacturerAllocation : Unit.Ratio
+    , recycledQualityRatio : Unit.Ratio
+    }
+
+
 findById : Id -> List Material -> Result String Material
 findById id =
     List.filter (.id >> (==) id)
         >> List.head
         >> Result.fromMaybe ("Matière non trouvée id=" ++ idToString id ++ ".")
+
+
+findByProcessUuid : Process.Uuid -> List Material -> Maybe Material
+findByProcessUuid processUuid =
+    List.filter (\{ materialProcess } -> materialProcess.uuid == processUuid)
+        >> List.head
 
 
 groupAll :
@@ -93,16 +110,25 @@ recycledRatioToString unit (Unit.Ratio recycledRatio) =
 decode : List Process -> Decoder Material
 decode processes =
     Decode.succeed Material
-        |> DecodePipeline.required "id" (Decode.map Id Decode.string)
-        |> DecodePipeline.required "name" Decode.string
-        |> DecodePipeline.required "shortName" Decode.string
-        |> DecodePipeline.required "category" Category.decode
-        |> DecodePipeline.required "materialProcessUuid" (Process.decodeFromUuid processes)
-        |> DecodePipeline.required "recycledProcessUuid" (Decode.maybe (Process.decodeFromUuid processes))
-        |> DecodePipeline.required "primary" Decode.bool
-        |> DecodePipeline.required "continent" Decode.string
-        |> DecodePipeline.required "defaultCountry" (Decode.string |> Decode.map Country.codeFromString)
-        |> DecodePipeline.required "priority" Decode.int
+        |> JDP.required "id" (Decode.map Id Decode.string)
+        |> JDP.required "name" Decode.string
+        |> JDP.required "shortName" Decode.string
+        |> JDP.required "category" Category.decode
+        |> JDP.required "materialProcessUuid" (Process.decodeFromUuid processes)
+        |> JDP.required "recycledProcessUuid" (Decode.maybe (Process.decodeFromUuid processes))
+        |> JDP.required "recycledFrom" (Decode.maybe (Decode.map Id Decode.string))
+        |> JDP.required "primary" Decode.bool
+        |> JDP.required "continent" Decode.string
+        |> JDP.required "defaultCountry" (Decode.string |> Decode.map Country.codeFromString)
+        |> JDP.required "priority" Decode.int
+        |> JDP.required "cff" (Decode.maybe decodeCFFData)
+
+
+decodeCFFData : Decoder CFFData
+decodeCFFData =
+    Decode.succeed CFFData
+        |> JDP.required "manufacturerAllocation" Unit.decodeRatio
+        |> JDP.required "recycledQualityRatio" Unit.decodeRatio
 
 
 decodeList : List Process -> Decoder (List Material)

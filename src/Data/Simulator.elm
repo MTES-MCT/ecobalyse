@@ -9,6 +9,7 @@ import Data.Formula as Formula
 import Data.Impact as Impact exposing (Impacts)
 import Data.Inputs as Inputs exposing (Inputs)
 import Data.LifeCycle as LifeCycle exposing (LifeCycle)
+import Data.Material as Material
 import Data.Process as Process
 import Data.Product as Product
 import Data.Step as Step exposing (Step)
@@ -238,22 +239,46 @@ computeMaterialAndSpinningImpacts db ({ inputs } as simulator) =
                         inputs.materials
                             |> List.map
                                 (\{ material, share, recycledRatio } ->
-                                    (case material.recycledProcess of
-                                        Just recycledProcess ->
-                                            step.outputMass
-                                                |> Formula.materialAndSpinningImpacts step.impacts
-                                                    ( recycledProcess, material.materialProcess )
-                                                    recycledRatio
+                                    Impact.mapImpacts (\_ -> Quantity.multiplyBy (Unit.ratioToFloat share))
+                                        (case material.recycledFrom of
+                                            -- Current material is purely recycled
+                                            Just primaryId ->
+                                                case Material.findById primaryId db.materials of
+                                                    Ok primaryMaterial ->
+                                                        step.outputMass
+                                                            |> Formula.materialAndSpinningImpacts step.impacts
+                                                                ( material.materialProcess, primaryMaterial.materialProcess )
+                                                                (Unit.ratio 1)
+                                                                material.cffData
 
-                                        _ ->
-                                            step.outputMass
-                                                |> Formula.pureMaterialAndSpinningImpacts step.impacts
-                                                    material.materialProcess
-                                    )
-                                        |> Impact.mapImpacts
-                                            (\_ impact ->
-                                                impact |> Quantity.multiplyBy (Unit.ratioToFloat share)
-                                            )
+                                                    Err _ ->
+                                                        step.outputMass
+                                                            |> Formula.pureMaterialAndSpinningImpacts step.impacts
+                                                                material.materialProcess
+
+                                            -- Current material is primary (non-recycled)
+                                            Nothing ->
+                                                case material.recycledProcess of
+                                                    -- Current primary material can be recycled
+                                                    Just recycledProcess ->
+                                                        let
+                                                            cffData =
+                                                                db.materials
+                                                                    |> Material.findByProcessUuid recycledProcess.uuid
+                                                                    |> Maybe.andThen .cffData
+                                                        in
+                                                        step.outputMass
+                                                            |> Formula.materialAndSpinningImpacts step.impacts
+                                                                ( recycledProcess, material.materialProcess )
+                                                                recycledRatio
+                                                                cffData
+
+                                                    -- Current primary material can't be recycled
+                                                    Nothing ->
+                                                        step.outputMass
+                                                            |> Formula.pureMaterialAndSpinningImpacts step.impacts
+                                                                material.materialProcess
+                                        )
                                 )
                             |> Impact.sumImpacts db.impacts
                 }
