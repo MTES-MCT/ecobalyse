@@ -37,6 +37,6 @@ loadVersion event =
     Http.get "/version.json" event hashDecoder
 
 
-pollVersion : (Time.Posix -> msg) -> Sub msg
+pollVersion : msg -> Sub msg
 pollVersion event =
-    Time.every (60 * 1000) event
+    Time.every (60 * 1000) (always event)
