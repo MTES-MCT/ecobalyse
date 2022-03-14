@@ -19,6 +19,7 @@ type alias Session =
     { navKey : Nav.Key
     , clientUrl : String
     , store : Store
+    , currentVersion : Maybe String
     , db : Db
     , notifications : List Notification
     }

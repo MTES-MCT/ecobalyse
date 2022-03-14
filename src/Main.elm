@@ -15,6 +15,7 @@ import Page.Stats as Stats
 import Ports
 import RemoteData exposing (WebData)
 import Request.Db
+import Request.Version
 import Route exposing (Route)
 import Url exposing (Url)
 import Views.Page as Page
@@ -61,6 +62,7 @@ type Msg
     | OpenMobileNavigation
     | UrlChanged Url
     | UrlRequested Browser.UrlRequest
+    | VersionReceived (WebData String)
 
 
 init : Flags -> Url -> Nav.Key -> ( Model, Cmd Msg )
@@ -70,6 +72,7 @@ init flags url navKey =
             { clientUrl = flags.clientUrl
             , navKey = navKey
             , store = Session.deserializeStore flags.rawStore
+            , currentVersion = Nothing
             , db = Db.empty
             , notifications = []
             }
@@ -81,6 +84,7 @@ init flags url navKey =
     , Cmd.batch
         [ Ports.appStarted ()
         , Request.Db.loadDb session (DbReceived url)
+        , Request.Version.loadVersion VersionReceived
         ]
     )
 
@@ -227,6 +231,13 @@ update msg ({ page, session } as model) =
 
         ( UrlRequested (Browser.External href), _ ) ->
             ( model, Nav.load href )
+
+        ( VersionReceived (RemoteData.Success version), _ ) ->
+            let
+                _ =
+                    Debug.log "version" version
+            in
+            ( { model | session = { session | currentVersion = Just version } }, Cmd.none )
 
         -- Catch-all
         ( _, NotFoundPage ) ->
