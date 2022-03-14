@@ -28,6 +28,7 @@ type alias Material =
     , category : Category
     , materialProcess : Process
     , recycledProcess : Maybe Process
+    , recycledFrom : Maybe Id
     , primary : Bool
     , continent : String
     , defaultCountry : Country.Code
@@ -115,6 +116,7 @@ decode processes =
         |> JDP.required "category" Category.decode
         |> JDP.required "materialProcessUuid" (Process.decodeFromUuid processes)
         |> JDP.required "recycledProcessUuid" (Decode.maybe (Process.decodeFromUuid processes))
+        |> JDP.required "recycledFrom" (Decode.maybe (Decode.map Id Decode.string))
         |> JDP.required "primary" Decode.bool
         |> JDP.required "continent" Decode.string
         |> JDP.required "defaultCountry" (Decode.string |> Decode.map Country.codeFromString)
