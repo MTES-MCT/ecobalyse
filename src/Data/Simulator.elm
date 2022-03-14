@@ -236,10 +236,6 @@ computeMaterialAndSpinningImpacts db ({ inputs } as simulator) =
             (\step ->
                 { step
                     | impacts =
-                        -- for each entry
-                        -- check if primary or recycled
-                        --   -> if primary, accumulate share for this material and its ratioed recycled counterpart
-                        --   -> if recycled, find primary source, apply ratio 100%
                         inputs.materials
                             |> List.map
                                 (\{ material, share, recycledRatio } ->
