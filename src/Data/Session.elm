@@ -13,13 +13,14 @@ import Data.Db exposing (Db)
 import Http
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
+import Request.Version exposing (Version)
 
 
 type alias Session =
     { navKey : Nav.Key
     , clientUrl : String
     , store : Store
-    , currentVersion : Maybe String
+    , currentVersion : Version
     , db : Db
     , notifications : List Notification
     }

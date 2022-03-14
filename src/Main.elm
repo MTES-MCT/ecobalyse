@@ -72,7 +72,7 @@ init flags url navKey =
             { clientUrl = flags.clientUrl
             , navKey = navKey
             , store = Session.deserializeStore flags.rawStore
-            , currentVersion = Nothing
+            , currentVersion = Request.Version.Unknown
             , db = Db.empty
             , notifications = []
             }
@@ -232,12 +232,8 @@ update msg ({ page, session } as model) =
         ( UrlRequested (Browser.External href), _ ) ->
             ( model, Nav.load href )
 
-        ( VersionReceived (RemoteData.Success version), _ ) ->
-            let
-                _ =
-                    Debug.log "version" version
-            in
-            ( { model | session = { session | currentVersion = Just version } }, Cmd.none )
+        ( VersionReceived webData, _ ) ->
+            ( { model | session = { session | currentVersion = Request.Version.updateVersion session.currentVersion webData } }, Cmd.none )
 
         -- Catch-all
         ( _, NotFoundPage ) ->
