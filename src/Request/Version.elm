@@ -18,7 +18,14 @@ updateVersion currentVersion webData =
         RemoteData.Success v ->
             case currentVersion of
                 Version currentV ->
-                    NewerVersion currentV v
+                    if currentV /= v then
+                        NewerVersion currentV v
+
+                    else
+                        currentVersion
+
+                NewerVersion _ _ ->
+                    currentVersion
 
                 _ ->
                     Version v
