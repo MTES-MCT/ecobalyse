@@ -17,6 +17,7 @@ import RemoteData exposing (WebData)
 import Request.Db
 import Request.Version
 import Route exposing (Route)
+import Time
 import Url exposing (Url)
 import Views.Page as Page
 
@@ -63,6 +64,7 @@ type Msg
     | UrlChanged Url
     | UrlRequested Browser.UrlRequest
     | VersionReceived (WebData String)
+    | VersionPoll Time.Posix
 
 
 init : Flags -> Url -> Nav.Key -> ( Model, Cmd Msg )
@@ -235,6 +237,9 @@ update msg ({ page, session } as model) =
         ( VersionReceived webData, _ ) ->
             ( { model | session = { session | currentVersion = Request.Version.updateVersion session.currentVersion webData } }, Cmd.none )
 
+        ( VersionPoll _, _ ) ->
+            ( model, Request.Version.loadVersion VersionReceived )
+
         -- Catch-all
         ( _, NotFoundPage ) ->
             ( { model | page = NotFoundPage }, Cmd.none )
@@ -247,6 +252,7 @@ subscriptions : Model -> Sub Msg
 subscriptions model =
     Sub.batch
         [ Ports.storeChanged StoreChanged
+        , Request.Version.pollVersion VersionPoll
         , case model.page of
             HomePage _ ->
                 Sub.none
