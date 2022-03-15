@@ -9,7 +9,7 @@ import Time
 type Version
     = Unknown
     | Version String
-    | NewerVersion String String
+    | NewerVersion
 
 
 updateVersion : Version -> WebData String -> Version
@@ -19,12 +19,12 @@ updateVersion currentVersion webData =
             case currentVersion of
                 Version currentV ->
                     if currentV /= v then
-                        NewerVersion currentV v
+                        NewerVersion
 
                     else
                         currentVersion
 
-                NewerVersion _ _ ->
+                NewerVersion ->
                     currentVersion
 
                 _ ->

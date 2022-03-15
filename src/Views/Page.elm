@@ -94,17 +94,14 @@ stagingAlert { session, loadUrl } =
 newVersionAlert : Config msg -> Html msg
 newVersionAlert { session, reloadPage } =
     case session.currentVersion of
-        Request.Version.NewerVersion currentVersion newVersion ->
+        Request.Version.NewerVersion ->
             div [ class "NewVersionAlert d-block align-items-center" ]
-                [ text "Il y a une nouvelle version de l'application disponible. Vous pouvez la voir en "
-                , a
-                    [ href "./"
+                [ text "Une nouvelle version de l'application est disponible."
+                , button
+                    [ type_ "button"
                     , onClick reloadPage
                     ]
-                    [ text "rafraîchissant cette page" ]
-                , text ". Vous pouvez aussi consulter le "
-                , a [ href <| "https://github.com/MTES-MCT/wikicarbone/compare/" ++ currentVersion ++ ".." ++ newVersion ]
-                    [ text "changelog" ]
+                    [ text "Mettre à jour" ]
                 ]
 
         _ ->
