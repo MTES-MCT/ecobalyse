@@ -31,7 +31,7 @@ updateVersion currentVersion webData =
                     Version v
 
         _ ->
-            Unknown
+            currentVersion
 
 
 hashDecoder : Decode.Decoder String
