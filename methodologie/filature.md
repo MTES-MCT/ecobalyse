@@ -173,7 +173,7 @@ Pour la suite du calcul, les formules ci-après s'applique, indépendemment pour
 * la masse entrante de matière première à partir des pertes propres à chacun des deux procédés ;
 * l'impact de chacun des deux procédés.
 
-## \[WORK IN PROGRESS] - Circular Footprint Formula (CFF)
+## Circular Footprint Formula (CFF)
 
 En application de la méthodologie PEF, et plus particulièrement du projet de PEFCR Apparel & Footwear (A\&F), la CFF est prise en compte pour modéliser l'intégration de matériaux recyclés (ie. cette section) et la fin de vie (**lien à ajouter**).
 
