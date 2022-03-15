@@ -4,9 +4,11 @@ import Data.Country as Country
 import Data.Db as Db
 import Data.Material as Material exposing (Material)
 import Data.Material.Category as Category
+import Data.Unit as Unit
 import Html exposing (..)
 import Page.Explore.Table exposing (Table)
 import Route
+import Views.Format as Format
 
 
 table : { detailed : Bool } -> Table Material msg
@@ -47,5 +49,31 @@ table { detailed } =
       }
     , { label = "Pays par défaut"
       , toCell = .defaultCountry >> Country.codeToString >> text
+      }
+    , { label = "CFF: Coefficient d'allocation"
+      , toCell =
+            \{ cffData } ->
+                case cffData of
+                    Just { manufacturerAllocation } ->
+                        manufacturerAllocation
+                            |> Unit.ratioToFloat
+                            |> Format.formatFloat 1
+                            |> text
+
+                    Nothing ->
+                        text "N/A"
+      }
+    , { label = "CFF: Rapport de qualité"
+      , toCell =
+            \{ cffData } ->
+                case cffData of
+                    Just { recycledQualityRatio } ->
+                        recycledQualityRatio
+                            |> Unit.ratioToFloat
+                            |> Format.formatFloat 1
+                            |> text
+
+                    Nothing ->
+                        text "N/A"
       }
     ]
