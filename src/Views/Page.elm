@@ -15,6 +15,7 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Page.Simulator.ViewMode as ViewMode
+import Request.Version
 import Route
 import Views.Alert as Alert
 import Views.Container as Container
@@ -46,6 +47,7 @@ type alias Config msg =
     , closeMobileNavigation : msg
     , openMobileNavigation : msg
     , loadUrl : String -> msg
+    , reloadPage : msg
     , closeNotification : Session.Notification -> msg
     , activePage : ActivePage
     }
@@ -56,6 +58,7 @@ frame config ( title, content ) =
     { title = title ++ " | wikicarbone"
     , body =
         [ stagingAlert config
+        , newVersionAlert config
         , navbar config
         , if config.mobileNavigationOpened then
             mobileNavigation config
@@ -86,6 +89,26 @@ stagingAlert { session, loadUrl } =
 
     else
         text ""
+
+
+newVersionAlert : Config msg -> Html msg
+newVersionAlert { session, reloadPage } =
+    case session.currentVersion of
+        Request.Version.NewerVersion currentVersion newVersion ->
+            div [ class "NewVersionAlert d-block align-items-center" ]
+                [ text "Il y a une nouvelle version de l'application disponible. Vous pouvez la voir en "
+                , a
+                    [ href "./"
+                    , onClick reloadPage
+                    ]
+                    [ text "rafraîchissant cette page" ]
+                , text ". Vous pouvez aussi consulter le "
+                , a [ href <| "https://github.com/MTES-MCT/wikicarbone/compare/" ++ currentVersion ++ ".." ++ newVersion ]
+                    [ text "changelog" ]
+                ]
+
+        _ ->
+            text ""
 
 
 headerMenuLinks : List MenuLink

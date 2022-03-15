@@ -58,6 +58,7 @@ type Msg
     | StatsMsg Stats.Msg
     | StoreChanged String
     | LoadUrl String
+    | ReloadPage
     | CloseMobileNavigation
     | OpenMobileNavigation
     | UrlChanged Url
@@ -223,6 +224,9 @@ update msg ({ page, session } as model) =
         ( LoadUrl url, _ ) ->
             ( model, Nav.load url )
 
+        ( ReloadPage, _ ) ->
+            ( model, Nav.reloadAndSkipCache )
+
         ( UrlChanged url, _ ) ->
             ( { model | mobileNavigationOpened = False }, Cmd.none )
                 |> setRoute (Route.fromUrl url)
@@ -233,6 +237,7 @@ update msg ({ page, session } as model) =
         ( UrlRequested (Browser.External href), _ ) ->
             ( model, Nav.load href )
 
+        -- Version check
         ( VersionReceived webData, _ ) ->
             ( { model | session = { session | currentVersion = Request.Version.updateVersion session.currentVersion webData } }, Cmd.none )
 
@@ -293,6 +298,7 @@ view { page, mobileNavigationOpened, session } =
                 CloseMobileNavigation
                 OpenMobileNavigation
                 LoadUrl
+                ReloadPage
                 CloseNotification
 
         mapMsg msg ( title, content ) =
