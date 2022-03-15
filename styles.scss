@@ -28,7 +28,11 @@ $viewport-xxl: 1320px;
 body {
   @media screen and (max-width: $viewport-sm) {
     font-size: 14px !important;
-    select, input, button, .form-control, .btn {
+    select,
+    input,
+    button,
+    .form-control,
+    .btn {
       font-size: 14px !important;
     }
   }
@@ -36,7 +40,9 @@ body {
 
 // Browser Hacks
 
-_::-webkit-full-page-media, _:future, :root select {
+_::-webkit-full-page-media,
+_:future,
+:root select {
   // https://browserstrangeness.bitbucket.io/css_hacks.html#safari
   -webkit-appearance: none;
   background-image: url("./public/img/chevron-down.png") !important;
@@ -47,8 +53,8 @@ _::-webkit-full-page-media, _:future, :root select {
 
 // Fixes a glitch in Chrome with input[number] making the arrows hardly
 // actionnable when float numbers are rounded
-input[type=number].no-arrows::-webkit-outer-spin-button,
-input[type=number].no-arrows::-webkit-inner-spin-button {
+input[type="number"].no-arrows::-webkit-outer-spin-button,
+input[type="number"].no-arrows::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
@@ -57,8 +63,8 @@ input[type=number].no-arrows::-webkit-inner-spin-button {
 .incdec-arrows-left {
   display: flex;
 
-  &[type=number]::-webkit-inner-spin-button,
-  &[type=number]::-webkit-outer-spin-button {
+  &[type="number"]::-webkit-inner-spin-button,
+  &[type="number"]::-webkit-outer-spin-button {
     opacity: 1;
     margin-left: 4px;
   }
@@ -119,7 +125,7 @@ blockquote {
   }
 
   &-unit {
-    font-size: .7em;
+    font-size: 0.7em;
   }
 
   &-80p {
@@ -134,7 +140,7 @@ blockquote {
       content: "\e908";
       display: inline-block;
       text-indent: 2px;
-      font-size: .9em;
+      font-size: 0.9em;
       color: currentColor;
       font-style: normal;
       font-weight: normal;
@@ -153,7 +159,7 @@ blockquote {
       content: "\f0e0";
       display: inline-block;
       text-indent: 2px;
-      font-size: .9em;
+      font-size: 0.9em;
       color: currentColor;
       font-style: normal;
       font-weight: normal;
@@ -230,7 +236,8 @@ blockquote {
       }
     }
 
-    &:before, &:after {
+    &:before,
+    &:after {
       position: absolute;
       right: 100%;
       content: "";
@@ -272,7 +279,8 @@ blockquote {
     }
 
     &:first-child {
-      &:before, &:after {
+      &:before,
+      &:after {
         content: none;
       }
       border-bottom-left-radius: $chevrons-radius;
@@ -309,7 +317,7 @@ blockquote {
    * @see src/Views/Comparator.elm#chart
    * @see https://github.com/terezka/elm-charts/issues/101
    */
-  .elm-charts__bar[fill='#22d2ba'] {
+  .elm-charts__bar[fill="#22d2ba"] {
     filter: brightness(0);
   }
 }
@@ -327,8 +335,9 @@ blockquote {
       }
     }
 
-    th, td {
-      font-size: .9rem;
+    th,
+    td {
+      font-size: 0.9rem;
     }
 
     th {
@@ -342,14 +351,26 @@ blockquote {
 .GitbookContent {
   font-size: 0.9rem;
 
-  h1 { font-size: 1.8em; }
-  h2 { font-size: 1.65em; }
-  h3 { font-size: 1.5em; }
-  h4 { font-size: 1.25em; }
-  img { max-width: 100%; }
+  h1 {
+    font-size: 1.8em;
+  }
+  h2 {
+    font-size: 1.65em;
+  }
+  h3 {
+    font-size: 1.5em;
+  }
+  h4 {
+    font-size: 1.25em;
+  }
+  img {
+    max-width: 100%;
+  }
   .mark {
     padding: 0;
-    p { display: inline; }
+    p {
+      display: inline;
+    }
   }
 
   table {
@@ -359,13 +380,12 @@ blockquote {
     border-collapse: collapse;
     overflow: hidden;
 
-
     thead {
       background-color: $dark;
       color: $white;
 
       th {
-        padding: .5em .5em;
+        padding: 0.5em 0.5em;
       }
     }
 
@@ -378,7 +398,7 @@ blockquote {
         }
 
         td {
-          padding: .5em .5em;
+          padding: 0.5em 0.5em;
           p {
             margin: 0;
             a {
@@ -420,7 +440,8 @@ blockquote {
     right: 0;
     z-index: 1044; // a notch behind mobile navigation overlay
 
-    select, button {
+    select,
+    button {
       border-radius: 0;
     }
   }
@@ -436,21 +457,21 @@ blockquote {
   h2 {
     border-top: 1px solid #ccc;
     font-size: 1.5em;
-    padding: 1em 0 .5em;
+    padding: 1em 0 0.5em;
     margin-top: 1em;
   }
 
   h3 {
     font-size: 1.25em;
-    padding: 1em 0 .5em;
-    margin-top: .85em;
+    padding: 1em 0 0.5em;
+    margin-top: 0.85em;
   }
 
   blockquote {
     color: $text-dark;
     border-left: 5px solid #ccc;
     font-style: italic;
-    padding-left: .5em;
+    padding-left: 0.5em;
   }
 
   pre {
@@ -463,7 +484,7 @@ blockquote {
 
 .Materials {
   .ShareInput {
-    flex: .5 1 auto;
+    flex: 0.5 1 auto;
     max-width: 70px;
 
     @media screen and (max-width: $viewport-sm) {
@@ -488,7 +509,7 @@ blockquote {
   @media screen and (max-width: $viewport-sm) {
     margin-top: 190px;
 
-    >h1 {
+    > h1 {
       display: none;
     }
   }
@@ -505,6 +526,27 @@ blockquote {
   font-size: 90%;
   button {
     font-size: 1em;
+  }
+}
+
+.NewVersionAlert {
+  position: fixed;
+  background-color: $success;
+  color: $white;
+  line-height: 5em;
+  left: 0;
+  right: 0;
+  top: 0;
+  text-align: center;
+  z-index: 1030;
+  font-size: 90%;
+  button {
+    background-color: $white;
+    font-size: 1em;
+    margin-left: 1em;
+    :hover {
+      background-color: $primary;
+    }
   }
 }
 

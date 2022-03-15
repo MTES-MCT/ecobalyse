@@ -15,6 +15,7 @@ import Page.Stats as Stats
 import Ports
 import RemoteData exposing (WebData)
 import Request.Db
+import Request.Version
 import Route exposing (Route)
 import Url exposing (Url)
 import Views.Page as Page
@@ -57,10 +58,13 @@ type Msg
     | StatsMsg Stats.Msg
     | StoreChanged String
     | LoadUrl String
+    | ReloadPage
     | CloseMobileNavigation
     | OpenMobileNavigation
     | UrlChanged Url
     | UrlRequested Browser.UrlRequest
+    | VersionReceived (WebData String)
+    | VersionPoll
 
 
 init : Flags -> Url -> Nav.Key -> ( Model, Cmd Msg )
@@ -70,6 +74,7 @@ init flags url navKey =
             { clientUrl = flags.clientUrl
             , navKey = navKey
             , store = Session.deserializeStore flags.rawStore
+            , currentVersion = Request.Version.Unknown
             , db = Db.empty
             , notifications = []
             }
@@ -81,6 +86,7 @@ init flags url navKey =
     , Cmd.batch
         [ Ports.appStarted ()
         , Request.Db.loadDb session (DbReceived url)
+        , Request.Version.loadVersion VersionReceived
         ]
     )
 
@@ -218,6 +224,9 @@ update msg ({ page, session } as model) =
         ( LoadUrl url, _ ) ->
             ( model, Nav.load url )
 
+        ( ReloadPage, _ ) ->
+            ( model, Nav.reloadAndSkipCache )
+
         ( UrlChanged url, _ ) ->
             ( { model | mobileNavigationOpened = False }, Cmd.none )
                 |> setRoute (Route.fromUrl url)
@@ -227,6 +236,13 @@ update msg ({ page, session } as model) =
 
         ( UrlRequested (Browser.External href), _ ) ->
             ( model, Nav.load href )
+
+        -- Version check
+        ( VersionReceived webData, _ ) ->
+            ( { model | session = { session | currentVersion = Request.Version.updateVersion session.currentVersion webData } }, Cmd.none )
+
+        ( VersionPoll, _ ) ->
+            ( model, Request.Version.loadVersion VersionReceived )
 
         -- Catch-all
         ( _, NotFoundPage ) ->
@@ -240,6 +256,7 @@ subscriptions : Model -> Sub Msg
 subscriptions model =
     Sub.batch
         [ Ports.storeChanged StoreChanged
+        , Request.Version.pollVersion VersionPoll
         , case model.page of
             HomePage _ ->
                 Sub.none
@@ -281,6 +298,7 @@ view { page, mobileNavigationOpened, session } =
                 CloseMobileNavigation
                 OpenMobileNavigation
                 LoadUrl
+                ReloadPage
                 CloseNotification
 
         mapMsg msg ( title, content ) =

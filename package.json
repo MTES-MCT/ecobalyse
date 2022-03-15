@@ -6,8 +6,9 @@
   "license": "MIT",
   "private": true,
   "scripts": {
+    "update-version": "echo {\\\"hash\\\": \\\"$(git rev-parse HEAD)\\\"} > public/version.json",
     "build": "rimraf dist && npm run build:init && parcel build index.html --public-url ./",
-    "build:init": "mkdir -p dist && cp -r public/* dist/",
+    "build:init": "npm run update-version && mkdir -p dist && cp -r public/* dist/",
     "server:build": "elm make src/Server.elm --optimize --output=server-app.js",
     "server:dev": "npm run server:build && nodemon server.js --config nodemon.json",
     "server:debug": "elm make src/Server.elm --output=server-app.js && nodemon server.js --config nodemon.json",

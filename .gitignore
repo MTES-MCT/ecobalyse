@@ -14,3 +14,4 @@
 /server-app.js
 /tests/TestDb.elm
 /xls
+/public/version.json
