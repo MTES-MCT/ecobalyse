@@ -99,6 +99,7 @@ newVersionAlert { session, reloadPage } =
                 [ text "Une nouvelle version de l'application est disponible."
                 , button
                     [ type_ "button"
+                    , class "btn btn-outline-primary"
                     , onClick reloadPage
                     ]
                     [ text "Mettre à jour" ]
