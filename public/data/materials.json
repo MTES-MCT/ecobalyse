@@ -1,19 +1,5 @@
 [
   {
-    "id": "plume-canard",
-    "materialProcessUuid": "d1f06ea5-d63f-453a-8f98-55ce78ae7579",
-    "recycledProcessUuid": null,
-    "recycledFrom": null,
-    "name": "Plume de canard, inventaire agrégé",
-    "shortName": "Plume de canard",
-    "category": "Naturelles",
-    "primary": false,
-    "continent": "Asie - Pacifique",
-    "defaultCountry": "CN",
-    "priority": 0,
-    "cff": null
-  },
-  {
     "id": "soie",
     "materialProcessUuid": "94b4b0e1-61e4-4f4d-b9b2-efe7623b0e68",
     "recycledProcessUuid": null,
@@ -84,20 +70,6 @@
     "cff": null
   },
   {
-    "id": "laine-chameau",
-    "materialProcessUuid": "c191a4dd-5080-4eb6-9c59-b13c943327bc",
-    "recycledProcessUuid": null,
-    "recycledFrom": null,
-    "name": "Fil de laine de chameau",
-    "shortName": "Laine de chameau",
-    "category": "Naturelles",
-    "primary": false,
-    "continent": "Asie - Pacifique",
-    "defaultCountry": "CN",
-    "priority": 0,
-    "cff": null
-  },
-  {
     "id": "jute",
     "materialProcessUuid": "72010874-4d26-4c7a-95de-c6987dfdedeb",
     "recycledProcessUuid": null,
@@ -160,20 +132,6 @@
     "recycledFrom": null,
     "name": "Fil d'angora",
     "shortName": "Angora",
-    "category": "Naturelles",
-    "primary": false,
-    "continent": "Asie - Pacifique",
-    "defaultCountry": "CN",
-    "priority": 0,
-    "cff": null
-  },
-  {
-    "id": "kapok",
-    "materialProcessUuid": "36cdbfc4-3f48-47b0-8ae0-294bb6017df1",
-    "recycledProcessUuid": null,
-    "recycledFrom": null,
-    "name": "Fibres de kapok, inventaire agrégé",
-    "shortName": "Fibres de kapok",
     "category": "Naturelles",
     "primary": false,
     "continent": "Asie - Pacifique",
