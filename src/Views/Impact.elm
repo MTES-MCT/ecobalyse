@@ -1,6 +1,5 @@
 module Views.Impact exposing
     ( impactQuality
-    , labelFromSource
     , selector
     , viewDefinition
     )
@@ -101,23 +100,11 @@ impactQuality quality =
             []
 
 
-labelFromSource : String -> String
-labelFromSource source =
-    source
-        |> (\src ->
-                if String.contains "kering" src then
-                    "Kering"
-
-                else
-                    "Base Impacts"
-           )
-
-
-viewSource : String -> Html msg
+viewSource : Impact.Source -> Html msg
 viewSource source =
     Link.smallPillExternal
-        [ href source
-        , title <| "Source des données pour cet impact : " ++ labelFromSource source
+        [ href source.url
+        , title <| "Source des données pour cet impact : " ++ source.label
         ]
         [ Icon.question ]
 

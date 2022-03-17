@@ -28,10 +28,10 @@ table { detailed } =
       , toCell =
             \def ->
                 a
-                    [ href def.source
+                    [ href def.source.url
                     , target "_blank"
                     ]
-                    [ text <| ImpactView.labelFromSource def.source ]
+                    [ text def.source.label ]
       }
     , { label = "Nom"
       , toCell = .label >> text

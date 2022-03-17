@@ -2,6 +2,7 @@ module Data.Impact exposing
     ( Definition
     , Impacts
     , Quality(..)
+    , Source
     , Trigram(..)
     , computePefScore
     , decodeImpacts
@@ -36,7 +37,7 @@ import Url.Parser as Parser exposing (Parser)
 
 type alias Definition =
     { trigram : Trigram
-    , source : String
+    , source : Source
     , label : String
     , description : String
     , unit : String
@@ -47,6 +48,10 @@ type alias Definition =
 
 type Trigram
     = Trigram String
+
+
+type alias Source =
+    { label : String, url : String }
 
 
 type Quality
@@ -66,7 +71,7 @@ type alias PefData =
 default : Definition
 default =
     { trigram = defaultTrigram
-    , source = ""
+    , source = { label = "Base Impacts", url = "https://base-impacts.ademe.fr/" }
     , label = "Changement climatique"
     , description = "Changement climatique"
     , unit = "kgCO₂e"
@@ -101,7 +106,7 @@ decodeList =
                     , pefData = pefData
                     }
                 )
-                (Decode.field "source" Decode.string)
+                (Decode.field "source" decodeSource)
                 (Decode.field "label_fr" Decode.string)
                 (Decode.field "description_fr" Decode.string)
                 (Decode.field "short_unit" Decode.string)
@@ -113,6 +118,13 @@ decodeList =
     in
     Decode.dict decodeDictValue
         |> Decode.andThen (Dict.toList >> List.map toImpact >> Decode.succeed)
+
+
+decodeSource : Decoder Source
+decodeSource =
+    Decode.map2 Source
+        (Decode.field "label" Decode.string)
+        (Decode.field "url" Decode.string)
 
 
 decodePefData : Decoder PefData
