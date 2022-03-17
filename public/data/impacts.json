@@ -1,5 +1,6 @@
 {
   "acd": {
+    "source": "https://base-impacts.ademe.fr/",
     "label_en": "Acidification",
     "label_fr": "Acidification",
     "unit_fr": "mol éq. H+",
@@ -14,6 +15,7 @@
     }
   },
   "ozd": {
+    "source": "https://base-impacts.ademe.fr/",
     "label_en": "Ozone depletion",
     "label_fr": "Appauvrissement de la couche d'ozone",
     "unit_fr": "kg éq. CFC 11",
@@ -28,6 +30,7 @@
     }
   },
   "cch": {
+    "source": "https://base-impacts.ademe.fr/",
     "label_en": "Climate change",
     "label_fr": "Changement climatique",
     "unit_fr": "kg éq. CO₂",
@@ -42,6 +45,7 @@
     }
   },
   "ccb": {
+    "source": "https://base-impacts.ademe.fr/",
     "label_en": "Climate change-Biogenic",
     "label_fr": "Changement climatique - Biogénique",
     "description_en": "Impact category considering **greenhouse gas (GHG) emissions** as a result of the **combustion or decomposition of organic material**, that is biomass and its derivatives.",
@@ -53,6 +57,7 @@
     "pef": null
   },
   "ccf": {
+    "source": "https://base-impacts.ademe.fr/",
     "label_en": "Climate change-Fossil",
     "label_fr": "Changement climatique - Fossile",
     "description_en": "Impact category considering the **greenhouse gases (GHG) released as a result of the combustion of fossil fuels** (coal, gas, oil).",
@@ -64,6 +69,7 @@
     "pef": null
   },
   "ccl": {
+    "source": "https://base-impacts.ademe.fr/",
     "label_en": "Climate change-Land use",
     "label_fr": "Changement climatique - Usage des sols",
     "description_en": "Impact category related to **emissions and removals of greenhouse gases (GHG)** resulting from direct human-induced land use such as settlements and commercial uses, land-use change, and forestry activities.",
@@ -75,6 +81,7 @@
     "pef": null
   },
   "fwe": {
+    "source": "https://base-impacts.ademe.fr/",
     "label_en": "Freshwater Eutrophication",
     "label_fr": "Eutrophisation eaux douces",
     "unit_fr": "kg éq. P",
@@ -89,6 +96,7 @@
     }
   },
   "swe": {
+    "source": "https://base-impacts.ademe.fr/",
     "label_en": "Marine eutrophication",
     "label_fr": "Eutrophisation marine",
     "unit_fr": "kg éq. N",
@@ -103,6 +111,7 @@
     }
   },
   "tre": {
+    "source": "https://base-impacts.ademe.fr/",
     "label_en": "Terrestrial eutrophication",
     "label_fr": "Eutrophisation terrestre",
     "unit_fr": "mol éq. N",
@@ -117,6 +126,7 @@
     }
   },
   "pco": {
+    "source": "https://base-impacts.ademe.fr/",
     "label_en": "Photochemical ozone formation",
     "label_fr": "Formation d'ozone photochimique",
     "unit_fr": "kg éq. COVNM",
@@ -131,6 +141,7 @@
     }
   },
   "pma": {
+    "source": "https://base-impacts.ademe.fr/",
     "label_en": "Particulate matter",
     "label_fr": "Particules",
     "unit_fr": "incidence de maladie",
@@ -145,6 +156,7 @@
     }
   },
   "ior": {
+    "source": "https://base-impacts.ademe.fr/",
     "label_en": "Ionising radiation",
     "label_fr": "Radiations ionisantes",
     "unit_fr": "éq. kBq U235",
@@ -159,6 +171,7 @@
     }
   },
   "fru": {
+    "source": "https://base-impacts.ademe.fr/",
     "label_en": "Fossile resource use",
     "label_fr": "Utilisation de ressources fossiles",
     "unit_fr": "MJ",
@@ -173,6 +186,7 @@
     }
   },
   "mru": {
+    "source": "https://base-impacts.ademe.fr/",
     "label_en": "Minerals and metal resource use",
     "label_fr": "Utilisation de ressources minérales et métalliques",
     "unit_fr": "kg éq. Sb",
@@ -187,6 +201,7 @@
     }
   },
   "ldu": {
+    "source": "https://base-impacts.ademe.fr/",
     "label_en": "Land use",
     "label_fr": "Utilisation des sols",
     "unit_fr": "sans dimension (Pt)",
@@ -201,6 +216,7 @@
     }
   },
   "pef": {
+    "source": "https://base-impacts.ademe.fr/",
     "label_en": "PEF Score",
     "label_fr": "Score PEF",
     "unit_fr": "mPt PEF",
@@ -212,6 +228,7 @@
     "pef": null
   },
   "wtu": {
+    "source": "https://kering-group.opendatasoft.com/explore/dataset/raw-material-intensities-2020/information/",
     "label_en": "Water use",
     "label_fr": "Utilisation de ressources en eau",
     "unit_fr": "m³",
