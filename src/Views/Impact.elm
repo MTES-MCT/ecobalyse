@@ -48,6 +48,14 @@ impactQuality quality =
     let
         maybeInfo =
             case quality of
+                Impact.NotFinished ->
+                    Just
+                        { cls = "btn-danger"
+                        , icon = Icon.exclamation
+                        , label = "N/A"
+                        , help = "Impact en cours de construction"
+                        }
+
                 Impact.GoodQuality ->
                     Just
                         { cls = "btn-success"

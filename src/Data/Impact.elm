@@ -50,7 +50,8 @@ type Trigram
 
 
 type Quality
-    = GoodQuality
+    = NotFinished
+    | GoodQuality
     | AverageQuality
     | BadQuality
     | UnknownQuality
@@ -147,6 +148,9 @@ decodeQuality =
         |> Decode.andThen
             (\maybeInt ->
                 case maybeInt of
+                    Just 0 ->
+                        Decode.succeed NotFinished
+
                     Just 1 ->
                         Decode.succeed GoodQuality
 

@@ -236,7 +236,7 @@
     "description_en": "Indicator of water consumption contributing to the depletion of available water. The impact is expressed in **cubic meters (`m³`)** of water use",
     "description_fr": "Indicateur de la consommation d'eau et son épuisement dans certaines régions. **À ce stade, elle n'est prise en compte que pour l'étape “Matière & Filature”.**\n\nCet indicateur se mesure en **mètre cube (`m³`)** d'eau consommé.",
     "short_unit": "m³",
-    "quality": 3,
+    "quality": 0,
     "pef": {
       "normalization": 1.14687e4,
       "weighting": 0.0851
