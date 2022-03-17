@@ -36,6 +36,7 @@ import Url.Parser as Parser exposing (Parser)
 
 type alias Definition =
     { trigram : Trigram
+    , source : String
     , label : String
     , description : String
     , unit : String
@@ -64,6 +65,7 @@ type alias PefData =
 default : Definition
 default =
     { trigram = defaultTrigram
+    , source = ""
     , label = "Changement climatique"
     , description = "Changement climatique"
     , unit = "kgCO₂e"
@@ -88,23 +90,25 @@ decodeList : Decoder (List Definition)
 decodeList =
     let
         decodeDictValue =
-            Decode.map5
-                (\label description unit quality pefData ->
-                    { label = label
+            Decode.map6
+                (\source label description unit quality pefData ->
+                    { source = source
+                    , label = label
                     , description = description
                     , unit = unit
                     , quality = quality
                     , pefData = pefData
                     }
                 )
+                (Decode.field "source" Decode.string)
                 (Decode.field "label_fr" Decode.string)
                 (Decode.field "description_fr" Decode.string)
                 (Decode.field "short_unit" Decode.string)
                 (Decode.field "quality" decodeQuality)
                 (Decode.field "pef" (Decode.maybe decodePefData))
 
-        toImpact ( key, { label, description, unit, quality, pefData } ) =
-            Definition (trg key) label description unit quality pefData
+        toImpact ( key, { source, label, description, unit, quality, pefData } ) =
+            Definition (trg key) source label description unit quality pefData
     in
     Decode.dict decodeDictValue
         |> Decode.andThen (Dict.toList >> List.map toImpact >> Decode.succeed)
