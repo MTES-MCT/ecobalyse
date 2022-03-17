@@ -24,6 +24,15 @@ table { detailed } =
                     a [ Route.href (Route.Explore (Db.Impacts (Just def.trigram))) ]
                         [ code [] [ text (Impact.toString def.trigram) ] ]
       }
+    , { label = "Source"
+      , toCell =
+            \def ->
+                a
+                    [ href def.source
+                    , target "_blank"
+                    ]
+                    [ text <| ImpactView.labelFromSource def.source ]
+      }
     , { label = "Nom"
       , toCell = .label >> text
       }
