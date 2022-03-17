@@ -51,7 +51,7 @@ impactQuality quality =
                 Impact.NotFinished ->
                     Just
                         { cls = "btn-danger"
-                        , icon = Icon.exclamation
+                        , icon = Icon.build
                         , label = "N/A"
                         , help = "Impact en cours de construction"
                         }
