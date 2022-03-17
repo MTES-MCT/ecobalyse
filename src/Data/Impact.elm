@@ -2,6 +2,7 @@ module Data.Impact exposing
     ( Definition
     , Impacts
     , Quality(..)
+    , Source
     , Trigram(..)
     , computePefScore
     , decodeImpacts
@@ -36,6 +37,7 @@ import Url.Parser as Parser exposing (Parser)
 
 type alias Definition =
     { trigram : Trigram
+    , source : Source
     , label : String
     , description : String
     , unit : String
@@ -48,8 +50,13 @@ type Trigram
     = Trigram String
 
 
+type alias Source =
+    { label : String, url : String }
+
+
 type Quality
-    = GoodQuality
+    = NotFinished
+    | GoodQuality
     | AverageQuality
     | BadQuality
     | UnknownQuality
@@ -64,6 +71,7 @@ type alias PefData =
 default : Definition
 default =
     { trigram = defaultTrigram
+    , source = { label = "Base Impacts", url = "https://base-impacts.ademe.fr/" }
     , label = "Changement climatique"
     , description = "Changement climatique"
     , unit = "kgCO₂e"
@@ -88,26 +96,35 @@ decodeList : Decoder (List Definition)
 decodeList =
     let
         decodeDictValue =
-            Decode.map5
-                (\label description unit quality pefData ->
-                    { label = label
+            Decode.map6
+                (\source label description unit quality pefData ->
+                    { source = source
+                    , label = label
                     , description = description
                     , unit = unit
                     , quality = quality
                     , pefData = pefData
                     }
                 )
+                (Decode.field "source" decodeSource)
                 (Decode.field "label_fr" Decode.string)
                 (Decode.field "description_fr" Decode.string)
                 (Decode.field "short_unit" Decode.string)
                 (Decode.field "quality" decodeQuality)
                 (Decode.field "pef" (Decode.maybe decodePefData))
 
-        toImpact ( key, { label, description, unit, quality, pefData } ) =
-            Definition (trg key) label description unit quality pefData
+        toImpact ( key, { source, label, description, unit, quality, pefData } ) =
+            Definition (trg key) source label description unit quality pefData
     in
     Decode.dict decodeDictValue
         |> Decode.andThen (Dict.toList >> List.map toImpact >> Decode.succeed)
+
+
+decodeSource : Decoder Source
+decodeSource =
+    Decode.map2 Source
+        (Decode.field "label" Decode.string)
+        (Decode.field "url" Decode.string)
 
 
 decodePefData : Decoder PefData
@@ -143,6 +160,9 @@ decodeQuality =
         |> Decode.andThen
             (\maybeInt ->
                 case maybeInt of
+                    Just 0 ->
+                        Decode.succeed NotFinished
+
                     Just 1 ->
                         Decode.succeed GoodQuality
 

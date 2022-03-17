@@ -12,6 +12,7 @@ import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
 import Views.Button as Button
 import Views.Icon as Icon
+import Views.Link as Link
 import Views.Markdown as Markdown
 
 
@@ -21,7 +22,7 @@ qualityDocumentationUrl =
 
 
 viewDefinition : Impact.Definition -> Html msg
-viewDefinition { label, description, quality } =
+viewDefinition { source, label, description, quality } =
     div [ class "ImpactDefinition d-none d-sm-block card shadow-sm text-dark bg-light px-2 py-1 mb-3" ]
         [ div [ class "row" ]
             [ div [ class "col-9" ]
@@ -31,9 +32,10 @@ viewDefinition { label, description, quality } =
                     , text label
                     ]
                 ]
-            , quality
-                |> impactQuality
-                |> div [ class "col-3 text-end" ]
+            , div [ class "col-3 text-end" ]
+                (impactQuality quality
+                    ++ [ viewSource source ]
+                )
             ]
         , div [ class "text-muted fs-7" ]
             [ Markdown.simple [ class "mb-1" ] description ]
@@ -45,6 +47,14 @@ impactQuality quality =
     let
         maybeInfo =
             case quality of
+                Impact.NotFinished ->
+                    Just
+                        { cls = "btn-danger"
+                        , icon = Icon.build
+                        , label = "N/A"
+                        , help = "Impact en cours de construction"
+                        }
+
                 Impact.GoodQuality ->
                     Just
                         { cls = "btn-success"
@@ -88,6 +98,15 @@ impactQuality quality =
 
         Nothing ->
             []
+
+
+viewSource : Impact.Source -> Html msg
+viewSource source =
+    Link.smallPillExternal
+        [ href source.url
+        , title <| "Source des données pour cet impact : " ++ source.label
+        ]
+        [ Icon.question ]
 
 
 type alias SelectorConfig msg =
