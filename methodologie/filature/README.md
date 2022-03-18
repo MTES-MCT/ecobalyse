@@ -139,7 +139,7 @@ ImpactMatière + Impact Filature = ImpactProcédéMFPrimaire +  ImpactProcédéM
 $$
 
 {% hint style="warning" %}
-Cette formule, proposée en première approche, n'intègre par la Circular Footprint Formula (CFF) qui est prise en compte dans le calcul et décrite au [paragraphe suivant](./#circular-footprint-formula-cff).
+Cette formule, proposée en première approche, n'intègre par la Circular Footprint Formula (CFF) qui est prise en compte dans le calcul et décrite dans cette [section](circular-footprint-formula-cff-matiere.md).
 
 La CFF vient moduler la prise en compte de matière recyclée en introduisant une allocation entre fournisseur et utilisateur (A), ainsi qu'une perte de qualité au recyclage (Qsin/Qp).
 {% endhint %}
