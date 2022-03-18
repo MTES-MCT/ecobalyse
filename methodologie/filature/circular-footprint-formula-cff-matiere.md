@@ -138,7 +138,7 @@ Il est possible qu'un produit ait plusieurs filières de recyclage. Dans ce cas 
 
 On remarque que les seules filières avec un taux de recyclage non nuls sont la filière Wiper et Insulation.
 
-### Filière Wiper
+#### Filière Wiper
 
 Estimons l'impact de la prise en compte du recyclage sur la filière Wiper pour un vêtement d'1kg de coton primaire.
 
@@ -160,7 +160,7 @@ Ainsi le terme M3\_wiper réduit l'impact 0.001 mPt soit de 0.05%.&#x20;
 
 Etant donné cet impact négligeable, on ne prend pas en compte la filière de reyclage en wiper dans le calcul de l'impact matière des vêtements.
 
-### Filière Isolant
+#### Filière Isolant
 
 Faute de données sur l'impact de la production de laine de verre, on ne prend pas en compte cette filière de recyclage.
 
