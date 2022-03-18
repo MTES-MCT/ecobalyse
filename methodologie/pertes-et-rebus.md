@@ -8,7 +8,7 @@ A chaque étape de la production, des pertes et rebut sont pris en compte. Les f
 
 | Masse entrante   | Masse sortante | Procédé                                     |
 | ---------------- | -------------- | ------------------------------------------- |
-| Matière première | Fil            | [Matière et filature](filature.md)          |
+| Matière première | Fil            | [Matière et filature](filature/)            |
 | Fil              | Etoffe         | [Tricotage / Tissage](tricotage-tissage.md) |
 | Etoffe           | Tissu          | [Teinture](teinture.md)                     |
 | Tissu            | Habit          | [Confection](confection.md)                 |
