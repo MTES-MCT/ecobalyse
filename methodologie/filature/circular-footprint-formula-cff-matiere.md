@@ -103,9 +103,17 @@ Impact_polyester_recyclé = 0.1 * m ( A * Impact_pet_recyclé_par_kg + (1-A) * Q
 
 ## Recyclage des vêtements en fin de vie - M3
 
+
+
+Voici la partie de la CFF qui prend en compte l'impact du recyclage en fin de vie.
+
 $$
 M_{3} = (1-A)*R_{2}*(E_{recyEOL} - E^*_{v} * \frac{Qsout}{Qp})
 $$
+
+{% hint style="info" %}
+Ce terme est négligé étant donné son impact faible. Pour plus de justification dans la section suivante
+{% endhint %}
 
 ### Définition des paramètres
 
