@@ -16,6 +16,8 @@ import NoUnused.Parameters
 import NoUnused.Patterns
 import NoUnused.Variables
 import Review.Rule as Rule exposing (Rule)
+import Simplify
+
 
 config : List Rule
 config =
@@ -49,4 +51,6 @@ config =
     , NoUnused.Parameters.rule
     , NoUnused.Patterns.rule
     , NoUnused.Variables.rule
+      -- Simlify
+    , Simplify.rule Simplify.defaults
     ]

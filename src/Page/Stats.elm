@@ -27,10 +27,8 @@ init session =
 
 
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
-update session msg model =
-    case msg of
-        NoOp _ ->
-            ( model, session, Cmd.none )
+update session _ model =
+    ( model, session, Cmd.none )
 
 
 view : Session -> Model -> ( String, List (Html Msg) )
