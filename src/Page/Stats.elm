@@ -46,7 +46,23 @@ view _ _ =
                     , attribute "scrolling" "yes"
                     , attribute "allowtransparency" "true"
                     , style "background-color" "#f8f9fa"
-                    , src "https://stats.data.gouv.fr/index.php?module=Widgetize&action=iframe&containerId=VisitOverviewWithGraph&disableLink=0&widget=1&moduleToWidgetize=CoreHome&actionToWidgetize=renderWidgetContainer&idSite=196&period=day&date=yesterday&disableLink=1&widget=1"
+                    , [ ( "module", "Widgetize" )
+                      , ( "action", "iframe" )
+                      , ( "containerId", "VisitOverviewWithGraph" )
+                      , ( "disableLink", "0" )
+                      , ( "widget", "1" )
+                      , ( "moduleToWidgetize", "CoreHome" )
+                      , ( "actionToWidgetize", "renderWidgetContainer" )
+                      , ( "idSite", "196" )
+                      , ( "period", "day" )
+                      , ( "date", "yesterday" )
+                      , ( "disableLink", "1" )
+                      , ( "widget", "1" )
+                      ]
+                        |> List.map (\( key, val ) -> key ++ "=" ++ val)
+                        |> String.join "&"
+                        |> (++) "https://stats.data.gouv.fr/index.php?"
+                        |> src
                     , attribute "width" "100%"
                     ]
                     []
