@@ -51,6 +51,7 @@ type Msg
     | CopyToClipBoard String
     | UpdateSimulationName String
     | SaveSimulation String
+    | DeleteSavedSimulation Session.SavedSimulation
     | RemoveMaterial Int
     | Reset
     | SelectInputText String
@@ -158,6 +159,21 @@ update ({ db, navKey, store } as session) msg ({ query } as model) =
                             , link = simulationLink
                             }
                                 :: store.savedSimulations
+                    }
+
+                newSession =
+                    { session | store = newStore }
+            in
+            ( model
+            , newSession
+            , newSession.store |> Session.serializeStore |> Ports.saveStore
+            )
+
+        DeleteSavedSimulation savedSimulation ->
+            let
+                newStore =
+                    { store
+                        | savedSimulations = List.filter ((/=) savedSimulation) store.savedSimulations
                     }
 
                 newSession =
@@ -407,7 +423,7 @@ savedSimulationsView savedSimulations =
         , div [ class "card-body" ]
             [ ul [ class "list-group" ]
                 (List.map
-                    (\{ name, link } ->
+                    (\({ name, link } as savedSimulation) ->
                         li [ class "list-group-item d-flex justify-content-between align-items-center" ]
                             [ a
                                 [ href link
@@ -416,6 +432,12 @@ savedSimulationsView savedSimulations =
                                 ]
                                 [ text name
                                 ]
+                            , button
+                                [ type_ "button"
+                                , class "btn btn-danger"
+                                , onClick <| DeleteSavedSimulation savedSimulation
+                                ]
+                                [ text "Supprimer" ]
                             ]
                     )
                     savedSimulations
