@@ -1,5 +1,6 @@
 module Data.Session exposing
     ( Notification(..)
+    , SavedSimulation
     , Session
     , closeNotification
     , deserializeStore

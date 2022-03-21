@@ -364,14 +364,14 @@ shareLinkView session { impact, funit } simulator =
 
 
 saveLinkView : Session -> Model -> Simulator -> Html Msg
-saveLinkView session { impact, funit, simulationName } simulator =
+saveLinkView { clientUrl, store } { impact, funit, simulationName } simulator =
     let
         simulationLink =
             simulator.inputs
                 |> (Inputs.toQuery >> Just)
                 |> Route.Simulator impact.trigram funit ViewMode.Simple
                 |> Route.toString
-                |> (++) session.clientUrl
+                |> (++) clientUrl
     in
     div [ class "card shadow-sm" ]
         [ div [ class "card-header" ] [ text "Sauvegarder cette simulation en local" ]
@@ -395,6 +395,31 @@ saveLinkView session { impact, funit, simulationName } simulator =
                 ]
             , div [ class "form-text fs-7" ]
                 [ text "Nommez cette simulation pour vous aider à la retrouver dans la liste" ]
+            ]
+        , savedSimulationsView store.savedSimulations
+        ]
+
+
+savedSimulationsView : List Session.SavedSimulation -> Html Msg
+savedSimulationsView savedSimulations =
+    div []
+        [ div [ class "card-header" ] [ text "Simulations sauvegardées" ]
+        , div [ class "card-body" ]
+            [ ul [ class "list-group" ]
+                (List.map
+                    (\{ name, link } ->
+                        li [ class "list-group-item d-flex justify-content-between align-items-center" ]
+                            [ a
+                                [ href link
+                                , title name
+                                , class "text-truncate"
+                                ]
+                                [ text name
+                                ]
+                            ]
+                    )
+                    savedSimulations
+                )
             ]
         ]
 
