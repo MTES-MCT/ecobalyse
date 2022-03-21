@@ -58,22 +58,47 @@ notifyHttpError error ({ notifications } as session) =
 
 
 type alias Store =
-    {}
+    { savedSimulations : List SavedSimulation
+    }
+
+
+type alias SavedSimulation =
+    { name : String
+    , link : String
+    }
 
 
 defaultStore : Store
 defaultStore =
-    {}
+    { savedSimulations = [] }
 
 
 decodeStore : Decoder Store
 decodeStore =
-    Decode.succeed {}
+    Decode.map Store
+        (Decode.field "savedSimulations" <| Decode.list decodeSavedSimulation)
+
+
+decodeSavedSimulation : Decoder SavedSimulation
+decodeSavedSimulation =
+    Decode.map2 SavedSimulation
+        (Decode.field "name" Decode.string)
+        (Decode.field "link" Decode.string)
 
 
 encodeStore : Store -> Encode.Value
-encodeStore _ =
-    Encode.object []
+encodeStore store =
+    Encode.object
+        [ ( "savedSimulations", Encode.list encodeSavedSimulation store.savedSimulations )
+        ]
+
+
+encodeSavedSimulation : SavedSimulation -> Encode.Value
+encodeSavedSimulation { name, link } =
+    Encode.object
+        [ ( "name", Encode.string name )
+        , ( "link", Encode.string link )
+        ]
 
 
 deserializeStore : String -> Store

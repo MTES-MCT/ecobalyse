@@ -64,17 +64,6 @@ app.ports.saveStore.subscribe((rawStore) => {
   localStorage[storeKey] = rawStore;
 });
 
-app.ports.saveSimulation.subscribe(([key, simulationLink]) => {
-  let currentSimulations = {};
-  try {
-    currentSimulations = JSON.parse(localStorage.getItem(simulationsStoreKey));
-  } catch (e) {
-    console.error(`Error while parsing the simulations store "${simulationsStoreKey}":`, e);
-  }
-  currentSimulations[key] = simulationLink;
-  localStorage.setItem(simulationsStoreKey, JSON.stringify(currentSimulations));
-});
-
 app.ports.scrollTo.subscribe((pos) => {
   window.scrollTo(pos.x, pos.y);
 });

@@ -137,7 +137,7 @@ updateQuery query ( model, session, msg ) =
 
 
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
-update ({ db, navKey } as session) msg ({ query } as model) =
+update ({ db, navKey, store } as session) msg ({ query } as model) =
     case msg of
         AddMaterial ->
             ( model, session, Cmd.none )
@@ -150,7 +150,23 @@ update ({ db, navKey } as session) msg ({ query } as model) =
             ( { model | simulationName = newName }, session, Cmd.none )
 
         SaveSimulation simulationLink ->
-            ( model, session, Ports.saveSimulation ( model.simulationName, simulationLink ) )
+            let
+                newStore =
+                    { store
+                        | savedSimulations =
+                            { name = model.simulationName
+                            , link = simulationLink
+                            }
+                                :: store.savedSimulations
+                    }
+
+                newSession =
+                    { session | store = newStore }
+            in
+            ( model
+            , newSession
+            , newSession.store |> Session.serializeStore |> Ports.saveStore
+            )
 
         RemoveMaterial index ->
             ( model, session, Cmd.none )
