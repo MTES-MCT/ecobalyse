@@ -7,10 +7,12 @@ module Views.Format exposing
     , formatRichFloat
     , hours
     , kg
+    , kgAsString
     , kilowattHours
     , km
     , megajoules
     , percent
+    , percentAsString
     , ratio
     , ratioToDecimals
     )
@@ -98,6 +100,12 @@ kg =
     Mass.inKilograms >> formatRichFloat 3 "kg"
 
 
+kgAsString : Mass -> String
+kgAsString mass =
+    formatFloat 3 (Mass.inKilograms mass)
+        ++ "kg"
+
+
 km : Length -> Html msg
 km =
     Length.inKilometers >> formatRichFloat 0 "km"
@@ -116,6 +124,11 @@ megajoules =
 percent : Float -> Html msg
 percent =
     formatRichFloat 2 "%"
+
+
+percentAsString : Float -> String
+percentAsString value =
+    String.fromInt (round (value * 100)) ++ "\u{202F}%\u{00A0}"
 
 
 ratio : Unit.Ratio -> Html msg
