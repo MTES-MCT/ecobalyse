@@ -22,6 +22,8 @@ if (process.env.SENTRY_DSN) {
 
 // The localStorage key to use to store serialized session data
 const storeKey = "store";
+// The localStorage key to use to store the dict of save simulations
+const simulationsStoreKey = "simulationsStore";
 
 const app = Elm.Main.init({
   flags: {
@@ -60,6 +62,17 @@ app.ports.appStarted.subscribe(() => {
 
 app.ports.saveStore.subscribe((rawStore) => {
   localStorage[storeKey] = rawStore;
+});
+
+app.ports.saveSimulation.subscribe(([key, simulationLink]) => {
+  let currentSimulations = {};
+  try {
+    currentSimulations = JSON.parse(localStorage.getItem(simulationsStoreKey));
+  } catch (e) {
+    console.error(`Error while parsing the simulations store "${simulationsStoreKey}":`, e);
+  }
+  currentSimulations[key] = simulationLink;
+  localStorage.setItem(simulationsStoreKey, JSON.stringify(currentSimulations));
 });
 
 app.ports.scrollTo.subscribe((pos) => {

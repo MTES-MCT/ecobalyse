@@ -36,6 +36,7 @@ import Views.Summary as SummaryView
 
 type alias Model =
     { simulator : Result String Simulator
+    , simulationName : String
     , massInput : String
     , initialQuery : Inputs.Query
     , query : Inputs.Query
@@ -48,6 +49,8 @@ type alias Model =
 type Msg
     = AddMaterial
     | CopyToClipBoard String
+    | UpdateSimulationName String
+    | SaveSimulation String
     | RemoveMaterial Int
     | Reset
     | SelectInputText String
@@ -82,6 +85,13 @@ init trigram funit viewMode maybeQuery ({ db } as session) =
             Simulator.compute db query
     in
     ( { simulator = simulator
+      , simulationName =
+            case simulator of
+                Ok sim ->
+                    Inputs.toString sim.inputs
+
+                Err _ ->
+                    ""
       , massInput = query.mass |> Mass.inKilograms |> String.fromFloat
       , initialQuery = query
       , query = query
@@ -106,9 +116,20 @@ init trigram funit viewMode maybeQuery ({ db } as session) =
 
 updateQuery : Inputs.Query -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
 updateQuery query ( model, session, msg ) =
+    let
+        updatedSimulator =
+            Simulator.compute session.db query
+    in
     ( { model
         | query = query
-        , simulator = Simulator.compute session.db query
+        , simulator = updatedSimulator
+        , simulationName =
+            case updatedSimulator of
+                Ok simulator ->
+                    Inputs.toString simulator.inputs
+
+                Err _ ->
+                    model.simulationName
       }
     , session
     , msg
@@ -124,6 +145,12 @@ update ({ db, navKey } as session) msg ({ query } as model) =
 
         CopyToClipBoard shareableLink ->
             ( model, session, Ports.copyToClipboard shareableLink )
+
+        UpdateSimulationName newName ->
+            ( { model | simulationName = newName }, session, Cmd.none )
+
+        SaveSimulation simulationLink ->
+            ( model, session, Ports.saveSimulation ( model.simulationName, simulationLink ) )
 
         RemoveMaterial index ->
             ( model, session, Cmd.none )
@@ -320,6 +347,42 @@ shareLinkView session { impact, funit } simulator =
         ]
 
 
+saveLinkView : Session -> Model -> Simulator -> Html Msg
+saveLinkView session { impact, funit, simulationName } simulator =
+    let
+        simulationLink =
+            simulator.inputs
+                |> (Inputs.toQuery >> Just)
+                |> Route.Simulator impact.trigram funit ViewMode.Simple
+                |> Route.toString
+                |> (++) session.clientUrl
+    in
+    div [ class "card shadow-sm" ]
+        [ div [ class "card-header" ] [ text "Sauvegarder cette simulation en local" ]
+        , div [ class "card-body" ]
+            [ div
+                [ class "input-group" ]
+                [ input
+                    [ type_ "text"
+                    , class "form-control"
+                    , onInput UpdateSimulationName
+                    , value simulationName
+                    ]
+                    []
+                , button
+                    [ class "input-group-text"
+                    , title "Sauvegarder la simulation dans le stockage local au navigateur"
+                    , onClick (SaveSimulation simulationLink)
+                    ]
+                    [ Icon.plus
+                    ]
+                ]
+            , div [ class "form-text fs-7" ]
+                [ text "Nommez cette simulation pour vous aider à la retrouver dans la liste" ]
+            ]
+        ]
+
+
 displayModeView : Impact.Trigram -> Unit.Functional -> ViewMode -> Inputs.Query -> Html Msg
 displayModeView trigram funit viewMode query =
     nav
@@ -400,6 +463,7 @@ simulatorView ({ db } as session) ({ impact, funit, query, viewMode } as model) 
                             }
                     ]
                 , shareLinkView session model simulator
+                , saveLinkView session model simulator
                 ]
             ]
         ]

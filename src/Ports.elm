@@ -1,6 +1,7 @@
 port module Ports exposing
     ( appStarted
     , copyToClipboard
+    , saveSimulation
     , saveStore
     , scrollTo
     , selectInputText
@@ -14,6 +15,9 @@ port appStarted : () -> Cmd msg
 
 
 port saveStore : String -> Cmd msg
+
+
+port saveSimulation : ( String, String ) -> Cmd msg
 
 
 port copyToClipboard : String -> Cmd msg
