@@ -93,7 +93,7 @@ init trigram funit viewMode maybeQuery ({ db } as session) =
             Simulator.compute db query
     in
     ( { simulator = simulator
-      , linksTab = ShareLink
+      , linksTab = SaveLink
       , simulationName =
             case simulator of
                 Ok sim ->
@@ -362,22 +362,22 @@ linksView : Session -> Model -> Simulator -> Html Msg
 linksView session ({ linksTab } as model) simulator =
     div [ class "card shadow-sm" ]
         [ div [ class "card-header" ]
-            [ ul [ class "nav nav-tabs card-header-tabs" ]
+            [ ul [ class "nav nav-tabs justify-content-end card-header-tabs" ]
                 [ li [ class "nav-item" ]
-                    [ button
-                        [ class "btn btn-text nav-link"
-                        , classList [ ( "active", linksTab == ShareLink ) ]
-                        , onClick <| SwitchLinksTab ShareLink
-                        ]
-                        [ text "Partager cette simulation" ]
-                    ]
-                , li [ class "nav-item" ]
                     [ button
                         [ class "btn btn-text nav-link"
                         , classList [ ( "active", linksTab == SaveLink ) ]
                         , onClick <| SwitchLinksTab SaveLink
                         ]
-                        [ text "Sauvegarder cette simulation" ]
+                        [ text "Sauvegarder" ]
+                    ]
+                , li [ class "nav-item" ]
+                    [ button
+                        [ class "btn btn-text nav-link"
+                        , classList [ ( "active", linksTab == ShareLink ) ]
+                        , onClick <| SwitchLinksTab ShareLink
+                        ]
+                        [ text "Partager" ]
                     ]
                 ]
             ]
@@ -447,7 +447,7 @@ saveLinkView ({ store } as session) ({ query, simulationName } as model) =
                         ]
                     ]
                 ]
-            , div [ class "form-text fs-7" ]
+            , div [ class "form-text fs-7 pb-0" ]
                 [ text "Nommez cette simulation pour vous aider à la retrouver dans la liste" ]
             ]
         , savedSimulationsView session model store.savedSimulations
@@ -459,7 +459,8 @@ savedSimulationsView session model savedSimulations =
     div []
         [ div [ class "card-header border-top" ] [ text "Simulations sauvegardées" ]
         , if List.length savedSimulations == 0 then
-            div [ class "card-body form-text fs-7" ] [ text "Pas de simulations sauvegardées sur cet ordinateur" ]
+            div [ class "card-body form-text fs-7 pt-2" ]
+                [ text "Pas de simulations sauvegardées sur cet ordinateur" ]
 
           else
             ul [ class "list-group list-group-flush overflow-scroll", style "max-height" "50vh" ]
@@ -486,7 +487,7 @@ savedSimulationView { clientUrl } { impact, funit } ({ name, query } as savedSim
             ]
         , button
             [ type_ "button"
-            , class "btn btn-danger"
+            , class "btn btn-sm btn-danger"
             , onClick <| DeleteSavedSimulation savedSimulation
             ]
             [ text "Supprimer" ]
