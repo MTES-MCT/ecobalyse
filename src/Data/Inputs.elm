@@ -7,6 +7,7 @@ module Data.Inputs exposing
     , b64decode
     , b64encode
     , countryList
+    , decodeQuery
     , defaultQuery
     , encode
     , encodeQuery

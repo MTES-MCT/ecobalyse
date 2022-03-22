@@ -58,7 +58,7 @@ type Msg
     | DeleteSavedSimulation Session.SavedSimulation
     | RemoveMaterial Int
     | Reset
-    | SaveSimulation String
+    | SaveSimulation
     | SelectInputText String
     | SwitchFunctionalUnit Unit.Functional
     | SwitchImpact Impact.Trigram
@@ -178,13 +178,13 @@ update ({ db, navKey, store } as session) msg ({ query } as model) =
             ( model, session, Cmd.none )
                 |> updateQuery Inputs.defaultQuery
 
-        SaveSimulation simulationLink ->
+        SaveSimulation ->
             let
                 newStore =
                     { store
                         | savedSimulations =
                             { name = model.simulationName
-                            , link = simulationLink
+                            , query = model.query
                             }
                                 :: store.savedSimulations
                     }
@@ -386,7 +386,7 @@ linksView session ({ linksTab } as model) simulator =
                 shareLinkView session model simulator
 
             SaveLink ->
-                saveLinkView session model simulator
+                saveLinkView session model
         ]
 
 
@@ -422,19 +422,11 @@ shareLinkView session { impact, funit } simulator =
         ]
 
 
-saveLinkView : Session -> Model -> Simulator -> Html Msg
-saveLinkView { clientUrl, store } { impact, funit, simulationName } simulator =
-    let
-        simulationLink =
-            simulator.inputs
-                |> (Inputs.toQuery >> Just)
-                |> Route.Simulator impact.trigram funit ViewMode.Simple
-                |> Route.toString
-                |> (++) clientUrl
-    in
+saveLinkView : Session -> Model -> Html Msg
+saveLinkView ({ store } as session) ({ query, simulationName } as model) =
     div []
         [ div [ class "card-body" ]
-            [ Html.form [ onSubmit (SaveSimulation simulationLink) ]
+            [ Html.form [ onSubmit SaveSimulation ]
                 [ div [ class "input-group" ]
                     [ input
                         [ type_ "text"
@@ -446,8 +438,8 @@ saveLinkView { clientUrl, store } { impact, funit, simulationName } simulator =
                         []
                     , button
                         [ class "btn btn-primary"
-                        , classList [ ( "disabled", List.member (Session.SavedSimulation simulationName simulationLink) store.savedSimulations ) ]
-                        , disabled <| List.member (Session.SavedSimulation simulationName simulationLink) store.savedSimulations
+                        , classList [ ( "disabled", List.member (Session.SavedSimulation simulationName query) store.savedSimulations ) ]
+                        , disabled <| List.member (Session.SavedSimulation simulationName query) store.savedSimulations
                         , title "Sauvegarder la simulation dans le stockage local au navigateur"
                         , type_ "submit"
                         ]
@@ -458,12 +450,12 @@ saveLinkView { clientUrl, store } { impact, funit, simulationName } simulator =
             , div [ class "form-text fs-7" ]
                 [ text "Nommez cette simulation pour vous aider à la retrouver dans la liste" ]
             ]
-        , savedSimulationsView store.savedSimulations
+        , savedSimulationsView session model store.savedSimulations
         ]
 
 
-savedSimulationsView : List Session.SavedSimulation -> Html Msg
-savedSimulationsView savedSimulations =
+savedSimulationsView : Session -> Model -> List Session.SavedSimulation -> Html Msg
+savedSimulationsView session model savedSimulations =
     div []
         [ div [ class "card-header border-top" ] [ text "Simulations sauvegardées" ]
         , if List.length savedSimulations == 0 then
@@ -471,15 +463,22 @@ savedSimulationsView savedSimulations =
 
           else
             ul [ class "list-group list-group-flush overflow-scroll", style "max-height" "50vh" ]
-                (List.map savedSimulationView savedSimulations)
+                (List.map (savedSimulationView session model) savedSimulations)
         ]
 
 
-savedSimulationView : Session.SavedSimulation -> Html Msg
-savedSimulationView ({ name, link } as savedSimulation) =
+savedSimulationView : Session -> Model -> Session.SavedSimulation -> Html Msg
+savedSimulationView { clientUrl } { impact, funit } ({ name, query } as savedSimulation) =
+    let
+        simulationLink =
+            Just query
+                |> Route.Simulator impact.trigram funit ViewMode.Simple
+                |> Route.toString
+                |> (++) clientUrl
+    in
     li [ class "list-group-item d-flex justify-content-between align-items-center" ]
         [ a
-            [ href link
+            [ href simulationLink
             , title name
             , class "text-truncate"
             ]

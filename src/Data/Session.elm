@@ -11,6 +11,7 @@ module Data.Session exposing
 
 import Browser.Navigation as Nav
 import Data.Db exposing (Db)
+import Data.Inputs exposing (Query)
 import Http
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
@@ -65,7 +66,7 @@ type alias Store =
 
 type alias SavedSimulation =
     { name : String
-    , link : String
+    , query : Query
     }
 
 
@@ -84,7 +85,7 @@ decodeSavedSimulation : Decoder SavedSimulation
 decodeSavedSimulation =
     Decode.map2 SavedSimulation
         (Decode.field "name" Decode.string)
-        (Decode.field "link" Decode.string)
+        (Decode.field "query" Data.Inputs.decodeQuery)
 
 
 encodeStore : Store -> Encode.Value
@@ -95,10 +96,10 @@ encodeStore store =
 
 
 encodeSavedSimulation : SavedSimulation -> Encode.Value
-encodeSavedSimulation { name, link } =
+encodeSavedSimulation { name, query } =
     Encode.object
         [ ( "name", Encode.string name )
-        , ( "link", Encode.string link )
+        , ( "query", Data.Inputs.encodeQuery query )
         ]
 
 
