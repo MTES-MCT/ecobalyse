@@ -36,6 +36,7 @@ import Views.Summary as SummaryView
 
 type alias Model =
     { simulator : Result String Simulator
+    , linksTab : LinksTab
     , simulationName : String
     , massInput : String
     , initialQuery : Inputs.Query
@@ -44,6 +45,11 @@ type alias Model =
     , impact : Impact.Definition
     , funit : Unit.Functional
     }
+
+
+type LinksTab
+    = ShareLink
+    | SaveLink
 
 
 type Msg
@@ -56,6 +62,7 @@ type Msg
     | SelectInputText String
     | SwitchFunctionalUnit Unit.Functional
     | SwitchImpact Impact.Trigram
+    | SwitchLinksTab LinksTab
     | ToggleStepViewMode Int
     | UpdateAirTransportRatio (Maybe Unit.Ratio)
     | UpdateDyeingWeighting (Maybe Unit.Ratio)
@@ -86,6 +93,7 @@ init trigram funit viewMode maybeQuery ({ db } as session) =
             Simulator.compute db query
     in
     ( { simulator = simulator
+      , linksTab = ShareLink
       , simulationName =
             case simulator of
                 Ok sim ->
@@ -206,6 +214,12 @@ update ({ db, navKey, store } as session) msg ({ query } as model) =
             , Route.Simulator trigram model.funit model.viewMode (Just query)
                 |> Route.toString
                 |> Navigation.pushUrl navKey
+            )
+
+        SwitchLinksTab linksTab ->
+            ( { model | linksTab = linksTab }
+            , session
+            , Cmd.none
             )
 
         ToggleStepViewMode index ->
@@ -344,6 +358,38 @@ lifeCycleStepsView db { viewMode, funit, impact } simulator =
         |> div [ class "pt-1" ]
 
 
+linksView : Session -> Model -> Simulator -> Html Msg
+linksView session ({ linksTab } as model) simulator =
+    div [ class "card shadow-sm" ]
+        [ div [ class "card-header" ]
+            [ ul [ class "nav nav-tabs card-header-tabs" ]
+                [ li [ class "nav-item" ]
+                    [ button
+                        [ class "btn btn-text nav-link"
+                        , classList [ ( "active", linksTab == ShareLink ) ]
+                        , onClick <| SwitchLinksTab ShareLink
+                        ]
+                        [ text "Partager cette simulation" ]
+                    ]
+                , li [ class "nav-item" ]
+                    [ button
+                        [ class "btn btn-text nav-link"
+                        , classList [ ( "active", linksTab == SaveLink ) ]
+                        , onClick <| SwitchLinksTab SaveLink
+                        ]
+                        [ text "Sauvegarder cette simulation" ]
+                    ]
+                ]
+            ]
+        , case linksTab of
+            ShareLink ->
+                shareLinkView session model simulator
+
+            SaveLink ->
+                saveLinkView session model simulator
+        ]
+
+
 shareLinkView : Session -> Model -> Simulator -> Html Msg
 shareLinkView session { impact, funit } simulator =
     let
@@ -354,28 +400,25 @@ shareLinkView session { impact, funit } simulator =
                 |> Route.toString
                 |> (++) session.clientUrl
     in
-    div [ class "card shadow-sm" ]
-        [ div [ class "card-header" ] [ text "Partager cette simulation" ]
-        , div [ class "card-body" ]
-            [ div
-                [ class "input-group" ]
-                [ input
-                    [ type_ "url"
-                    , class "form-control"
-                    , value shareableLink
-                    ]
-                    []
-                , button
-                    [ class "input-group-text"
-                    , title "Copier l'adresse"
-                    , onClick (CopyToClipBoard shareableLink)
-                    ]
-                    [ Icon.clipboard
-                    ]
+    div [ class "card-body" ]
+        [ div
+            [ class "input-group" ]
+            [ input
+                [ type_ "url"
+                , class "form-control"
+                , value shareableLink
                 ]
-            , div [ class "form-text fs-7" ]
-                [ text "Copiez cette adresse pour partager ou sauvegarder votre simulation" ]
+                []
+            , button
+                [ class "input-group-text"
+                , title "Copier l'adresse"
+                , onClick (CopyToClipBoard shareableLink)
+                ]
+                [ Icon.clipboard
+                ]
             ]
+        , div [ class "form-text fs-7" ]
+            [ text "Copiez cette adresse pour partager ou sauvegarder votre simulation" ]
         ]
 
 
@@ -389,9 +432,8 @@ saveLinkView { clientUrl, store } { impact, funit, simulationName } simulator =
                 |> Route.toString
                 |> (++) clientUrl
     in
-    div [ class "card shadow-sm" ]
-        [ div [ class "card-header" ] [ text "Sauvegarder cette simulation en local" ]
-        , div [ class "card-body" ]
+    div []
+        [ div [ class "card-body" ]
             [ Html.form [ onSubmit (SaveSimulation simulationLink) ]
                 [ div [ class "input-group" ]
                     [ input
@@ -531,8 +573,7 @@ simulatorView ({ db } as session) ({ impact, funit, query, viewMode } as model) 
                             , reusable = False
                             }
                     ]
-                , shareLinkView session model simulator
-                , saveLinkView session model simulator
+                , linksView session model simulator
                 ]
             ]
         ]
