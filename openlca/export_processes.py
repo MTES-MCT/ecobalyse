@@ -11,7 +11,8 @@ import pandas as pd
 client = olca.Client(8080)
 
 # select processes you want to export
-search_string = "Electricity grid mix 1kV-60kV, consumption mix, to consumer, AC, technology mix, 1kV - 60kV"
+search_string = "Electricity from photovoltaic, production mix, at plant, AC, technology mix of CIS, CdTE, mono crystalline and multi crystalline, 1kV - 60kV"
+search_string2 = ""
 
 
 # get all processes in a df
@@ -43,7 +44,11 @@ processes_df = pd.DataFrame(
 
 # search for processes
 
-search_df = processes_df[processes_df["name"].str.contains(search_string)]
+
+search_df = processes_df.loc[
+    (processes_df["name"].str.contains(search_string))
+    & processes_df["loc"].str.contains(search_string2, na=False)
+]
 
 search_df.reset_index(drop=True, inplace=True)
 

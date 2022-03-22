@@ -25,11 +25,14 @@ ef = "Environmental Footprint (Mid-point indicator)"
 ef3 = "EF 3.0 Method"
 
 # setup calculation
+
+aloc_method = olca.AllocationType.NO_ALLOCATION
+
 setup = olca.CalculationSetup(
     calculation_type=olca.CalculationType.SIMPLE_CALCULATION,
     impact_method=client.find(olca.ImpactMethod, ef3),
     product_system=product_system,
-    allocation_method=olca.AllocationType.PHYSICAL_ALLOCATION,
+    allocation_method=olca.AllocationType.USE_DEFAULT_ALLOCATION,
 )
 
 
@@ -37,9 +40,10 @@ calc_result = client.calculate(setup)
 
 # print results
 for impact_result in calc_result.impact_results:
-    print(
-        f"{impact_result.impact_category.name} : {impact_result.value},{impact_result.impact_category.ref_unit} "
-    )
+    if impact_result.impact_category.name == "Climate change":
+        print(
+            f"{impact_result.impact_category.name} : {impact_result.value},{impact_result.impact_category.ref_unit} "
+        )
 
 client.dispose(calc_result)
 
