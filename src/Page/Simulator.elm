@@ -49,11 +49,10 @@ type alias Model =
 type Msg
     = AddMaterial
     | CopyToClipBoard String
-    | UpdateSimulationName String
-    | SaveSimulation String
     | DeleteSavedSimulation Session.SavedSimulation
     | RemoveMaterial Int
     | Reset
+    | SaveSimulation String
     | SelectInputText String
     | SwitchFunctionalUnit Unit.Functional
     | SwitchImpact Impact.Trigram
@@ -66,6 +65,7 @@ type Msg
     | UpdateMaterialShare Int Unit.Ratio
     | UpdateProduct Product.Id
     | UpdateQuality (Maybe Unit.Quality)
+    | UpdateSimulationName String
     | UpdateStepCountry Int Country.Code
 
 
@@ -147,28 +147,6 @@ update ({ db, navKey, store } as session) msg ({ query } as model) =
         CopyToClipBoard shareableLink ->
             ( model, session, Ports.copyToClipboard shareableLink )
 
-        UpdateSimulationName newName ->
-            ( { model | simulationName = newName }, session, Cmd.none )
-
-        SaveSimulation simulationLink ->
-            let
-                newStore =
-                    { store
-                        | savedSimulations =
-                            { name = model.simulationName
-                            , link = simulationLink
-                            }
-                                :: store.savedSimulations
-                    }
-
-                newSession =
-                    { session | store = newStore }
-            in
-            ( model
-            , newSession
-            , newSession.store |> Session.serializeStore |> Ports.saveStore
-            )
-
         DeleteSavedSimulation savedSimulation ->
             let
                 newStore =
@@ -191,6 +169,25 @@ update ({ db, navKey, store } as session) msg ({ query } as model) =
         Reset ->
             ( model, session, Cmd.none )
                 |> updateQuery Inputs.defaultQuery
+
+        SaveSimulation simulationLink ->
+            let
+                newStore =
+                    { store
+                        | savedSimulations =
+                            { name = model.simulationName
+                            , link = simulationLink
+                            }
+                                :: store.savedSimulations
+                    }
+
+                newSession =
+                    { session | store = newStore }
+            in
+            ( model
+            , newSession
+            , newSession.store |> Session.serializeStore |> Ports.saveStore
+            )
 
         SelectInputText index ->
             ( model, session, Ports.selectInputText index )
@@ -263,6 +260,9 @@ update ({ db, navKey, store } as session) msg ({ query } as model) =
         UpdateQuality quality ->
             ( model, session, Cmd.none )
                 |> updateQuery { query | quality = quality }
+
+        UpdateSimulationName newName ->
+            ( { model | simulationName = newName }, session, Cmd.none )
 
         UpdateStepCountry index code ->
             ( model, session, Cmd.none )
