@@ -424,29 +424,27 @@ savedSimulationsView : List Session.SavedSimulation -> Html Msg
 savedSimulationsView savedSimulations =
     div []
         [ div [ class "card-header" ] [ text "Simulations sauvegardées" ]
-        , div [ class "card-body" ]
-            [ ul [ class "list-group overflow-scroll", style "max-height" "50vh" ]
-                (List.map
-                    (\({ name, link } as savedSimulation) ->
-                        li [ class "list-group-item d-flex justify-content-between align-items-center" ]
-                            [ a
-                                [ href link
-                                , title name
-                                , class "text-truncate"
-                                ]
-                                [ text name
-                                ]
-                            , button
-                                [ type_ "button"
-                                , class "btn btn-danger"
-                                , onClick <| DeleteSavedSimulation savedSimulation
-                                ]
-                                [ text "Supprimer" ]
+        , ul [ class "list-group list-group-flush overflow-scroll", style "max-height" "50vh" ]
+            (List.map
+                (\({ name, link } as savedSimulation) ->
+                    li [ class "list-group-item d-flex justify-content-between align-items-center" ]
+                        [ a
+                            [ href link
+                            , title name
+                            , class "text-truncate"
                             ]
-                    )
-                    savedSimulations
+                            [ text name
+                            ]
+                        , button
+                            [ type_ "button"
+                            , class "btn btn-danger"
+                            , onClick <| DeleteSavedSimulation savedSimulation
+                            ]
+                            [ text "Supprimer" ]
+                        ]
                 )
-            ]
+                savedSimulations
+            )
         ]
 
 
