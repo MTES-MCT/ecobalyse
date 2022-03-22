@@ -423,7 +423,7 @@ saveLinkView { clientUrl, store } { impact, funit, simulationName } simulator =
 savedSimulationsView : List Session.SavedSimulation -> Html Msg
 savedSimulationsView savedSimulations =
     div []
-        [ div [ class "card-header" ] [ text "Simulations sauvegardées" ]
+        [ div [ class "card-header border-top" ] [ text "Simulations sauvegardées" ]
         , ul [ class "list-group list-group-flush overflow-scroll", style "max-height" "50vh" ]
             (List.map
                 (\({ name, link } as savedSimulation) ->
