@@ -392,21 +392,23 @@ saveLinkView { clientUrl, store } { impact, funit, simulationName } simulator =
     div [ class "card shadow-sm" ]
         [ div [ class "card-header" ] [ text "Sauvegarder cette simulation en local" ]
         , div [ class "card-body" ]
-            [ div
-                [ class "input-group" ]
-                [ input
-                    [ type_ "text"
-                    , class "form-control"
-                    , onInput UpdateSimulationName
-                    , value simulationName
-                    ]
-                    []
-                , button
-                    [ class "input-group-text"
-                    , title "Sauvegarder la simulation dans le stockage local au navigateur"
-                    , onClick (SaveSimulation simulationLink)
-                    ]
-                    [ Icon.plus
+            [ Html.form [ onSubmit (SaveSimulation simulationLink) ]
+                [ div [ class "input-group" ]
+                    [ input
+                        [ type_ "text"
+                        , class "form-control"
+                        , onInput UpdateSimulationName
+                        , placeholder "Nom de la simulation"
+                        , value simulationName
+                        ]
+                        []
+                    , button
+                        [ class "input-group-text"
+                        , title "Sauvegarder la simulation dans le stockage local au navigateur"
+                        , type_ "submit"
+                        ]
+                        [ Icon.plus
+                        ]
                     ]
                 ]
             , div [ class "form-text fs-7" ]
