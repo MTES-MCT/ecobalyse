@@ -403,7 +403,9 @@ saveLinkView { clientUrl, store } { impact, funit, simulationName } simulator =
                         ]
                         []
                     , button
-                        [ class "input-group-text"
+                        [ class "btn btn-primary"
+                        , classList [ ( "disabled", List.member (Session.SavedSimulation simulationName simulationLink) store.savedSimulations ) ]
+                        , disabled <| List.member (Session.SavedSimulation simulationName simulationLink) store.savedSimulations
                         , title "Sauvegarder la simulation dans le stockage local au navigateur"
                         , type_ "submit"
                         ]
