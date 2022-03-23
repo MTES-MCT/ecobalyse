@@ -29,7 +29,7 @@ suite =
         (\db ->
             [ describe "Simulator.compute"
                 [ tShirtCotonFrance
-                    |> expectImpact db (Impact.trg "cch") 5.086507233728058
+                    |> expectImpact db (Impact.trg "cch") 5.119126589560797
                     |> asTest "should compute a simulation cch impact"
                 ]
             ]
