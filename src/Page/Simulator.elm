@@ -353,7 +353,7 @@ linksView session ({ linksTab } as model) simulator =
             [ ul [ class "nav nav-tabs justify-content-end card-header-tabs" ]
                 [ li [ class "nav-item" ]
                     [ button
-                        [ class "btn btn-text nav-link"
+                        [ class "btn btn-text nav-link rounded-0 rounded-top no-outline"
                         , classList [ ( "active", linksTab == SaveLink ) ]
                         , onClick <| SwitchLinksTab SaveLink
                         ]
@@ -361,7 +361,7 @@ linksView session ({ linksTab } as model) simulator =
                     ]
                 , li [ class "nav-item" ]
                     [ button
-                        [ class "btn btn-text nav-link"
+                        [ class "btn btn-text nav-link rounded-0 rounded-top no-outline"
                         , classList [ ( "active", linksTab == ShareLink ) ]
                         , onClick <| SwitchLinksTab ShareLink
                         ]
