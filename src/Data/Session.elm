@@ -1,5 +1,6 @@
 module Data.Session exposing
     ( Notification(..)
+    , SavedSimulation
     , Session
     , closeNotification
     , deserializeStore
@@ -10,6 +11,7 @@ module Data.Session exposing
 
 import Browser.Navigation as Nav
 import Data.Db exposing (Db)
+import Data.Inputs as Inputs
 import Http
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
@@ -58,22 +60,47 @@ notifyHttpError error ({ notifications } as session) =
 
 
 type alias Store =
-    {}
+    { savedSimulations : List SavedSimulation
+    }
+
+
+type alias SavedSimulation =
+    { name : String
+    , query : Inputs.Query
+    }
 
 
 defaultStore : Store
 defaultStore =
-    {}
+    { savedSimulations = [] }
 
 
 decodeStore : Decoder Store
 decodeStore =
-    Decode.succeed {}
+    Decode.map Store
+        (Decode.field "savedSimulations" <| Decode.list decodeSavedSimulation)
+
+
+decodeSavedSimulation : Decoder SavedSimulation
+decodeSavedSimulation =
+    Decode.map2 SavedSimulation
+        (Decode.field "name" Decode.string)
+        (Decode.field "query" Inputs.decodeQuery)
 
 
 encodeStore : Store -> Encode.Value
-encodeStore _ =
-    Encode.object []
+encodeStore store =
+    Encode.object
+        [ ( "savedSimulations", Encode.list encodeSavedSimulation store.savedSimulations )
+        ]
+
+
+encodeSavedSimulation : SavedSimulation -> Encode.Value
+encodeSavedSimulation { name, query } =
+    Encode.object
+        [ ( "name", Encode.string name )
+        , ( "query", Inputs.encodeQuery query )
+        ]
 
 
 deserializeStore : String -> Store

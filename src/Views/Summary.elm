@@ -37,9 +37,7 @@ viewMaterials materials =
                 span []
                     [ Format.ratioToDecimals 0 share
                     , text " "
-                    , material
-                        |> Material.fullName
-                            (material.recycledProcess |> Maybe.map (always recycledRatio))
+                    , Material.fullName (Just recycledRatio) material
                         |> text
                     ]
             )
@@ -103,7 +101,10 @@ summaryView { session, impact, funit, reusable } ({ inputs, lifeCycle } as simul
                 , funit = funit
                 }
             ]
-        , div [ class "d-none d-sm-block card-body" ]
+        , div
+            [ class "d-none d-sm-block card-body"
+            , title <| Inputs.toString simulator.inputs
+            ]
             -- TODO: how/where to render this for smaller viewports?
             [ Comparator.view
                 { session = session

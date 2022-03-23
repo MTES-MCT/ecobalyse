@@ -36,6 +36,8 @@ import Views.Summary as SummaryView
 
 type alias Model =
     { simulator : Result String Simulator
+    , linksTab : LinksTab
+    , simulationName : String
     , massInput : String
     , initialQuery : Inputs.Query
     , query : Inputs.Query
@@ -45,14 +47,22 @@ type alias Model =
     }
 
 
+type LinksTab
+    = ShareLink
+    | SaveLink
+
+
 type Msg
     = AddMaterial
     | CopyToClipBoard String
+    | DeleteSavedSimulation Session.SavedSimulation
     | RemoveMaterial Int
     | Reset
+    | SaveSimulation
     | SelectInputText String
     | SwitchFunctionalUnit Unit.Functional
     | SwitchImpact Impact.Trigram
+    | SwitchLinksTab LinksTab
     | ToggleStepViewMode Int
     | UpdateAirTransportRatio (Maybe Unit.Ratio)
     | UpdateDyeingWeighting (Maybe Unit.Ratio)
@@ -62,6 +72,7 @@ type Msg
     | UpdateMaterialShare Int Unit.Ratio
     | UpdateProduct Product.Id
     | UpdateQuality (Maybe Unit.Quality)
+    | UpdateSimulationName String
     | UpdateStepCountry Int Country.Code
 
 
@@ -82,6 +93,11 @@ init trigram funit viewMode maybeQuery ({ db } as session) =
             Simulator.compute db query
     in
     ( { simulator = simulator
+      , linksTab = SaveLink
+      , simulationName =
+            simulator
+                |> Result.map (.inputs >> Inputs.toString)
+                |> Result.withDefault ""
       , massInput = query.mass |> Mass.inKilograms |> String.fromFloat
       , initialQuery = query
       , query = query
@@ -106,9 +122,17 @@ init trigram funit viewMode maybeQuery ({ db } as session) =
 
 updateQuery : Inputs.Query -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
 updateQuery query ( model, session, msg ) =
+    let
+        updatedSimulator =
+            Simulator.compute session.db query
+    in
     ( { model
         | query = query
-        , simulator = Simulator.compute session.db query
+        , simulator = updatedSimulator
+        , simulationName =
+            updatedSimulator
+                |> Result.map (.inputs >> Inputs.toString)
+                |> Result.withDefault ""
       }
     , session
     , msg
@@ -116,7 +140,7 @@ updateQuery query ( model, session, msg ) =
 
 
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
-update ({ db, navKey } as session) msg ({ query } as model) =
+update ({ db, navKey, store } as session) msg ({ query } as model) =
     case msg of
         AddMaterial ->
             ( model, session, Cmd.none )
@@ -125,6 +149,18 @@ update ({ db, navKey } as session) msg ({ query } as model) =
         CopyToClipBoard shareableLink ->
             ( model, session, Ports.copyToClipboard shareableLink )
 
+        DeleteSavedSimulation savedSimulation ->
+            let
+                updatedStore =
+                    { store
+                        | savedSimulations = List.filter ((/=) savedSimulation) store.savedSimulations
+                    }
+            in
+            ( model
+            , { session | store = updatedStore }
+            , Cmd.none
+            )
+
         RemoveMaterial index ->
             ( model, session, Cmd.none )
                 |> updateQuery (Inputs.removeMaterial index query)
@@ -132,6 +168,22 @@ update ({ db, navKey } as session) msg ({ query } as model) =
         Reset ->
             ( model, session, Cmd.none )
                 |> updateQuery Inputs.defaultQuery
+
+        SaveSimulation ->
+            let
+                updatedStore =
+                    { store
+                        | savedSimulations =
+                            { name = model.simulationName
+                            , query = model.query
+                            }
+                                :: store.savedSimulations
+                    }
+            in
+            ( model
+            , { session | store = updatedStore }
+            , Cmd.none
+            )
 
         SelectInputText index ->
             ( model, session, Ports.selectInputText index )
@@ -150,6 +202,12 @@ update ({ db, navKey } as session) msg ({ query } as model) =
             , Route.Simulator trigram model.funit model.viewMode (Just query)
                 |> Route.toString
                 |> Navigation.pushUrl navKey
+            )
+
+        SwitchLinksTab linksTab ->
+            ( { model | linksTab = linksTab }
+            , session
+            , Cmd.none
             )
 
         ToggleStepViewMode index ->
@@ -204,6 +262,9 @@ update ({ db, navKey } as session) msg ({ query } as model) =
         UpdateQuality quality ->
             ( model, session, Cmd.none )
                 |> updateQuery { query | quality = quality }
+
+        UpdateSimulationName newName ->
+            ( { model | simulationName = newName }, session, Cmd.none )
 
         UpdateStepCountry index code ->
             ( model, session, Cmd.none )
@@ -285,6 +346,38 @@ lifeCycleStepsView db { viewMode, funit, impact } simulator =
         |> div [ class "pt-1" ]
 
 
+linksView : Session -> Model -> Simulator -> Html Msg
+linksView session ({ linksTab } as model) simulator =
+    div [ class "card shadow-sm" ]
+        [ div [ class "card-header" ]
+            [ ul [ class "nav nav-tabs justify-content-end card-header-tabs" ]
+                [ li [ class "nav-item" ]
+                    [ button
+                        [ class "btn btn-text nav-link"
+                        , classList [ ( "active", linksTab == SaveLink ) ]
+                        , onClick <| SwitchLinksTab SaveLink
+                        ]
+                        [ text "Sauvegarder" ]
+                    ]
+                , li [ class "nav-item" ]
+                    [ button
+                        [ class "btn btn-text nav-link"
+                        , classList [ ( "active", linksTab == ShareLink ) ]
+                        , onClick <| SwitchLinksTab ShareLink
+                        ]
+                        [ text "Partager" ]
+                    ]
+                ]
+            ]
+        , case linksTab of
+            ShareLink ->
+                shareLinkView session model simulator
+
+            SaveLink ->
+                saveLinkView session model
+        ]
+
+
 shareLinkView : Session -> Model -> Simulator -> Html Msg
 shareLinkView session { impact, funit } simulator =
     let
@@ -295,28 +388,97 @@ shareLinkView session { impact, funit } simulator =
                 |> Route.toString
                 |> (++) session.clientUrl
     in
-    div [ class "card shadow-sm" ]
-        [ div [ class "card-header" ] [ text "Partager cette simulation" ]
-        , div [ class "card-body" ]
-            [ div
-                [ class "input-group" ]
-                [ input
-                    [ type_ "url"
-                    , class "form-control"
-                    , value shareableLink
-                    ]
-                    []
-                , button
-                    [ class "input-group-text"
-                    , title "Copier l'adresse"
-                    , onClick (CopyToClipBoard shareableLink)
-                    ]
-                    [ Icon.clipboard
+    div [ class "card-body" ]
+        [ div
+            [ class "input-group" ]
+            [ input
+                [ type_ "url"
+                , class "form-control"
+                , value shareableLink
+                ]
+                []
+            , button
+                [ class "input-group-text"
+                , title "Copier l'adresse"
+                , onClick (CopyToClipBoard shareableLink)
+                ]
+                [ Icon.clipboard
+                ]
+            ]
+        , div [ class "form-text fs-7" ]
+            [ text "Copiez cette adresse pour partager ou sauvegarder votre simulation" ]
+        ]
+
+
+saveLinkView : Session -> Model -> Html Msg
+saveLinkView ({ store } as session) ({ query, simulationName } as model) =
+    div []
+        [ div [ class "card-body" ]
+            [ Html.form [ onSubmit SaveSimulation ]
+                [ div [ class "input-group" ]
+                    [ input
+                        [ type_ "text"
+                        , class "form-control"
+                        , onInput UpdateSimulationName
+                        , placeholder "Nom de la simulation"
+                        , value simulationName
+                        ]
+                        []
+                    , button
+                        [ class "btn btn-primary"
+                        , classList [ ( "disabled", List.member (Session.SavedSimulation simulationName query) store.savedSimulations ) ]
+                        , disabled <| List.member (Session.SavedSimulation simulationName query) store.savedSimulations
+                        , title "Sauvegarder la simulation dans le stockage local au navigateur"
+                        , type_ "submit"
+                        ]
+                        [ Icon.plus
+                        ]
                     ]
                 ]
-            , div [ class "form-text fs-7" ]
-                [ text "Copiez cette adresse pour partager ou sauvegarder votre simulation" ]
+            , div [ class "form-text fs-7 pb-0" ]
+                [ text "Nommez cette simulation pour vous aider à la retrouver dans la liste" ]
             ]
+        , savedSimulationsView session model store.savedSimulations
+        ]
+
+
+savedSimulationsView : Session -> Model -> List Session.SavedSimulation -> Html Msg
+savedSimulationsView session model savedSimulations =
+    div []
+        [ div [ class "card-header border-top" ] [ text "Simulations sauvegardées" ]
+        , if List.length savedSimulations == 0 then
+            div [ class "card-body form-text fs-7 pt-2" ]
+                [ text "Pas de simulations sauvegardées sur cet ordinateur" ]
+
+          else
+            ul [ class "list-group list-group-flush overflow-scroll", style "max-height" "50vh" ]
+                (List.map (savedSimulationView session model) savedSimulations)
+        ]
+
+
+savedSimulationView : Session -> Model -> Session.SavedSimulation -> Html Msg
+savedSimulationView { clientUrl } { impact, funit } ({ name, query } as savedSimulation) =
+    let
+        simulationLink =
+            Just query
+                |> Route.Simulator impact.trigram funit ViewMode.Simple
+                |> Route.toString
+                |> (++) clientUrl
+    in
+    li [ class "list-group-item d-flex justify-content-between align-items-center" ]
+        [ a
+            [ href simulationLink
+            , title name
+            , class "text-truncate"
+            ]
+            [ text name
+            ]
+        , button
+            [ type_ "button"
+            , class "btn btn-sm btn-danger"
+            , onClick <| DeleteSavedSimulation savedSimulation
+            ]
+            [ text "Supprimer" ]
         ]
 
 
@@ -399,7 +561,7 @@ simulatorView ({ db } as session) ({ impact, funit, query, viewMode } as model) 
                             , reusable = False
                             }
                     ]
-                , shareLinkView session model simulator
+                , linksView session model simulator
                 ]
             ]
         ]

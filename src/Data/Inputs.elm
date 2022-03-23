@@ -7,6 +7,7 @@ module Data.Inputs exposing
     , b64decode
     , b64encode
     , countryList
+    , decodeQuery
     , defaultQuery
     , encode
     , encodeQuery
@@ -18,6 +19,7 @@ module Data.Inputs exposing
     , tShirtCotonAsie
     , tShirtCotonFrance
     , toQuery
+    , toString
     , updateMaterial
     , updateMaterialRecycledRatio
     , updateMaterialShare
@@ -38,6 +40,7 @@ import List.Extra as LE
 import Mass exposing (Mass)
 import Result.Extra as RE
 import Url.Parser as Parser exposing (Parser)
+import Views.Format as Format
 
 
 type alias MaterialInput =
@@ -163,6 +166,90 @@ toQuery inputs =
     , airTransportRatio = inputs.airTransportRatio
     , quality = inputs.quality
     }
+
+
+toString : Inputs -> String
+toString inputs =
+    [ inputs.product.name
+    , materialsToString inputs.materials ++ "de " ++ Format.kgToString inputs.mass
+    , "matière et filature : " ++ inputs.countryMaterial.name
+    , "tricotage : " ++ inputs.countryFabric.name
+    , "teinture : " ++ inputs.countryDyeing.name ++ dyeingWeightingToString inputs.dyeingWeighting
+    , "confection : " ++ inputs.countryMaking.name ++ airTransportRatioToString inputs.airTransportRatio
+    , "distribution : " ++ inputs.countryDistribution.name
+    , "utilisation : " ++ inputs.countryUse.name ++ intrinsicQualityToString inputs.quality
+    , "fin de vie : " ++ inputs.countryEndOfLife.name
+    ]
+        |> String.join ", "
+
+
+materialsToString : List MaterialInput -> String
+materialsToString materials =
+    materials
+        |> List.filter (\{ share } -> Unit.ratioToFloat share > 0)
+        |> List.map
+            (\{ material, share, recycledRatio } ->
+                Format.formatFloat 0 (Unit.ratioToFloat share * 100)
+                    ++ "% "
+                    ++ Material.fullName (Just recycledRatio) material
+                    ++ ", "
+            )
+        |> List.foldr (++) ""
+
+
+dyeingWeightingToString : Maybe Unit.Ratio -> String
+dyeingWeightingToString maybeRatio =
+    case maybeRatio of
+        Nothing ->
+            " (avec un procédé représentatif)"
+
+        Just ratio ->
+            if Unit.ratioToFloat ratio == 0 then
+                " (avec un procédé représentatif)"
+
+            else
+                ratio
+                    |> Format.ratioToPercentString
+                    |> (\percent ->
+                            " (avec un procédé " ++ percent ++ " majorant)"
+                       )
+
+
+airTransportRatioToString : Maybe Unit.Ratio -> String
+airTransportRatioToString maybeRatio =
+    case maybeRatio of
+        Nothing ->
+            ""
+
+        Just ratio ->
+            if Unit.ratioToFloat ratio == 0 then
+                ""
+
+            else
+                ratio
+                    |> Format.ratioToPercentString
+                    |> (\percent ->
+                            " (avec " ++ percent ++ " de transport aérien)"
+                       )
+
+
+intrinsicQualityToString : Maybe Unit.Quality -> String
+intrinsicQualityToString maybeQuality =
+    case maybeQuality of
+        Nothing ->
+            ""
+
+        Just quality ->
+            if Unit.qualityToFloat quality == 1 then
+                ""
+
+            else
+                quality
+                    |> Unit.qualityToFloat
+                    |> String.fromFloat
+                    |> (\q ->
+                            " (qualité intrinsèque : " ++ q ++ ")"
+                       )
 
 
 countryList : Inputs -> List Country

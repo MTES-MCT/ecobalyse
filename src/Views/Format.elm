@@ -7,12 +7,14 @@ module Views.Format exposing
     , formatRichFloat
     , hours
     , kg
+    , kgToString
     , kilowattHours
     , km
     , megajoules
     , percent
     , ratio
     , ratioToDecimals
+    , ratioToPercentString
     )
 
 import Data.Impact as Impact exposing (Impacts)
@@ -98,6 +100,12 @@ kg =
     Mass.inKilograms >> formatRichFloat 3 "kg"
 
 
+kgToString : Mass -> String
+kgToString mass =
+    formatFloat 3 (Mass.inKilograms mass)
+        ++ "kg"
+
+
 km : Length -> Html msg
 km =
     Length.inKilometers >> formatRichFloat 0 "km"
@@ -116,6 +124,17 @@ megajoules =
 percent : Float -> Html msg
 percent =
     formatRichFloat 2 "%"
+
+
+ratioToPercentString : Unit.Ratio -> String
+ratioToPercentString value =
+    (value
+        |> Unit.ratioToFloat
+        |> (*) 100
+        |> round
+        |> String.fromInt
+    )
+        ++ "\u{202F}%"
 
 
 ratio : Unit.Ratio -> Html msg
