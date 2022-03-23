@@ -1,13 +1,16 @@
 module Data.Step exposing
     ( Label(..)
     , Step
+    , airTransportRatioToString
     , computeTransports
     , create
     , displayLabel
+    , dyeingWeightingToString
     , encode
     , getStepGitbookPath
     , initMass
     , labelToString
+    , qualityToString
     , updateFromInputs
     , updateWaste
     )
@@ -17,7 +20,7 @@ import Data.Db exposing (Db)
 import Data.Formula as Formula
 import Data.Gitbook as Gitbook
 import Data.Impact as Impact exposing (Impacts)
-import Data.Inputs as Inputs exposing (Inputs)
+import Data.Inputs exposing (Inputs)
 import Data.Process as Process exposing (Process)
 import Data.Transport as Transport exposing (Transport)
 import Data.Unit as Unit
@@ -274,7 +277,7 @@ updateFromInputs { processes } inputs ({ label, country } as step) =
                     { defaultProcessInfo
                         | countryHeat = Just country.heatProcess.name
                         , countryElec = Just country.electricityProcess.name
-                        , dyeingWeighting = Just (Inputs.dyeingWeightingToString country.dyeingWeighting)
+                        , dyeingWeighting = Just (dyeingWeightingToString country.dyeingWeighting)
                     }
             }
 
@@ -296,7 +299,7 @@ updateFromInputs { processes } inputs ({ label, country } as step) =
                                 Nothing
                         , airTransportRatio =
                             country.airTransportRatio
-                                |> Inputs.airTransportRatioToString
+                                |> airTransportRatioToString
                                 |> Just
                     }
             }
@@ -366,6 +369,31 @@ updateWaste waste mass step =
         , inputMass = mass
         , outputMass = Quantity.difference mass waste
     }
+
+
+airTransportRatioToString : Unit.Ratio -> String
+airTransportRatioToString (Unit.Ratio airTransportRatio) =
+    case round (airTransportRatio * 100) of
+        0 ->
+            "Aucun transport aérien"
+
+        p ->
+            String.fromInt p ++ "% de transport aérien"
+
+
+dyeingWeightingToString : Unit.Ratio -> String
+dyeingWeightingToString (Unit.Ratio dyeingWeighting) =
+    case round (dyeingWeighting * 100) of
+        0 ->
+            "Procédé représentatif"
+
+        p ->
+            "Procédé " ++ String.fromInt p ++ "% majorant"
+
+
+qualityToString : Unit.Quality -> String
+qualityToString (Unit.Quality float) =
+    "Qualité intrinsèque\u{00A0}: " ++ String.fromFloat float
 
 
 encode : Step -> Encode.Value

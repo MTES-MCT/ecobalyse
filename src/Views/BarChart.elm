@@ -2,7 +2,6 @@ module Views.BarChart exposing (view)
 
 import Array
 import Data.Impact as Impact
-import Data.Inputs as Inputs
 import Data.Simulator exposing (Simulator)
 import Data.Step as Step
 import Data.Unit as Unit
@@ -58,7 +57,7 @@ makeBars { simulator, impact, funit } =
                                         text "Tissage"
 
                                     ( Step.Ennoblement, _ ) ->
-                                        span [ class "fw-normal", title <| Inputs.dyeingWeightingToString step.dyeingWeighting ]
+                                        span [ class "fw-normal", title <| Step.dyeingWeightingToString step.dyeingWeighting ]
                                             [ strong [] [ text "Teinture" ]
                                             , text " ("
                                             , abbr [ class "Abbr" ]

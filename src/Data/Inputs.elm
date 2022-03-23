@@ -4,20 +4,17 @@ module Data.Inputs exposing
     , MaterialQuery
     , Query
     , addMaterial
-    , airTransportRatioToString
     , b64decode
     , b64encode
     , countryList
     , decodeQuery
     , defaultQuery
-    , dyeingWeightingToString
     , encode
     , encodeQuery
     , fromQuery
     , jupeCircuitAsie
     , parseBase64Query
     , presets
-    , qualityToString
     , removeMaterial
     , tShirtCotonAsie
     , tShirtCotonFrance
@@ -177,28 +174,10 @@ toString inputs =
     , materialsToString inputs.materials ++ "de " ++ Format.kgToString inputs.mass
     , "matière et filature : " ++ inputs.countryMaterial.name
     , "tricotage : " ++ inputs.countryFabric.name
-    , "teinture : "
-        ++ inputs.countryDyeing.name
-        ++ maybeToString
-            inputs.dyeingWeighting
-            (Unit.ratioToFloat >> (<) 0)
-            " (Procédé représentatif)"
-            dyeingWeightingToString
-    , "confection : "
-        ++ inputs.countryMaking.name
-        ++ maybeToString
-            inputs.airTransportRatio
-            (Unit.ratioToFloat >> (<) 0)
-            ""
-            airTransportRatioToString
+    , "teinture : " ++ inputs.countryDyeing.name ++ dyeingWeightingToString inputs.dyeingWeighting
+    , "confection : " ++ inputs.countryMaking.name ++ airTransportRatioToString inputs.airTransportRatio
     , "distribution : " ++ inputs.countryDistribution.name
-    , "utilisation : "
-        ++ inputs.countryUse.name
-        ++ maybeToString
-            inputs.quality
-            (Unit.qualityToFloat >> (/=) 1)
-            ""
-            qualityToString
+    , "utilisation : " ++ inputs.countryUse.name ++ intrinsicQualityToString inputs.quality
     , "fin de vie : " ++ inputs.countryEndOfLife.name
     ]
         |> String.join ", "
@@ -208,13 +187,11 @@ maybeToString : Maybe a -> (a -> Bool) -> String -> (a -> String) -> String
 maybeToString maybeValue predicate defaultString stringifier =
     case maybeValue of
         Nothing ->
-            defaultString
+            ""
 
         Just value ->
             if predicate value then
-                " ("
-                    ++ stringifier value
-                    ++ ")"
+                stringifier value
 
             else
                 defaultString
@@ -234,29 +211,59 @@ materialsToString materials =
         |> List.foldr (++) ""
 
 
-dyeingWeightingToString : Unit.Ratio -> String
-dyeingWeightingToString (Unit.Ratio dyeingWeighting) =
-    case round (dyeingWeighting * 100) of
-        0 ->
-            "Procédé représentatif"
+dyeingWeightingToString : Maybe Unit.Ratio -> String
+dyeingWeightingToString maybeRatio =
+    case maybeRatio of
+        Nothing ->
+            " (avec un procédé représentatif)"
 
-        p ->
-            "Procédé " ++ String.fromInt p ++ "% majorant"
+        Just ratio ->
+            if Unit.ratioToFloat ratio == 0 then
+                " (avec un procédé représentatif)"
 
-
-airTransportRatioToString : Unit.Ratio -> String
-airTransportRatioToString (Unit.Ratio airTransportRatio) =
-    case round (airTransportRatio * 100) of
-        0 ->
-            "Aucun transport aérien"
-
-        p ->
-            String.fromInt p ++ "% de transport aérien"
+            else
+                ratio
+                    |> Format.ratioToPercentString
+                    |> (\percent ->
+                            " (avec un procédé " ++ percent ++ " majorant)"
+                       )
 
 
-qualityToString : Unit.Quality -> String
-qualityToString (Unit.Quality float) =
-    "Qualité intrinsèque\u{00A0}: " ++ String.fromFloat float
+airTransportRatioToString : Maybe Unit.Ratio -> String
+airTransportRatioToString maybeRatio =
+    case maybeRatio of
+        Nothing ->
+            ""
+
+        Just ratio ->
+            if Unit.ratioToFloat ratio == 0 then
+                ""
+
+            else
+                ratio
+                    |> Format.ratioToPercentString
+                    |> (\percent ->
+                            " (avec " ++ percent ++ " de transport aérien)"
+                       )
+
+
+intrinsicQualityToString : Maybe Unit.Quality -> String
+intrinsicQualityToString maybeQuality =
+    case maybeQuality of
+        Nothing ->
+            ""
+
+        Just quality ->
+            if Unit.qualityToFloat quality == 1 then
+                ""
+
+            else
+                quality
+                    |> Unit.qualityToFloat
+                    |> String.fromFloat
+                    |> (\q ->
+                            " (qualité intrinsèque : " ++ q ++ ")"
+                       )
 
 
 countryList : Inputs -> List Country
