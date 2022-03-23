@@ -4,7 +4,7 @@ import Data.Country as Country
 import Data.Db exposing (Db)
 import Data.Gitbook as Gitbook
 import Data.Impact as Impact
-import Data.Inputs exposing (Inputs)
+import Data.Inputs as Inputs exposing (Inputs)
 import Data.Product as Product
 import Data.Step as Step exposing (Step)
 import Data.Transport as Transport
@@ -134,7 +134,7 @@ airTransportRatioField { current, updateAirTransportRatio } =
             { id = "airTransportRatio"
             , update = updateAirTransportRatio
             , value = current.airTransportRatio
-            , toString = Step.airTransportRatioToString
+            , toString = Inputs.airTransportRatioToString
             , disabled = False
             }
         ]
@@ -153,7 +153,7 @@ dyeingWeightingField { current, updateDyeingWeighting } =
             { id = "dyeingWeighting"
             , update = updateDyeingWeighting
             , value = current.dyeingWeighting
-            , toString = Step.dyeingWeightingToString
+            , toString = Inputs.dyeingWeightingToString
             , disabled = False
             }
         ]
@@ -174,7 +174,7 @@ qualityField { current, updateQuality } =
             { id = "quality"
             , update = updateQuality
             , value = current.quality
-            , toString = Step.qualityToString
+            , toString = Inputs.qualityToString
             , disabled = False
             }
         ]
