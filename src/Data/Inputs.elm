@@ -183,20 +183,6 @@ toString inputs =
         |> String.join ", "
 
 
-maybeToString : Maybe a -> (a -> Bool) -> String -> (a -> String) -> String
-maybeToString maybeValue predicate defaultString stringifier =
-    case maybeValue of
-        Nothing ->
-            ""
-
-        Just value ->
-            if predicate value then
-                stringifier value
-
-            else
-                defaultString
-
-
 materialsToString : List MaterialInput -> String
 materialsToString materials =
     materials
