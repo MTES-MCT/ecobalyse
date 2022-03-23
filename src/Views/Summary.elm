@@ -37,9 +37,7 @@ viewMaterials materials =
                 span []
                     [ Format.ratioToDecimals 0 share
                     , text " "
-                    , material
-                        |> Material.fullName
-                            (material.recycledProcess |> Maybe.map (always recycledRatio))
+                    , Material.fullName (Just recycledRatio) material
                         |> text
                     ]
             )

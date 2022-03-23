@@ -22,8 +22,6 @@ if (process.env.SENTRY_DSN) {
 
 // The localStorage key to use to store serialized session data
 const storeKey = "store";
-// The localStorage key to use to store the dict of save simulations
-const simulationsStoreKey = "simulationsStore";
 
 const app = Elm.Main.init({
   flags: {

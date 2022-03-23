@@ -170,50 +170,49 @@ toQuery inputs =
 
 toString : Inputs -> String
 toString inputs =
-    "Comparaison pour "
-        ++ inputs.product.name
-        ++ ", "
-        ++ materialsAsString inputs.materials
-        ++ "de "
-        ++ Format.kgAsString inputs.mass
-        ++ ", matière et filature : "
-        ++ inputs.countryMaterial.name
-        ++ ", tricotage : "
-        ++ inputs.countryFabric.name
-        ++ ", teinture : "
-        ++ inputs.countryDyeing.name
-        ++ dyeingWeightingAsString inputs.dyeingWeighting
-        ++ ", confection : "
-        ++ inputs.countryMaking.name
-        ++ airTransportRatioAsString inputs.airTransportRatio
-        ++ ", distribution : "
-        ++ inputs.countryDistribution.name
-        ++ ", utilisation : "
-        ++ inputs.countryUse.name
-        ++ intrinsicQualityAsString inputs.quality
-        ++ ", fin de vie : "
-        ++ inputs.countryEndOfLife.name
+    [ inputs.product.name
+    , materialsToString inputs.materials ++ "de " ++ Format.kgToString inputs.mass
+    , "matière et filature : " ++ inputs.countryMaterial.name
+    , "tricotage : " ++ inputs.countryFabric.name
+    , "teinture : " ++ inputs.countryDyeing.name ++ dyeingWeightingToString inputs.dyeingWeighting
+    , "confection : " ++ inputs.countryMaking.name ++ airTransportRatioToString inputs.airTransportRatio
+    , "distribution : " ++ inputs.countryDistribution.name
+    , "utilisation : " ++ inputs.countryUse.name ++ intrinsicQualityToString inputs.quality
+    , "fin de vie : " ++ inputs.countryEndOfLife.name
+    ]
+        |> String.join ", "
 
 
-materialsAsString : List MaterialInput -> String
-materialsAsString materials =
+maybeToString : Maybe a -> (a -> Bool) -> String -> (a -> String) -> String
+maybeToString maybeValue predicate defaultString stringifier =
+    case maybeValue of
+        Nothing ->
+            ""
+
+        Just value ->
+            if predicate value then
+                stringifier value
+
+            else
+                defaultString
+
+
+materialsToString : List MaterialInput -> String
+materialsToString materials =
     materials
         |> List.filter (\{ share } -> Unit.ratioToFloat share > 0)
         |> List.map
             (\{ material, share, recycledRatio } ->
                 Format.formatFloat 0 (Unit.ratioToFloat share * 100)
                     ++ "% "
-                    ++ (material
-                            |> Material.fullName
-                                (material.recycledProcess |> Maybe.map (always recycledRatio))
-                       )
+                    ++ Material.fullName (Just recycledRatio) material
                     ++ ", "
             )
         |> List.foldr (++) ""
 
 
-dyeingWeightingAsString : Maybe Unit.Ratio -> String
-dyeingWeightingAsString maybeRatio =
+dyeingWeightingToString : Maybe Unit.Ratio -> String
+dyeingWeightingToString maybeRatio =
     case maybeRatio of
         Nothing ->
             " (avec un procédé représentatif)"
@@ -224,34 +223,32 @@ dyeingWeightingAsString maybeRatio =
 
             else
                 ratio
-                    |> Unit.ratioToFloat
-                    |> Format.percentAsString
+                    |> Format.ratioToPercentString
                     |> (\percent ->
-                            "\u{202F}%\u{00A0} (avec un procédé " ++ percent ++ " majorant)"
+                            " (avec un procédé " ++ percent ++ " majorant)"
                        )
 
 
-airTransportRatioAsString : Maybe Unit.Ratio -> String
-airTransportRatioAsString maybeRatio =
+airTransportRatioToString : Maybe Unit.Ratio -> String
+airTransportRatioToString maybeRatio =
     case maybeRatio of
         Nothing ->
-            " (aucun transport aérien)"
+            ""
 
         Just ratio ->
             if Unit.ratioToFloat ratio == 0 then
-                " (aucun transport aérien)"
+                ""
 
             else
                 ratio
-                    |> Unit.ratioToFloat
-                    |> Format.percentAsString
+                    |> Format.ratioToPercentString
                     |> (\percent ->
                             " (avec " ++ percent ++ " de transport aérien)"
                        )
 
 
-intrinsicQualityAsString : Maybe Unit.Quality -> String
-intrinsicQualityAsString maybeQuality =
+intrinsicQualityToString : Maybe Unit.Quality -> String
+intrinsicQualityToString maybeQuality =
     case maybeQuality of
         Nothing ->
             ""

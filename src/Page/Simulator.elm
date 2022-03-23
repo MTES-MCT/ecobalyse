@@ -95,12 +95,9 @@ init trigram funit viewMode maybeQuery ({ db } as session) =
     ( { simulator = simulator
       , linksTab = SaveLink
       , simulationName =
-            case simulator of
-                Ok sim ->
-                    Inputs.toString sim.inputs
-
-                Err _ ->
-                    ""
+            simulator
+                |> Result.map (.inputs >> Inputs.toString)
+                |> Result.withDefault ""
       , massInput = query.mass |> Mass.inKilograms |> String.fromFloat
       , initialQuery = query
       , query = query
@@ -133,12 +130,9 @@ updateQuery query ( model, session, msg ) =
         | query = query
         , simulator = updatedSimulator
         , simulationName =
-            case updatedSimulator of
-                Ok simulator ->
-                    Inputs.toString simulator.inputs
-
-                Err _ ->
-                    model.simulationName
+            updatedSimulator
+                |> Result.map (.inputs >> Inputs.toString)
+                |> Result.withDefault ""
       }
     , session
     , msg
@@ -157,17 +151,14 @@ update ({ db, navKey, store } as session) msg ({ query } as model) =
 
         DeleteSavedSimulation savedSimulation ->
             let
-                newStore =
+                updatedStore =
                     { store
                         | savedSimulations = List.filter ((/=) savedSimulation) store.savedSimulations
                     }
-
-                newSession =
-                    { session | store = newStore }
             in
             ( model
-            , newSession
-            , newSession.store |> Session.serializeStore |> Ports.saveStore
+            , { session | store = updatedStore }
+            , Cmd.none
             )
 
         RemoveMaterial index ->
@@ -180,7 +171,7 @@ update ({ db, navKey, store } as session) msg ({ query } as model) =
 
         SaveSimulation ->
             let
-                newStore =
+                updatedStore =
                     { store
                         | savedSimulations =
                             { name = model.simulationName
@@ -188,13 +179,10 @@ update ({ db, navKey, store } as session) msg ({ query } as model) =
                             }
                                 :: store.savedSimulations
                     }
-
-                newSession =
-                    { session | store = newStore }
             in
             ( model
-            , newSession
-            , newSession.store |> Session.serializeStore |> Ports.saveStore
+            , { session | store = updatedStore }
+            , Cmd.none
             )
 
         SelectInputText index ->

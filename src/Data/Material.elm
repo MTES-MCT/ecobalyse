@@ -89,16 +89,16 @@ groupByCategories materials =
 fullName : Maybe Unit.Ratio -> Material -> String
 fullName recycledRatio material =
     material.shortName
-        ++ (case recycledRatio of
-                Nothing ->
-                    ""
-
-                Just ratio ->
+        ++ (case ( material.recycledProcess, recycledRatio ) of
+                ( Just _, Just ratio ) ->
                     if Unit.ratioToFloat ratio == 0 then
                         ""
 
                     else
                         " (" ++ recycledRatioToString "♲" ratio ++ ")"
+
+                _ ->
+                    ""
            )
 
 
