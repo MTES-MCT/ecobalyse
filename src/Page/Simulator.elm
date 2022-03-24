@@ -140,7 +140,7 @@ updateQuery query ( model, session, msg ) =
 
 
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
-update ({ db, navKey, store } as session) msg ({ query } as model) =
+update ({ db, navKey } as session) msg ({ query } as model) =
     case msg of
         AddMaterial ->
             ( model, session, Cmd.none )
@@ -150,14 +150,8 @@ update ({ db, navKey, store } as session) msg ({ query } as model) =
             ( model, session, Ports.copyToClipboard shareableLink )
 
         DeleteSavedSimulation savedSimulation ->
-            let
-                updatedStore =
-                    { store
-                        | savedSimulations = List.filter ((/=) savedSimulation) store.savedSimulations
-                    }
-            in
             ( model
-            , { session | store = updatedStore }
+            , session |> Session.deleteSimulation savedSimulation
             , Cmd.none
             )
 
@@ -170,18 +164,12 @@ update ({ db, navKey, store } as session) msg ({ query } as model) =
                 |> updateQuery Inputs.defaultQuery
 
         SaveSimulation ->
-            let
-                updatedStore =
-                    { store
-                        | savedSimulations =
-                            { name = model.simulationName
-                            , query = model.query
-                            }
-                                :: store.savedSimulations
-                    }
-            in
             ( model
-            , { session | store = updatedStore }
+            , session
+                |> Session.saveSimulation
+                    { name = model.simulationName
+                    , query = model.query
+                    }
             , Cmd.none
             )
 

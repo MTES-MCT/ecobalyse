@@ -3,9 +3,11 @@ module Data.Session exposing
     , SavedSimulation
     , Session
     , closeNotification
+    , deleteSimulation
     , deserializeStore
     , notifyError
     , notifyHttpError
+    , saveSimulation
     , serializeStore
     )
 
@@ -111,3 +113,30 @@ deserializeStore =
 serializeStore : Store -> String
 serializeStore =
     encodeStore >> Encode.encode 0
+
+
+updateStore : (Store -> Store) -> Session -> Session
+updateStore update session =
+    { session | store = update session.store }
+
+
+deleteSimulation : SavedSimulation -> Session -> Session
+deleteSimulation simulation =
+    updateStore
+        (\store ->
+            { store
+                | savedSimulations =
+                    List.filter ((/=) simulation) store.savedSimulations
+            }
+        )
+
+
+saveSimulation : SavedSimulation -> Session -> Session
+saveSimulation simulation =
+    updateStore
+        (\store ->
+            { store
+                | savedSimulations =
+                    simulation :: store.savedSimulations
+            }
+        )
