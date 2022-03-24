@@ -206,14 +206,10 @@ suite =
                     |> testTransportRatio (Unit.ratio 0)
                     |> Expect.equal ( 900, 500, 0 )
                     |> asTest "should handle ratio for road < 2000km"
-                , { road = 2800, sea = 4000, air = 0 }
+                , { road = 4000, sea = 10000, air = 0 }
                     |> testTransportRatio (Unit.ratio 0)
-                    |> Expect.equal ( 700, 3000, 0 )
-                    |> asTest "should handle ratio for road < 3000km"
-                , { road = 5000, sea = 10000, air = 0 }
-                    |> testTransportRatio (Unit.ratio 0)
-                    |> Expect.equal ( 0, 10000, 0 )
-                    |> asTest "should handle ratio for road > 3000km"
+                    |> Expect.equal ( 1000, 7500, 0 )
+                    |> asTest "should handle ratio for road > 2000km"
                 , { road = 0, sea = 11310, air = 7300 }
                     |> testTransportRatio (Unit.ratio 0)
                     |> Expect.equal ( 0, 11310, 0 )

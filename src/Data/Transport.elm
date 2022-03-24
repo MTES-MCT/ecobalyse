@@ -100,11 +100,8 @@ roadSeaTransportRatio { road, sea } =
     else if Length.inKilometers road < 2000 then
         0.5
 
-    else if Length.inKilometers road < 3000 then
-        0.25
-
     else
-        0
+        0.25
 
 
 getTransportBetween :
