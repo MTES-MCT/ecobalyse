@@ -24,11 +24,27 @@
     "airTransportRatio": 0
   },
   {
+    "code": "EG",
+    "name": "Egypte",
+    "electricityProcessUuid": "92df3ca1-8f77-495f-83d1-0d1970585cea",
+    "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
+    "dyeingWeighting": 1,
+    "airTransportRatio": 0
+  },
+  {
     "code": "ES",
     "name": "Espagne",
     "electricityProcessUuid": "37301c44-c4cf-4214-a4ac-eee5785ccdc5",
     "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
     "dyeingWeighting": 0,
+    "airTransportRatio": 0
+  },
+  {
+    "code": "ET",
+    "name": "Ethiopie",
+    "electricityProcessUuid": "65ec9860-bfb4-4c3a-bd72-e0e8bbcefea1",
+    "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
+    "dyeingWeighting": 1,
     "airTransportRatio": 0
   },
   {
@@ -40,12 +56,28 @@
     "airTransportRatio": 0
   },
   {
+    "code": "GB",
+    "name": "Royaume-Uni",
+    "electricityProcessUuid": "17c53aa0-ee44-4d2e-8923-5410a6fb1bba",
+    "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
+    "dyeingWeighting": 0,
+    "airTransportRatio": 0
+  },
+  {
     "code": "IN",
     "name": "Inde",
     "electricityProcessUuid": "1b470f5c-6ae6-404d-bd71-8546d33dbc17",
     "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
     "dyeingWeighting": 1,
     "airTransportRatio": 0.33
+  },
+  {
+    "code": "IT",
+    "name": "Italie",
+    "electricityProcessUuid": "f23b9dd6-9400-4451-a7c4-ad44834b8400",
+    "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
+    "dyeingWeighting": 0,
+    "airTransportRatio": 0
   },
   {
     "code": "KH",
@@ -88,6 +120,14 @@
     "airTransportRatio": 0
   },
   {
+    "code": "LK",
+    "name": "Sri Lanka",
+    "electricityProcessUuid": "a422bb06-6d07-436b-be71-9e2034272a2b",
+    "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
+    "dyeingWeighting": 1,
+    "airTransportRatio": 0.33
+  },
+  {
     "code": "TN",
     "name": "Tunisie",
     "electricityProcessUuid": "f0eb64cd-468d-4f3c-a9a3-3b3661625955",
@@ -99,6 +139,14 @@
     "code": "TR",
     "name": "Turquie",
     "electricityProcessUuid": "6fad8643-de3e-49dd-a48b-8e17b4175c23",
+    "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
+    "dyeingWeighting": 1,
+    "airTransportRatio": 0.33
+  },
+  {
+    "code": "TW",
+    "name": "Taiwan",
+    "electricityProcessUuid": "b1fda481-0247-4b08-a86f-09847e695e9d",
     "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
     "dyeingWeighting": 1,
     "airTransportRatio": 0.33
