@@ -1,4 +1,10 @@
-module Request.Version exposing (Version(..), loadVersion, pollVersion, updateVersion)
+module Request.Version exposing
+    ( Version(..)
+    , loadVersion
+    , pollVersion
+    , toString
+    , updateVersion
+    )
 
 import Json.Decode as Decode
 import RemoteData exposing (WebData)
@@ -10,6 +16,16 @@ type Version
     = Unknown
     | Version String
     | NewerVersion
+
+
+toString : Version -> Maybe String
+toString version =
+    case version of
+        Version string ->
+            Just string
+
+        _ ->
+            Nothing
 
 
 updateVersion : Version -> WebData String -> Version

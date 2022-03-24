@@ -15,7 +15,7 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Page.Simulator.ViewMode as ViewMode
-import Request.Version
+import Request.Version as Version
 import Route
 import Views.Alert as Alert
 import Views.Container as Container
@@ -69,7 +69,7 @@ frame config ( title, content ) =
             [ notificationListView config
             , div [ class "pt-2 pt-sm-5" ] content
             ]
-        , pageFooter
+        , pageFooter config.session
         ]
     }
 
@@ -94,7 +94,7 @@ stagingAlert { session, loadUrl } =
 newVersionAlert : Config msg -> Html msg
 newVersionAlert { session, reloadPage } =
     case session.currentVersion of
-        Request.Version.NewerVersion ->
+        Version.NewerVersion ->
             div [ class "NewVersionAlert d-block align-items-center" ]
                 [ text "Une nouvelle version de l'application est disponible."
                 , button
@@ -215,8 +215,8 @@ notificationView { closeNotification } notification =
                 }
 
 
-pageFooter : Html msg
-pageFooter =
+pageFooter : Session -> Html msg
+pageFooter { currentVersion } =
     footer
         [ class "bg-dark text-light py-5 fs-7" ]
         [ Container.centered []
@@ -283,6 +283,18 @@ pageFooter =
                 [ text "Un produit "
                 , Link.external [ href "https://beta.gouv.fr/startups/wikicarbone.html", class "text-light" ]
                     [ img [ src "img/betagouv.svg", alt "beta.gouv.fr", style "width" "120px" ] [] ]
+                , case Version.toString currentVersion of
+                    Just hash ->
+                        small [ class "d-block fs-8 ms-2 text-muted" ]
+                            [ Link.external
+                                [ class "text-white-50 text-decoration-none"
+                                , href <| "https://github.com/MTES-MCT/wikicarbone/commit/" ++ hash
+                                ]
+                                [ text <| "Version " ++ hash ]
+                            ]
+
+                    Nothing ->
+                        text ""
                 ]
             ]
         ]
