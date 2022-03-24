@@ -23,7 +23,7 @@ suite =
                     |> Result.andThen (LifeCycle.computeStepsTransport db)
                     |> Result.map (LifeCycle.computeTotalTransportImpacts db)
                     |> Result.map (\{ road, sea } -> ( Length.inKilometers road, Length.inKilometers sea ))
-                    |> Expect.equal (Ok ( 4542.25, 16161.75 ))
+                    |> Expect.equal (Ok ( 2500, 21549 ))
                     |> asTest "should compute default distances"
                 , LifeCycle.fromQuery db
                     { tShirtCotonFrance
@@ -34,7 +34,7 @@ suite =
                     |> Result.andThen (LifeCycle.computeStepsTransport db)
                     |> Result.map (LifeCycle.computeTotalTransportImpacts db)
                     |> Result.map (\{ road, sea } -> ( Length.inKilometers road, Length.inKilometers sea ))
-                    |> Expect.equal (Ok ( 7182.75, 34103.25 ))
+                    |> Expect.equal (Ok ( 1500, 45471 ))
                     |> asTest "should compute custom distances"
                 ]
             ]
