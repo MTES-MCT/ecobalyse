@@ -7,17 +7,9 @@ import json
 import os
 import random
 
-"""Script to get the distances between countries for a list of countries. To identify countries we use the 2 letters code (France->FR).
-
-
-# Runtime
-Takes about 1 minute to compute 10 routes.
-10 countries -> 45 routes -> 4.5 minutes
-The number of routes is n(n-1)/2 with n the number of countries.
-20 countries -> 190 routes -> 19 minutes
-"""
-
-
+    """if you only want to compute the distance for 1 new country, use this script so you don't have to compute the distances between n(n-1)/2 countries
+    """
+    
 def getSearatesDistance(route_type, route):
     """Query the Searates API for a route ("FR","CN") and a route_type ("road") and returns the distance
 
@@ -59,7 +51,22 @@ def buildSearatesQuery(route_type, route):
     return base_url + from_str + to_str + countries_str
 
 
-df = pd.read_csv("countries_importance.csv")
+user_agent_list = [
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_5) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.1.1 Safari/605.1.15",
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:77.0) Gecko/20100101 Firefox/77.0",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:77.0) Gecko/20100101 Firefox/77.0",
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36",
+]
+url = "https://httpbin.org/headers"
+# Pick a random user agent
+user_agent = random.choice(user_agent_list)
+# Set the headers
+headers = {"User-Agent": user_agent}
+
+df = pd.read_csv("distances/countries_importance.csv")
+# select only most important countries
+# df = df[(df.importance == 1)]
 
 # build dic of country -> coordinates
 country_coords = {}
@@ -89,43 +96,20 @@ countries = [
     "KH",
     "PK",
     "DE",
-    "EG",
-    "ET",
-    "IT",
-    "LK",
-    "TW",
-    "GB",
 ]
 
-# log the nb of routes
+country_to_add = ["IN"]
 
 distances = {}
 remaining_countries = countries.copy()
+
+
+# log number of routes
 n = len(countries)
 nb_routes = round(n * (n - 1) / 2)
 print("number of routes : " + str(nb_routes))
-
-
-# Searates API won't work after a nb of requests
-# Changing the user agent fix that
-
-user_agent_list = [
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_5) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.1.1 Safari/605.1.15",
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:77.0) Gecko/20100101 Firefox/77.0",
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36",
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:77.0) Gecko/20100101 Firefox/77.0",
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36",
-]
-url = "https://httpbin.org/headers"
-
-
 i = 1
-for country_from in countries:
-    # pick a random user_agent
-    user_agent = random.choice(user_agent_list)
-    headers = {"User-Agent": user_agent}
-    # remove current country (country_from) from remaining_countries
-    remaining_countries.remove(country_from)
+for country_from in country_to_add:
     # for current country build a dictionary of distances with all remaining countries
     country_from_dic = {}
 
@@ -143,6 +127,7 @@ for country_from in countries:
             )
 
             # get distances between country_from and country_to
+
             country_from_dic[country_to] = {
                 "road": getSearatesDistance("road", route),
                 "sea": getSearatesDistance("sea", route),
@@ -157,5 +142,5 @@ for country_from in countries:
         distances[country_from] = country_from_dic
         print("finished computing distances for " + country_from)
 
-with open("distances.json", "w") as outfile:
+with open("distances/distances_add_country.json", "w") as outfile:
     json.dump(distances, outfile)
