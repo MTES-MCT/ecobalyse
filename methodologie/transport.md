@@ -64,46 +64,32 @@ $$
 
 ### Répartition terrestre - maritime
 
+#### Hypothèses
+
 La part du **transport terrestre (t)**, par rapport au transport "terrestre + maritime", est établie comme suit :
 
-* Transport entre pays Européen (+ Turquie) et Inde - Bangladesh
+| **Distance terrestre** | **t** |
+| ---------------------- | ----- |
+| <=500 km               | 100%  |
+| 500 km <= 1000 km      | 90%   |
+| 1000 km <= 2000 km     | 50%   |
+| 2000 km <= 3000 km     | 25%   |
+|  > 3000 km             | 0%    |
 
-| t                   | Pays X |
-| ------------------- | ------ |
-| si trajet < 1000 km | 90%    |
-| si trajet < 2000 km | 50%    |
-| si trajet > 2000 km | 25%    |
+Si 2 étapes successives ont lieu dans un même pays, on fait l'hypothèse que le déplacement est fait à 100% par la voie terrestre avec une distance de 500 km.
 
-Application aux pays Européen :
+#### Exemples
 
 | t        | Turquie | France | Espagne | Portugal |
 | -------- | ------- | ------ | ------- | -------- |
 | Turquie  | 100%    |        |         |          |
 | France   | 25%     | 100%   |         |          |
-| Espagne  | 25%     | 90%    | 100%    |          |
-| Portugal | 25%     | 50%    | 90%     | 100%     |
+| Espagne  | 0%      | 90%    | 100%    |          |
+| Portugal | 0%      | 50%    | 90%     | 100%     |
 
-Application à Inde - Bangladesh :
+_"Pour un déplacement "Turquie-France", le transport terrestre-maritime sera fait de 25% de terrestre et de 75% de maritime"_
 
-| t          | Inde |
-| ---------- | ---- |
-| Bangladesh | 50%  |
-
-* Transport interne à un même pays, si deux étapes successives sont réalisées dans un même pays
-
-| t      | Pays X |
-| ------ | ------ |
-| Pays X | 100%   |
-
-* Autre transport entre deux pays distincts, dont au moins un est hors Europe (+ Turquie)
-
-| t      | Pays Y |
-| ------ | ------ |
-| Pays Z | 0%     |
-
-
-
-* Cas particulier des étapes 1 (Matière première --> Filature) et 2 (Filature --> Tricotage / Tissage)
+#### Cas particulier des étapes 1 (Matière première --> Filature) et 2 (Filature --> Tricotage / Tissage)
 
 | Etape                                      | Distance terrestre                                                                                                                          | Distance maritime                                                                                                                           |
 | ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -131,15 +117,17 @@ Le curseur "part du transport aérien", proposé sous l'étape "confection" perm
 
 ## Distances
 
+[Toutes les distances entre pays (identifiés par leurs code alpha-2) sont visibles sur cette page](https://github.com/MTES-MCT/wikicarbone/blob/master/public/data/transports.json)
+
 Les distances entre pays sont considérées à partir des calculateurs mis en avant dans le projet de PEF CR Apparel & Footwear rendu public à l'été 2021 (Version 1.1 – Second draft PEFCR, 28 May 2021).
 
 Ainsi :
 
-| Type de transport | Site de référence                                                                                            |
-| ----------------- | ------------------------------------------------------------------------------------------------------------ |
-| Terrestre         | [https://www.searates.com/services/distances-time/](https://www.searates.com/services/distances-time/)       |
-| Maritime          | [https://www.searates.com/services/distances-time/](https://www.searates.com/services/distances-time/)       |
-| Aérien            | [https://co2.myclimate.org/en/flight\_calculators/new](https://co2.myclimate.org/en/flight\_calculators/new) |
+| Type de transport | Site de référence                                                                                      |
+| ----------------- | ------------------------------------------------------------------------------------------------------ |
+| Terrestre         | [https://www.searates.com/services/distances-time/](https://www.searates.com/services/distances-time/) |
+| Maritime          | [https://www.searates.com/services/distances-time/](https://www.searates.com/services/distances-time/) |
+| Aérien            | Calcul de distance à vol d'oiseau geopy.distance                                                       |
 
 Lorsque deux étapes successives sont réalisées dans un même pays, une distance par défaut est considérée. Cette distance est également considérée pour du transport aérien si le curseur "transport aérien" est utilisé.
 
@@ -150,34 +138,6 @@ Lorsque deux étapes successives sont réalisées dans un même pays, une distan
 {% hint style="warning" %}
 **Ce choix de distance par défaut relève d'une orientation spécifique à l'outil et devant être discutée. Le cas de deux étapes successives réalisées sur un même site, avec donc une distance nulle, pourrait être intégré.**
 {% endhint %}
-
-Les distances ainsi calculées sont :
-
-| Terrestre (km) | Turquie | France | Espagne | Portugal |
-| -------------- | ------- | ------ | ------- | -------- |
-| Turquie        | 500     |        |         |          |
-| France         | 2 798   | 500    |         |          |
-| Espagne        | 3 312   | 801    | 500     |          |
-| Portugal       | 3 709   | 1 138  | 399     | 500      |
-
-
-
-| Maritime (km)    | Tous les pays...                                                                                           |
-| ---------------- | ---------------------------------------------------------------------------------------------------------- |
-| Tous les pays... | cf. [https://www.searates.com/services/distances-time/](https://www.searates.com/services/distances-time/) |
-
-| Aérien (km) | France |
-| ----------- | ------ |
-| Turquie     | 2 200  |
-| Tunisie     | 1 500  |
-| Inde        | 6 600  |
-| Chine       | 8 200  |
-| Bangladesh  | 7 900  |
-| Espagne\*   | 1 100  |
-| Portugal\*  | 1 500  |
-| France\*    | 500    |
-
-\*Pour l'Espagne, le Portugal et la France, la part du transport aérien (a) étant positionnée par défaut à 0%, ces distances ne sont mobilisées dans le calcul que si le curseur est déplacé manuellement.
 
 ## Distribution
 

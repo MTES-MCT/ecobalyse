@@ -13,7 +13,6 @@
 * [👗 Etape 4 - Confection](methodologie/confection.md)
 * [🚚 Etape 5 - Distribution](methodologie/distribution.md)
 * [🌀 Etape 6 - Utilisation](methodologie/etape-6-utilisation.md)
-* [♻ Etape 7 - Fin de vie](methodologie/etape-7-fin-de-vie.md)
 * [🚢 Transport](methodologie/transport.md)
 * [⚡ Electricité](methodologie/electricite.md)
 * [🔥 Chaleur](methodologie/chaleur.md)
@@ -22,6 +21,7 @@
 * [Hypothèses par défaut](methodologie/hypotheses-par-defaut.md)
 * [Echelle comparative](methodologie/echelle-comparative.md)
 * [Ajout d'un pays](methodologie/ajout-dun-pays.md)
+* [♻ Etape 7 - Fin de vie](methodologie/etape-7-fin-de-vie.md)
 
 ***
 
