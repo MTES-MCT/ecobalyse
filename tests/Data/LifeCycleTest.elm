@@ -1,7 +1,6 @@
 module Data.LifeCycleTest exposing (..)
 
 import Data.Country as Country
-import Data.Impact as Impact
 import Data.Inputs exposing (tShirtCotonFrance)
 import Data.LifeCycle as LifeCycle
 import Expect
@@ -18,23 +17,13 @@ suite : Test
 suite =
     suiteWithDb "Data.LifeCycle"
         (\db ->
-            let
-                defaultImpacts =
-                    Impact.impactsFromDefinitons db.impacts
-            in
             [ describe "computeTransportSummary"
                 [ tShirtCotonFrance
                     |> LifeCycle.fromQuery db
                     |> Result.andThen (LifeCycle.computeStepsTransport db)
                     |> Result.map (LifeCycle.computeTotalTransportImpacts db)
-                    |> Expect.equal
-                        (Ok
-                            { road = km 2500
-                            , sea = km 21548
-                            , air = km 0
-                            , impacts = defaultImpacts
-                            }
-                        )
+                    |> Result.map (\{ road, sea } -> ( Length.inKilometers road, Length.inKilometers sea ))
+                    |> Expect.equal (Ok ( 2500, 21549 ))
                     |> asTest "should compute default distances"
                 , LifeCycle.fromQuery db
                     { tShirtCotonFrance
@@ -44,14 +33,8 @@ suite =
                     }
                     |> Result.andThen (LifeCycle.computeStepsTransport db)
                     |> Result.map (LifeCycle.computeTotalTransportImpacts db)
-                    |> Expect.equal
-                        (Ok
-                            { road = km 1500
-                            , sea = km 45468
-                            , air = km 0
-                            , impacts = defaultImpacts
-                            }
-                        )
+                    |> Result.map (\{ road, sea } -> ( Length.inKilometers road, Length.inKilometers sea ))
+                    |> Expect.equal (Ok ( 1500, 45471 ))
                     |> asTest "should compute custom distances"
                 ]
             ]

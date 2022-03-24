@@ -16,6 +16,14 @@
     "airTransportRatio": 0.33
   },
   {
+    "code": "DE",
+    "name": "Allemagne",
+    "electricityProcessUuid": "2f4ccc4d-d96d-4f9b-a462-487c914f88d5",
+    "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
+    "dyeingWeighting": 0,
+    "airTransportRatio": 0
+  },
+  {
     "code": "ES",
     "name": "Espagne",
     "electricityProcessUuid": "37301c44-c4cf-4214-a4ac-eee5785ccdc5",
@@ -40,6 +48,38 @@
     "airTransportRatio": 0.33
   },
   {
+    "code": "KH",
+    "name": "Cambodge",
+    "electricityProcessUuid": "89039edc-900f-49dd-82cc-6a27f7cad4ad",
+    "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
+    "dyeingWeighting": 1,
+    "airTransportRatio": 0.33
+  },
+  {
+    "code": "MA",
+    "name": "Maroc",
+    "electricityProcessUuid": "7f879b58-013e-472c-8637-67d2d536f4e2",
+    "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
+    "dyeingWeighting": 1,
+    "airTransportRatio": 0
+  },
+  {
+    "code": "MM",
+    "name": "Myanmar",
+    "electricityProcessUuid": "11fbcf50-22e3-4db0-b19f-c841bf7f8692",
+    "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
+    "dyeingWeighting": 1,
+    "airTransportRatio": 0.33
+  },
+  {
+    "code": "PK",
+    "name": "Pakistan",
+    "electricityProcessUuid": "5235ba76-4f83-473c-9521-8f3e1c084a37",
+    "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
+    "dyeingWeighting": 1,
+    "airTransportRatio": 0.33
+  },
+  {
     "code": "PT",
     "name": "Portugal",
     "electricityProcessUuid": "a1d83202-0052-4d10-b9d2-938564be6a0b",
@@ -59,6 +99,14 @@
     "code": "TR",
     "name": "Turquie",
     "electricityProcessUuid": "6fad8643-de3e-49dd-a48b-8e17b4175c23",
+    "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
+    "dyeingWeighting": 1,
+    "airTransportRatio": 0.33
+  },
+  {
+    "code": "VN",
+    "name": "Vietnam",
+    "electricityProcessUuid": "0007ed7f-ef14-47a0-859c-d8ca92309f66",
     "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
     "dyeingWeighting": 1,
     "airTransportRatio": 0.33

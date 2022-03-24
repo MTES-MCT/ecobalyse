@@ -71,6 +71,7 @@ countryField : Config msg -> Html msg
 countryField { db, current, inputs, index, updateCountry } =
     div []
         [ db.countries
+            |> List.sortBy .name
             |> List.map
                 (\{ code, name } ->
                     option

@@ -16,9 +16,9 @@ km =
 
 franceChina : Impacts -> Transport
 franceChina impacts =
-    { road = km 0
-    , sea = km 21548
-    , air = km 8200
+    { road = km 8169
+    , sea = km 21549
+    , air = km 8189
     , impacts = impacts
     }
 

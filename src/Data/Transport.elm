@@ -100,8 +100,11 @@ roadSeaTransportRatio { road, sea } =
     else if Length.inKilometers road < 2000 then
         0.5
 
-    else
+    else if Length.inKilometers road < 3000 then
         0.25
+
+    else
+        0
 
 
 getTransportBetween :
@@ -132,7 +135,8 @@ getTransportBetween impacts cA cB distances =
 
 decodeKm : Decoder Length
 decodeKm =
-    Decode.float |> Decode.andThen (Length.kilometers >> Decode.succeed)
+    Decode.maybe Decode.float
+        |> Decode.map (Maybe.map Length.kilometers >> Maybe.withDefault Quantity.zero)
 
 
 encodeKm : Length -> Encode.Value
