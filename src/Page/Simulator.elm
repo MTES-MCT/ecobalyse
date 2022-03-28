@@ -30,6 +30,7 @@ import Views.Container as Container
 import Views.Icon as Icon
 import Views.Impact as ImpactView
 import Views.Material as MaterialView
+import Views.SavedSimulation as SavedSimulationView
 import Views.Step as StepView
 import Views.Summary as SummaryView
 
@@ -362,7 +363,17 @@ linksView session ({ linksTab } as model) simulator =
                 shareLinkView session model simulator
 
             SaveLink ->
-                saveLinkView session model
+                SavedSimulationView.view
+                    { session = session
+                    , query = model.query
+                    , simulationName = model.simulationName
+                    , impact = model.impact
+                    , funit = model.funit
+                    , savedSimulations = session.store.savedSimulations
+                    , deleteSavedSimulation = DeleteSavedSimulation
+                    , saveSimulation = SaveSimulation
+                    , updateSimulationName = UpdateSimulationName
+                    }
         ]
 
 
@@ -395,78 +406,6 @@ shareLinkView session { impact, funit } simulator =
             ]
         , div [ class "form-text fs-7" ]
             [ text "Copiez cette adresse pour partager ou sauvegarder votre simulation" ]
-        ]
-
-
-saveLinkView : Session -> Model -> Html Msg
-saveLinkView ({ store } as session) ({ query, simulationName } as model) =
-    div []
-        [ div [ class "card-body" ]
-            [ Html.form [ onSubmit SaveSimulation ]
-                [ div [ class "input-group" ]
-                    [ input
-                        [ type_ "text"
-                        , class "form-control"
-                        , onInput UpdateSimulationName
-                        , placeholder "Nom de la simulation"
-                        , value simulationName
-                        ]
-                        []
-                    , button
-                        [ class "btn btn-primary"
-                        , classList [ ( "disabled", List.member (Session.SavedSimulation simulationName query) store.savedSimulations ) ]
-                        , disabled <| List.member (Session.SavedSimulation simulationName query) store.savedSimulations
-                        , title "Sauvegarder la simulation dans le stockage local au navigateur"
-                        , type_ "submit"
-                        ]
-                        [ Icon.plus
-                        ]
-                    ]
-                ]
-            , div [ class "form-text fs-7 pb-0" ]
-                [ text "Nommez cette simulation pour vous aider à la retrouver dans la liste" ]
-            ]
-        , savedSimulationsView session model store.savedSimulations
-        ]
-
-
-savedSimulationsView : Session -> Model -> List Session.SavedSimulation -> Html Msg
-savedSimulationsView session model savedSimulations =
-    div []
-        [ div [ class "card-header border-top" ] [ text "Simulations sauvegardées" ]
-        , if List.length savedSimulations == 0 then
-            div [ class "card-body form-text fs-7 pt-2" ]
-                [ text "Pas de simulations sauvegardées sur cet ordinateur" ]
-
-          else
-            ul [ class "list-group list-group-flush overflow-scroll", style "max-height" "50vh" ]
-                (List.map (savedSimulationView session model) savedSimulations)
-        ]
-
-
-savedSimulationView : Session -> Model -> Session.SavedSimulation -> Html Msg
-savedSimulationView { clientUrl } { impact, funit } ({ name, query } as savedSimulation) =
-    let
-        simulationLink =
-            Just query
-                |> Route.Simulator impact.trigram funit ViewMode.Simple
-                |> Route.toString
-                |> (++) clientUrl
-    in
-    li [ class "list-group-item d-flex justify-content-between align-items-center" ]
-        [ a
-            [ href simulationLink
-            , title name
-            , class "text-truncate"
-            ]
-            [ text name
-            ]
-        , button
-            [ type_ "button"
-            , class "btn btn-sm btn-danger"
-            , onClick <| DeleteSavedSimulation savedSimulation
-            ]
-            [ text "Supprimer" ]
         ]
 
 
