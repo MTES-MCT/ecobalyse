@@ -27,6 +27,7 @@ type alias Session =
     , currentVersion : Version
     , db : Db
     , notifications : List Notification
+    , query : Inputs.Query
     }
 
 
