@@ -21,9 +21,9 @@ type alias Config msg =
     , savedSimulations : List Session.SavedSimulation
 
     -- Messages
-    , deleteSavedSimulation : Session.SavedSimulation -> msg
-    , saveSimulation : msg
-    , updateSimulationName : String -> msg
+    , delete : Session.SavedSimulation -> msg
+    , save : msg
+    , update : String -> msg
     }
 
 
@@ -35,12 +35,12 @@ view ({ query, simulationName, savedSimulations } as config) =
     in
     div []
         [ div [ class "card-body" ]
-            [ Html.form [ onSubmit config.saveSimulation ]
+            [ Html.form [ onSubmit config.save ]
                 [ div [ class "input-group" ]
                     [ input
                         [ type_ "text"
                         , class "form-control"
-                        , onInput config.updateSimulationName
+                        , onInput config.update
                         , placeholder "Nom de la simulation"
                         , value simulationName
                         ]
@@ -83,7 +83,7 @@ savedSimulationsView ({ savedSimulations } as config) =
 
 
 savedSimulationView : Config msg -> Session.SavedSimulation -> Html msg
-savedSimulationView { session, impact, funit, deleteSavedSimulation } ({ name, query } as savedSimulation) =
+savedSimulationView { session, impact, funit, delete } ({ name, query } as savedSimulation) =
     let
         simulationLink =
             Just query
@@ -101,7 +101,7 @@ savedSimulationView { session, impact, funit, deleteSavedSimulation } ({ name, q
         , button
             [ type_ "button"
             , class "btn btn-sm btn-danger"
-            , onClick <| deleteSavedSimulation savedSimulation
+            , onClick <| delete savedSimulation
             ]
             [ text "Supprimer" ]
         ]
