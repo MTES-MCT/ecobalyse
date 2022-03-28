@@ -367,9 +367,9 @@ linksView session ({ linksTab } as model) simulator =
                     , impact = model.impact
                     , funit = model.funit
                     , savedSimulations = session.store.savedSimulations
-                    , deleteSavedSimulation = DeleteSavedSimulation
-                    , saveSimulation = SaveSimulation
-                    , updateSimulationName = UpdateSimulationName
+                    , delete = DeleteSavedSimulation
+                    , save = SaveSimulation
+                    , update = UpdateSimulationName
                     }
         ]
 
