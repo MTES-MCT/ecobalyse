@@ -404,10 +404,6 @@ shareLinkView session { impact, funit } simulator =
 
 saveLinkView : Session -> Model -> Html Msg
 saveLinkView ({ store } as session) ({ simulationName } as model) =
-    let
-        query =
-            store.query
-    in
     div []
         [ div [ class "card-body" ]
             [ Html.form [ onSubmit SaveSimulation ]
@@ -422,8 +418,8 @@ saveLinkView ({ store } as session) ({ simulationName } as model) =
                         []
                     , button
                         [ class "btn btn-primary"
-                        , classList [ ( "disabled", List.member (Session.SavedSimulation simulationName query) store.savedSimulations ) ]
-                        , disabled <| List.member (Session.SavedSimulation simulationName query) store.savedSimulations
+                        , classList [ ( "disabled", List.member (Session.SavedSimulation simulationName store.query) store.savedSimulations ) ]
+                        , disabled <| List.member (Session.SavedSimulation simulationName store.query) store.savedSimulations
                         , title "Sauvegarder la simulation dans le stockage local au navigateur"
                         , type_ "submit"
                         ]
@@ -503,10 +499,6 @@ displayModeView trigram funit viewMode query =
 
 simulatorView : Session -> Model -> Simulator -> Html Msg
 simulatorView ({ db, store } as session) ({ impact, funit, viewMode } as model) ({ inputs } as simulator) =
-    let
-        query =
-            store.query
-    in
     div [ class "row" ]
         [ div [ class "col-lg-7" ]
             [ h1 [] [ text "Simulateur " ]
@@ -529,7 +521,7 @@ simulatorView ({ db, store } as session) ({ impact, funit, viewMode } as model) 
                 , updateShare = UpdateMaterialShare
                 , selectInputText = SelectInputText
                 }
-            , query
+            , store.query
                 |> displayModeView impact.trigram funit viewMode
             , lifeCycleStepsView db model simulator
             , div [ class "d-flex align-items-center justify-content-between mt-3 mb-5" ]
@@ -538,7 +530,7 @@ simulatorView ({ db, store } as session) ({ impact, funit, viewMode } as model) 
                 , button
                     [ class "btn btn-secondary"
                     , onClick Reset
-                    , disabled (query == model.initialQuery)
+                    , disabled (store.query == model.initialQuery)
                     ]
                     [ text "Réinitialiser le simulateur" ]
                 ]

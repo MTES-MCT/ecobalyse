@@ -84,7 +84,7 @@ decodeStore : Decoder Store
 decodeStore =
     Decode.map2 Store
         (Decode.field "savedSimulations" <| Decode.list decodeSavedSimulation)
-        (Decode.field "query" <| Inputs.decodeQuery)
+        (Decode.field "query" Inputs.decodeQuery)
 
 
 decodeSavedSimulation : Decoder SavedSimulation
