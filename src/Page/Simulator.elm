@@ -30,6 +30,7 @@ import Views.Container as Container
 import Views.Icon as Icon
 import Views.Impact as ImpactView
 import Views.Material as MaterialView
+import Views.Modal as ModalView
 import Views.SavedSimulation as SavedSimulationView
 import Views.Step as StepView
 import Views.Summary as SummaryView
@@ -45,6 +46,7 @@ type alias Model =
     , viewMode : ViewMode
     , impact : Impact.Definition
     , funit : Unit.Functional
+    , modal : Modal
     }
 
 
@@ -53,14 +55,21 @@ type LinksTab
     | SaveLink
 
 
+type Modal
+    = NoModal
+    | SavedSimulationsModal
+
+
 type Msg
     = AddMaterial
     | CopyToClipBoard String
     | DeleteSavedSimulation Session.SavedSimulation
+    | NoOp
     | RemoveMaterial Int
     | Reset
     | SaveSimulation
     | SelectInputText String
+    | SetModal Modal
     | SwitchFunctionalUnit Unit.Functional
     | SwitchImpact Impact.Trigram
     | SwitchLinksTab LinksTab
@@ -105,6 +114,7 @@ init trigram funit viewMode maybeQuery ({ db } as session) =
       , viewMode = viewMode
       , impact = db.impacts |> Impact.getDefinition trigram |> Result.withDefault Impact.default
       , funit = funit
+      , modal = NoModal
       }
     , case simulator of
         Err error ->
@@ -160,6 +170,9 @@ update ({ db, navKey } as session) msg ({ query } as model) =
             ( model, session, Cmd.none )
                 |> updateQuery (Inputs.removeMaterial index query)
 
+        NoOp ->
+            ( model, session, Cmd.none )
+
         Reset ->
             ( model, session, Cmd.none )
                 |> updateQuery Inputs.defaultQuery
@@ -176,6 +189,9 @@ update ({ db, navKey } as session) msg ({ query } as model) =
 
         SelectInputText index ->
             ( model, session, Ports.selectInputText index )
+
+        SetModal modal ->
+            ( { model | modal = modal }, session, Cmd.none )
 
         SwitchFunctionalUnit funit ->
             ( model
@@ -370,6 +386,7 @@ linksView session ({ linksTab } as model) simulator =
                     , impact = model.impact
                     , funit = model.funit
                     , savedSimulations = session.store.savedSimulations
+                    , compareAll = SetModal SavedSimulationsModal
                     , delete = DeleteSavedSimulation
                     , save = SaveSimulation
                     , update = UpdateSimulationName
@@ -510,6 +527,20 @@ view session model =
                         , content = [ text error ]
                         }
             ]
+      , case model.modal of
+            NoModal ->
+                text ""
+
+            SavedSimulationsModal ->
+                ModalView.view
+                    { size = ModalView.Large
+                    , close = SetModal NoModal
+                    , noOp = NoOp
+                    , title = "Comparaisons des simulations sauvegardées"
+                    , formAction = Nothing
+                    , content = [ text "coucou" ]
+                    , footer = []
+                    }
       ]
     )
 

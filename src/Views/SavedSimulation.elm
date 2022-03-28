@@ -21,6 +21,7 @@ type alias Config msg =
     , savedSimulations : List Session.SavedSimulation
 
     -- Messages
+    , compareAll : msg
     , delete : Session.SavedSimulation -> msg
     , save : msg
     , update : String -> msg
@@ -72,6 +73,7 @@ savedSimulationListView ({ savedSimulations } as config) =
             , button
                 [ class "btn btn-sm btn-primary"
                 , title "Comparer toutes vos simulations sauvegardées"
+                , disabled (List.length savedSimulations < 2)
                 ]
                 [ span [ class "me-1" ] [ Icon.stats ]
                 , text "Tout comparer"
