@@ -105,7 +105,7 @@ savedSimulationView { session, impact, funit, delete } ({ name, query } as saved
                 |> Route.toString
                 |> (++) session.clientUrl
     in
-    li [ class "list-group-item d-flex justify-content-between align-items-center" ]
+    li [ class "list-group-item d-flex justify-content-between align-items-center gap-1" ]
         [ a
             [ class "text-truncate"
             , href simulationLink

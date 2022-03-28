@@ -8,11 +8,13 @@ module Page.Simulator exposing
     )
 
 import Array
+import Browser.Events
 import Browser.Navigation as Navigation
 import Data.Country as Country
 import Data.Db exposing (Db)
 import Data.Impact as Impact
 import Data.Inputs as Inputs
+import Data.Key as Key
 import Data.Material as Material
 import Data.Product as Product exposing (Product)
 import Data.Session as Session exposing (Session)
@@ -556,5 +558,10 @@ view session model =
 
 
 subscriptions : Model -> Sub Msg
-subscriptions _ =
-    Sub.none
+subscriptions { modal } =
+    case modal of
+        NoModal ->
+            Sub.none
+
+        SavedSimulationsModal ->
+            Browser.Events.onKeyDown (Key.escape (SetModal NoModal))
