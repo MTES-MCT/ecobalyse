@@ -3,6 +3,7 @@ module Main exposing (main)
 import Browser exposing (Document)
 import Browser.Navigation as Nav
 import Data.Db as Db exposing (Db)
+import Data.Inputs as Inputs
 import Data.Session as Session exposing (Session)
 import Html
 import Page.Api as Api
@@ -77,6 +78,7 @@ init flags url navKey =
             , currentVersion = Request.Version.Unknown
             , db = Db.empty
             , notifications = []
+            , query = Inputs.defaultQuery
             }
     in
     ( { page = BlankPage

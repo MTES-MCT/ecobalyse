@@ -82,14 +82,14 @@ init :
     -> Maybe Inputs.Query
     -> Session
     -> ( Model, Session, Cmd Msg )
-init trigram funit viewMode maybeQuery ({ db, store } as session) =
+init trigram funit viewMode maybeQuery ({ db, query } as session) =
     let
         initialQuery =
             maybeQuery
                 |> Maybe.withDefault Inputs.defaultQuery
 
         simulator =
-            Simulator.compute db store.query
+            Simulator.compute db query
     in
     ( { simulator = simulator
       , linksTab = SaveLink
@@ -97,7 +97,7 @@ init trigram funit viewMode maybeQuery ({ db, store } as session) =
             simulator
                 |> Result.map (.inputs >> Inputs.toString)
                 |> Result.withDefault ""
-      , massInput = store.query.mass |> Mass.inKilograms |> String.fromFloat
+      , massInput = query.mass |> Mass.inKilograms |> String.fromFloat
       , initialQuery = initialQuery
       , viewMode = viewMode
       , impact = db.impacts |> Impact.getDefinition trigram |> Result.withDefault Impact.default
@@ -119,13 +119,10 @@ init trigram funit viewMode maybeQuery ({ db, store } as session) =
 
 
 updateQuery : Inputs.Query -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
-updateQuery query ( model, { store } as session, msg ) =
+updateQuery query ( model, session, msg ) =
     let
         updatedSimulator =
             Simulator.compute session.db query
-
-        updatedStore =
-            { store | query = query }
     in
     ( { model
         | simulator = updatedSimulator
@@ -134,17 +131,13 @@ updateQuery query ( model, { store } as session, msg ) =
                 |> Result.map (.inputs >> Inputs.toString)
                 |> Result.withDefault ""
       }
-    , { session | store = updatedStore }
+    , { session | query = query }
     , msg
     )
 
 
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
-update ({ db, navKey, store } as session) msg model =
-    let
-        query =
-            store.query
-    in
+update ({ db, query, navKey } as session) msg model =
     case msg of
         AddMaterial ->
             ( model, session, Cmd.none )
@@ -403,7 +396,7 @@ shareLinkView session { impact, funit } simulator =
 
 
 saveLinkView : Session -> Model -> Html Msg
-saveLinkView ({ store } as session) ({ simulationName } as model) =
+saveLinkView ({ query, store } as session) ({ simulationName } as model) =
     div []
         [ div [ class "card-body" ]
             [ Html.form [ onSubmit SaveSimulation ]
@@ -418,8 +411,8 @@ saveLinkView ({ store } as session) ({ simulationName } as model) =
                         []
                     , button
                         [ class "btn btn-primary"
-                        , classList [ ( "disabled", List.member (Session.SavedSimulation simulationName store.query) store.savedSimulations ) ]
-                        , disabled <| List.member (Session.SavedSimulation simulationName store.query) store.savedSimulations
+                        , classList [ ( "disabled", List.member (Session.SavedSimulation simulationName query) store.savedSimulations ) ]
+                        , disabled <| List.member (Session.SavedSimulation simulationName query) store.savedSimulations
                         , title "Sauvegarder la simulation dans le stockage local au navigateur"
                         , type_ "submit"
                         ]
@@ -498,7 +491,7 @@ displayModeView trigram funit viewMode query =
 
 
 simulatorView : Session -> Model -> Simulator -> Html Msg
-simulatorView ({ db, store } as session) ({ impact, funit, viewMode } as model) ({ inputs } as simulator) =
+simulatorView ({ db, query } as session) ({ impact, funit, viewMode } as model) ({ inputs } as simulator) =
     div [ class "row" ]
         [ div [ class "col-lg-7" ]
             [ h1 [] [ text "Simulateur " ]
@@ -521,7 +514,7 @@ simulatorView ({ db, store } as session) ({ impact, funit, viewMode } as model) 
                 , updateShare = UpdateMaterialShare
                 , selectInputText = SelectInputText
                 }
-            , store.query
+            , query
                 |> displayModeView impact.trigram funit viewMode
             , lifeCycleStepsView db model simulator
             , div [ class "d-flex align-items-center justify-content-between mt-3 mb-5" ]
@@ -530,7 +523,7 @@ simulatorView ({ db, store } as session) ({ impact, funit, viewMode } as model) 
                 , button
                     [ class "btn btn-secondary"
                     , onClick Reset
-                    , disabled (store.query == model.initialQuery)
+                    , disabled (query == model.initialQuery)
                     ]
                     [ text "Réinitialiser le simulateur" ]
                 ]
