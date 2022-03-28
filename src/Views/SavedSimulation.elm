@@ -60,14 +60,23 @@ view ({ query, simulationName, savedSimulations } as config) =
             , div [ class "form-text fs-7 pb-0" ]
                 [ text "Nommez cette simulation pour vous aider à la retrouver dans la liste" ]
             ]
-        , savedSimulationsView config
+        , savedSimulationListView config
         ]
 
 
-savedSimulationsView : Config msg -> Html msg
-savedSimulationsView ({ savedSimulations } as config) =
+savedSimulationListView : Config msg -> Html msg
+savedSimulationListView ({ savedSimulations } as config) =
     div []
-        [ div [ class "card-header border-top" ] [ text "Simulations sauvegardées" ]
+        [ div [ class "card-header border-top d-flex justify-content-between align-items-center" ]
+            [ span [] [ text "Simulations sauvegardées" ]
+            , button
+                [ class "btn btn-sm btn-primary"
+                , title "Comparer toutes vos simulations sauvegardées"
+                ]
+                [ span [ class "me-1" ] [ Icon.stats ]
+                , text "Tout comparer"
+                ]
+            ]
         , if List.length savedSimulations == 0 then
             div [ class "card-body form-text fs-7 pt-2" ]
                 [ text "Pas de simulations sauvegardées sur cet ordinateur" ]
@@ -101,7 +110,9 @@ savedSimulationView { session, impact, funit, delete } ({ name, query } as saved
         , button
             [ type_ "button"
             , class "btn btn-sm btn-danger"
-            , onClick <| delete savedSimulation
+            , onClick (delete savedSimulation)
             ]
-            [ text "Supprimer" ]
+            [ span [ class "me-1" ] [ Icon.trash ]
+            , text "Supprimer"
+            ]
         ]
