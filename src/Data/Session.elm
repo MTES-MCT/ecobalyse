@@ -63,6 +63,7 @@ notifyHttpError error ({ notifications } as session) =
 
 type alias Store =
     { savedSimulations : List SavedSimulation
+    , query : Inputs.Query
     }
 
 
@@ -74,13 +75,16 @@ type alias SavedSimulation =
 
 defaultStore : Store
 defaultStore =
-    { savedSimulations = [] }
+    { savedSimulations = []
+    , query = Inputs.defaultQuery
+    }
 
 
 decodeStore : Decoder Store
 decodeStore =
-    Decode.map Store
+    Decode.map2 Store
         (Decode.field "savedSimulations" <| Decode.list decodeSavedSimulation)
+        (Decode.field "query" <| Inputs.decodeQuery)
 
 
 decodeSavedSimulation : Decoder SavedSimulation
@@ -94,6 +98,7 @@ encodeStore : Store -> Encode.Value
 encodeStore store =
     Encode.object
         [ ( "savedSimulations", Encode.list encodeSavedSimulation store.savedSimulations )
+        , ( "query", Inputs.encodeQuery store.query )
         ]
 
 

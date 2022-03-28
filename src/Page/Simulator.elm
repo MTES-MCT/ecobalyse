@@ -40,7 +40,6 @@ type alias Model =
     , simulationName : String
     , massInput : String
     , initialQuery : Inputs.Query
-    , query : Inputs.Query
     , viewMode : ViewMode
     , impact : Impact.Definition
     , funit : Unit.Functional
@@ -83,14 +82,14 @@ init :
     -> Maybe Inputs.Query
     -> Session
     -> ( Model, Session, Cmd Msg )
-init trigram funit viewMode maybeQuery ({ db } as session) =
+init trigram funit viewMode maybeQuery ({ db, store } as session) =
     let
-        query =
+        initialQuery =
             maybeQuery
                 |> Maybe.withDefault Inputs.defaultQuery
 
         simulator =
-            Simulator.compute db query
+            Simulator.compute db store.query
     in
     ( { simulator = simulator
       , linksTab = SaveLink
@@ -98,9 +97,8 @@ init trigram funit viewMode maybeQuery ({ db } as session) =
             simulator
                 |> Result.map (.inputs >> Inputs.toString)
                 |> Result.withDefault ""
-      , massInput = query.mass |> Mass.inKilograms |> String.fromFloat
-      , initialQuery = query
-      , query = query
+      , massInput = store.query.mass |> Mass.inKilograms |> String.fromFloat
+      , initialQuery = initialQuery
       , viewMode = viewMode
       , impact = db.impacts |> Impact.getDefinition trigram |> Result.withDefault Impact.default
       , funit = funit
@@ -121,26 +119,32 @@ init trigram funit viewMode maybeQuery ({ db } as session) =
 
 
 updateQuery : Inputs.Query -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
-updateQuery query ( model, session, msg ) =
+updateQuery query ( model, { store } as session, msg ) =
     let
         updatedSimulator =
             Simulator.compute session.db query
+
+        updatedStore =
+            { store | query = query }
     in
     ( { model
-        | query = query
-        , simulator = updatedSimulator
+        | simulator = updatedSimulator
         , simulationName =
             updatedSimulator
                 |> Result.map (.inputs >> Inputs.toString)
                 |> Result.withDefault ""
       }
-    , session
+    , { session | store = updatedStore }
     , msg
     )
 
 
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
-update ({ db, navKey } as session) msg ({ query } as model) =
+update ({ db, navKey, store } as session) msg model =
+    let
+        query =
+            store.query
+    in
     case msg of
         AddMaterial ->
             ( model, session, Cmd.none )
@@ -168,7 +172,7 @@ update ({ db, navKey } as session) msg ({ query } as model) =
             , session
                 |> Session.saveSimulation
                     { name = model.simulationName
-                    , query = model.query
+                    , query = query
                     }
             , Cmd.none
             )
@@ -399,7 +403,11 @@ shareLinkView session { impact, funit } simulator =
 
 
 saveLinkView : Session -> Model -> Html Msg
-saveLinkView ({ store } as session) ({ query, simulationName } as model) =
+saveLinkView ({ store } as session) ({ simulationName } as model) =
+    let
+        query =
+            store.query
+    in
     div []
         [ div [ class "card-body" ]
             [ Html.form [ onSubmit SaveSimulation ]
@@ -494,7 +502,11 @@ displayModeView trigram funit viewMode query =
 
 
 simulatorView : Session -> Model -> Simulator -> Html Msg
-simulatorView ({ db } as session) ({ impact, funit, query, viewMode } as model) ({ inputs } as simulator) =
+simulatorView ({ db, store } as session) ({ impact, funit, viewMode } as model) ({ inputs } as simulator) =
+    let
+        query =
+            store.query
+    in
     div [ class "row" ]
         [ div [ class "col-lg-7" ]
             [ h1 [] [ text "Simulateur " ]
@@ -526,7 +538,7 @@ simulatorView ({ db } as session) ({ impact, funit, query, viewMode } as model) 
                 , button
                     [ class "btn btn-secondary"
                     , onClick Reset
-                    , disabled (model.query == model.initialQuery)
+                    , disabled (query == model.initialQuery)
                     ]
                     [ text "Réinitialiser le simulateur" ]
                 ]
