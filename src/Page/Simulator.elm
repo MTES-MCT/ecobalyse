@@ -379,7 +379,7 @@ linksView session ({ linksTab } as model) simulator =
                 shareLinkView session model simulator
 
             SaveLink ->
-                SavedSimulationView.view
+                SavedSimulationView.manager
                     { session = session
                     , query = model.query
                     , simulationName = model.simulationName
@@ -515,32 +515,42 @@ view : Session -> Model -> ( String, List (Html Msg) )
 view session model =
     ( "Simulateur"
     , [ Container.centered [ class "Simulator pb-3" ]
-            [ case model.simulator of
+            (case model.simulator of
                 Ok simulator ->
-                    simulatorView session model simulator
+                    [ simulatorView session model simulator
+                    , case model.modal of
+                        NoModal ->
+                            text ""
+
+                        SavedSimulationsModal ->
+                            ModalView.view
+                                { size = ModalView.ExtraLarge
+                                , close = SetModal NoModal
+                                , noOp = NoOp
+                                , title = "Comparaisons des simulations sauvegardées"
+                                , formAction = Nothing
+                                , content =
+                                    [ SavedSimulationView.comparator
+                                        { session = session
+                                        , impact = model.impact
+                                        , funit = model.funit
+                                        , savedSimulations = session.store.savedSimulations
+                                        , simulator = simulator
+                                        }
+                                    ]
+                                , footer = []
+                                }
+                    ]
 
                 Err error ->
-                    Alert.simple
+                    [ Alert.simple
                         { level = Alert.Danger
                         , close = Nothing
                         , title = Just "Erreur"
                         , content = [ text error ]
                         }
-            ]
-      , case model.modal of
-            NoModal ->
-                text ""
-
-            SavedSimulationsModal ->
-                ModalView.view
-                    { size = ModalView.Large
-                    , close = SetModal NoModal
-                    , noOp = NoOp
-                    , title = "Comparaisons des simulations sauvegardées"
-                    , formAction = Nothing
-                    , content = [ text "coucou" ]
-                    , footer = []
-                    }
+                    ]
+            )
       ]
     )
 

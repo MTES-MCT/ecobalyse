@@ -1,18 +1,20 @@
-module Views.SavedSimulation exposing (view)
+module Views.SavedSimulation exposing (comparator, manager)
 
 import Data.Impact as Impact
 import Data.Inputs as Inputs
 import Data.Session as Session exposing (Session)
+import Data.Simulator exposing (Simulator)
 import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Page.Simulator.ViewMode as ViewMode
 import Route
+import Views.Comparator as ComparatorView
 import Views.Icon as Icon
 
 
-type alias Config msg =
+type alias ManagerConfig msg =
     { session : Session
     , query : Inputs.Query
     , simulationName : String
@@ -28,8 +30,8 @@ type alias Config msg =
     }
 
 
-view : Config msg -> Html msg
-view ({ query, simulationName, savedSimulations } as config) =
+manager : ManagerConfig msg -> Html msg
+manager ({ query, simulationName, savedSimulations } as config) =
     let
         current =
             Session.SavedSimulation simulationName query
@@ -65,8 +67,8 @@ view ({ query, simulationName, savedSimulations } as config) =
         ]
 
 
-savedSimulationListView : Config msg -> Html msg
-savedSimulationListView ({ savedSimulations } as config) =
+savedSimulationListView : ManagerConfig msg -> Html msg
+savedSimulationListView ({ compareAll, savedSimulations } as config) =
     div []
         [ div [ class "card-header border-top d-flex justify-content-between align-items-center" ]
             [ span [] [ text "Simulations sauvegardées" ]
@@ -74,6 +76,7 @@ savedSimulationListView ({ savedSimulations } as config) =
                 [ class "btn btn-sm btn-primary"
                 , title "Comparer toutes vos simulations sauvegardées"
                 , disabled (List.length savedSimulations < 2)
+                , onClick compareAll
                 ]
                 [ span [ class "me-1" ] [ Icon.stats ]
                 , text "Tout comparer"
@@ -93,7 +96,7 @@ savedSimulationListView ({ savedSimulations } as config) =
         ]
 
 
-savedSimulationView : Config msg -> Session.SavedSimulation -> Html msg
+savedSimulationView : ManagerConfig msg -> Session.SavedSimulation -> Html msg
 savedSimulationView { session, impact, funit, delete } ({ name, query } as savedSimulation) =
     let
         simulationLink =
@@ -118,3 +121,24 @@ savedSimulationView { session, impact, funit, delete } ({ name, query } as saved
             , text "Supprimer"
             ]
         ]
+
+
+type alias ComparatorConfig =
+    { session : Session
+    , impact : Impact.Definition
+    , funit : Unit.Functional
+
+    -- FIXME: pass wuery instead
+    , simulator : Simulator
+    , savedSimulations : List Session.SavedSimulation
+    }
+
+
+comparator : ComparatorConfig -> Html msg
+comparator { session, impact, funit, simulator } =
+    ComparatorView.view
+        { session = session
+        , impact = impact
+        , funit = funit
+        , simulator = simulator
+        }
