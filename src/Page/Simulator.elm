@@ -114,7 +114,7 @@ init trigram funit viewMode maybeUrlQuery ({ db, store } as session) =
       }
     , case simulator of
         Err error ->
-            session
+            { session | query = initialQuery }
                 |> Session.notifyError "Erreur de récupération des paramètres d'entrée" error
 
         Ok _ ->
@@ -203,7 +203,8 @@ update ({ db, query, navKey } as session) msg model =
         SwitchFunctionalUnit funit ->
             ( model
             , session
-            , Route.Simulator model.impact.trigram funit model.viewMode (Just query)
+            , Just query
+                |> Route.Simulator model.impact.trigram funit model.viewMode
                 |> Route.toString
                 |> Navigation.pushUrl navKey
             )
@@ -211,7 +212,8 @@ update ({ db, query, navKey } as session) msg model =
         SwitchImpact trigram ->
             ( model
             , session
-            , Route.Simulator trigram model.funit model.viewMode (Just query)
+            , Just query
+                |> Route.Simulator trigram model.funit model.viewMode
                 |> Route.toString
                 |> Navigation.pushUrl navKey
             )
@@ -388,11 +390,9 @@ linksView session ({ linksTab } as model) =
             SaveLink ->
                 SavedSimulationView.view
                     { session = session
-                    , query = session.query
                     , simulationName = model.simulationName
                     , impact = model.impact
                     , funit = model.funit
-                    , savedSimulations = session.store.savedSimulations
                     , delete = DeleteSavedSimulation
                     , save = SaveSimulation
                     , update = UpdateSimulationName
@@ -455,7 +455,7 @@ displayModeView trigram funit viewMode query =
 
 
 simulatorView : Session -> Model -> Simulator -> Html Msg
-simulatorView ({ db, query } as session) ({ impact, funit, viewMode } as model) ({ inputs } as simulator) =
+simulatorView ({ db } as session) ({ impact, funit, viewMode } as model) ({ inputs } as simulator) =
     div [ class "row" ]
         [ div [ class "col-lg-7" ]
             [ h1 [] [ text "Simulateur " ]
@@ -478,7 +478,7 @@ simulatorView ({ db, query } as session) ({ impact, funit, viewMode } as model) 
                 , updateShare = UpdateMaterialShare
                 , selectInputText = SelectInputText
                 }
-            , query
+            , session.query
                 |> displayModeView impact.trigram funit viewMode
             , lifeCycleStepsView db model simulator
             , div [ class "d-flex align-items-center justify-content-between mt-3 mb-5" ]
@@ -487,7 +487,7 @@ simulatorView ({ db, query } as session) ({ impact, funit, viewMode } as model) 
                 , button
                     [ class "btn btn-secondary"
                     , onClick Reset
-                    , disabled (query == model.initialQuery)
+                    , disabled (session.query == model.initialQuery)
                     ]
                     [ text "Réinitialiser le simulateur" ]
                 ]

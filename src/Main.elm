@@ -106,7 +106,7 @@ setRoute maybeRoute ( { session } as model, cmds ) =
                     else
                         Cmd.none
             in
-            ( { model | page = page subModel }
+            ( { model | session = newSession, page = page subModel }
             , Cmd.batch
                 [ cmds
                 , Cmd.map subMsg subCmds

@@ -1,7 +1,6 @@
 module Views.SavedSimulation exposing (view)
 
 import Data.Impact as Impact
-import Data.Inputs as Inputs
 import Data.Session exposing (SavedSimulation, Session)
 import Data.Unit as Unit
 import Html exposing (..)
@@ -14,11 +13,9 @@ import Views.Icon as Icon
 
 type alias Config msg =
     { session : Session
-    , query : Inputs.Query
     , simulationName : String
     , impact : Impact.Definition
     , funit : Unit.Functional
-    , savedSimulations : List SavedSimulation
 
     -- Messages
     , delete : SavedSimulation -> msg
@@ -28,11 +25,12 @@ type alias Config msg =
 
 
 view : Config msg -> Html msg
-view ({ query, simulationName, savedSimulations } as config) =
+view ({ session, simulationName } as config) =
     let
         alreadySaved =
-            savedSimulations
-                |> List.member (SavedSimulation simulationName query)
+            session.store.savedSimulations
+                |> List.map .query
+                |> List.member session.query
     in
     div []
         [ div [ class "card-body" ]
@@ -64,15 +62,15 @@ view ({ query, simulationName, savedSimulations } as config) =
 
 
 savedSimulationsView : Config msg -> Html msg
-savedSimulationsView ({ savedSimulations } as config) =
+savedSimulationsView ({ session } as config) =
     div []
         [ div [ class "card-header border-top" ] [ text "Simulations sauvegardées" ]
-        , if List.length savedSimulations == 0 then
+        , if List.length session.store.savedSimulations == 0 then
             div [ class "card-body form-text fs-7 pt-2" ]
                 [ text "Pas de simulations sauvegardées sur cet ordinateur" ]
 
           else
-            savedSimulations
+            session.store.savedSimulations
                 |> List.map (savedSimulationView config)
                 |> ul
                     [ class "list-group list-group-flush overflow-scroll"
@@ -90,9 +88,13 @@ savedSimulationView { session, impact, funit, delete } ({ name, query } as saved
                 |> Route.toString
                 |> (++) session.clientUrl
     in
-    li [ class "list-group-item d-flex justify-content-between align-items-center" ]
+    li
+        [ class "list-group-item d-flex justify-content-between align-items-center"
+        , classList [ ( "active", query == session.query ) ]
+        ]
         [ a
             [ class "text-truncate"
+            , classList [ ( "active text-white", query == session.query ) ]
             , href simulationLink
             , title name
             ]
