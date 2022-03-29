@@ -146,7 +146,8 @@ computeEndOfLifeImpacts { processes } simulator =
                                 { kwh, heat, impacts } =
                                     step.outputMass
                                         |> Formula.endOfLifeImpacts step.impacts
-                                            { passengerCar = passengerCar
+                                            { volume = simulator.inputs.product.volume
+                                            , passengerCar = passengerCar
                                             , endOfLife = endOfLife
                                             , countryElecProcess = country.electricityProcess
                                             , heatProcess = country.heatProcess
