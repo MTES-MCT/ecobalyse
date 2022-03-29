@@ -2,7 +2,7 @@ module Views.SavedSimulation exposing (comparator, manager)
 
 import Data.Impact as Impact
 import Data.Inputs as Inputs
-import Data.Session as Session exposing (Session)
+import Data.Session as Session exposing (SavedSimulation, Session)
 import Data.Simulator exposing (Simulator)
 import Data.Unit as Unit
 import Html exposing (..)
@@ -20,7 +20,7 @@ type alias ManagerConfig msg =
     , simulationName : String
     , impact : Impact.Definition
     , funit : Unit.Functional
-    , savedSimulations : List Session.SavedSimulation
+    , savedSimulations : List SavedSimulation
 
     -- Messages
     , compareAll : msg
@@ -34,7 +34,7 @@ manager : ManagerConfig msg -> Html msg
 manager ({ query, simulationName, savedSimulations } as config) =
     let
         current =
-            Session.SavedSimulation simulationName query
+            SavedSimulation simulationName query
     in
     div []
         [ div [ class "card-body" ]

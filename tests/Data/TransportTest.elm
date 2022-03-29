@@ -3,6 +3,7 @@ module Data.TransportTest exposing (..)
 import Data.Country as Country
 import Data.Impact as Impact exposing (Impacts)
 import Data.Transport as Transport exposing (Transport)
+import Dict.Any as AnyDict
 import Expect
 import Length
 import Test exposing (..)
@@ -32,7 +33,16 @@ suite =
                     Impact.impactsFromDefinitons db.impacts
             in
             describe "Data.Transport"
-                [ describe "getTransportBetween"
+                [ db.countries
+                    |> List.map
+                        (\{ code } ->
+                            AnyDict.keys db.transports
+                                |> List.member code
+                                |> Expect.true (Country.codeToString code ++ " has no transports data available")
+                                |> asTest (Country.codeToString code)
+                        )
+                    |> describe "transports data availability checks"
+                , describe "getTransportBetween"
                     [ db.transports
                         |> Transport.getTransportBetween defaultImpacts (Country.Code "FR") (Country.Code "CN")
                         |> Expect.equal (franceChina defaultImpacts)
