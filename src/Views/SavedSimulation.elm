@@ -137,15 +137,13 @@ type alias ComparatorConfig =
 comparator : ComparatorConfig -> Html msg
 comparator { session, impact, funit, simulator } =
     div [ class "row" ]
-        [ div [ class "col-sm-3" ]
+        [ div [ class "col-sm-4" ]
             [ session.store.savedSimulations
                 |> List.map
                     (\{ name } ->
-                        li [ class "list-group-item text-nowrap fs-7 ps-2" ]
-                            [ label [ class "form-check-label" ]
-                                [ input [ type_ "checkbox", class "form-check-input" ] []
-                                , text <| " " ++ name
-                                ]
+                        label [ class "form-check-label list-group-item text-nowrap fs-7 ps-2" ]
+                            [ input [ type_ "checkbox", class "form-check-input" ] []
+                            , span [ class "ps-2" ] [ text name ]
                             ]
                     )
                 |> ul
@@ -153,7 +151,7 @@ comparator { session, impact, funit, simulator } =
                     , class "h-100 overflow-scroll"
                     ]
             ]
-        , div [ class "col-sm-9 pt-3 pb-5 pe-4" ]
+        , div [ class "col-sm-8 pt-3 pb-5 pe-4" ]
             [ ComparatorView.view
                 { session = session
                 , impact = impact
