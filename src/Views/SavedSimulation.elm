@@ -2,7 +2,7 @@ module Views.SavedSimulation exposing (view)
 
 import Data.Impact as Impact
 import Data.Inputs as Inputs
-import Data.Session as Session exposing (Session)
+import Data.Session exposing (SavedSimulation, Session)
 import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -18,10 +18,10 @@ type alias Config msg =
     , simulationName : String
     , impact : Impact.Definition
     , funit : Unit.Functional
-    , savedSimulations : List Session.SavedSimulation
+    , savedSimulations : List SavedSimulation
 
     -- Messages
-    , delete : Session.SavedSimulation -> msg
+    , delete : SavedSimulation -> msg
     , save : msg
     , update : String -> msg
     }
@@ -32,7 +32,7 @@ view ({ query, simulationName, savedSimulations } as config) =
     let
         alreadySaved =
             savedSimulations
-                |> List.member (Session.SavedSimulation simulationName query)
+                |> List.member (SavedSimulation simulationName query)
     in
     div []
         [ div [ class "card-body" ]
@@ -81,7 +81,7 @@ savedSimulationsView ({ savedSimulations } as config) =
         ]
 
 
-savedSimulationView : Config msg -> Session.SavedSimulation -> Html msg
+savedSimulationView : Config msg -> SavedSimulation -> Html msg
 savedSimulationView { session, impact, funit, delete } ({ name, query } as savedSimulation) =
     let
         simulationLink =
