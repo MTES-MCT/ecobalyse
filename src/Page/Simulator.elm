@@ -83,7 +83,7 @@ init :
     -> Maybe Inputs.Query
     -> Session
     -> ( Model, Session, Cmd Msg )
-init trigram funit viewMode maybeUrlQuery ({ db } as session) =
+init trigram funit viewMode maybeUrlQuery ({ db, store } as session) =
     let
         initialQuery =
             -- If we received a serialized query from the URL, use it
@@ -99,17 +99,23 @@ init trigram funit viewMode maybeUrlQuery ({ db } as session) =
       , linksTab = SaveLink
       , simulationName =
             simulator
-                |> Result.map (.inputs >> Inputs.toString)
-                |> Result.withDefault ""
-      , massInput = initialQuery.mass |> Mass.inKilograms |> String.fromFloat
+                |> findSimulationName store.savedSimulations
+      , massInput =
+            initialQuery.mass
+                |> Mass.inKilograms
+                |> String.fromFloat
       , initialQuery = initialQuery
       , viewMode = viewMode
-      , impact = db.impacts |> Impact.getDefinition trigram |> Result.withDefault Impact.default
+      , impact =
+            db.impacts
+                |> Impact.getDefinition trigram
+                |> Result.withDefault Impact.default
       , funit = funit
       }
     , case simulator of
         Err error ->
-            session |> Session.notifyError "Erreur de récupération des paramètres d'entrée" error
+            session
+                |> Session.notifyError "Erreur de récupération des paramètres d'entrée" error
 
         Ok _ ->
             { session | query = initialQuery }
@@ -126,6 +132,20 @@ init trigram funit viewMode maybeUrlQuery ({ db } as session) =
     )
 
 
+findSimulationName : List Session.SavedSimulation -> Result String Simulator -> String
+findSimulationName savedSimulations simulator =
+    case simulator of
+        Ok { inputs } ->
+            savedSimulations
+                |> List.filter (\{ query } -> Inputs.toQuery inputs == query)
+                |> List.head
+                |> Maybe.map .name
+                |> Maybe.withDefault (Inputs.toString inputs)
+
+        Err _ ->
+            ""
+
+
 updateQuery : Inputs.Query -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
 updateQuery query ( model, session, msg ) =
     let
@@ -136,8 +156,7 @@ updateQuery query ( model, session, msg ) =
         | simulator = updatedSimulator
         , simulationName =
             updatedSimulator
-                |> Result.map (.inputs >> Inputs.toString)
-                |> Result.withDefault ""
+                |> findSimulationName session.store.savedSimulations
       }
     , { session | query = query }
     , msg
