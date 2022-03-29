@@ -86,11 +86,12 @@ init :
 init trigram funit viewMode maybeQuery ({ db, query } as session) =
     let
         initialQuery =
-            maybeQuery
-                |> Maybe.withDefault Inputs.defaultQuery
+            -- If we received a serialized query from the URL, use it
+            -- Otherwise, fallback to use session query
+            maybeQuery |> Maybe.withDefault query
 
         simulator =
-            Simulator.compute db query
+            Simulator.compute db initialQuery
     in
     ( { simulator = simulator
       , linksTab = SaveLink
@@ -98,7 +99,7 @@ init trigram funit viewMode maybeQuery ({ db, query } as session) =
             simulator
                 |> Result.map (.inputs >> Inputs.toString)
                 |> Result.withDefault ""
-      , massInput = query.mass |> Mass.inKilograms |> String.fromFloat
+      , massInput = initialQuery.mass |> Mass.inKilograms |> String.fromFloat
       , initialQuery = initialQuery
       , viewMode = viewMode
       , impact = db.impacts |> Impact.getDefinition trigram |> Result.withDefault Impact.default
@@ -109,7 +110,7 @@ init trigram funit viewMode maybeQuery ({ db, query } as session) =
             session |> Session.notifyError "Erreur de récupération des paramètres d'entrée" error
 
         Ok _ ->
-            session
+            { session | query = initialQuery }
     , case maybeQuery of
         Nothing ->
             Ports.scrollTo { x = 0, y = 0 }
@@ -332,8 +333,8 @@ lifeCycleStepsView db { viewMode, funit, impact } simulator =
         |> div [ class "pt-1" ]
 
 
-linksView : Session -> Model -> Simulator -> Html Msg
-linksView session ({ linksTab } as model) simulator =
+linksView : Session -> Model -> Html Msg
+linksView session ({ linksTab } as model) =
     div [ class "card shadow-sm" ]
         [ div [ class "card-header" ]
             [ ul [ class "nav nav-tabs justify-content-end card-header-tabs" ]
@@ -357,7 +358,7 @@ linksView session ({ linksTab } as model) simulator =
             ]
         , case linksTab of
             ShareLink ->
-                shareLinkView session model simulator
+                shareLinkView session model
 
             SaveLink ->
                 SavedSimulationView.view
@@ -374,12 +375,12 @@ linksView session ({ linksTab } as model) simulator =
         ]
 
 
-shareLinkView : Session -> Model -> Simulator -> Html Msg
-shareLinkView session { impact, funit } simulator =
+shareLinkView : Session -> Model -> Html Msg
+shareLinkView session { impact, funit } =
     let
         shareableLink =
-            simulator.inputs
-                |> (Inputs.toQuery >> Just)
+            Just session.query
+                -- |> Debug.log "query"
                 |> Route.Simulator impact.trigram funit ViewMode.Simple
                 |> Route.toString
                 |> (++) session.clientUrl
@@ -485,7 +486,7 @@ simulatorView ({ db, query } as session) ({ impact, funit, viewMode } as model) 
                             , reusable = False
                             }
                     ]
-                , linksView session model simulator
+                , linksView session model
                 ]
             ]
         ]

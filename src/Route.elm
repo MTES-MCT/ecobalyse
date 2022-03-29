@@ -117,12 +117,12 @@ toString route =
                 Explore dataset ->
                     "explore" :: Db.toDatasetRoutePath dataset
 
-                Simulator trigram funit viewMode (Just inputs) ->
+                Simulator trigram funit viewMode (Just query) ->
                     [ "simulator"
                     , Impact.toString trigram
                     , Unit.functionalToSlug funit
                     , ViewMode.toUrlSegment viewMode
-                    , Inputs.b64encode inputs
+                    , Inputs.b64encode query
                     ]
 
                 Simulator (Impact.Trigram "cch") Unit.PerItem _ Nothing ->
