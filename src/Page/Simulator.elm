@@ -380,7 +380,6 @@ shareLinkView session { impact, funit } =
     let
         shareableLink =
             Just session.query
-                -- |> Debug.log "query"
                 |> Route.Simulator impact.trigram funit ViewMode.Simple
                 |> Route.toString
                 |> (++) session.clientUrl
