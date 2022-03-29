@@ -1,8 +1,7 @@
 module Views.SavedSimulation exposing (comparator, manager)
 
 import Data.Impact as Impact
-import Data.Inputs as Inputs
-import Data.Session as Session exposing (SavedSimulation, Session)
+import Data.Session exposing (SavedSimulation, Session)
 import Data.Simulator exposing (Simulator)
 import Data.Unit as Unit
 import Html exposing (..)
@@ -16,25 +15,25 @@ import Views.Icon as Icon
 
 type alias ManagerConfig msg =
     { session : Session
-    , query : Inputs.Query
     , simulationName : String
     , impact : Impact.Definition
     , funit : Unit.Functional
-    , savedSimulations : List SavedSimulation
 
     -- Messages
     , compareAll : msg
-    , delete : Session.SavedSimulation -> msg
+    , delete : SavedSimulation -> msg
     , save : msg
     , update : String -> msg
     }
 
 
 manager : ManagerConfig msg -> Html msg
-manager ({ query, simulationName, savedSimulations } as config) =
+manager ({ session, simulationName } as config) =
     let
-        current =
-            SavedSimulation simulationName query
+        alreadySaved =
+            session.store.savedSimulations
+                |> List.map .query
+                |> List.member session.query
     in
     div []
         [ div [ class "card-body" ]
@@ -51,11 +50,9 @@ manager ({ query, simulationName, savedSimulations } as config) =
                     , button
                         [ type_ "submit"
                         , class "btn btn-primary"
-                        , classList [ ( "disabled", List.member current savedSimulations ) ]
+                        , classList [ ( "disabled", alreadySaved ) ]
                         , title "Sauvegarder la simulation dans le stockage local au navigateur"
-                        , savedSimulations
-                            |> List.member current
-                            |> disabled
+                        , disabled alreadySaved
                         ]
                         [ Icon.plus ]
                     ]
@@ -68,26 +65,26 @@ manager ({ query, simulationName, savedSimulations } as config) =
 
 
 savedSimulationListView : ManagerConfig msg -> Html msg
-savedSimulationListView ({ compareAll, savedSimulations } as config) =
+savedSimulationListView ({ compareAll, session } as config) =
     div []
         [ div [ class "card-header border-top d-flex justify-content-between align-items-center" ]
             [ span [] [ text "Simulations sauvegardées" ]
             , button
                 [ class "btn btn-sm btn-primary"
                 , title "Comparer toutes vos simulations sauvegardées"
-                , disabled (List.length savedSimulations < 2)
+                , disabled (List.length session.store.savedSimulations < 2)
                 , onClick compareAll
                 ]
                 [ span [ class "me-1" ] [ Icon.stats ]
                 , text "Comparer"
                 ]
             ]
-        , if List.length savedSimulations == 0 then
+        , if List.length session.store.savedSimulations == 0 then
             div [ class "card-body form-text fs-7 pt-2" ]
                 [ text "Pas de simulations sauvegardées sur cet ordinateur" ]
 
           else
-            savedSimulations
+            session.store.savedSimulations
                 |> List.map (savedSimulationView config)
                 |> ul
                     [ class "list-group list-group-flush overflow-scroll"
@@ -96,7 +93,7 @@ savedSimulationListView ({ compareAll, savedSimulations } as config) =
         ]
 
 
-savedSimulationView : ManagerConfig msg -> Session.SavedSimulation -> Html msg
+savedSimulationView : ManagerConfig msg -> SavedSimulation -> Html msg
 savedSimulationView { session, impact, funit, delete } ({ name, query } as savedSimulation) =
     let
         simulationLink =
@@ -105,9 +102,13 @@ savedSimulationView { session, impact, funit, delete } ({ name, query } as saved
                 |> Route.toString
                 |> (++) session.clientUrl
     in
-    li [ class "list-group-item d-flex justify-content-between align-items-center gap-1" ]
+    li
+        [ class "list-group-item d-flex justify-content-between align-items-center gap-1"
+        , classList [ ( "active", query == session.query ) ]
+        ]
         [ a
             [ class "text-truncate"
+            , classList [ ( "active text-white", query == session.query ) ]
             , href simulationLink
             , title name
             ]
@@ -130,7 +131,7 @@ type alias ComparatorConfig =
 
     -- FIXME: pass wuery instead
     , simulator : Simulator
-    , savedSimulations : List Session.SavedSimulation
+    , savedSimulations : List SavedSimulation
     }
 
 
