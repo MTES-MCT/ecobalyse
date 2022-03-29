@@ -7,9 +7,10 @@ import json
 import os
 import random
 
-    """if you only want to compute the distance for 1 new country, use this script so you don't have to compute the distances between n(n-1)/2 countries
-    """
-    
+"""if you only want to compute the distance for 1 new country, use this script so you don't have to compute the distances between n(n-1)/2 countries
+"""
+
+
 def getSearatesDistance(route_type, route):
     """Query the Searates API for a route ("FR","CN") and a route_type ("road") and returns the distance
 
@@ -64,7 +65,7 @@ user_agent = random.choice(user_agent_list)
 # Set the headers
 headers = {"User-Agent": user_agent}
 
-df = pd.read_csv("distances/countries_importance.csv")
+df = pd.read_csv("countries_importance.csv")
 # select only most important countries
 # df = df[(df.importance == 1)]
 
@@ -96,9 +97,16 @@ countries = [
     "KH",
     "PK",
     "DE",
+    "EG",
+    "ET",
+    "IT",
+    "LK",
+    "TW",
+    "GB",
+    "IN",
 ]
 
-country_to_add = ["IN"]
+country_to_add = ["GR"]
 
 distances = {}
 remaining_countries = countries.copy()
@@ -142,5 +150,5 @@ for country_from in country_to_add:
         distances[country_from] = country_from_dic
         print("finished computing distances for " + country_from)
 
-with open("distances/distances_add_country.json", "w") as outfile:
+with open("distances_add_country.json", "w") as outfile:
     json.dump(distances, outfile)

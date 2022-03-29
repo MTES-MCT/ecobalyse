@@ -6,6 +6,7 @@ import geopy.distance
 import json
 import os
 import random
+import time
 
 """Script to get the distances between countries for a list of countries. To identify countries we use the 2 letters code (France->FR).
 
@@ -30,6 +31,7 @@ def getSearatesDistance(route_type, route):
     """
     url = buildSearatesQuery(route_type, route)
     response = requests.get(url, headers=headers)
+    response = requests.get(url)
     resp_json = response.json()
     try:
         dist = round(float(resp_json[route_type]["dist"]))
@@ -95,7 +97,11 @@ countries = [
     "LK",
     "TW",
     "GB",
+    "IN",
+    "GR",
 ]
+
+countries = sorted(countries)
 
 # log the nb of routes
 
@@ -121,6 +127,7 @@ url = "https://httpbin.org/headers"
 
 i = 1
 for country_from in countries:
+
     # pick a random user_agent
     user_agent = random.choice(user_agent_list)
     headers = {"User-Agent": user_agent}
@@ -133,6 +140,8 @@ for country_from in countries:
         # iterate on all remaining countries (country_to)
         for country_to in remaining_countries:
             route = (country_from, country_to)
+            # sleep for a few seconds
+            time.sleep(random.randint(1, 5))
             print(
                 "computing distances for route "
                 + str(i)
@@ -156,6 +165,9 @@ for country_from in countries:
         # add dictionary of distances to master dictionary
         distances[country_from] = country_from_dic
         print("finished computing distances for " + country_from)
+    else:
+        distances[country_from] = {}
+
 
 with open("distances.json", "w") as outfile:
     json.dump(distances, outfile)
