@@ -79,7 +79,7 @@ savedSimulationListView ({ compareAll, savedSimulations } as config) =
                 , onClick compareAll
                 ]
                 [ span [ class "me-1" ] [ Icon.stats ]
-                , text "Tout comparer"
+                , text "Comparer"
                 ]
             ]
         , if List.length savedSimulations == 0 then
@@ -136,9 +136,29 @@ type alias ComparatorConfig =
 
 comparator : ComparatorConfig -> Html msg
 comparator { session, impact, funit, simulator } =
-    ComparatorView.view
-        { session = session
-        , impact = impact
-        , funit = funit
-        , simulator = simulator
-        }
+    div [ class "row" ]
+        [ div [ class "col-sm-3" ]
+            [ session.store.savedSimulations
+                |> List.map
+                    (\{ name } ->
+                        li [ class "list-group-item text-nowrap fs-7 ps-2" ]
+                            [ label [ class "form-check-label" ]
+                                [ input [ type_ "checkbox", class "form-check-input" ] []
+                                , text <| " " ++ name
+                                ]
+                            ]
+                    )
+                |> ul
+                    [ class "list-group list-group-flush border-end"
+                    , class "h-100 overflow-scroll"
+                    ]
+            ]
+        , div [ class "col-sm-9 pt-3 pb-5 pe-4" ]
+            [ ComparatorView.view
+                { session = session
+                , impact = impact
+                , funit = funit
+                , simulator = simulator
+                }
+            ]
+        ]

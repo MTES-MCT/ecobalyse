@@ -526,7 +526,7 @@ view session model =
 
                         SavedSimulationsModal ->
                             ModalView.view
-                                { size = ModalView.ExtraLarge
+                                { size = ModalView.Large
                                 , close = SetModal NoModal
                                 , noOp = NoOp
                                 , title = "Comparaisons des simulations sauvegardées"
