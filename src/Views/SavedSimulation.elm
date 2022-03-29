@@ -30,8 +30,9 @@ type alias Config msg =
 view : Config msg -> Html msg
 view ({ query, simulationName, savedSimulations } as config) =
     let
-        current =
-            Session.SavedSimulation simulationName query
+        alreadySaved =
+            savedSimulations
+                |> List.member (Session.SavedSimulation simulationName query)
     in
     div []
         [ div [ class "card-body" ]
@@ -48,11 +49,9 @@ view ({ query, simulationName, savedSimulations } as config) =
                     , button
                         [ type_ "submit"
                         , class "btn btn-primary"
-                        , classList [ ( "disabled", List.member current savedSimulations ) ]
+                        , classList [ ( "disabled", alreadySaved ) ]
                         , title "Sauvegarder la simulation dans le stockage local au navigateur"
-                        , savedSimulations
-                            |> List.member current
-                            |> disabled
+                        , disabled alreadySaved
                         ]
                         [ Icon.plus ]
                     ]
@@ -101,7 +100,7 @@ savedSimulationView { session, impact, funit, delete } ({ name, query } as saved
         , button
             [ type_ "button"
             , class "btn btn-sm btn-danger"
-            , onClick <| delete savedSimulation
+            , onClick (delete savedSimulation)
             ]
             [ text "Supprimer" ]
         ]
