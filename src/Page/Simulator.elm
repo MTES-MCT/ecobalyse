@@ -30,6 +30,7 @@ import Views.Container as Container
 import Views.Icon as Icon
 import Views.Impact as ImpactView
 import Views.Material as MaterialView
+import Views.SavedSimulation as SavedSimulationView
 import Views.Step as StepView
 import Views.Summary as SummaryView
 
@@ -82,14 +83,17 @@ init :
     -> Maybe Inputs.Query
     -> Session
     -> ( Model, Session, Cmd Msg )
-init trigram funit viewMode maybeQuery ({ db, query } as session) =
+init trigram funit viewMode maybeUrlQuery ({ db } as session) =
     let
         initialQuery =
-            maybeQuery
-                |> Maybe.withDefault Inputs.defaultQuery
+            -- If we received a serialized query from the URL, use it
+            -- Otherwise, fallback to use session query
+            maybeUrlQuery
+                |> Maybe.withDefault session.query
 
         simulator =
-            Simulator.compute db query
+            initialQuery
+                |> Simulator.compute db
     in
     ( { simulator = simulator
       , linksTab = SaveLink
@@ -97,7 +101,7 @@ init trigram funit viewMode maybeQuery ({ db, query } as session) =
             simulator
                 |> Result.map (.inputs >> Inputs.toString)
                 |> Result.withDefault ""
-      , massInput = query.mass |> Mass.inKilograms |> String.fromFloat
+      , massInput = initialQuery.mass |> Mass.inKilograms |> String.fromFloat
       , initialQuery = initialQuery
       , viewMode = viewMode
       , impact = db.impacts |> Impact.getDefinition trigram |> Result.withDefault Impact.default
@@ -108,11 +112,15 @@ init trigram funit viewMode maybeQuery ({ db, query } as session) =
             session |> Session.notifyError "Erreur de récupération des paramètres d'entrée" error
 
         Ok _ ->
-            session
-    , case maybeQuery of
+            { session | query = initialQuery }
+    , case maybeUrlQuery of
+        -- If we don't have an URL query, we may be coming from another app page, so we should
+        -- reposition the viewport at the top.
         Nothing ->
             Ports.scrollTo { x = 0, y = 0 }
 
+        -- If we do have an URL query, we either come from a bookmark, a saved simulation click or
+        -- we're tweaking params for the current simulation: we shouldn't reposition the viewport.
         Just _ ->
             Cmd.none
     )
@@ -331,8 +339,8 @@ lifeCycleStepsView db { viewMode, funit, impact } simulator =
         |> div [ class "pt-1" ]
 
 
-linksView : Session -> Model -> Simulator -> Html Msg
-linksView session ({ linksTab } as model) simulator =
+linksView : Session -> Model -> Html Msg
+linksView session ({ linksTab } as model) =
     div [ class "card shadow-sm" ]
         [ div [ class "card-header" ]
             [ ul [ class "nav nav-tabs justify-content-end card-header-tabs" ]
@@ -356,19 +364,28 @@ linksView session ({ linksTab } as model) simulator =
             ]
         , case linksTab of
             ShareLink ->
-                shareLinkView session model simulator
+                shareLinkView session model
 
             SaveLink ->
-                saveLinkView session model
+                SavedSimulationView.view
+                    { session = session
+                    , query = session.query
+                    , simulationName = model.simulationName
+                    , impact = model.impact
+                    , funit = model.funit
+                    , savedSimulations = session.store.savedSimulations
+                    , delete = DeleteSavedSimulation
+                    , save = SaveSimulation
+                    , update = UpdateSimulationName
+                    }
         ]
 
 
-shareLinkView : Session -> Model -> Simulator -> Html Msg
-shareLinkView session { impact, funit } simulator =
+shareLinkView : Session -> Model -> Html Msg
+shareLinkView session { impact, funit } =
     let
         shareableLink =
-            simulator.inputs
-                |> (Inputs.toQuery >> Just)
+            Just session.query
                 |> Route.Simulator impact.trigram funit ViewMode.Simple
                 |> Route.toString
                 |> (++) session.clientUrl
@@ -392,78 +409,6 @@ shareLinkView session { impact, funit } simulator =
             ]
         , div [ class "form-text fs-7" ]
             [ text "Copiez cette adresse pour partager ou sauvegarder votre simulation" ]
-        ]
-
-
-saveLinkView : Session -> Model -> Html Msg
-saveLinkView ({ query, store } as session) ({ simulationName } as model) =
-    div []
-        [ div [ class "card-body" ]
-            [ Html.form [ onSubmit SaveSimulation ]
-                [ div [ class "input-group" ]
-                    [ input
-                        [ type_ "text"
-                        , class "form-control"
-                        , onInput UpdateSimulationName
-                        , placeholder "Nom de la simulation"
-                        , value simulationName
-                        ]
-                        []
-                    , button
-                        [ class "btn btn-primary"
-                        , classList [ ( "disabled", List.member (Session.SavedSimulation simulationName query) store.savedSimulations ) ]
-                        , disabled <| List.member (Session.SavedSimulation simulationName query) store.savedSimulations
-                        , title "Sauvegarder la simulation dans le stockage local au navigateur"
-                        , type_ "submit"
-                        ]
-                        [ Icon.plus
-                        ]
-                    ]
-                ]
-            , div [ class "form-text fs-7 pb-0" ]
-                [ text "Nommez cette simulation pour vous aider à la retrouver dans la liste" ]
-            ]
-        , savedSimulationsView session model store.savedSimulations
-        ]
-
-
-savedSimulationsView : Session -> Model -> List Session.SavedSimulation -> Html Msg
-savedSimulationsView session model savedSimulations =
-    div []
-        [ div [ class "card-header border-top" ] [ text "Simulations sauvegardées" ]
-        , if List.length savedSimulations == 0 then
-            div [ class "card-body form-text fs-7 pt-2" ]
-                [ text "Pas de simulations sauvegardées sur cet ordinateur" ]
-
-          else
-            ul [ class "list-group list-group-flush overflow-scroll", style "max-height" "50vh" ]
-                (List.map (savedSimulationView session model) savedSimulations)
-        ]
-
-
-savedSimulationView : Session -> Model -> Session.SavedSimulation -> Html Msg
-savedSimulationView { clientUrl } { impact, funit } ({ name, query } as savedSimulation) =
-    let
-        simulationLink =
-            Just query
-                |> Route.Simulator impact.trigram funit ViewMode.Simple
-                |> Route.toString
-                |> (++) clientUrl
-    in
-    li [ class "list-group-item d-flex justify-content-between align-items-center" ]
-        [ a
-            [ href simulationLink
-            , title name
-            , class "text-truncate"
-            ]
-            [ text name
-            ]
-        , button
-            [ type_ "button"
-            , class "btn btn-sm btn-danger"
-            , onClick <| DeleteSavedSimulation savedSimulation
-            ]
-            [ text "Supprimer" ]
         ]
 
 
@@ -546,7 +491,7 @@ simulatorView ({ db, query } as session) ({ impact, funit, viewMode } as model) 
                             , reusable = False
                             }
                     ]
-                , linksView session model simulator
+                , linksView session model
                 ]
             ]
         ]
