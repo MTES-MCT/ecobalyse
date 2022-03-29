@@ -83,15 +83,17 @@ init :
     -> Maybe Inputs.Query
     -> Session
     -> ( Model, Session, Cmd Msg )
-init trigram funit viewMode maybeQuery ({ db, query } as session) =
+init trigram funit viewMode maybeUrlQuery ({ db } as session) =
     let
         initialQuery =
             -- If we received a serialized query from the URL, use it
             -- Otherwise, fallback to use session query
-            maybeQuery |> Maybe.withDefault query
+            maybeUrlQuery
+                |> Maybe.withDefault session.query
 
         simulator =
-            Simulator.compute db initialQuery
+            initialQuery
+                |> Simulator.compute db
     in
     ( { simulator = simulator
       , linksTab = SaveLink
@@ -111,10 +113,14 @@ init trigram funit viewMode maybeQuery ({ db, query } as session) =
 
         Ok _ ->
             { session | query = initialQuery }
-    , case maybeQuery of
+    , case maybeUrlQuery of
+        -- If we don't have an URL query, we may be coming from another app page, so we should
+        -- reposition the viewport at the top.
         Nothing ->
             Ports.scrollTo { x = 0, y = 0 }
 
+        -- If we do have an URL query, we either come from a bookmark, a saved simulation click or
+        -- we're tweaking params for the current simulation: we shouldn't reposition the viewport.
         Just _ ->
             Cmd.none
     )
