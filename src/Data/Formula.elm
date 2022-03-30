@@ -21,6 +21,7 @@ import Data.Unit as Unit
 import Energy exposing (Energy)
 import Mass exposing (Mass)
 import Quantity
+import Volume exposing (Volume)
 
 
 
@@ -362,26 +363,35 @@ useImpacts impacts { useNbCycles, ironingProcess, nonIroningProcess, countryElec
 endOfLifeImpacts :
     Impacts
     ->
-        { passengerCar : Process
+        { volume : Volume
+        , passengerCar : Process
         , endOfLife : Process
         , countryElecProcess : Process
         , heatProcess : Process
         }
     -> Mass
     -> { kwh : Energy, heat : Energy, impacts : Impacts }
-endOfLifeImpacts impacts { passengerCar, endOfLife, countryElecProcess, heatProcess } baseMass =
+endOfLifeImpacts impacts { volume, passengerCar, endOfLife, countryElecProcess, heatProcess } baseMass =
+    -- Notes:
+    -- - passengerCar is expressed per-item
+    -- - endOfLife is mass-dependent
+    -- - a typical car trunk is 0.2m³ average
     let
-        -- Notes:
-        -- - passengerCar is expressed per-item
-        -- - endOfLife is mass-dependent
+        carTrunkAllocationRatio =
+            volume
+                |> Quantity.divideBy 0.2
+                |> Volume.inCubicMeters
+
         ( elecEnergy, heatEnergy ) =
             ( Quantity.sum
                 [ passengerCar.elec
+                    |> Quantity.multiplyBy carTrunkAllocationRatio
                 , endOfLife.elec
                     |> Quantity.multiplyBy (Mass.inKilograms baseMass)
                 ]
             , Quantity.sum
                 [ passengerCar.heat
+                    |> Quantity.multiplyBy carTrunkAllocationRatio
                 , endOfLife.heat
                     |> Quantity.multiplyBy (Mass.inKilograms baseMass)
                 ]
@@ -395,6 +405,7 @@ endOfLifeImpacts impacts { passengerCar, endOfLife, countryElecProcess, heatProc
                 (\trigram _ ->
                     Quantity.sum
                         [ Process.getImpact trigram passengerCar
+                            |> Quantity.multiplyBy carTrunkAllocationRatio
                         , elecEnergy
                             |> Unit.forKWh (Process.getImpact trigram countryElecProcess)
                         , heatEnergy
