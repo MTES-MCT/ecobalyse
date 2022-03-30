@@ -17,6 +17,7 @@ import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
 import Mass exposing (Mass)
 import Quantity
+import Volume exposing (Volume)
 
 
 type alias Product =
@@ -33,6 +34,7 @@ type alias Product =
     , useIroningProcess : Process -- Procédé de repassage
     , useNonIroningProcess : Process -- Procédé composite d'utilisation hors-repassage
     , wearsPerCycle : Int -- Nombre de jours porté par cycle d'entretien
+    , volume : Volume
 
     -- Nombre par défaut de cycles d'entretien
     -- Note: only for information, not used in computations
@@ -84,6 +86,7 @@ decode processes =
         |> Pipe.required "useIroningProcessUuid" (Process.decodeFromUuid processes)
         |> Pipe.required "useNonIroningProcessUuid" (Process.decodeFromUuid processes)
         |> Pipe.required "wearsPerCycle" Decode.int
+        |> Pipe.required "volume" (Decode.map Volume.cubicMeters Decode.float)
         |> Pipe.required "useDefaultNbCycles" Decode.int
         |> Pipe.required "useRatioDryer" Unit.decodeRatio
         |> Pipe.required "useRatioIroning" Unit.decodeRatio
@@ -112,6 +115,7 @@ encode v =
         , ( "useIroningProcessUuid", Process.encodeUuid v.useIroningProcess.uuid )
         , ( "useNonIroningProcessUuid", Process.encodeUuid v.useNonIroningProcess.uuid )
         , ( "wearsPerCycle", Encode.int v.wearsPerCycle )
+        , ( "volume", Encode.float (Volume.inCubicMeters v.volume) )
         , ( "useDefaultNbCycles", Encode.int v.useDefaultNbCycles )
         , ( "useRatioDryer", Unit.encodeRatio v.useRatioDryer )
         , ( "useRatioIroning", Unit.encodeRatio v.useRatioIroning )

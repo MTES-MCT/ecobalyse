@@ -31,7 +31,13 @@ table db { detailed } =
                 div [ classList [ ( "text-end", not detailed ) ] ]
                     [ Format.kg product.mass ]
       }
-    , { label = "Taux de perte (PCR)"
+    , { label = "Volume"
+      , toCell =
+            \product ->
+                div [ classList [ ( "text-end", not detailed ) ] ]
+                    [ Format.m3 product.volume ]
+      }
+    , { label = "Perte (PCR)"
       , toCell =
             \product ->
                 div [ classList [ ( "text-end", not detailed ) ] ]

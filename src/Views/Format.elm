@@ -10,6 +10,7 @@ module Views.Format exposing
     , kgToString
     , kilowattHours
     , km
+    , m3
     , megajoules
     , percent
     , ratio
@@ -28,6 +29,7 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Length exposing (Length)
 import Mass exposing (Mass)
+import Volume exposing (Volume)
 
 
 formatImpact : Unit.Functional -> Impact.Definition -> Duration -> Impacts -> Html msg
@@ -114,6 +116,11 @@ km =
 kilowattHours : Energy -> Html msg
 kilowattHours =
     Energy.inKilowattHours >> formatRichFloat 2 "kWh"
+
+
+m3 : Volume -> Html msg
+m3 =
+    Volume.inCubicMeters >> formatRichFloat 2 "m³"
 
 
 megajoules : Energy -> Html msg
