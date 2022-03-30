@@ -2,8 +2,8 @@ module Views.SavedSimulation exposing (comparator, manager)
 
 import Data.Impact as Impact
 import Data.Session exposing (SavedSimulation, Session)
-import Data.Simulator exposing (Simulator)
 import Data.Unit as Unit
+import Duration exposing (Duration)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -130,38 +130,30 @@ type alias ComparatorConfig =
     { session : Session
     , impact : Impact.Definition
     , funit : Unit.Functional
-
-    -- FIXME: pass wuery instead
-    , simulator : Simulator
-    , savedSimulations : List SavedSimulation
+    , daysOfWear : Duration
     }
 
 
-getEntries :
+getChartEntries :
     Session
     -> Unit.Functional
     -> Impact.Definition
     -> Result String (List ComparatorView.Entry)
-getEntries { db, query, store } funit impact =
+getChartEntries { db, query, store } funit impact =
     let
         createEntry_ =
             ComparatorView.createEntry db funit impact
-
-        currentEntry =
-            createEntry_ True "Simulation en cours" query
-
-        savedEntries =
-            store.savedSimulations
-                |> List.map (\saved -> createEntry_ False saved.name saved.query)
     in
-    currentEntry
-        :: savedEntries
+    createEntry_ True "Simulation en cours" query
+        :: (store.savedSimulations
+                |> List.map (\saved -> createEntry_ False saved.name saved.query)
+           )
         |> RE.combine
         |> Result.map (List.sortBy .score)
 
 
 comparator : ComparatorConfig -> Html msg
-comparator { session, impact, funit, simulator } =
+comparator { session, impact, funit, daysOfWear } =
     div [ class "row" ]
         [ div [ class "col-sm-4" ]
             [ session.store.savedSimulations
@@ -178,10 +170,15 @@ comparator { session, impact, funit, simulator } =
                     ]
             ]
         , div [ class "col-sm-8 pt-3 pb-5 pe-4" ]
-            [ case getEntries session funit impact of
+            [ case getChartEntries session funit impact of
                 Ok entries ->
                     entries
-                        |> ComparatorView.chart funit impact simulator.daysOfWear
+                        |> ComparatorView.chart
+                            { funit = funit
+                            , impact = impact
+                            , daysOfWear = daysOfWear
+                            , size = Just ( 700, 500 )
+                            }
 
                 Err error ->
                     Alert.simple

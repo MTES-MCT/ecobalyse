@@ -551,15 +551,14 @@ view session model =
                                 { size = ModalView.ExtraLarge
                                 , close = SetModal NoModal
                                 , noOp = NoOp
-                                , title = "Comparaisons des simulations sauvegardées"
+                                , title = "Comparateur de simulations sauvegardées"
                                 , formAction = Nothing
                                 , content =
                                     [ SavedSimulationView.comparator
                                         { session = session
                                         , impact = model.impact
                                         , funit = model.funit
-                                        , savedSimulations = session.store.savedSimulations
-                                        , simulator = simulator
+                                        , daysOfWear = simulator.daysOfWear
                                         }
                                     ]
                                 , footer = []
