@@ -33,10 +33,14 @@ type alias ManagerConfig msg =
 manager : ManagerConfig msg -> Html msg
 manager ({ session, simulationName } as config) =
     let
-        alreadySaved =
-            session.store.savedSimulations
+        ( queryExists, nameExists ) =
+            ( session.store.savedSimulations
                 |> List.map .query
                 |> List.member session.query
+            , session.store.savedSimulations
+                |> List.map .name
+                |> List.member simulationName
+            )
     in
     div []
         [ div [ class "card-body pb-2" ]
@@ -53,9 +57,8 @@ manager ({ session, simulationName } as config) =
                     , button
                         [ type_ "submit"
                         , class "btn btn-primary"
-                        , classList [ ( "disabled", alreadySaved ) ]
                         , title "Sauvegarder la simulation dans le stockage local au navigateur"
-                        , disabled alreadySaved
+                        , disabled (queryExists || nameExists)
                         ]
                         [ Icon.plus ]
                     ]
