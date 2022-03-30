@@ -123,23 +123,30 @@ Pour une jupe, on a n\_cycles = 23 et m = 0.3 kg
 
 On sépare le calcul en 2 procédés :&#x20;
 
-* 1 procédé de repassage, proportionnel au nombre de cycles d'entretien n\_cycles
+* 1 procédé de repassage, proportionnel au nombre de cycles d'entretien n\_cycles. L'impact ne provient que de l'électricité nécessaire au chauffage
 * 1 procédé hors repassage comprenant les 4 autres procédés (élec lavage, élec séchage, lessive, eaux usées), proportionnel au nombre de cycles d'entretien et à la masse à laver
+
+```
+impact = impact_ironing + impact_élec_non_ironing + impact_eaux_lessive_non_ironing
+```
 
 #### Procédé de repassage (ironing)
 
 ```
+impact_ironing = élec_ironing * P_élec_fr_cch
+Avec P_élec_fr_cch : la quantité de kgCO2e émise pour produire 1 kWh d'électricité française
+
 élec_ironing = n_cycles * P_ironing_élec
 Avec  P_ironing_élec : la quantité d'électricité (MJ) nécessaire pour l'étape repassage du cycle d'entretien d'une jupe.
 
 élec_ironing = 23 * 0.0729
-élec_ironing = 1.6767 MJ
-élec_ironing = 0.46575 kWh
+élec_ironing = 1.68 MJ
+élec_ironing = 0.47 kWh
 
 impact_ironing = élec_ironing * P_élec_fr_cch
 Avec P_élec_fr_cch : la quantité de kgCO2e émise pour produire 1 kWh d'électricité française
-impact_ironing = 0.46575 * 0.0813225
-impact_ironing = 0.03787595438 kgCO2e
+impact_ironing = 0.47 * 0.081
+impact_ironing = 0.038 kgCO2e
 ```
 
 #### Procédé hors repassage (non ironing)
@@ -147,31 +154,27 @@ impact_ironing = 0.03787595438 kgCO2e
 ```
 élec_non_ironing = n_cycles * m * P_non_ironing_élec
 Avec  P_non_ironing_élec : la quantité d'électricité (MJ) nécessaire pour l'étape hors repassage (lave-linge, sèche-linge) du cycle d'entretien d'une jupe.
-élec_non_ironing = 23 * 0.3 * 0.8095200001
-élec_non_ironing = 5.585688001 MJ
-élec_non_ironing = 1.55158 kWh
-
-élec_total = élec_ironing + élec_non_ironing
-élec_total = 0.46575 + 1.55158
-élec_total = 2.01733 kWh
+élec_non_ironing = 23 * 0.3 * 0.81
+élec_non_ironing = 5.59 MJ
+élec_non_ironing = 1.55 kWh
 
 impact_élec_non_ironing = élec_non_ironing * P_élec_fr_cch
 Avec P_élec_fr_cch : la quantité de kgCO2e émise pour produire 1 kWh d'électricité française
-impact_élec_non_ironing = 1.55158 * 0.0813225
-impact_élec_non_ironing = 0.1261783646 kgCO2e
+impact_élec_non_ironing = 1.55 * 0.081
+impact_élec_non_ironing = 0.13 kgCO2e
 
 
 impact_eaux_lessive_non_ironing = n_cycles * m * P_non_ironing_cch
 Avec P_non_ironing_cch : la quantité de kgCO2e émise pour le processus hors ironing (lessive + traitement des eaux usées) pour 1 kg de linge à laver.
-impact_eaux_lessive_non_ironing = 23 * 0.3 * 3.4019290E-02
-impact_eaux_lessive_non_ironing = 0.234738 kgCO2e
+impact_eaux_lessive_non_ironing = 23 * 0.3 * 3.4E-02
+impact_eaux_lessive_non_ironing = 0.23 kgCO2e
 ```
 
 Finalement on a :
 
 ```
 impact = impact_ironing + impact_élec_non_ironing + impact_eaux_lessive_non_ironing
-impact = 0.03787595438 + 0.1261783646 + 0.234738
-impact = 0.398792319 kgCO2e
+impact = 0.038 + 0.13 + 0.23
+impact = 0.40 kgCO2e
 ```
 
