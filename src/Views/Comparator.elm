@@ -217,6 +217,15 @@ chartTextColor =
     "#5d5b7e"
 
 
+ellipsis : Int -> String -> String
+ellipsis n str =
+    if n < String.length str then
+        String.slice 0 n str ++ "…"
+
+    else
+        str
+
+
 {-| Create vertical labels from percentages on the x-axis.
 -}
 fillLabels : List Entry -> List (C.Element data msg)
@@ -244,7 +253,10 @@ fillLabels entries =
                         SA.fontWeight "normal"
                     ]
                 ]
-                [ S.text label ]
+                [ label
+                    |> ellipsis 60
+                    |> S.text
+                ]
     in
     entries
         |> List.indexedMap (\i entry -> ( entry, toFloat i * baseWidth + leftPadding ))
