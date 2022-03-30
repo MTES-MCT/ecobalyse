@@ -124,7 +124,7 @@ Pour une jupe, on a n\_cycles = 23 et m = 0.3 kg
 On sépare le calcul en 2 procédés :&#x20;
 
 * 1 procédé de repassage, proportionnel au nombre de cycles d'entretien n\_cycles. L'impact ne provient que de l'électricité nécessaire au chauffage
-* 1 procédé hors repassage comprenant les 4 autres procédés (élec lavage, élec séchage, lessive, eaux usées), proportionnel au nombre de cycles d'entretien et à la masse à laver
+* 1 procédé hors repassage comprenant les 4 autres procédés (élec lavage, élec séchage, lessive, eaux usées), proportionnel au nombre de cycles d'entretien **et** à la masse à laver
 
 ```
 impact = impact_ironing + impact_élec_non_ironing + impact_eaux_lessive_non_ironing
