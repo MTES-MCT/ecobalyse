@@ -1,6 +1,7 @@
 module Views.SavedSimulation exposing (comparator, manager)
 
 import Data.Impact as Impact
+import Data.Inputs as Inputs
 import Data.Session exposing (SavedSimulation, Session)
 import Data.Unit as Unit
 import Duration exposing (Duration)
@@ -105,14 +106,14 @@ savedSimulationView { session, impact, funit, delete } ({ name, query } as saved
                 |> (++) session.clientUrl
     in
     li
-        [ class "list-group-item d-flex justify-content-between align-items-center gap-1"
+        [ class "list-group-item d-flex justify-content-between align-items-center gap-1 rounded-bottom"
         , classList [ ( "active", query == session.query ) ]
         ]
         [ a
             [ class "text-truncate"
             , classList [ ( "active text-white", query == session.query ) ]
             , href simulationLink
-            , title name
+            , title (detailsTooltip session savedSimulation)
             ]
             [ text name ]
         , button
@@ -157,11 +158,15 @@ comparator { session, impact, funit, daysOfWear } =
     div [ class "row" ]
         [ div [ class "col-sm-4" ]
             [ session.store.savedSimulations
+                |> List.sortBy .name
                 |> List.map
-                    (\{ name } ->
-                        label [ class "form-check-label list-group-item text-nowrap fs-7 ps-2" ]
+                    (\saved ->
+                        label
+                            [ class "form-check-label list-group-item text-nowrap fs-7 ps-2"
+                            , title (detailsTooltip session saved)
+                            ]
                             [ input [ type_ "checkbox", class "form-check-input" ] []
-                            , span [ class "ps-2" ] [ text name ]
+                            , span [ class "ps-2" ] [ text saved.name ]
                             ]
                     )
                 |> ul
@@ -189,3 +194,11 @@ comparator { session, impact, funit, daysOfWear } =
                         }
             ]
         ]
+
+
+detailsTooltip : Session -> SavedSimulation -> String
+detailsTooltip session saved =
+    saved.query
+        |> Inputs.fromQuery session.db
+        |> Result.map Inputs.toString
+        |> Result.withDefault saved.name
