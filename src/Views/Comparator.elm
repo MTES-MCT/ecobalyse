@@ -1,4 +1,4 @@
-module Views.Comparator exposing (view)
+module Views.Comparator exposing (Entry, chart, createEntry, view)
 
 import Chart as C
 import Chart.Attributes as CA
@@ -216,10 +216,11 @@ chartTextColor =
 fillLabels : List Entry -> List (C.Element data msg)
 fillLabels entries =
     let
-        ( baseWidth, leftPadding ) =
-            ( 100 / toFloat (clamp 1 100 (List.length entries))
-            , 3.8
-            )
+        baseWidth =
+            100 / toFloat (clamp 1 100 (List.length entries))
+
+        leftPadding =
+            baseWidth / 4.2
 
         createLabel ( { label, highlight }, xPosition ) =
             C.labelAt
@@ -365,8 +366,8 @@ chart funit impact daysOfWear entries =
     [ xLabels, yLabels, bars, legends, verticalLabels ]
         |> List.concat
         |> C.chart
-            [ CA.height 250
-            , CA.width 550
+            [ CA.width 550
+            , CA.height 250
             , CA.margin { top = 22, bottom = 10, left = 40, right = 0 }
             , CA.htmlAttrs [ class "ComparatorChart" ]
             ]

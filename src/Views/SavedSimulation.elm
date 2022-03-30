@@ -8,7 +8,9 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Page.Simulator.ViewMode as ViewMode
+import Result.Extra as RE
 import Route
+import Views.Alert as Alert
 import Views.Comparator as ComparatorView
 import Views.Icon as Icon
 
@@ -36,7 +38,7 @@ manager ({ session, simulationName } as config) =
                 |> List.member session.query
     in
     div []
-        [ div [ class "card-body" ]
+        [ div [ class "card-body pb-2" ]
             [ Html.form [ onSubmit config.save ]
                 [ div [ class "input-group" ]
                     [ input
@@ -135,6 +137,29 @@ type alias ComparatorConfig =
     }
 
 
+getEntries :
+    Session
+    -> Unit.Functional
+    -> Impact.Definition
+    -> Result String (List ComparatorView.Entry)
+getEntries { db, query, store } funit impact =
+    let
+        createEntry_ =
+            ComparatorView.createEntry db funit impact
+
+        currentEntry =
+            createEntry_ True "Simulation en cours" query
+
+        savedEntries =
+            store.savedSimulations
+                |> List.map (\saved -> createEntry_ False saved.name saved.query)
+    in
+    currentEntry
+        :: savedEntries
+        |> RE.combine
+        |> Result.map (List.sortBy .score)
+
+
 comparator : ComparatorConfig -> Html msg
 comparator { session, impact, funit, simulator } =
     div [ class "row" ]
@@ -153,11 +178,17 @@ comparator { session, impact, funit, simulator } =
                     ]
             ]
         , div [ class "col-sm-8 pt-3 pb-5 pe-4" ]
-            [ ComparatorView.view
-                { session = session
-                , impact = impact
-                , funit = funit
-                , simulator = simulator
-                }
+            [ case getEntries session funit impact of
+                Ok entries ->
+                    entries
+                        |> ComparatorView.chart funit impact simulator.daysOfWear
+
+                Err error ->
+                    Alert.simple
+                        { level = Alert.Danger
+                        , close = Nothing
+                        , title = Just "Erreur"
+                        , content = [ text error ]
+                        }
             ]
         ]
