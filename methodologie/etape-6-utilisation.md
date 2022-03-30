@@ -143,8 +143,7 @@ Avec  P_ironing_élec : la quantité d'électricité (MJ) nécessaire pour l'ét
 élec_ironing = 1.68 MJ
 élec_ironing = 0.47 kWh
 
-impact_ironing = élec_ironing * P_élec_fr_cch
-Avec P_élec_fr_cch : la quantité de kgCO2e émise pour produire 1 kWh d'électricité française
+d'où
 impact_ironing = 0.47 * 0.081
 impact_ironing = 0.038 kgCO2e
 ```
