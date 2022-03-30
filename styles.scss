@@ -80,6 +80,15 @@ input[type="number"].no-arrows::-webkit-inner-spin-button {
   }
 }
 
+.sticky {
+  &-sm-top,
+  &-md-top,
+  &-lg-top,
+  &-xl-top {
+    position: -webkit-sticky;
+  }
+}
+
 // App styles
 
 body {
