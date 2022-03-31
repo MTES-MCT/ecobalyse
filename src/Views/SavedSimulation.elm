@@ -152,8 +152,6 @@ getChartEntries { db, query, store } funit impact =
         createEntry_ =
             ComparatorView.createEntry db funit impact
     in
-    -- TODO: if current simulation query exactly matches the one from a saved simulation,
-    --       assume current simulation name is the saved one
     createEntry_ True "Simulation en cours" query
         :: (store.savedSimulations
                 |> List.filterMap
