@@ -115,8 +115,7 @@ summaryView { session, impact, funit, reusable } ({ inputs, lifeCycle } as simul
             ]
         , div [ class "d-none d-sm-block card-body text-center text-muted fs-7 px-2 py-2" ]
             [ [ text "Comparaison pour"
-              , text simulator.inputs.product.name
-              , text ", "
+              , text <| simulator.inputs.product.name ++ ", "
               , viewMaterials simulator.inputs.materials
               , text "de"
               , Format.kg simulator.inputs.mass

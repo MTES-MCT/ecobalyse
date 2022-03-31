@@ -93,7 +93,7 @@ savedSimulationListView ({ compareAll, session } as config) =
             session.store.savedSimulations
                 |> List.map (savedSimulationView config)
                 |> ul
-                    [ class "list-group list-group-flush overflow-scroll"
+                    [ class "list-group list-group-flush rounded-bottom overflow-scroll"
                     , style "max-height" "50vh"
                     ]
         ]
@@ -109,7 +109,7 @@ savedSimulationView { session, impact, funit, delete } ({ name, query } as saved
                 |> (++) session.clientUrl
     in
     li
-        [ class "list-group-item d-flex justify-content-between align-items-center gap-1 rounded-bottom"
+        [ class "list-group-item d-flex justify-content-between align-items-center gap-1"
         , classList [ ( "active", query == session.query ) ]
         ]
         [ a
@@ -177,7 +177,7 @@ comparator { session, impact, funit, daysOfWear } =
                     , class "h-100 overflow-scroll"
                     ]
             ]
-        , div [ class "col-sm-8 pt-3 pb-5 pe-4" ]
+        , div [ class "col-sm-8 pt-2 pb-2 pe-4" ]
             [ case getChartEntries session funit impact of
                 Ok entries ->
                     entries
@@ -186,6 +186,7 @@ comparator { session, impact, funit, daysOfWear } =
                             , impact = impact
                             , daysOfWear = daysOfWear
                             , size = Just ( 700, 500 )
+                            , margins = Just { top = 22, bottom = 40, left = 40, right = 0 }
                             }
 
                 Err error ->
@@ -195,6 +196,10 @@ comparator { session, impact, funit, daysOfWear } =
                         , title = Just "Erreur"
                         , content = [ text error ]
                         }
+            , div [ class "fs-7 text-end text-muted" ]
+                [ text "Unité fonctionnelle\u{00A0}: "
+                , funit |> Unit.functionalToString |> text
+                ]
             ]
         ]
 

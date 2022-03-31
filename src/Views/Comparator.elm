@@ -201,6 +201,7 @@ view { session, impact, funit, simulator } =
                     , impact = impact
                     , daysOfWear = simulator.daysOfWear
                     , size = Nothing
+                    , margins = Nothing
                     }
 
         Err error ->
@@ -284,11 +285,12 @@ type alias ChartOptions =
     , impact : Impact.Definition
     , daysOfWear : Duration
     , size : Maybe ( Float, Float )
+    , margins : Maybe { top : Float, bottom : Float, left : Float, right : Float }
     }
 
 
 chart : ChartOptions -> List Entry -> Html msg
-chart { funit, impact, daysOfWear, size } entries =
+chart { funit, impact, daysOfWear, size, margins } entries =
     let
         knitted =
             entries |> List.head |> Maybe.map .knitted |> Maybe.withDefault False
@@ -394,6 +396,6 @@ chart { funit, impact, daysOfWear, size } entries =
         |> C.chart
             [ CA.width (size |> Maybe.map Tuple.first |> Maybe.withDefault 550)
             , CA.height (size |> Maybe.map Tuple.second |> Maybe.withDefault 250)
-            , CA.margin { top = 22, bottom = 10, left = 40, right = 0 }
+            , CA.margin (margins |> Maybe.withDefault { top = 22, bottom = 10, left = 40, right = 0 })
             , CA.htmlAttrs [ class "ComparatorChart" ]
             ]
