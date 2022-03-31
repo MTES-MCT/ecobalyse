@@ -53,6 +53,8 @@ manager ({ session, simulationName } as config) =
                         , onInput config.update
                         , placeholder "Nom de la simulation"
                         , value simulationName
+                        , required True
+                        , pattern "^(?!\\s*$).+"
                         ]
                         []
                     , button
@@ -136,7 +138,7 @@ type alias ComparatorConfig msg =
     , impact : Impact.Definition
     , funit : Unit.Functional
     , daysOfWear : Duration
-    , toggle : Int -> Bool -> msg
+    , toggle : String -> Bool -> msg
     }
 
 
@@ -154,10 +156,9 @@ getChartEntries { db, query, store } funit impact =
     --       assume current simulation name is the saved one
     createEntry_ True "Simulation en cours" query
         :: (store.savedSimulations
-                |> List.indexedMap Tuple.pair
                 |> List.filterMap
-                    (\( index, saved ) ->
-                        if Set.member index store.comparedSimulations then
+                    (\saved ->
+                        if Set.member saved.name store.comparedSimulations then
                             Just saved
 
                         else
@@ -176,8 +177,8 @@ comparator { session, impact, funit, daysOfWear, toggle } =
             [ p [ class "p-3 pb-1 mb-0 text-muted" ]
                 [ text "Sélectionnez les simulations sauvegardées que vous souhaitez comparer\u{00A0}:" ]
             , session.store.savedSimulations
-                |> List.indexedMap
-                    (\index saved ->
+                |> List.map
+                    (\saved ->
                         let
                             description =
                                 detailsTooltip session saved
@@ -189,8 +190,8 @@ comparator { session, impact, funit, daysOfWear, toggle } =
                             [ input
                                 [ type_ "checkbox"
                                 , class "form-check-input"
-                                , onCheck (toggle index)
-                                , checked (Set.member index session.store.comparedSimulations)
+                                , onCheck (toggle saved.name)
+                                , checked (Set.member saved.name session.store.comparedSimulations)
                                 ]
                                 []
                             , span [ class "ps-2" ]

@@ -74,7 +74,7 @@ type Msg
     | SwitchFunctionalUnit Unit.Functional
     | SwitchImpact Impact.Trigram
     | SwitchLinksTab LinksTab
-    | ToggleComparedSimulation Int Bool
+    | ToggleComparedSimulation String Bool
     | ToggleStepViewMode Int
     | UpdateAirTransportRatio (Maybe Unit.Ratio)
     | UpdateDyeingWeighting (Maybe Unit.Ratio)
@@ -243,9 +243,9 @@ update ({ db, query, navKey } as session) msg model =
             , Cmd.none
             )
 
-        ToggleComparedSimulation index checked ->
+        ToggleComparedSimulation name checked ->
             ( model
-            , session |> Session.toggleComparedSimulation index checked
+            , session |> Session.toggleComparedSimulation name checked
             , Cmd.none
             )
 

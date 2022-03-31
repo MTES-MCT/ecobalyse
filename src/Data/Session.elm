@@ -67,7 +67,7 @@ notifyHttpError error ({ notifications } as session) =
 
 type alias Store =
     { savedSimulations : List SavedSimulation
-    , comparedSimulations : Set Int
+    , comparedSimulations : Set String
     }
 
 
@@ -88,7 +88,7 @@ decodeStore : Decoder Store
 decodeStore =
     Decode.succeed Store
         |> JDP.optional "savedSimulations" (Decode.list decodeSavedSimulation) []
-        |> JDP.optional "comparedSimulations" (Decode.map Set.fromList (Decode.list Decode.int)) Set.empty
+        |> JDP.optional "comparedSimulations" (Decode.map Set.fromList (Decode.list Decode.string)) Set.empty
 
 
 decodeSavedSimulation : Decoder SavedSimulation
@@ -102,7 +102,7 @@ encodeStore : Store -> Encode.Value
 encodeStore store =
     Encode.object
         [ ( "savedSimulations", Encode.list encodeSavedSimulation store.savedSimulations )
-        , ( "comparedSimulations", store.comparedSimulations |> Set.toList |> Encode.list Encode.int )
+        , ( "comparedSimulations", store.comparedSimulations |> Set.toList |> Encode.list Encode.string )
         ]
 
 
@@ -136,6 +136,8 @@ deleteSimulation simulation =
             { store
                 | savedSimulations =
                     List.filter ((/=) simulation) store.savedSimulations
+                , comparedSimulations =
+                    Set.filter ((/=) simulation.name) store.comparedSimulations
             }
         )
 
@@ -151,16 +153,16 @@ saveSimulation simulation =
         )
 
 
-toggleComparedSimulation : Int -> Bool -> Session -> Session
-toggleComparedSimulation index checked =
+toggleComparedSimulation : String -> Bool -> Session -> Session
+toggleComparedSimulation name checked =
     updateStore
         (\store ->
             { store
                 | comparedSimulations =
                     if checked then
-                        Set.insert index store.comparedSimulations
+                        Set.insert name store.comparedSimulations
 
                     else
-                        Set.remove index store.comparedSimulations
+                        Set.remove name store.comparedSimulations
             }
         )
