@@ -173,14 +173,18 @@ comparator : ComparatorConfig msg -> Html msg
 comparator { session, impact, funit, daysOfWear, toggle } =
     div [ class "row" ]
         [ div [ class "col-sm-4 border-end" ]
-            [ p [ class "p-2 pb-0 mb-0 fs-7 text-muted" ]
+            [ p [ class "p-3 pb-1 mb-0 text-muted" ]
                 [ text "Sélectionnez les simulations sauvegardées que vous souhaitez comparer\u{00A0}:" ]
             , session.store.savedSimulations
                 |> List.indexedMap
                     (\index saved ->
+                        let
+                            description =
+                                detailsTooltip session saved
+                        in
                         label
-                            [ class "form-check-label list-group-item text-nowrap fs-7 ps-2"
-                            , title (detailsTooltip session saved)
+                            [ class "form-check-label list-group-item text-nowrap ps-3"
+                            , title description
                             ]
                             [ input
                                 [ type_ "checkbox"
@@ -189,7 +193,14 @@ comparator { session, impact, funit, daysOfWear, toggle } =
                                 , checked (Set.member index session.store.comparedSimulations)
                                 ]
                                 []
-                            , span [ class "ps-2" ] [ text saved.name ]
+                            , span [ class "ps-2" ]
+                                [ span [ class "me-2 fw-500" ] [ text saved.name ]
+                                , if description /= saved.name then
+                                    span [ class "text-muted fs-7" ] [ text description ]
+
+                                  else
+                                    text ""
+                                ]
                             ]
                     )
                 |> ul

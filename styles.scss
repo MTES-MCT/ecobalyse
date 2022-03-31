@@ -142,6 +142,12 @@ blockquote {
   }
 }
 
+.fw {
+  &-500 {
+    font-weight: 500;
+  }
+}
+
 .link {
   &-external:not(.link-external-muted) {
     &::after {
