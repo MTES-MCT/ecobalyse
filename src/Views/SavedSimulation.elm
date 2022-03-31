@@ -152,18 +152,16 @@ getChartEntries { db, query, store } funit impact =
         createEntry_ =
             ComparatorView.createEntry db funit impact
     in
-    createEntry_ True "Simulation en cours" query
-        :: (store.savedSimulations
-                |> List.filterMap
-                    (\saved ->
-                        if Set.member saved.name store.comparedSimulations then
-                            Just saved
+    store.savedSimulations
+        |> List.filterMap
+            (\saved ->
+                if Set.member saved.name store.comparedSimulations then
+                    Just (createEntry_ False saved.name saved.query)
 
-                        else
-                            Nothing
-                    )
-                |> List.map (\saved -> createEntry_ False saved.name saved.query)
-           )
+                else
+                    Nothing
+            )
+        |> (::) (createEntry_ True "Simulation en cours" query)
         |> RE.combine
         |> Result.map (List.sortBy .score)
 
