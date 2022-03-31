@@ -24,7 +24,7 @@ type alias ManagerConfig msg =
     , funit : Unit.Functional
 
     -- Messages
-    , compareAll : msg
+    , compare : msg
     , delete : SavedSimulation -> msg
     , save : msg
     , update : String -> msg
@@ -74,15 +74,15 @@ manager ({ session, simulationName } as config) =
 
 
 savedSimulationListView : ManagerConfig msg -> Html msg
-savedSimulationListView ({ compareAll, session } as config) =
+savedSimulationListView ({ compare, session } as config) =
     div []
         [ div [ class "card-header border-top d-flex justify-content-between align-items-center" ]
             [ span [] [ text "Simulations sauvegardées" ]
             , button
                 [ class "btn btn-sm btn-primary"
-                , title "Comparer toutes vos simulations sauvegardées"
+                , title "Comparer vos simulations sauvegardées"
                 , disabled (List.length session.store.savedSimulations < 2)
-                , onClick compareAll
+                , onClick compare
                 ]
                 [ span [ class "me-1" ] [ Icon.stats ]
                 , text "Comparer"
