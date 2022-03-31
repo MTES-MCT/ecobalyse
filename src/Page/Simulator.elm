@@ -207,7 +207,7 @@ update ({ db, query, navKey } as session) msg model =
             ( model
             , session
                 |> Session.saveSimulation
-                    { name = model.simulationName
+                    { name = String.trim model.simulationName
                     , query = query
                     }
             , Cmd.none
