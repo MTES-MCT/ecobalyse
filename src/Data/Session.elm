@@ -9,6 +9,7 @@ module Data.Session exposing
     , notifyHttpError
     , saveSimulation
     , serializeStore
+    , toggleComparedSimulation
     )
 
 import Browser.Navigation as Nav
@@ -16,8 +17,10 @@ import Data.Db exposing (Db)
 import Data.Inputs as Inputs
 import Http
 import Json.Decode as Decode exposing (Decoder)
+import Json.Decode.Pipeline as JDP
 import Json.Encode as Encode
 import Request.Version exposing (Version)
+import Set exposing (Set)
 
 
 type alias Session =
@@ -64,6 +67,7 @@ notifyHttpError error ({ notifications } as session) =
 
 type alias Store =
     { savedSimulations : List SavedSimulation
+    , comparedSimulations : Set Int
     }
 
 
@@ -75,13 +79,16 @@ type alias SavedSimulation =
 
 defaultStore : Store
 defaultStore =
-    { savedSimulations = [] }
+    { savedSimulations = []
+    , comparedSimulations = Set.empty
+    }
 
 
 decodeStore : Decoder Store
 decodeStore =
-    Decode.map Store
-        (Decode.field "savedSimulations" <| Decode.list decodeSavedSimulation)
+    Decode.succeed Store
+        |> JDP.optional "savedSimulations" (Decode.list decodeSavedSimulation) []
+        |> JDP.optional "comparedSimulations" (Decode.map Set.fromList (Decode.list Decode.int)) Set.empty
 
 
 decodeSavedSimulation : Decoder SavedSimulation
@@ -95,6 +102,7 @@ encodeStore : Store -> Encode.Value
 encodeStore store =
     Encode.object
         [ ( "savedSimulations", Encode.list encodeSavedSimulation store.savedSimulations )
+        , ( "comparedSimulations", store.comparedSimulations |> Set.toList |> Encode.list Encode.int )
         ]
 
 
@@ -139,5 +147,20 @@ saveSimulation simulation =
             { store
                 | savedSimulations =
                     simulation :: store.savedSimulations
+            }
+        )
+
+
+toggleComparedSimulation : Int -> Bool -> Session -> Session
+toggleComparedSimulation index checked =
+    updateStore
+        (\store ->
+            { store
+                | comparedSimulations =
+                    if checked then
+                        Set.insert index store.comparedSimulations
+
+                    else
+                        Set.remove index store.comparedSimulations
             }
         )

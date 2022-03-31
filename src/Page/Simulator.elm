@@ -74,6 +74,7 @@ type Msg
     | SwitchFunctionalUnit Unit.Functional
     | SwitchImpact Impact.Trigram
     | SwitchLinksTab LinksTab
+    | ToggleComparedSimulation Int Bool
     | ToggleStepViewMode Int
     | UpdateAirTransportRatio (Maybe Unit.Ratio)
     | UpdateDyeingWeighting (Maybe Unit.Ratio)
@@ -239,6 +240,12 @@ update ({ db, query, navKey } as session) msg model =
         SwitchLinksTab linksTab ->
             ( { model | linksTab = linksTab }
             , session
+            , Cmd.none
+            )
+
+        ToggleComparedSimulation index checked ->
+            ( model
+            , session |> Session.toggleComparedSimulation index checked
             , Cmd.none
             )
 
@@ -551,7 +558,11 @@ view session model =
                                 { size = ModalView.ExtraLarge
                                 , close = SetModal NoModal
                                 , noOp = NoOp
-                                , title = "Comparateur de simulations sauvegardées"
+                                , title =
+                                    "Comparateur de simulations sauvegardées\u{00A0}: "
+                                        ++ model.impact.label
+                                        ++ ", "
+                                        ++ Unit.functionalToString model.funit
                                 , formAction = Nothing
                                 , content =
                                     [ SavedSimulationView.comparator
@@ -559,6 +570,7 @@ view session model =
                                         , impact = model.impact
                                         , funit = model.funit
                                         , daysOfWear = simulator.daysOfWear
+                                        , toggle = ToggleComparedSimulation
                                         }
                                     ]
                                 , footer = []

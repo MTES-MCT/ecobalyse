@@ -11,6 +11,7 @@ import Html.Events exposing (..)
 import Page.Simulator.ViewMode as ViewMode
 import Result.Extra as RE
 import Route
+import Set
 import Views.Alert as Alert
 import Views.Comparator as ComparatorView
 import Views.Icon as Icon
@@ -130,11 +131,12 @@ savedSimulationView { session, impact, funit, delete } ({ name, query } as saved
         ]
 
 
-type alias ComparatorConfig =
+type alias ComparatorConfig msg =
     { session : Session
     , impact : Impact.Definition
     , funit : Unit.Functional
     , daysOfWear : Duration
+    , toggle : Int -> Bool -> msg
     }
 
 
@@ -148,36 +150,54 @@ getChartEntries { db, query, store } funit impact =
         createEntry_ =
             ComparatorView.createEntry db funit impact
     in
+    -- TODO: if current simulation query exactly matches the one from a saved simulation,
+    --       assume current simulation name is the saved one
     createEntry_ True "Simulation en cours" query
         :: (store.savedSimulations
+                |> List.indexedMap Tuple.pair
+                |> List.filterMap
+                    (\( index, saved ) ->
+                        if Set.member index store.comparedSimulations then
+                            Just saved
+
+                        else
+                            Nothing
+                    )
                 |> List.map (\saved -> createEntry_ False saved.name saved.query)
            )
         |> RE.combine
         |> Result.map (List.sortBy .score)
 
 
-comparator : ComparatorConfig -> Html msg
-comparator { session, impact, funit, daysOfWear } =
+comparator : ComparatorConfig msg -> Html msg
+comparator { session, impact, funit, daysOfWear, toggle } =
     div [ class "row" ]
-        [ div [ class "col-sm-4" ]
-            [ session.store.savedSimulations
-                |> List.sortBy .name
-                |> List.map
-                    (\saved ->
+        [ div [ class "col-sm-4 border-end" ]
+            [ p [ class "p-2 pb-0 mb-0 fs-7 text-muted" ]
+                [ text "Sélectionnez les simulations sauvegardées que vous souhaitez comparer\u{00A0}:" ]
+            , session.store.savedSimulations
+                |> List.indexedMap
+                    (\index saved ->
                         label
                             [ class "form-check-label list-group-item text-nowrap fs-7 ps-2"
                             , title (detailsTooltip session saved)
                             ]
-                            [ input [ type_ "checkbox", class "form-check-input" ] []
+                            [ input
+                                [ type_ "checkbox"
+                                , class "form-check-input"
+                                , onCheck (toggle index)
+                                , checked (Set.member index session.store.comparedSimulations)
+                                ]
+                                []
                             , span [ class "ps-2" ] [ text saved.name ]
                             ]
                     )
                 |> ul
-                    [ class "list-group list-group-flush border-end"
+                    [ class "list-group list-group-flush"
                     , class "h-100 overflow-scroll"
                     ]
             ]
-        , div [ class "col-sm-8 pt-2 pb-2 pe-4" ]
+        , div [ class "col-sm-8 px-4 py-2" ]
             [ case getChartEntries session funit impact of
                 Ok entries ->
                     entries
@@ -197,7 +217,8 @@ comparator { session, impact, funit, daysOfWear } =
                         , content = [ text error ]
                         }
             , div [ class "fs-7 text-end text-muted" ]
-                [ text "Unité fonctionnelle\u{00A0}: "
+                [ text impact.label
+                , text ", "
                 , funit |> Unit.functionalToString |> text
                 ]
             ]
