@@ -81,7 +81,7 @@ view config =
                             []
                         ]
                     , div
-                        [ class "modal-body no-scroll-chaining" ]
+                        [ class "modal-body no-scroll-chaining p-0" ]
                         config.content
                     , if config.footer /= [] then
                         div [ class "modal-footer bg-light" ] config.footer

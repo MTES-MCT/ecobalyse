@@ -149,6 +149,11 @@ slice =
     icon "slice"
 
 
+stats : Html msg
+stats =
+    icon "stats"
+
+
 study : Html msg
 study =
     icon "study"
@@ -157,6 +162,11 @@ study =
 times : Html msg
 times =
     icon "times"
+
+
+trash : Html msg
+trash =
+    icon "trash"
 
 
 tShirt : Html msg

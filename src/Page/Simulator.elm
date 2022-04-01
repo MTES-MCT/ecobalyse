@@ -8,11 +8,13 @@ module Page.Simulator exposing
     )
 
 import Array
+import Browser.Events
 import Browser.Navigation as Navigation
 import Data.Country as Country
 import Data.Db exposing (Db)
 import Data.Impact as Impact
 import Data.Inputs as Inputs
+import Data.Key as Key
 import Data.Material as Material
 import Data.Product as Product exposing (Product)
 import Data.Session as Session exposing (Session)
@@ -30,6 +32,7 @@ import Views.Container as Container
 import Views.Icon as Icon
 import Views.Impact as ImpactView
 import Views.Material as MaterialView
+import Views.Modal as ModalView
 import Views.SavedSimulation as SavedSimulationView
 import Views.Step as StepView
 import Views.Summary as SummaryView
@@ -44,6 +47,7 @@ type alias Model =
     , viewMode : ViewMode
     , impact : Impact.Definition
     , funit : Unit.Functional
+    , modal : Modal
     }
 
 
@@ -52,17 +56,26 @@ type LinksTab
     | SaveLink
 
 
+type Modal
+    = NoModal
+    | SavedSimulationsModal
+
+
 type Msg
     = AddMaterial
     | CopyToClipBoard String
     | DeleteSavedSimulation Session.SavedSimulation
+    | NoOp
+    | OpenComparator
     | RemoveMaterial Int
     | Reset
     | SaveSimulation
     | SelectInputText String
+    | SetModal Modal
     | SwitchFunctionalUnit Unit.Functional
     | SwitchImpact Impact.Trigram
     | SwitchLinksTab LinksTab
+    | ToggleComparedSimulation String Bool
     | ToggleStepViewMode Int
     | UpdateAirTransportRatio (Maybe Unit.Ratio)
     | UpdateDyeingWeighting (Maybe Unit.Ratio)
@@ -111,6 +124,7 @@ init trigram funit viewMode maybeUrlQuery ({ db, store } as session) =
                 |> Impact.getDefinition trigram
                 |> Result.withDefault Impact.default
       , funit = funit
+      , modal = NoModal
       }
     , case simulator of
         Err error ->
@@ -183,6 +197,15 @@ update ({ db, query, navKey } as session) msg model =
             ( model, session, Cmd.none )
                 |> updateQuery (Inputs.removeMaterial index query)
 
+        NoOp ->
+            ( model, session, Cmd.none )
+
+        OpenComparator ->
+            ( { model | modal = SavedSimulationsModal }
+            , session |> Session.checkComparedSimulations
+            , Cmd.none
+            )
+
         Reset ->
             ( model, session, Cmd.none )
                 |> updateQuery Inputs.defaultQuery
@@ -191,7 +214,7 @@ update ({ db, query, navKey } as session) msg model =
             ( model
             , session
                 |> Session.saveSimulation
-                    { name = model.simulationName
+                    { name = String.trim model.simulationName
                     , query = query
                     }
             , Cmd.none
@@ -199,6 +222,9 @@ update ({ db, query, navKey } as session) msg model =
 
         SelectInputText index ->
             ( model, session, Ports.selectInputText index )
+
+        SetModal modal ->
+            ( { model | modal = modal }, session, Cmd.none )
 
         SwitchFunctionalUnit funit ->
             ( model
@@ -221,6 +247,12 @@ update ({ db, query, navKey } as session) msg model =
         SwitchLinksTab linksTab ->
             ( { model | linksTab = linksTab }
             , session
+            , Cmd.none
+            )
+
+        ToggleComparedSimulation name checked ->
+            ( model
+            , session |> Session.toggleComparedSimulation name checked
             , Cmd.none
             )
 
@@ -388,11 +420,12 @@ linksView session ({ linksTab } as model) =
                 shareLinkView session model
 
             SaveLink ->
-                SavedSimulationView.view
+                SavedSimulationView.manager
                     { session = session
                     , simulationName = model.simulationName
                     , impact = model.impact
                     , funit = model.funit
+                    , compare = OpenComparator
                     , delete = DeleteSavedSimulation
                     , save = SaveSimulation
                     , update = UpdateSimulationName
@@ -520,22 +553,55 @@ view : Session -> Model -> ( String, List (Html Msg) )
 view session model =
     ( "Simulateur"
     , [ Container.centered [ class "Simulator pb-3" ]
-            [ case model.simulator of
+            (case model.simulator of
                 Ok simulator ->
-                    simulatorView session model simulator
+                    [ simulatorView session model simulator
+                    , case model.modal of
+                        NoModal ->
+                            text ""
+
+                        SavedSimulationsModal ->
+                            ModalView.view
+                                { size = ModalView.ExtraLarge
+                                , close = SetModal NoModal
+                                , noOp = NoOp
+                                , title =
+                                    "Comparateur de simulations sauvegardées\u{00A0}: "
+                                        ++ model.impact.label
+                                        ++ ", "
+                                        ++ Unit.functionalToString model.funit
+                                , formAction = Nothing
+                                , content =
+                                    [ SavedSimulationView.comparator
+                                        { session = session
+                                        , impact = model.impact
+                                        , funit = model.funit
+                                        , daysOfWear = simulator.daysOfWear
+                                        , toggle = ToggleComparedSimulation
+                                        }
+                                    ]
+                                , footer = []
+                                }
+                    ]
 
                 Err error ->
-                    Alert.simple
+                    [ Alert.simple
                         { level = Alert.Danger
                         , close = Nothing
                         , title = Just "Erreur"
                         , content = [ text error ]
                         }
-            ]
+                    ]
+            )
       ]
     )
 
 
 subscriptions : Model -> Sub Msg
-subscriptions _ =
-    Sub.none
+subscriptions { modal } =
+    case modal of
+        NoModal ->
+            Sub.none
+
+        SavedSimulationsModal ->
+            Browser.Events.onKeyDown (Key.escape (SetModal NoModal))

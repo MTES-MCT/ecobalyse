@@ -2,13 +2,16 @@ module Data.Session exposing
     ( Notification(..)
     , SavedSimulation
     , Session
+    , checkComparedSimulations
     , closeNotification
     , deleteSimulation
     , deserializeStore
+    , maxComparedSimulations
     , notifyError
     , notifyHttpError
     , saveSimulation
     , serializeStore
+    , toggleComparedSimulation
     )
 
 import Browser.Navigation as Nav
@@ -16,8 +19,10 @@ import Data.Db exposing (Db)
 import Data.Inputs as Inputs
 import Http
 import Json.Decode as Decode exposing (Decoder)
+import Json.Decode.Pipeline as JDP
 import Json.Encode as Encode
 import Request.Version exposing (Version)
+import Set exposing (Set)
 
 
 type alias Session =
@@ -56,15 +61,7 @@ notifyHttpError error ({ notifications } as session) =
 
 
 
--- Store
---
--- A serializable data structure holding session information you want to share
--- across browser restarts, typically in localStorage.
-
-
-type alias Store =
-    { savedSimulations : List SavedSimulation
-    }
+-- Saved simulations
 
 
 type alias SavedSimulation =
@@ -73,15 +70,94 @@ type alias SavedSimulation =
     }
 
 
+maxComparedSimulations : Int
+maxComparedSimulations =
+    12
+
+
+checkComparedSimulations : Session -> Session
+checkComparedSimulations session =
+    if Set.size session.store.comparedSimulations == 0 then
+        session
+            |> updateStore
+                (\store ->
+                    { store
+                        | comparedSimulations =
+                            store.savedSimulations
+                                |> List.take maxComparedSimulations
+                                |> List.map .name
+                                |> Set.fromList
+                    }
+                )
+
+    else
+        session
+
+
+deleteSimulation : SavedSimulation -> Session -> Session
+deleteSimulation simulation =
+    updateStore
+        (\store ->
+            { store
+                | savedSimulations =
+                    List.filter ((/=) simulation) store.savedSimulations
+                , comparedSimulations =
+                    Set.filter ((/=) simulation.name) store.comparedSimulations
+            }
+        )
+
+
+saveSimulation : SavedSimulation -> Session -> Session
+saveSimulation simulation =
+    updateStore
+        (\store ->
+            { store
+                | savedSimulations =
+                    simulation :: store.savedSimulations
+            }
+        )
+
+
+toggleComparedSimulation : String -> Bool -> Session -> Session
+toggleComparedSimulation name checked =
+    updateStore
+        (\store ->
+            { store
+                | comparedSimulations =
+                    if checked then
+                        Set.insert name store.comparedSimulations
+
+                    else
+                        Set.remove name store.comparedSimulations
+            }
+        )
+
+
+
+-- Store
+--
+-- A serializable data structure holding session information you want to share
+-- across browser restarts, typically in localStorage.
+
+
+type alias Store =
+    { savedSimulations : List SavedSimulation
+    , comparedSimulations : Set String
+    }
+
+
 defaultStore : Store
 defaultStore =
-    { savedSimulations = [] }
+    { savedSimulations = []
+    , comparedSimulations = Set.empty
+    }
 
 
 decodeStore : Decoder Store
 decodeStore =
-    Decode.map Store
-        (Decode.field "savedSimulations" <| Decode.list decodeSavedSimulation)
+    Decode.succeed Store
+        |> JDP.optional "savedSimulations" (Decode.list decodeSavedSimulation) []
+        |> JDP.optional "comparedSimulations" (Decode.map Set.fromList (Decode.list Decode.string)) Set.empty
 
 
 decodeSavedSimulation : Decoder SavedSimulation
@@ -95,6 +171,7 @@ encodeStore : Store -> Encode.Value
 encodeStore store =
     Encode.object
         [ ( "savedSimulations", Encode.list encodeSavedSimulation store.savedSimulations )
+        , ( "comparedSimulations", store.comparedSimulations |> Set.toList |> Encode.list Encode.string )
         ]
 
 
@@ -119,25 +196,3 @@ serializeStore =
 updateStore : (Store -> Store) -> Session -> Session
 updateStore update session =
     { session | store = update session.store }
-
-
-deleteSimulation : SavedSimulation -> Session -> Session
-deleteSimulation simulation =
-    updateStore
-        (\store ->
-            { store
-                | savedSimulations =
-                    List.filter ((/=) simulation) store.savedSimulations
-            }
-        )
-
-
-saveSimulation : SavedSimulation -> Session -> Session
-saveSimulation simulation =
-    updateStore
-        (\store ->
-            { store
-                | savedSimulations =
-                    simulation :: store.savedSimulations
-            }
-        )

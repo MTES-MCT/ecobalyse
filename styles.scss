@@ -142,6 +142,12 @@ blockquote {
   }
 }
 
+.fw {
+  &-500 {
+    font-weight: 500;
+  }
+}
+
 .link {
   &-external:not(.link-external-muted) {
     &::after {
@@ -195,6 +201,16 @@ blockquote {
   // @see https://ishadeed.com/article/prevent-scroll-chaining-overscroll-behavior/
   overscroll-behavior-y: contain;
   overflow-y: auto;
+}
+
+.overflow {
+  &-x-hidden {
+    overflow-x: hidden;
+  }
+
+  &-y-scroll {
+    overflow-y: scroll;
+  }
 }
 
 .text-light-all {
@@ -315,7 +331,7 @@ blockquote {
   &Legends {
     left: unset !important;
     top: unset !important;
-    margin: -10px 10% -20px 10% !important;
+    margin: 0px 10% -15px 10% !important;
     position: unset !important;
     transform: unset !important;
     display: flex !important;

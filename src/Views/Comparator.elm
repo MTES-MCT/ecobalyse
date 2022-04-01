@@ -1,4 +1,4 @@
-module Views.Comparator exposing (view)
+module Views.Comparator exposing (Entry, chart, createEntry, view)
 
 import Chart as C
 import Chart.Attributes as CA
@@ -195,7 +195,14 @@ view : Config -> Html msg
 view { session, impact, funit, simulator } =
     case simulator.inputs |> getEntries session.db funit impact of
         Ok entries ->
-            chart funit impact simulator.daysOfWear entries
+            entries
+                |> chart
+                    { funit = funit
+                    , impact = impact
+                    , daysOfWear = simulator.daysOfWear
+                    , size = Nothing
+                    , margins = Nothing
+                    }
 
         Err error ->
             Alert.simple
@@ -211,15 +218,25 @@ chartTextColor =
     "#5d5b7e"
 
 
+ellipsis : Int -> String -> String
+ellipsis n str =
+    if n < String.length str then
+        String.slice 0 n str ++ "…"
+
+    else
+        str
+
+
 {-| Create vertical labels from percentages on the x-axis.
 -}
 fillLabels : List Entry -> List (C.Element data msg)
 fillLabels entries =
     let
-        ( baseWidth, leftPadding ) =
-            ( 100 / toFloat (clamp 1 100 (List.length entries))
-            , 3.8
-            )
+        baseWidth =
+            100 / toFloat (clamp 1 100 (List.length entries))
+
+        leftPadding =
+            baseWidth / 4.5
 
         createLabel ( { label, highlight }, xPosition ) =
             C.labelAt
@@ -231,13 +248,16 @@ fillLabels entries =
                     [ SA.fontSize "14"
                     , SA.style "text-anchor: start"
                     , if highlight then
-                        SA.fontWeight "bold"
+                        SA.fontWeight "500"
 
                       else
                         SA.fontWeight "normal"
                     ]
                 ]
-                [ S.text label ]
+                [ label
+                    |> ellipsis 58
+                    |> S.text
+                ]
     in
     entries
         |> List.indexedMap (\i entry -> ( entry, toFloat i * baseWidth + leftPadding ))
@@ -260,8 +280,17 @@ formatLabel funit { unit } daysOfWear num =
     }
 
 
-chart : Unit.Functional -> Impact.Definition -> Duration -> List Entry -> Html msg
-chart funit impact daysOfWear entries =
+type alias ChartOptions =
+    { funit : Unit.Functional
+    , impact : Impact.Definition
+    , daysOfWear : Duration
+    , size : Maybe ( Float, Float )
+    , margins : Maybe { top : Float, bottom : Float, left : Float, right : Float }
+    }
+
+
+chart : ChartOptions -> List Entry -> Html msg
+chart { funit, impact, daysOfWear, size, margins } entries =
     let
         knitted =
             entries |> List.head |> Maybe.map .knitted |> Maybe.withDefault False
@@ -365,8 +394,8 @@ chart funit impact daysOfWear entries =
     [ xLabels, yLabels, bars, legends, verticalLabels ]
         |> List.concat
         |> C.chart
-            [ CA.height 250
-            , CA.width 550
-            , CA.margin { top = 22, bottom = 10, left = 40, right = 0 }
+            [ CA.width (size |> Maybe.map Tuple.first |> Maybe.withDefault 550)
+            , CA.height (size |> Maybe.map Tuple.second |> Maybe.withDefault 250)
+            , CA.margin (margins |> Maybe.withDefault { top = 22, bottom = 10, left = 40, right = 0 })
             , CA.htmlAttrs [ class "ComparatorChart" ]
             ]

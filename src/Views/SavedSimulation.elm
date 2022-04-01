@@ -1,39 +1,51 @@
-module Views.SavedSimulation exposing (view)
+module Views.SavedSimulation exposing (comparator, manager)
 
 import Data.Impact as Impact
-import Data.Session exposing (SavedSimulation, Session)
+import Data.Inputs as Inputs
+import Data.Session as Session exposing (SavedSimulation, Session)
 import Data.Unit as Unit
+import Duration exposing (Duration)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Page.Simulator.ViewMode as ViewMode
+import Result.Extra as RE
 import Route
+import Set
+import Views.Alert as Alert
+import Views.Comparator as ComparatorView
+import Views.Container as Container
 import Views.Icon as Icon
 
 
-type alias Config msg =
+type alias ManagerConfig msg =
     { session : Session
     , simulationName : String
     , impact : Impact.Definition
     , funit : Unit.Functional
 
     -- Messages
+    , compare : msg
     , delete : SavedSimulation -> msg
     , save : msg
     , update : String -> msg
     }
 
 
-view : Config msg -> Html msg
-view ({ session, simulationName } as config) =
+manager : ManagerConfig msg -> Html msg
+manager ({ session, simulationName } as config) =
     let
-        alreadySaved =
-            session.store.savedSimulations
+        ( queryExists, nameExists ) =
+            ( session.store.savedSimulations
                 |> List.map .query
                 |> List.member session.query
+            , session.store.savedSimulations
+                |> List.map .name
+                |> List.member simulationName
+            )
     in
     div []
-        [ div [ class "card-body" ]
+        [ div [ class "card-body pb-2" ]
             [ Html.form [ onSubmit config.save ]
                 [ div [ class "input-group" ]
                     [ input
@@ -42,14 +54,15 @@ view ({ session, simulationName } as config) =
                         , onInput config.update
                         , placeholder "Nom de la simulation"
                         , value simulationName
+                        , required True
+                        , pattern "^(?!\\s*$).+"
                         ]
                         []
                     , button
                         [ type_ "submit"
                         , class "btn btn-primary"
-                        , classList [ ( "disabled", alreadySaved ) ]
                         , title "Sauvegarder la simulation dans le stockage local au navigateur"
-                        , disabled alreadySaved
+                        , disabled (queryExists || nameExists)
                         ]
                         [ Icon.plus ]
                     ]
@@ -57,14 +70,25 @@ view ({ session, simulationName } as config) =
             , div [ class "form-text fs-7 pb-0" ]
                 [ text "Nommez cette simulation pour vous aider à la retrouver dans la liste" ]
             ]
-        , savedSimulationsView config
+        , savedSimulationListView config
         ]
 
 
-savedSimulationsView : Config msg -> Html msg
-savedSimulationsView ({ session } as config) =
+savedSimulationListView : ManagerConfig msg -> Html msg
+savedSimulationListView ({ compare, session } as config) =
     div []
-        [ div [ class "card-header border-top" ] [ text "Simulations sauvegardées" ]
+        [ div [ class "card-header border-top d-flex justify-content-between align-items-center" ]
+            [ span [] [ text "Simulations sauvegardées" ]
+            , button
+                [ class "btn btn-sm btn-primary"
+                , title "Comparer vos simulations sauvegardées"
+                , disabled (List.length session.store.savedSimulations < 2)
+                , onClick compare
+                ]
+                [ span [ class "me-1" ] [ Icon.stats ]
+                , text "Comparer"
+                ]
+            ]
         , if List.length session.store.savedSimulations == 0 then
             div [ class "card-body form-text fs-7 pt-2" ]
                 [ text "Pas de simulations sauvegardées sur cet ordinateur" ]
@@ -73,13 +97,13 @@ savedSimulationsView ({ session } as config) =
             session.store.savedSimulations
                 |> List.map (savedSimulationView config)
                 |> ul
-                    [ class "list-group list-group-flush overflow-scroll"
+                    [ class "list-group list-group-flush rounded-bottom overflow-scroll"
                     , style "max-height" "50vh"
                     ]
         ]
 
 
-savedSimulationView : Config msg -> SavedSimulation -> Html msg
+savedSimulationView : ManagerConfig msg -> SavedSimulation -> Html msg
 savedSimulationView { session, impact, funit, delete } ({ name, query } as savedSimulation) =
     let
         simulationLink =
@@ -89,14 +113,14 @@ savedSimulationView { session, impact, funit, delete } ({ name, query } as saved
                 |> (++) session.clientUrl
     in
     li
-        [ class "list-group-item d-flex justify-content-between align-items-center"
+        [ class "list-group-item d-flex justify-content-between align-items-center gap-1"
         , classList [ ( "active", query == session.query ) ]
         ]
         [ a
             [ class "text-truncate"
             , classList [ ( "active text-white", query == session.query ) ]
             , href simulationLink
-            , title name
+            , title (detailsTooltip session savedSimulation)
             ]
             [ text name ]
         , button
@@ -104,5 +128,132 @@ savedSimulationView { session, impact, funit, delete } ({ name, query } as saved
             , class "btn btn-sm btn-danger"
             , onClick (delete savedSimulation)
             ]
-            [ text "Supprimer" ]
+            [ span [ class "me-1" ] [ Icon.trash ]
+            , text "Supprimer"
+            ]
         ]
+
+
+type alias ComparatorConfig msg =
+    { session : Session
+    , impact : Impact.Definition
+    , funit : Unit.Functional
+    , daysOfWear : Duration
+    , toggle : String -> Bool -> msg
+    }
+
+
+getChartEntries :
+    Session
+    -> Unit.Functional
+    -> Impact.Definition
+    -> Result String (List ComparatorView.Entry)
+getChartEntries { db, store } funit impact =
+    let
+        createEntry_ =
+            ComparatorView.createEntry db funit impact
+    in
+    store.savedSimulations
+        |> List.filterMap
+            (\saved ->
+                if Set.member saved.name store.comparedSimulations then
+                    Just (createEntry_ True saved.name saved.query)
+
+                else
+                    Nothing
+            )
+        |> RE.combine
+        |> Result.map (List.sortBy .score)
+
+
+comparator : ComparatorConfig msg -> Html msg
+comparator { session, impact, funit, daysOfWear, toggle } =
+    let
+        currentlyCompared =
+            Set.size session.store.comparedSimulations
+    in
+    Container.fluid []
+        [ div [ class "row" ]
+            [ div [ class "col-lg-4 border-end fs-7 p-0" ]
+                [ p [ class "p-2 ps-3 pb-1 mb-0 text-muted" ]
+                    [ text "Sélectionnez jusqu'à "
+                    , strong [] [ text (String.fromInt Session.maxComparedSimulations) ]
+                    , text " simulations pour les comparer\u{00A0}:"
+                    ]
+                , session.store.savedSimulations
+                    |> List.map
+                        (\saved ->
+                            let
+                                ( description, isCompared ) =
+                                    ( detailsTooltip session saved
+                                    , Set.member saved.name session.store.comparedSimulations
+                                    )
+                            in
+                            label
+                                [ class "form-check-label list-group-item text-nowrap ps-3"
+                                , title description
+                                ]
+                                [ input
+                                    [ type_ "checkbox"
+                                    , class "form-check-input"
+                                    , onCheck (toggle saved.name)
+                                    , checked isCompared
+                                    , disabled (not isCompared && currentlyCompared >= Session.maxComparedSimulations)
+                                    ]
+                                    []
+                                , span [ class "ps-2" ]
+                                    [ span [ class "me-2 fw-500" ] [ text saved.name ]
+                                    , if description /= saved.name then
+                                        span [ class "text-muted fs-7" ] [ text description ]
+
+                                      else
+                                        text ""
+                                    ]
+                                ]
+                        )
+                    |> div
+                        [ class "list-group list-group-flush overflow-y-scroll overflow-x-hidden"
+                        , style "max-height" "520px"
+                        ]
+                ]
+            , div [ class "col-lg-8 px-4 py-2 overflow-hidden", style "min-height" "500px" ]
+                [ case getChartEntries session funit impact of
+                    Ok [] ->
+                        p
+                            [ class "d-flex h-100 justify-content-center align-items-center"
+                            ]
+                            [ text "Merci de sélectionner des simulations à comparer" ]
+
+                    Ok entries ->
+                        entries
+                            |> ComparatorView.chart
+                                { funit = funit
+                                , impact = impact
+                                , daysOfWear = daysOfWear
+                                , size = Just ( 700, 500 )
+                                , margins = Just { top = 22, bottom = 40, left = 40, right = 20 }
+                                }
+
+                    Err error ->
+                        Alert.simple
+                            { level = Alert.Danger
+                            , close = Nothing
+                            , title = Just "Erreur"
+                            , content = [ text error ]
+                            }
+                , div [ class "fs-7 text-end text-muted" ]
+                    [ text impact.label
+                    , text ", "
+                    , funit |> Unit.functionalToString |> text
+                    ]
+                ]
+            ]
+        ]
+
+
+detailsTooltip : Session -> SavedSimulation -> String
+detailsTooltip session saved =
+    saved.query
+        |> Inputs.fromQuery session.db
+        |> Result.map Inputs.toString
+        |> Result.withDefault saved.name
