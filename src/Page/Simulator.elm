@@ -66,6 +66,7 @@ type Msg
     | CopyToClipBoard String
     | DeleteSavedSimulation Session.SavedSimulation
     | NoOp
+    | OpenComparator
     | RemoveMaterial Int
     | Reset
     | SaveSimulation
@@ -198,6 +199,12 @@ update ({ db, query, navKey } as session) msg model =
 
         NoOp ->
             ( model, session, Cmd.none )
+
+        OpenComparator ->
+            ( { model | modal = SavedSimulationsModal }
+            , session |> Session.checkComparedSimulations
+            , Cmd.none
+            )
 
         Reset ->
             ( model, session, Cmd.none )
@@ -418,7 +425,7 @@ linksView session ({ linksTab } as model) =
                     , simulationName = model.simulationName
                     , impact = model.impact
                     , funit = model.funit
-                    , compare = SetModal SavedSimulationsModal
+                    , compare = OpenComparator
                     , delete = DeleteSavedSimulation
                     , save = SaveSimulation
                     , update = UpdateSimulationName

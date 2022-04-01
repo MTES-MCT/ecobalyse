@@ -2,9 +2,11 @@ module Data.Session exposing
     ( Notification(..)
     , SavedSimulation
     , Session
+    , checkComparedSimulations
     , closeNotification
     , deleteSimulation
     , deserializeStore
+    , maxComparedSimulations
     , notifyError
     , notifyHttpError
     , saveSimulation
@@ -59,6 +61,79 @@ notifyHttpError error ({ notifications } as session) =
 
 
 
+-- Saved simulations
+
+
+type alias SavedSimulation =
+    { name : String
+    , query : Inputs.Query
+    }
+
+
+maxComparedSimulations : Int
+maxComparedSimulations =
+    12
+
+
+checkComparedSimulations : Session -> Session
+checkComparedSimulations session =
+    if Set.size session.store.comparedSimulations == 0 then
+        session
+            |> updateStore
+                (\store ->
+                    { store
+                        | comparedSimulations =
+                            store.savedSimulations
+                                |> List.take maxComparedSimulations
+                                |> List.map .name
+                                |> Set.fromList
+                    }
+                )
+
+    else
+        session
+
+
+deleteSimulation : SavedSimulation -> Session -> Session
+deleteSimulation simulation =
+    updateStore
+        (\store ->
+            { store
+                | savedSimulations =
+                    List.filter ((/=) simulation) store.savedSimulations
+                , comparedSimulations =
+                    Set.filter ((/=) simulation.name) store.comparedSimulations
+            }
+        )
+
+
+saveSimulation : SavedSimulation -> Session -> Session
+saveSimulation simulation =
+    updateStore
+        (\store ->
+            { store
+                | savedSimulations =
+                    simulation :: store.savedSimulations
+            }
+        )
+
+
+toggleComparedSimulation : String -> Bool -> Session -> Session
+toggleComparedSimulation name checked =
+    updateStore
+        (\store ->
+            { store
+                | comparedSimulations =
+                    if checked then
+                        Set.insert name store.comparedSimulations
+
+                    else
+                        Set.remove name store.comparedSimulations
+            }
+        )
+
+
+
 -- Store
 --
 -- A serializable data structure holding session information you want to share
@@ -68,12 +143,6 @@ notifyHttpError error ({ notifications } as session) =
 type alias Store =
     { savedSimulations : List SavedSimulation
     , comparedSimulations : Set String
-    }
-
-
-type alias SavedSimulation =
-    { name : String
-    , query : Inputs.Query
     }
 
 
@@ -127,42 +196,3 @@ serializeStore =
 updateStore : (Store -> Store) -> Session -> Session
 updateStore update session =
     { session | store = update session.store }
-
-
-deleteSimulation : SavedSimulation -> Session -> Session
-deleteSimulation simulation =
-    updateStore
-        (\store ->
-            { store
-                | savedSimulations =
-                    List.filter ((/=) simulation) store.savedSimulations
-                , comparedSimulations =
-                    Set.filter ((/=) simulation.name) store.comparedSimulations
-            }
-        )
-
-
-saveSimulation : SavedSimulation -> Session -> Session
-saveSimulation simulation =
-    updateStore
-        (\store ->
-            { store
-                | savedSimulations =
-                    simulation :: store.savedSimulations
-            }
-        )
-
-
-toggleComparedSimulation : String -> Bool -> Session -> Session
-toggleComparedSimulation name checked =
-    updateStore
-        (\store ->
-            { store
-                | comparedSimulations =
-                    if checked then
-                        Set.insert name store.comparedSimulations
-
-                    else
-                        Set.remove name store.comparedSimulations
-            }
-        )

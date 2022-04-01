@@ -236,7 +236,7 @@ fillLabels entries =
             100 / toFloat (clamp 1 100 (List.length entries))
 
         leftPadding =
-            baseWidth / 4.2
+            baseWidth / 4.5
 
         createLabel ( { label, highlight }, xPosition ) =
             C.labelAt
@@ -248,14 +248,14 @@ fillLabels entries =
                     [ SA.fontSize "14"
                     , SA.style "text-anchor: start"
                     , if highlight then
-                        SA.fontWeight "bold"
+                        SA.fontWeight "500"
 
                       else
                         SA.fontWeight "normal"
                     ]
                 ]
                 [ label
-                    |> ellipsis 60
+                    |> ellipsis 58
                     |> S.text
                 ]
     in

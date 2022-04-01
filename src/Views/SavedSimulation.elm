@@ -2,7 +2,7 @@ module Views.SavedSimulation exposing (comparator, manager)
 
 import Data.Impact as Impact
 import Data.Inputs as Inputs
-import Data.Session exposing (SavedSimulation, Session)
+import Data.Session as Session exposing (SavedSimulation, Session)
 import Data.Unit as Unit
 import Duration exposing (Duration)
 import Html exposing (..)
@@ -147,7 +147,7 @@ getChartEntries :
     -> Unit.Functional
     -> Impact.Definition
     -> Result String (List ComparatorView.Entry)
-getChartEntries { db, query, store } funit impact =
+getChartEntries { db, store } funit impact =
     let
         createEntry_ =
             ComparatorView.createEntry db funit impact
@@ -156,28 +156,36 @@ getChartEntries { db, query, store } funit impact =
         |> List.filterMap
             (\saved ->
                 if Set.member saved.name store.comparedSimulations then
-                    Just (createEntry_ False saved.name saved.query)
+                    Just (createEntry_ True saved.name saved.query)
 
                 else
                     Nothing
             )
-        |> (::) (createEntry_ True "Simulation en cours" query)
         |> RE.combine
         |> Result.map (List.sortBy .score)
 
 
 comparator : ComparatorConfig msg -> Html msg
 comparator { session, impact, funit, daysOfWear, toggle } =
+    let
+        currentlyCompared =
+            Set.size session.store.comparedSimulations
+    in
     div [ class "row" ]
-        [ div [ class "col-sm-4 border-end" ]
+        [ div [ class "col-lg-4 border-end fs-7" ]
             [ p [ class "p-3 pb-1 mb-0 text-muted" ]
-                [ text "Sélectionnez les simulations sauvegardées que vous souhaitez comparer\u{00A0}:" ]
+                [ text "Sélectionnez jusqu'à "
+                , strong [] [ text (String.fromInt Session.maxComparedSimulations) ]
+                , text " simulations pour les comparer\u{00A0}:"
+                ]
             , session.store.savedSimulations
                 |> List.map
                     (\saved ->
                         let
-                            description =
-                                detailsTooltip session saved
+                            ( description, isCompared ) =
+                                ( detailsTooltip session saved
+                                , Set.member saved.name session.store.comparedSimulations
+                                )
                         in
                         label
                             [ class "form-check-label list-group-item text-nowrap ps-3"
@@ -187,7 +195,8 @@ comparator { session, impact, funit, daysOfWear, toggle } =
                                 [ type_ "checkbox"
                                 , class "form-check-input"
                                 , onCheck (toggle saved.name)
-                                , checked (Set.member saved.name session.store.comparedSimulations)
+                                , checked isCompared
+                                , disabled (not isCompared && currentlyCompared >= Session.maxComparedSimulations)
                                 ]
                                 []
                             , span [ class "ps-2" ]
@@ -200,13 +209,20 @@ comparator { session, impact, funit, daysOfWear, toggle } =
                                 ]
                             ]
                     )
-                |> ul
-                    [ class "list-group list-group-flush"
-                    , class "h-100 overflow-scroll"
+                |> div
+                    [ class "list-group list-group-flush overflow-y-scroll overflow-x-hidden"
+                    , style "max-height" "500px"
                     ]
             ]
-        , div [ class "col-sm-8 px-4 py-2" ]
+        , div [ class "col-lg-8 px-4 py-2 overflow-hidden" ]
             [ case getChartEntries session funit impact of
+                Ok [] ->
+                    p
+                        [ class "d-flex justify-content-center align-items-center"
+                        , style "min-height" "511px"
+                        ]
+                        [ text "Merci de sélectionner des simulations à comparer" ]
+
                 Ok entries ->
                     entries
                         |> ComparatorView.chart
@@ -214,7 +230,7 @@ comparator { session, impact, funit, daysOfWear, toggle } =
                             , impact = impact
                             , daysOfWear = daysOfWear
                             , size = Just ( 700, 500 )
-                            , margins = Just { top = 22, bottom = 40, left = 40, right = 0 }
+                            , margins = Just { top = 22, bottom = 40, left = 40, right = 20 }
                             }
 
                 Err error ->

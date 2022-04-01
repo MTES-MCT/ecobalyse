@@ -203,6 +203,16 @@ blockquote {
   overflow-y: auto;
 }
 
+.overflow {
+  &-x-hidden {
+    overflow-x: hidden;
+  }
+
+  &-y-scroll {
+    overflow-y: scroll;
+  }
+}
+
 .text-light-all {
   color: $white;
   a {
