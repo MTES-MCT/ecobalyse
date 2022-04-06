@@ -15,11 +15,14 @@ import Data.Db exposing (Db)
 import Data.Impact as Impact
 import Data.Inputs as Inputs
 import Data.Key as Key
+import Data.LifeCycle as LifeCycle
 import Data.Material as Material
 import Data.Product as Product exposing (Product)
 import Data.Session as Session exposing (Session)
 import Data.Simulator as Simulator exposing (Simulator)
+import Data.Step as Step
 import Data.Unit as Unit
+import Dict
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
@@ -466,24 +469,23 @@ shareLinkView session { impact, funit } =
 
 displayModeView : Impact.Trigram -> Unit.Functional -> ViewMode -> Inputs.Query -> Html Msg
 displayModeView trigram funit viewMode query =
+    let
+        link mode icon label =
+            a
+                [ classList [ ( "nav-link", True ), ( "active", ViewMode.isActive viewMode mode ) ]
+                , Just query
+                    |> Route.Simulator trigram funit mode
+                    |> Route.href
+                ]
+                [ span [ class "me-1" ] [ icon ], text label ]
+    in
     nav
         [ class "nav nav-pills nav-fill py-2 bg-white sticky-md-top justify-content-between"
         , class "justify-content-sm-end align-items-center gap-0 gap-sm-2"
         ]
-        [ a
-            [ classList [ ( "nav-link", True ), ( "active", not (ViewMode.isDetailed viewMode) ) ]
-            , Just query
-                |> Route.Simulator trigram funit ViewMode.Simple
-                |> Route.href
-            ]
-            [ span [ class "me-1" ] [ Icon.zoomout ], text "Affichage simple" ]
-        , a
-            [ classList [ ( "nav-link", True ), ( "active", ViewMode.isDetailed viewMode ) ]
-            , Just query
-                |> Route.Simulator trigram funit ViewMode.DetailedAll
-                |> Route.href
-            ]
-            [ span [ class "me-1" ] [ Icon.zoomin ], text "Affichage détaillé" ]
+        [ link ViewMode.Simple Icon.zoomout "Affichage simple"
+        , link ViewMode.DetailedAll Icon.zoomin "Affichage détaillé"
+        , link ViewMode.Dataviz Icon.stats "Visualisations"
         ]
 
 
@@ -513,17 +515,36 @@ simulatorView ({ db } as session) ({ impact, funit, viewMode } as model) ({ inpu
                 }
             , session.query
                 |> displayModeView impact.trigram funit viewMode
-            , lifeCycleStepsView db model simulator
-            , div [ class "d-flex align-items-center justify-content-between mt-3 mb-5" ]
-                [ a [ Route.href Route.Home ]
-                    [ text "« Retour à l'accueil" ]
-                , button
-                    [ class "btn btn-secondary"
-                    , onClick Reset
-                    , disabled (session.query == model.initialQuery)
+            , if viewMode == ViewMode.Dataviz then
+                -- on veut pour chaque trigram non-PEF
+                -- - pour chaque étape l'impact proportionnalisé de ce trigram
+                simulator.lifeCycle
+                    -- TODO: group by impact
+                    |> Array.foldr
+                        (\{ label, impacts } acc ->
+                            acc
+                        )
+                        -- acc should be Dict trigram (Dict stepLabel share) (ne pas oublier d'ajouter transports)
+                        Dict.empty
+                    |> Debug.toString
+                    |> text
+                    |> List.singleton
+                    |> pre [ class "fs-7", style "white-space" "pre-wrap" ]
+
+              else
+                div []
+                    [ lifeCycleStepsView db model simulator
+                    , div [ class "d-flex align-items-center justify-content-between mt-3 mb-5" ]
+                        [ a [ Route.href Route.Home ]
+                            [ text "« Retour à l'accueil" ]
+                        , button
+                            [ class "btn btn-secondary"
+                            , onClick Reset
+                            , disabled (session.query == model.initialQuery)
+                            ]
+                            [ text "Réinitialiser le simulateur" ]
+                        ]
                     ]
-                    [ text "Réinitialiser le simulateur" ]
-                ]
             ]
         , div [ class "col-lg-5 bg-white" ]
             [ div [ class "d-flex flex-column gap-3 mb-3 sticky-md-top", style "top" "7px" ]

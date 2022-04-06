@@ -2,6 +2,7 @@ module Data.Step exposing
     ( Label(..)
     , Step
     , airTransportRatioToString
+    , all
     , computeTransports
     , create
     , displayLabel
@@ -74,6 +75,18 @@ type Label
     | Distribution -- Distribution
     | Use -- Utilisation
     | EndOfLife -- Fin de vie
+
+
+all : List Label
+all =
+    [ MaterialAndSpinning
+    , WeavingKnitting
+    , Ennoblement
+    , Making
+    , Distribution
+    , Use
+    , EndOfLife
+    ]
 
 
 create : { db : Db, label : Label, editable : Bool, country : Country } -> Step

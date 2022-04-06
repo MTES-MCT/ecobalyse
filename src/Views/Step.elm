@@ -211,8 +211,8 @@ stepActions { viewMode, index, toggleStepViewMode } label =
             , onClick (toggleStepViewMode index)
             ]
             [ case viewMode of
-                ViewMode.Simple ->
-                    Icon.zoomin
+                ViewMode.Dataviz ->
+                    Icon.stats
 
                 ViewMode.DetailedAll ->
                     Icon.zoomout
@@ -223,6 +223,9 @@ stepActions { viewMode, index, toggleStepViewMode } label =
 
                     else
                         Icon.zoomin
+
+                ViewMode.Simple ->
+                    Icon.zoomin
             ]
         ]
 
@@ -449,9 +452,11 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
 
 view : Config msg -> Html msg
 view config =
+    -- FIXME: Step views should decide what to render according to ViewMode; move
+    -- decision to caller and use appropriate view functions accordingly
     case config.viewMode of
-        ViewMode.Simple ->
-            simpleView config
+        ViewMode.Dataviz ->
+            text ""
 
         ViewMode.DetailedAll ->
             detailedView config
@@ -462,3 +467,6 @@ view config =
 
             else
                 simpleView config
+
+        ViewMode.Simple ->
+            simpleView config
