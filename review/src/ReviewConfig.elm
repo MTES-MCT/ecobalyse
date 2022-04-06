@@ -17,12 +17,15 @@ import NoUnused.Patterns
 import NoUnused.Variables
 import Review.Rule as Rule exposing (Rule)
 import Simplify
+import CognitiveComplexity
 
 
 config : List Rule
 config =
-    [ -- NoDebug
-      NoDebug.TodoOrToString.rule
+    [ -- CognitiveComplexity
+      CognitiveComplexity.rule 15
+      -- NoDebug
+    , NoDebug.TodoOrToString.rule
       -- Common
     , NoExposingEverything.rule
         |> Rule.ignoreErrorsForDirectories [ "tests/" ]

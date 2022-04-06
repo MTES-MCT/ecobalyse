@@ -9,11 +9,11 @@ module Page.Explore exposing
 
 import Browser.Events
 import Browser.Navigation as Nav
-import Data.Country as Country
+import Data.Country as Country exposing (Country)
 import Data.Db as Db exposing (Db)
 import Data.Impact as Impact
 import Data.Key as Key
-import Data.Material as Material
+import Data.Material as Material exposing (Material)
 import Data.Product as Product
 import Data.Session exposing (Session)
 import Html exposing (..)
@@ -149,80 +149,100 @@ alert error =
         }
 
 
+countriesExplorer : Maybe Country.Code -> List Country -> List (Html Msg)
+countriesExplorer maybeCode countries =
+    [ countries
+        |> Table.viewList ExploreCountries.table
+    , case maybeCode of
+        Just code ->
+            case Country.findByCode code countries of
+                Ok country ->
+                    country
+                        |> Table.viewDetails ExploreCountries.table
+                        |> detailsModal
+
+                Err error ->
+                    alert error
+
+        Nothing ->
+            text ""
+    ]
+
+
+impactsExplorer : Maybe Impact.Trigram -> List Impact.Definition -> List (Html Msg)
+impactsExplorer maybeTrigram definitions =
+    [ definitions
+        |> Table.viewList ExploreImpacts.table
+    , case maybeTrigram of
+        Just trigram ->
+            case Impact.getDefinition trigram definitions of
+                Ok definition ->
+                    definition
+                        |> Table.viewDetails ExploreImpacts.table
+                        |> detailsModal
+
+                Err error ->
+                    alert error
+
+        Nothing ->
+            text ""
+    ]
+
+
+materialsExplorer : Maybe Material.Id -> List Material -> List (Html Msg)
+materialsExplorer maybeId materials =
+    [ materials
+        |> Table.viewList ExploreMaterials.table
+    , case maybeId of
+        Just id ->
+            case Material.findById id materials of
+                Ok material ->
+                    material
+                        |> Table.viewDetails ExploreMaterials.table
+                        |> detailsModal
+
+                Err error ->
+                    alert error
+
+        Nothing ->
+            text ""
+    ]
+
+
+productsExplorer : Maybe Product.Id -> Db -> List (Html Msg)
+productsExplorer maybeId db =
+    [ db.products
+        |> Table.viewList (ExploreProducts.table db)
+    , case maybeId of
+        Just id ->
+            case Product.findById id db.products of
+                Ok product ->
+                    product
+                        |> Table.viewDetails (ExploreProducts.table db)
+                        |> detailsModal
+
+                Err error ->
+                    alert error
+
+        Nothing ->
+            text ""
+    ]
+
+
 explore : Db -> Db.Dataset -> List (Html Msg)
 explore db dataset =
     case dataset of
-        Db.Countries maybeId ->
-            [ db.countries
-                |> Table.viewList ExploreCountries.table
-            , case maybeId of
-                Just code ->
-                    case Country.findByCode code db.countries of
-                        Ok country ->
-                            country
-                                |> Table.viewDetails ExploreCountries.table
-                                |> detailsModal
+        Db.Countries maybeCode ->
+            db.countries |> countriesExplorer maybeCode
 
-                        Err error ->
-                            alert error
-
-                Nothing ->
-                    text ""
-            ]
-
-        Db.Impacts maybeId ->
-            [ db.impacts
-                |> Table.viewList ExploreImpacts.table
-            , case maybeId of
-                Just trigram ->
-                    case Impact.getDefinition trigram db.impacts of
-                        Ok definition ->
-                            definition
-                                |> Table.viewDetails ExploreImpacts.table
-                                |> detailsModal
-
-                        Err error ->
-                            alert error
-
-                Nothing ->
-                    text ""
-            ]
+        Db.Impacts maybeTrigram ->
+            db.impacts |> impactsExplorer maybeTrigram
 
         Db.Materials maybeId ->
-            [ db.materials
-                |> Table.viewList ExploreMaterials.table
-            , case maybeId of
-                Just id ->
-                    case Material.findById id db.materials of
-                        Ok material ->
-                            material
-                                |> Table.viewDetails ExploreMaterials.table
-                                |> detailsModal
-
-                        Err error ->
-                            alert error
-
-                Nothing ->
-                    text ""
-            ]
+            db.materials |> materialsExplorer maybeId
 
         Db.Products maybeId ->
-            [ db.products
-                |> Table.viewList (ExploreProducts.table db)
-            , case maybeId of
-                Just id ->
-                    case Product.findById id db.products of
-                        Ok product ->
-                            product
-                                |> Table.viewDetails (ExploreProducts.table db)
-                                |> detailsModal
-
-                        Err error ->
-                            alert error
-
-                Nothing ->
-                    text ""
-            ]
+            db |> productsExplorer maybeId
 
 
 view : Session -> Model -> ( String, List (Html Msg) )
