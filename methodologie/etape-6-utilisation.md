@@ -10,6 +10,10 @@ description: >-
 
 La qualité intrinsèque est défini dans le réferentiel PEFCR de la comission européenne. C'est un nombre entre 0.67 et 1.45 qui represente la durabilité du vêtement. Pour le calculer un vêtement  doit passer des tests de durabilité physique. Les résultats de ces tests donneront un score entre 0.67 et 1.45. Si un vêtement ne passe pas de tests, il a une qualité par défaut de 0.67.
 
+{% hint style="success" %}
+Fairly Made a construit un tableur permettant de calculer le coefficient de qualité intrinsèque, [accessible ici](https://docs.google.com/spreadsheets/d/15L\_AVG1qcd2iSj4v1O0xd8nPkI83pzEQqXkPorFutjc/edit?usp=sharing)&#x20;
+{% endhint %}
+
 Ce score est ensuite appliqué en coefficient multiplicateur du nombre de jours d'utilisations.&#x20;
 
 Prenons l'exemple d'une veste. Elle a par défaut 100 jours d'utilisation dans le réferentiel PEFCR. Avec une qualité intrinsèque de 0.67, elle aura 67 jours d'utilisation. Etant donné qu'elle fera moins de cycle d'entretiens l'impact de cette veste va légèrement diminuer. Par contre l'impact **par jour d'utilisation** lui va augmenter fortement (environ 1/0.67 = +50%) car on va diviser par un nombre plus petit .\
