@@ -2,8 +2,10 @@ module Data.Simulator exposing
     ( Simulator
     , compute
     , encode
+    , lifeCycleImpacts
     )
 
+import Array
 import Data.Db exposing (Db)
 import Data.Formula as Formula
 import Data.Impact as Impact exposing (Impacts)
@@ -413,6 +415,39 @@ computePefScores db =
                 { step | impacts = Impact.updatePefImpact db.impacts impacts }
             )
         )
+
+
+lifeCycleImpacts : Db -> Simulator -> List ( String, List ( String, Float ) )
+lifeCycleImpacts db simulator =
+    -- cch:
+    --     matiere: 25%
+    --     tissage: 10%
+    --     transports: 10%
+    --     etc.
+    -- wtu:
+    --     ...
+    db.impacts
+        |> List.map
+            (\def ->
+                ( def.label
+                , simulator.lifeCycle
+                    |> Array.toList
+                    |> List.map
+                        (\{ label, impacts } ->
+                            ( Step.labelToString label
+                            , Unit.impactToFloat (Impact.getImpact def.trigram impacts)
+                                / Unit.impactToFloat (Impact.getImpact def.trigram simulator.impacts)
+                                * 100
+                            )
+                        )
+                    |> (::)
+                        ( "Transports"
+                        , Unit.impactToFloat (Impact.getImpact def.trigram simulator.transport.impacts)
+                            / Unit.impactToFloat (Impact.getImpact def.trigram simulator.impacts)
+                            * 100
+                        )
+                )
+            )
 
 
 updateLifeCycle : (LifeCycle -> LifeCycle) -> Simulator -> Simulator

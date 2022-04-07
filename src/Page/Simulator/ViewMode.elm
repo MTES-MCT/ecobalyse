@@ -1,6 +1,6 @@
 module Page.Simulator.ViewMode exposing
     ( ViewMode(..)
-    , isDetailed
+    , isActive
     , parse
     , toUrlSegment
     , toggle
@@ -10,31 +10,36 @@ import Url.Parser as Parser exposing (Parser)
 
 
 type ViewMode
-    = Simple
+    = Dataviz
     | DetailedAll
     | DetailedStep Int
+    | Simple
 
 
-isDetailed : ViewMode -> Bool
-isDetailed viewMode =
-    case viewMode of
-        Simple ->
-            False
-
-        DetailedAll ->
+isActive : ViewMode -> ViewMode -> Bool
+isActive vm1 vm2 =
+    case ( vm1, vm2 ) of
+        ( Dataviz, Dataviz ) ->
             True
 
-        DetailedStep _ ->
-            -- Even if a step is opened in detailed mode, we consider
-            -- the general view mode "simple".
+        ( DetailedAll, DetailedAll ) ->
+            True
+
+        ( DetailedStep _, DetailedStep _ ) ->
+            True
+
+        ( Simple, Simple ) ->
+            True
+
+        _ ->
             False
 
 
 toggle : Int -> ViewMode -> ViewMode
 toggle index viewMode =
     case viewMode of
-        Simple ->
-            DetailedStep index
+        Dataviz ->
+            Dataviz
 
         DetailedAll ->
             Simple
@@ -46,21 +51,31 @@ toggle index viewMode =
             else
                 DetailedStep index
 
+        Simple ->
+            DetailedStep index
+
 
 parse : Parser (ViewMode -> a) a
 parse =
     Parser.custom "VIEW_MODE" <|
         \string ->
-            if string == "detailed" then
-                Just DetailedAll
+            case string of
+                "dataviz" ->
+                    Just Dataviz
 
-            else
-                Just Simple
+                "detailed" ->
+                    Just DetailedAll
+
+                _ ->
+                    Just Simple
 
 
 toUrlSegment : ViewMode -> String
 toUrlSegment viewMode =
     case viewMode of
+        Dataviz ->
+            "dataviz"
+
         Simple ->
             "simple"
 

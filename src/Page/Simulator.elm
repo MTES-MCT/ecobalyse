@@ -29,6 +29,7 @@ import Ports
 import Route
 import Views.Alert as Alert
 import Views.Container as Container
+import Views.Dataviz as Dataviz
 import Views.Icon as Icon
 import Views.Impact as ImpactView
 import Views.Material as MaterialView
@@ -466,24 +467,23 @@ shareLinkView session { impact, funit } =
 
 displayModeView : Impact.Trigram -> Unit.Functional -> ViewMode -> Inputs.Query -> Html Msg
 displayModeView trigram funit viewMode query =
+    let
+        link mode icon label =
+            a
+                [ classList [ ( "nav-link", True ), ( "active", ViewMode.isActive viewMode mode ) ]
+                , Just query
+                    |> Route.Simulator trigram funit mode
+                    |> Route.href
+                ]
+                [ span [ class "me-1" ] [ icon ], text label ]
+    in
     nav
         [ class "nav nav-pills nav-fill py-2 bg-white sticky-md-top justify-content-between"
         , class "justify-content-sm-end align-items-center gap-0 gap-sm-2"
         ]
-        [ a
-            [ classList [ ( "nav-link", True ), ( "active", not (ViewMode.isDetailed viewMode) ) ]
-            , Just query
-                |> Route.Simulator trigram funit ViewMode.Simple
-                |> Route.href
-            ]
-            [ span [ class "me-1" ] [ Icon.zoomout ], text "Affichage simple" ]
-        , a
-            [ classList [ ( "nav-link", True ), ( "active", ViewMode.isDetailed viewMode ) ]
-            , Just query
-                |> Route.Simulator trigram funit ViewMode.DetailedAll
-                |> Route.href
-            ]
-            [ span [ class "me-1" ] [ Icon.zoomin ], text "Affichage détaillé" ]
+        [ link ViewMode.Simple Icon.zoomout "Affichage simple"
+        , link ViewMode.DetailedAll Icon.zoomin "Affichage détaillé"
+        , link ViewMode.Dataviz Icon.stats "Visualisations"
         ]
 
 
@@ -513,17 +513,23 @@ simulatorView ({ db } as session) ({ impact, funit, viewMode } as model) ({ inpu
                 }
             , session.query
                 |> displayModeView impact.trigram funit viewMode
-            , lifeCycleStepsView db model simulator
-            , div [ class "d-flex align-items-center justify-content-between mt-3 mb-5" ]
-                [ a [ Route.href Route.Home ]
-                    [ text "« Retour à l'accueil" ]
-                , button
-                    [ class "btn btn-secondary"
-                    , onClick Reset
-                    , disabled (session.query == model.initialQuery)
+            , if viewMode == ViewMode.Dataviz then
+                Dataviz.view db simulator
+
+              else
+                div []
+                    [ lifeCycleStepsView db model simulator
+                    , div [ class "d-flex align-items-center justify-content-between mt-3 mb-5" ]
+                        [ a [ Route.href Route.Home ]
+                            [ text "« Retour à l'accueil" ]
+                        , button
+                            [ class "btn btn-secondary"
+                            , onClick Reset
+                            , disabled (session.query == model.initialQuery)
+                            ]
+                            [ text "Réinitialiser le simulateur" ]
+                        ]
                     ]
-                    [ text "Réinitialiser le simulateur" ]
-                ]
             ]
         , div [ class "col-lg-5 bg-white" ]
             [ div [ class "d-flex flex-column gap-3 mb-3 sticky-md-top", style "top" "7px" ]
