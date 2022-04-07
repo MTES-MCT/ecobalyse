@@ -23,6 +23,7 @@ config : List Rule
 config =
     [ -- NoDebug
       NoDebug.TodoOrToString.rule
+        |> Rule.ignoreErrorsForFiles [ "src/Views/Debug.elm" ]
       -- Common
     , NoExposingEverything.rule
         |> Rule.ignoreErrorsForDirectories [ "tests/" ]

@@ -15,14 +15,11 @@ import Data.Db exposing (Db)
 import Data.Impact as Impact
 import Data.Inputs as Inputs
 import Data.Key as Key
-import Data.LifeCycle as LifeCycle
 import Data.Material as Material
 import Data.Product as Product exposing (Product)
 import Data.Session as Session exposing (Session)
 import Data.Simulator as Simulator exposing (Simulator)
-import Data.Step as Step
 import Data.Unit as Unit
-import Dict
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
@@ -32,6 +29,7 @@ import Ports
 import Route
 import Views.Alert as Alert
 import Views.Container as Container
+import Views.Debug as DebugView
 import Views.Icon as Icon
 import Views.Impact as ImpactView
 import Views.Material as MaterialView
@@ -516,20 +514,12 @@ simulatorView ({ db } as session) ({ impact, funit, viewMode } as model) ({ inpu
             , session.query
                 |> displayModeView impact.trigram funit viewMode
             , if viewMode == ViewMode.Dataviz then
-                -- on veut pour chaque trigram non-PEF
-                -- - pour chaque étape l'impact proportionnalisé de ce trigram
-                simulator.lifeCycle
-                    -- TODO: group by impact
-                    |> Array.foldr
-                        (\{ label, impacts } acc ->
-                            acc
-                        )
-                        -- acc should be Dict trigram (Dict stepLabel share) (ne pas oublier d'ajouter transports)
-                        Dict.empty
-                    |> Debug.toString
-                    |> text
-                    |> List.singleton
-                    |> pre [ class "fs-7", style "white-space" "pre-wrap" ]
+                simulator
+                    |> Simulator.lifeCycleImpacts db
+                    |> DebugView.view
+                        [ class "fs-7"
+                        , style "white-space" "pre-wrap"
+                        ]
 
               else
                 div []
