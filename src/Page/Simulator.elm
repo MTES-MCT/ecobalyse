@@ -426,6 +426,7 @@ linksView session ({ linksTab } as model) =
                     , simulationName = model.simulationName
                     , impact = model.impact
                     , funit = model.funit
+                    , viewMode = model.viewMode
                     , compare = OpenComparator
                     , delete = DeleteSavedSimulation
                     , save = SaveSimulation

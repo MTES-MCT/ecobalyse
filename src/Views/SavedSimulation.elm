@@ -8,7 +8,7 @@ import Duration exposing (Duration)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import Page.Simulator.ViewMode as ViewMode
+import Page.Simulator.ViewMode exposing (ViewMode)
 import Result.Extra as RE
 import Route
 import Set
@@ -23,6 +23,7 @@ type alias ManagerConfig msg =
     , simulationName : String
     , impact : Impact.Definition
     , funit : Unit.Functional
+    , viewMode : ViewMode
 
     -- Messages
     , compare : msg
@@ -104,11 +105,11 @@ savedSimulationListView ({ compare, session } as config) =
 
 
 savedSimulationView : ManagerConfig msg -> SavedSimulation -> Html msg
-savedSimulationView { session, impact, funit, delete } ({ name, query } as savedSimulation) =
+savedSimulationView { session, impact, funit, viewMode, delete } ({ name, query } as savedSimulation) =
     let
         simulationLink =
             Just query
-                |> Route.Simulator impact.trigram funit ViewMode.Simple
+                |> Route.Simulator impact.trigram funit viewMode
                 |> Route.toString
                 |> (++) session.clientUrl
     in
