@@ -29,7 +29,7 @@ import Ports
 import Route
 import Views.Alert as Alert
 import Views.Container as Container
-import Views.Debug as DebugView
+import Views.Dataviz as Dataviz
 import Views.Icon as Icon
 import Views.Impact as ImpactView
 import Views.Material as MaterialView
@@ -514,12 +514,7 @@ simulatorView ({ db } as session) ({ impact, funit, viewMode } as model) ({ inpu
             , session.query
                 |> displayModeView impact.trigram funit viewMode
             , if viewMode == ViewMode.Dataviz then
-                simulator
-                    |> Simulator.lifeCycleImpacts db
-                    |> DebugView.view
-                        [ class "fs-7"
-                        , style "white-space" "pre-wrap"
-                        ]
+                Dataviz.view db simulator
 
               else
                 div []

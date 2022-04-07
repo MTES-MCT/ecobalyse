@@ -428,22 +428,22 @@ lifeCycleImpacts db simulator =
     --     ...
     db.impacts
         |> List.map
-            (\{ trigram } ->
-                ( Impact.toString trigram
+            (\def ->
+                ( def.label
                 , simulator.lifeCycle
                     |> Array.toList
                     |> List.map
                         (\{ label, impacts } ->
                             ( Step.labelToString label
-                            , Unit.impactToFloat (Impact.getImpact trigram impacts)
-                                / Unit.impactToFloat (Impact.getImpact trigram simulator.impacts)
+                            , Unit.impactToFloat (Impact.getImpact def.trigram impacts)
+                                / Unit.impactToFloat (Impact.getImpact def.trigram simulator.impacts)
                                 * 100
                             )
                         )
                     |> (::)
                         ( "Transports"
-                        , Unit.impactToFloat (Impact.getImpact trigram simulator.transport.impacts)
-                            / Unit.impactToFloat (Impact.getImpact trigram simulator.impacts)
+                        , Unit.impactToFloat (Impact.getImpact def.trigram simulator.transport.impacts)
+                            / Unit.impactToFloat (Impact.getImpact def.trigram simulator.impacts)
                             * 100
                         )
                 )

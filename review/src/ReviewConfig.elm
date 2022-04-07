@@ -48,7 +48,9 @@ config =
     , NoUnused.Dependencies.rule
     , NoUnused.Exports.rule
         |> Rule.ignoreErrorsForFiles [ "src/Views/Button.elm" ]
+        |> Rule.ignoreErrorsForFiles [ "src/Views/Debug.elm" ]
     , NoUnused.Modules.rule
+        |> Rule.ignoreErrorsForFiles [ "src/Views/Debug.elm" ]
     , NoUnused.Parameters.rule
     , NoUnused.Patterns.rule
     , NoUnused.Variables.rule
