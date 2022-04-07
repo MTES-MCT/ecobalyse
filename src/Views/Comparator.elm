@@ -1,4 +1,9 @@
-module Views.Comparator exposing (Entry, chart, createEntry, view)
+module Views.Comparator exposing
+    ( Entry
+    , chart
+    , createEntry
+    , view
+    )
 
 import Chart as C
 import Chart.Attributes as CA
@@ -14,12 +19,12 @@ import Data.Unit as Unit
 import Duration exposing (Duration)
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import List.Extra as LE
 import Quantity
 import Result.Extra as RE
 import Svg as S
 import Svg.Attributes as SA
 import Views.Alert as Alert
+import Views.Dataviz as Dataviz
 import Views.Format as Format
 
 
@@ -302,50 +307,10 @@ chart { funit, impact, daysOfWear, size, margins } entries =
             else
                 []
 
-        barsData =
-            -- There's an unfortunate bug in elm-charts where legend colors are inverted
-            -- see https://github.com/terezka/elm-charts/issues/101
-            -- FIXME: once an official fix is released, the expected implementation is:
-            -- [ ( "Matière", .materialAndSpinning )
-            -- , ( if knitted then
-            --       "Tricotage"
-            --     else
-            --       "Tissage"
-            --   , .weavingKnitting
-            --   )
-            -- , ( "Teinture", .dyeing )
-            -- , ( "Confection", .making )
-            -- , ( "Transport", .transport )
-            -- , ( "Utilisation", .use )
-            -- ]
-            [ "Matière"
-            , if knitted then
-                "Tricotage"
-
-              else
-                "Tissage"
-            , "Teinture"
-            , "Confection"
-            , "Transport"
-            , "Utilisation"
-            , "Fin de vie"
-            ]
-                |> LE.zip
-                    (List.reverse
-                        [ .materialAndSpinning
-                        , .weavingKnitting
-                        , .dyeing
-                        , .making
-                        , .transport
-                        , .use
-                        , .endOfLife
-                        ]
-                    )
-
         bars =
             [ entries
                 |> C.bars [ CA.margin 0.28 ]
-                    [ barsData
+                    [ Dataviz.stepsLegendData { knitted = knitted }
                         |> List.map
                             (\( getter, label ) ->
                                 C.bar getter []

@@ -1,4 +1,7 @@
-module Views.Dataviz exposing (view)
+module Views.Dataviz exposing
+    ( stepsLegendData
+    , view
+    )
 
 import Chart as C
 import Chart.Attributes as CA
@@ -9,10 +12,6 @@ import Html.Attributes exposing (..)
 import List.Extra as LE
 import Svg as S
 import Svg.Attributes as SA
-
-
-
--- import Views.Debug as DebugView
 
 
 view : Db -> Simulator -> Html msg
@@ -28,42 +27,6 @@ view db simulator =
 chart : List ( String, List ( String, Float ) ) -> Html msg
 chart data =
     let
-        barsData =
-            -- There's an unfortunate bug in elm-charts where legend colors are inverted
-            -- see https://github.com/terezka/elm-charts/issues/101
-            -- FIXME: once an official fix is released, the expected implementation is:
-            -- [ ( "Matière", .materialAndSpinning )
-            -- , ( if knitted then
-            --       "Tricotage"
-            --     else
-            --       "Tissage"
-            --   , .weavingKnitting
-            --   )
-            -- , ( "Teinture", .dyeing )
-            -- , ( "Confection", .making )
-            -- , ( "Transport", .transport )
-            -- , ( "Utilisation", .use )
-            -- ]
-            [ "Matière"
-            , "Tissage/Tricotage"
-            , "Teinture"
-            , "Confection"
-            , "Transport"
-            , "Utilisation"
-            , "Fin de vie"
-            ]
-                |> LE.zip
-                    (List.reverse
-                        [ .materialAndSpinning
-                        , .weavingKnitting
-                        , .dyeing
-                        , .making
-                        , .transport
-                        , .use
-                        , .endOfLife
-                        ]
-                    )
-
         legends =
             [ C.legendsAt
                 .min
@@ -81,7 +44,7 @@ chart data =
         bars =
             [ data
                 |> List.map
-                    (\( trg, steps ) ->
+                    (\( _, steps ) ->
                         let
                             getStepShare name =
                                 steps
@@ -90,9 +53,7 @@ chart data =
                                     |> Maybe.map Tuple.second
                                     |> Maybe.withDefault 0
                         in
-                        { label = trg ++ " impact name"
-                        , highlight = False
-                        , knitted = False
+                        { knitted = False
                         , score = 0
                         , materialAndSpinning = getStepShare "Matière & Filature"
                         , weavingKnitting = getStepShare "Tissage & Tricotage"
@@ -104,7 +65,7 @@ chart data =
                         }
                     )
                 |> C.bars [ CA.margin 0.29 ]
-                    [ barsData
+                    [ stepsLegendData { knitted = False }
                         |> List.map
                             (\( getter, label ) ->
                                 C.bar getter []
@@ -125,6 +86,7 @@ chart data =
                 [ CA.withGrid
                 , CA.fontSize 12
                 , CA.color chartTextColor
+                , CA.format (\v -> String.fromFloat v ++ "%")
                 ]
             ]
     in
@@ -139,7 +101,7 @@ chart data =
             [ CA.htmlAttrs [ class "ComparatorChart" ]
             , CA.width 800
             , CA.height 400
-            , CA.margin { top = 20, bottom = 10, left = 30, right = -10 }
+            , CA.margin { top = 20, bottom = 10, left = 38, right = -10 }
             ]
 
 
@@ -173,3 +135,61 @@ fillLabels data =
     data
         |> List.indexedMap (\i entry -> ( entry, toFloat i * baseWidth + leftPadding ))
         |> List.map createLabel
+
+
+stepsLegendData :
+    { knitted : Bool }
+    ->
+        List
+            ( { a
+                | materialAndSpinning : Float
+                , weavingKnitting : Float
+                , dyeing : Float
+                , making : Float
+                , transport : Float
+                , use : Float
+                , endOfLife : Float
+              }
+              -> Float
+            , String
+            )
+stepsLegendData { knitted } =
+    -- There's an unfortunate bug in elm-charts where legend colors are inverted
+    -- see https://github.com/terezka/elm-charts/issues/101
+    -- FIXME: once an official fix is released, the expected implementation is:
+    -- [ ( .materialAndSpinning, "Matière" )
+    -- , ( .weavingKnitting
+    --   , if knitted then
+    --       "Tricotage"
+    --     else
+    --       "Tissage"
+    --
+    --   )
+    -- , ( .dyeing, "Teinture" )
+    -- , ( .making, "Confection" )
+    -- , ( .transport, "Transport" )
+    -- , ( .use, "Utilisation" )
+    -- ]
+    [ "Matière"
+    , if knitted then
+        "Tricotage"
+
+      else
+        "Tissage"
+    , "Teinture"
+    , "Confection"
+    , "Transport"
+    , "Utilisation"
+    , "Fin de vie"
+    ]
+        |> LE.zip
+            (List.reverse
+                [ .materialAndSpinning
+                , .weavingKnitting
+                , .dyeing
+                , .making
+                , .transport
+                , .use
+                , .endOfLife
+                ]
+            )
