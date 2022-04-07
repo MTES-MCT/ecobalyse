@@ -139,7 +139,7 @@ chart data =
             [ CA.htmlAttrs [ class "ComparatorChart" ]
             , CA.width 800
             , CA.height 400
-            , CA.margin { top = 20, bottom = 10, left = 30, right = 0 }
+            , CA.margin { top = 20, bottom = 10, left = 30, right = -10 }
             ]
 
 
