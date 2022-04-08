@@ -61,12 +61,12 @@ def buildSearatesQuery(route_type, route):
     return base_url + from_str + to_str + countries_str
 
 
-df = pd.read_csv("countries_importance.csv")
+countries_importance = pd.read_csv("countries_importance.csv")
 
 # build dic of country -> coordinates
 country_coords = {}
 
-for i, x in df.iterrows():
+for i, x in countries_importance.iterrows():
     country_coords[x["Alpha-2 code"]] = (
         float(x["Latitude (average)"]),
         float(x["Longitude (average)"]),
