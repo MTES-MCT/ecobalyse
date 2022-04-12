@@ -285,6 +285,7 @@ simpleView ({ funit, inputs, daysOfWear, impact, current } as config) =
                         div [ class "mt-2" ]
                             [ qualityField config
                             , reparabilityField config
+                            , daysOfWearInfo inputs
                             ]
 
                     _ ->
@@ -325,6 +326,30 @@ viewProcessInfo processName =
 
         Nothing ->
             text ""
+
+
+daysOfWearInfo : Inputs -> Html msg
+daysOfWearInfo inputs =
+    let
+        info =
+            inputs.product
+                |> Product.customDaysOfWear inputs.quality inputs.reparability
+    in
+    small [ class "fs-7 text-muted" ]
+        [ span [ class "pe-1" ] [ Icon.info ]
+        , Format.days info.daysOfWear
+        , text " portés, "
+        , text <| String.fromInt info.useNbCycles
+        , text <|
+            " cycle"
+                ++ (if info.useNbCycles > 1 then
+                        "s"
+
+                    else
+                        ""
+                   )
+                ++ " d'entretien"
+        ]
 
 
 detailedView : Config msg -> Html msg
@@ -380,28 +405,10 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                         ]
 
                 Step.Use ->
-                    let
-                        info =
-                            inputs.product
-                                |> Product.customDaysOfWear inputs.quality inputs.reparability
-                    in
                     div [ class "card-body py-2 text-muted" ]
                         [ qualityField config
                         , reparabilityField config
-                        , small [ class "fs-7" ]
-                            [ Format.days info.daysOfWear
-                            , text " portés, "
-                            , text <| String.fromInt info.useNbCycles
-                            , text <|
-                                " cycle"
-                                    ++ (if info.useNbCycles > 1 then
-                                            "s"
-
-                                        else
-                                            ""
-                                       )
-                                    ++ " d'entretien"
-                            ]
+                        , daysOfWearInfo inputs
                         ]
 
                 _ ->
