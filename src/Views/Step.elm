@@ -36,6 +36,7 @@ type alias Config msg =
     , updateCountry : Int -> Country.Code -> msg
     , updateDyeingWeighting : Maybe Unit.Ratio -> msg
     , updateQuality : Maybe Unit.Quality -> msg
+    , updateReparability : Maybe Unit.Reparability -> msg
     , updateAirTransportRatio : Maybe Unit.Ratio -> msg
     }
 
@@ -181,6 +182,27 @@ qualityField { current, updateQuality } =
         ]
 
 
+reparabilityField : Config msg -> Html msg
+reparabilityField { current, updateReparability } =
+    span
+        [ [ "Le coefficient de qualité intrinsèque représente à quel point le produit va durer dans le temps."
+          , "Il varie entre 0.67 (peu durable) et 1.45 (très durable)."
+          , "Il est calculé à partir du résultat d’une série de tests de durabilité."
+          , "Il est utilisé en coefficient multiplicateur du nombre de jours d’utilisation du produit."
+          ]
+            |> String.join " "
+            |> title
+        ]
+        [ RangeSlider.reparability
+            { id = "reparability"
+            , update = updateReparability
+            , value = current.reparability
+            , toString = Step.reparabilityToString
+            , disabled = False
+            }
+        ]
+
+
 inlineDocumentationLink : Config msg -> Gitbook.Path -> Html msg
 inlineDocumentationLink _ path =
     Button.smallPillLink
@@ -260,7 +282,10 @@ simpleView ({ funit, inputs, daysOfWear, impact, current } as config) =
                         div [ class "mt-2" ] [ airTransportRatioField config ]
 
                     Step.Use ->
-                        div [ class "mt-2" ] [ qualityField config ]
+                        div [ class "mt-2" ]
+                            [ qualityField config
+                            , reparabilityField config
+                            ]
 
                     _ ->
                         text ""
@@ -358,10 +383,11 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                     let
                         info =
                             inputs.product
-                                |> Product.customDaysOfWear inputs.quality
+                                |> Product.customDaysOfWear inputs.quality inputs.reparability
                     in
                     div [ class "card-body py-2 text-muted" ]
                         [ qualityField config
+                        , reparabilityField config
                         , small [ class "fs-7" ]
                             [ Format.days info.daysOfWear
                             , text " portés, "

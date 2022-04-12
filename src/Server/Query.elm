@@ -56,6 +56,7 @@ parse db =
         |> apply (maybeRatioParser "dyeingWeighting")
         |> apply (maybeRatioParser "airTransportRatio")
         |> apply (maybeQuality "quality")
+        |> apply (maybeReparability "reparability")
 
 
 toErrors : ParseResult a -> Result Errors a
@@ -267,6 +268,35 @@ maybeQuality key =
 
                     else
                         Ok (Just (Unit.quality float))
+                )
+                >> Maybe.withDefault (Ok Nothing)
+            )
+
+
+maybeReparability : String -> Query.Parser (ParseResult (Maybe Unit.Reparability))
+maybeReparability key =
+    floatParser key
+        |> Query.map
+            (Maybe.map
+                (\float ->
+                    let
+                        ( min, max ) =
+                            ( Unit.reparabilityToFloat Unit.minReparability
+                            , Unit.reparabilityToFloat Unit.maxReparability
+                            )
+                    in
+                    if float < min || float > max then
+                        Err
+                            ( key
+                            , "Le coefficient de réparabilité doit être compris entre "
+                                ++ String.fromFloat min
+                                ++ " et "
+                                ++ String.fromFloat max
+                                ++ "."
+                            )
+
+                    else
+                        Ok (Just (Unit.reparability float))
                 )
                 >> Maybe.withDefault (Ok Nothing)
             )

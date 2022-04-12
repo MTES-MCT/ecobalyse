@@ -1,6 +1,7 @@
 module Views.RangeSlider exposing
     ( quality
     , ratio
+    , reparability
     )
 
 import Data.Unit as Unit
@@ -38,6 +39,47 @@ quality config =
                 , onInput (String.toFloat >> Maybe.map Unit.quality >> config.update)
                 , Attr.min (fromFloat Unit.minQuality)
                 , Attr.max (fromFloat Unit.maxQuality)
+
+                -- WARNING: be careful when reordering attributes: for obscure reasons,
+                -- the `value` one MUST be set AFTER the `step` one.
+                , step "0.01"
+                , value (fromFloat config.value)
+                , Attr.disabled config.disabled
+                ]
+                []
+            ]
+        ]
+
+
+type alias ReparabilityConfig msg =
+    { id : String
+    , update : Maybe Unit.Reparability -> msg
+    , value : Unit.Reparability
+    , toString : Unit.Reparability -> String
+    , disabled : Bool
+    }
+
+
+reparability : ReparabilityConfig msg -> Html msg
+reparability config =
+    let
+        fromFloat =
+            Unit.reparabilityToFloat >> String.fromFloat
+    in
+    div [ class "RangeSlider row" ]
+        [ div [ class "col-xxl-6" ]
+            [ label [ for config.id, class "form-label text-nowrap fs-7 mb-0" ]
+                [ text <| config.toString config.value ]
+            ]
+        , div [ class "col-xxl-6" ]
+            [ input
+                [ type_ "range"
+                , class "d-block form-range"
+                , style "margin-top" "2px"
+                , id config.id
+                , onInput (String.toFloat >> Maybe.map Unit.reparability >> config.update)
+                , Attr.min (fromFloat Unit.minReparability)
+                , Attr.max (fromFloat Unit.maxReparability)
 
                 -- WARNING: be careful when reordering attributes: for obscure reasons,
                 -- the `value` one MUST be set AFTER the `step` one.

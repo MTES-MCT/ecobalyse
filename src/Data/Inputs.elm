@@ -64,6 +64,7 @@ type alias Inputs =
     , dyeingWeighting : Maybe Unit.Ratio
     , airTransportRatio : Maybe Unit.Ratio
     , quality : Maybe Unit.Quality
+    , reparability : Maybe Unit.Reparability
     }
 
 
@@ -85,6 +86,7 @@ type alias Query =
     , dyeingWeighting : Maybe Unit.Ratio
     , airTransportRatio : Maybe Unit.Ratio
     , quality : Maybe Unit.Quality
+    , reparability : Maybe Unit.Reparability
     }
 
 
@@ -152,6 +154,7 @@ fromQuery db query =
         |> RE.andMap (Ok query.dyeingWeighting)
         |> RE.andMap (Ok query.airTransportRatio)
         |> RE.andMap (Ok query.quality)
+        |> RE.andMap (Ok query.reparability)
 
 
 toQuery : Inputs -> Query
@@ -165,6 +168,7 @@ toQuery inputs =
     , dyeingWeighting = inputs.dyeingWeighting
     , airTransportRatio = inputs.airTransportRatio
     , quality = inputs.quality
+    , reparability = inputs.reparability
     }
 
 
@@ -423,6 +427,7 @@ tShirtCotonFrance =
     , dyeingWeighting = Nothing
     , airTransportRatio = Nothing
     , quality = Nothing
+    , reparability = Nothing
     }
 
 
@@ -473,6 +478,7 @@ jupeCircuitAsie =
     , dyeingWeighting = Nothing
     , airTransportRatio = Nothing
     , quality = Nothing
+    , reparability = Nothing
     }
 
 
@@ -493,6 +499,7 @@ manteauCircuitEurope =
     , dyeingWeighting = Nothing
     , airTransportRatio = Nothing
     , quality = Nothing
+    , reparability = Nothing
     }
 
 
@@ -513,6 +520,7 @@ pantalonCircuitEurope =
     , dyeingWeighting = Nothing
     , airTransportRatio = Nothing
     , quality = Nothing
+    , reparability = Nothing
     }
 
 
@@ -539,6 +547,7 @@ encode inputs =
         , ( "dyeingWeighting", inputs.dyeingWeighting |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
         , ( "airTransportRatio", inputs.airTransportRatio |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
         , ( "quality", inputs.quality |> Maybe.map Unit.encodeQuality |> Maybe.withDefault Encode.null )
+        , ( "reparability", inputs.reparability |> Maybe.map Unit.encodeReparability |> Maybe.withDefault Encode.null )
         ]
 
 
@@ -563,6 +572,7 @@ decodeQuery =
         |> Pipe.required "dyeingWeighting" (Decode.maybe Unit.decodeRatio)
         |> Pipe.required "airTransportRatio" (Decode.maybe Unit.decodeRatio)
         |> Pipe.required "quality" (Decode.maybe Unit.decodeQuality)
+        |> Pipe.required "reparability" (Decode.maybe Unit.decodeReparability)
 
 
 decodeMaterialQuery : Decoder MaterialQuery
@@ -585,6 +595,7 @@ encodeQuery query =
         , ( "dyeingWeighting", query.dyeingWeighting |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
         , ( "airTransportRatio", query.airTransportRatio |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
         , ( "quality", query.quality |> Maybe.map Unit.encodeQuality |> Maybe.withDefault Encode.null )
+        , ( "reparability", query.reparability |> Maybe.map Unit.encodeReparability |> Maybe.withDefault Encode.null )
         ]
 
 

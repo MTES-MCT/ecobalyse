@@ -129,22 +129,25 @@ encodeId =
     idToString >> Encode.string
 
 
-{-| Computes the number of wears and the number of maintainance cycles against a
-custom product intrinsic quality coefficient.
+{-| Computes the number of wears and the number of maintainance cycles against
+quality and reparability coefficients.
 -}
 customDaysOfWear :
     Maybe Unit.Quality
+    -> Maybe Unit.Reparability
     -> { product | daysOfWear : Duration, wearsPerCycle : Int }
     -> { daysOfWear : Duration, useNbCycles : Int }
-customDaysOfWear maybeQuality { daysOfWear, wearsPerCycle } =
+customDaysOfWear maybeQuality maybeReparability { daysOfWear, wearsPerCycle } =
     let
-        quality =
-            maybeQuality
-                |> Maybe.withDefault Unit.standardQuality
+        ( quality, reparability ) =
+            ( maybeQuality |> Maybe.withDefault Unit.standardQuality
+            , maybeReparability |> Maybe.withDefault Unit.standardReparability
+            )
 
         newDaysOfWear =
             daysOfWear
                 |> Quantity.multiplyBy (Unit.qualityToFloat quality)
+                |> Quantity.multiplyBy (Unit.reparabilityToFloat reparability)
     in
     { daysOfWear = newDaysOfWear
     , useNbCycles =

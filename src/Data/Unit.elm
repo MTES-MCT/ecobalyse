@@ -4,12 +4,15 @@ module Data.Unit exposing
     , ImpactUnit(..)
     , Quality(..)
     , Ratio(..)
+    , Reparability(..)
     , decodeImpact
     , decodeQuality
     , decodeRatio
+    , decodeReparability
     , encodeImpact
     , encodeQuality
     , encodeRatio
+    , encodeReparability
     , forKWh
     , forKg
     , forKgAndDistance
@@ -21,7 +24,9 @@ module Data.Unit exposing
     , impactToFloat
     , inFunctionalUnit
     , maxQuality
+    , maxReparability
     , minQuality
+    , minReparability
     , parseFunctional
     , quality
     , qualityToFloat
@@ -30,7 +35,10 @@ module Data.Unit exposing
     , ratioedForKWh
     , ratioedForKg
     , ratioedForMJ
+    , reparability
+    , reparabilityToFloat
     , standardQuality
+    , standardReparability
     )
 
 import Duration exposing (Duration)
@@ -152,6 +160,49 @@ decodeQuality =
 
 encodeQuality : Quality -> Encode.Value
 encodeQuality (Quality float) =
+    Encode.float float
+
+
+
+-- Reparability
+
+
+type Reparability
+    = Reparability Float
+
+
+minReparability : Reparability
+minReparability =
+    Reparability 1
+
+
+standardReparability : Reparability
+standardReparability =
+    minReparability
+
+
+maxReparability : Reparability
+maxReparability =
+    Reparability 1.15
+
+
+reparability : Float -> Reparability
+reparability =
+    Reparability
+
+
+reparabilityToFloat : Reparability -> Float
+reparabilityToFloat (Reparability float) =
+    float
+
+
+decodeReparability : Decoder Reparability
+decodeReparability =
+    Decode.map reparability Decode.float
+
+
+encodeReparability : Reparability -> Encode.Value
+encodeReparability (Reparability float) =
     Encode.float float
 
 
