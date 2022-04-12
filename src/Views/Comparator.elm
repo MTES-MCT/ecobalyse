@@ -94,6 +94,7 @@ fromUserQuery query =
         | dyeingWeighting = Nothing
         , airTransportRatio = Nothing
         , quality = Just Unit.standardQuality
+        , reparability = Just Unit.standardReparability
     }
 
 
@@ -140,11 +141,18 @@ getEntries db funit impact inputs =
             Inputs.toQuery inputs
 
         currentName =
-            query.quality
-                |> Maybe.withDefault Unit.standardQuality
-                |> Unit.qualityToFloat
-                |> String.fromFloat
-                |> (++) "Votre simulation, Q="
+            "Votre simulation, Q="
+                ++ (query.quality
+                        |> Maybe.withDefault Unit.standardQuality
+                        |> Unit.qualityToFloat
+                        |> String.fromFloat
+                   )
+                ++ ", R="
+                ++ (query.reparability
+                        |> Maybe.withDefault Unit.standardReparability
+                        |> Unit.reparabilityToFloat
+                        |> String.fromFloat
+                   )
 
         createEntry_ =
             createEntry db funit impact
