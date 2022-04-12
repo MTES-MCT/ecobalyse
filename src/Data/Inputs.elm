@@ -402,6 +402,13 @@ updateProduct product query =
 
             else
                 query.quality
+        , reparability =
+            -- ensure resetting reparability when product is changed
+            if product.id /= query.product then
+                Nothing
+
+            else
+                query.reparability
     }
 
 
