@@ -79,26 +79,33 @@ L'application de ce tableau aux différentes matières présentées dans le simu
 Pour un vêtement de masse m de composition 60% coton, 40% coton recyclé (post consommation)
 
 ```
-Impact_matière = Impact_coton + Impact_coton_recyclé
+Il faut d'abord calculer m', la masse de fil nécessaire pour faire un tshirt de masse m 
+m' > m car il y a des pertes lors de la fabrication
 
-Impact_coton =  0.6 * m * Impact_coton_par_kg
 
-Impact_coton_recyclé = 0.4 * m ( A * Impact_coton_recyclé_par_kg + (1-A) * Qsin/Qp * Impact_coton_par_kg)
+Impact_matière_filature = Impact_coton + Impact_coton_recyclé
+
+Impact_coton =  0.6 * m'  * Impact_fil_coton_par_kg
+
+Impact_coton_recyclé = 0.4 * m' ( A * Impact_fil_coton_recyclé_par_kg + (1-A) * Qsin/Qp * Impact_fil_coton_par_kg)
 
 ```
 
 Pour un vêtement de masse m de composition 40% coton, 30% coton recyclé (post consommation),  20% polyester, 10% polyester recyclé.
 
 ```
+Il faut d'abord calculer m', la masse de fil nécessaire pour faire un tshirt de masse m 
+m' > m car il y a des pertes lors de la fabrication
+
 Impact_matière = Impact_coton + Impact_coton_recyclé + Impact_polyester + Impact_polyester_recyclé
 
-Impact_coton =  0.4 * m * Impact_coton_par_kg
+Impact_coton =  0.4 * m' * Impact_fil_coton_par_kg
 
-Impact_coton_recyclé = 0.3 * m ( A * Impact_coton_recyclé_par_kg + (1-A) * Qsin/Qp * Impact_coton_par_kg)
+Impact_coton_recyclé = 0.3 * m' ( A * Impact_fil_coton_recyclé_par_kg + (1-A) * Qsin/Qp * Impact_fil_coton_par_kg)
 
-Impact_polyester = 0.2 * m * Impact_pet_par_kg
+Impact_polyester = 0.2 * m' * Impact_fil_pet_par_kg
 
-Impact_polyester_recyclé = 0.1 * m ( A * Impact_pet_recyclé_par_kg + (1-A) * Qsin/Qp * Impact_pet_par_kg)
+Impact_polyester_recyclé = 0.1 * m' ( A * Impact_fil_pet_recyclé_par_kg + (1-A) * Qsin/Qp * Impact_fil_pet_par_kg)
 ```
 
 ## Recyclage des vêtements en fin de vie - M3
