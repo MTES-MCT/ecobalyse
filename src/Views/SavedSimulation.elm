@@ -69,7 +69,7 @@ manager ({ session, simulationName } as config) =
                     ]
                 ]
             , div [ class "form-text fs-7 pb-0" ]
-                [ text "Nommez cette simulation pour vous aider à la retrouver dans la liste" ]
+                [ text "Donnez un nom à cette simulation pour la retrouver plus tard" ]
             ]
         , savedSimulationListView config
         ]
