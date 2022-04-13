@@ -86,6 +86,7 @@ type Msg
     | UpdateMaterialShare Int Unit.Ratio
     | UpdateProduct Product.Id
     | UpdateQuality (Maybe Unit.Quality)
+    | UpdateReparability (Maybe Unit.Reparability)
     | UpdateSimulationName String
     | UpdateStepCountry Int Country.Code
 
@@ -310,6 +311,10 @@ update ({ db, query, navKey } as session) msg model =
             ( model, session, Cmd.none )
                 |> updateQuery { query | quality = quality }
 
+        UpdateReparability reparability ->
+            ( model, session, Cmd.none )
+                |> updateQuery { query | reparability = reparability }
+
         UpdateSimulationName newName ->
             ( { model | simulationName = newName }, session, Cmd.none )
 
@@ -386,6 +391,7 @@ lifeCycleStepsView db { viewMode, funit, impact } simulator =
                     , updateAirTransportRatio = UpdateAirTransportRatio
                     , updateDyeingWeighting = UpdateDyeingWeighting
                     , updateQuality = UpdateQuality
+                    , updateReparability = UpdateReparability
                     }
             )
         |> Array.toList

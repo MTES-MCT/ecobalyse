@@ -11,6 +11,7 @@ module Data.Step exposing
     , initMass
     , labelToString
     , qualityToString
+    , reparabilityToString
     , updateFromInputs
     , updateWaste
     )
@@ -45,6 +46,7 @@ type alias Step =
     , dyeingWeighting : Unit.Ratio -- FIXME: why not Maybe?
     , airTransportRatio : Unit.Ratio -- FIXME: why not Maybe?
     , quality : Unit.Quality
+    , reparability : Unit.Reparability
     }
 
 
@@ -96,6 +98,7 @@ create { db, label, editable, country } =
     , dyeingWeighting = country.dyeingWeighting
     , airTransportRatio = Unit.ratio 0 -- Note: this depends on next step country, so we can't set an accurate default value initially
     , quality = Unit.standardQuality
+    , reparability = Unit.standardReparability
     }
 
 
@@ -255,7 +258,7 @@ getRoadTransportProcess wellKnown { label } =
 updateFromInputs : Db -> Inputs -> Step -> Step
 updateFromInputs { processes } inputs ({ label, country } as step) =
     let
-        { dyeingWeighting, airTransportRatio, quality } =
+        { dyeingWeighting, airTransportRatio, quality, reparability } =
             inputs
     in
     -- Note: only WeavingKnitting, Ennoblement, Making and Use steps render detailed processes info.
@@ -320,6 +323,8 @@ updateFromInputs { processes } inputs ({ label, country } as step) =
             { step
                 | quality =
                     quality |> Maybe.withDefault Unit.standardQuality
+                , reparability =
+                    reparability |> Maybe.withDefault Unit.standardReparability
                 , processInfo =
                     { defaultProcessInfo
                         | countryElec = Just country.electricityProcess.name
@@ -394,6 +399,11 @@ dyeingWeightingToString (Unit.Ratio dyeingWeighting) =
 qualityToString : Unit.Quality -> String
 qualityToString (Unit.Quality float) =
     "Qualité intrinsèque\u{00A0}: " ++ String.fromFloat float
+
+
+reparabilityToString : Unit.Reparability -> String
+reparabilityToString (Unit.Reparability float) =
+    "Réparabilité\u{00A0}: " ++ String.fromFloat float
 
 
 encode : Step -> Encode.Value

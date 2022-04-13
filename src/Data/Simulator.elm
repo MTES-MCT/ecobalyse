@@ -59,7 +59,7 @@ init db =
                             let
                                 { daysOfWear, useNbCycles } =
                                     inputs.product
-                                        |> Product.customDaysOfWear inputs.quality
+                                        |> Product.customDaysOfWear inputs.quality inputs.reparability
                             in
                             { inputs = inputs
                             , lifeCycle = lifeCycle

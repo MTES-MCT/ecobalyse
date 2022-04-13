@@ -36,6 +36,7 @@ type alias Config msg =
     , updateCountry : Int -> Country.Code -> msg
     , updateDyeingWeighting : Maybe Unit.Ratio -> msg
     , updateQuality : Maybe Unit.Quality -> msg
+    , updateReparability : Maybe Unit.Reparability -> msg
     , updateAirTransportRatio : Maybe Unit.Ratio -> msg
     }
 
@@ -181,6 +182,27 @@ qualityField { current, updateQuality } =
         ]
 
 
+reparabilityField : Config msg -> Html msg
+reparabilityField { current, updateReparability } =
+    span
+        [ [ "Le coefficient de réparabilité représente à quel point le produit est réparable."
+          , "Il varie entre 1 (peu réparable) à 1.15 (très réparable)."
+          , "Il est calculé à partir du résultat d’une série de tests de réparabilité."
+          , "Il est utilisé en coefficient multiplicateur du nombre de jours d’utilisation du produit."
+          ]
+            |> String.join " "
+            |> title
+        ]
+        [ RangeSlider.reparability
+            { id = "reparability"
+            , update = updateReparability
+            , value = current.reparability
+            , toString = Step.reparabilityToString
+            , disabled = False
+            }
+        ]
+
+
 inlineDocumentationLink : Config msg -> Gitbook.Path -> Html msg
 inlineDocumentationLink _ path =
     Button.smallPillLink
@@ -260,7 +282,11 @@ simpleView ({ funit, inputs, daysOfWear, impact, current } as config) =
                         div [ class "mt-2" ] [ airTransportRatioField config ]
 
                     Step.Use ->
-                        div [ class "mt-2" ] [ qualityField config ]
+                        div [ class "mt-2" ]
+                            [ qualityField config
+                            , reparabilityField config
+                            , daysOfWearInfo inputs
+                            ]
 
                     _ ->
                         text ""
@@ -300,6 +326,30 @@ viewProcessInfo processName =
 
         Nothing ->
             text ""
+
+
+daysOfWearInfo : Inputs -> Html msg
+daysOfWearInfo inputs =
+    let
+        info =
+            inputs.product
+                |> Product.customDaysOfWear inputs.quality inputs.reparability
+    in
+    small [ class "fs-7 text-muted" ]
+        [ span [ class "pe-1" ] [ Icon.info ]
+        , Format.days info.daysOfWear
+        , text " portés, "
+        , text <| String.fromInt info.useNbCycles
+        , text <|
+            " cycle"
+                ++ (if info.useNbCycles > 1 then
+                        "s"
+
+                    else
+                        ""
+                   )
+                ++ " d'entretien"
+        ]
 
 
 detailedView : Config msg -> Html msg
@@ -355,27 +405,10 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                         ]
 
                 Step.Use ->
-                    let
-                        info =
-                            inputs.product
-                                |> Product.customDaysOfWear inputs.quality
-                    in
                     div [ class "card-body py-2 text-muted" ]
                         [ qualityField config
-                        , small [ class "fs-7" ]
-                            [ Format.days info.daysOfWear
-                            , text " portés, "
-                            , text <| String.fromInt info.useNbCycles
-                            , text <|
-                                " cycle"
-                                    ++ (if info.useNbCycles > 1 then
-                                            "s"
-
-                                        else
-                                            ""
-                                       )
-                                    ++ " d'entretien"
-                            ]
+                        , reparabilityField config
+                        , daysOfWearInfo inputs
                         ]
 
                 _ ->
