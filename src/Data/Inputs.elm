@@ -174,19 +174,16 @@ toQuery inputs =
 
 toString : Inputs -> String
 toString inputs =
-    [ Just [ inputs.product.name ]
-    , Just [ materialsToString inputs.materials ++ "de " ++ Format.kgToString inputs.mass ]
-    , Just [ "matière et filature", inputs.countryMaterial.name ]
-    , Just [ "tricotage", inputs.countryFabric.name ]
-    , Just [ "teinture", inputs.countryDyeing.name ++ dyeingWeightingToString inputs.dyeingWeighting ]
-    , Just [ "confection", inputs.countryMaking.name ++ airTransportRatioToString inputs.airTransportRatio ]
-    , Just [ "distribution", inputs.countryDistribution.name ]
-    , Just [ "utilisation", inputs.countryUse.name ++ intrinsicQualityToString inputs.quality ]
-    , Just [ "fin de vie", inputs.countryEndOfLife.name ]
-    , inputs.quality |> Maybe.map (Unit.qualityToFloat >> String.fromFloat >> (\q -> [ "qualité", q ]))
-    , inputs.reparability |> Maybe.map (Unit.reparabilityToFloat >> String.fromFloat >> (\r -> [ "réparabilité", r ]))
+    [ [ inputs.product.name ]
+    , [ materialsToString inputs.materials ++ "de " ++ Format.kgToString inputs.mass ]
+    , [ "matière et filature", inputs.countryMaterial.name ]
+    , [ "tricotage", inputs.countryFabric.name ]
+    , [ "teinture", inputs.countryDyeing.name ++ dyeingWeightingToString inputs.dyeingWeighting ]
+    , [ "confection", inputs.countryMaking.name ++ airTransportRatioToString inputs.airTransportRatio ]
+    , [ "distribution", inputs.countryDistribution.name ]
+    , [ "utilisation", inputs.countryUse.name ++ intrinsicQualityToString inputs.quality inputs.reparability ]
+    , [ "fin de vie", inputs.countryEndOfLife.name ]
     ]
-        |> List.filterMap identity
         |> List.map (String.join "\u{00A0}: ")
         |> String.join ", "
 
@@ -209,17 +206,17 @@ dyeingWeightingToString : Maybe Unit.Ratio -> String
 dyeingWeightingToString maybeRatio =
     case maybeRatio of
         Nothing ->
-            " (avec un procédé représentatif)"
+            " (procédé représentatif)"
 
         Just ratio ->
             if Unit.ratioToFloat ratio == 0 then
-                " (avec un procédé représentatif)"
+                " (procédé représentatif)"
 
             else
                 ratio
                     |> Format.ratioToPercentString
                     |> (\percent ->
-                            " (avec un procédé " ++ percent ++ " majorant)"
+                            " (procédé " ++ percent ++ " majorant)"
                        )
 
 
@@ -237,27 +234,23 @@ airTransportRatioToString maybeRatio =
                 ratio
                     |> Format.ratioToPercentString
                     |> (\percent ->
-                            " (avec " ++ percent ++ " de transport aérien)"
+                            " (" ++ percent ++ " de transport aérien)"
                        )
 
 
-intrinsicQualityToString : Maybe Unit.Quality -> String
-intrinsicQualityToString maybeQuality =
-    case maybeQuality of
-        Nothing ->
-            ""
-
-        Just quality ->
-            if Unit.qualityToFloat quality == 1 then
-                ""
-
-            else
-                quality
-                    |> Unit.qualityToFloat
-                    |> String.fromFloat
-                    |> (\q ->
-                            " (qualité intrinsèque : " ++ q ++ ")"
-                       )
+intrinsicQualityToString : Maybe Unit.Quality -> Maybe Unit.Reparability -> String
+intrinsicQualityToString maybeQuality maybeReparability =
+    let
+        ( quality, reparability ) =
+            ( maybeQuality
+                |> Maybe.map (Unit.qualityToFloat >> String.fromFloat)
+                |> Maybe.withDefault "standard"
+            , maybeReparability
+                |> Maybe.map (Unit.reparabilityToFloat >> String.fromFloat)
+                |> Maybe.withDefault "standard"
+            )
+    in
+    " (qualité " ++ quality ++ ", réparabilité " ++ reparability ++ ")"
 
 
 countryList : Inputs -> List Country
