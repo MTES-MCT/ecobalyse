@@ -185,9 +185,9 @@ qualityField { current, updateQuality } =
 reparabilityField : Config msg -> Html msg
 reparabilityField { current, updateReparability } =
     span
-        [ [ "Le coefficient de qualité intrinsèque représente à quel point le produit va durer dans le temps."
-          , "Il varie entre 0.67 (peu durable) et 1.45 (très durable)."
-          , "Il est calculé à partir du résultat d’une série de tests de durabilité."
+        [ [ "Le coefficient de réparabilité représente à quel point le produit est réparable."
+          , "Il varie entre 1 (peu réparable) à 1.15 (très réparable)."
+          , "Il est calculé à partir du résultat d’une série de tests de réparabilité."
           , "Il est utilisé en coefficient multiplicateur du nombre de jours d’utilisation du produit."
           ]
             |> String.join " "

@@ -25,13 +25,11 @@ quality config =
         fromFloat =
             Unit.qualityToFloat >> String.fromFloat
     in
-    div [ class "RangeSlider row" ]
-        [ div [ class "col-xxl-6" ]
-            [ label [ for config.id, class "form-label text-nowrap fs-7 mb-0" ]
-                [ text <| config.toString config.value ]
-            ]
-        , div [ class "col-xxl-6" ]
-            [ input
+    layout
+        { id = config.id
+        , label = config.toString config.value
+        , field =
+            input
                 [ type_ "range"
                 , class "d-block form-range"
                 , style "margin-top" "2px"
@@ -47,8 +45,7 @@ quality config =
                 , Attr.disabled config.disabled
                 ]
                 []
-            ]
-        ]
+        }
 
 
 type alias ReparabilityConfig msg =
@@ -66,13 +63,11 @@ reparability config =
         fromFloat =
             Unit.reparabilityToFloat >> String.fromFloat
     in
-    div [ class "RangeSlider row" ]
-        [ div [ class "col-xxl-6" ]
-            [ label [ for config.id, class "form-label text-nowrap fs-7 mb-0" ]
-                [ text <| config.toString config.value ]
-            ]
-        , div [ class "col-xxl-6" ]
-            [ input
+    layout
+        { id = config.id
+        , label = config.toString config.value
+        , field =
+            input
                 [ type_ "range"
                 , class "d-block form-range"
                 , style "margin-top" "2px"
@@ -88,8 +83,7 @@ reparability config =
                 , Attr.disabled config.disabled
                 ]
                 []
-            ]
-        ]
+        }
 
 
 type alias RatioConfig msg =
@@ -103,13 +97,11 @@ type alias RatioConfig msg =
 
 ratio : RatioConfig msg -> Html msg
 ratio config =
-    div [ class "RangeSlider row" ]
-        [ div [ class "col-xxl-6" ]
-            [ label [ for config.id, class "form-label text-nowrap fs-7 mb-0" ]
-                [ text <| config.toString config.value ]
-            ]
-        , div [ class "col-xxl-6" ]
-            [ input
+    layout
+        { id = config.id
+        , label = config.toString config.value
+        , field =
+            input
                 [ type_ "range"
                 , class "d-block form-range"
                 , style "margin-top" "2px"
@@ -122,5 +114,17 @@ ratio config =
                 , Attr.disabled config.disabled
                 ]
                 []
+        }
+
+
+layout : { id : String, label : String, field : Html msg } -> Html msg
+layout { id, label, field } =
+    div [ class "RangeSlider row" ]
+        [ div [ class "col-xxl-6" ]
+            [ Html.label [ for id, class "form-label text-nowrap fs-7 mb-0" ]
+                [ text label ]
+            ]
+        , div [ class "col-xxl-6" ]
+            [ field
             ]
         ]
