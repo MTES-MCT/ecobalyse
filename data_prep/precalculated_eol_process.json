@@ -1,0 +1,30 @@
+{
+  "name": "Fin de vie hors voiture (transport en camion, incinération, mise en décharge)",
+  "info": "Fin de vie > Aggrégation multi-impacts > ",
+  "unit": "kg",
+  "source": "Base Impacts",
+  "uuid": "266fa378-77c0-11ec-90d6-0242ac120003 ",
+  "impacts": {
+    "acd": 3.25353e-4,
+    "ccb": 0.0,
+    "ccf": 1.13192,
+    "cch": 1.13192,
+    "ccl": 0.0,
+    "fru": -4.8275,
+    "fwe": 8.9155e-6,
+    "ior": -1.986,
+    "ldu": 0.0,
+    "mru": 3.61184e-8,
+    "ozd": -5.00949e-10,
+    "pco": 9.494e-4,
+    "pma": 2.26599e-9,
+    "swe": 6.71031e-4,
+    "tre": 2.25702e-3,
+    "wtu": 0.0
+  },
+  "heat": 0.0,
+  "elec_pppm": 0.0,
+  "elec": 0.0,
+  "waste": 0.0,
+  "alias": "endOfLife"
+}
