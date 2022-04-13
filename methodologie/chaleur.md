@@ -8,22 +8,19 @@ description: Choix du procédé de chaleur en fonction du pays
 
 Le procédé de chaleur appliqué dépend du pays dans lequel l'étape correspondante est réalisée.
 
-| Pays       | Procédé chaleur                                                                                                                                              | UUID                                 |
-| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------ |
-| Bangladesh | Mix Vapeur (mix technologique\|mix de production, en sortie de chaudière), RSA                                                                               | 2e8de6f6-0ea1-455b-adce-ea74d307d222 |
-| Chine      | Mix Vapeur (mix technologique\|mix de production, en sortie de chaudière), RSA                                                                               | 2e8de6f6-0ea1-455b-adce-ea74d307d222 |
-| Espagne    | Vapeur à partir de gaz naturel (mix de technologies de combustion et d'épuration des effluents gazeux\|en sortie de chaudière\|Puissance non spécifiée), ES  | 618440a9-f4aa-65bc-21cb-ea40eee53f3d |
-| France     | Mix Vapeur (mix technologique\|mix de production, en sortie de chaudière), FR                                                                                | 12fc43f2-a007-423b-a619-619d725793ea |
-| Inde       | Mix Vapeur (mix technologique\|mix de production, en sortie de chaudière), RSA                                                                               | 2e8de6f6-0ea1-455b-adce-ea74d307d222 |
-| Portugal   | Vapeur à partir de gaz naturel (mix de technologies de combustion et d'épuration des effluents gazeux\|en sortie de chaudière\|Puissance non spécifiée), RER | 59c4c64c-0916-868a-5dd6-a42c4c42222f |
-| Tunisie    | Mix Vapeur (mix technologique\|mix de production, en sortie de chaudière), RSA                                                                               | 2e8de6f6-0ea1-455b-adce-ea74d307d222 |
-| Turquie    | Mix Vapeur (mix technologique\|mix de production, en sortie de chaudière), RSA                                                                               | 2e8de6f6-0ea1-455b-adce-ea74d307d222 |
+En première approche, seulement trois procédés sont mobilisés. Le détail pays par pays est présenté dans l'explorateur : [https://wikicarbone.beta.gouv.fr/#/explore](https://wikicarbone.beta.gouv.fr/#/explore)
+
+| Pays                     | Procédé chaleur                                                                | UUID                                 |
+| ------------------------ | ------------------------------------------------------------------------------ | ------------------------------------ |
+| France                   | Mix Vapeur (mix technologique\|mix de production, en sortie de chaudière), FR  | 12fc43f2-a007-423b-a619-619d725793ea |
+| Autres pays européens    | Mix Vapeur (mix technologique\|mix de production, en sortie de chaudière), RER | 63b1b03f-1f73-4791-829d-d49c06ddc8ee |
+| Autres pays, hors Europe | Mix Vapeur (mix technologique\|mix de production, en sortie de chaudière), RSA | 2e8de6f6-0ea1-455b-adce-ea74d307d222 |
 
 {% hint style="warning" %}
 Ces choix de procédés doivent être discutés. Ils sont sélectionnés parmi les procédés proposés dans la base Impacts. Plusieurs points discutables apparaissent :&#x20;
 
-* La Tunisie et la Turquie se voient appliquer, par défaut, un procédé de mix vapeur pensé plutôt pour les pays asiatiques (RSA).
-* Pour l'Espagne et le Portugal, on est sur des procédés de vapeur produite à partir de gaz naturel. Le procédé est spécifique à l'Espagne mais Européen pour le Portugal (faute de procédé spécifique).
+* Des pays hors Asie (par exemple Afrique du Nord) se voient appliqué un mix vapeur RSA (Asie Pacifique).
+* Cette approche ne permet pas de distinguer des mix vapeur nationaux qui seraient spécifiques (exemple : transition du fuel lourd vers le gaz en Tunisie).
 * Dans le cas de la France, un procédé de mix vapeur spécifique à ce pays est proposé. La France est le seul pays pour lequel un tel procédé est proposé dans la base Impacts.
 {% endhint %}
 
