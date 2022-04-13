@@ -174,16 +174,20 @@ toQuery inputs =
 
 toString : Inputs -> String
 toString inputs =
-    [ inputs.product.name
-    , materialsToString inputs.materials ++ "de " ++ Format.kgToString inputs.mass
-    , "matière et filature : " ++ inputs.countryMaterial.name
-    , "tricotage : " ++ inputs.countryFabric.name
-    , "teinture : " ++ inputs.countryDyeing.name ++ dyeingWeightingToString inputs.dyeingWeighting
-    , "confection : " ++ inputs.countryMaking.name ++ airTransportRatioToString inputs.airTransportRatio
-    , "distribution : " ++ inputs.countryDistribution.name
-    , "utilisation : " ++ inputs.countryUse.name ++ intrinsicQualityToString inputs.quality
-    , "fin de vie : " ++ inputs.countryEndOfLife.name
+    [ Just [ inputs.product.name ]
+    , Just [ materialsToString inputs.materials ++ "de " ++ Format.kgToString inputs.mass ]
+    , Just [ "matière et filature", inputs.countryMaterial.name ]
+    , Just [ "tricotage", inputs.countryFabric.name ]
+    , Just [ "teinture", inputs.countryDyeing.name ++ dyeingWeightingToString inputs.dyeingWeighting ]
+    , Just [ "confection", inputs.countryMaking.name ++ airTransportRatioToString inputs.airTransportRatio ]
+    , Just [ "distribution", inputs.countryDistribution.name ]
+    , Just [ "utilisation", inputs.countryUse.name ++ intrinsicQualityToString inputs.quality ]
+    , Just [ "fin de vie", inputs.countryEndOfLife.name ]
+    , inputs.quality |> Maybe.map (Unit.qualityToFloat >> String.fromFloat >> (\q -> [ "qualité", q ]))
+    , inputs.reparability |> Maybe.map (Unit.reparabilityToFloat >> String.fromFloat >> (\r -> [ "réparabilité", r ]))
     ]
+        |> List.filterMap identity
+        |> List.map (String.join "\u{00A0}: ")
         |> String.join ", "
 
 
@@ -576,10 +580,10 @@ decodeQuery =
         |> Pipe.required "countryFabric" (Decode.map Country.Code Decode.string)
         |> Pipe.required "countryDyeing" (Decode.map Country.Code Decode.string)
         |> Pipe.required "countryMaking" (Decode.map Country.Code Decode.string)
-        |> Pipe.required "dyeingWeighting" (Decode.maybe Unit.decodeRatio)
-        |> Pipe.required "airTransportRatio" (Decode.maybe Unit.decodeRatio)
-        |> Pipe.required "quality" (Decode.maybe Unit.decodeQuality)
-        |> Pipe.required "reparability" (Decode.maybe Unit.decodeReparability)
+        |> Pipe.optional "dyeingWeighting" (Decode.maybe Unit.decodeRatio) Nothing
+        |> Pipe.optional "airTransportRatio" (Decode.maybe Unit.decodeRatio) Nothing
+        |> Pipe.optional "quality" (Decode.maybe Unit.decodeQuality) Nothing
+        |> Pipe.optional "reparability" (Decode.maybe Unit.decodeReparability) Nothing
 
 
 decodeMaterialQuery : Decoder MaterialQuery
