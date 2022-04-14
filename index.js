@@ -2,6 +2,7 @@ import "rapidoc";
 import { Elm } from "./src/Main.elm";
 import * as Sentry from "@sentry/browser";
 import { BrowserTracing } from "@sentry/tracing";
+import Doughnut from "./lib/doughnut";
 
 // Sentry
 if (process.env.SENTRY_DSN) {
@@ -83,3 +84,6 @@ window.addEventListener(
   },
   false,
 );
+
+// Custom elements
+customElements.define("wc-doughnut", Doughnut);
