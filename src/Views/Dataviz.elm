@@ -6,6 +6,7 @@ module Views.Dataviz exposing
 import Chart as C
 import Chart.Attributes as CA
 import Data.Db exposing (Db)
+import Data.Impact as Impact
 import Data.Simulator as Simulator exposing (Simulator)
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -16,8 +17,19 @@ import Svg.Attributes as SA
 
 view : Db -> Simulator -> Html msg
 view db simulator =
+    -- TODO: retrieve funit, impact
+    -- TODO: move this view as a page submodule
     div [ class "pt-2" ]
-        [ h2 [ class "h4 text-center pb-1" ] [ text "Poids des étapes pour chaque impact" ]
+        [ h2 [ class "h4 text-center pt-3 pb-1" ]
+            [ text "Composition du score PEF" ]
+        , node "highcharts-wc"
+            [ simulator.impacts
+                |> Impact.getPefDoughnutData db.impacts
+                |> attribute "data"
+            ]
+            []
+        , h2 [ class "h4 text-center pt-5 pb-1" ]
+            [ text "Poids des étapes pour chaque impact" ]
         , simulator
             |> Simulator.lifeCycleImpacts db
             |> chart
