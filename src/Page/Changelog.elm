@@ -21,7 +21,9 @@ import Time.Distance.I18n as TimeDistanceI18n
 import Views.Alert as Alert
 import Views.Container as Container
 import Views.Link as Link
+import Views.Markdown as Markdown
 import Views.Spinner as SpinnerView
+import Views.Table as TableView
 
 
 type Msg
@@ -31,13 +33,13 @@ type Msg
 
 type alias Model =
     { changelog : WebData (List Github.Commit)
-    , time : Maybe Time.Posix
+    , time : Time.Posix
     }
 
 
 init : Session -> ( Model, Session, Cmd Msg )
 init session =
-    ( { changelog = RemoteData.NotAsked, time = Just (Time.millisToPosix 0) }
+    ( { changelog = RemoteData.NotAsked, time = Time.millisToPosix 0 }
     , session
     , Cmd.batch
         [ Ports.scrollTo { x = 0, y = 0 }
@@ -57,14 +59,14 @@ update session msg model =
             )
 
         NewTime posix ->
-            ( { model | time = Just posix }
+            ( { model | time = posix }
             , session
             , Cmd.none
             )
 
 
-commitView : Maybe Time.Posix -> Github.Commit -> Html msg
-commitView maybeTime commit =
+commitView : Time.Posix -> Github.Commit -> Html msg
+commitView time commit =
     let
         ( first, rest ) =
             commit.message
@@ -76,41 +78,40 @@ commitView maybeTime commit =
         title =
             List.head first |> Maybe.withDefault "Untitled commit"
     in
-    div [ class "list-group-item list-group-item-action" ]
-        [ div [ class "d-flex w-100 justify-content-between" ]
-            [ div []
-                [ h5 [ class "m-0" ]
-                    [ img
-                        [ src commit.authorAvatar
-                        , alt commit.authorName
-                        , attribute "crossorigin" "anonymous"
-                        , width 24
-                        , class "rounded-circle shadow-sm align-top me-2"
+    tr []
+        [ td []
+            [ if List.length rest > 0 then
+                details []
+                    [ summary [] [ text title ]
+                    , pre [ class "ms-3 mt-2 mb-0" ]
+                        [ rest
+                            |> String.join "\n"
+                            |> Markdown.simple []
                         ]
-                        []
-                    , Link.external [ class "text-decoration-none", href <| "https://github.com/MTES-MCT/wikicarbone/commit/" ++ commit.sha ]
-                        [ text title ]
                     ]
-                , if List.length rest > 0 then
-                    rest
-                        |> List.map (\item -> li [] [ item |> String.replace "* " "" |> text ])
-                        |> ul [ class "mt-2 mb-0" ]
 
-                  else
-                    text ""
+              else
+                text title
+            ]
+        , td [ class "text-nowrap" ]
+            [ img
+                [ src commit.authorAvatar
+                , alt commit.authorName
+                , attribute "crossorigin" "anonymous"
+                , width 24
+                , class "rounded-circle shadow-sm align-top me-2"
                 ]
-            , small []
-                [ text <| "Par " ++ commit.authorName ++ " "
-                , case maybeTime of
-                    Just time ->
-                        TimeDistance.inWordsWithConfig { withAffix = True }
-                            TimeDistanceI18n.fr
-                            commit.date
-                            time
-                            |> text
-
-                    Nothing ->
-                        text ""
+                []
+            , text commit.authorName
+            ]
+        , td []
+            [ Link.external
+                [ class "text-decoration-none"
+                , href <| "https://github.com/MTES-MCT/wikicarbone/commit/" ++ commit.sha
+                ]
+                [ time
+                    |> TimeDistance.inWordsWithConfig { withAffix = True } TimeDistanceI18n.fr commit.date
+                    |> text
                 ]
             ]
         ]
@@ -123,9 +124,18 @@ view _ model =
             [ h1 [ class "mb-3" ] [ text "Changelog" ]
             , case model.changelog of
                 RemoteData.Success commits ->
-                    commits
-                        |> List.map (commitView model.time)
-                        |> div [ class "list-group" ]
+                    TableView.responsiveDefault []
+                        [ thead []
+                            [ tr []
+                                [ th [] [ text "Quoi" ]
+                                , th [] [ text "Qui" ]
+                                , th [] [ text "Quand" ]
+                                ]
+                            ]
+                        , commits
+                            |> List.map (commitView model.time)
+                            |> tbody []
+                        ]
 
                 RemoteData.Failure error ->
                     Alert.httpError error
