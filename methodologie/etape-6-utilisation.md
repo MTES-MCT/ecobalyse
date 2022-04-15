@@ -8,16 +8,41 @@ description: >-
 
 ## Qualité intrinsèque
 
-La qualité intrinsèque est défini dans le réferentiel PEFCR de la comission européenne. C'est un nombre entre 0.67 et 1.45 qui represente la durabilité du vêtement. Pour le calculer un vêtement  doit passer des tests de durabilité physique. Les résultats de ces tests donneront un score entre 0.67 et 1.45. Si un vêtement ne passe pas de tests, il a une qualité par défaut de 0.67.
+La qualité intrinsèque est définie dans le projet de référentiel PEFCR Apparel & Footwear (v1.2 et 1.3). Elle est traduite à travers un coefficient, compris entre 0.67 et 1.45, qui représente la durabilité du vêtement et s'applique à la durée de vie du vêtement. Pour le calculer un vêtement  doit passer des tests de durabilité physique. Les tests à appliqués sont définis, produit par produit, dans l'annexe V du projet de PEFCR. Les résultats de ces tests donneront un score entre 0.67 et 1.45. Si un vêtement ne passe pas de tests, il a une qualité par défaut de 0.67.
 
 {% hint style="success" %}
-Fairly Made a construit un tableur permettant de calculer le coefficient de qualité intrinsèque, [accessible ici](https://docs.google.com/spreadsheets/d/15L\_AVG1qcd2iSj4v1O0xd8nPkI83pzEQqXkPorFutjc/edit?usp=sharing)&#x20;
+Fairly Made a construit un tableur permettant de calculer les coefficient de qualité intrinsèque et de réparabilité à partir des résultats aux différents tests définis en annexe V  et annexe VI du projet de PEFCR. Il est [accessible ici](https://docs.google.com/spreadsheets/d/15L\_AVG1qcd2iSj4v1O0xd8nPkI83pzEQqXkPorFutjc/edit?usp=sharing)&#x20;
 {% endhint %}
 
 Ce score est ensuite appliqué en coefficient multiplicateur du nombre de jours d'utilisations.&#x20;
 
-Prenons l'exemple d'une veste. Elle a par défaut 100 jours d'utilisation dans le réferentiel PEFCR. Avec une qualité intrinsèque de 0.67, elle aura 67 jours d'utilisation. Etant donné qu'elle fera moins de cycle d'entretiens l'impact de cette veste va légèrement diminuer. Par contre l'impact **par jour d'utilisation** lui va augmenter fortement (environ 1/0.67 = +50%) car on va diviser par un nombre plus petit .\
+Prenons l'exemple d'une veste. Elle a par défaut 100 jours d'utilisation dans le référentiel PEFCR. Avec une qualité intrinsèque de 0.67, elle aura 67 jours d'utilisation. Etant donné qu'elle fera moins de cycle d'entretiens l'impact de cette veste va légèrement diminuer. Par contre l'impact **par jour d'utilisation** lui va augmenter fortement (environ 1/0.67 = +50%) car on va diviser par un nombre plus petit .\
 De la même manière, avec une qualité intrinsèque à 1.45, cette veste aura 145 jours d'utilisation. Son impact va augmenter légèrement (plus de cycle d'entretien). Mais l'impact **par jour d'utilisation** va diminuer fortement (environ 1/1.45 = -30%).
+
+## Réparabilité
+
+La réparabilité est introduite dans la version 1.3 du projet de PEFCR Apparel & Footwear éditée en mars 2022.
+
+Comme la qualité intrinsèque, elle se traduit par un coefficient, compris entre 1 et 1,15, qui s'applique ensuite à la durée de vie du vêtement. Les coefficients de réparabilité et de durabilité sont multipliés afin d'être appliqués, ensemble, à la durée de vie.
+
+Les paramètres à prendre en compte pour établir le coefficient de réparabilité sont introduits dans le projet de PEFCR Apparel & Footwear. Ils couvrent :&#x20;
+
+* la présence d'une documentation de réparation (_repair documentation_)
+* la mise à disposition de services gratuits de réparation (_repair services offered_)
+* le prix de la réparation (_price of repair_)
+* la période de garantie pour réparation (_repair warranty period_)
+
+La méthode de calcul intègre par ailleurs les différents points de fragilités (ex : fermetures éclair), en introduisant un score de réparabilité du mode de défaillance (_Failure Mode Reparability Score_). Les modalités détaillées de calcul, produit par produit, sont en annexe VI du projet de PEFCR (v1.3).
+
+![Exemple de calcul du coefficient de réparabilité (pour un T-shirt)](../.gitbook/assets/RéparabilitéT-shirt.PNG)
+
+{% hint style="danger" %}
+La section du projet de PEFCR Apparel & Footwear (v1.3) est en développement et doit faire l'objet de tests pour être précisée.&#x20;
+{% endhint %}
+
+{% hint style="success" %}
+Fairly Made a construit un tableur permettant de calculer les coefficient de qualité intrinsèque et de réparabilité à partir des résultats aux différents tests définis en annexe V  et annexe VI du projet de PEFCR. Il est [accessible ici](https://docs.google.com/spreadsheets/d/15L\_AVG1qcd2iSj4v1O0xd8nPkI83pzEQqXkPorFutjc/edit?usp=sharing)&#x20;
+{% endhint %}
 
 ## Impacts pris en compte
 

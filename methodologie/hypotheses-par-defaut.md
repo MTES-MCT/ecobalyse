@@ -2,7 +2,7 @@
 description: Quelques règles générales appliquées pour les hypothèses par défaut
 ---
 
-# Hypothèses par défaut
+# ❓ Hypothèses par défaut
 
 L'outil de pré-évaluation est conçu pour proposer, par défaut, des valeurs majorantes. C'est en rentrant progressivement dans le paramétrage que l'utilisateur doit pouvoir affiner sa pré-évaluation et identifier ainsi les bénéfices obtenus par rapport au paramétrage initial, a priori le plus majorant.
 

@@ -4,7 +4,7 @@ description: >-
   Wikicarbone ?
 ---
 
-# Ajout d'un pays
+# 🌎 Ajout d'un pays
 
 Un utilisateur du simulateur peut souhaiter qu'un nouveau choix de pays lui soit proposé. Cette page précise les informations à apporter. 2 modalités sont ensuite envisagées pour intégrer le nouveau pays dans l'outil :&#x20;
 

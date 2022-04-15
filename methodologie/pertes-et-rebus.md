@@ -2,7 +2,7 @@
 description: Vision d'ensemble de la gestion des pertes et rebut dans l'outil
 ---
 
-# Pertes et rebut
+# 🗑 Pertes et rebut
 
 A chaque étape de la production, des pertes et rebut sont pris en compte. Les formules de calcul sont développées dans chaque page dédiée au procédé en question (cf. tableau ci-après) :&#x20;
 
