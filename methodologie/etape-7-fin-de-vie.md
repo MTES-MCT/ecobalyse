@@ -72,14 +72,31 @@ On prend les hypothèses issue du document PEF RP study p.72 :&#x20;
 
 > 45% of municipal waste collected is incinerated and 55% is landfilled.
 
-Soit P\_incinération le procédé d'incinération de déchets textile en France :&#x20;
+Soit P\_incinération le procédé d'incinération de déchets textile en France:&#x20;
 
 ```
 Impact_incinération = m * part_incinération * P_incinération_cch
-
 part_incinération = (80.5% + 2.6%) * 45% = 37.395%
 Impact_incinération = 0.17 * 37.395% * 0.397022
 Impact_incinération = 0.02523 kgCO2e
+```
+
+Dans la documentation de la Base Impacts, l'énergie de l'incinération est valorisée en électricité. Comme le stipule la CFF (Circular Footprint Formula) il faut donc retrancher l'impact de l'électricité si elle avait été généré d'une autre manière.\
+On peut calculer d'abord l'impact de cette électricité si elle avait généré de façon standard :&#x20;
+
+```
+Bénéfice_incinération = m * part_incinération * Elec_incinération * P_élec_FR
+Elec_incinération = 2.25 MJ/kg incinéré
+Elec_incinération = 2.25/3.6 kWh/kg incinéré
+Bénéfice_incinération = 0.17 * 37.395% * 2.24 / 3.6 * 0.0813
+Bénéfice_incinération = 0.003 kgCO2e
+```
+
+Finalement :
+
+```
+Impact_total_incinération = Impact_incinération - Bénéfice_incinération
+Impact_total_incinération = 0.022 kgCO2e
 ```
 
 De même pour la mise en décharge, avec P\_décharge le procédé de mise en décharge textile en France :&#x20;
