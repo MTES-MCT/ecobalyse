@@ -222,7 +222,7 @@ notificationView { closeNotification } notification =
 pageFooter : Session -> Html msg
 pageFooter { currentVersion } =
     footer
-        [ class "bg-dark text-light py-5 fs-7" ]
+        [ class "bg-dark text-light py-4 fs-7" ]
         [ Container.centered []
             [ footerMenuLinks
                 |> List.map
@@ -241,8 +241,14 @@ pageFooter { currentVersion } =
                                     [ text label ]
                     )
                 |> List.map (List.singleton >> li [])
-                |> List.intersperse (span [ class "text-muted" ] [ text "|" ])
-                |> ul [ class "d-flex justify-content-between flex-wrap gap-2 list-unstyled" ]
+                |> List.intersperse
+                    (li
+                        [ attribute "aria-hidden" "true"
+                        , class "text-muted"
+                        ]
+                        [ text "|" ]
+                    )
+                |> ul [ class "d-flex justify-content-between flex-wrap gap-2 list-unstyled pt-1" ]
             , div [ class "row d-flex align-items-center" ]
                 [ Link.external
                     [ href "https://www.ecologique-solidaire.gouv.fr/"

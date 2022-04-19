@@ -10,6 +10,7 @@ import Data.Session exposing (Session)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Http
+import List.Extra as LE
 import Ports
 import RemoteData exposing (WebData)
 import Views.Alert as Alert
@@ -58,8 +59,9 @@ view _ model =
             ( content
                 |> String.split "\n"
                 |> List.head
+                |> Maybe.andThen (String.split "# " >> LE.last)
                 |> Maybe.withDefault "Sans titre"
-            , [ Container.centered [ class "pb-3" ]
+            , [ Container.centered []
                     [ Markdown.simple [ class "pb-5" ] content
                     ]
               ]
