@@ -66,7 +66,7 @@ Impact_voiture = 0.03649 kgCO2e
 Impact_voiture = 36.49 gCO2e
 ```
 
-### Incinération/Mise en décharge
+### Incinération
 
 On prend les hypothèses issue du document PEF RP study p.72 :&#x20;
 
@@ -99,6 +99,8 @@ Impact_total_incinération = Impact_incinération - Bénéfice_incinération
 Impact_total_incinération = 0.022 kgCO2e
 ```
 
+### Mise en décharge
+
 De même pour la mise en décharge, avec P\_décharge le procédé de mise en décharge textile en France :&#x20;
 
 ```
@@ -109,6 +111,3 @@ Impact_décharge = 0.17 * 45.705% * 2.22265
 Impact_décharge = 0.17269 kgCO2e
 ```
 
-{% hint style="danger" %}
-Limite : nous n'avons pour l'instant pas pris en compte l'impact de potentiel production d'énergie (chaleur, électricité) pendant la phase de fin de vie.&#x20;
-{% endhint %}
