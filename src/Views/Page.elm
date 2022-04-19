@@ -224,29 +224,27 @@ pageFooter { currentVersion } =
     footer
         [ class "bg-dark text-light py-5 fs-7" ]
         [ Container.centered []
-            [ div [ class "row d-flex align-items-center" ]
-                [ div [ class "col" ]
-                    [ h3 [] [ text "wikicarbone" ]
-                    , footerMenuLinks
-                        |> List.map
-                            (\link ->
-                                case link of
-                                    Internal label route _ ->
-                                        Link.internal [ class "text-white text-decoration-none", Route.href route ]
-                                            [ text label ]
+            [ footerMenuLinks
+                |> List.map
+                    (\link ->
+                        case link of
+                            Internal label route _ ->
+                                Link.internal [ class "text-white text-decoration-none", Route.href route ]
+                                    [ text label ]
 
-                                    External label url ->
-                                        Link.external [ class "text-white text-decoration-none", href url ]
-                                            [ text label ]
+                            External label url ->
+                                Link.external [ class "text-white text-decoration-none", href url ]
+                                    [ text label ]
 
-                                    MailTo label email ->
-                                        a [ class "text-white text-decoration-none link-email", href <| "mailto:" ++ email ]
-                                            [ text label ]
-                            )
-                        |> List.map (List.singleton >> li [])
-                        |> ul [ class "list-unstyled" ]
-                    ]
-                , Link.external
+                            MailTo label email ->
+                                a [ class "text-white text-decoration-none link-email", href <| "mailto:" ++ email ]
+                                    [ text label ]
+                    )
+                |> List.map (List.singleton >> li [])
+                |> List.intersperse (span [ class "text-muted" ] [ text "|" ])
+                |> ul [ class "d-flex justify-content-between flex-wrap gap-2 list-unstyled" ]
+            , div [ class "row d-flex align-items-center" ]
+                [ Link.external
                     [ href "https://www.ecologique-solidaire.gouv.fr/"
                     , class "col text-center bg-white p-3 m-3 link-external-muted"
                     ]
@@ -288,7 +286,7 @@ pageFooter { currentVersion } =
                     [ img [ src "img/betagouv.svg", alt "beta.gouv.fr", style "width" "120px" ] [] ]
                 , case Version.toString currentVersion of
                     Just hash ->
-                        small [ class "d-block fs-8 ms-2 text-muted" ]
+                        small [ class "d-block pt-1 fs-8 ms-2 text-muted" ]
                             [ Link.external
                                 [ class "text-white-50 text-decoration-none"
                                 , href <| "https://github.com/MTES-MCT/wikicarbone/commit/" ++ hash
