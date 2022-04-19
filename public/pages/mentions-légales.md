@@ -8,20 +8,21 @@ Arche de la Défense, 92055 La Défense CEDEX), avec l'appui de
 [l’incubateur de services numériques beta.gouv.fr](https://beta.gouv.fr/) de la direction
 interministérielle du numérique (DINUM).
 
+<!--
 ## Direction de la publication
 
-> XXX
-> XXX
-> XXX
-> XXX
+>     XXX
+>     XXX
+>     XXX
+-->
 
 ## Hébergeur
 
-Le site Wikicarbone (wikicarbone.beta.gouv.fr) est hébergé par la société Scalingo SAS, inscrite au
+Le site Wikicarbone (wikicarbone.beta.gouv.fr) est hébergé par la société [Scalingo SAS](https://scalingo.com/fr), inscrite au
 RCS (Strasbourg B 808 665 483) et dont les serveurs se situent en France.
 
 * SIREN : 808665483
-* Siège social :15 avenue du Rhin, 67100 Strasbourg, France.
+* Siège social : 15 avenue du Rhin, 67100 Strasbourg, France.
 
 ## Accessibilité
 

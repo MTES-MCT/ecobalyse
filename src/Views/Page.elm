@@ -248,7 +248,7 @@ pageFooter { currentVersion } =
                         ]
                         [ text "|" ]
                     )
-                |> ul [ class "d-flex justify-content-between flex-wrap gap-2 list-unstyled pt-1" ]
+                |> ul [ class "d-flex justify-content-start flex-wrap gap-2 list-unstyled pt-1" ]
             , div [ class "row d-flex align-items-center" ]
                 [ Link.external
                     [ href "https://www.ecologique-solidaire.gouv.fr/"
