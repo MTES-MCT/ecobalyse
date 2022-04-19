@@ -116,6 +116,7 @@ headerMenuLinks =
     , Internal "Simulateur" (Route.Simulator Impact.defaultTrigram Unit.PerItem ViewMode.Simple Nothing) Simulator
     , Internal "Exemples" Route.Examples Examples
     , Internal "Explorateur" (Route.Explore (Db.Countries Nothing)) Explore
+    , Internal "API" Route.Api Api
     , External "Documentation" "https://fabrique-numerique.gitbook.io/wikicarbone/"
     ]
 
@@ -125,8 +126,9 @@ footerMenuLinks =
     [ Internal "Accueil" Route.Home Home
     , Internal "Simulateur" (Route.Simulator Impact.defaultTrigram Unit.PerItem ViewMode.Simple Nothing) Simulator
     , Internal "Exemples" Route.Examples Examples
-    , Internal "Api documentation" Route.Api Api
-    , Internal "Changelog" Route.Changelog Changelog
+    , Internal "Explorateur" (Route.Explore (Db.Countries Nothing)) Explore
+    , Internal "API" Route.Api Api
+    , Internal "Nouveautés" Route.Changelog Changelog
     , Internal "Statistiques" Route.Stats Stats
     , Internal "Accessibilité\u{00A0}: non conforme" (Route.Editorial "accessibilité") (Editorial "accessibilité")
     , Internal "Mentions légales" (Route.Editorial "mentions-légales") (Editorial "mentions-légales")
