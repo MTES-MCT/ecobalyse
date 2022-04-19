@@ -20,6 +20,7 @@ type Route
     = Home
     | Api
     | Changelog
+    | Editorial String
     | Explore Db.Dataset
     | Examples
     | Simulator Impact.Trigram Unit.Functional ViewMode (Maybe Inputs.Query)
@@ -32,6 +33,7 @@ parser =
         [ Parser.map Home Parser.top
         , Parser.map Api (Parser.s "api")
         , Parser.map Changelog (Parser.s "changelog")
+        , Parser.map Editorial (Parser.s "pages" </> Parser.string)
         , Parser.map Examples (Parser.s "examples")
 
         -- Explorer
@@ -107,6 +109,9 @@ toString route =
 
                 Changelog ->
                     [ "changelog" ]
+
+                Editorial slug ->
+                    [ "pages", slug ]
 
                 Examples ->
                     [ "examples" ]

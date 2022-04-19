@@ -48,6 +48,7 @@ config =
         |> Rule.ignoreErrorsForFiles [ "src/Views/Modal.elm" ]
     , NoUnused.CustomTypeConstructorArgs.rule
         |> Rule.ignoreErrorsForFiles [ "src/Server/Route.elm" ]
+        |> Rule.ignoreErrorsForFiles [ "src/Views/Page.elm" ]
     , NoUnused.Dependencies.rule
     , NoUnused.Exports.rule
         |> Rule.ignoreErrorsForFiles [ "src/Views/Button.elm" ]

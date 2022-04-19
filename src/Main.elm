@@ -8,6 +8,7 @@ import Data.Session as Session exposing (Session)
 import Html
 import Page.Api as Api
 import Page.Changelog as Changelog
+import Page.Editorial as Editorial
 import Page.Examples as Examples
 import Page.Explore as Explore
 import Page.Home as Home
@@ -32,6 +33,7 @@ type Page
     = BlankPage
     | HomePage Home.Model
     | ChangelogPage Changelog.Model
+    | EditorialPage Editorial.Model
     | ExamplesPage Examples.Model
     | ExplorePage Explore.Model
     | ApiPage Api.Model
@@ -52,6 +54,7 @@ type Msg
     | DbReceived Url (WebData Db)
     | HomeMsg Home.Msg
     | ChangelogMsg Changelog.Msg
+    | EditorialMsg Editorial.Msg
     | ExamplesMsg Examples.Msg
     | ExploreMsg Explore.Msg
     | ApiMsg Api.Msg
@@ -130,6 +133,10 @@ setRoute maybeRoute ( { session } as model, cmds ) =
             Changelog.init session
                 |> toPage ChangelogPage ChangelogMsg
 
+        Just (Route.Editorial slug) ->
+            Editorial.init slug session
+                |> toPage EditorialPage EditorialMsg
+
         Just Route.Examples ->
             Examples.init session
                 |> toPage ExamplesPage ExamplesMsg
@@ -177,6 +184,10 @@ update msg ({ page, session } as model) =
         ( ChangelogMsg changelogMsg, ChangelogPage changelogModel ) ->
             Changelog.update session changelogMsg changelogModel
                 |> toPage ChangelogPage ChangelogMsg
+
+        ( EditorialMsg editorialMsg, EditorialPage editorialModel ) ->
+            Editorial.update session editorialMsg editorialModel
+                |> toPage EditorialPage EditorialMsg
 
         ( ExamplesMsg examplesMsg, ExamplesPage examplesModel ) ->
             Examples.update session examplesMsg examplesModel
@@ -269,6 +280,9 @@ subscriptions model =
             ChangelogPage _ ->
                 Sub.none
 
+            EditorialPage _ ->
+                Sub.none
+
             ExamplesPage _ ->
                 Sub.none
 
@@ -321,6 +335,11 @@ view { page, mobileNavigationOpened, session } =
             Changelog.view session changelogModel
                 |> mapMsg ChangelogMsg
                 |> Page.frame (pageConfig Page.Changelog)
+
+        EditorialPage editorialModel ->
+            Editorial.view session editorialModel
+                |> mapMsg EditorialMsg
+                |> Page.frame (pageConfig (Page.Editorial editorialModel.slug))
 
         ExamplesPage examplesModel ->
             Examples.view session examplesModel

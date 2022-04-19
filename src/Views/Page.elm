@@ -27,6 +27,7 @@ import Views.Spinner as Spinner
 type ActivePage
     = Home
     | Changelog
+    | Editorial String
     | Examples
     | Explore
     | Api
@@ -127,9 +128,10 @@ footerMenuLinks =
     , Internal "Api documentation" Route.Api Api
     , Internal "Changelog" Route.Changelog Changelog
     , Internal "Statistiques" Route.Stats Stats
+    , Internal "Accessibilité\u{00A0}: non conforme" (Route.Editorial "accessibilité") (Editorial "accessibilité")
+    , Internal "Mentions légales" (Route.Editorial "mentions-légales") (Editorial "mentions-légales")
     , External "Code source" "https://github.com/MTES-MCT/wikicarbone/"
     , External "Documentation" "https://fabrique-numerique.gitbook.io/wikicarbone/"
-    , External "FAQ" "https://fabrique-numerique.gitbook.io/wikicarbone/faq"
     , MailTo "Contact" "wikicarbone@beta.gouv.fr"
     ]
 
@@ -244,7 +246,7 @@ pageFooter { currentVersion } =
                     ]
                 , Link.external
                     [ href "https://www.ecologique-solidaire.gouv.fr/"
-                    , class "col text-center bg-white px-3 m-3 link-external-muted"
+                    , class "col text-center bg-white p-3 m-3 link-external-muted"
                     ]
                     [ img
                         [ src "img/logo_mte.svg"
@@ -256,7 +258,7 @@ pageFooter { currentVersion } =
                     ]
                 , Link.external
                     [ href "https://www.cohesion-territoires.gouv.fr/"
-                    , class "col text-center bg-white px-3 m-3 link-external-muted"
+                    , class "col text-center bg-white p-3 m-3 link-external-muted"
                     ]
                     [ img
                         [ src "img/logo_mct.svg"
@@ -268,12 +270,11 @@ pageFooter { currentVersion } =
                     ]
                 , Link.external
                     [ href "https://www.ecologique-solidaire.gouv.fr/fabrique-numerique"
-                    , class "col text-center px-3 py-2 link-external-muted"
+                    , class "col text-center bg-white p-3 m-3 link-external-muted"
                     ]
                     [ img
                         [ src "img/logo-fabriquenumerique.svg"
                         , alt "La Fabrique Numérique"
-                        , attribute "width" "200"
                         , attribute "height" "200"
                         ]
                         []

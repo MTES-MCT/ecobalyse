@@ -66,9 +66,10 @@ app.use(
   }),
 );
 
-app.get("/stats", (_, res) => {
-  res.redirect("/#/stats");
-});
+// Redirections
+app.get("/accessibilite", (_, res) => res.redirect("/#/pages/accessibilité"));
+app.get("/mentions-legales", (_, res) => res.redirect("/#/pages/mentions-légales"));
+app.get("/stats", (_, res) => res.redirect("/#/stats"));
 
 // API
 
