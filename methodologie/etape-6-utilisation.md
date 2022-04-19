@@ -11,7 +11,8 @@ description: >-
 La qualité intrinsèque est définie dans le projet de référentiel PEFCR Apparel & Footwear (v1.2 et 1.3). Elle est traduite à travers un coefficient, compris entre 0.67 et 1.45, qui représente la durabilité du vêtement et s'applique à la durée de vie du vêtement. Pour le calculer un vêtement  doit passer des tests de durabilité physique. Les tests à appliqués sont définis, produit par produit, dans l'annexe V du projet de PEFCR. Les résultats de ces tests donneront un score entre 0.67 et 1.45. Si un vêtement ne passe pas de tests, il a une qualité par défaut de 0.67.
 
 {% hint style="success" %}
-Fairly Made a construit un tableur permettant de calculer les coefficient de qualité intrinsèque et de réparabilité à partir des résultats aux différents tests définis en annexe V  et annexe VI du projet de PEFCR. Il est [accessible ici](https://docs.google.com/spreadsheets/d/15L\_AVG1qcd2iSj4v1O0xd8nPkI83pzEQqXkPorFutjc/edit?usp=sharing)&#x20;
+Fairly Made® propose une retranscription du coefficient de qualité intrinsèque (aussi appelé coefficient de Durabilité) défini dans la méthodologie PEF-CR A\&F v1. 3 sous la forme d’un calculateur simple d’utilisation [accessible ici](https://docs.google.com/spreadsheets/d/15L\_AVG1qcd2iSj4v1O0xd8nPkI83pzEQqXkPorFutjc/edit?usp=sharing)\
+Pour en savoir plus sur le calculateur contactez : [clement.aumand@fairlymade.com](mailto:clement.aumand@fairlymade.com)&#x20;
 {% endhint %}
 
 Ce score est ensuite appliqué en coefficient multiplicateur du nombre de jours d'utilisations.&#x20;
@@ -36,12 +37,9 @@ La méthode de calcul intègre par ailleurs les différents points de fragilité
 
 ![Exemple de calcul du coefficient de réparabilité (pour un T-shirt)](../.gitbook/assets/RéparabilitéT-shirt.PNG)
 
-{% hint style="danger" %}
-La section du projet de PEFCR Apparel & Footwear (v1.3) est en développement et doit faire l'objet de tests pour être précisée.&#x20;
-{% endhint %}
-
 {% hint style="success" %}
-Fairly Made a construit un tableur permettant de calculer les coefficient de qualité intrinsèque et de réparabilité à partir des résultats aux différents tests définis en annexe V  et annexe VI du projet de PEFCR. Il est [accessible ici](https://docs.google.com/spreadsheets/d/15L\_AVG1qcd2iSj4v1O0xd8nPkI83pzEQqXkPorFutjc/edit?usp=sharing)&#x20;
+La section du projet de PEFCR Apparel & Footwear (v1.3) est en développement et doit faire l'objet de tests pour être précisée. Fairly Made® propose une retranscription du coefficient de qualité intrinsèque (aussi appelé coefficient de Durabilité) défini dans la méthodologie PEF-CR A\&F v1. 3 sous la forme d’un calculateur simple d’utilisation [accessible ici](https://docs.google.com/spreadsheets/d/15L\_AVG1qcd2iSj4v1O0xd8nPkI83pzEQqXkPorFutjc/edit?usp=sharing).\
+Pour en savoir plus sur le calculateur contactez : clement.aumand@fairlymade.com &#x20;
 {% endhint %}
 
 ## Impacts pris en compte
