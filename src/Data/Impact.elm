@@ -13,6 +13,7 @@ module Data.Impact exposing
     , filterImpacts
     , getDefinition
     , getImpact
+    , getPefDoughnutData
     , grabImpactFloat
     , impactsFromDefinitons
     , mapImpacts
@@ -271,6 +272,31 @@ updatePefImpact definitions impacts =
     impacts
         |> updateImpact (trg "pef")
             (computePefScore definitions impacts)
+
+
+getPefDoughnutData : List Definition -> Impacts -> ( List String, List Float )
+getPefDoughnutData defs =
+    AnyDict.foldl
+        (\trigram impact ( labels, values ) ->
+            case getDefinition trigram defs of
+                Ok { label, pefData } ->
+                    case pefData of
+                        Just { normalization, weighting } ->
+                            ( label :: labels
+                            , (impact
+                                |> Unit.impactPefScore normalization weighting
+                                |> Unit.impactToFloat
+                              )
+                                :: values
+                            )
+
+                        Nothing ->
+                            ( labels, values )
+
+                Err _ ->
+                    ( labels, values )
+        )
+        ( [], [] )
 
 
 computePefScore : List Definition -> Impacts -> Unit.Impact

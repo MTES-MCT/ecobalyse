@@ -6,6 +6,7 @@ module Views.Dataviz exposing
 import Chart as C
 import Chart.Attributes as CA
 import Data.Db exposing (Db)
+import Data.Impact as Impact
 import Data.Simulator as Simulator exposing (Simulator)
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -31,9 +32,13 @@ view db simulator =
                     []
                 ]
             , div [ class "col-6" ]
-                [ node "wc-doughnut"
-                    [ attribute "caption" "huhuhu" ]
-                    []
+                [ -- node "wc-doughnut"
+                  -- [ attribute "caption" "huhuhu" ]
+                  -- []
+                  simulator.impacts
+                    |> Impact.getPefDoughnutData db.impacts
+                    |> Debug.toString
+                    |> text
                 ]
             ]
         , h2 [ class "h4 text-center pt-5 pb-1" ]
