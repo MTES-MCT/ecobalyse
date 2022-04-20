@@ -20,27 +20,15 @@ view db simulator =
     -- TODO: retrieve funit, impact
     -- TODO: move this view as a page submodule
     div [ class "pt-2" ]
-        [ h2 [ class "h4 text-center pt-5 pb-1" ]
-            [ text "Ventilation d'impacts PEF" ]
-        , div [ class "row" ]
-            [ div [ class "col-6" ]
-                [ node "wc-doughnut"
-                    [ style "width" "300px"
-                    , simulator.inputs.product.name
-                        |> attribute "caption"
-                    ]
-                    []
-                ]
-            , div [ class "col-6" ]
-                [ -- node "wc-doughnut"
-                  -- [ attribute "caption" "huhuhu" ]
-                  -- []
-                  simulator.impacts
-                    |> Impact.getPefDoughnutData db.impacts
-                    |> Debug.toString
-                    |> text
-                ]
+        [ h2 [ class "h4 text-center pt-3 pb-1" ]
+            [ text "Composition du score PEF" ]
+        , node "wc-doughnut"
+            [ attribute "style" "margin: -150px auto;"
+            , simulator.impacts
+                |> Impact.getPefDoughnutData db.impacts
+                |> attribute "data"
             ]
+            []
         , h2 [ class "h4 text-center pt-5 pb-1" ]
             [ text "Poids des étapes pour chaque impact" ]
         , simulator

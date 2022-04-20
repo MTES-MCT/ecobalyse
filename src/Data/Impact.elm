@@ -274,29 +274,47 @@ updatePefImpact definitions impacts =
             (computePefScore definitions impacts)
 
 
-getPefDoughnutData : List Definition -> Impacts -> ( List String, List Float )
+getPefDoughnutData : List Definition -> Impacts -> String
 getPefDoughnutData defs =
+    let
+        encode result =
+            Encode.object
+                [ ( "labels", Encode.list Encode.string result.labels )
+                , ( "values", Encode.list Encode.float result.values )
+                ]
+                |> Encode.encode 0
+    in
     AnyDict.foldl
-        (\trigram impact ( labels, values ) ->
+        (\trigram impact acc ->
             case getDefinition trigram defs of
                 Ok { label, pefData } ->
                     case pefData of
                         Just { normalization, weighting } ->
-                            ( label :: labels
-                            , (impact
-                                |> Unit.impactPefScore normalization weighting
-                                |> Unit.impactToFloat
-                              )
-                                :: values
-                            )
+                            { label = label
+                            , value =
+                                impact
+                                    |> Unit.impactPefScore normalization weighting
+                                    |> Unit.impactToFloat
+                            }
+                                :: acc
 
                         Nothing ->
-                            ( labels, values )
+                            acc
 
                 Err _ ->
-                    ( labels, values )
+                    acc
         )
-        ( [], [] )
+        []
+        >> List.sortBy .value
+        >> List.foldl
+            (\{ label, value } acc ->
+                { acc
+                    | labels = label :: acc.labels
+                    , values = value :: acc.values
+                }
+            )
+            { labels = [], values = [] }
+        >> encode
 
 
 computePefScore : List Definition -> Impacts -> Unit.Impact
