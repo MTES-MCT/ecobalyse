@@ -412,6 +412,13 @@ updateProduct product query =
 
             else
                 query.reparability
+        , makingWaste =
+            -- ensure resetting custom making waste when product is changed
+            if product.id /= query.product then
+                Nothing
+
+            else
+                query.makingWaste
     }
 
 

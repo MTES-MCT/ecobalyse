@@ -10,6 +10,7 @@ module Data.Step exposing
     , getStepGitbookPath
     , initMass
     , labelToString
+    , makingWasteToString
     , qualityToString
     , reparabilityToString
     , updateFromInputs
@@ -47,6 +48,7 @@ type alias Step =
     , airTransportRatio : Unit.Ratio -- FIXME: why not Maybe?
     , quality : Unit.Quality
     , reparability : Unit.Reparability
+    , makingWaste : Maybe Unit.Ratio
     }
 
 
@@ -99,6 +101,7 @@ create { db, label, editable, country } =
     , airTransportRatio = Unit.ratio 0 -- Note: this depends on next step country, so we can't set an accurate default value initially
     , quality = Unit.standardQuality
     , reparability = Unit.standardReparability
+    , makingWaste = Nothing
     }
 
 
@@ -258,7 +261,7 @@ getRoadTransportProcess wellKnown { label } =
 updateFromInputs : Db -> Inputs -> Step -> Step
 updateFromInputs { processes } inputs ({ label, country } as step) =
     let
-        { dyeingWeighting, airTransportRatio, quality, reparability } =
+        { dyeingWeighting, airTransportRatio, quality, reparability, makingWaste } =
             inputs
     in
     -- Note: only WeavingKnitting, Ennoblement, Making and Use steps render detailed processes info.
@@ -288,6 +291,7 @@ updateFromInputs { processes } inputs ({ label, country } as step) =
             { step
                 | airTransportRatio =
                     airTransportRatio |> Maybe.withDefault country.airTransportRatio
+                , makingWaste = makingWaste
                 , processInfo =
                     { defaultProcessInfo
                         | countryElec = Just country.electricityProcess.name
@@ -404,6 +408,16 @@ qualityToString (Unit.Quality float) =
 reparabilityToString : Unit.Reparability -> String
 reparabilityToString (Unit.Reparability float) =
     "Réparabilité\u{00A0}: " ++ String.fromFloat float
+
+
+makingWasteToString : Unit.Ratio -> String
+makingWasteToString (Unit.Ratio makingWaste) =
+    case round (makingWaste * 100) of
+        0 ->
+            "Aucune perte en confection"
+
+        p ->
+            String.fromInt p ++ "% de pertes en confection"
 
 
 encode : Step -> Encode.Value

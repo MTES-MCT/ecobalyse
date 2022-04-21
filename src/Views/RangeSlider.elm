@@ -92,6 +92,8 @@ type alias RatioConfig msg =
     , value : Unit.Ratio
     , toString : Unit.Ratio -> String
     , disabled : Bool
+    , min : Int
+    , max : Int
     }
 
 
@@ -108,8 +110,8 @@ ratio config =
                 , id config.id
                 , onInput (String.toInt >> Maybe.map (\x -> Unit.ratio (toFloat x / 100)) >> config.update)
                 , value (String.fromInt (round (Unit.ratioToFloat config.value * 100)))
-                , Attr.min "0"
-                , Attr.max "100"
+                , Attr.min (String.fromInt config.min)
+                , Attr.max (String.fromInt config.max)
                 , step "1"
                 , Attr.disabled config.disabled
                 ]

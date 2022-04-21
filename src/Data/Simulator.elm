@@ -329,7 +329,9 @@ computeMakingStepWaste ({ inputs } as simulator) =
             inputs.mass
                 |> Formula.makingWaste
                     { processWaste = inputs.product.makingProcess.waste
-                    , pcrWaste = inputs.product.pcrWaste
+                    , pcrWaste =
+                        inputs.makingWaste
+                            |> Maybe.withDefault inputs.product.pcrWaste
                     }
     in
     simulator
