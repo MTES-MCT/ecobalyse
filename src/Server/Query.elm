@@ -57,7 +57,7 @@ parse db =
         |> apply (maybeRatioParser "airTransportRatio")
         |> apply (maybeQuality "quality")
         |> apply (maybeReparability "reparability")
-        |> apply (maybeRatioParser "makingWaste")
+        |> apply (maybeMakingWaste "makingWaste")
 
 
 toErrors : ParseResult a -> Result Errors a
@@ -298,6 +298,25 @@ maybeReparability key =
 
                     else
                         Ok (Just (Unit.reparability float))
+                )
+                >> Maybe.withDefault (Ok Nothing)
+            )
+
+
+maybeMakingWaste : String -> Query.Parser (ParseResult (Maybe Unit.Ratio))
+maybeMakingWaste key =
+    floatParser key
+        |> Query.map
+            (Maybe.map
+                (\float ->
+                    if float < 0 || float > 0.25 then
+                        Err
+                            ( key
+                            , "Le taux de perte en confection soit être compris entre 0 et 0.25."
+                            )
+
+                    else
+                        Ok (Just (Unit.ratio float))
                 )
                 >> Maybe.withDefault (Ok Nothing)
             )
