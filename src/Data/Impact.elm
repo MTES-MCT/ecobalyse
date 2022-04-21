@@ -305,6 +305,7 @@ getPefDoughnutData defs =
         )
         []
         >> List.sortBy .value
+        >> List.reverse
         >> Encode.list encode
         >> Encode.encode 0
 
