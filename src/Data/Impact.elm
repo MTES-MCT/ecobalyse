@@ -13,7 +13,7 @@ module Data.Impact exposing
     , filterImpacts
     , getDefinition
     , getImpact
-    , getPefDoughnutData
+    , getPefPieData
     , grabImpactFloat
     , impactsFromDefinitons
     , mapImpacts
@@ -274,8 +274,8 @@ updatePefImpact definitions impacts =
             (computePefScore definitions impacts)
 
 
-getPefDoughnutData : List Definition -> Impacts -> String
-getPefDoughnutData defs =
+getPefPieData : List Definition -> Impacts -> String
+getPefPieData defs =
     let
         encode entry =
             Encode.object

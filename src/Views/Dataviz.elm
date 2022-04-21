@@ -24,7 +24,7 @@ view db simulator =
             [ text "Composition du score PEF" ]
         , node "chart-pefpie"
             [ simulator.impacts
-                |> Impact.getPefDoughnutData db.impacts
+                |> Impact.getPefPieData db.impacts
                 |> attribute "data"
             ]
             []
