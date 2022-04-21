@@ -13,6 +13,7 @@ module Data.Impact exposing
     , filterImpacts
     , getDefinition
     , getImpact
+    , getPefPieData
     , grabImpactFloat
     , impactsFromDefinitons
     , mapImpacts
@@ -63,7 +64,8 @@ type Quality
 
 
 type alias PefData =
-    { normalization : Unit.Impact
+    { color : String
+    , normalization : Unit.Impact
     , weighting : Unit.Ratio
     }
 
@@ -129,7 +131,8 @@ decodeSource =
 
 decodePefData : Decoder PefData
 decodePefData =
-    Decode.map2 PefData
+    Decode.map3 PefData
+        (Decode.field "color" Decode.string)
         (Decode.field "normalization" Unit.decodeImpact)
         (Decode.field "weighting" (Decode.map getPefWeighting Unit.decodeRatio))
 
@@ -271,6 +274,44 @@ updatePefImpact definitions impacts =
     impacts
         |> updateImpact (trg "pef")
             (computePefScore definitions impacts)
+
+
+getPefPieData : List Definition -> Impacts -> String
+getPefPieData defs =
+    let
+        encode entry =
+            Encode.object
+                [ ( "name", Encode.string entry.name )
+                , ( "y", Encode.float entry.value )
+                , ( "color", Encode.string entry.color )
+                ]
+    in
+    AnyDict.foldl
+        (\trigram impact acc ->
+            case getDefinition trigram defs of
+                Ok { label, pefData } ->
+                    case pefData of
+                        Just { normalization, weighting, color } ->
+                            { name = label
+                            , value =
+                                impact
+                                    |> Unit.impactPefScore normalization weighting
+                                    |> Unit.impactToFloat
+                            , color = color ++ "bb" -- pastelization through slight transparency
+                            }
+                                :: acc
+
+                        Nothing ->
+                            acc
+
+                Err _ ->
+                    acc
+        )
+        []
+        >> List.sortBy .value
+        >> List.reverse
+        >> Encode.list encode
+        >> Encode.encode 0
 
 
 computePefScore : List Definition -> Impacts -> Unit.Impact

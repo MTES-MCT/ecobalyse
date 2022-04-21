@@ -13,6 +13,7 @@
     "description_fr": "Indicateur de l'**acidification potentielle des sols et des eaux** due à la libération de gaz tels que les oxydes d'azote et les oxydes de soufre.\n\nCet indicateur se mesure en mol (quantité de matière) d'équivalent d'ions hydrogène (`H+`).",
     "quality": 2,
     "pef": {
+      "color": "#ff1493",
       "normalization": 5.55695e1,
       "weighting": 0.062
     }
@@ -31,6 +32,7 @@
     "description_fr": "La couche d'ozone est située en haute altitude dans l'atmosphère, elle protège des rayons ultra-violets solaires. Son appauvrissement augmente l'**exposition de l'ensemble des êtres vivants à ces radiations négatives** (cancérigènes en particulier).\n\nCet indicateur se mesure en kg d'équivalent `CFC 11`, le CFC 11 (trichlorofluorométhane) étant l'un des gaz responsable de l'appauvrissement de la couche d'ozone.",
     "quality": 1,
     "pef": {
+      "color": "#800080",
       "normalization": 5.3648e-2,
       "weighting": 0.0631
     }
@@ -49,6 +51,7 @@
     "description_fr": "Indicateur le plus connu, correspond à la **modification du climat**, affectant l'écosystème global.\n\nCet indicateur se mesure en kg équivalent `CO₂`, le principal gaz à effet de serre.",
     "quality": 1,
     "pef": {
+      "color": "#800000",
       "normalization": 8.09553e3,
       "weighting": 0.2106
     }
@@ -112,6 +115,7 @@
     "short_unit": "kgPe",
     "quality": 2,
     "pef": {
+      "color": "#1f7dca",
       "normalization": 1.60685,
       "weighting": 0.028
     }
@@ -130,6 +134,7 @@
     "short_unit": "kgNe",
     "quality": 2,
     "pef": {
+      "color": "#000080",
       "normalization": 1.95e1,
       "weighting": 0.0296
     }
@@ -148,6 +153,7 @@
     "short_unit": "molNe",
     "quality": 2,
     "pef": {
+      "color": "#20b2aa",
       "normalization": 1.76755e2,
       "weighting": 0.0371
     }
@@ -162,10 +168,11 @@
     "unit_fr": "kg éq. COVNM",
     "unit_en": "kg NMVOC eq",
     "description_en": "Indicator of **emissions of gases** that affect the creation of photochemical ozone in the lower atmosphere (smog) catalysed by sunlight.",
-    "description_fr": "Indicateur correspondant à la **dégradation de la qualité de l'air**, principalement via la formation de brouillard de basse altitude nommé *smog*. Il a des conséquences néfastes sur la santé.\n\nCet indicateur se mesure en kg d'équivalent Composés Organiques Volatiles Non Méthaniques (`COVNM`), un ensemble de composés organiques (alcools, arômatiques,...) contribuant à la formation d'ozone photochimique.",
+    "description_fr": "Indicateur correspondant à la **dégradation de la qualité de l'air**, principalement via la formation de brouillard de basse altitude nommé *smog*. Il a des conséquences néfastes sur la santé.\n\nCet indicateur se mesure en kg d'équivalent Composés Organiques Volatiles Non Méthaniques (`COVNM`), un ensemble de composés organiques (alcools, aromatiques,...) contribuant à la formation d'ozone photochimique.",
     "short_unit": "kgNMVOCe",
     "quality": 1,
     "pef": {
+      "color": "#da70d6",
       "normalization": 4.06014e1,
       "weighting": 0.0478
     }
@@ -184,6 +191,7 @@
     "short_unit": "dis.inc.",
     "quality": 2,
     "pef": {
+      "color": "#696969",
       "normalization": 5.95387e-4,
       "weighting": 0.0896
     }
@@ -202,6 +210,7 @@
     "short_unit": "kBqU235e",
     "quality": 2,
     "pef": {
+      "color": "#ffd700",
       "normalization": 4.22016e3,
       "weighting": 0.0501
     }
@@ -220,6 +229,7 @@
     "short_unit": "MJ",
     "quality": 3,
     "pef": {
+      "color": "#000000",
       "normalization": 6.50043e4,
       "weighting": 0.0832
     }
@@ -238,6 +248,7 @@
     "short_unit": "kgSbe",
     "quality": 3,
     "pef": {
+      "color": "#a9a9a9",
       "normalization": 6.36403e-2,
       "weighting": 0.0755
     }
@@ -256,6 +267,7 @@
     "short_unit": "Pt",
     "quality": 3,
     "pef": {
+      "color": "#006400",
       "normalization": 8.19498e5,
       "weighting": 0.0794
     }
@@ -289,6 +301,7 @@
     "short_unit": "m³",
     "quality": 0,
     "pef": {
+      "color": "#00ffff",
       "normalization": 1.14687e4,
       "weighting": 0.0851
     }
