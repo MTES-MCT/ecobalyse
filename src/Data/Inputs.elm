@@ -65,6 +65,7 @@ type alias Inputs =
     , airTransportRatio : Maybe Unit.Ratio
     , quality : Maybe Unit.Quality
     , reparability : Maybe Unit.Reparability
+    , makingWaste : Maybe Unit.Ratio
     }
 
 
@@ -87,6 +88,7 @@ type alias Query =
     , airTransportRatio : Maybe Unit.Ratio
     , quality : Maybe Unit.Quality
     , reparability : Maybe Unit.Reparability
+    , makingWaste : Maybe Unit.Ratio
     }
 
 
@@ -155,6 +157,7 @@ fromQuery db query =
         |> RE.andMap (Ok query.airTransportRatio)
         |> RE.andMap (Ok query.quality)
         |> RE.andMap (Ok query.reparability)
+        |> RE.andMap (Ok query.makingWaste)
 
 
 toQuery : Inputs -> Query
@@ -169,6 +172,7 @@ toQuery inputs =
     , airTransportRatio = inputs.airTransportRatio
     , quality = inputs.quality
     , reparability = inputs.reparability
+    , makingWaste = inputs.makingWaste
     }
 
 
@@ -179,6 +183,8 @@ toString inputs =
     , [ "matière et filature", inputs.countryMaterial.name ]
     , [ "tricotage", inputs.countryFabric.name ]
     , [ "teinture", inputs.countryDyeing.name ++ dyeingWeightingToString inputs.dyeingWeighting ]
+
+    -- TODO: custom waste
     , [ "confection", inputs.countryMaking.name ++ airTransportRatioToString inputs.airTransportRatio ]
     , [ "distribution", inputs.countryDistribution.name ]
     , [ "utilisation", inputs.countryUse.name ++ intrinsicQualityToString inputs.quality inputs.reparability ]
@@ -432,6 +438,7 @@ tShirtCotonFrance =
     , airTransportRatio = Nothing
     , quality = Nothing
     , reparability = Nothing
+    , makingWaste = Nothing
     }
 
 
@@ -483,6 +490,7 @@ jupeCircuitAsie =
     , airTransportRatio = Nothing
     , quality = Nothing
     , reparability = Nothing
+    , makingWaste = Nothing
     }
 
 
@@ -504,6 +512,7 @@ manteauCircuitEurope =
     , airTransportRatio = Nothing
     , quality = Nothing
     , reparability = Nothing
+    , makingWaste = Nothing
     }
 
 
@@ -525,6 +534,7 @@ pantalonCircuitEurope =
     , airTransportRatio = Nothing
     , quality = Nothing
     , reparability = Nothing
+    , makingWaste = Nothing
     }
 
 
@@ -577,6 +587,7 @@ decodeQuery =
         |> Pipe.optional "airTransportRatio" (Decode.maybe Unit.decodeRatio) Nothing
         |> Pipe.optional "quality" (Decode.maybe Unit.decodeQuality) Nothing
         |> Pipe.optional "reparability" (Decode.maybe Unit.decodeReparability) Nothing
+        |> Pipe.optional "makingWaste" (Decode.maybe Unit.decodeRatio) Nothing
 
 
 decodeMaterialQuery : Decoder MaterialQuery

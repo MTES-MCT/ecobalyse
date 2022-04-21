@@ -57,6 +57,7 @@ parse db =
         |> apply (maybeRatioParser "airTransportRatio")
         |> apply (maybeQuality "quality")
         |> apply (maybeReparability "reparability")
+        |> apply (maybeRatioParser "makingWaste")
 
 
 toErrors : ParseResult a -> Result Errors a
