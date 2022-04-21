@@ -20,7 +20,7 @@ view db simulator =
     -- TODO: retrieve funit, impact
     -- TODO: move this view as a page submodule
     div [ class "pt-2" ]
-        [ h2 [ class "h4 text-center pt-3 pb-1" ]
+        [ h2 [ class "h4 text-center pt-3" ]
             [ text "Composition du score PEF" ]
         , node "chart-pefpie"
             [ simulator.impacts
