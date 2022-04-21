@@ -183,9 +183,7 @@ toString inputs =
     , [ "matière et filature", inputs.countryMaterial.name ]
     , [ "tricotage", inputs.countryFabric.name ]
     , [ "teinture", inputs.countryDyeing.name ++ dyeingWeightingToString inputs.dyeingWeighting ]
-
-    -- TODO: custom waste
-    , [ "confection", inputs.countryMaking.name ++ airTransportRatioToString inputs.airTransportRatio ]
+    , [ "confection", inputs.countryMaking.name ++ makingOptionsToString inputs ]
     , [ "distribution", inputs.countryDistribution.name ]
     , [ "utilisation", inputs.countryUse.name ++ intrinsicQualityToString inputs.quality inputs.reparability ]
     , [ "fin de vie", inputs.countryEndOfLife.name ]
@@ -226,22 +224,33 @@ dyeingWeightingToString maybeRatio =
                        )
 
 
-airTransportRatioToString : Maybe Unit.Ratio -> String
-airTransportRatioToString maybeRatio =
-    case maybeRatio of
-        Nothing ->
-            ""
-
+makingOptionsToString : Inputs -> String
+makingOptionsToString { makingWaste, airTransportRatio } =
+    [ makingWaste
+        |> Maybe.map (Format.ratioToPercentString >> (\s -> s ++ " de perte"))
+    , case airTransportRatio of
         Just ratio ->
             if Unit.ratioToFloat ratio == 0 then
-                ""
+                Nothing
 
             else
                 ratio
                     |> Format.ratioToPercentString
-                    |> (\percent ->
-                            " (" ++ percent ++ " de transport aérien)"
-                       )
+                    |> (\percent -> percent ++ " de transport aérien")
+                    |> Just
+
+        Nothing ->
+            Just ""
+    ]
+        |> List.filterMap identity
+        |> String.join ", "
+        |> (\s ->
+                if s /= "" then
+                    " (" ++ s ++ ")"
+
+                else
+                    ""
+           )
 
 
 intrinsicQualityToString : Maybe Unit.Quality -> Maybe Unit.Reparability -> String
