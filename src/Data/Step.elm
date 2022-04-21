@@ -65,6 +65,7 @@ type alias ProcessInfo =
     , passengerCar : Maybe String
     , endOfLife : Maybe String
     , knittingWeaving : Maybe String
+    , making : Maybe String
     , distribution : Maybe String
     , fading : Maybe String
     }
@@ -119,6 +120,7 @@ defaultProcessInfo =
     , passengerCar = Nothing
     , endOfLife = Nothing
     , knittingWeaving = Nothing
+    , making = Nothing
     , distribution = Nothing
     , fading = Nothing
     }
@@ -295,6 +297,7 @@ updateFromInputs { processes } inputs ({ label, country } as step) =
                 , processInfo =
                     { defaultProcessInfo
                         | countryElec = Just country.electricityProcess.name
+                        , making = Just inputs.product.makingProcess.name
                         , fading =
                             if inputs.product.faded then
                                 processes

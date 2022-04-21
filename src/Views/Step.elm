@@ -302,8 +302,7 @@ simpleView ({ funit, inputs, daysOfWear, impact, current } as config) =
 
                     Step.Making ->
                         div [ class "mt-2" ]
-                            [ makingWasteField config
-                            , airTransportRatioField config
+                            [ airTransportRatioField config
                             ]
 
                     Step.Use ->
@@ -417,6 +416,7 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                 , viewProcessInfo current.processInfo.passengerCar
                 , viewProcessInfo current.processInfo.endOfLife
                 , viewProcessInfo current.processInfo.knittingWeaving
+                , viewProcessInfo current.processInfo.making
                 , viewProcessInfo current.processInfo.fading
                 ]
             , case current.label of
