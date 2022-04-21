@@ -17,8 +17,6 @@ import Svg.Attributes as SA
 
 view : Db -> Simulator -> Html msg
 view db simulator =
-    -- TODO: retrieve funit, impact
-    -- TODO: move this view as a page submodule
     div [ class "pt-2" ]
         [ h2 [ class "h4 text-center pt-3" ]
             [ text "Composition du score PEF" ]

@@ -43,6 +43,7 @@ type alias Definition =
     , description : String
     , unit : String
     , quality : Quality
+    , primary : Bool
     , pefData : Maybe PefData
     }
 
@@ -78,6 +79,7 @@ default =
     , description = "Changement climatique"
     , unit = "kgCO₂e"
     , quality = GoodQuality
+    , primary = True
     , pefData = Nothing
     }
 
@@ -98,13 +100,14 @@ decodeList : Decoder (List Definition)
 decodeList =
     let
         decodeDictValue =
-            Decode.map6
-                (\source label description unit quality pefData ->
+            Decode.map7
+                (\source label description unit quality primary pefData ->
                     { source = source
                     , label = label
                     , description = description
                     , unit = unit
                     , quality = quality
+                    , primary = primary
                     , pefData = pefData
                     }
                 )
@@ -113,10 +116,11 @@ decodeList =
                 (Decode.field "description_fr" Decode.string)
                 (Decode.field "short_unit" Decode.string)
                 (Decode.field "quality" decodeQuality)
+                (Decode.field "primary" Decode.bool)
                 (Decode.field "pef" (Decode.maybe decodePefData))
 
-        toImpact ( key, { source, label, description, unit, quality, pefData } ) =
-            Definition (trg key) source label description unit quality pefData
+        toImpact ( key, { source, label, description, unit, quality, primary, pefData } ) =
+            Definition (trg key) source label description unit quality primary pefData
     in
     Decode.dict decodeDictValue
         |> Decode.andThen (Dict.toList >> List.map toImpact >> Decode.succeed)

@@ -427,6 +427,7 @@ lifeCycleImpacts db simulator =
     -- wtu:
     --     ...
     db.impacts
+        |> List.filter .primary
         |> List.map
             (\def ->
                 ( def.label

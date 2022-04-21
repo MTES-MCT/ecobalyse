@@ -11,6 +11,7 @@
     "short_unit": "molH+e",
     "description_en": "Indicator of the **potential acidification of soils and water** due to the release of gases such as nitrogen oxides and sulphur oxides.",
     "description_fr": "Indicateur de l'**acidification potentielle des sols et des eaux** due à la libération de gaz tels que les oxydes d'azote et les oxydes de soufre.\n\nCet indicateur se mesure en mol (quantité de matière) d'équivalent d'ions hydrogène (`H+`).",
+    "primary": true,
     "quality": 2,
     "pef": {
       "color": "#ff1493",
@@ -30,6 +31,7 @@
     "short_unit": "kgCVC11e",
     "description_en": "Indicator of **emissions to air** that cause the **destruction of the stratospheric ozone layer**.",
     "description_fr": "La couche d'ozone est située en haute altitude dans l'atmosphère, elle protège des rayons ultra-violets solaires. Son appauvrissement augmente l'**exposition de l'ensemble des êtres vivants à ces radiations négatives** (cancérigènes en particulier).\n\nCet indicateur se mesure en kg d'équivalent `CFC 11`, le CFC 11 (trichlorofluorométhane) étant l'un des gaz responsable de l'appauvrissement de la couche d'ozone.",
+    "primary": true,
     "quality": 1,
     "pef": {
       "color": "#800080",
@@ -49,6 +51,7 @@
     "short_unit": "kgCO₂e",
     "description_en": "Indicator of **potential global warming** due to **emissions of greenhouse gases to air**. Divided into 3 subcategories based on the emission source: (1) fossil resources, (2) bio-based resources and (3) land use change.",
     "description_fr": "Indicateur le plus connu, correspond à la **modification du climat**, affectant l'écosystème global.\n\nCet indicateur se mesure en kg équivalent `CO₂`, le principal gaz à effet de serre.",
+    "primary": true,
     "quality": 1,
     "pef": {
       "color": "#800000",
@@ -68,6 +71,7 @@
     "unit_fr": "kg éq. CO₂",
     "unit_en": "kg CO₂ eq",
     "short_unit": "kgCO₂e",
+    "primary": false,
     "quality": 1,
     "pef": null
   },
@@ -83,6 +87,7 @@
     "unit_fr": "kg éq. CO₂",
     "unit_en": "kg CO₂ eq",
     "short_unit": "kgCO₂e",
+    "primary": false,
     "quality": 1,
     "pef": null
   },
@@ -98,6 +103,7 @@
     "unit_fr": "kg éq. CO₂",
     "unit_en": "kg CO₂ eq",
     "short_unit": "kgCO₂e",
+    "primary": false,
     "quality": 1,
     "pef": null
   },
@@ -113,6 +119,7 @@
     "description_en": "Indicator of the **enrichment of the fresh water ecosystem** with nutritional elements, due to the emission of nitrogen or phosphor containing compounds.",
     "description_fr": "Indicateur correspondant à un **enrichissement excessif des milieux naturels en nutriments**, ce qui conduit à une prolifération et une asphyxie (zone morte). C'est ce phénomène qui est à l'origine des algues vertes. On peut le retrouver en rivière et en lac également.\n\nCet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étant l'un des éléments responsables de l'eutrophisation des eaux douces.",
     "short_unit": "kgPe",
+    "primary": true,
     "quality": 2,
     "pef": {
       "color": "#1f7dca",
@@ -132,6 +139,7 @@
     "description_en": "Indicator of the **enrichment of the marine ecosystem** with nutritional elements, due to the emission of nitrogen containing compounds.",
     "description_fr": "Indicateur correspondant à un **enrichissement excessif des milieux naturels en nutriments**, ce qui conduit à une prolifération et une asphyxie (zone morte). C'est ce phénomène qui est à l'origine des algues vertes.\n\nCet indicateur se mesure en kg d'équivalent azote (`N`), l'azote étant l'un des éléments responsables de l'eutrophisation des eaux marines.",
     "short_unit": "kgNe",
+    "primary": true,
     "quality": 2,
     "pef": {
       "color": "#000080",
@@ -151,6 +159,7 @@
     "description_en": "Indicator of the **enrichment of the terrestrial ecosystem** with nutritional elements, due to the emission of nitrogen containing compounds.",
     "description_fr": "Comme dans l'eau, l'eutrophisation terrestre correspond à un **enrichissement excessif du milieu**, en azote en particulier, conduisant a un déséquilibre et un appauvrissement de l'écosystème. Ceci concerne principalement les sols agricoles.\n\nCet indicateur se mesure en mol d'équivalent azote (`N`).",
     "short_unit": "molNe",
+    "primary": true,
     "quality": 2,
     "pef": {
       "color": "#20b2aa",
@@ -170,6 +179,7 @@
     "description_en": "Indicator of **emissions of gases** that affect the creation of photochemical ozone in the lower atmosphere (smog) catalysed by sunlight.",
     "description_fr": "Indicateur correspondant à la **dégradation de la qualité de l'air**, principalement via la formation de brouillard de basse altitude nommé *smog*. Il a des conséquences néfastes sur la santé.\n\nCet indicateur se mesure en kg d'équivalent Composés Organiques Volatiles Non Méthaniques (`COVNM`), un ensemble de composés organiques (alcools, aromatiques,...) contribuant à la formation d'ozone photochimique.",
     "short_unit": "kgNMVOCe",
+    "primary": true,
     "quality": 1,
     "pef": {
       "color": "#da70d6",
@@ -189,6 +199,7 @@
     "description_en": "Indicator of the potential **incidence of disease** due to particulate matter emissions.",
     "description_fr": "Indicateur correspondant aux **effets négatifs sur la santé humaine** causés par les émissions de particules (`PM`) et de leurs précurseurs (`NOx`, `SOx`, `NH3`).\n\nCet indicateur se mesure en incidence de maladie supplémentaire due aux particules",
     "short_unit": "dis.inc.",
+    "primary": true,
     "quality": 2,
     "pef": {
       "color": "#696969",
@@ -208,6 +219,7 @@
     "description_en": "Damage to **human health and ecosystems** linked to the emissions of radionuclides.",
     "description_fr": "Indicateur correspondant aux dommages pour la **santé humaine et les écosystèmes** liés aux émissions de radionucléides.\n\nIl se mesure en kilobecquerel d'equivalent `Uranium 235`.",
     "short_unit": "kBqU235e",
+    "primary": true,
     "quality": 2,
     "pef": {
       "color": "#ffd700",
@@ -227,6 +239,7 @@
     "description_en": "Indicator of the **depletion of natural fossil** fuel resources (e.g. natural gas, coal, oil).",
     "description_fr": "Indicateur de l'**épuisement des ressources naturelles en combustibles fossiles** (gaz, charbon, pétrole).\n\nIl se mesure en mégajoules (`MJ`), la quantité d'énergie fossile utilisée.",
     "short_unit": "MJ",
+    "primary": true,
     "quality": 3,
     "pef": {
       "color": "#000000",
@@ -246,6 +259,7 @@
     "description_en": "Indicator of the **depletion of natural non-fossil resources**.",
     "description_fr": "Indicateur de l'**épuisement des ressources naturelles non fossiles**.\n\nIl se mesure en kg d'équivalent d'antimoine (`Sb`) (élément métallique).",
     "short_unit": "kgSbe",
+    "primary": true,
     "quality": 3,
     "pef": {
       "color": "#a9a9a9",
@@ -265,6 +279,7 @@
     "description_en": "Measure of the changes in **soil quality** (Biotic production, Erosion resistance, Mechanical filtration).",
     "description_fr": "Mesure de l'évolution de la **qualité des sols** (production biotique, résistance à l'érosion, filtration mécanique).\n\nCet indicateur n'a pas de dimension, il se mesure en Points (`Pt`).",
     "short_unit": "Pt",
+    "primary": true,
     "quality": 3,
     "pef": {
       "color": "#006400",
@@ -284,6 +299,7 @@
     "description_en": "Aggregated impact : sum of the weighted and normalized impact of all environmental impact categories according to the PEF methodology.",
     "description_fr": "Impact *agrégé* : somme des impacts **normalisés** et **pondérés** de chaque catégorie d'impact selon la méthode *single score* du PEF. 12 impacts différents pris en compte à ce stade. 4 encore à ajouter.\n\nCet indicateur n'a **pas de dimension**, il se mesure en **Points (`Pt`)** ou en **milliPoints (`mPt`)** avec `1 Pt = 1000 mPt`. `1 Pt` correspond à l'impact total d'un européen sur une année.",
     "short_unit": "mPt PEF",
+    "primary": true,
     "quality": null,
     "pef": null
   },
@@ -299,6 +315,7 @@
     "description_en": "Indicator of water consumption contributing to the depletion of available water. The impact is expressed in **cubic meters (`m³`)** of water use",
     "description_fr": "Indicateur de la consommation d'eau et son épuisement dans certaines régions. **À ce stade, elle n'est prise en compte que pour l'étape “Matière & Filature”.**\n\nCet indicateur se mesure en **mètre cube (`m³`)** d'eau consommé.",
     "short_unit": "m³",
+    "primary": true,
     "quality": 0,
     "pef": {
       "color": "#00ffff",
