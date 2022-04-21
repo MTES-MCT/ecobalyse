@@ -22,7 +22,7 @@ view db simulator =
     div [ class "pt-2" ]
         [ h2 [ class "h4 text-center pt-3 pb-1" ]
             [ text "Composition du score PEF" ]
-        , node "highcharts-wc"
+        , node "chart-pefpie"
             [ simulator.impacts
                 |> Impact.getPefDoughnutData db.impacts
                 |> attribute "data"

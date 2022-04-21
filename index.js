@@ -2,7 +2,7 @@ import "rapidoc";
 import { Elm } from "./src/Main.elm";
 import * as Sentry from "@sentry/browser";
 import { BrowserTracing } from "@sentry/tracing";
-import HighchartsWC from "./lib/highcharts";
+import Charts from "./lib/charts";
 
 // Sentry
 if (process.env.SENTRY_DSN) {
@@ -85,5 +85,5 @@ window.addEventListener(
   false,
 );
 
-// Custom elements
-customElements.define("highcharts-wc", HighchartsWC);
+// Register custom chart elements
+Charts.registerElements();
