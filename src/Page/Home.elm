@@ -98,7 +98,10 @@ viewHero session =
                     |> Simulator.compute session.db
                     |> SummaryView.view
                         { session = session
-                        , impact = Impact.default
+                        , impact =
+                            session.db.impacts
+                                |> Impact.getDefinition (Impact.trg "pef")
+                                |> Result.withDefault Impact.default
                         , funit = Unit.PerItem
                         , reusable = False
                         }
