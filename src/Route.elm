@@ -130,7 +130,7 @@ toString route =
                     , Inputs.b64encode query
                     ]
 
-                Simulator (Impact.Trigram "cch") Unit.PerItem _ Nothing ->
+                Simulator (Impact.Trigram "pef") Unit.PerItem _ Nothing ->
                     [ "simulator" ]
 
                 Simulator trigram funit viewMode Nothing ->

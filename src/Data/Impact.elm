@@ -7,7 +7,7 @@ module Data.Impact exposing
     , computePefScore
     , decodeImpacts
     , decodeList
-    , default
+    , invalid
     , defaultTrigram
     , encodeImpacts
     , filterImpacts
@@ -71,22 +71,22 @@ type alias PefData =
     }
 
 
-default : Definition
-default =
+invalid : Definition
+invalid =
     { trigram = defaultTrigram
-    , source = { label = "Base Impacts", url = "https://base-impacts.ademe.fr/" }
-    , label = "Changement climatique"
-    , description = "Changement climatique"
-    , unit = "kgCO₂e"
+    , source = { label = "N/A", url = "https://example.com/" }
+    , label = "Not applicable"
+    , description = "Not applicable"
+    , unit = "N/A"
     , quality = GoodQuality
-    , primary = True
+    , primary = False
     , pefData = Nothing
     }
 
 
 defaultTrigram : Trigram
 defaultTrigram =
-    trg "cch"
+    trg "pef"
 
 
 getDefinition : Trigram -> List Definition -> Result String Definition

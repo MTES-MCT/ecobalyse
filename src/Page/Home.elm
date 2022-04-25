@@ -101,7 +101,7 @@ viewHero session =
                         , impact =
                             session.db.impacts
                                 |> Impact.getDefinition (Impact.trg "pef")
-                                |> Result.withDefault Impact.default
+                                |> Result.withDefault Impact.invalid
                         , funit = Unit.PerItem
                         , reusable = False
                         }

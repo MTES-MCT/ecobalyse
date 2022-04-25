@@ -32,7 +32,7 @@ type Msg
 
 init : Session -> ( Model, Session, Cmd Msg )
 init session =
-    ( { impact = Impact.trg "cch"
+    ( { impact = Impact.defaultTrigram
       , funit = Unit.PerItem
       }
     , session
@@ -58,7 +58,7 @@ viewExample session funit impact query =
             { session = session
             , impact =
                 Impact.getDefinition impact session.db.impacts
-                    |> Result.withDefault Impact.default
+                    |> Result.withDefault Impact.invalid
             , funit = funit
             , reusable = True
             }

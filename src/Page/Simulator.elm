@@ -125,7 +125,7 @@ init trigram funit viewMode maybeUrlQuery ({ db, store } as session) =
       , impact =
             db.impacts
                 |> Impact.getDefinition trigram
-                |> Result.withDefault Impact.default
+                |> Result.withDefault Impact.invalid
       , funit = funit
       , modal = NoModal
       }
