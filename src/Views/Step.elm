@@ -302,7 +302,8 @@ simpleView ({ funit, inputs, daysOfWear, impact, current } as config) =
 
                     Step.Making ->
                         div [ class "mt-2" ]
-                            [ airTransportRatioField config
+                            [ makingWasteField config
+                            , airTransportRatioField config
                             ]
 
                     Step.Use ->
