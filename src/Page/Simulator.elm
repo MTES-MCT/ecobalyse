@@ -80,6 +80,7 @@ type Msg
     | ToggleStepViewMode Int
     | UpdateAirTransportRatio (Maybe Unit.Ratio)
     | UpdateDyeingWeighting (Maybe Unit.Ratio)
+    | UpdateMakingWaste (Maybe Unit.Ratio)
     | UpdateMassInput String
     | UpdateMaterial Int Material.Id
     | UpdateMaterialRecycledRatio Int Unit.Ratio
@@ -272,6 +273,10 @@ update ({ db, query, navKey } as session) msg model =
             ( model, session, Cmd.none )
                 |> updateQuery { query | dyeingWeighting = dyeingWeighting }
 
+        UpdateMakingWaste makingWaste ->
+            ( model, session, Cmd.none )
+                |> updateQuery { query | makingWaste = makingWaste }
+
         UpdateMassInput massInput ->
             case massInput |> String.toFloat |> Maybe.map Mass.kilograms of
                 Just mass ->
@@ -392,6 +397,7 @@ lifeCycleStepsView db { viewMode, funit, impact } simulator =
                     , updateDyeingWeighting = UpdateDyeingWeighting
                     , updateQuality = UpdateQuality
                     , updateReparability = UpdateReparability
+                    , updateMakingWaste = UpdateMakingWaste
                     }
             )
         |> Array.toList

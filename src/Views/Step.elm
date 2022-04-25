@@ -38,6 +38,7 @@ type alias Config msg =
     , updateQuality : Maybe Unit.Quality -> msg
     , updateReparability : Maybe Unit.Reparability -> msg
     , updateAirTransportRatio : Maybe Unit.Ratio -> msg
+    , updateMakingWaste : Maybe Unit.Ratio -> msg
     }
 
 
@@ -138,6 +139,8 @@ airTransportRatioField { current, updateAirTransportRatio } =
             , value = current.airTransportRatio
             , toString = Step.airTransportRatioToString
             , disabled = False
+            , min = 0
+            , max = 100
             }
         ]
 
@@ -157,6 +160,8 @@ dyeingWeightingField { current, updateDyeingWeighting } =
             , value = current.dyeingWeighting
             , toString = Step.dyeingWeightingToString
             , disabled = False
+            , min = 0
+            , max = 100
             }
         ]
 
@@ -199,6 +204,23 @@ reparabilityField { current, updateReparability } =
             , value = current.reparability
             , toString = Step.reparabilityToString
             , disabled = False
+            }
+        ]
+
+
+makingWasteField : Config msg -> Html msg
+makingWasteField { current, inputs, updateMakingWaste } =
+    span
+        [ title "Taux personnalisé de perte en confection."
+        ]
+        [ RangeSlider.ratio
+            { id = "makingWaste"
+            , update = updateMakingWaste
+            , value = Maybe.withDefault inputs.product.pcrWaste current.makingWaste
+            , toString = Step.makingWasteToString
+            , disabled = False
+            , min = 0
+            , max = 25
             }
         ]
 
@@ -279,7 +301,9 @@ simpleView ({ funit, inputs, daysOfWear, impact, current } as config) =
                         div [ class "mt-2" ] [ dyeingWeightingField config ]
 
                     Step.Making ->
-                        div [ class "mt-2" ] [ airTransportRatioField config ]
+                        div [ class "mt-2" ]
+                            [ airTransportRatioField config
+                            ]
 
                     Step.Use ->
                         div [ class "mt-2" ]
@@ -392,6 +416,7 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                 , viewProcessInfo current.processInfo.passengerCar
                 , viewProcessInfo current.processInfo.endOfLife
                 , viewProcessInfo current.processInfo.knittingWeaving
+                , viewProcessInfo current.processInfo.making
                 , viewProcessInfo current.processInfo.fading
                 ]
             , case current.label of
@@ -401,7 +426,8 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
 
                 Step.Making ->
                     div [ class "card-body py-2 text-muted" ]
-                        [ airTransportRatioField config
+                        [ makingWasteField config
+                        , airTransportRatioField config
                         ]
 
                 Step.Use ->

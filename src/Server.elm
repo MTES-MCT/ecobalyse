@@ -78,6 +78,7 @@ toAllImpactsSimple : Simulator -> Encode.Value
 toAllImpactsSimple { inputs, impacts } =
     Encode.object
         [ ( "impacts", Impact.encodeImpacts impacts )
+        , ( "description", inputs |> Inputs.toString |> Encode.string )
         , ( "query", inputs |> Inputs.toQuery |> Inputs.encodeQuery )
         ]
 
@@ -90,6 +91,7 @@ toSingleImpactSimple trigram { inputs, impacts } =
                 |> Impact.filterImpacts (\trg _ -> trigram == trg)
                 |> Impact.encodeImpacts
           )
+        , ( "description", inputs |> Inputs.toString |> Encode.string )
         , ( "query", inputs |> Inputs.toQuery |> Inputs.encodeQuery )
         ]
 

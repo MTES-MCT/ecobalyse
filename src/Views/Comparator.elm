@@ -95,6 +95,7 @@ fromUserQuery query =
         , airTransportRatio = Nothing
         , quality = Just Unit.standardQuality
         , reparability = Just Unit.standardReparability
+        , makingWaste = Nothing
     }
 
 

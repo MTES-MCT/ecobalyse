@@ -65,6 +65,7 @@ type alias Inputs =
     , airTransportRatio : Maybe Unit.Ratio
     , quality : Maybe Unit.Quality
     , reparability : Maybe Unit.Reparability
+    , makingWaste : Maybe Unit.Ratio
     }
 
 
@@ -87,6 +88,7 @@ type alias Query =
     , airTransportRatio : Maybe Unit.Ratio
     , quality : Maybe Unit.Quality
     , reparability : Maybe Unit.Reparability
+    , makingWaste : Maybe Unit.Ratio
     }
 
 
@@ -155,6 +157,7 @@ fromQuery db query =
         |> RE.andMap (Ok query.airTransportRatio)
         |> RE.andMap (Ok query.quality)
         |> RE.andMap (Ok query.reparability)
+        |> RE.andMap (Ok query.makingWaste)
 
 
 toQuery : Inputs -> Query
@@ -169,6 +172,7 @@ toQuery inputs =
     , airTransportRatio = inputs.airTransportRatio
     , quality = inputs.quality
     , reparability = inputs.reparability
+    , makingWaste = inputs.makingWaste
     }
 
 
@@ -178,10 +182,10 @@ toString inputs =
     , [ materialsToString inputs.materials ++ "de " ++ Format.kgToString inputs.mass ]
     , [ "matière et filature", inputs.countryMaterial.name ]
     , [ "tricotage", inputs.countryFabric.name ]
-    , [ "teinture", inputs.countryDyeing.name ++ dyeingWeightingToString inputs.dyeingWeighting ]
-    , [ "confection", inputs.countryMaking.name ++ airTransportRatioToString inputs.airTransportRatio ]
+    , [ "teinture", inputs.countryDyeing.name ++ dyeingOptionsToString inputs.dyeingWeighting ]
+    , [ "confection", inputs.countryMaking.name ++ makingOptionsToString inputs ]
     , [ "distribution", inputs.countryDistribution.name ]
-    , [ "utilisation", inputs.countryUse.name ++ intrinsicQualityToString inputs.quality inputs.reparability ]
+    , [ "utilisation", inputs.countryUse.name ++ useOptionsToString inputs.quality inputs.reparability ]
     , [ "fin de vie", inputs.countryEndOfLife.name ]
     ]
         |> List.map (String.join "\u{00A0}: ")
@@ -202,8 +206,8 @@ materialsToString materials =
         |> List.foldr (++) ""
 
 
-dyeingWeightingToString : Maybe Unit.Ratio -> String
-dyeingWeightingToString maybeRatio =
+dyeingOptionsToString : Maybe Unit.Ratio -> String
+dyeingOptionsToString maybeRatio =
     case maybeRatio of
         Nothing ->
             " (procédé représentatif)"
@@ -215,31 +219,36 @@ dyeingWeightingToString maybeRatio =
             else
                 ratio
                     |> Format.ratioToPercentString
-                    |> (\percent ->
-                            " (procédé " ++ percent ++ " majorant)"
-                       )
+                    |> (\percent -> " (procédé " ++ percent ++ " majorant)")
 
 
-airTransportRatioToString : Maybe Unit.Ratio -> String
-airTransportRatioToString maybeRatio =
-    case maybeRatio of
-        Nothing ->
-            ""
+makingOptionsToString : Inputs -> String
+makingOptionsToString { makingWaste, airTransportRatio } =
+    [ makingWaste
+        |> Maybe.map (Format.ratioToPercentString >> (\s -> s ++ " de perte"))
+    , airTransportRatio
+        |> Maybe.andThen
+            (\ratio ->
+                if Unit.ratioToFloat ratio == 0 then
+                    Nothing
 
-        Just ratio ->
-            if Unit.ratioToFloat ratio == 0 then
-                ""
+                else
+                    Just (Format.ratioToPercentString ratio ++ " de transport aérien")
+            )
+    ]
+        |> List.filterMap identity
+        |> String.join ", "
+        |> (\s ->
+                if s /= "" then
+                    " (" ++ s ++ ")"
 
-            else
-                ratio
-                    |> Format.ratioToPercentString
-                    |> (\percent ->
-                            " (" ++ percent ++ " de transport aérien)"
-                       )
+                else
+                    ""
+           )
 
 
-intrinsicQualityToString : Maybe Unit.Quality -> Maybe Unit.Reparability -> String
-intrinsicQualityToString maybeQuality maybeReparability =
+useOptionsToString : Maybe Unit.Quality -> Maybe Unit.Reparability -> String
+useOptionsToString maybeQuality maybeReparability =
     let
         ( quality, reparability ) =
             ( maybeQuality
@@ -406,6 +415,13 @@ updateProduct product query =
 
             else
                 query.reparability
+        , makingWaste =
+            -- ensure resetting custom making waste when product is changed
+            if product.id /= query.product then
+                Nothing
+
+            else
+                query.makingWaste
     }
 
 
@@ -432,6 +448,7 @@ tShirtCotonFrance =
     , airTransportRatio = Nothing
     , quality = Nothing
     , reparability = Nothing
+    , makingWaste = Nothing
     }
 
 
@@ -483,6 +500,7 @@ jupeCircuitAsie =
     , airTransportRatio = Nothing
     , quality = Nothing
     , reparability = Nothing
+    , makingWaste = Nothing
     }
 
 
@@ -504,6 +522,7 @@ manteauCircuitEurope =
     , airTransportRatio = Nothing
     , quality = Nothing
     , reparability = Nothing
+    , makingWaste = Nothing
     }
 
 
@@ -525,6 +544,7 @@ pantalonCircuitEurope =
     , airTransportRatio = Nothing
     , quality = Nothing
     , reparability = Nothing
+    , makingWaste = Nothing
     }
 
 
@@ -552,6 +572,7 @@ encode inputs =
         , ( "airTransportRatio", inputs.airTransportRatio |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
         , ( "quality", inputs.quality |> Maybe.map Unit.encodeQuality |> Maybe.withDefault Encode.null )
         , ( "reparability", inputs.reparability |> Maybe.map Unit.encodeReparability |> Maybe.withDefault Encode.null )
+        , ( "makingWaste", inputs.makingWaste |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
         ]
 
 
@@ -577,6 +598,7 @@ decodeQuery =
         |> Pipe.optional "airTransportRatio" (Decode.maybe Unit.decodeRatio) Nothing
         |> Pipe.optional "quality" (Decode.maybe Unit.decodeQuality) Nothing
         |> Pipe.optional "reparability" (Decode.maybe Unit.decodeReparability) Nothing
+        |> Pipe.optional "makingWaste" (Decode.maybe Unit.decodeRatio) Nothing
 
 
 decodeMaterialQuery : Decoder MaterialQuery
@@ -600,6 +622,7 @@ encodeQuery query =
         , ( "airTransportRatio", query.airTransportRatio |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
         , ( "quality", query.quality |> Maybe.map Unit.encodeQuality |> Maybe.withDefault Encode.null )
         , ( "reparability", query.reparability |> Maybe.map Unit.encodeReparability |> Maybe.withDefault Encode.null )
+        , ( "makingWaste", query.makingWaste |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
         ]
 
 
