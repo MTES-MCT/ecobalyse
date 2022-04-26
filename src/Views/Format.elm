@@ -142,7 +142,7 @@ surfaceDensity =
 
 picking : Unit.PickPerMeter -> Html msg
 picking =
-    Unit.pickPerMeterToFloat >> formatRichFloat 0 "picks/m"
+    Unit.pickPerMeterToFloat >> formatRichFloat 0 "duites/m"
 
 
 ratioToPercentString : Unit.Ratio -> String

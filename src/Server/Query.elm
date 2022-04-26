@@ -342,7 +342,7 @@ maybePicking key =
                                 ++ String.fromInt (Unit.pickPerMeterToInt Unit.minPickPerMeter)
                                 ++ " et "
                                 ++ String.fromInt (Unit.pickPerMeterToInt Unit.maxPickPerMeter)
-                                ++ " picks/m."
+                                ++ " duites/m."
                             )
 
                     else

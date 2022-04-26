@@ -189,7 +189,11 @@ toString inputs =
     [ [ inputs.product.name ]
     , [ materialsToString inputs.materials ++ "de " ++ Format.kgToString inputs.mass ]
     , [ "matière et filature", inputs.countryMaterial.name ]
-    , [ "tricotage", inputs.countryFabric.name ]
+    , if inputs.product.knitted then
+        [ "tricotage", inputs.countryFabric.name ]
+
+      else
+        [ "tissage", inputs.countryFabric.name ++ weavingOptionsToString inputs.picking inputs.surfaceDensity ]
     , [ "teinture", inputs.countryDyeing.name ++ dyeingOptionsToString inputs.dyeingWeighting ]
     , [ "confection", inputs.countryMaking.name ++ makingOptionsToString inputs ]
     , [ "distribution", inputs.countryDistribution.name ]
@@ -212,6 +216,12 @@ materialsToString materials =
                     ++ ", "
             )
         |> List.foldr (++) ""
+
+
+weavingOptionsToString : Maybe Unit.PickPerMeter -> Maybe Unit.SurfaceDensity -> String
+weavingOptionsToString _ _ =
+    -- FIXME: migrate Step.*ToString fns to avoid circular import so we can reuse them here?
+    ""
 
 
 dyeingOptionsToString : Maybe Unit.Ratio -> String
@@ -603,6 +613,8 @@ encode inputs =
         , ( "quality", inputs.quality |> Maybe.map Unit.encodeQuality |> Maybe.withDefault Encode.null )
         , ( "reparability", inputs.reparability |> Maybe.map Unit.encodeReparability |> Maybe.withDefault Encode.null )
         , ( "makingWaste", inputs.makingWaste |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
+        , ( "picking", inputs.picking |> Maybe.map Unit.encodePickPerMeter |> Maybe.withDefault Encode.null )
+        , ( "surfaceDensity", inputs.surfaceDensity |> Maybe.map Unit.encodeSurfaceDensity |> Maybe.withDefault Encode.null )
         ]
 
 

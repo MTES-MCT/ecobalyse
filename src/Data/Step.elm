@@ -11,8 +11,10 @@ module Data.Step exposing
     , initMass
     , labelToString
     , makingWasteToString
+    , pickingToString
     , qualityToString
     , reparabilityToString
+    , surfaceDensityToString
     , updateFromInputs
     , updateWaste
     )
@@ -49,6 +51,8 @@ type alias Step =
     , quality : Unit.Quality
     , reparability : Unit.Reparability
     , makingWaste : Maybe Unit.Ratio
+    , picking : Maybe Unit.PickPerMeter
+    , surfaceDensity : Maybe Unit.SurfaceDensity
     }
 
 
@@ -103,6 +107,8 @@ create { db, label, editable, country } =
     , quality = Unit.standardQuality
     , reparability = Unit.standardReparability
     , makingWaste = Nothing
+    , picking = Nothing
+    , surfaceDensity = Nothing
     }
 
 
@@ -263,14 +269,16 @@ getRoadTransportProcess wellKnown { label } =
 updateFromInputs : Db -> Inputs -> Step -> Step
 updateFromInputs { processes } inputs ({ label, country } as step) =
     let
-        { dyeingWeighting, airTransportRatio, quality, reparability, makingWaste } =
+        { dyeingWeighting, airTransportRatio, quality, reparability, makingWaste, picking, surfaceDensity } =
             inputs
     in
     -- Note: only WeavingKnitting, Ennoblement, Making and Use steps render detailed processes info.
     case label of
         WeavingKnitting ->
             { step
-                | processInfo =
+                | picking = picking
+                , surfaceDensity = surfaceDensity
+                , processInfo =
                     { defaultProcessInfo
                         | countryElec = Just country.electricityProcess.name
                         , knittingWeaving = Just inputs.product.fabricProcess.name
@@ -411,6 +419,16 @@ qualityToString (Unit.Quality float) =
 reparabilityToString : Unit.Reparability -> String
 reparabilityToString (Unit.Reparability float) =
     "Réparabilité\u{00A0}: " ++ String.fromFloat float
+
+
+pickingToString : Unit.PickPerMeter -> String
+pickingToString (Unit.PickPerMeter int) =
+    "Duitage\u{00A0}: " ++ String.fromInt int ++ "\u{202F}duites/m"
+
+
+surfaceDensityToString : Unit.SurfaceDensity -> String
+surfaceDensityToString (Unit.SurfaceDensity int) =
+    "Grammage\u{00A0}: " ++ String.fromInt int ++ "\u{202F}gr/m²"
 
 
 makingWasteToString : Unit.Ratio -> String

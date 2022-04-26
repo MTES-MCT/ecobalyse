@@ -85,11 +85,13 @@ type Msg
     | UpdateMaterial Int Material.Id
     | UpdateMaterialRecycledRatio Int Unit.Ratio
     | UpdateMaterialShare Int Unit.Ratio
+    | UpdatePicking (Maybe Unit.PickPerMeter)
     | UpdateProduct Product.Id
     | UpdateQuality (Maybe Unit.Quality)
     | UpdateReparability (Maybe Unit.Reparability)
     | UpdateSimulationName String
     | UpdateStepCountry Int Country.Code
+    | UpdateSurfaceDensity (Maybe Unit.SurfaceDensity)
 
 
 init :
@@ -303,6 +305,10 @@ update ({ db, query, navKey } as session) msg model =
             ( model, session, Cmd.none )
                 |> updateQuery (Inputs.updateMaterialShare index share query)
 
+        UpdatePicking picking ->
+            ( model, session, Cmd.none )
+                |> updateQuery { query | picking = picking }
+
         UpdateProduct productId ->
             case Product.findById productId db.products of
                 Ok product ->
@@ -326,6 +332,10 @@ update ({ db, query, navKey } as session) msg model =
         UpdateStepCountry index code ->
             ( model, session, Cmd.none )
                 |> updateQuery (Inputs.updateStepCountry index code query)
+
+        UpdateSurfaceDensity surfaceDensity ->
+            ( model, session, Cmd.none )
+                |> updateQuery { query | surfaceDensity = surfaceDensity }
 
 
 massField : String -> Html Msg
@@ -398,6 +408,8 @@ lifeCycleStepsView db { viewMode, funit, impact } simulator =
                     , updateQuality = UpdateQuality
                     , updateReparability = UpdateReparability
                     , updateMakingWaste = UpdateMakingWaste
+                    , updatePicking = UpdatePicking
+                    , updateSurfaceDensity = UpdateSurfaceDensity
                     }
             )
         |> Array.toList

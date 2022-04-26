@@ -39,6 +39,8 @@ type alias Config msg =
     , updateReparability : Maybe Unit.Reparability -> msg
     , updateAirTransportRatio : Maybe Unit.Ratio -> msg
     , updateMakingWaste : Maybe Unit.Ratio -> msg
+    , updateSurfaceDensity : Maybe Unit.SurfaceDensity -> msg
+    , updatePicking : Maybe Unit.PickPerMeter -> msg
     }
 
 
@@ -225,6 +227,42 @@ makingWasteField { current, inputs, updateMakingWaste } =
         ]
 
 
+pickingField : Config msg -> Html msg
+pickingField { current, inputs, updatePicking } =
+    span
+        [ [ "FIXME: Picking description"
+          ]
+            |> String.join " "
+            |> title
+        ]
+        [ RangeSlider.picking
+            { id = "picking"
+            , update = updatePicking
+            , value = Maybe.withDefault inputs.product.picking current.picking
+            , toString = Step.pickingToString
+            , disabled = False
+            }
+        ]
+
+
+surfaceDensityField : Config msg -> Html msg
+surfaceDensityField { current, inputs, updateSurfaceDensity } =
+    span
+        [ [ "FIXME: Surface Density description"
+          ]
+            |> String.join " "
+            |> title
+        ]
+        [ RangeSlider.surfaceDensity
+            { id = "surface-density"
+            , update = updateSurfaceDensity
+            , value = Maybe.withDefault inputs.product.surfaceDensity current.surfaceDensity
+            , toString = Step.surfaceDensityToString
+            , disabled = False
+            }
+        ]
+
+
 inlineDocumentationLink : Config msg -> Gitbook.Path -> Html msg
 inlineDocumentationLink _ path =
     Button.smallPillLink
@@ -297,8 +335,19 @@ simpleView ({ funit, inputs, daysOfWear, impact, current } as config) =
             [ div [ class "col-sm-6 col-lg-7" ]
                 [ countryField config
                 , case current.label of
+                    Step.WeavingKnitting ->
+                        if not inputs.product.knitted then
+                            div [ class "mt-2 fs-7 text-muted" ]
+                                [ pickingField config
+                                , surfaceDensityField config
+                                ]
+
+                        else
+                            text ""
+
                     Step.Ennoblement ->
-                        div [ class "mt-2" ] [ dyeingWeightingField config ]
+                        div [ class "mt-2" ]
+                            [ dyeingWeightingField config ]
 
                     Step.Making ->
                         div [ class "mt-2" ]
@@ -421,6 +470,16 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                 , viewProcessInfo current.processInfo.fading
                 ]
             , case current.label of
+                Step.WeavingKnitting ->
+                    if not inputs.product.knitted then
+                        div [ class "card-body py-2 text-muted" ]
+                            [ pickingField config
+                            , surfaceDensityField config
+                            ]
+
+                    else
+                        text ""
+
                 Step.Ennoblement ->
                     div [ class "card-body py-2 text-muted" ]
                         [ dyeingWeightingField config ]
