@@ -430,6 +430,20 @@ updateProduct product query =
 
             else
                 query.makingWaste
+        , picking =
+            -- ensure resetting custom picking when product is changed
+            if product.id /= query.product then
+                Nothing
+
+            else
+                query.picking
+        , surfaceDensity =
+            -- ensure resetting custom surface density when product is changed
+            if product.id /= query.product then
+                Nothing
+
+            else
+                query.surfaceDensity
     }
 
 

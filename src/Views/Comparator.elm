@@ -96,6 +96,8 @@ fromUserQuery query =
         , quality = Just Unit.standardQuality
         , reparability = Just Unit.standardReparability
         , makingWaste = Nothing
+        , picking = Nothing
+        , surfaceDensity = Nothing
     }
 
 
