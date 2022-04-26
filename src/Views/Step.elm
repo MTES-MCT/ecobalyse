@@ -230,7 +230,10 @@ makingWasteField { current, inputs, updateMakingWaste } =
 pickingField : Config msg -> Html msg
 pickingField { current, inputs, updatePicking } =
     span
-        [ [ "FIXME: Picking description"
+        [ [ "Le duitage correspond au nombre de fils de trame (aussi appelés duites) par centimètre"
+          , "pour un tissu. Ce paramètre est pris en compte car il est connecté avec la consommation"
+          , "électrique du métier à tisser. À masse surfacique égale, plus le duitage est important,"
+          , "plus la consommation d'électricité est élevée."
           ]
             |> String.join " "
             |> title
@@ -248,7 +251,7 @@ pickingField { current, inputs, updatePicking } =
 surfaceDensityField : Config msg -> Html msg
 surfaceDensityField { current, inputs, updateSurfaceDensity } =
     span
-        [ [ "FIXME: Surface Density description"
+        [ [ "Le grammage de l'étoffe, exprimé en gr/m², représente sa masse surfacique."
           ]
             |> String.join " "
             |> title

@@ -79,6 +79,8 @@ paths:
       - $ref: '#/components/parameters/qualityParam'
       - $ref: '#/components/parameters/reparabilityParam'
       - $ref: '#/components/parameters/makingWasteParam'
+      - $ref: '#/components/parameters/pickingParam'
+      - $ref: '#/components/parameters/surfaceDensityParam'
       responses:
         200:
           description: Opération réussie
@@ -136,6 +138,8 @@ paths:
       - $ref: '#/components/parameters/qualityParam'
       - $ref: '#/components/parameters/reparabilityParam'
       - $ref: '#/components/parameters/makingWasteParam'
+      - $ref: '#/components/parameters/pickingParam'
+      - $ref: '#/components/parameters/surfaceDensityParam'
       responses:
         200:
           description: successful operation
@@ -167,6 +171,8 @@ paths:
       - $ref: '#/components/parameters/qualityParam'
       - $ref: '#/components/parameters/reparabilityParam'
       - $ref: '#/components/parameters/makingWasteParam'
+      - $ref: '#/components/parameters/pickingParam'
+      - $ref: '#/components/parameters/surfaceDensityParam'
       responses:
         200:
           description: Opération réussie
@@ -321,6 +327,26 @@ components:
         type: number
         minimum: 0
         maximum: 0.25
+    pickingParam:
+      name: picking
+      in: query
+      description: "Le duitage correspond au nombre de fils de trame (aussi appelés duites) par centimètre pour un tissu. Ce paramètre est pris en compte car il est connecté avec la consommation électrique du métier à tisser. À masse surfacique égale, plus le duitage est important, plus la consommation d'électricité est élevée."
+      required: false
+      style: form
+      schema:
+        type: number
+        minimum: 800
+        maximum: 9000
+    surfaceDensityParam:
+      name: surfaceDensity
+      in: query
+      description: "Le grammage de l'étoffe, exprimé en gr/m², représente sa masse surfacique."
+      required: false
+      style: form
+      schema:
+        type: number
+        minimum: 30
+        maximum: 500
   schemas:
     InvalidParametersError:
       type: object
