@@ -135,8 +135,8 @@ suite =
                                             , ( Impact.trg "fwe", Unit.impact 0.5 )
                                             ]
                                 }
-                            , ppm = 400
-                            , grammage = 500
+                            , picking = Unit.pickPerMeter 400
+                            , surfaceDensity = Unit.surfaceDensity 500
                             }
              in
              [ res.impacts

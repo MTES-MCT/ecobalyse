@@ -60,7 +60,7 @@ table db { detailed } =
                         text "N/A"
 
                       else
-                        text <| Format.formatInt "picks/m" product.ppm
+                        Format.picking product.picking
                     ]
       }
     , { label = "Grammage"
@@ -71,7 +71,7 @@ table db { detailed } =
                         text "N/A"
 
                       else
-                        text <| Format.formatInt "gr/m²" product.grammage
+                        Format.surfaceDensity product.surfaceDensity
                     ]
       }
     , { label = "Procédé"

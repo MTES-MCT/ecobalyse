@@ -2,17 +2,23 @@ module Data.Unit exposing
     ( Functional(..)
     , Impact
     , ImpactUnit(..)
+    , PickPerMeter(..)
     , Quality(..)
     , Ratio(..)
     , Reparability(..)
+    , SurfaceDensity(..)
     , decodeImpact
+    , decodePickPerMeter
     , decodeQuality
     , decodeRatio
     , decodeReparability
+    , decodeSurfaceDensity
     , encodeImpact
+    , encodePickPerMeter
     , encodeQuality
     , encodeRatio
     , encodeReparability
+    , encodeSurfaceDensity
     , forKWh
     , forKg
     , forKgAndDistance
@@ -23,11 +29,17 @@ module Data.Unit exposing
     , impactPefScore
     , impactToFloat
     , inFunctionalUnit
+    , maxPickPerMeter
     , maxQuality
     , maxReparability
+    , maxSurfaceDensity
+    , minPickPerMeter
     , minQuality
     , minReparability
+    , minSurfaceDensity
     , parseFunctional
+    , pickPerMeter
+    , pickPerMeterToFloat
     , quality
     , qualityToFloat
     , ratio
@@ -39,6 +51,8 @@ module Data.Unit exposing
     , reparabilityToFloat
     , standardQuality
     , standardReparability
+    , surfaceDensity
+    , surfaceDensityToFloat
     )
 
 import Duration exposing (Duration)
@@ -204,6 +218,82 @@ decodeReparability =
 encodeReparability : Reparability -> Encode.Value
 encodeReparability (Reparability float) =
     Encode.float float
+
+
+
+-- Picking
+
+
+type PickPerMeter
+    = PickPerMeter Int
+
+
+minPickPerMeter : PickPerMeter
+minPickPerMeter =
+    PickPerMeter 1000
+
+
+maxPickPerMeter : PickPerMeter
+maxPickPerMeter =
+    PickPerMeter 5000
+
+
+pickPerMeter : Int -> PickPerMeter
+pickPerMeter =
+    PickPerMeter
+
+
+pickPerMeterToFloat : PickPerMeter -> Float
+pickPerMeterToFloat (PickPerMeter int) =
+    toFloat int
+
+
+decodePickPerMeter : Decoder PickPerMeter
+decodePickPerMeter =
+    Decode.map pickPerMeter Decode.int
+
+
+encodePickPerMeter : PickPerMeter -> Encode.Value
+encodePickPerMeter (PickPerMeter int) =
+    Encode.int int
+
+
+
+-- SurfaceDensity
+
+
+type SurfaceDensity
+    = SurfaceDensity Int
+
+
+minSurfaceDensity : SurfaceDensity
+minSurfaceDensity =
+    SurfaceDensity 1000
+
+
+maxSurfaceDensity : SurfaceDensity
+maxSurfaceDensity =
+    SurfaceDensity 5000
+
+
+surfaceDensity : Int -> SurfaceDensity
+surfaceDensity =
+    SurfaceDensity
+
+
+surfaceDensityToFloat : SurfaceDensity -> Float
+surfaceDensityToFloat (SurfaceDensity int) =
+    toFloat int
+
+
+decodeSurfaceDensity : Decoder SurfaceDensity
+decodeSurfaceDensity =
+    Decode.map surfaceDensity Decode.int
+
+
+encodeSurfaceDensity : SurfaceDensity -> Encode.Value
+encodeSurfaceDensity (SurfaceDensity int) =
+    Encode.int int
 
 
 

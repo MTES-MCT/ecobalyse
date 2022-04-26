@@ -66,6 +66,9 @@ type alias Inputs =
     , quality : Maybe Unit.Quality
     , reparability : Maybe Unit.Reparability
     , makingWaste : Maybe Unit.Ratio
+
+    -- , picking : Maybe Unit.PickPerMeter
+    -- , surfaceDensity : Maybe Unit.SurfaceDensity
     }
 
 

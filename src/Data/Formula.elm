@@ -298,15 +298,21 @@ weavingImpacts :
     ->
         { elecPppm : Float
         , countryElecProcess : Process
-        , ppm : Int
-        , grammage : Int
+        , picking : Unit.PickPerMeter
+        , surfaceDensity : Unit.SurfaceDensity
         }
     -> Mass
     -> { kwh : Energy, impacts : Impacts }
-weavingImpacts impacts { elecPppm, countryElecProcess, ppm, grammage } baseMass =
+
+
+
+--FIXME: rename elecPppm to pickingElec
+
+
+weavingImpacts impacts { elecPppm, countryElecProcess, picking, surfaceDensity } baseMass =
     let
         electricityKWh =
-            (Mass.inKilograms baseMass * 1000 * toFloat ppm / toFloat grammage)
+            (Mass.inKilograms baseMass * 1000 * Unit.pickPerMeterToFloat picking / Unit.surfaceDensityToFloat surfaceDensity)
                 * elecPppm
                 |> Energy.kilowattHours
     in
