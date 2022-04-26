@@ -25,8 +25,8 @@ type alias Product =
     , name : String
     , mass : Mass
     , pcrWaste : Unit.Ratio -- PCR product waste ratio
-    , picking : Unit.PickPerMeter -- pick per meter
-    , surfaceDensity : Unit.SurfaceDensity -- Grammage: grammes per kg
+    , picking : Unit.PickPerMeter -- Duitage: pick/m (picks per meter)
+    , surfaceDensity : Unit.SurfaceDensity -- Grammage: gr/m² par kg de produit
     , knitted : Bool -- True: Tricotage (Knitting); False: Tissage (Weaving)
     , faded : Bool -- Should this product be faded?
     , fabricProcess : Process -- Procédé de Tissage/Tricotage

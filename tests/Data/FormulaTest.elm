@@ -126,7 +126,7 @@ suite =
                     kg 1
                         |> Formula.weavingImpacts
                             defaultImpacts
-                            { elecPppm = 0.01
+                            { pickingElec = 0.01
                             , countryElecProcess =
                                 { noOpProcess
                                     | impacts =

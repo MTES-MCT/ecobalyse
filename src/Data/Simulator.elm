@@ -312,10 +312,14 @@ computeWeavingKnittingImpacts ({ inputs } as simulator) =
                         else
                             step.outputMass
                                 |> Formula.weavingImpacts step.impacts
-                                    { elecPppm = inputs.product.fabricProcess.elec_pppm
+                                    { pickingElec = inputs.product.fabricProcess.elec_pppm
                                     , countryElecProcess = country.electricityProcess
-                                    , surfaceDensity = inputs.product.surfaceDensity
-                                    , picking = inputs.product.picking
+                                    , surfaceDensity =
+                                        inputs.surfaceDensity
+                                            |> Maybe.withDefault inputs.product.surfaceDensity
+                                    , picking =
+                                        inputs.picking
+                                            |> Maybe.withDefault inputs.product.picking
                                     }
                 in
                 { step | impacts = impacts, kwh = kwh }

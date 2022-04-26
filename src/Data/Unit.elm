@@ -232,12 +232,12 @@ type PickPerMeter
 
 minPickPerMeter : PickPerMeter
 minPickPerMeter =
-    PickPerMeter 1000
+    PickPerMeter 800
 
 
 maxPickPerMeter : PickPerMeter
 maxPickPerMeter =
-    PickPerMeter 5000
+    PickPerMeter 9000
 
 
 pickPerMeter : Int -> PickPerMeter
@@ -275,12 +275,12 @@ type SurfaceDensity
 
 minSurfaceDensity : SurfaceDensity
 minSurfaceDensity =
-    SurfaceDensity 1000
+    SurfaceDensity 30
 
 
 maxSurfaceDensity : SurfaceDensity
 maxSurfaceDensity =
-    SurfaceDensity 5000
+    SurfaceDensity 500
 
 
 surfaceDensity : Int -> SurfaceDensity
