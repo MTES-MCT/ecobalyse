@@ -314,7 +314,7 @@ maybeMakingWaste key =
                     if float < 0 || float > 0.25 then
                         Err
                             ( key
-                            , "Le taux de perte en confection soit être compris entre 0 et 0.25."
+                            , "Le taux de perte en confection doit être compris entre 0 et 0.25."
                             )
 
                     else

@@ -165,6 +165,30 @@ describe("API", () => {
         /entre 0 et 1/,
       );
     });
+
+    it("should validate the makingWaste param", async () => {
+      expectFieldErrorMessage(
+        await makeRequest("/api/simulator", ["makingWaste=0.9"]),
+        "makingWaste",
+        /doit être compris entre 0 et 0\.25/,
+      );
+    });
+
+    it("should validate the picking param", async () => {
+      expectFieldErrorMessage(
+        await makeRequest("/api/simulator", ["picking=10"]),
+        "picking",
+        /doit être compris/,
+      );
+    });
+
+    it("should validate the surfaceMass param", async () => {
+      expectFieldErrorMessage(
+        await makeRequest("/api/simulator", ["surfaceMass=10"]),
+        "surfaceMass",
+        /doit être compris/,
+      );
+    });
   });
 
   describe("/api/simulator/fwe", () => {
