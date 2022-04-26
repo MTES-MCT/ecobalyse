@@ -39,7 +39,7 @@ def main():
     if "agribalyse3" in bw.databases:
         print("Database has already been imported.")
     else:
-        agb_csv_filepath = r"./agribalyse3_no_param.CSV"
+        agb_csv_filepath = r"./agribalyse3_no_param.CSV.zip"
 
         agb_importer = bw.SimaProCSVImporter(agb_csv_filepath, "agribalyse3")
 
