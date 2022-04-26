@@ -58,6 +58,8 @@ parse db =
         |> apply (maybeQuality "quality")
         |> apply (maybeReparability "reparability")
         |> apply (maybeMakingWaste "makingWaste")
+        |> apply (maybePicking "picking")
+        |> apply (maybeSurfaceDensity "surfaceDensity")
 
 
 toErrors : ParseResult a -> Result Errors a
@@ -317,6 +319,62 @@ maybeMakingWaste key =
 
                     else
                         Ok (Just (Unit.ratio float))
+                )
+                >> Maybe.withDefault (Ok Nothing)
+            )
+
+
+maybePicking : String -> Query.Parser (ParseResult (Maybe Unit.PickPerMeter))
+maybePicking key =
+    Query.int key
+        |> Query.map
+            (Maybe.map
+                (\int ->
+                    if
+                        int
+                            < Unit.pickPerMeterToInt Unit.minPickPerMeter
+                            || int
+                            > Unit.pickPerMeterToInt Unit.maxPickPerMeter
+                    then
+                        Err
+                            ( key
+                            , "Le duitage (picking) doit être compris entre "
+                                ++ String.fromInt (Unit.pickPerMeterToInt Unit.minPickPerMeter)
+                                ++ " et "
+                                ++ String.fromInt (Unit.pickPerMeterToInt Unit.maxPickPerMeter)
+                                ++ " picks/m."
+                            )
+
+                    else
+                        Ok (Just (Unit.pickPerMeter int))
+                )
+                >> Maybe.withDefault (Ok Nothing)
+            )
+
+
+maybeSurfaceDensity : String -> Query.Parser (ParseResult (Maybe Unit.SurfaceDensity))
+maybeSurfaceDensity key =
+    Query.int key
+        |> Query.map
+            (Maybe.map
+                (\int ->
+                    if
+                        int
+                            < Unit.surfaceDensityToInt Unit.minSurfaceDensity
+                            || int
+                            > Unit.surfaceDensityToInt Unit.maxSurfaceDensity
+                    then
+                        Err
+                            ( key
+                            , "Le grammage (surfaceDensity) doit être compris entre "
+                                ++ String.fromInt (Unit.surfaceDensityToInt Unit.minSurfaceDensity)
+                                ++ " et "
+                                ++ String.fromInt (Unit.surfaceDensityToInt Unit.maxSurfaceDensity)
+                                ++ " gr/m²."
+                            )
+
+                    else
+                        Ok (Just (Unit.surfaceDensity int))
                 )
                 >> Maybe.withDefault (Ok Nothing)
             )

@@ -40,6 +40,7 @@ module Data.Unit exposing
     , parseFunctional
     , pickPerMeter
     , pickPerMeterToFloat
+    , pickPerMeterToInt
     , quality
     , qualityToFloat
     , ratio
@@ -53,6 +54,7 @@ module Data.Unit exposing
     , standardReparability
     , surfaceDensity
     , surfaceDensityToFloat
+    , surfaceDensityToInt
     )
 
 import Duration exposing (Duration)
@@ -248,6 +250,11 @@ pickPerMeterToFloat (PickPerMeter int) =
     toFloat int
 
 
+pickPerMeterToInt : PickPerMeter -> Int
+pickPerMeterToInt (PickPerMeter int) =
+    int
+
+
 decodePickPerMeter : Decoder PickPerMeter
 decodePickPerMeter =
     Decode.map pickPerMeter Decode.int
@@ -284,6 +291,11 @@ surfaceDensity =
 surfaceDensityToFloat : SurfaceDensity -> Float
 surfaceDensityToFloat (SurfaceDensity int) =
     toFloat int
+
+
+surfaceDensityToInt : SurfaceDensity -> Int
+surfaceDensityToInt (SurfaceDensity int) =
+    int
 
 
 decodeSurfaceDensity : Decoder SurfaceDensity
