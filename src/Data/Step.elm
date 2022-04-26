@@ -14,7 +14,7 @@ module Data.Step exposing
     , pickingToString
     , qualityToString
     , reparabilityToString
-    , surfaceDensityToString
+    , surfaceMassToString
     , updateFromInputs
     , updateWaste
     )
@@ -52,7 +52,7 @@ type alias Step =
     , reparability : Unit.Reparability
     , makingWaste : Maybe Unit.Ratio
     , picking : Maybe Unit.PickPerMeter
-    , surfaceDensity : Maybe Unit.SurfaceDensity
+    , surfaceMass : Maybe Unit.SurfaceMass
     }
 
 
@@ -108,7 +108,7 @@ create { db, label, editable, country } =
     , reparability = Unit.standardReparability
     , makingWaste = Nothing
     , picking = Nothing
-    , surfaceDensity = Nothing
+    , surfaceMass = Nothing
     }
 
 
@@ -269,7 +269,7 @@ getRoadTransportProcess wellKnown { label } =
 updateFromInputs : Db -> Inputs -> Step -> Step
 updateFromInputs { processes } inputs ({ label, country } as step) =
     let
-        { dyeingWeighting, airTransportRatio, quality, reparability, makingWaste, picking, surfaceDensity } =
+        { dyeingWeighting, airTransportRatio, quality, reparability, makingWaste, picking, surfaceMass } =
             inputs
     in
     -- Note: only WeavingKnitting, Ennoblement, Making and Use steps render detailed processes info.
@@ -277,7 +277,7 @@ updateFromInputs { processes } inputs ({ label, country } as step) =
         WeavingKnitting ->
             { step
                 | picking = picking
-                , surfaceDensity = surfaceDensity
+                , surfaceMass = surfaceMass
                 , processInfo =
                     { defaultProcessInfo
                         | countryElec = Just country.electricityProcess.name
@@ -426,8 +426,8 @@ pickingToString (Unit.PickPerMeter int) =
     "Duitage\u{00A0}: " ++ String.fromInt int ++ "\u{202F}duites/m"
 
 
-surfaceDensityToString : Unit.SurfaceDensity -> String
-surfaceDensityToString (Unit.SurfaceDensity int) =
+surfaceMassToString : Unit.SurfaceMass -> String
+surfaceMassToString (Unit.SurfaceMass int) =
     "Grammage\u{00A0}: " ++ String.fromInt int ++ "\u{202F}gr/m²"
 
 

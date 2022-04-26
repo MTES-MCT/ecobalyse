@@ -314,9 +314,9 @@ computeWeavingKnittingImpacts ({ inputs } as simulator) =
                                 |> Formula.weavingImpacts step.impacts
                                     { pickingElec = inputs.product.fabricProcess.elec_pppm
                                     , countryElecProcess = country.electricityProcess
-                                    , surfaceDensity =
-                                        inputs.surfaceDensity
-                                            |> Maybe.withDefault inputs.product.surfaceDensity
+                                    , surfaceMass =
+                                        inputs.surfaceMass
+                                            |> Maybe.withDefault inputs.product.surfaceMass
                                     , picking =
                                         inputs.picking
                                             |> Maybe.withDefault inputs.product.picking

@@ -6,19 +6,19 @@ module Data.Unit exposing
     , Quality(..)
     , Ratio(..)
     , Reparability(..)
-    , SurfaceDensity(..)
+    , SurfaceMass(..)
     , decodeImpact
     , decodePickPerMeter
     , decodeQuality
     , decodeRatio
     , decodeReparability
-    , decodeSurfaceDensity
+    , decodeSurfaceMass
     , encodeImpact
     , encodePickPerMeter
     , encodeQuality
     , encodeRatio
     , encodeReparability
-    , encodeSurfaceDensity
+    , encodeSurfaceMass
     , forKWh
     , forKg
     , forKgAndDistance
@@ -32,11 +32,11 @@ module Data.Unit exposing
     , maxPickPerMeter
     , maxQuality
     , maxReparability
-    , maxSurfaceDensity
+    , maxSurfaceMass
     , minPickPerMeter
     , minQuality
     , minReparability
-    , minSurfaceDensity
+    , minSurfaceMass
     , parseFunctional
     , pickPerMeter
     , pickPerMeterToFloat
@@ -52,9 +52,9 @@ module Data.Unit exposing
     , reparabilityToFloat
     , standardQuality
     , standardReparability
-    , surfaceDensity
-    , surfaceDensityToFloat
-    , surfaceDensityToInt
+    , surfaceMass
+    , surfaceMassToFloat
+    , surfaceMassToInt
     )
 
 import Duration exposing (Duration)
@@ -223,7 +223,7 @@ encodeReparability (Reparability float) =
 
 
 
--- Picking
+-- Picking (Duitage)
 
 
 type PickPerMeter
@@ -266,45 +266,45 @@ encodePickPerMeter (PickPerMeter int) =
 
 
 
--- SurfaceDensity
+-- SurfaceMass (Grammage, ou masse surfacique)
 
 
-type SurfaceDensity
-    = SurfaceDensity Int
+type SurfaceMass
+    = SurfaceMass Int
 
 
-minSurfaceDensity : SurfaceDensity
-minSurfaceDensity =
-    SurfaceDensity 30
+minSurfaceMass : SurfaceMass
+minSurfaceMass =
+    SurfaceMass 30
 
 
-maxSurfaceDensity : SurfaceDensity
-maxSurfaceDensity =
-    SurfaceDensity 500
+maxSurfaceMass : SurfaceMass
+maxSurfaceMass =
+    SurfaceMass 500
 
 
-surfaceDensity : Int -> SurfaceDensity
-surfaceDensity =
-    SurfaceDensity
+surfaceMass : Int -> SurfaceMass
+surfaceMass =
+    SurfaceMass
 
 
-surfaceDensityToFloat : SurfaceDensity -> Float
-surfaceDensityToFloat (SurfaceDensity int) =
+surfaceMassToFloat : SurfaceMass -> Float
+surfaceMassToFloat (SurfaceMass int) =
     toFloat int
 
 
-surfaceDensityToInt : SurfaceDensity -> Int
-surfaceDensityToInt (SurfaceDensity int) =
+surfaceMassToInt : SurfaceMass -> Int
+surfaceMassToInt (SurfaceMass int) =
     int
 
 
-decodeSurfaceDensity : Decoder SurfaceDensity
-decodeSurfaceDensity =
-    Decode.map surfaceDensity Decode.int
+decodeSurfaceMass : Decoder SurfaceMass
+decodeSurfaceMass =
+    Decode.map surfaceMass Decode.int
 
 
-encodeSurfaceDensity : SurfaceDensity -> Encode.Value
-encodeSurfaceDensity (SurfaceDensity int) =
+encodeSurfaceMass : SurfaceMass -> Encode.Value
+encodeSurfaceMass (SurfaceMass int) =
     Encode.int int
 
 

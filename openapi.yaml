@@ -80,7 +80,7 @@ paths:
       - $ref: '#/components/parameters/reparabilityParam'
       - $ref: '#/components/parameters/makingWasteParam'
       - $ref: '#/components/parameters/pickingParam'
-      - $ref: '#/components/parameters/surfaceDensityParam'
+      - $ref: '#/components/parameters/surfaceMassParam'
       responses:
         200:
           description: Opération réussie
@@ -139,7 +139,7 @@ paths:
       - $ref: '#/components/parameters/reparabilityParam'
       - $ref: '#/components/parameters/makingWasteParam'
       - $ref: '#/components/parameters/pickingParam'
-      - $ref: '#/components/parameters/surfaceDensityParam'
+      - $ref: '#/components/parameters/surfaceMassParam'
       responses:
         200:
           description: successful operation
@@ -172,7 +172,7 @@ paths:
       - $ref: '#/components/parameters/reparabilityParam'
       - $ref: '#/components/parameters/makingWasteParam'
       - $ref: '#/components/parameters/pickingParam'
-      - $ref: '#/components/parameters/surfaceDensityParam'
+      - $ref: '#/components/parameters/surfaceMassParam'
       responses:
         200:
           description: Opération réussie
@@ -337,8 +337,8 @@ components:
         type: number
         minimum: 800
         maximum: 9000
-    surfaceDensityParam:
-      name: surfaceDensity
+    surfaceMassParam:
+      name: surfaceMass
       in: query
       description: "Le grammage de l'étoffe, exprimé en gr/m², représente sa masse surfacique."
       required: false

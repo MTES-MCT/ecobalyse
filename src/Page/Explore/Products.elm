@@ -71,7 +71,7 @@ table db { detailed } =
                         text "N/A"
 
                       else
-                        Format.surfaceDensity product.surfaceDensity
+                        Format.surfaceMass product.surfaceMass
                     ]
       }
     , { label = "Procédé"

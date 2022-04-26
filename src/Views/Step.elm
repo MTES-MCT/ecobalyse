@@ -39,7 +39,7 @@ type alias Config msg =
     , updateReparability : Maybe Unit.Reparability -> msg
     , updateAirTransportRatio : Maybe Unit.Ratio -> msg
     , updateMakingWaste : Maybe Unit.Ratio -> msg
-    , updateSurfaceDensity : Maybe Unit.SurfaceDensity -> msg
+    , updateSurfaceMass : Maybe Unit.SurfaceMass -> msg
     , updatePicking : Maybe Unit.PickPerMeter -> msg
     }
 
@@ -248,19 +248,19 @@ pickingField { current, inputs, updatePicking } =
         ]
 
 
-surfaceDensityField : Config msg -> Html msg
-surfaceDensityField { current, inputs, updateSurfaceDensity } =
+surfaceMassField : Config msg -> Html msg
+surfaceMassField { current, inputs, updateSurfaceMass } =
     span
         [ [ "Le grammage de l'étoffe, exprimé en gr/m², représente sa masse surfacique."
           ]
             |> String.join " "
             |> title
         ]
-        [ RangeSlider.surfaceDensity
+        [ RangeSlider.surfaceMass
             { id = "surface-density"
-            , update = updateSurfaceDensity
-            , value = Maybe.withDefault inputs.product.surfaceDensity current.surfaceDensity
-            , toString = Step.surfaceDensityToString
+            , update = updateSurfaceMass
+            , value = Maybe.withDefault inputs.product.surfaceMass current.surfaceMass
+            , toString = Step.surfaceMassToString
             , disabled = False
             }
         ]
@@ -342,7 +342,7 @@ simpleView ({ funit, inputs, daysOfWear, impact, current } as config) =
                         if not inputs.product.knitted then
                             div [ class "mt-2 fs-7 text-muted" ]
                                 [ pickingField config
-                                , surfaceDensityField config
+                                , surfaceMassField config
                                 ]
 
                         else
@@ -477,7 +477,7 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                     if not inputs.product.knitted then
                         div [ class "card-body py-2 text-muted" ]
                             [ pickingField config
-                            , surfaceDensityField config
+                            , surfaceMassField config
                             ]
 
                     else

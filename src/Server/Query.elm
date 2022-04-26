@@ -59,7 +59,7 @@ parse db =
         |> apply (maybeReparability "reparability")
         |> apply (maybeMakingWaste "makingWaste")
         |> apply (maybePicking "picking")
-        |> apply (maybeSurfaceDensity "surfaceDensity")
+        |> apply (maybeSurfaceMass "surfaceMass")
 
 
 toErrors : ParseResult a -> Result Errors a
@@ -352,29 +352,29 @@ maybePicking key =
             )
 
 
-maybeSurfaceDensity : String -> Query.Parser (ParseResult (Maybe Unit.SurfaceDensity))
-maybeSurfaceDensity key =
+maybeSurfaceMass : String -> Query.Parser (ParseResult (Maybe Unit.SurfaceMass))
+maybeSurfaceMass key =
     Query.int key
         |> Query.map
             (Maybe.map
                 (\int ->
                     if
                         int
-                            < Unit.surfaceDensityToInt Unit.minSurfaceDensity
+                            < Unit.surfaceMassToInt Unit.minSurfaceMass
                             || int
-                            > Unit.surfaceDensityToInt Unit.maxSurfaceDensity
+                            > Unit.surfaceMassToInt Unit.maxSurfaceMass
                     then
                         Err
                             ( key
-                            , "Le grammage (surfaceDensity) doit être compris entre "
-                                ++ String.fromInt (Unit.surfaceDensityToInt Unit.minSurfaceDensity)
+                            , "Le grammage (surfaceMass) doit être compris entre "
+                                ++ String.fromInt (Unit.surfaceMassToInt Unit.minSurfaceMass)
                                 ++ " et "
-                                ++ String.fromInt (Unit.surfaceDensityToInt Unit.maxSurfaceDensity)
+                                ++ String.fromInt (Unit.surfaceMassToInt Unit.maxSurfaceMass)
                                 ++ " gr/m²."
                             )
 
                     else
-                        Ok (Just (Unit.surfaceDensity int))
+                        Ok (Just (Unit.surfaceMass int))
                 )
                 >> Maybe.withDefault (Ok Nothing)
             )

@@ -3,7 +3,7 @@ module Views.RangeSlider exposing
     , quality
     , ratio
     , reparability
-    , surfaceDensity
+    , surfaceMass
     )
 
 import Data.Unit as Unit
@@ -134,29 +134,29 @@ picking config =
         }
 
 
-type alias SurfaceDensityConfig msg =
+type alias SurfaceMassConfig msg =
     { id : String
-    , update : Maybe Unit.SurfaceDensity -> msg
-    , value : Unit.SurfaceDensity
-    , toString : Unit.SurfaceDensity -> String
+    , update : Maybe Unit.SurfaceMass -> msg
+    , value : Unit.SurfaceMass
+    , toString : Unit.SurfaceMass -> String
     , disabled : Bool
     }
 
 
-surfaceDensity : SurfaceDensityConfig msg -> Html msg
-surfaceDensity config =
+surfaceMass : SurfaceMassConfig msg -> Html msg
+surfaceMass config =
     layout
         { id = config.id
         , label = config.toString config.value
         , attributes =
-            [ onInput (String.toInt >> Maybe.map Unit.surfaceDensity >> config.update)
-            , Attr.min (String.fromInt (Unit.surfaceDensityToInt Unit.minSurfaceDensity))
-            , Attr.max (String.fromInt (Unit.surfaceDensityToInt Unit.maxSurfaceDensity))
+            [ onInput (String.toInt >> Maybe.map Unit.surfaceMass >> config.update)
+            , Attr.min (String.fromInt (Unit.surfaceMassToInt Unit.minSurfaceMass))
+            , Attr.max (String.fromInt (Unit.surfaceMassToInt Unit.maxSurfaceMass))
             , step "1"
 
             -- WARNING: be careful when reordering attributes: for obscure reasons,
             -- the `value` one MUST be set AFTER the `step` one.
-            , value (String.fromInt (Unit.surfaceDensityToInt config.value))
+            , value (String.fromInt (Unit.surfaceMassToInt config.value))
             , Attr.disabled config.disabled
             ]
         }

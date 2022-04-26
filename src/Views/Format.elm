@@ -17,7 +17,7 @@ module Views.Format exposing
     , ratio
     , ratioToDecimals
     , ratioToPercentString
-    , surfaceDensity
+    , surfaceMass
     )
 
 import Data.Impact as Impact exposing (Impacts)
@@ -135,9 +135,9 @@ percent =
     formatRichFloat 2 "%"
 
 
-surfaceDensity : Unit.SurfaceDensity -> Html msg
-surfaceDensity =
-    Unit.surfaceDensityToFloat >> formatRichFloat 0 "gr/m²"
+surfaceMass : Unit.SurfaceMass -> Html msg
+surfaceMass =
+    Unit.surfaceMassToFloat >> formatRichFloat 0 "gr/m²"
 
 
 picking : Unit.PickPerMeter -> Html msg

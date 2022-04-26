@@ -26,7 +26,7 @@ type alias Product =
     , mass : Mass
     , pcrWaste : Unit.Ratio -- PCR product waste ratio
     , picking : Unit.PickPerMeter -- Duitage: pick/m (picks per meter)
-    , surfaceDensity : Unit.SurfaceDensity -- Grammage: gr/m² par kg de produit
+    , surfaceMass : Unit.SurfaceMass -- Grammage: gr/m² par kg de produit
     , knitted : Bool -- True: Tricotage (Knitting); False: Tissage (Weaving)
     , faded : Bool -- Should this product be faded?
     , fabricProcess : Process -- Procédé de Tissage/Tricotage
@@ -78,7 +78,7 @@ decode processes =
         |> Pipe.required "mass" (Decode.map Mass.kilograms Decode.float)
         |> Pipe.required "pcrWaste" Unit.decodeRatio
         |> Pipe.required "picking" Unit.decodePickPerMeter
-        |> Pipe.required "surfaceDensity" Unit.decodeSurfaceDensity
+        |> Pipe.required "surfaceMass" Unit.decodeSurfaceMass
         |> Pipe.required "knitted" Decode.bool
         |> Pipe.required "faded" Decode.bool
         |> Pipe.required "fabricProcessUuid" (Process.decodeFromUuid processes)
@@ -107,7 +107,7 @@ encode v =
         , ( "mass", Encode.float (Mass.inKilograms v.mass) )
         , ( "pcrWaste", Unit.encodeRatio v.pcrWaste )
         , ( "picking", Unit.encodePickPerMeter v.picking )
-        , ( "surfaceDensity", Unit.encodeSurfaceDensity v.surfaceDensity )
+        , ( "surfaceMass", Unit.encodeSurfaceMass v.surfaceMass )
         , ( "knitted", Encode.bool v.knitted )
         , ( "faded", Encode.bool v.faded )
         , ( "fabricProcessUuid", Process.encodeUuid v.makingProcess.uuid )

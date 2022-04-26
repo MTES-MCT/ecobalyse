@@ -91,7 +91,7 @@ type Msg
     | UpdateReparability (Maybe Unit.Reparability)
     | UpdateSimulationName String
     | UpdateStepCountry Int Country.Code
-    | UpdateSurfaceDensity (Maybe Unit.SurfaceDensity)
+    | UpdateSurfaceMass (Maybe Unit.SurfaceMass)
 
 
 init :
@@ -333,9 +333,9 @@ update ({ db, query, navKey } as session) msg model =
             ( model, session, Cmd.none )
                 |> updateQuery (Inputs.updateStepCountry index code query)
 
-        UpdateSurfaceDensity surfaceDensity ->
+        UpdateSurfaceMass surfaceMass ->
             ( model, session, Cmd.none )
-                |> updateQuery { query | surfaceDensity = surfaceDensity }
+                |> updateQuery { query | surfaceMass = surfaceMass }
 
 
 massField : String -> Html Msg
@@ -409,7 +409,7 @@ lifeCycleStepsView db { viewMode, funit, impact } simulator =
                     , updateReparability = UpdateReparability
                     , updateMakingWaste = UpdateMakingWaste
                     , updatePicking = UpdatePicking
-                    , updateSurfaceDensity = UpdateSurfaceDensity
+                    , updateSurfaceMass = UpdateSurfaceMass
                     }
             )
         |> Array.toList

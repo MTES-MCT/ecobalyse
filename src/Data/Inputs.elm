@@ -67,7 +67,7 @@ type alias Inputs =
     , reparability : Maybe Unit.Reparability
     , makingWaste : Maybe Unit.Ratio
     , picking : Maybe Unit.PickPerMeter
-    , surfaceDensity : Maybe Unit.SurfaceDensity
+    , surfaceMass : Maybe Unit.SurfaceMass
     }
 
 
@@ -92,7 +92,7 @@ type alias Query =
     , reparability : Maybe Unit.Reparability
     , makingWaste : Maybe Unit.Ratio
     , picking : Maybe Unit.PickPerMeter
-    , surfaceDensity : Maybe Unit.SurfaceDensity
+    , surfaceMass : Maybe Unit.SurfaceMass
     }
 
 
@@ -163,7 +163,7 @@ fromQuery db query =
         |> RE.andMap (Ok query.reparability)
         |> RE.andMap (Ok query.makingWaste)
         |> RE.andMap (Ok query.picking)
-        |> RE.andMap (Ok query.surfaceDensity)
+        |> RE.andMap (Ok query.surfaceMass)
 
 
 toQuery : Inputs -> Query
@@ -180,7 +180,7 @@ toQuery inputs =
     , reparability = inputs.reparability
     , makingWaste = inputs.makingWaste
     , picking = inputs.picking
-    , surfaceDensity = inputs.surfaceDensity
+    , surfaceMass = inputs.surfaceMass
     }
 
 
@@ -193,7 +193,7 @@ toString inputs =
         [ "tricotage", inputs.countryFabric.name ]
 
       else
-        [ "tissage", inputs.countryFabric.name ++ weavingOptionsToString inputs.picking inputs.surfaceDensity ]
+        [ "tissage", inputs.countryFabric.name ++ weavingOptionsToString inputs.picking inputs.surfaceMass ]
     , [ "teinture", inputs.countryDyeing.name ++ dyeingOptionsToString inputs.dyeingWeighting ]
     , [ "confection", inputs.countryMaking.name ++ makingOptionsToString inputs ]
     , [ "distribution", inputs.countryDistribution.name ]
@@ -218,7 +218,7 @@ materialsToString materials =
         |> List.foldr (++) ""
 
 
-weavingOptionsToString : Maybe Unit.PickPerMeter -> Maybe Unit.SurfaceDensity -> String
+weavingOptionsToString : Maybe Unit.PickPerMeter -> Maybe Unit.SurfaceMass -> String
 weavingOptionsToString _ _ =
     -- FIXME: migrate Step.*ToString fns to avoid circular import so we can reuse them here?
     ""
@@ -447,13 +447,13 @@ updateProduct product query =
 
             else
                 query.picking
-        , surfaceDensity =
+        , surfaceMass =
             -- ensure resetting custom surface density when product is changed
             if product.id /= query.product then
                 Nothing
 
             else
-                query.surfaceDensity
+                query.surfaceMass
     }
 
 
@@ -482,7 +482,7 @@ tShirtCotonFrance =
     , reparability = Nothing
     , makingWaste = Nothing
     , picking = Nothing
-    , surfaceDensity = Nothing
+    , surfaceMass = Nothing
     }
 
 
@@ -536,7 +536,7 @@ jupeCircuitAsie =
     , reparability = Nothing
     , makingWaste = Nothing
     , picking = Nothing
-    , surfaceDensity = Nothing
+    , surfaceMass = Nothing
     }
 
 
@@ -560,7 +560,7 @@ manteauCircuitEurope =
     , reparability = Nothing
     , makingWaste = Nothing
     , picking = Nothing
-    , surfaceDensity = Nothing
+    , surfaceMass = Nothing
     }
 
 
@@ -584,7 +584,7 @@ pantalonCircuitEurope =
     , reparability = Nothing
     , makingWaste = Nothing
     , picking = Nothing
-    , surfaceDensity = Nothing
+    , surfaceMass = Nothing
     }
 
 
@@ -614,7 +614,7 @@ encode inputs =
         , ( "reparability", inputs.reparability |> Maybe.map Unit.encodeReparability |> Maybe.withDefault Encode.null )
         , ( "makingWaste", inputs.makingWaste |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
         , ( "picking", inputs.picking |> Maybe.map Unit.encodePickPerMeter |> Maybe.withDefault Encode.null )
-        , ( "surfaceDensity", inputs.surfaceDensity |> Maybe.map Unit.encodeSurfaceDensity |> Maybe.withDefault Encode.null )
+        , ( "surfaceMass", inputs.surfaceMass |> Maybe.map Unit.encodeSurfaceMass |> Maybe.withDefault Encode.null )
         ]
 
 
@@ -642,7 +642,7 @@ decodeQuery =
         |> Pipe.optional "reparability" (Decode.maybe Unit.decodeReparability) Nothing
         |> Pipe.optional "makingWaste" (Decode.maybe Unit.decodeRatio) Nothing
         |> Pipe.optional "picking" (Decode.maybe Unit.decodePickPerMeter) Nothing
-        |> Pipe.optional "surfaceDensity" (Decode.maybe Unit.decodeSurfaceDensity) Nothing
+        |> Pipe.optional "surfaceMass" (Decode.maybe Unit.decodeSurfaceMass) Nothing
 
 
 decodeMaterialQuery : Decoder MaterialQuery
@@ -668,7 +668,7 @@ encodeQuery query =
         , ( "reparability", query.reparability |> Maybe.map Unit.encodeReparability |> Maybe.withDefault Encode.null )
         , ( "makingWaste", query.makingWaste |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
         , ( "picking", query.picking |> Maybe.map Unit.encodePickPerMeter |> Maybe.withDefault Encode.null )
-        , ( "surfaceDensity", query.surfaceDensity |> Maybe.map Unit.encodeSurfaceDensity |> Maybe.withDefault Encode.null )
+        , ( "surfaceMass", query.surfaceMass |> Maybe.map Unit.encodeSurfaceMass |> Maybe.withDefault Encode.null )
         ]
 
 

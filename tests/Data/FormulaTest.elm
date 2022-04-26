@@ -136,7 +136,7 @@ suite =
                                             ]
                                 }
                             , picking = Unit.pickPerMeter 400
-                            , surfaceDensity = Unit.surfaceDensity 500
+                            , surfaceMass = Unit.surfaceMass 500
                             }
              in
              [ res.impacts
