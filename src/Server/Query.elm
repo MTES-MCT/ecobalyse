@@ -331,10 +331,8 @@ maybePicking key =
             (Maybe.map
                 (\int ->
                     if
-                        int
-                            < Unit.pickPerMeterToInt Unit.minPickPerMeter
-                            || int
-                            > Unit.pickPerMeterToInt Unit.maxPickPerMeter
+                        (int < Unit.pickPerMeterToInt Unit.minPickPerMeter)
+                            || (int > Unit.pickPerMeterToInt Unit.maxPickPerMeter)
                     then
                         Err
                             ( key
@@ -359,10 +357,8 @@ maybeSurfaceMass key =
             (Maybe.map
                 (\int ->
                     if
-                        int
-                            < Unit.surfaceMassToInt Unit.minSurfaceMass
-                            || int
-                            > Unit.surfaceMassToInt Unit.maxSurfaceMass
+                        (int < Unit.surfaceMassToInt Unit.minSurfaceMass)
+                            || (int > Unit.surfaceMassToInt Unit.maxSurfaceMass)
                     then
                         Err
                             ( key

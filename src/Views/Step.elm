@@ -230,9 +230,9 @@ makingWasteField { current, inputs, updateMakingWaste } =
 pickingField : Config msg -> Html msg
 pickingField { current, inputs, updatePicking } =
     span
-        [ [ "Le duitage correspond au nombre de fils de trame (aussi appelés duites) par centimètre"
+        [ [ "Le duitage correspond au nombre de fils de trame (aussi appelés duites) par mètre"
           , "pour un tissu. Ce paramètre est pris en compte car il est connecté avec la consommation"
-          , "électrique du métier à tisser. À masse surfacique égale, plus le duitage est important,"
+          , "électrique du métier à tisser. À grammage égal, plus le duitage est important,"
           , "plus la consommation d'électricité est élevée."
           ]
             |> String.join " "
