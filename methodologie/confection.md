@@ -8,7 +8,7 @@ description: >-
 
 ## Schéma
 
-Conformément à la documentation sectorielle textile de la [base Impacts](http://www.base-impacts.ademe.fr), le système "teinture" est schématisé comme suit :
+Conformément à la documentation sectorielle textile de la [base Impacts](http://www.base-impacts.ademe.fr), le système "confection" est schématisé comme suit :
 
 ![](<../.gitbook/assets/Confection (1).PNG>)
 
