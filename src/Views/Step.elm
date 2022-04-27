@@ -51,7 +51,7 @@ stepIcon label =
             Step.MaterialAndSpinning ->
                 Icon.material
 
-            Step.WeavingKnitting ->
+            Step.Fabric ->
                 Icon.fabric
 
             Step.Ennoblement ->
@@ -338,7 +338,7 @@ simpleView ({ funit, inputs, daysOfWear, impact, current } as config) =
             [ div [ class "col-sm-6 col-lg-7" ]
                 [ countryField config
                 , case current.label of
-                    Step.WeavingKnitting ->
+                    Step.Fabric ->
                         if not inputs.product.knitted then
                             div [ class "mt-2 fs-7 text-muted" ]
                                 [ pickingField config
@@ -468,12 +468,12 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                 , viewProcessInfo current.processInfo.useNonIroning
                 , viewProcessInfo current.processInfo.passengerCar
                 , viewProcessInfo current.processInfo.endOfLife
-                , viewProcessInfo current.processInfo.knittingWeaving
+                , viewProcessInfo current.processInfo.fabric
                 , viewProcessInfo current.processInfo.making
                 , viewProcessInfo current.processInfo.fading
                 ]
             , case current.label of
-                Step.WeavingKnitting ->
+                Step.Fabric ->
                     if not inputs.product.knitted then
                         div [ class "card-body py-2 text-muted" ]
                             [ pickingField config

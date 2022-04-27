@@ -92,7 +92,7 @@ compute db query =
         -- Compute Making mass waste
         |> next computeMakingStepWaste
         -- Compute Knitting/Weawing waste
-        |> next computeWeavingKnittingStepWaste
+        |> next computeFabricStepWaste
         -- Compute Material&Spinning waste
         |> next computeMaterialStepWaste
         --
@@ -101,7 +101,7 @@ compute db query =
         -- Compute Material & Spinning step impacts
         |> next (computeMaterialAndSpinningImpacts db)
         -- Compute Weaving & Knitting step impacts
-        |> next computeWeavingKnittingImpacts
+        |> next computeFabricImpacts
         -- Compute Ennoblement step impacts
         |> nextWithDb computeDyeingImpacts
         -- Compute Making step impacts
@@ -295,10 +295,10 @@ computeMaterialAndSpinningImpacts db ({ inputs } as simulator) =
             )
 
 
-computeWeavingKnittingImpacts : Simulator -> Simulator
-computeWeavingKnittingImpacts ({ inputs } as simulator) =
+computeFabricImpacts : Simulator -> Simulator
+computeFabricImpacts ({ inputs } as simulator) =
     simulator
-        |> updateLifeCycleStep Step.WeavingKnitting
+        |> updateLifeCycleStep Step.Fabric
             (\({ country } as step) ->
                 let
                     { kwh, impacts } =
@@ -341,12 +341,12 @@ computeMakingStepWaste ({ inputs } as simulator) =
     simulator
         |> updateLifeCycleStep Step.Making (Step.updateWaste waste mass)
         |> updateLifeCycleSteps
-            [ Step.MaterialAndSpinning, Step.WeavingKnitting, Step.Ennoblement ]
+            [ Step.MaterialAndSpinning, Step.Fabric, Step.Ennoblement ]
             (Step.initMass mass)
 
 
-computeWeavingKnittingStepWaste : Simulator -> Simulator
-computeWeavingKnittingStepWaste ({ inputs, lifeCycle } as simulator) =
+computeFabricStepWaste : Simulator -> Simulator
+computeFabricStepWaste ({ inputs, lifeCycle } as simulator) =
     let
         { mass, waste } =
             lifeCycle
@@ -354,7 +354,7 @@ computeWeavingKnittingStepWaste ({ inputs, lifeCycle } as simulator) =
                 |> Formula.genericWaste inputs.product.fabricProcess.waste
     in
     simulator
-        |> updateLifeCycleStep Step.WeavingKnitting (Step.updateWaste waste mass)
+        |> updateLifeCycleStep Step.Fabric (Step.updateWaste waste mass)
         |> updateLifeCycleSteps [ Step.MaterialAndSpinning ] (Step.initMass mass)
 
 
@@ -363,7 +363,7 @@ computeMaterialStepWaste ({ inputs, lifeCycle } as simulator) =
     let
         { mass, waste } =
             lifeCycle
-                |> LifeCycle.getStepProp Step.WeavingKnitting .inputMass Quantity.zero
+                |> LifeCycle.getStepProp Step.Fabric .inputMass Quantity.zero
                 |> (\inputMass ->
                         -- TODO: for each material, take its share, apply waste, retrieve mass
                         -- then add all masses

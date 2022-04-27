@@ -50,10 +50,10 @@ makeBars { simulator, impact, funit } =
                         { label =
                             span []
                                 [ case ( step.label, simulator.inputs.product.knitted ) of
-                                    ( Step.WeavingKnitting, True ) ->
+                                    ( Step.Fabric, True ) ->
                                         text "Tricotage"
 
-                                    ( Step.WeavingKnitting, False ) ->
+                                    ( Step.Fabric, False ) ->
                                         text "Tissage"
 
                                     ( Step.Ennoblement, _ ) ->

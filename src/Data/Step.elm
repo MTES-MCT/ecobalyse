@@ -68,7 +68,7 @@ type alias ProcessInfo =
     , useNonIroning : Maybe String
     , passengerCar : Maybe String
     , endOfLife : Maybe String
-    , knittingWeaving : Maybe String
+    , fabric : Maybe String
     , making : Maybe String
     , distribution : Maybe String
     , fading : Maybe String
@@ -77,7 +77,7 @@ type alias ProcessInfo =
 
 type Label
     = MaterialAndSpinning -- Matière & Filature
-    | WeavingKnitting -- Tissage & Tricotage
+    | Fabric -- Tissage & Tricotage
     | Ennoblement -- Ennoblement
     | Making -- Confection
     | Distribution -- Distribution
@@ -125,7 +125,7 @@ defaultProcessInfo =
     , useNonIroning = Nothing
     , passengerCar = Nothing
     , endOfLife = Nothing
-    , knittingWeaving = Nothing
+    , fabric = Nothing
     , making = Nothing
     , distribution = Nothing
     , fading = Nothing
@@ -141,10 +141,10 @@ displayLabel { knitted, faded } label =
         ( Making, _, False ) ->
             "Confection"
 
-        ( WeavingKnitting, True, _ ) ->
+        ( Fabric, True, _ ) ->
             "Tricotage"
 
-        ( WeavingKnitting, False, _ ) ->
+        ( Fabric, False, _ ) ->
             "Tissage"
 
         _ ->
@@ -272,16 +272,15 @@ updateFromInputs { processes } inputs ({ label, country } as step) =
         { dyeingWeighting, airTransportRatio, quality, reparability, makingWaste, picking, surfaceMass } =
             inputs
     in
-    -- Note: only WeavingKnitting, Ennoblement, Making and Use steps render detailed processes info.
     case label of
-        WeavingKnitting ->
+        Fabric ->
             { step
                 | picking = picking
                 , surfaceMass = surfaceMass
                 , processInfo =
                     { defaultProcessInfo
                         | countryElec = Just country.electricityProcess.name
-                        , knittingWeaving = Just inputs.product.fabricProcess.name
+                        , fabric = Just inputs.product.fabricProcess.name
                     }
             }
 
@@ -479,7 +478,7 @@ encodeProcessInfo v =
         , ( "useNonIroning", encodeMaybeString v.useNonIroning )
         , ( "passengerCar", encodeMaybeString v.passengerCar )
         , ( "endOfLife", encodeMaybeString v.endOfLife )
-        , ( "knittingWeaving", encodeMaybeString v.knittingWeaving )
+        , ( "fabric", encodeMaybeString v.fabric )
         , ( "distribution", encodeMaybeString v.distribution )
         ]
 
@@ -490,7 +489,7 @@ labelToString label =
         MaterialAndSpinning ->
             "Matière & Filature"
 
-        WeavingKnitting ->
+        Fabric ->
             "Tissage & Tricotage"
 
         Making ->
@@ -515,8 +514,8 @@ getStepGitbookPath label =
         MaterialAndSpinning ->
             Gitbook.MaterialAndSpinning
 
-        WeavingKnitting ->
-            Gitbook.WeavingKnitting
+        Fabric ->
+            Gitbook.Fabric
 
         Ennoblement ->
             Gitbook.Dyeing

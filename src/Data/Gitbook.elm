@@ -23,7 +23,7 @@ type alias Page =
 type Path
     = Home -- Page d'accueil
     | MaterialAndSpinning -- Matière & filature
-    | WeavingKnitting -- Tissage/Tricotage
+    | Fabric -- Tissage/Tricotage
     | Dyeing -- Teinture
     | Making -- Confection
     | Distribution -- Distribution
@@ -46,7 +46,7 @@ pathToString path =
         MaterialAndSpinning ->
             "methodologie/filature"
 
-        WeavingKnitting ->
+        Fabric ->
             "methodologie/tricotage-tissage"
 
         Dyeing ->

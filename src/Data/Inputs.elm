@@ -298,7 +298,7 @@ updateStepCountry index code query =
         updatedQuery =
             case index of
                 1 ->
-                    -- FIXME: index 1 is WeavingKnitting step; how could we use the step label instead?
+                    -- FIXME: index 1 is Fabric step; how could we use the step label instead?
                     { query | countryFabric = code }
 
                 2 ->

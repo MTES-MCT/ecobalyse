@@ -109,7 +109,7 @@ init db inputs =
                     }
             )
             [ ( Step.MaterialAndSpinning, False )
-            , ( Step.WeavingKnitting, True )
+            , ( Step.Fabric, True )
             , ( Step.Ennoblement, True )
             , ( Step.Making, True )
             , ( Step.Distribution, False )
