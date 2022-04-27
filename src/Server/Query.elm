@@ -58,6 +58,8 @@ parse db =
         |> apply (maybeQuality "quality")
         |> apply (maybeReparability "reparability")
         |> apply (maybeMakingWaste "makingWaste")
+        |> apply (maybePicking "picking")
+        |> apply (maybeSurfaceMass "surfaceMass")
 
 
 toErrors : ParseResult a -> Result Errors a
@@ -312,11 +314,63 @@ maybeMakingWaste key =
                     if float < 0 || float > 0.25 then
                         Err
                             ( key
-                            , "Le taux de perte en confection soit être compris entre 0 et 0.25."
+                            , "Le taux de perte en confection doit être compris entre 0 et 0.25."
                             )
 
                     else
                         Ok (Just (Unit.ratio float))
+                )
+                >> Maybe.withDefault (Ok Nothing)
+            )
+
+
+maybePicking : String -> Query.Parser (ParseResult (Maybe Unit.PickPerMeter))
+maybePicking key =
+    Query.int key
+        |> Query.map
+            (Maybe.map
+                (\int ->
+                    if
+                        (int < Unit.pickPerMeterToInt Unit.minPickPerMeter)
+                            || (int > Unit.pickPerMeterToInt Unit.maxPickPerMeter)
+                    then
+                        Err
+                            ( key
+                            , "Le duitage (picking) doit être compris entre "
+                                ++ String.fromInt (Unit.pickPerMeterToInt Unit.minPickPerMeter)
+                                ++ " et "
+                                ++ String.fromInt (Unit.pickPerMeterToInt Unit.maxPickPerMeter)
+                                ++ " duites/m."
+                            )
+
+                    else
+                        Ok (Just (Unit.pickPerMeter int))
+                )
+                >> Maybe.withDefault (Ok Nothing)
+            )
+
+
+maybeSurfaceMass : String -> Query.Parser (ParseResult (Maybe Unit.SurfaceMass))
+maybeSurfaceMass key =
+    Query.int key
+        |> Query.map
+            (Maybe.map
+                (\int ->
+                    if
+                        (int < Unit.surfaceMassToInt Unit.minSurfaceMass)
+                            || (int > Unit.surfaceMassToInt Unit.maxSurfaceMass)
+                    then
+                        Err
+                            ( key
+                            , "Le grammage (surfaceMass) doit être compris entre "
+                                ++ String.fromInt (Unit.surfaceMassToInt Unit.minSurfaceMass)
+                                ++ " et "
+                                ++ String.fromInt (Unit.surfaceMassToInt Unit.maxSurfaceMass)
+                                ++ " gr/m²."
+                            )
+
+                    else
+                        Ok (Just (Unit.surfaceMass int))
                 )
                 >> Maybe.withDefault (Ok Nothing)
             )

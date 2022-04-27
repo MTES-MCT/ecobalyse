@@ -79,6 +79,8 @@ paths:
       - $ref: '#/components/parameters/qualityParam'
       - $ref: '#/components/parameters/reparabilityParam'
       - $ref: '#/components/parameters/makingWasteParam'
+      - $ref: '#/components/parameters/pickingParam'
+      - $ref: '#/components/parameters/surfaceMassParam'
       responses:
         200:
           description: Opération réussie
@@ -100,7 +102,8 @@ paths:
       parameters:
       - name: impact
         in: path
-        description: Trigramme de l'impact étudié ([la liste est documenté ici](https://fabrique-numerique.gitbook.io/wikicarbone/methodologie/impacts-consideres))
+        description: |
+          Trigramme de l'impact étudié ([la liste est documenté ici](https://fabrique-numerique.gitbook.io/wikicarbone/methodologie/impacts-consideres))
         required: true
         schema:
           type: string
@@ -136,6 +139,8 @@ paths:
       - $ref: '#/components/parameters/qualityParam'
       - $ref: '#/components/parameters/reparabilityParam'
       - $ref: '#/components/parameters/makingWasteParam'
+      - $ref: '#/components/parameters/pickingParam'
+      - $ref: '#/components/parameters/surfaceMassParam'
       responses:
         200:
           description: successful operation
@@ -167,6 +172,8 @@ paths:
       - $ref: '#/components/parameters/qualityParam'
       - $ref: '#/components/parameters/reparabilityParam'
       - $ref: '#/components/parameters/makingWasteParam'
+      - $ref: '#/components/parameters/pickingParam'
+      - $ref: '#/components/parameters/surfaceMassParam'
       responses:
         200:
           description: Opération réussie
@@ -196,7 +203,9 @@ components:
       name: "materials[]"
       in: query
       description: |
-        Liste des matières composant le produit (liste disponible sur le point d'entrée dédié). Le format de chaque entrée est composé de l'identifiant de la matière, de la part du produit qu'elle représente et de la proportion de matière recyclée entrant dans sa composition.
+        Liste des matières composant le produit (liste disponible sur le point d'entrée dédié).
+        Le format de chaque entrée est composé de l'identifiant de la matière, de la part du produit
+        qu'elle représente et de la proportion de matière recyclée entrant dans sa composition.
 
         Par exemple :
 
@@ -229,7 +238,8 @@ components:
     countryFabricParam:
       name: countryFabric
       in: query
-      description: "Code pays pour l'étape de **Tissage/Tricotage** (liste disponible sur le point d'entrée dédié)"
+      description: |
+        Code pays pour l'étape de **Tissage/Tricotage** (liste disponible sur le point d'entrée dédié)
       required: true
       style: form
       schema:
@@ -274,7 +284,8 @@ components:
     dyeingWeightingParam:
       name: dyeingWeighting
       in: query
-      description: Majoration de l'impact du **procédé de Teinture**, entre `0` et `1`
+      description: |
+        Majoration de l'impact du **procédé de Teinture**, entre `0` et `1`
       required: false
       style: form
       schema:
@@ -284,7 +295,8 @@ components:
     airTransportRatioParam:
       name: airTransportRatio
       in: query
-      description: Part de **transport aérien** entre l'étape de **Confection** et l'étape de **Distribution**, entre `0` et `1`
+      description: |
+        Part de **transport aérien** entre l'étape de **Confection** et l'étape de **Distribution**, entre `0` et `1`
       required: false
       style: form
       schema:
@@ -294,7 +306,11 @@ components:
     qualityParam:
       name: quality
       in: query
-      description: Qualité intrinsèque du produit. Le coefficient de qualité intrinsèque représente à quel point le produit va durer dans le temps. Il varie entre 0.67 (peu durable) et 1.45 (très durable). Il est calculé à partir du résultat d’une série de tests de durabilité. Il est utilisé en coefficient multiplicateur du nombre de jours d’utilisation du produit.
+      description: |
+        Qualité intrinsèque du produit. Le coefficient de qualité intrinsèque représente à quel point
+        le produit va durer dans le temps. Il varie entre 0.67 (peu durable) et 1.45 (très durable).
+        Il est calculé à partir du résultat d’une série de tests de durabilité. Il est utilisé en
+        coefficient multiplicateur du nombre de jours d’utilisation du produit.
       required: false
       style: form
       schema:
@@ -304,7 +320,9 @@ components:
     reparabilityParam:
       name: reparability
       in: query
-      description: Indice de réparabilité du produit. Il varie entre 1.00 (peu réparable) et 1.15 (très réparable). Il est utilisé en coefficient multiplicateur du nombre de jours d’utilisation du produit.
+      description: |
+        Indice de réparabilité du produit. Il varie entre `1.00` (peu réparable) et `1.15` (très réparable).
+        Il est utilisé en coefficient multiplicateur du nombre de jours d’utilisation du produit.
       required: false
       style: form
       schema:
@@ -314,13 +332,39 @@ components:
     makingWasteParam:
       name: makingWaste
       in: query
-      description: Taux de perte en confection.
+      description: |
+        Taux de perte en confection, , entre `0` et `1`
       required: false
       style: form
       schema:
         type: number
         minimum: 0
         maximum: 0.25
+    pickingParam:
+      name: picking
+      in: query
+      description: |
+        Le duitage correspond au nombre de fils de trame (aussi appelés duites) par mètre
+        pour un tissu. Ce paramètre est pris en compte car il est connecté avec la consommation
+        électrique du métier à tisser. À grammage égal, plus le duitage est important,
+        plus la consommation d'électricité est élevée.
+      required: false
+      style: form
+      schema:
+        type: number
+        minimum: 800
+        maximum: 9000
+    surfaceMassParam:
+      name: surfaceMass
+      in: query
+      description: |
+        Le grammage de l'étoffe, exprimé en gr/m², représente sa masse surfacique.
+      required: false
+      style: form
+      schema:
+        type: number
+        minimum: 30
+        maximum: 500
   schemas:
     InvalidParametersError:
       type: object
@@ -365,7 +409,9 @@ components:
             type: string
     MultipleImpactsResponse:
       type: object
-      description: "Impacts environnementaux exprimés dans leurs unités respectives, dont [la documentation est disponible ici](https://fabrique-numerique.gitbook.io/wikicarbone/methodologie/impacts-consideres)."
+      description: |
+        Impacts environnementaux exprimés dans leurs unités respectives, dont
+        [la documentation est disponible ici](https://fabrique-numerique.gitbook.io/wikicarbone/methodologie/impacts-consideres).
       properties:
         impacts:
           type: object

@@ -66,6 +66,8 @@ type alias Inputs =
     , quality : Maybe Unit.Quality
     , reparability : Maybe Unit.Reparability
     , makingWaste : Maybe Unit.Ratio
+    , picking : Maybe Unit.PickPerMeter
+    , surfaceMass : Maybe Unit.SurfaceMass
     }
 
 
@@ -89,6 +91,8 @@ type alias Query =
     , quality : Maybe Unit.Quality
     , reparability : Maybe Unit.Reparability
     , makingWaste : Maybe Unit.Ratio
+    , picking : Maybe Unit.PickPerMeter
+    , surfaceMass : Maybe Unit.SurfaceMass
     }
 
 
@@ -158,6 +162,8 @@ fromQuery db query =
         |> RE.andMap (Ok query.quality)
         |> RE.andMap (Ok query.reparability)
         |> RE.andMap (Ok query.makingWaste)
+        |> RE.andMap (Ok query.picking)
+        |> RE.andMap (Ok query.surfaceMass)
 
 
 toQuery : Inputs -> Query
@@ -173,6 +179,8 @@ toQuery inputs =
     , quality = inputs.quality
     , reparability = inputs.reparability
     , makingWaste = inputs.makingWaste
+    , picking = inputs.picking
+    , surfaceMass = inputs.surfaceMass
     }
 
 
@@ -181,7 +189,11 @@ toString inputs =
     [ [ inputs.product.name ]
     , [ materialsToString inputs.materials ++ "de " ++ Format.kgToString inputs.mass ]
     , [ "matière et filature", inputs.countryMaterial.name ]
-    , [ "tricotage", inputs.countryFabric.name ]
+    , if inputs.product.knitted then
+        [ "tricotage", inputs.countryFabric.name ]
+
+      else
+        [ "tissage", inputs.countryFabric.name ++ weavingOptionsToString inputs.picking inputs.surfaceMass ]
     , [ "teinture", inputs.countryDyeing.name ++ dyeingOptionsToString inputs.dyeingWeighting ]
     , [ "confection", inputs.countryMaking.name ++ makingOptionsToString inputs ]
     , [ "distribution", inputs.countryDistribution.name ]
@@ -204,6 +216,12 @@ materialsToString materials =
                     ++ ", "
             )
         |> List.foldr (++) ""
+
+
+weavingOptionsToString : Maybe Unit.PickPerMeter -> Maybe Unit.SurfaceMass -> String
+weavingOptionsToString _ _ =
+    -- FIXME: migrate Step.*ToString fns to avoid circular import so we can reuse them here?
+    ""
 
 
 dyeingOptionsToString : Maybe Unit.Ratio -> String
@@ -422,6 +440,20 @@ updateProduct product query =
 
             else
                 query.makingWaste
+        , picking =
+            -- ensure resetting custom picking when product is changed
+            if product.id /= query.product then
+                Nothing
+
+            else
+                query.picking
+        , surfaceMass =
+            -- ensure resetting custom surface density when product is changed
+            if product.id /= query.product then
+                Nothing
+
+            else
+                query.surfaceMass
     }
 
 
@@ -449,6 +481,8 @@ tShirtCotonFrance =
     , quality = Nothing
     , reparability = Nothing
     , makingWaste = Nothing
+    , picking = Nothing
+    , surfaceMass = Nothing
     }
 
 
@@ -501,6 +535,8 @@ jupeCircuitAsie =
     , quality = Nothing
     , reparability = Nothing
     , makingWaste = Nothing
+    , picking = Nothing
+    , surfaceMass = Nothing
     }
 
 
@@ -523,6 +559,8 @@ manteauCircuitEurope =
     , quality = Nothing
     , reparability = Nothing
     , makingWaste = Nothing
+    , picking = Nothing
+    , surfaceMass = Nothing
     }
 
 
@@ -545,6 +583,8 @@ pantalonCircuitEurope =
     , quality = Nothing
     , reparability = Nothing
     , makingWaste = Nothing
+    , picking = Nothing
+    , surfaceMass = Nothing
     }
 
 
@@ -573,6 +613,8 @@ encode inputs =
         , ( "quality", inputs.quality |> Maybe.map Unit.encodeQuality |> Maybe.withDefault Encode.null )
         , ( "reparability", inputs.reparability |> Maybe.map Unit.encodeReparability |> Maybe.withDefault Encode.null )
         , ( "makingWaste", inputs.makingWaste |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
+        , ( "picking", inputs.picking |> Maybe.map Unit.encodePickPerMeter |> Maybe.withDefault Encode.null )
+        , ( "surfaceMass", inputs.surfaceMass |> Maybe.map Unit.encodeSurfaceMass |> Maybe.withDefault Encode.null )
         ]
 
 
@@ -599,6 +641,8 @@ decodeQuery =
         |> Pipe.optional "quality" (Decode.maybe Unit.decodeQuality) Nothing
         |> Pipe.optional "reparability" (Decode.maybe Unit.decodeReparability) Nothing
         |> Pipe.optional "makingWaste" (Decode.maybe Unit.decodeRatio) Nothing
+        |> Pipe.optional "picking" (Decode.maybe Unit.decodePickPerMeter) Nothing
+        |> Pipe.optional "surfaceMass" (Decode.maybe Unit.decodeSurfaceMass) Nothing
 
 
 decodeMaterialQuery : Decoder MaterialQuery
@@ -623,6 +667,8 @@ encodeQuery query =
         , ( "quality", query.quality |> Maybe.map Unit.encodeQuality |> Maybe.withDefault Encode.null )
         , ( "reparability", query.reparability |> Maybe.map Unit.encodeReparability |> Maybe.withDefault Encode.null )
         , ( "makingWaste", query.makingWaste |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
+        , ( "picking", query.picking |> Maybe.map Unit.encodePickPerMeter |> Maybe.withDefault Encode.null )
+        , ( "surfaceMass", query.surfaceMass |> Maybe.map Unit.encodeSurfaceMass |> Maybe.withDefault Encode.null )
         ]
 
 

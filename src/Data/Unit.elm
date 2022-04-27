@@ -2,17 +2,23 @@ module Data.Unit exposing
     ( Functional(..)
     , Impact
     , ImpactUnit(..)
+    , PickPerMeter(..)
     , Quality(..)
     , Ratio(..)
     , Reparability(..)
+    , SurfaceMass(..)
     , decodeImpact
+    , decodePickPerMeter
     , decodeQuality
     , decodeRatio
     , decodeReparability
+    , decodeSurfaceMass
     , encodeImpact
+    , encodePickPerMeter
     , encodeQuality
     , encodeRatio
     , encodeReparability
+    , encodeSurfaceMass
     , forKWh
     , forKg
     , forKgAndDistance
@@ -23,11 +29,18 @@ module Data.Unit exposing
     , impactPefScore
     , impactToFloat
     , inFunctionalUnit
+    , maxPickPerMeter
     , maxQuality
     , maxReparability
+    , maxSurfaceMass
+    , minPickPerMeter
     , minQuality
     , minReparability
+    , minSurfaceMass
     , parseFunctional
+    , pickPerMeter
+    , pickPerMeterToFloat
+    , pickPerMeterToInt
     , quality
     , qualityToFloat
     , ratio
@@ -39,6 +52,9 @@ module Data.Unit exposing
     , reparabilityToFloat
     , standardQuality
     , standardReparability
+    , surfaceMass
+    , surfaceMassToFloat
+    , surfaceMassToInt
     )
 
 import Duration exposing (Duration)
@@ -204,6 +220,92 @@ decodeReparability =
 encodeReparability : Reparability -> Encode.Value
 encodeReparability (Reparability float) =
     Encode.float float
+
+
+
+-- Picking (Duitage)
+
+
+type PickPerMeter
+    = PickPerMeter Int
+
+
+minPickPerMeter : PickPerMeter
+minPickPerMeter =
+    PickPerMeter 800
+
+
+maxPickPerMeter : PickPerMeter
+maxPickPerMeter =
+    PickPerMeter 9000
+
+
+pickPerMeter : Int -> PickPerMeter
+pickPerMeter =
+    PickPerMeter
+
+
+pickPerMeterToFloat : PickPerMeter -> Float
+pickPerMeterToFloat (PickPerMeter int) =
+    toFloat int
+
+
+pickPerMeterToInt : PickPerMeter -> Int
+pickPerMeterToInt (PickPerMeter int) =
+    int
+
+
+decodePickPerMeter : Decoder PickPerMeter
+decodePickPerMeter =
+    Decode.map pickPerMeter Decode.int
+
+
+encodePickPerMeter : PickPerMeter -> Encode.Value
+encodePickPerMeter (PickPerMeter int) =
+    Encode.int int
+
+
+
+-- SurfaceMass (Grammage, ou masse surfacique)
+
+
+type SurfaceMass
+    = SurfaceMass Int
+
+
+minSurfaceMass : SurfaceMass
+minSurfaceMass =
+    SurfaceMass 30
+
+
+maxSurfaceMass : SurfaceMass
+maxSurfaceMass =
+    SurfaceMass 500
+
+
+surfaceMass : Int -> SurfaceMass
+surfaceMass =
+    SurfaceMass
+
+
+surfaceMassToFloat : SurfaceMass -> Float
+surfaceMassToFloat (SurfaceMass int) =
+    toFloat int
+
+
+surfaceMassToInt : SurfaceMass -> Int
+surfaceMassToInt (SurfaceMass int) =
+    int
+
+
+decodeSurfaceMass : Decoder SurfaceMass
+decodeSurfaceMass =
+    Decode.map surfaceMass Decode.int
+
+
+encodeSurfaceMass : SurfaceMass -> Encode.Value
+encodeSurfaceMass (SurfaceMass int) =
+    Encode.int int
 
 
 

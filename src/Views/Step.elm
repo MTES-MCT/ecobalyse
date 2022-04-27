@@ -39,6 +39,8 @@ type alias Config msg =
     , updateReparability : Maybe Unit.Reparability -> msg
     , updateAirTransportRatio : Maybe Unit.Ratio -> msg
     , updateMakingWaste : Maybe Unit.Ratio -> msg
+    , updateSurfaceMass : Maybe Unit.SurfaceMass -> msg
+    , updatePicking : Maybe Unit.PickPerMeter -> msg
     }
 
 
@@ -225,6 +227,45 @@ makingWasteField { current, inputs, updateMakingWaste } =
         ]
 
 
+pickingField : Config msg -> Html msg
+pickingField { current, inputs, updatePicking } =
+    span
+        [ [ "Le duitage correspond au nombre de fils de trame (aussi appelés duites) par mètre"
+          , "pour un tissu. Ce paramètre est pris en compte car il est connecté avec la consommation"
+          , "électrique du métier à tisser. À grammage égal, plus le duitage est important,"
+          , "plus la consommation d'électricité est élevée."
+          ]
+            |> String.join " "
+            |> title
+        ]
+        [ RangeSlider.picking
+            { id = "picking"
+            , update = updatePicking
+            , value = Maybe.withDefault inputs.product.picking current.picking
+            , toString = Step.pickingToString
+            , disabled = False
+            }
+        ]
+
+
+surfaceMassField : Config msg -> Html msg
+surfaceMassField { current, inputs, updateSurfaceMass } =
+    span
+        [ [ "Le grammage de l'étoffe, exprimé en gr/m², représente sa masse surfacique."
+          ]
+            |> String.join " "
+            |> title
+        ]
+        [ RangeSlider.surfaceMass
+            { id = "surface-density"
+            , update = updateSurfaceMass
+            , value = Maybe.withDefault inputs.product.surfaceMass current.surfaceMass
+            , toString = Step.surfaceMassToString
+            , disabled = False
+            }
+        ]
+
+
 inlineDocumentationLink : Config msg -> Gitbook.Path -> Html msg
 inlineDocumentationLink _ path =
     Button.smallPillLink
@@ -297,8 +338,19 @@ simpleView ({ funit, inputs, daysOfWear, impact, current } as config) =
             [ div [ class "col-sm-6 col-lg-7" ]
                 [ countryField config
                 , case current.label of
+                    Step.WeavingKnitting ->
+                        if not inputs.product.knitted then
+                            div [ class "mt-2 fs-7 text-muted" ]
+                                [ pickingField config
+                                , surfaceMassField config
+                                ]
+
+                        else
+                            text ""
+
                     Step.Ennoblement ->
-                        div [ class "mt-2" ] [ dyeingWeightingField config ]
+                        div [ class "mt-2" ]
+                            [ dyeingWeightingField config ]
 
                     Step.Making ->
                         div [ class "mt-2" ]
@@ -421,6 +473,16 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                 , viewProcessInfo current.processInfo.fading
                 ]
             , case current.label of
+                Step.WeavingKnitting ->
+                    if not inputs.product.knitted then
+                        div [ class "card-body py-2 text-muted" ]
+                            [ pickingField config
+                            , surfaceMassField config
+                            ]
+
+                    else
+                        text ""
+
                 Step.Ennoblement ->
                     div [ class "card-body py-2 text-muted" ]
                         [ dyeingWeightingField config ]

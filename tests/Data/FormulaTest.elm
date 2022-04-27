@@ -126,7 +126,7 @@ suite =
                     kg 1
                         |> Formula.weavingImpacts
                             defaultImpacts
-                            { elecPppm = 0.01
+                            { pickingElec = 0.01
                             , countryElecProcess =
                                 { noOpProcess
                                     | impacts =
@@ -135,8 +135,8 @@ suite =
                                             , ( Impact.trg "fwe", Unit.impact 0.5 )
                                             ]
                                 }
-                            , ppm = 400
-                            , grammage = 500
+                            , picking = Unit.pickPerMeter 400
+                            , surfaceMass = Unit.surfaceMass 500
                             }
              in
              [ res.impacts

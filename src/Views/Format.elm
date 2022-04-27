@@ -13,9 +13,11 @@ module Views.Format exposing
     , m3
     , megajoules
     , percent
+    , picking
     , ratio
     , ratioToDecimals
     , ratioToPercentString
+    , surfaceMass
     )
 
 import Data.Impact as Impact exposing (Impacts)
@@ -131,6 +133,16 @@ megajoules =
 percent : Float -> Html msg
 percent =
     formatRichFloat 2 "%"
+
+
+surfaceMass : Unit.SurfaceMass -> Html msg
+surfaceMass =
+    Unit.surfaceMassToFloat >> formatRichFloat 0 "gr/m²"
+
+
+picking : Unit.PickPerMeter -> Html msg
+picking =
+    Unit.pickPerMeterToFloat >> formatRichFloat 0 "duites/m"
 
 
 ratioToPercentString : Unit.Ratio -> String
