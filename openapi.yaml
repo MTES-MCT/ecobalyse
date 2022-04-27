@@ -467,6 +467,12 @@ components:
             pef:
               type: number
               description: "Score PEF (mPt)"
+        description:
+          type: string
+          description: Une description de la simulation.
+        query:
+          type: object
+          description: Le jeu de paramètres utilisé pour effectuer la simulation.
     SingleImpactResponse:
       type: object
       properties:
@@ -476,3 +482,9 @@ components:
             "{impact}":
               type: number
               description: Valeur de l'impact recherché
+        description:
+          type: string
+          description: Une description de la simulation.
+        query:
+          type: object
+          description: Le jeu de paramètres utilisé pour effectuer la simulation.
