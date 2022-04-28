@@ -68,6 +68,10 @@ Les 5 procédés mobilisés sont les seuls disponibles à ce jour dans la base I
 
 Les différents procédés de confection ne prévoient pas de perte dans la base Impacts, contrairement à ce qui peut être affiché dans le schéma "system boundaries" ci-dessus (Flux intermédiaire - Textile Waste - UUID: `1cc67763-7318-4077-af4a-bcd0ab5ef33f`).
 
+{% hint style="success" %}
+Le taux de perte en confection est maintenant paramètrable directement dans l'étape Confection
+{% endhint %}
+
 En revanche, des pertes sont bien mentionnées dans la documentation sectorielle ADEME, en fonction du type de vêtement considéré (cf. Méthodologie d'évaluation des impacts environnementaux des articles d'habillement - Annexe A.1.c - p28) :
 
 | Vêtement  | Groupe   | Pertes (%) |
