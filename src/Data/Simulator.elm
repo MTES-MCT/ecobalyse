@@ -102,7 +102,7 @@ compute db query =
         |> next (computeMaterialAndSpinningImpacts db)
         -- Compute Weaving & Knitting step impacts
         |> next computeFabricImpacts
-        -- Compute Ennoblement step impacts
+        -- Compute Dyeing step impacts
         |> nextWithDb computeDyeingImpacts
         -- Compute Making step impacts
         |> nextWithDb computeMakingImpacts
@@ -216,7 +216,7 @@ computeDyeingImpacts { processes } simulator =
         |> Result.map
             (\{ dyeingHigh, dyeingLow } ->
                 simulator
-                    |> updateLifeCycleStep Step.Ennoblement
+                    |> updateLifeCycleStep Step.Dyeing
                         (\({ dyeingWeighting, country } as step) ->
                             let
                                 { heat, kwh, impacts } =
@@ -341,7 +341,7 @@ computeMakingStepWaste ({ inputs } as simulator) =
     simulator
         |> updateLifeCycleStep Step.Making (Step.updateWaste waste mass)
         |> updateLifeCycleSteps
-            [ Step.MaterialAndSpinning, Step.Fabric, Step.Ennoblement ]
+            [ Step.MaterialAndSpinning, Step.Fabric, Step.Dyeing ]
             (Step.initMass mass)
 
 

@@ -302,7 +302,7 @@ updateStepCountry index code query =
                     { query | countryFabric = code }
 
                 2 ->
-                    -- FIXME: index 2 is Ennoblement step; how could we use the step label instead?
+                    -- FIXME: index 2 is Dyeing step; how could we use the step label instead?
                     { query | countryDyeing = code }
 
                 3 ->
@@ -314,7 +314,7 @@ updateStepCountry index code query =
     in
     { updatedQuery
         | dyeingWeighting =
-            -- FIXME: index 2 is Ennoblement step; how could we use th step label instead?
+            -- FIXME: index 2 is Dyeing step; how could we use th step label instead?
             if index == 2 && query.countryDyeing /= code then
                 -- reset custom value as we just switched country, which dyeing weighting is totally different
                 Nothing

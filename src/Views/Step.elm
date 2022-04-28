@@ -54,7 +54,7 @@ stepIcon label =
             Step.Fabric ->
                 Icon.fabric
 
-            Step.Ennoblement ->
+            Step.Dyeing ->
                 Icon.dyeing
 
             Step.Making ->
@@ -348,7 +348,7 @@ simpleView ({ funit, inputs, daysOfWear, impact, current } as config) =
                         else
                             text ""
 
-                    Step.Ennoblement ->
+                    Step.Dyeing ->
                         div [ class "mt-2" ]
                             [ dyeingWeightingField config ]
 
@@ -483,7 +483,7 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                     else
                         text ""
 
-                Step.Ennoblement ->
+                Step.Dyeing ->
                     div [ class "card-body py-2 text-muted" ]
                         [ dyeingWeightingField config ]
 

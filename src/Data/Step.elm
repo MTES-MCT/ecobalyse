@@ -76,9 +76,9 @@ type alias ProcessInfo =
 
 
 type Label
-    = MaterialAndSpinning -- Matière & Filature
-    | Fabric -- Tissage & Tricotage
-    | Ennoblement -- Ennoblement
+    = MaterialAndSpinning -- Matière et Filature
+    | Fabric -- Tissage ou Tricotage
+    | Dyeing -- Teinture/Ennoblissement
     | Making -- Confection
     | Distribution -- Distribution
     | Use -- Utilisation
@@ -225,9 +225,9 @@ computeTransportSummary step transport =
             )
     in
     case step.label of
-        Ennoblement ->
+        Dyeing ->
             transport
-                -- Note: no air transport ratio at the Ennoblement step
+                -- Note: no air transport ratio at the Dyeing step
                 |> Formula.transportRatio (Unit.ratio 0)
                 -- Added intermediary inland transport distances to materialize
                 -- "processing" + "dyeing" steps (see Excel)
@@ -284,7 +284,7 @@ updateFromInputs { processes } inputs ({ label, country } as step) =
                     }
             }
 
-        Ennoblement ->
+        Dyeing ->
             { step
                 | dyeingWeighting =
                     dyeingWeighting |> Maybe.withDefault country.dyeingWeighting
@@ -495,7 +495,7 @@ labelToString label =
         Making ->
             "Confection"
 
-        Ennoblement ->
+        Dyeing ->
             "Teinture"
 
         Distribution ->
@@ -517,7 +517,7 @@ getStepGitbookPath label =
         Fabric ->
             Gitbook.Fabric
 
-        Ennoblement ->
+        Dyeing ->
             Gitbook.Dyeing
 
         Making ->

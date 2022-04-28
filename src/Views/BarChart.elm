@@ -56,7 +56,7 @@ makeBars { simulator, impact, funit } =
                                     ( Step.Fabric, False ) ->
                                         text "Tissage"
 
-                                    ( Step.Ennoblement, _ ) ->
+                                    ( Step.Dyeing, _ ) ->
                                         span [ class "fw-normal", title <| Step.dyeingWeightingToString step.dyeingWeighting ]
                                             [ strong [] [ text "Teinture" ]
                                             , text " ("
