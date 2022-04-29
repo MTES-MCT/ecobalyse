@@ -1,19 +1,26 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-"""Vérification des exports de la base Agribalyse."""
+"""Vérification des exports de la base Agribalyse.
+
+Paramètres positionnels optionnels : le nom du fichier products.json et processes.json à utiliser.
+Exemple :
+    python checks.py products_EF2.json processes_EF2.json
+
+"""
 
 import copy
 import csv
 import json
 import re
+import sys
 from impacts import impacts_to_synthese
 
 THRESHOLD = 4  # en pourcentage : 10 -> 10%
 
 
 def check_missing_steps(products):
-    # Nombre de produits qui n'ont pas 5 étapes
+    """Nombre de produits qui n'ont pas 5 étapes."""
     count = 0
     for key, product in products.items():
         for step_key, step in product.items():
@@ -24,6 +31,7 @@ def check_missing_steps(products):
 
 
 def check_ciqual_impacts(processes, synthese_filename):
+    """Liste des différences d'impact entre la synthèse agribalyse et les exports json."""
     ciqual_code_regex = re.compile(r"\[Ciqual code: (\d+)\]")
 
     processes_to_ciqual = {}
@@ -33,9 +41,6 @@ def check_ciqual_impacts(processes, synthese_filename):
             ciqual_code = match[1]
             processes_to_ciqual[ciqual_code] = processes[process]
 
-    print(
-        "Liste des différences d'impact entre la synthèse agribalyse et les exports json:"
-    )
     with open(synthese_filename) as csvfile:
         reader = csv.DictReader(csvfile)
         count = 0
@@ -46,12 +51,9 @@ def check_ciqual_impacts(processes, synthese_filename):
                 impact_b = processes_to_ciqual[ciqual_code][trigram]
                 diff = get_diff(impact_a, impact_b)
                 if diff:
-                    # import ipdb
-
-                    # ipdb.set_trace()
                     count += 1
                     print(
-                        f"{ciqual_code} (impact {trigram}): {diff} ({round(diff * 100 / abs((max(impact_a, impact_b))))}%)"
+                        f"{ciqual_code} (impact {trigram}), diff: {round(diff * 100 / abs(max(impact_a, impact_b)))}% - json: {impact_b}, synthèse: {impact_a}"
                     )
         return count
 
@@ -66,7 +68,7 @@ def get_diff(impact_a, impact_b):
 
 
 def check_impact_diff(products, processes):
-    # Différence entre les impacts globaux et la somme des sous-impacts à l'étape consommation
+    """Différence entre les impacts globaux et la somme des sous-impacts menant à l'étape consommation."""
     diff_impact = copy.deepcopy(processes)
 
     count = 0
@@ -80,9 +82,17 @@ def check_impact_diff(products, processes):
                 process[impact] -= diff_impact[ingredient][impact] * amount
 
         for impact in process.keys():
-            if abs(process[impact]) > abs(processes[key][impact]) * THRESHOLD / 100:
+            diff = process[impact]
+            global_ = processes[key][impact]
+            sum_impacts = global_ - diff
+            abs_max = abs(max(sum_impacts, global_))
+            percentage = diff * 100 / abs_max
+
+            if percentage > THRESHOLD:
                 count += 1
-                print(f"{key} (impact {impact}): {process[impact]}")
+                print(
+                    f"{key} (impact {impact}), diff: {round(percentage)}% - global: {global_}, somme: {sum_impacts}"
+                )
     return count
 
 
@@ -92,23 +102,30 @@ def read_json(filename):
 
 
 if __name__ == "__main__":
-    products = read_json("products.json")
-    processes = read_json("processes.json")
+    products_filename = "products.json"
+    processes_filename = "processes.json"
+    if len(sys.argv) == 3:
+        products_filename = sys.argv[1]
+        processes_filename = sys.argv[2]
+    products = read_json(products_filename)
+    processes = read_json(processes_filename)
 
-    print(">>> Check missing steps")
+    print(">>> Liste des produits avec étapes manquantes")
     count = check_missing_steps(products)
     print(f"{count} missing steps")
 
     print()
 
-    print(">>> Check impact differences between export and Agribalyse_Synthese")
+    print(
+        f">>> Liste des différences d'impact supérieures à {THRESHOLD}% entre l'export et la synthèse Agribalyse"
+    )
     count = check_ciqual_impacts(processes, "../Agribalyse_Synthese.csv")
     print(f"Total de {count} impacts qui ont une différence supérieure à {THRESHOLD}%")
 
     print()
 
     print(
-        ">>> Check impact differences at consumer between global impact and sum of impacts at supermarket"
+        f">>> Liste des differences d'impact supérieures à {THRESHOLD}% entre l'impact global et la somme des impacts des composants 'at consumer'"
     )
     count = check_impact_diff(products, processes)
     print(f"Total de {count} impacts qui ont une différence supérieure à {THRESHOLD}%")
