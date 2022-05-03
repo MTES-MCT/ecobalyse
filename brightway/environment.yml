@@ -1,0 +1,14 @@
+name: env
+channels:
+  - conda-forge
+  - defaults
+  - cmutel
+  - bsteubing
+dependencies:
+  - python=3.9
+  - jupyterlab
+  - brightway2
+  - notebook
+  - ipython
+  - activity-browser
+prefix: /Users/mathieu/opt/anaconda3/envs/env
