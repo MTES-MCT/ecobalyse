@@ -88,12 +88,10 @@ elmApp.ports.output.subscribe(({ status, body, jsResponseHandler }) => {
 });
 
 api.get("/", (req, res) => {
-  apiTracker.track(req);
   res.status(200).send(openApiContents);
 });
 
 api.all(/(.*)/, (req, res) => {
-  apiTracker.track(req);
   elmApp.ports.input.send({
     method: req.method,
     url: req.url,
@@ -104,7 +102,14 @@ api.all(/(.*)/, (req, res) => {
 });
 
 api.use(cors()); // Enable CORS for all API requests
-app.use("/api", api);
+app.use(
+  "/api",
+  (req, _, next) => {
+    apiTracker.track(req);
+    next();
+  },
+  api,
+);
 
 // Sentry error handler
 // Note: *must* be called *before* any other error handler
