@@ -36,6 +36,7 @@
     "highcharts": "^10.0.0",
     "js-yaml": "^4.1.0",
     "parcel": "^2.3.2",
+    "piwik": "^1.0.9",
     "rapidoc": "^9.2.0"
   },
   "devDependencies": {
