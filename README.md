@@ -54,6 +54,7 @@ Chaque *Pull Request* effectuée sur le dépôt est également automatiquement d
 Certaines variables d'environnement peuvent ou doivent être configurées via l'interface de [configuration Scalingo](https://dashboard.scalingo.com/apps/osc-fr1/wikicarbone/environment) :
 
 - `SENTRY_DSN`: le DSN [Sentry](https://sentry.io) à utiliser pour les rapports d'erreur.
+- `MATOMO_TOKEN`: le token [Matomo](https://stats.data.gouv.fr/) permettant le suivi d'audience de l'API.
 
 ## Lancement du serveur
 

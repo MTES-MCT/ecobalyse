@@ -5,18 +5,20 @@ const yaml = require("js-yaml");
 const helmet = require("helmet");
 const Sentry = require("@sentry/node");
 const { Elm } = require("./server-app");
-const { buildJsonDb } = require("./lib");
+const { buildJsonDb, setupTracker } = require("./lib");
 
 const app = express(); // web app
 const api = express(); // api app
 const host = "0.0.0.0";
 const port = process.env.PORT || 3000;
 
-// Sentry
+// Matomo
+const apiTracker = setupTracker("https://stats.data.gouv.fr/", process.env.MATOMO_TOKEN);
 
+// Sentry
 const { SENTRY_DSN } = process.env;
 if (SENTRY_DSN) {
-  Sentry.init({ dsn: SENTRY_DSN, tracesSampleRate: 0 });
+  Sentry.init({ dsn: SENTRY_DSN, tracesSampleRate: 0.1 });
   // Note: Sentry middleware *must* be the very first applied to be effective
   app.use(Sentry.Handlers.requestHandler());
 }
@@ -85,14 +87,16 @@ elmApp.ports.output.subscribe(({ status, body, jsResponseHandler }) => {
   return jsResponseHandler({ status, body });
 });
 
-api.get("/", (_, res) => {
+api.get("/", (req, res) => {
+  apiTracker.track(req);
   res.status(200).send(openApiContents);
 });
 
-api.all(/(.*)/, ({ method, url }, res) => {
+api.all(/(.*)/, (req, res) => {
+  apiTracker.track(req);
   elmApp.ports.input.send({
-    method,
-    url,
+    method: req.method,
+    url: req.url,
     jsResponseHandler: ({ status, body }) => {
       res.status(status).send(body);
     },
