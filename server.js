@@ -18,7 +18,7 @@ const apiTracker = setupTracker("https://stats.data.gouv.fr/", process.env.MATOM
 // Sentry
 const { SENTRY_DSN } = process.env;
 if (SENTRY_DSN) {
-  Sentry.init({ dsn: SENTRY_DSN, tracesSampleRate: 0 });
+  Sentry.init({ dsn: SENTRY_DSN, tracesSampleRate: 0.1 });
   // Note: Sentry middleware *must* be the very first applied to be effective
   app.use(Sentry.Handlers.requestHandler());
 }
