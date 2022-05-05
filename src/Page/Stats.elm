@@ -36,11 +36,12 @@ view _ _ =
     ( "Statistiques"
     , [ Container.centered []
             [ h1 [ class "mb-3" ] [ text "Statistiques" ]
-            , div [ id "widgetIframe" ]
+            , h2 [ class "h3" ] [ text "Fréquentation" ]
+            , div [ class "widgetIframe" ]
                 [ iframe
                     [ attribute "crossorigin" "anonymous"
                     , attribute "frameborder" "0"
-                    , attribute "height" "850"
+                    , attribute "height" "800"
                     , attribute "marginheight" "0"
                     , attribute "marginwidth" "0"
                     , attribute "scrolling" "yes"
@@ -49,6 +50,38 @@ view _ _ =
                     , [ ( "module", "Widgetize" )
                       , ( "action", "iframe" )
                       , ( "containerId", "VisitOverviewWithGraph" )
+                      , ( "disableLink", "0" )
+                      , ( "widget", "1" )
+                      , ( "moduleToWidgetize", "CoreHome" )
+                      , ( "actionToWidgetize", "renderWidgetContainer" )
+                      , ( "idSite", "196" )
+                      , ( "period", "day" )
+                      , ( "date", "yesterday" )
+                      , ( "disableLink", "1" )
+                      , ( "widget", "1" )
+                      ]
+                        |> List.map (\( key, val ) -> key ++ "=" ++ val)
+                        |> String.join "&"
+                        |> (++) "https://stats.data.gouv.fr/index.php?"
+                        |> src
+                    , attribute "width" "100%"
+                    ]
+                    []
+                ]
+            , h2 [ class "h3" ] [ text "Traffic sur l'API" ]
+            , div [ class "widgetIframe" ]
+                [ iframe
+                    [ attribute "crossorigin" "anonymous"
+                    , attribute "frameborder" "0"
+                    , attribute "height" "450"
+                    , attribute "marginheight" "0"
+                    , attribute "marginwidth" "0"
+                    , attribute "scrolling" "yes"
+                    , attribute "allowtransparency" "true"
+                    , style "background-color" "#f8f9fa"
+                    , [ ( "module", "Widgetize" )
+                      , ( "action", "iframe" )
+                      , ( "containerId", "Goal_1" )
                       , ( "disableLink", "0" )
                       , ( "widget", "1" )
                       , ( "moduleToWidgetize", "CoreHome" )
