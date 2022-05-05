@@ -1,0 +1,19 @@
+tasks:
+  - name: frontend
+    init: |
+      npm install 
+      npm run build
+      gp sync-done installed-and-built
+    command: PARCEL_ELM_NO_DEBUG=1 npm run start:parcel
+  - name: server
+    init: gp sync-await installed-and-built
+    command: npm run server:dev
+ports:
+  - port: 1234
+  - port: 3000
+    onOpen: ignore
+vscode:
+  extensions:
+    - Elmtooling.elm-ls-vscode
+    - hbenl.test-adapter-converter
+    - hbenl.vscode-test-explorer

@@ -16,6 +16,21 @@ Cette application est écrite en [Elm](https://elm-lang.org/). Vous devez dispos
 
 ## Développement
 
+### Développement sur Gitpod.io
+
+Ce projet a été configuré pour pouvoir se lancer sur un [workspace
+gitpod](https://gitpod.io/#https://github.com/MTES-MCT/wikicarbone), ce qui vous
+permettra de le tester et d'y contribuer sans avoir à configurer un
+environnement de développement local.
+
+Une fois le workspace lancé, vous aurez accès à un éditeur de code avec les
+extensions utilies pré-installées, et la possibilité de visualiser directement
+le projet dans une fenêtre ou dans un onglet séparé de votre navigateur :
+
+![Aperçu du développement sur gitpod.io](https://user-images.githubusercontent.com/41547/166465316-3df9dc11-516f-4f23-a53b-fa9020e113f8.png)
+
+### Environnement de dev local
+
 Le serveur local de développement se lance au moyen de la commande suivante :
 
     $ npm start
@@ -23,7 +38,7 @@ Le serveur local de développement se lance au moyen de la commande suivante :
 Deux instances de développement sont alors accessibles :
 
 - [localhost:3000](http://localhost:3000/) sert le frontend et le backend (API) ;
-- [localhost:1234](http://localhost:1234/) sert seulement le frontend en mode *hot-reload*, permettant de mettre à jour en temps-réel l'interface Web à chaque modification du code frontend.
+- [localhost:1234](http://localhost:1234/) sert seulement le frontend en mode _hot-reload_, permettant de mettre à jour en temps-réel l'interface Web à chaque modification du code frontend.
 
 ### Mode de débogage
 
@@ -45,7 +60,7 @@ Les fichiers sont alors générés dans le répertoire `build` à la racine du p
 
 L'application est déployée automatiquement sur la plateforme [Scalingo](https://scalingo.com/) pour toute mise à jour de la branche `master`.
 
-Chaque *Pull Request* effectuée sur le dépôt est également automatiquement déployée sur une instance de revue spécifique, par exemple `https://wikicarbone-pr44.osc-fr1.scalingo.io/` pour la pull request #44.
+Chaque _Pull Request_ effectuée sur le dépôt est également automatiquement déployée sur une instance de revue spécifique, par exemple `https://wikicarbone-pr44.osc-fr1.scalingo.io/` pour la pull request #44.
 
 # Serveur de production
 
