@@ -12,9 +12,6 @@ const api = express(); // api app
 const host = "0.0.0.0";
 const port = process.env.PORT || 3000;
 
-// Matomo
-const apiTracker = setupTracker("https://stats.data.gouv.fr/", process.env.MATOMO_TOKEN);
-
 // Sentry
 const { SENTRY_DSN } = process.env;
 if (SENTRY_DSN) {
@@ -77,6 +74,13 @@ app.get("/stats", (_, res) => res.redirect("/#/stats"));
 
 const openApiContents = yaml.load(fs.readFileSync("openapi.yaml"));
 
+// Matomo
+const apiTracker = setupTracker(
+  "https://stats.data.gouv.fr/",
+  process.env.MATOMO_TOKEN,
+  openApiContents,
+);
+
 const elmApp = Elm.Server.init({
   flags: {
     jsonDb: buildJsonDb(),
@@ -88,6 +92,7 @@ elmApp.ports.output.subscribe(({ status, body, jsResponseHandler }) => {
 });
 
 api.get("/", (req, res) => {
+  apiTracker.track(200, req);
   res.status(200).send(openApiContents);
 });
 
@@ -96,20 +101,14 @@ api.all(/(.*)/, (req, res) => {
     method: req.method,
     url: req.url,
     jsResponseHandler: ({ status, body }) => {
+      apiTracker.track(status, req);
       res.status(status).send(body);
     },
   });
 });
 
 api.use(cors()); // Enable CORS for all API requests
-app.use(
-  "/api",
-  (req, _, next) => {
-    apiTracker.track(req);
-    next();
-  },
-  api,
-);
+app.use("/api", api);
 
 // Sentry error handler
 // Note: *must* be called *before* any other error handler
