@@ -1,0 +1,36 @@
+tasks:
+  - name: conda
+    before: |
+      # setup the PATH to include miniconda's bin folder
+      gp env PATH=/workspace/miniconda/bin:/workspace/miniconda/condabin:$PATH
+      gp env BRIGHTWAY2_DIR=/workspace/Brightway2
+
+      # update the current terminal session with the latest set of persistent environment variables
+      eval $(gp env -e)
+    init: |
+      # install miniconda
+      wget https://repo.anaconda.com/miniconda/Miniconda3-py39_4.11.0-Linux-x86_64.sh -O /tmp/miniconda.sh
+      chmod +x /tmp/miniconda.sh
+      /tmp/miniconda.sh -b -p /workspace/miniconda
+      /workspace/miniconda/condabin/conda init bash
+
+      # make sure miniconda is set up
+      conda activate env
+      source ~/.bashrc
+
+      # specific setup to persist brightway2 data on gitpod prebuilds
+      mkdir -p /workspace/Brightway2
+
+      # create the virtual environment and install the dependencies
+      conda env create -f brightway/environment.yml
+    command: |
+      conda init bash
+      source ~/.bashrc
+      conda activate env
+
+vscode:
+  extensions:
+    - ms-python.python
+    - ms-toolsai.jupyter
+    - ms-toolsai.jupyter-keymap
+    - ms-toolsai.jupyter-renderers

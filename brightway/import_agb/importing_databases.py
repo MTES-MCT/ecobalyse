@@ -1,4 +1,5 @@
 import brightway2 as bw
+from zipfile import ZipFile
 
 from custom_import_migrations import (
     wfldb_technosphere_migration_data,
@@ -39,9 +40,15 @@ def main():
     if "agribalyse3" in bw.databases:
         print("Database has already been imported.")
     else:
-        agb_csv_filepath = r"./agribalyse3_no_param.CSV.zip"
+        agb_csv_zip_filepath = r"../agribalyse3_no_param.CSV.zip"
+        agb_csv_filepath = r"agribalyse3_no_param.CSV"
 
-        agb_importer = bw.SimaProCSVImporter(agb_csv_filepath, "agribalyse3")
+        with ZipFile(agb_csv_zip_filepath) as zf:
+            print("Extracting the (big) agribalyse zip file, please hold...")
+            zf.extractall()
+            print("Importing the agribalyse database in the brightway database...")
+            agb_importer = bw.SimaProCSVImporter(
+                agb_csv_filepath, "agribalyse3")
 
         agb_technosphere_migration = bw.Migration("agb-technosphere")
         agb_technosphere_migration.write(
