@@ -8,6 +8,7 @@ import Data.Session as Session exposing (Session)
 import Html
 import Page.Api as Api
 import Page.Changelog as Changelog
+import Page.Ecobalyse as Ecobalyse
 import Page.Editorial as Editorial
 import Page.Examples as Examples
 import Page.Explore as Explore
@@ -39,6 +40,7 @@ type Page
     | ApiPage Api.Model
     | SimulatorPage Simulator.Model
     | StatsPage Stats.Model
+    | EcobalysePage Ecobalyse.Model
     | NotFoundPage
 
 
@@ -60,6 +62,7 @@ type Msg
     | ApiMsg Api.Msg
     | SimulatorMsg Simulator.Msg
     | StatsMsg Stats.Msg
+    | EcobalyseMsg Ecobalyse.Msg
     | StoreChanged String
     | LoadUrl String
     | ReloadPage
@@ -153,6 +156,10 @@ setRoute maybeRoute ( { session } as model, cmds ) =
             Stats.init session
                 |> toPage StatsPage StatsMsg
 
+        Just Route.Ecobalyse ->
+            Ecobalyse.init session
+                |> toPage EcobalysePage EcobalyseMsg
+
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg ({ page, session } as model) =
@@ -204,6 +211,10 @@ update msg ({ page, session } as model) =
         ( StatsMsg statsMsg, StatsPage statsModel ) ->
             Stats.update session statsMsg statsModel
                 |> toPage StatsPage StatsMsg
+
+        ( EcobalyseMsg ecobalyseMsg, EcobalysePage ecobalyseModel ) ->
+            Ecobalyse.update session ecobalyseMsg ecobalyseModel
+                |> toPage EcobalysePage EcobalyseMsg
 
         -- Db
         ( DbReceived url (RemoteData.Success db), _ ) ->
@@ -297,6 +308,9 @@ subscriptions model =
             StatsPage _ ->
                 Sub.none
 
+            EcobalysePage _ ->
+                Sub.none
+
             NotFoundPage ->
                 Sub.none
 
@@ -360,6 +374,11 @@ view { page, mobileNavigationOpened, session } =
             Stats.view session statsModel
                 |> mapMsg StatsMsg
                 |> Page.frame (pageConfig Page.Stats)
+
+        EcobalysePage ecobalyseModel ->
+            Ecobalyse.view session ecobalyseModel
+                |> mapMsg EcobalyseMsg
+                |> Page.frame (pageConfig Page.Ecobalyse)
 
         NotFoundPage ->
             ( "Page manquante", [ Page.notFound ] )

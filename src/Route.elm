@@ -25,6 +25,7 @@ type Route
     | Examples
     | Simulator Impact.Trigram Unit.Functional ViewMode (Maybe Inputs.Query)
     | Stats
+    | Ecobalyse
 
 
 parser : Parser (Route -> a) a
@@ -54,6 +55,9 @@ parser =
 
         -- Stats
         , Parser.map Stats (Parser.s "stats")
+
+        -- Ecobalyse
+        , Parser.map Ecobalyse (Parser.s "ecobalyse")
         ]
 
 
@@ -142,5 +146,8 @@ toString route =
 
                 Stats ->
                     [ "stats" ]
+
+                Ecobalyse ->
+                    [ "ecobalyse" ]
     in
     "#/" ++ String.join "/" pieces
