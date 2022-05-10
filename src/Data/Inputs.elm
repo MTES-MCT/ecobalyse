@@ -86,6 +86,7 @@ type alias Query =
     , countryFabric : Country.Code
     , countryDyeing : Country.Code
     , countryMaking : Country.Code
+    , countryUse : Country.Code -- XXX: use Maybe Country.Code?
     , dyeingWeighting : Maybe Unit.Ratio
     , airTransportRatio : Maybe Unit.Ratio
     , quality : Maybe Unit.Quality
@@ -153,8 +154,7 @@ fromQuery db query =
         |> RE.andMap (db.countries |> Country.findByCode query.countryMaking)
         -- The distribution country is always France
         |> RE.andMap franceResult
-        -- The use country is always France
-        |> RE.andMap franceResult
+        |> RE.andMap (db.countries |> Country.findByCode query.countryUse)
         -- The end of life country is always France
         |> RE.andMap franceResult
         |> RE.andMap (Ok query.dyeingWeighting)
@@ -174,6 +174,7 @@ toQuery inputs =
     , countryFabric = inputs.countryFabric.code
     , countryDyeing = inputs.countryDyeing.code
     , countryMaking = inputs.countryMaking.code
+    , countryUse = inputs.countryUse.code
     , dyeingWeighting = inputs.dyeingWeighting
     , airTransportRatio = inputs.airTransportRatio
     , quality = inputs.quality
@@ -308,6 +309,10 @@ updateStepCountry index code query =
                 3 ->
                     -- FIXME: index 3 is Making step; how could we use the step label instead?
                     { query | countryMaking = code }
+
+                5 ->
+                    -- FIXME: index 5 is Use step; how could we use the step label instead?
+                    { query | countryUse = code }
 
                 _ ->
                     query
@@ -476,6 +481,7 @@ tShirtCotonFrance =
     , countryFabric = Country.Code "FR"
     , countryDyeing = Country.Code "FR"
     , countryMaking = Country.Code "FR"
+    , countryUse = Country.Code "FR"
     , dyeingWeighting = Nothing
     , airTransportRatio = Nothing
     , quality = Nothing
@@ -530,6 +536,7 @@ jupeCircuitAsie =
     , countryFabric = Country.Code "CN"
     , countryDyeing = Country.Code "CN"
     , countryMaking = Country.Code "CN"
+    , countryUse = Country.Code "FR"
     , dyeingWeighting = Nothing
     , airTransportRatio = Nothing
     , quality = Nothing
@@ -554,6 +561,7 @@ manteauCircuitEurope =
     , countryFabric = Country.Code "TR"
     , countryDyeing = Country.Code "TN"
     , countryMaking = Country.Code "ES"
+    , countryUse = Country.Code "FR"
     , dyeingWeighting = Nothing
     , airTransportRatio = Nothing
     , quality = Nothing
@@ -578,6 +586,7 @@ pantalonCircuitEurope =
     , countryFabric = Country.Code "TR"
     , countryDyeing = Country.Code "TR"
     , countryMaking = Country.Code "TR"
+    , countryUse = Country.Code "FR"
     , dyeingWeighting = Nothing
     , airTransportRatio = Nothing
     , quality = Nothing
@@ -608,6 +617,7 @@ encode inputs =
         , ( "countryFabric", Country.encode inputs.countryFabric )
         , ( "countryDyeing", Country.encode inputs.countryDyeing )
         , ( "countryMaking", Country.encode inputs.countryMaking )
+        , ( "countryUse", Country.encode inputs.countryUse )
         , ( "dyeingWeighting", inputs.dyeingWeighting |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
         , ( "airTransportRatio", inputs.airTransportRatio |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
         , ( "quality", inputs.quality |> Maybe.map Unit.encodeQuality |> Maybe.withDefault Encode.null )
@@ -636,6 +646,7 @@ decodeQuery =
         |> Pipe.required "countryFabric" (Decode.map Country.Code Decode.string)
         |> Pipe.required "countryDyeing" (Decode.map Country.Code Decode.string)
         |> Pipe.required "countryMaking" (Decode.map Country.Code Decode.string)
+        |> Pipe.optional "countryUse" (Decode.map Country.Code Decode.string) (Country.Code "FR")
         |> Pipe.optional "dyeingWeighting" (Decode.maybe Unit.decodeRatio) Nothing
         |> Pipe.optional "airTransportRatio" (Decode.maybe Unit.decodeRatio) Nothing
         |> Pipe.optional "quality" (Decode.maybe Unit.decodeQuality) Nothing
@@ -662,6 +673,7 @@ encodeQuery query =
         , ( "countryFabric", query.countryFabric |> Country.codeToString |> Encode.string )
         , ( "countryDyeing", query.countryDyeing |> Country.codeToString |> Encode.string )
         , ( "countryMaking", query.countryMaking |> Country.codeToString |> Encode.string )
+        , ( "countryUse", query.countryUse |> Country.codeToString |> Encode.string )
         , ( "dyeingWeighting", query.dyeingWeighting |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
         , ( "airTransportRatio", query.airTransportRatio |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
         , ( "quality", query.quality |> Maybe.map Unit.encodeQuality |> Maybe.withDefault Encode.null )

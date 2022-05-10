@@ -53,6 +53,7 @@ parse db =
         |> apply (countryParser "countryFabric" db.countries)
         |> apply (countryParser "countryDyeing" db.countries)
         |> apply (countryParser "countryMaking" db.countries)
+        |> apply (maybeCountryParser "countryUse" db.countries)
         |> apply (maybeRatioParser "dyeingWeighting")
         |> apply (maybeRatioParser "airTransportRatio")
         |> apply (maybeQuality "quality")
@@ -228,6 +229,23 @@ countryParser key countries =
                         |> Result.map .code
                         |> Result.mapError (\err -> ( key, err ))
                 )
+            )
+
+
+maybeCountryParser : String -> List Country -> Query.Parser (ParseResult Country.Code)
+maybeCountryParser key countries =
+    Query.string key
+        |> Query.map
+            (Maybe.map
+                (\code ->
+                    case Country.findByCode (Country.Code code) countries of
+                        Ok country ->
+                            Ok country.code
+
+                        Err error ->
+                            Err ( key, error )
+                )
+                >> Maybe.withDefault (Ok (Country.Code "FR"))
             )
 
 
