@@ -58,9 +58,7 @@ type alias Inputs =
     , countryFabric : Country
     , countryDyeing : Country
     , countryMaking : Country
-    , countryDistribution : Country
     , countryUse : Country
-    , countryEndOfLife : Country
     , dyeingWeighting : Maybe Unit.Ratio
     , airTransportRatio : Maybe Unit.Ratio
     , quality : Maybe Unit.Quality
@@ -139,9 +137,6 @@ fromQuery db query =
         materials =
             query.materials
                 |> toMaterialInputs db.materials
-
-        franceResult =
-            Country.findByCode (Country.Code "FR") db.countries
     in
     Ok Inputs
         |> RE.andMap (Ok query.mass)
@@ -149,14 +144,12 @@ fromQuery db query =
         |> RE.andMap (db.products |> Product.findById query.product)
         -- The material country is constrained to be the first material's default country
         |> RE.andMap (materials |> Result.andThen (firstMaterialCountry db.countries))
+        -- Countries for Fabric, Dyeing and Making steps are customizable
         |> RE.andMap (db.countries |> Country.findByCode query.countryFabric)
         |> RE.andMap (db.countries |> Country.findByCode query.countryDyeing)
         |> RE.andMap (db.countries |> Country.findByCode query.countryMaking)
-        -- The distribution country is always France
-        |> RE.andMap franceResult
+        -- Countries for distribution, use and end of life must be the same
         |> RE.andMap (db.countries |> Country.findByCode query.countryUse)
-        -- The end of life country is always France
-        |> RE.andMap franceResult
         |> RE.andMap (Ok query.dyeingWeighting)
         |> RE.andMap (Ok query.airTransportRatio)
         |> RE.andMap (Ok query.quality)
@@ -194,12 +187,18 @@ toString inputs =
         [ "tricotage", inputs.countryFabric.name ]
 
       else
-        [ "tissage", inputs.countryFabric.name ++ weavingOptionsToString inputs.picking inputs.surfaceMass ]
-    , [ "teinture", inputs.countryDyeing.name ++ dyeingOptionsToString inputs.dyeingWeighting ]
-    , [ "confection", inputs.countryMaking.name ++ makingOptionsToString inputs ]
-    , [ "distribution", inputs.countryDistribution.name ]
-    , [ "utilisation", inputs.countryUse.name ++ useOptionsToString inputs.quality inputs.reparability ]
-    , [ "fin de vie", inputs.countryEndOfLife.name ]
+        [ "tissage"
+        , inputs.countryFabric.name ++ weavingOptionsToString inputs.picking inputs.surfaceMass
+        ]
+    , [ "teinture"
+      , inputs.countryDyeing.name ++ dyeingOptionsToString inputs.dyeingWeighting
+      ]
+    , [ "confection"
+      , inputs.countryMaking.name ++ makingOptionsToString inputs
+      ]
+    , [ "distribution, utilisation, fin de vie"
+      , inputs.countryUse.name ++ useOptionsToString inputs.quality inputs.reparability
+      ]
     ]
         |> List.map (String.join "\u{00A0}: ")
         |> String.join ", "
@@ -287,9 +286,9 @@ countryList inputs =
     , inputs.countryFabric
     , inputs.countryDyeing
     , inputs.countryMaking
-    , inputs.countryDistribution
     , inputs.countryUse
-    , inputs.countryEndOfLife
+    , inputs.countryUse
+    , inputs.countryUse
     ]
 
 
@@ -310,8 +309,16 @@ updateStepCountry index code query =
                     -- FIXME: index 3 is Making step; how could we use the step label instead?
                     { query | countryMaking = code }
 
+                4 ->
+                    -- FIXME: index 4 is Distribution step; how could we use the step label instead?
+                    { query | countryUse = code }
+
                 5 ->
                     -- FIXME: index 5 is Use step; how could we use the step label instead?
+                    { query | countryUse = code }
+
+                6 ->
+                    -- FIXME: index 6 is EndOfLife step; how could we use the step label instead?
                     { query | countryUse = code }
 
                 _ ->

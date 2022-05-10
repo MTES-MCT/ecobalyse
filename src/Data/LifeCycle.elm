@@ -112,9 +112,9 @@ init db inputs =
             , ( Step.Fabric, True )
             , ( Step.Dyeing, True )
             , ( Step.Making, True )
-            , ( Step.Distribution, False )
+            , ( Step.Distribution, True )
             , ( Step.Use, True )
-            , ( Step.EndOfLife, False )
+            , ( Step.EndOfLife, True )
             ]
         |> List.map (Step.updateFromInputs db inputs)
         |> Array.fromList

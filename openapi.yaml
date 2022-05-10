@@ -74,6 +74,7 @@ paths:
       - $ref: '#/components/parameters/countryFabricParam'
       - $ref: '#/components/parameters/countryDyeingParam'
       - $ref: '#/components/parameters/countryMakingParam'
+      - $ref: '#/components/parameters/countryUseParam'
       - $ref: '#/components/parameters/dyeingWeightingParam'
       - $ref: '#/components/parameters/airTransportRatioParam'
       - $ref: '#/components/parameters/qualityParam'
@@ -134,6 +135,7 @@ paths:
       - $ref: '#/components/parameters/countryFabricParam'
       - $ref: '#/components/parameters/countryDyeingParam'
       - $ref: '#/components/parameters/countryMakingParam'
+      - $ref: '#/components/parameters/countryUseParam'
       - $ref: '#/components/parameters/dyeingWeightingParam'
       - $ref: '#/components/parameters/airTransportRatioParam'
       - $ref: '#/components/parameters/qualityParam'
@@ -167,6 +169,7 @@ paths:
       - $ref: '#/components/parameters/countryFabricParam'
       - $ref: '#/components/parameters/countryDyeingParam'
       - $ref: '#/components/parameters/countryMakingParam'
+      - $ref: '#/components/parameters/countryUseParam'
       - $ref: '#/components/parameters/dyeingWeightingParam'
       - $ref: '#/components/parameters/airTransportRatioParam'
       - $ref: '#/components/parameters/qualityParam'
@@ -254,7 +257,8 @@ components:
     countryDyeingParam:
       name: countryDyeing
       in: query
-      description: "Code pays pour l'étape de **Teinture** (liste disponible sur le point d'entrée dédié)"
+      description: |
+        Code pays pour l'étape de **Teinture** (liste disponible sur le point d'entrée dédié)
       required: true
       style: form
       schema:
@@ -269,7 +273,8 @@ components:
     countryMakingParam:
       name: countryMaking
       in: query
-      description: "Code pays pour l'étape de **Confection** (liste disponible sur le point d'entrée dédié)"
+      description: |
+        Code pays pour l'étape de **Confection** (liste disponible sur le point d'entrée dédié)
       required: true
       style: form
       schema:
@@ -281,6 +286,25 @@ components:
           value: "CN"
         France:
           value: "FR"
+    countryUseParam:
+      name: countryUse
+      in: query
+      description: |
+        Code pays pour les étapes de **Distribution**, de **Utilisation** et **Fin de vie**
+        (liste disponible sur le point d'entrée dédié). Si non renseigné, ce pays est la France (FR).
+      required: false
+      style: form
+      schema:
+        type: string
+        minLength: 2
+        maxLength: 2
+      examples:
+        France:
+          value: ~ # by default
+        Chine:
+          value: "CN"
+        Portugal:
+          value: "PT"
     dyeingWeightingParam:
       name: dyeingWeighting
       in: query

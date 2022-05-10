@@ -109,14 +109,20 @@ countryField { db, current, inputs, index, updateCountry } =
 
             Step.Distribution ->
                 div [ class "form-text fs-7 mb-0" ]
-                    [ Icon.exclamation
-                    , text " Champ non paramétrable"
+                    [ Icon.info
+                    , text " Affecte les étapes de distribution, utilisation et fin de vie."
+                    ]
+
+            Step.Use ->
+                div [ class "form-text fs-7 mb-0" ]
+                    [ Icon.info
+                    , text " Affecte les étapes de distribution, utilisation et fin de vie."
                     ]
 
             Step.EndOfLife ->
                 div [ class "form-text fs-7 mb-0" ]
-                    [ Icon.exclamation
-                    , text " Champ non paramétrable"
+                    [ Icon.info
+                    , text " Affecte les étapes de distribution, utilisation et fin de vie."
                     ]
 
             _ ->
