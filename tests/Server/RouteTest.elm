@@ -1,5 +1,6 @@
 module Server.RouteTest exposing (..)
 
+import Data.Country as Country
 import Data.Db exposing (Db)
 import Data.Impact as Impact
 import Data.Inputs as Inputs exposing (tShirtCotonFrance)
@@ -55,6 +56,24 @@ suite =
                                         Ok { tShirtCotonFrance | quality = Just (Unit.quality 1.2) }
                             )
                         |> asTest "should handle the /simulator endpoint with the quality parameter set"
+                    , [ "/simulator?mass=0.17"
+                      , "product=tshirt"
+                      , "material=coton"
+                      , "materials[]=coton;1;0"
+                      , "countryFabric=FR"
+                      , "countryDyeing=FR"
+                      , "countryMaking=FR"
+                      , "countryUse=PT"
+                      ]
+                        |> String.join "&"
+                        |> getEndpoint db "GET"
+                        |> Expect.equal
+                            (Just <|
+                                Route.Get <|
+                                    Route.Simulator <|
+                                        Ok { tShirtCotonFrance | countryUse = Country.Code "PT" }
+                            )
+                        |> asTest "should handle the /simulator endpoint with the countryUse parameter set"
                     , [ "/simulator/fwe?mass=0.17"
                       , "product=tshirt"
                       , "material=coton"
