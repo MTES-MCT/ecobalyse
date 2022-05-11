@@ -6958,5 +6958,35 @@
     "elec": 6.53,
     "waste": 0.0,
     "alias": "fading"
+  },
+  {
+    "name": "Filature",
+    "info": "Textile > Filature > Filature",
+    "unit": "kg",
+    "source": "Ecobalyse",
+    "uuid": "6f8b64d7-24bf-4024-b0f5-0e3a6597d825",
+    "impacts": {
+      "acd": 0.0,
+      "ccb": 0.0,
+      "ccf": 0.0,
+      "cch": 0.0,
+      "ccl": 0.0,
+      "fru": 0.0,
+      "ior": 0.0,
+      "fwe": 0.0,
+      "mru": 0.0,
+      "ldu": 0.0,
+      "ozd": 0.0,
+      "pco": 0.0,
+      "pma": 0.0,
+      "swe": 0.0,
+      "tre": 0.0,
+      "wtu": 0.0
+    },
+    "heat": 0.0,
+    "elec_pppm": 0.0,
+    "elec": 3.21,
+    "waste": 0.0,
+    "alias": "spinning"
   }
 ]
