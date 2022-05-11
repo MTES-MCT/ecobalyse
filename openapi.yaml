@@ -290,7 +290,7 @@ components:
       name: countryUse
       in: query
       description: |
-        Code pays pour les étapes de **Distribution**, de **Utilisation** et **Fin de vie**
+        Code pays pour les étapes de **Distribution** et d'**Utilisation**
         (liste disponible sur le point d'entrée dédié). Si non renseigné, ce pays est la France (FR).
       required: false
       style: form

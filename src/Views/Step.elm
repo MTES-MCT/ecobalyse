@@ -110,19 +110,19 @@ countryField { db, current, inputs, index, updateCountry } =
             Step.Distribution ->
                 div [ class "form-text fs-7 mb-0" ]
                     [ Icon.info
-                    , text " Affecte les étapes de distribution, utilisation et fin de vie."
+                    , text " Affecte les étapes de distribution et utilisation."
                     ]
 
             Step.Use ->
                 div [ class "form-text fs-7 mb-0" ]
                     [ Icon.info
-                    , text " Affecte les étapes de distribution, utilisation et fin de vie."
+                    , text " Affecte les étapes de distribution et utilisation."
                     ]
 
             Step.EndOfLife ->
                 div [ class "form-text fs-7 mb-0" ]
                     [ Icon.info
-                    , text " Affecte les étapes de distribution, utilisation et fin de vie."
+                    , text " Ce champ n'est pas paramétrable."
                     ]
 
             _ ->
@@ -384,10 +384,23 @@ simpleView ({ funit, inputs, daysOfWear, impact, current } as config) =
                         , current.transport.impacts
                             |> Format.formatImpact funit impact daysOfWear
                         ]
+                    , eolTransportsInfo inputs current
                     ]
                 ]
             ]
         ]
+
+
+eolTransportsInfo : Inputs -> Step -> Html msg
+eolTransportsInfo inputs step =
+    if step.label == Step.EndOfLife && step.country /= inputs.countryUse then
+        div [ class "text-muted fs-7 p-2" ]
+            [ span [ class "me-1" ] [ Icon.warning ]
+            , text "Le transport depuis le pays d'utilisation (hors France) n'est pas pris en compte"
+            ]
+
+    else
+        text ""
 
 
 viewProcessInfo : Maybe String -> Html msg
@@ -567,6 +580,7 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
 
                   else
                     text ""
+                , eolTransportsInfo inputs current
                 ]
             ]
         ]

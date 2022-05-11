@@ -59,6 +59,7 @@ type alias Inputs =
     , countryDyeing : Country
     , countryMaking : Country
     , countryUse : Country
+    , countryEndOfLife : Country
     , dyeingWeighting : Maybe Unit.Ratio
     , airTransportRatio : Maybe Unit.Ratio
     , quality : Maybe Unit.Quality
@@ -137,6 +138,9 @@ fromQuery db query =
         materials =
             query.materials
                 |> toMaterialInputs db.materials
+
+        franceResult =
+            Country.findByCode (Country.Code "FR") db.countries
     in
     Ok Inputs
         |> RE.andMap (Ok query.mass)
@@ -148,8 +152,10 @@ fromQuery db query =
         |> RE.andMap (db.countries |> Country.findByCode query.countryFabric)
         |> RE.andMap (db.countries |> Country.findByCode query.countryDyeing)
         |> RE.andMap (db.countries |> Country.findByCode query.countryMaking)
-        -- Countries for distribution, use and end of life must be the same
+        -- Note: countries for distribution and use must be the same
         |> RE.andMap (db.countries |> Country.findByCode query.countryUse)
+        -- EoL stage always in France
+        |> RE.andMap franceResult
         |> RE.andMap (Ok query.dyeingWeighting)
         |> RE.andMap (Ok query.airTransportRatio)
         |> RE.andMap (Ok query.quality)
@@ -196,9 +202,10 @@ toString inputs =
     , [ "confection"
       , inputs.countryMaking.name ++ makingOptionsToString inputs
       ]
-    , [ "distribution, utilisation et fin de vie"
+    , [ "distribution et utilisation"
       , inputs.countryUse.name ++ useOptionsToString inputs.quality inputs.reparability
       ]
+    , [ "fin de vie", inputs.countryEndOfLife.name ]
     ]
         |> List.map (String.join "\u{00A0}: ")
         |> String.join ", "
@@ -286,7 +293,7 @@ countryList inputs =
     , inputs.countryMaking
     , inputs.countryUse
     , inputs.countryUse
-    , inputs.countryUse
+    , inputs.countryEndOfLife
     ]
 
 
@@ -313,10 +320,6 @@ updateStepCountry index code query =
 
                 5 ->
                     -- FIXME: index 5 is Use step; how could we use the step label instead?
-                    { query | countryUse = code }
-
-                6 ->
-                    -- FIXME: index 6 is EndOfLife step; how could we use the step label instead?
                     { query | countryUse = code }
 
                 _ ->
@@ -623,6 +626,7 @@ encode inputs =
         , ( "countryDyeing", Country.encode inputs.countryDyeing )
         , ( "countryMaking", Country.encode inputs.countryMaking )
         , ( "countryUse", Country.encode inputs.countryUse )
+        , ( "countryEndOfLife", Country.encode inputs.countryEndOfLife )
         , ( "dyeingWeighting", inputs.dyeingWeighting |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
         , ( "airTransportRatio", inputs.airTransportRatio |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
         , ( "quality", inputs.quality |> Maybe.map Unit.encodeQuality |> Maybe.withDefault Encode.null )
