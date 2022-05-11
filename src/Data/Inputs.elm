@@ -181,7 +181,7 @@ toQuery inputs =
 toString : Inputs -> String
 toString inputs =
     [ [ inputs.product.name ]
-    , [ materialsToString inputs.materials ++ "de " ++ Format.kgToString inputs.mass ]
+    , [ materialsToString inputs.materials ++ " de " ++ Format.kgToString inputs.mass ]
     , [ "matière et filature", inputs.countryMaterial.name ]
     , if inputs.product.knitted then
         [ "tricotage", inputs.countryFabric.name ]
@@ -196,7 +196,7 @@ toString inputs =
     , [ "confection"
       , inputs.countryMaking.name ++ makingOptionsToString inputs
       ]
-    , [ "distribution, utilisation, fin de vie"
+    , [ "distribution, utilisation et fin de vie"
       , inputs.countryUse.name ++ useOptionsToString inputs.quality inputs.reparability
       ]
     ]
@@ -205,17 +205,15 @@ toString inputs =
 
 
 materialsToString : List MaterialInput -> String
-materialsToString materials =
-    materials
-        |> List.filter (\{ share } -> Unit.ratioToFloat share > 0)
-        |> List.map
+materialsToString =
+    List.filter (\{ share } -> Unit.ratioToFloat share > 0)
+        >> List.map
             (\{ material, share, recycledRatio } ->
                 Format.formatFloat 0 (Unit.ratioToFloat share * 100)
                     ++ "% "
                     ++ Material.fullName (Just recycledRatio) material
-                    ++ ", "
             )
-        |> List.foldr (++) ""
+        >> String.join ", "
 
 
 weavingOptionsToString : Maybe Unit.PickPerMeter -> Maybe Unit.SurfaceMass -> String
