@@ -20,16 +20,16 @@ def get_process(process_name):
 proc_landfill = "Mise en décharge de textiles, FR"
 proc_incineration = "Incinération de déchets - Déchets textiles, FR"
 proc_transport = "Transport en camion 7,5t (3t) France (dont parc, utilisation et infrastructure) (50%) [tkm], FR"
-proc_chaleur = (
-    "Mix Vapeur (mix technologique|mix de production, en sortie de chaudière), FR"
-)
 proc_elec = "Mix électrique réseau, FR"
 
 
-# distance total de transport en camion effectué pour un vêtement (67.48 km)
+# these constants are calculated based on a table in the doc : https://fabrique-numerique.gitbook.io/wikicarbone/methodologie/etape-7-fin-de-vie
+# total distance of truck transport for an apparel (67.48 km)
 d_camion = 30 * 80.5 / 100 + 130 * 19.5 / 100 + 100 * 16.9 / 100 + 30 * 3.6 / 100
 incineration_share = (80.5 / 100 + 2.6 / 100) * 45 / 100
 landfill_share = (80.5 / 100 + 2.6 / 100) * 55 / 100
+
+# the figure for the amount of elec generated during incineration comes from Base Impacts : https://base-impacts.ademe.fr/personalspace/read-process/id/379113/idVersion/32
 # in MJ/kg
 incineration_elec_generated = 2.24
 
@@ -47,9 +47,9 @@ for impact, value in process_landfill["impacts"].items():
     # given that we are working in kg we have to divide the impact by 1000
     impact_transport = d_camion * process_transport["impacts"][impact] / 1000
     # to compute the impact of incineration we have to substract the impact of the electricity generated (divided by 3.6 to convert from MJ to kWh)
-    # we don't take into account the heat generated during the burning as it is a "valuable substance " acccording to Base Impact documentation : https://base-impacts.ademe.fr/personalspace/read-process/id/379112/idVersion/32
-    impact_incineration = (
-        incineration_share * process_incineration["impacts"][impact]
+    # we don't take into account the heat generated during the burning as it is not classified as a "valuable substance" acccording to Base Impact documentation : https://base-impacts.ademe.fr/personalspace/read-process/id/379113/idVersion/32
+    impact_incineration = incineration_share * (
+        process_incineration["impacts"][impact]
         - incineration_elec_generated / 3.6 * process_elec["impacts"][impact]
     )
     impact_landfill = landfill_share * process_landfill["impacts"][impact]
