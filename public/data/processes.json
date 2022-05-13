@@ -210,11 +210,11 @@
     "alias": null
   },
   {
-    "name": "[Impact seulement matière] Fil de soie",
-    "info": "Textile > Matières > Matières naturelles",
+    "name": "Soie",
+    "info": "Textile > Matières > Matières naturelles uuid_bi=94b4b0e1-61e4-4f4d-b9b2-efe7623b0e68",
     "unit": "kg",
-    "source": "Base Impacts",
-    "uuid": "94b4b0e1-61e4-4f4d-b9b2-efe7623b0e68",
+    "source": "Wikicarbone",
+    "uuid": "e3e70682-c209-4cac-629f-6fbed82c07cd",
     "impacts": {
       "acd": 4.53066e-1,
       "ccb": 6.39286e-1,
@@ -240,11 +240,11 @@
     "alias": null
   },
   {
-    "name": "[Impact seulement matière] Fil de lin (filasse)",
-    "info": "Textile > Matières > Matières naturelles",
+    "name": "Lin (filasse)",
+    "info": "Textile > Matières > Matières naturelles uuid_bi=e5a6d538-f932-4242-98b4-3a0c6439629c",
     "unit": "kg",
-    "source": "Base Impacts",
-    "uuid": "e5a6d538-f932-4242-98b4-3a0c6439629c",
+    "source": "Wikicarbone",
+    "uuid": "cd613e30-d8f1-6adf-91b7-584a2265b1f5",
     "impacts": {
       "acd": 8.32432e-2,
       "ccb": 1.64494e-3,
@@ -270,11 +270,11 @@
     "alias": null
   },
   {
-    "name": "[Impact seulement matière] Fil de lin (étoupe)",
-    "info": "Textile > Matières > Matières naturelles",
+    "name": "Lin (étoupe)",
+    "info": "Textile > Matières > Matières naturelles uuid_bi=fcef1a31-bb18-49e4-bdb6-e53dfe015ba0",
     "unit": "kg",
-    "source": "Base Impacts",
-    "uuid": "fcef1a31-bb18-49e4-bdb6-e53dfe015ba0",
+    "source": "Wikicarbone",
+    "uuid": "d95bafc8-f2a4-d27b-dcf4-bb99f4bea973",
     "impacts": {
       "acd": 7.28902e-2,
       "ccb": 1.399e-3,
@@ -300,11 +300,11 @@
     "alias": null
   },
   {
-    "name": "[Impact seulement matière] Fil de laine de mouton Mérinos, inventaire partiellement agrégé",
-    "info": "Textile > Matières > Matières naturelles",
+    "name": "Laine de mouton Mérinos",
+    "info": "Textile > Matières > Matières naturelles uuid_bi=4e035dbf-f48b-4b5a-94ea-0006c713958b",
     "unit": "kg",
-    "source": "Base Impacts",
-    "uuid": "4e035dbf-f48b-4b5a-94ea-0006c713958b",
+    "source": "Wikicarbone",
+    "uuid": "21636369-8b52-9b4a-97b7-50923ceb3ffd",
     "impacts": {
       "acd": 2.29736e-1,
       "ccb": 4.21606e1,
@@ -330,11 +330,11 @@
     "alias": null
   },
   {
-    "name": "[Impact seulement matière] Fil de laine de mouton",
-    "info": "Textile > Matières > Matières naturelles",
+    "name": "Laine de mouton",
+    "info": "Textile > Matières > Matières naturelles uuid_bi=376bd165-d354-41aa-a6e3-fd3228413bb2",
     "unit": "kg",
-    "source": "Base Impacts",
-    "uuid": "376bd165-d354-41aa-a6e3-fd3228413bb2",
+    "source": "Wikicarbone",
+    "uuid": "b8a1abcd-1a69-16c7-4da4-f9fc3c6da5d7",
     "impacts": {
       "acd": 1.66114,
       "ccb": 4.30647e1,
@@ -390,11 +390,11 @@
     "alias": null
   },
   {
-    "name": "[Impact seulement matière] Fil de jute",
-    "info": "Textile > Matières > Matières naturelles",
+    "name": "Jute",
+    "info": "Textile > Matières > Matières naturelles uuid_bi=72010874-4d26-4c7a-95de-c6987dfdedeb",
     "unit": "kg",
-    "source": "Base Impacts",
-    "uuid": "72010874-4d26-4c7a-95de-c6987dfdedeb",
+    "source": "Wikicarbone",
+    "uuid": "5bc8fbbc-bde5-c099-4164-d8399f767c45",
     "impacts": {
       "acd": 6.27176e-2,
       "ccb": 2.50241e-1,
@@ -420,11 +420,11 @@
     "alias": null
   },
   {
-    "name": "[Impact seulement matière] Fil de coton conventionnel, inventaire partiellement agrégé",
-    "info": "Textile > Matières > Matières naturelles",
+    "name": "Coton",
+    "info": "Textile > Matières > Matières naturelles uuid_bi=f211bbdb-415c-46fd-be4d-ddf199575b44",
     "unit": "kg",
-    "source": "Base Impacts",
-    "uuid": "f211bbdb-415c-46fd-be4d-ddf199575b44",
+    "source": "Wikicarbone",
+    "uuid": "14a03569-d26b-9496-92e5-dfe8cb1855fe",
     "impacts": {
       "acd": 1.24354e-1,
       "ccb": 1.04544e-2,
@@ -450,11 +450,11 @@
     "alias": null
   },
   {
-    "name": "[Impact seulement matière] Fil de chanvre",
-    "info": "Textile > Matières > Matières naturelles",
+    "name": "Chanvre",
+    "info": "Textile > Matières > Matières naturelles uuid_bi=08601439-f338-4f94-ac8c-538061b65d16",
     "unit": "kg",
-    "source": "Base Impacts",
-    "uuid": "08601439-f338-4f94-ac8c-538061b65d16",
+    "source": "Wikicarbone",
+    "uuid": "6513270e-269e-0d37-f2a7-4de452e6b438",
     "impacts": {
       "acd": 1.19565e-1,
       "ccb": 4.33038e-3,
@@ -480,11 +480,11 @@
     "alias": null
   },
   {
-    "name": "[Impact seulement matière] Fil de cachemire",
-    "info": "Textile > Matières > Matières naturelles",
+    "name": "Cachemire",
+    "info": "Textile > Matières > Matières naturelles uuid_bi=380c0d9c-2840-4390-bd3f-5c960f26f5ed",
     "unit": "kg",
-    "source": "Base Impacts",
-    "uuid": "380c0d9c-2840-4390-bd3f-5c960f26f5ed",
+    "source": "Wikicarbone",
+    "uuid": "6018366c-f658-f7a7-5ed3-4fe53a096533",
     "impacts": {
       "acd": 6.67959,
       "ccb": 3.65923e2,
@@ -510,11 +510,11 @@
     "alias": null
   },
   {
-    "name": "[Impact seulement matière] Fil d'angora",
-    "info": "Textile > Matières > Matières naturelles",
+    "name": "Angora",
+    "info": "Textile > Matières > Matières naturelles uuid_bi=29bddef1-d753-45af-9ca6-aec05e2d02b9",
     "unit": "kg",
-    "source": "Base Impacts",
-    "uuid": "29bddef1-d753-45af-9ca6-aec05e2d02b9",
+    "source": "Wikicarbone",
+    "uuid": "4462ebfc-5f91-5ef0-9cfb-ac6e7687a66e",
     "impacts": {
       "acd": 2.65046,
       "ccb": 7.38294,
@@ -570,11 +570,11 @@
     "alias": null
   },
   {
-    "name": "[Impact seulement matière] Filament de viscose",
-    "info": "Textile > Matières > Matières synthétiques",
+    "name": "Viscose",
+    "info": "Textile > Matières > Matières synthétiques uuid_bi=81a67d97-3cd9-44ef-9ee2-159364364c0f",
     "unit": "kg",
-    "source": "Base Impacts",
-    "uuid": "81a67d97-3cd9-44ef-9ee2-159364364c0f",
+    "source": "Wikicarbone",
+    "uuid": "7b89296c-6dcb-ac50-0857-7eb1924770d3",
     "impacts": {
       "acd": 4.9017e-2,
       "ccb": 1.7333e-2,
@@ -600,11 +600,11 @@
     "alias": null
   },
   {
-    "name": "[Impact seulement matière] Filament de polyuréthane",
-    "info": "Textile > Matières > Matières synthétiques",
+    "name": "Polyuréthane/Élasthanne",
+    "info": "Textile > Matières > Matières synthétiques uuid_bi=c3738500-0a62-4b95-b4a2-b7beb12a9e1a",
     "unit": "kg",
-    "source": "Base Impacts",
-    "uuid": "c3738500-0a62-4b95-b4a2-b7beb12a9e1a",
+    "source": "Wikicarbone",
+    "uuid": "db5b5fab-8f4d-3e27-dda1-494c73cf256d",
     "impacts": {
       "acd": 1.0135e-1,
       "ccb": 1.92492e-2,
@@ -630,11 +630,11 @@
     "alias": null
   },
   {
-    "name": "[Impact seulement matière] Filament de polytriméthylène téréphtalate (PTT), inventaire partiellement agrégé",
-    "info": "Textile > Matières > Matières synthétiques",
+    "name": "Polytriméthylène téréphtalate (PTT)",
+    "info": "Textile > Matières > Matières synthétiques uuid_bi=eca33573-0d09-4d79-9b28-da42bfcc7a4b",
     "unit": "kg",
-    "source": "Base Impacts",
-    "uuid": "eca33573-0d09-4d79-9b28-da42bfcc7a4b",
+    "source": "Wikicarbone",
+    "uuid": "87751d4c-a850-1e2c-44dc-da6a797d76de",
     "impacts": {
       "acd": 4.51289e-2,
       "ccb": 3.60811e-3,
@@ -660,11 +660,11 @@
     "alias": null
   },
   {
-    "name": "[Impact seulement matière] Filament de polytéréphtalate de butylène (PBT), inventaire agrégé",
-    "info": "Textile > Matières > Matières synthétiques",
+    "name": "Polytéréphtalate de butylène (PBT)",
+    "info": "Textile > Matières > Matières synthétiques uuid_bi=7f8bbfdc-fb65-4e3a-ac81-eda197ef17fc",
     "unit": "kg",
-    "source": "Base Impacts",
-    "uuid": "7f8bbfdc-fb65-4e3a-ac81-eda197ef17fc",
+    "source": "Wikicarbone",
+    "uuid": "e8d79f49-af6d-114c-4a6f-188a424e617b",
     "impacts": {
       "acd": 4.60153e-2,
       "ccb": 2.2479e-3,
@@ -690,27 +690,27 @@
     "alias": null
   },
   {
-    "name": "[Impact seulement matière] Filament de polypropylène",
-    "info": "Textile > Matières > Matières synthétiques",
+    "name": "Polypropylène",
+    "info": "Textile > Matières > Matières synthétiques uuid_bi=a30cfbde-393a-40db-9263-ea00bfced0b7",
     "unit": "kg",
-    "source": "Base Impacts",
-    "uuid": "a30cfbde-393a-40db-9263-ea00bfced0b7",
+    "source": "Wikicarbone",
+    "uuid": "c15521b1-b3dc-a50a-9daa-37e51b591d75",
     "impacts": {
-      "acd": 2.78839e-2,
+      "acd": 2.79471e-2,
       "ccb": 7.04748e-3,
-      "ccf": 5.41024,
-      "cch": 5.41729,
+      "ccf": 6.65084,
+      "cch": 6.65789,
       "ccl": 0.0,
-      "fru": 1.25588e2,
-      "fwe": 2.62006e-4,
-      "ior": 1.91015,
+      "fru": 1.19715e2,
+      "fwe": 2.61974e-4,
+      "ior": 0,
       "ldu": 3.58197,
-      "mru": 2.26742e-6,
-      "ozd": 3.07786e-7,
-      "pco": 1.10673e-2,
-      "pma": 2.50404e-7,
-      "swe": 4.097e-3,
-      "tre": 2.47429e-2,
+      "mru": 2.27786e-6,
+      "ozd": 3.05227e-7,
+      "pco": 1.4234e-2,
+      "pma": 3.33622e-7,
+      "swe": 5.02295e-3,
+      "tre": 2.57863e-2,
       "wtu": 2.95386e-2
     },
     "heat": 0.0,
@@ -720,11 +720,11 @@
     "alias": null
   },
   {
-    "name": "[Impact seulement matière] Filament de polylactide",
-    "info": "Textile > Matières > Matières synthétiques",
+    "name": "Polylactide",
+    "info": "Textile > Matières > Matières synthétiques uuid_bi=f2dd799d-1b69-4e7a-99bd-696bbbd5a978",
     "unit": "kg",
-    "source": "Base Impacts",
-    "uuid": "f2dd799d-1b69-4e7a-99bd-696bbbd5a978",
+    "source": "Wikicarbone",
+    "uuid": "85750621-02fb-cd4f-357f-bc5af71a1bfc",
     "impacts": {
       "acd": 1.91092e-2,
       "ccb": 8.90413e-3,
@@ -750,27 +750,27 @@
     "alias": null
   },
   {
-    "name": "[Impact seulement matière] Filament de polyéthylène",
-    "info": "Textile > Matières > Matières synthétiques",
+    "name": "Polyéthylène",
+    "info": "Textile > Matières > Matières synthétiques uuid_bi=088ed617-67fa-4d42-b3af-ee6cf39cf36f",
     "unit": "kg",
-    "source": "Base Impacts",
-    "uuid": "088ed617-67fa-4d42-b3af-ee6cf39cf36f",
+    "source": "Wikicarbone",
+    "uuid": "48f165d5-7b00-c7f4-781e-f86f5c8cc1ab",
     "impacts": {
-      "acd": 2.84127e-2,
+      "acd": 2.84759e-2,
       "ccb": 8.78997e-3,
-      "ccf": 5.40034,
-      "cch": 5.40913,
+      "ccf": 6.64094,
+      "cch": 6.64973,
       "ccl": 0.0,
-      "fru": 1.27301e2,
-      "fwe": 2.66352e-4,
-      "ior": 1.90975,
+      "fru": 1.21428e2,
+      "fwe": 2.6632e-4,
+      "ior": 0,
       "ldu": 3.57873,
-      "mru": 2.22202e-6,
-      "ozd": 3.07312e-7,
-      "pco": 1.21716e-2,
-      "pma": 2.55427e-7,
-      "swe": 4.06967e-3,
-      "tre": 2.47537e-2,
+      "mru": 2.23246e-6,
+      "ozd": 3.04753e-7,
+      "pco": 1.53383e-2,
+      "pma": 3.38645e-7,
+      "swe": 4.99562e-3,
+      "tre": 2.57971e-2,
       "wtu": 2.95386e-2
     },
     "heat": 0.0,
@@ -780,11 +780,11 @@
     "alias": null
   },
   {
-    "name": "[Impact seulement matière] Filament de polyester, inventaire partiellement agrégé",
-    "info": "Textile > Matières > Matières synthétiques",
+    "name": "Polyester",
+    "info": "Textile > Matières > Matières synthétiques uuid_bi=4d57c51d-7d56-46e1-acde-02fbcdc943e4",
     "unit": "kg",
-    "source": "Base Impacts",
-    "uuid": "4d57c51d-7d56-46e1-acde-02fbcdc943e4",
+    "source": "Wikicarbone",
+    "uuid": "4dad2986-ce83-4960-6a06-e9ab85a0bcc1",
     "impacts": {
       "acd": 4.00497e-2,
       "ccb": 3.96229e-3,
@@ -810,27 +810,27 @@
     "alias": null
   },
   {
-    "name": "[Impact seulement matière] Filament de polyamide 66",
-    "info": "Textile > Matières > Matières synthétiques",
+    "name": "Polyamide",
+    "info": "Textile > Matières > Matières synthétiques uuid_bi=182fa424-1f49-4728-b0f1-cb4e4ab36392",
     "unit": "kg",
-    "source": "Base Impacts",
-    "uuid": "182fa424-1f49-4728-b0f1-cb4e4ab36392",
+    "source": "Wikicarbone",
+    "uuid": "72e63ac7-a953-8322-1f70-d5dc2e675fc7",
     "impacts": {
-      "acd": 4.93069e-2,
+      "acd": 4.93701e-2,
       "ccb": 1.14145e-2,
-      "ccf": 1.21338e1,
-      "cch": 1.21452e1,
+      "ccf": 1.33744e1,
+      "cch": 1.33858e1,
       "ccl": 0.0,
-      "fru": 1.85997e2,
-      "fwe": 3.43154e-4,
-      "ior": 2.01859,
+      "fru": 1.80124e2,
+      "fwe": 3.43122e-4,
+      "ior": 0,
       "ldu": 3.61651,
-      "mru": 5.10119e-6,
-      "ozd": 3.06945e-7,
-      "pco": 1.3858e-2,
-      "pma": 4.74701e-7,
-      "swe": 1.26841e-2,
-      "tre": 3.47641e-2,
+      "mru": 5.11163e-6,
+      "ozd": 3.04386e-7,
+      "pco": 1.70247e-2,
+      "pma": 5.57919e-7,
+      "swe": 1.361e-2,
+      "tre": 3.58075e-2,
       "wtu": 2.95386e-2
     },
     "heat": 0.0,
@@ -840,11 +840,11 @@
     "alias": null
   },
   {
-    "name": "[Impact seulement matière] Filament d'aramide",
-    "info": "Textile > Matières > Matières synthétiques",
+    "name": "Aramide",
+    "info": "Textile > Matières > Matières synthétiques uuid_bi=7a1ccc4a-2ea7-48dc-9ef0-d57066ea8fa5",
     "unit": "kg",
-    "source": "Base Impacts",
-    "uuid": "7a1ccc4a-2ea7-48dc-9ef0-d57066ea8fa5",
+    "source": "Wikicarbone",
+    "uuid": "e539a78b-c8ef-f346-0b12-ae6ead581e57",
     "impacts": {
       "acd": 5.02564e-2,
       "ccb": 6.49834e-3,
@@ -870,11 +870,11 @@
     "alias": null
   },
   {
-    "name": "[Impact seulement matière] Filament d'acrylique",
-    "info": "Textile > Matières > Matières synthétiques",
+    "name": "Acrylique",
+    "info": "Textile > Matières > Matières synthétiques uuid_bi=aee6709f-0864-4fc5-8760-68cb644a0021",
     "unit": "kg",
-    "source": "Base Impacts",
-    "uuid": "aee6709f-0864-4fc5-8760-68cb644a0021",
+    "source": "Wikicarbone",
+    "uuid": "c963cfe0-afae-5a3b-b909-6a04e7d80068",
     "impacts": {
       "acd": 1.14693e-1,
       "ccb": 1.72928e-3,
@@ -900,27 +900,27 @@
     "alias": null
   },
   {
-    "name": "[Impact seulement matière] Filament bi-composant polypropylène/polyamide",
-    "info": "Textile > Matières > Matières synthétiques",
+    "name": "Polypropylène/polyamide",
+    "info": "Textile > Matières > Matières synthétiques uuid_bi=37396ac4-13a2-484c-9cc6-5b5a93ff6e6e",
     "unit": "kg",
-    "source": "Base Impacts",
-    "uuid": "37396ac4-13a2-484c-9cc6-5b5a93ff6e6e",
+    "source": "Wikicarbone",
+    "uuid": "6b0404f2-b094-90b8-6b01-a1c12a3a2107",
     "impacts": {
-      "acd": 3.21316e-2,
+      "acd": 3.21948e-2,
       "ccb": 7.92163e-3,
-      "ccf": 6.75399,
-      "cch": 6.76191,
+      "ccf": 7.99459,
+      "cch": 8.00251,
       "ccl": 0.0,
-      "fru": 1.37691e2,
-      "fwe": 2.78573e-4,
-      "ior": 1.91044,
+      "fru": 1.31818e2,
+      "fwe": 2.78541e-4,
+      "ior": 0,
       "ldu": 3.61447,
-      "mru": 2.85194e-6,
-      "ozd": 3.09636e-7,
-      "pco": 1.16108e-2,
-      "pma": 2.9476e-7,
-      "swe": 5.8055e-3,
-      "tre": 2.66516e-2,
+      "mru": 2.86238e-6,
+      "ozd": 3.07077e-7,
+      "pco": 1.47775e-2,
+      "pma": 3.77978e-7,
+      "swe": 6.73145e-3,
+      "tre": 2.7695e-2,
       "wtu": 2.95386e-2
     },
     "heat": 0.0,
@@ -960,11 +960,11 @@
     "alias": null
   },
   {
-    "name": "[Impact seulement matière] Production de filament de polyester recyclé (recyclage mécanique), traitement de bouteilles post-consommation, inventaire partiellement agrégé",
-    "info": "Textile > Matières > Matières recyclées",
+    "name": "Polyester recyclé (recyclage mécanique)",
+    "info": "Textile > Matières > Matières recyclées uuid_bi=4072bfa2-1948-4d12-8de9-bbeb6cc628e1",
     "unit": "kg",
-    "source": "Base Impacts",
-    "uuid": "4072bfa2-1948-4d12-8de9-bbeb6cc628e1",
+    "source": "Wikicarbone",
+    "uuid": "3e1c26d3-23ef-323e-e848-f808f54d35bf",
     "impacts": {
       "acd": 1.95243e-2,
       "ccb": 1.40365e-3,
@@ -990,11 +990,11 @@
     "alias": null
   },
   {
-    "name": "[Impact seulement matière] Production de filament de polyester recyclé (recyclage chimique partiel), traitement de bouteilles post-consommation, inventaire partiellement agrégé",
-    "info": "Textile > Matières > Matières recyclées",
+    "name": "Polyester recyclé (recyclage chimique partiel)",
+    "info": "Textile > Matières > Matières recyclées uuid_bi=e65e8157-9bd1-4711-9571-8e4a22c2d2b5",
     "unit": "kg",
-    "source": "Base Impacts",
-    "uuid": "e65e8157-9bd1-4711-9571-8e4a22c2d2b5",
+    "source": "Wikicarbone",
+    "uuid": "4a37fa2d-f2d7-d40f-c785-9faeecc3f80c",
     "impacts": {
       "acd": 1.15001e-1,
       "ccb": 9.572e-3,
@@ -1020,11 +1020,11 @@
     "alias": null
   },
   {
-    "name": "[Impact seulement matière] Production de filament de polyester recyclé (recyclage chimique complet), traitement de bouteilles post-consommation, inventaire partiellement agrégé",
-    "info": "Textile > Matières > Matières recyclées",
+    "name": "Polyester recyclé (recyclage chimique complet)",
+    "info": "Textile > Matières > Matières recyclées uuid_bi=221067ba-5c2f-4dad-b09a-dd5af0a9ae31",
     "unit": "kg",
-    "source": "Base Impacts",
-    "uuid": "221067ba-5c2f-4dad-b09a-dd5af0a9ae31",
+    "source": "Wikicarbone",
+    "uuid": "9530fcd9-d6fd-1d9b-6203-2801b65c1c28",
     "impacts": {
       "acd": 2.60445e-2,
       "ccb": 1.4709e-3,
@@ -1050,11 +1050,11 @@
     "alias": null
   },
   {
-    "name": "[Impact seulement matière] Production de filament de polyamide recyclé (recyclage chimique), traitement de déchets issus de filets de pêche, de tapis et de déchets de production, inventaire partiellement agrégé",
-    "info": "Textile > Matières > Matières recyclées",
+    "name": "Polyamide recyclé (recyclage chimique)",
+    "info": "Textile > Matières > Matières recyclées uuid_bi=41ee61c2-9a98-4eec-8949-9d9b54289bd0",
     "unit": "kg",
-    "source": "Base Impacts",
-    "uuid": "41ee61c2-9a98-4eec-8949-9d9b54289bd0",
+    "source": "Wikicarbone",
+    "uuid": "d7f20e07-ed42-02ed-c4bb-895c608099f6",
     "impacts": {
       "acd": 3.57885e-2,
       "ccb": 0,
@@ -1080,11 +1080,11 @@
     "alias": null
   },
   {
-    "name": "[Impact seulement matière] Production de fil de viscose recyclé (recyclage mécanique), traitement de déchets de production textiles, inventaire partiellement agrégé",
-    "info": "Textile > Matières > Matières recyclées",
+    "name": "Viscose recyclé",
+    "info": "Textile > Matières > Matières recyclées uuid_bi=9671ae26-d772-4bb1-aad5-6b826555d0cd",
     "unit": "kg",
-    "source": "Base Impacts",
-    "uuid": "9671ae26-d772-4bb1-aad5-6b826555d0cd",
+    "source": "Wikicarbone",
+    "uuid": "a8d42934-33e7-98a0-e81f-9b0cbf4e7af6",
     "impacts": {
       "acd": 2.16941e-2,
       "ccb": 1.37767e-3,
@@ -1110,27 +1110,27 @@
     "alias": null
   },
   {
-    "name": "[Impact seulement matière] Production de fil de polyamide recyclé (recyclage mécanique), traitement de déchets de production textiles, inventaire partiellement agrégé",
-    "info": "Textile > Matières > Matières recyclées",
+    "name": "Polyamide recyclé",
+    "info": "Textile > Matières > Matières recyclées uuid_bi=af5d130d-f18b-438c-9f19-d1ee49756960",
     "unit": "kg",
-    "source": "Base Impacts",
-    "uuid": "af5d130d-f18b-438c-9f19-d1ee49756960",
+    "source": "Wikicarbone",
+    "uuid": "46f7c9ea-b38c-f45a-7ad9-8a70a603e9e1",
     "impacts": {
-      "acd": 4.03256e-2,
+      "acd": 4.03888e-2,
       "ccb": 1.32474e-3,
-      "ccf": 3.72352,
-      "cch": 3.72484,
+      "ccf": 4.96412,
+      "cch": 4.96544,
       "ccl": 0.0,
-      "fru": 4.95129e1,
-      "fwe": 5.66008e-4,
+      "fru": 4.36397e1,
+      "fwe": 5.65976e-4,
       "ior": 0,
       "ldu": 2.08575e1,
-      "mru": 1.33924e-5,
-      "ozd": 2.13271e-7,
-      "pco": 1.2012e-2,
-      "pma": 6.98475e-7,
-      "swe": 6.01164e-3,
-      "tre": 4.93686e-2,
+      "mru": 1.34029e-5,
+      "ozd": 2.10712e-7,
+      "pco": 1.51787e-2,
+      "pma": 7.81693e-7,
+      "swe": 6.93759e-3,
+      "tre": 5.0412e-2,
       "wtu": 0.0
     },
     "heat": 0.0,
@@ -1140,11 +1140,11 @@
     "alias": null
   },
   {
-    "name": "[Impact seulement matière] Production de fil de laine recyclé (recyclage mécanique), traitement de déchets de production textiles, inventaire partiellement agrégé",
-    "info": "Textile > Matières > Matières recyclées",
+    "name": "Laine recyclée",
+    "info": "Textile > Matières > Matières recyclées uuid_bi=92dfabc7-9441-463e-bda8-7bc5943c0e9d",
     "unit": "kg",
-    "source": "Base Impacts",
-    "uuid": "92dfabc7-9441-463e-bda8-7bc5943c0e9d",
+    "source": "Wikicarbone",
+    "uuid": "8bb01460-217f-871c-be0a-e8fa1ceac2cc",
     "impacts": {
       "acd": 1.3686e-3,
       "ccb": 6.33926e-4,
@@ -1170,11 +1170,11 @@
     "alias": null
   },
   {
-    "name": "[Impact seulement matière] Production de fil de coton recyclé (recyclage mécanique), traitement de déchets textiles post-consommation, inventaire partiellement agrégé",
-    "info": "Textile > Matières > Matières recyclées",
+    "name": "Coton recyclé (déchets post-consommation)",
+    "info": "Textile > Matières > Matières recyclées uuid_bi=4d23093d-1346-4018-8c0f-7aae33c67bcd",
     "unit": "kg",
-    "source": "Base Impacts",
-    "uuid": "4d23093d-1346-4018-8c0f-7aae33c67bcd",
+    "source": "Wikicarbone",
+    "uuid": "993955be-5888-6f39-137c-56af8c5187c1",
     "impacts": {
       "acd": 2.65031e-3,
       "ccb": 1.61586e-3,
@@ -1200,11 +1200,11 @@
     "alias": null
   },
   {
-    "name": "[Impact seulement matière] Production de fil de coton recyclé (recyclage mécanique), traitement de déchets de production textiles, inventaire partiellement agrégé",
-    "info": "Textile > Matières > Matières recyclées",
+    "name": "Coton recyclé (déchets de production)",
+    "info": "Textile > Matières > Matières recyclées uuid_bi=2b24abb0-c1ec-4298-9b58-350904a26104",
     "unit": "kg",
-    "source": "Base Impacts",
-    "uuid": "2b24abb0-c1ec-4298-9b58-350904a26104",
+    "source": "Wikicarbone",
+    "uuid": "9c6ab710-4a08-c720-cede-24428a013fda",
     "impacts": {
       "acd": 3.43851e-3,
       "ccb": 1.67304e-3,
@@ -1230,11 +1230,11 @@
     "alias": null
   },
   {
-    "name": "[Impact seulement matière] Production de fil d'acrylique recyclé (recyclage mécanique), traitement de déchets de production textiles, inventaire partiellement agrégé",
-    "info": "Textile > Matières > Matières recyclées",
+    "name": "Acrylique recyclé",
+    "info": "Textile > Matières > Matières recyclées uuid_bi=7603beaa-c555-4283-b9f8-4d5d231b8490",
     "unit": "kg",
-    "source": "Base Impacts",
-    "uuid": "7603beaa-c555-4283-b9f8-4d5d231b8490",
+    "source": "Wikicarbone",
+    "uuid": "c393fd0e-1cc6-2be5-7836-46bf0324aac3",
     "impacts": {
       "acd": 2.26158e-2,
       "ccb": 1.39109e-3,
