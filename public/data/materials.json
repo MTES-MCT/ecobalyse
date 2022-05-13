@@ -1,7 +1,7 @@
 [
   {
     "id": "soie",
-    "materialProcessUuid": "94b4b0e1-61e4-4f4d-b9b2-efe7623b0e68",
+    "materialProcessUuid": "e3e70682-c209-4cac-629f-6fbed82c07cd",
     "recycledProcessUuid": null,
     "recycledFrom": null,
     "name": "Fil de soie",
@@ -11,11 +11,12 @@
     "continent": "Asie - Pacifique",
     "defaultCountry": "CN",
     "priority": 0,
-    "cff": null
+    "cff": null,
+    "spinningProcessUuid": "6f8b64d7-24bf-4024-b0f5-0e3a6597d825"
   },
   {
     "id": "lin-filasse",
-    "materialProcessUuid": "e5a6d538-f932-4242-98b4-3a0c6439629c",
+    "materialProcessUuid": "cd613e30-d8f1-6adf-91b7-584a2265b1f5",
     "recycledProcessUuid": null,
     "recycledFrom": null,
     "name": "Fil de lin (filasse)",
@@ -25,11 +26,12 @@
     "continent": "Asie - Pacifique",
     "defaultCountry": "CN",
     "priority": 0,
-    "cff": null
+    "cff": null,
+    "spinningProcessUuid": "6f8b64d7-24bf-4024-b0f5-0e3a6597d825"
   },
   {
     "id": "lin-etoupe",
-    "materialProcessUuid": "fcef1a31-bb18-49e4-bdb6-e53dfe015ba0",
+    "materialProcessUuid": "d95bafc8-f2a4-d27b-dcf4-bb99f4bea973",
     "recycledProcessUuid": null,
     "recycledFrom": null,
     "name": "Fil de lin (étoupe)",
@@ -39,11 +41,12 @@
     "continent": "Asie - Pacifique",
     "defaultCountry": "CN",
     "priority": 0,
-    "cff": null
+    "cff": null,
+    "spinningProcessUuid": "6f8b64d7-24bf-4024-b0f5-0e3a6597d825"
   },
   {
     "id": "laine-merinos",
-    "materialProcessUuid": "4e035dbf-f48b-4b5a-94ea-0006c713958b",
+    "materialProcessUuid": "21636369-8b52-9b4a-97b7-50923ceb3ffd",
     "recycledProcessUuid": null,
     "recycledFrom": null,
     "name": "Fil de laine de mouton Mérinos, inventaire partiellement agrégé",
@@ -53,11 +56,12 @@
     "continent": "Asie - Pacifique",
     "defaultCountry": "CN",
     "priority": 0,
-    "cff": null
+    "cff": null,
+    "spinningProcessUuid": "6f8b64d7-24bf-4024-b0f5-0e3a6597d825"
   },
   {
     "id": "laine-mouton",
-    "materialProcessUuid": "376bd165-d354-41aa-a6e3-fd3228413bb2",
+    "materialProcessUuid": "b8a1abcd-1a69-16c7-4da4-f9fc3c6da5d7",
     "recycledProcessUuid": "92dfabc7-9441-463e-bda8-7bc5943c0e9d",
     "recycledFrom": null,
     "name": "Fil de laine de mouton",
@@ -67,11 +71,12 @@
     "continent": "Asie - Pacifique",
     "defaultCountry": "CN",
     "priority": 0,
-    "cff": null
+    "cff": null,
+    "spinningProcessUuid": "6f8b64d7-24bf-4024-b0f5-0e3a6597d825"
   },
   {
     "id": "jute",
-    "materialProcessUuid": "72010874-4d26-4c7a-95de-c6987dfdedeb",
+    "materialProcessUuid": "5bc8fbbc-bde5-c099-4164-d8399f767c45",
     "recycledProcessUuid": null,
     "recycledFrom": null,
     "name": "Fil de jute",
@@ -81,11 +86,12 @@
     "continent": "Asie - Pacifique",
     "defaultCountry": "CN",
     "priority": 0,
-    "cff": null
+    "cff": null,
+    "spinningProcessUuid": "6f8b64d7-24bf-4024-b0f5-0e3a6597d825"
   },
   {
     "id": "coton",
-    "materialProcessUuid": "f211bbdb-415c-46fd-be4d-ddf199575b44",
+    "materialProcessUuid": "14a03569-d26b-9496-92e5-dfe8cb1855fe",
     "recycledProcessUuid": "2b24abb0-c1ec-4298-9b58-350904a26104",
     "recycledFrom": null,
     "name": "Fil de coton conventionnel, inventaire partiellement agrégé",
@@ -95,11 +101,12 @@
     "continent": "Asie - Pacifique",
     "defaultCountry": "CN",
     "priority": 100,
-    "cff": null
+    "cff": null,
+    "spinningProcessUuid": "6f8b64d7-24bf-4024-b0f5-0e3a6597d825"
   },
   {
     "id": "chanvre",
-    "materialProcessUuid": "08601439-f338-4f94-ac8c-538061b65d16",
+    "materialProcessUuid": "6513270e-269e-0d37-f2a7-4de452e6b438",
     "recycledProcessUuid": null,
     "recycledFrom": null,
     "name": "Fil de chanvre",
@@ -109,11 +116,12 @@
     "continent": "Asie - Pacifique",
     "defaultCountry": "CN",
     "priority": 0,
-    "cff": null
+    "cff": null,
+    "spinningProcessUuid": "6f8b64d7-24bf-4024-b0f5-0e3a6597d825"
   },
   {
     "id": "cachemire",
-    "materialProcessUuid": "380c0d9c-2840-4390-bd3f-5c960f26f5ed",
+    "materialProcessUuid": "6018366c-f658-f7a7-5ed3-4fe53a096533",
     "recycledProcessUuid": null,
     "recycledFrom": null,
     "name": "Fil de cachemire",
@@ -123,11 +131,12 @@
     "continent": "Asie - Pacifique",
     "defaultCountry": "CN",
     "priority": 0,
-    "cff": null
+    "cff": null,
+    "spinningProcessUuid": "6f8b64d7-24bf-4024-b0f5-0e3a6597d825"
   },
   {
     "id": "angora",
-    "materialProcessUuid": "29bddef1-d753-45af-9ca6-aec05e2d02b9",
+    "materialProcessUuid": "4462ebfc-5f91-5ef0-9cfb-ac6e7687a66e",
     "recycledProcessUuid": null,
     "recycledFrom": null,
     "name": "Fil d'angora",
@@ -137,11 +146,12 @@
     "continent": "Asie - Pacifique",
     "defaultCountry": "CN",
     "priority": 0,
-    "cff": null
+    "cff": null,
+    "spinningProcessUuid": "6f8b64d7-24bf-4024-b0f5-0e3a6597d825"
   },
   {
     "id": "viscose",
-    "materialProcessUuid": "81a67d97-3cd9-44ef-9ee2-159364364c0f",
+    "materialProcessUuid": "7b89296c-6dcb-ac50-0857-7eb1924770d3",
     "recycledProcessUuid": "9671ae26-d772-4bb1-aad5-6b826555d0cd",
     "recycledFrom": null,
     "name": "Filament de viscose",
@@ -151,11 +161,12 @@
     "continent": "Asie - Pacifique",
     "defaultCountry": "CN",
     "priority": 0,
-    "cff": null
+    "cff": null,
+    "spinningProcessUuid": "6f8b64d7-24bf-4024-b0f5-0e3a6597d825"
   },
   {
     "id": "pu",
-    "materialProcessUuid": "c3738500-0a62-4b95-b4a2-b7beb12a9e1a",
+    "materialProcessUuid": "db5b5fab-8f4d-3e27-dda1-494c73cf256d",
     "recycledProcessUuid": null,
     "recycledFrom": null,
     "name": "Filament de polyuréthane / Élasthanne",
@@ -165,11 +176,12 @@
     "continent": "Asie - Pacifique",
     "defaultCountry": "CN",
     "priority": 60,
-    "cff": null
+    "cff": null,
+    "spinningProcessUuid": "6f8b64d7-24bf-4024-b0f5-0e3a6597d825"
   },
   {
     "id": "ptt",
-    "materialProcessUuid": "eca33573-0d09-4d79-9b28-da42bfcc7a4b",
+    "materialProcessUuid": "87751d4c-a850-1e2c-44dc-da6a797d76de",
     "recycledProcessUuid": null,
     "recycledFrom": null,
     "name": "Filament de polytriméthylène téréphtalate (PTT), inventaire partiellement agrégé",
@@ -179,11 +191,12 @@
     "continent": "Asie - Pacifique",
     "defaultCountry": "CN",
     "priority": 0,
-    "cff": null
+    "cff": null,
+    "spinningProcessUuid": "6f8b64d7-24bf-4024-b0f5-0e3a6597d825"
   },
   {
     "id": "pbt",
-    "materialProcessUuid": "7f8bbfdc-fb65-4e3a-ac81-eda197ef17fc",
+    "materialProcessUuid": "e8d79f49-af6d-114c-4a6f-188a424e617b",
     "recycledProcessUuid": null,
     "recycledFrom": null,
     "name": "Filament de polytéréphtalate de butylène (PBT), inventaire agrégé",
@@ -193,11 +206,12 @@
     "continent": "Asie - Pacifique",
     "defaultCountry": "CN",
     "priority": 0,
-    "cff": null
+    "cff": null,
+    "spinningProcessUuid": "6f8b64d7-24bf-4024-b0f5-0e3a6597d825"
   },
   {
     "id": "pp",
-    "materialProcessUuid": "a30cfbde-393a-40db-9263-ea00bfced0b7",
+    "materialProcessUuid": "c15521b1-b3dc-a50a-9daa-37e51b591d75",
     "recycledProcessUuid": null,
     "recycledFrom": null,
     "name": "Filament de polypropylène",
@@ -207,11 +221,12 @@
     "continent": "Europe",
     "defaultCountry": "FR",
     "priority": 0,
-    "cff": null
+    "cff": null,
+    "spinningProcessUuid": "6f8b64d7-24bf-4024-b0f5-0e3a6597d825"
   },
   {
     "id": "pla",
-    "materialProcessUuid": "f2dd799d-1b69-4e7a-99bd-696bbbd5a978",
+    "materialProcessUuid": "85750621-02fb-cd4f-357f-bc5af71a1bfc",
     "recycledProcessUuid": null,
     "recycledFrom": null,
     "name": "Filament de polylactide",
@@ -221,11 +236,12 @@
     "continent": "Asie - Pacifique",
     "defaultCountry": "CN",
     "priority": 0,
-    "cff": null
+    "cff": null,
+    "spinningProcessUuid": "6f8b64d7-24bf-4024-b0f5-0e3a6597d825"
   },
   {
     "id": "pe",
-    "materialProcessUuid": "088ed617-67fa-4d42-b3af-ee6cf39cf36f",
+    "materialProcessUuid": "48f165d5-7b00-c7f4-781e-f86f5c8cc1ab",
     "recycledProcessUuid": null,
     "recycledFrom": null,
     "name": "Filament de polyéthylène",
@@ -235,11 +251,12 @@
     "continent": "Europe",
     "defaultCountry": "FR",
     "priority": 0,
-    "cff": null
+    "cff": null,
+    "spinningProcessUuid": "6f8b64d7-24bf-4024-b0f5-0e3a6597d825"
   },
   {
     "id": "pet",
-    "materialProcessUuid": "4d57c51d-7d56-46e1-acde-02fbcdc943e4",
+    "materialProcessUuid": "4dad2986-ce83-4960-6a06-e9ab85a0bcc1",
     "recycledProcessUuid": "4072bfa2-1948-4d12-8de9-bbeb6cc628e1",
     "recycledFrom": null,
     "name": "Filament de polyester, inventaire partiellement agrégé",
@@ -249,11 +266,12 @@
     "continent": "Asie - Pacifique",
     "defaultCountry": "CN",
     "priority": 80,
-    "cff": null
+    "cff": null,
+    "spinningProcessUuid": "6f8b64d7-24bf-4024-b0f5-0e3a6597d825"
   },
   {
     "id": "pa",
-    "materialProcessUuid": "182fa424-1f49-4728-b0f1-cb4e4ab36392",
+    "materialProcessUuid": "72e63ac7-a953-8322-1f70-d5dc2e675fc7",
     "recycledProcessUuid": "af5d130d-f18b-438c-9f19-d1ee49756960",
     "recycledFrom": null,
     "name": "Filament de polyamide 66",
@@ -263,11 +281,12 @@
     "continent": "Europe",
     "defaultCountry": "FR",
     "priority": 0,
-    "cff": null
+    "cff": null,
+    "spinningProcessUuid": "6f8b64d7-24bf-4024-b0f5-0e3a6597d825"
   },
   {
     "id": "aramide",
-    "materialProcessUuid": "7a1ccc4a-2ea7-48dc-9ef0-d57066ea8fa5",
+    "materialProcessUuid": "e539a78b-c8ef-f346-0b12-ae6ead581e57",
     "recycledProcessUuid": null,
     "recycledFrom": null,
     "name": "Filament d'aramide",
@@ -277,11 +296,12 @@
     "continent": "Asie - Pacifique",
     "defaultCountry": "CN",
     "priority": 0,
-    "cff": null
+    "cff": null,
+    "spinningProcessUuid": "6f8b64d7-24bf-4024-b0f5-0e3a6597d825"
   },
   {
     "id": "acrylique",
-    "materialProcessUuid": "aee6709f-0864-4fc5-8760-68cb644a0021",
+    "materialProcessUuid": "c963cfe0-afae-5a3b-b909-6a04e7d80068",
     "recycledProcessUuid": "7603beaa-c555-4283-b9f8-4d5d231b8490",
     "recycledFrom": null,
     "name": "Filament d'acrylique",
@@ -291,11 +311,12 @@
     "continent": "Asie - Pacifique",
     "defaultCountry": "CN",
     "priority": 0,
-    "cff": null
+    "cff": null,
+    "spinningProcessUuid": "6f8b64d7-24bf-4024-b0f5-0e3a6597d825"
   },
   {
     "id": "pp-pa",
-    "materialProcessUuid": "37396ac4-13a2-484c-9cc6-5b5a93ff6e6e",
+    "materialProcessUuid": "6b0404f2-b094-90b8-6b01-a1c12a3a2107",
     "recycledProcessUuid": null,
     "recycledFrom": null,
     "name": "Filament bi-composant polypropylène/polyamide",
@@ -305,7 +326,8 @@
     "continent": "Europe",
     "defaultCountry": "FR",
     "priority": 0,
-    "cff": null
+    "cff": null,
+    "spinningProcessUuid": "6f8b64d7-24bf-4024-b0f5-0e3a6597d825"
   },
   {
     "id": "neoprene",
@@ -319,11 +341,12 @@
     "continent": "Asie - Pacifique",
     "defaultCountry": "CN",
     "priority": 0,
-    "cff": null
+    "cff": null,
+    "spinningProcessUuid": null
   },
   {
     "id": "pet-rm",
-    "materialProcessUuid": "4072bfa2-1948-4d12-8de9-bbeb6cc628e1",
+    "materialProcessUuid": "3e1c26d3-23ef-323e-e848-f808f54d35bf",
     "recycledProcessUuid": null,
     "recycledFrom": "pet",
     "name": "Production de filament de polyester recyclé (recyclage mécanique), traitement de bouteilles post-consommation, inventaire partiellement agrégé",
@@ -333,14 +356,12 @@
     "continent": "Asie - Pacifique",
     "defaultCountry": "CN",
     "priority": 0,
-    "cff": {
-      "manufacturerAllocation": 0.5,
-      "recycledQualityRatio": 0.7
-    }
+    "cff": { "manufacturerAllocation": 0.5, "recycledQualityRatio": 0.7 },
+    "spinningProcessUuid": "6f8b64d7-24bf-4024-b0f5-0e3a6597d825"
   },
   {
     "id": "pet-rcp",
-    "materialProcessUuid": "e65e8157-9bd1-4711-9571-8e4a22c2d2b5",
+    "materialProcessUuid": "4a37fa2d-f2d7-d40f-c785-9faeecc3f80c",
     "recycledProcessUuid": null,
     "recycledFrom": "pet",
     "name": "Production de filament de polyester recyclé (recyclage chimique partiel), traitement de bouteilles post-consommation, inventaire partiellement agrégé",
@@ -350,14 +371,12 @@
     "continent": "Asie - Pacifique",
     "defaultCountry": "CN",
     "priority": 0,
-    "cff": {
-      "manufacturerAllocation": 0.5,
-      "recycledQualityRatio": 0.7
-    }
+    "cff": { "manufacturerAllocation": 0.5, "recycledQualityRatio": 0.7 },
+    "spinningProcessUuid": "6f8b64d7-24bf-4024-b0f5-0e3a6597d825"
   },
   {
     "id": "pet-rcc",
-    "materialProcessUuid": "221067ba-5c2f-4dad-b09a-dd5af0a9ae31",
+    "materialProcessUuid": "9530fcd9-d6fd-1d9b-6203-2801b65c1c28",
     "recycledProcessUuid": null,
     "recycledFrom": "pet",
     "name": "Production de filament de polyester recyclé (recyclage chimique complet), traitement de bouteilles post-consommation, inventaire partiellement agrégé",
@@ -367,14 +386,12 @@
     "continent": "Asie - Pacifique",
     "defaultCountry": "CN",
     "priority": 0,
-    "cff": {
-      "manufacturerAllocation": 0.5,
-      "recycledQualityRatio": 0.7
-    }
+    "cff": { "manufacturerAllocation": 0.5, "recycledQualityRatio": 0.7 },
+    "spinningProcessUuid": "6f8b64d7-24bf-4024-b0f5-0e3a6597d825"
   },
   {
     "id": "pa-rc",
-    "materialProcessUuid": "41ee61c2-9a98-4eec-8949-9d9b54289bd0",
+    "materialProcessUuid": "d7f20e07-ed42-02ed-c4bb-895c608099f6",
     "recycledProcessUuid": null,
     "recycledFrom": "pa",
     "name": "Production de filament de polyamide recyclé (recyclage chimique), traitement de déchets issus de filets de pêche, de tapis et de déchets de production, inventaire partiellement agrégé",
@@ -384,14 +401,12 @@
     "continent": "Europe puis Asie",
     "defaultCountry": "CN",
     "priority": 0,
-    "cff": {
-      "manufacturerAllocation": 0.8,
-      "recycledQualityRatio": 1
-    }
+    "cff": { "manufacturerAllocation": 0.8, "recycledQualityRatio": 1 },
+    "spinningProcessUuid": "6f8b64d7-24bf-4024-b0f5-0e3a6597d825"
   },
   {
     "id": "viscose-r",
-    "materialProcessUuid": "9671ae26-d772-4bb1-aad5-6b826555d0cd",
+    "materialProcessUuid": "a8d42934-33e7-98a0-e81f-9b0cbf4e7af6",
     "recycledProcessUuid": null,
     "recycledFrom": "viscose",
     "name": "Production de fil de viscose recyclé (recyclage mécanique), traitement de déchets de production textiles, inventaire partiellement agrégé",
@@ -401,14 +416,12 @@
     "continent": "Asie - Pacifique",
     "defaultCountry": "CN",
     "priority": 0,
-    "cff": {
-      "manufacturerAllocation": 0.8,
-      "recycledQualityRatio": 1
-    }
+    "cff": { "manufacturerAllocation": 0.8, "recycledQualityRatio": 1 },
+    "spinningProcessUuid": "6f8b64d7-24bf-4024-b0f5-0e3a6597d825"
   },
   {
     "id": "pa-rm",
-    "materialProcessUuid": "af5d130d-f18b-438c-9f19-d1ee49756960",
+    "materialProcessUuid": "46f7c9ea-b38c-f45a-7ad9-8a70a603e9e1",
     "recycledProcessUuid": null,
     "recycledFrom": "pa",
     "name": "Production de fil de polyamide recyclé (recyclage mécanique), traitement de déchets de production textiles, inventaire partiellement agrégé",
@@ -418,14 +431,12 @@
     "continent": "Europe",
     "defaultCountry": "FR",
     "priority": 0,
-    "cff": {
-      "manufacturerAllocation": 0.8,
-      "recycledQualityRatio": 1
-    }
+    "cff": { "manufacturerAllocation": 0.8, "recycledQualityRatio": 1 },
+    "spinningProcessUuid": "6f8b64d7-24bf-4024-b0f5-0e3a6597d825"
   },
   {
     "id": "laine-r",
-    "materialProcessUuid": "92dfabc7-9441-463e-bda8-7bc5943c0e9d",
+    "materialProcessUuid": "8bb01460-217f-871c-be0a-e8fa1ceac2cc",
     "recycledProcessUuid": null,
     "recycledFrom": "laine-mouton",
     "name": "Production de fil de laine recyclé (recyclage mécanique), traitement de déchets de production textiles, inventaire partiellement agrégé",
@@ -435,14 +446,12 @@
     "continent": "France",
     "defaultCountry": "FR",
     "priority": 0,
-    "cff": {
-      "manufacturerAllocation": 0.8,
-      "recycledQualityRatio": 0.5
-    }
+    "cff": { "manufacturerAllocation": 0.8, "recycledQualityRatio": 0.5 },
+    "spinningProcessUuid": "6f8b64d7-24bf-4024-b0f5-0e3a6597d825"
   },
   {
     "id": "coton-rdpc",
-    "materialProcessUuid": "4d23093d-1346-4018-8c0f-7aae33c67bcd",
+    "materialProcessUuid": "993955be-5888-6f39-137c-56af8c5187c1",
     "recycledProcessUuid": null,
     "recycledFrom": "coton",
     "name": "Production de fil de coton recyclé (recyclage mécanique), traitement de déchets textiles post-consommation, inventaire partiellement agrégé",
@@ -452,14 +461,12 @@
     "continent": "France",
     "defaultCountry": "FR",
     "priority": 0,
-    "cff": {
-      "manufacturerAllocation": 0.8,
-      "recycledQualityRatio": 0.5
-    }
+    "cff": { "manufacturerAllocation": 0.8, "recycledQualityRatio": 0.5 },
+    "spinningProcessUuid": "6f8b64d7-24bf-4024-b0f5-0e3a6597d825"
   },
   {
     "id": "coton-rdp",
-    "materialProcessUuid": "2b24abb0-c1ec-4298-9b58-350904a26104",
+    "materialProcessUuid": "9c6ab710-4a08-c720-cede-24428a013fda",
     "recycledProcessUuid": null,
     "recycledFrom": "coton",
     "name": "Production de fil de coton recyclé (recyclage mécanique), traitement de déchets de production textiles, inventaire partiellement agrégé",
@@ -469,14 +476,12 @@
     "continent": "Espagne & France",
     "defaultCountry": "FR",
     "priority": 0,
-    "cff": {
-      "manufacturerAllocation": 0.8,
-      "recycledQualityRatio": 0.5
-    }
+    "cff": { "manufacturerAllocation": 0.8, "recycledQualityRatio": 0.5 },
+    "spinningProcessUuid": "6f8b64d7-24bf-4024-b0f5-0e3a6597d825"
   },
   {
     "id": "acrylique-r",
-    "materialProcessUuid": "7603beaa-c555-4283-b9f8-4d5d231b8490",
+    "materialProcessUuid": "c393fd0e-1cc6-2be5-7836-46bf0324aac3",
     "recycledProcessUuid": null,
     "recycledFrom": "acrylique",
     "name": "Production de fil d'acrylique recyclé (recyclage mécanique), traitement de déchets de production textiles, inventaire partiellement agrégé",
@@ -486,9 +491,7 @@
     "continent": "Asie - Pacifique",
     "defaultCountry": "CN",
     "priority": 0,
-    "cff": {
-      "manufacturerAllocation": 0.8,
-      "recycledQualityRatio": 1
-    }
+    "cff": { "manufacturerAllocation": 0.8, "recycledQualityRatio": 1 },
+    "spinningProcessUuid": "6f8b64d7-24bf-4024-b0f5-0e3a6597d825"
   }
 ]
