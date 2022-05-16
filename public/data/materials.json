@@ -12,7 +12,7 @@
     "defaultCountry": "CN",
     "priority": 0,
     "cff": null,
-    "spinningProcessUuid": "6f8b64d7-24bf-4024-b0f5-0e3a6597d825"
+    "spinningProcessUuid": "4c5438c3-c360-413c-b357-fba2a851e44c"
   },
   {
     "id": "lin-filasse",
@@ -27,7 +27,7 @@
     "defaultCountry": "CN",
     "priority": 0,
     "cff": null,
-    "spinningProcessUuid": "6f8b64d7-24bf-4024-b0f5-0e3a6597d825"
+    "spinningProcessUuid": "4c5438c3-c360-413c-b357-fba2a851e44c"
   },
   {
     "id": "lin-etoupe",
@@ -42,7 +42,7 @@
     "defaultCountry": "CN",
     "priority": 0,
     "cff": null,
-    "spinningProcessUuid": "6f8b64d7-24bf-4024-b0f5-0e3a6597d825"
+    "spinningProcessUuid": "4c5438c3-c360-413c-b357-fba2a851e44c"
   },
   {
     "id": "laine-merinos",
@@ -57,7 +57,7 @@
     "defaultCountry": "CN",
     "priority": 0,
     "cff": null,
-    "spinningProcessUuid": "6f8b64d7-24bf-4024-b0f5-0e3a6597d825"
+    "spinningProcessUuid": "4c5438c3-c360-413c-b357-fba2a851e44c"
   },
   {
     "id": "laine-mouton",
@@ -72,7 +72,7 @@
     "defaultCountry": "CN",
     "priority": 0,
     "cff": null,
-    "spinningProcessUuid": "6f8b64d7-24bf-4024-b0f5-0e3a6597d825"
+    "spinningProcessUuid": "4c5438c3-c360-413c-b357-fba2a851e44c"
   },
   {
     "id": "jute",
@@ -87,7 +87,7 @@
     "defaultCountry": "CN",
     "priority": 0,
     "cff": null,
-    "spinningProcessUuid": "6f8b64d7-24bf-4024-b0f5-0e3a6597d825"
+    "spinningProcessUuid": "4c5438c3-c360-413c-b357-fba2a851e44c"
   },
   {
     "id": "coton",
@@ -102,7 +102,7 @@
     "defaultCountry": "CN",
     "priority": 100,
     "cff": null,
-    "spinningProcessUuid": "6f8b64d7-24bf-4024-b0f5-0e3a6597d825"
+    "spinningProcessUuid": "4c5438c3-c360-413c-b357-fba2a851e44c"
   },
   {
     "id": "chanvre",
@@ -117,7 +117,7 @@
     "defaultCountry": "CN",
     "priority": 0,
     "cff": null,
-    "spinningProcessUuid": "6f8b64d7-24bf-4024-b0f5-0e3a6597d825"
+    "spinningProcessUuid": "4c5438c3-c360-413c-b357-fba2a851e44c"
   },
   {
     "id": "cachemire",
@@ -132,7 +132,7 @@
     "defaultCountry": "CN",
     "priority": 0,
     "cff": null,
-    "spinningProcessUuid": "6f8b64d7-24bf-4024-b0f5-0e3a6597d825"
+    "spinningProcessUuid": "4c5438c3-c360-413c-b357-fba2a851e44c"
   },
   {
     "id": "angora",
@@ -147,7 +147,7 @@
     "defaultCountry": "CN",
     "priority": 0,
     "cff": null,
-    "spinningProcessUuid": "6f8b64d7-24bf-4024-b0f5-0e3a6597d825"
+    "spinningProcessUuid": "4c5438c3-c360-413c-b357-fba2a851e44c"
   },
   {
     "id": "viscose",
@@ -447,7 +447,7 @@
     "defaultCountry": "FR",
     "priority": 0,
     "cff": { "manufacturerAllocation": 0.8, "recycledQualityRatio": 0.5 },
-    "spinningProcessUuid": "6f8b64d7-24bf-4024-b0f5-0e3a6597d825"
+    "spinningProcessUuid": "4c5438c3-c360-413c-b357-fba2a851e44c"
   },
   {
     "id": "coton-rdpc",
@@ -462,7 +462,7 @@
     "defaultCountry": "FR",
     "priority": 0,
     "cff": { "manufacturerAllocation": 0.8, "recycledQualityRatio": 0.5 },
-    "spinningProcessUuid": "6f8b64d7-24bf-4024-b0f5-0e3a6597d825"
+    "spinningProcessUuid": "4c5438c3-c360-413c-b357-fba2a851e44c"
   },
   {
     "id": "coton-rdp",
@@ -477,7 +477,7 @@
     "defaultCountry": "FR",
     "priority": 0,
     "cff": { "manufacturerAllocation": 0.8, "recycledQualityRatio": 0.5 },
-    "spinningProcessUuid": "6f8b64d7-24bf-4024-b0f5-0e3a6597d825"
+    "spinningProcessUuid": "4c5438c3-c360-413c-b357-fba2a851e44c"
   },
   {
     "id": "acrylique-r",

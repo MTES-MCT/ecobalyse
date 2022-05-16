@@ -236,7 +236,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 7.79322,
+    "waste": 7.08976,
     "alias": null
   },
   {
@@ -266,7 +266,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 1.70215e-1,
+    "waste": 7.65978e-2,
     "alias": null
   },
   {
@@ -296,7 +296,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 2.88932e-1,
+    "waste": 1.85817e-1,
     "alias": null
   },
   {
@@ -326,7 +326,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 8.696e-2,
+    "waste": 3.2e-6,
     "alias": null
   },
   {
@@ -356,7 +356,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 6.72241e-1,
+    "waste": 5.38462e-1,
     "alias": null
   },
   {
@@ -416,7 +416,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 2.70519e-1,
+    "waste": 1.68877e-1,
     "alias": null
   },
   {
@@ -446,7 +446,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 2.01201e-1,
+    "waste": 1.05105e-1,
     "alias": null
   },
   {
@@ -476,7 +476,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 2.21094e-1,
+    "waste": 1.23406e-1,
     "alias": null
   },
   {
@@ -506,7 +506,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 3.17851,
+    "waste": 2.84423,
     "alias": null
   },
   {
@@ -536,7 +536,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 6.72241e-1,
+    "waste": 5.38462e-1,
     "alias": null
   },
   {
@@ -596,7 +596,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 5.82011e-2,
+    "waste": 3.70371e-2,
     "alias": null
   },
   {
@@ -626,7 +626,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 7.96392e-3,
+    "waste": 0,
     "alias": null
   },
   {
@@ -656,7 +656,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 3.19569e-2,
+    "waste": 1.13178e-2,
     "alias": null
   },
   {
@@ -686,7 +686,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 0.0,
+    "waste": 0,
     "alias": null
   },
   {
@@ -716,7 +716,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 3.19569e-2,
+    "waste": 1.13178e-2,
     "alias": null
   },
   {
@@ -746,7 +746,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 3.19569e-2,
+    "waste": 1.13178e-2,
     "alias": null
   },
   {
@@ -776,7 +776,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 3.19569e-2,
+    "waste": 1.13178e-2,
     "alias": null
   },
   {
@@ -806,7 +806,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 3.19569e-2,
+    "waste": 1.13178e-2,
     "alias": null
   },
   {
@@ -836,7 +836,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 3.19569e-2,
+    "waste": 1.13178e-2,
     "alias": null
   },
   {
@@ -866,7 +866,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 0.0,
+    "waste": 0,
     "alias": null
   },
   {
@@ -896,7 +896,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 7.96392e-3,
+    "waste": 0,
     "alias": null
   },
   {
@@ -926,7 +926,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 3.19569e-2,
+    "waste": 1.13178e-2,
     "alias": null
   },
   {
@@ -986,7 +986,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 3.1957e-2,
+    "waste": 1.13179e-2,
     "alias": null
   },
   {
@@ -1016,7 +1016,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 3.2e-2,
+    "waste": 1.136e-2,
     "alias": null
   },
   {
@@ -1046,7 +1046,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 3.2e-2,
+    "waste": 1.136e-2,
     "alias": null
   },
   {
@@ -1076,7 +1076,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 3.19681e-2,
+    "waste": 1.13287e-2,
     "alias": null
   },
   {
@@ -1106,7 +1106,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 1.37851e-1,
+    "waste": 1.15094e-1,
     "alias": null
   },
   {
@@ -1136,7 +1136,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 1.37851e-1,
+    "waste": 1.15094e-1,
     "alias": null
   },
   {
@@ -1166,7 +1166,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 1.688e-1,
+    "waste": 7.5296e-2,
     "alias": null
   },
   {
@@ -1196,7 +1196,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 7.7305e-1,
+    "waste": 6.31206e-1,
     "alias": null
   },
   {
@@ -1226,7 +1226,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 3.23e-1,
+    "waste": 2.1716e-1,
     "alias": null
   },
   {
@@ -1256,7 +1256,7 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 0.0,
-    "waste": 1.37851e-1,
+    "waste": 1.15094e-1,
     "alias": null
   },
   {
@@ -6960,7 +6960,7 @@
     "alias": "fading"
   },
   {
-    "name": "Filature",
+    "name": "Filature (fibres synthétiques",
     "info": "Textile > Filature > Filature",
     "unit": "kg",
     "source": "Ecobalyse",
@@ -6986,7 +6986,37 @@
     "heat": 0.0,
     "elec_pppm": 0.0,
     "elec": 3.21,
-    "waste": 0.0,
-    "alias": "spinning"
+    "waste": 2.0e-2,
+    "alias": "spinning-synthetic"
+  },
+  {
+    "name": "Filature (fibres naturelles)",
+    "info": "Textile > Filature > Filature",
+    "unit": "kg",
+    "source": "Ecobalyse",
+    "uuid": "4c5438c3-c360-413c-b357-fba2a851e44c",
+    "impacts": {
+      "acd": 0.0,
+      "ccb": 0.0,
+      "ccf": 0.0,
+      "cch": 0.0,
+      "ccl": 0.0,
+      "fru": 0.0,
+      "ior": 0.0,
+      "fwe": 0.0,
+      "mru": 0.0,
+      "ldu": 0.0,
+      "ozd": 0.0,
+      "pco": 0.0,
+      "pma": 0.0,
+      "swe": 0.0,
+      "tre": 0.0,
+      "wtu": 0.0
+    },
+    "heat": 0.0,
+    "elec_pppm": 0.0,
+    "elec": 3.21,
+    "waste": 8.0e-2,
+    "alias": "spinning-natural"
   }
 ]
