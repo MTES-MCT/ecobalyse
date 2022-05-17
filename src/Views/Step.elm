@@ -438,11 +438,7 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
         transportLabel =
             case next of
                 Just { country } ->
-                    if country /= current.country then
-                        "Transport vers " ++ country.name
-
-                    else
-                        "Transport"
+                    "Transport " ++ current.country.name ++ "\u{202F}→\u{202F}" ++ country.name
 
                 Nothing ->
                     "Transport"
@@ -558,18 +554,19 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
 
                   else
                     text ""
-                , if Transport.totalKm current.transport > 0 then
-                    li [ class "list-group-item text-muted" ]
-                        [ div [ class "d-flex justify-content-center align-items-center" ]
+                , li [ class "list-group-item text-muted" ]
+                    [ div [ class "d-flex justify-content-center align-items-center" ]
+                        (if Transport.totalKm current.transport > 0 then
                             [ strong [] [ text <| transportLabel ++ "\u{00A0}:\u{00A0}" ]
                             , current.transport.impacts
                                 |> Format.formatImpact funit impact daysOfWear
                             , inlineDocumentationLink config Gitbook.Transport
                             ]
-                        ]
 
-                  else
-                    text ""
+                         else
+                            [ text "Pas de transport" ]
+                        )
+                    ]
                 ]
             ]
         ]

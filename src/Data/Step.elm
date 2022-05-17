@@ -274,6 +274,14 @@ updateFromInputs { processes } inputs ({ label, country } as step) =
             inputs
     in
     case label of
+        Spinning ->
+            { step
+                | processInfo =
+                    { defaultProcessInfo
+                        | countryElec = Just country.electricityProcess.name
+                    }
+            }
+
         Fabric ->
             { step
                 | picking = picking
