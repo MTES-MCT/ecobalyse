@@ -159,6 +159,11 @@ study =
     icon "study"
 
 
+thread : Html msg
+thread =
+    icon "thread"
+
+
 times : Html msg
 times =
     icon "times"

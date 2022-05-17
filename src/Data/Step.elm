@@ -76,7 +76,8 @@ type alias ProcessInfo =
 
 
 type Label
-    = MaterialAndSpinning -- Matière et Filature
+    = Material -- Matière
+    | Spinning -- Filature
     | Fabric -- Tissage ou Tricotage
     | Dyeing -- Teinture/Ennoblissement
     | Making -- Confection
@@ -486,8 +487,11 @@ encodeProcessInfo v =
 labelToString : Label -> String
 labelToString label =
     case label of
-        MaterialAndSpinning ->
-            "Matière & Filature"
+        Material ->
+            "Matière"
+
+        Spinning ->
+            "Filature"
 
         Fabric ->
             "Tissage & Tricotage"
@@ -511,7 +515,10 @@ labelToString label =
 getStepGitbookPath : Label -> Gitbook.Path
 getStepGitbookPath label =
     case label of
-        MaterialAndSpinning ->
+        Material ->
+            Gitbook.MaterialAndSpinning
+
+        Spinning ->
             Gitbook.MaterialAndSpinning
 
         Fabric ->

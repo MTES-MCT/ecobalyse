@@ -108,7 +108,8 @@ init db inputs =
                     , country = country
                     }
             )
-            [ ( Step.MaterialAndSpinning, False )
+            [ ( Step.Material, False )
+            , ( Step.Spinning, True )
             , ( Step.Fabric, True )
             , ( Step.Dyeing, True )
             , ( Step.Making, True )

@@ -48,8 +48,11 @@ stepIcon : Step.Label -> Html msg
 stepIcon label =
     span [ class "StepIcon bg-primary text-white rounded-pill" ]
         [ case label of
-            Step.MaterialAndSpinning ->
+            Step.Material ->
                 Icon.material
+
+            Step.Spinning ->
+                Icon.thread
 
             Step.Fabric ->
                 Icon.fabric
@@ -84,7 +87,7 @@ countryField { db, current, inputs, index, updateCountry } =
                         ]
                         [ -- NOTE: display a continent instead of the country for the Material & Spinning step,
                           case current.label of
-                            Step.MaterialAndSpinning ->
+                            Step.Material ->
                                 inputs.materials
                                     |> List.head
                                     |> Maybe.map (.material >> .continent)
@@ -101,7 +104,7 @@ countryField { db, current, inputs, index, updateCountry } =
                 , onInput (Country.codeFromString >> updateCountry index)
                 ]
         , case current.label of
-            Step.MaterialAndSpinning ->
+            Step.Material ->
                 div [ class "form-text fs-7 mb-0" ]
                     [ Icon.info
                     , text " Ce champ sera bientôt paramétrable"
