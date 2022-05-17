@@ -77,18 +77,25 @@ stepIcon label =
 countryField : Config msg -> Html msg
 countryField { db, current, inputs, index, updateCountry } =
     div []
-        [ case current.label of
-            Step.Material ->
-                div [ class "fs-6 text-dark" ]
-                    [ case inputs.materials |> Inputs.getMainMaterial |> Maybe.map .continent of
+        [ case ( current.label, current.editable ) of
+            ( Step.Material, _ ) ->
+                div [ class "fs-6 text-dark fw-500 d-flex align-items-center gap-1" ]
+                    [ Icon.lock
+                    , case inputs.materials |> Inputs.getMainMaterial |> Maybe.map .continent of
                         Just continent ->
-                            text <| current.country.name ++ " (" ++ continent ++ ")"
+                            text <| continent ++ " (" ++ current.country.name ++ ")"
 
                         Nothing ->
                             text current.country.name
                     ]
 
-            _ ->
+            ( _, False ) ->
+                div [ class "fs-6 text-dark fw-500 d-flex align-items-center gap-1" ]
+                    [ Icon.lock
+                    , text current.country.name
+                    ]
+
+            ( _, True ) ->
                 db.countries
                     |> List.sortBy .name
                     |> List.map
@@ -104,33 +111,6 @@ countryField { db, current, inputs, index, updateCountry } =
                         , disabled (not current.editable)
                         , onInput (Country.codeFromString >> updateCountry index)
                         ]
-        , case current.label of
-            Step.Material ->
-                div [ class "form-text fs-7 mb-0" ]
-                    [ Icon.info
-                    , text " Le pays sera prochainement paramétrable"
-                    ]
-
-            Step.Distribution ->
-                div [ class "form-text fs-7 mb-0" ]
-                    [ Icon.exclamation
-                    , text " Champ non paramétrable"
-                    ]
-
-            Step.Use ->
-                div [ class "form-text fs-7 mb-0" ]
-                    [ Icon.exclamation
-                    , text " Champ non paramétrable"
-                    ]
-
-            Step.EndOfLife ->
-                div [ class "form-text fs-7 mb-0" ]
-                    [ Icon.exclamation
-                    , text " Champ non paramétrable"
-                    ]
-
-            _ ->
-                text ""
         ]
 
 

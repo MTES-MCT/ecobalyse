@@ -94,6 +94,11 @@ info =
     icon "info"
 
 
+lock : Html msg
+lock =
+    icon "lock"
+
+
 mail : Html msg
 mail =
     icon "mail"
