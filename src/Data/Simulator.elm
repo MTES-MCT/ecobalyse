@@ -90,13 +90,13 @@ compute db query =
         --
         -- WASTE: compute the initial required material mass
         --
-        -- Compute Making mass waste
+        -- Compute Making mass waste - Confection
         |> next computeMakingStepWaste
-        -- Compute Knitting/Weawing waste
+        -- Compute Knitting/Weawing waste - Tissage/Tricotage
         |> next computeFabricStepWaste
-        -- Compute Spinning waste
+        -- Compute Spinning waste - Filature
         |> next computeSpinningStepWaste
-        -- Compute Material waste
+        -- Compute Material waste - Matière
         |> next computeMaterialStepWaste
         --
         -- CO2 SCORES
@@ -300,9 +300,42 @@ computeMaterialImpacts db ({ inputs } as simulator) =
             )
 
 
+stepSpinningImpacts : Db -> Material -> Unit.Ratio -> Step -> Impacts
+stepSpinningImpacts db material recycledRatio step =
+    case material.spinningProcess of
+        Nothing ->
+            -- Some materials, eg. Neoprene, don't use Spinning *at all*, so this step has basically no impacts.
+            step.impacts
+
+        Just spinningProcess ->
+            -- FIXME: apply material mix shares & ratios (see stepMaterialImpacts)
+            step.outputMass
+                |> Formula.spinningImpacts step.impacts
+                    { spinningProcess = spinningProcess
+                    , elecProcess = step.country.electricityProcess
+                    }
+                -- FIXME: must extract kwh and update step kwh data with it (fold)
+                |> .impacts
+
+
 computeSpinningImpacts : Db -> Simulator -> Simulator
-computeSpinningImpacts _ simulator =
+computeSpinningImpacts db ({ inputs } as simulator) =
     simulator
+        |> updateLifeCycleStep Step.Spinning
+            (\step ->
+                -- FIXME: we must extract consummed elec (kwh) and add it to step data so we can render it in detailed view
+                { step
+                    | impacts =
+                        inputs.materials
+                            |> List.map
+                                (\{ material, share, recycledRatio } ->
+                                    step
+                                        |> stepSpinningImpacts db material recycledRatio
+                                        |> Impact.mapImpacts (\_ -> Quantity.multiplyBy (Unit.ratioToFloat share))
+                                )
+                            |> Impact.sumImpacts db.impacts
+                }
+            )
 
 
 computeFabricImpacts : Simulator -> Simulator

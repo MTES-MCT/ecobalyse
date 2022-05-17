@@ -8,6 +8,7 @@ module Data.Formula exposing
     , materialImpacts
     , pureMaterialImpacts
     , recycledMaterialWaste
+    , spinningImpacts
     , transportRatio
     , useImpacts
     , weavingImpacts
@@ -158,6 +159,28 @@ pureMaterialImpacts impacts process mass =
             )
 
 
+spinningImpacts :
+    Impacts
+    -> { spinningProcess : Process, elecProcess : Process }
+    -> Mass
+    -> { kwh : Energy, impacts : Impacts }
+spinningImpacts impacts { spinningProcess, elecProcess } mass =
+    let
+        kwh =
+            spinningProcess.elec
+                |> Quantity.multiplyBy (Mass.inKilograms mass)
+    in
+    { kwh = kwh
+    , impacts =
+        impacts
+            |> Impact.mapImpacts
+                (\trigram _ ->
+                    kwh
+                        |> Unit.forKWh (Process.getImpact trigram elecProcess)
+                )
+    }
+
+
 dyeingImpacts :
     Impacts
     -> ( Process, Process ) -- Inbound: Dyeing processes (low, high)
@@ -183,7 +206,7 @@ dyeingImpacts impacts ( dyeingLowProcess, dyeingHighProcess ) (Unit.Ratio highDy
                   )
                 |> Energy.megajoules
 
-        electricity =
+        kwh =
             Mass.inKilograms baseMass
                 * ((highDyeingWeighting * Energy.inMegajoules dyeingHighProcess.elec)
                     + (lowDyeingWeighting * Energy.inMegajoules dyeingLowProcess.elec)
@@ -191,7 +214,7 @@ dyeingImpacts impacts ( dyeingLowProcess, dyeingHighProcess ) (Unit.Ratio highDy
                 |> Energy.megajoules
     in
     { heat = heatMJ
-    , kwh = electricity
+    , kwh = kwh
     , impacts =
         impacts
             |> Impact.mapImpacts
@@ -207,7 +230,7 @@ dyeingImpacts impacts ( dyeingLowProcess, dyeingHighProcess ) (Unit.Ratio highDy
                             heatMJ |> Unit.forMJ (Process.getImpact trigram heatProcess)
 
                         elecImpact =
-                            electricity |> Unit.forKWh (Process.getImpact trigram elecProcess)
+                            kwh |> Unit.forKWh (Process.getImpact trigram elecProcess)
                     in
                     Quantity.sum [ dyeingImpact_, heatImpact, elecImpact ]
                 )
