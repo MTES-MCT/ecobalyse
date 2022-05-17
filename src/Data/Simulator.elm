@@ -19,6 +19,7 @@ import Data.Transport as Transport exposing (Transport)
 import Data.Unit as Unit
 import Duration exposing (Duration)
 import Json.Encode as Encode
+import Mass
 import Quantity
 
 
@@ -245,7 +246,7 @@ stepMaterialImpacts db material recycledRatio step =
                 -- We know its corresponding primary material
                 Ok primaryMaterial ->
                     step.outputMass
-                        |> Formula.materialAndSpinningImpacts step.impacts
+                        |> Formula.materialImpacts step.impacts
                             ( material.materialProcess, primaryMaterial.materialProcess )
                             (Unit.ratio 1)
                             material.cffData
@@ -253,7 +254,7 @@ stepMaterialImpacts db material recycledRatio step =
                 -- We don't know its primary material; consider it as primary itself
                 Err _ ->
                     step.outputMass
-                        |> Formula.pureMaterialAndSpinningImpacts step.impacts
+                        |> Formula.pureMaterialImpacts step.impacts
                             material.materialProcess
 
         -- Current material is primary (non-recycled)
@@ -268,7 +269,7 @@ stepMaterialImpacts db material recycledRatio step =
                                 |> Maybe.andThen .cffData
                     in
                     step.outputMass
-                        |> Formula.materialAndSpinningImpacts step.impacts
+                        |> Formula.materialImpacts step.impacts
                             ( recycledProcess, material.materialProcess )
                             recycledRatio
                             cffData
@@ -276,7 +277,7 @@ stepMaterialImpacts db material recycledRatio step =
                 -- Current primary material can't be recycled
                 Nothing ->
                     step.outputMass
-                        |> Formula.pureMaterialAndSpinningImpacts step.impacts
+                        |> Formula.pureMaterialImpacts step.impacts
                             material.materialProcess
 
 
@@ -360,7 +361,7 @@ computeFabricStepWaste ({ inputs, lifeCycle } as simulator) =
         { mass, waste } =
             lifeCycle
                 |> LifeCycle.getStepProp Step.Making .inputMass Quantity.zero
-                |> Formula.primaryMaterialWaste inputs.product.fabricProcess.waste
+                |> Formula.genericWaste inputs.product.fabricProcess.waste
     in
     simulator
         |> updateLifeCycleStep Step.Fabric (Step.updateWaste waste mass)
@@ -369,13 +370,12 @@ computeFabricStepWaste ({ inputs, lifeCycle } as simulator) =
 
 computeMaterialStepWaste : Simulator -> Simulator
 computeMaterialStepWaste ({ inputs, lifeCycle } as simulator) =
+    -- FIXME: factorize with computeSpinningStepWaste
     let
         { mass, waste } =
             lifeCycle
                 |> LifeCycle.getStepProp Step.Spinning .inputMass Quantity.zero
                 |> (\inputMass ->
-                        -- TODO: for each material, take its share, apply waste, retrieve mass
-                        -- then add all masses
                         inputs.materials
                             |> List.map
                                 (\{ material, share, recycledRatio } ->
@@ -389,7 +389,7 @@ computeMaterialStepWaste ({ inputs, lifeCycle } as simulator) =
                                                 (inputMass |> Quantity.multiplyBy (Unit.ratioToFloat share))
 
                                         _ ->
-                                            Formula.primaryMaterialWaste material.materialProcess.waste
+                                            Formula.genericWaste material.materialProcess.waste
                                                 (inputMass |> Quantity.multiplyBy (Unit.ratioToFloat share))
                                 )
                             |> List.foldl
@@ -406,9 +406,49 @@ computeMaterialStepWaste ({ inputs, lifeCycle } as simulator) =
 
 
 computeSpinningStepWaste : Simulator -> Simulator
-computeSpinningStepWaste simulator =
-    -- FIXME: Spinning waste should be computed & applied here
+computeSpinningStepWaste ({ inputs, lifeCycle } as simulator) =
+    -- FIXME: factorize with computeMaterialStepWaste
+    let
+        { mass, waste } =
+            lifeCycle
+                -- FIXME: the step differs from computeMaterialStepWaste
+                |> LifeCycle.getStepProp Step.Fabric .inputMass Quantity.zero
+                |> (\inputMass ->
+                        inputs.materials
+                            |> List.map
+                                (\{ material, share, recycledRatio } ->
+                                    let
+                                        -- FIXME: this differs from computeMaterialStepWaste
+                                        processWaste =
+                                            material.spinningProcess
+                                                |> Maybe.map .waste
+                                                |> Maybe.withDefault (Mass.kilograms 0)
+                                    in
+                                    case material.recycledProcess of
+                                        Just recycledProcess ->
+                                            Formula.recycledMaterialWaste
+                                                { pristineWaste = processWaste
+                                                , recycledWaste = recycledProcess.waste
+                                                , recycledRatio = recycledRatio
+                                                }
+                                                (inputMass |> Quantity.multiplyBy (Unit.ratioToFloat share))
+
+                                        _ ->
+                                            Formula.genericWaste processWaste
+                                                (inputMass |> Quantity.multiplyBy (Unit.ratioToFloat share))
+                                )
+                            |> List.foldl
+                                (\curr acc ->
+                                    { mass = curr.mass |> Quantity.plus acc.mass
+                                    , waste = curr.waste |> Quantity.plus acc.waste
+                                    }
+                                )
+                                { mass = Quantity.zero, waste = Quantity.zero }
+                   )
+    in
     simulator
+        -- FIXME: the step differs from computeMaterialStepWaste
+        |> updateLifeCycleStep Step.Spinning (Step.updateWaste waste mass)
 
 
 computeStepsTransport : Db -> Simulator -> Result String Simulator

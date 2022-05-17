@@ -52,7 +52,7 @@ suite =
     describe "Data.Formula"
         [ describe "Formula.genericWaste"
             [ kg 1
-                |> Formula.primaryMaterialWaste (kg 0.5)
+                |> Formula.genericWaste (kg 0.5)
                 |> Expect.equal { mass = kg 1.5, waste = kg 0.5 }
                 |> asTest "should compute material waste"
             ]

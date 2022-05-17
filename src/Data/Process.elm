@@ -30,6 +30,8 @@ type alias Process =
     , heat : Energy --  MJ per kg of material to process
     , elec_pppm : Float -- kWh/(pick,m) per kg of material to process
     , elec : Energy -- MJ per kg of material to process
+
+    -- FIXME: waste should probably be Unit.Ratio
     , waste : Mass -- kg of textile wasted per kg of material to process
     , alias : Maybe String
     }

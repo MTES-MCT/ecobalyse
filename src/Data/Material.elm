@@ -29,6 +29,7 @@ type alias Material =
     , materialProcess : Process
     , recycledProcess : Maybe Process
     , recycledFrom : Maybe Id
+    , spinningProcess : Maybe Process
     , primary : Bool
     , continent : String
     , defaultCountry : Country.Code
@@ -117,6 +118,7 @@ decode processes =
         |> JDP.required "materialProcessUuid" (Process.decodeFromUuid processes)
         |> JDP.required "recycledProcessUuid" (Decode.maybe (Process.decodeFromUuid processes))
         |> JDP.required "recycledFrom" (Decode.maybe (Decode.map Id Decode.string))
+        |> JDP.required "spinningProcessUuid" (Decode.maybe (Process.decodeFromUuid processes))
         |> JDP.required "primary" Decode.bool
         |> JDP.required "continent" Decode.string
         |> JDP.required "defaultCountry" (Decode.string |> Decode.map Country.codeFromString)
@@ -146,6 +148,10 @@ encode v =
         , ( "materialProcessUuid", Process.encodeUuid v.materialProcess.uuid )
         , ( "recycledProcessUuid"
           , v.recycledProcess |> Maybe.map (.uuid >> Process.encodeUuid) |> Maybe.withDefault Encode.null
+          )
+        , ( "recycledFrom", v.recycledFrom |> Maybe.map encodeId |> Maybe.withDefault Encode.null )
+        , ( "spinningProcessUuid"
+          , v.spinningProcess |> Maybe.map (.uuid >> Process.encodeUuid) |> Maybe.withDefault Encode.null
           )
         , ( "primary", Encode.bool v.primary )
         , ( "continent", Encode.string v.continent )
