@@ -55,6 +55,7 @@ type alias Inputs =
     , materials : List MaterialInput
     , product : Product
     , countryMaterial : Country
+    , countrySpinning : Country
     , countryFabric : Country
     , countryDyeing : Country
     , countryMaking : Country
@@ -79,10 +80,10 @@ type alias MaterialQuery =
 
 
 type alias Query =
-    -- a shorter version than of (identifiers only)
     { mass : Mass
     , materials : List MaterialQuery
     , product : Product.Id
+    , countrySpinning : Maybe Country.Code
     , countryFabric : Country.Code
     , countryDyeing : Country.Code
     , countryMaking : Country.Code
@@ -123,13 +124,15 @@ toMaterialQuery =
         )
 
 
-firstMaterialCountry : List Country -> List MaterialInput -> Result String Country
-firstMaterialCountry countries =
-    List.head
-        >> Maybe.map
-            (\{ material } -> Country.findByCode material.defaultCountry countries)
-        >> Result.fromMaybe "La liste de matières est vide."
-        >> RE.join
+getMainMaterialCountry : List Country -> List MaterialInput -> Result String Country
+getMainMaterialCountry countries materialInputs =
+    materialInputs
+        |> List.sortBy (.share >> Unit.ratioToFloat)
+        |> List.reverse
+        |> List.head
+        |> Maybe.map (\{ material } -> Country.findByCode material.defaultCountry countries)
+        |> Result.fromMaybe "La liste de matières est vide."
+        |> RE.join
 
 
 fromQuery : Db -> Query -> Result String Inputs
@@ -141,13 +144,26 @@ fromQuery db query =
 
         franceResult =
             Country.findByCode (Country.Code "FR") db.countries
+
+        mainMaterialCountry =
+            materials |> Result.andThen (getMainMaterialCountry db.countries)
     in
     Ok Inputs
         |> RE.andMap (Ok query.mass)
         |> RE.andMap materials
         |> RE.andMap (db.products |> Product.findById query.product)
-        -- The material country is constrained to be the first material's default country
-        |> RE.andMap (materials |> Result.andThen (firstMaterialCountry db.countries))
+        -- Material country is constrained to be the first material's default country
+        |> RE.andMap mainMaterialCountry
+        -- Spinning country is either provided by query or fallbacks to material's default
+        -- country, making the parameter optional
+        |> RE.andMap
+            (case query.countrySpinning of
+                Just spinningCountryCode ->
+                    Country.findByCode spinningCountryCode db.countries
+
+                Nothing ->
+                    mainMaterialCountry
+            )
         |> RE.andMap (db.countries |> Country.findByCode query.countryFabric)
         |> RE.andMap (db.countries |> Country.findByCode query.countryDyeing)
         |> RE.andMap (db.countries |> Country.findByCode query.countryMaking)
@@ -171,6 +187,9 @@ toQuery inputs =
     { mass = inputs.mass
     , materials = toMaterialQuery inputs.materials
     , product = inputs.product.id
+
+    -- FIXME: should be Nothing when spinning country is the same as Material
+    , countrySpinning = Just inputs.countrySpinning.code
     , countryFabric = inputs.countryFabric.code
     , countryDyeing = inputs.countryDyeing.code
     , countryMaking = inputs.countryMaking.code
@@ -188,7 +207,8 @@ toString : Inputs -> String
 toString inputs =
     [ [ inputs.product.name ]
     , [ materialsToString inputs.materials ++ "de " ++ Format.kgToString inputs.mass ]
-    , [ "matière et filature", inputs.countryMaterial.name ]
+    , [ "matière", inputs.countryMaterial.name ]
+    , [ "filature", inputs.countrySpinning.name ]
     , if inputs.product.knitted then
         [ "tricotage", inputs.countryFabric.name ]
 
@@ -283,6 +303,7 @@ useOptionsToString maybeQuality maybeReparability =
 countryList : Inputs -> List Country
 countryList inputs =
     [ inputs.countryMaterial
+    , inputs.countrySpinning
     , inputs.countryFabric
     , inputs.countryDyeing
     , inputs.countryMaking
@@ -294,42 +315,45 @@ countryList inputs =
 
 updateStepCountry : Int -> Country.Code -> Query -> Query
 updateStepCountry index code query =
-    let
-        updatedQuery =
-            case index of
-                1 ->
-                    -- FIXME: index 1 is Fabric step; how could we use the step label instead?
-                    { query | countryFabric = code }
+    case index of
+        1 ->
+            -- FIXME: index 1 is Spinning step; how could we use the step label instead?
+            { query | countrySpinning = Just code }
 
-                2 ->
-                    -- FIXME: index 2 is Dyeing step; how could we use the step label instead?
-                    { query | countryDyeing = code }
+        2 ->
+            -- FIXME: index 2 is Fabric step; how could we use the step label instead?
+            { query | countryFabric = code }
 
-                3 ->
-                    -- FIXME: index 3 is Making step; how could we use the step label instead?
-                    { query | countryMaking = code }
+        3 ->
+            -- FIXME: index 3 is Dyeing step; how could we use the step label instead?
+            { query
+                | countryDyeing = code
+                , dyeingWeighting =
+                    -- FIXME: index 3 is Dyeing step; how could we use th step label instead?
+                    if index == 3 && query.countryDyeing /= code then
+                        -- reset custom value as we just switched country, which dyeing weighting is totally different
+                        Nothing
 
-                _ ->
-                    query
-    in
-    { updatedQuery
-        | dyeingWeighting =
-            -- FIXME: index 2 is Dyeing step; how could we use th step label instead?
-            if index == 2 && query.countryDyeing /= code then
-                -- reset custom value as we just switched country, which dyeing weighting is totally different
-                Nothing
+                    else
+                        query.dyeingWeighting
+            }
 
-            else
-                query.dyeingWeighting
-        , airTransportRatio =
-            -- FIXME: index 3 is Making step; how could we use th step label instead?
-            if index == 3 && query.countryMaking /= code then
-                -- reset custom value as we just switched country
-                Nothing
+        4 ->
+            -- FIXME: index 4 is Making step; how could we use the step label instead?
+            { query
+                | countryMaking = code
+                , airTransportRatio =
+                    -- FIXME: index 4 is Making step; how could we use th step label instead?
+                    if index == 4 && query.countryMaking /= code then
+                        -- reset custom value as we just switched country
+                        Nothing
 
-            else
-                query.airTransportRatio
-    }
+                    else
+                        query.airTransportRatio
+            }
+
+        _ ->
+            query
 
 
 addMaterial : Db -> Query -> Query
@@ -473,6 +497,7 @@ tShirtCotonFrance =
           }
         ]
     , product = Product.Id "tshirt"
+    , countrySpinning = Nothing
     , countryFabric = Country.Code "FR"
     , countryDyeing = Country.Code "FR"
     , countryMaking = Country.Code "FR"
@@ -527,6 +552,7 @@ jupeCircuitAsie =
           }
         ]
     , product = Product.Id "jupe"
+    , countrySpinning = Nothing
     , countryFabric = Country.Code "CN"
     , countryDyeing = Country.Code "CN"
     , countryMaking = Country.Code "CN"
@@ -551,6 +577,7 @@ manteauCircuitEurope =
           }
         ]
     , product = Product.Id "manteau"
+    , countrySpinning = Nothing
     , countryFabric = Country.Code "TR"
     , countryDyeing = Country.Code "TN"
     , countryMaking = Country.Code "ES"
@@ -575,6 +602,7 @@ pantalonCircuitEurope =
           }
         ]
     , product = Product.Id "pantalon"
+    , countrySpinning = Nothing
     , countryFabric = Country.Code "TR"
     , countryDyeing = Country.Code "TR"
     , countryMaking = Country.Code "TR"
@@ -633,9 +661,10 @@ decodeQuery =
         |> Pipe.required "mass" (Decode.map Mass.kilograms Decode.float)
         |> Pipe.required "materials" (Decode.list decodeMaterialQuery)
         |> Pipe.required "product" (Decode.map Product.Id Decode.string)
-        |> Pipe.required "countryFabric" (Decode.map Country.Code Decode.string)
-        |> Pipe.required "countryDyeing" (Decode.map Country.Code Decode.string)
-        |> Pipe.required "countryMaking" (Decode.map Country.Code Decode.string)
+        |> Pipe.optional "countrySpinning" (Decode.maybe Country.decodeCode) Nothing
+        |> Pipe.required "countryFabric" Country.decodeCode
+        |> Pipe.required "countryDyeing" Country.decodeCode
+        |> Pipe.required "countryMaking" Country.decodeCode
         |> Pipe.optional "dyeingWeighting" (Decode.maybe Unit.decodeRatio) Nothing
         |> Pipe.optional "airTransportRatio" (Decode.maybe Unit.decodeRatio) Nothing
         |> Pipe.optional "quality" (Decode.maybe Unit.decodeQuality) Nothing

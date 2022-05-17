@@ -81,7 +81,7 @@ summaryView { session, impact, funit, reusable } ({ inputs, lifeCycle } as simul
                 ]
             , inputs
                 |> Inputs.countryList
-                |> List.take 5
+                |> List.take 6
                 |> List.map (\{ name } -> li [] [ span [] [ text name ] ])
                 |> ul [ class "Chevrons" ]
             , lifeCycle
