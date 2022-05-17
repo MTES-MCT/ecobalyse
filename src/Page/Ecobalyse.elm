@@ -7,12 +7,16 @@ module Page.Ecobalyse exposing
     )
 
 import Chart.Attributes exposing (amount)
+import Data.Impact as Impact
 import Data.Session exposing (Session)
 import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Ports
+import Views.BarChart exposing (Bar)
 import Views.Container as Container
+import Views.Format as Format
+import Views.PieChart as PieChart
 import Views.RangeSlider as RangeSlider
 
 
@@ -45,6 +49,7 @@ type alias Product =
 type alias Model =
     { product : Product
     }
+
 
 type alias Config =
     { session : Session
@@ -110,7 +115,7 @@ init session =
 
 
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
-update session msg ({product} as model) =
+update session msg ({ product } as model) =
     case msg of
         IngredientSliderChanged name (Just newAmount) ->
             let
@@ -137,100 +142,79 @@ update session msg ({product} as model) =
 view : Session -> Model -> ( String, List (Html Msg) )
 view _ model =
     ( "Simulateur de recettes"
-    , [ div [class "row"]
-        [div [class "col-lg-7"]
-        [Container.centered []
+    , [ Container.centered []
             [ h1 [ class "mb-3" ] [ text model.product.title ]
             , h2 [ class "h3" ] [ text "Ingrédients" ]
             , ul []
-                (( model.product.plant
-                     |> List.filter isIngredient
+                ((model.product.plant
+                    |> List.filter isIngredient
                  )
                     |> List.map viewIngredient
                 )
             ]
-        ]
-        , div [class "col-lg-5"]
-        [ text "graph"
-        ]
-        ]
       ]
     )
 
-isIngredient: Ingredient -> Bool
-isIngredient (name, _) =
+
+isIngredient : Ingredient -> Bool
+isIngredient ( name, _ ) =
     String.contains "/ FR U" name
-    |> not
+        |> not
 
 
 viewIngredient : Ingredient -> Html Msg
-viewIngredient ( name, amount ) =
+viewIngredient (( name, amount ) as ingredient) =
     li []
         [ text name
         , text " : "
-        , RangeSlider.ratio
-            { id = "slider-" ++ name
-            , update = IngredientSliderChanged name
-            , value = amount
-            , toString = Unit.ratioToFloat >> String.fromFloat
-            , disabled = False
-            , min = 0
-            , max = 100
-            }
+        , div [ class "row" ]
+            [ div [ class "col-lg-6" ]
+                [ RangeSlider.ratio
+                    { id = "slider-" ++ name
+                    , update = IngredientSliderChanged name
+                    , value = amount
+                    , toString = Unit.ratioToFloat >> String.fromFloat
+                    , disabled = False
+                    , min = 0
+                    , max = 100
+                    }
+                ]
+            , div [ class "col-lg-6" ]
+                [ ingredient
+                    |> makeBar 1
+                    |> barView
+                ]
+            ]
         ]
 
-makeBars : Config -> List (Bar msg)
-makeBars { impact, funit } =
+
+makeBar : Float -> Ingredient -> Bar msg
+makeBar maxScore ( name, Unit.Ratio amount ) =
     let
-        grabImpact =
-            Impact.grabImpactFloat funit simulator.daysOfWear impact.trigram
-
-        maxScore =
-            simulator.lifeCycle
-                |> Array.map grabImpact
-                |> Array.push (grabImpact simulator.transport)
-                |> Array.toList
-                |> List.maximum
-                |> Maybe.withDefault 0
-
-        stepBars =
-            simulator.lifeCycle
-                |> Array.toList
-                |> List.filter (\{ label } -> label /= Step.Distribution)
-                |> List.map
-                    (\step ->
-                        { label =
-                            span []
-                                [ case ( step.label, simulator.inputs.product.knitted ) of
-                                    ( Step.Fabric, True ) ->
-                                        text "Tricotage"
-
-                                    ( Step.Fabric, False ) ->
-                                        text "Tissage"
-
-                                    ( Step.Dyeing, _ ) ->
-                                        span [ class "fw-normal", title <| Step.dyeingWeightingToString step.dyeingWeighting ]
-                                            [ strong [] [ text "Teinture" ]
-                                            , text " ("
-                                            , abbr [ class "Abbr" ]
-                                                [ text <| Format.formatInt "%" (round (Unit.ratioToFloat step.dyeingWeighting * 100)) ]
-                                            , text ")"
-                                            ]
-
-                                    _ ->
-                                        text (Step.labelToString step.label)
-                                ]
-                        , score = grabImpact step
-                        , width = clamp 0 100 (grabImpact step / maxScore * toFloat 100)
-                        , percent = grabImpact step / grabImpact simulator * toFloat 100
-                        }
-                    )
-
-        transportBar =
-            { label = text "Transport total"
-            , score = grabImpact simulator.transport
-            , width = clamp 0 100 (grabImpact simulator.transport / maxScore * toFloat 100)
-            , percent = grabImpact simulator.transport / grabImpact simulator * toFloat 100
-            }
+        percent =
+            amount / maxScore * toFloat 100
     in
-    stepBars
+    { label =
+        span [] [ text name ]
+    , score = amount
+    , width = clamp 0 100 percent
+    , percent = percent
+    }
+
+
+barView : Bar msg -> Html msg
+barView bar =
+    div [ class "fs-7 row" ]
+        [ div [ class "col-lg-8 py-1" ]
+            [ div
+                [ class "bg-primary"
+                , style "height" "1rem"
+                , style "line-height" "1rem"
+                , style "width" (String.fromFloat bar.width ++ "%")
+                ]
+                []
+            ]
+        , div [ class "col-lg-2 d-none d-sm-block text-end py-1 ps-2 text-truncate" ]
+            [ Format.percent bar.percent ]
+        , div [ class "col-lg-1 ps-2" ] [ PieChart.view bar.percent ]
+        ]
