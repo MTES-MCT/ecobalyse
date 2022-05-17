@@ -50,7 +50,8 @@ type alias WellKnown =
     , passengerCar : Process
     , endOfLife : Process
     , fading : Process
-    , spinning : Process
+    , naturalSpinning : Process
+    , syntheticSpinning : Process
     }
 
 
@@ -74,19 +75,24 @@ getImpact trigram =
 
 
 loadWellKnown : List Process -> Result String WellKnown
-loadWellKnown p =
+loadWellKnown processes =
+    let
+        fromAlias alias =
+            RE.andMap (findByAlias alias processes)
+    in
     Ok WellKnown
-        |> RE.andMap (findByAlias "airTransport" p)
-        |> RE.andMap (findByAlias "seaTransport" p)
-        |> RE.andMap (findByAlias "roadTransportPreMaking" p)
-        |> RE.andMap (findByAlias "roadTransportPostMaking" p)
-        |> RE.andMap (findByAlias "distribution" p)
-        |> RE.andMap (findByAlias "dyeingHigh" p)
-        |> RE.andMap (findByAlias "dyeingLow" p)
-        |> RE.andMap (findByAlias "passengerCar" p)
-        |> RE.andMap (findByAlias "endOfLife" p)
-        |> RE.andMap (findByAlias "fading" p)
-        |> RE.andMap (findByAlias "spinning" p)
+        |> fromAlias "air-transport"
+        |> fromAlias "sea-transport"
+        |> fromAlias "road-transport-pre-making"
+        |> fromAlias "road-transport-post-making"
+        |> fromAlias "distribution"
+        |> fromAlias "dyeing-high"
+        |> fromAlias "dyeing-low"
+        |> fromAlias "passenger-car"
+        |> fromAlias "end-of-life"
+        |> fromAlias "fading"
+        |> fromAlias "spinning-natural"
+        |> fromAlias "spinning-synthetic"
 
 
 uuidToString : Uuid -> String

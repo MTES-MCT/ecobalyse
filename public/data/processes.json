@@ -1377,7 +1377,7 @@
     "elec_pppm": 0.0,
     "elec": 3.81e1,
     "waste": 0.0,
-    "alias": "dyeingHigh"
+    "alias": "dyeing-high"
   },
   {
     "name": "Teinture sur étoffe, procédé majorant, traitement moyen des eaux usées",
@@ -1527,7 +1527,7 @@
     "elec_pppm": 0.0,
     "elec": 7.17,
     "waste": 0.0,
-    "alias": "dyeingLow"
+    "alias": "dyeing-low"
   },
   {
     "name": "Confection (jeans)",
@@ -1707,7 +1707,7 @@
     "elec_pppm": 0.0,
     "elec": 0.0,
     "waste": 0.0,
-    "alias": "seaTransport"
+    "alias": "sea-transport"
   },
   {
     "name": "Transport aérien long-courrier (dont flotte, utilisation et infrastructure) [tkm], GLO",
@@ -1737,7 +1737,7 @@
     "elec_pppm": 0.0,
     "elec": 0.0,
     "waste": 0.0,
-    "alias": "airTransport"
+    "alias": "air-transport"
   },
   {
     "name": "Transport en camion (dont parc, utilisation et infrastructure) (50%) [tkm], GLO",
@@ -1767,7 +1767,7 @@
     "elec_pppm": 0.0,
     "elec": 0.0,
     "waste": 0.0,
-    "alias": "roadTransportPreMaking"
+    "alias": "road-transport-pre-making"
   },
   {
     "name": "Transport en camion (dont parc, utilisation et infrastructure) (50%) [tkm], RER",
@@ -1797,7 +1797,7 @@
     "elec_pppm": 0.0,
     "elec": 0.0,
     "waste": 0.0,
-    "alias": "roadTransportPostMaking"
+    "alias": "road-transport-post-making"
   },
   {
     "name": "Transport en camion non spécifié France (dont parc, utilisation et infrastructure) (50%) [tkm], FR",
@@ -6807,7 +6807,7 @@
     "elec_pppm": 0.0,
     "elec": 0.0,
     "waste": 0.0,
-    "alias": "passengerCar"
+    "alias": "passenger-car"
   },
   {
     "name": "Fin de vie hors voiture (transport en camion, incinération, mise en décharge)",
@@ -6837,7 +6837,7 @@
     "elec_pppm": 0.0,
     "elec": 0.0,
     "waste": 0.0,
-    "alias": "endOfLife"
+    "alias": "end-of-life"
   },
   {
     "name": "Tricotage rectiligne, inventaire désagrégé",
