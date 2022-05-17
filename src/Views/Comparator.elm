@@ -41,7 +41,8 @@ type alias Entry =
     , highlight : Bool
     , knitted : Bool
     , score : Float
-    , materialAndSpinning : Float
+    , material : Float
+    , spinning : Float
     , weavingKnitting : Float
     , dyeing : Float
     , making : Float
@@ -77,7 +78,8 @@ createEntry db funit { trigram } highlight label query =
                 , highlight = highlight
                 , knitted = inputs.product.knitted
                 , score = Impact.grabImpactFloat funit daysOfWear trigram simulator
-                , materialAndSpinning = stepScore Step.Material
+                , material = stepScore Step.Material
+                , spinning = stepScore Step.Spinning
                 , weavingKnitting = stepScore Step.Fabric
                 , dyeing = stepScore Step.Dyeing
                 , making = stepScore Step.Making

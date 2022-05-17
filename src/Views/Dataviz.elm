@@ -65,7 +65,8 @@ chart data =
                         in
                         { knitted = False
                         , score = 0
-                        , materialAndSpinning = getStepShare "Matière & Filature"
+                        , material = getStepShare "Matière"
+                        , spinning = getStepShare "Filature"
                         , weavingKnitting = getStepShare "Tissage & Tricotage"
                         , dyeing = getStepShare "Teinture"
                         , making = getStepShare "Confection"
@@ -152,7 +153,8 @@ stepsLegendData :
     ->
         List
             ( { a
-                | materialAndSpinning : Float
+                | material : Float
+                , spinning : Float
                 , weavingKnitting : Float
                 , dyeing : Float
                 , making : Float
@@ -167,7 +169,8 @@ stepsLegendData { knitted } =
     -- There's an unfortunate bug in elm-charts where legend colors are inverted
     -- see https://github.com/terezka/elm-charts/issues/101
     -- FIXME: once an official fix is released, the expected implementation is:
-    -- [ ( .materialAndSpinning, "Matière" )
+    -- [ ( .material, "Matière" )
+    -- [ ( .spinning, "Filature" )
     -- , ( .weavingKnitting
     --   , if knitted then
     --       "Tricotage"
@@ -181,6 +184,7 @@ stepsLegendData { knitted } =
     -- , ( .use, "Utilisation" )
     -- ]
     [ "Matière"
+    , "Filature"
     , if knitted then
         "Tricotage"
 
@@ -194,7 +198,8 @@ stepsLegendData { knitted } =
     ]
         |> LE.zip
             (List.reverse
-                [ .materialAndSpinning
+                [ .material
+                , .spinning
                 , .weavingKnitting
                 , .dyeing
                 , .making
