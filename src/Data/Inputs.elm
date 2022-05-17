@@ -12,6 +12,7 @@ module Data.Inputs exposing
     , encode
     , encodeQuery
     , fromQuery
+    , getMainMaterial
     , jupeCircuitAsie
     , parseBase64Query
     , presets
@@ -124,15 +125,20 @@ toMaterialQuery =
         )
 
 
+getMainMaterial : List MaterialInput -> Maybe Material
+getMainMaterial =
+    List.sortBy (.share >> Unit.ratioToFloat)
+        >> List.reverse
+        >> List.head
+        >> Maybe.map .material
+
+
 getMainMaterialCountry : List Country -> List MaterialInput -> Result String Country
-getMainMaterialCountry countries materialInputs =
-    materialInputs
-        |> List.sortBy (.share >> Unit.ratioToFloat)
-        |> List.reverse
-        |> List.head
-        |> Maybe.map (\{ material } -> Country.findByCode material.defaultCountry countries)
-        |> Result.fromMaybe "La liste de matières est vide."
-        |> RE.join
+getMainMaterialCountry countries =
+    getMainMaterial
+        >> Maybe.map (\{ defaultCountry } -> Country.findByCode defaultCountry countries)
+        >> Result.fromMaybe "La liste de matières est vide."
+        >> RE.join
 
 
 fromQuery : Db -> Query -> Result String Inputs
@@ -187,9 +193,13 @@ toQuery inputs =
     { mass = inputs.mass
     , materials = toMaterialQuery inputs.materials
     , product = inputs.product.id
+    , countrySpinning =
+        -- Discard custom spinning country if same as material default country
+        if Maybe.map .defaultCountry (getMainMaterial inputs.materials) == Just inputs.countrySpinning.code then
+            Nothing
 
-    -- FIXME: should be Nothing when spinning country is the same as Material
-    , countrySpinning = Just inputs.countrySpinning.code
+        else
+            Just inputs.countrySpinning.code
     , countryFabric = inputs.countryFabric.code
     , countryDyeing = inputs.countryDyeing.code
     , countryMaking = inputs.countryMaking.code

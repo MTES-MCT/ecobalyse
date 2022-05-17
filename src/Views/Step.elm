@@ -4,7 +4,7 @@ import Data.Country as Country
 import Data.Db exposing (Db)
 import Data.Gitbook as Gitbook
 import Data.Impact as Impact
-import Data.Inputs exposing (Inputs)
+import Data.Inputs as Inputs exposing (Inputs)
 import Data.Product as Product
 import Data.Step as Step exposing (Step)
 import Data.Transport as Transport
@@ -77,37 +77,38 @@ stepIcon label =
 countryField : Config msg -> Html msg
 countryField { db, current, inputs, index, updateCountry } =
     div []
-        [ db.countries
-            |> List.sortBy .name
-            |> List.map
-                (\{ code, name } ->
-                    option
-                        [ selected (current.country.code == code)
-                        , value <| Country.codeToString code
-                        ]
-                        [ -- NOTE: display a continent instead of the country for the Material & Spinning step,
-                          case current.label of
-                            Step.Material ->
-                                inputs.materials
-                                    |> List.head
-                                    |> Maybe.map (.material >> .continent)
-                                    |> Maybe.withDefault "N/A"
-                                    |> text
+        [ case current.label of
+            Step.Material ->
+                div [ class "fs-6 text-dark" ]
+                    [ case inputs.materials |> Inputs.getMainMaterial |> Maybe.map .continent of
+                        Just continent ->
+                            text <| current.country.name ++ " (" ++ continent ++ ")"
 
-                            _ ->
-                                text name
+                        Nothing ->
+                            text current.country.name
+                    ]
+
+            _ ->
+                db.countries
+                    |> List.sortBy .name
+                    |> List.map
+                        (\{ code, name } ->
+                            option
+                                [ selected (current.country.code == code)
+                                , value <| Country.codeToString code
+                                ]
+                                [ text name ]
+                        )
+                    |> select
+                        [ class "form-select"
+                        , disabled (not current.editable)
+                        , onInput (Country.codeFromString >> updateCountry index)
                         ]
-                )
-            |> select
-                [ class "form-select"
-                , disabled (not current.editable)
-                , onInput (Country.codeFromString >> updateCountry index)
-                ]
         , case current.label of
             Step.Material ->
                 div [ class "form-text fs-7 mb-0" ]
                     [ Icon.info
-                    , text " Ce champ sera bientôt paramétrable"
+                    , text " Le pays sera prochainement paramétrable"
                     ]
 
             Step.Distribution ->
