@@ -46,6 +46,12 @@ type alias Model =
     { product : Product
     }
 
+type alias Config =
+    { session : Session
+    , impact : Impact.Definition
+    , funit : Unit.Functional
+    }
+
 
 type Msg
     = NoOp Never
@@ -131,17 +137,30 @@ update session msg ({product} as model) =
 view : Session -> Model -> ( String, List (Html Msg) )
 view _ model =
     ( "Simulateur de recettes"
-    , [ Container.centered []
+    , [ div [class "row"]
+        [div [class "col-lg-7"]
+        [Container.centered []
             [ h1 [ class "mb-3" ] [ text model.product.title ]
             , h2 [ class "h3" ] [ text "Ingrédients" ]
             , ul []
-                (List.map
-                    viewIngredient
-                    model.product.plant
+                (( model.product.plant
+                     |> List.filter isIngredient
+                 )
+                    |> List.map viewIngredient
                 )
             ]
+        ]
+        , div [class "col-lg-5"]
+        [ text "graph"
+        ]
+        ]
       ]
     )
+
+isIngredient: Ingredient -> Bool
+isIngredient (name, _) =
+    String.contains "/ FR U" name
+    |> not
 
 
 viewIngredient : Ingredient -> Html Msg
@@ -159,3 +178,59 @@ viewIngredient ( name, amount ) =
             , max = 100
             }
         ]
+
+makeBars : Config -> List (Bar msg)
+makeBars { impact, funit } =
+    let
+        grabImpact =
+            Impact.grabImpactFloat funit simulator.daysOfWear impact.trigram
+
+        maxScore =
+            simulator.lifeCycle
+                |> Array.map grabImpact
+                |> Array.push (grabImpact simulator.transport)
+                |> Array.toList
+                |> List.maximum
+                |> Maybe.withDefault 0
+
+        stepBars =
+            simulator.lifeCycle
+                |> Array.toList
+                |> List.filter (\{ label } -> label /= Step.Distribution)
+                |> List.map
+                    (\step ->
+                        { label =
+                            span []
+                                [ case ( step.label, simulator.inputs.product.knitted ) of
+                                    ( Step.Fabric, True ) ->
+                                        text "Tricotage"
+
+                                    ( Step.Fabric, False ) ->
+                                        text "Tissage"
+
+                                    ( Step.Dyeing, _ ) ->
+                                        span [ class "fw-normal", title <| Step.dyeingWeightingToString step.dyeingWeighting ]
+                                            [ strong [] [ text "Teinture" ]
+                                            , text " ("
+                                            , abbr [ class "Abbr" ]
+                                                [ text <| Format.formatInt "%" (round (Unit.ratioToFloat step.dyeingWeighting * 100)) ]
+                                            , text ")"
+                                            ]
+
+                                    _ ->
+                                        text (Step.labelToString step.label)
+                                ]
+                        , score = grabImpact step
+                        , width = clamp 0 100 (grabImpact step / maxScore * toFloat 100)
+                        , percent = grabImpact step / grabImpact simulator * toFloat 100
+                        }
+                    )
+
+        transportBar =
+            { label = text "Transport total"
+            , score = grabImpact simulator.transport
+            , width = clamp 0 100 (grabImpact simulator.transport / maxScore * toFloat 100)
+            , percent = grabImpact simulator.transport / grabImpact simulator * toFloat 100
+            }
+    in
+    stepBars
