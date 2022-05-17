@@ -161,10 +161,10 @@ pureMaterialImpacts impacts process mass =
 
 spinningImpacts :
     Impacts
-    -> { spinningProcess : Process, elecProcess : Process }
+    -> { spinningProcess : Process, countryElecProcess : Process }
     -> Mass
     -> { kwh : Energy, impacts : Impacts }
-spinningImpacts impacts { spinningProcess, elecProcess } mass =
+spinningImpacts impacts { spinningProcess, countryElecProcess } mass =
     let
         kwh =
             spinningProcess.elec
@@ -175,8 +175,7 @@ spinningImpacts impacts { spinningProcess, elecProcess } mass =
         impacts
             |> Impact.mapImpacts
                 (\trigram _ ->
-                    kwh
-                        |> Unit.forKWh (Process.getImpact trigram elecProcess)
+                    kwh |> Unit.forKWh (Process.getImpact trigram countryElecProcess)
                 )
     }
 
