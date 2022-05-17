@@ -62,7 +62,7 @@
   {
     "id": "laine-mouton",
     "materialProcessUuid": "b8a1abcd-1a69-16c7-4da4-f9fc3c6da5d7",
-    "recycledProcessUuid": "92dfabc7-9441-463e-bda8-7bc5943c0e9d",
+    "recycledProcessUuid": "8bb01460-217f-871c-be0a-e8fa1ceac2cc",
     "recycledFrom": null,
     "spinningProcessUuid": "4c5438c3-c360-413c-b357-fba2a851e44c",
     "name": "Fil de laine de mouton",
@@ -92,7 +92,7 @@
   {
     "id": "coton",
     "materialProcessUuid": "14a03569-d26b-9496-92e5-dfe8cb1855fe",
-    "recycledProcessUuid": "2b24abb0-c1ec-4298-9b58-350904a26104",
+    "recycledProcessUuid": "9c6ab710-4a08-c720-cede-24428a013fda",
     "recycledFrom": null,
     "spinningProcessUuid": "4c5438c3-c360-413c-b357-fba2a851e44c",
     "name": "Fil de coton conventionnel, inventaire partiellement agrégé",
@@ -152,7 +152,7 @@
   {
     "id": "viscose",
     "materialProcessUuid": "7b89296c-6dcb-ac50-0857-7eb1924770d3",
-    "recycledProcessUuid": "9671ae26-d772-4bb1-aad5-6b826555d0cd",
+    "recycledProcessUuid": "a8d42934-33e7-98a0-e81f-9b0cbf4e7af6",
     "recycledFrom": null,
     "spinningProcessUuid": "6f8b64d7-24bf-4024-b0f5-0e3a6597d825",
     "name": "Filament de viscose",
@@ -257,7 +257,7 @@
   {
     "id": "pet",
     "materialProcessUuid": "4dad2986-ce83-4960-6a06-e9ab85a0bcc1",
-    "recycledProcessUuid": "4072bfa2-1948-4d12-8de9-bbeb6cc628e1",
+    "recycledProcessUuid": "3e1c26d3-23ef-323e-e848-f808f54d35bf",
     "recycledFrom": null,
     "spinningProcessUuid": "6f8b64d7-24bf-4024-b0f5-0e3a6597d825",
     "name": "Filament de polyester, inventaire partiellement agrégé",
@@ -272,7 +272,7 @@
   {
     "id": "pa",
     "materialProcessUuid": "72e63ac7-a953-8322-1f70-d5dc2e675fc7",
-    "recycledProcessUuid": "af5d130d-f18b-438c-9f19-d1ee49756960",
+    "recycledProcessUuid": "46f7c9ea-b38c-f45a-7ad9-8a70a603e9e1",
     "recycledFrom": null,
     "spinningProcessUuid": "6f8b64d7-24bf-4024-b0f5-0e3a6597d825",
     "name": "Filament de polyamide 66",
@@ -302,7 +302,7 @@
   {
     "id": "acrylique",
     "materialProcessUuid": "c963cfe0-afae-5a3b-b909-6a04e7d80068",
-    "recycledProcessUuid": "7603beaa-c555-4283-b9f8-4d5d231b8490",
+    "recycledProcessUuid": "c393fd0e-1cc6-2be5-7836-46bf0324aac3",
     "recycledFrom": null,
     "spinningProcessUuid": "6f8b64d7-24bf-4024-b0f5-0e3a6597d825",
     "name": "Filament d'acrylique",
