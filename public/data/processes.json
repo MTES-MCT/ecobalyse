@@ -6985,7 +6985,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 3.21,
+    "elec": 11.556,
     "waste": 2.04e-2,
     "alias": "spinning-synthetic"
   },
@@ -7015,7 +7015,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 3.21,
+    "elec": 11.556,
     "waste": 8.7e-2,
     "alias": "spinning-natural"
   }
