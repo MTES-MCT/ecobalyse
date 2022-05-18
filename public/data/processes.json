@@ -25,7 +25,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -55,7 +55,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -85,7 +85,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -115,7 +115,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -145,7 +145,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -175,7 +175,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -205,7 +205,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -235,7 +235,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 7.08976,
     "alias": null
   },
@@ -265,7 +265,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 7.65978e-2,
     "alias": null
   },
@@ -295,7 +295,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 1.85817e-1,
     "alias": null
   },
@@ -325,7 +325,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 3.2e-6,
     "alias": null
   },
@@ -355,7 +355,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 5.38462e-1,
     "alias": null
   },
@@ -385,7 +385,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 3.17851,
     "alias": null
   },
@@ -415,7 +415,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 1.68877e-1,
     "alias": null
   },
@@ -445,7 +445,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 1.05105e-1,
     "alias": null
   },
@@ -475,7 +475,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 1.23406e-1,
     "alias": null
   },
@@ -505,7 +505,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 2.84423,
     "alias": null
   },
@@ -535,7 +535,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 5.38462e-1,
     "alias": null
   },
@@ -565,7 +565,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -595,7 +595,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 3.70371e-2,
     "alias": null
   },
@@ -625,7 +625,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0,
     "alias": null
   },
@@ -655,7 +655,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 1.13178e-2,
     "alias": null
   },
@@ -685,7 +685,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0,
     "alias": null
   },
@@ -715,7 +715,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 1.13178e-2,
     "alias": null
   },
@@ -745,7 +745,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 1.13178e-2,
     "alias": null
   },
@@ -775,7 +775,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 1.13178e-2,
     "alias": null
   },
@@ -805,7 +805,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 1.13178e-2,
     "alias": null
   },
@@ -835,7 +835,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 1.13178e-2,
     "alias": null
   },
@@ -865,7 +865,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0,
     "alias": null
   },
@@ -895,7 +895,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0,
     "alias": null
   },
@@ -925,7 +925,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 1.13178e-2,
     "alias": null
   },
@@ -955,7 +955,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -985,7 +985,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 1.13179e-2,
     "alias": null
   },
@@ -1015,7 +1015,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 1.136e-2,
     "alias": null
   },
@@ -1045,7 +1045,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 1.136e-2,
     "alias": null
   },
@@ -1075,7 +1075,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 1.13287e-2,
     "alias": null
   },
@@ -1105,7 +1105,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 1.15094e-1,
     "alias": null
   },
@@ -1135,7 +1135,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 1.15094e-1,
     "alias": null
   },
@@ -1165,7 +1165,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 7.5296e-2,
     "alias": null
   },
@@ -1195,7 +1195,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 6.31206e-1,
     "alias": null
   },
@@ -1225,7 +1225,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 2.1716e-1,
     "alias": null
   },
@@ -1255,7 +1255,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 1.15094e-1,
     "alias": null
   },
@@ -1285,7 +1285,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 2.1e-1,
     "alias": null
   },
@@ -1315,7 +1315,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 8.64,
+    "elec_MJ": 8.64,
     "waste": 5.76e-2,
     "alias": null
   },
@@ -1345,7 +1345,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 3.145e-4,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 6.67e-2,
     "alias": null
   },
@@ -1375,7 +1375,7 @@
     },
     "heat": 7.171e1,
     "elec_pppm": 0.0,
-    "elec": 3.81e1,
+    "elec_MJ": 3.81e1,
     "waste": 0.0,
     "alias": "dyeing-high"
   },
@@ -1405,7 +1405,7 @@
     },
     "heat": 7.171e1,
     "elec_pppm": 0.0,
-    "elec": 3.81e1,
+    "elec_MJ": 3.81e1,
     "waste": 0.0,
     "alias": null
   },
@@ -1435,7 +1435,7 @@
     },
     "heat": 7.171e1,
     "elec_pppm": 0.0,
-    "elec": 3.81e1,
+    "elec_MJ": 3.81e1,
     "waste": 0.0,
     "alias": null
   },
@@ -1465,7 +1465,7 @@
     },
     "heat": 2.587e1,
     "elec_pppm": 0.0,
-    "elec": 7.17,
+    "elec_MJ": 7.17,
     "waste": 0.0,
     "alias": null
   },
@@ -1495,7 +1495,7 @@
     },
     "heat": 2.587e1,
     "elec_pppm": 0.0,
-    "elec": 7.17,
+    "elec_MJ": 7.17,
     "waste": 0.0,
     "alias": null
   },
@@ -1525,7 +1525,7 @@
     },
     "heat": 2.587e1,
     "elec_pppm": 0.0,
-    "elec": 7.17,
+    "elec_MJ": 7.17,
     "waste": 0.0,
     "alias": "dyeing-low"
   },
@@ -1555,7 +1555,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 9.612,
+    "elec_MJ": 9.612,
     "waste": 0.0,
     "alias": null
   },
@@ -1585,7 +1585,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 2.232,
+    "elec_MJ": 2.232,
     "waste": 0.0,
     "alias": null
   },
@@ -1615,7 +1615,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 1.8,
+    "elec_MJ": 1.8,
     "waste": 0.0,
     "alias": null
   },
@@ -1645,7 +1645,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 3.204,
+    "elec_MJ": 3.204,
     "waste": 0.0,
     "alias": null
   },
@@ -1675,7 +1675,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 1.512,
+    "elec_MJ": 1.512,
     "waste": 0.0,
     "alias": null
   },
@@ -1705,7 +1705,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": "sea-transport"
   },
@@ -1735,7 +1735,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": "air-transport"
   },
@@ -1765,7 +1765,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": "road-transport-pre-making"
   },
@@ -1795,7 +1795,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": "road-transport-post-making"
   },
@@ -1825,7 +1825,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": "distribution"
   },
@@ -1855,7 +1855,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -1885,7 +1885,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -1915,7 +1915,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -1945,7 +1945,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -1975,7 +1975,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -2005,7 +2005,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -2035,7 +2035,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -2065,7 +2065,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -2095,7 +2095,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -2125,7 +2125,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -2155,7 +2155,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -2185,7 +2185,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -2215,7 +2215,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -2245,7 +2245,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -2275,7 +2275,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -2305,7 +2305,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -2335,7 +2335,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -2365,7 +2365,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -2395,7 +2395,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -2425,7 +2425,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -2455,7 +2455,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -2485,7 +2485,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -2515,7 +2515,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -2545,7 +2545,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -2575,7 +2575,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -2605,7 +2605,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -2635,7 +2635,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -2665,7 +2665,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -2695,7 +2695,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -2725,7 +2725,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -2755,7 +2755,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -2785,7 +2785,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -2815,7 +2815,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -2845,7 +2845,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -2875,7 +2875,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -2905,7 +2905,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -2935,7 +2935,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -2965,7 +2965,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -2995,7 +2995,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -3025,7 +3025,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -3055,7 +3055,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -3085,7 +3085,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -3115,7 +3115,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -3145,7 +3145,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -3175,7 +3175,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -3205,7 +3205,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -3235,7 +3235,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -3265,7 +3265,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -3295,7 +3295,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -3325,7 +3325,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -3355,7 +3355,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -3385,7 +3385,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -3415,7 +3415,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -3445,7 +3445,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -3475,7 +3475,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -3505,7 +3505,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -3535,7 +3535,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -3565,7 +3565,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -3595,7 +3595,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -3625,7 +3625,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -3655,7 +3655,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -3685,7 +3685,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -3715,7 +3715,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -3745,7 +3745,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -3775,7 +3775,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -3805,7 +3805,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -3835,7 +3835,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -3865,7 +3865,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -3895,7 +3895,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -3925,7 +3925,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -3955,7 +3955,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -3985,7 +3985,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -4015,7 +4015,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -4045,7 +4045,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -4075,7 +4075,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -4105,7 +4105,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -4135,7 +4135,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -4165,7 +4165,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -4195,7 +4195,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -4225,7 +4225,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -4255,7 +4255,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -4285,7 +4285,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -4315,7 +4315,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -4345,7 +4345,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -4375,7 +4375,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -4405,7 +4405,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -4435,7 +4435,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -4465,7 +4465,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -4495,7 +4495,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -4525,7 +4525,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -4555,7 +4555,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -4585,7 +4585,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -4615,7 +4615,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -4645,7 +4645,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -4675,7 +4675,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -4705,7 +4705,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -4735,7 +4735,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -4765,7 +4765,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -4795,7 +4795,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -4825,7 +4825,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -4855,7 +4855,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -4885,7 +4885,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -4915,7 +4915,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -4945,7 +4945,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -4975,7 +4975,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -5005,7 +5005,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -5035,7 +5035,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -5065,7 +5065,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -5095,7 +5095,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -5125,7 +5125,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -5155,7 +5155,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -5185,7 +5185,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -5215,7 +5215,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -5245,7 +5245,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -5275,7 +5275,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -5305,7 +5305,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -5335,7 +5335,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -5365,7 +5365,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -5395,7 +5395,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -5425,7 +5425,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -5455,7 +5455,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -5485,7 +5485,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -5515,7 +5515,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -5545,7 +5545,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -5575,7 +5575,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -5605,7 +5605,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -5635,7 +5635,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -5665,7 +5665,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -5695,7 +5695,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -5725,7 +5725,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -5755,7 +5755,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -5785,7 +5785,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -5815,7 +5815,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -5845,7 +5845,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -5875,7 +5875,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -5905,7 +5905,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -5935,7 +5935,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -5965,7 +5965,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 1.8e-2,
+    "elec_MJ": 1.8e-2,
     "waste": 0.0,
     "alias": null
   },
@@ -5995,7 +5995,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 4.5e-2,
+    "elec_MJ": 4.5e-2,
     "waste": 0.0,
     "alias": null
   },
@@ -6025,7 +6025,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 1.638e-1,
+    "elec_MJ": 1.638e-1,
     "waste": 0.0,
     "alias": null
   },
@@ -6055,7 +6055,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 9.36e-2,
+    "elec_MJ": 9.36e-2,
     "waste": 0.0,
     "alias": null
   },
@@ -6085,7 +6085,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 4.5e-2,
+    "elec_MJ": 4.5e-2,
     "waste": 0.0,
     "alias": null
   },
@@ -6115,7 +6115,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -6145,7 +6145,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 2.4381e-1,
+    "elec_MJ": 2.4381e-1,
     "waste": 0.0,
     "alias": null
   },
@@ -6175,7 +6175,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 7.29e-2,
+    "elec_MJ": 7.29e-2,
     "waste": 0.0,
     "alias": null
   },
@@ -6205,7 +6205,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 1.8e-2,
+    "elec_MJ": 1.8e-2,
     "waste": 0.0,
     "alias": null
   },
@@ -6235,7 +6235,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 2.4381e-1,
+    "elec_MJ": 2.4381e-1,
     "waste": 0.0,
     "alias": null
   },
@@ -6265,7 +6265,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -6295,7 +6295,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 7.29e-2,
+    "elec_MJ": 7.29e-2,
     "waste": 0.0,
     "alias": null
   },
@@ -6325,7 +6325,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 9.36e-2,
+    "elec_MJ": 9.36e-2,
     "waste": 0.0,
     "alias": null
   },
@@ -6355,7 +6355,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 1.8e-2,
+    "elec_MJ": 1.8e-2,
     "waste": 0.0,
     "alias": null
   },
@@ -6385,7 +6385,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 9.663e-1,
+    "elec_MJ": 9.663e-1,
     "waste": 0.0,
     "alias": null
   },
@@ -6415,7 +6415,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 8.0952e-1,
+    "elec_MJ": 8.0952e-1,
     "waste": 0.0,
     "alias": null
   },
@@ -6445,7 +6445,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 8.0952e-1,
+    "elec_MJ": 8.0952e-1,
     "waste": 0.0,
     "alias": null
   },
@@ -6475,7 +6475,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 1.0266,
+    "elec_MJ": 1.0266,
     "waste": 0.0,
     "alias": null
   },
@@ -6505,7 +6505,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 8.0952e-1,
+    "elec_MJ": 8.0952e-1,
     "waste": 0.0,
     "alias": null
   },
@@ -6535,7 +6535,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 1.0266,
+    "elec_MJ": 1.0266,
     "waste": 0.0,
     "alias": null
   },
@@ -6565,7 +6565,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 1.0266,
+    "elec_MJ": 1.0266,
     "waste": 0.0,
     "alias": null
   },
@@ -6595,7 +6595,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 8.0952e-1,
+    "elec_MJ": 8.0952e-1,
     "waste": 0.0,
     "alias": null
   },
@@ -6625,7 +6625,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 9.663e-1,
+    "elec_MJ": 9.663e-1,
     "waste": 0.0,
     "alias": null
   },
@@ -6655,7 +6655,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 1.0266,
+    "elec_MJ": 1.0266,
     "waste": 0.0,
     "alias": null
   },
@@ -6685,7 +6685,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 1.0266,
+    "elec_MJ": 1.0266,
     "waste": 0.0,
     "alias": null
   },
@@ -6715,7 +6715,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 8.0952e-1,
+    "elec_MJ": 8.0952e-1,
     "waste": 0.0,
     "alias": null
   },
@@ -6745,7 +6745,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 1.0266,
+    "elec_MJ": 1.0266,
     "waste": 0.0,
     "alias": null
   },
@@ -6775,7 +6775,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 9.663e-1,
+    "elec_MJ": 9.663e-1,
     "waste": 0.0,
     "alias": null
   },
@@ -6805,7 +6805,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": "passenger-car"
   },
@@ -6835,7 +6835,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": "end-of-life"
   },
@@ -6865,7 +6865,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 4.194,
+    "elec_MJ": 4.194,
     "waste": 4.17e-2,
     "alias": null
   },
@@ -6895,7 +6895,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 4.25101,
+    "elec_MJ": 4.25101,
     "waste": 3.51967e-2,
     "alias": null
   },
@@ -6925,7 +6925,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 0.0,
+    "elec_MJ": 0.0,
     "waste": 0.0,
     "alias": null
   },
@@ -6955,7 +6955,7 @@
     },
     "heat": 3.781e1,
     "elec_pppm": 0.0,
-    "elec": 6.53,
+    "elec_MJ": 6.53,
     "waste": 0.0,
     "alias": "fading"
   },
@@ -6985,7 +6985,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 11.556,
+    "elec_MJ": 11.556,
     "waste": 2.04e-2,
     "alias": "spinning-synthetic"
   },
@@ -7015,7 +7015,7 @@
     },
     "heat": 0.0,
     "elec_pppm": 0.0,
-    "elec": 11.556,
+    "elec_MJ": 11.556,
     "waste": 8.7e-2,
     "alias": "spinning-natural"
   }
