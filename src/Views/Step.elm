@@ -76,24 +76,31 @@ stepIcon label =
 
 countryField : Config msg -> Html msg
 countryField { db, current, inputs, index, updateCountry } =
+    let
+        nonEditableCountry content =
+            div [ class "fs-6 text-muted d-flex align-items-center gap-2 " ]
+                [ span
+                    [ class "cursor-help"
+                    , title "Le pays n'est pas modifiable à cet étape"
+                    ]
+                    [ Icon.lock ]
+                , content
+                ]
+    in
     div []
         [ case ( current.label, current.editable ) of
             ( Step.Material, _ ) ->
-                div [ class "fs-6 text-dark fw-500 d-flex align-items-center gap-1" ]
-                    [ Icon.lock
-                    , case inputs.materials |> Inputs.getMainMaterial |> Maybe.map .continent of
+                nonEditableCountry
+                    (case inputs.materials |> Inputs.getMainMaterial |> Maybe.map .continent of
                         Just continent ->
                             text <| continent ++ " (" ++ current.country.name ++ ")"
 
                         Nothing ->
                             text current.country.name
-                    ]
+                    )
 
             ( _, False ) ->
-                div [ class "fs-6 text-dark fw-500 d-flex align-items-center gap-1" ]
-                    [ Icon.lock
-                    , text current.country.name
-                    ]
+                nonEditableCountry (text current.country.name)
 
             ( _, True ) ->
                 db.countries
