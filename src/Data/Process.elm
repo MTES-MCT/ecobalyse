@@ -121,9 +121,9 @@ decode impacts =
         |> Pipe.required "unit" Decode.string
         |> Pipe.required "uuid" (Decode.map Uuid Decode.string)
         |> Pipe.required "impacts" (Impact.decodeImpacts impacts)
-        |> Pipe.required "heat" (Decode.map Energy.megajoules Decode.float)
+        |> Pipe.required "heat_MJ" (Decode.map Energy.megajoules Decode.float)
         |> Pipe.required "elec_pppm" Decode.float
-        |> Pipe.required "elec" (Decode.map Energy.megajoules Decode.float)
+        |> Pipe.required "elec_MJ" (Decode.map Energy.megajoules Decode.float)
         |> Pipe.required "waste" (Decode.map Mass.kilograms Decode.float)
         |> Pipe.required "alias" (Decode.maybe Decode.string)
 
