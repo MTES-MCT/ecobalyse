@@ -16,6 +16,7 @@ module Data.Session exposing
 
 import Browser.Navigation as Nav
 import Data.Db exposing (Db)
+import Data.Ecobalyse.Db as Ecobalyse
 import Data.Inputs as Inputs
 import Http
 import Json.Decode as Decode exposing (Decoder)
@@ -31,6 +32,7 @@ type alias Session =
     , store : Store
     , currentVersion : Version
     , db : Db
+    , ecobalyseDb : Ecobalyse.Db
     , notifications : List Notification
     , query : Inputs.Query
     }

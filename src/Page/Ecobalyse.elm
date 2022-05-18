@@ -9,12 +9,14 @@ module Page.Ecobalyse exposing
 import Chart.Attributes exposing (amount)
 import Data.Ecobalyse.Db as Db exposing (Product, ProductName)
 import Data.Ecobalyse.Process exposing (Amount, Process, ProcessName)
-import Data.Session exposing (Session)
+import Data.Session as Session exposing (Session)
 import Data.Unit as Unit
 import Dict
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Ports
+import RemoteData exposing (WebData)
+import Request.Ecobalyse.Db as RequestDb
 import Views.BarChart exposing (Bar)
 import Views.Container as Container
 import Views.Format as Format
@@ -29,6 +31,7 @@ type alias Model =
 type Msg
     = NoOp Never
     | IngredientSliderChanged ProductName (Maybe Amount)
+    | DbLoaded (WebData Db.Db)
 
 
 tunaPizza =
@@ -80,7 +83,10 @@ init : Session -> ( Model, Session, Cmd Msg )
 init session =
     ( { maybeProduct = Nothing }
     , session
-    , Ports.scrollTo { x = 0, y = 0 }
+    , Cmd.batch
+        [ Ports.scrollTo { x = 0, y = 0 }
+        , RequestDb.loadDb session DbLoaded
+        ]
     )
 
 
@@ -93,6 +99,18 @@ update session msg ({ maybeProduct } as model) =
                     { product | plant = Db.updateAmount name newAmount product.plant }
             in
             ( { model | maybeProduct = Just updatedProduct }, session, Cmd.none )
+
+        ( DbLoaded (RemoteData.Success db), _ ) ->
+            ( model
+            , { session | ecobalyseDb = db }
+            , Cmd.none
+            )
+
+        ( DbLoaded (RemoteData.Failure httpError), _ ) ->
+            ( model
+            , session |> Session.notifyHttpError httpError
+            , Cmd.none
+            )
 
         _ ->
             ( model, session, Cmd.none )

@@ -3,6 +3,7 @@ module Main exposing (main)
 import Browser exposing (Document)
 import Browser.Navigation as Nav
 import Data.Db as Db exposing (Db)
+import Data.Ecobalyse.Db as Ecobalyse
 import Data.Inputs as Inputs
 import Data.Session as Session exposing (Session)
 import Html
@@ -83,6 +84,7 @@ init flags url navKey =
             , store = Session.deserializeStore flags.rawStore
             , currentVersion = Request.Version.Unknown
             , db = Db.empty
+            , ecobalyseDb = Ecobalyse.empty
             , notifications = []
             , query = Inputs.defaultQuery
             }
