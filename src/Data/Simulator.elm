@@ -18,6 +18,7 @@ import Data.Step as Step exposing (Step)
 import Data.Transport as Transport exposing (Transport)
 import Data.Unit as Unit
 import Duration exposing (Duration)
+import Energy exposing (Energy)
 import Json.Encode as Encode
 import Mass
 import Quantity
@@ -300,22 +301,19 @@ computeMaterialImpacts db ({ inputs } as simulator) =
             )
 
 
-stepSpinningImpacts : Db -> Material -> Step -> Impacts
+stepSpinningImpacts : Db -> Material -> Step -> { impacts : Impacts, kwh : Energy }
 stepSpinningImpacts _ material step =
     case material.spinningProcess of
         Nothing ->
             -- Some materials, eg. Neoprene, don't use Spinning *at all*, so this step has basically no impacts.
-            step.impacts
+            { impacts = step.impacts, kwh = Quantity.zero }
 
         Just spinningProcess ->
-            -- FIXME: apply material mix shares & ratios (see stepMaterialImpacts)
             step.outputMass
                 |> Formula.spinningImpacts step.impacts
                     { spinningProcess = spinningProcess
                     , countryElecProcess = step.country.electricityProcess
                     }
-                -- FIXME: must extract kwh and update step kwh data with it (fold)
-                |> .impacts
 
 
 computeSpinningImpacts : Db -> Simulator -> Simulator
@@ -323,17 +321,24 @@ computeSpinningImpacts db ({ inputs } as simulator) =
     simulator
         |> updateLifeCycleStep Step.Spinning
             (\step ->
-                -- FIXME: we must extract consummed elec (kwh) and add it to step data so we can render it in detailed view
-                -- let
-                --     impacts =
-                -- in
                 { step
-                    | impacts =
+                    | kwh =
                         inputs.materials
                             |> List.map
                                 (\{ material, share } ->
                                     step
                                         |> stepSpinningImpacts db material
+                                        |> .kwh
+                                        |> Quantity.multiplyBy (Unit.ratioToFloat share)
+                                )
+                            |> List.foldl Quantity.plus Quantity.zero
+                    , impacts =
+                        inputs.materials
+                            |> List.map
+                                (\{ material, share } ->
+                                    step
+                                        |> stepSpinningImpacts db material
+                                        |> .impacts
                                         |> Impact.mapImpacts (\_ -> Quantity.multiplyBy (Unit.ratioToFloat share))
                                 )
                             |> Impact.sumImpacts db.impacts
