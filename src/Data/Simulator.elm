@@ -411,7 +411,6 @@ computeFabricStepWaste ({ inputs, lifeCycle } as simulator) =
 
 computeMaterialStepWaste : Simulator -> Simulator
 computeMaterialStepWaste ({ inputs, lifeCycle } as simulator) =
-    -- FIXME: factorize with computeSpinningStepWaste
     let
         { mass, waste } =
             lifeCycle
@@ -448,18 +447,15 @@ computeMaterialStepWaste ({ inputs, lifeCycle } as simulator) =
 
 computeSpinningStepWaste : Simulator -> Simulator
 computeSpinningStepWaste ({ inputs, lifeCycle } as simulator) =
-    -- FIXME: factorize with computeMaterialStepWaste
     let
         { mass, waste } =
             lifeCycle
-                -- FIXME: the step differs from computeMaterialStepWaste
                 |> LifeCycle.getStepProp Step.Fabric .inputMass Quantity.zero
                 |> (\inputMass ->
                         inputs.materials
                             |> List.map
                                 (\{ material, share, recycledRatio } ->
                                     let
-                                        -- FIXME: this differs from computeMaterialStepWaste
                                         processWaste =
                                             material.spinningProcess
                                                 |> Maybe.map .waste
@@ -488,7 +484,6 @@ computeSpinningStepWaste ({ inputs, lifeCycle } as simulator) =
                    )
     in
     simulator
-        -- FIXME: the step differs from computeMaterialStepWaste
         |> updateLifeCycleStep Step.Spinning (Step.updateWaste waste mass)
 
 
