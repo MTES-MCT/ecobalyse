@@ -77,4 +77,4 @@ for alpha2 in countries_list:
 
 # csv export
 countries_df = pd.DataFrame(country_alpha2, columns=["alpha-2", "name_fr", "name_en"])
-countries_df.to_csv("countries.csv", index=False)
+countries_df.to_csv("countries.csv", index=False, encoding="utf-8")
