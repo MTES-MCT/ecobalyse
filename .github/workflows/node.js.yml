@@ -47,12 +47,11 @@ jobs:
     - name: Build app
       run: npm run build --if-present
 
-    # Commented to deploy this branch
-    # - name: Run elm-review
-    #   run: npm run test:review
+    - name: Run elm-review
+      run: npm run test:review
 
-    # - name: Run elm tests
-    #   run: npm test
+    - name: Run elm tests
+      run: npm test
 
-    # - name: Run server tests
-    #   run: npm run server:test
+    - name: Run server tests
+      run: npm run server:test

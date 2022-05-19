@@ -205,13 +205,21 @@ describe("API", () => {
       const response = await makeRequest("/api/simulator/detailed", successQuery);
 
       expectStatus(response, 200);
-      expect(response.body.lifeCycle.length).toBe(7);
+      expect(response.body.lifeCycle).toHaveLength(8);
     });
   });
 });
 
 describe("End to end simulations", () => {
   const e2e = JSON.parse(fs.readFileSync(`${__dirname}/e2e.json`).toString());
+
+  function toComparable(impacts) {
+    return Object.keys(impacts)
+      .sort()
+      .map((trigram) => {
+        return { [trigram]: impacts[trigram] };
+      });
+  }
 
   for (const { name, query, impacts } of e2e) {
     it(name, async () => {
@@ -222,7 +230,7 @@ describe("End to end simulations", () => {
         query,
         impacts: response.body.impacts,
       });
-      expect(response.body.impacts).toEqual(impacts);
+      expect(toComparable(response.body.impacts)).toEqual(toComparable(impacts));
     });
   }
 });
