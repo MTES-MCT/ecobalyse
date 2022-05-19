@@ -8,6 +8,7 @@
 * [Impacts considérés](methodologie/impacts-consideres.md)
 * [🐑 Etape 1 - Matière et filature](methodologie/filature/README.md)
   * [Circular Footprint Formula (CFF) - Matière](methodologie/filature/circular-footprint-formula-cff-matiere.md)
+* [🧵 Etape 2 - Filature](methodologie/etape-2-filature.md)
 * [〰 Etape 2 - Tricotage / Tissage](methodologie/tricotage-tissage.md)
 * [🌈 Etape 3 - Teinture](methodologie/teinture.md)
 * [👗 Etape 4 - Confection](methodologie/confection.md)

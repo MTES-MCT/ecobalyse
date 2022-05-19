@@ -4,9 +4,15 @@ description: Transformation des fibres de matière première brute en fils.
 
 # 🐑 Etape 1 - Matière et filature
 
+{% hint style="info" %}
+Dans les données utilisées (Base Impacts), les étapes de matière et filature sont fusionnées. Elles ont donc forcément lieu dans le même pays. Cela est limitant car dans de nombreux cas, la filature n'a pas lieu dans le pays de production de la matière.\
+Nous avons donc tenté de séparer ces 2 étapes.\
+Pour en savoir plus sur notre méthodologie de séparation de ces étapes, voir la section Séparation Matière et Filature&#x20;
+{% endhint %}
+
 ## Matières proposées
 
-Les matières proposées dans le calculateur sont les matières des les impacts (couplés à la filature associée) sont modélisés dans la [Base Impacts® de l'ADEME](https://www.base-impacts.ademe.fr).&#x20;
+Les matières proposées dans le calculateur sont les matières des les impacts (couplés à la filature associée) sont modélisés dans la [Base Impacts® de l'ADEME](https://www.base-impacts.ademe.fr/).&#x20;
 
 3 types de matières sont distinguées dans la base Impacts :
 
@@ -47,7 +53,7 @@ Pour les matières synthétiques, les procédés considérés sont les procédé
 | Viscose               | `81a67d97-3cd9-44ef-9ee2-159364364c0f` | Viscose recyclée à partir de déchets de production             | `9671ae26-d772-4bb1-aad5-6b826555d0cd` |
 
 {% hint style="info" %}
-Matière et filature sont des procédés indissociables dans la [base Impacts](http://www.base-impacts.ademe.fr).
+Matière et filature sont des procédés indissociables dans la [base Impacts](http://www.base-impacts.ademe.fr/).
 {% endhint %}
 
 ## Liste complète
@@ -116,7 +122,7 @@ Lorsqu'un mélange de matières primaire et recyclée est considéré, on ne ret
 
 ## Schéma
 
-Conformément à la documentation sectorielle textile de la [base Impacts](http://www.base-impacts.ademe.fr), le système "matière et filature", est schématisé comme suit (exemple de la fibre de laine de mouton et du filament de viscose) :
+Conformément à la documentation sectorielle textile de la [base Impacts](http://www.base-impacts.ademe.fr/), le système "matière et filature", est schématisé comme suit (exemple de la fibre de laine de mouton et du filament de viscose) :
 
 ![](../../.gitbook/assets/FibreLaine.PNG)
 
@@ -206,73 +212,88 @@ Plus de détail sur la gestion des masses : [Pertes et rebut](../pertes-et-rebu
 A prévoir :
 
 * Intégrer les procédés de production de "fils" synthétiques, et non pas seulement les procédés de "filaments" synthétiques.
-* Intégration de vêtements multi-matière
 * Lorsqu'une part de matière recyclée peut être introduire, ouvrir la possibilité de distinguer l'origine de la matière primaire et de la matière recyclée
 * Pour les matières qui peuvent être issues de différents types de recyclage, regrouper ces différentes sous-options dans le tableau principal
-* Prise en compte de la _Circular Footprint Formula_ du projet de _PEFCR Apparel & Footwear_
-* Chercher à distinguer matières et filature pour pouvoir moduler ces deux étapes, et notamment la filature, en fonction du pays concerné
+*
 
-## \[A venir] Calcul contextualisé de la filature
+## Séparation des étapes matière et filature
 
 Pour apporter plus de précision dans le calcul, en fonction du pays dans lequel la filature serait réalisée, des hypothèses sont faites pour évaluer l'impact de la filature, considéré comme un sous-ensemble du procédé "matière et filature".
 
-$$
-ImpactFilatureEstimé = ImpactElecEstimé + ImpactChaleurEstimé
-$$
-
-L'estimation des impacts de la filature permet ensuite, par soustraction, d'estimer l'impact des autres étapes couvertes dans le procédé "matière et filature", regroupées par simplification sous le terme "matière".
+L'estimation des impacts de la filature (`I_Filature`) permet ensuite, par soustraction, d'estimer l'impact des autres étapes couvertes dans le procédé "matière et filature", regroupées par simplification sous le terme "matière" (`I_Matière`).
 
 $$
-ImpactMatièreEstimée = ImpactProcédéMatièreFilature - ImpactFilatureEstimée(PaysParDéfaut)
+I_{Matière} = I_{Matière+Filature} - I_{Filature}
 $$
 
 {% hint style="danger" %}
-Pour calculer l'impact "matière", il convient de soustraire l'impact de la filature estimé pour la géographie de référence retenue dans la base Impacts. Pour chaque matière, la géographie de référence est précisée dans les 3 tableaux supra (colonne géographie).
-
 En revanche, l'impact de la filature peut bien être calculé pour différentes géographies (et donc différents mix électriques ou mix de chaleur), afin de rendre compte d'une filature qui serait réalisée sur un autre pays/géographie que celui de référence de la base Impacts.
 {% endhint %}
 
-Concernant le détail du calcul de l'impact filature, pour l'électricité :&#x20;
+Pour l'étape de filature nous faisons l'hypothèse que celle ci n'a besoin que d'électricité. Nous considérons que les autres impacts  (machines, ...) sont négligeables. On a donc :
 
 $$
-ImpactElecEstimé = ElecConsommée (kWh) * ImpactProcédéElec
+I_{Filature} = Qté\_élec_{filature} * I_{élec}
 $$
 
-$$
-ElecConsommée (kWh) = MasseSortante (kg) * CoefElecFilature (kWh/kg)
-$$
+Avec `Qté_élec_{filature}`, la quantité d'électricité nécessaire pour filer 1 kg de fil_._ Nous faisons l'hypothèse que `Qté_élec_{filature} = 3.21 kWh/kg fil` __ **pour toutes les matières.**
 
-et pour la chaleur :&#x20;
+`I_élec` dépend du lieu de la filature
+
+{% hint style="danger" %}
+Pour un certain nombre de matière (exclusivement des matières synthétiques) et pour certains impacts le résultat de I\_{Matière} = I\_{Matière+Filature}-I\_{Filature} est négatif. Dans ce cas nous faisons l'hypothèse que I\_{Matière} = 0. La liste des matières|trigramme\_impact concernées est la suivante :
+
+* polypropylène|ior
+* polylactide|pma
+* polyéthylène|ior
+* polyamide 66|ior
+* aramide|swe
+* aramide|tre
+* bi-composant polypropylène/polyamide|ior
+* polyamide recyclé (recyclage chimique)|ior
+* polyamide recyclé (recyclage mécanique)|ior
+{% endhint %}
+
+### Taux de perte lors des étapes de matières et filature
+
+{% hint style="info" %}
+A partir de données d'industriels, nous faisons l'hypothèse que les taux de perte pour la filature sont de 8% pour les matières naturelles et de 2% pour les matières synthétiques. Pour les matières recyclées, le taux de perte de la matière vierge (8% ou 2%) est appliqué.
+{% endhint %}
+
+Ainsi 100g de matière naturelle (du coton par ex) donnerons 92g de coton.&#x20;
+
+A partir de ces taux de perte nous calculons un taux de perte pour l'étape matière de manière à ce que&#x20;
 
 $$
-ImpactChaleurEstimé = ChaleurConsommée (MJ) * ImpactProcédéChaleur
-$$
-
-$$
-ChaleurConsommée (kWh) = MasseSortante (kg) * CoefChaleurFilature (kWh/kg)
+Perte_{Matière} = Perte_{Matière+Filature} - Perte_{Filature}
 $$
 
 {% hint style="danger" %}
-Les coefficients sont ici définis en kWh/kg, et non en MJ/kg comme dans la base Impacts
+Pour un certain nombre de matière (exclusivement des matières synthétiques) le taux de perte calculé lors de l'étape matière est négatif. Dans ce cas nous faisons l'hypothèse que le taux de perte de l'étape matière est de 0%. La liste des matières concernées est la suivante :
+
+* polyuréthane
+* polytéréphtalate
+* acrylique
+* aramide
 {% endhint %}
 
 Pour estimer l'impact de la filature, il convient donc, pour chaque matière, d'arrêter les paramètres suivants :&#x20;
 
-| Matières naturelles                                         | UUID procédé                           | CoefElecFilature (kWh/kg) | CoefElecChaleur (kWh/kg) | Source / commentaire                                           |
-| ----------------------------------------------------------- | -------------------------------------- | ------------------------- | ------------------------ | -------------------------------------------------------------- |
-| Plume de canard                                             | `d1f06ea5-d63f-453a-8f98-55ce78ae7579` | 10                        | 9                        | <p>Cycleco - 2011</p><p>Données pour les fibres naturelles</p> |
-| Fil d'angora                                                | 29bddef1-d753-45af-9ca6-aec05e2d02b9   | 10                        | 9                        | <p>Cycleco - 2011</p><p>Données pour les fibres naturelles</p> |
-| Fil de soie                                                 | `94b4b0e1-61e4-4f4d-b9b2-efe7623b0e68` | 10                        | 9                        | <p>Cycleco - 2011</p><p>Données pour les fibres naturelles</p> |
-| <mark style="color:blue;">Fil de lin (filasse)</mark>       | `e5a6d538-f932-4242-98b4-3a0c6439629c` | 10                        | 9                        | <p>Cycleco - 2011</p><p>Données pour les fibres naturelles</p> |
-| <mark style="color:blue;">Fil de lin (étoupe)</mark>        | `fcef1a31-bb18-49e4-bdb6-e53dfe015ba0` | 10                        | 9                        | <p>Cycleco - 2011</p><p>Données pour les fibres naturelles</p> |
-| Fil de laine de mouton Mérinos                              | `4e035dbf-f48b-4b5a-94ea-0006c713958b` | 10                        | 9                        | <p>Cycleco - 2011</p><p>Données pour les fibres naturelles</p> |
-| <mark style="color:blue;">Fil de laine de mouton</mark>     | `376bd165-d354-41aa-a6e3-fd3228413bb2` | 10                        | 9                        | <p>Cycleco - 2011</p><p>Données pour les fibres naturelles</p> |
-| Fil de laine de chameau                                     | `c191a4dd-5080-4eb6-9c59-b13c943327bc` | 10                        | 9                        | <p>Cycleco - 2011</p><p>Données pour les fibres naturelles</p> |
-| Fil de jute                                                 | `72010874-4d26-4c7a-95de-c6987dfdedeb` | 10                        | 9                        | <p>Cycleco - 2011</p><p>Données pour les fibres naturelles</p> |
-| <mark style="color:blue;">Fil de coton conventionnel</mark> | `f211bbdb-415c-46fd-be4d-ddf199575b44` | 10                        | 9                        | <p>Cycleco - 2011</p><p>Données pour les fibres naturelles</p> |
-| <mark style="color:blue;">Fil de chanvre</mark>             | `08601439-f338-4f94-ac8c-538061b65d16` | 10                        | 9                        | <p>Cycleco - 2011</p><p>Données pour les fibres naturelles</p> |
-| Fil de cachemire                                            | `380c0d9c-2840-4390-bd3f-5c960f26f5ed` | 10                        | 9                        | <p>Cycleco - 2011</p><p>Données pour les fibres naturelles</p> |
-| Fibres de kapok                                             | `36cdbfc4-3f48-47b0-8ae0-294bb6017df1` | 10                        | 9                        | <p>Cycleco - 2011</p><p>Données pour les fibres naturelles</p> |
+| Matières naturelles                                         | UUID procédé                           |   | CoefElecFilature (kWh/kg) | Source / commentaire                                           |
+| ----------------------------------------------------------- | -------------------------------------- | - | ------------------------- | -------------------------------------------------------------- |
+| Plume de canard                                             | `d1f06ea5-d63f-453a-8f98-55ce78ae7579` |   | 10                        | <p>Cycleco - 2011</p><p>Données pour les fibres naturelles</p> |
+| Fil d'angora                                                | 29bddef1-d753-45af-9ca6-aec05e2d02b9   |   | 10                        | <p>Cycleco - 2011</p><p>Données pour les fibres naturelles</p> |
+| Fil de soie                                                 | `94b4b0e1-61e4-4f4d-b9b2-efe7623b0e68` |   | 10                        | <p>Cycleco - 2011</p><p>Données pour les fibres naturelles</p> |
+| <mark style="color:blue;">Fil de lin (filasse)</mark>       | `e5a6d538-f932-4242-98b4-3a0c6439629c` |   | 10                        | <p>Cycleco - 2011</p><p>Données pour les fibres naturelles</p> |
+| <mark style="color:blue;">Fil de lin (étoupe)</mark>        | `fcef1a31-bb18-49e4-bdb6-e53dfe015ba0` |   | 10                        | <p>Cycleco - 2011</p><p>Données pour les fibres naturelles</p> |
+| Fil de laine de mouton Mérinos                              | `4e035dbf-f48b-4b5a-94ea-0006c713958b` |   | 10                        | <p>Cycleco - 2011</p><p>Données pour les fibres naturelles</p> |
+| <mark style="color:blue;">Fil de laine de mouton</mark>     | `376bd165-d354-41aa-a6e3-fd3228413bb2` |   | 10                        | <p>Cycleco - 2011</p><p>Données pour les fibres naturelles</p> |
+| Fil de laine de chameau                                     | `c191a4dd-5080-4eb6-9c59-b13c943327bc` |   | 10                        | <p>Cycleco - 2011</p><p>Données pour les fibres naturelles</p> |
+| Fil de jute                                                 | `72010874-4d26-4c7a-95de-c6987dfdedeb` |   | 10                        | <p>Cycleco - 2011</p><p>Données pour les fibres naturelles</p> |
+| <mark style="color:blue;">Fil de coton conventionnel</mark> | `f211bbdb-415c-46fd-be4d-ddf199575b44` |   | 10                        | <p>Cycleco - 2011</p><p>Données pour les fibres naturelles</p> |
+| <mark style="color:blue;">Fil de chanvre</mark>             | `08601439-f338-4f94-ac8c-538061b65d16` |   | 10                        | <p>Cycleco - 2011</p><p>Données pour les fibres naturelles</p> |
+| Fil de cachemire                                            | `380c0d9c-2840-4390-bd3f-5c960f26f5ed` |   | 10                        | <p>Cycleco - 2011</p><p>Données pour les fibres naturelles</p> |
+| Fibres de kapok                                             | `36cdbfc4-3f48-47b0-8ae0-294bb6017df1` |   | 10                        | <p>Cycleco - 2011</p><p>Données pour les fibres naturelles</p> |
 
 
 
