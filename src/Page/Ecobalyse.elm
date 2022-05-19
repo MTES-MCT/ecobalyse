@@ -7,7 +7,14 @@ module Page.Ecobalyse exposing
     )
 
 import Chart.Attributes exposing (amount)
-import Data.Ecobalyse.Db as Db exposing (Product, ProductName)
+import Data.Ecobalyse.Db as Db
+    exposing
+        ( Product
+        , ProductDefinition
+        , ProductName
+        , productFromDefinition
+        , stepFromProcesses
+        )
 import Data.Ecobalyse.Process exposing (Amount, Process, ProcessName)
 import Data.Session as Session exposing (Session)
 import Data.Unit as Unit
@@ -34,6 +41,7 @@ type Msg
     | DbLoaded (WebData Db.Db)
 
 
+tunaPizza : ProductDefinition
 tunaPizza =
     { title = "Pizza, tuna, processed in FR | Chilled | Cardboard | Oven | at consumer/FR [Ciqual code: 26270]"
     , consumer =
@@ -101,10 +109,22 @@ update session msg ({ maybeProduct } as model) =
             ( { model | maybeProduct = Just updatedProduct }, session, Cmd.none )
 
         ( DbLoaded (RemoteData.Success db), _ ) ->
-            ( model
-            , { session | ecobalyseDb = db }
-            , Cmd.none
-            )
+            let
+                productResult =
+                    productFromDefinition tunaPizza db.processes
+            in
+            case productResult of
+                Ok product ->
+                    ( { model | maybeProduct = Just product }
+                    , { session | ecobalyseDb = db }
+                    , Cmd.none
+                    )
+
+                Err error ->
+                    ( model
+                    , session |> Session.notifyError "Erreur lors du chargement du produit" error
+                    , Cmd.none
+                    )
 
         ( DbLoaded (RemoteData.Failure httpError), _ ) ->
             ( model
