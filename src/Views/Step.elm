@@ -34,7 +34,7 @@ type alias Config msg =
     , current : Step
     , next : Maybe Step
     , toggleStepViewMode : Int -> msg
-    , updateCountry : Int -> Country.Code -> msg
+    , updateCountry : Label -> Country.Code -> msg
     , updateDyeingWeighting : Maybe Unit.Ratio -> msg
     , updateQuality : Maybe Unit.Quality -> msg
     , updateReparability : Maybe Unit.Reparability -> msg
@@ -76,7 +76,7 @@ stepIcon label =
 
 
 countryField : Config msg -> Html msg
-countryField { db, current, inputs, index, updateCountry } =
+countryField { db, current, inputs, updateCountry } =
     let
         nonEditableCountry content =
             div [ class "fs-6 text-muted d-flex align-items-center gap-2 " ]
@@ -117,7 +117,7 @@ countryField { db, current, inputs, index, updateCountry } =
                     |> select
                         [ class "form-select"
                         , disabled (not current.editable)
-                        , onInput (Country.codeFromString >> updateCountry index)
+                        , onInput (Country.codeFromString >> updateCountry current.label)
                         ]
         ]
 

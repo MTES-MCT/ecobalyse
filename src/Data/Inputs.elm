@@ -33,6 +33,7 @@ import Data.Country as Country exposing (Country)
 import Data.Db exposing (Db)
 import Data.Material as Material exposing (Material)
 import Data.Product as Product exposing (Product)
+import Data.Step.Label as Label exposing (Label)
 import Data.Unit as Unit
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
@@ -323,24 +324,24 @@ countryList inputs =
     ]
 
 
-updateStepCountry : Int -> Country.Code -> Query -> Query
-updateStepCountry index code query =
-    case index of
-        1 ->
+updateStepCountry : Label -> Country.Code -> Query -> Query
+updateStepCountry label code query =
+    case label of
+        Label.Spinning ->
             -- FIXME: index 1 is Spinning step; how could we use the step label instead?
             { query | countrySpinning = Just code }
 
-        2 ->
+        Label.Fabric ->
             -- FIXME: index 2 is Fabric step; how could we use the step label instead?
             { query | countryFabric = code }
 
-        3 ->
+        Label.Dyeing ->
             -- FIXME: index 3 is Dyeing step; how could we use the step label instead?
             { query
                 | countryDyeing = code
                 , dyeingWeighting =
                     -- FIXME: index 3 is Dyeing step; how could we use th step label instead?
-                    if index == 3 && query.countryDyeing /= code then
+                    if query.countryDyeing /= code then
                         -- reset custom value as we just switched country, which dyeing weighting is totally different
                         Nothing
 
@@ -348,13 +349,13 @@ updateStepCountry index code query =
                         query.dyeingWeighting
             }
 
-        4 ->
+        Label.Making ->
             -- FIXME: index 4 is Making step; how could we use the step label instead?
             { query
                 | countryMaking = code
                 , airTransportRatio =
                     -- FIXME: index 4 is Making step; how could we use th step label instead?
-                    if index == 4 && query.countryMaking /= code then
+                    if query.countryMaking /= code then
                         -- reset custom value as we just switched country
                         Nothing
 
