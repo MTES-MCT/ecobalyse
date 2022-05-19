@@ -1,15 +1,12 @@
 module Data.Step exposing
-    ( Label(..)
-    , Step
+    ( Step
     , airTransportRatioToString
     , computeTransports
     , create
     , displayLabel
     , dyeingWeightingToString
     , encode
-    , getStepGitbookPath
     , initMass
-    , labelToString
     , makingWasteToString
     , pickingToString
     , qualityToString
@@ -22,10 +19,10 @@ module Data.Step exposing
 import Data.Country as Country exposing (Country)
 import Data.Db exposing (Db)
 import Data.Formula as Formula
-import Data.Gitbook as Gitbook
 import Data.Impact as Impact exposing (Impacts)
 import Data.Inputs exposing (Inputs)
 import Data.Process as Process exposing (Process)
+import Data.Step.Label as Label exposing (Label)
 import Data.Transport as Transport exposing (Transport)
 import Data.Unit as Unit
 import Energy exposing (Energy)
@@ -73,17 +70,6 @@ type alias ProcessInfo =
     , distribution : Maybe String
     , fading : Maybe String
     }
-
-
-type Label
-    = Material -- Matière
-    | Spinning -- Filature
-    | Fabric -- Tissage ou Tricotage
-    | Dyeing -- Teinture/Ennoblissement
-    | Making -- Confection
-    | Distribution -- Distribution
-    | Use -- Utilisation
-    | EndOfLife -- Fin de vie
 
 
 create : { db : Db, label : Label, editable : Bool, country : Country } -> Step
@@ -136,20 +122,20 @@ defaultProcessInfo =
 displayLabel : { knitted : Bool, faded : Bool } -> Label -> String
 displayLabel { knitted, faded } label =
     case ( label, knitted, faded ) of
-        ( Making, _, True ) ->
+        ( Label.Making, _, True ) ->
             "Confection & Délavage"
 
-        ( Making, _, False ) ->
+        ( Label.Making, _, False ) ->
             "Confection"
 
-        ( Fabric, True, _ ) ->
+        ( Label.Fabric, True, _ ) ->
             "Tricotage"
 
-        ( Fabric, False, _ ) ->
+        ( Label.Fabric, False, _ ) ->
             "Tissage"
 
         _ ->
-            labelToString label
+            Label.toString label
 
 
 {-| Computes step transport distances and impact regarding next step.
@@ -226,7 +212,7 @@ computeTransportSummary step transport =
             )
     in
     case step.label of
-        Dyeing ->
+        Label.Dyeing ->
             transport
                 -- Note: no air transport ratio at the Dyeing step
                 |> Formula.transportRatio (Unit.ratio 0)
@@ -235,16 +221,16 @@ computeTransportSummary step transport =
                 -- Also ensure we don't add unnecessary air transport
                 |> Transport.add { defaultInland | air = Quantity.zero }
 
-        Making ->
+        Label.Making ->
             -- Air transport only applies between the Making and the Distribution steps
             transport
                 |> Formula.transportRatio step.airTransportRatio
 
-        Use ->
+        Label.Use ->
             -- Product Use leverages no transports
             noTransports
 
-        EndOfLife ->
+        Label.EndOfLife ->
             -- End of life leverages no transports
             noTransports
 
@@ -257,10 +243,10 @@ computeTransportSummary step transport =
 getRoadTransportProcess : Process.WellKnown -> Step -> Process
 getRoadTransportProcess wellKnown { label } =
     case label of
-        Making ->
+        Label.Making ->
             wellKnown.roadTransportPostMaking
 
-        Distribution ->
+        Label.Distribution ->
             wellKnown.distribution
 
         _ ->
@@ -274,7 +260,7 @@ updateFromInputs { processes } inputs ({ label, country } as step) =
             inputs
     in
     case label of
-        Spinning ->
+        Label.Spinning ->
             { step
                 | processInfo =
                     { defaultProcessInfo
@@ -282,7 +268,7 @@ updateFromInputs { processes } inputs ({ label, country } as step) =
                     }
             }
 
-        Fabric ->
+        Label.Fabric ->
             { step
                 | picking = picking
                 , surfaceMass = surfaceMass
@@ -293,7 +279,7 @@ updateFromInputs { processes } inputs ({ label, country } as step) =
                     }
             }
 
-        Dyeing ->
+        Label.Dyeing ->
             { step
                 | dyeingWeighting =
                     dyeingWeighting |> Maybe.withDefault country.dyeingWeighting
@@ -305,7 +291,7 @@ updateFromInputs { processes } inputs ({ label, country } as step) =
                     }
             }
 
-        Making ->
+        Label.Making ->
             { step
                 | airTransportRatio =
                     airTransportRatio |> Maybe.withDefault country.airTransportRatio
@@ -330,7 +316,7 @@ updateFromInputs { processes } inputs ({ label, country } as step) =
                     }
             }
 
-        Distribution ->
+        Label.Distribution ->
             processes
                 |> Process.loadWellKnown
                 |> Result.map
@@ -342,7 +328,7 @@ updateFromInputs { processes } inputs ({ label, country } as step) =
                     )
                 |> Result.withDefault step
 
-        Use ->
+        Label.Use ->
             { step
                 | quality =
                     quality |> Maybe.withDefault Unit.standardQuality
@@ -356,7 +342,7 @@ updateFromInputs { processes } inputs ({ label, country } as step) =
                     }
             }
 
-        EndOfLife ->
+        Label.EndOfLife ->
             let
                 newProcessInfo =
                     { defaultProcessInfo
@@ -452,7 +438,7 @@ makingWasteToString (Unit.Ratio makingWaste) =
 encode : Step -> Encode.Value
 encode v =
     Encode.object
-        [ ( "label", Encode.string (labelToString v.label) )
+        [ ( "label", Encode.string (Label.toString v.label) )
         , ( "country", Country.encode v.country )
         , ( "editable", Encode.bool v.editable )
         , ( "inputMass", Encode.float (Mass.inKilograms v.inputMass) )
@@ -490,59 +476,3 @@ encodeProcessInfo v =
         , ( "fabric", encodeMaybeString v.fabric )
         , ( "distribution", encodeMaybeString v.distribution )
         ]
-
-
-labelToString : Label -> String
-labelToString label =
-    case label of
-        Material ->
-            "Matière"
-
-        Spinning ->
-            "Filature"
-
-        Fabric ->
-            "Tissage & Tricotage"
-
-        Making ->
-            "Confection"
-
-        Dyeing ->
-            "Teinture"
-
-        Distribution ->
-            "Distribution"
-
-        Use ->
-            "Utilisation"
-
-        EndOfLife ->
-            "Fin de vie"
-
-
-getStepGitbookPath : Label -> Gitbook.Path
-getStepGitbookPath label =
-    case label of
-        Material ->
-            Gitbook.MaterialAndSpinning
-
-        Spinning ->
-            Gitbook.MaterialAndSpinning
-
-        Fabric ->
-            Gitbook.Fabric
-
-        Dyeing ->
-            Gitbook.Dyeing
-
-        Making ->
-            Gitbook.Making
-
-        Distribution ->
-            Gitbook.Distribution
-
-        Use ->
-            Gitbook.Use
-
-        EndOfLife ->
-            Gitbook.EndOfLife

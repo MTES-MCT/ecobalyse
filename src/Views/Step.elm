@@ -7,6 +7,7 @@ import Data.Impact as Impact
 import Data.Inputs as Inputs exposing (Inputs)
 import Data.Product as Product
 import Data.Step as Step exposing (Step)
+import Data.Step.Label as Label exposing (Label)
 import Data.Transport as Transport
 import Data.Unit as Unit
 import Duration exposing (Duration)
@@ -44,32 +45,32 @@ type alias Config msg =
     }
 
 
-stepIcon : Step.Label -> Html msg
+stepIcon : Label -> Html msg
 stepIcon label =
     span [ class "StepIcon bg-primary text-white rounded-pill" ]
         [ case label of
-            Step.Material ->
+            Label.Material ->
                 Icon.material
 
-            Step.Spinning ->
+            Label.Spinning ->
                 Icon.thread
 
-            Step.Fabric ->
+            Label.Fabric ->
                 Icon.fabric
 
-            Step.Dyeing ->
+            Label.Dyeing ->
                 Icon.dyeing
 
-            Step.Making ->
+            Label.Making ->
                 Icon.making
 
-            Step.Distribution ->
+            Label.Distribution ->
                 Icon.bus
 
-            Step.Use ->
+            Label.Use ->
                 Icon.use
 
-            Step.EndOfLife ->
+            Label.EndOfLife ->
                 Icon.recycle
         ]
 
@@ -89,7 +90,7 @@ countryField { db, current, inputs, index, updateCountry } =
     in
     div []
         [ case ( current.label, current.editable ) of
-            ( Step.Material, _ ) ->
+            ( Label.Material, _ ) ->
                 nonEditableCountry
                     (case inputs.materials |> Inputs.getMainMaterial |> Maybe.map .continent of
                         Just continent ->
@@ -266,12 +267,12 @@ inlineDocumentationLink _ path =
         [ Icon.question ]
 
 
-stepActions : Config msg -> Step.Label -> Html msg
+stepActions : Config msg -> Label -> Html msg
 stepActions { viewMode, index, toggleStepViewMode } label =
     div [ class "StepActions btn-group" ]
         [ Button.docsPillLink
             [ class "btn btn-primary py-1 rounded-end"
-            , href (Gitbook.publicUrlFromPath (Step.getStepGitbookPath label))
+            , href (Gitbook.publicUrlFromPath (Label.toGitbookPath label))
             , title "Documentation"
             , target "_blank"
             ]
@@ -329,7 +330,7 @@ simpleView ({ funit, inputs, daysOfWear, impact, current } as config) =
             [ div [ class "col-sm-6 col-lg-7" ]
                 [ countryField config
                 , case current.label of
-                    Step.Fabric ->
+                    Label.Fabric ->
                         if not inputs.product.knitted then
                             div [ class "mt-2 fs-7 text-muted" ]
                                 [ pickingField config
@@ -339,17 +340,17 @@ simpleView ({ funit, inputs, daysOfWear, impact, current } as config) =
                         else
                             text ""
 
-                    Step.Dyeing ->
+                    Label.Dyeing ->
                         div [ class "mt-2" ]
                             [ dyeingWeightingField config ]
 
-                    Step.Making ->
+                    Label.Making ->
                         div [ class "mt-2" ]
                             [ makingWasteField config
                             , airTransportRatioField config
                             ]
 
-                    Step.Use ->
+                    Label.Use ->
                         div [ class "mt-2" ]
                             [ qualityField config
                             , reparabilityField config
@@ -361,7 +362,7 @@ simpleView ({ funit, inputs, daysOfWear, impact, current } as config) =
                 ]
             , div [ class "col-sm-6 col-lg-5 text-center text-muted" ]
                 [ div []
-                    [ if current.label /= Step.Distribution then
+                    [ if current.label /= Label.Distribution then
                         div [ class "fs-3 fw-normal text-secondary" ]
                             [ current.impacts
                                 |> Format.formatImpact funit impact daysOfWear
@@ -460,7 +461,7 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                 , viewProcessInfo current.processInfo.fading
                 ]
             , case current.label of
-                Step.Fabric ->
+                Label.Fabric ->
                     if not inputs.product.knitted then
                         div [ class "card-body py-2 text-muted" ]
                             [ pickingField config
@@ -470,17 +471,17 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                     else
                         text ""
 
-                Step.Dyeing ->
+                Label.Dyeing ->
                     div [ class "card-body py-2 text-muted" ]
                         [ dyeingWeightingField config ]
 
-                Step.Making ->
+                Label.Making ->
                     div [ class "card-body py-2 text-muted" ]
                         [ makingWasteField config
                         , airTransportRatioField config
                         ]
 
-                Step.Use ->
+                Label.Use ->
                     div [ class "card-body py-2 text-muted" ]
                         [ qualityField config
                         , reparabilityField config

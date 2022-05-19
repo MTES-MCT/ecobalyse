@@ -14,7 +14,7 @@ import Data.Inputs as Inputs exposing (Inputs)
 import Data.LifeCycle as LifeCycle
 import Data.Session exposing (Session)
 import Data.Simulator as Simulator exposing (Simulator)
-import Data.Step as Step
+import Data.Step.Label as Label
 import Data.Unit as Unit
 import Duration exposing (Duration)
 import Html exposing (..)
@@ -78,13 +78,13 @@ createEntry db funit { trigram } highlight label query =
                 , highlight = highlight
                 , knitted = inputs.product.knitted
                 , score = Impact.grabImpactFloat funit daysOfWear trigram simulator
-                , material = stepScore Step.Material
-                , spinning = stepScore Step.Spinning
-                , weavingKnitting = stepScore Step.Fabric
-                , dyeing = stepScore Step.Dyeing
-                , making = stepScore Step.Making
-                , use = stepScore Step.Use
-                , endOfLife = stepScore Step.EndOfLife
+                , material = stepScore Label.Material
+                , spinning = stepScore Label.Spinning
+                , weavingKnitting = stepScore Label.Fabric
+                , dyeing = stepScore Label.Dyeing
+                , making = stepScore Label.Making
+                , use = stepScore Label.Use
+                , endOfLife = stepScore Label.EndOfLife
                 , transport = Impact.grabImpactFloat funit daysOfWear trigram transport
                 }
             )
