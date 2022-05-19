@@ -328,19 +328,15 @@ updateStepCountry : Label -> Country.Code -> Query -> Query
 updateStepCountry label code query =
     case label of
         Label.Spinning ->
-            -- FIXME: index 1 is Spinning step; how could we use the step label instead?
             { query | countrySpinning = Just code }
 
         Label.Fabric ->
-            -- FIXME: index 2 is Fabric step; how could we use the step label instead?
             { query | countryFabric = code }
 
         Label.Dyeing ->
-            -- FIXME: index 3 is Dyeing step; how could we use the step label instead?
             { query
                 | countryDyeing = code
                 , dyeingWeighting =
-                    -- FIXME: index 3 is Dyeing step; how could we use th step label instead?
                     if query.countryDyeing /= code then
                         -- reset custom value as we just switched country, which dyeing weighting is totally different
                         Nothing
@@ -350,11 +346,9 @@ updateStepCountry label code query =
             }
 
         Label.Making ->
-            -- FIXME: index 4 is Making step; how could we use the step label instead?
             { query
                 | countryMaking = code
                 , airTransportRatio =
-                    -- FIXME: index 4 is Making step; how could we use th step label instead?
                     if query.countryMaking /= code then
                         -- reset custom value as we just switched country
                         Nothing
