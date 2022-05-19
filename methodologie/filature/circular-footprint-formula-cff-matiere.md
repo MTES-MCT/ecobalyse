@@ -74,9 +74,25 @@ $$
 
 L'application de ce tableau aux différentes matières présentées dans le simulateur sera bientôt visible dans la [rubrique "Produits" de l'explorateur](https://wikicarbone.beta.gouv.fr/#/explore/products).
 
-#### Exemple de calcul
+#### Exemples de calcul
 
-Pour un vêtement de masse m de composition 60% coton, 40% coton recyclé (post consommation)
+* Pour un T-shirt de masse m = 0.17 kg de composition 100% laine recyclé
+
+```
+On applique la CFF :
+Impact_matière = m * ( A * Impact_laine_recyclé + (1-A)*Qsin/Qp*Impact_laine_vierge))
+
+On a R1 = 100%, A = 0.8, Qsin/Qp = 0.5, m = 0.207 kg (la masse est plus importante à cette étape car il y a des pertes) 
+Sur le changement climatique on a avec les données de la base impacts : 
+Impact_laine_recyclé = 0.5 kgCO2e/kg_laine_recyclé
+Impact_laine_vierge = 80.3 kgCO2e/kg_laine_vierge
+
+Donc 
+Impact_matière = 0.207 * [0.8*0.5 + (1-0.8)*0.5*80.3]
+Impact_matière = 1.75 kgCO2e
+```
+
+* Pour un vêtement de masse m de composition 60% coton, 40% coton recyclé (post consommation)
 
 ```
 Il faut d'abord calculer m', la masse de fil nécessaire pour faire un tshirt de masse m 
@@ -91,7 +107,7 @@ Impact_coton_recyclé = 0.4 * m' ( A * Impact_fil_coton_recyclé_par_kg + (1-A) 
 
 ```
 
-Pour un vêtement de masse m de composition 40% coton, 30% coton recyclé (post consommation),  20% polyester, 10% polyester recyclé.
+* Pour un vêtement de masse m de composition 40% coton, 30% coton recyclé (post consommation),  20% polyester, 10% polyester recyclé.
 
 ```
 Il faut d'abord calculer m', la masse de fil nécessaire pour faire un tshirt de masse m 
