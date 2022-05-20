@@ -1,6 +1,6 @@
 # Table of contents
 
-* [Wikicarbone](README.md)
+* [Ecobalyse](README.md)
 
 ## Méthodologie
 
