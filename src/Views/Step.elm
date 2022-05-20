@@ -92,9 +92,9 @@ countryField { db, current, inputs, updateCountry } =
         [ case ( current.label, current.editable ) of
             ( Label.Material, _ ) ->
                 nonEditableCountry
-                    (case inputs.materials |> Inputs.getMainMaterial |> Maybe.map .continent of
-                        Just continent ->
-                            text <| continent ++ " (" ++ current.country.name ++ ")"
+                    (case inputs.materials |> Inputs.getMainMaterial |> Maybe.map .geographicOrigin of
+                        Just geographicOrigin ->
+                            text <| geographicOrigin ++ " (" ++ current.country.name ++ ")"
 
                         Nothing ->
                             text current.country.name

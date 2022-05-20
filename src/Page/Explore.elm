@@ -13,7 +13,7 @@ import Data.Country as Country exposing (Country)
 import Data.Db as Db exposing (Db)
 import Data.Impact as Impact
 import Data.Key as Key
-import Data.Material as Material exposing (Material)
+import Data.Material as Material
 import Data.Product as Product
 import Data.Session exposing (Session)
 import Html exposing (..)
@@ -189,16 +189,16 @@ impactsExplorer maybeTrigram definitions =
     ]
 
 
-materialsExplorer : Maybe Material.Id -> List Material -> List (Html Msg)
-materialsExplorer maybeId materials =
-    [ materials
-        |> Table.viewList ExploreMaterials.table
+materialsExplorer : Maybe Material.Id -> Db -> List (Html Msg)
+materialsExplorer maybeId db =
+    [ db.materials
+        |> Table.viewList (ExploreMaterials.table db)
     , case maybeId of
         Just id ->
-            case Material.findById id materials of
+            case Material.findById id db.materials of
                 Ok material ->
                     material
-                        |> Table.viewDetails ExploreMaterials.table
+                        |> Table.viewDetails (ExploreMaterials.table db)
                         |> detailsModal
 
                 Err error ->
@@ -239,7 +239,7 @@ explore db dataset =
             db.impacts |> impactsExplorer maybeTrigram
 
         Db.Materials maybeId ->
-            db.materials |> materialsExplorer maybeId
+            db |> materialsExplorer maybeId
 
         Db.Products maybeId ->
             db |> productsExplorer maybeId

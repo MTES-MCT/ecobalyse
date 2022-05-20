@@ -9,7 +9,7 @@
     "shortName": "Soie",
     "category": "Naturelles",
     "primary": false,
-    "continent": "Asie - Pacifique",
+    "geographicOrigin": "Asie - Pacifique",
     "defaultCountry": "CN",
     "priority": 0,
     "cff": null
@@ -24,7 +24,7 @@
     "shortName": "Lin (filasse)",
     "category": "Naturelles",
     "primary": true,
-    "continent": "Asie - Pacifique",
+    "geographicOrigin": "Asie - Pacifique",
     "defaultCountry": "CN",
     "priority": 0,
     "cff": null
@@ -39,7 +39,7 @@
     "shortName": "Lin (étoupe)",
     "category": "Naturelles",
     "primary": true,
-    "continent": "Asie - Pacifique",
+    "geographicOrigin": "Asie - Pacifique",
     "defaultCountry": "CN",
     "priority": 0,
     "cff": null
@@ -54,7 +54,7 @@
     "shortName": "Laine de mouton Mérinos",
     "category": "Naturelles",
     "primary": false,
-    "continent": "Asie - Pacifique",
+    "geographicOrigin": "Asie - Pacifique",
     "defaultCountry": "CN",
     "priority": 0,
     "cff": null
@@ -69,7 +69,7 @@
     "shortName": "Laine de mouton",
     "category": "Naturelles",
     "primary": true,
-    "continent": "Asie - Pacifique",
+    "geographicOrigin": "Asie - Pacifique",
     "defaultCountry": "CN",
     "priority": 0,
     "cff": null
@@ -84,7 +84,7 @@
     "shortName": "Jute",
     "category": "Naturelles",
     "primary": false,
-    "continent": "Asie - Pacifique",
+    "geographicOrigin": "Asie - Pacifique",
     "defaultCountry": "CN",
     "priority": 0,
     "cff": null
@@ -99,7 +99,7 @@
     "shortName": "Coton",
     "category": "Naturelles",
     "primary": true,
-    "continent": "Asie - Pacifique",
+    "geographicOrigin": "Asie - Pacifique",
     "defaultCountry": "CN",
     "priority": 100,
     "cff": null
@@ -114,7 +114,7 @@
     "shortName": "Chanvre",
     "category": "Naturelles",
     "primary": true,
-    "continent": "Asie - Pacifique",
+    "geographicOrigin": "Asie - Pacifique",
     "defaultCountry": "CN",
     "priority": 0,
     "cff": null
@@ -129,7 +129,7 @@
     "shortName": "Cachemire",
     "category": "Naturelles",
     "primary": false,
-    "continent": "Asie - Pacifique",
+    "geographicOrigin": "Asie - Pacifique",
     "defaultCountry": "CN",
     "priority": 0,
     "cff": null
@@ -144,7 +144,7 @@
     "shortName": "Angora",
     "category": "Naturelles",
     "primary": false,
-    "continent": "Asie - Pacifique",
+    "geographicOrigin": "Asie - Pacifique",
     "defaultCountry": "CN",
     "priority": 0,
     "cff": null
@@ -159,7 +159,7 @@
     "shortName": "Viscose",
     "category": "Synthétiques et artificielles",
     "primary": true,
-    "continent": "Asie - Pacifique",
+    "geographicOrigin": "Asie - Pacifique",
     "defaultCountry": "CN",
     "priority": 0,
     "cff": null
@@ -174,7 +174,7 @@
     "shortName": "Polyuréthane/Élasthanne",
     "category": "Synthétiques et artificielles",
     "primary": false,
-    "continent": "Asie - Pacifique",
+    "geographicOrigin": "Asie - Pacifique",
     "defaultCountry": "CN",
     "priority": 60,
     "cff": null
@@ -189,7 +189,7 @@
     "shortName": "Polytriméthylène téréphtalate (PTT)",
     "category": "Synthétiques et artificielles",
     "primary": false,
-    "continent": "Asie - Pacifique",
+    "geographicOrigin": "Asie - Pacifique",
     "defaultCountry": "CN",
     "priority": 0,
     "cff": null
@@ -204,7 +204,7 @@
     "shortName": "Polytéréphtalate de butylène (PBT)",
     "category": "Synthétiques et artificielles",
     "primary": false,
-    "continent": "Asie - Pacifique",
+    "geographicOrigin": "Asie - Pacifique",
     "defaultCountry": "CN",
     "priority": 0,
     "cff": null
@@ -219,7 +219,7 @@
     "shortName": "Polypropylène",
     "category": "Synthétiques et artificielles",
     "primary": false,
-    "continent": "Europe",
+    "geographicOrigin": "Europe",
     "defaultCountry": "FR",
     "priority": 0,
     "cff": null
@@ -234,7 +234,7 @@
     "shortName": "Polylactide",
     "category": "Synthétiques et artificielles",
     "primary": false,
-    "continent": "Asie - Pacifique",
+    "geographicOrigin": "Asie - Pacifique",
     "defaultCountry": "CN",
     "priority": 0,
     "cff": null
@@ -249,7 +249,7 @@
     "shortName": "Polyéthylène",
     "category": "Synthétiques et artificielles",
     "primary": false,
-    "continent": "Europe",
+    "geographicOrigin": "Europe",
     "defaultCountry": "FR",
     "priority": 0,
     "cff": null
@@ -264,7 +264,7 @@
     "shortName": "Polyester",
     "category": "Synthétiques et artificielles",
     "primary": true,
-    "continent": "Asie - Pacifique",
+    "geographicOrigin": "Asie - Pacifique",
     "defaultCountry": "CN",
     "priority": 80,
     "cff": null
@@ -279,7 +279,7 @@
     "shortName": "Polyamide",
     "category": "Synthétiques et artificielles",
     "primary": true,
-    "continent": "Europe",
+    "geographicOrigin": "Europe",
     "defaultCountry": "FR",
     "priority": 0,
     "cff": null
@@ -294,7 +294,7 @@
     "shortName": "Aramide",
     "category": "Synthétiques et artificielles",
     "primary": false,
-    "continent": "Asie - Pacifique",
+    "geographicOrigin": "Asie - Pacifique",
     "defaultCountry": "CN",
     "priority": 0,
     "cff": null
@@ -309,7 +309,7 @@
     "shortName": "Acrylique",
     "category": "Synthétiques et artificielles",
     "primary": true,
-    "continent": "Asie - Pacifique",
+    "geographicOrigin": "Asie - Pacifique",
     "defaultCountry": "CN",
     "priority": 0,
     "cff": null
@@ -324,7 +324,7 @@
     "shortName": "Polypropylène/polyamide",
     "category": "Synthétiques et artificielles",
     "primary": false,
-    "continent": "Europe",
+    "geographicOrigin": "Europe",
     "defaultCountry": "FR",
     "priority": 0,
     "cff": null
@@ -339,7 +339,7 @@
     "shortName": "Néoprène",
     "category": "Synthétiques et artificielles",
     "primary": false,
-    "continent": "Asie - Pacifique",
+    "geographicOrigin": "Asie - Pacifique",
     "defaultCountry": "CN",
     "priority": 0,
     "cff": null
@@ -354,7 +354,7 @@
     "shortName": "Polyester recyclé (recyclage mécanique)",
     "category": "Recyclées",
     "primary": false,
-    "continent": "Asie - Pacifique",
+    "geographicOrigin": "Asie - Pacifique",
     "defaultCountry": "CN",
     "priority": 0,
     "cff": { "manufacturerAllocation": 0.5, "recycledQualityRatio": 0.7 }
@@ -369,7 +369,7 @@
     "shortName": "Polyester recyclé (recyclage chimique partiel)",
     "category": "Recyclées",
     "primary": false,
-    "continent": "Asie - Pacifique",
+    "geographicOrigin": "Asie - Pacifique",
     "defaultCountry": "CN",
     "priority": 0,
     "cff": { "manufacturerAllocation": 0.5, "recycledQualityRatio": 0.7 }
@@ -384,7 +384,7 @@
     "shortName": "Polyester recyclé (recyclage chimique complet)",
     "category": "Recyclées",
     "primary": false,
-    "continent": "Asie - Pacifique",
+    "geographicOrigin": "Asie - Pacifique",
     "defaultCountry": "CN",
     "priority": 0,
     "cff": { "manufacturerAllocation": 0.5, "recycledQualityRatio": 0.7 }
@@ -399,7 +399,7 @@
     "shortName": "Polyamide recyclé (recyclage chimique)",
     "category": "Recyclées",
     "primary": false,
-    "continent": "Europe puis Asie",
+    "geographicOrigin": "Europe puis Asie",
     "defaultCountry": "CN",
     "priority": 0,
     "cff": { "manufacturerAllocation": 0.8, "recycledQualityRatio": 1 }
@@ -414,7 +414,7 @@
     "shortName": "Viscose recyclé",
     "category": "Recyclées",
     "primary": false,
-    "continent": "Asie - Pacifique",
+    "geographicOrigin": "Asie - Pacifique",
     "defaultCountry": "CN",
     "priority": 0,
     "cff": { "manufacturerAllocation": 0.8, "recycledQualityRatio": 1 }
@@ -429,7 +429,7 @@
     "shortName": "Polyamide recyclé",
     "category": "Recyclées",
     "primary": false,
-    "continent": "Europe",
+    "geographicOrigin": "Europe",
     "defaultCountry": "FR",
     "priority": 0,
     "cff": { "manufacturerAllocation": 0.8, "recycledQualityRatio": 1 }
@@ -444,7 +444,7 @@
     "shortName": "Laine recyclée",
     "category": "Recyclées",
     "primary": false,
-    "continent": "France",
+    "geographicOrigin": "France",
     "defaultCountry": "FR",
     "priority": 0,
     "cff": { "manufacturerAllocation": 0.8, "recycledQualityRatio": 0.5 }
@@ -459,7 +459,7 @@
     "shortName": "Coton recyclé (déchets post-consommation)",
     "category": "Recyclées",
     "primary": false,
-    "continent": "France",
+    "geographicOrigin": "France",
     "defaultCountry": "FR",
     "priority": 0,
     "cff": { "manufacturerAllocation": 0.8, "recycledQualityRatio": 0.5 }
@@ -474,7 +474,7 @@
     "shortName": "Coton recyclé (déchets de production)",
     "category": "Recyclées",
     "primary": false,
-    "continent": "Espagne & France",
+    "geographicOrigin": "Espagne & France",
     "defaultCountry": "FR",
     "priority": 0,
     "cff": { "manufacturerAllocation": 0.8, "recycledQualityRatio": 0.5 }
@@ -489,7 +489,7 @@
     "shortName": "Acrylique recyclé",
     "category": "Recyclées",
     "primary": false,
-    "continent": "Asie - Pacifique",
+    "geographicOrigin": "Asie - Pacifique",
     "defaultCountry": "CN",
     "priority": 0,
     "cff": { "manufacturerAllocation": 0.8, "recycledQualityRatio": 1 }
