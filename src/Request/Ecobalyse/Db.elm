@@ -2,6 +2,7 @@ module Request.Ecobalyse.Db exposing (loadDb)
 
 import Data.Ecobalyse.Db exposing (Db)
 import Data.Ecobalyse.Process as Process exposing (Processes)
+import Data.Ecobalyse.Product as Product exposing (Products)
 import Data.Impact as Impact
 import Data.Session exposing (Session)
 import Json.Decode exposing (Decoder)
@@ -25,10 +26,10 @@ getJson decoder file =
 buildFromWebData :
     List Impact.Definition
     -> Processes
-    -- -> WebData (List Product)
+    -> WebData Products
     -> WebData Db
-buildFromWebData impacts processes =
-    RemoteData.succeed (Db impacts processes)
+buildFromWebData impacts processes products =
+    RemoteData.succeed (Db impacts processes products)
 
 
 
@@ -43,10 +44,7 @@ loadDependentData impacts processes =
             Task.map2 (|>)
     in
     Task.succeed (buildFromWebData impacts processes)
-
-
-
--- |> andMap (getJson (Product.decodeList processes) "products.json")
+        |> andMap (getJson (Product.decodeProducts processes) "ecobalyse/products.json")
 
 
 handleProcessesLoaded : List Impact.Definition -> WebData Processes -> Task () (WebData Db)

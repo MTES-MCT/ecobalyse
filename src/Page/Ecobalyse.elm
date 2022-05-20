@@ -8,14 +8,14 @@ module Page.Ecobalyse exposing
 
 import Chart.Attributes exposing (amount)
 import Data.Ecobalyse.Db as Db
+import Data.Ecobalyse.Process as Process exposing (Amount, Process, ProcessName)
+import Data.Ecobalyse.Product as Product
     exposing
         ( Product
         , ProductDefinition
         , ProductName
         , productFromDefinition
-        , stepFromProcesses
         )
-import Data.Ecobalyse.Process exposing (Amount, Process, ProcessName)
 import Data.Session as Session exposing (Session)
 import Data.Unit as Unit
 import Dict
@@ -43,8 +43,7 @@ type Msg
 
 tunaPizza : ProductDefinition
 tunaPizza =
-    { title = "Pizza, tuna, processed in FR | Chilled | Cardboard | Oven | at consumer/FR [Ciqual code: 26270]"
-    , consumer =
+    { consumer =
         [ ( "Pizza, tuna, processed in FR | Chilled | Cardboard | at supermarket/FR", Unit.Ratio 1.0 )
         , ( "Electricity, low voltage {FR}| market for | Cut-off, S - Copied from Ecoinvent", Unit.Ratio 1.0 )
         , ( "Transport, freight, lorry 16-32 metric ton, EURO5 {RER}| transport, freight, lorry 16-32 metric ton, EURO5 | Cut-off, S - Copied from Ecoinvent", Unit.Ratio 0.0018000000000000002 )
@@ -104,14 +103,14 @@ update session msg ({ maybeProduct } as model) =
         ( IngredientSliderChanged name (Just newAmount), Just product ) ->
             let
                 updatedProduct =
-                    { product | plant = Db.updateAmount name newAmount product.plant }
+                    { product | plant = Product.updateAmount name newAmount product.plant }
             in
             ( { model | maybeProduct = Just updatedProduct }, session, Cmd.none )
 
         ( DbLoaded (RemoteData.Success db), _ ) ->
             let
                 productResult =
-                    productFromDefinition tunaPizza db.processes
+                    productFromDefinition db.processes tunaPizza
             in
             case productResult of
                 Ok product ->
@@ -142,7 +141,7 @@ view _ model =
     , [ Container.centered []
             (case model.maybeProduct of
                 Just product ->
-                    [ h1 [ class "mb-3" ] [ text product.title ]
+                    [ h1 [ class "mb-3" ] [ text "pizza au thon" ]
                     , h2 [ class "h3" ] [ text "Ingrédients" ]
                     , ul []
                         ((product.plant
