@@ -8,14 +8,8 @@ module Page.Ecobalyse exposing
 
 import Chart.Attributes exposing (amount)
 import Data.Ecobalyse.Db as Db
-import Data.Ecobalyse.Process as Process exposing (Amount, Process, ProcessName)
-import Data.Ecobalyse.Product as Product
-    exposing
-        ( Product
-        , ProductDefinition
-        , ProductName
-        , productFromDefinition
-        )
+import Data.Ecobalyse.Process exposing (Amount, Process, ProcessName)
+import Data.Ecobalyse.Product as Product exposing (Product, ProductName)
 import Data.Session as Session exposing (Session)
 import Data.Unit as Unit
 import Dict
@@ -41,49 +35,9 @@ type Msg
     | DbLoaded (WebData Db.Db)
 
 
-tunaPizza : ProductDefinition
+tunaPizza : ProductName
 tunaPizza =
-    { consumer =
-        [ ( "Pizza, tuna, processed in FR | Chilled | Cardboard | at supermarket/FR", Unit.Ratio 1.0 )
-        , ( "Electricity, low voltage {FR}| market for | Cut-off, S - Copied from Ecoinvent", Unit.Ratio 1.0 )
-        , ( "Transport, freight, lorry 16-32 metric ton, EURO5 {RER}| transport, freight, lorry 16-32 metric ton, EURO5 | Cut-off, S - Copied from Ecoinvent", Unit.Ratio 0.0018000000000000002 )
-        , ( "Paper (waste treatment) {GLO}| recycling of paper | Cut-off, S - Copied from Ecoinvent", Unit.Ratio 0.065 )
-        , ( "Waste paperboard {CH}| treatment of, inert material landfill | Cut-off, S - Copied from Ecoinvent", Unit.Ratio 0.01575 )
-        , ( "Waste paperboard {CH}| treatment of, municipal incineration with fly ash extraction | Cut-off, S - Copied from Ecoinvent", Unit.Ratio 0.01925 )
-        ]
-    , supermarket =
-        [ ( "Pizza, tuna, processed in FR | Chilled | Cardboard | at distribution/FR", Unit.Ratio 1.05263157894737 )
-        , ( "Electricity, low voltage {FR}| market for | Cut-off, S - Copied from Ecoinvent", Unit.Ratio 0.21923 )
-        , ( "Tap water {Europe without Switzerland}| market for | Cut-off, S - Copied from Ecoinvent", Unit.Ratio 0.2106 )
-        , ( "Transport, freight, lorry with refrigeration machine, 7.5-16 ton, EURO5, R134a refrigerant, cooling {GLO}| transport, freight, lorry with refrigeration machine, 7.5-16 ton, EURO5, R134a refrigerant, cooling | Cut-off, S - Copied from Ecoinvent", Unit.Ratio 0.165 )
-        , ( "Biowaste {GLO}| treatment of biowaste, municipal incineration | Cut-off, S - Copied from Ecoinvent", Unit.Ratio 0.0157894736842105 )
-        , ( "Biowaste {RoW}| treatment of biowaste, industrial composting | Cut-off, S - Copied from Ecoinvent", Unit.Ratio 0.00178947368421052 )
-        , ( "Biowaste {RoW}| treatment of biowaste by anaerobic digestion | Cut-off, S - Copied from Ecoinvent", Unit.Ratio 0.00873684210526315 )
-        ]
-    , distribution =
-        [ ( "Pizza, tuna, processed in FR | Chilled | Cardboard | at packaging/FR", Unit.Ratio 1.05263157894737 )
-        , ( "Electricity, low voltage {FR}| market for | Cut-off, S - Copied from Ecoinvent", Unit.Ratio 0.00242947368421053 )
-        , ( "Heat, central or small-scale, natural gas {Europe without Switzerland}| market for heat, central or small-scale, natural gas | Cut-off, S - Copied from Ecoinvent", Unit.Ratio 0.010931578947368436 )
-        , ( "Tap water {Europe without Switzerland}| market for | Cut-off, S - Copied from Ecoinvent", Unit.Ratio 0.0003694736842105269 )
-        , ( "Transport, freight, lorry with refrigeration machine, 7.5-16 ton, EURO5, R134a refrigerant, cooling {GLO}| transport, freight, lorry with refrigeration machine, 7.5-16 ton, EURO5, R134a refrigerant, cooling | Cut-off, S - Copied from Ecoinvent", Unit.Ratio 0.5210526315789481 )
-        ]
-    , packaging =
-        [ ( "Pizza, tuna, at plant", Unit.Ratio 1.05263157894737 )
-        , ( "Corrugated board box {RER}| production | Cut-off, S - Copied from Ecoinvent", Unit.Ratio 0.105263157894737 )
-        , ( "Transport, freight, lorry 16-32 metric ton, euro6 {RER}| market for transport, freight, lorry 16-32 metric ton, EURO6 | Cut-off, S - Copied from Ecoinvent", Unit.Ratio 0.02421052631578951 )
-        , ( "Transport, freight train {RER}| market group for transport, freight train | Cut-off, S - Copied from Ecoinvent", Unit.Ratio 0.029473684210526357 )
-        , ( "Transport, freight, inland waterways, barge {RER}| processing | Cut-off, S - Copied from Ecoinvent", Unit.Ratio 0.03789473684210532 )
-        ]
-    , plant =
-        [ ( "Mozzarella cheese, from cow's milk, at plant", Unit.Ratio 0.26842105263157934 )
-        , ( "Olive oil, at plant", Unit.Ratio 0.029789473684210567 )
-        , ( "Tuna, fillet, raw, at processing", Unit.Ratio 0.1494736842105265 )
-        , ( "Water, municipal", Unit.Ratio 0.09978947368421066 )
-        , ( "Wheat flour, at industrial mill", Unit.Ratio 0.1684210526315792 )
-        , ( "Cooking, industrial, 1kg of cooked product/ FR U", Unit.Ratio 1.05263157894737 )
-        , ( "Tomato, for processing, peeled, at plant", Unit.Ratio 0.42526315789473745 )
-        ]
-    }
+    "Pizza, tuna, processed in FR | Chilled | Cardboard | Oven | at consumer/FR [Ciqual code: 26270]"
 
 
 init : Session -> ( Model, Session, Cmd Msg )
@@ -110,7 +64,7 @@ update session msg ({ maybeProduct } as model) =
         ( DbLoaded (RemoteData.Success db), _ ) ->
             let
                 productResult =
-                    productFromDefinition db.processes tunaPizza
+                    Product.findByName tunaPizza db.products
             in
             case productResult of
                 Ok product ->
