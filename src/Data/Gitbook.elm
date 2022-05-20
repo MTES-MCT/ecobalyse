@@ -41,7 +41,7 @@ type Path
 baseUrl : String
 baseUrl =
     -- FIXME-RENAME
-    "https://fabrique-numerique.gitbook.io/wikicarbone"
+    "https://fabrique-numerique.gitbook.io/ecobalyse"
 
 
 pathToString : Path -> String
