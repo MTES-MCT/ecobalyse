@@ -28,8 +28,19 @@ buildFromWebData :
     -> Processes
     -> WebData Products
     -> WebData Db
-buildFromWebData impacts processes products =
-    RemoteData.succeed (Db impacts processes products)
+buildFromWebData impacts processes productsData =
+    case productsData of
+        RemoteData.Success products ->
+            RemoteData.succeed (Db impacts processes products)
+
+        RemoteData.Failure error ->
+            RemoteData.Failure error
+
+        RemoteData.NotAsked ->
+            RemoteData.NotAsked
+
+        RemoteData.Loading ->
+            RemoteData.Loading
 
 
 
