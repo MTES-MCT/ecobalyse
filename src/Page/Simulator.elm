@@ -19,6 +19,7 @@ import Data.Material as Material
 import Data.Product as Product exposing (Product)
 import Data.Session as Session exposing (Session)
 import Data.Simulator as Simulator exposing (Simulator)
+import Data.Step.Label exposing (Label)
 import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
@@ -90,7 +91,7 @@ type Msg
     | UpdateQuality (Maybe Unit.Quality)
     | UpdateReparability (Maybe Unit.Reparability)
     | UpdateSimulationName String
-    | UpdateStepCountry Int Country.Code
+    | UpdateStepCountry Label Country.Code
     | UpdateSurfaceMass (Maybe Unit.SurfaceMass)
 
 
@@ -329,9 +330,9 @@ update ({ db, query, navKey } as session) msg model =
         UpdateSimulationName newName ->
             ( { model | simulationName = newName }, session, Cmd.none )
 
-        UpdateStepCountry index code ->
+        UpdateStepCountry label code ->
             ( model, session, Cmd.none )
-                |> updateQuery (Inputs.updateStepCountry index code query)
+                |> updateQuery (Inputs.updateStepCountry label code query)
 
         UpdateSurfaceMass surfaceMass ->
             ( model, session, Cmd.none )

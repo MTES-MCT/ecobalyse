@@ -17,6 +17,7 @@ import Data.Db exposing (Db)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Inputs as Inputs exposing (Inputs, countryList)
 import Data.Step as Step exposing (Step)
+import Data.Step.Label as Label exposing (Label)
 import Data.Transport as Transport exposing (Transport)
 import Json.Encode as Encode
 import Quantity
@@ -80,12 +81,12 @@ computeFinalImpacts db =
         (Impact.impactsFromDefinitons db.impacts)
 
 
-getStep : Step.Label -> LifeCycle -> Maybe Step
+getStep : Label -> LifeCycle -> Maybe Step
 getStep label =
     Array.filter (.label >> (==) label) >> Array.get 0
 
 
-getStepProp : Step.Label -> (Step -> a) -> a -> LifeCycle -> a
+getStepProp : Label -> (Step -> a) -> a -> LifeCycle -> a
 getStepProp label prop default =
     getStep label >> Maybe.map prop >> Maybe.withDefault default
 
@@ -108,19 +109,20 @@ init db inputs =
                     , country = country
                     }
             )
-            [ ( Step.MaterialAndSpinning, False )
-            , ( Step.Fabric, True )
-            , ( Step.Dyeing, True )
-            , ( Step.Making, True )
-            , ( Step.Distribution, False )
-            , ( Step.Use, False )
-            , ( Step.EndOfLife, False )
+            [ ( Label.Material, False )
+            , ( Label.Spinning, True )
+            , ( Label.Fabric, True )
+            , ( Label.Dyeing, True )
+            , ( Label.Making, True )
+            , ( Label.Distribution, False )
+            , ( Label.Use, False )
+            , ( Label.EndOfLife, False )
             ]
         |> List.map (Step.updateFromInputs db inputs)
         |> Array.fromList
 
 
-updateStep : Step.Label -> (Step -> Step) -> LifeCycle -> LifeCycle
+updateStep : Label -> (Step -> Step) -> LifeCycle -> LifeCycle
 updateStep label update_ =
     Array.map
         (\step ->
@@ -137,7 +139,7 @@ mapSteps =
     Array.map
 
 
-updateSteps : List Step.Label -> (Step -> Step) -> LifeCycle -> LifeCycle
+updateSteps : List Label -> (Step -> Step) -> LifeCycle -> LifeCycle
 updateSteps labels update_ lifeCycle =
     labels |> List.foldl (\label -> updateStep label update_) lifeCycle
 

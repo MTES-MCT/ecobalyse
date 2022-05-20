@@ -58,7 +58,7 @@ suite =
             ]
         , describe "Formula.materialRecycledWaste"
             [ kg 1
-                |> Formula.materialRecycledWaste
+                |> Formula.recycledMaterialWaste
                     { pristineWaste = kg 0.25
                     , recycledWaste = kg 0.5
                     , recycledRatio = Unit.Ratio 0.5

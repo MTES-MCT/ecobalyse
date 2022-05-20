@@ -74,6 +74,7 @@ paths:
       - $ref: '#/components/parameters/countryFabricParam'
       - $ref: '#/components/parameters/countryDyeingParam'
       - $ref: '#/components/parameters/countryMakingParam'
+      - $ref: '#/components/parameters/countrySpinningParam'
       - $ref: '#/components/parameters/dyeingWeightingParam'
       - $ref: '#/components/parameters/airTransportRatioParam'
       - $ref: '#/components/parameters/qualityParam'
@@ -134,6 +135,7 @@ paths:
       - $ref: '#/components/parameters/countryFabricParam'
       - $ref: '#/components/parameters/countryDyeingParam'
       - $ref: '#/components/parameters/countryMakingParam'
+      - $ref: '#/components/parameters/countrySpinningParam'
       - $ref: '#/components/parameters/dyeingWeightingParam'
       - $ref: '#/components/parameters/airTransportRatioParam'
       - $ref: '#/components/parameters/qualityParam'
@@ -167,6 +169,7 @@ paths:
       - $ref: '#/components/parameters/countryFabricParam'
       - $ref: '#/components/parameters/countryDyeingParam'
       - $ref: '#/components/parameters/countryMakingParam'
+      - $ref: '#/components/parameters/countrySpinningParam'
       - $ref: '#/components/parameters/dyeingWeightingParam'
       - $ref: '#/components/parameters/airTransportRatioParam'
       - $ref: '#/components/parameters/qualityParam'
@@ -235,6 +238,26 @@ components:
           value: "tshirt"
         pantalon:
           value: "pantalon"
+    countrySpinningParam:
+      name: countrySpinning
+      in: query
+      description: |
+        Code pays pour l'étape de **Filature** (liste disponible sur le point d'entrée dédié).
+        Si non spécifié, le pays de filature pris en considération est celui de production de
+        la matière la plus représentée dans le mix.
+      required: false
+      style: form
+      schema:
+        type: string
+        minLength: 2
+        maxLength: 2
+      examples:
+        Default:
+          value: ""
+        Chine:
+          value: "CN"
+        France:
+          value: "FR"
     countryFabricParam:
       name: countryFabric
       in: query

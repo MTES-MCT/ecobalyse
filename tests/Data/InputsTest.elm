@@ -5,7 +5,7 @@ import Data.Inputs as Inputs exposing (tShirtCotonAsie)
 import Data.LifeCycle as LifeCycle
 import Data.Product as Product
 import Data.Simulator as Simulator
-import Data.Step as Step
+import Data.Step.Label as Label
 import Expect
 import List.Extra as LE
 import Quantity
@@ -65,7 +65,7 @@ suite =
                             tShirtCotonAsie
                                 |> Inputs.updateProduct jean
                                 |> Simulator.compute db
-                                |> Result.map (.lifeCycle >> LifeCycle.getStepProp Step.Distribution .inputMass Quantity.zero)
+                                |> Result.map (.lifeCycle >> LifeCycle.getStepProp Label.Distribution .inputMass Quantity.zero)
                                 |> Expect.equal (Ok jean.mass)
 
                         Err error ->

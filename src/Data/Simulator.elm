@@ -15,10 +15,13 @@ import Data.Material as Material exposing (Material)
 import Data.Process as Process
 import Data.Product as Product
 import Data.Step as Step exposing (Step)
+import Data.Step.Label as Label exposing (Label)
 import Data.Transport as Transport exposing (Transport)
 import Data.Unit as Unit
 import Duration exposing (Duration)
+import Energy exposing (Energy)
 import Json.Encode as Encode
+import Mass
 import Quantity
 
 
@@ -89,17 +92,21 @@ compute db query =
         --
         -- WASTE: compute the initial required material mass
         --
-        -- Compute Making mass waste
+        -- Compute Making mass waste - Confection
         |> next computeMakingStepWaste
-        -- Compute Knitting/Weawing waste
+        -- Compute Knitting/Weawing waste - Tissage/Tricotage
         |> next computeFabricStepWaste
-        -- Compute Material&Spinning waste
+        -- Compute Spinning waste - Filature
+        |> next computeSpinningStepWaste
+        -- Compute Material waste - Matière
         |> next computeMaterialStepWaste
         --
         -- CO2 SCORES
         --
-        -- Compute Material & Spinning step impacts
-        |> next (computeMaterialAndSpinningImpacts db)
+        -- Compute Material step impacts
+        |> next (computeMaterialImpacts db)
+        -- Compute Spinning step impacts
+        |> next (computeSpinningImpacts db)
         -- Compute Weaving & Knitting step impacts
         |> next computeFabricImpacts
         -- Compute Dyeing step impacts
@@ -131,7 +138,7 @@ compute db query =
 initializeFinalMass : Simulator -> Simulator
 initializeFinalMass ({ inputs } as simulator) =
     simulator
-        |> updateLifeCycleSteps [ Step.Distribution, Step.Use, Step.EndOfLife ]
+        |> updateLifeCycleSteps [ Label.Distribution, Label.Use, Label.EndOfLife ]
             (Step.initMass inputs.mass)
 
 
@@ -142,7 +149,7 @@ computeEndOfLifeImpacts { processes } simulator =
         |> Result.map
             (\{ passengerCar, endOfLife } ->
                 simulator
-                    |> updateLifeCycleStep Step.EndOfLife
+                    |> updateLifeCycleStep Label.EndOfLife
                         (\({ country } as step) ->
                             let
                                 { kwh, heat, impacts } =
@@ -163,7 +170,7 @@ computeEndOfLifeImpacts { processes } simulator =
 computeUseImpacts : Simulator -> Simulator
 computeUseImpacts ({ inputs, useNbCycles } as simulator) =
     simulator
-        |> updateLifeCycleStep Step.Use
+        |> updateLifeCycleStep Label.Use
             (\({ country } as step) ->
                 let
                     { kwh, impacts } =
@@ -186,7 +193,7 @@ computeMakingImpacts { processes } ({ inputs } as simulator) =
         |> Result.map
             (\{ fading } ->
                 simulator
-                    |> updateLifeCycleStep Step.Making
+                    |> updateLifeCycleStep Label.Making
                         (\({ country } as step) ->
                             let
                                 { kwh, heat, impacts } =
@@ -216,7 +223,7 @@ computeDyeingImpacts { processes } simulator =
         |> Result.map
             (\{ dyeingHigh, dyeingLow } ->
                 simulator
-                    |> updateLifeCycleStep Step.Dyeing
+                    |> updateLifeCycleStep Label.Dyeing
                         (\({ dyeingWeighting, country } as step) ->
                             let
                                 { heat, kwh, impacts } =
@@ -241,7 +248,7 @@ stepMaterialImpacts db material recycledRatio step =
                 -- We know its corresponding primary material
                 Ok primaryMaterial ->
                     step.outputMass
-                        |> Formula.materialAndSpinningImpacts step.impacts
+                        |> Formula.materialImpacts step.impacts
                             ( material.materialProcess, primaryMaterial.materialProcess )
                             (Unit.ratio 1)
                             material.cffData
@@ -249,7 +256,7 @@ stepMaterialImpacts db material recycledRatio step =
                 -- We don't know its primary material; consider it as primary itself
                 Err _ ->
                     step.outputMass
-                        |> Formula.pureMaterialAndSpinningImpacts step.impacts
+                        |> Formula.pureMaterialImpacts step.impacts
                             material.materialProcess
 
         -- Current material is primary (non-recycled)
@@ -264,7 +271,7 @@ stepMaterialImpacts db material recycledRatio step =
                                 |> Maybe.andThen .cffData
                     in
                     step.outputMass
-                        |> Formula.materialAndSpinningImpacts step.impacts
+                        |> Formula.materialImpacts step.impacts
                             ( recycledProcess, material.materialProcess )
                             recycledRatio
                             cffData
@@ -272,14 +279,14 @@ stepMaterialImpacts db material recycledRatio step =
                 -- Current primary material can't be recycled
                 Nothing ->
                     step.outputMass
-                        |> Formula.pureMaterialAndSpinningImpacts step.impacts
+                        |> Formula.pureMaterialImpacts step.impacts
                             material.materialProcess
 
 
-computeMaterialAndSpinningImpacts : Db -> Simulator -> Simulator
-computeMaterialAndSpinningImpacts db ({ inputs } as simulator) =
+computeMaterialImpacts : Db -> Simulator -> Simulator
+computeMaterialImpacts db ({ inputs } as simulator) =
     simulator
-        |> updateLifeCycleStep Step.MaterialAndSpinning
+        |> updateLifeCycleStep Label.Material
             (\step ->
                 { step
                     | impacts =
@@ -295,10 +302,55 @@ computeMaterialAndSpinningImpacts db ({ inputs } as simulator) =
             )
 
 
+stepSpinningImpacts : Db -> Material -> Step -> { impacts : Impacts, kwh : Energy }
+stepSpinningImpacts _ material step =
+    case material.spinningProcess of
+        Nothing ->
+            -- Some materials, eg. Neoprene, don't use Spinning *at all*, so this step has basically no impacts.
+            { impacts = step.impacts, kwh = Quantity.zero }
+
+        Just spinningProcess ->
+            step.outputMass
+                |> Formula.spinningImpacts step.impacts
+                    { spinningProcess = spinningProcess
+                    , countryElecProcess = step.country.electricityProcess
+                    }
+
+
+computeSpinningImpacts : Db -> Simulator -> Simulator
+computeSpinningImpacts db ({ inputs } as simulator) =
+    simulator
+        |> updateLifeCycleStep Label.Spinning
+            (\step ->
+                { step
+                    | kwh =
+                        inputs.materials
+                            |> List.map
+                                (\{ material, share } ->
+                                    step
+                                        |> stepSpinningImpacts db material
+                                        |> .kwh
+                                        |> Quantity.multiplyBy (Unit.ratioToFloat share)
+                                )
+                            |> List.foldl Quantity.plus Quantity.zero
+                    , impacts =
+                        inputs.materials
+                            |> List.map
+                                (\{ material, share } ->
+                                    step
+                                        |> stepSpinningImpacts db material
+                                        |> .impacts
+                                        |> Impact.mapImpacts (\_ -> Quantity.multiplyBy (Unit.ratioToFloat share))
+                                )
+                            |> Impact.sumImpacts db.impacts
+                }
+            )
+
+
 computeFabricImpacts : Simulator -> Simulator
 computeFabricImpacts ({ inputs } as simulator) =
     simulator
-        |> updateLifeCycleStep Step.Fabric
+        |> updateLifeCycleStep Label.Fabric
             (\({ country } as step) ->
                 let
                     { kwh, impacts } =
@@ -339,9 +391,9 @@ computeMakingStepWaste ({ inputs } as simulator) =
                     }
     in
     simulator
-        |> updateLifeCycleStep Step.Making (Step.updateWaste waste mass)
+        |> updateLifeCycleStep Label.Making (Step.updateWaste waste mass)
         |> updateLifeCycleSteps
-            [ Step.MaterialAndSpinning, Step.Fabric, Step.Dyeing ]
+            [ Label.Material, Label.Spinning, Label.Fabric, Label.Dyeing ]
             (Step.initMass mass)
 
 
@@ -350,12 +402,12 @@ computeFabricStepWaste ({ inputs, lifeCycle } as simulator) =
     let
         { mass, waste } =
             lifeCycle
-                |> LifeCycle.getStepProp Step.Making .inputMass Quantity.zero
+                |> LifeCycle.getStepProp Label.Making .inputMass Quantity.zero
                 |> Formula.genericWaste inputs.product.fabricProcess.waste
     in
     simulator
-        |> updateLifeCycleStep Step.Fabric (Step.updateWaste waste mass)
-        |> updateLifeCycleSteps [ Step.MaterialAndSpinning ] (Step.initMass mass)
+        |> updateLifeCycleStep Label.Fabric (Step.updateWaste waste mass)
+        |> updateLifeCycleSteps [ Label.Material, Label.Spinning ] (Step.initMass mass)
 
 
 computeMaterialStepWaste : Simulator -> Simulator
@@ -363,16 +415,14 @@ computeMaterialStepWaste ({ inputs, lifeCycle } as simulator) =
     let
         { mass, waste } =
             lifeCycle
-                |> LifeCycle.getStepProp Step.Fabric .inputMass Quantity.zero
+                |> LifeCycle.getStepProp Label.Spinning .inputMass Quantity.zero
                 |> (\inputMass ->
-                        -- TODO: for each material, take its share, apply waste, retrieve mass
-                        -- then add all masses
                         inputs.materials
                             |> List.map
                                 (\{ material, share, recycledRatio } ->
                                     case material.recycledProcess of
                                         Just recycledProcess ->
-                                            Formula.materialRecycledWaste
+                                            Formula.recycledMaterialWaste
                                                 { pristineWaste = material.materialProcess.waste
                                                 , recycledWaste = recycledProcess.waste
                                                 , recycledRatio = recycledRatio
@@ -393,7 +443,49 @@ computeMaterialStepWaste ({ inputs, lifeCycle } as simulator) =
                    )
     in
     simulator
-        |> updateLifeCycleStep Step.MaterialAndSpinning (Step.updateWaste waste mass)
+        |> updateLifeCycleStep Label.Material (Step.updateWaste waste mass)
+
+
+computeSpinningStepWaste : Simulator -> Simulator
+computeSpinningStepWaste ({ inputs, lifeCycle } as simulator) =
+    let
+        { mass, waste } =
+            lifeCycle
+                |> LifeCycle.getStepProp Label.Fabric .inputMass Quantity.zero
+                |> (\inputMass ->
+                        inputs.materials
+                            |> List.map
+                                (\{ material, share, recycledRatio } ->
+                                    let
+                                        processWaste =
+                                            material.spinningProcess
+                                                |> Maybe.map .waste
+                                                |> Maybe.withDefault (Mass.kilograms 0)
+                                    in
+                                    case material.recycledProcess of
+                                        Just recycledProcess ->
+                                            Formula.recycledMaterialWaste
+                                                { pristineWaste = processWaste
+                                                , recycledWaste = recycledProcess.waste
+                                                , recycledRatio = recycledRatio
+                                                }
+                                                (inputMass |> Quantity.multiplyBy (Unit.ratioToFloat share))
+
+                                        _ ->
+                                            Formula.genericWaste processWaste
+                                                (inputMass |> Quantity.multiplyBy (Unit.ratioToFloat share))
+                                )
+                            |> List.foldl
+                                (\curr acc ->
+                                    { mass = curr.mass |> Quantity.plus acc.mass
+                                    , waste = curr.waste |> Quantity.plus acc.waste
+                                    }
+                                )
+                                { mass = Quantity.zero, waste = Quantity.zero }
+                   )
+    in
+    simulator
+        |> updateLifeCycleStep Label.Spinning (Step.updateWaste waste mass)
 
 
 computeStepsTransport : Db -> Simulator -> Result String Simulator
@@ -441,7 +533,7 @@ lifeCycleImpacts db simulator =
                     |> Array.toList
                     |> List.map
                         (\{ label, impacts } ->
-                            ( Step.labelToString label
+                            ( Label.toString label
                             , Unit.impactToFloat (Impact.getImpact def.trigram impacts)
                                 / Unit.impactToFloat (Impact.getImpact def.trigram simulator.impacts)
                                 * 100
@@ -462,11 +554,11 @@ updateLifeCycle update simulator =
     { simulator | lifeCycle = update simulator.lifeCycle }
 
 
-updateLifeCycleStep : Step.Label -> (Step -> Step) -> Simulator -> Simulator
+updateLifeCycleStep : Label -> (Step -> Step) -> Simulator -> Simulator
 updateLifeCycleStep label update =
     updateLifeCycle (LifeCycle.updateStep label update)
 
 
-updateLifeCycleSteps : List Step.Label -> (Step -> Step) -> Simulator -> Simulator
+updateLifeCycleSteps : List Label -> (Step -> Step) -> Simulator -> Simulator
 updateLifeCycleSteps labels update =
     updateLifeCycle (LifeCycle.updateSteps labels update)

@@ -128,6 +128,12 @@ blockquote {
   background: linear-gradient(15deg, #054a80, $primary);
 }
 
+.cursor {
+  &-help {
+    cursor: help;
+  }
+}
+
 .fs {
   &-7 {
     font-size: 0.85rem;
@@ -252,14 +258,12 @@ blockquote {
     position: relative;
     padding: math.div($chevrons-size, 2);
 
-    @media screen and (max-width: $viewport-sm) {
-      span {
-        display: inline-block;
-        max-width: 16vw;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-      }
+    span {
+      display: inline-block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      max-width: 16vw;
     }
 
     @media screen and (max-width: $viewport-xl) {
@@ -349,7 +353,7 @@ blockquote {
    * @see src/Views/Comparator.elm#chart
    * @see https://github.com/terezka/elm-charts/issues/101
    */
-  .elm-charts__bar[fill="#22d2ba"] {
+  .elm-charts__bar[fill="#FF8400"] {
     filter: brightness(0);
   }
 }

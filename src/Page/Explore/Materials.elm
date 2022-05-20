@@ -1,18 +1,19 @@
 module Page.Explore.Materials exposing (table)
 
 import Data.Country as Country
-import Data.Db as Db
+import Data.Db as Db exposing (Db)
 import Data.Material as Material exposing (Material)
 import Data.Material.Category as Category
 import Data.Unit as Unit
 import Html exposing (..)
 import Page.Explore.Table exposing (Table)
 import Route
+import Views.Alert as Alert
 import Views.Format as Format
 
 
-table : { detailed : Bool } -> Table Material msg
-table { detailed } =
+table : Db -> { detailed : Bool } -> Table Material msg
+table { countries } { detailed } =
     [ { label = "Identifiant"
       , toCell =
             \material ->
@@ -44,11 +45,23 @@ table { detailed } =
                 else
                     text "Non"
       }
-    , { label = "Continent"
-      , toCell = .continent >> text
+    , { label = "Origine géographique"
+      , toCell = .geographicOrigin >> text
       }
-    , { label = "Pays par défaut"
-      , toCell = .defaultCountry >> Country.codeToString >> text
+    , { label = "Pays de production et de filature par défaut"
+      , toCell =
+            \material ->
+                case Country.findByCode material.defaultCountry countries of
+                    Ok country ->
+                        text country.name
+
+                    Err error ->
+                        Alert.simple
+                            { level = Alert.Danger
+                            , close = Nothing
+                            , title = Nothing
+                            , content = [ text error ]
+                            }
       }
     , { label = "CFF: Coefficient d'allocation"
       , toCell =

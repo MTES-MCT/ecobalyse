@@ -94,6 +94,11 @@ info =
     icon "info"
 
 
+lock : Html msg
+lock =
+    icon "lock"
+
+
 mail : Html msg
 mail =
     icon "mail"
@@ -157,6 +162,11 @@ stats =
 study : Html msg
 study =
     icon "study"
+
+
+thread : Html msg
+thread =
+    icon "thread"
 
 
 times : Html msg

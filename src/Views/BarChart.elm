@@ -4,6 +4,7 @@ import Array
 import Data.Impact as Impact
 import Data.Simulator exposing (Simulator)
 import Data.Step as Step
+import Data.Step.Label as Label
 import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -44,19 +45,19 @@ makeBars { simulator, impact, funit } =
         stepBars =
             simulator.lifeCycle
                 |> Array.toList
-                |> List.filter (\{ label } -> label /= Step.Distribution)
+                |> List.filter (\{ label } -> label /= Label.Distribution)
                 |> List.map
                     (\step ->
                         { label =
                             span []
                                 [ case ( step.label, simulator.inputs.product.knitted ) of
-                                    ( Step.Fabric, True ) ->
+                                    ( Label.Fabric, True ) ->
                                         text "Tricotage"
 
-                                    ( Step.Fabric, False ) ->
+                                    ( Label.Fabric, False ) ->
                                         text "Tissage"
 
-                                    ( Step.Dyeing, _ ) ->
+                                    ( Label.Dyeing, _ ) ->
                                         span [ class "fw-normal", title <| Step.dyeingWeightingToString step.dyeingWeighting ]
                                             [ strong [] [ text "Teinture" ]
                                             , text " ("
@@ -66,7 +67,7 @@ makeBars { simulator, impact, funit } =
                                             ]
 
                                     _ ->
-                                        text (Step.labelToString step.label)
+                                        text (Label.toString step.label)
                                 ]
                         , score = grabImpact step
                         , width = clamp 0 100 (grabImpact step / maxScore * toFloat 100)

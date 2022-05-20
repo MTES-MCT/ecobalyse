@@ -3,6 +3,7 @@ module Data.Country exposing
     , Country
     , codeFromString
     , codeToString
+    , decodeCode
     , decodeList
     , encode
     , encodeCode
@@ -55,6 +56,11 @@ decode processes =
         (Decode.field "heatProcessUuid" (Process.decodeFromUuid processes))
         (Decode.field "dyeingWeighting" Unit.decodeRatio)
         (Decode.field "airTransportRatio" Unit.decodeRatio)
+
+
+decodeCode : Decoder Code
+decodeCode =
+    Decode.map Code Decode.string
 
 
 decodeList : List Process -> Decoder (List Country)
