@@ -446,12 +446,16 @@ encode v =
         , ( "waste", Encode.float (Mass.inKilograms v.waste) )
         , ( "transport", Transport.encode v.transport )
         , ( "impacts", Impact.encodeImpacts v.impacts )
-        , ( "heat", Encode.float (Energy.inMegajoules v.heat) )
-        , ( "kwh", Encode.float (Energy.inKilowattHours v.kwh) )
+        , ( "heat_MJ", Encode.float (Energy.inMegajoules v.heat) )
+        , ( "elec_kWh", Encode.float (Energy.inKilowattHours v.kwh) )
         , ( "processInfo", encodeProcessInfo v.processInfo )
         , ( "dyeingWeighting", Unit.encodeRatio v.dyeingWeighting )
         , ( "airTransportRatio", Unit.encodeRatio v.airTransportRatio )
         , ( "quality", Unit.encodeQuality v.quality )
+        , ( "reparability", Unit.encodeReparability v.reparability )
+        , ( "makingWaste", v.makingWaste |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
+        , ( "picking", v.picking |> Maybe.map Unit.encodePickPerMeter |> Maybe.withDefault Encode.null )
+        , ( "surfaceMass", v.surfaceMass |> Maybe.map Unit.encodeSurfaceMass |> Maybe.withDefault Encode.null )
         ]
 
 
@@ -474,5 +478,7 @@ encodeProcessInfo v =
         , ( "passengerCar", encodeMaybeString v.passengerCar )
         , ( "endOfLife", encodeMaybeString v.endOfLife )
         , ( "fabric", encodeMaybeString v.fabric )
+        , ( "making", encodeMaybeString v.making )
         , ( "distribution", encodeMaybeString v.distribution )
+        , ( "fading", encodeMaybeString v.fading )
         ]
