@@ -29,11 +29,11 @@ type alias Material =
     , materialProcess : Process
     , recycledProcess : Maybe Process
     , recycledFrom : Maybe Id
-    , spinningProcess : Maybe Process
-    , primary : Bool
-    , geographicOrigin : String
-    , defaultCountry : Country.Code
-    , priority : Int
+    , spinningProcess : Maybe Process -- Optional, as some materials are not spinned (eg. Neoprene)
+    , primary : Bool -- Used to group materials in the UI
+    , geographicOrigin : String -- A textual information about the geographic origin of the material
+    , defaultCountry : Country.Code -- Default country for Material and Spinning steps
+    , priority : Int -- Used to sort materials
     , cffData : Maybe CFFData
     }
 

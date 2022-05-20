@@ -97,7 +97,7 @@ countryField { db, current, inputs, updateCountry } =
                             text <| geographicOrigin ++ " (" ++ current.country.name ++ ")"
 
                         Err _ ->
-                            -- Would mean materials list is baslically empty, which should
+                            -- Would mean materials list is basically empty, which should
                             -- (can) never happen at this stage in the views;
                             -- FIXME: move to use non-empty list at some point
                             text current.country.name
