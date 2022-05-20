@@ -95,13 +95,15 @@ view _ model =
     , [ Container.centered []
             (case model.maybeProduct of
                 Just product ->
+                    let
+                        totalImpact =
+                            Product.getTotalImpact product.plant
+                    in
                     [ h1 [ class "mb-3" ] [ text "pizza au thon" ]
                     , h2 [ class "h3" ] [ text "Ingrédients" ]
                     , ul []
-                        ((product.plant
-                            |> Dict.filter isIngredient
-                         )
-                            |> Dict.map viewIngredient
+                        (Product.getIngredients product.plant
+                            |> Dict.map (viewIngredient totalImpact)
                             |> Dict.values
                         )
                     ]
@@ -113,14 +115,8 @@ view _ model =
     )
 
 
-isIngredient : ProcessName -> Process -> Bool
-isIngredient name _ =
-    String.contains "/ FR U" name
-        |> not
-
-
-viewIngredient : ProcessName -> Process -> Html Msg
-viewIngredient name ({ amount, impacts } as ingredient) =
+viewIngredient : Float -> ProcessName -> Process -> Html Msg
+viewIngredient totalImpact name ({ amount } as ingredient) =
     li []
         [ text name
         , text " : "
@@ -138,7 +134,7 @@ viewIngredient name ({ amount, impacts } as ingredient) =
                 ]
             , div [ class "col-lg-6" ]
                 [ ingredient
-                    |> makeBar name 1
+                    |> makeBar name totalImpact
                     |> barView
                 ]
             ]
@@ -146,17 +142,14 @@ viewIngredient name ({ amount, impacts } as ingredient) =
 
 
 makeBar : ProcessName -> Float -> Process -> Bar msg
-makeBar name maxScore { amount, impacts } =
+makeBar name totalImpact { impacts } =
     let
-        ratio =
-            Unit.ratioToFloat amount
-
         percent =
-            ratio / maxScore * toFloat 100
+            impacts.cch * toFloat 100 / totalImpact
     in
     { label =
         span [] [ text name ]
-    , score = ratio
+    , score = impacts.cch
     , width = clamp 0 100 percent
     , percent = percent
     }
