@@ -258,14 +258,12 @@ blockquote {
     position: relative;
     padding: math.div($chevrons-size, 2);
 
-    @media screen and (max-width: $viewport-sm) {
-      span {
-        display: inline-block;
-        max-width: 16vw;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-      }
+    span {
+      display: inline-block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      max-width: 16vw;
     }
 
     @media screen and (max-width: $viewport-xl) {

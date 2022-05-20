@@ -1,11 +1,14 @@
 module Views.Summary exposing (view)
 
+import Array
+import Data.Country as Country
 import Data.Impact as Impact
 import Data.Inputs as Inputs
 import Data.LifeCycle as LifeCycle
 import Data.Material as Material
 import Data.Session exposing (Session)
 import Data.Simulator exposing (Simulator)
+import Data.Step.Label as Label
 import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -17,6 +20,7 @@ import Views.Comparator as Comparator
 import Views.Format as Format
 import Views.Icon as Icon
 import Views.Link as Link
+import Views.Step as StepView
 import Views.Transport as TransportView
 
 
@@ -79,10 +83,22 @@ summaryView { session, impact, funit, reusable } ({ inputs, lifeCycle } as simul
                         ]
                     ]
                 ]
-            , inputs
-                |> Inputs.countryList
-                |> List.take 6
-                |> List.map (\{ name } -> li [] [ span [] [ text name ] ])
+            , lifeCycle
+                |> Array.toList
+                |> List.indexedMap
+                    (\index { label, country } ->
+                        li
+                            [ -- This is a trick so the last 2 steps are not rendered on smaller viewports
+                              classList [ ( "d-none d-xl-block", index > 5 ) ]
+                            , class "cursor-help"
+                            , title <| Label.toString label ++ ": " ++ country.name
+                            ]
+                            [ span [ class "d-flex gap-1 align-items-center" ]
+                                [ span [ class "fs-6" ] [ StepView.stepIcon label ]
+                                , text <| Country.codeToString country.code
+                                ]
+                            ]
+                    )
                 |> ul [ class "Chevrons" ]
             , lifeCycle
                 |> LifeCycle.computeTotalTransportImpacts session.db

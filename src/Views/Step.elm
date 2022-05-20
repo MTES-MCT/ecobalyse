@@ -1,4 +1,7 @@
-module Views.Step exposing (view)
+module Views.Step exposing
+    ( stepIcon
+    , view
+    )
 
 import Data.Country as Country
 import Data.Db exposing (Db)
@@ -47,32 +50,30 @@ type alias Config msg =
 
 stepIcon : Label -> Html msg
 stepIcon label =
-    span [ class "StepIcon bg-primary text-white rounded-pill" ]
-        [ case label of
-            Label.Material ->
-                Icon.material
+    case label of
+        Label.Material ->
+            Icon.material
 
-            Label.Spinning ->
-                Icon.thread
+        Label.Spinning ->
+            Icon.thread
 
-            Label.Fabric ->
-                Icon.fabric
+        Label.Fabric ->
+            Icon.fabric
 
-            Label.Dyeing ->
-                Icon.dyeing
+        Label.Dyeing ->
+            Icon.dyeing
 
-            Label.Making ->
-                Icon.making
+        Label.Making ->
+            Icon.making
 
-            Label.Distribution ->
-                Icon.bus
+        Label.Distribution ->
+            Icon.bus
 
-            Label.Use ->
-                Icon.use
+        Label.Use ->
+            Icon.use
 
-            Label.EndOfLife ->
-                Icon.recycle
-        ]
+        Label.EndOfLife ->
+            Icon.recycle
 
 
 countryField : Config msg -> Html msg
@@ -316,7 +317,8 @@ simpleView ({ funit, inputs, daysOfWear, impact, current } as config) =
         [ div [ class "card-header" ]
             [ div [ class "row" ]
                 [ div [ class "col-6 d-flex align-items-center" ]
-                    [ stepIcon current.label
+                    [ span [ class "StepIcon bg-primary text-white rounded-pill" ]
+                        [ stepIcon current.label ]
                     , current.label
                         |> Step.displayLabel
                             { knitted = inputs.product.knitted
@@ -439,7 +441,8 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
         [ div [ class "card" ]
             [ div [ class "card-header d-flex justify-content-between align-items-center" ]
                 [ span [ class "d-flex align-items-center" ]
-                    [ stepIcon current.label
+                    [ span [ class "StepIcon bg-primary text-white rounded-pill" ]
+                        [ stepIcon current.label ]
                     , current.label
                         |> Step.displayLabel
                             { knitted = inputs.product.knitted
