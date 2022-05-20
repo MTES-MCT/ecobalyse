@@ -92,11 +92,14 @@ countryField { db, current, inputs, updateCountry } =
         [ case ( current.label, current.editable ) of
             ( Label.Material, _ ) ->
                 nonEditableCountry
-                    (case inputs.materials |> Inputs.getMainMaterial |> Maybe.map .geographicOrigin of
-                        Just geographicOrigin ->
+                    (case inputs.materials |> Inputs.getMainMaterial |> Result.map .geographicOrigin of
+                        Ok geographicOrigin ->
                             text <| geographicOrigin ++ " (" ++ current.country.name ++ ")"
 
-                        Nothing ->
+                        Err _ ->
+                            -- Would mean materials list is baslically empty, which should
+                            -- (can) never happen at this stage in the views;
+                            -- FIXME: move to use non-empty list at some point
                             text current.country.name
                     )
 

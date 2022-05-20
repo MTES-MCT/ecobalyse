@@ -126,20 +126,22 @@ toMaterialQuery =
         )
 
 
-getMainMaterial : List MaterialInput -> Maybe Material
+getMainMaterial : List MaterialInput -> Result String Material
 getMainMaterial =
     List.sortBy (.share >> Unit.ratioToFloat)
         >> List.reverse
         >> List.head
         >> Maybe.map .material
+        >> Result.fromMaybe "La liste de matières est vide."
 
 
 getMainMaterialCountry : List Country -> List MaterialInput -> Result String Country
 getMainMaterialCountry countries =
     getMainMaterial
-        >> Maybe.map (\{ defaultCountry } -> Country.findByCode defaultCountry countries)
-        >> Result.fromMaybe "La liste de matières est vide."
-        >> RE.join
+        >> Result.andThen
+            (\{ defaultCountry } ->
+                Country.findByCode defaultCountry countries
+            )
 
 
 fromQuery : Db -> Query -> Result String Inputs
@@ -196,7 +198,7 @@ toQuery inputs =
     , product = inputs.product.id
     , countrySpinning =
         -- Discard custom spinning country if same as material default country
-        if Maybe.map .defaultCountry (getMainMaterial inputs.materials) == Just inputs.countrySpinning.code then
+        if Result.map .defaultCountry (getMainMaterial inputs.materials) == Ok inputs.countrySpinning.code then
             Nothing
 
         else
