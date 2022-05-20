@@ -6987,7 +6987,7 @@
     "elec_pppm": 0.0,
     "elec_MJ": 11.556,
     "waste": 2.04e-2,
-    "alias": "spinning-synthetic"
+    "alias": null
   },
   {
     "name": "Filature (fibres naturelles)",
@@ -7017,6 +7017,6 @@
     "elec_pppm": 0.0,
     "elec_MJ": 11.556,
     "waste": 8.7e-2,
-    "alias": "spinning-natural"
+    "alias": null
   }
 ]

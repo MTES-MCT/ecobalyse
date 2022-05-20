@@ -52,8 +52,6 @@ type alias WellKnown =
     , passengerCar : Process
     , endOfLife : Process
     , fading : Process
-    , naturalSpinning : Process
-    , syntheticSpinning : Process
     }
 
 
@@ -93,8 +91,6 @@ loadWellKnown processes =
         |> fromAlias "passenger-car"
         |> fromAlias "end-of-life"
         |> fromAlias "fading"
-        |> fromAlias "spinning-natural"
-        |> fromAlias "spinning-synthetic"
 
 
 uuidToString : Uuid -> String
