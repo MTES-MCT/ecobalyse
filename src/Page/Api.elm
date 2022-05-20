@@ -66,7 +66,7 @@ view : Session -> Model -> ( String, List (Html Msg) )
 view session _ =
     ( "API"
     , [ Container.centered [ class "pb-5" ]
-            [ h1 [ class "mb-3" ] [ text "API Wikicarbone" ]
+            [ h1 [ class "mb-3" ] [ text "API Ecobalyse" ]
             , Alert.simple
                 { level = Alert.Info
                 , close = Nothing
@@ -80,7 +80,7 @@ view session _ =
                     ]
                 }
             , p [ class "fw-bold" ]
-                [ text "L'API HTTP Wikicarbone permet de calculer les impacts environnementaux des produits textiles." ]
+                [ text "L'API HTTP Ecobalyse permet de calculer les impacts environnementaux des produits textiles." ]
             , p []
                 [ text "Elle est accessible à l'adresse "
                 , code [] [ text <| getApiServerUrl session ]

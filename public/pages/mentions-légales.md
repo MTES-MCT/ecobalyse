@@ -2,7 +2,7 @@
 
 ## Éditeurs
 
-Wikicarbone est édité par la Fabrique Numérique du Ministère de la Transition écologique et solidaire et
+Ecobalyse est édité par la Fabrique Numérique du Ministère de la Transition écologique et solidaire et
 du Ministère de la Cohésion des territoires et des Relations avec les collectivités territoriales (Grande
 Arche de la Défense, 92055 La Défense CEDEX), avec l'appui de
 [l’incubateur de services numériques beta.gouv.fr](https://beta.gouv.fr/) de la direction
@@ -18,8 +18,8 @@ interministérielle du numérique (DINUM).
 
 ## Hébergeur
 
-Le site Wikicarbone (wikicarbone.beta.gouv.fr) est hébergé par la société [Scalingo SAS](https://scalingo.com/fr), inscrite au
-RCS (Strasbourg B 808 665 483) et dont les serveurs se situent en France.
+Le site Ecobalyse (ecobalyse.beta.gouv.fr) est hébergé par la société [Scalingo SAS](https://scalingo.com/fr),
+inscrite au RCS (Strasbourg B 808 665 483) et dont les serveurs se situent en France.
 
 * SIREN : 808665483
 * Siège social : 15 avenue du Rhin, 67100 Strasbourg, France.
@@ -36,4 +36,4 @@ droit de faire parvenir vos doléances ou une demande de saisine au Défenseur d
 
 ## Politique de confidentialité
 
-Le site Wikicarbone ne collecte ni n'héberge aucune donnée à caractère personnel.
+Le site Ecobalyse ne collecte ni n'héberge aucune donnée à caractère personnel.

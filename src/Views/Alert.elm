@@ -62,7 +62,7 @@ httpError error =
                         , a
                             [ class "btn btn-primary"
                             , HttpCommon.errorToString error
-                                |> (++) "mailto:wikicarbone@beta.gouv.fr?Subject=[Wikicarbone]+Erreur+rencontrée&Body="
+                                |> (++) "mailto:ecobalyse@beta.gouv.fr?Subject=[Ecobalyse]+Erreur+rencontrée&Body="
                                 |> href
                             ]
                             [ text "Envoyer un rapport d'incident" ]

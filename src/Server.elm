@@ -39,7 +39,7 @@ init { jsonDb } =
 
 apiDocUrl : String
 apiDocUrl =
-    "https://wikicarbone.beta.gouv.fr/#/api"
+    "https://ecobalyse.beta.gouv.fr/#/api"
 
 
 sendResponse : Int -> Request -> Encode.Value -> Cmd Msg

@@ -11,6 +11,10 @@ if (process.env.SENTRY_DSN) {
     integrations: [new BrowserTracing()],
     tracesSampleRate: 0,
     allowUrls: [
+      /^https:\/\/ecobalyse.beta.gouv.fr/,
+      /^https:\/\/ecobalyse.osc-fr1.scalingo.io/,
+      /^https:\/\/ecobalyse-pr(\d+).osc-fr1.scalingo.io/,
+      // FIXME-RENAME
       /^https:\/\/wikicarbone.beta.gouv.fr/,
       /^https:\/\/wikicarbone.osc-fr1.scalingo.io/,
       /^https:\/\/wikicarbone-pr(\d+).osc-fr1.scalingo.io/,

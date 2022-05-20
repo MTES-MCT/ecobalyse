@@ -17,6 +17,7 @@ config =
 getChangelog : Session -> (WebData (List Github.Commit) -> msg) -> Cmd msg
 getChangelog _ event =
     RemoteData.Http.getWithConfig config
+        -- FIXME-RENAME
         "https://api.github.com/repos/MTES-MCT/wikicarbone/commits"
         event
         (Decode.list Github.decodeCommit)

@@ -140,6 +140,7 @@ displayLabel { knitted, faded } label =
 
 {-| Computes step transport distances and impact regarding next step.
 
+FIXME-RENAME
 Docs: <https://fabrique-numerique.gitbook.io/wikicarbone/methodologie/transport>
 
 -}

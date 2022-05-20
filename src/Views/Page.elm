@@ -8,6 +8,7 @@ module Views.Page exposing
 
 import Browser exposing (Document)
 import Data.Db as Db
+import Data.Gitbook as Gitbook
 import Data.Impact as Impact
 import Data.Session as Session exposing (Session)
 import Data.Unit as Unit
@@ -56,7 +57,7 @@ type alias Config msg =
 
 frame : Config msg -> ( String, List (Html msg) ) -> Document msg
 frame config ( title, content ) =
-    { title = title ++ " | wikicarbone"
+    { title = title ++ " | Ecobalyse"
     , body =
         [ stagingAlert config
         , newVersionAlert config
@@ -77,13 +78,16 @@ frame config ( title, content ) =
 
 stagingAlert : Config msg -> Html msg
 stagingAlert { session, loadUrl } =
-    if String.contains "wikicarbone-pr" session.clientUrl then
+    if
+        String.contains "ecobalyse-pr" session.clientUrl
+            || String.contains "wikicarbone-pr" session.clientUrl
+    then
         div [ class "StagingAlert d-block d-sm-flex justify-content-center align-items-center mt-3" ]
             [ text "Vous êtes sur un environnement de recette. "
             , button
                 [ type_ "button"
                 , class "btn btn-link"
-                , onClick (loadUrl "https://wikicarbone.beta.gouv.fr/")
+                , onClick (loadUrl "https://ecobalyse.beta.gouv.fr/")
                 ]
                 [ text "Retourner vers l'environnement de production" ]
             ]
@@ -117,7 +121,9 @@ headerMenuLinks =
     , Internal "Exemples" Route.Examples Examples
     , Internal "Explorateur" (Route.Explore (Db.Countries Nothing)) Explore
     , Internal "API" Route.Api Api
-    , External "Documentation" "https://fabrique-numerique.gitbook.io/wikicarbone/"
+
+    -- FIXME-RENAME
+    , External "Documentation" Gitbook.baseUrl
     ]
 
 
@@ -132,9 +138,11 @@ footerMenuLinks =
     , Internal "Statistiques" Route.Stats Stats
     , Internal "Accessibilité\u{00A0}: non conforme" (Route.Editorial "accessibilité") (Editorial "accessibilité")
     , Internal "Mentions légales" (Route.Editorial "mentions-légales") (Editorial "mentions-légales")
-    , External "Code source" "https://github.com/MTES-MCT/wikicarbone/"
-    , External "Documentation" "https://fabrique-numerique.gitbook.io/wikicarbone/"
-    , MailTo "Contact" "wikicarbone@beta.gouv.fr"
+    , External "Code source" "https://github.com/MTES-MCT/ecobalyse/"
+
+    -- FIXME-RENAME
+    , External "Documentation" Gitbook.baseUrl
+    , MailTo "Contact" "ecobalyse@beta.gouv.fr"
     ]
 
 
@@ -150,7 +158,7 @@ navbar { activePage, openMobileNavigation } =
                     , height 26
                     ]
                     []
-                , span [ class "fs-3" ] [ text "wikicarbone" ]
+                , span [ class "fs-3" ] [ text "Ecobalyse" ]
                 ]
             , headerMenuLinks
                 |> List.map (viewNavigationLink activePage)
@@ -288,6 +296,8 @@ pageFooter { currentVersion } =
                 ]
             , div [ class "text-center pt-2" ]
                 [ text "Un produit "
+
+                -- FIXME-RENAME
                 , Link.external [ href "https://beta.gouv.fr/startups/wikicarbone.html", class "text-light" ]
                     [ img [ src "img/betagouv.svg", alt "beta.gouv.fr", style "width" "120px" ] [] ]
                 , case Version.toString currentVersion of
@@ -295,7 +305,7 @@ pageFooter { currentVersion } =
                         small [ class "d-block pt-1 fs-8 ms-2 text-muted" ]
                             [ Link.external
                                 [ class "text-white-50 text-decoration-none"
-                                , href <| "https://github.com/MTES-MCT/wikicarbone/commit/" ++ hash
+                                , href <| "https://github.com/MTES-MCT/ecobalyse/commit/" ++ hash
                                 ]
                                 [ text <| "Version " ++ hash ]
                             ]

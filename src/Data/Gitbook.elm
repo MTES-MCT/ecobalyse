@@ -2,6 +2,7 @@ module Data.Gitbook exposing
     ( IsIsnt
     , Page
     , Path(..)
+    , baseUrl
     , fromMarkdown
     , handleMarkdownGitbookLink
     , parseIsIsnt
@@ -35,6 +36,12 @@ type Path
     | Waste -- Pertes et rebus
     | ImpactQuality -- Niveau de qualité d'impact
     | CountryHypothesis -- Procédés et hypothèses spécifiques aux pays
+
+
+baseUrl : String
+baseUrl =
+    -- FIXME-RENAME
+    "https://fabrique-numerique.gitbook.io/wikicarbone"
 
 
 pathToString : Path -> String
@@ -154,7 +161,7 @@ publicUrlFromPath =
 
 publicUrlFromString : String -> String
 publicUrlFromString path =
-    "https://fabrique-numerique.gitbook.io/wikicarbone/" ++ path
+    baseUrl ++ "/" ++ path
 
 
 handleMarkdownGitbookLink : Maybe Path -> String -> String
@@ -195,14 +202,14 @@ extractLinkFolder path =
 from the Gitbook homepage markdown content string, which contains
 these hierarchically structured informations:
 
-  - What is Wikicarbone:
+  - What is Ecobalyse:
       - it is A
           - argument A.1
           - argument A.2
       - it is B
           - argument B.1
           - argument B.2
-  - What isn't Wikicarbone:
+  - What isn't Ecobalyse:
       - it isn't C
           - argument C.1
           - argument C.2
