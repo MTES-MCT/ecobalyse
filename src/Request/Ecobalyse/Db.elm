@@ -23,46 +23,28 @@ getJson decoder file =
     Http.getTaskWithConfig taskConfig ("data/" ++ file) decoder
 
 
-buildFromWebData :
-    List Impact.Definition
-    -> Processes
-    -> WebData Products
-    -> WebData Db
-buildFromWebData impacts processes productsData =
+handleProductsLoaded : List Impact.Definition -> Processes -> WebData Products -> Task () (WebData Db)
+handleProductsLoaded impacts processes productsData =
     case productsData of
         RemoteData.Success products ->
-            RemoteData.succeed (Db impacts processes products)
+            Task.succeed (RemoteData.succeed (Db impacts processes products))
 
         RemoteData.Failure error ->
-            RemoteData.Failure error
+            Task.succeed (RemoteData.Failure error)
 
         RemoteData.NotAsked ->
-            RemoteData.NotAsked
+            Task.succeed RemoteData.NotAsked
 
         RemoteData.Loading ->
-            RemoteData.Loading
-
-
-
--- |> RemoteData.andMap products
-
-
-loadDependentData : List Impact.Definition -> Processes -> Task () (WebData Db)
-loadDependentData impacts processes =
-    let
-        -- see https://github.com/alex-tan/task-extra/blob/1.1.0/src/Task/Extra.elm#L579-L581
-        andMap =
-            Task.map2 (|>)
-    in
-    Task.succeed (buildFromWebData impacts processes)
-        |> andMap (getJson (Product.decodeProducts processes) "ecobalyse/products.json")
+            Task.succeed RemoteData.Loading
 
 
 handleProcessesLoaded : List Impact.Definition -> WebData Processes -> Task () (WebData Db)
 handleProcessesLoaded impacts processesData =
     case processesData of
         RemoteData.Success processes ->
-            loadDependentData impacts processes
+            getJson (Product.decodeProducts processes) "ecobalyse/products.json"
+                |> Task.andThen (handleProductsLoaded impacts processes)
 
         RemoteData.Failure error ->
             Task.succeed (RemoteData.Failure error)
