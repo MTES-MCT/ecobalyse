@@ -6,11 +6,11 @@ description: >-
 
 # Ecobalyse
 
-Bienvenue sur l'espace documentaire [Ecobalyse](https://wikicarbone.beta.gouv.fr/).
-
 {% hint style="info" %}
 Wikicarbone change de nom et devient **Ecobalyse.**
 {% endhint %}
+
+Bienvenue sur l'espace documentaire [Ecobalyse](https://wikicarbone.beta.gouv.fr/).
 
 ## Ce qu’est Ecobalyse
 
