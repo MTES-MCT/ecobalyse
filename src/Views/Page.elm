@@ -69,6 +69,11 @@ frame config ( title, content ) =
             text ""
         , main_ [ class "bg-white" ]
             [ notificationListView config
+            , div [ class "alert alert-info py-1 rounded-0" ]
+                [ Container.centered
+                    [ class "d-flex gap-1 justify-content-center align-items-center" ]
+                    [ Icon.info, text "Wikicarbone change de nom et devient Ecobalyse." ]
+                ]
             , div [ class "pt-2 pt-sm-5" ] content
             ]
         , pageFooter config.session
@@ -139,9 +144,9 @@ footerMenuLinks =
     , Internal "Accessibilité\u{00A0}: non conforme" (Route.Editorial "accessibilité") (Editorial "accessibilité")
     , Internal "Mentions légales" (Route.Editorial "mentions-légales") (Editorial "mentions-légales")
     , External "Code source" "https://github.com/MTES-MCT/ecobalyse/"
+    , External "Documentation" Gitbook.baseUrl
 
     -- FIXME-RENAME
-    , External "Documentation" Gitbook.baseUrl
     , MailTo "Contact" "ecobalyse@beta.gouv.fr"
     ]
 
@@ -205,9 +210,14 @@ viewNavigationLink activePage link =
 
 notificationListView : Config msg -> Html msg
 notificationListView ({ session } as config) =
-    session.notifications
-        |> List.map (notificationView config)
-        |> Container.centered [ class "bg-white pt-3" ]
+    case session.notifications of
+        [] ->
+            text ""
+
+        notifications ->
+            notifications
+                |> List.map (notificationView config)
+                |> Container.centered [ class "bg-white pt-3" ]
 
 
 notificationView : Config msg -> Session.Notification -> Html msg
