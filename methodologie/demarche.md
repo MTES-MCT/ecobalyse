@@ -1,4 +1,4 @@
-# Accueil méthodo
+# Démarche méthodologique
 
 ## Un outil en phase de construction
 
@@ -6,13 +6,13 @@
 
 ## Un outil adossé au référentiel méthodologique ADEME
 
-Les pré-évaluations d'impacts environnementaux proposés par Wikicarbone s'appuient sur [le référentiel établi par l'ADEME](http://www.base-impacts.ademe.fr) :
+Les pré-évaluations d'impacts environnementaux proposés par Wikicarbone s'appuient sur [le référentiel établi par l'ADEME](http://www.base-impacts.ademe.fr/) :
 
 * procédés de la base Impacts®
 * documentation sectorielle textile (`BASE IMPACTS® DATA DOCUMENTATION - SECTOR: TEXTILE - 1.09.208`)
 * `METHODOLOGIE D’EVALUATION DES IMPACTS ENVIRONNEMENTAUX DES ARTICLES D’HABILLEMENT` (2016 rev 2017. Principes généraux pour l’affichage environnemental des produits de grande consommation – Partie 23 : méthodologie d’évaluation des impacts environnementaux des articles d’habillement. 47 p.)
 
-Une ouverture à d'autres référentiels, en particulier le [référentiel PEF porté par la Commission Européenne](https://ec.europa.eu/environment/eussd/smgp/pdf/product-environmental-footprint-PEF-methode_fr.pdf), est envisagée, sous réserve d'accessibilité des données sous-jacentes.
+Une ouverture à d'autres référentiels, en particulier le [référentiel PEF porté par la Commission Européenne](https://ec.europa.eu/environment/eussd/smgp/pdf/product-environmental-footprint-PEF-methode\_fr.pdf), est envisagée, sous réserve d'accessibilité des données sous-jacentes.
 
 ## Un outil volontairement très incomplet à ce stade
 
@@ -48,7 +48,7 @@ Exemples :
 
 Lorsque certaines hypothèses sont proposées dans le projet de document de référence européen (cf. projet de PEFCR Apparel & Footwear mis en consultation en juillet 2021), elles sont exploitées dans le simulateur. Par exemple :
 
-* Distances de référence entre les différents pays tirés des deux calculateurs proposés dans le projet de PEFCR : [lien 1](https://www.searates.com/services/distances-time/) [lien 2](https://co2.myclimate.org/en/flight_calculators/new/)
+* Distances de référence entre les différents pays tirés des deux calculateurs proposés dans le projet de PEFCR : [lien 1](https://www.searates.com/services/distances-time/) [lien 2](https://co2.myclimate.org/en/flight\_calculators/new/)
 * Masses par défaut des différents vêtements (`Table 39 Bill of materials for the apparel representative products with the share (%) of each material based on the average product weight`)
 * …
 
@@ -66,4 +66,4 @@ Quelques exemples :
 
 L'intérêt de l'outil repose notamment sur la pertinence de ces hypothèses supplémentaires. Dans quelle mesure sont-elles représentatives, ou majorantes, par rapport aux pratiques observées dans l'industrie (pour les phases de production et de fabrication) ?
 
-Dans une logique de commun numérique, Wikicarbone cherche notamment à servir de support aux échanges techniques qui permettraient de faire émerger des hypothèses par défaut pertinentes. En première approche, les remarques sont simplement collectées [par mail](mailto:wikicarbone@beta.gouv.fr). Des évolutions sont envisagées pour la suite pour chercher à recueillir les contributions directement sur l'outil.
+Dans une logique de commun numérique, Ecobalyse cherche notamment à servir de support aux échanges techniques qui permettraient de faire émerger des hypothèses par défaut pertinentes. En première approche, les remarques sont simplement collectées [par mail](mailto:wikicarbone@beta.gouv.fr). Des évolutions sont envisagées pour la suite pour chercher à recueillir les contributions directement sur l'outil.
