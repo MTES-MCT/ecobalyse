@@ -8,7 +8,7 @@ description: Choix du procédé de chaleur en fonction du pays
 
 Le procédé de chaleur appliqué dépend du pays dans lequel l'étape correspondante est réalisée.
 
-En première approche, seulement trois procédés sont mobilisés. Le détail pays par pays est présenté dans l'explorateur.
+En première approche, seulement trois procédés sont mobilisés. Le détail pays par pays est présenté [dans l'explorateur](https://ecobalyse.beta.gouv.fr/#/explore).
 
 | Pays                     | Procédé chaleur                                                                | UUID                                 |
 | ------------------------ | ------------------------------------------------------------------------------ | ------------------------------------ |
