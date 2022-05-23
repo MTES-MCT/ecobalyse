@@ -7,7 +7,6 @@ module Data.Impact exposing
     , computePefScore
     , decodeImpacts
     , decodeList
-    , invalid
     , defaultTrigram
     , encodeImpacts
     , filterImpacts
@@ -16,6 +15,7 @@ module Data.Impact exposing
     , getPefPieData
     , grabImpactFloat
     , impactsFromDefinitons
+    , invalid
     , mapImpacts
     , noImpacts
     , parseTrigram

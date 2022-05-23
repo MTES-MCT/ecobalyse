@@ -141,7 +141,7 @@ footerMenuLinks =
     , Internal "Statistiques" Route.Stats Stats
     , Internal "Accessibilité\u{00A0}: non conforme" (Route.Editorial "accessibilité") (Editorial "accessibilité")
     , Internal "Mentions légales" (Route.Editorial "mentions-légales") (Editorial "mentions-légales")
-    , External "Code source" "https://github.com/MTES-MCT/ecobalyse/"
+    , External "Code source" Env.githubUrl
     , External "Documentation" Env.gitbookUrl
     , MailTo "Contact" Env.contactEmail
     ]
@@ -302,16 +302,14 @@ pageFooter { currentVersion } =
                 ]
             , div [ class "text-center pt-2" ]
                 [ text "Un produit "
-
-                -- FIXME-RENAME
-                , Link.external [ href "https://beta.gouv.fr/startups/wikicarbone.html", class "text-light" ]
+                , Link.external [ href Env.betagouvUrl, class "text-light" ]
                     [ img [ src "img/betagouv.svg", alt "beta.gouv.fr", style "width" "120px" ] [] ]
                 , case Version.toString currentVersion of
                     Just hash ->
                         small [ class "d-block pt-1 fs-8 ms-2 text-muted" ]
                             [ Link.external
                                 [ class "text-white-50 text-decoration-none"
-                                , href <| "https://github.com/MTES-MCT/ecobalyse/commit/" ++ hash
+                                , href <| Env.githubUrl ++ "/commit/" ++ hash
                                 ]
                                 [ text <| "Version " ++ hash ]
                             ]
