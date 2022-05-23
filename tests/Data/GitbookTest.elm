@@ -1,5 +1,6 @@
 module Data.GitbookTest exposing (..)
 
+import Data.Env as Env
 import Data.Gitbook as Gitbook
 import Expect
 import Test exposing (..)
@@ -18,15 +19,15 @@ suite =
                 |> asTest "should resolve an external link even with a path provided"
             , Gitbook.handleMarkdownGitbookLink (Just Gitbook.MaterialAndSpinning) "filature.md"
                 -- FIXME-RENAME
-                |> Expect.equal (Gitbook.baseUrl ++ "/methodologie/filature")
+                |> Expect.equal (Env.gitbookUrl ++ "/methodologie/filature")
                 |> asTest "should resolve an internal link from current page path"
             , Gitbook.handleMarkdownGitbookLink (Just Gitbook.MaterialAndSpinning) "../faq.md"
                 -- FIXME-RENAME
-                |> Expect.equal (Gitbook.baseUrl ++ "/methodologie/../faq")
+                |> Expect.equal (Env.gitbookUrl ++ "/methodologie/../faq")
                 |> asTest "should resolve an internal link from current page path down a folder level"
             , Gitbook.handleMarkdownGitbookLink (Just Gitbook.MaterialAndSpinning) "foo/bar.md"
                 -- FIXME-RENAME
-                |> Expect.equal (Gitbook.baseUrl ++ "/methodologie/foo/bar")
+                |> Expect.equal (Env.gitbookUrl ++ "/methodologie/foo/bar")
                 |> asTest "should resolve an internal link from current page path up a folder level"
             ]
         , describe "parseIsIsnt"

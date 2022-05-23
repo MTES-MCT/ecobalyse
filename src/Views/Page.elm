@@ -8,7 +8,7 @@ module Views.Page exposing
 
 import Browser exposing (Document)
 import Data.Db as Db
-import Data.Gitbook as Gitbook
+import Data.Env as Env
 import Data.Impact as Impact
 import Data.Session as Session exposing (Session)
 import Data.Unit as Unit
@@ -126,9 +126,7 @@ headerMenuLinks =
     , Internal "Exemples" Route.Examples Examples
     , Internal "Explorateur" (Route.Explore (Db.Countries Nothing)) Explore
     , Internal "API" Route.Api Api
-
-    -- FIXME-RENAME
-    , External "Documentation" Gitbook.baseUrl
+    , External "Documentation" Env.gitbookUrl
     ]
 
 
@@ -144,10 +142,8 @@ footerMenuLinks =
     , Internal "Accessibilité\u{00A0}: non conforme" (Route.Editorial "accessibilité") (Editorial "accessibilité")
     , Internal "Mentions légales" (Route.Editorial "mentions-légales") (Editorial "mentions-légales")
     , External "Code source" "https://github.com/MTES-MCT/ecobalyse/"
-    , External "Documentation" Gitbook.baseUrl
-
-    -- FIXME-RENAME
-    , MailTo "Contact" "ecobalyse@beta.gouv.fr"
+    , External "Documentation" Env.gitbookUrl
+    , MailTo "Contact" Env.contactEmail
     ]
 
 

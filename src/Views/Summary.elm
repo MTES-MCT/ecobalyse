@@ -2,7 +2,7 @@ module Views.Summary exposing (view)
 
 import Array
 import Data.Country as Country
-import Data.Gitbook as Gitbook
+import Data.Env as Env
 import Data.Impact as Impact
 import Data.Inputs as Inputs
 import Data.LifeCycle as LifeCycle
@@ -140,7 +140,7 @@ summaryView { session, impact, funit, reusable } ({ inputs, lifeCycle } as simul
                     [ funit |> Unit.functionalToString |> text
                     , Link.smallPillExternal
                         [ class "ms-0"
-                        , href (Gitbook.baseUrl ++ "/methodologie/echelle-comparative")
+                        , href (Env.gitbookUrl ++ "/methodologie/echelle-comparative")
                         ]
                         [ Icon.info ]
                     ]

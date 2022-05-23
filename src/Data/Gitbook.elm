@@ -2,7 +2,6 @@ module Data.Gitbook exposing
     ( IsIsnt
     , Page
     , Path(..)
-    , baseUrl
     , fromMarkdown
     , handleMarkdownGitbookLink
     , parseIsIsnt
@@ -10,6 +9,7 @@ module Data.Gitbook exposing
     , publicUrlFromPath
     )
 
+import Data.Env as Env
 import List.Extra as LE
 
 
@@ -36,12 +36,6 @@ type Path
     | Waste -- Pertes et rebus
     | ImpactQuality -- Niveau de qualité d'impact
     | CountryHypothesis -- Procédés et hypothèses spécifiques aux pays
-
-
-baseUrl : String
-baseUrl =
-    -- FIXME-RENAME
-    "https://fabrique-numerique.gitbook.io/ecobalyse"
 
 
 pathToString : Path -> String
@@ -161,7 +155,7 @@ publicUrlFromPath =
 
 publicUrlFromString : String -> String
 publicUrlFromString path =
-    baseUrl ++ "/" ++ path
+    Env.gitbookUrl ++ "/" ++ path
 
 
 handleMarkdownGitbookLink : Maybe Path -> String -> String
