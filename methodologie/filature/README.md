@@ -20,7 +20,7 @@ Les matières proposées dans le calculateur sont les matières des les impacts 
 * Matières synthétiques ou artificielles
 * Matières recyclées
 
-Les matières sont réparties en 2 listes dans Wikicarbone
+Les matières sont réparties en 2 listes dans Ecobalyse :
 
 * la liste principale, avec une sélection des matières les plus utilisées, proposées prioritairement
 * une liste secondaire, avec les autres matières

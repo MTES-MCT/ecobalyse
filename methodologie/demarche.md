@@ -6,7 +6,7 @@
 
 ## Un outil adossé au référentiel méthodologique ADEME
 
-Les pré-évaluations d'impacts environnementaux proposés par Ecobalyse s'appuient sur [le référentiel établi par l'ADEME](http://www.base-impacts.ademe.fr/) :
+Les pré-évaluations d'impacts environnementaux proposés par Wikicarbone s'appuient sur [le référentiel établi par l'ADEME](http://www.base-impacts.ademe.fr/) :
 
 * procédés de la base Impacts®
 * documentation sectorielle textile (`BASE IMPACTS® DATA DOCUMENTATION - SECTOR: TEXTILE - 1.09.208`)
