@@ -5,7 +5,7 @@ description: Les réponses aux questions qu'on nous pose souvent...
 # FAQ
 
 {% hint style="info" %}
-Si vous avez d'autres interrogations, vous pouvez également nous les adresser [par email](mailto:wikicarbone@beta.gouv.fr).
+Si vous avez d'autres interrogations, vous pouvez également nous les adresser [par email](mailto:ecobalyse@beta.gouv.fr)
 {% endhint %}
 
 ### Certains vêtements ne sont pas représentés
@@ -16,7 +16,7 @@ Les vêtements proposés en première approche sont ceux qui sont introduits dan
 
 Il est possible d'en rajouter au besoin, si des informations sont fournies les concernant (taux de chute en confection ? tissage ou tricotage ?...).
 
-Merci de [nous contacter](mailto:wikicarbone@beta.gouv.fr) dans ce but.
+Merci de [nous contacter](mailto:ecobalyse@beta.gouv.fr) dans ce but.
 
 ### Je ne peux pas choisir le cuir
 
@@ -37,5 +37,5 @@ Cf. page méthodo sur ce sujet : [impacts considérés](methodologie/impacts-con
 C'est normal, nous mettons à jour notre référentiel de données et affinons nos calculs continuellement ; il se peut donc que le score carbone évolue légèrement en fonction de ces évolutions. C'est plutôt une bonne chose, si on y réfléchit !
 
 {% hint style="info" %}
-Si vous avez d'autres interrogations, vous pouvez également nous les adresser [par email](mailto:wikicarbone@beta.gouv.fr).
+Si vous avez d'autres interrogations, vous pouvez également nous les adresser [par email](mailto:ecobalyse@beta.gouv.fr).
 {% endhint %}

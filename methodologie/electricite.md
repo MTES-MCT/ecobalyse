@@ -35,7 +35,7 @@ Paramétrage :&#x20;
 * pas : 0,001 kg CO2e / kWh
 
 {% hint style="warning" %}
-* Le paramétrage manuel **ne concerne que le changement climatique** et pas les autres impacts qui pourraient être prochainement intégrés dans l'outil Ecobalyse
+* Le paramétrage manuel **ne concerne que le changement climatique** et pas les autres impacts qui pourraient être prochainement intégrés dans l'outil Wikicarbone
 * La modification manuelle de l'intensité carbone du mix électrique **ne s'applique qu'à l'étape considérée** (par exemple la teinture). Elle ne modifie pas le mix électrique mobilisé pour une autre étape qui serait réalisée dans le même pays (par exemple la confection).
 * La revendication d'un mix électrique différent de celui du réseau national, par exemple une énergie 100% renouvelable, **nécessite que des conditions soient remplies** \[à préciser pour lister les critères à remplir pour revendiquer une énergie verte en ACV].
 {% endhint %}

@@ -11,5 +11,5 @@ Cette API est en version alpha, l'implémentation et le contrat d'interface est 
 {% endhint %}
 
 {% hint style="info" %}
-La [documentation interactive de l'API HTTP Wikicarbone](https://wikicarbone.beta.gouv.fr/#/api) est désormais disponible sur le site directement.
+La documentation interactive de l'API HTTP Ecobalyse est [disponible sur le site directement](https://ecobalyse.beta.gouv.fr/#/api).
 {% endhint %}

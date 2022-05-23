@@ -1,7 +1,7 @@
 ---
 description: >-
   Quelles informations doivent être apportées pour ajouter un choix de pays dans
-  Ecobalyse ?
+  Wikicarbone ?
 ---
 
 # 🌎 Ajout d'un pays
@@ -9,7 +9,7 @@ description: >-
 Un utilisateur du simulateur peut souhaiter qu'un nouveau choix de pays lui soit proposé. Cette page précise les informations à apporter. 2 modalités sont ensuite envisagées pour intégrer le nouveau pays dans l'outil :&#x20;
 
 * Un ajout direct du pays dans le code via Gitub
-* L'envoi des informations nécessaires à l'équipe Ecobalyse, laquelle se charge ensuite d'intégrer dans le code. La mise à disposition d'un formulaire, reprenant les informations détaillées ci-après, peut être envisagée.
+* L'envoi des informations nécessaires à l'équipe Wikicarbone, laquelle se charge ensuite d'intégrer dans le code. La mise à disposition d'un formulaire, reprenant les informations détaillées ci-après, peut être envisagée.
 
 ## Pays et code pays
 
@@ -52,7 +52,7 @@ Exemple pour le Bangladesh :&#x20;
 
 ## Distances
 
-Enfin, il convient de spécifier toutes les distances entre le nouveau pays ajouté et les autres pays proposés dans Ecobalyse.
+Enfin, il convient de spécifier toutes les distances entre le nouveau pays ajouté et les autres pays proposés dans Wikicarbone.
 
 Ces distances doivent être proposées pour les trois types de transport (terrestre, maritime et aérien), en s'appuyant sur les simulateurs de distance de référence identifiés dans la page [Transport](transport.md).
 
