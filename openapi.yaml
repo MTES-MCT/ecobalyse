@@ -1,13 +1,13 @@
 openapi: 3.0.1
 info:
-  title: API Wikicarbone
-  description: L'API HTTP Wikicarbone permet de calculer les impacts environnementaux des produits textiles.
+  title: API Ecobalyse
+  description: L'API HTTP Ecobalyse permet de calculer les impacts environnementaux des produits textiles.
   version: 0.0.1-alpha
 externalDocs:
   description: Visiter le site
-  url: https://wikicarbone.beta.gouv.fr
+  url: https://ecobalyse.beta.gouv.fr
 servers:
-- url: https://wikicarbone.beta.gouv.fr/api
+- url: https://ecobalyse.beta.gouv.fr/api
 tags:
 - name: Racine
   description: Documentation de l'API au format OpenAPI
@@ -15,7 +15,7 @@ tags:
   description: Impact environnemental de produits textiles
   externalDocs:
     description: À propos
-    url: https://fabrique-numerique.gitbook.io/wikicarbone
+    url: https://fabrique-numerique.gitbook.io/ecobalyse
 paths:
   /:
     get:
@@ -103,6 +103,7 @@ paths:
       parameters:
       - name: impact
         in: path
+        # FIXME-RENAME
         description: |
           Trigramme de l'impact étudié ([la liste est documenté ici](https://fabrique-numerique.gitbook.io/wikicarbone/methodologie/impacts-consideres))
         required: true
@@ -432,6 +433,7 @@ components:
             type: string
     MultipleImpactsResponse:
       type: object
+      # FIXME-RENAME
       description: |
         Impacts environnementaux exprimés dans leurs unités respectives, dont
         [la documentation est disponible ici](https://fabrique-numerique.gitbook.io/wikicarbone/methodologie/impacts-consideres).

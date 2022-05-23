@@ -8,6 +8,7 @@ module Views.Page exposing
 
 import Browser exposing (Document)
 import Data.Db as Db
+import Data.Env as Env
 import Data.Impact as Impact
 import Data.Session as Session exposing (Session)
 import Data.Unit as Unit
@@ -56,7 +57,7 @@ type alias Config msg =
 
 frame : Config msg -> ( String, List (Html msg) ) -> Document msg
 frame config ( title, content ) =
-    { title = title ++ " | wikicarbone"
+    { title = title ++ " | Ecobalyse"
     , body =
         [ stagingAlert config
         , newVersionAlert config
@@ -68,6 +69,15 @@ frame config ( title, content ) =
             text ""
         , main_ [ class "bg-white" ]
             [ notificationListView config
+            , div [ class "alert alert-info py-1 rounded-0" ]
+                [ Container.centered
+                    [ class "d-flex gap-1 justify-content-center align-items-center" ]
+                    [ Icon.info
+                    , text "Wikicarbone change de nom et devient "
+                    , a [ href Env.betagouvUrl, target "_blank", class "link-external" ]
+                        [ text "Ecobalyse" ]
+                    ]
+                ]
             , div [ class "pt-2 pt-sm-5" ] content
             ]
         , pageFooter config.session
@@ -77,13 +87,16 @@ frame config ( title, content ) =
 
 stagingAlert : Config msg -> Html msg
 stagingAlert { session, loadUrl } =
-    if String.contains "wikicarbone-pr" session.clientUrl then
+    if
+        String.contains "ecobalyse-pr" session.clientUrl
+            || String.contains "wikicarbone-pr" session.clientUrl
+    then
         div [ class "StagingAlert d-block d-sm-flex justify-content-center align-items-center mt-3" ]
             [ text "Vous êtes sur un environnement de recette. "
             , button
                 [ type_ "button"
                 , class "btn btn-link"
-                , onClick (loadUrl "https://wikicarbone.beta.gouv.fr/")
+                , onClick (loadUrl "https://ecobalyse.beta.gouv.fr/")
                 ]
                 [ text "Retourner vers l'environnement de production" ]
             ]
@@ -117,7 +130,7 @@ headerMenuLinks =
     , Internal "Exemples" Route.Examples Examples
     , Internal "Explorateur" (Route.Explore (Db.Countries Nothing)) Explore
     , Internal "API" Route.Api Api
-    , External "Documentation" "https://fabrique-numerique.gitbook.io/wikicarbone/"
+    , External "Documentation" Env.gitbookUrl
     ]
 
 
@@ -132,9 +145,9 @@ footerMenuLinks =
     , Internal "Statistiques" Route.Stats Stats
     , Internal "Accessibilité\u{00A0}: non conforme" (Route.Editorial "accessibilité") (Editorial "accessibilité")
     , Internal "Mentions légales" (Route.Editorial "mentions-légales") (Editorial "mentions-légales")
-    , External "Code source" "https://github.com/MTES-MCT/wikicarbone/"
-    , External "Documentation" "https://fabrique-numerique.gitbook.io/wikicarbone/"
-    , MailTo "Contact" "wikicarbone@beta.gouv.fr"
+    , External "Code source" Env.githubUrl
+    , External "Documentation" Env.gitbookUrl
+    , MailTo "Contact" Env.contactEmail
     ]
 
 
@@ -150,7 +163,7 @@ navbar { activePage, openMobileNavigation } =
                     , height 26
                     ]
                     []
-                , span [ class "fs-3" ] [ text "wikicarbone" ]
+                , span [ class "fs-3" ] [ text "Ecobalyse" ]
                 ]
             , headerMenuLinks
                 |> List.map (viewNavigationLink activePage)
@@ -197,9 +210,14 @@ viewNavigationLink activePage link =
 
 notificationListView : Config msg -> Html msg
 notificationListView ({ session } as config) =
-    session.notifications
-        |> List.map (notificationView config)
-        |> Container.centered [ class "bg-white pt-3" ]
+    case session.notifications of
+        [] ->
+            text ""
+
+        notifications ->
+            notifications
+                |> List.map (notificationView config)
+                |> Container.centered [ class "bg-white pt-3" ]
 
 
 notificationView : Config msg -> Session.Notification -> Html msg
@@ -288,14 +306,14 @@ pageFooter { currentVersion } =
                 ]
             , div [ class "text-center pt-2" ]
                 [ text "Un produit "
-                , Link.external [ href "https://beta.gouv.fr/startups/wikicarbone.html", class "text-light" ]
+                , Link.external [ href Env.betagouvUrl, class "text-light" ]
                     [ img [ src "img/betagouv.svg", alt "beta.gouv.fr", style "width" "120px" ] [] ]
                 , case Version.toString currentVersion of
                     Just hash ->
                         small [ class "d-block pt-1 fs-8 ms-2 text-muted" ]
                             [ Link.external
                                 [ class "text-white-50 text-decoration-none"
-                                , href <| "https://github.com/MTES-MCT/wikicarbone/commit/" ++ hash
+                                , href <| Env.githubUrl ++ "/commit/" ++ hash
                                 ]
                                 [ text <| "Version " ++ hash ]
                             ]

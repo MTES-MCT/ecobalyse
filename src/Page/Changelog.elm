@@ -107,7 +107,7 @@ commitView time commit =
         , td []
             [ Link.external
                 [ class "text-decoration-none"
-                , href <| "https://github.com/MTES-MCT/wikicarbone/commit/" ++ commit.sha
+                , href <| "https://github.com/MTES-MCT/ecobalyse/commit/" ++ commit.sha
                 ]
                 [ time
                     |> TimeDistance.inWordsWithConfig { withAffix = True } TimeDistanceI18n.fr commit.date

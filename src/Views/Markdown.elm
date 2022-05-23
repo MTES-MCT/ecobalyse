@@ -22,7 +22,7 @@ type ContentType
 
 siteUrl : String
 siteUrl =
-    "https://wikicarbone.beta.gouv.fr"
+    "https://ecobalyse.beta.gouv.fr"
 
 
 clean : String -> String
@@ -116,7 +116,7 @@ renderImage { title, src, alt } =
             [ Maybe.map Attr.title title
             , src
                 |> String.replace "../.gitbook/assets/"
-                    "https://raw.githubusercontent.com/MTES-MCT/wikicarbone/docs/.gitbook/assets/"
+                    "https://raw.githubusercontent.com/MTES-MCT/ecobalyse/docs/.gitbook/assets/"
                 |> Attr.src
                 |> Just
             , Just <| Attr.alt alt

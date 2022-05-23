@@ -13,7 +13,7 @@ describe("Web", () => {
     const response = await request(app).get("/");
 
     expectStatus(response, 200, "text/html");
-    expect(response.text).toContain("<title>wikicarbone</title>");
+    expect(response.text).toContain("<title>Ecobalyse</title>");
   });
 });
 
@@ -53,7 +53,7 @@ describe("API", () => {
 
       expectStatus(response, 200);
       expect(response.body.openapi).toEqual("3.0.1");
-      expect(response.body.info.title).toEqual("API Wikicarbone");
+      expect(response.body.info.title).toEqual("API Ecobalyse");
     });
   });
 

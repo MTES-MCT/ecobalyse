@@ -5,6 +5,7 @@ module Views.Alert exposing
     , simple
     )
 
+import Data.Env as Env
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -61,9 +62,12 @@ httpError error =
                             ]
                         , a
                             [ class "btn btn-primary"
-                            , HttpCommon.errorToString error
-                                |> (++) "mailto:wikicarbone@beta.gouv.fr?Subject=[Wikicarbone]+Erreur+rencontrée&Body="
-                                |> href
+                            , href
+                                ("mailto:"
+                                    ++ Env.contactEmail
+                                    ++ "?Subject=[Ecobalyse]+Erreur+rencontrée&Body="
+                                    ++ HttpCommon.errorToString error
+                                )
                             ]
                             [ text "Envoyer un rapport d'incident" ]
                         ]

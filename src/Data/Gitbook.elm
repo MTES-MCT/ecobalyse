@@ -9,6 +9,7 @@ module Data.Gitbook exposing
     , publicUrlFromPath
     )
 
+import Data.Env as Env
 import List.Extra as LE
 
 
@@ -154,7 +155,7 @@ publicUrlFromPath =
 
 publicUrlFromString : String -> String
 publicUrlFromString path =
-    "https://fabrique-numerique.gitbook.io/wikicarbone/" ++ path
+    Env.gitbookUrl ++ "/" ++ path
 
 
 handleMarkdownGitbookLink : Maybe Path -> String -> String
@@ -195,14 +196,14 @@ extractLinkFolder path =
 from the Gitbook homepage markdown content string, which contains
 these hierarchically structured informations:
 
-  - What is Wikicarbone:
+  - What is Ecobalyse:
       - it is A
           - argument A.1
           - argument A.2
       - it is B
           - argument B.1
           - argument B.2
-  - What isn't Wikicarbone:
+  - What isn't Ecobalyse:
       - it isn't C
           - argument C.1
           - argument C.2

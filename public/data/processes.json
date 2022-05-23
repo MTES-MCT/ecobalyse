@@ -213,7 +213,7 @@
     "name": "Soie",
     "info": "Textile > Matières > Matières naturelles uuid_bi=94b4b0e1-61e4-4f4d-b9b2-efe7623b0e68",
     "unit": "kg",
-    "source": "Wikicarbone",
+    "source": "Ecobalyse",
     "uuid": "e3e70682-c209-4cac-629f-6fbed82c07cd",
     "impacts": {
       "acd": 4.16821e-1,
@@ -243,7 +243,7 @@
     "name": "Lin (filasse)",
     "info": "Textile > Matières > Matières naturelles uuid_bi=e5a6d538-f932-4242-98b4-3a0c6439629c",
     "unit": "kg",
-    "source": "Wikicarbone",
+    "source": "Ecobalyse",
     "uuid": "cd613e30-d8f1-6adf-91b7-584a2265b1f5",
     "impacts": {
       "acd": 7.65837e-2,
@@ -273,7 +273,7 @@
     "name": "Lin (étoupe)",
     "info": "Textile > Matières > Matières naturelles uuid_bi=fcef1a31-bb18-49e4-bdb6-e53dfe015ba0",
     "unit": "kg",
-    "source": "Wikicarbone",
+    "source": "Ecobalyse",
     "uuid": "d95bafc8-f2a4-d27b-dcf4-bb99f4bea973",
     "impacts": {
       "acd": 6.7059e-2,
@@ -303,7 +303,7 @@
     "name": "Laine de mouton Mérinos",
     "info": "Textile > Matières > Matières naturelles uuid_bi=4e035dbf-f48b-4b5a-94ea-0006c713958b",
     "unit": "kg",
-    "source": "Wikicarbone",
+    "source": "Ecobalyse",
     "uuid": "21636369-8b52-9b4a-97b7-50923ceb3ffd",
     "impacts": {
       "acd": 2.11357e-1,
@@ -333,7 +333,7 @@
     "name": "Laine de mouton",
     "info": "Textile > Matières > Matières naturelles uuid_bi=376bd165-d354-41aa-a6e3-fd3228413bb2",
     "unit": "kg",
-    "source": "Wikicarbone",
+    "source": "Ecobalyse",
     "uuid": "b8a1abcd-1a69-16c7-4da4-f9fc3c6da5d7",
     "impacts": {
       "acd": 1.52825,
@@ -393,7 +393,7 @@
     "name": "Jute",
     "info": "Textile > Matières > Matières naturelles uuid_bi=72010874-4d26-4c7a-95de-c6987dfdedeb",
     "unit": "kg",
-    "source": "Wikicarbone",
+    "source": "Ecobalyse",
     "uuid": "5bc8fbbc-bde5-c099-4164-d8399f767c45",
     "impacts": {
       "acd": 5.77002e-2,
@@ -423,7 +423,7 @@
     "name": "Coton",
     "info": "Textile > Matières > Matières naturelles uuid_bi=f211bbdb-415c-46fd-be4d-ddf199575b44",
     "unit": "kg",
-    "source": "Wikicarbone",
+    "source": "Ecobalyse",
     "uuid": "14a03569-d26b-9496-92e5-dfe8cb1855fe",
     "impacts": {
       "acd": 1.14406e-1,
@@ -453,7 +453,7 @@
     "name": "Chanvre",
     "info": "Textile > Matières > Matières naturelles uuid_bi=08601439-f338-4f94-ac8c-538061b65d16",
     "unit": "kg",
-    "source": "Wikicarbone",
+    "source": "Ecobalyse",
     "uuid": "6513270e-269e-0d37-f2a7-4de452e6b438",
     "impacts": {
       "acd": 1.1e-1,
@@ -483,7 +483,7 @@
     "name": "Cachemire",
     "info": "Textile > Matières > Matières naturelles uuid_bi=380c0d9c-2840-4390-bd3f-5c960f26f5ed",
     "unit": "kg",
-    "source": "Wikicarbone",
+    "source": "Ecobalyse",
     "uuid": "6018366c-f658-f7a7-5ed3-4fe53a096533",
     "impacts": {
       "acd": 6.14522,
@@ -513,7 +513,7 @@
     "name": "Angora",
     "info": "Textile > Matières > Matières naturelles uuid_bi=29bddef1-d753-45af-9ca6-aec05e2d02b9",
     "unit": "kg",
-    "source": "Wikicarbone",
+    "source": "Ecobalyse",
     "uuid": "4462ebfc-5f91-5ef0-9cfb-ac6e7687a66e",
     "impacts": {
       "acd": 2.43842,
@@ -573,7 +573,7 @@
     "name": "Viscose",
     "info": "Textile > Matières > Matières synthétiques uuid_bi=81a67d97-3cd9-44ef-9ee2-159364364c0f",
     "unit": "kg",
-    "source": "Wikicarbone",
+    "source": "Ecobalyse",
     "uuid": "7b89296c-6dcb-ac50-0857-7eb1924770d3",
     "impacts": {
       "acd": 4.80366e-2,
@@ -603,7 +603,7 @@
     "name": "Polyuréthane/Élasthanne",
     "info": "Textile > Matières > Matières synthétiques uuid_bi=c3738500-0a62-4b95-b4a2-b7beb12a9e1a",
     "unit": "kg",
-    "source": "Wikicarbone",
+    "source": "Ecobalyse",
     "uuid": "db5b5fab-8f4d-3e27-dda1-494c73cf256d",
     "impacts": {
       "acd": 9.93232e-2,
@@ -633,7 +633,7 @@
     "name": "Polytriméthylène téréphtalate (PTT)",
     "info": "Textile > Matières > Matières synthétiques uuid_bi=eca33573-0d09-4d79-9b28-da42bfcc7a4b",
     "unit": "kg",
-    "source": "Wikicarbone",
+    "source": "Ecobalyse",
     "uuid": "87751d4c-a850-1e2c-44dc-da6a797d76de",
     "impacts": {
       "acd": 4.42263e-2,
@@ -663,7 +663,7 @@
     "name": "Polytéréphtalate de butylène (PBT)",
     "info": "Textile > Matières > Matières synthétiques uuid_bi=7f8bbfdc-fb65-4e3a-ac81-eda197ef17fc",
     "unit": "kg",
-    "source": "Wikicarbone",
+    "source": "Ecobalyse",
     "uuid": "e8d79f49-af6d-114c-4a6f-188a424e617b",
     "impacts": {
       "acd": 4.5095e-2,
@@ -693,7 +693,7 @@
     "name": "Polypropylène",
     "info": "Textile > Matières > Matières synthétiques uuid_bi=a30cfbde-393a-40db-9263-ea00bfced0b7",
     "unit": "kg",
-    "source": "Wikicarbone",
+    "source": "Ecobalyse",
     "uuid": "c15521b1-b3dc-a50a-9daa-37e51b591d75",
     "impacts": {
       "acd": 2.73882e-2,
@@ -723,7 +723,7 @@
     "name": "Polylactide",
     "info": "Textile > Matières > Matières synthétiques uuid_bi=f2dd799d-1b69-4e7a-99bd-696bbbd5a978",
     "unit": "kg",
-    "source": "Wikicarbone",
+    "source": "Ecobalyse",
     "uuid": "85750621-02fb-cd4f-357f-bc5af71a1bfc",
     "impacts": {
       "acd": 1.8727e-2,
@@ -753,7 +753,7 @@
     "name": "Polyéthylène",
     "info": "Textile > Matières > Matières synthétiques uuid_bi=088ed617-67fa-4d42-b3af-ee6cf39cf36f",
     "unit": "kg",
-    "source": "Wikicarbone",
+    "source": "Ecobalyse",
     "uuid": "48f165d5-7b00-c7f4-781e-f86f5c8cc1ab",
     "impacts": {
       "acd": 2.79064e-2,
@@ -783,7 +783,7 @@
     "name": "Polyester",
     "info": "Textile > Matières > Matières synthétiques uuid_bi=4d57c51d-7d56-46e1-acde-02fbcdc943e4",
     "unit": "kg",
-    "source": "Wikicarbone",
+    "source": "Ecobalyse",
     "uuid": "4dad2986-ce83-4960-6a06-e9ab85a0bcc1",
     "impacts": {
       "acd": 3.92487e-2,
@@ -813,7 +813,7 @@
     "name": "Polyamide",
     "info": "Textile > Matières > Matières synthétiques uuid_bi=182fa424-1f49-4728-b0f1-cb4e4ab36392",
     "unit": "kg",
-    "source": "Wikicarbone",
+    "source": "Ecobalyse",
     "uuid": "72e63ac7-a953-8322-1f70-d5dc2e675fc7",
     "impacts": {
       "acd": 4.83827e-2,
@@ -843,7 +843,7 @@
     "name": "Aramide",
     "info": "Textile > Matières > Matières synthétiques uuid_bi=7a1ccc4a-2ea7-48dc-9ef0-d57066ea8fa5",
     "unit": "kg",
-    "source": "Wikicarbone",
+    "source": "Ecobalyse",
     "uuid": "e539a78b-c8ef-f346-0b12-ae6ead581e57",
     "impacts": {
       "acd": 4.92513e-2,
@@ -873,7 +873,7 @@
     "name": "Acrylique",
     "info": "Textile > Matières > Matières synthétiques uuid_bi=aee6709f-0864-4fc5-8760-68cb644a0021",
     "unit": "kg",
-    "source": "Wikicarbone",
+    "source": "Ecobalyse",
     "uuid": "c963cfe0-afae-5a3b-b909-6a04e7d80068",
     "impacts": {
       "acd": 1.12399e-1,
@@ -903,7 +903,7 @@
     "name": "Polypropylène/polyamide",
     "info": "Textile > Matières > Matières synthétiques uuid_bi=37396ac4-13a2-484c-9cc6-5b5a93ff6e6e",
     "unit": "kg",
-    "source": "Wikicarbone",
+    "source": "Ecobalyse",
     "uuid": "6b0404f2-b094-90b8-6b01-a1c12a3a2107",
     "impacts": {
       "acd": 3.15509e-2,
@@ -963,7 +963,7 @@
     "name": "Polyester recyclé (recyclage mécanique)",
     "info": "Textile > Matières > Matières recyclées uuid_bi=4072bfa2-1948-4d12-8de9-bbeb6cc628e1",
     "unit": "kg",
-    "source": "Wikicarbone",
+    "source": "Ecobalyse",
     "uuid": "3e1c26d3-23ef-323e-e848-f808f54d35bf",
     "impacts": {
       "acd": 1.91338e-2,
@@ -993,7 +993,7 @@
     "name": "Polyester recyclé (recyclage chimique partiel)",
     "info": "Textile > Matières > Matières recyclées uuid_bi=e65e8157-9bd1-4711-9571-8e4a22c2d2b5",
     "unit": "kg",
-    "source": "Wikicarbone",
+    "source": "Ecobalyse",
     "uuid": "4a37fa2d-f2d7-d40f-c785-9faeecc3f80c",
     "impacts": {
       "acd": 1.12701e-1,
@@ -1023,7 +1023,7 @@
     "name": "Polyester recyclé (recyclage chimique complet)",
     "info": "Textile > Matières > Matières recyclées uuid_bi=221067ba-5c2f-4dad-b09a-dd5af0a9ae31",
     "unit": "kg",
-    "source": "Wikicarbone",
+    "source": "Ecobalyse",
     "uuid": "9530fcd9-d6fd-1d9b-6203-2801b65c1c28",
     "impacts": {
       "acd": 2.55236e-2,
@@ -1053,7 +1053,7 @@
     "name": "Polyamide recyclé (recyclage chimique)",
     "info": "Textile > Matières > Matières recyclées uuid_bi=41ee61c2-9a98-4eec-8949-9d9b54289bd0",
     "unit": "kg",
-    "source": "Wikicarbone",
+    "source": "Ecobalyse",
     "uuid": "d7f20e07-ed42-02ed-c4bb-895c608099f6",
     "impacts": {
       "acd": 3.50727e-2,
@@ -1083,7 +1083,7 @@
     "name": "Viscose recyclé",
     "info": "Textile > Matières > Matières recyclées uuid_bi=9671ae26-d772-4bb1-aad5-6b826555d0cd",
     "unit": "kg",
-    "source": "Wikicarbone",
+    "source": "Ecobalyse",
     "uuid": "a8d42934-33e7-98a0-e81f-9b0cbf4e7af6",
     "impacts": {
       "acd": 2.12602e-2,
@@ -1113,7 +1113,7 @@
     "name": "Polyamide recyclé",
     "info": "Textile > Matières > Matières recyclées uuid_bi=af5d130d-f18b-438c-9f19-d1ee49756960",
     "unit": "kg",
-    "source": "Wikicarbone",
+    "source": "Ecobalyse",
     "uuid": "46f7c9ea-b38c-f45a-7ad9-8a70a603e9e1",
     "impacts": {
       "acd": 3.9581e-2,
@@ -1143,7 +1143,7 @@
     "name": "Laine recyclée",
     "info": "Textile > Matières > Matières recyclées uuid_bi=92dfabc7-9441-463e-bda8-7bc5943c0e9d",
     "unit": "kg",
-    "source": "Wikicarbone",
+    "source": "Ecobalyse",
     "uuid": "8bb01460-217f-871c-be0a-e8fa1ceac2cc",
     "impacts": {
       "acd": 1.25911e-3,
@@ -1173,7 +1173,7 @@
     "name": "Coton recyclé (déchets post-consommation)",
     "info": "Textile > Matières > Matières recyclées uuid_bi=4d23093d-1346-4018-8c0f-7aae33c67bcd",
     "unit": "kg",
-    "source": "Wikicarbone",
+    "source": "Ecobalyse",
     "uuid": "993955be-5888-6f39-137c-56af8c5187c1",
     "impacts": {
       "acd": 2.43829e-3,
@@ -1203,7 +1203,7 @@
     "name": "Coton recyclé (déchets de production)",
     "info": "Textile > Matières > Matières recyclées uuid_bi=2b24abb0-c1ec-4298-9b58-350904a26104",
     "unit": "kg",
-    "source": "Wikicarbone",
+    "source": "Ecobalyse",
     "uuid": "9c6ab710-4a08-c720-cede-24428a013fda",
     "impacts": {
       "acd": 3.16343e-3,
@@ -1233,7 +1233,7 @@
     "name": "Acrylique recyclé",
     "info": "Textile > Matières > Matières recyclées uuid_bi=7603beaa-c555-4283-b9f8-4d5d231b8490",
     "unit": "kg",
-    "source": "Wikicarbone",
+    "source": "Ecobalyse",
     "uuid": "c393fd0e-1cc6-2be5-7836-46bf0324aac3",
     "impacts": {
       "acd": 2.21635e-2,

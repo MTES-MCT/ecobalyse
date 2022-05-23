@@ -1,5 +1,6 @@
 module Request.Github exposing (getChangelog)
 
+import Data.Env as Env
 import Data.Github as Github
 import Data.Session exposing (Session)
 import Json.Decode as Decode
@@ -17,6 +18,6 @@ config =
 getChangelog : Session -> (WebData (List Github.Commit) -> msg) -> Cmd msg
 getChangelog _ event =
     RemoteData.Http.getWithConfig config
-        "https://api.github.com/repos/MTES-MCT/wikicarbone/commits"
+        ("https://api.github.com/repos/" ++ Env.githubRepository ++ "/commits")
         event
         (Decode.list Github.decodeCommit)

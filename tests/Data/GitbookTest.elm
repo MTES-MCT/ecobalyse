@@ -1,5 +1,6 @@
 module Data.GitbookTest exposing (..)
 
+import Data.Env as Env
 import Data.Gitbook as Gitbook
 import Expect
 import Test exposing (..)
@@ -17,13 +18,16 @@ suite =
                 |> Expect.equal "http://google.com"
                 |> asTest "should resolve an external link even with a path provided"
             , Gitbook.handleMarkdownGitbookLink (Just Gitbook.MaterialAndSpinning) "filature.md"
-                |> Expect.equal "https://fabrique-numerique.gitbook.io/wikicarbone/methodologie/filature"
+                -- FIXME-RENAME
+                |> Expect.equal (Env.gitbookUrl ++ "/methodologie/filature")
                 |> asTest "should resolve an internal link from current page path"
             , Gitbook.handleMarkdownGitbookLink (Just Gitbook.MaterialAndSpinning) "../faq.md"
-                |> Expect.equal "https://fabrique-numerique.gitbook.io/wikicarbone/methodologie/../faq"
+                -- FIXME-RENAME
+                |> Expect.equal (Env.gitbookUrl ++ "/methodologie/../faq")
                 |> asTest "should resolve an internal link from current page path down a folder level"
             , Gitbook.handleMarkdownGitbookLink (Just Gitbook.MaterialAndSpinning) "foo/bar.md"
-                |> Expect.equal "https://fabrique-numerique.gitbook.io/wikicarbone/methodologie/foo/bar"
+                -- FIXME-RENAME
+                |> Expect.equal (Env.gitbookUrl ++ "/methodologie/foo/bar")
                 |> asTest "should resolve an internal link from current page path up a folder level"
             ]
         , describe "parseIsIsnt"
@@ -61,6 +65,6 @@ suite =
                             )
                         }
                     )
-                |> asTest "should parse Wikicarbone is/isn't Markown content"
+                |> asTest "should parse Ecobalyse is/isn't Markown content"
             ]
         ]

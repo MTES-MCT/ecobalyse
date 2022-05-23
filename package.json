@@ -1,8 +1,8 @@
 {
-  "name": "wikicarbone",
+  "name": "ecobalyse",
   "version": "0.0.1",
   "description": "Accélérer l'affichage environnemental de la filière textile française",
-  "author": "Wikicarbone <wikicarbone@beta.gouv.fr>",
+  "author": "Ecobalyse <contact@beta.gouv.fr>",
   "license": "MIT",
   "private": true,
   "scripts": {
