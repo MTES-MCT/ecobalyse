@@ -384,7 +384,7 @@ productField db product =
 
 downArrow : Html Msg
 downArrow =
-    img [ src "img/down-arrow-icon.png" ] []
+    img [ src "img/down-arrow-icon.png", alt "", attribute "aria-hidden" "true" ] []
 
 
 lifeCycleStepsView : Db -> Model -> Simulator -> Html Msg

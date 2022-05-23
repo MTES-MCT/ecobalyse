@@ -312,7 +312,7 @@ pageFooter { currentVersion } =
                     Just hash ->
                         small [ class "d-block pt-1 fs-8 ms-2 text-muted" ]
                             [ Link.external
-                                [ class "text-white-50 text-decoration-none"
+                                [ class "text-white text-decoration-none"
                                 , href <| Env.githubUrl ++ "/commit/" ++ hash
                                 ]
                                 [ text <| "Version " ++ hash ]

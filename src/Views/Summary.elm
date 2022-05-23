@@ -140,6 +140,7 @@ summaryView { session, impact, funit, reusable } ({ inputs, lifeCycle } as simul
                     [ funit |> Unit.functionalToString |> text
                     , Link.smallPillExternal
                         [ class "ms-0"
+                        , title "Accéder à la documentation"
                         , href (Env.gitbookUrl ++ "/methodologie/echelle-comparative")
                         ]
                         [ Icon.info ]
