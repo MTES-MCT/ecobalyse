@@ -5,7 +5,6 @@ module Data.Ecobalyse.Product exposing
     , decodeProducts
     , empty
     , findByName
-    , getIngredients
     , getTotalImpact
     , updateAmount
     )
@@ -175,23 +174,11 @@ decodeProducts processes =
 -- utilities
 
 
-getIngredients : Step -> Step
-getIngredients step =
-    Dict.filter isIngredient step
-
-
-isIngredient : ProcessName -> Process -> Bool
-isIngredient name _ =
-    String.contains "/ FR U" name
-        |> not
-
-
 getTotalImpact : Step -> Float
 getTotalImpact step =
-    getIngredients step
+    step
         |> Dict.foldl
             (\processName { amount, impacts } total ->
                 total + (Unit.ratioToFloat amount * impacts.cch)
             )
             0
-        |> Debug.log "total impact"

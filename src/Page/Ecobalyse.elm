@@ -12,13 +12,13 @@ import Data.Ecobalyse.Process exposing (Amount, Process, ProcessName)
 import Data.Ecobalyse.Product as Product exposing (Product, ProductName)
 import Data.Session as Session exposing (Session)
 import Data.Unit as Unit
+import Decimal exposing (roundTo)
 import Dict
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Ports
 import RemoteData exposing (WebData)
 import Request.Ecobalyse.Db as RequestDb
-import Views.BarChart exposing (Bar)
 import Views.Container as Container
 import Views.Format as Format
 import Views.PieChart as PieChart
@@ -99,12 +99,24 @@ view _ model =
                         totalImpact =
                             Product.getTotalImpact product.plant
                     in
-                    [ h1 [ class "mb-3" ] [ text "pizza au thon" ]
+                    [ h1 [ class "mb-3" ]
+                        [ text "pizza au thon"
+                        , text " : "
+                        , totalImpact
+                            |> Decimal.fromFloat
+                            |> Decimal.roundTo -2
+                            |> Decimal.toStringIn Decimal.Dec
+                            |> text
+                        , text " kg CO2 eq"
+                        ]
                     , h2 [ class "h3" ] [ text "Ingrédients" ]
                     , ul []
-                        (Product.getIngredients product.plant
-                            |> Dict.map (viewIngredient totalImpact)
+                        (product.plant
+                            |> Dict.map (makeBar totalImpact)
                             |> Dict.values
+                            -- |> List.sortBy .impact
+                            -- |> List.reverse
+                            |> List.map viewIngredient
                         )
                     ]
 
@@ -115,17 +127,17 @@ view _ model =
     )
 
 
-viewIngredient : Float -> ProcessName -> Process -> Html Msg
-viewIngredient totalImpact name ({ amount } as ingredient) =
+viewIngredient : Bar -> Html Msg
+viewIngredient bar =
     li []
-        [ text name
+        [ text bar.name
         , text " : "
         , div [ class "row" ]
             [ div [ class "col-lg-6" ]
                 [ RangeSlider.ratio
-                    { id = "slider-" ++ name
-                    , update = IngredientSliderChanged name
-                    , value = amount
+                    { id = "slider-" ++ bar.name
+                    , update = IngredientSliderChanged bar.name
+                    , value = bar.amount
                     , toString = Unit.ratioToFloat >> String.fromFloat
                     , disabled = False
                     , min = 0
@@ -133,29 +145,38 @@ viewIngredient totalImpact name ({ amount } as ingredient) =
                     }
                 ]
             , div [ class "col-lg-6" ]
-                [ ingredient
-                    |> makeBar name totalImpact
-                    |> barView
-                ]
+                [ barView bar ]
             ]
         ]
 
 
-makeBar : ProcessName -> Float -> Process -> Bar msg
-makeBar name totalImpact { impacts } =
+type alias Bar =
+    { name : ProcessName
+    , amount : Unit.Ratio
+    , impact : Float
+    , width : Float
+    , percent : Float
+    }
+
+
+makeBar : Float -> ProcessName -> Process -> Bar
+makeBar totalImpact name { amount, impacts } =
     let
+        impact =
+            impacts.cch * Unit.ratioToFloat amount
+
         percent =
-            impacts.cch * toFloat 100 / totalImpact
+            impact * toFloat 100 / totalImpact
     in
-    { label =
-        span [] [ text name ]
-    , score = impacts.cch
+    { name = name
+    , amount = amount
+    , impact = impact
     , width = clamp 0 100 percent
     , percent = percent
     }
 
 
-barView : Bar msg -> Html msg
+barView : Bar -> Html msg
 barView bar =
     div [ class "fs-7 row" ]
         [ div [ class "col-lg-8 py-1" ]
