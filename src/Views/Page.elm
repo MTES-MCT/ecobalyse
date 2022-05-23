@@ -72,7 +72,11 @@ frame config ( title, content ) =
             , div [ class "alert alert-info py-1 rounded-0" ]
                 [ Container.centered
                     [ class "d-flex gap-1 justify-content-center align-items-center" ]
-                    [ Icon.info, text "Wikicarbone change de nom et devient Ecobalyse." ]
+                    [ Icon.info
+                    , text "Wikicarbone change de nom et devient "
+                    , a [ href Env.betagouvUrl, target "_blank", class "link-external" ]
+                        [ text "Ecobalyse" ]
+                    ]
                 ]
             , div [ class "pt-2 pt-sm-5" ] content
             ]
