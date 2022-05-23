@@ -58,4 +58,4 @@ Ecobalyse n’a pas pour objectif d’informer directement le grand public.&#x20
 
 En revanche, l’outil est au service de tous ceux qui cherchent à informer le grand public : entreprises, start-ups et applications web, associations, journalistes…&#x20;
 
-La [documentation](https://fabrique-numerique.gitbook.io/ecobalyse) et l’accès API (non encore stabilisé) peuvent par exemple être mobilisés par les entreprises qui constituent des catalogues de produits dont elles évaluent l’impact pour le présenter aux consommateurs.
+La [documentation](https://fabrique-numerique.gitbook.io/ecobalyse) et l’[accès API](https://ecobalyse.beta.gouv.fr/#/api) expérimental peuvent par exemple être mobilisés par les entreprises qui constituent des catalogues de produits dont elles évaluent l’impact pour le présenter aux consommateurs.
