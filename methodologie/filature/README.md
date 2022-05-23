@@ -207,14 +207,7 @@ $$
 
 Plus de détail sur la gestion des masses : [Pertes et rebut](../pertes-et-rebus.md).
 
-## Limites
 
-A prévoir :
-
-* Intégrer les procédés de production de "fils" synthétiques, et non pas seulement les procédés de "filaments" synthétiques.
-* Lorsqu'une part de matière recyclée peut être introduire, ouvrir la possibilité de distinguer l'origine de la matière primaire et de la matière recyclée
-* Pour les matières qui peuvent être issues de différents types de recyclage, regrouper ces différentes sous-options dans le tableau principal
-*
 
 ## Séparation des étapes matière et filature
 
