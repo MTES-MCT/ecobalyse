@@ -62,14 +62,12 @@ Les fichiers sont alors générés dans le répertoire `build` à la racine du p
 
 L'application est déployée automatiquement sur la plateforme [Scalingo](https://scalingo.com/) pour toute mise à jour de la branche `master`.
 
-FIXME-RENAME
 Chaque _Pull Request_ effectuée sur le dépôt est également automatiquement déployée sur une instance de revue spécifique, par exemple `https://wikicarbone-pr44.osc-fr1.scalingo.io/` pour la pull request #44.
 
 # Serveur de production
 
 ## Variables d'environnement
 
-FIXME-RENAME
 Certaines variables d'environnement peuvent ou doivent être configurées via l'interface de [configuration Scalingo](https://dashboard.scalingo.com/apps/osc-fr1/wikicarbone/environment) :
 
 - `SENTRY_DSN`: le DSN [Sentry](https://sentry.io) à utiliser pour les rapports d'erreur.

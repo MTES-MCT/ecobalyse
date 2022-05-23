@@ -18,15 +18,12 @@ suite =
                 |> Expect.equal "http://google.com"
                 |> asTest "should resolve an external link even with a path provided"
             , Gitbook.handleMarkdownGitbookLink (Just Gitbook.MaterialAndSpinning) "filature.md"
-                -- FIXME-RENAME
                 |> Expect.equal (Env.gitbookUrl ++ "/methodologie/filature")
                 |> asTest "should resolve an internal link from current page path"
             , Gitbook.handleMarkdownGitbookLink (Just Gitbook.MaterialAndSpinning) "../faq.md"
-                -- FIXME-RENAME
                 |> Expect.equal (Env.gitbookUrl ++ "/methodologie/../faq")
                 |> asTest "should resolve an internal link from current page path down a folder level"
             , Gitbook.handleMarkdownGitbookLink (Just Gitbook.MaterialAndSpinning) "foo/bar.md"
-                -- FIXME-RENAME
                 |> Expect.equal (Env.gitbookUrl ++ "/methodologie/foo/bar")
                 |> asTest "should resolve an internal link from current page path up a folder level"
             ]

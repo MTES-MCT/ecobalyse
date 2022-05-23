@@ -103,9 +103,8 @@ paths:
       parameters:
       - name: impact
         in: path
-        # FIXME-RENAME
         description: |
-          Trigramme de l'impact étudié ([la liste est documenté ici](https://fabrique-numerique.gitbook.io/wikicarbone/methodologie/impacts-consideres))
+          Trigramme de l'impact étudié ([la liste est documenté ici](https://fabrique-numerique.gitbook.io/ecobalyse/methodologie/impacts-consideres))
         required: true
         schema:
           type: string
@@ -433,10 +432,9 @@ components:
             type: string
     MultipleImpactsResponse:
       type: object
-      # FIXME-RENAME
       description: |
         Impacts environnementaux exprimés dans leurs unités respectives, dont
-        [la documentation est disponible ici](https://fabrique-numerique.gitbook.io/wikicarbone/methodologie/impacts-consideres).
+        [la documentation est disponible ici](https://fabrique-numerique.gitbook.io/ecobalyse/methodologie/impacts-consideres).
       properties:
         impacts:
           type: object
