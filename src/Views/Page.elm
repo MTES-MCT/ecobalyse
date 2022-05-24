@@ -74,8 +74,7 @@ frame config ( title, content ) =
                     [ class "d-flex gap-1 justify-content-center align-items-center" ]
                     [ Icon.info
                     , text "Wikicarbone change de nom et devient "
-                    , a [ href Env.betagouvUrl, target "_blank", class "link-external" ]
-                        [ text "Ecobalyse" ]
+                    , Link.external [ href Env.betagouvUrl ] [ text "Ecobalyse" ]
                     ]
                 ]
             , div [ class "pt-2 pt-sm-5" ] content
