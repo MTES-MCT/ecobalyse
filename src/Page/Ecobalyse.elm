@@ -15,6 +15,7 @@ import Decimal
 import Dict
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import Html.Events exposing (..)
 import Ports
 import RemoteData exposing (WebData)
 import Request.Ecobalyse.Db as RequestDb
@@ -24,13 +25,20 @@ import Views.PieChart as PieChart
 import Views.RangeSlider as RangeSlider
 
 
+type alias SelectedProduct =
+    { product : Product
+    , original : Product
+    }
+
+
 type alias Model =
-    { maybeProduct : Maybe Product }
+    { selectedProduct : Maybe SelectedProduct }
 
 
 type Msg
     = IngredientSliderChanged ProductName (Maybe Amount)
     | DbLoaded (WebData Db.Db)
+    | Reset
 
 
 tunaPizza : ProductName
@@ -40,7 +48,7 @@ tunaPizza =
 
 init : Session -> ( Model, Session, Cmd Msg )
 init session =
-    ( { maybeProduct = Nothing }
+    ( { selectedProduct = Nothing }
     , session
     , Cmd.batch
         [ Ports.scrollTo { x = 0, y = 0 }
@@ -50,14 +58,17 @@ init session =
 
 
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
-update session msg ({ maybeProduct } as model) =
-    case ( msg, maybeProduct ) of
-        ( IngredientSliderChanged name (Just newAmount), Just product ) ->
+update session msg ({ selectedProduct } as model) =
+    case ( msg, selectedProduct ) of
+        ( IngredientSliderChanged name (Just newAmount), Just selected ) ->
             let
+                { product } =
+                    selected
+
                 updatedProduct =
                     { product | plant = Product.updateAmount name newAmount product.plant }
             in
-            ( { model | maybeProduct = Just updatedProduct }, session, Cmd.none )
+            ( { model | selectedProduct = Just { selected | product = updatedProduct } }, session, Cmd.none )
 
         ( DbLoaded (RemoteData.Success db), _ ) ->
             let
@@ -66,7 +77,7 @@ update session msg ({ maybeProduct } as model) =
             in
             case productResult of
                 Ok product ->
-                    ( { model | maybeProduct = Just product }
+                    ( { model | selectedProduct = Just { product = product, original = product } }
                     , { session | ecobalyseDb = db }
                     , Cmd.none
                     )
@@ -83,6 +94,12 @@ update session msg ({ maybeProduct } as model) =
             , Cmd.none
             )
 
+        ( Reset, Just selected ) ->
+            ( { model | selectedProduct = Just { selected | product = selected.original } }
+            , session
+            , Cmd.none
+            )
+
         _ ->
             ( model, session, Cmd.none )
 
@@ -91,8 +108,8 @@ view : Session -> Model -> ( String, List (Html Msg) )
 view _ model =
     ( "Simulateur de recettes"
     , [ Container.centered []
-            (case model.maybeProduct of
-                Just product ->
+            (case model.selectedProduct of
+                Just { product, original } ->
                     let
                         totalImpact =
                             Product.getTotalImpact product.plant
@@ -116,6 +133,11 @@ view _ model =
                             -- |> List.reverse
                             |> List.map viewIngredient
                         )
+                    , button
+                        [ class "btn btn-primary"
+                        , onClick Reset
+                        ]
+                        [ text "Réinitialiser" ]
                     ]
 
                 _ ->

@@ -6,6 +6,7 @@ module Data.Ecobalyse.Product exposing
     , empty
     , findByName
     , getTotalImpact
+    , getTotalWeight
     , isUnit
     , updateAmount
     )
@@ -186,5 +187,19 @@ getTotalImpact step =
         |> Dict.foldl
             (\_ { amount, impacts } total ->
                 total + (Unit.ratioToFloat amount * impacts.cch)
+            )
+            0
+
+
+getTotalWeight : Step -> Float
+getTotalWeight step =
+    step
+        |> Dict.foldl
+            (\processName { amount } total ->
+                if isUnit processName then
+                    total
+
+                else
+                    total + Unit.ratioToFloat amount
             )
             0
