@@ -178,7 +178,7 @@ getTotalImpact : Step -> Float
 getTotalImpact step =
     step
         |> Dict.foldl
-            (\processName { amount, impacts } total ->
+            (\_ { amount, impacts } total ->
                 total + (Unit.ratioToFloat amount * impacts.cch)
             )
             0

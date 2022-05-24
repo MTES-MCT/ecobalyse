@@ -6,13 +6,12 @@ module Page.Ecobalyse exposing
     , view
     )
 
-import Chart.Attributes exposing (amount)
 import Data.Ecobalyse.Db as Db
 import Data.Ecobalyse.Process exposing (Amount, Process, ProcessName)
 import Data.Ecobalyse.Product as Product exposing (Product, ProductName)
 import Data.Session as Session exposing (Session)
 import Data.Unit as Unit
-import Decimal exposing (roundTo)
+import Decimal
 import Dict
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -30,8 +29,7 @@ type alias Model =
 
 
 type Msg
-    = NoOp Never
-    | IngredientSliderChanged ProductName (Maybe Amount)
+    = IngredientSliderChanged ProductName (Maybe Amount)
     | DbLoaded (WebData Db.Db)
 
 
