@@ -2,7 +2,7 @@
 description: Comment calculer l'impact matière en prenant en compte le terme M3 de la CFF ?
 ---
 
-# 📚 Recyclage des vêtements en fin de vie - M3
+# \[Négligé] Recyclage des vêtements en fin de vie - M3
 
 Voici la partie de la CFF qui prend en compte l'impact du recyclage en fin de vie.
 
@@ -11,7 +11,7 @@ M_{3} = (1-A)*R_{2}*(E_{recyEOL} - E^*_{v} * \frac{Qsout}{Qp})
 $$
 
 {% hint style="info" %}
-Ce terme est négligé étant donné son impact faible. Pour plus de justification dans la section suivante
+Ce terme est négligé étant donné son impact faible. Pour plus de justification dans la suite de cette page
 {% endhint %}
 
 ### Définition des paramètres
