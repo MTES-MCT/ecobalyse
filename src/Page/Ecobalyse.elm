@@ -150,7 +150,7 @@ view _ model =
                         ]
                     , ul []
                         (product.plant
-                            |> Dict.map (makeBar impactPerKg)
+                            |> Dict.map (makeBar totalImpact)
                             |> Dict.values
                             -- |> List.sortBy .impact
                             -- |> List.reverse
