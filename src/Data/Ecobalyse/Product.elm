@@ -11,7 +11,6 @@ module Data.Ecobalyse.Product exposing
     , getWeightRatio
     , isUnit
     , updateAmount
-    , updateWeight
     )
 
 import Data.Ecobalyse.Process as Process
