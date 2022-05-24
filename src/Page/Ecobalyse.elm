@@ -111,23 +111,44 @@ view _ model =
             (case model.selectedProduct of
                 Just { product, original } ->
                     let
+                        -- We want the impact "per kg", but the original weight isn't 1kg,
+                        -- so we need to keep it in store to adapt the final total per kg
+                        originalTotalWeight =
+                            Product.getTotalWeight original.plant
+
                         totalImpact =
                             Product.getTotalImpact product.plant
+
+                        totalWeight =
+                            Product.getTotalWeight product.plant
+
+                        impactPerKg =
+                            totalImpact * originalTotalWeight / totalWeight
                     in
                     [ h1 [ class "mb-3" ]
                         [ text "pizza au thon"
                         , text " : "
-                        , totalImpact
-                            |> Decimal.fromFloat
-                            |> Decimal.roundTo -2
-                            |> Decimal.toStringIn Decimal.Dec
+                        , impactPerKg
+                            |> floatToRoundedString -2
                             |> text
-                        , text " kg CO2 eq"
+                        , text " kg CO2 eq par kg de produit"
                         ]
-                    , h2 [ class "h3" ] [ text "Ingrédients" ]
+                    , div [ class "row" ]
+                        [ div [ class "col-lg-6" ]
+                            [ h3 []
+                                [ text "Quantité de l'ingrédient (poids total : "
+                                , totalWeight
+                                    |> floatToRoundedString -3
+                                    |> text
+                                , text "kg)"
+                                ]
+                            ]
+                        , div [ class "col-lg-6 px-5" ]
+                            [ h3 [] [ text "Pourcentage de l'impact total" ] ]
+                        ]
                     , ul []
                         (product.plant
-                            |> Dict.map (makeBar totalImpact)
+                            |> Dict.map (makeBar impactPerKg)
                             |> Dict.values
                             -- |> List.sortBy .impact
                             -- |> List.reverse
@@ -160,15 +181,13 @@ viewIngredient bar =
                     , value = bar.amount
                     , toString =
                         Unit.ratioToFloat
-                            >> Decimal.fromFloat
-                            >> Decimal.roundTo -3
-                            >> Decimal.toStringIn Decimal.Dec
+                            >> floatToRoundedString -3
                     , disabled = Product.isUnit bar.name
                     , min = 0
                     , max = 100
                     }
                 ]
-            , div [ class "col-lg-6" ]
+            , div [ class "col-lg-6 px-5" ]
                 [ barView bar ]
             ]
         ]
@@ -216,3 +235,11 @@ barView bar =
             [ Format.percent bar.percent ]
         , div [ class "col-lg-1 ps-2" ] [ PieChart.view bar.percent ]
         ]
+
+
+floatToRoundedString : Int -> Float -> String
+floatToRoundedString exponent float =
+    float
+        |> Decimal.fromFloat
+        |> Decimal.roundTo exponent
+        |> Decimal.toStringIn Decimal.Dec
