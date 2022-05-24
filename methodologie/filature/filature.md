@@ -7,19 +7,21 @@ description: Transformation des fibres de matière première brute en fils.
 {% hint style="info" %}
 Dans les données utilisées (Base Impacts), les étapes de matière et filature sont fusionnées. Elles ont donc forcément lieu dans le même pays. Cela est limitant car dans de nombreux cas, la filature n'a pas lieu dans le pays de production de la matière.\
 Nous avons donc tenté de séparer ces 2 étapes.\
-Pour en savoir plus sur notre méthodologie de séparation de ces étapes, voir la section Séparation Matière et Filature
+Pour en savoir plus sur notre méthodologie de séparation de ces étapes, [voir la section Séparation Matière et Filature](filature-1.md)
 {% endhint %}
 
 ## Matières proposées
 
 La liste des matières disponibles dans Ecobalyse est visible dans l'[Explorateur Matière](https://ecobalyse.beta.gouv.fr/#/explore/materials)&#x20;
 
-Pour chaque matière il est indiqué l'**Origine Géographique**, c'est à dire le continent (ou parfois le pays) d'origine dans la Base Impacts. Néanmoins pour faire nos calculs de transport et (pour la séparation des étapes de matière et de filature), nous avons besoin de faire des calculs à partir d'un pays.\
-C'est pourquoi il est aussi indiqué le **Pays de production et de filature par défaut.** Ce pays est une hypothèse que nous faisons pour les calculs de transport et de séparation des étapes de matière et de filature.
+* Pour chaque matière il est indiqué l'**Origine Géographique**, c'est à dire le continent (ou parfois le pays) d'origine dans la Base Impacts. Néanmoins pour faire nos calculs de transport et [pour la séparation des étapes de matière et de filature](filature-1.md), nous avons besoin de faire des calculs à partir d'un pays.\
 
-\*pour le fil de soie, la documentation sectorielle indique simplement une géographie mondiale (GLO), en précisant que celle-ci correspond à la production mondiale. Considérant que cette production est très majoritairement asiatique ([source](https://www.planetoscope.com/matieres-premieres/1731-production-mondiale-de-soie.html)), on retient par défaut une géographie asiatique.
+* C'est pourquoi il est aussi indiqué le **Pays de production et de filature par défaut.** Ce pays est une hypothèse que nous faisons pour les calculs de transport et de [séparation des étapes de matière et de filature.](filature-1.md)
 
-\*La géographie "Asie" n'est pas explicitement pointée pour la filature dans la documentation sectorielle. C'est toutefois une hypothèse qui semble crédible au regard de la part des pays asiatiques dans la production mondiale ([lien](https://fr.wikipedia.org/wiki/Fibre\_synth%C3%A9tique)) et d'informations fournies par ailleurs dans la documentation, par exemple sur les étapes de texturisation, de thermofixation et de lavage qui sont généralement faites en Asie.
+{% hint style="info" %}
+* Pour le fil de soie, la documentation sectorielle indique simplement une géographie mondiale (GLO), en précisant que celle-ci correspond à la production mondiale. Considérant que cette production est très majoritairement asiatique (source), on retient par défaut une géographie asiatique.
+* La géographie "Asie" n'est pas explicitement pointée pour la filature dans la documentation sectorielle. C'est toutefois une hypothèse qui semble crédible au regard de la part des pays asiatiques dans la production mondiale ([lien](https://fr.wikipedia.org/wiki/Fibre\_synth%C3%A9tique)) et d'informations fournies par ailleurs dans la documentation, par exemple sur les étapes de texturisation, de thermofixation et de lavage qui sont généralement faites en Asie.
+{% endhint %}
 
 ## Cas du multi-matière
 
@@ -29,7 +31,7 @@ C'est pourquoi il est aussi indiqué le **Pays de production et de filature par 
 ## Documentation des procédés Base Impacts
 
 {% hint style="warning" %}
-Dans la suite de cette page, vous trouverez pour information une documentation des procédés matière+filature de la Base Impacts. Néanmoins nous n'utilisons pas ces procédés brutes car nous séparation les étapes de matière et de filature.
+Dans la suite de cette page, vous trouverez pour information une documentation des procédés matière+filature de la Base Impacts. Néanmoins nous n'utilisons pas ces procédés brutes car [nous séparons les étapes de matière et de filature.](filature-1.md)
 {% endhint %}
 
 ## Schéma
