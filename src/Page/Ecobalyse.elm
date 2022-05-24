@@ -137,7 +137,7 @@ viewIngredient bar =
                     , update = IngredientSliderChanged bar.name
                     , value = bar.amount
                     , toString = Unit.ratioToFloat >> String.fromFloat
-                    , disabled = False
+                    , disabled = Product.isUnit bar.name
                     , min = 0
                     , max = 100
                     }

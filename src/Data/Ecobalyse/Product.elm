@@ -6,6 +6,7 @@ module Data.Ecobalyse.Product exposing
     , empty
     , findByName
     , getTotalImpact
+    , isUnit
     , updateAmount
     )
 
@@ -172,6 +173,11 @@ decodeProducts processes =
 
 
 -- utilities
+
+
+isUnit : ProcessName -> Bool
+isUnit processName =
+    String.endsWith "/ FR U" processName
 
 
 getTotalImpact : Step -> Float
