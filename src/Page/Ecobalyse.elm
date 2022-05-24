@@ -135,13 +135,7 @@ view _ model =
                         ]
                     , div [ class "row" ]
                         [ div [ class "col-lg-6" ]
-                            [ h3 []
-                                [ text "Quantité de l'ingrédient (poids total : "
-                                , totalWeight
-                                    |> floatToRoundedString -3
-                                    |> text
-                                , text "kg)"
-                                ]
+                            [ h3 [] [ text "Quantité de l'ingrédient" ]
                             ]
                         , div [ class "col-lg-6 px-5" ]
                             [ h3 [] [ text "Pourcentage de l'impact total" ] ]
@@ -154,6 +148,15 @@ view _ model =
                             -- |> List.reverse
                             |> List.map viewIngredient
                         )
+                    , div []
+                        [ strong []
+                            [ text "poids total avant cuisson : "
+                            , totalWeight
+                                |> floatToRoundedString -3
+                                |> text
+                            , text "kg"
+                            ]
+                        ]
                     , button
                         [ class "btn btn-primary"
                         , onClick Reset
@@ -182,6 +185,7 @@ viewIngredient bar =
                     , toString =
                         Unit.ratioToFloat
                             >> floatToRoundedString -3
+                            >> (\mass -> mass ++ "kg")
                     , disabled = Product.isUnit bar.name
                     , min = 0
                     , max = 100
