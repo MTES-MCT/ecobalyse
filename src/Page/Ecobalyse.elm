@@ -33,13 +33,16 @@ type alias SelectedProduct =
 
 
 type alias Model =
-    { selectedProduct : Maybe SelectedProduct }
+    { selectedProduct : Maybe SelectedProduct
+    , productsSelectChoice : String
+    }
 
 
 type Msg
     = IngredientSliderChanged ProductName (Maybe Amount)
     | DbLoaded (WebData Db.Db)
     | Reset
+    | ProductSelected String
 
 
 tunaPizza : ProductName
@@ -49,7 +52,9 @@ tunaPizza =
 
 init : Session -> ( Model, Session, Cmd Msg )
 init session =
-    ( { selectedProduct = Nothing }
+    ( { selectedProduct = Nothing
+      , productsSelectChoice = tunaPizza
+      }
     , session
     , Cmd.batch
         [ Ports.scrollTo { x = 0, y = 0 }
@@ -59,7 +64,7 @@ init session =
 
 
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
-update session msg ({ selectedProduct } as model) =
+update ({ ecobalyseDb } as session) msg ({ selectedProduct } as model) =
     case ( msg, selectedProduct ) of
         ( IngredientSliderChanged name (Just newAmount), Just selected ) ->
             let
@@ -108,12 +113,38 @@ update session msg ({ selectedProduct } as model) =
             , Cmd.none
             )
 
+        ( ProductSelected productSelected, _ ) ->
+            let
+                productResult =
+                    Product.findByName productSelected ecobalyseDb.products
+            in
+            case productResult of
+                Ok product ->
+                    ( { model
+                        | selectedProduct =
+                            Just
+                                { product = product
+                                , original = product
+                                , weightRatio = Product.getWeightRatio product
+                                }
+                        , productsSelectChoice = productSelected
+                      }
+                    , session
+                    , Cmd.none
+                    )
+
+                Err error ->
+                    ( model
+                    , session |> Session.notifyError "Erreur lors du chargement du produit" error
+                    , Cmd.none
+                    )
+
         _ ->
             ( model, session, Cmd.none )
 
 
 view : Session -> Model -> ( String, List (Html Msg) )
-view _ model =
+view { ecobalyseDb } model =
     ( "Simulateur de recettes"
     , [ Container.centered []
             (case model.selectedProduct of
@@ -133,10 +164,23 @@ view _ model =
                         impactPerKg =
                             totalImpact * originalTotalWeight / totalWeight
                     in
-                    [ h1 [ class "mb-3" ]
-                        [ text "pizza au thon"
-                        , text " : "
-                        , impactPerKg
+                    [ select
+                        [ class "w-100"
+                        , onInput ProductSelected
+                        ]
+                        (ecobalyseDb.products
+                            |> Dict.keys
+                            |> List.map
+                                (\productName ->
+                                    option
+                                        [ value productName
+                                        , selected (productName == model.productsSelectChoice)
+                                        ]
+                                        [ text productName ]
+                                )
+                        )
+                    , h1 [ class "mb-3" ]
+                        [ impactPerKg
                             |> floatToRoundedString -2
                             |> text
                         , text " kg CO2 eq par kg de produit"
