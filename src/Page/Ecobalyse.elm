@@ -136,7 +136,11 @@ viewIngredient bar =
                     { id = "slider-" ++ bar.name
                     , update = IngredientSliderChanged bar.name
                     , value = bar.amount
-                    , toString = Unit.ratioToFloat >> String.fromFloat
+                    , toString =
+                        Unit.ratioToFloat
+                            >> Decimal.fromFloat
+                            >> Decimal.roundTo -3
+                            >> Decimal.toStringIn Decimal.Dec
                     , disabled = Product.isUnit bar.name
                     , min = 0
                     , max = 100
