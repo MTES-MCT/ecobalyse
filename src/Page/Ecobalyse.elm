@@ -8,7 +8,7 @@ module Page.Ecobalyse exposing
 
 import Data.Ecobalyse.Db as Db
 import Data.Ecobalyse.Process exposing (Amount, Process, ProcessName)
-import Data.Ecobalyse.Product as Product exposing (Product, ProductName)
+import Data.Ecobalyse.Product as Product exposing (Product, ProductName, WeightRatio)
 import Data.Session as Session exposing (Session)
 import Data.Unit as Unit
 import Decimal
@@ -28,6 +28,7 @@ import Views.RangeSlider as RangeSlider
 type alias SelectedProduct =
     { product : Product
     , original : Product
+    , weightRatio : Maybe WeightRatio
     }
 
 
@@ -62,11 +63,11 @@ update session msg ({ selectedProduct } as model) =
     case ( msg, selectedProduct ) of
         ( IngredientSliderChanged name (Just newAmount), Just selected ) ->
             let
-                { product } =
+                { product, weightRatio } =
                     selected
 
                 updatedProduct =
-                    { product | plant = Product.updateAmount name newAmount product.plant }
+                    { product | plant = Product.updateAmount weightRatio name newAmount product.plant }
             in
             ( { model | selectedProduct = Just { selected | product = updatedProduct } }, session, Cmd.none )
 
@@ -77,7 +78,14 @@ update session msg ({ selectedProduct } as model) =
             in
             case productResult of
                 Ok product ->
-                    ( { model | selectedProduct = Just { product = product, original = product } }
+                    ( { model
+                        | selectedProduct =
+                            Just
+                                { product = product
+                                , original = product
+                                , weightRatio = Product.getWeightRatio product
+                                }
+                      }
                     , { session | ecobalyseDb = db }
                     , Cmd.none
                     )

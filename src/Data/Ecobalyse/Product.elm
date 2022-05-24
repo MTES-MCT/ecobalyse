@@ -2,13 +2,16 @@ module Data.Ecobalyse.Product exposing
     ( Product
     , ProductName
     , Products
+    , WeightRatio
     , decodeProducts
     , empty
     , findByName
     , getTotalImpact
     , getTotalWeight
+    , getWeightRatio
     , isUnit
     , updateAmount
+    , updateWeight
     )
 
 import Data.Ecobalyse.Process as Process
@@ -65,6 +68,12 @@ type alias ProductDefinition =
     }
 
 
+type alias WeightRatio =
+    { processName : ProcessName
+    , weightRatio : Float
+    }
+
+
 insertProcess : ProcessName -> Amount -> Impacts -> Step -> Step
 insertProcess processName amount impacts step =
     Dict.insert processName (Process amount impacts) step
@@ -95,8 +104,8 @@ productFromDefinition processes { consumer, supermarket, distribution, packaging
         |> RE.andMap (stepFromIngredients plant processes)
 
 
-updateAmount : ProcessName -> Amount -> Step -> Step
-updateAmount processName newAmount step =
+updateAmount : Maybe WeightRatio -> ProcessName -> Amount -> Step -> Step
+updateAmount maybeWeightRatio processName newAmount step =
     step
         |> Dict.update processName
             (Maybe.map
@@ -104,6 +113,32 @@ updateAmount processName newAmount step =
                     { process | amount = newAmount }
                 )
             )
+        |> updateWeight maybeWeightRatio
+
+
+updateWeight : Maybe WeightRatio -> Step -> Step
+updateWeight maybeWeightRatio step =
+    case maybeWeightRatio of
+        Nothing ->
+            step
+
+        Just { processName, weightRatio } ->
+            let
+                updatedRawWeight =
+                    getTotalWeight step
+
+                updatedWeight =
+                    updatedRawWeight
+                        * weightRatio
+                        |> Unit.Ratio
+            in
+            step
+                |> Dict.update processName
+                    (Maybe.map
+                        (\process ->
+                            { process | amount = updatedWeight }
+                        )
+                    )
 
 
 findByName : String -> Products -> Result String Product
@@ -203,3 +238,47 @@ getTotalWeight step =
                     total + Unit.ratioToFloat amount
             )
             0
+
+
+getWeightRatio : Product -> Maybe WeightRatio
+getWeightRatio product =
+    -- TODO: HACK, we assume that the process "at plant" that is the heavier is the total
+    -- "final" weight, versus the total weight of the raw ingredients. We only need this
+    -- if there's some kind of process that "looses weight" in the process, and we assume this
+    -- process should be named ".... / FR U" (eg "Cooking, industrial, 1kg of cooked product/ FR U")
+    let
+        maybeProcessName =
+            getWeightLosingUnitProcessName product.plant
+
+        totalIngredientsWeight =
+            getTotalWeight product.plant
+    in
+    maybeProcessName
+        |> Maybe.andThen
+            (\processName ->
+                product.plant
+                    |> Dict.get processName
+                    |> Maybe.map
+                        (\process ->
+                            { processName = processName
+                            , weightRatio =
+                                Unit.ratioToFloat process.amount
+                                    / totalIngredientsWeight
+                            }
+                        )
+            )
+
+
+getWeightLosingUnitProcessName : Step -> Maybe ProcessName
+getWeightLosingUnitProcessName step =
+    step
+        |> Dict.toList
+        -- Only keep processes ending with "/ FR U"
+        |> List.filter (Tuple.first >> String.endsWith "/ FR U")
+        -- Sort by heavier to lighter
+        |> List.sortBy (Tuple.second >> .amount >> Unit.ratioToFloat)
+        |> List.reverse
+        -- Only keep the process names
+        |> List.map Tuple.first
+        -- Take the heaviest
+        |> List.head
