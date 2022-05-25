@@ -7,9 +7,9 @@ Prenons le cas d'un pull 1 en coton. Lors de sa fin de vie, ce pull 1 est recycl
 
 Si l'on fait l'analyse de cycle de vie (ACV) du pull 1, il faut prendre en compte l'impact du recyclage du pull 1, c'est l'étape de fin de vie.
 
-D'autre part si l'on fait l'ACV du tshirt 2, il faut prendre en compte la production de la matière utilisé, soit le recyclage du pull 1.
+D'autre part si l'on fait l'ACV du tshirt 2, il faut prendre en compte la production de la matière utilisée, soit le recyclage du pull 1.
 
-Mais en faisant ceci on compte 2 fois l'impact du recyclage du pull 1, on a donc problème de double compte lorsque l'on utilise de la matière recyclé.
+Mais en faisant ceci on compte 2 fois l'impact du recyclage du pull 1. Donc il existe un problème de double compte lorsque l'on utilise de la matière recyclé.
 
 La circular footprint formula intervient pour régler ce problème de double compte. La CFF propose de répartir l'impact du recyclage entre la fin de vie du pull 1 et la production de matière du tshirt 2 (c'est le coefficient A entre 0 et 1 qui va faire varier la répartition de cet impact).
 {% endhint %}
