@@ -9,6 +9,6 @@ Pour les matières premières, la formule à considérer est :
 Ainsi dans le cas d'un vêtement comportant des matières recyclés, le calcul de l'impact matière est plus compliqué.&#x20;
 
 Il faut prendre en compte 3 termes : M1, M2 et M3. \
-Dans les faits M3 semble peu important pour les vêtements c'est pourquoi nous négligeons ce terme. [Plus d'informations sur cette page](https://fabrique-numerique.gitbook.io/ecobalyse/methodologie/filature/3-calcul-de-limpact-matiere-circular-footprint-formula-cff/circular-footprint-formula-cff-matiere).
+Dans les faits M3 semble peu important pour les vêtements c'est pourquoi nous négligeons ce terme. [Plus d'informations sur cette page](circular-footprint-formula-cff-matiere-1.md).
 
-Pour calculer l'impact d'un vêtement avec de la matière recyclé, il suffit donc de calculer M1 et M2. [Nous expliquons le calcul sur cette page](https://fabrique-numerique.gitbook.io/ecobalyse/methodologie/filature/3-calcul-de-limpact-matiere-circular-footprint-formula-cff/circular-footprint-formula-cff-matiere-1).
+Pour calculer l'impact d'un vêtement avec de la matière recyclé, il suffit donc de calculer M1 et M2. [Nous expliquons le calcul sur cette page](circular-footprint-formula-cff-matiere.md).
