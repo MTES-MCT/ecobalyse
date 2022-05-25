@@ -4,13 +4,14 @@ description: Comment effectuons nous la séparation des étapes matière et fila
 
 # 💔 2 - Séparation Matière-Filature
 
-Pour apporter plus de précision dans le calcul, en fonction du pays dans lequel la filature serait réalisée, des hypothèses sont faites pour évaluer l'impact de la filature, considéré comme un sous-ensemble du procédé "matière et filature".
+Dans les données utilisées (Base Impacts), les étapes de matière et filature sont fusionnées. Elles ont donc forcément lieu dans le même pays. Cela est limitant car dans de nombreux cas, la filature n'a pas lieu dans le pays de production de la matière.\
+Nous avons donc tenté de séparer ces 2 étapes.
 
-L'estimation des impacts de la filature (`I_Filature`) permet ensuite, par soustraction, d'estimer l'impact des autres étapes couvertes dans le procédé "matière et filature", regroupées par simplification sous le terme "matière" (`I_Matière`).
+### Séparation des impacts des étapes matière et filature
 
-$$
-I_{Matière} = I_{Matière+Filature} - I_{Filature}
-$$
+Pour séparer les impacts des étapes de matière et filature nous commençons par estimer l'impact de la filature
+
+#### Impact de la filature
 
 Pour l'étape de filature nous faisons l'hypothèse que celle ci n'a besoin que d'électricité. Nous considérons que les autres impacts (machines, ...) sont négligeables. On a donc :
 
@@ -28,8 +29,22 @@ Le choix du chiffre de 3.21 kWh pour produire 1 kg de fil pour la filature provi
 
 * `I_élec` est l'impact de produire 1 kWh d'électricité dans le pays considéré. Cela dépend du lieu de la filature
 
+#### Impact de la matière
+
+Une fois l'impact de la filature estimé  (`I_Filature`), on peut en déduire par soustraction, l'impact des autres étapes couvertes dans le procédé "matière et filature", regroupées par simplification sous le terme "matière" (`I_Matière`).
+
+$$
+I_{Matière} = I_{Matière+Filature} - I_{Filature}
+$$
+
 {% hint style="danger" %}
-Pour un certain nombre de matière (exclusivement des matières synthétiques) et pour certains impacts le résultat de `I_{Matière} = I_{Matière+Filature} - I_{Filature}` est négatif. Dans ce cas nous faisons l'hypothèse que `I_{Matière} = 0`. La liste des matières; trigramme\_impact concernées est la suivante :&#x20;
+Pour un certain nombre de matière (exclusivement des matières synthétiques) et pour certains impacts le résultat de&#x20;
+
+`I_{Matière} = I_{Matière+Filature} - I_{Filature}` est négatif. Dans ce cas nous faisons l'hypothèse que
+
+`I_{Matière} = 0`
+
+La liste des matières; trigramme\_impact concernées est la suivante :&#x20;
 
 (avec IOR : IOnising Radiations, PMA : Particulate MAtter, SWE : SeaWater Eutrophisation, TRE : TeRrestrial Eutrophisation)
 
@@ -44,13 +59,15 @@ Pour un certain nombre de matière (exclusivement des matières synthétiques) e
 * polyamide recyclé (recyclage mécanique); ior
 {% endhint %}
 
-### Taux de perte lors des étapes de matières et filature
+### Séparation des taux de perte des étapes matière et filature
 
-{% hint style="info" %}
+#### Taux de perte de la filature
+
 A partir de données d'industriels, nous faisons l'hypothèse que les taux de perte pour la filature sont de `8%` pour les matières naturelles et de `2%` pour les matières synthétiques. Pour les matières recyclées, le taux de perte de la matière vierge (8% ou 2%) est appliqué.
-{% endhint %}
 
 Ainsi 100g de matière naturelle (du coton par ex) donnerons 92g de coton.
+
+#### Taux de perte de la matière
 
 A partir de ces taux de perte nous calculons un taux de perte pour l'étape matière de manière à ce que
 
