@@ -29,17 +29,19 @@ Le choix du chiffre de 3.21 kWh pour produire 1 kg de fil pour la filature provi
 * `I_élec` est l'impact de produire 1 kWh d'électricité dans le pays considéré. Cela dépend du lieu de la filature
 
 {% hint style="danger" %}
-Pour un certain nombre de matière (exclusivement des matières synthétiques) et pour certains impacts le résultat de I\_{Matière} = I\_{Matière+Filature}-I\_{Filature} est négatif. Dans ce cas nous faisons l'hypothèse que I\_{Matière} = 0. La liste des matières|trigramme\_impact concernées est la suivante :
+Pour un certain nombre de matière (exclusivement des matières synthétiques) et pour certains impacts le résultat de I\_{Matière} = I\_{Matière+Filature} - I\_{Filature} est négatif. Dans ce cas nous faisons l'hypothèse que I\_{Matière} = 0. La liste des matières; trigramme\_impact concernées est la suivante :&#x20;
 
-* polypropylène|ior
-* polylactide|pma
-* polyéthylène|ior
-* polyamide 66|ior
-* aramide|swe
-* aramide|tre
-* bi-composant polypropylène/polyamide|ior
-* polyamide recyclé (recyclage chimique)|ior
-* polyamide recyclé (recyclage mécanique)|ior
+(avec IOR : IOnising Radiations, PMA : Particulate MAtter, SWE : SeaWater Eutrophisation, TRE : TeRrestrial Eutrophisation)
+
+* polypropylène; ior
+* polylactide; pma
+* polyéthylène; ior
+* polyamide 66; ior
+* aramide; swe
+* aramide; tre
+* bi-composant polypropylène/polyamide; ior
+* polyamide recyclé (recyclage chimique); ior
+* polyamide recyclé (recyclage mécanique); ior
 {% endhint %}
 
 ### Taux de perte lors des étapes de matières et filature
