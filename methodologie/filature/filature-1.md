@@ -12,10 +12,6 @@ $$
 I_{Matière} = I_{Matière+Filature} - I_{Filature}
 $$
 
-{% hint style="danger" %}
-En revanche, l'impact de la filature peut bien être calculé pour différentes géographies (et donc différents mix électriques ou mix de chaleur), afin de rendre compte d'une filature qui serait réalisée sur un autre pays/géographie que celui de référence de la base Impacts.
-{% endhint %}
-
 Pour l'étape de filature nous faisons l'hypothèse que celle ci n'a besoin que d'électricité. Nous considérons que les autres impacts (machines, ...) sont négligeables. On a donc :
 
 $$
