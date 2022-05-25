@@ -4,11 +4,11 @@ Pour évaluer l'impact de la fin de vie on se base sur le PEF RP Study de la com
 
 On peut y trouver ce tableau :
 
-![](<../.gitbook/assets/Screenshot 2022-01-14 at 14.24.24.png>)
+![PEF RP Study Table 33](<../.gitbook/assets/Screenshot 2022-01-14 at 14.24.24.png>)
 
 On considère donc 2 circuits de fin de vie : le "municipal waste collection" et le "recycling collection".
 
-On prend en compte 4 procédés sur ces 2 circuits :&#x20;
+On prend en compte 4 procédés sur ces 2 circuits :
 
 * le transport en camion (Truck)
 * le transport en voiture (Passenger car)
@@ -17,7 +17,7 @@ On prend en compte 4 procédés sur ces 2 circuits :&#x20;
 
 ### Transport en camion
 
-D'après Table 33 on peut estimer la distance en faites en camion (notée d\_camion) pour l'étape de fin de vie d'un vêtement :&#x20;
+D'après Table 33 on peut estimer la distance en faites en camion (notée d\_camion) pour l'étape de fin de vie d'un vêtement :
 
 ```
 d_camion = d_municipal_waste_collection + d_recycling_collection
@@ -39,7 +39,7 @@ D_camion = 0.00017 * 67.48
 D_camion = 0.01147 tonnes.km
 ```
 
-A partir du procédé de transport en camion P\__camion_\_cch, on peut en déduire l'impact sur le changement climatique du transport en camion de la fin de vie du t-shirt :&#x20;
+A partir du procédé de transport en camion P\__camion_\_cch, on peut en déduire l'impact sur le changement climatique du transport en camion de la fin de vie du t-shirt :
 
 ```
 Impact_camion = D_camion * P_camion_cch
@@ -50,29 +50,38 @@ Impact_camion = 3.09 gCO2e
 
 ### Transport en voiture
 
-D'après Table 33, 19.5% des vêtements font 1 km en voiture pour être déposé dans le point de collecte des vêtements. D'où
+D'après Table 33, 19.5% des vêtements font 1 km en voiture pour être déposé dans le point de collecte des vêtements. D'où `d_voiture` la distance parcourue en voiture pour un vêtement.&#x20;
 
 ```
 d_voiture = 1*19.5%
 d_voiture = 0.195 km
 ```
 
-Pour chaque vêtement&#x20;
+Le PEFCR v1.3 indique qu'il faut prendre en compte la part du coffre qu'occupe le vêtement que l'on amène au point de collecte.&#x20;
+
+![PEFCR v1.3](<../.gitbook/assets/image (2).png>)
+
+
+
+###
 
 ```
-Impact_voiture = d_voiture * P_voiture_cch
-Impact_voiture = 0.195 * 0.18713
-Impact_voiture = 0.03649 kgCO2e
-Impact_voiture = 36.49 gCO2e
+Impact_voiture = d_voiture * part_coffre_occupé * P_voiture_cch 
+Avec part_coffre_occupé = volume_tshirt / volume_coffre
+
+Finalement : 
+Impact_voiture = 0.195 * 0.0018/0.2 * 0.18713
+Impact_voiture = 0.000328 kgCO2e
+Impact_voiture = 0.328 gCO2e
 ```
 
-### Incinération
+### Incinération (CFF)
 
-On prend les hypothèses issue du document PEF RP study p.72 :&#x20;
+On prend les hypothèses issue du document PEF RP study p.72 :
 
 > 45% of municipal waste collected is incinerated and 55% is landfilled.
 
-Soit P\_incinération le procédé d'incinération de déchets textile en France:&#x20;
+Soit P\_incinération le procédé d'incinération de déchets textile en France:
 
 ```
 Impact_incinération = m * part_incinération * P_incinération_cch
@@ -82,7 +91,7 @@ Impact_incinération = 0.02523 kgCO2e
 ```
 
 Dans la documentation de la Base Impacts, l'énergie de l'incinération est valorisée en électricité. Comme le stipule la CFF (Circular Footprint Formula) il faut donc retrancher l'impact de l'électricité si elle avait été généré d'une autre manière.\
-On peut calculer d'abord l'impact de cette électricité si elle avait généré de façon standard :&#x20;
+On peut calculer d'abord l'impact de cette électricité si elle avait généré de façon standard :
 
 ```
 Bénéfice_incinération = m * part_incinération * Elec_incinération * P_élec_FR
@@ -101,7 +110,7 @@ Impact_total_incinération = 0.022 kgCO2e
 
 ### Mise en décharge
 
-De même pour la mise en décharge, avec P\_décharge le procédé de mise en décharge textile en France :&#x20;
+De même pour la mise en décharge, avec P\_décharge le procédé de mise en décharge textile en France :
 
 ```
 Impact_décharge = m * part_décharge * P_décharge_cch
@@ -110,4 +119,3 @@ part_décharge = (80.5% + 2.6%) * 55% = 45.705%
 Impact_décharge = 0.17 * 45.705% * 2.22265
 Impact_décharge = 0.17269 kgCO2e
 ```
-
