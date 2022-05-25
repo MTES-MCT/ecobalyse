@@ -11,7 +11,7 @@ D'autre part si l'on fait l'ACV du tshirt 2, il faut prendre en compte la produc
 
 Mais en faisant ceci on compte 2 fois l'impact du recyclage du pull 1. Donc il existe un problème de double compte lorsque l'on utilise de la matière recyclé.
 
-La circular footprint formula intervient pour régler ce problème de double compte. La CFF propose de répartir l'impact du recyclage entre la fin de vie du pull 1 et la production de matière du tshirt 2 (c'est le coefficient A entre 0 et 1 qui va faire varier la répartition de cet impact).
+La circular footprint formula intervient pour régler ce problème de double compte. La CFF propose de répartir l'impact du recyclage entre la fin de vie du pull 1 et la production de matière du tshirt 2 (c'est le coefficient A entre 0 et 1 qui va faire varier la répartition de cet impact entre le producteur de matière recyclé (pull 1) ou l'utilisateur de matière recyclé (tshirt 2)).
 {% endhint %}
 
 En application de la méthodologie PEF, et plus particulièrement du projet de PEFCR Apparel & Footwear (A\&F), la CFF est prise en compte pour modéliser l'intégration de matériaux recyclés (ie. cette section) et la fin de vie (**lien à ajouter**).
