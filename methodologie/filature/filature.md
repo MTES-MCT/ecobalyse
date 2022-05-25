@@ -34,7 +34,7 @@ La liste des matières disponibles dans Ecobalyse est visible dans l'[Explorateu
 Dans la suite de cette page, vous trouverez pour information une documentation des procédés matière+filature de la Base Impacts. Néanmoins nous n'utilisons pas ces procédés brutes car [nous séparons les étapes de matière et de filature.](filature-1.md)
 {% endhint %}
 
-## Schéma
+### Schéma
 
 Conformément à la documentation sectorielle textile de la [base Impacts](http://www.base-impacts.ademe.fr/), le système "matière et filature", est schématisé comme suit (exemple de la fibre de laine de mouton et du filament de viscose) :
 
@@ -42,7 +42,7 @@ Conformément à la documentation sectorielle textile de la [base Impacts](http:
 
 ![](../../.gitbook/assets/FilViscose.PNG)
 
-## Procédé de matière et filature
+### Procédé de matière et filature
 
 L'impact du procédé de confection retenu est le produit de la masse "sortante", en l'occurrence le fil, avec le coefficient d'impact considéré (cf. [Impacts considérés](../impacts-consideres.md)).
 
@@ -52,7 +52,7 @@ $$
 
 Les procédés correspondant aux différents choix de matières sont listés dans les 3 tableaux en haut de cette page méthodologique.
 
-## Pertes et rebut
+### Pertes et rebut
 
 Les procédés de Matière et filature considérés prévoient qu'une partie de la matière première mobilisée soit perdue, comme cela est représenté sur les schémas _System Boundaries_ ci-dessus (Flux intermédiaire - Textile Waste - UUID: `1cc67763-7318-4077-af4a-bcd0ab5ef33f`).
 
