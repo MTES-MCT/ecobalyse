@@ -210,7 +210,7 @@ reparabilityField { current, updateReparability } =
 makingWasteField : Config msg -> Html msg
 makingWasteField { current, inputs, updateMakingWaste } =
     span
-        [ title "Taux personnalisé de perte en confection."
+        [ title "Taux personnalisé de perte en confection, incluant notamment la découpe."
         ]
         [ RangeSlider.ratio
             { id = "makingWaste"

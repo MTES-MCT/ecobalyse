@@ -356,7 +356,7 @@ components:
       name: makingWaste
       in: query
       description: |
-        Taux de perte en confection, entre `0` et `0.25`
+        Taux de perte en confection (incluant la découpe), entre `0` et `0.4`.
       required: false
       style: form
       schema:
