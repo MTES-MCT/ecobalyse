@@ -4,7 +4,11 @@ module Data.Env exposing
     , gitbookUrl
     , githubRepository
     , githubUrl
+    , maxMakingWasteRatio
+    , minMakingWasteRatio
     )
+
+import Data.Unit as Unit
 
 
 betagouvUrl : String
@@ -30,3 +34,13 @@ githubRepository =
 githubUrl : String
 githubUrl =
     "https://github.com/" ++ githubRepository
+
+
+minMakingWasteRatio : Unit.Ratio
+minMakingWasteRatio =
+    Unit.ratio 0
+
+
+maxMakingWasteRatio : Unit.Ratio
+maxMakingWasteRatio =
+    Unit.ratio 0.4
