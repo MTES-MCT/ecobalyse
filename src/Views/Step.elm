@@ -5,6 +5,7 @@ module Views.Step exposing
 
 import Data.Country as Country
 import Data.Db exposing (Db)
+import Data.Env as Env
 import Data.Gitbook as Gitbook
 import Data.Impact as Impact
 import Data.Inputs as Inputs exposing (Inputs)
@@ -218,7 +219,7 @@ makingWasteField { current, inputs, updateMakingWaste } =
             , toString = Step.makingWasteToString
             , disabled = False
             , min = 0
-            , max = 25
+            , max = round <| Unit.ratioToFloat Env.maxMakingWasteRatio * 100
             }
         ]
 

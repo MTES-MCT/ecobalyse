@@ -162,7 +162,7 @@ describe("API", () => {
       expectFieldErrorMessage(
         await makeRequest("/api/simulator", ["airTransportRatio=2"]),
         "airTransportRatio",
-        /entre 0 et 1/,
+        /doit être compris entre/,
       );
     });
 
@@ -170,7 +170,7 @@ describe("API", () => {
       expectFieldErrorMessage(
         await makeRequest("/api/simulator", ["makingWaste=0.9"]),
         "makingWaste",
-        /doit être compris entre 0 et 0\.25/,
+        /doit être compris entre/,
       );
     });
 
@@ -178,7 +178,7 @@ describe("API", () => {
       expectFieldErrorMessage(
         await makeRequest("/api/simulator", ["picking=10"]),
         "picking",
-        /doit être compris/,
+        /doit être compris entre/,
       );
     });
 
@@ -186,7 +186,7 @@ describe("API", () => {
       expectFieldErrorMessage(
         await makeRequest("/api/simulator", ["surfaceMass=10"]),
         "surfaceMass",
-        /doit être compris/,
+        /doit être compris entre/,
       );
     });
   });

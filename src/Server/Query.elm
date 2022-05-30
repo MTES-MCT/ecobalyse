@@ -6,6 +6,7 @@ module Server.Query exposing
 
 import Data.Country as Country exposing (Country)
 import Data.Db exposing (Db)
+import Data.Env as Env
 import Data.Inputs as Inputs
 import Data.Material as Material exposing (Material)
 import Data.Product as Product exposing (Product)
@@ -327,10 +328,14 @@ maybeMakingWaste key =
         |> Query.map
             (Maybe.map
                 (\float ->
-                    if float < 0 || float > 0.25 then
+                    if float < Unit.ratioToFloat Env.minMakingWasteRatio || float > Unit.ratioToFloat Env.maxMakingWasteRatio then
                         Err
                             ( key
-                            , "Le taux de perte en confection doit être compris entre 0 et 0.25."
+                            , "Le taux de perte en confection doit être compris entre "
+                                ++ String.fromFloat (Unit.ratioToFloat Env.minMakingWasteRatio)
+                                ++ " et "
+                                ++ String.fromFloat (Unit.ratioToFloat Env.maxMakingWasteRatio)
+                                ++ "."
                             )
 
                     else
