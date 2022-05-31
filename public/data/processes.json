@@ -300,6 +300,36 @@
     "alias": null
   },
   {
+    "name": "Lin (European Flax)",
+    "info": "Textile > Matières > Matières naturelles",
+    "unit": "kg",
+    "source": "CELC",
+    "uuid": "eadccab1-8264-4c3f-bb80-6b9a7abfc0af",
+    "impacts": {
+      "acd": 8.19e-3,
+      "ccb": 0,
+      "ccf": 0,
+      "cch": 6.47e-1,
+      "ccl": 0.0,
+      "fru": 8.97,
+      "fwe": 1.09e-4,
+      "ior": 2.47e-1,
+      "ldu": 8.79e2,
+      "mru": 6.33e-6,
+      "ozd": 2.2e-9,
+      "pco": 4.95e-3,
+      "pma": 9.42e-8,
+      "swe": 4.46e-3,
+      "tre": 3.48e-2,
+      "wtu": 2.74e-1
+    },
+    "heat_MJ": 0.0,
+    "elec_pppm": 0.0,
+    "elec_MJ": 0.0,
+    "waste": 1.85817e-1,
+    "alias": null
+  },
+  {
     "name": "Laine de mouton Mérinos",
     "info": "Textile > Matières > Matières naturelles uuid_bi=4e035dbf-f48b-4b5a-94ea-0006c713958b",
     "unit": "kg",

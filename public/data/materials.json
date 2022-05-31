@@ -45,6 +45,21 @@
     "cff": null
   },
   {
+    "id": "lin-european-flax",
+    "materialProcessUuid": "eadccab1-8264-4c3f-bb80-6b9a7abfc0af",
+    "recycledProcessUuid": null,
+    "recycledFrom": null,
+    "spinningProcessUuid": "4c5438c3-c360-413c-b357-fba2a851e44c",
+    "name": "Fil de lin (European Flax)",
+    "shortName": "Lin (European Flax)",
+    "category": "Naturelles",
+    "primary": true,
+    "geographicOrigin": "Europe",
+    "defaultCountry": "FR",
+    "priority": 0,
+    "cff": null
+  },
+  {
     "id": "laine-merinos",
     "materialProcessUuid": "21636369-8b52-9b4a-97b7-50923ceb3ffd",
     "recycledProcessUuid": null,
