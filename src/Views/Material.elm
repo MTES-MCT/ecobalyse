@@ -78,7 +78,7 @@ formSet ({ add, inputs } as config) =
                 text ""
             , button
                 [ class "btn btn-outline-primary flex-fill"
-                , class "d-flex justify-content-center align-items-center gap-1"
+                , class "d-flex justify-content-center align-items-center gap-1 no-outline"
                 , onClick add
                 , disabled <| length >= Env.maxMaterials
                 ]
@@ -103,11 +103,9 @@ field config { index, length, exclude, valid } input =
     div [ class "mb-2" ]
         [ [ if length > 1 then
                 [ button
-                    [ class "btn btn-primary"
+                    [ class "btn btn-primary no-outline"
                     , onClick (config.remove index)
-
-                    -- FIXME: maxMaterials
-                    , disabled <| length < 2
+                    , disabled (length < 2)
                     , title "Supprimer cette matière"
                     , attribute "aria-label" "Supprimer cette matière"
                     , tabindex -1
