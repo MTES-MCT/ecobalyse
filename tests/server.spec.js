@@ -25,8 +25,8 @@ describe("API", () => {
     [
       "mass=0.17",
       "product=tshirt",
-      "materials[]=coton;0.5;0",
-      "materials[]=acrylique;0.5;0",
+      "materials[]=coton;0.5",
+      "materials[]=acrylique;0.5",
       "countryFabric=CN",
       "countryDyeing=CN",
       "countryMaking=CN",
@@ -105,7 +105,7 @@ describe("API", () => {
 
     it("should validate the materials param", async () => {
       expectFieldErrorMessage(
-        await makeRequest("/api/simulator", ["materials[]=xxx;1;0"]),
+        await makeRequest("/api/simulator", ["materials[]=xxx;1"]),
         "materials",
         /Matière non trouvée id=xxx/,
       );
