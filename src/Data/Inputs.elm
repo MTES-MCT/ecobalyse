@@ -211,8 +211,8 @@ toQuery inputs =
 
 toString : Inputs -> String
 toString inputs =
-    [ [ inputs.product.name ]
-    , [ materialsToString inputs.materials ++ "de " ++ Format.kgToString inputs.mass ]
+    [ [ inputs.product.name ++ " de " ++ Format.kgToString inputs.mass ]
+    , [ materialsToString inputs.materials ]
     , [ "matière", inputs.countryMaterial.name ]
     , [ "filature", inputs.countrySpinning.name ]
     , if inputs.product.knitted then
@@ -240,7 +240,7 @@ materialsToString materials =
                     ++ "% "
                     ++ material.shortName
             )
-        |> List.foldr (++) ""
+        |> String.join ", "
 
 
 weavingOptionsToString : Maybe Unit.PickPerMeter -> Maybe Unit.SurfaceMass -> String
@@ -302,7 +302,11 @@ useOptionsToString maybeQuality maybeReparability =
                 |> Maybe.withDefault "standard"
             )
     in
-    " (qualité " ++ quality ++ ", réparabilité " ++ reparability ++ ")"
+    if quality /= "standard" || reparability /= "standard" then
+        " (qualité " ++ quality ++ ", réparabilité " ++ reparability ++ ")"
+
+    else
+        ""
 
 
 countryList : Inputs -> List Country
