@@ -168,7 +168,7 @@ parseMaterial_ materials string =
             Err <| "Format de matière vide."
 
         _ ->
-            Err <| "Format de matière invalide ou incomplet : " ++ string ++ "."
+            Err <| "Format de matière invalide : " ++ string ++ "."
 
 
 parseMaterialId_ : List Material -> String -> Result String Material.Id
