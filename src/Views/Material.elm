@@ -1,5 +1,6 @@
 module Views.Material exposing (formSet)
 
+import Data.Env as Env
 import Data.Inputs as Inputs
 import Data.Material as Material exposing (Material)
 import Data.Unit as Unit
@@ -79,7 +80,7 @@ formSet ({ add, inputs } as config) =
                 [ class "btn btn-outline-primary flex-fill"
                 , class "d-flex justify-content-center align-items-center gap-1"
                 , onClick add
-                , disabled <| length >= 3
+                , disabled <| length >= Env.maxMaterials
                 ]
                 [ Icon.plus
                 , text "Ajouter une matière"
@@ -99,39 +100,39 @@ field :
     -> Inputs.MaterialInput
     -> Html msg
 field config { index, length, exclude, valid } input =
-    div [ class "row mb-2 d-flex align-items-center" ]
-        [ div [ class "col" ]
-            [ [ if length > 1 then
-                    [ button
-                        [ class "btn btn-primary"
-                        , onClick (config.remove index)
-                        , disabled <| length < 2
-                        , title "Supprimer cette matière"
-                        , attribute "aria-label" "Supprimer cette matière"
-                        , tabindex -1
-                        ]
-                        [ Icon.times ]
-                    ]
+    div [ class "mb-2" ]
+        [ [ if length > 1 then
+                [ button
+                    [ class "btn btn-primary"
+                    , onClick (config.remove index)
 
-                else
-                    []
-              , input.share
-                    |> shareField index
-                        { length = length
-                        , valid = valid
-                        , selectInputText = config.selectInputText
-                        , update = config.updateShare
-                        }
-              , input.material.id
-                    |> materialSelector index
-                        { materials = config.materials
-                        , exclude = exclude
-                        , update = config.update
-                        }
-              ]
-                |> List.concat
-                |> div [ class "input-group" ]
-            ]
+                    -- FIXME: maxMaterials
+                    , disabled <| length < 2
+                    , title "Supprimer cette matière"
+                    , attribute "aria-label" "Supprimer cette matière"
+                    , tabindex -1
+                    ]
+                    [ Icon.times ]
+                ]
+
+            else
+                []
+          , input.share
+                |> shareField index
+                    { length = length
+                    , valid = valid
+                    , selectInputText = config.selectInputText
+                    , update = config.updateShare
+                    }
+          , input.material.id
+                |> materialSelector index
+                    { materials = config.materials
+                    , exclude = exclude
+                    , update = config.update
+                    }
+          ]
+            |> List.concat
+            |> div [ class "input-group" ]
         ]
 
 

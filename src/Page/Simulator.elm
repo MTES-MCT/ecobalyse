@@ -515,10 +515,10 @@ simulatorView ({ db } as session) ({ impact, funit, viewMode } as model) ({ inpu
             [ h1 [] [ text "Simulateur " ]
             , ImpactView.viewDefinition model.impact
             , div [ class "row" ]
-                [ div [ class "col-6 col-md-7 mb-2" ]
+                [ div [ class "col-sm-6 mb-2" ]
                     [ productField db inputs.product
                     ]
-                , div [ class "col-6 col-md-5 mb-2" ]
+                , div [ class "col-sm-6 mb-2" ]
                     [ massField model.massInput
                     ]
                 ]
