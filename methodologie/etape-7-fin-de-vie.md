@@ -1,19 +1,32 @@
 # ♻ Etape 7 - Fin de vie
 
-Pour évaluer l'impact de la fin de vie on se base sur le PEF RP Study de la commission européenne.
+Pour évaluer l'impact de la fin de vie on se base sur le PEFCR de la commission européenne.
 
-On peut y trouver ce tableau :
+Il est détaillé sur la figure suivante les différents scénarios considérés pour la fin de vie d'un vêtement.
 
-![PEF RP Study Table 33](<../.gitbook/assets/Screenshot 2022-01-14 at 14.24.24.png>)
+![PEFCR v1.3 p121](<../.gitbook/assets/image (5).png>)
 
-On considère donc 2 circuits de fin de vie : le "municipal waste collection" et le "recycling collection".
 
-On prend en compte 4 procédés sur ces 2 circuits :
+
+&#x20;On prend en compte ces 2 scénarios :&#x20;
+
+* &#x20;Municipal waste collection -> Incinération ou mise en décharge
+* Recyclage
+
+Pour le recyclage, 2 circuits sont proposés ici : le recyclage en chiffons (wipers) et en matériaux d'isolation (insulation). La prise en compte de ce recyclage se fait via la Circular Footprint Formula (CFF). [Nous avons estimé l'impact de ces circuits de recyclage et trouvé qu'il était négligeable sur cette page.](filature/3-calcul-de-limpact-matiere-circular-footprint-formula-cff/circular-footprint-formula-cff-matiere-1.md)
+
+
+
+Sur ces 2 scénarios, pn prend en compte 4 procédés sur ces 2 circuits :
 
 * le transport en camion (Truck)
 * le transport en voiture (Passenger car)
 * l'incinération
 * la mise en décharge
+
+Les distances parcourues ainsi que les proportions pour chaque scénarios sont définis dans le scénario suivant :
+
+![PEF RP Study Table 33](<../.gitbook/assets/Screenshot 2022-01-14 at 14.24.24.png>)
 
 ### Transport en camion
 
