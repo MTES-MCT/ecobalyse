@@ -22,7 +22,6 @@ module Data.Inputs exposing
     , toQuery
     , toString
     , updateMaterial
-    , updateMaterialRecycledRatio
     , updateMaterialShare
     , updateProduct
     , updateStepCountry
@@ -48,7 +47,6 @@ import Views.Format as Format
 type alias MaterialInput =
     { material : Material
     , share : Unit.Ratio
-    , recycledRatio : Unit.Ratio
     }
 
 
@@ -77,7 +75,6 @@ type alias Inputs =
 type alias MaterialQuery =
     { id : Material.Id
     , share : Unit.Ratio
-    , recycledRatio : Unit.Ratio
     }
 
 
@@ -102,13 +99,12 @@ type alias Query =
 toMaterialInputs : List Material -> List MaterialQuery -> Result String (List MaterialInput)
 toMaterialInputs materials =
     List.map
-        (\{ id, share, recycledRatio } ->
+        (\{ id, share } ->
             Material.findById id materials
                 |> Result.map
                     (\material_ ->
                         { material = material_
                         , share = share
-                        , recycledRatio = recycledRatio
                         }
                     )
         )
@@ -117,13 +113,7 @@ toMaterialInputs materials =
 
 toMaterialQuery : List MaterialInput -> List MaterialQuery
 toMaterialQuery =
-    List.map
-        (\{ material, share, recycledRatio } ->
-            { id = material.id
-            , share = share
-            , recycledRatio = recycledRatio
-            }
-        )
+    List.map (\{ material, share } -> { id = material.id, share = share })
 
 
 getMainMaterial : List MaterialInput -> Result String Material
@@ -245,11 +235,10 @@ materialsToString materials =
     materials
         |> List.filter (\{ share } -> Unit.ratioToFloat share > 0)
         |> List.map
-            (\{ material, share, recycledRatio } ->
+            (\{ material, share } ->
                 Format.formatFloat 0 (Unit.ratioToFloat share * 100)
                     ++ "% "
-                    ++ Material.fullName (Just recycledRatio) material
-                    ++ ", "
+                    ++ material.shortName
             )
         |> List.foldr (++) ""
 
@@ -399,12 +388,7 @@ addMaterial db query =
         Just id ->
             { query
                 | materials =
-                    query.materials
-                        ++ [ { id = id
-                             , share = Unit.ratio 0
-                             , recycledRatio = Unit.ratio 0
-                             }
-                           ]
+                    query.materials ++ [ { id = id, share = Unit.ratio 0 } ]
             }
 
         Nothing ->
@@ -419,15 +403,7 @@ updateMaterialAt index update query =
 updateMaterial : Int -> Material -> Query -> Query
 updateMaterial index { id } =
     -- Note: The first material country is always extracted and applied in `fromQuery`.
-    updateMaterialAt index
-        (\({ share } as m) ->
-            { m | id = id, share = share, recycledRatio = Unit.ratio 0 }
-        )
-
-
-updateMaterialRecycledRatio : Int -> Unit.Ratio -> Query -> Query
-updateMaterialRecycledRatio index recycledRatio =
-    updateMaterialAt index (\m -> { m | recycledRatio = recycledRatio })
+    updateMaterialAt index (\({ share } as m) -> { m | id = id, share = share })
 
 
 updateMaterialShare : Int -> Unit.Ratio -> Query -> Query
@@ -500,12 +476,7 @@ tShirtCotonFrance : Query
 tShirtCotonFrance =
     -- T-shirt circuit France
     { mass = Mass.kilograms 0.17
-    , materials =
-        [ { id = Material.Id "coton"
-          , share = Unit.ratio 1
-          , recycledRatio = Unit.ratio 0
-          }
-        ]
+    , materials = [ { id = Material.Id "coton", share = Unit.ratio 1 } ]
     , product = Product.Id "tshirt"
     , countrySpinning = Nothing
     , countryFabric = Country.Code "FR"
@@ -555,12 +526,7 @@ jupeCircuitAsie : Query
 jupeCircuitAsie =
     -- Jupe circuit Asie
     { mass = Mass.kilograms 0.3
-    , materials =
-        [ { id = Material.Id "acrylique"
-          , share = Unit.ratio 1
-          , recycledRatio = Unit.ratio 0
-          }
-        ]
+    , materials = [ { id = Material.Id "acrylique", share = Unit.ratio 1 } ]
     , product = Product.Id "jupe"
     , countrySpinning = Nothing
     , countryFabric = Country.Code "CN"
@@ -580,12 +546,7 @@ manteauCircuitEurope : Query
 manteauCircuitEurope =
     -- Manteau circuit Europe
     { mass = Mass.kilograms 0.95
-    , materials =
-        [ { id = Material.Id "cachemire"
-          , share = Unit.ratio 1
-          , recycledRatio = Unit.ratio 0
-          }
-        ]
+    , materials = [ { id = Material.Id "cachemire", share = Unit.ratio 1 } ]
     , product = Product.Id "manteau"
     , countrySpinning = Nothing
     , countryFabric = Country.Code "TR"
@@ -605,12 +566,7 @@ pantalonCircuitEurope : Query
 pantalonCircuitEurope =
     -- Pantalon circuit Europe
     { mass = Mass.kilograms 0.45
-    , materials =
-        [ { id = Material.Id "lin-filasse"
-          , share = Unit.ratio 1
-          , recycledRatio = Unit.ratio 0
-          }
-        ]
+    , materials = [ { id = Material.Id "lin-filasse", share = Unit.ratio 1 } ]
     , product = Product.Id "pantalon"
     , countrySpinning = Nothing
     , countryFabric = Country.Code "TR"
@@ -661,7 +617,6 @@ encodeMaterialInput v =
     Encode.object
         [ ( "material", Material.encode v.material )
         , ( "share", Unit.encodeRatio v.share )
-        , ( "recycledRatio", Unit.encodeRatio v.recycledRatio )
         ]
 
 
@@ -689,7 +644,6 @@ decodeMaterialQuery =
     Decode.succeed MaterialQuery
         |> Pipe.required "id" (Decode.map Material.Id Decode.string)
         |> Pipe.required "share" Unit.decodeRatio
-        |> Pipe.required "recycledRatio" Unit.decodeRatio
 
 
 encodeQuery : Query -> Encode.Value
@@ -717,7 +671,6 @@ encodeMaterialQuery v =
     Encode.object
         [ ( "id", Material.encodeId v.id )
         , ( "share", Unit.encodeRatio v.share )
-        , ( "recycledRatio", Unit.encodeRatio v.recycledRatio )
         ]
 
 

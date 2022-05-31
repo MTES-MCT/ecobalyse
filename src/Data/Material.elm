@@ -7,7 +7,6 @@ module Data.Material exposing
     , encodeId
     , findById
     , findByProcessUuid
-    , fullName
     , groupAll
     , idToString
     )
@@ -85,27 +84,6 @@ groupByCategories materials =
     , materials |> fromCategory Category.Synthetic
     , materials |> fromCategory Category.Recycled
     )
-
-
-fullName : Maybe Unit.Ratio -> Material -> String
-fullName recycledRatio material =
-    material.shortName
-        ++ (case ( material.recycledProcess, recycledRatio ) of
-                ( Just _, Just ratio ) ->
-                    if Unit.ratioToFloat ratio == 0 then
-                        ""
-
-                    else
-                        " (" ++ recycledRatioToString "♲" ratio ++ ")"
-
-                _ ->
-                    ""
-           )
-
-
-recycledRatioToString : String -> Unit.Ratio -> String
-recycledRatioToString unit (Unit.Ratio recycledRatio) =
-    String.fromInt (round (recycledRatio * 100)) ++ "\u{202F}%\u{00A0}" ++ unit
 
 
 decode : List Process -> Decoder Material

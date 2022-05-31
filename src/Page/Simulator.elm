@@ -84,7 +84,6 @@ type Msg
     | UpdateMakingWaste (Maybe Unit.Ratio)
     | UpdateMassInput String
     | UpdateMaterial Int Material.Id
-    | UpdateMaterialRecycledRatio Int Unit.Ratio
     | UpdateMaterialShare Int Unit.Ratio
     | UpdatePicking (Maybe Unit.PickPerMeter)
     | UpdateProduct Product.Id
@@ -297,10 +296,6 @@ update ({ db, query, navKey } as session) msg model =
 
                 Err error ->
                     ( model, session |> Session.notifyError "Erreur de matière première" error, Cmd.none )
-
-        UpdateMaterialRecycledRatio index recycledRatio ->
-            ( model, session, Cmd.none )
-                |> updateQuery (Inputs.updateMaterialRecycledRatio index recycledRatio query)
 
         UpdateMaterialShare index share ->
             ( model, session, Cmd.none )
@@ -533,7 +528,6 @@ simulatorView ({ db } as session) ({ impact, funit, viewMode } as model) ({ inpu
                 , add = AddMaterial
                 , remove = RemoveMaterial
                 , update = UpdateMaterial
-                , updateRecycledRatio = UpdateMaterialRecycledRatio
                 , updateShare = UpdateMaterialShare
                 , selectInputText = SelectInputText
                 }

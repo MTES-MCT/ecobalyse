@@ -112,33 +112,6 @@ toCountry code query =
     }
 
 
-toRecycled : Bool -> Inputs.Query -> Inputs.Query
-toRecycled recycled query =
-    { query
-        | materials =
-            query.materials
-                |> List.map
-                    (\material ->
-                        { material
-                            | recycledRatio =
-                                if recycled then
-                                    Unit.ratio 1
-
-                                else
-                                    Unit.ratio 0
-                        }
-                    )
-    }
-
-
-hasRecycledMaterials : Inputs.Inputs -> Bool
-hasRecycledMaterials { materials } =
-    materials
-        |> List.filter (.material >> .recycledProcess >> (/=) Nothing)
-        |> List.length
-        |> (/=) 0
-
-
 getEntries : Db -> Unit.Functional -> Impact.Definition -> Inputs -> Result String (List Entry)
 getEntries db funit impact inputs =
     let
@@ -163,46 +136,18 @@ getEntries db funit impact inputs =
             createEntry db funit impact
 
         entries =
-            -- Comparison with several (non-)recycled equivalents
-            if hasRecycledMaterials inputs then
-                [ query
-                    |> createEntry_ True currentName
-                , fromUserQuery query
-                    |> toCountry (Country.Code "FR")
-                    |> toRecycled True
-                    |> createEntry_ False "France 100% recyclé, Q=1"
-                , fromUserQuery query
-                    |> toCountry (Country.Code "FR")
-                    |> toRecycled False
-                    |> createEntry_ False "France 0% recyclé, Q=1"
-                , fromUserQuery query
-                    |> toCountry (Country.Code "PT")
-                    |> toRecycled True
-                    |> createEntry_ False "Portugal 100% recyclé, Q=1"
-                , fromUserQuery query
-                    |> toCountry (Country.Code "IN")
-                    |> toRecycled True
-                    |> createEntry_ False "Inde 100% recyclé, Q=1"
-                , fromUserQuery query
-                    |> toCountry (Country.Code "IN")
-                    |> toRecycled False
-                    |> createEntry_ False "Inde 0% recyclé, Q=1"
-                ]
-
-            else
-                -- Simple comparison as there's no recycalbe materials involved
-                [ query
-                    |> createEntry_ True currentName
-                , fromUserQuery query
-                    |> toCountry (Country.Code "FR")
-                    |> createEntry_ False "France 0% recyclé, Q=1"
-                , fromUserQuery query
-                    |> toCountry (Country.Code "PT")
-                    |> createEntry_ False "Portugal 0% recyclé, Q=1"
-                , fromUserQuery query
-                    |> toCountry (Country.Code "IN")
-                    |> createEntry_ False "Inde 0% recyclé, Q=1"
-                ]
+            [ query
+                |> createEntry_ True currentName
+            , fromUserQuery query
+                |> toCountry (Country.Code "FR")
+                |> createEntry_ False "France, Q=1"
+            , fromUserQuery query
+                |> toCountry (Country.Code "PT")
+                |> createEntry_ False "Portugal, Q=1"
+            , fromUserQuery query
+                |> toCountry (Country.Code "IN")
+                |> createEntry_ False "Inde, Q=1"
+            ]
     in
     entries
         |> RE.combine

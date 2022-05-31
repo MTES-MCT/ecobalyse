@@ -108,11 +108,9 @@ suite =
                             (Just
                                 [ { id = Material.Id "coton"
                                   , share = Unit.Ratio 0.5
-                                  , recycledRatio = Unit.Ratio 0
                                   }
                                 , { id = Material.Id "acrylique"
                                   , share = Unit.Ratio 0.5
-                                  , recycledRatio = Unit.Ratio 0
                                   }
                                 ]
                             )

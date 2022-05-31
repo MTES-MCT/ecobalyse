@@ -6,7 +6,6 @@ import Data.Env as Env
 import Data.Impact as Impact
 import Data.Inputs as Inputs
 import Data.LifeCycle as LifeCycle
-import Data.Material as Material
 import Data.Session exposing (Session)
 import Data.Simulator exposing (Simulator)
 import Data.Step.Label as Label
@@ -38,12 +37,11 @@ viewMaterials materials =
     materials
         |> List.filter (\{ share } -> Unit.ratioToFloat share > 0)
         |> List.map
-            (\{ material, share, recycledRatio } ->
+            (\{ material, share } ->
                 span []
                     [ Format.ratioToDecimals 0 share
                     , text " "
-                    , Material.fullName (Just recycledRatio) material
-                        |> text
+                    , text material.shortName
                     ]
             )
         |> List.intersperse (text ", ")

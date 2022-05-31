@@ -6,7 +6,6 @@ import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
-import Views.Format as Format
 import Views.Icon as Icon
 
 
@@ -16,7 +15,6 @@ type alias FormSetConfig msg =
     , add : msg
     , remove : Int -> msg
     , update : Int -> Material.Id -> msg
-    , updateRecycledRatio : Int -> Unit.Ratio -> msg
     , updateShare : Int -> Unit.Ratio -> msg
     , selectInputText : String -> msg
     }
@@ -56,39 +54,35 @@ formSet ({ add, inputs } as config) =
                         }
                 )
             |> div []
-        , div [ class "row mb-2" ]
-            [ div [ class "col-sm-7" ]
-                [ div [ class "input-group" ]
-                    [ if length > 1 then
-                        span
-                            [ class "SharesTotal form-control text-end"
-                            , class "d-flex justify-content-between align-items-center gap-1"
-                            , classList
-                                [ ( "text-success feedback-valid", valid )
-                                , ( "text-danger feedback-invalid", not valid )
-                                ]
-                            ]
-                            [ if valid then
-                                Icon.check
-
-                              else
-                                Icon.warning
-                            , round (totalShares * 100) |> String.fromInt |> text
-                            , text "%"
-                            ]
-
-                      else
-                        text ""
-                    , button
-                        [ class "btn btn-outline-primary flex-fill"
-                        , class "d-flex justify-content-center align-items-center gap-1"
-                        , onClick add
-                        , disabled <| length >= 3
-                        ]
-                        [ Icon.plus
-                        , text "Ajouter une matière"
+        , div [ class "input-group" ]
+            [ if length > 1 then
+                span
+                    [ class "SharesTotal form-control text-end"
+                    , class "d-flex justify-content-between align-items-center gap-1"
+                    , classList
+                        [ ( "text-success feedback-valid", valid )
+                        , ( "text-danger feedback-invalid", not valid )
                         ]
                     ]
+                    [ if valid then
+                        Icon.check
+
+                      else
+                        Icon.warning
+                    , round (totalShares * 100) |> String.fromInt |> text
+                    , text "%"
+                    ]
+
+              else
+                text ""
+            , button
+                [ class "btn btn-outline-primary flex-fill"
+                , class "d-flex justify-content-center align-items-center gap-1"
+                , onClick add
+                , disabled <| length >= 3
+                ]
+                [ Icon.plus
+                , text "Ajouter une matière"
                 ]
             ]
         ]
@@ -106,7 +100,7 @@ field :
     -> Html msg
 field config { index, length, exclude, valid } input =
     div [ class "row mb-2 d-flex align-items-center" ]
-        [ div [ class "col-sm-7" ]
+        [ div [ class "col" ]
             [ [ if length > 1 then
                     [ button
                         [ class "btn btn-primary"
@@ -137,10 +131,6 @@ field config { index, length, exclude, valid } input =
               ]
                 |> List.concat
                 |> div [ class "input-group" ]
-            ]
-        , div [ class "col-sm-5 pt-2 pt-sm-0" ]
-            [ input
-                |> recycledRatioField index config.updateRecycledRatio
             ]
         ]
 
@@ -244,49 +234,3 @@ shareField index { length, valid, selectInputText, update } share =
         ]
         [ text "%" ]
     ]
-
-
-recycledRatioField :
-    Int
-    -> (Int -> Unit.Ratio -> msg)
-    -> Inputs.MaterialInput
-    -> Html msg
-recycledRatioField index update { material, recycledRatio } =
-    div [ class "d-flex gap-2 align-items-center" ]
-        [ span
-            [ class "fs-5 lh-1"
-            , classList
-                [ ( "text-primary", material.recycledProcess /= Nothing )
-                , ( "text-secondary", material.recycledProcess == Nothing )
-                ]
-            ]
-            [ Icon.recycle ]
-        , span [ class "d-block d-sm-none fw-bold" ] [ text "Recyclé\u{00A0}à" ]
-        , input
-            [ type_ "range"
-            , class "d-block form-range"
-            , onInput
-                (String.toFloat
-                    >> Maybe.withDefault 0
-                    >> Unit.ratio
-                    >> update index
-                )
-            , Attr.min "0"
-            , Attr.max "1"
-            , step "0.01"
-            , case material.recycledProcess of
-                Just { name } ->
-                    title name
-
-                Nothing ->
-                    title "Pas d'équivalent recyclé"
-
-            -- Note: 'value' attr should always be set after 'step' attr
-            , recycledRatio |> Unit.ratioToFloat |> String.fromFloat |> value
-            , Attr.disabled <| material.recycledProcess == Nothing
-            ]
-            []
-        , div [ class "text-end", style "min-width" "34px" ]
-            [ Format.ratioToDecimals 0 recycledRatio
-            ]
-        ]
