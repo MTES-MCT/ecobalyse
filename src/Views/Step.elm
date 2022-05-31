@@ -514,9 +514,13 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                 ]
             , ul [ class "list-group list-group-flush fs-7" ]
                 [ li [ class "list-group-item text-muted d-flex justify-content-around" ]
-                    [ span [] [ text "Masse\u{00A0}: ", Format.kg current.inputMass ]
-                    , span [ class "d-flex align-items-center" ]
-                        [ span [ class "me-1" ] [ text "Perte" ]
+                    [ span []
+                        [ text "Masse entrante", br [] [], Format.kg current.inputMass ]
+                    , span []
+                        [ text "Masse sortante", br [] [], Format.kg current.outputMass ]
+                    , span []
+                        [ text "Perte"
+                        , br [] []
                         , Format.kg current.waste
                         , inlineDocumentationLink config Gitbook.Waste
                         ]
