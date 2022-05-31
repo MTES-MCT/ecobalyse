@@ -38,11 +38,11 @@ formSet ({ add, inputs } as config) =
             round (totalShares * 100) == 100
     in
     div [ class "Materials" ]
-        [ div [ class "row mb-2" ]
-            [ div [ class "col-7 fw-bold" ]
+        [ div [ class "d-flex align-items-center gap-1 mb-2" ]
+            [ span [ class "fw-bold" ]
                 [ text "Matières premières" ]
-            , div [ class "d-none d-sm-block col-5 fw-bold" ]
-                [ text "Part d'origine recyclée" ]
+            , span [ class "text-muted" ]
+                [ text <| "jusqu'à " ++ String.fromInt Env.maxMaterials ++ " maximum" ]
             ]
         , inputs
             |> List.indexedMap

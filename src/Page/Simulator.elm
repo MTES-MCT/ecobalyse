@@ -337,7 +337,8 @@ update ({ db, query, navKey } as session) msg model =
 massField : String -> Html Msg
 massField massInput =
     div []
-        [ label [ for "mass", class "form-label fw-bold" ] [ text "Masse du produit fini" ]
+        [ label [ for "mass", class "form-label fw-bold" ]
+            [ text "Masse du produit fini" ]
         , div
             [ class "input-group" ]
             [ input
