@@ -145,7 +145,7 @@ materialSelector :
     -> List (Html msg)
 materialSelector index { materials, exclude, update } id =
     let
-        ( ( natural1, synthetic1, recycled1 ), ( natural2, synthetic2, recycled2 ) ) =
+        ( natural, synthetic, recycled ) =
             Material.groupAll materials
 
         toOption m =
@@ -158,7 +158,7 @@ materialSelector index { materials, exclude, update } id =
                 [ text m.shortName ]
 
         toGroup name materials_ =
-            if materials == [] then
+            if materials_ == [] then
                 text ""
 
             else
@@ -166,12 +166,9 @@ materialSelector index { materials, exclude, update } id =
                     |> List.map toOption
                     |> optgroup [ attribute "label" name ]
     in
-    [ [ toGroup "Matières naturelles" natural1
-      , toGroup "Matières synthétiques" synthetic1
-      , toGroup "Matières recyclées" recycled1
-      , toGroup "Autres matières naturelles" natural2
-      , toGroup "Autres matières synthétiques" synthetic2
-      , toGroup "Autres matières recyclées" recycled2
+    [ [ toGroup "Matières naturelles" natural
+      , toGroup "Matières synthétiques" synthetic
+      , toGroup "Matières recyclées" recycled
       ]
         |> select
             [ Attr.id "material"
