@@ -241,46 +241,20 @@ computeDyeingImpacts { processes } simulator =
 
 stepMaterialImpacts : Db -> Material -> Step -> Impacts
 stepMaterialImpacts db material step =
-    case material.recycledFrom of
-        -- Current material is purely recycled
-        Just primaryId ->
-            case Material.findById primaryId db.materials of
-                -- We know its corresponding primary material
-                Ok primaryMaterial ->
-                    step.outputMass
-                        |> Formula.materialImpacts step.impacts
-                            ( material.materialProcess, primaryMaterial.materialProcess )
-                            (Unit.ratio 1)
-                            material.cffData
-
-                -- We don't know its primary material; consider it as primary itself
-                Err _ ->
-                    step.outputMass
-                        |> Formula.pureMaterialImpacts step.impacts
-                            material.materialProcess
-
-        -- Current material is primary (non-recycled)
+    case Material.getRecyclingData material db.materials of
+        -- Non-recycled Material
         Nothing ->
-            case material.recycledProcess of
-                -- Current primary material can be recycled
-                Just recycledProcess ->
-                    let
-                        cffData =
-                            db.materials
-                                |> Material.findByProcessUuid recycledProcess.uuid
-                                |> Maybe.andThen .cffData
-                    in
-                    step.outputMass
-                        |> Formula.materialImpacts step.impacts
-                            ( recycledProcess, material.materialProcess )
-                            (Unit.ratio 0)
-                            cffData
+            step.outputMass
+                |> Formula.pureMaterialImpacts step.impacts material.materialProcess
 
-                -- Current primary material can't be recycled
-                Nothing ->
-                    step.outputMass
-                        |> Formula.pureMaterialImpacts step.impacts
-                            material.materialProcess
+        -- Recycled material: apply CFF
+        Just ( sourceMaterial, cffData ) ->
+            step.outputMass
+                |> Formula.recycledMaterialImpacts step.impacts
+                    { recycledProcess = material.materialProcess
+                    , nonRecycledProcess = sourceMaterial.materialProcess
+                    , cffData = cffData
+                    }
 
 
 computeMaterialImpacts : Db -> Simulator -> Simulator

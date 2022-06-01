@@ -6,7 +6,7 @@ module Data.Material exposing
     , encode
     , encodeId
     , findById
-    , findByProcessUuid
+    , getRecyclingData
     , groupAll
     , idToString
     )
@@ -47,17 +47,25 @@ type alias CFFData =
     }
 
 
+getRecyclingData : Material -> List Material -> Maybe ( Material, CFFData )
+getRecyclingData material materials =
+    -- If material is non-recycled, retrieve relevant recycled equivalent material & CFF data
+    Maybe.map2 Tuple.pair
+        (material.recycledFrom
+            |> Maybe.andThen
+                (\id ->
+                    findById id materials
+                        |> Result.toMaybe
+                )
+        )
+        material.cffData
+
+
 findById : Id -> List Material -> Result String Material
 findById id =
     List.filter (.id >> (==) id)
         >> List.head
         >> Result.fromMaybe ("Matière non trouvée id=" ++ idToString id ++ ".")
-
-
-findByProcessUuid : Process.Uuid -> List Material -> Maybe Material
-findByProcessUuid processUuid =
-    List.filter (\{ materialProcess } -> materialProcess.uuid == processUuid)
-        >> List.head
 
 
 groupAll :
