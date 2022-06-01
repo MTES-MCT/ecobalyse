@@ -206,14 +206,18 @@ components:
       name: "materials[]"
       in: query
       description: |
-        Liste des matières composant le produit (liste disponible sur le point d'entrée dédié).
-        Le format de chaque entrée est composé de l'identifiant de la matière, de la part du produit
-        qu'elle représente et de la proportion de matière recyclée entrant dans sa composition.
+        Liste des matières composant le produit (liste disponible sur le point d'entrée `/materials`).
+        Le format de chaque entrée est composé de l'identifiant de la matière et de la part du produit
+        qu'elle représente :
 
-        Par exemple :
+        - `coton;0.3` signifie *30% coton*;
+        - `coton-rdp;0.7` signifie *70% coton recyclé (déchets de production)*;
 
-        - `coton;1;0` signifie *100% coton non-recyclé*;
-        - `acrylique;0.5;0.7` signifie *50% acrylique à 70% d'origine recyclée*.
+        > Par exemple, les paramètres à passer pour un t-shirt 30% coton, 30% coton recyclé et 40% acrylique sont :
+        >
+        > ```js
+        > materials[]=coton;0.3&materials[]=coton-rdp;0.3&materials[]=acrylique;0.4
+        > ```
       required: true
       style: form
       schema:
@@ -224,11 +228,13 @@ components:
         coton:
           value: ["coton;1;0"]
         acrylique:
-          value: ["coton;0.7;0", "acrylique;0.3;0.5"]
+          value: ["coton;0.7", "acrylique;0.3"]
+        mixed:
+          value: ["coton;0.3", "coton-rdp;0.3", "acrylique;0.4"]
     productParam:
       name: product
       in: query
-      description: Identifiant du produit (liste disponible sur le point d'entrée dédié)
+      description: Identifiant du produit (liste disponible sur le point d'entrée `/products`)
       required: true
       style: form
       schema:
@@ -242,7 +248,7 @@ components:
       name: countrySpinning
       in: query
       description: |
-        Code pays pour l'étape de **Filature** (liste disponible sur le point d'entrée dédié).
+        Code pays pour l'étape de **Filature** (liste disponible sur le point d'entrée `countries`).
         Si non spécifié, le pays de filature pris en considération est celui de production de
         la matière la plus représentée dans le mix.
       required: false
@@ -262,7 +268,7 @@ components:
       name: countryFabric
       in: query
       description: |
-        Code pays pour l'étape de **Tissage/Tricotage** (liste disponible sur le point d'entrée dédié)
+        Code pays pour l'étape de **Tissage/Tricotage** (liste disponible sur le point d'entrée `countries`)
       required: true
       style: form
       schema:
@@ -277,7 +283,7 @@ components:
     countryDyeingParam:
       name: countryDyeing
       in: query
-      description: "Code pays pour l'étape de **Teinture** (liste disponible sur le point d'entrée dédié)"
+      description: "Code pays pour l'étape de **Teinture** (liste disponible sur le point d'entrée `countries`)"
       required: true
       style: form
       schema:
@@ -292,7 +298,7 @@ components:
     countryMakingParam:
       name: countryMaking
       in: query
-      description: "Code pays pour l'étape de **Confection** (liste disponible sur le point d'entrée dédié)"
+      description: "Code pays pour l'étape de **Confection** (liste disponible sur le point d'entrée `countries`)"
       required: true
       style: form
       schema:

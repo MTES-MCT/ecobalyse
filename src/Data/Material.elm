@@ -6,8 +6,7 @@ module Data.Material exposing
     , encode
     , encodeId
     , findById
-    , findByProcessUuid
-    , fullName
+    , getRecyclingData
     , groupAll
     , idToString
     )
@@ -30,7 +29,6 @@ type alias Material =
     , recycledProcess : Maybe Process
     , recycledFrom : Maybe Id
     , spinningProcess : Maybe Process -- Optional, as some materials are not spinned (eg. Neoprene)
-    , primary : Bool -- Used to group materials in the UI
     , geographicOrigin : String -- A textual information about the geographic origin of the material
     , defaultCountry : Country.Code -- Default country for Material and Spinning steps
     , priority : Int -- Used to sort materials
@@ -49,6 +47,20 @@ type alias CFFData =
     }
 
 
+getRecyclingData : Material -> List Material -> Maybe ( Material, CFFData )
+getRecyclingData material materials =
+    -- If material is non-recycled, retrieve relevant recycled equivalent material & CFF data
+    Maybe.map2 Tuple.pair
+        (material.recycledFrom
+            |> Maybe.andThen
+                (\id ->
+                    findById id materials
+                        |> Result.toMaybe
+                )
+        )
+        material.cffData
+
+
 findById : Id -> List Material -> Result String Material
 findById id =
     List.filter (.id >> (==) id)
@@ -56,22 +68,11 @@ findById id =
         >> Result.fromMaybe ("Matière non trouvée id=" ++ idToString id ++ ".")
 
 
-findByProcessUuid : Process.Uuid -> List Material -> Maybe Material
-findByProcessUuid processUuid =
-    List.filter (\{ materialProcess } -> materialProcess.uuid == processUuid)
-        >> List.head
-
-
 groupAll :
     List Material
-    ->
-        ( ( List Material, List Material, List Material )
-        , ( List Material, List Material, List Material )
-        )
+    -> ( List Material, List Material, List Material )
 groupAll =
-    List.sortBy .shortName
-        >> List.partition (.primary >> (==) True)
-        >> Tuple.mapBoth groupByCategories groupByCategories
+    List.sortBy .shortName >> groupByCategories
 
 
 fromCategory : Category -> List Material -> List Material
@@ -87,27 +88,6 @@ groupByCategories materials =
     )
 
 
-fullName : Maybe Unit.Ratio -> Material -> String
-fullName recycledRatio material =
-    material.shortName
-        ++ (case ( material.recycledProcess, recycledRatio ) of
-                ( Just _, Just ratio ) ->
-                    if Unit.ratioToFloat ratio == 0 then
-                        ""
-
-                    else
-                        " (" ++ recycledRatioToString "♲" ratio ++ ")"
-
-                _ ->
-                    ""
-           )
-
-
-recycledRatioToString : String -> Unit.Ratio -> String
-recycledRatioToString unit (Unit.Ratio recycledRatio) =
-    String.fromInt (round (recycledRatio * 100)) ++ "\u{202F}%\u{00A0}" ++ unit
-
-
 decode : List Process -> Decoder Material
 decode processes =
     Decode.succeed Material
@@ -119,7 +99,6 @@ decode processes =
         |> JDP.required "recycledProcessUuid" (Decode.maybe (Process.decodeFromUuid processes))
         |> JDP.required "recycledFrom" (Decode.maybe (Decode.map Id Decode.string))
         |> JDP.required "spinningProcessUuid" (Decode.maybe (Process.decodeFromUuid processes))
-        |> JDP.required "primary" Decode.bool
         |> JDP.required "geographicOrigin" Decode.string
         |> JDP.required "defaultCountry" (Decode.string |> Decode.map Country.codeFromString)
         |> JDP.required "priority" Decode.int
@@ -153,7 +132,6 @@ encode v =
         , ( "spinningProcessUuid"
           , v.spinningProcess |> Maybe.map (.uuid >> Process.encodeUuid) |> Maybe.withDefault Encode.null
           )
-        , ( "primary", Encode.bool v.primary )
         , ( "geographicOrigin", Encode.string v.geographicOrigin )
         , ( "defaultCountry", v.defaultCountry |> Country.codeToString |> Encode.string )
         , ( "priority", Encode.int v.priority )

@@ -22,8 +22,7 @@ suite =
                 [ describe "endpoints"
                     [ [ "/simulator?mass=0.17"
                       , "product=tshirt"
-                      , "material=coton"
-                      , "materials[]=coton;1;0"
+                      , "materials[]=coton;1"
                       , "countryFabric=FR"
                       , "countryDyeing=FR"
                       , "countryMaking=FR"
@@ -39,8 +38,7 @@ suite =
                         |> asTest "should handle the /simulator endpoint"
                     , [ "/simulator?mass=0.17"
                       , "product=tshirt"
-                      , "material=coton"
-                      , "materials[]=coton;1;0"
+                      , "materials[]=coton;1"
                       , "countryFabric=FR"
                       , "countryDyeing=FR"
                       , "countryMaking=FR"
@@ -57,8 +55,7 @@ suite =
                         |> asTest "should handle the /simulator endpoint with the quality parameter set"
                     , [ "/simulator/fwe?mass=0.17"
                       , "product=tshirt"
-                      , "material=coton"
-                      , "materials[]=coton;1;0"
+                      , "materials[]=coton;1"
                       , "countryFabric=FR"
                       , "countryDyeing=FR"
                       , "countryMaking=FR"
@@ -74,8 +71,7 @@ suite =
                         |> asTest "should handle the /simulator/{impact} endpoint"
                     , [ "/simulator/detailed?mass=0.17"
                       , "product=tshirt"
-                      , "material=coton"
-                      , "materials[]=coton;1;0"
+                      , "materials[]=coton;1"
                       , "countryFabric=FR"
                       , "countryDyeing=FR"
                       , "countryMaking=FR"
@@ -93,9 +89,9 @@ suite =
                 , describe "materials param checks"
                     [ [ "/simulator?mass=0.17"
                       , "product=tshirt"
-                      , "material=coton"
-                      , "materials[]=coton;0.5;0"
-                      , "materials[]=acrylique;0.5;0"
+                      , "materials[]=coton;0.3"
+                      , "materials[]=coton-rdp;0.3"
+                      , "materials[]=acrylique;0.4"
                       , "countryFabric=FR"
                       , "countryDyeing=FR"
                       , "countryMaking=FR"
@@ -107,12 +103,13 @@ suite =
                         |> Expect.equal
                             (Just
                                 [ { id = Material.Id "coton"
-                                  , share = Unit.Ratio 0.5
-                                  , recycledRatio = Unit.Ratio 0
+                                  , share = Unit.Ratio 0.3
+                                  }
+                                , { id = Material.Id "coton-rdp"
+                                  , share = Unit.Ratio 0.3
                                   }
                                 , { id = Material.Id "acrylique"
-                                  , share = Unit.Ratio 0.5
-                                  , recycledRatio = Unit.Ratio 0
+                                  , share = Unit.Ratio 0.4
                                   }
                                 ]
                             )
@@ -130,14 +127,14 @@ suite =
                     , getEndpoint db "GET" "/simulator?materials[]=notAnID"
                         |> Maybe.andThen extractErrors
                         |> Maybe.andThen (Dict.get "materials")
-                        |> Expect.equal (Just "Format de matière invalide ou incomplet : notAnID.")
+                        |> Expect.equal (Just "Format de matière invalide : notAnID.")
                         |> asTest "should validate invalid material format"
                     , getEndpoint db "GET" "/simulator?materials[]=coton"
                         |> Maybe.andThen extractErrors
                         |> Maybe.andThen (Dict.get "materials")
-                        |> Expect.equal (Just "Format de matière invalide ou incomplet : coton.")
+                        |> Expect.equal (Just "Format de matière invalide : coton.")
                         |> asTest "should validate invalid material format even when valid material id"
-                    , getEndpoint db "GET" "/simulator?materials[]=coton;12;2"
+                    , getEndpoint db "GET" "/simulator?materials[]=coton;12"
                         |> Maybe.andThen extractErrors
                         |> Maybe.andThen (Dict.get "materials")
                         |> Expect.equal (Just "Un ratio doit être compris entre 0 et 1 inclus (ici : 12).")
@@ -175,7 +172,7 @@ suite =
                                 , ( "countryDyeing", "Code pays invalide: notACountryCode." )
                                 , ( "countryMaking", "Code pays invalide: notACountryCode." )
                                 , ( "mass", "La masse doit être supérieure ou égale à zéro." )
-                                , ( "materials", "Format de matière invalide ou incomplet : notAnID." )
+                                , ( "materials", "Format de matière invalide : notAnID." )
                                 , ( "product", "Produit non trouvé id=notAProductID." )
                                 ]
                                 |> Just

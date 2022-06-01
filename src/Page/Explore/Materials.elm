@@ -36,15 +36,6 @@ table { countries } { detailed } =
     , { label = "Procédé de recyclage"
       , toCell = .recycledProcess >> Maybe.map (.name >> text) >> Maybe.withDefault (text "N/A")
       }
-    , { label = "Primaire"
-      , toCell =
-            \material ->
-                if material.primary then
-                    text "Oui"
-
-                else
-                    text "Non"
-      }
     , { label = "Origine géographique"
       , toCell = .geographicOrigin >> text
       }

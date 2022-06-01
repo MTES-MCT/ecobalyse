@@ -5,6 +5,7 @@ module Data.Env exposing
     , githubRepository
     , githubUrl
     , maxMakingWasteRatio
+    , maxMaterials
     , minMakingWasteRatio
     )
 
@@ -44,3 +45,8 @@ minMakingWasteRatio =
 maxMakingWasteRatio : Unit.Ratio
 maxMakingWasteRatio =
     Unit.ratio 0.4
+
+
+maxMaterials : Int
+maxMaterials =
+    5

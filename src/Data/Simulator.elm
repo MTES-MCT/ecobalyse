@@ -239,48 +239,22 @@ computeDyeingImpacts { processes } simulator =
             )
 
 
-stepMaterialImpacts : Db -> Material -> Unit.Ratio -> Step -> Impacts
-stepMaterialImpacts db material recycledRatio step =
-    case material.recycledFrom of
-        -- Current material is purely recycled
-        Just primaryId ->
-            case Material.findById primaryId db.materials of
-                -- We know its corresponding primary material
-                Ok primaryMaterial ->
-                    step.outputMass
-                        |> Formula.materialImpacts step.impacts
-                            ( material.materialProcess, primaryMaterial.materialProcess )
-                            (Unit.ratio 1)
-                            material.cffData
-
-                -- We don't know its primary material; consider it as primary itself
-                Err _ ->
-                    step.outputMass
-                        |> Formula.pureMaterialImpacts step.impacts
-                            material.materialProcess
-
-        -- Current material is primary (non-recycled)
+stepMaterialImpacts : Db -> Material -> Step -> Impacts
+stepMaterialImpacts db material step =
+    case Material.getRecyclingData material db.materials of
+        -- Non-recycled Material
         Nothing ->
-            case material.recycledProcess of
-                -- Current primary material can be recycled
-                Just recycledProcess ->
-                    let
-                        cffData =
-                            db.materials
-                                |> Material.findByProcessUuid recycledProcess.uuid
-                                |> Maybe.andThen .cffData
-                    in
-                    step.outputMass
-                        |> Formula.materialImpacts step.impacts
-                            ( recycledProcess, material.materialProcess )
-                            recycledRatio
-                            cffData
+            step.outputMass
+                |> Formula.pureMaterialImpacts step.impacts material.materialProcess
 
-                -- Current primary material can't be recycled
-                Nothing ->
-                    step.outputMass
-                        |> Formula.pureMaterialImpacts step.impacts
-                            material.materialProcess
+        -- Recycled material: apply CFF
+        Just ( sourceMaterial, cffData ) ->
+            step.outputMass
+                |> Formula.recycledMaterialImpacts step.impacts
+                    { recycledProcess = material.materialProcess
+                    , nonRecycledProcess = sourceMaterial.materialProcess
+                    , cffData = cffData
+                    }
 
 
 computeMaterialImpacts : Db -> Simulator -> Simulator
@@ -292,9 +266,9 @@ computeMaterialImpacts db ({ inputs } as simulator) =
                     | impacts =
                         inputs.materials
                             |> List.map
-                                (\{ material, share, recycledRatio } ->
+                                (\{ material, share } ->
                                     step
-                                        |> stepMaterialImpacts db material recycledRatio
+                                        |> stepMaterialImpacts db material
                                         |> Impact.mapImpacts (\_ -> Quantity.multiplyBy (Unit.ratioToFloat share))
                                 )
                             |> Impact.sumImpacts db.impacts
@@ -419,19 +393,9 @@ computeMaterialStepWaste ({ inputs, lifeCycle } as simulator) =
                 |> (\inputMass ->
                         inputs.materials
                             |> List.map
-                                (\{ material, share, recycledRatio } ->
-                                    case material.recycledProcess of
-                                        Just recycledProcess ->
-                                            Formula.recycledMaterialWaste
-                                                { pristineWaste = material.materialProcess.waste
-                                                , recycledWaste = recycledProcess.waste
-                                                , recycledRatio = recycledRatio
-                                                }
-                                                (inputMass |> Quantity.multiplyBy (Unit.ratioToFloat share))
-
-                                        _ ->
-                                            Formula.genericWaste material.materialProcess.waste
-                                                (inputMass |> Quantity.multiplyBy (Unit.ratioToFloat share))
+                                (\{ material, share } ->
+                                    Formula.genericWaste material.materialProcess.waste
+                                        (inputMass |> Quantity.multiplyBy (Unit.ratioToFloat share))
                                 )
                             |> List.foldl
                                 (\curr acc ->
@@ -455,25 +419,15 @@ computeSpinningStepWaste ({ inputs, lifeCycle } as simulator) =
                 |> (\inputMass ->
                         inputs.materials
                             |> List.map
-                                (\{ material, share, recycledRatio } ->
+                                (\{ material, share } ->
                                     let
                                         processWaste =
                                             material.spinningProcess
                                                 |> Maybe.map .waste
                                                 |> Maybe.withDefault (Mass.kilograms 0)
                                     in
-                                    case material.recycledProcess of
-                                        Just recycledProcess ->
-                                            Formula.recycledMaterialWaste
-                                                { pristineWaste = processWaste
-                                                , recycledWaste = recycledProcess.waste
-                                                , recycledRatio = recycledRatio
-                                                }
-                                                (inputMass |> Quantity.multiplyBy (Unit.ratioToFloat share))
-
-                                        _ ->
-                                            Formula.genericWaste processWaste
-                                                (inputMass |> Quantity.multiplyBy (Unit.ratioToFloat share))
+                                    Formula.genericWaste processWaste
+                                        (inputMass |> Quantity.multiplyBy (Unit.ratioToFloat share))
                                 )
                             |> List.foldl
                                 (\curr acc ->

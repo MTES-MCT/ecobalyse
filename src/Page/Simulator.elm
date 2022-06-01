@@ -84,7 +84,6 @@ type Msg
     | UpdateMakingWaste (Maybe Unit.Ratio)
     | UpdateMassInput String
     | UpdateMaterial Int Material.Id
-    | UpdateMaterialRecycledRatio Int Unit.Ratio
     | UpdateMaterialShare Int Unit.Ratio
     | UpdatePicking (Maybe Unit.PickPerMeter)
     | UpdateProduct Product.Id
@@ -298,10 +297,6 @@ update ({ db, query, navKey } as session) msg model =
                 Err error ->
                     ( model, session |> Session.notifyError "Erreur de matière première" error, Cmd.none )
 
-        UpdateMaterialRecycledRatio index recycledRatio ->
-            ( model, session, Cmd.none )
-                |> updateQuery (Inputs.updateMaterialRecycledRatio index recycledRatio query)
-
         UpdateMaterialShare index share ->
             ( model, session, Cmd.none )
                 |> updateQuery (Inputs.updateMaterialShare index share query)
@@ -342,7 +337,8 @@ update ({ db, query, navKey } as session) msg model =
 massField : String -> Html Msg
 massField massInput =
     div []
-        [ label [ for "mass", class "form-label fw-bold" ] [ text "Masse du produit fini" ]
+        [ label [ for "mass", class "form-label fw-bold" ]
+            [ text "Masse du produit fini" ]
         , div
             [ class "input-group" ]
             [ input
@@ -520,10 +516,10 @@ simulatorView ({ db } as session) ({ impact, funit, viewMode } as model) ({ inpu
             [ h1 [] [ text "Simulateur " ]
             , ImpactView.viewDefinition model.impact
             , div [ class "row" ]
-                [ div [ class "col-6 col-md-7 mb-2" ]
+                [ div [ class "col-sm-6 mb-2" ]
                     [ productField db inputs.product
                     ]
-                , div [ class "col-6 col-md-5 mb-2" ]
+                , div [ class "col-sm-6 mb-2" ]
                     [ massField model.massInput
                     ]
                 ]
@@ -533,7 +529,6 @@ simulatorView ({ db } as session) ({ impact, funit, viewMode } as model) ({ inpu
                 , add = AddMaterial
                 , remove = RemoveMaterial
                 , update = UpdateMaterial
-                , updateRecycledRatio = UpdateMaterialRecycledRatio
                 , updateShare = UpdateMaterialShare
                 , selectInputText = SelectInputText
                 }

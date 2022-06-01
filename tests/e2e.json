@@ -4,7 +4,7 @@
     "query": [
       "mass=0.17",
       "product=tshirt",
-      "materials[]=coton;1;0",
+      "materials[]=coton;1",
       "countryFabric=FR",
       "countryDyeing=FR",
       "countryMaking=FR"
@@ -34,7 +34,7 @@
     "query": [
       "mass=0.17",
       "product=tshirt",
-      "materials[]=coton;1;0",
+      "materials[]=coton;1",
       "countrySpinning=PT",
       "countryFabric=FR",
       "countryDyeing=FR",
@@ -61,42 +61,12 @@
     }
   },
   {
-    "name": "Jupe 100% acrylique, 50% recyclé, France (rangeslider)",
+    "name": "Jupe 100% acrylique, 50% recyclé, France",
     "query": [
       "mass=0.3",
       "product=jupe",
-      "materials[]=acrylique;1;0.5",
-      "countryFabric=FR",
-      "countryDyeing=FR",
-      "countryMaking=FR"
-    ],
-    "impacts": {
-      "acd": 0.06451586351160227,
-      "ccb": 0.002264699331042089,
-      "ccf": 9.33846423216313,
-      "cch": 9.340708965331975,
-      "ccl": 0.000004845749999999999,
-      "fru": 274.9058324812768,
-      "fwe": 0.00029303877974430994,
-      "ior": 69.67290162312446,
-      "ldu": 13.12038142751952,
-      "mru": 0.000009162279709913424,
-      "ozd": 5.322032480288629e-7,
-      "pco": 0.03606482380419754,
-      "pef": 1.8140057593561103,
-      "pma": 0.0000013518430400625822,
-      "swe": 0.017338336116918648,
-      "tre": 0.14208529906977424,
-      "wtu": 0.018069662751395377
-    }
-  },
-  {
-    "name": "Jupe 100% acrylique, 50% recyclé, France (liste)",
-    "query": [
-      "mass=0.3",
-      "product=jupe",
-      "materials[]=acrylique;0.5;0",
-      "materials[]=acrylique-r;0.5;0",
+      "materials[]=acrylique;0.5",
+      "materials[]=acrylique-r;0.5",
       "countryFabric=FR",
       "countryDyeing=FR",
       "countryMaking=FR"
@@ -126,9 +96,9 @@
     "query": [
       "mass=0.17",
       "product=tshirt",
-      "materials[]=coton;0.5;0",
-      "materials[]=pet;0.45;0",
-      "materials[]=pu;0.05;0",
+      "materials[]=coton;0.5",
+      "materials[]=pet;0.45",
+      "materials[]=pu;0.05",
       "countryFabric=FR",
       "countryDyeing=FR",
       "countryMaking=FR"
@@ -158,7 +128,7 @@
     "query": [
       "mass=0.3",
       "product=robe",
-      "materials[]=acrylique;1;0",
+      "materials[]=acrylique;1",
       "countryFabric=BD",
       "countryDyeing=BD",
       "countryMaking=BD",
@@ -189,8 +159,8 @@
     "query": [
       "mass=0.45",
       "product=pantalon",
-      "materials[]=coton;0.9;0",
-      "materials[]=pu;0.1;0",
+      "materials[]=coton;0.9",
+      "materials[]=pu;0.1",
       "countryFabric=CN",
       "countryDyeing=CN",
       "countryMaking=CN",
@@ -221,7 +191,7 @@
     "query": [
       "mass=0.45",
       "product=jean",
-      "materials[]=coton;1;0",
+      "materials[]=coton;1",
       "countryFabric=PT",
       "countryDyeing=PT",
       "countryMaking=PT"
@@ -251,7 +221,7 @@
     "query": [
       "mass=0.17",
       "product=tshirt",
-      "materials[]=coton;1;0",
+      "materials[]=coton;1",
       "countryFabric=FR",
       "countryDyeing=FR",
       "countryMaking=FR",
@@ -283,7 +253,7 @@
     "query": [
       "mass=0.17",
       "product=tshirt",
-      "materials[]=coton;1;0",
+      "materials[]=coton;1",
       "countryFabric=FR",
       "countryDyeing=FR",
       "countryMaking=FR",
@@ -314,7 +284,7 @@
     "query": [
       "mass=0.17",
       "product=tshirt",
-      "materials[]=coton;1;0",
+      "materials[]=coton;1",
       "countryFabric=FR",
       "countryDyeing=FR",
       "countryMaking=FR",
@@ -345,7 +315,7 @@
     "query": [
       "mass=0.3",
       "product=tshirt",
-      "materials[]=coton;1;0",
+      "materials[]=coton;1",
       "countryFabric=FR",
       "countryDyeing=FR",
       "countryMaking=FR",

@@ -1,12 +1,12 @@
 module Views.Material exposing (formSet)
 
+import Data.Env as Env
 import Data.Inputs as Inputs
 import Data.Material as Material exposing (Material)
 import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
-import Views.Format as Format
 import Views.Icon as Icon
 
 
@@ -16,7 +16,6 @@ type alias FormSetConfig msg =
     , add : msg
     , remove : Int -> msg
     , update : Int -> Material.Id -> msg
-    , updateRecycledRatio : Int -> Unit.Ratio -> msg
     , updateShare : Int -> Unit.Ratio -> msg
     , selectInputText : String -> msg
     }
@@ -39,11 +38,11 @@ formSet ({ add, inputs } as config) =
             round (totalShares * 100) == 100
     in
     div [ class "Materials" ]
-        [ div [ class "row mb-2" ]
-            [ div [ class "col-7 fw-bold" ]
+        [ div [ class "d-flex align-items-center gap-1 mb-2" ]
+            [ span [ class "fw-bold" ]
                 [ text "Matières premières" ]
-            , div [ class "d-none d-sm-block col-5 fw-bold" ]
-                [ text "Part d'origine recyclée" ]
+            , span [ class "text-muted" ]
+                [ text <| "jusqu'à " ++ String.fromInt Env.maxMaterials ++ " maximum" ]
             ]
         , inputs
             |> List.indexedMap
@@ -56,39 +55,35 @@ formSet ({ add, inputs } as config) =
                         }
                 )
             |> div []
-        , div [ class "row mb-2" ]
-            [ div [ class "col-sm-7" ]
-                [ div [ class "input-group" ]
-                    [ if length > 1 then
-                        span
-                            [ class "SharesTotal form-control text-end"
-                            , class "d-flex justify-content-between align-items-center gap-1"
-                            , classList
-                                [ ( "text-success feedback-valid", valid )
-                                , ( "text-danger feedback-invalid", not valid )
-                                ]
-                            ]
-                            [ if valid then
-                                Icon.check
-
-                              else
-                                Icon.warning
-                            , round (totalShares * 100) |> String.fromInt |> text
-                            , text "%"
-                            ]
-
-                      else
-                        text ""
-                    , button
-                        [ class "btn btn-outline-primary flex-fill"
-                        , class "d-flex justify-content-center align-items-center gap-1"
-                        , onClick add
-                        , disabled <| length >= 3
-                        ]
-                        [ Icon.plus
-                        , text "Ajouter une matière"
+        , div [ class "input-group" ]
+            [ if length > 1 then
+                span
+                    [ class "SharesTotal form-control text-end"
+                    , class "d-flex justify-content-between align-items-center gap-1"
+                    , classList
+                        [ ( "text-success feedback-valid", valid )
+                        , ( "text-danger feedback-invalid", not valid )
                         ]
                     ]
+                    [ if valid then
+                        Icon.check
+
+                      else
+                        Icon.warning
+                    , round (totalShares * 100) |> String.fromInt |> text
+                    , text "%"
+                    ]
+
+              else
+                text ""
+            , button
+                [ class "btn btn-outline-primary flex-fill"
+                , class "d-flex justify-content-center align-items-center gap-1 no-outline"
+                , onClick add
+                , disabled <| length >= Env.maxMaterials
+                ]
+                [ Icon.plus
+                , text "Ajouter une matière"
                 ]
             ]
         ]
@@ -105,43 +100,37 @@ field :
     -> Inputs.MaterialInput
     -> Html msg
 field config { index, length, exclude, valid } input =
-    div [ class "row mb-2 d-flex align-items-center" ]
-        [ div [ class "col-sm-7" ]
-            [ [ if length > 1 then
-                    [ button
-                        [ class "btn btn-primary"
-                        , onClick (config.remove index)
-                        , disabled <| length < 2
-                        , title "Supprimer cette matière"
-                        , attribute "aria-label" "Supprimer cette matière"
-                        , tabindex -1
-                        ]
-                        [ Icon.times ]
+    div [ class "mb-2" ]
+        [ [ if length > 1 then
+                [ button
+                    [ class "btn btn-primary no-outline"
+                    , onClick (config.remove index)
+                    , disabled (length < 2)
+                    , title "Supprimer cette matière"
+                    , attribute "aria-label" "Supprimer cette matière"
+                    , tabindex -1
                     ]
+                    [ Icon.times ]
+                ]
 
-                else
-                    []
-              , input.share
-                    |> shareField index
-                        { length = length
-                        , valid = valid
-                        , selectInputText = config.selectInputText
-                        , update = config.updateShare
-                        }
-              , input.material.id
-                    |> materialSelector index
-                        { materials = config.materials
-                        , exclude = exclude
-                        , update = config.update
-                        }
-              ]
-                |> List.concat
-                |> div [ class "input-group" ]
-            ]
-        , div [ class "col-sm-5 pt-2 pt-sm-0" ]
-            [ input
-                |> recycledRatioField index config.updateRecycledRatio
-            ]
+            else
+                []
+          , input.share
+                |> shareField index
+                    { length = length
+                    , valid = valid
+                    , selectInputText = config.selectInputText
+                    , update = config.updateShare
+                    }
+          , input.material.id
+                |> materialSelector index
+                    { materials = config.materials
+                    , exclude = exclude
+                    , update = config.update
+                    }
+          ]
+            |> List.concat
+            |> div [ class "input-group" ]
         ]
 
 
@@ -156,7 +145,7 @@ materialSelector :
     -> List (Html msg)
 materialSelector index { materials, exclude, update } id =
     let
-        ( ( natural1, synthetic1, recycled1 ), ( natural2, synthetic2, recycled2 ) ) =
+        ( natural, synthetic, recycled ) =
             Material.groupAll materials
 
         toOption m =
@@ -169,7 +158,7 @@ materialSelector index { materials, exclude, update } id =
                 [ text m.shortName ]
 
         toGroup name materials_ =
-            if materials == [] then
+            if materials_ == [] then
                 text ""
 
             else
@@ -177,12 +166,9 @@ materialSelector index { materials, exclude, update } id =
                     |> List.map toOption
                     |> optgroup [ attribute "label" name ]
     in
-    [ [ toGroup "Matières naturelles" natural1
-      , toGroup "Matières synthétiques" synthetic1
-      , toGroup "Matières recyclées" recycled1
-      , toGroup "Autres matières naturelles" natural2
-      , toGroup "Autres matières synthétiques" synthetic2
-      , toGroup "Autres matières recyclées" recycled2
+    [ [ toGroup "Matières naturelles" natural
+      , toGroup "Matières synthétiques" synthetic
+      , toGroup "Matières recyclées" recycled
       ]
         |> select
             [ Attr.id "material"
@@ -244,49 +230,3 @@ shareField index { length, valid, selectInputText, update } share =
         ]
         [ text "%" ]
     ]
-
-
-recycledRatioField :
-    Int
-    -> (Int -> Unit.Ratio -> msg)
-    -> Inputs.MaterialInput
-    -> Html msg
-recycledRatioField index update { material, recycledRatio } =
-    div [ class "d-flex gap-2 align-items-center" ]
-        [ span
-            [ class "fs-5 lh-1"
-            , classList
-                [ ( "text-primary", material.recycledProcess /= Nothing )
-                , ( "text-secondary", material.recycledProcess == Nothing )
-                ]
-            ]
-            [ Icon.recycle ]
-        , span [ class "d-block d-sm-none fw-bold" ] [ text "Recyclé\u{00A0}à" ]
-        , input
-            [ type_ "range"
-            , class "d-block form-range"
-            , onInput
-                (String.toFloat
-                    >> Maybe.withDefault 0
-                    >> Unit.ratio
-                    >> update index
-                )
-            , Attr.min "0"
-            , Attr.max "1"
-            , step "0.01"
-            , case material.recycledProcess of
-                Just { name } ->
-                    title name
-
-                Nothing ->
-                    title "Pas d'équivalent recyclé"
-
-            -- Note: 'value' attr should always be set after 'step' attr
-            , recycledRatio |> Unit.ratioToFloat |> String.fromFloat |> value
-            , Attr.disabled <| material.recycledProcess == Nothing
-            ]
-            []
-        , div [ class "text-end", style "min-width" "34px" ]
-            [ Format.ratioToDecimals 0 recycledRatio
-            ]
-        ]

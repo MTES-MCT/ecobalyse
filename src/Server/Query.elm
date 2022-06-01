@@ -159,17 +159,16 @@ materialListParser key materials =
 parseMaterial_ : List Material -> String -> Result String Inputs.MaterialQuery
 parseMaterial_ materials string =
     case String.split ";" string of
-        [ id, share, recycledRatio ] ->
+        [ id, share ] ->
             Ok Inputs.MaterialQuery
                 |> RE.andMap (parseMaterialId_ materials id)
                 |> RE.andMap (parseRatio_ share)
-                |> RE.andMap (parseRatio_ recycledRatio)
 
         [ "" ] ->
             Err <| "Format de matière vide."
 
         _ ->
-            Err <| "Format de matière invalide ou incomplet : " ++ string ++ "."
+            Err <| "Format de matière invalide : " ++ string ++ "."
 
 
 parseMaterialId_ : List Material -> String -> Result String Material.Id
