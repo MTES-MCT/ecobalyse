@@ -217,7 +217,7 @@ shareField index { length, valid, selectInputText, update } share =
         , onInput
             (String.toInt
                 >> Maybe.withDefault 0
-                >> (\int -> toFloat int / 100)
+                >> (\int -> clamp 0 1 (toFloat int / 100))
                 >> Unit.ratio
                 >> update index
             )
