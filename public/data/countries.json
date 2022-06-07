@@ -1,5 +1,13 @@
 [
   {
+    "code": "AL",
+    "name": "Albanie",
+    "electricityProcessUuid": "945f8fc8-a7cb-4cbd-98aa-7ab364b482a0",
+    "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
+    "dyeingWeighting": 0,
+    "airTransportRatio": 0
+  },
+  {
     "code": "BD",
     "name": "Bangladesh",
     "electricityProcessUuid": "1ee6061e-8e15-4558-9338-94ad87abf932",
@@ -8,12 +16,36 @@
     "airTransportRatio": 0.33
   },
   {
+    "code": "BE",
+    "name": "Belgique",
+    "electricityProcessUuid": "082fe936-dd69-4735-9a38-3dd218e9c128",
+    "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
+    "dyeingWeighting": 0,
+    "airTransportRatio": 0
+  },
+  {
+    "code": "CH",
+    "name": "Suisse",
+    "electricityProcessUuid": "8ff8fa00-8358-482c-a78e-11050ea1dc74",
+    "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
+    "dyeingWeighting": 0,
+    "airTransportRatio": 0
+  },
+  {
     "code": "CN",
     "name": "Chine",
     "electricityProcessUuid": "8f923f3d-0bd2-4326-99e2-f984b4454226",
     "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
     "dyeingWeighting": 1,
     "airTransportRatio": 0.33
+  },
+  {
+    "code": "CZ",
+    "name": "Tchèquie",
+    "electricityProcessUuid": "3a453d41-341d-4f00-b23e-1c0326fdda50",
+    "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
+    "dyeingWeighting": 0,
+    "airTransportRatio": 0
   },
   {
     "code": "DE",
@@ -72,6 +104,14 @@
     "airTransportRatio": 0
   },
   {
+    "code": "HU",
+    "name": "Hongrie",
+    "electricityProcessUuid": "ec323bac-9705-4d67-a12c-9d240b5a68c2",
+    "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
+    "dyeingWeighting": 0,
+    "airTransportRatio": 0
+  },
+  {
     "code": "IN",
     "name": "Inde",
     "electricityProcessUuid": "1b470f5c-6ae6-404d-bd71-8546d33dbc17",
@@ -112,6 +152,14 @@
     "airTransportRatio": 0.33
   },
   {
+    "code": "NL",
+    "name": "Pays-Bas",
+    "electricityProcessUuid": "e06b4e70-a9a6-4d9f-ad94-6fe3ff797da8",
+    "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
+    "dyeingWeighting": 0,
+    "airTransportRatio": 0
+  },
+  {
     "code": "PK",
     "name": "Pakistan",
     "electricityProcessUuid": "5235ba76-4f83-473c-9521-8f3e1c084a37",
@@ -120,9 +168,25 @@
     "airTransportRatio": 0.33
   },
   {
+    "code": "PL",
+    "name": "Pologne",
+    "electricityProcessUuid": "280eb6f6-2c6b-49a4-9c11-cbe1a373bc28",
+    "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
+    "dyeingWeighting": 0,
+    "airTransportRatio": 0
+  },
+  {
     "code": "PT",
     "name": "Portugal",
     "electricityProcessUuid": "a1d83202-0052-4d10-b9d2-938564be6a0b",
+    "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
+    "dyeingWeighting": 0,
+    "airTransportRatio": 0
+  },
+  {
+    "code": "RO",
+    "name": "Roumanie",
+    "electricityProcessUuid": "9dadf1cf-d142-42c7-a269-da69c7bd0016",
     "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
     "dyeingWeighting": 0,
     "airTransportRatio": 0
