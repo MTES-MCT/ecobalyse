@@ -19,7 +19,7 @@
     "code": "BE",
     "name": "Belgique",
     "electricityProcessUuid": "082fe936-dd69-4735-9a38-3dd218e9c128",
-    "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
+    "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
     "dyeingWeighting": 0,
     "airTransportRatio": 0
   },
@@ -27,7 +27,7 @@
     "code": "CH",
     "name": "Suisse",
     "electricityProcessUuid": "8ff8fa00-8358-482c-a78e-11050ea1dc74",
-    "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
+    "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
     "dyeingWeighting": 0,
     "airTransportRatio": 0
   },
@@ -43,7 +43,7 @@
     "code": "CZ",
     "name": "Tchèquie",
     "electricityProcessUuid": "3a453d41-341d-4f00-b23e-1c0326fdda50",
-    "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
+    "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
     "dyeingWeighting": 0,
     "airTransportRatio": 0
   },
@@ -107,7 +107,7 @@
     "code": "HU",
     "name": "Hongrie",
     "electricityProcessUuid": "ec323bac-9705-4d67-a12c-9d240b5a68c2",
-    "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
+    "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
     "dyeingWeighting": 0,
     "airTransportRatio": 0
   },
@@ -171,7 +171,7 @@
     "code": "PL",
     "name": "Pologne",
     "electricityProcessUuid": "280eb6f6-2c6b-49a4-9c11-cbe1a373bc28",
-    "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
+    "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
     "dyeingWeighting": 0,
     "airTransportRatio": 0
   },
