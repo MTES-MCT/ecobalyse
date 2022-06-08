@@ -6,100 +6,94 @@ module Page.Stats exposing
     , view
     )
 
+import Data.Matomo as Matomo
 import Data.Session exposing (Session)
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import Json.Encode as Encode
 import Ports
+import RemoteData exposing (WebData)
+import Request.Matomo
+import Views.Alert as Alert
 import Views.Container as Container
+import Views.Spinner as Spinner
 
 
 type alias Model =
-    ()
+    { apiStats : WebData (List Matomo.Stat)
+    , webStats : WebData (List Matomo.Stat)
+    }
 
 
 type Msg
-    = NoOp Never
+    = ApiStats (WebData (List Matomo.Stat))
+    | WebStats (WebData (List Matomo.Stat))
 
 
 init : Session -> ( Model, Session, Cmd Msg )
 init session =
-    ( (), session, Ports.scrollTo { x = 0, y = 0 } )
+    ( { apiStats = RemoteData.NotAsked
+      , webStats = RemoteData.NotAsked
+      }
+    , session
+    , Cmd.batch
+        [ Request.Matomo.getApiStats session ApiStats
+        , Request.Matomo.getWebStats session WebStats
+        , Ports.scrollTo { x = 0, y = 0 }
+        ]
+    )
 
 
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
-update session _ model =
-    ( model, session, Cmd.none )
+update session msg model =
+    case msg of
+        ApiStats apiStats ->
+            ( { model | apiStats = apiStats }, session, Cmd.none )
+
+        WebStats webStats ->
+            ( { model | webStats = webStats }, session, Cmd.none )
+
+
+viewStats : { heading : String, unit : String } -> WebData (List Matomo.Stat) -> Html Msg
+viewStats { heading, unit } webData =
+    case webData of
+        RemoteData.NotAsked ->
+            text ""
+
+        RemoteData.Loading ->
+            Spinner.view
+
+        RemoteData.Failure err ->
+            Alert.httpError err
+
+        RemoteData.Success stats ->
+            node "chart-stats"
+                [ attribute "heading" heading
+                , attribute "unit" unit
+                , attribute "height" "300"
+                , stats
+                    |> Encode.list
+                        (\{ label, hits } ->
+                            Encode.object
+                                [ ( "y", Encode.int hits )
+                                , ( "name", Encode.string label )
+                                ]
+                        )
+                    |> Encode.encode 0
+                    |> attribute "data"
+                ]
+                []
 
 
 view : Session -> Model -> ( String, List (Html Msg) )
-view _ _ =
+view _ { apiStats, webStats } =
     ( "Statistiques"
-    , [ Container.centered []
+    , [ Container.centered [ class "pb-5" ]
             [ h1 [ class "mb-3" ] [ text "Statistiques" ]
-            , h2 [ class "h3" ] [ text "Fréquentation" ]
-            , div [ class "widgetIframe" ]
-                [ iframe
-                    [ attribute "crossorigin" "anonymous"
-                    , attribute "frameborder" "0"
-                    , attribute "height" "800"
-                    , attribute "marginheight" "0"
-                    , attribute "marginwidth" "0"
-                    , attribute "scrolling" "yes"
-                    , attribute "allowtransparency" "true"
-                    , style "background-color" "#f8f9fa"
-                    , [ ( "module", "Widgetize" )
-                      , ( "action", "iframe" )
-                      , ( "containerId", "VisitOverviewWithGraph" )
-                      , ( "disableLink", "0" )
-                      , ( "widget", "1" )
-                      , ( "moduleToWidgetize", "CoreHome" )
-                      , ( "actionToWidgetize", "renderWidgetContainer" )
-                      , ( "idSite", "196" )
-                      , ( "period", "day" )
-                      , ( "date", "yesterday" )
-                      , ( "disableLink", "1" )
-                      , ( "widget", "1" )
-                      ]
-                        |> List.map (\( key, val ) -> key ++ "=" ++ val)
-                        |> String.join "&"
-                        |> (++) "https://stats.data.gouv.fr/index.php?"
-                        |> src
-                    , attribute "width" "100%"
-                    ]
-                    []
-                ]
-            , h2 [ class "h3" ] [ text "Traffic sur l'API" ]
-            , div [ class "widgetIframe" ]
-                [ iframe
-                    [ attribute "crossorigin" "anonymous"
-                    , attribute "frameborder" "0"
-                    , attribute "height" "450"
-                    , attribute "marginheight" "0"
-                    , attribute "marginwidth" "0"
-                    , attribute "scrolling" "yes"
-                    , attribute "allowtransparency" "true"
-                    , style "background-color" "#f8f9fa"
-                    , [ ( "module", "Widgetize" )
-                      , ( "action", "iframe" )
-                      , ( "containerId", "Goal_1" )
-                      , ( "disableLink", "0" )
-                      , ( "widget", "1" )
-                      , ( "moduleToWidgetize", "CoreHome" )
-                      , ( "actionToWidgetize", "renderWidgetContainer" )
-                      , ( "idSite", "196" )
-                      , ( "period", "day" )
-                      , ( "date", "yesterday" )
-                      , ( "disableLink", "1" )
-                      , ( "widget", "1" )
-                      ]
-                        |> List.map (\( key, val ) -> key ++ "=" ++ val)
-                        |> String.join "&"
-                        |> (++) "https://stats.data.gouv.fr/index.php?"
-                        |> src
-                    , attribute "width" "100%"
-                    ]
-                    []
-                ]
+            , webStats
+                |> viewStats { heading = "Fréquentation", unit = "visite" }
+            , apiStats
+                |> viewStats { heading = "Traffic sur l'API", unit = "requête" }
             ]
       ]
     )
