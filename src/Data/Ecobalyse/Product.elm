@@ -6,6 +6,7 @@ module Data.Ecobalyse.Product exposing
     , decodeProducts
     , empty
     , findByName
+    , getImpact
     , getTotalImpact
     , getTotalWeight
     , getWeightRatio
@@ -21,6 +22,7 @@ import Data.Ecobalyse.Process as Process
         , ProcessName
         , Processes
         )
+import Data.Impact as Impact
 import Data.Unit as Unit
 import Dict exposing (Dict)
 import Json.Decode as Decode exposing (Decoder)
@@ -215,14 +217,82 @@ isUnit processName =
     String.endsWith "/ FR U" processName
 
 
-getTotalImpact : Step -> Float
-getTotalImpact step =
+getTotalImpact : Impact.Trigram -> Step -> Float
+getTotalImpact trigram step =
     step
         |> Dict.foldl
             (\_ { amount, impacts } total ->
-                total + (Unit.ratioToFloat amount * impacts.cch)
+                let
+                    impact =
+                        getImpact trigram impacts
+                in
+                total + (Unit.ratioToFloat amount * impact)
             )
             0
+
+
+getImpact : Impact.Trigram -> Process.Impacts -> Float
+getImpact (Impact.Trigram trigram) impacts =
+    case trigram of
+        "acd" ->
+            impacts.acd
+
+        "ozd" ->
+            impacts.ozd
+
+        "cch" ->
+            impacts.cch
+
+        "ccb" ->
+            impacts.ccb
+
+        "ccf" ->
+            impacts.ccf
+
+        "ccl" ->
+            impacts.ccl
+
+        "fwe" ->
+            impacts.fwe
+
+        "swe" ->
+            impacts.swe
+
+        "tre" ->
+            impacts.tre
+
+        "pco" ->
+            impacts.pco
+
+        "pma" ->
+            impacts.pma
+
+        "ior" ->
+            impacts.ior
+
+        "fru" ->
+            impacts.fru
+
+        "mru" ->
+            impacts.mru
+
+        "ldu" ->
+            impacts.ldu
+
+        "wtu" ->
+            impacts.wtu
+
+        "etf" ->
+            impacts.etf
+
+        "htc" ->
+            impacts.htc
+
+        "htn" ->
+            impacts.htn
+
+        _ ->
+            0.0
 
 
 getTotalWeight : Step -> Float

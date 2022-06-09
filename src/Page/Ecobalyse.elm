@@ -156,10 +156,10 @@ update ({ ecobalyseDb } as session) msg ({ selectedProduct } as model) =
 
 
 view : Session -> Model -> ( String, List (Html Msg) )
-view ({ ecobalyseDb } as session) model =
+view ({ ecobalyseDb } as session) { selectedProduct, productsSelectChoice, impact } =
     ( "Simulateur de recettes"
     , [ Container.centered []
-            (case model.selectedProduct of
+            (case selectedProduct of
                 Just { product, original } ->
                     let
                         -- We want the impact "per kg", but the original weight isn't 1kg,
@@ -168,7 +168,7 @@ view ({ ecobalyseDb } as session) model =
                             Product.getTotalWeight original.plant
 
                         totalImpact =
-                            Product.getTotalImpact product.plant
+                            Product.getTotalImpact impact product.plant
 
                         totalWeight =
                             Product.getTotalWeight product.plant
@@ -186,7 +186,7 @@ view ({ ecobalyseDb } as session) model =
                                 (\productName ->
                                     option
                                         [ value productName
-                                        , selected (productName == model.productsSelectChoice)
+                                        , selected (productName == productsSelectChoice)
                                         ]
                                         [ text productName ]
                                 )
@@ -203,8 +203,8 @@ view ({ ecobalyseDb } as session) model =
                         , div [ class "col-lg-6 ps-5" ]
                             [ impactSelector
                                 { impacts = session.db.impacts
-                                , selectedImpact = model.impact
-                                , switchImpact = always NoOp
+                                , selectedImpact = impact
+                                , switchImpact = SwitchImpact
 
                                 -- We don't use the following two configs
                                 , selectedFunctionalUnit = Unit.PerItem
@@ -221,7 +221,7 @@ view ({ ecobalyseDb } as session) model =
                         ]
                     , ul []
                         (product.plant
-                            |> Dict.map (makeBar totalImpact)
+                            |> Dict.map (makeBar totalImpact impact)
                             |> Dict.values
                             -- |> List.sortBy .impact
                             -- |> List.reverse
@@ -285,11 +285,11 @@ type alias Bar =
     }
 
 
-makeBar : Float -> ProcessName -> Process -> Bar
-makeBar totalImpact name { amount, impacts } =
+makeBar : Float -> Impact.Trigram -> ProcessName -> Process -> Bar
+makeBar totalImpact trigram name { amount, impacts } =
     let
         impact =
-            impacts.cch * Unit.ratioToFloat amount
+            Product.getImpact trigram impacts * Unit.ratioToFloat amount
 
         percent =
             impact * toFloat 100 / totalImpact
