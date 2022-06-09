@@ -10,7 +10,6 @@ import Data.Matomo as Matomo
 import Data.Session exposing (Session)
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Json.Encode as Encode
 import Ports
 import RemoteData exposing (WebData)
 import Request.Matomo
@@ -71,16 +70,7 @@ viewStats { heading, unit } webData =
                 [ attribute "heading" heading
                 , attribute "unit" unit
                 , attribute "height" "300"
-                , stats
-                    |> Encode.list
-                        (\{ label, hits } ->
-                            Encode.object
-                                [ ( "y", Encode.int hits )
-                                , ( "name", Encode.string label )
-                                ]
-                        )
-                    |> Encode.encode 0
-                    |> attribute "data"
+                , attribute "data" (Matomo.encodeStats stats)
                 ]
                 []
 
