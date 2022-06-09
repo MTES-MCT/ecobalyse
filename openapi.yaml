@@ -226,7 +226,7 @@ components:
           type: string
       examples:
         coton:
-          value: ["coton;1;0"]
+          value: ["coton;1"]
         acrylique:
           value: ["coton;0.7", "acrylique;0.3"]
         mixed:
