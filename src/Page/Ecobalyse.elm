@@ -9,6 +9,7 @@ module Page.Ecobalyse exposing
 import Data.Ecobalyse.Db as Db
 import Data.Ecobalyse.Process exposing (Amount, Process, ProcessName)
 import Data.Ecobalyse.Product as Product exposing (Product, ProductName, WeightRatio)
+import Data.Impact as Impact
 import Data.Session as Session exposing (Session)
 import Data.Unit as Unit
 import Decimal
@@ -21,6 +22,7 @@ import RemoteData exposing (WebData)
 import Request.Ecobalyse.Db as RequestDb
 import Views.Container as Container
 import Views.Format as Format
+import Views.Impact exposing (impactSelector)
 import Views.PieChart as PieChart
 import Views.RangeSlider as RangeSlider
 
@@ -35,6 +37,7 @@ type alias SelectedProduct =
 type alias Model =
     { selectedProduct : Maybe SelectedProduct
     , productsSelectChoice : String
+    , impact : Impact.Trigram
     }
 
 
@@ -43,6 +46,8 @@ type Msg
     | DbLoaded (WebData Db.Db)
     | Reset
     | ProductSelected String
+    | SwitchImpact Impact.Trigram
+    | NoOp
 
 
 tunaPizza : ProductName
@@ -54,6 +59,7 @@ init : Session -> ( Model, Session, Cmd Msg )
 init session =
     ( { selectedProduct = Nothing
       , productsSelectChoice = tunaPizza
+      , impact = Impact.defaultTrigram
       }
     , session
     , Cmd.batch
@@ -66,6 +72,9 @@ init session =
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
 update ({ ecobalyseDb } as session) msg ({ selectedProduct } as model) =
     case ( msg, selectedProduct ) of
+        ( NoOp, _ ) ->
+            ( model, session, Cmd.none )
+
         ( IngredientSliderChanged name (Just newAmount), Just selected ) ->
             let
                 { product, weightRatio } =
@@ -139,12 +148,15 @@ update ({ ecobalyseDb } as session) msg ({ selectedProduct } as model) =
                     , Cmd.none
                     )
 
+        ( SwitchImpact impact, _ ) ->
+            ( { model | impact = impact }, session, Cmd.none )
+
         _ ->
             ( model, session, Cmd.none )
 
 
 view : Session -> Model -> ( String, List (Html Msg) )
-view { ecobalyseDb } model =
+view ({ ecobalyseDb } as session) model =
     ( "Simulateur de recettes"
     , [ Container.centered []
             (case model.selectedProduct of
@@ -179,11 +191,26 @@ view { ecobalyseDb } model =
                                         [ text productName ]
                                 )
                         )
-                    , h1 [ class "mb-3" ]
-                        [ impactPerKg
-                            |> floatToRoundedString -2
-                            |> text
-                        , text " kg CO2 eq par kg de produit"
+                    , div [ class "row" ]
+                        [ div [ class "col-lg-6" ]
+                            [ h1 [ class "mb-3" ]
+                                [ impactPerKg
+                                    |> floatToRoundedString -2
+                                    |> text
+                                , text " kg CO2 eq par kg de produit"
+                                ]
+                            ]
+                        , div [ class "col-lg-6 ps-5" ]
+                            [ impactSelector
+                                { impacts = session.db.impacts
+                                , selectedImpact = model.impact
+                                , switchImpact = always NoOp
+
+                                -- We don't use the following two configs
+                                , selectedFunctionalUnit = Unit.PerItem
+                                , switchFunctionalUnit = always NoOp
+                                }
+                            ]
                         ]
                     , div [ class "row" ]
                         [ div [ class "col-lg-6" ]

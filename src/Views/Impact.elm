@@ -1,5 +1,6 @@
 module Views.Impact exposing
     ( impactQuality
+    , impactSelector
     , selector
     , viewDefinition
     )
