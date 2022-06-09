@@ -71,8 +71,8 @@ frame config ( title, content ) =
             [ notificationListView config
             , div [ class "alert alert-info py-1 rounded-0" ]
                 [ Container.centered
-                    [ class "d-flex gap-1 justify-content-center align-items-center" ]
-                    [ Icon.info
+                    [ class "text-center" ]
+                    [ span [ class "me-1" ] [ Icon.info ]
                     , text "Wikicarbone change de nom et devient "
                     , Link.external [ href Env.betagouvUrl ] [ text "Ecobalyse" ]
                     ]
