@@ -113,7 +113,7 @@ view session _ =
                         , a [ href "https://swagger.io/specification/", target "_blank" ] [ text "OpenAPI" ]
                         , text "."
                         ]
-                    , div [] [ apiBrowser session ]
+                    , div [ class "height-auto" ] [ apiBrowser session ]
                     ]
                 , div [ class "col-xl-4" ]
                     [ div [ class "card" ]

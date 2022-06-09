@@ -154,6 +154,12 @@ blockquote {
   }
 }
 
+.height-auto {
+  // This class is to be used to circumvent a bug with Rapidoc where it sets the height of
+  // the component parent element to `height: 100vh` for no reason.
+  height: auto !important;
+}
+
 .link {
   &-external:not(.link-external-muted) {
     &::after {
