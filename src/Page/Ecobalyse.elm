@@ -156,7 +156,7 @@ update ({ ecobalyseDb } as session) msg ({ selectedProduct } as model) =
 
 
 view : Session -> Model -> ( String, List (Html Msg) )
-view ({ ecobalyseDb } as session) { selectedProduct, productsSelectChoice, impact } =
+view ({ ecobalyseDb, db } as session) { selectedProduct, productsSelectChoice, impact } =
     ( "Simulateur de recettes"
     , [ Container.centered []
             (case selectedProduct of
@@ -194,10 +194,14 @@ view ({ ecobalyseDb } as session) { selectedProduct, productsSelectChoice, impac
                     , div [ class "row" ]
                         [ div [ class "col-lg-6" ]
                             [ h1 [ class "mb-3" ]
-                                [ impactPerKg
-                                    |> floatToRoundedString -2
-                                    |> text
-                                , text " kg CO2 eq par kg de produit"
+                                [ let
+                                    definition =
+                                        db.impacts
+                                            |> Impact.getDefinition impact
+                                            |> Result.withDefault Impact.invalid
+                                  in
+                                  impactPerKg
+                                    |> Format.formatImpactFloat definition
                                 ]
                             ]
                         , div [ class "col-lg-6 ps-5" ]
