@@ -33,6 +33,7 @@ import Quantity
 
 type alias Step =
     { label : Label
+    , enabled : Bool
     , country : Country
     , editable : Bool
     , inputMass : Mass
@@ -79,6 +80,7 @@ create { db, label, editable, country } =
             Impact.impactsFromDefinitons db.impacts
     in
     { label = label
+    , enabled = True
     , country = country
     , editable = editable
     , inputMass = Quantity.zero
@@ -439,6 +441,7 @@ encode : Step -> Encode.Value
 encode v =
     Encode.object
         [ ( "label", Encode.string (Label.toString v.label) )
+        , ( "enabled", Encode.bool v.enabled )
         , ( "country", Country.encode v.country )
         , ( "editable", Encode.bool v.editable )
         , ( "inputMass", Encode.float (Mass.inKilograms v.inputMass) )
