@@ -27,6 +27,7 @@ import Data.Unit as Unit
 import Dict exposing (Dict)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
+import Quantity
 import Result.Extra as RE
 
 
@@ -217,22 +218,22 @@ isUnit processName =
     String.endsWith "/ FR U" processName
 
 
-getTotalImpact : Impact.Trigram -> Step -> Float
-getTotalImpact trigram step =
+getTotalImpact : Impact.Trigram -> List Impact.Definition -> Step -> Float
+getTotalImpact trigram definitions step =
     step
         |> Dict.foldl
             (\_ { amount, impacts } total ->
                 let
                     impact =
-                        getImpact trigram impacts
+                        getImpact trigram definitions impacts
                 in
                 total + (Unit.ratioToFloat amount * impact)
             )
             0
 
 
-getImpact : Impact.Trigram -> Process.Impacts -> Float
-getImpact (Impact.Trigram trigram) impacts =
+getImpact : Impact.Trigram -> List Impact.Definition -> Process.Impacts -> Float
+getImpact (Impact.Trigram trigram) definitions impacts =
     case trigram of
         "acd" ->
             impacts.acd
@@ -290,6 +291,51 @@ getImpact (Impact.Trigram trigram) impacts =
 
         "htn" ->
             impacts.htn
+
+        "pef" ->
+            let
+                trigrams =
+                    [ "acd"
+                    , "ozd"
+                    , "cch"
+                    , "ccb"
+                    , "ccf"
+                    , "ccl"
+                    , "fwe"
+                    , "swe"
+                    , "tre"
+                    , "pco"
+                    , "pma"
+                    , "ior"
+                    , "fru"
+                    , "mru"
+                    , "ldu"
+                    , "wtu"
+                    , "etf"
+                    , "htc"
+                    , "htn"
+                    ]
+            in
+            trigrams
+                |> List.map Impact.trg
+                |> List.map
+                    (\trig ->
+                        case Impact.getDefinition trig definitions of
+                            Ok { pefData } ->
+                                case pefData of
+                                    Just { normalization, weighting } ->
+                                        getImpact trig definitions impacts
+                                            |> Unit.impact
+                                            |> Unit.impactPefScore normalization weighting
+                                            |> Unit.impactToFloat
+
+                                    Nothing ->
+                                        0.0
+
+                            Err _ ->
+                                0.0
+                    )
+                |> List.foldl (+) 0.0
 
         _ ->
             0.0

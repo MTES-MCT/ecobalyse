@@ -168,7 +168,7 @@ view ({ ecobalyseDb, db } as session) { selectedProduct, productsSelectChoice, i
                             Product.getTotalWeight original.plant
 
                         totalImpact =
-                            Product.getTotalImpact impact product.plant
+                            Product.getTotalImpact impact db.impacts product.plant
 
                         totalWeight =
                             Product.getTotalWeight product.plant
@@ -225,7 +225,7 @@ view ({ ecobalyseDb, db } as session) { selectedProduct, productsSelectChoice, i
                         ]
                     , ul []
                         (product.plant
-                            |> Dict.map (makeBar totalImpact impact)
+                            |> Dict.map (makeBar totalImpact impact db.impacts)
                             |> Dict.values
                             -- |> List.sortBy .impact
                             -- |> List.reverse
@@ -289,11 +289,11 @@ type alias Bar =
     }
 
 
-makeBar : Float -> Impact.Trigram -> ProcessName -> Process -> Bar
-makeBar totalImpact trigram name { amount, impacts } =
+makeBar : Float -> Impact.Trigram -> List Impact.Definition -> ProcessName -> Process -> Bar
+makeBar totalImpact trigram definitions name { amount, impacts } =
     let
         impact =
-            Product.getImpact trigram impacts * Unit.ratioToFloat amount
+            Product.getImpact trigram definitions impacts * Unit.ratioToFloat amount
 
         percent =
             impact * toFloat 100 / totalImpact
