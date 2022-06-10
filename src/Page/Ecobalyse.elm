@@ -177,7 +177,7 @@ view ({ ecobalyseDb, db } as session) { selectedProduct, productsSelectChoice, i
                             totalImpact * originalTotalWeight / totalWeight
                     in
                     [ select
-                        [ class "w-100"
+                        [ class "form-select"
                         , onInput ProductSelected
                         ]
                         (ecobalyseDb.products
@@ -191,8 +191,19 @@ view ({ ecobalyseDb, db } as session) { selectedProduct, productsSelectChoice, i
                                         [ text productName ]
                                 )
                         )
-                    , div [ class "row" ]
+                    , div [ class "row align-items-center pt-3 pb-4" ]
                         [ div [ class "col-lg-6" ]
+                            [ impactSelector
+                                { impacts = session.db.impacts
+                                , selectedImpact = impact
+                                , switchImpact = SwitchImpact
+
+                                -- We don't use the following two configs
+                                , selectedFunctionalUnit = Unit.PerItem
+                                , switchFunctionalUnit = always NoOp
+                                }
+                            ]
+                        , div [ class "col-lg-6 ps-5" ]
                             [ h1 [ class "mb-3" ]
                                 [ let
                                     definition =
@@ -203,17 +214,6 @@ view ({ ecobalyseDb, db } as session) { selectedProduct, productsSelectChoice, i
                                   impactPerKg
                                     |> Format.formatImpactFloat definition
                                 ]
-                            ]
-                        , div [ class "col-lg-6 ps-5" ]
-                            [ impactSelector
-                                { impacts = session.db.impacts
-                                , selectedImpact = impact
-                                , switchImpact = SwitchImpact
-
-                                -- We don't use the following two configs
-                                , selectedFunctionalUnit = Unit.PerItem
-                                , switchFunctionalUnit = always NoOp
-                                }
                             ]
                         ]
                     , div [ class "row" ]
