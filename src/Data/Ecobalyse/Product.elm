@@ -34,6 +34,31 @@ type alias Step =
     Dict ProcessName Process
 
 
+trigramsToImpact : Dict.Dict String (Process.Impacts -> Float)
+trigramsToImpact =
+    Dict.fromList
+        [ ( "acd", .acd )
+        , ( "ozd", .ozd )
+        , ( "cch", .cch )
+        , ( "ccb", .ccb )
+        , ( "ccf", .ccf )
+        , ( "ccl", .ccl )
+        , ( "fwe", .fwe )
+        , ( "swe", .swe )
+        , ( "tre", .tre )
+        , ( "pco", .pco )
+        , ( "pma", .pma )
+        , ( "ior", .ior )
+        , ( "fru", .fru )
+        , ( "mru", .mru )
+        , ( "ldu", .ldu )
+        , ( "wtu", .wtu )
+        , ( "etf", .etf )
+        , ( "htc", .htc )
+        , ( "htn", .htn )
+        ]
+
+
 type alias Product =
     { consumer : Step
     , supermarket : Step
@@ -233,111 +258,37 @@ getTotalImpact trigram definitions step =
 
 getImpact : Impact.Trigram -> List Impact.Definition -> Process.Impacts -> Float
 getImpact (Impact.Trigram trigram) definitions impacts =
-    case trigram of
-        "acd" ->
-            impacts.acd
+    case Dict.get trigram trigramsToImpact of
+        Just impactGetter ->
+            impactGetter impacts
 
-        "ozd" ->
-            impacts.ozd
+        Nothing ->
+            if trigram == "pef" then
+                -- PEF is a computed impact
+                Dict.keys trigramsToImpact
+                    -- Get all the impacts we have, and normalize/weigh them
+                    |> List.map Impact.trg
+                    |> List.map
+                        (\trig ->
+                            case Impact.getDefinition trig definitions of
+                                Ok { pefData } ->
+                                    case pefData of
+                                        Just { normalization, weighting } ->
+                                            getImpact trig definitions impacts
+                                                |> Unit.impact
+                                                |> Unit.impactPefScore normalization weighting
+                                                |> Unit.impactToFloat
 
-        "cch" ->
-            impacts.cch
+                                        Nothing ->
+                                            0.0
 
-        "ccb" ->
-            impacts.ccb
+                                Err _ ->
+                                    0.0
+                        )
+                    |> List.foldl (+) 0.0
 
-        "ccf" ->
-            impacts.ccf
-
-        "ccl" ->
-            impacts.ccl
-
-        "fwe" ->
-            impacts.fwe
-
-        "swe" ->
-            impacts.swe
-
-        "tre" ->
-            impacts.tre
-
-        "pco" ->
-            impacts.pco
-
-        "pma" ->
-            impacts.pma
-
-        "ior" ->
-            impacts.ior
-
-        "fru" ->
-            impacts.fru
-
-        "mru" ->
-            impacts.mru
-
-        "ldu" ->
-            impacts.ldu
-
-        "wtu" ->
-            impacts.wtu
-
-        "etf" ->
-            impacts.etf
-
-        "htc" ->
-            impacts.htc
-
-        "htn" ->
-            impacts.htn
-
-        "pef" ->
-            let
-                trigrams =
-                    [ "acd"
-                    , "ozd"
-                    , "cch"
-                    , "ccb"
-                    , "ccf"
-                    , "ccl"
-                    , "fwe"
-                    , "swe"
-                    , "tre"
-                    , "pco"
-                    , "pma"
-                    , "ior"
-                    , "fru"
-                    , "mru"
-                    , "ldu"
-                    , "wtu"
-                    , "etf"
-                    , "htc"
-                    , "htn"
-                    ]
-            in
-            trigrams
-                |> List.map Impact.trg
-                |> List.map
-                    (\trig ->
-                        case Impact.getDefinition trig definitions of
-                            Ok { pefData } ->
-                                case pefData of
-                                    Just { normalization, weighting } ->
-                                        getImpact trig definitions impacts
-                                            |> Unit.impact
-                                            |> Unit.impactPefScore normalization weighting
-                                            |> Unit.impactToFloat
-
-                                    Nothing ->
-                                        0.0
-
-                            Err _ ->
-                                0.0
-                    )
-                |> List.foldl (+) 0.0
-
-        _ ->
-            0.0
+            else
+                0.0
 
 
 getTotalWeight : Step -> Float
