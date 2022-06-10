@@ -27,7 +27,6 @@ import Data.Unit as Unit
 import Dict exposing (Dict)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
-import Quantity
 import Result.Extra as RE
 
 
