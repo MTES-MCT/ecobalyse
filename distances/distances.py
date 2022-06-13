@@ -1,4 +1,6 @@
 import json
+import math
+from re import A
 import requests
 import pandas as pd
 import itertools
@@ -7,6 +9,12 @@ import json
 import os
 import random
 import time
+from datetime import datetime
+from lxml.html import fromstring
+import requests
+from itertools import cycle
+import traceback
+
 
 """Script to get the distances between countries for a list of countries. To identify countries we use the 2 letters code (France->FR).
 
@@ -18,11 +26,15 @@ The number of routes is n(n-1)/2 with n the number of countries.
 20 countries -> 190 routes -> 19 minutes
 """
 
+countries_importance = pd.read_csv(
+    r"../src/wikicarbone-data/distances/countries_importance.csv"
+)
+
 
 def getSearatesDistance(route_type, route):
     """Query the Searates API for a route ("FR","CN") and a route_type ("road") and returns the distance
 
-    Args:
+    Args:@@
         route_type (string): "road", "sea" or "air"
         route (tuple): Pair of countries alpha 2 codes : ("FR","CN")
 
@@ -30,13 +42,30 @@ def getSearatesDistance(route_type, route):
         float : distance of the route in km for the given route_type
     """
     url = buildSearatesQuery(route_type, route)
-    response = requests.get(url, headers=headers)
-    response = requests.get(url)
-    resp_json = response.json()
-    try:
-        dist = round(float(resp_json[route_type]["dist"]))
-    except KeyError:
-        dist = None
+    retries = 5
+
+    dist = None
+
+    for i in range(retries):
+        try:
+
+            response = requests.get(
+                url,
+                headers=headers,
+                # proxies={"http": proxy, "https": proxy}
+            )
+            resp_json = response.json()
+            dist = round(float(resp_json[route_type]["dist"]))
+            break
+
+        except Exception as e:
+            print("Error")
+            time.sleep(1)
+            if i == 5:
+                print(
+                    "failed to get distance for " + str(route_type) + " " + str(route)
+                )
+
     return dist
 
 
@@ -60,8 +89,6 @@ def buildSearatesQuery(route_type, route):
 
     return base_url + from_str + to_str + countries_str
 
-
-countries_importance = pd.read_csv("countries_importance.csv")
 
 # build dic of country -> coordinates
 country_coords = {}
@@ -99,8 +126,40 @@ countries = [
     "GB",
     "IN",
     "GR",
+    "RO",
+    "NL",
+    "PL",
+    "AL",
+    "CH",
+    "CZ",
+    "HU",
+    "BE",
 ]
-
+countries = [
+    "DE",
+    "EG",
+    "ES",
+    "ET",
+    "FR",
+    "GB",
+    "GR",
+    "HU",
+    "IN",
+    "IT",
+    "KH",
+    "LK",
+    "MA",
+    "MM",
+    "NL",
+    "PK",
+    "PL",
+    "PT",
+    "RO",
+    "TN",
+    "TR",
+    "TW",
+    "VN",
+]
 countries = sorted(countries)
 
 # log the nb of routes
@@ -124,10 +183,12 @@ user_agent_list = [
 ]
 url = "https://httpbin.org/headers"
 
+n2 = math.floor(n / 2)
 
+country_half = countries[:n2]
 i = 1
+i_c = 1
 for country_from in countries:
-
     # pick a random user_agent
     user_agent = random.choice(user_agent_list)
     headers = {"User-Agent": user_agent}
@@ -140,10 +201,16 @@ for country_from in countries:
         # iterate on all remaining countries (country_to)
         for country_to in remaining_countries:
             route = (country_from, country_to)
+            # sleep 10 seconds 1 out of 10 times
+            # if random.randint(1, 10) == 10:
+            #    time.sleep(10)
             # sleep for a few seconds
-            time.sleep(random.randint(1, 5))
+            time.sleep(random.randint(1, 3))
+            timeObj = str(datetime.now().time())
+
             print(
-                "computing distances for route "
+                timeObj
+                + " computing distances for route "
                 + str(i)
                 + " out of "
                 + str(nb_routes)
@@ -164,10 +231,22 @@ for country_from in countries:
             i += 1
         # add dictionary of distances to master dictionary
         distances[country_from] = country_from_dic
-        print("finished computing distances for " + country_from)
+        timeObj = str(datetime.now().time())
+        print(timeObj + " finished computing distances for " + country_from)
     else:
         distances[country_from] = {}
+    if i_c % 2 == 0:
+        with open(
+            r"../src/wikicarbone-data/distances/distances_" + str(i) + r".json", "w"
+        ) as outfile:
+            json.dump(distances, outfile)
+        print()
+        timeObj = str(datetime.now().time())
+        print(timeObj + " " + str(i) + " writing intermediate output")
+        print(remaining_countries)
+    i_c += 1
 
-
-with open("distances.json", "w") as outfile:
+with open(r"../src/wikicarbone-data/distances/distances.json", "w") as outfile:
     json.dump(distances, outfile)
+timeObj = str(datetime.now().time())
+print(timeObj + " finished writing output to distances.json")

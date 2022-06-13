@@ -12,7 +12,6 @@ materials = json.load(f)
 f = open(r"../src/wikicarbone-data/data_prep/processes.json")
 processes = json.load(f)
 
-
 material_without_spinning = ["neoprene"]
 
 
