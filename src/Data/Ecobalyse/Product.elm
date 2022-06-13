@@ -18,9 +18,9 @@ import Data.Ecobalyse.Process as Process
     exposing
         ( Amount
         , Impacts
+        , ImpactsForProcesses
         , Process
         , ProcessName
-        , Processes
         )
 import Data.Impact as Impact
 import Data.Unit as Unit
@@ -105,29 +105,29 @@ insertProcess processName amount impacts step =
     Dict.insert processName (Process amount impacts) step
 
 
-stepFromIngredients : List Ingredient -> Processes -> Result String Step
-stepFromIngredients ingredients processes =
+stepFromIngredients : List Ingredient -> ImpactsForProcesses -> Result String Step
+stepFromIngredients ingredients impactsForProcesses =
     ingredients
         |> List.foldl
             (\( processName, amount ) stepResult ->
                 let
                     impactsResult : Result String Impacts
                     impactsResult =
-                        Process.findByName processName processes
+                        Process.findByName processName impactsForProcesses
                 in
                 Result.map2 (insertProcess processName amount) impactsResult stepResult
             )
             (Ok Dict.empty)
 
 
-productFromDefinition : Processes -> ProductDefinition -> Result String Product
-productFromDefinition processes { consumer, supermarket, distribution, packaging, plant } =
+productFromDefinition : ImpactsForProcesses -> ProductDefinition -> Result String Product
+productFromDefinition impactsForProcesses { consumer, supermarket, distribution, packaging, plant } =
     Ok Product
-        |> RE.andMap (stepFromIngredients consumer processes)
-        |> RE.andMap (stepFromIngredients supermarket processes)
-        |> RE.andMap (stepFromIngredients distribution processes)
-        |> RE.andMap (stepFromIngredients packaging processes)
-        |> RE.andMap (stepFromIngredients plant processes)
+        |> RE.andMap (stepFromIngredients consumer impactsForProcesses)
+        |> RE.andMap (stepFromIngredients supermarket impactsForProcesses)
+        |> RE.andMap (stepFromIngredients distribution impactsForProcesses)
+        |> RE.andMap (stepFromIngredients packaging impactsForProcesses)
+        |> RE.andMap (stepFromIngredients plant impactsForProcesses)
 
 
 updateAmount : Maybe WeightRatio -> ProcessName -> Amount -> Step -> Step
@@ -200,28 +200,28 @@ insertProduct productName product products =
     Dict.insert productName product products
 
 
-productsFromDefinitions : Processes -> Dict ProductName ProductDefinition -> Result String Products
-productsFromDefinitions processes definitions =
+productsFromDefinitions : ImpactsForProcesses -> Dict ProductName ProductDefinition -> Result String Products
+productsFromDefinitions impactsForProcesses definitions =
     definitions
         |> Dict.foldl
             (\productName productDefinition productsResult ->
                 let
                     productResult : Result String Product
                     productResult =
-                        productFromDefinition processes productDefinition
+                        productFromDefinition impactsForProcesses productDefinition
                 in
                 Result.map2 (insertProduct productName) productResult productsResult
             )
             (Ok Dict.empty)
 
 
-decodeProducts : Processes -> Decoder Products
-decodeProducts processes =
+decodeProducts : ImpactsForProcesses -> Decoder Products
+decodeProducts impactsForProcesses =
     Decode.dict decodeProductDefinition
         |> Decode.andThen
             (\definitions ->
                 definitions
-                    |> productsFromDefinitions processes
+                    |> productsFromDefinitions impactsForProcesses
                     |> (\result ->
                             case result of
                                 Ok products ->
@@ -338,7 +338,7 @@ getWeightLosingUnitProcessName : Step -> Maybe ProcessName
 getWeightLosingUnitProcessName step =
     step
         |> Dict.toList
-        -- Only keep processes ending with "/ FR U"
+        -- Only keep processes with names ending with "/ FR U"
         |> List.filter (Tuple.first >> String.endsWith "/ FR U")
         -- Sort by heavier to lighter
         |> List.sortBy (Tuple.second >> .amount >> Unit.ratioToFloat)

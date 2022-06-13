@@ -3,14 +3,14 @@ module Data.Ecobalyse.Db exposing
     , empty
     )
 
-import Data.Ecobalyse.Process as Process exposing (Processes)
+import Data.Ecobalyse.Process as Process exposing (ImpactsForProcesses)
 import Data.Ecobalyse.Product as Products exposing (Products)
 import Data.Impact as Impact
 
 
 type alias Db =
     { impacts : List Impact.Definition
-    , processes : Processes
+    , processes : ImpactsForProcesses
     , products : Products
     }
 

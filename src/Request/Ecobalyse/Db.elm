@@ -1,7 +1,7 @@
 module Request.Ecobalyse.Db exposing (loadDb)
 
 import Data.Ecobalyse.Db exposing (Db)
-import Data.Ecobalyse.Process as Process exposing (Processes)
+import Data.Ecobalyse.Process as Process exposing (ImpactsForProcesses)
 import Data.Ecobalyse.Product as Product exposing (Products)
 import Data.Impact as Impact
 import Data.Session exposing (Session)
@@ -23,7 +23,7 @@ getJson decoder file =
     Http.getTaskWithConfig taskConfig ("data/" ++ file) decoder
 
 
-handleProductsLoaded : List Impact.Definition -> Processes -> WebData Products -> Task () (WebData Db)
+handleProductsLoaded : List Impact.Definition -> ImpactsForProcesses -> WebData Products -> Task () (WebData Db)
 handleProductsLoaded impacts processes productsData =
     case productsData of
         RemoteData.Success products ->
@@ -39,9 +39,9 @@ handleProductsLoaded impacts processes productsData =
             Task.succeed RemoteData.Loading
 
 
-handleProcessesLoaded : List Impact.Definition -> WebData Processes -> Task () (WebData Db)
-handleProcessesLoaded impacts processesData =
-    case processesData of
+handleProcessesLoaded : List Impact.Definition -> WebData ImpactsForProcesses -> Task () (WebData Db)
+handleProcessesLoaded impacts impactsForProcessesData =
+    case impactsForProcessesData of
         RemoteData.Success processes ->
             getJson (Product.decodeProducts processes) "ecobalyse/products.json"
                 |> Task.andThen (handleProductsLoaded impacts processes)

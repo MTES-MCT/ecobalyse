@@ -1,9 +1,9 @@
 module Data.Ecobalyse.Process exposing
     ( Amount
     , Impacts
+    , ImpactsForProcesses
     , Process
     , ProcessName
-    , Processes
     , decode
     , empty
     , findByName
@@ -52,16 +52,16 @@ type alias Process =
     }
 
 
-type alias Processes =
+type alias ImpactsForProcesses =
     Dict String Impacts
 
 
-empty : Processes
+empty : ImpactsForProcesses
 empty =
     Dict.empty
 
 
-findByName : String -> Processes -> Result String Impacts
+findByName : String -> ImpactsForProcesses -> Result String Impacts
 findByName name =
     Dict.get name
         >> Result.fromMaybe ("Procédé introuvable par nom : " ++ name)
@@ -91,6 +91,6 @@ decodeImpacts =
         |> Pipe.required "htn" Decode.float
 
 
-decode : Decoder Processes
+decode : Decoder ImpactsForProcesses
 decode =
     Decode.dict decodeImpacts
