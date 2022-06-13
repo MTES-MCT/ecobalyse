@@ -281,7 +281,7 @@ viewIngredient bar =
 
 
 type alias Bar =
-    { name : ProcessName
+    { name : String
     , amount : Unit.Ratio
     , impact : Float
     , width : Float
@@ -289,8 +289,8 @@ type alias Bar =
     }
 
 
-makeBar : Float -> Impact.Trigram -> List Impact.Definition -> ProcessName -> Process -> Bar
-makeBar totalImpact trigram definitions name { amount, impacts } =
+makeBar : Float -> Impact.Trigram -> List Impact.Definition -> String -> Process -> Bar
+makeBar totalImpact trigram definitions processName { amount, impacts } =
     let
         impact =
             Product.getImpact trigram definitions impacts * Unit.ratioToFloat amount
@@ -298,7 +298,7 @@ makeBar totalImpact trigram definitions name { amount, impacts } =
         percent =
             impact * toFloat 100 / totalImpact
     in
-    { name = name
+    { name = processName
     , amount = amount
     , impact = impact
     , width = clamp 0 100 percent

@@ -20,7 +20,7 @@ import Data.Ecobalyse.Process as Process
         , Impacts
         , ImpactsForProcesses
         , Process
-        , ProcessName
+        , stringToProcessName
         )
 import Data.Impact as Impact
 import Data.Unit as Unit
@@ -31,7 +31,7 @@ import Result.Extra as RE
 
 
 type alias Step =
-    Dict ProcessName Process
+    Dict String Process
 
 
 trigramsToImpact : Dict.Dict String (Process.Impacts -> Float)
@@ -95,12 +95,12 @@ type alias ProductDefinition =
 
 
 type alias WeightRatio =
-    { processName : ProcessName
+    { processName : String
     , weightRatio : Float
     }
 
 
-insertProcess : ProcessName -> Amount -> Impacts -> Step -> Step
+insertProcess : String -> Amount -> Impacts -> Step -> Step
 insertProcess processName amount impacts step =
     Dict.insert processName (Process amount impacts) step
 
@@ -113,7 +113,7 @@ stepFromIngredients ingredients impactsForProcesses =
                 let
                     impactsResult : Result String Impacts
                     impactsResult =
-                        Process.findByName processName impactsForProcesses
+                        Process.findByName (stringToProcessName processName) impactsForProcesses
                 in
                 Result.map2 (insertProcess processName amount) impactsResult stepResult
             )
@@ -130,7 +130,7 @@ productFromDefinition impactsForProcesses { consumer, supermarket, distribution,
         |> RE.andMap (stepFromIngredients plant impactsForProcesses)
 
 
-updateAmount : Maybe WeightRatio -> ProcessName -> Amount -> Step -> Step
+updateAmount : Maybe WeightRatio -> String -> Amount -> Step -> Step
 updateAmount maybeWeightRatio processName newAmount step =
     step
         |> Dict.update processName
@@ -237,7 +237,7 @@ decodeProducts impactsForProcesses =
 -- utilities
 
 
-isUnit : ProcessName -> Bool
+isUnit : String -> Bool
 isUnit processName =
     String.endsWith "/ FR U" processName
 
@@ -334,7 +334,7 @@ getWeightRatio product =
             )
 
 
-getWeightLosingUnitProcessName : Step -> Maybe ProcessName
+getWeightLosingUnitProcessName : Step -> Maybe String
 getWeightLosingUnitProcessName step =
     step
         |> Dict.toList

@@ -7,10 +7,11 @@ module Data.Ecobalyse.Process exposing
     , decode
     , empty
     , findByName
+    , stringToProcessName
     )
 
 import Data.Unit as Unit
-import Dict exposing (Dict)
+import Dict.Any as AnyDict exposing (AnyDict)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
 
@@ -42,8 +43,18 @@ type alias Amount =
     Unit.Ratio
 
 
-type alias ProcessName =
-    String
+type ProcessName
+    = ProcessName String
+
+
+stringToProcessName : String -> ProcessName
+stringToProcessName str =
+    ProcessName str
+
+
+processNameToString : ProcessName -> String
+processNameToString (ProcessName name) =
+    name
 
 
 type alias Process =
@@ -53,17 +64,17 @@ type alias Process =
 
 
 type alias ImpactsForProcesses =
-    Dict String Impacts
+    AnyDict String ProcessName Impacts
 
 
 empty : ImpactsForProcesses
 empty =
-    Dict.empty
+    AnyDict.empty processNameToString
 
 
-findByName : String -> ImpactsForProcesses -> Result String Impacts
-findByName name =
-    Dict.get name
+findByName : ProcessName -> ImpactsForProcesses -> Result String Impacts
+findByName ((ProcessName name) as procName) =
+    AnyDict.get procName
         >> Result.fromMaybe ("Procédé introuvable par nom : " ++ name)
 
 
@@ -93,4 +104,4 @@ decodeImpacts =
 
 decode : Decoder ImpactsForProcesses
 decode =
-    Decode.dict decodeImpacts
+    AnyDict.decode (\str _ -> ProcessName str) processNameToString decodeImpacts
