@@ -7,13 +7,25 @@ module Page.Ecobalyse exposing
     )
 
 import Data.Ecobalyse.Db as Db
-import Data.Ecobalyse.Process exposing (Amount, Process, ProcessName, isUnit, processNameToString)
-import Data.Ecobalyse.Product as Product exposing (Product, ProductName, WeightRatio)
+import Data.Ecobalyse.Process
+    exposing
+        ( Amount
+        , Process
+        , ProcessName
+        , isUnit
+        , processNameToString
+        )
+import Data.Ecobalyse.Product as Product
+    exposing
+        ( Product
+        , WeightRatio
+        , productNameToString
+        , stringToProductName
+        )
 import Data.Impact as Impact
 import Data.Session as Session exposing (Session)
 import Data.Unit as Unit
 import Decimal
-import Dict
 import Dict.Any as AnyDict
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -51,7 +63,7 @@ type Msg
     | NoOp
 
 
-tunaPizza : ProductName
+tunaPizza : String
 tunaPizza =
     "Pizza, tuna, processed in FR | Chilled | Cardboard | Oven | at consumer/FR [Ciqual code: 26270]"
 
@@ -89,7 +101,7 @@ update ({ ecobalyseDb } as session) msg ({ selectedProduct } as model) =
         ( DbLoaded (RemoteData.Success db), _ ) ->
             let
                 productResult =
-                    Product.findByName tunaPizza db.products
+                    Product.findByName (stringToProductName tunaPizza) db.products
             in
             case productResult of
                 Ok product ->
@@ -126,7 +138,7 @@ update ({ ecobalyseDb } as session) msg ({ selectedProduct } as model) =
         ( ProductSelected productSelected, _ ) ->
             let
                 productResult =
-                    Product.findByName productSelected ecobalyseDb.products
+                    Product.findByName (stringToProductName productSelected) ecobalyseDb.products
             in
             case productResult of
                 Ok product ->
@@ -182,14 +194,18 @@ view ({ ecobalyseDb, db } as session) { selectedProduct, productsSelectChoice, i
                         , onInput ProductSelected
                         ]
                         (ecobalyseDb.products
-                            |> Dict.keys
+                            |> AnyDict.keys
                             |> List.map
                                 (\productName ->
+                                    let
+                                        name =
+                                            productNameToString productName
+                                    in
                                     option
-                                        [ value productName
-                                        , selected (productName == productsSelectChoice)
+                                        [ value name
+                                        , selected (name == productsSelectChoice)
                                         ]
-                                        [ text productName ]
+                                        [ text name ]
                                 )
                         )
                     , div [ class "row align-items-center pt-3 pb-4" ]

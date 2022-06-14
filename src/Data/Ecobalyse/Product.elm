@@ -10,6 +10,8 @@ module Data.Ecobalyse.Product exposing
     , getTotalImpact
     , getTotalWeight
     , getWeightRatio
+    , productNameToString
+    , stringToProductName
     , updateAmount
     )
 
@@ -37,7 +39,7 @@ type alias Step =
     AnyDict String ProcessName Process
 
 
-trigramsToImpact : Dict.Dict String (Process.Impacts -> Float)
+trigramsToImpact : Dict String (Process.Impacts -> Float)
 trigramsToImpact =
     Dict.fromList
         [ ( "acd", .acd )
@@ -71,17 +73,27 @@ type alias Product =
     }
 
 
-type alias ProductName =
-    String
+type ProductName
+    = ProductName String
+
+
+productNameToString : ProductName -> String
+productNameToString (ProductName name) =
+    name
+
+
+stringToProductName : String -> ProductName
+stringToProductName str =
+    ProductName str
 
 
 type alias Products =
-    Dict ProductName Product
+    AnyDict String ProductName Product
 
 
 empty : Products
 empty =
-    Dict.empty
+    AnyDict.empty productNameToString
 
 
 type alias Ingredient =
@@ -170,9 +182,9 @@ updateWeight maybeWeightRatio step =
                     )
 
 
-findByName : String -> Products -> Result String Product
-findByName name =
-    Dict.get name
+findByName : ProductName -> Products -> Result String Product
+findByName ((ProductName name) as productName) =
+    AnyDict.get productName
         >> Result.fromMaybe ("Produit introuvable par nom : " ++ name)
 
 
@@ -200,13 +212,13 @@ decodeProductDefinition =
 
 insertProduct : ProductName -> Product -> Products -> Products
 insertProduct productName product products =
-    Dict.insert productName product products
+    AnyDict.insert productName product products
 
 
-productsFromDefinitions : ImpactsForProcesses -> Dict ProductName ProductDefinition -> Result String Products
+productsFromDefinitions : ImpactsForProcesses -> AnyDict String ProductName ProductDefinition -> Result String Products
 productsFromDefinitions impactsForProcesses definitions =
     definitions
-        |> Dict.foldl
+        |> AnyDict.foldl
             (\productName productDefinition productsResult ->
                 let
                     productResult : Result String Product
@@ -215,12 +227,12 @@ productsFromDefinitions impactsForProcesses definitions =
                 in
                 Result.map2 (insertProduct productName) productResult productsResult
             )
-            (Ok Dict.empty)
+            (Ok (AnyDict.empty productNameToString))
 
 
 decodeProducts : ImpactsForProcesses -> Decoder Products
 decodeProducts impactsForProcesses =
-    Decode.dict decodeProductDefinition
+    AnyDict.decode (\str _ -> ProductName str) productNameToString decodeProductDefinition
         |> Decode.andThen
             (\definitions ->
                 definitions
