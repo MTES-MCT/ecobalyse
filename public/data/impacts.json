@@ -322,5 +322,65 @@
       "normalization": 1.14687e4,
       "weighting": 0.0851
     }
+  },
+  "etf": {
+    "source": {
+      "label": "Agribalyse",
+      "url": "https://agribalyse.ademe.fr/"
+    },
+    "label_en": "Ecotoxicity: freshwater",
+    "label_fr": "Écotoxicité de l'eau douce",
+    "unit_fr": "CTUe/kg",
+    "unit_en": "CTUe/kg",
+    "description_en": "Indicator of freshwater ecotoxicity",
+    "description_fr": "Indicateur d'écotoxicité pour écosystèmes aquatiques d'eau douce ",
+    "short_unit": "CTUe/kg",
+    "primary": true,
+    "quality": 0,
+    "pef": {
+      "color": "#00ffff",
+      "normalization": 0,
+      "weighting": 0
+    }
+  },
+  "htc": {
+    "source": {
+      "label": "Agribalyse",
+      "url": "https://agribalyse.ademe.fr/"
+    },
+    "label_en": "Human toxicity: carcinogenic",
+    "label_fr": "Écotoxicité humaine : cancérigène",
+    "unit_fr": "CTUh/kg",
+    "unit_en": "CTUh/kg",
+    "description_en": "Comparative toxic unit for human (CTUh)",
+    "description_fr": "Indicateur d'écotoxicité cancérigène pour l'homme",
+    "short_unit": "CTUh/kg",
+    "primary": true,
+    "quality": 0,
+    "pef": {
+      "color": "#00ffff",
+      "normalization": 0,
+      "weighting": 0
+    }
+  },
+  "htn": {
+    "source": {
+      "label": "Agribalyse",
+      "url": "https://agribalyse.ademe.fr/"
+    },
+    "label_en": "Human toxicity: non-carcinogenic",
+    "label_fr": "Écotoxicité humaine : non cancérigène",
+    "unit_fr": "CTUh/kg",
+    "unit_en": "CTUh/kg",
+    "description_en": "Comparative toxic unit for human (CTUh)",
+    "description_fr": "Indicateur d'écotoxicité non cancérigène pour l'homme",
+    "short_unit": "CTUh/kg",
+    "primary": true,
+    "quality": 0,
+    "pef": {
+      "color": "#00ffff",
+      "normalization": 1.14687e4,
+      "weighting": 0.0851
+    }
   }
 }
