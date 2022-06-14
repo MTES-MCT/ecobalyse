@@ -10,6 +10,7 @@ import Data.Matomo as Matomo
 import Data.Session exposing (Session)
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import Html.Events exposing (..)
 import Ports
 import RemoteData exposing (WebData)
 import Request.Matomo
@@ -21,18 +22,26 @@ import Views.Spinner as Spinner
 type alias Model =
     { apiStats : WebData (List Matomo.Stat)
     , webStats : WebData (List Matomo.Stat)
+    , mode : Mode
     }
 
 
 type Msg
     = ApiStats (WebData (List Matomo.Stat))
     | WebStats (WebData (List Matomo.Stat))
+    | ToggleMode Mode
+
+
+type Mode
+    = Advanced
+    | Simple
 
 
 init : Session -> ( Model, Session, Cmd Msg )
 init session =
     ( { apiStats = RemoteData.NotAsked
       , webStats = RemoteData.NotAsked
+      , mode = Simple
       }
     , session
     , Cmd.batch
@@ -51,6 +60,9 @@ update session msg model =
 
         WebStats webStats ->
             ( { model | webStats = webStats }, session, Cmd.none )
+
+        ToggleMode mode ->
+            ( { model | mode = mode }, session, Cmd.none )
 
 
 viewStats : { heading : String, unit : String } -> WebData (List Matomo.Stat) -> Html Msg
@@ -76,14 +88,105 @@ viewStats { heading, unit } webData =
 
 
 view : Session -> Model -> ( String, List (Html Msg) )
-view _ { apiStats, webStats } =
+view _ { mode, apiStats, webStats } =
     ( "Statistiques"
     , [ Container.centered [ class "pb-5" ]
             [ h1 [ class "mb-3" ] [ text "Statistiques" ]
-            , webStats
-                |> viewStats { heading = "Fréquentation", unit = "visite" }
-            , apiStats
-                |> viewStats { heading = "Traffic sur l'API", unit = "requête" }
+            , ul [ class "nav nav-tabs" ]
+                [ li [ class "nav-item" ]
+                    [ button
+                        [ class "nav-link"
+                        , classList [ ( "active", mode == Simple ) ]
+                        , onClick (ToggleMode Simple)
+                        ]
+                        [ text "Simples" ]
+                    ]
+                , li [ class "nav-item" ]
+                    [ button
+                        [ class "nav-link"
+                        , classList [ ( "active", mode == Advanced ) ]
+                        , onClick (ToggleMode Advanced)
+                        ]
+                        [ text "Avancées" ]
+                    ]
+                ]
+            , div [ class "border border-top-0 rounded p-2" ]
+                [ case mode of
+                    Simple ->
+                        div []
+                            [ webStats
+                                |> viewStats { heading = "Fréquentation", unit = "visite" }
+                            , apiStats
+                                |> viewStats { heading = "Traffic sur l'API", unit = "requête" }
+                            ]
+
+                    Advanced ->
+                        div []
+                            [ div [ class "widgetIframe" ]
+                                [ iframe
+                                    [ attribute "crossorigin" "anonymous"
+                                    , attribute "frameborder" "0"
+                                    , attribute "height" "800"
+                                    , attribute "marginheight" "0"
+                                    , attribute "marginwidth" "0"
+                                    , attribute "scrolling" "yes"
+                                    , attribute "allowtransparency" "true"
+                                    , style "background-color" "#f8f9fa"
+                                    , [ ( "module", "Widgetize" )
+                                      , ( "action", "iframe" )
+                                      , ( "containerId", "VisitOverviewWithGraph" )
+                                      , ( "disableLink", "0" )
+                                      , ( "widget", "1" )
+                                      , ( "moduleToWidgetize", "CoreHome" )
+                                      , ( "actionToWidgetize", "renderWidgetContainer" )
+                                      , ( "idSite", "196" )
+                                      , ( "period", "day" )
+                                      , ( "date", "yesterday" )
+                                      , ( "disableLink", "1" )
+                                      , ( "widget", "1" )
+                                      ]
+                                        |> List.map (\( key, val ) -> key ++ "=" ++ val)
+                                        |> String.join "&"
+                                        |> (++) "https://stats.data.gouv.fr/index.php?"
+                                        |> src
+                                    , attribute "width" "100%"
+                                    ]
+                                    []
+                                ]
+                            , h2 [ class "h3" ] [ text "Traffic sur l'API" ]
+                            , div [ class "widgetIframe" ]
+                                [ iframe
+                                    [ attribute "crossorigin" "anonymous"
+                                    , attribute "frameborder" "0"
+                                    , attribute "height" "450"
+                                    , attribute "marginheight" "0"
+                                    , attribute "marginwidth" "0"
+                                    , attribute "scrolling" "yes"
+                                    , attribute "allowtransparency" "true"
+                                    , style "background-color" "#f8f9fa"
+                                    , [ ( "module", "Widgetize" )
+                                      , ( "action", "iframe" )
+                                      , ( "containerId", "Goal_1" )
+                                      , ( "disableLink", "0" )
+                                      , ( "widget", "1" )
+                                      , ( "moduleToWidgetize", "CoreHome" )
+                                      , ( "actionToWidgetize", "renderWidgetContainer" )
+                                      , ( "idSite", "196" )
+                                      , ( "period", "day" )
+                                      , ( "date", "yesterday" )
+                                      , ( "disableLink", "1" )
+                                      , ( "widget", "1" )
+                                      ]
+                                        |> List.map (\( key, val ) -> key ++ "=" ++ val)
+                                        |> String.join "&"
+                                        |> (++) "https://stats.data.gouv.fr/index.php?"
+                                        |> src
+                                    , attribute "width" "100%"
+                                    ]
+                                    []
+                                ]
+                            ]
+                ]
             ]
       ]
     )
