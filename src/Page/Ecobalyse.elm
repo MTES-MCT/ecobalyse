@@ -7,7 +7,7 @@ module Page.Ecobalyse exposing
     )
 
 import Data.Ecobalyse.Db as Db
-import Data.Ecobalyse.Process exposing (Amount, Process, ProcessName)
+import Data.Ecobalyse.Process exposing (Amount, Process)
 import Data.Ecobalyse.Product as Product exposing (Product, ProductName, WeightRatio)
 import Data.Impact as Impact
 import Data.Session as Session exposing (Session)
