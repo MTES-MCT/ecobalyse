@@ -1,10 +1,14 @@
 module Data.Step.Label exposing
     ( Label(..)
+    , decodeFromCode
+    , fromCodeString
+    , toCodeString
     , toGitbookPath
     , toString
     )
 
 import Data.Gitbook as Gitbook
+import Json.Decode as Decode exposing (Decoder)
 
 
 type Label
@@ -46,6 +50,65 @@ toString label =
             "Fin de vie"
 
 
+fromCodeString : String -> Result String Label
+fromCodeString code =
+    case code of
+        "material" ->
+            Ok Material
+
+        "spinning" ->
+            Ok Spinning
+
+        "fabric" ->
+            Ok Fabric
+
+        "making" ->
+            Ok Making
+
+        "dyeing" ->
+            Ok Dyeing
+
+        "distribution" ->
+            Ok Distribution
+
+        "use" ->
+            Ok Use
+
+        "eol" ->
+            Ok EndOfLife
+
+        _ ->
+            Err ("Code étape inconnu: " ++ code)
+
+
+toCodeString : Label -> String
+toCodeString label =
+    case label of
+        Material ->
+            "material"
+
+        Spinning ->
+            "spinning"
+
+        Fabric ->
+            "fabric"
+
+        Making ->
+            "making"
+
+        Dyeing ->
+            "dyeing"
+
+        Distribution ->
+            "distribution"
+
+        Use ->
+            "use"
+
+        EndOfLife ->
+            "eol"
+
+
 toGitbookPath : Label -> Gitbook.Path
 toGitbookPath label =
     case label of
@@ -72,3 +135,17 @@ toGitbookPath label =
 
         EndOfLife ->
             Gitbook.EndOfLife
+
+
+decodeFromCode : Decoder Label
+decodeFromCode =
+    Decode.string
+        |> Decode.andThen
+            (\str ->
+                case fromCodeString str of
+                    Ok decoded ->
+                        Decode.succeed decoded
+
+                    Err err ->
+                        Decode.fail err
+            )

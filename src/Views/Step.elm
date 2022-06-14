@@ -37,6 +37,7 @@ type alias Config msg =
     , index : Int
     , current : Step
     , next : Maybe Step
+    , toggleStep : Int -> Bool -> msg
     , toggleStepViewMode : Int -> msg
     , updateCountry : Label -> Country.Code -> msg
     , updateDyeingWeighting : Maybe Unit.Ratio -> msg
@@ -273,9 +274,26 @@ inlineDocumentationLink _ path =
 
 
 stepActions : Config msg -> Label -> Html msg
-stepActions { viewMode, index, toggleStepViewMode } label =
+stepActions { current, viewMode, index, toggleStep, toggleStepViewMode } label =
     div [ class "StepActions btn-group" ]
-        [ Button.docsPillLink
+        [ div [ class "form-check form-switch" ]
+            [ input
+                [ type_ "checkbox"
+                , class "form-check-input"
+                , attribute "role" "switch"
+                , checked current.enabled
+                , onCheck (toggleStep index)
+                , title
+                    (if current.enabled then
+                        "Désactiver cette étape"
+
+                     else
+                        "Activer cette étape"
+                    )
+                ]
+                []
+            ]
+        , Button.docsPillLink
             [ class "btn btn-primary py-1 rounded-end"
             , href (Gitbook.publicUrlFromPath (Label.toGitbookPath label))
             , title "Documentation"
@@ -299,8 +317,8 @@ stepActions { viewMode, index, toggleStepViewMode } label =
                 ViewMode.DetailedAll ->
                     Icon.zoomout
 
-                ViewMode.DetailedStep current ->
-                    if index == current then
+                ViewMode.DetailedStep currentIndex ->
+                    if index == currentIndex then
                         Icon.zoomout
 
                     else
@@ -441,7 +459,7 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
     div [ class "card-group" ]
         [ div [ class "card" ]
             [ div [ class "card-header d-flex justify-content-between align-items-center" ]
-                [ span [ class "d-flex align-items-center" ]
+                [ div [ class "d-flex align-items-center" ]
                     [ span [ class "StepIcon bg-primary text-white rounded-pill" ]
                         [ stepIcon current.label ]
                     , current.label
@@ -452,7 +470,9 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                         |> text
                     ]
                 , -- Note: hide on desktop, show on mobile
-                  div [ class "d-block d-sm-none" ] [ stepActions config current.label ]
+                  div [ class "d-block d-sm-none" ]
+                    [ stepActions config current.label
+                    ]
                 ]
             , ul [ class "list-group list-group-flush fs-7" ]
                 [ li [ class "list-group-item text-muted" ] [ countryField config ]
