@@ -10,7 +10,6 @@ module Data.Ecobalyse.Product exposing
     , getTotalImpact
     , getTotalWeight
     , getWeightRatio
-    , isUnit
     , updateAmount
     )
 
@@ -20,18 +19,22 @@ import Data.Ecobalyse.Process as Process
         , Impacts
         , ImpactsForProcesses
         , Process
+        , ProcessName
+        , isUnit
+        , processNameToString
         , stringToProcessName
         )
 import Data.Impact as Impact
 import Data.Unit as Unit
 import Dict exposing (Dict)
+import Dict.Any as AnyDict exposing (AnyDict)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
 import Result.Extra as RE
 
 
 type alias Step =
-    Dict String Process
+    AnyDict String ProcessName Process
 
 
 trigramsToImpact : Dict.Dict String (Process.Impacts -> Float)
@@ -82,7 +85,7 @@ empty =
 
 
 type alias Ingredient =
-    ( String, Unit.Ratio )
+    ( ProcessName, Unit.Ratio )
 
 
 type alias ProductDefinition =
@@ -95,14 +98,14 @@ type alias ProductDefinition =
 
 
 type alias WeightRatio =
-    { processName : String
+    { processName : ProcessName
     , weightRatio : Float
     }
 
 
-insertProcess : String -> Amount -> Impacts -> Step -> Step
+insertProcess : ProcessName -> Amount -> Impacts -> Step -> Step
 insertProcess processName amount impacts step =
-    Dict.insert processName (Process amount impacts) step
+    AnyDict.insert processName (Process amount impacts) step
 
 
 stepFromIngredients : List Ingredient -> ImpactsForProcesses -> Result String Step
@@ -113,11 +116,11 @@ stepFromIngredients ingredients impactsForProcesses =
                 let
                     impactsResult : Result String Impacts
                     impactsResult =
-                        Process.findByName (stringToProcessName processName) impactsForProcesses
+                        Process.findByName processName impactsForProcesses
                 in
                 Result.map2 (insertProcess processName amount) impactsResult stepResult
             )
-            (Ok Dict.empty)
+            (Ok (AnyDict.empty processNameToString))
 
 
 productFromDefinition : ImpactsForProcesses -> ProductDefinition -> Result String Product
@@ -130,10 +133,10 @@ productFromDefinition impactsForProcesses { consumer, supermarket, distribution,
         |> RE.andMap (stepFromIngredients plant impactsForProcesses)
 
 
-updateAmount : Maybe WeightRatio -> String -> Amount -> Step -> Step
+updateAmount : Maybe WeightRatio -> ProcessName -> Amount -> Step -> Step
 updateAmount maybeWeightRatio processName newAmount step =
     step
-        |> Dict.update processName
+        |> AnyDict.update processName
             (Maybe.map
                 (\process ->
                     { process | amount = newAmount }
@@ -159,7 +162,7 @@ updateWeight maybeWeightRatio step =
                         |> Unit.Ratio
             in
             step
-                |> Dict.update processName
+                |> AnyDict.update processName
                     (Maybe.map
                         (\process ->
                             { process | amount = updatedWeight }
@@ -181,8 +184,8 @@ decodeAmount =
 
 decodeIngredients : Decoder (List Ingredient)
 decodeIngredients =
-    Decode.dict decodeAmount
-        |> Decode.map Dict.toList
+    AnyDict.decode (\str _ -> stringToProcessName str) processNameToString decodeAmount
+        |> Decode.map AnyDict.toList
 
 
 decodeProductDefinition : Decoder ProductDefinition
@@ -237,15 +240,10 @@ decodeProducts impactsForProcesses =
 -- utilities
 
 
-isUnit : String -> Bool
-isUnit processName =
-    String.endsWith "/ FR U" processName
-
-
 getTotalImpact : Impact.Trigram -> List Impact.Definition -> Step -> Float
 getTotalImpact trigram definitions step =
     step
-        |> Dict.foldl
+        |> AnyDict.foldl
             (\_ { amount, impacts } total ->
                 let
                     impact =
@@ -294,7 +292,7 @@ getImpact (Impact.Trigram trigram) definitions impacts =
 getTotalWeight : Step -> Float
 getTotalWeight step =
     step
-        |> Dict.foldl
+        |> AnyDict.foldl
             (\processName { amount } total ->
                 if isUnit processName then
                     total
@@ -322,7 +320,7 @@ getWeightRatio product =
         |> Maybe.andThen
             (\processName ->
                 product.plant
-                    |> Dict.get processName
+                    |> AnyDict.get processName
                     |> Maybe.map
                         (\process ->
                             { processName = processName
@@ -334,12 +332,12 @@ getWeightRatio product =
             )
 
 
-getWeightLosingUnitProcessName : Step -> Maybe String
+getWeightLosingUnitProcessName : Step -> Maybe ProcessName
 getWeightLosingUnitProcessName step =
     step
-        |> Dict.toList
+        |> AnyDict.toList
         -- Only keep processes with names ending with "/ FR U"
-        |> List.filter (Tuple.first >> String.endsWith "/ FR U")
+        |> List.filter (Tuple.first >> isUnit)
         -- Sort by heavier to lighter
         |> List.sortBy (Tuple.second >> .amount >> Unit.ratioToFloat)
         |> List.reverse

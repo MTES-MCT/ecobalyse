@@ -7,6 +7,8 @@ module Data.Ecobalyse.Process exposing
     , decode
     , empty
     , findByName
+    , isUnit
+    , processNameToString
     , stringToProcessName
     )
 
@@ -55,6 +57,11 @@ stringToProcessName str =
 processNameToString : ProcessName -> String
 processNameToString (ProcessName name) =
     name
+
+
+isUnit : ProcessName -> Bool
+isUnit (ProcessName processName) =
+    String.endsWith "/ FR U" processName
 
 
 type alias Process =

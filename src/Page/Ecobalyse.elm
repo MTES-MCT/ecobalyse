@@ -7,13 +7,14 @@ module Page.Ecobalyse exposing
     )
 
 import Data.Ecobalyse.Db as Db
-import Data.Ecobalyse.Process exposing (Amount, Process)
+import Data.Ecobalyse.Process exposing (Amount, Process, ProcessName, isUnit, processNameToString)
 import Data.Ecobalyse.Product as Product exposing (Product, ProductName, WeightRatio)
 import Data.Impact as Impact
 import Data.Session as Session exposing (Session)
 import Data.Unit as Unit
 import Decimal
 import Dict
+import Dict.Any as AnyDict
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -42,7 +43,7 @@ type alias Model =
 
 
 type Msg
-    = IngredientSliderChanged ProductName (Maybe Amount)
+    = IngredientSliderChanged ProcessName (Maybe Amount)
     | DbLoaded (WebData Db.Db)
     | Reset
     | ProductSelected String
@@ -225,8 +226,8 @@ view ({ ecobalyseDb, db } as session) { selectedProduct, productsSelectChoice, i
                         ]
                     , ul []
                         (product.plant
-                            |> Dict.map (makeBar totalImpact impact db.impacts)
-                            |> Dict.values
+                            |> AnyDict.map (makeBar totalImpact impact db.impacts)
+                            |> AnyDict.values
                             -- |> List.sortBy .impact
                             -- |> List.reverse
                             |> List.map viewIngredient
@@ -256,20 +257,24 @@ view ({ ecobalyseDb, db } as session) { selectedProduct, productsSelectChoice, i
 
 viewIngredient : Bar -> Html Msg
 viewIngredient bar =
+    let
+        name =
+            bar.name |> processNameToString
+    in
     li []
-        [ text bar.name
+        [ text name
         , text " : "
         , div [ class "row" ]
             [ div [ class "col-lg-6" ]
                 [ RangeSlider.ratio
-                    { id = "slider-" ++ bar.name
+                    { id = "slider-" ++ name
                     , update = IngredientSliderChanged bar.name
                     , value = bar.amount
                     , toString =
                         Unit.ratioToFloat
                             >> floatToRoundedString -3
                             >> (\mass -> mass ++ "kg")
-                    , disabled = Product.isUnit bar.name
+                    , disabled = isUnit bar.name
                     , min = 0
                     , max = 100
                     }
@@ -281,7 +286,7 @@ viewIngredient bar =
 
 
 type alias Bar =
-    { name : String
+    { name : ProcessName
     , amount : Unit.Ratio
     , impact : Float
     , width : Float
@@ -289,7 +294,7 @@ type alias Bar =
     }
 
 
-makeBar : Float -> Impact.Trigram -> List Impact.Definition -> String -> Process -> Bar
+makeBar : Float -> Impact.Trigram -> List Impact.Definition -> ProcessName -> Process -> Bar
 makeBar totalImpact trigram definitions processName { amount, impacts } =
     let
         impact =
