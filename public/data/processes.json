@@ -326,7 +326,7 @@
     "heat_MJ": 0.0,
     "elec_pppm": 0.0,
     "elec_MJ": 0.0,
-    "waste": 1.85817e-1,
+    "waste": 0,
     "alias": null
   },
   {
