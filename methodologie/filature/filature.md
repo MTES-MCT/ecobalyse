@@ -21,7 +21,7 @@ La liste des matières disponibles dans Ecobalyse est visible dans l'[Explorateu
 {% hint style="info" %}
 * Pour le fil de soie, la documentation sectorielle indique simplement une géographie mondiale (GLO), en précisant que celle-ci correspond à la production mondiale. Considérant que cette production est très majoritairement asiatique (source), on retient par défaut une géographie asiatique.
 * La géographie "Asie" n'est pas explicitement pointée pour la filature dans la documentation sectorielle. C'est toutefois une hypothèse qui semble crédible au regard de la part des pays asiatiques dans la production mondiale ([lien](https://fr.wikipedia.org/wiki/Fibre\_synth%C3%A9tique)) et d'informations fournies par ailleurs dans la documentation, par exemple sur les étapes de texturisation, de thermofixation et de lavage qui sont généralement faites en Asie.
-* Il est proposé, en plus des lins présents dans la Base Impacts (d'origine asiatique), un lin européen "European Flax" dont les données viennent d'une [étude ACV de la CELC](https://news.europeanflax.com/LCA/). Faute d'avoir trouvé un taux de perte pour le teillage du lin dans cette étude, on prend celui de la Base Impacts pour la matière lin (étoupe).
+* Il est proposé, en plus des lins présents dans la Base Impacts (d'origine asiatique), un lin européen "European Flax" dont les données viennent d'une [étude ACV de la CELC](https://news.europeanflax.com/LCA/). Les pertes pour l'étape matière sont nulles car comme précisé dans l'étude, toutes les fibres sont valorisées (processus zero-waste).
 {% endhint %}
 
 ## Cas du multi-matière
