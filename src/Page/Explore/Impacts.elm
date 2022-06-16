@@ -14,7 +14,7 @@ import Views.Markdown as Markdown
 
 table : { detailed : Bool } -> Table Definition msg
 table { detailed } =
-    [ { label = "Identifiant"
+    [ { label = "Code"
       , toCell =
             \def ->
                 if detailed then
@@ -34,7 +34,9 @@ table { detailed } =
                     [ text def.source.label ]
       }
     , { label = "Nom"
-      , toCell = .label >> text
+      , toCell =
+            \def ->
+                span [ title def.label ] [ text def.label ]
       }
     , { label = "Description"
       , toCell =
@@ -43,14 +45,16 @@ table { detailed } =
                     Markdown.simple [] def.description
 
                 else
-                    def.description
-                        |> String.replace "*" ""
-                        |> text
+                    span [ title def.description ]
+                        [ def.description
+                            |> String.replace "*" ""
+                            |> text
+                        ]
       }
     , { label = "Unité"
       , toCell = \def -> code [] [ text def.unit ]
       }
-    , { label = "Coéf. normalisation PEF"
+    , { label = "Normalisation PEF"
       , toCell =
             \def ->
                 div [ classList [ ( "text-end", not detailed ) ] ]
@@ -74,5 +78,21 @@ table { detailed } =
                 def.quality
                     |> ImpactView.impactQuality
                     |> div [ classList [ ( "text-center", not detailed ) ] ]
+      }
+    , { label = "Domaines"
+      , toCell =
+            .scopes
+                >> List.map
+                    (\scope ->
+                        span
+                            [ class "badge"
+                            , classList
+                                [ ( "bg-success", scope == Impact.Food )
+                                , ( "bg-info", scope == Impact.Textile )
+                                ]
+                            ]
+                            [ text <| Impact.scopeToString scope ]
+                    )
+                >> div [ class "d-flex gap-1" ]
       }
     ]

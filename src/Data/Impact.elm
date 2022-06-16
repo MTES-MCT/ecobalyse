@@ -20,6 +20,7 @@ module Data.Impact exposing
     , mapImpacts
     , noImpacts
     , parseTrigram
+    , scopeToString
     , sumImpacts
     , toString
     , trg
@@ -166,6 +167,16 @@ decodeScope =
                     _ ->
                         Decode.fail <| "Couldn't decode unknown scope " ++ scope
             )
+
+
+scopeToString : Scope -> String
+scopeToString scope =
+    case scope of
+        Food ->
+            "Alimentaire"
+
+        Textile ->
+            "Textile"
 
 
 getPefWeighting : Unit.Ratio -> Unit.Ratio
