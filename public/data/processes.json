@@ -300,10 +300,10 @@
     "alias": null
   },
   {
-    "name": "Lin (European Flax)",
+    "name": "Lin (fibre longue European Flax®)",
     "info": "Textile > Matières > Matières naturelles",
     "unit": "kg",
-    "source": "CELC",
+    "source": "Confédération Européenne du Lin et du Chanvre (CELC)",
     "uuid": "eadccab1-8264-4c3f-bb80-6b9a7abfc0af",
     "impacts": {
       "acd": 8.19e-3,
