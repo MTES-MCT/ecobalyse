@@ -18,6 +18,7 @@ import Data.Ecobalyse.Process
 import Data.Ecobalyse.Product as Product
     exposing
         ( Product
+        , Step
         , WeightRatio
         , productNameToString
         , stringToProductName
@@ -218,10 +219,11 @@ view ({ ecobalyseDb, db } as session) { selectedProduct, productsSelectChoice, i
                                 -- We don't use the following two configs
                                 , selectedFunctionalUnit = Unit.PerItem
                                 , switchFunctionalUnit = always NoOp
+                                , scope = Impact.Food
                                 }
                             ]
-                        , div [ class "col-lg-6 ps-5" ]
-                            [ h1 [ class "mb-3" ]
+                        , div [ class "col-lg-6" ]
+                            [ h1 []
                                 [ let
                                     definition =
                                         db.impacts
@@ -234,34 +236,29 @@ view ({ ecobalyseDb, db } as session) { selectedProduct, productsSelectChoice, i
                             ]
                         ]
                     , div [ class "row" ]
-                        [ div [ class "col-lg-6" ]
+                        [ div [ class "col-lg-6 d-none d-sm-block" ]
                             [ h3 [] [ text "Quantité de l'ingrédient" ]
                             ]
-                        , div [ class "col-lg-6 px-5" ]
+                        , div [ class "col-lg-6 d-none d-sm-block" ]
                             [ h3 [] [ text "Pourcentage de l'impact total" ] ]
                         ]
-                    , ul []
-                        (product.plant
-                            |> AnyDict.map (makeBar totalImpact impact db.impacts)
-                            |> AnyDict.values
-                            -- |> List.sortBy .impact
-                            -- |> List.reverse
-                            |> List.map viewIngredient
-                        )
-                    , div []
-                        [ strong []
-                            [ text "poids total avant cuisson : "
+                    , viewIngredients totalImpact impact db.impacts product.plant
+                    , div [ class "row py-3 gap-2 gap-sm-0" ]
+                        [ div [ class "col-sm-10 fw-bold" ]
+                            [ text "Poids total avant cuisson : "
                             , totalWeight
                                 |> floatToRoundedString -3
                                 |> text
                             , text "kg"
                             ]
+                        , div [ class "col-sm-2" ]
+                            [ button
+                                [ class "btn btn-primary w-100"
+                                , onClick Reset
+                                ]
+                                [ text "Réinitialiser" ]
+                            ]
                         ]
-                    , button
-                        [ class "btn btn-primary"
-                        , onClick Reset
-                        ]
-                        [ text "Réinitialiser" ]
                     ]
 
                 _ ->
@@ -271,33 +268,48 @@ view ({ ecobalyseDb, db } as session) { selectedProduct, productsSelectChoice, i
     )
 
 
+viewIngredients : Float -> Impact.Trigram -> List Impact.Definition -> Step -> Html Msg
+viewIngredients totalImpact impact definitions step =
+    step
+        |> AnyDict.toList
+        |> List.map
+            (\( name, process ) ->
+                let
+                    bar =
+                        makeBar totalImpact impact definitions name process
+                in
+                div [ class "card stacked-card" ]
+                    [ div [ class "card-header" ] [ text <| processNameToString name ]
+                    , viewIngredient bar
+                    ]
+            )
+        |> div []
+
+
 viewIngredient : Bar -> Html Msg
 viewIngredient bar =
     let
         name =
             bar.name |> processNameToString
     in
-    li []
-        [ text name
-        , text " : "
-        , div [ class "row" ]
-            [ div [ class "col-lg-6" ]
-                [ RangeSlider.ratio
-                    { id = "slider-" ++ name
-                    , update = IngredientSliderChanged bar.name
-                    , value = bar.amount
-                    , toString =
-                        Unit.ratioToFloat
-                            >> floatToRoundedString -3
-                            >> (\mass -> mass ++ "kg")
-                    , disabled = isUnit bar.name
-                    , min = 0
-                    , max = 100
-                    }
-                ]
-            , div [ class "col-lg-6 px-5" ]
-                [ barView bar ]
+    div [ class "row align-items-center" ]
+        [ div [ class "col-sm-6 px-4 py-2 py-sm-0" ]
+            [ span [ class "d-block d-sm-none fs-7 text-muted" ] [ text "Quantité de l'ingrédient :" ]
+            , RangeSlider.ratio
+                { id = "slider-" ++ name
+                , update = IngredientSliderChanged bar.name
+                , value = bar.amount
+                , toString =
+                    Unit.ratioToFloat
+                        >> floatToRoundedString -3
+                        >> (\mass -> mass ++ "kg")
+                , disabled = isUnit bar.name
+                , min = 0
+                , max = 100
+                }
             ]
+        , div [ class "col-sm-6" ]
+            [ barView bar ]
         ]
 
 
@@ -329,19 +341,18 @@ makeBar totalImpact trigram definitions processName { amount, impacts } =
 
 barView : Bar -> Html msg
 barView bar =
-    div [ class "fs-7 row" ]
-        [ div [ class "col-lg-8 py-1" ]
+    div [ class "px-3 py-1 border-top border-top-sm-0 border-start-0 border-start-sm d-flex" ]
+        [ div [ class "w-75 border my-2" ]
             [ div
                 [ class "bg-primary"
-                , style "height" "1rem"
-                , style "line-height" "1rem"
+                , style "height" "100%"
                 , style "width" (String.fromFloat bar.width ++ "%")
                 ]
                 []
             ]
-        , div [ class "col-lg-2 d-none d-sm-block text-end py-1 ps-2 text-truncate" ]
+        , div [ class "text-end py-1 ps-2 text-truncate flex-fill" ]
             [ Format.percent bar.percent ]
-        , div [ class "col-lg-1 ps-2" ] [ PieChart.view bar.percent ]
+        , div [ class "ps-2 my-1" ] [ PieChart.view bar.percent ]
         ]
 
 

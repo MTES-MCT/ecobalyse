@@ -2,6 +2,7 @@ module Data.Ecobalyse.Product exposing
     ( Product
     , ProductName
     , Products
+    , Step
     , WeightRatio
     , decodeProducts
     , empty
