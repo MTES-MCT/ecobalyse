@@ -3,6 +3,7 @@ module Data.Impact exposing
     , Impacts
     , Quality(..)
     , Source
+    , Target(..)
     , Trigram(..)
     , computePefScore
     , decodeImpacts
@@ -73,9 +74,12 @@ type alias PefData =
 
 
 type alias Scope =
-    { textile : Bool
-    , food : Bool
-    }
+    List Target
+
+
+type Target
+    = Textile
+    | Food
 
 
 invalid : Definition
@@ -88,7 +92,7 @@ invalid =
     , quality = GoodQuality
     , primary = False
     , pefData = Nothing
-    , scope = { textile = False, food = False }
+    , scope = []
     }
 
 
@@ -153,9 +157,24 @@ decodePefData =
 
 decodeScope : Decoder Scope
 decodeScope =
-    Decode.map2 Scope
-        (Decode.field "textile" Decode.bool)
-        (Decode.field "food" Decode.bool)
+    Decode.list targetDecoder
+
+
+targetDecoder : Decoder Target
+targetDecoder =
+    Decode.string
+        |> Decode.andThen
+            (\target ->
+                case target of
+                    "textile" ->
+                        Decode.succeed Textile
+
+                    "food" ->
+                        Decode.succeed Food
+
+                    _ ->
+                        Decode.fail <| "Couldn't decode unknown target " ++ target
+            )
 
 
 getPefWeighting : Unit.Ratio -> Unit.Ratio

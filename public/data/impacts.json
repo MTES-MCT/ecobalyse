@@ -18,10 +18,10 @@
       "normalization": 5.55695e1,
       "weighting": 0.062
     },
-    "scope": {
-      "textile": true,
-      "food": true
-    }
+    "scope": [
+      "textile",
+      "food"
+    ]
   },
   "ozd": {
     "source": {
@@ -42,10 +42,10 @@
       "normalization": 5.3648e-2,
       "weighting": 0.0631
     },
-    "scope": {
-      "textile": true,
-      "food": true
-    }
+    "scope": [
+      "textile",
+      "food"
+    ]
   },
   "cch": {
     "source": {
@@ -66,10 +66,10 @@
       "normalization": 8.09553e3,
       "weighting": 0.2106
     },
-    "scope": {
-      "textile": true,
-      "food": true
-    }
+    "scope": [
+      "textile",
+      "food"
+    ]
   },
   "ccb": {
     "source": {
@@ -86,10 +86,10 @@
     "primary": false,
     "quality": 1,
     "pef": null,
-    "scope": {
-      "textile": true,
-      "food": true
-    }
+    "scope": [
+      "textile",
+      "food"
+    ]
   },
   "ccf": {
     "source": {
@@ -106,10 +106,10 @@
     "primary": false,
     "quality": 1,
     "pef": null,
-    "scope": {
-      "textile": true,
-      "food": true
-    }
+    "scope": [
+      "textile",
+      "food"
+    ]
   },
   "ccl": {
     "source": {
@@ -126,10 +126,10 @@
     "primary": false,
     "quality": 1,
     "pef": null,
-    "scope": {
-      "textile": true,
-      "food": true
-    }
+    "scope": [
+      "textile",
+      "food"
+    ]
   },
   "fwe": {
     "source": {
@@ -150,10 +150,10 @@
       "normalization": 1.60685,
       "weighting": 0.028
     },
-    "scope": {
-      "textile": true,
-      "food": true
-    }
+    "scope": [
+      "textile",
+      "food"
+    ]
   },
   "swe": {
     "source": {
@@ -174,10 +174,10 @@
       "normalization": 1.95e1,
       "weighting": 0.0296
     },
-    "scope": {
-      "textile": true,
-      "food": true
-    }
+    "scope": [
+      "textile",
+      "food"
+    ]
   },
   "tre": {
     "source": {
@@ -198,10 +198,10 @@
       "normalization": 1.76755e2,
       "weighting": 0.0371
     },
-    "scope": {
-      "textile": true,
-      "food": true
-    }
+    "scope": [
+      "textile",
+      "food"
+    ]
   },
   "pco": {
     "source": {
@@ -222,10 +222,10 @@
       "normalization": 4.06014e1,
       "weighting": 0.0478
     },
-    "scope": {
-      "textile": true,
-      "food": true
-    }
+    "scope": [
+      "textile",
+      "food"
+    ]
   },
   "pma": {
     "source": {
@@ -246,10 +246,10 @@
       "normalization": 5.95387e-4,
       "weighting": 0.0896
     },
-    "scope": {
-      "textile": true,
-      "food": true
-    }
+    "scope": [
+      "textile",
+      "food"
+    ]
   },
   "ior": {
     "source": {
@@ -270,10 +270,10 @@
       "normalization": 4.22016e3,
       "weighting": 0.0501
     },
-    "scope": {
-      "textile": true,
-      "food": true
-    }
+    "scope": [
+      "textile",
+      "food"
+    ]
   },
   "fru": {
     "source": {
@@ -294,10 +294,10 @@
       "normalization": 6.50043e4,
       "weighting": 0.0832
     },
-    "scope": {
-      "textile": true,
-      "food": true
-    }
+    "scope": [
+      "textile",
+      "food"
+    ]
   },
   "mru": {
     "source": {
@@ -318,10 +318,10 @@
       "normalization": 6.36403e-2,
       "weighting": 0.0755
     },
-    "scope": {
-      "textile": true,
-      "food": true
-    }
+    "scope": [
+      "textile",
+      "food"
+    ]
   },
   "ldu": {
     "source": {
@@ -342,10 +342,10 @@
       "normalization": 8.19498e5,
       "weighting": 0.0794
     },
-    "scope": {
-      "textile": true,
-      "food": true
-    }
+    "scope": [
+      "textile",
+      "food"
+    ]
   },
   "pef": {
     "source": {
@@ -362,10 +362,10 @@
     "primary": true,
     "quality": null,
     "pef": null,
-    "scope": {
-      "textile": true,
-      "food": true
-    }
+    "scope": [
+      "textile",
+      "food"
+    ]
   },
   "wtu": {
     "source": {
@@ -386,10 +386,10 @@
       "normalization": 1.14687e4,
       "weighting": 0.0851
     },
-    "scope": {
-      "textile": true,
-      "food": true
-    }
+    "scope": [
+      "textile",
+      "food"
+    ]
   },
   "etf": {
     "source": {
@@ -410,10 +410,9 @@
       "normalization": 4.27e4,
       "weighting": 0.0192
     },
-    "scope": {
-      "textile": false,
-      "food": true
-    }
+    "scope": [
+      "food"
+    ]
   },
   "htc": {
     "source": {
@@ -434,10 +433,9 @@
       "normalization": 1.69e-5,
       "weighting": 0.0213
     },
-    "scope": {
-      "textile": false,
-      "food": true
-    }
+    "scope": [
+      "food"
+    ]
   },
   "htn": {
     "source": {
@@ -458,9 +456,8 @@
       "normalization": 4.27e4,
       "weighting": 0.0184
     },
-    "scope": {
-      "textile": false,
-      "food": true
-    }
+    "scope": [
+      "food"
+    ]
   }
 }
