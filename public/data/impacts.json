@@ -339,8 +339,8 @@
     "quality": 0,
     "pef": {
       "color": "#03A764",
-      "normalization": 0,
-      "weighting": 0
+      "normalization": 4.27e4,
+      "weighting": 0.0192
     }
   },
   "htc": {
@@ -359,8 +359,8 @@
     "quality": 0,
     "pef": {
       "color": "#A77C2B",
-      "normalization": 0,
-      "weighting": 0
+      "normalization": 1.69e-5,
+      "weighting": 0.0213
     }
   },
   "htn": {
@@ -379,8 +379,8 @@
     "quality": 0,
     "pef": {
       "color": "#FFA907",
-      "normalization": 0,
-      "weighting": 0
+      "normalization": 4.27e4,
+      "weighting": 0.0184
     }
   }
 }
