@@ -127,16 +127,20 @@ impactSelector { impacts, selectedImpact, switchImpact } =
                 , value <| Impact.toString trigram
                 ]
                 [ text label ]
+
+        textileImpacts =
+            impacts
+                |> List.filter (.scopes >> List.member Impact.Textile)
     in
     select
         [ class "form-select"
         , onInput (Impact.trg >> switchImpact)
         ]
-        [ impacts
+        [ textileImpacts
             |> List.filter (\{ trigram } -> trigram == Impact.trg "pef")
             |> List.map toOption
             |> optgroup [ attribute "label" "Impacts agrégés" ]
-        , impacts
+        , textileImpacts
             |> List.filter (\{ trigram, primary } -> primary && trigram /= Impact.trg "pef")
             |> List.sortBy .label
             |> List.map toOption

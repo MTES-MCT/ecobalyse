@@ -17,7 +17,11 @@
       "color": "#ff1493",
       "normalization": 5.55695e1,
       "weighting": 0.062
-    }
+    },
+    "scopes": [
+      "textile",
+      "food"
+    ]
   },
   "ozd": {
     "source": {
@@ -37,7 +41,11 @@
       "color": "#800080",
       "normalization": 5.3648e-2,
       "weighting": 0.0631
-    }
+    },
+    "scopes": [
+      "textile",
+      "food"
+    ]
   },
   "cch": {
     "source": {
@@ -57,7 +65,11 @@
       "color": "#800000",
       "normalization": 8.09553e3,
       "weighting": 0.2106
-    }
+    },
+    "scopes": [
+      "textile",
+      "food"
+    ]
   },
   "ccb": {
     "source": {
@@ -73,7 +85,11 @@
     "short_unit": "kgCO₂e",
     "primary": false,
     "quality": 1,
-    "pef": null
+    "pef": null,
+    "scopes": [
+      "textile",
+      "food"
+    ]
   },
   "ccf": {
     "source": {
@@ -89,7 +105,11 @@
     "short_unit": "kgCO₂e",
     "primary": false,
     "quality": 1,
-    "pef": null
+    "pef": null,
+    "scopes": [
+      "textile",
+      "food"
+    ]
   },
   "ccl": {
     "source": {
@@ -105,7 +125,11 @@
     "short_unit": "kgCO₂e",
     "primary": false,
     "quality": 1,
-    "pef": null
+    "pef": null,
+    "scopes": [
+      "textile",
+      "food"
+    ]
   },
   "fwe": {
     "source": {
@@ -125,7 +149,11 @@
       "color": "#1f7dca",
       "normalization": 1.60685,
       "weighting": 0.028
-    }
+    },
+    "scopes": [
+      "textile",
+      "food"
+    ]
   },
   "swe": {
     "source": {
@@ -145,7 +173,11 @@
       "color": "#000080",
       "normalization": 1.95e1,
       "weighting": 0.0296
-    }
+    },
+    "scopes": [
+      "textile",
+      "food"
+    ]
   },
   "tre": {
     "source": {
@@ -165,7 +197,11 @@
       "color": "#20b2aa",
       "normalization": 1.76755e2,
       "weighting": 0.0371
-    }
+    },
+    "scopes": [
+      "textile",
+      "food"
+    ]
   },
   "pco": {
     "source": {
@@ -185,7 +221,11 @@
       "color": "#da70d6",
       "normalization": 4.06014e1,
       "weighting": 0.0478
-    }
+    },
+    "scopes": [
+      "textile",
+      "food"
+    ]
   },
   "pma": {
     "source": {
@@ -205,7 +245,11 @@
       "color": "#696969",
       "normalization": 5.95387e-4,
       "weighting": 0.0896
-    }
+    },
+    "scopes": [
+      "textile",
+      "food"
+    ]
   },
   "ior": {
     "source": {
@@ -225,7 +269,11 @@
       "color": "#ffd700",
       "normalization": 4.22016e3,
       "weighting": 0.0501
-    }
+    },
+    "scopes": [
+      "textile",
+      "food"
+    ]
   },
   "fru": {
     "source": {
@@ -245,7 +293,11 @@
       "color": "#000000",
       "normalization": 6.50043e4,
       "weighting": 0.0832
-    }
+    },
+    "scopes": [
+      "textile",
+      "food"
+    ]
   },
   "mru": {
     "source": {
@@ -265,7 +317,11 @@
       "color": "#a9a9a9",
       "normalization": 6.36403e-2,
       "weighting": 0.0755
-    }
+    },
+    "scopes": [
+      "textile",
+      "food"
+    ]
   },
   "ldu": {
     "source": {
@@ -285,7 +341,11 @@
       "color": "#006400",
       "normalization": 8.19498e5,
       "weighting": 0.0794
-    }
+    },
+    "scopes": [
+      "textile",
+      "food"
+    ]
   },
   "pef": {
     "source": {
@@ -301,7 +361,11 @@
     "short_unit": "mPt PEF",
     "primary": true,
     "quality": null,
-    "pef": null
+    "pef": null,
+    "scopes": [
+      "textile",
+      "food"
+    ]
   },
   "wtu": {
     "source": {
@@ -321,6 +385,79 @@
       "color": "#00ffff",
       "normalization": 1.14687e4,
       "weighting": 0.0851
-    }
+    },
+    "scopes": [
+      "textile",
+      "food"
+    ]
+  },
+  "etf": {
+    "source": {
+      "label": "Agribalyse",
+      "url": "https://agribalyse.ademe.fr/"
+    },
+    "label_en": "Ecotoxicity: freshwater",
+    "label_fr": "Écotoxicité de l'eau douce",
+    "unit_fr": "CTUe",
+    "unit_en": "CTUe",
+    "description_en": "Indicator of freshwater ecotoxicity. The unit of measurement is Comparative Toxic Unit for ecosystems (CTUe)",
+    "description_fr": "Indicateur d'écotoxicité pour écosystèmes aquatiques d'eau douce. Cet indicateur se mesure en Comparative Toxic Unit for ecosystems (CTUe)",
+    "short_unit": "CTUe",
+    "primary": true,
+    "quality": 0,
+    "pef": {
+      "color": "#03A764",
+      "normalization": 4.27e4,
+      "weighting": 0.0192
+    },
+    "scopes": [
+      "food"
+    ]
+  },
+  "htc": {
+    "source": {
+      "label": "Agribalyse",
+      "url": "https://agribalyse.ademe.fr/"
+    },
+    "label_en": "Human toxicity: carcinogenic",
+    "label_fr": "Écotoxicité humaine : cancérigène",
+    "unit_fr": "CTUh",
+    "unit_en": "CTUh",
+    "description_en": "Indicator of carcinogenic toxicity for humans. The unit of measurement is Comparative toxic unit for humans (CTUh)",
+    "description_fr": "Indicateur de toxicité cancérigène pour l'homme. Cet indicateur se mesure en Comparative Toxic Unit for humans (CTUh)",
+    "short_unit": "CTUh",
+    "primary": true,
+    "quality": 0,
+    "pef": {
+      "color": "#A77C2B",
+      "normalization": 1.69e-5,
+      "weighting": 0.0213
+    },
+    "scopes": [
+      "food"
+    ]
+  },
+  "htn": {
+    "source": {
+      "label": "Agribalyse",
+      "url": "https://agribalyse.ademe.fr/"
+    },
+    "label_en": "Human toxicity: non-carcinogenic",
+    "label_fr": "Écotoxicité humaine : non cancérigène",
+    "unit_fr": "CTUh",
+    "unit_en": "CTUh",
+    "description_en": "Indicator of non-carcinogenic toxicity for humans. The unit of measurement is Comparative toxic unit for humans (CTUh)",
+    "description_fr": "Indicateur de toxicité non cancérigène pour l'homme. Cet indicateur se mesure en Comparative Toxic Unit for humans (CTUh)",
+    "short_unit": "CTUh",
+    "primary": true,
+    "quality": 0,
+    "pef": {
+      "color": "#FFA907",
+      "normalization": 4.27e4,
+      "weighting": 0.0184
+    },
+    "scopes": [
+      "food"
+    ]
   }
 }

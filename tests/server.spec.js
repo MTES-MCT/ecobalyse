@@ -151,11 +151,11 @@ describe("API", () => {
       );
     });
 
-    it("should perform a simulation featuring 17 impacts", async () => {
+    it("should perform a simulation featuring 20 impacts", async () => {
       const response = await makeRequest("/api/simulator/", successQuery);
 
       expectStatus(response, 200);
-      expect(Object.keys(response.body.impacts)).toHaveLength(17);
+      expect(Object.keys(response.body.impacts)).toHaveLength(20);
     });
 
     it("should validate the airTransportRatio param", async () => {
