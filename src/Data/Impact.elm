@@ -160,19 +160,20 @@ decodeScope =
 
 getPefWeighting : Unit.Ratio -> Unit.Ratio
 getPefWeighting weighting =
+    -- The following is only relevant for the textile:
+    --
     -- Pef score weighting is provided using percentages for each impact, though
     -- we don't have data to take them all into account, so the actual weighting
-    -- total we're basing on is 85.6%, not 100%.
+    -- total we're basing on is 94,11%, not 100%.
     --
-    -- The PEF impacts not currently taken into account are:
+    -- The PEF impacts not currently taken into account for the textile are:
     -- - Toxicité humaine (cancer): 2,13 %
     -- - Toxicité humaine (non cancer): 1,84 %
     -- - Ecotoxicité eaux douces: 1,92 %
-    -- - Epuisement des ressources en eau: 8,51 %
     --
     -- If we want to have results normalized to 100%, we can uncomment this line:
     --
-    -- Unit.Ratio (weighting / 0.856)
+    -- Unit.Ratio (weighting / 0.9411)
     --
     -- Otherwise, PEF scores are documented incomplete.
     weighting
