@@ -45,6 +45,7 @@ type alias Definition =
     , quality : Quality
     , primary : Bool
     , pefData : Maybe PefData
+    , scope : Scope
     }
 
 
@@ -71,6 +72,12 @@ type alias PefData =
     }
 
 
+type alias Scope =
+    { textile : Bool
+    , food : Bool
+    }
+
+
 invalid : Definition
 invalid =
     { trigram = defaultTrigram
@@ -81,6 +88,7 @@ invalid =
     , quality = GoodQuality
     , primary = False
     , pefData = Nothing
+    , scope = { textile = False, food = False }
     }
 
 
@@ -100,8 +108,8 @@ decodeList : Decoder (List Definition)
 decodeList =
     let
         decodeDictValue =
-            Decode.map7
-                (\source label description unit quality primary pefData ->
+            Decode.map8
+                (\source label description unit quality primary pefData scope ->
                     { source = source
                     , label = label
                     , description = description
@@ -109,6 +117,7 @@ decodeList =
                     , quality = quality
                     , primary = primary
                     , pefData = pefData
+                    , scope = scope
                     }
                 )
                 (Decode.field "source" decodeSource)
@@ -118,9 +127,10 @@ decodeList =
                 (Decode.field "quality" decodeQuality)
                 (Decode.field "primary" Decode.bool)
                 (Decode.field "pef" (Decode.maybe decodePefData))
+                (Decode.field "scope" decodeScope)
 
-        toImpact ( key, { source, label, description, unit, quality, primary, pefData } ) =
-            Definition (trg key) source label description unit quality primary pefData
+        toImpact ( key, { source, label, description, unit, quality, primary, pefData, scope } ) =
+            Definition (trg key) source label description unit quality primary pefData scope
     in
     Decode.dict decodeDictValue
         |> Decode.andThen (Dict.toList >> List.map toImpact >> Decode.succeed)
@@ -139,6 +149,13 @@ decodePefData =
         (Decode.field "color" Decode.string)
         (Decode.field "normalization" Unit.decodeImpact)
         (Decode.field "weighting" (Decode.map getPefWeighting Unit.decodeRatio))
+
+
+decodeScope : Decoder Scope
+decodeScope =
+    Decode.map2 Scope
+        (Decode.field "textile" Decode.bool)
+        (Decode.field "food" Decode.bool)
 
 
 getPefWeighting : Unit.Ratio -> Unit.Ratio
