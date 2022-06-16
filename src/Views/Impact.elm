@@ -130,7 +130,7 @@ impactSelector { impacts, selectedImpact, switchImpact } =
 
         impactsReady =
             impacts
-                |> List.filter (\impact -> impact.scope.textile == True)
+                |> List.filter (.scope >> .textile)
     in
     select
         [ class "form-select"
