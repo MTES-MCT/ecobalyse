@@ -130,7 +130,7 @@ impactSelector { impacts, selectedImpact, switchImpact } =
 
         textileImpacts =
             impacts
-                |> List.filter (.scope >> List.member Impact.Textile)
+                |> List.filter (.scopes >> List.member Impact.Textile)
     in
     select
         [ class "form-select"

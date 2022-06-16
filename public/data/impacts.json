@@ -18,7 +18,7 @@
       "normalization": 5.55695e1,
       "weighting": 0.062
     },
-    "scope": [
+    "scopes": [
       "textile",
       "food"
     ]
@@ -42,7 +42,7 @@
       "normalization": 5.3648e-2,
       "weighting": 0.0631
     },
-    "scope": [
+    "scopes": [
       "textile",
       "food"
     ]
@@ -66,7 +66,7 @@
       "normalization": 8.09553e3,
       "weighting": 0.2106
     },
-    "scope": [
+    "scopes": [
       "textile",
       "food"
     ]
@@ -86,7 +86,7 @@
     "primary": false,
     "quality": 1,
     "pef": null,
-    "scope": [
+    "scopes": [
       "textile",
       "food"
     ]
@@ -106,7 +106,7 @@
     "primary": false,
     "quality": 1,
     "pef": null,
-    "scope": [
+    "scopes": [
       "textile",
       "food"
     ]
@@ -126,7 +126,7 @@
     "primary": false,
     "quality": 1,
     "pef": null,
-    "scope": [
+    "scopes": [
       "textile",
       "food"
     ]
@@ -150,7 +150,7 @@
       "normalization": 1.60685,
       "weighting": 0.028
     },
-    "scope": [
+    "scopes": [
       "textile",
       "food"
     ]
@@ -174,7 +174,7 @@
       "normalization": 1.95e1,
       "weighting": 0.0296
     },
-    "scope": [
+    "scopes": [
       "textile",
       "food"
     ]
@@ -198,7 +198,7 @@
       "normalization": 1.76755e2,
       "weighting": 0.0371
     },
-    "scope": [
+    "scopes": [
       "textile",
       "food"
     ]
@@ -222,7 +222,7 @@
       "normalization": 4.06014e1,
       "weighting": 0.0478
     },
-    "scope": [
+    "scopes": [
       "textile",
       "food"
     ]
@@ -246,7 +246,7 @@
       "normalization": 5.95387e-4,
       "weighting": 0.0896
     },
-    "scope": [
+    "scopes": [
       "textile",
       "food"
     ]
@@ -270,7 +270,7 @@
       "normalization": 4.22016e3,
       "weighting": 0.0501
     },
-    "scope": [
+    "scopes": [
       "textile",
       "food"
     ]
@@ -294,7 +294,7 @@
       "normalization": 6.50043e4,
       "weighting": 0.0832
     },
-    "scope": [
+    "scopes": [
       "textile",
       "food"
     ]
@@ -318,7 +318,7 @@
       "normalization": 6.36403e-2,
       "weighting": 0.0755
     },
-    "scope": [
+    "scopes": [
       "textile",
       "food"
     ]
@@ -342,7 +342,7 @@
       "normalization": 8.19498e5,
       "weighting": 0.0794
     },
-    "scope": [
+    "scopes": [
       "textile",
       "food"
     ]
@@ -362,7 +362,7 @@
     "primary": true,
     "quality": null,
     "pef": null,
-    "scope": [
+    "scopes": [
       "textile",
       "food"
     ]
@@ -386,7 +386,7 @@
       "normalization": 1.14687e4,
       "weighting": 0.0851
     },
-    "scope": [
+    "scopes": [
       "textile",
       "food"
     ]
@@ -410,7 +410,7 @@
       "normalization": 4.27e4,
       "weighting": 0.0192
     },
-    "scope": [
+    "scopes": [
       "food"
     ]
   },
@@ -433,7 +433,7 @@
       "normalization": 1.69e-5,
       "weighting": 0.0213
     },
-    "scope": [
+    "scopes": [
       "food"
     ]
   },
@@ -456,7 +456,7 @@
       "normalization": 4.27e4,
       "weighting": 0.0184
     },
-    "scope": [
+    "scopes": [
       "food"
     ]
   }

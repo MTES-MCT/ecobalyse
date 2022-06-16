@@ -2,8 +2,8 @@ module Data.Impact exposing
     ( Definition
     , Impacts
     , Quality(..)
+    , Scope(..)
     , Source
-    , Target(..)
     , Trigram(..)
     , computePefScore
     , decodeImpacts
@@ -46,7 +46,7 @@ type alias Definition =
     , quality : Quality
     , primary : Bool
     , pefData : Maybe PefData
-    , scope : Scope
+    , scopes : List Scope
     }
 
 
@@ -73,11 +73,7 @@ type alias PefData =
     }
 
 
-type alias Scope =
-    List Target
-
-
-type Target
+type Scope
     = Textile
     | Food
 
@@ -92,7 +88,7 @@ invalid =
     , quality = GoodQuality
     , primary = False
     , pefData = Nothing
-    , scope = []
+    , scopes = []
     }
 
 
@@ -113,7 +109,7 @@ decodeList =
     let
         decodeDictValue =
             Decode.map8
-                (\source label description unit quality primary pefData scope ->
+                (\source label description unit quality primary pefData scopes ->
                     { source = source
                     , label = label
                     , description = description
@@ -121,7 +117,7 @@ decodeList =
                     , quality = quality
                     , primary = primary
                     , pefData = pefData
-                    , scope = scope
+                    , scopes = scopes
                     }
                 )
                 (Decode.field "source" decodeSource)
@@ -131,10 +127,10 @@ decodeList =
                 (Decode.field "quality" decodeQuality)
                 (Decode.field "primary" Decode.bool)
                 (Decode.field "pef" (Decode.maybe decodePefData))
-                (Decode.field "scope" decodeScope)
+                (Decode.field "scopes" (Decode.list decodeScope))
 
-        toImpact ( key, { source, label, description, unit, quality, primary, pefData, scope } ) =
-            Definition (trg key) source label description unit quality primary pefData scope
+        toImpact ( key, { source, label, description, unit, quality, primary, pefData, scopes } ) =
+            Definition (trg key) source label description unit quality primary pefData scopes
     in
     Decode.dict decodeDictValue
         |> Decode.andThen (Dict.toList >> List.map toImpact >> Decode.succeed)
@@ -157,15 +153,10 @@ decodePefData =
 
 decodeScope : Decoder Scope
 decodeScope =
-    Decode.list targetDecoder
-
-
-targetDecoder : Decoder Target
-targetDecoder =
     Decode.string
         |> Decode.andThen
-            (\target ->
-                case target of
+            (\scope ->
+                case scope of
                     "textile" ->
                         Decode.succeed Textile
 
@@ -173,7 +164,7 @@ targetDecoder =
                         Decode.succeed Food
 
                     _ ->
-                        Decode.fail <| "Couldn't decode unknown target " ++ target
+                        Decode.fail <| "Couldn't decode unknown scope " ++ scope
             )
 
 
