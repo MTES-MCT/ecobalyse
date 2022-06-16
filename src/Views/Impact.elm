@@ -116,11 +116,12 @@ type alias SelectorConfig msg =
     , switchImpact : Impact.Trigram -> msg
     , selectedFunctionalUnit : Unit.Functional
     , switchFunctionalUnit : Unit.Functional -> msg
+    , scope : Impact.Scope
     }
 
 
 impactSelector : SelectorConfig msg -> Html msg
-impactSelector { impacts, selectedImpact, switchImpact } =
+impactSelector { impacts, selectedImpact, switchImpact, scope } =
     let
         toOption ({ trigram, label } as impact) =
             option
@@ -129,19 +130,19 @@ impactSelector { impacts, selectedImpact, switchImpact } =
                 ]
                 [ text label ]
 
-        textileImpacts =
+        scopeImpacts =
             impacts
-                |> List.filter (.scopes >> List.member Impact.Textile)
+                |> List.filter (.scopes >> List.member scope)
     in
     select
         [ class "form-select"
         , onInput (Impact.trg >> switchImpact)
         ]
-        [ textileImpacts
+        [ scopeImpacts
             |> List.filter (\{ trigram } -> trigram == Impact.trg "pef")
             |> List.map toOption
             |> optgroup [ attribute "label" "Impacts agrégés" ]
-        , textileImpacts
+        , scopeImpacts
             |> List.filter (\{ trigram, primary } -> primary && trigram /= Impact.trg "pef")
             |> List.sortBy .label
             |> List.map toOption
