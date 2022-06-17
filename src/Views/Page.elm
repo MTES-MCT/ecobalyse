@@ -131,7 +131,9 @@ headerMenuLinks =
     , Internal "Explorateur" (Route.Explore (Db.Countries Nothing)) Explore
     , Internal "API" Route.Api Api
     , External "Documentation" Env.gitbookUrl
-    , Internal "Alimentaire" Route.Food Food
+
+    -- TODO: uncomment the following line when the "Alimentaire" simulator is live
+    -- , Internal "Alimentaire" Route.Food Food
     ]
 
 
