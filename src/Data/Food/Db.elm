@@ -1,10 +1,10 @@
-module Data.Ecobalyse.Db exposing
+module Data.Food.Db exposing
     ( Db
     , empty
     )
 
-import Data.Ecobalyse.Process as Process exposing (ImpactsForProcesses)
-import Data.Ecobalyse.Product as Products exposing (Products)
+import Data.Food.Process as Process exposing (ImpactsForProcesses)
+import Data.Food.Product as Products exposing (Products)
 import Data.Impact as Impact
 
 

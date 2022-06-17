@@ -1,4 +1,4 @@
-module Data.Ecobalyse.Product exposing
+module Data.Food.Product exposing
     ( Product
     , ProductName
     , Products
@@ -17,7 +17,7 @@ module Data.Ecobalyse.Product exposing
     , updateAmount
     )
 
-import Data.Ecobalyse.Process as Process
+import Data.Food.Process as Process
     exposing
         ( Amount
         , ImpactsForProcesses

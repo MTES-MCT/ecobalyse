@@ -34,7 +34,7 @@ type ActivePage
     | Api
     | Simulator
     | Stats
-    | Ecobalyse
+    | Food
     | Other
 
 
@@ -131,7 +131,7 @@ headerMenuLinks =
     , Internal "Explorateur" (Route.Explore (Db.Countries Nothing)) Explore
     , Internal "API" Route.Api Api
     , External "Documentation" Env.gitbookUrl
-    , Internal "Alimentaire" Route.Ecobalyse Ecobalyse
+    , Internal "Alimentaire" Route.Food Food
     ]
 
 
@@ -144,7 +144,7 @@ footerMenuLinks =
     , Internal "API" Route.Api Api
     , Internal "Nouveautés" Route.Changelog Changelog
     , Internal "Statistiques" Route.Stats Stats
-    , Internal "Ecobalyse" Route.Ecobalyse Ecobalyse
+    , Internal "Food" Route.Food Food
     , Internal "Accessibilité\u{00A0}: non conforme" (Route.Editorial "accessibilité") (Editorial "accessibilité")
     , Internal "Mentions légales" (Route.Editorial "mentions-légales") (Editorial "mentions-légales")
     , External "Code source" Env.githubUrl

@@ -1,4 +1,4 @@
-module Data.Ecobalyse.Process exposing
+module Data.Food.Process exposing
     ( Amount
     , ImpactsForProcesses
     , Process

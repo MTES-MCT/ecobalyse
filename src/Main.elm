@@ -3,16 +3,16 @@ module Main exposing (main)
 import Browser exposing (Document)
 import Browser.Navigation as Nav
 import Data.Db as Db exposing (Db)
-import Data.Ecobalyse.Db as Ecobalyse
+import Data.Food.Db as FoodDb
 import Data.Inputs as Inputs
 import Data.Session as Session exposing (Session)
 import Html
 import Page.Api as Api
 import Page.Changelog as Changelog
-import Page.Ecobalyse as Ecobalyse
 import Page.Editorial as Editorial
 import Page.Examples as Examples
 import Page.Explore as Explore
+import Page.Food as Food
 import Page.Home as Home
 import Page.Simulator as Simulator
 import Page.Stats as Stats
@@ -41,7 +41,7 @@ type Page
     | ApiPage Api.Model
     | SimulatorPage Simulator.Model
     | StatsPage Stats.Model
-    | EcobalysePage Ecobalyse.Model
+    | FoodPage Food.Model
     | NotFoundPage
 
 
@@ -63,7 +63,7 @@ type Msg
     | ApiMsg Api.Msg
     | SimulatorMsg Simulator.Msg
     | StatsMsg Stats.Msg
-    | EcobalyseMsg Ecobalyse.Msg
+    | FoodMsg Food.Msg
     | StoreChanged String
     | LoadUrl String
     | ReloadPage
@@ -84,7 +84,7 @@ init flags url navKey =
             , store = Session.deserializeStore flags.rawStore
             , currentVersion = Request.Version.Unknown
             , db = Db.empty
-            , ecobalyseDb = Ecobalyse.empty
+            , foodDb = FoodDb.empty
             , notifications = []
             , query = Inputs.defaultQuery
             }
@@ -158,9 +158,9 @@ setRoute maybeRoute ( { session } as model, cmds ) =
             Stats.init session
                 |> toPage StatsPage StatsMsg
 
-        Just Route.Ecobalyse ->
-            Ecobalyse.init session
-                |> toPage EcobalysePage EcobalyseMsg
+        Just Route.Food ->
+            Food.init session
+                |> toPage FoodPage FoodMsg
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -214,9 +214,9 @@ update msg ({ page, session } as model) =
             Stats.update session statsMsg statsModel
                 |> toPage StatsPage StatsMsg
 
-        ( EcobalyseMsg ecobalyseMsg, EcobalysePage ecobalyseModel ) ->
-            Ecobalyse.update session ecobalyseMsg ecobalyseModel
-                |> toPage EcobalysePage EcobalyseMsg
+        ( FoodMsg foodMsg, FoodPage foodModel ) ->
+            Food.update session foodMsg foodModel
+                |> toPage FoodPage FoodMsg
 
         -- Db
         ( DbReceived url (RemoteData.Success db), _ ) ->
@@ -310,7 +310,7 @@ subscriptions model =
             StatsPage _ ->
                 Sub.none
 
-            EcobalysePage _ ->
+            FoodPage _ ->
                 Sub.none
 
             NotFoundPage ->
@@ -377,10 +377,10 @@ view { page, mobileNavigationOpened, session } =
                 |> mapMsg StatsMsg
                 |> Page.frame (pageConfig Page.Stats)
 
-        EcobalysePage ecobalyseModel ->
-            Ecobalyse.view session ecobalyseModel
-                |> mapMsg EcobalyseMsg
-                |> Page.frame (pageConfig Page.Ecobalyse)
+        FoodPage foodModel ->
+            Food.view session foodModel
+                |> mapMsg FoodMsg
+                |> Page.frame (pageConfig Page.Food)
 
         NotFoundPage ->
             ( "Page manquante", [ Page.notFound ] )

@@ -1,4 +1,4 @@
-module Page.Ecobalyse exposing
+module Page.Food exposing
     ( Model
     , Msg(..)
     , init
@@ -6,8 +6,8 @@ module Page.Ecobalyse exposing
     , view
     )
 
-import Data.Ecobalyse.Db as Db
-import Data.Ecobalyse.Process
+import Data.Food.Db as Db
+import Data.Food.Process
     exposing
         ( Amount
         , Process
@@ -15,7 +15,7 @@ import Data.Ecobalyse.Process
         , isUnit
         , processNameToString
         )
-import Data.Ecobalyse.Product as Product
+import Data.Food.Product as Product
     exposing
         ( Product
         , Step
@@ -33,7 +33,7 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Ports
 import RemoteData exposing (WebData)
-import Request.Ecobalyse.Db as RequestDb
+import Request.Food.Db as RequestDb
 import Views.Container as Container
 import Views.Format as Format
 import Views.Impact exposing (impactSelector)
@@ -84,7 +84,7 @@ init session =
 
 
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
-update ({ ecobalyseDb } as session) msg ({ selectedProduct } as model) =
+update ({ foodDb } as session) msg ({ selectedProduct } as model) =
     case ( msg, selectedProduct ) of
         ( NoOp, _ ) ->
             ( model, session, Cmd.none )
@@ -119,7 +119,7 @@ update ({ ecobalyseDb } as session) msg ({ selectedProduct } as model) =
                                 , weightRatio = Product.getWeightRatio product
                                 }
                       }
-                    , { session | ecobalyseDb = db }
+                    , { session | foodDb = db }
                     , Cmd.none
                     )
 
@@ -144,7 +144,7 @@ update ({ ecobalyseDb } as session) msg ({ selectedProduct } as model) =
         ( ProductSelected productSelected, _ ) ->
             let
                 productResult =
-                    Product.findByName (stringToProductName productSelected) ecobalyseDb.products
+                    Product.findByName (stringToProductName productSelected) foodDb.products
             in
             case productResult of
                 Ok product ->
@@ -180,7 +180,7 @@ update ({ ecobalyseDb } as session) msg ({ selectedProduct } as model) =
 
 
 view : Session -> Model -> ( String, List (Html Msg) )
-view ({ ecobalyseDb, db } as session) { selectedProduct, productsSelectChoice, impact } =
+view ({ foodDb, db } as session) { selectedProduct, productsSelectChoice, impact } =
     ( "Simulateur de recettes"
     , [ Container.centered []
             (case selectedProduct of
@@ -204,7 +204,7 @@ view ({ ecobalyseDb, db } as session) { selectedProduct, productsSelectChoice, i
                         [ class "form-select"
                         , onInput ProductSelected
                         ]
-                        (ecobalyseDb.products
+                        (foodDb.products
                             |> AnyDict.keys
                             |> List.map
                                 (\productName ->

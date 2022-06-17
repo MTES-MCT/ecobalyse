@@ -1,8 +1,8 @@
-module Request.Ecobalyse.Db exposing (loadDb)
+module Request.Food.Db exposing (loadDb)
 
-import Data.Ecobalyse.Db exposing (Db)
-import Data.Ecobalyse.Process as Process exposing (ImpactsForProcesses)
-import Data.Ecobalyse.Product as Product exposing (Products)
+import Data.Food.Db exposing (Db)
+import Data.Food.Process as Process exposing (ImpactsForProcesses)
+import Data.Food.Product as Product exposing (Products)
 import Data.Impact as Impact
 import Data.Session exposing (Session)
 import Json.Decode exposing (Decoder)
@@ -43,7 +43,7 @@ handleProcessesLoaded : List Impact.Definition -> WebData ImpactsForProcesses ->
 handleProcessesLoaded impacts impactsForProcessesData =
     case impactsForProcessesData of
         RemoteData.Success processes ->
-            getJson (Product.decodeProducts processes) "ecobalyse/products.json"
+            getJson (Product.decodeProducts processes) "food/products.json"
                 |> Task.andThen (handleProductsLoaded impacts processes)
 
         RemoteData.Failure error ->
@@ -60,7 +60,7 @@ handleImpactsLoaded : WebData (List Impact.Definition) -> Task () (WebData Db)
 handleImpactsLoaded impactsData =
     case impactsData of
         RemoteData.Success impacts ->
-            getJson (Process.decode impacts) "ecobalyse/processes.json"
+            getJson (Process.decode impacts) "food/processes.json"
                 |> Task.andThen (handleProcessesLoaded impacts)
 
         RemoteData.Failure error ->
