@@ -4,9 +4,11 @@ module Data.Food.Product exposing
     , Products
     , Step
     , WeightRatio
+    , addIngredient
     , computePefImpact
     , decodeProducts
     , empty
+    , filterIngredients
     , findByName
     , getTotalImpact
     , getTotalWeight
@@ -34,6 +36,7 @@ import Duration exposing (Duration)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
 import Result.Extra as RE
+import Set
 
 
 unusedFunctionalUnit : Unit.Functional
@@ -320,3 +323,28 @@ getWeightLosingUnitProcessName step =
         |> List.map Tuple.first
         -- Take the heaviest
         |> List.head
+
+
+filterIngredients : Products -> List String
+filterIngredients products =
+    products
+        |> AnyDict.values
+        |> List.concatMap (.plant >> AnyDict.keys)
+        |> List.map processNameToString
+        |> Set.fromList
+        |> Set.toList
+        |> List.sort
+
+
+addIngredient : ImpactsForProcesses -> String -> Product -> Product
+addIngredient impactsForProcesses ingredientName product =
+    let
+        processName =
+            stringToProcessName ingredientName
+    in
+    case Process.findByName processName impactsForProcesses of
+        Ok impacts ->
+            { product | plant = AnyDict.insert processName (Process (Unit.Ratio 1.0) impacts) product.plant }
+
+        Err _ ->
+            product

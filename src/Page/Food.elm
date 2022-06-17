@@ -20,6 +20,8 @@ import Data.Food.Product as Product
         ( Product
         , Step
         , WeightRatio
+        , addIngredient
+        , filterIngredients
         , productNameToString
         , stringToProductName
         )
@@ -52,6 +54,7 @@ type alias Model =
     { selectedProduct : Maybe SelectedProduct
     , productsSelectChoice : String
     , impact : Impact.Trigram
+    , ingredientsSelectChoice : String
     }
 
 
@@ -61,6 +64,8 @@ type Msg
     | Reset
     | ProductSelected String
     | SwitchImpact Impact.Trigram
+    | IngredientSelected String
+    | AddIngredient
     | NoOp
 
 
@@ -74,6 +79,7 @@ init session =
     ( { selectedProduct = Nothing
       , productsSelectChoice = tunaPizza
       , impact = Impact.defaultTrigram
+      , ingredientsSelectChoice = ""
       }
     , session
     , Cmd.batch
@@ -175,12 +181,35 @@ update ({ foodDb } as session) msg ({ selectedProduct } as model) =
         ( SwitchImpact impact, _ ) ->
             ( { model | impact = impact }, session, Cmd.none )
 
+        ( IngredientSelected ingredientName, _ ) ->
+            ( { model | ingredientsSelectChoice = ingredientName }
+            , session
+            , Cmd.none
+            )
+
+        ( AddIngredient, Just selected ) ->
+            let
+                productWithAddedIngredient =
+                    selected.product
+                        |> addIngredient foodDb.processes model.ingredientsSelectChoice
+
+                productWithPefScore =
+                    productWithAddedIngredient
+                        |> Product.computePefImpact session.db.impacts
+            in
+            ( { model
+                | selectedProduct = Just { selected | product = productWithPefScore }
+              }
+            , session
+            , Cmd.none
+            )
+
         _ ->
             ( model, session, Cmd.none )
 
 
 view : Session -> Model -> ( String, List (Html Msg) )
-view ({ foodDb, db } as session) { selectedProduct, productsSelectChoice, impact } =
+view ({ foodDb, db } as session) { selectedProduct, productsSelectChoice, impact, ingredientsSelectChoice } =
     ( "Simulateur de recettes"
     , [ Container.centered []
             (case selectedProduct of
@@ -253,6 +282,21 @@ view ({ foodDb, db } as session) { selectedProduct, productsSelectChoice, impact
                             [ h3 [] [ text "Pourcentage de l'impact total" ] ]
                         ]
                     , viewIngredients totalImpact impact product.plant
+                    , div [ class "row py-3 gap-2 gap-sm-0" ]
+                        [ div [ class "col-sm-10" ]
+                            [ foodDb.products
+                                |> filterIngredients
+                                |> ingredientSelector IngredientSelected
+                            ]
+                        , div [ class "col-sm-2" ]
+                            [ button
+                                [ class "btn btn-primary w-100"
+                                , onClick AddIngredient
+                                , disabled (ingredientsSelectChoice == "")
+                                ]
+                                [ text "Ajouter un ingrédient" ]
+                            ]
+                        ]
                     , div [ class "row py-3 gap-2 gap-sm-0" ]
                         [ div [ class "col-sm-10 fw-bold" ]
                             [ text "Poids total avant cuisson : "
@@ -373,3 +417,19 @@ floatToRoundedString exponent float =
         |> Decimal.fromFloat
         |> Decimal.roundTo exponent
         |> Decimal.toStringIn Decimal.Dec
+
+
+ingredientSelector : (String -> Msg) -> List String -> Html Msg
+ingredientSelector event processes =
+    select
+        [ class "form-select"
+        , onInput event
+        ]
+        (option [] [ text "-- Sélectionner un ingrédient dans la liste --" ]
+            :: (processes
+                    |> List.map
+                        (\processName ->
+                            option [ value processName ] [ text processName ]
+                        )
+               )
+        )
