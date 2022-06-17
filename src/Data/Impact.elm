@@ -290,7 +290,7 @@ sumImpacts defs =
 
 updateImpact : Trigram -> Unit.Impact -> Impacts -> Impacts
 updateImpact trigram value =
-    AnyDict.update trigram (Maybe.map (always value))
+    AnyDict.insert trigram value
 
 
 decodeImpacts : List Definition -> Decoder Impacts

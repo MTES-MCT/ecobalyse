@@ -4,22 +4,22 @@ module Data.Ecobalyse.Product exposing
     , Products
     , Step
     , WeightRatio
+    , computePefImpact
     , decodeProducts
     , empty
     , findByName
-    , getImpact
     , getTotalImpact
     , getTotalWeight
     , getWeightRatio
     , productNameToString
     , stringToProductName
+    , unusedDuration
     , updateAmount
     )
 
 import Data.Ecobalyse.Process as Process
     exposing
         ( Amount
-        , Impacts
         , ImpactsForProcesses
         , Process
         , ProcessName
@@ -27,42 +27,27 @@ import Data.Ecobalyse.Process as Process
         , processNameToString
         , stringToProcessName
         )
-import Data.Impact as Impact
+import Data.Impact exposing (Definition, Impacts, Trigram, grabImpactFloat)
 import Data.Unit as Unit
-import Dict exposing (Dict)
 import Dict.Any as AnyDict exposing (AnyDict)
+import Duration exposing (Duration)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
 import Result.Extra as RE
 
 
+unusedFunctionalUnit : Unit.Functional
+unusedFunctionalUnit =
+    Unit.PerItem
+
+
+unusedDuration : Duration
+unusedDuration =
+    Duration.days 1
+
+
 type alias Step =
     AnyDict String ProcessName Process
-
-
-trigramsToImpact : Dict String (Process.Impacts -> Float)
-trigramsToImpact =
-    Dict.fromList
-        [ ( "acd", .acd )
-        , ( "ozd", .ozd )
-        , ( "cch", .cch )
-        , ( "ccb", .ccb )
-        , ( "ccf", .ccf )
-        , ( "ccl", .ccl )
-        , ( "fwe", .fwe )
-        , ( "swe", .swe )
-        , ( "tre", .tre )
-        , ( "pco", .pco )
-        , ( "pma", .pma )
-        , ( "ior", .ior )
-        , ( "fru", .fru )
-        , ( "mru", .mru )
-        , ( "ldu", .ldu )
-        , ( "wtu", .wtu )
-        , ( "etf", .etf )
-        , ( "htc", .htc )
-        , ( "htn", .htn )
-        ]
 
 
 type alias Product =
@@ -144,6 +129,18 @@ productFromDefinition impactsForProcesses { consumer, supermarket, distribution,
         |> RE.andMap (stepFromIngredients distribution impactsForProcesses)
         |> RE.andMap (stepFromIngredients packaging impactsForProcesses)
         |> RE.andMap (stepFromIngredients plant impactsForProcesses)
+
+
+computePefImpact : List Definition -> Product -> Product
+computePefImpact definitions product =
+    { product
+        | plant =
+            product.plant
+                |> AnyDict.map
+                    (\_ process ->
+                        Process.computePefImpact definitions process
+                    )
+    }
 
 
 updateAmount : Maybe WeightRatio -> ProcessName -> Amount -> Step -> Step
@@ -253,53 +250,18 @@ decodeProducts impactsForProcesses =
 -- utilities
 
 
-getTotalImpact : Impact.Trigram -> List Impact.Definition -> Step -> Float
-getTotalImpact trigram definitions step =
+getTotalImpact : Trigram -> Step -> Float
+getTotalImpact trigram step =
     step
         |> AnyDict.foldl
-            (\_ { amount, impacts } total ->
+            (\_ process total ->
                 let
                     impact =
-                        getImpact trigram definitions impacts
+                        grabImpactFloat unusedFunctionalUnit unusedDuration trigram process
                 in
-                total + (Unit.ratioToFloat amount * impact)
+                total + (Unit.ratioToFloat process.amount * impact)
             )
             0
-
-
-getImpact : Impact.Trigram -> List Impact.Definition -> Process.Impacts -> Float
-getImpact (Impact.Trigram trigram) definitions impacts =
-    case Dict.get trigram trigramsToImpact of
-        Just impactGetter ->
-            impactGetter impacts
-
-        Nothing ->
-            if trigram == "pef" then
-                -- PEF is a computed impact
-                Dict.keys trigramsToImpact
-                    -- Get all the impacts we have, and normalize/weigh them
-                    |> List.map Impact.trg
-                    |> List.map
-                        (\trig ->
-                            case Impact.getDefinition trig definitions of
-                                Ok { pefData } ->
-                                    case pefData of
-                                        Just { normalization, weighting } ->
-                                            getImpact trig definitions impacts
-                                                |> Unit.impact
-                                                |> Unit.impactPefScore normalization weighting
-                                                |> Unit.impactToFloat
-
-                                        Nothing ->
-                                            0.0
-
-                                Err _ ->
-                                    0.0
-                        )
-                    |> List.foldl (+) 0.0
-
-            else
-                0.0
 
 
 getTotalWeight : Step -> Float

@@ -106,11 +106,16 @@ update ({ ecobalyseDb } as session) msg ({ selectedProduct } as model) =
             in
             case productResult of
                 Ok product ->
+                    let
+                        productWithPefScore =
+                            product
+                                |> Product.computePefImpact session.db.impacts
+                    in
                     ( { model
                         | selectedProduct =
                             Just
-                                { product = product
-                                , original = product
+                                { product = productWithPefScore
+                                , original = productWithPefScore
                                 , weightRatio = Product.getWeightRatio product
                                 }
                       }
@@ -143,11 +148,16 @@ update ({ ecobalyseDb } as session) msg ({ selectedProduct } as model) =
             in
             case productResult of
                 Ok product ->
+                    let
+                        productWithPefScore =
+                            product
+                                |> Product.computePefImpact session.db.impacts
+                    in
                     ( { model
                         | selectedProduct =
                             Just
-                                { product = product
-                                , original = product
+                                { product = productWithPefScore
+                                , original = productWithPefScore
                                 , weightRatio = Product.getWeightRatio product
                                 }
                         , productsSelectChoice = productSelected
@@ -182,7 +192,7 @@ view ({ ecobalyseDb, db } as session) { selectedProduct, productsSelectChoice, i
                             Product.getTotalWeight original.plant
 
                         totalImpact =
-                            Product.getTotalImpact impact db.impacts product.plant
+                            Product.getTotalImpact impact product.plant
 
                         totalWeight =
                             Product.getTotalWeight product.plant
@@ -242,7 +252,7 @@ view ({ ecobalyseDb, db } as session) { selectedProduct, productsSelectChoice, i
                         , div [ class "col-lg-6 d-none d-sm-block" ]
                             [ h3 [] [ text "Pourcentage de l'impact total" ] ]
                         ]
-                    , viewIngredients totalImpact impact db.impacts product.plant
+                    , viewIngredients totalImpact impact product.plant
                     , div [ class "row py-3 gap-2 gap-sm-0" ]
                         [ div [ class "col-sm-10 fw-bold" ]
                             [ text "Poids total avant cuisson : "
@@ -268,15 +278,15 @@ view ({ ecobalyseDb, db } as session) { selectedProduct, productsSelectChoice, i
     )
 
 
-viewIngredients : Float -> Impact.Trigram -> List Impact.Definition -> Step -> Html Msg
-viewIngredients totalImpact impact definitions step =
+viewIngredients : Float -> Impact.Trigram -> Step -> Html Msg
+viewIngredients totalImpact impact step =
     step
         |> AnyDict.toList
         |> List.map
             (\( name, process ) ->
                 let
                     bar =
-                        makeBar totalImpact impact definitions name process
+                        makeBar totalImpact impact name process
                 in
                 div [ class "card stacked-card" ]
                     [ div [ class "card-header" ] [ text <| processNameToString name ]
@@ -322,17 +332,18 @@ type alias Bar =
     }
 
 
-makeBar : Float -> Impact.Trigram -> List Impact.Definition -> ProcessName -> Process -> Bar
-makeBar totalImpact trigram definitions processName { amount, impacts } =
+makeBar : Float -> Impact.Trigram -> ProcessName -> Process -> Bar
+makeBar totalImpact trigram processName process =
     let
         impact =
-            Product.getImpact trigram definitions impacts * Unit.ratioToFloat amount
+            -- Product.getImpact trigram definitions impacts * Unit.ratioToFloat amount
+            Impact.grabImpactFloat Unit.PerItem Product.unusedDuration trigram process * Unit.ratioToFloat process.amount
 
         percent =
             impact * toFloat 100 / totalImpact
     in
     { name = processName
-    , amount = amount
+    , amount = process.amount
     , impact = impact
     , width = clamp 0 100 percent
     , percent = percent

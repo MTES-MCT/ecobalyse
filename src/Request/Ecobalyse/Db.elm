@@ -60,7 +60,7 @@ handleImpactsLoaded : WebData (List Impact.Definition) -> Task () (WebData Db)
 handleImpactsLoaded impactsData =
     case impactsData of
         RemoteData.Success impacts ->
-            getJson Process.decode "ecobalyse/processes.json"
+            getJson (Process.decode impacts) "ecobalyse/processes.json"
                 |> Task.andThen (handleProcessesLoaded impacts)
 
         RemoteData.Failure error ->
