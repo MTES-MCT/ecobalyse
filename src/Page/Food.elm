@@ -23,6 +23,7 @@ import Data.Food.Product as Product
         , addIngredient
         , filterIngredients
         , productNameToString
+        , removeIngredient
         , stringToProductName
         )
 import Data.Impact as Impact
@@ -66,6 +67,7 @@ type Msg
     | SwitchImpact Impact.Trigram
     | IngredientSelected String
     | AddIngredient
+    | DeleteIngredient ProcessName
     | NoOp
 
 
@@ -195,6 +197,23 @@ update ({ foodDb } as session) msg ({ selectedProduct } as model) =
 
                 productWithPefScore =
                     productWithAddedIngredient
+                        |> Product.computePefImpact session.db.impacts
+            in
+            ( { model
+                | selectedProduct = Just { selected | product = productWithPefScore }
+              }
+            , session
+            , Cmd.none
+            )
+
+        ( DeleteIngredient processName, Just selected ) ->
+            let
+                productWithoutIngredient =
+                    selected.product
+                        |> removeIngredient processName
+
+                productWithPefScore =
+                    productWithoutIngredient
                         |> Product.computePefImpact session.db.impacts
             in
             ( { model
@@ -363,7 +382,8 @@ viewIngredient bar =
                 }
             ]
         , div [ class "col-sm-6" ]
-            [ barView bar ]
+            [ barView bar
+            ]
         ]
 
 
@@ -394,9 +414,9 @@ makeBar totalImpact trigram processName process =
     }
 
 
-barView : Bar -> Html msg
+barView : Bar -> Html Msg
 barView bar =
-    div [ class "px-3 py-1 border-top border-top-sm-0 border-start-0 border-start-sm d-flex" ]
+    div [ class "ps-3 py-1 border-top border-top-sm-0 border-start-0 border-start-sm d-flex" ]
         [ div [ class "w-75 border my-2" ]
             [ div
                 [ class "bg-primary"
@@ -407,7 +427,12 @@ barView bar =
             ]
         , div [ class "text-end py-1 ps-2 text-truncate flex-fill" ]
             [ Format.percent bar.percent ]
-        , div [ class "ps-2 my-1" ] [ PieChart.view bar.percent ]
+        , div [ class "px-2 my-1" ] [ PieChart.view bar.percent ]
+        , button
+            [ class "btn"
+            , onClick <| DeleteIngredient bar.name
+            ]
+            [ i [ class "icon icon-trash" ] [] ]
         ]
 
 

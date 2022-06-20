@@ -14,6 +14,7 @@ module Data.Food.Product exposing
     , getTotalWeight
     , getWeightRatio
     , productNameToString
+    , removeIngredient
     , stringToProductName
     , unusedDuration
     , updateAmount
@@ -348,3 +349,8 @@ addIngredient impactsForProcesses ingredientName product =
 
         Err _ ->
             product
+
+
+removeIngredient : ProcessName -> Product -> Product
+removeIngredient processName product =
+    { product | plant = AnyDict.filter (\name _ -> name /= processName) product.plant }
