@@ -41,6 +41,8 @@ isProcess : ProcessName -> Bool
 isProcess (ProcessName processName) =
     String.endsWith "/ FR U" processName
         || String.startsWith "Transport, " processName
+        || String.startsWith "Biowaste " processName
+        || String.startsWith "Mixing, " processName
 
 
 isIngredient : ProcessName -> Bool

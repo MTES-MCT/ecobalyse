@@ -317,6 +317,14 @@ view ({ foodDb, db } as session) { selectedProduct, productsSelectChoice, impact
                                 [ text "Ajouter un ingrédient" ]
                             ]
                         ]
+                    , div [ class "row" ]
+                        [ div [ class "col-lg-6 d-none d-sm-block" ]
+                            [ h3 [] [ text "Processus" ]
+                            ]
+                        , div [ class "col-lg-6 d-none d-sm-block" ]
+                            [ h3 [] [ text "Pourcentage de l'impact total" ] ]
+                        ]
+                    , viewProcesses totalImpact impact product.plant
                     , div [ class "row py-3 gap-2 gap-sm-0" ]
                         [ div [ class "col-sm-10 fw-bold" ]
                             [ text "Poids total avant perte (cuisson, invendus...) : "
@@ -460,3 +468,22 @@ ingredientSelector event processes =
                         )
                )
         )
+
+
+viewProcesses : Float -> Impact.Trigram -> Step -> Html Msg
+viewProcesses totalImpact impact step =
+    step
+        |> AnyDict.toList
+        |> List.filter (\( processName, _ ) -> isProcess processName)
+        |> List.map
+            (\( name, process ) ->
+                let
+                    bar =
+                        makeBar totalImpact impact name process
+                in
+                div [ class "card stacked-card" ]
+                    [ div [ class "card-header" ] [ text <| processNameToString name ]
+                    , viewIngredient bar
+                    ]
+            )
+        |> div []
