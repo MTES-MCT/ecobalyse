@@ -12,6 +12,7 @@ import Data.Food.Process
         ( Amount
         , Process
         , ProcessName
+        , isIngredient
         , isProcess
         , processNameToString
         )
@@ -345,6 +346,7 @@ viewIngredients : Float -> Impact.Trigram -> Step -> Html Msg
 viewIngredients totalImpact impact step =
     step
         |> AnyDict.toList
+        |> List.filter (\( processName, _ ) -> isIngredient processName)
         |> List.map
             (\( name, process ) ->
                 let
