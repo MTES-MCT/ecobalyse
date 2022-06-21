@@ -318,7 +318,7 @@ view ({ foodDb, db } as session) { selectedProduct, productsSelectChoice, impact
                         ]
                     , div [ class "row py-3 gap-2 gap-sm-0" ]
                         [ div [ class "col-sm-10 fw-bold" ]
-                            [ text "Poids total avant cuisson : "
+                            [ text "Poids total avant perte (cuisson, invendus...) : "
                             , totalWeight
                                 |> floatToRoundedString -3
                                 |> text
