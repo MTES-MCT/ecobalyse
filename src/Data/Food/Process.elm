@@ -7,7 +7,8 @@ module Data.Food.Process exposing
     , decode
     , empty
     , findByName
-    , isUnit
+    , isIngredient
+    , isProcess
     , processNameToString
     , stringToProcessName
     )
@@ -36,9 +37,15 @@ processNameToString (ProcessName name) =
     name
 
 
-isUnit : ProcessName -> Bool
-isUnit (ProcessName processName) =
+isProcess : ProcessName -> Bool
+isProcess (ProcessName processName) =
     String.endsWith "/ FR U" processName
+        || String.startsWith "Transport, " processName
+
+
+isIngredient : ProcessName -> Bool
+isIngredient =
+    isProcess >> not
 
 
 type alias Process =

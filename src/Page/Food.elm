@@ -12,7 +12,7 @@ import Data.Food.Process
         ( Amount
         , Process
         , ProcessName
-        , isUnit
+        , isProcess
         , processNameToString
         )
 import Data.Food.Product as Product
@@ -376,7 +376,7 @@ viewIngredient bar =
                     Unit.ratioToFloat
                         >> floatToRoundedString -3
                         >> (\mass -> mass ++ "kg")
-                , disabled = isUnit bar.name
+                , disabled = isProcess bar.name
                 , min = 0
                 , max = 100
                 }

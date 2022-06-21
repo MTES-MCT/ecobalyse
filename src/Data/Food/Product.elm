@@ -26,7 +26,8 @@ import Data.Food.Process as Process
         , ImpactsForProcesses
         , Process
         , ProcessName
-        , isUnit
+        , isIngredient
+        , isProcess
         , processNameToString
         , stringToProcessName
         )
@@ -273,7 +274,7 @@ getTotalWeight step =
     step
         |> AnyDict.foldl
             (\processName { amount } total ->
-                if isUnit processName then
+                if isProcess processName then
                     total
 
                 else
@@ -316,7 +317,7 @@ getWeightLosingUnitProcessName step =
     step
         |> AnyDict.toList
         -- Only keep processes with names ending with "/ FR U"
-        |> List.filter (Tuple.first >> isUnit)
+        |> List.filter (Tuple.first >> isProcess)
         -- Sort by heavier to lighter
         |> List.sortBy (Tuple.second >> .amount >> Unit.ratioToFloat)
         |> List.reverse
@@ -331,6 +332,7 @@ filterIngredients products =
     products
         |> AnyDict.values
         |> List.concatMap (.plant >> AnyDict.keys)
+        |> List.filter isIngredient
         |> List.map processNameToString
         |> Set.fromList
         |> Set.toList
