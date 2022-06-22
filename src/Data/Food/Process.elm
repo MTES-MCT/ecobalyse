@@ -9,6 +9,8 @@ module Data.Food.Process exposing
     , findByName
     , isIngredient
     , isProcess
+    , isTransport
+    , isWaste
     , processNameToString
     , stringToProcessName
     )
@@ -39,15 +41,31 @@ processNameToString (ProcessName name) =
 
 isProcess : ProcessName -> Bool
 isProcess (ProcessName processName) =
-    String.endsWith "/ FR U" processName
-        || String.startsWith "Transport, " processName
-        || String.startsWith "Biowaste " processName
+    String.startsWith "Cooking, " processName
+        || String.startsWith "Canning " processName
         || String.startsWith "Mixing, " processName
+        || String.startsWith "Peeling, " processName
+        || String.startsWith "Fish filleting, " processName
+        || String.startsWith "Slaughtering" processName
+
+
+isWaste : ProcessName -> Bool
+isWaste (ProcessName processName) =
+    String.startsWith "Biowaste " processName
+
+
+isTransport : ProcessName -> Bool
+isTransport (ProcessName processName) =
+    String.startsWith "Transport, " processName
 
 
 isIngredient : ProcessName -> Bool
-isIngredient =
-    isProcess >> not
+isIngredient processName =
+    (isProcess processName
+        || isWaste processName
+        || isTransport processName
+    )
+        |> not
 
 
 type alias Process =

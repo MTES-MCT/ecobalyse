@@ -274,11 +274,11 @@ getTotalWeight step =
     step
         |> AnyDict.foldl
             (\processName { amount } total ->
-                if isProcess processName then
-                    total
+                if isIngredient processName then
+                    total + Unit.ratioToFloat amount
 
                 else
-                    total + Unit.ratioToFloat amount
+                    total
             )
             0
 

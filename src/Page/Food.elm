@@ -13,7 +13,6 @@ import Data.Food.Process
         , Process
         , ProcessName
         , isIngredient
-        , isProcess
         , processNameToString
         )
 import Data.Food.Product as Product
@@ -386,7 +385,7 @@ viewIngredient bar =
                     Unit.ratioToFloat
                         >> floatToRoundedString -3
                         >> (\mass -> mass ++ "kg")
-                , disabled = isProcess bar.name
+                , disabled = not (isIngredient bar.name)
                 , min = 0
                 , max = 100
                 }
@@ -474,7 +473,7 @@ viewProcesses : Float -> Impact.Trigram -> Step -> Html Msg
 viewProcesses totalImpact impact step =
     step
         |> AnyDict.toList
-        |> List.filter (\( processName, _ ) -> isProcess processName)
+        |> List.filter (\( processName, _ ) -> not (isIngredient processName))
         |> List.map
             (\( name, process ) ->
                 let
