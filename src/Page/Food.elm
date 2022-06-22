@@ -13,6 +13,9 @@ import Data.Food.Process
         , Process
         , ProcessName
         , isIngredient
+        , isProcess
+        , isTransport
+        , isWaste
         , processNameToString
         )
 import Data.Food.Product as Product
@@ -293,13 +296,6 @@ view ({ foodDb, db } as session) { selectedProduct, productsSelectChoice, impact
                                 ]
                             ]
                         ]
-                    , div [ class "row" ]
-                        [ div [ class "col-lg-6 d-none d-sm-block" ]
-                            [ h3 [] [ text "Quantité de l'ingrédient" ]
-                            ]
-                        , div [ class "col-lg-6 d-none d-sm-block" ]
-                            [ h3 [] [ text "Pourcentage de l'impact total" ] ]
-                        ]
                     , viewIngredients totalImpact impact product.plant
                     , div [ class "row py-3 gap-2 gap-sm-0" ]
                         [ div [ class "col-sm-10" ]
@@ -316,14 +312,9 @@ view ({ foodDb, db } as session) { selectedProduct, productsSelectChoice, impact
                                 [ text "Ajouter un ingrédient" ]
                             ]
                         ]
-                    , div [ class "row" ]
-                        [ div [ class "col-lg-6 d-none d-sm-block" ]
-                            [ h3 [] [ text "Processus" ]
-                            ]
-                        , div [ class "col-lg-6 d-none d-sm-block" ]
-                            [ h3 [] [ text "Pourcentage de l'impact total" ] ]
-                        ]
                     , viewProcesses totalImpact impact product.plant
+                    , viewTransports totalImpact impact product.plant
+                    , viewWastes totalImpact impact product.plant
                     , div [ class "row py-3 gap-2 gap-sm-0" ]
                         [ div [ class "col-sm-10 fw-bold" ]
                             [ text "Poids total avant perte (cuisson, invendus...) : "
@@ -349,6 +340,24 @@ view ({ foodDb, db } as session) { selectedProduct, productsSelectChoice, impact
     )
 
 
+viewHeader : String -> String -> List (Html Msg) -> Html Msg
+viewHeader header1 header2 children =
+    if List.length children > 0 then
+        div []
+            (div [ class "row" ]
+                [ div [ class "col-lg-6 d-none d-sm-block" ]
+                    [ h3 [] [ text header1 ]
+                    ]
+                , div [ class "col-lg-6 d-none d-sm-block" ]
+                    [ h3 [] [ text header2 ] ]
+                ]
+                :: children
+            )
+
+    else
+        text ""
+
+
 viewIngredients : Float -> Impact.Trigram -> Step -> Html Msg
 viewIngredients totalImpact impact step =
     step
@@ -365,7 +374,7 @@ viewIngredients totalImpact impact step =
                     , viewIngredient bar
                     ]
             )
-        |> div []
+        |> viewHeader "Quantité de l'ingrédient" "Pourcentage de l'impact total"
 
 
 viewIngredient : Bar -> Html Msg
@@ -473,7 +482,7 @@ viewProcesses : Float -> Impact.Trigram -> Step -> Html Msg
 viewProcesses totalImpact impact step =
     step
         |> AnyDict.toList
-        |> List.filter (\( processName, _ ) -> not (isIngredient processName))
+        |> List.filter (\( processName, _ ) -> isProcess processName)
         |> List.map
             (\( name, process ) ->
                 let
@@ -485,4 +494,42 @@ viewProcesses totalImpact impact step =
                     , viewIngredient bar
                     ]
             )
-        |> div []
+        |> viewHeader "Processus" "Pourcentage de l'impact total"
+
+
+viewTransports : Float -> Impact.Trigram -> Step -> Html Msg
+viewTransports totalImpact impact step =
+    step
+        |> AnyDict.toList
+        |> List.filter (\( processName, _ ) -> isTransport processName)
+        |> List.map
+            (\( name, process ) ->
+                let
+                    bar =
+                        makeBar totalImpact impact name process
+                in
+                div [ class "card stacked-card" ]
+                    [ div [ class "card-header" ] [ text <| processNameToString name ]
+                    , viewIngredient bar
+                    ]
+            )
+        |> viewHeader "Transport" "Pourcentage de l'impact total"
+
+
+viewWastes : Float -> Impact.Trigram -> Step -> Html Msg
+viewWastes totalImpact impact step =
+    step
+        |> AnyDict.toList
+        |> List.filter (\( processName, _ ) -> isWaste processName)
+        |> List.map
+            (\( name, process ) ->
+                let
+                    bar =
+                        makeBar totalImpact impact name process
+                in
+                div [ class "card stacked-card" ]
+                    [ div [ class "card-header" ] [ text <| processNameToString name ]
+                    , viewIngredient bar
+                    ]
+            )
+        |> viewHeader "Déchets" "Pourcentage de l'impact total"
