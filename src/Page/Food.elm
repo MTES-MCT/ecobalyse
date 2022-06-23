@@ -196,7 +196,7 @@ update ({ foodDb } as session) msg ({ selectedProduct } as model) =
             let
                 productWithAddedIngredient =
                     selected.product
-                        |> addIngredient foodDb.processes model.ingredientsSelectChoice
+                        |> addIngredient selected.weightRatio foodDb.processes model.ingredientsSelectChoice
 
                 productWithPefScore =
                     productWithAddedIngredient

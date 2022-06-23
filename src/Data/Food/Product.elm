@@ -339,15 +339,24 @@ filterIngredients products =
         |> List.sort
 
 
-addIngredient : ImpactsForProcesses -> String -> Product -> Product
-addIngredient impactsForProcesses ingredientName product =
+addIngredient : Maybe WeightRatio -> ImpactsForProcesses -> String -> Product -> Product
+addIngredient maybeWeightRatio impactsForProcesses ingredientName product =
     let
         processName =
             stringToProcessName ingredientName
     in
     case Process.findByName processName impactsForProcesses of
         Ok impacts ->
-            { product | plant = AnyDict.insert processName (Process (Unit.Ratio 1.0) impacts) product.plant }
+            let
+                amount =
+                    Unit.Ratio 1.0
+
+                withAddedIngredient =
+                    AnyDict.insert processName (Process amount impacts) product.plant
+                        -- Update the total weight
+                        |> updateAmount maybeWeightRatio processName amount
+            in
+            { product | plant = withAddedIngredient }
 
         Err _ ->
             product
