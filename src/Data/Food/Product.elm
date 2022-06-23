@@ -1,37 +1,39 @@
 module Data.Food.Product exposing
-    ( Product
+    ( Amount
+    , ImpactsForProcesses
+    , Process
+    , ProcessName
+    , Product
     , ProductName
     , Products
     , Step
     , WeightRatio
     , addIngredient
     , computePefImpact
+    , decodeProcesses
     , decodeProducts
-    , empty
+    , emptyImpactsForProcesses
+    , emptyProducts
     , filterIngredients
-    , findByName
+    , findImpactsByName
+    , findProductByName
     , getTotalImpact
     , getTotalWeight
     , getWeightRatio
+    , isIngredient
+    , isProcess
+    , isTransport
+    , isWaste
+    , processNameToString
     , productNameToString
     , removeIngredient
+    , stringToProcessName
     , stringToProductName
     , unusedDuration
     , updateAmount
     )
 
-import Data.Food.Process as Process
-    exposing
-        ( Amount
-        , ImpactsForProcesses
-        , Process
-        , ProcessName
-        , isIngredient
-        , isProcess
-        , processNameToString
-        , stringToProcessName
-        )
-import Data.Impact exposing (Definition, Impacts, Trigram, grabImpactFloat)
+import Data.Impact as Impact exposing (Definition, Impacts, Trigram, grabImpactFloat)
 import Data.Unit as Unit
 import Dict.Any as AnyDict exposing (AnyDict)
 import Duration exposing (Duration)
@@ -49,6 +51,95 @@ unusedFunctionalUnit =
 unusedDuration : Duration
 unusedDuration =
     Duration.days 1
+
+
+
+---- Process
+
+
+type alias Amount =
+    Unit.Ratio
+
+
+type ProcessName
+    = ProcessName String
+
+
+stringToProcessName : String -> ProcessName
+stringToProcessName str =
+    ProcessName str
+
+
+processNameToString : ProcessName -> String
+processNameToString (ProcessName name) =
+    name
+
+
+isProcess : ProcessName -> Bool
+isProcess (ProcessName processName) =
+    String.startsWith "Cooking, " processName
+        || String.startsWith "Canning " processName
+        || String.startsWith "Mixing, " processName
+        || String.startsWith "Peeling, " processName
+        || String.startsWith "Fish filleting, " processName
+        || String.startsWith "Slaughtering" processName
+
+
+isWaste : ProcessName -> Bool
+isWaste (ProcessName processName) =
+    String.startsWith "Biowaste " processName
+
+
+isTransport : ProcessName -> Bool
+isTransport (ProcessName processName) =
+    String.startsWith "Transport, " processName
+
+
+isIngredient : ProcessName -> Bool
+isIngredient processName =
+    (isProcess processName
+        || isWaste processName
+        || isTransport processName
+    )
+        |> not
+
+
+type alias Process =
+    { amount : Amount
+    , impacts : Impacts
+    }
+
+
+type alias ImpactsForProcesses =
+    AnyDict String ProcessName Impacts
+
+
+emptyImpactsForProcesses : ImpactsForProcesses
+emptyImpactsForProcesses =
+    AnyDict.empty processNameToString
+
+
+computeProcessPefImpact : List Definition -> Process -> Process
+computeProcessPefImpact definitions process =
+    { process
+        | impacts =
+            Impact.updatePefImpact definitions process.impacts
+    }
+
+
+findImpactsByName : ProcessName -> ImpactsForProcesses -> Result String Impacts
+findImpactsByName ((ProcessName name) as procName) =
+    AnyDict.get procName
+        >> Result.fromMaybe ("Procédé introuvable par nom : " ++ name)
+
+
+decodeProcesses : List Definition -> Decoder ImpactsForProcesses
+decodeProcesses definitions =
+    AnyDict.decode (\str _ -> ProcessName str) processNameToString (Impact.decodeImpacts definitions)
+
+
+
+---- Step
 
 
 type alias Step =
@@ -82,8 +173,8 @@ type alias Products =
     AnyDict String ProductName Product
 
 
-empty : Products
-empty =
+emptyProducts : Products
+emptyProducts =
     AnyDict.empty productNameToString
 
 
@@ -119,7 +210,7 @@ stepFromIngredients ingredients impactsForProcesses =
                 let
                     impactsResult : Result String Impacts
                     impactsResult =
-                        Process.findByName processName impactsForProcesses
+                        findImpactsByName processName impactsForProcesses
                 in
                 Result.map2 (insertProcess processName amount) impactsResult stepResult
             )
@@ -143,7 +234,7 @@ computePefImpact definitions product =
             product.plant
                 |> AnyDict.map
                     (\_ process ->
-                        Process.computePefImpact definitions process
+                        computeProcessPefImpact definitions process
                     )
     }
 
@@ -185,8 +276,8 @@ updateWeight maybeWeightRatio step =
                     )
 
 
-findByName : ProductName -> Products -> Result String Product
-findByName ((ProductName name) as productName) =
+findProductByName : ProductName -> Products -> Result String Product
+findProductByName ((ProductName name) as productName) =
     AnyDict.get productName
         >> Result.fromMaybe ("Produit introuvable par nom : " ++ name)
 
@@ -345,7 +436,7 @@ addIngredient maybeWeightRatio impactsForProcesses ingredientName product =
         processName =
             stringToProcessName ingredientName
     in
-    case Process.findByName processName impactsForProcesses of
+    case findImpactsByName processName impactsForProcesses of
         Ok impacts ->
             let
                 amount =

@@ -7,24 +7,22 @@ module Page.Food exposing
     )
 
 import Data.Food.Db as Db
-import Data.Food.Process
+import Data.Food.Product as Product
     exposing
         ( Amount
         , Process
         , ProcessName
+        , Product
+        , Step
+        , WeightRatio
+        , addIngredient
+        , filterIngredients
+        , findProductByName
         , isIngredient
         , isProcess
         , isTransport
         , isWaste
         , processNameToString
-        )
-import Data.Food.Product as Product
-    exposing
-        ( Product
-        , Step
-        , WeightRatio
-        , addIngredient
-        , filterIngredients
         , productNameToString
         , removeIngredient
         , stringToProductName
@@ -113,7 +111,7 @@ update ({ foodDb } as session) msg ({ selectedProduct } as model) =
         ( DbLoaded (RemoteData.Success db), _ ) ->
             let
                 productResult =
-                    Product.findByName (stringToProductName tunaPizza) db.products
+                    findProductByName (stringToProductName tunaPizza) db.products
             in
             case productResult of
                 Ok product ->
@@ -155,7 +153,7 @@ update ({ foodDb } as session) msg ({ selectedProduct } as model) =
         ( ProductSelected productSelected, _ ) ->
             let
                 productResult =
-                    Product.findByName (stringToProductName productSelected) foodDb.products
+                    findProductByName (stringToProductName productSelected) foodDb.products
             in
             case productResult of
                 Ok product ->

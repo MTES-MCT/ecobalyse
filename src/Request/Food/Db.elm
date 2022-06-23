@@ -1,8 +1,7 @@
 module Request.Food.Db exposing (loadDb)
 
 import Data.Food.Db exposing (Db)
-import Data.Food.Process as Process exposing (ImpactsForProcesses)
-import Data.Food.Product as Product exposing (Products)
+import Data.Food.Product as Product exposing (ImpactsForProcesses, Products)
 import Data.Impact as Impact
 import Data.Session exposing (Session)
 import Json.Decode exposing (Decoder)
@@ -60,7 +59,7 @@ handleImpactsLoaded : WebData (List Impact.Definition) -> Task () (WebData Db)
 handleImpactsLoaded impactsData =
     case impactsData of
         RemoteData.Success impacts ->
-            getJson (Process.decode impacts) "food/processes.json"
+            getJson (Product.decodeProcesses impacts) "food/processes.json"
                 |> Task.andThen (handleProcessesLoaded impacts)
 
         RemoteData.Failure error ->

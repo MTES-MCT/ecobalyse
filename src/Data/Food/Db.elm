@@ -3,8 +3,7 @@ module Data.Food.Db exposing
     , empty
     )
 
-import Data.Food.Process as Process exposing (ImpactsForProcesses)
-import Data.Food.Product as Products exposing (Products)
+import Data.Food.Product as Products exposing (ImpactsForProcesses, Products)
 import Data.Impact as Impact
 
 
@@ -18,6 +17,6 @@ type alias Db =
 empty : Db
 empty =
     { impacts = []
-    , processes = Process.empty
-    , products = Products.empty
+    , processes = Products.emptyImpactsForProcesses
+    , products = Products.emptyProducts
     }
