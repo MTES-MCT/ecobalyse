@@ -520,7 +520,7 @@ addIngredient maybeWeightRatio impactsForProcesses ingredientName product =
                         | ingredients = AnyDict.insert processName (Process amount impacts) plant.ingredients
                     }
                         -- Update the total weight
-                        |> updateAmount maybeWeightRatio processName amount
+                        |> updateWeight maybeWeightRatio
             in
             { product | plant = withAddedIngredient }
 
@@ -528,15 +528,19 @@ addIngredient maybeWeightRatio impactsForProcesses ingredientName product =
             product
 
 
-removeIngredient : ProcessName -> Product -> Product
-removeIngredient processName product =
+removeIngredient : Maybe WeightRatio -> ProcessName -> Product -> Product
+removeIngredient maybeWeightRatio processName product =
     let
         plant =
             product.plant
-    in
-    { product
-        | plant =
+
+        withRemovedIngredient =
             { plant
                 | ingredients = AnyDict.filter (\name _ -> name /= processName) plant.ingredients
             }
+                -- Update the total weight
+                |> updateWeight maybeWeightRatio
+    in
+    { product
+        | plant = withRemovedIngredient
     }

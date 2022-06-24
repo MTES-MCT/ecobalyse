@@ -211,7 +211,7 @@ update ({ foodDb } as session) msg ({ selectedProduct } as model) =
             let
                 productWithoutIngredient =
                     selected.product
-                        |> removeIngredient processName
+                        |> removeIngredient selected.weightRatio processName
 
                 productWithPefScore =
                     productWithoutIngredient
