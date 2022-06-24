@@ -21,7 +21,7 @@ module Data.Food.Product exposing
     , getTotalWeight
     , getWeightRatio
     , isIngredient
-    , isProcess
+    , isProcessing
     , isTransport
     , isWaste
     , processNameToString
@@ -75,8 +75,8 @@ processNameToString (ProcessName name) =
     name
 
 
-isProcess : ProcessName -> Bool
-isProcess (ProcessName processName) =
+isProcessing : ProcessName -> Bool
+isProcessing (ProcessName processName) =
     String.startsWith "Cooking, " processName
         || String.startsWith "Canning " processName
         || String.startsWith "Mixing, " processName
@@ -97,7 +97,7 @@ isTransport (ProcessName processName) =
 
 isIngredient : ProcessName -> Bool
 isIngredient processName =
-    (isProcess processName
+    (isProcessing processName
         || isWaste processName
         || isTransport processName
     )
@@ -119,12 +119,30 @@ emptyImpactsForProcesses =
     AnyDict.empty processNameToString
 
 
-computeProcessPefImpact : List Definition -> Process -> Process
-computeProcessPefImpact definitions process =
-    { process
-        | impacts =
-            Impact.updatePefImpact definitions process.impacts
-    }
+type alias Processes =
+    AnyDict String ProcessName Process
+
+
+emptyProcesses : Processes
+emptyProcesses =
+    AnyDict.empty processNameToString
+
+
+insertProcess : ProcessName -> Process -> Processes -> Processes
+insertProcess name process processes =
+    AnyDict.insert name process processes
+
+
+computeProcessPefImpact : List Definition -> Processes -> Processes
+computeProcessPefImpact definitions processes =
+    processes
+        |> AnyDict.map
+            (\_ process ->
+                { process
+                    | impacts =
+                        Impact.updatePefImpact definitions process.impacts
+                }
+            )
 
 
 findImpactsByName : ProcessName -> ImpactsForProcesses -> Result String Impacts
@@ -143,7 +161,11 @@ decodeProcesses definitions =
 
 
 type alias Step =
-    AnyDict String ProcessName Process
+    { ingredients : Processes
+    , transport : Processes
+    , waste : Processes
+    , processing : Processes
+    }
 
 
 type alias Product =
@@ -178,6 +200,15 @@ emptyProducts =
     AnyDict.empty productNameToString
 
 
+emptyStep : Step
+emptyStep =
+    { ingredients = emptyProcesses
+    , transport = emptyProcesses
+    , waste = emptyProcesses
+    , processing = emptyProcesses
+    }
+
+
 type alias Ingredient =
     ( ProcessName, Unit.Ratio )
 
@@ -197,9 +228,23 @@ type alias WeightRatio =
     }
 
 
-insertProcess : ProcessName -> Amount -> Impacts -> Step -> Step
-insertProcess processName amount impacts step =
-    AnyDict.insert processName (Process amount impacts) step
+insertProcessToStep : ProcessName -> Amount -> Impacts -> Step -> Step
+insertProcessToStep processName amount impacts step =
+    let
+        newProcess =
+            Process amount impacts
+    in
+    if isProcessing processName then
+        { step | processing = insertProcess processName newProcess step.processing }
+
+    else if isWaste processName then
+        { step | waste = insertProcess processName newProcess step.waste }
+
+    else if isTransport processName then
+        { step | transport = insertProcess processName newProcess step.transport }
+
+    else
+        { step | ingredients = insertProcess processName newProcess step.ingredients }
 
 
 stepFromIngredients : List Ingredient -> ImpactsForProcesses -> Result String Step
@@ -212,9 +257,9 @@ stepFromIngredients ingredients impactsForProcesses =
                     impactsResult =
                         findImpactsByName processName impactsForProcesses
                 in
-                Result.map2 (insertProcess processName amount) impactsResult stepResult
+                Result.map2 (insertProcessToStep processName amount) impactsResult stepResult
             )
-            (Ok (AnyDict.empty processNameToString))
+            (Ok emptyStep)
 
 
 productFromDefinition : ImpactsForProcesses -> ProductDefinition -> Result String Product
@@ -229,25 +274,41 @@ productFromDefinition impactsForProcesses { consumer, supermarket, distribution,
 
 computePefImpact : List Definition -> Product -> Product
 computePefImpact definitions product =
-    { product
-        | plant =
-            product.plant
-                |> AnyDict.map
-                    (\_ process ->
-                        computeProcessPefImpact definitions process
-                    )
+    { product | plant = computeStepPefImpact definitions product.plant }
+
+
+computeStepPefImpact : List Definition -> Step -> Step
+computeStepPefImpact definitions step =
+    { step
+        | ingredients = computeProcessPefImpact definitions step.ingredients
+        , transport = computeProcessPefImpact definitions step.transport
+        , waste = computeProcessPefImpact definitions step.waste
+        , processing = computeProcessPefImpact definitions step.processing
+    }
+
+
+updateProcess : ProcessName -> (Process -> Process) -> Processes -> Processes
+updateProcess processName updateFunc process =
+    process
+        |> AnyDict.update processName
+            (Maybe.map updateFunc)
+
+
+updateStep : (Processes -> Processes) -> Step -> Step
+updateStep updateFunc step =
+    { step
+        | ingredients = updateFunc step.ingredients
+        , transport = updateFunc step.transport
+        , waste = updateFunc step.waste
+        , processing = updateFunc step.processing
     }
 
 
 updateAmount : Maybe WeightRatio -> ProcessName -> Amount -> Step -> Step
 updateAmount maybeWeightRatio processName newAmount step =
-    step
-        |> AnyDict.update processName
-            (Maybe.map
-                (\process ->
-                    { process | amount = newAmount }
-                )
-            )
+    updateStep
+        (updateProcess processName (\process -> { process | amount = newAmount }))
+        step
         |> updateWeight maybeWeightRatio
 
 
@@ -267,13 +328,9 @@ updateWeight maybeWeightRatio step =
                         * weightRatio
                         |> Unit.Ratio
             in
-            step
-                |> AnyDict.update processName
-                    (Maybe.map
-                        (\process ->
-                            { process | amount = updatedWeight }
-                        )
-                    )
+            updateStep
+                (updateProcess processName (\process -> { process | amount = updatedWeight }))
+                step
 
 
 findProductByName : ProductName -> Products -> Result String Product
@@ -346,9 +403,19 @@ decodeProducts impactsForProcesses =
 -- utilities
 
 
+stepToProcesses : Step -> Processes
+stepToProcesses step =
+    -- We can use AnyDict.union here because we should never have keys clashing between dicts
+    step.ingredients
+        |> AnyDict.union step.transport
+        |> AnyDict.union step.waste
+        |> AnyDict.union step.processing
+
+
 getTotalImpact : Trigram -> Step -> Float
 getTotalImpact trigram step =
     step
+        |> stepToProcesses
         |> AnyDict.foldl
             (\_ process total ->
                 let
@@ -363,6 +430,7 @@ getTotalImpact trigram step =
 getTotalWeight : Step -> Float
 getTotalWeight step =
     step
+        |> stepToProcesses
         |> AnyDict.foldl
             (\processName { amount } total ->
                 if isIngredient processName then
@@ -391,6 +459,7 @@ getWeightRatio product =
         |> Maybe.andThen
             (\processName ->
                 product.plant
+                    |> stepToProcesses
                     |> AnyDict.get processName
                     |> Maybe.map
                         (\process ->
@@ -406,9 +475,10 @@ getWeightRatio product =
 getWeightLosingUnitProcessName : Step -> Maybe ProcessName
 getWeightLosingUnitProcessName step =
     step
+        |> stepToProcesses
         |> AnyDict.toList
         -- Only keep processes with names ending with "/ FR U"
-        |> List.filter (Tuple.first >> isProcess)
+        |> List.filter (Tuple.first >> isProcessing)
         -- Sort by heavier to lighter
         |> List.sortBy (Tuple.second >> .amount >> Unit.ratioToFloat)
         |> List.reverse
@@ -422,7 +492,7 @@ filterIngredients : Products -> List String
 filterIngredients products =
     products
         |> AnyDict.values
-        |> List.concatMap (.plant >> AnyDict.keys)
+        |> List.concatMap (.plant >> stepToProcesses >> AnyDict.keys)
         |> List.filter isIngredient
         |> List.map processNameToString
         |> Set.fromList
@@ -442,8 +512,13 @@ addIngredient maybeWeightRatio impactsForProcesses ingredientName product =
                 amount =
                     Unit.Ratio 1.0
 
+                plant =
+                    product.plant
+
                 withAddedIngredient =
-                    AnyDict.insert processName (Process amount impacts) product.plant
+                    { plant
+                        | ingredients = AnyDict.insert processName (Process amount impacts) plant.ingredients
+                    }
                         -- Update the total weight
                         |> updateAmount maybeWeightRatio processName amount
             in
@@ -455,4 +530,13 @@ addIngredient maybeWeightRatio impactsForProcesses ingredientName product =
 
 removeIngredient : ProcessName -> Product -> Product
 removeIngredient processName product =
-    { product | plant = AnyDict.filter (\name _ -> name /= processName) product.plant }
+    let
+        plant =
+            product.plant
+    in
+    { product
+        | plant =
+            { plant
+                | ingredients = AnyDict.filter (\name _ -> name /= processName) plant.ingredients
+            }
+    }

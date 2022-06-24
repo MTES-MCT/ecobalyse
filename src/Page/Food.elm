@@ -19,7 +19,7 @@ import Data.Food.Product as Product
         , filterIngredients
         , findProductByName
         , isIngredient
-        , isProcess
+        , isProcessing
         , isTransport
         , isWaste
         , processNameToString
@@ -310,9 +310,9 @@ view ({ foodDb, db } as session) { selectedProduct, productsSelectChoice, impact
                                 [ text "Ajouter un ingrédient" ]
                             ]
                         ]
-                    , viewProcesses totalImpact impact product.plant
-                    , viewTransports totalImpact impact product.plant
-                    , viewWastes totalImpact impact product.plant
+                    , viewProcessing totalImpact impact product.plant
+                    , viewTransport totalImpact impact product.plant
+                    , viewWaste totalImpact impact product.plant
                     , div [ class "row py-3 gap-2 gap-sm-0" ]
                         [ div [ class "col-sm-10 fw-bold" ]
                             [ text "Poids total avant perte (cuisson, invendus...) : "
@@ -358,7 +358,7 @@ viewHeader header1 header2 children =
 
 viewIngredients : Float -> Impact.Trigram -> Step -> Html Msg
 viewIngredients totalImpact impact step =
-    step
+    step.ingredients
         |> AnyDict.toList
         |> List.filter (\( processName, _ ) -> isIngredient processName)
         |> List.map
@@ -476,11 +476,11 @@ ingredientSelector event processes =
         )
 
 
-viewProcesses : Float -> Impact.Trigram -> Step -> Html Msg
-viewProcesses totalImpact impact step =
-    step
+viewProcessing : Float -> Impact.Trigram -> Step -> Html Msg
+viewProcessing totalImpact impact step =
+    step.processing
         |> AnyDict.toList
-        |> List.filter (\( processName, _ ) -> isProcess processName)
+        |> List.filter (\( processName, _ ) -> isProcessing processName)
         |> List.map
             (\( name, process ) ->
                 let
@@ -495,9 +495,9 @@ viewProcesses totalImpact impact step =
         |> viewHeader "Processus" "Pourcentage de l'impact total"
 
 
-viewTransports : Float -> Impact.Trigram -> Step -> Html Msg
-viewTransports totalImpact impact step =
-    step
+viewTransport : Float -> Impact.Trigram -> Step -> Html Msg
+viewTransport totalImpact impact step =
+    step.transport
         |> AnyDict.toList
         |> List.filter (\( processName, _ ) -> isTransport processName)
         |> List.map
@@ -514,9 +514,9 @@ viewTransports totalImpact impact step =
         |> viewHeader "Transport" "Pourcentage de l'impact total"
 
 
-viewWastes : Float -> Impact.Trigram -> Step -> Html Msg
-viewWastes totalImpact impact step =
-    step
+viewWaste : Float -> Impact.Trigram -> Step -> Html Msg
+viewWaste totalImpact impact step =
+    step.waste
         |> AnyDict.toList
         |> List.filter (\( processName, _ ) -> isWaste processName)
         |> List.map
