@@ -55,14 +55,14 @@ init db =
     in
     Inputs.fromQuery db
         >> Result.map
-            (\inputs ->
+            (\({ product, quality, reparability } as inputs) ->
                 inputs
                     |> LifeCycle.init db
                     |> (\lifeCycle ->
                             let
                                 { daysOfWear, useNbCycles } =
-                                    inputs.product
-                                        |> Product.customDaysOfWear inputs.quality inputs.reparability
+                                    product
+                                        |> Product.customDaysOfWear quality reparability
                             in
                             { inputs = inputs
                             , lifeCycle = lifeCycle
@@ -85,6 +85,20 @@ compute db query =
 
         nextWithDb fn =
             Result.andThen (fn db)
+
+        next2 label fn =
+            if not <| List.member label query.disabledSteps then
+                Result.map fn
+
+            else
+                identity
+
+        nextWithDb2 label fn =
+            if not <| List.member label query.disabledSteps then
+                Result.andThen (fn db)
+
+            else
+                identity
     in
     init db query
         -- Ensure end product mass is first applied to the final Distribution step
@@ -93,30 +107,30 @@ compute db query =
         -- WASTE: compute the initial required material mass
         --
         -- Compute Making mass waste - Confection
-        |> next computeMakingStepWaste
+        |> next2 Label.Making computeMakingStepWaste
         -- Compute Knitting/Weawing waste - Tissage/Tricotage
-        |> next computeFabricStepWaste
+        |> next2 Label.Fabric computeFabricStepWaste
         -- Compute Spinning waste - Filature
-        |> next computeSpinningStepWaste
+        |> next2 Label.Spinning computeSpinningStepWaste
         -- Compute Material waste - Matière
-        |> next computeMaterialStepWaste
+        |> next2 Label.Material computeMaterialStepWaste
         --
         -- CO2 SCORES
         --
         -- Compute Material step impacts
-        |> next (computeMaterialImpacts db)
+        |> next2 Label.Material (computeMaterialImpacts db)
         -- Compute Spinning step impacts
-        |> next (computeSpinningImpacts db)
+        |> next2 Label.Spinning (computeSpinningImpacts db)
         -- Compute Weaving & Knitting step impacts
-        |> next computeFabricImpacts
+        |> next2 Label.Fabric computeFabricImpacts
         -- Compute Dyeing step impacts
-        |> nextWithDb computeDyeingImpacts
+        |> nextWithDb2 Label.Dyeing computeDyeingImpacts
         -- Compute Making step impacts
-        |> nextWithDb computeMakingImpacts
+        |> nextWithDb2 Label.Making computeMakingImpacts
         -- Compute product Use impacts
-        |> next computeUseImpacts
+        |> next2 Label.Use computeUseImpacts
         -- Compute product Use impacts
-        |> nextWithDb computeEndOfLifeImpacts
+        |> nextWithDb2 Label.EndOfLife computeEndOfLifeImpacts
         --
         -- TRANSPORTS
         --
@@ -354,21 +368,25 @@ computeFabricImpacts ({ inputs } as simulator) =
 
 computeMakingStepWaste : Simulator -> Simulator
 computeMakingStepWaste ({ inputs } as simulator) =
-    let
-        { mass, waste } =
-            inputs.mass
-                |> Formula.makingWaste
-                    { processWaste = inputs.product.makingProcess.waste
-                    , pcrWaste =
-                        inputs.makingWaste
-                            |> Maybe.withDefault inputs.product.pcrWaste
-                    }
-    in
-    simulator
-        |> updateLifeCycleStep Label.Making (Step.updateWaste waste mass)
-        |> updateLifeCycleSteps
-            [ Label.Material, Label.Spinning, Label.Fabric, Label.Dyeing ]
-            (Step.initMass mass)
+    if not <| List.member Label.Making inputs.disabledSteps then
+        let
+            { mass, waste } =
+                inputs.mass
+                    |> Formula.makingWaste
+                        { processWaste = inputs.product.makingProcess.waste
+                        , pcrWaste =
+                            inputs.makingWaste
+                                |> Maybe.withDefault inputs.product.pcrWaste
+                        }
+        in
+        simulator
+            |> updateLifeCycleStep Label.Making (Step.updateWaste waste mass)
+            |> updateLifeCycleSteps
+                [ Label.Material, Label.Spinning, Label.Fabric, Label.Dyeing ]
+                (Step.initMass mass)
+
+    else
+        simulator
 
 
 computeFabricStepWaste : Simulator -> Simulator
