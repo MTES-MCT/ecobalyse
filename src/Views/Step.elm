@@ -37,7 +37,7 @@ type alias Config msg =
     , index : Int
     , current : Step
     , next : Maybe Step
-    , toggleStep : Int -> Bool -> msg
+    , toggleStep : Label -> msg
     , toggleStepViewMode : Int -> msg
     , updateCountry : Label -> Country.Code -> msg
     , updateDyeingWeighting : Maybe Unit.Ratio -> msg
@@ -282,7 +282,7 @@ stepActions { current, viewMode, index, toggleStep, toggleStepViewMode } label =
                 , class "form-check-input"
                 , attribute "role" "switch"
                 , checked current.enabled
-                , onCheck (toggleStep index)
+                , onCheck (always (toggleStep current.label))
                 , title
                     (if current.enabled then
                         "Désactiver cette étape"

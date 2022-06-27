@@ -1,14 +1,15 @@
 module Data.Step.Label exposing
     ( Label(..)
     , decodeFromCode
+    , encode
     , fromCodeString
-    , toCodeString
     , toGitbookPath
     , toString
     )
 
 import Data.Gitbook as Gitbook
 import Json.Decode as Decode exposing (Decoder)
+import Json.Encode as Encode
 
 
 type Label
@@ -149,3 +150,8 @@ decodeFromCode =
                     Err err ->
                         Decode.fail err
             )
+
+
+encode : Label -> Encode.Value
+encode label =
+    label |> toCodeString |> Encode.string

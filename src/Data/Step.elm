@@ -73,14 +73,14 @@ type alias ProcessInfo =
     }
 
 
-create : { db : Db, label : Label, editable : Bool, country : Country } -> Step
-create { db, label, editable, country } =
+create : { db : Db, label : Label, editable : Bool, country : Country, enabled : Bool } -> Step
+create { db, label, editable, country, enabled } =
     let
         defaultImpacts =
             Impact.impactsFromDefinitons db.impacts
     in
     { label = label
-    , enabled = True
+    , enabled = enabled
     , country = country
     , editable = editable
     , inputMass = Quantity.zero

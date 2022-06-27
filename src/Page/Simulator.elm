@@ -78,7 +78,7 @@ type Msg
     | SwitchImpact Impact.Trigram
     | SwitchLinksTab LinksTab
     | ToggleComparedSimulation String Bool
-    | ToggleStep Int Bool
+    | ToggleStep Label
     | ToggleStepViewMode Int
     | UpdateAirTransportRatio (Maybe Unit.Ratio)
     | UpdateDyeingWeighting (Maybe Unit.Ratio)
@@ -262,9 +262,9 @@ update ({ db, query, navKey } as session) msg model =
             , Cmd.none
             )
 
-        ToggleStep index enabled ->
+        ToggleStep label ->
             ( model, session, Cmd.none )
-                |> updateQuery (Inputs.toggleStep index enabled query)
+                |> updateQuery (Inputs.toggleStep label query)
 
         ToggleStepViewMode index ->
             ( { model | viewMode = model.viewMode |> ViewMode.toggle index }

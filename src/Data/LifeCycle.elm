@@ -107,6 +107,7 @@ init db inputs =
                     , label = label
                     , editable = editable
                     , country = country
+                    , enabled = not (List.member label inputs.disabledSteps)
                     }
             )
             [ ( Label.Material, False )
