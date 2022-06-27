@@ -10,14 +10,16 @@ Il est détaillé sur la figure suivante les différents scénarios considérés
 
 &#x20;On prend en compte ces 2 scénarios :&#x20;
 
-* &#x20;Municipal waste collection -> Incinération ou mise en décharge
 * Recyclage
+* Incinération ou mise en décharge (Municipal waste collection)
+
+### Recyclage
 
 Pour le recyclage, 2 circuits sont proposés ici : le recyclage en chiffons (wipers) et en matériaux d'isolation (insulation). La prise en compte de ce recyclage se fait via la Circular Footprint Formula (CFF). [Nous avons estimé l'impact de ces circuits de recyclage et trouvé qu'il était négligeable sur cette page.](filature/3-calcul-de-limpact-matiere-circular-footprint-formula-cff/circular-footprint-formula-cff-matiere-1.md)
 
+### Incinération et mise en décharge
 
-
-Sur ces 2 scénarios, pn prend en compte 4 procédés sur ces 2 circuits :
+Pour évaluer l'impact de l'incinération et de la mise en décharge, on prend en compte les procédés suivants :
 
 * le transport en camion (Truck)
 * le transport en voiture (Passenger car)
@@ -28,7 +30,7 @@ Les distances parcourues ainsi que les proportions pour chaque scénarios sont d
 
 ![PEF RP Study Table 33](<../.gitbook/assets/Screenshot 2022-01-14 at 14.24.24.png>)
 
-### Transport en camion
+#### Transport en camion
 
 D'après Table 33 on peut estimer la distance en faites en camion (notée d\_camion) pour l'étape de fin de vie d'un vêtement :
 
@@ -61,7 +63,7 @@ Impact_camion = 0.003092 kgCO2e
 Impact_camion = 3.09 gCO2e
 ```
 
-### Transport en voiture
+#### Transport en voiture
 
 D'après Table 33, 19.5% des vêtements font 1 km en voiture pour être déposé dans le point de collecte des vêtements. D'où `d_voiture` la distance parcourue en voiture pour un vêtement.&#x20;
 
@@ -88,7 +90,7 @@ Impact_voiture = 0.000328 kgCO2e
 Impact_voiture = 0.328 gCO2e
 ```
 
-### Incinération (CFF)
+#### Incinération (CFF)
 
 On prend les hypothèses issue du document PEF RP study p.72 :
 
@@ -121,7 +123,7 @@ Impact_total_incinération = Impact_incinération - Bénéfice_incinération
 Impact_total_incinération = 0.022 kgCO2e
 ```
 
-### Mise en décharge
+#### Mise en décharge
 
 De même pour la mise en décharge, avec P\_décharge le procédé de mise en décharge textile en France :
 
