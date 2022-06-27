@@ -598,6 +598,12 @@ blockquote {
     margin: -2px 0;
   }
 
+  &Body {
+    &.disabled {
+      opacity: 0.5;
+    }
+  }
+
   &Icon {
     display: grid;
     align-items: center;

@@ -122,7 +122,7 @@ countryField { db, current, inputs, updateCountry } =
                         )
                     |> select
                         [ class "form-select"
-                        , disabled (not current.editable)
+                        , disabled (not current.editable || not current.enabled)
                         , onInput (Country.codeFromString >> updateCountry current.label)
                         ]
         ]
@@ -138,7 +138,7 @@ airTransportRatioField { current, updateAirTransportRatio } =
             , update = updateAirTransportRatio
             , value = current.airTransportRatio
             , toString = Step.airTransportRatioToString
-            , disabled = False
+            , disabled = not current.enabled
             , min = 0
             , max = 100
             }
@@ -159,7 +159,7 @@ dyeingWeightingField { current, updateDyeingWeighting } =
             , update = updateDyeingWeighting
             , value = current.dyeingWeighting
             , toString = Step.dyeingWeightingToString
-            , disabled = False
+            , disabled = not current.enabled
             , min = 0
             , max = 100
             }
@@ -182,7 +182,7 @@ qualityField { current, updateQuality } =
             , update = updateQuality
             , value = current.quality
             , toString = Step.qualityToString
-            , disabled = False
+            , disabled = not current.enabled
             }
         ]
 
@@ -203,7 +203,7 @@ reparabilityField { current, updateReparability } =
             , update = updateReparability
             , value = current.reparability
             , toString = Step.reparabilityToString
-            , disabled = False
+            , disabled = not current.enabled
             }
         ]
 
@@ -218,7 +218,7 @@ makingWasteField { current, inputs, updateMakingWaste } =
             , update = updateMakingWaste
             , value = Maybe.withDefault inputs.product.pcrWaste current.makingWaste
             , toString = Step.makingWasteToString
-            , disabled = False
+            , disabled = not current.enabled
             , min = 0
             , max = round <| Unit.ratioToFloat Env.maxMakingWasteRatio * 100
             }
@@ -241,7 +241,7 @@ pickingField { current, inputs, updatePicking } =
             , update = updatePicking
             , value = Maybe.withDefault inputs.product.picking current.picking
             , toString = Step.pickingToString
-            , disabled = False
+            , disabled = not current.enabled
             }
         ]
 
@@ -259,7 +259,7 @@ surfaceMassField { current, inputs, updateSurfaceMass } =
             , update = updateSurfaceMass
             , value = Maybe.withDefault inputs.product.surfaceMass current.surfaceMass
             , toString = Step.surfaceMassToString
-            , disabled = False
+            , disabled = not current.enabled
             }
         ]
 
@@ -350,7 +350,10 @@ simpleView ({ funit, inputs, daysOfWear, impact, current } as config) =
                     ]
                 ]
             ]
-        , div [ class "card-body row align-items-center" ]
+        , div
+            [ class "StepBody card-body row align-items-center"
+            , classList [ ( "disabled", not current.enabled ) ]
+            ]
             [ div [ class "col-sm-6 col-lg-7" ]
                 [ countryField config
                 , case current.label of
@@ -474,7 +477,10 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                     [ stepActions config current.label
                     ]
                 ]
-            , ul [ class "list-group list-group-flush fs-7" ]
+            , ul
+                [ class "StepBody list-group list-group-flush fs-7"
+                , classList [ ( "disabled", not current.enabled ) ]
+                ]
                 [ li [ class "list-group-item text-muted" ] [ countryField config ]
                 , viewProcessInfo current.processInfo.countryElec
                 , viewProcessInfo current.processInfo.countryHeat
@@ -487,36 +493,37 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                 , viewProcessInfo current.processInfo.making
                 , viewProcessInfo current.processInfo.fading
                 ]
-            , case current.label of
-                Label.Fabric ->
-                    if not inputs.product.knitted then
-                        div [ class "card-body py-2 text-muted" ]
+            , div
+                [ class "StepBody card-body py-2 text-muted"
+                , classList [ ( "disabled", not current.enabled ) ]
+                ]
+                (case current.label of
+                    Label.Fabric ->
+                        if not inputs.product.knitted then
                             [ pickingField config
                             , surfaceMassField config
                             ]
 
-                    else
-                        text ""
+                        else
+                            []
 
-                Label.Dyeing ->
-                    div [ class "card-body py-2 text-muted" ]
+                    Label.Dyeing ->
                         [ dyeingWeightingField config ]
 
-                Label.Making ->
-                    div [ class "card-body py-2 text-muted" ]
+                    Label.Making ->
                         [ makingWasteField config
                         , airTransportRatioField config
                         ]
 
-                Label.Use ->
-                    div [ class "card-body py-2 text-muted" ]
+                    Label.Use ->
                         [ qualityField config
                         , reparabilityField config
                         , daysOfWearInfo inputs
                         ]
 
-                _ ->
-                    text ""
+                    _ ->
+                        []
+                )
             ]
         , div
             [ class "card text-center mb-0" ]
@@ -532,7 +539,10 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                 , -- Note: show on desktop, hide on mobile
                   div [ class "d-none d-sm-block" ] [ stepActions config current.label ]
                 ]
-            , ul [ class "list-group list-group-flush fs-7" ]
+            , ul
+                [ class "StepBody list-group list-group-flush fs-7"
+                , classList [ ( "disabled", not current.enabled ) ]
+                ]
                 [ li [ class "list-group-item text-muted d-flex justify-content-around" ]
                     [ span []
                         [ text "Masse entrante", br [] [], Format.kg current.inputMass ]
