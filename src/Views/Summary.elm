@@ -84,6 +84,7 @@ summaryView { session, impact, funit, reusable } ({ inputs, lifeCycle } as simul
                 ]
             , lifeCycle
                 |> Array.toList
+                |> List.filter .enabled
                 |> List.indexedMap
                     (\index { label, country } ->
                         li
