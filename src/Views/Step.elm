@@ -274,26 +274,9 @@ inlineDocumentationLink _ path =
 
 
 stepActions : Config msg -> Label -> Html msg
-stepActions { current, viewMode, index, toggleStep, toggleStepViewMode } label =
+stepActions { viewMode, index, toggleStepViewMode } label =
     div [ class "StepActions btn-group" ]
-        [ div [ class "form-check form-switch" ]
-            [ input
-                [ type_ "checkbox"
-                , class "form-check-input"
-                , attribute "role" "switch"
-                , checked current.enabled
-                , onCheck (always (toggleStep current.label))
-                , title
-                    (if current.enabled then
-                        "Désactiver cette étape"
-
-                     else
-                        "Activer cette étape"
-                    )
-                ]
-                []
-            ]
-        , Button.docsPillLink
+        [ Button.docsPillLink
             [ class "btn btn-primary py-1 rounded-end"
             , href (Gitbook.publicUrlFromPath (Label.toGitbookPath label))
             , title "Documentation"
@@ -330,13 +313,35 @@ stepActions { current, viewMode, index, toggleStep, toggleStepViewMode } label =
         ]
 
 
+stepToggler : Config msg -> Html msg
+stepToggler { current, toggleStep } =
+    div [ class "form-check" ]
+        [ input
+            [ type_ "checkbox"
+            , class "form-check-input"
+            , attribute "role" "switch"
+            , checked current.enabled
+            , onCheck (always (toggleStep current.label))
+            , title
+                (if current.enabled then
+                    "Désactiver cette étape"
+
+                 else
+                    "Activer cette étape"
+                )
+            ]
+            []
+        ]
+
+
 simpleView : Config msg -> Html msg
 simpleView ({ funit, inputs, daysOfWear, impact, current } as config) =
     div [ class "card" ]
         [ div [ class "card-header" ]
             [ div [ class "row" ]
                 [ div [ class "col-6 d-flex align-items-center" ]
-                    [ span [ class "StepIcon bg-primary text-white rounded-pill" ]
+                    [ stepToggler config
+                    , span [ class "StepIcon bg-primary text-white rounded-pill" ]
                         [ stepIcon current.label ]
                     , current.label
                         |> Step.displayLabel
@@ -463,7 +468,8 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
         [ div [ class "card" ]
             [ div [ class "card-header d-flex justify-content-between align-items-center" ]
                 [ div [ class "d-flex align-items-center" ]
-                    [ span [ class "StepIcon bg-primary text-white rounded-pill" ]
+                    [ stepToggler config
+                    , span [ class "StepIcon bg-primary text-white rounded-pill" ]
                         [ stepIcon current.label ]
                     , current.label
                         |> Step.displayLabel
