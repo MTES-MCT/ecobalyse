@@ -86,14 +86,14 @@ compute db query =
         nextWithDb fn =
             Result.andThen (fn db)
 
-        next2 label fn =
+        nextFor label fn =
             if not <| List.member label query.disabledSteps then
                 Result.map fn
 
             else
                 identity
 
-        nextWithDb2 label fn =
+        nextWithDbFor label fn =
             if not <| List.member label query.disabledSteps then
                 Result.andThen (fn db)
 
@@ -107,30 +107,30 @@ compute db query =
         -- WASTE: compute the initial required material mass
         --
         -- Compute Making mass waste - Confection
-        |> next2 Label.Making computeMakingStepWaste
+        |> nextFor Label.Making computeMakingStepWaste
         -- Compute Knitting/Weawing waste - Tissage/Tricotage
-        |> next2 Label.Fabric computeFabricStepWaste
+        |> nextFor Label.Fabric computeFabricStepWaste
         -- Compute Spinning waste - Filature
-        |> next2 Label.Spinning computeSpinningStepWaste
+        |> nextFor Label.Spinning computeSpinningStepWaste
         -- Compute Material waste - Matière
-        |> next2 Label.Material computeMaterialStepWaste
+        |> nextFor Label.Material computeMaterialStepWaste
         --
         -- CO2 SCORES
         --
         -- Compute Material step impacts
-        |> next2 Label.Material (computeMaterialImpacts db)
+        |> nextFor Label.Material (computeMaterialImpacts db)
         -- Compute Spinning step impacts
-        |> next2 Label.Spinning (computeSpinningImpacts db)
+        |> nextFor Label.Spinning (computeSpinningImpacts db)
         -- Compute Weaving & Knitting step impacts
-        |> next2 Label.Fabric computeFabricImpacts
+        |> nextFor Label.Fabric computeFabricImpacts
         -- Compute Dyeing step impacts
-        |> nextWithDb2 Label.Dyeing computeDyeingImpacts
+        |> nextWithDbFor Label.Dyeing computeDyeingImpacts
         -- Compute Making step impacts
-        |> nextWithDb2 Label.Making computeMakingImpacts
+        |> nextWithDbFor Label.Making computeMakingImpacts
         -- Compute product Use impacts
-        |> next2 Label.Use computeUseImpacts
+        |> nextFor Label.Use computeUseImpacts
         -- Compute product Use impacts
-        |> nextWithDb2 Label.EndOfLife computeEndOfLifeImpacts
+        |> nextWithDbFor Label.EndOfLife computeEndOfLifeImpacts
         --
         -- TRANSPORTS
         --
@@ -152,8 +152,7 @@ compute db query =
 initializeFinalMass : Simulator -> Simulator
 initializeFinalMass ({ inputs } as simulator) =
     simulator
-        |> updateLifeCycleSteps [ Label.Distribution, Label.Use, Label.EndOfLife ]
-            (Step.initMass inputs.mass)
+        |> updateLifeCycleSteps Label.all (Step.initMass inputs.mass)
 
 
 computeEndOfLifeImpacts : Db -> Simulator -> Result String Simulator

@@ -33,9 +33,13 @@ computeStepsTransport db lifeCycle =
     lifeCycle
         |> Array.indexedMap
             (\index step ->
-                Step.computeTransports db
-                    (Array.get (index + 1) lifeCycle |> Maybe.withDefault step)
-                    step
+                if step.enabled then
+                    Step.computeTransports db
+                        (Array.get (index + 1) lifeCycle |> Maybe.withDefault step)
+                        step
+
+                else
+                    Ok step
             )
         |> Array.toList
         |> RE.combine

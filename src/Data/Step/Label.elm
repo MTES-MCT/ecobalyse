@@ -1,5 +1,6 @@
 module Data.Step.Label exposing
     ( Label(..)
+    , all
     , decodeFromCode
     , encode
     , fromCodeString
@@ -21,6 +22,19 @@ type Label
     | Distribution -- Distribution
     | Use -- Utilisation
     | EndOfLife -- Fin de vie
+
+
+all : List Label
+all =
+    [ Material
+    , Spinning
+    , Fabric
+    , Dyeing
+    , Making
+    , Distribution
+    , Use
+    , EndOfLife
+    ]
 
 
 toString : Label -> String
