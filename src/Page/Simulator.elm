@@ -15,6 +15,7 @@ import Data.Db exposing (Db)
 import Data.Impact as Impact
 import Data.Inputs as Inputs
 import Data.Key as Key
+import Data.LifeCycle as LifeCycle
 import Data.Material as Material
 import Data.Product as Product exposing (Product)
 import Data.Session as Session exposing (Session)
@@ -402,7 +403,7 @@ lifeCycleStepsView db { viewMode, funit, impact } simulator =
                     , daysOfWear = simulator.daysOfWear
                     , index = index
                     , current = current
-                    , next = Array.get (index + 1) simulator.lifeCycle
+                    , next = simulator.lifeCycle |> LifeCycle.getNextEnabledStep current.label
                     , toggleStep = ToggleStep
                     , toggleStepViewMode = ToggleStepViewMode
                     , updateCountry = UpdateStepCountry

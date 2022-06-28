@@ -5,6 +5,7 @@ module Data.LifeCycle exposing
     , computeTotalTransportImpacts
     , encode
     , fromQuery
+    , getNextEnabledStep
     , getStepProp
     , init
     , mapSteps
@@ -20,6 +21,7 @@ import Data.Step as Step exposing (Step)
 import Data.Step.Label as Label exposing (Label)
 import Data.Transport as Transport exposing (Transport)
 import Json.Encode as Encode
+import List.Extra as LE
 import Quantity
 import Result.Extra as RE
 
@@ -31,12 +33,15 @@ type alias LifeCycle =
 computeStepsTransport : Db -> LifeCycle -> Result String LifeCycle
 computeStepsTransport db lifeCycle =
     lifeCycle
-        |> Array.indexedMap
-            (\index step ->
+        |> Array.map
+            (\step ->
                 if step.enabled then
-                    Step.computeTransports db
-                        (Array.get (index + 1) lifeCycle |> Maybe.withDefault step)
-                        step
+                    step
+                        |> Step.computeTransports db
+                            (lifeCycle
+                                |> getNextEnabledStep step.label
+                                |> Maybe.withDefault step
+                            )
 
                 else
                     Ok step
@@ -83,6 +88,14 @@ computeFinalImpacts db =
                     )
         )
         (Impact.impactsFromDefinitons db.impacts)
+
+
+getNextEnabledStep : Label -> LifeCycle -> Maybe Step
+getNextEnabledStep label =
+    Array.toList
+        >> LE.splitWhen (.label >> (==) label)
+        >> Maybe.map Tuple.second
+        >> Maybe.andThen (List.filter .enabled >> List.drop 1 >> List.head)
 
 
 getStep : Label -> LifeCycle -> Maybe Step
