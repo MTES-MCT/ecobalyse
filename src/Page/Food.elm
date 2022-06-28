@@ -6,6 +6,7 @@ module Page.Food exposing
     , view
     )
 
+import Data.Country as Country exposing (Country)
 import Data.Food.Db as Db
 import Data.Food.Product as Product
     exposing
@@ -39,6 +40,7 @@ import Ports
 import RemoteData exposing (WebData)
 import Request.Food.Db as RequestDb
 import Views.Container as Container
+import Views.CountrySelect
 import Views.Format as Format
 import Views.Impact exposing (impactSelector)
 import Views.PieChart as PieChart
@@ -95,9 +97,6 @@ init session =
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
 update ({ foodDb } as session) msg ({ selectedProduct } as model) =
     case ( msg, selectedProduct ) of
-        ( NoOp, _ ) ->
-            ( model, session, Cmd.none )
-
         ( IngredientSliderChanged name (Just newAmount), Just selected ) ->
             let
                 { product, weightRatio } =
@@ -311,7 +310,7 @@ view ({ foodDb, db } as session) { selectedProduct, productsSelectChoice, impact
                             ]
                         ]
                     , viewProcessing totalImpact impact product.plant
-                    , viewTransport totalImpact impact product.plant
+                    , viewTransport totalImpact impact product.plant db.countries
                     , viewWaste totalImpact impact product.plant
                     , div [ class "row py-3 gap-2 gap-sm-0" ]
                         [ div [ class "col-sm-10 fw-bold" ]
@@ -338,16 +337,16 @@ view ({ foodDb, db } as session) { selectedProduct, productsSelectChoice, impact
     )
 
 
-viewHeader : String -> String -> List (Html Msg) -> Html Msg
+viewHeader : Html Msg -> Html Msg -> List (Html Msg) -> Html Msg
 viewHeader header1 header2 children =
     if List.length children > 0 then
         div []
             (div [ class "row" ]
-                [ div [ class "col-lg-6 d-none d-sm-block" ]
-                    [ h3 [] [ text header1 ]
+                [ div [ class "col-lg-6" ]
+                    [ h3 [] [ header1 ]
                     ]
                 , div [ class "col-lg-6 d-none d-sm-block" ]
-                    [ h3 [] [ text header2 ] ]
+                    [ h3 [] [ header2 ] ]
                 ]
                 :: children
             )
@@ -372,7 +371,7 @@ viewIngredients totalImpact impact step =
                     , viewIngredient bar
                     ]
             )
-        |> viewHeader "Quantité de l'ingrédient" "Pourcentage de l'impact total"
+        |> viewHeader (text "Quantité de l'ingrédient") (text "Pourcentage de l'impact total")
 
 
 viewIngredient : Bar -> Html Msg
@@ -492,26 +491,42 @@ viewProcessing totalImpact impact step =
                     , viewIngredient bar
                     ]
             )
-        |> viewHeader "Processus" "Pourcentage de l'impact total"
+        |> viewHeader (text "Processus") (text "Pourcentage de l'impact total")
 
 
-viewTransport : Float -> Impact.Trigram -> Step -> Html Msg
-viewTransport totalImpact impact step =
-    step.transport
-        |> AnyDict.toList
-        |> List.filter (\( processName, _ ) -> isTransport processName)
-        |> List.map
-            (\( name, process ) ->
-                let
-                    bar =
-                        makeBar totalImpact impact name process
-                in
-                div [ class "card stacked-card" ]
-                    [ div [ class "card-header" ] [ text <| processNameToString name ]
-                    , viewIngredient bar
-                    ]
-            )
-        |> viewHeader "Transport" "Pourcentage de l'impact total"
+viewTransport : Float -> Impact.Trigram -> Step -> List Country -> Html Msg
+viewTransport totalImpact impact step countries =
+    let
+        countrySelector =
+            countries
+                |> Views.CountrySelect.view
+                    [ class "form-select w-25 d-inline" ]
+                    (Country.codeFromString "FR")
+                    (always NoOp)
+
+        header =
+            span []
+                [ text "Transport - pays d'origine : "
+                , countrySelector
+                ]
+    in
+    div []
+        [ step.transport
+            |> AnyDict.toList
+            |> List.filter (\( processName, _ ) -> isTransport processName)
+            |> List.map
+                (\( name, process ) ->
+                    let
+                        bar =
+                            makeBar totalImpact impact name process
+                    in
+                    div [ class "card stacked-card" ]
+                        [ div [ class "card-header" ] [ text <| processNameToString name ]
+                        , viewIngredient bar
+                        ]
+                )
+            |> viewHeader header (text "Pourcentage de l'impact total")
+        ]
 
 
 viewWaste : Float -> Impact.Trigram -> Step -> Html Msg
@@ -530,4 +545,4 @@ viewWaste totalImpact impact step =
                     , viewIngredient bar
                     ]
             )
-        |> viewHeader "Déchets" "Pourcentage de l'impact total"
+        |> viewHeader (text "Déchets") (text "Pourcentage de l'impact total")
