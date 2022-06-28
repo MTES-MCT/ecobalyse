@@ -412,12 +412,18 @@ components:
         - `use`: Utilisation
         - `eol`: Fin de vie
 
-        Par exemple, pour désactiver l'étape de filature et teinture, on peut passer `?disabledSteps=spinning,dyeing`.
+        Par exemple, pour désactiver l'étape de filature et teinture, on peut passer `disabledSteps=spinning,dyeing`.
       required: false
       style: form
       schema:
         type: string
-      example: "spinning,dyeing"
+      examples:
+        default:
+          value: ""
+        making:
+          value: "making"
+        spinningDyeing:
+          value: "spinning,dyeing"
   schemas:
     InvalidParametersError:
       type: object
