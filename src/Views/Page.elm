@@ -285,14 +285,14 @@ pageFooter { currentVersion } =
                     , style "min-height" "200px"
                     ]
                     [ img
-                        [ src "img/logo-france-relance.jpg"
+                        [ src "img/logo-france-relance.png"
                         , alt "France Relance"
                         , attribute "width" "100"
                         , attribute "height" "100"
                         ]
                         []
                     , img
-                        [ src "img/logo-next-generation-eu.jpg"
+                        [ src "img/logo-next-generation-eu.png"
                         , alt "Financé par la l'Union Européenne"
                         , attribute "width" "250"
                         , attribute "height" "56"
