@@ -82,6 +82,7 @@ paths:
       - $ref: '#/components/parameters/makingWasteParam'
       - $ref: '#/components/parameters/pickingParam'
       - $ref: '#/components/parameters/surfaceMassParam'
+      - $ref: '#/components/parameters/disabledStepsParam'
       responses:
         200:
           description: Opération réussie
@@ -143,6 +144,7 @@ paths:
       - $ref: '#/components/parameters/makingWasteParam'
       - $ref: '#/components/parameters/pickingParam'
       - $ref: '#/components/parameters/surfaceMassParam'
+      - $ref: '#/components/parameters/disabledStepsParam'
       responses:
         200:
           description: successful operation
@@ -177,6 +179,7 @@ paths:
       - $ref: '#/components/parameters/makingWasteParam'
       - $ref: '#/components/parameters/pickingParam'
       - $ref: '#/components/parameters/surfaceMassParam'
+      - $ref: '#/components/parameters/disabledStepsParam'
       responses:
         200:
           description: Opération réussie
@@ -394,6 +397,27 @@ components:
         type: number
         minimum: 30
         maximum: 500
+    disabledStepsParam:
+      name: disabledSteps
+      in: query
+      description: |
+        Liste des étapes du cycle de vie à désactiver, séparée par des virgules. Chaque étape est identifiée par un code :
+
+        - `material`: Matière
+        - `spinning`: Filature
+        - `fabric`: Tissage ou Tricotage
+        - `making`: Teinture/Ennoblissement
+        - `dyeing`: Confection
+        - `distribution`: Distribution
+        - `use`: Utilisation
+        - `eol`: Fin de vie
+
+        Par exemple, pour désactiver l'étape de filature et teinture, on peut passer `?disabledSteps=spinning,dyeing`.
+      required: false
+      style: form
+      schema:
+        type: string
+      example: "spinning,dyeing"
   schemas:
     InvalidParametersError:
       type: object
