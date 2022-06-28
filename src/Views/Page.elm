@@ -269,7 +269,8 @@ pageFooter { currentVersion } =
             , div [ class "row d-flex align-items-center" ]
                 [ Link.external
                     [ href "https://www.ecologique-solidaire.gouv.fr/"
-                    , class "col text-center bg-white p-3 m-3 link-external-muted"
+                    , class "col text-center bg-white px-3 m-3 link-external-muted"
+                    , style "min-height" "200px"
                     ]
                     [ img
                         [ src "img/logo_mte.svg"
@@ -279,26 +280,35 @@ pageFooter { currentVersion } =
                         ]
                         []
                     ]
-                , Link.external
-                    [ href "https://www.cohesion-territoires.gouv.fr/"
-                    , class "col text-center bg-white p-3 m-3 link-external-muted"
+                , div
+                    [ class "col d-flex text-center bg-white p-3 m-3 link-external-muted justify-content-center align-items-center"
+                    , style "min-height" "200px"
                     ]
                     [ img
-                        [ src "img/logo_mct.svg"
-                        , alt "Ministère de la Cohésion des territoires et des Relations avec les collectivités territoriales"
-                        , attribute "width" "200"
-                        , attribute "height" "200"
+                        [ src "img/logo-france-relance.jpg"
+                        , alt "France Relance"
+                        , attribute "width" "100"
+                        , attribute "height" "100"
+                        ]
+                        []
+                    , img
+                        [ src "img/logo-next-generation-eu.jpg"
+                        , alt "Financé par la l'Union Européenne"
+                        , attribute "width" "250"
+                        , attribute "height" "56"
                         ]
                         []
                     ]
                 , Link.external
                     [ href "https://www.ecologique-solidaire.gouv.fr/fabrique-numerique"
-                    , class "col text-center bg-white p-3 m-3 link-external-muted"
+                    , class "col d-flex justify-content-center align-items-center text-center bg-white p-3 m-3 link-external-muted"
+                    , style "min-height" "200px"
                     ]
                     [ img
                         [ src "img/logo-fabriquenumerique.svg"
                         , alt "La Fabrique Numérique"
-                        , attribute "height" "200"
+                        , attribute "width" "150"
+                        , attribute "height" "150"
                         ]
                         []
                     ]
