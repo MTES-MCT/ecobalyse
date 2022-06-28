@@ -59,6 +59,7 @@ type alias Model =
     , productsSelectChoice : String
     , impact : Impact.Trigram
     , ingredientsSelectChoice : String
+    , countriesSelectChoice : Country.Code
     }
 
 
@@ -71,6 +72,7 @@ type Msg
     | IngredientSelected String
     | AddIngredient
     | DeleteIngredient ProcessName
+    | CountrySelected Country.Code
     | NoOp
 
 
@@ -85,6 +87,7 @@ init session =
       , productsSelectChoice = tunaPizza
       , impact = Impact.defaultTrigram
       , ingredientsSelectChoice = ""
+      , countriesSelectChoice = Country.codeFromString "FR"
       }
     , session
     , Cmd.batch
@@ -223,12 +226,18 @@ update ({ foodDb } as session) msg ({ selectedProduct } as model) =
             , Cmd.none
             )
 
+        ( CountrySelected countryCode, _ ) ->
+            ( { model | countriesSelectChoice = countryCode }
+            , session
+            , Cmd.none
+            )
+
         _ ->
             ( model, session, Cmd.none )
 
 
 view : Session -> Model -> ( String, List (Html Msg) )
-view ({ foodDb, db } as session) { selectedProduct, productsSelectChoice, impact, ingredientsSelectChoice } =
+view ({ foodDb, db } as session) { selectedProduct, productsSelectChoice, impact, ingredientsSelectChoice, countriesSelectChoice } =
     ( "Simulateur de recettes"
     , [ Container.centered []
             (case selectedProduct of
@@ -310,7 +319,7 @@ view ({ foodDb, db } as session) { selectedProduct, productsSelectChoice, impact
                             ]
                         ]
                     , viewProcessing totalImpact impact product.plant
-                    , viewTransport totalImpact impact product.plant db.countries
+                    , viewTransport totalImpact impact product.plant countriesSelectChoice db.countries
                     , viewWaste totalImpact impact product.plant
                     , div [ class "row py-3 gap-2 gap-sm-0" ]
                         [ div [ class "col-sm-10 fw-bold" ]
@@ -494,15 +503,15 @@ viewProcessing totalImpact impact step =
         |> viewHeader (text "Processus") (text "Pourcentage de l'impact total")
 
 
-viewTransport : Float -> Impact.Trigram -> Step -> List Country -> Html Msg
-viewTransport totalImpact impact step countries =
+viewTransport : Float -> Impact.Trigram -> Step -> Country.Code -> List Country -> Html Msg
+viewTransport totalImpact impact step selectedCountry countries =
     let
         countrySelector =
             countries
                 |> Views.CountrySelect.view
                     [ class "form-select w-25 d-inline" ]
-                    (Country.codeFromString "FR")
-                    (always NoOp)
+                    selectedCountry
+                    CountrySelected
 
         header =
             span []
