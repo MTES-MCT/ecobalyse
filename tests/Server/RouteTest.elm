@@ -17,7 +17,6 @@ suite : Test
 suite =
     suiteWithDb "Server"
         (\db ->
-            -- FIXME: when done with multiple materials, remove single material query string param
             [ describe "Server.endpoint"
                 [ describe "endpoints"
                     [ [ "/simulator?mass=0.17"
