@@ -98,7 +98,7 @@ savedSimulationListView ({ compare, session } as config) =
             session.store.savedSimulations
                 |> List.map (savedSimulationView config)
                 |> ul
-                    [ class "list-group list-group-flush rounded-bottom overflow-scroll"
+                    [ class "list-group list-group-flush rounded-bottom overflow-auto"
                     , style "max-height" "50vh"
                     ]
         ]
