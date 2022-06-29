@@ -9,6 +9,7 @@ import brightway2 as bw
 from brightway2 import *
 from collections import defaultdict
 from impacts import impacts
+import re
 
 
 def open_db(dbname):
@@ -34,45 +35,136 @@ def get_ciqual_products(ciqual_codes):
     return ciqual_products
 
 
+def find_dqr(activity):
+    dqr = None
+    try:
+        comment = activity._data["simapro metadata"]["Comment"]
+    except KeyError:
+        return None
+
+    pattern = r"The overall DQR of this product is: (\d{1,2}\.\d{0,2})"
+    match = re.search(pattern, comment)
+    if match:
+        dqr_str = match.group(1)
+        dqr = float(dqr_str)
+    return dqr
+
+
+def find_step(activity):
+    step = None
+
+    pattern = r"\| at ([a-z]+)/FR"
+    match = re.search(pattern, activity["name"])
+    if match:
+        step = match.group(1)
+    return step
+
+
+def find_ciqual_code(activity):
+    ciqual_code = None
+
+    pattern = r"\[Ciqual code: (\d{3,6})\]"
+    match = re.search(pattern, activity["name"])
+    if match:
+        ciqual_code_str = match.group(1)
+        ciqual_code = int(ciqual_code_str)
+    return ciqual_code
+
+
+def get_category_tags(current_step):
+    categories = [ex._data["categories"] for ex in current_step.production()]
+    if len(categories) > 1:
+        print(
+            f"Error while looking for category tag for {str(current_step)} : multiple production exchanges match "
+        )
+    return categories[0]
+
+
+def fill_processes(processes, activity, exchange):
+    processes[activity]["ciqual_code"] = find_ciqual_code(activity)
+    processes[activity]["step"] = find_step(activity)
+    processes[activity]["dqr"] = find_dqr(activity)
+    try:
+        processes[activity]["empty_process"] = (
+            "This is an empty process" in activity._data["simapro metadata"]["Comment"]
+        )
+    except KeyError:
+        processes[activity]["empty_process"] = False
+
+    processes[activity]["unit"] = activity._data["unit"]
+    processes[activity]["code"] = activity._data["code"]
+    processes[activity]["simapro_category"] = activity._data["simapro metadata"][
+        "Category type"
+    ]
+    processes[activity]["system_description"] = activity._data["simapro metadata"][
+        "System description"
+    ]
+    processes[activity]["category_tags"] = exchange._data["categories"]
+
+    processes[activity]["impacts"] = {}
+
+
 def build_product_tree(ciqual_products, max_products=None):
     products = {}
-    process_list = set()
+    processes = defaultdict(dict)
 
+    # Iterate on all products
     for index, product in enumerate(ciqual_products):
         product_name = product["name"]
         amount = 1
-        current_step = product
+        current_central_activity = product
+        exchange = list(current_central_activity.exchanges())[0]
         products[product_name] = {}
 
-        process_list.add(current_step)
+        # Fill the processes dictionary for this ciqual product
+        fill_processes(processes, current_central_activity, exchange)
 
         # Build the products tree and the processes list for this ciqual product
         for step in ["consumer", "supermarket", "distribution", "packaging", "plant"]:
             products[product_name][step] = {}
-            next_exchange = None
-
-            for exchange in current_step.technosphere():
-                # HACK: we assume that the next "processed product" that we want to drill down
+            next_central_exchange = None
+            categories = set()
+            # Iterate on all technosphere exchanges (we ignore biosphere exchanges)
+            for exchange in current_central_activity.technosphere():
+                next_activity = exchange.input
+                # Fill processes dictionary with exchange data
+                fill_processes(processes, next_activity, exchange)
+                #  We're looking for the next central product to drill it down. For "Tomato at consumer" ciqual product, the next central product should be "Tomato at supermarket")
+                # HACK: we assume that the next "central product"
                 # is the first one that doesn't have "Copied from Ecoinvent".
                 if (
-                    next_exchange is None
+                    next_central_exchange is None
                     and "Copied from Ecoinvent" not in exchange["name"]
                 ):
-                    next_exchange = exchange
+                    next_central_exchange = exchange
+
+                    # Exceptionaly the category_tags for the next "central product" are not in the technosphere exchanges but in the production exchange
+                    # that's why we call a specific function to retrieve this information
+                    processes[next_activity]["category_tags"] = get_category_tags(
+                        current_central_activity
+                    )
+
                 exchange_name = exchange.input["name"]
-                products[product_name][step][exchange_name] = (
+
+                # In products.json, we group processes by categories (transport, energy, waste treatment, material,...)
+                exchange_category = next_activity._data["simapro metadata"][
+                    "Category type"
+                ]
+                if exchange_category not in categories:
+                    products[product_name][step][exchange_category] = {}
+                    categories.add(exchange_category)
+
+                products[product_name][step][exchange_category][exchange_name] = (
                     exchange["amount"] * amount
                 )
-                process_list.add(exchange.input)
 
             # If we're at the last step, no need to drill down further
             if step == "plant":
                 continue
-
+            # Else we replace the current_central_activity by the next_central_activity
             try:
-                current_step = next_exchange.input
-                current_step = next_exchange.input
-                amount = next_exchange["amount"] * amount
+                current_central_activity = next_central_exchange.input
+                amount = next_central_exchange["amount"] * amount
             except AttributeError:
                 print(
                     f"Error while drilling down product {product_name} at step {step}: no next step"
@@ -87,7 +179,7 @@ def build_product_tree(ciqual_products, max_products=None):
             break
     else:
         print("100%")
-    return (products, process_list)
+    return (products, processes)
 
 
 def init_lcas(demand):
@@ -102,21 +194,25 @@ def init_lcas(demand):
     return lcas
 
 
-def compute_impacts(process_list, lcas):
-    processes = defaultdict(dict)
+def compute_impacts(processes, lcas):
+    processes_output = defaultdict(dict)
+    impacts_dic = defaultdict(dict)
+    i = 0
+    for process, value in processes.items():
+        print(f">>>> Computing impacts for process {process}")
+        for (impact, _method) in impacts.items():
+            lca = lcas[impact]
 
-    for (key, _method) in impacts.items():
-        lca = lcas[key]
-        print(f">>>> Computing impact {key} for all processes")
-        for index, process in enumerate(process_list):
             demand = {process: 1}
             lca.redo_lcia(demand)
-            processes[process["name"]][key] = lca.score
-            if index % 10 == 0:
-                print(f"{round(index * 100 / len(process_list))}%", end="\r")
-        print("100%")
+            processes_output[process["name"]] = value
+            processes_output[process["name"]]["impacts"][impact] = lca.score
+            i += 1
+        if i % 10 == 0:
+            print(f"{round(i * 100 / len(processes.keys()))}%", end="\r")
+    print("100%")
 
-    return processes
+    return processes_output
 
 
 def export_products_as_json(products, filename):
@@ -129,22 +225,24 @@ def export_processes_as_json(processes, filename):
         json.dump(processes, outfile, indent=2)
 
 
+path = r"/Users/paulboosz/src/ecobalyse-data/brightway/Agribalyse_Synthese.csv"
+relative_path = "../Agribalyse_Synthese.csv"
 if __name__ == "__main__":
     agb = open_db("agribalyse3")
-    ciqual_codes = get_ciqual_codes("../Agribalyse_Synthese.csv")
+    ciqual_codes = get_ciqual_codes(path)
     ciqual_products = get_ciqual_products(ciqual_codes)
     print(f"Loaded {len(ciqual_products)} products")
 
     print("Building product tree")
-    (products, process_list) = build_product_tree(ciqual_products)  # , max_products=20)
+    (products, processes) = build_product_tree(ciqual_products[-30:])
 
     print(f"{len(products)} produits")
-    print(f"{len(process_list)} processus")
+    print(f"{len(processes.keys())} processus")
 
-    random_product = list(process_list)[0]
+    random_product = list(processes.keys())[0]
     lcas = init_lcas({random_product: 1})
 
-    processes = compute_impacts(process_list, lcas)
+    processes = compute_impacts(processes, lcas)
 
     print("Nombre de produits importés:", len(products))
     print("Nombre de processus importés:", len(processes))
