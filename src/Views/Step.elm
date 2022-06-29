@@ -274,10 +274,11 @@ inlineDocumentationLink _ path =
 
 
 stepActions : Config msg -> Label -> Html msg
-stepActions { viewMode, index, toggleStepViewMode } label =
+stepActions { current, viewMode, index, toggleStepViewMode } label =
     div [ class "StepActions btn-group" ]
         [ Button.docsPillLink
             [ class "btn btn-primary py-1 rounded-end"
+            , classList [ ( "btn-secondary", not current.enabled ) ]
             , href (Gitbook.publicUrlFromPath (Label.toGitbookPath label))
             , title "Documentation"
             , target "_blank"
@@ -285,6 +286,7 @@ stepActions { viewMode, index, toggleStepViewMode } label =
             [ Icon.question ]
         , Button.docsPill
             [ class "btn btn-primary py-1 rounded-start"
+            , classList [ ( "btn-secondary", not current.enabled ) ]
             , case viewMode of
                 ViewMode.Simple ->
                     title "Détailler cette étape"
@@ -313,12 +315,12 @@ stepActions { viewMode, index, toggleStepViewMode } label =
         ]
 
 
-stepToggler : Config msg -> Html msg
-stepToggler { current, toggleStep } =
-    div [ class "d-flex align-items-center me-2" ]
+stepHeader : Config msg -> List (Html msg)
+stepHeader { current, inputs, toggleStep } =
+    [ div [ class "d-flex align-items-center me-2" ]
         [ input
             [ type_ "checkbox"
-            , class "form-check-input mt-0"
+            , class "form-check-input mt-0 no-outline"
             , attribute "role" "switch"
             , checked current.enabled
             , onCheck (always (toggleStep current.label))
@@ -332,6 +334,20 @@ stepToggler { current, toggleStep } =
             ]
             []
         ]
+    , span
+        [ class "StepIcon bg-primary text-white rounded-pill"
+        , classList [ ( "bg-secondary", not current.enabled ) ]
+        ]
+        [ stepIcon current.label ]
+    , span [ classList [ ( "text-secondary", not current.enabled ) ] ]
+        [ current.label
+            |> Step.displayLabel
+                { knitted = inputs.product.knitted
+                , faded = inputs.product.faded
+                }
+            |> text
+        ]
+    ]
 
 
 simpleView : Config msg -> Html msg
@@ -339,17 +355,8 @@ simpleView ({ funit, inputs, daysOfWear, impact, current } as config) =
     div [ class "card" ]
         [ div [ class "card-header" ]
             [ div [ class "row" ]
-                [ div [ class "col-6 d-flex align-items-center" ]
-                    [ stepToggler config
-                    , span [ class "StepIcon bg-primary text-white rounded-pill" ]
-                        [ stepIcon current.label ]
-                    , current.label
-                        |> Step.displayLabel
-                            { knitted = inputs.product.knitted
-                            , faded = inputs.product.faded
-                            }
-                        |> text
-                    ]
+                [ stepHeader config
+                    |> div [ class "col-6 d-flex align-items-center" ]
                 , div [ class "col-6 text-end" ]
                     [ stepActions config current.label
                     ]
@@ -467,17 +474,8 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
     div [ class "card-group" ]
         [ div [ class "card" ]
             [ div [ class "card-header d-flex justify-content-between align-items-center" ]
-                [ div [ class "d-flex align-items-center" ]
-                    [ stepToggler config
-                    , span [ class "StepIcon bg-primary text-white rounded-pill" ]
-                        [ stepIcon current.label ]
-                    , current.label
-                        |> Step.displayLabel
-                            { knitted = inputs.product.knitted
-                            , faded = inputs.product.faded
-                            }
-                        |> text
-                    ]
+                [ stepHeader config
+                    |> div [ class "d-flex align-items-center" ]
                 , -- Note: hide on desktop, show on mobile
                   div [ class "d-block d-sm-none" ]
                     [ stepActions config current.label
