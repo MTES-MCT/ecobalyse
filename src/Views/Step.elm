@@ -315,10 +315,10 @@ stepActions { viewMode, index, toggleStepViewMode } label =
 
 stepToggler : Config msg -> Html msg
 stepToggler { current, toggleStep } =
-    div [ class "form-check" ]
+    div [ class "d-flex align-items-center me-2" ]
         [ input
             [ type_ "checkbox"
-            , class "form-check-input"
+            , class "form-check-input mt-0"
             , attribute "role" "switch"
             , checked current.enabled
             , onCheck (always (toggleStep current.label))
