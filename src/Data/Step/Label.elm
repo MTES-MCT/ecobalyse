@@ -167,5 +167,5 @@ decodeFromCode =
 
 
 encode : Label -> Encode.Value
-encode label =
-    label |> toCodeString |> Encode.string
+encode =
+    toCodeString >> Encode.string

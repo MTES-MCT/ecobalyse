@@ -86,16 +86,16 @@ compute db query =
         nextWithDb fn =
             Result.andThen (fn db)
 
-        nextFor label fn =
-            if not <| List.member label query.disabledSteps then
-                Result.map fn
+        nextIf label fn =
+            if not (List.member label query.disabledSteps) then
+                next fn
 
             else
                 identity
 
-        nextWithDbFor label fn =
-            if not <| List.member label query.disabledSteps then
-                Result.andThen (fn db)
+        nextWithDbIf label fn =
+            if not (List.member label query.disabledSteps) then
+                nextWithDb fn
 
             else
                 identity
@@ -107,30 +107,30 @@ compute db query =
         -- WASTE: compute the initial required material mass
         --
         -- Compute Making mass waste - Confection
-        |> nextFor Label.Making computeMakingStepWaste
+        |> nextIf Label.Making computeMakingStepWaste
         -- Compute Knitting/Weawing waste - Tissage/Tricotage
-        |> nextFor Label.Fabric computeFabricStepWaste
+        |> nextIf Label.Fabric computeFabricStepWaste
         -- Compute Spinning waste - Filature
-        |> nextFor Label.Spinning computeSpinningStepWaste
+        |> nextIf Label.Spinning computeSpinningStepWaste
         -- Compute Material waste - Matière
-        |> nextFor Label.Material computeMaterialStepWaste
+        |> nextIf Label.Material computeMaterialStepWaste
         --
         -- CO2 SCORES
         --
         -- Compute Material step impacts
-        |> nextFor Label.Material (computeMaterialImpacts db)
+        |> nextIf Label.Material (computeMaterialImpacts db)
         -- Compute Spinning step impacts
-        |> nextFor Label.Spinning (computeSpinningImpacts db)
+        |> nextIf Label.Spinning (computeSpinningImpacts db)
         -- Compute Weaving & Knitting step impacts
-        |> nextFor Label.Fabric computeFabricImpacts
+        |> nextIf Label.Fabric computeFabricImpacts
         -- Compute Dyeing step impacts
-        |> nextWithDbFor Label.Dyeing computeDyeingImpacts
+        |> nextWithDbIf Label.Dyeing computeDyeingImpacts
         -- Compute Making step impacts
-        |> nextWithDbFor Label.Making computeMakingImpacts
+        |> nextWithDbIf Label.Making computeMakingImpacts
         -- Compute product Use impacts
-        |> nextFor Label.Use computeUseImpacts
+        |> nextIf Label.Use computeUseImpacts
         -- Compute product Use impacts
-        |> nextWithDbFor Label.EndOfLife computeEndOfLifeImpacts
+        |> nextWithDbIf Label.EndOfLife computeEndOfLifeImpacts
         --
         -- TRANSPORTS
         --
@@ -367,25 +367,21 @@ computeFabricImpacts ({ inputs } as simulator) =
 
 computeMakingStepWaste : Simulator -> Simulator
 computeMakingStepWaste ({ inputs } as simulator) =
-    if not <| List.member Label.Making inputs.disabledSteps then
-        let
-            { mass, waste } =
-                inputs.mass
-                    |> Formula.makingWaste
-                        { processWaste = inputs.product.makingProcess.waste
-                        , pcrWaste =
-                            inputs.makingWaste
-                                |> Maybe.withDefault inputs.product.pcrWaste
-                        }
-        in
-        simulator
-            |> updateLifeCycleStep Label.Making (Step.updateWaste waste mass)
-            |> updateLifeCycleSteps
-                [ Label.Material, Label.Spinning, Label.Fabric, Label.Dyeing ]
-                (Step.initMass mass)
-
-    else
-        simulator
+    let
+        { mass, waste } =
+            inputs.mass
+                |> Formula.makingWaste
+                    { processWaste = inputs.product.makingProcess.waste
+                    , pcrWaste =
+                        inputs.makingWaste
+                            |> Maybe.withDefault inputs.product.pcrWaste
+                    }
+    in
+    simulator
+        |> updateLifeCycleStep Label.Making (Step.updateWaste waste mass)
+        |> updateLifeCycleSteps
+            [ Label.Material, Label.Spinning, Label.Fabric, Label.Dyeing ]
+            (Step.initMass mass)
 
 
 computeFabricStepWaste : Simulator -> Simulator

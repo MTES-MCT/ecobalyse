@@ -4,6 +4,7 @@ import Data.Db exposing (Db)
 import Data.Impact as Impact
 import Data.Inputs as Inputs exposing (tShirtCotonFrance)
 import Data.Material as Material
+import Data.Step.Label as Label
 import Data.Unit as Unit
 import Dict exposing (Dict)
 import Expect
@@ -52,6 +53,23 @@ suite =
                                         Ok { tShirtCotonFrance | quality = Just (Unit.quality 1.2) }
                             )
                         |> asTest "should handle the /simulator endpoint with the quality parameter set"
+                    , [ "/simulator?mass=0.17"
+                      , "product=tshirt"
+                      , "materials[]=coton;1"
+                      , "countryFabric=FR"
+                      , "countryDyeing=FR"
+                      , "countryMaking=FR"
+                      , "disabledSteps=making,dyeing"
+                      ]
+                        |> String.join "&"
+                        |> getEndpoint db "GET"
+                        |> Expect.equal
+                            (Just <|
+                                Route.Get <|
+                                    Route.Simulator <|
+                                        Ok { tShirtCotonFrance | disabledSteps = [ Label.Making, Label.Dyeing ] }
+                            )
+                        |> asTest "should handle the /simulator endpoint with the disabledSteps parameter set"
                     , [ "/simulator/fwe?mass=0.17"
                       , "product=tshirt"
                       , "materials[]=coton;1"
@@ -161,6 +179,7 @@ suite =
                       , "countryFabric=notACountryCode"
                       , "countryDyeing=notACountryCode"
                       , "countryMaking=notACountryCode"
+                      , "disabledSteps=invalid"
                       ]
                         |> String.join "&"
                         |> getEndpoint db "GET"
@@ -173,6 +192,7 @@ suite =
                                 , ( "mass", "La masse doit être supérieure ou égale à zéro." )
                                 , ( "materials", "Format de matière invalide : notAnID." )
                                 , ( "product", "Produit non trouvé id=notAProductID." )
+                                , ( "disabledSteps", "Impossible d'interpréter la liste des étapes désactivées; Code étape inconnu: invalid" )
                                 ]
                                 |> Just
                             )
