@@ -280,8 +280,10 @@ pageFooter { currentVersion } =
                         ]
                         []
                     ]
-                , div
-                    [ class "col d-flex text-center bg-white p-3 m-3 link-external-muted justify-content-center align-items-center"
+                , Link.external
+                    [ href "https://www.entreprises.gouv.fr/fr/france-relance"
+                    , class "d-flex flex-wrap justify-content-center align-items-center"
+                    , class "col text-center bg-white p-3 m-3 link-external-muted"
                     , style "min-height" "200px"
                     ]
                     [ img
@@ -293,7 +295,7 @@ pageFooter { currentVersion } =
                         []
                     , img
                         [ src "img/logo-next-generation-eu.png"
-                        , alt "Financé par la l'Union Européenne"
+                        , alt "Financé par la l'Union européenne"
                         , attribute "width" "250"
                         , attribute "height" "56"
                         ]
