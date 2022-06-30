@@ -19,8 +19,8 @@ view attributes selectedCountry onSelect countries =
                     [ text name ]
             )
         |> select
-            ([ class "form-select"
-             , onInput (Country.codeFromString >> onSelect)
-             ]
-                ++ attributes
+            (class
+                "form-select"
+                :: onInput (Country.codeFromString >> onSelect)
+                :: attributes
             )

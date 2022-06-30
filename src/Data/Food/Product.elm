@@ -16,7 +16,6 @@ module Data.Food.Product exposing
     , emptyImpactsForProcesses
     , emptyProducts
     , filterIngredients
-    , findImpactsByName
     , findProductByName
     , getTotalImpact
     , getTotalWeight
@@ -28,7 +27,6 @@ module Data.Food.Product exposing
     , processNameToString
     , productNameToString
     , removeIngredient
-    , stringToProcessName
     , stringToProductName
     , unusedDuration
     , updateAmount
@@ -61,14 +59,17 @@ defaultCountry =
     Country.codeFromString "FR"
 
 
+lorryTransportName : ProcessName
 lorryTransportName =
     ProcessName "Transport, freight, lorry 16-32 metric ton, EURO5 {RER}| transport, freight, lorry 16-32 metric ton, EURO5 | Cut-off, S - Copied from Ecoinvent"
 
 
+boatTransportName : ProcessName
 boatTransportName =
     ProcessName "Transport, freight, sea, transoceanic ship {GLO}| processing | Cut-off, S - Copied from Ecoinvent"
 
 
+planeTransportName : ProcessName
 planeTransportName =
     ProcessName "Transport, freight, aircraft {RER}| intercontinental | Cut-off, S - Copied from Ecoinvent"
 
