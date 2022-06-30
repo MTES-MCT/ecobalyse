@@ -319,7 +319,7 @@ view ({ foodDb, db } as session) { selectedProduct, productsSelectChoice, impact
                                 ]
                             ]
                         ]
-                    , viewIngredients totalImpact impact product.plant
+                    , viewIngredients ratioToStringKg totalImpact impact product.plant
                     , div [ class "row py-3 gap-2 gap-sm-0" ]
                         [ div [ class "col-sm-10" ]
                             [ foodDb.products
@@ -363,6 +363,22 @@ view ({ foodDb, db } as session) { selectedProduct, productsSelectChoice, impact
     )
 
 
+ratioToStringKg : Unit.Ratio -> String
+ratioToStringKg =
+    Unit.ratioToFloat
+        >> floatToRoundedString -3
+        >> (\mass -> mass ++ "kg")
+
+
+ratioToStringKgKm : Unit.Ratio -> String
+ratioToStringKgKm =
+    Unit.ratioToFloat
+        -- The amount is in "ton/km", we want it in "kg/km")
+        >> (\amount -> amount / 1000)
+        >> floatToRoundedString -3
+        >> (\mass -> mass ++ "kg/km")
+
+
 viewHeader : Html Msg -> Html Msg -> List (Html Msg) -> Html Msg
 viewHeader header1 header2 children =
     if List.length children > 0 then
@@ -381,8 +397,8 @@ viewHeader header1 header2 children =
         text ""
 
 
-viewIngredients : Float -> Impact.Trigram -> Step -> Html Msg
-viewIngredients totalImpact impact step =
+viewIngredients : (Unit.Ratio -> String) -> Float -> Impact.Trigram -> Step -> Html Msg
+viewIngredients toString totalImpact impact step =
     step.ingredients
         |> AnyDict.toList
         |> List.filter (\( processName, _ ) -> isIngredient processName)
@@ -394,14 +410,14 @@ viewIngredients totalImpact impact step =
                 in
                 div [ class "card stacked-card" ]
                     [ div [ class "card-header" ] [ text <| processNameToString name ]
-                    , viewIngredient bar
+                    , viewIngredient toString bar
                     ]
             )
         |> viewHeader (text "Quantité de l'ingrédient") (text "Pourcentage de l'impact total")
 
 
-viewIngredient : Bar -> Html Msg
-viewIngredient bar =
+viewIngredient : (Unit.Ratio -> String) -> Bar -> Html Msg
+viewIngredient toString bar =
     let
         name =
             bar.name |> processNameToString
@@ -413,10 +429,7 @@ viewIngredient bar =
                 { id = "slider-" ++ name
                 , update = IngredientSliderChanged bar.name
                 , value = bar.amount
-                , toString =
-                    Unit.ratioToFloat
-                        >> floatToRoundedString -3
-                        >> (\mass -> mass ++ "kg")
+                , toString = toString
                 , disabled = not (isIngredient bar.name)
                 , min = 0
                 , max = 100
@@ -514,7 +527,7 @@ viewProcessing totalImpact impact step =
                 in
                 div [ class "card stacked-card" ]
                     [ div [ class "card-header" ] [ text <| processNameToString name ]
-                    , viewIngredient bar
+                    , viewIngredient ratioToStringKg bar
                     ]
             )
         |> viewHeader (text "Processus") (text "Pourcentage de l'impact total")
@@ -548,7 +561,7 @@ viewTransport totalImpact impact step selectedCountry countries =
                     in
                     div [ class "card stacked-card" ]
                         [ div [ class "card-header" ] [ text <| processNameToString name ]
-                        , viewIngredient bar
+                        , viewIngredient ratioToStringKgKm bar
                         ]
                 )
             |> viewHeader header (text "Pourcentage de l'impact total")
@@ -568,7 +581,7 @@ viewWaste totalImpact impact step =
                 in
                 div [ class "card stacked-card" ]
                     [ div [ class "card-header" ] [ text <| processNameToString name ]
-                    , viewIngredient bar
+                    , viewIngredient ratioToStringKg bar
                     ]
             )
         |> viewHeader (text "Déchets") (text "Pourcentage de l'impact total")
