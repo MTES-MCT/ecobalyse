@@ -149,7 +149,10 @@ update ({ foodDb, db } as session) msg ({ selectedProduct } as model) =
             )
 
         ( Reset, Just selected ) ->
-            ( { model | selectedProduct = Just { selected | product = selected.original } }
+            ( { model
+                | selectedProduct = Just { selected | product = selected.original }
+                , countriesSelectChoice = defaultCountry
+              }
             , session
             , Cmd.none
             )
