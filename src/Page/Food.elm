@@ -17,6 +17,7 @@ import Data.Food.Product as Product
         , Step
         , WeightRatio
         , addIngredient
+        , defaultCountry
         , filterIngredients
         , findProductByName
         , isIngredient
@@ -27,6 +28,7 @@ import Data.Food.Product as Product
         , productNameToString
         , removeIngredient
         , stringToProductName
+        , updateTransport
         )
 import Data.Impact as Impact
 import Data.Session as Session exposing (Session)
@@ -87,7 +89,7 @@ init session =
       , productsSelectChoice = tunaPizza
       , impact = Impact.defaultTrigram
       , ingredientsSelectChoice = ""
-      , countriesSelectChoice = Country.codeFromString "FR"
+      , countriesSelectChoice = defaultCountry
       }
     , session
     , Cmd.batch
@@ -98,7 +100,7 @@ init session =
 
 
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
-update ({ foodDb } as session) msg ({ selectedProduct } as model) =
+update ({ foodDb, db } as session) msg ({ selectedProduct } as model) =
     case ( msg, selectedProduct ) of
         ( IngredientSliderChanged name (Just newAmount), Just selected ) ->
             let
@@ -110,10 +112,10 @@ update ({ foodDb } as session) msg ({ selectedProduct } as model) =
             in
             ( { model | selectedProduct = Just { selected | product = updatedProduct } }, session, Cmd.none )
 
-        ( DbLoaded (RemoteData.Success db), _ ) ->
+        ( DbLoaded (RemoteData.Success loadedDb), _ ) ->
             let
                 productResult =
-                    findProductByName (stringToProductName tunaPizza) db.products
+                    findProductByName (stringToProductName tunaPizza) loadedDb.products
             in
             case productResult of
                 Ok product ->
@@ -130,7 +132,7 @@ update ({ foodDb } as session) msg ({ selectedProduct } as model) =
                                 , weightRatio = Product.getWeightRatio product
                                 }
                       }
-                    , { session | foodDb = db }
+                    , { session | foodDb = loadedDb }
                     , Cmd.none
                     )
 
@@ -226,8 +228,20 @@ update ({ foodDb } as session) msg ({ selectedProduct } as model) =
             , Cmd.none
             )
 
-        ( CountrySelected countryCode, _ ) ->
-            ( { model | countriesSelectChoice = countryCode }
+        ( CountrySelected countryCode, Just selected ) ->
+            let
+                productWithUpdatedTransport =
+                    selected.product
+                        |> updateTransport selected.original.plant.transport foodDb.processes countryCode db.countries
+
+                productWithPefScore =
+                    productWithUpdatedTransport
+                        |> Product.computePefImpact session.db.impacts
+            in
+            ( { model
+                | selectedProduct = Just { selected | product = productWithPefScore }
+                , countriesSelectChoice = countryCode
+              }
             , session
             , Cmd.none
             )

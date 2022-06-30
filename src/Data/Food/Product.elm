@@ -12,6 +12,7 @@ module Data.Food.Product exposing
     , computePefImpact
     , decodeProcesses
     , decodeProducts
+    , defaultCountry
     , emptyImpactsForProcesses
     , emptyProducts
     , filterIngredients
@@ -31,8 +32,10 @@ module Data.Food.Product exposing
     , stringToProductName
     , unusedDuration
     , updateAmount
+    , updateTransport
     )
 
+import Data.Country as Country exposing (Country)
 import Data.Impact as Impact exposing (Definition, Impacts, Trigram, grabImpactFloat)
 import Data.Unit as Unit
 import Dict.Any as AnyDict exposing (AnyDict)
@@ -51,6 +54,23 @@ unusedFunctionalUnit =
 unusedDuration : Duration
 unusedDuration =
     Duration.days 1
+
+
+defaultCountry : Country.Code
+defaultCountry =
+    Country.codeFromString "FR"
+
+
+lorryTransportName =
+    ProcessName "Transport, freight, lorry 16-32 metric ton, EURO5 {RER}| transport, freight, lorry 16-32 metric ton, EURO5 | Cut-off, S - Copied from Ecoinvent"
+
+
+boatTransportName =
+    ProcessName "Transport, freight, sea, transoceanic ship {GLO}| processing | Cut-off, S - Copied from Ecoinvent"
+
+
+planeTransportName =
+    ProcessName "Transport, freight, aircraft {RER}| intercontinental | Cut-off, S - Copied from Ecoinvent"
 
 
 
@@ -544,3 +564,35 @@ removeIngredient maybeWeightRatio processName product =
     { product
         | plant = withRemovedIngredient
     }
+
+
+updateTransport : Processes -> ImpactsForProcesses -> Country.Code -> List Country -> Product -> Product
+updateTransport defaultTransport impacts countryCode countries product =
+    let
+        plant =
+            product.plant
+
+        lorry =
+            findImpactsByName lorryTransportName impacts
+                |> Result.withDefault Impact.noImpacts
+
+        boat =
+            findImpactsByName boatTransportName impacts
+                |> Result.withDefault Impact.noImpacts
+
+        plane =
+            findImpactsByName planeTransportName impacts
+                |> Result.withDefault Impact.noImpacts
+
+        transports =
+            [ ( lorryTransportName, Process (Unit.Ratio 1.0) lorry )
+            , ( boatTransportName, Process (Unit.Ratio 1.0) boat )
+            , ( planeTransportName, Process (Unit.Ratio 1.0) plane )
+            ]
+                |> AnyDict.fromList processNameToString
+    in
+    if countryCode == defaultCountry then
+        { product | plant = { plant | transport = defaultTransport } }
+
+    else
+        { product | plant = { plant | transport = transports } }
