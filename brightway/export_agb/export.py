@@ -225,8 +225,7 @@ def export_processes_as_json(processes, filename):
         json.dump(processes, outfile, indent=2)
 
 
-path = r"/Users/paulboosz/src/ecobalyse-data/brightway/Agribalyse_Synthese.csv"
-relative_path = "../Agribalyse_Synthese.csv"
+path = "../Agribalyse_Synthese.csv"
 if __name__ == "__main__":
     agb = open_db("agribalyse3")
     ciqual_codes = get_ciqual_codes(path)
@@ -234,7 +233,7 @@ if __name__ == "__main__":
     print(f"Loaded {len(ciqual_products)} products")
 
     print("Building product tree")
-    (products, processes) = build_product_tree(ciqual_products[-30:])
+    (products, processes) = build_product_tree(ciqual_products)
 
     print(f"{len(products)} produits")
     print(f"{len(processes.keys())} processus")
