@@ -320,6 +320,13 @@ stepHeader { current, inputs, toggleStep } =
     label
         [ class "d-flex align-items-center cursor-pointer gap-2"
         , classList [ ( "text-secondary", not current.enabled ) ]
+        , title
+            (if current.enabled then
+                "Étape activée, cliquez pour la désactiver"
+
+             else
+                "Étape desactivée, cliquez pour la réactiver"
+            )
         ]
         [ input
             [ type_ "checkbox"
@@ -327,13 +334,6 @@ stepHeader { current, inputs, toggleStep } =
             , attribute "role" "switch"
             , checked current.enabled
             , onCheck (always (toggleStep current.label))
-            , title
-                (if current.enabled then
-                    "Désactiver cette étape"
-
-                 else
-                    "Activer cette étape"
-                )
             ]
             []
         , span
