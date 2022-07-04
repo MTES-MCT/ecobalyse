@@ -132,6 +132,10 @@ blockquote {
   &-help {
     cursor: help;
   }
+
+  &-pointer {
+    cursor: pointer;
+  }
 }
 
 .fs {
@@ -612,7 +616,6 @@ blockquote {
     justify-items: center;
     width: 22px;
     height: 22px;
-    margin-right: 6px;
   }
 }
 

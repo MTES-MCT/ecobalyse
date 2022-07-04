@@ -315,9 +315,12 @@ stepActions { current, viewMode, index, toggleStepViewMode } label =
         ]
 
 
-stepHeader : Config msg -> List (Html msg)
+stepHeader : Config msg -> Html msg
 stepHeader { current, inputs, toggleStep } =
-    [ div [ class "d-flex align-items-center me-2" ]
+    label
+        [ class "d-flex align-items-center cursor-pointer gap-2"
+        , classList [ ( "text-secondary", not current.enabled ) ]
+        ]
         [ input
             [ type_ "checkbox"
             , class "form-check-input mt-0 no-outline"
@@ -333,21 +336,18 @@ stepHeader { current, inputs, toggleStep } =
                 )
             ]
             []
-        ]
-    , span
-        [ class "StepIcon bg-primary text-white rounded-pill"
-        , classList [ ( "bg-secondary", not current.enabled ) ]
-        ]
-        [ stepIcon current.label ]
-    , span [ classList [ ( "text-secondary", not current.enabled ) ] ]
-        [ current.label
+        , span
+            [ class "StepIcon bg-primary text-white rounded-pill"
+            , classList [ ( "bg-secondary", not current.enabled ) ]
+            ]
+            [ stepIcon current.label ]
+        , current.label
             |> Step.displayLabel
                 { knitted = inputs.product.knitted
                 , faded = inputs.product.faded
                 }
             |> text
         ]
-    ]
 
 
 simpleView : Config msg -> Html msg
@@ -355,8 +355,7 @@ simpleView ({ funit, inputs, daysOfWear, impact, current } as config) =
     div [ class "card" ]
         [ div [ class "card-header" ]
             [ div [ class "row" ]
-                [ stepHeader config
-                    |> div [ class "col-6 d-flex align-items-center" ]
+                [ div [ class "col-6" ] [ stepHeader config ]
                 , div [ class "col-6 text-end" ]
                     [ stepActions config current.label
                     ]
@@ -475,7 +474,6 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
         [ div [ class "card" ]
             [ div [ class "card-header d-flex justify-content-between align-items-center" ]
                 [ stepHeader config
-                    |> div [ class "d-flex align-items-center" ]
                 , -- Note: hide on desktop, show on mobile
                   div [ class "d-block d-sm-none" ]
                     [ stepActions config current.label
