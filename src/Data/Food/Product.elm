@@ -33,8 +33,9 @@ module Data.Food.Product exposing
     , updateTransport
     )
 
-import Data.Country as Country exposing (Country)
+import Data.Country as Country
 import Data.Impact as Impact exposing (Definition, Impacts, Trigram, grabImpactFloat)
+import Data.Transport as Transport exposing (Distances)
 import Data.Unit as Unit
 import Dict.Any as AnyDict exposing (AnyDict)
 import Duration exposing (Duration)
@@ -567,22 +568,29 @@ removeIngredient maybeWeightRatio processName product =
     }
 
 
-updateTransport : Processes -> ImpactsForProcesses -> Country.Code -> List Country -> Product -> Product
-updateTransport defaultTransport impacts countryCode countries product =
+updateTransport : Processes -> ImpactsForProcesses -> List Impact.Definition -> Country.Code -> Distances -> Product -> Product
+updateTransport defaultTransport impactsForProcesses impactDefinitions countryCode distances product =
     let
         plant =
             product.plant
 
+        impacts =
+            Impact.impactsFromDefinitons impactDefinitions
+
+        transport =
+            Transport.getTransportBetween impacts countryCode defaultCountry distances
+                |> Debug.log "transport"
+
         lorry =
-            findImpactsByName lorryTransportName impacts
+            findImpactsByName lorryTransportName impactsForProcesses
                 |> Result.withDefault Impact.noImpacts
 
         boat =
-            findImpactsByName boatTransportName impacts
+            findImpactsByName boatTransportName impactsForProcesses
                 |> Result.withDefault Impact.noImpacts
 
         plane =
-            findImpactsByName planeTransportName impacts
+            findImpactsByName planeTransportName impactsForProcesses
                 |> Result.withDefault Impact.noImpacts
 
         transports =

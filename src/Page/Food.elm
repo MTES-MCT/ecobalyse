@@ -235,7 +235,7 @@ update ({ foodDb, db } as session) msg ({ selectedProduct } as model) =
             let
                 productWithUpdatedTransport =
                     selected.product
-                        |> updateTransport selected.original.plant.transport foodDb.processes countryCode db.countries
+                        |> updateTransport selected.original.plant.transport foodDb.processes db.impacts countryCode db.transports
 
                 productWithPefScore =
                     productWithUpdatedTransport
