@@ -493,6 +493,7 @@ lifeCycleImpacts db simulator =
     --     ...
     db.impacts
         |> List.filter .primary
+        |> List.filter (.scopes >> List.member Impact.Textile)
         |> List.map
             (\def ->
                 ( def.label
