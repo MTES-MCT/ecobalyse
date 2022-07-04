@@ -55,14 +55,14 @@ init db =
     in
     Inputs.fromQuery db
         >> Result.map
-            (\inputs ->
+            (\({ product, quality, reparability } as inputs) ->
                 inputs
                     |> LifeCycle.init db
                     |> (\lifeCycle ->
                             let
                                 { daysOfWear, useNbCycles } =
-                                    inputs.product
-                                        |> Product.customDaysOfWear inputs.quality inputs.reparability
+                                    product
+                                        |> Product.customDaysOfWear quality reparability
                             in
                             { inputs = inputs
                             , lifeCycle = lifeCycle
@@ -85,6 +85,20 @@ compute db query =
 
         nextWithDb fn =
             Result.andThen (fn db)
+
+        nextIf label fn =
+            if not (List.member label query.disabledSteps) then
+                next fn
+
+            else
+                identity
+
+        nextWithDbIf label fn =
+            if not (List.member label query.disabledSteps) then
+                nextWithDb fn
+
+            else
+                identity
     in
     init db query
         -- Ensure end product mass is first applied to the final Distribution step
@@ -93,30 +107,30 @@ compute db query =
         -- WASTE: compute the initial required material mass
         --
         -- Compute Making mass waste - Confection
-        |> next computeMakingStepWaste
+        |> nextIf Label.Making computeMakingStepWaste
         -- Compute Knitting/Weawing waste - Tissage/Tricotage
-        |> next computeFabricStepWaste
+        |> nextIf Label.Fabric computeFabricStepWaste
         -- Compute Spinning waste - Filature
-        |> next computeSpinningStepWaste
+        |> nextIf Label.Spinning computeSpinningStepWaste
         -- Compute Material waste - Matière
-        |> next computeMaterialStepWaste
+        |> nextIf Label.Material computeMaterialStepWaste
         --
         -- CO2 SCORES
         --
         -- Compute Material step impacts
-        |> next (computeMaterialImpacts db)
+        |> nextIf Label.Material (computeMaterialImpacts db)
         -- Compute Spinning step impacts
-        |> next (computeSpinningImpacts db)
+        |> nextIf Label.Spinning (computeSpinningImpacts db)
         -- Compute Weaving & Knitting step impacts
-        |> next computeFabricImpacts
+        |> nextIf Label.Fabric computeFabricImpacts
         -- Compute Dyeing step impacts
-        |> nextWithDb computeDyeingImpacts
+        |> nextWithDbIf Label.Dyeing computeDyeingImpacts
         -- Compute Making step impacts
-        |> nextWithDb computeMakingImpacts
+        |> nextWithDbIf Label.Making computeMakingImpacts
         -- Compute product Use impacts
-        |> next computeUseImpacts
+        |> nextIf Label.Use computeUseImpacts
         -- Compute product Use impacts
-        |> nextWithDb computeEndOfLifeImpacts
+        |> nextWithDbIf Label.EndOfLife computeEndOfLifeImpacts
         --
         -- TRANSPORTS
         --
@@ -138,8 +152,7 @@ compute db query =
 initializeFinalMass : Simulator -> Simulator
 initializeFinalMass ({ inputs } as simulator) =
     simulator
-        |> updateLifeCycleSteps [ Label.Distribution, Label.Use, Label.EndOfLife ]
-            (Step.initMass inputs.mass)
+        |> updateLifeCycleSteps Label.all (Step.initMass inputs.mass)
 
 
 computeEndOfLifeImpacts : Db -> Simulator -> Result String Simulator

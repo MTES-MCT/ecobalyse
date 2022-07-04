@@ -158,7 +158,9 @@ getChartEntries { db, store } funit impact =
         |> List.filterMap
             (\saved ->
                 if Set.member saved.name store.comparedSimulations then
-                    Just (createEntry_ True saved.name saved.query)
+                    saved.query
+                        |> createEntry_ { highlight = True, label = saved.name }
+                        |> Just
 
                 else
                     Nothing

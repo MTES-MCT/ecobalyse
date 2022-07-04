@@ -56,11 +56,10 @@ createEntry :
     Db
     -> Unit.Functional
     -> Impact.Definition
-    -> Bool
-    -> String
+    -> { highlight : Bool, label : String }
     -> Inputs.Query
     -> Result String Entry
-createEntry db funit { trigram } highlight label query =
+createEntry db funit { trigram } { highlight, label } query =
     query
         |> Simulator.compute db
         |> Result.map
@@ -100,6 +99,7 @@ fromUserQuery query =
         , makingWaste = Nothing
         , picking = Nothing
         , surfaceMass = Nothing
+        , disabledSteps = []
     }
 
 
@@ -137,16 +137,16 @@ getEntries db funit impact inputs =
 
         entries =
             [ query
-                |> createEntry_ True currentName
+                |> createEntry_ { highlight = True, label = currentName }
             , fromUserQuery query
                 |> toCountry (Country.Code "FR")
-                |> createEntry_ False "France, Q=1"
+                |> createEntry_ { highlight = False, label = "France, Q=1" }
             , fromUserQuery query
                 |> toCountry (Country.Code "PT")
-                |> createEntry_ False "Portugal, Q=1"
+                |> createEntry_ { highlight = False, label = "Portugal, Q=1" }
             , fromUserQuery query
                 |> toCountry (Country.Code "IN")
-                |> createEntry_ False "Inde, Q=1"
+                |> createEntry_ { highlight = False, label = "Inde, Q=1" }
             ]
     in
     entries

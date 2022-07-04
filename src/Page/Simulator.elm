@@ -15,6 +15,7 @@ import Data.Db exposing (Db)
 import Data.Impact as Impact
 import Data.Inputs as Inputs
 import Data.Key as Key
+import Data.LifeCycle as LifeCycle
 import Data.Material as Material
 import Data.Product as Product exposing (Product)
 import Data.Session as Session exposing (Session)
@@ -78,6 +79,7 @@ type Msg
     | SwitchImpact Impact.Trigram
     | SwitchLinksTab LinksTab
     | ToggleComparedSimulation String Bool
+    | ToggleStep Label
     | ToggleStepViewMode Int
     | UpdateAirTransportRatio (Maybe Unit.Ratio)
     | UpdateDyeingWeighting (Maybe Unit.Ratio)
@@ -261,6 +263,10 @@ update ({ db, query, navKey } as session) msg model =
             , Cmd.none
             )
 
+        ToggleStep label ->
+            ( model, session, Cmd.none )
+                |> updateQuery (Inputs.toggleStep label query)
+
         ToggleStepViewMode index ->
             ( { model | viewMode = model.viewMode |> ViewMode.toggle index }
             , session
@@ -397,7 +403,8 @@ lifeCycleStepsView db { viewMode, funit, impact } simulator =
                     , daysOfWear = simulator.daysOfWear
                     , index = index
                     , current = current
-                    , next = Array.get (index + 1) simulator.lifeCycle
+                    , next = simulator.lifeCycle |> LifeCycle.getNextEnabledStep current.label
+                    , toggleStep = ToggleStep
                     , toggleStepViewMode = ToggleStepViewMode
                     , updateCountry = UpdateStepCountry
                     , updateAirTransportRatio = UpdateAirTransportRatio

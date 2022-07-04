@@ -33,6 +33,7 @@ import Quantity
 
 type alias Step =
     { label : Label
+    , enabled : Bool
     , country : Country
     , editable : Bool
     , inputMass : Mass
@@ -72,13 +73,14 @@ type alias ProcessInfo =
     }
 
 
-create : { db : Db, label : Label, editable : Bool, country : Country } -> Step
-create { db, label, editable, country } =
+create : { db : Db, label : Label, editable : Bool, country : Country, enabled : Bool } -> Step
+create { db, label, editable, country, enabled } =
     let
         defaultImpacts =
             Impact.impactsFromDefinitons db.impacts
     in
     { label = label
+    , enabled = enabled
     , country = country
     , editable = editable
     , inputMass = Quantity.zero
@@ -439,6 +441,7 @@ encode : Step -> Encode.Value
 encode v =
     Encode.object
         [ ( "label", Encode.string (Label.toString v.label) )
+        , ( "enabled", Encode.bool v.enabled )
         , ( "country", Country.encode v.country )
         , ( "editable", Encode.bool v.editable )
         , ( "inputMass", Encode.float (Mass.inKilograms v.inputMass) )

@@ -136,6 +136,40 @@
     }
   },
   {
+    "name": "T-shirt 100% coton France, pas de teinture",
+    "query": [
+      "mass=0.17",
+      "product=tshirt",
+      "materials[]=coton;1",
+      "countryFabric=FR",
+      "countryDyeing=FR",
+      "countryMaking=FR",
+      "disabledSteps=dyeing"
+    ],
+    "impacts": {
+      "acd": 0.03746659042339192,
+      "ccb": 0.0036378865550825688,
+      "ccf": 4.471667742251555,
+      "cch": 4.475303086272324,
+      "ccl": 0.00000124605,
+      "etf": 0,
+      "fru": 89.02406586510229,
+      "fwe": 0.0004154302438161948,
+      "htc": 0,
+      "htn": 0,
+      "ior": 23.944955595531003,
+      "ldu": 153.73849501123027,
+      "mru": 0.000009323820994602446,
+      "ozd": 2.902011681546769e-7,
+      "pco": 0.014330182578534734,
+      "pef": 0.7733432778504977,
+      "pma": 6.965708942953601e-7,
+      "swe": 0.023259762262611935,
+      "tre": 0.08881788868709013,
+      "wtu": 1.041226735270254
+    }
+  },
+  {
     "name": "Robe 100% acrylique, 100% teinture majorante, Bangladesh",
     "query": [
       "mass=0.3",

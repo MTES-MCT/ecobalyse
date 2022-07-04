@@ -21,6 +21,7 @@ module Data.Inputs exposing
     , tShirtCotonFrance
     , toQuery
     , toString
+    , toggleStep
     , updateMaterial
     , updateMaterialShare
     , updateProduct
@@ -69,6 +70,7 @@ type alias Inputs =
     , makingWaste : Maybe Unit.Ratio
     , picking : Maybe Unit.PickPerMeter
     , surfaceMass : Maybe Unit.SurfaceMass
+    , disabledSteps : List Label
     }
 
 
@@ -93,6 +95,7 @@ type alias Query =
     , makingWaste : Maybe Unit.Ratio
     , picking : Maybe Unit.PickPerMeter
     , surfaceMass : Maybe Unit.SurfaceMass
+    , disabledSteps : List Label
     }
 
 
@@ -179,6 +182,7 @@ fromQuery db query =
         |> RE.andMap (Ok query.makingWaste)
         |> RE.andMap (Ok query.picking)
         |> RE.andMap (Ok query.surfaceMass)
+        |> RE.andMap (Ok query.disabledSteps)
 
 
 toQuery : Inputs -> Query
@@ -206,6 +210,7 @@ toQuery inputs =
     , makingWaste = inputs.makingWaste
     , picking = inputs.picking
     , surfaceMass = inputs.surfaceMass
+    , disabledSteps = inputs.disabledSteps
     }
 
 
@@ -359,6 +364,18 @@ updateStepCountry label code query =
             query
 
 
+toggleStep : Label -> Query -> Query
+toggleStep label query =
+    { query
+        | disabledSteps =
+            if List.member label query.disabledSteps then
+                List.filter ((/=) label) query.disabledSteps
+
+            else
+                label :: query.disabledSteps
+    }
+
+
 addMaterial : Db -> Query -> Query
 addMaterial db query =
     let
@@ -493,6 +510,7 @@ tShirtCotonFrance =
     , makingWaste = Nothing
     , picking = Nothing
     , surfaceMass = Nothing
+    , disabledSteps = []
     }
 
 
@@ -543,6 +561,7 @@ jupeCircuitAsie =
     , makingWaste = Nothing
     , picking = Nothing
     , surfaceMass = Nothing
+    , disabledSteps = []
     }
 
 
@@ -563,6 +582,7 @@ manteauCircuitEurope =
     , makingWaste = Nothing
     , picking = Nothing
     , surfaceMass = Nothing
+    , disabledSteps = []
     }
 
 
@@ -583,6 +603,7 @@ pantalonCircuitEurope =
     , makingWaste = Nothing
     , picking = Nothing
     , surfaceMass = Nothing
+    , disabledSteps = []
     }
 
 
@@ -613,6 +634,7 @@ encode inputs =
         , ( "makingWaste", inputs.makingWaste |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
         , ( "picking", inputs.picking |> Maybe.map Unit.encodePickPerMeter |> Maybe.withDefault Encode.null )
         , ( "surfaceMass", inputs.surfaceMass |> Maybe.map Unit.encodeSurfaceMass |> Maybe.withDefault Encode.null )
+        , ( "disabledSteps", Encode.list Label.encode inputs.disabledSteps )
         ]
 
 
@@ -641,6 +663,7 @@ decodeQuery =
         |> Pipe.optional "makingWaste" (Decode.maybe Unit.decodeRatio) Nothing
         |> Pipe.optional "picking" (Decode.maybe Unit.decodePickPerMeter) Nothing
         |> Pipe.optional "surfaceMass" (Decode.maybe Unit.decodeSurfaceMass) Nothing
+        |> Pipe.optional "disabledSteps" (Decode.list Label.decodeFromCode) []
 
 
 decodeMaterialQuery : Decoder MaterialQuery
@@ -667,6 +690,7 @@ encodeQuery query =
         , ( "makingWaste", query.makingWaste |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
         , ( "picking", query.picking |> Maybe.map Unit.encodePickPerMeter |> Maybe.withDefault Encode.null )
         , ( "surfaceMass", query.surfaceMass |> Maybe.map Unit.encodeSurfaceMass |> Maybe.withDefault Encode.null )
+        , ( "disabledSteps", Encode.list Label.encode query.disabledSteps )
         ]
 
 

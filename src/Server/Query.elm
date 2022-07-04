@@ -10,6 +10,7 @@ import Data.Env as Env
 import Data.Inputs as Inputs
 import Data.Material as Material exposing (Material)
 import Data.Product as Product exposing (Product)
+import Data.Step.Label as Label exposing (Label)
 import Data.Unit as Unit
 import Dict exposing (Dict)
 import Json.Encode as Encode
@@ -62,6 +63,7 @@ parse db =
         |> apply (maybeMakingWaste "makingWaste")
         |> apply (maybePicking "picking")
         |> apply (maybeSurfaceMass "surfaceMass")
+        |> apply (maybeDisabledSteps "disabledSteps")
 
 
 toErrors : ParseResult a -> Result Errors a
@@ -393,6 +395,27 @@ maybeSurfaceMass key =
                         Ok (Just (Unit.surfaceMass int))
                 )
                 >> Maybe.withDefault (Ok Nothing)
+            )
+
+
+maybeDisabledSteps : String -> Query.Parser (ParseResult (List Label))
+maybeDisabledSteps key =
+    Query.string key
+        |> Query.map
+            (Maybe.map
+                (\str ->
+                    str
+                        |> String.split ","
+                        |> List.map Label.fromCodeString
+                        |> RE.combine
+                        |> Result.mapError
+                            (\err ->
+                                ( key
+                                , "Impossible d'interpréter la liste des étapes désactivées; " ++ err
+                                )
+                            )
+                )
+                >> Maybe.withDefault (Ok [])
             )
 
 

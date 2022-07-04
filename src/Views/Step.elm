@@ -37,6 +37,7 @@ type alias Config msg =
     , index : Int
     , current : Step
     , next : Maybe Step
+    , toggleStep : Label -> msg
     , toggleStepViewMode : Int -> msg
     , updateCountry : Label -> Country.Code -> msg
     , updateDyeingWeighting : Maybe Unit.Ratio -> msg
@@ -121,7 +122,7 @@ countryField { db, current, inputs, updateCountry } =
                         )
                     |> select
                         [ class "form-select"
-                        , disabled (not current.editable)
+                        , disabled (not current.editable || not current.enabled)
                         , onInput (Country.codeFromString >> updateCountry current.label)
                         ]
         ]
@@ -137,7 +138,7 @@ airTransportRatioField { current, updateAirTransportRatio } =
             , update = updateAirTransportRatio
             , value = current.airTransportRatio
             , toString = Step.airTransportRatioToString
-            , disabled = False
+            , disabled = not current.enabled
             , min = 0
             , max = 100
             }
@@ -158,7 +159,7 @@ dyeingWeightingField { current, updateDyeingWeighting } =
             , update = updateDyeingWeighting
             , value = current.dyeingWeighting
             , toString = Step.dyeingWeightingToString
-            , disabled = False
+            , disabled = not current.enabled
             , min = 0
             , max = 100
             }
@@ -181,7 +182,7 @@ qualityField { current, updateQuality } =
             , update = updateQuality
             , value = current.quality
             , toString = Step.qualityToString
-            , disabled = False
+            , disabled = not current.enabled
             }
         ]
 
@@ -202,7 +203,7 @@ reparabilityField { current, updateReparability } =
             , update = updateReparability
             , value = current.reparability
             , toString = Step.reparabilityToString
-            , disabled = False
+            , disabled = not current.enabled
             }
         ]
 
@@ -217,7 +218,7 @@ makingWasteField { current, inputs, updateMakingWaste } =
             , update = updateMakingWaste
             , value = Maybe.withDefault inputs.product.pcrWaste current.makingWaste
             , toString = Step.makingWasteToString
-            , disabled = False
+            , disabled = not current.enabled
             , min = 0
             , max = round <| Unit.ratioToFloat Env.maxMakingWasteRatio * 100
             }
@@ -240,7 +241,7 @@ pickingField { current, inputs, updatePicking } =
             , update = updatePicking
             , value = Maybe.withDefault inputs.product.picking current.picking
             , toString = Step.pickingToString
-            , disabled = False
+            , disabled = not current.enabled
             }
         ]
 
@@ -258,7 +259,7 @@ surfaceMassField { current, inputs, updateSurfaceMass } =
             , update = updateSurfaceMass
             , value = Maybe.withDefault inputs.product.surfaceMass current.surfaceMass
             , toString = Step.surfaceMassToString
-            , disabled = False
+            , disabled = not current.enabled
             }
         ]
 
@@ -273,10 +274,11 @@ inlineDocumentationLink _ path =
 
 
 stepActions : Config msg -> Label -> Html msg
-stepActions { viewMode, index, toggleStepViewMode } label =
+stepActions { current, viewMode, index, toggleStepViewMode } label =
     div [ class "StepActions btn-group" ]
         [ Button.docsPillLink
             [ class "btn btn-primary py-1 rounded-end"
+            , classList [ ( "btn-secondary", not current.enabled ) ]
             , href (Gitbook.publicUrlFromPath (Label.toGitbookPath label))
             , title "Documentation"
             , target "_blank"
@@ -284,6 +286,7 @@ stepActions { viewMode, index, toggleStepViewMode } label =
             [ Icon.question ]
         , Button.docsPill
             [ class "btn btn-primary py-1 rounded-start"
+            , classList [ ( "btn-secondary", not current.enabled ) ]
             , case viewMode of
                 ViewMode.Simple ->
                     title "Détailler cette étape"
@@ -299,8 +302,8 @@ stepActions { viewMode, index, toggleStepViewMode } label =
                 ViewMode.DetailedAll ->
                     Icon.zoomout
 
-                ViewMode.DetailedStep current ->
-                    if index == current then
+                ViewMode.DetailedStep currentIndex ->
+                    if index == currentIndex then
                         Icon.zoomout
 
                     else
@@ -312,27 +315,57 @@ stepActions { viewMode, index, toggleStepViewMode } label =
         ]
 
 
+stepHeader : Config msg -> List (Html msg)
+stepHeader { current, inputs, toggleStep } =
+    [ div [ class "d-flex align-items-center me-2" ]
+        [ input
+            [ type_ "checkbox"
+            , class "form-check-input mt-0 no-outline"
+            , attribute "role" "switch"
+            , checked current.enabled
+            , onCheck (always (toggleStep current.label))
+            , title
+                (if current.enabled then
+                    "Désactiver cette étape"
+
+                 else
+                    "Activer cette étape"
+                )
+            ]
+            []
+        ]
+    , span
+        [ class "StepIcon bg-primary text-white rounded-pill"
+        , classList [ ( "bg-secondary", not current.enabled ) ]
+        ]
+        [ stepIcon current.label ]
+    , span [ classList [ ( "text-secondary", not current.enabled ) ] ]
+        [ current.label
+            |> Step.displayLabel
+                { knitted = inputs.product.knitted
+                , faded = inputs.product.faded
+                }
+            |> text
+        ]
+    ]
+
+
 simpleView : Config msg -> Html msg
 simpleView ({ funit, inputs, daysOfWear, impact, current } as config) =
     div [ class "card" ]
         [ div [ class "card-header" ]
             [ div [ class "row" ]
-                [ div [ class "col-6 d-flex align-items-center" ]
-                    [ span [ class "StepIcon bg-primary text-white rounded-pill" ]
-                        [ stepIcon current.label ]
-                    , current.label
-                        |> Step.displayLabel
-                            { knitted = inputs.product.knitted
-                            , faded = inputs.product.faded
-                            }
-                        |> text
-                    ]
+                [ stepHeader config
+                    |> div [ class "col-6 d-flex align-items-center" ]
                 , div [ class "col-6 text-end" ]
                     [ stepActions config current.label
                     ]
                 ]
             ]
-        , div [ class "card-body row align-items-center" ]
+        , div
+            [ class "StepBody card-body row align-items-center"
+            , classList [ ( "disabled", not current.enabled ) ]
+            ]
             [ div [ class "col-sm-6 col-lg-7" ]
                 [ countryField config
                 , case current.label of
@@ -441,20 +474,17 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
     div [ class "card-group" ]
         [ div [ class "card" ]
             [ div [ class "card-header d-flex justify-content-between align-items-center" ]
-                [ span [ class "d-flex align-items-center" ]
-                    [ span [ class "StepIcon bg-primary text-white rounded-pill" ]
-                        [ stepIcon current.label ]
-                    , current.label
-                        |> Step.displayLabel
-                            { knitted = inputs.product.knitted
-                            , faded = inputs.product.faded
-                            }
-                        |> text
-                    ]
+                [ stepHeader config
+                    |> div [ class "d-flex align-items-center" ]
                 , -- Note: hide on desktop, show on mobile
-                  div [ class "d-block d-sm-none" ] [ stepActions config current.label ]
+                  div [ class "d-block d-sm-none" ]
+                    [ stepActions config current.label
+                    ]
                 ]
-            , ul [ class "list-group list-group-flush fs-7" ]
+            , ul
+                [ class "StepBody list-group list-group-flush fs-7"
+                , classList [ ( "disabled", not current.enabled ) ]
+                ]
                 [ li [ class "list-group-item text-muted" ] [ countryField config ]
                 , viewProcessInfo current.processInfo.countryElec
                 , viewProcessInfo current.processInfo.countryHeat
@@ -467,36 +497,37 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                 , viewProcessInfo current.processInfo.making
                 , viewProcessInfo current.processInfo.fading
                 ]
-            , case current.label of
-                Label.Fabric ->
-                    if not inputs.product.knitted then
-                        div [ class "card-body py-2 text-muted" ]
+            , div
+                [ class "StepBody card-body py-2 text-muted"
+                , classList [ ( "disabled", not current.enabled ) ]
+                ]
+                (case current.label of
+                    Label.Fabric ->
+                        if not inputs.product.knitted then
                             [ pickingField config
                             , surfaceMassField config
                             ]
 
-                    else
-                        text ""
+                        else
+                            []
 
-                Label.Dyeing ->
-                    div [ class "card-body py-2 text-muted" ]
+                    Label.Dyeing ->
                         [ dyeingWeightingField config ]
 
-                Label.Making ->
-                    div [ class "card-body py-2 text-muted" ]
+                    Label.Making ->
                         [ makingWasteField config
                         , airTransportRatioField config
                         ]
 
-                Label.Use ->
-                    div [ class "card-body py-2 text-muted" ]
+                    Label.Use ->
                         [ qualityField config
                         , reparabilityField config
                         , daysOfWearInfo inputs
                         ]
 
-                _ ->
-                    text ""
+                    _ ->
+                        []
+                )
             ]
         , div
             [ class "card text-center mb-0" ]
@@ -512,7 +543,10 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                 , -- Note: show on desktop, hide on mobile
                   div [ class "d-none d-sm-block" ] [ stepActions config current.label ]
                 ]
-            , ul [ class "list-group list-group-flush fs-7" ]
+            , ul
+                [ class "StepBody list-group list-group-flush fs-7"
+                , classList [ ( "disabled", not current.enabled ) ]
+                ]
                 [ li [ class "list-group-item text-muted d-flex justify-content-around" ]
                     [ span []
                         [ text "Masse entrante", br [] [], Format.kg current.inputMass ]
