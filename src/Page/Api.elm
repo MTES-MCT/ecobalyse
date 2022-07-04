@@ -47,7 +47,25 @@ getApiServerUrl { clientUrl } =
 
 changelog : List News
 changelog =
-    [ { date = "2 juin 2022"
+    [ { date = "5 juillet 2022"
+      , level = "minor"
+      , md =
+            """Un nouveau paramètre optionnel `disabledSteps` a été ajouté aux endpoints de
+            simulation, permettant de définir la liste des étapes du cycle de vie à désactiver,
+            séparée par des virgules. Chaque étape est identifiée par un code\u{00A0}:
+- `material`: Matière
+- `spinning`: Filature
+- `fabric`: Tissage ou Tricotage
+- `making`: Teinture/Ennoblissement
+- `dyeing`: Confection
+- `distribution`: Distribution
+- `use`: Utilisation
+- `eol`: Fin de vie
+
+            Par exemple, pour désactiver les étapes de filature et de teinture, on peut passer
+            `disabledSteps=spinning,dyeing`."""
+      }
+    , { date = "2 juin 2022"
       , level = "major"
       , md =
             """Le format de définition de la liste des matières a évolué\u{00A0};
@@ -122,9 +140,16 @@ view session _ =
                             |> List.map
                                 (\{ date, level, md } ->
                                     li [ class "list-group-item" ]
-                                        [ div [ class "d-flex justify-content-between align-items-center" ]
+                                        [ div [ class "d-flex justify-content-between align-items-center mb-1" ]
                                             [ text date
-                                            , span [ class "badge bg-danger" ] [ text level ]
+                                            , span
+                                                [ class "badge"
+                                                , classList
+                                                    [ ( "bg-danger", level == "major" )
+                                                    , ( "bg-info", level /= "major" )
+                                                    ]
+                                                ]
+                                                [ text level ]
                                             ]
                                         , Markdown.simple [ class "fs-7" ] md
                                         ]
