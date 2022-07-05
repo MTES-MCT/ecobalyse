@@ -6,6 +6,7 @@ module Data.LifeCycle exposing
     , encode
     , fromQuery
     , getNextEnabledStep
+    , getStep
     , getStepProp
     , init
     , mapSteps

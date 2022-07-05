@@ -33,13 +33,18 @@ expectImpact db trigram value query =
             Expect.fail error
 
 
+cch : Impact.Trigram
+cch =
+    Impact.trg "cch"
+
+
 suite : Test
 suite =
     suiteWithDb "Data.Simulator"
         (\db ->
             [ describe "Simulator.compute"
                 [ tShirtCotonFrance
-                    |> expectImpact db (Impact.trg "cch") 5.070273292372325
+                    |> expectImpact db cch 5.070273292372325
                     |> asTest "should compute a simulation cch impact"
                 , describe "disabled steps"
                     [ { tShirtCotonFrance | disabledSteps = [ Label.Dyeing ] }
@@ -49,12 +54,46 @@ suite =
                         |> asTest "should be handled from passed query"
                     , asTest "should handle disabled steps"
                         (case
-                            ( getImpact db (Impact.trg "cch") tShirtCotonFrance
-                            , getImpact db (Impact.trg "cch") { tShirtCotonFrance | disabledSteps = [ Label.Dyeing ] }
+                            ( getImpact db cch tShirtCotonFrance
+                            , getImpact db cch { tShirtCotonFrance | disabledSteps = [ Label.Dyeing ] }
                             )
                          of
                             ( Ok full, Ok partial ) ->
                                 full |> Expect.greaterThan partial
+
+                            _ ->
+                                Expect.fail "bogus simulator results"
+                        )
+                    , asTest "should compute disabled steps accurately"
+                        (case
+                            ( Simulator.compute db tShirtCotonFrance
+                            , getImpact db cch { tShirtCotonFrance | disabledSteps = [ Label.Dyeing ] }
+                            )
+                         of
+                            ( Ok full, Ok partialTotalImpacts ) ->
+                                case LifeCycle.getStep Label.Dyeing full.lifeCycle of
+                                    Just dyeingStep ->
+                                        let
+                                            asCchFloat =
+                                                Impact.getImpact cch >> Unit.impactToFloat
+
+                                            fullTotalImpact =
+                                                asCchFloat full.impacts
+
+                                            nonTransportsImpacts =
+                                                asCchFloat dyeingStep.impacts
+
+                                            transportsImpacts =
+                                                asCchFloat dyeingStep.transport.impacts
+
+                                            dyeingImpact =
+                                                nonTransportsImpacts + transportsImpacts
+                                        in
+                                        partialTotalImpacts
+                                            |> Expect.within (Expect.Absolute 0.0000000001) (fullTotalImpact - dyeingImpact)
+
+                                    Nothing ->
+                                        Expect.fail "Missing step"
 
                             _ ->
                                 Expect.fail "bogus simulator results"
