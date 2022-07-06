@@ -336,7 +336,7 @@ view ({ foodDb, db } as session) { selectedProduct, productsSelectChoice, impact
                             ]
                         ]
                     , viewProcessing totalImpact impact product.plant
-                    , viewTransport totalImpact impact product.plant countriesSelectChoice db.countries
+                    , viewTransport totalWeight totalImpact impact product.plant countriesSelectChoice db.countries
                     , viewWaste totalImpact impact product.plant
                     , div [ class "row py-3 gap-2 gap-sm-0" ]
                         [ div [ class "col-sm-10 fw-bold" ]
@@ -370,13 +370,23 @@ ratioToStringKg =
         >> (\mass -> mass ++ "kg")
 
 
-ratioToStringKgKm : Unit.Ratio -> String
-ratioToStringKgKm =
-    Unit.ratioToFloat
-        -- The amount is in "ton/km", we want it in "kg/km")
-        >> (\amount -> amount / 1000)
-        >> floatToRoundedString -3
-        >> (\mass -> mass ++ "kg/km")
+ratioToStringTonKm : Float -> Unit.Ratio -> String
+ratioToStringTonKm totalWeight amount =
+    let
+        -- amount is in Ton.Km for the total weight. We instead want the total number of km.
+        amountAsFloat =
+            Unit.ratioToFloat amount
+
+        perKg =
+            amountAsFloat / totalWeight
+
+        perKgKm =
+            perKg * 1000
+    in
+    floatToRoundedString -2 perKgKm
+        ++ "km ("
+        ++ floatToRoundedString -6 amountAsFloat
+        ++ "kg.km)"
 
 
 viewHeader : Html Msg -> Html Msg -> List (Html Msg) -> Html Msg
@@ -533,8 +543,8 @@ viewProcessing totalImpact impact step =
         |> viewHeader (text "Processus") (text "Pourcentage de l'impact total")
 
 
-viewTransport : Float -> Impact.Trigram -> Step -> Country.Code -> List Country -> Html Msg
-viewTransport totalImpact impact step selectedCountry countries =
+viewTransport : Float -> Float -> Impact.Trigram -> Step -> Country.Code -> List Country -> Html Msg
+viewTransport totalWeight totalImpact impact step selectedCountry countries =
     let
         countrySelector =
             countries
@@ -561,7 +571,7 @@ viewTransport totalImpact impact step selectedCountry countries =
                     in
                     div [ class "card stacked-card" ]
                         [ div [ class "card-header" ] [ text <| processNameToString name ]
-                        , viewIngredient ratioToStringKgKm bar
+                        , viewIngredient (ratioToStringTonKm totalWeight) bar
                         ]
                 )
             |> viewHeader header (text "Pourcentage de l'impact total")

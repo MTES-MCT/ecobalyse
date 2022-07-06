@@ -34,6 +34,7 @@ module Data.Food.Product exposing
     )
 
 import Data.Country as Country
+import Data.Formula as Formula
 import Data.Impact as Impact exposing (Definition, Impacts, Trigram, grabImpactFloat)
 import Data.Transport as Transport exposing (Distances)
 import Data.Unit as Unit
@@ -41,6 +42,7 @@ import Dict.Any as AnyDict exposing (AnyDict)
 import Duration exposing (Duration)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
+import Length
 import Result.Extra as RE
 import Set
 
@@ -574,12 +576,19 @@ updateTransport defaultTransport impactsForProcesses impactDefinitions countryCo
         plant =
             product.plant
 
+        totalWeight =
+            getTotalWeight product.plant
+
         impacts =
             Impact.impactsFromDefinitons impactDefinitions
 
         transport =
             Transport.getTransportBetween impacts countryCode defaultCountry distances
-                |> Debug.log "transport"
+
+        transportWithRatio =
+            transport
+                |> Formula.transportRatio (Unit.Ratio 0.33)
+                |> Debug.log "transportWithRatio"
 
         lorry =
             findImpactsByName lorryTransportName impactsForProcesses
@@ -593,10 +602,13 @@ updateTransport defaultTransport impactsForProcesses impactDefinitions countryCo
             findImpactsByName planeTransportName impactsForProcesses
                 |> Result.withDefault Impact.noImpacts
 
+        toTonKm km =
+            Length.inKilometers km * totalWeight / 1000 |> Unit.Ratio
+
         transports =
-            [ ( lorryTransportName, Process (Unit.Ratio 1.0) lorry )
-            , ( boatTransportName, Process (Unit.Ratio 1.0) boat )
-            , ( planeTransportName, Process (Unit.Ratio 1.0) plane )
+            [ ( lorryTransportName, Process (toTonKm transportWithRatio.road) lorry )
+            , ( boatTransportName, Process (toTonKm transportWithRatio.sea) boat )
+            , ( planeTransportName, Process (toTonKm transportWithRatio.air) plane )
             ]
                 |> AnyDict.fromList processNameToString
     in
