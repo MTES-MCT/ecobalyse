@@ -151,6 +151,14 @@ describe("API", () => {
       );
     });
 
+    it("should validate the disabledSteps param", async () => {
+      expectFieldErrorMessage(
+        await makeRequest("/api/simulator", ["disabledSteps=xxx"]),
+        "disabledSteps",
+        /Code étape inconnu: xxx/i,
+      );
+    });
+
     it("should perform a simulation featuring 20 impacts", async () => {
       const response = await makeRequest("/api/simulator/", successQuery);
 
