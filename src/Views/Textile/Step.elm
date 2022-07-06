@@ -38,6 +38,7 @@ type alias Config msg =
     , index : Int
     , current : Step
     , next : Maybe Step
+    , toggleDisabledFading : Bool -> msg
     , toggleStep : Label -> msg
     , toggleStepViewMode : Int -> msg
     , updateCountry : Label -> Country.Code -> msg
@@ -432,6 +433,29 @@ viewProcessInfo processName =
             text ""
 
 
+viewFadingProcess : Config msg -> String -> Html msg
+viewFadingProcess { inputs, toggleDisabledFading } processName =
+    if inputs.product.making.fadable then
+        li [ class "list-group-item text-muted" ]
+            [ label
+                [ class "form-check form-switch form-check-label fs-7 pt-1 text-truncate"
+                , title processName
+                ]
+                [ input
+                    [ type_ "checkbox"
+                    , class "form-check-input no-outline"
+                    , checked (not inputs.disabledFading)
+                    , onCheck (\checked -> toggleDisabledFading (not checked))
+                    ]
+                    []
+                , text processName
+                ]
+            ]
+
+    else
+        text ""
+
+
 daysOfWearInfo : Inputs -> Html msg
 daysOfWearInfo inputs =
     let
@@ -490,7 +514,9 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                 , viewProcessInfo current.processInfo.endOfLife
                 , viewProcessInfo current.processInfo.fabric
                 , viewProcessInfo current.processInfo.making
-                , viewProcessInfo current.processInfo.fading
+                , current.processInfo.fading
+                    |> Maybe.map (viewFadingProcess config)
+                    |> Maybe.withDefault (text "")
                 ]
             , div
                 [ class "StepBody card-body py-2 text-muted"

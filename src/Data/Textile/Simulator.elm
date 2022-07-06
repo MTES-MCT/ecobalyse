@@ -215,7 +215,7 @@ computeMakingImpacts { processes } ({ inputs } as simulator) =
                                             { makingProcess = inputs.product.making.process
                                             , fadingProcess =
                                                 -- Note: in the future, we may have distinct fading processes per countries
-                                                if inputs.product.making.fadable then
+                                                if not inputs.disabledFading && inputs.product.making.fadable then
                                                     Just fading
 
                                                 else

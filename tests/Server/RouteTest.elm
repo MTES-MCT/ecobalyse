@@ -180,6 +180,7 @@ suite =
                       , "countryDyeing=notACountryCode"
                       , "countryMaking=notACountryCode"
                       , "disabledSteps=invalid"
+                      , "disabledFading=untrue"
                       ]
                         |> String.join "&"
                         |> getEndpoint db "GET"
@@ -193,6 +194,7 @@ suite =
                                 , ( "materials", "Format de matière invalide : notAnID." )
                                 , ( "product", "Produit non trouvé id=notAProductID." )
                                 , ( "disabledSteps", "Impossible d'interpréter la liste des étapes désactivées; Code étape inconnu: invalid" )
+                                , ( "disabledFading", "La valeur ne peut être que true ou false." )
                                 ]
                                 |> Just
                             )

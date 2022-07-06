@@ -101,6 +101,7 @@ fromUserQuery query =
         , picking = Nothing
         , surfaceMass = Nothing
         , disabledSteps = []
+        , disabledFading = False
     }
 
 

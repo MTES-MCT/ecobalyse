@@ -197,6 +197,14 @@ describe("API", () => {
         /doit être compris entre/,
       );
     });
+
+    it("should validate the disabledFading param", async () => {
+      expectFieldErrorMessage(
+        await makeRequest("/api/simulator", ["disabledFading=untrue"]),
+        "disabledFading",
+        /ne peut être que true ou false/,
+      );
+    });
   });
 
   describe("/api/simulator/fwe", () => {
