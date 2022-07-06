@@ -281,7 +281,7 @@ pageFooter { currentVersion } =
                         []
                     ]
                 , Link.external
-                    [ href "https://www.entreprises.gouv.fr/fr/france-relance"
+                    [ href "https://www.economie.gouv.fr/plan-de-relance"
                     , class "d-flex flex-wrap justify-content-center align-items-center"
                     , class "col text-center bg-white p-3 m-3 link-external-muted"
                     , style "min-height" "200px"
