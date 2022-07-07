@@ -22,7 +22,7 @@
     "test": "npm run test:prepare && elm-test"
   },
   "dependencies": {
-    "@parcel/transformer-elm": "^2.3.2",
+    "@parcel/transformer-elm": "^2.6.0",
     "@parcel/transformer-image": "^2.3.2",
     "@parcel/transformer-sass": "^2.3.2",
     "@sentry/browser": "^6.18.1",
