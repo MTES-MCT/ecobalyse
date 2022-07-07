@@ -22,9 +22,9 @@
     "test": "npm run test:prepare && elm-test"
   },
   "dependencies": {
-    "@parcel/transformer-elm": "^2.3.2",
-    "@parcel/transformer-image": "^2.3.2",
-    "@parcel/transformer-sass": "^2.3.2",
+    "@parcel/transformer-elm": "^2.6.2",
+    "@parcel/transformer-image": "^2.6.2",
+    "@parcel/transformer-sass": "^2.6.2",
     "@sentry/browser": "^6.18.1",
     "@sentry/node": "^6.18.1",
     "@sentry/tracing": "^6.18.1",
@@ -35,7 +35,7 @@
     "helmet": "^5.0.2",
     "highcharts": "^10.0.0",
     "js-yaml": "^4.1.0",
-    "parcel": "^2.3.2",
+    "parcel": "^2.6.2",
     "piwik": "^1.0.9",
     "rapidoc": "^9.2.0"
   },
