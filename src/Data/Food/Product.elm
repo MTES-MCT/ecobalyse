@@ -588,7 +588,6 @@ updateTransport defaultTransport impactsForProcesses impactDefinitions countryCo
         transportWithRatio =
             transport
                 |> Formula.transportRatio (Unit.Ratio 0.33)
-                |> Debug.log "transportWithRatio"
 
         lorry =
             findImpactsByName lorryTransportName impactsForProcesses
