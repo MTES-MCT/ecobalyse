@@ -83,3 +83,17 @@ Pour un certain nombre de matière (exclusivement des matières synthétiques) l
 * acrylique
 * aramide
 {% endhint %}
+
+### Séparation du transport des étapes matière et filature
+
+Dans la donnée Base Impacts de l'impact {matière+filature}  est pris en compte le transport entre l'étape matière et filature, comme le montre cet extrait de la documentation du processus "fil de coton":&#x20;
+
+> The transports from the raw fibre production plant to the spinning plant includes the following steps: 1) Inland transport (with trucks) from the center of the production country to its main seaport, 2) Maritime transport (with a freight ship) from the main seaport of the production country to the main seaport of the spinning country, 3) Inland transport (with trucks) from the main seaport of the spinning country to its center. The average transport distance was calculated considering each production country and each transformation country. These countries are respectively weighted by their percentage of the production
+
+Néanmoins il n'est pas détaillé dans la documentation quelles sont les hypothèses précises de transport (distances, part modales). Ainsi nous ne pouvons pas soustraire l'impact du transport inclus dans la donnée Base Impacts originale {matière+filature}.
+
+{% hint style="warning" %}
+Après la séparation matière et filature, nous offrons la possibilité à l'utilisateur de paramétrer un lieu de filature différent du lieu de matière. Nous prenons en compte le transport entre ces lieux. Il y a donc un double compte du transport : 1 fois dans la donnée originale {matière+filature} et 1 fois dans notre nouvelle modélisation.
+
+Etant donné que dans la donnée originale {matière+filature} ces 2 étapes ont lieu dans la même zone géographique (exemple : Asie-Pacifique), et que de manière général l'impact du transport est minoritaire, ce double compte paraît peu impactant.&#x20;
+{% endhint %}
