@@ -128,7 +128,20 @@ ratioToFloat (Ratio float) =
 
 decodeRatio : Decoder Ratio
 decodeRatio =
-    Decode.map ratio Decode.float
+    Decode.float
+        |> Decode.andThen
+            (\float ->
+                if float < 0 || float > 1 then
+                    Decode.fail
+                        ("Le ratio spécifié ("
+                            ++ String.fromFloat float
+                            ++ ") doit être compris entre 0 et 1."
+                        )
+
+                else
+                    Decode.succeed float
+            )
+        |> Decode.map ratio
 
 
 encodeRatio : Ratio -> Encode.Value
@@ -171,7 +184,24 @@ qualityToFloat (Quality float) =
 
 decodeQuality : Decoder Quality
 decodeQuality =
-    Decode.map quality Decode.float
+    Decode.float
+        |> Decode.andThen
+            (\float ->
+                if float < qualityToFloat minQuality || float > qualityToFloat maxQuality then
+                    Decode.fail
+                        ("La qualité spécifiée ("
+                            ++ String.fromFloat float
+                            ++ ") doit être comprise entre "
+                            ++ String.fromFloat (qualityToFloat minQuality)
+                            ++ " et "
+                            ++ String.fromFloat (qualityToFloat maxQuality)
+                            ++ "."
+                        )
+
+                else
+                    Decode.succeed float
+            )
+        |> Decode.map quality
 
 
 encodeQuality : Quality -> Encode.Value
@@ -214,7 +244,24 @@ reparabilityToFloat (Reparability float) =
 
 decodeReparability : Decoder Reparability
 decodeReparability =
-    Decode.map reparability Decode.float
+    Decode.float
+        |> Decode.andThen
+            (\float ->
+                if float < reparabilityToFloat minReparability || float > reparabilityToFloat maxReparability then
+                    Decode.fail
+                        ("L'indice de réparabilité spécifié ("
+                            ++ String.fromFloat float
+                            ++ ") doit être compris entre "
+                            ++ String.fromFloat (reparabilityToFloat minReparability)
+                            ++ " et "
+                            ++ String.fromFloat (reparabilityToFloat maxReparability)
+                            ++ "."
+                        )
+
+                else
+                    Decode.succeed float
+            )
+        |> Decode.map reparability
 
 
 encodeReparability : Reparability -> Encode.Value
@@ -257,7 +304,24 @@ pickPerMeterToInt (PickPerMeter int) =
 
 decodePickPerMeter : Decoder PickPerMeter
 decodePickPerMeter =
-    Decode.map pickPerMeter Decode.int
+    Decode.int
+        |> Decode.andThen
+            (\int ->
+                if int < pickPerMeterToInt minPickPerMeter || int > pickPerMeterToInt maxPickPerMeter then
+                    Decode.fail
+                        ("Le duitage spécifié ("
+                            ++ String.fromInt int
+                            ++ ") doit être compris entre "
+                            ++ String.fromInt (pickPerMeterToInt minPickPerMeter)
+                            ++ " et "
+                            ++ String.fromInt (pickPerMeterToInt maxPickPerMeter)
+                            ++ "."
+                        )
+
+                else
+                    Decode.succeed int
+            )
+        |> Decode.map pickPerMeter
 
 
 encodePickPerMeter : PickPerMeter -> Encode.Value
@@ -300,7 +364,24 @@ surfaceMassToInt (SurfaceMass int) =
 
 decodeSurfaceMass : Decoder SurfaceMass
 decodeSurfaceMass =
-    Decode.map surfaceMass Decode.int
+    Decode.int
+        |> Decode.andThen
+            (\int ->
+                if int < surfaceMassToInt minSurfaceMass || int > surfaceMassToInt maxSurfaceMass then
+                    Decode.fail
+                        ("La masse surfacique spécifiée ("
+                            ++ String.fromInt int
+                            ++ ") doit être comprise entre "
+                            ++ String.fromInt (surfaceMassToInt minSurfaceMass)
+                            ++ " et "
+                            ++ String.fromInt (surfaceMassToInt maxSurfaceMass)
+                            ++ "."
+                        )
+
+                else
+                    Decode.succeed int
+            )
+        |> Decode.map surfaceMass
 
 
 encodeSurfaceMass : SurfaceMass -> Encode.Value

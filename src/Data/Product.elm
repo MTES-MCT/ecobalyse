@@ -77,8 +77,8 @@ decode processes =
         |> Pipe.required "name" Decode.string
         |> Pipe.required "mass" (Decode.map Mass.kilograms Decode.float)
         |> Pipe.required "pcrWaste" Unit.decodeRatio
-        |> Pipe.required "picking" Unit.decodePickPerMeter
-        |> Pipe.required "surfaceMass" Unit.decodeSurfaceMass
+        |> Pipe.optional "picking" Unit.decodePickPerMeter (Unit.pickPerMeter 0)
+        |> Pipe.optional "surfaceMass" Unit.decodeSurfaceMass (Unit.surfaceMass 0)
         |> Pipe.required "knitted" Decode.bool
         |> Pipe.required "faded" Decode.bool
         |> Pipe.required "fabricProcessUuid" (Process.decodeFromUuid processes)
