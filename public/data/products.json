@@ -5,9 +5,12 @@
     "mass": 0.95,
     "volume": 0.015,
     "pcrWaste": 0.2,
-    "picking": 1600,
-    "surfaceMass": 140,
-    "knitted": false,
+    "fabric": {
+      "type": "weaving",
+      "processUuid": "f9686809-f55e-4b96-b1f0-3298959de7d0",
+      "picking": 1600,
+      "surfaceMass": 140
+    },
     "fadable": false,
     "daysOfWear": 100,
     "wearsPerCycle": 20,
@@ -15,7 +18,6 @@
     "useRatioDryer": 0.25,
     "useRatioIroning": 0.05,
     "useTimeIroning": 0.067,
-    "fabricProcessUuid": "f9686809-f55e-4b96-b1f0-3298959de7d0",
     "makingProcessUuid": "7fe48d7c-a568-4bd5-a3ac-cfa88255b4fe",
     "useIroningProcessUuid": "b877ae15-96e0-43aa-bafa-a6abcfedbca3",
     "useNonIroningProcessUuid": "86db560b-d31f-4745-a01e-ec74be00f865"
@@ -26,9 +28,12 @@
     "mass": 0.11,
     "volume": 0.0012,
     "pcrWaste": 0.1,
-    "picking": 1600,
-    "surfaceMass": 140,
-    "knitted": false,
+    "fabric": {
+      "type": "weaving",
+      "processUuid": "f9686809-f55e-4b96-b1f0-3298959de7d0",
+      "picking": 1600,
+      "surfaceMass": 140
+    },
     "fadable": false,
     "daysOfWear": 100,
     "wearsPerCycle": 20,
@@ -36,7 +41,6 @@
     "useRatioDryer": 0.12,
     "useRatioIroning": 0.25,
     "useTimeIroning": 0.033,
-    "fabricProcessUuid": "f9686809-f55e-4b96-b1f0-3298959de7d0",
     "makingProcessUuid": "0a260a3f-260e-4b43-a0df-0cf673fda960",
     "useIroningProcessUuid": "70067861-aa8d-4ddb-9921-c045012b7c76",
     "useNonIroningProcessUuid": "81264b4c-dfb5-4cb1-b9e7-51b04a6f47d6"
@@ -47,9 +51,12 @@
     "mass": 0.25,
     "volume": 0.006,
     "pcrWaste": 0.2,
-    "picking": 5000,
-    "surfaceMass": 40,
-    "knitted": false,
+    "fabric": {
+      "type": "weaving",
+      "processUuid": "f9686809-f55e-4b96-b1f0-3298959de7d0",
+      "picking": 5000,
+      "surfaceMass": 40
+    },
     "fadable": false,
     "daysOfWear": 40,
     "wearsPerCycle": 2,
@@ -57,7 +64,6 @@
     "useRatioDryer": 0.12,
     "useRatioIroning": 0.7,
     "useTimeIroning": 0.043,
-    "fabricProcessUuid": "f9686809-f55e-4b96-b1f0-3298959de7d0",
     "makingProcessUuid": "7fe48d7c-a568-4bd5-a3ac-cfa88255b4fe",
     "useIroningProcessUuid": "33773966-2704-4420-8663-ea4231a12040",
     "useNonIroningProcessUuid": "406d1f98-1052-458d-8f50-1901853d896d"
@@ -68,7 +74,10 @@
     "mass": 0.17,
     "volume": 0.006,
     "pcrWaste": 0.15,
-    "knitted": true,
+    "fabric": {
+      "type": "knitting",
+      "processUuid": "2e16787c-7a89-4883-acdf-37d3d362bdab"
+    },
     "fadable": false,
     "daysOfWear": 45,
     "wearsPerCycle": 1,
@@ -76,7 +85,6 @@
     "useRatioDryer": 0.3,
     "useRatioIroning": 0.4,
     "useTimeIroning": 0.043,
-    "fabricProcessUuid": "2e16787c-7a89-4883-acdf-37d3d362bdab",
     "makingProcessUuid": "26e3ca02-9bc0-45b4-b8b4-73f4b3701ad5",
     "useIroningProcessUuid": "fcb8c240-1c4e-4413-925f-0b6a7465e5dd",
     "useNonIroningProcessUuid": "24e2ff0a-75c6-471f-a375-d3f075ffad44"
@@ -87,9 +95,12 @@
     "mass": 0.11,
     "volume": 0.0012,
     "pcrWaste": 0.1,
-    "picking": 1600,
-    "surfaceMass": 140,
-    "knitted": false,
+    "fabric": {
+      "type": "weaving",
+      "processUuid": "f9686809-f55e-4b96-b1f0-3298959de7d0",
+      "picking": 1600,
+      "surfaceMass": 140
+    },
     "fadable": false,
     "daysOfWear": 100,
     "wearsPerCycle": 20,
@@ -97,7 +108,6 @@
     "useRatioDryer": 0.12,
     "useRatioIroning": 0.25,
     "useTimeIroning": 0.033,
-    "fabricProcessUuid": "f9686809-f55e-4b96-b1f0-3298959de7d0",
     "makingProcessUuid": "0a260a3f-260e-4b43-a0df-0cf673fda960",
     "useIroningProcessUuid": "6efbbe3c-2ad2-47d4-9d8d-2bcbf5b19ada",
     "useNonIroningProcessUuid": "d88c97c6-6f9a-477e-a61c-01fc5aed0a3b"
@@ -108,7 +118,10 @@
     "mass": 0.5,
     "volume": 0.0102,
     "pcrWaste": 0.2,
-    "knitted": true,
+    "fabric": {
+      "type": "knitting",
+      "processUuid": "364298ad-2058-4ec4-b2d0-47f5214abffb"
+    },
     "fadable": false,
     "daysOfWear": 85,
     "wearsPerCycle": 5,
@@ -116,7 +129,6 @@
     "useRatioDryer": 0.3,
     "useRatioIroning": 0.0,
     "useTimeIroning": 0.0,
-    "fabricProcessUuid": "364298ad-2058-4ec4-b2d0-47f5214abffb",
     "makingProcessUuid": "387059fc-72cb-4a92-b1e7-2ef9242f8380",
     "useIroningProcessUuid": "c47a19ae-3d49-41aa-b38d-b8eef6ee8d8e",
     "useNonIroningProcessUuid": "1ecbfc31-9e9c-45de-9ed2-718b1c64357b"
@@ -127,9 +139,12 @@
     "mass": 0.45,
     "volume": 0.004,
     "pcrWaste": 0.22,
-    "picking": 3000,
-    "surfaceMass": 140,
-    "knitted": false,
+    "fabric": {
+      "type": "weaving",
+      "processUuid": "f9686809-f55e-4b96-b1f0-3298959de7d0",
+      "picking": 3000,
+      "surfaceMass": 140
+    },
     "fadable": true,
     "daysOfWear": 70,
     "wearsPerCycle": 3,
@@ -137,7 +152,6 @@
     "useRatioDryer": 0.3,
     "useRatioIroning": 0.63,
     "useTimeIroning": 0.072,
-    "fabricProcessUuid": "f9686809-f55e-4b96-b1f0-3298959de7d0",
     "makingProcessUuid": "1f428a50-73c0-4fc1-ab39-00fd312458ee",
     "useIroningProcessUuid": "6d71fdef-b7a8-4a67-81e9-dc0e3f01a007",
     "useNonIroningProcessUuid": "4964273a-cdbd-43cf-8cf8-4b017aee4f03"
@@ -148,9 +162,12 @@
     "mass": 0.3,
     "volume": 0.007,
     "pcrWaste": 0.2,
-    "picking": 5000,
-    "surfaceMass": 40,
-    "knitted": false,
+    "fabric": {
+      "type": "weaving",
+      "processUuid": "f9686809-f55e-4b96-b1f0-3298959de7d0",
+      "picking": 5000,
+      "surfaceMass": 40
+    },
     "fadable": false,
     "daysOfWear": 70,
     "wearsPerCycle": 3,
@@ -158,7 +175,6 @@
     "useRatioDryer": 0.12,
     "useRatioIroning": 0.18,
     "useTimeIroning": 0.075,
-    "fabricProcessUuid": "f9686809-f55e-4b96-b1f0-3298959de7d0",
     "makingProcessUuid": "387059fc-72cb-4a92-b1e7-2ef9242f8380",
     "useIroningProcessUuid": "2de2f5e5-79fb-4a4a-8399-a722012e82dc",
     "useNonIroningProcessUuid": "2572015b-7320-4ce1-bc99-cc6de371a654"
@@ -169,9 +185,12 @@
     "mass": 0.95,
     "volume": 0.015,
     "pcrWaste": 0.2,
-    "picking": 1600,
-    "surfaceMass": 140,
-    "knitted": false,
+    "fabric": {
+      "type": "weaving",
+      "processUuid": "f9686809-f55e-4b96-b1f0-3298959de7d0",
+      "picking": 1600,
+      "surfaceMass": 140
+    },
     "fadable": false,
     "daysOfWear": 100,
     "wearsPerCycle": 20,
@@ -179,7 +198,6 @@
     "useRatioDryer": 0.25,
     "useRatioIroning": 0.05,
     "useTimeIroning": 0.067,
-    "fabricProcessUuid": "f9686809-f55e-4b96-b1f0-3298959de7d0",
     "makingProcessUuid": "7fe48d7c-a568-4bd5-a3ac-cfa88255b4fe",
     "useIroningProcessUuid": "60147175-ca20-49aa-8991-9ed6f172c47b",
     "useNonIroningProcessUuid": "8c040f35-e137-424b-a67f-2e50b628c1bf"
@@ -190,9 +208,12 @@
     "mass": 0.45,
     "volume": 0.004,
     "pcrWaste": 0.2,
-    "picking": 3000,
-    "surfaceMass": 140,
-    "knitted": false,
+    "fabric": {
+      "type": "weaving",
+      "processUuid": "f9686809-f55e-4b96-b1f0-3298959de7d0",
+      "picking": 3000,
+      "surfaceMass": 140
+    },
     "fadable": false,
     "daysOfWear": 70,
     "wearsPerCycle": 3,
@@ -200,7 +221,6 @@
     "useRatioDryer": 0.3,
     "useRatioIroning": 0.63,
     "useTimeIroning": 0.072,
-    "fabricProcessUuid": "f9686809-f55e-4b96-b1f0-3298959de7d0",
     "makingProcessUuid": "387059fc-72cb-4a92-b1e7-2ef9242f8380",
     "useIroningProcessUuid": "f6b685ed-d5bd-40a0-af16-7c30838f3627",
     "useNonIroningProcessUuid": "ea7afeed-c058-4dbb-be01-66704a9afb1f"
@@ -211,7 +231,10 @@
     "mass": 0.5,
     "volume": 0.0102,
     "pcrWaste": 0.2,
-    "knitted": true,
+    "fabric": {
+      "type": "knitting",
+      "processUuid": "364298ad-2058-4ec4-b2d0-47f5214abffb"
+    },
     "fadable": false,
     "daysOfWear": 85,
     "wearsPerCycle": 5,
@@ -219,7 +242,6 @@
     "useRatioDryer": 0.3,
     "useRatioIroning": 0.0,
     "useTimeIroning": 0.0,
-    "fabricProcessUuid": "364298ad-2058-4ec4-b2d0-47f5214abffb",
     "makingProcessUuid": "387059fc-72cb-4a92-b1e7-2ef9242f8380",
     "useIroningProcessUuid": "4a94e796-cc40-4d74-b5ad-72ef0192a391",
     "useNonIroningProcessUuid": "2b39a7ac-38bd-435f-85a4-783023d845bf"
@@ -230,9 +252,12 @@
     "mass": 0.3,
     "volume": 0.007,
     "pcrWaste": 0.2,
-    "picking": 5000,
-    "surfaceMass": 40,
-    "knitted": false,
+    "fabric": {
+      "type": "weaving",
+      "processUuid": "f9686809-f55e-4b96-b1f0-3298959de7d0",
+      "picking": 5000,
+      "surfaceMass": 40
+    },
     "fadable": false,
     "daysOfWear": 70,
     "wearsPerCycle": 3,
@@ -240,7 +265,6 @@
     "useRatioDryer": 0.12,
     "useRatioIroning": 0.18,
     "useTimeIroning": 0.075,
-    "fabricProcessUuid": "f9686809-f55e-4b96-b1f0-3298959de7d0",
     "makingProcessUuid": "7fe48d7c-a568-4bd5-a3ac-cfa88255b4fe",
     "useIroningProcessUuid": "ce224ffa-3d46-4eb9-b624-2e34d4b5a419",
     "useNonIroningProcessUuid": "d3bff7b7-efc1-459b-856d-ea0801d6912f"
@@ -251,7 +275,10 @@
     "mass": 0.17,
     "volume": 0.0018,
     "pcrWaste": 0.15,
-    "knitted": true,
+    "fabric": {
+      "type": "knitting",
+      "processUuid": "2e16787c-7a89-4883-acdf-37d3d362bdab"
+    },
     "fadable": false,
     "daysOfWear": 45,
     "wearsPerCycle": 1,
@@ -259,7 +286,6 @@
     "useRatioDryer": 0.3,
     "useRatioIroning": 0.4,
     "useTimeIroning": 0.043,
-    "fabricProcessUuid": "2e16787c-7a89-4883-acdf-37d3d362bdab",
     "makingProcessUuid": "26e3ca02-9bc0-45b4-b8b4-73f4b3701ad5",
     "useIroningProcessUuid": "974659b8-4635-43ba-86c5-73a186ea6f21",
     "useNonIroningProcessUuid": "7f76529e-521d-4795-bb36-ff896c4692da"
@@ -270,9 +296,12 @@
     "mass": 0.95,
     "volume": 0.015,
     "pcrWaste": 0.2,
-    "picking": 3000,
-    "surfaceMass": 140,
-    "knitted": false,
+    "fabric": {
+      "type": "weaving",
+      "processUuid": "f9686809-f55e-4b96-b1f0-3298959de7d0",
+      "picking": 3000,
+      "surfaceMass": 140
+    },
     "fadable": false,
     "daysOfWear": 100,
     "wearsPerCycle": 20,
@@ -280,7 +309,6 @@
     "useRatioDryer": 0.25,
     "useRatioIroning": 0.05,
     "useTimeIroning": 0.067,
-    "fabricProcessUuid": "f9686809-f55e-4b96-b1f0-3298959de7d0",
     "makingProcessUuid": "7fe48d7c-a568-4bd5-a3ac-cfa88255b4fe",
     "useIroningProcessUuid": "12a83d8f-24e4-414f-9087-a7d37fefce91",
     "useNonIroningProcessUuid": "493c32d2-506d-48c1-b8d7-0646fba88571"
