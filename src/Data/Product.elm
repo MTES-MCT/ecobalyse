@@ -25,11 +25,11 @@ type alias Product =
     , name : String
     , mass : Mass
     , pcrWaste : Unit.Ratio -- PCR product waste ratio
+    , fadable : Bool -- Can this product be faded?
+    , knitted : Bool -- True: Tricotage (Knitting); False: Tissage (Weaving)
+    , fabricProcess : Process -- Procédé de Tissage/Tricotage
     , picking : Unit.PickPerMeter -- Duitage: pick/m (picks per meter)
     , surfaceMass : Unit.SurfaceMass -- Grammage: gr/m² par kg de produit
-    , knitted : Bool -- True: Tricotage (Knitting); False: Tissage (Weaving)
-    , fadable : Bool -- Should this product be faded?
-    , fabricProcess : Process -- Procédé de Tissage/Tricotage
     , makingProcess : Process -- Procédé de Confection
     , useIroningProcess : Process -- Procédé de repassage
     , useNonIroningProcess : Process -- Procédé composite d'utilisation hors-repassage
@@ -77,11 +77,25 @@ decode processes =
         |> Pipe.required "name" Decode.string
         |> Pipe.required "mass" (Decode.map Mass.kilograms Decode.float)
         |> Pipe.required "pcrWaste" Unit.decodeRatio
-        |> Pipe.optional "picking" Unit.decodePickPerMeter (Unit.pickPerMeter 0)
-        |> Pipe.optional "surfaceMass" Unit.decodeSurfaceMass (Unit.surfaceMass 0)
-        |> Pipe.required "knitted" Decode.bool
         |> Pipe.required "fadable" Decode.bool
-        |> Pipe.required "fabricProcessUuid" (Process.decodeFromUuid processes)
+        |> Pipe.requiredAt [ "fabric", "type" ]
+            (Decode.string
+                |> Decode.andThen
+                    (\str ->
+                        case String.toLower str of
+                            "weaving" ->
+                                Decode.succeed False
+
+                            "knitting" ->
+                                Decode.succeed True
+
+                            _ ->
+                                Decode.fail ("Type de production d'étoffe inconnu\u{00A0}: " ++ str)
+                    )
+            )
+        |> Pipe.requiredAt [ "fabric", "processUuid" ] (Process.decodeFromUuid processes)
+        |> Pipe.optionalAt [ "fabric", "picking" ] Unit.decodePickPerMeter (Unit.pickPerMeter 0)
+        |> Pipe.optionalAt [ "fabric", "surfaceMass" ] Unit.decodeSurfaceMass (Unit.surfaceMass 0)
         |> Pipe.required "makingProcessUuid" (Process.decodeFromUuid processes)
         |> Pipe.required "useIroningProcessUuid" (Process.decodeFromUuid processes)
         |> Pipe.required "useNonIroningProcessUuid" (Process.decodeFromUuid processes)
