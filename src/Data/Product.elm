@@ -24,33 +24,30 @@ type alias Product =
     { id : Id
     , name : String
     , mass : Mass
-    , pcrWaste : Unit.Ratio -- PCR product waste ratio
-    , fadable : Bool -- Can this product be faded?
-    , knitted : Bool -- True: Tricotage (Knitting); False: Tissage (Weaving)
+
+    -- Fabric step specific options
     , fabricProcess : Process -- Procédé de Tissage/Tricotage
+    , knitted : Bool -- True: Tricotage (Knitting); False: Tissage (Weaving)
     , picking : Unit.PickPerMeter -- Duitage: pick/m (picks per meter)
     , surfaceMass : Unit.SurfaceMass -- Grammage: gr/m² par kg de produit
+
+    -- Making step specific options
     , makingProcess : Process -- Procédé de Confection
+    , fadable : Bool -- Can this product be faded?
+    , pcrWaste : Unit.Ratio -- PCR product waste ratio
+
+    -- Use step specific options
     , useIroningProcess : Process -- Procédé de repassage
     , useNonIroningProcess : Process -- Procédé composite d'utilisation hors-repassage
     , wearsPerCycle : Int -- Nombre de jours porté par cycle d'entretien
+    , useDefaultNbCycles : Int -- Nombre par défaut de cycles d'entretien (not used in computations)
+    , useRatioDryer : Unit.Ratio -- Ratio de séchage électrique (not used in computations)
+    , useRatioIroning : Unit.Ratio -- Ratio de repassage (not used in computations)
+    , useTimeIroning : Duration -- Temps de repassage (not used in computations)
+    , daysOfWear : Duration -- Nombre de jour d'utilisation du vêtement (pour qualité=1.0) (not used in computations)
+
+    -- End of Life step specific options
     , volume : Volume
-
-    -- Nombre par défaut de cycles d'entretien
-    -- Note: only for information, not used in computations
-    , useDefaultNbCycles : Int
-
-    -- Note: only for information, not used in computations
-    , useRatioDryer : Unit.Ratio -- Ratio de séchage électrique
-
-    -- Note: only for information, not used in computations
-    , useRatioIroning : Unit.Ratio -- Ratio de repassage
-
-    -- Note: only for information, not used in computations
-    , useTimeIroning : Duration -- Temps de repassage
-
-    -- Note: only for information, not used in computations
-    , daysOfWear : Duration -- Nombre de jour d'utilisation du vêtement (pour qualité=1.0)
     }
 
 
@@ -76,8 +73,7 @@ decode processes =
         |> Pipe.required "id" (Decode.map Id Decode.string)
         |> Pipe.required "name" Decode.string
         |> Pipe.required "mass" (Decode.map Mass.kilograms Decode.float)
-        |> Pipe.required "pcrWaste" Unit.decodeRatio
-        |> Pipe.required "fadable" Decode.bool
+        |> Pipe.requiredAt [ "fabric", "processUuid" ] (Process.decodeFromUuid processes)
         |> Pipe.requiredAt [ "fabric", "type" ]
             (Decode.string
                 |> Decode.andThen
@@ -93,19 +89,20 @@ decode processes =
                                 Decode.fail ("Type de production d'étoffe inconnu\u{00A0}: " ++ str)
                     )
             )
-        |> Pipe.requiredAt [ "fabric", "processUuid" ] (Process.decodeFromUuid processes)
         |> Pipe.optionalAt [ "fabric", "picking" ] Unit.decodePickPerMeter (Unit.pickPerMeter 0)
         |> Pipe.optionalAt [ "fabric", "surfaceMass" ] Unit.decodeSurfaceMass (Unit.surfaceMass 0)
-        |> Pipe.required "makingProcessUuid" (Process.decodeFromUuid processes)
-        |> Pipe.required "useIroningProcessUuid" (Process.decodeFromUuid processes)
-        |> Pipe.required "useNonIroningProcessUuid" (Process.decodeFromUuid processes)
-        |> Pipe.required "wearsPerCycle" Decode.int
-        |> Pipe.required "volume" (Decode.map Volume.cubicMeters Decode.float)
-        |> Pipe.required "useDefaultNbCycles" Decode.int
-        |> Pipe.required "useRatioDryer" Unit.decodeRatio
-        |> Pipe.required "useRatioIroning" Unit.decodeRatio
-        |> Pipe.required "useTimeIroning" (Decode.map Duration.hours Decode.float)
-        |> Pipe.required "daysOfWear" (Decode.map Duration.days Decode.float)
+        |> Pipe.requiredAt [ "making", "processUuid" ] (Process.decodeFromUuid processes)
+        |> Pipe.optionalAt [ "making", "fadable" ] Decode.bool False
+        |> Pipe.requiredAt [ "making", "pcrWaste" ] Unit.decodeRatio
+        |> Pipe.requiredAt [ "use", "ironingProcessUuid" ] (Process.decodeFromUuid processes)
+        |> Pipe.requiredAt [ "use", "nonIroningProcessUuid" ] (Process.decodeFromUuid processes)
+        |> Pipe.requiredAt [ "use", "wearsPerCycle" ] Decode.int
+        |> Pipe.requiredAt [ "use", "defaultNbCycles" ] Decode.int
+        |> Pipe.requiredAt [ "use", "ratioDryer" ] Unit.decodeRatio
+        |> Pipe.requiredAt [ "use", "ratioIroning" ] Unit.decodeRatio
+        |> Pipe.requiredAt [ "use", "timeIroning" ] (Decode.map Duration.hours Decode.float)
+        |> Pipe.requiredAt [ "use", "daysOfWear" ] (Decode.map Duration.days Decode.float)
+        |> Pipe.requiredAt [ "endOfLife", "volume" ] (Decode.map Volume.cubicMeters Decode.float)
 
 
 decodeList : List Process -> Decoder (List Product)
