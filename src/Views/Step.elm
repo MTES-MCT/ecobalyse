@@ -344,7 +344,7 @@ stepHeader { current, inputs, toggleStep } =
         , current.label
             |> Step.displayLabel
                 { knitted = inputs.product.knitted
-                , faded = inputs.product.faded
+                , fadable = inputs.product.fadable
                 }
             |> text
         ]

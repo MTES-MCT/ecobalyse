@@ -28,7 +28,7 @@ type alias Product =
     , picking : Unit.PickPerMeter -- Duitage: pick/m (picks per meter)
     , surfaceMass : Unit.SurfaceMass -- Grammage: gr/m² par kg de produit
     , knitted : Bool -- True: Tricotage (Knitting); False: Tissage (Weaving)
-    , faded : Bool -- Should this product be faded?
+    , fadable : Bool -- Should this product be faded?
     , fabricProcess : Process -- Procédé de Tissage/Tricotage
     , makingProcess : Process -- Procédé de Confection
     , useIroningProcess : Process -- Procédé de repassage
@@ -80,7 +80,7 @@ decode processes =
         |> Pipe.optional "picking" Unit.decodePickPerMeter (Unit.pickPerMeter 0)
         |> Pipe.optional "surfaceMass" Unit.decodeSurfaceMass (Unit.surfaceMass 0)
         |> Pipe.required "knitted" Decode.bool
-        |> Pipe.required "faded" Decode.bool
+        |> Pipe.required "fadable" Decode.bool
         |> Pipe.required "fabricProcessUuid" (Process.decodeFromUuid processes)
         |> Pipe.required "makingProcessUuid" (Process.decodeFromUuid processes)
         |> Pipe.required "useIroningProcessUuid" (Process.decodeFromUuid processes)
@@ -109,7 +109,7 @@ encode v =
         , ( "picking", Unit.encodePickPerMeter v.picking )
         , ( "surfaceMass", Unit.encodeSurfaceMass v.surfaceMass )
         , ( "knitted", Encode.bool v.knitted )
-        , ( "faded", Encode.bool v.faded )
+        , ( "fadable", Encode.bool v.fadable )
         , ( "fabricProcessUuid", Process.encodeUuid v.makingProcess.uuid )
         , ( "makingProcessUuid", Process.encodeUuid v.makingProcess.uuid )
         , ( "useIroningProcessUuid", Process.encodeUuid v.useIroningProcess.uuid )

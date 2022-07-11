@@ -83,7 +83,7 @@ table db { detailed } =
     , { label = "Délavage"
       , toCell =
             \product ->
-                if product.faded then
+                if product.fadable then
                     db.processes
                         |> Process.loadWellKnown
                         |> Result.map (.fading >> .name >> text)

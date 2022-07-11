@@ -121,9 +121,9 @@ defaultProcessInfo =
     }
 
 
-displayLabel : { knitted : Bool, faded : Bool } -> Label -> String
-displayLabel { knitted, faded } label =
-    case ( label, knitted, faded ) of
+displayLabel : { knitted : Bool, fadable : Bool } -> Label -> String
+displayLabel { knitted, fadable } label =
+    case ( label, knitted, fadable ) of
         ( Label.Making, _, True ) ->
             "Confection & Délavage"
 
@@ -303,7 +303,7 @@ updateFromInputs { processes } inputs ({ label, country } as step) =
                         | countryElec = Just country.electricityProcess.name
                         , making = Just inputs.product.makingProcess.name
                         , fading =
-                            if inputs.product.faded then
+                            if inputs.product.fadable then
                                 processes
                                     |> Process.loadWellKnown
                                     |> Result.map (.fading >> .name)
