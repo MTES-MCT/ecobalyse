@@ -8,27 +8,7 @@ module Page.Food exposing
 
 import Data.Country as Country exposing (Country)
 import Data.Food.Db as Db
-import Data.Food.Product as Product
-    exposing
-        ( Process
-        , ProcessName
-        , Product
-        , RawCookedRatioInfo
-        , Step
-        , addIngredient
-        , defaultCountry
-        , filterIngredients
-        , findProductByName
-        , isIngredient
-        , isProcessing
-        , isTransport
-        , isWaste
-        , processNameToString
-        , productNameToString
-        , removeIngredient
-        , stringToProductName
-        , updateTransport
-        )
+import Data.Food.Product as Product exposing ( Product)
 import Data.Impact as Impact
 import Data.Session as Session exposing (Session)
 import Data.Unit as Unit
@@ -51,7 +31,7 @@ import Views.RangeSlider as RangeSlider
 type alias SelectedProduct =
     { product : Product
     , original : Product
-    , rawCookedRatioInfo : Maybe RawCookedRatioInfo
+    , rawCookedRatioInfo : Maybe Product.RawCookedRatioInfo
     }
 
 
@@ -65,14 +45,14 @@ type alias Model =
 
 
 type Msg
-    = IngredientSliderChanged ProcessName (Maybe Unit.Ratio)
+    = IngredientSliderChanged Product.ProcessName (Maybe Unit.Ratio)
     | DbLoaded (WebData Db.Db)
     | Reset
     | ProductSelected String
     | SwitchImpact Impact.Trigram
     | IngredientSelected String
     | AddIngredient
-    | DeleteIngredient ProcessName
+    | DeleteIngredient Product.ProcessName
     | CountrySelected Country.Code
     | NoOp
 
@@ -88,7 +68,7 @@ init session =
       , productsSelectChoice = tunaPizza
       , impact = Impact.defaultTrigram
       , ingredientsSelectChoice = ""
-      , countriesSelectChoice = defaultCountry
+      , countriesSelectChoice = Product.defaultCountry
       }
     , session
     , Cmd.batch
@@ -114,7 +94,7 @@ update ({ foodDb, db } as session) msg ({ selectedProduct } as model) =
         ( DbLoaded (RemoteData.Success loadedDb), _ ) ->
             let
                 productResult =
-                    findProductByName (stringToProductName tunaPizza) loadedDb.products
+                    Product.findProductByName (Product.stringToProductName tunaPizza) loadedDb.products
             in
             case productResult of
                 Ok product ->
@@ -150,7 +130,7 @@ update ({ foodDb, db } as session) msg ({ selectedProduct } as model) =
         ( Reset, Just selected ) ->
             ( { model
                 | selectedProduct = Just { selected | product = selected.original }
-                , countriesSelectChoice = defaultCountry
+                , countriesSelectChoice = Product.defaultCountry
               }
             , session
             , Cmd.none
@@ -159,7 +139,7 @@ update ({ foodDb, db } as session) msg ({ selectedProduct } as model) =
         ( ProductSelected productSelected, _ ) ->
             let
                 productResult =
-                    findProductByName (stringToProductName productSelected) foodDb.products
+                    Product.findProductByName (Product.stringToProductName productSelected) foodDb.products
             in
             case productResult of
                 Ok product ->
@@ -200,7 +180,7 @@ update ({ foodDb, db } as session) msg ({ selectedProduct } as model) =
             let
                 productWithAddedIngredient =
                     selected.product
-                        |> addIngredient selected.rawCookedRatioInfo foodDb.processes model.ingredientsSelectChoice
+                        |> Product.addIngredient selected.rawCookedRatioInfo foodDb.processes model.ingredientsSelectChoice
 
                 productWithPefScore =
                     productWithAddedIngredient
@@ -226,7 +206,7 @@ update ({ foodDb, db } as session) msg ({ selectedProduct } as model) =
             let
                 productWithoutIngredient =
                     selected.product
-                        |> removeIngredient selected.rawCookedRatioInfo processName
+                        |> Product.removeIngredient selected.rawCookedRatioInfo processName
 
                 productWithPefScore =
                     productWithoutIngredient
@@ -243,7 +223,7 @@ update ({ foodDb, db } as session) msg ({ selectedProduct } as model) =
             let
                 productWithUpdatedTransport =
                     selected.product
-                        |> updateTransport selected.original.plant.transport foodDb.processes db.impacts countryCode db.transports
+                        |> Product.updateTransport selected.original.plant.transport foodDb.processes db.impacts countryCode db.transports
 
                 productWithPefScore =
                     productWithUpdatedTransport
@@ -292,7 +272,7 @@ view ({ foodDb, db } as session) { selectedProduct, productsSelectChoice, impact
                                 (\productName ->
                                     let
                                         name =
-                                            productNameToString productName
+                                            Product.productNameToString productName
                                     in
                                     option
                                         [ value name
@@ -331,7 +311,7 @@ view ({ foodDb, db } as session) { selectedProduct, productsSelectChoice, impact
                     , div [ class "row py-3 gap-2 gap-sm-0" ]
                         [ div [ class "col-sm-10" ]
                             [ foodDb.products
-                                |> filterIngredients
+                                |> Product.filterIngredients
                                 |> ingredientSelector IngredientSelected
                             ]
                         , div [ class "col-sm-2" ]
@@ -415,11 +395,11 @@ viewHeader header1 header2 children =
         text ""
 
 
-viewIngredients : (Unit.Ratio -> String) -> Float -> Impact.Trigram -> Step -> Html Msg
+viewIngredients : (Unit.Ratio -> String) -> Float -> Impact.Trigram -> Product.Step -> Html Msg
 viewIngredients toString totalImpact impact step =
     step.ingredients
         |> AnyDict.toList
-        |> List.filter (\( processName, _ ) -> isIngredient processName)
+        |> List.filter (\( processName, _ ) -> Product.isIngredient processName)
         |> List.map
             (\( name, process ) ->
                 let
@@ -427,7 +407,7 @@ viewIngredients toString totalImpact impact step =
                         makeBar totalImpact impact name process
                 in
                 div [ class "card stacked-card" ]
-                    [ div [ class "card-header" ] [ text <| processNameToString name ]
+                    [ div [ class "card-header" ] [ text <| Product.processNameToString name ]
                     , viewIngredient toString bar
                     ]
             )
@@ -438,7 +418,7 @@ viewIngredient : (Unit.Ratio -> String) -> Bar -> Html Msg
 viewIngredient toString bar =
     let
         name =
-            bar.name |> processNameToString
+            bar.name |> Product.processNameToString
     in
     div [ class "row align-items-center" ]
         [ div [ class "col-sm-6 px-4 py-2 py-sm-0" ]
@@ -448,7 +428,7 @@ viewIngredient toString bar =
                 , update = IngredientSliderChanged bar.name
                 , value = bar.amount
                 , toString = toString
-                , disabled = not (isIngredient bar.name)
+                , disabled = not (Product.isIngredient bar.name)
                 , min = 0
                 , max = 100
                 }
@@ -460,7 +440,7 @@ viewIngredient toString bar =
 
 
 type alias Bar =
-    { name : ProcessName
+    { name : Product.ProcessName
     , amount : Unit.Ratio
     , impact : Float
     , width : Float
@@ -468,7 +448,7 @@ type alias Bar =
     }
 
 
-makeBar : Float -> Impact.Trigram -> ProcessName -> Process -> Bar
+makeBar : Float -> Impact.Trigram -> Product.ProcessName -> Product.Process -> Bar
 makeBar totalImpact trigram processName process =
     let
         impact =
@@ -532,11 +512,11 @@ ingredientSelector event processes =
         )
 
 
-viewProcessing : Float -> Impact.Trigram -> Step -> Html Msg
+viewProcessing : Float -> Impact.Trigram -> Product.Step -> Html Msg
 viewProcessing totalImpact impact step =
     step.processing
         |> AnyDict.toList
-        |> List.filter (\( processName, _ ) -> isProcessing processName)
+        |> List.filter (\( processName, _ ) -> Product.isProcessing processName)
         |> List.map
             (\( name, process ) ->
                 let
@@ -544,14 +524,14 @@ viewProcessing totalImpact impact step =
                         makeBar totalImpact impact name process
                 in
                 div [ class "card stacked-card" ]
-                    [ div [ class "card-header" ] [ text <| processNameToString name ]
+                    [ div [ class "card-header" ] [ text <| Product.processNameToString name ]
                     , viewIngredient ratioToStringKg bar
                     ]
             )
         |> viewHeader (text "Processus") (text "Pourcentage de l'impact total")
 
 
-viewTransport : Float -> Float -> Impact.Trigram -> Step -> Country.Code -> List Country -> Html Msg
+viewTransport : Float -> Float -> Impact.Trigram -> Product.Step -> Country.Code -> List Country -> Html Msg
 viewTransport totalWeight totalImpact impact step selectedCountry countries =
     let
         countrySelector =
@@ -570,7 +550,7 @@ viewTransport totalWeight totalImpact impact step selectedCountry countries =
     div []
         [ step.transport
             |> AnyDict.toList
-            |> List.filter (\( processName, _ ) -> isTransport processName)
+            |> List.filter (\( processName, _ ) -> Product.isTransport processName)
             |> List.map
                 (\( name, process ) ->
                     let
@@ -578,7 +558,7 @@ viewTransport totalWeight totalImpact impact step selectedCountry countries =
                             makeBar totalImpact impact name process
                     in
                     div [ class "card stacked-card" ]
-                        [ div [ class "card-header" ] [ text <| processNameToString name ]
+                        [ div [ class "card-header" ] [ text <| Product.processNameToString name ]
                         , viewIngredient (ratioToStringTonKm totalWeight) bar
                         ]
                 )
@@ -586,11 +566,11 @@ viewTransport totalWeight totalImpact impact step selectedCountry countries =
         ]
 
 
-viewWaste : Float -> Impact.Trigram -> Step -> Html Msg
+viewWaste : Float -> Impact.Trigram -> Product.Step -> Html Msg
 viewWaste totalImpact impact step =
     step.waste
         |> AnyDict.toList
-        |> List.filter (\( processName, _ ) -> isWaste processName)
+        |> List.filter (\( processName, _ ) -> Product.isWaste processName)
         |> List.map
             (\( name, process ) ->
                 let
@@ -598,7 +578,7 @@ viewWaste totalImpact impact step =
                         makeBar totalImpact impact name process
                 in
                 div [ class "card stacked-card" ]
-                    [ div [ class "card-header" ] [ text <| processNameToString name ]
+                    [ div [ class "card-header" ] [ text <| Product.processNameToString name ]
                     , viewIngredient ratioToStringKg bar
                     ]
             )
