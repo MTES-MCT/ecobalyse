@@ -549,14 +549,14 @@ filterIngredients products =
         |> List.sort
 
 
-addIngredient : Maybe RawCookedRatioInfo -> ImpactsForProcesses -> String -> Product -> Product
+addIngredient : Maybe RawCookedRatioInfo -> ImpactsForProcesses -> String -> Product -> Result String Product
 addIngredient maybeRawCookedRatioInfo impactsForProcesses ingredientName product =
     let
         processName =
             stringToProcessName ingredientName
     in
-    case findImpactsByName processName impactsForProcesses of
-        Ok impacts ->
+    findImpactsByName processName impactsForProcesses
+    |> Result.map (\impacts ->
             let
                 amount =
                     1.0
@@ -572,9 +572,7 @@ addIngredient maybeRawCookedRatioInfo impactsForProcesses ingredientName product
                         |> updateWeight maybeRawCookedRatioInfo
             in
             { product | plant = withAddedIngredient }
-
-        Err _ ->
-            product
+    )
 
 
 removeIngredient : Maybe RawCookedRatioInfo -> ProcessName -> Product -> Product

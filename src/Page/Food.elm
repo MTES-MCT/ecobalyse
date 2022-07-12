@@ -204,14 +204,23 @@ update ({ foodDb, db } as session) msg ({ selectedProduct } as model) =
 
                 productWithPefScore =
                     productWithAddedIngredient
-                        |> Product.computePefImpact session.db.impacts
+                        |> Result.map (Product.computePefImpact session.db.impacts)
             in
-            ( { model
-                | selectedProduct = Just { selected | product = productWithPefScore }
-              }
-            , session
-            , Cmd.none
-            )
+            case productWithPefScore of
+                Ok updatedProduct ->
+                    ( { model
+                        | selectedProduct = Just { selected | product = updatedProduct }
+                      }
+                    , session
+                    , Cmd.none
+                    )
+
+                Err message ->
+                    ( model
+                    , session
+                        |> Session.notifyError "Erreur lors de l'ajout de l'ingrédient" message
+                    , Cmd.none
+                    )
 
         ( DeleteIngredient processName, Just selected ) ->
             let
