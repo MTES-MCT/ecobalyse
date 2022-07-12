@@ -550,37 +550,32 @@ filterIngredients products =
 
 
 addIngredient : Maybe RawCookedRatioInfo -> ImpactsForProcesses -> String -> Product -> Result String Product
-addIngredient maybeRawCookedRatioInfo impactsForProcesses ingredientName product =
+addIngredient maybeRawCookedRatioInfo impactsForProcesses ingredientName ({ plant } as product) =
     let
         processName =
             stringToProcessName ingredientName
     in
     findImpactsByName processName impactsForProcesses
-    |> Result.map (\impacts ->
-            let
-                amount =
-                    1.0
+        |> Result.map
+            (\impacts ->
+                let
+                    amount =
+                        1.0
 
-                plant =
-                    product.plant
-
-                withAddedIngredient =
-                    { plant
-                        | ingredients = AnyDict.insert processName (Process amount impacts) plant.ingredients
-                    }
-                        -- Update the total weight
-                        |> updateWeight maybeRawCookedRatioInfo
-            in
-            { product | plant = withAddedIngredient }
-    )
+                    withAddedIngredient =
+                        { plant
+                            | ingredients = AnyDict.insert processName (Process amount impacts) plant.ingredients
+                        }
+                            -- Update the total weight
+                            |> updateWeight maybeRawCookedRatioInfo
+                in
+                { product | plant = withAddedIngredient }
+            )
 
 
 removeIngredient : Maybe RawCookedRatioInfo -> ProcessName -> Product -> Product
-removeIngredient maybeRawCookedRatioInfo processName product =
+removeIngredient maybeRawCookedRatioInfo processName ({ plant } as product) =
     let
-        plant =
-            product.plant
-
         withRemovedIngredient =
             { plant
                 | ingredients = AnyDict.filter (\name _ -> name /= processName) plant.ingredients
@@ -594,13 +589,10 @@ removeIngredient maybeRawCookedRatioInfo processName product =
 
 
 updateTransport : Processes -> ImpactsForProcesses -> List Impact.Definition -> Country.Code -> Distances -> Product -> Product
-updateTransport defaultTransport impactsForProcesses impactDefinitions countryCode distances product =
+updateTransport defaultTransport impactsForProcesses impactDefinitions countryCode distances ({ plant } as product) =
     let
-        plant =
-            product.plant
-
         totalWeight =
-            getTotalWeight product.plant
+            getTotalWeight plant
 
         impacts =
             Impact.impactsFromDefinitons impactDefinitions
