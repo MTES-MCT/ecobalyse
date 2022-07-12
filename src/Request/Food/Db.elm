@@ -55,27 +55,10 @@ handleProcessesLoaded impacts impactsForProcessesData =
             Task.succeed RemoteData.Loading
 
 
-handleImpactsLoaded : WebData (List Impact.Definition) -> Task () (WebData Db)
-handleImpactsLoaded impactsData =
-    case impactsData of
-        RemoteData.Success impacts ->
-            getJson (Product.decodeProcesses impacts) "food/processes.json"
-                |> Task.andThen (handleProcessesLoaded impacts)
-
-        RemoteData.Failure error ->
-            Task.succeed (RemoteData.Failure error)
-
-        RemoteData.NotAsked ->
-            Task.succeed RemoteData.NotAsked
-
-        RemoteData.Loading ->
-            Task.succeed RemoteData.Loading
-
-
 loadDb : Session -> (WebData Db -> msg) -> Cmd msg
-loadDb _ event =
-    getJson Impact.decodeList "impacts.json"
-        |> Task.andThen handleImpactsLoaded
+loadDb { db } event =
+    getJson (Product.decodeProcesses db.impacts) "food/processes.json"
+        |> Task.andThen (handleProcessesLoaded db.impacts)
         |> Task.attempt
             (\result ->
                 case result of
