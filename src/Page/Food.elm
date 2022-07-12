@@ -403,7 +403,7 @@ viewIngredients toString totalImpact impact step =
                     , viewIngredient toString bar
                     ]
             )
-        |> viewHeader (text "Quantité de l'ingrédient") (text "Pourcentage de l'impact total")
+        |> viewHeader (text "Ingrédients") (text "Pourcentage de l'impact total")
 
 
 viewIngredient : (Unit.Ratio -> String) -> Bar -> Html Msg
@@ -444,7 +444,6 @@ makeBar : Float -> Impact.Trigram -> Product.ProcessName -> Product.Process -> B
 makeBar totalImpact trigram processName process =
     let
         impact =
-            -- Product.getImpact trigram definitions impacts * Unit.ratioToFloat amount
             Impact.grabImpactFloat Unit.PerItem Product.unusedDuration trigram process * process.amount
 
         percent =
@@ -489,19 +488,10 @@ floatToRoundedString exponent float =
 
 
 ingredientSelector : (String -> Msg) -> List String -> Html Msg
-ingredientSelector event processes =
-    select
-        [ class "form-select"
-        , onInput event
-        ]
-        (option [] [ text "-- Sélectionner un ingrédient dans la liste --" ]
-            :: (processes
-                    |> List.map
-                        (\processName ->
-                            option [ value processName ] [ text processName ]
-                        )
-               )
-        )
+ingredientSelector event =
+    List.map (\processName -> option [ value processName ] [ text processName ])
+        >> (++) [ option [] [ text "-- Sélectionner un ingrédient dans la liste --" ] ]
+        >> select [ class "form-select", onInput event ]
 
 
 viewProcessing : Float -> Impact.Trigram -> Product.Step -> Html Msg
@@ -520,7 +510,7 @@ viewProcessing totalImpact impact step =
                     , viewIngredient ratioToStringKg bar
                     ]
             )
-        |> viewHeader (text "Processus") (text "Pourcentage de l'impact total")
+        |> viewHeader (text "Procédé") (text "Pourcentage de l'impact total")
 
 
 viewTransport : Float -> Float -> Impact.Trigram -> Product.Step -> Country.Code -> List Country -> Html Msg
