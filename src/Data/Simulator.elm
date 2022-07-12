@@ -212,10 +212,10 @@ computeMakingImpacts { processes } ({ inputs } as simulator) =
                                 { kwh, heat, impacts } =
                                     step.outputMass
                                         |> Formula.makingImpacts step.impacts
-                                            { makingProcess = inputs.product.makingProcess
+                                            { makingProcess = inputs.product.making.process
                                             , fadingProcess =
                                                 -- Note: in the future, we may have distinct fading processes per countries
-                                                if inputs.product.fadable then
+                                                if inputs.product.making.fadable then
                                                     Just fading
 
                                                 else
@@ -368,8 +368,8 @@ computeMakingStepWaste ({ inputs } as simulator) =
         { mass, waste } =
             inputs.mass
                 |> Formula.makingWaste
-                    { processWaste = inputs.product.makingProcess.waste
-                    , pcrWaste = Maybe.withDefault inputs.product.pcrWaste inputs.makingWaste
+                    { processWaste = inputs.product.making.process.waste
+                    , pcrWaste = Maybe.withDefault inputs.product.making.pcrWaste inputs.makingWaste
                     }
     in
     simulator

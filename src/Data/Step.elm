@@ -302,9 +302,9 @@ updateFromInputs { processes } inputs ({ label, country } as step) =
                 , processInfo =
                     { defaultProcessInfo
                         | countryElec = Just country.electricityProcess.name
-                        , making = Just inputs.product.makingProcess.name
+                        , making = Just inputs.product.making.process.name
                         , fading =
-                            if inputs.product.fadable then
+                            if inputs.product.making.fadable then
                                 processes
                                     |> Process.loadWellKnown
                                     |> Result.map (.fading >> .name)

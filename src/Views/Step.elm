@@ -216,7 +216,7 @@ makingWasteField { current, inputs, updateMakingWaste } =
         [ RangeSlider.ratio
             { id = "makingWaste"
             , update = updateMakingWaste
-            , value = Maybe.withDefault inputs.product.pcrWaste current.makingWaste
+            , value = Maybe.withDefault inputs.product.making.pcrWaste current.makingWaste
             , toString = Step.makingWasteToString
             , disabled = not current.enabled
             , min = 0
@@ -344,7 +344,7 @@ stepHeader { current, inputs, toggleStep } =
         , current.label
             |> Step.displayLabel
                 { knitted = Product.isKnitted inputs.product
-                , fadable = inputs.product.fadable
+                , fadable = inputs.product.making.fadable
                 }
             |> text
         ]

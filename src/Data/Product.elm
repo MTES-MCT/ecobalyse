@@ -28,18 +28,35 @@ type FabricOptions
     | Weaved Process Unit.PickPerMeter Unit.SurfaceMass
 
 
+type alias MakingOptions =
+    { process : Process -- Procédé de Confection
+    , fadable : Bool -- Can this product be faded?
+    , pcrWaste : Unit.Ratio -- PCR product waste ratio
+    }
+
+
+
+-- type alias UseOptions =
+--     { useIroningProcess : Process -- Procédé de repassage
+--     , useNonIroningProcess : Process -- Procédé composite d'utilisation hors-repassage
+--     , wearsPerCycle : Int -- Nombre de jours porté par cycle d'entretien
+--     , useDefaultNbCycles : Int -- Nombre par défaut de cycles d'entretien (not used in computations)
+--     , useRatioDryer : Unit.Ratio -- Ratio de séchage électrique (not used in computations)
+--     , useRatioIroning : Unit.Ratio -- Ratio de repassage (not used in computations)
+--     , useTimeIroning : Duration -- Temps de repassage (not used in computations)
+--     , daysOfWear : Duration -- Nombre de jour d'utilisation du vêtement (pour qualité=1.0) (not used in computations)
+--     }
+-- type alias EndOfLifeOptions =
+--     { volume : Volume
+--     }
+
+
 type alias Product =
     { id : Id
     , name : String
     , mass : Mass
-
-    -- Fabric step specific options
     , fabric : FabricOptions
-
-    -- Making step specific options
-    , makingProcess : Process -- Procédé de Confection
-    , fadable : Bool -- Can this product be faded?
-    , pcrWaste : Unit.Ratio -- PCR product waste ratio
+    , making : MakingOptions
 
     -- Use step specific options
     , useIroningProcess : Process -- Procédé de repassage
@@ -113,6 +130,14 @@ decodeFabricOptions processes =
             )
 
 
+decodeMakingOptions : List Process -> Decoder MakingOptions
+decodeMakingOptions processes =
+    Decode.succeed MakingOptions
+        |> Pipe.required "processUuid" (Process.decodeFromUuid processes)
+        |> Pipe.required "fadable" Decode.bool
+        |> Pipe.required "pcrWaste" Unit.decodeRatio
+
+
 decode : List Process -> Decoder Product
 decode processes =
     Decode.succeed Product
@@ -120,9 +145,7 @@ decode processes =
         |> Pipe.required "name" Decode.string
         |> Pipe.required "mass" (Decode.map Mass.kilograms Decode.float)
         |> Pipe.required "fabric" (decodeFabricOptions processes)
-        |> Pipe.requiredAt [ "making", "processUuid" ] (Process.decodeFromUuid processes)
-        |> Pipe.optionalAt [ "making", "fadable" ] Decode.bool False
-        |> Pipe.requiredAt [ "making", "pcrWaste" ] Unit.decodeRatio
+        |> Pipe.required "making" (decodeMakingOptions processes)
         |> Pipe.requiredAt [ "use", "ironingProcessUuid" ] (Process.decodeFromUuid processes)
         |> Pipe.requiredAt [ "use", "nonIroningProcessUuid" ] (Process.decodeFromUuid processes)
         |> Pipe.requiredAt [ "use", "wearsPerCycle" ] Decode.int
@@ -157,6 +180,15 @@ encodeFabricOptions v =
                 ]
 
 
+encodeMakingOptions : MakingOptions -> Encode.Value
+encodeMakingOptions v =
+    Encode.object
+        [ ( "processUuid", Process.encodeUuid v.process.uuid )
+        , ( "fadable", Encode.bool v.fadable )
+        , ( "pcrWaste", Unit.encodeRatio v.pcrWaste )
+        ]
+
+
 encode : Product -> Encode.Value
 encode v =
     Encode.object
@@ -164,11 +196,9 @@ encode v =
         , ( "name", Encode.string v.name )
         , ( "mass", Encode.float (Mass.inKilograms v.mass) )
         , ( "fabric", encodeFabricOptions v.fabric )
+        , ( "making", encodeMakingOptions v.making )
 
         -- To migrate
-        , ( "pcrWaste", Unit.encodeRatio v.pcrWaste )
-        , ( "fadable", Encode.bool v.fadable )
-        , ( "makingProcessUuid", Process.encodeUuid v.makingProcess.uuid )
         , ( "useIroningProcessUuid", Process.encodeUuid v.useIroningProcess.uuid )
         , ( "useNonIroningProcessUuid", Process.encodeUuid v.useNonIroningProcess.uuid )
         , ( "wearsPerCycle", Encode.int v.wearsPerCycle )

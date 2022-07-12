@@ -41,7 +41,7 @@ table db { detailed } =
       , toCell =
             \product ->
                 div [ classList [ ( "text-end", not detailed ) ] ]
-                    [ Format.ratio product.pcrWaste ]
+                    [ Format.ratio product.making.pcrWaste ]
       }
     , { label = "Type de procédé"
       , toCell =
@@ -81,12 +81,12 @@ table db { detailed } =
       , toCell = Product.getFabricProcess >> .name >> text
       }
     , { label = "Confection"
-      , toCell = .makingProcess >> .name >> text
+      , toCell = .making >> .process >> .name >> text
       }
     , { label = "Délavage"
       , toCell =
             \product ->
-                if product.fadable then
+                if product.making.fadable then
                     db.processes
                         |> Process.loadWellKnown
                         |> Result.map (.fading >> .name >> text)
