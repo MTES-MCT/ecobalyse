@@ -45,43 +45,43 @@ pathToString path =
             "README"
 
         MaterialAndSpinning ->
-            "methodologie/filature"
+            "textile/filature"
 
         Fabric ->
-            "methodologie/tricotage-tissage"
+            "textile/tricotage-tissage"
 
         Dyeing ->
-            "methodologie/teinture"
+            "textile/teinture"
 
         Making ->
-            "methodologie/confection"
+            "textile/confection"
 
         Distribution ->
-            "methodologie/distribution"
+            "textile/distribution"
 
         Use ->
-            "methodologie/etape-6-utilisation"
+            "textile/etape-6-utilisation"
 
         EndOfLife ->
-            "methodologie/etape-7-fin-de-vie"
+            "textile/etape-7-fin-de-vie"
 
         Electricity ->
-            "methodologie/electricite"
+            "textile/electricite"
 
         Transport ->
-            "methodologie/transport"
+            "textile/transport"
 
         Heat ->
-            "methodologie/chaleur"
+            "textile/chaleur"
 
         Waste ->
-            "methodologie/pertes-et-rebus"
+            "textile/pertes-et-rebus"
 
         ImpactQuality ->
-            "methodologie/impacts-consideres#niveaux-de-recommandation"
+            "textile/impacts-consideres#niveaux-de-recommandation"
 
         CountryHypothesis ->
-            "methodologie/ajout-dun-pays#procedes-specifiques-au-pays"
+            "textile/ajout-dun-pays#procedes-specifiques-au-pays"
 
 
 transformMarkdown : String -> String

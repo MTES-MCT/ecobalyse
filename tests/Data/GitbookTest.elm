@@ -18,13 +18,13 @@ suite =
                 |> Expect.equal "http://google.com"
                 |> asTest "should resolve an external link even with a path provided"
             , Gitbook.handleMarkdownGitbookLink (Just Gitbook.MaterialAndSpinning) "filature.md"
-                |> Expect.equal (Env.gitbookUrl ++ "/methodologie/filature")
+                |> Expect.equal (Env.gitbookUrl ++ "/textile/filature")
                 |> asTest "should resolve an internal link from current page path"
             , Gitbook.handleMarkdownGitbookLink (Just Gitbook.MaterialAndSpinning) "../faq.md"
-                |> Expect.equal (Env.gitbookUrl ++ "/methodologie/../faq")
+                |> Expect.equal (Env.gitbookUrl ++ "/textile/../faq")
                 |> asTest "should resolve an internal link from current page path down a folder level"
             , Gitbook.handleMarkdownGitbookLink (Just Gitbook.MaterialAndSpinning) "foo/bar.md"
-                |> Expect.equal (Env.gitbookUrl ++ "/methodologie/foo/bar")
+                |> Expect.equal (Env.gitbookUrl ++ "/textile/foo/bar")
                 |> asTest "should resolve an internal link from current page path up a folder level"
             ]
         , describe "parseIsIsnt"
