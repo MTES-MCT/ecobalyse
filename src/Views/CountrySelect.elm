@@ -6,8 +6,16 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 
 
-view : List (Attribute msg) -> Country.Code -> (Country.Code -> msg) -> List Country -> Html msg
-view attributes selectedCountry onSelect countries =
+type alias Config msg =
+    { attributes : List (Attribute msg)
+    , selectedCountry : Country.Code
+    , onSelect : Country.Code -> msg
+    , countries : List Country
+    }
+
+
+view : Config msg -> Html msg
+view { attributes, selectedCountry, onSelect, countries } =
     countries
         |> List.sortBy .name
         |> List.map

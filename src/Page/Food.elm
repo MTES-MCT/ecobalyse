@@ -517,11 +517,12 @@ viewTransport : Float -> Float -> Impact.Trigram -> Product.Step -> Country.Code
 viewTransport totalWeight totalImpact impact step selectedCountry countries =
     let
         countrySelector =
-            countries
-                |> Views.CountrySelect.view
-                    [ class "form-select w-25 d-inline" ]
-                    selectedCountry
-                    CountrySelected
+            Views.CountrySelect.view
+                { attributes = [ class "form-select w-25 d-inline" ]
+                , selectedCountry = selectedCountry
+                , onSelect = CountrySelected
+                , countries = countries
+                }
 
         header =
             span []

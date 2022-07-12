@@ -111,14 +111,16 @@ countryField { db, current, inputs, updateCountry } =
                 nonEditableCountry (text current.country.name)
 
             ( _, True ) ->
-                db.countries
-                    |> Views.CountrySelect.view
+                Views.CountrySelect.view
+                    { attributes =
                         [ class "form-select"
                         , disabled (not current.editable || not current.enabled)
                         , onInput (Country.codeFromString >> updateCountry current.label)
                         ]
-                        current.country.code
-                        (updateCountry current.label)
+                    , selectedCountry = current.country.code
+                    , onSelect = updateCountry current.label
+                    , countries = db.countries
+                    }
         ]
 
 
