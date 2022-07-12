@@ -626,8 +626,14 @@ updateTransport defaultTransport impactsForProcesses impactDefinitions countryCo
             ]
                 |> AnyDict.fromList processNameToString
     in
-    if countryCode == defaultCountry then
-        { product | plant = { plant | transport = defaultTransport } }
+    { product
+        | plant =
+            { plant
+                | transport =
+                    if countryCode == defaultCountry then
+                        defaultTransport
 
-    else
-        { product | plant = { plant | transport = transports } }
+                    else
+                        transports
+            }
+    }
