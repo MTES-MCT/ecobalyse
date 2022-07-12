@@ -143,11 +143,7 @@ update ({ foodDb, db } as session) msg ({ currentProductInfo } as model) =
             )
 
         ( DbLoaded (RemoteData.Success loadedDb), _ ) ->
-            let
-                productResult =
-                    Product.findProductByName (Product.stringToProductName tunaPizza) loadedDb.products
-            in
-            case productResult of
+            case Product.findProductByName (Product.stringToProductName tunaPizza) loadedDb.products of
                 Ok product ->
                     let
                         productWithPefScore =
@@ -195,11 +191,7 @@ update ({ foodDb, db } as session) msg ({ currentProductInfo } as model) =
             ( { model | currentProductInfo = Just { selected | product = updatedProduct } }, session, Cmd.none )
 
         ( ProductSelected productSelected, _ ) ->
-            let
-                productResult =
-                    Product.findProductByName (Product.stringToProductName productSelected) foodDb.products
-            in
-            case productResult of
+            case Product.findProductByName (Product.stringToProductName productSelected) foodDb.products of
                 Ok product ->
                     let
                         productWithPefScore =
