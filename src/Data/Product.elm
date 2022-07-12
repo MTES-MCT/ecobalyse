@@ -35,20 +35,16 @@ type alias MakingOptions =
     }
 
 
-
--- type alias UseOptions =
---     { useIroningProcess : Process -- Procédé de repassage
---     , useNonIroningProcess : Process -- Procédé composite d'utilisation hors-repassage
---     , wearsPerCycle : Int -- Nombre de jours porté par cycle d'entretien
---     , useDefaultNbCycles : Int -- Nombre par défaut de cycles d'entretien (not used in computations)
---     , useRatioDryer : Unit.Ratio -- Ratio de séchage électrique (not used in computations)
---     , useRatioIroning : Unit.Ratio -- Ratio de repassage (not used in computations)
---     , useTimeIroning : Duration -- Temps de repassage (not used in computations)
---     , daysOfWear : Duration -- Nombre de jour d'utilisation du vêtement (pour qualité=1.0) (not used in computations)
---     }
--- type alias EndOfLifeOptions =
---     { volume : Volume
---     }
+type alias UseOptions =
+    { ironingProcess : Process -- Procédé de repassage
+    , nonIroningProcess : Process -- Procédé composite d'utilisation hors-repassage
+    , wearsPerCycle : Int -- Nombre de jours porté par cycle d'entretien
+    , defaultNbCycles : Int -- Nombre par défaut de cycles d'entretien (not used in computations)
+    , ratioDryer : Unit.Ratio -- Ratio de séchage électrique (not used in computations)
+    , ratioIroning : Unit.Ratio -- Ratio de repassage (not used in computations)
+    , timeIroning : Duration -- Temps de repassage (not used in computations)
+    , daysOfWear : Duration -- Nombre de jour d'utilisation du vêtement (pour qualité=1.0) (not used in computations)
+    }
 
 
 type alias Product =
@@ -57,16 +53,7 @@ type alias Product =
     , mass : Mass
     , fabric : FabricOptions
     , making : MakingOptions
-
-    -- Use step specific options
-    , useIroningProcess : Process -- Procédé de repassage
-    , useNonIroningProcess : Process -- Procédé composite d'utilisation hors-repassage
-    , wearsPerCycle : Int -- Nombre de jours porté par cycle d'entretien
-    , useDefaultNbCycles : Int -- Nombre par défaut de cycles d'entretien (not used in computations)
-    , useRatioDryer : Unit.Ratio -- Ratio de séchage électrique (not used in computations)
-    , useRatioIroning : Unit.Ratio -- Ratio de repassage (not used in computations)
-    , useTimeIroning : Duration -- Temps de repassage (not used in computations)
-    , daysOfWear : Duration -- Nombre de jour d'utilisation du vêtement (pour qualité=1.0) (not used in computations)
+    , use : UseOptions
 
     -- End of Life step specific options
     , volume : Volume
@@ -138,6 +125,19 @@ decodeMakingOptions processes =
         |> Pipe.required "pcrWaste" Unit.decodeRatio
 
 
+decodeUseOptions : List Process -> Decoder UseOptions
+decodeUseOptions processes =
+    Decode.succeed UseOptions
+        |> Pipe.required "ironingProcessUuid" (Process.decodeFromUuid processes)
+        |> Pipe.required "nonIroningProcessUuid" (Process.decodeFromUuid processes)
+        |> Pipe.required "wearsPerCycle" Decode.int
+        |> Pipe.required "defaultNbCycles" Decode.int
+        |> Pipe.required "ratioDryer" Unit.decodeRatio
+        |> Pipe.required "ratioIroning" Unit.decodeRatio
+        |> Pipe.required "timeIroning" (Decode.map Duration.hours Decode.float)
+        |> Pipe.required "daysOfWear" (Decode.map Duration.days Decode.float)
+
+
 decode : List Process -> Decoder Product
 decode processes =
     Decode.succeed Product
@@ -146,14 +146,7 @@ decode processes =
         |> Pipe.required "mass" (Decode.map Mass.kilograms Decode.float)
         |> Pipe.required "fabric" (decodeFabricOptions processes)
         |> Pipe.required "making" (decodeMakingOptions processes)
-        |> Pipe.requiredAt [ "use", "ironingProcessUuid" ] (Process.decodeFromUuid processes)
-        |> Pipe.requiredAt [ "use", "nonIroningProcessUuid" ] (Process.decodeFromUuid processes)
-        |> Pipe.requiredAt [ "use", "wearsPerCycle" ] Decode.int
-        |> Pipe.requiredAt [ "use", "defaultNbCycles" ] Decode.int
-        |> Pipe.requiredAt [ "use", "ratioDryer" ] Unit.decodeRatio
-        |> Pipe.requiredAt [ "use", "ratioIroning" ] Unit.decodeRatio
-        |> Pipe.requiredAt [ "use", "timeIroning" ] (Decode.map Duration.hours Decode.float)
-        |> Pipe.requiredAt [ "use", "daysOfWear" ] (Decode.map Duration.days Decode.float)
+        |> Pipe.required "use" (decodeUseOptions processes)
         |> Pipe.requiredAt [ "endOfLife", "volume" ] (Decode.map Volume.cubicMeters Decode.float)
 
 
@@ -189,6 +182,20 @@ encodeMakingOptions v =
         ]
 
 
+encodeUseOptions : UseOptions -> Encode.Value
+encodeUseOptions v =
+    Encode.object
+        [ ( "ironingProcessUuid", Process.encodeUuid v.ironingProcess.uuid )
+        , ( "nonIroningProcessUuid", Process.encodeUuid v.nonIroningProcess.uuid )
+        , ( "wearsPerCycle", Encode.int v.wearsPerCycle )
+        , ( "defaultNbCycles", Encode.int v.defaultNbCycles )
+        , ( "ratioDryer", Unit.encodeRatio v.ratioDryer )
+        , ( "ratioIroning", Unit.encodeRatio v.ratioIroning )
+        , ( "timeIroning", Encode.float (Duration.inHours v.timeIroning) )
+        , ( "daysOfWear", Encode.float (Duration.inDays v.daysOfWear) )
+        ]
+
+
 encode : Product -> Encode.Value
 encode v =
     Encode.object
@@ -197,17 +204,8 @@ encode v =
         , ( "mass", Encode.float (Mass.inKilograms v.mass) )
         , ( "fabric", encodeFabricOptions v.fabric )
         , ( "making", encodeMakingOptions v.making )
-
-        -- To migrate
-        , ( "useIroningProcessUuid", Process.encodeUuid v.useIroningProcess.uuid )
-        , ( "useNonIroningProcessUuid", Process.encodeUuid v.useNonIroningProcess.uuid )
-        , ( "wearsPerCycle", Encode.int v.wearsPerCycle )
+        , ( "use", encodeUseOptions v.use )
         , ( "volume", Encode.float (Volume.inCubicMeters v.volume) )
-        , ( "useDefaultNbCycles", Encode.int v.useDefaultNbCycles )
-        , ( "useRatioDryer", Unit.encodeRatio v.useRatioDryer )
-        , ( "useRatioIroning", Unit.encodeRatio v.useRatioIroning )
-        , ( "useTimeIroning", Encode.float (Duration.inHours v.useTimeIroning) )
-        , ( "daysOfWear", Encode.float (Duration.inDays v.daysOfWear) )
         ]
 
 
@@ -222,7 +220,7 @@ quality and reparability coefficients.
 customDaysOfWear :
     Maybe Unit.Quality
     -> Maybe Unit.Reparability
-    -> { product | daysOfWear : Duration, wearsPerCycle : Int }
+    -> { productOptions | daysOfWear : Duration, wearsPerCycle : Int }
     -> { daysOfWear : Duration, useNbCycles : Int }
 customDaysOfWear maybeQuality maybeReparability { daysOfWear, wearsPerCycle } =
     let

@@ -99,42 +99,42 @@ table db { detailed } =
       , toCell =
             \product ->
                 div [ classList [ ( "text-end", not detailed ) ] ]
-                    [ Format.days product.daysOfWear ]
+                    [ Format.days product.use.daysOfWear ]
       }
     , { label = "Cycles d'entretien (par défaut)"
       , toCell =
             \product ->
                 div [ classList [ ( "text-end", not detailed ) ] ]
-                    [ text <| String.fromInt product.wearsPerCycle ]
+                    [ text <| String.fromInt product.use.wearsPerCycle ]
       }
     , { label = "Utilisations avant lavage"
       , toCell =
             \product ->
                 div [ classList [ ( "text-end", not detailed ) ] ]
-                    [ text <| String.fromInt product.useDefaultNbCycles ]
+                    [ text <| String.fromInt product.use.defaultNbCycles ]
       }
     , { label = "Procédé de repassage"
-      , toCell = .useIroningProcess >> .name >> text
+      , toCell = .use >> .ironingProcess >> .name >> text
       }
     , { label = "Procédé d'utilisation hors-repassage"
-      , toCell = .useNonIroningProcess >> .name >> text
+      , toCell = .use >> .nonIroningProcess >> .name >> text
       }
     , { label = "Séchage électrique"
       , toCell =
             \product ->
                 div [ classList [ ( "text-end", not detailed ) ] ]
-                    [ Format.ratio product.useRatioDryer ]
+                    [ Format.ratio product.use.ratioDryer ]
       }
     , { label = "Repassage (part)"
       , toCell =
             \product ->
                 div [ classList [ ( "text-end", not detailed ) ] ]
-                    [ Format.ratio product.useRatioIroning ]
+                    [ Format.ratio product.use.ratioIroning ]
       }
     , { label = "Repassage (temps)"
       , toCell =
             \product ->
                 div [ classList [ ( "text-end", not detailed ) ] ]
-                    [ Format.hours product.useTimeIroning ]
+                    [ Format.hours product.use.timeIroning ]
       }
     ]

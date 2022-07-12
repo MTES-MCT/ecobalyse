@@ -340,8 +340,8 @@ updateFromInputs { processes } inputs ({ label, country } as step) =
                 , processInfo =
                     { defaultProcessInfo
                         | countryElec = Just country.electricityProcess.name
-                        , useIroning = Just inputs.product.useIroningProcess.name
-                        , useNonIroning = Just inputs.product.useNonIroningProcess.name
+                        , useIroning = Just inputs.product.use.ironingProcess.name
+                        , useNonIroning = Just inputs.product.use.nonIroningProcess.name
                     }
             }
 

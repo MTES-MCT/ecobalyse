@@ -440,7 +440,7 @@ daysOfWearInfo : Inputs -> Html msg
 daysOfWearInfo inputs =
     let
         info =
-            inputs.product
+            inputs.product.use
                 |> Product.customDaysOfWear inputs.quality inputs.reparability
     in
     small [ class "fs-7 text-muted" ]

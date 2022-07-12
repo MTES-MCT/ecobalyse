@@ -61,7 +61,7 @@ init db =
                     |> (\lifeCycle ->
                             let
                                 { daysOfWear, useNbCycles } =
-                                    product
+                                    product.use
                                         |> Product.customDaysOfWear quality reparability
                             in
                             { inputs = inputs
@@ -190,8 +190,8 @@ computeUseImpacts ({ inputs, useNbCycles } as simulator) =
                         step.outputMass
                             |> Formula.useImpacts step.impacts
                                 { useNbCycles = useNbCycles
-                                , ironingProcess = inputs.product.useIroningProcess
-                                , nonIroningProcess = inputs.product.useNonIroningProcess
+                                , ironingProcess = inputs.product.use.ironingProcess
+                                , nonIroningProcess = inputs.product.use.nonIroningProcess
                                 , countryElecProcess = country.electricityProcess
                                 }
                 in
