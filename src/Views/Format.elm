@@ -60,9 +60,7 @@ formatFloat : Int -> Float -> String
 formatFloat decimals float =
     let
         simpleFmt =
-            Debug.log "before format"
-                >> FormatNumber.format { frenchLocale | decimals = Exact decimals }
-                >> Debug.log "after format"
+            FormatNumber.format { frenchLocale | decimals = Exact decimals }
                 >> String.replace "−" "-"
     in
     if abs float < 0.01 then
