@@ -8,7 +8,7 @@ module Page.Food exposing
 
 import Data.Country as Country exposing (Country)
 import Data.Food.Db as Db
-import Data.Food.Product as Product exposing ( Product)
+import Data.Food.Product as Product exposing (Product)
 import Data.Impact as Impact
 import Data.Session as Session exposing (Session)
 import Data.Unit as Unit
@@ -28,7 +28,7 @@ import Views.PieChart as PieChart
 import Views.RangeSlider as RangeSlider
 
 
-type alias SelectedProduct =
+type alias CurrentProductInfo =
     { product : Product
     , original : Product
     , rawCookedRatioInfo : Maybe Product.RawCookedRatioInfo
@@ -36,11 +36,11 @@ type alias SelectedProduct =
 
 
 type alias Model =
-    { selectedProduct : Maybe SelectedProduct
-    , productsSelectChoice : String
+    { currentProductInfo : Maybe CurrentProductInfo
+    , selectedProduct : String
     , impact : Impact.Trigram
-    , ingredientsSelectChoice : String
-    , countriesSelectChoice : Country.Code
+    , selectedIngredient : String
+    , selectedCountry : Country.Code
     }
 
 
@@ -64,11 +64,11 @@ tunaPizza =
 
 init : Session -> ( Model, Session, Cmd Msg )
 init session =
-    ( { selectedProduct = Nothing
-      , productsSelectChoice = tunaPizza
+    ( { currentProductInfo = Nothing
+      , selectedProduct = tunaPizza
       , impact = Impact.defaultTrigram
-      , ingredientsSelectChoice = ""
-      , countriesSelectChoice = Product.defaultCountry
+      , selectedIngredient = ""
+      , selectedCountry = Product.defaultCountry
       }
     , session
     , Cmd.batch
@@ -79,8 +79,8 @@ init session =
 
 
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
-update ({ foodDb, db } as session) msg ({ selectedProduct } as model) =
-    case ( msg, selectedProduct ) of
+update ({ foodDb, db } as session) msg ({ currentProductInfo } as model) =
+    case ( msg, currentProductInfo ) of
         ( IngredientSliderChanged name (Just newAmount), Just selected ) ->
             let
                 { product, rawCookedRatioInfo } =
@@ -89,7 +89,7 @@ update ({ foodDb, db } as session) msg ({ selectedProduct } as model) =
                 updatedProduct =
                     { product | plant = Product.updateAmount rawCookedRatioInfo name (Unit.ratioToFloat newAmount) product.plant }
             in
-            ( { model | selectedProduct = Just { selected | product = updatedProduct } }, session, Cmd.none )
+            ( { model | currentProductInfo = Just { selected | product = updatedProduct } }, session, Cmd.none )
 
         ( DbLoaded (RemoteData.Success loadedDb), _ ) ->
             let
@@ -104,7 +104,7 @@ update ({ foodDb, db } as session) msg ({ selectedProduct } as model) =
                                 |> Product.computePefImpact session.db.impacts
                     in
                     ( { model
-                        | selectedProduct =
+                        | currentProductInfo =
                             Just
                                 { product = productWithPefScore
                                 , original = productWithPefScore
@@ -129,8 +129,8 @@ update ({ foodDb, db } as session) msg ({ selectedProduct } as model) =
 
         ( Reset, Just selected ) ->
             ( { model
-                | selectedProduct = Just { selected | product = selected.original }
-                , countriesSelectChoice = Product.defaultCountry
+                | currentProductInfo = Just { selected | product = selected.original }
+                , selectedCountry = Product.defaultCountry
               }
             , session
             , Cmd.none
@@ -149,13 +149,13 @@ update ({ foodDb, db } as session) msg ({ selectedProduct } as model) =
                                 |> Product.computePefImpact session.db.impacts
                     in
                     ( { model
-                        | selectedProduct =
+                        | currentProductInfo =
                             Just
                                 { product = productWithPefScore
                                 , original = productWithPefScore
                                 , rawCookedRatioInfo = Product.getRawCookedRatioInfo product
                                 }
-                        , productsSelectChoice = productSelected
+                        , selectedProduct = productSelected
                       }
                     , session
                     , Cmd.none
@@ -171,7 +171,7 @@ update ({ foodDb, db } as session) msg ({ selectedProduct } as model) =
             ( { model | impact = impact }, session, Cmd.none )
 
         ( IngredientSelected ingredientName, _ ) ->
-            ( { model | ingredientsSelectChoice = ingredientName }
+            ( { model | selectedIngredient = ingredientName }
             , session
             , Cmd.none
             )
@@ -180,7 +180,7 @@ update ({ foodDb, db } as session) msg ({ selectedProduct } as model) =
             let
                 productWithAddedIngredient =
                     selected.product
-                        |> Product.addIngredient selected.rawCookedRatioInfo foodDb.processes model.ingredientsSelectChoice
+                        |> Product.addIngredient selected.rawCookedRatioInfo foodDb.processes model.selectedIngredient
 
                 productWithPefScore =
                     productWithAddedIngredient
@@ -189,7 +189,7 @@ update ({ foodDb, db } as session) msg ({ selectedProduct } as model) =
             case productWithPefScore of
                 Ok updatedProduct ->
                     ( { model
-                        | selectedProduct = Just { selected | product = updatedProduct }
+                        | currentProductInfo = Just { selected | product = updatedProduct }
                       }
                     , session
                     , Cmd.none
@@ -213,7 +213,7 @@ update ({ foodDb, db } as session) msg ({ selectedProduct } as model) =
                         |> Product.computePefImpact session.db.impacts
             in
             ( { model
-                | selectedProduct = Just { selected | product = productWithPefScore }
+                | currentProductInfo = Just { selected | product = productWithPefScore }
               }
             , session
             , Cmd.none
@@ -230,8 +230,8 @@ update ({ foodDb, db } as session) msg ({ selectedProduct } as model) =
                         |> Product.computePefImpact session.db.impacts
             in
             ( { model
-                | selectedProduct = Just { selected | product = productWithPefScore }
-                , countriesSelectChoice = countryCode
+                | currentProductInfo = Just { selected | product = productWithPefScore }
+                , selectedCountry = countryCode
               }
             , session
             , Cmd.none
@@ -242,10 +242,10 @@ update ({ foodDb, db } as session) msg ({ selectedProduct } as model) =
 
 
 view : Session -> Model -> ( String, List (Html Msg) )
-view ({ foodDb, db } as session) { selectedProduct, productsSelectChoice, impact, ingredientsSelectChoice, countriesSelectChoice } =
+view ({ foodDb, db } as session) { currentProductInfo, selectedProduct, impact, selectedIngredient, selectedCountry } =
     ( "Simulateur de recettes"
     , [ Container.centered []
-            (case selectedProduct of
+            (case currentProductInfo of
                 Just { product, original } ->
                     let
                         -- We want the impact "per kg", but the original weight isn't 1kg,
@@ -276,7 +276,7 @@ view ({ foodDb, db } as session) { selectedProduct, productsSelectChoice, impact
                                     in
                                     option
                                         [ value name
-                                        , selected (name == productsSelectChoice)
+                                        , selected (name == selectedProduct)
                                         ]
                                         [ text name ]
                                 )
@@ -318,13 +318,13 @@ view ({ foodDb, db } as session) { selectedProduct, productsSelectChoice, impact
                             [ button
                                 [ class "btn btn-primary w-100"
                                 , onClick AddIngredient
-                                , disabled (ingredientsSelectChoice == "")
+                                , disabled (selectedIngredient == "")
                                 ]
                                 [ text "Ajouter un ingrédient" ]
                             ]
                         ]
                     , viewProcessing totalImpact impact product.plant
-                    , viewTransport totalWeight totalImpact impact product.plant countriesSelectChoice db.countries
+                    , viewTransport totalWeight totalImpact impact product.plant selectedCountry db.countries
                     , viewWaste totalImpact impact product.plant
                     , div [ class "row py-3 gap-2 gap-sm-0" ]
                         [ div [ class "col-sm-10 fw-bold" ]
