@@ -605,26 +605,26 @@ updateTransport defaultTransport impactsForProcesses impactDefinitions countryCo
             transport
                 |> Formula.transportRatio (Unit.Ratio 0.33)
 
-        lorry =
-            findImpactsByName lorryTransportName impactsForProcesses
-                |> Result.withDefault Impact.noImpacts
-
-        boat =
-            findImpactsByName boatTransportName impactsForProcesses
-                |> Result.withDefault Impact.noImpacts
-
-        plane =
-            findImpactsByName planeTransportName impactsForProcesses
-                |> Result.withDefault Impact.noImpacts
-
         toTonKm km =
             Length.inKilometers km * totalWeight / 1000
 
+        findImpacts name =
+            impactsForProcesses
+                |> findImpactsByName name
+                |> Result.withDefault Impact.noImpacts
+
         transports =
-            [ ( lorryTransportName, Process (toTonKm transportWithRatio.road) lorry )
-            , ( boatTransportName, Process (toTonKm transportWithRatio.sea) boat )
-            , ( planeTransportName, Process (toTonKm transportWithRatio.air) plane )
+            [ ( lorryTransportName, .road )
+            , ( boatTransportName, .sea )
+            , ( planeTransportName, .air )
             ]
+                |> List.map
+                    (\( name, prop ) ->
+                        ( name
+                        , findImpacts name
+                            |> Process (toTonKm (prop transportWithRatio))
+                        )
+                    )
                 |> AnyDict.fromList processNameToString
     in
     { product
