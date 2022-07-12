@@ -256,23 +256,46 @@ type alias RawCookedRatioInfo =
     }
 
 
+type ProcessCategory
+    = Processing
+    | Waste
+    | Transport
+    | Ingredient
+
+
+kindOf : ProcessName -> ProcessCategory
+kindOf processName =
+    if isProcessing processName then
+        Processing
+
+    else if isWaste processName then
+        Waste
+
+    else if isTransport processName then
+        Transport
+
+    else
+        Ingredient
+
+
 insertProcessToStep : ProcessName -> Amount -> Impacts -> Step -> Step
 insertProcessToStep processName amount impacts step =
     let
         newProcess =
             Process amount impacts
     in
-    if isProcessing processName then
-        { step | processing = insertProcess processName newProcess step.processing }
+    case kindOf processName of
+        Processing ->
+            { step | processing = insertProcess processName newProcess step.processing }
 
-    else if isWaste processName then
-        { step | waste = insertProcess processName newProcess step.waste }
+        Waste ->
+            { step | waste = insertProcess processName newProcess step.waste }
 
-    else if isTransport processName then
-        { step | transport = insertProcess processName newProcess step.transport }
+        Transport ->
+            { step | transport = insertProcess processName newProcess step.transport }
 
-    else
-        { step | ingredients = insertProcess processName newProcess step.ingredients }
+        Ingredient ->
+            { step | ingredients = insertProcess processName newProcess step.ingredients }
 
 
 stepFromIngredients : List Ingredient -> ImpactsForProcesses -> Result String Step
