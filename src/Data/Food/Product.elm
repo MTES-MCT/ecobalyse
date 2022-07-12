@@ -598,7 +598,8 @@ updateTransport defaultTransport impactsForProcesses impactDefinitions countryCo
             Impact.impactsFromDefinitons impactDefinitions
 
         transport =
-            Transport.getTransportBetween impacts countryCode defaultCountry distances
+            distances
+                |> Transport.getTransportBetween impacts countryCode defaultCountry
 
         transportWithRatio =
             transport
