@@ -35,7 +35,7 @@ table db { detailed } =
       , toCell =
             \product ->
                 div [ classList [ ( "text-end", not detailed ) ] ]
-                    [ Format.m3 product.volume ]
+                    [ Format.m3 product.endOfLife.volume ]
       }
     , { label = "Perte (PCR)"
       , toCell =

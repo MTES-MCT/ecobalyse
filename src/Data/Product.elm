@@ -47,6 +47,11 @@ type alias UseOptions =
     }
 
 
+type alias EndOfLifeOptions =
+    { volume : Volume
+    }
+
+
 type alias Product =
     { id : Id
     , name : String
@@ -54,9 +59,7 @@ type alias Product =
     , fabric : FabricOptions
     , making : MakingOptions
     , use : UseOptions
-
-    -- End of Life step specific options
-    , volume : Volume
+    , endOfLife : EndOfLifeOptions
     }
 
 
@@ -138,6 +141,12 @@ decodeUseOptions processes =
         |> Pipe.required "daysOfWear" (Decode.map Duration.days Decode.float)
 
 
+decodeEndOfLifeOptions : Decoder EndOfLifeOptions
+decodeEndOfLifeOptions =
+    Decode.succeed EndOfLifeOptions
+        |> Pipe.required "volume" (Decode.map Volume.cubicMeters Decode.float)
+
+
 decode : List Process -> Decoder Product
 decode processes =
     Decode.succeed Product
@@ -147,7 +156,7 @@ decode processes =
         |> Pipe.required "fabric" (decodeFabricOptions processes)
         |> Pipe.required "making" (decodeMakingOptions processes)
         |> Pipe.required "use" (decodeUseOptions processes)
-        |> Pipe.requiredAt [ "endOfLife", "volume" ] (Decode.map Volume.cubicMeters Decode.float)
+        |> Pipe.required "endOfLife" decodeEndOfLifeOptions
 
 
 decodeList : List Process -> Decoder (List Product)
@@ -196,6 +205,12 @@ encodeUseOptions v =
         ]
 
 
+encodeEndOfLifeOptions : EndOfLifeOptions -> Encode.Value
+encodeEndOfLifeOptions v =
+    Encode.object
+        [ ( "volume", v.volume |> Volume.inCubicMeters |> Encode.float ) ]
+
+
 encode : Product -> Encode.Value
 encode v =
     Encode.object
@@ -205,7 +220,7 @@ encode v =
         , ( "fabric", encodeFabricOptions v.fabric )
         , ( "making", encodeMakingOptions v.making )
         , ( "use", encodeUseOptions v.use )
-        , ( "volume", Encode.float (Volume.inCubicMeters v.volume) )
+        , ( "endOfLife", encodeEndOfLifeOptions v.endOfLife )
         ]
 
 
