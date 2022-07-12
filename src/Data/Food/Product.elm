@@ -101,12 +101,14 @@ processNameToString (ProcessName name) =
 
 isProcessing : ProcessName -> Bool
 isProcessing (ProcessName processName) =
-    String.startsWith "Cooking, " processName
-        || String.startsWith "Canning " processName
-        || String.startsWith "Mixing, " processName
-        || String.startsWith "Peeling, " processName
-        || String.startsWith "Fish filleting, " processName
-        || String.startsWith "Slaughtering" processName
+    List.any (\name -> String.startsWith name processName)
+        [ "Cooking"
+        , "Canning"
+        , "Mixing"
+        , "Peeling"
+        , "Fish filleting"
+        , "Slaughtering"
+        ]
 
 
 isWaste : ProcessName -> Bool
