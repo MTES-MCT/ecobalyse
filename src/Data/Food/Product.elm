@@ -250,7 +250,7 @@ type alias ProductDefinition =
 
 type alias RawCookedRatioInfo =
     { weightLossProcessName : ProcessName
-    , rawCookedRatio : Float
+    , rawCookedRatio : Unit.Ratio
     }
 
 
@@ -350,8 +350,9 @@ updateWeight maybeRawCookedRatioInfo step =
                     getTotalWeight step
 
                 updatedWeight =
-                    updatedRawWeight
-                        * rawCookedRatio
+                    rawCookedRatio
+                        |> Unit.ratioToFloat
+                        |> (*) updatedRawWeight
                         |> Unit.Ratio
             in
             updateStep
@@ -493,6 +494,7 @@ getRawCookedRatioInfo product =
                             , rawCookedRatio =
                                 Unit.ratioToFloat process.amount
                                     / totalIngredientsWeight
+                                    |> Unit.Ratio
                             }
                         )
             )
