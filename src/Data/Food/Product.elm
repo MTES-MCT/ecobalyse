@@ -357,9 +357,8 @@ updateStep updateFunc step =
 
 updateAmount : Maybe RawCookedRatioInfo -> ProcessName -> Amount -> Step -> Step
 updateAmount maybeRawCookedRatioInfo processName newAmount step =
-    updateStep
-        (updateProcess processName (\process -> { process | amount = newAmount }))
-        step
+    step
+        |> updateStep (updateProcess processName (\process -> { process | amount = newAmount }))
         |> updateWeight maybeRawCookedRatioInfo
 
 
