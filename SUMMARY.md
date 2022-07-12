@@ -18,7 +18,6 @@
 * [🚚 Etape 5 - Distribution](textile/distribution.md)
 * [🌀 Etape 6 - Utilisation](textile/etape-6-utilisation.md)
 * [♻ Etape 7 - Fin de vie](textile/etape-7-fin-de-vie.md)
-* [🚢 Transport](textile/transport.md)
 * [⚡ Electricité](textile/electricite.md)
 * [🔥 Chaleur](textile/chaleur.md)
 * [🗑 Pertes et rebut](textile/pertes-et-rebus.md)
@@ -26,6 +25,7 @@
 * [❓ Hypothèses par défaut](textile/hypotheses-par-defaut.md)
 * [📏 Echelle comparative](textile/echelle-comparative.md)
 * [🌎 Ajout d'un pays](textile/ajout-dun-pays.md)
+* [🚢 Transport](textile/transport.md)
 
 ***
 

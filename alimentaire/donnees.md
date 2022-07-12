@@ -12,8 +12,6 @@ La base AGRIBALYSE® fournie les ICVs de 2500 produits alimentaires enregistrés
 
 ### Structure
 
-
-
 La base AGRIBALYSE est organisé en différents niveaux :&#x20;
 
 * Le produit chez le consommateur avec un code CIQUAL
@@ -26,7 +24,17 @@ La base AGRIBALYSE est organisé en différents niveaux :&#x20;
 
 ![Exemple de la modélisation de la pizza margherita (CIQUAL 25404) dans la base AGRIBALYSE®](<../.gitbook/assets/image (6).png>)
 
+Pour l'instant nous n'affichons que l'étape "recette" c'est à dire l'étape à l'usine de fabrication du produit final à partir des ingrédients. Par exemple dans le cas d'une pizza margherita les aliments sont :&#x20;
 
+* Tomate
+* Mozzarella
+* Huile d'olive
+* Farine
+* Eau
+
+Il apparaît aussi à cette étape des processus de transformation. Dans le cas de la pizza margherita :&#x20;
+
+* un processus de cuisson
 
 
 
