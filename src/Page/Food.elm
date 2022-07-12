@@ -380,13 +380,13 @@ ratioToStringTonKm totalWeight amount =
         perKg =
             amountAsFloat / totalWeight
 
-        perKgKm =
+        distanceInKm =
             perKg * 1000
     in
-    floatToRoundedString -2 perKgKm
-        ++ "km ("
-        ++ floatToRoundedString -6 amountAsFloat
-        ++ "kg.km)"
+    floatToRoundedString 0 distanceInKm
+        ++ " km ("
+        ++ floatToRoundedString -2 (amountAsFloat * 1000)
+        ++ " kg.km)"
 
 
 viewHeader : Html Msg -> Html Msg -> List (Html Msg) -> Html Msg
