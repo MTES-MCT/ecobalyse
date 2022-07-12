@@ -214,6 +214,7 @@ update msg ({ page, session } as model) =
             Stats.update session statsMsg statsModel
                 |> toPage StatsPage StatsMsg
 
+        -- Food
         ( FoodMsg foodMsg, FoodPage foodModel ) ->
             Food.update session foodMsg foodModel
                 |> toPage FoodPage FoodMsg
