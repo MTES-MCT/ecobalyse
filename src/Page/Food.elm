@@ -322,7 +322,7 @@ view ({ foodDb, db } as session) { currentProductInfo, selectedProduct, impact, 
                         [ div [ class "col-sm-10 fw-bold" ]
                             [ text "Poids total avant perte (cuisson, invendus...) : "
                             , totalWeight
-                                |> floatToRoundedString -3
+                                |> Format.formatFloat 3
                                 |> text
                             , text "kg"
                             ]
@@ -346,12 +346,12 @@ view ({ foodDb, db } as session) { currentProductInfo, selectedProduct, impact, 
 ratioToStringKg : Unit.Ratio -> String
 ratioToStringKg =
     Unit.ratioToFloat
-        >> floatToRoundedString -3
+        >> Format.formatFloat 3
         >> (\mass -> mass ++ "kg")
 
 
-ratioToStringTonKm : Float -> Unit.Ratio -> String
-ratioToStringTonKm totalWeight amount =
+ratioToStringKgKm : Float -> Unit.Ratio -> String
+ratioToStringKgKm totalWeight amount =
     let
         -- amount is in Ton.Km for the total weight. We instead want the total number of km.
         amountAsFloat =
@@ -363,9 +363,9 @@ ratioToStringTonKm totalWeight amount =
         distanceInKm =
             perKg * 1000
     in
-    floatToRoundedString 0 distanceInKm
+    Format.formatFloat 0 distanceInKm
         ++ " km ("
-        ++ floatToRoundedString -2 (amountAsFloat * 1000)
+        ++ Format.formatFloat 2 (amountAsFloat * 1000)
         ++ " kg.km)"
 
 
@@ -479,14 +479,6 @@ barView bar =
         ]
 
 
-floatToRoundedString : Int -> Float -> String
-floatToRoundedString exponent float =
-    float
-        |> Decimal.fromFloat
-        |> Decimal.roundTo exponent
-        |> Decimal.toStringIn Decimal.Dec
-
-
 ingredientSelector : (String -> Msg) -> List String -> Html Msg
 ingredientSelector event =
     List.map (\processName -> option [ value processName ] [ text processName ])
@@ -542,7 +534,7 @@ viewTransport totalWeight totalImpact impact step selectedCountry countries =
                     in
                     div [ class "card stacked-card" ]
                         [ div [ class "card-header" ] [ text <| Product.processNameToString name ]
-                        , viewIngredient (ratioToStringTonKm totalWeight) bar
+                        , viewIngredient (ratioToStringKgKm totalWeight) bar
                         ]
                 )
             |> viewHeader header (text "Pourcentage de l'impact total")
