@@ -45,16 +45,16 @@ type alias Model =
 
 
 type Msg
-    = IngredientSliderChanged Product.ProcessName (Maybe Unit.Ratio)
-    | DbLoaded (WebData Db.Db)
-    | Reset
-    | ProductSelected String
-    | SwitchImpact Impact.Trigram
-    | IngredientSelected String
-    | AddIngredient
-    | DeleteIngredient Product.ProcessName
+    = AddIngredient
     | CountrySelected Country.Code
+    | DbLoaded (WebData Db.Db)
+    | DeleteIngredient Product.ProcessName
+    | IngredientSelected String
+    | IngredientSliderChanged Product.ProcessName (Maybe Unit.Ratio)
     | NoOp
+    | ProductSelected String
+    | Reset
+    | SwitchImpact Impact.Trigram
 
 
 tunaPizza : String
@@ -81,15 +81,66 @@ init session =
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
 update ({ foodDb, db } as session) msg ({ currentProductInfo } as model) =
     case ( msg, currentProductInfo ) of
-        ( IngredientSliderChanged name (Just newAmount), Just selected ) ->
+        ( AddIngredient, Just selected ) ->
             let
-                { product, rawCookedRatioInfo } =
-                    selected
+                productWithAddedIngredient =
+                    selected.product
+                        |> Product.addIngredient selected.rawCookedRatioInfo foodDb.processes model.selectedIngredient
 
-                updatedProduct =
-                    { product | plant = Product.updateAmount rawCookedRatioInfo name (Unit.ratioToFloat newAmount) product.plant }
+                productWithPefScore =
+                    productWithAddedIngredient
+                        |> Result.map (Product.computePefImpact session.db.impacts)
             in
-            ( { model | currentProductInfo = Just { selected | product = updatedProduct } }, session, Cmd.none )
+            case productWithPefScore of
+                Ok updatedProduct ->
+                    ( { model
+                        | currentProductInfo = Just { selected | product = updatedProduct }
+                      }
+                    , session
+                    , Cmd.none
+                    )
+
+                Err message ->
+                    ( model
+                    , session
+                        |> Session.notifyError "Erreur lors de l'ajout de l'ingrédient" message
+                    , Cmd.none
+                    )
+
+        ( CountrySelected countryCode, Just selected ) ->
+            let
+                productWithUpdatedTransport =
+                    selected.product
+                        |> Product.updateTransport selected.original.plant.transport foodDb.processes db.impacts countryCode db.transports
+
+                productWithPefScore =
+                    productWithUpdatedTransport
+                        |> Product.computePefImpact session.db.impacts
+            in
+            ( { model
+                | currentProductInfo = Just { selected | product = productWithPefScore }
+                , selectedCountry = countryCode
+              }
+            , session
+            , Cmd.none
+            )
+
+        ( DeleteIngredient processName, Just selected ) ->
+            let
+                productWithoutIngredient =
+                    selected.product
+                        |> Product.removeIngredient selected.rawCookedRatioInfo processName
+
+                productWithPefScore =
+                    productWithoutIngredient
+                        |> Product.computePefImpact session.db.impacts
+            in
+            ( { model
+                | currentProductInfo = Just { selected | product = productWithPefScore }
+              }
+            , session
+            , Cmd.none
+            )
 
         ( DbLoaded (RemoteData.Success loadedDb), _ ) ->
             let
@@ -127,14 +178,21 @@ update ({ foodDb, db } as session) msg ({ currentProductInfo } as model) =
             , Cmd.none
             )
 
-        ( Reset, Just selected ) ->
-            ( { model
-                | currentProductInfo = Just { selected | product = selected.original }
-                , selectedCountry = Product.defaultCountry
-              }
+        ( IngredientSelected ingredientName, _ ) ->
+            ( { model | selectedIngredient = ingredientName }
             , session
             , Cmd.none
             )
+
+        ( IngredientSliderChanged name (Just newAmount), Just selected ) ->
+            let
+                { product, rawCookedRatioInfo } =
+                    selected
+
+                updatedProduct =
+                    { product | plant = Product.updateAmount rawCookedRatioInfo name (Unit.ratioToFloat newAmount) product.plant }
+            in
+            ( { model | currentProductInfo = Just { selected | product = updatedProduct } }, session, Cmd.none )
 
         ( ProductSelected productSelected, _ ) ->
             let
@@ -167,75 +225,17 @@ update ({ foodDb, db } as session) msg ({ currentProductInfo } as model) =
                     , Cmd.none
                     )
 
+        ( Reset, Just selected ) ->
+            ( { model
+                | currentProductInfo = Just { selected | product = selected.original }
+                , selectedCountry = Product.defaultCountry
+              }
+            , session
+            , Cmd.none
+            )
+
         ( SwitchImpact impact, _ ) ->
             ( { model | impact = impact }, session, Cmd.none )
-
-        ( IngredientSelected ingredientName, _ ) ->
-            ( { model | selectedIngredient = ingredientName }
-            , session
-            , Cmd.none
-            )
-
-        ( AddIngredient, Just selected ) ->
-            let
-                productWithAddedIngredient =
-                    selected.product
-                        |> Product.addIngredient selected.rawCookedRatioInfo foodDb.processes model.selectedIngredient
-
-                productWithPefScore =
-                    productWithAddedIngredient
-                        |> Result.map (Product.computePefImpact session.db.impacts)
-            in
-            case productWithPefScore of
-                Ok updatedProduct ->
-                    ( { model
-                        | currentProductInfo = Just { selected | product = updatedProduct }
-                      }
-                    , session
-                    , Cmd.none
-                    )
-
-                Err message ->
-                    ( model
-                    , session
-                        |> Session.notifyError "Erreur lors de l'ajout de l'ingrédient" message
-                    , Cmd.none
-                    )
-
-        ( DeleteIngredient processName, Just selected ) ->
-            let
-                productWithoutIngredient =
-                    selected.product
-                        |> Product.removeIngredient selected.rawCookedRatioInfo processName
-
-                productWithPefScore =
-                    productWithoutIngredient
-                        |> Product.computePefImpact session.db.impacts
-            in
-            ( { model
-                | currentProductInfo = Just { selected | product = productWithPefScore }
-              }
-            , session
-            , Cmd.none
-            )
-
-        ( CountrySelected countryCode, Just selected ) ->
-            let
-                productWithUpdatedTransport =
-                    selected.product
-                        |> Product.updateTransport selected.original.plant.transport foodDb.processes db.impacts countryCode db.transports
-
-                productWithPefScore =
-                    productWithUpdatedTransport
-                        |> Product.computePefImpact session.db.impacts
-            in
-            ( { model
-                | currentProductInfo = Just { selected | product = productWithPefScore }
-                , selectedCountry = countryCode
-              }
-            , session
-            , Cmd.none
-            )
 
         _ ->
             ( model, session, Cmd.none )
