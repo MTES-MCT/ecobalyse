@@ -82,7 +82,7 @@ planeTransportName =
 
 
 type alias Amount =
-    Unit.Ratio
+    Float
 
 
 type ProcessName
@@ -238,7 +238,7 @@ emptyStep =
 
 
 type alias Ingredient =
-    ( ProcessName, Unit.Ratio )
+    ( ProcessName, Amount )
 
 
 type alias ProductDefinition =
@@ -377,7 +377,6 @@ updateWeight maybeRawCookedRatioInfo step =
                     rawCookedRatio
                         |> Unit.ratioToFloat
                         |> (*) updatedRawWeight
-                        |> Unit.Ratio
             in
             updateStep
                 (updateProcess weightLossProcessName (\process -> { process | amount = updatedWeight }))
@@ -393,7 +392,6 @@ findProductByName ((ProductName name) as productName) =
 decodeAmount : Decoder Amount
 decodeAmount =
     Decode.float
-        |> Decode.map Unit.ratio
 
 
 decodeIngredients : Decoder (List Ingredient)
@@ -473,7 +471,7 @@ getTotalImpact trigram step =
                     impact =
                         grabImpactFloat unusedFunctionalUnit unusedDuration trigram process
                 in
-                total + (Unit.ratioToFloat process.amount * impact)
+                total + (process.amount * impact)
             )
             0
 
@@ -485,7 +483,7 @@ getTotalWeight step =
         |> AnyDict.foldl
             (\processName { amount } total ->
                 if isIngredient processName then
-                    total + Unit.ratioToFloat amount
+                    total + amount
 
                 else
                     total
@@ -516,8 +514,7 @@ getRawCookedRatioInfo product =
                         (\process ->
                             { weightLossProcessName = processName
                             , rawCookedRatio =
-                                Unit.ratioToFloat process.amount
-                                    / totalIngredientsWeight
+                                (process.amount / totalIngredientsWeight)
                                     |> Unit.Ratio
                             }
                         )
@@ -532,7 +529,7 @@ getWeightLosingUnitProcessName step =
         -- Only keep processes with names ending with "/ FR U"
         |> List.filter (Tuple.first >> isProcessing)
         -- Sort by heavier to lighter
-        |> List.sortBy (Tuple.second >> .amount >> Unit.ratioToFloat)
+        |> List.sortBy (Tuple.second >> .amount)
         |> List.reverse
         -- Only keep the process names
         |> List.map Tuple.first
@@ -562,7 +559,7 @@ addIngredient maybeRawCookedRatioInfo impactsForProcesses ingredientName product
         Ok impacts ->
             let
                 amount =
-                    Unit.Ratio 1.0
+                    1.0
 
                 plant =
                     product.plant
@@ -630,7 +627,7 @@ updateTransport defaultTransport impactsForProcesses impactDefinitions countryCo
                 |> Result.withDefault Impact.noImpacts
 
         toTonKm km =
-            Length.inKilometers km * totalWeight / 1000 |> Unit.Ratio
+            Length.inKilometers km * totalWeight / 1000
 
         transports =
             [ ( lorryTransportName, Process (toTonKm transportWithRatio.road) lorry )

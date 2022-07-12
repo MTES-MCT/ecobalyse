@@ -10,8 +10,7 @@ import Data.Country as Country exposing (Country)
 import Data.Food.Db as Db
 import Data.Food.Product as Product
     exposing
-        ( Amount
-        , Process
+        ( Process
         , ProcessName
         , Product
         , RawCookedRatioInfo
@@ -66,7 +65,7 @@ type alias Model =
 
 
 type Msg
-    = IngredientSliderChanged ProcessName (Maybe Amount)
+    = IngredientSliderChanged ProcessName (Maybe Unit.Ratio)
     | DbLoaded (WebData Db.Db)
     | Reset
     | ProductSelected String
@@ -108,7 +107,7 @@ update ({ foodDb, db } as session) msg ({ selectedProduct } as model) =
                     selected
 
                 updatedProduct =
-                    { product | plant = Product.updateAmount rawCookedRatioInfo name newAmount product.plant }
+                    { product | plant = Product.updateAmount rawCookedRatioInfo name (Unit.ratioToFloat newAmount) product.plant }
             in
             ( { model | selectedProduct = Just { selected | product = updatedProduct } }, session, Cmd.none )
 
@@ -465,13 +464,13 @@ makeBar totalImpact trigram processName process =
     let
         impact =
             -- Product.getImpact trigram definitions impacts * Unit.ratioToFloat amount
-            Impact.grabImpactFloat Unit.PerItem Product.unusedDuration trigram process * Unit.ratioToFloat process.amount
+            Impact.grabImpactFloat Unit.PerItem Product.unusedDuration trigram process * process.amount
 
         percent =
             impact * toFloat 100 / totalImpact
     in
     { name = processName
-    , amount = process.amount
+    , amount = Unit.Ratio process.amount
     , impact = impact
     , width = clamp 0 100 percent
     , percent = percent
