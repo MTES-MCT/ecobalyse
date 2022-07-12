@@ -61,7 +61,7 @@ init db =
                     |> (\lifeCycle ->
                             let
                                 { daysOfWear, useNbCycles } =
-                                    product
+                                    product.use
                                         |> Product.customDaysOfWear quality reparability
                             in
                             { inputs = inputs
@@ -168,7 +168,7 @@ computeEndOfLifeImpacts { processes } simulator =
                                 { kwh, heat, impacts } =
                                     step.outputMass
                                         |> Formula.endOfLifeImpacts step.impacts
-                                            { volume = simulator.inputs.product.volume
+                                            { volume = simulator.inputs.product.endOfLife.volume
                                             , passengerCar = passengerCar
                                             , endOfLife = endOfLife
                                             , countryElecProcess = country.electricityProcess
@@ -190,8 +190,8 @@ computeUseImpacts ({ inputs, useNbCycles } as simulator) =
                         step.outputMass
                             |> Formula.useImpacts step.impacts
                                 { useNbCycles = useNbCycles
-                                , ironingProcess = inputs.product.useIroningProcess
-                                , nonIroningProcess = inputs.product.useNonIroningProcess
+                                , ironingProcess = inputs.product.use.ironingProcess
+                                , nonIroningProcess = inputs.product.use.nonIroningProcess
                                 , countryElecProcess = country.electricityProcess
                                 }
                 in
@@ -212,10 +212,10 @@ computeMakingImpacts { processes } ({ inputs } as simulator) =
                                 { kwh, heat, impacts } =
                                     step.outputMass
                                         |> Formula.makingImpacts step.impacts
-                                            { makingProcess = inputs.product.makingProcess
+                                            { makingProcess = inputs.product.making.process
                                             , fadingProcess =
                                                 -- Note: in the future, we may have distinct fading processes per countries
-                                                if inputs.product.fadable then
+                                                if inputs.product.making.fadable then
                                                     Just fading
 
                                                 else
@@ -341,25 +341,22 @@ computeFabricImpacts ({ inputs } as simulator) =
             (\({ country } as step) ->
                 let
                     { kwh, impacts } =
-                        if inputs.product.knitted then
-                            step.outputMass
-                                |> Formula.knittingImpacts step.impacts
-                                    { elec = inputs.product.fabricProcess.elec
-                                    , countryElecProcess = country.electricityProcess
-                                    }
+                        case inputs.product.fabric of
+                            Product.Knitted process ->
+                                step.outputMass
+                                    |> Formula.knittingImpacts step.impacts
+                                        { elec = process.elec
+                                        , countryElecProcess = country.electricityProcess
+                                        }
 
-                        else
-                            step.outputMass
-                                |> Formula.weavingImpacts step.impacts
-                                    { pickingElec = inputs.product.fabricProcess.elec_pppm
-                                    , countryElecProcess = country.electricityProcess
-                                    , surfaceMass =
-                                        inputs.surfaceMass
-                                            |> Maybe.withDefault inputs.product.surfaceMass
-                                    , picking =
-                                        inputs.picking
-                                            |> Maybe.withDefault inputs.product.picking
-                                    }
+                            Product.Weaved process defaultPicking defaultSurfaceMass ->
+                                step.outputMass
+                                    |> Formula.weavingImpacts step.impacts
+                                        { pickingElec = process.elec_pppm
+                                        , countryElecProcess = country.electricityProcess
+                                        , surfaceMass = Maybe.withDefault defaultSurfaceMass inputs.surfaceMass
+                                        , picking = Maybe.withDefault defaultPicking inputs.picking
+                                        }
                 in
                 { step | impacts = impacts, kwh = kwh }
             )
@@ -371,10 +368,8 @@ computeMakingStepWaste ({ inputs } as simulator) =
         { mass, waste } =
             inputs.mass
                 |> Formula.makingWaste
-                    { processWaste = inputs.product.makingProcess.waste
-                    , pcrWaste =
-                        inputs.makingWaste
-                            |> Maybe.withDefault inputs.product.pcrWaste
+                    { processWaste = inputs.product.making.process.waste
+                    , pcrWaste = Maybe.withDefault inputs.product.making.pcrWaste inputs.makingWaste
                     }
     in
     simulator
@@ -390,7 +385,7 @@ computeFabricStepWaste ({ inputs, lifeCycle } as simulator) =
         { mass, waste } =
             lifeCycle
                 |> LifeCycle.getStepProp Label.Making .inputMass Quantity.zero
-                |> Formula.genericWaste inputs.product.fabricProcess.waste
+                |> Formula.genericWaste (Product.getFabricProcess inputs.product |> .waste)
     in
     simulator
         |> updateLifeCycleStep Label.Fabric (Step.updateWaste waste mass)

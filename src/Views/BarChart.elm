@@ -2,6 +2,7 @@ module Views.BarChart exposing (view)
 
 import Array
 import Data.Impact as Impact
+import Data.Product as Product
 import Data.Simulator exposing (Simulator)
 import Data.Step as Step
 import Data.Step.Label as Label
@@ -50,11 +51,11 @@ makeBars { simulator, impact, funit } =
                     (\step ->
                         { label =
                             span []
-                                [ case ( step.label, simulator.inputs.product.knitted ) of
-                                    ( Label.Fabric, True ) ->
+                                [ case ( step.label, simulator.inputs.product.fabric ) of
+                                    ( Label.Fabric, Product.Knitted _ ) ->
                                         text "Tricotage"
 
-                                    ( Label.Fabric, False ) ->
+                                    ( Label.Fabric, Product.Weaved _ _ _ ) ->
                                         text "Tissage"
 
                                     ( Label.Dyeing, _ ) ->

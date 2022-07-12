@@ -220,11 +220,12 @@ toString inputs =
     , [ materialsToString inputs.materials ]
     , [ "matière", inputs.countryMaterial.name ]
     , [ "filature", inputs.countrySpinning.name ]
-    , if inputs.product.knitted then
-        [ "tricotage", inputs.countryFabric.name ]
+    , case inputs.product.fabric of
+        Product.Knitted _ ->
+            [ "tricotage", inputs.countryFabric.name ]
 
-      else
-        [ "tissage", inputs.countryFabric.name ++ weavingOptionsToString inputs.picking inputs.surfaceMass ]
+        Product.Weaved _ _ _ ->
+            [ "tissage", inputs.countryFabric.name ++ weavingOptionsToString inputs.picking inputs.surfaceMass ]
     , [ "teinture", inputs.countryDyeing.name ++ dyeingOptionsToString inputs.dyeingWeighting ]
     , [ "confection", inputs.countryMaking.name ++ makingOptionsToString inputs ]
     , [ "distribution", inputs.countryDistribution.name ]

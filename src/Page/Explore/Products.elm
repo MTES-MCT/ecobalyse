@@ -35,55 +35,58 @@ table db { detailed } =
       , toCell =
             \product ->
                 div [ classList [ ( "text-end", not detailed ) ] ]
-                    [ Format.m3 product.volume ]
+                    [ Format.m3 product.endOfLife.volume ]
       }
     , { label = "Perte (PCR)"
       , toCell =
             \product ->
                 div [ classList [ ( "text-end", not detailed ) ] ]
-                    [ Format.ratio product.pcrWaste ]
+                    [ Format.ratio product.making.pcrWaste ]
       }
     , { label = "Type de procédé"
       , toCell =
             \product ->
-                if product.knitted then
-                    text "Tricotage"
+                case product.fabric of
+                    Product.Knitted _ ->
+                        text "Tricotage"
 
-                else
-                    text "Tissage"
+                    Product.Weaved _ _ _ ->
+                        text "Tissage"
       }
     , { label = "Pick-per-meter"
       , toCell =
             \product ->
                 div [ classList [ ( "text-end", not detailed ) ] ]
-                    [ if product.knitted then
-                        text "N/A"
+                    [ case product.fabric of
+                        Product.Knitted _ ->
+                            text "N/A"
 
-                      else
-                        Format.picking product.picking
+                        Product.Weaved _ picking _ ->
+                            Format.picking picking
                     ]
       }
     , { label = "Grammage"
       , toCell =
             \product ->
                 div [ classList [ ( "text-end", not detailed ) ] ]
-                    [ if product.knitted then
-                        text "N/A"
+                    [ case product.fabric of
+                        Product.Knitted _ ->
+                            text "N/A"
 
-                      else
-                        Format.surfaceMass product.surfaceMass
+                        Product.Weaved _ _ surfaceMass ->
+                            Format.surfaceMass surfaceMass
                     ]
       }
     , { label = "Procédé"
-      , toCell = .fabricProcess >> .name >> text
+      , toCell = Product.getFabricProcess >> .name >> text
       }
     , { label = "Confection"
-      , toCell = .makingProcess >> .name >> text
+      , toCell = .making >> .process >> .name >> text
       }
     , { label = "Délavage"
       , toCell =
             \product ->
-                if product.fadable then
+                if product.making.fadable then
                     db.processes
                         |> Process.loadWellKnown
                         |> Result.map (.fading >> .name >> text)
@@ -96,42 +99,42 @@ table db { detailed } =
       , toCell =
             \product ->
                 div [ classList [ ( "text-end", not detailed ) ] ]
-                    [ Format.days product.daysOfWear ]
+                    [ Format.days product.use.daysOfWear ]
       }
     , { label = "Cycles d'entretien (par défaut)"
       , toCell =
             \product ->
                 div [ classList [ ( "text-end", not detailed ) ] ]
-                    [ text <| String.fromInt product.wearsPerCycle ]
+                    [ text <| String.fromInt product.use.wearsPerCycle ]
       }
     , { label = "Utilisations avant lavage"
       , toCell =
             \product ->
                 div [ classList [ ( "text-end", not detailed ) ] ]
-                    [ text <| String.fromInt product.useDefaultNbCycles ]
+                    [ text <| String.fromInt product.use.defaultNbCycles ]
       }
     , { label = "Procédé de repassage"
-      , toCell = .useIroningProcess >> .name >> text
+      , toCell = .use >> .ironingProcess >> .name >> text
       }
     , { label = "Procédé d'utilisation hors-repassage"
-      , toCell = .useNonIroningProcess >> .name >> text
+      , toCell = .use >> .nonIroningProcess >> .name >> text
       }
     , { label = "Séchage électrique"
       , toCell =
             \product ->
                 div [ classList [ ( "text-end", not detailed ) ] ]
-                    [ Format.ratio product.useRatioDryer ]
+                    [ Format.ratio product.use.ratioDryer ]
       }
     , { label = "Repassage (part)"
       , toCell =
             \product ->
                 div [ classList [ ( "text-end", not detailed ) ] ]
-                    [ Format.ratio product.useRatioIroning ]
+                    [ Format.ratio product.use.ratioIroning ]
       }
     , { label = "Repassage (temps)"
       , toCell =
             \product ->
                 div [ classList [ ( "text-end", not detailed ) ] ]
-                    [ Format.hours product.useTimeIroning ]
+                    [ Format.hours product.use.timeIroning ]
       }
     ]
