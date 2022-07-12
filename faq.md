@@ -30,11 +30,11 @@ On y travaille !
 
 Vous avez l'œil ! On y travaille.
 
-Cf. page méthodo sur ce sujet : [impacts considérés](methodologie/impacts-consideres.md)
+Cf. page méthodo sur ce sujet : [impacts considérés](textile/impacts-consideres.md)
 
 ### Le résultat de ma simulation a changé entre deux visites !
 
-C'est normal, nous mettons à jour notre référentiel de données et affinons nos calculs continuellement ; il se peut donc que le score carbone évolue légèrement en fonction de ces évolutions. C'est plutôt une bonne chose, si on y réfléchit !
+C'est normal, nous mettons à jour notre référentiel de données et affinons nos calculs continuellement ; il se peut donc que le score carbone évolue légèrement en fonction de ces évolutions. C'est plutôt une bonne chose, si on y réfléchit !
 
 {% hint style="info" %}
 Si vous avez d'autres interrogations, vous pouvez également nous les adresser [par email](mailto:ecobalyse@beta.gouv.fr).
