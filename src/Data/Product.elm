@@ -1,12 +1,15 @@
 module Data.Product exposing
-    ( Id(..)
+    ( FabricOptions(..)
+    , Id(..)
     , Product
     , customDaysOfWear
     , decodeList
     , encode
     , encodeId
     , findById
+    , getFabricProcess
     , idToString
+    , isKnitted
     )
 
 import Data.Process as Process exposing (Process)
@@ -20,16 +23,18 @@ import Quantity
 import Volume exposing (Volume)
 
 
+type FabricOptions
+    = Knitted Process
+    | Weaved Process Unit.PickPerMeter Unit.SurfaceMass
+
+
 type alias Product =
     { id : Id
     , name : String
     , mass : Mass
 
     -- Fabric step specific options
-    , fabricProcess : Process -- Procédé de Tissage/Tricotage
-    , knitted : Bool -- True: Tricotage (Knitting); False: Tissage (Weaving)
-    , picking : Unit.PickPerMeter -- Duitage: pick/m (picks per meter)
-    , surfaceMass : Unit.SurfaceMass -- Grammage: gr/m² par kg de produit
+    , fabric : FabricOptions
 
     -- Making step specific options
     , makingProcess : Process -- Procédé de Confection
@@ -55,6 +60,16 @@ type Id
     = Id String
 
 
+getFabricProcess : Product -> Process
+getFabricProcess { fabric } =
+    case fabric of
+        Knitted process ->
+            process
+
+        Weaved process _ _ ->
+            process
+
+
 findById : Id -> List Product -> Result String Product
 findById id =
     List.filter (.id >> (==) id)
@@ -67,30 +82,44 @@ idToString (Id string) =
     string
 
 
+isKnitted : Product -> Bool
+isKnitted { fabric } =
+    case fabric of
+        Knitted _ ->
+            True
+
+        Weaved _ _ _ ->
+            False
+
+
+decodeFabricOptions : List Process -> Decoder FabricOptions
+decodeFabricOptions processes =
+    Decode.field "type" Decode.string
+        |> Decode.andThen
+            (\str ->
+                case String.toLower str of
+                    "knitting" ->
+                        Decode.succeed Knitted
+                            |> Pipe.required "processUuid" (Process.decodeFromUuid processes)
+
+                    "weaving" ->
+                        Decode.succeed Weaved
+                            |> Pipe.required "processUuid" (Process.decodeFromUuid processes)
+                            |> Pipe.required "picking" Unit.decodePickPerMeter
+                            |> Pipe.required "surfaceMass" Unit.decodeSurfaceMass
+
+                    _ ->
+                        Decode.fail ("Type de production d'étoffe inconnu\u{00A0}: " ++ str)
+            )
+
+
 decode : List Process -> Decoder Product
 decode processes =
     Decode.succeed Product
         |> Pipe.required "id" (Decode.map Id Decode.string)
         |> Pipe.required "name" Decode.string
         |> Pipe.required "mass" (Decode.map Mass.kilograms Decode.float)
-        |> Pipe.requiredAt [ "fabric", "processUuid" ] (Process.decodeFromUuid processes)
-        |> Pipe.requiredAt [ "fabric", "type" ]
-            (Decode.string
-                |> Decode.andThen
-                    (\str ->
-                        case String.toLower str of
-                            "weaving" ->
-                                Decode.succeed False
-
-                            "knitting" ->
-                                Decode.succeed True
-
-                            _ ->
-                                Decode.fail ("Type de production d'étoffe inconnu\u{00A0}: " ++ str)
-                    )
-            )
-        |> Pipe.optionalAt [ "fabric", "picking" ] Unit.decodePickPerMeter (Unit.pickPerMeter 0)
-        |> Pipe.optionalAt [ "fabric", "surfaceMass" ] Unit.decodeSurfaceMass (Unit.surfaceMass 0)
+        |> Pipe.required "fabric" (decodeFabricOptions processes)
         |> Pipe.requiredAt [ "making", "processUuid" ] (Process.decodeFromUuid processes)
         |> Pipe.optionalAt [ "making", "fadable" ] Decode.bool False
         |> Pipe.requiredAt [ "making", "pcrWaste" ] Unit.decodeRatio
@@ -110,18 +139,35 @@ decodeList processes =
     Decode.list (decode processes)
 
 
+encodeFabricOptions : FabricOptions -> Encode.Value
+encodeFabricOptions v =
+    case v of
+        Knitted process ->
+            Encode.object
+                [ ( "type", Encode.string "knitting" )
+                , ( "processUuid", Process.encodeUuid process.uuid )
+                ]
+
+        Weaved process picking surfaceMass ->
+            Encode.object
+                [ ( "type", Encode.string "weaving" )
+                , ( "processUuid", Process.encodeUuid process.uuid )
+                , ( "picking", Unit.encodePickPerMeter picking )
+                , ( "surfaceMass", Unit.encodeSurfaceMass surfaceMass )
+                ]
+
+
 encode : Product -> Encode.Value
 encode v =
     Encode.object
         [ ( "id", encodeId v.id )
         , ( "name", Encode.string v.name )
         , ( "mass", Encode.float (Mass.inKilograms v.mass) )
+        , ( "fabric", encodeFabricOptions v.fabric )
+
+        -- To migrate
         , ( "pcrWaste", Unit.encodeRatio v.pcrWaste )
-        , ( "picking", Unit.encodePickPerMeter v.picking )
-        , ( "surfaceMass", Unit.encodeSurfaceMass v.surfaceMass )
-        , ( "knitted", Encode.bool v.knitted )
         , ( "fadable", Encode.bool v.fadable )
-        , ( "fabricProcessUuid", Process.encodeUuid v.makingProcess.uuid )
         , ( "makingProcessUuid", Process.encodeUuid v.makingProcess.uuid )
         , ( "useIroningProcessUuid", Process.encodeUuid v.useIroningProcess.uuid )
         , ( "useNonIroningProcessUuid", Process.encodeUuid v.useNonIroningProcess.uuid )

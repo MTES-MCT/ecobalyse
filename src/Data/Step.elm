@@ -22,6 +22,7 @@ import Data.Formula as Formula
 import Data.Impact as Impact exposing (Impacts)
 import Data.Inputs exposing (Inputs)
 import Data.Process as Process exposing (Process)
+import Data.Product as Product
 import Data.Step.Label as Label exposing (Label)
 import Data.Transport as Transport exposing (Transport)
 import Data.Unit as Unit
@@ -277,7 +278,7 @@ updateFromInputs { processes } inputs ({ label, country } as step) =
                 , processInfo =
                     { defaultProcessInfo
                         | countryElec = Just country.electricityProcess.name
-                        , fabric = Just inputs.product.fabricProcess.name
+                        , fabric = Just (Product.getFabricProcess inputs.product |> .name)
                     }
             }
 

@@ -225,8 +225,8 @@ makingWasteField { current, inputs, updateMakingWaste } =
         ]
 
 
-pickingField : Config msg -> Html msg
-pickingField { current, inputs, updatePicking } =
+pickingField : Config msg -> Unit.PickPerMeter -> Html msg
+pickingField { current, updatePicking } defaultPicking =
     span
         [ [ "Le duitage correspond au nombre de fils de trame (aussi appelés duites) par mètre"
           , "pour un tissu. Ce paramètre est pris en compte car il est connecté avec la consommation"
@@ -239,15 +239,15 @@ pickingField { current, inputs, updatePicking } =
         [ RangeSlider.picking
             { id = "picking"
             , update = updatePicking
-            , value = Maybe.withDefault inputs.product.picking current.picking
+            , value = Maybe.withDefault defaultPicking current.picking
             , toString = Step.pickingToString
             , disabled = not current.enabled
             }
         ]
 
 
-surfaceMassField : Config msg -> Html msg
-surfaceMassField { current, inputs, updateSurfaceMass } =
+surfaceMassField : Config msg -> Unit.SurfaceMass -> Html msg
+surfaceMassField { current, updateSurfaceMass } defaultSurfaceMass =
     span
         [ [ "Le grammage de l'étoffe, exprimé en gr/m², représente sa masse surfacique."
           ]
@@ -257,7 +257,7 @@ surfaceMassField { current, inputs, updateSurfaceMass } =
         [ RangeSlider.surfaceMass
             { id = "surface-density"
             , update = updateSurfaceMass
-            , value = Maybe.withDefault inputs.product.surfaceMass current.surfaceMass
+            , value = Maybe.withDefault defaultSurfaceMass current.surfaceMass
             , toString = Step.surfaceMassToString
             , disabled = not current.enabled
             }
@@ -343,7 +343,7 @@ stepHeader { current, inputs, toggleStep } =
             [ stepIcon current.label ]
         , current.label
             |> Step.displayLabel
-                { knitted = inputs.product.knitted
+                { knitted = Product.isKnitted inputs.product
                 , fadable = inputs.product.fadable
                 }
             |> text
@@ -369,14 +369,15 @@ simpleView ({ funit, inputs, daysOfWear, impact, current } as config) =
                 [ countryField config
                 , case current.label of
                     Label.Fabric ->
-                        if not inputs.product.knitted then
-                            div [ class "mt-2 fs-7 text-muted" ]
-                                [ pickingField config
-                                , surfaceMassField config
-                                ]
+                        case inputs.product.fabric of
+                            Product.Knitted _ ->
+                                text ""
 
-                        else
-                            text ""
+                            Product.Weaved _ defaultPicking defaultSurfaceMass ->
+                                div [ class "mt-2 fs-7 text-muted" ]
+                                    [ pickingField config defaultPicking
+                                    , surfaceMassField config defaultSurfaceMass
+                                    ]
 
                     Label.Dyeing ->
                         div [ class "mt-2" ]
@@ -501,13 +502,14 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                 ]
                 (case current.label of
                     Label.Fabric ->
-                        if not inputs.product.knitted then
-                            [ pickingField config
-                            , surfaceMassField config
-                            ]
+                        case inputs.product.fabric of
+                            Product.Knitted _ ->
+                                []
 
-                        else
-                            []
+                            Product.Weaved _ defaultPicking defaultSurfaceMass ->
+                                [ pickingField config defaultPicking
+                                , surfaceMassField config defaultSurfaceMass
+                                ]
 
                     Label.Dyeing ->
                         [ dyeingWeightingField config ]

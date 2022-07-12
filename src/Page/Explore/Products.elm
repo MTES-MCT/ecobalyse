@@ -46,36 +46,39 @@ table db { detailed } =
     , { label = "Type de procédé"
       , toCell =
             \product ->
-                if product.knitted then
-                    text "Tricotage"
+                case product.fabric of
+                    Product.Knitted _ ->
+                        text "Tricotage"
 
-                else
-                    text "Tissage"
+                    Product.Weaved _ _ _ ->
+                        text "Tissage"
       }
     , { label = "Pick-per-meter"
       , toCell =
             \product ->
                 div [ classList [ ( "text-end", not detailed ) ] ]
-                    [ if product.knitted then
-                        text "N/A"
+                    [ case product.fabric of
+                        Product.Knitted _ ->
+                            text "N/A"
 
-                      else
-                        Format.picking product.picking
+                        Product.Weaved _ picking _ ->
+                            Format.picking picking
                     ]
       }
     , { label = "Grammage"
       , toCell =
             \product ->
                 div [ classList [ ( "text-end", not detailed ) ] ]
-                    [ if product.knitted then
-                        text "N/A"
+                    [ case product.fabric of
+                        Product.Knitted _ ->
+                            text "N/A"
 
-                      else
-                        Format.surfaceMass product.surfaceMass
+                        Product.Weaved _ _ surfaceMass ->
+                            Format.surfaceMass surfaceMass
                     ]
       }
     , { label = "Procédé"
-      , toCell = .fabricProcess >> .name >> text
+      , toCell = Product.getFabricProcess >> .name >> text
       }
     , { label = "Confection"
       , toCell = .makingProcess >> .name >> text

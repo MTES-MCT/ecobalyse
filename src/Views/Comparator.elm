@@ -12,6 +12,7 @@ import Data.Db exposing (Db)
 import Data.Impact as Impact
 import Data.Inputs as Inputs exposing (Inputs)
 import Data.LifeCycle as LifeCycle
+import Data.Product as Product
 import Data.Session exposing (Session)
 import Data.Simulator as Simulator exposing (Simulator)
 import Data.Step.Label as Label
@@ -75,7 +76,7 @@ createEntry db funit { trigram } { highlight, label } query =
                 in
                 { label = label
                 , highlight = highlight
-                , knitted = inputs.product.knitted
+                , knitted = Product.isKnitted inputs.product
                 , score = Impact.grabImpactFloat funit daysOfWear trigram simulator
                 , material = stepScore Label.Material
                 , spinning = stepScore Label.Spinning

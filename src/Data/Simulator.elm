@@ -341,25 +341,22 @@ computeFabricImpacts ({ inputs } as simulator) =
             (\({ country } as step) ->
                 let
                     { kwh, impacts } =
-                        if inputs.product.knitted then
-                            step.outputMass
-                                |> Formula.knittingImpacts step.impacts
-                                    { elec = inputs.product.fabricProcess.elec
-                                    , countryElecProcess = country.electricityProcess
-                                    }
+                        case inputs.product.fabric of
+                            Product.Knitted process ->
+                                step.outputMass
+                                    |> Formula.knittingImpacts step.impacts
+                                        { elec = process.elec
+                                        , countryElecProcess = country.electricityProcess
+                                        }
 
-                        else
-                            step.outputMass
-                                |> Formula.weavingImpacts step.impacts
-                                    { pickingElec = inputs.product.fabricProcess.elec_pppm
-                                    , countryElecProcess = country.electricityProcess
-                                    , surfaceMass =
-                                        inputs.surfaceMass
-                                            |> Maybe.withDefault inputs.product.surfaceMass
-                                    , picking =
-                                        inputs.picking
-                                            |> Maybe.withDefault inputs.product.picking
-                                    }
+                            Product.Weaved process defaultPicking defaultSurfaceMass ->
+                                step.outputMass
+                                    |> Formula.weavingImpacts step.impacts
+                                        { pickingElec = process.elec_pppm
+                                        , countryElecProcess = country.electricityProcess
+                                        , surfaceMass = Maybe.withDefault defaultSurfaceMass inputs.surfaceMass
+                                        , picking = Maybe.withDefault defaultPicking inputs.picking
+                                        }
                 in
                 { step | impacts = impacts, kwh = kwh }
             )
@@ -372,9 +369,7 @@ computeMakingStepWaste ({ inputs } as simulator) =
             inputs.mass
                 |> Formula.makingWaste
                     { processWaste = inputs.product.makingProcess.waste
-                    , pcrWaste =
-                        inputs.makingWaste
-                            |> Maybe.withDefault inputs.product.pcrWaste
+                    , pcrWaste = Maybe.withDefault inputs.product.pcrWaste inputs.makingWaste
                     }
     in
     simulator
@@ -390,7 +385,7 @@ computeFabricStepWaste ({ inputs, lifeCycle } as simulator) =
         { mass, waste } =
             lifeCycle
                 |> LifeCycle.getStepProp Label.Making .inputMass Quantity.zero
-                |> Formula.genericWaste inputs.product.fabricProcess.waste
+                |> Formula.genericWaste (Product.getFabricProcess inputs.product |> .waste)
     in
     simulator
         |> updateLifeCycleStep Label.Fabric (Step.updateWaste waste mass)
