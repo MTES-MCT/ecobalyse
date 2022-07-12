@@ -14,8 +14,8 @@ import Data.Food.Product as Product
         , Process
         , ProcessName
         , Product
+        , RawCookedRatioInfo
         , Step
-        , WeightRatio
         , addIngredient
         , defaultCountry
         , filterIngredients
@@ -52,7 +52,7 @@ import Views.RangeSlider as RangeSlider
 type alias SelectedProduct =
     { product : Product
     , original : Product
-    , weightRatio : Maybe WeightRatio
+    , rawCookedRatioInfo : Maybe RawCookedRatioInfo
     }
 
 
@@ -104,11 +104,11 @@ update ({ foodDb, db } as session) msg ({ selectedProduct } as model) =
     case ( msg, selectedProduct ) of
         ( IngredientSliderChanged name (Just newAmount), Just selected ) ->
             let
-                { product, weightRatio } =
+                { product, rawCookedRatioInfo } =
                     selected
 
                 updatedProduct =
-                    { product | plant = Product.updateAmount weightRatio name newAmount product.plant }
+                    { product | plant = Product.updateAmount rawCookedRatioInfo name newAmount product.plant }
             in
             ( { model | selectedProduct = Just { selected | product = updatedProduct } }, session, Cmd.none )
 
@@ -129,7 +129,7 @@ update ({ foodDb, db } as session) msg ({ selectedProduct } as model) =
                             Just
                                 { product = productWithPefScore
                                 , original = productWithPefScore
-                                , weightRatio = Product.getWeightRatio product
+                                , rawCookedRatioInfo = Product.getRawCookedRatioInfo product
                                 }
                       }
                     , { session | foodDb = loadedDb }
@@ -174,7 +174,7 @@ update ({ foodDb, db } as session) msg ({ selectedProduct } as model) =
                             Just
                                 { product = productWithPefScore
                                 , original = productWithPefScore
-                                , weightRatio = Product.getWeightRatio product
+                                , rawCookedRatioInfo = Product.getRawCookedRatioInfo product
                                 }
                         , productsSelectChoice = productSelected
                       }
@@ -201,7 +201,7 @@ update ({ foodDb, db } as session) msg ({ selectedProduct } as model) =
             let
                 productWithAddedIngredient =
                     selected.product
-                        |> addIngredient selected.weightRatio foodDb.processes model.ingredientsSelectChoice
+                        |> addIngredient selected.rawCookedRatioInfo foodDb.processes model.ingredientsSelectChoice
 
                 productWithPefScore =
                     productWithAddedIngredient
@@ -218,7 +218,7 @@ update ({ foodDb, db } as session) msg ({ selectedProduct } as model) =
             let
                 productWithoutIngredient =
                     selected.product
-                        |> removeIngredient selected.weightRatio processName
+                        |> removeIngredient selected.rawCookedRatioInfo processName
 
                 productWithPefScore =
                     productWithoutIngredient

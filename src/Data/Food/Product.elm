@@ -6,8 +6,8 @@ module Data.Food.Product exposing
     , Product
     , ProductName
     , Products
+    , RawCookedRatioInfo
     , Step
-    , WeightRatio
     , addIngredient
     , computePefImpact
     , decodeProcesses
@@ -17,9 +17,9 @@ module Data.Food.Product exposing
     , emptyProducts
     , filterIngredients
     , findProductByName
+    , getRawCookedRatioInfo
     , getTotalImpact
     , getTotalWeight
-    , getWeightRatio
     , isIngredient
     , isProcessing
     , isTransport
@@ -248,9 +248,9 @@ type alias ProductDefinition =
     }
 
 
-type alias WeightRatio =
-    { processName : ProcessName
-    , weightRatio : Float
+type alias RawCookedRatioInfo =
+    { weightLossProcessName : ProcessName
+    , rawCookedRatio : Float
     }
 
 
@@ -330,32 +330,32 @@ updateStep updateFunc step =
     }
 
 
-updateAmount : Maybe WeightRatio -> ProcessName -> Amount -> Step -> Step
-updateAmount maybeWeightRatio processName newAmount step =
+updateAmount : Maybe RawCookedRatioInfo -> ProcessName -> Amount -> Step -> Step
+updateAmount maybeRawCookedRatioInfo processName newAmount step =
     updateStep
         (updateProcess processName (\process -> { process | amount = newAmount }))
         step
-        |> updateWeight maybeWeightRatio
+        |> updateWeight maybeRawCookedRatioInfo
 
 
-updateWeight : Maybe WeightRatio -> Step -> Step
-updateWeight maybeWeightRatio step =
-    case maybeWeightRatio of
+updateWeight : Maybe RawCookedRatioInfo -> Step -> Step
+updateWeight maybeRawCookedRatioInfo step =
+    case maybeRawCookedRatioInfo of
         Nothing ->
             step
 
-        Just { processName, weightRatio } ->
+        Just { weightLossProcessName, rawCookedRatio } ->
             let
                 updatedRawWeight =
                     getTotalWeight step
 
                 updatedWeight =
                     updatedRawWeight
-                        * weightRatio
+                        * rawCookedRatio
                         |> Unit.Ratio
             in
             updateStep
-                (updateProcess processName (\process -> { process | amount = updatedWeight }))
+                (updateProcess weightLossProcessName (\process -> { process | amount = updatedWeight }))
                 step
 
 
@@ -468,8 +468,8 @@ getTotalWeight step =
             0
 
 
-getWeightRatio : Product -> Maybe WeightRatio
-getWeightRatio product =
+getRawCookedRatioInfo : Product -> Maybe RawCookedRatioInfo
+getRawCookedRatioInfo product =
     -- TODO: HACK, we assume that the process "at plant" that is the heavier is the total
     -- "final" weight, versus the total weight of the raw ingredients. We only need this
     -- if there's some kind of process that "looses weight" in the process, and we assume this
@@ -489,8 +489,8 @@ getWeightRatio product =
                     |> AnyDict.get processName
                     |> Maybe.map
                         (\process ->
-                            { processName = processName
-                            , weightRatio =
+                            { weightLossProcessName = processName
+                            , rawCookedRatio =
                                 Unit.ratioToFloat process.amount
                                     / totalIngredientsWeight
                             }
@@ -526,8 +526,8 @@ filterIngredients products =
         |> List.sort
 
 
-addIngredient : Maybe WeightRatio -> ImpactsForProcesses -> String -> Product -> Product
-addIngredient maybeWeightRatio impactsForProcesses ingredientName product =
+addIngredient : Maybe RawCookedRatioInfo -> ImpactsForProcesses -> String -> Product -> Product
+addIngredient maybeRawCookedRatioInfo impactsForProcesses ingredientName product =
     let
         processName =
             stringToProcessName ingredientName
@@ -546,7 +546,7 @@ addIngredient maybeWeightRatio impactsForProcesses ingredientName product =
                         | ingredients = AnyDict.insert processName (Process amount impacts) plant.ingredients
                     }
                         -- Update the total weight
-                        |> updateWeight maybeWeightRatio
+                        |> updateWeight maybeRawCookedRatioInfo
             in
             { product | plant = withAddedIngredient }
 
@@ -554,8 +554,8 @@ addIngredient maybeWeightRatio impactsForProcesses ingredientName product =
             product
 
 
-removeIngredient : Maybe WeightRatio -> ProcessName -> Product -> Product
-removeIngredient maybeWeightRatio processName product =
+removeIngredient : Maybe RawCookedRatioInfo -> ProcessName -> Product -> Product
+removeIngredient maybeRawCookedRatioInfo processName product =
     let
         plant =
             product.plant
@@ -565,7 +565,7 @@ removeIngredient maybeWeightRatio processName product =
                 | ingredients = AnyDict.filter (\name _ -> name /= processName) plant.ingredients
             }
                 -- Update the total weight
-                |> updateWeight maybeWeightRatio
+                |> updateWeight maybeRawCookedRatioInfo
     in
     { product
         | plant = withRemovedIngredient
