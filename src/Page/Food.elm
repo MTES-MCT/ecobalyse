@@ -12,7 +12,6 @@ import Data.Food.Product as Product exposing (Product)
 import Data.Impact as Impact
 import Data.Session as Session exposing (Session)
 import Data.Unit as Unit
-import Decimal
 import Dict.Any as AnyDict
 import Html exposing (..)
 import Html.Attributes exposing (..)
