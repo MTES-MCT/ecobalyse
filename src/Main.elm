@@ -2,23 +2,23 @@ module Main exposing (main)
 
 import Browser exposing (Document)
 import Browser.Navigation as Nav
-import Data.Db as Db exposing (Db)
 import Data.Food.Db as FoodDb
-import Data.Inputs as Inputs
 import Data.Session as Session exposing (Session)
+import Data.Textile.Db as Db exposing (Db)
+import Data.Textile.Inputs as Inputs
 import Html
 import Page.Api as Api
 import Page.Changelog as Changelog
 import Page.Editorial as Editorial
-import Page.Examples as Examples
-import Page.Explore as Explore
-import Page.Food as Food
+import Page.Food.Simulator as FoodSimulator
 import Page.Home as Home
-import Page.Simulator as Simulator
 import Page.Stats as Stats
+import Page.Textile.Examples as TextileExamples
+import Page.Textile.Explore as TextileExplore
+import Page.Textile.Simulator as TextileSimulator
 import Ports
 import RemoteData exposing (WebData)
-import Request.Db
+import Request.Textile.Db
 import Request.Version
 import Route exposing (Route)
 import Url exposing (Url)
@@ -32,17 +32,17 @@ type alias Flags =
 
 
 type Page
-    = BlankPage
-    | HomePage Home.Model
+    = ApiPage Api.Model
+    | BlankPage
     | ChangelogPage Changelog.Model
     | EditorialPage Editorial.Model
-    | ExamplesPage Examples.Model
-    | ExplorePage Explore.Model
-    | ApiPage Api.Model
-    | SimulatorPage Simulator.Model
-    | StatsPage Stats.Model
-    | FoodPage Food.Model
+    | FoodSimulatorPage FoodSimulator.Model
+    | HomePage Home.Model
     | NotFoundPage
+    | StatsPage Stats.Model
+    | TextileExamplesPage TextileExamples.Model
+    | TextileExplorePage TextileExplore.Model
+    | TextileSimulatorPage TextileSimulator.Model
 
 
 type alias Model =
@@ -53,26 +53,26 @@ type alias Model =
 
 
 type Msg
-    = CloseNotification Session.Notification
-    | DbReceived Url (WebData Db)
-    | HomeMsg Home.Msg
+    = ApiMsg Api.Msg
     | ChangelogMsg Changelog.Msg
-    | EditorialMsg Editorial.Msg
-    | ExamplesMsg Examples.Msg
-    | ExploreMsg Explore.Msg
-    | ApiMsg Api.Msg
-    | SimulatorMsg Simulator.Msg
-    | StatsMsg Stats.Msg
-    | FoodMsg Food.Msg
-    | StoreChanged String
-    | LoadUrl String
-    | ReloadPage
     | CloseMobileNavigation
+    | CloseNotification Session.Notification
+    | EditorialMsg Editorial.Msg
+    | FoodSimulatorMsg FoodSimulator.Msg
+    | HomeMsg Home.Msg
+    | LoadUrl String
     | OpenMobileNavigation
+    | ReloadPage
+    | StatsMsg Stats.Msg
+    | StoreChanged String
+    | TextileDbReceived Url (WebData Db)
+    | TextileExamplesMsg TextileExamples.Msg
+    | TextileExploreMsg TextileExplore.Msg
+    | TextileSimulatorMsg TextileSimulator.Msg
     | UrlChanged Url
     | UrlRequested Browser.UrlRequest
-    | VersionReceived (WebData String)
     | VersionPoll
+    | VersionReceived (WebData String)
 
 
 init : Flags -> Url -> Nav.Key -> ( Model, Cmd Msg )
@@ -95,7 +95,7 @@ init flags url navKey =
       }
     , Cmd.batch
         [ Ports.appStarted ()
-        , Request.Db.loadDb session (DbReceived url)
+        , Request.Textile.Db.loadDb session (TextileDbReceived url)
         , Request.Version.loadVersion VersionReceived
         ]
     )
@@ -142,25 +142,25 @@ setRoute maybeRoute ( { session } as model, cmds ) =
             Editorial.init slug session
                 |> toPage EditorialPage EditorialMsg
 
-        Just Route.Examples ->
-            Examples.init session
-                |> toPage ExamplesPage ExamplesMsg
-
-        Just (Route.Explore dataset) ->
-            Explore.init dataset session
-                |> toPage ExplorePage ExploreMsg
-
-        Just (Route.Simulator trigram funit detailed maybeQuery) ->
-            Simulator.init trigram funit detailed maybeQuery session
-                |> toPage SimulatorPage SimulatorMsg
+        Just Route.FoodSimulator ->
+            FoodSimulator.init session
+                |> toPage FoodSimulatorPage FoodSimulatorMsg
 
         Just Route.Stats ->
             Stats.init session
                 |> toPage StatsPage StatsMsg
 
-        Just Route.Food ->
-            Food.init session
-                |> toPage FoodPage FoodMsg
+        Just Route.TextileExamples ->
+            TextileExamples.init session
+                |> toPage TextileExamplesPage TextileExamplesMsg
+
+        Just (Route.TextileExplore dataset) ->
+            TextileExplore.init dataset session
+                |> toPage TextileExplorePage TextileExploreMsg
+
+        Just (Route.TextileSimulator trigram funit detailed maybeQuery) ->
+            TextileSimulator.init trigram funit detailed maybeQuery session
+                |> toPage TextileSimulatorPage TextileSimulatorMsg
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -198,39 +198,40 @@ update msg ({ page, session } as model) =
             Editorial.update session editorialMsg editorialModel
                 |> toPage EditorialPage EditorialMsg
 
-        ( ExamplesMsg examplesMsg, ExamplesPage examplesModel ) ->
-            Examples.update session examplesMsg examplesModel
-                |> toPage ExamplesPage ExamplesMsg
-
-        ( ExploreMsg examplesMsg, ExplorePage examplesModel ) ->
-            Explore.update session examplesMsg examplesModel
-                |> toPage ExplorePage ExploreMsg
-
-        ( SimulatorMsg counterMsg, SimulatorPage counterModel ) ->
-            Simulator.update session counterMsg counterModel
-                |> toPage SimulatorPage SimulatorMsg
-
-        ( StatsMsg statsMsg, StatsPage statsModel ) ->
-            Stats.update session statsMsg statsModel
-                |> toPage StatsPage StatsMsg
-
         -- Food
-        ( FoodMsg foodMsg, FoodPage foodModel ) ->
-            Food.update session foodMsg foodModel
-                |> toPage FoodPage FoodMsg
+        ( FoodSimulatorMsg foodMsg, FoodSimulatorPage foodModel ) ->
+            FoodSimulator.update session foodMsg foodModel
+                |> toPage FoodSimulatorPage FoodSimulatorMsg
 
-        -- Db
-        ( DbReceived url (RemoteData.Success db), _ ) ->
+        -- Textile
+        ( TextileDbReceived url (RemoteData.Success db), _ ) ->
             -- Db successfully loaded, attach it to session and process to requested page.
             -- That way, the page will always access a fully loaded Db.
             setRoute (Route.fromUrl url)
                 ( { model | session = { session | db = db } }, Cmd.none )
 
-        ( DbReceived url (RemoteData.Failure httpError), _ ) ->
+        ( TextileDbReceived url (RemoteData.Failure httpError), _ ) ->
             setRoute (Route.fromUrl url)
                 ( { model | session = session |> Session.notifyHttpError httpError }
                 , Cmd.none
                 )
+
+        ( TextileExamplesMsg examplesMsg, TextileExamplesPage examplesModel ) ->
+            TextileExamples.update session examplesMsg examplesModel
+                |> toPage TextileExamplesPage TextileExamplesMsg
+
+        ( TextileExploreMsg examplesMsg, TextileExplorePage examplesModel ) ->
+            TextileExplore.update session examplesMsg examplesModel
+                |> toPage TextileExplorePage TextileExploreMsg
+
+        ( TextileSimulatorMsg counterMsg, TextileSimulatorPage counterModel ) ->
+            TextileSimulator.update session counterMsg counterModel
+                |> toPage TextileSimulatorPage TextileSimulatorMsg
+
+        -- Stats
+        ( StatsMsg statsMsg, StatsPage statsModel ) ->
+            Stats.update session statsMsg statsModel
+                |> toPage StatsPage StatsMsg
 
         -- Notifications
         ( CloseNotification notification, _ ) ->
@@ -297,21 +298,21 @@ subscriptions model =
             EditorialPage _ ->
                 Sub.none
 
-            ExamplesPage _ ->
+            TextileExamplesPage _ ->
                 Sub.none
 
-            ExplorePage subModel ->
-                Explore.subscriptions subModel
-                    |> Sub.map ExploreMsg
+            TextileExplorePage subModel ->
+                TextileExplore.subscriptions subModel
+                    |> Sub.map TextileExploreMsg
 
-            SimulatorPage subModel ->
-                Simulator.subscriptions subModel
-                    |> Sub.map SimulatorMsg
+            TextileSimulatorPage subModel ->
+                TextileSimulator.subscriptions subModel
+                    |> Sub.map TextileSimulatorMsg
 
             StatsPage _ ->
                 Sub.none
 
-            FoodPage _ ->
+            FoodSimulatorPage _ ->
                 Sub.none
 
             NotFoundPage ->
@@ -358,30 +359,30 @@ view { page, mobileNavigationOpened, session } =
                 |> mapMsg EditorialMsg
                 |> Page.frame (pageConfig (Page.Editorial editorialModel.slug))
 
-        ExamplesPage examplesModel ->
-            Examples.view session examplesModel
-                |> mapMsg ExamplesMsg
-                |> Page.frame (pageConfig Page.Examples)
+        TextileExamplesPage examplesModel ->
+            TextileExamples.view session examplesModel
+                |> mapMsg TextileExamplesMsg
+                |> Page.frame (pageConfig Page.TextileExamples)
 
-        ExplorePage examplesModel ->
-            Explore.view session examplesModel
-                |> mapMsg ExploreMsg
-                |> Page.frame (pageConfig Page.Explore)
+        TextileExplorePage examplesModel ->
+            TextileExplore.view session examplesModel
+                |> mapMsg TextileExploreMsg
+                |> Page.frame (pageConfig Page.TextileExplore)
 
-        SimulatorPage simulatorModel ->
-            Simulator.view session simulatorModel
-                |> mapMsg SimulatorMsg
-                |> Page.frame (pageConfig Page.Simulator)
+        TextileSimulatorPage simulatorModel ->
+            TextileSimulator.view session simulatorModel
+                |> mapMsg TextileSimulatorMsg
+                |> Page.frame (pageConfig Page.TextileSimulator)
 
         StatsPage statsModel ->
             Stats.view session statsModel
                 |> mapMsg StatsMsg
                 |> Page.frame (pageConfig Page.Stats)
 
-        FoodPage foodModel ->
-            Food.view session foodModel
-                |> mapMsg FoodMsg
-                |> Page.frame (pageConfig Page.Food)
+        FoodSimulatorPage foodModel ->
+            FoodSimulator.view session foodModel
+                |> mapMsg FoodSimulatorMsg
+                |> Page.frame (pageConfig Page.FoodSimulator)
 
         NotFoundPage ->
             ( "Page manquante", [ Page.notFound ] )

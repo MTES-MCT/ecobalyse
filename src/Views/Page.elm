@@ -7,15 +7,15 @@ module Views.Page exposing
     )
 
 import Browser exposing (Document)
-import Data.Db as Db
 import Data.Env as Env
 import Data.Impact as Impact
 import Data.Session as Session exposing (Session)
+import Data.Textile.Db as Db
 import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import Page.Simulator.ViewMode as ViewMode
+import Page.Textile.Simulator.ViewMode as ViewMode
 import Request.Version as Version
 import Route
 import Views.Alert as Alert
@@ -26,16 +26,16 @@ import Views.Spinner as Spinner
 
 
 type ActivePage
-    = Home
+    = Api
     | Changelog
     | Editorial String
-    | Examples
-    | Explore
-    | Api
-    | Simulator
-    | Stats
-    | Food
+    | FoodSimulator
+    | Home
     | Other
+    | Stats
+    | TextileExamples
+    | TextileExplore
+    | TextileSimulator
 
 
 type MenuLink
@@ -126,9 +126,9 @@ newVersionAlert { session, reloadPage } =
 headerMenuLinks : List MenuLink
 headerMenuLinks =
     [ Internal "Accueil" Route.Home Home
-    , Internal "Simulateur" (Route.Simulator Impact.defaultTrigram Unit.PerItem ViewMode.Simple Nothing) Simulator
-    , Internal "Exemples" Route.Examples Examples
-    , Internal "Explorateur" (Route.Explore (Db.Countries Nothing)) Explore
+    , Internal "Simulateur" (Route.TextileSimulator Impact.defaultTrigram Unit.PerItem ViewMode.Simple Nothing) TextileSimulator
+    , Internal "Exemples" Route.TextileExamples TextileExamples
+    , Internal "Explorateur" (Route.TextileExplore (Db.Countries Nothing)) TextileExplore
     , Internal "API" Route.Api Api
     , External "Documentation" Env.gitbookUrl
 
@@ -140,13 +140,13 @@ headerMenuLinks =
 footerMenuLinks : List MenuLink
 footerMenuLinks =
     [ Internal "Accueil" Route.Home Home
-    , Internal "Simulateur" (Route.Simulator Impact.defaultTrigram Unit.PerItem ViewMode.Simple Nothing) Simulator
-    , Internal "Exemples" Route.Examples Examples
-    , Internal "Explorateur" (Route.Explore (Db.Countries Nothing)) Explore
+    , Internal "Simulateur" (Route.TextileSimulator Impact.defaultTrigram Unit.PerItem ViewMode.Simple Nothing) TextileSimulator
+    , Internal "Exemples" Route.TextileExamples TextileExamples
+    , Internal "Explorateur" (Route.TextileExplore (Db.Countries Nothing)) TextileExplore
     , Internal "API" Route.Api Api
     , Internal "Nouveautés" Route.Changelog Changelog
     , Internal "Statistiques" Route.Stats Stats
-    , Internal "Food" Route.Food Food
+    , Internal "Food" Route.FoodSimulator FoodSimulator
     , Internal "Accessibilité\u{00A0}: non conforme" (Route.Editorial "accessibilité") (Editorial "accessibilité")
     , Internal "Mentions légales" (Route.Editorial "mentions-légales") (Editorial "mentions-légales")
     , External "Code source" Env.githubUrl

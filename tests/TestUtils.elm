@@ -1,9 +1,9 @@
-module TestUtils exposing (asTest, suiteWithDb)
+module TestUtils exposing (asTest, suiteWithTextileDb)
 
-import Data.Db exposing (Db)
+import Data.Textile.Db as TextileDb
 import Expect exposing (Expectation)
 import Test exposing (..)
-import TestDb exposing (testDb)
+import TestDb exposing (textileDb)
 
 
 asTest : String -> Expectation -> Test
@@ -11,9 +11,9 @@ asTest label =
     always >> test label
 
 
-suiteWithDb : String -> (Db -> List Test) -> Test
-suiteWithDb name suite =
-    case testDb of
+suiteWithTextileDb : String -> (TextileDb.Db -> List Test) -> Test
+suiteWithTextileDb name suite =
+    case textileDb of
         Ok db ->
             describe name (suite db)
 

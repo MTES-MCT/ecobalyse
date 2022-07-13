@@ -5,12 +5,12 @@ module Server.Query exposing
     )
 
 import Data.Country as Country exposing (Country)
-import Data.Db exposing (Db)
 import Data.Env as Env
-import Data.Inputs as Inputs
-import Data.Material as Material exposing (Material)
-import Data.Product as Product exposing (Product)
-import Data.Step.Label as Label exposing (Label)
+import Data.Textile.Db exposing (Db)
+import Data.Textile.Inputs as Inputs
+import Data.Textile.Material as Material exposing (Material)
+import Data.Textile.Product as Product exposing (Product)
+import Data.Textile.Step.Label as Label exposing (Label)
 import Data.Unit as Unit
 import Dict exposing (Dict)
 import Json.Encode as Encode

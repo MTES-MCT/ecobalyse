@@ -7,7 +7,7 @@ import Dict.Any as AnyDict
 import Expect
 import Length
 import Test exposing (..)
-import TestDb exposing (testDb)
+import TestDb exposing (textileDb)
 import TestUtils exposing (asTest)
 
 
@@ -26,7 +26,7 @@ franceChina impacts =
 
 suite : Test
 suite =
-    case testDb of
+    case textileDb of
         Ok db ->
             let
                 defaultImpacts =

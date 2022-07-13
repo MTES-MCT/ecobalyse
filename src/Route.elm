@@ -5,13 +5,13 @@ module Route exposing
     , toString
     )
 
-import Data.Db as Db
 import Data.Impact as Impact
-import Data.Inputs as Inputs
+import Data.Textile.Db as Db
+import Data.Textile.Inputs as Inputs
 import Data.Unit as Unit
 import Html exposing (Attribute)
 import Html.Attributes as Attr
-import Page.Simulator.ViewMode as ViewMode exposing (ViewMode)
+import Page.Textile.Simulator.ViewMode as ViewMode exposing (ViewMode)
 import Url exposing (Url)
 import Url.Parser as Parser exposing ((</>), Parser)
 
@@ -21,49 +21,60 @@ type Route
     | Api
     | Changelog
     | Editorial String
-    | Explore Db.Dataset
-    | Examples
-    | Simulator Impact.Trigram Unit.Functional ViewMode (Maybe Inputs.Query)
+    | FoodSimulator
+    | TextileExplore Db.Dataset
+    | TextileExamples
+    | TextileSimulator Impact.Trigram Unit.Functional ViewMode (Maybe Inputs.Query)
     | Stats
-    | Food
 
 
 parser : Parser (Route -> a) a
 parser =
     Parser.oneOf
-        [ Parser.map Home Parser.top
+        [ --
+          -- Shared routes
+          --
+          Parser.map Home Parser.top
         , Parser.map Api (Parser.s "api")
         , Parser.map Changelog (Parser.s "changelog")
         , Parser.map Editorial (Parser.s "pages" </> Parser.string)
-        , Parser.map Examples (Parser.s "examples")
+        , Parser.map Stats (Parser.s "stats")
 
-        -- Explorer
-        , Parser.map (Explore (Db.Countries Nothing)) (Parser.s "explore")
-        , Parser.map Explore (Parser.s "explore" </> Db.parseDatasetSlug)
-        , Parser.map toExploreWithId (Parser.s "explore" </> Db.parseDatasetSlug </> Parser.string)
+        --
+        -- Food specific routes
+        --
+        , Parser.map FoodSimulator (Parser.s "food")
 
-        -- Simulator
-        , Parser.map (Simulator Impact.defaultTrigram Unit.PerItem ViewMode.Simple Nothing)
-            (Parser.s "simulator")
-        , Parser.map Simulator
-            (Parser.s "simulator"
+        --
+        -- Textile specific routes
+        --
+        , Parser.map TextileExamples (Parser.s "textile" </> Parser.s "examples")
+
+        -- Textile Explorer
+        , Parser.map (TextileExplore (Db.Countries Nothing))
+            (Parser.s "textile" </> Parser.s "explore")
+        , Parser.map TextileExplore
+            (Parser.s "textile" </> Parser.s "explore" </> Db.parseDatasetSlug)
+        , Parser.map toExploreWithId
+            (Parser.s "textile" </> Parser.s "explore" </> Db.parseDatasetSlug </> Parser.string)
+
+        -- Textile Simulator
+        , Parser.map (TextileSimulator Impact.defaultTrigram Unit.PerItem ViewMode.Simple Nothing)
+            (Parser.s "textile" </> Parser.s "simulator")
+        , Parser.map TextileSimulator
+            (Parser.s "textile"
+                </> Parser.s "simulator"
                 </> Impact.parseTrigram
                 </> Unit.parseFunctional
                 </> ViewMode.parse
                 </> Inputs.parseBase64Query
             )
-
-        -- Stats
-        , Parser.map Stats (Parser.s "stats")
-
-        -- Food
-        , Parser.map Food (Parser.s "food")
         ]
 
 
 toExploreWithId : Db.Dataset -> String -> Route
 toExploreWithId dataset idString =
-    Explore (Db.datasetSlugWithId dataset idString)
+    TextileExplore (Db.datasetSlugWithId dataset idString)
 
 
 {-| Note: as the app relies on URL fragment based routing, the source URL is
@@ -117,28 +128,33 @@ toString route =
                 Editorial slug ->
                     [ "pages", slug ]
 
-                Examples ->
-                    [ "examples" ]
+                FoodSimulator ->
+                    [ "food" ]
 
-                Explore (Db.Countries Nothing) ->
-                    [ "explore" ]
+                TextileExamples ->
+                    [ "textile", "examples" ]
 
-                Explore dataset ->
-                    "explore" :: Db.toDatasetRoutePath dataset
+                TextileExplore (Db.Countries Nothing) ->
+                    [ "textile", "explore" ]
 
-                Simulator trigram funit viewMode (Just query) ->
-                    [ "simulator"
+                TextileExplore dataset ->
+                    "textile" :: "explore" :: Db.toDatasetRoutePath dataset
+
+                TextileSimulator trigram funit viewMode (Just query) ->
+                    [ "textile"
+                    , "simulator"
                     , Impact.toString trigram
                     , Unit.functionalToSlug funit
                     , ViewMode.toUrlSegment viewMode
                     , Inputs.b64encode query
                     ]
 
-                Simulator (Impact.Trigram "pef") Unit.PerItem _ Nothing ->
-                    [ "simulator" ]
+                TextileSimulator (Impact.Trigram "pef") Unit.PerItem _ Nothing ->
+                    [ "textile", "simulator" ]
 
-                Simulator trigram funit viewMode Nothing ->
-                    [ "simulator"
+                TextileSimulator trigram funit viewMode Nothing ->
+                    [ "textile"
+                    , "simulator"
                     , Impact.toString trigram
                     , Unit.functionalToSlug funit
                     , ViewMode.toUrlSegment viewMode
@@ -146,8 +162,5 @@ toString route =
 
                 Stats ->
                     [ "stats" ]
-
-                Food ->
-                    [ "food" ]
     in
     "#/" ++ String.join "/" pieces

@@ -4,9 +4,9 @@ module Server.Route exposing
     , endpoint
     )
 
-import Data.Db exposing (Db)
 import Data.Impact as Impact
-import Data.Inputs as Inputs
+import Data.Textile.Db exposing (Db)
+import Data.Textile.Inputs as Inputs
 import Server.Query as Query
 import Server.Request exposing (Request)
 import Url

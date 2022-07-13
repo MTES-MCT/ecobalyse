@@ -10,7 +10,7 @@ module Data.Country exposing
     , findByCode
     )
 
-import Data.Process as Process exposing (Process)
+import Data.Textile.Process as Process exposing (Process)
 import Data.Unit as Unit
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode

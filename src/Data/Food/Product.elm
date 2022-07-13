@@ -34,8 +34,8 @@ module Data.Food.Product exposing
     )
 
 import Data.Country as Country
-import Data.Formula as Formula
 import Data.Impact as Impact exposing (Definition, Impacts, Trigram, grabImpactFloat)
+import Data.Textile.Formula as Formula
 import Data.Transport as Transport exposing (Distances)
 import Data.Unit as Unit
 import Dict.Any as AnyDict exposing (AnyDict)
