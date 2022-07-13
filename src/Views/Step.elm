@@ -21,6 +21,7 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Page.Simulator.ViewMode as ViewMode exposing (ViewMode)
 import Views.Button as Button
+import Views.CountrySelect
 import Views.Format as Format
 import Views.Icon as Icon
 import Views.RangeSlider as RangeSlider
@@ -110,21 +111,16 @@ countryField { db, current, inputs, updateCountry } =
                 nonEditableCountry (text current.country.name)
 
             ( _, True ) ->
-                db.countries
-                    |> List.sortBy .name
-                    |> List.map
-                        (\{ code, name } ->
-                            option
-                                [ selected (current.country.code == code)
-                                , value <| Country.codeToString code
-                                ]
-                                [ text name ]
-                        )
-                    |> select
+                Views.CountrySelect.view
+                    { attributes =
                         [ class "form-select"
                         , disabled (not current.editable || not current.enabled)
                         , onInput (Country.codeFromString >> updateCountry current.label)
                         ]
+                    , selectedCountry = current.country.code
+                    , onSelect = updateCountry current.label
+                    , countries = db.countries
+                    }
         ]
 
 

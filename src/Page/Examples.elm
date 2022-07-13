@@ -79,6 +79,7 @@ view session { impact, funit } =
                         , switchImpact = SwitchImpact
                         , selectedFunctionalUnit = funit
                         , switchFunctionalUnit = SwitchFunctionalUnit
+                        , scope = Impact.Textile
                         }
                     ]
                 ]

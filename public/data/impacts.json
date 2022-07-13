@@ -420,7 +420,7 @@
       "url": "https://agribalyse.ademe.fr/"
     },
     "label_en": "Human toxicity: carcinogenic",
-    "label_fr": "Écotoxicité humaine : cancérigène",
+    "label_fr": "Toxicité humaine - cancer",
     "unit_fr": "CTUh",
     "unit_en": "CTUh",
     "description_en": "Indicator of carcinogenic toxicity for humans. The unit of measurement is Comparative toxic unit for humans (CTUh)",
@@ -443,7 +443,7 @@
       "url": "https://agribalyse.ademe.fr/"
     },
     "label_en": "Human toxicity: non-carcinogenic",
-    "label_fr": "Écotoxicité humaine : non cancérigène",
+    "label_fr": "Toxicité humaine - non-cancer",
     "unit_fr": "CTUh",
     "unit_en": "CTUh",
     "description_en": "Indicator of non-carcinogenic toxicity for humans. The unit of measurement is Comparative toxic unit for humans (CTUh)",

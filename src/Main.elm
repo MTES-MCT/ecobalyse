@@ -3,6 +3,7 @@ module Main exposing (main)
 import Browser exposing (Document)
 import Browser.Navigation as Nav
 import Data.Db as Db exposing (Db)
+import Data.Food.Db as FoodDb
 import Data.Inputs as Inputs
 import Data.Session as Session exposing (Session)
 import Html
@@ -11,6 +12,7 @@ import Page.Changelog as Changelog
 import Page.Editorial as Editorial
 import Page.Examples as Examples
 import Page.Explore as Explore
+import Page.Food as Food
 import Page.Home as Home
 import Page.Simulator as Simulator
 import Page.Stats as Stats
@@ -39,6 +41,7 @@ type Page
     | ApiPage Api.Model
     | SimulatorPage Simulator.Model
     | StatsPage Stats.Model
+    | FoodPage Food.Model
     | NotFoundPage
 
 
@@ -60,6 +63,7 @@ type Msg
     | ApiMsg Api.Msg
     | SimulatorMsg Simulator.Msg
     | StatsMsg Stats.Msg
+    | FoodMsg Food.Msg
     | StoreChanged String
     | LoadUrl String
     | ReloadPage
@@ -80,6 +84,7 @@ init flags url navKey =
             , store = Session.deserializeStore flags.rawStore
             , currentVersion = Request.Version.Unknown
             , db = Db.empty
+            , foodDb = FoodDb.empty
             , notifications = []
             , query = Inputs.defaultQuery
             }
@@ -153,6 +158,10 @@ setRoute maybeRoute ( { session } as model, cmds ) =
             Stats.init session
                 |> toPage StatsPage StatsMsg
 
+        Just Route.Food ->
+            Food.init session
+                |> toPage FoodPage FoodMsg
+
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg ({ page, session } as model) =
@@ -204,6 +213,11 @@ update msg ({ page, session } as model) =
         ( StatsMsg statsMsg, StatsPage statsModel ) ->
             Stats.update session statsMsg statsModel
                 |> toPage StatsPage StatsMsg
+
+        -- Food
+        ( FoodMsg foodMsg, FoodPage foodModel ) ->
+            Food.update session foodMsg foodModel
+                |> toPage FoodPage FoodMsg
 
         -- Db
         ( DbReceived url (RemoteData.Success db), _ ) ->
@@ -297,6 +311,9 @@ subscriptions model =
             StatsPage _ ->
                 Sub.none
 
+            FoodPage _ ->
+                Sub.none
+
             NotFoundPage ->
                 Sub.none
 
@@ -360,6 +377,11 @@ view { page, mobileNavigationOpened, session } =
             Stats.view session statsModel
                 |> mapMsg StatsMsg
                 |> Page.frame (pageConfig Page.Stats)
+
+        FoodPage foodModel ->
+            Food.view session foodModel
+                |> mapMsg FoodMsg
+                |> Page.frame (pageConfig Page.Food)
 
         NotFoundPage ->
             ( "Page manquante", [ Page.notFound ] )
