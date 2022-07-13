@@ -71,7 +71,7 @@ type alias Inputs =
     , picking : Maybe Unit.PickPerMeter
     , surfaceMass : Maybe Unit.SurfaceMass
     , disabledSteps : List Label
-    , disabledFading : Bool
+    , disabledFading : Maybe Bool
     }
 
 
@@ -97,7 +97,7 @@ type alias Query =
     , picking : Maybe Unit.PickPerMeter
     , surfaceMass : Maybe Unit.SurfaceMass
     , disabledSteps : List Label
-    , disabledFading : Bool
+    , disabledFading : Maybe Bool
     }
 
 
@@ -288,11 +288,12 @@ makingOptionsToString { product, makingWaste, airTransportRatio, disabledFading 
                 else
                     Just (Format.ratioToPercentString ratio ++ " de transport aérien")
             )
-    , if product.making.fadable && disabledFading then
-        Just "non-délavé"
+    , case ( product.making.fadable, disabledFading ) of
+        ( True, Just True ) ->
+            Just "non-délavé"
 
-      else
-        Nothing
+        _ ->
+            Nothing
     ]
         |> List.filterMap identity
         |> String.join ", "
@@ -521,7 +522,7 @@ tShirtCotonFrance =
     , picking = Nothing
     , surfaceMass = Nothing
     , disabledSteps = []
-    , disabledFading = False
+    , disabledFading = Nothing
     }
 
 
@@ -573,7 +574,7 @@ jupeCircuitAsie =
     , picking = Nothing
     , surfaceMass = Nothing
     , disabledSteps = []
-    , disabledFading = False
+    , disabledFading = Nothing
     }
 
 
@@ -595,7 +596,7 @@ manteauCircuitEurope =
     , picking = Nothing
     , surfaceMass = Nothing
     , disabledSteps = []
-    , disabledFading = False
+    , disabledFading = Nothing
     }
 
 
@@ -617,7 +618,7 @@ pantalonCircuitEurope =
     , picking = Nothing
     , surfaceMass = Nothing
     , disabledSteps = []
-    , disabledFading = False
+    , disabledFading = Nothing
     }
 
 
@@ -649,7 +650,7 @@ encode inputs =
         , ( "picking", inputs.picking |> Maybe.map Unit.encodePickPerMeter |> Maybe.withDefault Encode.null )
         , ( "surfaceMass", inputs.surfaceMass |> Maybe.map Unit.encodeSurfaceMass |> Maybe.withDefault Encode.null )
         , ( "disabledSteps", Encode.list Label.encode inputs.disabledSteps )
-        , ( "disabledFading", Encode.bool inputs.disabledFading )
+        , ( "disabledFading", inputs.disabledFading |> Maybe.map Encode.bool |> Maybe.withDefault Encode.null )
         ]
 
 
@@ -679,7 +680,7 @@ decodeQuery =
         |> Pipe.optional "picking" (Decode.maybe Unit.decodePickPerMeter) Nothing
         |> Pipe.optional "surfaceMass" (Decode.maybe Unit.decodeSurfaceMass) Nothing
         |> Pipe.optional "disabledSteps" (Decode.list Label.decodeFromCode) []
-        |> Pipe.optional "disabledFading" Decode.bool False
+        |> Pipe.optional "disabledFading" (Decode.maybe Decode.bool) Nothing
 
 
 decodeMaterialQuery : Decoder MaterialQuery
@@ -707,7 +708,7 @@ encodeQuery query =
         , ( "picking", query.picking |> Maybe.map Unit.encodePickPerMeter |> Maybe.withDefault Encode.null )
         , ( "surfaceMass", query.surfaceMass |> Maybe.map Unit.encodeSurfaceMass |> Maybe.withDefault Encode.null )
         , ( "disabledSteps", Encode.list Label.encode query.disabledSteps )
-        , ( "disabledFading", Encode.bool query.disabledFading )
+        , ( "disabledFading", query.disabledFading |> Maybe.map Encode.bool |> Maybe.withDefault Encode.null )
         ]
 
 

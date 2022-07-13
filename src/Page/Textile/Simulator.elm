@@ -266,7 +266,7 @@ update ({ db, query, navKey } as session) msg model =
 
         ToggleDisabledFading disabledFading ->
             ( model, session, Cmd.none )
-                |> updateQuery { query | disabledFading = disabledFading }
+                |> updateQuery { query | disabledFading = Just disabledFading }
 
         ToggleStep label ->
             ( model, session, Cmd.none )

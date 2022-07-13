@@ -444,7 +444,7 @@ viewFadingProcess { inputs, toggleDisabledFading } processName =
                 [ input
                     [ type_ "checkbox"
                     , class "form-check-input no-outline"
-                    , checked (not inputs.disabledFading)
+                    , checked (not (Maybe.withDefault False inputs.disabledFading))
                     , onCheck (\checked -> toggleDisabledFading (not checked))
                     ]
                     []
