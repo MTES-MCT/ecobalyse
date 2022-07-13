@@ -1,22 +1,22 @@
 module Server.RouteTest exposing (..)
 
-import Data.Db exposing (Db)
 import Data.Impact as Impact
-import Data.Inputs as Inputs exposing (tShirtCotonFrance)
-import Data.Material as Material
-import Data.Step.Label as Label
+import Data.Textile.Db exposing (Db)
+import Data.Textile.Inputs as Inputs exposing (tShirtCotonFrance)
+import Data.Textile.Material as Material
+import Data.Textile.Step.Label as Label
 import Data.Unit as Unit
 import Dict exposing (Dict)
 import Expect
 import Json.Encode as Encode
 import Server.Route as Route
 import Test exposing (..)
-import TestUtils exposing (asTest, suiteWithDb)
+import TestUtils exposing (asTest, suiteWithTextileDb)
 
 
 suite : Test
 suite =
-    suiteWithDb "Server"
+    suiteWithTextileDb "Server"
         (\db ->
             [ describe "Server.endpoint"
                 [ describe "endpoints"

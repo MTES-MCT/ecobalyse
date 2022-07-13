@@ -5,12 +5,12 @@ import Data.Unit as Unit
 import Expect
 import Quantity
 import Test exposing (..)
-import TestUtils exposing (asTest, suiteWithDb)
+import TestUtils exposing (asTest, suiteWithTextileDb)
 
 
 suite : Test
 suite =
-    suiteWithDb "Data.Impact"
+    suiteWithTextileDb "Data.Impact"
         (\db ->
             let
                 defaultImpacts =

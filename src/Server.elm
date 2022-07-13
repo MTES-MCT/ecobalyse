@@ -5,12 +5,12 @@ port module Server exposing
     )
 
 import Data.Country as Country exposing (Country)
-import Data.Db as Db exposing (Db)
 import Data.Impact as Impact
-import Data.Inputs as Inputs
-import Data.Material as Material exposing (Material)
-import Data.Product as Product exposing (Product)
-import Data.Simulator as Simulator exposing (Simulator)
+import Data.Textile.Db as Db exposing (Db)
+import Data.Textile.Inputs as Inputs
+import Data.Textile.Material as Material exposing (Material)
+import Data.Textile.Product as Product exposing (Product)
+import Data.Textile.Simulator as Simulator exposing (Simulator)
 import Json.Encode as Encode
 import Server.Query as Query
 import Server.Request exposing (Request)

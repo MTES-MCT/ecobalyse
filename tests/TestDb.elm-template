@@ -1,12 +1,12 @@
 module TestDb exposing (..)
 
-import Data.Db as Db exposing (Db)
+import Data.Textile.Db as TextileDb
 
 
-testDb : Result String Db
-testDb =
+textileDb : Result String TextileDb.Db
+textileDb =
     """%json%"""
         -- NOTE: Elm template strings mess with double carriage returns when
         -- interpolated, we need to convert them back to what they were
         |> String.replace "\n\n" "\\n\\n"
-        |> Db.buildFromJson
+        |> TextileDb.buildFromJson

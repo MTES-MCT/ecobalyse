@@ -8,14 +8,14 @@ module Page.Home exposing
 
 import Data.Gitbook as Gitbook
 import Data.Impact as Impact
-import Data.Inputs as Inputs
 import Data.Session exposing (Session)
-import Data.Simulator as Simulator
+import Data.Textile.Inputs as Inputs
+import Data.Textile.Simulator as Simulator
 import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import Page.Simulator.ViewMode as ViewMode
+import Page.Textile.Simulator.ViewMode as ViewMode
 import Ports
 import RemoteData exposing (WebData)
 import Request.Gitbook exposing (getPage)
@@ -23,7 +23,7 @@ import Route
 import Views.Container as Container
 import Views.Icon as Icon
 import Views.Markdown as Markdown
-import Views.Summary as SummaryView
+import Views.Textile.Summary as SummaryView
 
 
 type alias Model =
@@ -83,12 +83,12 @@ viewHero session =
                     [ div [ class "col-md-6 text-center text-md-end py-2" ]
                         [ a
                             [ class "btn btn-lg btn-primary"
-                            , Route.href (Route.Simulator Impact.defaultTrigram Unit.PerItem ViewMode.Simple Nothing)
+                            , Route.href (Route.TextileSimulator Impact.defaultTrigram Unit.PerItem ViewMode.Simple Nothing)
                             ]
                             [ text "Faire une simulation" ]
                         ]
                     , div [ class "col-md-6 text-center text-md-start py-2" ]
-                        [ a [ class "btn btn-lg btn-secondary", Route.href Route.Examples ]
+                        [ a [ class "btn btn-lg btn-secondary", Route.href Route.TextileExamples ]
                             [ text "voir des exemples" ]
                         ]
                     ]

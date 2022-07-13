@@ -5,9 +5,9 @@ module Views.Dataviz exposing
 
 import Chart as C
 import Chart.Attributes as CA
-import Data.Db exposing (Db)
 import Data.Impact as Impact
-import Data.Simulator as Simulator exposing (Simulator)
+import Data.Textile.Db exposing (Db)
+import Data.Textile.Simulator as Simulator exposing (Simulator)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import List.Extra as LE

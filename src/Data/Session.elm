@@ -15,9 +15,9 @@ module Data.Session exposing
     )
 
 import Browser.Navigation as Nav
-import Data.Db exposing (Db)
 import Data.Food.Db as Food
-import Data.Inputs as Inputs
+import Data.Textile.Db exposing (Db)
+import Data.Textile.Inputs as Inputs
 import Http
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as JDP
