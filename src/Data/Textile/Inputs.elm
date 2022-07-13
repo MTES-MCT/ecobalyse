@@ -457,45 +457,21 @@ removeMaterial index query =
 
 updateProduct : Product -> Query -> Query
 updateProduct product query =
-    { query
-        | product = product.id
-        , mass = product.mass
-        , quality =
-            -- ensure resetting quality when product is changed
-            if product.id /= query.product then
-                Nothing
+    if product.id /= query.product then
+        -- Product has changed, reset a bunch of related query params
+        { query
+            | product = product.id
+            , mass = product.mass
+            , quality = Nothing
+            , reparability = Nothing
+            , makingWaste = Nothing
+            , picking = Nothing
+            , surfaceMass = Nothing
+            , disabledFading = Nothing
+        }
 
-            else
-                query.quality
-        , reparability =
-            -- ensure resetting reparability when product is changed
-            if product.id /= query.product then
-                Nothing
-
-            else
-                query.reparability
-        , makingWaste =
-            -- ensure resetting custom making waste when product is changed
-            if product.id /= query.product then
-                Nothing
-
-            else
-                query.makingWaste
-        , picking =
-            -- ensure resetting custom picking when product is changed
-            if product.id /= query.product then
-                Nothing
-
-            else
-                query.picking
-        , surfaceMass =
-            -- ensure resetting custom surface density when product is changed
-            if product.id /= query.product then
-                Nothing
-
-            else
-                query.surfaceMass
-    }
+    else
+        query
 
 
 defaultQuery : Query

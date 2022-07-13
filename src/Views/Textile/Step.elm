@@ -165,23 +165,27 @@ dyeingWeightingField { current, updateDyeingWeighting } =
 
 fadingField : Config msg -> Html msg
 fadingField { inputs, toggleDisabledFading } =
-    label
-        [ class "form-check form-switch form-check-label fs-7 pt-1 text-truncate"
-        , title "Délavage"
-        ]
-        [ input
-            [ type_ "checkbox"
-            , class "form-check-input no-outline"
-            , checked (not (Maybe.withDefault False inputs.disabledFading))
-            , onCheck (\checked -> toggleDisabledFading (not checked))
+    if inputs.product.making.fadable then
+        label
+            [ class "form-check form-switch form-check-label fs-7 pt-1 text-truncate"
+            , title "Délavage"
             ]
-            []
-        , if inputs.disabledFading == Just True then
-            text "Délavage désactivé"
+            [ input
+                [ type_ "checkbox"
+                , class "form-check-input no-outline"
+                , checked (not (Maybe.withDefault False inputs.disabledFading))
+                , onCheck (\checked -> toggleDisabledFading (not checked))
+                ]
+                []
+            , if inputs.disabledFading == Just True then
+                text "Délavage désactivé"
 
-          else
-            text "Délavage activé"
-        ]
+              else
+                text "Délavage activé"
+            ]
+
+    else
+        text ""
 
 
 qualityField : Config msg -> Html msg
