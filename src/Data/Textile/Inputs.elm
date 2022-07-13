@@ -288,12 +288,11 @@ makingOptionsToString { product, makingWaste, airTransportRatio, disabledFading 
                 else
                     Just (Format.ratioToPercentString ratio ++ " de transport aérien")
             )
-    , case ( product.making.fadable, disabledFading ) of
-        ( True, Just True ) ->
-            Just "non-délavé"
+    , if product.making.fadable && disabledFading == Just True then
+        Just "non-délavé"
 
-        _ ->
-            Nothing
+      else
+        Nothing
     ]
         |> List.filterMap identity
         |> String.join ", "
