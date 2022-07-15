@@ -4,6 +4,7 @@ port module Server exposing
     , output
     )
 
+import Codec
 import Data.Country as Country exposing (Country)
 import Data.Impact as Impact
 import Data.Textile.Db as Db exposing (Db)
@@ -114,7 +115,7 @@ encodeCountry { code, name } =
 encodeMaterial : Material -> Encode.Value
 encodeMaterial { id, name } =
     Encode.object
-        [ ( "id", Material.encodeId id )
+        [ ( "id", Codec.encoder Material.idCodec id )
         , ( "name", Encode.string name )
         ]
 

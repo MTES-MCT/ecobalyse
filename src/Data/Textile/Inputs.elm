@@ -29,7 +29,7 @@ module Data.Textile.Inputs exposing
     )
 
 import Base64
-import Codec
+import Codec exposing (Codec)
 import Data.Country as Country exposing (Country)
 import Data.Textile.Db exposing (Db)
 import Data.Textile.Material as Material exposing (Material)
@@ -696,12 +696,17 @@ encodeQuery query =
         ]
 
 
+materialQueryCodec : Codec MaterialQuery
+materialQueryCodec =
+    Codec.object MaterialQuery
+        |> Codec.field "id" .id Material.idCodec
+        |> Codec.field "share" .share Unit.ratioCodec
+        |> Codec.buildObject
+
+
 encodeMaterialQuery : MaterialQuery -> Encode.Value
-encodeMaterialQuery v =
-    Encode.object
-        [ ( "id", Material.encodeId v.id )
-        , ( "share", Unit.encodeRatio v.share )
-        ]
+encodeMaterialQuery =
+    Codec.encoder materialQueryCodec
 
 
 b64decode : String -> Result String Query

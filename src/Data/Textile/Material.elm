@@ -3,10 +3,10 @@ module Data.Textile.Material exposing
     , Id(..)
     , Material
     , codec
-    , encodeId
     , findById
     , getRecyclingData
     , groupAll
+    , idCodec
     , idToString
     , listCodec
     )
@@ -16,7 +16,6 @@ import Data.Country as Country
 import Data.Textile.Material.Category as Category exposing (Category)
 import Data.Textile.Process as Process exposing (Process)
 import Data.Unit as Unit
-import Json.Encode as Encode
 
 
 type alias Material =
@@ -121,11 +120,6 @@ cffDataCodec =
 idCodec : Codec Id
 idCodec =
     Codec.map Id idToString Codec.string
-
-
-encodeId : Id -> Encode.Value
-encodeId =
-    idToString >> Encode.string
 
 
 idToString : Id -> String
