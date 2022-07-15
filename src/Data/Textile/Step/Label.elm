@@ -1,16 +1,14 @@
 module Data.Textile.Step.Label exposing
     ( Label(..)
     , all
-    , decodeFromCode
-    , encode
+    , codeCodec
     , fromCodeString
     , toGitbookPath
     , toString
     )
 
+import Codec exposing (Codec)
 import Data.Gitbook as Gitbook
-import Json.Decode as Decode exposing (Decoder)
-import Json.Encode as Encode
 
 
 type Label
@@ -152,20 +150,16 @@ toGitbookPath label =
             Gitbook.EndOfLife
 
 
-decodeFromCode : Decoder Label
-decodeFromCode =
-    Decode.string
-        |> Decode.andThen
-            (\str ->
-                case fromCodeString str of
-                    Ok decoded ->
-                        Decode.succeed decoded
+codeCodec : Codec Label
+codeCodec =
+    Codec.string
+        |> Codec.andThen
+            (\s ->
+                case fromCodeString s of
+                    Ok code ->
+                        Codec.succeed code
 
-                    Err err ->
-                        Decode.fail err
+                    Err error ->
+                        Codec.fail error
             )
-
-
-encode : Label -> Encode.Value
-encode =
-    toCodeString >> Encode.string
+            toCodeString

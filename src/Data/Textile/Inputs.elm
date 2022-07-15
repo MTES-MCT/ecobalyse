@@ -636,7 +636,7 @@ encode inputs =
         , ( "makingWaste", inputs.makingWaste |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
         , ( "picking", inputs.picking |> Maybe.map Unit.encodePickPerMeter |> Maybe.withDefault Encode.null )
         , ( "surfaceMass", inputs.surfaceMass |> Maybe.map Unit.encodeSurfaceMass |> Maybe.withDefault Encode.null )
-        , ( "disabledSteps", Encode.list Label.encode inputs.disabledSteps )
+        , ( "disabledSteps", inputs.disabledSteps |> Codec.encoder (Codec.list Label.codeCodec) )
         ]
 
 
@@ -665,7 +665,7 @@ decodeQuery =
         |> Pipe.optional "makingWaste" (Decode.maybe Unit.decodeRatio) Nothing
         |> Pipe.optional "picking" (Decode.maybe Unit.decodePickPerMeter) Nothing
         |> Pipe.optional "surfaceMass" (Decode.maybe Unit.decodeSurfaceMass) Nothing
-        |> Pipe.optional "disabledSteps" (Decode.list Label.decodeFromCode) []
+        |> Pipe.optional "disabledSteps" (Codec.decoder (Codec.list Label.codeCodec)) []
 
 
 decodeMaterialQuery : Decoder MaterialQuery
@@ -692,7 +692,7 @@ encodeQuery query =
         , ( "makingWaste", query.makingWaste |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
         , ( "picking", query.picking |> Maybe.map Unit.encodePickPerMeter |> Maybe.withDefault Encode.null )
         , ( "surfaceMass", query.surfaceMass |> Maybe.map Unit.encodeSurfaceMass |> Maybe.withDefault Encode.null )
-        , ( "disabledSteps", Encode.list Label.encode query.disabledSteps )
+        , ( "disabledSteps", query.disabledSteps |> Codec.encoder (Codec.list Label.codeCodec) )
         ]
 
 
