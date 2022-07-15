@@ -11,6 +11,7 @@ module Data.Textile.Material exposing
     , idToString
     )
 
+import Codec
 import Data.Country as Country
 import Data.Textile.Material.Category as Category exposing (Category)
 import Data.Textile.Process as Process exposing (Process)
@@ -94,7 +95,7 @@ decode processes =
         |> JDP.required "id" (Decode.map Id Decode.string)
         |> JDP.required "name" Decode.string
         |> JDP.required "shortName" Decode.string
-        |> JDP.required "category" Category.decode
+        |> JDP.required "category" (Codec.decoder Category.codec)
         |> JDP.required "materialProcessUuid" (Process.decodeFromUuid processes)
         |> JDP.required "recycledProcessUuid" (Decode.maybe (Process.decodeFromUuid processes))
         |> JDP.required "recycledFrom" (Decode.maybe (Decode.map Id Decode.string))
