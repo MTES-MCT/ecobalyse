@@ -7,9 +7,11 @@ module Data.Textile.Process exposing
     , encodeUuid
     , getImpact
     , loadWellKnown
+    , processUuidCodec
     , uuidToString
     )
 
+import Codec exposing (Codec)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Unit as Unit
 import Energy exposing (Energy)
@@ -107,6 +109,23 @@ decodeFromUuid processes =
                     |> findByUuid (Uuid uuid)
                     |> DecodeExtra.fromResult
             )
+
+
+processUuidCodec : List Process -> Codec Process
+processUuidCodec processes =
+    Codec.string
+        |> Codec.andThen
+            -- decoder : uuid string -> Process
+            (\uuid ->
+                case findByUuid (Uuid uuid) processes of
+                    Ok process ->
+                        Codec.succeed process
+
+                    Err error ->
+                        Codec.fail error
+            )
+            -- encoder : Process -> uuid string
+            (.uuid >> uuidToString)
 
 
 decode : List Impact.Definition -> Decoder Process

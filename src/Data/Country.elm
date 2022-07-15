@@ -1,6 +1,7 @@
 module Data.Country exposing
     ( Code(..)
     , Country
+    , codeCodec
     , codeFromString
     , codeToString
     , decodeCode
@@ -10,6 +11,7 @@ module Data.Country exposing
     , findByCode
     )
 
+import Codec exposing (Codec)
 import Data.Textile.Process as Process exposing (Process)
 import Data.Unit as Unit
 import Json.Decode as Decode exposing (Decoder)
@@ -40,6 +42,12 @@ codeToString (Code string) =
     string
 
 
+codeCodec : Codec Code
+codeCodec =
+    Codec.string
+        |> Codec.map codeFromString codeToString
+
+
 findByCode : Code -> List Country -> Result String Country
 findByCode code =
     List.filter (.code >> (==) code)
@@ -50,7 +58,7 @@ findByCode code =
 decode : List Process -> Decoder Country
 decode processes =
     Decode.map6 Country
-        (Decode.field "code" (Decode.map Code Decode.string))
+        (Decode.field "code" decodeCode)
         (Decode.field "name" Decode.string)
         (Decode.field "electricityProcessUuid" (Process.decodeFromUuid processes))
         (Decode.field "heatProcessUuid" (Process.decodeFromUuid processes))

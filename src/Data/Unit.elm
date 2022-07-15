@@ -44,6 +44,7 @@ module Data.Unit exposing
     , quality
     , qualityToFloat
     , ratio
+    , ratioCodec
     , ratioToFloat
     , ratioedForKWh
     , ratioedForKg
@@ -57,6 +58,7 @@ module Data.Unit exposing
     , surfaceMassToInt
     )
 
+import Codec exposing (Codec)
 import Duration exposing (Duration)
 import Energy exposing (Energy)
 import Json.Decode as Decode exposing (Decoder)
@@ -147,6 +149,11 @@ decodeRatio =
 encodeRatio : Ratio -> Encode.Value
 encodeRatio (Ratio float) =
     Encode.float float
+
+
+ratioCodec : Codec Ratio
+ratioCodec =
+    Codec.map ratio ratioToFloat Codec.float
 
 
 

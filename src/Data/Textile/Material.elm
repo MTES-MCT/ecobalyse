@@ -2,22 +2,20 @@ module Data.Textile.Material exposing
     ( CFFData
     , Id(..)
     , Material
-    , decodeList
-    , encode
+    , codec
     , encodeId
     , findById
     , getRecyclingData
     , groupAll
     , idToString
+    , listCodec
     )
 
-import Codec
+import Codec exposing (Codec)
 import Data.Country as Country
 import Data.Textile.Material.Category as Category exposing (Category)
 import Data.Textile.Process as Process exposing (Process)
 import Data.Unit as Unit
-import Json.Decode as Decode exposing (Decoder)
-import Json.Decode.Pipeline as JDP
 import Json.Encode as Encode
 
 
@@ -89,54 +87,40 @@ groupByCategories materials =
     )
 
 
-decode : List Process -> Decoder Material
-decode processes =
-    Decode.succeed Material
-        |> JDP.required "id" (Decode.map Id Decode.string)
-        |> JDP.required "name" Decode.string
-        |> JDP.required "shortName" Decode.string
-        |> JDP.required "category" (Codec.decoder Category.codec)
-        |> JDP.required "materialProcessUuid" (Process.decodeFromUuid processes)
-        |> JDP.required "recycledProcessUuid" (Decode.maybe (Process.decodeFromUuid processes))
-        |> JDP.required "recycledFrom" (Decode.maybe (Decode.map Id Decode.string))
-        |> JDP.required "spinningProcessUuid" (Decode.maybe (Process.decodeFromUuid processes))
-        |> JDP.required "geographicOrigin" Decode.string
-        |> JDP.required "defaultCountry" (Decode.string |> Decode.map Country.codeFromString)
-        |> JDP.required "priority" Decode.int
-        |> JDP.required "cff" (Decode.maybe decodeCFFData)
+codec : List Process -> Codec Material
+codec processes =
+    Codec.object Material
+        |> Codec.field "id" .id idCodec
+        |> Codec.field "name" .name Codec.string
+        |> Codec.field "shortName" .shortName Codec.string
+        |> Codec.field "category" .category Category.codec
+        |> Codec.field "materialProcessUuid" .materialProcess (Process.processUuidCodec processes)
+        |> Codec.field "recycledProcessUuid" .recycledProcess (Codec.maybe (Process.processUuidCodec processes))
+        |> Codec.field "recycledFrom" .recycledFrom (Codec.maybe idCodec)
+        |> Codec.field "spinningProcessUuid" .spinningProcess (Codec.maybe (Process.processUuidCodec processes))
+        |> Codec.field "geographicOrigin" .geographicOrigin Codec.string
+        |> Codec.field "defaultCountry" .defaultCountry Country.codeCodec
+        |> Codec.field "priority" .priority Codec.int
+        |> Codec.field "cff" .cffData (Codec.maybe cffDataCodec)
+        |> Codec.buildObject
 
 
-decodeCFFData : Decoder CFFData
-decodeCFFData =
-    Decode.succeed CFFData
-        |> JDP.required "manufacturerAllocation" Unit.decodeRatio
-        |> JDP.required "recycledQualityRatio" Unit.decodeRatio
+listCodec : List Process -> Codec (List Material)
+listCodec processes =
+    Codec.list (codec processes)
 
 
-decodeList : List Process -> Decoder (List Material)
-decodeList processes =
-    Decode.list (decode processes)
+cffDataCodec : Codec CFFData
+cffDataCodec =
+    Codec.object CFFData
+        |> Codec.field "manufacturerAllocation" .manufacturerAllocation Unit.ratioCodec
+        |> Codec.field "recycledQualityRatio" .recycledQualityRatio Unit.ratioCodec
+        |> Codec.buildObject
 
 
-encode : Material -> Encode.Value
-encode v =
-    Encode.object
-        [ ( "id", encodeId v.id )
-        , ( "name", v.name |> Encode.string )
-        , ( "shortName", Encode.string v.shortName )
-        , ( "category", v.category |> Category.toString |> Encode.string )
-        , ( "materialProcessUuid", Process.encodeUuid v.materialProcess.uuid )
-        , ( "recycledProcessUuid"
-          , v.recycledProcess |> Maybe.map (.uuid >> Process.encodeUuid) |> Maybe.withDefault Encode.null
-          )
-        , ( "recycledFrom", v.recycledFrom |> Maybe.map encodeId |> Maybe.withDefault Encode.null )
-        , ( "spinningProcessUuid"
-          , v.spinningProcess |> Maybe.map (.uuid >> Process.encodeUuid) |> Maybe.withDefault Encode.null
-          )
-        , ( "geographicOrigin", Encode.string v.geographicOrigin )
-        , ( "defaultCountry", v.defaultCountry |> Country.codeToString |> Encode.string )
-        , ( "priority", Encode.int v.priority )
-        ]
+idCodec : Codec Id
+idCodec =
+    Codec.map Id idToString Codec.string
 
 
 encodeId : Id -> Encode.Value

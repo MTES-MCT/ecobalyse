@@ -1,5 +1,6 @@
 module Request.Textile.Db exposing (loadDb)
 
+import Codec
 import Data.Country as Country exposing (Country)
 import Data.Impact as Impact
 import Data.Session exposing (Session)
@@ -51,7 +52,7 @@ loadDependentData impacts processes =
     in
     Task.succeed (buildFromWebData impacts processes)
         |> andMap (getJson (Country.decodeList processes) "countries.json")
-        |> andMap (getJson (Material.decodeList processes) "materials.json")
+        |> andMap (getJson (Codec.decoder (Material.listCodec processes)) "materials.json")
         |> andMap (getJson (Product.decodeList processes) "products.json")
         |> andMap (getJson Transport.decodeDistances "transports.json")
 

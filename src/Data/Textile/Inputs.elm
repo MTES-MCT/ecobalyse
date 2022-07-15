@@ -29,6 +29,7 @@ module Data.Textile.Inputs exposing
     )
 
 import Base64
+import Codec
 import Data.Country as Country exposing (Country)
 import Data.Textile.Db exposing (Db)
 import Data.Textile.Material as Material exposing (Material)
@@ -642,7 +643,7 @@ encode inputs =
 encodeMaterialInput : MaterialInput -> Encode.Value
 encodeMaterialInput v =
     Encode.object
-        [ ( "material", Material.encode v.material )
+        [ ( "material", Codec.encoder (Material.codec []) v.material )
         , ( "share", Unit.encodeRatio v.share )
         ]
 

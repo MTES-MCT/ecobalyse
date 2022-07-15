@@ -10,6 +10,7 @@ module Data.Textile.Db exposing
     , toDatasetRoutePath
     )
 
+import Codec
 import Data.Country as Country exposing (Country)
 import Data.Impact as Impact
 import Data.Textile.Material as Material exposing (Material)
@@ -57,7 +58,7 @@ decode =
                         (\processes ->
                             Decode.map4 (Db impacts processes)
                                 (Decode.field "countries" (Country.decodeList processes))
-                                (Decode.field "materials" (Material.decodeList processes))
+                                (Decode.field "materials" (Codec.decoder (Material.listCodec processes)))
                                 (Decode.field "products" (Product.decodeList processes))
                                 (Decode.field "transports" Transport.decodeDistances)
                         )
