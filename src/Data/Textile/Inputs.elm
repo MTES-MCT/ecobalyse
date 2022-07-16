@@ -634,8 +634,8 @@ encode inputs =
         , ( "quality", inputs.quality |> Maybe.map Unit.encodeQuality |> Maybe.withDefault Encode.null )
         , ( "reparability", inputs.reparability |> Maybe.map Unit.encodeReparability |> Maybe.withDefault Encode.null )
         , ( "makingWaste", inputs.makingWaste |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
-        , ( "picking", inputs.picking |> Maybe.map Unit.encodePickPerMeter |> Maybe.withDefault Encode.null )
-        , ( "surfaceMass", inputs.surfaceMass |> Maybe.map Unit.encodeSurfaceMass |> Maybe.withDefault Encode.null )
+        , ( "picking", inputs.picking |> Maybe.map (Codec.encoder Unit.pickPerMeterCodec) |> Maybe.withDefault Encode.null )
+        , ( "surfaceMass", inputs.surfaceMass |> Maybe.map (Codec.encoder Unit.surfaceMassCodec) |> Maybe.withDefault Encode.null )
         , ( "disabledSteps", inputs.disabledSteps |> Codec.encoder (Codec.list Label.codeCodec) )
         ]
 
@@ -663,8 +663,8 @@ decodeQuery =
         |> Pipe.optional "quality" (Decode.maybe Unit.decodeQuality) Nothing
         |> Pipe.optional "reparability" (Decode.maybe Unit.decodeReparability) Nothing
         |> Pipe.optional "makingWaste" (Decode.maybe Unit.decodeRatio) Nothing
-        |> Pipe.optional "picking" (Decode.maybe Unit.decodePickPerMeter) Nothing
-        |> Pipe.optional "surfaceMass" (Decode.maybe Unit.decodeSurfaceMass) Nothing
+        |> Pipe.optional "picking" (Decode.maybe (Codec.decoder Unit.pickPerMeterCodec)) Nothing
+        |> Pipe.optional "surfaceMass" (Decode.maybe (Codec.decoder Unit.surfaceMassCodec)) Nothing
         |> Pipe.optional "disabledSteps" (Codec.decoder (Codec.list Label.codeCodec)) []
 
 
@@ -690,8 +690,8 @@ encodeQuery query =
         , ( "quality", query.quality |> Maybe.map Unit.encodeQuality |> Maybe.withDefault Encode.null )
         , ( "reparability", query.reparability |> Maybe.map Unit.encodeReparability |> Maybe.withDefault Encode.null )
         , ( "makingWaste", query.makingWaste |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
-        , ( "picking", query.picking |> Maybe.map Unit.encodePickPerMeter |> Maybe.withDefault Encode.null )
-        , ( "surfaceMass", query.surfaceMass |> Maybe.map Unit.encodeSurfaceMass |> Maybe.withDefault Encode.null )
+        , ( "picking", query.picking |> Maybe.map (Codec.encoder Unit.pickPerMeterCodec) |> Maybe.withDefault Encode.null )
+        , ( "surfaceMass", query.surfaceMass |> Maybe.map (Codec.encoder Unit.surfaceMassCodec) |> Maybe.withDefault Encode.null )
         , ( "disabledSteps", query.disabledSteps |> Codec.encoder (Codec.list Label.codeCodec) )
         ]
 

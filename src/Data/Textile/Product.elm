@@ -6,12 +6,14 @@ module Data.Textile.Product exposing
     , decodeList
     , encode
     , encodeId
+    , fabricOptionsCodec
     , findById
     , getFabricProcess
     , idToString
     , isKnitted
     )
 
+import Codec exposing (Codec)
 import Data.Textile.Process as Process exposing (Process)
 import Data.Unit as Unit
 import Duration exposing (Duration)
@@ -99,25 +101,49 @@ isKnitted { fabric } =
             False
 
 
-decodeFabricOptions : List Process -> Decoder FabricOptions
-decodeFabricOptions processes =
-    Decode.field "type" Decode.string
-        |> Decode.andThen
-            (\str ->
-                case String.toLower str of
-                    "knitting" ->
-                        Decode.succeed Knitted
-                            |> Pipe.required "processUuid" (Process.decodeFromUuid processes)
+fabricOptionsCodec : List Process -> Codec FabricOptions
+fabricOptionsCodec processes =
+    -- Note: this codec uses classic JSON encoders/decoders because of an issue with data
+    -- validation of Maybe values, which would be required here.
+    -- see https://github.com/miniBill/elm-codec/issues/14
+    -- TL;DR: Be extra careful ensuring bidirectional consistency here.
+    Codec.build
+        (\v ->
+            case v of
+                Knitted process ->
+                    Encode.object
+                        [ ( "processUuid", Process.encodeUuid process.uuid )
+                        ]
 
-                    "weaving" ->
-                        Decode.succeed Weaved
-                            |> Pipe.required "processUuid" (Process.decodeFromUuid processes)
-                            |> Pipe.required "picking" Unit.decodePickPerMeter
-                            |> Pipe.required "surfaceMass" Unit.decodeSurfaceMass
+                Weaved process picking surfaceMass ->
+                    Encode.object
+                        [ ( "processUuid", Process.encodeUuid process.uuid )
+                        , ( "picking", Codec.encoder Unit.pickPerMeterCodec picking )
+                        , ( "surfaceMass", Codec.encoder Unit.surfaceMassCodec surfaceMass )
+                        ]
+        )
+        (Decode.field "processUuid" (Process.decodeFromUuid processes)
+            |> Decode.andThen
+                (\process ->
+                    case process.alias of
+                        Just "knitting" ->
+                            Decode.succeed (Knitted process)
 
-                    _ ->
-                        Decode.fail ("Type de production d'étoffe inconnu\u{00A0}: " ++ str)
-            )
+                        Just "knitting-circular" ->
+                            Decode.succeed (Knitted process)
+
+                        Just "knitting-rectilinear" ->
+                            Decode.succeed (Knitted process)
+
+                        Just "weaving" ->
+                            Decode.succeed (Weaved process)
+                                |> Pipe.required "picking" (Codec.decoder Unit.pickPerMeterCodec)
+                                |> Pipe.required "surfaceMass" (Codec.decoder Unit.surfaceMassCodec)
+
+                        _ ->
+                            Decode.fail "Le procédé fourni n'est pas un procédé de production d'étoffe."
+                )
+        )
 
 
 decodeMakingOptions : List Process -> Decoder MakingOptions
@@ -153,7 +179,7 @@ decode processes =
         |> Pipe.required "id" (Decode.map Id Decode.string)
         |> Pipe.required "name" Decode.string
         |> Pipe.required "mass" (Decode.map Mass.kilograms Decode.float)
-        |> Pipe.required "fabric" (decodeFabricOptions processes)
+        |> Pipe.required "fabric" (Codec.decoder (fabricOptionsCodec processes))
         |> Pipe.required "making" (decodeMakingOptions processes)
         |> Pipe.required "use" (decodeUseOptions processes)
         |> Pipe.required "endOfLife" decodeEndOfLifeOptions
@@ -162,24 +188,6 @@ decode processes =
 decodeList : List Process -> Decoder (List Product)
 decodeList processes =
     Decode.list (decode processes)
-
-
-encodeFabricOptions : FabricOptions -> Encode.Value
-encodeFabricOptions v =
-    case v of
-        Knitted process ->
-            Encode.object
-                [ ( "type", Encode.string "knitting" )
-                , ( "processUuid", Process.encodeUuid process.uuid )
-                ]
-
-        Weaved process picking surfaceMass ->
-            Encode.object
-                [ ( "type", Encode.string "weaving" )
-                , ( "processUuid", Process.encodeUuid process.uuid )
-                , ( "picking", Unit.encodePickPerMeter picking )
-                , ( "surfaceMass", Unit.encodeSurfaceMass surfaceMass )
-                ]
 
 
 encodeMakingOptions : MakingOptions -> Encode.Value
@@ -217,7 +225,7 @@ encode v =
         [ ( "id", encodeId v.id )
         , ( "name", Encode.string v.name )
         , ( "mass", Encode.float (Mass.inKilograms v.mass) )
-        , ( "fabric", encodeFabricOptions v.fabric )
+        , ( "fabric", Codec.encoder (fabricOptionsCodec []) v.fabric )
         , ( "making", encodeMakingOptions v.making )
         , ( "use", encodeUseOptions v.use )
         , ( "endOfLife", encodeEndOfLifeOptions v.endOfLife )

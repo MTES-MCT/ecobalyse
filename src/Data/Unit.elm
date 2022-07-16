@@ -8,17 +8,13 @@ module Data.Unit exposing
     , Reparability(..)
     , SurfaceMass(..)
     , decodeImpact
-    , decodePickPerMeter
     , decodeQuality
     , decodeRatio
     , decodeReparability
-    , decodeSurfaceMass
     , encodeImpact
-    , encodePickPerMeter
     , encodeQuality
     , encodeRatio
     , encodeReparability
-    , encodeSurfaceMass
     , forKWh
     , forKg
     , forKgAndDistance
@@ -39,6 +35,7 @@ module Data.Unit exposing
     , minSurfaceMass
     , parseFunctional
     , pickPerMeter
+    , pickPerMeterCodec
     , pickPerMeterToFloat
     , pickPerMeterToInt
     , quality
@@ -54,6 +51,7 @@ module Data.Unit exposing
     , standardQuality
     , standardReparability
     , surfaceMass
+    , surfaceMassCodec
     , surfaceMassToFloat
     , surfaceMassToInt
     )
@@ -309,13 +307,13 @@ pickPerMeterToInt (PickPerMeter int) =
     int
 
 
-decodePickPerMeter : Decoder PickPerMeter
-decodePickPerMeter =
-    Decode.int
-        |> Decode.andThen
+pickPerMeterCodec : Codec PickPerMeter
+pickPerMeterCodec =
+    Codec.int
+        |> Codec.andThen
             (\int ->
                 if int < pickPerMeterToInt minPickPerMeter || int > pickPerMeterToInt maxPickPerMeter then
-                    Decode.fail
+                    Codec.fail
                         ("Le duitage spécifié ("
                             ++ String.fromInt int
                             ++ ") doit être compris entre "
@@ -326,14 +324,9 @@ decodePickPerMeter =
                         )
 
                 else
-                    Decode.succeed int
+                    Codec.succeed (pickPerMeter int)
             )
-        |> Decode.map pickPerMeter
-
-
-encodePickPerMeter : PickPerMeter -> Encode.Value
-encodePickPerMeter (PickPerMeter int) =
-    Encode.int int
+            pickPerMeterToInt
 
 
 
@@ -369,13 +362,13 @@ surfaceMassToInt (SurfaceMass int) =
     int
 
 
-decodeSurfaceMass : Decoder SurfaceMass
-decodeSurfaceMass =
-    Decode.int
-        |> Decode.andThen
+surfaceMassCodec : Codec SurfaceMass
+surfaceMassCodec =
+    Codec.int
+        |> Codec.andThen
             (\int ->
                 if int < surfaceMassToInt minSurfaceMass || int > surfaceMassToInt maxSurfaceMass then
-                    Decode.fail
+                    Codec.fail
                         ("La masse surfacique spécifiée ("
                             ++ String.fromInt int
                             ++ ") doit être comprise entre "
@@ -386,14 +379,9 @@ decodeSurfaceMass =
                         )
 
                 else
-                    Decode.succeed int
+                    Codec.succeed (surfaceMass int)
             )
-        |> Decode.map surfaceMass
-
-
-encodeSurfaceMass : SurfaceMass -> Encode.Value
-encodeSurfaceMass (SurfaceMass int) =
-    Encode.int int
+            surfaceMassToInt
 
 
 

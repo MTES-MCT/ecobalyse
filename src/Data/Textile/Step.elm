@@ -16,6 +16,7 @@ module Data.Textile.Step exposing
     , updateWaste
     )
 
+import Codec
 import Data.Country as Country exposing (Country)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Textile.Db exposing (Db)
@@ -458,8 +459,8 @@ encode v =
         , ( "quality", Unit.encodeQuality v.quality )
         , ( "reparability", Unit.encodeReparability v.reparability )
         , ( "makingWaste", v.makingWaste |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
-        , ( "picking", v.picking |> Maybe.map Unit.encodePickPerMeter |> Maybe.withDefault Encode.null )
-        , ( "surfaceMass", v.surfaceMass |> Maybe.map Unit.encodeSurfaceMass |> Maybe.withDefault Encode.null )
+        , ( "picking", v.picking |> Maybe.map (Codec.encoder Unit.pickPerMeterCodec) |> Maybe.withDefault Encode.null )
+        , ( "surfaceMass", v.surfaceMass |> Maybe.map (Codec.encoder Unit.surfaceMassCodec) |> Maybe.withDefault Encode.null )
         ]
 
 

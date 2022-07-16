@@ -119,7 +119,8 @@ cffDataCodec =
 
 idCodec : Codec Id
 idCodec =
-    Codec.map Id idToString Codec.string
+    Codec.string
+        |> Codec.map Id idToString
 
 
 idToString : Id -> String

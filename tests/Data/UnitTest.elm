@@ -1,5 +1,6 @@
 module Data.UnitTest exposing (..)
 
+import Codec
 import Data.Unit as Unit
 import Energy
 import Expect exposing (Expectation)
@@ -20,7 +21,7 @@ suite =
     describe "Data.Unit"
         [ describe "Decoder validation"
             [ "799"
-                |> Decode.decodeString Unit.decodePickPerMeter
+                |> Decode.decodeString (Codec.decoder Unit.pickPerMeterCodec)
                 |> Result.mapError Decode.errorToString
                 |> Expect.err
                 |> asTest "should discard erroneous PickPerMeter value"
@@ -40,7 +41,7 @@ suite =
                 |> Expect.err
                 |> asTest "should discard erroneous Reparability value"
             , "8868687687"
-                |> Decode.decodeString Unit.decodeSurfaceMass
+                |> Decode.decodeString (Codec.decoder Unit.surfaceMassCodec)
                 |> Result.mapError Decode.errorToString
                 |> Expect.err
                 |> asTest "should discard erroneous SurfaceMass value"
