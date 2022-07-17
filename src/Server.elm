@@ -107,7 +107,7 @@ executeQuery db request encoder =
 encodeCountry : Country -> Encode.Value
 encodeCountry { code, name } =
     Encode.object
-        [ ( "code", Country.encodeCode code )
+        [ ( "code", Codec.encoder Country.codeCodec code )
         , ( "name", Encode.string name )
         ]
 

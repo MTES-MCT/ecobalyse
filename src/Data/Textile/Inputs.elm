@@ -626,9 +626,9 @@ encode inputs =
         [ ( "mass", Encode.float (Mass.inKilograms inputs.mass) )
         , ( "materials", Encode.list encodeMaterialInput inputs.materials )
         , ( "product", Codec.encoder (Product.codec []) inputs.product )
-        , ( "countryFabric", Country.encode inputs.countryFabric )
-        , ( "countryDyeing", Country.encode inputs.countryDyeing )
-        , ( "countryMaking", Country.encode inputs.countryMaking )
+        , ( "countryFabric", inputs.countryFabric |> Codec.encoder (Country.codec []) )
+        , ( "countryDyeing", inputs.countryDyeing |> Codec.encoder (Country.codec []) )
+        , ( "countryMaking", inputs.countryMaking |> Codec.encoder (Country.codec []) )
         , ( "dyeingWeighting", inputs.dyeingWeighting |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
         , ( "airTransportRatio", inputs.airTransportRatio |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
         , ( "quality", inputs.quality |> Maybe.map Unit.encodeQuality |> Maybe.withDefault Encode.null )
@@ -654,10 +654,10 @@ decodeQuery =
         |> Pipe.required "mass" (Decode.map Mass.kilograms Decode.float)
         |> Pipe.required "materials" (Decode.list decodeMaterialQuery)
         |> Pipe.required "product" (Decode.map Product.Id Decode.string)
-        |> Pipe.optional "countrySpinning" (Decode.maybe Country.decodeCode) Nothing
-        |> Pipe.required "countryFabric" Country.decodeCode
-        |> Pipe.required "countryDyeing" Country.decodeCode
-        |> Pipe.required "countryMaking" Country.decodeCode
+        |> Pipe.optional "countrySpinning" (Decode.maybe (Codec.decoder Country.codeCodec)) Nothing
+        |> Pipe.required "countryFabric" (Codec.decoder Country.codeCodec)
+        |> Pipe.required "countryDyeing" (Codec.decoder Country.codeCodec)
+        |> Pipe.required "countryMaking" (Codec.decoder Country.codeCodec)
         |> Pipe.optional "dyeingWeighting" (Decode.maybe Unit.decodeRatio) Nothing
         |> Pipe.optional "airTransportRatio" (Decode.maybe Unit.decodeRatio) Nothing
         |> Pipe.optional "quality" (Decode.maybe Unit.decodeQuality) Nothing
@@ -681,10 +681,10 @@ encodeQuery query =
         [ ( "mass", Encode.float (Mass.inKilograms query.mass) )
         , ( "materials", Encode.list encodeMaterialQuery query.materials )
         , ( "product", query.product |> Product.idToString |> Encode.string )
-        , ( "countrySpinning", query.countrySpinning |> Maybe.map Country.encodeCode |> Maybe.withDefault Encode.null )
-        , ( "countryFabric", query.countryFabric |> Country.encodeCode )
-        , ( "countryDyeing", query.countryDyeing |> Country.encodeCode )
-        , ( "countryMaking", query.countryMaking |> Country.encodeCode )
+        , ( "countrySpinning", query.countrySpinning |> Maybe.map (Codec.encoder Country.codeCodec) |> Maybe.withDefault Encode.null )
+        , ( "countryFabric", query.countryFabric |> Codec.encoder Country.codeCodec )
+        , ( "countryDyeing", query.countryDyeing |> Codec.encoder Country.codeCodec )
+        , ( "countryMaking", query.countryMaking |> Codec.encoder Country.codeCodec )
         , ( "dyeingWeighting", query.dyeingWeighting |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
         , ( "airTransportRatio", query.airTransportRatio |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
         , ( "quality", query.quality |> Maybe.map Unit.encodeQuality |> Maybe.withDefault Encode.null )

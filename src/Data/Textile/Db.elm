@@ -57,7 +57,7 @@ decode =
                     |> Decode.andThen
                         (\processes ->
                             Decode.map4 (Db impacts processes)
-                                (Decode.field "countries" (Country.decodeList processes))
+                                (Decode.field "countries" (Codec.decoder (Country.listCodec processes)))
                                 (Decode.field "materials" (Codec.decoder (Material.listCodec processes)))
                                 (Decode.field "products" (Codec.decoder (Product.listCodec processes)))
                                 (Decode.field "transports" Transport.decodeDistances)

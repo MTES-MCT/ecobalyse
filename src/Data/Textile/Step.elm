@@ -444,7 +444,7 @@ encode v =
     Encode.object
         [ ( "label", Encode.string (Label.toString v.label) )
         , ( "enabled", Encode.bool v.enabled )
-        , ( "country", Country.encode v.country )
+        , ( "country", Codec.encoder (Country.codec []) v.country )
         , ( "editable", Encode.bool v.editable )
         , ( "inputMass", Encode.float (Mass.inKilograms v.inputMass) )
         , ( "outputMass", Encode.float (Mass.inKilograms v.outputMass) )

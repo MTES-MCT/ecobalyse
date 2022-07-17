@@ -9,7 +9,6 @@ module Data.Textile.Process exposing
     , getImpact
     , loadWellKnown
     , processUuidCodec
-    , uuidToString
     )
 
 import Codec exposing (Codec)

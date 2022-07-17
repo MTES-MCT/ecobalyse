@@ -51,7 +51,7 @@ loadDependentData impacts processes =
             Task.map2 (|>)
     in
     Task.succeed (buildFromWebData impacts processes)
-        |> andMap (getJson (Country.decodeList processes) "countries.json")
+        |> andMap (getJson (Codec.decoder (Country.listCodec processes)) "countries.json")
         |> andMap (getJson (Codec.decoder (Material.listCodec processes)) "materials.json")
         |> andMap (getJson (Codec.decoder (Product.listCodec processes)) "products.json")
         |> andMap (getJson Transport.decodeDistances "transports.json")
