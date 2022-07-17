@@ -2,23 +2,22 @@ module Data.Textile.Product exposing
     ( FabricOptions(..)
     , Id(..)
     , Product
+    , codec
     , customDaysOfWear
-    , decodeList
-    , encode
     , fabricOptionsCodec
     , findById
     , getFabricProcess
     , idCodec
     , idToString
     , isKnitted
+    , listCodec
     )
 
 import Codec exposing (Codec)
 import Data.Textile.Process as Process exposing (Process)
 import Data.Unit as Unit
 import Duration exposing (Duration)
-import Json.Decode as Decode exposing (Decoder)
-import Json.Decode.Pipeline as Pipe
+import Json.Decode as Decode
 import Json.Encode as Encode
 import Mass exposing (Mass)
 import Quantity
@@ -142,9 +141,9 @@ fabricOptionsCodec processes =
                             Decode.succeed (Knitted process)
 
                         Just "weaving" ->
-                            Decode.succeed (Weaved process)
-                                |> Pipe.required "picking" (Codec.decoder Unit.pickPerMeterCodec)
-                                |> Pipe.required "surfaceMass" (Codec.decoder Unit.surfaceMassCodec)
+                            Decode.map2 (Weaved process)
+                                (Decode.field "picking" (Codec.decoder Unit.pickPerMeterCodec))
+                                (Decode.field "surfaceMass" (Codec.decoder Unit.surfaceMassCodec))
 
                         _ ->
                             Decode.fail "Le procédé fourni n'est pas un procédé de production d'étoffe."
@@ -175,46 +174,29 @@ useOptionsCodec processes =
         |> Codec.buildObject
 
 
-decodeEndOfLifeOptions : Decoder EndOfLifeOptions
-decodeEndOfLifeOptions =
-    Decode.succeed EndOfLifeOptions
-        |> Pipe.required "volume" (Decode.map Volume.cubicMeters Decode.float)
+endOfLifeOptionsCodec : Codec EndOfLifeOptions
+endOfLifeOptionsCodec =
+    Codec.object EndOfLifeOptions
+        |> Codec.field "volume" .volume (Codec.map Volume.cubicMeters Volume.inCubicMeters Codec.float)
+        |> Codec.buildObject
 
 
-decode : List Process -> Decoder Product
-decode processes =
-    Decode.succeed Product
-        |> Pipe.required "id" (Decode.map Id Decode.string)
-        |> Pipe.required "name" Decode.string
-        |> Pipe.required "mass" (Decode.map Mass.kilograms Decode.float)
-        |> Pipe.required "fabric" (Codec.decoder (fabricOptionsCodec processes))
-        |> Pipe.required "making" (Codec.decoder (makingOptionsCodec processes))
-        |> Pipe.required "use" (Codec.decoder (useOptionsCodec processes))
-        |> Pipe.required "endOfLife" decodeEndOfLifeOptions
+codec : List Process -> Codec Product
+codec processes =
+    Codec.object Product
+        |> Codec.field "id" .id idCodec
+        |> Codec.field "name" .name Codec.string
+        |> Codec.field "mass" .mass (Codec.map Mass.kilograms Mass.inKilograms Codec.float)
+        |> Codec.field "fabric" .fabric (fabricOptionsCodec processes)
+        |> Codec.field "making" .making (makingOptionsCodec processes)
+        |> Codec.field "use" .use (useOptionsCodec processes)
+        |> Codec.field "endOfLife" .endOfLife endOfLifeOptionsCodec
+        |> Codec.buildObject
 
 
-decodeList : List Process -> Decoder (List Product)
-decodeList processes =
-    Decode.list (decode processes)
-
-
-encodeEndOfLifeOptions : EndOfLifeOptions -> Encode.Value
-encodeEndOfLifeOptions v =
-    Encode.object
-        [ ( "volume", v.volume |> Volume.inCubicMeters |> Encode.float ) ]
-
-
-encode : Product -> Encode.Value
-encode v =
-    Encode.object
-        [ ( "id", Codec.encoder idCodec v.id )
-        , ( "name", Encode.string v.name )
-        , ( "mass", Encode.float (Mass.inKilograms v.mass) )
-        , ( "fabric", Codec.encoder (fabricOptionsCodec []) v.fabric )
-        , ( "making", Codec.encoder (makingOptionsCodec []) v.making )
-        , ( "use", Codec.encoder (useOptionsCodec []) v.use )
-        , ( "endOfLife", encodeEndOfLifeOptions v.endOfLife )
-        ]
+listCodec : List Process -> Codec (List Product)
+listCodec processes =
+    Codec.list (codec processes)
 
 
 {-| Computes the number of wears and the number of maintainance cycles against

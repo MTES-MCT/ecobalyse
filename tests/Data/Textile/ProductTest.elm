@@ -96,7 +96,7 @@ codecSuite db =
                             |> asTest "should discard invalid fabric process"
                         , "{\"processUuid\":\"f9686809-f55e-4b96-b1f0-3298959de7d0\"}"
                             |> Decode.decodeString (Codec.decoder (Product.fabricOptionsCodec db.processes))
-                            |> TestUtils.expectDecodeErrorContains "Expecting an OBJECT with a field named `surfaceMass`"
+                            |> TestUtils.expectDecodeErrorContains "Expecting an OBJECT with a field named"
                             |> asTest "should discard incomplete weaving fabric process"
                         ]
                     ]

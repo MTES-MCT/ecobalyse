@@ -59,7 +59,7 @@ decode =
                             Decode.map4 (Db impacts processes)
                                 (Decode.field "countries" (Country.decodeList processes))
                                 (Decode.field "materials" (Codec.decoder (Material.listCodec processes)))
-                                (Decode.field "products" (Product.decodeList processes))
+                                (Decode.field "products" (Codec.decoder (Product.listCodec processes)))
                                 (Decode.field "transports" Transport.decodeDistances)
                         )
             )

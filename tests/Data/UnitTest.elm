@@ -21,7 +21,7 @@ suite =
     describe "Data.Unit"
         [ describe "Decoder validation"
             [ "799"
-                |> Decode.decodeString (Codec.decoder Unit.pickPerMeterCodec)
+                |> Codec.decodeString Unit.pickPerMeterCodec
                 |> Result.mapError Decode.errorToString
                 |> Expect.err
                 |> asTest "should discard erroneous PickPerMeter value"
@@ -41,7 +41,7 @@ suite =
                 |> Expect.err
                 |> asTest "should discard erroneous Reparability value"
             , "8868687687"
-                |> Decode.decodeString (Codec.decoder Unit.surfaceMassCodec)
+                |> Codec.decodeString Unit.surfaceMassCodec
                 |> Result.mapError Decode.errorToString
                 |> Expect.err
                 |> asTest "should discard erroneous SurfaceMass value"

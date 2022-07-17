@@ -625,7 +625,7 @@ encode inputs =
     Encode.object
         [ ( "mass", Encode.float (Mass.inKilograms inputs.mass) )
         , ( "materials", Encode.list encodeMaterialInput inputs.materials )
-        , ( "product", Product.encode inputs.product )
+        , ( "product", Codec.encoder (Product.codec []) inputs.product )
         , ( "countryFabric", Country.encode inputs.countryFabric )
         , ( "countryDyeing", Country.encode inputs.countryDyeing )
         , ( "countryMaking", Country.encode inputs.countryMaking )

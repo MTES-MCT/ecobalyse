@@ -22,11 +22,16 @@ expectDecodeErrorContains pattern result =
         Ok _ ->
             Expect.fail "This operation should not have succeeded"
 
-        Err err ->
-            err
+        Err decodeError ->
+            decodeError
                 |> Decode.errorToString
-                |> String.contains pattern
-                |> Expect.equal True
+                |> expectStringContains pattern
+
+
+expectStringContains : String -> String -> Expectation
+expectStringContains pattern =
+    String.contains pattern
+        >> Expect.true ("String does not contain \"" ++ pattern ++ "\"")
 
 
 suiteWithTextileDb : String -> (TextileDb.Db -> List Test) -> Test
