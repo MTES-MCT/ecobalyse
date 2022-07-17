@@ -5,10 +5,10 @@ module Data.Textile.Product exposing
     , customDaysOfWear
     , decodeList
     , encode
-    , encodeId
     , fabricOptionsCodec
     , findById
     , getFabricProcess
+    , idCodec
     , idToString
     , isKnitted
     )
@@ -84,6 +84,12 @@ findById id =
     List.filter (.id >> (==) id)
         >> List.head
         >> Result.fromMaybe ("Produit non trouvé id=" ++ idToString id ++ ".")
+
+
+idCodec : Codec Id
+idCodec =
+    Codec.string
+        |> Codec.map Id idToString
 
 
 idToString : Id -> String
@@ -214,7 +220,7 @@ encodeEndOfLifeOptions v =
 encode : Product -> Encode.Value
 encode v =
     Encode.object
-        [ ( "id", encodeId v.id )
+        [ ( "id", Codec.encoder idCodec v.id )
         , ( "name", Encode.string v.name )
         , ( "mass", Encode.float (Mass.inKilograms v.mass) )
         , ( "fabric", Codec.encoder (fabricOptionsCodec []) v.fabric )
@@ -222,11 +228,6 @@ encode v =
         , ( "use", encodeUseOptions v.use )
         , ( "endOfLife", encodeEndOfLifeOptions v.endOfLife )
         ]
-
-
-encodeId : Id -> Encode.Value
-encodeId =
-    idToString >> Encode.string
 
 
 {-| Computes the number of wears and the number of maintainance cycles against

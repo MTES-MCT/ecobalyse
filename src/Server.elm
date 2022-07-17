@@ -123,7 +123,7 @@ encodeMaterial { id, name } =
 encodeProduct : Product -> Encode.Value
 encodeProduct { id, name } =
     Encode.object
-        [ ( "id", Product.encodeId id )
+        [ ( "id", Codec.encoder Product.idCodec id )
         , ( "name", Encode.string name )
         ]
 
