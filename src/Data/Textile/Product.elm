@@ -161,17 +161,18 @@ makingOptionsCodec processes =
         |> Codec.buildObject
 
 
-decodeUseOptions : List Process -> Decoder UseOptions
-decodeUseOptions processes =
-    Decode.succeed UseOptions
-        |> Pipe.required "ironingProcessUuid" (Process.decodeFromUuid processes)
-        |> Pipe.required "nonIroningProcessUuid" (Process.decodeFromUuid processes)
-        |> Pipe.required "wearsPerCycle" Decode.int
-        |> Pipe.required "defaultNbCycles" Decode.int
-        |> Pipe.required "ratioDryer" Unit.decodeRatio
-        |> Pipe.required "ratioIroning" Unit.decodeRatio
-        |> Pipe.required "timeIroning" (Decode.map Duration.hours Decode.float)
-        |> Pipe.required "daysOfWear" (Decode.map Duration.days Decode.float)
+useOptionsCodec : List Process -> Codec UseOptions
+useOptionsCodec processes =
+    Codec.object UseOptions
+        |> Codec.field "ironingProcessUuid" .ironingProcess (Process.processUuidCodec processes)
+        |> Codec.field "nonIroningProcessUuid" .nonIroningProcess (Process.processUuidCodec processes)
+        |> Codec.field "wearsPerCycle" .wearsPerCycle Codec.int
+        |> Codec.field "defaultNbCycles" .defaultNbCycles Codec.int
+        |> Codec.field "ratioDryer" .ratioDryer Unit.ratioCodec
+        |> Codec.field "ratioIroning" .ratioIroning Unit.ratioCodec
+        |> Codec.field "timeIroning" .timeIroning (Codec.map Duration.hours Duration.inHours Codec.float)
+        |> Codec.field "daysOfWear" .daysOfWear (Codec.map Duration.days Duration.inDays Codec.float)
+        |> Codec.buildObject
 
 
 decodeEndOfLifeOptions : Decoder EndOfLifeOptions
@@ -188,27 +189,13 @@ decode processes =
         |> Pipe.required "mass" (Decode.map Mass.kilograms Decode.float)
         |> Pipe.required "fabric" (Codec.decoder (fabricOptionsCodec processes))
         |> Pipe.required "making" (Codec.decoder (makingOptionsCodec processes))
-        |> Pipe.required "use" (decodeUseOptions processes)
+        |> Pipe.required "use" (Codec.decoder (useOptionsCodec processes))
         |> Pipe.required "endOfLife" decodeEndOfLifeOptions
 
 
 decodeList : List Process -> Decoder (List Product)
 decodeList processes =
     Decode.list (decode processes)
-
-
-encodeUseOptions : UseOptions -> Encode.Value
-encodeUseOptions v =
-    Encode.object
-        [ ( "ironingProcessUuid", Process.encodeUuid v.ironingProcess.uuid )
-        , ( "nonIroningProcessUuid", Process.encodeUuid v.nonIroningProcess.uuid )
-        , ( "wearsPerCycle", Encode.int v.wearsPerCycle )
-        , ( "defaultNbCycles", Encode.int v.defaultNbCycles )
-        , ( "ratioDryer", Unit.encodeRatio v.ratioDryer )
-        , ( "ratioIroning", Unit.encodeRatio v.ratioIroning )
-        , ( "timeIroning", Encode.float (Duration.inHours v.timeIroning) )
-        , ( "daysOfWear", Encode.float (Duration.inDays v.daysOfWear) )
-        ]
 
 
 encodeEndOfLifeOptions : EndOfLifeOptions -> Encode.Value
@@ -225,7 +212,7 @@ encode v =
         , ( "mass", Encode.float (Mass.inKilograms v.mass) )
         , ( "fabric", Codec.encoder (fabricOptionsCodec []) v.fabric )
         , ( "making", Codec.encoder (makingOptionsCodec []) v.making )
-        , ( "use", encodeUseOptions v.use )
+        , ( "use", Codec.encoder (useOptionsCodec []) v.use )
         , ( "endOfLife", encodeEndOfLifeOptions v.endOfLife )
         ]
 
