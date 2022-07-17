@@ -146,12 +146,13 @@ fabricOptionsCodec processes =
         )
 
 
-decodeMakingOptions : List Process -> Decoder MakingOptions
-decodeMakingOptions processes =
-    Decode.succeed MakingOptions
-        |> Pipe.required "processUuid" (Process.decodeFromUuid processes)
-        |> Pipe.required "fadable" Decode.bool
-        |> Pipe.required "pcrWaste" Unit.decodeRatio
+makingOptionsCodec : List Process -> Codec MakingOptions
+makingOptionsCodec processes =
+    Codec.object MakingOptions
+        |> Codec.field "processUuid" .process (Process.processUuidCodec processes)
+        |> Codec.field "fadable" .fadable Codec.bool
+        |> Codec.field "pcrWaste" .pcrWaste Unit.ratioCodec
+        |> Codec.buildObject
 
 
 decodeUseOptions : List Process -> Decoder UseOptions
@@ -180,7 +181,7 @@ decode processes =
         |> Pipe.required "name" Decode.string
         |> Pipe.required "mass" (Decode.map Mass.kilograms Decode.float)
         |> Pipe.required "fabric" (Codec.decoder (fabricOptionsCodec processes))
-        |> Pipe.required "making" (decodeMakingOptions processes)
+        |> Pipe.required "making" (Codec.decoder (makingOptionsCodec processes))
         |> Pipe.required "use" (decodeUseOptions processes)
         |> Pipe.required "endOfLife" decodeEndOfLifeOptions
 
@@ -188,15 +189,6 @@ decode processes =
 decodeList : List Process -> Decoder (List Product)
 decodeList processes =
     Decode.list (decode processes)
-
-
-encodeMakingOptions : MakingOptions -> Encode.Value
-encodeMakingOptions v =
-    Encode.object
-        [ ( "processUuid", Process.encodeUuid v.process.uuid )
-        , ( "fadable", Encode.bool v.fadable )
-        , ( "pcrWaste", Unit.encodeRatio v.pcrWaste )
-        ]
 
 
 encodeUseOptions : UseOptions -> Encode.Value
@@ -226,7 +218,7 @@ encode v =
         , ( "name", Encode.string v.name )
         , ( "mass", Encode.float (Mass.inKilograms v.mass) )
         , ( "fabric", Codec.encoder (fabricOptionsCodec []) v.fabric )
-        , ( "making", encodeMakingOptions v.making )
+        , ( "making", Codec.encoder (makingOptionsCodec []) v.making )
         , ( "use", encodeUseOptions v.use )
         , ( "endOfLife", encodeEndOfLifeOptions v.endOfLife )
         ]

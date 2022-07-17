@@ -151,7 +151,8 @@ encodeRatio (Ratio float) =
 
 ratioCodec : Codec Ratio
 ratioCodec =
-    Codec.map ratio ratioToFloat Codec.float
+    Codec.float
+        |> Codec.map ratio ratioToFloat
 
 
 
