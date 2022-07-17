@@ -629,11 +629,11 @@ encode inputs =
         , ( "countryFabric", inputs.countryFabric |> Codec.encoder (Country.codec []) )
         , ( "countryDyeing", inputs.countryDyeing |> Codec.encoder (Country.codec []) )
         , ( "countryMaking", inputs.countryMaking |> Codec.encoder (Country.codec []) )
-        , ( "dyeingWeighting", inputs.dyeingWeighting |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
-        , ( "airTransportRatio", inputs.airTransportRatio |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
+        , ( "dyeingWeighting", inputs.dyeingWeighting |> Maybe.map (Codec.encoder Unit.ratioCodec) |> Maybe.withDefault Encode.null )
+        , ( "airTransportRatio", inputs.airTransportRatio |> Maybe.map (Codec.encoder Unit.ratioCodec) |> Maybe.withDefault Encode.null )
         , ( "quality", inputs.quality |> Maybe.map Unit.encodeQuality |> Maybe.withDefault Encode.null )
         , ( "reparability", inputs.reparability |> Maybe.map Unit.encodeReparability |> Maybe.withDefault Encode.null )
-        , ( "makingWaste", inputs.makingWaste |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
+        , ( "makingWaste", inputs.makingWaste |> Maybe.map (Codec.encoder Unit.ratioCodec) |> Maybe.withDefault Encode.null )
         , ( "picking", inputs.picking |> Maybe.map (Codec.encoder Unit.pickPerMeterCodec) |> Maybe.withDefault Encode.null )
         , ( "surfaceMass", inputs.surfaceMass |> Maybe.map (Codec.encoder Unit.surfaceMassCodec) |> Maybe.withDefault Encode.null )
         , ( "disabledSteps", inputs.disabledSteps |> Codec.encoder (Codec.list Label.codeCodec) )
@@ -644,7 +644,7 @@ encodeMaterialInput : MaterialInput -> Encode.Value
 encodeMaterialInput v =
     Encode.object
         [ ( "material", Codec.encoder (Material.codec []) v.material )
-        , ( "share", Unit.encodeRatio v.share )
+        , ( "share", Codec.encoder Unit.ratioCodec v.share )
         ]
 
 
@@ -658,11 +658,11 @@ decodeQuery =
         |> Pipe.required "countryFabric" (Codec.decoder Country.codeCodec)
         |> Pipe.required "countryDyeing" (Codec.decoder Country.codeCodec)
         |> Pipe.required "countryMaking" (Codec.decoder Country.codeCodec)
-        |> Pipe.optional "dyeingWeighting" (Decode.maybe Unit.decodeRatio) Nothing
-        |> Pipe.optional "airTransportRatio" (Decode.maybe Unit.decodeRatio) Nothing
+        |> Pipe.optional "dyeingWeighting" (Decode.maybe (Codec.decoder Unit.ratioCodec)) Nothing
+        |> Pipe.optional "airTransportRatio" (Decode.maybe (Codec.decoder Unit.ratioCodec)) Nothing
         |> Pipe.optional "quality" (Decode.maybe Unit.decodeQuality) Nothing
         |> Pipe.optional "reparability" (Decode.maybe Unit.decodeReparability) Nothing
-        |> Pipe.optional "makingWaste" (Decode.maybe Unit.decodeRatio) Nothing
+        |> Pipe.optional "makingWaste" (Decode.maybe (Codec.decoder Unit.ratioCodec)) Nothing
         |> Pipe.optional "picking" (Decode.maybe (Codec.decoder Unit.pickPerMeterCodec)) Nothing
         |> Pipe.optional "surfaceMass" (Decode.maybe (Codec.decoder Unit.surfaceMassCodec)) Nothing
         |> Pipe.optional "disabledSteps" (Codec.decoder (Codec.list Label.codeCodec)) []
@@ -672,7 +672,7 @@ decodeMaterialQuery : Decoder MaterialQuery
 decodeMaterialQuery =
     Decode.succeed MaterialQuery
         |> Pipe.required "id" (Decode.map Material.Id Decode.string)
-        |> Pipe.required "share" Unit.decodeRatio
+        |> Pipe.required "share" (Codec.decoder Unit.ratioCodec)
 
 
 encodeQuery : Query -> Encode.Value
@@ -685,11 +685,11 @@ encodeQuery query =
         , ( "countryFabric", query.countryFabric |> Codec.encoder Country.codeCodec )
         , ( "countryDyeing", query.countryDyeing |> Codec.encoder Country.codeCodec )
         , ( "countryMaking", query.countryMaking |> Codec.encoder Country.codeCodec )
-        , ( "dyeingWeighting", query.dyeingWeighting |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
-        , ( "airTransportRatio", query.airTransportRatio |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
+        , ( "dyeingWeighting", query.dyeingWeighting |> Maybe.map (Codec.encoder Unit.ratioCodec) |> Maybe.withDefault Encode.null )
+        , ( "airTransportRatio", query.airTransportRatio |> Maybe.map (Codec.encoder Unit.ratioCodec) |> Maybe.withDefault Encode.null )
         , ( "quality", query.quality |> Maybe.map Unit.encodeQuality |> Maybe.withDefault Encode.null )
         , ( "reparability", query.reparability |> Maybe.map Unit.encodeReparability |> Maybe.withDefault Encode.null )
-        , ( "makingWaste", query.makingWaste |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
+        , ( "makingWaste", query.makingWaste |> Maybe.map (Codec.encoder Unit.ratioCodec) |> Maybe.withDefault Encode.null )
         , ( "picking", query.picking |> Maybe.map (Codec.encoder Unit.pickPerMeterCodec) |> Maybe.withDefault Encode.null )
         , ( "surfaceMass", query.surfaceMass |> Maybe.map (Codec.encoder Unit.surfaceMassCodec) |> Maybe.withDefault Encode.null )
         , ( "disabledSteps", query.disabledSteps |> Codec.encoder (Codec.list Label.codeCodec) )

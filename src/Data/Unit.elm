@@ -9,11 +9,9 @@ module Data.Unit exposing
     , SurfaceMass(..)
     , decodeImpact
     , decodeQuality
-    , decodeRatio
     , decodeReparability
     , encodeImpact
     , encodeQuality
-    , encodeRatio
     , encodeReparability
     , forKWh
     , forKg
@@ -126,33 +124,22 @@ ratioToFloat (Ratio float) =
     float
 
 
-decodeRatio : Decoder Ratio
-decodeRatio =
-    Decode.float
-        |> Decode.andThen
+ratioCodec : Codec Ratio
+ratioCodec =
+    Codec.float
+        |> Codec.andThen
             (\float ->
                 if float < 0 || float > 1 then
-                    Decode.fail
+                    Codec.fail
                         ("Le ratio spécifié ("
                             ++ String.fromFloat float
                             ++ ") doit être compris entre 0 et 1."
                         )
 
                 else
-                    Decode.succeed float
+                    Codec.succeed (ratio float)
             )
-        |> Decode.map ratio
-
-
-encodeRatio : Ratio -> Encode.Value
-encodeRatio (Ratio float) =
-    Encode.float float
-
-
-ratioCodec : Codec Ratio
-ratioCodec =
-    Codec.float
-        |> Codec.map ratio ratioToFloat
+            ratioToFloat
 
 
 

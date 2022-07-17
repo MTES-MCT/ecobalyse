@@ -28,6 +28,7 @@ module Data.Impact exposing
     , updatePefImpact
     )
 
+import Codec
 import Data.Unit as Unit
 import Dict
 import Dict.Any as AnyDict exposing (AnyDict)
@@ -149,7 +150,7 @@ decodePefData =
     Decode.map3 PefData
         (Decode.field "color" Decode.string)
         (Decode.field "normalization" Unit.decodeImpact)
-        (Decode.field "weighting" (Decode.map getPefWeighting Unit.decodeRatio))
+        (Decode.field "weighting" (Decode.map getPefWeighting (Codec.decoder Unit.ratioCodec)))
 
 
 decodeScope : Decoder Scope

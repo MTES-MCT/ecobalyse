@@ -31,7 +31,7 @@ suite =
                 |> Expect.err
                 |> asTest "should discard erroneous Quality value"
             , "1.1"
-                |> Decode.decodeString Unit.decodeRatio
+                |> Codec.decodeString Unit.ratioCodec
                 |> Result.mapError Decode.errorToString
                 |> Expect.err
                 |> asTest "should discard erroneous Ratio value"
