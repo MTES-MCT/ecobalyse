@@ -79,6 +79,7 @@ type Msg
     | SwitchImpact Impact.Trigram
     | SwitchLinksTab LinksTab
     | ToggleComparedSimulation String Bool
+    | ToggleDisabledFading Bool
     | ToggleStep Label
     | ToggleStepViewMode Int
     | UpdateAirTransportRatio (Maybe Unit.Ratio)
@@ -263,12 +264,16 @@ update ({ db, query, navKey } as session) msg model =
             , Cmd.none
             )
 
+        ToggleDisabledFading disabledFading ->
+            ( model, session, Cmd.none )
+                |> updateQuery { query | disabledFading = Just disabledFading }
+
         ToggleStep label ->
             ( model, session, Cmd.none )
                 |> updateQuery (Inputs.toggleStep label query)
 
         ToggleStepViewMode index ->
-            ( { model | viewMode = model.viewMode |> ViewMode.toggle index }
+            ( { model | viewMode = ViewMode.toggle index model.viewMode }
             , session
             , Cmd.none
             )
@@ -403,7 +408,8 @@ lifeCycleStepsView db { viewMode, funit, impact } simulator =
                     , daysOfWear = simulator.daysOfWear
                     , index = index
                     , current = current
-                    , next = simulator.lifeCycle |> LifeCycle.getNextEnabledStep current.label
+                    , next = LifeCycle.getNextEnabledStep current.label simulator.lifeCycle
+                    , toggleDisabledFading = ToggleDisabledFading
                     , toggleStep = ToggleStep
                     , toggleStepViewMode = ToggleStepViewMode
                     , updateCountry = UpdateStepCountry
