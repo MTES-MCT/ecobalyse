@@ -37,11 +37,11 @@ type alias Simulator =
 
 
 encode : Db -> Simulator -> Encode.Value
-encode { processes } v =
+encode { impacts, processes } v =
     Encode.object
         [ ( "inputs", Codec.encoder (Inputs.inputsCodec processes) v.inputs )
-        , ( "lifeCycle", LifeCycle.encode v.lifeCycle )
-        , ( "impacts", Impact.encodeImpacts v.impacts )
+        , ( "lifeCycle", v.lifeCycle |> LifeCycle.encode impacts )
+        , ( "impacts", Codec.encoder (Impact.impactsCodec impacts) v.impacts )
         , ( "transport", Codec.encoder Transport.codec v.transport )
         , ( "daysOfWear", v.daysOfWear |> Duration.inDays |> Encode.float )
         , ( "useNbCycles", Encode.int v.useNbCycles )

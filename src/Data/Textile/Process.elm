@@ -112,13 +112,13 @@ processUuidCodec processes =
 
 
 codec : List Impact.Definition -> Codec Process
-codec impacts =
+codec definitions =
     Codec.object Process
         |> Codec.field "name" .name Codec.string
         |> Codec.field "info" .info Codec.string
         |> Codec.field "unit" .unit Codec.string
         |> Codec.field "uuid" .uuid uuidCodec
-        |> Codec.field "impacts" .impacts (Codec.build Impact.encodeImpacts (Impact.decodeImpacts impacts))
+        |> Codec.field "impacts" .impacts (Impact.impactsCodec definitions)
         |> Codec.field "heat_MJ" .heat (Codec.map Energy.megajoules Energy.inMegajoules Codec.float)
         |> Codec.field "elec_pppm" .elec_pppm Codec.float
         |> Codec.field "elec_MJ" .elec (Codec.map Energy.megajoules Energy.inMegajoules Codec.float)

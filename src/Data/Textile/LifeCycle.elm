@@ -163,6 +163,6 @@ updateSteps labels update_ lifeCycle =
     labels |> List.foldl (\label -> updateStep label update_) lifeCycle
 
 
-encode : LifeCycle -> Encode.Value
-encode =
-    Encode.array Step.encode
+encode : List Impact.Definition -> LifeCycle -> Encode.Value
+encode impacts =
+    Encode.array (Step.encode impacts)

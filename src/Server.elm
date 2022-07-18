@@ -75,32 +75,32 @@ toResponse request encodedResult =
                 |> sendResponse 400 request
 
 
-toAllImpactsSimple : Simulator -> Encode.Value
-toAllImpactsSimple { inputs, impacts } =
+toAllImpactsSimple : Db -> Simulator -> Encode.Value
+toAllImpactsSimple db { inputs, impacts } =
     Encode.object
-        [ ( "impacts", Impact.encodeImpacts impacts )
+        [ ( "impacts", Codec.encoder (Impact.impactsCodec db.impacts) impacts )
         , ( "description", inputs |> Inputs.toString |> Encode.string )
         , ( "query", inputs |> Inputs.toQuery |> Codec.encoder Inputs.queryCodec )
         ]
 
 
-toSingleImpactSimple : Impact.Trigram -> Simulator -> Encode.Value
-toSingleImpactSimple trigram { inputs, impacts } =
+toSingleImpactSimple : Impact.Trigram -> Db -> Simulator -> Encode.Value
+toSingleImpactSimple trigram db { inputs, impacts } =
     Encode.object
         [ ( "impacts"
           , impacts
                 |> Impact.filterImpacts (\trg _ -> trigram == trg)
-                |> Impact.encodeImpacts
+                |> Codec.encoder (Impact.impactsCodec db.impacts)
           )
         , ( "description", inputs |> Inputs.toString |> Encode.string )
         , ( "query", inputs |> Inputs.toQuery |> Codec.encoder Inputs.queryCodec )
         ]
 
 
-executeQuery : Db -> Request -> (Simulator -> Encode.Value) -> Inputs.Query -> Cmd Msg
+executeQuery : Db -> Request -> (Db -> Simulator -> Encode.Value) -> Inputs.Query -> Cmd Msg
 executeQuery db request encoder =
     Simulator.compute db
-        >> Result.map encoder
+        >> Result.map (encoder db)
         >> toResponse request
 
 
@@ -154,7 +154,7 @@ handleRequest db request =
                 |> sendResponse 400 request
 
         Just (Route.Get (Route.SimulatorDetailed (Ok query))) ->
-            query |> executeQuery db request (Simulator.encode db)
+            query |> executeQuery db request Simulator.encode
 
         Just (Route.Get (Route.SimulatorDetailed (Err errors))) ->
             Query.encodeErrors errors

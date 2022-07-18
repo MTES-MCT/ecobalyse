@@ -439,8 +439,8 @@ makingWasteToString (Unit.Ratio makingWaste) =
             String.fromInt p ++ "% de pertes en confection"
 
 
-encode : Step -> Encode.Value
-encode v =
+encode : List Impact.Definition -> Step -> Encode.Value
+encode definitions v =
     Encode.object
         [ ( "label", Encode.string (Label.toString v.label) )
         , ( "enabled", Encode.bool v.enabled )
@@ -450,7 +450,7 @@ encode v =
         , ( "outputMass", Encode.float (Mass.inKilograms v.outputMass) )
         , ( "waste", Encode.float (Mass.inKilograms v.waste) )
         , ( "transport", Codec.encoder Transport.codec v.transport )
-        , ( "impacts", Impact.encodeImpacts v.impacts )
+        , ( "impacts", Codec.encoder (Impact.impactsCodec definitions) v.impacts )
         , ( "heat_MJ", Encode.float (Energy.inMegajoules v.heat) )
         , ( "elec_kWh", Encode.float (Energy.inKilowattHours v.kwh) )
         , ( "processInfo", encodeProcessInfo v.processInfo )

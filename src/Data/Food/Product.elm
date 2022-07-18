@@ -33,6 +33,7 @@ module Data.Food.Product exposing
     , updateTransport
     )
 
+import Codec
 import Data.Country as Country
 import Data.Impact as Impact exposing (Definition, Impacts, Trigram, grabImpactFloat)
 import Data.Textile.Formula as Formula
@@ -179,8 +180,7 @@ findImpactsByName ((ProcessName name) as procName) =
 
 decodeProcesses : List Definition -> Decoder ImpactsForProcesses
 decodeProcesses definitions =
-    definitions
-        |> Impact.decodeImpacts
+    Codec.decoder (Impact.impactsCodec definitions)
         |> AnyDict.decode (\str _ -> ProcessName str) processNameToString
 
 
