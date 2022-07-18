@@ -619,14 +619,14 @@ encode inputs =
         , ( "countryDyeing", inputs.countryDyeing |> Codec.encoder (Country.codec []) )
         , ( "countryMaking", inputs.countryMaking |> Codec.encoder (Country.codec []) )
         , ( "dyeingWeighting", inputs.dyeingWeighting |> Maybe.map (Codec.encoder Unit.ratioCodec) |> Maybe.withDefault Encode.null )
-        , ( "airTransportRatio", inputs.airTransportRatio |> Maybe.map (Codec.encoder Unit.ratioCodec) |> Maybe.withDefault Encode.null )
-        , ( "quality", inputs.quality |> Maybe.map Unit.encodeQuality |> Maybe.withDefault Encode.null )
-        , ( "reparability", inputs.reparability |> Maybe.map Unit.encodeReparability |> Maybe.withDefault Encode.null )
+        , ( "airTransportRatio", inputs.airTransportRatio |> Codec.encoder (Codec.maybe Unit.ratioCodec) )
+        , ( "quality", inputs.quality |> Codec.encoder (Codec.maybe Unit.qualityCodec) )
+        , ( "reparability", inputs.reparability |> Codec.encoder (Codec.maybe Unit.reparabilityCodec) )
         , ( "makingWaste", inputs.makingWaste |> Maybe.map (Codec.encoder Unit.ratioCodec) |> Maybe.withDefault Encode.null )
         , ( "picking", inputs.picking |> Maybe.map (Codec.encoder Unit.pickPerMeterCodec) |> Maybe.withDefault Encode.null )
         , ( "surfaceMass", inputs.surfaceMass |> Maybe.map (Codec.encoder Unit.surfaceMassCodec) |> Maybe.withDefault Encode.null )
         , ( "disabledSteps", inputs.disabledSteps |> Codec.encoder (Codec.list Label.codeCodec) )
-        , ( "disabledFading", inputs.disabledFading |> Maybe.map Encode.bool |> Maybe.withDefault Encode.null )
+        , ( "disabledFading", inputs.disabledFading |> Codec.encoder (Codec.maybe Codec.bool) )
         ]
 
 
@@ -641,29 +641,22 @@ encodeMaterialInput v =
 decodeQuery : Decoder Query
 decodeQuery =
     Decode.succeed Query
-        |> Pipe.required "mass" (Decode.map Mass.kilograms Decode.float)
-        |> Pipe.required "materials" (Decode.list decodeMaterialQuery)
-        |> Pipe.required "product" (Decode.map Product.Id Decode.string)
-        |> Pipe.optional "countrySpinning" (Decode.maybe (Codec.decoder Country.codeCodec)) Nothing
+        |> Pipe.required "mass" (Codec.decoder (Codec.map Mass.kilograms Mass.inKilograms Codec.float))
+        |> Pipe.required "materials" (Codec.decoder (Codec.list materialQueryCodec))
+        |> Pipe.required "product" (Codec.decoder Product.idCodec)
+        |> Pipe.optional "countrySpinning" (Codec.decoder (Codec.maybe Country.codeCodec)) Nothing
         |> Pipe.required "countryFabric" (Codec.decoder Country.codeCodec)
         |> Pipe.required "countryDyeing" (Codec.decoder Country.codeCodec)
         |> Pipe.required "countryMaking" (Codec.decoder Country.codeCodec)
-        |> Pipe.optional "dyeingWeighting" (Decode.maybe (Codec.decoder Unit.ratioCodec)) Nothing
-        |> Pipe.optional "airTransportRatio" (Decode.maybe (Codec.decoder Unit.ratioCodec)) Nothing
-        |> Pipe.optional "quality" (Decode.maybe Unit.decodeQuality) Nothing
-        |> Pipe.optional "reparability" (Decode.maybe Unit.decodeReparability) Nothing
-        |> Pipe.optional "makingWaste" (Decode.maybe (Codec.decoder Unit.ratioCodec)) Nothing
-        |> Pipe.optional "picking" (Decode.maybe (Codec.decoder Unit.pickPerMeterCodec)) Nothing
-        |> Pipe.optional "surfaceMass" (Decode.maybe (Codec.decoder Unit.surfaceMassCodec)) Nothing
+        |> Pipe.optional "dyeingWeighting" (Codec.decoder (Codec.maybe Unit.ratioCodec)) Nothing
+        |> Pipe.optional "airTransportRatio" (Codec.decoder (Codec.maybe Unit.ratioCodec)) Nothing
+        |> Pipe.optional "quality" (Codec.decoder (Codec.maybe Unit.qualityCodec)) Nothing
+        |> Pipe.optional "reparability" (Codec.decoder (Codec.maybe Unit.reparabilityCodec)) Nothing
+        |> Pipe.optional "makingWaste" (Codec.decoder (Codec.maybe Unit.ratioCodec)) Nothing
+        |> Pipe.optional "picking" (Codec.decoder (Codec.maybe Unit.pickPerMeterCodec)) Nothing
+        |> Pipe.optional "surfaceMass" (Codec.decoder (Codec.maybe Unit.surfaceMassCodec)) Nothing
         |> Pipe.optional "disabledSteps" (Codec.decoder (Codec.list Label.codeCodec)) []
-        |> Pipe.optional "disabledFading" (Decode.maybe Decode.bool) Nothing
-
-
-decodeMaterialQuery : Decoder MaterialQuery
-decodeMaterialQuery =
-    Decode.succeed MaterialQuery
-        |> Pipe.required "id" (Decode.map Material.Id Decode.string)
-        |> Pipe.required "share" (Codec.decoder Unit.ratioCodec)
+        |> Pipe.optional "disabledFading" (Codec.decoder (Codec.maybe Codec.bool)) Nothing
 
 
 encodeQuery : Query -> Encode.Value
@@ -678,13 +671,13 @@ encodeQuery query =
         , ( "countryMaking", query.countryMaking |> Codec.encoder Country.codeCodec )
         , ( "dyeingWeighting", query.dyeingWeighting |> Maybe.map (Codec.encoder Unit.ratioCodec) |> Maybe.withDefault Encode.null )
         , ( "airTransportRatio", query.airTransportRatio |> Maybe.map (Codec.encoder Unit.ratioCodec) |> Maybe.withDefault Encode.null )
-        , ( "quality", query.quality |> Maybe.map Unit.encodeQuality |> Maybe.withDefault Encode.null )
-        , ( "reparability", query.reparability |> Maybe.map Unit.encodeReparability |> Maybe.withDefault Encode.null )
+        , ( "quality", query.quality |> Codec.encoder (Codec.maybe Unit.qualityCodec) )
+        , ( "reparability", query.reparability |> Codec.encoder (Codec.maybe Unit.reparabilityCodec) )
         , ( "makingWaste", query.makingWaste |> Maybe.map (Codec.encoder Unit.ratioCodec) |> Maybe.withDefault Encode.null )
         , ( "picking", query.picking |> Maybe.map (Codec.encoder Unit.pickPerMeterCodec) |> Maybe.withDefault Encode.null )
         , ( "surfaceMass", query.surfaceMass |> Maybe.map (Codec.encoder Unit.surfaceMassCodec) |> Maybe.withDefault Encode.null )
         , ( "disabledSteps", query.disabledSteps |> Codec.encoder (Codec.list Label.codeCodec) )
-        , ( "disabledFading", query.disabledFading |> Maybe.map Encode.bool |> Maybe.withDefault Encode.null )
+        , ( "disabledFading", query.disabledFading |> Codec.encoder (Codec.maybe Codec.bool) )
         ]
 
 

@@ -4,7 +4,6 @@ import Codec
 import Data.Unit as Unit
 import Energy
 import Expect exposing (Expectation)
-import Json.Decode as Decode
 import Length
 import Mass
 import Test exposing (..)
@@ -25,7 +24,7 @@ suite =
                 |> TestUtils.expectDecodeErrorContains "doit être compris"
                 |> asTest "should discard erroneous PickPerMeter value"
             , "-7"
-                |> Decode.decodeString Unit.decodeQuality
+                |> Codec.decodeString Unit.qualityCodec
                 |> TestUtils.expectDecodeErrorContains "doit être compris"
                 |> asTest "should discard erroneous Quality value"
             , "1.1"
@@ -33,7 +32,7 @@ suite =
                 |> TestUtils.expectDecodeErrorContains "doit être compris"
                 |> asTest "should discard erroneous Ratio value"
             , "-100"
-                |> Decode.decodeString Unit.decodeReparability
+                |> Codec.decodeString Unit.reparabilityCodec
                 |> TestUtils.expectDecodeErrorContains "doit être compris"
                 |> asTest "should discard erroneous Reparability value"
             , "8868687687"

@@ -8,11 +8,7 @@ module Data.Unit exposing
     , Reparability(..)
     , SurfaceMass(..)
     , decodeImpact
-    , decodeQuality
-    , decodeReparability
     , encodeImpact
-    , encodeQuality
-    , encodeReparability
     , forKWh
     , forKg
     , forKgAndDistance
@@ -37,6 +33,7 @@ module Data.Unit exposing
     , pickPerMeterToFloat
     , pickPerMeterToInt
     , quality
+    , qualityCodec
     , qualityToFloat
     , ratio
     , ratioCodec
@@ -45,6 +42,7 @@ module Data.Unit exposing
     , ratioedForKg
     , ratioedForMJ
     , reparability
+    , reparabilityCodec
     , reparabilityToFloat
     , standardQuality
     , standardReparability
@@ -175,13 +173,13 @@ qualityToFloat (Quality float) =
     float
 
 
-decodeQuality : Decoder Quality
-decodeQuality =
-    Decode.float
-        |> Decode.andThen
+qualityCodec : Codec Quality
+qualityCodec =
+    Codec.float
+        |> Codec.andThen
             (\float ->
                 if float < qualityToFloat minQuality || float > qualityToFloat maxQuality then
-                    Decode.fail
+                    Codec.fail
                         ("La qualité spécifiée ("
                             ++ String.fromFloat float
                             ++ ") doit être comprise entre "
@@ -192,14 +190,9 @@ decodeQuality =
                         )
 
                 else
-                    Decode.succeed float
+                    Codec.succeed (quality float)
             )
-        |> Decode.map quality
-
-
-encodeQuality : Quality -> Encode.Value
-encodeQuality (Quality float) =
-    Encode.float float
+            qualityToFloat
 
 
 
@@ -235,13 +228,13 @@ reparabilityToFloat (Reparability float) =
     float
 
 
-decodeReparability : Decoder Reparability
-decodeReparability =
-    Decode.float
-        |> Decode.andThen
+reparabilityCodec : Codec Reparability
+reparabilityCodec =
+    Codec.float
+        |> Codec.andThen
             (\float ->
                 if float < reparabilityToFloat minReparability || float > reparabilityToFloat maxReparability then
-                    Decode.fail
+                    Codec.fail
                         ("L'indice de réparabilité spécifié ("
                             ++ String.fromFloat float
                             ++ ") doit être compris entre "
@@ -252,14 +245,9 @@ decodeReparability =
                         )
 
                 else
-                    Decode.succeed float
+                    Codec.succeed (reparability float)
             )
-        |> Decode.map reparability
-
-
-encodeReparability : Reparability -> Encode.Value
-encodeReparability (Reparability float) =
-    Encode.float float
+            reparabilityToFloat
 
 
 
