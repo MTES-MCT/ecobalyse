@@ -82,6 +82,7 @@ paths:
       - $ref: '#/components/parameters/makingWasteParam'
       - $ref: '#/components/parameters/pickingParam'
       - $ref: '#/components/parameters/surfaceMassParam'
+      - $ref: '#/components/parameters/disabledFadingParam'
       - $ref: '#/components/parameters/disabledStepsParam'
       responses:
         200:
@@ -144,6 +145,7 @@ paths:
       - $ref: '#/components/parameters/makingWasteParam'
       - $ref: '#/components/parameters/pickingParam'
       - $ref: '#/components/parameters/surfaceMassParam'
+      - $ref: '#/components/parameters/disabledFadingParam'
       - $ref: '#/components/parameters/disabledStepsParam'
       responses:
         200:
@@ -179,6 +181,7 @@ paths:
       - $ref: '#/components/parameters/makingWasteParam'
       - $ref: '#/components/parameters/pickingParam'
       - $ref: '#/components/parameters/surfaceMassParam'
+      - $ref: '#/components/parameters/disabledFadingParam'
       - $ref: '#/components/parameters/disabledStepsParam'
       responses:
         200:
@@ -403,6 +406,23 @@ components:
         type: number
         minimum: 30
         maximum: 500
+    disabledFadingParam:
+      name: disabledFading
+      in: query
+      description: |
+        Désactive l'application du **procédé de délavage** pour l'étape de confection d'un jean (par conséquent inopérant sur d'autres produits).
+      required: false
+      style: form
+      schema:
+        type: string
+        enum: ["true", "false"]
+      examples:
+        default:
+          value: ""
+        enabled:
+          value: "true"
+        disabled:
+          value: "false"
     disabledStepsParam:
       name: disabledSteps
       in: query

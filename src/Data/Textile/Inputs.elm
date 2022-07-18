@@ -71,6 +71,7 @@ type alias Inputs =
     , picking : Maybe Unit.PickPerMeter
     , surfaceMass : Maybe Unit.SurfaceMass
     , disabledSteps : List Label
+    , disabledFading : Maybe Bool
     }
 
 
@@ -96,6 +97,7 @@ type alias Query =
     , picking : Maybe Unit.PickPerMeter
     , surfaceMass : Maybe Unit.SurfaceMass
     , disabledSteps : List Label
+    , disabledFading : Maybe Bool
     }
 
 
@@ -183,6 +185,7 @@ fromQuery db query =
         |> RE.andMap (Ok query.picking)
         |> RE.andMap (Ok query.surfaceMass)
         |> RE.andMap (Ok query.disabledSteps)
+        |> RE.andMap (Ok query.disabledFading)
 
 
 toQuery : Inputs -> Query
@@ -211,6 +214,7 @@ toQuery inputs =
     , picking = inputs.picking
     , surfaceMass = inputs.surfaceMass
     , disabledSteps = inputs.disabledSteps
+    , disabledFading = inputs.disabledFading
     }
 
 
@@ -272,7 +276,7 @@ dyeingOptionsToString maybeRatio =
 
 
 makingOptionsToString : Inputs -> String
-makingOptionsToString { makingWaste, airTransportRatio } =
+makingOptionsToString { product, makingWaste, airTransportRatio, disabledFading } =
     [ makingWaste
         |> Maybe.map (Format.ratioToPercentString >> (\s -> s ++ " de perte"))
     , airTransportRatio
@@ -284,6 +288,11 @@ makingOptionsToString { makingWaste, airTransportRatio } =
                 else
                     Just (Format.ratioToPercentString ratio ++ " de transport aérien")
             )
+    , if product.making.fadable && disabledFading == Just True then
+        Just "non-délavé"
+
+      else
+        Nothing
     ]
         |> List.filterMap identity
         |> String.join ", "
@@ -448,45 +457,21 @@ removeMaterial index query =
 
 updateProduct : Product -> Query -> Query
 updateProduct product query =
-    { query
-        | product = product.id
-        , mass = product.mass
-        , quality =
-            -- ensure resetting quality when product is changed
-            if product.id /= query.product then
-                Nothing
+    if product.id /= query.product then
+        -- Product has changed, reset a bunch of related query params
+        { query
+            | product = product.id
+            , mass = product.mass
+            , quality = Nothing
+            , reparability = Nothing
+            , makingWaste = Nothing
+            , picking = Nothing
+            , surfaceMass = Nothing
+            , disabledFading = Nothing
+        }
 
-            else
-                query.quality
-        , reparability =
-            -- ensure resetting reparability when product is changed
-            if product.id /= query.product then
-                Nothing
-
-            else
-                query.reparability
-        , makingWaste =
-            -- ensure resetting custom making waste when product is changed
-            if product.id /= query.product then
-                Nothing
-
-            else
-                query.makingWaste
-        , picking =
-            -- ensure resetting custom picking when product is changed
-            if product.id /= query.product then
-                Nothing
-
-            else
-                query.picking
-        , surfaceMass =
-            -- ensure resetting custom surface density when product is changed
-            if product.id /= query.product then
-                Nothing
-
-            else
-                query.surfaceMass
-    }
+    else
+        query
 
 
 defaultQuery : Query
@@ -512,6 +497,7 @@ tShirtCotonFrance =
     , picking = Nothing
     , surfaceMass = Nothing
     , disabledSteps = []
+    , disabledFading = Nothing
     }
 
 
@@ -563,6 +549,7 @@ jupeCircuitAsie =
     , picking = Nothing
     , surfaceMass = Nothing
     , disabledSteps = []
+    , disabledFading = Nothing
     }
 
 
@@ -584,6 +571,7 @@ manteauCircuitEurope =
     , picking = Nothing
     , surfaceMass = Nothing
     , disabledSteps = []
+    , disabledFading = Nothing
     }
 
 
@@ -605,6 +593,7 @@ pantalonCircuitEurope =
     , picking = Nothing
     , surfaceMass = Nothing
     , disabledSteps = []
+    , disabledFading = Nothing
     }
 
 
@@ -636,6 +625,7 @@ encode inputs =
         , ( "picking", inputs.picking |> Maybe.map Unit.encodePickPerMeter |> Maybe.withDefault Encode.null )
         , ( "surfaceMass", inputs.surfaceMass |> Maybe.map Unit.encodeSurfaceMass |> Maybe.withDefault Encode.null )
         , ( "disabledSteps", Encode.list Label.encode inputs.disabledSteps )
+        , ( "disabledFading", inputs.disabledFading |> Maybe.map Encode.bool |> Maybe.withDefault Encode.null )
         ]
 
 
@@ -665,6 +655,7 @@ decodeQuery =
         |> Pipe.optional "picking" (Decode.maybe Unit.decodePickPerMeter) Nothing
         |> Pipe.optional "surfaceMass" (Decode.maybe Unit.decodeSurfaceMass) Nothing
         |> Pipe.optional "disabledSteps" (Decode.list Label.decodeFromCode) []
+        |> Pipe.optional "disabledFading" (Decode.maybe Decode.bool) Nothing
 
 
 decodeMaterialQuery : Decoder MaterialQuery
@@ -692,6 +683,7 @@ encodeQuery query =
         , ( "picking", query.picking |> Maybe.map Unit.encodePickPerMeter |> Maybe.withDefault Encode.null )
         , ( "surfaceMass", query.surfaceMass |> Maybe.map Unit.encodeSurfaceMass |> Maybe.withDefault Encode.null )
         , ( "disabledSteps", Encode.list Label.encode query.disabledSteps )
+        , ( "disabledFading", query.disabledFading |> Maybe.map Encode.bool |> Maybe.withDefault Encode.null )
         ]
 
 

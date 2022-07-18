@@ -38,6 +38,7 @@ type alias Config msg =
     , index : Int
     , current : Step
     , next : Maybe Step
+    , toggleDisabledFading : Bool -> msg
     , toggleStep : Label -> msg
     , toggleStepViewMode : Int -> msg
     , updateCountry : Label -> Country.Code -> msg
@@ -160,6 +161,31 @@ dyeingWeightingField { current, updateDyeingWeighting } =
             , max = 100
             }
         ]
+
+
+fadingField : Config msg -> Html msg
+fadingField { inputs, toggleDisabledFading } =
+    if inputs.product.making.fadable then
+        label
+            [ class "form-check form-switch form-check-label fs-7 pt-1 text-truncate"
+            , title "Délavage"
+            ]
+            [ input
+                [ type_ "checkbox"
+                , class "form-check-input no-outline"
+                , checked (not (Maybe.withDefault False inputs.disabledFading))
+                , onCheck (\checked -> toggleDisabledFading (not checked))
+                ]
+                []
+            , if inputs.disabledFading == Just True then
+                text "Délavage désactivé"
+
+              else
+                text "Délavage activé"
+            ]
+
+    else
+        text ""
 
 
 qualityField : Config msg -> Html msg
@@ -383,6 +409,7 @@ simpleView ({ funit, inputs, daysOfWear, impact, current } as config) =
                         div [ class "mt-2" ]
                             [ makingWasteField config
                             , airTransportRatioField config
+                            , fadingField config
                             ]
 
                     Label.Use ->
@@ -490,7 +517,11 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                 , viewProcessInfo current.processInfo.endOfLife
                 , viewProcessInfo current.processInfo.fabric
                 , viewProcessInfo current.processInfo.making
-                , viewProcessInfo current.processInfo.fading
+                , if inputs.product.making.fadable && inputs.disabledFading /= Just True then
+                    viewProcessInfo current.processInfo.fading
+
+                  else
+                    text ""
                 ]
             , div
                 [ class "StepBody card-body py-2 text-muted"
@@ -513,6 +544,7 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                     Label.Making ->
                         [ makingWasteField config
                         , airTransportRatioField config
+                        , fadingField config
                         ]
 
                     Label.Use ->

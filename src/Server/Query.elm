@@ -64,6 +64,7 @@ parse db =
         |> apply (maybePicking "picking")
         |> apply (maybeSurfaceMass "surfaceMass")
         |> apply (maybeDisabledSteps "disabledSteps")
+        |> apply (maybeBool "disabledFading")
 
 
 toErrors : ParseResult a -> Result Errors a
@@ -416,6 +417,26 @@ maybeDisabledSteps key =
                             )
                 )
                 >> Maybe.withDefault (Ok [])
+            )
+
+
+maybeBool : String -> Query.Parser (ParseResult (Maybe Bool))
+maybeBool key =
+    Query.string key
+        |> Query.map
+            (Maybe.map
+                (\str ->
+                    case str of
+                        "true" ->
+                            Ok (Just True)
+
+                        "false" ->
+                            Ok (Just False)
+
+                        _ ->
+                            Err ( key, "La valeur ne peut être que true ou false." )
+                )
+                >> Maybe.withDefault (Ok Nothing)
             )
 
 
