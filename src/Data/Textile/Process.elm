@@ -2,9 +2,7 @@ module Data.Textile.Process exposing
     ( Process
     , Uuid(..)
     , WellKnown
-    , decodeFromUuid
     , decodeList
-    , encodeUuid
     , findByUuid
     , getImpact
     , loadWellKnown
@@ -16,9 +14,7 @@ import Data.Impact as Impact exposing (Impacts)
 import Data.Unit as Unit
 import Energy exposing (Energy)
 import Json.Decode as Decode exposing (Decoder)
-import Json.Decode.Extra as DecodeExtra
 import Json.Decode.Pipeline as Pipe
-import Json.Encode as Encode
 import Mass exposing (Mass)
 import Result.Extra as RE
 
@@ -100,17 +96,6 @@ uuidToString (Uuid string) =
     string
 
 
-decodeFromUuid : List Process -> Decoder Process
-decodeFromUuid processes =
-    Decode.string
-        |> Decode.andThen
-            (\uuid ->
-                processes
-                    |> findByUuid (Uuid uuid)
-                    |> DecodeExtra.fromResult
-            )
-
-
 processUuidCodec : List Process -> Codec Process
 processUuidCodec processes =
     Codec.string
@@ -146,8 +131,3 @@ decode impacts =
 decodeList : List Impact.Definition -> Decoder (List Process)
 decodeList impacts =
     Decode.list (decode impacts)
-
-
-encodeUuid : Uuid -> Encode.Value
-encodeUuid =
-    uuidToString >> Encode.string

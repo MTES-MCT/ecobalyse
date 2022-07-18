@@ -22,28 +22,23 @@ suite =
         [ describe "Decoder validation"
             [ "799"
                 |> Codec.decodeString Unit.pickPerMeterCodec
-                |> Result.mapError Decode.errorToString
-                |> Expect.err
+                |> TestUtils.expectDecodeErrorContains "doit être compris"
                 |> asTest "should discard erroneous PickPerMeter value"
             , "-7"
                 |> Decode.decodeString Unit.decodeQuality
-                |> Result.mapError Decode.errorToString
-                |> Expect.err
+                |> TestUtils.expectDecodeErrorContains "doit être compris"
                 |> asTest "should discard erroneous Quality value"
             , "1.1"
                 |> Codec.decodeString Unit.ratioCodec
-                |> Result.mapError Decode.errorToString
-                |> Expect.err
+                |> TestUtils.expectDecodeErrorContains "doit être compris"
                 |> asTest "should discard erroneous Ratio value"
             , "-100"
                 |> Decode.decodeString Unit.decodeReparability
-                |> Result.mapError Decode.errorToString
-                |> Expect.err
+                |> TestUtils.expectDecodeErrorContains "doit être compris"
                 |> asTest "should discard erroneous Reparability value"
             , "8868687687"
                 |> Codec.decodeString Unit.surfaceMassCodec
-                |> Result.mapError Decode.errorToString
-                |> Expect.err
+                |> TestUtils.expectDecodeErrorContains "doit être compris"
                 |> asTest "should discard erroneous SurfaceMass value"
             ]
         , describe "Impact"

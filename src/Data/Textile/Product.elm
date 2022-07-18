@@ -109,7 +109,7 @@ isKnitted { fabric } =
 fabricOptionsCodec : List Process -> Codec FabricOptions
 fabricOptionsCodec processes =
     -- Note: this codec uses classic JSON encoders/decoders because of an issue with data
-    -- validation of Maybe values, which would be required here.
+    -- validation of Maybe values using `maybeField`, which would be required here.
     -- see https://github.com/miniBill/elm-codec/issues/14
     -- TL;DR: Be extra careful ensuring bidirectional consistency here.
     Codec.build
@@ -117,17 +117,17 @@ fabricOptionsCodec processes =
             case v of
                 Knitted process ->
                     Encode.object
-                        [ ( "processUuid", Process.encodeUuid process.uuid )
+                        [ ( "processUuid", process |> Codec.encoder (Process.processUuidCodec processes) )
                         ]
 
                 Weaved process picking surfaceMass ->
                     Encode.object
-                        [ ( "processUuid", Process.encodeUuid process.uuid )
+                        [ ( "processUuid", process |> Codec.encoder (Process.processUuidCodec processes) )
                         , ( "picking", Codec.encoder Unit.pickPerMeterCodec picking )
                         , ( "surfaceMass", Codec.encoder Unit.surfaceMassCodec surfaceMass )
                         ]
         )
-        (Decode.field "processUuid" (Process.decodeFromUuid processes)
+        (Decode.field "processUuid" (Codec.decoder (Process.processUuidCodec processes))
             |> Decode.andThen
                 (\process ->
                     case process.alias of
