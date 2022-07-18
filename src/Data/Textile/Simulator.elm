@@ -36,10 +36,10 @@ type alias Simulator =
     }
 
 
-encode : Simulator -> Encode.Value
-encode v =
+encode : Db -> Simulator -> Encode.Value
+encode { processes } v =
     Encode.object
-        [ ( "inputs", Inputs.encode v.inputs )
+        [ ( "inputs", Codec.encoder (Inputs.inputsCodec processes) v.inputs )
         , ( "lifeCycle", LifeCycle.encode v.lifeCycle )
         , ( "impacts", Impact.encodeImpacts v.impacts )
         , ( "transport", Codec.encoder Transport.codec v.transport )

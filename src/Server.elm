@@ -154,7 +154,7 @@ handleRequest db request =
                 |> sendResponse 400 request
 
         Just (Route.Get (Route.SimulatorDetailed (Ok query))) ->
-            query |> executeQuery db request Simulator.encode
+            query |> executeQuery db request (Simulator.encode db)
 
         Just (Route.Get (Route.SimulatorDetailed (Err errors))) ->
             Query.encodeErrors errors
