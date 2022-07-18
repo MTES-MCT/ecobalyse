@@ -77,7 +77,7 @@ handleImpactsLoaded : WebData (List Impact.Definition) -> Task () (WebData Db)
 handleImpactsLoaded impactsData =
     case impactsData of
         RemoteData.Success impacts ->
-            getJson (Process.decodeList impacts) "processes.json"
+            getJson (Codec.decoder (Process.listCodec impacts)) "processes.json"
                 |> Task.andThen (handleProcessesLoaded impacts)
 
         RemoteData.Failure error ->

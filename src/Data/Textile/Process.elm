@@ -2,9 +2,9 @@ module Data.Textile.Process exposing
     ( Process
     , Uuid(..)
     , WellKnown
-    , decodeList
     , findByUuid
     , getImpact
+    , listCodec
     , loadWellKnown
     , processUuidCodec
     )
@@ -13,8 +13,6 @@ import Codec exposing (Codec)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Unit as Unit
 import Energy exposing (Energy)
-import Json.Decode as Decode exposing (Decoder)
-import Json.Decode.Pipeline as Pipe
 import Mass exposing (Mass)
 import Result.Extra as RE
 
@@ -113,21 +111,28 @@ processUuidCodec processes =
             (.uuid >> uuidToString)
 
 
-decode : List Impact.Definition -> Decoder Process
-decode impacts =
-    Decode.succeed Process
-        |> Pipe.required "name" Decode.string
-        |> Pipe.required "info" Decode.string
-        |> Pipe.required "unit" Decode.string
-        |> Pipe.required "uuid" (Decode.map Uuid Decode.string)
-        |> Pipe.required "impacts" (Impact.decodeImpacts impacts)
-        |> Pipe.required "heat_MJ" (Decode.map Energy.megajoules Decode.float)
-        |> Pipe.required "elec_pppm" Decode.float
-        |> Pipe.required "elec_MJ" (Decode.map Energy.megajoules Decode.float)
-        |> Pipe.required "waste" (Decode.map Mass.kilograms Decode.float)
-        |> Pipe.required "alias" (Decode.maybe Decode.string)
+codec : List Impact.Definition -> Codec Process
+codec impacts =
+    Codec.object Process
+        |> Codec.field "name" .name Codec.string
+        |> Codec.field "info" .info Codec.string
+        |> Codec.field "unit" .unit Codec.string
+        |> Codec.field "uuid" .uuid uuidCodec
+        |> Codec.field "impacts" .impacts (Codec.build Impact.encodeImpacts (Impact.decodeImpacts impacts))
+        |> Codec.field "heat_MJ" .heat (Codec.map Energy.megajoules Energy.inMegajoules Codec.float)
+        |> Codec.field "elec_pppm" .elec_pppm Codec.float
+        |> Codec.field "elec_MJ" .elec (Codec.map Energy.megajoules Energy.inMegajoules Codec.float)
+        |> Codec.field "waste" .waste (Codec.map Mass.kilograms Mass.inKilograms Codec.float)
+        |> Codec.field "alias" .alias (Codec.maybe Codec.string)
+        |> Codec.buildObject
 
 
-decodeList : List Impact.Definition -> Decoder (List Process)
-decodeList impacts =
-    Decode.list (decode impacts)
+uuidCodec : Codec Uuid
+uuidCodec =
+    Codec.string
+        |> Codec.map Uuid uuidToString
+
+
+listCodec : List Impact.Definition -> Codec (List Process)
+listCodec impacts =
+    Codec.list (codec impacts)

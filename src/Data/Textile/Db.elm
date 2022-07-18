@@ -50,10 +50,11 @@ buildFromJson json =
 
 decode : Decoder Db
 decode =
+    -- Note: no need to use a Codec as we never encode the Db
     Decode.field "impacts" Impact.decodeList
         |> Decode.andThen
             (\impacts ->
-                Decode.field "processes" (Process.decodeList impacts)
+                Decode.field "processes" (Codec.decoder (Process.listCodec impacts))
                     |> Decode.andThen
                         (\processes ->
                             Decode.map4 (Db impacts processes)
