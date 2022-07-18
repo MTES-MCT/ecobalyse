@@ -15,6 +15,7 @@ module Data.Session exposing
     )
 
 import Browser.Navigation as Nav
+import Codec
 import Data.Food.Db as Food
 import Data.Textile.Db exposing (Db)
 import Data.Textile.Inputs as Inputs
@@ -166,7 +167,7 @@ decodeSavedSimulation : Decoder SavedSimulation
 decodeSavedSimulation =
     Decode.map2 SavedSimulation
         (Decode.field "name" Decode.string)
-        (Decode.field "query" Inputs.decodeQuery)
+        (Decode.field "query" (Codec.decoder Inputs.queryCodec))
 
 
 encodeStore : Store -> Encode.Value
@@ -181,7 +182,7 @@ encodeSavedSimulation : SavedSimulation -> Encode.Value
 encodeSavedSimulation { name, query } =
     Encode.object
         [ ( "name", Encode.string name )
-        , ( "query", Inputs.encodeQuery query )
+        , ( "query", Codec.encoder Inputs.queryCodec query )
         ]
 
 

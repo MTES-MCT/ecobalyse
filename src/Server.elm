@@ -80,7 +80,7 @@ toAllImpactsSimple { inputs, impacts } =
     Encode.object
         [ ( "impacts", Impact.encodeImpacts impacts )
         , ( "description", inputs |> Inputs.toString |> Encode.string )
-        , ( "query", inputs |> Inputs.toQuery |> Inputs.encodeQuery )
+        , ( "query", inputs |> Inputs.toQuery |> Codec.encoder Inputs.queryCodec )
         ]
 
 
@@ -93,7 +93,7 @@ toSingleImpactSimple trigram { inputs, impacts } =
                 |> Impact.encodeImpacts
           )
         , ( "description", inputs |> Inputs.toString |> Encode.string )
-        , ( "query", inputs |> Inputs.toQuery |> Inputs.encodeQuery )
+        , ( "query", inputs |> Inputs.toQuery |> Codec.encoder Inputs.queryCodec )
         ]
 
 

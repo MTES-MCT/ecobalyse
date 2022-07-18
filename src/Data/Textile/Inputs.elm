@@ -7,15 +7,14 @@ module Data.Textile.Inputs exposing
     , b64decode
     , b64encode
     , countryList
-    , decodeQuery
     , defaultQuery
     , encode
-    , encodeQuery
     , fromQuery
     , getMainMaterial
     , jupeCircuitAsie
     , parseBase64Query
     , presets
+    , queryCodec
     , removeMaterial
     , tShirtCotonAsie
     , tShirtCotonFrance
@@ -36,8 +35,7 @@ import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Product as Product exposing (Product)
 import Data.Textile.Step.Label as Label exposing (Label)
 import Data.Unit as Unit
-import Json.Decode as Decode exposing (Decoder)
-import Json.Decode.Pipeline as Pipe
+import Json.Decode as Decode
 import Json.Encode as Encode
 import List.Extra as LE
 import Mass exposing (Mass)
@@ -638,47 +636,27 @@ encodeMaterialInput v =
         ]
 
 
-decodeQuery : Decoder Query
-decodeQuery =
-    Decode.succeed Query
-        |> Pipe.required "mass" (Codec.decoder (Codec.map Mass.kilograms Mass.inKilograms Codec.float))
-        |> Pipe.required "materials" (Codec.decoder (Codec.list materialQueryCodec))
-        |> Pipe.required "product" (Codec.decoder Product.idCodec)
-        |> Pipe.optional "countrySpinning" (Codec.decoder (Codec.maybe Country.codeCodec)) Nothing
-        |> Pipe.required "countryFabric" (Codec.decoder Country.codeCodec)
-        |> Pipe.required "countryDyeing" (Codec.decoder Country.codeCodec)
-        |> Pipe.required "countryMaking" (Codec.decoder Country.codeCodec)
-        |> Pipe.optional "dyeingWeighting" (Codec.decoder (Codec.maybe Unit.ratioCodec)) Nothing
-        |> Pipe.optional "airTransportRatio" (Codec.decoder (Codec.maybe Unit.ratioCodec)) Nothing
-        |> Pipe.optional "quality" (Codec.decoder (Codec.maybe Unit.qualityCodec)) Nothing
-        |> Pipe.optional "reparability" (Codec.decoder (Codec.maybe Unit.reparabilityCodec)) Nothing
-        |> Pipe.optional "makingWaste" (Codec.decoder (Codec.maybe Unit.ratioCodec)) Nothing
-        |> Pipe.optional "picking" (Codec.decoder (Codec.maybe Unit.pickPerMeterCodec)) Nothing
-        |> Pipe.optional "surfaceMass" (Codec.decoder (Codec.maybe Unit.surfaceMassCodec)) Nothing
-        |> Pipe.optional "disabledSteps" (Codec.decoder (Codec.list Label.codeCodec)) []
-        |> Pipe.optional "disabledFading" (Codec.decoder (Codec.maybe Codec.bool)) Nothing
-
-
-encodeQuery : Query -> Encode.Value
-encodeQuery query =
-    Encode.object
-        [ ( "mass", Encode.float (Mass.inKilograms query.mass) )
-        , ( "materials", Encode.list encodeMaterialQuery query.materials )
-        , ( "product", query.product |> Product.idToString |> Encode.string )
-        , ( "countrySpinning", query.countrySpinning |> Maybe.map (Codec.encoder Country.codeCodec) |> Maybe.withDefault Encode.null )
-        , ( "countryFabric", query.countryFabric |> Codec.encoder Country.codeCodec )
-        , ( "countryDyeing", query.countryDyeing |> Codec.encoder Country.codeCodec )
-        , ( "countryMaking", query.countryMaking |> Codec.encoder Country.codeCodec )
-        , ( "dyeingWeighting", query.dyeingWeighting |> Maybe.map (Codec.encoder Unit.ratioCodec) |> Maybe.withDefault Encode.null )
-        , ( "airTransportRatio", query.airTransportRatio |> Maybe.map (Codec.encoder Unit.ratioCodec) |> Maybe.withDefault Encode.null )
-        , ( "quality", query.quality |> Codec.encoder (Codec.maybe Unit.qualityCodec) )
-        , ( "reparability", query.reparability |> Codec.encoder (Codec.maybe Unit.reparabilityCodec) )
-        , ( "makingWaste", query.makingWaste |> Maybe.map (Codec.encoder Unit.ratioCodec) |> Maybe.withDefault Encode.null )
-        , ( "picking", query.picking |> Maybe.map (Codec.encoder Unit.pickPerMeterCodec) |> Maybe.withDefault Encode.null )
-        , ( "surfaceMass", query.surfaceMass |> Maybe.map (Codec.encoder Unit.surfaceMassCodec) |> Maybe.withDefault Encode.null )
-        , ( "disabledSteps", query.disabledSteps |> Codec.encoder (Codec.list Label.codeCodec) )
-        , ( "disabledFading", query.disabledFading |> Codec.encoder (Codec.maybe Codec.bool) )
-        ]
+queryCodec : Codec Query
+queryCodec =
+    Codec.object Query
+        |> Codec.field "mass" .mass (Codec.map Mass.kilograms Mass.inKilograms Codec.float)
+        |> Codec.field "materials" .materials (Codec.list materialQueryCodec)
+        |> Codec.field "product" .product Product.idCodec
+        |> Codec.maybeField "countrySpinning" .countrySpinning Country.codeCodec
+        |> Codec.field "countryFabric" .countryFabric Country.codeCodec
+        |> Codec.field "countryDyeing" .countryDyeing Country.codeCodec
+        |> Codec.field "countryMaking" .countryMaking Country.codeCodec
+        |> Codec.maybeField "dyeingWeighting" .dyeingWeighting Unit.ratioCodec
+        |> Codec.maybeField "airTransportRatio" .airTransportRatio Unit.ratioCodec
+        |> Codec.maybeField "quality" .quality Unit.qualityCodec
+        |> Codec.maybeField "reparability" .reparability Unit.reparabilityCodec
+        |> Codec.maybeField "makingWaste" .makingWaste Unit.ratioCodec
+        |> Codec.maybeField "picking" .picking Unit.pickPerMeterCodec
+        |> Codec.maybeField "surfaceMass" .surfaceMass Unit.surfaceMassCodec
+        -- FIXME: make this an optional JSON key with a default of []
+        |> Codec.field "disabledSteps" .disabledSteps (Codec.list Label.codeCodec)
+        |> Codec.maybeField "disabledFading" .disabledFading Codec.bool
+        |> Codec.buildObject
 
 
 materialQueryCodec : Codec MaterialQuery
@@ -689,23 +667,19 @@ materialQueryCodec =
         |> Codec.buildObject
 
 
-encodeMaterialQuery : MaterialQuery -> Encode.Value
-encodeMaterialQuery =
-    Codec.encoder materialQueryCodec
-
-
 b64decode : String -> Result String Query
 b64decode =
     Base64.decode
         >> Result.andThen
-            (Decode.decodeString decodeQuery
+            (Codec.decodeString queryCodec
                 >> Result.mapError Decode.errorToString
             )
 
 
 b64encode : Query -> String
 b64encode =
-    encodeQuery >> Encode.encode 0 >> Base64.encode
+    Codec.encodeToString 0 queryCodec
+        >> Base64.encode
 
 
 
