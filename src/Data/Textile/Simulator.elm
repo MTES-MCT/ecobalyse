@@ -6,6 +6,7 @@ module Data.Textile.Simulator exposing
     )
 
 import Array
+import Codec
 import Data.Impact as Impact exposing (Impacts)
 import Data.Textile.Db exposing (Db)
 import Data.Textile.Formula as Formula
@@ -35,13 +36,13 @@ type alias Simulator =
     }
 
 
-encode : Simulator -> Encode.Value
-encode v =
+encode : Db -> Simulator -> Encode.Value
+encode { impacts, processes } v =
     Encode.object
-        [ ( "inputs", Inputs.encode v.inputs )
-        , ( "lifeCycle", LifeCycle.encode v.lifeCycle )
-        , ( "impacts", Impact.encodeImpacts v.impacts )
-        , ( "transport", Transport.encode v.transport )
+        [ ( "inputs", Codec.encoder (Inputs.inputsCodec processes) v.inputs )
+        , ( "lifeCycle", v.lifeCycle |> LifeCycle.encode impacts )
+        , ( "impacts", Codec.encoder (Impact.impactsCodec impacts) v.impacts )
+        , ( "transport", Codec.encoder Transport.codec v.transport )
         , ( "daysOfWear", v.daysOfWear |> Duration.inDays |> Encode.float )
         , ( "useNbCycles", Encode.int v.useNbCycles )
         ]

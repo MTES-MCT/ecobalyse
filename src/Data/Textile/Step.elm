@@ -16,6 +16,7 @@ module Data.Textile.Step exposing
     , updateWaste
     )
 
+import Codec
 import Data.Country as Country exposing (Country)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Textile.Db exposing (Db)
@@ -438,28 +439,28 @@ makingWasteToString (Unit.Ratio makingWaste) =
             String.fromInt p ++ "% de pertes en confection"
 
 
-encode : Step -> Encode.Value
-encode v =
+encode : List Impact.Definition -> Step -> Encode.Value
+encode definitions v =
     Encode.object
         [ ( "label", Encode.string (Label.toString v.label) )
         , ( "enabled", Encode.bool v.enabled )
-        , ( "country", Country.encode v.country )
+        , ( "country", Codec.encoder (Country.codec []) v.country )
         , ( "editable", Encode.bool v.editable )
         , ( "inputMass", Encode.float (Mass.inKilograms v.inputMass) )
         , ( "outputMass", Encode.float (Mass.inKilograms v.outputMass) )
         , ( "waste", Encode.float (Mass.inKilograms v.waste) )
-        , ( "transport", Transport.encode v.transport )
-        , ( "impacts", Impact.encodeImpacts v.impacts )
+        , ( "transport", Codec.encoder Transport.codec v.transport )
+        , ( "impacts", Codec.encoder (Impact.impactsCodec definitions) v.impacts )
         , ( "heat_MJ", Encode.float (Energy.inMegajoules v.heat) )
         , ( "elec_kWh", Encode.float (Energy.inKilowattHours v.kwh) )
         , ( "processInfo", encodeProcessInfo v.processInfo )
-        , ( "dyeingWeighting", Unit.encodeRatio v.dyeingWeighting )
-        , ( "airTransportRatio", Unit.encodeRatio v.airTransportRatio )
-        , ( "quality", Unit.encodeQuality v.quality )
-        , ( "reparability", Unit.encodeReparability v.reparability )
-        , ( "makingWaste", v.makingWaste |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
-        , ( "picking", v.picking |> Maybe.map Unit.encodePickPerMeter |> Maybe.withDefault Encode.null )
-        , ( "surfaceMass", v.surfaceMass |> Maybe.map Unit.encodeSurfaceMass |> Maybe.withDefault Encode.null )
+        , ( "dyeingWeighting", Codec.encoder Unit.ratioCodec v.dyeingWeighting )
+        , ( "airTransportRatio", Codec.encoder Unit.ratioCodec v.airTransportRatio )
+        , ( "quality", Codec.encoder Unit.qualityCodec v.quality )
+        , ( "reparability", Codec.encoder Unit.reparabilityCodec v.reparability )
+        , ( "makingWaste", v.makingWaste |> Maybe.map (Codec.encoder Unit.ratioCodec) |> Maybe.withDefault Encode.null )
+        , ( "picking", v.picking |> Maybe.map (Codec.encoder Unit.pickPerMeterCodec) |> Maybe.withDefault Encode.null )
+        , ( "surfaceMass", v.surfaceMass |> Maybe.map (Codec.encoder Unit.surfaceMassCodec) |> Maybe.withDefault Encode.null )
         ]
 
 

@@ -6,15 +6,14 @@ module Data.Impact exposing
     , Source
     , Trigram(..)
     , computePefScore
-    , decodeImpacts
     , decodeList
     , defaultTrigram
-    , encodeImpacts
     , filterImpacts
     , getDefinition
     , getImpact
     , getPefPieData
     , grabImpactFloat
+    , impactsCodec
     , impactsFromDefinitons
     , invalid
     , mapImpacts
@@ -28,6 +27,7 @@ module Data.Impact exposing
     , updatePefImpact
     )
 
+import Codec exposing (Codec)
 import Data.Unit as Unit
 import Dict
 import Dict.Any as AnyDict exposing (AnyDict)
@@ -149,7 +149,7 @@ decodePefData =
     Decode.map3 PefData
         (Decode.field "color" Decode.string)
         (Decode.field "normalization" Unit.decodeImpact)
-        (Decode.field "weighting" (Decode.map getPefWeighting Unit.decodeRatio))
+        (Decode.field "weighting" (Decode.map getPefWeighting (Codec.decoder Unit.ratioCodec)))
 
 
 decodeScope : Decoder Scope
@@ -310,6 +310,11 @@ decodeImpacts definitions =
 encodeImpacts : Impacts -> Encode.Value
 encodeImpacts =
     AnyDict.encode toString Unit.encodeImpact
+
+
+impactsCodec : List Definition -> Codec Impacts
+impactsCodec definitions =
+    Codec.build encodeImpacts (decodeImpacts definitions)
 
 
 updatePefImpact : List Definition -> Impacts -> Impacts

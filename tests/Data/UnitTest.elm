@@ -1,9 +1,9 @@
 module Data.UnitTest exposing (..)
 
+import Codec
 import Data.Unit as Unit
 import Energy
 import Expect exposing (Expectation)
-import Json.Decode as Decode
 import Length
 import Mass
 import Test exposing (..)
@@ -20,29 +20,24 @@ suite =
     describe "Data.Unit"
         [ describe "Decoder validation"
             [ "799"
-                |> Decode.decodeString Unit.decodePickPerMeter
-                |> Result.mapError Decode.errorToString
-                |> Expect.err
+                |> Codec.decodeString Unit.pickPerMeterCodec
+                |> TestUtils.expectDecodeErrorContains "doit être compris"
                 |> asTest "should discard erroneous PickPerMeter value"
             , "-7"
-                |> Decode.decodeString Unit.decodeQuality
-                |> Result.mapError Decode.errorToString
-                |> Expect.err
+                |> Codec.decodeString Unit.qualityCodec
+                |> TestUtils.expectDecodeErrorContains "doit être compris"
                 |> asTest "should discard erroneous Quality value"
             , "1.1"
-                |> Decode.decodeString Unit.decodeRatio
-                |> Result.mapError Decode.errorToString
-                |> Expect.err
+                |> Codec.decodeString Unit.ratioCodec
+                |> TestUtils.expectDecodeErrorContains "doit être compris"
                 |> asTest "should discard erroneous Ratio value"
             , "-100"
-                |> Decode.decodeString Unit.decodeReparability
-                |> Result.mapError Decode.errorToString
-                |> Expect.err
+                |> Codec.decodeString Unit.reparabilityCodec
+                |> TestUtils.expectDecodeErrorContains "doit être compris"
                 |> asTest "should discard erroneous Reparability value"
             , "8868687687"
-                |> Decode.decodeString Unit.decodeSurfaceMass
-                |> Result.mapError Decode.errorToString
-                |> Expect.err
+                |> Codec.decodeString Unit.surfaceMassCodec
+                |> TestUtils.expectDecodeErrorContains "doit être compris"
                 |> asTest "should discard erroneous SurfaceMass value"
             ]
         , describe "Impact"

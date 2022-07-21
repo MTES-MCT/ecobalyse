@@ -10,6 +10,7 @@ module Data.Textile.Db exposing
     , toDatasetRoutePath
     )
 
+import Codec
 import Data.Country as Country exposing (Country)
 import Data.Impact as Impact
 import Data.Textile.Material as Material exposing (Material)
@@ -49,16 +50,17 @@ buildFromJson json =
 
 decode : Decoder Db
 decode =
+    -- Note: no need to use a Codec as we never encode the Db
     Decode.field "impacts" Impact.decodeList
         |> Decode.andThen
             (\impacts ->
-                Decode.field "processes" (Process.decodeList impacts)
+                Decode.field "processes" (Codec.decoder (Process.listCodec impacts))
                     |> Decode.andThen
                         (\processes ->
                             Decode.map4 (Db impacts processes)
-                                (Decode.field "countries" (Country.decodeList processes))
-                                (Decode.field "materials" (Material.decodeList processes))
-                                (Decode.field "products" (Product.decodeList processes))
+                                (Decode.field "countries" (Codec.decoder (Country.listCodec processes)))
+                                (Decode.field "materials" (Codec.decoder (Material.listCodec processes)))
+                                (Decode.field "products" (Codec.decoder (Product.listCodec processes)))
                                 (Decode.field "transports" Transport.decodeDistances)
                         )
             )

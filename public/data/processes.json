@@ -1449,7 +1449,7 @@
     "elec_pppm": 0.0,
     "elec_MJ": 8.64,
     "waste": 5.76e-2,
-    "alias": null
+    "alias": "knitting-generic"
   },
   {
     "name": "Tissage (habillement)",
@@ -1482,7 +1482,7 @@
     "elec_pppm": 3.145e-4,
     "elec_MJ": 0.0,
     "waste": 6.67e-2,
-    "alias": null
+    "alias": "weaving"
   },
   {
     "name": "Teinture sur étoffe, procédé majorant, traitement inefficace des eaux usées",
@@ -7554,7 +7554,7 @@
     "elec_pppm": 0.0,
     "elec_MJ": 4.194,
     "waste": 4.17e-2,
-    "alias": null
+    "alias": "knitting-rectilinear"
   },
   {
     "name": "Tricotage circulaire, inventaire désagrégé",
@@ -7587,7 +7587,7 @@
     "elec_pppm": 0.0,
     "elec_MJ": 4.25101,
     "waste": 3.51967e-2,
-    "alias": null
+    "alias": "knitting-circular"
   },
   {
     "name": "Mix Vapeur (mix technologique|mix de production, en sortie de chaudière), RER/Steam Mix (technology mix|production mix, at steam plant), RER",

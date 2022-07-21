@@ -2,21 +2,21 @@ module Data.Transport exposing
     ( Distances
     , Transport
     , add
+    , codec
     , decodeDistances
     , default
     , defaultInland
     , emptyDistances
-    , encode
     , getTransportBetween
     , roadSeaTransportRatio
     , totalKm
     )
 
+import Codec exposing (Codec)
 import Data.Country as Country
 import Data.Impact as Impact exposing (Impacts)
-import Dict.Any as Dict exposing (AnyDict)
-import Json.Decode as Decode exposing (Decoder)
-import Json.Encode as Encode
+import Dict.Any as AnyDict exposing (AnyDict)
+import Json.Decode exposing (Decoder)
 import Length exposing (Length)
 import Quantity
 
@@ -66,7 +66,7 @@ add a b =
 
 emptyDistances : Distances
 emptyDistances =
-    Dict.fromList Country.codeToString []
+    AnyDict.fromList Country.codeToString []
 
 
 totalKm : Transport -> Float
@@ -107,22 +107,17 @@ roadSeaTransportRatio { road, sea } =
         0
 
 
-getTransportBetween :
-    Impacts
-    -> Country.Code
-    -> Country.Code
-    -> Distances
-    -> Transport
+getTransportBetween : Impacts -> Country.Code -> Country.Code -> Distances -> Transport
 getTransportBetween impacts cA cB distances =
     if cA == cB then
         defaultInland impacts
 
     else
         distances
-            |> Dict.get cA
+            |> AnyDict.get cA
             |> Maybe.andThen
                 (\countries ->
-                    case Dict.get cB countries of
+                    case AnyDict.get cB countries of
                         Just transport ->
                             Just { transport | impacts = impacts }
 
@@ -133,49 +128,34 @@ getTransportBetween impacts cA cB distances =
             |> Maybe.withDefault (default impacts)
 
 
-decodeKm : Decoder Length
-decodeKm =
-    Decode.maybe Decode.float
-        |> Decode.map (Maybe.map Length.kilometers >> Maybe.withDefault Quantity.zero)
+codec : Codec Transport
+codec =
+    Codec.object (\road sea air -> Transport road sea air Impact.noImpacts)
+        |> Codec.field "road" .road kmCodec
+        |> Codec.field "sea" .sea kmCodec
+        |> Codec.field "air" .air kmCodec
+        |> Codec.buildObject
 
 
-encodeKm : Length -> Encode.Value
-encodeKm =
-    Length.inKilometers >> Encode.float
-
-
-decode : Decoder Transport
-decode =
-    Decode.map4 Transport
-        (Decode.field "road" decodeKm)
-        (Decode.field "sea" decodeKm)
-        (Decode.field "air" decodeKm)
-        (Decode.succeed Impact.noImpacts)
-
-
-encode : Transport -> Encode.Value
-encode v =
-    Encode.object
-        [ ( "road", encodeKm v.road )
-        , ( "sea", encodeKm v.sea )
-        , ( "air", encodeKm v.air )
-        , ( "impacts", Impact.encodeImpacts v.impacts )
-        ]
+kmCodec : Codec Length
+kmCodec =
+    Codec.float
+        |> Codec.map Length.kilometers Length.inKilometers
+        |> Codec.maybe
+        |> Codec.map (Maybe.withDefault Quantity.zero) Just
 
 
 decodeDistance : Decoder Distance
 decodeDistance =
     -- FIXME: Ideally we want to check for available country codes
-    Dict.decode
-        (\str _ -> Country.codeFromString str)
+    AnyDict.decode (\str _ -> Country.codeFromString str)
         Country.codeToString
-        decode
+        (Codec.decoder codec)
 
 
 decodeDistances : Decoder Distances
 decodeDistances =
     -- FIXME: Ideally we want to check for available country codes
-    Dict.decode
-        (\str _ -> Country.codeFromString str)
+    AnyDict.decode (\str _ -> Country.codeFromString str)
         Country.codeToString
         decodeDistance

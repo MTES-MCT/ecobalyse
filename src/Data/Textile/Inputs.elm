@@ -7,15 +7,14 @@ module Data.Textile.Inputs exposing
     , b64decode
     , b64encode
     , countryList
-    , decodeQuery
     , defaultQuery
-    , encode
-    , encodeQuery
     , fromQuery
     , getMainMaterial
+    , inputsCodec
     , jupeCircuitAsie
     , parseBase64Query
     , presets
+    , queryCodec
     , removeMaterial
     , tShirtCotonAsie
     , tShirtCotonFrance
@@ -29,15 +28,15 @@ module Data.Textile.Inputs exposing
     )
 
 import Base64
+import Codec exposing (Codec)
 import Data.Country as Country exposing (Country)
 import Data.Textile.Db exposing (Db)
 import Data.Textile.Material as Material exposing (Material)
+import Data.Textile.Process exposing (Process)
 import Data.Textile.Product as Product exposing (Product)
 import Data.Textile.Step.Label as Label exposing (Label)
 import Data.Unit as Unit
-import Json.Decode as Decode exposing (Decoder)
-import Json.Decode.Pipeline as Pipe
-import Json.Encode as Encode
+import Json.Decode as Decode
 import List.Extra as LE
 import Mass exposing (Mass)
 import Result.Extra as RE
@@ -608,105 +607,85 @@ presets =
     ]
 
 
-encode : Inputs -> Encode.Value
-encode inputs =
-    Encode.object
-        [ ( "mass", Encode.float (Mass.inKilograms inputs.mass) )
-        , ( "materials", Encode.list encodeMaterialInput inputs.materials )
-        , ( "product", Product.encode inputs.product )
-        , ( "countryFabric", Country.encode inputs.countryFabric )
-        , ( "countryDyeing", Country.encode inputs.countryDyeing )
-        , ( "countryMaking", Country.encode inputs.countryMaking )
-        , ( "dyeingWeighting", inputs.dyeingWeighting |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
-        , ( "airTransportRatio", inputs.airTransportRatio |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
-        , ( "quality", inputs.quality |> Maybe.map Unit.encodeQuality |> Maybe.withDefault Encode.null )
-        , ( "reparability", inputs.reparability |> Maybe.map Unit.encodeReparability |> Maybe.withDefault Encode.null )
-        , ( "makingWaste", inputs.makingWaste |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
-        , ( "picking", inputs.picking |> Maybe.map Unit.encodePickPerMeter |> Maybe.withDefault Encode.null )
-        , ( "surfaceMass", inputs.surfaceMass |> Maybe.map Unit.encodeSurfaceMass |> Maybe.withDefault Encode.null )
-        , ( "disabledSteps", Encode.list Label.encode inputs.disabledSteps )
-        , ( "disabledFading", inputs.disabledFading |> Maybe.map Encode.bool |> Maybe.withDefault Encode.null )
-        ]
+materialInputCodec : List Process -> Codec MaterialInput
+materialInputCodec processes =
+    Codec.object MaterialInput
+        |> Codec.field "material" .material (Material.codec processes)
+        |> Codec.field "share" .share Unit.ratioCodec
+        |> Codec.buildObject
 
 
-encodeMaterialInput : MaterialInput -> Encode.Value
-encodeMaterialInput v =
-    Encode.object
-        [ ( "material", Material.encode v.material )
-        , ( "share", Unit.encodeRatio v.share )
-        ]
+inputsCodec : List Process -> Codec Inputs
+inputsCodec processes =
+    Codec.object Inputs
+        |> Codec.field "mass" .mass (Codec.map Mass.kilograms Mass.inKilograms Codec.float)
+        |> Codec.field "materials" .materials (Codec.list (materialInputCodec processes))
+        |> Codec.field "product" .product (Product.codec processes)
+        |> Codec.field "countryMaterial" .countryMaterial (Country.codec processes)
+        |> Codec.field "countrySpinning" .countrySpinning (Country.codec processes)
+        |> Codec.field "countryFabric" .countryFabric (Country.codec processes)
+        |> Codec.field "countryDyeing" .countryDyeing (Country.codec processes)
+        |> Codec.field "countryMaking" .countryMaking (Country.codec processes)
+        |> Codec.field "countryDistribution" .countryDistribution (Country.codec processes)
+        |> Codec.field "countryUse" .countryUse (Country.codec processes)
+        |> Codec.field "countryEndOfLife" .countryEndOfLife (Country.codec processes)
+        |> Codec.maybeField "dyeingWeighting" .dyeingWeighting Unit.ratioCodec
+        |> Codec.maybeField "airTransportRatio" .airTransportRatio Unit.ratioCodec
+        |> Codec.maybeField "quality" .quality Unit.qualityCodec
+        |> Codec.maybeField "reparability" .reparability Unit.reparabilityCodec
+        |> Codec.maybeField "makingWaste" .makingWaste Unit.ratioCodec
+        |> Codec.maybeField "picking" .picking Unit.pickPerMeterCodec
+        |> Codec.maybeField "surfaceMass" .surfaceMass Unit.surfaceMassCodec
+        -- FIXME: make this an optional JSON key with a default of []
+        |> Codec.field "disabledSteps" .disabledSteps (Codec.list Label.codeCodec)
+        |> Codec.maybeField "disabledFading" .disabledFading Codec.bool
+        |> Codec.buildObject
 
 
-decodeQuery : Decoder Query
-decodeQuery =
-    Decode.succeed Query
-        |> Pipe.required "mass" (Decode.map Mass.kilograms Decode.float)
-        |> Pipe.required "materials" (Decode.list decodeMaterialQuery)
-        |> Pipe.required "product" (Decode.map Product.Id Decode.string)
-        |> Pipe.optional "countrySpinning" (Decode.maybe Country.decodeCode) Nothing
-        |> Pipe.required "countryFabric" Country.decodeCode
-        |> Pipe.required "countryDyeing" Country.decodeCode
-        |> Pipe.required "countryMaking" Country.decodeCode
-        |> Pipe.optional "dyeingWeighting" (Decode.maybe Unit.decodeRatio) Nothing
-        |> Pipe.optional "airTransportRatio" (Decode.maybe Unit.decodeRatio) Nothing
-        |> Pipe.optional "quality" (Decode.maybe Unit.decodeQuality) Nothing
-        |> Pipe.optional "reparability" (Decode.maybe Unit.decodeReparability) Nothing
-        |> Pipe.optional "makingWaste" (Decode.maybe Unit.decodeRatio) Nothing
-        |> Pipe.optional "picking" (Decode.maybe Unit.decodePickPerMeter) Nothing
-        |> Pipe.optional "surfaceMass" (Decode.maybe Unit.decodeSurfaceMass) Nothing
-        |> Pipe.optional "disabledSteps" (Decode.list Label.decodeFromCode) []
-        |> Pipe.optional "disabledFading" (Decode.maybe Decode.bool) Nothing
+queryCodec : Codec Query
+queryCodec =
+    Codec.object Query
+        |> Codec.field "mass" .mass (Codec.map Mass.kilograms Mass.inKilograms Codec.float)
+        |> Codec.field "materials" .materials (Codec.list materialQueryCodec)
+        |> Codec.field "product" .product Product.idCodec
+        |> Codec.maybeField "countrySpinning" .countrySpinning Country.codeCodec
+        |> Codec.field "countryFabric" .countryFabric Country.codeCodec
+        |> Codec.field "countryDyeing" .countryDyeing Country.codeCodec
+        |> Codec.field "countryMaking" .countryMaking Country.codeCodec
+        |> Codec.maybeField "dyeingWeighting" .dyeingWeighting Unit.ratioCodec
+        |> Codec.maybeField "airTransportRatio" .airTransportRatio Unit.ratioCodec
+        |> Codec.maybeField "quality" .quality Unit.qualityCodec
+        |> Codec.maybeField "reparability" .reparability Unit.reparabilityCodec
+        |> Codec.maybeField "makingWaste" .makingWaste Unit.ratioCodec
+        |> Codec.maybeField "picking" .picking Unit.pickPerMeterCodec
+        |> Codec.maybeField "surfaceMass" .surfaceMass Unit.surfaceMassCodec
+        -- FIXME: make this an optional JSON key with a default of []
+        |> Codec.field "disabledSteps" .disabledSteps (Codec.list Label.codeCodec)
+        |> Codec.maybeField "disabledFading" .disabledFading Codec.bool
+        |> Codec.buildObject
 
 
-decodeMaterialQuery : Decoder MaterialQuery
-decodeMaterialQuery =
-    Decode.succeed MaterialQuery
-        |> Pipe.required "id" (Decode.map Material.Id Decode.string)
-        |> Pipe.required "share" Unit.decodeRatio
-
-
-encodeQuery : Query -> Encode.Value
-encodeQuery query =
-    Encode.object
-        [ ( "mass", Encode.float (Mass.inKilograms query.mass) )
-        , ( "materials", Encode.list encodeMaterialQuery query.materials )
-        , ( "product", query.product |> Product.idToString |> Encode.string )
-        , ( "countrySpinning", query.countrySpinning |> Maybe.map Country.encodeCode |> Maybe.withDefault Encode.null )
-        , ( "countryFabric", query.countryFabric |> Country.encodeCode )
-        , ( "countryDyeing", query.countryDyeing |> Country.encodeCode )
-        , ( "countryMaking", query.countryMaking |> Country.encodeCode )
-        , ( "dyeingWeighting", query.dyeingWeighting |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
-        , ( "airTransportRatio", query.airTransportRatio |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
-        , ( "quality", query.quality |> Maybe.map Unit.encodeQuality |> Maybe.withDefault Encode.null )
-        , ( "reparability", query.reparability |> Maybe.map Unit.encodeReparability |> Maybe.withDefault Encode.null )
-        , ( "makingWaste", query.makingWaste |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
-        , ( "picking", query.picking |> Maybe.map Unit.encodePickPerMeter |> Maybe.withDefault Encode.null )
-        , ( "surfaceMass", query.surfaceMass |> Maybe.map Unit.encodeSurfaceMass |> Maybe.withDefault Encode.null )
-        , ( "disabledSteps", Encode.list Label.encode query.disabledSteps )
-        , ( "disabledFading", query.disabledFading |> Maybe.map Encode.bool |> Maybe.withDefault Encode.null )
-        ]
-
-
-encodeMaterialQuery : MaterialQuery -> Encode.Value
-encodeMaterialQuery v =
-    Encode.object
-        [ ( "id", Material.encodeId v.id )
-        , ( "share", Unit.encodeRatio v.share )
-        ]
+materialQueryCodec : Codec MaterialQuery
+materialQueryCodec =
+    Codec.object MaterialQuery
+        |> Codec.field "id" .id Material.idCodec
+        |> Codec.field "share" .share Unit.ratioCodec
+        |> Codec.buildObject
 
 
 b64decode : String -> Result String Query
 b64decode =
     Base64.decode
         >> Result.andThen
-            (Decode.decodeString decodeQuery
+            (Codec.decodeString queryCodec
                 >> Result.mapError Decode.errorToString
             )
 
 
 b64encode : Query -> String
 b64encode =
-    encodeQuery >> Encode.encode 0 >> Base64.encode
+    Codec.encodeToString 0 queryCodec
+        >> Base64.encode
 
 
 

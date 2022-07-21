@@ -1,21 +1,16 @@
 module Data.Textile.Material.Category exposing
     ( Category(..)
-    , decode
+    , codec
     , toString
     )
 
-import Json.Decode as Decode exposing (Decoder)
+import Codec exposing (Codec)
 
 
 type Category
     = Natural
     | Recycled
     | Synthetic
-
-
-decode : Decoder Category
-decode =
-    Decode.map fromString Decode.string
 
 
 fromString : String -> Category
@@ -45,3 +40,9 @@ toString category =
 
         Synthetic ->
             "Synthétiques et artificielles"
+
+
+codec : Codec Category
+codec =
+    Codec.string
+        |> Codec.map fromString toString

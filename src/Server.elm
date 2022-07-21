@@ -4,6 +4,7 @@ port module Server exposing
     , output
     )
 
+import Codec
 import Data.Country as Country exposing (Country)
 import Data.Impact as Impact
 import Data.Textile.Db as Db exposing (Db)
@@ -74,39 +75,39 @@ toResponse request encodedResult =
                 |> sendResponse 400 request
 
 
-toAllImpactsSimple : Simulator -> Encode.Value
-toAllImpactsSimple { inputs, impacts } =
+toAllImpactsSimple : Db -> Simulator -> Encode.Value
+toAllImpactsSimple db { inputs, impacts } =
     Encode.object
-        [ ( "impacts", Impact.encodeImpacts impacts )
+        [ ( "impacts", Codec.encoder (Impact.impactsCodec db.impacts) impacts )
         , ( "description", inputs |> Inputs.toString |> Encode.string )
-        , ( "query", inputs |> Inputs.toQuery |> Inputs.encodeQuery )
+        , ( "query", inputs |> Inputs.toQuery |> Codec.encoder Inputs.queryCodec )
         ]
 
 
-toSingleImpactSimple : Impact.Trigram -> Simulator -> Encode.Value
-toSingleImpactSimple trigram { inputs, impacts } =
+toSingleImpactSimple : Impact.Trigram -> Db -> Simulator -> Encode.Value
+toSingleImpactSimple trigram db { inputs, impacts } =
     Encode.object
         [ ( "impacts"
           , impacts
                 |> Impact.filterImpacts (\trg _ -> trigram == trg)
-                |> Impact.encodeImpacts
+                |> Codec.encoder (Impact.impactsCodec db.impacts)
           )
         , ( "description", inputs |> Inputs.toString |> Encode.string )
-        , ( "query", inputs |> Inputs.toQuery |> Inputs.encodeQuery )
+        , ( "query", inputs |> Inputs.toQuery |> Codec.encoder Inputs.queryCodec )
         ]
 
 
-executeQuery : Db -> Request -> (Simulator -> Encode.Value) -> Inputs.Query -> Cmd Msg
+executeQuery : Db -> Request -> (Db -> Simulator -> Encode.Value) -> Inputs.Query -> Cmd Msg
 executeQuery db request encoder =
     Simulator.compute db
-        >> Result.map encoder
+        >> Result.map (encoder db)
         >> toResponse request
 
 
 encodeCountry : Country -> Encode.Value
 encodeCountry { code, name } =
     Encode.object
-        [ ( "code", Country.encodeCode code )
+        [ ( "code", Codec.encoder Country.codeCodec code )
         , ( "name", Encode.string name )
         ]
 
@@ -114,7 +115,7 @@ encodeCountry { code, name } =
 encodeMaterial : Material -> Encode.Value
 encodeMaterial { id, name } =
     Encode.object
-        [ ( "id", Material.encodeId id )
+        [ ( "id", Codec.encoder Material.idCodec id )
         , ( "name", Encode.string name )
         ]
 
@@ -122,7 +123,7 @@ encodeMaterial { id, name } =
 encodeProduct : Product -> Encode.Value
 encodeProduct { id, name } =
     Encode.object
-        [ ( "id", Product.encodeId id )
+        [ ( "id", Codec.encoder Product.idCodec id )
         , ( "name", Encode.string name )
         ]
 

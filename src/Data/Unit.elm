@@ -8,17 +8,7 @@ module Data.Unit exposing
     , Reparability(..)
     , SurfaceMass(..)
     , decodeImpact
-    , decodePickPerMeter
-    , decodeQuality
-    , decodeRatio
-    , decodeReparability
-    , decodeSurfaceMass
     , encodeImpact
-    , encodePickPerMeter
-    , encodeQuality
-    , encodeRatio
-    , encodeReparability
-    , encodeSurfaceMass
     , forKWh
     , forKg
     , forKgAndDistance
@@ -39,24 +29,30 @@ module Data.Unit exposing
     , minSurfaceMass
     , parseFunctional
     , pickPerMeter
+    , pickPerMeterCodec
     , pickPerMeterToFloat
     , pickPerMeterToInt
     , quality
+    , qualityCodec
     , qualityToFloat
     , ratio
+    , ratioCodec
     , ratioToFloat
     , ratioedForKWh
     , ratioedForKg
     , ratioedForMJ
     , reparability
+    , reparabilityCodec
     , reparabilityToFloat
     , standardQuality
     , standardReparability
     , surfaceMass
+    , surfaceMassCodec
     , surfaceMassToFloat
     , surfaceMassToInt
     )
 
+import Codec exposing (Codec)
 import Duration exposing (Duration)
 import Energy exposing (Energy)
 import Json.Decode as Decode exposing (Decoder)
@@ -126,27 +122,22 @@ ratioToFloat (Ratio float) =
     float
 
 
-decodeRatio : Decoder Ratio
-decodeRatio =
-    Decode.float
-        |> Decode.andThen
+ratioCodec : Codec Ratio
+ratioCodec =
+    Codec.float
+        |> Codec.andThen
             (\float ->
                 if float < 0 || float > 1 then
-                    Decode.fail
+                    Codec.fail
                         ("Le ratio spécifié ("
                             ++ String.fromFloat float
                             ++ ") doit être compris entre 0 et 1."
                         )
 
                 else
-                    Decode.succeed float
+                    Codec.succeed (ratio float)
             )
-        |> Decode.map ratio
-
-
-encodeRatio : Ratio -> Encode.Value
-encodeRatio (Ratio float) =
-    Encode.float float
+            ratioToFloat
 
 
 
@@ -182,13 +173,13 @@ qualityToFloat (Quality float) =
     float
 
 
-decodeQuality : Decoder Quality
-decodeQuality =
-    Decode.float
-        |> Decode.andThen
+qualityCodec : Codec Quality
+qualityCodec =
+    Codec.float
+        |> Codec.andThen
             (\float ->
                 if float < qualityToFloat minQuality || float > qualityToFloat maxQuality then
-                    Decode.fail
+                    Codec.fail
                         ("La qualité spécifiée ("
                             ++ String.fromFloat float
                             ++ ") doit être comprise entre "
@@ -199,14 +190,9 @@ decodeQuality =
                         )
 
                 else
-                    Decode.succeed float
+                    Codec.succeed (quality float)
             )
-        |> Decode.map quality
-
-
-encodeQuality : Quality -> Encode.Value
-encodeQuality (Quality float) =
-    Encode.float float
+            qualityToFloat
 
 
 
@@ -242,13 +228,13 @@ reparabilityToFloat (Reparability float) =
     float
 
 
-decodeReparability : Decoder Reparability
-decodeReparability =
-    Decode.float
-        |> Decode.andThen
+reparabilityCodec : Codec Reparability
+reparabilityCodec =
+    Codec.float
+        |> Codec.andThen
             (\float ->
                 if float < reparabilityToFloat minReparability || float > reparabilityToFloat maxReparability then
-                    Decode.fail
+                    Codec.fail
                         ("L'indice de réparabilité spécifié ("
                             ++ String.fromFloat float
                             ++ ") doit être compris entre "
@@ -259,14 +245,9 @@ decodeReparability =
                         )
 
                 else
-                    Decode.succeed float
+                    Codec.succeed (reparability float)
             )
-        |> Decode.map reparability
-
-
-encodeReparability : Reparability -> Encode.Value
-encodeReparability (Reparability float) =
-    Encode.float float
+            reparabilityToFloat
 
 
 
@@ -302,13 +283,13 @@ pickPerMeterToInt (PickPerMeter int) =
     int
 
 
-decodePickPerMeter : Decoder PickPerMeter
-decodePickPerMeter =
-    Decode.int
-        |> Decode.andThen
+pickPerMeterCodec : Codec PickPerMeter
+pickPerMeterCodec =
+    Codec.int
+        |> Codec.andThen
             (\int ->
                 if int < pickPerMeterToInt minPickPerMeter || int > pickPerMeterToInt maxPickPerMeter then
-                    Decode.fail
+                    Codec.fail
                         ("Le duitage spécifié ("
                             ++ String.fromInt int
                             ++ ") doit être compris entre "
@@ -319,14 +300,9 @@ decodePickPerMeter =
                         )
 
                 else
-                    Decode.succeed int
+                    Codec.succeed (pickPerMeter int)
             )
-        |> Decode.map pickPerMeter
-
-
-encodePickPerMeter : PickPerMeter -> Encode.Value
-encodePickPerMeter (PickPerMeter int) =
-    Encode.int int
+            pickPerMeterToInt
 
 
 
@@ -362,13 +338,13 @@ surfaceMassToInt (SurfaceMass int) =
     int
 
 
-decodeSurfaceMass : Decoder SurfaceMass
-decodeSurfaceMass =
-    Decode.int
-        |> Decode.andThen
+surfaceMassCodec : Codec SurfaceMass
+surfaceMassCodec =
+    Codec.int
+        |> Codec.andThen
             (\int ->
                 if int < surfaceMassToInt minSurfaceMass || int > surfaceMassToInt maxSurfaceMass then
-                    Decode.fail
+                    Codec.fail
                         ("La masse surfacique spécifiée ("
                             ++ String.fromInt int
                             ++ ") doit être comprise entre "
@@ -379,14 +355,9 @@ decodeSurfaceMass =
                         )
 
                 else
-                    Decode.succeed int
+                    Codec.succeed (surfaceMass int)
             )
-        |> Decode.map surfaceMass
-
-
-encodeSurfaceMass : SurfaceMass -> Encode.Value
-encodeSurfaceMass (SurfaceMass int) =
-    Encode.int int
+            surfaceMassToInt
 
 
 

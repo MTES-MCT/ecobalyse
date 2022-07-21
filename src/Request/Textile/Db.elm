@@ -1,5 +1,6 @@
 module Request.Textile.Db exposing (loadDb)
 
+import Codec
 import Data.Country as Country exposing (Country)
 import Data.Impact as Impact
 import Data.Session exposing (Session)
@@ -50,9 +51,9 @@ loadDependentData impacts processes =
             Task.map2 (|>)
     in
     Task.succeed (buildFromWebData impacts processes)
-        |> andMap (getJson (Country.decodeList processes) "countries.json")
-        |> andMap (getJson (Material.decodeList processes) "materials.json")
-        |> andMap (getJson (Product.decodeList processes) "products.json")
+        |> andMap (getJson (Codec.decoder (Country.listCodec processes)) "countries.json")
+        |> andMap (getJson (Codec.decoder (Material.listCodec processes)) "materials.json")
+        |> andMap (getJson (Codec.decoder (Product.listCodec processes)) "products.json")
         |> andMap (getJson Transport.decodeDistances "transports.json")
 
 
@@ -76,7 +77,7 @@ handleImpactsLoaded : WebData (List Impact.Definition) -> Task () (WebData Db)
 handleImpactsLoaded impactsData =
     case impactsData of
         RemoteData.Success impacts ->
-            getJson (Process.decodeList impacts) "processes.json"
+            getJson (Codec.decoder (Process.listCodec impacts)) "processes.json"
                 |> Task.andThen (handleProcessesLoaded impacts)
 
         RemoteData.Failure error ->
