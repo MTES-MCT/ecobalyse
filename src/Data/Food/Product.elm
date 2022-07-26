@@ -179,8 +179,7 @@ findImpactsByName ((ProcessName name) as procName) =
 
 decodeProcesses : List Definition -> Decoder ImpactsForProcesses
 decodeProcesses definitions =
-    definitions
-        |> Impact.decodeImpacts
+    Decode.field "impacts" (Impact.decodeImpacts definitions)
         |> AnyDict.decode (\str _ -> ProcessName str) processNameToString
 
 
