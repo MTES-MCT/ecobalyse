@@ -43,7 +43,6 @@ import Duration exposing (Duration)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
 import Length
-import Result.Extra as RE
 import Set
 
 
@@ -154,11 +153,6 @@ emptyProcesses =
     AnyDict.empty processNameToString
 
 
-insertProcess : ProcessName -> Process -> Processes -> Processes
-insertProcess name process processes =
-    AnyDict.insert name process processes
-
-
 computeProcessPefImpact : List Definition -> Processes -> Processes
 computeProcessPefImpact definitions processes =
     processes
@@ -228,104 +222,10 @@ emptyProducts =
     AnyDict.empty productNameToString
 
 
-emptyStep : Step
-emptyStep =
-    { material = emptyProcesses
-    , transport = emptyProcesses
-    , wasteTreatment = emptyProcesses
-    , energy = emptyProcesses
-    , processing = emptyProcesses
-    }
-
-
-type alias Ingredient =
-    ( ProcessName, Amount )
-
-
-type alias ProductDefinition =
-    { consumer : List Ingredient
-    , supermarket : List Ingredient
-    , distribution : List Ingredient
-    , packaging : List Ingredient
-    , plant : List Ingredient
-    }
-
-
 type alias RawCookedRatioInfo =
     { weightLossProcessName : ProcessName
     , rawCookedRatio : Unit.Ratio
     }
-
-
-type ProcessCategory
-    = Processing
-    | WasteTreatment
-    | Transport
-    | Energy
-    | Material
-
-
-kindOf : ProcessName -> ProcessCategory
-kindOf processName =
-    if isProcessing processName then
-        Processing
-
-    else if isWaste processName then
-        WasteTreatment
-
-    else if isTransport processName then
-        Transport
-
-    else
-        Material
-
-
-insertProcessToStep : ProcessName -> Amount -> Impacts -> Step -> Step
-insertProcessToStep processName amount impacts step =
-    let
-        newProcess =
-            Process amount impacts
-    in
-    case kindOf processName of
-        Processing ->
-            { step | processing = insertProcess processName newProcess step.processing }
-
-        WasteTreatment ->
-            { step | wasteTreatment = insertProcess processName newProcess step.wasteTreatment }
-
-        Transport ->
-            { step | transport = insertProcess processName newProcess step.transport }
-
-        Material ->
-            { step | material = insertProcess processName newProcess step.material }
-
-        Energy ->
-            { step | energy = insertProcess processName newProcess step.energy }
-
-
-stepFromIngredients : List Ingredient -> ImpactsForProcesses -> Result String Step
-stepFromIngredients ingredients impactsForProcesses =
-    ingredients
-        |> List.foldl
-            (\( processName, amount ) stepResult ->
-                let
-                    impactsResult : Result String Impacts
-                    impactsResult =
-                        findImpactsByName processName impactsForProcesses
-                in
-                Result.map2 (insertProcessToStep processName amount) impactsResult stepResult
-            )
-            (Ok emptyStep)
-
-
-productFromDefinition : ImpactsForProcesses -> ProductDefinition -> Result String Product
-productFromDefinition impactsForProcesses { consumer, supermarket, distribution, packaging, plant } =
-    Ok Product
-        |> RE.andMap (stepFromIngredients consumer impactsForProcesses)
-        |> RE.andMap (stepFromIngredients supermarket impactsForProcesses)
-        |> RE.andMap (stepFromIngredients distribution impactsForProcesses)
-        |> RE.andMap (stepFromIngredients packaging impactsForProcesses)
-        |> RE.andMap (stepFromIngredients plant impactsForProcesses)
 
 
 computePefImpact : List Definition -> Product -> Product
@@ -401,58 +301,65 @@ decodeAmount =
     Decode.float
 
 
-decodeIngredients : Decoder (List Ingredient)
-decodeIngredients =
+decodeCategory : ImpactsForProcesses -> Decoder Processes
+decodeCategory impactsForProcesses =
     AnyDict.decode (\str _ -> stringToProcessName str) processNameToString decodeAmount
-        |> Decode.map AnyDict.toList
-
-
-decodeProductDefinition : Decoder ProductDefinition
-decodeProductDefinition =
-    Decode.succeed ProductDefinition
-        |> Pipe.required "consumer" decodeIngredients
-        |> Pipe.required "supermarket" decodeIngredients
-        |> Pipe.required "distribution" decodeIngredients
-        |> Pipe.required "packaging" decodeIngredients
-        |> Pipe.required "plant" decodeIngredients
-
-
-insertProduct : ProductName -> Product -> Products -> Products
-insertProduct productName product products =
-    AnyDict.insert productName product products
-
-
-productsFromDefinitions : ImpactsForProcesses -> AnyDict String ProductName ProductDefinition -> Result String Products
-productsFromDefinitions impactsForProcesses definitions =
-    definitions
-        |> AnyDict.foldl
-            (\productName productDefinition productsResult ->
+        |> Decode.andThen
+            (\dict ->
                 let
-                    productResult : Result String Product
-                    productResult =
-                        productFromDefinition impactsForProcesses productDefinition
+                    processesResult =
+                        addImpactsToProcesses impactsForProcesses dict
                 in
-                Result.map2 (insertProduct productName) productResult productsResult
+                case processesResult of
+                    Ok processes ->
+                        Decode.succeed processes
+
+                    Err error ->
+                        Decode.fail error
             )
-            (Ok (AnyDict.empty productNameToString))
+
+
+addImpactsToProcesses : ImpactsForProcesses -> AnyDict String ProcessName Float -> Result String Processes
+addImpactsToProcesses impactsForProcesses dict =
+    dict
+        |> AnyDict.foldl
+            (\processName amount processesResult ->
+                let
+                    processResult =
+                        findImpactsByName processName impactsForProcesses
+                            |> Result.map (Process amount)
+                in
+                Result.map2
+                    (AnyDict.insert processName)
+                    processResult
+                    processesResult
+            )
+            (Ok (AnyDict.empty processNameToString))
+
+
+decodeStep : ImpactsForProcesses -> Decoder Step
+decodeStep impactsForProcesses =
+    Decode.succeed Step
+        |> Pipe.optional "material" (decodeCategory impactsForProcesses) emptyProcesses
+        |> Pipe.optional "transport" (decodeCategory impactsForProcesses) emptyProcesses
+        |> Pipe.optional "waste treatment" (decodeCategory impactsForProcesses) emptyProcesses
+        |> Pipe.optional "energy" (decodeCategory impactsForProcesses) emptyProcesses
+        |> Pipe.optional "processing" (decodeCategory impactsForProcesses) emptyProcesses
+
+
+decodeProduct : ImpactsForProcesses -> Decoder Product
+decodeProduct impactsForProcesses =
+    Decode.succeed Product
+        |> Pipe.required "consumer" (decodeStep impactsForProcesses)
+        |> Pipe.required "supermarket" (decodeStep impactsForProcesses)
+        |> Pipe.required "distribution" (decodeStep impactsForProcesses)
+        |> Pipe.required "packaging" (decodeStep impactsForProcesses)
+        |> Pipe.required "plant" (decodeStep impactsForProcesses)
 
 
 decodeProducts : ImpactsForProcesses -> Decoder Products
 decodeProducts impactsForProcesses =
-    AnyDict.decode (\str _ -> ProductName str) productNameToString decodeProductDefinition
-        |> Decode.andThen
-            (\definitions ->
-                definitions
-                    |> productsFromDefinitions impactsForProcesses
-                    |> (\result ->
-                            case result of
-                                Ok products ->
-                                    Decode.succeed products
-
-                                Err error ->
-                                    Decode.fail error
-                       )
-            )
+    AnyDict.decode (\str _ -> ProductName str) productNameToString (decodeProduct impactsForProcesses)
 
 
 
