@@ -19,7 +19,6 @@ module Data.Food.Product exposing
     , getRawCookedRatioInfo
     , getTotalImpact
     , getTotalWeight
-    , isTransport
     , listIngredients
     , processNameToString
     , productNameToString
@@ -93,11 +92,6 @@ stringToProcessName str =
 processNameToString : ProcessName -> String
 processNameToString (ProcessName name) =
     name
-
-
-isTransport : ProcessName -> Bool
-isTransport (ProcessName processName) =
-    String.startsWith "Transport, " processName
 
 
 type alias Process =

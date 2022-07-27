@@ -522,7 +522,6 @@ viewTransport totalWeight totalImpact impact step selectedCountry countries =
     div []
         [ step.transport
             |> AnyDict.toList
-            |> List.filter (\( processName, _ ) -> Product.isTransport processName)
             |> List.map
                 (\( name, process ) ->
                     let
