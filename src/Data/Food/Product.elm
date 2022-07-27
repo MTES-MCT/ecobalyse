@@ -19,7 +19,6 @@ module Data.Food.Product exposing
     , getRawCookedRatioInfo
     , getTotalImpact
     , getTotalWeight
-    , isProcessing
     , isTransport
     , isWaste
     , listIngredients
@@ -95,18 +94,6 @@ stringToProcessName str =
 processNameToString : ProcessName -> String
 processNameToString (ProcessName name) =
     name
-
-
-isProcessing : ProcessName -> Bool
-isProcessing (ProcessName processName) =
-    List.any (\name -> String.startsWith name processName)
-        [ "Cooking"
-        , "Canning"
-        , "Mixing"
-        , "Peeling"
-        , "Fish filleting"
-        , "Slaughtering"
-        ]
 
 
 isWaste : ProcessName -> Bool

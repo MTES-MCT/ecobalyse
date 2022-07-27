@@ -488,7 +488,6 @@ viewProcessing : Float -> Impact.Trigram -> Product.Step -> Html Msg
 viewProcessing totalImpact impact step =
     step.processing
         |> AnyDict.toList
-        |> List.filter (\( processName, _ ) -> Product.isProcessing processName)
         |> List.map
             (\( name, process ) ->
                 let
