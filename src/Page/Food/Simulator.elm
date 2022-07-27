@@ -84,7 +84,7 @@ update ({ foodDb, db } as session) msg ({ currentProductInfo } as model) =
             let
                 productWithAddedIngredient =
                     selected.product
-                        |> Product.addIngredient selected.rawCookedRatioInfo foodDb.processes model.selectedIngredient
+                        |> Product.addMaterial selected.rawCookedRatioInfo foodDb.processes model.selectedIngredient
 
                 productWithPefScore =
                     productWithAddedIngredient
@@ -128,7 +128,7 @@ update ({ foodDb, db } as session) msg ({ currentProductInfo } as model) =
             let
                 productWithoutIngredient =
                     selected.product
-                        |> Product.removeIngredient selected.rawCookedRatioInfo processName
+                        |> Product.removeMaterial selected.rawCookedRatioInfo processName
 
                 productWithPefScore =
                     productWithoutIngredient

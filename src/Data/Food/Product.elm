@@ -8,7 +8,7 @@ module Data.Food.Product exposing
     , Products
     , RawCookedRatioInfo
     , Step
-    , addIngredient
+    , addMaterial
     , computePefImpact
     , decodeProcesses
     , decodeProducts
@@ -26,7 +26,7 @@ module Data.Food.Product exposing
     , isWaste
     , processNameToString
     , productNameToString
-    , removeIngredient
+    , removeMaterial
     , stringToProductName
     , unusedDuration
     , updateAmount
@@ -464,8 +464,8 @@ filterIngredients products =
         |> List.sort
 
 
-addIngredient : Maybe RawCookedRatioInfo -> ImpactsForProcesses -> String -> Product -> Result String Product
-addIngredient maybeRawCookedRatioInfo impactsForProcesses ingredientName ({ plant } as product) =
+addMaterial : Maybe RawCookedRatioInfo -> ImpactsForProcesses -> String -> Product -> Result String Product
+addMaterial maybeRawCookedRatioInfo impactsForProcesses ingredientName ({ plant } as product) =
     let
         processName =
             stringToProcessName ingredientName
@@ -488,8 +488,8 @@ addIngredient maybeRawCookedRatioInfo impactsForProcesses ingredientName ({ plan
             )
 
 
-removeIngredient : Maybe RawCookedRatioInfo -> ProcessName -> Product -> Product
-removeIngredient maybeRawCookedRatioInfo processName ({ plant } as product) =
+removeMaterial : Maybe RawCookedRatioInfo -> ProcessName -> Product -> Product
+removeMaterial maybeRawCookedRatioInfo processName ({ plant } as product) =
     let
         withRemovedIngredient =
             { plant
