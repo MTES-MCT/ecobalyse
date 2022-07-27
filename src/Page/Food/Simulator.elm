@@ -302,7 +302,7 @@ view ({ foodDb, db } as session) { currentProductInfo, selectedProduct, impact, 
                     , div [ class "row py-3 gap-2 gap-sm-0" ]
                         [ div [ class "col-sm-10" ]
                             [ foodDb.products
-                                |> Product.filterIngredients
+                                |> Product.listIngredients
                                 |> ingredientSelector IngredientSelected
                             ]
                         , div [ class "col-sm-2" ]
@@ -390,7 +390,6 @@ viewIngredients : (Unit.Ratio -> String) -> Float -> Impact.Trigram -> Product.S
 viewIngredients toString totalImpact impact step =
     step.material
         |> AnyDict.toList
-        |> List.filter (\( processName, _ ) -> Product.isIngredient processName)
         |> List.map
             (\( name, process ) ->
                 let
@@ -399,14 +398,14 @@ viewIngredients toString totalImpact impact step =
                 in
                 div [ class "card stacked-card" ]
                     [ div [ class "card-header" ] [ text <| Product.processNameToString name ]
-                    , viewIngredient toString bar
+                    , viewProcess toString False bar
                     ]
             )
         |> viewHeader (text "Ingrédients") (text "Pourcentage de l'impact total")
 
 
-viewIngredient : (Unit.Ratio -> String) -> Bar -> Html Msg
-viewIngredient toString bar =
+viewProcess : (Unit.Ratio -> String) -> Bool -> Bar -> Html Msg
+viewProcess toString disabled bar =
     let
         name =
             bar.name |> Product.processNameToString
@@ -419,7 +418,7 @@ viewIngredient toString bar =
                 , update = IngredientSliderChanged bar.name
                 , value = bar.amount
                 , toString = toString
-                , disabled = not (Product.isIngredient bar.name)
+                , disabled = disabled
                 , min = 0
                 , max = 100
                 }
@@ -498,7 +497,7 @@ viewProcessing totalImpact impact step =
                 in
                 div [ class "card stacked-card" ]
                     [ div [ class "card-header" ] [ text <| Product.processNameToString name ]
-                    , viewIngredient ratioToStringKg bar
+                    , viewProcess ratioToStringKg True bar
                     ]
             )
         |> viewHeader (text "Procédé") (text "Pourcentage de l'impact total")
@@ -533,7 +532,7 @@ viewTransport totalWeight totalImpact impact step selectedCountry countries =
                     in
                     div [ class "card stacked-card" ]
                         [ div [ class "card-header" ] [ text <| Product.processNameToString name ]
-                        , viewIngredient (ratioToStringKgKm totalWeight) bar
+                        , viewProcess (ratioToStringKgKm totalWeight) True bar
                         ]
                 )
             |> viewHeader header (text "Pourcentage de l'impact total")
@@ -553,7 +552,7 @@ viewWaste totalImpact impact step =
                 in
                 div [ class "card stacked-card" ]
                     [ div [ class "card-header" ] [ text <| Product.processNameToString name ]
-                    , viewIngredient ratioToStringKg bar
+                    , viewProcess ratioToStringKg True bar
                     ]
             )
         |> viewHeader (text "Déchets") (text "Pourcentage de l'impact total")

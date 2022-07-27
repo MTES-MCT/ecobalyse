@@ -15,15 +15,14 @@ module Data.Food.Product exposing
     , defaultCountry
     , emptyImpactsForProcesses
     , emptyProducts
-    , filterIngredients
     , findProductByName
     , getRawCookedRatioInfo
     , getTotalImpact
     , getTotalWeight
-    , isIngredient
     , isProcessing
     , isTransport
     , isWaste
+    , listIngredients
     , processNameToString
     , productNameToString
     , removeMaterial
@@ -118,15 +117,6 @@ isWaste (ProcessName processName) =
 isTransport : ProcessName -> Bool
 isTransport (ProcessName processName) =
     String.startsWith "Transport, " processName
-
-
-isIngredient : ProcessName -> Bool
-isIngredient processName =
-    (isProcessing processName
-        || isWaste processName
-        || isTransport processName
-    )
-        |> not
 
 
 type alias Process =
@@ -393,15 +383,10 @@ getTotalImpact trigram step =
 
 getTotalWeight : Step -> Float
 getTotalWeight step =
-    step
-        |> stepToProcesses
+    step.material
         |> AnyDict.foldl
-            (\processName { amount } total ->
-                if isIngredient processName then
-                    total + amount
-
-                else
-                    total
+            (\_ { amount } total ->
+                total + amount
             )
             0
 
@@ -438,11 +423,8 @@ getRawCookedRatioInfo product =
 
 getWeightLosingUnitProcessName : Step -> Maybe ProcessName
 getWeightLosingUnitProcessName step =
-    step
-        |> stepToProcesses
+    step.processing
         |> AnyDict.toList
-        -- Only keep processes with names ending with "/ FR U"
-        |> List.filter (Tuple.first >> isProcessing)
         -- Sort by heavier to lighter
         |> List.sortBy (Tuple.second >> .amount)
         |> List.reverse
@@ -452,12 +434,11 @@ getWeightLosingUnitProcessName step =
         |> List.head
 
 
-filterIngredients : Products -> List String
-filterIngredients products =
+listIngredients : Products -> List String
+listIngredients products =
     products
         |> AnyDict.values
-        |> List.concatMap (.plant >> stepToProcesses >> AnyDict.keys)
-        |> List.filter isIngredient
+        |> List.concatMap (.plant >> .material >> AnyDict.keys)
         |> List.map processNameToString
         |> Set.fromList
         |> Set.toList
