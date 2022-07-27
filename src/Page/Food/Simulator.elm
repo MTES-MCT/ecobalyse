@@ -542,7 +542,6 @@ viewWaste : Float -> Impact.Trigram -> Product.Step -> Html Msg
 viewWaste totalImpact impact step =
     step.wasteTreatment
         |> AnyDict.toList
-        |> List.filter (\( processName, _ ) -> Product.isWaste processName)
         |> List.map
             (\( name, process ) ->
                 let

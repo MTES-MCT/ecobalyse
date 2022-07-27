@@ -20,7 +20,6 @@ module Data.Food.Product exposing
     , getTotalImpact
     , getTotalWeight
     , isTransport
-    , isWaste
     , listIngredients
     , processNameToString
     , productNameToString
@@ -94,11 +93,6 @@ stringToProcessName str =
 processNameToString : ProcessName -> String
 processNameToString (ProcessName name) =
     name
-
-
-isWaste : ProcessName -> Bool
-isWaste (ProcessName processName) =
-    String.startsWith "Biowaste " processName
 
 
 isTransport : ProcessName -> Bool
