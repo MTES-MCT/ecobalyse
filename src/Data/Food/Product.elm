@@ -373,38 +373,27 @@ getRawCookedRatioInfo product =
     -- if there's some kind of process that "looses weight" in the process, and we assume this
     -- process should be named ".... / FR U" (eg "Cooking, industrial, 1kg of cooked product/ FR U")
     let
-        maybeProcessName =
-            getWeightLosingUnitProcessName product.plant
-
         totalIngredientsWeight =
             getTotalWeight product.plant
     in
-    maybeProcessName
-        |> Maybe.andThen
-            (\processName ->
-                product.plant
-                    |> stepToProcesses
-                    |> AnyDict.get processName
-                    |> Maybe.map
-                        (\process ->
-                            { weightLossProcessName = processName
-                            , rawCookedRatio =
-                                (process.amount / totalIngredientsWeight)
-                                    |> Unit.Ratio
-                            }
-                        )
+    getWeightLosingUnitProcess product.plant
+        |> Maybe.map
+            (\( processName, process ) ->
+                { weightLossProcessName = processName
+                , rawCookedRatio =
+                    (process.amount / totalIngredientsWeight)
+                        |> Unit.Ratio
+                }
             )
 
 
-getWeightLosingUnitProcessName : Step -> Maybe ProcessName
-getWeightLosingUnitProcessName step =
+getWeightLosingUnitProcess : Step -> Maybe ( ProcessName, Process )
+getWeightLosingUnitProcess step =
     step.processing
         |> AnyDict.toList
         -- Sort by heavier to lighter
         |> List.sortBy (Tuple.second >> .amount)
         |> List.reverse
-        -- Only keep the process names
-        |> List.map Tuple.first
         -- Take the heaviest
         |> List.head
 
