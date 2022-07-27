@@ -188,9 +188,10 @@ decodeProcesses definitions =
 
 
 type alias Step =
-    { ingredients : Processes
+    { material : Processes
     , transport : Processes
-    , waste : Processes
+    , wasteTreatment : Processes
+    , energy : Processes
     , processing : Processes
     }
 
@@ -229,9 +230,10 @@ emptyProducts =
 
 emptyStep : Step
 emptyStep =
-    { ingredients = emptyProcesses
+    { material = emptyProcesses
     , transport = emptyProcesses
-    , waste = emptyProcesses
+    , wasteTreatment = emptyProcesses
+    , energy = emptyProcesses
     , processing = emptyProcesses
     }
 
@@ -257,9 +259,10 @@ type alias RawCookedRatioInfo =
 
 type ProcessCategory
     = Processing
-    | Waste
+    | WasteTreatment
     | Transport
-    | Ingredient
+    | Energy
+    | Material
 
 
 kindOf : ProcessName -> ProcessCategory
@@ -268,13 +271,13 @@ kindOf processName =
         Processing
 
     else if isWaste processName then
-        Waste
+        WasteTreatment
 
     else if isTransport processName then
         Transport
 
     else
-        Ingredient
+        Material
 
 
 insertProcessToStep : ProcessName -> Amount -> Impacts -> Step -> Step
@@ -287,14 +290,17 @@ insertProcessToStep processName amount impacts step =
         Processing ->
             { step | processing = insertProcess processName newProcess step.processing }
 
-        Waste ->
-            { step | waste = insertProcess processName newProcess step.waste }
+        WasteTreatment ->
+            { step | wasteTreatment = insertProcess processName newProcess step.wasteTreatment }
 
         Transport ->
             { step | transport = insertProcess processName newProcess step.transport }
 
-        Ingredient ->
-            { step | ingredients = insertProcess processName newProcess step.ingredients }
+        Material ->
+            { step | material = insertProcess processName newProcess step.material }
+
+        Energy ->
+            { step | energy = insertProcess processName newProcess step.energy }
 
 
 stepFromIngredients : List Ingredient -> ImpactsForProcesses -> Result String Step
@@ -330,9 +336,10 @@ computePefImpact definitions product =
 computeStepPefImpact : List Definition -> Step -> Step
 computeStepPefImpact definitions step =
     { step
-        | ingredients = computeProcessPefImpact definitions step.ingredients
+        | material = computeProcessPefImpact definitions step.material
         , transport = computeProcessPefImpact definitions step.transport
-        , waste = computeProcessPefImpact definitions step.waste
+        , wasteTreatment = computeProcessPefImpact definitions step.wasteTreatment
+        , energy = computeProcessPefImpact definitions step.energy
         , processing = computeProcessPefImpact definitions step.processing
     }
 
@@ -347,9 +354,10 @@ updateProcess processName updateFunc process =
 updateStep : (Processes -> Processes) -> Step -> Step
 updateStep updateFunc step =
     { step
-        | ingredients = updateFunc step.ingredients
+        | material = updateFunc step.material
         , transport = updateFunc step.transport
-        , waste = updateFunc step.waste
+        , wasteTreatment = updateFunc step.wasteTreatment
+        , energy = updateFunc step.energy
         , processing = updateFunc step.processing
     }
 
@@ -454,9 +462,10 @@ decodeProducts impactsForProcesses =
 stepToProcesses : Step -> Processes
 stepToProcesses step =
     -- We can use AnyDict.union here because we should never have keys clashing between dicts
-    step.ingredients
+    step.material
         |> AnyDict.union step.transport
-        |> AnyDict.union step.waste
+        |> AnyDict.union step.wasteTreatment
+        |> AnyDict.union step.energy
         |> AnyDict.union step.processing
 
 
@@ -563,7 +572,7 @@ addIngredient maybeRawCookedRatioInfo impactsForProcesses ingredientName ({ plan
 
                     withAddedIngredient =
                         { plant
-                            | ingredients = AnyDict.insert processName (Process amount impacts) plant.ingredients
+                            | material = AnyDict.insert processName (Process amount impacts) plant.material
                         }
                             -- Update the total weight
                             |> updateWeight maybeRawCookedRatioInfo
@@ -577,7 +586,7 @@ removeIngredient maybeRawCookedRatioInfo processName ({ plant } as product) =
     let
         withRemovedIngredient =
             { plant
-                | ingredients = AnyDict.filter (\name _ -> name /= processName) plant.ingredients
+                | material = AnyDict.filter (\name _ -> name /= processName) plant.material
             }
                 -- Update the total weight
                 |> updateWeight maybeRawCookedRatioInfo

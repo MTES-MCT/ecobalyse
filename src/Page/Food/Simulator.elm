@@ -388,7 +388,7 @@ viewHeader header1 header2 children =
 
 viewIngredients : (Unit.Ratio -> String) -> Float -> Impact.Trigram -> Product.Step -> Html Msg
 viewIngredients toString totalImpact impact step =
-    step.ingredients
+    step.material
         |> AnyDict.toList
         |> List.filter (\( processName, _ ) -> Product.isIngredient processName)
         |> List.map
@@ -542,7 +542,7 @@ viewTransport totalWeight totalImpact impact step selectedCountry countries =
 
 viewWaste : Float -> Impact.Trigram -> Product.Step -> Html Msg
 viewWaste totalImpact impact step =
-    step.waste
+    step.wasteTreatment
         |> AnyDict.toList
         |> List.filter (\( processName, _ ) -> Product.isWaste processName)
         |> List.map
