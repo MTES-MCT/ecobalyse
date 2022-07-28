@@ -23,7 +23,6 @@ import Views.Container as Container
 import Views.CountrySelect
 import Views.Format as Format
 import Views.Impact exposing (impactSelector)
-import Views.PieChart as PieChart
 import Views.RangeSlider as RangeSlider
 
 
@@ -252,6 +251,11 @@ view ({ foodDb, db } as session) { currentProductInfo, selectedProduct, impact, 
 
                         impactPerKg =
                             totalImpact * originalTotalWeight / totalWeight
+
+                        definition =
+                            db.impacts
+                                |> Impact.getDefinition impact
+                                |> Result.withDefault Impact.invalid
                     in
                     [ select
                         [ class "form-select"
@@ -287,18 +291,18 @@ view ({ foodDb, db } as session) { currentProductInfo, selectedProduct, impact, 
                             ]
                         , div [ class "col-lg-6" ]
                             [ h1 []
-                                [ let
-                                    definition =
-                                        db.impacts
-                                            |> Impact.getDefinition impact
-                                            |> Result.withDefault Impact.invalid
-                                  in
-                                  impactPerKg
+                                [ impactPerKg
                                     |> Format.formatImpactFloat definition
+                                , span [ class "fs-unit" ]
+                                    [ text "/kg de produit"
+                                    , text " (total : "
+                                    , Format.formatImpactFloat definition totalImpact
+                                    , text ")"
+                                    ]
                                 ]
                             ]
                         ]
-                    , viewMaterial ratioToStringKg totalImpact impact product.plant
+                    , viewMaterial ratioToStringKg totalImpact impact definition product.plant
                     , div [ class "row py-3 gap-2 gap-sm-0" ]
                         [ div [ class "col-sm-10" ]
                             [ foodDb.products
@@ -314,10 +318,10 @@ view ({ foodDb, db } as session) { currentProductInfo, selectedProduct, impact, 
                                 [ text "Ajouter un ingrédient" ]
                             ]
                         ]
-                    , viewEnergy totalImpact impact product.plant
-                    , viewProcessing totalImpact impact product.plant
-                    , viewTransport totalWeight totalImpact impact product.plant selectedCountry db.countries
-                    , viewWaste totalImpact impact product.plant
+                    , viewEnergy totalImpact impact definition product.plant
+                    , viewProcessing totalImpact impact definition product.plant
+                    , viewTransport totalWeight totalImpact impact definition product.plant selectedCountry db.countries
+                    , viewWaste totalImpact impact definition product.plant
                     , div [ class "row py-3 gap-2 gap-sm-0" ]
                         [ div [ class "col-sm-10 fw-bold" ]
                             [ text "Poids total avant perte (cuisson, invendus...) : "
@@ -387,15 +391,15 @@ viewHeader header1 header2 children =
         text ""
 
 
-viewMaterial : (Unit.Ratio -> String) -> Float -> Impact.Trigram -> Product.Step -> Html Msg
-viewMaterial toString totalImpact impact step =
+viewMaterial : (Unit.Ratio -> String) -> Float -> Impact.Trigram -> Impact.Definition -> Product.Step -> Html Msg
+viewMaterial toString totalImpact impact definition step =
     step.material
         |> AnyDict.toList
         |> List.map
             (\( name, ingredient ) ->
                 let
                     bar =
-                        makeBar totalImpact impact name ingredient
+                        makeBar totalImpact impact definition name ingredient
                 in
                 div [ class "card stacked-card" ]
                     [ div [ class "card-header" ] [ text <| Product.processNameToString name ]
@@ -432,6 +436,7 @@ viewProcess toString disabled bar =
 
 type alias Bar =
     { name : Product.ProcessName
+    , definition : Impact.Definition
     , amount : Unit.Ratio
     , impact : Float
     , width : Float
@@ -439,8 +444,8 @@ type alias Bar =
     }
 
 
-makeBar : Float -> Impact.Trigram -> Product.ProcessName -> Product.Ingredient -> Bar
-makeBar totalImpact trigram processName { amount, process } =
+makeBar : Float -> Impact.Trigram -> Impact.Definition -> Product.ProcessName -> Product.Ingredient -> Bar
+makeBar totalImpact trigram definition processName { amount, process } =
     let
         impact =
             Impact.grabImpactFloat Unit.PerItem Product.unusedDuration trigram process * amount
@@ -449,6 +454,7 @@ makeBar totalImpact trigram processName { amount, process } =
             impact * toFloat 100 / totalImpact
     in
     { name = processName
+    , definition = definition
     , amount = Unit.Ratio amount
     , impact = impact
     , width = clamp 0 100 percent
@@ -459,7 +465,7 @@ makeBar totalImpact trigram processName { amount, process } =
 barView : Bar -> Html Msg
 barView bar =
     div [ class "ps-3 py-1 border-top border-top-sm-0 border-start-0 border-start-sm d-flex" ]
-        [ div [ class "w-75 border my-2" ]
+        [ div [ class "w-50 border my-2" ]
             [ div
                 [ class "bg-primary"
                 , style "height" "100%"
@@ -468,8 +474,11 @@ barView bar =
                 []
             ]
         , div [ class "text-end py-1 ps-2 text-truncate flex-fill" ]
-            [ Format.percent bar.percent ]
-        , div [ class "px-2 my-1" ] [ PieChart.view bar.percent ]
+            [ Format.formatImpactFloat bar.definition bar.impact
+            , text " ("
+            , Format.percent bar.percent
+            , text ")"
+            ]
         , button
             [ class "btn"
             , onClick <| DeleteIngredient bar.name
@@ -485,15 +494,15 @@ ingredientSelector event =
         >> select [ class "form-select", onInput event ]
 
 
-viewEnergy : Float -> Impact.Trigram -> Product.Step -> Html Msg
-viewEnergy totalImpact impact step =
+viewEnergy : Float -> Impact.Trigram -> Impact.Definition -> Product.Step -> Html Msg
+viewEnergy totalImpact impact definition step =
     step.energy
         |> AnyDict.toList
         |> List.map
             (\( name, process ) ->
                 let
                     bar =
-                        makeBar totalImpact impact name process
+                        makeBar totalImpact impact definition name process
                 in
                 div [ class "card stacked-card" ]
                     [ div [ class "card-header" ] [ text <| Product.processNameToString name ]
@@ -503,15 +512,15 @@ viewEnergy totalImpact impact step =
         |> viewHeader (text "Énergie") (text "Pourcentage de l'impact total")
 
 
-viewProcessing : Float -> Impact.Trigram -> Product.Step -> Html Msg
-viewProcessing totalImpact impact step =
+viewProcessing : Float -> Impact.Trigram -> Impact.Definition -> Product.Step -> Html Msg
+viewProcessing totalImpact impact definition step =
     step.processing
         |> AnyDict.toList
         |> List.map
             (\( name, process ) ->
                 let
                     bar =
-                        makeBar totalImpact impact name process
+                        makeBar totalImpact impact definition name process
                 in
                 div [ class "card stacked-card" ]
                     [ div [ class "card-header" ] [ text <| Product.processNameToString name ]
@@ -521,8 +530,8 @@ viewProcessing totalImpact impact step =
         |> viewHeader (text "Procédé") (text "Pourcentage de l'impact total")
 
 
-viewTransport : Float -> Float -> Impact.Trigram -> Product.Step -> Country.Code -> List Country -> Html Msg
-viewTransport totalWeight totalImpact impact step selectedCountry countries =
+viewTransport : Float -> Float -> Impact.Trigram -> Impact.Definition -> Product.Step -> Country.Code -> List Country -> Html Msg
+viewTransport totalWeight totalImpact impact definition step selectedCountry countries =
     let
         countrySelector =
             Views.CountrySelect.view
@@ -545,7 +554,7 @@ viewTransport totalWeight totalImpact impact step selectedCountry countries =
                 (\( name, process ) ->
                     let
                         bar =
-                            makeBar totalImpact impact name process
+                            makeBar totalImpact impact definition name process
                     in
                     div [ class "card stacked-card" ]
                         [ div [ class "card-header" ] [ text <| Product.processNameToString name ]
@@ -556,15 +565,15 @@ viewTransport totalWeight totalImpact impact step selectedCountry countries =
         ]
 
 
-viewWaste : Float -> Impact.Trigram -> Product.Step -> Html Msg
-viewWaste totalImpact impact step =
+viewWaste : Float -> Impact.Trigram -> Impact.Definition -> Product.Step -> Html Msg
+viewWaste totalImpact impact definition step =
     step.wasteTreatment
         |> AnyDict.toList
         |> List.map
             (\( name, process ) ->
                 let
                     bar =
-                        makeBar totalImpact impact name process
+                        makeBar totalImpact impact definition name process
                 in
                 div [ class "card stacked-card" ]
                     [ div [ class "card-header" ] [ text <| Product.processNameToString name ]
