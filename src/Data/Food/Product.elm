@@ -94,12 +94,31 @@ processNameToString (ProcessName name) =
 
 type alias Process =
     { impacts : Impacts
+    , ciqualCode : Maybe Int
+    , step : Maybe String
+    , dqr : Maybe Float
+    , emptyProcess : Bool
+    , unit : String
+    , code : String
+    , simaproCategory : String
+    , systemDescription : String
+    , categoryTags : List String
     }
 
 
 emptyProcess : Process
 emptyProcess =
-    Process Impact.noImpacts
+    { impacts = Impact.noImpacts
+    , ciqualCode = Nothing
+    , step = Nothing
+    , dqr = Nothing
+    , emptyProcess = True
+    , unit = ""
+    , code = ""
+    , simaproCategory = ""
+    , systemDescription = ""
+    , categoryTags = []
+    }
 
 
 type alias Processes =
@@ -117,11 +136,24 @@ findProcessByName ((ProcessName name) as procName) =
         >> Result.fromMaybe ("Procédé introuvable par nom : " ++ name)
 
 
-decodeProcesses : List Definition -> Decoder Processes
-decodeProcesses definitions =
+decodeProcess : List Definition -> Decoder Process
+decodeProcess definitions =
     Decode.succeed Process
         |> Pipe.required "impacts" (Impact.decodeImpacts definitions)
-        |> AnyDict.decode (\str _ -> ProcessName str) processNameToString
+        |> Pipe.required "ciqual_code" (Decode.nullable Decode.int)
+        |> Pipe.required "step" (Decode.nullable Decode.string)
+        |> Pipe.required "dqr" (Decode.nullable Decode.float)
+        |> Pipe.required "empty_process" Decode.bool
+        |> Pipe.required "unit" Decode.string
+        |> Pipe.required "code" Decode.string
+        |> Pipe.required "simapro_category" Decode.string
+        |> Pipe.required "system_description" Decode.string
+        |> Pipe.required "category_tags" (Decode.list Decode.string)
+
+
+decodeProcesses : List Definition -> Decoder Processes
+decodeProcesses definitions =
+    AnyDict.decode (\str _ -> ProcessName str) processNameToString (decodeProcess definitions)
 
 
 
