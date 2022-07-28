@@ -1,8 +1,9 @@
 module Data.Food.Product exposing
     ( Amount
-    , ImpactsForProcesses
+    , Ingredient
     , Process
     , ProcessName
+    , Processes
     , Product
     , ProductName
     , Products
@@ -13,7 +14,7 @@ module Data.Food.Product exposing
     , decodeProcesses
     , decodeProducts
     , defaultCountry
-    , emptyImpactsForProcesses
+    , emptyProcesses
     , emptyProducts
     , findProductByName
     , getRawCookedRatioInfo
@@ -74,10 +75,7 @@ planeTransportName =
 
 
 ---- Process
-
-
-type alias Amount =
-    Float
+---- A process is an entry from public/data/food/processes.json. It has impacts and various other data like categories, code, unit...
 
 
 type ProcessName
@@ -95,18 +93,13 @@ processNameToString (ProcessName name) =
 
 
 type alias Process =
-    { amount : Amount
-    , impacts : Impacts
+    { impacts : Impacts
     }
 
 
-type alias ImpactsForProcesses =
-    AnyDict String ProcessName Impacts
-
-
-emptyImpactsForProcesses : ImpactsForProcesses
-emptyImpactsForProcesses =
-    AnyDict.empty processNameToString
+emptyProcess : Process
+emptyProcess =
+    Process Impact.noImpacts
 
 
 type alias Processes =
@@ -118,40 +111,84 @@ emptyProcesses =
     AnyDict.empty processNameToString
 
 
-computeProcessPefImpact : List Definition -> Processes -> Processes
-computeProcessPefImpact definitions processes =
-    processes
-        |> AnyDict.map
-            (\_ process ->
-                { process
-                    | impacts =
-                        Impact.updatePefImpact definitions process.impacts
-                }
-            )
-
-
-findImpactsByName : ProcessName -> ImpactsForProcesses -> Result String Impacts
-findImpactsByName ((ProcessName name) as procName) =
+findProcessByName : ProcessName -> Processes -> Result String Process
+findProcessByName ((ProcessName name) as procName) =
     AnyDict.get procName
         >> Result.fromMaybe ("Procédé introuvable par nom : " ++ name)
 
 
-decodeProcesses : List Definition -> Decoder ImpactsForProcesses
+decodeProcesses : List Definition -> Decoder Processes
 decodeProcesses definitions =
-    Decode.field "impacts" (Impact.decodeImpacts definitions)
+    Decode.succeed Process
+        |> Pipe.required "impacts" (Impact.decodeImpacts definitions)
         |> AnyDict.decode (\str _ -> ProcessName str) processNameToString
 
 
 
+---- Ingredient
+---- An ingredient is one entry from one category (transport, material, processing...)
+---- from one step (consumer, packaging, plant...)
+---- from one product from public/data/products.json
+---- It links a Process to an amount for this process (quantity of a vegetable, transport distance, ...)
+
+
+type alias Amount =
+    Float
+
+
+type alias Ingredient =
+    { amount : Amount
+    , process : Process
+    }
+
+
+type alias Ingredients =
+    AnyDict String ProcessName Ingredient
+
+
+emptyIngredients : Ingredients
+emptyIngredients =
+    AnyDict.empty processNameToString
+
+
+updateIngredientAmount : Amount -> Ingredient -> Ingredient
+updateIngredientAmount amount ingredient =
+    { ingredient | amount = amount }
+
+
+updateIngredient : ProcessName -> (Ingredient -> Ingredient) -> Ingredients -> Ingredients
+updateIngredient processName updateFunc ingredients =
+    ingredients
+        |> AnyDict.update processName (Maybe.map updateFunc)
+
+
+computeIngredientPefImpact : List Definition -> Ingredients -> Ingredients
+computeIngredientPefImpact definitions ingredients =
+    ingredients
+        |> AnyDict.map
+            (\_ ({ process } as ingredient) ->
+                { ingredient
+                    | process =
+                        { process
+                            | impacts =
+                                Impact.updatePefImpact definitions process.impacts
+                        }
+                }
+            )
+
+
+
 ---- Step
+---- A step (at consumer, at plant...) has several categories (material, transport...) containing several ingredients
+---- A Product is composed of several steps.
 
 
 type alias Step =
-    { material : Processes
-    , transport : Processes
-    , wasteTreatment : Processes
-    , energy : Processes
-    , processing : Processes
+    { material : Ingredients
+    , transport : Ingredients
+    , wasteTreatment : Ingredients
+    , energy : Ingredients
+    , processing : Ingredients
     }
 
 
@@ -201,22 +238,15 @@ computePefImpact definitions product =
 computeStepPefImpact : List Definition -> Step -> Step
 computeStepPefImpact definitions step =
     { step
-        | material = computeProcessPefImpact definitions step.material
-        , transport = computeProcessPefImpact definitions step.transport
-        , wasteTreatment = computeProcessPefImpact definitions step.wasteTreatment
-        , energy = computeProcessPefImpact definitions step.energy
-        , processing = computeProcessPefImpact definitions step.processing
+        | material = computeIngredientPefImpact definitions step.material
+        , transport = computeIngredientPefImpact definitions step.transport
+        , wasteTreatment = computeIngredientPefImpact definitions step.wasteTreatment
+        , energy = computeIngredientPefImpact definitions step.energy
+        , processing = computeIngredientPefImpact definitions step.processing
     }
 
 
-updateProcess : ProcessName -> (Process -> Process) -> Processes -> Processes
-updateProcess processName updateFunc process =
-    process
-        |> AnyDict.update processName
-            (Maybe.map updateFunc)
-
-
-updateStep : (Processes -> Processes) -> Step -> Step
+updateStep : (Ingredients -> Ingredients) -> Step -> Step
 updateStep updateFunc step =
     { step
         | material = updateFunc step.material
@@ -230,7 +260,7 @@ updateStep updateFunc step =
 updateAmount : Maybe RawCookedRatioInfo -> ProcessName -> Amount -> Step -> Step
 updateAmount maybeRawCookedRatioInfo processName newAmount step =
     step
-        |> updateStep (updateProcess processName (\process -> { process | amount = newAmount }))
+        |> updateStep (updateIngredient processName (updateIngredientAmount newAmount))
         |> updateWeight maybeRawCookedRatioInfo
 
 
@@ -251,7 +281,7 @@ updateWeight maybeRawCookedRatioInfo step =
                         |> (*) updatedRawWeight
             in
             updateStep
-                (updateProcess weightLossProcessName (\process -> { process | amount = updatedWeight }))
+                (updateIngredient weightLossProcessName (updateIngredientAmount updatedWeight))
                 step
 
 
@@ -266,33 +296,34 @@ decodeAmount =
     Decode.float
 
 
-decodeCategory : ImpactsForProcesses -> Decoder Processes
-decodeCategory impactsForProcesses =
+decodeCategory : Processes -> Decoder Ingredients
+decodeCategory processes =
     AnyDict.decode (\str _ -> stringToProcessName str) processNameToString decodeAmount
         |> Decode.andThen
             (\dict ->
                 let
-                    processesResult =
-                        addImpactsToProcesses impactsForProcesses dict
+                    ingredientsResult =
+                        toIngredients processes dict
                 in
-                case processesResult of
-                    Ok processes ->
-                        Decode.succeed processes
+                case ingredientsResult of
+                    Ok ingredients ->
+                        Decode.succeed ingredients
 
                     Err error ->
                         Decode.fail error
             )
 
 
-addImpactsToProcesses : ImpactsForProcesses -> AnyDict String ProcessName Float -> Result String Processes
-addImpactsToProcesses impactsForProcesses dict =
+toIngredients : Processes -> AnyDict String ProcessName Float -> Result String Ingredients
+toIngredients processes dict =
     dict
         |> AnyDict.foldl
             (\processName amount processesResult ->
                 let
                     processResult =
-                        findImpactsByName processName impactsForProcesses
-                            |> Result.map (Process amount)
+                        processes
+                            |> findProcessByName processName
+                            |> Result.map (Ingredient amount)
                 in
                 Result.map2
                     (AnyDict.insert processName)
@@ -302,37 +333,38 @@ addImpactsToProcesses impactsForProcesses dict =
             (Ok (AnyDict.empty processNameToString))
 
 
-decodeStep : ImpactsForProcesses -> Decoder Step
-decodeStep impactsForProcesses =
+decodeStep : Processes -> Decoder Step
+decodeStep processes =
     Decode.succeed Step
-        |> Pipe.optional "material" (decodeCategory impactsForProcesses) emptyProcesses
-        |> Pipe.optional "transport" (decodeCategory impactsForProcesses) emptyProcesses
-        |> Pipe.optional "waste treatment" (decodeCategory impactsForProcesses) emptyProcesses
-        |> Pipe.optional "energy" (decodeCategory impactsForProcesses) emptyProcesses
-        |> Pipe.optional "processing" (decodeCategory impactsForProcesses) emptyProcesses
+        |> Pipe.optional "material" (decodeCategory processes) emptyIngredients
+        |> Pipe.optional "transport" (decodeCategory processes) emptyIngredients
+        |> Pipe.optional "waste treatment" (decodeCategory processes) emptyIngredients
+        |> Pipe.optional "energy" (decodeCategory processes) emptyIngredients
+        |> Pipe.optional "processing" (decodeCategory processes) emptyIngredients
 
 
-decodeProduct : ImpactsForProcesses -> Decoder Product
-decodeProduct impactsForProcesses =
+decodeProduct : Processes -> Decoder Product
+decodeProduct processes =
     Decode.succeed Product
-        |> Pipe.required "consumer" (decodeStep impactsForProcesses)
-        |> Pipe.required "supermarket" (decodeStep impactsForProcesses)
-        |> Pipe.required "distribution" (decodeStep impactsForProcesses)
-        |> Pipe.required "packaging" (decodeStep impactsForProcesses)
-        |> Pipe.required "plant" (decodeStep impactsForProcesses)
+        |> Pipe.required "consumer" (decodeStep processes)
+        |> Pipe.required "supermarket" (decodeStep processes)
+        |> Pipe.required "distribution" (decodeStep processes)
+        |> Pipe.required "packaging" (decodeStep processes)
+        |> Pipe.required "plant" (decodeStep processes)
 
 
-decodeProducts : ImpactsForProcesses -> Decoder Products
-decodeProducts impactsForProcesses =
-    AnyDict.decode (\str _ -> ProductName str) productNameToString (decodeProduct impactsForProcesses)
+decodeProducts : Processes -> Decoder Products
+decodeProducts processes =
+    AnyDict.decode (\str _ -> ProductName str) productNameToString (decodeProduct processes)
 
 
 
 -- utilities
 
 
-stepToProcesses : Step -> Processes
-stepToProcesses step =
+stepToIngredients : Step -> Ingredients
+stepToIngredients step =
+    -- Return a "flat" dict of ingredients
     -- We can use AnyDict.union here because we should never have keys clashing between dicts
     step.material
         |> AnyDict.union step.transport
@@ -344,14 +376,14 @@ stepToProcesses step =
 getTotalImpact : Trigram -> Step -> Float
 getTotalImpact trigram step =
     step
-        |> stepToProcesses
+        |> stepToIngredients
         |> AnyDict.foldl
-            (\_ process total ->
+            (\_ ingredient total ->
                 let
                     impact =
-                        grabImpactFloat unusedFunctionalUnit unusedDuration trigram process
+                        grabImpactFloat unusedFunctionalUnit unusedDuration trigram ingredient.process
                 in
-                total + (process.amount * impact)
+                total + (ingredient.amount * impact)
             )
             0
 
@@ -371,23 +403,23 @@ getRawCookedRatioInfo product =
     -- TODO: HACK, we assume that the process "at plant" that is the heavier is the total
     -- "final" weight, versus the total weight of the raw ingredients. We only need this
     -- if there's some kind of process that "looses weight" in the process, and we assume this
-    -- process should be named ".... / FR U" (eg "Cooking, industrial, 1kg of cooked product/ FR U")
+    -- process is in the "processing" category.
     let
         totalIngredientsWeight =
             getTotalWeight product.plant
     in
     getWeightLosingUnitProcess product.plant
         |> Maybe.map
-            (\( processName, process ) ->
+            (\( processName, { amount } ) ->
                 { weightLossProcessName = processName
                 , rawCookedRatio =
-                    (process.amount / totalIngredientsWeight)
+                    (amount / totalIngredientsWeight)
                         |> Unit.Ratio
                 }
             )
 
 
-getWeightLosingUnitProcess : Step -> Maybe ( ProcessName, Process )
+getWeightLosingUnitProcess : Step -> Maybe ( ProcessName, Ingredient )
 getWeightLosingUnitProcess step =
     step.processing
         |> AnyDict.toList
@@ -400,6 +432,7 @@ getWeightLosingUnitProcess step =
 
 listIngredients : Products -> List String
 listIngredients products =
+    -- List all the "material" entries from the "at plant" step
     products
         |> AnyDict.values
         |> List.concatMap (.plant >> .material >> AnyDict.keys)
@@ -409,22 +442,22 @@ listIngredients products =
         |> List.sort
 
 
-addMaterial : Maybe RawCookedRatioInfo -> ImpactsForProcesses -> String -> Product -> Result String Product
-addMaterial maybeRawCookedRatioInfo impactsForProcesses ingredientName ({ plant } as product) =
+addMaterial : Maybe RawCookedRatioInfo -> Processes -> String -> Product -> Result String Product
+addMaterial maybeRawCookedRatioInfo processes ingredientName ({ plant } as product) =
     let
         processName =
             stringToProcessName ingredientName
     in
-    findImpactsByName processName impactsForProcesses
+    findProcessByName processName processes
         |> Result.map
-            (\impacts ->
+            (\process ->
                 let
                     amount =
                         1.0
 
                     withAddedIngredient =
                         { plant
-                            | material = AnyDict.insert processName (Process amount impacts) plant.material
+                            | material = AnyDict.insert processName (Ingredient amount process) plant.material
                         }
                             -- Update the total weight
                             |> updateWeight maybeRawCookedRatioInfo
@@ -448,8 +481,8 @@ removeMaterial maybeRawCookedRatioInfo processName ({ plant } as product) =
     }
 
 
-updateTransport : Processes -> ImpactsForProcesses -> List Impact.Definition -> Country.Code -> Distances -> Product -> Product
-updateTransport defaultTransport impactsForProcesses impactDefinitions countryCode distances ({ plant } as product) =
+updateTransport : Ingredients -> Processes -> List Impact.Definition -> Country.Code -> Distances -> Product -> Product
+updateTransport defaultTransport processes impactDefinitions countryCode distances ({ plant } as product) =
     let
         totalWeight =
             getTotalWeight plant
@@ -468,10 +501,10 @@ updateTransport defaultTransport impactsForProcesses impactDefinitions countryCo
         toTonKm km =
             Length.inKilometers km * totalWeight / 1000
 
-        findImpacts name =
-            impactsForProcesses
-                |> findImpactsByName name
-                |> Result.withDefault Impact.noImpacts
+        findProcess processName =
+            processes
+                |> AnyDict.get processName
+                |> Maybe.withDefault emptyProcess
 
         transports =
             [ ( lorryTransportName, .road )
@@ -481,8 +514,8 @@ updateTransport defaultTransport impactsForProcesses impactDefinitions countryCo
                 |> List.map
                     (\( name, prop ) ->
                         ( name
-                        , findImpacts name
-                            |> Process (toTonKm (prop transportWithRatio))
+                        , findProcess name
+                            |> Ingredient (toTonKm (prop transportWithRatio))
                         )
                     )
                 |> AnyDict.fromList processNameToString

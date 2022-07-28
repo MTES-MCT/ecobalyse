@@ -391,10 +391,10 @@ viewIngredients toString totalImpact impact step =
     step.material
         |> AnyDict.toList
         |> List.map
-            (\( name, process ) ->
+            (\( name, ingredient ) ->
                 let
                     bar =
-                        makeBar totalImpact impact name process
+                        makeBar totalImpact impact name ingredient
                 in
                 div [ class "card stacked-card" ]
                     [ div [ class "card-header" ] [ text <| Product.processNameToString name ]
@@ -438,17 +438,17 @@ type alias Bar =
     }
 
 
-makeBar : Float -> Impact.Trigram -> Product.ProcessName -> Product.Process -> Bar
-makeBar totalImpact trigram processName process =
+makeBar : Float -> Impact.Trigram -> Product.ProcessName -> Product.Ingredient -> Bar
+makeBar totalImpact trigram processName { amount, process } =
     let
         impact =
-            Impact.grabImpactFloat Unit.PerItem Product.unusedDuration trigram process * process.amount
+            Impact.grabImpactFloat Unit.PerItem Product.unusedDuration trigram process * amount
 
         percent =
             impact * toFloat 100 / totalImpact
     in
     { name = processName
-    , amount = Unit.Ratio process.amount
+    , amount = Unit.Ratio amount
     , impact = impact
     , width = clamp 0 100 percent
     , percent = percent
