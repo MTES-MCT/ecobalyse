@@ -84,7 +84,7 @@ update ({ foodDb, db } as session) msg ({ currentProductInfo } as model) =
             let
                 productWithAddedIngredient =
                     selected.product
-                        |> Product.addIngredient selected.rawCookedRatioInfo foodDb.processes model.selectedIngredient
+                        |> Product.addMaterial selected.rawCookedRatioInfo foodDb.processes model.selectedIngredient
 
                 productWithPefScore =
                     productWithAddedIngredient
@@ -128,7 +128,7 @@ update ({ foodDb, db } as session) msg ({ currentProductInfo } as model) =
             let
                 productWithoutIngredient =
                     selected.product
-                        |> Product.removeIngredient selected.rawCookedRatioInfo processName
+                        |> Product.removeMaterial selected.rawCookedRatioInfo processName
 
                 productWithPefScore =
                     productWithoutIngredient
@@ -298,11 +298,11 @@ view ({ foodDb, db } as session) { currentProductInfo, selectedProduct, impact, 
                                 ]
                             ]
                         ]
-                    , viewIngredients ratioToStringKg totalImpact impact product.plant
+                    , viewMaterial ratioToStringKg totalImpact impact product.plant
                     , div [ class "row py-3 gap-2 gap-sm-0" ]
                         [ div [ class "col-sm-10" ]
                             [ foodDb.products
-                                |> Product.filterIngredients
+                                |> Product.listIngredients
                                 |> ingredientSelector IngredientSelected
                             ]
                         , div [ class "col-sm-2" ]
@@ -314,6 +314,7 @@ view ({ foodDb, db } as session) { currentProductInfo, selectedProduct, impact, 
                                 [ text "Ajouter un ingrédient" ]
                             ]
                         ]
+                    , viewEnergy totalImpact impact product.plant
                     , viewProcessing totalImpact impact product.plant
                     , viewTransport totalWeight totalImpact impact product.plant selectedCountry db.countries
                     , viewWaste totalImpact impact product.plant
@@ -386,27 +387,26 @@ viewHeader header1 header2 children =
         text ""
 
 
-viewIngredients : (Unit.Ratio -> String) -> Float -> Impact.Trigram -> Product.Step -> Html Msg
-viewIngredients toString totalImpact impact step =
-    step.ingredients
+viewMaterial : (Unit.Ratio -> String) -> Float -> Impact.Trigram -> Product.Step -> Html Msg
+viewMaterial toString totalImpact impact step =
+    step.material
         |> AnyDict.toList
-        |> List.filter (\( processName, _ ) -> Product.isIngredient processName)
         |> List.map
-            (\( name, process ) ->
+            (\( name, ingredient ) ->
                 let
                     bar =
-                        makeBar totalImpact impact name process
+                        makeBar totalImpact impact name ingredient
                 in
                 div [ class "card stacked-card" ]
                     [ div [ class "card-header" ] [ text <| Product.processNameToString name ]
-                    , viewIngredient toString bar
+                    , viewProcess toString False bar
                     ]
             )
         |> viewHeader (text "Ingrédients") (text "Pourcentage de l'impact total")
 
 
-viewIngredient : (Unit.Ratio -> String) -> Bar -> Html Msg
-viewIngredient toString bar =
+viewProcess : (Unit.Ratio -> String) -> Bool -> Bar -> Html Msg
+viewProcess toString disabled bar =
     let
         name =
             bar.name |> Product.processNameToString
@@ -419,7 +419,7 @@ viewIngredient toString bar =
                 , update = IngredientSliderChanged bar.name
                 , value = bar.amount
                 , toString = toString
-                , disabled = not (Product.isIngredient bar.name)
+                , disabled = disabled
                 , min = 0
                 , max = 100
                 }
@@ -439,17 +439,17 @@ type alias Bar =
     }
 
 
-makeBar : Float -> Impact.Trigram -> Product.ProcessName -> Product.Process -> Bar
-makeBar totalImpact trigram processName process =
+makeBar : Float -> Impact.Trigram -> Product.ProcessName -> Product.Ingredient -> Bar
+makeBar totalImpact trigram processName { amount, process } =
     let
         impact =
-            Impact.grabImpactFloat Unit.PerItem Product.unusedDuration trigram process * process.amount
+            Impact.grabImpactFloat Unit.PerItem Product.unusedDuration trigram process * amount
 
         percent =
             impact * toFloat 100 / totalImpact
     in
     { name = processName
-    , amount = Unit.Ratio process.amount
+    , amount = Unit.Ratio amount
     , impact = impact
     , width = clamp 0 100 percent
     , percent = percent
@@ -485,11 +485,10 @@ ingredientSelector event =
         >> select [ class "form-select", onInput event ]
 
 
-viewProcessing : Float -> Impact.Trigram -> Product.Step -> Html Msg
-viewProcessing totalImpact impact step =
-    step.processing
+viewEnergy : Float -> Impact.Trigram -> Product.Step -> Html Msg
+viewEnergy totalImpact impact step =
+    step.energy
         |> AnyDict.toList
-        |> List.filter (\( processName, _ ) -> Product.isProcessing processName)
         |> List.map
             (\( name, process ) ->
                 let
@@ -498,7 +497,25 @@ viewProcessing totalImpact impact step =
                 in
                 div [ class "card stacked-card" ]
                     [ div [ class "card-header" ] [ text <| Product.processNameToString name ]
-                    , viewIngredient ratioToStringKg bar
+                    , viewProcess ratioToStringKg True bar
+                    ]
+            )
+        |> viewHeader (text "Énergie") (text "Pourcentage de l'impact total")
+
+
+viewProcessing : Float -> Impact.Trigram -> Product.Step -> Html Msg
+viewProcessing totalImpact impact step =
+    step.processing
+        |> AnyDict.toList
+        |> List.map
+            (\( name, process ) ->
+                let
+                    bar =
+                        makeBar totalImpact impact name process
+                in
+                div [ class "card stacked-card" ]
+                    [ div [ class "card-header" ] [ text <| Product.processNameToString name ]
+                    , viewProcess ratioToStringKg True bar
                     ]
             )
         |> viewHeader (text "Procédé") (text "Pourcentage de l'impact total")
@@ -524,7 +541,6 @@ viewTransport totalWeight totalImpact impact step selectedCountry countries =
     div []
         [ step.transport
             |> AnyDict.toList
-            |> List.filter (\( processName, _ ) -> Product.isTransport processName)
             |> List.map
                 (\( name, process ) ->
                     let
@@ -533,7 +549,7 @@ viewTransport totalWeight totalImpact impact step selectedCountry countries =
                     in
                     div [ class "card stacked-card" ]
                         [ div [ class "card-header" ] [ text <| Product.processNameToString name ]
-                        , viewIngredient (ratioToStringKgKm totalWeight) bar
+                        , viewProcess (ratioToStringKgKm totalWeight) True bar
                         ]
                 )
             |> viewHeader header (text "Pourcentage de l'impact total")
@@ -542,9 +558,8 @@ viewTransport totalWeight totalImpact impact step selectedCountry countries =
 
 viewWaste : Float -> Impact.Trigram -> Product.Step -> Html Msg
 viewWaste totalImpact impact step =
-    step.waste
+    step.wasteTreatment
         |> AnyDict.toList
-        |> List.filter (\( processName, _ ) -> Product.isWaste processName)
         |> List.map
             (\( name, process ) ->
                 let
@@ -553,7 +568,7 @@ viewWaste totalImpact impact step =
                 in
                 div [ class "card stacked-card" ]
                     [ div [ class "card-header" ] [ text <| Product.processNameToString name ]
-                    , viewIngredient ratioToStringKg bar
+                    , viewProcess ratioToStringKg True bar
                     ]
             )
         |> viewHeader (text "Déchets") (text "Pourcentage de l'impact total")
