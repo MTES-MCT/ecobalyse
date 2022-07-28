@@ -298,7 +298,7 @@ view ({ foodDb, db } as session) { currentProductInfo, selectedProduct, impact, 
                                 ]
                             ]
                         ]
-                    , viewIngredients ratioToStringKg totalImpact impact product.plant
+                    , viewMaterial ratioToStringKg totalImpact impact product.plant
                     , div [ class "row py-3 gap-2 gap-sm-0" ]
                         [ div [ class "col-sm-10" ]
                             [ foodDb.products
@@ -314,6 +314,7 @@ view ({ foodDb, db } as session) { currentProductInfo, selectedProduct, impact, 
                                 [ text "Ajouter un ingrédient" ]
                             ]
                         ]
+                    , viewEnergy totalImpact impact product.plant
                     , viewProcessing totalImpact impact product.plant
                     , viewTransport totalWeight totalImpact impact product.plant selectedCountry db.countries
                     , viewWaste totalImpact impact product.plant
@@ -386,8 +387,8 @@ viewHeader header1 header2 children =
         text ""
 
 
-viewIngredients : (Unit.Ratio -> String) -> Float -> Impact.Trigram -> Product.Step -> Html Msg
-viewIngredients toString totalImpact impact step =
+viewMaterial : (Unit.Ratio -> String) -> Float -> Impact.Trigram -> Product.Step -> Html Msg
+viewMaterial toString totalImpact impact step =
     step.material
         |> AnyDict.toList
         |> List.map
@@ -482,6 +483,24 @@ ingredientSelector event =
     List.map (\processName -> option [ value processName ] [ text processName ])
         >> (++) [ option [] [ text "-- Sélectionner un ingrédient dans la liste --" ] ]
         >> select [ class "form-select", onInput event ]
+
+
+viewEnergy : Float -> Impact.Trigram -> Product.Step -> Html Msg
+viewEnergy totalImpact impact step =
+    step.energy
+        |> AnyDict.toList
+        |> List.map
+            (\( name, process ) ->
+                let
+                    bar =
+                        makeBar totalImpact impact name process
+                in
+                div [ class "card stacked-card" ]
+                    [ div [ class "card-header" ] [ text <| Product.processNameToString name ]
+                    , viewProcess ratioToStringKg True bar
+                    ]
+            )
+        |> viewHeader (text "Énergie") (text "Pourcentage de l'impact total")
 
 
 viewProcessing : Float -> Impact.Trigram -> Product.Step -> Html Msg
