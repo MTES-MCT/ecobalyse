@@ -290,15 +290,22 @@ view ({ foodDb, db } as session) { currentProductInfo, selectedProduct, impact, 
                                 }
                             ]
                         , div [ class "col-lg-6" ]
-                            [ h1 []
-                                [ impactPerKg
+                            [ div []
+                                [ text "Impact normalisé : "
+                                , impactPerKg
                                     |> Format.formatImpactFloat definition
                                 , span [ class "fs-unit" ]
                                     [ text "/kg de produit"
-                                    , text " (total : "
-                                    , Format.formatImpactFloat definition totalImpact
-                                    , text ")"
                                     ]
+                                , br [] []
+                                , text "Impact total : "
+                                , Format.formatImpactFloat definition totalImpact
+                                , text " (Poids total : "
+                                , totalWeight
+                                    |> Format.formatFloat 3
+                                    |> text
+                                , text "kg"
+                                , text ")"
                                 ]
                             ]
                         ]
@@ -322,21 +329,12 @@ view ({ foodDb, db } as session) { currentProductInfo, selectedProduct, impact, 
                     , viewProcessing totalImpact impact definition product.plant
                     , viewTransport totalWeight totalImpact impact definition product.plant selectedCountry db.countries
                     , viewWaste totalImpact impact definition product.plant
-                    , div [ class "row py-3 gap-2 gap-sm-0" ]
-                        [ div [ class "col-sm-10 fw-bold" ]
-                            [ text "Poids total avant perte (cuisson, invendus...) : "
-                            , totalWeight
-                                |> Format.formatFloat 3
-                                |> text
-                            , text "kg"
+                    , div [ class "py-3 col-sm-2" ]
+                        [ button
+                            [ class "btn btn-primary w-100"
+                            , onClick Reset
                             ]
-                        , div [ class "col-sm-2" ]
-                            [ button
-                                [ class "btn btn-primary w-100"
-                                , onClick Reset
-                                ]
-                                [ text "Réinitialiser" ]
-                            ]
+                            [ text "Réinitialiser" ]
                         ]
                     ]
 
