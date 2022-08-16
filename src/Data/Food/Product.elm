@@ -73,11 +73,10 @@ planeTransportName =
     ProcessName "Transport, freight, aircraft {RER}| intercontinental | Cut-off, S - Copied from Ecoinvent"
 
 
-
----- Process
----- A process is an entry from public/data/food/processes.json. It has impacts and various other data like categories, code, unit...
-
-
+{-| Process
+A process is an entry from public/data/food/processes.json. It has impacts and
+various other data like categories, code, unit...
+-}
 type ProcessName
     = ProcessName String
 
@@ -156,14 +155,12 @@ decodeProcesses definitions =
     AnyDict.decode (\str _ -> ProcessName str) processNameToString (decodeProcess definitions)
 
 
-
----- Ingredient
----- An ingredient is one entry from one category (transport, material, processing...)
----- from one step (consumer, packaging, plant...)
----- from one product from public/data/products.json
----- It links a Process to an amount for this process (quantity of a vegetable, transport distance, ...)
-
-
+{-| Ingredient
+An ingredient is one entry from one category (transport, material, processing...)
+from one step (consumer, packaging, plant...)
+from one product from public/data/products.json
+It links a Process to an amount for this process (quantity of a vegetable, transport distance, ...)
+-}
 type alias Amount =
     Float
 
@@ -209,12 +206,10 @@ computeIngredientPefImpact definitions ingredients =
             )
 
 
-
----- Step
----- A step (at consumer, at plant...) has several categories (material, transport...) containing several ingredients
----- A Product is composed of several steps.
-
-
+{-| Step
+A step (at consumer, at plant...) has several categories (material, transport...) containing several ingredients
+A Product is composed of several steps.
+-}
 type alias Step =
     { material : Ingredients
     , transport : Ingredients
