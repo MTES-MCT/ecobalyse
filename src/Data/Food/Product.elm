@@ -91,9 +91,13 @@ processNameToString (ProcessName name) =
     name
 
 
+type CiqualCode
+    = CiqualCode Int
+
+
 type alias Process =
     { impacts : Impacts
-    , ciqualCode : Maybe Int
+    , ciqualCode : Maybe CiqualCode
     , step : Maybe String
     , dqr : Maybe Float
     , emptyProcess : Bool
@@ -139,7 +143,7 @@ decodeProcess : List Definition -> Decoder Process
 decodeProcess definitions =
     Decode.succeed Process
         |> Pipe.required "impacts" (Impact.decodeImpacts definitions)
-        |> Pipe.required "ciqual_code" (Decode.nullable Decode.int)
+        |> Pipe.required "ciqual_code" (Decode.nullable (Decode.map CiqualCode Decode.int))
         |> Pipe.required "step" (Decode.nullable Decode.string)
         |> Pipe.required "dqr" (Decode.nullable Decode.float)
         |> Pipe.required "empty_process" Decode.bool
