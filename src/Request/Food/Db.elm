@@ -1,7 +1,7 @@
 module Request.Food.Db exposing (loadDb)
 
 import Data.Food.Db exposing (Db)
-import Data.Food.Product as Product exposing (ImpactsForProcesses, Products)
+import Data.Food.Product as Product exposing (Processes, Products)
 import Data.Impact as Impact
 import Data.Session exposing (Session)
 import Json.Decode exposing (Decoder)
@@ -22,7 +22,7 @@ getJson decoder file =
     Http.getTaskWithConfig taskConfig ("data/" ++ file) decoder
 
 
-handleProductsLoaded : List Impact.Definition -> ImpactsForProcesses -> WebData Products -> Task () (WebData Db)
+handleProductsLoaded : List Impact.Definition -> Processes -> WebData Products -> Task () (WebData Db)
 handleProductsLoaded impacts processes productsData =
     case productsData of
         RemoteData.Success products ->
@@ -38,9 +38,9 @@ handleProductsLoaded impacts processes productsData =
             Task.succeed RemoteData.Loading
 
 
-handleProcessesLoaded : List Impact.Definition -> WebData ImpactsForProcesses -> Task () (WebData Db)
-handleProcessesLoaded impacts impactsForProcessesData =
-    case impactsForProcessesData of
+handleProcessesLoaded : List Impact.Definition -> WebData Processes -> Task () (WebData Db)
+handleProcessesLoaded impacts processesData =
+    case processesData of
         RemoteData.Success processes ->
             getJson (Product.decodeProducts processes) "food/products.json"
                 |> Task.andThen (handleProductsLoaded impacts processes)
