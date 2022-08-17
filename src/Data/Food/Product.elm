@@ -417,12 +417,24 @@ getTotalImpact trigram step =
 
 getTotalWeight : Step -> Float
 getTotalWeight step =
-    step.material
-        |> AnyDict.foldl
-            (\_ { amount } total ->
-                total + amount
-            )
-            0
+    let
+        totalWeight =
+            step.material
+                |> AnyDict.foldl
+                    (\_ { amount } total ->
+                        total + amount
+                    )
+                    0
+    in
+    if totalWeight == 0 then
+        -- There may be no materials (for some products, there's only a processing step)
+        -- in which case fall back to taking the "heaviest" processing step
+        getWeightLosingUnitProcess step
+            |> Maybe.map (Tuple.second >> .amount)
+            |> Maybe.withDefault 0
+
+    else
+        totalWeight
 
 
 getRawCookedRatioInfo : Product -> Maybe RawCookedRatioInfo
