@@ -4,6 +4,7 @@
 """Export des produits avec code CIQUAL d'une base Agribalyse"""
 
 import json
+
 import pandas as pd
 import brightway2 as bw
 from brightway2 import *
@@ -100,7 +101,7 @@ def fill_processes(processes, activity, exchange):
         "System description"
     ]
     processes[activity]["category_tags"] = exchange._data["categories"]
-
+    processes[activity]["comment"] = exchange._data["comment"]
     processes[activity]["impacts"] = {}
 
 
@@ -154,9 +155,20 @@ def build_product_tree(ciqual_products, max_products=None):
                     products[product_name][step][exchange_category] = {}
                     categories.add(exchange_category)
 
-                products[product_name][step][exchange_category][exchange_name] = (
-                    exchange["amount"] * amount
-                )
+                # In some cases there is multiple time the same exchange with different amount
+                # in that cases, we add the amount to the previous one
+                if (
+                    exchange_name
+                    in products[product_name][step][exchange_category].keys()
+                ):
+                    products[product_name][step][exchange_category][exchange_name] = (
+                        products[product_name][step][exchange_category][exchange_name]
+                        + exchange["amount"] * amount
+                    )
+                else:
+                    products[product_name][step][exchange_category][exchange_name] = (
+                        exchange["amount"] * amount
+                    )
 
             # If we're at the last step, no need to drill down further
             if step == "plant":
@@ -215,25 +227,22 @@ def compute_impacts(processes, lcas):
     return processes_output
 
 
-def export_products_as_json(products, filename):
+def export_json(content, filename):
     with open(filename, "w") as outfile:
-        json.dump(products, outfile, indent=2)
-
-
-def export_processes_as_json(processes, filename):
-    with open(filename, "w") as outfile:
-        json.dump(processes, outfile, indent=2)
+        json.dump(content, outfile, indent=2)
 
 
 path = "../Agribalyse_Synthese.csv"
+path = "/Users/paulboosz/src/ecobalyse-data/brightway/Agribalyse_Synthese.csv"
 if __name__ == "__main__":
     agb = open_db("agribalyse3")
     ciqual_codes = get_ciqual_codes(path)
     ciqual_products = get_ciqual_products(ciqual_codes)
+
     print(f"Loaded {len(ciqual_products)} products")
 
     print("Building product tree")
-    (products, processes) = build_product_tree(ciqual_products)
+    (products, processes) = build_product_tree(ciqual_products[-20:])
 
     print(f"{len(products)} produits")
     print(f"{len(processes.keys())} processus")
@@ -245,6 +254,5 @@ if __name__ == "__main__":
 
     print("Nombre de produits importés:", len(products))
     print("Nombre de processus importés:", len(processes))
-
-    export_products_as_json(products, "products.json")
-    export_processes_as_json(processes, "processes.json")
+    export_json(products, "products.json")
+    export_json(processes, "processes.json")
