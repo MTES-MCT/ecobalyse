@@ -101,7 +101,6 @@ def fill_processes(processes, activity, exchange):
         "System description"
     ]
     processes[activity]["category_tags"] = exchange._data["categories"]
-    processes[activity]["comment"] = exchange._data["comment"]
     processes[activity]["impacts"] = {}
 
 
@@ -155,8 +154,8 @@ def build_product_tree(ciqual_products, max_products=None):
                     products[product_name][step][exchange_category] = {}
                     categories.add(exchange_category)
 
-                # In some cases there is multiple time the same exchange with different amount
-                # in that cases, we add the amount to the previous one
+                # In some cases the same exchange is present multiple times with different amounts.
+                # In those cases, we add the amount to the previous one.
                 if (
                     exchange_name
                     in products[product_name][step][exchange_category].keys()
@@ -233,16 +232,18 @@ def export_json(content, filename):
 
 
 path = "../Agribalyse_Synthese.csv"
-path = "/Users/paulboosz/src/ecobalyse-data/brightway/Agribalyse_Synthese.csv"
 if __name__ == "__main__":
-    agb = open_db("agribalyse3")
+    print(f"Get ciqual codes from {path}")
     ciqual_codes = get_ciqual_codes(path)
+    print("Open the agribalyse3 brightway database")
+    agb = open_db("agribalyse3")
+    print("Search for the ciqual products in the brightway database")
     ciqual_products = get_ciqual_products(ciqual_codes)
 
     print(f"Loaded {len(ciqual_products)} products")
 
     print("Building product tree")
-    (products, processes) = build_product_tree(ciqual_products[-20:])
+    (products, processes) = build_product_tree(ciqual_products)
 
     print(f"{len(products)} produits")
     print(f"{len(processes.keys())} processus")
