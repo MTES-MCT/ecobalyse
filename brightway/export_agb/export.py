@@ -156,6 +156,8 @@ def build_product_tree(ciqual_products, max_products=None):
 
                 # In some cases the same exchange is present multiple times with different amounts.
                 # In those cases, we add the amount to the previous one.
+                # TODO Fix this, we want to display each exchange separately ** even if it's the same exchange **
+                # As the exchange can be the same but the comment can be different (see banane plantain on Notion)
                 if (
                     exchange_name
                     in products[product_name][step][exchange_category].keys()
