@@ -233,8 +233,11 @@ def export_json(content, filename):
 
 path = "../Agribalyse_Synthese.csv"
 if __name__ == "__main__":
-    agb = open_db("agribalyse3")
+    print(f"Get ciqual codes from {path}")
     ciqual_codes = get_ciqual_codes(path)
+    print("Open the agribalyse3 brightway database")
+    agb = open_db("agribalyse3")
+    print("Search for the ciqual products in the brightway database") 
     ciqual_products = get_ciqual_products(ciqual_codes)
 
     print(f"Loaded {len(ciqual_products)} products")

@@ -28,11 +28,15 @@ automatiquement (très pratique !).
 
 Pour le faire manuellement :
 
-- suivre la [procédure d'installation](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html)
-- créer un environnement virtuel avec toutes les dépendences requises
-  $ conda env create -f brightway/environment.yml
-- activer l'environnement virtuel
-  $ conda activate env
+Suivre la [procédure d'installation](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html).
+
+Créer un environnement virtuel avec toutes les dépendences requises :
+
+    $ conda env create -f brightway/environment.yml
+
+Activer l'environnement virtuel :
+
+    $ conda activate env
 
 ## Importer la base agribalyse dans brightway
 
