@@ -107,6 +107,7 @@ def fill_processes(processes, activity, exchange):
 def build_product_tree(ciqual_products, max_products=None):
     products = {}
     processes = defaultdict(dict)
+    num_ciqual_products = len(ciqual_products)
 
     # Iterate on all products
     for index, product in enumerate(ciqual_products):
@@ -175,7 +176,7 @@ def build_product_tree(ciqual_products, max_products=None):
                 continue
 
         if index % 10 == 0:
-            print(f"{round(index * 100 / len(ciqual_products))}%", end="\r")
+            print(f"{round(index * 100 / num_ciqual_products)}%", end="\r")
 
         if max_products is not None and index >= max_products:
             print(f"\nStopped after importing {max_products} products")
@@ -201,6 +202,8 @@ def compute_impacts(processes, lcas):
     processes_output = defaultdict(dict)
     impacts_dic = defaultdict(dict)
     i = 0
+    num_processes = len(processes)
+    print(f"computing the impacts for the {num_processes} processes")
     for process, value in processes.items():
         # print(f">>>> Computing impacts for process {process}")
         for (impact, _method) in impacts.items():
@@ -210,9 +213,9 @@ def compute_impacts(processes, lcas):
             lca.redo_lcia(demand)
             processes_output[process["name"]] = value
             processes_output[process["name"]]["impacts"][impact] = lca.score
-            i += 1
+        i += 1
         if i % 10 == 0:
-            print(f"{round(i * 100 / len(processes.keys()))}%", end="\r")
+            print(f"{round(i * 100 / num_processes)}%", end="\r")
     print("100%")
 
     return processes_output
