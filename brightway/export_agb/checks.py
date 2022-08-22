@@ -85,11 +85,11 @@ def check_impact_diff(products, processes):
         process = diff_impact[key]
         consumer = product["consumer"]
 
-        for ingredient, ingredient_data in processes_for_step(consumer):
+        for ingredient in processes_for_step(consumer):
+            processName = ingredient["processName"]
             for impact in process["impacts"].keys():
                 process["impacts"][impact] -= (
-                    diff_impact[ingredient]["impacts"][impact]
-                    * ingredient_data["amount"]
+                    diff_impact[processName]["impacts"][impact] * ingredient["amount"]
                 )
 
         for impact in process["impacts"].keys():
