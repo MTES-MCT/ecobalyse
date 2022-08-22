@@ -24,6 +24,7 @@ import Views.CountrySelect
 import Views.Format as Format
 import Views.Impact exposing (impactSelector)
 import Views.RangeSlider as RangeSlider
+import Views.Spinner as Spinner
 
 
 type alias CurrentProductInfo =
@@ -339,7 +340,7 @@ view ({ foodDb, db } as session) { currentProductInfo, selectedProduct, impact, 
                     ]
 
                 _ ->
-                    [ text "Loading" ]
+                    [ Spinner.view ]
             )
       ]
     )
