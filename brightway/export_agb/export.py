@@ -123,7 +123,6 @@ def build_product_tree(ciqual_products, max_products=None):
         for step in ["consumer", "supermarket", "distribution", "packaging", "plant"]:
             products[product_name][step] = {}
             next_central_exchange = None
-            categories = set()
             # Iterate on all technosphere exchanges (we ignore biosphere exchanges)
             for exchange in current_central_activity.technosphere():
                 next_activity = exchange.input
@@ -150,26 +149,17 @@ def build_product_tree(ciqual_products, max_products=None):
                 exchange_category = next_activity._data["simapro metadata"][
                     "Category type"
                 ]
-                if exchange_category not in categories:
-                    products[product_name][step][exchange_category] = {}
-                    categories.add(exchange_category)
-
-                # In some cases the same exchange is present multiple times with different amounts.
-                # In those cases, we add the amount to the previous one.
-                # TODO Fix this, we want to display each exchange separately ** even if it's the same exchange **
-                # As the exchange can be the same but the comment can be different (see banane plantain on Notion)
-                if (
-                    exchange_name
-                    in products[product_name][step][exchange_category].keys()
-                ):
-                    products[product_name][step][exchange_category][exchange_name] = (
-                        products[product_name][step][exchange_category][exchange_name]
-                        + exchange["amount"] * amount
+                category_data = products[product_name][step].get(exchange_category, [])
+                category_data.append(
+                    (
+                        exchange_name,
+                        {
+                            "comment": exchange._data["comment"],
+                            "amount": exchange["amount"] * amount,
+                        },
                     )
-                else:
-                    products[product_name][step][exchange_category][exchange_name] = (
-                        exchange["amount"] * amount
-                    )
+                )
+                products[product_name][step][exchange_category] = category_data
 
             # If we're at the last step, no need to drill down further
             if step == "plant":
@@ -212,7 +202,7 @@ def compute_impacts(processes, lcas):
     impacts_dic = defaultdict(dict)
     i = 0
     for process, value in processes.items():
-        print(f">>>> Computing impacts for process {process}")
+        # print(f">>>> Computing impacts for process {process}")
         for (impact, _method) in impacts.items():
             lca = lcas[impact]
 

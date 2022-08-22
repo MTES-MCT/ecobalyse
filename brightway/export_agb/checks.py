@@ -48,7 +48,7 @@ def check_ciqual_impacts(processes, synthese_filename):
             ciqual_code = row["Code CIQUAL"]
             for (impact, (trigram, multiplier)) in impacts_to_synthese.items():
                 impact_a = float(row[impact]) * multiplier
-                impact_b = processes_to_ciqual[ciqual_code][trigram]
+                impact_b = processes_to_ciqual[ciqual_code]["impacts"][trigram]
                 diff = get_diff(impact_a, impact_b)
                 if diff:
                     count += 1
@@ -67,6 +67,14 @@ def get_diff(impact_a, impact_b):
         return diff
 
 
+def processes_for_step(step):
+    """Liste de tous les process d'une étape."""
+    processes = []
+    for category_processes in step.values():
+        processes += category_processes
+    return processes
+
+
 def check_impact_diff(products, processes):
     """Différence entre les impacts globaux et la somme des sous-impacts menant à l'étape consommation."""
     diff_impact = copy.deepcopy(processes)
@@ -77,13 +85,16 @@ def check_impact_diff(products, processes):
         process = diff_impact[key]
         consumer = product["consumer"]
 
-        for ingredient, amount in consumer.items():
-            for impact in process.keys():
-                process[impact] -= diff_impact[ingredient][impact] * amount
+        for ingredient, ingredient_data in processes_for_step(consumer):
+            for impact in process["impacts"].keys():
+                process["impacts"][impact] -= (
+                    diff_impact[ingredient]["impacts"][impact]
+                    * ingredient_data["amount"]
+                )
 
-        for impact in process.keys():
-            diff = process[impact]
-            global_ = processes[key][impact]
+        for impact in process["impacts"].keys():
+            diff = process["impacts"][impact]
+            global_ = processes[key]["impacts"][impact]
             sum_impacts = global_ - diff
             abs_max = abs(max(sum_impacts, global_))
             percentage = diff * 100 / abs_max
