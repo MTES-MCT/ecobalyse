@@ -152,13 +152,11 @@ def build_product_tree(ciqual_products, max_products=None):
                 ]
                 category_data = products[product_name][step].get(exchange_category, [])
                 category_data.append(
-                    (
-                        exchange_name,
-                        {
-                            "comment": exchange._data["comment"],
-                            "amount": exchange["amount"] * amount,
-                        },
-                    )
+                    {
+                        "processName": exchange_name,
+                        "comment": exchange._data["comment"],
+                        "amount": exchange["amount"] * amount,
+                    },
                 )
                 products[product_name][step][exchange_category] = category_data
 
