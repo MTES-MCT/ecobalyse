@@ -38,6 +38,7 @@ import Data.Unit as Unit
 import Dict.Any as AnyDict exposing (AnyDict)
 import Duration exposing (Duration)
 import Json.Decode as Decode exposing (Decoder)
+import Json.Decode.Extra as DE
 import Json.Decode.Pipeline as Pipe
 import Length
 import Set
@@ -92,7 +93,8 @@ processNameToString (ProcessName name) =
 
 
 type alias Process =
-    { impacts : Impacts
+    { name : ProcessName
+    , impacts : Impacts
     , ciqualCode : Maybe Int
     , step : Maybe String
     , dqr : Maybe Float
@@ -107,7 +109,8 @@ type alias Process =
 
 emptyProcess : Process
 emptyProcess =
-    { impacts = Impact.noImpacts
+    { name = stringToProcessName "empty process"
+    , impacts = Impact.noImpacts
     , ciqualCode = Nothing
     , step = Nothing
     , dqr = Nothing
@@ -138,6 +141,7 @@ findProcessByName ((ProcessName name) as procName) =
 decodeProcess : List Definition -> Decoder Process
 decodeProcess definitions =
     Decode.succeed Process
+        |> Pipe.hardcoded (stringToProcessName "to be defined")
         |> Pipe.required "impacts" (Impact.decodeImpacts definitions)
         |> Pipe.required "ciqual_code" (Decode.nullable Decode.int)
         |> Pipe.required "step" (Decode.nullable Decode.string)
@@ -153,6 +157,12 @@ decodeProcess definitions =
 decodeProcesses : List Definition -> Decoder Processes
 decodeProcesses definitions =
     AnyDict.decode (\str _ -> ProcessName str) processNameToString (decodeProcess definitions)
+        |> Decode.map
+            (AnyDict.map
+                (\processName process ->
+                    { process | name = processName }
+                )
+            )
 
 
 {-| Ingredient
@@ -167,17 +177,18 @@ type alias Amount =
 
 type alias Ingredient =
     { amount : Amount
+    , comment : String
     , process : Process
     }
 
 
 type alias Ingredients =
-    AnyDict String ProcessName Ingredient
+    List Ingredient
 
 
 emptyIngredients : Ingredients
 emptyIngredients =
-    AnyDict.empty processNameToString
+    []
 
 
 updateIngredientAmount : Amount -> Ingredient -> Ingredient
@@ -185,17 +196,24 @@ updateIngredientAmount amount ingredient =
     { ingredient | amount = amount }
 
 
-updateIngredient : ProcessName -> (Ingredient -> Ingredient) -> Ingredients -> Ingredients
-updateIngredient processName updateFunc ingredients =
+updateIngredient : Ingredient -> (Ingredient -> Ingredient) -> Ingredients -> Ingredients
+updateIngredient ingredientToUpdate updateFunc ingredients =
     ingredients
-        |> AnyDict.update processName (Maybe.map updateFunc)
+        |> List.map
+            (\ingredient ->
+                if ingredient == ingredientToUpdate then
+                    updateFunc ingredient
+
+                else
+                    ingredient
+            )
 
 
 computeIngredientPefImpact : List Definition -> Ingredients -> Ingredients
 computeIngredientPefImpact definitions ingredients =
     ingredients
-        |> AnyDict.map
-            (\_ ({ process } as ingredient) ->
+        |> List.map
+            (\({ process } as ingredient) ->
                 { ingredient
                     | process =
                         { process
@@ -252,7 +270,7 @@ emptyProducts =
 
 
 type alias RawCookedRatioInfo =
-    { weightLossProcessName : ProcessName
+    { weightLossProcess : Ingredient
     , rawCookedRatio : Unit.Ratio
     }
 
@@ -284,10 +302,10 @@ updateStep updateFunc step =
     }
 
 
-updateAmount : Maybe RawCookedRatioInfo -> ProcessName -> Amount -> Step -> Step
-updateAmount maybeRawCookedRatioInfo processName newAmount step =
+updateAmount : Maybe RawCookedRatioInfo -> Ingredient -> Amount -> Step -> Step
+updateAmount maybeRawCookedRatioInfo ingredient newAmount step =
     step
-        |> updateStep (updateIngredient processName (updateIngredientAmount newAmount))
+        |> updateStep (updateIngredient ingredient (updateIngredientAmount newAmount))
         |> updateWeight maybeRawCookedRatioInfo
 
 
@@ -297,7 +315,7 @@ updateWeight maybeRawCookedRatioInfo step =
         Nothing ->
             step
 
-        Just { weightLossProcessName, rawCookedRatio } ->
+        Just { weightLossProcess, rawCookedRatio } ->
             let
                 updatedRawWeight =
                     getTotalWeight step
@@ -308,7 +326,7 @@ updateWeight maybeRawCookedRatioInfo step =
                         |> (*) updatedRawWeight
             in
             updateStep
-                (updateIngredient weightLossProcessName (updateIngredientAmount updatedWeight))
+                (updateIngredient weightLossProcess (updateIngredientAmount updatedWeight))
                 step
 
 
@@ -323,41 +341,29 @@ decodeAmount =
     Decode.float
 
 
+linkProcess : Processes -> Decoder Process
+linkProcess processes =
+    Decode.string
+        |> Decode.andThen
+            (\name ->
+                name
+                    |> stringToProcessName
+                    |> (\processName -> findProcessByName processName processes)
+                    |> DE.fromResult
+            )
+
+
+decodeIngredient : Processes -> Decoder Ingredient
+decodeIngredient processes =
+    Decode.succeed Ingredient
+        |> Pipe.required "amount" decodeAmount
+        |> Pipe.required "comment" Decode.string
+        |> Pipe.required "processName" (linkProcess processes)
+
+
 decodeCategory : Processes -> Decoder Ingredients
 decodeCategory processes =
-    AnyDict.decode (\str _ -> stringToProcessName str) processNameToString decodeAmount
-        |> Decode.andThen
-            (\dict ->
-                let
-                    ingredientsResult =
-                        toIngredients processes dict
-                in
-                case ingredientsResult of
-                    Ok ingredients ->
-                        Decode.succeed ingredients
-
-                    Err error ->
-                        Decode.fail error
-            )
-
-
-toIngredients : Processes -> AnyDict String ProcessName Float -> Result String Ingredients
-toIngredients processes dict =
-    dict
-        |> AnyDict.foldl
-            (\processName amount processesResult ->
-                let
-                    processResult =
-                        processes
-                            |> findProcessByName processName
-                            |> Result.map (Ingredient amount)
-                in
-                Result.map2
-                    (AnyDict.insert processName)
-                    processResult
-                    processesResult
-            )
-            (Ok (AnyDict.empty processNameToString))
+    Decode.list (decodeIngredient processes)
 
 
 decodeStep : Processes -> Decoder Step
@@ -391,21 +397,17 @@ decodeProducts processes =
 
 stepToIngredients : Step -> Ingredients
 stepToIngredients step =
-    -- Return a "flat" dict of ingredients
-    -- We can use AnyDict.union here because we should never have keys clashing between dicts
-    step.material
-        |> AnyDict.union step.transport
-        |> AnyDict.union step.wasteTreatment
-        |> AnyDict.union step.energy
-        |> AnyDict.union step.processing
+    -- Return a "flat" list of ingredients
+    [ .transport, .wasteTreatment, .energy, .processing ]
+        |> List.concatMap (\accessor -> accessor step)
 
 
 getTotalImpact : Trigram -> Step -> Float
 getTotalImpact trigram step =
     step
         |> stepToIngredients
-        |> AnyDict.foldl
-            (\_ ingredient total ->
+        |> List.foldl
+            (\ingredient total ->
                 let
                     impact =
                         grabImpactFloat unusedFunctionalUnit unusedDuration trigram ingredient.process
@@ -420,8 +422,8 @@ getTotalWeight step =
     let
         totalWeight =
             step.material
-                |> AnyDict.foldl
-                    (\_ { amount } total ->
+                |> List.foldl
+                    (\{ amount } total ->
                         total + amount
                     )
                     0
@@ -430,7 +432,7 @@ getTotalWeight step =
         -- There may be no materials (for some products, there's only a processing step)
         -- in which case fall back to taking the "heaviest" processing step
         getWeightLosingUnitProcess step
-            |> Maybe.map (Tuple.second >> .amount)
+            |> Maybe.map .amount
             |> Maybe.withDefault 0
 
     else
@@ -449,8 +451,8 @@ getRawCookedRatioInfo product =
     in
     getWeightLosingUnitProcess product.plant
         |> Maybe.map
-            (\( processName, { amount } ) ->
-                { weightLossProcessName = processName
+            (\({ amount } as ingredient) ->
+                { weightLossProcess = ingredient
                 , rawCookedRatio =
                     (amount / totalIngredientsWeight)
                         |> Unit.Ratio
@@ -458,12 +460,11 @@ getRawCookedRatioInfo product =
             )
 
 
-getWeightLosingUnitProcess : Step -> Maybe ( ProcessName, Ingredient )
+getWeightLosingUnitProcess : Step -> Maybe Ingredient
 getWeightLosingUnitProcess step =
     step.processing
-        |> AnyDict.toList
         -- Sort by heavier to lighter
-        |> List.sortBy (Tuple.second >> .amount)
+        |> List.sortBy .amount
         |> List.reverse
         -- Take the heaviest
         |> List.head
@@ -474,7 +475,7 @@ listIngredients products =
     -- List all the "material" entries from the "at plant" step
     products
         |> AnyDict.values
-        |> List.concatMap (.plant >> .material >> AnyDict.keys)
+        |> List.concatMap (.plant >> .material >> List.map (.process >> .name))
         |> List.map processNameToString
         |> Set.fromList
         |> Set.toList
@@ -496,7 +497,7 @@ addMaterial maybeRawCookedRatioInfo processes ingredientName ({ plant } as produ
 
                     withAddedIngredient =
                         { plant
-                            | material = AnyDict.insert processName (Ingredient amount process) plant.material
+                            | material = Ingredient amount "" process :: plant.material
                         }
                             -- Update the total weight
                             |> updateWeight maybeRawCookedRatioInfo
@@ -505,12 +506,12 @@ addMaterial maybeRawCookedRatioInfo processes ingredientName ({ plant } as produ
             )
 
 
-removeMaterial : Maybe RawCookedRatioInfo -> ProcessName -> Product -> Product
-removeMaterial maybeRawCookedRatioInfo processName ({ plant } as product) =
+removeMaterial : Maybe RawCookedRatioInfo -> Ingredient -> Product -> Product
+removeMaterial maybeRawCookedRatioInfo ingredientToRemove ({ plant } as product) =
     let
         withRemovedIngredient =
             { plant
-                | material = AnyDict.filter (\name _ -> name /= processName) plant.material
+                | material = List.filter (\ingredient -> ingredient /= ingredientToRemove) plant.material
             }
                 -- Update the total weight
                 |> updateWeight maybeRawCookedRatioInfo
@@ -552,12 +553,9 @@ updateTransport defaultTransport processes impactDefinitions countryCode distanc
             ]
                 |> List.map
                     (\( name, prop ) ->
-                        ( name
-                        , findProcess name
-                            |> Ingredient (toTonKm (prop transportWithRatio))
-                        )
+                        findProcess name
+                            |> Ingredient (toTonKm (prop transportWithRatio)) ""
                     )
-                |> AnyDict.fromList processNameToString
     in
     { product
         | plant =
