@@ -422,14 +422,14 @@ viewMaterial toString totalImpact impact definition step =
                                 ]
                             ]
                         ]
-                    , viewProcess toString False bar
+                    , viewProcess toString { disabled = False } bar
                     ]
             )
         |> viewHeader (text "Ingrédients") (text "Pourcentage de l'impact total")
 
 
-viewProcess : (Unit.Ratio -> String) -> Bool -> Bar -> Html Msg
-viewProcess toString disabled bar =
+viewProcess : (Unit.Ratio -> String) -> { disabled : Bool } -> Bar -> Html Msg
+viewProcess toString { disabled } bar =
     let
         name =
             bar.item.process.name |> Product.processNameToString
@@ -525,7 +525,7 @@ viewEnergy totalImpact impact definition step =
                         [ text <| Product.processNameToString item.process.name
                         , text item.comment
                         ]
-                    , viewProcess ratioToStringKg True bar
+                    , viewProcess ratioToStringKg { disabled = True } bar
                     ]
             )
         |> viewHeader (text "Énergie") (text "Pourcentage de l'impact total")
@@ -545,7 +545,7 @@ viewProcessing totalImpact impact definition step =
                         [ text <| Product.processNameToString item.process.name
                         , text item.comment
                         ]
-                    , viewProcess ratioToStringKg True bar
+                    , viewProcess ratioToStringKg { disabled = True } bar
                     ]
             )
         |> viewHeader (text "Procédé") (text "Pourcentage de l'impact total")
@@ -580,7 +580,7 @@ viewTransport totalWeight totalImpact impact definition step selectedCountry cou
                         [ text <| Product.processNameToString item.process.name
                         , text item.comment
                         ]
-                    , viewProcess (ratioToStringKgKm totalWeight) True bar
+                    , viewProcess (ratioToStringKgKm totalWeight) { disabled = True } bar
                     ]
             )
         |> viewHeader header (text "Pourcentage de l'impact total")
@@ -600,7 +600,7 @@ viewWaste totalImpact impact definition step =
                         [ text <| Product.processNameToString item.process.name
                         , text item.comment
                         ]
-                    , viewProcess ratioToStringKg True bar
+                    , viewProcess ratioToStringKg { disabled = True } bar
                     ]
             )
         |> viewHeader (text "Déchets") (text "Pourcentage de l'impact total")
