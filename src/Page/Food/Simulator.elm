@@ -541,21 +541,19 @@ viewTransport totalWeight totalImpact impact definition step selectedCountry cou
                 , countrySelector
                 ]
     in
-    div []
-        [ step.transport
-            |> List.map
-                (\item ->
-                    let
-                        bar =
-                            makeBar totalImpact impact definition item
-                    in
-                    div [ class "card stacked-card" ]
-                        [ div [ class "card-header" ] [ text <| Product.processNameToString item.process.name ]
-                        , viewProcess (ratioToStringKgKm totalWeight) True bar
-                        ]
-                )
-            |> viewHeader header (text "Pourcentage de l'impact total")
-        ]
+    step.transport
+        |> List.map
+            (\item ->
+                let
+                    bar =
+                        makeBar totalImpact impact definition item
+                in
+                div [ class "card stacked-card" ]
+                    [ div [ class "card-header" ] [ text <| Product.processNameToString item.process.name ]
+                    , viewProcess (ratioToStringKgKm totalWeight) True bar
+                    ]
+            )
+        |> viewHeader header (text "Pourcentage de l'impact total")
 
 
 viewWaste : Float -> Impact.Trigram -> Impact.Definition -> Product.Step -> Html Msg
