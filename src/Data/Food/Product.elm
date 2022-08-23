@@ -398,7 +398,7 @@ decodeProducts processes =
 stepToIngredients : Step -> Ingredients
 stepToIngredients step =
     -- Return a "flat" list of ingredients
-    [ .transport, .wasteTreatment, .energy, .processing ]
+    [ .transport, .wasteTreatment, .energy, .processing, .material ]
         |> List.concatMap (\accessor -> accessor step)
 
 
