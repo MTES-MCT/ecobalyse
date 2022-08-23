@@ -361,19 +361,19 @@ decodeItem processes =
         |> Pipe.required "processName" (linkProcess processes)
 
 
-decodeCategory : Processes -> Decoder Items
-decodeCategory processes =
+decodeAffectation : Processes -> Decoder Items
+decodeAffectation processes =
     Decode.list (decodeItem processes)
 
 
 decodeStep : Processes -> Decoder Step
 decodeStep processes =
     Decode.succeed Step
-        |> Pipe.optional "material" (decodeCategory processes) emptyItems
-        |> Pipe.optional "transport" (decodeCategory processes) emptyItems
-        |> Pipe.optional "waste treatment" (decodeCategory processes) emptyItems
-        |> Pipe.optional "energy" (decodeCategory processes) emptyItems
-        |> Pipe.optional "processing" (decodeCategory processes) emptyItems
+        |> Pipe.optional "material" (decodeAffectation processes) emptyItems
+        |> Pipe.optional "transport" (decodeAffectation processes) emptyItems
+        |> Pipe.optional "waste treatment" (decodeAffectation processes) emptyItems
+        |> Pipe.optional "energy" (decodeAffectation processes) emptyItems
+        |> Pipe.optional "processing" (decodeAffectation processes) emptyItems
 
 
 decodeProduct : Processes -> Decoder Product
