@@ -400,7 +400,25 @@ viewMaterial toString totalImpact impact definition step =
                         makeBar totalImpact impact definition item
                 in
                 div [ class "card stacked-card" ]
-                    [ div [ class "card-header" ] [ text <| Product.processNameToString item.process.name ]
+                    [ div
+                        [ class "card-header"
+                        , class "d-flex flex-column flex-lg-row"
+                        , class "justify-content-between align-items-start align-items-lg-center"
+                        ]
+                        [ text <| Product.processNameToString item.process.name
+                        , if item.comment /= "" then
+                            small
+                                [ class "text-muted text-truncate"
+                                , class "flex-shrink w-100 w-lg-25"
+                                , class "text-start text-lg-end"
+                                , style "cursor" "help"
+                                , title item.comment
+                                ]
+                                [ text item.comment ]
+
+                          else
+                            text ""
+                        ]
                     , viewProcess toString False bar
                     ]
             )
@@ -500,7 +518,10 @@ viewEnergy totalImpact impact definition step =
                         makeBar totalImpact impact definition item
                 in
                 div [ class "card stacked-card" ]
-                    [ div [ class "card-header" ] [ text <| Product.processNameToString item.process.name ]
+                    [ div [ class "card-header" ]
+                        [ text <| Product.processNameToString item.process.name
+                        , text item.comment
+                        ]
                     , viewProcess ratioToStringKg True bar
                     ]
             )
@@ -517,7 +538,10 @@ viewProcessing totalImpact impact definition step =
                         makeBar totalImpact impact definition item
                 in
                 div [ class "card stacked-card" ]
-                    [ div [ class "card-header" ] [ text <| Product.processNameToString item.process.name ]
+                    [ div [ class "card-header" ]
+                        [ text <| Product.processNameToString item.process.name
+                        , text item.comment
+                        ]
                     , viewProcess ratioToStringKg True bar
                     ]
             )
@@ -549,7 +573,10 @@ viewTransport totalWeight totalImpact impact definition step selectedCountry cou
                         makeBar totalImpact impact definition item
                 in
                 div [ class "card stacked-card" ]
-                    [ div [ class "card-header" ] [ text <| Product.processNameToString item.process.name ]
+                    [ div [ class "card-header" ]
+                        [ text <| Product.processNameToString item.process.name
+                        , text item.comment
+                        ]
                     , viewProcess (ratioToStringKgKm totalWeight) True bar
                     ]
             )
@@ -566,7 +593,10 @@ viewWaste totalImpact impact definition step =
                         makeBar totalImpact impact definition item
                 in
                 div [ class "card stacked-card" ]
-                    [ div [ class "card-header" ] [ text <| Product.processNameToString item.process.name ]
+                    [ div [ class "card-header" ]
+                        [ text <| Product.processNameToString item.process.name
+                        , text item.comment
+                        ]
                     , viewProcess ratioToStringKg True bar
                     ]
             )
