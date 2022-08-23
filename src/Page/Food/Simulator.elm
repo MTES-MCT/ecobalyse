@@ -376,15 +376,18 @@ viewHeader : Html Msg -> Html Msg -> List (Html Msg) -> Html Msg
 viewHeader header1 header2 children =
     if List.length children > 0 then
         div []
-            (div [ class "row" ]
+            [ div [ class "row" ]
                 [ div [ class "col-lg-6" ]
                     [ h3 [] [ header1 ]
                     ]
                 , div [ class "col-lg-6 d-none d-sm-block" ]
                     [ h3 [] [ header2 ] ]
                 ]
-                :: children
-            )
+
+            -- Enclosing the children so the first stacked card has the
+            -- :first-child css selector applied
+            , div [] children
+            ]
 
     else
         text ""
@@ -400,24 +403,24 @@ viewMaterial toString totalImpact impact definition step =
                         makeBar totalImpact impact definition item
                 in
                 div [ class "card stacked-card" ]
-                    [ div
-                        [ class "card-header"
-                        , class "d-flex flex-column flex-lg-row"
-                        , class "justify-content-between align-items-start align-items-lg-center"
-                        ]
-                        [ text <| Product.processNameToString item.process.name
-                        , if item.comment /= "" then
-                            small
-                                [ class "text-muted text-truncate"
-                                , class "flex-shrink w-100 w-lg-25"
-                                , class "text-start text-lg-end"
-                                , style "cursor" "help"
-                                , title item.comment
+                    [ div [ class "card-header" ]
+                        [ div [ class "row" ]
+                            [ div [ class "col-lg-8" ]
+                                [ text <| Product.processNameToString item.process.name
                                 ]
-                                [ text item.comment ]
+                            , div [ class "col-lg-4 text-truncate text-lg-end" ]
+                                [ if item.comment /= "" then
+                                    small
+                                        [ class "text-muted"
+                                        , style "cursor" "help"
+                                        , title item.comment
+                                        ]
+                                        [ text item.comment ]
 
-                          else
-                            text ""
+                                  else
+                                    text ""
+                                ]
+                            ]
                         ]
                     , viewProcess toString False bar
                     ]
