@@ -419,7 +419,7 @@ viewProcess toString disabled bar =
             , RangeSlider.ratio
                 { id = "slider-" ++ name
                 , update = ItemSliderChanged bar.item
-                , value = bar.amount
+                , value = Unit.Ratio bar.item.amount
                 , toString = toString
                 , disabled = disabled
                 , min = 0
@@ -435,7 +435,6 @@ viewProcess toString disabled bar =
 type alias Bar =
     { item : Product.Item
     , definition : Impact.Definition
-    , amount : Unit.Ratio
     , impact : Float
     , width : Float
     , percent : Float
@@ -453,7 +452,6 @@ makeBar totalImpact trigram definition ({ amount, process } as item) =
     in
     { item = item
     , definition = definition
-    , amount = Unit.Ratio amount
     , impact = impact
     , width = clamp 0 100 percent
     , percent = percent
