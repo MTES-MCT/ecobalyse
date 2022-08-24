@@ -19,6 +19,7 @@ import Html.Events exposing (..)
 import Ports
 import RemoteData exposing (WebData)
 import Request.Food.Db as RequestDb
+import Views.Component.Summary as SummaryComp
 import Views.Container as Container
 import Views.CountrySelect
 import Views.Format as Format
@@ -235,113 +236,120 @@ update ({ foodDb, db } as session) msg ({ currentProductInfo } as model) =
 view : Session -> Model -> ( String, List (Html Msg) )
 view ({ foodDb, db } as session) { currentProductInfo, selectedProduct, impact, selectedItem, selectedCountry } =
     ( "Simulateur de recettes"
-    , [ Container.centered []
-            (case currentProductInfo of
-                Just { product, original } ->
-                    let
-                        -- We want the impact "per kg", but the original weight isn't 1kg,
-                        -- so we need to keep it in store to adapt the final total per kg
-                        originalTotalWeight =
-                            Product.getTotalWeight original.plant
+    , [ case currentProductInfo of
+            Just { product, original } ->
+                let
+                    -- We want the impact "per kg", but the original weight isn't 1kg,
+                    -- so we need to keep it in store to adapt the final total per kg
+                    originalTotalWeight =
+                        Product.getTotalWeight original.plant
 
-                        totalImpact =
-                            Product.getTotalImpact impact product.plant
+                    totalImpact =
+                        Product.getTotalImpact impact product.plant
 
-                        totalWeight =
-                            Product.getTotalWeight product.plant
+                    totalWeight =
+                        Product.getTotalWeight product.plant
 
-                        impactPerKg =
-                            totalImpact * originalTotalWeight / totalWeight
+                    impactPerKg =
+                        totalImpact * originalTotalWeight / totalWeight
 
-                        definition =
-                            db.impacts
-                                |> Impact.getDefinition impact
-                                |> Result.withDefault Impact.invalid
-                    in
-                    [ select
-                        [ class "form-select"
-                        , onInput ProductSelected
-                        ]
-                        (foodDb.products
-                            |> AnyDict.keys
-                            |> List.map
-                                (\productName ->
-                                    let
-                                        name =
-                                            Product.productNameToString productName
-                                    in
-                                    option
-                                        [ value name
-                                        , selected (name == selectedProduct)
+                    definition =
+                        db.impacts
+                            |> Impact.getDefinition impact
+                            |> Result.withDefault Impact.invalid
+                in
+                Container.centered []
+                    [ div [ class "row" ]
+                        [ div [ class "col-7" ]
+                            [ div []
+                                [ select
+                                    [ class "form-select"
+                                    , onInput ProductSelected
+                                    ]
+                                    (foodDb.products
+                                        |> AnyDict.keys
+                                        |> List.map
+                                            (\productName ->
+                                                let
+                                                    name =
+                                                        Product.productNameToString productName
+                                                in
+                                                option
+                                                    [ value name
+                                                    , selected (name == selectedProduct)
+                                                    ]
+                                                    [ text name ]
+                                            )
+                                    )
+                                , viewMaterial ratioToStringKg totalImpact impact definition product.plant
+                                , div [ class "row py-3 gap-2 gap-sm-0" ]
+                                    [ div [ class "col-sm-10" ]
+                                        [ foodDb.products
+                                            |> Product.listItems
+                                            |> itemselector ItemSelected
                                         ]
-                                        [ text name ]
-                                )
-                        )
-                    , div [ class "row align-items-center pt-3 pb-4" ]
-                        [ div [ class "col-lg-6" ]
-                            [ impactSelector
-                                { impacts = session.db.impacts
-                                , selectedImpact = impact
-                                , switchImpact = SwitchImpact
+                                    , div [ class "col-sm-2" ]
+                                        [ button
+                                            [ class "btn btn-primary w-100"
+                                            , onClick AddItem
+                                            , disabled (selectedItem == "")
+                                            ]
+                                            [ text "Ajouter un ingrédient" ]
+                                        ]
+                                    ]
+                                , viewEnergy totalImpact impact definition product.plant
+                                , viewProcessing totalImpact impact definition product.plant
+                                , viewTransport totalWeight totalImpact impact definition product.plant selectedCountry db.countries
+                                , viewWaste totalImpact impact definition product.plant
+                                , div [ class "py-3 col-sm-2" ]
+                                    [ button
+                                        [ class "btn btn-primary w-100"
+                                        , onClick Reset
+                                        ]
+                                        [ text "Réinitialiser" ]
+                                    ]
+                                ]
+                            ]
+                        , div [ class "col-5" ]
+                            [ div []
+                                [ impactSelector
+                                    { impacts = session.db.impacts
+                                    , selectedImpact = impact
+                                    , switchImpact = SwitchImpact
 
-                                -- We don't use the following two configs
-                                , selectedFunctionalUnit = Unit.PerItem
-                                , switchFunctionalUnit = always NoOp
-                                , scope = Impact.Food
+                                    -- We don't use the following two configs
+                                    , selectedFunctionalUnit = Unit.PerItem
+                                    , switchFunctionalUnit = always NoOp
+                                    , scope = Impact.Food
+                                    }
+                                ]
+                            , SummaryComp.view
+                                { header = []
+                                , body =
+                                    [ h2 [] [ text "Impact normalisé" ]
+                                    , div [ class "display-4" ]
+                                        [ impactPerKg
+                                            |> Format.formatImpactFloat definition
+                                        ]
+                                    , small [ class "fs-7" ] [ text "/kg de produit" ]
+                                    , h3 [] [ text "Impact total" ]
+                                    , div [ class "display-5" ] [ Format.formatImpactFloat definition totalImpact ]
+                                    , small [ class "fs-7" ]
+                                        [ text " poids total : "
+                                        , totalWeight
+                                            |> Format.formatFloat 3
+                                            |> text
+                                        , text "kg"
+                                        ]
+                                    ]
+                                , footer = []
                                 }
                             ]
-                        , div [ class "col-lg-6" ]
-                            [ div []
-                                [ text "Impact normalisé : "
-                                , impactPerKg
-                                    |> Format.formatImpactFloat definition
-                                , span [ class "fs-unit" ]
-                                    [ text "/kg de produit"
-                                    ]
-                                , br [] []
-                                , text "Impact total : "
-                                , Format.formatImpactFloat definition totalImpact
-                                , text " (Poids total : "
-                                , totalWeight
-                                    |> Format.formatFloat 3
-                                    |> text
-                                , text "kg"
-                                , text ")"
-                                ]
-                            ]
-                        ]
-                    , viewMaterial ratioToStringKg totalImpact impact definition product.plant
-                    , div [ class "row py-3 gap-2 gap-sm-0" ]
-                        [ div [ class "col-sm-10" ]
-                            [ foodDb.products
-                                |> Product.listItems
-                                |> itemselector ItemSelected
-                            ]
-                        , div [ class "col-sm-2" ]
-                            [ button
-                                [ class "btn btn-primary w-100"
-                                , onClick AddItem
-                                , disabled (selectedItem == "")
-                                ]
-                                [ text "Ajouter un ingrédient" ]
-                            ]
-                        ]
-                    , viewEnergy totalImpact impact definition product.plant
-                    , viewProcessing totalImpact impact definition product.plant
-                    , viewTransport totalWeight totalImpact impact definition product.plant selectedCountry db.countries
-                    , viewWaste totalImpact impact definition product.plant
-                    , div [ class "py-3 col-sm-2" ]
-                        [ button
-                            [ class "btn btn-primary w-100"
-                            , onClick Reset
-                            ]
-                            [ text "Réinitialiser" ]
                         ]
                     ]
 
-                _ ->
-                    [ Spinner.view ]
-            )
+            _ ->
+                Spinner.view
       ]
     )
 
@@ -386,7 +394,7 @@ viewHeader header1 header2 children =
 
             -- Enclosing the children so the first stacked card has the
             -- :first-child css selector applied
-            , div [] children
+            , div [ class "stacked-card" ] children
             ]
 
     else
@@ -402,7 +410,7 @@ viewMaterial toString totalImpact impact definition step =
                     bar =
                         makeBar totalImpact impact definition item
                 in
-                div [ class "card stacked-card" ]
+                div [ class "card" ]
                     [ div [ class "card-header" ]
                         [ div [ class "row" ]
                             [ div [ class "col-lg-8" ]
@@ -520,7 +528,7 @@ viewEnergy totalImpact impact definition step =
                     bar =
                         makeBar totalImpact impact definition item
                 in
-                div [ class "card stacked-card" ]
+                div [ class "card" ]
                     [ div [ class "card-header" ]
                         [ text <| Product.processNameToString item.process.name
                         , text item.comment
@@ -540,7 +548,7 @@ viewProcessing totalImpact impact definition step =
                     bar =
                         makeBar totalImpact impact definition item
                 in
-                div [ class "card stacked-card" ]
+                div [ class "card" ]
                     [ div [ class "card-header" ]
                         [ text <| Product.processNameToString item.process.name
                         , text item.comment
@@ -575,7 +583,7 @@ viewTransport totalWeight totalImpact impact definition step selectedCountry cou
                     bar =
                         makeBar totalImpact impact definition item
                 in
-                div [ class "card stacked-card" ]
+                div [ class "card" ]
                     [ div [ class "card-header" ]
                         [ text <| Product.processNameToString item.process.name
                         , text item.comment
@@ -595,7 +603,7 @@ viewWaste totalImpact impact definition step =
                     bar =
                         makeBar totalImpact impact definition item
                 in
-                div [ class "card stacked-card" ]
+                div [ class "card" ]
                     [ div [ class "card-header" ]
                         [ text <| Product.processNameToString item.process.name
                         , text item.comment
