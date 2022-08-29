@@ -259,8 +259,8 @@ view ({ foodDb, db } as session) { currentProductInfo, selectedProduct, impact, 
                             |> Result.withDefault Impact.invalid
                 in
                 Container.centered []
-                    [ div [ class "row gap-3 gap-sm-0" ]
-                        [ div [ class "col-sm-4 order-sm-2" ]
+                    [ div [ class "row gap-3 gap-md-0" ]
+                        [ div [ class "col-md-5 col-lg-4 order-md-2" ]
                             [ div [ class "mb-3" ]
                                 [ impactSelector
                                     { impacts = session.db.impacts
@@ -277,13 +277,13 @@ view ({ foodDb, db } as session) { currentProductInfo, selectedProduct, impact, 
                                 { header = []
                                 , body =
                                     [ div [ class "d-flex flex-column justify-content-end m-auto gap-2" ]
-                                        [ div []
+                                        [ div [ class "px-1" ]
                                             [ h2 [ class "h5 m-0" ] [ text "Impact normalisé" ]
                                             , div [ class "display-4 text-center text-nowrap" ]
                                                 [ Format.formatImpactFloat definition impactPerKg ]
                                             , div [ class "fs-7 text-end" ] [ text "par kg de produit" ]
                                             ]
-                                        , div []
+                                        , div [ class "px-1" ]
                                             [ h3 [ class "h6 m-0" ] [ text "Impact total" ]
                                             , div [ class "display-5 text-center text-nowrap" ]
                                                 [ Format.formatImpactFloat definition totalImpact ]
@@ -300,7 +300,7 @@ view ({ foodDb, db } as session) { currentProductInfo, selectedProduct, impact, 
                                 , footer = []
                                 }
                             ]
-                        , div [ class "col-sm-8 order-sm-1" ]
+                        , div [ class "col-md-7 col-lg-8 order-md-1" ]
                             [ div []
                                 [ select
                                     [ class "form-select"
@@ -507,7 +507,7 @@ barView bar =
             , text ")"
             ]
         , button
-            [ class "btn btn-sm btn-primary"
+            [ class "btn p-0 text-primary"
             , onClick <| DeleteItem bar.item
             ]
             [ i [ class "icon icon-trash" ] [] ]
