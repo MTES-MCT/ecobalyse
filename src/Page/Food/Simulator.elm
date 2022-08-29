@@ -494,23 +494,20 @@ makeBar totalImpact trigram definition ({ amount, process } as item) =
 
 barView : Bar -> Html Msg
 barView bar =
-    div [ class "ps-3 py-1 border-top border-top-sm-0 border-start-0 border-start-sm d-flex" ]
-        [ div [ class "w-50 border my-2" ]
-            [ div
-                [ class "bg-primary"
-                , style "height" "100%"
-                , style "width" (String.fromFloat bar.width ++ "%")
+    div [ class "px-3 py-1 border-top border-top-sm-0 border-start-0 border-start-sm d-flex align-items-center gap-1" ]
+        [ div [ class "w-50", style "max-width" "50%", style "min-width" "50%" ]
+            [ div [ class "progress" ]
+                [ div [ class "progress-bar", style "width" (String.fromFloat bar.width ++ "%") ] []
                 ]
-                []
             ]
-        , div [ class "text-end py-1 ps-2 text-truncate flex-fill" ]
+        , div [ class "text-start py-1 ps-2 text-truncate flex-fill fs-7" ]
             [ Format.formatImpactFloat bar.definition bar.impact
             , text " ("
             , Format.percent bar.percent
             , text ")"
             ]
         , button
-            [ class "btn"
+            [ class "btn btn-sm btn-primary"
             , onClick <| DeleteItem bar.item
             ]
             [ i [ class "icon icon-trash" ] [] ]
