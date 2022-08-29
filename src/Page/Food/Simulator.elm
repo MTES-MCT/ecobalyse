@@ -322,17 +322,18 @@ view ({ foodDb, db } as session) { currentProductInfo, selectedProduct, impact, 
                                             )
                                     )
                                 , viewMaterial ratioToStringKg totalImpact impact definition product.plant
-                                , div [ class "row py-3 gap-2 gap-sm-0" ]
-                                    [ div [ class "col-sm-10" ]
+                                , div [ class "row py-3 gap-2 gap-md-0" ]
+                                    [ div [ class "col-md-8" ]
                                         [ foodDb.products
                                             |> Product.listItems
                                             |> itemselector ItemSelected
                                         ]
-                                    , div [ class "col-sm-2" ]
+                                    , div [ class "col-md-4" ]
                                         [ button
-                                            [ class "btn btn-primary w-100"
+                                            [ class "btn btn-primary w-100 text-truncate"
                                             , onClick AddItem
                                             , disabled (selectedItem == "")
+                                            , title "Ajouter un ingrédient"
                                             ]
                                             [ text "Ajouter un ingrédient" ]
                                         ]
@@ -341,13 +342,11 @@ view ({ foodDb, db } as session) { currentProductInfo, selectedProduct, impact, 
                                 , viewProcessing totalImpact impact definition product.plant
                                 , viewTransport totalWeight totalImpact impact definition product.plant selectedCountry db.countries
                                 , viewWaste totalImpact impact definition product.plant
-                                , div [ class "py-3 col-sm-2" ]
-                                    [ button
-                                        [ class "btn btn-primary w-100"
-                                        , onClick Reset
-                                        ]
-                                        [ text "Réinitialiser" ]
+                                , button
+                                    [ class "btn btn-secondary w-100 my-3"
+                                    , onClick Reset
                                     ]
+                                    [ text "Réinitialiser" ]
                                 ]
                             ]
                         ]
