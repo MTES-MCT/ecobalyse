@@ -260,7 +260,7 @@ view ({ foodDb, db } as session) { currentProductInfo, selectedProduct, impact, 
                 in
                 Container.centered []
                     [ div [ class "row" ]
-                        [ div [ class "col-7" ]
+                        [ div [ class "col-sm-8" ]
                             [ div []
                                 [ select
                                     [ class "form-select"
@@ -310,8 +310,8 @@ view ({ foodDb, db } as session) { currentProductInfo, selectedProduct, impact, 
                                     ]
                                 ]
                             ]
-                        , div [ class "col-5" ]
-                            [ div []
+                        , div [ class "col-sm-4" ]
+                            [ div [ class "mb-3" ]
                                 [ impactSelector
                                     { impacts = session.db.impacts
                                     , selectedImpact = impact
@@ -326,20 +326,25 @@ view ({ foodDb, db } as session) { currentProductInfo, selectedProduct, impact, 
                             , SummaryComp.view
                                 { header = []
                                 , body =
-                                    [ h2 [] [ text "Impact normalisé" ]
-                                    , div [ class "display-4" ]
-                                        [ impactPerKg
-                                            |> Format.formatImpactFloat definition
-                                        ]
-                                    , small [ class "fs-7" ] [ text "/kg de produit" ]
-                                    , h3 [] [ text "Impact total" ]
-                                    , div [ class "display-5" ] [ Format.formatImpactFloat definition totalImpact ]
-                                    , small [ class "fs-7" ]
-                                        [ text " poids total : "
-                                        , totalWeight
-                                            |> Format.formatFloat 3
-                                            |> text
-                                        , text "kg"
+                                    [ div [ class "d-flex flex-column justify-content-end m-auto gap-2" ]
+                                        [ div []
+                                            [ h2 [ class "h5 m-0" ] [ text "Impact normalisé" ]
+                                            , div [ class "display-4 text-center text-nowrap" ]
+                                                [ Format.formatImpactFloat definition impactPerKg ]
+                                            , div [ class "fs-7 text-end" ] [ text "par kg de produit" ]
+                                            ]
+                                        , div []
+                                            [ h3 [ class "h6 m-0" ] [ text "Impact total" ]
+                                            , div [ class "display-5 text-center text-nowrap" ]
+                                                [ Format.formatImpactFloat definition totalImpact ]
+                                            , div [ class "fs-7 text-end" ]
+                                                [ text " pour un poids total de "
+                                                , strong []
+                                                    [ totalWeight |> Format.formatFloat 3 |> text
+                                                    , text "\u{00A0}kg"
+                                                    ]
+                                                ]
+                                            ]
                                         ]
                                     ]
                                 , footer = []
@@ -383,13 +388,13 @@ ratioToStringKgKm totalWeight amount =
 viewHeader : Html Msg -> Html Msg -> List (Html Msg) -> Html Msg
 viewHeader header1 header2 children =
     if List.length children > 0 then
-        div []
+        div [ class "mt-3" ]
             [ div [ class "row" ]
                 [ div [ class "col-lg-6" ]
-                    [ h3 [] [ header1 ]
+                    [ h3 [ class "h5" ] [ header1 ]
                     ]
                 , div [ class "col-lg-6 d-none d-sm-block" ]
-                    [ h3 [] [ header2 ] ]
+                    [ h3 [ class "h5" ] [ header2 ] ]
                 ]
 
             -- Enclosing the children so the first stacked card has the
@@ -433,7 +438,7 @@ viewMaterial toString totalImpact impact definition step =
                     , viewProcess toString { disabled = False } bar
                     ]
             )
-        |> viewHeader (text "Ingrédients") (text "Pourcentage de l'impact total")
+        |> viewHeader (text "Ingrédients") (text "% de l'impact total")
 
 
 viewProcess : (Unit.Ratio -> String) -> { disabled : Bool } -> Bar -> Html Msg
@@ -536,7 +541,7 @@ viewEnergy totalImpact impact definition step =
                     , viewProcess ratioToStringKg { disabled = True } bar
                     ]
             )
-        |> viewHeader (text "Énergie") (text "Pourcentage de l'impact total")
+        |> viewHeader (text "Énergie") (text "% de l'impact total")
 
 
 viewProcessing : Float -> Impact.Trigram -> Impact.Definition -> Product.Step -> Html Msg
@@ -556,7 +561,7 @@ viewProcessing totalImpact impact definition step =
                     , viewProcess ratioToStringKg { disabled = True } bar
                     ]
             )
-        |> viewHeader (text "Procédé") (text "Pourcentage de l'impact total")
+        |> viewHeader (text "Procédé") (text "% de l'impact total")
 
 
 viewTransport : Float -> Float -> Impact.Trigram -> Impact.Definition -> Product.Step -> Country.Code -> List Country -> Html Msg
@@ -591,7 +596,7 @@ viewTransport totalWeight totalImpact impact definition step selectedCountry cou
                     , viewProcess (ratioToStringKgKm totalWeight) { disabled = True } bar
                     ]
             )
-        |> viewHeader header (text "Pourcentage de l'impact total")
+        |> viewHeader header (text "% de l'impact total")
 
 
 viewWaste : Float -> Impact.Trigram -> Impact.Definition -> Product.Step -> Html Msg
@@ -611,4 +616,4 @@ viewWaste totalImpact impact definition step =
                     , viewProcess ratioToStringKg { disabled = True } bar
                     ]
             )
-        |> viewHeader (text "Déchets") (text "Pourcentage de l'impact total")
+        |> viewHeader (text "Déchets") (text "% de l'impact total")

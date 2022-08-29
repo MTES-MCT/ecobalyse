@@ -14,17 +14,27 @@ type alias Config msg =
 view : Config msg -> Html msg
 view { header, body, footer } =
     div [ class "card bg-primary shadow-sm" ]
-        [ if List.isEmpty header then
-            text ""
-
-          else
-            div [ class "card-header text-white d-flex justify-content-between gap-1" ]
-                header
-        , div [ class "card-body px-1 py-2 py-sm-3 d-grid gap-2 gap-sm-3 text-white" ] body
-        , if List.isEmpty footer then
-            text ""
-
-          else
-            div [ class "card-footer text-white d-flex justify-content-between gap-1" ]
-                footer
+        [ header
+            |> div [ class "card-header text-white d-flex justify-content-between gap-1" ]
+            |> viewUnless (List.isEmpty header)
+        , body
+            |> div [ class "card-body px-1 py-2 py-sm-3 d-grid gap-2 gap-sm-3 text-white" ]
+            |> viewUnless (List.isEmpty body)
+        , footer
+            |> div [ class "card-footer text-white d-flex justify-content-between gap-1" ]
+            |> viewUnless (List.isEmpty footer)
         ]
+
+
+viewIf : Bool -> Html msg -> Html msg
+viewIf condition html =
+    if condition then
+        html
+
+    else
+        text ""
+
+
+viewUnless : Bool -> Html msg -> Html msg
+viewUnless condition =
+    viewIf (not condition)
