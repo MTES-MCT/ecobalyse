@@ -326,6 +326,14 @@ view ({ foodDb, db } as session) { currentProductInfo, selectedProduct, impact, 
                                     [ div [ class "col-md-8" ]
                                         [ foodDb.products
                                             |> Product.listItems
+                                            |> List.filter
+                                                (\name ->
+                                                    -- Exclude already used materials
+                                                    product.plant.material
+                                                        |> List.map (.process >> .name >> Product.processNameToString)
+                                                        |> List.member name
+                                                        |> not
+                                                )
                                             |> itemselector ItemSelected
                                         ]
                                     , div [ class "col-md-4" ]
