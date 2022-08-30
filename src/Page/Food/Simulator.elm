@@ -343,7 +343,7 @@ view ({ foodDb, db } as session) { currentProductInfo, selectedProduct, impact, 
                                 , viewTransport totalWeight totalImpact impact definition product.plant selectedCountry db.countries
                                 , viewWaste totalImpact impact definition product.plant
                                 , button
-                                    [ class "btn btn-secondary w-100 my-3"
+                                    [ class "btn btn-outline-primary w-100 my-3"
                                     , onClick Reset
                                     ]
                                     [ text "Réinitialiser" ]
