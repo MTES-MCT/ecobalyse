@@ -276,23 +276,19 @@ view ({ foodDb, db } as session) { currentProductInfo, selectedProduct, impact, 
                             , SummaryComp.view
                                 { header = []
                                 , body =
-                                    [ div [ class "d-flex flex-column justify-content-end m-auto gap-2" ]
-                                        [ div [ class "px-1" ]
-                                            [ h2 [ class "h5 m-0" ] [ text "Impact normalisé" ]
-                                            , div [ class "display-4 text-center text-nowrap" ]
-                                                [ Format.formatImpactFloat definition impactPerKg ]
-                                            , div [ class "fs-7 text-end" ] [ text "par kg de produit" ]
-                                            ]
-                                        , div [ class "px-1" ]
-                                            [ h3 [ class "h6 m-0" ] [ text "Impact total" ]
-                                            , div [ class "display-5 text-center text-nowrap" ]
-                                                [ Format.formatImpactFloat definition totalImpact ]
-                                            , div [ class "fs-7 text-end" ]
-                                                [ text " pour un poids total de "
-                                                , strong []
-                                                    [ totalWeight |> Format.formatFloat 3 |> text
-                                                    , text "\u{00A0}kg"
-                                                    ]
+                                    [ div [ class "d-flex flex-column m-auto gap-1 px-1" ]
+                                        [ h2 [ class "h5 m-0" ] [ text "Impact normalisé" ]
+                                        , div [ class "display-4 lh-1 text-center text-nowrap" ]
+                                            [ Format.formatImpactFloat definition impactPerKg ]
+                                        , div [ class "fs-7 text-end" ] [ text "par kg de produit" ]
+                                        , h3 [ class "h6 m-0 mt-2" ] [ text "Impact total" ]
+                                        , div [ class "display-5 lh-1 text-center text-nowrap" ]
+                                            [ Format.formatImpactFloat definition totalImpact ]
+                                        , div [ class "fs-7 text-end" ]
+                                            [ text " pour un poids total de "
+                                            , strong []
+                                                [ totalWeight |> Format.formatFloat 3 |> text
+                                                , text "\u{00A0}kg"
                                                 ]
                                             ]
                                         ]
