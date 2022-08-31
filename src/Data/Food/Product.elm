@@ -24,6 +24,7 @@ module Data.Food.Product exposing
     , processNameToString
     , productNameToString
     , removeMaterial
+    , stringToProcessName
     , stringToProductName
     , unusedDuration
     , updateAmount
@@ -470,7 +471,7 @@ getWeightLosingUnitProcess step =
         |> List.head
 
 
-listItems : Products -> List String
+listItems : Products -> List ProcessName
 listItems products =
     -- List all the "material" entries from the "at plant" step
     products
@@ -480,14 +481,11 @@ listItems products =
         |> Set.fromList
         |> Set.toList
         |> List.sort
+        |> List.map stringToProcessName
 
 
-addMaterial : Maybe RawCookedRatioInfo -> Processes -> String -> Product -> Result String Product
-addMaterial maybeRawCookedRatioInfo processes itemName ({ plant } as product) =
-    let
-        processName =
-            stringToProcessName itemName
-    in
+addMaterial : Maybe RawCookedRatioInfo -> Processes -> ProcessName -> Product -> Result String Product
+addMaterial maybeRawCookedRatioInfo processes processName ({ plant } as product) =
     findProcessByName processName processes
         |> Result.map
             (\process ->

@@ -16,6 +16,7 @@ import Dict.Any as AnyDict
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
+import Html.Keyed
 import Ports
 import RemoteData exposing (WebData)
 import Request.Food.Db as RequestDb
@@ -39,7 +40,7 @@ type alias Model =
     { currentProductInfo : Maybe CurrentProductInfo
     , selectedProduct : String
     , impact : Impact.Trigram
-    , selectedItem : String
+    , selectedItem : Maybe Product.ProcessName
     , selectedCountry : Country.Code
     }
 
@@ -49,7 +50,7 @@ type Msg
     | CountrySelected Country.Code
     | DbLoaded (WebData Db.Db)
     | DeleteItem Product.Item
-    | ItemSelected String
+    | ItemSelected (Maybe Product.ProcessName)
     | ItemSliderChanged Product.Item (Maybe Unit.Ratio)
     | NoOp
     | ProductSelected String
@@ -67,7 +68,7 @@ init session =
     ( { currentProductInfo = Nothing
       , selectedProduct = tunaPizza
       , impact = Impact.defaultTrigram
-      , selectedItem = ""
+      , selectedItem = Nothing
       , selectedCountry = Product.defaultCountry
       }
     , session
@@ -82,30 +83,36 @@ update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
 update ({ foodDb, db } as session) msg ({ currentProductInfo } as model) =
     case ( msg, currentProductInfo ) of
         ( AddItem, Just selected ) ->
-            let
-                productWithAddedItem =
-                    selected.product
-                        |> Product.addMaterial selected.rawCookedRatioInfo foodDb.processes model.selectedItem
+            case model.selectedItem of
+                Just selectedItem ->
+                    let
+                        productWithAddedItem =
+                            selected.product
+                                |> Product.addMaterial selected.rawCookedRatioInfo foodDb.processes selectedItem
 
-                productWithPefScore =
-                    productWithAddedItem
-                        |> Result.map (Product.computePefImpact session.db.impacts)
-            in
-            case productWithPefScore of
-                Ok updatedProduct ->
-                    ( { model
-                        | currentProductInfo = Just { selected | product = updatedProduct }
-                      }
-                    , session
-                    , Cmd.none
-                    )
+                        productWithPefScore =
+                            productWithAddedItem
+                                |> Result.map (Product.computePefImpact session.db.impacts)
+                    in
+                    case productWithPefScore of
+                        Ok updatedProduct ->
+                            ( { model
+                                | currentProductInfo = Just { selected | product = updatedProduct }
+                                , selectedItem = Nothing
+                              }
+                            , session
+                            , Cmd.none
+                            )
 
-                Err message ->
-                    ( model
-                    , session
-                        |> Session.notifyError "Erreur lors de l'ajout de l'ingrédient" message
-                    , Cmd.none
-                    )
+                        Err message ->
+                            ( { model | selectedItem = Nothing }
+                            , session
+                                |> Session.notifyError "Erreur lors de l'ajout de l'ingrédient" message
+                            , Cmd.none
+                            )
+
+                Nothing ->
+                    ( model, session, Cmd.none )
 
         ( CountrySelected countryCode, Just selected ) ->
             let
@@ -221,6 +228,7 @@ update ({ foodDb, db } as session) msg ({ currentProductInfo } as model) =
             ( { model
                 | currentProductInfo = Just { selected | product = selected.original }
                 , selectedCountry = Product.defaultCountry
+                , selectedItem = Nothing
               }
             , session
             , Cmd.none
@@ -323,20 +331,20 @@ view ({ foodDb, db } as session) { currentProductInfo, selectedProduct, impact, 
                                         [ foodDb.products
                                             |> Product.listItems
                                             |> List.filter
-                                                (\name ->
+                                                (\processName ->
                                                     -- Exclude already used materials
                                                     product.plant.material
-                                                        |> List.map (.process >> .name >> Product.processNameToString)
-                                                        |> List.member name
+                                                        |> List.map (.process >> .name)
+                                                        |> List.member processName
                                                         |> not
                                                 )
-                                            |> itemselector ItemSelected
+                                            |> itemselector selectedItem ItemSelected
                                         ]
                                     , div [ class "col-md-4" ]
                                         [ button
                                             [ class "btn btn-primary w-100 text-truncate"
                                             , onClick AddItem
-                                            , disabled (selectedItem == "")
+                                            , disabled (selectedItem == Nothing)
                                             , title "Ajouter un ingrédient"
                                             ]
                                             [ text "Ajouter un ingrédient" ]
@@ -517,11 +525,31 @@ barView bar =
         ]
 
 
-itemselector : (String -> Msg) -> List String -> Html Msg
-itemselector event =
-    List.map (\processName -> option [ value processName ] [ text processName ])
-        >> (++) [ option [] [ text "-- Sélectionner un ingrédient dans la liste --" ] ]
-        >> select [ class "form-select", onInput event ]
+maybeToProcessName : String -> Maybe Product.ProcessName
+maybeToProcessName string =
+    if string == "" then
+        Nothing
+
+    else
+        Just (Product.stringToProcessName string)
+
+
+itemselector : Maybe Product.ProcessName -> (Maybe Product.ProcessName -> Msg) -> List Product.ProcessName -> Html Msg
+itemselector maybeSelectedItem event =
+    List.map
+        (\processName ->
+            let
+                string =
+                    Product.processNameToString processName
+            in
+            ( string, option [ selected <| maybeSelectedItem == Just processName ] [ text string ] )
+        )
+        >> (++)
+            [ ( "-- Sélectionner un ingrédient dans la liste --"
+              , option [ selected <| maybeSelectedItem == Nothing ] [ text "-- Sélectionner un ingrédient dans la liste --" ]
+              )
+            ]
+        >> Html.Keyed.node "select" [ class "form-select", onInput (maybeToProcessName >> event) ]
 
 
 viewEnergy : Float -> Impact.Trigram -> Impact.Definition -> Product.Step -> Html Msg
