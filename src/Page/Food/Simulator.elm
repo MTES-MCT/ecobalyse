@@ -20,6 +20,7 @@ import Html.Keyed
 import Ports
 import RemoteData exposing (WebData)
 import Request.Food.Db as RequestDb
+import Views.Component.DownArrow as DownArrow
 import Views.Component.Summary as SummaryComp
 import Views.Container as Container
 import Views.CountrySelect
@@ -60,7 +61,8 @@ type Msg
 
 tunaPizza : String
 tunaPizza =
-    "Pizza, tuna, processed in FR | Chilled | Cardboard | Oven | at consumer/FR [Ciqual code: 26270]"
+    -- "Pizza, tuna, processed in FR | Chilled | Cardboard | Oven | at consumer/FR [Ciqual code: 26270]"
+    "Apricot, canned in light syrup, drained, processed in FR | Ambient (average) | Steel | No preparation | at consumer/FR [Ciqual code: 13712]"
 
 
 init : Session -> ( Model, Session, Cmd Msg )
@@ -359,6 +361,7 @@ view ({ foodDb, db } as session) { currentProductInfo, selectedProduct, impact, 
                                     , onClick Reset
                                     ]
                                     [ text "Réinitialiser" ]
+                                , viewSteps product
                                 ]
                             ]
                         ]
@@ -645,3 +648,34 @@ viewWaste totalImpact impact definition step =
                     ]
             )
         |> viewHeader (text "Déchets") (text "% de l'impact total")
+
+
+viewSteps : Product -> Html Msg
+viewSteps product =
+    ([ viewStep product.packaging
+     , viewStep product.distribution
+     , viewStep product.supermarket
+     , viewStep product.consumer
+     ]
+        |> List.intersperse DownArrow.view
+    )
+        |> div [ class "mb-3" ]
+
+
+viewStep : Product.Step -> Html Msg
+viewStep step =
+    div [ class "card" ]
+        [ div [ class "card-header" ]
+            [ div [ class "row" ]
+                [ div [ class "col-9" ]
+                    [ step.mainProcess
+                        |> Maybe.map Product.processNameToString
+                        |> Maybe.withDefault "not found"
+                        |> text
+                    ]
+                , div [ class "col-3 text-end" ]
+                    [ text "impact"
+                    ]
+                ]
+            ]
+        ]

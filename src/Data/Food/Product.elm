@@ -230,7 +230,8 @@ A step (at consumer, at plant...) has several categories (material, transport...
 A Product is composed of several steps.
 -}
 type alias Step =
-    { material : Items
+    { mainProcess : Maybe ProcessName
+    , material : Items
     , transport : Items
     , wasteTreatment : Items
     , energy : Items
@@ -370,6 +371,7 @@ decodeAffectation processes =
 decodeStep : Processes -> Decoder Step
 decodeStep processes =
     Decode.succeed Step
+        |> Pipe.required "mainProcess" (Decode.maybe (Decode.map ProcessName Decode.string))
         |> Pipe.optional "material" (decodeAffectation processes) emptyItems
         |> Pipe.optional "transport" (decodeAffectation processes) emptyItems
         |> Pipe.optional "waste treatment" (decodeAffectation processes) emptyItems
