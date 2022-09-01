@@ -230,12 +230,12 @@ A step (at consumer, at plant...) has several categories (material, transport...
 A Product is composed of several steps.
 -}
 type alias Step =
-    { mainProcess : Maybe ProcessName
-    , material : Items
+    { material : Items
     , transport : Items
     , wasteTreatment : Items
     , energy : Items
     , processing : Items
+    , mainItem : Maybe Item
     }
 
 
@@ -368,15 +368,54 @@ decodeAffectation processes =
     Decode.list (decodeItem processes)
 
 
+type alias PartiallyDecodedStep =
+    { material : Items
+    , transport : Items
+    , wasteTreatment : Items
+    , energy : Items
+    , processing : Items
+    , mainProcessName : Maybe String
+    }
+
+
 decodeStep : Processes -> Decoder Step
 decodeStep processes =
-    Decode.succeed Step
-        |> Pipe.required "mainProcess" (Decode.maybe (Decode.map ProcessName Decode.string))
+    Decode.succeed PartiallyDecodedStep
         |> Pipe.optional "material" (decodeAffectation processes) emptyItems
         |> Pipe.optional "transport" (decodeAffectation processes) emptyItems
         |> Pipe.optional "waste treatment" (decodeAffectation processes) emptyItems
         |> Pipe.optional "energy" (decodeAffectation processes) emptyItems
         |> Pipe.optional "processing" (decodeAffectation processes) emptyItems
+        |> Pipe.required "mainProcess" (Decode.maybe Decode.string)
+        |> Decode.andThen resolveMainItem
+
+
+resolveMainItem : PartiallyDecodedStep -> Decoder Step
+resolveMainItem { mainProcessName, material, transport, wasteTreatment, energy, processing } =
+    case mainProcessName of
+        Just processName ->
+            let
+                mainItem : Maybe Item
+                mainItem =
+                    Nothing
+                        |> PartiallyDecodedStep material transport wasteTreatment energy processing
+                        |> stepToItems
+                        |> List.filter (\item -> item.process.name == ProcessName processName)
+                        |> List.head
+            in
+            case mainItem of
+                Just item ->
+                    Just item
+                        |> Step material transport wasteTreatment energy processing
+                        |> Decode.succeed
+
+                Nothing ->
+                    Decode.fail "Couldn't find the main item in the list of step items"
+
+        Nothing ->
+            Nothing
+                |> Step material transport wasteTreatment energy processing
+                |> Decode.succeed
 
 
 decodeProduct : Processes -> Decoder Product
@@ -398,9 +437,18 @@ decodeProducts processes =
 -- utilities
 
 
-stepToItems : Step -> Items
+stepToItems :
+    { a
+        | material : Items
+        , transport : Items
+        , wasteTreatment : Items
+        , energy : Items
+        , processing : Items
+    }
+    -> Items
 stepToItems step =
     -- Return a "flat" list of items
+    -- FIXME: find a way to validate that we're using all the important record properties
     [ .transport, .wasteTreatment, .energy, .processing, .material ]
         |> List.concatMap (\accessor -> accessor step)
 

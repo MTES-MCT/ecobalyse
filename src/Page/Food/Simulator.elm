@@ -61,8 +61,7 @@ type Msg
 
 tunaPizza : String
 tunaPizza =
-    -- "Pizza, tuna, processed in FR | Chilled | Cardboard | Oven | at consumer/FR [Ciqual code: 26270]"
-    "Apricot, canned in light syrup, drained, processed in FR | Ambient (average) | Steel | No preparation | at consumer/FR [Ciqual code: 13712]"
+    "Pizza, tuna, processed in FR | Chilled | Cardboard | Oven | at consumer/FR [Ciqual code: 26270]"
 
 
 init : Session -> ( Model, Session, Cmd Msg )
@@ -668,13 +667,13 @@ viewStep step =
         [ div [ class "card-header" ]
             [ div [ class "row" ]
                 [ div [ class "col-9" ]
-                    [ step.mainProcess
-                        |> Maybe.map Product.processNameToString
+                    [ step.mainItem
+                        |> Maybe.map (.process >> .name >> Product.processNameToString)
                         |> Maybe.withDefault "not found"
                         |> text
                     ]
                 , div [ class "col-3 text-end" ]
-                    [ text "impact"
+                    [ step.mainItem |> Maybe.map .comment |> Maybe.withDefault "N/A" |> text
                     ]
                 ]
             ]
