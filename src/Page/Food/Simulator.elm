@@ -474,7 +474,7 @@ viewProcess toString { disabled } bar =
                 }
             ]
         , div [ class "col-sm-6" ]
-            [ barView bar
+            [ barView bar { disabled = disabled }
             ]
         ]
 
@@ -505,8 +505,8 @@ makeBar totalImpact trigram definition ({ amount, process } as item) =
     }
 
 
-barView : Bar -> Html Msg
-barView bar =
+barView : Bar -> { disabled : Bool } -> Html Msg
+barView bar { disabled } =
     div [ class "px-3 py-1 border-top border-top-sm-0 border-start-0 border-start-sm d-flex align-items-center gap-1" ]
         [ div [ class "w-50", style "max-width" "50%", style "min-width" "50%" ]
             [ div [ class "progress" ]
@@ -521,6 +521,7 @@ barView bar =
             ]
         , button
             [ class "btn p-0 text-primary"
+            , Html.Attributes.disabled disabled
             , onClick <| DeleteItem bar.item
             ]
             [ i [ class "icon icon-trash" ] [] ]
