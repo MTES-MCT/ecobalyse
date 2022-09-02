@@ -266,6 +266,12 @@ view ({ foodDb, db } as session) { currentProductInfo, selectedProduct, impact, 
                         db.impacts
                             |> Impact.getDefinition impact
                             |> Result.withDefault Impact.invalid
+
+                    barConfig =
+                        { totalImpact = totalImpact
+                        , trigram = impact
+                        , definition = definition
+                        }
                 in
                 Container.centered []
                     [ div [ class "row gap-3 gap-lg-0" ]
@@ -326,7 +332,7 @@ view ({ foodDb, db } as session) { currentProductInfo, selectedProduct, impact, 
                                                     [ text name ]
                                             )
                                     )
-                                , viewMaterial ratioToStringKg totalImpact impact definition product.plant
+                                , viewMaterial barConfig product.plant
                                 , div [ class "row py-3 gap-2 gap-md-0" ]
                                     [ div [ class "col-md-8" ]
                                         [ foodDb.products
@@ -351,16 +357,16 @@ view ({ foodDb, db } as session) { currentProductInfo, selectedProduct, impact, 
                                             [ text "Ajouter un ingrédient" ]
                                         ]
                                     ]
-                                , viewEnergy totalImpact impact definition product.plant
-                                , viewProcessing totalImpact impact definition product.plant
-                                , viewTransport totalWeight totalImpact impact definition product.plant selectedCountry db.countries
-                                , viewWaste totalImpact impact definition product.plant
+                                , viewEnergy barConfig product.plant
+                                , viewProcessing barConfig product.plant
+                                , viewTransport totalWeight barConfig product.plant selectedCountry db.countries
+                                , viewWaste barConfig product.plant
                                 , button
                                     [ class "btn btn-outline-primary w-100 my-3"
                                     , onClick Reset
                                     ]
                                     [ text "Réinitialiser" ]
-                                , viewSteps ratioToStringKg totalImpact impact definition product
+                                , viewSteps barConfig product
                                 ]
                             ]
                         ]
@@ -419,14 +425,14 @@ viewHeader header1 header2 children =
         text ""
 
 
-viewMaterial : (Unit.Ratio -> String) -> Float -> Impact.Trigram -> Impact.Definition -> Product.Step -> Html Msg
-viewMaterial toString totalImpact impact definition step =
+viewMaterial : BarConfig -> Product.Step -> Html Msg
+viewMaterial barConfig step =
     step.material
         |> List.map
             (\item ->
                 let
                     bar =
-                        makeBar totalImpact impact definition item
+                        makeBar barConfig item
                 in
                 div [ class "card" ]
                     [ div [ class "card-header" ]
@@ -448,7 +454,7 @@ viewMaterial toString totalImpact impact definition step =
                                 ]
                             ]
                         ]
-                    , viewProcess toString { disabled = False } bar
+                    , viewProcess ratioToStringKg { disabled = False } bar
                     ]
             )
         |> viewHeader (text "Ingrédients") (text "% de l'impact total")
@@ -488,8 +494,15 @@ type alias Bar =
     }
 
 
-makeBar : Float -> Impact.Trigram -> Impact.Definition -> Product.Item -> Bar
-makeBar totalImpact trigram definition ({ amount, process } as item) =
+type alias BarConfig =
+    { totalImpact : Float
+    , trigram : Impact.Trigram
+    , definition : Impact.Definition
+    }
+
+
+makeBar : BarConfig -> Product.Item -> Bar
+makeBar { totalImpact, trigram, definition } ({ amount, process } as item) =
     let
         impact =
             Impact.grabImpactFloat Unit.PerItem Product.unusedDuration trigram process * amount
@@ -555,14 +568,14 @@ itemselector maybeSelectedItem event =
         >> Html.Keyed.node "select" [ class "form-select", onInput (maybeToProcessName >> event) ]
 
 
-viewEnergy : Float -> Impact.Trigram -> Impact.Definition -> Product.Step -> Html Msg
-viewEnergy totalImpact impact definition step =
+viewEnergy : BarConfig -> Product.Step -> Html Msg
+viewEnergy barConfig step =
     step.energy
         |> List.map
             (\item ->
                 let
                     bar =
-                        makeBar totalImpact impact definition item
+                        makeBar barConfig item
                 in
                 div [ class "card" ]
                     [ div [ class "card-header" ]
@@ -575,14 +588,14 @@ viewEnergy totalImpact impact definition step =
         |> viewHeader (text "Énergie") (text "% de l'impact total")
 
 
-viewProcessing : Float -> Impact.Trigram -> Impact.Definition -> Product.Step -> Html Msg
-viewProcessing totalImpact impact definition step =
+viewProcessing : BarConfig -> Product.Step -> Html Msg
+viewProcessing barConfig step =
     step.processing
         |> List.map
             (\item ->
                 let
                     bar =
-                        makeBar totalImpact impact definition item
+                        makeBar barConfig item
                 in
                 div [ class "card" ]
                     [ div [ class "card-header" ]
@@ -595,8 +608,8 @@ viewProcessing totalImpact impact definition step =
         |> viewHeader (text "Procédé") (text "% de l'impact total")
 
 
-viewTransport : Float -> Float -> Impact.Trigram -> Impact.Definition -> Product.Step -> Country.Code -> List Country -> Html Msg
-viewTransport totalWeight totalImpact impact definition step selectedCountry countries =
+viewTransport : Float -> BarConfig -> Product.Step -> Country.Code -> List Country -> Html Msg
+viewTransport totalWeight barConfig step selectedCountry countries =
     let
         countrySelector =
             Views.CountrySelect.view
@@ -617,7 +630,7 @@ viewTransport totalWeight totalImpact impact definition step selectedCountry cou
             (\item ->
                 let
                     bar =
-                        makeBar totalImpact impact definition item
+                        makeBar barConfig item
                 in
                 div [ class "card" ]
                     [ div [ class "card-header" ]
@@ -630,14 +643,14 @@ viewTransport totalWeight totalImpact impact definition step selectedCountry cou
         |> viewHeader header (text "% de l'impact total")
 
 
-viewWaste : Float -> Impact.Trigram -> Impact.Definition -> Product.Step -> Html Msg
-viewWaste totalImpact impact definition step =
+viewWaste : BarConfig -> Product.Step -> Html Msg
+viewWaste barConfig step =
     step.wasteTreatment
         |> List.map
             (\item ->
                 let
                     bar =
-                        makeBar totalImpact impact definition item
+                        makeBar barConfig item
                 in
                 div [ class "card" ]
                     [ div [ class "card-header" ]
@@ -650,20 +663,20 @@ viewWaste totalImpact impact definition step =
         |> viewHeader (text "Déchets") (text "% de l'impact total")
 
 
-viewSteps : (Unit.Ratio -> String) -> Float -> Impact.Trigram -> Impact.Definition -> Product -> Html Msg
-viewSteps toString totalImpact impact definition product =
-    ([ viewStep toString totalImpact impact definition product.packaging
-     , viewStep toString totalImpact impact definition product.distribution
-     , viewStep toString totalImpact impact definition product.supermarket
-     , viewStep toString totalImpact impact definition product.consumer
+viewSteps : BarConfig -> Product -> Html Msg
+viewSteps barConfig product =
+    ([ viewStep barConfig product.packaging
+     , viewStep barConfig product.distribution
+     , viewStep barConfig product.supermarket
+     , viewStep barConfig product.consumer
      ]
         |> List.intersperse DownArrow.view
     )
         |> div [ class "mb-3" ]
 
 
-viewStep : (Unit.Ratio -> String) -> Float -> Impact.Trigram -> Impact.Definition -> Product.Step -> Html Msg
-viewStep toString totalImpact impact definition step =
+viewStep : BarConfig -> Product.Step -> Html Msg
+viewStep barConfig step =
     div [ class "card" ]
         (case step.mainItem of
             Just mainItem ->
@@ -680,7 +693,7 @@ viewStep toString totalImpact impact definition step =
                             [ viewMainItemComment mainItem ]
                         ]
                     ]
-                , viewMainItemImpact toString totalImpact impact definition mainItem
+                , viewMainItemImpact barConfig mainItem
                 ]
 
             Nothing ->
@@ -688,13 +701,13 @@ viewStep toString totalImpact impact definition step =
         )
 
 
-viewMainItemImpact : (Unit.Ratio -> String) -> Float -> Impact.Trigram -> Impact.Definition -> Product.Item -> Html Msg
-viewMainItemImpact toString totalImpact impact definition mainItem =
+viewMainItemImpact : BarConfig -> Product.Item -> Html Msg
+viewMainItemImpact barConfig mainItem =
     let
         bar =
-            makeBar totalImpact impact definition mainItem
+            makeBar barConfig mainItem
     in
-    viewProcess toString { disabled = True } bar
+    viewProcess ratioToStringKg { disabled = True } bar
 
 
 viewMainItemComment : Product.Item -> Html Msg
