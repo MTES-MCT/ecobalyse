@@ -12,10 +12,10 @@ Conformément à la documentation sectorielle textile de la [base Impacts](http:
 
 Par conséquent, l'impact global de l'étape de teinture se comprend comme résultant de la somme de l'impact résultant du procédé de teinture retenu (cf. intérieur du _system boundaries_) et des procédés externes devant être ajoutés, à savoir :
 
-| Flux externe | UUID du flux                     | Unité |
-| ------------ | -------------------------------- | ----- |
-| Chaleur      | `Dépend de la zone géographique` | MJ    |
-| Electricité  | `Dépend de la zone géographique` | MJ    |
+| Flux externe | UUID du flux                           | Unité |
+| ------------ | -------------------------------------- | ----- |
+| Chaleur      | `32045a18-e8a3-4068-9078-d17c72cea73d` | MJ    |
+| Electricité  | `de442ef0-d725-4c3a-a5e2-b29f51a1186c` | MJ    |
 
 La formule suivante s'applique donc :
 
