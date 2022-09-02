@@ -210,19 +210,21 @@ updateItem itemToUpdate updateFunc items =
             )
 
 
-computeItemPefImpact : List Definition -> Items -> Items
-computeItemPefImpact definitions items =
+computeItemsPefImpact : List Definition -> Items -> Items
+computeItemsPefImpact definitions items =
     items
-        |> List.map
-            (\({ process } as item) ->
-                { item
-                    | process =
-                        { process
-                            | impacts =
-                                Impact.updatePefImpact definitions process.impacts
-                        }
-                }
-            )
+        |> List.map (computeItemPefImpact definitions)
+
+
+computeItemPefImpact : List Definition -> Item -> Item
+computeItemPefImpact definitions ({ process } as item) =
+    { item
+        | process =
+            { process
+                | impacts =
+                    Impact.updatePefImpact definitions process.impacts
+            }
+    }
 
 
 {-| Step
@@ -279,17 +281,26 @@ type alias RawCookedRatioInfo =
 
 computePefImpact : List Definition -> Product -> Product
 computePefImpact definitions product =
-    { product | plant = computeStepPefImpact definitions product.plant }
+    { product
+        | consumer = computeStepPefImpact definitions product.consumer
+        , supermarket = computeStepPefImpact definitions product.supermarket
+        , distribution = computeStepPefImpact definitions product.distribution
+        , packaging = computeStepPefImpact definitions product.packaging
+        , plant = computeStepPefImpact definitions product.plant
+    }
 
 
 computeStepPefImpact : List Definition -> Step -> Step
 computeStepPefImpact definitions step =
     { step
-        | material = computeItemPefImpact definitions step.material
-        , transport = computeItemPefImpact definitions step.transport
-        , wasteTreatment = computeItemPefImpact definitions step.wasteTreatment
-        , energy = computeItemPefImpact definitions step.energy
-        , processing = computeItemPefImpact definitions step.processing
+        | material = computeItemsPefImpact definitions step.material
+        , transport = computeItemsPefImpact definitions step.transport
+        , wasteTreatment = computeItemsPefImpact definitions step.wasteTreatment
+        , energy = computeItemsPefImpact definitions step.energy
+        , processing = computeItemsPefImpact definitions step.processing
+        , mainItem =
+            step.mainItem
+                |> Maybe.map (computeItemPefImpact definitions)
     }
 
 
