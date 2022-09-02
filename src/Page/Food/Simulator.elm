@@ -360,7 +360,7 @@ view ({ foodDb, db } as session) { currentProductInfo, selectedProduct, impact, 
                                     , onClick Reset
                                     ]
                                     [ text "Réinitialiser" ]
-                                , viewSteps product
+                                , viewSteps ratioToStringKg totalImpact impact definition product
                                 ]
                             ]
                         ]
@@ -650,52 +650,61 @@ viewWaste totalImpact impact definition step =
         |> viewHeader (text "Déchets") (text "% de l'impact total")
 
 
-viewSteps : Product -> Html Msg
-viewSteps product =
-    ([ viewStep product.packaging
-     , viewStep product.distribution
-     , viewStep product.supermarket
-     , viewStep product.consumer
+viewSteps : (Unit.Ratio -> String) -> Float -> Impact.Trigram -> Impact.Definition -> Product -> Html Msg
+viewSteps toString totalImpact impact definition product =
+    ([ viewStep toString totalImpact impact definition product.packaging
+     , viewStep toString totalImpact impact definition product.distribution
+     , viewStep toString totalImpact impact definition product.supermarket
+     , viewStep toString totalImpact impact definition product.consumer
      ]
         |> List.intersperse DownArrow.view
     )
         |> div [ class "mb-3" ]
 
 
-viewStep : Product.Step -> Html Msg
-viewStep step =
+viewStep : (Unit.Ratio -> String) -> Float -> Impact.Trigram -> Impact.Definition -> Product.Step -> Html Msg
+viewStep toString totalImpact impact definition step =
     div [ class "card" ]
-        [ div [ class "card-header" ]
-            [ div [ class "row" ]
-                [ div [ class "col-9" ]
-                    [ step.mainItem
-                        |> Maybe.map (.process >> .name >> Product.processNameToString)
-                        |> Maybe.withDefault "not found"
-                        |> text
+        (case step.mainItem of
+            Just mainItem ->
+                [ div [ class "card-header" ]
+                    [ div [ class "row" ]
+                        [ div [ class "col-11" ]
+                            [ mainItem
+                                |> .process
+                                |> .name
+                                |> Product.processNameToString
+                                |> text
+                            ]
+                        , div [ class "col-1 text-end" ]
+                            [ viewMainItemComment mainItem ]
+                        ]
                     ]
-                , div [ class "col-2 text-end" ]
-                    [ text "impact"
-                    ]
-                , div [ class "col-1 text-end" ]
-                    [ viewMainItemComment step.mainItem ]
+                , viewMainItemImpact toString totalImpact impact definition mainItem
                 ]
+
+            Nothing ->
+                [ text "Procédé introuvable" ]
+        )
+
+
+viewMainItemImpact : (Unit.Ratio -> String) -> Float -> Impact.Trigram -> Impact.Definition -> Product.Item -> Html Msg
+viewMainItemImpact toString totalImpact impact definition mainItem =
+    let
+        bar =
+            makeBar totalImpact impact definition mainItem
+    in
+    viewProcess toString { disabled = True } bar
+
+
+viewMainItemComment : Product.Item -> Html Msg
+viewMainItemComment mainItem =
+    if mainItem.comment /= "" then
+        span
+            [ class "d-inline-flex align-items-center fs-7 gap-1 py-1"
+            , title mainItem.comment
             ]
-        ]
+            [ i [ class "icon icon-question" ] [] ]
 
-
-viewMainItemComment : Maybe Product.Item -> Html Msg
-viewMainItemComment maybeItem =
-    case maybeItem of
-        Just mainItem ->
-            if mainItem.comment /= "" then
-                span
-                    [ class "d-inline-flex align-items-center fs-7 gap-1 py-1"
-                    , title mainItem.comment
-                    ]
-                    [ i [ class "icon icon-question" ] [] ]
-
-            else
-                text ""
-
-        Nothing ->
-            text ""
+    else
+        text ""
