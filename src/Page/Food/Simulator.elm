@@ -672,9 +672,29 @@ viewStep step =
                         |> Maybe.withDefault "not found"
                         |> text
                     ]
-                , div [ class "col-3 text-end" ]
-                    [ step.mainItem |> Maybe.map .comment |> Maybe.withDefault "N/A" |> text
+                , div [ class "col-2 text-end" ]
+                    [ text "impact"
                     ]
+                , div [ class "col-1 text-end" ]
+                    [ viewMainItemComment step.mainItem ]
                 ]
             ]
         ]
+
+
+viewMainItemComment : Maybe Product.Item -> Html Msg
+viewMainItemComment maybeItem =
+    case maybeItem of
+        Just mainItem ->
+            if mainItem.comment /= "" then
+                span
+                    [ class "d-inline-flex align-items-center fs-7 gap-1 py-1"
+                    , title mainItem.comment
+                    ]
+                    [ i [ class "icon icon-question" ] [] ]
+
+            else
+                text ""
+
+        Nothing ->
+            text ""
