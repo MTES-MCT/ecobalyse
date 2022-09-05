@@ -2,4 +2,4 @@
 *.pyc
 .DS_Store
 brightway/import_agb/agribalyse3_no_param.CSV
-
+brightway/export_agb/processes-no-impacts.json

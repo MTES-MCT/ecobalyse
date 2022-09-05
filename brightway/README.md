@@ -58,6 +58,13 @@ Puis lancer le script d'export qui peut prendre plusieurs heures (!) :
 
     $ python export.py
 
+Il est possible d'utiliser l'option `--max` pour limiter le nombre de produits
+ciquals à exporter, et l'option `--no-impacts` pour ne pas calculer les impacts
+des procédés (ce qui exportera un fichier `processes-no-impacts.json` au lieu de
+`processes.json`) :
+
+    $ python export.py --max 1 --no-impacts # Beaucoup plus rapide, mais incomplet ;)
+
 Optionnellement, lancer le script de vérification des différences d'impacts :
 
     $ python checks.py

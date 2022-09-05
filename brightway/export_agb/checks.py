@@ -70,8 +70,9 @@ def get_diff(impact_a, impact_b):
 def processes_for_step(step):
     """Liste de tous les process d'une étape."""
     processes = []
-    for category_processes in step.values():
-        processes += category_processes
+    for (category_name, category) in step.items():
+        if category_name != "mainProcess":
+            processes += category
     return processes
 
 
