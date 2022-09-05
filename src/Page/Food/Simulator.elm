@@ -513,7 +513,9 @@ makeBar : BarConfig -> Product.Item -> Bar
 makeBar { totalImpact, trigram, definition } ({ amount, process } as item) =
     let
         impact =
-            Impact.grabImpactFloat Unit.PerItem Product.unusedDuration trigram process * amount
+            Impact.getImpact trigram process.impacts
+                |> Unit.impactToFloat
+                |> (*) amount
 
         percent =
             impact * toFloat 100 / totalImpact
@@ -693,17 +695,35 @@ viewStep label barConfig step =
         (case step.mainItem of
             Just mainItem ->
                 let
+                    totalImpact =
+                        Product.getTotalImpact barConfig.trigram step
+
+                    mainItemImpact =
+                        mainItem.process.impacts
+                            |> Impact.getImpact barConfig.trigram
+                            |> Unit.impactToFloat
+                            |> (*) mainItem.amount
+
+                    stepImpact =
+                        totalImpact - mainItemImpact
+
                     stepConfig =
-                        { barConfig | totalImpact = Product.getTotalImpact barConfig.trigram step }
+                        { barConfig | totalImpact = totalImpact }
                 in
                 [ div [ class "card-header" ]
-                    [ text label ]
+                    [ div [ class "row" ]
+                        [ div [ class "col-9" ]
+                            [ text label ]
+                        , div [ class "col-3 text-end" ]
+                            [ Format.formatImpactFloat stepConfig.definition stepImpact ]
+                        ]
+                    ]
                 , step
                     |> Product.stepToItems
                     |> List.map
                         (\item ->
                             div [ class "row" ]
-                                [ div [ class "col-9" ]
+                                [ div [ class "col-6" ]
                                     [ viewItemComment item
                                     , text " "
                                     , item
@@ -712,7 +732,7 @@ viewStep label barConfig step =
                                         |> Product.processNameToString
                                         |> text
                                     ]
-                                , div [ class "col-3" ]
+                                , div [ class "col-6" ]
                                     [ viewItemImpact stepConfig item ]
                                 ]
                         )
