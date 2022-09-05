@@ -454,14 +454,14 @@ viewMaterial barConfig step =
                                 ]
                             ]
                         ]
-                    , viewProcess ratioToStringKg { disabled = False } bar
+                    , viewPlantProcess ratioToStringKg { disabled = False } bar
                     ]
             )
         |> viewHeader (text "Ingrédients") (text "% de l'impact total")
 
 
-viewProcess : (Unit.Ratio -> String) -> { disabled : Bool } -> Bar -> Html Msg
-viewProcess toString { disabled } bar =
+viewPlantProcess : (Unit.Ratio -> String) -> { disabled : Bool } -> Bar -> Html Msg
+viewPlantProcess toString { disabled } bar =
     let
         name =
             bar.item.process.name |> Product.processNameToString
@@ -469,15 +469,23 @@ viewProcess toString { disabled } bar =
     div [ class "row align-items-center" ]
         [ div [ class "col-sm-6 px-4 py-2 py-sm-0" ]
             [ span [ class "d-block d-sm-none fs-7 text-muted" ] [ text "Quantité de l'ingrédient :" ]
-            , RangeSlider.ratio
-                { id = "slider-" ++ name
-                , update = ItemSliderChanged bar.item
-                , value = Unit.Ratio bar.item.amount
-                , toString = toString
-                , disabled = disabled
-                , min = 0
-                , max = 100
-                }
+            , if disabled then
+                Unit.Ratio bar.item.amount
+                    |> toString
+                    |> text
+                    |> List.singleton
+                    |> span [ class "fs-7" ]
+
+              else
+                RangeSlider.ratio
+                    { id = "slider-" ++ name
+                    , update = ItemSliderChanged bar.item
+                    , value = Unit.Ratio bar.item.amount
+                    , toString = toString
+                    , disabled = disabled
+                    , min = 0
+                    , max = 100
+                    }
             ]
         , div [ class "col-sm-6" ]
             [ barView bar { disabled = disabled }
@@ -532,12 +540,16 @@ barView bar { disabled } =
             , Format.percent bar.percent
             , text ")"
             ]
-        , button
-            [ class "btn p-0 text-primary"
-            , Html.Attributes.disabled disabled
-            , onClick <| DeleteItem bar.item
-            ]
-            [ i [ class "icon icon-trash" ] [] ]
+        , if disabled then
+            text ""
+
+          else
+            button
+                [ class "btn p-0 text-primary"
+                , Html.Attributes.disabled disabled
+                , onClick <| DeleteItem bar.item
+                ]
+                [ i [ class "icon icon-trash" ] [] ]
         ]
 
 
@@ -582,7 +594,7 @@ viewEnergy barConfig step =
                         [ text <| Product.processNameToString item.process.name
                         , text item.comment
                         ]
-                    , viewProcess ratioToStringKg { disabled = True } bar
+                    , viewPlantProcess ratioToStringKg { disabled = True } bar
                     ]
             )
         |> viewHeader (text "Énergie") (text "% de l'impact total")
@@ -602,7 +614,7 @@ viewProcessing barConfig step =
                         [ text <| Product.processNameToString item.process.name
                         , text item.comment
                         ]
-                    , viewProcess ratioToStringKg { disabled = True } bar
+                    , viewPlantProcess ratioToStringKg { disabled = True } bar
                     ]
             )
         |> viewHeader (text "Procédé") (text "% de l'impact total")
@@ -637,7 +649,7 @@ viewTransport totalWeight barConfig step selectedCountry countries =
                         [ text <| Product.processNameToString item.process.name
                         , text item.comment
                         ]
-                    , viewProcess (ratioToStringKgKm totalWeight) { disabled = True } bar
+                    , viewPlantProcess (ratioToStringKgKm totalWeight) { disabled = True } bar
                     ]
             )
         |> viewHeader header (text "% de l'impact total")
@@ -657,7 +669,7 @@ viewWaste barConfig step =
                         [ text <| Product.processNameToString item.process.name
                         , text item.comment
                         ]
-                    , viewProcess ratioToStringKg { disabled = True } bar
+                    , viewPlantProcess ratioToStringKg { disabled = True } bar
                     ]
             )
         |> viewHeader (text "Déchets") (text "% de l'impact total")
@@ -707,7 +719,7 @@ viewMainItemImpact barConfig mainItem =
         bar =
             makeBar barConfig mainItem
     in
-    viewProcess ratioToStringKg { disabled = True } bar
+    viewPlantProcess ratioToStringKg { disabled = True } bar
 
 
 viewMainItemComment : Product.Item -> Html Msg
