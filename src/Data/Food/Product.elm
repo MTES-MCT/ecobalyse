@@ -24,6 +24,7 @@ module Data.Food.Product exposing
     , processNameToString
     , productNameToString
     , removeMaterial
+    , stringToProcessName
     , stringToProductName
     , unusedDuration
     , updateAmount
@@ -209,19 +210,21 @@ updateItem itemToUpdate updateFunc items =
             )
 
 
-computeItemPefImpact : List Definition -> Items -> Items
-computeItemPefImpact definitions items =
+computeItemsPefImpact : List Definition -> Items -> Items
+computeItemsPefImpact definitions items =
     items
-        |> List.map
-            (\({ process } as item) ->
-                { item
-                    | process =
-                        { process
-                            | impacts =
-                                Impact.updatePefImpact definitions process.impacts
-                        }
-                }
-            )
+        |> List.map (computeItemPefImpact definitions)
+
+
+computeItemPefImpact : List Definition -> Item -> Item
+computeItemPefImpact definitions ({ process } as item) =
+    { item
+        | process =
+            { process
+                | impacts =
+                    Impact.updatePefImpact definitions process.impacts
+            }
+    }
 
 
 {-| Step
@@ -234,6 +237,7 @@ type alias Step =
     , wasteTreatment : Items
     , energy : Items
     , processing : Items
+    , mainItem : Maybe Item
     }
 
 
@@ -277,17 +281,26 @@ type alias RawCookedRatioInfo =
 
 computePefImpact : List Definition -> Product -> Product
 computePefImpact definitions product =
-    { product | plant = computeStepPefImpact definitions product.plant }
+    { product
+        | consumer = computeStepPefImpact definitions product.consumer
+        , supermarket = computeStepPefImpact definitions product.supermarket
+        , distribution = computeStepPefImpact definitions product.distribution
+        , packaging = computeStepPefImpact definitions product.packaging
+        , plant = computeStepPefImpact definitions product.plant
+    }
 
 
 computeStepPefImpact : List Definition -> Step -> Step
 computeStepPefImpact definitions step =
     { step
-        | material = computeItemPefImpact definitions step.material
-        , transport = computeItemPefImpact definitions step.transport
-        , wasteTreatment = computeItemPefImpact definitions step.wasteTreatment
-        , energy = computeItemPefImpact definitions step.energy
-        , processing = computeItemPefImpact definitions step.processing
+        | material = computeItemsPefImpact definitions step.material
+        , transport = computeItemsPefImpact definitions step.transport
+        , wasteTreatment = computeItemsPefImpact definitions step.wasteTreatment
+        , energy = computeItemsPefImpact definitions step.energy
+        , processing = computeItemsPefImpact definitions step.processing
+        , mainItem =
+            step.mainItem
+                |> Maybe.map (computeItemPefImpact definitions)
     }
 
 
@@ -366,14 +379,54 @@ decodeAffectation processes =
     Decode.list (decodeItem processes)
 
 
+type alias PartiallyDecodedStep =
+    { material : Items
+    , transport : Items
+    , wasteTreatment : Items
+    , energy : Items
+    , processing : Items
+    , mainProcessName : Maybe String
+    }
+
+
 decodeStep : Processes -> Decoder Step
 decodeStep processes =
-    Decode.succeed Step
+    Decode.succeed PartiallyDecodedStep
         |> Pipe.optional "material" (decodeAffectation processes) emptyItems
         |> Pipe.optional "transport" (decodeAffectation processes) emptyItems
         |> Pipe.optional "waste treatment" (decodeAffectation processes) emptyItems
         |> Pipe.optional "energy" (decodeAffectation processes) emptyItems
         |> Pipe.optional "processing" (decodeAffectation processes) emptyItems
+        |> Pipe.required "mainProcess" (Decode.maybe Decode.string)
+        |> Decode.andThen resolveMainItem
+
+
+resolveMainItem : PartiallyDecodedStep -> Decoder Step
+resolveMainItem { mainProcessName, material, transport, wasteTreatment, energy, processing } =
+    case mainProcessName of
+        Just processName ->
+            let
+                mainItem : Maybe Item
+                mainItem =
+                    Nothing
+                        |> PartiallyDecodedStep material transport wasteTreatment energy processing
+                        |> stepToItems
+                        |> List.filter (\item -> item.process.name == ProcessName processName)
+                        |> List.head
+            in
+            case mainItem of
+                Just item ->
+                    Just item
+                        |> Step material transport wasteTreatment energy processing
+                        |> Decode.succeed
+
+                Nothing ->
+                    Decode.fail "Couldn't find the main item in the list of step items"
+
+        Nothing ->
+            Nothing
+                |> Step material transport wasteTreatment energy processing
+                |> Decode.succeed
 
 
 decodeProduct : Processes -> Decoder Product
@@ -395,9 +448,18 @@ decodeProducts processes =
 -- utilities
 
 
-stepToItems : Step -> Items
+stepToItems :
+    { a
+        | material : Items
+        , transport : Items
+        , wasteTreatment : Items
+        , energy : Items
+        , processing : Items
+    }
+    -> Items
 stepToItems step =
     -- Return a "flat" list of items
+    -- FIXME: find a way to validate that we're using all the important record properties
     [ .transport, .wasteTreatment, .energy, .processing, .material ]
         |> List.concatMap (\accessor -> accessor step)
 
@@ -470,7 +532,7 @@ getWeightLosingUnitProcess step =
         |> List.head
 
 
-listItems : Products -> List String
+listItems : Products -> List ProcessName
 listItems products =
     -- List all the "material" entries from the "at plant" step
     products
@@ -480,14 +542,11 @@ listItems products =
         |> Set.fromList
         |> Set.toList
         |> List.sort
+        |> List.map stringToProcessName
 
 
-addMaterial : Maybe RawCookedRatioInfo -> Processes -> String -> Product -> Result String Product
-addMaterial maybeRawCookedRatioInfo processes itemName ({ plant } as product) =
-    let
-        processName =
-            stringToProcessName itemName
-    in
+addMaterial : Maybe RawCookedRatioInfo -> Processes -> ProcessName -> Product -> Result String Product
+addMaterial maybeRawCookedRatioInfo processes processName ({ plant } as product) =
     findProcessByName processName processes
         |> Result.map
             (\process ->
