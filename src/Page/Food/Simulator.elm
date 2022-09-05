@@ -336,7 +336,7 @@ view ({ foodDb, db } as session) { currentProductInfo, selectedProduct, impact, 
                                 , div [ class "row py-3 gap-2 gap-md-0" ]
                                     [ div [ class "col-md-8" ]
                                         [ foodDb.products
-                                            |> Product.listItems
+                                            |> Product.listIngredients
                                             |> List.filter
                                                 (\processName ->
                                                     -- Exclude already used materials
@@ -677,35 +677,46 @@ viewWaste barConfig step =
 
 viewSteps : BarConfig -> Product -> Html Msg
 viewSteps barConfig product =
-    ([ viewStep barConfig product.packaging
-     , viewStep barConfig product.distribution
-     , viewStep barConfig product.supermarket
-     , viewStep barConfig product.consumer
+    ([ viewStep "Conditionnement" barConfig product.packaging
+     , viewStep "Distribution" barConfig product.distribution
+     , viewStep "Supermarché" barConfig product.supermarket
+     , viewStep "Chez le consommateur" barConfig product.consumer
      ]
         |> List.intersperse DownArrow.view
     )
         |> div [ class "mb-3" ]
 
 
-viewStep : BarConfig -> Product.Step -> Html Msg
-viewStep barConfig step =
+viewStep : String -> BarConfig -> Product.Step -> Html Msg
+viewStep label barConfig step =
     div [ class "card" ]
         (case step.mainItem of
             Just mainItem ->
+                let
+                    stepConfig =
+                        { barConfig | totalImpact = Product.getTotalImpact barConfig.trigram step }
+                in
                 [ div [ class "card-header" ]
-                    [ div [ class "row" ]
-                        [ div [ class "col-11" ]
-                            [ mainItem
-                                |> .process
-                                |> .name
-                                |> Product.processNameToString
-                                |> text
-                            ]
-                        , div [ class "col-1 text-end" ]
-                            [ viewMainItemComment mainItem ]
-                        ]
-                    ]
-                , viewMainItemImpact barConfig mainItem
+                    [ text label ]
+                , step
+                    |> Product.stepToItems
+                    |> List.map
+                        (\item ->
+                            div [ class "row" ]
+                                [ div [ class "col-9" ]
+                                    [ viewItemComment item
+                                    , text " "
+                                    , item
+                                        |> .process
+                                        |> .name
+                                        |> Product.processNameToString
+                                        |> text
+                                    ]
+                                , div [ class "col-3" ]
+                                    [ viewItemImpact stepConfig item ]
+                                ]
+                        )
+                    |> div [ class "card-body" ]
                 ]
 
             Nothing ->
@@ -713,8 +724,8 @@ viewStep barConfig step =
         )
 
 
-viewMainItemImpact : BarConfig -> Product.Item -> Html Msg
-viewMainItemImpact barConfig mainItem =
+viewItemImpact : BarConfig -> Product.Item -> Html Msg
+viewItemImpact barConfig mainItem =
     let
         bar =
             makeBar barConfig mainItem
@@ -722,8 +733,8 @@ viewMainItemImpact barConfig mainItem =
     viewPlantProcess ratioToStringKg { disabled = True } bar
 
 
-viewMainItemComment : Product.Item -> Html Msg
-viewMainItemComment mainItem =
+viewItemComment : Product.Item -> Html Msg
+viewItemComment mainItem =
     if mainItem.comment /= "" then
         span
             [ class "d-inline-flex align-items-center fs-7 gap-1 py-1"

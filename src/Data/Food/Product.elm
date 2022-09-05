@@ -20,10 +20,11 @@ module Data.Food.Product exposing
     , getRawCookedRatioInfo
     , getTotalImpact
     , getTotalWeight
-    , listItems
+    , listIngredients
     , processNameToString
     , productNameToString
     , removeMaterial
+    , stepToItems
     , stringToProcessName
     , stringToProductName
     , unusedDuration
@@ -532,8 +533,8 @@ getWeightLosingUnitProcess step =
         |> List.head
 
 
-listItems : Products -> List ProcessName
-listItems products =
+listIngredients : Products -> List ProcessName
+listIngredients products =
     -- List all the "material" entries from the "at plant" step
     products
         |> AnyDict.values
