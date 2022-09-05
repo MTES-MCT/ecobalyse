@@ -27,33 +27,21 @@ module Data.Food.Product exposing
     , stepToItems
     , stringToProcessName
     , stringToProductName
-    , unusedDuration
     , updateAmount
     , updateTransport
     )
 
 import Data.Country as Country
-import Data.Impact as Impact exposing (Definition, Impacts, Trigram, grabImpactFloat)
+import Data.Impact as Impact
 import Data.Textile.Formula as Formula
 import Data.Transport as Transport exposing (Distances)
 import Data.Unit as Unit
 import Dict.Any as AnyDict exposing (AnyDict)
-import Duration exposing (Duration)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
 import Json.Decode.Pipeline as Pipe
 import Length
 import Set
-
-
-unusedFunctionalUnit : Unit.Functional
-unusedFunctionalUnit =
-    Unit.PerItem
-
-
-unusedDuration : Duration
-unusedDuration =
-    Duration.days 1
 
 
 defaultCountry : Country.Code
@@ -96,7 +84,7 @@ processNameToString (ProcessName name) =
 
 type alias Process =
     { name : ProcessName
-    , impacts : Impacts
+    , impacts : Impact.Impacts
     , ciqualCode : Maybe Int
     , step : Maybe String
     , dqr : Maybe Float
@@ -140,7 +128,7 @@ findProcessByName ((ProcessName name) as procName) =
         >> Result.fromMaybe ("Procédé introuvable par nom : " ++ name)
 
 
-decodeProcess : List Definition -> Decoder Process
+decodeProcess : List Impact.Definition -> Decoder Process
 decodeProcess definitions =
     Decode.succeed Process
         |> Pipe.hardcoded (stringToProcessName "to be defined")
@@ -156,7 +144,7 @@ decodeProcess definitions =
         |> Pipe.required "category_tags" (Decode.list Decode.string)
 
 
-decodeProcesses : List Definition -> Decoder Processes
+decodeProcesses : List Impact.Definition -> Decoder Processes
 decodeProcesses definitions =
     AnyDict.decode (\str _ -> ProcessName str) processNameToString (decodeProcess definitions)
         |> Decode.map
@@ -211,13 +199,13 @@ updateItem itemToUpdate updateFunc items =
             )
 
 
-computeItemsPefImpact : List Definition -> Items -> Items
+computeItemsPefImpact : List Impact.Definition -> Items -> Items
 computeItemsPefImpact definitions items =
     items
         |> List.map (computeItemPefImpact definitions)
 
 
-computeItemPefImpact : List Definition -> Item -> Item
+computeItemPefImpact : List Impact.Definition -> Item -> Item
 computeItemPefImpact definitions ({ process } as item) =
     { item
         | process =
@@ -280,7 +268,7 @@ type alias RawCookedRatioInfo =
     }
 
 
-computePefImpact : List Definition -> Product -> Product
+computePefImpact : List Impact.Definition -> Product -> Product
 computePefImpact definitions product =
     { product
         | consumer = computeStepPefImpact definitions product.consumer
@@ -291,7 +279,7 @@ computePefImpact definitions product =
     }
 
 
-computeStepPefImpact : List Definition -> Step -> Step
+computeStepPefImpact : List Impact.Definition -> Step -> Step
 computeStepPefImpact definitions step =
     { step
         | material = computeItemsPefImpact definitions step.material
@@ -465,7 +453,7 @@ stepToItems step =
         |> List.concatMap (\accessor -> accessor step)
 
 
-getTotalImpact : Trigram -> Step -> Float
+getTotalImpact : Impact.Trigram -> Step -> Float
 getTotalImpact trigram step =
     step
         |> stepToItems
@@ -473,7 +461,8 @@ getTotalImpact trigram step =
             (\item total ->
                 let
                     impact =
-                        grabImpactFloat unusedFunctionalUnit unusedDuration trigram item.process
+                        Impact.getImpact trigram item.process.impacts
+                            |> Unit.impactToFloat
                 in
                 total + (item.amount * impact)
             )
