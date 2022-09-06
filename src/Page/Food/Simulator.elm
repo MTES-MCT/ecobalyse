@@ -18,6 +18,7 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Html.Keyed
 import Ports
+import Quantity
 import RemoteData exposing (WebData)
 import Request.Food.Db as RequestDb
 import Views.Component.DownArrow as DownArrow
@@ -462,6 +463,8 @@ viewMaterial barConfig step =
 
 viewPlantProcess : (Unit.Ratio -> String) -> { disabled : Bool } -> Bar -> Html Msg
 viewPlantProcess toString { disabled } bar =
+    -- FIXME: the toString unit formatter should rather be a elm-unit type, which would be appropriately
+    -- decoded at JSON decode time
     let
         name =
             bar.item.process.name |> Product.processNameToString
@@ -496,7 +499,7 @@ viewPlantProcess toString { disabled } bar =
 type alias Bar =
     { item : Product.Item
     , definition : Impact.Definition
-    , impact : Float
+    , impact : Unit.Impact
     , width : Float
     , percent : Float
     }
@@ -514,11 +517,10 @@ makeBar { totalImpact, trigram, definition } ({ amount, process } as item) =
     let
         impact =
             Impact.getImpact trigram process.impacts
-                |> Unit.impactToFloat
-                |> (*) amount
+                |> Quantity.multiplyBy amount
 
         percent =
-            impact * toFloat 100 / totalImpact
+            Unit.impactToFloat impact * toFloat 100 / totalImpact
     in
     { item = item
     , definition = definition
@@ -537,7 +539,9 @@ barView bar { disabled } =
                 ]
             ]
         , div [ class "text-start py-1 ps-2 text-truncate flex-fill fs-7" ]
-            [ Format.formatImpactFloat bar.definition bar.impact
+            [ bar.impact
+                |> Unit.impactToFloat
+                |> Format.formatImpactFloat bar.definition
             , text " ("
             , Format.percent bar.percent
             , text ")"
@@ -720,22 +724,7 @@ viewStep label barConfig step =
                     ]
                 , step
                     |> Product.stepToItems
-                    |> List.map
-                        (\item ->
-                            div [ class "row" ]
-                                [ div [ class "col-6" ]
-                                    [ viewItemComment item
-                                    , text " "
-                                    , item
-                                        |> .process
-                                        |> .name
-                                        |> Product.processNameToString
-                                        |> text
-                                    ]
-                                , div [ class "col-6" ]
-                                    [ viewItemImpact stepConfig item ]
-                                ]
-                        )
+                    |> List.map (viewItemDetails stepConfig)
                     |> div [ class "card-body" ]
                 ]
 
@@ -744,13 +733,29 @@ viewStep label barConfig step =
         )
 
 
-viewItemImpact : BarConfig -> Product.Item -> Html Msg
-viewItemImpact barConfig mainItem =
+viewItemDetails : BarConfig -> Product.Item -> Html Msg
+viewItemDetails stepConfig item =
     let
-        bar =
-            makeBar barConfig mainItem
+        { definition, impact, percent } =
+            makeBar stepConfig item
     in
-    viewPlantProcess ratioToStringKg { disabled = True } bar
+    div [ class "row fs-7 border-bottom" ]
+        [ div [ class "col-sm-6 col-md-8" ]
+            [ viewItemComment item
+            , text " "
+            , item
+                |> .process
+                |> .name
+                |> Product.processNameToString
+                |> text
+            ]
+        , div [ class "col-sm-6 col-md-4 d-flex flex-row justify-content-between" ]
+            [ --viewItemImpact stepConfig item
+              span [] [ Format.formatFloat 2 item.amount ++ "\u{00A0}" ++ item.process.unit |> text ]
+            , span [] [ impact |> Unit.impactToFloat |> Format.formatImpactFloat definition ]
+            , span [] [ Format.percent percent ]
+            ]
+        ]
 
 
 viewItemComment : Product.Item -> Html Msg

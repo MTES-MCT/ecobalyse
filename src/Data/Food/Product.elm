@@ -128,6 +128,34 @@ findProcessByName ((ProcessName name) as procName) =
         >> Result.fromMaybe ("Procédé introuvable par nom : " ++ name)
 
 
+formatStringUnit : String -> String
+formatStringUnit str =
+    case str of
+        "cubic meter" ->
+            "m³"
+
+        "kilogram" ->
+            "kg"
+
+        "kilometer" ->
+            "km"
+
+        "kilowatt hour" ->
+            "kWh"
+
+        "litre" ->
+            "l"
+
+        "megajoule" ->
+            "MJ"
+
+        "ton kilometer" ->
+            "t/km"
+
+        _ ->
+            str
+
+
 decodeProcess : List Impact.Definition -> Decoder Process
 decodeProcess definitions =
     Decode.succeed Process
@@ -137,7 +165,7 @@ decodeProcess definitions =
         |> Pipe.required "step" (Decode.nullable Decode.string)
         |> Pipe.required "dqr" (Decode.nullable Decode.float)
         |> Pipe.required "empty_process" Decode.bool
-        |> Pipe.required "unit" Decode.string
+        |> Pipe.required "unit" (Decode.map formatStringUnit Decode.string)
         |> Pipe.required "code" Decode.string
         |> Pipe.required "simapro_category" Decode.string
         |> Pipe.required "system_description" Decode.string
@@ -358,6 +386,8 @@ linkProcess processes =
 decodeItem : Processes -> Decoder Item
 decodeItem processes =
     Decode.succeed Item
+        -- FIXME: decodeAmout should be called with the unit decoded from
+        -- JSON in decodeProcess, so we could have properly typed values
         |> Pipe.required "amount" decodeAmount
         |> Pipe.required "comment" Decode.string
         |> Pipe.required "processName" (linkProcess processes)
