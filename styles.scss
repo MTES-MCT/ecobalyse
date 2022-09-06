@@ -178,6 +178,10 @@ blockquote {
   height: auto !important;
 }
 
+.invert {
+  filter: invert(1);
+}
+
 .link {
   &-external:not(.link-external-muted) {
     &::after {
@@ -269,8 +273,10 @@ blockquote {
   }
 }
 
-.invert {
-  filter: invert(1);
+.w {
+  &-33 {
+    width: 33.333333%;
+  }
 }
 
 .Abbr {

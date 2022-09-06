@@ -491,7 +491,7 @@ viewPlantProcess toString { disabled } bar =
                     }
             ]
         , div [ class "col-sm-6" ]
-            [ barView bar { disabled = disabled }
+            [ barView { disabled = disabled } bar
             ]
         ]
 
@@ -530,8 +530,8 @@ makeBar { totalImpact, trigram, definition } ({ amount, process } as item) =
     }
 
 
-barView : Bar -> { disabled : Bool } -> Html Msg
-barView bar { disabled } =
+barView : { disabled : Bool } -> Bar -> Html Msg
+barView { disabled } bar =
     div [ class "px-3 py-1 border-top border-top-sm-0 border-start-0 border-start-sm d-flex align-items-center gap-1" ]
         [ div [ class "w-50", style "max-width" "50%", style "min-width" "50%" ]
             [ div [ class "progress" ]
@@ -716,16 +716,18 @@ viewStep label barConfig step =
                 in
                 [ div [ class "card-header" ]
                     [ div [ class "row" ]
-                        [ div [ class "col-9" ]
+                        [ div [ class "col-6" ]
                             [ text label ]
-                        , div [ class "col-3 text-end" ]
+                        , div [ class "col-6 text-end" ]
                             [ Format.formatImpactFloat stepConfig.definition stepImpact ]
                         ]
                     ]
                 , step
                     |> Product.stepToItems
+                    |> List.sortBy .amount
+                    |> List.reverse
                     |> List.map (viewItemDetails stepConfig)
-                    |> div [ class "card-body" ]
+                    |> ul [ class "list-group list-group-flush" ]
                 ]
 
             Nothing ->
@@ -736,11 +738,11 @@ viewStep label barConfig step =
 viewItemDetails : BarConfig -> Product.Item -> Html Msg
 viewItemDetails stepConfig item =
     let
-        { definition, impact, percent } =
+        { definition, impact, percent, width } =
             makeBar stepConfig item
     in
-    div [ class "row fs-7 border-bottom" ]
-        [ div [ class "col-sm-6 col-md-8" ]
+    li [ class "list-group-item" ]
+        [ div [ class "fs-7" ]
             [ viewItemComment item
             , text " "
             , item
@@ -749,11 +751,17 @@ viewItemDetails stepConfig item =
                 |> Product.processNameToString
                 |> text
             ]
-        , div [ class "col-sm-6 col-md-4 d-flex flex-row justify-content-between" ]
-            [ --viewItemImpact stepConfig item
-              span [] [ Format.formatFloat 2 item.amount ++ "\u{00A0}" ++ item.process.unit |> text ]
-            , span [] [ impact |> Unit.impactToFloat |> Format.formatImpactFloat definition ]
-            , span [] [ Format.percent percent ]
+        , div [ class "progress my-2", style "height" "9px" ]
+            [ div
+                [ class "progress-bar"
+                , style "width" (String.fromFloat width ++ "%")
+                ]
+                []
+            ]
+        , div [ class "d-flex flex-row justify-content-between fs-7" ]
+            [ span [ class "w-33" ] [ Format.formatFloat 2 item.amount ++ "\u{00A0}" ++ item.process.unit |> text ]
+            , span [ class "w-33" ] [ impact |> Unit.impactToFloat |> Format.formatImpactFloat definition ]
+            , span [ class "w-33" ] [ Format.percent percent ]
             ]
         ]
 
