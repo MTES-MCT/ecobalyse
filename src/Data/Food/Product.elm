@@ -17,6 +17,8 @@ module Data.Food.Product exposing
     , emptyProcesses
     , emptyProducts
     , findProductByName
+    , formatAmount
+    , formatItem
     , getRawCookedRatioInfo
     , getTotalImpact
     , getTotalWeight
@@ -42,6 +44,7 @@ import Json.Decode.Extra as DE
 import Json.Decode.Pipeline as Pipe
 import Length
 import Set
+import Views.Format as Format
 
 
 defaultCountry : Country.Code
@@ -154,6 +157,31 @@ formatStringUnit str =
 
         _ ->
             str
+
+
+formatAmount : Float -> String -> Float -> String
+formatAmount totalWeight unit amount =
+    if unit == "t/km" then
+        let
+            -- amount is in Ton.Km for the total weight. We instead want the total number of km.
+            perKg =
+                amount / totalWeight
+
+            distanceInKm =
+                perKg * 1000
+        in
+        Format.formatFloat 0 distanceInKm
+            ++ "\u{00A0}km ("
+            ++ Format.formatFloat 2 (amount * 1000)
+            ++ "\u{00A0}kg.km)"
+
+    else
+        Format.formatFloat 2 amount ++ "\u{00A0}" ++ formatStringUnit unit
+
+
+formatItem : Float -> Item -> String
+formatItem totalWeight item =
+    formatAmount totalWeight item.process.unit item.amount
 
 
 decodeProcess : List Impact.Definition -> Decoder Process

@@ -268,8 +268,9 @@ view ({ foodDb, db } as session) { currentProductInfo, selectedProduct, impact, 
                             |> Impact.getDefinition impact
                             |> Result.withDefault Impact.invalid
 
-                    barConfig =
+                    itemViewDataConfig =
                         { totalImpact = totalImpact
+                        , totalWeight = totalWeight
                         , trigram = impact
                         , definition = definition
                         }
@@ -333,7 +334,7 @@ view ({ foodDb, db } as session) { currentProductInfo, selectedProduct, impact, 
                                                     [ text name ]
                                             )
                                     )
-                                , viewMaterial barConfig product.plant
+                                , viewMaterial itemViewDataConfig product.plant
                                 , div [ class "row py-3 gap-2 gap-md-0" ]
                                     [ div [ class "col-md-8" ]
                                         [ foodDb.products
@@ -358,16 +359,16 @@ view ({ foodDb, db } as session) { currentProductInfo, selectedProduct, impact, 
                                             [ text "Ajouter un ingrédient" ]
                                         ]
                                     ]
-                                , viewEnergy barConfig product.plant
-                                , viewProcessing barConfig product.plant
-                                , viewTransport totalWeight barConfig product.plant selectedCountry db.countries
-                                , viewWaste barConfig product.plant
+                                , viewEnergy itemViewDataConfig product.plant
+                                , viewProcessing itemViewDataConfig product.plant
+                                , viewTransport itemViewDataConfig product.plant selectedCountry db.countries
+                                , viewWaste itemViewDataConfig product.plant
                                 , button
                                     [ class "btn btn-outline-primary w-100 my-3"
                                     , onClick Reset
                                     ]
                                     [ text "Réinitialiser" ]
-                                , viewSteps barConfig product
+                                , viewSteps itemViewDataConfig product
                                 ]
                             ]
                         ]
@@ -377,32 +378,6 @@ view ({ foodDb, db } as session) { currentProductInfo, selectedProduct, impact, 
                 Spinner.view
       ]
     )
-
-
-ratioToStringKg : Unit.Ratio -> String
-ratioToStringKg =
-    Unit.ratioToFloat
-        >> Format.formatFloat 3
-        >> (\mass -> mass ++ "kg")
-
-
-ratioToStringKgKm : Float -> Unit.Ratio -> String
-ratioToStringKgKm totalWeight amount =
-    let
-        -- amount is in Ton.Km for the total weight. We instead want the total number of km.
-        amountAsFloat =
-            Unit.ratioToFloat amount
-
-        perKg =
-            amountAsFloat / totalWeight
-
-        distanceInKm =
-            perKg * 1000
-    in
-    Format.formatFloat 0 distanceInKm
-        ++ " km ("
-        ++ Format.formatFloat 2 (amountAsFloat * 1000)
-        ++ " kg.km)"
 
 
 viewHeader : Html Msg -> Html Msg -> List (Html Msg) -> Html Msg
@@ -426,14 +401,14 @@ viewHeader header1 header2 children =
         text ""
 
 
-viewMaterial : BarConfig -> Product.Step -> Html Msg
+viewMaterial : ItemViewDataConfig -> Product.Step -> Html Msg
 viewMaterial barConfig step =
     step.material
         |> List.map
             (\item ->
                 let
-                    bar =
-                        makeBar barConfig item
+                    itemViewData =
+                        makeItemViewData barConfig item
                 in
                 div [ class "card" ]
                     [ div [ class "card-header" ]
@@ -455,26 +430,24 @@ viewMaterial barConfig step =
                                 ]
                             ]
                         ]
-                    , viewPlantProcess ratioToStringKg { disabled = False } bar
+                    , viewPlantProcess { disabled = False } itemViewData
                     ]
             )
         |> viewHeader (text "Ingrédients") (text "% de l'impact total")
 
 
-viewPlantProcess : (Unit.Ratio -> String) -> { disabled : Bool } -> Bar -> Html Msg
-viewPlantProcess toString { disabled } bar =
-    -- FIXME: the toString unit formatter should rather be a elm-unit type, which would be appropriately
-    -- decoded at JSON decode time
+viewPlantProcess : { disabled : Bool } -> ItemViewData -> Html Msg
+viewPlantProcess { disabled } ({ item, config } as itemViewData) =
     let
         name =
-            bar.item.process.name |> Product.processNameToString
+            item.process.name |> Product.processNameToString
     in
     div [ class "row align-items-center" ]
         [ div [ class "col-sm-6 px-4 py-2 py-sm-0" ]
             [ span [ class "d-block d-sm-none fs-7 text-muted" ] [ text "Quantité de l'ingrédient :" ]
             , if disabled then
-                Unit.Ratio bar.item.amount
-                    |> toString
+                item
+                    |> Product.formatItem config.totalWeight
                     |> text
                     |> List.singleton
                     |> span [ class "fs-7" ]
@@ -482,38 +455,43 @@ viewPlantProcess toString { disabled } bar =
               else
                 RangeSlider.ratio
                     { id = "slider-" ++ name
-                    , update = ItemSliderChanged bar.item
-                    , value = Unit.Ratio bar.item.amount
-                    , toString = toString
+                    , update = ItemSliderChanged item
+                    , value = Unit.Ratio item.amount
+                    , toString =
+                        \ratio ->
+                            ratio
+                                |> Unit.ratioToFloat
+                                |> Product.formatAmount config.totalWeight item.process.unit
                     , disabled = disabled
                     , min = 0
                     , max = 100
                     }
             ]
         , div [ class "col-sm-6" ]
-            [ barView { disabled = disabled } bar
+            [ itemView { disabled = disabled } itemViewData
             ]
         ]
 
 
-type alias Bar =
+type alias ItemViewData =
     { item : Product.Item
-    , definition : Impact.Definition
     , impact : Unit.Impact
     , width : Float
     , percent : Float
+    , config : ItemViewDataConfig
     }
 
 
-type alias BarConfig =
+type alias ItemViewDataConfig =
     { totalImpact : Float
+    , totalWeight : Float
     , trigram : Impact.Trigram
     , definition : Impact.Definition
     }
 
 
-makeBar : BarConfig -> Product.Item -> Bar
-makeBar { totalImpact, trigram, definition } ({ amount, process } as item) =
+makeItemViewData : ItemViewDataConfig -> Product.Item -> ItemViewData
+makeItemViewData ({ totalImpact, trigram } as config) ({ amount, process } as item) =
     let
         impact =
             Impact.getImpact trigram process.impacts
@@ -523,27 +501,27 @@ makeBar { totalImpact, trigram, definition } ({ amount, process } as item) =
             Unit.impactToFloat impact * toFloat 100 / totalImpact
     in
     { item = item
-    , definition = definition
     , impact = impact
     , width = clamp 0 100 percent
     , percent = percent
+    , config = config
     }
 
 
-barView : { disabled : Bool } -> Bar -> Html Msg
-barView { disabled } bar =
+itemView : { disabled : Bool } -> ItemViewData -> Html Msg
+itemView { disabled } itemViewData =
     div [ class "px-3 py-1 border-top border-top-sm-0 border-start-0 border-start-sm d-flex align-items-center gap-1" ]
         [ div [ class "w-50", style "max-width" "50%", style "min-width" "50%" ]
             [ div [ class "progress" ]
-                [ div [ class "progress-bar", style "width" (String.fromFloat bar.width ++ "%") ] []
+                [ div [ class "progress-bar", style "width" (String.fromFloat itemViewData.width ++ "%") ] []
                 ]
             ]
         , div [ class "text-start py-1 ps-2 text-truncate flex-fill fs-7" ]
-            [ bar.impact
+            [ itemViewData.impact
                 |> Unit.impactToFloat
-                |> Format.formatImpactFloat bar.definition
+                |> Format.formatImpactFloat itemViewData.config.definition
             , text " ("
-            , Format.percent bar.percent
+            , Format.percent itemViewData.percent
             , text ")"
             ]
         , if disabled then
@@ -553,7 +531,7 @@ barView { disabled } bar =
             button
                 [ class "btn p-0 text-primary"
                 , Html.Attributes.disabled disabled
-                , onClick <| DeleteItem bar.item
+                , onClick <| DeleteItem itemViewData.item
                 ]
                 [ i [ class "icon icon-trash" ] [] ]
         ]
@@ -586,48 +564,48 @@ itemselector maybeSelectedItem event =
         >> Html.Keyed.node "select" [ class "form-select", onInput (maybeToProcessName >> event) ]
 
 
-viewEnergy : BarConfig -> Product.Step -> Html Msg
-viewEnergy barConfig step =
+viewEnergy : ItemViewDataConfig -> Product.Step -> Html Msg
+viewEnergy itemViewDataConfig step =
     step.energy
         |> List.map
             (\item ->
                 let
-                    bar =
-                        makeBar barConfig item
+                    itemViewData =
+                        makeItemViewData itemViewDataConfig item
                 in
                 div [ class "card" ]
                     [ div [ class "card-header" ]
                         [ text <| Product.processNameToString item.process.name
                         , text item.comment
                         ]
-                    , viewPlantProcess ratioToStringKg { disabled = True } bar
+                    , viewPlantProcess { disabled = True } itemViewData
                     ]
             )
         |> viewHeader (text "Énergie") (text "% de l'impact total")
 
 
-viewProcessing : BarConfig -> Product.Step -> Html Msg
-viewProcessing barConfig step =
+viewProcessing : ItemViewDataConfig -> Product.Step -> Html Msg
+viewProcessing itemViewDataConfig step =
     step.processing
         |> List.map
             (\item ->
                 let
-                    bar =
-                        makeBar barConfig item
+                    itemViewData =
+                        makeItemViewData itemViewDataConfig item
                 in
                 div [ class "card" ]
                     [ div [ class "card-header" ]
                         [ text <| Product.processNameToString item.process.name
                         , text item.comment
                         ]
-                    , viewPlantProcess ratioToStringKg { disabled = True } bar
+                    , viewPlantProcess { disabled = True } itemViewData
                     ]
             )
         |> viewHeader (text "Procédé") (text "% de l'impact total")
 
 
-viewTransport : Float -> BarConfig -> Product.Step -> Country.Code -> List Country -> Html Msg
-viewTransport totalWeight barConfig step selectedCountry countries =
+viewTransport : ItemViewDataConfig -> Product.Step -> Country.Code -> List Country -> Html Msg
+viewTransport itemViewDataConfig step selectedCountry countries =
     let
         countrySelector =
             Views.CountrySelect.view
@@ -647,64 +625,67 @@ viewTransport totalWeight barConfig step selectedCountry countries =
         |> List.map
             (\item ->
                 let
-                    bar =
-                        makeBar barConfig item
+                    itemViewData =
+                        makeItemViewData itemViewDataConfig item
                 in
                 div [ class "card" ]
                     [ div [ class "card-header" ]
                         [ text <| Product.processNameToString item.process.name
                         , text item.comment
                         ]
-                    , viewPlantProcess (ratioToStringKgKm totalWeight) { disabled = True } bar
+                    , viewPlantProcess { disabled = True } itemViewData
                     ]
             )
         |> viewHeader header (text "% de l'impact total")
 
 
-viewWaste : BarConfig -> Product.Step -> Html Msg
-viewWaste barConfig step =
+viewWaste : ItemViewDataConfig -> Product.Step -> Html Msg
+viewWaste itemViewDataConfig step =
     step.wasteTreatment
         |> List.map
             (\item ->
                 let
-                    bar =
-                        makeBar barConfig item
+                    itemViewData =
+                        makeItemViewData itemViewDataConfig item
                 in
                 div [ class "card" ]
                     [ div [ class "card-header" ]
                         [ text <| Product.processNameToString item.process.name
                         , text item.comment
                         ]
-                    , viewPlantProcess ratioToStringKg { disabled = True } bar
+                    , viewPlantProcess { disabled = True } itemViewData
                     ]
             )
         |> viewHeader (text "Déchets") (text "% de l'impact total")
 
 
-viewSteps : BarConfig -> Product -> Html Msg
-viewSteps barConfig product =
-    ([ viewStep "Conditionnement" barConfig product.packaging
-     , viewStep "Distribution" barConfig product.distribution
-     , viewStep "Supermarché" barConfig product.supermarket
-     , viewStep "Chez le consommateur" barConfig product.consumer
+viewSteps : ItemViewDataConfig -> Product -> Html Msg
+viewSteps itemViewDataConfig product =
+    ([ viewStep "Conditionnement" itemViewDataConfig product.packaging
+     , viewStep "Distribution" itemViewDataConfig product.distribution
+     , viewStep "Supermarché" itemViewDataConfig product.supermarket
+     , viewStep "Chez le consommateur" itemViewDataConfig product.consumer
      ]
         |> List.intersperse DownArrow.view
     )
         |> div [ class "mb-3" ]
 
 
-viewStep : String -> BarConfig -> Product.Step -> Html Msg
-viewStep label barConfig step =
+viewStep : String -> ItemViewDataConfig -> Product.Step -> Html Msg
+viewStep label itemViewDataConfig step =
     div [ class "card" ]
         (case step.mainItem of
             Just mainItem ->
                 let
                     totalImpact =
-                        Product.getTotalImpact barConfig.trigram step
+                        Product.getTotalImpact itemViewDataConfig.trigram step
+
+                    totalWeight =
+                        Product.getTotalWeight step
 
                     mainItemImpact =
                         mainItem.process.impacts
-                            |> Impact.getImpact barConfig.trigram
+                            |> Impact.getImpact itemViewDataConfig.trigram
                             |> Unit.impactToFloat
                             |> (*) mainItem.amount
 
@@ -712,7 +693,7 @@ viewStep label barConfig step =
                         totalImpact - mainItemImpact
 
                     stepConfig =
-                        { barConfig | totalImpact = totalImpact }
+                        { itemViewDataConfig | totalImpact = totalImpact }
                 in
                 [ div [ class "card-header" ]
                     [ div [ class "row" ]
@@ -724,9 +705,11 @@ viewStep label barConfig step =
                     ]
                 , step
                     |> Product.stepToItems
-                    |> List.sortBy .amount
+                    |> List.map (makeItemViewData stepConfig)
+                    -- Order by max impact first
+                    |> List.sortBy .width
                     |> List.reverse
-                    |> List.map (viewItemDetails stepConfig)
+                    |> List.map (viewItemDetails totalWeight)
                     |> ul [ class "list-group list-group-flush" ]
                 ]
 
@@ -735,11 +718,11 @@ viewStep label barConfig step =
         )
 
 
-viewItemDetails : BarConfig -> Product.Item -> Html Msg
-viewItemDetails stepConfig item =
+viewItemDetails : Float -> ItemViewData -> Html Msg
+viewItemDetails totalWeight itemViewData =
     let
-        { definition, impact, percent, width } =
-            makeBar stepConfig item
+        { item, impact, percent, width } =
+            itemViewData
     in
     li [ class "list-group-item" ]
         [ div [ class "fs-7" ]
@@ -759,8 +742,8 @@ viewItemDetails stepConfig item =
                 []
             ]
         , div [ class "d-flex flex-row justify-content-between fs-7" ]
-            [ span [ class "w-33" ] [ Format.formatFloat 2 item.amount ++ "\u{00A0}" ++ item.process.unit |> text ]
-            , span [ class "w-33" ] [ impact |> Unit.impactToFloat |> Format.formatImpactFloat definition ]
+            [ span [ class "w-33" ] [ Product.formatItem totalWeight item |> text ]
+            , span [ class "w-33" ] [ impact |> Unit.impactToFloat |> Format.formatImpactFloat itemViewData.config.definition ]
             , span [ class "w-33" ] [ Format.percent percent ]
             ]
         ]
