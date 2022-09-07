@@ -661,13 +661,13 @@ viewWaste itemViewDataConfig step =
 
 viewSteps : ItemViewDataConfig -> Product -> Html Msg
 viewSteps itemViewDataConfig product =
-    ([ viewStep "Conditionnement" itemViewDataConfig product.packaging
-     , viewStep "Distribution" itemViewDataConfig product.distribution
-     , viewStep "Supermarché" itemViewDataConfig product.supermarket
-     , viewStep "Chez le consommateur" itemViewDataConfig product.consumer
-     ]
+    [ ( "Conditionnement", product.packaging )
+    , ( "Distribution", product.distribution )
+    , ( "Supermarché", product.supermarket )
+    , ( "Chez le consommateur", product.consumer )
+    ]
+        |> List.map (\( label, step ) -> viewStep label itemViewDataConfig step)
         |> List.intersperse DownArrow.view
-    )
         |> div [ class "mb-3" ]
 
 
