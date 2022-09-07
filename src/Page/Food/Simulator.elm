@@ -336,30 +336,7 @@ view ({ foodDb, db } as session) { currentProductInfo, selectedProduct, impact, 
                                             )
                                     )
                                 , viewMaterial itemViewDataConfig product.plant
-                                , div [ class "row py-3 gap-2 gap-md-0" ]
-                                    [ div [ class "col-md-8" ]
-                                        [ foodDb.products
-                                            |> Product.listIngredients
-                                            |> List.filter
-                                                (\processName ->
-                                                    -- Exclude already used materials
-                                                    product.plant.material
-                                                        |> List.map (.process >> .name)
-                                                        |> List.member processName
-                                                        |> not
-                                                )
-                                            |> itemselector selectedItem ItemSelected
-                                        ]
-                                    , div [ class "col-md-4" ]
-                                        [ button
-                                            [ class "btn btn-primary w-100 text-truncate"
-                                            , onClick AddItem
-                                            , disabled (selectedItem == Nothing)
-                                            , title "Ajouter un ingrédient"
-                                            ]
-                                            [ text "Ajouter un ingrédient" ]
-                                        ]
-                                    ]
+                                , viewIngredientSelector selectedItem product foodDb.products
                                 , viewEnergy itemViewDataConfig product.plant
                                 , viewProcessing itemViewDataConfig product.plant
                                 , viewTransport itemViewDataConfig product.plant selectedCountry db.countries
@@ -379,6 +356,34 @@ view ({ foodDb, db } as session) { currentProductInfo, selectedProduct, impact, 
                 Spinner.view
       ]
     )
+
+
+viewIngredientSelector : Maybe Product.ProcessName -> Product.Product -> Product.Products -> Html Msg
+viewIngredientSelector selectedItem product products =
+    div [ class "row py-3 gap-2 gap-md-0" ]
+        [ div [ class "col-md-8" ]
+            [ products
+                |> Product.listIngredients
+                |> List.filter
+                    (\processName ->
+                        -- Exclude already used materials
+                        product.plant.material
+                            |> List.map (.process >> .name)
+                            |> List.member processName
+                            |> not
+                    )
+                |> itemSelector selectedItem ItemSelected
+            ]
+        , div [ class "col-md-4" ]
+            [ button
+                [ class "btn btn-primary w-100 text-truncate"
+                , onClick AddItem
+                , disabled (selectedItem == Nothing)
+                , title "Ajouter un ingrédient"
+                ]
+                [ text "Ajouter un ingrédient" ]
+            ]
+        ]
 
 
 viewHeader : Html Msg -> Html Msg -> List (Html Msg) -> Html Msg
@@ -521,8 +526,8 @@ maybeToProcessName string =
         Just (Product.stringToProcessName string)
 
 
-itemselector : Maybe Product.ProcessName -> (Maybe Product.ProcessName -> Msg) -> List Product.ProcessName -> Html Msg
-itemselector maybeSelectedItem event =
+itemSelector : Maybe Product.ProcessName -> (Maybe Product.ProcessName -> Msg) -> List Product.ProcessName -> Html Msg
+itemSelector maybeSelectedItem event =
     List.map
         (\processName ->
             let

@@ -43,7 +43,7 @@ import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
 import Json.Decode.Pipeline as Pipe
 import Length
-import Set
+import List.Extra as LE
 import Views.Format as Format
 
 
@@ -76,8 +76,8 @@ type ProcessName
 
 
 stringToProcessName : String -> ProcessName
-stringToProcessName str =
-    ProcessName str
+stringToProcessName =
+    ProcessName
 
 
 processNameToString : ProcessName -> String
@@ -587,8 +587,7 @@ listIngredients products =
         |> AnyDict.values
         |> List.concatMap (.plant >> .material >> List.map (.process >> .name))
         |> List.map processNameToString
-        |> Set.fromList
-        |> Set.toList
+        |> LE.unique
         |> List.sort
         |> List.map stringToProcessName
 
