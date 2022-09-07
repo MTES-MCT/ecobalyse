@@ -513,7 +513,7 @@ itemView { disabled } itemViewData =
                 , Html.Attributes.disabled disabled
                 , onClick <| DeleteItem itemViewData.item
                 ]
-                [ i [ class "icon icon-trash" ] [] ]
+                [ Icon.trash ]
         ]
 
 
