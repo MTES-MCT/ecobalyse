@@ -401,41 +401,6 @@ viewHeader header1 header2 children =
         text ""
 
 
-viewMaterial : ItemViewDataConfig -> Product.Step -> Html Msg
-viewMaterial barConfig step =
-    step.material
-        |> List.map
-            (\item ->
-                let
-                    itemViewData =
-                        makeItemViewData barConfig item
-                in
-                div [ class "card" ]
-                    [ div [ class "card-header" ]
-                        [ div [ class "row" ]
-                            [ div [ class "col-lg-8" ]
-                                [ text <| Product.processNameToString item.process.name
-                                ]
-                            , div [ class "col-lg-4 text-truncate text-lg-end" ]
-                                [ if item.comment /= "" then
-                                    small
-                                        [ class "text-muted"
-                                        , style "cursor" "help"
-                                        , title item.comment
-                                        ]
-                                        [ text item.comment ]
-
-                                  else
-                                    text ""
-                                ]
-                            ]
-                        ]
-                    , viewPlantProcess { disabled = False } itemViewData
-                    ]
-            )
-        |> viewHeader (text "Ingrédients") (text "% de l'impact total")
-
-
 viewPlantProcess : { disabled : Bool } -> ItemViewData -> Html Msg
 viewPlantProcess { disabled } ({ item, config } as itemViewData) =
     let
@@ -564,15 +529,50 @@ itemselector maybeSelectedItem event =
         >> Html.Keyed.node "select" [ class "form-select", onInput (maybeToProcessName >> event) ]
 
 
+viewMaterial : ItemViewDataConfig -> Product.Step -> Html Msg
+viewMaterial itemViewDataConfig step =
+    step.material
+        |> List.map (makeItemViewData itemViewDataConfig)
+        -- Order by impact
+        |> List.sortBy .width
+        |> List.reverse
+        |> List.map
+            (\({ item } as itemViewData) ->
+                div [ class "card" ]
+                    [ div [ class "card-header" ]
+                        [ div [ class "row" ]
+                            [ div [ class "col-lg-8" ]
+                                [ text <| Product.processNameToString item.process.name
+                                ]
+                            , div [ class "col-lg-4 text-truncate text-lg-end" ]
+                                [ if item.comment /= "" then
+                                    small
+                                        [ class "text-muted"
+                                        , style "cursor" "help"
+                                        , title item.comment
+                                        ]
+                                        [ text item.comment ]
+
+                                  else
+                                    text ""
+                                ]
+                            ]
+                        ]
+                    , viewPlantProcess { disabled = False } itemViewData
+                    ]
+            )
+        |> viewHeader (text "Ingrédients") (text "% de l'impact total")
+
+
 viewEnergy : ItemViewDataConfig -> Product.Step -> Html Msg
 viewEnergy itemViewDataConfig step =
     step.energy
+        |> List.map (makeItemViewData itemViewDataConfig)
+        -- Order by impact
+        |> List.sortBy .width
+        |> List.reverse
         |> List.map
-            (\item ->
-                let
-                    itemViewData =
-                        makeItemViewData itemViewDataConfig item
-                in
+            (\({ item } as itemViewData) ->
                 div [ class "card" ]
                     [ div [ class "card-header" ]
                         [ text <| Product.processNameToString item.process.name
@@ -587,12 +587,12 @@ viewEnergy itemViewDataConfig step =
 viewProcessing : ItemViewDataConfig -> Product.Step -> Html Msg
 viewProcessing itemViewDataConfig step =
     step.processing
+        |> List.map (makeItemViewData itemViewDataConfig)
+        -- Order by impact
+        |> List.sortBy .width
+        |> List.reverse
         |> List.map
-            (\item ->
-                let
-                    itemViewData =
-                        makeItemViewData itemViewDataConfig item
-                in
+            (\({ item } as itemViewData) ->
                 div [ class "card" ]
                     [ div [ class "card-header" ]
                         [ text <| Product.processNameToString item.process.name
@@ -622,12 +622,12 @@ viewTransport itemViewDataConfig step selectedCountry countries =
                 ]
     in
     step.transport
+        |> List.map (makeItemViewData itemViewDataConfig)
+        -- Order by impact
+        |> List.sortBy .width
+        |> List.reverse
         |> List.map
-            (\item ->
-                let
-                    itemViewData =
-                        makeItemViewData itemViewDataConfig item
-                in
+            (\({ item } as itemViewData) ->
                 div [ class "card" ]
                     [ div [ class "card-header" ]
                         [ text <| Product.processNameToString item.process.name
@@ -642,12 +642,12 @@ viewTransport itemViewDataConfig step selectedCountry countries =
 viewWaste : ItemViewDataConfig -> Product.Step -> Html Msg
 viewWaste itemViewDataConfig step =
     step.wasteTreatment
+        |> List.map (makeItemViewData itemViewDataConfig)
+        -- Order by impact
+        |> List.sortBy .width
+        |> List.reverse
         |> List.map
-            (\item ->
-                let
-                    itemViewData =
-                        makeItemViewData itemViewDataConfig item
-                in
+            (\({ item } as itemViewData) ->
                 div [ class "card" ]
                     [ div [ class "card-header" ]
                         [ text <| Product.processNameToString item.process.name
@@ -706,7 +706,7 @@ viewStep label itemViewDataConfig step =
                 , step
                     |> Product.stepToItems
                     |> List.map (makeItemViewData stepConfig)
-                    -- Order by max impact first
+                    -- Order by impact
                     |> List.sortBy .width
                     |> List.reverse
                     |> List.map (viewItemDetails totalWeight)
