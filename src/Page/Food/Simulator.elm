@@ -667,22 +667,50 @@ viewWaste itemViewDataConfig step =
 
 viewStepsSummary : Impact.Trigram -> Product -> Html Msg
 viewStepsSummary trigram product =
-    div [ class "card" ]
-        [ [ ( "Recette", product.plant )
-          , ( "Conditionnement", product.packaging )
-          , ( "Distribution", product.distribution )
-          , ( "Vente au détail", product.supermarket )
-          , ( "Consommation", product.consumer )
+    let
+        total =
+            product.consumer
+                |> Product.getTotalImpact trigram
+    in
+    div [ class "card fs-7" ]
+        [ [ ( "Recette", .plant )
+          , ( "Conditionnement", .packaging )
+          , ( "Distribution", .distribution )
+          , ( "Vente au détail", .supermarket )
+          , ( "Consommation", .consumer )
           ]
             |> List.map
-                (\( label, step ) ->
-                    li [ class "list-group-item d-flex justify-content-between" ]
-                        [ span [] [ text label ]
-                        , span [ class "text-end" ]
-                            [ step
-                                |> Product.getTotalImpact trigram
-                                |> String.fromFloat
-                                |> text
+                (\( label, getter ) ->
+                    ( label
+                    , getter product |> Product.getTotalImpact trigram
+                    )
+                )
+            |> List.foldl
+                (\( label, impact ) acc ->
+                    case List.head acc of
+                        Just ( _, _, prevImpact ) ->
+                            ( label, (impact - prevImpact) / total * 100, impact ) :: acc
+
+                        Nothing ->
+                            [ ( label, impact / total * 100, impact ) ]
+                )
+                []
+            |> List.reverse
+            |> List.map
+                (\( label, percent, _ ) ->
+                    li [ class "list-group-item d-flex justify-content-between align-items-center gap-1" ]
+                        [ span [ class "flex-fill w-33 text-truncate" ] [ text label ]
+                        , span [ class "flex-fill w-50" ]
+                            [ div [ class "progress", style "height" "13px" ]
+                                [ div
+                                    [ class "progress-bar"
+                                    , style "width" (String.fromFloat percent ++ "%")
+                                    ]
+                                    []
+                                ]
+                            ]
+                        , span [ class "flex-fill text-end" ]
+                            [ Format.percent percent
                             ]
                         ]
                 )
