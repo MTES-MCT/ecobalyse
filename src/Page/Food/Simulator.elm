@@ -278,19 +278,17 @@ view ({ foodDb, db } as session) { currentProductInfo, selectedProduct, impact, 
                 in
                 Container.centered []
                     [ div [ class "row gap-3 gap-lg-0" ]
-                        [ div [ class "col-lg-4 order-lg-2" ]
-                            [ div [ class "mb-3" ]
-                                [ impactSelector
-                                    { impacts = session.db.impacts
-                                    , selectedImpact = impact
-                                    , switchImpact = SwitchImpact
+                        [ div [ class "col-lg-4 order-lg-2 d-flex flex-column gap-3" ]
+                            [ impactSelector
+                                { impacts = session.db.impacts
+                                , selectedImpact = impact
+                                , switchImpact = SwitchImpact
 
-                                    -- We don't use the following two configs
-                                    , selectedFunctionalUnit = Unit.PerItem
-                                    , switchFunctionalUnit = always NoOp
-                                    , scope = Impact.Food
-                                    }
-                                ]
+                                -- We don't use the following two configs
+                                , selectedFunctionalUnit = Unit.PerItem
+                                , switchFunctionalUnit = always NoOp
+                                , scope = Impact.Food
+                                }
                             , SummaryComp.view
                                 { header = []
                                 , body =
@@ -313,6 +311,7 @@ view ({ foodDb, db } as session) { currentProductInfo, selectedProduct, impact, 
                                     ]
                                 , footer = []
                                 }
+                            , viewStepsSummary impact product
                             ]
                         , div [ class "col-lg-8 order-lg-1" ]
                             [ div []
@@ -657,6 +656,31 @@ viewWaste itemViewDataConfig step =
                     ]
             )
         |> viewHeader (text "Déchets") (text "% de l'impact total")
+
+
+viewStepsSummary : Impact.Trigram -> Product -> Html Msg
+viewStepsSummary trigram product =
+    div [ class "card" ]
+        [ [ ( "Recette", product.plant )
+          , ( "Conditionnement", product.packaging )
+          , ( "Distribution", product.distribution )
+          , ( "Supermarché", product.supermarket )
+          , ( "Chez le consommateur", product.consumer )
+          ]
+            |> List.map
+                (\( label, step ) ->
+                    let
+                        stepImpact =
+                            Product.getTotalImpact trigram step
+                    in
+                    li [ class "list-group-item d-flex justify-content-between" ]
+                        [ span [] [ text label ]
+                        , span [ class "text-end" ]
+                            [ text (String.fromFloat stepImpact) ]
+                        ]
+                )
+            |> ul [ class "list-group list-group-flush" ]
+        ]
 
 
 viewSteps : ItemViewDataConfig -> Product -> Html Msg
