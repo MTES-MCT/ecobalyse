@@ -473,6 +473,15 @@ makeItemViewData ({ totalImpact, trigram } as config) ({ amount, process } as it
     }
 
 
+toItemViewDataList : ItemViewDataConfig -> List Product.Item -> List ItemViewData
+toItemViewDataList itemViewDataConfig =
+    List.map (makeItemViewData itemViewDataConfig)
+        -- order by impacts…
+        >> List.sortBy (.impact >> Unit.impactToFloat)
+        -- … in descending order
+        >> List.reverse
+
+
 itemView : { disabled : Bool } -> ItemViewData -> Html Msg
 itemView { disabled } itemViewData =
     div [ class "px-3 py-1 border-top border-top-sm-0 border-start-0 border-start-sm d-flex align-items-center gap-1" ]
@@ -532,10 +541,7 @@ itemselector maybeSelectedItem event =
 viewMaterial : ItemViewDataConfig -> Product.Step -> Html Msg
 viewMaterial itemViewDataConfig step =
     step.material
-        |> List.map (makeItemViewData itemViewDataConfig)
-        -- Order by impact
-        |> List.sortBy .width
-        |> List.reverse
+        |> toItemViewDataList itemViewDataConfig
         |> List.map
             (\({ item } as itemViewData) ->
                 div [ class "card" ]
@@ -567,10 +573,7 @@ viewMaterial itemViewDataConfig step =
 viewEnergy : ItemViewDataConfig -> Product.Step -> Html Msg
 viewEnergy itemViewDataConfig step =
     step.energy
-        |> List.map (makeItemViewData itemViewDataConfig)
-        -- Order by impact
-        |> List.sortBy .width
-        |> List.reverse
+        |> toItemViewDataList itemViewDataConfig
         |> List.map
             (\({ item } as itemViewData) ->
                 div [ class "card" ]
@@ -587,10 +590,7 @@ viewEnergy itemViewDataConfig step =
 viewProcessing : ItemViewDataConfig -> Product.Step -> Html Msg
 viewProcessing itemViewDataConfig step =
     step.processing
-        |> List.map (makeItemViewData itemViewDataConfig)
-        -- Order by impact
-        |> List.sortBy .width
-        |> List.reverse
+        |> toItemViewDataList itemViewDataConfig
         |> List.map
             (\({ item } as itemViewData) ->
                 div [ class "card" ]
@@ -622,10 +622,7 @@ viewTransport itemViewDataConfig step selectedCountry countries =
                 ]
     in
     step.transport
-        |> List.map (makeItemViewData itemViewDataConfig)
-        -- Order by impact
-        |> List.sortBy .width
-        |> List.reverse
+        |> toItemViewDataList itemViewDataConfig
         |> List.map
             (\({ item } as itemViewData) ->
                 div [ class "card" ]
@@ -642,10 +639,7 @@ viewTransport itemViewDataConfig step selectedCountry countries =
 viewWaste : ItemViewDataConfig -> Product.Step -> Html Msg
 viewWaste itemViewDataConfig step =
     step.wasteTreatment
-        |> List.map (makeItemViewData itemViewDataConfig)
-        -- Order by impact
-        |> List.sortBy .width
-        |> List.reverse
+        |> toItemViewDataList itemViewDataConfig
         |> List.map
             (\({ item } as itemViewData) ->
                 div [ class "card" ]
@@ -705,10 +699,7 @@ viewStep label itemViewDataConfig step =
                     ]
                 , step
                     |> Product.stepToItems
-                    |> List.map (makeItemViewData stepConfig)
-                    -- Order by impact
-                    |> List.sortBy .width
-                    |> List.reverse
+                    |> toItemViewDataList stepConfig
                     |> List.map (viewItemDetails totalWeight)
                     |> ul [ class "list-group list-group-flush" ]
                 ]
@@ -719,18 +710,12 @@ viewStep label itemViewDataConfig step =
 
 
 viewItemDetails : Float -> ItemViewData -> Html Msg
-viewItemDetails totalWeight itemViewData =
-    let
-        { item, impact, percent, width } =
-            itemViewData
-    in
+viewItemDetails totalWeight { config, item, impact, percent, width } =
     li [ class "list-group-item" ]
         [ div [ class "fs-7" ]
-            [ viewItemComment item
+            [ viewComment item.comment
             , text " "
-            , item
-                |> .process
-                |> .name
+            , item.process.name
                 |> Product.processNameToString
                 |> text
             ]
@@ -742,19 +727,28 @@ viewItemDetails totalWeight itemViewData =
                 []
             ]
         , div [ class "d-flex flex-row justify-content-between fs-7" ]
-            [ span [ class "w-33" ] [ Product.formatItem totalWeight item |> text ]
-            , span [ class "w-33" ] [ impact |> Unit.impactToFloat |> Format.formatImpactFloat itemViewData.config.definition ]
-            , span [ class "w-33" ] [ Format.percent percent ]
+            [ span [ class "w-33" ]
+                [ item
+                    |> Product.formatItem totalWeight
+                    |> text
+                ]
+            , span [ class "w-33" ]
+                [ impact
+                    |> Unit.impactToFloat
+                    |> Format.formatImpactFloat config.definition
+                ]
+            , span [ class "w-33" ]
+                [ Format.percent percent ]
             ]
         ]
 
 
-viewItemComment : Product.Item -> Html Msg
-viewItemComment mainItem =
-    if mainItem.comment /= "" then
+viewComment : String -> Html Msg
+viewComment comment =
+    if comment /= "" then
         span
             [ class "d-inline-flex align-items-center fs-7 gap-1 py-1"
-            , title mainItem.comment
+            , title comment
             ]
             [ i [ class "icon icon-question" ] [] ]
 
