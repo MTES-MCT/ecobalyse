@@ -26,6 +26,7 @@ import Views.Component.Summary as SummaryComp
 import Views.Container as Container
 import Views.CountrySelect
 import Views.Format as Format
+import Views.Icon as Icon
 import Views.Impact exposing (impactSelector)
 import Views.RangeSlider as RangeSlider
 import Views.Spinner as Spinner
@@ -747,10 +748,10 @@ viewComment : String -> Html Msg
 viewComment comment =
     if comment /= "" then
         span
-            [ class "d-inline-flex align-items-center fs-7 gap-1 py-1"
+            [ class "d-inline-flex align-items-center fs-7 gap-1 py-1 text-muted cursor-help"
             , title comment
             ]
-            [ i [ class "icon icon-question" ] [] ]
+            [ Icon.question ]
 
     else
         text ""
