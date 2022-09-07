@@ -30,6 +30,7 @@ import Page.Textile.Simulator.ViewMode as ViewMode exposing (ViewMode)
 import Ports
 import Route
 import Views.Alert as Alert
+import Views.Component.DownArrow as DownArrow
 import Views.Container as Container
 import Views.Dataviz as Dataviz
 import Views.Icon as Icon
@@ -389,11 +390,6 @@ productField db product =
         ]
 
 
-downArrow : Html Msg
-downArrow =
-    img [ src "img/down-arrow-icon.png", alt "", attribute "aria-hidden" "true" ] []
-
-
 lifeCycleStepsView : Db -> Model -> Simulator -> Html Msg
 lifeCycleStepsView db { viewMode, funit, impact } simulator =
     simulator.lifeCycle
@@ -423,7 +419,7 @@ lifeCycleStepsView db { viewMode, funit, impact } simulator =
                     }
             )
         |> Array.toList
-        |> List.intersperse (div [ class "text-center" ] [ downArrow ])
+        |> List.intersperse DownArrow.view
         |> div [ class "pt-1" ]
 
 

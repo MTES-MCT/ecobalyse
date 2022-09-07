@@ -15,6 +15,7 @@ import Html.Attributes exposing (..)
 import Page.Textile.Simulator.ViewMode as ViewMode
 import Route
 import Views.Alert as Alert
+import Views.Component.Summary as SummaryComp
 import Views.Format as Format
 import Views.Icon as Icon
 import Views.Link as Link
@@ -48,10 +49,10 @@ viewMaterials materials =
         |> span []
 
 
-summaryView : Config -> Simulator -> Html msg
-summaryView { session, impact, funit, reusable } ({ inputs, lifeCycle } as simulator) =
-    div [ class "card shadow-sm" ]
-        [ div [ class "card-header text-white bg-primary d-flex justify-content-between gap-1" ]
+mainSummaryView : Config -> Simulator -> Html msg
+mainSummaryView { session, impact, funit } ({ inputs, lifeCycle } as simulator) =
+    SummaryComp.view
+        { header =
             [ span [ class "text-nowrap" ]
                 [ strong [] [ text inputs.product.name ] ]
             , span
@@ -63,7 +64,7 @@ summaryView { session, impact, funit, reusable } ({ inputs, lifeCycle } as simul
             , span [ class "text-nowrap" ]
                 [ Icon.day, Format.days simulator.daysOfWear ]
             ]
-        , div [ class "card-body px-1 py-2 py-sm-3 d-grid gap-2 gap-sm-3 text-white bg-primary" ]
+        , body =
             [ div [ class "d-flex justify-content-center align-items-center" ]
                 [ img
                     [ src <| "img/product/" ++ inputs.product.name ++ ".svg"
@@ -109,7 +110,14 @@ summaryView { session, impact, funit, reusable } ({ inputs, lifeCycle } as simul
                     , roadTransportLabel = Just "Transport routier total"
                     }
             ]
-        , details [ class "card-body p-2 border-bottom" ]
+        , footer = []
+        }
+
+
+summaryChartsView : Config -> Simulator -> Html msg
+summaryChartsView { session, impact, funit, reusable } ({ inputs } as simulator) =
+    div [ class "card shadow-sm" ]
+        [ details [ class "card-body p-2 border-bottom" ]
             [ summary [ class "text-muted fs-7" ] [ text "Détails des postes" ]
             , Chart.view
                 { simulator = simulator
@@ -171,7 +179,10 @@ view : Config -> Result String Simulator -> Html msg
 view config result =
     case result of
         Ok simulator ->
-            summaryView config simulator
+            div [ class "stacked-card" ]
+                [ mainSummaryView config simulator
+                , summaryChartsView config simulator
+                ]
 
         Err error ->
             Alert.simple

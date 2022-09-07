@@ -16,14 +16,18 @@ import Dict.Any as AnyDict
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
+import Html.Keyed
 import Ports
 import RemoteData exposing (WebData)
 import Request.Food.Db as RequestDb
+import Views.Component.DownArrow as DownArrow
+import Views.Component.Summary as SummaryComp
 import Views.Container as Container
 import Views.CountrySelect
 import Views.Format as Format
 import Views.Impact exposing (impactSelector)
 import Views.RangeSlider as RangeSlider
+import Views.Spinner as Spinner
 
 
 type alias CurrentProductInfo =
@@ -37,18 +41,18 @@ type alias Model =
     { currentProductInfo : Maybe CurrentProductInfo
     , selectedProduct : String
     , impact : Impact.Trigram
-    , selectedIngredient : String
+    , selectedItem : Maybe Product.ProcessName
     , selectedCountry : Country.Code
     }
 
 
 type Msg
-    = AddIngredient
+    = AddItem
     | CountrySelected Country.Code
     | DbLoaded (WebData Db.Db)
-    | DeleteIngredient Product.ProcessName
-    | IngredientSelected String
-    | IngredientSliderChanged Product.ProcessName (Maybe Unit.Ratio)
+    | DeleteItem Product.Item
+    | ItemSelected (Maybe Product.ProcessName)
+    | ItemSliderChanged Product.Item (Maybe Unit.Ratio)
     | NoOp
     | ProductSelected String
     | Reset
@@ -65,7 +69,7 @@ init session =
     ( { currentProductInfo = Nothing
       , selectedProduct = tunaPizza
       , impact = Impact.defaultTrigram
-      , selectedIngredient = ""
+      , selectedItem = Nothing
       , selectedCountry = Product.defaultCountry
       }
     , session
@@ -79,31 +83,37 @@ init session =
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
 update ({ foodDb, db } as session) msg ({ currentProductInfo } as model) =
     case ( msg, currentProductInfo ) of
-        ( AddIngredient, Just selected ) ->
-            let
-                productWithAddedIngredient =
-                    selected.product
-                        |> Product.addMaterial selected.rawCookedRatioInfo foodDb.processes model.selectedIngredient
+        ( AddItem, Just selected ) ->
+            case model.selectedItem of
+                Just selectedItem ->
+                    let
+                        productWithAddedItem =
+                            selected.product
+                                |> Product.addMaterial selected.rawCookedRatioInfo foodDb.processes selectedItem
 
-                productWithPefScore =
-                    productWithAddedIngredient
-                        |> Result.map (Product.computePefImpact session.db.impacts)
-            in
-            case productWithPefScore of
-                Ok updatedProduct ->
-                    ( { model
-                        | currentProductInfo = Just { selected | product = updatedProduct }
-                      }
-                    , session
-                    , Cmd.none
-                    )
+                        productWithPefScore =
+                            productWithAddedItem
+                                |> Result.map (Product.computePefImpact session.db.impacts)
+                    in
+                    case productWithPefScore of
+                        Ok updatedProduct ->
+                            ( { model
+                                | currentProductInfo = Just { selected | product = updatedProduct }
+                                , selectedItem = Nothing
+                              }
+                            , session
+                            , Cmd.none
+                            )
 
-                Err message ->
-                    ( model
-                    , session
-                        |> Session.notifyError "Erreur lors de l'ajout de l'ingrédient" message
-                    , Cmd.none
-                    )
+                        Err message ->
+                            ( { model | selectedItem = Nothing }
+                            , session
+                                |> Session.notifyError "Erreur lors de l'ajout de l'ingrédient" message
+                            , Cmd.none
+                            )
+
+                Nothing ->
+                    ( model, session, Cmd.none )
 
         ( CountrySelected countryCode, Just selected ) ->
             let
@@ -123,14 +133,14 @@ update ({ foodDb, db } as session) msg ({ currentProductInfo } as model) =
             , Cmd.none
             )
 
-        ( DeleteIngredient processName, Just selected ) ->
+        ( DeleteItem processName, Just selected ) ->
             let
-                productWithoutIngredient =
+                productWithoutItem =
                     selected.product
                         |> Product.removeMaterial selected.rawCookedRatioInfo processName
 
                 productWithPefScore =
-                    productWithoutIngredient
+                    productWithoutItem
                         |> Product.computePefImpact session.db.impacts
             in
             ( { model
@@ -172,19 +182,19 @@ update ({ foodDb, db } as session) msg ({ currentProductInfo } as model) =
             , Cmd.none
             )
 
-        ( IngredientSelected ingredientName, _ ) ->
-            ( { model | selectedIngredient = ingredientName }
+        ( ItemSelected itemName, _ ) ->
+            ( { model | selectedItem = itemName }
             , session
             , Cmd.none
             )
 
-        ( IngredientSliderChanged name (Just newAmount), Just selected ) ->
+        ( ItemSliderChanged item (Just newAmount), Just selected ) ->
             let
                 { product, rawCookedRatioInfo } =
                     selected
 
                 updatedProduct =
-                    { product | plant = Product.updateAmount rawCookedRatioInfo name (Unit.ratioToFloat newAmount) product.plant }
+                    { product | plant = Product.updateAmount rawCookedRatioInfo item (Unit.ratioToFloat newAmount) product.plant }
             in
             ( { model | currentProductInfo = Just { selected | product = updatedProduct } }, session, Cmd.none )
 
@@ -219,6 +229,7 @@ update ({ foodDb, db } as session) msg ({ currentProductInfo } as model) =
             ( { model
                 | currentProductInfo = Just { selected | product = selected.original }
                 , selectedCountry = Product.defaultCountry
+                , selectedItem = Nothing
               }
             , session
             , Cmd.none
@@ -232,115 +243,137 @@ update ({ foodDb, db } as session) msg ({ currentProductInfo } as model) =
 
 
 view : Session -> Model -> ( String, List (Html Msg) )
-view ({ foodDb, db } as session) { currentProductInfo, selectedProduct, impact, selectedIngredient, selectedCountry } =
+view ({ foodDb, db } as session) { currentProductInfo, selectedProduct, impact, selectedItem, selectedCountry } =
     ( "Simulateur de recettes"
-    , [ Container.centered []
-            (case currentProductInfo of
-                Just { product, original } ->
-                    let
-                        -- We want the impact "per kg", but the original weight isn't 1kg,
-                        -- so we need to keep it in store to adapt the final total per kg
-                        originalTotalWeight =
-                            Product.getTotalWeight original.plant
+    , [ case currentProductInfo of
+            Just { product, original } ->
+                let
+                    -- We want the impact "per kg", but the original weight isn't 1kg,
+                    -- so we need to keep it in store to adapt the final total per kg
+                    originalTotalWeight =
+                        Product.getTotalWeight original.plant
 
-                        totalImpact =
-                            Product.getTotalImpact impact product.plant
+                    totalImpact =
+                        Product.getTotalImpact impact product.plant
 
-                        totalWeight =
-                            Product.getTotalWeight product.plant
+                    totalWeight =
+                        Product.getTotalWeight product.plant
 
-                        impactPerKg =
-                            totalImpact * originalTotalWeight / totalWeight
+                    impactPerKg =
+                        totalImpact * originalTotalWeight / totalWeight
 
-                        definition =
-                            db.impacts
-                                |> Impact.getDefinition impact
-                                |> Result.withDefault Impact.invalid
-                    in
-                    [ select
-                        [ class "form-select"
-                        , onInput ProductSelected
-                        ]
-                        (foodDb.products
-                            |> AnyDict.keys
-                            |> List.map
-                                (\productName ->
-                                    let
-                                        name =
-                                            Product.productNameToString productName
-                                    in
-                                    option
-                                        [ value name
-                                        , selected (name == selectedProduct)
+                    definition =
+                        db.impacts
+                            |> Impact.getDefinition impact
+                            |> Result.withDefault Impact.invalid
+
+                    barConfig =
+                        { totalImpact = totalImpact
+                        , trigram = impact
+                        , definition = definition
+                        }
+                in
+                Container.centered []
+                    [ div [ class "row gap-3 gap-lg-0" ]
+                        [ div [ class "col-lg-4 order-lg-2" ]
+                            [ div [ class "mb-3" ]
+                                [ impactSelector
+                                    { impacts = session.db.impacts
+                                    , selectedImpact = impact
+                                    , switchImpact = SwitchImpact
+
+                                    -- We don't use the following two configs
+                                    , selectedFunctionalUnit = Unit.PerItem
+                                    , switchFunctionalUnit = always NoOp
+                                    , scope = Impact.Food
+                                    }
+                                ]
+                            , SummaryComp.view
+                                { header = []
+                                , body =
+                                    [ div [ class "d-flex flex-column m-auto gap-1 px-1" ]
+                                        [ h2 [ class "h5 m-0" ] [ text "Impact normalisé" ]
+                                        , div [ class "display-4 lh-1 text-center text-nowrap" ]
+                                            [ Format.formatImpactFloat definition impactPerKg ]
+                                        , div [ class "fs-7 text-end" ] [ text "par kg de produit" ]
+                                        , h3 [ class "h6 m-0 mt-2" ] [ text "Impact total" ]
+                                        , div [ class "display-5 lh-1 text-center text-nowrap" ]
+                                            [ Format.formatImpactFloat definition totalImpact ]
+                                        , div [ class "fs-7 text-end" ]
+                                            [ text " pour un poids total de "
+                                            , strong []
+                                                [ totalWeight |> Format.formatFloat 3 |> text
+                                                , text "\u{00A0}kg"
+                                                ]
+                                            ]
                                         ]
-                                        [ text name ]
-                                )
-                        )
-                    , div [ class "row align-items-center pt-3 pb-4" ]
-                        [ div [ class "col-lg-6" ]
-                            [ impactSelector
-                                { impacts = session.db.impacts
-                                , selectedImpact = impact
-                                , switchImpact = SwitchImpact
-
-                                -- We don't use the following two configs
-                                , selectedFunctionalUnit = Unit.PerItem
-                                , switchFunctionalUnit = always NoOp
-                                , scope = Impact.Food
+                                    ]
+                                , footer = []
                                 }
                             ]
-                        , div [ class "col-lg-6" ]
+                        , div [ class "col-lg-8 order-lg-1" ]
                             [ div []
-                                [ text "Impact normalisé : "
-                                , impactPerKg
-                                    |> Format.formatImpactFloat definition
-                                , span [ class "fs-unit" ]
-                                    [ text "/kg de produit"
+                                [ select
+                                    [ class "form-select"
+                                    , onInput ProductSelected
                                     ]
-                                , br [] []
-                                , text "Impact total : "
-                                , Format.formatImpactFloat definition totalImpact
-                                , text " (Poids total : "
-                                , totalWeight
-                                    |> Format.formatFloat 3
-                                    |> text
-                                , text "kg"
-                                , text ")"
+                                    (foodDb.products
+                                        |> AnyDict.keys
+                                        |> List.map
+                                            (\productName ->
+                                                let
+                                                    name =
+                                                        Product.productNameToString productName
+                                                in
+                                                option
+                                                    [ value name
+                                                    , selected (name == selectedProduct)
+                                                    ]
+                                                    [ text name ]
+                                            )
+                                    )
+                                , viewMaterial barConfig product.plant
+                                , div [ class "row py-3 gap-2 gap-md-0" ]
+                                    [ div [ class "col-md-8" ]
+                                        [ foodDb.products
+                                            |> Product.listItems
+                                            |> List.filter
+                                                (\processName ->
+                                                    -- Exclude already used materials
+                                                    product.plant.material
+                                                        |> List.map (.process >> .name)
+                                                        |> List.member processName
+                                                        |> not
+                                                )
+                                            |> itemselector selectedItem ItemSelected
+                                        ]
+                                    , div [ class "col-md-4" ]
+                                        [ button
+                                            [ class "btn btn-primary w-100 text-truncate"
+                                            , onClick AddItem
+                                            , disabled (selectedItem == Nothing)
+                                            , title "Ajouter un ingrédient"
+                                            ]
+                                            [ text "Ajouter un ingrédient" ]
+                                        ]
+                                    ]
+                                , viewEnergy barConfig product.plant
+                                , viewProcessing barConfig product.plant
+                                , viewTransport totalWeight barConfig product.plant selectedCountry db.countries
+                                , viewWaste barConfig product.plant
+                                , button
+                                    [ class "btn btn-outline-primary w-100 my-3"
+                                    , onClick Reset
+                                    ]
+                                    [ text "Réinitialiser" ]
+                                , viewSteps barConfig product
                                 ]
                             ]
-                        ]
-                    , viewMaterial ratioToStringKg totalImpact impact definition product.plant
-                    , div [ class "row py-3 gap-2 gap-sm-0" ]
-                        [ div [ class "col-sm-10" ]
-                            [ foodDb.products
-                                |> Product.listIngredients
-                                |> ingredientSelector IngredientSelected
-                            ]
-                        , div [ class "col-sm-2" ]
-                            [ button
-                                [ class "btn btn-primary w-100"
-                                , onClick AddIngredient
-                                , disabled (selectedIngredient == "")
-                                ]
-                                [ text "Ajouter un ingrédient" ]
-                            ]
-                        ]
-                    , viewEnergy totalImpact impact definition product.plant
-                    , viewProcessing totalImpact impact definition product.plant
-                    , viewTransport totalWeight totalImpact impact definition product.plant selectedCountry db.countries
-                    , viewWaste totalImpact impact definition product.plant
-                    , div [ class "py-3 col-sm-2" ]
-                        [ button
-                            [ class "btn btn-primary w-100"
-                            , onClick Reset
-                            ]
-                            [ text "Réinitialiser" ]
                         ]
                     ]
 
-                _ ->
-                    [ text "Loading" ]
-            )
+            _ ->
+                Spinner.view
       ]
     )
 
@@ -374,52 +407,72 @@ ratioToStringKgKm totalWeight amount =
 viewHeader : Html Msg -> Html Msg -> List (Html Msg) -> Html Msg
 viewHeader header1 header2 children =
     if List.length children > 0 then
-        div []
-            (div [ class "row" ]
-                [ div [ class "col-lg-6" ]
-                    [ h3 [] [ header1 ]
+        div [ class "mt-3" ]
+            [ div [ class "row" ]
+                [ div [ class "col-12 col-lg-6 d-block d-lg-flex align-items-center" ]
+                    [ h3 [ class "h6" ] [ header1 ]
                     ]
-                , div [ class "col-lg-6 d-none d-sm-block" ]
-                    [ h3 [] [ header2 ] ]
+                , div [ class "col-0 col-lg-6 d-none d-lg-flex align-items-center justify-content-center" ]
+                    [ h3 [ class "h6" ] [ header2 ] ]
                 ]
-                :: children
-            )
+
+            -- Enclosing the children so the first stacked card has the
+            -- :first-child css selector applied
+            , div [ class "stacked-card" ] children
+            ]
 
     else
         text ""
 
 
-viewMaterial : (Unit.Ratio -> String) -> Float -> Impact.Trigram -> Impact.Definition -> Product.Step -> Html Msg
-viewMaterial toString totalImpact impact definition step =
+viewMaterial : BarConfig -> Product.Step -> Html Msg
+viewMaterial barConfig step =
     step.material
-        |> AnyDict.toList
         |> List.map
-            (\( name, ingredient ) ->
+            (\item ->
                 let
                     bar =
-                        makeBar totalImpact impact definition name ingredient
+                        makeBar barConfig item
                 in
-                div [ class "card stacked-card" ]
-                    [ div [ class "card-header" ] [ text <| Product.processNameToString name ]
-                    , viewProcess toString False bar
+                div [ class "card" ]
+                    [ div [ class "card-header" ]
+                        [ div [ class "row" ]
+                            [ div [ class "col-lg-8" ]
+                                [ text <| Product.processNameToString item.process.name
+                                ]
+                            , div [ class "col-lg-4 text-truncate text-lg-end" ]
+                                [ if item.comment /= "" then
+                                    small
+                                        [ class "text-muted"
+                                        , style "cursor" "help"
+                                        , title item.comment
+                                        ]
+                                        [ text item.comment ]
+
+                                  else
+                                    text ""
+                                ]
+                            ]
+                        ]
+                    , viewProcess ratioToStringKg { disabled = False } bar
                     ]
             )
-        |> viewHeader (text "Ingrédients") (text "Pourcentage de l'impact total")
+        |> viewHeader (text "Ingrédients") (text "% de l'impact total")
 
 
-viewProcess : (Unit.Ratio -> String) -> Bool -> Bar -> Html Msg
-viewProcess toString disabled bar =
+viewProcess : (Unit.Ratio -> String) -> { disabled : Bool } -> Bar -> Html Msg
+viewProcess toString { disabled } bar =
     let
         name =
-            bar.name |> Product.processNameToString
+            bar.item.process.name |> Product.processNameToString
     in
     div [ class "row align-items-center" ]
         [ div [ class "col-sm-6 px-4 py-2 py-sm-0" ]
             [ span [ class "d-block d-sm-none fs-7 text-muted" ] [ text "Quantité de l'ingrédient :" ]
             , RangeSlider.ratio
                 { id = "slider-" ++ name
-                , update = IngredientSliderChanged bar.name
-                , value = bar.amount
+                , update = ItemSliderChanged bar.item
+                , value = Unit.Ratio bar.item.amount
                 , toString = toString
                 , disabled = disabled
                 , min = 0
@@ -427,23 +480,29 @@ viewProcess toString disabled bar =
                 }
             ]
         , div [ class "col-sm-6" ]
-            [ barView bar
+            [ barView bar { disabled = disabled }
             ]
         ]
 
 
 type alias Bar =
-    { name : Product.ProcessName
+    { item : Product.Item
     , definition : Impact.Definition
-    , amount : Unit.Ratio
     , impact : Float
     , width : Float
     , percent : Float
     }
 
 
-makeBar : Float -> Impact.Trigram -> Impact.Definition -> Product.ProcessName -> Product.Ingredient -> Bar
-makeBar totalImpact trigram definition processName { amount, process } =
+type alias BarConfig =
+    { totalImpact : Float
+    , trigram : Impact.Trigram
+    , definition : Impact.Definition
+    }
+
+
+makeBar : BarConfig -> Product.Item -> Bar
+makeBar { totalImpact, trigram, definition } ({ amount, process } as item) =
     let
         impact =
             Impact.grabImpactFloat Unit.PerItem Product.unusedDuration trigram process * amount
@@ -451,85 +510,106 @@ makeBar totalImpact trigram definition processName { amount, process } =
         percent =
             impact * toFloat 100 / totalImpact
     in
-    { name = processName
+    { item = item
     , definition = definition
-    , amount = Unit.Ratio amount
     , impact = impact
     , width = clamp 0 100 percent
     , percent = percent
     }
 
 
-barView : Bar -> Html Msg
-barView bar =
-    div [ class "ps-3 py-1 border-top border-top-sm-0 border-start-0 border-start-sm d-flex" ]
-        [ div [ class "w-50 border my-2" ]
-            [ div
-                [ class "bg-primary"
-                , style "height" "100%"
-                , style "width" (String.fromFloat bar.width ++ "%")
+barView : Bar -> { disabled : Bool } -> Html Msg
+barView bar { disabled } =
+    div [ class "px-3 py-1 border-top border-top-sm-0 border-start-0 border-start-sm d-flex align-items-center gap-1" ]
+        [ div [ class "w-50", style "max-width" "50%", style "min-width" "50%" ]
+            [ div [ class "progress" ]
+                [ div [ class "progress-bar", style "width" (String.fromFloat bar.width ++ "%") ] []
                 ]
-                []
             ]
-        , div [ class "text-end py-1 ps-2 text-truncate flex-fill" ]
+        , div [ class "text-start py-1 ps-2 text-truncate flex-fill fs-7" ]
             [ Format.formatImpactFloat bar.definition bar.impact
             , text " ("
             , Format.percent bar.percent
             , text ")"
             ]
         , button
-            [ class "btn"
-            , onClick <| DeleteIngredient bar.name
+            [ class "btn p-0 text-primary"
+            , Html.Attributes.disabled disabled
+            , onClick <| DeleteItem bar.item
             ]
             [ i [ class "icon icon-trash" ] [] ]
         ]
 
 
-ingredientSelector : (String -> Msg) -> List String -> Html Msg
-ingredientSelector event =
-    List.map (\processName -> option [ value processName ] [ text processName ])
-        >> (++) [ option [] [ text "-- Sélectionner un ingrédient dans la liste --" ] ]
-        >> select [ class "form-select", onInput event ]
+maybeToProcessName : String -> Maybe Product.ProcessName
+maybeToProcessName string =
+    if string == "" then
+        Nothing
+
+    else
+        Just (Product.stringToProcessName string)
 
 
-viewEnergy : Float -> Impact.Trigram -> Impact.Definition -> Product.Step -> Html Msg
-viewEnergy totalImpact impact definition step =
+itemselector : Maybe Product.ProcessName -> (Maybe Product.ProcessName -> Msg) -> List Product.ProcessName -> Html Msg
+itemselector maybeSelectedItem event =
+    List.map
+        (\processName ->
+            let
+                string =
+                    Product.processNameToString processName
+            in
+            ( string, option [ selected <| maybeSelectedItem == Just processName ] [ text string ] )
+        )
+        >> (++)
+            [ ( "-- Sélectionner un ingrédient dans la liste --"
+              , option [ selected <| maybeSelectedItem == Nothing ] [ text "-- Sélectionner un ingrédient dans la liste --" ]
+              )
+            ]
+        >> Html.Keyed.node "select" [ class "form-select", onInput (maybeToProcessName >> event) ]
+
+
+viewEnergy : BarConfig -> Product.Step -> Html Msg
+viewEnergy barConfig step =
     step.energy
-        |> AnyDict.toList
         |> List.map
-            (\( name, process ) ->
+            (\item ->
                 let
                     bar =
-                        makeBar totalImpact impact definition name process
+                        makeBar barConfig item
                 in
-                div [ class "card stacked-card" ]
-                    [ div [ class "card-header" ] [ text <| Product.processNameToString name ]
-                    , viewProcess ratioToStringKg True bar
+                div [ class "card" ]
+                    [ div [ class "card-header" ]
+                        [ text <| Product.processNameToString item.process.name
+                        , text item.comment
+                        ]
+                    , viewProcess ratioToStringKg { disabled = True } bar
                     ]
             )
-        |> viewHeader (text "Énergie") (text "Pourcentage de l'impact total")
+        |> viewHeader (text "Énergie") (text "% de l'impact total")
 
 
-viewProcessing : Float -> Impact.Trigram -> Impact.Definition -> Product.Step -> Html Msg
-viewProcessing totalImpact impact definition step =
+viewProcessing : BarConfig -> Product.Step -> Html Msg
+viewProcessing barConfig step =
     step.processing
-        |> AnyDict.toList
         |> List.map
-            (\( name, process ) ->
+            (\item ->
                 let
                     bar =
-                        makeBar totalImpact impact definition name process
+                        makeBar barConfig item
                 in
-                div [ class "card stacked-card" ]
-                    [ div [ class "card-header" ] [ text <| Product.processNameToString name ]
-                    , viewProcess ratioToStringKg True bar
+                div [ class "card" ]
+                    [ div [ class "card-header" ]
+                        [ text <| Product.processNameToString item.process.name
+                        , text item.comment
+                        ]
+                    , viewProcess ratioToStringKg { disabled = True } bar
                     ]
             )
-        |> viewHeader (text "Procédé") (text "Pourcentage de l'impact total")
+        |> viewHeader (text "Procédé") (text "% de l'impact total")
 
 
-viewTransport : Float -> Float -> Impact.Trigram -> Impact.Definition -> Product.Step -> Country.Code -> List Country -> Html Msg
-viewTransport totalWeight totalImpact impact definition step selectedCountry countries =
+viewTransport : Float -> BarConfig -> Product.Step -> Country.Code -> List Country -> Html Msg
+viewTransport totalWeight barConfig step selectedCountry countries =
     let
         countrySelector =
             Views.CountrySelect.view
@@ -540,42 +620,104 @@ viewTransport totalWeight totalImpact impact definition step selectedCountry cou
                 }
 
         header =
-            span []
-                [ text "Transport - pays d'origine : "
+            span [ class "d-flex justify-content-between align-items-center" ]
+                [ span [ class "text-truncate" ] [ text "Transport - pays d'origine : " ]
                 , countrySelector
                 ]
     in
-    div []
-        [ step.transport
-            |> AnyDict.toList
-            |> List.map
-                (\( name, process ) ->
-                    let
-                        bar =
-                            makeBar totalImpact impact definition name process
-                    in
-                    div [ class "card stacked-card" ]
-                        [ div [ class "card-header" ] [ text <| Product.processNameToString name ]
-                        , viewProcess (ratioToStringKgKm totalWeight) True bar
-                        ]
-                )
-            |> viewHeader header (text "Pourcentage de l'impact total")
-        ]
-
-
-viewWaste : Float -> Impact.Trigram -> Impact.Definition -> Product.Step -> Html Msg
-viewWaste totalImpact impact definition step =
-    step.wasteTreatment
-        |> AnyDict.toList
+    step.transport
         |> List.map
-            (\( name, process ) ->
+            (\item ->
                 let
                     bar =
-                        makeBar totalImpact impact definition name process
+                        makeBar barConfig item
                 in
-                div [ class "card stacked-card" ]
-                    [ div [ class "card-header" ] [ text <| Product.processNameToString name ]
-                    , viewProcess ratioToStringKg True bar
+                div [ class "card" ]
+                    [ div [ class "card-header" ]
+                        [ text <| Product.processNameToString item.process.name
+                        , text item.comment
+                        ]
+                    , viewProcess (ratioToStringKgKm totalWeight) { disabled = True } bar
                     ]
             )
-        |> viewHeader (text "Déchets") (text "Pourcentage de l'impact total")
+        |> viewHeader header (text "% de l'impact total")
+
+
+viewWaste : BarConfig -> Product.Step -> Html Msg
+viewWaste barConfig step =
+    step.wasteTreatment
+        |> List.map
+            (\item ->
+                let
+                    bar =
+                        makeBar barConfig item
+                in
+                div [ class "card" ]
+                    [ div [ class "card-header" ]
+                        [ text <| Product.processNameToString item.process.name
+                        , text item.comment
+                        ]
+                    , viewProcess ratioToStringKg { disabled = True } bar
+                    ]
+            )
+        |> viewHeader (text "Déchets") (text "% de l'impact total")
+
+
+viewSteps : BarConfig -> Product -> Html Msg
+viewSteps barConfig product =
+    ([ viewStep barConfig product.packaging
+     , viewStep barConfig product.distribution
+     , viewStep barConfig product.supermarket
+     , viewStep barConfig product.consumer
+     ]
+        |> List.intersperse DownArrow.view
+    )
+        |> div [ class "mb-3" ]
+
+
+viewStep : BarConfig -> Product.Step -> Html Msg
+viewStep barConfig step =
+    div [ class "card" ]
+        (case step.mainItem of
+            Just mainItem ->
+                [ div [ class "card-header" ]
+                    [ div [ class "row" ]
+                        [ div [ class "col-11" ]
+                            [ mainItem
+                                |> .process
+                                |> .name
+                                |> Product.processNameToString
+                                |> text
+                            ]
+                        , div [ class "col-1 text-end" ]
+                            [ viewMainItemComment mainItem ]
+                        ]
+                    ]
+                , viewMainItemImpact barConfig mainItem
+                ]
+
+            Nothing ->
+                [ text "Procédé introuvable" ]
+        )
+
+
+viewMainItemImpact : BarConfig -> Product.Item -> Html Msg
+viewMainItemImpact barConfig mainItem =
+    let
+        bar =
+            makeBar barConfig mainItem
+    in
+    viewProcess ratioToStringKg { disabled = True } bar
+
+
+viewMainItemComment : Product.Item -> Html Msg
+viewMainItemComment mainItem =
+    if mainItem.comment /= "" then
+        span
+            [ class "d-inline-flex align-items-center fs-7 gap-1 py-1"
+            , title mainItem.comment
+            ]
+            [ i [ class "icon icon-question" ] [] ]
+
+    else
+        text ""
