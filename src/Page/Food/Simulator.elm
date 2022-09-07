@@ -244,25 +244,64 @@ update ({ foodDb, db } as session) msg ({ currentProductInfo } as model) =
             ( model, session, Cmd.none )
 
 
-view : Session -> Model -> ( String, List (Html Msg) )
-view ({ foodDb, db } as session) { currentProductInfo, selectedProduct, impact, selectedItem, selectedCountry } =
-    ( "Simulateur de recettes"
-    , [ case currentProductInfo of
-            Just { product, original } ->
-                let
-                    -- We want the impact "per kg", but the original weight isn't 1kg,
-                    -- so we need to keep it in store to adapt the final total per kg
-                    originalTotalWeight =
-                        Product.getTotalWeight original.plant
+viewSidebar : Session -> ItemViewDataConfig -> CurrentProductInfo -> List (Html Msg)
+viewSidebar session { definition, trigram, totalWeight, totalImpact } { product, original } =
+    let
+        -- We want the impact "per kg", but the original weight isn't 1kg,
+        -- so we need to keep it in store to adapt the final total per kg
+        originalTotalWeight =
+            Product.getTotalWeight original.plant
 
+        impactPerKg =
+            totalImpact * originalTotalWeight / totalWeight
+    in
+    [ impactSelector
+        { impacts = session.db.impacts
+        , selectedImpact = trigram
+        , switchImpact = SwitchImpact
+
+        -- We don't use the following two configs
+        , selectedFunctionalUnit = Unit.PerItem
+        , switchFunctionalUnit = always NoOp
+        , scope = Impact.Food
+        }
+    , SummaryComp.view
+        { header = []
+        , body =
+            [ div [ class "d-flex flex-column m-auto gap-1 px-1" ]
+                [ h2 [ class "h5 m-0" ] [ text "Impact normalisé" ]
+                , div [ class "display-4 lh-1 text-center text-nowrap" ]
+                    [ Format.formatImpactFloat definition impactPerKg ]
+                , div [ class "fs-7 text-end" ] [ text "par kg de produit" ]
+                , h3 [ class "h6 m-0 mt-2" ] [ text "Impact total" ]
+                , div [ class "display-5 lh-1 text-center text-nowrap" ]
+                    [ Format.formatImpactFloat definition totalImpact ]
+                , div [ class "fs-7 text-end" ]
+                    [ text " pour un poids total de "
+                    , strong []
+                        [ totalWeight |> Format.formatFloat 3 |> text
+                        , text "\u{00A0}kg"
+                        ]
+                    ]
+                ]
+            ]
+        , footer = []
+        }
+    , viewStepsSummary trigram product
+    ]
+
+
+view : Session -> Model -> ( String, List (Html Msg) )
+view ({ foodDb, db } as session) ({ selectedProduct, impact, selectedItem, selectedCountry } as model) =
+    ( "Simulateur de recettes"
+    , [ case model.currentProductInfo of
+            Just ({ product } as currentProductInfo) ->
+                let
                     totalImpact =
                         Product.getTotalImpact impact product.plant
 
                     totalWeight =
                         Product.getTotalWeight product.plant
-
-                    impactPerKg =
-                        totalImpact * originalTotalWeight / totalWeight
 
                     definition =
                         db.impacts
@@ -278,41 +317,9 @@ view ({ foodDb, db } as session) { currentProductInfo, selectedProduct, impact, 
                 in
                 Container.centered []
                     [ div [ class "row gap-3 gap-lg-0" ]
-                        [ div [ class "col-lg-4 order-lg-2 d-flex flex-column gap-3" ]
-                            [ impactSelector
-                                { impacts = session.db.impacts
-                                , selectedImpact = impact
-                                , switchImpact = SwitchImpact
-
-                                -- We don't use the following two configs
-                                , selectedFunctionalUnit = Unit.PerItem
-                                , switchFunctionalUnit = always NoOp
-                                , scope = Impact.Food
-                                }
-                            , SummaryComp.view
-                                { header = []
-                                , body =
-                                    [ div [ class "d-flex flex-column m-auto gap-1 px-1" ]
-                                        [ h2 [ class "h5 m-0" ] [ text "Impact normalisé" ]
-                                        , div [ class "display-4 lh-1 text-center text-nowrap" ]
-                                            [ Format.formatImpactFloat definition impactPerKg ]
-                                        , div [ class "fs-7 text-end" ] [ text "par kg de produit" ]
-                                        , h3 [ class "h6 m-0 mt-2" ] [ text "Impact total" ]
-                                        , div [ class "display-5 lh-1 text-center text-nowrap" ]
-                                            [ Format.formatImpactFloat definition totalImpact ]
-                                        , div [ class "fs-7 text-end" ]
-                                            [ text " pour un poids total de "
-                                            , strong []
-                                                [ totalWeight |> Format.formatFloat 3 |> text
-                                                , text "\u{00A0}kg"
-                                                ]
-                                            ]
-                                        ]
-                                    ]
-                                , footer = []
-                                }
-                            , viewStepsSummary impact product
-                            ]
+                        [ currentProductInfo
+                            |> viewSidebar session itemViewDataConfig
+                            |> div [ class "col-lg-4 order-lg-2 d-flex flex-column gap-3" ]
                         , div [ class "col-lg-8 order-lg-1" ]
                             [ div []
                                 [ select
@@ -664,19 +671,19 @@ viewStepsSummary trigram product =
         [ [ ( "Recette", product.plant )
           , ( "Conditionnement", product.packaging )
           , ( "Distribution", product.distribution )
-          , ( "Supermarché", product.supermarket )
-          , ( "Chez le consommateur", product.consumer )
+          , ( "Vente au détail", product.supermarket )
+          , ( "Consommation", product.consumer )
           ]
             |> List.map
                 (\( label, step ) ->
-                    let
-                        stepImpact =
-                            Product.getTotalImpact trigram step
-                    in
                     li [ class "list-group-item d-flex justify-content-between" ]
                         [ span [] [ text label ]
                         , span [ class "text-end" ]
-                            [ text (String.fromFloat stepImpact) ]
+                            [ step
+                                |> Product.getTotalImpact trigram
+                                |> String.fromFloat
+                                |> text
+                            ]
                         ]
                 )
             |> ul [ class "list-group list-group-flush" ]
@@ -687,8 +694,8 @@ viewSteps : ItemViewDataConfig -> Product -> Html Msg
 viewSteps itemViewDataConfig product =
     [ ( "Conditionnement", product.packaging )
     , ( "Distribution", product.distribution )
-    , ( "Supermarché", product.supermarket )
-    , ( "Chez le consommateur", product.consumer )
+    , ( "Vente au détail", product.supermarket )
+    , ( "Consommation", product.consumer )
     ]
         |> List.map (\( label, step ) -> viewStep label itemViewDataConfig step)
         |> List.intersperse DownArrow.view
