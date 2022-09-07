@@ -2,7 +2,7 @@ import brightway2 as bw
 
 
 def main():
-    bw.projects.set_current("test")
+    bw.projects.set_current("EF calculation")
     bw.bw2setup()
 
     methods_csv_filepath = r"../EF_adapted.CSV"
