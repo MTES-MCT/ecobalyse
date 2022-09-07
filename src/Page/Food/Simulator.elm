@@ -547,7 +547,7 @@ itemSelector maybeSelectedItem event =
 viewMaterial : ItemViewDataConfig -> Product.Step -> Html Msg
 viewMaterial itemViewDataConfig step =
     step.material
-        |> toItemViewDataList itemViewDataConfig
+        |> List.map (makeItemViewData itemViewDataConfig)
         |> List.map
             (\({ item } as itemViewData) ->
                 div [ class "card" ]
