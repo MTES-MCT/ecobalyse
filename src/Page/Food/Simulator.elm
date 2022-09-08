@@ -720,29 +720,24 @@ viewSteps itemViewDataConfig product =
 
 
 viewStep : String -> ItemViewDataConfig -> Product.Step -> Html Msg
-viewStep label itemViewDataConfig step =
+viewStep label ({ definition, totalImpact } as itemViewDataConfig) step =
     div [ class "card" ]
         (let
-            ( stepImpact, stepWeight ) =
-                ( Product.getStepImpact itemViewDataConfig.trigram step
-                , Product.getStepWeight step
-                )
-
-            stepConfig =
-                { itemViewDataConfig | totalImpact = stepImpact }
+            stepWeight =
+                Product.getStepWeight step
          in
          [ div [ class "card-header" ]
             [ div [ class "row" ]
                 [ div [ class "col-6" ]
                     [ text label ]
                 , div [ class "col-6 text-end" ]
-                    [ Format.formatImpactFloat stepConfig.definition stepImpact ]
+                    [ Format.formatImpactFloat definition totalImpact ]
                 ]
             ]
          , step
             |> Product.stepToItems
             |> List.filter (.mainItem >> not)
-            |> toItemViewDataList stepConfig
+            |> toItemViewDataList itemViewDataConfig
             |> List.map (viewItemDetails stepWeight)
             |> ul [ class "list-group list-group-flush" ]
          ]
