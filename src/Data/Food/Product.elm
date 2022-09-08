@@ -455,15 +455,7 @@ decodeProducts processes =
 -- utilities
 
 
-stepToItems :
-    { a
-        | material : Items
-        , transport : Items
-        , wasteTreatment : Items
-        , energy : Items
-        , processing : Items
-    }
-    -> Items
+stepToItems : Step -> Items
 stepToItems step =
     -- Return a "flat" list of items
     -- FIXME: find a way to validate that we're using all the important record properties
@@ -488,20 +480,13 @@ getStepImpact trigram step =
             0
 
 
-getTotalImpact : Impact.Trigram -> Step -> Float
-getTotalImpact trigram step =
-    step
-        |> stepToItems
-        |> List.foldl
-            (\item total ->
-                let
-                    impact =
-                        Impact.getImpact trigram item.process.impacts
-                            |> Unit.impactToFloat
-                in
-                total + (item.amount * impact)
-            )
-            0
+getTotalImpact : Impact.Trigram -> Product -> Float
+getTotalImpact trigram product =
+    getStepImpact trigram product.consumer
+        + getStepImpact trigram product.supermarket
+        + getStepImpact trigram product.distribution
+        + getStepImpact trigram product.packaging
+        + getStepImpact trigram product.plant
 
 
 getStepWeight : Step -> Float
