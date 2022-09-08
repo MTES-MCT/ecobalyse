@@ -669,19 +669,26 @@ viewStepsSummary : Impact.Trigram -> Product -> Html Msg
 viewStepsSummary trigram product =
     let
         total =
+            -- FIXME: compute the sum of sums for all step impacts
             product.consumer
                 |> Product.getTotalImpact trigram
     in
     div [ class "card fs-7" ]
-        [ [ ( "Recette", Product.getTotalImpact trigram product.plant )
-          , ( "Conditionnement", Product.getStepImpact trigram product.packaging )
-          , ( "Distribution", Product.getStepImpact trigram product.distribution )
-          , ( "Vente au détail", Product.getStepImpact trigram product.supermarket )
-          , ( "Consommation", Product.getStepImpact trigram product.consumer )
+        [ -- Note:
+          -- - First "at plant" step sums its items impacts *plus the one of its mainItem*
+          -- - Next steps only sum of all their *own* items impacts
+          [ ( "Recette", product.plant |> Product.getTotalImpact trigram )
+          , ( "Conditionnement", product.packaging |> Product.getStepImpact trigram )
+          , ( "Distribution", product.distribution |> Product.getStepImpact trigram )
+          , ( "Vente au détail", product.supermarket |> Product.getStepImpact trigram )
+          , ( "Consommation", product.consumer |> Product.getStepImpact trigram )
           ]
-            |> List.map (Tuple.mapSecond (\impact -> impact / total * 100))
             |> List.map
-                (\( label, percent ) ->
+                (\( label, impact ) ->
+                    let
+                        percent =
+                            impact / total * 100
+                    in
                     li [ class "list-group-item d-flex justify-content-between align-items-center gap-1" ]
                         [ span [ class "flex-fill w-33 text-truncate" ] [ text label ]
                         , span [ class "flex-fill w-50" ]
