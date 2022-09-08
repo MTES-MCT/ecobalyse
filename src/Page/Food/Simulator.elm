@@ -743,7 +743,7 @@ viewStep label itemViewDataConfig step =
             ]
          , step
             |> Product.stepToItems
-            |> List.filter (\item -> Just item /= step.mainItem)
+            |> List.filter (.mainItem >> not)
             |> toItemViewDataList stepConfig
             |> List.map (viewItemDetails stepWeight)
             |> ul [ class "list-group list-group-flush" ]

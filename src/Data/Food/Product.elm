@@ -227,6 +227,7 @@ type alias Item =
     { amount : Amount
     , comment : String
     , process : Process
+    , mainItem : Bool
     }
 
 
@@ -284,7 +285,6 @@ type alias Step =
     , wasteTreatment : Items
     , energy : Items
     , processing : Items
-    , mainItem : Maybe Item
     }
 
 
@@ -345,9 +345,6 @@ computeStepPefImpact definitions step =
         , wasteTreatment = computeItemsPefImpact definitions step.wasteTreatment
         , energy = computeItemsPefImpact definitions step.energy
         , processing = computeItemsPefImpact definitions step.processing
-        , mainItem =
-            step.mainItem
-                |> Maybe.map (computeItemPefImpact definitions)
     }
 
 
@@ -421,6 +418,7 @@ decodeItem processes =
         |> Pipe.required "amount" decodeAmount
         |> Pipe.required "comment" Decode.string
         |> Pipe.required "processName" (linkProcess processes)
+        |> Pipe.optional "mainProcess" Decode.bool False
 
 
 decodeAffectation : Processes -> Decoder Items
@@ -428,54 +426,14 @@ decodeAffectation processes =
     Decode.list (decodeItem processes)
 
 
-type alias PartiallyDecodedStep =
-    { material : Items
-    , transport : Items
-    , wasteTreatment : Items
-    , energy : Items
-    , processing : Items
-    , mainProcessName : Maybe String
-    }
-
-
 decodeStep : Processes -> Decoder Step
 decodeStep processes =
-    Decode.succeed PartiallyDecodedStep
+    Decode.succeed Step
         |> Pipe.optional "material" (decodeAffectation processes) emptyItems
         |> Pipe.optional "transport" (decodeAffectation processes) emptyItems
         |> Pipe.optional "waste treatment" (decodeAffectation processes) emptyItems
         |> Pipe.optional "energy" (decodeAffectation processes) emptyItems
         |> Pipe.optional "processing" (decodeAffectation processes) emptyItems
-        |> Pipe.required "mainProcess" (Decode.maybe Decode.string)
-        |> Decode.andThen resolveMainItem
-
-
-resolveMainItem : PartiallyDecodedStep -> Decoder Step
-resolveMainItem { mainProcessName, material, transport, wasteTreatment, energy, processing } =
-    case mainProcessName of
-        Just processName ->
-            let
-                mainItem : Maybe Item
-                mainItem =
-                    Nothing
-                        |> PartiallyDecodedStep material transport wasteTreatment energy processing
-                        |> stepToItems
-                        |> List.filter (\item -> item.process.name == ProcessName processName)
-                        |> List.head
-            in
-            case mainItem of
-                Just item ->
-                    Just item
-                        |> Step material transport wasteTreatment energy processing
-                        |> Decode.succeed
-
-                Nothing ->
-                    Decode.fail "Couldn't find the main item in the list of step items"
-
-        Nothing ->
-            Nothing
-                |> Step material transport wasteTreatment energy processing
-                |> Decode.succeed
 
 
 decodeProduct : Processes -> Decoder Product
@@ -517,7 +475,7 @@ getStepImpact : Impact.Trigram -> Step -> Float
 getStepImpact trigram step =
     step
         |> stepToItems
-        |> List.filter (\item -> Just item /= step.mainItem)
+        |> List.filter (.mainItem >> not)
         |> List.foldl
             (\item total ->
                 let
@@ -553,11 +511,11 @@ getStepWeight step =
             step.material
                 |> List.foldl
                     (\item total ->
-                        if Just item /= step.mainItem then
-                            total + item.amount
+                        if item.mainItem then
+                            total
 
                         else
-                            total
+                            total + item.amount
                     )
                     0
     in
@@ -646,9 +604,16 @@ addMaterial maybeRawCookedRatioInfo processes processName ({ plant } as product)
                     amount =
                         1.0
 
+                    newItem =
+                        { amount = amount
+                        , comment = ""
+                        , process = process
+                        , mainItem = False
+                        }
+
                     withAddedItem =
                         { plant
-                            | material = Item amount "" process :: plant.material
+                            | material = newItem :: plant.material
                         }
                             -- Update the total weight
                             |> updateWeight maybeRawCookedRatioInfo
@@ -705,7 +670,13 @@ updateTransport defaultTransport processes impactDefinitions countryCode distanc
                 |> List.map
                     (\( name, prop ) ->
                         findProcess name
-                            |> Item (toTonKm (prop transportWithRatio)) ""
+                            |> (\process ->
+                                    { amount = toTonKm (prop transportWithRatio)
+                                    , comment = ""
+                                    , process = process
+                                    , mainItem = False
+                                    }
+                               )
                     )
     in
     { product
