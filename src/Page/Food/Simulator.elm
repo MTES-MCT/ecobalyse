@@ -556,11 +556,16 @@ viewMaterial itemViewDataConfig step =
         |> toItemViewDataList itemViewDataConfig
         |> List.map
             (\({ item } as itemViewData) ->
-                div [ class "card" ]
+                let
+                    name =
+                        Product.processNameToString item.process.name
+                in
+                ( name
+                , div [ class "card" ]
                     [ div [ class "card-header" ]
                         [ div [ class "row" ]
                             [ div [ class "col-lg-8" ]
-                                [ text <| Product.processNameToString item.process.name
+                                [ text name
                                 ]
                             , div [ class "col-lg-4 text-truncate text-lg-end" ]
                                 [ if item.comment /= "" then
@@ -578,7 +583,12 @@ viewMaterial itemViewDataConfig step =
                         ]
                     , viewPlantProcess { disabled = False } itemViewData
                     ]
+                )
             )
+        -- We're keying those because they're ordered by impact, but this impact
+        -- changes when we update the amount, so the order changes.
+        |> Html.Keyed.node "div" []
+        |> List.singleton
         |> viewHeader (text "Ingrédients") (text "% de l'impact total")
 
 
