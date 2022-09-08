@@ -673,31 +673,15 @@ viewStepsSummary trigram product =
                 |> Product.getTotalImpact trigram
     in
     div [ class "card fs-7" ]
-        [ [ ( "Recette", .plant )
-          , ( "Conditionnement", .packaging )
-          , ( "Distribution", .distribution )
-          , ( "Vente au détail", .supermarket )
-          , ( "Consommation", .consumer )
+        [ [ ( "Recette", Product.getTotalImpact trigram product.plant )
+          , ( "Conditionnement", Product.getStepImpact trigram product.packaging )
+          , ( "Distribution", Product.getStepImpact trigram product.distribution )
+          , ( "Vente au détail", Product.getStepImpact trigram product.supermarket )
+          , ( "Consommation", Product.getStepImpact trigram product.consumer )
           ]
+            |> List.map (Tuple.mapSecond (\impact -> impact / total * 100))
             |> List.map
-                (\( label, getter ) ->
-                    ( label
-                    , getter product |> Product.getTotalImpact trigram
-                    )
-                )
-            |> List.foldl
-                (\( label, impact ) acc ->
-                    case List.head acc of
-                        Just ( _, _, prevImpact ) ->
-                            ( label, (impact - prevImpact) / total * 100, impact ) :: acc
-
-                        Nothing ->
-                            [ ( label, impact / total * 100, impact ) ]
-                )
-                []
-            |> List.reverse
-            |> List.map
-                (\( label, percent, _ ) ->
+                (\( label, percent ) ->
                     li [ class "list-group-item d-flex justify-content-between align-items-center gap-1" ]
                         [ span [ class "flex-fill w-33 text-truncate" ] [ text label ]
                         , span [ class "flex-fill w-50" ]
@@ -709,7 +693,7 @@ viewStepsSummary trigram product =
                                     []
                                 ]
                             ]
-                        , span [ class "flex-fill text-end" ]
+                        , span [ class "flex-fill text-end", style "min-width" "62px" ]
                             [ Format.percent percent
                             ]
                         ]
@@ -733,44 +717,30 @@ viewSteps itemViewDataConfig product =
 viewStep : String -> ItemViewDataConfig -> Product.Step -> Html Msg
 viewStep label itemViewDataConfig step =
     div [ class "card" ]
-        (case step.mainItem of
-            Just mainItem ->
-                let
-                    totalImpact =
-                        Product.getTotalImpact itemViewDataConfig.trigram step
+        (let
+            ( stepImpact, stepWeight ) =
+                ( Product.getStepImpact itemViewDataConfig.trigram step
+                , Product.getStepWeight step
+                )
 
-                    totalWeight =
-                        Product.getTotalWeight step
-
-                    mainItemImpact =
-                        mainItem.process.impacts
-                            |> Impact.getImpact itemViewDataConfig.trigram
-                            |> Unit.impactToFloat
-                            |> (*) mainItem.amount
-
-                    stepImpact =
-                        totalImpact - mainItemImpact
-
-                    stepConfig =
-                        { itemViewDataConfig | totalImpact = totalImpact }
-                in
-                [ div [ class "card-header" ]
-                    [ div [ class "row" ]
-                        [ div [ class "col-6" ]
-                            [ text label ]
-                        , div [ class "col-6 text-end" ]
-                            [ Format.formatImpactFloat stepConfig.definition stepImpact ]
-                        ]
-                    ]
-                , step
-                    |> Product.stepToItems
-                    |> toItemViewDataList stepConfig
-                    |> List.map (viewItemDetails totalWeight)
-                    |> ul [ class "list-group list-group-flush" ]
+            stepConfig =
+                { itemViewDataConfig | totalImpact = stepImpact }
+         in
+         [ div [ class "card-header" ]
+            [ div [ class "row" ]
+                [ div [ class "col-6" ]
+                    [ text label ]
+                , div [ class "col-6 text-end" ]
+                    [ Format.formatImpactFloat stepConfig.definition stepImpact ]
                 ]
-
-            Nothing ->
-                [ text "Procédé introuvable" ]
+            ]
+         , step
+            |> Product.stepToItems
+            |> List.filter (\item -> Just item /= step.mainItem)
+            |> toItemViewDataList stepConfig
+            |> List.map (viewItemDetails stepWeight)
+            |> ul [ class "list-group list-group-flush" ]
+         ]
         )
 
 

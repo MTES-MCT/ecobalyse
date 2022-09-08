@@ -20,6 +20,8 @@ module Data.Food.Product exposing
     , formatAmount
     , formatItem
     , getRawCookedRatioInfo
+    , getStepImpact
+    , getStepWeight
     , getTotalImpact
     , getTotalWeight
     , listIngredients
@@ -511,6 +513,23 @@ stepToItems step =
         |> List.concatMap (\accessor -> accessor step)
 
 
+getStepImpact : Impact.Trigram -> Step -> Float
+getStepImpact trigram step =
+    step
+        |> stepToItems
+        |> List.filter (\item -> Just item /= step.mainItem)
+        |> List.foldl
+            (\item total ->
+                let
+                    impact =
+                        Impact.getImpact trigram item.process.impacts
+                            |> Unit.impactToFloat
+                in
+                total + (item.amount * impact)
+            )
+            0
+
+
 getTotalImpact : Impact.Trigram -> Step -> Float
 getTotalImpact trigram step =
     step
@@ -525,6 +544,32 @@ getTotalImpact trigram step =
                 total + (item.amount * impact)
             )
             0
+
+
+getStepWeight : Step -> Float
+getStepWeight step =
+    let
+        totalWeight =
+            step.material
+                |> List.foldl
+                    (\item total ->
+                        if Just item /= step.mainItem then
+                            total + item.amount
+
+                        else
+                            total
+                    )
+                    0
+    in
+    if totalWeight == 0 then
+        -- There may be no materials (for some products, there's only a processing step)
+        -- in which case fall back to taking the "heaviest" processing step
+        getWeightLosingUnitProcess step
+            |> Maybe.map .amount
+            |> Maybe.withDefault 0
+
+    else
+        totalWeight
 
 
 getTotalWeight : Step -> Float
