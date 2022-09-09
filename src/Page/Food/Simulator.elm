@@ -35,7 +35,6 @@ import Views.Spinner as Spinner
 type alias CurrentProductInfo =
     { product : Product
     , original : Product
-    , rawCookedRatioInfo : Maybe Product.RawCookedRatioInfo
     }
 
 
@@ -91,7 +90,7 @@ update ({ foodDb, db } as session) msg ({ currentProductInfo } as model) =
                     let
                         productWithAddedItem =
                             selected.product
-                                |> Product.addMaterial selected.rawCookedRatioInfo foodDb.processes selectedItem
+                                |> Product.addMaterial foodDb.processes selectedItem
 
                         productWithPefScore =
                             productWithAddedItem
@@ -121,7 +120,7 @@ update ({ foodDb, db } as session) msg ({ currentProductInfo } as model) =
             let
                 productWithUpdatedTransport =
                     selected.product
-                        |> Product.updateTransport selected.original.plant.transport foodDb.processes db.impacts countryCode db.transports
+                        |> Product.updatePlantTransport selected.original.plant.transport foodDb.processes db.impacts countryCode db.transports
 
                 productWithPefScore =
                     productWithUpdatedTransport
@@ -139,7 +138,7 @@ update ({ foodDb, db } as session) msg ({ currentProductInfo } as model) =
             let
                 productWithoutItem =
                     selected.product
-                        |> Product.removeMaterial selected.rawCookedRatioInfo processName
+                        |> Product.removeMaterial processName
 
                 productWithPefScore =
                     productWithoutItem
@@ -165,7 +164,6 @@ update ({ foodDb, db } as session) msg ({ currentProductInfo } as model) =
                             Just
                                 { product = productWithPefScore
                                 , original = productWithPefScore
-                                , rawCookedRatioInfo = Product.getRawCookedRatioInfo product
                                 }
                       }
                     , { session | foodDb = loadedDb }
@@ -190,13 +188,10 @@ update ({ foodDb, db } as session) msg ({ currentProductInfo } as model) =
             , Cmd.none
             )
 
-        ( ItemSliderChanged item (Just newAmount), Just selected ) ->
+        ( ItemSliderChanged item (Just newAmount), Just ({ product } as selected) ) ->
             let
-                { product, rawCookedRatioInfo } =
-                    selected
-
                 updatedProduct =
-                    { product | plant = Product.updateAmount rawCookedRatioInfo item (Unit.ratioToFloat newAmount) product.plant }
+                    Product.updateMaterialAmount item (Unit.ratioToFloat newAmount) product
             in
             ( { model | currentProductInfo = Just { selected | product = updatedProduct } }, session, Cmd.none )
 
@@ -213,7 +208,6 @@ update ({ foodDb, db } as session) msg ({ currentProductInfo } as model) =
                             Just
                                 { product = productWithPefScore
                                 , original = productWithPefScore
-                                , rawCookedRatioInfo = Product.getRawCookedRatioInfo product
                                 }
                         , selectedProduct = productSelected
                       }
@@ -245,15 +239,13 @@ update ({ foodDb, db } as session) msg ({ currentProductInfo } as model) =
 
 
 viewSidebar : Session -> ItemViewDataConfig -> CurrentProductInfo -> List (Html Msg)
-viewSidebar session { definition, trigram, totalWeight, totalImpact } { product, original } =
+viewSidebar session { definition, trigram, totalImpact } { product } =
     let
-        -- We want the impact "per kg", but the original weight isn't 1kg,
-        -- so we need to keep it in store to adapt the final total per kg
-        originalTotalWeight =
-            Product.getTotalWeight original.plant
+        finalWeight =
+            Product.getWeightAtStep product.consumer
 
         impactPerKg =
-            totalImpact * originalTotalWeight / totalWeight
+            totalImpact / finalWeight
     in
     [ impactSelector
         { impacts = session.db.impacts
@@ -277,9 +269,9 @@ viewSidebar session { definition, trigram, totalWeight, totalImpact } { product,
                 , div [ class "display-5 lh-1 text-center text-nowrap" ]
                     [ Format.formatImpactFloat definition totalImpact ]
                 , div [ class "fs-7 text-end" ]
-                    [ text " pour un poids total de "
+                    [ text " pour un poids total chez le consommateur de "
                     , strong []
-                        [ totalWeight |> Format.formatFloat 3 |> text
+                        [ finalWeight |> Format.formatFloat 3 |> text
                         , text "\u{00A0}kg"
                         ]
                     ]
@@ -300,9 +292,6 @@ view ({ foodDb, db } as session) ({ selectedProduct, impact, selectedItem, selec
                     totalImpact =
                         Product.getTotalImpact impact product
 
-                    totalWeight =
-                        Product.getTotalWeight product.plant
-
                     definition =
                         db.impacts
                             |> Impact.getDefinition impact
@@ -310,7 +299,6 @@ view ({ foodDb, db } as session) ({ selectedProduct, impact, selectedItem, selec
 
                     itemViewDataConfig =
                         { totalImpact = totalImpact
-                        , totalWeight = totalWeight
                         , trigram = impact
                         , definition = definition
                         }
@@ -414,7 +402,7 @@ viewHeader header1 header2 children =
 
 
 viewPlantProcess : { disabled : Bool } -> ItemViewData -> Html Msg
-viewPlantProcess { disabled } ({ item, config } as itemViewData) =
+viewPlantProcess { disabled } ({ item, stepWeight } as itemViewData) =
     let
         name =
             item.process.name |> Product.processNameToString
@@ -424,7 +412,7 @@ viewPlantProcess { disabled } ({ item, config } as itemViewData) =
             [ span [ class "d-block d-sm-none fs-7 text-muted" ] [ text "Quantité de l'ingrédient :" ]
             , if disabled then
                 item
-                    |> Product.formatItem config.totalWeight
+                    |> Product.formatItem stepWeight
                     |> text
                     |> List.singleton
                     |> span [ class "fs-7" ]
@@ -438,7 +426,7 @@ viewPlantProcess { disabled } ({ item, config } as itemViewData) =
                         \ratio ->
                             ratio
                                 |> Unit.ratioToFloat
-                                |> Product.formatAmount config.totalWeight item.process.unit
+                                |> Product.formatAmount stepWeight item.process.unit
                     , disabled = disabled
                     , min = 0
                     , max = 100
@@ -456,19 +444,19 @@ type alias ItemViewData =
     , width : Float
     , percent : Float
     , config : ItemViewDataConfig
+    , stepWeight : Float
     }
 
 
 type alias ItemViewDataConfig =
     { totalImpact : Float
-    , totalWeight : Float
     , trigram : Impact.Trigram
     , definition : Impact.Definition
     }
 
 
-makeItemViewData : ItemViewDataConfig -> Product.Item -> ItemViewData
-makeItemViewData ({ totalImpact, trigram } as config) ({ amount, process } as item) =
+makeItemViewData : ItemViewDataConfig -> Float -> Product.Item -> ItemViewData
+makeItemViewData ({ totalImpact, trigram } as config) stepWeight ({ amount, process } as item) =
     let
         impact =
             Impact.getImpact trigram process.impacts
@@ -482,16 +470,18 @@ makeItemViewData ({ totalImpact, trigram } as config) ({ amount, process } as it
     , width = clamp 0 100 percent
     , percent = percent
     , config = config
+    , stepWeight = stepWeight
     }
 
 
-toItemViewDataList : ItemViewDataConfig -> List Product.Item -> List ItemViewData
-toItemViewDataList itemViewDataConfig =
-    List.map (makeItemViewData itemViewDataConfig)
+toItemViewDataList : ItemViewDataConfig -> Float -> List Product.Item -> List ItemViewData
+toItemViewDataList itemViewDataConfig stepWeight items =
+    items
+        |> List.map (makeItemViewData itemViewDataConfig stepWeight)
         -- order by impacts…
-        >> List.sortBy (.impact >> Unit.impactToFloat)
+        |> List.sortBy (.impact >> Unit.impactToFloat)
         -- … in descending order
-        >> List.reverse
+        |> List.reverse
 
 
 itemView : { disabled : Bool } -> ItemViewData -> Html Msg
@@ -552,8 +542,12 @@ itemSelector maybeSelectedItem event =
 
 viewMaterial : ItemViewDataConfig -> Product.Step -> Html Msg
 viewMaterial itemViewDataConfig step =
+    let
+        stepWeight =
+            Product.getWeightAtPlant step
+    in
     step.material
-        |> toItemViewDataList itemViewDataConfig
+        |> toItemViewDataList itemViewDataConfig stepWeight
         |> List.map
             (\({ item } as itemViewData) ->
                 let
@@ -594,8 +588,12 @@ viewMaterial itemViewDataConfig step =
 
 viewEnergy : ItemViewDataConfig -> Product.Step -> Html Msg
 viewEnergy itemViewDataConfig step =
+    let
+        stepWeight =
+            Product.getWeightAtPlant step
+    in
     step.energy
-        |> toItemViewDataList itemViewDataConfig
+        |> toItemViewDataList itemViewDataConfig stepWeight
         |> List.map
             (\({ item } as itemViewData) ->
                 div [ class "card" ]
@@ -611,8 +609,12 @@ viewEnergy itemViewDataConfig step =
 
 viewProcessing : ItemViewDataConfig -> Product.Step -> Html Msg
 viewProcessing itemViewDataConfig step =
+    let
+        stepWeight =
+            Product.getWeightAtPlant step
+    in
     step.processing
-        |> toItemViewDataList itemViewDataConfig
+        |> toItemViewDataList itemViewDataConfig stepWeight
         |> List.map
             (\({ item } as itemViewData) ->
                 div [ class "card" ]
@@ -642,9 +644,12 @@ viewTransport itemViewDataConfig step selectedCountry countries =
                 [ span [ class "text-truncate" ] [ text "Transport - pays d'origine : " ]
                 , countrySelector
                 ]
+
+        stepWeight =
+            Product.getWeightAtPlant step
     in
     step.transport
-        |> toItemViewDataList itemViewDataConfig
+        |> toItemViewDataList itemViewDataConfig stepWeight
         |> List.map
             (\({ item } as itemViewData) ->
                 div [ class "card" ]
@@ -660,8 +665,12 @@ viewTransport itemViewDataConfig step selectedCountry countries =
 
 viewWaste : ItemViewDataConfig -> Product.Step -> Html Msg
 viewWaste itemViewDataConfig step =
+    let
+        stepWeight =
+            Product.getWeightAtPlant step
+    in
     step.wasteTreatment
-        |> toItemViewDataList itemViewDataConfig
+        |> toItemViewDataList itemViewDataConfig stepWeight
         |> List.map
             (\({ item } as itemViewData) ->
                 div [ class "card" ]
@@ -731,12 +740,12 @@ viewSteps itemViewDataConfig product =
 
 viewStep : String -> ItemViewDataConfig -> Product.Step -> Html Msg
 viewStep label ({ definition, totalImpact } as itemViewDataConfig) step =
+    let
+        stepWeight =
+            Product.getWeightAtStep step
+    in
     div [ class "card" ]
-        (let
-            stepWeight =
-                Product.getStepWeight step
-         in
-         [ div [ class "card-header" ]
+        [ div [ class "card-header" ]
             [ div [ class "row" ]
                 [ div [ class "col-6" ]
                     [ text label ]
@@ -744,18 +753,17 @@ viewStep label ({ definition, totalImpact } as itemViewDataConfig) step =
                     [ Format.formatImpactFloat definition totalImpact ]
                 ]
             ]
-         , step
+        , step
             |> Product.stepToItems
             |> List.filter (.mainItem >> not)
-            |> toItemViewDataList itemViewDataConfig
-            |> List.map (viewItemDetails stepWeight)
+            |> toItemViewDataList itemViewDataConfig stepWeight
+            |> List.map viewItemDetails
             |> ul [ class "list-group list-group-flush" ]
-         ]
-        )
+        ]
 
 
-viewItemDetails : Float -> ItemViewData -> Html Msg
-viewItemDetails totalWeight { config, item, impact, percent, width } =
+viewItemDetails : ItemViewData -> Html Msg
+viewItemDetails { config, item, impact, percent, stepWeight, width } =
     li [ class "list-group-item" ]
         [ div [ class "fs-7" ]
             [ viewComment item.comment
@@ -774,7 +782,7 @@ viewItemDetails totalWeight { config, item, impact, percent, width } =
         , div [ class "d-flex flex-row justify-content-between fs-7" ]
             [ span [ class "w-33" ]
                 [ item
-                    |> Product.formatItem totalWeight
+                    |> Product.formatItem stepWeight
                     |> text
                 ]
             , span [ class "w-33" ]

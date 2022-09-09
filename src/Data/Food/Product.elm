@@ -7,7 +7,6 @@ module Data.Food.Product exposing
     , Product
     , ProductName
     , Products
-    , RawCookedRatioInfo
     , Step
     , addMaterial
     , computePefImpact
@@ -19,11 +18,10 @@ module Data.Food.Product exposing
     , findProductByName
     , formatAmount
     , formatItem
-    , getRawCookedRatioInfo
     , getStepImpact
-    , getStepWeight
     , getTotalImpact
-    , getTotalWeight
+    , getWeightAtPlant
+    , getWeightAtStep
     , listIngredients
     , processNameToString
     , productNameToString
@@ -31,8 +29,8 @@ module Data.Food.Product exposing
     , stepToItems
     , stringToProcessName
     , stringToProductName
-    , updateAmount
-    , updateTransport
+    , updateMaterialAmount
+    , updatePlantTransport
     )
 
 import Data.Country as Country
@@ -240,24 +238,6 @@ emptyItems =
     []
 
 
-updateItemAmount : Amount -> Item -> Item
-updateItemAmount amount item =
-    { item | amount = amount }
-
-
-updateItem : Item -> (Item -> Item) -> Items -> Items
-updateItem itemToUpdate updateFunc items =
-    items
-        |> List.map
-            (\item ->
-                if item == itemToUpdate then
-                    updateFunc item
-
-                else
-                    item
-            )
-
-
 computeItemsPefImpact : List Impact.Definition -> Items -> Items
 computeItemsPefImpact definitions items =
     items
@@ -320,12 +300,6 @@ emptyProducts =
     AnyDict.empty productNameToString
 
 
-type alias RawCookedRatioInfo =
-    { weightLossProcess : Item
-    , rawCookedRatio : Unit.Ratio
-    }
-
-
 computePefImpact : List Impact.Definition -> Product -> Product
 computePefImpact definitions product =
     { product
@@ -348,43 +322,23 @@ computeStepPefImpact definitions step =
     }
 
 
-updateStep : (Items -> Items) -> Step -> Step
-updateStep updateFunc step =
-    { step
-        | material = updateFunc step.material
-        , transport = updateFunc step.transport
-        , wasteTreatment = updateFunc step.wasteTreatment
-        , energy = updateFunc step.energy
-        , processing = updateFunc step.processing
+updateMaterialAmount : Item -> Amount -> Product -> Product
+updateMaterialAmount itemToUpdate amount ({ plant } as product) =
+    { product
+        | plant =
+            { plant
+                | material =
+                    plant.material
+                        |> List.map
+                            (\item ->
+                                if item == itemToUpdate then
+                                    { item | amount = amount }
+
+                                else
+                                    item
+                            )
+            }
     }
-
-
-updateAmount : Maybe RawCookedRatioInfo -> Item -> Amount -> Step -> Step
-updateAmount maybeRawCookedRatioInfo item newAmount step =
-    step
-        |> updateStep (updateItem item (updateItemAmount newAmount))
-        |> updateWeight maybeRawCookedRatioInfo
-
-
-updateWeight : Maybe RawCookedRatioInfo -> Step -> Step
-updateWeight maybeRawCookedRatioInfo step =
-    case maybeRawCookedRatioInfo of
-        Nothing ->
-            step
-
-        Just { weightLossProcess, rawCookedRatio } ->
-            let
-                updatedRawWeight =
-                    getTotalWeight step
-
-                updatedWeight =
-                    rawCookedRatio
-                        |> Unit.ratioToFloat
-                        |> (*) updatedRawWeight
-            in
-            updateStep
-                (updateItem weightLossProcess (updateItemAmount updatedWeight))
-                step
 
 
 findProductByName : ProductName -> Products -> Result String Product
@@ -489,83 +443,24 @@ getTotalImpact trigram product =
         + getStepImpact trigram product.plant
 
 
-getStepWeight : Step -> Float
-getStepWeight step =
-    let
-        totalWeight =
-            step.material
-                |> List.foldl
-                    (\item total ->
-                        if item.mainItem then
-                            total
-
-                        else
-                            total + item.amount
-                    )
-                    0
-    in
-    if totalWeight == 0 then
-        -- There may be no materials (for some products, there's only a processing step)
-        -- in which case fall back to taking the "heaviest" processing step
-        getWeightLosingUnitProcess step
-            |> Maybe.map .amount
-            |> Maybe.withDefault 0
-
-    else
-        totalWeight
-
-
-getTotalWeight : Step -> Float
-getTotalWeight step =
-    let
-        totalWeight =
-            step.material
-                |> List.foldl
-                    (\{ amount } total ->
-                        total + amount
-                    )
-                    0
-    in
-    if totalWeight == 0 then
-        -- There may be no materials (for some products, there's only a processing step)
-        -- in which case fall back to taking the "heaviest" processing step
-        getWeightLosingUnitProcess step
-            |> Maybe.map .amount
-            |> Maybe.withDefault 0
-
-    else
-        totalWeight
-
-
-getRawCookedRatioInfo : Product -> Maybe RawCookedRatioInfo
-getRawCookedRatioInfo product =
-    -- TODO: HACK, we assume that the process "at plant" that is the heavier is the total
-    -- "final" weight, versus the total weight of the raw items. We only need this
-    -- if there's some kind of process that "looses weight" in the process, and we assume this
-    -- process is in the "processing" category.
-    let
-        totalItemsWeight =
-            getTotalWeight product.plant
-    in
-    getWeightLosingUnitProcess product.plant
-        |> Maybe.map
-            (\({ amount } as item) ->
-                { weightLossProcess = item
-                , rawCookedRatio =
-                    (amount / totalItemsWeight)
-                        |> Unit.Ratio
-                }
-            )
-
-
-getWeightLosingUnitProcess : Step -> Maybe Item
-getWeightLosingUnitProcess step =
-    step.processing
-        -- Sort by heavier to lighter
-        |> List.sortBy .amount
-        |> List.reverse
-        -- Take the heaviest
+getWeightAtStep : Step -> Float
+getWeightAtStep step =
+    -- At any given step (that's not "at plant"), we take the first main item we find, and use its
+    -- weight to know how much we transport from the previous step.
+    step.material
+        |> List.filter .mainItem
         |> List.head
+        |> Maybe.map .amount
+        |> Maybe.withDefault 0
+
+
+getWeightAtPlant : Step -> Float
+getWeightAtPlant step =
+    -- At plant we don't really have a main item that we could use for the weight, so instead
+    -- sum the weight of all the materials.
+    step.material
+        |> List.map .amount
+        |> List.sum
 
 
 listIngredients : Products -> List ProcessName
@@ -580,8 +475,8 @@ listIngredients products =
         |> List.map stringToProcessName
 
 
-addMaterial : Maybe RawCookedRatioInfo -> Processes -> ProcessName -> Product -> Result String Product
-addMaterial maybeRawCookedRatioInfo processes processName ({ plant } as product) =
+addMaterial : Processes -> ProcessName -> Product -> Result String Product
+addMaterial processes processName ({ plant } as product) =
     findProcessByName processName processes
         |> Result.map
             (\process ->
@@ -600,33 +495,26 @@ addMaterial maybeRawCookedRatioInfo processes processName ({ plant } as product)
                         { plant
                             | material = newItem :: plant.material
                         }
-                            -- Update the total weight
-                            |> updateWeight maybeRawCookedRatioInfo
                 in
                 { product | plant = withAddedItem }
             )
 
 
-removeMaterial : Maybe RawCookedRatioInfo -> Item -> Product -> Product
-removeMaterial maybeRawCookedRatioInfo itemToRemove ({ plant } as product) =
-    let
-        withRemovedItem =
+removeMaterial : Item -> Product -> Product
+removeMaterial itemToRemove ({ plant } as product) =
+    { product
+        | plant =
             { plant
                 | material = List.filter (\item -> item /= itemToRemove) plant.material
             }
-                -- Update the total weight
-                |> updateWeight maybeRawCookedRatioInfo
-    in
-    { product
-        | plant = withRemovedItem
     }
 
 
-updateTransport : Items -> Processes -> List Impact.Definition -> Country.Code -> Distances -> Product -> Product
-updateTransport defaultTransport processes impactDefinitions countryCode distances ({ plant } as product) =
+updatePlantTransport : Items -> Processes -> List Impact.Definition -> Country.Code -> Distances -> Product -> Product
+updatePlantTransport defaultTransport processes impactDefinitions countryCode distances ({ plant } as product) =
     let
-        totalWeight =
-            getTotalWeight plant
+        plantWeight =
+            getWeightAtPlant product.plant
 
         impacts =
             Impact.impactsFromDefinitons impactDefinitions
@@ -640,7 +528,7 @@ updateTransport defaultTransport processes impactDefinitions countryCode distanc
                 |> Formula.transportRatio (Unit.Ratio 0.33)
 
         toTonKm km =
-            Length.inKilometers km * totalWeight / 1000
+            Length.inKilometers km * plantWeight / 1000
 
         findProcess processName =
             processes
