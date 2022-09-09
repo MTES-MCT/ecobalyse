@@ -129,6 +129,14 @@ def build_product_tree(ciqual_products, max_products=None):
                 next_activity = exchange.input
                 # Fill processes dictionary with exchange data
                 fill_processes(processes, next_activity, exchange)
+
+                exchange_name = exchange.input["name"]
+                exchange_data = {
+                    "processName": exchange_name,
+                    "comment": exchange._data["comment"],
+                    "amount": exchange["amount"] * amount,
+                }
+
                 #  We're looking for the next central product to drill it down. For "Tomato at consumer" ciqual product, the next central product should be "Tomato at supermarket")
                 # HACK: we assume that the next "central product"
                 # is the first one that doesn't have "Copied from Ecoinvent".
@@ -143,30 +151,17 @@ def build_product_tree(ciqual_products, max_products=None):
                     processes[next_activity]["category_tags"] = get_category_tags(
                         current_central_activity
                     )
-
-                exchange_name = exchange.input["name"]
+                    # Store the "main process" for this step, unless we're at plant already
+                    if step != "plant":
+                        exchange_data["mainProcess"] = True
 
                 # In products.json, we group processes by categories (transport, energy, waste treatment, material,...)
                 exchange_category = next_activity._data["simapro metadata"][
                     "Category type"
                 ]
                 category_data = products[product_name][step].get(exchange_category, [])
-                category_data.append(
-                    {
-                        "processName": exchange_name,
-                        "comment": exchange._data["comment"],
-                        "amount": exchange["amount"] * amount,
-                    },
-                )
+                category_data.append(exchange_data)
                 products[product_name][step][exchange_category] = category_data
-
-            # Store the "main process" for this step
-            if next_central_exchange:
-                products[product_name][step][
-                    "mainProcess"
-                ] = next_central_exchange.input["name"]
-            else:
-                products[product_name][step]["mainProcess"] = None
 
             # If we're at the last step, no need to drill down further
             if step == "plant":
