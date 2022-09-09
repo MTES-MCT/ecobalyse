@@ -322,25 +322,6 @@ computeStepPefImpact definitions step =
     }
 
 
-updateMaterialAmount : Item -> Amount -> Product -> Product
-updateMaterialAmount itemToUpdate amount ({ plant } as product) =
-    { product
-        | plant =
-            { plant
-                | material =
-                    plant.material
-                        |> List.map
-                            (\item ->
-                                if item == itemToUpdate then
-                                    { item | amount = amount }
-
-                                else
-                                    item
-                            )
-            }
-    }
-
-
 findProductByName : ProductName -> Products -> Result String Product
 findProductByName ((ProductName name) as productName) =
     AnyDict.get productName
@@ -495,19 +476,107 @@ addMaterial processes processName ({ plant } as product) =
                         { plant
                             | material = newItem :: plant.material
                         }
+
+                    originalWeight =
+                        getWeightAtPlant plant
                 in
                 { product | plant = withAddedItem }
+                    |> updateProductAmounts originalWeight
             )
+
+
+updateMaterialAmount : Item -> Amount -> Product -> Product
+updateMaterialAmount itemToUpdate amount ({ plant } as product) =
+    let
+        originalWeight =
+            getWeightAtPlant plant
+    in
+    { product
+        | plant =
+            { plant
+                | material =
+                    plant.material
+                        |> List.map
+                            (\item ->
+                                if item == itemToUpdate then
+                                    { item | amount = amount }
+
+                                else
+                                    item
+                            )
+            }
+    }
+        |> updateProductAmounts originalWeight
 
 
 removeMaterial : Item -> Product -> Product
 removeMaterial itemToRemove ({ plant } as product) =
+    let
+        originalWeight =
+            getWeightAtPlant plant
+    in
     { product
         | plant =
             { plant
                 | material = List.filter (\item -> item /= itemToRemove) plant.material
             }
     }
+        |> updateProductAmounts originalWeight
+
+
+updateProductAmounts : Float -> Product -> Product
+updateProductAmounts originalWeight ({ consumer, supermarket, distribution, packaging, plant } as product) =
+    let
+        updatedWeight =
+            getWeightAtPlant plant
+
+        -- We need the new "ratio" between the original product and the updated one,
+        -- to change the amount for all the other processes (but the plant materials).
+        amountRatio =
+            updatedWeight
+                / originalWeight
+    in
+    { product
+        | consumer = updateStepAmounts amountRatio consumer
+        , supermarket = updateStepAmounts amountRatio supermarket
+        , distribution = updateStepAmounts amountRatio distribution
+        , packaging = updateStepAmounts amountRatio packaging
+        , plant = updatePlantAmounts amountRatio plant
+    }
+
+
+updateStepAmounts : Float -> Step -> Step
+updateStepAmounts amountRatio ({ material, transport, wasteTreatment, energy, processing } as step) =
+    { step
+        | material = updateAffectationAmounts amountRatio material
+        , transport = updateAffectationAmounts amountRatio transport
+        , wasteTreatment = updateAffectationAmounts amountRatio wasteTreatment
+        , energy = updateAffectationAmounts amountRatio energy
+        , processing = updateAffectationAmounts amountRatio processing
+    }
+
+
+{-| updatePlantAmounts is specific to the plant where we don't want to automatically update the materials
+as they are customised by the user.
+-}
+updatePlantAmounts : Float -> Step -> Step
+updatePlantAmounts amountRatio ({ transport, wasteTreatment, energy, processing } as step) =
+    { step
+      -- We DON'T update the material amounts, they are customised by the user
+        | transport = updateAffectationAmounts amountRatio transport
+        , wasteTreatment = updateAffectationAmounts amountRatio wasteTreatment
+        , energy = updateAffectationAmounts amountRatio energy
+        , processing = updateAffectationAmounts amountRatio processing
+    }
+
+
+updateAffectationAmounts : Float -> Items -> Items
+updateAffectationAmounts amountRatio items =
+    items
+        |> List.map
+            (\item ->
+                { item | amount = item.amount * amountRatio }
+            )
 
 
 updatePlantTransport : Items -> Processes -> List Impact.Definition -> Country.Code -> Distances -> Product -> Product
