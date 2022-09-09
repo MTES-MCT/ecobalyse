@@ -547,7 +547,12 @@ viewMaterial itemViewDataConfig step =
             Product.getWeightAtPlant step
     in
     step.material
-        |> toItemViewDataList itemViewDataConfig stepWeight
+        -- FIXME : toItemViewDataList will order the items by impact, and we want that. But it's not ergonomic
+        -- while we have range sliders (and changing the value makes the item jump around)
+        -- So uncomment the following line and remove the next one when we finally remove the range sliders ;)
+        -- |> toItemViewDataList itemViewDataConfig stepWeight
+        |> List.map (makeItemViewData itemViewDataConfig stepWeight)
+        --
         |> List.map
             (\({ item } as itemViewData) ->
                 let
