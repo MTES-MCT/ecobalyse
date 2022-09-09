@@ -579,11 +579,25 @@ updateAffectationAmounts amountRatio items =
             )
 
 
-updatePlantTransport : Items -> Processes -> List Impact.Definition -> Country.Code -> Distances -> Product -> Product
-updatePlantTransport defaultTransport processes impactDefinitions countryCode distances ({ plant } as product) =
+updatePlantTransport : Product -> Processes -> List Impact.Definition -> Country.Code -> Distances -> Product -> Product
+updatePlantTransport originalProduct processes impactDefinitions countryCode distances ({ plant } as product) =
     let
+        defaultTransport =
+            originalProduct.plant.transport
+
+        originalPlantWeight =
+            getWeightAtPlant originalProduct.plant
+
         plantWeight =
             getWeightAtPlant product.plant
+
+        amountRatio =
+            plantWeight / originalPlantWeight
+
+        -- If we changed the recipe, we don't want the default transports, with want the default transports
+        -- with the updated amounts corresponding to the new recipe weight
+        defaultTransportWithAjustedWeight =
+            updateAffectationAmounts amountRatio defaultTransport
 
         impacts =
             Impact.impactsFromDefinitons impactDefinitions
@@ -626,7 +640,7 @@ updatePlantTransport defaultTransport processes impactDefinitions countryCode di
             { plant
                 | transport =
                     if countryCode == defaultCountry then
-                        defaultTransport
+                        defaultTransportWithAjustedWeight
 
                     else
                         transports

@@ -120,7 +120,7 @@ update ({ foodDb, db } as session) msg ({ currentProductInfo } as model) =
             let
                 productWithUpdatedTransport =
                     selected.product
-                        |> Product.updatePlantTransport selected.original.plant.transport foodDb.processes db.impacts countryCode db.transports
+                        |> Product.updatePlantTransport selected.original foodDb.processes db.impacts countryCode db.transports
 
                 productWithPefScore =
                     productWithUpdatedTransport
