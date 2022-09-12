@@ -308,7 +308,7 @@ view ({ foodDb, db } as session) ({ selectedProduct, impact, selectedItem, selec
                         [ currentProductInfo
                             |> viewSidebar session itemViewDataConfig
                             |> div [ class "col-lg-4 order-lg-2 d-flex flex-column gap-3" ]
-                        , div [ class "col-lg-8 order-lg-1" ]
+                        , div [ class "col-lg-8 order-lg-1 d-flex flex-column gap-3" ]
                             [ select
                                 [ class "form-select"
                                 , onInput ProductSelected
@@ -378,10 +378,10 @@ viewIngredientSelector selectedItem product products =
         ]
 
 
-viewHeader : Html Msg -> List (Html Msg) -> Html Msg
-viewHeader header1 children =
+viewCategory : Html Msg -> List (Html Msg) -> Html Msg
+viewCategory header1 children =
     if List.length children > 0 then
-        div [ class "mt-3" ]
+        section [ class "FoodStep" ]
             [ h3 [ class "h6" ] [ header1 ]
 
             -- Enclosing the children so the first stacked card has the
@@ -574,7 +574,7 @@ viewMaterial itemViewDataConfig step =
                     , viewPlantProcess { disabled = False } itemViewData
                     ]
             )
-        |> viewHeader (text "Ingrédients")
+        |> viewCategory (text "Ingrédients")
 
 
 viewEnergy : ItemViewDataConfig -> Product.Step -> Html Msg
@@ -595,7 +595,7 @@ viewEnergy itemViewDataConfig step =
                     , viewPlantProcess { disabled = True } itemViewData
                     ]
             )
-        |> viewHeader (text "Énergie")
+        |> viewCategory (text "Énergie")
 
 
 viewProcessing : ItemViewDataConfig -> Product.Step -> Html Msg
@@ -616,7 +616,7 @@ viewProcessing itemViewDataConfig step =
                     , viewPlantProcess { disabled = True } itemViewData
                     ]
             )
-        |> viewHeader (text "Procédé")
+        |> viewCategory (text "Procédé")
 
 
 viewTransport : ItemViewDataConfig -> Product.Step -> Country.Code -> List Country -> Html Msg
@@ -651,7 +651,7 @@ viewTransport itemViewDataConfig step selectedCountry countries =
                     , viewPlantProcess { disabled = True } itemViewData
                     ]
             )
-        |> viewHeader header
+        |> viewCategory header
 
 
 viewWaste : ItemViewDataConfig -> Product.Step -> Html Msg
@@ -672,7 +672,7 @@ viewWaste itemViewDataConfig step =
                     , viewPlantProcess { disabled = True } itemViewData
                     ]
             )
-        |> viewHeader (text "Déchets")
+        |> viewCategory (text "Déchets")
 
 
 viewStepsSummary : Impact.Trigram -> Product -> Html Msg
