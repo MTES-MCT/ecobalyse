@@ -309,39 +309,37 @@ view ({ foodDb, db } as session) ({ selectedProduct, impact, selectedItem, selec
                             |> viewSidebar session itemViewDataConfig
                             |> div [ class "col-lg-4 order-lg-2 d-flex flex-column gap-3" ]
                         , div [ class "col-lg-8 order-lg-1" ]
-                            [ div []
-                                [ select
-                                    [ class "form-select"
-                                    , onInput ProductSelected
-                                    ]
-                                    (foodDb.products
-                                        |> AnyDict.keys
-                                        |> List.map
-                                            (\productName ->
-                                                let
-                                                    name =
-                                                        Product.productNameToString productName
-                                                in
-                                                option
-                                                    [ value name
-                                                    , selected (name == selectedProduct)
-                                                    ]
-                                                    [ text name ]
-                                            )
-                                    )
-                                , viewMaterial itemViewDataConfig product.plant
-                                , viewIngredientSelector selectedItem product foodDb.products
-                                , viewEnergy itemViewDataConfig product.plant
-                                , viewProcessing itemViewDataConfig product.plant
-                                , viewTransport itemViewDataConfig product.plant selectedCountry db.countries
-                                , viewWaste itemViewDataConfig product.plant
-                                , button
-                                    [ class "btn btn-outline-primary w-100 my-3"
-                                    , onClick Reset
-                                    ]
-                                    [ text "Réinitialiser" ]
-                                , viewSteps itemViewDataConfig product
+                            [ select
+                                [ class "form-select"
+                                , onInput ProductSelected
                                 ]
+                                (foodDb.products
+                                    |> AnyDict.keys
+                                    |> List.map
+                                        (\productName ->
+                                            let
+                                                name =
+                                                    Product.productNameToString productName
+                                            in
+                                            option
+                                                [ value name
+                                                , selected (name == selectedProduct)
+                                                ]
+                                                [ text name ]
+                                        )
+                                )
+                            , viewMaterial itemViewDataConfig product.plant
+                            , viewIngredientSelector selectedItem product foodDb.products
+                            , viewEnergy itemViewDataConfig product.plant
+                            , viewProcessing itemViewDataConfig product.plant
+                            , viewTransport itemViewDataConfig product.plant selectedCountry db.countries
+                            , viewWaste itemViewDataConfig product.plant
+                            , button
+                                [ class "btn btn-outline-primary w-100 my-3"
+                                , onClick Reset
+                                ]
+                                [ text "Réinitialiser" ]
+                            , viewSteps itemViewDataConfig product
                             ]
                         ]
                     ]
@@ -380,17 +378,11 @@ viewIngredientSelector selectedItem product products =
         ]
 
 
-viewHeader : Html Msg -> Html Msg -> List (Html Msg) -> Html Msg
-viewHeader header1 header2 children =
+viewHeader : Html Msg -> List (Html Msg) -> Html Msg
+viewHeader header1 children =
     if List.length children > 0 then
         div [ class "mt-3" ]
-            [ div [ class "row" ]
-                [ div [ class "col-12 col-lg-6 d-block d-lg-flex align-items-center" ]
-                    [ h3 [ class "h6" ] [ header1 ]
-                    ]
-                , div [ class "col-0 col-lg-6 d-none d-lg-flex align-items-center justify-content-center" ]
-                    [ h3 [ class "h6" ] [ header2 ] ]
-                ]
+            [ h3 [ class "h6" ] [ header1 ]
 
             -- Enclosing the children so the first stacked card has the
             -- :first-child css selector applied
@@ -559,8 +551,7 @@ viewMaterial itemViewDataConfig step =
                     name =
                         Product.processNameToString item.process.name
                 in
-                ( name
-                , div [ class "card" ]
+                div [ class "card" ]
                     [ div [ class "card-header" ]
                         [ div [ class "row" ]
                             [ div [ class "col-lg-8" ]
@@ -582,13 +573,8 @@ viewMaterial itemViewDataConfig step =
                         ]
                     , viewPlantProcess { disabled = False } itemViewData
                     ]
-                )
             )
-        -- We're keying those because they're ordered by impact, but this impact
-        -- changes when we update the amount, so the order changes.
-        |> Html.Keyed.node "div" []
-        |> List.singleton
-        |> viewHeader (text "Ingrédients") (text "% de l'impact total")
+        |> viewHeader (text "Ingrédients")
 
 
 viewEnergy : ItemViewDataConfig -> Product.Step -> Html Msg
@@ -609,7 +595,7 @@ viewEnergy itemViewDataConfig step =
                     , viewPlantProcess { disabled = True } itemViewData
                     ]
             )
-        |> viewHeader (text "Énergie") (text "% de l'impact total")
+        |> viewHeader (text "Énergie")
 
 
 viewProcessing : ItemViewDataConfig -> Product.Step -> Html Msg
@@ -630,7 +616,7 @@ viewProcessing itemViewDataConfig step =
                     , viewPlantProcess { disabled = True } itemViewData
                     ]
             )
-        |> viewHeader (text "Procédé") (text "% de l'impact total")
+        |> viewHeader (text "Procédé")
 
 
 viewTransport : ItemViewDataConfig -> Product.Step -> Country.Code -> List Country -> Html Msg
@@ -638,14 +624,14 @@ viewTransport itemViewDataConfig step selectedCountry countries =
     let
         countrySelector =
             Views.CountrySelect.view
-                { attributes = [ class "form-select w-25 d-inline" ]
+                { attributes = [ class "form-select w-50 d-inline" ]
                 , selectedCountry = selectedCountry
                 , onSelect = CountrySelected
                 , countries = countries
                 }
 
         header =
-            span [ class "d-flex justify-content-between align-items-center" ]
+            span [ class "d-flex justify-content-between align-items-center gap-3" ]
                 [ span [ class "text-truncate" ] [ text "Transport - pays d'origine : " ]
                 , countrySelector
                 ]
@@ -665,7 +651,7 @@ viewTransport itemViewDataConfig step selectedCountry countries =
                     , viewPlantProcess { disabled = True } itemViewData
                     ]
             )
-        |> viewHeader header (text "% de l'impact total")
+        |> viewHeader header
 
 
 viewWaste : ItemViewDataConfig -> Product.Step -> Html Msg
@@ -686,7 +672,7 @@ viewWaste itemViewDataConfig step =
                     , viewPlantProcess { disabled = True } itemViewData
                     ]
             )
-        |> viewHeader (text "Déchets") (text "% de l'impact total")
+        |> viewHeader (text "Déchets")
 
 
 viewStepsSummary : Impact.Trigram -> Product -> Html Msg
