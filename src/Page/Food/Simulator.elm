@@ -420,7 +420,15 @@ viewPlantProcess { disabled } ({ item, stepWeight } as itemViewData) =
                         , step "0.001"
                         , value <| String.fromFloat item.amount
                         , placeholder "Quantité en grammes"
-                        , onInput <| (String.toFloat >> ItemAmountChanged item)
+                        , onInput <|
+                            \str ->
+                                ItemAmountChanged item
+                                    (if str == "" then
+                                        Just 0
+
+                                     else
+                                        String.toFloat str
+                                    )
                         , Html.Attributes.min "0"
                         ]
                         []
