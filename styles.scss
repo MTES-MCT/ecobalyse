@@ -55,10 +55,13 @@ _:future,
 
 // Fixes a glitch in Chrome with input[number] making the arrows hardly
 // actionnable when float numbers are rounded
-input[type="number"].no-arrows::-webkit-outer-spin-button,
-input[type="number"].no-arrows::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+input[type="number"].no-arrows {
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  -moz-appearance:textfield;
 }
 
 // Force-show number <input/> inc-dec arrows to the left of the field
