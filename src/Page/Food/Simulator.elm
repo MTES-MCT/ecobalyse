@@ -8,7 +8,7 @@ module Page.Food.Simulator exposing
 
 import Data.Country as Country exposing (Country)
 import Data.Food.Db as Db
-import Data.Food.Product as Product exposing (Product)
+import Data.Food.Product as Product exposing (ProcessName, Product, ProductName)
 import Data.Impact as Impact
 import Data.Session as Session exposing (Session)
 import Data.Unit as Unit
@@ -40,9 +40,9 @@ type alias CurrentProductInfo =
 
 type alias Model =
     { currentProductInfo : Maybe CurrentProductInfo
-    , selectedProduct : String
+    , selectedProduct : ProductName
     , impact : Impact.Trigram
-    , selectedItem : Maybe Product.ProcessName
+    , selectedItem : Maybe ProcessName
     , selectedCountry : Country.Code
     }
 
@@ -52,17 +52,17 @@ type Msg
     | CountrySelected Country.Code
     | DbLoaded (WebData Db.Db)
     | DeleteItem Product.Item
-    | ItemSelected (Maybe Product.ProcessName)
+    | ItemSelected (Maybe ProcessName)
     | ItemSliderChanged Product.Item (Maybe Unit.Ratio)
     | NoOp
-    | ProductSelected String
+    | ProductSelected ProductName
     | Reset
     | SwitchImpact Impact.Trigram
 
 
-tunaPizza : String
+tunaPizza : ProductName
 tunaPizza =
-    "Pizza, tuna, processed in FR | Chilled | Cardboard | Oven | at consumer/FR [Ciqual code: 26270]"
+    Product.stringToProductName "Pizza, tuna, processed in FR | Chilled | Cardboard | Oven | at consumer/FR [Ciqual code: 26270]"
 
 
 init : Session -> ( Model, Session, Cmd Msg )
@@ -152,7 +152,7 @@ update ({ foodDb, db } as session) msg ({ currentProductInfo } as model) =
             )
 
         ( DbLoaded (RemoteData.Success loadedDb), _ ) ->
-            case Product.findProductByName (Product.stringToProductName tunaPizza) loadedDb.products of
+            case Product.findProductByName tunaPizza loadedDb.products of
                 Ok product ->
                     let
                         productWithPefScore =
@@ -195,8 +195,8 @@ update ({ foodDb, db } as session) msg ({ currentProductInfo } as model) =
             in
             ( { model | currentProductInfo = Just { selected | product = updatedProduct } }, session, Cmd.none )
 
-        ( ProductSelected productSelected, _ ) ->
-            case Product.findProductByName (Product.stringToProductName productSelected) foodDb.products of
+        ( ProductSelected selectedProduct, _ ) ->
+            case Product.findProductByName selectedProduct foodDb.products of
                 Ok product ->
                     let
                         productWithPefScore =
@@ -209,7 +209,7 @@ update ({ foodDb, db } as session) msg ({ currentProductInfo } as model) =
                                 { product = productWithPefScore
                                 , original = productWithPefScore
                                 }
-                        , selectedProduct = productSelected
+                        , selectedProduct = selectedProduct
                       }
                     , session
                     , Cmd.none
@@ -309,25 +309,7 @@ view ({ foodDb, db } as session) ({ selectedProduct, impact, selectedItem, selec
                             |> viewSidebar session itemViewDataConfig
                             |> div [ class "col-lg-4 order-lg-2 d-flex flex-column gap-3" ]
                         , div [ class "col-lg-8 order-lg-1 d-flex flex-column gap-3" ]
-                            [ select
-                                [ class "form-select"
-                                , onInput ProductSelected
-                                ]
-                                (foodDb.products
-                                    |> AnyDict.keys
-                                    |> List.map
-                                        (\productName ->
-                                            let
-                                                name =
-                                                    Product.productNameToString productName
-                                            in
-                                            option
-                                                [ value name
-                                                , selected (name == selectedProduct)
-                                                ]
-                                                [ text name ]
-                                        )
-                                )
+                            [ viewProductSelector selectedProduct foodDb.products
                             , viewMaterial itemViewDataConfig product.plant
                             , viewIngredientSelector selectedItem product foodDb.products
                             , viewEnergy itemViewDataConfig product.plant
@@ -350,7 +332,28 @@ view ({ foodDb, db } as session) ({ selectedProduct, impact, selectedItem, selec
     )
 
 
-viewIngredientSelector : Maybe Product.ProcessName -> Product.Product -> Product.Products -> Html Msg
+viewProductSelector : ProductName -> Product.Products -> Html Msg
+viewProductSelector selectedProduct =
+    AnyDict.keys
+        >> List.map
+            (\productName ->
+                let
+                    name =
+                        Product.productNameToString productName
+                in
+                option
+                    [ value name
+                    , selected (productName == selectedProduct)
+                    ]
+                    [ text name ]
+            )
+        >> select
+            [ class "form-select"
+            , onInput (Product.stringToProductName >> ProductSelected)
+            ]
+
+
+viewIngredientSelector : Maybe ProcessName -> Product.Product -> Product.Products -> Html Msg
 viewIngredientSelector selectedItem product products =
     div [ class "row py-3 gap-2 gap-md-0" ]
         [ div [ class "col-md-8" ]
@@ -505,7 +508,7 @@ itemView { disabled } itemViewData =
         ]
 
 
-maybeToProcessName : String -> Maybe Product.ProcessName
+maybeToProcessName : String -> Maybe ProcessName
 maybeToProcessName string =
     if string == "" then
         Nothing
@@ -514,7 +517,7 @@ maybeToProcessName string =
         Just (Product.stringToProcessName string)
 
 
-itemSelector : Maybe Product.ProcessName -> (Maybe Product.ProcessName -> Msg) -> List Product.ProcessName -> Html Msg
+itemSelector : Maybe ProcessName -> (Maybe ProcessName -> Msg) -> List ProcessName -> Html Msg
 itemSelector maybeSelectedItem event =
     List.map
         (\processName ->
