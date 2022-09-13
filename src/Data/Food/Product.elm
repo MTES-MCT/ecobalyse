@@ -16,7 +16,6 @@ module Data.Food.Product exposing
     , emptyProcesses
     , emptyProducts
     , findProductByName
-    , formatAmount
     , formatItem
     , getMainItemComment
     , getStepImpact
