@@ -23,6 +23,8 @@ $viewport-lg: 992px;
 $viewport-xl: 1200px;
 $viewport-xxl: 1320px;
 
+$enable-cssgrid: true;
+
 @import "./node_modules/bootstrap/scss/bootstrap.scss";
 
 body {

@@ -18,6 +18,7 @@ module Data.Food.Product exposing
     , findProductByName
     , formatAmount
     , formatItem
+    , getMainItemComment
     , getStepImpact
     , getTotalImpact
     , getWeightAtPlant
@@ -413,6 +414,15 @@ getStepImpact trigram step =
                 total + (item.amount * impact)
             )
             0
+
+
+getMainItemComment : Step -> Maybe String
+getMainItemComment step =
+    step
+        |> stepToItems
+        |> List.filter .mainItem
+        |> List.head
+        |> Maybe.map .comment
 
 
 getTotalImpact : Impact.Trigram -> Product -> Float

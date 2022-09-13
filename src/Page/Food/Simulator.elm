@@ -307,7 +307,7 @@ view ({ foodDb, db } as session) ({ selectedProduct, impact, selectedItem, selec
                         [ currentProductInfo
                             |> viewSidebar session itemViewDataConfig
                             |> div [ class "col-lg-4 order-lg-2 d-flex flex-column gap-3" ]
-                        , div [ class "col-lg-8 order-lg-1 d-flex flex-column gap-3" ]
+                        , div [ class "col-lg-8 order-lg-1 d-flex flex-column" ]
                             [ viewProductSelector selectedProduct foodDb.products
                             , viewMaterial itemViewDataConfig product.plant
                             , viewIngredientSelector selectedItem product foodDb.products
@@ -316,7 +316,7 @@ view ({ foodDb, db } as session) ({ selectedProduct, impact, selectedItem, selec
                             , viewTransport itemViewDataConfig product.plant selectedCountry db.countries
                             , viewWaste itemViewDataConfig product.plant
                             , button
-                                [ class "btn btn-outline-primary w-100 my-3"
+                                [ class "btn btn-outline-primary w-100 mt-3"
                                 , onClick Reset
                                 ]
                                 [ text "Réinitialiser" ]
@@ -347,7 +347,7 @@ viewProductSelector selectedProduct =
                     [ text name ]
             )
         >> select
-            [ class "form-select"
+            [ class "form-select mb-3"
             , onInput (Product.stringToProductName >> ProductSelected)
             ]
 
@@ -732,7 +732,6 @@ viewSteps itemViewDataConfig product =
         -- Exclude the first Recipe step
         |> List.drop 1
         |> List.map (\( label, step ) -> viewStep label itemViewDataConfig step)
-        |> List.intersperse DownArrow.view
         |> div [ class "mb-3" ]
 
 
@@ -744,22 +743,44 @@ viewStep label ({ definition, trigram } as itemViewDataConfig) step =
 
         stepImpact =
             Product.getStepImpact trigram step
+
+        comment =
+            Product.getMainItemComment step
+                |> Maybe.withDefault ""
     in
-    div [ class "card" ]
-        [ div [ class "card-header" ]
-            [ div [ class "row" ]
-                [ div [ class "col-6" ]
-                    [ text label ]
-                , div [ class "col-6 text-end" ]
-                    [ Format.formatImpactFloat definition stepImpact ]
-                ]
+    div []
+        [ div
+            [ class "grid align-items-center py-2 fs-7"
+            , attribute "style" "--bs-columns: 25"
             ]
-        , step
-            |> Product.stepToItems
-            |> List.filter (.mainItem >> not)
-            |> toItemViewDataList itemViewDataConfig stepWeight
-            |> List.map viewItemDetails
-            |> ul [ class "list-group list-group-flush" ]
+            [ span [ class "text-end g-col-12" ]
+                [ stepWeight |> Format.formatFloat 3 |> text
+                , text "\u{00A0}kg"
+                ]
+            , span [ class "g-col-1 text-center" ] [ DownArrow.view ]
+            , span
+                [ class "text-muted text-truncate g-col-12"
+                , title comment
+                ]
+                [ text comment ]
+            ]
+        , div
+            [ class "card" ]
+            [ div [ class "card-header" ]
+                [ div [ class "row" ]
+                    [ div [ class "col-6" ]
+                        [ text label ]
+                    , div [ class "col-6 text-end" ]
+                        [ Format.formatImpactFloat definition stepImpact ]
+                    ]
+                ]
+            , step
+                |> Product.stepToItems
+                |> List.filter (.mainItem >> not)
+                |> toItemViewDataList itemViewDataConfig stepWeight
+                |> List.map viewItemDetails
+                |> ul [ class "list-group list-group-flush" ]
+            ]
         ]
 
 
