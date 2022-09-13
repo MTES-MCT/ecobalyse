@@ -210,6 +210,7 @@ update ({ foodDb, db } as session) msg ({ currentProductInfo } as model) =
                                 , original = productWithPefScore
                                 }
                         , selectedProduct = selectedProduct
+                        , selectedCountry = Product.defaultCountry
                       }
                     , session
                     , Cmd.none
