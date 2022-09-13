@@ -412,14 +412,14 @@ viewPlantProcess { disabled } ({ item, stepWeight } as itemViewData) =
                     |> span [ class "fs-7" ]
 
               else
-                div [ class "input-group input-group-sm" ]
+                div [ class "input-group input-group-sm my-2" ]
                     [ input
                         [ id <| "slider-" ++ name
                         , class "no-arrows form-control"
                         , type_ "number"
                         , step "0.001"
                         , value <| String.fromFloat item.amount
-                        , placeholder "Quantité en grammes"
+                        , title "Quantité en kilogrammes"
                         , onInput <|
                             \str ->
                                 ItemAmountChanged item
@@ -432,7 +432,7 @@ viewPlantProcess { disabled } ({ item, stepWeight } as itemViewData) =
                         , Html.Attributes.min "0"
                         ]
                         []
-                    , span [ class "input-group-text" ] [ text "\u{00A0}kg" ]
+                    , span [ class "input-group-text" ] [ text "kg" ]
                     ]
             ]
         , div [ class "col-sm-6" ]
@@ -489,7 +489,7 @@ toItemViewDataList itemViewDataConfig stepWeight items =
 
 itemView : { disabled : Bool } -> ItemViewData -> Html Msg
 itemView { disabled } itemViewData =
-    div [ class "px-3 py-1 border-top border-top-sm-0 border-start-0 border-start-sm d-flex align-items-center gap-1" ]
+    div [ class "px-3 py-1 border-top border-top-sm-0 d-flex align-items-center gap-1" ]
         [ div [ class "w-50", style "max-width" "50%", style "min-width" "50%" ]
             [ div [ class "progress" ]
                 [ div [ class "progress-bar", style "width" (String.fromFloat itemViewData.width ++ "%") ] []
