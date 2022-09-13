@@ -733,10 +733,13 @@ viewSteps itemViewDataConfig product =
 
 
 viewStep : String -> ItemViewDataConfig -> Product.Step -> Html Msg
-viewStep label ({ definition, totalImpact } as itemViewDataConfig) step =
+viewStep label ({ definition, trigram } as itemViewDataConfig) step =
     let
         stepWeight =
             Product.getWeightAtStep step
+
+        stepImpact =
+            Product.getStepImpact trigram step
     in
     div [ class "card" ]
         [ div [ class "card-header" ]
@@ -744,7 +747,7 @@ viewStep label ({ definition, totalImpact } as itemViewDataConfig) step =
                 [ div [ class "col-6" ]
                     [ text label ]
                 , div [ class "col-6 text-end" ]
-                    [ Format.formatImpactFloat definition totalImpact ]
+                    [ Format.formatImpactFloat definition stepImpact ]
                 ]
             ]
         , step
