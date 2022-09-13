@@ -677,6 +677,16 @@ viewWaste itemViewDataConfig step =
         |> viewCategory (text "Déchets")
 
 
+stepNames : Product.Product -> List ( String, Product.Step )
+stepNames product =
+    [ ( "Recette", product.plant )
+    , ( "Conditionnement", product.packaging )
+    , ( "Stockage", product.distribution )
+    , ( "Vente au détail", product.supermarket )
+    , ( "Consommation", product.consumer )
+    ]
+
+
 viewStepsSummary : Impact.Trigram -> Product -> Html Msg
 viewStepsSummary trigram product =
     let
@@ -684,12 +694,8 @@ viewStepsSummary trigram product =
             Product.getTotalImpact trigram product
     in
     div [ class "card fs-7" ]
-        [ [ ( "Recette", product.plant )
-          , ( "Conditionnement", product.packaging )
-          , ( "Stockage", product.distribution )
-          , ( "Vente au détail", product.supermarket )
-          , ( "Consommation", product.consumer )
-          ]
+        [ product
+            |> stepNames
             |> List.map
                 (\( label, step ) ->
                     let
@@ -721,11 +727,10 @@ viewStepsSummary trigram product =
 
 viewSteps : ItemViewDataConfig -> Product -> Html Msg
 viewSteps itemViewDataConfig product =
-    [ ( "Conditionnement", product.packaging )
-    , ( "Stockage", product.distribution )
-    , ( "Vente au détail", product.supermarket )
-    , ( "Consommation", product.consumer )
-    ]
+    product
+        |> stepNames
+        -- Exclude the first Recipe step
+        |> List.drop 1
         |> List.map (\( label, step ) -> viewStep label itemViewDataConfig step)
         |> List.intersperse DownArrow.view
         |> div [ class "mb-3" ]
