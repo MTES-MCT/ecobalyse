@@ -618,7 +618,9 @@ updatePlantTransport originalProduct processes impactDefinitions countryCode dis
 
         transportWithRatio =
             transport
-                |> Formula.transportRatio (Unit.Ratio 0.33)
+                -- We want the transport ratio for the plane to be 0 for food (for now)
+                -- Cf https://fabrique-numerique.gitbook.io/ecobalyse/textile/transport#part-du-transport-aerien
+                |> Formula.transportRatio (Unit.Ratio 0)
 
         toTonKm km =
             Length.inKilometers km * plantWeight / 1000
