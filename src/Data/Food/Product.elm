@@ -7,7 +7,6 @@ module Data.Food.Product exposing
     , Product
     , ProductName
     , Products
-    , RawCookedRatioInfo
     , Step
     , addMaterial
     , computePefImpact
@@ -17,42 +16,36 @@ module Data.Food.Product exposing
     , emptyProcesses
     , emptyProducts
     , findProductByName
-    , getRawCookedRatioInfo
+    , formatAmount
+    , formatItem
+    , getMainItemComment
+    , getStepImpact
     , getTotalImpact
-    , getTotalWeight
-    , listItems
+    , getWeightAtPlant
+    , getWeightAtStep
+    , listIngredients
     , processNameToString
     , productNameToString
     , removeMaterial
+    , stepToItems
     , stringToProcessName
     , stringToProductName
-    , unusedDuration
-    , updateAmount
-    , updateTransport
+    , updateMaterialAmount
+    , updatePlantTransport
     )
 
 import Data.Country as Country
-import Data.Impact as Impact exposing (Definition, Impacts, Trigram, grabImpactFloat)
+import Data.Impact as Impact
 import Data.Textile.Formula as Formula
 import Data.Transport as Transport exposing (Distances)
 import Data.Unit as Unit
 import Dict.Any as AnyDict exposing (AnyDict)
-import Duration exposing (Duration)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
 import Json.Decode.Pipeline as Pipe
 import Length
-import Set
-
-
-unusedFunctionalUnit : Unit.Functional
-unusedFunctionalUnit =
-    Unit.PerItem
-
-
-unusedDuration : Duration
-unusedDuration =
-    Duration.days 1
+import List.Extra as LE
+import Views.Format as Format
 
 
 defaultCountry : Country.Code
@@ -84,8 +77,8 @@ type ProcessName
 
 
 stringToProcessName : String -> ProcessName
-stringToProcessName str =
-    ProcessName str
+stringToProcessName =
+    ProcessName
 
 
 processNameToString : ProcessName -> String
@@ -95,7 +88,7 @@ processNameToString (ProcessName name) =
 
 type alias Process =
     { name : ProcessName
-    , impacts : Impacts
+    , impacts : Impact.Impacts
     , ciqualCode : Maybe Int
     , step : Maybe String
     , dqr : Maybe Float
@@ -139,7 +132,60 @@ findProcessByName ((ProcessName name) as procName) =
         >> Result.fromMaybe ("Procédé introuvable par nom : " ++ name)
 
 
-decodeProcess : List Definition -> Decoder Process
+formatStringUnit : String -> String
+formatStringUnit str =
+    case str of
+        "cubic meter" ->
+            "m³"
+
+        "kilogram" ->
+            "kg"
+
+        "kilometer" ->
+            "km"
+
+        "kilowatt hour" ->
+            "kWh"
+
+        "litre" ->
+            "l"
+
+        "megajoule" ->
+            "MJ"
+
+        "ton kilometer" ->
+            "t/km"
+
+        _ ->
+            str
+
+
+formatAmount : Float -> String -> Float -> String
+formatAmount totalWeight unit amount =
+    if unit == "t/km" then
+        let
+            -- amount is in Ton.Km for the total weight. We instead want the total number of km.
+            perKg =
+                amount / totalWeight
+
+            distanceInKm =
+                perKg * 1000
+        in
+        Format.formatFloat 0 distanceInKm
+            ++ "\u{00A0}km ("
+            ++ Format.formatFloat 2 (amount * 1000)
+            ++ "\u{00A0}kg.km)"
+
+    else
+        Format.formatFloat 2 amount ++ "\u{00A0}" ++ formatStringUnit unit
+
+
+formatItem : Float -> Item -> String
+formatItem totalWeight item =
+    formatAmount totalWeight item.process.unit item.amount
+
+
+decodeProcess : List Impact.Definition -> Decoder Process
 decodeProcess definitions =
     Decode.succeed Process
         |> Pipe.hardcoded (stringToProcessName "to be defined")
@@ -148,14 +194,14 @@ decodeProcess definitions =
         |> Pipe.required "step" (Decode.nullable Decode.string)
         |> Pipe.required "dqr" (Decode.nullable Decode.float)
         |> Pipe.required "empty_process" Decode.bool
-        |> Pipe.required "unit" Decode.string
+        |> Pipe.required "unit" (Decode.map formatStringUnit Decode.string)
         |> Pipe.required "code" Decode.string
         |> Pipe.required "simapro_category" Decode.string
         |> Pipe.required "system_description" Decode.string
         |> Pipe.required "category_tags" (Decode.list Decode.string)
 
 
-decodeProcesses : List Definition -> Decoder Processes
+decodeProcesses : List Impact.Definition -> Decoder Processes
 decodeProcesses definitions =
     AnyDict.decode (\str _ -> ProcessName str) processNameToString (decodeProcess definitions)
         |> Decode.map
@@ -180,6 +226,7 @@ type alias Item =
     { amount : Amount
     , comment : String
     , process : Process
+    , mainItem : Bool
     }
 
 
@@ -192,31 +239,13 @@ emptyItems =
     []
 
 
-updateItemAmount : Amount -> Item -> Item
-updateItemAmount amount item =
-    { item | amount = amount }
-
-
-updateItem : Item -> (Item -> Item) -> Items -> Items
-updateItem itemToUpdate updateFunc items =
-    items
-        |> List.map
-            (\item ->
-                if item == itemToUpdate then
-                    updateFunc item
-
-                else
-                    item
-            )
-
-
-computeItemsPefImpact : List Definition -> Items -> Items
+computeItemsPefImpact : List Impact.Definition -> Items -> Items
 computeItemsPefImpact definitions items =
     items
         |> List.map (computeItemPefImpact definitions)
 
 
-computeItemPefImpact : List Definition -> Item -> Item
+computeItemPefImpact : List Impact.Definition -> Item -> Item
 computeItemPefImpact definitions ({ process } as item) =
     { item
         | process =
@@ -237,7 +266,6 @@ type alias Step =
     , wasteTreatment : Items
     , energy : Items
     , processing : Items
-    , mainItem : Maybe Item
     }
 
 
@@ -273,13 +301,7 @@ emptyProducts =
     AnyDict.empty productNameToString
 
 
-type alias RawCookedRatioInfo =
-    { weightLossProcess : Item
-    , rawCookedRatio : Unit.Ratio
-    }
-
-
-computePefImpact : List Definition -> Product -> Product
+computePefImpact : List Impact.Definition -> Product -> Product
 computePefImpact definitions product =
     { product
         | consumer = computeStepPefImpact definitions product.consumer
@@ -290,7 +312,7 @@ computePefImpact definitions product =
     }
 
 
-computeStepPefImpact : List Definition -> Step -> Step
+computeStepPefImpact : List Impact.Definition -> Step -> Step
 computeStepPefImpact definitions step =
     { step
         | material = computeItemsPefImpact definitions step.material
@@ -298,49 +320,7 @@ computeStepPefImpact definitions step =
         , wasteTreatment = computeItemsPefImpact definitions step.wasteTreatment
         , energy = computeItemsPefImpact definitions step.energy
         , processing = computeItemsPefImpact definitions step.processing
-        , mainItem =
-            step.mainItem
-                |> Maybe.map (computeItemPefImpact definitions)
     }
-
-
-updateStep : (Items -> Items) -> Step -> Step
-updateStep updateFunc step =
-    { step
-        | material = updateFunc step.material
-        , transport = updateFunc step.transport
-        , wasteTreatment = updateFunc step.wasteTreatment
-        , energy = updateFunc step.energy
-        , processing = updateFunc step.processing
-    }
-
-
-updateAmount : Maybe RawCookedRatioInfo -> Item -> Amount -> Step -> Step
-updateAmount maybeRawCookedRatioInfo item newAmount step =
-    step
-        |> updateStep (updateItem item (updateItemAmount newAmount))
-        |> updateWeight maybeRawCookedRatioInfo
-
-
-updateWeight : Maybe RawCookedRatioInfo -> Step -> Step
-updateWeight maybeRawCookedRatioInfo step =
-    case maybeRawCookedRatioInfo of
-        Nothing ->
-            step
-
-        Just { weightLossProcess, rawCookedRatio } ->
-            let
-                updatedRawWeight =
-                    getTotalWeight step
-
-                updatedWeight =
-                    rawCookedRatio
-                        |> Unit.ratioToFloat
-                        |> (*) updatedRawWeight
-            in
-            updateStep
-                (updateItem weightLossProcess (updateItemAmount updatedWeight))
-                step
 
 
 findProductByName : ProductName -> Products -> Result String Product
@@ -369,9 +349,12 @@ linkProcess processes =
 decodeItem : Processes -> Decoder Item
 decodeItem processes =
     Decode.succeed Item
+        -- FIXME: decodeAmout should be called with the unit decoded from
+        -- JSON in decodeProcess, so we could have properly typed values
         |> Pipe.required "amount" decodeAmount
         |> Pipe.required "comment" Decode.string
         |> Pipe.required "processName" (linkProcess processes)
+        |> Pipe.optional "mainProcess" Decode.bool False
 
 
 decodeAffectation : Processes -> Decoder Items
@@ -379,54 +362,14 @@ decodeAffectation processes =
     Decode.list (decodeItem processes)
 
 
-type alias PartiallyDecodedStep =
-    { material : Items
-    , transport : Items
-    , wasteTreatment : Items
-    , energy : Items
-    , processing : Items
-    , mainProcessName : Maybe String
-    }
-
-
 decodeStep : Processes -> Decoder Step
 decodeStep processes =
-    Decode.succeed PartiallyDecodedStep
+    Decode.succeed Step
         |> Pipe.optional "material" (decodeAffectation processes) emptyItems
         |> Pipe.optional "transport" (decodeAffectation processes) emptyItems
         |> Pipe.optional "waste treatment" (decodeAffectation processes) emptyItems
         |> Pipe.optional "energy" (decodeAffectation processes) emptyItems
         |> Pipe.optional "processing" (decodeAffectation processes) emptyItems
-        |> Pipe.required "mainProcess" (Decode.maybe Decode.string)
-        |> Decode.andThen resolveMainItem
-
-
-resolveMainItem : PartiallyDecodedStep -> Decoder Step
-resolveMainItem { mainProcessName, material, transport, wasteTreatment, energy, processing } =
-    case mainProcessName of
-        Just processName ->
-            let
-                mainItem : Maybe Item
-                mainItem =
-                    Nothing
-                        |> PartiallyDecodedStep material transport wasteTreatment energy processing
-                        |> stepToItems
-                        |> List.filter (\item -> item.process.name == ProcessName processName)
-                        |> List.head
-            in
-            case mainItem of
-                Just item ->
-                    Just item
-                        |> Step material transport wasteTreatment energy processing
-                        |> Decode.succeed
-
-                Nothing ->
-                    Decode.fail "Couldn't find the main item in the list of step items"
-
-        Nothing ->
-            Nothing
-                |> Step material transport wasteTreatment energy processing
-                |> Decode.succeed
 
 
 decodeProduct : Processes -> Decoder Product
@@ -448,15 +391,7 @@ decodeProducts processes =
 -- utilities
 
 
-stepToItems :
-    { a
-        | material : Items
-        , transport : Items
-        , wasteTreatment : Items
-        , energy : Items
-        , processing : Items
-    }
-    -> Items
+stepToItems : Step -> Items
 stepToItems step =
     -- Return a "flat" list of items
     -- FIXME: find a way to validate that we're using all the important record properties
@@ -464,89 +399,75 @@ stepToItems step =
         |> List.concatMap (\accessor -> accessor step)
 
 
-getTotalImpact : Trigram -> Step -> Float
-getTotalImpact trigram step =
+getStepImpact : Impact.Trigram -> Step -> Float
+getStepImpact trigram step =
     step
         |> stepToItems
+        |> List.filter (.mainItem >> not)
         |> List.foldl
             (\item total ->
                 let
                     impact =
-                        grabImpactFloat unusedFunctionalUnit unusedDuration trigram item.process
+                        Impact.getImpact trigram item.process.impacts
+                            |> Unit.impactToFloat
                 in
                 total + (item.amount * impact)
             )
             0
 
 
-getTotalWeight : Step -> Float
-getTotalWeight step =
-    let
-        totalWeight =
-            step.material
-                |> List.foldl
-                    (\{ amount } total ->
-                        total + amount
-                    )
-                    0
-    in
-    if totalWeight == 0 then
-        -- There may be no materials (for some products, there's only a processing step)
-        -- in which case fall back to taking the "heaviest" processing step
-        getWeightLosingUnitProcess step
-            |> Maybe.map .amount
-            |> Maybe.withDefault 0
-
-    else
-        totalWeight
-
-
-getRawCookedRatioInfo : Product -> Maybe RawCookedRatioInfo
-getRawCookedRatioInfo product =
-    -- TODO: HACK, we assume that the process "at plant" that is the heavier is the total
-    -- "final" weight, versus the total weight of the raw items. We only need this
-    -- if there's some kind of process that "looses weight" in the process, and we assume this
-    -- process is in the "processing" category.
-    let
-        totalItemsWeight =
-            getTotalWeight product.plant
-    in
-    getWeightLosingUnitProcess product.plant
-        |> Maybe.map
-            (\({ amount } as item) ->
-                { weightLossProcess = item
-                , rawCookedRatio =
-                    (amount / totalItemsWeight)
-                        |> Unit.Ratio
-                }
-            )
-
-
-getWeightLosingUnitProcess : Step -> Maybe Item
-getWeightLosingUnitProcess step =
-    step.processing
-        -- Sort by heavier to lighter
-        |> List.sortBy .amount
-        |> List.reverse
-        -- Take the heaviest
+getMainItemComment : Step -> Maybe String
+getMainItemComment step =
+    step
+        |> stepToItems
+        |> List.filter .mainItem
         |> List.head
+        |> Maybe.map .comment
 
 
-listItems : Products -> List ProcessName
-listItems products =
+getTotalImpact : Impact.Trigram -> Product -> Float
+getTotalImpact trigram product =
+    getStepImpact trigram product.consumer
+        + getStepImpact trigram product.supermarket
+        + getStepImpact trigram product.distribution
+        + getStepImpact trigram product.packaging
+        + getStepImpact trigram product.plant
+
+
+getWeightAtStep : Step -> Float
+getWeightAtStep step =
+    -- At any given step (that's not "at plant"), we take the first main item we find, and use its
+    -- weight to know how much we transport from the previous step.
+    step.material
+        |> List.filter .mainItem
+        |> List.head
+        |> Maybe.map .amount
+        |> Maybe.withDefault 0
+
+
+getWeightAtPlant : Step -> Float
+getWeightAtPlant step =
+    -- At plant we don't really have a main item that we could use for the weight, so instead
+    -- sum the weight of all the materials.
+    step.material
+        |> List.map .amount
+        |> List.sum
+
+
+listIngredients : Products -> List ProcessName
+listIngredients products =
     -- List all the "material" entries from the "at plant" step
     products
         |> AnyDict.values
         |> List.concatMap (.plant >> .material >> List.map (.process >> .name))
         |> List.map processNameToString
-        |> Set.fromList
-        |> Set.toList
+        |> LE.unique
         |> List.sort
         |> List.map stringToProcessName
 
 
-addMaterial : Maybe RawCookedRatioInfo -> Processes -> ProcessName -> Product -> Result String Product
-addMaterial maybeRawCookedRatioInfo processes processName ({ plant } as product) =
+addMaterial : Processes -> ProcessName -> Product -> Result String Product
+addMaterial processes processName ({ plant } as product) =
     findProcessByName processName processes
         |> Result.map
             (\process ->
@@ -554,37 +475,139 @@ addMaterial maybeRawCookedRatioInfo processes processName ({ plant } as product)
                     amount =
                         1.0
 
+                    newItem =
+                        { amount = amount
+                        , comment = ""
+                        , process = process
+                        , mainItem = False
+                        }
+
                     withAddedItem =
                         { plant
-                            | material = Item amount "" process :: plant.material
+                            | material = newItem :: plant.material
                         }
-                            -- Update the total weight
-                            |> updateWeight maybeRawCookedRatioInfo
+
+                    originalWeight =
+                        getWeightAtPlant plant
                 in
                 { product | plant = withAddedItem }
+                    |> updateProductAmounts originalWeight
             )
 
 
-removeMaterial : Maybe RawCookedRatioInfo -> Item -> Product -> Product
-removeMaterial maybeRawCookedRatioInfo itemToRemove ({ plant } as product) =
+updateMaterialAmount : Item -> Amount -> Product -> Product
+updateMaterialAmount itemToUpdate amount ({ plant } as product) =
     let
-        withRemovedItem =
+        originalWeight =
+            getWeightAtPlant plant
+    in
+    { product
+        | plant =
+            { plant
+                | material =
+                    plant.material
+                        |> List.map
+                            (\item ->
+                                if item == itemToUpdate then
+                                    { item | amount = amount }
+
+                                else
+                                    item
+                            )
+            }
+    }
+        |> updateProductAmounts originalWeight
+
+
+removeMaterial : Item -> Product -> Product
+removeMaterial itemToRemove ({ plant } as product) =
+    let
+        originalWeight =
+            getWeightAtPlant plant
+    in
+    { product
+        | plant =
             { plant
                 | material = List.filter (\item -> item /= itemToRemove) plant.material
             }
-                -- Update the total weight
-                |> updateWeight maybeRawCookedRatioInfo
+    }
+        |> updateProductAmounts originalWeight
+
+
+updateProductAmounts : Float -> Product -> Product
+updateProductAmounts originalWeight ({ consumer, supermarket, distribution, packaging, plant } as product) =
+    let
+        updatedWeight =
+            getWeightAtPlant plant
+
+        -- We need the new "ratio" between the original product and the updated one,
+        -- to change the amount for all the other processes (but the plant materials).
+        amountRatio =
+            updatedWeight
+                / originalWeight
     in
     { product
-        | plant = withRemovedItem
+        | consumer = updateStepAmounts amountRatio consumer
+        , supermarket = updateStepAmounts amountRatio supermarket
+        , distribution = updateStepAmounts amountRatio distribution
+        , packaging = updateStepAmounts amountRatio packaging
+        , plant = updatePlantAmounts amountRatio plant
     }
 
 
-updateTransport : Items -> Processes -> List Impact.Definition -> Country.Code -> Distances -> Product -> Product
-updateTransport defaultTransport processes impactDefinitions countryCode distances ({ plant } as product) =
+updateStepAmounts : Float -> Step -> Step
+updateStepAmounts amountRatio ({ material, transport, wasteTreatment, energy, processing } as step) =
+    { step
+        | material = updateAffectationAmounts amountRatio material
+        , transport = updateAffectationAmounts amountRatio transport
+        , wasteTreatment = updateAffectationAmounts amountRatio wasteTreatment
+        , energy = updateAffectationAmounts amountRatio energy
+        , processing = updateAffectationAmounts amountRatio processing
+    }
+
+
+{-| updatePlantAmounts is specific to the plant where we don't want to automatically update the materials
+as they are customised by the user.
+-}
+updatePlantAmounts : Float -> Step -> Step
+updatePlantAmounts amountRatio ({ transport, wasteTreatment, energy, processing } as step) =
+    { step
+      -- We DON'T update the material amounts, they are customised by the user
+        | transport = updateAffectationAmounts amountRatio transport
+        , wasteTreatment = updateAffectationAmounts amountRatio wasteTreatment
+        , energy = updateAffectationAmounts amountRatio energy
+        , processing = updateAffectationAmounts amountRatio processing
+    }
+
+
+updateAffectationAmounts : Float -> Items -> Items
+updateAffectationAmounts amountRatio items =
+    items
+        |> List.map
+            (\item ->
+                { item | amount = item.amount * amountRatio }
+            )
+
+
+updatePlantTransport : Product -> Processes -> List Impact.Definition -> Country.Code -> Distances -> Product -> Product
+updatePlantTransport originalProduct processes impactDefinitions countryCode distances ({ plant } as product) =
     let
-        totalWeight =
-            getTotalWeight plant
+        defaultTransport =
+            originalProduct.plant.transport
+
+        originalPlantWeight =
+            getWeightAtPlant originalProduct.plant
+
+        plantWeight =
+            getWeightAtPlant product.plant
+
+        amountRatio =
+            plantWeight / originalPlantWeight
+
+        -- If we changed the recipe, we don't want the default transports, with want the default transports
+        -- with the updated amounts corresponding to the new recipe weight
+        defaultTransportWithAjustedWeight =
+            updateAffectationAmounts amountRatio defaultTransport
 
         impacts =
             Impact.impactsFromDefinitons impactDefinitions
@@ -595,10 +618,12 @@ updateTransport defaultTransport processes impactDefinitions countryCode distanc
 
         transportWithRatio =
             transport
-                |> Formula.transportRatio (Unit.Ratio 0.33)
+                -- We want the transport ratio for the plane to be 0 for food (for now)
+                -- Cf https://fabrique-numerique.gitbook.io/ecobalyse/textile/transport#part-du-transport-aerien
+                |> Formula.transportRatio (Unit.Ratio 0)
 
         toTonKm km =
-            Length.inKilometers km * totalWeight / 1000
+            Length.inKilometers km * plantWeight / 1000
 
         findProcess processName =
             processes
@@ -613,7 +638,13 @@ updateTransport defaultTransport processes impactDefinitions countryCode distanc
                 |> List.map
                     (\( name, prop ) ->
                         findProcess name
-                            |> Item (toTonKm (prop transportWithRatio)) ""
+                            |> (\process ->
+                                    { amount = toTonKm (prop transportWithRatio)
+                                    , comment = ""
+                                    , process = process
+                                    , mainItem = False
+                                    }
+                               )
                     )
     in
     { product
@@ -621,7 +652,7 @@ updateTransport defaultTransport processes impactDefinitions countryCode distanc
             { plant
                 | transport =
                     if countryCode == defaultCountry then
-                        defaultTransport
+                        defaultTransportWithAjustedWeight
 
                     else
                         transports

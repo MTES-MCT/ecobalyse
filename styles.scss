@@ -23,6 +23,8 @@ $viewport-lg: 992px;
 $viewport-xl: 1200px;
 $viewport-xxl: 1320px;
 
+$enable-cssgrid: true;
+
 @import "./node_modules/bootstrap/scss/bootstrap.scss";
 
 body {
@@ -178,6 +180,10 @@ blockquote {
   height: auto !important;
 }
 
+.invert {
+  filter: invert(1);
+}
+
 .link {
   &-external:not(.link-external-muted) {
     &::after {
@@ -269,8 +275,10 @@ blockquote {
   }
 }
 
-.invert {
-  filter: invert(1);
+.w {
+  &-33 {
+    width: 33.333333%;
+  }
 }
 
 .Abbr {
