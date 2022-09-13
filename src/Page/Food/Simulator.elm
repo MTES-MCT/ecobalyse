@@ -28,7 +28,6 @@ import Views.CountrySelect
 import Views.Format as Format
 import Views.Icon as Icon
 import Views.Impact exposing (impactSelector)
-import Views.RangeSlider as RangeSlider
 import Views.Spinner as Spinner
 
 
@@ -53,7 +52,7 @@ type Msg
     | DbLoaded (WebData Db.Db)
     | DeleteItem Product.Item
     | ItemSelected (Maybe ProcessName)
-    | ItemSliderChanged Product.Item (Maybe Unit.Ratio)
+    | ItemAmountChanged Product.Item (Maybe Float)
     | NoOp
     | ProductSelected ProductName
     | Reset
@@ -188,10 +187,10 @@ update ({ foodDb, db } as session) msg ({ currentProductInfo } as model) =
             , Cmd.none
             )
 
-        ( ItemSliderChanged item (Just newAmount), Just ({ product } as selected) ) ->
+        ( ItemAmountChanged item (Just newAmount), Just ({ product } as selected) ) ->
             let
                 updatedProduct =
-                    Product.updateMaterialAmount item (Unit.ratioToFloat newAmount) product
+                    Product.updateMaterialAmount item newAmount product
             in
             ( { model | currentProductInfo = Just { selected | product = updatedProduct } }, session, Cmd.none )
 
@@ -413,19 +412,20 @@ viewPlantProcess { disabled } ({ item, stepWeight } as itemViewData) =
                     |> span [ class "fs-7" ]
 
               else
-                RangeSlider.ratio
-                    { id = "slider-" ++ name
-                    , update = ItemSliderChanged item
-                    , value = Unit.Ratio item.amount
-                    , toString =
-                        \ratio ->
-                            ratio
-                                |> Unit.ratioToFloat
-                                |> Product.formatAmount stepWeight item.process.unit
-                    , disabled = disabled
-                    , min = 0
-                    , max = 100
-                    }
+                div [ class "input-group input-group-sm" ]
+                    [ input
+                        [ id <| "slider-" ++ name
+                        , class "no-arrows form-control"
+                        , type_ "number"
+                        , step "0.001"
+                        , value <| String.fromFloat item.amount
+                        , placeholder "Quantité en grammes"
+                        , onInput <| (String.toFloat >> ItemAmountChanged item)
+                        , Html.Attributes.min "0"
+                        ]
+                        []
+                    , span [ class "input-group-text" ] [ text "\u{00A0}kg" ]
+                    ]
             ]
         , div [ class "col-sm-6" ]
             [ itemView { disabled = disabled } itemViewData
