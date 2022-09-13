@@ -261,10 +261,9 @@ viewSidebar session { definition, trigram, totalImpact } { product } =
         { header = []
         , body =
             [ div [ class "d-flex flex-column m-auto gap-1 px-1" ]
-                [ h2 [ class "h5 m-0" ] [ text "Impact normalisé" ]
+                [ h2 [ class "h5 m-0" ] [ text "Impact par kg de produit" ]
                 , div [ class "display-4 lh-1 text-center text-nowrap" ]
                     [ Format.formatImpactFloat definition impactPerKg ]
-                , div [ class "fs-7 text-end" ] [ text "par kg de produit" ]
                 , h3 [ class "h6 m-0 mt-2" ] [ text "Impact total" ]
                 , div [ class "display-5 lh-1 text-center text-nowrap" ]
                     [ Format.formatImpactFloat definition totalImpact ]
@@ -687,7 +686,7 @@ viewStepsSummary trigram product =
     div [ class "card fs-7" ]
         [ [ ( "Recette", product.plant )
           , ( "Conditionnement", product.packaging )
-          , ( "Distribution", product.distribution )
+          , ( "Stockage", product.distribution )
           , ( "Vente au détail", product.supermarket )
           , ( "Consommation", product.consumer )
           ]
@@ -723,7 +722,7 @@ viewStepsSummary trigram product =
 viewSteps : ItemViewDataConfig -> Product -> Html Msg
 viewSteps itemViewDataConfig product =
     [ ( "Conditionnement", product.packaging )
-    , ( "Distribution", product.distribution )
+    , ( "Stockage", product.distribution )
     , ( "Vente au détail", product.supermarket )
     , ( "Consommation", product.consumer )
     ]
