@@ -406,10 +406,9 @@ viewPlantProcess { disabled } ({ item, stepWeight } as itemViewData) =
         name =
             item.process.name |> Product.processNameToString
     in
-    div [ class "row align-items-center" ]
-        [ div [ class "col-sm-6 px-4 py-2 py-sm-0" ]
-            [ span [ class "d-block d-sm-none fs-7 text-muted" ] [ text "Quantité de l'ingrédient :" ]
-            , if disabled then
+    div [ class "card-body row align-items-center py-1" ]
+        [ div [ class "col-sm-6" ]
+            [ if disabled then
                 item
                     |> Product.formatItem stepWeight
                     |> text
@@ -494,7 +493,7 @@ toItemViewDataList itemViewDataConfig stepWeight items =
 
 itemView : { disabled : Bool } -> ItemViewData -> Html Msg
 itemView { disabled } itemViewData =
-    div [ class "px-3 py-1 border-top border-top-sm-0 d-flex align-items-center gap-1" ]
+    div [ class "border-top border-top-sm-0 d-flex align-items-center gap-1" ]
         [ div [ class "w-50", style "max-width" "50%", style "min-width" "50%" ]
             [ div [ class "progress" ]
                 [ div [ class "progress-bar", style "width" (String.fromFloat itemViewData.width ++ "%") ] []
