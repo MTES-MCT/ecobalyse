@@ -238,7 +238,7 @@ update ({ foodDb, db } as session) msg ({ currentProductInfo } as model) =
             ( model, session, Cmd.none )
 
 
-viewSidebar : Session -> ItemViewDataConfig -> CurrentProductInfo -> List (Html Msg)
+viewSidebar : Session -> ItemViewDataConfig -> CurrentProductInfo -> Html Msg
 viewSidebar session { definition, trigram, totalImpact } { product } =
     let
         finalWeight =
@@ -247,39 +247,43 @@ viewSidebar session { definition, trigram, totalImpact } { product } =
         impactPerKg =
             totalImpact / finalWeight
     in
-    [ impactSelector
-        { impacts = session.db.impacts
-        , selectedImpact = trigram
-        , switchImpact = SwitchImpact
+    div
+        [ class "d-flex flex-column gap-3 mb-3 sticky-md-top"
+        , style "top" "7px"
+        ]
+        [ impactSelector
+            { impacts = session.db.impacts
+            , selectedImpact = trigram
+            , switchImpact = SwitchImpact
 
-        -- We don't use the following two configs
-        , selectedFunctionalUnit = Unit.PerItem
-        , switchFunctionalUnit = always NoOp
-        , scope = Impact.Food
-        }
-    , SummaryComp.view
-        { header = []
-        , body =
-            [ div [ class "d-flex flex-column m-auto gap-1 px-1" ]
-                [ h2 [ class "h5 m-0" ] [ text "Impact par kg de produit" ]
-                , div [ class "display-4 lh-1 text-center text-nowrap" ]
-                    [ Format.formatImpactFloat definition impactPerKg ]
-                , h3 [ class "h6 m-0 mt-2" ] [ text "Impact total" ]
-                , div [ class "display-5 lh-1 text-center text-nowrap" ]
-                    [ Format.formatImpactFloat definition totalImpact ]
-                , div [ class "fs-7 text-end" ]
-                    [ text " pour un poids total chez le consommateur de "
-                    , strong []
-                        [ finalWeight |> Format.formatFloat 3 |> text
-                        , text "\u{00A0}kg"
+            -- We don't use the following two configs
+            , selectedFunctionalUnit = Unit.PerItem
+            , switchFunctionalUnit = always NoOp
+            , scope = Impact.Food
+            }
+        , SummaryComp.view
+            { header = []
+            , body =
+                [ div [ class "d-flex flex-column m-auto gap-1 px-1" ]
+                    [ h2 [ class "h5 m-0" ] [ text "Impact par kg de produit" ]
+                    , div [ class "display-4 lh-1 text-center text-nowrap" ]
+                        [ Format.formatImpactFloat definition impactPerKg ]
+                    , h3 [ class "h6 m-0 mt-2" ] [ text "Impact total" ]
+                    , div [ class "display-5 lh-1 text-center text-nowrap" ]
+                        [ Format.formatImpactFloat definition totalImpact ]
+                    , div [ class "fs-7 text-end" ]
+                        [ text " pour un poids total chez le consommateur de "
+                        , strong []
+                            [ finalWeight |> Format.formatFloat 3 |> text
+                            , text "\u{00A0}kg"
+                            ]
                         ]
                     ]
                 ]
-            ]
-        , footer = []
-        }
-    , viewStepsSummary trigram product
-    ]
+            , footer = []
+            }
+        , viewStepsSummary trigram product
+        ]
 
 
 view : Session -> Model -> ( String, List (Html Msg) )
@@ -304,9 +308,10 @@ view ({ foodDb, db } as session) ({ selectedProduct, impact, selectedItem, selec
                 in
                 Container.centered []
                     [ div [ class "row gap-3 gap-lg-0" ]
-                        [ currentProductInfo
-                            |> viewSidebar session itemViewDataConfig
-                            |> div [ class "col-lg-4 order-lg-2 d-flex flex-column gap-3" ]
+                        [ div [ class "col-lg-4 order-lg-2 d-flex flex-column gap-3" ]
+                            [ currentProductInfo
+                                |> viewSidebar session itemViewDataConfig
+                            ]
                         , div [ class "col-lg-8 order-lg-1 d-flex flex-column" ]
                             [ viewProductSelector selectedProduct foodDb.products
                             , viewMaterial itemViewDataConfig product.plant
