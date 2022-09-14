@@ -551,7 +551,7 @@ components:
               description: "Utilisation de ressources en eau (m³)"
             pef:
               type: number
-              description: "Score PEF (mPt)"
+              description: "Score PEF (µPt)"
         description:
           type: string
           description: Une description de la simulation.

@@ -415,8 +415,8 @@ impactPefScore : Impact -> Ratio -> Impact -> Impact
 impactPefScore normalization weighting =
     Quantity.divideBy (impactToFloat normalization)
         >> Quantity.multiplyBy (ratioToFloat weighting)
-        -- Raw PEF scores are expressed in Pt (points), we want mPt (millipoints)
-        >> Quantity.multiplyBy 1000
+        -- Raw PEF scores are expressed in Pt (points), we want µPt (micropoints)
+        >> Quantity.multiplyBy 1000000
 
 
 decodeImpact : Decoder Impact
