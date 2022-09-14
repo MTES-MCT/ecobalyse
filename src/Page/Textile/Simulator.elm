@@ -419,7 +419,7 @@ lifeCycleStepsView db { viewMode, funit, impact } simulator =
                     }
             )
         |> Array.toList
-        |> List.intersperse DownArrow.view
+        |> List.intersperse DownArrow.standard
         |> div [ class "pt-1" ]
 
 

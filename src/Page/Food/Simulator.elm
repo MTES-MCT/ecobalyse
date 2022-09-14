@@ -264,7 +264,7 @@ viewSidebar session { definition, trigram, totalImpact } { product } =
         , SummaryComp.view
             { header = []
             , body =
-                [ div [ class "d-flex flex-column m-auto gap-1 px-1" ]
+                [ div [ class "d-flex flex-column m-auto gap-1 px-2" ]
                     [ h2 [ class "h5 m-0" ] [ text "Impact par kg de produit" ]
                     , div [ class "display-4 lh-1 text-center text-nowrap" ]
                         [ Format.formatImpactFloat definition impactPerKg ]
@@ -757,36 +757,34 @@ viewStep label ({ definition, trigram } as itemViewDataConfig) step =
 
         stepImpact =
             Product.getStepImpact trigram step
-
-        comment =
-            Product.getMainItemComment step
-                |> Maybe.withDefault ""
     in
     div []
-        [ div
-            [ class "grid align-items-center py-2 fs-7"
-            , attribute "style" "--bs-columns: 25"
-            ]
-            [ span [ class "text-end g-col-12" ]
+        [ div [ class "d-flex align-items-center fs-7" ]
+            [ span [ class "w-50 text-end p-2" ]
                 [ stepWeight |> Format.formatFloat 3 |> text
                 , text "\u{00A0}kg"
                 ]
-            , span [ class "g-col-1 text-center" ] [ DownArrow.view ]
-            , span
-                [ class "text-muted text-truncate g-col-12"
-                , title comment
+            , span [ class "text-center" ]
+                [ DownArrow.large ]
+            , span [ class "w-50 text-muted p-2" ]
+                [-- TODO: render transport here
                 ]
-                [ text comment ]
             ]
         , div
             [ class "card" ]
             [ div [ class "card-header" ]
-                [ div [ class "row" ]
-                    [ div [ class "col-6" ]
-                        [ text label ]
-                    , div [ class "col-6 text-end" ]
+                [ div [ class "row d-flex align-items-center" ]
+                    [ div [ class "col-9" ]
+                        [ h3 [ class "h6 m-0" ] [ text label ] ]
+                    , div [ class "col-3 text-end h5 m-0 text-nowrap overflow-hidden" ]
                         [ Format.formatImpactFloat definition stepImpact ]
                     ]
+                , case Product.getMainItemComment step of
+                    Just comment ->
+                        div [ class "fs-7 text-muted mt-1" ] [ text comment ]
+
+                    Nothing ->
+                        text ""
                 ]
             , step
                 |> Product.stepToItems
