@@ -7,7 +7,7 @@ module Page.Food.Simulator exposing
     )
 
 import Data.Country as Country exposing (Country)
-import Data.Food.Db as Db
+import Data.Food.Db as FoodDb
 import Data.Food.Product as Product exposing (ProcessName, Product, ProductName)
 import Data.Impact as Impact
 import Data.Session as Session exposing (Session)
@@ -27,7 +27,7 @@ import Views.Container as Container
 import Views.CountrySelect
 import Views.Format as Format
 import Views.Icon as Icon
-import Views.Impact exposing (impactSelector)
+import Views.Impact as ImpactView
 import Views.Spinner as Spinner
 
 
@@ -49,7 +49,7 @@ type alias Model =
 type Msg
     = AddItem
     | CountrySelected Country.Code
-    | DbLoaded (WebData Db.Db)
+    | DbLoaded (WebData FoodDb.Db)
     | DeleteItem Product.Item
     | ItemSelected (Maybe ProcessName)
     | ItemAmountChanged Product.Item (Maybe Float)
@@ -251,7 +251,7 @@ viewSidebar session { definition, trigram, totalImpact } { product } =
         [ class "d-flex flex-column gap-3 mb-3 sticky-md-top"
         , style "top" "7px"
         ]
-        [ impactSelector
+        [ ImpactView.impactSelector
             { impacts = session.db.impacts
             , selectedImpact = trigram
             , switchImpact = SwitchImpact
@@ -359,7 +359,7 @@ viewProductSelector selectedProduct =
 
 viewIngredientSelector : Maybe ProcessName -> Product.Product -> Product.Products -> Html Msg
 viewIngredientSelector selectedItem product products =
-    div [ class "row py-3 gap-2 gap-md-0" ]
+    div [ class "row pt-3 gap-2 gap-md-0" ]
         [ div [ class "col-md-8" ]
             [ products
                 |> Product.listIngredients
@@ -388,7 +388,7 @@ viewIngredientSelector selectedItem product products =
 viewCategory : Html Msg -> List (Html Msg) -> Html Msg
 viewCategory header1 children =
     if List.length children > 0 then
-        section [ class "FoodStep" ]
+        section [ class "FoodStep mt-3" ]
             [ h3 [ class "h6" ] [ header1 ]
 
             -- Enclosing the children so the first stacked card has the
@@ -407,7 +407,7 @@ viewPlantProcess { disabled } ({ item, stepWeight } as itemViewData) =
             item.process.name |> Product.processNameToString
     in
     div [ class "card-body row align-items-center py-1" ]
-        [ div [ class "col-sm-6" ]
+        [ div [ class "col-sm-3" ]
             [ if disabled then
                 item
                     |> Product.formatItem stepWeight
@@ -419,11 +419,16 @@ viewPlantProcess { disabled } ({ item, stepWeight } as itemViewData) =
                 div [ class "input-group input-group-sm my-2" ]
                     [ input
                         [ id <| "slider-" ++ name
-                        , class "no-arrows form-control"
+                        , class "form-control text-end incdec-arrows-left"
                         , type_ "number"
-                        , step "0.001"
-                        , value <| String.fromFloat item.amount
-                        , title "Quantité en kilogrammes"
+                        , step "1"
+                        , item.amount
+                            |> (\f -> f * 1000)
+                            |> round
+                            |> toFloat
+                            |> String.fromFloat
+                            |> value
+                        , title "Quantité en grammes"
                         , onInput <|
                             \str ->
                                 ItemAmountChanged item
@@ -431,15 +436,15 @@ viewPlantProcess { disabled } ({ item, stepWeight } as itemViewData) =
                                         Just 0
 
                                      else
-                                        String.toFloat str
+                                        str |> String.toFloat |> Maybe.map (\f -> f / 1000)
                                     )
                         , Html.Attributes.min "0"
                         ]
                         []
-                    , span [ class "input-group-text" ] [ text "kg" ]
+                    , span [ class "input-group-text" ] [ text "g" ]
                     ]
             ]
-        , div [ class "col-sm-6" ]
+        , div [ class "col-sm-9" ]
             [ itemView { disabled = disabled } itemViewData
             ]
         ]
