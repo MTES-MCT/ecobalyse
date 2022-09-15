@@ -425,8 +425,7 @@ viewPlantProcess { disabled } ({ item, stepWeight } as itemViewData) =
                         , item.amount
                             |> (\f -> f * 1000)
                             |> round
-                            |> toFloat
-                            |> String.fromFloat
+                            |> String.fromInt
                             |> value
                         , title "Quantité en grammes"
                         , onInput <|
