@@ -18,10 +18,7 @@
       "normalization": 5.55695e1,
       "weighting": 0.062
     },
-    "scopes": [
-      "textile",
-      "food"
-    ]
+    "scopes": ["textile", "food"]
   },
   "ozd": {
     "source": {
@@ -42,10 +39,7 @@
       "normalization": 5.3648e-2,
       "weighting": 0.0631
     },
-    "scopes": [
-      "textile",
-      "food"
-    ]
+    "scopes": ["textile", "food"]
   },
   "cch": {
     "source": {
@@ -66,10 +60,7 @@
       "normalization": 8.09553e3,
       "weighting": 0.2106
     },
-    "scopes": [
-      "textile",
-      "food"
-    ]
+    "scopes": ["textile", "food"]
   },
   "ccb": {
     "source": {
@@ -86,10 +77,7 @@
     "primary": false,
     "quality": 1,
     "pef": null,
-    "scopes": [
-      "textile",
-      "food"
-    ]
+    "scopes": ["textile", "food"]
   },
   "ccf": {
     "source": {
@@ -106,10 +94,7 @@
     "primary": false,
     "quality": 1,
     "pef": null,
-    "scopes": [
-      "textile",
-      "food"
-    ]
+    "scopes": ["textile", "food"]
   },
   "ccl": {
     "source": {
@@ -126,10 +111,7 @@
     "primary": false,
     "quality": 1,
     "pef": null,
-    "scopes": [
-      "textile",
-      "food"
-    ]
+    "scopes": ["textile", "food"]
   },
   "fwe": {
     "source": {
@@ -150,10 +132,7 @@
       "normalization": 1.60685,
       "weighting": 0.028
     },
-    "scopes": [
-      "textile",
-      "food"
-    ]
+    "scopes": ["textile", "food"]
   },
   "swe": {
     "source": {
@@ -174,10 +153,7 @@
       "normalization": 1.95e1,
       "weighting": 0.0296
     },
-    "scopes": [
-      "textile",
-      "food"
-    ]
+    "scopes": ["textile", "food"]
   },
   "tre": {
     "source": {
@@ -198,10 +174,7 @@
       "normalization": 1.76755e2,
       "weighting": 0.0371
     },
-    "scopes": [
-      "textile",
-      "food"
-    ]
+    "scopes": ["textile", "food"]
   },
   "pco": {
     "source": {
@@ -222,10 +195,7 @@
       "normalization": 4.06014e1,
       "weighting": 0.0478
     },
-    "scopes": [
-      "textile",
-      "food"
-    ]
+    "scopes": ["textile", "food"]
   },
   "pma": {
     "source": {
@@ -246,10 +216,7 @@
       "normalization": 5.95387e-4,
       "weighting": 0.0896
     },
-    "scopes": [
-      "textile",
-      "food"
-    ]
+    "scopes": ["textile", "food"]
   },
   "ior": {
     "source": {
@@ -270,10 +237,7 @@
       "normalization": 4.22016e3,
       "weighting": 0.0501
     },
-    "scopes": [
-      "textile",
-      "food"
-    ]
+    "scopes": ["textile", "food"]
   },
   "fru": {
     "source": {
@@ -294,10 +258,7 @@
       "normalization": 6.50043e4,
       "weighting": 0.0832
     },
-    "scopes": [
-      "textile",
-      "food"
-    ]
+    "scopes": ["textile", "food"]
   },
   "mru": {
     "source": {
@@ -318,10 +279,7 @@
       "normalization": 6.36403e-2,
       "weighting": 0.0755
     },
-    "scopes": [
-      "textile",
-      "food"
-    ]
+    "scopes": ["textile", "food"]
   },
   "ldu": {
     "source": {
@@ -342,10 +300,7 @@
       "normalization": 8.19498e5,
       "weighting": 0.0794
     },
-    "scopes": [
-      "textile",
-      "food"
-    ]
+    "scopes": ["textile", "food"]
   },
   "pef": {
     "source": {
@@ -354,18 +309,15 @@
     },
     "label_en": "PEF Score",
     "label_fr": "Score PEF",
-    "unit_fr": "mPt PEF",
-    "unit_en": "mPt PEF",
+    "unit_fr": "µPt PEF",
+    "unit_en": "µPt PEF",
     "description_en": "Aggregated impact : sum of the weighted and normalized impact of all environmental impact categories according to the PEF methodology.",
-    "description_fr": "Impact *agrégé* : somme des impacts **normalisés** et **pondérés** de chaque catégorie d'impact selon la méthode *single score* du PEF. 12 impacts différents pris en compte à ce stade. 4 encore à ajouter.\n\nCet indicateur n'a **pas de dimension**, il se mesure en **Points (`Pt`)** ou en **milliPoints (`mPt`)** avec `1 Pt = 1000 mPt`. `1 Pt` correspond à l'impact total d'un européen sur une année.",
-    "short_unit": "mPt PEF",
+    "description_fr": "Impact *agrégé* : somme des impacts **normalisés** et **pondérés** de chaque catégorie d'impact selon la méthode *single score* du PEF. 12 impacts différents pris en compte à ce stade. 4 encore à ajouter.\n\nCet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en **milliPoints** (`mPt`) ou en **microPoints** (`µPt`) avec `1 Pt = 1 000 mPt = 1 000 000 µPt`. `1 Pt` correspond à l'impact total d'un européen sur une année.",
+    "short_unit": "µPt PEF",
     "primary": true,
     "quality": null,
     "pef": null,
-    "scopes": [
-      "textile",
-      "food"
-    ]
+    "scopes": ["textile", "food"]
   },
   "wtu": {
     "source": {
@@ -386,10 +338,7 @@
       "normalization": 1.14687e4,
       "weighting": 0.0851
     },
-    "scopes": [
-      "textile",
-      "food"
-    ]
+    "scopes": ["textile", "food"]
   },
   "etf": {
     "source": {
@@ -410,9 +359,7 @@
       "normalization": 4.27e4,
       "weighting": 0.0192
     },
-    "scopes": [
-      "food"
-    ]
+    "scopes": ["food"]
   },
   "htc": {
     "source": {
@@ -433,9 +380,7 @@
       "normalization": 1.69e-5,
       "weighting": 0.0213
     },
-    "scopes": [
-      "food"
-    ]
+    "scopes": ["food"]
   },
   "htn": {
     "source": {
@@ -456,8 +401,6 @@
       "normalization": 4.27e4,
       "weighting": 0.0184
     },
-    "scopes": [
-      "food"
-    ]
+    "scopes": ["food"]
   }
 }

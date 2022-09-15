@@ -40,12 +40,12 @@ formatImpact funit { trigram, unit } daysOfWear def =
         |> Impact.getImpact trigram
         |> Unit.inFunctionalUnit funit daysOfWear
         |> Unit.impactToFloat
-        |> formatRichFloat 2 unit
+        |> formatRichFloat 0 unit
 
 
 formatImpactFloat : Impact.Definition -> Float -> Html msg
 formatImpactFloat { unit } =
-    formatRichFloat 2 unit
+    formatRichFloat 0 unit
 
 
 formatInt : String -> Int -> String
