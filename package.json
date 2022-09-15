@@ -19,7 +19,9 @@
     "test:prepare": "node tests/prepare.js",
     "test:all": "npm run test:review && npm test && npm run server:test",
     "test:review": "npx elm-review",
-    "test": "npm run test:prepare && elm-test"
+    "test": "npm run test:prepare && elm-test",
+    "elm-watch": "run-pty run-pty.json",
+    "esbuild": "esbuild index.js --bundle --outfile=public/build/index.js"
   },
   "dependencies": {
     "@parcel/transformer-elm": "^2.6.2",
@@ -44,11 +46,15 @@
     "elm-format": "^0.8.5",
     "elm-review": "^2.7.2",
     "elm-test": "^0.19.1-revision9",
+    "elm-watch": "^1.0.2",
+    "esbuild": "^0.15.7",
     "jest": "^28.1.2",
     "nodemon": "^2.0.19",
     "process": "^0.11.10",
     "rimraf": "^3.0.2",
-    "supertest": "^6.2.4"
+    "run-pty": "^4.0.0",
+    "supertest": "^6.2.4",
+    "uglify-js": "^3.17.0"
   },
   "cacheDirectories": [
     "node_modules",
