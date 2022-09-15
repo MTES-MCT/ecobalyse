@@ -5,6 +5,8 @@ name = "pypi"
 
 [packages]
 olca-ipc = "*"
+notebook = "*"
+brightway2 = "*"
 
 [dev-packages]
 black = "*"
