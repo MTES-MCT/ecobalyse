@@ -3,7 +3,6 @@
 
 """Export des produits avec code CIQUAL d'une base Agribalyse"""
 
-from contextlib import nullcontext
 import json
 
 import argparse
@@ -103,7 +102,6 @@ def fill_processes(processes, activity, exchange):
     ]
     processes[activity]["category_tags"] = exchange._data["categories"]
     processes[activity]["impacts"] = {}
-    processes[activity]["transport_at_plant"] = None
 
 
 def build_product_tree(ciqual_products, max_products=None):
@@ -262,13 +260,6 @@ if __name__ == "__main__":
 
     print(f"Export de {len(products)} produits vers products.json")
     export_json(products, "products.json")
-
-    # For ciqual_products we fill the "transport at plant" boolean in processes
-    for process, value in processes.items():
-        if value["ciqual_code"] is not None:
-            value["transport_at_plant"] = (
-                "transport" in products[process["name"]]["plant"].keys()
-            )
 
     processes_export_file = "processes.json"
     if args.no_impacts:
