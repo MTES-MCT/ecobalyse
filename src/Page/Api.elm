@@ -47,7 +47,15 @@ getApiServerUrl { clientUrl } =
 
 changelog : List News
 changelog =
-    [ { date = "5 juillet 2022"
+    [ { date = "15 septembre 2022"
+      , level = "major"
+      , md =
+            """Les scores PEF renvoyés par l'API sont désormais exprimés en `µPt` (micropoints)
+            au lieu de `mPt` (millipoints).
+
+            Pour mémoire, `1 Pt = 1\u{202F}000 mPt = 1\u{202F}000\u{202F}000 µPt`."""
+      }
+    , { date = "5 juillet 2022"
       , level = "minor"
       , md =
             """Un nouveau paramètre optionnel `disabledSteps` a été ajouté aux endpoints de
