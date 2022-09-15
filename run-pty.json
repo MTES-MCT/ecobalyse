@@ -13,8 +13,9 @@
     "command": ["npm", "run", "esbuild", "--", "--serve=8000", "--servedir=public"],
     "title": "esbuild",
     "status": {
+      "WARNING": ["⏳", "W"],
       "ERROR": ["🚨", "E"],
-      "200": null
+      "200": ["✅", "+"]
     }
   }
 ]

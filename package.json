@@ -5,6 +5,7 @@
   "author": "Ecobalyse <contact@beta.gouv.fr>",
   "license": "MIT",
   "private": true,
+  "type": "module",
   "scripts": {
     "build": "rimraf dist && npm run build:init && parcel build index.html --public-url ./",
     "build:init": "./bin/update-version.sh && mkdir -p dist && cp -r public/* dist/",
@@ -21,7 +22,7 @@
     "test:review": "npx elm-review",
     "test": "npm run test:prepare && elm-test",
     "elm-watch": "run-pty run-pty.json",
-    "esbuild": "esbuild index.js --bundle --outfile=public/build/index.js"
+    "esbuild": "esbuild index.js --bundle --outfile=public/build/index.js --loader:.png=dataurl"
   },
   "dependencies": {
     "@parcel/transformer-elm": "^2.6.2",
@@ -48,8 +49,10 @@
     "elm-test": "^0.19.1-revision9",
     "elm-watch": "^1.0.2",
     "esbuild": "^0.15.7",
+    "esbuild-sass-plugin": "^2.3.2",
     "jest": "^28.1.2",
     "nodemon": "^2.0.19",
+    "npm": "^8.19.2",
     "process": "^0.11.10",
     "rimraf": "^3.0.2",
     "run-pty": "^4.0.0",

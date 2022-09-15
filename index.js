@@ -1,5 +1,4 @@
 import "rapidoc";
-import { Elm } from "./public/build/main.js";
 import * as Sentry from "@sentry/browser";
 import { BrowserTracing } from "@sentry/tracing";
 import Charts from "./lib/charts";
@@ -25,7 +24,7 @@ import Charts from "./lib/charts";
 // The localStorage key to use to store serialized session data
 const storeKey = "store";
 
-const app = Elm.Main.init({
+const app = window.Elm.Main.init({
   flags: {
     clientUrl: location.origin + location.pathname,
     rawStore: localStorage[storeKey] || "",
