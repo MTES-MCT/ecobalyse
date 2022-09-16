@@ -4,22 +4,22 @@ import { BrowserTracing } from "@sentry/tracing";
 import Charts from "./lib/charts";
 
 // Sentry
-// if (process.env.SENTRY_DSN) {
-//   Sentry.init({
-//     dsn: process.env.SENTRY_DSN,
-//     integrations: [new BrowserTracing()],
-//     tracesSampleRate: 0,
-//     allowUrls: [
-//       /^https:\/\/ecobalyse\.beta\.gouv\.fr/,
-//       /^https:\/\/ecobalyse\.osc-fr1\.scalingo\.io/,
-//       /^https:\/\/ecobalyse-pr(\d+)\.osc-fr1\.scalingo\.io/,
-//     ],
-//     ignoreErrors: [
-//       // Most often due to DOM-aggressive browser extensions
-//       /_VirtualDom_applyPatch/,
-//     ],
-//   });
-// }
+if (import.meta.env.VITE_SENTRY_DSN) {
+  Sentry.init({
+    dsn: import.meta.env.VITE_SENTRY_DSN,
+    integrations: [new BrowserTracing()],
+    tracesSampleRate: 0,
+    allowUrls: [
+      /^https:\/\/ecobalyse\.beta\.gouv\.fr/,
+      /^https:\/\/ecobalyse\.osc-fr1\.scalingo\.io/,
+      /^https:\/\/ecobalyse-pr(\d+)\.osc-fr1\.scalingo\.io/,
+    ],
+    ignoreErrors: [
+      // Most often due to DOM-aggressive browser extensions
+      /_VirtualDom_applyPatch/,
+    ],
+  });
+}
 
 // The localStorage key to use to store serialized session data
 const storeKey = "store";

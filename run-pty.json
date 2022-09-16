@@ -10,8 +10,8 @@
     "defaultStatus": ["⏳", "W"]
   },
   {
-    "command": ["npm", "run", "serve"],
-    "title": "esbuild",
+    "command": ["npm", "run", "vite-dev"],
+    "title": "vite-dev",
     "status": {
       "WARNING": ["⏳", "W"],
       "Warning": ["⏳", "W"],

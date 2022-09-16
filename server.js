@@ -10,12 +10,12 @@ const { buildJsonDb, setupTracker } = require("./lib");
 const app = express(); // web app
 const api = express(); // api app
 const host = "0.0.0.0";
-const port = process.env.PORT || 3000;
+const port = import.meta.env.VITE_PORT || 3000;
 
 // Sentry
-const { SENTRY_DSN } = process.env;
-if (SENTRY_DSN) {
-  Sentry.init({ dsn: SENTRY_DSN, tracesSampleRate: 0.1 });
+const { VITE_SENTRY_DSN } = import.meta.env;
+if (VITE_SENTRY_DSN) {
+  Sentry.init({ dsn: VITE_SENTRY_DSN, tracesSampleRate: 0.1 });
   // Note: Sentry middleware *must* be the very first applied to be effective
   app.use(Sentry.Handlers.requestHandler());
 }
@@ -77,7 +77,7 @@ const openApiContents = yaml.load(fs.readFileSync("openapi.yaml"));
 // Matomo
 const apiTracker = setupTracker(
   "https://stats.data.gouv.fr/",
-  process.env.MATOMO_TOKEN,
+  import.meta.env.VITE_MATOMO_TOKEN,
   openApiContents,
 );
 
@@ -112,7 +112,7 @@ app.use("/api", api);
 
 // Sentry error handler
 // Note: *must* be called *before* any other error handler
-if (SENTRY_DSN) {
+if (VITE_SENTRY_DSN) {
   app.use(Sentry.Handlers.errorHandler());
 }
 
