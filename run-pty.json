@@ -10,10 +10,11 @@
     "defaultStatus": ["⏳", "W"]
   },
   {
-    "command": ["npm", "run", "esbuild", "--", "--serve=8000", "--servedir=public"],
+    "command": ["npm", "run", "serve"],
     "title": "esbuild",
     "status": {
       "WARNING": ["⏳", "W"],
+      "Warning": ["⏳", "W"],
       "ERROR": ["🚨", "E"],
       "200": ["✅", "+"]
     }

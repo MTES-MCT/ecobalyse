@@ -22,7 +22,8 @@
     "test:review": "npx elm-review",
     "test": "npm run test:prepare && elm-test",
     "elm-watch": "run-pty run-pty.json",
-    "esbuild": "esbuild index.js --bundle --outfile=public/build/index.js --loader:.png=dataurl"
+    "esbuild": "node build.js",
+    "serve": "node serve.js"
   },
   "dependencies": {
     "@parcel/transformer-elm": "^2.6.2",

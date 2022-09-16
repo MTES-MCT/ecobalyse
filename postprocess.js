@@ -2,16 +2,6 @@
 import * as esbuild from "esbuild";
 import * as UglifyJS from "uglify-js";
 
-import { sassPlugin } from "esbuild-sass-plugin";
-
-await esbuild.build({
-  entryPoints: ["styles.scss"],
-  loader: { ".png": "dataurl" },
-  outfile: "public/build/styles.css",
-  bundle: true,
-  plugins: [sassPlugin()],
-});
-
 /**
  * @type {import("elm-watch/elm-watch-node").Postprocess}
  */
