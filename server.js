@@ -10,7 +10,7 @@ const { buildJsonDb, setupTracker } = require("./lib");
 const app = express(); // web app
 const api = express(); // api app
 const host = "0.0.0.0";
-const port = process.env.VITE_PORT || 3000;
+const port = process.env.PORT || 3000;
 
 // Sentry
 const { VITE_SENTRY_DSN } = process.env;
