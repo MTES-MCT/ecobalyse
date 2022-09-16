@@ -1,14 +1,20 @@
 {
     "postprocess": [
         "elm-watch-node",
-        "postprocess.js"
+        "postprocess.mjs"
     ],
     "targets": {
-        "My target name": {
+        "frontend": {
             "inputs": [
                 "src/Main.elm"
             ],
             "output": "public/build/main.js"
+        },
+        "server": {
+            "inputs": [
+                "src/Server.elm"
+            ],
+            "output": "server-app.js"
         }
     }
 }

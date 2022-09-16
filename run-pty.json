@@ -10,8 +10,8 @@
     "defaultStatus": ["⏳", "W"]
   },
   {
-    "command": ["npm", "run", "vite-dev"],
-    "title": "vite-dev",
+    "command": ["vite", "serve"],
+    "title": "vite serve",
     "status": {
       "WARNING": ["⏳", "W"],
       "Warning": ["⏳", "W"],
