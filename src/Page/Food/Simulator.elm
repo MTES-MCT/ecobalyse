@@ -772,12 +772,22 @@ viewStep label ({ definition, trigram } as itemViewDataConfig) step =
                 ]
             , span [ class "text-center" ]
                 [ DownArrow.large ]
-            , span [ class "w-50 p-2 d-flex flex-column flex-sm-row justify-content-start gap-1 gap-sm-3" ]
-                [ span [] [ span [ class "text-primary me-1" ] [ Icon.bus ], Format.km stepTransport.road ]
-                , span [] [ span [ class "text-primary me-1" ] [ Icon.boat ], Format.km stepTransport.sea ]
-                , span [] [ span [ class "text-primary me-1" ] [ Icon.train ], Format.km stepTransport.train ]
-                , span [] [ span [ class "text-primary me-1" ] [ Icon.plane ], Format.km stepTransport.air ]
-                ]
+            , [ ( Icon.bus, .road, "Routier" )
+              , ( Icon.boat, .sea, "Maritime" )
+              , ( Icon.train, .train, "Féroviaire" )
+              , ( Icon.plane, .air, "Aérien" )
+              ]
+                |> List.map
+                    (\( icon, get, title ) ->
+                        div [ attribute "aria-label" title ]
+                            [ span [ class "text-primary me-1" ] [ icon ]
+                            , Format.km (get stepTransport)
+                            ]
+                    )
+                |> span
+                    [ class "d-flex flex-column flex-sm-row justify-content-start gap-1 gap-sm-3"
+                    , class "w-50 p-2"
+                    ]
             ]
         , div
             [ class "card" ]
