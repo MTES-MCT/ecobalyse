@@ -174,6 +174,11 @@ times =
     icon "times"
 
 
+train : Html msg
+train =
+    icon "train"
+
+
 trash : Html msg
 trash =
     icon "trash"

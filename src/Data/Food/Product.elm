@@ -19,6 +19,7 @@ module Data.Food.Product exposing
     , formatItem
     , getMainItemComment
     , getStepImpact
+    , getStepTransports
     , getTotalImpact
     , getWeightAtPlant
     , getWeightAtStep
@@ -38,12 +39,14 @@ import Data.Impact as Impact
 import Data.Textile.Formula as Formula
 import Data.Transport as Transport exposing (Distances)
 import Data.Unit as Unit
+import Dict exposing (Dict)
 import Dict.Any as AnyDict exposing (AnyDict)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
 import Json.Decode.Pipeline as Pipe
-import Length
+import Length exposing (Length)
 import List.Extra as LE
+import Quantity
 import Views.Format as Format
 
 
@@ -176,7 +179,7 @@ formatAmount totalWeight unit amount =
             ++ "\u{00A0}kg.km)"
 
     else
-        Format.formatFloat 2 amount ++ "\u{00A0}" ++ formatStringUnit unit
+        Format.formatFloat 2 amount ++ "\u{00A0}" ++ unit
 
 
 formatItem : Float -> Item -> String
@@ -431,6 +434,66 @@ getTotalImpact trigram product =
         + getStepImpact trigram product.distribution
         + getStepImpact trigram product.packaging
         + getStepImpact trigram product.plant
+
+
+transportModes : Dict String String
+transportModes =
+    -- Transport processes, categorized by mode (road, sea, air, train)
+    Dict.fromList
+        [ ( "Transport, freight, inland waterways, barge {RER}| processing | Cut-off, S - Copied from Ecoinvent", "sea" )
+        , ( "Transport, freight, inland waterways, barge with reefer, cooling {GLO}| processing | Cut-off, S - Copied from Ecoinvent", "sea" )
+        , ( "Transport, freight, lorry 16-32 metric ton, euro6 {RER}| market for transport, freight, lorry 16-32 metric ton, EURO6 | Cut-off, S - Copied from Ecoinvent", "road" )
+        , ( "Transport, freight, lorry >32 metric ton, EURO4 {RER}| transport, freight, lorry >32 metric ton, EURO4 | Cut-off, S - Copied from Ecoinvent", "road" )
+        , ( "Transport, freight, lorry 16-32 metric ton, EURO4 {RER}| transport, freight, lorry 16-32 metric ton, EURO4 | Cut-off, S - Copied from Ecoinvent", "road" )
+        , ( "Transport, freight, lorry with refrigeration machine, 7.5-16 ton, EURO5, R134a refrigerant, cooling {GLO}| transport, freight, lorry with refrigeration machine, 7.5-16 ton, EURO5, R134a refrigerant, cooling | Cut-off, S - Copied from Ecoinvent", "road" )
+        , ( "Transport, freight, lorry 16-32 metric ton, EURO5 {RER}| transport, freight, lorry 16-32 metric ton, EURO5 | Cut-off, S - Copied from Ecoinvent", "road" )
+        , ( "Transport, freight train {RER}| market group for transport, freight train | Cut-off, S - Copied from Ecoinvent", "train" )
+        , ( "Transport, freight, sea, transoceanic ship {GLO}| processing | Cut-off, S - Copied from Ecoinvent", "sea" )
+        , ( "Transport, freight, sea, transoceanic ship {GLO}| market for | Cut-off, S - Copied from Ecoinvent", "sea" )
+        , ( "Transport, freight, sea, transoceanic ship with reefer, cooling {GLO}| processing | Cut-off, S - Copied from Ecoinvent", "sea" )
+        , ( "Transport, freight, aircraft {RER}| intercontinental | Cut-off, S - Copied from Ecoinvent", "air" )
+        ]
+
+
+getStepTransports : Step -> { road : Length, sea : Length, air : Length, train : Length }
+getStepTransports step =
+    let
+        stepWeight =
+            getWeightAtStep step
+    in
+    step
+        |> stepToItems
+        |> List.foldl
+            (\{ amount, process } acc ->
+                let
+                    distanceToAdd =
+                        if process.unit == "t/km" then
+                            amount / stepWeight * 1000
+
+                        else
+                            amount
+                in
+                case Dict.get (processNameToString process.name) transportModes of
+                    Just "air" ->
+                        { acc | air = acc.air |> Quantity.plus (Length.kilometers distanceToAdd) }
+
+                    Just "road" ->
+                        { acc | road = acc.road |> Quantity.plus (Length.kilometers distanceToAdd) }
+
+                    Just "sea" ->
+                        { acc | sea = acc.sea |> Quantity.plus (Length.kilometers distanceToAdd) }
+
+                    Just "train" ->
+                        { acc | train = acc.train |> Quantity.plus (Length.kilometers distanceToAdd) }
+
+                    _ ->
+                        acc
+            )
+            { road = Quantity.zero
+            , sea = Quantity.zero
+            , air = Quantity.zero
+            , train = Quantity.zero
+            }
 
 
 getWeightAtStep : Step -> Float
