@@ -774,7 +774,7 @@ viewStep label ({ definition, trigram } as itemViewDataConfig) step =
                 [ DownArrow.large ]
             , [ ( Icon.bus, .road, "Routier" )
               , ( Icon.boat, .sea, "Maritime" )
-              , ( Icon.train, .train, "Féroviaire" )
+              , ( Icon.rail, .rail, "Féroviaire" )
               , ( Icon.plane, .air, "Aérien" )
               ]
                 |> List.map

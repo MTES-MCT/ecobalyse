@@ -134,6 +134,11 @@ question =
     icon "question"
 
 
+rail : Html msg
+rail =
+    icon "rail"
+
+
 recycle : Html msg
 recycle =
     icon "recycle"
@@ -172,11 +177,6 @@ thread =
 times : Html msg
 times =
     icon "times"
-
-
-train : Html msg
-train =
-    icon "train"
 
 
 trash : Html msg

@@ -447,7 +447,7 @@ transportModes =
         , ( "Transport, freight, lorry 16-32 metric ton, EURO4 {RER}| transport, freight, lorry 16-32 metric ton, EURO4 | Cut-off, S - Copied from Ecoinvent", "road" )
         , ( "Transport, freight, lorry with refrigeration machine, 7.5-16 ton, EURO5, R134a refrigerant, cooling {GLO}| transport, freight, lorry with refrigeration machine, 7.5-16 ton, EURO5, R134a refrigerant, cooling | Cut-off, S - Copied from Ecoinvent", "road" )
         , ( "Transport, freight, lorry 16-32 metric ton, EURO5 {RER}| transport, freight, lorry 16-32 metric ton, EURO5 | Cut-off, S - Copied from Ecoinvent", "road" )
-        , ( "Transport, freight train {RER}| market group for transport, freight train | Cut-off, S - Copied from Ecoinvent", "train" )
+        , ( "Transport, freight train {RER}| market group for transport, freight train | Cut-off, S - Copied from Ecoinvent", "rail" )
         , ( "Transport, freight, sea, transoceanic ship {GLO}| processing | Cut-off, S - Copied from Ecoinvent", "sea" )
         , ( "Transport, freight, sea, transoceanic ship {GLO}| market for | Cut-off, S - Copied from Ecoinvent", "sea" )
         , ( "Transport, freight, sea, transoceanic ship with reefer, cooling {GLO}| processing | Cut-off, S - Copied from Ecoinvent", "sea" )
@@ -455,7 +455,7 @@ transportModes =
         ]
 
 
-getStepTransports : Step -> { road : Length, sea : Length, air : Length, train : Length }
+getStepTransports : Step -> { air : Length, rail : Length, road : Length, sea : Length }
 getStepTransports step =
     let
         stepWeight =
@@ -477,22 +477,22 @@ getStepTransports step =
                     Just "air" ->
                         { acc | air = acc.air |> Quantity.plus (Length.kilometers distanceToAdd) }
 
+                    Just "rail" ->
+                        { acc | rail = acc.rail |> Quantity.plus (Length.kilometers distanceToAdd) }
+
                     Just "road" ->
                         { acc | road = acc.road |> Quantity.plus (Length.kilometers distanceToAdd) }
 
                     Just "sea" ->
                         { acc | sea = acc.sea |> Quantity.plus (Length.kilometers distanceToAdd) }
 
-                    Just "train" ->
-                        { acc | train = acc.train |> Quantity.plus (Length.kilometers distanceToAdd) }
-
                     _ ->
                         acc
             )
-            { road = Quantity.zero
+            { air = Quantity.zero
+            , rail = Quantity.zero
+            , road = Quantity.zero
             , sea = Quantity.zero
-            , air = Quantity.zero
-            , train = Quantity.zero
             }
 
 
