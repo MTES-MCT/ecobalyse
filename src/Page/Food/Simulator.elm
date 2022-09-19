@@ -274,8 +274,8 @@ viewSidebar session { definition, trigram, totalImpact } { product } =
                     , div [ class "fs-7 text-end" ]
                         [ text " pour un poids total chez le consommateur de "
                         , strong []
-                            [ finalWeight |> Format.formatFloat 3 |> text
-                            , text "\u{00A0}kg"
+                            [ finalWeight
+                                |> Format.formatRichFloat 3 "kg"
                             ]
                         ]
                     ]
@@ -767,8 +767,8 @@ viewStep label ({ definition, trigram } as itemViewDataConfig) step =
     div []
         [ div [ class "d-flex align-items-center fs-7" ]
             [ span [ class "w-50 text-end p-2" ]
-                [ stepWeight |> Format.formatFloat 3 |> text
-                , text "\u{00A0}kg"
+                [ stepWeight
+                    |> Format.formatRichFloat 3 "kg"
                 ]
             , span [ class "text-center" ]
                 [ DownArrow.large ]
