@@ -772,7 +772,7 @@ viewStep label ({ definition, trigram } as itemViewDataConfig) step =
                 ]
             , span [ class "text-center" ]
                 [ DownArrow.large ]
-            , span [ class "w-50 p-2 d-flex justify-content-start gap-3" ]
+            , span [ class "w-50 p-2 d-flex flex-column flex-sm-row justify-content-start gap-1 gap-sm-3" ]
                 [ span [] [ span [ class "text-primary me-1" ] [ Icon.bus ], Format.km stepTransport.road ]
                 , span [] [ span [ class "text-primary me-1" ] [ Icon.boat ], Format.km stepTransport.sea ]
                 , span [] [ span [ class "text-primary me-1" ] [ Icon.train ], Format.km stepTransport.train ]
