@@ -134,6 +134,11 @@ question =
     icon "question"
 
 
+rail : Html msg
+rail =
+    icon "rail"
+
+
 recycle : Html msg
 recycle =
     icon "recycle"

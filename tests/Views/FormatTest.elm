@@ -50,5 +50,9 @@ suite =
                 |> Format.formatFloat 2
                 |> Expect.equal "-5,02e-10"
                 |> asTest "should format a negative float in scientific notation"
+            , 105
+                |> Format.formatFloat 2
+                |> Expect.equal "105"
+                |> asTest "should not format a number > 100 to provided decimal precision"
             ]
         ]

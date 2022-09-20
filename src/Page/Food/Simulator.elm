@@ -267,15 +267,15 @@ viewSidebar session { definition, trigram, totalImpact } { product } =
                 [ div [ class "d-flex flex-column m-auto gap-1 px-2" ]
                     [ h2 [ class "h5 m-0" ] [ text "Impact par kg de produit" ]
                     , div [ class "display-4 lh-1 text-center text-nowrap" ]
-                        [ Format.formatImpactFloat definition impactPerKg ]
+                        [ Format.formatImpactFloat definition 2 impactPerKg ]
                     , h3 [ class "h6 m-0 mt-2" ] [ text "Impact total" ]
                     , div [ class "display-5 lh-1 text-center text-nowrap" ]
-                        [ Format.formatImpactFloat definition totalImpact ]
+                        [ Format.formatImpactFloat definition 2 totalImpact ]
                     , div [ class "fs-7 text-end" ]
                         [ text " pour un poids total chez le consommateur de "
                         , strong []
-                            [ finalWeight |> Format.formatFloat 3 |> text
-                            , text "\u{00A0}kg"
+                            [ finalWeight
+                                |> Format.formatRichFloat 3 "kg"
                             ]
                         ]
                     ]
@@ -496,19 +496,19 @@ toItemViewDataList itemViewDataConfig stepWeight items =
 
 
 itemView : { disabled : Bool } -> ItemViewData -> Html Msg
-itemView { disabled } itemViewData =
+itemView { disabled } { config, percent, impact, item, width } =
     div [ class "border-top border-top-sm-0 d-flex align-items-center gap-1" ]
         [ div [ class "w-50", style "max-width" "50%", style "min-width" "50%" ]
             [ div [ class "progress" ]
-                [ div [ class "progress-bar", style "width" (String.fromFloat itemViewData.width ++ "%") ] []
+                [ div [ class "progress-bar", style "width" (String.fromFloat width ++ "%") ] []
                 ]
             ]
         , div [ class "text-start py-1 ps-2 text-truncate flex-fill fs-7" ]
-            [ itemViewData.impact
+            [ impact
                 |> Unit.impactToFloat
-                |> Format.formatImpactFloat itemViewData.config.definition
+                |> Format.formatImpactFloat config.definition 2
             , text " ("
-            , Format.percent itemViewData.percent
+            , Format.percent percent
             , text ")"
             ]
         , if disabled then
@@ -518,7 +518,7 @@ itemView { disabled } itemViewData =
             button
                 [ class "btn p-0 text-primary"
                 , Html.Attributes.disabled disabled
-                , onClick <| DeleteItem itemViewData.item
+                , onClick <| DeleteItem item
                 ]
                 [ Icon.trash ]
         ]
@@ -760,18 +760,34 @@ viewStep label ({ definition, trigram } as itemViewDataConfig) step =
 
         stepImpact =
             Product.getStepImpact trigram step
+
+        stepTransport =
+            Product.getStepTransports step
     in
     div []
         [ div [ class "d-flex align-items-center fs-7" ]
             [ span [ class "w-50 text-end p-2" ]
-                [ stepWeight |> Format.formatFloat 3 |> text
-                , text "\u{00A0}kg"
+                [ stepWeight
+                    |> Format.formatRichFloat 3 "kg"
                 ]
             , span [ class "text-center" ]
                 [ DownArrow.large ]
-            , span [ class "w-50 text-muted p-2" ]
-                [-- TODO: render transport here
-                ]
+            , [ ( Icon.bus, .road, "Routier" )
+              , ( Icon.boat, .sea, "Maritime" )
+              , ( Icon.rail, .rail, "Féroviaire" )
+              , ( Icon.plane, .air, "Aérien" )
+              ]
+                |> List.map
+                    (\( icon, get, title ) ->
+                        div [ attribute "aria-label" title ]
+                            [ span [ class "text-primary me-1" ] [ icon ]
+                            , Format.km (get stepTransport)
+                            ]
+                    )
+                |> span
+                    [ class "d-flex flex-column flex-sm-row justify-content-start gap-1 gap-sm-3"
+                    , class "w-50 p-2"
+                    ]
             ]
         , div
             [ class "card" ]
@@ -780,7 +796,7 @@ viewStep label ({ definition, trigram } as itemViewDataConfig) step =
                     [ div [ class "col-9" ]
                         [ h3 [ class "h6 m-0" ] [ text label ] ]
                     , div [ class "col-3 text-end h5 m-0 text-nowrap overflow-hidden" ]
-                        [ Format.formatImpactFloat definition stepImpact ]
+                        [ Format.formatImpactFloat definition 0 stepImpact ]
                     ]
                 , case Product.getMainItemComment step of
                     Just comment ->
@@ -825,7 +841,7 @@ viewItemDetails { config, item, impact, percent, stepWeight, width } =
             , span [ class "w-33" ]
                 [ impact
                     |> Unit.impactToFloat
-                    |> Format.formatImpactFloat config.definition
+                    |> Format.formatImpactFloat config.definition 2
                 ]
             , span [ class "w-33" ]
                 [ Format.percent percent ]

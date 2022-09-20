@@ -43,9 +43,9 @@ formatImpact funit { trigram, unit } daysOfWear def =
         |> formatRichFloat 0 unit
 
 
-formatImpactFloat : Impact.Definition -> Float -> Html msg
-formatImpactFloat { unit } =
-    formatRichFloat 0 unit
+formatImpactFloat : Impact.Definition -> Int -> Float -> Html msg
+formatImpactFloat { unit } decimals =
+    formatRichFloat decimals unit
 
 
 formatInt : String -> Int -> String
@@ -56,14 +56,24 @@ formatInt unit int =
         ++ unit
 
 
+{-| Formats a float with a provided decimal precision, which is overriden
+automatically when the provided value is either:
+
+  - greater or equal to `100`
+  - stricly lesser than `0.01`
+
+-}
 formatFloat : Int -> Float -> String
 formatFloat decimals float =
     let
-        simpleFmt =
-            FormatNumber.format { frenchLocale | decimals = Exact decimals }
+        simpleFmt dc =
+            FormatNumber.format { frenchLocale | decimals = Exact dc }
                 >> String.replace "−" "-"
     in
-    if abs float < 0.01 then
+    if abs float >= 100 then
+        simpleFmt 0 float
+
+    else if abs float < 0.01 then
         let
             sci =
                 float
@@ -72,17 +82,17 @@ formatFloat decimals float =
                     |> Decimal.toStringIn Decimal.Sci
 
             formatFloatStr =
-                String.toFloat >> Maybe.withDefault 0 >> simpleFmt
+                String.toFloat >> Maybe.withDefault 0 >> simpleFmt 2
         in
         case String.split "e" sci of
             [ floatStr, exp ] ->
                 formatFloatStr floatStr ++ "e" ++ exp
 
             _ ->
-                simpleFmt float
+                simpleFmt decimals float
 
     else
-        simpleFmt float
+        simpleFmt decimals float
 
 
 formatRichFloat : Int -> String -> Float -> Html msg
