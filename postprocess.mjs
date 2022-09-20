@@ -13,7 +13,7 @@ export default async function postprocess({ code, targetName, compilationMode })
 
     case "optimize":
       return minify(code, {
-        minimal: !["Html", "Sandbox", "Element", "Document", "Worker"].includes(targetName),
+        minimal: true,
       });
 
     default:
