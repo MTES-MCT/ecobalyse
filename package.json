@@ -8,7 +8,7 @@
   "scripts": {
     "build": "rimraf dist && npm run build:init && elm-watch make --optimize && vite build",
     "build:init": "./bin/update-version.sh && mkdir -p dist && cp -r public/* dist/",
-    "server:build": "elm-watch make server --optimize",
+    "server:build": "elm make src/Server.elm --optimize --output=server-app.js",
     "server:dev": "npm run server:build && nodemon server.js --config nodemon.json",
     "server:debug": "elm-watch make server && nodemon server.js --config nodemon.json",
     "server:start": "npm run server:build && node server.js",
