@@ -94,7 +94,7 @@ barView { impact } bar =
     tr [ class "fs-7" ]
         [ th [ class "text-end text-truncate py-1 pe-1" ] [ bar.label ]
         , td [ class "d-none d-sm-block text-end py-1 ps-1 pe-2 text-truncate" ]
-            [ Format.formatImpactFloat impact bar.score
+            [ Format.formatImpactFloat impact 0 bar.score
             ]
         , td [ class "w-100 py-1" ]
             [ div
