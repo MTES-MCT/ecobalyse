@@ -292,11 +292,10 @@ viewSidebar session { definition, trigram, totalImpact } { original, product } =
             { header = []
             , body =
                 [ div [ class "d-flex flex-column m-auto gap-1 px-2" ]
-                    ([ h2 [ class "h5 m-0" ] [ text "Impact par kg de produit" ]
-                     , div [ class "display-4 lh-1 text-center text-nowrap" ]
-                        [ Format.formatImpactFloat definition 2 impactPerKg ]
-                     ]
-                        ++ totalImpactDisplay
+                    (h2 [ class "h5 m-0" ] [ text "Impact par kg de produit" ]
+                        :: div [ class "display-4 lh-1 text-center text-nowrap" ]
+                            [ Format.formatImpactFloat definition 2 impactPerKg ]
+                        :: totalImpactDisplay
                     )
                 ]
             , footer = []
