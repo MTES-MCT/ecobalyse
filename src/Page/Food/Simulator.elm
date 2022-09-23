@@ -309,7 +309,7 @@ view : Session -> Model -> ( String, List (Html Msg) )
 view ({ foodDb, db } as session) ({ selectedProduct, impact, selectedItem, selectedCountry } as model) =
     ( "Simulateur de recettes"
     , [ case model.currentProductInfo of
-            Just ({ product } as currentProductInfo) ->
+            Just ({ original, product } as currentProductInfo) ->
                 let
                     totalImpact =
                         Product.getTotalImpact impact product
@@ -324,6 +324,12 @@ view ({ foodDb, db } as session) ({ selectedProduct, impact, selectedItem, selec
                         , trigram = impact
                         , definition = definition
                         }
+
+                    originalWeight =
+                        Product.getWeightAtPlant original.plant
+
+                    finalWeight =
+                        Product.getAmountRatio originalWeight product
                 in
                 Container.centered []
                     [ div [ class "row gap-3 gap-lg-0" ]
@@ -345,6 +351,16 @@ view ({ foodDb, db } as session) ({ selectedProduct, impact, selectedItem, selec
                                 ]
                                 [ text "Réinitialiser" ]
                             , viewSteps itemViewDataConfig product
+                            , div [ class "mb-3" ]
+                                [ div [ class "d-flex align-items-center fs-7" ]
+                                    [ span [ class "w-50 text-end p-2" ]
+                                        [ finalWeight
+                                            |> Format.formatRichFloat 3 "kg"
+                                        ]
+                                    , span [ class "text-center" ]
+                                        [ DownArrow.large ]
+                                    ]
+                                ]
                             ]
                         ]
                     ]
@@ -768,7 +784,7 @@ viewSteps itemViewDataConfig product =
         -- Exclude the first Recipe step
         |> List.drop 1
         |> List.map (\( label, step ) -> viewStep label itemViewDataConfig step)
-        |> div [ class "mb-3" ]
+        |> div []
 
 
 viewStep : String -> ItemViewDataConfig -> Product.Step -> Html Msg
