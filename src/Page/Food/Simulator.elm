@@ -248,13 +248,31 @@ viewSidebar session { definition, trigram, totalImpact } { original, product } =
             Product.getAmountRatio originalWeight product
 
         -- The final weight is always 1kg when the recipe isn't modified...
-        -- then apply the ratio for the modified recipe
+        -- then apply the ratio for the modified recipe :
+        --    modified recipe's final weight = original final weight * modified recipe amount ratio
         finalWeight =
-            1 * amountRatio
+            amountRatio
 
         -- Product.getWeightAtStep product.consumer
         impactPerKg =
             totalImpact / finalWeight
+
+        totalImpactDisplay =
+            if amountRatio /= 1 then
+                [ h3 [ class "h6 m-0 mt-2" ]
+                    [ text "Impact pour "
+                    , strong []
+                        [ finalWeight
+                            |> Format.formatRichFloat 3 "kg"
+                        ]
+                    , text " de produit"
+                    ]
+                , div [ class "display-5 lh-1 text-center text-nowrap" ]
+                    [ Format.formatImpactFloat definition 2 totalImpact ]
+                ]
+
+            else
+                []
     in
     div
         [ class "d-flex flex-column gap-3 mb-3 sticky-md-top"
@@ -274,20 +292,12 @@ viewSidebar session { definition, trigram, totalImpact } { original, product } =
             { header = []
             , body =
                 [ div [ class "d-flex flex-column m-auto gap-1 px-2" ]
-                    [ h2 [ class "h5 m-0" ] [ text "Impact par kg de produit" ]
-                    , div [ class "display-4 lh-1 text-center text-nowrap" ]
+                    ([ h2 [ class "h5 m-0" ] [ text "Impact par kg de produit" ]
+                     , div [ class "display-4 lh-1 text-center text-nowrap" ]
                         [ Format.formatImpactFloat definition 2 impactPerKg ]
-                    , h3 [ class "h6 m-0 mt-2" ]
-                        [ text "Impact pour "
-                        , strong []
-                            [ finalWeight
-                                |> Format.formatRichFloat 3 "kg"
-                            ]
-                        , text " de produit"
-                        ]
-                    , div [ class "display-5 lh-1 text-center text-nowrap" ]
-                        [ Format.formatImpactFloat definition 2 totalImpact ]
-                    ]
+                     ]
+                        ++ totalImpactDisplay
+                    )
                 ]
             , footer = []
             }
