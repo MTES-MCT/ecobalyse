@@ -239,11 +239,20 @@ update ({ foodDb, db } as session) msg ({ currentProductInfo } as model) =
 
 
 viewSidebar : Session -> ItemViewDataConfig -> CurrentProductInfo -> Html Msg
-viewSidebar session { definition, trigram, totalImpact } { product } =
+viewSidebar session { definition, trigram, totalImpact } { original, product } =
     let
-        finalWeight =
-            Product.getWeightAtStep product.consumer
+        originalWeight =
+            Product.getWeightAtPlant original.plant
 
+        amountRatio =
+            Product.getAmountRatio originalWeight product
+
+        -- The final weight is always 1kg when the recipe isn't modified...
+        -- then apply the ratio for the modified recipe
+        finalWeight =
+            1 * amountRatio
+
+        -- Product.getWeightAtStep product.consumer
         impactPerKg =
             totalImpact / finalWeight
     in
@@ -268,16 +277,16 @@ viewSidebar session { definition, trigram, totalImpact } { product } =
                     [ h2 [ class "h5 m-0" ] [ text "Impact par kg de produit" ]
                     , div [ class "display-4 lh-1 text-center text-nowrap" ]
                         [ Format.formatImpactFloat definition 2 impactPerKg ]
-                    , h3 [ class "h6 m-0 mt-2" ] [ text "Impact total" ]
-                    , div [ class "display-5 lh-1 text-center text-nowrap" ]
-                        [ Format.formatImpactFloat definition 2 totalImpact ]
-                    , div [ class "fs-7 text-end" ]
-                        [ text " pour un poids total chez le consommateur de "
+                    , h3 [ class "h6 m-0 mt-2" ]
+                        [ text "Impact pour "
                         , strong []
                             [ finalWeight
                                 |> Format.formatRichFloat 3 "kg"
                             ]
+                        , text " de produit"
                         ]
+                    , div [ class "display-5 lh-1 text-center text-nowrap" ]
+                        [ Format.formatImpactFloat definition 2 totalImpact ]
                     ]
                 ]
             , footer = []
