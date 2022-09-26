@@ -17,6 +17,7 @@ module Data.Food.Product exposing
     , emptyProducts
     , findProductByName
     , formatItem
+    , getAmountRatio
     , getMainItemComment
     , getStepImpact
     , getStepTransports
@@ -596,17 +597,23 @@ removeMaterial itemToRemove ({ plant } as product) =
         |> updateProductAmounts originalWeight
 
 
+getAmountRatio : Float -> Product -> Float
+getAmountRatio originalWeight currentProduct =
+    let
+        updatedWeight =
+            getWeightAtPlant currentProduct.plant
+    in
+    -- We need the new "ratio" between the original product and the updated one,
+    -- to change the amount for all the other processes (but the plant materials).
+    updatedWeight
+        / originalWeight
+
+
 updateProductAmounts : Float -> Product -> Product
 updateProductAmounts originalWeight ({ consumer, supermarket, distribution, packaging, plant } as product) =
     let
-        updatedWeight =
-            getWeightAtPlant plant
-
-        -- We need the new "ratio" between the original product and the updated one,
-        -- to change the amount for all the other processes (but the plant materials).
         amountRatio =
-            updatedWeight
-                / originalWeight
+            getAmountRatio originalWeight product
     in
     { product
         | consumer = updateStepAmounts amountRatio consumer

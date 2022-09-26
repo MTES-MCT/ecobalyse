@@ -239,13 +239,40 @@ update ({ foodDb, db } as session) msg ({ currentProductInfo } as model) =
 
 
 viewSidebar : Session -> ItemViewDataConfig -> CurrentProductInfo -> Html Msg
-viewSidebar session { definition, trigram, totalImpact } { product } =
+viewSidebar session { definition, trigram, totalImpact } { original, product } =
     let
-        finalWeight =
-            Product.getWeightAtStep product.consumer
+        originalWeight =
+            Product.getWeightAtPlant original.plant
 
+        amountRatio =
+            Product.getAmountRatio originalWeight product
+
+        -- The final weight is always 1kg when the recipe isn't modified...
+        -- then apply the ratio for the modified recipe :
+        --    modified recipe's final weight = original final weight * modified recipe amount ratio
+        finalWeight =
+            amountRatio
+
+        -- Product.getWeightAtStep product.consumer
         impactPerKg =
             totalImpact / finalWeight
+
+        totalImpactDisplay =
+            if amountRatio /= 1 then
+                [ h3 [ class "h6 m-0 mt-2" ]
+                    [ text "Impact pour "
+                    , strong []
+                        [ finalWeight
+                            |> Format.formatRichFloat 3 "kg"
+                        ]
+                    , text " de produit"
+                    ]
+                , div [ class "display-5 lh-1 text-center text-nowrap" ]
+                    [ Format.formatImpactFloat definition 2 totalImpact ]
+                ]
+
+            else
+                []
     in
     div
         [ class "d-flex flex-column gap-3 mb-3 sticky-md-top"
@@ -265,20 +292,11 @@ viewSidebar session { definition, trigram, totalImpact } { product } =
             { header = []
             , body =
                 [ div [ class "d-flex flex-column m-auto gap-1 px-2" ]
-                    [ h2 [ class "h5 m-0" ] [ text "Impact par kg de produit" ]
-                    , div [ class "display-4 lh-1 text-center text-nowrap" ]
-                        [ Format.formatImpactFloat definition 2 impactPerKg ]
-                    , h3 [ class "h6 m-0 mt-2" ] [ text "Impact total" ]
-                    , div [ class "display-5 lh-1 text-center text-nowrap" ]
-                        [ Format.formatImpactFloat definition 2 totalImpact ]
-                    , div [ class "fs-7 text-end" ]
-                        [ text " pour un poids total chez le consommateur de "
-                        , strong []
-                            [ finalWeight
-                                |> Format.formatRichFloat 3 "kg"
-                            ]
-                        ]
-                    ]
+                    (h2 [ class "h5 m-0" ] [ text "Impact par kg de produit" ]
+                        :: div [ class "display-4 lh-1 text-center text-nowrap" ]
+                            [ Format.formatImpactFloat definition 2 impactPerKg ]
+                        :: totalImpactDisplay
+                    )
                 ]
             , footer = []
             }
@@ -290,7 +308,7 @@ view : Session -> Model -> ( String, List (Html Msg) )
 view ({ foodDb, db } as session) ({ selectedProduct, impact, selectedItem, selectedCountry } as model) =
     ( "Simulateur de recettes"
     , [ case model.currentProductInfo of
-            Just ({ product } as currentProductInfo) ->
+            Just ({ original, product } as currentProductInfo) ->
                 let
                     totalImpact =
                         Product.getTotalImpact impact product
@@ -305,6 +323,12 @@ view ({ foodDb, db } as session) ({ selectedProduct, impact, selectedItem, selec
                         , trigram = impact
                         , definition = definition
                         }
+
+                    originalWeight =
+                        Product.getWeightAtPlant original.plant
+
+                    finalWeight =
+                        Product.getAmountRatio originalWeight product
                 in
                 Container.centered []
                     [ div [ class "row gap-3 gap-lg-0" ]
@@ -326,6 +350,17 @@ view ({ foodDb, db } as session) ({ selectedProduct, impact, selectedItem, selec
                                 ]
                                 [ text "Réinitialiser" ]
                             , viewSteps itemViewDataConfig product
+                            , DownArrow.standard
+                            , div [ class "d-flex justify-content-center fs-7 mb-3" ]
+                                [ span
+                                    [ class "d-flex justify-content-center align-items-center border rounded-circle shadow-sm"
+                                    , style "width" "70px"
+                                    , style "height" "70px"
+                                    ]
+                                    [ finalWeight
+                                        |> Format.formatRichFloat 3 "kg"
+                                    ]
+                                ]
                             ]
                         ]
                     ]
@@ -749,7 +784,7 @@ viewSteps itemViewDataConfig product =
         -- Exclude the first Recipe step
         |> List.drop 1
         |> List.map (\( label, step ) -> viewStep label itemViewDataConfig step)
-        |> div [ class "mb-3" ]
+        |> div []
 
 
 viewStep : String -> ItemViewDataConfig -> Product.Step -> Html Msg
