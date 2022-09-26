@@ -350,14 +350,15 @@ view ({ foodDb, db } as session) ({ selectedProduct, impact, selectedItem, selec
                                 ]
                                 [ text "Réinitialiser" ]
                             , viewSteps itemViewDataConfig product
-                            , div [ class "mb-3" ]
-                                [ div [ class "d-flex align-items-center fs-7" ]
-                                    [ span [ class "w-50 text-end p-2" ]
-                                        [ finalWeight
-                                            |> Format.formatRichFloat 3 "kg"
-                                        ]
-                                    , span [ class "text-center" ]
-                                        [ DownArrow.large ]
+                            , DownArrow.standard
+                            , div [ class "d-flex justify-content-center fs-7 mb-3" ]
+                                [ span
+                                    [ class "d-flex justify-content-center align-items-center border rounded-circle shadow-sm"
+                                    , style "width" "70px"
+                                    , style "height" "70px"
+                                    ]
+                                    [ finalWeight
+                                        |> Format.formatRichFloat 3 "kg"
                                     ]
                                 ]
                             ]
