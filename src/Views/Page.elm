@@ -29,6 +29,7 @@ type ActivePage
     = Api
     | Changelog
     | Editorial String
+    | FoodBuilder
     | FoodExplore
     | Home
     | Other

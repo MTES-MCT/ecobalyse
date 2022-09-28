@@ -21,6 +21,7 @@ import Ports
 import Quantity
 import RemoteData exposing (WebData)
 import Request.Food.Db as RequestDb
+import Route
 import Views.Component.DownArrow as DownArrow
 import Views.Component.Summary as SummaryComp
 import Views.Container as Container
@@ -301,6 +302,8 @@ viewSidebar session { definition, trigram, totalImpact } { original, product } =
             , footer = []
             }
         , viewStepsSummary trigram product
+        , a [ class "btn btn-primary", Route.href Route.FoodBuilder ]
+            [ text "Constructeur de recette" ]
         ]
 
 

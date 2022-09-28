@@ -21,6 +21,7 @@ type Route
     | Api
     | Changelog
     | Editorial String
+    | FoodBuilder
     | FoodExplore
     | TextileExplore Db.Dataset
     | TextileExamples
@@ -43,6 +44,7 @@ parser =
         --
         -- Food specific routes
         --
+        , Parser.map FoodBuilder (Parser.s "food" </> Parser.s "build")
         , Parser.map FoodExplore (Parser.s "food")
 
         --
@@ -127,6 +129,9 @@ toString route =
 
                 Editorial slug ->
                     [ "pages", slug ]
+
+                FoodBuilder ->
+                    [ "food", "build" ]
 
                 FoodExplore ->
                     [ "food" ]
