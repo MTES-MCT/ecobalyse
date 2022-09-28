@@ -10,7 +10,8 @@ import Html
 import Page.Api as Api
 import Page.Changelog as Changelog
 import Page.Editorial as Editorial
-import Page.Food.Simulator as FoodSimulator
+import Page.Food.Builder as FoodBuilder
+import Page.Food.Explore as FoodExplore
 import Page.Home as Home
 import Page.Stats as Stats
 import Page.Textile.Examples as TextileExamples
@@ -36,7 +37,8 @@ type Page
     | BlankPage
     | ChangelogPage Changelog.Model
     | EditorialPage Editorial.Model
-    | FoodSimulatorPage FoodSimulator.Model
+    | FoodBuilderPage FoodBuilder.Model
+    | FoodExplorePage FoodExplore.Model
     | HomePage Home.Model
     | NotFoundPage
     | StatsPage Stats.Model
@@ -58,7 +60,8 @@ type Msg
     | CloseMobileNavigation
     | CloseNotification Session.Notification
     | EditorialMsg Editorial.Msg
-    | FoodSimulatorMsg FoodSimulator.Msg
+    | FoodExploreMsg FoodExplore.Msg
+    | FoodBuilderMsg FoodBuilder.Msg
     | HomeMsg Home.Msg
     | LoadUrl String
     | OpenMobileNavigation
@@ -142,9 +145,13 @@ setRoute maybeRoute ( { session } as model, cmds ) =
             Editorial.init slug session
                 |> toPage EditorialPage EditorialMsg
 
-        Just Route.FoodSimulator ->
-            FoodSimulator.init session
-                |> toPage FoodSimulatorPage FoodSimulatorMsg
+        Just Route.FoodBuilder ->
+            FoodBuilder.init session
+                |> toPage FoodBuilderPage FoodBuilderMsg
+
+        Just Route.FoodExplore ->
+            FoodExplore.init session
+                |> toPage FoodExplorePage FoodExploreMsg
 
         Just Route.Stats ->
             Stats.init session
@@ -199,9 +206,13 @@ update msg ({ page, session } as model) =
                 |> toPage EditorialPage EditorialMsg
 
         -- Food
-        ( FoodSimulatorMsg foodMsg, FoodSimulatorPage foodModel ) ->
-            FoodSimulator.update session foodMsg foodModel
-                |> toPage FoodSimulatorPage FoodSimulatorMsg
+        ( FoodBuilderMsg foodMsg, FoodBuilderPage foodModel ) ->
+            FoodBuilder.update session foodMsg foodModel
+                |> toPage FoodBuilderPage FoodBuilderMsg
+
+        ( FoodExploreMsg foodMsg, FoodExplorePage foodModel ) ->
+            FoodExplore.update session foodMsg foodModel
+                |> toPage FoodExplorePage FoodExploreMsg
 
         -- Textile
         ( TextileDbReceived url (RemoteData.Success db), _ ) ->
@@ -298,6 +309,12 @@ subscriptions model =
             EditorialPage _ ->
                 Sub.none
 
+            FoodBuilderPage _ ->
+                Sub.none
+
+            FoodExplorePage _ ->
+                Sub.none
+
             TextileExamplesPage _ ->
                 Sub.none
 
@@ -310,9 +327,6 @@ subscriptions model =
                     |> Sub.map TextileSimulatorMsg
 
             StatsPage _ ->
-                Sub.none
-
-            FoodSimulatorPage _ ->
                 Sub.none
 
             NotFoundPage ->
@@ -359,6 +373,16 @@ view { page, mobileNavigationOpened, session } =
                 |> mapMsg EditorialMsg
                 |> Page.frame (pageConfig (Page.Editorial editorialModel.slug))
 
+        FoodBuilderPage foodModel ->
+            FoodBuilder.view session foodModel
+                |> mapMsg FoodBuilderMsg
+                |> Page.frame (pageConfig Page.FoodBuilder)
+
+        FoodExplorePage foodModel ->
+            FoodExplore.view session foodModel
+                |> mapMsg FoodExploreMsg
+                |> Page.frame (pageConfig Page.FoodExplore)
+
         TextileExamplesPage examplesModel ->
             TextileExamples.view session examplesModel
                 |> mapMsg TextileExamplesMsg
@@ -378,11 +402,6 @@ view { page, mobileNavigationOpened, session } =
             Stats.view session statsModel
                 |> mapMsg StatsMsg
                 |> Page.frame (pageConfig Page.Stats)
-
-        FoodSimulatorPage foodModel ->
-            FoodSimulator.view session foodModel
-                |> mapMsg FoodSimulatorMsg
-                |> Page.frame (pageConfig Page.FoodSimulator)
 
         NotFoundPage ->
             ( "Page manquante", [ Page.notFound ] )
