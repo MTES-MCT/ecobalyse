@@ -1,4 +1,4 @@
-module Page.Food.Simulator exposing
+module Page.Food.Explore exposing
     ( Model
     , Msg(..)
     , init

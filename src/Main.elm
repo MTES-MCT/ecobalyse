@@ -10,7 +10,7 @@ import Html
 import Page.Api as Api
 import Page.Changelog as Changelog
 import Page.Editorial as Editorial
-import Page.Food.Simulator as FoodSimulator
+import Page.Food.Explore as FoodExplore
 import Page.Home as Home
 import Page.Stats as Stats
 import Page.Textile.Examples as TextileExamples
@@ -36,7 +36,7 @@ type Page
     | BlankPage
     | ChangelogPage Changelog.Model
     | EditorialPage Editorial.Model
-    | FoodSimulatorPage FoodSimulator.Model
+    | FoodExplorePage FoodExplore.Model
     | HomePage Home.Model
     | NotFoundPage
     | StatsPage Stats.Model
@@ -58,7 +58,7 @@ type Msg
     | CloseMobileNavigation
     | CloseNotification Session.Notification
     | EditorialMsg Editorial.Msg
-    | FoodSimulatorMsg FoodSimulator.Msg
+    | FoodExploreMsg FoodExplore.Msg
     | HomeMsg Home.Msg
     | LoadUrl String
     | OpenMobileNavigation
@@ -142,9 +142,9 @@ setRoute maybeRoute ( { session } as model, cmds ) =
             Editorial.init slug session
                 |> toPage EditorialPage EditorialMsg
 
-        Just Route.FoodSimulator ->
-            FoodSimulator.init session
-                |> toPage FoodSimulatorPage FoodSimulatorMsg
+        Just Route.FoodExplore ->
+            FoodExplore.init session
+                |> toPage FoodExplorePage FoodExploreMsg
 
         Just Route.Stats ->
             Stats.init session
@@ -199,9 +199,9 @@ update msg ({ page, session } as model) =
                 |> toPage EditorialPage EditorialMsg
 
         -- Food
-        ( FoodSimulatorMsg foodMsg, FoodSimulatorPage foodModel ) ->
-            FoodSimulator.update session foodMsg foodModel
-                |> toPage FoodSimulatorPage FoodSimulatorMsg
+        ( FoodExploreMsg foodMsg, FoodExplorePage foodModel ) ->
+            FoodExplore.update session foodMsg foodModel
+                |> toPage FoodExplorePage FoodExploreMsg
 
         -- Textile
         ( TextileDbReceived url (RemoteData.Success db), _ ) ->
@@ -312,7 +312,7 @@ subscriptions model =
             StatsPage _ ->
                 Sub.none
 
-            FoodSimulatorPage _ ->
+            FoodExplorePage _ ->
                 Sub.none
 
             NotFoundPage ->
@@ -379,10 +379,10 @@ view { page, mobileNavigationOpened, session } =
                 |> mapMsg StatsMsg
                 |> Page.frame (pageConfig Page.Stats)
 
-        FoodSimulatorPage foodModel ->
-            FoodSimulator.view session foodModel
-                |> mapMsg FoodSimulatorMsg
-                |> Page.frame (pageConfig Page.FoodSimulator)
+        FoodExplorePage foodModel ->
+            FoodExplore.view session foodModel
+                |> mapMsg FoodExploreMsg
+                |> Page.frame (pageConfig Page.FoodExplore)
 
         NotFoundPage ->
             ( "Page manquante", [ Page.notFound ] )

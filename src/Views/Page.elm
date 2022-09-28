@@ -29,7 +29,7 @@ type ActivePage
     = Api
     | Changelog
     | Editorial String
-    | FoodSimulator
+    | FoodExplore
     | Home
     | Other
     | Stats
@@ -146,7 +146,7 @@ footerMenuLinks =
     , Internal "API" Route.Api Api
     , Internal "Nouveautés" Route.Changelog Changelog
     , Internal "Statistiques" Route.Stats Stats
-    , Internal "Food" Route.FoodSimulator FoodSimulator
+    , Internal "Food" Route.FoodExplore FoodExplore
     , Internal "Accessibilité\u{00A0}: non conforme" (Route.Editorial "accessibilité") (Editorial "accessibilité")
     , Internal "Mentions légales" (Route.Editorial "mentions-légales") (Editorial "mentions-légales")
     , External "Code source" Env.githubUrl

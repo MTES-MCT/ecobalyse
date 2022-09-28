@@ -21,7 +21,7 @@ type Route
     | Api
     | Changelog
     | Editorial String
-    | FoodSimulator
+    | FoodExplore
     | TextileExplore Db.Dataset
     | TextileExamples
     | TextileSimulator Impact.Trigram Unit.Functional ViewMode (Maybe Inputs.Query)
@@ -43,7 +43,7 @@ parser =
         --
         -- Food specific routes
         --
-        , Parser.map FoodSimulator (Parser.s "food")
+        , Parser.map FoodExplore (Parser.s "food")
 
         --
         -- Textile specific routes
@@ -128,7 +128,7 @@ toString route =
                 Editorial slug ->
                     [ "pages", slug ]
 
-                FoodSimulator ->
+                FoodExplore ->
                     [ "food" ]
 
                 TextileExamples ->
