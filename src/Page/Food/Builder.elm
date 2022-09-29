@@ -6,6 +6,7 @@ module Page.Food.Builder exposing
     , view
     )
 
+import Data.Food.Recipe as Recipe
 import Data.Session exposing (Session)
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -41,6 +42,13 @@ view _ _ =
     , [ Container.centered [ class "pb-3" ]
             [ h1 [ class "h2" ] [ text "TODO" ]
             , a [ class "btn btn-primary", Route.href Route.FoodExplore ] [ text "Explorateur de recettes" ]
+            , h5 [ class "my-3" ] [ text "Debug" ]
+            , Recipe.example
+                |> Recipe.serialize
+                -- |> Debug.toString
+                |> text
+                |> List.singleton
+                |> pre []
             ]
       ]
     )
