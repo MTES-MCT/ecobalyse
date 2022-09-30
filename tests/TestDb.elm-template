@@ -1,12 +1,25 @@
 module TestDb exposing (..)
 
+import Data.Food.Db as FoodDb
 import Data.Textile.Db as TextileDb
 
 
 textileDb : Result String TextileDb.Db
 textileDb =
-    """%json%"""
-        -- NOTE: Elm template strings mess with double carriage returns when
-        -- interpolated, we need to convert them back to what they were
-        |> String.replace "\n\n" "\\n\\n"
+    """%textileJson%"""
         |> TextileDb.buildFromJson
+
+foodProcessesJson : String
+foodProcessesJson =
+    """%foodProcessesJson%"""
+
+foodProductsJson : String
+foodProductsJson =
+    """%foodProductsJson%"""
+
+foodDb : Result String FoodDb.Db
+foodDb =
+    textileDb
+    |> Result.andThen (\textileDbParsed ->
+        FoodDb.buildFromJson textileDbParsed.impacts foodProcessesJson foodProductsJson
+    )

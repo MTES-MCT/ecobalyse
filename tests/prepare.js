@@ -4,14 +4,17 @@
  * is impossible in an Elm test environment.
  */
 const fs = require("fs");
-const { buildJsonDb } = require("../lib");
+const { buildTextileJsonDb, buildFoodProcessesJsonDb, buildFoodProductsJsonDb } = require("../lib");
 
 const elmTemplate = fs.readFileSync("tests/TestDb.elm-template").toString();
-const elmFixtures = elmTemplate.replace("%json%", buildJsonDb());
+const elmWithFixtures = elmTemplate
+  .replace("%textileJson%", buildTextileJsonDb())
+  .replace("%foodProcessesJson%", buildFoodProcessesJsonDb())
+  .replace("%foodProductsJson%", buildFoodProductsJsonDb());
 
 try {
-  fs.writeFileSync("tests/TestDb.elm", elmFixtures);
-  console.log("Successfully generated Elm db fixtures at tests/TestDb.elm");
+  fs.writeFileSync("tests/TestDb.elm", elmWithFixtures);
+  console.log("Successfully generated Elm textile and food db fixtures at tests/TestDb.elm");
 } catch (err) {
   throw new Error(`Unable to generate Elm db fixtures: ${err}`);
 }
