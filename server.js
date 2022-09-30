@@ -5,7 +5,7 @@ const yaml = require("js-yaml");
 const helmet = require("helmet");
 const Sentry = require("@sentry/node");
 const { Elm } = require("./server-app");
-const { buildJsonDb, setupTracker } = require("./lib");
+const { buildTextileJsonDb, setupTracker } = require("./lib");
 
 const app = express(); // web app
 const api = express(); // api app
@@ -83,7 +83,7 @@ const apiTracker = setupTracker(
 
 const elmApp = Elm.Server.init({
   flags: {
-    jsonDb: buildJsonDb(),
+    jsonDb: buildTextileJsonDb(),
   },
 });
 
