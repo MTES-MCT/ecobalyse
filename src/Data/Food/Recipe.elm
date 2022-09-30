@@ -43,6 +43,51 @@ type alias PlantOptions =
     { country : Maybe Country.Code }
 
 
+example : Query
+example =
+    { ingredients =
+        [ { processName = Product.stringToProcessName "Mozzarella cheese, from cow's milk, at plant"
+          , mass = Mass.grams 268
+          , country = Nothing
+          , labels = []
+          }
+        , { processName = Product.stringToProcessName "Olive oil, at plant"
+          , mass = Mass.grams 30
+          , country = Nothing
+          , labels = []
+          }
+        , { processName = Product.stringToProcessName "Tuna, fillet, raw, at processing"
+          , mass = Mass.grams 149
+          , country = Nothing
+          , labels = []
+          }
+        , { processName = Product.stringToProcessName "Water, municipal"
+          , mass = Mass.grams 100
+          , country = Nothing
+          , labels = []
+          }
+        , { processName = Product.stringToProcessName "Wheat flour, at industrial mill"
+          , mass = Mass.grams 168
+          , country = Nothing
+          , labels = []
+          }
+        , { processName = Product.stringToProcessName "Tomato, for processing, peeled, at plant"
+          , mass = Mass.grams 425
+          , country = Nothing
+          , labels = []
+          }
+        ]
+    , processing =
+        Just
+            { processName = Product.stringToProcessName "Cooking, industrial, 1kg of cooked product/ FR U"
+            , mass = Mass.grams 1050
+            }
+    , plant =
+        { country = Just (Country.codeFromString "FR")
+        }
+    }
+
+
 fromQuery : FoodDb.Db -> Query -> Result String Inputs
 fromQuery _ _ =
     Ok ()
@@ -51,20 +96,6 @@ fromQuery _ _ =
 toQuery : Inputs -> Query
 toQuery _ =
     example
-
-
-example : Query
-example =
-    { ingredients =
-        [ { processName = Product.stringToProcessName "i1", mass = Mass.grams 10, country = Nothing, labels = [] }
-        , { processName = Product.stringToProcessName "i2", mass = Mass.grams 40, country = Nothing, labels = [] }
-        ]
-    , processing =
-        Just { processName = Product.stringToProcessName "p1", mass = Mass.grams 10 }
-    , plant =
-        { country = Just (Country.codeFromString "FR")
-        }
-    }
 
 
 encode : Query -> Encode.Value
