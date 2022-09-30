@@ -12,9 +12,14 @@ import Data.Food.Product as Product exposing (ProcessName)
 import Data.Impact as Impact exposing (Impacts)
 import Json.Encode as Encode
 import Mass exposing (Mass)
+import Result.Extra as RE
 
 
-type alias Ingredient =
+
+---- Query
+
+
+type alias IngredientQuery =
     { processName : ProcessName
     , mass : Mass
     , country : Maybe Country.Code
@@ -22,19 +27,15 @@ type alias Ingredient =
     }
 
 
-type alias Processing =
+type alias ProcessingQuery =
     { processName : ProcessName
     , mass : Mass
     }
 
 
-type alias Inputs =
-    ()
-
-
 type alias Query =
-    { ingredients : List Ingredient
-    , processing : Maybe Processing
+    { ingredients : List IngredientQuery
+    , processing : Maybe ProcessingQuery
     , plant : PlantOptions
     }
 
@@ -88,14 +89,78 @@ example =
     }
 
 
-fromQuery : FoodDb.Db -> Query -> Result String Inputs
-fromQuery _ _ =
-    Ok ()
+
+---- Recipe
 
 
-toQuery : Inputs -> Query
+type alias Ingredient =
+    { process : Product.Process
+    , mass : Mass
+    , country : Maybe Country.Code
+    , labels : List String
+    }
+
+
+type alias Processing =
+    { process : Product.Process
+    , mass : Mass
+    }
+
+
+type alias Recipe =
+    { ingredients : List Ingredient
+    , processing : Maybe Processing
+    , plant : PlantOptions
+    }
+
+
+
+---- Utilities
+
+
+fromQuery : FoodDb.Db -> Query -> Result String Recipe
+fromQuery foodDb query =
+    Result.map3 Recipe
+        (ingredientsFromQuery foodDb query)
+        (processingFromQuery foodDb query)
+        (Ok query.plant)
+
+
+ingredientsFromQuery : FoodDb.Db -> Query -> Result String (List Ingredient)
+ingredientsFromQuery foodDb query =
+    query.ingredients
+        |> RE.combineMap (ingredientFromQuery foodDb)
+
+
+ingredientFromQuery : FoodDb.Db -> IngredientQuery -> Result String Ingredient
+ingredientFromQuery { processes } ingredientQuery =
+    Result.map4 Ingredient
+        (Product.findProcessByName processes ingredientQuery.processName)
+        (Ok ingredientQuery.mass)
+        (Ok ingredientQuery.country)
+        (Ok ingredientQuery.labels)
+
+
+processingFromQuery : FoodDb.Db -> Query -> Result String (Maybe Processing)
+processingFromQuery { processes } query =
+    query.processing
+        |> Maybe.map
+            (\processing ->
+                Result.map2 Processing
+                    (Product.findProcessByName processes processing.processName)
+                    (Ok processing.mass)
+                    |> Result.map Just
+            )
+        |> Maybe.withDefault (Ok Nothing)
+
+
+toQuery : Recipe -> Query
 toQuery _ =
     example
+
+
+
+---- Encoders
 
 
 encode : Query -> Encode.Value
@@ -107,7 +172,7 @@ encode q =
         ]
 
 
-encodeIngredient : Ingredient -> Encode.Value
+encodeIngredient : IngredientQuery -> Encode.Value
 encodeIngredient i =
     Encode.object
         [ ( "processName", i.processName |> Product.processNameToString |> Encode.string )
@@ -117,7 +182,7 @@ encodeIngredient i =
         ]
 
 
-encodeProcessing : Processing -> Encode.Value
+encodeProcessing : ProcessingQuery -> Encode.Value
 encodeProcessing p =
     Encode.object
         [ ( "processName", p.processName |> Product.processNameToString |> Encode.string )
