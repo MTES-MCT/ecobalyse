@@ -15,6 +15,7 @@ module Data.Food.Product exposing
     , defaultCountry
     , emptyProcesses
     , emptyProducts
+    , findProcessByName
     , findProductByName
     , formatItem
     , getAmountRatio
@@ -129,10 +130,11 @@ emptyProcesses =
     AnyDict.empty processNameToString
 
 
-findProcessByName : ProcessName -> Processes -> Result String Process
-findProcessByName ((ProcessName name) as procName) =
-    AnyDict.get procName
-        >> Result.fromMaybe ("Procédé introuvable par nom : " ++ name)
+findProcessByName : Processes -> ProcessName -> Result String Process
+findProcessByName processes ((ProcessName name) as procName) =
+    processes
+        |> AnyDict.get procName
+        |> Result.fromMaybe ("Procédé introuvable par nom : " ++ name)
 
 
 formatStringUnit : String -> String
@@ -344,7 +346,7 @@ linkProcess processes =
             (\name ->
                 name
                     |> stringToProcessName
-                    |> (\processName -> findProcessByName processName processes)
+                    |> findProcessByName processes
                     |> DE.fromResult
             )
 
@@ -531,7 +533,7 @@ listIngredients products =
 
 addMaterial : Processes -> ProcessName -> Product -> Result String Product
 addMaterial processes processName ({ plant } as product) =
-    findProcessByName processName processes
+    findProcessByName processes processName
         |> Result.map
             (\process ->
                 let
