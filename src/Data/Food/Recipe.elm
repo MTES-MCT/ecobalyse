@@ -10,6 +10,7 @@ import Data.Country as Country
 import Data.Food.Db as FoodDb
 import Data.Food.Product as Product exposing (ProcessName)
 import Data.Impact as Impact exposing (Impacts)
+import Data.Unit as Unit
 import Json.Encode as Encode
 import Mass exposing (Mass)
 import Result.Extra as RE
@@ -234,7 +235,46 @@ serialize query =
 
 
 compute : FoodDb.Db -> Query -> Result String Impacts
-compute db _ =
-    -- query
-    -- |> fromQuery
-    Ok (Impact.impactsFromDefinitons db.impacts)
+compute db query =
+    case fromQuery db query of
+        Ok recipe ->
+            let
+                ingredientsImpact : List Impacts
+                ingredientsImpact =
+                    recipe
+                        |> .ingredients
+                        |> List.map (Product.computeItemPefImpact db.impacts)
+                        |> List.map computeIngredientImpacts
+
+                ingredientsImpactWithProcessingImpact : List Impacts
+                ingredientsImpactWithProcessingImpact =
+                    recipe.processing
+                        |> Maybe.map
+                            (Product.computeItemPefImpact db.impacts
+                                >> computeIngredientImpacts
+                                >> List.singleton
+                                >> (++) ingredientsImpact
+                            )
+                        |> Maybe.withDefault ingredientsImpact
+            in
+            ingredientsImpactWithProcessingImpact
+                |> Impact.sumImpacts db.impacts
+                |> Ok
+
+        Err error ->
+            Err error
+
+
+computeIngredientImpacts : { a | process : Product.Process, mass : Mass } -> Impacts
+computeIngredientImpacts item =
+    let
+        computeImpact : Mass -> Impact.Trigram -> Unit.Impact -> Unit.Impact
+        computeImpact mass _ impact =
+            impact
+                |> Unit.impactToFloat
+                |> (*) (Mass.inKilograms mass)
+                |> Unit.impact
+    in
+    -- total + (item.amount * impact)
+    item.process.impacts
+        |> Impact.mapImpacts (computeImpact item.mass)
