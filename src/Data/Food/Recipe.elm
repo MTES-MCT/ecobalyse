@@ -155,8 +155,37 @@ processingFromQuery { processes } query =
 
 
 toQuery : Recipe -> Query
-toQuery _ =
-    example
+toQuery recipe =
+    { ingredients = ingredientsToQuery recipe.ingredients
+    , processing = processingToQuery recipe.processing
+    , plant = recipe.plant
+    }
+
+
+ingredientsToQuery : List Ingredient -> List IngredientQuery
+ingredientsToQuery ingredients =
+    ingredients
+        |> List.map ingredientToQuery
+
+
+ingredientToQuery : Ingredient -> IngredientQuery
+ingredientToQuery ingredient =
+    { processName = ingredient.process.name
+    , mass = ingredient.mass
+    , country = ingredient.country
+    , labels = ingredient.labels
+    }
+
+
+processingToQuery : Maybe Processing -> Maybe ProcessingQuery
+processingToQuery maybeProcessing =
+    maybeProcessing
+        |> Maybe.map
+            (\processing ->
+                { processName = processing.process.name
+                , mass = processing.mass
+                }
+            )
 
 
 

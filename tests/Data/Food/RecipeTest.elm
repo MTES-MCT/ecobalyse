@@ -77,7 +77,13 @@ suite =
                         |> Expect.err
                         |> asTest "should return an Err for an invalid processing"
                     ]
-                , describe "toQuery" [ Test.todo "toQuery" ]
+                , describe "toQuery"
+                    [ Recipe.example
+                        |> Recipe.fromQuery db
+                        |> Result.map Recipe.toQuery
+                        |> Expect.equal (Ok Recipe.example)
+                        |> asTest "should convert a recipe to a query"
+                    ]
                 , describe "compute" [ Test.todo "compute" ]
                 ]
             ]
