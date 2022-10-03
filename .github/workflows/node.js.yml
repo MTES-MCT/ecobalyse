@@ -47,11 +47,14 @@ jobs:
     - name: Build app
       run: npm run build --if-present
 
+    - name: Prepare test fixtures
+      run: npm run test:prepare
+
     - name: Run elm-review
       run: npm run test:review
 
-    - name: Run elm tests
-      run: npm test
+    - name: Run client tests
+      run: npm run test:client
 
     - name: Run server tests
-      run: npm run server:test
+      run: npm run test:server
