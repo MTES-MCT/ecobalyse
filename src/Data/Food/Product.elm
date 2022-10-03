@@ -9,6 +9,7 @@ module Data.Food.Product exposing
     , Products
     , Step
     , addMaterial
+    , computeItemPefImpact
     , computePefImpact
     , decodeProcesses
     , decodeProducts
@@ -250,7 +251,7 @@ computeItemsPefImpact definitions items =
         |> List.map (computeItemPefImpact definitions)
 
 
-computeItemPefImpact : List Impact.Definition -> Item -> Item
+computeItemPefImpact : List Impact.Definition -> { a | process : Process } -> { a | process : Process }
 computeItemPefImpact definitions ({ process } as item) =
     { item
         | process =

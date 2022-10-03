@@ -2,6 +2,7 @@ module Data.Food.Db exposing
     ( Db
     , buildFromJson
     , empty
+    , isEmpty
     )
 
 import Data.Food.Product as Product exposing (Processes, Products)
@@ -30,6 +31,11 @@ empty =
     , processes = Product.emptyProcesses
     , products = Product.emptyProducts
     }
+
+
+isEmpty : Db -> Bool
+isEmpty db =
+    db == empty
 
 
 buildFromJson : List Impact.Definition -> String -> String -> Result String Db
