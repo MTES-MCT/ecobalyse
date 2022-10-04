@@ -5,6 +5,7 @@ port module Server exposing
     )
 
 import Data.Country as Country exposing (Country)
+import Data.Food.Db as FoodDb
 import Data.Impact as Impact
 import Data.Textile.Db as TextileDb
 import Data.Textile.Inputs as Inputs
@@ -18,12 +19,14 @@ import Server.Route as Route
 
 
 type alias Flags =
-    { jsonDb : String }
+    { foodProcessesJson : String
+    , foodProductsJson : String
+    , textileJsonDb : String
+    }
 
 
 type alias Model =
-    { textileDb : Result String TextileDb.Db
-    }
+    Result String { textileDb : TextileDb.Db, foodDb : FoodDb.Db }
 
 
 type Msg
@@ -31,8 +34,15 @@ type Msg
 
 
 init : Flags -> ( Model, Cmd Msg )
-init { jsonDb } =
-    ( { textileDb = TextileDb.buildFromJson jsonDb }
+init { foodProcessesJson, foodProductsJson, textileJsonDb } =
+    ( -- We first need to parse the Textile Db as it contains the impact
+      -- definitions we then need to build the Food Db.
+      TextileDb.buildFromJson textileJsonDb
+        |> Result.andThen
+            (\textileDb ->
+                FoodDb.buildFromJson textileDb.impacts foodProcessesJson foodProductsJson
+                    |> Result.map (\foodDb -> { textileDb = textileDb, foodDb = foodDb })
+            )
     , Cmd.none
     )
 
@@ -180,13 +190,14 @@ update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         Received request ->
-            case model.textileDb of
+            case model of
                 Err dbError ->
                     ( model
                     , encodeStringError dbError |> sendResponse 503 request
                     )
 
-                Ok textileDb ->
+                Ok { textileDb } ->
+                    -- TODO: leverage food
                     ( model, handleRequest textileDb request )
 
 

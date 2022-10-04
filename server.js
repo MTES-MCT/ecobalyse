@@ -5,7 +5,7 @@ const yaml = require("js-yaml");
 const helmet = require("helmet");
 const Sentry = require("@sentry/node");
 const { Elm } = require("./server-app");
-const { buildTextileJsonDb, setupTracker } = require("./lib");
+const lib = require("./lib");
 
 const app = express(); // web app
 const api = express(); // api app
@@ -75,7 +75,7 @@ app.get("/stats", (_, res) => res.redirect("/#/stats"));
 const openApiContents = yaml.load(fs.readFileSync("openapi.yaml"));
 
 // Matomo
-const apiTracker = setupTracker(
+const apiTracker = lib.setupTracker(
   "https://stats.data.gouv.fr/",
   process.env.MATOMO_TOKEN,
   openApiContents,
@@ -83,7 +83,9 @@ const apiTracker = setupTracker(
 
 const elmApp = Elm.Server.init({
   flags: {
-    jsonDb: buildTextileJsonDb(),
+    foodProcessesJson: lib.buildFoodProcessesJsonDb(),
+    foodProductsJson: lib.buildFoodProductsJsonDb(),
+    textileJsonDb: lib.buildTextileJsonDb(),
   },
 });
 
