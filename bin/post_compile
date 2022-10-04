@@ -1,5 +1,0 @@
-#!/bin/sh
-
-# This step is executed before running the `web` command in Scalingo's `Procfile`.
-# Build frontend and backend code for production
-npm run build && npm run server:build
