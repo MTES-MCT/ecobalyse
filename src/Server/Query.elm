@@ -6,7 +6,7 @@ module Server.Query exposing
 
 import Data.Country as Country exposing (Country)
 import Data.Env as Env
-import Data.Textile.Db exposing (Db)
+import Data.Textile.Db as TextileDb
 import Data.Textile.Inputs as Inputs
 import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Product as Product exposing (Product)
@@ -46,16 +46,16 @@ succeed =
     always >> Query.custom ""
 
 
-parse : Db -> Query.Parser (Result Errors Inputs.Query)
-parse db =
+parse : TextileDb.Db -> Query.Parser (Result Errors Inputs.Query)
+parse textileDb =
     succeed (Ok Inputs.Query)
         |> apply (massParser "mass")
-        |> apply (materialListParser "materials" db.materials)
-        |> apply (productParser "product" db.products)
-        |> apply (maybeCountryParser "countrySpinning" db.countries)
-        |> apply (countryParser "countryFabric" db.countries)
-        |> apply (countryParser "countryDyeing" db.countries)
-        |> apply (countryParser "countryMaking" db.countries)
+        |> apply (materialListParser "materials" textileDb.materials)
+        |> apply (productParser "product" textileDb.products)
+        |> apply (maybeCountryParser "countrySpinning" textileDb.countries)
+        |> apply (countryParser "countryFabric" textileDb.countries)
+        |> apply (countryParser "countryDyeing" textileDb.countries)
+        |> apply (countryParser "countryMaking" textileDb.countries)
         |> apply (maybeRatioParser "dyeingWeighting")
         |> apply (maybeRatioParser "airTransportRatio")
         |> apply (maybeQuality "quality")

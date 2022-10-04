@@ -6,7 +6,7 @@ port module Server exposing
 
 import Data.Country as Country exposing (Country)
 import Data.Impact as Impact
-import Data.Textile.Db as Db exposing (Db)
+import Data.Textile.Db as TextileDb
 import Data.Textile.Inputs as Inputs
 import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Product as Product exposing (Product)
@@ -22,7 +22,7 @@ type alias Flags =
 
 
 type alias Model =
-    { db : Result String Db
+    { textileDb : Result String TextileDb.Db
     }
 
 
@@ -32,7 +32,7 @@ type Msg
 
 init : Flags -> ( Model, Cmd Msg )
 init { jsonDb } =
-    ( { db = Db.buildFromJson jsonDb }
+    ( { textileDb = TextileDb.buildFromJson jsonDb }
     , Cmd.none
     )
 
@@ -96,9 +96,9 @@ toSingleImpactSimple trigram { inputs, impacts } =
         ]
 
 
-executeQuery : Db -> Request -> (Simulator -> Encode.Value) -> Inputs.Query -> Cmd Msg
-executeQuery db request encoder =
-    Simulator.compute db
+executeQuery : TextileDb.Db -> Request -> (Simulator -> Encode.Value) -> Inputs.Query -> Cmd Msg
+executeQuery textileDb request encoder =
+    Simulator.compute textileDb
         >> Result.map encoder
         >> toResponse request
 
@@ -127,40 +127,41 @@ encodeProduct { id, name } =
         ]
 
 
-handleRequest : Db -> Request -> Cmd Msg
-handleRequest db request =
-    case Route.endpoint db request of
+handleRequest : TextileDb.Db -> Request -> Cmd Msg
+handleRequest textileDb request =
+    case Route.endpoint textileDb request of
         Just (Route.Get Route.CountryList) ->
-            db.countries
+            textileDb.countries
                 |> Encode.list encodeCountry
                 |> sendResponse 200 request
 
+        -- Just (Route.Get Route.FoodIngredientList) ->
         Just (Route.Get Route.TextileMaterialList) ->
-            db.materials
+            textileDb.materials
                 |> Encode.list encodeMaterial
                 |> sendResponse 200 request
 
         Just (Route.Get Route.TextileProductList) ->
-            db.products
+            textileDb.products
                 |> Encode.list encodeProduct
                 |> sendResponse 200 request
 
         Just (Route.Get (Route.TextileSimulator (Ok query))) ->
-            query |> executeQuery db request toAllImpactsSimple
+            query |> executeQuery textileDb request toAllImpactsSimple
 
         Just (Route.Get (Route.TextileSimulator (Err errors))) ->
             Query.encodeErrors errors
                 |> sendResponse 400 request
 
         Just (Route.Get (Route.TextileSimulatorDetailed (Ok query))) ->
-            query |> executeQuery db request Simulator.encode
+            query |> executeQuery textileDb request Simulator.encode
 
         Just (Route.Get (Route.TextileSimulatorDetailed (Err errors))) ->
             Query.encodeErrors errors
                 |> sendResponse 400 request
 
         Just (Route.Get (Route.TextileSimulatorSingle trigram (Ok query))) ->
-            query |> executeQuery db request (toSingleImpactSimple trigram)
+            query |> executeQuery textileDb request (toSingleImpactSimple trigram)
 
         Just (Route.Get (Route.TextileSimulatorSingle _ (Err errors))) ->
             Query.encodeErrors errors
@@ -179,14 +180,14 @@ update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         Received request ->
-            case model.db of
+            case model.textileDb of
                 Err dbError ->
                     ( model
                     , encodeStringError dbError |> sendResponse 503 request
                     )
 
-                Ok db ->
-                    ( model, handleRequest db request )
+                Ok textileDb ->
+                    ( model, handleRequest textileDb request )
 
 
 main : Program Flags Model Msg

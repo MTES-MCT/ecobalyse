@@ -5,7 +5,7 @@ module Server.Route exposing
     )
 
 import Data.Impact as Impact
-import Data.Textile.Db exposing (Db)
+import Data.Textile.Db as TextileDb
 import Data.Textile.Inputs as Inputs
 import Server.Query as Query
 import Server.Request exposing (Request)
@@ -33,6 +33,10 @@ ExpressJS server directly (see server.js).
 -}
 type Route
     = CountryList
+      -- Food ingredient list
+    | FoodIngredientList
+      -- Food recipe builder
+    | FoodRecipe (Result String ())
       -- Textile Material list
     | TextileMaterialList
       -- Textile Product list
@@ -45,22 +49,28 @@ type Route
     | TextileSimulatorSingle Impact.Trigram (Result Query.Errors Inputs.Query)
 
 
-parser : Db -> Parser (Route -> a) a
-parser db =
+parser : TextileDb.Db -> Parser (Route -> a) a
+parser textileDb =
     Parser.oneOf
         [ Parser.map CountryList (Parser.s "countries")
+        , Parser.map FoodIngredientList (Parser.s "food" </> Parser.s "ingredients")
+
+        -- FIXME: handle real query parameter parsing
+        , Parser.map (FoodRecipe (Ok ())) (Parser.s "food" </> Parser.s "recipe")
         , Parser.map TextileMaterialList (Parser.s "materials")
         , Parser.map TextileProductList (Parser.s "products")
-        , Parser.map TextileSimulator (Parser.s "simulator" <?> Query.parse db)
-        , Parser.map TextileSimulatorDetailed (Parser.s "simulator" </> Parser.s "detailed" <?> Query.parse db)
-        , Parser.map TextileSimulatorSingle (Parser.s "simulator" </> Impact.parseTrigram <?> Query.parse db)
+        , Parser.map TextileSimulator (Parser.s "simulator" <?> Query.parse textileDb)
+        , Parser.map TextileSimulatorDetailed (Parser.s "simulator" </> Parser.s "detailed" <?> Query.parse textileDb)
+        , Parser.map TextileSimulatorSingle (Parser.s "simulator" </> Impact.parseTrigram <?> Query.parse textileDb)
         ]
 
 
-endpoint : Db -> Request -> Maybe Endpoint
-endpoint db { method, url } =
+endpoint : TextileDb.Db -> Request -> Maybe Endpoint
+endpoint textileDb { method, url } =
+    -- FIXME: rename `url` to `path` and explain that Url.fromString can't build
+    -- a Url without a protocol and a hostname
     Url.fromString ("http://x" ++ url)
-        |> Maybe.andThen (Parser.parse (parser db))
+        |> Maybe.andThen (Parser.parse (parser textileDb))
         |> Maybe.map (mapMethod method)
 
 
