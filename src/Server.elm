@@ -5,46 +5,22 @@ port module Server exposing
     )
 
 import Data.Country as Country exposing (Country)
-import Data.Food.Db as FoodDb
+import Data.Food.Product as FoodProduct
 import Data.Impact as Impact
 import Data.Textile.Db as TextileDb
 import Data.Textile.Inputs as Inputs
 import Data.Textile.Material as Material exposing (Material)
-import Data.Textile.Product as Product exposing (Product)
+import Data.Textile.Product as TextileProduct exposing (Product)
 import Data.Textile.Simulator as Simulator exposing (Simulator)
 import Json.Encode as Encode
 import Server.Query as Query
 import Server.Request exposing (Request)
 import Server.Route as Route
-
-
-type alias Flags =
-    { foodProcessesJson : String
-    , foodProductsJson : String
-    , textileJsonDb : String
-    }
-
-
-type alias Model =
-    Result String { textileDb : TextileDb.Db, foodDb : FoodDb.Db }
+import Static.Db as StaticDb
 
 
 type Msg
     = Received Request
-
-
-init : Flags -> ( Model, Cmd Msg )
-init { foodProcessesJson, foodProductsJson, textileJsonDb } =
-    ( -- We first need to parse the Textile Db as it contains the impact
-      -- definitions we then need to build the Food Db.
-      TextileDb.buildFromJson textileJsonDb
-        |> Result.andThen
-            (\textileDb ->
-                FoodDb.buildFromJson textileDb.impacts foodProcessesJson foodProductsJson
-                    |> Result.map (\foodDb -> { textileDb = textileDb, foodDb = foodDb })
-            )
-    , Cmd.none
-    )
 
 
 apiDocUrl : String
@@ -132,20 +108,37 @@ encodeMaterial { id, name } =
 encodeProduct : Product -> Encode.Value
 encodeProduct { id, name } =
     Encode.object
-        [ ( "id", Product.encodeId id )
+        [ ( "id", TextileProduct.encodeId id )
         , ( "name", Encode.string name )
         ]
 
 
-handleRequest : TextileDb.Db -> Request -> Cmd Msg
-handleRequest textileDb request =
+handleRequest : StaticDb.Db -> Request -> Cmd Msg
+handleRequest { foodDb, textileDb } request =
     case Route.endpoint textileDb request of
         Just (Route.Get Route.CountryList) ->
             textileDb.countries
                 |> Encode.list encodeCountry
                 |> sendResponse 200 request
 
-        -- Just (Route.Get Route.FoodIngredientList) ->
+        Just (Route.Get Route.FoodIngredientList) ->
+            foodDb.products
+                |> FoodProduct.listIngredientProcesses
+                |> List.map
+                    (\{ name, code } ->
+                        { code = code
+                        , name = FoodProduct.processNameToString name
+                        }
+                    )
+                |> Encode.list
+                    (\{ code, name } ->
+                        Encode.object
+                            [ ( "code", Encode.string code )
+                            , ( "name", Encode.string name )
+                            ]
+                    )
+                |> sendResponse 200 request
+
         Just (Route.Get Route.TextileMaterialList) ->
             textileDb.materials
                 |> Encode.list encodeMaterial
@@ -186,27 +179,26 @@ handleRequest textileDb request =
                 |> sendResponse 404 request
 
 
-update : Msg -> Model -> ( Model, Cmd Msg )
-update msg model =
+update : Msg -> Cmd Msg
+update msg =
     case msg of
         Received request ->
-            case model of
+            case StaticDb.db of
                 Err dbError ->
-                    ( model
-                    , encodeStringError dbError |> sendResponse 503 request
-                    )
+                    encodeStringError dbError |> sendResponse 503 request
 
-                Ok { textileDb } ->
-                    -- TODO: leverage food
-                    ( model, handleRequest textileDb request )
+                Ok db ->
+                    handleRequest db request
 
 
-main : Program Flags Model Msg
+main : Program () () Msg
 main =
     Platform.worker
-        { init = init
-        , update = update
-        , subscriptions = \_ -> input Received
+        { init = always ( (), Cmd.none )
+
+        -- The Api server being stateless, there's no need of a model
+        , update = \msg _ -> ( (), update msg )
+        , subscriptions = always (input Received)
         }
 
 

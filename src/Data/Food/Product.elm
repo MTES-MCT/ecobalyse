@@ -26,6 +26,7 @@ module Data.Food.Product exposing
     , getTotalImpact
     , getWeightAtPlant
     , getWeightAtStep
+    , listIngredientProcesses
     , listIngredients
     , processNameToString
     , productNameToString
@@ -524,12 +525,18 @@ listIngredients : Products -> List ProcessName
 listIngredients products =
     -- List all the "material" entries from the "at plant" step
     products
+        |> listIngredientProcesses
+        |> List.map .name
+
+
+listIngredientProcesses : Products -> List Process
+listIngredientProcesses products =
+    -- List all the "material" entries from the "at plant" step
+    products
         |> AnyDict.values
-        |> List.concatMap (.plant >> .material >> List.map (.process >> .name))
-        |> List.map processNameToString
-        |> LE.unique
-        |> List.sort
-        |> List.map stringToProcessName
+        |> List.concatMap (.plant >> .material >> List.map .process)
+        |> LE.uniqueBy (.name >> processNameToString)
+        |> List.sortBy (.name >> processNameToString)
 
 
 addMaterial : Processes -> ProcessName -> Product -> Result String Product

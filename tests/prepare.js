@@ -4,25 +4,48 @@
  * is impossible in an Elm test environment.
  */
 const fs = require("fs");
-const lib = require("../lib");
+
+function getJson(path) {
+  return JSON.parse(fs.readFileSync(path).toString());
+}
 
 /**
  * Adapts a standard JSON string to what is expected to be the format
  * used in Elm's template strings (`"""{}"""`).
  */
-function adaptJsonStringToElm(toStringify) {
-  return toStringify.replaceAll("\\", "\\\\");
+function serializeForElmTemplateString(toStringify) {
+  return JSON.stringify(toStringify).replaceAll("\\", "\\\\");
 }
 
-const elmTemplate = fs.readFileSync("tests/TestDb.elm-template").toString();
+function buildTextileJsonDb(basePath = "public/data") {
+  return serializeForElmTemplateString({
+    countries: getJson(`${basePath}/countries.json`),
+    materials: getJson(`${basePath}/materials.json`),
+    processes: getJson(`${basePath}/processes.json`),
+    products: getJson(`${basePath}/products.json`),
+    transports: getJson(`${basePath}/transports.json`),
+    impacts: getJson(`${basePath}/impacts.json`),
+  });
+}
+
+function buildFoodProcessesJsonDb(basePath = "public/data/food") {
+  return serializeForElmTemplateString(getJson(`${basePath}/processes.json`));
+}
+
+function buildFoodProductsJsonDb(basePath = "public/data/food") {
+  return serializeForElmTemplateString(getJson(`${basePath}/products.json`));
+}
+
+const targetDbFile = "src/Static/Db.elm";
+const elmTemplate = fs.readFileSync(`${targetDbFile}-template`).toString();
 const elmWithFixtures = elmTemplate
-  .replace("%textileJson%", adaptJsonStringToElm(lib.buildTextileJsonDb()))
-  .replace("%foodProcessesJson%", adaptJsonStringToElm(lib.buildFoodProcessesJsonDb()))
-  .replace("%foodProductsJson%", adaptJsonStringToElm(lib.buildFoodProductsJsonDb()));
+  .replace("%textileJson%", buildTextileJsonDb())
+  .replace("%foodProcessesJson%", buildFoodProcessesJsonDb())
+  .replace("%foodProductsJson%", buildFoodProductsJsonDb());
 
 try {
-  fs.writeFileSync("tests/TestDb.elm", elmWithFixtures);
-  console.log("Successfully generated Elm textile and food db fixtures at tests/TestDb.elm");
+  fs.writeFileSync(targetDbFile, elmWithFixtures);
+  console.log(`Successfully generated Elm static database at ${targetDbFile}`);
 } catch (err) {
-  throw new Error(`Unable to generate Elm db fixtures: ${err}`);
+  throw new Error(`Unable to generate Elm static database: ${err}`);
 }

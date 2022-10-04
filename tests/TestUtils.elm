@@ -4,7 +4,7 @@ import Data.Food.Db as FoodDb
 import Data.Textile.Db as TextileDb
 import Expect exposing (Expectation)
 import Test exposing (..)
-import TestDb exposing (foodDb, textileDb)
+import Static.Db exposing (foodDb, textileDb)
 
 
 asTest : String -> Expectation -> Test

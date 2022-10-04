@@ -47,8 +47,8 @@ jobs:
     - name: Build app
       run: npm run build --if-present
 
-    - name: Prepare test fixtures
-      run: npm run test:prepare
+    - name: Build Elm static Db
+      run: npm run db:build
 
     - name: Run elm-review
       run: npm run test:review

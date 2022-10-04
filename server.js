@@ -81,13 +81,7 @@ const apiTracker = lib.setupTracker(
   openApiContents,
 );
 
-const elmApp = Elm.Server.init({
-  flags: {
-    foodProcessesJson: lib.buildFoodProcessesJsonDb(),
-    foodProductsJson: lib.buildFoodProductsJsonDb(),
-    textileJsonDb: lib.buildTextileJsonDb(),
-  },
-});
+const elmApp = Elm.Server.init();
 
 elmApp.ports.output.subscribe(({ status, body, jsResponseHandler }) => {
   return jsResponseHandler({ status, body });
