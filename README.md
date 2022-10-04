@@ -33,8 +33,9 @@ le projet dans une fenêtre ou dans un onglet séparé de votre navigateur :
 
 ### Environnement de dev local
 
-Le serveur local de développement se lance au moyen de la commande suivante :
+Le serveur local de développement se lance au moyen des deux commandes suivantes :
 
+    & npm run db:build
     $ npm start
 
 Deux instances de développement sont alors accessibles :
@@ -46,6 +47,7 @@ Deux instances de développement sont alors accessibles :
 
 Pour lancer le serveur de développement en mode de débuggage :
 
+    & npm run db:build
     $ npm run start:dev
 
 Un server frontend de débogage est alors disponible sur [localhost:1234](http://localhost:1234/).
@@ -78,9 +80,8 @@ Certaines variables d'environnement peuvent ou doivent être configurées via l'
 Pour lancer le serveur applicatif complet (frontend + backend), par exemple depuis un environnement de production, la démarche est la suivante :
 
 ```
-$ npm run build        # build frontend code
-$ npm run server:build # build backend code
-$ npm run server:start # run app server
+$ npm run build
+$ npm run server:start
 ```
 
 L'application est alors servie sur le port défini par la variable d'environnement `PORT` (par défaut: `3000`).
