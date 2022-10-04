@@ -7,7 +7,7 @@ import Dict.Any as AnyDict
 import Expect
 import Length
 import Test exposing (..)
-import TestDb exposing (textileDb)
+import Static.Db exposing (textileDb)
 import TestUtils exposing (asTest)
 
 

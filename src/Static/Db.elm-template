@@ -1,0 +1,38 @@
+module Static.Db exposing (Db, db, foodDb, textileDb)
+
+import Data.Food.Db as FoodDb
+import Data.Textile.Db as TextileDb
+
+
+type alias Db =
+    { foodDb : FoodDb.Db, textileDb : TextileDb.Db }
+
+
+textileDb : Result String TextileDb.Db
+textileDb =
+    """%textileJson%""" |> TextileDb.buildFromJson
+
+
+foodProcessesJson : String
+foodProcessesJson =
+    """%foodProcessesJson%"""
+
+
+foodProductsJson : String
+foodProductsJson =
+    """%foodProductsJson%"""
+
+
+
+foodDb : Result String FoodDb.Db
+foodDb =
+    textileDb
+        |> Result.andThen
+            (\textileDbParsed ->
+                FoodDb.buildFromJson textileDbParsed.impacts foodProcessesJson foodProductsJson
+            )
+
+
+db : Result String Db
+db =
+    Result.map2 Db foodDb textileDb
