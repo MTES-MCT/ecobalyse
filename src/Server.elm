@@ -135,34 +135,34 @@ handleRequest db request =
                 |> Encode.list encodeCountry
                 |> sendResponse 200 request
 
-        Just (Route.Get Route.MaterialList) ->
+        Just (Route.Get Route.TextileMaterialList) ->
             db.materials
                 |> Encode.list encodeMaterial
                 |> sendResponse 200 request
 
-        Just (Route.Get Route.ProductList) ->
+        Just (Route.Get Route.TextileProductList) ->
             db.products
                 |> Encode.list encodeProduct
                 |> sendResponse 200 request
 
-        Just (Route.Get (Route.Simulator (Ok query))) ->
+        Just (Route.Get (Route.TextileSimulator (Ok query))) ->
             query |> executeQuery db request toAllImpactsSimple
 
-        Just (Route.Get (Route.Simulator (Err errors))) ->
+        Just (Route.Get (Route.TextileSimulator (Err errors))) ->
             Query.encodeErrors errors
                 |> sendResponse 400 request
 
-        Just (Route.Get (Route.SimulatorDetailed (Ok query))) ->
+        Just (Route.Get (Route.TextileSimulatorDetailed (Ok query))) ->
             query |> executeQuery db request Simulator.encode
 
-        Just (Route.Get (Route.SimulatorDetailed (Err errors))) ->
+        Just (Route.Get (Route.TextileSimulatorDetailed (Err errors))) ->
             Query.encodeErrors errors
                 |> sendResponse 400 request
 
-        Just (Route.Get (Route.SimulatorSingle trigram (Ok query))) ->
+        Just (Route.Get (Route.TextileSimulatorSingle trigram (Ok query))) ->
             query |> executeQuery db request (toSingleImpactSimple trigram)
 
-        Just (Route.Get (Route.SimulatorSingle _ (Err errors))) ->
+        Just (Route.Get (Route.TextileSimulatorSingle _ (Err errors))) ->
             Query.encodeErrors errors
                 |> sendResponse 400 request
 
