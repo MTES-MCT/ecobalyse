@@ -32,7 +32,7 @@ suite =
                         |> Expect.equal
                             (Just <|
                                 Route.Get <|
-                                    Route.Simulator <|
+                                    Route.TextileSimulator <|
                                         Ok tShirtCotonFrance
                             )
                         |> asTest "should handle the /simulator endpoint"
@@ -49,7 +49,7 @@ suite =
                         |> Expect.equal
                             (Just <|
                                 Route.Get <|
-                                    Route.Simulator <|
+                                    Route.TextileSimulator <|
                                         Ok { tShirtCotonFrance | quality = Just (Unit.quality 1.2) }
                             )
                         |> asTest "should handle the /simulator endpoint with the quality parameter set"
@@ -66,7 +66,7 @@ suite =
                         |> Expect.equal
                             (Just <|
                                 Route.Get <|
-                                    Route.Simulator <|
+                                    Route.TextileSimulator <|
                                         Ok { tShirtCotonFrance | disabledSteps = [ Label.Making, Label.Dyeing ] }
                             )
                         |> asTest "should handle the /simulator endpoint with the disabledSteps parameter set"
@@ -82,7 +82,7 @@ suite =
                         |> Expect.equal
                             (Just <|
                                 Route.Get <|
-                                    Route.SimulatorSingle (Impact.trg "fwe") <|
+                                    Route.TextileSimulatorSingle (Impact.trg "fwe") <|
                                         Ok tShirtCotonFrance
                             )
                         |> asTest "should handle the /simulator/{impact} endpoint"
@@ -98,7 +98,7 @@ suite =
                         |> Expect.equal
                             (Just <|
                                 Route.Get <|
-                                    Route.SimulatorDetailed <|
+                                    Route.TextileSimulatorDetailed <|
                                         Ok tShirtCotonFrance
                             )
                         |> asTest "should handle the /simulator/detailed endpoint"
@@ -217,7 +217,7 @@ getEndpoint db method url =
 extractQuery : Route.Endpoint -> Maybe Inputs.Query
 extractQuery route =
     case route of
-        Route.Get (Route.Simulator (Ok query)) ->
+        Route.Get (Route.TextileSimulator (Ok query)) ->
             Just query
 
         _ ->
@@ -227,7 +227,7 @@ extractQuery route =
 extractErrors : Route.Endpoint -> Maybe (Dict String String)
 extractErrors route =
     case route of
-        Route.Get (Route.Simulator (Err errors)) ->
+        Route.Get (Route.TextileSimulator (Err errors)) ->
             Just errors
 
         _ ->
