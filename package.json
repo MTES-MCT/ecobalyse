@@ -6,7 +6,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "build": "rimraf dist && npm run build:init && parcel build index.html --public-url ./",
+    "build": "npm run server:build && rimraf dist && npm run build:init && parcel build index.html --public-url ./",
     "build:init": "./bin/update-version.sh && mkdir -p dist && cp -r public/* dist/",
     "db:build": "node tests/prepare.js",
     "server:build": "npm run db:build && elm make src/Server.elm --optimize --output=server-app.js",
