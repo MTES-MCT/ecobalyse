@@ -196,6 +196,38 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/InvalidParametersError'
+  /food/ingredients:
+    get:
+      tags:
+      - Alimentaire
+      summary: Récupérer la liste des ingrédients d'une recette
+      responses:
+        200:
+          description: Opération réussie
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IngredientsListResponse'
+  /food/recipe:
+    get:
+      tags:
+      - Alimentaire
+      summary: Calcul exhaustif des impacts environnementaux d'une recette alimentaire
+      parameters:
+      - $ref: '#/components/parameters/ingredientsParam'
+      responses:
+        200:
+          description: Opération réussie
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecipeImpactsResponse'
+        400:
+          description: Paramètres invalides
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidParametersError'
 components:
   parameters:
     massParam:
@@ -450,6 +482,34 @@ components:
           value: "making"
         spinningDyeing:
           value: "spinning,dyeing"
+    ingredientsParam:
+      name: "ingredients[]"
+      in: query
+      description: |
+        Liste des ingrédients composant la recette (liste disponible sur le point d'entrée `/food/ingredients`).
+        Le format de chaque entrée est composé de l'identifiant de la matière et de sa masse **exprimée en grammes** :
+
+        - `Mozzarella cheese, from cow's milk, at plant;268` signifie *268g de mozzarella*;
+        - `Olive oil, at plant;30` signifie *30g d'huile d'olive*;
+
+        > Par exemple, les paramètres à passer pour une recette à base de 268g de mozzarella et 30g d'huile d'olive sont :
+        >
+        > ```js
+        > ingredients[]=Mozzarella cheese, from cow's milk, at plant;268&ingredients[]=Olive oil, at plant;30
+        > ```
+      required: true
+      style: form
+      schema:
+        type: array
+        items:
+          type: string
+      examples:
+        oneIngredient:
+          value: ["Mozzarella cheese, from cow's milk, at plant;268"]
+        twoIngredients:
+          value: ["Mozzarella cheese, from cow's milk, at plant;268", "Olive oil, at plant;30"]
+        threeIngredients:
+          value: ["Mozzarella cheese, from cow's milk, at plant;268", "Olive oil, at plant;30", "Tuna, fillet, raw, at processing;149"]
   schemas:
     InvalidParametersError:
       type: object
@@ -573,3 +633,71 @@ components:
         query:
           type: object
           description: Le jeu de paramètres utilisé pour effectuer la simulation.
+    RecipeImpactsResponse:
+      type: object
+      description: |
+        Impacts environnementaux exprimés dans leurs unités respectives, dont
+        [la documentation est disponible ici](https://fabrique-numerique.gitbook.io/ecobalyse/methodologie/impacts-consideres).
+      properties:
+        impacts:
+          type: object
+          properties:
+            acd:
+              type: number
+              description: "Acidification (mol éq. H+)"
+            ozd:
+              type: number
+              description: "Appauvrissement de la couche d'ozone (kg éq. CFC 11)"
+            cch:
+              type: number
+              description: "Changement climatique (kg éq. CO2)"
+            ccb:
+              type: number
+              description: "Changement climatique - Biogénique (kg éq. CO2)"
+            ccf:
+              type: number
+              description: "Changement climatique - Fossile (kg éq. CO2)"
+            ccl:
+              type: number
+              description: "Changement climatique - Usage des sols (kg éq. CO2)"
+            fwe:
+              type: number
+              description: "Eutrophisation eaux douces (kg éq. P)"
+            swe:
+              type: number
+              description: "Eutrophisation marine (kg éq. N)"
+            tre:
+              type: number
+              description: "Eutrophisation terrestre (mol éq. N)"
+            pco:
+              type: number
+              description: "Formation d'ozone photochimique (kg éq. COVNM)"
+            pma:
+              type: number
+              description: "Particules (incidence de maladie)"
+            ior:
+              type: number
+              description: "Radiations ionisantes (éq. kBq U235)"
+            fru:
+              type: number
+              description: "Utilisation de ressources fossiles (MJ)"
+            mru:
+              type: number
+              description: "Utilisation de ressources minérales et métalliques (kg éq. Sb)"
+            ldu:
+              type: number
+              description: "Utilisation des sols (sans dimension (pt))"
+            wtu:
+              type: number
+              description: "Utilisation de ressources en eau (m³)"
+            pef:
+              type: number
+              description: "Score PEF (µPt)"
+        query:
+          type: object
+          description: Le jeu de paramètres utilisé pour effectuer la simulation.
+    IngredientsListResponse:
+      type: array
+      description: Liste des ingrédients utilisables dans une recette
+      items:
+        type: string
