@@ -4,13 +4,21 @@
  * is impossible in an Elm test environment.
  */
 const fs = require("fs");
-const { buildTextileJsonDb, buildFoodProcessesJsonDb, buildFoodProductsJsonDb } = require("../lib");
+const lib = require("../lib");
+
+/**
+ * Adapts a standard JSON string to what is expected to be the format
+ * used in Elm's template strings (`"""{}"""`).
+ */
+function adaptJsonStringToElm(toStringify) {
+  return toStringify.replaceAll("\\", "\\\\");
+}
 
 const elmTemplate = fs.readFileSync("tests/TestDb.elm-template").toString();
 const elmWithFixtures = elmTemplate
-  .replace("%textileJson%", buildTextileJsonDb())
-  .replace("%foodProcessesJson%", buildFoodProcessesJsonDb())
-  .replace("%foodProductsJson%", buildFoodProductsJsonDb());
+  .replace("%textileJson%", adaptJsonStringToElm(lib.buildTextileJsonDb()))
+  .replace("%foodProcessesJson%", adaptJsonStringToElm(lib.buildFoodProcessesJsonDb()))
+  .replace("%foodProductsJson%", adaptJsonStringToElm(lib.buildFoodProductsJsonDb()));
 
 try {
   fs.writeFileSync("tests/TestDb.elm", elmWithFixtures);
