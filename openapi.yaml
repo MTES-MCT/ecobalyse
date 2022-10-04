@@ -489,13 +489,13 @@ components:
         Liste des ingrédients composant la recette (liste disponible sur le point d'entrée `/food/ingredients`).
         Le format de chaque entrée est composé de l'identifiant de la matière et de sa masse **exprimée en grammes** :
 
-        - `Mozzarella cheese, from cow's milk, at plant;268` signifie *268g de mozzarella*;
-        - `Olive oil, at plant;30` signifie *30g d'huile d'olive*;
+        - `2e3f03c6de1e43900e09ae852182e9c7;268` signifie *268g de mozzarella ("Mozzarella cheese, from cow's milk, at plant")*;
+        - `83da330027d4b25dbc7817f06b738571;30` signifie *30g d'huile d'olive* ("Olive oil, at plant");
 
         > Par exemple, les paramètres à passer pour une recette à base de 268g de mozzarella et 30g d'huile d'olive sont :
         >
         > ```js
-        > ingredients[]=Mozzarella cheese, from cow's milk, at plant;268&ingredients[]=Olive oil, at plant;30
+        > ingredients[]=2e3f03c6de1e43900e09ae852182e9c7;268&ingredients[]=83da330027d4b25dbc7817f06b738571;30
         > ```
       required: true
       style: form
@@ -505,11 +505,14 @@ components:
           type: string
       examples:
         oneIngredient:
-          value: ["Mozzarella cheese, from cow's milk, at plant;268"]
+          summary: Mozzarella
+          value: ["2e3f03c6de1e43900e09ae852182e9c7;268"]
         twoIngredients:
-          value: ["Mozzarella cheese, from cow's milk, at plant;268", "Olive oil, at plant;30"]
+          summary: Mozzarella, Olive Oil
+          value: ["2e3f03c6de1e43900e09ae852182e9c7;268", "83da330027d4b25dbc7817f06b738571;30"]
         threeIngredients:
-          value: ["Mozzarella cheese, from cow's milk, at plant;268", "Olive oil, at plant;30", "Tuna, fillet, raw, at processing;149"]
+          summary: Mozzarella, Olive Oil, Tuna
+          value: ["2e3f03c6de1e43900e09ae852182e9c7;268", "83da330027d4b25dbc7817f06b738571;30", "568c715f977f32948813855d5efd95ba;149"]
   schemas:
     InvalidParametersError:
       type: object
@@ -700,4 +703,9 @@ components:
       type: array
       description: Liste des ingrédients utilisables dans une recette
       items:
-        type: string
+        type: object
+        properties:
+          code:
+            type: string
+          name:
+            type: string
