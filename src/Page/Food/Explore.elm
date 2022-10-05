@@ -674,7 +674,7 @@ viewProcessing itemViewDataConfig step =
                     , viewPlantProcess { disabled = True } itemViewData
                     ]
             )
-        |> viewCategory (text "Procédé")
+        |> viewCategory (text "Procédé de transformation")
 
 
 viewTransport : ItemViewDataConfig -> Product.Step -> Country.Code -> List Country -> Html Msg
