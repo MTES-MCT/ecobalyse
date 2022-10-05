@@ -562,27 +562,24 @@ updatePlantTransport originalProduct processes impactDefinitions countryCode dis
         toTonKm km =
             Length.inKilometers km * plantWeight / 1000
 
-        findProcess processName =
-            processes
-                |> AnyDict.get processName
-                |> Maybe.withDefault Process.emptyProcess
-
         transports =
-            [ ( Process.lorryTransportName, .road )
-            , ( Process.boatTransportName, .sea )
-            , ( Process.planeTransportName, .air )
-            ]
-                |> List.map
-                    (\( name, prop ) ->
-                        findProcess name
-                            |> (\process ->
-                                    { amount = toTonKm (prop transportWithRatio)
+            Process.loadWellKnown processes
+                |> Result.map
+                    (\wellKnown ->
+                        [ ( wellKnown.lorryTransport, transportWithRatio.road )
+                        , ( wellKnown.boatTransport, transportWithRatio.sea )
+                        , ( wellKnown.planeTransport, transportWithRatio.air )
+                        ]
+                            |> List.map
+                                (\( process, distance ) ->
+                                    { amount = toTonKm distance
                                     , comment = ""
                                     , process = process
                                     , mainItem = False
                                     }
-                               )
+                                )
                     )
+                |> Result.withDefault []
     in
     { product
         | plant =

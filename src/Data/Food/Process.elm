@@ -3,24 +3,22 @@ module Data.Food.Process exposing
     , Process
     , ProcessName
     , Processes
-    , boatTransportName
     , codeFromString
     , codeToString
     , decodeProcesses
-    , emptyProcess
     , emptyProcesses
     , findByCode
     , findByName
-    , lorryTransportName
+    , loadWellKnown
     , nameFromString
     , nameToString
-    , planeTransportName
     )
 
 import Data.Impact as Impact
 import Dict.Any as AnyDict exposing (AnyDict)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
+import Result.Extra as RE
 
 
 {-| Process
@@ -54,6 +52,13 @@ type ProcessName
     = ProcessName String
 
 
+type alias WellKnown =
+    { lorryTransport : Process
+    , boatTransport : Process
+    , planeTransport : Process
+    }
+
+
 codeFromString : String -> Code
 codeFromString =
     Code
@@ -64,21 +69,6 @@ codeToString (Code string) =
     string
 
 
-lorryTransportName : ProcessName
-lorryTransportName =
-    ProcessName "Transport, freight, lorry 16-32 metric ton, EURO5 {RER}| transport, freight, lorry 16-32 metric ton, EURO5 | Cut-off, S - Copied from Ecoinvent"
-
-
-boatTransportName : ProcessName
-boatTransportName =
-    ProcessName "Transport, freight, sea, transoceanic ship {GLO}| processing | Cut-off, S - Copied from Ecoinvent"
-
-
-planeTransportName : ProcessName
-planeTransportName =
-    ProcessName "Transport, freight, aircraft {RER}| intercontinental | Cut-off, S - Copied from Ecoinvent"
-
-
 nameFromString : String -> ProcessName
 nameFromString =
     ProcessName
@@ -87,22 +77,6 @@ nameFromString =
 nameToString : ProcessName -> String
 nameToString (ProcessName name) =
     name
-
-
-emptyProcess : Process
-emptyProcess =
-    { name = nameFromString "empty process"
-    , impacts = Impact.noImpacts
-    , ciqualCode = Nothing
-    , step = Nothing
-    , dqr = Nothing
-    , emptyProcess = True
-    , unit = ""
-    , code = Code ""
-    , simaproCategory = ""
-    , systemDescription = ""
-    , categoryTags = []
-    }
 
 
 decodeProcess : List Impact.Definition -> Decoder Process
@@ -180,3 +154,18 @@ formatStringUnit str =
 
         _ ->
             str
+
+
+loadWellKnown : Processes -> Result String WellKnown
+loadWellKnown processes =
+    let
+        resolve code =
+            RE.andMap (codeFromString code |> findByCode processes)
+    in
+    Ok WellKnown
+        -- Transport, freight, lorry 16-32 metric ton, EURO5 {RER}| transport, freight, lorry 16-32 metric ton, EURO5 | Cut-off, S - Copied from Ecoinvent
+        |> resolve "c24fc476f6d5237aa2c58d7d95bc1ca4"
+        -- Transport, freight, sea, transoceanic ship {GLO}| processing | Cut-off, S - Copied from Ecoinvent
+        |> resolve "958bbb33cf6cdb8e3c8d4f21aec5ef98"
+        -- Transport, freight, aircraft {RER}| intercontinental | Cut-off, S - Copied from Ecoinvent
+        |> resolve "5bc527741ac919ff8710a474f849614f"
