@@ -1,9 +1,9 @@
 module Data.Food.Recipe exposing
     ( compute
-    , example
     , fromQuery
     , serialize
     , toQuery
+    , tunaPizza
     )
 
 import Data.Country as Country
@@ -46,8 +46,8 @@ type alias PlantOptions =
     { country : Maybe Country.Code }
 
 
-example : Query
-example =
+tunaPizza : Query
+tunaPizza =
     { ingredients =
         [ -- Mozzarella cheese, from cow's milk, at plant
           { code = Process.codeFromString "2e3f03c6de1e43900e09ae852182e9c7"

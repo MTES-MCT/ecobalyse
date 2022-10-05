@@ -17,7 +17,7 @@ suite =
         (\db ->
             [ let
                 exampleQuery =
-                    Recipe.example
+                    Recipe.tunaPizza
 
                 recipe =
                     exampleQuery
@@ -80,14 +80,14 @@ suite =
                     |> asTest "should return an Err for an invalid processing"
                 ]
             , describe "toQuery"
-                [ Recipe.example
+                [ Recipe.tunaPizza
                     |> Recipe.fromQuery db
                     |> Result.map Recipe.toQuery
-                    |> Expect.equal (Ok Recipe.example)
+                    |> Expect.equal (Ok Recipe.tunaPizza)
                     |> asTest "should convert a recipe to a query"
                 ]
             , describe "compute"
-                [ Recipe.example
+                [ Recipe.tunaPizza
                     |> Recipe.compute db
                     |> Result.map AnyDict.toDict
                     |> Result.withDefault Dict.empty
