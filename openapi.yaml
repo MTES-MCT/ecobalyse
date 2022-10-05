@@ -9,10 +9,13 @@ externalDocs:
 servers:
 - url: https://ecobalyse.beta.gouv.fr/api
 tags:
-- name: Racine
-  description: Documentation de l'API au format OpenAPI
-- name: Simulateur
-  description: Impact environnemental de produits textiles
+- name: Alimentaire
+  description: Documentation de l'API pour le domaine alimentaire au format OpenAPI
+  externalDocs:
+    description: À propos
+    url: https://fabrique-numerique.gitbook.io/ecobalyse
+- name: Textile
+  description: Documentation de l'API pour le domaine textile au format OpenAPI
   externalDocs:
     description: À propos
     url: https://fabrique-numerique.gitbook.io/ecobalyse
@@ -20,7 +23,7 @@ paths:
   /:
     get:
       tags:
-      - Racine
+      - Textile
       summary: Racine de l'API
       description: Sert la documentation de l'API au format [OpenAPI](https://swagger.io/specification/)
       responses:
@@ -29,7 +32,7 @@ paths:
   /countries:
     get:
       tags:
-      - Pays
+      - Textile
       summary: Récupérer la liste des pays
       responses:
         200:
@@ -41,7 +44,7 @@ paths:
   /materials:
     get:
       tags:
-      - Matières
+      - Textile
       summary: Récupérer la liste des matières
       responses:
         200:
@@ -53,7 +56,7 @@ paths:
   /products:
     get:
       tags:
-      - Produits
+      - Textile
       summary: Récupérer la liste des types de produits textiles
       responses:
         200:
@@ -65,7 +68,7 @@ paths:
   /simulator:
     get:
       tags:
-      - Simulateur
+      - Textile
       summary: Calculer les impacts environnementaux d'un produit textile
       parameters:
       - $ref: '#/components/parameters/massParam'
@@ -100,7 +103,7 @@ paths:
   /simulator/{impact}:
     get:
       tags:
-      - Simulateur
+      - Textile
       summary: Calculer un impact environnemental spécifique d'un produit textile
       parameters:
       - name: impact
@@ -163,7 +166,7 @@ paths:
   /simulator/detailed:
     get:
       tags:
-      - Simulateur
+      - Textile
       summary: Calcul exhaustif des impacts environnementaux d'un produit textile
       description: L'intégralité des calculs intermédiaires sont présentés dans une réponse détaillée
       parameters:
