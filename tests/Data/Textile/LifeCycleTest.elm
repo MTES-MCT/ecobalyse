@@ -6,7 +6,7 @@ import Data.Textile.LifeCycle as LifeCycle
 import Expect
 import Length
 import Test exposing (..)
-import TestUtils exposing (asTest, suiteWithTextileDb)
+import TestUtils exposing (asTest, suiteWithDb)
 
 
 km =
@@ -15,24 +15,24 @@ km =
 
 suite : Test
 suite =
-    suiteWithTextileDb "Data.LifeCycle"
-        (\db ->
+    suiteWithDb "Data.LifeCycle"
+        (\{ textileDb } ->
             [ describe "computeTransportSummary"
                 [ tShirtCotonFrance
-                    |> LifeCycle.fromQuery db
-                    |> Result.andThen (LifeCycle.computeStepsTransport db)
-                    |> Result.map (LifeCycle.computeTotalTransportImpacts db)
+                    |> LifeCycle.fromQuery textileDb
+                    |> Result.andThen (LifeCycle.computeStepsTransport textileDb)
+                    |> Result.map (LifeCycle.computeTotalTransportImpacts textileDb)
                     |> Result.map (\{ road, sea } -> ( Length.inKilometers road, Length.inKilometers sea ))
                     |> Expect.equal (Ok ( 3000, 21549 ))
                     |> asTest "should compute default distances"
-                , LifeCycle.fromQuery db
+                , LifeCycle.fromQuery textileDb
                     { tShirtCotonFrance
                         | countryFabric = Country.Code "FR"
                         , countryDyeing = Country.Code "IN" -- Ennoblement in India
                         , countryMaking = Country.Code "FR"
                     }
-                    |> Result.andThen (LifeCycle.computeStepsTransport db)
-                    |> Result.map (LifeCycle.computeTotalTransportImpacts db)
+                    |> Result.andThen (LifeCycle.computeStepsTransport textileDb)
+                    |> Result.map (LifeCycle.computeTotalTransportImpacts textileDb)
                     |> Result.map (\{ road, sea } -> ( Length.inKilometers road, Length.inKilometers sea ))
                     |> Expect.equal (Ok ( 2000, 45471 ))
                     |> asTest "should compute custom distances"

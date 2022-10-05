@@ -1,11 +1,14 @@
 module Server.Query exposing
     ( Errors
     , encodeErrors
-    , parse
+    , parseFoodQuery
+    , parseTextileQuery
     )
 
 import Data.Country as Country exposing (Country)
 import Data.Env as Env
+import Data.Food.Db as FoodDb
+import Data.Food.Recipe as Recipe
 import Data.Textile.Db as TextileDb
 import Data.Textile.Inputs as Inputs
 import Data.Textile.Material as Material exposing (Material)
@@ -16,7 +19,7 @@ import Dict exposing (Dict)
 import Json.Encode as Encode
 import Mass exposing (Mass)
 import Result.Extra as RE
-import Url.Parser.Query as Query
+import Url.Parser.Query as Query exposing (Parser)
 
 
 
@@ -39,15 +42,20 @@ type alias ParseResult a =
     Result ( FieldName, String ) a
 
 
-succeed : a -> Query.Parser a
+succeed : a -> Parser a
 succeed =
-    -- Kind of a hack: we don't have access to the Query.Parser constructor, so
-    -- we use Query.custom to wrap our thing in a Query.Parser
+    -- Kind of a hack: we don't have access to the Parser constructor, so
+    -- we use Query.custom to wrap our thing in a Parser
     always >> Query.custom ""
 
 
-parse : TextileDb.Db -> Query.Parser (Result Errors Inputs.Query)
-parse textileDb =
+parseFoodQuery : FoodDb.Db -> Parser (Result Errors Recipe.Query)
+parseFoodQuery _ =
+    succeed (Ok Recipe.tunaPizza)
+
+
+parseTextileQuery : TextileDb.Db -> Parser (Result Errors Inputs.Query)
+parseTextileQuery textileDb =
     succeed (Ok Inputs.Query)
         |> apply (massParser "mass")
         |> apply (materialListParser "materials" textileDb.materials)
@@ -93,10 +101,7 @@ builder result accumulator =
             Result.map fn valueOrError
 
 
-apply :
-    Query.Parser (ParseResult a)
-    -> Query.Parser (Result Errors (a -> b))
-    -> Query.Parser (Result Errors b)
+apply : Parser (ParseResult a) -> Parser (Result Errors (a -> b)) -> Parser (Result Errors b)
 apply argParser funcParser =
     -- Adapted from https://package.elm-lang.org/packages/elm/url/latest/Url-Parser-Query#map8
     -- with the full list of errors returned, instead of just the first one encountered.
@@ -106,7 +111,7 @@ apply argParser funcParser =
         funcParser
 
 
-floatParser : String -> Query.Parser (Maybe Float)
+floatParser : String -> Parser (Maybe Float)
 floatParser key =
     Query.custom key <|
         \stringList ->
@@ -118,7 +123,7 @@ floatParser key =
                     Nothing
 
 
-massParser : String -> Query.Parser (ParseResult Mass)
+massParser : String -> Parser (ParseResult Mass)
 massParser key =
     floatParser key
         |> Query.map (Result.fromMaybe ( key, "La masse est manquante." ))
@@ -134,7 +139,7 @@ massParser key =
             )
 
 
-productParser : String -> List Product -> Query.Parser (ParseResult Product.Id)
+productParser : String -> List Product -> Parser (ParseResult Product.Id)
 productParser key products =
     Query.string key
         |> Query.map (Result.fromMaybe ( key, "Identifiant du type de produit manquant." ))
@@ -149,7 +154,7 @@ productParser key products =
             )
 
 
-materialListParser : String -> List Material -> Query.Parser (ParseResult (List Inputs.MaterialQuery))
+materialListParser : String -> List Material -> Parser (ParseResult (List Inputs.MaterialQuery))
 materialListParser key materials =
     Query.custom (key ++ "[]")
         (List.map (parseMaterial_ materials)
@@ -220,7 +225,7 @@ validateMaterialList list =
             Ok list
 
 
-countryParser : String -> List Country -> Query.Parser (ParseResult Country.Code)
+countryParser : String -> List Country -> Parser (ParseResult Country.Code)
 countryParser key countries =
     Query.string key
         |> Query.map (Result.fromMaybe ( key, "Code pays manquant." ))
@@ -235,7 +240,7 @@ countryParser key countries =
             )
 
 
-maybeCountryParser : String -> List Country -> Query.Parser (ParseResult (Maybe Country.Code))
+maybeCountryParser : String -> List Country -> Parser (ParseResult (Maybe Country.Code))
 maybeCountryParser key countries =
     Query.string key
         |> Query.map
@@ -250,7 +255,7 @@ maybeCountryParser key countries =
             )
 
 
-maybeRatioParser : String -> Query.Parser (ParseResult (Maybe Unit.Ratio))
+maybeRatioParser : String -> Parser (ParseResult (Maybe Unit.Ratio))
 maybeRatioParser key =
     floatParser key
         |> Query.map
@@ -266,7 +271,7 @@ maybeRatioParser key =
             )
 
 
-maybeQuality : String -> Query.Parser (ParseResult (Maybe Unit.Quality))
+maybeQuality : String -> Parser (ParseResult (Maybe Unit.Quality))
 maybeQuality key =
     floatParser key
         |> Query.map
@@ -295,7 +300,7 @@ maybeQuality key =
             )
 
 
-maybeReparability : String -> Query.Parser (ParseResult (Maybe Unit.Reparability))
+maybeReparability : String -> Parser (ParseResult (Maybe Unit.Reparability))
 maybeReparability key =
     floatParser key
         |> Query.map
@@ -324,7 +329,7 @@ maybeReparability key =
             )
 
 
-maybeMakingWaste : String -> Query.Parser (ParseResult (Maybe Unit.Ratio))
+maybeMakingWaste : String -> Parser (ParseResult (Maybe Unit.Ratio))
 maybeMakingWaste key =
     floatParser key
         |> Query.map
@@ -347,7 +352,7 @@ maybeMakingWaste key =
             )
 
 
-maybePicking : String -> Query.Parser (ParseResult (Maybe Unit.PickPerMeter))
+maybePicking : String -> Parser (ParseResult (Maybe Unit.PickPerMeter))
 maybePicking key =
     Query.int key
         |> Query.map
@@ -373,7 +378,7 @@ maybePicking key =
             )
 
 
-maybeSurfaceMass : String -> Query.Parser (ParseResult (Maybe Unit.SurfaceMass))
+maybeSurfaceMass : String -> Parser (ParseResult (Maybe Unit.SurfaceMass))
 maybeSurfaceMass key =
     Query.int key
         |> Query.map
@@ -399,7 +404,7 @@ maybeSurfaceMass key =
             )
 
 
-maybeDisabledSteps : String -> Query.Parser (ParseResult (List Label))
+maybeDisabledSteps : String -> Parser (ParseResult (List Label))
 maybeDisabledSteps key =
     Query.string key
         |> Query.map
@@ -420,7 +425,7 @@ maybeDisabledSteps key =
             )
 
 
-maybeBool : String -> Query.Parser (ParseResult (Maybe Bool))
+maybeBool : String -> Parser (ParseResult (Maybe Bool))
 maybeBool key =
     Query.string key
         |> Query.map

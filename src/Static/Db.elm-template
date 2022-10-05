@@ -1,4 +1,4 @@
-module Static.Db exposing (Db, db, foodDb, textileDb)
+module Static.Db exposing (Db, db)
 
 import Data.Food.Db as FoodDb
 import Data.Textile.Db as TextileDb

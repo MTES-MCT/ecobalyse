@@ -4,11 +4,12 @@ module Server.Route exposing
     , endpoint
     )
 
+import Data.Food.Recipe as Recipe
 import Data.Impact as Impact
-import Data.Textile.Db as TextileDb
-import Data.Textile.Inputs as Inputs
+import Data.Textile.Inputs as TextileInputs
 import Server.Query as Query
 import Server.Request exposing (Request)
+import Static.Db as StaticDb
 import Url
 import Url.Parser as Parser exposing ((</>), (<?>), Parser)
 
@@ -36,41 +37,43 @@ type Route
       -- Food ingredient list
     | FoodIngredientList
       -- Food recipe builder
-    | FoodRecipe (Result String ())
+    | FoodRecipe (Result Query.Errors Recipe.Query)
       -- Textile Material list
     | TextileMaterialList
       -- Textile Product list
     | TextileProductList
       -- Textile Simple version of all impacts
-    | TextileSimulator (Result Query.Errors Inputs.Query)
+    | TextileSimulator (Result Query.Errors TextileInputs.Query)
       -- Textile Detailed version for all impacts
-    | TextileSimulatorDetailed (Result Query.Errors Inputs.Query)
+    | TextileSimulatorDetailed (Result Query.Errors TextileInputs.Query)
       -- Textile Simple version for one specific impact
-    | TextileSimulatorSingle Impact.Trigram (Result Query.Errors Inputs.Query)
+    | TextileSimulatorSingle Impact.Trigram (Result Query.Errors TextileInputs.Query)
 
 
-parser : TextileDb.Db -> Parser (Route -> a) a
-parser textileDb =
+parser : StaticDb.Db -> Parser (Route -> a) a
+parser { foodDb, textileDb } =
     Parser.oneOf
         [ Parser.map CountryList (Parser.s "countries")
-        , Parser.map FoodIngredientList (Parser.s "food" </> Parser.s "ingredients")
 
-        -- FIXME: handle real query parameter parsing
-        , Parser.map (FoodRecipe (Ok ())) (Parser.s "food" </> Parser.s "recipe")
+        -- Food
+        , Parser.map FoodIngredientList (Parser.s "food" </> Parser.s "ingredients")
+        , Parser.map FoodRecipe (Parser.s "food" </> Parser.s "recipe" <?> Query.parseFoodQuery foodDb)
+
+        -- Textile
         , Parser.map TextileMaterialList (Parser.s "materials")
         , Parser.map TextileProductList (Parser.s "products")
-        , Parser.map TextileSimulator (Parser.s "simulator" <?> Query.parse textileDb)
-        , Parser.map TextileSimulatorDetailed (Parser.s "simulator" </> Parser.s "detailed" <?> Query.parse textileDb)
-        , Parser.map TextileSimulatorSingle (Parser.s "simulator" </> Impact.parseTrigram <?> Query.parse textileDb)
+        , Parser.map TextileSimulator (Parser.s "simulator" <?> Query.parseTextileQuery textileDb)
+        , Parser.map TextileSimulatorDetailed (Parser.s "simulator" </> Parser.s "detailed" <?> Query.parseTextileQuery textileDb)
+        , Parser.map TextileSimulatorSingle (Parser.s "simulator" </> Impact.parseTrigram <?> Query.parseTextileQuery textileDb)
         ]
 
 
-endpoint : TextileDb.Db -> Request -> Maybe Endpoint
-endpoint textileDb { method, url } =
+endpoint : StaticDb.Db -> Request -> Maybe Endpoint
+endpoint dbs { method, url } =
     -- FIXME: rename `url` to `path` and explain that Url.fromString can't build
     -- a Url without a protocol and a hostname
     Url.fromString ("http://x" ++ url)
-        |> Maybe.andThen (Parser.parse (parser textileDb))
+        |> Maybe.andThen (Parser.parse (parser dbs))
         |> Maybe.map (mapMethod method)
 
 

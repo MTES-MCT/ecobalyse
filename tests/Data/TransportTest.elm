@@ -7,8 +7,7 @@ import Dict.Any as AnyDict
 import Expect
 import Length
 import Test exposing (..)
-import Static.Db exposing (textileDb)
-import TestUtils exposing (asTest)
+import TestUtils exposing (asTest, suiteWithDb)
 
 
 km =
@@ -26,40 +25,34 @@ franceChina impacts =
 
 suite : Test
 suite =
-    case textileDb of
-        Ok db ->
+    suiteWithDb "Data.Transport"
+        (\{ textileDb } ->
             let
                 defaultImpacts =
-                    Impact.impactsFromDefinitons db.impacts
+                    Impact.impactsFromDefinitons textileDb.impacts
             in
-            describe "Data.Transport"
-                [ db.countries
-                    |> List.map
-                        (\{ code } ->
-                            AnyDict.keys db.transports
-                                |> List.member code
-                                |> Expect.true (Country.codeToString code ++ " has no transports data available")
-                                |> asTest (Country.codeToString code)
-                        )
-                    |> describe "transports data availability checks"
-                , describe "getTransportBetween"
-                    [ db.transports
-                        |> Transport.getTransportBetween defaultImpacts (Country.Code "FR") (Country.Code "CN")
-                        |> Expect.equal (franceChina defaultImpacts)
-                        |> asTest "should retrieve distance between two countries"
-                    , db.transports
-                        |> Transport.getTransportBetween defaultImpacts (Country.Code "CN") (Country.Code "FR")
-                        |> Expect.equal (franceChina defaultImpacts)
-                        |> asTest "should retrieve distance between two swapped countries"
-                    , db.transports
-                        |> Transport.getTransportBetween defaultImpacts (Country.Code "FR") (Country.Code "FR")
-                        |> Expect.equal (Transport.defaultInland defaultImpacts)
-                        |> asTest "should apply default inland transport when country is the same"
-                    ]
+            [ textileDb.countries
+                |> List.map
+                    (\{ code } ->
+                        AnyDict.keys textileDb.transports
+                            |> List.member code
+                            |> Expect.true (Country.codeToString code ++ " has no transports data available")
+                            |> asTest (Country.codeToString code)
+                    )
+                |> describe "transports data availability checks"
+            , describe "getTransportBetween"
+                [ textileDb.transports
+                    |> Transport.getTransportBetween defaultImpacts (Country.Code "FR") (Country.Code "CN")
+                    |> Expect.equal (franceChina defaultImpacts)
+                    |> asTest "should retrieve distance between two countries"
+                , textileDb.transports
+                    |> Transport.getTransportBetween defaultImpacts (Country.Code "CN") (Country.Code "FR")
+                    |> Expect.equal (franceChina defaultImpacts)
+                    |> asTest "should retrieve distance between two swapped countries"
+                , textileDb.transports
+                    |> Transport.getTransportBetween defaultImpacts (Country.Code "FR") (Country.Code "FR")
+                    |> Expect.equal (Transport.defaultInland defaultImpacts)
+                    |> asTest "should apply default inland transport when country is the same"
                 ]
-
-        Err error ->
-            describe "Data.Transport"
-                [ test "should load test database" <|
-                    \_ -> Expect.fail <| "Couldn't parse test database: " ++ error
-                ]
+            ]
+        )
