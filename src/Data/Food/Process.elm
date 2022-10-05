@@ -1,8 +1,10 @@
 module Data.Food.Process exposing
-    ( Process
+    ( Code
+    , Process
     , ProcessName
     , Processes
     , boatTransportName
+    , codeToString
     , decodeProcesses
     , emptyProcess
     , emptyProcesses
@@ -19,16 +21,45 @@ import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
 
 
-type alias Processes =
-    AnyDict String ProcessName Process
-
-
 {-| Process
 A process is an entry from public/data/food/processes.json. It has impacts and
 various other data like categories, code, unit...
 -}
+type alias Process =
+    { name : ProcessName
+    , impacts : Impact.Impacts
+    , ciqualCode : Maybe Int
+    , step : Maybe String
+    , dqr : Maybe Float
+    , emptyProcess : Bool
+    , unit : String
+    , code : Code
+    , simaproCategory : String
+    , systemDescription : String
+    , categoryTags : List String
+    }
+
+
+type alias Processes =
+    AnyDict String ProcessName Process
+
+
+type Code
+    = Code String
+
+
 type ProcessName
     = ProcessName String
+
+
+codeFromString : String -> Code
+codeFromString =
+    Code
+
+
+codeToString : Code -> String
+codeToString (Code string) =
+    string
 
 
 lorryTransportName : ProcessName
@@ -56,21 +87,6 @@ nameToString (ProcessName name) =
     name
 
 
-type alias Process =
-    { name : ProcessName
-    , impacts : Impact.Impacts
-    , ciqualCode : Maybe Int
-    , step : Maybe String
-    , dqr : Maybe Float
-    , emptyProcess : Bool
-    , unit : String
-    , code : String
-    , simaproCategory : String
-    , systemDescription : String
-    , categoryTags : List String
-    }
-
-
 emptyProcess : Process
 emptyProcess =
     { name = nameFromString "empty process"
@@ -80,7 +96,7 @@ emptyProcess =
     , dqr = Nothing
     , emptyProcess = True
     , unit = ""
-    , code = ""
+    , code = Code ""
     , simaproCategory = ""
     , systemDescription = ""
     , categoryTags = []
@@ -97,7 +113,7 @@ decodeProcess definitions =
         |> Pipe.required "dqr" (Decode.nullable Decode.float)
         |> Pipe.required "empty_process" Decode.bool
         |> Pipe.required "unit" (Decode.map formatStringUnit Decode.string)
-        |> Pipe.required "code" Decode.string
+        |> Pipe.required "code" (Decode.map codeFromString Decode.string)
         |> Pipe.required "simapro_category" Decode.string
         |> Pipe.required "system_description" Decode.string
         |> Pipe.required "category_tags" (Decode.list Decode.string)

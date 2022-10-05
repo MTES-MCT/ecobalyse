@@ -134,7 +134,7 @@ handleRequest { foodDb, textileDb } request =
                 |> Encode.list
                     (\{ code, name } ->
                         Encode.object
-                            [ ( "code", Encode.string code )
+                            [ ( "code", code |> FoodProcess.codeToString |> Encode.string )
                             , ( "name", Encode.string name )
                             ]
                     )
