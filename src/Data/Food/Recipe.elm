@@ -8,7 +8,7 @@ module Data.Food.Recipe exposing
 
 import Data.Country as Country
 import Data.Food.Db as FoodDb
-import Data.Food.Process as Process exposing (Process, ProcessName)
+import Data.Food.Process as Process exposing (Process)
 import Data.Food.Product as Product
 import Data.Impact as Impact exposing (Impacts)
 import Data.Unit as Unit
@@ -22,7 +22,7 @@ import Result.Extra as RE
 
 
 type alias IngredientQuery =
-    { processName : ProcessName
+    { code : Process.Code
     , mass : Mass
     , country : Maybe Country.Code
     , labels : List String
@@ -30,7 +30,7 @@ type alias IngredientQuery =
 
 
 type alias ProcessingQuery =
-    { processName : ProcessName
+    { code : Process.Code
     , mass : Mass
     }
 
@@ -49,32 +49,38 @@ type alias PlantOptions =
 example : Query
 example =
     { ingredients =
-        [ { processName = Process.nameFromString "Mozzarella cheese, from cow's milk, at plant"
+        [ -- Mozzarella cheese, from cow's milk, at plant
+          { code = Process.codeFromString "2e3f03c6de1e43900e09ae852182e9c7"
           , mass = Mass.grams 268
           , country = Nothing
           , labels = []
           }
-        , { processName = Process.nameFromString "Olive oil, at plant"
+        , -- Olive oil, at plant
+          { code = Process.codeFromString "83da330027d4b25dbc7817f06b738571"
           , mass = Mass.grams 30
           , country = Nothing
           , labels = []
           }
-        , { processName = Process.nameFromString "Tuna, fillet, raw, at processing"
+        , -- Tuna, fillet, raw, at processing
+          { code = Process.codeFromString "568c715f977f32948813855d5efd95ba"
           , mass = Mass.grams 149
           , country = Nothing
           , labels = []
           }
-        , { processName = Process.nameFromString "Water, municipal"
+        , -- Water, municipal
+          { code = Process.codeFromString "65e2a1f81e8525d74bc3d4d5bd559114"
           , mass = Mass.grams 100
           , country = Nothing
           , labels = []
           }
-        , { processName = Process.nameFromString "Wheat flour, at industrial mill"
+        , -- Wheat flour, at industrial mill
+          { code = Process.codeFromString "a343353e431d7dddc7bb25cbc41e179a"
           , mass = Mass.grams 168
           , country = Nothing
           , labels = []
           }
-        , { processName = Process.nameFromString "Tomato, for processing, peeled, at plant"
+        , -- Tomato, for processing, peeled, at plant
+          { code = Process.codeFromString "3af9739fc89492167dd0d273daac957a"
           , mass = Mass.grams 425
           , country = Nothing
           , labels = []
@@ -82,7 +88,8 @@ example =
         ]
     , processing =
         Just
-            { processName = Process.nameFromString "Cooking, industrial, 1kg of cooked product/ FR U"
+            { -- Cooking, industrial, 1kg of cooked product/ FR U
+              code = Process.codeFromString "aded2490573207ec7ad5a3813978f6a4"
             , mass = Mass.grams 1050
             }
     , plant =
@@ -137,7 +144,7 @@ ingredientsFromQuery foodDb query =
 ingredientFromQuery : FoodDb.Db -> IngredientQuery -> Result String Ingredient
 ingredientFromQuery { processes } ingredientQuery =
     Result.map4 Ingredient
-        (Process.findByName processes ingredientQuery.processName)
+        (Process.findByCode processes ingredientQuery.code)
         (Ok ingredientQuery.mass)
         (Ok ingredientQuery.country)
         (Ok ingredientQuery.labels)
@@ -149,7 +156,7 @@ processingFromQuery { processes } query =
         |> Maybe.map
             (\processing ->
                 Result.map2 Processing
-                    (Process.findByName processes processing.processName)
+                    (Process.findByCode processes processing.code)
                     (Ok processing.mass)
                     |> Result.map Just
             )
@@ -172,7 +179,7 @@ ingredientsToQuery ingredients =
 
 ingredientToQuery : Ingredient -> IngredientQuery
 ingredientToQuery ingredient =
-    { processName = ingredient.process.name
+    { code = ingredient.process.code
     , mass = ingredient.mass
     , country = ingredient.country
     , labels = ingredient.labels
@@ -184,7 +191,7 @@ processingToQuery maybeProcessing =
     maybeProcessing
         |> Maybe.map
             (\processing ->
-                { processName = processing.process.name
+                { code = processing.process.code
                 , mass = processing.mass
                 }
             )
@@ -206,7 +213,7 @@ encode q =
 encodeIngredient : IngredientQuery -> Encode.Value
 encodeIngredient i =
     Encode.object
-        [ ( "processName", i.processName |> Process.nameToString |> Encode.string )
+        [ ( "code", i.code |> Process.codeToString |> Encode.string )
         , ( "mass", Encode.float (Mass.inKilograms i.mass) )
         , ( "country", i.country |> Maybe.map Country.encodeCode |> Maybe.withDefault Encode.null )
         , ( "labels", Encode.list Encode.string i.labels )
@@ -216,7 +223,7 @@ encodeIngredient i =
 encodeProcessing : ProcessingQuery -> Encode.Value
 encodeProcessing p =
     Encode.object
-        [ ( "processName", p.processName |> Process.nameToString |> Encode.string )
+        [ ( "code", p.code |> Process.codeToString |> Encode.string )
         , ( "mass", Encode.float (Mass.inKilograms p.mass) )
         ]
 
