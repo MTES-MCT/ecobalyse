@@ -5,9 +5,11 @@ port module Server exposing
     )
 
 import Data.Country as Country exposing (Country)
+import Data.Food.Db as FoodDb
 import Data.Food.Process as FoodProcess
 import Data.Food.Product as FoodProduct
-import Data.Impact as Impact
+import Data.Food.Recipe as Recipe
+import Data.Impact as Impact exposing (Impacts)
 import Data.Textile.Db as TextileDb
 import Data.Textile.Inputs as Inputs
 import Data.Textile.Material as Material exposing (Material)
@@ -83,8 +85,24 @@ toSingleImpactSimple trigram { inputs, impacts } =
         ]
 
 
-executeQuery : TextileDb.Db -> Request -> (Simulator -> Encode.Value) -> Inputs.Query -> Cmd Msg
-executeQuery textileDb request encoder =
+toFoodImpacts : Recipe.Query -> Impacts -> Encode.Value
+toFoodImpacts query impacts =
+    Encode.object
+        [ ( "impacts", Impact.encodeImpacts impacts )
+        , ( "description", Encode.string "TODO" )
+        , ( "query", Recipe.encode query )
+        ]
+
+
+executeFoodQuery : FoodDb.Db -> Request -> (Impacts -> Encode.Value) -> Recipe.Query -> Cmd Msg
+executeFoodQuery foodDb request encoder =
+    Recipe.compute foodDb
+        >> Result.map encoder
+        >> toResponse request
+
+
+executeTextileQuery : TextileDb.Db -> Request -> (Simulator -> Encode.Value) -> Inputs.Query -> Cmd Msg
+executeTextileQuery textileDb request encoder =
     Simulator.compute textileDb
         >> Result.map encoder
         >> toResponse request
@@ -140,6 +158,13 @@ handleRequest ({ foodDb, textileDb } as dbs) request =
                     )
                 |> sendResponse 200 request
 
+        Just (Route.Get (Route.FoodRecipe (Ok query))) ->
+            query |> executeFoodQuery foodDb request (toFoodImpacts query)
+
+        Just (Route.Get (Route.FoodRecipe (Err errors))) ->
+            Query.encodeErrors errors
+                |> sendResponse 400 request
+
         Just (Route.Get Route.TextileMaterialList) ->
             textileDb.materials
                 |> Encode.list encodeMaterial
@@ -151,21 +176,21 @@ handleRequest ({ foodDb, textileDb } as dbs) request =
                 |> sendResponse 200 request
 
         Just (Route.Get (Route.TextileSimulator (Ok query))) ->
-            query |> executeQuery textileDb request toAllImpactsSimple
+            query |> executeTextileQuery textileDb request toAllImpactsSimple
 
         Just (Route.Get (Route.TextileSimulator (Err errors))) ->
             Query.encodeErrors errors
                 |> sendResponse 400 request
 
         Just (Route.Get (Route.TextileSimulatorDetailed (Ok query))) ->
-            query |> executeQuery textileDb request Simulator.encode
+            query |> executeTextileQuery textileDb request Simulator.encode
 
         Just (Route.Get (Route.TextileSimulatorDetailed (Err errors))) ->
             Query.encodeErrors errors
                 |> sendResponse 400 request
 
         Just (Route.Get (Route.TextileSimulatorSingle trigram (Ok query))) ->
-            query |> executeQuery textileDb request (toSingleImpactSimple trigram)
+            query |> executeTextileQuery textileDb request (toSingleImpactSimple trigram)
 
         Just (Route.Get (Route.TextileSimulatorSingle _ (Err errors))) ->
             Query.encodeErrors errors
