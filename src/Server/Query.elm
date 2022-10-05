@@ -51,6 +51,10 @@ succeed =
 
 parseFoodQuery : FoodDb.Db -> Parser (Result Errors Recipe.Query)
 parseFoodQuery _ =
+    -- TODO: implement food query parser
+    -- succeed (Ok Recipe.Query)
+    --     |> apply (ingredientListParser "ingredients" foodDb.processes)
+    --     |> …
     succeed (Ok Recipe.tunaPizza)
 
 
