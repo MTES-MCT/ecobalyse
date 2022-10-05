@@ -75,12 +75,12 @@ view _ model =
                 RemoteData.Success foodDb ->
                     div [ class "row" ]
                         [ div [ class "col-6" ]
-                            [ Recipe.example
+                            [ Recipe.tunaPizza
                                 |> Recipe.serialize
                                 |> debugView
                             ]
                         , div [ class "col-6" ]
-                            [ Recipe.example
+                            [ Recipe.tunaPizza
                                 |> Recipe.compute foodDb
                                 -- |> Debug.toString
                                 |> Result.map (Impact.encodeImpacts >> Encode.encode 2)
