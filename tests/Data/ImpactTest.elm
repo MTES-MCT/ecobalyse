@@ -5,16 +5,16 @@ import Data.Unit as Unit
 import Expect
 import Quantity
 import Test exposing (..)
-import TestUtils exposing (asTest, suiteWithTextileDb)
+import TestUtils exposing (asTest, suiteWithDb)
 
 
 suite : Test
 suite =
-    suiteWithTextileDb "Data.Impact"
-        (\db ->
+    suiteWithDb "Data.Impact"
+        (\{ textileDb } ->
             let
                 defaultImpacts =
-                    Impact.impactsFromDefinitons db.impacts
+                    Impact.impactsFromDefinitons textileDb.impacts
 
                 expectPefScore expectedValue testValue =
                     testValue
@@ -24,12 +24,12 @@ suite =
             [ describe "computePefScore"
                 [ defaultImpacts
                     |> Impact.updateImpact (Impact.trg "cch") (Unit.impact 1)
-                    |> Impact.computePefScore db.impacts
+                    |> Impact.computePefScore textileDb.impacts
                     |> expectPefScore 26.014356070572276
                     |> asTest "should compute PEF score from cch impact"
                 , defaultImpacts
                     |> Impact.updateImpact (Impact.trg "fwe") (Unit.impact 1)
-                    |> Impact.computePefScore db.impacts
+                    |> Impact.computePefScore textileDb.impacts
                     |> expectPefScore 17425.397516880857
                     |> asTest "should compute PEF score from fwe impact"
                 ]
@@ -43,13 +43,13 @@ suite =
                 ]
             , describe "sumImpacts"
                 [ []
-                    |> Impact.sumImpacts db.impacts
+                    |> Impact.sumImpacts textileDb.impacts
                     |> Expect.equal defaultImpacts
                     |> asTest "should sum an empty impacts list"
                 , [ defaultImpacts |> Impact.mapImpacts (\_ _ -> Unit.impact 1)
                   , defaultImpacts |> Impact.mapImpacts (\_ _ -> Unit.impact 2)
                   ]
-                    |> Impact.sumImpacts db.impacts
+                    |> Impact.sumImpacts textileDb.impacts
                     |> Expect.equal (defaultImpacts |> Impact.mapImpacts (\_ _ -> Unit.impact 3))
                     |> asTest "should sum a non-empty impacts list"
                 ]
@@ -64,7 +64,7 @@ suite =
                 [ defaultImpacts
                     |> Impact.updateImpact (Impact.trg "cch") (Unit.impact 1)
                     |> Impact.updateImpact (Impact.trg "fwe") (Unit.impact 1)
-                    |> Impact.updatePefImpact db.impacts
+                    |> Impact.updatePefImpact textileDb.impacts
                     |> Impact.getImpact (Impact.trg "pef")
                     |> expectPefScore 17451.41187295143
                     |> asTest "should update PEF impact score"

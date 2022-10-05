@@ -1,7 +1,6 @@
 module Server.RouteTest exposing (..)
 
 import Data.Impact as Impact
-import Data.Textile.Db exposing (Db)
 import Data.Textile.Inputs as Inputs exposing (tShirtCotonFrance)
 import Data.Textile.Material as Material
 import Data.Textile.Step.Label as Label
@@ -10,13 +9,14 @@ import Dict exposing (Dict)
 import Expect
 import Json.Encode as Encode
 import Server.Route as Route
+import Static.Db as StaticDb
 import Test exposing (..)
-import TestUtils exposing (asTest, suiteWithTextileDb)
+import TestUtils exposing (asTest, suiteWithDb)
 
 
 suite : Test
 suite =
-    suiteWithTextileDb "Server"
+    suiteWithDb "Server"
         (\db ->
             [ describe "Server.endpoint"
                 [ describe "endpoints"
@@ -205,9 +205,9 @@ suite =
         )
 
 
-getEndpoint : Db -> String -> String -> Maybe Route.Endpoint
-getEndpoint db method url =
-    Route.endpoint db
+getEndpoint : StaticDb.Db -> String -> String -> Maybe Route.Endpoint
+getEndpoint dbs method url =
+    Route.endpoint dbs
         { method = method
         , url = url
         , jsResponseHandler = Encode.null

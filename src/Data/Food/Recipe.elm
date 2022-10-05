@@ -1,5 +1,6 @@
 module Data.Food.Recipe exposing
-    ( compute
+    ( Query
+    , compute
     , fromQuery
     , serialize
     , toQuery

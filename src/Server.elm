@@ -115,8 +115,8 @@ encodeProduct { id, name } =
 
 
 handleRequest : StaticDb.Db -> Request -> Cmd Msg
-handleRequest { foodDb, textileDb } request =
-    case Route.endpoint textileDb request of
+handleRequest ({ foodDb, textileDb } as dbs) request =
+    case Route.endpoint dbs request of
         Just (Route.Get Route.CountryList) ->
             textileDb.countries
                 |> Encode.list encodeCountry

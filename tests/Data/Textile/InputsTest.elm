@@ -10,7 +10,7 @@ import Expect
 import List.Extra as LE
 import Quantity
 import Test exposing (..)
-import TestUtils exposing (asTest, suiteWithTextileDb)
+import TestUtils exposing (asTest, suiteWithDb)
 
 
 sampleQuery : Inputs.Query
@@ -20,12 +20,12 @@ sampleQuery =
 
 suite : Test
 suite =
-    suiteWithTextileDb "Data.Inputs"
-        (\db ->
+    suiteWithDb "Data.Inputs"
+        (\{ textileDb } ->
             [ describe "Base64"
                 [ describe "Encoding and decoding queries"
                     [ sampleQuery
-                        |> Inputs.fromQuery db
+                        |> Inputs.fromQuery textileDb
                         |> Result.map Inputs.toQuery
                         |> Expect.equal (Ok sampleQuery)
                         |> asTest "should encode and decode a query"
@@ -44,7 +44,7 @@ suite =
                     , countryDyeing = Country.Code "CN"
                     , countryMaking = Country.Code "CN"
                   }
-                    |> Inputs.fromQuery db
+                    |> Inputs.fromQuery textileDb
                     |> Result.map Inputs.countryList
                     |> Result.andThen (LE.getAt 0 >> Maybe.map .code >> Result.fromMaybe "")
                     |> Expect.equal (Ok (Country.codeFromString "CN"))
@@ -54,17 +54,17 @@ suite =
                     , countryDyeing = Country.Code "CN"
                     , countryMaking = Country.Code "CN"
                   }
-                    |> Inputs.fromQuery db
+                    |> Inputs.fromQuery textileDb
                     |> Expect.equal (Err "Code pays invalide: XX.")
                     |> asTest "should validate country codes"
                 ]
             , describe "Product update"
                 [ asTest "should update step masses"
-                    (case Product.findById (Product.Id "jean") db.products of
+                    (case Product.findById (Product.Id "jean") textileDb.products of
                         Ok jean ->
                             tShirtCotonAsie
                                 |> Inputs.updateProduct jean
-                                |> Simulator.compute db
+                                |> Simulator.compute textileDb
                                 |> Result.map (.lifeCycle >> LifeCycle.getStepProp Label.Distribution .inputMass Quantity.zero)
                                 |> Expect.equal (Ok jean.mass)
 
