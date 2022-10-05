@@ -90,7 +90,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MultipleImpactsResponse'
+                $ref: '#/components/schemas/GenericImpactsResponse'
         400:
           description: Paramètres invalides
           content:
@@ -221,7 +221,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RecipeImpactsResponse'
+                $ref: '#/components/schemas/GenericImpactsResponse'
         400:
           description: Paramètres invalides
           content:
@@ -555,7 +555,7 @@ components:
             type: string
           name:
             type: string
-    MultipleImpactsResponse:
+    GenericImpactsResponse:
       type: object
       description: |
         Impacts environnementaux exprimés dans leurs unités respectives, dont
@@ -633,69 +633,6 @@ components:
         description:
           type: string
           description: Une description de la simulation.
-        query:
-          type: object
-          description: Le jeu de paramètres utilisé pour effectuer la simulation.
-    RecipeImpactsResponse:
-      type: object
-      description: |
-        Impacts environnementaux exprimés dans leurs unités respectives, dont
-        [la documentation est disponible ici](https://fabrique-numerique.gitbook.io/ecobalyse/methodologie/impacts-consideres).
-      properties:
-        impacts:
-          type: object
-          properties:
-            acd:
-              type: number
-              description: "Acidification (mol éq. H+)"
-            ozd:
-              type: number
-              description: "Appauvrissement de la couche d'ozone (kg éq. CFC 11)"
-            cch:
-              type: number
-              description: "Changement climatique (kg éq. CO2)"
-            ccb:
-              type: number
-              description: "Changement climatique - Biogénique (kg éq. CO2)"
-            ccf:
-              type: number
-              description: "Changement climatique - Fossile (kg éq. CO2)"
-            ccl:
-              type: number
-              description: "Changement climatique - Usage des sols (kg éq. CO2)"
-            fwe:
-              type: number
-              description: "Eutrophisation eaux douces (kg éq. P)"
-            swe:
-              type: number
-              description: "Eutrophisation marine (kg éq. N)"
-            tre:
-              type: number
-              description: "Eutrophisation terrestre (mol éq. N)"
-            pco:
-              type: number
-              description: "Formation d'ozone photochimique (kg éq. COVNM)"
-            pma:
-              type: number
-              description: "Particules (incidence de maladie)"
-            ior:
-              type: number
-              description: "Radiations ionisantes (éq. kBq U235)"
-            fru:
-              type: number
-              description: "Utilisation de ressources fossiles (MJ)"
-            mru:
-              type: number
-              description: "Utilisation de ressources minérales et métalliques (kg éq. Sb)"
-            ldu:
-              type: number
-              description: "Utilisation des sols (sans dimension (pt))"
-            wtu:
-              type: number
-              description: "Utilisation de ressources en eau (m³)"
-            pef:
-              type: number
-              description: "Score PEF (µPt)"
         query:
           type: object
           description: Le jeu de paramètres utilisé pour effectuer la simulation.
