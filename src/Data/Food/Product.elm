@@ -1,9 +1,6 @@
 module Data.Food.Product exposing
     ( Amount
     , Item
-    , Process
-    , ProcessName
-    , Processes
     , Product
     , ProductName
     , Products
@@ -11,12 +8,9 @@ module Data.Food.Product exposing
     , addMaterial
     , computeItemPefImpact
     , computePefImpact
-    , decodeProcesses
     , decodeProducts
     , defaultCountry
-    , emptyProcesses
     , emptyProducts
-    , findProcessByName
     , findProductByName
     , formatItem
     , getAmountRatio
@@ -28,17 +22,16 @@ module Data.Food.Product exposing
     , getWeightAtStep
     , listIngredientProcesses
     , listIngredients
-    , processNameToString
     , productNameToString
     , removeMaterial
     , stepToItems
-    , stringToProcessName
     , stringToProductName
     , updateMaterialAmount
     , updatePlantTransport
     )
 
 import Data.Country as Country
+import Data.Food.Process as Process exposing (Process, ProcessName, Processes)
 import Data.Impact as Impact
 import Data.Textile.Formula as Formula
 import Data.Transport as Transport exposing (Distances)
@@ -57,114 +50,6 @@ import Views.Format as Format
 defaultCountry : Country.Code
 defaultCountry =
     Country.codeFromString "FR"
-
-
-lorryTransportName : ProcessName
-lorryTransportName =
-    ProcessName "Transport, freight, lorry 16-32 metric ton, EURO5 {RER}| transport, freight, lorry 16-32 metric ton, EURO5 | Cut-off, S - Copied from Ecoinvent"
-
-
-boatTransportName : ProcessName
-boatTransportName =
-    ProcessName "Transport, freight, sea, transoceanic ship {GLO}| processing | Cut-off, S - Copied from Ecoinvent"
-
-
-planeTransportName : ProcessName
-planeTransportName =
-    ProcessName "Transport, freight, aircraft {RER}| intercontinental | Cut-off, S - Copied from Ecoinvent"
-
-
-{-| Process
-A process is an entry from public/data/food/processes.json. It has impacts and
-various other data like categories, code, unit...
--}
-type ProcessName
-    = ProcessName String
-
-
-stringToProcessName : String -> ProcessName
-stringToProcessName =
-    ProcessName
-
-
-processNameToString : ProcessName -> String
-processNameToString (ProcessName name) =
-    name
-
-
-type alias Process =
-    { name : ProcessName
-    , impacts : Impact.Impacts
-    , ciqualCode : Maybe Int
-    , step : Maybe String
-    , dqr : Maybe Float
-    , emptyProcess : Bool
-    , unit : String
-    , code : String
-    , simaproCategory : String
-    , systemDescription : String
-    , categoryTags : List String
-    }
-
-
-emptyProcess : Process
-emptyProcess =
-    { name = stringToProcessName "empty process"
-    , impacts = Impact.noImpacts
-    , ciqualCode = Nothing
-    , step = Nothing
-    , dqr = Nothing
-    , emptyProcess = True
-    , unit = ""
-    , code = ""
-    , simaproCategory = ""
-    , systemDescription = ""
-    , categoryTags = []
-    }
-
-
-type alias Processes =
-    AnyDict String ProcessName Process
-
-
-emptyProcesses : Processes
-emptyProcesses =
-    AnyDict.empty processNameToString
-
-
-findProcessByName : Processes -> ProcessName -> Result String Process
-findProcessByName processes ((ProcessName name) as procName) =
-    processes
-        |> AnyDict.get procName
-        |> Result.fromMaybe ("Procédé introuvable par nom : " ++ name)
-
-
-formatStringUnit : String -> String
-formatStringUnit str =
-    case str of
-        "cubic meter" ->
-            "m³"
-
-        "kilogram" ->
-            "kg"
-
-        "kilometer" ->
-            "km"
-
-        "kilowatt hour" ->
-            "kWh"
-
-        "litre" ->
-            "l"
-
-        "megajoule" ->
-            "MJ"
-
-        "ton kilometer" ->
-            "t/km"
-
-        _ ->
-            str
 
 
 formatAmount : Float -> String -> Float -> String
@@ -190,33 +75,6 @@ formatAmount totalWeight unit amount =
 formatItem : Float -> Item -> String
 formatItem totalWeight item =
     formatAmount totalWeight item.process.unit item.amount
-
-
-decodeProcess : List Impact.Definition -> Decoder Process
-decodeProcess definitions =
-    Decode.succeed Process
-        |> Pipe.hardcoded (stringToProcessName "to be defined")
-        |> Pipe.required "impacts" (Impact.decodeImpacts definitions)
-        |> Pipe.required "ciqual_code" (Decode.nullable Decode.int)
-        |> Pipe.required "step" (Decode.nullable Decode.string)
-        |> Pipe.required "dqr" (Decode.nullable Decode.float)
-        |> Pipe.required "empty_process" Decode.bool
-        |> Pipe.required "unit" (Decode.map formatStringUnit Decode.string)
-        |> Pipe.required "code" Decode.string
-        |> Pipe.required "simapro_category" Decode.string
-        |> Pipe.required "system_description" Decode.string
-        |> Pipe.required "category_tags" (Decode.list Decode.string)
-
-
-decodeProcesses : List Impact.Definition -> Decoder Processes
-decodeProcesses definitions =
-    AnyDict.decode (\str _ -> ProcessName str) processNameToString (decodeProcess definitions)
-        |> Decode.map
-            (AnyDict.map
-                (\processName process ->
-                    { process | name = processName }
-                )
-            )
 
 
 {-| Item
@@ -347,8 +205,8 @@ linkProcess processes =
         |> Decode.andThen
             (\name ->
                 name
-                    |> stringToProcessName
-                    |> findProcessByName processes
+                    |> Process.nameFromString
+                    |> Process.findByName processes
                     |> DE.fromResult
             )
 
@@ -478,7 +336,7 @@ getStepTransports step =
                         else
                             amount
                 in
-                case Dict.get (processNameToString process.name) transportModes of
+                case Dict.get (Process.nameToString process.name) transportModes of
                     Just "air" ->
                         { acc | air = acc.air |> Quantity.plus (Length.kilometers distanceToAdd) }
 
@@ -535,13 +393,13 @@ listIngredientProcesses products =
     products
         |> AnyDict.values
         |> List.concatMap (.plant >> .material >> List.map .process)
-        |> LE.uniqueBy (.name >> processNameToString)
-        |> List.sortBy (.name >> processNameToString)
+        |> LE.uniqueBy (.name >> Process.nameToString)
+        |> List.sortBy (.name >> Process.nameToString)
 
 
 addMaterial : Processes -> ProcessName -> Product -> Result String Product
 addMaterial processes processName ({ plant } as product) =
-    findProcessByName processes processName
+    Process.findByName processes processName
         |> Result.map
             (\process ->
                 let
@@ -707,12 +565,12 @@ updatePlantTransport originalProduct processes impactDefinitions countryCode dis
         findProcess processName =
             processes
                 |> AnyDict.get processName
-                |> Maybe.withDefault emptyProcess
+                |> Maybe.withDefault Process.emptyProcess
 
         transports =
-            [ ( lorryTransportName, .road )
-            , ( boatTransportName, .sea )
-            , ( planeTransportName, .air )
+            [ ( Process.lorryTransportName, .road )
+            , ( Process.boatTransportName, .sea )
+            , ( Process.planeTransportName, .air )
             ]
                 |> List.map
                     (\( name, prop ) ->

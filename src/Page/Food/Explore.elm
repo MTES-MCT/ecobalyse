@@ -8,7 +8,8 @@ module Page.Food.Explore exposing
 
 import Data.Country as Country exposing (Country)
 import Data.Food.Db as FoodDb
-import Data.Food.Product as Product exposing (ProcessName, Product, ProductName)
+import Data.Food.Process as Process exposing (ProcessName)
+import Data.Food.Product as Product exposing (Product, ProductName)
 import Data.Impact as Impact
 import Data.Session as Session exposing (Session)
 import Data.Unit as Unit
@@ -442,7 +443,7 @@ viewPlantProcess : { disabled : Bool } -> ItemViewData -> Html Msg
 viewPlantProcess { disabled } ({ item, stepWeight } as itemViewData) =
     let
         name =
-            item.process.name |> Product.processNameToString
+            Process.nameToString item.process.name
     in
     div [ class "card-body row align-items-center py-1" ]
         [ div [ class "col-sm-3" ]
@@ -568,7 +569,7 @@ maybeToProcessName string =
         Nothing
 
     else
-        Just (Product.stringToProcessName string)
+        Just (Process.nameFromString string)
 
 
 itemSelector : Maybe ProcessName -> (Maybe ProcessName -> Msg) -> List ProcessName -> Html Msg
@@ -577,7 +578,7 @@ itemSelector maybeSelectedItem event =
         (\processName ->
             let
                 string =
-                    Product.processNameToString processName
+                    Process.nameToString processName
             in
             ( string, option [ selected <| maybeSelectedItem == Just processName ] [ text string ] )
         )
@@ -606,7 +607,7 @@ viewMaterial itemViewDataConfig step =
             (\({ item } as itemViewData) ->
                 let
                     name =
-                        Product.processNameToString item.process.name
+                        Process.nameToString item.process.name
                 in
                 div [ class "card" ]
                     [ div [ class "card-header" ]
@@ -646,7 +647,7 @@ viewEnergy itemViewDataConfig step =
             (\({ item } as itemViewData) ->
                 div [ class "card" ]
                     [ div [ class "card-header" ]
-                        [ text <| Product.processNameToString item.process.name
+                        [ text <| Process.nameToString item.process.name
                         , text item.comment
                         ]
                     , viewPlantProcess { disabled = True } itemViewData
@@ -667,7 +668,7 @@ viewProcessing itemViewDataConfig step =
             (\({ item } as itemViewData) ->
                 div [ class "card" ]
                     [ div [ class "card-header" ]
-                        [ text <| Product.processNameToString item.process.name
+                        [ text <| Process.nameToString item.process.name
                         , text item.comment
                         ]
                     , viewPlantProcess { disabled = True } itemViewData
@@ -702,7 +703,7 @@ viewTransport itemViewDataConfig step selectedCountry countries =
             (\({ item } as itemViewData) ->
                 div [ class "card" ]
                     [ div [ class "card-header" ]
-                        [ text <| Product.processNameToString item.process.name
+                        [ text <| Process.nameToString item.process.name
                         , text item.comment
                         ]
                     , viewPlantProcess { disabled = True } itemViewData
@@ -723,7 +724,7 @@ viewWaste itemViewDataConfig step =
             (\({ item } as itemViewData) ->
                 div [ class "card" ]
                     [ div [ class "card-header" ]
-                        [ text <| Product.processNameToString item.process.name
+                        [ text <| Process.nameToString item.process.name
                         , text item.comment
                         ]
                     , viewPlantProcess { disabled = True } itemViewData
@@ -860,7 +861,7 @@ viewItemDetails { config, item, impact, percent, stepWeight, width } =
             [ viewComment item.comment
             , text " "
             , item.process.name
-                |> Product.processNameToString
+                |> Process.nameToString
                 |> text
             ]
         , div [ class "progress my-2", style "height" "9px" ]

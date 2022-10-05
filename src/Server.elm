@@ -5,6 +5,7 @@ port module Server exposing
     )
 
 import Data.Country as Country exposing (Country)
+import Data.Food.Process as FoodProcess
 import Data.Food.Product as FoodProduct
 import Data.Impact as Impact
 import Data.Textile.Db as TextileDb
@@ -127,7 +128,7 @@ handleRequest { foodDb, textileDb } request =
                 |> List.map
                     (\{ name, code } ->
                         { code = code
-                        , name = FoodProduct.processNameToString name
+                        , name = FoodProcess.nameToString name
                         }
                     )
                 |> Encode.list

@@ -1,7 +1,8 @@
 module Request.Food.Db exposing (loadDb)
 
 import Data.Food.Db exposing (Db)
-import Data.Food.Product as Product exposing (Processes, Products)
+import Data.Food.Process as Process exposing (Processes)
+import Data.Food.Product as Product exposing (Products)
 import Data.Impact as Impact
 import Data.Session exposing (Session)
 import Json.Decode exposing (Decoder)
@@ -57,7 +58,7 @@ handleProcessesLoaded impacts processesData =
 
 loadDb : Session -> (WebData Db -> msg) -> Cmd msg
 loadDb { db } event =
-    getJson (Product.decodeProcesses db.impacts) "food/processes.json"
+    getJson (Process.decodeProcesses db.impacts) "food/processes.json"
         |> Task.andThen (handleProcessesLoaded db.impacts)
         |> Task.attempt
             (\result ->
