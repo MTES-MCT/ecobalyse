@@ -4,10 +4,12 @@ module Data.Food.Process exposing
     , ProcessName
     , Processes
     , boatTransportName
+    , codeFromString
     , codeToString
     , decodeProcesses
     , emptyProcess
     , emptyProcesses
+    , findByCode
     , findByName
     , lorryTransportName
     , nameFromString
@@ -133,6 +135,16 @@ decodeProcesses definitions =
 emptyProcesses : Processes
 emptyProcesses =
     AnyDict.empty nameToString
+
+
+findByCode : Processes -> Code -> Result String Process
+findByCode processes ((Code codeString) as code) =
+    processes
+        |> AnyDict.filter (\_ process -> process.code == code)
+        |> AnyDict.toList
+        |> List.head
+        |> Maybe.map Tuple.second
+        |> Result.fromMaybe ("Procédé introuvable par code : " ++ codeString)
 
 
 findByName : Processes -> ProcessName -> Result String Process
