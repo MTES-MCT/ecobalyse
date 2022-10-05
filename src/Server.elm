@@ -132,6 +132,19 @@ encodeProduct { id, name } =
         ]
 
 
+encodeFoodProcess : FoodProcess.Process -> Encode.Value
+encodeFoodProcess { code, name } =
+    Encode.object
+        [ ( "code", code |> FoodProcess.codeToString |> Encode.string )
+        , ( "name", name |> FoodProcess.nameToString |> Encode.string )
+        ]
+
+
+encodeFoodProcessList : List FoodProcess.Process -> Encode.Value
+encodeFoodProcessList =
+    Encode.list encodeFoodProcess
+
+
 handleRequest : StaticDb.Db -> Request -> Cmd Msg
 handleRequest ({ foodDb, textileDb } as dbs) request =
     case Route.endpoint dbs request of
@@ -143,19 +156,13 @@ handleRequest ({ foodDb, textileDb } as dbs) request =
         Just (Route.Get Route.FoodIngredientList) ->
             foodDb.products
                 |> FoodProduct.listIngredientProcesses
-                |> List.map
-                    (\{ name, code } ->
-                        { code = code
-                        , name = FoodProcess.nameToString name
-                        }
-                    )
-                |> Encode.list
-                    (\{ code, name } ->
-                        Encode.object
-                            [ ( "code", code |> FoodProcess.codeToString |> Encode.string )
-                            , ( "name", Encode.string name )
-                            ]
-                    )
+                |> encodeFoodProcessList
+                |> sendResponse 200 request
+
+        Just (Route.Get Route.FoodProcessingList) ->
+            foodDb.products
+                |> FoodProduct.listProcessingProcesses
+                |> encodeFoodProcessList
                 |> sendResponse 200 request
 
         Just (Route.Get (Route.FoodRecipe (Ok query))) ->

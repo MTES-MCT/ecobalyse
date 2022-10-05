@@ -211,6 +211,18 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/IngredientsListResponse'
+  /food/processings:
+    get:
+      tags:
+      - Alimentaire
+      summary: Récupérer la liste des procédés de transformation alimentaire
+      responses:
+        200:
+          description: Opération réussie
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProcessingListResponse'
   /food/recipe:
     get:
       tags:
@@ -218,6 +230,7 @@ paths:
       summary: Calcul exhaustif des impacts environnementaux d'une recette alimentaire
       parameters:
       - $ref: '#/components/parameters/ingredientsParam'
+      - $ref: '#/components/parameters/processingParam'
       responses:
         200:
           description: Opération réussie
@@ -516,6 +529,20 @@ components:
         threeIngredients:
           summary: Mozzarella, Olive Oil, Tuna
           value: ["2e3f03c6de1e43900e09ae852182e9c7;268", "83da330027d4b25dbc7817f06b738571;30", "568c715f977f32948813855d5efd95ba;149"]
+    processingParam:
+      name: processing
+      in: query
+      description: |
+        Identifiant du procédé de transformation (optionnel — liste disponible sur le point d'entrée `/food/processings`)
+      required: false
+      style: form
+      schema:
+        type: string
+        minLength: 32
+        maxLength: 32
+      examples:
+        Default:
+          value: ""
   schemas:
     InvalidParametersError:
       type: object
@@ -642,6 +669,16 @@ components:
     IngredientsListResponse:
       type: array
       description: Liste des ingrédients utilisables dans une recette
+      items:
+        type: object
+        properties:
+          code:
+            type: string
+          name:
+            type: string
+    ProcessingListResponse:
+      type: array
+      description: Liste des procédés de transformation utilisables pour une recette
       items:
         type: object
         properties:

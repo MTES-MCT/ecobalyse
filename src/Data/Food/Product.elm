@@ -22,6 +22,7 @@ module Data.Food.Product exposing
     , getWeightAtStep
     , listIngredientProcesses
     , listIngredients
+    , listProcessingProcesses
     , productNameToString
     , removeMaterial
     , stepToItems
@@ -381,18 +382,37 @@ getWeightAtPlant step =
 
 listIngredients : Products -> List ProcessName
 listIngredients products =
-    -- List all the "material" entries from the "at plant" step
     products
         |> listIngredientProcesses
         |> List.map .name
 
 
 listIngredientProcesses : Products -> List Process
-listIngredientProcesses products =
+listIngredientProcesses =
     -- List all the "material" entries from the "at plant" step
+    listProcesses (.plant >> .material)
+
+
+
+-- FIXME: should be useful in UI for selecting a processing
+-- listProcessings : Products -> List ProcessName
+-- listProcessings products =
+--     products
+--         |> listProcessingProcesses
+--         |> List.map .name
+
+
+listProcessingProcesses : Products -> List Process
+listProcessingProcesses =
+    -- List all the "processing" entries from the "at plant" step
+    listProcesses (.plant >> .processing)
+
+
+listProcesses : (Product -> Items) -> Products -> List Process
+listProcesses getStepItems products =
     products
         |> AnyDict.values
-        |> List.concatMap (.plant >> .material >> List.map .process)
+        |> List.concatMap (getStepItems >> List.map .process)
         |> LE.uniqueBy (.name >> Process.nameToString)
         |> List.sortBy (.name >> Process.nameToString)
 
