@@ -1,6 +1,6 @@
 module Data.Food.RecipeTest exposing (..)
 
-import Data.Food.Product as Product
+import Data.Food.Process as Process
 import Data.Food.Recipe as Recipe
 import Data.Unit as Unit
 import Dict
@@ -30,7 +30,7 @@ suite =
                         |> asTest "should return an Ok for a valid query"
                     , { exampleQuery
                         | ingredients =
-                            [ { processName = Product.stringToProcessName "not an process name"
+                            [ { processName = Process.nameFromString "not an process name"
                               , mass = Mass.kilograms 0
                               , country = Nothing
                               , labels = []
@@ -71,7 +71,7 @@ suite =
                     , { exampleQuery
                         | processing =
                             Just
-                                { processName = Product.stringToProcessName "not a process"
+                                { processName = Process.nameFromString "not a process"
                                 , mass = Mass.kilograms 0
                                 }
                       }
