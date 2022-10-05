@@ -29,7 +29,7 @@ suite =
                     |> asTest "should return an Ok for a valid query"
                 , { exampleQuery
                     | ingredients =
-                        [ { processName = Process.nameFromString "not an process name"
+                        [ { code = Process.codeFromString "not an process name"
                           , mass = Mass.kilograms 0
                           , country = Nothing
                           , labels = []
@@ -42,10 +42,10 @@ suite =
                 , case recipe of
                     Ok r ->
                         r.ingredients
-                            |> List.map (.process >> .name)
+                            |> List.map (.process >> .code)
                             |> Expect.equalLists
                                 (exampleQuery.ingredients
-                                    |> List.map .processName
+                                    |> List.map .code
                                 )
                             |> asTest "should have the same ingredients as the query"
 
@@ -55,8 +55,8 @@ suite =
                 , case recipe of
                     Ok r ->
                         r.processing
-                            |> Maybe.map (.process >> .name)
-                            |> Expect.equal (exampleQuery.processing |> Maybe.map .processName)
+                            |> Maybe.map (.process >> .code)
+                            |> Expect.equal (exampleQuery.processing |> Maybe.map .code)
                             |> asTest "should have the same processing"
 
                     Err error ->
@@ -70,7 +70,7 @@ suite =
                 , { exampleQuery
                     | processing =
                         Just
-                            { processName = Process.nameFromString "not a process"
+                            { code = Process.codeFromString "not a process"
                             , mass = Mass.kilograms 0
                             }
                   }
