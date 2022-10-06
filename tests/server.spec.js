@@ -2,7 +2,7 @@ const fs = require("fs");
 const request = require("supertest");
 const app = require("../server");
 
-const e2eOutput = [];
+const e2eOutput = { food: [], textile: [] };
 
 async function makeRequest(path, query = []) {
   return await request(app).get(path).query(query.join("&"));
@@ -13,6 +13,14 @@ function expectFieldErrorMessage(response, field, message) {
   expect("errors" in response.body).toEqual(true);
   expect(field in response.body.errors).toEqual(true);
   expect(response.body.errors[field]).toMatch(message);
+}
+
+function toComparable(impacts) {
+  return Object.keys(impacts)
+    .sort()
+    .map((trigram) => {
+      return { [trigram]: impacts[trigram] };
+    });
 }
 
 describe("Web", () => {
@@ -228,21 +236,32 @@ describe("API", () => {
     });
 
     describe("End to end textile simulations", () => {
-      const e2e = JSON.parse(fs.readFileSync(`${__dirname}/e2e.json`).toString());
+      const e2eTextile = JSON.parse(fs.readFileSync(`${__dirname}/e2e-textile.json`).toString());
 
-      function toComparable(impacts) {
-        return Object.keys(impacts)
-          .sort()
-          .map((trigram) => {
-            return { [trigram]: impacts[trigram] };
-          });
-      }
-
-      for (const { name, query, impacts } of e2e) {
+      for (const { name, query, impacts } of e2eTextile) {
         it(name, async () => {
           const response = await makeRequest("/api/simulator", query);
           expectStatus(response, 200);
-          e2eOutput.push({
+          e2eOutput.textile.push({
+            name,
+            query,
+            impacts: response.body.impacts,
+          });
+          expect(toComparable(response.body.impacts)).toEqual(toComparable(impacts));
+        });
+      }
+    });
+  });
+
+  describe("Food", () => {
+    describe("End to end food simulations", () => {
+      const e2eFood = JSON.parse(fs.readFileSync(`${__dirname}/e2e-food.json`).toString());
+
+      for (const { name, query, impacts } of e2eFood) {
+        it(name, async () => {
+          const response = await makeRequest("/api/food/recipe", query);
+          expectStatus(response, 200);
+          e2eOutput.food.push({
             name,
             query,
             impacts: response.body.impacts,
@@ -255,11 +274,16 @@ describe("API", () => {
 });
 
 afterAll(() => {
-  // Write the output result to a new file, in case we want to update the old one
-  // with its contents.
-  const target = `${__dirname}/e2e-output.json`;
-  fs.writeFileSync(target, JSON.stringify(e2eOutput, null, 2));
-  console.info(`E2e tests output written to ${target}.`);
+  // Write the output results to new files, in case we want to update the old ones
+  // with their contents.
+  function writeE2eResult(key) {
+    const target = `${__dirname}/e2e-${key}-output.json`;
+    fs.writeFileSync(target, JSON.stringify(e2eOutput[key], null, 2));
+    console.info(`E2e ${key} tests output written to ${target}.`);
+  }
+
+  writeE2eResult("textile");
+  writeE2eResult("food");
 });
 
 function expectStatus(response, code, type = "application/json") {
