@@ -98,7 +98,7 @@ tunaPizza =
             , mass = Mass.grams 1050
             }
     , plant =
-        { country = Just (Country.codeFromString "FR")
+        { country = Nothing
         }
     }
 

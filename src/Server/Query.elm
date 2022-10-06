@@ -103,10 +103,7 @@ parseMass_ string =
         |> Result.andThen
             (\mass ->
                 if mass <= 0 then
-                    Err <|
-                        "La masse de l'ingrédient doit être supérieure à zéro (ici : "
-                            ++ String.fromFloat mass
-                            ++ ")."
+                    Err "La masse doit être supérieure à zéro."
 
                 else
                     Ok mass
@@ -117,10 +114,7 @@ parseMass_ string =
 validateIngredientList : List Recipe.IngredientQuery -> Result String (List Recipe.IngredientQuery)
 validateIngredientList list =
     if list == [] then
-        Err "La liste des ingrédients ne peut être vide."
-
-    else if list |> List.map (.mass >> Mass.inGrams) |> List.sum |> (==) 0 then
-        Err "La masse totale des ingrédients doit être strictement supérieure à zéro."
+        Err "La liste des ingrédients est vide."
 
     else
         Ok list
@@ -157,6 +151,7 @@ parseProcessing_ processings string =
 
 plantOptionsParser : String -> Parser (ParseResult Recipe.PlantOptions)
 plantOptionsParser _ =
+    -- TODO: implement parsing when we actually need these options
     succeed (Ok { country = Nothing })
 
 
