@@ -32,7 +32,7 @@ paths:
     get:
       tags:
       - Commun
-      summary: Racine de l'API
+      summary: Documentation OpenAPI de l'API
       description: Sert la documentation de l'API au format [OpenAPI](https://swagger.io/specification/)
       responses:
         200:
@@ -41,7 +41,7 @@ paths:
     get:
       tags:
       - Commun
-      summary: Récupérer la liste des pays
+      summary: Liste des pays
       responses:
         200:
           description: Opération réussie
@@ -53,7 +53,7 @@ paths:
     get:
       tags:
       - Textile
-      summary: Récupérer la liste des matières
+      summary: Liste des matières textile
       responses:
         200:
           description: Opération réussie
@@ -65,7 +65,7 @@ paths:
     get:
       tags:
       - Textile
-      summary: Récupérer la liste des types de produits textiles
+      summary: Liste des types de produits textiles
       responses:
         200:
           description: Opération réussie
@@ -77,7 +77,7 @@ paths:
     get:
       tags:
       - Textile
-      summary: Calculer les impacts environnementaux d'un produit textile
+      summary: Calcul des impacts environnementaux d'un produit textile
       parameters:
       - $ref: '#/components/parameters/massParam'
       - $ref: '#/components/parameters/materialsParam'
@@ -112,7 +112,7 @@ paths:
     get:
       tags:
       - Textile
-      summary: Calculer un impact environnemental spécifique d'un produit textile
+      summary: Calcul d'un impact environnemental spécifique d'un produit textile
       parameters:
       - name: impact
         in: path
@@ -211,7 +211,7 @@ paths:
     get:
       tags:
       - Alimentaire
-      summary: Récupérer la liste des ingrédients d'une recette
+      summary: Liste des ingrédients disponibles pour élaborer une recette
       responses:
         200:
           description: Opération réussie
@@ -223,7 +223,7 @@ paths:
     get:
       tags:
       - Alimentaire
-      summary: Récupérer la liste des procédés de transformation alimentaire
+      summary: Liste des procédés de transformation alimentaire
       responses:
         200:
           description: Opération réussie
@@ -235,7 +235,7 @@ paths:
     get:
       tags:
       - Alimentaire
-      summary: Calcul exhaustif des impacts environnementaux d'une recette alimentaire
+      summary: Calcul des impacts environnementaux d'une recette alimentaire
       parameters:
       - $ref: '#/components/parameters/ingredientsParam'
       - $ref: '#/components/parameters/processingParam'
