@@ -45,6 +45,10 @@ Dans un second temps, d'autres paramètres pourraient être intégrés :&#x20;
 * Label (Agriculture biologique par exemple)
 {% endhint %}
 
+{% hint style="warning" %}
+La masse est exprimée en grammes (g) pour la configuration du conditionnement. Dans le calcul (cf. ci-après), c'est toutefois une masse en kg qui est considérée (kg). Une conversion est donc réalisée.
+{% endhint %}
+
 ## Calcul des impacts
 
 L'impact des ingrédients est la somme des impacts de chaque ingrédient.
@@ -56,7 +60,7 @@ $$
 L'impact de chaque ingrédient est proportionnel à la masse paramétrée et à l'impact massique de l'ingrédient \[_**TODO : préciser ce que cela veut dire dans la base ACV**_]
 
 $$
-ImpactIngrédientN = MasseIngrédientN * ImpactMassiqueIngrédientN
+ImpactIngrédientN = MasseIngrédientN(kg) * ImpactMassiqueIngrédientN
 $$
 
 Les impacts considérés peuvent être indifféremment :&#x20;

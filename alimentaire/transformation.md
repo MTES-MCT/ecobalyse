@@ -31,13 +31,9 @@ Un choix de 12 procédés de transformation est ainsi proposé : Mise en conserv
 
 Chaque procédé de transformation est caractérisé par :&#x20;
 
-* Masse (g)
+* Masse (kg)
 
 La masse est considérée en sortie de procédé de transformation \[_**à confirmer**_]
-
-{% hint style="warning" %}
-La masse est exprimée en grammes (g) pour la configuration du conditionnement. Dans le calcul (cf. ci-après), c'est toutefois une masse en kg qui est considérée (kg). Une conversion est donc réalisée.
-{% endhint %}
 
 ## Calcul des impacts
 
