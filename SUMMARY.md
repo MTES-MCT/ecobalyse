@@ -38,4 +38,5 @@
 * [Mode d'emploi](alimentaire/mode-demploi.md)
 * [Données](alimentaire/donnees.md)
 * [🍅 Ingrédients](alimentaire/ingredients.md)
+* [🏭 Transformation](alimentaire/transformation.md)
 * [Transport](alimentaire/transport.md)
