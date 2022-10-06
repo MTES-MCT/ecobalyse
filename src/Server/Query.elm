@@ -8,6 +8,7 @@ module Server.Query exposing
 import Data.Country as Country exposing (Country)
 import Data.Env as Env
 import Data.Food.Db as FoodDb
+import Data.Food.Process as FoodProcess
 import Data.Food.Recipe as Recipe
 import Data.Textile.Db as TextileDb
 import Data.Textile.Inputs as Inputs
@@ -50,12 +51,113 @@ succeed =
 
 
 parseFoodQuery : FoodDb.Db -> Parser (Result Errors Recipe.Query)
-parseFoodQuery _ =
-    -- TODO: implement food query parser
-    -- succeed (Ok Recipe.Query)
-    --     |> apply (ingredientListParser "ingredients" foodDb.processes)
-    --     |> …
-    succeed (Ok Recipe.tunaPizza)
+parseFoodQuery foodDb =
+    -- succeed (Ok Recipe.tunaPizza)
+    succeed (Ok Recipe.Query)
+        |> apply (ingredientListParser "ingredients" foodDb.processes)
+        |> apply (maybeProcessingParser "processing" foodDb.processes)
+        |> apply (plantOptionsParser "plant")
+
+
+ingredientListParser : String -> FoodProcess.Processes -> Parser (ParseResult (List Recipe.IngredientQuery))
+ingredientListParser key ingredients =
+    Query.custom (key ++ "[]")
+        (List.map (parseIngredient_ ingredients)
+            >> RE.combine
+            >> Result.andThen validateIngredientList
+            >> Result.mapError (\err -> ( key, err ))
+        )
+
+
+parseIngredient_ : FoodProcess.Processes -> String -> Result String Recipe.IngredientQuery
+parseIngredient_ ingredients string =
+    case String.split ";" string of
+        [ code, mass ] ->
+            Ok Recipe.IngredientQuery
+                |> RE.andMap (parseFoodProcessCode_ ingredients code)
+                |> RE.andMap (parseMass_ mass)
+                -- TODO: parse country and labels
+                |> RE.andMap (Ok Nothing)
+                |> RE.andMap (Ok [])
+
+        [ "" ] ->
+            Err <| "Format d'ingrédient vide."
+
+        _ ->
+            Err <| "Format d'ingrédient invalide : " ++ string ++ "."
+
+
+parseFoodProcessCode_ : FoodProcess.Processes -> String -> Result String FoodProcess.Code
+parseFoodProcessCode_ ingredients string =
+    string
+        |> FoodProcess.codeFromString
+        |> FoodProcess.findByCode ingredients
+        |> Result.map .code
+
+
+parseMass_ : String -> Result String Mass
+parseMass_ string =
+    string
+        |> String.toFloat
+        |> Result.fromMaybe ("Masse invalide : " ++ string)
+        |> Result.andThen
+            (\mass ->
+                if mass <= 0 then
+                    Err <|
+                        "La masse de l'ingrédient doit être supérieure à zéro (ici : "
+                            ++ String.fromFloat mass
+                            ++ ")."
+
+                else
+                    Ok mass
+            )
+        |> Result.map Mass.grams
+
+
+validateIngredientList : List Recipe.IngredientQuery -> Result String (List Recipe.IngredientQuery)
+validateIngredientList list =
+    if list == [] then
+        Err "La liste des ingrédients ne peut être vide."
+
+    else if list |> List.map (.mass >> Mass.inGrams) |> List.sum |> (==) 0 then
+        Err "La masse totale des ingrédients doit être strictement supérieure à zéro."
+
+    else
+        Ok list
+
+
+maybeProcessingParser : String -> FoodProcess.Processes -> Parser (ParseResult (Maybe Recipe.ProcessingQuery))
+maybeProcessingParser key processings =
+    Query.string key
+        |> Query.map
+            (Maybe.map
+                (\str ->
+                    parseProcessing_ processings str
+                        |> Result.map Just
+                        |> Result.mapError (\err -> ( key, err ))
+                )
+                >> Maybe.withDefault (Ok Nothing)
+            )
+
+
+parseProcessing_ : FoodProcess.Processes -> String -> Result String Recipe.ProcessingQuery
+parseProcessing_ processings string =
+    case String.split ";" string of
+        [ code, mass ] ->
+            Ok Recipe.ProcessingQuery
+                |> RE.andMap (parseFoodProcessCode_ processings code)
+                |> RE.andMap (parseMass_ mass)
+
+        [ "" ] ->
+            Err <| "Code de procédé de transformation manquant."
+
+        _ ->
+            Err <| "Format de procédé de transformation invalide : " ++ string ++ "."
+
+
+plantOptionsParser : String -> Parser (ParseResult Recipe.PlantOptions)
+plantOptionsParser _ =
+    succeed (Ok { country = Nothing })
 
 
 parseTextileQuery : TextileDb.Db -> Parser (Result Errors Inputs.Query)
