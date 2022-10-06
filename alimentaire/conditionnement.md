@@ -25,13 +25,7 @@ Une liste de **X** matières est ainsi constituée.
 
 Chaque matière sélectionnée est caractérisée :&#x20;
 
-* Masse (g)
-
-{% hint style="warning" %}
-La masse est exprimée en grammes (g) pour la configuration du conditionnement. Dans le calcul (cf. ci-après), c'est toutefois une masse en kg qui est considérée (kg). Une conversion est donc réalisée.
-{% endhint %}
-
-&#x20;
+* Masse (kg)&#x20;
 
 ## Calcul des impacts
 
