@@ -9,8 +9,8 @@ externalDocs:
 servers:
 - url: https://ecobalyse.beta.gouv.fr/api
 tags:
-- name: Alimentaire
-  description: Documentation de l'API pour le domaine alimentaire au format OpenAPI
+- name: Commun
+  description: Documentation de l'API multi-domaines au format OpenAPI
   externalDocs:
     description: À propos
     url: https://fabrique-numerique.gitbook.io/ecobalyse
@@ -19,11 +19,19 @@ tags:
   externalDocs:
     description: À propos
     url: https://fabrique-numerique.gitbook.io/ecobalyse
+- name: Alimentaire
+  description: |
+    Documentation de l'API pour le domaine alimentaire au format OpenAPI
+
+    **⚠️ En construction, les résultats fournis sont incomplets et probablement invalides.**
+  externalDocs:
+    description: À propos
+    url: https://fabrique-numerique.gitbook.io/ecobalyse
 paths:
   /:
     get:
       tags:
-      - Textile
+      - Commun
       summary: Racine de l'API
       description: Sert la documentation de l'API au format [OpenAPI](https://swagger.io/specification/)
       responses:
@@ -32,7 +40,7 @@ paths:
   /countries:
     get:
       tags:
-      - Textile
+      - Commun
       summary: Récupérer la liste des pays
       responses:
         200:
