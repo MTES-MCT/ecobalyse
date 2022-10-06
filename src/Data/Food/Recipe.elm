@@ -1,5 +1,8 @@
 module Data.Food.Recipe exposing
-    ( Query
+    ( IngredientQuery
+    , PlantOptions
+    , ProcessingQuery
+    , Query
     , compute
     , encode
     , fromQuery
