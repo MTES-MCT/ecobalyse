@@ -398,7 +398,7 @@
     "quality": 0,
     "pef": {
       "color": "#FFA907",
-      "normalization": 4.27e4,
+      "normalization": 2.297e-4,
       "weighting": 0.0184
     },
     "scopes": ["food"]
