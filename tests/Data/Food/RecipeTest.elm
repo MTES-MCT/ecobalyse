@@ -108,7 +108,7 @@ suite =
                             , ( "mru", Unit.impact 0.000005858507829227684 )
                             , ( "ozd", Unit.impact 2.487407380843292e-7 )
                             , ( "pco", Unit.impact 0.014729543445464777 )
-                            , ( "pef", Unit.impact 287.08362502550256 )
+                            , ( "pef", Unit.impact 290.3211763700539 )
                             , ( "pma", Unit.impact 2.52021824433807e-7 )
                             , ( "swe", Unit.impact 0.010653579129237457 )
                             , ( "tre", Unit.impact 0.12223778737362725 )
