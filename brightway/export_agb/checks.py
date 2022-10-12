@@ -10,9 +10,8 @@ Exemple :
 """
 
 import copy
-import csv
 import json
-import re
+import os
 import sys
 from impacts import impacts_to_synthese
 
@@ -28,34 +27,6 @@ def check_missing_steps(products):
                 count += 1
                 print(f"{key} has no {step_key}")
     return count
-
-
-def check_ciqual_impacts(processes, synthese_filename):
-    """Liste des différences d'impact entre la synthèse agribalyse et les exports json."""
-    ciqual_code_regex = re.compile(r"\[Ciqual code: (\d+)\]")
-
-    processes_to_ciqual = {}
-    for process in processes:
-        match = re.search(ciqual_code_regex, process)
-        if match:
-            ciqual_code = match[1]
-            processes_to_ciqual[ciqual_code] = processes[process]
-
-    with open(synthese_filename) as csvfile:
-        reader = csv.DictReader(csvfile)
-        count = 0
-        for row in reader:
-            ciqual_code = row["Code CIQUAL"]
-            for (impact, (trigram, multiplier)) in impacts_to_synthese.items():
-                impact_a = float(row[impact]) * multiplier
-                impact_b = processes_to_ciqual[ciqual_code]["impacts"][trigram]
-                diff = get_diff(impact_a, impact_b)
-                if diff:
-                    count += 1
-                    print(
-                        f"{ciqual_code} (impact {trigram}), diff: {round(diff * 100 / abs(max(impact_a, impact_b)))}% - json: {impact_b}, synthèse: {impact_a}"
-                    )
-        return count
 
 
 def get_diff(impact_a, impact_b):
@@ -76,6 +47,13 @@ def processes_for_step(step):
     return processes
 
 
+def find_process(processes, process_name):
+    """Retourne un procédé à partir de son nom."""
+    for process in processes:
+        if process["name"] == process_name:
+            return process
+
+
 def check_impact_diff(products, processes):
     """Différence entre les impacts globaux et la somme des sous-impacts menant à l'étape consommation."""
     diff_impact = copy.deepcopy(processes)
@@ -83,14 +61,18 @@ def check_impact_diff(products, processes):
     count = 0
 
     for key, product in products.items():
-        process = diff_impact[key]
+        process = find_process(diff_impact, key)
+        if process is None:
+            continue
+
         consumer = product["consumer"]
 
         for ingredient in processes_for_step(consumer):
             processName = ingredient["processName"]
+            ingredientProcess = find_process(diff_impact, processName)
             for impact in process["impacts"].keys():
                 process["impacts"][impact] -= (
-                    diff_impact[processName]["impacts"][impact] * ingredient["amount"]
+                    ingredientProcess["impacts"][impact] * ingredient["amount"]
                 )
 
         for impact in process["impacts"].keys():
@@ -114,8 +96,8 @@ def read_json(filename):
 
 
 if __name__ == "__main__":
-    products_filename = "products.json"
-    processes_filename = "processes.json"
+    products_filename = os.path.join(os.path.dirname(__file__), "products.json")
+    processes_filename = os.path.join(os.path.dirname(__file__), "processes.json")
     if len(sys.argv) == 3:
         products_filename = sys.argv[1]
         processes_filename = sys.argv[2]
@@ -125,14 +107,6 @@ if __name__ == "__main__":
     print(">>> Liste des produits avec étapes manquantes")
     count = check_missing_steps(products)
     print(f"{count} missing steps")
-
-    print()
-
-    print(
-        f">>> Liste des différences d'impact supérieures à {THRESHOLD}% entre l'export et la synthèse Agribalyse"
-    )
-    count = check_ciqual_impacts(processes, "../Agribalyse_Synthese.csv")
-    print(f"Total de {count} impacts qui ont une différence supérieure à {THRESHOLD}%")
 
     print()
 
