@@ -10,6 +10,7 @@ module Data.Textile.Step.Label exposing
 
 import Data.Gitbook as Gitbook
 import Json.Decode as Decode exposing (Decoder)
+import Json.Decode.Extra as DE
 import Json.Encode as Encode
 
 
@@ -155,15 +156,7 @@ toGitbookPath label =
 decodeFromCode : Decoder Label
 decodeFromCode =
     Decode.string
-        |> Decode.andThen
-            (\str ->
-                case fromCodeString str of
-                    Ok decoded ->
-                        Decode.succeed decoded
-
-                    Err err ->
-                        Decode.fail err
-            )
+        |> Decode.andThen (fromCodeString >> DE.fromResult)
 
 
 encode : Label -> Encode.Value
