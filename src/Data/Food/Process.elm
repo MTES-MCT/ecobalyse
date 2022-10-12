@@ -28,13 +28,10 @@ various other data like categories, code, unit...
 type alias Process =
     { name : ProcessName
     , impacts : Impact.Impacts
-    , ciqualCode : Maybe Int
     , step : Maybe String
-    , dqr : Maybe Float
-    , emptyProcess : Bool
     , unit : String
     , code : Code
-    , simaproCategory : String
+    , category : Category
     , systemDescription : String
     , categoryTags : List String
     }
@@ -42,6 +39,15 @@ type alias Process =
 
 type alias Processes =
     AnyDict String ProcessName Process
+
+
+type Category
+    = Energy
+    | Ingredient
+    | Material
+    | Processing
+    | Transport
+    | WasteTreatment
 
 
 type Code
@@ -57,6 +63,49 @@ type alias WellKnown =
     , boatTransport : Process
     , planeTransport : Process
     }
+
+
+categoryFromString : String -> Result String Category
+categoryFromString string =
+    case string of
+        "energy" ->
+            Ok Energy
+
+        "ingredient" ->
+            Ok Ingredient
+
+        "material" ->
+            Ok Material
+
+        "processing" ->
+            Ok Processing
+
+        "transport" ->
+            Ok Transport
+
+        "waste treatment" ->
+            Ok WasteTreatment
+
+        _ ->
+            Err <| "Catégorie de précédé invalide: " ++ string
+
+
+
+-- categoryToString : Category -> String
+-- categoryToString category =
+--     case category of
+--         Energy ->
+--             "energy"
+--         Ingredient ->
+--             "ingredient"
+--         Material ->
+--             "material"
+--         Processing ->
+--             "processing"
+--         Transport ->
+--             "transport"
+--         WasteTreatment ->
+--             "waste treatment"
 
 
 codeFromString : String -> Code
@@ -79,18 +128,29 @@ nameToString (ProcessName name) =
     name
 
 
+decodeCategory : Decoder Category
+decodeCategory =
+    Decode.string
+        |> Decode.andThen
+            (\str ->
+                case categoryFromString str of
+                    Ok decoded ->
+                        Decode.succeed decoded
+
+                    Err err ->
+                        Decode.fail err
+            )
+
+
 decodeProcess : List Impact.Definition -> Decoder Process
 decodeProcess definitions =
     Decode.succeed Process
         |> Pipe.hardcoded (nameFromString "to be defined")
         |> Pipe.required "impacts" (Impact.decodeImpacts definitions)
-        |> Pipe.required "ciqual_code" (Decode.nullable Decode.int)
         |> Pipe.required "step" (Decode.nullable Decode.string)
-        |> Pipe.required "dqr" (Decode.nullable Decode.float)
-        |> Pipe.required "empty_process" Decode.bool
         |> Pipe.required "unit" (Decode.map formatStringUnit Decode.string)
-        |> Pipe.required "code" (Decode.map codeFromString Decode.string)
-        |> Pipe.required "simapro_category" Decode.string
+        |> Pipe.required "simapro_id" (Decode.map codeFromString Decode.string)
+        |> Pipe.required "category" decodeCategory
         |> Pipe.required "system_description" Decode.string
         |> Pipe.required "category_tags" (Decode.list Decode.string)
 
