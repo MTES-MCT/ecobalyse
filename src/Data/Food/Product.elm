@@ -32,7 +32,7 @@ module Data.Food.Product exposing
     )
 
 import Data.Country as Country
-import Data.Food.Process as Process exposing (Process, ProcessName, Processes)
+import Data.Food.Process as Process exposing (Process, ProcessName)
 import Data.Impact as Impact
 import Data.Textile.Formula as Formula
 import Data.Transport as Transport exposing (Distances)
@@ -200,19 +200,17 @@ decodeAmount =
     Decode.float
 
 
-linkProcess : Processes -> Decoder Process
+linkProcess : List Process -> Decoder Process
 linkProcess processes =
     Decode.string
         |> Decode.andThen
-            (\name ->
-                name
-                    |> Process.nameFromString
-                    |> Process.findByName processes
-                    |> DE.fromResult
+            (Process.nameFromString
+                >> Process.findByName processes
+                >> DE.fromResult
             )
 
 
-decodeItem : Processes -> Decoder Item
+decodeItem : List Process -> Decoder Item
 decodeItem processes =
     Decode.succeed Item
         -- FIXME: decodeAmout should be called with the unit decoded from
@@ -223,12 +221,12 @@ decodeItem processes =
         |> Pipe.optional "mainProcess" Decode.bool False
 
 
-decodeAffectation : Processes -> Decoder Items
+decodeAffectation : List Process -> Decoder Items
 decodeAffectation processes =
     Decode.list (decodeItem processes)
 
 
-decodeStep : Processes -> Decoder Step
+decodeStep : List Process -> Decoder Step
 decodeStep processes =
     Decode.succeed Step
         |> Pipe.optional "material" (decodeAffectation processes) emptyItems
@@ -238,7 +236,7 @@ decodeStep processes =
         |> Pipe.optional "processing" (decodeAffectation processes) emptyItems
 
 
-decodeProduct : Processes -> Decoder Product
+decodeProduct : List Process -> Decoder Product
 decodeProduct processes =
     Decode.succeed Product
         |> Pipe.required "consumer" (decodeStep processes)
@@ -248,7 +246,7 @@ decodeProduct processes =
         |> Pipe.required "plant" (decodeStep processes)
 
 
-decodeProducts : Processes -> Decoder Products
+decodeProducts : List Process -> Decoder Products
 decodeProducts processes =
     AnyDict.decode (\str _ -> ProductName str) productNameToString (decodeProduct processes)
 
@@ -417,7 +415,7 @@ listProcesses getStepItems products =
         |> List.sortBy (.name >> Process.nameToString)
 
 
-addMaterial : Processes -> ProcessName -> Product -> Result String Product
+addMaterial : List Process -> ProcessName -> Product -> Result String Product
 addMaterial processes processName ({ plant } as product) =
     Process.findByName processes processName
         |> Result.map
@@ -546,7 +544,7 @@ updateAffectationAmounts amountRatio items =
             )
 
 
-updatePlantTransport : Product -> Processes -> List Impact.Definition -> Country.Code -> Distances -> Product -> Product
+updatePlantTransport : Product -> List Process -> List Impact.Definition -> Country.Code -> Distances -> Product -> Product
 updatePlantTransport originalProduct processes impactDefinitions countryCode distances ({ plant } as product) =
     let
         defaultTransport =

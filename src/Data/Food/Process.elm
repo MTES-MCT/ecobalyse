@@ -2,11 +2,9 @@ module Data.Food.Process exposing
     ( Code
     , Process
     , ProcessName
-    , Processes
     , codeFromString
     , codeToString
-    , decodeProcesses
-    , emptyProcesses
+    , decodeList
     , findByCode
     , findByName
     , loadWellKnown
@@ -15,8 +13,8 @@ module Data.Food.Process exposing
     )
 
 import Data.Impact as Impact
-import Dict.Any as AnyDict exposing (AnyDict)
 import Json.Decode as Decode exposing (Decoder)
+import Json.Decode.Extra as DE
 import Json.Decode.Pipeline as Pipe
 import Result.Extra as RE
 
@@ -28,17 +26,12 @@ various other data like categories, code, unit...
 type alias Process =
     { name : ProcessName
     , impacts : Impact.Impacts
-    , step : Maybe String
     , unit : String
     , code : Code
     , category : Category
     , systemDescription : String
     , categoryTags : List String
     }
-
-
-type alias Processes =
-    AnyDict String ProcessName Process
 
 
 type Category
@@ -87,7 +80,7 @@ categoryFromString string =
             Ok WasteTreatment
 
         _ ->
-            Err <| "Catégorie de précédé invalide: " ++ string
+            Err <| "Catégorie de procédé invalide: " ++ string
 
 
 
@@ -131,23 +124,14 @@ nameToString (ProcessName name) =
 decodeCategory : Decoder Category
 decodeCategory =
     Decode.string
-        |> Decode.andThen
-            (\str ->
-                case categoryFromString str of
-                    Ok decoded ->
-                        Decode.succeed decoded
-
-                    Err err ->
-                        Decode.fail err
-            )
+        |> Decode.andThen (categoryFromString >> DE.fromResult)
 
 
 decodeProcess : List Impact.Definition -> Decoder Process
 decodeProcess definitions =
     Decode.succeed Process
-        |> Pipe.hardcoded (nameFromString "to be defined")
+        |> Pipe.required "name" (Decode.map nameFromString Decode.string)
         |> Pipe.required "impacts" (Impact.decodeImpacts definitions)
-        |> Pipe.required "step" (Decode.nullable Decode.string)
         |> Pipe.required "unit" (Decode.map formatStringUnit Decode.string)
         |> Pipe.required "simapro_id" (Decode.map codeFromString Decode.string)
         |> Pipe.required "category" decodeCategory
@@ -155,36 +139,24 @@ decodeProcess definitions =
         |> Pipe.required "category_tags" (Decode.list Decode.string)
 
 
-decodeProcesses : List Impact.Definition -> Decoder Processes
-decodeProcesses definitions =
-    AnyDict.decode (\str _ -> ProcessName str) nameToString (decodeProcess definitions)
-        |> Decode.map
-            (AnyDict.map
-                (\processName process ->
-                    { process | name = processName }
-                )
-            )
+decodeList : List Impact.Definition -> Decoder (List Process)
+decodeList definitions =
+    Decode.list (decodeProcess definitions)
 
 
-emptyProcesses : Processes
-emptyProcesses =
-    AnyDict.empty nameToString
-
-
-findByCode : Processes -> Code -> Result String Process
+findByCode : List Process -> Code -> Result String Process
 findByCode processes ((Code codeString) as code) =
     processes
-        |> AnyDict.filter (\_ process -> process.code == code)
-        |> AnyDict.toList
+        |> List.filter (.code >> (==) code)
         |> List.head
-        |> Maybe.map Tuple.second
         |> Result.fromMaybe ("Procédé introuvable par code : " ++ codeString)
 
 
-findByName : Processes -> ProcessName -> Result String Process
+findByName : List Process -> ProcessName -> Result String Process
 findByName processes ((ProcessName name) as procName) =
     processes
-        |> AnyDict.get procName
+        |> List.filter (.name >> (==) procName)
+        |> List.head
         |> Result.fromMaybe ("Procédé introuvable par nom : " ++ name)
 
 
@@ -216,7 +188,7 @@ formatStringUnit str =
             str
 
 
-loadWellKnown : Processes -> Result String WellKnown
+loadWellKnown : List Process -> Result String WellKnown
 loadWellKnown processes =
     let
         resolve code =

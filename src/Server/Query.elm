@@ -59,7 +59,7 @@ parseFoodQuery foodDb =
         |> apply (plantOptionsParser "plant")
 
 
-ingredientListParser : String -> FoodProcess.Processes -> Parser (ParseResult (List Recipe.IngredientQuery))
+ingredientListParser : String -> List FoodProcess.Process -> Parser (ParseResult (List Recipe.IngredientQuery))
 ingredientListParser key ingredients =
     Query.custom (key ++ "[]")
         (List.map (parseIngredient_ ingredients)
@@ -69,7 +69,7 @@ ingredientListParser key ingredients =
         )
 
 
-parseIngredient_ : FoodProcess.Processes -> String -> Result String Recipe.IngredientQuery
+parseIngredient_ : List FoodProcess.Process -> String -> Result String Recipe.IngredientQuery
 parseIngredient_ ingredients string =
     case String.split ";" string of
         [ code, mass ] ->
@@ -87,7 +87,7 @@ parseIngredient_ ingredients string =
             Err <| "Format d'ingrédient invalide : " ++ string ++ "."
 
 
-parseFoodProcessCode_ : FoodProcess.Processes -> String -> Result String FoodProcess.Code
+parseFoodProcessCode_ : List FoodProcess.Process -> String -> Result String FoodProcess.Code
 parseFoodProcessCode_ ingredients string =
     string
         |> FoodProcess.codeFromString
@@ -120,7 +120,7 @@ validateIngredientList list =
         Ok list
 
 
-maybeProcessingParser : String -> FoodProcess.Processes -> Parser (ParseResult (Maybe Recipe.ProcessingQuery))
+maybeProcessingParser : String -> List FoodProcess.Process -> Parser (ParseResult (Maybe Recipe.ProcessingQuery))
 maybeProcessingParser key processings =
     Query.string key
         |> Query.map
@@ -134,7 +134,7 @@ maybeProcessingParser key processings =
             )
 
 
-parseProcessing_ : FoodProcess.Processes -> String -> Result String Recipe.ProcessingQuery
+parseProcessing_ : List FoodProcess.Process -> String -> Result String Recipe.ProcessingQuery
 parseProcessing_ processings string =
     case String.split ";" string of
         [ code, mass ] ->
