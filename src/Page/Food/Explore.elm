@@ -381,8 +381,9 @@ viewIngredientSelector selectedItem product products =
                 |> Product.listIngredientNames
                 |> List.filter
                     (\processName ->
-                        -- Exclude already used materials
-                        product.plant.material
+                        -- Exclude already used ingredients
+                        product.plant
+                            |> Product.filterItemByCategory Process.Ingredient
                             |> List.map (.process >> .name)
                             |> List.member processName
                             |> not
@@ -725,8 +726,7 @@ viewPlantWaste itemViewDataConfig items =
 
 stepNames : Product.Product -> List ( String, Product.Step )
 stepNames product =
-    [ ( "Recette", product.plant )
-    , ( "Conditionnement", product.packaging )
+    [ ( "Conditionnement", product.packaging )
     , ( "Stockage", product.distribution )
     , ( "Vente au détail", product.supermarket )
     , ( "Consommation", product.consumer )
@@ -742,11 +742,13 @@ viewStepsSummary trigram product =
     div [ class "card fs-7" ]
         [ product
             |> stepNames
+            |> List.map (\( label, step ) -> ( label, step.items ))
+            |> (\steps -> ( "Recette", product.plant ) :: steps)
             |> List.map
-                (\( label, step ) ->
+                (\( label, items ) ->
                     let
                         impact =
-                            Product.getItemsImpact trigram step.items
+                            Product.getItemsImpact trigram items
 
                         percent =
                             impact / totalImpact * 100
