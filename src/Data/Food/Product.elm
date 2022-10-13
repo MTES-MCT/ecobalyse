@@ -13,7 +13,7 @@ module Data.Food.Product exposing
     , findProductByName
     , formatItem
     , getAmountRatio
-    , getStepImpact
+    , getItemsImpact
     , getStepTransports
     , getTotalImpact
     , getWeightAtPlant
@@ -216,9 +216,9 @@ decodeProducts processes =
 -- utilities
 
 
-getStepImpact : Impact.Trigram -> Step -> Float
-getStepImpact trigram step =
-    step.items
+getItemsImpact : Impact.Trigram -> Items -> Float
+getItemsImpact trigram items =
+    items
         |> List.foldl
             (\item total ->
                 let
@@ -233,11 +233,11 @@ getStepImpact trigram step =
 
 getTotalImpact : Impact.Trigram -> Product -> Float
 getTotalImpact trigram product =
-    getStepImpact trigram product.consumer
-        + getStepImpact trigram product.supermarket
-        + getStepImpact trigram product.distribution
-        + getStepImpact trigram product.packaging
-        + getStepImpact trigram product.plant
+    getItemsImpact trigram product.consumer.items
+        + getItemsImpact trigram product.supermarket.items
+        + getItemsImpact trigram product.distribution.items
+        + getItemsImpact trigram product.packaging.items
+        + getItemsImpact trigram product.plant
 
 
 transportModes : Dict String String

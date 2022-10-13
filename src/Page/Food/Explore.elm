@@ -733,7 +733,7 @@ viewStepsSummary trigram product =
                 (\( label, step ) ->
                     let
                         impact =
-                            Product.getStepImpact trigram step
+                            Product.getItemsImpact trigram step.items
 
                         percent =
                             impact / totalImpact * 100
@@ -772,7 +772,7 @@ viewStep : String -> ItemViewDataConfig -> Product.Step -> Html Msg
 viewStep label ({ definition, trigram } as itemViewDataConfig) step =
     let
         stepImpact =
-            Product.getStepImpact trigram step
+            Product.getItemsImpact trigram step.items
 
         stepTransport =
             Product.getStepTransports step
