@@ -256,15 +256,13 @@ compute db query =
                 ingredientsImpact =
                     recipe
                         |> .ingredients
-                        |> List.map (Product.computeItemPefImpact db.impacts)
                         |> List.map computeIngredientImpacts
 
                 ingredientsImpactWithProcessingImpact : List Impacts
                 ingredientsImpactWithProcessingImpact =
                     recipe.processing
                         |> Maybe.map
-                            (Product.computeItemPefImpact db.impacts
-                                >> computeIngredientImpacts
+                            (computeIngredientImpacts
                                 >> List.singleton
                                 >> (++) ingredientsImpact
                             )
