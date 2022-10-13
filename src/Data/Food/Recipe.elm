@@ -14,7 +14,6 @@ module Data.Food.Recipe exposing
 import Data.Country as Country
 import Data.Food.Db as FoodDb
 import Data.Food.Process as Process exposing (Process)
-import Data.Food.Product as Product
 import Data.Impact as Impact exposing (Impacts)
 import Data.Unit as Unit
 import Json.Encode as Encode
