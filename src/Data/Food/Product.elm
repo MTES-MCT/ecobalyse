@@ -11,7 +11,7 @@ module Data.Food.Product exposing
     , defaultCountry
     , emptyProducts
     , filterItemByCategory
-    , findProductByName
+    , findByName
     , formatItem
     , getAmountRatio
     , getItemsImpact
@@ -21,9 +21,9 @@ module Data.Food.Product exposing
     , listIngredientNames
     , listIngredients
     , listProcessingProcesses
-    , productNameToString
+    , nameFromString
+    , nameToString
     , removeMaterial
-    , stringToProductName
     , updateMaterialAmount
     , updatePlantTransport
     )
@@ -105,23 +105,13 @@ type alias Items =
 
 
 filterItemByCategory : Process.Category -> Items -> Items
-filterItemByCategory category items =
-    items
-        |> List.filter
-            (.process
-                >> .category
-                >> (==) category
-            )
+filterItemByCategory category =
+    List.filter (.process >> .category >> (==) category)
 
 
 excludeItemByCategory : Process.Category -> Items -> Items
-excludeItemByCategory category items =
-    items
-        |> List.filter
-            (.process
-                >> .category
-                >> (/=) category
-            )
+excludeItemByCategory category =
+    List.filter (.process >> .category >> (/=) category)
 
 
 {-| Step
@@ -147,13 +137,13 @@ type ProductName
     = ProductName String
 
 
-productNameToString : ProductName -> String
-productNameToString (ProductName name) =
+nameToString : ProductName -> String
+nameToString (ProductName name) =
     name
 
 
-stringToProductName : String -> ProductName
-stringToProductName str =
+nameFromString : String -> ProductName
+nameFromString str =
     ProductName str
 
 
@@ -163,11 +153,11 @@ type alias Products =
 
 emptyProducts : Products
 emptyProducts =
-    AnyDict.empty productNameToString
+    AnyDict.empty nameToString
 
 
-findProductByName : ProductName -> Products -> Result String Product
-findProductByName ((ProductName name) as productName) =
+findByName : ProductName -> Products -> Result String Product
+findByName ((ProductName name) as productName) =
     AnyDict.get productName
         >> Result.fromMaybe ("Produit introuvable par nom : " ++ name)
 
@@ -231,7 +221,7 @@ decodeProduct processes =
 
 decodeProducts : List Process -> Decoder Products
 decodeProducts processes =
-    AnyDict.decode (\str _ -> ProductName str) productNameToString (decodeProduct processes)
+    AnyDict.decode (\str _ -> ProductName str) nameToString (decodeProduct processes)
 
 
 

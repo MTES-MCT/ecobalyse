@@ -63,7 +63,7 @@ type Msg
 
 tunaPizza : ProductName
 tunaPizza =
-    Product.stringToProductName "Pizza, tuna, processed in FR | Chilled | Cardboard | Oven | at consumer/FR [Ciqual code: 26270]"
+    Product.nameFromString "Pizza, tuna, processed in FR | Chilled | Cardboard | Oven | at consumer/FR [Ciqual code: 26270]"
 
 
 init : Session -> ( Model, Session, Cmd Msg )
@@ -141,7 +141,7 @@ update ({ foodDb, db } as session) msg ({ currentProductInfo } as model) =
             )
 
         ( DbLoaded (RemoteData.Success loadedDb), _ ) ->
-            case Product.findProductByName tunaPizza loadedDb.products of
+            case Product.findByName tunaPizza loadedDb.products of
                 Ok product ->
                     ( { model
                         | currentProductInfo =
@@ -180,7 +180,7 @@ update ({ foodDb, db } as session) msg ({ currentProductInfo } as model) =
             ( { model | currentProductInfo = Just { selected | product = updatedProduct } }, session, Cmd.none )
 
         ( ProductSelected selectedProduct, _ ) ->
-            case Product.findProductByName selectedProduct foodDb.products of
+            case Product.findByName selectedProduct foodDb.products of
                 Ok product ->
                     ( { model
                         | currentProductInfo =
@@ -359,7 +359,7 @@ viewProductSelector selectedProduct =
             (\productName ->
                 let
                     name =
-                        Product.productNameToString productName
+                        Product.nameToString productName
                 in
                 option
                     [ value name
@@ -369,7 +369,7 @@ viewProductSelector selectedProduct =
             )
         >> select
             [ class "form-select mb-3"
-            , onInput (Product.stringToProductName >> ProductSelected)
+            , onInput (Product.nameFromString >> ProductSelected)
             ]
 
 
