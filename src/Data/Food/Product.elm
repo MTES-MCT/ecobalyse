@@ -417,30 +417,38 @@ updateProductAmounts originalWeight ({ consumer, supermarket, distribution, pack
 updateStepAmounts : Float -> Step -> Step
 updateStepAmounts amountRatio ({ material, transport, wasteTreatment, energy, processing } as step) =
     { step
-        | material = updateAffectationAmounts amountRatio material
-        , transport = updateAffectationAmounts amountRatio transport
-        , wasteTreatment = updateAffectationAmounts amountRatio wasteTreatment
-        , energy = updateAffectationAmounts amountRatio energy
-        , processing = updateAffectationAmounts amountRatio processing
+        | material = updateItemsAmounts amountRatio material
+        , transport = updateItemsAmounts amountRatio transport
+        , wasteTreatment = updateItemsAmounts amountRatio wasteTreatment
+        , energy = updateItemsAmounts amountRatio energy
+        , processing = updateItemsAmounts amountRatio processing
     }
 
 
 {-| updatePlantAmounts is specific to the plant where we don't want to automatically update the materials
 as they are customised by the user.
 -}
-updatePlantAmounts : Float -> Step -> Step
-updatePlantAmounts amountRatio ({ transport, wasteTreatment, energy, processing } as step) =
-    { step
-      -- We DON'T update the material amounts, they are customised by the user
-        | transport = updateAffectationAmounts amountRatio transport
-        , wasteTreatment = updateAffectationAmounts amountRatio wasteTreatment
-        , energy = updateAffectationAmounts amountRatio energy
-        , processing = updateAffectationAmounts amountRatio processing
-    }
+updatePlantAmounts : Float -> Items -> Items
+updatePlantAmounts amountRatio items =
+    let
+        ingredientOrMaterial =
+            filterItemByCategory Process.Material items
+                ++ filterItemByCategory Process.Ingredient items
+    in
+    items
+        |> List.map
+            (\item ->
+                -- We DON'T update the ingredient and material amounts, they are customised by the user
+                if List.member item ingredientOrMaterial then
+                    item
+
+                else
+                    { item | amount = item.amount * amountRatio }
+            )
 
 
-updateAffectationAmounts : Float -> Items -> Items
-updateAffectationAmounts amountRatio items =
+updateItemsAmounts : Float -> Items -> Items
+updateItemsAmounts amountRatio items =
     items
         |> List.map
             (\item ->
@@ -466,7 +474,7 @@ updatePlantTransport originalProduct processes impactDefinitions countryCode dis
         -- If we changed the recipe, we don't want the default transports, with want the default transports
         -- with the updated amounts corresponding to the new recipe weight
         defaultTransportWithAjustedWeight =
-            updateAffectationAmounts amountRatio defaultTransport
+            updateItemsAmounts amountRatio defaultTransport
 
         impacts =
             Impact.impactsFromDefinitons impactDefinitions
