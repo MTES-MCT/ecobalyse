@@ -233,7 +233,6 @@ viewSidebar session { definition, trigram, totalImpact } { original, product } =
         finalWeight =
             amountRatio
 
-        -- Product.getWeightAtStep product.consumer
         impactPerKg =
             totalImpact / finalWeight
 
@@ -772,9 +771,6 @@ viewSteps itemViewDataConfig product =
 viewStep : String -> ItemViewDataConfig -> Product.Step -> Html Msg
 viewStep label ({ definition, trigram } as itemViewDataConfig) step =
     let
-        stepWeight =
-            Product.getWeightAtStep step
-
         stepImpact =
             Product.getStepImpact trigram step
 
@@ -784,7 +780,7 @@ viewStep label ({ definition, trigram } as itemViewDataConfig) step =
     div []
         [ div [ class "d-flex align-items-center fs-7" ]
             [ span [ class "w-50 text-end p-2" ]
-                [ stepWeight
+                [ step.mainItem.amount
                     |> Format.formatRichFloat 3 "kg"
                 ]
             , span [ class "text-center" ]
@@ -815,16 +811,14 @@ viewStep label ({ definition, trigram } as itemViewDataConfig) step =
                     , div [ class "col-3 text-end h5 m-0 text-nowrap overflow-hidden" ]
                         [ Format.formatImpactFloat definition 0 stepImpact ]
                     ]
-                , case Product.getMainItemComment step of
-                    Just comment ->
-                        div [ class "fs-7 text-muted mt-1" ] [ text comment ]
+                , if String.isEmpty step.mainItem.comment then
+                    div [ class "fs-7 text-muted mt-1" ] [ text step.mainItem.comment ]
 
-                    Nothing ->
-                        text ""
+                  else
+                    text ""
                 ]
             , step.items
-                |> List.filter (.mainItem >> not)
-                |> toItemViewDataList itemViewDataConfig stepWeight
+                |> toItemViewDataList itemViewDataConfig step.mainItem.amount
                 |> List.map viewItemDetails
                 |> ul [ class "list-group list-group-flush" ]
             ]

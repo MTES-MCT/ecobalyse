@@ -13,12 +13,10 @@ module Data.Food.Product exposing
     , findProductByName
     , formatItem
     , getAmountRatio
-    , getMainItemComment
     , getStepImpact
     , getStepTransports
     , getTotalImpact
     , getWeightAtPlant
-    , getWeightAtStep
     , listIngredientProcesses
     , listIngredients
     , listProcessingProcesses
@@ -221,7 +219,6 @@ decodeProducts processes =
 getStepImpact : Impact.Trigram -> Step -> Float
 getStepImpact trigram step =
     step.items
-        |> List.filter (.mainItem >> not)
         |> List.foldl
             (\item total ->
                 let
@@ -232,14 +229,6 @@ getStepImpact trigram step =
                 total + (item.amount * impact)
             )
             0
-
-
-getMainItemComment : Step -> Maybe String
-getMainItemComment step =
-    step.items
-        |> List.filter .mainItem
-        |> List.head
-        |> Maybe.map .comment
 
 
 getTotalImpact : Impact.Trigram -> Product -> Float
@@ -272,17 +261,13 @@ transportModes =
 
 getStepTransports : Step -> { air : Length, rail : Length, road : Length, sea : Length }
 getStepTransports step =
-    let
-        stepWeight =
-            getWeightAtStep step
-    in
     step.items
         |> List.foldl
             (\{ amount, process } acc ->
                 let
                     distanceToAdd =
                         if process.unit == "t/km" then
-                            amount / stepWeight * 1000
+                            amount / step.mainItem.amount * 1000
 
                         else
                             amount
@@ -310,22 +295,12 @@ getStepTransports step =
             }
 
 
-getWeightAtStep : Step -> Float
-getWeightAtStep step =
-    -- At any given step (that's not "at plant"), we take the first main item we find, and use its
-    -- weight to know how much we transport from the previous step.
-    step.material
-        |> List.filter .mainItem
-        |> List.head
-        |> Maybe.map .amount
-        |> Maybe.withDefault 0
-
-
 getWeightAtPlant : Step -> Float
 getWeightAtPlant step =
     -- At plant we don't really have a main item that we could use for the weight, so instead
     -- sum the weight of all the materials.
-    step.material
+    step.items
+        |> List.filter (.process >> .category >> (==) Process.Ingredient)
         |> List.map .amount
         |> List.sum
 
