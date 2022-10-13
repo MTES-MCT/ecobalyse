@@ -319,12 +319,12 @@ view ({ foodDb, db } as session) ({ selectedProduct, impact, selectedItem, selec
                             ]
                         , div [ class "col-lg-8 order-lg-1 d-flex flex-column" ]
                             [ viewProductSelector selectedProduct foodDb.products
-                            , viewMaterial itemViewDataConfig product.plant
+                            , viewPlantMaterial itemViewDataConfig product.plant
                             , viewIngredientSelector selectedItem product foodDb.products
-                            , viewEnergy itemViewDataConfig product.plant
-                            , viewProcessing itemViewDataConfig product.plant
-                            , viewTransport itemViewDataConfig product.plant selectedCountry db.countries
-                            , viewWaste itemViewDataConfig product.plant
+                            , viewPlantEnergy itemViewDataConfig product.plant
+                            , viewPlantProcessing itemViewDataConfig product.plant
+                            , viewPlantTransport itemViewDataConfig product.plant selectedCountry db.countries
+                            , viewPlantWaste itemViewDataConfig product.plant
                             , button
                                 [ class "btn btn-outline-primary w-100 mt-3"
                                 , onClick Reset
@@ -567,13 +567,14 @@ itemSelector maybeSelectedItem event =
         >> Html.Keyed.node "select" [ class "form-select", onInput (maybeToProcessName >> event) ]
 
 
-viewMaterial : ItemViewDataConfig -> Product.Step -> Html Msg
-viewMaterial itemViewDataConfig step =
+viewPlantMaterial : ItemViewDataConfig -> Product.Items -> Html Msg
+viewPlantMaterial itemViewDataConfig items =
     let
         stepWeight =
-            Product.getWeightAtPlant step
+            Product.getWeightAtPlant items
     in
-    step.material
+    items
+        |> Product.filterItemByCategory Process.Material
         -- FIXME : toItemViewDataList will order the items by impact, and we want that. But it's not ergonomic
         -- while we have range sliders (and changing the value makes the item jump around)
         -- So uncomment the following line and remove the next one when we finally remove the range sliders ;)
@@ -612,13 +613,14 @@ viewMaterial itemViewDataConfig step =
         |> viewCategory (text "Ingrédients")
 
 
-viewEnergy : ItemViewDataConfig -> Product.Step -> Html Msg
-viewEnergy itemViewDataConfig step =
+viewPlantEnergy : ItemViewDataConfig -> Product.Items -> Html Msg
+viewPlantEnergy itemViewDataConfig items =
     let
         stepWeight =
-            Product.getWeightAtPlant step
+            Product.getWeightAtPlant items
     in
-    step.energy
+    items
+        |> Product.filterItemByCategory Process.Energy
         |> toItemViewDataList itemViewDataConfig stepWeight
         |> List.map
             (\({ item } as itemViewData) ->
@@ -633,13 +635,14 @@ viewEnergy itemViewDataConfig step =
         |> viewCategory (text "Énergie")
 
 
-viewProcessing : ItemViewDataConfig -> Product.Step -> Html Msg
-viewProcessing itemViewDataConfig step =
+viewPlantProcessing : ItemViewDataConfig -> Product.Items -> Html Msg
+viewPlantProcessing itemViewDataConfig items =
     let
         stepWeight =
-            Product.getWeightAtPlant step
+            Product.getWeightAtPlant items
     in
-    step.processing
+    items
+        |> Product.filterItemByCategory Process.Processing
         |> toItemViewDataList itemViewDataConfig stepWeight
         |> List.map
             (\({ item } as itemViewData) ->
@@ -654,8 +657,8 @@ viewProcessing itemViewDataConfig step =
         |> viewCategory (text "Procédé de transformation")
 
 
-viewTransport : ItemViewDataConfig -> Product.Step -> Country.Code -> List Country -> Html Msg
-viewTransport itemViewDataConfig step selectedCountry countries =
+viewPlantTransport : ItemViewDataConfig -> Product.Items -> Country.Code -> List Country -> Html Msg
+viewPlantTransport itemViewDataConfig items selectedCountry countries =
     let
         countrySelector =
             Views.CountrySelect.view
@@ -672,9 +675,10 @@ viewTransport itemViewDataConfig step selectedCountry countries =
                 ]
 
         stepWeight =
-            Product.getWeightAtPlant step
+            Product.getWeightAtPlant items
     in
-    step.transport
+    items
+        |> Product.filterItemByCategory Process.Transport
         |> toItemViewDataList itemViewDataConfig stepWeight
         |> List.map
             (\({ item } as itemViewData) ->
@@ -689,13 +693,14 @@ viewTransport itemViewDataConfig step selectedCountry countries =
         |> viewCategory header
 
 
-viewWaste : ItemViewDataConfig -> Product.Step -> Html Msg
-viewWaste itemViewDataConfig step =
+viewPlantWaste : ItemViewDataConfig -> Product.Items -> Html Msg
+viewPlantWaste itemViewDataConfig items =
     let
         stepWeight =
-            Product.getWeightAtPlant step
+            Product.getWeightAtPlant items
     in
-    step.wasteTreatment
+    items
+        |> Product.filterItemByCategory Process.WasteTreatment
         |> toItemViewDataList itemViewDataConfig stepWeight
         |> List.map
             (\({ item } as itemViewData) ->

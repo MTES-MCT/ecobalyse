@@ -1,6 +1,7 @@
 module Data.Food.Product exposing
     ( Amount
     , Item
+    , Items
     , Product
     , ProductName
     , Products
@@ -9,6 +10,7 @@ module Data.Food.Product exposing
     , decodeProducts
     , defaultCountry
     , emptyProducts
+    , filterItemByCategory
     , findProductByName
     , formatItem
     , getAmountRatio
@@ -91,6 +93,7 @@ type alias Item =
 
 
 type alias Items =
+    -- TODO : remove this type alias
     List Item
 
 
@@ -287,11 +290,11 @@ getStepTransports step =
             }
 
 
-getWeightAtPlant : Step -> Float
-getWeightAtPlant step =
+getWeightAtPlant : Items -> Float
+getWeightAtPlant items =
     -- At plant we don't really have a main item that we could use for the weight, so instead
     -- sum the weight of all the materials.
-    step.items
+    items
         |> filterItemByCategory Process.Ingredient
         |> List.map .amount
         |> List.sum
