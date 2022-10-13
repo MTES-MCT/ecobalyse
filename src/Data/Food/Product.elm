@@ -92,6 +92,13 @@ type alias Item =
     }
 
 
+type alias MainItem =
+    { amount : Amount
+    , comment : String
+    , processName : ProcessName
+    }
+
+
 type alias Items =
     -- TODO : remove this type alias
     List Item
@@ -122,7 +129,7 @@ A step (at consumer, at plant...) has several categories (material, transport...
 A Product is composed of several steps.
 -}
 type alias Step =
-    { mainItem : Item
+    { mainItem : MainItem
     , items : Items
     }
 
@@ -190,6 +197,16 @@ decodeItem processes =
         |> Pipe.required "processName" (linkProcess processes)
 
 
+decodeMainItem : Decoder MainItem
+decodeMainItem =
+    Decode.succeed MainItem
+        -- FIXME: decodeAmout should be called with the unit decoded from
+        -- JSON in decodeProcess, so we could have properly typed values
+        |> Pipe.required "amount" decodeAmount
+        |> Pipe.required "comment" Decode.string
+        |> Pipe.required "processName" (Decode.map Process.nameFromString Decode.string)
+
+
 decodeItems : List Process -> Decoder Items
 decodeItems processes =
     Decode.list (decodeItem processes)
@@ -198,7 +215,7 @@ decodeItems processes =
 decodeStep : List Process -> Decoder Step
 decodeStep processes =
     Decode.succeed Step
-        |> Pipe.required "mainItem" (decodeItem processes)
+        |> Pipe.required "mainItem" decodeMainItem
         |> Pipe.required "items" (decodeItems processes)
 
 
@@ -209,7 +226,7 @@ decodeProduct processes =
         |> Pipe.required "supermarket" (decodeStep processes)
         |> Pipe.required "distribution" (decodeStep processes)
         |> Pipe.required "packaging" (decodeStep processes)
-        |> Pipe.required "plant" (decodeItems processes)
+        |> Pipe.requiredAt [ "plant", "items" ] (decodeItems processes)
 
 
 decodeProducts : List Process -> Decoder Products
