@@ -1,5 +1,6 @@
 module Data.Food.Process exposing
-    ( Code
+    ( Category(..)
+    , Code
     , Process
     , ProcessName
     , codeFromString
