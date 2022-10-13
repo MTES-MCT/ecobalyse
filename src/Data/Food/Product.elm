@@ -107,6 +107,16 @@ filterItemByCategory category items =
             )
 
 
+excludeItemByCategory : Process.Category -> Items -> Items
+excludeItemByCategory category items =
+    items
+        |> List.filter
+            (.process
+                >> .category
+                >> (/=) category
+            )
+
+
 {-| Step
 A step (at consumer, at plant...) has several categories (material, transport...) containing several items
 A Product is composed of several steps.
@@ -456,7 +466,8 @@ updatePlantTransport : Product -> List Process -> List Impact.Definition -> Coun
 updatePlantTransport originalProduct processes impactDefinitions countryCode distances ({ plant } as product) =
     let
         defaultTransport =
-            originalProduct.plant.transport
+            originalProduct.plant
+                |> filterItemByCategory Process.Transport
 
         originalPlantWeight =
             getWeightAtPlant originalProduct.plant
@@ -466,11 +477,6 @@ updatePlantTransport originalProduct processes impactDefinitions countryCode dis
 
         amountRatio =
             plantWeight / originalPlantWeight
-
-        -- If we changed the recipe, we don't want the default transports, with want the default transports
-        -- with the updated amounts corresponding to the new recipe weight
-        defaultTransportWithAjustedWeight =
-            updateItemsAmounts amountRatio defaultTransport
 
         impacts =
             Impact.impactsFromDefinitons impactDefinitions
@@ -501,20 +507,25 @@ updatePlantTransport originalProduct processes impactDefinitions countryCode dis
                                     { amount = toTonKm distance
                                     , comment = ""
                                     , process = process
-                                    , mainItem = False
                                     }
                                 )
                     )
                 |> Result.withDefault []
+
+        updatedTransports =
+            (if countryCode == defaultCountry then
+                defaultTransport
+
+             else
+                transports
+            )
+                |> -- If we changed the recipe, we don't want the default transports, we want the default transports
+                   -- with the updated amounts corresponding to the new recipe weight
+                   updateItemsAmounts amountRatio
     in
     { product
         | plant =
-            { plant
-                | transport =
-                    if countryCode == defaultCountry then
-                        defaultTransportWithAjustedWeight
-
-                    else
-                        transports
-            }
+            plant
+                |> excludeItemByCategory Process.Transport
+                |> (++) updatedTransports
     }
