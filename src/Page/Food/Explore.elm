@@ -378,7 +378,7 @@ viewIngredientSelector selectedItem product products =
     div [ class "row pt-3 gap-2 gap-md-0" ]
         [ div [ class "col-md-8" ]
             [ products
-                |> Product.listIngredients
+                |> Product.listIngredientNames
                 |> List.filter
                     (\processName ->
                         -- Exclude already used materials

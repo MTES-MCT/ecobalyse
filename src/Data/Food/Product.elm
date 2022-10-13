@@ -16,7 +16,7 @@ module Data.Food.Product exposing
     , getStepTransports
     , getTotalImpact
     , getWeightAtPlant
-    , listIngredientProcesses
+    , listIngredientNames
     , listIngredients
     , listProcessingProcesses
     , productNameToString
@@ -92,6 +92,16 @@ type alias Item =
 
 type alias Items =
     List Item
+
+
+filterItemByCategory : Process.Category -> Items -> Items
+filterItemByCategory category items =
+    items
+        |> List.filter
+            (.process
+                >> .category
+                >> (==) category
+            )
 
 
 {-| Step
@@ -282,37 +292,9 @@ getWeightAtPlant step =
     -- At plant we don't really have a main item that we could use for the weight, so instead
     -- sum the weight of all the materials.
     step.items
-        |> List.filter (.process >> .category >> (==) Process.Ingredient)
+        |> filterItemByCategory Process.Ingredient
         |> List.map .amount
         |> List.sum
-
-
-listIngredients : Products -> List ProcessName
-listIngredients products =
-    products
-        |> listIngredientProcesses
-        |> List.map .name
-
-
-listIngredientProcesses : Products -> List Process
-listIngredientProcesses =
-    -- List all the "material" entries from the "at plant" step
-    listProcesses (.plant >> .material)
-
-
-
--- FIXME: should be useful in UI for selecting a processing
--- listProcessings : Products -> List ProcessName
--- listProcessings products =
---     products
---         |> listProcessingProcesses
---         |> List.map .name
-
-
-listProcessingProcesses : Products -> List Process
-listProcessingProcesses =
-    -- List all the "processing" entries from the "at plant" step
-    listProcesses (.plant >> .processing)
 
 
 listProcesses : (Product -> Items) -> Products -> List Process
@@ -322,6 +304,25 @@ listProcesses getStepItems products =
         |> List.concatMap (getStepItems >> List.map .process)
         |> LE.uniqueBy (.name >> Process.nameToString)
         |> List.sortBy (.name >> Process.nameToString)
+
+
+listIngredientNames : Products -> List ProcessName
+listIngredientNames products =
+    products
+        |> listIngredients
+        |> List.map .name
+
+
+listIngredients : Products -> List Process
+listIngredients =
+    -- List all the "material" entries from the "at plant" step
+    listProcesses (.plant >> filterItemByCategory Process.Material)
+
+
+listProcessingProcesses : Products -> List Process
+listProcessingProcesses =
+    -- List all the "processing" entries from the "at plant" step
+    listProcesses (.plant >> filterItemByCategory Process.Processing)
 
 
 addMaterial : List Process -> ProcessName -> Product -> Result String Product

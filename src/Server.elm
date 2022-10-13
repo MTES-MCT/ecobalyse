@@ -155,7 +155,7 @@ handleRequest ({ foodDb, textileDb } as dbs) request =
 
         Just (Route.Get Route.FoodIngredientList) ->
             foodDb.products
-                |> FoodProduct.listIngredientProcesses
+                |> FoodProduct.listIngredients
                 |> encodeFoodProcessList
                 |> sendResponse 200 request
 
