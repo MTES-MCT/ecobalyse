@@ -92,12 +92,8 @@ update ({ foodDb, db } as session) msg ({ currentProductInfo } as model) =
                         productWithAddedItem =
                             selected.product
                                 |> Product.addMaterial foodDb.processes selectedItem
-
-                        productWithPefScore =
-                            productWithAddedItem
-                                |> Result.map (Product.computePefImpact session.db.impacts)
                     in
-                    case productWithPefScore of
+                    case productWithAddedItem of
                         Ok updatedProduct ->
                             ( { model
                                 | currentProductInfo = Just { selected | product = updatedProduct }
@@ -122,13 +118,9 @@ update ({ foodDb, db } as session) msg ({ currentProductInfo } as model) =
                 productWithUpdatedTransport =
                     selected.product
                         |> Product.updatePlantTransport selected.original foodDb.processes db.impacts countryCode db.transports
-
-                productWithPefScore =
-                    productWithUpdatedTransport
-                        |> Product.computePefImpact session.db.impacts
             in
             ( { model
-                | currentProductInfo = Just { selected | product = productWithPefScore }
+                | currentProductInfo = Just { selected | product = productWithUpdatedTransport }
                 , selectedCountry = countryCode
               }
             , session
@@ -140,13 +132,9 @@ update ({ foodDb, db } as session) msg ({ currentProductInfo } as model) =
                 productWithoutItem =
                     selected.product
                         |> Product.removeMaterial processName
-
-                productWithPefScore =
-                    productWithoutItem
-                        |> Product.computePefImpact session.db.impacts
             in
             ( { model
-                | currentProductInfo = Just { selected | product = productWithPefScore }
+                | currentProductInfo = Just { selected | product = productWithoutItem }
               }
             , session
             , Cmd.none
@@ -155,16 +143,11 @@ update ({ foodDb, db } as session) msg ({ currentProductInfo } as model) =
         ( DbLoaded (RemoteData.Success loadedDb), _ ) ->
             case Product.findProductByName tunaPizza loadedDb.products of
                 Ok product ->
-                    let
-                        productWithPefScore =
-                            product
-                                |> Product.computePefImpact session.db.impacts
-                    in
                     ( { model
                         | currentProductInfo =
                             Just
-                                { product = productWithPefScore
-                                , original = productWithPefScore
+                                { product = product
+                                , original = product
                                 }
                       }
                     , { session | foodDb = loadedDb }
@@ -199,16 +182,11 @@ update ({ foodDb, db } as session) msg ({ currentProductInfo } as model) =
         ( ProductSelected selectedProduct, _ ) ->
             case Product.findProductByName selectedProduct foodDb.products of
                 Ok product ->
-                    let
-                        productWithPefScore =
-                            product
-                                |> Product.computePefImpact session.db.impacts
-                    in
                     ( { model
                         | currentProductInfo =
                             Just
-                                { product = productWithPefScore
-                                , original = productWithPefScore
+                                { product = product
+                                , original = product
                                 }
                         , selectedProduct = selectedProduct
                         , selectedCountry = Product.defaultCountry

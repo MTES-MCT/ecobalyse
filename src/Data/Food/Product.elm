@@ -7,7 +7,6 @@ module Data.Food.Product exposing
     , Step
     , addMaterial
     , computeItemPefImpact
-    , computePefImpact
     , decodeProducts
     , defaultCountry
     , emptyProducts
@@ -156,28 +155,6 @@ type alias Products =
 emptyProducts : Products
 emptyProducts =
     AnyDict.empty productNameToString
-
-
-computePefImpact : List Impact.Definition -> Product -> Product
-computePefImpact definitions product =
-    { product
-        | consumer = computeStepPefImpact definitions product.consumer
-        , supermarket = computeStepPefImpact definitions product.supermarket
-        , distribution = computeStepPefImpact definitions product.distribution
-        , packaging = computeStepPefImpact definitions product.packaging
-        , plant = computeStepPefImpact definitions product.plant
-    }
-
-
-computeStepPefImpact : List Impact.Definition -> Step -> Step
-computeStepPefImpact definitions step =
-    { step
-        | material = computeItemsPefImpact definitions step.material
-        , transport = computeItemsPefImpact definitions step.transport
-        , wasteTreatment = computeItemsPefImpact definitions step.wasteTreatment
-        , energy = computeItemsPefImpact definitions step.energy
-        , processing = computeItemsPefImpact definitions step.processing
-    }
 
 
 findProductByName : ProductName -> Products -> Result String Product
