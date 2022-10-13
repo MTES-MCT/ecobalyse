@@ -6,7 +6,6 @@ module Data.Food.Product exposing
     , Products
     , Step
     , addMaterial
-    , computeItemPefImpact
     , decodeProducts
     , defaultCountry
     , emptyProducts
@@ -93,23 +92,6 @@ type alias Item =
 
 type alias Items =
     List Item
-
-
-computeItemsPefImpact : List Impact.Definition -> Items -> Items
-computeItemsPefImpact definitions items =
-    items
-        |> List.map (computeItemPefImpact definitions)
-
-
-computeItemPefImpact : List Impact.Definition -> { a | process : Process } -> { a | process : Process }
-computeItemPefImpact definitions ({ process } as item) =
-    { item
-        | process =
-            { process
-                | impacts =
-                    Impact.updatePefImpact definitions process.impacts
-            }
-    }
 
 
 {-| Step
