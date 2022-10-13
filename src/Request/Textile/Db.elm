@@ -8,22 +8,9 @@ import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Process as Process exposing (Process)
 import Data.Textile.Product as Product exposing (Product)
 import Data.Transport as Transport exposing (Distances)
-import Json.Decode exposing (Decoder)
 import RemoteData exposing (WebData)
-import RemoteData.Http as Http exposing (defaultTaskConfig)
+import Request.Common exposing (getJson)
 import Task exposing (Task)
-
-
-taskConfig : Http.TaskConfig
-taskConfig =
-    -- drop ALL headers because Parcel's proxy messes with them
-    -- see https://stackoverflow.com/a/47840149/330911
-    { defaultTaskConfig | headers = [] }
-
-
-getJson : Decoder a -> String -> Task () (WebData a)
-getJson decoder file =
-    Http.getTaskWithConfig taskConfig ("data/" ++ file) decoder
 
 
 buildFromWebData :
