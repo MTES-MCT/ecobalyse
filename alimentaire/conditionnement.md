@@ -8,7 +8,7 @@ La troisième étape du paramétrage d'un produit alimentaire dans Ecobalyse est
 
 Le paramétrage se fait à travers :
 
-* le choix d'une liste de matières ==> en première approche, une seule matière peut être sélectionnée
+* le choix d'une liste de matières ==> en première approche, jusqu'à 5 matières différentes peuvent être sélectionnées)
 * pour chaque matière, le paramétrage de la masse mobilisée, exprimée en grammes (g) \[**A confirmer**]
 
 {% hint style="danger" %}
@@ -23,15 +23,9 @@ Une liste de **X** matières est ainsi constituée.
 
 ## Caractérisation de chaque matière
 
-La matière sélectionnée est caractérisée par :&#x20;
+Chaque matière sélectionnée est caractérisée :&#x20;
 
-* Masse (g)
-
-{% hint style="warning" %}
-La masse est exprimée en grammes (g) pour la configuration du conditionnement. Dans le calcul (cf. ci-après), c'est toutefois une masse en kg qui est considérée (kg). Une conversion est donc réalisée.
-{% endhint %}
-
-&#x20;
+* Masse (kg)&#x20;
 
 ## Calcul des impacts
 

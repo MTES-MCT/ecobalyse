@@ -12,7 +12,7 @@ La recette d'un produit, et donc le choix des ingrédients, représente généra
 
 Le paramétrage se fait à travers :
 
-* le choix d'une liste d'ingrédient ==> en première approche, jusqu'à 10 ingrédients différents peuvent être sélectionnés)
+* le choix d'une liste d'ingrédient ==> en première approche, jusqu'à 8 ingrédients différents peuvent être sélectionnés)
 * pour chaque ingrédient, le paramétrage de la masse mobilisée, exprimée en grammes (g)
 
 ## Liste d'ingrédients proposés
