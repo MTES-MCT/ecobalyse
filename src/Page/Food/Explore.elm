@@ -319,7 +319,7 @@ view ({ foodDb, db } as session) ({ selectedProduct, impact, selectedItem, selec
                             ]
                         , div [ class "col-lg-8 order-lg-1 d-flex flex-column" ]
                             [ viewProductSelector selectedProduct foodDb.products
-                            , viewPlantMaterial itemViewDataConfig product.plant
+                            , viewPlantIngredientsAndMaterials itemViewDataConfig product.plant
                             , viewIngredientSelector selectedItem product foodDb.products
                             , viewPlantEnergy itemViewDataConfig product.plant
                             , viewPlantProcessing itemViewDataConfig product.plant
@@ -567,14 +567,22 @@ itemSelector maybeSelectedItem event =
         >> Html.Keyed.node "select" [ class "form-select", onInput (maybeToProcessName >> event) ]
 
 
-viewPlantMaterial : ItemViewDataConfig -> Product.Items -> Html Msg
-viewPlantMaterial itemViewDataConfig items =
+viewPlantIngredientsAndMaterials : ItemViewDataConfig -> Product.Items -> Html Msg
+viewPlantIngredientsAndMaterials itemViewDataConfig items =
     let
         stepWeight =
             Product.getWeightAtPlant items
+
+        ingredients =
+            items
+                |> Product.filterItemByCategory Process.Ingredient
+
+        materials =
+            items
+                |> Product.filterItemByCategory Process.Material
     in
-    items
-        |> Product.filterItemByCategory Process.Material
+    ingredients
+        ++ materials
         -- FIXME : toItemViewDataList will order the items by impact, and we want that. But it's not ergonomic
         -- while we have range sliders (and changing the value makes the item jump around)
         -- So uncomment the following line and remove the next one when we finally remove the range sliders ;)
