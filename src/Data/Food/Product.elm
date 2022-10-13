@@ -415,13 +415,9 @@ updateProductAmounts originalWeight ({ consumer, supermarket, distribution, pack
 
 
 updateStepAmounts : Float -> Step -> Step
-updateStepAmounts amountRatio ({ material, transport, wasteTreatment, energy, processing } as step) =
+updateStepAmounts amountRatio ({ items } as step) =
     { step
-        | material = updateItemsAmounts amountRatio material
-        , transport = updateItemsAmounts amountRatio transport
-        , wasteTreatment = updateItemsAmounts amountRatio wasteTreatment
-        , energy = updateItemsAmounts amountRatio energy
-        , processing = updateItemsAmounts amountRatio processing
+        | items = updateItemsAmounts amountRatio items
     }
 
 
