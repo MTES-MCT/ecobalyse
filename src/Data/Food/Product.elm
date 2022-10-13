@@ -24,7 +24,6 @@ module Data.Food.Product exposing
     , listProcessingProcesses
     , productNameToString
     , removeMaterial
-    , stepToItems
     , stringToProductName
     , updateMaterialAmount
     , updatePlantTransport
@@ -219,18 +218,9 @@ decodeProducts processes =
 -- utilities
 
 
-stepToItems : Step -> Items
-stepToItems step =
-    -- Return a "flat" list of items
-    -- FIXME: find a way to validate that we're using all the important record properties
-    [ .transport, .wasteTreatment, .energy, .processing, .material ]
-        |> List.concatMap (\accessor -> accessor step)
-
-
 getStepImpact : Impact.Trigram -> Step -> Float
 getStepImpact trigram step =
-    step
-        |> stepToItems
+    step.items
         |> List.filter (.mainItem >> not)
         |> List.foldl
             (\item total ->
@@ -246,8 +236,7 @@ getStepImpact trigram step =
 
 getMainItemComment : Step -> Maybe String
 getMainItemComment step =
-    step
-        |> stepToItems
+    step.items
         |> List.filter .mainItem
         |> List.head
         |> Maybe.map .comment
@@ -287,8 +276,7 @@ getStepTransports step =
         stepWeight =
             getWeightAtStep step
     in
-    step
-        |> stepToItems
+    step.items
         |> List.foldl
             (\{ amount, process } acc ->
                 let
