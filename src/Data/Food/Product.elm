@@ -92,17 +92,11 @@ type alias Item =
     { amount : Amount
     , comment : String
     , process : Process
-    , mainItem : Bool
     }
 
 
 type alias Items =
     List Item
-
-
-emptyItems : Items
-emptyItems =
-    []
 
 
 computeItemsPefImpact : List Impact.Definition -> Items -> Items
@@ -127,11 +121,8 @@ A step (at consumer, at plant...) has several categories (material, transport...
 A Product is composed of several steps.
 -}
 type alias Step =
-    { material : Items
-    , transport : Items
-    , wasteTreatment : Items
-    , energy : Items
-    , processing : Items
+    { mainItem : Item
+    , items : Items
     }
 
 
@@ -140,7 +131,7 @@ type alias Product =
     , supermarket : Step
     , distribution : Step
     , packaging : Step
-    , plant : Step
+    , plant : Items
     }
 
 
@@ -218,22 +209,18 @@ decodeItem processes =
         |> Pipe.required "amount" decodeAmount
         |> Pipe.required "comment" Decode.string
         |> Pipe.required "processName" (linkProcess processes)
-        |> Pipe.optional "mainProcess" Decode.bool False
 
 
-decodeAffectation : List Process -> Decoder Items
-decodeAffectation processes =
+decodeItems : List Process -> Decoder Items
+decodeItems processes =
     Decode.list (decodeItem processes)
 
 
 decodeStep : List Process -> Decoder Step
 decodeStep processes =
     Decode.succeed Step
-        |> Pipe.optional "material" (decodeAffectation processes) emptyItems
-        |> Pipe.optional "transport" (decodeAffectation processes) emptyItems
-        |> Pipe.optional "waste treatment" (decodeAffectation processes) emptyItems
-        |> Pipe.optional "energy" (decodeAffectation processes) emptyItems
-        |> Pipe.optional "processing" (decodeAffectation processes) emptyItems
+        |> Pipe.required "mainItem" (decodeItem processes)
+        |> Pipe.required "items" (decodeItems processes)
 
 
 decodeProduct : List Process -> Decoder Product
@@ -243,7 +230,7 @@ decodeProduct processes =
         |> Pipe.required "supermarket" (decodeStep processes)
         |> Pipe.required "distribution" (decodeStep processes)
         |> Pipe.required "packaging" (decodeStep processes)
-        |> Pipe.required "plant" (decodeStep processes)
+        |> Pipe.required "plant" (decodeItems processes)
 
 
 decodeProducts : List Process -> Decoder Products
