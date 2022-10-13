@@ -341,13 +341,10 @@ addMaterial processes processName ({ plant } as product) =
                         { amount = amount
                         , comment = ""
                         , process = process
-                        , mainItem = False
                         }
 
                     withAddedItem =
-                        { plant
-                            | material = newItem :: plant.material
-                        }
+                        newItem :: plant
 
                     originalWeight =
                         getWeightAtPlant plant
@@ -365,18 +362,15 @@ updateMaterialAmount itemToUpdate amount ({ plant } as product) =
     in
     { product
         | plant =
-            { plant
-                | material =
-                    plant.material
-                        |> List.map
-                            (\item ->
-                                if item == itemToUpdate then
-                                    { item | amount = amount }
+            plant
+                |> List.map
+                    (\item ->
+                        if item == itemToUpdate then
+                            { item | amount = amount }
 
-                                else
-                                    item
-                            )
-            }
+                        else
+                            item
+                    )
     }
         |> updateProductAmounts originalWeight
 
@@ -388,10 +382,7 @@ removeMaterial itemToRemove ({ plant } as product) =
             getWeightAtPlant plant
     in
     { product
-        | plant =
-            { plant
-                | material = List.filter (\item -> item /= itemToRemove) plant.material
-            }
+        | plant = List.filter (\item -> item /= itemToRemove) plant
     }
         |> updateProductAmounts originalWeight
 
