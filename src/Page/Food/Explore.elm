@@ -822,8 +822,7 @@ viewStep label ({ definition, trigram } as itemViewDataConfig) step =
                     Nothing ->
                         text ""
                 ]
-            , step
-                |> Product.stepToItems
+            , step.items
                 |> List.filter (.mainItem >> not)
                 |> toItemViewDataList itemViewDataConfig stepWeight
                 |> List.map viewItemDetails
