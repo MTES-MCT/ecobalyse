@@ -62,57 +62,6 @@
     },
     "scopes": ["textile", "food"]
   },
-  "ccb": {
-    "source": {
-      "label": "Base Impacts",
-      "url": "https://base-impacts.ademe.fr/"
-    },
-    "label_en": "Climate change-Biogenic",
-    "label_fr": "Changement climatique - Biogénique",
-    "description_en": "Impact category considering **greenhouse gas (GHG) emissions** as a result of the **combustion or decomposition of organic material**, that is biomass and its derivatives.",
-    "description_fr": "Indicateur correspondant aux **émissions de gaz à effet de serre (GES)** provenant de la **combustion ou de la décomposition de matière organique** (bois, biomasse,...).\n\nCet indicateur se mesure en kg équivalent `CO₂`, le principal gaz à effet de serre.",
-    "unit_fr": "kg éq. CO₂",
-    "unit_en": "kg CO₂ eq",
-    "short_unit": "kgCO₂e",
-    "primary": false,
-    "quality": 1,
-    "pef": null,
-    "scopes": ["textile", "food"]
-  },
-  "ccf": {
-    "source": {
-      "label": "Base Impacts",
-      "url": "https://base-impacts.ademe.fr/"
-    },
-    "label_en": "Climate change-Fossil",
-    "label_fr": "Changement climatique - Fossile",
-    "description_en": "Impact category considering the **greenhouse gases (GHG) released as a result of the combustion of fossil fuels** (coal, gas, oil).",
-    "description_fr": "Indicateur correspondant aux **émissions de gaz à effet de serre (GES)** provenant de la **combustion d'énergies fossiles** (charbon, gaz, pétrole).\n\nIl se mesure en kg équivalent `CO₂`, le principal gaz à effet de serre.",
-    "unit_fr": "kg éq. CO₂",
-    "unit_en": "kg CO₂ eq",
-    "short_unit": "kgCO₂e",
-    "primary": false,
-    "quality": 1,
-    "pef": null,
-    "scopes": ["textile", "food"]
-  },
-  "ccl": {
-    "source": {
-      "label": "Base Impacts",
-      "url": "https://base-impacts.ademe.fr/"
-    },
-    "label_en": "Climate change-Land use",
-    "label_fr": "Changement climatique - Usage des sols",
-    "description_en": "Impact category related to **emissions and removals of greenhouse gases (GHG)** resulting from direct human-induced land use such as settlements and commercial uses, land-use change, and forestry activities.",
-    "description_fr": "Indicateur correspondant aux **émissions et aux absorptions de gaz à effet de serre (GES)** résultant de l'utilisation directe des terres par l'homme, comme les implantations humaines et les utilisations commerciales, le changement d'affectation des terres et les activités forestières.\n\nIl se mesure en kg équivalent `CO₂`, le principal gaz à effet de serre.",
-    "unit_fr": "kg éq. CO₂",
-    "unit_en": "kg CO₂ eq",
-    "short_unit": "kgCO₂e",
-    "primary": false,
-    "quality": 1,
-    "pef": null,
-    "scopes": ["textile", "food"]
-  },
   "fwe": {
     "source": {
       "label": "Base Impacts",

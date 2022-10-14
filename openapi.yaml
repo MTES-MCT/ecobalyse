@@ -128,9 +128,6 @@ paths:
           - "acd"
           - "ozd"
           - "cch"
-          - "ccb"
-          - "ccf"
-          - "ccl"
           - "fwe"
           - "swe"
           - "tre"
@@ -611,15 +608,6 @@ components:
             cch:
               type: number
               description: "Changement climatique (kg éq. CO2)"
-            ccb:
-              type: number
-              description: "Changement climatique - Biogénique (kg éq. CO2)"
-            ccf:
-              type: number
-              description: "Changement climatique - Fossile (kg éq. CO2)"
-            ccl:
-              type: number
-              description: "Changement climatique - Usage des sols (kg éq. CO2)"
             fwe:
               type: number
               description: "Eutrophisation eaux douces (kg éq. P)"
