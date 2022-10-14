@@ -167,17 +167,20 @@ decodeAmount =
     Decode.float
 
 
-linkProcess : List Process -> Decoder Process
+linkProcess : AnyDict String ProcessName Process -> Decoder Process
 linkProcess processes =
     Decode.string
         |> Decode.andThen
             (Process.nameFromString
-                >> Process.findByName processes
+                >> (\processName ->
+                        AnyDict.get processName processes
+                            |> Result.fromMaybe ("Procédé introuvable par nom : " ++ Process.nameToString processName)
+                   )
                 >> DE.fromResult
             )
 
 
-decodeItem : List Process -> Decoder Item
+decodeItem : AnyDict String ProcessName Process -> Decoder Item
 decodeItem processes =
     Decode.succeed Item
         -- FIXME: decodeAmout should be called with the unit decoded from
@@ -197,19 +200,19 @@ decodeMainItem =
         |> Pipe.required "processName" (Decode.map Process.nameFromString Decode.string)
 
 
-decodeItems : List Process -> Decoder Items
+decodeItems : AnyDict String ProcessName Process -> Decoder Items
 decodeItems processes =
     Decode.list (decodeItem processes)
 
 
-decodeStep : List Process -> Decoder Step
+decodeStep : AnyDict String ProcessName Process -> Decoder Step
 decodeStep processes =
     Decode.succeed Step
         |> Pipe.required "mainItem" decodeMainItem
         |> Pipe.required "items" (decodeItems processes)
 
 
-decodeProduct : List Process -> Decoder Product
+decodeProduct : AnyDict String ProcessName Process -> Decoder Product
 decodeProduct processes =
     Decode.succeed Product
         |> Pipe.required "consumer" (decodeStep processes)
@@ -221,7 +224,13 @@ decodeProduct processes =
 
 decodeProducts : List Process -> Decoder Products
 decodeProducts processes =
-    AnyDict.decode (\str _ -> ProductName str) nameToString (decodeProduct processes)
+    let
+        processesDict =
+            processes
+                |> List.map (\process -> ( process.name, process ))
+                |> AnyDict.fromList Process.nameToString
+    in
+    AnyDict.decode (\str _ -> ProductName str) nameToString (decodeProduct processesDict)
 
 
 
