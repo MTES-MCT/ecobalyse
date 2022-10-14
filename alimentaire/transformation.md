@@ -4,7 +4,7 @@ description: Choix des procédés de transformation du produit alimentaire modé
 
 # 🏭 Transformation
 
-La seconde étape du paramétrage d'un produit alimentaire dans Ecobalyse est le choix des procédés de transformation : cuisson industrielle, pasteurisation...
+La seconde étape du paramétrage d'un produit alimentaire dans Ecobalyse est le choix des procédés de transformation : cuisson, mise en boîte ...
 
 Le paramétrage se fait à travers :&#x20;
 
@@ -21,7 +21,7 @@ Dans un second temps, la masse mobilisée pour le procédé de transformation po
 
 ## Liste des procédés de transformation proposés
 
-Les procédés de transformation proposés sont l'ensemble des proposés mobilisés entrant pour les \~2800 produits CIQUAL référencés dans la base Ecobalyse.
+Les procédés de transformation proposés sont l'ensemble des proposés mobilisés entrant pour les \~2600 produits CIQUAL référencés dans la base Ecobalyse.
 
 En termes ACV, il s'agit des procédés _at plant,_ relevant de la catégorie _processing_. à l'exception des procédés qui correspondent à une opération de transformation _(cooking, pasteurisation...)._
 
@@ -31,9 +31,13 @@ Un choix de 12 procédés de transformation est ainsi proposé : Mise en conserv
 
 Chaque procédé de transformation est caractérisé par :&#x20;
 
-* Masse (kg)
+* Masse (g)
 
 La masse est considérée en sortie de procédé de transformation \[_**à confirmer**_]
+
+{% hint style="warning" %}
+La masse est exprimée en grammes (g) pour la configuration du conditionnement. Dans le calcul (cf. ci-après), c'est toutefois une masse en kg qui est considérée (kg). Une conversion est donc réalisée.
+{% endhint %}
 
 ## Calcul des impacts
 
