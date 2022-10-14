@@ -4,7 +4,7 @@ Pour évaluer l'impact de la fin de vie on se base sur le PEFCR de la commission
 
 Il est détaillé sur la figure suivante les différents scénarios considérés pour la fin de vie d'un vêtement.
 
-![PEFCR v1.3 p121](<../.gitbook/assets/image (5).png>)
+![PEFCR v1.3 p121](<../.gitbook/assets/image (5) (1).png>)
 
 
 

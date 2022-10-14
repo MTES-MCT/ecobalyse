@@ -16,7 +16,7 @@
 
 \_\_:flag\_um: _Life Cycle Assessment (or Analysis)_ is a **methodology** for **assessing environmental impacts** associated with all the stages of the life cycle of a commercial product, process, or service ([source](https://en.wikipedia.org/wiki/Life-cycle\_assessment))
 
-![© EU JRC Reference Report ILCD Handbook](<.gitbook/assets/image (3).png>)
+![© EU JRC Reference Report ILCD Handbook](.gitbook/assets/image.png)
 
 ### LCI
 

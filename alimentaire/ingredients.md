@@ -17,14 +17,18 @@ Le paramétrage se fait à travers :
 
 ## Liste d'ingrédients proposés
 
-Les ingrédients proposés sont l'ensemble des ingrédients entrant dans la composition des \~2800 produits CIQUAL référencés dans la base Ecobalyse.
+Les ingrédients proposés sont l'ensemble des ingrédients entrant dans la composition des \~2600 produits CIQUAL référencés dans la base Ecobalyse.
 
-En termes ACV, il s'agit des procédés _at plant,_ à l'exception des procédés qui correspondent à une opération de transformation _(cooking, pasteurisation...)._
+Pour établir la liste des ingrédients, voilà les critères que l'on utilise :
 
-Une liste de \~600 ingrédients est ainsi établie et proposée pour paramétrer un produit alimentaire.
+* process utilisé dans un produit CIQUAL au niveau `at plant` ou `at packaging`
+* de catégorie `material`
+* de catégorie\_tag `Food`
+
+Une liste de \~1400 ingrédients est ainsi établie et proposée pour paramétrer un produit alimentaire.
 
 {% hint style="danger" %}
-En première approche, la liste des 600 ingrédients ne fait l'objet d'aucun tri. On y trouve néanmoins :&#x20;
+En première approche, la liste des 1400 ingrédients ne fait l'objet d'aucun tri. On y trouve néanmoins :&#x20;
 
 * différentes versions d'un même ingrédient (tomate ES, tomate IT...)
 * des produits bruts (olives) et déjà transformés (huile d'olive)
