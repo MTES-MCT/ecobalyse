@@ -8,7 +8,7 @@ La troisième étape du paramétrage d'un produit alimentaire dans Ecobalyse est
 
 Le paramétrage se fait à travers :
 
-* le choix d'une liste de matières ==> en première approche, jusqu'à 5 matières différentes peuvent être sélectionnées)
+* le choix d'une liste de matières ==> en première approche, une seule matière peut être sélectionnée
 * pour chaque matière, le paramétrage de la masse mobilisée, exprimée en grammes (g) \[**A confirmer**]
 
 {% hint style="danger" %}
@@ -17,15 +17,35 @@ Dans la modélisation des produits CIQUAL de la base Agribalyse, des procédés 
 
 ## Liste de matières proposées
 
-La matières proposées sont les matières proposées à l'étape "at packaging" dans la modélisation des produits CIQUAL de la base Agribalyse.
+Les matières proposées sont dans la documentation d'agribalyse&#x20;
 
-Une liste de **X** matières est ainsi constituée.
+<figure><img src="../.gitbook/assets/image.png" alt=""><figcaption><p>Methodology AGB 3.0- 20200528_ANNEXES-CLEAN_vf.pdf, p205</p></figcaption></figure>
+
+La liste complète est :&#x20;
+
+| steel      | Steel, unalloyed {RER}\| steel production, converter, unalloyed \| Cut-off, S - Copied from Ecoinvent                                           |
+| ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| ps         | Polystyrene, expandable {RER}\| production \| Cut-off, S - Copied from Ecoinvent                                                                |
+| glass      | Packaging glass, white {RER w/o CH+DE}\| production \| Cut-off, S - Copied from Ecoinvent                                                       |
+| pp         | Polypropylene, granulate {RER}\| production \| Cut-off, S - Copied from Ecoinvent                                                               |
+| cardboard  | Corrugated board box {RER}\| production \| Cut-off, S - Copied from Ecoinvent                                                                   |
+| paper      | Kraft paper, unbleached {RER}\| production \| Cut-off, S - Copied from Ecoinvent                                                                |
+| pvc        | Polyvinylchloride, suspension polymerised {RER}\| polyvinylchloride production, suspension polymerisation \| Cut-off, S - Copied from Ecoinvent |
+| pet-bottle | Polyethylene terephthalate, granulate, bottle grade {RER}\| production \| Cut-off, S - Copied from Ecoinvent                                    |
+| hdpe       | Polyethylene, high density, granulate {RER}\| production \| Cut-off, S - Copied from Ecoinvent                                                  |
+| ldpe       | Packaging film, low density polyethylene {RER}\| production \| Cut-off, S - Copied from Ecoinvent                                               |
 
 ## Caractérisation de chaque matière
 
-Chaque matière sélectionnée est caractérisée :&#x20;
+La matière sélectionnée est caractérisée par :&#x20;
 
-* Masse (kg)&#x20;
+* Masse (g)
+
+{% hint style="warning" %}
+La masse est exprimée en grammes (g) pour la configuration du conditionnement. Dans le calcul (cf. ci-après), c'est toutefois une masse en kg qui est considérée (kg). Une conversion est donc réalisée.
+{% endhint %}
+
+&#x20;
 
 ## Calcul des impacts
 
