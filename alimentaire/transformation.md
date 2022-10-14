@@ -21,11 +21,20 @@ Dans un second temps, la masse mobilisée pour le procédé de transformation po
 
 ## Liste des procédés de transformation proposés
 
-Les procédés de transformation proposés sont l'ensemble des proposés mobilisés entrant pour les \~2600 produits CIQUAL référencés dans la base Ecobalyse.
 
-En termes ACV, il s'agit des procédés _at plant,_ relevant de la catégorie _processing_. à l'exception des procédés qui correspondent à une opération de transformation _(cooking, pasteurisation...)._
 
-Un choix de 12 procédés de transformation est ainsi proposé : Mise en conserve, Thermoformage, Evaporation d'eau, Cuisson industrielle, Abattage, Extrusion du plastique, de l'acier ou de l'aluminium, Extraction du sucre, Production de poudre de lait...
+Pour établir la liste des procédés de transformation, voilà les critères que l'on utilise :
+
+* process utilisé dans un produit CIQUAL
+* de catégorie `processing`
+* ne produisant pas un ingrédient de base (viande, lait, …). Dans ce cas on part du principe que l’utilisateur utilisera directement l’ingrédient de base (viande, lait, …) dans sa recette
+
+Voilà la liste des procédés de transformation retenus
+
+| Cooking, industrial, 1kg of cooked product/ FR U                      |
+| --------------------------------------------------------------------- |
+| Mixing, processing, at plant \\"dummy process\\                       |
+| Canning fruits or vegetables, industrial, 1kg of canned product/ FR U |
 
 ## Caractérisation du procédé de transformation
 
