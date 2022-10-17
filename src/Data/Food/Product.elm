@@ -354,15 +354,12 @@ listProcessingProcesses =
     listProcesses (.plant >> filterItemByCategory Process.Processing)
 
 
-addMaterial : List Process -> ProcessName -> Product -> Result String Product
-addMaterial processes processName ({ plant } as product) =
+addMaterial : List Process -> ProcessName -> Float -> Product -> Result String Product
+addMaterial processes processName amount ({ plant } as product) =
     Process.findByName processes processName
         |> Result.map
             (\process ->
                 let
-                    amount =
-                        1.0
-
                     newItem =
                         { amount = amount
                         , comment = ""
