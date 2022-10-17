@@ -47,13 +47,16 @@ def fill_processes(processes, activity):
     ]
 
     # Useful info like the category_tags and comment are in the production exchange
-    prod_exchange = list(activity.production())[0]    
+    prod_exchange = list(activity.production())[0]
     processes[activity]["category_tags"] = prod_exchange._data["categories"]
     processes[activity]["comment"] = prod_exchange._data["comment"]
 
     # For the category we use the "Category type" attribute (eg. material, transport, waste treatment,...)
     # except for the Category type "material"  with a "Food" category_tag, we categorize those as "ingredient"
-    if (activity._data["simapro metadata"]["Category type"] == "material" and "Food" in processes[activity]["category_tags"]):
+    if (
+        activity._data["simapro metadata"]["Category type"] == "material"
+        and "Food" in processes[activity]["category_tags"]
+    ):
         processes[activity]["category"] = "ingredient"
     else:
         processes[activity]["category"] = activity._data["simapro metadata"][
@@ -78,7 +81,7 @@ def build_product_tree(ciqual_products, max_products=None):
 
         # Build the products tree and the processes list for this ciqual product
         for step in ["consumer", "supermarket", "distribution", "packaging", "plant"]:
-            products[product_name][step] = {}
+            products[product_name][step] = {"items": []}
             next_central_exchange = None
             # Iterate on all technosphere exchanges (we ignore biosphere exchanges)
             for exchange in current_central_activity.technosphere():
@@ -100,6 +103,7 @@ def build_product_tree(ciqual_products, max_products=None):
                     "comment": exchange._data["comment"],
                     "amount": exchange["amount"] * amount,
                 }
+                is_main_item = False
 
                 #  We're looking for the next central product to drill it down. For "Tomato at consumer" ciqual product, the next central product should be "Tomato at supermarket")
                 # HACK: we assume that the next "central product"
@@ -109,18 +113,17 @@ def build_product_tree(ciqual_products, max_products=None):
                     and "Copied from Ecoinvent" not in exchange["name"]
                 ):
                     next_central_exchange = exchange
+                    # Set the current exchange as the "main item", unless we're at plant already
+                    is_main_item = step != "plant"
 
-                    # Store the "main process" for this step, unless we're at plant already
-                    if step != "plant":
-                        exchange_data["mainProcess"] = True
-
-                # In products.json, we group processes by categories (transport, energy, waste treatment, material,...)
-                exchange_category = current_activity._data["simapro metadata"][
-                    "Category type"
-                ]
-                category_data = products[product_name][step].get(exchange_category, [])
-                category_data.append(exchange_data)
-                products[product_name][step][exchange_category] = category_data
+                if is_main_item:
+                    products[product_name][step]["mainItem"] = {
+                        "processName": exchange_data["processName"],
+                        "comment": exchange_data["comment"],
+                        "amount": exchange_data["amount"],
+                    }
+                else:
+                    products[product_name][step]["items"].append(exchange_data)
 
             # If we're at the last step, no need to drill down further
             if step == "plant":
@@ -157,6 +160,7 @@ def init_lcas(demand):
         lcas[key] = lca
     return lcas
 
+
 def compute_pef(impacts_ecobalyse, impacts_dic):
     pef = 0
     for k in impacts_ecobalyse.keys():
@@ -165,9 +169,11 @@ def compute_pef(impacts_ecobalyse, impacts_dic):
         norm = impacts_ecobalyse[k]["pef"]["normalization"]
         weight = impacts_ecobalyse[k]["pef"]["weighting"]
         pef += impacts_dic[k] * weight / norm
+    pef *= 1000000  # We need the result in µPt, but we have it in Pt
     return pef
 
-def compute_lca(processes, lcas):    
+
+def compute_lca(processes, lcas):
     with open(args.impacts_file, "r") as f:
         impacts_ecobalyse = json.load(f)
 
@@ -181,7 +187,9 @@ def compute_lca(processes, lcas):
             lca.redo_lcia(demand)
             processes[activity]["impacts"][impact] = lca.score
 
-        processes[activity]["impacts"]["pef"] = compute_pef(impacts_ecobalyse, processes[activity]["impacts"])
+        processes[activity]["impacts"]["pef"] = compute_pef(
+            impacts_ecobalyse, processes[activity]["impacts"]
+        )
         if index % 10 == 0:
             print(f"{round(index * 100 / num_processes)}%", end="\r")
     print("100%")
@@ -236,7 +244,7 @@ if __name__ == "__main__":
 
     processes_export_file = "processes.json"
 
-    if args.no_impacts:                
+    if args.no_impacts:
         processes_export_file = "processes-no-impacts.json"
     else:
         # Just get a random process, for example the very first one
