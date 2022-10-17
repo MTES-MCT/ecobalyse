@@ -8,7 +8,7 @@ module Page.Food.Explore exposing
 
 import Data.Country as Country exposing (Country)
 import Data.Food.Db as FoodDb
-import Data.Food.Process as Process exposing (ProcessName)
+import Data.Food.Process as Process exposing (Process, ProcessName)
 import Data.Food.Product as Product exposing (Product, ProductName)
 import Data.Impact as Impact
 import Data.Session as Session exposing (Session)
@@ -24,6 +24,8 @@ import RemoteData exposing (WebData)
 import Request.Food.Db as RequestDb
 import Route
 import Views.Component.DownArrow as DownArrow
+import Views.Component.GramsInput as GramsInput
+import Views.Component.ProcessSelector as ProcessSelector
 import Views.Component.Summary as SummaryComp
 import Views.Container as Container
 import Views.CountrySelect
@@ -43,7 +45,8 @@ type alias Model =
     { currentProductInfo : Maybe CurrentProductInfo
     , selectedProduct : ProductName
     , impact : Impact.Trigram
-    , selectedItem : Maybe ProcessName
+    , selectedIngredient : Maybe ProcessName
+    , newIngredientAmount : Float
     , selectedCountry : Country.Code
     }
 
@@ -55,6 +58,7 @@ type Msg
     | DeleteItem Product.Item
     | ItemSelected (Maybe ProcessName)
     | ItemAmountChanged Product.Item (Maybe Float)
+    | NewIngredientAmountChanged (Maybe Float)
     | NoOp
     | ProductSelected ProductName
     | Reset
@@ -71,7 +75,8 @@ init session =
     ( { currentProductInfo = Nothing
       , selectedProduct = tunaPizza
       , impact = Impact.defaultTrigram
-      , selectedItem = Nothing
+      , selectedIngredient = Nothing
+      , newIngredientAmount = 0.1
       , selectedCountry = Product.defaultCountry
       }
     , session
@@ -83,28 +88,28 @@ init session =
 
 
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
-update ({ foodDb, db } as session) msg ({ currentProductInfo } as model) =
+update ({ foodDb, db } as session) msg ({ currentProductInfo, newIngredientAmount } as model) =
     case ( msg, currentProductInfo ) of
         ( AddItem, Just selected ) ->
-            case model.selectedItem of
-                Just selectedItem ->
+            case model.selectedIngredient of
+                Just selectedIngredient ->
                     let
                         productWithAddedItem =
                             selected.product
-                                |> Product.addMaterial foodDb.processes selectedItem
+                                |> Product.addMaterial foodDb.processes selectedIngredient newIngredientAmount
                     in
                     case productWithAddedItem of
                         Ok updatedProduct ->
                             ( { model
                                 | currentProductInfo = Just { selected | product = updatedProduct }
-                                , selectedItem = Nothing
+                                , selectedIngredient = Nothing
                               }
                             , session
                             , Cmd.none
                             )
 
                         Err message ->
-                            ( { model | selectedItem = Nothing }
+                            ( { model | selectedIngredient = Nothing }
                             , session
                                 |> Session.notifyError "Erreur lors de l'ajout de l'ingrédient" message
                             , Cmd.none
@@ -167,7 +172,7 @@ update ({ foodDb, db } as session) msg ({ currentProductInfo } as model) =
             )
 
         ( ItemSelected itemName, _ ) ->
-            ( { model | selectedItem = itemName }
+            ( { model | selectedIngredient = itemName }
             , session
             , Cmd.none
             )
@@ -178,6 +183,12 @@ update ({ foodDb, db } as session) msg ({ currentProductInfo } as model) =
                     Product.updateMaterialAmount item newAmount product
             in
             ( { model | currentProductInfo = Just { selected | product = updatedProduct } }, session, Cmd.none )
+
+        ( NewIngredientAmountChanged (Just newAmount), _ ) ->
+            ( { model | newIngredientAmount = newAmount }
+            , session
+            , Cmd.none
+            )
 
         ( ProductSelected selectedProduct, _ ) ->
             case Product.findByName selectedProduct foodDb.products of
@@ -205,7 +216,7 @@ update ({ foodDb, db } as session) msg ({ currentProductInfo } as model) =
             ( { model
                 | currentProductInfo = Just { selected | product = selected.original }
                 , selectedCountry = Product.defaultCountry
-                , selectedItem = Nothing
+                , selectedIngredient = Nothing
               }
             , session
             , Cmd.none
@@ -286,7 +297,7 @@ viewSidebar session { definition, trigram, totalImpact } { original, product } =
 
 
 view : Session -> Model -> ( String, List (Html Msg) )
-view ({ foodDb, db } as session) ({ selectedProduct, impact, selectedItem, selectedCountry } as model) =
+view ({ foodDb, db } as session) ({ selectedProduct, newIngredientAmount, impact, selectedIngredient, selectedCountry } as model) =
     ( "Simulateur de recettes"
     , [ case model.currentProductInfo of
             Just ({ original, product } as currentProductInfo) ->
@@ -320,7 +331,7 @@ view ({ foodDb, db } as session) ({ selectedProduct, impact, selectedItem, selec
                         , div [ class "col-lg-8 order-lg-1 d-flex flex-column" ]
                             [ viewProductSelector selectedProduct foodDb.products
                             , viewPlantIngredientsAndMaterials itemViewDataConfig product.plant
-                            , viewIngredientSelector selectedItem product foodDb.products
+                            , ProcessSelector.view foodDb.processes selectedIngredient newIngredientAmount product foodDb.products
                             , viewPlantEnergy itemViewDataConfig product.plant
                             , viewPlantProcessing itemViewDataConfig product.plant
                             , viewPlantTransport itemViewDataConfig product.plant selectedCountry db.countries
@@ -373,10 +384,10 @@ viewProductSelector selectedProduct =
             ]
 
 
-viewIngredientSelector : Maybe ProcessName -> Product.Product -> Product.Products -> Html Msg
-viewIngredientSelector selectedItem product products =
+viewIngredientSelector : List Process -> Maybe ProcessName -> Float -> Product.Product -> Product.Products -> Html Msg
+viewIngredientSelector processes selectedItem amount product products =
     div [ class "row pt-3 gap-2 gap-md-0" ]
-        [ div [ class "col-md-8" ]
+        [ div [ class "col-md-5" ]
             [ products
                 |> Product.listIngredientNames
                 |> List.filter
@@ -389,6 +400,9 @@ viewIngredientSelector selectedItem product products =
                             |> not
                     )
                 |> itemSelector selectedItem ItemSelected
+            ]
+        , div [ class "col-md-3" ]
+            [ GramsInput.view "new-ingredient" amount NewIngredientAmountChanged
             ]
         , div [ class "col-md-4" ]
             [ button
@@ -433,32 +447,7 @@ viewPlantProcess { disabled } ({ item, stepWeight } as itemViewData) =
                     |> span [ class "fs-7" ]
 
               else
-                div [ class "input-group input-group-sm my-2" ]
-                    [ input
-                        [ id <| "slider-" ++ name
-                        , class "form-control text-end incdec-arrows-left"
-                        , type_ "number"
-                        , step "1"
-                        , item.amount
-                            |> (\f -> f * 1000)
-                            |> round
-                            |> String.fromInt
-                            |> value
-                        , title "Quantité en grammes"
-                        , onInput <|
-                            \str ->
-                                ItemAmountChanged item
-                                    (if str == "" then
-                                        Just 0
-
-                                     else
-                                        str |> String.toFloat |> Maybe.map (\f -> f / 1000)
-                                    )
-                        , Html.Attributes.min "0"
-                        ]
-                        []
-                    , span [ class "input-group-text" ] [ text "g" ]
-                    ]
+                GramsInput.view name item.amount (ItemAmountChanged item)
             ]
         , div [ class "col-sm-9" ]
             [ itemView { disabled = disabled } itemViewData
