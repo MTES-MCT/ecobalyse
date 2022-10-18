@@ -18,7 +18,6 @@ module Data.Food.Product exposing
     , getStepTransports
     , getTotalImpact
     , getWeightAtPlant
-    , listIngredientNames
     , listIngredients
     , listProcessingProcesses
     , nameFromString
@@ -335,13 +334,6 @@ listProcesses getStepItems products =
         |> List.sortBy (.name >> Process.nameToString)
 
 
-listIngredientNames : Products -> List ProcessName
-listIngredientNames products =
-    products
-        |> listIngredients
-        |> List.map .name
-
-
 listIngredients : Products -> List Process
 listIngredients =
     -- List all the "material" entries from the "at plant" step
@@ -354,27 +346,23 @@ listProcessingProcesses =
     listProcesses (.plant >> filterItemByCategory Process.Processing)
 
 
-addMaterial : List Process -> ProcessName -> Float -> Product -> Result String Product
-addMaterial processes processName amount ({ plant } as product) =
-    Process.findByName processes processName
-        |> Result.map
-            (\process ->
-                let
-                    newItem =
-                        { amount = amount
-                        , comment = ""
-                        , process = process
-                        }
+addMaterial : Process -> Float -> Product -> Product
+addMaterial process amount ({ plant } as product) =
+    let
+        newItem =
+            { amount = amount
+            , comment = ""
+            , process = process
+            }
 
-                    withAddedItem =
-                        newItem :: plant
+        withAddedItem =
+            newItem :: plant
 
-                    originalWeight =
-                        getWeightAtPlant plant
-                in
-                { product | plant = withAddedItem }
-                    |> updateProductAmounts originalWeight
-            )
+        originalWeight =
+            getWeightAtPlant plant
+    in
+    { product | plant = withAddedItem }
+        |> updateProductAmounts originalWeight
 
 
 updateMaterialAmount : Item -> Amount -> Product -> Product
