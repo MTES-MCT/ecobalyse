@@ -8,6 +8,7 @@ module Data.Food.Process exposing
     , decodeList
     , findByCode
     , findByName
+    , listByCategory
     , loadWellKnown
     , nameFromString
     , nameToString
@@ -145,6 +146,13 @@ decodeList definitions =
     Decode.list (decodeProcess definitions)
 
 
+
+-- NOTE: this may be useful eventually
+-- excludeByCategory : Category -> List Process -> List Process
+-- excludeByCategory category =
+--     List.filter (.category >> (/=) category)
+
+
 findByCode : List Process -> Code -> Result String Process
 findByCode processes ((Code codeString) as code) =
     processes
@@ -187,6 +195,11 @@ formatStringUnit str =
 
         _ ->
             str
+
+
+listByCategory : Category -> List Process -> List Process
+listByCategory category =
+    List.filter (.category >> (==) category)
 
 
 loadWellKnown : List Process -> Result String WellKnown
