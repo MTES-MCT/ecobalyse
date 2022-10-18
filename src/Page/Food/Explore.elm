@@ -8,7 +8,7 @@ module Page.Food.Explore exposing
 
 import Data.Country as Country exposing (Country)
 import Data.Food.Db as FoodDb
-import Data.Food.Process as Process exposing (Process, ProcessName)
+import Data.Food.Process as Process exposing (Process)
 import Data.Food.Product as Product exposing (Product, ProductName)
 import Data.Impact as Impact
 import Data.Session as Session exposing (Session)
@@ -17,7 +17,6 @@ import Dict.Any as AnyDict
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import Html.Keyed
 import Ports
 import Quantity
 import RemoteData exposing (WebData)
@@ -45,18 +44,18 @@ type alias Model =
     { currentProductInfo : Maybe CurrentProductInfo
     , selectedProduct : ProductName
     , impact : Impact.Trigram
-    , selectedIngredient : Maybe ProcessName
+    , selectedIngredientProcess : Maybe Process
     , newIngredientAmount : Float
     , selectedCountry : Country.Code
     }
 
 
 type Msg
-    = AddItem
+    = AddIngredient
     | CountrySelected Country.Code
     | DbLoaded (WebData FoodDb.Db)
     | DeleteItem Product.Item
-    | ItemSelected (Maybe ProcessName)
+    | IngredientProcessSelected (Maybe Process)
     | ItemAmountChanged Product.Item (Maybe Float)
     | NewIngredientAmountChanged (Maybe Float)
     | NoOp
@@ -75,7 +74,7 @@ init session =
     ( { currentProductInfo = Nothing
       , selectedProduct = tunaPizza
       , impact = Impact.defaultTrigram
-      , selectedIngredient = Nothing
+      , selectedIngredientProcess = Nothing
       , newIngredientAmount = 0.1
       , selectedCountry = Product.defaultCountry
       }
@@ -90,30 +89,21 @@ init session =
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
 update ({ foodDb, db } as session) msg ({ currentProductInfo, newIngredientAmount } as model) =
     case ( msg, currentProductInfo ) of
-        ( AddItem, Just selected ) ->
-            case model.selectedIngredient of
-                Just selectedIngredient ->
+        ( AddIngredient, Just selected ) ->
+            case model.selectedIngredientProcess of
+                Just selectedIngredientProcess ->
                     let
-                        productWithAddedItem =
+                        productWithAddedIngredient =
                             selected.product
-                                |> Product.addMaterial foodDb.processes selectedIngredient newIngredientAmount
+                                |> Product.addMaterial selectedIngredientProcess newIngredientAmount
                     in
-                    case productWithAddedItem of
-                        Ok updatedProduct ->
-                            ( { model
-                                | currentProductInfo = Just { selected | product = updatedProduct }
-                                , selectedIngredient = Nothing
-                              }
-                            , session
-                            , Cmd.none
-                            )
-
-                        Err message ->
-                            ( { model | selectedIngredient = Nothing }
-                            , session
-                                |> Session.notifyError "Erreur lors de l'ajout de l'ingrédient" message
-                            , Cmd.none
-                            )
+                    ( { model
+                        | currentProductInfo = Just { selected | product = productWithAddedIngredient }
+                        , selectedIngredientProcess = Nothing
+                      }
+                    , session
+                    , Cmd.none
+                    )
 
                 Nothing ->
                     ( model, session, Cmd.none )
@@ -171,8 +161,8 @@ update ({ foodDb, db } as session) msg ({ currentProductInfo, newIngredientAmoun
             , Cmd.none
             )
 
-        ( ItemSelected itemName, _ ) ->
-            ( { model | selectedIngredient = itemName }
+        ( IngredientProcessSelected maybeProcess, _ ) ->
+            ( { model | selectedIngredientProcess = maybeProcess }
             , session
             , Cmd.none
             )
@@ -216,7 +206,7 @@ update ({ foodDb, db } as session) msg ({ currentProductInfo, newIngredientAmoun
             ( { model
                 | currentProductInfo = Just { selected | product = selected.original }
                 , selectedCountry = Product.defaultCountry
-                , selectedIngredient = Nothing
+                , selectedIngredientProcess = Nothing
               }
             , session
             , Cmd.none
@@ -297,7 +287,7 @@ viewSidebar session { definition, trigram, totalImpact } { original, product } =
 
 
 view : Session -> Model -> ( String, List (Html Msg) )
-view ({ foodDb, db } as session) ({ selectedProduct, newIngredientAmount, impact, selectedIngredient, selectedCountry } as model) =
+view ({ foodDb, db } as session) ({ selectedProduct, newIngredientAmount, impact, selectedIngredientProcess, selectedCountry } as model) =
     ( "Simulateur de recettes"
     , [ case model.currentProductInfo of
             Just ({ original, product } as currentProductInfo) ->
@@ -331,7 +321,19 @@ view ({ foodDb, db } as session) ({ selectedProduct, newIngredientAmount, impact
                         , div [ class "col-lg-8 order-lg-1 d-flex flex-column" ]
                             [ viewProductSelector selectedProduct foodDb.products
                             , viewPlantIngredientsAndMaterials itemViewDataConfig product.plant
-                            , ProcessSelector.view foodDb.processes selectedIngredient newIngredientAmount product foodDb.products
+                            , ProcessSelector.view
+                                { processes = foodDb.processes
+                                , category = Process.Ingredient
+                                , alreadyUsedProcesses =
+                                    product.plant
+                                        |> Product.filterItemByCategory Process.Ingredient
+                                        |> List.map .process
+                                , selectedProcess = selectedIngredientProcess
+                                , onProcessSelected = IngredientProcessSelected
+                                , amount = newIngredientAmount
+                                , onNewAmount = NewIngredientAmountChanged
+                                , onSubmit = AddIngredient
+                                }
                             , viewPlantEnergy itemViewDataConfig product.plant
                             , viewPlantProcessing itemViewDataConfig product.plant
                             , viewPlantTransport itemViewDataConfig product.plant selectedCountry db.countries
@@ -382,38 +384,6 @@ viewProductSelector selectedProduct =
             [ class "form-select mb-3"
             , onInput (Product.nameFromString >> ProductSelected)
             ]
-
-
-viewIngredientSelector : List Process -> Maybe ProcessName -> Float -> Product.Product -> Product.Products -> Html Msg
-viewIngredientSelector processes selectedItem amount product products =
-    div [ class "row pt-3 gap-2 gap-md-0" ]
-        [ div [ class "col-md-5" ]
-            [ products
-                |> Product.listIngredientNames
-                |> List.filter
-                    (\processName ->
-                        -- Exclude already used ingredients
-                        product.plant
-                            |> Product.filterItemByCategory Process.Ingredient
-                            |> List.map (.process >> .name)
-                            |> List.member processName
-                            |> not
-                    )
-                |> itemSelector selectedItem ItemSelected
-            ]
-        , div [ class "col-md-3" ]
-            [ GramsInput.view "new-ingredient" amount NewIngredientAmountChanged
-            ]
-        , div [ class "col-md-4" ]
-            [ button
-                [ class "btn btn-primary w-100 text-truncate"
-                , onClick AddItem
-                , disabled (selectedItem == Nothing)
-                , title "Ajouter un ingrédient"
-                ]
-                [ text "Ajouter un ingrédient" ]
-            ]
-        ]
 
 
 viewCategory : Html Msg -> List (Html Msg) -> Html Msg
@@ -528,33 +498,6 @@ itemView { disabled } { config, percent, impact, item, width } =
                 ]
                 [ Icon.trash ]
         ]
-
-
-maybeToProcessName : String -> Maybe ProcessName
-maybeToProcessName string =
-    if string == "" then
-        Nothing
-
-    else
-        Just (Process.nameFromString string)
-
-
-itemSelector : Maybe ProcessName -> (Maybe ProcessName -> Msg) -> List ProcessName -> Html Msg
-itemSelector maybeSelectedItem event =
-    List.map
-        (\processName ->
-            let
-                string =
-                    Process.nameToString processName
-            in
-            ( string, option [ selected <| maybeSelectedItem == Just processName ] [ text string ] )
-        )
-        >> (++)
-            [ ( "-- Sélectionner un ingrédient dans la liste --"
-              , option [ selected <| maybeSelectedItem == Nothing ] [ text "-- Sélectionner un ingrédient dans la liste --" ]
-              )
-            ]
-        >> Html.Keyed.node "select" [ class "form-select", onInput (maybeToProcessName >> event) ]
 
 
 viewPlantIngredientsAndMaterials : ItemViewDataConfig -> Product.Items -> Html Msg

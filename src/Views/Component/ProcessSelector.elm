@@ -1,4 +1,4 @@
-module Views.Component.ProcessSelector exposing (..)
+module Views.Component.ProcessSelector exposing (view)
 
 import Data.Food.Process as Process exposing (Process, ProcessName)
 import Html exposing (..)
@@ -13,8 +13,8 @@ type alias Config msg =
     { processes : List Process
     , category : Process.Category
     , alreadyUsedProcesses : List Process.Process
-    , selectedProcess : Maybe ProcessName
-    , onProcessSelected : ProcessName -> msg
+    , selectedProcess : Maybe Process
+    , onProcessSelected : Maybe Process -> msg
 
     -- Amount input
     , amount : Float
@@ -25,8 +25,8 @@ type alias Config msg =
     }
 
 
-maybeToProcessName : String -> Maybe ProcessName
-maybeToProcessName string =
+toMaybeProcessName : String -> Maybe ProcessName
+toMaybeProcessName string =
     if string == "" then
         Nothing
 
@@ -34,33 +34,41 @@ maybeToProcessName string =
         Just (Process.nameFromString string)
 
 
-processSelector :
-    Maybe ProcessName
-    -> (Maybe ProcessName -> msg)
-    -> List ProcessName
-    -> Html msg
-processSelector maybeSelectedItem event =
-    List.map
-        (\processName ->
-            let
-                string =
-                    Process.nameToString processName
-            in
-            ( string, option [ selected <| maybeSelectedItem == Just processName ] [ text string ] )
-        )
-        >> (++)
+processSelector : Maybe Process -> (Maybe Process -> msg) -> List Process -> Html msg
+processSelector maybeSelectedProcess event processes =
+    processes
+        |> List.map
+            (\process ->
+                let
+                    string =
+                        Process.nameToString process.name
+                in
+                ( string, option [ selected <| maybeSelectedProcess == Just process ] [ text string ] )
+            )
+        |> (++)
             [ ( "-- Sélectionner un ingrédient dans la liste --"
-              , option [ selected <| maybeSelectedItem == Nothing ] [ text "-- Sélectionner un ingrédient dans la liste --" ]
+              , option [ selected <| maybeSelectedProcess == Nothing ]
+                    [ text "-- Sélectionner un ingrédient dans la liste --" ]
               )
             ]
         -- We use Html.Keyed because when we add an item, we filter it out from the select box,
         -- which desynchronizes the DOM state and the virtual dom state
-        >> Html.Keyed.node "select" [ class "form-select", onInput (maybeToProcessName >> event) ]
+        |> Html.Keyed.node "select"
+            [ class "form-select"
+            , onInput
+                (toMaybeProcessName
+                    >> Maybe.andThen (Process.findByName processes >> Result.toMaybe)
+                    >> event
+                )
+            ]
 
 
 view : Config msg -> Html msg
 view config =
-    div [ class "row pt-3 gap-2 gap-md-0" ]
+    Html.form
+        [ class "row pt-3 gap-2 gap-md-0"
+        , onSubmit config.onSubmit
+        ]
         [ div [ class "col-md-5" ]
             [ config.processes
                 |> Process.listByCategory config.category
@@ -68,20 +76,19 @@ view config =
                     (\processName ->
                         -- Exclude already used ingredients
                         config.alreadyUsedProcesses
-                            |> List.map .name
                             |> List.member processName
                             |> not
                     )
                 |> processSelector config.selectedProcess config.onProcessSelected
             ]
         , div [ class "col-md-3" ]
-            [ GramsInput.view "new-ingredient" config.mass config.onNewMass
+            [ GramsInput.view "new-ingredient" config.amount config.onNewAmount
             ]
         , div [ class "col-md-4" ]
             [ button
-                [ class "btn btn-primary w-100 text-truncate"
-                , onClick AddItem
-                , disabled (selectedItem == Nothing)
+                [ type_ "submit"
+                , class "btn btn-primary w-100 text-truncate"
+                , disabled (config.selectedProcess == Nothing)
                 , title "Ajouter un ingrédient"
                 ]
                 [ text "Ajouter un ingrédient" ]
