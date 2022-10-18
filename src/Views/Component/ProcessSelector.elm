@@ -62,8 +62,8 @@ view : Config msg -> Html msg
 view config =
     div [ class "row pt-3 gap-2 gap-md-0" ]
         [ div [ class "col-md-5" ]
-            [ config.products
-                |> Product.listIngredientNames
+            [ config.processes
+                |> Process.listByCategory config.category
                 |> List.filter
                     (\processName ->
                         -- Exclude already used ingredients
