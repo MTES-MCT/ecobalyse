@@ -22,8 +22,8 @@ import Quantity
 import RemoteData exposing (WebData)
 import Request.Food.Db as RequestDb
 import Route
+import Views.Component.AmountInput as AmountInput
 import Views.Component.DownArrow as DownArrow
-import Views.Component.GramsInput as GramsInput
 import Views.Component.ProcessSelector as ProcessSelector
 import Views.Component.Summary as SummaryComp
 import Views.Container as Container
@@ -331,7 +331,7 @@ view ({ foodDb, db } as session) ({ selectedProduct, newIngredientAmount, impact
                                 , selectedProcess = selectedIngredientProcess
                                 , onProcessSelected = IngredientProcessSelected
                                 , amount = newIngredientAmount
-                                , onNewAmount = NewIngredientAmountChanged
+                                , onAmountChanged = NewIngredientAmountChanged
                                 , onSubmit = AddIngredient
                                 }
                             , viewPlantEnergy itemViewDataConfig product.plant
@@ -403,10 +403,6 @@ viewCategory header1 children =
 
 viewPlantProcess : { disabled : Bool } -> ItemViewData -> Html Msg
 viewPlantProcess { disabled } ({ item, stepWeight } as itemViewData) =
-    let
-        name =
-            Process.nameToString item.process.name
-    in
     div [ class "card-body row align-items-center py-1" ]
         [ div [ class "col-sm-3" ]
             [ if disabled then
@@ -417,7 +413,7 @@ viewPlantProcess { disabled } ({ item, stepWeight } as itemViewData) =
                     |> span [ class "fs-7" ]
 
               else
-                GramsInput.view name item.amount (ItemAmountChanged item)
+                AmountInput.view item.amount (ItemAmountChanged item)
             ]
         , div [ class "col-sm-9" ]
             [ itemView { disabled = disabled } itemViewData

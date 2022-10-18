@@ -1,16 +1,15 @@
-module Views.Component.GramsInput exposing (view)
+module Views.Component.AmountInput exposing (view)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 
 
-view : String -> Float -> (Maybe Float -> msg) -> Html msg
-view name amount message =
+view : Float -> (Maybe Float -> msg) -> Html msg
+view amount message =
     div [ class "input-group input-group-sm my-2" ]
         [ input
-            [ id <| "slider-" ++ name
-            , class "form-control text-end incdec-arrows-left"
+            [ class "form-control text-end incdec-arrows-left"
             , type_ "number"
             , step "1"
             , amount

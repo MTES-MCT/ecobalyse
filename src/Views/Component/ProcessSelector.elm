@@ -5,7 +5,7 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Html.Keyed
-import Views.Component.GramsInput as GramsInput
+import Views.Component.AmountInput as AmountInput
 
 
 type alias Config msg =
@@ -18,7 +18,7 @@ type alias Config msg =
 
     -- Amount input
     , amount : Float
-    , onNewAmount : Maybe Float -> msg
+    , onAmountChanged : Maybe Float -> msg
 
     -- Form
     , onSubmit : msg
@@ -82,7 +82,7 @@ view config =
                 |> processSelector config.selectedProcess config.onProcessSelected
             ]
         , div [ class "col-md-3" ]
-            [ GramsInput.view "new-ingredient" config.amount config.onNewAmount
+            [ AmountInput.view config.amount config.onAmountChanged
             ]
         , div [ class "col-md-4" ]
             [ button
