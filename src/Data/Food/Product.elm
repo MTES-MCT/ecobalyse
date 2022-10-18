@@ -1,6 +1,5 @@
 module Data.Food.Product exposing
-    ( Amount
-    , Item
+    ( Item
     , Items
     , Product
     , ProductName
@@ -28,6 +27,7 @@ module Data.Food.Product exposing
     )
 
 import Data.Country as Country
+import Data.Food.Amount as Amount exposing (Amount)
 import Data.Food.Process as Process exposing (Process, ProcessName)
 import Data.Impact as Impact
 import Data.Textile.Formula as Formula
@@ -40,8 +40,8 @@ import Json.Decode.Extra as DE
 import Json.Decode.Pipeline as Pipe
 import Length exposing (Length)
 import List.Extra as LE
+import Mass exposing (Mass)
 import Quantity
-import Views.Format as Format
 
 
 defaultCountry : Country.Code
@@ -49,29 +49,9 @@ defaultCountry =
     Country.codeFromString "FR"
 
 
-formatAmount : Float -> String -> Float -> String
-formatAmount totalWeight unit amount =
-    if unit == "t/km" then
-        let
-            -- amount is in Ton.Km for the total weight. We instead want the total number of km.
-            perKg =
-                amount / totalWeight
-
-            distanceInKm =
-                perKg * 1000
-        in
-        Format.formatFloat 0 distanceInKm
-            ++ "\u{00A0}km ("
-            ++ Format.formatFloat 2 (amount * 1000)
-            ++ "\u{00A0}kg.km)"
-
-    else
-        Format.formatFloat 2 amount ++ "\u{00A0}" ++ unit
-
-
-formatItem : Float -> Item -> String
+formatItem : Mass -> Item -> String
 formatItem totalWeight item =
-    formatAmount totalWeight item.process.unit item.amount
+    Amount.format totalWeight item.amount
 
 
 {-| Item
@@ -80,10 +60,6 @@ from one step (consumer, packaging, plant...)
 from one product from public/data/products.json
 It links a Process to an amount for this process (quantity of a vegetable, transport distance, ...)
 -}
-type alias Amount =
-    Float
-
-
 type alias Item =
     { amount : Amount
     , comment : String
@@ -161,11 +137,6 @@ findByName ((ProductName name) as productName) =
         >> Result.fromMaybe ("Produit introuvable par nom : " ++ name)
 
 
-decodeAmount : Decoder Amount
-decodeAmount =
-    Decode.float
-
-
 linkProcess : AnyDict String ProcessName Process -> Decoder Process
 linkProcess processes =
     Decode.string
@@ -179,24 +150,58 @@ linkProcess processes =
             )
 
 
+type alias TempItem =
+    { amount : Float
+    , comment : String
+    , process : Process
+    }
+
+
 decodeItem : AnyDict String ProcessName Process -> Decoder Item
 decodeItem processes =
-    Decode.succeed Item
-        -- FIXME: decodeAmout should be called with the unit decoded from
-        -- JSON in decodeProcess, so we could have properly typed values
-        |> Pipe.required "amount" decodeAmount
+    Decode.succeed TempItem
+        |> Pipe.required "amount" Decode.float
         |> Pipe.required "comment" Decode.string
         |> Pipe.required "processName" (linkProcess processes)
+        |> Decode.andThen
+            (\{ amount, comment, process } ->
+                Amount.fromUnitAndFloat process.unit amount
+                    |> Result.map
+                        (\res ->
+                            { amount = res
+                            , comment = comment
+                            , process = process
+                            }
+                        )
+                    |> DE.fromResult
+            )
+
+
+type alias TempMainItem =
+    { amount : Float
+    , comment : String
+    , processName : ProcessName
+    }
 
 
 decodeMainItem : Decoder MainItem
 decodeMainItem =
-    Decode.succeed MainItem
-        -- FIXME: decodeAmout should be called with the unit decoded from
-        -- JSON in decodeProcess, so we could have properly typed values
-        |> Pipe.required "amount" decodeAmount
+    Decode.succeed TempMainItem
+        |> Pipe.required "amount" Decode.float
         |> Pipe.required "comment" Decode.string
         |> Pipe.required "processName" (Decode.map Process.nameFromString Decode.string)
+        |> Decode.andThen
+            (\{ amount, comment, processName } ->
+                Amount.fromUnitAndFloat "kg" amount
+                    |> Result.map
+                        (\res ->
+                            { amount = res
+                            , comment = comment
+                            , processName = processName
+                            }
+                        )
+                    |> DE.fromResult
+            )
 
 
 decodeItems : AnyDict String ProcessName Process -> Decoder Items
@@ -246,7 +251,7 @@ getItemsImpact trigram items =
                         Impact.getImpact trigram item.process.impacts
                             |> Unit.impactToFloat
                 in
-                total + (item.amount * impact)
+                total + (Amount.toFloat item.amount * impact)
             )
             0
 
@@ -283,14 +288,20 @@ getStepTransports : Step -> { air : Length, rail : Length, road : Length, sea : 
 getStepTransports step =
     step.items
         |> List.foldl
-            (\{ amount, process } acc ->
+            (\{ amount } acc ->
                 let
                     distanceToAdd =
-                        if process.unit == "t/km" then
-                            amount / step.mainItem.amount * 1000
+                        case Amount.tonKilometerToKilometer amount of
+                            Ok distance ->
+                                distance
 
-                        else
-                            amount
+                            Err _ ->
+                                amount
+
+                    -- Amount.TonKilometer tonKm ->
+                    --     tonKm / step.mainItem.amount
+                    -- _ ->
+                    --     amount
                 in
                 case Dict.get (Process.nameToString process.name) transportModes of
                     Just "air" ->
