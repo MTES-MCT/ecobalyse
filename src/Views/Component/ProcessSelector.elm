@@ -45,6 +45,7 @@ processSelector maybeSelectedProcess event processes =
                 in
                 ( string, option [ selected <| maybeSelectedProcess == Just process ] [ text string ] )
             )
+        |> List.sortBy Tuple.first
         |> (++)
             [ ( "-- Sélectionner un ingrédient dans la liste --"
               , option [ selected <| maybeSelectedProcess == Nothing ]
@@ -69,7 +70,7 @@ view config =
         [ class "row pt-3 gap-2 gap-md-0"
         , onSubmit config.onSubmit
         ]
-        [ div [ class "col-md-5" ]
+        [ div [ class "col-md-6" ]
             [ config.processes
                 |> Process.listByCategory config.category
                 |> List.filter
@@ -82,9 +83,18 @@ view config =
                 |> processSelector config.selectedProcess config.onProcessSelected
             ]
         , div [ class "col-md-3" ]
-            [ AmountInput.view config.amount config.onAmountChanged
+            [ case config.selectedProcess of
+                Just selectedProcess ->
+                    AmountInput.view
+                        { amount = config.amount
+                        , onAmountChanged = config.onAmountChanged
+                        , unit = selectedProcess.unit
+                        }
+
+                Nothing ->
+                    text ""
             ]
-        , div [ class "col-md-4" ]
+        , div [ class "col-md-3" ]
             [ button
                 [ type_ "submit"
                 , class "btn btn-primary w-100 text-truncate"

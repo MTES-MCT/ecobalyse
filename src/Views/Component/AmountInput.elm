@@ -1,13 +1,20 @@
 module Views.Component.AmountInput exposing (view)
 
 import Html exposing (..)
-import Html.Attributes exposing (..)
+import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
 
 
-view : Float -> (Maybe Float -> msg) -> Html msg
-view amount message =
-    div [ class "input-group input-group-sm my-2" ]
+type alias Config msg =
+    { amount : Float
+    , onAmountChanged : Maybe Float -> msg
+    , unit : String
+    }
+
+
+view : Config msg -> Html msg
+view { amount, onAmountChanged, unit } =
+    div [ class "input-group input-group" ]
         [ input
             [ class "form-control text-end incdec-arrows-left"
             , type_ "number"
@@ -20,15 +27,27 @@ view amount message =
             , title "Quantité en grammes"
             , onInput <|
                 \str ->
-                    message
+                    onAmountChanged
                         (if str == "" then
                             Just 0
 
                          else
                             str |> String.toFloat |> Maybe.map (\f -> f / 1000)
                         )
-            , Html.Attributes.min "0"
+            , Attr.min "0"
             ]
             []
-        , span [ class "input-group-text" ] [ text "g" ]
+        , span [ class "input-group-text" ]
+            [ text
+                (case unit of
+                    "kg" ->
+                        "g"
+
+                    "l" ->
+                        "ml"
+
+                    _ ->
+                        "?"
+                )
+            ]
         ]
