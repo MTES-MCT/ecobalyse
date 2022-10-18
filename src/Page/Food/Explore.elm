@@ -7,6 +7,7 @@ module Page.Food.Explore exposing
     )
 
 import Data.Country as Country exposing (Country)
+import Data.Food.Amount as Amount
 import Data.Food.Db as FoodDb
 import Data.Food.Process as Process exposing (Process)
 import Data.Food.Product as Product exposing (Product, ProductName)
@@ -406,8 +407,8 @@ viewPlantProcess { disabled } ({ item, stepWeight } as itemViewData) =
     div [ class "card-body row align-items-center py-1" ]
         [ div [ class "col-sm-3" ]
             [ if disabled then
-                item
-                    |> Product.formatItem stepWeight
+                item.amount
+                    |> Amount.format stepWeight
                     |> text
                     |> List.singleton
                     |> span [ class "fs-7" ]
@@ -789,8 +790,8 @@ viewItemDetails { config, item, impact, percent, stepWeight, width } =
             ]
         , div [ class "d-flex flex-row justify-content-between fs-7" ]
             [ span [ class "w-33" ]
-                [ item
-                    |> Product.formatItem stepWeight
+                [ item.amount
+                    |> Amount.format stepWeight
                     |> text
                 ]
             , span [ class "w-33" ]
