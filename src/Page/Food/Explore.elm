@@ -413,7 +413,11 @@ viewPlantProcess { disabled } ({ item, stepWeight } as itemViewData) =
                     |> span [ class "fs-7" ]
 
               else
-                AmountInput.view item.amount (ItemAmountChanged item)
+                AmountInput.view
+                    { amount = item.amount
+                    , onAmountChanged = ItemAmountChanged item
+                    , unit = item.process.unit
+                    }
             ]
         , div [ class "col-sm-9" ]
             [ itemView { disabled = disabled } itemViewData
