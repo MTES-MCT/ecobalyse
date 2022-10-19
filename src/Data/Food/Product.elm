@@ -256,29 +256,36 @@ getStepTransports : Step -> { air : Length, rail : Length, road : Length, sea : 
 getStepTransports step =
     step.items
         |> filterItemByCategory Process.Transport
-        |> List.foldl
-            (\{ amount, process } acc ->
+        -- FIXME: at some point we'll want to have a better typed Item, so we know what its
+        -- unit is; here, transport items are always expressed in ton.km, so why do we need
+        -- to manually extract this data?
+        |> List.filterMap
+            (\{ amount, process } ->
                 case amount of
-                    Amount.TonKilometer tonkm ->
-                        let
-                            distanceToAdd =
-                                Amount.tonKilometerToKilometer step.mainItem.mass tonkm
-                        in
-                        case Dict.get (Process.nameToString process.name) transportModes of
-                            Just "air" ->
-                                { acc | air = acc.air |> Quantity.plus distanceToAdd }
+                    Amount.TonKilometer tonKm ->
+                        Just ( tonKm, process )
 
-                            Just "rail" ->
-                                { acc | rail = acc.rail |> Quantity.plus distanceToAdd }
+                    _ ->
+                        Nothing
+            )
+        |> List.foldl
+            (\( tonKm, process ) acc ->
+                let
+                    distanceToAdd =
+                        Amount.tonKilometerToKilometer step.mainItem.mass tonKm
+                in
+                case Dict.get (Process.nameToString process.name) transportModes of
+                    Just "air" ->
+                        { acc | air = acc.air |> Quantity.plus distanceToAdd }
 
-                            Just "road" ->
-                                { acc | road = acc.road |> Quantity.plus distanceToAdd }
+                    Just "rail" ->
+                        { acc | rail = acc.rail |> Quantity.plus distanceToAdd }
 
-                            Just "sea" ->
-                                { acc | sea = acc.sea |> Quantity.plus distanceToAdd }
+                    Just "road" ->
+                        { acc | road = acc.road |> Quantity.plus distanceToAdd }
 
-                            _ ->
-                                acc
+                    Just "sea" ->
+                        { acc | sea = acc.sea |> Quantity.plus distanceToAdd }
 
                     _ ->
                         acc
