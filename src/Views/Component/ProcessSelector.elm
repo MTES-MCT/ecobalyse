@@ -1,11 +1,16 @@
 module Views.Component.ProcessSelector exposing (view)
 
+import Data.Food.Amount as Amount exposing (Amount)
 import Data.Food.Process as Process exposing (Process, ProcessName)
+import Energy
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Html.Keyed
+import Length
+import Mass
 import Views.Component.AmountInput as AmountInput
+import Volume
 
 
 type alias Config msg =
@@ -17,8 +22,8 @@ type alias Config msg =
     , onProcessSelected : Maybe Process -> msg
 
     -- Amount input
-    , amount : Float
-    , onAmountChanged : Maybe Float -> msg
+    , amount : Amount
+    , onAmountChanged : Maybe Amount -> msg
 
     -- Form
     , onSubmit : msg
@@ -84,11 +89,42 @@ view config =
             ]
         , div [ class "col-md-3" ]
             [ case config.selectedProcess of
-                Just selectedProcess ->
+                Just _ ->
                     AmountInput.view
                         { amount = config.amount
                         , onAmountChanged = config.onAmountChanged
-                        , unit = selectedProcess.unit
+
+                        -- FIXME: This only deals with masses, in the future we
+                        -- might want to use the ProcessSelector for other types
+                        -- of processes with different units.
+                        , fromUnit =
+                            \amount ->
+                                case amount of
+                                    Amount.Mass mass ->
+                                        Mass.inGrams mass
+
+                                    _ ->
+                                        Amount.toStandardFloat amount
+                        , toUnit =
+                            \float ->
+                                case config.amount of
+                                    Amount.Mass _ ->
+                                        Amount.Mass (Mass.grams float)
+
+                                    Amount.Volume _ ->
+                                        Amount.Volume (Volume.liters float)
+
+                                    Amount.TonKilometer _ ->
+                                        Amount.TonKilometer (Mass.metricTons float)
+
+                                    Amount.EnergyInKWh _ ->
+                                        Amount.EnergyInKWh (Energy.kilowattHours float)
+
+                                    Amount.EnergyInMJ _ ->
+                                        Amount.EnergyInMJ (Energy.megajoules float)
+
+                                    Amount.Length _ ->
+                                        Amount.Length (Length.kilometers float)
                         }
 
                 Nothing ->

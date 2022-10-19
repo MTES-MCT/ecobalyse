@@ -15,9 +15,12 @@ import Data.Impact as Impact
 import Data.Session as Session exposing (Session)
 import Data.Unit as Unit
 import Dict.Any as AnyDict
+import Energy
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
+import Length
+import Mass exposing (Mass)
 import Ports
 import Quantity
 import RemoteData exposing (WebData)
@@ -33,6 +36,7 @@ import Views.Format as Format
 import Views.Icon as Icon
 import Views.Impact as ImpactView
 import Views.Spinner as Spinner
+import Volume
 
 
 type alias CurrentProductInfo =
@@ -46,7 +50,7 @@ type alias Model =
     , selectedProduct : ProductName
     , impact : Impact.Trigram
     , selectedIngredientProcess : Maybe Process
-    , newIngredientAmount : Float
+    , newIngredientMass : Mass
     , selectedCountry : Country.Code
     }
 
@@ -57,8 +61,8 @@ type Msg
     | DbLoaded (WebData FoodDb.Db)
     | DeleteItem Product.Item
     | IngredientProcessSelected (Maybe Process)
-    | ItemAmountChanged Product.Item (Maybe Float)
-    | NewIngredientAmountChanged (Maybe Float)
+    | IngredientMassChanged Product.Item (Maybe Mass)
+    | NewIngredientMassChanged (Maybe Mass)
     | NoOp
     | ProductSelected ProductName
     | Reset
@@ -76,7 +80,7 @@ init session =
       , selectedProduct = tunaPizza
       , impact = Impact.defaultTrigram
       , selectedIngredientProcess = Nothing
-      , newIngredientAmount = 0.1
+      , newIngredientMass = Mass.grams 100
       , selectedCountry = Product.defaultCountry
       }
     , session
@@ -88,7 +92,7 @@ init session =
 
 
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
-update ({ foodDb, db } as session) msg ({ currentProductInfo, newIngredientAmount } as model) =
+update ({ foodDb, db } as session) msg ({ currentProductInfo, newIngredientMass } as model) =
     case ( msg, currentProductInfo ) of
         ( AddIngredient, Just selected ) ->
             case model.selectedIngredientProcess of
@@ -96,7 +100,7 @@ update ({ foodDb, db } as session) msg ({ currentProductInfo, newIngredientAmoun
                     let
                         productWithAddedIngredient =
                             selected.product
-                                |> Product.addMaterial selectedIngredientProcess newIngredientAmount
+                                |> Product.addIngredient selectedIngredientProcess newIngredientMass
                     in
                     ( { model
                         | currentProductInfo = Just { selected | product = productWithAddedIngredient }
@@ -127,7 +131,7 @@ update ({ foodDb, db } as session) msg ({ currentProductInfo, newIngredientAmoun
             let
                 productWithoutItem =
                     selected.product
-                        |> Product.removeMaterial processName
+                        |> Product.removeIngredient processName
             in
             ( { model
                 | currentProductInfo = Just { selected | product = productWithoutItem }
@@ -168,15 +172,15 @@ update ({ foodDb, db } as session) msg ({ currentProductInfo, newIngredientAmoun
             , Cmd.none
             )
 
-        ( ItemAmountChanged item (Just newAmount), Just ({ product } as selected) ) ->
+        ( IngredientMassChanged item (Just newMass), Just ({ product } as selected) ) ->
             let
                 updatedProduct =
-                    Product.updateMaterialAmount item newAmount product
+                    Product.updateIngredientMass item newMass product
             in
             ( { model | currentProductInfo = Just { selected | product = updatedProduct } }, session, Cmd.none )
 
-        ( NewIngredientAmountChanged (Just newAmount), _ ) ->
-            ( { model | newIngredientAmount = newAmount }
+        ( NewIngredientMassChanged (Just newMass), _ ) ->
+            ( { model | newIngredientMass = newMass }
             , session
             , Cmd.none
             )
@@ -288,7 +292,7 @@ viewSidebar session { definition, trigram, totalImpact } { original, product } =
 
 
 view : Session -> Model -> ( String, List (Html Msg) )
-view ({ foodDb, db } as session) ({ selectedProduct, newIngredientAmount, impact, selectedIngredientProcess, selectedCountry } as model) =
+view ({ foodDb, db } as session) ({ selectedProduct, newIngredientMass, impact, selectedIngredientProcess, selectedCountry } as model) =
     ( "Simulateur de recettes"
     , [ case model.currentProductInfo of
             Just ({ original, product } as currentProductInfo) ->
@@ -331,8 +335,20 @@ view ({ foodDb, db } as session) ({ selectedProduct, newIngredientAmount, impact
                                         |> List.map .process
                                 , selectedProcess = selectedIngredientProcess
                                 , onProcessSelected = IngredientProcessSelected
-                                , amount = newIngredientAmount
-                                , onAmountChanged = NewIngredientAmountChanged
+                                , amount = Amount.Mass newIngredientMass
+                                , onAmountChanged =
+                                    \maybeAmount ->
+                                        maybeAmount
+                                            |> Maybe.andThen
+                                                (\amount ->
+                                                    case amount of
+                                                        Amount.Mass mass ->
+                                                            Just mass
+
+                                                        _ ->
+                                                            Nothing
+                                                )
+                                            |> NewIngredientMassChanged
                                 , onSubmit = AddIngredient
                                 }
                             , viewPlantEnergy itemViewDataConfig product.plant
@@ -416,8 +432,51 @@ viewPlantProcess { disabled } ({ item, stepWeight } as itemViewData) =
               else
                 AmountInput.view
                     { amount = item.amount
-                    , onAmountChanged = ItemAmountChanged item
-                    , unit = item.process.unit
+                    , onAmountChanged =
+                        \maybeAmount ->
+                            maybeAmount
+                                |> Maybe.andThen
+                                    (\amount ->
+                                        case amount of
+                                            Amount.Mass mass ->
+                                                Just mass
+
+                                            _ ->
+                                                Nothing
+                                    )
+                                |> IngredientMassChanged item
+
+                    -- FIXME: This only deals with masses, in the future we
+                    -- might want to use the ProcessSelector for other types
+                    -- of processes with different units.
+                    , fromUnit =
+                        \amount ->
+                            case amount of
+                                Amount.Mass mass ->
+                                    Mass.inGrams mass
+
+                                _ ->
+                                    Amount.toStandardFloat amount
+                    , toUnit =
+                        \float ->
+                            case item.amount of
+                                Amount.Mass _ ->
+                                    Amount.Mass (Mass.grams float)
+
+                                Amount.Volume _ ->
+                                    Amount.Volume (Volume.liters float)
+
+                                Amount.TonKilometer _ ->
+                                    Amount.TonKilometer (Mass.metricTons float)
+
+                                Amount.EnergyInKWh _ ->
+                                    Amount.EnergyInKWh (Energy.kilowattHours float)
+
+                                Amount.EnergyInMJ _ ->
+                                    Amount.EnergyInMJ (Energy.megajoules float)
+
+                                Amount.Length _ ->
+                                    Amount.Length (Length.kilometers float)
                     }
             ]
         , div [ class "col-sm-9" ]
@@ -432,7 +491,7 @@ type alias ItemViewData =
     , width : Float
     , percent : Float
     , config : ItemViewDataConfig
-    , stepWeight : Float
+    , stepWeight : Mass
     }
 
 
@@ -443,12 +502,12 @@ type alias ItemViewDataConfig =
     }
 
 
-makeItemViewData : ItemViewDataConfig -> Float -> Product.Item -> ItemViewData
+makeItemViewData : ItemViewDataConfig -> Mass -> Product.Item -> ItemViewData
 makeItemViewData ({ totalImpact, trigram } as config) stepWeight ({ amount, process } as item) =
     let
         impact =
             Impact.getImpact trigram process.impacts
-                |> Quantity.multiplyBy amount
+                |> Quantity.multiplyBy (Amount.toStandardFloat amount)
 
         percent =
             Unit.impactToFloat impact * toFloat 100 / totalImpact
@@ -462,7 +521,7 @@ makeItemViewData ({ totalImpact, trigram } as config) stepWeight ({ amount, proc
     }
 
 
-toItemViewDataList : ItemViewDataConfig -> Float -> List Product.Item -> List ItemViewData
+toItemViewDataList : ItemViewDataConfig -> Mass -> List Product.Item -> List ItemViewData
 toItemViewDataList itemViewDataConfig stepWeight items =
     items
         |> List.map (makeItemViewData itemViewDataConfig stepWeight)
@@ -726,8 +785,8 @@ viewStep label ({ definition, trigram } as itemViewDataConfig) step =
     div []
         [ div [ class "d-flex align-items-center fs-7" ]
             [ span [ class "w-50 text-end p-2" ]
-                [ step.mainItem.amount
-                    |> Format.formatRichFloat 3 "kg"
+                [ step.mainItem.mass
+                    |> Format.kg
                 ]
             , span [ class "text-center" ]
                 [ DownArrow.large ]
@@ -764,7 +823,7 @@ viewStep label ({ definition, trigram } as itemViewDataConfig) step =
                     text ""
                 ]
             , step.items
-                |> toItemViewDataList itemViewDataConfig step.mainItem.amount
+                |> toItemViewDataList itemViewDataConfig step.mainItem.mass
                 |> List.map viewItemDetails
                 |> ul [ class "list-group list-group-flush" ]
             ]

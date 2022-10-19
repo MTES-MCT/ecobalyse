@@ -2,14 +2,18 @@ module Data.Food.Amount exposing
     ( Amount(..)
     , format
     , fromUnitAndFloat
-    , toFloat
-    , toTuple
+    , getMass
+    , kilometerToTonKilometer
+    , multiplyBy
+    , toDisplayTuple
+    , toStandardFloat
     , tonKilometerToKilometer
     )
 
 import Energy exposing (Energy)
 import Length exposing (Length)
 import Mass exposing (Mass)
+import Quantity
 import Views.Format as Format
 import Volume exposing (Volume)
 
@@ -21,28 +25,6 @@ type Amount
     | EnergyInKWh Energy
     | EnergyInMJ Energy
     | Length Length
-
-
-toTuple : Amount -> ( Float, String )
-toTuple amount =
-    case amount of
-        Mass mass ->
-            ( Mass.inGrams mass, "g" )
-
-        Volume volume ->
-            ( Volume.inMilliliters volume, "ml" )
-
-        TonKilometer tonKm ->
-            ( Mass.inKilograms tonKm, "kg.km" )
-
-        EnergyInKWh energy ->
-            ( Energy.inKilowattHours energy, "kWh" )
-
-        EnergyInMJ energy ->
-            ( Energy.inMegajoules energy, "MJ" )
-
-        Length length ->
-            ( Length.inKilometers length, "km" )
 
 
 format : Mass -> Amount -> String
@@ -62,7 +44,7 @@ format totalWeight amount =
         _ ->
             let
                 ( quantity, unit ) =
-                    toTuple amount
+                    toDisplayTuple amount
             in
             Format.formatFloat 2 quantity ++ "\u{00A0}" ++ unit
 
@@ -83,20 +65,94 @@ fromUnitAndFloat unit amount =
             Ok <| EnergyInKWh (Energy.kilowattHours amount)
 
         "l" ->
-            Ok <| Volume (Volume.liters amount)
+            -- WARNING: at the point this code was written, there was only ONE
+            -- ingredient with a unit different than "kg", and it was for Water,
+            -- with a volumic mass close enough to 1 that we decided to treat 1l = 1kg.
+            Ok <| Mass (Mass.kilograms amount)
 
         "MJ" ->
             Ok <| EnergyInMJ (Energy.megajoules amount)
 
-        "t/km" ->
-            Ok <| Mass (Mass.metricTons amount)
+        "ton.km" ->
+            Ok <| TonKilometer (Mass.metricTons amount)
 
         _ ->
             Err <| "Could not convert the unit " ++ unit
 
 
-toFloat : Amount -> Float
-toFloat amount =
+getMass : Amount -> Mass
+getMass amount =
+    case amount of
+        Mass mass ->
+            mass
+
+        _ ->
+            Quantity.zero
+
+
+multiplyBy : Float -> Amount -> Amount
+multiplyBy ratio amount =
+    case amount of
+        Mass mass ->
+            Mass (Quantity.multiplyBy ratio mass)
+
+        Volume volume ->
+            Volume (Quantity.multiplyBy ratio volume)
+
+        TonKilometer tonKm ->
+            TonKilometer (Quantity.multiplyBy ratio tonKm)
+
+        EnergyInKWh energy ->
+            EnergyInKWh (Quantity.multiplyBy ratio energy)
+
+        EnergyInMJ energy ->
+            EnergyInMJ (Quantity.multiplyBy ratio energy)
+
+        Length length ->
+            Length (Quantity.multiplyBy ratio length)
+
+
+kilometerToTonKilometer : Length -> Mass -> Mass
+kilometerToTonKilometer length amount =
+    -- FIXME: amount shouldn't be a Mass, but a TonKilometer
+    (Mass.inMetricTons amount / Length.inKilometers length)
+        |> Mass.metricTons
+
+
+toDisplayTuple : Amount -> ( Float, String )
+toDisplayTuple amount =
+    -- A tuple used for display: we display units differently than what's used in Agribalyse
+    -- eg: kilograms in agribalyse, grams in our UI, ton.km in agribalyse, kg.km in our UI
+    case amount of
+        Mass mass ->
+            ( Mass.inGrams mass, "g" )
+
+        Volume volume ->
+            ( Volume.inMilliliters volume, "ml" )
+
+        TonKilometer tonKm ->
+            ( Mass.inKilograms tonKm, "kg.km" )
+
+        EnergyInKWh energy ->
+            ( Energy.inKilowattHours energy, "kWh" )
+
+        EnergyInMJ energy ->
+            ( Energy.inMegajoules energy, "MJ" )
+
+        Length length ->
+            ( Length.inKilometers length, "km" )
+
+
+tonKilometerToKilometer : Mass -> Mass -> Length
+tonKilometerToKilometer mass amount =
+    -- FIXME: amount shouldn't be a Mass, but a TonKilometer
+    (Mass.inMetricTons amount / Mass.inMetricTons mass)
+        |> Length.kilometers
+
+
+toStandardFloat : Amount -> Float
+toStandardFloat amount =
+    -- Standard here means using agribalyse units
     case amount of
         Mass mass ->
             Mass.inKilograms mass
@@ -115,15 +171,3 @@ toFloat amount =
 
         Length length ->
             Length.inKilometers length
-
-
-tonKilometerToKilometer : Mass -> Amount -> Result String Length
-tonKilometerToKilometer mass amount =
-    case amount of
-        TonKilometer tonKm ->
-            (Mass.inMetricTons tonKm / Mass.inMetricTons mass)
-                |> Length.kilometers
-                |> Ok
-
-        _ ->
-            Err "The amount provided isn't in TonKilometer"

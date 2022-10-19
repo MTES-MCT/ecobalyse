@@ -1,26 +1,28 @@
 module Views.Component.AmountInput exposing (view)
 
+import Data.Food.Amount as Amount exposing (Amount)
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
 
 
 type alias Config msg =
-    { amount : Float
-    , onAmountChanged : Maybe Float -> msg
-    , unit : String
+    { amount : Amount
+    , onAmountChanged : Maybe Amount -> msg
+    , fromUnit : Amount -> Float
+    , toUnit : Float -> Amount
     }
 
 
 view : Config msg -> Html msg
-view { amount, onAmountChanged, unit } =
+view { amount, onAmountChanged, fromUnit, toUnit } =
     div [ class "input-group input-group" ]
         [ input
             [ class "form-control text-end incdec-arrows-left"
             , type_ "number"
             , step "1"
             , amount
-                |> (\f -> f * 1000)
+                |> fromUnit
                 |> round
                 |> String.fromInt
                 |> value
@@ -29,25 +31,18 @@ view { amount, onAmountChanged, unit } =
                 \str ->
                     onAmountChanged
                         (if str == "" then
-                            Just 0
+                            Nothing
 
                          else
-                            str |> String.toFloat |> Maybe.map (\f -> f / 1000)
+                            str |> String.toFloat |> Maybe.map toUnit
                         )
             , Attr.min "0"
             ]
             []
         , span [ class "input-group-text" ]
-            [ text
-                (case unit of
-                    "kg" ->
-                        "g"
-
-                    "l" ->
-                        "ml"
-
-                    _ ->
-                        "?"
-                )
+            [ amount
+                |> Amount.toDisplayTuple
+                |> Tuple.second
+                |> text
             ]
         ]
