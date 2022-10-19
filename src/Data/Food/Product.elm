@@ -5,13 +5,12 @@ module Data.Food.Product exposing
     , ProductName
     , Products
     , Step
-    , addMaterial
+    , addIngredient
     , decodeProducts
     , defaultCountry
     , emptyProducts
     , filterItemByCategory
     , findByName
-    , formatItem
     , getAmountRatio
     , getItemsImpact
     , getStepTransports
@@ -21,8 +20,8 @@ module Data.Food.Product exposing
     , listProcessingProcesses
     , nameFromString
     , nameToString
-    , removeMaterial
-    , updateMaterialAmount
+    , removeIngredient
+    , updateIngredientMass
     , updatePlantTransport
     )
 
@@ -49,11 +48,6 @@ defaultCountry =
     Country.codeFromString "FR"
 
 
-formatItem : Mass -> Item -> String
-formatItem totalWeight item =
-    Amount.format totalWeight item.amount
-
-
 {-| Item
 An item is one entry from one category (transport, material, processing...)
 from one step (consumer, packaging, plant...)
@@ -68,7 +62,7 @@ type alias Item =
 
 
 type alias MainItem =
-    { amount : Amount
+    { mass : Mass
     , comment : String
     , processName : ProcessName
     }
@@ -177,31 +171,12 @@ decodeItem processes =
             )
 
 
-type alias TempMainItem =
-    { amount : Float
-    , comment : String
-    , processName : ProcessName
-    }
-
-
 decodeMainItem : Decoder MainItem
 decodeMainItem =
-    Decode.succeed TempMainItem
-        |> Pipe.required "amount" Decode.float
+    Decode.succeed MainItem
+        |> Pipe.required "amount" (Decode.map Mass.kilograms Decode.float)
         |> Pipe.required "comment" Decode.string
         |> Pipe.required "processName" (Decode.map Process.nameFromString Decode.string)
-        |> Decode.andThen
-            (\{ amount, comment, processName } ->
-                Amount.fromUnitAndFloat "kg" amount
-                    |> Result.map
-                        (\res ->
-                            { amount = res
-                            , comment = comment
-                            , processName = processName
-                            }
-                        )
-                    |> DE.fromResult
-            )
 
 
 decodeItems : AnyDict String ProcessName Process -> Decoder Items
@@ -251,7 +226,7 @@ getItemsImpact trigram items =
                         Impact.getImpact trigram item.process.impacts
                             |> Unit.impactToFloat
                 in
-                total + (Amount.toFloat item.amount * impact)
+                total + (Amount.toStandardFloat item.amount * impact)
             )
             0
 
@@ -287,34 +262,30 @@ transportModes =
 getStepTransports : Step -> { air : Length, rail : Length, road : Length, sea : Length }
 getStepTransports step =
     step.items
+        |> filterItemByCategory Process.Transport
         |> List.foldl
-            (\{ amount } acc ->
-                let
-                    distanceToAdd =
-                        case Amount.tonKilometerToKilometer amount of
-                            Ok distance ->
-                                distance
+            (\{ amount, process } acc ->
+                case amount of
+                    Amount.TonKilometer tonkm ->
+                        let
+                            distanceToAdd =
+                                Amount.tonKilometerToKilometer step.mainItem.mass tonkm
+                        in
+                        case Dict.get (Process.nameToString process.name) transportModes of
+                            Just "air" ->
+                                { acc | air = acc.air |> Quantity.plus distanceToAdd }
 
-                            Err _ ->
-                                amount
+                            Just "rail" ->
+                                { acc | rail = acc.rail |> Quantity.plus distanceToAdd }
 
-                    -- Amount.TonKilometer tonKm ->
-                    --     tonKm / step.mainItem.amount
-                    -- _ ->
-                    --     amount
-                in
-                case Dict.get (Process.nameToString process.name) transportModes of
-                    Just "air" ->
-                        { acc | air = acc.air |> Quantity.plus (Length.kilometers distanceToAdd) }
+                            Just "road" ->
+                                { acc | road = acc.road |> Quantity.plus distanceToAdd }
 
-                    Just "rail" ->
-                        { acc | rail = acc.rail |> Quantity.plus (Length.kilometers distanceToAdd) }
+                            Just "sea" ->
+                                { acc | sea = acc.sea |> Quantity.plus distanceToAdd }
 
-                    Just "road" ->
-                        { acc | road = acc.road |> Quantity.plus (Length.kilometers distanceToAdd) }
-
-                    Just "sea" ->
-                        { acc | sea = acc.sea |> Quantity.plus (Length.kilometers distanceToAdd) }
+                            _ ->
+                                acc
 
                     _ ->
                         acc
@@ -326,14 +297,16 @@ getStepTransports step =
             }
 
 
-getWeightAtPlant : Items -> Float
+getWeightAtPlant : Items -> Mass
 getWeightAtPlant items =
     -- At plant we don't really have a main item that we could use for the weight, so instead
     -- sum the weight of all the materials.
     items
         |> filterItemByCategory Process.Ingredient
+        -- FIXME: if there are no ingredients, take the weight of the processing or the main item at packaging
         |> List.map .amount
-        |> List.sum
+        |> List.map Amount.getMass
+        |> Quantity.sum
 
 
 listProcesses : (Product -> Items) -> Products -> List Process
@@ -357,11 +330,11 @@ listProcessingProcesses =
     listProcesses (.plant >> filterItemByCategory Process.Processing)
 
 
-addMaterial : Process -> Float -> Product -> Product
-addMaterial process amount ({ plant } as product) =
+addIngredient : Process -> Mass -> Product -> Product
+addIngredient process mass ({ plant } as product) =
     let
         newItem =
-            { amount = amount
+            { amount = Amount.Mass mass
             , comment = ""
             , process = process
             }
@@ -376,8 +349,8 @@ addMaterial process amount ({ plant } as product) =
         |> updateProductAmounts originalWeight
 
 
-updateMaterialAmount : Item -> Amount -> Product -> Product
-updateMaterialAmount itemToUpdate amount ({ plant } as product) =
+updateIngredientMass : Item -> Mass -> Product -> Product
+updateIngredientMass itemToUpdate mass ({ plant } as product) =
     let
         originalWeight =
             getWeightAtPlant plant
@@ -388,7 +361,7 @@ updateMaterialAmount itemToUpdate amount ({ plant } as product) =
                 |> List.map
                     (\item ->
                         if item == itemToUpdate then
-                            { item | amount = amount }
+                            { item | amount = Amount.Mass mass }
 
                         else
                             item
@@ -397,8 +370,8 @@ updateMaterialAmount itemToUpdate amount ({ plant } as product) =
         |> updateProductAmounts originalWeight
 
 
-removeMaterial : Item -> Product -> Product
-removeMaterial itemToRemove ({ plant } as product) =
+removeIngredient : Item -> Product -> Product
+removeIngredient itemToRemove ({ plant } as product) =
     let
         originalWeight =
             getWeightAtPlant plant
@@ -409,7 +382,7 @@ removeMaterial itemToRemove ({ plant } as product) =
         |> updateProductAmounts originalWeight
 
 
-getAmountRatio : Float -> Product -> Float
+getAmountRatio : Mass -> Product -> Float
 getAmountRatio originalWeight currentProduct =
     let
         updatedWeight =
@@ -417,11 +390,10 @@ getAmountRatio originalWeight currentProduct =
     in
     -- We need the new "ratio" between the original product and the updated one,
     -- to change the amount for all the other processes (but the plant materials).
-    updatedWeight
-        / originalWeight
+    Quantity.ratio updatedWeight originalWeight
 
 
-updateProductAmounts : Float -> Product -> Product
+updateProductAmounts : Mass -> Product -> Product
 updateProductAmounts originalWeight ({ consumer, supermarket, distribution, packaging, plant } as product) =
     let
         amountRatio =
@@ -461,7 +433,7 @@ updatePlantAmounts amountRatio items =
                     item
 
                 else
-                    { item | amount = item.amount * amountRatio }
+                    { item | amount = Amount.multiplyBy amountRatio item.amount }
             )
 
 
@@ -470,7 +442,7 @@ updateItemsAmounts amountRatio items =
     items
         |> List.map
             (\item ->
-                { item | amount = item.amount * amountRatio }
+                { item | amount = Amount.multiplyBy amountRatio item.amount }
             )
 
 
@@ -488,7 +460,7 @@ updatePlantTransport originalProduct processes impactDefinitions countryCode dis
             getWeightAtPlant product.plant
 
         amountRatio =
-            plantWeight / originalPlantWeight
+            Quantity.ratio plantWeight originalPlantWeight
 
         impacts =
             Impact.impactsFromDefinitons impactDefinitions
@@ -503,9 +475,6 @@ updatePlantTransport originalProduct processes impactDefinitions countryCode dis
                 -- Cf https://fabrique-numerique.gitbook.io/ecobalyse/textile/transport#part-du-transport-aerien
                 |> Formula.transportRatio (Unit.Ratio 0)
 
-        toTonKm km =
-            Length.inKilometers km * plantWeight / 1000
-
         transports =
             Process.loadWellKnown processes
                 |> Result.map
@@ -516,7 +485,7 @@ updatePlantTransport originalProduct processes impactDefinitions countryCode dis
                         ]
                             |> List.map
                                 (\( process, distance ) ->
-                                    { amount = toTonKm distance
+                                    { amount = Amount.kilometerToTonKilometer distance plantWeight |> Amount.Mass
                                     , comment = ""
                                     , process = process
                                     }

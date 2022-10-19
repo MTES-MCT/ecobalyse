@@ -134,7 +134,7 @@ decodeProcess definitions =
     Decode.succeed Process
         |> Pipe.required "name" (Decode.map nameFromString Decode.string)
         |> Pipe.required "impacts" (Impact.decodeImpacts definitions)
-        |> Pipe.required "unit" (Decode.map formatStringUnit Decode.string)
+        |> Pipe.required "unit" decodeStringUnit
         |> Pipe.required "simapro_id" (Decode.map codeFromString Decode.string)
         |> Pipe.required "category" decodeCategory
         |> Pipe.required "system_description" Decode.string
@@ -169,32 +169,37 @@ findByName processes ((ProcessName name) as procName) =
         |> Result.fromMaybe ("Procédé introuvable par nom : " ++ name)
 
 
-formatStringUnit : String -> String
-formatStringUnit str =
-    case str of
-        "cubic meter" ->
-            "m³"
+decodeStringUnit : Decoder String
+decodeStringUnit =
+    Decode.string
+        |> Decode.andThen
+            (\str ->
+                -- TODO : modify the export to have the proper unit instead of converting here?
+                case str of
+                    "cubic meter" ->
+                        Decode.succeed "m³"
 
-        "kilogram" ->
-            "kg"
+                    "kilogram" ->
+                        Decode.succeed "kg"
 
-        "kilometer" ->
-            "km"
+                    "kilometer" ->
+                        Decode.succeed "km"
 
-        "kilowatt hour" ->
-            "kWh"
+                    "kilowatt hour" ->
+                        Decode.succeed "kWh"
 
-        "litre" ->
-            "l"
+                    "litre" ->
+                        Decode.succeed "l"
 
-        "megajoule" ->
-            "MJ"
+                    "megajoule" ->
+                        Decode.succeed "MJ"
 
-        "ton kilometer" ->
-            "t/km"
+                    "ton kilometer" ->
+                        Decode.succeed "ton.km"
 
-        _ ->
-            str
+                    _ ->
+                        Decode.fail <| "Could not decode unit " ++ str
+            )
 
 
 listByCategory : Category -> List Process -> List Process
