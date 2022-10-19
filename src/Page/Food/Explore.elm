@@ -777,8 +777,6 @@ viewSteps : ItemViewDataConfig -> Product -> Html Msg
 viewSteps itemViewDataConfig product =
     product
         |> stepNames
-        -- Exclude the first Recipe step
-        |> List.drop 1
         |> List.map (\( label, step ) -> viewStep label itemViewDataConfig step)
         |> div []
 
