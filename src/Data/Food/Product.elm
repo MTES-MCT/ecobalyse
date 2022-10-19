@@ -144,16 +144,9 @@ linkProcess processes =
             )
 
 
-type alias TempItem =
-    { amount : Float
-    , comment : String
-    , process : Process
-    }
-
-
 decodeItem : AnyDict String ProcessName Process -> Decoder Item
 decodeItem processes =
-    Decode.succeed TempItem
+    Decode.succeed (\amount comment process -> { amount = amount, comment = comment, process = process })
         |> Pipe.required "amount" Decode.float
         |> Pipe.required "comment" Decode.string
         |> Pipe.required "processName" (linkProcess processes)
