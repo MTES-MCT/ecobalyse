@@ -19,12 +19,12 @@ import Volume exposing (Volume)
 
 
 type Amount
-    = Mass Mass
-    | Volume Volume
-    | TonKilometer Mass
-    | EnergyInKWh Energy
+    = EnergyInKWh Energy
     | EnergyInMJ Energy
     | Length Length
+    | Mass Mass
+    | TonKilometer Mass
+    | Volume Volume
 
 
 format : Mass -> Amount -> String
@@ -92,18 +92,16 @@ getMass amount =
             Quantity.zero
 
 
+kilometerToTonKilometer : Length -> Mass -> Mass
+kilometerToTonKilometer length amount =
+    -- FIXME: amount shouldn't be a Mass, but a TonKilometer
+    (Mass.inMetricTons amount / Length.inKilometers length)
+        |> Mass.metricTons
+
+
 multiplyBy : Float -> Amount -> Amount
 multiplyBy ratio amount =
     case amount of
-        Mass mass ->
-            Mass (Quantity.multiplyBy ratio mass)
-
-        Volume volume ->
-            Volume (Quantity.multiplyBy ratio volume)
-
-        TonKilometer tonKm ->
-            TonKilometer (Quantity.multiplyBy ratio tonKm)
-
         EnergyInKWh energy ->
             EnergyInKWh (Quantity.multiplyBy ratio energy)
 
@@ -113,12 +111,14 @@ multiplyBy ratio amount =
         Length length ->
             Length (Quantity.multiplyBy ratio length)
 
+        Mass mass ->
+            Mass (Quantity.multiplyBy ratio mass)
 
-kilometerToTonKilometer : Length -> Mass -> Mass
-kilometerToTonKilometer length amount =
-    -- FIXME: amount shouldn't be a Mass, but a TonKilometer
-    (Mass.inMetricTons amount / Length.inKilometers length)
-        |> Mass.metricTons
+        TonKilometer tonKm ->
+            TonKilometer (Quantity.multiplyBy ratio tonKm)
+
+        Volume volume ->
+            Volume (Quantity.multiplyBy ratio volume)
 
 
 toDisplayTuple : Amount -> ( Float, String )
@@ -126,15 +126,6 @@ toDisplayTuple amount =
     -- A tuple used for display: we display units differently than what's used in Agribalyse
     -- eg: kilograms in agribalyse, grams in our UI, ton.km in agribalyse, kg.km in our UI
     case amount of
-        Mass mass ->
-            ( Mass.inGrams mass, "g" )
-
-        Volume volume ->
-            ( Volume.inMilliliters volume, "ml" )
-
-        TonKilometer tonKm ->
-            ( Mass.inKilograms tonKm, "kg.km" )
-
         EnergyInKWh energy ->
             ( Energy.inKilowattHours energy, "kWh" )
 
@@ -143,6 +134,15 @@ toDisplayTuple amount =
 
         Length length ->
             ( Length.inKilometers length, "km" )
+
+        Mass mass ->
+            ( Mass.inGrams mass, "g" )
+
+        TonKilometer tonKm ->
+            ( Mass.inKilograms tonKm, "kg.km" )
+
+        Volume volume ->
+            ( Volume.inMilliliters volume, "ml" )
 
 
 tonKilometerToKilometer : Mass -> Mass -> Length
@@ -156,15 +156,6 @@ toStandardFloat : Amount -> Float
 toStandardFloat amount =
     -- Standard here means using agribalyse units
     case amount of
-        Mass mass ->
-            Mass.inKilograms mass
-
-        Volume volume ->
-            Volume.inLiters volume
-
-        TonKilometer tonKm ->
-            Mass.inMetricTons tonKm
-
         EnergyInKWh energy ->
             Energy.inKilowattHours energy
 
@@ -173,3 +164,12 @@ toStandardFloat amount =
 
         Length length ->
             Length.inKilometers length
+
+        Mass mass ->
+            Mass.inKilograms mass
+
+        TonKilometer tonKm ->
+            Mass.inMetricTons tonKm
+
+        Volume volume ->
+            Volume.inLiters volume
