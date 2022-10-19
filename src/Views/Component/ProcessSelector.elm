@@ -108,15 +108,6 @@ view config =
                         , toUnit =
                             \float ->
                                 case config.amount of
-                                    Amount.Mass _ ->
-                                        Amount.Mass (Mass.grams float)
-
-                                    Amount.Volume _ ->
-                                        Amount.Volume (Volume.liters float)
-
-                                    Amount.TonKilometer _ ->
-                                        Amount.TonKilometer (Mass.metricTons float)
-
                                     Amount.EnergyInKWh _ ->
                                         Amount.EnergyInKWh (Energy.kilowattHours float)
 
@@ -125,6 +116,15 @@ view config =
 
                                     Amount.Length _ ->
                                         Amount.Length (Length.kilometers float)
+
+                                    Amount.Mass _ ->
+                                        Amount.Mass (Mass.grams float)
+
+                                    Amount.TonKilometer _ ->
+                                        Amount.TonKilometer (Mass.metricTons float)
+
+                                    Amount.Volume _ ->
+                                        Amount.Volume (Volume.liters float)
                         }
 
                 Nothing ->
