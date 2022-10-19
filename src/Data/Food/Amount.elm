@@ -74,6 +74,8 @@ fromUnitAndFloat unit amount =
             Ok <| EnergyInMJ (Energy.megajoules amount)
 
         "ton.km" ->
+            -- FIXME: we should rather express ton.km using elm-unit's Product type
+            -- @see https://package.elm-lang.org/packages/ianmackenzie/elm-units/latest/Quantity#Product
             Ok <| TonKilometer (Mass.metricTons amount)
 
         _ ->
