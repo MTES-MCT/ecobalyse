@@ -5,6 +5,7 @@ module Data.Food.Amount exposing
     , getMass
     , kilometerToTonKilometer
     , multiplyBy
+    , setFloat
     , toDisplayTuple
     , toStandardFloat
     , tonKilometerToKilometer
@@ -121,10 +122,35 @@ multiplyBy ratio amount =
             Volume (Quantity.multiplyBy ratio volume)
 
 
+{-| Updates an Amount with a new float value, preserving its current unit.
+-}
+setFloat : Amount -> Float -> Amount
+setFloat amount float =
+    case amount of
+        EnergyInKWh _ ->
+            EnergyInKWh (Energy.kilowattHours float)
+
+        EnergyInMJ _ ->
+            EnergyInMJ (Energy.megajoules float)
+
+        Length _ ->
+            Length (Length.kilometers float)
+
+        Mass _ ->
+            Mass (Mass.grams float)
+
+        TonKilometer _ ->
+            TonKilometer (Mass.metricTons float)
+
+        Volume _ ->
+            Volume (Volume.liters float)
+
+
+{-| A tuple used for display: we display units differently than what's used in Agribalyse.
+eg: kilograms in agribalyse, grams in our UI, ton.km in agribalyse, kg.km in our UI
+-}
 toDisplayTuple : Amount -> ( Float, String )
 toDisplayTuple amount =
-    -- A tuple used for display: we display units differently than what's used in Agribalyse
-    -- eg: kilograms in agribalyse, grams in our UI, ton.km in agribalyse, kg.km in our UI
     case amount of
         EnergyInKWh energy ->
             ( Energy.inKilowattHours energy, "kWh" )

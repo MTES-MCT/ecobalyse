@@ -2,15 +2,12 @@ module Views.Component.ProcessSelector exposing (view)
 
 import Data.Food.Amount as Amount exposing (Amount)
 import Data.Food.Process as Process exposing (Process, ProcessName)
-import Energy
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Html.Keyed
-import Length
 import Mass
 import Views.Component.AmountInput as AmountInput
-import Volume
 
 
 type alias Config msg =
@@ -105,26 +102,6 @@ view config =
 
                                     _ ->
                                         Amount.toStandardFloat amount
-                        , toUnit =
-                            \float ->
-                                case config.amount of
-                                    Amount.EnergyInKWh _ ->
-                                        Amount.EnergyInKWh (Energy.kilowattHours float)
-
-                                    Amount.EnergyInMJ _ ->
-                                        Amount.EnergyInMJ (Energy.megajoules float)
-
-                                    Amount.Length _ ->
-                                        Amount.Length (Length.kilometers float)
-
-                                    Amount.Mass _ ->
-                                        Amount.Mass (Mass.grams float)
-
-                                    Amount.TonKilometer _ ->
-                                        Amount.TonKilometer (Mass.metricTons float)
-
-                                    Amount.Volume _ ->
-                                        Amount.Volume (Volume.liters float)
                         }
 
                 Nothing ->

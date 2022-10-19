@@ -7,7 +7,7 @@ module Page.Food.Explore exposing
     )
 
 import Data.Country as Country exposing (Country)
-import Data.Food.Amount as Amount
+import Data.Food.Amount as Amount exposing (Amount)
 import Data.Food.Db as FoodDb
 import Data.Food.Process as Process exposing (Process)
 import Data.Food.Product as Product exposing (Product, ProductName)
@@ -15,11 +15,9 @@ import Data.Impact as Impact
 import Data.Session as Session exposing (Session)
 import Data.Unit as Unit
 import Dict.Any as AnyDict
-import Energy
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import Length
 import Mass exposing (Mass)
 import Ports
 import Quantity
@@ -36,7 +34,6 @@ import Views.Format as Format
 import Views.Icon as Icon
 import Views.Impact as ImpactView
 import Views.Spinner as Spinner
-import Volume
 
 
 type alias CurrentProductInfo =
@@ -291,6 +288,20 @@ viewSidebar session { definition, trigram, totalImpact } { original, product } =
         ]
 
 
+onMassAmountChanged : (Maybe Mass -> msg) -> Maybe Amount -> msg
+onMassAmountChanged msg =
+    Maybe.andThen
+        (\amount ->
+            case amount of
+                Amount.Mass mass ->
+                    Just mass
+
+                _ ->
+                    Nothing
+        )
+        >> msg
+
+
 view : Session -> Model -> ( String, List (Html Msg) )
 view ({ foodDb, db } as session) ({ selectedProduct, newIngredientMass, impact, selectedIngredientProcess, selectedCountry } as model) =
     ( "Simulateur de recettes"
@@ -336,19 +347,7 @@ view ({ foodDb, db } as session) ({ selectedProduct, newIngredientMass, impact, 
                                 , selectedProcess = selectedIngredientProcess
                                 , onProcessSelected = IngredientProcessSelected
                                 , amount = Amount.Mass newIngredientMass
-                                , onAmountChanged =
-                                    \maybeAmount ->
-                                        maybeAmount
-                                            |> Maybe.andThen
-                                                (\amount ->
-                                                    case amount of
-                                                        Amount.Mass mass ->
-                                                            Just mass
-
-                                                        _ ->
-                                                            Nothing
-                                                )
-                                            |> NewIngredientMassChanged
+                                , onAmountChanged = onMassAmountChanged NewIngredientMassChanged
                                 , onSubmit = AddIngredient
                                 }
                             , viewPlantEnergy itemViewDataConfig product.plant
@@ -432,19 +431,7 @@ viewPlantProcess { disabled } ({ item, stepWeight } as itemViewData) =
               else
                 AmountInput.view
                     { amount = item.amount
-                    , onAmountChanged =
-                        \maybeAmount ->
-                            maybeAmount
-                                |> Maybe.andThen
-                                    (\amount ->
-                                        case amount of
-                                            Amount.Mass mass ->
-                                                Just mass
-
-                                            _ ->
-                                                Nothing
-                                    )
-                                |> IngredientMassChanged item
+                    , onAmountChanged = onMassAmountChanged (IngredientMassChanged item)
 
                     -- FIXME: This only deals with masses, in the future we
                     -- might want to use the ProcessSelector for other types
@@ -457,26 +444,6 @@ viewPlantProcess { disabled } ({ item, stepWeight } as itemViewData) =
 
                                 _ ->
                                     Amount.toStandardFloat amount
-                    , toUnit =
-                        \float ->
-                            case item.amount of
-                                Amount.Mass _ ->
-                                    Amount.Mass (Mass.grams float)
-
-                                Amount.Volume _ ->
-                                    Amount.Volume (Volume.liters float)
-
-                                Amount.TonKilometer _ ->
-                                    Amount.TonKilometer (Mass.metricTons float)
-
-                                Amount.EnergyInKWh _ ->
-                                    Amount.EnergyInKWh (Energy.kilowattHours float)
-
-                                Amount.EnergyInMJ _ ->
-                                    Amount.EnergyInMJ (Energy.megajoules float)
-
-                                Amount.Length _ ->
-                                    Amount.Length (Length.kilometers float)
                     }
             ]
         , div [ class "col-sm-9" ]
