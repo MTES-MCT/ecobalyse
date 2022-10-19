@@ -10,12 +10,11 @@ type alias Config msg =
     { amount : Amount
     , onAmountChanged : Maybe Amount -> msg
     , fromUnit : Amount -> Float
-    , toUnit : Float -> Amount
     }
 
 
 view : Config msg -> Html msg
-view { amount, onAmountChanged, fromUnit, toUnit } =
+view { amount, onAmountChanged, fromUnit } =
     div [ class "input-group input-group" ]
         [ input
             [ class "form-control text-end incdec-arrows-left"
@@ -34,7 +33,9 @@ view { amount, onAmountChanged, fromUnit, toUnit } =
                             Nothing
 
                          else
-                            str |> String.toFloat |> Maybe.map toUnit
+                            str
+                                |> String.toFloat
+                                |> Maybe.map (Amount.setFloat amount)
                         )
             , Attr.min "0"
             ]
