@@ -24,6 +24,7 @@ import Views.Alert as Alert
 import Views.Component.Summary as SummaryComp
 import Views.Container as Container
 import Views.Format as Format
+import Views.Icon as Icon
 import Views.Impact as ImpactView
 import Views.Spinner as Spinner
 
@@ -158,6 +159,10 @@ viewSidebar foodDb model impacts =
                             |> Impact.getImpact model.impact
                             |> Unit.impactToFloat
                             |> Format.formatImpactFloat definition 2
+                        ]
+                    , small [ class "d-flex align-items-center gap-1" ]
+                        [ Icon.warning
+                        , text "Attention, ces résultats sont partiels"
                         ]
                     ]
                 ]
