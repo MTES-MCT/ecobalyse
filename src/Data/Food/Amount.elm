@@ -8,9 +8,9 @@ module Data.Food.Amount exposing
     , setFloat
     , toDisplayTuple
     , toStandardFloat
-    , tonKilometerToKilometer
     )
 
+import Data.Food.Transport as Transport exposing (Transport)
 import Energy exposing (Energy)
 import Length exposing (Length)
 import Mass exposing (Mass)
@@ -24,22 +24,23 @@ type Amount
     | EnergyInMJ Energy
     | Length Length
     | Mass Mass
-    | TonKilometer Mass
+    | Transport Transport
     | Volume Volume
 
 
 format : Mass -> Amount -> String
 format totalWeight amount =
     case amount of
-        TonKilometer tonKm ->
+        Transport transport ->
             let
                 -- amount is in Ton.Km for the total weight. We instead want the total number of km.
-                distanceInKm =
-                    Mass.inMetricTons tonKm / Mass.inMetricTons totalWeight
+                distance =
+                    Transport.getLength totalWeight transport
+                        |> Length.inKilometers
             in
-            Format.formatFloat 0 distanceInKm
+            Format.formatFloat 0 distance
                 ++ "\u{00A0}km ("
-                ++ Format.formatFloat 2 (Mass.inKilograms tonKm)
+                ++ Format.formatFloat 2 (Transport.inKgKms transport)
                 ++ "\u{00A0}kg.km)"
 
         _ ->
@@ -75,9 +76,7 @@ fromUnitAndFloat unit amount =
             Ok <| EnergyInMJ (Energy.megajoules amount)
 
         "ton.km" ->
-            -- FIXME: we should rather express ton.km using elm-unit's Product type
-            -- @see https://package.elm-lang.org/packages/ianmackenzie/elm-units/latest/Quantity#Product
-            Ok <| TonKilometer (Mass.metricTons amount)
+            Ok <| Transport (Transport.tonKilometers amount)
 
         _ ->
             Err <| "Could not convert the unit " ++ unit
@@ -95,7 +94,6 @@ getMass amount =
 
 kilometerToTonKilometer : Length -> Mass -> Mass
 kilometerToTonKilometer length amount =
-    -- FIXME: amount shouldn't be a Mass, but a TonKilometer
     (Mass.inMetricTons amount / Length.inKilometers length)
         |> Mass.metricTons
 
@@ -115,8 +113,8 @@ multiplyBy ratio amount =
         Mass mass ->
             Mass (Quantity.multiplyBy ratio mass)
 
-        TonKilometer tonKm ->
-            TonKilometer (Quantity.multiplyBy ratio tonKm)
+        Transport transport ->
+            Transport (Quantity.multiplyBy ratio transport)
 
         Volume volume ->
             Volume (Quantity.multiplyBy ratio volume)
@@ -139,8 +137,8 @@ setFloat amount float =
         Mass _ ->
             Mass (Mass.grams float)
 
-        TonKilometer _ ->
-            TonKilometer (Mass.metricTons float)
+        Transport _ ->
+            Transport (Transport.tonKilometers float)
 
         Volume _ ->
             Volume (Volume.liters float)
@@ -164,18 +162,11 @@ toDisplayTuple amount =
         Mass mass ->
             ( Mass.inGrams mass, "g" )
 
-        TonKilometer tonKm ->
-            ( Mass.inKilograms tonKm, "kg.km" )
+        Transport transport ->
+            ( Transport.inKgKms transport, "kg.km" )
 
         Volume volume ->
             ( Volume.inMilliliters volume, "ml" )
-
-
-tonKilometerToKilometer : Mass -> Mass -> Length
-tonKilometerToKilometer mass amount =
-    -- FIXME: amount shouldn't be a Mass, but a TonKilometer
-    (Mass.inMetricTons amount / Mass.inMetricTons mass)
-        |> Length.kilometers
 
 
 toStandardFloat : Amount -> Float
@@ -194,8 +185,8 @@ toStandardFloat amount =
         Mass mass ->
             Mass.inKilograms mass
 
-        TonKilometer tonKm ->
-            Mass.inMetricTons tonKm
+        Transport transport ->
+            Transport.inTonKilometers transport
 
         Volume volume ->
             Volume.inLiters volume

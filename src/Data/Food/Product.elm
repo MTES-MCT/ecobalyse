@@ -28,6 +28,7 @@ module Data.Food.Product exposing
 import Data.Country as Country
 import Data.Food.Amount as Amount exposing (Amount)
 import Data.Food.Process as Process exposing (Process, ProcessName)
+import Data.Food.Transport as Transport
 import Data.Impact as Impact
 import Data.Textile.Formula as Formula
 import Data.Transport as Transport exposing (Distances)
@@ -262,17 +263,17 @@ getStepTransports step =
         |> List.filterMap
             (\{ amount, process } ->
                 case amount of
-                    Amount.TonKilometer tonKm ->
-                        Just ( tonKm, process )
+                    Amount.Transport transport ->
+                        Just ( transport, process )
 
                     _ ->
                         Nothing
             )
         |> List.foldl
-            (\( tonKm, process ) acc ->
+            (\( transport, process ) acc ->
                 let
                     distanceToAdd =
-                        Amount.tonKilometerToKilometer step.mainItem.mass tonKm
+                        Transport.getLength step.mainItem.mass transport
                 in
                 case Dict.get (Process.nameToString process.name) transportModes of
                     Just "air" ->
