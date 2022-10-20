@@ -4,6 +4,7 @@ module Data.Food.Recipe exposing
     , ProcessingQuery
     , Query
     , compute
+    , empty
     , encode
     , fromQuery
     , serialize
@@ -48,6 +49,14 @@ type alias Query =
 
 type alias PlantOptions =
     { country : Maybe Country.Code }
+
+
+empty : Query
+empty =
+    { ingredients = []
+    , processing = Nothing
+    , plant = { country = Nothing }
+    }
 
 
 tunaPizza : Query
