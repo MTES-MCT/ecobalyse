@@ -42,10 +42,20 @@ Chaque procédé de transformation est caractérisé par :&#x20;
 
 * Masse (g)
 
-La masse est considérée en sortie de procédé de transformation \[_**à confirmer**_]
+La masse est considérée en sortie de procédé de transformation.
+
+Par défaut, la masse est initiée à une valeur correspondant à la somme des masses des [ingrédients](ingredients.md). Elle est modifiable.
+
+$$
+MasseTransfo (g) = MasseIngrédient1 (g) + MasseIngrédient2 (g)+...
+$$
 
 {% hint style="warning" %}
 La masse est exprimée en grammes (g) pour la configuration du conditionnement. Dans le calcul (cf. ci-après), c'est toutefois une masse en kg qui est considérée (kg). Une conversion est donc réalisée.
+{% endhint %}
+
+{% hint style="danger" %}
+La masse proposée par défaut pour le procédé de transformation devra évoluer à l'avenir pour intégrer, par exemple, les éventuelles pertes au niveau de la transformation (Cooking...).
 {% endhint %}
 
 ## Calcul des impacts
