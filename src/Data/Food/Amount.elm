@@ -40,7 +40,7 @@ format totalWeight amount =
             in
             Format.formatFloat 0 distance
                 ++ "\u{00A0}km ("
-                ++ Format.formatFloat 2 (Transport.inKgKms transport)
+                ++ Format.formatFloat 2 (Transport.inKgKilometers transport)
                 ++ "\u{00A0}kg.km)"
 
         _ ->
@@ -163,7 +163,7 @@ toDisplayTuple amount =
             ( Mass.inGrams mass, "g" )
 
         Transport transport ->
-            ( Transport.inKgKms transport, "kg.km" )
+            ( Transport.inKgKilometers transport, "kg.km" )
 
         Volume volume ->
             ( Volume.inMilliliters volume, "ml" )
