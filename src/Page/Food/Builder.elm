@@ -24,6 +24,7 @@ import Views.Spinner as Spinner
 
 type alias Model =
     { dbState : WebData FoodDb.Db
+    , query : Recipe.Query
     }
 
 
@@ -33,8 +34,14 @@ type Msg
 
 init : Session -> ( Model, Session, Cmd Msg )
 init session =
+    let
+        model =
+            { dbState = RemoteData.Loading
+            , query = Recipe.empty
+            }
+    in
     if FoodDb.isEmpty session.foodDb then
-        ( { dbState = RemoteData.Loading }
+        ( model
         , session
         , Cmd.batch
             [ Ports.scrollTo { x = 0, y = 0 }
@@ -43,7 +50,7 @@ init session =
         )
 
     else
-        ( { dbState = RemoteData.Success session.foodDb }
+        ( { model | dbState = RemoteData.Success session.foodDb }
         , session
         , Ports.scrollTo { x = 0, y = 0 }
         )
