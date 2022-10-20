@@ -1,4 +1,10 @@
-module Data.Food.Transport exposing (..)
+module Data.Food.Transport exposing
+    ( Transport
+    , getLength
+    , inKgKilometers
+    , inTonKilometers
+    , tonKilometers
+    )
 
 import Length exposing (Length)
 import Mass exposing (Mass)
@@ -14,8 +20,8 @@ getLength mass transport =
     Quantity.over mass transport
 
 
-inKgKms : Transport -> Float
-inKgKms transport =
+inKgKilometers : Transport -> Float
+inKgKilometers transport =
     -- Transport is stored in kg.m, we want it in kg.km
     inTonKilometers transport
         -- 1 km == 1000m
