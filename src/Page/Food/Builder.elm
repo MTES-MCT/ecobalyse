@@ -47,7 +47,7 @@ init session =
     let
         model =
             { dbState = RemoteData.Loading
-            , query = Recipe.empty
+            , query = Recipe.tunaPizza
             , impact = Impact.defaultTrigram
             }
     in
@@ -83,13 +83,21 @@ update session msg model =
             ( { model | impact = impact }, session, Cmd.none )
 
 
-menuView : Html Msg
-menuView =
+menuView : Recipe.Query -> Html Msg
+menuView query =
     div [ class "d-flex gap-2" ]
-        [ button [ class "btn btn-outline-primary", onClick (LoadQuery Recipe.empty) ]
-            [ text "Empty recipe" ]
-        , button [ class "btn btn-outline-primary", onClick (LoadQuery Recipe.tunaPizza) ]
-            [ text "Tuna Pizza" ]
+        [ button
+            [ class "btn btn-outline-primary"
+            , classList [ ( "active", query == Recipe.tunaPizza ) ]
+            , onClick (LoadQuery Recipe.tunaPizza)
+            ]
+            [ text "Pizza au Thon" ]
+        , button
+            [ class "btn btn-outline-primary"
+            , classList [ ( "active", query == Recipe.empty ) ]
+            , onClick (LoadQuery Recipe.empty)
+            ]
+            [ text "Créer une nouvelle recette" ]
         ]
 
 
@@ -102,12 +110,12 @@ debugQueryView foodDb query =
     div []
         [ h5 [ class "my-3" ] [ text "Debug" ]
         , div [ class "row" ]
-            [ div [ class "col-6" ]
+            [ div [ class "col-7" ]
                 [ query
                     |> Recipe.serialize
                     |> debugView
                 ]
-            , div [ class "col-6" ]
+            , div [ class "col-5" ]
                 [ query
                     |> Recipe.compute foodDb
                     -- |> Debug.toString
@@ -178,7 +186,7 @@ mainView foodDb model =
                             }
                 ]
             , div [ class "col-lg-8 order-lg-1 d-flex flex-column" ]
-                [ menuView
+                [ menuView model.query
                 , debugQueryView foodDb model.query
                 ]
             ]
