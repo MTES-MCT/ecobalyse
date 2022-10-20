@@ -12,6 +12,7 @@ import Data.Impact as Impact
 import Data.Session exposing (Session)
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import Html.Events exposing (..)
 import Json.Encode as Encode
 import Ports
 import RemoteData exposing (WebData)
@@ -30,6 +31,7 @@ type alias Model =
 
 type Msg
     = DbLoaded (WebData FoodDb.Db)
+    | LoadQuery Recipe.Query
 
 
 init : Session -> ( Model, Session, Cmd Msg )
@@ -65,36 +67,67 @@ update session msg model =
             , Cmd.none
             )
 
+        LoadQuery query ->
+            ( { model | query = query }
+            , session
+            , Cmd.none
+            )
 
-view : Session -> Model -> ( String, List (Html Msg) )
-view _ model =
+
+menuView : Html Msg
+menuView =
+    div [ class "d-flex gap-2" ]
+        [ a [ class "btn btn-primary", Route.href Route.FoodExplore ]
+            [ text "«\u{00A0}Explorateur de recettes" ]
+        , button [ class "btn btn-outline-primary", onClick (LoadQuery Recipe.empty) ]
+            [ text "Empty recipe" ]
+        , button [ class "btn btn-outline-primary", onClick (LoadQuery Recipe.tunaPizza) ]
+            [ text "Tuna Pizza" ]
+        ]
+
+
+debugQueryView : FoodDb.Db -> Recipe.Query -> Html Msg
+debugQueryView foodDb query =
     let
-        debugView : String -> Html Msg
         debugView =
             text >> List.singleton >> pre []
     in
+    div []
+        [ h5 [ class "my-3" ] [ text "Debug" ]
+        , div [ class "row" ]
+            [ div [ class "col-6" ]
+                [ query
+                    |> Recipe.serialize
+                    |> debugView
+                ]
+            , div [ class "col-6" ]
+                [ query
+                    |> Recipe.compute foodDb
+                    -- |> Debug.toString
+                    |> Result.map (Impact.encodeImpacts >> Encode.encode 2)
+                    |> Result.withDefault "Error serializing the impacts"
+                    |> debugView
+                ]
+            ]
+        ]
+
+
+mainView : FoodDb.Db -> Model -> Html Msg
+mainView foodDb model =
+    div []
+        [ debugQueryView foodDb model.query
+        ]
+
+
+view : Session -> Model -> ( String, List (Html Msg) )
+view _ model =
     ( "Constructeur de recette"
     , [ Container.centered [ class "pb-3" ]
             [ h1 [ class "h2" ] [ text "TODO" ]
-            , a [ class "btn btn-primary", Route.href Route.FoodExplore ] [ text "Explorateur de recettes" ]
-            , h5 [ class "my-3" ] [ text "Debug" ]
+            , menuView
             , case model.dbState of
                 RemoteData.Success foodDb ->
-                    div [ class "row" ]
-                        [ div [ class "col-6" ]
-                            [ Recipe.tunaPizza
-                                |> Recipe.serialize
-                                |> debugView
-                            ]
-                        , div [ class "col-6" ]
-                            [ Recipe.tunaPizza
-                                |> Recipe.compute foodDb
-                                -- |> Debug.toString
-                                |> Result.map (Impact.encodeImpacts >> Encode.encode 2)
-                                |> Result.withDefault "Error serializing the impacts"
-                                |> debugView
-                            ]
-                        ]
+                    mainView foodDb model
 
                 RemoteData.Loading ->
                     Spinner.view
