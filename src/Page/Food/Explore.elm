@@ -543,10 +543,9 @@ viewPlantIngredientsAndMaterials itemViewDataConfig items =
     in
     ingredients
         ++ materials
-        -- FIXME : toItemViewDataList will order the items by impact, and we want that. But it's not ergonomic
-        -- while we have range sliders (and changing the value makes the item jump around)
-        -- So uncomment the following line and remove the next one when we finally remove the range sliders ;)
-        -- |> toItemViewDataList itemViewDataConfig stepWeight
+        -- Here we don't want to order the items by impact because the user may
+        -- change the amount, and as such the impact of the item. We don't want
+        -- the item to jump around while the user is updating its amount.
         |> List.map (makeItemViewData itemViewDataConfig stepWeight)
         --
         |> List.map

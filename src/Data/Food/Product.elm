@@ -257,9 +257,6 @@ getStepTransports : Step -> { air : Length, rail : Length, road : Length, sea : 
 getStepTransports step =
     step.items
         |> filterItemByCategory Process.Transport
-        -- FIXME: at some point we'll want to have a better typed Item, so we know what its
-        -- unit is; here, transport items are always expressed in ton.km, so why do we need
-        -- to manually extract this data?
         |> List.filterMap
             (\{ amount, process } ->
                 case amount of
