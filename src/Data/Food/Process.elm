@@ -43,6 +43,8 @@ type Category
     | Processing
     | Transport
     | WasteTreatment
+    | Packaging
+    | Transformation
 
 
 type Code
@@ -80,6 +82,12 @@ categoryFromString string =
 
         "waste treatment" ->
             Ok WasteTreatment
+
+        "packaging" ->
+            Ok Packaging
+
+        "transformation" ->
+            Ok Transformation
 
         _ ->
             Err <| "Catégorie de procédé invalide: " ++ string
@@ -136,7 +144,7 @@ decodeProcess definitions =
         |> Pipe.required "impacts" (Impact.decodeImpacts definitions)
         |> Pipe.required "unit" decodeStringUnit
         |> Pipe.required "simapro_id" (Decode.map codeFromString Decode.string)
-        |> Pipe.required "category" decodeCategory
+        |> Pipe.required "kind" decodeCategory
         |> Pipe.required "system_description" Decode.string
         |> Pipe.required "category_tags" (Decode.list Decode.string)
 
