@@ -12,24 +12,29 @@ import pandas as pd
 import re
 
 processes_kind = {
-"transformation" :[
-"Cooking, industrial, 1kg of cooked product/ FR U",
-"Mixing, processing, at plant \"dummy process\"",
-"Canning fruits or vegetables, industrial, 1kg of canned product/ FR U"],
-"packaging": ["Steel, unalloyed {RER}| steel production, converter, unalloyed | Cut-off, S - Copied from Ecoinvent",
-"Polystyrene, expandable {RER}| production | Cut-off, S - Copied from Ecoinvent",
-"Packaging glass, white {RER w/o CH+DE}| production | Cut-off, S - Copied from Ecoinvent",
-"Polypropylene, granulate {RER}| production | Cut-off, S - Copied from Ecoinvent",
-"Corrugated board box {RER}| production | Cut-off, S - Copied from Ecoinvent",
-"Kraft paper, unbleached {RER}| production | Cut-off, S - Copied from Ecoinvent",
-"Polyvinylchloride, suspension polymerised {RER}| polyvinylchloride production, suspension polymerisation | Cut-off, S - Copied from Ecoinvent",
-"Polyethylene terephthalate, granulate, bottle grade {RER}| production | Cut-off, S - Copied from Ecoinvent",
-"Polyethylene, high density, granulate {RER}| production | Cut-off, S - Copied from Ecoinvent",
-"Packaging film, low density polyethylene {RER}| production | Cut-off, S - Copied from Ecoinvent",
-"Extrusion of plastic sheets and thermoforming, inline {FR}| processing | Cut-off, S - Copied from Ecoinvent",
-"Impact extrusion of aluminium, deformation stroke {RER}| processing | Cut-off, S - Copied from Ecoinvent",
-"Impact extrusion of steel, cold, deformation stroke {RER}| processing | Cut-off, S - Copied from Ecoinvent"]
+    "transformation": [
+        "Cooking, industrial, 1kg of cooked product/ FR U",
+        'Mixing, processing, at plant "dummy process"',
+        "Canning fruits or vegetables, industrial, 1kg of canned product/ FR U",
+    ],
+    "packaging": [
+        "Steel, unalloyed {RER}| steel production, converter, unalloyed | Cut-off, S - Copied from Ecoinvent",
+        "Polystyrene, expandable {RER}| production | Cut-off, S - Copied from Ecoinvent",
+        "Packaging glass, white {RER w/o CH+DE}| production | Cut-off, S - Copied from Ecoinvent",
+        "Polypropylene, granulate {RER}| production | Cut-off, S - Copied from Ecoinvent",
+        "Corrugated board box {RER}| production | Cut-off, S - Copied from Ecoinvent",
+        "Kraft paper, unbleached {RER}| production | Cut-off, S - Copied from Ecoinvent",
+        "Polyvinylchloride, suspension polymerised {RER}| polyvinylchloride production, suspension polymerisation | Cut-off, S - Copied from Ecoinvent",
+        "Polyethylene terephthalate, granulate, bottle grade {RER}| production | Cut-off, S - Copied from Ecoinvent",
+        "Polyethylene, high density, granulate {RER}| production | Cut-off, S - Copied from Ecoinvent",
+        "Packaging film, low density polyethylene {RER}| production | Cut-off, S - Copied from Ecoinvent",
+        "Extrusion of plastic sheets and thermoforming, inline {FR}| processing | Cut-off, S - Copied from Ecoinvent",
+        "Impact extrusion of aluminium, deformation stroke {RER}| processing | Cut-off, S - Copied from Ecoinvent",
+        "Impact extrusion of steel, cold, deformation stroke {RER}| processing | Cut-off, S - Copied from Ecoinvent",
+    ],
 }
+
+
 def open_db(dbname):
     bw.projects.set_current("EF calculation")
     bw.bw2setup()
@@ -67,28 +72,25 @@ def fill_processes(processes, activity):
     prod_exchange = list(activity.production())[0]
     processes[activity]["category_tags"] = prod_exchange._data["categories"]
     processes[activity]["comment"] = prod_exchange._data["comment"]
+    category = activity._data["simapro metadata"]["Category type"]
 
-    # For the category we use the "Category type" attribute (eg. material, transport, waste treatment,...)
-    # except for the Category type "material"  with a "Food" category_tag and "unit" in kilogram we categorize those as "ingredient"    
+    # The `kind` key holds our own classification/categorization.
     if (
         activity._data["simapro metadata"]["Category type"] == "material"
-        and "Food" in processes[activity]["category_tags"] and processes[activity]["unit"] == "kilogram"
+        and "Food" in processes[activity]["category_tags"]
+        and processes[activity]["unit"] == "kilogram"
     ):
-        processes[activity]["kind"] = "ingredient"
+        kind = "ingredient"
+    elif activity["name"] in processes_kind["transformation"]:
+        kind = "transformation"
+    elif activity["name"] in processes_kind["packaging"]:
+        kind = "packaging"
+    else:
+        # No specific classification/categorization from us, fallback on the category
+        kind = category
 
-    elif (
-        activity["name"] in processes_kind["transformation"]
-    ):
-        processes[activity]["kind"] = "transformation"
-    elif (
-        activity["name"] in processes_kind["packaging"]
-    ):
-        processes[activity]["kind"] = "packaging"
-    
-    
-    processes[activity]["category"] = activity._data["simapro metadata"][
-            "Category type"
-        ]
+    processes[activity]["kind"] = kind
+    processes[activity]["category"] = category
 
     processes[activity]["impacts"] = {}
 
@@ -233,9 +235,10 @@ if __name__ == "__main__":
         description="Export agribalyse LCA data from a brightway database"
     )
     parser.add_argument(
-        "-impacts_file",
-        default="impacts.json",
-        help="Path to the impacts.json file, following the format of https://github.com/MTES-MCT/ecobalyse/blob/master/public/data/impacts.json ",
+        "impacts_file",
+        help="""Path to the impacts.json file, following the format of https://github.com/MTES-MCT/ecobalyse/blob/master/public/data/impacts.json
+        Eg: ../../../wikicarbone/public/data/impacts.json
+        """,
     )
     parser.add_argument(
         "--no-impacts",
