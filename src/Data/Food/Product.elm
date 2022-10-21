@@ -299,9 +299,24 @@ getWeightAtPlant : Items -> Mass
 getWeightAtPlant items =
     -- At plant we don't really have a main item that we could use for the weight, so instead
     -- sum the weight of all the materials.
-    items
-        |> filterItemByCategory Process.Ingredient
-        -- FIXME: if there are no ingredients, take the weight of the processing or the main item at packaging
+    -- If there are no ingredients, sum the weight of all the processings.
+    let
+        ingredients =
+            items
+                |> filterItemByCategory Process.Ingredient
+
+        processings =
+            items
+                |> filterItemByCategory Process.Processing
+
+        itemsToUse =
+            if List.isEmpty ingredients then
+                processings
+
+            else
+                ingredients
+    in
+    itemsToUse
         |> List.map .amount
         |> List.map Amount.getMass
         |> Quantity.sum
