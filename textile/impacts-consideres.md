@@ -37,6 +37,9 @@ La base Impacts ne couvre en revanche pas les impacts suivants du référentiel 
 | Toxicité humaine, cancer                            |
 | Toxicité humaine, non cancer                        |
 
+Pour les **radiations ionisantes**, un correctif est appliqué sur les procédés Mix Electriques nationaux : une division par 4,5 du total.\
+En effet, les données Base Impacts datent de 2010 et surestiment considérablement les radiations ionisantes liées aux déchets radioactifs générés par l'utilisation du nucléaire dans les mix électriques nationaux. Sur la base d'une analyse de sensibilité réalisée avec les données EF 2.0 (qui datent de 2018), un écart moyen de 4,5 est constaté.  &#x20;
+
 Pour l'**épuisement des ressources en eau**, un impact est proposé, en construction, à partir des données de la [base EP\&L de Kering](https://kering-group.opendatasoft.com/explore/dataset/raw-material-intensities-2020/information/).
 
 {% hint style="warning" %}
@@ -47,18 +50,18 @@ Toutefois, au regard notamment des RP studies publiées à l'été 2021 dans le 
 
 #### **Niveaux de recommandation**
 
-| Niveau     | Description succincte                                                                                                      | Description complète                                                                                                                                                                                                                                                                                                                                                                              |
-| ---------- | -------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Niveau I   | Qualité satisfaisante                                                                                                      | <p></p><ul><li>Il s’agit de la meilleure méthode disponible et dont la qualité a été jugée satisfaisante.</li><li>Elle peut être appliquée à tous types d’études basées sur des approches de cycle de vie.</li></ul>                                                                                                                                                                              |
-| Niveau II  | Qualité satisfaisante mais nécessitant des améliorations                                                                   | <p></p><ul><li>Il s’agit de la meilleure méthode disponible et dont la qualité a été jugée satisfaisante mais nécessitant des améliorations futures.</li><li>Elle peut être appliquée à tous types d’études basées sur des approches de cycle de vie.</li><li>Les résultats issus de cet indicateur doivent cependant être interprétés avec précaution notamment en cas de comparaison.</li></ul> |
-| Niveau III | Donnée incomplète à utiliser avec prudence                                                                                 | <p></p><ul><li>Il s’agit de la meilleure méthode disponible mais à utiliser avec beaucoup de prudence compte tenu de la grande incertitude et du manque de complétude de la méthode.</li><li>Elle doit être utilisé avec réserve en cas de comparaison. Il est ainsi recommandé de présenter les résultats et discuter de la comparaison avec et sans cette méthode.</li></ul>                    |
-| N/A        | Niveau affiché pour l'utilisation de ressource en eau, indicateur provisoirement calculé avec les données EP\&L de Kering. |                                                                                                                                                                                                                                                                                                                                                                                                   |
+| Niveau     | Description succincte                                                                                                      | Description complète                                                                                                                                                                                                                                                                                                                                                                       |
+| ---------- | -------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Niveau I   | Qualité satisfaisante                                                                                                      | <ul><li>Il s’agit de la meilleure méthode disponible et dont la qualité a été jugée satisfaisante.</li><li>Elle peut être appliquée à tous types d’études basées sur des approches de cycle de vie.</li></ul>                                                                                                                                                                              |
+| Niveau II  | Qualité satisfaisante mais nécessitant des améliorations                                                                   | <ul><li>Il s’agit de la meilleure méthode disponible et dont la qualité a été jugée satisfaisante mais nécessitant des améliorations futures.</li><li>Elle peut être appliquée à tous types d’études basées sur des approches de cycle de vie.</li><li>Les résultats issus de cet indicateur doivent cependant être interprétés avec précaution notamment en cas de comparaison.</li></ul> |
+| Niveau III | Donnée incomplète à utiliser avec prudence                                                                                 | <ul><li>Il s’agit de la meilleure méthode disponible mais à utiliser avec beaucoup de prudence compte tenu de la grande incertitude et du manque de complétude de la méthode.</li><li>Elle doit être utilisé avec réserve en cas de comparaison. Il est ainsi recommandé de présenter les résultats et discuter de la comparaison avec et sans cette méthode.</li></ul>                    |
+| N/A        | Niveau affiché pour l'utilisation de ressource en eau, indicateur provisoirement calculé avec les données EP\&L de Kering. |                                                                                                                                                                                                                                                                                                                                                                                            |
 
 Référence : [base Impacts FAQ](http://www.base-impacts.ademe.fr/Personalspace/faq).
 
 ## Score PEF
 
-En s'appuyant sur la documentation adossée au projet de PEFCR Apparel & Footwear, tel que mis en consultation à l'été 2021, un calcul d'un score PEF est réalisé, suite aux opérations suivantes :&#x20;
+En s'appuyant sur la documentation adossée au projet de PEFCR Apparel & Footwear, tel que mis en consultation à l'été 2021, un calcul d'un score PEF est réalisé, suite aux opérations suivantes :
 
 * normalisation de chacun des impacts
 * pondération des impacts normalisés pour obtenir le score
@@ -113,4 +116,3 @@ Le score PEF ainsi calculé est sans unité. En sortie de formule, il s'exprime 
 $$
 1 mpt = 1 pt / 1 000
 $$
-
