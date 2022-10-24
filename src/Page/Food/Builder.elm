@@ -7,6 +7,7 @@ module Page.Food.Builder exposing
     )
 
 import Data.Food.Db as FoodDb
+import Data.Food.Process as Process
 import Data.Food.Recipe as Recipe
 import Data.Impact as Impact exposing (Impacts)
 import Data.Session exposing (Session)
@@ -15,12 +16,14 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Json.Encode as Encode
+import Mass exposing (Mass)
 import Ports
 import RemoteData exposing (WebData)
 import Request.Common
 import Request.Food.Db as RequestDb
 import Route
 import Views.Alert as Alert
+import Views.Component.MassInput as MassInput
 import Views.Component.Summary as SummaryComp
 import Views.Container as Container
 import Views.Format as Format
@@ -37,7 +40,8 @@ type alias Model =
 
 
 type Msg
-    = DbLoaded (WebData FoodDb.Db)
+    = AddIngredient Mass Process.Code
+    | DbLoaded (WebData FoodDb.Db)
     | LoadQuery Recipe.Query
     | NoOp
     | SwitchImpact Impact.Trigram
@@ -71,6 +75,9 @@ init session =
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
 update session msg model =
     case msg of
+        AddIngredient mass code ->
+            ( { model | query = model.query |> Recipe.addIngredient mass code }, session, Cmd.none )
+
         DbLoaded dbState ->
             ( { model | dbState = dbState }, session, Cmd.none )
 
@@ -108,8 +115,8 @@ debugQueryView foodDb query =
         debugView =
             text >> List.singleton >> pre []
     in
-    div []
-        [ h5 [ class "my-3" ] [ text "Debug" ]
+    details []
+        [ summary [] [ text "Debug" ]
         , div [ class "row" ]
             [ div [ class "col-7" ]
                 [ query
@@ -119,7 +126,6 @@ debugQueryView foodDb query =
             , div [ class "col-5" ]
                 [ query
                     |> Recipe.compute foodDb
-                    -- |> Debug.toString
                     |> Result.map (Impact.encodeImpacts >> Encode.encode 2)
                     |> Result.withDefault "Error serializing the impacts"
                     |> debugView
@@ -173,6 +179,37 @@ viewSidebar foodDb model impacts =
         ]
 
 
+ingredientListView : FoodDb.Db -> Recipe.Query -> List (Html Msg)
+ingredientListView { processes } query =
+    [ div [ class "card-header" ] [ h6 [ class "mb-0" ] [ text "Ingrédients" ] ]
+    , query.ingredients
+        |> List.filterMap (.code >> Process.findByCode processes >> Result.toMaybe)
+        |> List.map
+            (\{ name } ->
+                li [ class "list-group-item" ]
+                    [ text <| Process.nameToString name ]
+            )
+        |> ul [ class "list-group list-group-flush" ]
+    ]
+
+
+processingView : FoodDb.Db -> Recipe.Query -> List (Html Msg)
+processingView { processes } query =
+    [ div [ class "card-header" ] [ h6 [ class "mb-0" ] [ text "Transformation" ] ]
+    , div [ class "card-body" ]
+        [ case
+            query.processing
+                |> Maybe.andThen (.code >> Process.findByCode processes >> Result.toMaybe)
+          of
+            Just { name } ->
+                text <| Process.nameToString name
+
+            Nothing ->
+                text "Aucun procédé de transformation mobilisé"
+        ]
+    ]
+
+
 mainView : FoodDb.Db -> Model -> Html Msg
 mainView foodDb model =
     div []
@@ -190,8 +227,23 @@ mainView foodDb model =
                             , close = Nothing
                             }
                 ]
-            , div [ class "col-lg-8 order-lg-1 d-flex flex-column" ]
+            , div [ class "col-lg-8 order-lg-1 d-flex flex-column gap-3" ]
                 [ menuView model.query
+                , div [ class "card" ]
+                    (div [ class "card-header" ]
+                        [ h4 [ class "mb-0" ] [ text "Recette" ]
+                        ]
+                        :: List.concat
+                            [ ingredientListView foodDb model.query
+                            , processingView foodDb model.query
+                            ]
+                    )
+                , div [ class "card" ]
+                    [ div [ class "card-header" ]
+                        [ h4 [ class "mb-0" ] [ text "Conditionnement" ]
+                        ]
+                    , div [ class "card-body" ] [ text "TODO" ]
+                    ]
                 , debugQueryView foodDb model.query
                 ]
             ]

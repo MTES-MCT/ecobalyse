@@ -3,6 +3,7 @@ module Data.Food.Recipe exposing
     , PlantOptions
     , ProcessingQuery
     , Query
+    , addIngredient
     , compute
     , empty
     , encode
@@ -136,8 +137,17 @@ type alias Recipe =
     }
 
 
-
----- Utilities
+addIngredient : Mass -> Process.Code -> Query -> Query
+addIngredient mass code query =
+    { query
+        | ingredients =
+            { code = code
+            , mass = mass
+            , country = Nothing
+            , labels = []
+            }
+                :: query.ingredients
+    }
 
 
 fromQuery : FoodDb.Db -> Query -> Result String Recipe
@@ -185,9 +195,8 @@ toQuery recipe =
 
 
 ingredientsToQuery : List Ingredient -> List IngredientQuery
-ingredientsToQuery ingredients =
-    ingredients
-        |> List.map ingredientToQuery
+ingredientsToQuery =
+    List.map ingredientToQuery
 
 
 ingredientToQuery : Ingredient -> IngredientQuery
