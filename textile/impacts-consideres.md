@@ -4,20 +4,20 @@
 
 12 indicateurs environnementaux sont actuellement modélisés sur Ecobalyse, conformément au référentiel méthodologique de l’Ademe :
 
-| Indicateur                                                                                                                                        | Ref | UUID                                   | Unité              | Niveau de recommandation (Base Impacts) |
-| ------------------------------------------------------------------------------------------------------------------------------------------------- | :-: | -------------------------------------- | ------------------ | --------------------------------------- |
-| [Acidification](https://www.base-impacts.ademe.fr/personalspace/read-impact-category/id/379977/idVersion/32)                                      | acd | `b5c611c6-def3-11e6-bf01-fe55135034f3` | mol H+ eq          | II                                      |
-| [Appauvrissement de la couche d'ozone](https://www.base-impacts.ademe.fr/personalspace/read-impact-category/id/379978/idVersion/32)               | ozd | `b5c629d6-def3-11e6-bf01-fe55135034f3` | kg CFC-11 eq       | I                                       |
-| [Changement climatique](https://www.base-impacts.ademe.fr/personalspace/read-impact-category/id/379979/idVersion/32)                              | cch | `b2ad6d9a-c78d-11e6-9d9d-cec0c932ce01` | kg CO2 eq          | I                                       |
-| [Eutrophisation eaux douces](https://www.base-impacts.ademe.fr/personalspace/read-impact-category/id/379983/idVersion/32)                         | fwe | `b53ec18f-7377-4ad3-86eb-cc3f4f276b2b` | kg P eq            | II                                      |
-| [Eutrophisation marine](https://www.base-impacts.ademe.fr/personalspace/read-impact-category/id/379984/idVersion/32)                              | swe | `b5c619fa-def3-11e6-bf01-fe55135034f3` | kg N eq            | II                                      |
-| [Eutrophisation terrestre](https://www.base-impacts.ademe.fr/personalspace/read-impact-category/id/379985/idVersion/32)                           | tre | `b5c614d2-def3-11e6-bf01-fe55135034f3` | mol N eq           | II                                      |
-| [Formation d'ozone photochimique](https://www.base-impacts.ademe.fr/personalspace/read-impact-category/id/379986/idVersion/32)                    | pco | `b5c610fe-def3-11e6-bf01-fe55135034f3` | kg NMVOC eq        | I                                       |
-| [Particules](https://www.base-impacts.ademe.fr/personalspace/read-impact-category/id/379987/idVersion/32)                                         | pma | `b5c602c6-def3-11e6-bf01-fe55135034f3` | disease incidences | II                                      |
-| [Radiations ionisantes](https://www.base-impacts.ademe.fr/personalspace/read-impact-category/id/379988/idVersion/32)                              | ior | `b5c632be-def3-11e6-bf01-fe55135034f3` | kg Bq-U235 eq      | II                                      |
-| [Utilisation de ressources fossiles](https://www.base-impacts.ademe.fr/personalspace/read-impact-category/id/379989/idVersion/32)                 | fru | `b2ad6110-c78d-11e6-9d9d-cec0c932ce01` | MJ                 | III                                     |
-| [Utilisation de ressources minérales et métalliques](https://www.base-impacts.ademe.fr/personalspace/read-impact-category/id/379990/idVersion/32) | mru | `b2ad6494-c78d-11e6-9d9d-cec0c932ce01` | kg Sb eq           | III                                     |
-| [Utilisation des sols](https://www.base-impacts.ademe.fr/personalspace/read-impact-category/id/379991/idVersion/32)                               | ldu | `b2ad6890-c78d-11e6-9d9d-cec0c932ce01` | pt                 | III                                     |
+| Indicateur                                                                                                                                        | Ref | UUID                                   |        Unité       | Niveau de recommandat° |
+| ------------------------------------------------------------------------------------------------------------------------------------------------- | :-: | -------------------------------------- | :----------------: | :--------------------: |
+| [Acidification](https://www.base-impacts.ademe.fr/personalspace/read-impact-category/id/379977/idVersion/32)                                      | acd | `b5c611c6-def3-11e6-bf01-fe55135034f3` |      mol H+ eq     |           II           |
+| [Appauvrissement de la couche d'ozone](https://www.base-impacts.ademe.fr/personalspace/read-impact-category/id/379978/idVersion/32)               | ozd | `b5c629d6-def3-11e6-bf01-fe55135034f3` |    kg CFC-11 eq    |            I           |
+| [Changement climatique](https://www.base-impacts.ademe.fr/personalspace/read-impact-category/id/379979/idVersion/32)                              | cch | `b2ad6d9a-c78d-11e6-9d9d-cec0c932ce01` |      kg CO2 eq     |            I           |
+| [Eutrophisation eaux douces](https://www.base-impacts.ademe.fr/personalspace/read-impact-category/id/379983/idVersion/32)                         | fwe | `b53ec18f-7377-4ad3-86eb-cc3f4f276b2b` |       kg P eq      |           II           |
+| [Eutrophisation marine](https://www.base-impacts.ademe.fr/personalspace/read-impact-category/id/379984/idVersion/32)                              | swe | `b5c619fa-def3-11e6-bf01-fe55135034f3` |       kg N eq      |           II           |
+| [Eutrophisation terrestre](https://www.base-impacts.ademe.fr/personalspace/read-impact-category/id/379985/idVersion/32)                           | tre | `b5c614d2-def3-11e6-bf01-fe55135034f3` |      mol N eq      |           II           |
+| [Formation d'ozone photochimique](https://www.base-impacts.ademe.fr/personalspace/read-impact-category/id/379986/idVersion/32)                    | pco | `b5c610fe-def3-11e6-bf01-fe55135034f3` |     kg NMVOC eq    |            I           |
+| [Particules](https://www.base-impacts.ademe.fr/personalspace/read-impact-category/id/379987/idVersion/32)                                         | pma | `b5c602c6-def3-11e6-bf01-fe55135034f3` | disease incidences |           II           |
+| [Radiations ionisantes](https://www.base-impacts.ademe.fr/personalspace/read-impact-category/id/379988/idVersion/32)                              | ior | `b5c632be-def3-11e6-bf01-fe55135034f3` |    kg Bq-U235 eq   |           II           |
+| [Utilisation de ressources fossiles](https://www.base-impacts.ademe.fr/personalspace/read-impact-category/id/379989/idVersion/32)                 | fru | `b2ad6110-c78d-11e6-9d9d-cec0c932ce01` |         MJ         |           III          |
+| [Utilisation de ressources minérales et métalliques](https://www.base-impacts.ademe.fr/personalspace/read-impact-category/id/379990/idVersion/32) | mru | `b2ad6494-c78d-11e6-9d9d-cec0c932ce01` |      kg Sb eq      |           III          |
+| [Utilisation des sols](https://www.base-impacts.ademe.fr/personalspace/read-impact-category/id/379991/idVersion/32)                               | ldu | `b2ad6890-c78d-11e6-9d9d-cec0c932ce01` |         pt         |           III          |
 
 En revanche, les 4 indicateurs suivants du référentiel européen PEF ne sont pas pris en compte.&#x20;
 
@@ -30,17 +30,20 @@ En revanche, les 4 indicateurs suivants du référentiel européen PEF ne sont p
 
 Une synthèse des indicateurs mobilisés est présente dans l’onglet Explorateur ([ici](https://ecobalyse.beta.gouv.fr/#/textile/explore/impacts)).
 
-Deux correctifs sont appliqués temporairement par Ecobalyse sur les indicateurs :&#x20;
+Deux correctifs sont appliqués temporairement par Ecobalyse  : \
+\=> pour les **radiations ionisantes**, un correctif est appliqué sur les procédés Mix Electriques nationaux : une division par 4,5 du total.\
+En effet, les données Base Impacts datent de 2010 et surestiment considérablement les radiations ionisantes liées aux déchets radioactifs générés par l'utilisation du nucléaire dans les mix électriques nationaux. Sur la base d'une analyse de sensibilité réalisée avec les données EF 2.0 (qui datent de 2018), un écart moyen de 4,5 est constaté.\
+\=> pour l'**épuisement des ressources en eau**, un impact est proposé, en construction, à partir des données de la [base EP\&L de Kering](https://kering-group.opendatasoft.com/explore/dataset/raw-material-intensities-2020/information/).
 
-* Pour les **radiations ionisantes**, un correctif est appliqué sur les procédés Mix Electriques nationaux : une division par 4,5 du total.\
-  En effet, les données Base Impacts datent de 2010 et surestiment considérablement les radiations ionisantes liées aux déchets radioactifs générés par l'utilisation du nucléaire dans les mix électriques nationaux. Sur la base d'une analyse de sensibilité réalisée avec les données EF 2.0 (qui datent de 2018), un écart moyen de 4,5 est constaté.  &#x20;
-* Pour l'**épuisement des ressources en eau**, un impact est proposé, en construction, à partir des données de la [base EP\&L de Kering](https://kering-group.opendatasoft.com/explore/dataset/raw-material-intensities-2020/information/).
+<details>
 
-{% hint style="warning" %}
+<summary>Données EP&#x26;L Kering</summary>
+
 _Les données EP\&L considérées pour l'épuisement des ressources en eau de concernent que l'étape "matières". Des travaux complémentaires sont nécessaires pour apprécier cet impact sur les autres étapes du cycle de vie._
 
 _Toutefois, au regard notamment des RP studies publiées à l'été 2021 dans le cadre de la consultation publique sur le projet de PEFCR Apparel & Footwear, il apparaît que l'étape "matière" représente l'essentiel de l'impact en matière d'épuisement de la ressource en eau. Par exemple, pour le produit représentatif T-shirt (RP1), l'étape "matière" (LCS1) représente 91% de l'impact total (table 49 - ligne 1086)._
-{% endhint %}
+
+</details>
 
 ## **Niveaux de recommandation**
 
@@ -51,18 +54,12 @@ _Toutefois, au regard notamment des RP studies publiées à l'été 2021 dans le
 | Niveau III | Donnée incomplète à utiliser avec prudence                                                                                 | <ul><li>Il s’agit de la meilleure méthode disponible mais à utiliser avec beaucoup de prudence compte tenu de la grande incertitude et du manque de complétude de la méthode.</li><li>Elle doit être utilisé avec réserve en cas de comparaison. Il est ainsi recommandé de présenter les résultats et discuter de la comparaison avec et sans cette méthode.</li></ul>                    |
 | N/A        | Niveau affiché pour l'utilisation de ressource en eau, indicateur provisoirement calculé avec les données EP\&L de Kering. |                                                                                                                                                                                                                                                                                                                                                                                            |
 
-Référence : [base Impacts FAQ](http://www.base-impacts.ademe.fr/Personalspace/faq).
-
 ## Score PEF
 
 En s'appuyant sur la documentation adossée au projet de PEFCR Apparel & Footwear, tel que mis en consultation à l'été 2021, un calcul d'un score PEF est réalisé, suite aux opérations suivantes :
 
 * normalisation de chacun des impacts
 * pondération des impacts normalisés pour obtenir le score
-
-{% hint style="warning" %}
-Dans un premier temps, les impacts suivants ne sont pas pris en compte car ils n'apparaissent pas dans la base Impacts : épuisement des ressources en eau, ecotoxicité eau douce, toxicité humaine (cancer), toxicité humaine (non cancer).
-{% endhint %}
 
 ### Normalisation
 

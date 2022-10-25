@@ -1,6 +1,8 @@
 # Démarche méthodologique
 
-Le simulateur et les exemples qui en découlent sont des outils de travail en phase de construction. Ces outils sont développés en open-source afin d'accompagner les différents acteurs impliqués dans le dispositif français d’affichage environnemental. De plus, ils ne font pas l’objet d’une validation institutionnelle, ni par l’ADEME ni par le Ministère de la Transition Écologique.
+Le simulateur et les exemples qui en découlent sont des outils de travail en phase de construction.&#x20;
+
+Ces outils sont développés en open-source afin d'accompagner les différents acteurs impliqués dans le dispositif français d’affichage environnemental.&#x20;
 
 ## Un outil adossé au référentiel ADEME
 
