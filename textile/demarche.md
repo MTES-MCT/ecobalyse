@@ -4,6 +4,8 @@ Le simulateur et les exemples qui en découlent sont des outils de travail en ph
 
 Ces outils sont développés en open-source afin d'accompagner les différents acteurs impliqués dans le dispositif français d’affichage environnemental.&#x20;
 
+Les analyses proposées par Ecobalyse à date ne font pas l'objet d'une quelquonque validation institutionnelles, ni de la part de l'ADEME, ni de la part du Ministère de la Transition Ecologique.
+
 ## Un outil adossé au référentiel ADEME
 
 A date, le référentiel le plus avancé et exploitable par Ecobalyse est celui développé par l’[ADEME](https://base-impacts.ademe.fr/). Les évaluations d'impacts environnementaux s'appuient donc sur :&#x20;
