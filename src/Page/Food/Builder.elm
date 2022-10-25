@@ -8,7 +8,7 @@ module Page.Food.Builder exposing
 
 import Data.Food.Db as FoodDb
 import Data.Food.Process as Process
-import Data.Food.Recipe as Recipe
+import Data.Food.Recipe as Recipe exposing (Recipe)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Session exposing (Session)
 import Data.Unit as Unit
@@ -45,7 +45,7 @@ type Msg
     | LoadQuery Recipe.Query
     | NoOp
     | SwitchImpact Impact.Trigram
-    | UpdateIngredientMass Mass Process.Code
+    | UpdateIngredientMass Process.Code (Maybe Mass)
 
 
 init : Session -> ( Model, Session, Cmd Msg )
@@ -97,7 +97,7 @@ update session msg model =
         SwitchImpact impact ->
             ( { model | impact = impact }, session, Cmd.none )
 
-        UpdateIngredientMass mass code ->
+        UpdateIngredientMass code (Just mass) ->
             ( { model
                 | query =
                     model.query
@@ -106,6 +106,9 @@ update session msg model =
             , session
             , Cmd.none
             )
+
+        UpdateIngredientMass _ Nothing ->
+            ( model, session, Cmd.none )
 
 
 menuView : Recipe.Query -> Html Msg
@@ -196,35 +199,69 @@ viewSidebar foodDb model impacts =
         ]
 
 
-ingredientListView : FoodDb.Db -> Recipe.Query -> List (Html Msg)
-ingredientListView { processes } query =
+ingredientListView : Recipe -> List (Html Msg)
+ingredientListView recipe =
     [ div [ class "card-header" ] [ h6 [ class "mb-0" ] [ text "Ingrédients" ] ]
-    , query.ingredients
-        |> List.filterMap (.code >> Process.findByCode processes >> Result.toMaybe)
+    , recipe.ingredients
         |> List.map
-            (\{ name } ->
-                li [ class "list-group-item" ]
-                    [ text <| Process.nameToString name ]
+            (\{ mass, process } ->
+                li [ class "list-group-item d-flex align-items-center gap-2" ]
+                    [ span [ class "flex-shrink-1" ]
+                        [ MassInput.view
+                            { mass = mass
+                            , onChange = UpdateIngredientMass process.code
+                            }
+                        ]
+                    , span [ class "w-100" ] [ text <| Process.nameToString process.name ]
+                    ]
             )
         |> ul [ class "list-group list-group-flush" ]
     ]
 
 
-processingView : FoodDb.Db -> Recipe.Query -> List (Html Msg)
-processingView { processes } query =
+processingView : Recipe -> List (Html Msg)
+processingView recipe =
     [ div [ class "card-header" ] [ h6 [ class "mb-0" ] [ text "Transformation" ] ]
     , div [ class "card-body" ]
-        [ case
-            query.processing
-                |> Maybe.andThen (.code >> Process.findByCode processes >> Result.toMaybe)
-          of
-            Just { name } ->
-                text <| Process.nameToString name
+        [ case recipe.processing of
+            Just { process } ->
+                text <| Process.nameToString process.name
 
             Nothing ->
                 text "Aucun procédé de transformation mobilisé"
         ]
     ]
+
+
+stepListView : Recipe -> Html Msg
+stepListView recipe =
+    div [ class "d-flex flex-column gap-3" ]
+        [ div [ class "card" ]
+            (div [ class "card-header" ]
+                [ h4 [ class "mb-0" ] [ text "Recette" ]
+                ]
+                :: List.concat
+                    [ ingredientListView recipe
+                    , processingView recipe
+                    ]
+            )
+        , div [ class "card" ]
+            [ div [ class "card-header" ]
+                [ h4 [ class "mb-0" ] [ text "Conditionnement" ]
+                ]
+            , div [ class "card-body" ] [ text "TODO" ]
+            ]
+        ]
+
+
+simpleError : String -> Html Msg
+simpleError error =
+    Alert.simple
+        { level = Alert.Danger
+        , content = [ text error ]
+        , title = Nothing
+        , close = Nothing
+        }
 
 
 mainView : FoodDb.Db -> Model -> Html Msg
@@ -237,30 +274,16 @@ mainView foodDb model =
                         viewSidebar foodDb model impacts
 
                     Err error ->
-                        Alert.simple
-                            { level = Alert.Danger
-                            , content = [ text error ]
-                            , title = Nothing
-                            , close = Nothing
-                            }
+                        simpleError error
                 ]
             , div [ class "col-lg-8 order-lg-1 d-flex flex-column gap-3" ]
                 [ menuView model.query
-                , div [ class "card" ]
-                    (div [ class "card-header" ]
-                        [ h4 [ class "mb-0" ] [ text "Recette" ]
-                        ]
-                        :: List.concat
-                            [ ingredientListView foodDb model.query
-                            , processingView foodDb model.query
-                            ]
-                    )
-                , div [ class "card" ]
-                    [ div [ class "card-header" ]
-                        [ h4 [ class "mb-0" ] [ text "Conditionnement" ]
-                        ]
-                    , div [ class "card-body" ] [ text "TODO" ]
-                    ]
+                , case Recipe.fromQuery foodDb model.query of
+                    Ok recipe ->
+                        stepListView recipe
+
+                    Err error ->
+                        simpleError error
                 , debugQueryView foodDb model.query
                 ]
             ]

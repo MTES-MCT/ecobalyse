@@ -3,6 +3,7 @@ module Data.Food.Recipe exposing
     , PlantOptions
     , ProcessingQuery
     , Query
+    , Recipe
     , addIngredient
     , compute
     , empty
