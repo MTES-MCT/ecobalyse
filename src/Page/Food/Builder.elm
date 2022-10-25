@@ -45,6 +45,7 @@ type Msg
     | LoadQuery Recipe.Query
     | NoOp
     | SwitchImpact Impact.Trigram
+    | UpdateIngredientMass Mass Process.Code
 
 
 init : Session -> ( Model, Session, Cmd Msg )
@@ -76,7 +77,13 @@ update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
 update session msg model =
     case msg of
         AddIngredient mass code ->
-            ( { model | query = model.query |> Recipe.addIngredient mass code }, session, Cmd.none )
+            ( { model
+                | query =
+                    model.query |> Recipe.addIngredient mass code
+              }
+            , session
+            , Cmd.none
+            )
 
         DbLoaded dbState ->
             ( { model | dbState = dbState }, session, Cmd.none )
@@ -89,6 +96,16 @@ update session msg model =
 
         SwitchImpact impact ->
             ( { model | impact = impact }, session, Cmd.none )
+
+        UpdateIngredientMass mass code ->
+            ( { model
+                | query =
+                    model.query
+                        |> Recipe.updateIngredientMass mass code
+              }
+            , session
+            , Cmd.none
+            )
 
 
 menuView : Recipe.Query -> Html Msg
