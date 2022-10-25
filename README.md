@@ -10,7 +10,7 @@ description: >-
 
 ### Un outil d'évaluation environnementale produit accessible
 
-Ecobalyse permet d’estimer rapidement les impacts environnementaux d’un produit à partir de quelques critères simples : poids, composition, lieu d'assemblage, etc..&#x20;
+Ecobalyse permet d’estimer rapidement les impacts environnementaux d’un produit à partir de quelques critères simples : poids, composition, lieu d'assemblage, etc.
 
 Deux secteurs sont actuellement couverts par Ecobalyse : le Textile et l'Alimentaire. Concernant le Textile, l'outil est testé dans le cadre de l’[expérimentation Xtex](https://agirpourlatransition.ademe.fr/entreprises/aides-financieres/20210920/xtex2021-191) par plusieurs entreprises et fédérations professionnelles.&#x20;
 
@@ -18,7 +18,7 @@ Le positionnement d'Ecobalyse correspond à l’approche semi-spécifique propos
 
 Le calculateur est encore en construction.&#x20;
 
-## Un commun numérique
+### Un commun numérique
 
 Le calculateur est développé en open-source et son utilisation est gratuite.&#x20;
 
@@ -35,13 +35,15 @@ En décomposant les étapes du cycle de vie et en affichant immédiatement l’i
 
 Le soin apporté à la [documentation](https://fabrique-numerique.gitbook.io/wikicarbone/) et à l’[explorateur](https://wikicarbone.beta.gouv.fr/#/explore) doit en outre permettre d’expliciter et de partager les orientations prises dans le but de simplifier les calculs.
 
-### Un outil **collaboratif**, catalyseur de débat entre **experts, marques et industriels**
+### Un outil **collaboratif**
 
-Simplifier le calcul nécessite de faire des choix : quels paramètres doivent rester modifiables ? quels paramètres doivent être fixés par défaut ? Comment ?
+Simplifier le calcul nécessite de faire des choix : quels paramètres doivent rester modifiables ? quels paramètres doivent être fixés par défaut ? comment ?
 
 Plus largement, la mise en place de l’affichage environnemental suscite de nombreux débats qui peuvent être éclairés par un outil pédagogique.
 
-L’ambition d'Ecobalyse est d’impliquer un maximum d’experts, de marques et d’industries dans le débat. Les experts portent les analyses de cycle de vie en entreprise, les marques connaissent leurs produits, les industriels les procédés et matières utilisés, etc. Toutes ces connaissances sont utiles, et nécessaires, pour construire et enrichir l’outil.
+L’ambition d'Ecobalyse est d’impliquer un maximum d’experts, de marques et d’industries dans le débat.&#x20;
+
+Les experts portent les analyses de cycle de vie en entreprise, les marques connaissent leurs produits, les industriels maîtrisent les procédés et matières, etc. Toutes ces connaissances sont utiles, et nécessaires, pour construire et enrichir l’outil.
 
 ## Ce que n’est pas Ecobalyse
 
