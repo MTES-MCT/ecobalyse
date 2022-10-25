@@ -122,22 +122,8 @@ update session msg model =
             ( model, session, Cmd.none )
 
 
-menuView : Recipe.Query -> Html Msg
-menuView query =
-    div [ class "d-flex gap-2" ]
-        [ button
-            [ class "btn btn-outline-primary"
-            , classList [ ( "active", query == Recipe.tunaPizza ) ]
-            , onClick (LoadQuery Recipe.tunaPizza)
-            ]
-            [ text "Pizza au Thon" ]
-        , button
-            [ class "btn btn-outline-primary"
-            , classList [ ( "active", query == Recipe.empty ) ]
-            , onClick (LoadQuery Recipe.empty)
-            ]
-            [ text "Créer une nouvelle recette" ]
-        ]
+
+-- Views
 
 
 debugQueryView : FoodDb.Db -> Recipe.Query -> Html Msg
@@ -165,8 +151,108 @@ debugQueryView foodDb query =
         ]
 
 
-viewSidebar : FoodDb.Db -> Model -> Impacts -> Html Msg
-viewSidebar foodDb model impacts =
+errorView : String -> Html Msg
+errorView error =
+    Alert.simple
+        { level = Alert.Danger
+        , content = [ text error ]
+        , title = Nothing
+        , close = Nothing
+        }
+
+
+ingredientListView : Recipe -> List (Html Msg)
+ingredientListView recipe =
+    [ div [ class "card-header" ] [ h6 [ class "mb-0" ] [ text "Ingrédients" ] ]
+    , ul [ class "list-group list-group-flush" ]
+        (if List.isEmpty recipe.ingredients then
+            [ li [ class "list-group-item" ] [ text "Aucun ingrédient" ] ]
+
+         else
+            recipe.ingredients
+                |> List.map
+                    (\{ mass, process } ->
+                        li [ class "list-group-item d-flex align-items-center gap-2" ]
+                            [ span [ class "flex-shrink-1" ]
+                                [ MassInput.view
+                                    { mass = mass
+                                    , onChange = UpdateIngredientMass process.code
+                                    }
+                                ]
+                            , span [ class "w-100" ] [ text <| Process.nameToString process.name ]
+                            , button
+                                [ type_ "button"
+                                , class "btn btn-outline-primary no-outline"
+                                , title "Supprimer"
+                                , onClick (DeleteIngredient process.code)
+                                ]
+                                [ Icon.trash ]
+                            ]
+                    )
+        )
+    ]
+
+
+mainView : FoodDb.Db -> Model -> Html Msg
+mainView foodDb model =
+    div []
+        [ div [ class "row gap-3 gap-lg-0" ]
+            [ div [ class "col-lg-4 order-lg-2 d-flex flex-column gap-3" ]
+                [ case Recipe.compute foodDb model.query of
+                    Ok impacts ->
+                        sidebarView foodDb model impacts
+
+                    Err error ->
+                        errorView error
+                ]
+            , div [ class "col-lg-8 order-lg-1 d-flex flex-column gap-3" ]
+                [ menuView model.query
+                , case Recipe.fromQuery foodDb model.query of
+                    Ok recipe ->
+                        stepListView recipe
+
+                    Err error ->
+                        errorView error
+                , debugQueryView foodDb model.query
+                ]
+            ]
+        ]
+
+
+menuView : Recipe.Query -> Html Msg
+menuView query =
+    div [ class "d-flex gap-2" ]
+        [ button
+            [ class "btn btn-outline-primary"
+            , classList [ ( "active", query == Recipe.tunaPizza ) ]
+            , onClick (LoadQuery Recipe.tunaPizza)
+            ]
+            [ text "Pizza au Thon" ]
+        , button
+            [ class "btn btn-outline-primary"
+            , classList [ ( "active", query == Recipe.empty ) ]
+            , onClick (LoadQuery Recipe.empty)
+            ]
+            [ text "Créer une nouvelle recette" ]
+        ]
+
+
+processingView : Recipe -> List (Html Msg)
+processingView recipe =
+    [ div [ class "card-header" ] [ h6 [ class "mb-0" ] [ text "Transformation" ] ]
+    , div [ class "card-body" ]
+        [ case recipe.processing of
+            Just { process } ->
+                text <| Process.nameToString process.name
+
+            Nothing ->
+                text "Aucun procédé de transformation mobilisé"
+        ]
+    ]
+
+
+sidebarView : FoodDb.Db -> Model -> Impacts -> Html Msg
+sidebarView foodDb model impacts =
     let
         definition =
             foodDb.impacts
@@ -210,47 +296,6 @@ viewSidebar foodDb model impacts =
         ]
 
 
-ingredientListView : Recipe -> List (Html Msg)
-ingredientListView recipe =
-    [ div [ class "card-header" ] [ h6 [ class "mb-0" ] [ text "Ingrédients" ] ]
-    , recipe.ingredients
-        |> List.map
-            (\{ mass, process } ->
-                li [ class "list-group-item d-flex align-items-center gap-2" ]
-                    [ span [ class "flex-shrink-1" ]
-                        [ MassInput.view
-                            { mass = mass
-                            , onChange = UpdateIngredientMass process.code
-                            }
-                        ]
-                    , span [ class "w-100" ] [ text <| Process.nameToString process.name ]
-                    , button
-                        [ type_ "button"
-                        , class "btn btn-outline-primary no-outline"
-                        , title "Supprimer"
-                        , onClick (DeleteIngredient process.code)
-                        ]
-                        [ Icon.trash ]
-                    ]
-            )
-        |> ul [ class "list-group list-group-flush" ]
-    ]
-
-
-processingView : Recipe -> List (Html Msg)
-processingView recipe =
-    [ div [ class "card-header" ] [ h6 [ class "mb-0" ] [ text "Transformation" ] ]
-    , div [ class "card-body" ]
-        [ case recipe.processing of
-            Just { process } ->
-                text <| Process.nameToString process.name
-
-            Nothing ->
-                text "Aucun procédé de transformation mobilisé"
-        ]
-    ]
-
-
 stepListView : Recipe -> Html Msg
 stepListView recipe =
     div [ class "d-flex flex-column gap-3" ]
@@ -268,42 +313,6 @@ stepListView recipe =
                 [ h4 [ class "mb-0" ] [ text "Conditionnement" ]
                 ]
             , div [ class "card-body" ] [ text "TODO" ]
-            ]
-        ]
-
-
-simpleError : String -> Html Msg
-simpleError error =
-    Alert.simple
-        { level = Alert.Danger
-        , content = [ text error ]
-        , title = Nothing
-        , close = Nothing
-        }
-
-
-mainView : FoodDb.Db -> Model -> Html Msg
-mainView foodDb model =
-    div []
-        [ div [ class "row gap-3 gap-lg-0" ]
-            [ div [ class "col-lg-4 order-lg-2 d-flex flex-column gap-3" ]
-                [ case Recipe.compute foodDb model.query of
-                    Ok impacts ->
-                        viewSidebar foodDb model impacts
-
-                    Err error ->
-                        simpleError error
-                ]
-            , div [ class "col-lg-8 order-lg-1 d-flex flex-column gap-3" ]
-                [ menuView model.query
-                , case Recipe.fromQuery foodDb model.query of
-                    Ok recipe ->
-                        stepListView recipe
-
-                    Err error ->
-                        simpleError error
-                , debugQueryView foodDb model.query
-                ]
             ]
         ]
 
