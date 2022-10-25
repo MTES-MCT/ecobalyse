@@ -5,7 +5,7 @@
 ## 👕 Textile
 
 * [Démarche méthodologique](textile/demarche.md)
-* [Impacts considérés](textile/impacts-consideres.md)
+* [Indicateurs environnementaux](textile/impacts-consideres.md)
 * [🐑 Etape 1 - Matière et filature](textile/filature/README.md)
   * [❤ 1 - Etape Matière et filature dans la Base Impacts](textile/filature/filature.md)
   * [💔 2 - Séparation Matière-Filature](textile/filature/filature-1.md)
