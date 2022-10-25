@@ -1,69 +1,57 @@
 # Démarche méthodologique
 
-## Un outil en phase de construction
+Le simulateur et les exemples qui en découlent sont des outils de travail en phase de construction. Ces outils sont développés en open-source afin d'accompagner les différents acteurs impliqués dans le dispositif français d’affichage environnemental. De plus, ils ne font pas l’objet d’une validation institutionnelle, ni par l’ADEME ni par le Ministère de la Transition Écologique.
 
-**Le simulateur et les exemples qui en découlent sont des documents de travail et de réflexion. Ils ne sont pas validés, ni par l'ADEME, ni par le ministère de la Transition écologique.**
+## Un outil adossé au référentiel ADEME
 
-## Un outil adossé au référentiel méthodologique ADEME
+A date, le référentiel le plus avancé et exploitable par Ecobalyse est celui développé par l’[ADEME](https://base-impacts.ademe.fr/). Les évaluations d'impacts environnementaux s'appuient donc sur :&#x20;
 
-Les pré-évaluations d'impacts environnementaux proposés par Wikicarbone s'appuient sur [le référentiel établi par l'ADEME](http://www.base-impacts.ademe.fr/) :
-
-* procédés de la base Impacts®
-* documentation sectorielle textile (`BASE IMPACTS® DATA DOCUMENTATION - SECTOR: TEXTILE - 1.09.208`)
-* `METHODOLOGIE D’EVALUATION DES IMPACTS ENVIRONNEMENTAUX DES ARTICLES D’HABILLEMENT` (2016 rev 2017. Principes généraux pour l’affichage environnemental des produits de grande consommation – Partie 23 : méthodologie d’évaluation des impacts environnementaux des articles d’habillement. 47 p.)
+* les procédés de la Base Impacts,
+* la documentation sectorielle textile
 
 Une ouverture à d'autres référentiels, en particulier le [référentiel PEF porté par la Commission Européenne](https://ec.europa.eu/environment/eussd/smgp/pdf/product-environmental-footprint-PEF-methode\_fr.pdf), est envisagée, sous réserve d'accessibilité des données sous-jacentes.
 
-## Un outil volontairement très incomplet à ce stade
+Conscient des limites du référentiel ADEME, Ecobalyse mène actuellement des travaux de fond avec différents acteurs de l’industrie afin d’enrichir d’enrichir ses évaluations.
 
-En première approche, le simulateur est très incomplet :
+## Une méthodologie en construction
 
-* il ne couvre pas (encore) les phases d'utilisation et de fin de vie de l'ACV ;
-* il n'affiche que les impacts en matière de changement climatique ;
-* il ne propose pas toutes les options qui pourraient être mobilisées (choix de pays, de procédés, de traitements supplémentaires de l'étoffe…).
+Le calculateur est régulièrement mis à jour afin d’enrichir la méthodologie et les paramètres mobilisés (poids, matières, lieu de confection, etc.). Cette démarche agile est notamment destinée à recueillir un maximum de retours critiques de la part des utilisateurs afin d'orienter les travaux.
 
-Dans une démarche _agile_, cette première version vise en priorité à recueillir des commentaires et des critiques des utilisateurs, dans le but d'orienter la suite des travaux dans les directions les plus importantes.
+Ecobalyse n’hésite pas à intégrer dans ses travaux des différentes connaissances/données mobilisées par des initiatives sectorielles de premier ordre. C’est par exemple le cas avec des travaux tels que ceux (non exhaustif) :&#x20;
 
-Tout retour est d'ailleurs le bienvenu [par email](mailto:wikicarbone@beta.gouv.fr).
+* du programme de recherche suédois [Mistra Future Fashion](http://mistrafuturefashion.com/)&#x20;
+* menés au sein du dispositif français d’affichage environnemental [Xtex ](https://expertises.ademe.fr/economie-circulaire/consommer-autrement/passer-a-laction/reconnaitre-produit-plus-respectueux-lenvironnement/dossier/laffichage-environnemental/affichage-environnemental-secteur-textiles-dhabillement-chaussures-experimentation-20212022)
+* de l’initiative [Make The Label Count](https://www.makethelabelcount.org/)&#x20;
+* développés pour l’[Ecolabel européen](http://ec.europa.eu/ecat/category/en/14/textile-products)&#x20;
+* de cabinets spécialisés (ex : Quantis, Mc Kinsey)&#x20;
+* de la Sustainable Apparel Coalition (SAC) via son outil [Higg Index](https://apparelcoalition.org/the-higg-index/)
 
 ## Comment sont faites les hypothèses ?
 
-Pour proposer une pré-évaluation d'impacts très rapide, à partir de quelques critères simples (vêtement, matière, pays de teinture…), il est nécessaire de formuler un certain nombre d'hypothèses, de prendre des valeurs "secondaires" par défaut.
+Afin de proposer une évaluation rapide à partir de quelques critères simples (vêtement, matière, pays de teinture, etc.), il est nécessaire de formuler un certain nombre d'hypothèses par défaut (les données "secondaires"). Ces hypothèses sont détaillées de manière transparente dans la documentation ci-dessous afin de permettre à l'utilisateur de bien comprendre les résultats qu'il obtient.
 
-Les hypothèses seront progressivement détaillées, au sein même du simulateur, pour permettre à l'utilisateur de bien comprendre ce qu'il obtient.
+Plusieurs types d'hypothèses peuvent être distinguées :&#x20;
 
-Plusieurs types d'hypothèses peuvent être distinguées :
+* celles correspondant à des données secondaires ou semi-spécifiques du référentiel ADEME\
+  ex : les mix électriques moyens nationaux, les taux de perte par étape du cycle de vie, etc.&#x20;
+* celles adossées au projet de référentiel européen (PEFCR Apparel & Footwear)\
+  ex : la masse par défaut de vêtements, les distances entre pays, etc.&#x20;
+* celles définies par Ecobalyse qui doivent être confrontées à une expertise métier \
+  ex : l’utilisation du tissage ou du tricotage pour l’étape de confection, les procédés d’ennoblissement, la source de chaleur utilisée selon le pays, etc.
 
-### Les hypothèses correspondant à des données secondaires ou semi-spécifiques du référentiel ADEME
+L'intérêt de l'outil repose notamment sur la pertinence de ces hypothèses supplémentaires. Dans quelle mesure sont-elles représentatives des pratiques observées dans l'industrie ? Les marques et industriels maîtrisent-ils ces données ? Quelles hypothèses/paramètres méritent-ils d'être creusés par les entreprises ?\
+Dans une logique de commun numérique, Ecobalyse facilite les échanges techniques qui permettent de faire émerger des scénarios pertinents.
 
-Exemples :
+En ce sens, plusieurs démarches sont actuellement déployées :&#x20;
 
-* mix électriques moyens de consommation par pays
-* taux de perte lors de la confection, par catégorie de vêtement (cf. section c. p28 de la méthodologie ADEME)
-* valeurs par défaut du grammage et duitage pour le tissage (cf. section d. p28 de la méthodologie ADEME)
-* distance parcourue en camion pour la distribution, de l'entrepôt au point de vente ou de livraison
-* …
+* une rubrique _Contribuer_ sur le site internet pour prendre en compte tous types de retours (en cours de construction)
+* l'organisation d'ateliers de travail thématiques depuis septembre 2022
+* l'animation d'un groupe Slack réunissant plusieurs dizaines d'acteurs de l'évaluation environnementale Textile (marques, startup, bureaux d'étude, experts, etc.)
+* la mise à disposition d'un point de contact mail ([ecobalyse@beta.gouv.fr](mailto:ecobalyse@beta.gouv.fr))&#x20;
+* la possibilité d'organiser des ateliers en 1-1 sur des enjeux méthodologiques précis
 
-### Les hypothèses adossées au projet de référentiel européen (PEFCR Apparel & Footwear)
+## Des réflexions autour des données mobilisées
 
-Lorsque certaines hypothèses sont proposées dans le projet de document de référence européen (cf. projet de PEFCR Apparel & Footwear mis en consultation en juillet 2021), elles sont exploitées dans le simulateur. Par exemple :
+La base de données actuellement utilisée par Ecobalyse est la Base Impacts développée par l’ADEME. D’autres bases de données de référence sont utilisées dans l’industrie telles que celles développées par Ecoinvent, Sphera (Gabi), Bureau Veritas (Codde) l’Union Européenne (PEF), Quantis, la Sustainable Apparel Coalition (Higg Index), etc.&#x20;
 
-* Distances de référence entre les différents pays tirés des deux calculateurs proposés dans le projet de PEFCR : [lien 1](https://www.searates.com/services/distances-time/) [lien 2](https://co2.myclimate.org/en/flight\_calculators/new/)
-* Masses par défaut des différents vêtements (`Table 39 Bill of materials for the apparel representative products with the share (%) of each material based on the average product weight`)
-* …
-
-### Les autres hypothèses qui doivent être confrontées à une expertise métier
-
-Pour proposer une pré-évaluation rapide, d'autres hypothèses doivent encore être formulées. Ces hypothèses, par nature réductives, conduisent à ce que le résultat ne soit qu'une pré-évaluation, et non une évaluation à proprement parler.
-
-Quelques exemples :
-
-* Choix du tissage ou du tricotage pour chaque type de vêtement
-* Technologie de teinture (sur étoffe par défaut) et caractéristiques du procédé retenu en fonction de pays (plutôt représentatif ? plutôt majorant ?)…
-* Source d'énergie utilisée pour la production de chaleur, en fonction du pays.
-* Répartition des modes de transport entre deux pays. Pour le transport en avion, il est considéré par défaut qu'il ne peut concerner que le transport de produits finis / confectionnés et uniquement en provenance de pays hors Europe et Afrique du Nord. On retient par défaut une part de 30%, qui apparaît cohérente au regard des circuits géographiques introduits dans la méthodologie ADEME (cf. annexe A informative)
-* …
-
-L'intérêt de l'outil repose notamment sur la pertinence de ces hypothèses supplémentaires. Dans quelle mesure sont-elles représentatives, ou majorantes, par rapport aux pratiques observées dans l'industrie (pour les phases de production et de fabrication) ?
-
-Dans une logique de commun numérique, Ecobalyse cherche notamment à servir de support aux échanges techniques qui permettraient de faire émerger des hypothèses par défaut pertinentes. En première approche, les remarques sont simplement collectées [par mail](mailto:wikicarbone@beta.gouv.fr). Des évolutions sont envisagées pour la suite pour chercher à recueillir les contributions directement sur l'outil.
+Dans le cadre de la mise en place du dispositif français d’affichage environnemental, Ecobalyse est en lien avec l’ADEME pour mettre en place une base de données enrichie et spécifique au secteur Textile. Ces réflexions intègrent notamment la possibilité de rendre cette base de données dynamique afin de retranscrire au fil de l'eau les dernières connaissances sectorielles.
