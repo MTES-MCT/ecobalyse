@@ -2,10 +2,11 @@ from xxlimited import new
 import pandas as pd
 import json
 import fjson
-import pprint
-import os
 import uuid
 import random as rd
+
+
+# This script is used to compute to separate the impact of the raw material and the impact of spinning
 
 f = open(r"../src/wikicarbone-data/data_prep/materials.json")
 materials = json.load(f)
@@ -13,8 +14,7 @@ f = open(r"../src/wikicarbone-data/data_prep/processes.json")
 processes = json.load(f)
 
 material_without_spinning = ["neoprene"]
-
-
+    
 def get_process(uuid):
     matches = [x for x in processes if x["uuid"] == uuid]
     if len(matches) > 1 or len(matches) == 0:
