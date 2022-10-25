@@ -11,6 +11,7 @@ module Data.Food.Recipe exposing
     , serialize
     , toQuery
     , tunaPizza
+    , updateIngredientMass
     )
 
 import Data.Country as Country
@@ -147,6 +148,22 @@ addIngredient mass code query =
             , labels = []
             }
                 :: query.ingredients
+    }
+
+
+updateIngredientMass : Mass -> Process.Code -> Query -> Query
+updateIngredientMass mass code query =
+    { query
+        | ingredients =
+            query.ingredients
+                |> List.map
+                    (\ing ->
+                        if ing.code == code then
+                            { ing | mass = mass }
+
+                        else
+                            ing
+                    )
     }
 
 
