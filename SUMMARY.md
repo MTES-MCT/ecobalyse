@@ -39,5 +39,5 @@
 * [Données](alimentaire/donnees.md)
 * [🍅 Ingrédients](alimentaire/ingredients.md)
 * [🏭 Transformation](alimentaire/transformation.md)
-* [🥫 Conditionnement](alimentaire/conditionnement.md)
+* [🥫 Emballage](alimentaire/emballage.md)
 * [Transport](alimentaire/transport.md)
