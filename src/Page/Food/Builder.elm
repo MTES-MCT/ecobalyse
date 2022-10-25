@@ -42,6 +42,7 @@ type alias Model =
 type Msg
     = AddIngredient Mass Process.Code
     | DbLoaded (WebData FoodDb.Db)
+    | DeleteIngredient Process.Code
     | LoadQuery Recipe.Query
     | NoOp
     | SwitchImpact Impact.Trigram
@@ -87,6 +88,16 @@ update session msg model =
 
         DbLoaded dbState ->
             ( { model | dbState = dbState }, session, Cmd.none )
+
+        DeleteIngredient code ->
+            ( { model
+                | query =
+                    model.query
+                        |> Recipe.deleteIngredient code
+              }
+            , session
+            , Cmd.none
+            )
 
         NoOp ->
             ( model, session, Cmd.none )
@@ -213,6 +224,13 @@ ingredientListView recipe =
                             }
                         ]
                     , span [ class "w-100" ] [ text <| Process.nameToString process.name ]
+                    , button
+                        [ type_ "button"
+                        , class "btn btn-outline-primary no-outline"
+                        , title "Supprimer"
+                        , onClick (DeleteIngredient process.code)
+                        ]
+                        [ Icon.trash ]
                     ]
             )
         |> ul [ class "list-group list-group-flush" ]

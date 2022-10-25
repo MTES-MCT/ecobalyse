@@ -6,6 +6,7 @@ module Data.Food.Recipe exposing
     , Recipe
     , addIngredient
     , compute
+    , deleteIngredient
     , empty
     , encode
     , fromQuery
@@ -152,20 +153,9 @@ addIngredient mass code query =
     }
 
 
-updateIngredientMass : Mass -> Process.Code -> Query -> Query
-updateIngredientMass mass code query =
-    { query
-        | ingredients =
-            query.ingredients
-                |> List.map
-                    (\ing ->
-                        if ing.code == code then
-                            { ing | mass = mass }
-
-                        else
-                            ing
-                    )
-    }
+deleteIngredient : Process.Code -> Query -> Query
+deleteIngredient code query =
+    { query | ingredients = query.ingredients |> List.filter (.code >> (/=) code) }
 
 
 fromQuery : FoodDb.Db -> Query -> Result String Recipe
@@ -191,6 +181,15 @@ ingredientFromQuery { processes } ingredientQuery =
         (Ok ingredientQuery.labels)
 
 
+ingredientToQuery : Ingredient -> IngredientQuery
+ingredientToQuery ingredient =
+    { code = ingredient.process.code
+    , mass = ingredient.mass
+    , country = ingredient.country
+    , labels = ingredient.labels
+    }
+
+
 processingFromQuery : FoodDb.Db -> Query -> Result String (Maybe Processing)
 processingFromQuery { processes } query =
     query.processing
@@ -204,28 +203,6 @@ processingFromQuery { processes } query =
         |> Maybe.withDefault (Ok Nothing)
 
 
-toQuery : Recipe -> Query
-toQuery recipe =
-    { ingredients = ingredientsToQuery recipe.ingredients
-    , processing = processingToQuery recipe.processing
-    , plant = recipe.plant
-    }
-
-
-ingredientsToQuery : List Ingredient -> List IngredientQuery
-ingredientsToQuery =
-    List.map ingredientToQuery
-
-
-ingredientToQuery : Ingredient -> IngredientQuery
-ingredientToQuery ingredient =
-    { code = ingredient.process.code
-    , mass = ingredient.mass
-    , country = ingredient.country
-    , labels = ingredient.labels
-    }
-
-
 processingToQuery : Maybe Processing -> Maybe ProcessingQuery
 processingToQuery maybeProcessing =
     maybeProcessing
@@ -235,6 +212,30 @@ processingToQuery maybeProcessing =
                 , mass = processing.mass
                 }
             )
+
+
+toQuery : Recipe -> Query
+toQuery recipe =
+    { ingredients = List.map ingredientToQuery recipe.ingredients
+    , processing = processingToQuery recipe.processing
+    , plant = recipe.plant
+    }
+
+
+updateIngredientMass : Mass -> Process.Code -> Query -> Query
+updateIngredientMass mass code query =
+    { query
+        | ingredients =
+            query.ingredients
+                |> List.map
+                    (\ing ->
+                        if ing.code == code then
+                            { ing | mass = mass }
+
+                        else
+                            ing
+                    )
+    }
 
 
 
