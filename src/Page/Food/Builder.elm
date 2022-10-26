@@ -189,6 +189,13 @@ ingredientListView { processes } selectedIngredient recipe =
     let
         alreadyUsed =
             List.map (.process >> .code) recipe.ingredients
+
+        rowTemplate input content action =
+            li [ class "list-group-item d-flex align-items-center gap-2" ]
+                [ span [ class "flex-shrink-1" ] [ input ]
+                , span [ class "w-100" ] [ content ]
+                , action
+                ]
     in
     [ div [ class "card-header" ] [ h6 [ class "mb-0" ] [ text "Ingrédients" ] ]
     , ul [ class "list-group list-group-flush" ]
@@ -199,23 +206,22 @@ ingredientListView { processes } selectedIngredient recipe =
             recipe.ingredients
                 |> List.map
                     (\{ mass, process } ->
-                        li [ class "list-group-item d-flex align-items-center gap-2" ]
-                            [ span [ class "flex-shrink-1" ]
-                                [ MassInput.view
-                                    { mass = mass
-                                    , onChange = UpdateIngredientMass process.code
-                                    , disabled = False
-                                    }
-                                ]
-                            , span [ class "w-100" ] [ text <| Process.nameToString process.name ]
-                            , button
+                        rowTemplate
+                            (MassInput.view
+                                { mass = mass
+                                , onChange = UpdateIngredientMass process.code
+                                , disabled = False
+                                }
+                            )
+                            (text <| Process.nameToString process.name)
+                            (button
                                 [ type_ "button"
                                 , class "btn btn-outline-primary no-outline"
                                 , title "Supprimer"
                                 , onClick (DeleteIngredient process.code)
                                 ]
                                 [ Icon.trash ]
-                            ]
+                            )
                     )
         )
     , Html.form
@@ -229,52 +235,50 @@ ingredientListView { processes } selectedIngredient recipe =
                     NoOp
             )
         ]
-        [ li [ class "list-group-item d-flex align-items-center gap-2" ]
-            [ span [ class "flex-shrink-1" ]
-                [ MassInput.view
-                    { mass =
-                        selectedIngredient
-                            |> Maybe.map .mass
-                            |> Maybe.withDefault defaultIngredientMass
-                    , onChange =
-                        \maybeMass ->
-                            SelectIngredient
-                                (case ( maybeMass, selectedIngredient ) of
-                                    ( Just mass, Just ingredient ) ->
-                                        Just { ingredient | mass = mass }
-
-                                    _ ->
-                                        Nothing
-                                )
-                    , disabled = selectedIngredient == Nothing
-                    }
-                ]
-            , span [ class "w-100" ]
-                [ processes
-                    |> Process.listByCategory Process.Ingredient
-                    |> List.sortBy (.name >> Process.nameToString)
-                    |> List.filter (\{ code } -> not (List.member code alreadyUsed))
-                    |> ingredientSelectorView (Maybe.map .code selectedIngredient)
-                        (\maybeCode ->
-                            case ( selectedIngredient, maybeCode ) of
-                                ( Just ingredient, Just code ) ->
-                                    SelectIngredient (Just { ingredient | code = code })
-
-                                ( Nothing, Just code ) ->
-                                    SelectIngredient (Just { code = code, mass = defaultIngredientMass })
+        [ rowTemplate
+            (MassInput.view
+                { mass =
+                    selectedIngredient
+                        |> Maybe.map .mass
+                        |> Maybe.withDefault defaultIngredientMass
+                , onChange =
+                    \maybeMass ->
+                        SelectIngredient
+                            (case ( maybeMass, selectedIngredient ) of
+                                ( Just mass, Just ingredient ) ->
+                                    Just { ingredient | mass = mass }
 
                                 _ ->
-                                    SelectIngredient Nothing
-                        )
-                ]
-            , button
+                                    Nothing
+                            )
+                , disabled = selectedIngredient == Nothing
+                }
+            )
+            (processes
+                |> Process.listByCategory Process.Ingredient
+                |> List.sortBy (.name >> Process.nameToString)
+                |> List.filter (\{ code } -> not (List.member code alreadyUsed))
+                |> ingredientSelectorView (Maybe.map .code selectedIngredient)
+                    (\maybeCode ->
+                        case ( selectedIngredient, maybeCode ) of
+                            ( Just ingredient, Just code ) ->
+                                SelectIngredient (Just { ingredient | code = code })
+
+                            ( Nothing, Just code ) ->
+                                SelectIngredient (Just { code = code, mass = defaultIngredientMass })
+
+                            _ ->
+                                SelectIngredient Nothing
+                    )
+            )
+            (button
                 [ type_ "submit"
                 , class "btn btn-primary no-outline"
                 , title "Ajouter"
                 , disabled <| selectedIngredient == Nothing
                 ]
                 [ Icon.plus ]
-            ]
+            )
         ]
     ]
 
