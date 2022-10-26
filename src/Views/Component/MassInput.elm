@@ -7,13 +7,14 @@ import Mass exposing (Mass)
 
 
 type alias Config msg =
-    { mass : Mass
+    { disabled : Bool
+    , mass : Mass
     , onChange : Maybe Mass -> msg
     }
 
 
 view : Config msg -> Html msg
-view { mass, onChange } =
+view { disabled, mass, onChange } =
     div [ class "input-group input-group" ]
         [ input
             [ class "form-control text-end incdec-arrows-left"
@@ -37,6 +38,7 @@ view { mass, onChange } =
                                 |> Maybe.map Mass.grams
                         )
             , Attr.min "0"
+            , Attr.disabled disabled
             ]
             []
         , span [ class "input-group-text", title "grammes" ]
