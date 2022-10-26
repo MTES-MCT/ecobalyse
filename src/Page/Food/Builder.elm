@@ -7,14 +7,15 @@ module Page.Food.Builder exposing
     )
 
 import Data.Food.Db as FoodDb
-import Data.Food.Process as Process
+import Data.Food.Process as Process exposing (Process)
 import Data.Food.Recipe as Recipe exposing (Recipe)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Session exposing (Session)
 import Data.Unit as Unit
 import Html exposing (..)
-import Html.Attributes exposing (..)
+import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
+import Html.Keyed as Keyed
 import Json.Encode as Encode
 import Mass exposing (Mass)
 import Ports
@@ -36,15 +37,23 @@ type alias Model =
     { dbState : WebData FoodDb.Db
     , query : Recipe.Query
     , impact : Impact.Trigram
+    , selectedIngredient : Maybe SelectedIngredient
+    }
+
+
+type alias SelectedIngredient =
+    { code : Process.Code
+    , mass : Mass
     }
 
 
 type Msg
-    = AddIngredient Mass Process.Code
+    = AddIngredient SelectedIngredient
     | DbLoaded (WebData FoodDb.Db)
     | DeleteIngredient Process.Code
     | LoadQuery Recipe.Query
     | NoOp
+    | SelectIngredient (Maybe SelectedIngredient)
     | SwitchImpact Impact.Trigram
     | UpdateIngredientMass Process.Code (Maybe Mass)
 
@@ -56,6 +65,7 @@ init session =
             { dbState = RemoteData.Loading
             , query = Recipe.tunaPizza
             , impact = Impact.defaultTrigram
+            , selectedIngredient = Nothing
             }
     in
     if FoodDb.isEmpty session.foodDb then
@@ -77,10 +87,11 @@ init session =
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
 update session msg model =
     case msg of
-        AddIngredient mass code ->
+        AddIngredient { mass, code } ->
             ( { model
                 | query =
                     model.query |> Recipe.addIngredient mass code
+                , selectedIngredient = Nothing
               }
             , session
             , Cmd.none
@@ -105,6 +116,9 @@ update session msg model =
         LoadQuery query ->
             ( { model | query = query }, session, Cmd.none )
 
+        SelectIngredient selectedIngredient ->
+            ( { model | selectedIngredient = selectedIngredient }, session, Cmd.none )
+
         SwitchImpact impact ->
             ( { model | impact = impact }, session, Cmd.none )
 
@@ -120,6 +134,15 @@ update session msg model =
 
         UpdateIngredientMass _ Nothing ->
             ( model, session, Cmd.none )
+
+
+
+-- Defaults
+
+
+defaultIngredientMass : Mass
+defaultIngredientMass =
+    Mass.grams 100
 
 
 
@@ -161,8 +184,12 @@ errorView error =
         }
 
 
-ingredientListView : Recipe -> List (Html Msg)
-ingredientListView recipe =
+ingredientListView : FoodDb.Db -> Maybe SelectedIngredient -> Recipe -> List (Html Msg)
+ingredientListView { processes } selectedIngredient recipe =
+    let
+        alreadyUsed =
+            List.map (.process >> .code) recipe.ingredients
+    in
     [ div [ class "card-header" ] [ h6 [ class "mb-0" ] [ text "Ingrédients" ] ]
     , ul [ class "list-group list-group-flush" ]
         (if List.isEmpty recipe.ingredients then
@@ -177,6 +204,7 @@ ingredientListView recipe =
                                 [ MassInput.view
                                     { mass = mass
                                     , onChange = UpdateIngredientMass process.code
+                                    , disabled = False
                                     }
                                 ]
                             , span [ class "w-100" ] [ text <| Process.nameToString process.name ]
@@ -190,31 +218,127 @@ ingredientListView recipe =
                             ]
                     )
         )
+    , Html.form
+        [ class "list-group list-group-flush border-top-0"
+        , onSubmit
+            (case selectedIngredient of
+                Just ingredient ->
+                    AddIngredient ingredient
+
+                Nothing ->
+                    NoOp
+            )
+        ]
+        [ li [ class "list-group-item d-flex align-items-center gap-2" ]
+            [ span [ class "flex-shrink-1" ]
+                [ MassInput.view
+                    { mass =
+                        selectedIngredient
+                            |> Maybe.map .mass
+                            |> Maybe.withDefault defaultIngredientMass
+                    , onChange =
+                        \maybeMass ->
+                            SelectIngredient
+                                (case ( maybeMass, selectedIngredient ) of
+                                    ( Just mass, Just ingredient ) ->
+                                        Just { ingredient | mass = mass }
+
+                                    _ ->
+                                        Nothing
+                                )
+                    , disabled = selectedIngredient == Nothing
+                    }
+                ]
+            , span [ class "w-100" ]
+                [ processes
+                    |> Process.listByCategory Process.Ingredient
+                    |> List.sortBy (.name >> Process.nameToString)
+                    |> List.filter (\{ code } -> not (List.member code alreadyUsed))
+                    |> ingredientSelectorView (Maybe.map .code selectedIngredient)
+                        (\maybeCode ->
+                            case ( selectedIngredient, maybeCode ) of
+                                ( Just ingredient, Just code ) ->
+                                    SelectIngredient (Just { ingredient | code = code })
+
+                                ( Nothing, Just code ) ->
+                                    SelectIngredient (Just { code = code, mass = defaultIngredientMass })
+
+                                _ ->
+                                    SelectIngredient Nothing
+                        )
+                ]
+            , button
+                [ type_ "submit"
+                , class "btn btn-primary no-outline"
+                , title "Ajouter"
+                , disabled <| selectedIngredient == Nothing
+                ]
+                [ Icon.plus ]
+            ]
+        ]
     ]
 
 
+ingredientSelectorView : Maybe Process.Code -> (Maybe Process.Code -> msg) -> List Process -> Html msg
+ingredientSelectorView selectedCode event =
+    List.map
+        (\{ code, name } ->
+            let
+                label =
+                    Process.nameToString name
+            in
+            ( label
+            , option
+                [ selected <| selectedCode == Just code
+                , value <| Process.codeToString code
+                ]
+                [ text label ]
+            )
+        )
+        >> List.sortBy Tuple.first
+        >> (++)
+            [ ( "-- Sélectionner un ingrédient dans la liste --"
+              , option [ Attr.selected <| selectedCode == Nothing ]
+                    [ text "-- Sélectionnez un ingrédient et cliquez sur le bouton + pour l'ajouter" ]
+              )
+            ]
+        -- We use Html.Keyed because when we add an item, we filter it out from the select box,
+        -- which desynchronizes the DOM state and the virtual dom state
+        >> Keyed.node "select"
+            [ class "form-select"
+            , onInput
+                (\str ->
+                    event
+                        (if str == "" then
+                            Nothing
+
+                         else
+                            Just (Process.codeFromString str)
+                        )
+                )
+            ]
+
+
 mainView : FoodDb.Db -> Model -> Html Msg
-mainView foodDb model =
-    div []
-        [ div [ class "row gap-3 gap-lg-0" ]
-            [ div [ class "col-lg-4 order-lg-2 d-flex flex-column gap-3" ]
-                [ case Recipe.compute foodDb model.query of
-                    Ok impacts ->
-                        sidebarView foodDb model impacts
+mainView foodDb ({ selectedIngredient } as model) =
+    div [ class "row gap-3 gap-lg-0" ]
+        [ div [ class "col-lg-4 order-lg-2 d-flex flex-column gap-3" ]
+            [ case Recipe.compute foodDb model.query of
+                Ok impacts ->
+                    sidebarView foodDb model impacts
 
-                    Err error ->
-                        errorView error
-                ]
-            , div [ class "col-lg-8 order-lg-1 d-flex flex-column gap-3" ]
-                [ menuView model.query
-                , case Recipe.fromQuery foodDb model.query of
-                    Ok recipe ->
-                        stepListView recipe
+                Err error ->
+                    errorView error
+            ]
+        , div [ class "col-lg-8 order-lg-1 d-flex flex-column gap-3" ]
+            [ menuView model.query
+            , case Recipe.fromQuery foodDb model.query of
+                Ok recipe ->
+                    stepListView foodDb selectedIngredient recipe
 
-                    Err error ->
-                        errorView error
-                , debugQueryView foodDb model.query
-                ]
+                Err error ->
+                    errorView error
+            , debugQueryView foodDb model.query
             ]
         ]
 
@@ -296,15 +420,15 @@ sidebarView foodDb model impacts =
         ]
 
 
-stepListView : Recipe -> Html Msg
-stepListView recipe =
+stepListView : FoodDb.Db -> Maybe SelectedIngredient -> Recipe -> Html Msg
+stepListView foodDb selectedIngredient recipe =
     div [ class "d-flex flex-column gap-3" ]
         [ div [ class "card" ]
             (div [ class "card-header" ]
                 [ h4 [ class "mb-0" ] [ text "Recette" ]
                 ]
                 :: List.concat
-                    [ ingredientListView recipe
+                    [ ingredientListView foodDb selectedIngredient recipe
                     , processingView recipe
                     ]
             )
