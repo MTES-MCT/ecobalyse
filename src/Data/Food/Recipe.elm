@@ -10,10 +10,13 @@ module Data.Food.Recipe exposing
     , empty
     , encode
     , fromQuery
+    , resetTransform
     , serialize
+    , setTransform
     , toQuery
     , tunaPizza
     , updateIngredientMass
+    , updateTransformMass
     )
 
 import Data.Country as Country
@@ -39,6 +42,7 @@ type alias IngredientQuery =
 
 
 type alias ProcessingQuery =
+    -- FIXME: rename to TransformQuery
     { code : Process.Code
     , mass : Mass
     }
@@ -214,6 +218,16 @@ processingToQuery maybeProcessing =
             )
 
 
+resetTransform : Query -> Query
+resetTransform query =
+    { query | processing = Nothing }
+
+
+setTransform : Mass -> Process.Code -> Query -> Query
+setTransform mass code query =
+    { query | processing = Just { code = code, mass = mass } }
+
+
 toQuery : Recipe -> Query
 toQuery recipe =
     { ingredients = List.map ingredientToQuery recipe.ingredients
@@ -235,6 +249,14 @@ updateIngredientMass mass code query =
                         else
                             ing
                     )
+    }
+
+
+updateTransformMass : Mass -> Query -> Query
+updateTransformMass mass query =
+    { query
+        | processing =
+            query.processing |> Maybe.map (\processing -> { processing | mass = mass })
     }
 
 
