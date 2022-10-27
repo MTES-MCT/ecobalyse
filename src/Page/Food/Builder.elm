@@ -301,7 +301,7 @@ rowTemplate input content action =
 
 ingredientListView : FoodDb.Db -> Maybe SelectedProcess -> Recipe -> List (Html Msg)
 ingredientListView foodDb selectedProcess recipe =
-    [ div [ class "card-header" ] [ h6 [ class "mb-0" ] [ text "Ingrédients" ] ]
+    [ div [ class "card-header" ] [ h5 [ class "mb-0" ] [ text "Ingrédients" ] ]
     , ul [ class "list-group list-group-flush" ]
         (if List.isEmpty recipe.ingredients then
             [ li [ class "list-group-item" ] [ text "Aucun ingrédient" ] ]
@@ -429,7 +429,7 @@ menuView query =
 
 processingView : FoodDb.Db -> Maybe SelectedProcess -> Recipe -> List (Html Msg)
 processingView foodDb selectedProcess recipe =
-    [ div [ class "card-header" ] [ h6 [ class "mb-0" ] [ text "Transformation" ] ]
+    [ div [ class "card-header" ] [ h5 [ class "mb-0" ] [ text "Transformation" ] ]
     , case recipe.processing of
         Just { process, mass } ->
             ul [ class "list-group list-group-flush border-top-0" ]
@@ -462,6 +462,10 @@ processingView foodDb selectedProcess recipe =
                 , selectedProcess = selectedProcess
                 , submit = SetTransform
                 }
+    , div [ class "card-body d-flex align-items-center gap-1 text-muted py-2" ]
+        [ Icon.info
+        , small [] [ text "Entrez la masse totale mobilisée par le procédé de transformation sélectionné" ]
+        ]
     ]
 
 
@@ -515,7 +519,7 @@ stepListView foodDb { selectedIngredient, selectedTransform } recipe =
     div [ class "d-flex flex-column gap-3" ]
         [ div [ class "card" ]
             (div [ class "card-header" ]
-                [ h5 [ class "mb-0" ] [ text "Recette" ]
+                [ h4 [ class "mb-0" ] [ text "Recette" ]
                 ]
                 :: List.concat
                     [ ingredientListView foodDb selectedIngredient recipe
@@ -524,7 +528,7 @@ stepListView foodDb { selectedIngredient, selectedTransform } recipe =
             )
         , div [ class "card" ]
             [ div [ class "card-header" ]
-                [ h5 [ class "mb-0" ] [ text "Conditionnement" ]
+                [ h4 [ class "mb-0" ] [ text "Conditionnement" ]
                 ]
             , div [ class "card-body" ] [ text "TODO" ]
             ]
