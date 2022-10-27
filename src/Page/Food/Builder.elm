@@ -188,6 +188,7 @@ type alias AddProcessConfig msg =
     , defaultMass : Mass
     , excluded : List Process.Code
     , foodDb : FoodDb.Db
+    , kind : String
     , noOp : msg
     , select : Maybe SelectedProcess -> msg
     , selectedProcess : Maybe SelectedProcess
@@ -196,7 +197,7 @@ type alias AddProcessConfig msg =
 
 
 addProcessFormView : AddProcessConfig Msg -> Html Msg
-addProcessFormView { category, defaultMass, excluded, foodDb, noOp, select, selectedProcess, submit } =
+addProcessFormView { category, defaultMass, excluded, foodDb, kind, noOp, select, selectedProcess, submit } =
     Html.form
         [ class "list-group list-group-flush border-top-0"
         , onSubmit
@@ -231,7 +232,8 @@ addProcessFormView { category, defaultMass, excluded, foodDb, noOp, select, sele
                 |> Process.listByCategory category
                 |> List.sortBy (.name >> Process.nameToString)
                 |> List.filter (\{ code } -> not (List.member code excluded))
-                |> ingredientSelectorView (Maybe.map .code selectedProcess)
+                |> processSelectorView kind
+                    (Maybe.map .code selectedProcess)
                     (\maybeCode ->
                         case ( selectedProcess, maybeCode ) of
                             ( Just selected, Just code ) ->
@@ -247,7 +249,7 @@ addProcessFormView { category, defaultMass, excluded, foodDb, noOp, select, sele
             (button
                 [ type_ "submit"
                 , class "btn btn-primary no-outline"
-                , title "Ajouter"
+                , title <| "Ajouter " ++ kind
                 , disabled <| selectedProcess == Nothing
                 ]
                 [ Icon.plus ]
@@ -333,52 +335,13 @@ ingredientListView foodDb selectedProcess recipe =
         , defaultMass = Mass.grams 100
         , excluded = List.map (.process >> .code) recipe.ingredients
         , foodDb = foodDb
+        , kind = "un ingrédient"
         , noOp = NoOp
         , select = SelectIngredient
         , selectedProcess = selectedProcess
         , submit = AddIngredient
         }
     ]
-
-
-ingredientSelectorView : Maybe Process.Code -> (Maybe Process.Code -> msg) -> List Process -> Html msg
-ingredientSelectorView selectedCode event =
-    List.map
-        (\{ code, name } ->
-            let
-                label =
-                    Process.nameToString name
-            in
-            ( label
-            , option
-                [ selected <| selectedCode == Just code
-                , value <| Process.codeToString code
-                ]
-                [ text label ]
-            )
-        )
-        >> List.sortBy Tuple.first
-        >> (++)
-            [ ( "-- Sélectionner un ingrédient dans la liste --"
-              , option [ Attr.selected <| selectedCode == Nothing ]
-                    [ text "-- Sélectionnez un ingrédient et cliquez sur le bouton + pour l'ajouter" ]
-              )
-            ]
-        -- We use Html.Keyed because when we add an item, we filter it out from the select box,
-        -- which desynchronizes the DOM state and the virtual dom state
-        >> Keyed.node "select"
-            [ class "form-select"
-            , onInput
-                (\str ->
-                    event
-                        (if str == "" then
-                            Nothing
-
-                         else
-                            Just (Process.codeFromString str)
-                        )
-                )
-            ]
 
 
 mainView : FoodDb.Db -> Model -> Html Msg
@@ -427,6 +390,46 @@ menuView query =
         ]
 
 
+processSelectorView : String -> Maybe Process.Code -> (Maybe Process.Code -> msg) -> List Process -> Html msg
+processSelectorView kind selectedCode event =
+    List.map
+        (\{ code, name } ->
+            let
+                label =
+                    Process.nameToString name
+            in
+            ( label
+            , option
+                [ selected <| selectedCode == Just code
+                , value <| Process.codeToString code
+                ]
+                [ text label ]
+            )
+        )
+        >> List.sortBy Tuple.first
+        >> (++)
+            [ ( "-- Sélectionner un ingrédient dans la liste --"
+              , option [ Attr.selected <| selectedCode == Nothing ]
+                    [ text <| "-- Sélectionnez " ++ kind ++ " et cliquez sur le bouton + pour l'ajouter" ]
+              )
+            ]
+        -- We use Html.Keyed because when we add an item, we filter it out from the select box,
+        -- which desynchronizes the DOM state and the virtual dom state
+        >> Keyed.node "select"
+            [ class "form-select"
+            , onInput
+                (\str ->
+                    event
+                        (if str == "" then
+                            Nothing
+
+                         else
+                            Just (Process.codeFromString str)
+                        )
+                )
+            ]
+
+
 processingView : FoodDb.Db -> Maybe SelectedProcess -> Recipe -> List (Html Msg)
 processingView foodDb selectedProcess recipe =
     [ div [ class "card-header" ] [ h5 [ class "mb-0" ] [ text "Transformation" ] ]
@@ -457,6 +460,7 @@ processingView foodDb selectedProcess recipe =
                 , defaultMass = Mass.grams 0
                 , excluded = List.map (.process >> .code) recipe.ingredients
                 , foodDb = foodDb
+                , kind = "une transformation"
                 , noOp = NoOp
                 , select = SelectTransform
                 , selectedProcess = selectedProcess
