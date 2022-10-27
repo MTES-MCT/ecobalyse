@@ -430,8 +430,8 @@ processSelectorView kind selectedCode event =
             ]
 
 
-processingView : FoodDb.Db -> Maybe SelectedProcess -> Recipe -> List (Html Msg)
-processingView foodDb selectedProcess recipe =
+transformView : FoodDb.Db -> Maybe SelectedProcess -> Recipe -> List (Html Msg)
+transformView foodDb selectedProcess recipe =
     [ div [ class "card-header" ] [ h5 [ class "mb-0" ] [ text "Transformation" ] ]
     , case recipe.transform of
         Just { process, mass } ->
@@ -527,7 +527,7 @@ stepListView foodDb { selectedIngredient, selectedTransform } recipe =
                 ]
                 :: List.concat
                     [ ingredientListView foodDb selectedIngredient recipe
-                    , processingView foodDb selectedTransform recipe
+                    , transformView foodDb selectedTransform recipe
                     ]
             )
         , div [ class "card" ]
