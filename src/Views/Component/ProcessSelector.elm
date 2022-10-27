@@ -42,10 +42,13 @@ processSelector maybeSelectedProcess event processes =
         |> List.map
             (\process ->
                 let
-                    string =
+                    processName =
                         Process.nameToString process.name
                 in
-                ( string, option [ selected <| maybeSelectedProcess == Just process ] [ text string ] )
+                ( processName
+                , option [ value processName, selected <| maybeSelectedProcess == Just process ]
+                    [ text <| Process.getDisplayName process ]
+                )
             )
         |> List.sortBy Tuple.first
         |> (++)

@@ -8,6 +8,7 @@ module Data.Food.Process exposing
     , decodeList
     , findByCode
     , findByName
+    , getDisplayName
     , listByCategory
     , loadWellKnown
     , nameFromString
@@ -189,6 +190,16 @@ decodeStringUnit =
                     _ ->
                         Decode.fail <| "Could not decode unit " ++ str
             )
+
+
+getDisplayName : Process -> String
+getDisplayName process =
+    case process.displayName of
+        Just displayName ->
+            displayName
+
+        Nothing ->
+            nameToString process.name
 
 
 listByCategory : Category -> List Process -> List Process

@@ -550,15 +550,11 @@ viewPlantIngredientsAndMaterials itemViewDataConfig items =
         --
         |> List.map
             (\({ item } as itemViewData) ->
-                let
-                    name =
-                        Process.nameToString item.process.name
-                in
                 div [ class "card" ]
                     [ div [ class "card-header" ]
                         [ div [ class "row" ]
                             [ div [ class "col-lg-8" ]
-                                [ text name
+                                [ text <| Process.getDisplayName item.process
                                 ]
                             , div [ class "col-lg-4 text-truncate text-lg-end" ]
                                 [ if item.comment /= "" then
@@ -593,7 +589,7 @@ viewPlantEnergy itemViewDataConfig items =
             (\({ item } as itemViewData) ->
                 div [ class "card" ]
                     [ div [ class "card-header" ]
-                        [ text <| Process.nameToString item.process.name
+                        [ text <| Process.getDisplayName item.process
                         , text item.comment
                         ]
                     , viewPlantProcess { disabled = True } itemViewData
@@ -615,7 +611,7 @@ viewPlantProcessing itemViewDataConfig items =
             (\({ item } as itemViewData) ->
                 div [ class "card" ]
                     [ div [ class "card-header" ]
-                        [ text <| Process.nameToString item.process.name
+                        [ text <| Process.getDisplayName item.process
                         , text item.comment
                         ]
                     , viewPlantProcess { disabled = True } itemViewData
@@ -651,7 +647,7 @@ viewPlantTransport itemViewDataConfig items selectedCountry countries =
             (\({ item } as itemViewData) ->
                 div [ class "card" ]
                     [ div [ class "card-header" ]
-                        [ text <| Process.nameToString item.process.name
+                        [ text <| Process.getDisplayName item.process
                         , text item.comment
                         ]
                     , viewPlantProcess { disabled = True } itemViewData
@@ -673,7 +669,7 @@ viewPlantWaste itemViewDataConfig items =
             (\({ item } as itemViewData) ->
                 div [ class "card" ]
                     [ div [ class "card-header" ]
-                        [ text <| Process.nameToString item.process.name
+                        [ text <| Process.getDisplayName item.process
                         , text item.comment
                         ]
                     , viewPlantProcess { disabled = True } itemViewData
@@ -802,9 +798,7 @@ viewItemDetails { config, item, impact, percent, stepWeight, width } =
         [ div [ class "fs-7" ]
             [ viewComment item.comment
             , text " "
-            , item.process.name
-                |> Process.nameToString
-                |> text
+            , text <| Process.getDisplayName item.process
             ]
         , div [ class "progress my-2", style "height" "9px" ]
             [ div
