@@ -5,7 +5,6 @@
     "simapro_id": "c24fc476f6d5237aa2c58d7d95bc1ca4",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "transport",
     "impacts": {
       "acd": 0.0006804852512132117,
@@ -33,7 +32,6 @@
     "simapro_id": "8096e9fc226b784c4e9a22f68eb8d75d",
     "system_description": "",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "waste treatment",
     "impacts": {
       "acd": 0.0,
@@ -61,7 +59,6 @@
     "simapro_id": "4b45a85b97a2cee9702993754827834e",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "waste treatment",
     "impacts": {
       "acd": 5.2256502313795975e-5,
@@ -89,7 +86,6 @@
     "simapro_id": "d4ede9f9274749828a9f8ab82370e2e4",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "waste treatment",
     "impacts": {
       "acd": 0.0002514290834486418,
@@ -117,7 +113,6 @@
     "simapro_id": "97c29e6155a05ed04719bd9ed2f64cff",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "waste treatment",
     "impacts": {
       "acd": 8.368514746399396e-5,
@@ -145,7 +140,6 @@
     "simapro_id": "ef953c00d48ee59f57773534f6487b09",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "energy",
     "impacts": {
       "acd": 0.00044779056520196443,
@@ -173,7 +167,6 @@
     "simapro_id": "224411d9aa3c0ed3cf9b5fc590c237d2",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "material",
     "impacts": {
       "acd": 2.5165793793542648e-6,
@@ -201,7 +194,6 @@
     "simapro_id": "16169bc9e466feddd69c726496a7cb87",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "transport",
     "impacts": {
       "acd": 0.0004686236100886041,
@@ -229,7 +221,6 @@
     "simapro_id": "8697c7267351e4255b93970a6b7202b5",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "waste treatment",
     "impacts": {
       "acd": 0.002253770192507967,
@@ -257,7 +248,6 @@
     "simapro_id": "f66a865d9c130d28553ebb0220826fb3",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "waste treatment",
     "impacts": {
       "acd": 0.00022678209175772644,
@@ -285,7 +275,6 @@
     "simapro_id": "0fc6ebb5c70ad7b213fe289d039e307a",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "energy",
     "impacts": {
       "acd": 8.708426828852164e-5,
@@ -343,8 +332,7 @@
     "simapro_id": "02e016a7d236303db90aec2977fc3e4d",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
-    "kind": "packaging",
+    "category": "packaging",
     "impacts": {
       "acd": 0.008987337459529902,
       "ozd": 9.533355788496087e-8,
@@ -371,7 +359,6 @@
     "simapro_id": "be394c92b0ab3b851f86f7219be6b50d",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "transport",
     "impacts": {
       "acd": 0.00042476197792732913,
@@ -399,7 +386,6 @@
     "simapro_id": "43a03d47c12f1b53ddb51635f419d9bf",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "transport",
     "impacts": {
       "acd": 0.00047183583444485803,
@@ -427,7 +413,6 @@
     "simapro_id": "5d0b00f902cd0a158926c21b47333762",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.005179296710633338,
@@ -458,7 +443,7 @@
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food"],
     "comment": "\"Functional UnitTo obtain 1kg of canned vegetable or fruit. An input of 0,626kg of food is required. Added packaging should account for the 1% loss.BoundariesFrom peeled fruit or vegetable to canned product: food slicing, can filling (38% water) and sterilization. 1% loss rate is applied at the end. The washing of fruit and vegetable prior to canning and the production and EoL of packaging is out of scope (because already considered upstream or downstream in Agribalyse v3.0).Contrary to canned fruits, canned vegetables go through a blanching step prior to canning: Canned vegetables generally require more severe processing than do fruits because the vegetables have much lower acidity and contain more heat-resistant soil organisms. Many vegetables also require more cooking than fruits to develop their most desirable flavor and texture.we considered 50% of canned vegetables (with a blanching step) and 50% of canned fruits (without any blanching) to model the canning process.\"",
-    "kind": "transformation",
+    "category": "transformation",
     "impacts": {
       "acd": 0.0005208253942273022,
       "ozd": 7.149309573252654e-8,
@@ -485,7 +470,6 @@
     "simapro_id": "888521011eb831621f3145065fddc1fc",
     "system_description": "",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "waste treatment",
     "impacts": {
       "acd": 0.0,
@@ -513,7 +497,6 @@
     "simapro_id": "fbb19921b055531eadf8961a838f807f",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "waste treatment",
     "impacts": {
       "acd": 4.788314758960572e-5,
@@ -541,7 +524,6 @@
     "simapro_id": "07bd63129bcba168965b46cfd662a9de",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "waste treatment",
     "impacts": {
       "acd": 0.0003870495687565602,
@@ -599,8 +581,7 @@
     "simapro_id": "14944f92fd7e016d686165ba22d7c6e3",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
-    "kind": "packaging",
+    "category": "packaging",
     "impacts": {
       "acd": 0.013051861795090608,
       "ozd": 5.2988249388641494e-8,
@@ -627,7 +608,6 @@
     "simapro_id": "6eb01105e79df6a53947fa06e5768967",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "processing",
     "impacts": {
       "acd": 0.003979278582854562,
@@ -683,7 +663,6 @@
     "simapro_id": "9446d586b2a2b20b3f64ceaef0a39567",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.03611942647698569,
@@ -711,7 +690,6 @@
     "simapro_id": "5314dce4726a49f0ea197546b5512389",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Field Operations"],
-    "comment": "",
     "category": "processing",
     "impacts": {
       "acd": 0.0007796212997855747,
@@ -739,7 +717,6 @@
     "simapro_id": "c6f76b8b01d48313eda9f181ee4c88fc",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "transport",
     "impacts": {
       "acd": 0.0002886973502704292,
@@ -767,7 +744,6 @@
     "simapro_id": "27d8fb6730733ca7fa4629c7aff11344",
     "system_description": "",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "waste treatment",
     "impacts": {
       "acd": 0.0,
@@ -795,7 +771,6 @@
     "simapro_id": "185590cf45f52b466b9c3205c2b9933a",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "waste treatment",
     "impacts": {
       "acd": 4.8319722555994e-5,
@@ -823,7 +798,6 @@
     "simapro_id": "16224381dd5201d4fb3f25ef3f814b76",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "waste treatment",
     "impacts": {
       "acd": 0.0003912642359070148,
@@ -851,7 +825,6 @@
     "simapro_id": "fb83f037d88e4f4f3c459af6599a09b3",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "transport",
     "impacts": {
       "acd": 0.001017239617193475,
@@ -909,8 +882,7 @@
     "simapro_id": "556a250d480358473f2767e65a0df8f8",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
-    "kind": "packaging",
+    "category": "packaging",
     "impacts": {
       "acd": 0.012881686467636343,
       "ozd": 4.109368521505781e-8,
@@ -937,7 +909,6 @@
     "simapro_id": "29c28f631972a80ed1146a77c095438e",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.07337826195294374,
@@ -965,7 +936,6 @@
     "simapro_id": "1870364ec132c66f57f3e7af844b2694",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.3111511864232606,
@@ -993,7 +963,6 @@
     "simapro_id": "0b32d7d0cd8da3344733535baa8478c5",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.0017777275334808604,
@@ -1049,7 +1018,6 @@
     "simapro_id": "a343353e431d7dddc7bb25cbc41e179a",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.008502461986389298,
@@ -1079,8 +1047,7 @@
     "simapro_id": "aded2490573207ec7ad5a3813978f6a4",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food"],
-    "comment": "",
-    "kind": "transformation",
+    "category": "transformation",
     "impacts": {
       "acd": 0.0011064406833956627,
       "ozd": 4.592886112909496e-8,
@@ -1135,7 +1102,6 @@
     "simapro_id": "61863a48660de4fd4a88558e6ab472db",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.08453209108063064,
@@ -1163,7 +1129,6 @@
     "simapro_id": "920ac3e2ac3579b5c4d2f549382c7e6b",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.5741178758323514,
@@ -1219,7 +1184,6 @@
     "simapro_id": "460610c81153e0ccd19a97e6f2bd719d",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.038537683680143306,
@@ -1247,7 +1211,6 @@
     "simapro_id": "8a073dfe005a8bfa8586bdab95667f3d",
     "system_description": "",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "waste treatment",
     "impacts": {
       "acd": 0.0,
@@ -1275,7 +1238,6 @@
     "simapro_id": "198be0c829b50d5d0373afd8d76e7e4a",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "waste treatment",
     "impacts": {
       "acd": 4.247151108458883e-5,
@@ -1333,8 +1295,7 @@
     "simapro_id": "1f85c8460640d59143550d27d2882b6a",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
-    "kind": "packaging",
+    "category": "packaging",
     "impacts": {
       "acd": 0.00904400609003605,
       "ozd": 1.2936569281055393e-7,
@@ -1361,7 +1322,6 @@
     "simapro_id": "093bfb0aa2ecf1618866cbe9d550b08a",
     "system_description": "AGRIBALYSE v1.4",
     "category_tags": ["Agricultural", "Plant production", "Vegetables", "Transformation"],
-    "comment": "",
     "category": "material",
     "impacts": {
       "acd": 0.0006782354601237504,
@@ -1389,7 +1349,6 @@
     "simapro_id": "958bbb33cf6cdb8e3c8d4f21aec5ef98",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "transport",
     "impacts": {
       "acd": 0.0002886973502704292,
@@ -1417,7 +1376,6 @@
     "simapro_id": "a9e356b75392dc1eec4c814a07c7fa90",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "waste treatment",
     "impacts": {
       "acd": 0.005363999578026104,
@@ -1501,7 +1459,6 @@
     "simapro_id": "dfcd9102fb921a70fc58c86236493b78",
     "system_description": "",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "waste treatment",
     "impacts": {
       "acd": 0.0,
@@ -1529,7 +1486,6 @@
     "simapro_id": "8240c046cb5c6748c39ffa1ecd6819bf",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "waste treatment",
     "impacts": {
       "acd": 4.776765537572396e-5,
@@ -1557,7 +1513,6 @@
     "simapro_id": "1d6183e929edb2f80ae4b0f5afdc20cc",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "waste treatment",
     "impacts": {
       "acd": 0.00032931962834496765,
@@ -1615,8 +1570,7 @@
     "simapro_id": "ed6822027bfea51a3b29dac6966c82e7",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
-    "kind": "packaging",
+    "category": "packaging",
     "impacts": {
       "acd": 0.007430469290332315,
       "ozd": 8.913926366321514e-10,
@@ -1643,7 +1597,6 @@
     "simapro_id": "86df2ebab4e005d66b75ab9ee9911045",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "processing",
     "impacts": {
       "acd": 0.0006608269358811665,
@@ -1671,7 +1624,6 @@
     "simapro_id": "092fa7694af8adf6165a092873fc4c6c",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "processing",
     "impacts": {
       "acd": 0.00039875687324978233,
@@ -1699,7 +1651,6 @@
     "simapro_id": "b6f018eb0eecc91ece50870606a7dfd4",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "processing",
     "impacts": {
       "acd": 0.0018273471573121071,
@@ -1727,7 +1678,6 @@
     "simapro_id": "68b79e2ebf2436512a31b211c881ec42",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.10842650855126733,
@@ -1811,7 +1761,6 @@
     "simapro_id": "015f01dba8bc2314b38874ed3332d6b0",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.054079221990285004,
@@ -1839,7 +1788,6 @@
     "simapro_id": "f21707d83ff4a4f286156d07d8e1e2d0",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.07351381035014327,
@@ -1923,7 +1871,6 @@
     "simapro_id": "28bcb1eef8e4571c9e348d2aaf39c66a",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "waste treatment",
     "impacts": {
       "acd": 0.001380085874622556,
@@ -1979,7 +1926,6 @@
     "simapro_id": "da43175dd8163643ce4d9cac19a45884",
     "system_description": "",
     "category_tags": ["Agricultural", "Plant production", "Cereals", "Transformation"],
-    "comment": "",
     "category": "material",
     "impacts": {
       "acd": 0.008292601534560207,
@@ -2007,7 +1953,6 @@
     "simapro_id": "b293f493f4d52acba97f4d2baceaf45a",
     "system_description": "",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "waste treatment",
     "impacts": {
       "acd": 0.0,
@@ -2035,7 +1980,6 @@
     "simapro_id": "bb1625d060f7cfe4315587bfa4dc37d7",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "waste treatment",
     "impacts": {
       "acd": 4.247151108458883e-5,
@@ -2063,7 +2007,6 @@
     "simapro_id": "36556ba3d41853d8a0551ccee2c5407f",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "waste treatment",
     "impacts": {
       "acd": 0.00027003568576037683,
@@ -2091,7 +2034,6 @@
     "simapro_id": "236affa88642b2c5f7d246066bb630a4",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.011721153041003893,
@@ -2121,8 +2063,7 @@
     "simapro_id": "23b2754e5943bc77916f8f871edc53b6",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
-    "kind": "packaging",
+    "category": "packaging",
     "impacts": {
       "acd": 0.004525197778534851,
       "ozd": 1.1078331913066449e-7,
@@ -2205,7 +2146,6 @@
     "simapro_id": "4776ba1b9ed4bb5cc525ef58ced6afa3",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.006891792974662136,
@@ -2289,7 +2229,6 @@
     "simapro_id": "b1c5211658c505269d3d6772d1f0390a",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.034403865443496405,
@@ -2401,7 +2340,6 @@
     "simapro_id": "9e651aa583b313afa0fd2b574e323182",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Recipes"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.0020604644954840446,
@@ -2457,7 +2395,6 @@
     "simapro_id": "7edfaed89ab5f46c2832d08b97ce583f",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Others", "Dummies"],
-    "comment": "",
     "category": "material",
     "impacts": {
       "acd": 0.0,
@@ -2513,7 +2450,6 @@
     "simapro_id": "00cc0aa0a2f22eddb9d38667d65ae9e9",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.18401369499900294,
@@ -2541,7 +2477,6 @@
     "simapro_id": "d507831ceabb4a8ec717890281210eed",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.3044365489570608,
@@ -2597,7 +2532,6 @@
     "simapro_id": "01b247b6d15a59d3002d8341b592e4be",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "material",
     "impacts": {
       "acd": 0.005522055855484686,
@@ -2653,7 +2587,6 @@
     "simapro_id": "bab81b49cdb1f2c8c8cda85629aae06b",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.015193209543169656,
@@ -2712,7 +2645,7 @@
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Others", "Dummies"],
     "comment": "This process is a dummy process. It is assumed that no energy or water addition is needed for this process.",
-    "kind": "transformation",
+    "category": "transformation",
     "impacts": {
       "acd": 0.0,
       "ozd": 0.0,
@@ -2739,7 +2672,6 @@
     "simapro_id": "1ca4ff11e90de94a2f94c2d8f3106bd3",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.06604228730947045,
@@ -2823,7 +2755,6 @@
     "simapro_id": "9bd8ff4a9bbf5f1b7d4d7d99ee924875",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.024640394153151918,
@@ -2879,7 +2810,6 @@
     "simapro_id": "c0653038ee37e7c567392755c3f38c22",
     "system_description": "AGRIBALYSE v1.4",
     "category_tags": ["Agricultural", "Plant production", "Vegetables", "Transformation"],
-    "comment": "",
     "category": "material",
     "impacts": {
       "acd": 0.003736958819920391,
@@ -2935,7 +2865,6 @@
     "simapro_id": "6068e91c2774e9915f9d39312e807f58",
     "system_description": "AGRIBALYSE v1.4",
     "category_tags": ["Agricultural", "Plant production", "Fruits", "Transformation"],
-    "comment": "",
     "category": "material",
     "impacts": {
       "acd": 0.011996133482940482,
@@ -3103,7 +3032,6 @@
     "simapro_id": "299e179907e1bead35bd4e6f9008b381",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.017693436572202622,
@@ -3383,7 +3311,6 @@
     "simapro_id": "65e2a1f81e8525d74bc3d4d5bd559114",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 2.5144757765480054e-6,
@@ -3441,8 +3368,7 @@
     "simapro_id": "70c39f519678ffecc3a982f896da3fd5",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
-    "kind": "packaging",
+    "category": "packaging",
     "impacts": {
       "acd": 0.006901375916006631,
       "ozd": 1.0139723979248064e-7,
@@ -3469,7 +3395,6 @@
     "simapro_id": "c4394e2cd314e38fb18c7b0d34551508",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.07338193214438772,
@@ -3497,7 +3422,6 @@
     "simapro_id": "83da330027d4b25dbc7817f06b738571",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.026610197732103675,
@@ -3553,7 +3477,6 @@
     "simapro_id": "0aed91e2fe05579366c7555f1fb7fcb3",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.048687597361168386,
@@ -3609,7 +3532,6 @@
     "simapro_id": "29ba754f14564689959f93a8717cf609",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.0,
@@ -3693,7 +3615,6 @@
     "simapro_id": "2ba07501b528412b3890e8ce64d1f776",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.017600007326746516,
@@ -3755,7 +3676,6 @@
       "Transformation",
       "Production stages"
     ],
-    "comment": "",
     "category": "material",
     "impacts": {
       "acd": 0.005438693000962789,
@@ -3839,7 +3759,6 @@
     "simapro_id": "96983656882f90d15d390d82ae245a03",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.06429682422990925,
@@ -3867,7 +3786,6 @@
     "simapro_id": "4810de304d9b50277830bea39d4c74eb",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.015088946114726155,
@@ -3895,7 +3813,6 @@
     "simapro_id": "0f3a4aa3db746bca6accbc8c4122c8cf",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.0623702544720272,
@@ -3951,7 +3868,6 @@
     "simapro_id": "c89adabbc298562c8aee11cb5a5c8380",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.2568411589985686,
@@ -4007,7 +3923,6 @@
     "simapro_id": "6a6e64fee7f2ac3636f0ff0bf9fd3f49",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.0623702544720272,
@@ -4063,7 +3978,6 @@
     "simapro_id": "f85a5c8fa2c2444ad5bd3450f36abf4f",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.0623702544720272,
@@ -4119,7 +4033,6 @@
     "simapro_id": "095d28753e69dbb874a5295626c089e5",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.0623702544720272,
@@ -4203,7 +4116,6 @@
     "simapro_id": "d11da993dbeda9a441cdf5f1a48de838",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.060353512625982715,
@@ -4231,7 +4143,6 @@
     "simapro_id": "bc04438e756c10d2038495a2657fc2e1",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.007522295976855129,
@@ -4287,7 +4198,6 @@
     "simapro_id": "de7e8453bd2e3b4f5ce9c00804cda49b",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.07337092267133162,
@@ -4315,7 +4225,6 @@
     "simapro_id": "cd0bca48687d9a4102cb23154729d927",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.004345339891845675,
@@ -4371,7 +4280,6 @@
     "simapro_id": "2ce84fe13dae4bdc8ef92fd2360996d4",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.05735187287085513,
@@ -4539,7 +4447,6 @@
     "simapro_id": "3af9739fc89492167dd0d273daac957a",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.001714644046834314,
@@ -4651,7 +4558,6 @@
     "simapro_id": "e572dfdd116e92d61671379b2f99ead7",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.005573027511965806,
@@ -4707,7 +4613,6 @@
     "simapro_id": "a1fa79c23aa3526fb3f1728e64e6bd83",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.03209535531582158,
@@ -4763,7 +4668,6 @@
     "simapro_id": "731324b9efacef4bb4f48eadf52002c6",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.001301629932575261,
@@ -4791,7 +4695,6 @@
     "simapro_id": "623fd9429ba09277a35b7efd85990133",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.0018031672096441287,
@@ -4875,7 +4778,6 @@
     "simapro_id": "7213774797b6adb755a545421d8e748e",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.0014799720629780357,
@@ -4903,7 +4805,6 @@
     "simapro_id": "03b42a3e0b51e2728455d684549febc8",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.001128989856584089,
@@ -5071,7 +4972,6 @@
     "simapro_id": "61ca6413bd2be0106255b003424d00ba",
     "system_description": "",
     "category_tags": ["Agricultural", "Plant production", "Vegetables", "Transformation"],
-    "comment": "",
     "category": "material",
     "impacts": {
       "acd": 0.000976236874258161,
@@ -5099,7 +4999,6 @@
     "simapro_id": "324d4ba5319f11f4ddd4e5a86178ef51",
     "system_description": "",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.10842650855126736,
@@ -5127,7 +5026,6 @@
     "simapro_id": "abb6fe1ca5105d4a16752bfaa8922051",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.10845522796195911,
@@ -5155,7 +5053,6 @@
     "simapro_id": "9954e2a011850f0b31ea2b886fabf008",
     "system_description": "",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.10845522796195911,
@@ -5183,7 +5080,6 @@
     "simapro_id": "825273e8d250f13a6c81a4777965cdcf",
     "system_description": "",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "waste treatment",
     "impacts": {
       "acd": 0.0,
@@ -5211,7 +5107,6 @@
     "simapro_id": "bd224ad3bc0a205404f33ee2d37ea4ce",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "waste treatment",
     "impacts": {
       "acd": 4.895655008575225e-5,
@@ -5239,7 +5134,6 @@
     "simapro_id": "531af84a467be705d178d69baa5d2f53",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "waste treatment",
     "impacts": {
       "acd": 0.0013049636811966923,
@@ -5297,8 +5191,7 @@
     "simapro_id": "60a6132f5227b0dbe2e75f2d2d54d1a8",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
-    "kind": "packaging",
+    "category": "packaging",
     "impacts": {
       "acd": 0.006275260106961101,
       "ozd": 9.197531484651221e-10,
@@ -5325,7 +5218,6 @@
     "simapro_id": "3a7ffca51e14caa21243a2951f36f10d",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.07252657821997953,
@@ -5353,7 +5245,6 @@
     "simapro_id": "ca3f8c593ad963a752cd47354dfd5c01",
     "system_description": "",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "waste treatment",
     "impacts": {
       "acd": 0.0,
@@ -5381,7 +5272,6 @@
     "simapro_id": "dea2989a08fedf3199c269f0147f77cb",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "waste treatment",
     "impacts": {
       "acd": 7.836528952426214e-5,
@@ -5409,7 +5299,6 @@
     "simapro_id": "40315b5a2eb1cdbc9bf6be4f9e73b958",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "waste treatment",
     "impacts": {
       "acd": 0.0003971899304879971,
@@ -5437,7 +5326,6 @@
     "simapro_id": "0bf16489996225be49d9e435e1983d25",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.05727233101136156,
@@ -5467,8 +5355,7 @@
     "simapro_id": "6ed392632f366c410e0af00f4d58e915",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
-    "kind": "packaging",
+    "category": "packaging",
     "impacts": {
       "acd": 0.016036637290281278,
       "ozd": 1.7432527649183478e-7,
@@ -5523,7 +5410,6 @@
     "simapro_id": "115c2af0e2f4b6e63dc3b7dd8ede702c",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.01448320108034581,
@@ -5607,7 +5493,6 @@
     "simapro_id": "8bdfc9abe4816ca70f2bbbd4affd3a0c",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "energy",
     "impacts": {
       "acd": 0.0003508295681746512,
@@ -5663,7 +5548,6 @@
     "simapro_id": "6015a35e59282fa8a52c09d24708e9c4",
     "system_description": "",
     "category_tags": ["Agricultural", "Plant production", "Cereals", "Transformation"],
-    "comment": "",
     "category": "material",
     "impacts": {
       "acd": 0.006104347096316321,
@@ -5781,7 +5665,6 @@
     "simapro_id": "399924dbcba0687c8a3d319957f2c370",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "material",
     "impacts": {
       "acd": 0.0025865515934679964,
@@ -5865,7 +5748,6 @@
     "simapro_id": "1e209a8461eaa28175710f59f67569b6",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "material",
     "impacts": {
       "acd": 0.010137890663059422,
@@ -5893,7 +5775,6 @@
     "simapro_id": "ebd964ef1ffc65b0888556bc5fd371e6",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "material",
     "impacts": {
       "acd": 0.03016274973688869,
@@ -5921,7 +5802,6 @@
     "simapro_id": "ad22e6280ffb6dc0e03d124bd7d1036c",
     "system_description": "",
     "category_tags": ["Chemicals", "Others"],
-    "comment": "",
     "category": "material",
     "impacts": {
       "acd": 0.008720857947937744,
@@ -5949,7 +5829,6 @@
     "simapro_id": "32814c2d0a612cfc1a1b4146a2103bb2",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "material",
     "impacts": {
       "acd": 0.0002986612800285346,
@@ -5977,7 +5856,6 @@
     "simapro_id": "ff77dc2cf3ccd2481bf7ea8260201296",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "material",
     "impacts": {
       "acd": 0.0962457514409533,
@@ -6005,7 +5883,6 @@
     "simapro_id": "fa3e2f4e67611ce2415137cb6806c25b",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "material",
     "impacts": {
       "acd": 0.007603680478415543,
@@ -6033,7 +5910,6 @@
     "simapro_id": "e985cec590c4d42e34f87cd6aafb7511",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "material",
     "impacts": {
       "acd": 0.007739846160770343,
@@ -6061,7 +5937,6 @@
     "simapro_id": "83699b4a4641c00c9dd224334c373c7d",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "material",
     "impacts": {
       "acd": 0.016708035433451864,
@@ -6089,7 +5964,6 @@
     "simapro_id": "2a6a2395becec5133a02daffafe21552",
     "system_description": "",
     "category_tags": ["Chemicals", "Others"],
-    "comment": "",
     "category": "material",
     "impacts": {
       "acd": 0.00791215586353674,
@@ -6117,7 +5991,6 @@
     "simapro_id": "d4a2c6f854c9f6b01e86d95f7218c405",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "material",
     "impacts": {
       "acd": 0.008172663377628637,
@@ -6145,7 +6018,6 @@
     "simapro_id": "24dc92ff953df0c602a36c030801fd49",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "material",
     "impacts": {
       "acd": 0.01756826802860146,
@@ -6173,7 +6045,6 @@
     "simapro_id": "d488676d1f77f040a90032b8d4eb9b04",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "transport",
     "impacts": {
       "acd": 0.0004605127566032944,
@@ -6201,7 +6072,6 @@
     "simapro_id": "4d08666998dce5285102a328472c5b04",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "transport",
     "impacts": {
       "acd": 0.0008405914877007062,
@@ -6229,7 +6099,6 @@
     "simapro_id": "5e3b94eefd0d325b23977953aa7acd62",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "waste treatment",
     "impacts": {
       "acd": 0.005836434442927001,
@@ -6285,7 +6154,6 @@
     "simapro_id": "dba671b691847ff9af0698f0f5fa4a50",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.010264020828720733,
@@ -6649,7 +6517,6 @@
     "simapro_id": "4102ab4fba478b1cfe7fba2ecb23e48d",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.001674131700243274,
@@ -6677,7 +6544,6 @@
     "simapro_id": "f792a9a7460340746683bab07c2537d0",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.17768497436752342,
@@ -6705,7 +6571,6 @@
     "simapro_id": "0316383a26411c989a5e35e1263dbee2",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.0016415849751607833,
@@ -6761,7 +6626,6 @@
     "simapro_id": "d77308bcc6f3988597e56b34d5e2c4fa",
     "system_description": "",
     "category_tags": ["Agricultural", "Plant production", "Cereals", "Transformation"],
-    "comment": "",
     "category": "material",
     "impacts": {
       "acd": 0.007214191333115601,
@@ -6929,7 +6793,6 @@
     "simapro_id": "2a769dbc1fe65f023ffc536143412a7f",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.3854894719260948,
@@ -7069,7 +6932,6 @@
     "simapro_id": "3a266295f7775b99dbacf50924e0fffb",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Others", "Dummies"],
-    "comment": "",
     "category": "material",
     "impacts": {
       "acd": 0.0,
@@ -7097,7 +6959,6 @@
     "simapro_id": "5c89ee4578bcb3d2eff3083b67ffe7aa",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.007356405426776431,
@@ -7125,7 +6986,6 @@
     "simapro_id": "3582fc4196ea4f36b8a21de646cae2e5",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.4730919160702996,
@@ -7153,7 +7013,6 @@
     "simapro_id": "e7742a507f2406b6e4113041627fb53c",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.3081155603659515,
@@ -7181,7 +7040,6 @@
     "simapro_id": "da9409534ad17989aaccae4d44369016",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.4730919160702996,
@@ -7237,7 +7095,6 @@
     "simapro_id": "8593471ba1bc1ae9e4d8ba863f4d04f1",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.01399101219716399,
@@ -7321,7 +7178,6 @@
     "simapro_id": "2324a8660fb8f21d89e68238998f9bcb",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Others", "Dummies"],
-    "comment": "",
     "category": "material",
     "impacts": {
       "acd": 0.0,
@@ -7377,7 +7233,6 @@
     "simapro_id": "b420dc117d1fe88d14908ced4555bbf2",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "energy",
     "impacts": {
       "acd": 0.001172611063133213,
@@ -7405,7 +7260,6 @@
     "simapro_id": "eed1bfd236bd56ea26564a4a696802dc",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "waste treatment",
     "impacts": {
       "acd": 0.006052323682282998,
@@ -7461,7 +7315,6 @@
     "simapro_id": "cf6f0aa02378f1648dc7ea3d152a8478",
     "system_description": "",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.0007599924180839923,
@@ -7517,7 +7370,6 @@
     "simapro_id": "f6b98ddc130452bc97a4731221d0a072",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.005549291750158282,
@@ -7771,8 +7623,7 @@
     "simapro_id": "eb7191a6556a749f482d12fb6adcad04",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
-    "kind": "packaging",
+    "category": "packaging",
     "impacts": {
       "acd": 0.007784896467004352,
       "ozd": 1.197493487274857e-9,
@@ -7883,7 +7734,6 @@
     "simapro_id": "366e9f663377ec0d6c4bf5fd32a2810f",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.002022522829163839,
@@ -7911,7 +7761,6 @@
     "simapro_id": "462305515708820be450a8dcbfde5fbf",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Others", "Dummies"],
-    "comment": "",
     "category": "material",
     "impacts": {
       "acd": 0.0,
@@ -7967,7 +7816,6 @@
     "simapro_id": "cfef5021252585e78505afd86e78697f",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.010929439972453022,
@@ -8107,7 +7955,6 @@
     "simapro_id": "d5c4e67e7036ce6e7a36b1e0160bd458",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.0016634016066390666,
@@ -8191,7 +8038,6 @@
     "simapro_id": "beed97159b81d8e08c6c83177067ff57",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.07941176740840705,
@@ -8247,7 +8093,6 @@
     "simapro_id": "9b5f8e8385429fc5cc05c1265dae17ae",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.2472101563498993,
@@ -8359,7 +8204,6 @@
     "simapro_id": "9d99b4f000cf46b40d778bd9d16cd297",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.10077130466755882,
@@ -8499,7 +8343,6 @@
     "simapro_id": "4ccb3c851034032c1c16fed4f40e86b1",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Recipes"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.041677037852052484,
@@ -8583,7 +8426,6 @@
     "simapro_id": "81773bc0f9a6fa5fa1fd78af7f99cdfc",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.018390239200913844,
@@ -8667,7 +8509,6 @@
     "simapro_id": "9ff23037b99370f72c522fac4b4dfacb",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.01934148230711811,
@@ -8723,7 +8564,6 @@
     "simapro_id": "5abfc96a1c2d3e05e8967e04a72a8347",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.007356405426776431,
@@ -8751,7 +8591,6 @@
     "simapro_id": "1d043b5cdaa5f0b077858778975b2420",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.0623702544720272,
@@ -8891,7 +8730,6 @@
     "simapro_id": "9b0f64852dabeed0f16ca4117bc9738d",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.037181126964323054,
@@ -9115,7 +8953,6 @@
     "simapro_id": "0820e6f93feda6bec5fdc5aae5d9956d",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.7179923662590953,
@@ -9199,7 +9036,6 @@
     "simapro_id": "2230a9ad655eac6b4cebfbc5ac62f6da",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.0033239365820241667,
@@ -9227,7 +9063,6 @@
     "simapro_id": "199c1eb451fccdeadc3109d74f6802b5",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.10053919505542407,
@@ -9367,7 +9202,6 @@
     "simapro_id": "af8120159fb03e78e8d52a1921e8be87",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.0031901779397009904,
@@ -9423,7 +9257,6 @@
     "simapro_id": "e90f76240ed7a2d292902d9c80c1c6df",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.02554645546252741,
@@ -9507,7 +9340,6 @@
     "simapro_id": "3b2797b8bbb50cbff30aa41e1cf51d22",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Others", "Dummies"],
-    "comment": "",
     "category": "material",
     "impacts": {
       "acd": 0.0,
@@ -9535,7 +9367,6 @@
     "simapro_id": "b0be01002e73130cc92986cd16ce73c3",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Others", "Dummies"],
-    "comment": "",
     "category": "material",
     "impacts": {
       "acd": 0.0,
@@ -9647,7 +9478,6 @@
     "simapro_id": "d63463d1338b60290a6adda26714546f",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.06152607295686229,
@@ -9703,7 +9533,6 @@
     "simapro_id": "8959ff560f87a26bb99819d98d905ea6",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.010298740593128792,
@@ -9787,7 +9616,6 @@
     "simapro_id": "e17447d958e258d60de78d13ece606b3",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.4027380024140962,
@@ -9843,7 +9671,6 @@
     "simapro_id": "3b39f3f915977797fdeb179f8a3d0009",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.40845160190566193,
@@ -9955,7 +9782,6 @@
     "simapro_id": "de667501fb3c6f9c7b10ae5584275ca0",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.1836464955963796,
@@ -10011,7 +9837,6 @@
     "simapro_id": "bb52d91db98f66a85e4005ed1e3dd01f",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.1809435233881567,
@@ -10067,7 +9892,6 @@
     "simapro_id": "61299617e83ee7e7a65f566a8055b364",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.04944995310245609,
@@ -10179,7 +10003,6 @@
     "simapro_id": "55747c01c54bd2734794edf7256334b8",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.06152607295686229,
@@ -10263,7 +10086,6 @@
     "simapro_id": "8afd6791ab1e6a87b193e55acae09850",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.1414323574651184,
@@ -10319,7 +10141,6 @@
     "simapro_id": "eb2578b6807bcba19a779a2e2fb61119",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.054079221990285004,
@@ -10515,7 +10336,6 @@
     "simapro_id": "bc7a2593626e0d62f97ac31a606d465b",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.2472101563498993,
@@ -10627,7 +10447,6 @@
     "simapro_id": "893c8fedbfee80ef545017402bfc8caf",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.089455892364728,
@@ -10711,7 +10530,6 @@
     "simapro_id": "b466253572bf90d4ce56f5e33a4bb026",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.3111511864232606,
@@ -10851,7 +10669,6 @@
     "simapro_id": "86604a37e30555597ac148b0ecc68743",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.03319630880660401,
@@ -10907,7 +10724,6 @@
     "simapro_id": "b35b6a89c6119271afc885ae82f6782a",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.03759643627451377,
@@ -10963,7 +10779,6 @@
     "simapro_id": "f474e1e2e7b61e7cb42185b4ab9d510c",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.3111511864232606,
@@ -11075,7 +10890,6 @@
     "simapro_id": "d5585fff8210ef8e23ab310fb327868b",
     "system_description": "AGRIBALYSE v1.4",
     "category_tags": ["Agricultural", "Plant production", "Vegetables", "Transformation"],
-    "comment": "",
     "category": "material",
     "impacts": {
       "acd": 0.006181670478500522,
@@ -11131,7 +10945,6 @@
     "simapro_id": "2f914fa3ce828f51e79b6d9549096ae5",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.014001512360449324,
@@ -11187,7 +11000,6 @@
     "simapro_id": "72a5447253eda050a16f5477b713c776",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.030270769211523902,
@@ -11271,7 +11083,6 @@
     "simapro_id": "b5dc48f6c219fb6436841a4966a71836",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.0033809221254523184,
@@ -11327,7 +11138,6 @@
     "simapro_id": "ea83eb34284e96e0ebc71d817901e476",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "material",
     "impacts": {
       "acd": 0.002793430658915136,
@@ -11383,7 +11193,6 @@
     "simapro_id": "d2efb28a670a2946a4bcf29fbbedbe79",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.001674131700243274,
@@ -11495,7 +11304,6 @@
     "simapro_id": "9e2f4acc042b0150d1052e2aadb9c4f4",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.003437138989708098,
@@ -11607,7 +11415,6 @@
     "simapro_id": "0aee72abb14a9a37c7c67e41a35f528b",
     "system_description": "AGRIBALYSE v1.4",
     "category_tags": ["Agricultural", "Plant production", "Fruits", "Transformation"],
-    "comment": "",
     "category": "material",
     "impacts": {
       "acd": 0.005035350471807039,
@@ -11691,7 +11498,6 @@
     "simapro_id": "5cb9b4fc09efc5e8297135632a177dd5",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.3728006803955292,
@@ -11803,7 +11609,6 @@
     "simapro_id": "ef454a34001876d7983d6008027fecb8",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.17296434815992875,
@@ -11859,7 +11664,6 @@
     "simapro_id": "aba19a3632af4cab896a7930b9b7645a",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.15605448705125669,
@@ -12083,7 +11887,6 @@
     "simapro_id": "effb6694d7d85eda7242121c2356e18d",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.01365368073480649,
@@ -12139,7 +11942,6 @@
     "simapro_id": "713f83dc1e3d93bd4e8e2e953eeab196",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.06152607295686229,
@@ -12363,7 +12165,6 @@
     "simapro_id": "9cecfc9b1e907479e319e617eab36de1",
     "system_description": "AGRIBALYSE v1.4",
     "category_tags": ["Agricultural", "Plant production", "Vegetables", "Transformation"],
-    "comment": "",
     "category": "material",
     "impacts": {
       "acd": 0.0012670303088102633,
@@ -12531,7 +12332,6 @@
     "simapro_id": "58f454e0a843242274402c22712cd4d5",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.036947382561433074,
@@ -12615,7 +12415,6 @@
     "simapro_id": "a8cdaeacf0ae795bd37e342cb0bc38d7",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.009238139287458915,
@@ -12671,7 +12470,6 @@
     "simapro_id": "385121d04e4fdce39c6c17767212671c",
     "system_description": "",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.07941176740840705,
@@ -12699,7 +12497,6 @@
     "simapro_id": "b635dbf7da98688e4cfdfc2e169cbc27",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.08969711123894195,
@@ -12727,7 +12524,6 @@
     "simapro_id": "8ff0b63f53b8428ec948287ba9840195",
     "system_description": "",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.08969711123894195,
@@ -12783,7 +12579,6 @@
     "simapro_id": "77e3d19b84f9a5511493fb2c2b88efca",
     "system_description": "",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.06035351262598272,
@@ -13007,7 +12802,6 @@
     "simapro_id": "5e9c678be454c8933d0b15490eb22ab7",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.003980132900767759,
@@ -13119,7 +12913,6 @@
     "simapro_id": "2531a99ffb4ead30dc4865dba5ce30e7",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.007306614026998854,
@@ -13147,7 +12940,6 @@
     "simapro_id": "63e996113660454299a78f7f9135845a",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.001301629932575261,
@@ -13343,7 +13135,6 @@
     "simapro_id": "431e26542c08485457d8df70f8380188",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.007306614026998854,
@@ -13399,7 +13190,6 @@
     "simapro_id": "8015c143ecd1ca5008e768e57c0967bb",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.003981374978515573,
@@ -13539,7 +13329,6 @@
     "simapro_id": "5ab304cd7c57e86cc53440405c9611df",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "energy",
     "impacts": {
       "acd": 7.890482075489948e-5,
@@ -13567,7 +13356,6 @@
     "simapro_id": "765eb59339ce70b4448cfacaef116ba4",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "material",
     "impacts": {
       "acd": 3.2944191976480736e-6,
@@ -13595,7 +13383,6 @@
     "simapro_id": "cfa3a51c822f6811fb96b6402e3df435",
     "system_description": "",
     "category_tags": ["Chemicals", "Others"],
-    "comment": "",
     "category": "material",
     "impacts": {
       "acd": 0.002081647291213996,
@@ -13623,7 +13410,6 @@
     "simapro_id": "6cafc80b49137c4f652737f377d35c05",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "material",
     "impacts": {
       "acd": 0.017476924662172613,
@@ -13875,7 +13661,6 @@
     "simapro_id": "d2e11df3897a996e745104aa34503d46",
     "system_description": "AGRIBALYSE v1.4",
     "category_tags": ["Agricultural", "Plant production", "Vegetables", "Transformation"],
-    "comment": "",
     "category": "material",
     "impacts": {
       "acd": 0.001358241550637107,
@@ -13931,7 +13716,6 @@
     "simapro_id": "7b36a60a9e1cf04ead62f52abd819d60",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.011624889440260529,
@@ -14071,7 +13855,6 @@
     "simapro_id": "20ff203e721c35b4a13a70a3a27587c7",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.007356405426776431,
@@ -14127,7 +13910,6 @@
     "simapro_id": "9489c5507d1d5632c76c99d3161ac698",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Others", "Dummies"],
-    "comment": "",
     "category": "material",
     "impacts": {
       "acd": 0.0,
@@ -14183,7 +13965,6 @@
     "simapro_id": "dd43bffed45e02a56a3c5f77ed5844ff",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.01030243628158689,
@@ -14267,7 +14048,6 @@
     "simapro_id": "b7ec4e680e4bd0b761119e9cf59fb38d",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.017600007326746516,
@@ -14295,7 +14075,6 @@
     "simapro_id": "f79757cc78f0820f9f0e87b76bdb8d9c",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.3044365489570608,
@@ -14351,7 +14130,6 @@
     "simapro_id": "bceedd8db16f336f9ff3f9083d3402ca",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.02137169182364713,
@@ -14547,7 +14325,6 @@
     "simapro_id": "6cbac288f2fce06ebace9b1286b8860c",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.06152607295686229,
@@ -14855,7 +14632,6 @@
     "simapro_id": "78833b2cf97b38dae60e50ae7e189feb",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.3111511864232606,
@@ -15023,7 +14799,6 @@
     "simapro_id": "e1d119a69171973df9f90c9c5b63e274",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "transport",
     "impacts": {
       "acd": 0.0006653143350998786,
@@ -15051,7 +14826,6 @@
     "simapro_id": "c254a7d7883068c09fb00e4a4e36b24a",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "transport",
     "impacts": {
       "acd": 0.0004337337629941072,
@@ -15079,7 +14853,6 @@
     "simapro_id": "338cb0f513768fda86bf50fa793daa18",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.089455892364728,
@@ -15163,7 +14936,6 @@
     "simapro_id": "f479bee598b7adb3faf6e86f34b5c986",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.054079221990285004,
@@ -15275,7 +15047,6 @@
     "simapro_id": "c0940429b30db9e1226e86fe1ddf7330",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.036947382561433074,
@@ -15499,7 +15270,6 @@
     "simapro_id": "62ca8a33f6eb5b8cff012988fa1ed8ca",
     "system_description": "",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "waste treatment",
     "impacts": {
       "acd": 0.0,
@@ -15527,7 +15297,6 @@
     "simapro_id": "87090d95b0eafa1673f74b8e8a374df8",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "waste treatment",
     "impacts": {
       "acd": 9.33777667050932e-5,
@@ -15555,7 +15324,6 @@
     "simapro_id": "58b0f17e6dbdab65c10b4ee3826a6c86",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Recipes"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.04056281935487421,
@@ -15585,8 +15353,7 @@
     "simapro_id": "034d5300eb6606c37e0a5679dfc1cb64",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
-    "kind": "packaging",
+    "category": "packaging",
     "impacts": {
       "acd": 0.11816025062739881,
       "ozd": 5.173717685858555e-7,
@@ -15641,7 +15408,6 @@
     "simapro_id": "ffc823e484155c97db24d9d0361ccee4",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.03578330040769815,
@@ -15781,7 +15547,6 @@
     "simapro_id": "a647523c3c6e6b8046c79c7935f3a191",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.001674131700243274,
@@ -15865,7 +15630,6 @@
     "simapro_id": "3f5edd11c4536acfe3efa74cbbacec35",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.7179923662590953,
@@ -16145,7 +15909,6 @@
     "simapro_id": "a912dcdc352a6f77f28a3553dbb515c8",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.008180923705546225,
@@ -16509,7 +16272,6 @@
     "simapro_id": "124639e6a242f931d95cfabf9439f4e3",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.0010368060659683574,
@@ -16817,7 +16579,6 @@
     "simapro_id": "ded2481bfb629b2243a3afe270eeb661",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.022113854653709734,
@@ -16873,7 +16634,6 @@
     "simapro_id": "ae830eff563dbd24c0cbbdb86a8271b4",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.020451102443402105,
@@ -17181,7 +16941,6 @@
     "simapro_id": "1ee5d0c66c5b058590dcb49db501e447",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.0011365893757205494,
@@ -17461,7 +17220,6 @@
     "simapro_id": "8024cd0d23ccb89bdc85b731d2b80ec3",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.3111511864232606,
@@ -17685,7 +17443,6 @@
     "simapro_id": "8ddcdcf414b4d77334cfea2bb82444bf",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.16534747308321443,
@@ -17741,7 +17498,6 @@
     "simapro_id": "1caf8e675f09af9980e1306f921db80a",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.16534747308321443,
@@ -17797,7 +17553,6 @@
     "simapro_id": "738555635db64f6b4a1cc2bb14261c11",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.0623702544720272,
@@ -17853,7 +17608,6 @@
     "simapro_id": "f67f2d9875aec8480cf544cba1cc2893",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.2568411589985686,
@@ -17937,7 +17691,6 @@
     "simapro_id": "091c5d2f6761dc40147f6d9c46414424",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.0031818335194427716,
@@ -18077,7 +17830,6 @@
     "simapro_id": "2d8608270b84409c40a8c5cf1c3cdba2",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.3111511864232606,
@@ -18133,7 +17885,6 @@
     "simapro_id": "dfbe370d6e8ba37f71f3583f6a7feac7",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.3111511864232606,
@@ -18245,7 +17996,6 @@
     "simapro_id": "45451c6a5b8863f8226c0a77c5ee73de",
     "system_description": "AGRIBALYSE v1.4",
     "category_tags": ["Agricultural", "Plant production", "Vegetables", "Transformation"],
-    "comment": "",
     "category": "material",
     "impacts": {
       "acd": 0.002386642705830021,
@@ -18329,7 +18079,6 @@
     "simapro_id": "d3cd57e7d765cdcde728df16413b19ae",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.027401153659394214,
@@ -18497,7 +18246,6 @@
     "simapro_id": "32faaae75051e48559bc4405545ca0d0",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.001683704806524092,
@@ -18525,7 +18273,6 @@
     "simapro_id": "bb0a9126c85189d3a7f2f26947d6d812",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.089455892364728,
@@ -18693,7 +18440,6 @@
     "simapro_id": "7dd96871e3b0ebdd8c2c7756d1acf983",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.005361961701923553,
@@ -19253,7 +18999,6 @@
     "simapro_id": "7c3456ba6624eabfe24a7da422505455",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.09797154265008937,
@@ -19365,7 +19110,6 @@
     "simapro_id": "8487e23369d96aba6abe37b0b2f8c74e",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.06152607295686229,
@@ -19421,7 +19165,6 @@
     "simapro_id": "e24b2d558ec91a4ef4b86c60deae0325",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.054079221990285004,
@@ -19561,7 +19304,6 @@
     "simapro_id": "5164c82692195c3d989c074b09770c18",
     "system_description": "AGRIBALYSE v1.4",
     "category_tags": ["Agricultural", "Plant production", "Fruits", "Transformation"],
-    "comment": "",
     "category": "material",
     "impacts": {
       "acd": 0.0007751622745383,
@@ -19701,7 +19443,6 @@
     "simapro_id": "bc2d8fa6b58349e64de4b2bdf6e2e44c",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.012324934180068869,
@@ -19729,7 +19470,6 @@
     "simapro_id": "873059f1b707dc4d952a4175bd102e9f",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.1288198446416905,
@@ -19757,7 +19497,6 @@
     "simapro_id": "2a44596d9efc379ee70b095f0153297f",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.113810227320733,
@@ -19897,7 +19636,6 @@
     "simapro_id": "362ad76cfb3a784d1e27aae5a58eead0",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.089455892364728,
@@ -19953,7 +19691,6 @@
     "simapro_id": "998e22eba40a41e4824e36f0f8ee4a42",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.3111511864232606,
@@ -20009,7 +19746,6 @@
     "simapro_id": "465b1e14720a0f5e1e708110c51fec58",
     "system_description": "",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.0020604644954840446,
@@ -20121,7 +19857,6 @@
     "simapro_id": "c5b7a75376a71b6928778dbe312ae682",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.0033425091998482885,
@@ -20233,7 +19968,6 @@
     "simapro_id": "6cb9d11ae9432bdb037ec06d643e5aea",
     "system_description": "AGRIBALYSE v1.4",
     "category_tags": ["Agricultural", "Plant production", "Vegetables", "Transformation"],
-    "comment": "",
     "category": "material",
     "impacts": {
       "acd": 0.004908003195982096,
@@ -20429,7 +20163,6 @@
     "simapro_id": "f0a7fc77ec2eda30d9dbb98e1c3b48c1",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.0014514804137635388,
@@ -20513,7 +20246,6 @@
     "simapro_id": "e9ba9fbcb5a5c3d5995ef37a217ba770",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.1366237775214092,
@@ -20569,7 +20301,6 @@
     "simapro_id": "3d4feca97b1d8fe175c95d373f6c7ce7",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.15605448705125669,
@@ -20597,7 +20328,6 @@
     "simapro_id": "4122e749c371fa335664bb9cc9d27102",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.20440044217795142,
@@ -21605,7 +21335,6 @@
     "simapro_id": "201ba669965c3eea0678edf786c42450",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "material",
     "impacts": {
       "acd": 0.010059551386618668,
@@ -21633,7 +21362,6 @@
     "simapro_id": "84bc23ad7d6d4513af614f08203e4a36",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "material",
     "impacts": {
       "acd": 0.020869448371502137,
@@ -21661,7 +21389,6 @@
     "simapro_id": "96938f99238f855bde8aebeccc0c1cfc",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "material",
     "impacts": {
       "acd": 0.0025222857762925398,
@@ -21941,7 +21668,6 @@
     "simapro_id": "650f8d12d3d86de5a0989bccc78f9d40",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.023571271935110927,
@@ -22109,7 +21835,6 @@
     "simapro_id": "440543faa43d94836260ad9b319134bc",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.3111511864232606,
@@ -22137,7 +21862,6 @@
     "simapro_id": "63c430423d149ecd5bca7f928cad5c18",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.022207398220018378,
@@ -22193,7 +21917,6 @@
     "simapro_id": "57baf98255a4641c9fae3f8a71fd8e3b",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.3111511864232606,
@@ -22249,7 +21972,6 @@
     "simapro_id": "c463a1077e9663b866491a90292cd594",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.1805735376439186,
@@ -22361,7 +22083,6 @@
     "simapro_id": "594514869d9c9837f10f95e55a0e5e71",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.3111511864232606,
@@ -22417,7 +22138,6 @@
     "simapro_id": "590ec0a9d24bab9a8fb9dbffea74d8ed",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.16534747308321443,
@@ -22529,7 +22249,6 @@
     "simapro_id": "03eec416e056d0a3c8200967193062ff",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.01523436958998003,
@@ -22641,7 +22360,6 @@
     "simapro_id": "56edfcb26eb6c9985eb41fac0463102a",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.3111511864232606,
@@ -22725,7 +22443,6 @@
     "simapro_id": "a67b764194496fd0b1d01b5a3256b319",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.038163914033115344,
@@ -22753,7 +22470,6 @@
     "simapro_id": "f0fbc7f41a3ed4fadc411f1c5de5dd12",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.038163914033115344,
@@ -22781,7 +22497,6 @@
     "simapro_id": "3632be95e2b8e0d1dd501b2f980c76b3",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.019081957016557672,
@@ -22837,7 +22552,6 @@
     "simapro_id": "ac2b1bd88a8c6cdcaa3dc4600af036a9",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.038163914033115344,
@@ -22893,7 +22607,6 @@
     "simapro_id": "f3929d000e340d0d020f4a37697875fb",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.004610050966549919,
@@ -22949,7 +22662,6 @@
     "simapro_id": "4a9af62882419eb4dee84520e45093e8",
     "system_description": "",
     "category_tags": ["Agricultural", "Plant production", "Legumes", "Transformation"],
-    "comment": "",
     "category": "material",
     "impacts": {
       "acd": 0.004348529774560533,
@@ -23117,7 +22829,6 @@
     "simapro_id": "d2dae28ab2ce64f807f342cdd6dee7eb",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.0034548724433566013,
@@ -23285,7 +22996,6 @@
     "simapro_id": "5bc527741ac919ff8710a474f849614f",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "transport",
     "impacts": {
       "acd": 0.005302243499220221,
@@ -23341,7 +23051,6 @@
     "simapro_id": "8f323e2adb96e93b65d9d7e769903918",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.0058894978256212385,
@@ -23397,7 +23106,6 @@
     "simapro_id": "3ce6487633e2958189ffadd0ff5cad6a",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.016362525821980552,
@@ -23565,7 +23273,6 @@
     "simapro_id": "aee26eb6f1b0452436f1bc4ae74b9507",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.3111511864232606,
@@ -23733,7 +23440,6 @@
     "simapro_id": "90a38cfc33b218cd10412a4b598edf0d",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.07076499699023317,
@@ -23761,7 +23467,6 @@
     "simapro_id": "eedec0fc998b7c6ac49193e3be256985",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.14770592362439317,
@@ -23845,7 +23550,6 @@
     "simapro_id": "7be428408ecfabef228628464050a6c9",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.021458671317168998,
@@ -23901,7 +23605,6 @@
     "simapro_id": "6d3acfb42708540a9f535014adde62a3",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.016308615299409385,
@@ -23985,7 +23688,6 @@
     "simapro_id": "c886afc36272bf92519d8cf5445c6d16",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.056226705555909674,
@@ -24069,7 +23771,6 @@
     "simapro_id": "c579480c8af838174ad0d47d025d23a6",
     "system_description": "",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.018633418338074314,
@@ -24097,7 +23798,6 @@
     "simapro_id": "7e49b0353b86cb55443d2430c629d7a5",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "material",
     "impacts": {
       "acd": 0.00901819114910534,
@@ -24153,7 +23853,6 @@
     "simapro_id": "7669e64facc29678814170768d770071",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.009590158994429405,
@@ -24265,7 +23964,6 @@
     "simapro_id": "9bd32ed6765c67dcf9773a2e3b1af032",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.004516785149037678,
@@ -24293,7 +23991,6 @@
     "simapro_id": "b93c32569c478fbcc038f59b3de163d3",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Animal production", "Moules"],
-    "comment": "",
     "category": "material",
     "impacts": {
       "acd": 0.004429733838025731,
@@ -24349,7 +24046,6 @@
     "simapro_id": "2541bf6ca75904c3eab6d3b36d71464c",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "material",
     "impacts": {
       "acd": 0.003911651057655343,
@@ -24433,7 +24129,6 @@
     "simapro_id": "791631d44a1f0b8da4eb0156b61f9a9a",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.01399101219716399,
@@ -24517,7 +24212,6 @@
     "simapro_id": "50c1df16a4de1b0839ba639ecdbe08a5",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.3111511864232606,
@@ -24573,7 +24267,6 @@
     "simapro_id": "4da7e8b609fc1915a898d15d061b3eba",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.010929439972453025,
@@ -24853,7 +24546,6 @@
     "simapro_id": "306a2a9ae79466cd95d162111e1b12fb",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "material",
     "impacts": {
       "acd": 0.0034405564313018675,
@@ -25021,7 +24713,6 @@
     "simapro_id": "625006691850aadeb741e71191354f6e",
     "system_description": "",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.02123690993841391,
@@ -25077,7 +24768,6 @@
     "simapro_id": "73c2018065ae1761f2dbd29237fb66f4",
     "system_description": "",
     "category_tags": ["Agricultural", "Animal production", "Dairy", "Transformation"],
-    "comment": "",
     "category": "material",
     "impacts": {
       "acd": 0.03907505845388875,
@@ -25133,7 +24823,6 @@
     "simapro_id": "3853dc81d7f6f89a61f8da076399ee30",
     "system_description": "",
     "category_tags": ["Agricultural", "Animal production", "Dairy", "Transformation"],
-    "comment": "",
     "category": "material",
     "impacts": {
       "acd": 0.03435010447873767,
@@ -25223,7 +24912,6 @@
       "Transformation",
       "Others"
     ],
-    "comment": "",
     "category": "material",
     "impacts": {
       "acd": 0.16267564583500843,
@@ -25475,7 +25163,6 @@
     "simapro_id": "559c1b518004b091c223f5ab9951530c",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "material",
     "impacts": {
       "acd": 0.001201944254687777,
@@ -25615,7 +25302,6 @@
     "simapro_id": "c34f32e82c99d98fff9b302e7d9c2642",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.02351026247969721,
@@ -25845,7 +25531,6 @@
       "Transformation",
       "Legumes based"
     ],
-    "comment": "",
     "category": "material",
     "impacts": {
       "acd": 0.01934148230711811,
@@ -26125,7 +25810,6 @@
     "simapro_id": "a103c575d59f7f65b2b07126c858dd9d",
     "system_description": "",
     "category_tags": ["Agricultural", "Plant production", "Legumes", "Transformation"],
-    "comment": "",
     "category": "material",
     "impacts": {
       "acd": 0.002469588024606723,
@@ -26209,7 +25893,6 @@
     "simapro_id": "a8a4f78a4ff1dc1549588972f6f1d98f",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.3111511864232606,
@@ -26265,7 +25948,6 @@
     "simapro_id": "8da0af581a2dfd2491bea6bb615a9215",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.15457095580036145,
@@ -26321,7 +26003,6 @@
     "simapro_id": "53a172eb3a2fee2a3d0e1830b3d3cef4",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.09829362444695625,
@@ -26377,7 +26058,6 @@
     "simapro_id": "c709ad3f9e60347206dddef6138bee2e",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.3111511864232607,
@@ -26405,7 +26085,6 @@
     "simapro_id": "480dca7acb3d58332671878dc9418e2c",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.3111511864232606,
@@ -26461,7 +26140,6 @@
     "simapro_id": "cf38c070995d0d3d3561ae2f0f87f644",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.3111511864232606,
@@ -26545,7 +26223,6 @@
     "simapro_id": "5059843254bf83b6e1d77f36e17f4982",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.3111511864232606,
@@ -26657,7 +26334,6 @@
     "simapro_id": "587d554617122db97fd93266f08f6855",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.3111511864232606,
@@ -26713,7 +26389,6 @@
     "simapro_id": "2dde739daf9215214c29fceb32f0e4c8",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.3111511864232606,
@@ -26965,7 +26640,6 @@
     "simapro_id": "ea7094aba9aa57ac8c62a2ce0d1be327",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.006355969883108967,
@@ -26993,7 +26667,6 @@
     "simapro_id": "f11a7e7457a9c6b19d6e3c06c6acaffe",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.0025176833063576516,
@@ -27217,7 +26890,6 @@
     "simapro_id": "7d878bc663e880c17fd1cf089f600071",
     "system_description": "AGRIBALYSE v1.4",
     "category_tags": ["Agricultural", "Plant production", "Cereals", "Transformation"],
-    "comment": "",
     "category": "material",
     "impacts": {
       "acd": 0.004730950432295011,
@@ -27357,7 +27029,6 @@
     "simapro_id": "6b39a82879091695dc0ddef05d52b614",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.036947382561433074,
@@ -27441,7 +27112,6 @@
     "simapro_id": "c992225a77d64c523068635c4e6f640c",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.036947382561433074,
@@ -27469,7 +27139,6 @@
     "simapro_id": "b6aa1578fb694f0ffefe26ea8e341918",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.01085509792151699,
@@ -27525,7 +27194,6 @@
     "simapro_id": "45284741165d06ac5561ad2e710d1fdc",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.036947382561433074,
@@ -27609,7 +27277,6 @@
     "simapro_id": "f4d00f94352cc5c3187590490a19020c",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.0061463501774614805,
@@ -27665,7 +27332,6 @@
     "simapro_id": "c40260fc9887fdc5c91c28292be35f8c",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.042858800220733476,
@@ -28141,7 +27807,6 @@
     "simapro_id": "04def8644a0023e40bc71f57e6b72c46",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.07725652466322565,
@@ -28169,7 +27834,6 @@
     "simapro_id": "4224bdb5eaabb530cd7e86eeefae6d6b",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.009768492709890267,
@@ -28225,7 +27889,6 @@
     "simapro_id": "0b718f8dc46447a6a49a55fc477d29f2",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "material",
     "impacts": {
       "acd": 0.01030243628158689,
@@ -28281,7 +27944,6 @@
     "simapro_id": "545e3f32a20b800dfae4951470ab07ab",
     "system_description": "AGRIBALYSE v1.4",
     "category_tags": ["Agricultural", "Plant production", "Vegetables", "Transformation"],
-    "comment": "",
     "category": "material",
     "impacts": {
       "acd": 0.0015212334654176169,
@@ -28477,7 +28139,6 @@
     "simapro_id": "f0c1be7af8f5333a449ac30ff450f5a3",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.3111511864232606,
@@ -28533,7 +28194,6 @@
     "simapro_id": "06e1a7ce2d06fb0f431d2d55e7974ca6",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.1805735376439186,
@@ -28589,7 +28249,6 @@
     "simapro_id": "e742d5dcceee500359664376dd5af88b",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.1805735376439186,
@@ -28645,7 +28304,6 @@
     "simapro_id": "cd85dbcec35f3c6ef4da036e4b9e6e51",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.18280203696456004,
@@ -28673,7 +28331,6 @@
     "simapro_id": "57da110c946408e854f1a7f75b600e76",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.1805735376439186,
@@ -28701,7 +28358,6 @@
     "simapro_id": "705c24276fd5f02ee320e537b50c7671",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.089455892364728,
@@ -28841,7 +28497,6 @@
     "simapro_id": "416fc5928cd8c71d09ab298972ef6210",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.01388868862534219,
@@ -29401,7 +29056,6 @@
     "simapro_id": "cdb7696f28fe0d1f6f9aead08207095c",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.018914543389740683,
@@ -29457,7 +29111,6 @@
     "simapro_id": "f9cb04000ba15ddf30d0ddf98b072e7d",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.5741178758323514,
@@ -29485,7 +29138,6 @@
     "simapro_id": "b2c5cde5f2745fec464a029450995217",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.3728006803955292,
@@ -29513,7 +29165,6 @@
     "simapro_id": "2e3f03c6de1e43900e09ae852182e9c7",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.054079221990285004,
@@ -29569,7 +29220,6 @@
     "simapro_id": "30356ff72ff705e4b778f111b6cb1628",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Others", "Dummies"],
-    "comment": "",
     "category": "material",
     "impacts": {
       "acd": 0.0,
@@ -29597,7 +29247,6 @@
     "simapro_id": "82286246fd62aa471049b7fd4b1c779e",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Others", "Dummies"],
-    "comment": "",
     "category": "material",
     "impacts": {
       "acd": 0.0,
@@ -29709,7 +29358,6 @@
     "simapro_id": "82aabe91f7c9d3cabd4933b08780ed47",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.3111511864232606,
@@ -29793,7 +29441,6 @@
     "simapro_id": "d87fb751045d8308b9646c7fe8212bfa",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.0036902634702178534,
@@ -29877,7 +29524,6 @@
     "simapro_id": "c322d71f14a76c9dba07fa4150b9065d",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.006498185839161529,
@@ -29961,7 +29607,6 @@
     "simapro_id": "6acb69af65027087665e7b0386a34092",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.0675061013019796,
@@ -30073,7 +29718,6 @@
     "simapro_id": "cf932d919441eb1d6423f4319c026362",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "material",
     "impacts": {
       "acd": 0.012720189167036305,
@@ -30101,7 +29745,6 @@
     "simapro_id": "327dcc4053f355f223ce48553ba91e06",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "material",
     "impacts": {
       "acd": 0.0106670024950044,
@@ -30185,7 +29828,6 @@
     "simapro_id": "43ef4fbdc490ca8f851ca4e2d8d6ea49",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.02493200675491122,
@@ -30577,7 +30219,6 @@
     "simapro_id": "b2c883fda47d7175cd803752c96f4213",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.07510747361131663,
@@ -30605,7 +30246,6 @@
     "simapro_id": "847dc1f009ee82029320099a70482fa7",
     "system_description": "AGRIBALYSE v1.4",
     "category_tags": ["Agricultural", "Feedstuff processing"],
-    "comment": "",
     "category": "processing",
     "impacts": {
       "acd": 0.0017255414669288792,
@@ -30661,7 +30301,6 @@
     "simapro_id": "ab428568fe3f632a5a4f72bbf7add658",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.07510380341987262,
@@ -30689,7 +30328,6 @@
     "simapro_id": "92547bc1bd1b113aa267d4d9223aa004",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.07509646413826053,
@@ -30745,7 +30383,6 @@
     "simapro_id": "002f02d9ab3f362c0c2ee80238232953",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.014134461579451805,
@@ -30801,7 +30438,6 @@
     "simapro_id": "3df33fa03f902dc3b028f8e5d5fb322e",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.030930984024025894,
@@ -31025,7 +30661,6 @@
     "simapro_id": "4153245f07a661197ac7cd942afa03b3",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.027401153659394214,
@@ -31137,7 +30772,6 @@
     "simapro_id": "3024fbcb7475a4f00adb2467ae1835ac",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.0030082989219269033,
@@ -31193,7 +30827,6 @@
     "simapro_id": "619c24b3c87b57c7af5db021db6cec0b",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.001683704806524092,
@@ -31389,7 +31022,6 @@
     "simapro_id": "3245ee1efe29748ae346e286510c19d1",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.003686708137781563,
@@ -32173,7 +31805,6 @@
     "simapro_id": "568c715f977f32948813855d5efd95ba",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.11042114644737633,
@@ -32285,7 +31916,6 @@
     "simapro_id": "3f61e9642bce5216ccf631f75f28ab17",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.075617199062548,
@@ -32341,7 +31971,6 @@
     "simapro_id": "03b9b53a617bb1ec7a359baa9f57aedc",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.0623702544720272,
@@ -32537,7 +32166,6 @@
     "simapro_id": "74322c97c8850143f9981a457f51f6bc",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.06152607295686229,
@@ -33041,7 +32669,6 @@
     "simapro_id": "0bed9b8d757bdf790e56c948c6e5f05c",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.021421201440047673,
@@ -33741,7 +33368,6 @@
     "simapro_id": "e858ef2499d8f84c08d590b7e45b42f4",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Others", "Dummies"],
-    "comment": "",
     "category": "material",
     "impacts": {
       "acd": 0.0,
@@ -33853,7 +33479,6 @@
     "simapro_id": "8ddeaf989ad6fa23f7f108d771291065",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.029255170262046333,
@@ -33909,7 +33534,6 @@
     "simapro_id": "117142981b6a9ec5318de88096a7dbc1",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.03759643627451377,
@@ -33965,7 +33589,6 @@
     "simapro_id": "06a17be73dc3ebbcf6c30127b7d07644",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.030930984024025894,
@@ -34273,7 +33896,6 @@
     "simapro_id": "533bafa45bf6becdadb3e27b14a88ab6",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.06604228730947045,
@@ -34637,7 +34259,6 @@
     "simapro_id": "ba03bd985323e3568f39a0f841dcc075",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.09797154265008937,
@@ -35169,7 +34790,6 @@
     "simapro_id": "fcbeabe1f2fbeaa93a2700874475e97f",
     "system_description": "AGRIBALYSE v1.4",
     "category_tags": ["Agricultural", "Plant production", "Vegetables", "Transformation"],
-    "comment": "",
     "category": "material",
     "impacts": {
       "acd": 0.0023109388739421745,
@@ -35253,7 +34873,6 @@
     "simapro_id": "6b64351b52b5325e57546c305f404a9e",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.012550268337130181,
@@ -35421,7 +35040,6 @@
     "simapro_id": "e48d0067c4ae6ed39e940519c7f6c100",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.005361961701923553,
@@ -35533,7 +35151,6 @@
     "simapro_id": "f17db433b4128746736dbada2544423f",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "material",
     "impacts": {
       "acd": 0.0023810601482122536,
@@ -35561,7 +35178,6 @@
     "simapro_id": "55905ba664fc029a570b25599db54b69",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "material",
     "impacts": {
       "acd": 0.0012541778929086918,
@@ -35757,7 +35373,6 @@
     "simapro_id": "080485c3b1797675097d6e3b50bd2d37",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.0014502383360157252,
@@ -35785,7 +35400,6 @@
     "simapro_id": "9bb52e23b1361364af6091bcf1b3b7fe",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.008910999018887027,
@@ -35813,7 +35427,6 @@
     "simapro_id": "6f55241a1e61d26c19782e934cf731e0",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.01138708758341458,
@@ -35841,7 +35454,6 @@
     "simapro_id": "026894ca45bf17702fba90f0c149c3b4",
     "system_description": "AGRIBALYSE v1.4",
     "category_tags": ["Agricultural", "Animal feed", "Porcine feeds", "Transformation"],
-    "comment": "",
     "category": "material",
     "impacts": {
       "acd": 0.01138708758341458,
@@ -36149,7 +35761,6 @@
     "simapro_id": "51f19684aeacab17fadd67a19929c9fa",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.002328965340607171,
@@ -36765,7 +36376,6 @@
     "simapro_id": "6987cd03d05d11799b67e0f04cb36192",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.3111511864232606,
@@ -36905,7 +36515,6 @@
     "simapro_id": "3ae6b012e704a6fb96e9f4ce88c8450b",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.3111511864232606,
@@ -37045,7 +36654,6 @@
     "simapro_id": "fff1fe766a38d0b2211493b60a2bea6f",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.054079221990285004,
@@ -37073,7 +36681,6 @@
     "simapro_id": "9792192a256b9c7740654636d920f286",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.3111511864232606,
@@ -37381,7 +36988,6 @@
     "simapro_id": "6e14ec6b39cead0e8434e9fde6d6fbe5",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "material",
     "impacts": {
       "acd": 0.02022941378155591,
@@ -37605,7 +37211,6 @@
     "simapro_id": "19c18ebc37cc256c27d39264a4eddf9d",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.16534747308321443,
@@ -37661,7 +37266,6 @@
     "simapro_id": "b533f63fc1858f10f966e4e24b965036",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.09734859280541935,
@@ -37745,7 +37349,6 @@
     "simapro_id": "42e554a18f0834f98e34a8586a61a3b8",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.0031859738060219934,
@@ -37773,7 +37376,6 @@
     "simapro_id": "1de48318d4eff028cb2a3a1ba3561072",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.3111511864232606,
@@ -37969,7 +37571,6 @@
     "simapro_id": "1c68f42ffc3e256bdf08debc4ac46350",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.3111511864232606,
@@ -38053,7 +37654,6 @@
     "simapro_id": "85efdfad036d8dede41e1f9028911c9b",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.3111511864232606,
@@ -38165,7 +37765,6 @@
     "simapro_id": "a9b238aa3451b289e8b4168782442029",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Others", "Dummies"],
-    "comment": "",
     "category": "material",
     "impacts": {
       "acd": 0.0,
@@ -38193,7 +37792,6 @@
     "simapro_id": "1148ed193370a60239080e226e4b7f22",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.0031818335194427716,
@@ -38221,7 +37819,6 @@
     "simapro_id": "233d72ea64369279991776eeb2d2aaf6",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.0031818335194427716,
@@ -38249,7 +37846,6 @@
     "simapro_id": "591713a9f143209f77e1e3dfbf2708ed",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.0031818335194427716,
@@ -38333,7 +37929,6 @@
     "simapro_id": "e3415e52a9a45ded1f2e4c59e2531862",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Others", "Dummies"],
-    "comment": "",
     "category": "material",
     "impacts": {
       "acd": 0.04646164128142063,
@@ -38417,7 +38012,6 @@
     "simapro_id": "3c4e93ff588724040ad1877a23cbc251",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.02088704566240202,
@@ -38669,7 +38263,6 @@
     "simapro_id": "b08960b42387f119bc8b637e80a54ada",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.009194004820323183,
@@ -38753,7 +38346,6 @@
     "simapro_id": "a472264bf3b55dd62b55fbe6d594eb88",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.001674131700243274,
@@ -39257,7 +38849,6 @@
     "simapro_id": "bd0d36aca7f8c304b48a485ea2d624d3",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.027401153659394214,
@@ -39817,7 +39408,6 @@
     "simapro_id": "1c12b7ba4d101c94948b68a893c97fbb",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.007356405426776431,
@@ -40601,7 +40191,6 @@
     "simapro_id": "dfa0f95bb2c540839ff237e876393cb1",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.03319630880660401,
@@ -40657,7 +40246,6 @@
     "simapro_id": "031755f98dd882e82642378e03575990",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.16534747308321443,
@@ -40741,7 +40329,6 @@
     "simapro_id": "3b7a58733caacd5f0ec86c82cc15bb83",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.3111511864232606,
@@ -40881,7 +40468,6 @@
     "simapro_id": "f91c1924ce22f45fab7ff19808a9b12a",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "material",
     "impacts": {
       "acd": 0.0013788993792444566,
@@ -40937,7 +40523,6 @@
     "simapro_id": "e1b7131150c00b446249e5e2babde7f1",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "material",
     "impacts": {
       "acd": 0.0017231562557104402,
@@ -40965,7 +40550,6 @@
     "simapro_id": "356ea806e3399552d8d06dbfefe73605",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "material",
     "impacts": {
       "acd": 0.0035372387529962732,
@@ -40993,7 +40577,6 @@
     "simapro_id": "2fe2eb9fd0f229d324d3fe4c85886ea4",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.16534747308321443,
@@ -41049,7 +40632,6 @@
     "simapro_id": "31403a2e41f299187b50e3fa17648215",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.16534747308321443,
@@ -41105,7 +40687,6 @@
     "simapro_id": "2d1cb95dff5cb8835afe64f66932fd4a",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.006540355812490292,
@@ -41167,7 +40748,6 @@
     "simapro_id": "490f76553f6320f6899e7dfe19e6971e",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.002573259948874235,
@@ -41195,7 +40775,6 @@
     "simapro_id": "aca61c025b0ca0b302ac248eec0fafdc",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.010096918344495635,
@@ -41727,7 +41306,6 @@
     "simapro_id": "7bbd1e0861881f71f3b68f5986d080ba",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.0031818335194427716,
@@ -42315,7 +41893,6 @@
     "simapro_id": "963994157fdd9903435883995e551ab4",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.25286757490170436,
@@ -42511,7 +42088,6 @@
     "simapro_id": "8899c3cf38f752a8cd6eee5bd7372ee1",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.027401153659394214,
@@ -42679,7 +42255,6 @@
     "simapro_id": "a3a4c1ed2ea3968a5e062c2ea0a814b8",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Others", "Dummies"],
-    "comment": "",
     "category": "material",
     "impacts": {
       "acd": 0.0,
@@ -42791,7 +42366,6 @@
     "simapro_id": "058b14857e1aa1e9b1c0f307e2f3c69b",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.3111511864232606,
@@ -43015,7 +42589,6 @@
     "simapro_id": "d9d4f9c58e091a62c877436d95b190ca",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Others", "Dummies"],
-    "comment": "",
     "category": "material",
     "impacts": {
       "acd": 0.0,
@@ -43435,7 +43008,6 @@
     "simapro_id": "6b1297b47812df181f31b3cf190d3586",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.006748023697179371,
@@ -43603,7 +43175,6 @@
     "simapro_id": "d8cea478bfea651b5205cb8b80c524ab",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.006283465618750102,
@@ -43799,7 +43370,6 @@
     "simapro_id": "1fab4048153c20a44c059b3d2e1924f0",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "material",
     "impacts": {
       "acd": 0.04355874697922573,
@@ -43827,7 +43397,6 @@
     "simapro_id": "e8cd225eb585917857029c0832ececf3",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
-    "comment": "",
     "category": "material",
     "impacts": {
       "acd": 0.04900474790740152,
@@ -43967,7 +43536,6 @@
     "simapro_id": "2fec676dcf9fa0f71bf74111b547205d",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.11042114644737633,
@@ -44051,7 +43619,6 @@
     "simapro_id": "18844523f39ae895a6749f69afadab88",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.2472101563498993,
@@ -44079,7 +43646,6 @@
     "simapro_id": "e2e2402bc32b527584c630b3c21c4f56",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.10985090393827476,
@@ -44331,7 +43897,6 @@
     "simapro_id": "0eb889c2db4f2a017150c944bbf78278",
     "system_description": "",
     "category_tags": ["Agricultural", "Plant production", "Vegetables", "Transformation"],
-    "comment": "",
     "category": "material",
     "impacts": {
       "acd": 0.001207375889091675,
@@ -44471,7 +44036,6 @@
     "simapro_id": "fb2afaf2789f07c1806a2bf096e3cda7",
     "system_description": "",
     "category_tags": ["Agricultural", "Plant production", "Vegetables", "Transformation"],
-    "comment": "",
     "category": "material",
     "impacts": {
       "acd": 0.005691354714962844,
@@ -44555,7 +44119,6 @@
     "simapro_id": "9663bb0135e5b804cee1baf26f7212a6",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.030063592763921197,
@@ -44583,7 +44146,6 @@
     "simapro_id": "92efbb3952f4a79afed4bb5ac6190923",
     "system_description": "",
     "category_tags": ["Agricultural", "Plant production", "Vegetables", "Transformation"],
-    "comment": "",
     "category": "material",
     "impacts": {
       "acd": 0.001252149727844917,
@@ -44863,7 +44425,6 @@
     "simapro_id": "7ea680e65cba832bddfb0e84088ed748",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.03759643627451377,
@@ -44919,7 +44480,6 @@
     "simapro_id": "e18e2f5770a799187bc6a7408716164a",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.03759643627451377,
@@ -44975,7 +44535,6 @@
     "simapro_id": "cb82e2e74443314532e12c63de31056d",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.03759643627451377,
@@ -45031,7 +44590,6 @@
     "simapro_id": "d5834fec8a6ff801681d42a74ab3aa56",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.03759643627451377,
@@ -45059,7 +44617,6 @@
     "simapro_id": "a63653a0b73c214aeaffc2a47764bf2d",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.03759643627451377,
@@ -45115,7 +44672,6 @@
     "simapro_id": "8cfc871976e68ce61aac069457b54dbd",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.0623702544720272,
@@ -45171,7 +44727,6 @@
     "simapro_id": "12acebf4669e3d407e6059422e2bb96c",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.2568411589985686,
@@ -45227,7 +44782,6 @@
     "simapro_id": "76619a2d03b041064245c6c31b34dbe7",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.14187196231909416,
@@ -45311,7 +44865,6 @@
     "simapro_id": "71fb3ccc0faadabee04a5c1f7a59f342",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.21815163841961635,
@@ -45507,7 +45060,6 @@
     "simapro_id": "e3c955099a5881c3a30b15838b859478",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Transformation"],
-    "comment": "",
     "category": "ingredient",
     "impacts": {
       "acd": 0.089455892364728,
