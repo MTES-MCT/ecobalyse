@@ -13,6 +13,7 @@ module Data.Food.Recipe exposing
     , resetTransform
     , serialize
     , setTransform
+    , sumMasses
     , toQuery
     , tunaPizza
     , updateIngredientMass
@@ -26,6 +27,7 @@ import Data.Impact as Impact exposing (Impacts)
 import Data.Unit as Unit
 import Json.Encode as Encode
 import Mass exposing (Mass)
+import Quantity
 import Result.Extra as RE
 
 
@@ -145,20 +147,28 @@ type alias Recipe =
 
 addIngredient : Mass -> Process.Code -> Query -> Query
 addIngredient mass code query =
-    { query
-        | ingredients =
+    let
+        newIngredients =
             { code = code
             , mass = mass
             , country = Nothing
             , labels = []
             }
                 :: query.ingredients
-    }
+    in
+    { query | ingredients = newIngredients }
+        |> updateTransformMass (sumMasses newIngredients)
 
 
 deleteIngredient : Process.Code -> Query -> Query
 deleteIngredient code query =
-    { query | ingredients = query.ingredients |> List.filter (.code >> (/=) code) }
+    let
+        newIngredients =
+            query.ingredients
+                |> List.filter (.code >> (/=) code)
+    in
+    { query | ingredients = newIngredients }
+        |> updateTransformMass (sumMasses newIngredients)
 
 
 fromQuery : FoodDb.Db -> Query -> Result String Recipe
@@ -203,6 +213,11 @@ setTransform mass code query =
     { query | transform = Just { code = code, mass = mass } }
 
 
+sumMasses : List { a | mass : Mass } -> Mass
+sumMasses =
+    List.map .mass >> Quantity.sum
+
+
 toQuery : Recipe -> Query
 toQuery recipe =
     { ingredients = List.map ingredientToQuery recipe.ingredients
@@ -236,8 +251,8 @@ transformToQuery =
 
 updateIngredientMass : Mass -> Process.Code -> Query -> Query
 updateIngredientMass mass code query =
-    { query
-        | ingredients =
+    let
+        newIngredients =
             query.ingredients
                 |> List.map
                     (\ing ->
@@ -247,7 +262,9 @@ updateIngredientMass mass code query =
                         else
                             ing
                     )
-    }
+    in
+    { query | ingredients = newIngredients }
+        |> updateTransformMass (sumMasses newIngredients)
 
 
 updateTransformMass : Mass -> Query -> Query
