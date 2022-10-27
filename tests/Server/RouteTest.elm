@@ -33,9 +33,9 @@ foodEndpoints db =
         [ getEndpoint db "GET" "/food/ingredients"
             |> Expect.equal (Just (Route.Get Route.FoodIngredientList))
             |> asTest "should handle the /food/ingredients endpoint"
-        , getEndpoint db "GET" "/food/processings"
-            |> Expect.equal (Just (Route.Get Route.FoodProcessingList))
-            |> asTest "should handle the /food/processings endpoint"
+        , getEndpoint db "GET" "/food/transforms"
+            |> Expect.equal (Just (Route.Get Route.FoodTransformList))
+            |> asTest "should handle the /food/transforms endpoint"
         , [ "/food/recipe?1"
 
           -- Here goes our "famous" tuna pizza…
@@ -45,7 +45,7 @@ foodEndpoints db =
           , "ingredients[]=65e2a1f81e8525d74bc3d4d5bd559114;100"
           , "ingredients[]=a343353e431d7dddc7bb25cbc41e179a;168"
           , "ingredients[]=3af9739fc89492167dd0d273daac957a;425"
-          , "processing=aded2490573207ec7ad5a3813978f6a4;1050"
+          , "transform=aded2490573207ec7ad5a3813978f6a4;1050"
           ]
             |> String.join "&"
             |> getEndpoint db "GET"
@@ -73,16 +73,16 @@ foodEndpoints db =
             |> Maybe.andThen (Dict.get "ingredients")
             |> Expect.equal (Just "La masse doit être supérieure à zéro.")
             |> asTest "should validate that an ingredient mass is greater than zero"
-        , getEndpoint db "GET" "/food/recipe?processing=aded2490573207ec7ad5a3813978f6a4;0"
+        , getEndpoint db "GET" "/food/recipe?transform=aded2490573207ec7ad5a3813978f6a4;0"
             |> Maybe.andThen extractFoodErrors
-            |> Maybe.andThen (Dict.get "processing")
+            |> Maybe.andThen (Dict.get "transform")
             |> Expect.equal (Just "La masse doit être supérieure à zéro.")
-            |> asTest "should validate that a processing mass is greater than zero"
-        , getEndpoint db "GET" "/food/recipe?processing=invalid;100"
+            |> asTest "should validate that a transform mass is greater than zero"
+        , getEndpoint db "GET" "/food/recipe?transform=invalid;100"
             |> Maybe.andThen extractFoodErrors
-            |> Maybe.andThen (Dict.get "processing")
+            |> Maybe.andThen (Dict.get "transform")
             |> Expect.equal (Just "Procédé introuvable par code : invalid")
-            |> asTest "should validate that a processing code is valid"
+            |> asTest "should validate that a transform code is valid"
         ]
     ]
 

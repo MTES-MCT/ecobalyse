@@ -216,7 +216,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/IngredientsListResponse'
-  /food/processings:
+  /food/transforms:
     get:
       tags:
       - Alimentaire
@@ -227,7 +227,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ProcessingListResponse'
+                Tref: '#/components/schemas/transformsListResponse'
   /food/recipe:
     get:
       tags:
@@ -235,7 +235,7 @@ paths:
       summary: Calcul des impacts environnementaux d'une recette alimentaire
       parameters:
       - $ref: '#/components/parameters/ingredientsParam'
-      - $ref: '#/components/parameters/processingParam'
+      - $ref: '#/components/parameters/transformParam'
       responses:
         200:
           description: Opération réussie
@@ -534,11 +534,11 @@ components:
         threeIngredients:
           summary: Mozzarella, Olive Oil, Tuna
           value: ["2e3f03c6de1e43900e09ae852182e9c7;268", "83da330027d4b25dbc7817f06b738571;30", "568c715f977f32948813855d5efd95ba;149"]
-    processingParam:
-      name: processing
+    transformParam:
+      name: transform
       in: query
       description: |
-        Identifiant du procédé de transformation (optionnel — liste disponible sur le point d'entrée `/food/processings`)
+        Identifiant du procédé de transformation (optionnel — liste disponible sur le point d'entrée `/food/transforms`)
       required: false
       style: form
       schema:
@@ -672,7 +672,7 @@ components:
             type: string
           name:
             type: string
-    ProcessingListResponse:
+    TransformsListResponse:
       type: array
       description: Liste des procédés de transformation utilisables pour une recette
       items:

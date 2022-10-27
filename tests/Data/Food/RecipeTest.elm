@@ -54,28 +54,28 @@ suite =
                             |> asTest "should not raise a parse error"
                 , case recipe of
                     Ok r ->
-                        r.processing
+                        r.transform
                             |> Maybe.map (.process >> .code)
-                            |> Expect.equal (exampleQuery.processing |> Maybe.map .code)
+                            |> Expect.equal (exampleQuery.transform |> Maybe.map .code)
                             |> asTest "should have the same processing"
 
                     Err error ->
                         Expect.fail error
                             |> asTest "should not raise a parse error"
-                , { exampleQuery | processing = Nothing }
+                , { exampleQuery | transform = Nothing }
                     |> Recipe.fromQuery foodDb
-                    |> Result.map .processing
+                    |> Result.map .transform
                     |> Expect.equal (Ok Nothing)
                     |> asTest "should have processing=Nothing if there was no processing in the query"
                 , { exampleQuery
-                    | processing =
+                    | transform =
                         Just
                             { code = Process.codeFromString "not a process"
                             , mass = Mass.kilograms 0
                             }
                   }
                     |> Recipe.fromQuery foodDb
-                    |> Result.map .processing
+                    |> Result.map .transform
                     |> Expect.err
                     |> asTest "should return an Err for an invalid processing"
                 ]

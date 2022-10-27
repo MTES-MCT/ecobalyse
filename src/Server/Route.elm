@@ -36,8 +36,8 @@ type Route
     = CountryList
       -- Food ingredient list
     | FoodIngredientList
-      -- Food processings list
-    | FoodProcessingList
+      -- Food transforms list
+    | FoodTransformList
       -- Food recipe builder
     | FoodRecipe (Result Query.Errors Recipe.Query)
       -- Textile Material list
@@ -59,7 +59,7 @@ parser { foodDb, textileDb } =
 
         -- Food
         , Parser.map FoodIngredientList (Parser.s "food" </> Parser.s "ingredients")
-        , Parser.map FoodProcessingList (Parser.s "food" </> Parser.s "processings")
+        , Parser.map FoodTransformList (Parser.s "food" </> Parser.s "transforms")
         , Parser.map FoodRecipe (Parser.s "food" </> Parser.s "recipe" <?> Query.parseFoodQuery foodDb)
 
         -- Textile
