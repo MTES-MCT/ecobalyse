@@ -337,12 +337,14 @@
   },
   {
     "name": "Steel, unalloyed {RER}| steel production, converter, unalloyed | Cut-off, S - Copied from Ecoinvent",
+    "alias": "steel",
+    "displayName": "Acier",
     "unit": "kilogram",
     "simapro_id": "02e016a7d236303db90aec2977fc3e4d",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
     "comment": "",
-    "category": "material",
+    "kind": "packaging",
     "impacts": {
       "acd": 0.008987337459529902,
       "ozd": 9.533355788496087e-8,
@@ -449,12 +451,14 @@
   },
   {
     "name": "Canning fruits or vegetables, industrial, 1kg of canned product/ FR U",
+    "alias": "canning",
+    "displayName": "Mise en conserve",
     "unit": "kilogram",
     "simapro_id": "eaa6e949108ffd0fd2f8657fce7d2743",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food"],
     "comment": "\"Functional UnitTo obtain 1kg of canned vegetable or fruit. An input of 0,626kg of food is required. Added packaging should account for the 1% loss.BoundariesFrom peeled fruit or vegetable to canned product: food slicing, can filling (38% water) and sterilization. 1% loss rate is applied at the end. The washing of fruit and vegetable prior to canning and the production and EoL of packaging is out of scope (because already considered upstream or downstream in Agribalyse v3.0).Contrary to canned fruits, canned vegetables go through a blanching step prior to canning: Canned vegetables generally require more severe processing than do fruits because the vegetables have much lower acidity and contain more heat-resistant soil organisms. Many vegetables also require more cooking than fruits to develop their most desirable flavor and texture.we considered 50% of canned vegetables (with a blanching step) and 50% of canned fruits (without any blanching) to model the canning process.\"",
-    "category": "processing",
+    "kind": "transformation",
     "impacts": {
       "acd": 0.0005208253942273022,
       "ozd": 7.149309573252654e-8,
@@ -589,12 +593,14 @@
   },
   {
     "name": "Packaging film, low density polyethylene {RER}| production | Cut-off, S - Copied from Ecoinvent",
+    "alias": "ldpe",
+    "displayName": "Polyéthylène basse densité",
     "unit": "kilogram",
     "simapro_id": "14944f92fd7e016d686165ba22d7c6e3",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
     "comment": "",
-    "category": "material",
+    "kind": "packaging",
     "impacts": {
       "acd": 0.013051861795090608,
       "ozd": 5.2988249388641494e-8,
@@ -897,12 +903,14 @@
   },
   {
     "name": "Polystyrene, expandable {RER}| production | Cut-off, S - Copied from Ecoinvent",
+    "alias": "ps",
+    "displayName": "Polystyrène",
     "unit": "kilogram",
     "simapro_id": "556a250d480358473f2767e65a0df8f8",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
     "comment": "",
-    "category": "material",
+    "kind": "packaging",
     "impacts": {
       "acd": 0.012881686467636343,
       "ozd": 4.109368521505781e-8,
@@ -1065,12 +1073,14 @@
   },
   {
     "name": "Cooking, industrial, 1kg of cooked product/ FR U",
+    "alias": "cooking",
+    "displayName": "Cuisson",
     "unit": "kilogram",
     "simapro_id": "aded2490573207ec7ad5a3813978f6a4",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food"],
     "comment": "",
-    "category": "processing",
+    "kind": "transformation",
     "impacts": {
       "acd": 0.0011064406833956627,
       "ozd": 4.592886112909496e-8,
@@ -1317,12 +1327,14 @@
   },
   {
     "name": "Packaging glass, white {RER w/o CH+DE}| production | Cut-off, S - Copied from Ecoinvent",
+    "alias": "glass",
+    "displayName": "Verre",
     "unit": "kilogram",
     "simapro_id": "1f85c8460640d59143550d27d2882b6a",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
     "comment": "",
-    "category": "material",
+    "kind": "packaging",
     "impacts": {
       "acd": 0.00904400609003605,
       "ozd": 1.2936569281055393e-7,
@@ -1597,12 +1609,14 @@
   },
   {
     "name": "Polypropylene, granulate {RER}| production | Cut-off, S - Copied from Ecoinvent",
+    "alias": "pp",
+    "displayName": "Polypropylène",
     "unit": "kilogram",
     "simapro_id": "ed6822027bfea51a3b29dac6966c82e7",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
     "comment": "",
-    "category": "material",
+    "kind": "packaging",
     "impacts": {
       "acd": 0.007430469290332315,
       "ozd": 8.913926366321514e-10,
@@ -2101,12 +2115,14 @@
   },
   {
     "name": "Corrugated board box {RER}| production | Cut-off, S - Copied from Ecoinvent",
+    "alias": "cardboard",
+    "displayName": "Carton",
     "unit": "kilogram",
     "simapro_id": "23b2754e5943bc77916f8f871edc53b6",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
     "comment": "",
-    "category": "material",
+    "kind": "packaging",
     "impacts": {
       "acd": 0.004525197778534851,
       "ozd": 1.1078331913066449e-7,
@@ -2301,7 +2317,7 @@
     "simapro_id": "6fee47c1be80826cd1b6c43ccc9d2975",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Anchovy in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of Anchovy in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.017201932721748203,
@@ -2689,12 +2705,14 @@
   },
   {
     "name": "Mixing, processing, at plant \"dummy process\"",
+    "alias": "mixing",
+    "displayName": "Mélange",
     "unit": "kilogram",
     "simapro_id": "704fd56a994e8e15d0fd1690f29df525",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Others", "Dummies"],
     "comment": "This process is a dummy process. It is assumed that no energy or water addition is needed for this process.",
-    "category": "processing",
+    "kind": "transformation",
     "impacts": {
       "acd": 0.0,
       "ozd": 0.0,
@@ -3417,12 +3435,14 @@
   },
   {
     "name": "Kraft paper, unbleached {RER}| production | Cut-off, S - Copied from Ecoinvent",
+    "alias": "paper",
+    "displayName": "Papier",
     "unit": "kilogram",
     "simapro_id": "70c39f519678ffecc3a982f896da3fd5",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
     "comment": "",
-    "category": "material",
+    "kind": "packaging",
     "impacts": {
       "acd": 0.006901375916006631,
       "ozd": 1.0139723979248064e-7,
@@ -3903,7 +3923,7 @@
     "simapro_id": "bb1a9e3011f6638bc69452a8aaee2e64",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Mediterranean bass in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of Mediterranean bass in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.0274758832581886,
@@ -3959,7 +3979,7 @@
     "simapro_id": "fe17071782cb9fb815ffa6e645d4148f",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Mediterranean bass in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of Mediterranean bass in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.11314588597209477,
@@ -4015,7 +4035,7 @@
     "simapro_id": "558b66b7ee5516bf9256d57614327dc0",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of European bass in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of European bass in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.0274758832581886,
@@ -4071,7 +4091,7 @@
     "simapro_id": "0fc0973c0c4e77a5ee19dcc978c737f7",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Atlantic bass in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of Atlantic bass in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.0274758832581886,
@@ -4127,7 +4147,7 @@
     "simapro_id": "9f60aecd6254ed385523bcb01a2384ee",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of American bass in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of American bass in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.0274758832581886,
@@ -5271,12 +5291,14 @@
   },
   {
     "name": "Polyvinylchloride, suspension polymerised {RER}| polyvinylchloride production, suspension polymerisation | Cut-off, S - Copied from Ecoinvent",
+    "alias": "pvc",
+    "displayName": "PVC",
     "unit": "kilogram",
     "simapro_id": "60a6132f5227b0dbe2e75f2d2d54d1a8",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
     "comment": "",
-    "category": "material",
+    "kind": "packaging",
     "impacts": {
       "acd": 0.006275260106961101,
       "ozd": 9.197531484651221e-10,
@@ -5439,12 +5461,14 @@
   },
   {
     "name": "Polyethylene terephthalate, granulate, bottle grade {RER}| production | Cut-off, S - Copied from Ecoinvent",
+    "alias": "pet",
+    "displayName": "PET",
     "unit": "kilogram",
     "simapro_id": "6ed392632f366c410e0af00f4d58e915",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
     "comment": "",
-    "category": "material",
+    "kind": "packaging",
     "impacts": {
       "acd": 0.016036637290281278,
       "ozd": 1.7432527649183478e-7,
@@ -5550,7 +5574,7 @@
     }
   },
   {
-    "name": "Beer, regular (4-5\u00b0 alcohol), at plant",
+    "name": "Beer, regular (4-5° alcohol), at plant",
     "unit": "kilogram",
     "simapro_id": "349e4fdb11f3d7dc11831d7af81d47cb",
     "system_description": "AGRIBALYSE v3.0",
@@ -5729,7 +5753,7 @@
     "simapro_id": "c4d2ac7394adeae1411ecd2c2a7ef137",
     "system_description": "",
     "category_tags": ["Agricultural", "Plant production", "Cereals", "Transformation"],
-    "comment": "Allocation \u00e9conomique 41 % entre paille et graine, sauf flux \u00e9nergie et carbone",
+    "comment": "Allocation économique 41 % entre paille et graine, sauf flux énergie et carbone",
     "category": "material",
     "impacts": {
       "acd": 0.02096300113773552,
@@ -5785,7 +5809,7 @@
     "simapro_id": "3555d37bbb4aea9b8232f9572f4dc73c",
     "system_description": "",
     "category_tags": ["Others"],
-    "comment": "Based on Nielsen, Oxenb\u00bfll, Wenzel - 2007 - Cradle-to-Gate Environmental Assessment of Enzyme Products Produced Industrially in Denmark by NovozymesRough approximation as first estimate",
+    "comment": "Based on Nielsen, Oxenb¿ll, Wenzel - 2007 - Cradle-to-Gate Environmental Assessment of Enzyme Products Produced Industrially in Denmark by NovozymesRough approximation as first estimate",
     "category": "material",
     "impacts": {
       "acd": 0.010264020828720733,
@@ -7241,7 +7265,7 @@
     "simapro_id": "68185490f6cb29255a1186280fed9df2",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Bogue in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of Bogue in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.006995506098581995,
@@ -7741,12 +7765,14 @@
   },
   {
     "name": "Polyethylene, high density, granulate {RER}| production | Cut-off, S - Copied from Ecoinvent",
+    "alias": "hdpe",
+    "displayName": "Polyéthylène haute densité",
     "unit": "kilogram",
     "simapro_id": "eb7191a6556a749f482d12fb6adcad04",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
     "comment": "",
-    "category": "material",
+    "kind": "packaging",
     "impacts": {
       "acd": 0.007784896467004352,
       "ozd": 1.197493487274857e-9,
@@ -7768,7 +7794,7 @@
     }
   },
   {
-    "name": "Pasteurisation; from raw milk, at 72\u00a1C for 30 s.; French production mix, at plant; 1 kg of pasteurised milk (PGi)",
+    "name": "Pasteurisation; from raw milk, at 72¡C for 30 s.; French production mix, at plant; 1 kg of pasteurised milk (PGi)",
     "unit": "kilogram",
     "simapro_id": "1a02ea1eb4ef102cf1371ecc474373a5",
     "system_description": "ACYVIA",
@@ -8249,7 +8275,7 @@
     "simapro_id": "91e06e88b50e469e21a2b3711e7f6869",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Bonito in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of Bonito in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.14803003754650268,
@@ -8440,12 +8466,12 @@
     }
   },
   {
-    "name": "Black pudding (blood sausage), saut\u00e9ed/pan-fried, at plant",
+    "name": "Black pudding (blood sausage), sautéed/pan-fried, at plant",
     "unit": "kilogram",
     "simapro_id": "cefc668bc4c5eca5f377c1d90d3b949f",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Recipes"],
-    "comment": "The CIQUAL food item 'Black pudding (blood sausage), saut\u00e9ed/pan-fried' matches with a recipe from ANSES.",
+    "comment": "The CIQUAL food item 'Black pudding (blood sausage), sautéed/pan-fried' matches with a recipe from ANSES.",
     "category": "ingredient",
     "impacts": {
       "acd": 0.10538342297134459,
@@ -8753,7 +8779,7 @@
     "simapro_id": "665b6dbe4e9d0092da45204ee9508672",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Freshwater bream in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of Freshwater bream in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.0274758832581886,
@@ -9117,7 +9143,7 @@
     "simapro_id": "ebed4b864d59306127aef569d27dc34f",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Cod in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of Cod in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.1131458859720948,
@@ -10265,7 +10291,7 @@
     "simapro_id": "fff23a7e4c0f070377e152fbf3fe2118",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Squid in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of Squid in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.1131458859720948,
@@ -10344,12 +10370,12 @@
     }
   },
   {
-    "name": "Canel\u00e9 cake, at plant",
+    "name": "Canelé cake, at plant",
     "unit": "kilogram",
     "simapro_id": "0fa7a8bccc6c4e53db2f60c58abfb73f",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Recipes"],
-    "comment": "The CIQUAL food item 'Canel\u00e9 cake' matches with a recipe from ANSES.",
+    "comment": "The CIQUAL food item 'Canelé cake' matches with a recipe from ANSES.",
     "category": "ingredient",
     "impacts": {
       "acd": 0.024894775172966708,
@@ -10517,7 +10543,7 @@
     "simapro_id": "c333879cd1e9f8edaa72e613c76728c9",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Capelin in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of Capelin in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.14803003754650268,
@@ -10629,7 +10655,7 @@
     "simapro_id": "c12530749a96d8e756c2a19835a0031e",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Crevalle jack in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of Crevalle jack in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.053566403990148906,
@@ -10713,7 +10739,7 @@
     "simapro_id": "5d77198b385c14fe765144150ec1b584",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Megrim in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of Megrim in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.11314588597209477,
@@ -10909,7 +10935,7 @@
     "simapro_id": "185d863db380c68ed6fc56fb5352f3fa",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Carp in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of Carp in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.018798218137256885,
@@ -10965,7 +10991,7 @@
     "simapro_id": "a7d3d7bede46aa9d111c5a62301dbf84",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of European plaice in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of European plaice in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.11314588597209477,
@@ -11100,7 +11126,7 @@
     }
   },
   {
-    "name": "Tomato paste 30\u00b0 Brix, production, at plant",
+    "name": "Tomato paste 30° Brix, production, at plant",
     "unit": "kilogram",
     "simapro_id": "2f914fa3ce828f51e79b6d9549096ae5",
     "system_description": "AGRIBALYSE v3.0",
@@ -11805,7 +11831,7 @@
     "simapro_id": "d82ba45f6c8ffbb2c4702a9e4f17dc0e",
     "system_description": "ACYVIA",
     "category_tags": ["Agricultural"],
-    "comment": "Based on FranceAgriMer: \"la valorisation du cinqui\u00e8me quartier, Mai 2013\". (1,2,1,1,1)",
+    "comment": "Based on FranceAgriMer: \"la valorisation du cinquième quartier, Mai 2013\". (1,2,1,1,1)",
     "category": "processing",
     "impacts": {
       "acd": 0.17296434815992875,
@@ -12197,7 +12223,7 @@
     "simapro_id": "e1a2795c2eb82098162c4718787bc5ce",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Chia seeds in France.Included activities are : production in country of origin and transportNo production dataset was found. The proxy used is : Linseed\u00a0.",
+    "comment": "This process describes the average consumption mix of Chia seeds in France.Included activities are : production in country of origin and transportNo production dataset was found. The proxy used is : Linseed .",
     "category": "ingredient",
     "impacts": {
       "acd": 0.051432119233238864,
@@ -12533,7 +12559,7 @@
     "simapro_id": "66d7aef65051a2a58d7e4293166a5659",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Horse mackerel in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of Horse mackerel in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.01924342884753721,
@@ -14516,7 +14542,7 @@
     }
   },
   {
-    "name": "Comt\u00e9 cheese, from cow's milk, at plant",
+    "name": "Comté cheese, from cow's milk, at plant",
     "unit": "kilogram",
     "simapro_id": "6cbac288f2fce06ebace9b1286b8860c",
     "system_description": "AGRIBALYSE v3.0",
@@ -14857,7 +14883,7 @@
     "simapro_id": "fa27b235ce45756309c7ab720a163ea1",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Conger in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of Conger in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.11314588597209477,
@@ -14941,7 +14967,7 @@
     "simapro_id": "c2f63c57eb595d40ee314d6a66814cc2",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Scallop in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of Scallop in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.02449229015337774,
@@ -15081,7 +15107,7 @@
     "simapro_id": "651621fe7ba561c69069b62157f1b576",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Brown meagre in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of Brown meagre in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.053566403990148906,
@@ -15277,7 +15303,7 @@
     "simapro_id": "55cd2de123ba7f71331994f66bb6e7e3",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Bigeye scad in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of Bigeye scad in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.01924342884753721,
@@ -15553,12 +15579,14 @@
   },
   {
     "name": "Aluminium, primary, ingot {RoW}| production | Cut-off, S - Copied from Ecoinvent",
+    "alias": "aluminium",
+    "displayName": "Aluminium",
     "unit": "kilogram",
     "simapro_id": "034d5300eb6606c37e0a5679dfc1cb64",
     "system_description": "Ecoinvent v3",
     "category_tags": ["Others", "Ecoinvent cut-off S copy"],
     "comment": "",
-    "category": "material",
+    "kind": "packaging",
     "impacts": {
       "acd": 0.11816025062739881,
       "ozd": 5.173717685858555e-7,
@@ -16000,12 +16028,12 @@
     }
   },
   {
-    "name": "Caramelized custard cream (cr\u00e8me br\u00fbl\u00e9e), refrigerated, at plant",
+    "name": "Caramelized custard cream (crème brûlée), refrigerated, at plant",
     "unit": "kilogram",
     "simapro_id": "7f024e51e12a062152eb446d81b814c0",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Recipes"],
-    "comment": "The CIQUAL food item 'Caramelized custard cream (cr\u00e8me br\u00fbl\u00e9e), refrigerated' matches with a recipe from ANSES.",
+    "comment": "The CIQUAL food item 'Caramelized custard cream (crème brûlée), refrigerated' matches with a recipe from ANSES.",
     "category": "ingredient",
     "impacts": {
       "acd": 0.0251899785070908,
@@ -17260,12 +17288,12 @@
     }
   },
   {
-    "name": "Cucurbitacea\u00a0seed, consumption mix",
+    "name": "Cucurbitacea seed, consumption mix",
     "unit": "kilogram",
     "simapro_id": "c1d212f8e0ff0827a53de31de9a8c2f2",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Cucurbitacea\u00a0 in France.Included activities are : production in country of origin and transportNo production dataset was found. The proxy used is : Linseed\u00a0.",
+    "comment": "This process describes the average consumption mix of Cucurbitacea  in France.Included activities are : production in country of origin and transportNo production dataset was found. The proxy used is : Linseed .",
     "category": "ingredient",
     "impacts": {
       "acd": 0.051432119233238864,
@@ -17461,7 +17489,7 @@
     "simapro_id": "22449767d88aecb095c43c5a60060e9c",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Common dentex in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of Common dentex in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.11314588597209477,
@@ -17685,7 +17713,7 @@
     "simapro_id": "c22c91c4d0bea2e6b96840e504dc726e",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Black seabream in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of Black seabream in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.06889477771370682,
@@ -17741,7 +17769,7 @@
     "simapro_id": "14b9e39c84c11c8141602d23577dbc30",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Blackspot seabream in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of Blackspot seabream in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.06889477771370682,
@@ -17797,7 +17825,7 @@
     "simapro_id": "e1f63242096042ec0b0274557c877647",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Gilthead seabream in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of Gilthead seabream in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.0274758832581886,
@@ -17853,7 +17881,7 @@
     "simapro_id": "200558c548e9fb9d1cabf3fd31882e05",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Gilthead seabream in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of Gilthead seabream in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.11314588597209477,
@@ -18077,7 +18105,7 @@
     "simapro_id": "13fa078c5e5b030cfbd8da4841504d88",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Haddock in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of Haddock in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.11314588597209477,
@@ -18133,7 +18161,7 @@
     "simapro_id": "85646bf7822b29bca58ec70755fc0c28",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Blue shark in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of Blue shark in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.11314588597209477,
@@ -18329,7 +18357,7 @@
     "simapro_id": "206c3ddccafa827cbf5958d4353870b1",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Pond smelt in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of Pond smelt in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.013700576829697107,
@@ -18525,7 +18553,7 @@
     "simapro_id": "cf324dd7bfce02ef388965d9a6827456",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Swordfish in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of Swordfish in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.053566403990148906,
@@ -19472,12 +19500,12 @@
     }
   },
   {
-    "name": "Smoked Alsatian sausage or Landj\u00e4ger, at plant",
+    "name": "Smoked Alsatian sausage or Landjäger, at plant",
     "unit": "kilogram",
     "simapro_id": "c17f374a7f47ff56a2d40b886780ad57",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Recipes"],
-    "comment": "The CIQUAL food item 'Smoked Alsatian sausage or Landj\u00e4ger' matches with a recipe from a retailer.",
+    "comment": "The CIQUAL food item 'Smoked Alsatian sausage or Landjäger' matches with a recipe from a retailer.",
     "category": "ingredient",
     "impacts": {
       "acd": 0.13269539308395065,
@@ -19897,7 +19925,7 @@
     "simapro_id": "00ba37efc88d26b9020bd640a688cb5e",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Atlantic halibut in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of Atlantic halibut in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.053566403990148906,
@@ -19953,7 +19981,7 @@
     "simapro_id": "e3525e62ee11db6de5fe10628eab9c50",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Greenland halibut in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of Greenland halibut in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.11314588597209477,
@@ -20620,7 +20648,7 @@
     }
   },
   {
-    "name": "Head-cheese p\u00e2t\u00e9 or brawn, at plant",
+    "name": "Head-cheese pâté or brawn, at plant",
     "unit": "kilogram",
     "simapro_id": "18b99eac3077ffb78b5c133f2494a390",
     "system_description": "AGRIBALYSE v3.0",
@@ -21936,12 +21964,12 @@
     }
   },
   {
-    "name": "Dauphin\u00e9-style creamed potatoes \"au gratin\", at plant",
+    "name": "Dauphiné-style creamed potatoes \"au gratin\", at plant",
     "unit": "kilogram",
     "simapro_id": "e21230beb7e4621b07209d8c01f7b984",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Recipes"],
-    "comment": "The CIQUAL food item 'Dauphin\u00e9-style creamed potatoes \"au gratin\"' matches with a recipe from ANSES.",
+    "comment": "The CIQUAL food item 'Dauphiné-style creamed potatoes \"au gratin\"' matches with a recipe from ANSES.",
     "category": "ingredient",
     "impacts": {
       "acd": 0.013285444707844287,
@@ -22193,7 +22221,7 @@
     "simapro_id": "a47cb2064fd05c2363eba1828984d259",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Roundnose grenadier in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of Roundnose grenadier in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.11314588597209477,
@@ -22249,7 +22277,7 @@
     "simapro_id": "f9962e342923f5bcf5f6771cfd6b8b15",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Blue grenadier in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of Blue grenadier in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.07222941505756744,
@@ -22361,7 +22389,7 @@
     "simapro_id": "134169eac32d88e678ca7e086fdb9edb",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Tub gurnard in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of Tub gurnard in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.11314588597209477,
@@ -22417,7 +22445,7 @@
     "simapro_id": "a15e630034886dbe93d13f674722b251",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Red gurnard in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of Red gurnard in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.06889477771370682,
@@ -22781,7 +22809,7 @@
     "simapro_id": "4146e5e3e4463b50a5477e7ab3d4a116",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Atlantic herring in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of Atlantic herring in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.019081957016557672,
@@ -23033,7 +23061,7 @@
     "simapro_id": "96753e2daf3d0cff868141ec4da15238",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Flageolet bean in France.Included activities are : production in country of origin and transport No production dataset was found. The proxy used is : faba bean\u00a0.",
+    "comment": "This process describes the average consumption mix of Flageolet bean in France.Included activities are : production in country of origin and transport No production dataset was found. The proxy used is : faba bean .",
     "category": "ingredient",
     "impacts": {
       "acd": 0.0024878807797607703,
@@ -23565,7 +23593,7 @@
     "simapro_id": "7467e19e0633071663c0b0f7299f426d",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Grenadier in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of Grenadier in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.11314588597209477,
@@ -24433,7 +24461,7 @@
     "simapro_id": "1a31fa0240953625479ab03382ac7dba",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Big-scale sand smelt in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of Big-scale sand smelt in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.006995506098581995,
@@ -24456,12 +24484,12 @@
     }
   },
   {
-    "name": "Thinly-shredded or diced vegetables, frozen, raw\u00a0, at plant",
+    "name": "Thinly-shredded or diced vegetables, frozen, raw , at plant",
     "unit": "kilogram",
     "simapro_id": "0561b4e9cb397c8ba8dc3d5310ad9e95",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Recipes"],
-    "comment": "The CIQUAL food item 'Thinly-shredded or diced vegetables, frozen, raw\u00a0' is approximated by a Open food facts recipe.",
+    "comment": "The CIQUAL food item 'Thinly-shredded or diced vegetables, frozen, raw ' is approximated by a Open food facts recipe.",
     "category": "ingredient",
     "impacts": {
       "acd": 0.0020057096439662346,
@@ -24517,7 +24545,7 @@
     "simapro_id": "498123f8b42980c85bd4fbfc397707a4",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Ling in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of Ling in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.11314588597209477,
@@ -25531,7 +25559,7 @@
     "simapro_id": "439c0c3521f69f2f5734a856028b2770",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Norway lobster in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of Norway lobster in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.1131458859720948,
@@ -25896,12 +25924,12 @@
     }
   },
   {
-    "name": "Mixed vegetables for couscous, cooked\u00a0, at plant",
+    "name": "Mixed vegetables for couscous, cooked , at plant",
     "unit": "kilogram",
     "simapro_id": "32aa2170e52ca6c86739503a1cd4f0d5",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Recipes"],
-    "comment": "The CIQUAL food item 'Mixed vegetables for couscous, cooked\u00a0' is approximated by a Open food facts recipe.",
+    "comment": "The CIQUAL food item 'Mixed vegetables for couscous, cooked ' is approximated by a Open food facts recipe.",
     "category": "ingredient",
     "impacts": {
       "acd": 0.003448108283289624,
@@ -26209,7 +26237,7 @@
     "simapro_id": "b9b0d44d470e628652b4c67079417f2b",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Pollack in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of Pollack in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.11314588597209477,
@@ -26265,7 +26293,7 @@
     "simapro_id": "9f82d69de0e21228cdab78de2da73381",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Saithe in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of Saithe in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.07222941505756743,
@@ -26321,7 +26349,7 @@
     "simapro_id": "20e315b55b65680db89c7d28122a4777",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Alaska pollock in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of Alaska pollock in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.1131458859720948,
@@ -26405,7 +26433,7 @@
     "simapro_id": "a7f84276d5d3a9978bc399c56bf12260",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Common dab in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of Common dab in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.11314588597209477,
@@ -26461,7 +26489,7 @@
     "simapro_id": "e7fb28ae8b1c1584c381414ff5996f59",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Lemon sole in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of Lemon sole in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.11314588597209477,
@@ -26545,7 +26573,7 @@
     "simapro_id": "9f5669b5f04a8dfff4a7d425e89aaad2",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Blue ling in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of Blue ling in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.11314588597209477,
@@ -26657,7 +26685,7 @@
     "simapro_id": "b056ce0f730c74f7fcc7b17a034c42dd",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Anglerfish in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of Anglerfish in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.1131458859720948,
@@ -26713,7 +26741,7 @@
     "simapro_id": "f26c07385732f8a913c1e0377abfcec2",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Spotted wolffish in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of Spotted wolffish in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.11314588597209477,
@@ -26769,7 +26797,7 @@
     "simapro_id": "6473e46aadb503c2705a5062791fc461",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Alfalfa seeds in France.Included activities are : production in country of origin and transportNo production dataset was found. The proxy used is : Linseed\u00a0.",
+    "comment": "This process describes the average consumption mix of Alfalfa seeds in France.Included activities are : production in country of origin and transportNo production dataset was found. The proxy used is : Linseed .",
     "category": "ingredient",
     "impacts": {
       "acd": 0.051432119233238864,
@@ -26881,7 +26909,7 @@
     "simapro_id": "5b767e834aaaa6dc709409aa578340a7",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Recipes"],
-    "comment": "The CIQUAL food item 'Thinly-shredded or diced vegetables, frozen, raw\u00a0' is approximated by a Open food facts recipe.",
+    "comment": "The CIQUAL food item 'Thinly-shredded or diced vegetables, frozen, raw ' is approximated by a Open food facts recipe.",
     "category": "ingredient",
     "impacts": {
       "acd": 0.0027745786032924223,
@@ -27357,7 +27385,7 @@
     "simapro_id": "a6d07cafd7aed4ab3907ab10701b7c52",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Atlantic chub mackerel in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of Atlantic chub mackerel in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.01924342884753721,
@@ -27469,7 +27497,7 @@
     "simapro_id": "cd4f3639942563b508ef5729625f31b4",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Mackerel in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of Mackerel in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.01924342884753721,
@@ -28477,7 +28505,7 @@
     "simapro_id": "0e59ea15188032430bd1a5ab1b84049f",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Whiting in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of Whiting in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.11314588597209477,
@@ -28533,7 +28561,7 @@
     "simapro_id": "dc2273f278f4952995c10f7e4439fac2",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Shallow-water Cape hake in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of Shallow-water Cape hake in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.07222941505756744,
@@ -28589,7 +28617,7 @@
     "simapro_id": "be603c17290e5c2bc53d8e071d74f0f5",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of European hake in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of European hake in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.07222941505756744,
@@ -28701,7 +28729,7 @@
     "simapro_id": "9ba6643f3e7c39bd0174236e451e021f",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Grouper in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of Grouper in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.053566403990148906,
@@ -28785,7 +28813,7 @@
     "simapro_id": "d2f44266f49e78283fb53dc78e4a0df0",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Tuna in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of Tuna in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.06612044867362761,
@@ -29289,7 +29317,7 @@
     "simapro_id": "28f635c7e1c45ede7370a1558d8376d9",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Recipes"],
-    "comment": "The CIQUAL food item 'Duck mousse' is approximated by the recipe 'Rabbit p\u00e2t\u00e9' from 'CIQUAL'. For this item, Rabbit is replaced by an equal amount of duck in the recipe Duck mousse",
+    "comment": "The CIQUAL food item 'Duck mousse' is approximated by the recipe 'Rabbit pâté' from 'CIQUAL'. For this item, Rabbit is replaced by an equal amount of duck in the recipe Duck mousse",
     "category": "ingredient",
     "impacts": {
       "acd": 0.10174371662473318,
@@ -29312,12 +29340,12 @@
     }
   },
   {
-    "name": "Country-style p\u00e2t\u00e9 or terrine, at plant",
+    "name": "Country-style pâté or terrine, at plant",
     "unit": "kilogram",
     "simapro_id": "6968e4634afe209408417dc3251a32d4",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Recipes"],
-    "comment": "The CIQUAL food item 'Country-style p\u00e2t\u00e9 or terrine' matches with a recipe from ANSES.",
+    "comment": "The CIQUAL food item 'Country-style pâté or terrine' matches with a recipe from ANSES.",
     "category": "ingredient",
     "impacts": {
       "acd": 0.09146180351697944,
@@ -29709,7 +29737,7 @@
     "simapro_id": "17a34defeeedadad513542268598f07b",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Mullet in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of Mullet in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.11314588597209477,
@@ -30348,12 +30376,12 @@
     }
   },
   {
-    "name": "Noodles with shrimps saut\u00e9ed/pan-fried, at plant",
+    "name": "Noodles with shrimps sautéed/pan-fried, at plant",
     "unit": "kilogram",
     "simapro_id": "7bff179a7644a598f96902cdada1bb9c",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Recipes"],
-    "comment": "The CIQUAL food item 'Noodles with shrimps saut\u00e9ed/pan-fried' matches with a recipe from a retailer.",
+    "comment": "The CIQUAL food item 'Noodles with shrimps sautéed/pan-fried' matches with a recipe from a retailer.",
     "category": "ingredient",
     "impacts": {
       "acd": 0.0186223479755763,
@@ -30740,12 +30768,12 @@
     }
   },
   {
-    "name": "Olive, green, stuffed (anchovy, sweet peppers, etc\u0085), at plant",
+    "name": "Olive, green, stuffed (anchovy, sweet peppers, etc), at plant",
     "unit": "kilogram",
     "simapro_id": "b335eddfc134bceeecc9fe5f4694fece",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Recipes"],
-    "comment": "The CIQUAL food item 'Olive, green, stuffed (anchovy, sweet peppers, etc\u0085)' matches with a recipe from a retailer.",
+    "comment": "The CIQUAL food item 'Olive, green, stuffed (anchovy, sweet peppers, etc)' matches with a recipe from a retailer.",
     "category": "ingredient",
     "impacts": {
       "acd": 0.0035515651785965364,
@@ -30801,7 +30829,7 @@
     "simapro_id": "2a8b43360ad1003e0c7ced933e0629be",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Arctic char in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of Arctic char in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.015465492012012947,
@@ -31025,7 +31053,7 @@
     "simapro_id": "c3a5bd6c1672673dce46a68f10755387",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Garfish in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of Garfish in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.013700576829697107,
@@ -31132,12 +31160,12 @@
     }
   },
   {
-    "name": "Pa\u00eblla, at plant",
+    "name": "Paëlla, at plant",
     "unit": "kilogram",
     "simapro_id": "d2e2bfb23902dd0e3908a6d701003e02",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Recipes"],
-    "comment": "The CIQUAL food item 'Pa\u00eblla' matches with a recipe from ANSES.",
+    "comment": "The CIQUAL food item 'Paëlla' matches with a recipe from ANSES.",
     "category": "ingredient",
     "impacts": {
       "acd": 0.048666732990081556,
@@ -32196,12 +32224,12 @@
     }
   },
   {
-    "name": "Shandy, prepacked (<1\u00b0 alcohol), at plant",
+    "name": "Shandy, prepacked (<1° alcohol), at plant",
     "unit": "kilogram",
     "simapro_id": "c9a36c26a53e3ba262711bc9064cc0b8",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Recipes"],
-    "comment": "The CIQUAL food item 'Shandy, prepacked (<1\u00b0 alcohol)' matches with a recipe from ANSES.",
+    "comment": "The CIQUAL food item 'Shandy, prepacked (<1° alcohol)' matches with a recipe from ANSES.",
     "category": "ingredient",
     "impacts": {
       "acd": 0.0022582011227825914,
@@ -32285,7 +32313,7 @@
     "simapro_id": "ffbbab6c8071c4a53334b9bf938e4777",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Pangasius in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of Pangasius in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.033311541717143275,
@@ -32341,7 +32369,7 @@
     "simapro_id": "b1fc9354cabc60f93a2819c011dbf45e",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Brown bullhead in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of Brown bullhead in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.0274758832581886,
@@ -32980,12 +33008,12 @@
     }
   },
   {
-    "name": "Rabbit p\u00e2t\u00e9, at plant",
+    "name": "Rabbit pâté, at plant",
     "unit": "kilogram",
     "simapro_id": "be35a579abc17ca4ceb7974f3d074c09",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Recipes"],
-    "comment": "The CIQUAL food item 'Rabbit p\u00e2t\u00e9' matches with a recipe from ANSES.",
+    "comment": "The CIQUAL food item 'Rabbit pâté' matches with a recipe from ANSES.",
     "category": "ingredient",
     "impacts": {
       "acd": 0.09408046761064626,
@@ -33036,12 +33064,12 @@
     }
   },
   {
-    "name": "P\u00e2t\u00e9 in crust, at plant",
+    "name": "Pâté in crust, at plant",
     "unit": "kilogram",
     "simapro_id": "40b56fcdba409ab7f378ef09542353d7",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Recipes"],
-    "comment": "The CIQUAL food item 'P\u00e2t\u00e9 in crust' matches with a recipe from ANSES.",
+    "comment": "The CIQUAL food item 'Pâté in crust' matches with a recipe from ANSES.",
     "category": "ingredient",
     "impacts": {
       "acd": 0.21469711099882208,
@@ -33204,12 +33232,12 @@
     }
   },
   {
-    "name": "Country-style p\u00e2t\u00e9 with mushrooms, at plant",
+    "name": "Country-style pâté with mushrooms, at plant",
     "unit": "kilogram",
     "simapro_id": "1a70452cd79dd1861e59d6aaa2d02a90",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Recipes"],
-    "comment": "The CIQUAL food item 'Country-style p\u00e2t\u00e9 with mushrooms' matches with a recipe from ANSES.",
+    "comment": "The CIQUAL food item 'Country-style pâté with mushrooms' matches with a recipe from ANSES.",
     "category": "ingredient",
     "impacts": {
       "acd": 0.023580251873120975,
@@ -33344,12 +33372,12 @@
     }
   },
   {
-    "name": "Bolognese-style pasta (spaghetti, tagliatelle\u0085), at plant",
+    "name": "Bolognese-style pasta (spaghetti, tagliatelle), at plant",
     "unit": "kilogram",
     "simapro_id": "bb212969fe376f3bf7e2960814c48412",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Recipes"],
-    "comment": "The CIQUAL food item 'Bolognese-style pasta (spaghetti, tagliatelle\u0085)' matches with a recipe from ANSES.",
+    "comment": "The CIQUAL food item 'Bolognese-style pasta (spaghetti, tagliatelle)' matches with a recipe from ANSES.",
     "category": "ingredient",
     "impacts": {
       "acd": 0.0698990100029601,
@@ -33372,12 +33400,12 @@
     }
   },
   {
-    "name": "Carbonara-style pasta (spaghetti, tagliatelle\u0085), at plant",
+    "name": "Carbonara-style pasta (spaghetti, tagliatelle), at plant",
     "unit": "kilogram",
     "simapro_id": "d24d7ccbb80e4fa6a5b8e1f41fc563b9",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Recipes"],
-    "comment": "The CIQUAL food item 'Bolognese-style pasta (spaghetti, tagliatelle\u0085)' matches with a recipe from ANSES.",
+    "comment": "The CIQUAL food item 'Bolognese-style pasta (spaghetti, tagliatelle)' matches with a recipe from ANSES.",
     "category": "ingredient",
     "impacts": {
       "acd": 0.03864150398117177,
@@ -33853,7 +33881,7 @@
     "simapro_id": "da79b759e480580689c7ab83e9fdd182",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of American or Canadian sea scallop in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of American or Canadian sea scallop in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.02449229015337774,
@@ -33909,7 +33937,7 @@
     "simapro_id": "27294946d78b82e00724ab4cfa6a172b",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Nile perch in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of Nile perch in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.018798218137256885,
@@ -33965,7 +33993,7 @@
     "simapro_id": "3e7365c54fb9e1a113ea182c3bb79e31",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of European perch in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of European perch in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.015465492012012947,
@@ -34217,7 +34245,7 @@
     "simapro_id": "a5574198fb2dc42150ddd799de07e378",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Peru sea scallop, without coral in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of Peru sea scallop, without coral in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.02449229015337774,
@@ -34240,7 +34268,7 @@
     }
   },
   {
-    "name": "Pine nut\u00a0, unshelled, at processing",
+    "name": "Pine nut , unshelled, at processing",
     "unit": "kilogram",
     "simapro_id": "533bafa45bf6becdadb3e27b14a88ab6",
     "system_description": "AGRIBALYSE v3.0",
@@ -34268,12 +34296,12 @@
     }
   },
   {
-    "name": "Pine nut\u00a0, consumption mix",
+    "name": "Pine nut , consumption mix",
     "unit": "kilogram",
     "simapro_id": "d6641a37dccc4c36eb280225ce4c306e",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Pine nut\u00a0 in France.Included activities are : production in country of origin and transportNo production dataset was found. The proxy used is : Peanut\u00a0.",
+    "comment": "This process describes the average consumption mix of Pine nut  in France.Included activities are : production in country of origin and transportNo production dataset was found. The proxy used is : Peanut .",
     "category": "ingredient",
     "impacts": {
       "acd": 0.03233110071742395,
@@ -34329,7 +34357,7 @@
     "simapro_id": "b55c4c0f03b84ba459297c44c50549a1",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of European pilchard or sardine in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of European pilchard or sardine in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.013700576829697107,
@@ -36765,7 +36793,7 @@
     "simapro_id": "b280abb899568c646bae9c07f74894aa",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Ray in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of Ray in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.11314588597209477,
@@ -36905,7 +36933,7 @@
     "simapro_id": "e461aae99e0d9a71bc2bec1923cd20f6",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Spiny scorpionfish in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of Spiny scorpionfish in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.11314588597209477,
@@ -37073,7 +37101,7 @@
     "simapro_id": "d94c67f9c31df7b31a97b848f90bc4a7",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Shark in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of Shark in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.11314588597209477,
@@ -37605,7 +37633,7 @@
     "simapro_id": "8a0bf4ea04f281a9bd81f69611eebaca",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Surmullet or red mullet in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of Surmullet or red mullet in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.06889477771370682,
@@ -37661,7 +37689,7 @@
     "simapro_id": "856281bbd370101378d07df27f0c7e5e",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Surmullet or red mullet in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of Surmullet or red mullet in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.0715188649740761,
@@ -37773,7 +37801,7 @@
     "simapro_id": "a00a5c9d503df1434b89eac6db597231",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Nursehound or lesser spotted dogfish in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of Nursehound or lesser spotted dogfish in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.11314588597209477,
@@ -37969,7 +37997,7 @@
     "simapro_id": "7cfdfcf95b2e3f19e8326284b6bc1a18",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Largehead hairtail in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of Largehead hairtail in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.11314588597209477,
@@ -38053,7 +38081,7 @@
     "simapro_id": "f541e4a8515b70214cfbfd4290b243b6",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of John dory in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of John dory in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.11314588597209477,
@@ -38076,12 +38104,12 @@
     }
   },
   {
-    "name": "Caesar's salad (salad, chicken, cro\u00fbtons, sauce), at plant",
+    "name": "Caesar's salad (salad, chicken, croûtons, sauce), at plant",
     "unit": "kilogram",
     "simapro_id": "130bb483395b03080033a60dc2ed7d6e",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Recipes"],
-    "comment": "The CIQUAL food item 'Caesar's salad (salad, chicken, cro\u00fbtons, sauce)' matches with a recipe from a retailer.",
+    "comment": "The CIQUAL food item 'Caesar's salad (salad, chicken, croûtons, sauce)' matches with a recipe from a retailer.",
     "category": "ingredient",
     "impacts": {
       "acd": 0.037971672310821936,
@@ -38440,12 +38468,12 @@
     }
   },
   {
-    "name": "Potato salad, pi\u00e9montaise-style, prepacked, at plant",
+    "name": "Potato salad, piémontaise-style, prepacked, at plant",
     "unit": "kilogram",
     "simapro_id": "aa6bc1882082d504cff5a0550df870c0",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Recipes"],
-    "comment": "The CIQUAL food item 'Potato salad, pi\u00e9montaise-style, prepacked' matches with a recipe from ANSES.",
+    "comment": "The CIQUAL food item 'Potato salad, piémontaise-style, prepacked' matches with a recipe from ANSES.",
     "category": "ingredient",
     "impacts": {
       "acd": 0.04766069832489788,
@@ -39000,12 +39028,12 @@
     }
   },
   {
-    "name": "Sandwich made with French bread, p\u00e2t\u00e9 and pickles, at plant",
+    "name": "Sandwich made with French bread, pâté and pickles, at plant",
     "unit": "kilogram",
     "simapro_id": "02a7365177f0c31a5210dab763b39e66",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Recipes"],
-    "comment": "The CIQUAL food item 'Sandwich made with French bread, p\u00e2t\u00e9 and pickles' matches with a recipe from ANSES.",
+    "comment": "The CIQUAL food item 'Sandwich made with French bread, pâté and pickles' matches with a recipe from ANSES.",
     "category": "ingredient",
     "impacts": {
       "acd": 0.04058815380427396,
@@ -40657,7 +40685,7 @@
     "simapro_id": "543946ba8649bccee7f7af1f217ff4a8",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Salema in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of Salema in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.06889477771370682,
@@ -40741,7 +40769,7 @@
     "simapro_id": "4206d8d49119a540c52775f1fac77654",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Golden redfish in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of Golden redfish in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.11314588597209477,
@@ -40993,7 +41021,7 @@
     "simapro_id": "7b065d47677f38990f315e6557effd6c",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Tonguesole in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of Tonguesole in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.06889477771370682,
@@ -41049,7 +41077,7 @@
     "simapro_id": "132bfede2ab58ccb66d9544208e5b1f0",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Common sole in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of Common sole in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.06889477771370682,
@@ -41274,12 +41302,12 @@
     }
   },
   {
-    "name": "Cheese souffl\u00e9, at plant",
+    "name": "Cheese soufflé, at plant",
     "unit": "kilogram",
     "simapro_id": "91960c63511aff291e587c145d6fdad8",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Recipes"],
-    "comment": "The CIQUAL food item 'Cheese souffl\u00e9' matches with a recipe from ANSES.",
+    "comment": "The CIQUAL food item 'Cheese soufflé' matches with a recipe from ANSES.",
     "category": "ingredient",
     "impacts": {
       "acd": 0.040566883478955325,
@@ -42511,7 +42539,7 @@
     "simapro_id": "2e1fae654d92ae0e3495f0a6aed33e7a",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of European sprat in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of European sprat in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.013700576829697107,
@@ -42791,7 +42819,7 @@
     "simapro_id": "2d727d130cb6395f8e26305ef32f2283",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Pouting in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of Pouting in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.11314588597209477,
@@ -43911,7 +43939,7 @@
     "simapro_id": "abefa9738d7150cb8927dcb115996a7b",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Yellowfin tuna in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of Yellowfin tuna in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.06612044867362761,
@@ -43995,7 +44023,7 @@
     "simapro_id": "a0a871f5de144b038fb1349b1911527b",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Albacore in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of Albacore in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.14803003754650268,
@@ -44079,7 +44107,7 @@
     "simapro_id": "f774a688a622b4857ed1cb80d33d4e76",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Skipjack tuna in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of Skipjack tuna in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.06577898608455245,
@@ -44863,7 +44891,7 @@
     "simapro_id": "0998df2df5fad616235c24d9f62ff126",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Rainbow trout in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of Rainbow trout in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.018798218137256885,
@@ -44919,7 +44947,7 @@
     "simapro_id": "1aadab6082ba434c35a77ab4f2e8f794",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Sea trout in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of Sea trout in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.018798218137256885,
@@ -44975,7 +45003,7 @@
     "simapro_id": "c7a4692c9a3d0267adc9d2f0f4f153a2",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Trout in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of Trout in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.018798218137256885,
@@ -45059,7 +45087,7 @@
     "simapro_id": "7562b6e96ca0807b1fd5cca7d3fe8dd2",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Salmon trout in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of Salmon trout in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.018798218137256885,
@@ -45115,7 +45143,7 @@
     "simapro_id": "fde518b6e01fe36adbfafebe7d4c6d13",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Turbot in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of Turbot in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.0274758832581886,
@@ -45171,7 +45199,7 @@
     "simapro_id": "91d1db5b338fc9ef2918201c458d00a8",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Turbot in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of Turbot in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.11314588597209477,
@@ -45507,7 +45535,7 @@
     "simapro_id": "80d13631d99fc4224119b639145b457c",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": ["Agricultural", "Food", "Consumption mixes"],
-    "comment": "This process describes the average consumption mix of Snapper in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comit\u00e9 des p\u00eaches, Thomas Clo\u00e2tre, April 2019)",
+    "comment": "This process describes the average consumption mix of Snapper in France.Included activities are : production in country of origin and transport For all fish data are based on expert say.The share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)The mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Cloâtre, April 2019)",
     "category": "ingredient",
     "impacts": {
       "acd": 0.053566403990148906,
