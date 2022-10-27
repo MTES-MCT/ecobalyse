@@ -27,6 +27,7 @@ various other data like categories, code, unit...
 -}
 type alias Process =
     { name : ProcessName
+    , displayName : Maybe String
     , impacts : Impact.Impacts
     , unit : String
     , code : Code
@@ -125,6 +126,7 @@ decodeProcess : List Impact.Definition -> Decoder Process
 decodeProcess definitions =
     Decode.succeed Process
         |> Pipe.required "name" (Decode.map nameFromString Decode.string)
+        |> Pipe.optional "displayName" (Decode.maybe Decode.string) Nothing
         |> Pipe.required "impacts" (Impact.decodeImpacts definitions)
         |> Pipe.required "unit" decodeStringUnit
         |> Pipe.required "simapro_id" (Decode.map codeFromString Decode.string)
