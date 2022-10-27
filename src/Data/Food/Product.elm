@@ -16,8 +16,6 @@ module Data.Food.Product exposing
     , getStepTransports
     , getTotalImpact
     , getWeightAtPlant
-    , listIngredients
-    , listProcessingProcesses
     , nameFromString
     , nameToString
     , removeIngredient
@@ -39,7 +37,6 @@ import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
 import Json.Decode.Pipeline as Pipe
 import Length exposing (Length)
-import List.Extra as LE
 import Mass exposing (Mass)
 import Quantity
 
@@ -320,27 +317,6 @@ getWeightAtPlant items =
         |> List.map .amount
         |> List.map Amount.getMass
         |> Quantity.sum
-
-
-listProcesses : (Product -> Items) -> Products -> List Process
-listProcesses getStepItems products =
-    products
-        |> AnyDict.values
-        |> List.concatMap (getStepItems >> List.map .process)
-        |> LE.uniqueBy (.name >> Process.nameToString)
-        |> List.sortBy (.name >> Process.nameToString)
-
-
-listIngredients : Products -> List Process
-listIngredients =
-    -- List all the "material" entries from the "at plant" step
-    listProcesses (.plant >> filterItemByCategory Process.Material)
-
-
-listProcessingProcesses : Products -> List Process
-listProcessingProcesses =
-    -- List all the "processing" entries from the "at plant" step
-    listProcesses (.plant >> filterItemByCategory Process.Processing)
 
 
 addIngredient : Process -> Mass -> Product -> Product

@@ -7,7 +7,6 @@ port module Server exposing
 import Data.Country as Country exposing (Country)
 import Data.Food.Db as FoodDb
 import Data.Food.Process as FoodProcess
-import Data.Food.Product as FoodProduct
 import Data.Food.Recipe as Recipe
 import Data.Impact as Impact exposing (Impacts)
 import Data.Textile.Db as TextileDb
@@ -154,14 +153,14 @@ handleRequest ({ foodDb, textileDb } as dbs) request =
                 |> sendResponse 200 request
 
         Just (Route.Get Route.FoodIngredientList) ->
-            foodDb.products
-                |> FoodProduct.listIngredients
+            foodDb.processes
+                |> List.filter (.category >> (==) FoodProcess.Ingredient)
                 |> encodeFoodProcessList
                 |> sendResponse 200 request
 
         Just (Route.Get Route.FoodTransformList) ->
-            foodDb.products
-                |> FoodProduct.listProcessingProcesses
+            foodDb.processes
+                |> List.filter (.category >> (==) FoodProcess.Transform)
                 |> encodeFoodProcessList
                 |> sendResponse 200 request
 
