@@ -430,49 +430,6 @@ processSelectorView kind selectedCode event =
             ]
 
 
-transformView : FoodDb.Db -> Maybe SelectedProcess -> Recipe -> List (Html Msg)
-transformView foodDb selectedProcess recipe =
-    [ div [ class "card-header" ] [ h5 [ class "mb-0" ] [ text "Transformation" ] ]
-    , case recipe.transform of
-        Just { process, mass } ->
-            ul [ class "list-group list-group-flush border-top-0" ]
-                [ rowTemplate
-                    (MassInput.view
-                        { mass = mass
-                        , onChange = UpdateTransformMass
-                        , disabled = False
-                        }
-                    )
-                    (text <| Process.nameToString process.name)
-                    (button
-                        [ type_ "button"
-                        , class "btn btn-outline-primary no-outline"
-                        , title "Supprimer"
-                        , onClick ResetTransform
-                        ]
-                        [ Icon.trash ]
-                    )
-                ]
-
-        Nothing ->
-            addProcessFormView
-                { category = Process.Transform
-                , defaultMass = Mass.grams 0
-                , excluded = List.map (.process >> .code) recipe.ingredients
-                , foodDb = foodDb
-                , kind = "une transformation"
-                , noOp = NoOp
-                , select = SelectTransform
-                , selectedProcess = selectedProcess
-                , submit = SetTransform
-                }
-    , div [ class "card-body d-flex align-items-center gap-1 text-muted py-2" ]
-        [ Icon.info
-        , small [] [ text "Entrez la masse totale mobilisée par le procédé de transformation sélectionné" ]
-        ]
-    ]
-
-
 sidebarView : FoodDb.Db -> Model -> Impacts -> Html Msg
 sidebarView foodDb model impacts =
     let
@@ -537,6 +494,49 @@ stepListView foodDb { selectedIngredient, selectedTransform } recipe =
             , div [ class "card-body" ] [ text "TODO" ]
             ]
         ]
+
+
+transformView : FoodDb.Db -> Maybe SelectedProcess -> Recipe -> List (Html Msg)
+transformView foodDb selectedProcess recipe =
+    [ div [ class "card-header" ] [ h5 [ class "mb-0" ] [ text "Transformation" ] ]
+    , case recipe.transform of
+        Just { process, mass } ->
+            ul [ class "list-group list-group-flush border-top-0" ]
+                [ rowTemplate
+                    (MassInput.view
+                        { mass = mass
+                        , onChange = UpdateTransformMass
+                        , disabled = False
+                        }
+                    )
+                    (text <| Process.nameToString process.name)
+                    (button
+                        [ type_ "button"
+                        , class "btn btn-outline-primary no-outline"
+                        , title "Supprimer"
+                        , onClick ResetTransform
+                        ]
+                        [ Icon.trash ]
+                    )
+                ]
+
+        Nothing ->
+            addProcessFormView
+                { category = Process.Transform
+                , defaultMass = Recipe.sumMasses recipe.ingredients
+                , excluded = List.map (.process >> .code) recipe.ingredients
+                , foodDb = foodDb
+                , kind = "une transformation"
+                , noOp = NoOp
+                , select = SelectTransform
+                , selectedProcess = selectedProcess
+                , submit = SetTransform
+                }
+    , div [ class "card-body d-flex align-items-center gap-1 text-muted py-2" ]
+        [ Icon.info
+        , small [] [ text "Entrez la masse totale mobilisée par le procédé de transformation sélectionné" ]
+        ]
+    ]
 
 
 view : Session -> Model -> ( String, List (Html Msg) )
