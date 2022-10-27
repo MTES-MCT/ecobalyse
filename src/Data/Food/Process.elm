@@ -33,6 +33,8 @@ type alias Process =
     , category : Category
     , systemDescription : String
     , categoryTags : List String
+    , comment : Maybe String
+    , alias : Maybe String
     }
 
 
@@ -40,7 +42,9 @@ type Category
     = Energy
     | Ingredient
     | Material
+    | Packaging
     | Processing
+    | Transformation
     | Transport
     | WasteTreatment
 
@@ -72,8 +76,14 @@ categoryFromString string =
         "material" ->
             Ok Material
 
+        "packaging" ->
+            Ok Packaging
+
         "processing" ->
             Ok Processing
+
+        "transformation" ->
+            Ok Transformation
 
         "transport" ->
             Ok Transport
@@ -83,24 +93,6 @@ categoryFromString string =
 
         _ ->
             Err <| "Catégorie de procédé invalide: " ++ string
-
-
-
--- categoryToString : Category -> String
--- categoryToString category =
---     case category of
---         Energy ->
---             "energy"
---         Ingredient ->
---             "ingredient"
---         Material ->
---             "material"
---         Processing ->
---             "processing"
---         Transport ->
---             "transport"
---         WasteTreatment ->
---             "waste treatment"
 
 
 codeFromString : String -> Code
@@ -139,18 +131,13 @@ decodeProcess definitions =
         |> Pipe.required "category" decodeCategory
         |> Pipe.required "system_description" Decode.string
         |> Pipe.required "category_tags" (Decode.list Decode.string)
+        |> Pipe.optional "comment" (Decode.maybe Decode.string) Nothing
+        |> Pipe.optional "alias" (Decode.maybe Decode.string) Nothing
 
 
 decodeList : List Impact.Definition -> Decoder (List Process)
 decodeList definitions =
     Decode.list (decodeProcess definitions)
-
-
-
--- NOTE: this may be useful eventually
--- excludeByCategory : Category -> List Process -> List Process
--- excludeByCategory category =
---     List.filter (.category >> (/=) category)
 
 
 findByCode : List Process -> Code -> Result String Process
