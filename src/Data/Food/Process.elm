@@ -46,7 +46,7 @@ type Category
     | Material
     | Packaging
     | Processing
-    | Transformation
+    | Transform
     | Transport
     | WasteTreatment
 
@@ -85,7 +85,7 @@ categoryFromString string =
             Ok Processing
 
         "transformation" ->
-            Ok Transformation
+            Ok Transform
 
         "transport" ->
             Ok Transport

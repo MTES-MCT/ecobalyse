@@ -1,9 +1,9 @@
 module Data.Food.Recipe exposing
     ( IngredientQuery
     , PlantOptions
-    , ProcessingQuery
     , Query
     , Recipe
+    , TransformQuery
     , addIngredient
     , compute
     , deleteIngredient
@@ -41,8 +41,7 @@ type alias IngredientQuery =
     }
 
 
-type alias ProcessingQuery =
-    -- FIXME: rename to TransformQuery
+type alias TransformQuery =
     { code : Process.Code
     , mass : Mass
     }
@@ -50,7 +49,7 @@ type alias ProcessingQuery =
 
 type alias Query =
     { ingredients : List IngredientQuery
-    , processing : Maybe ProcessingQuery
+    , transform : Maybe TransformQuery
     , plant : PlantOptions
     }
 
@@ -62,7 +61,7 @@ type alias PlantOptions =
 empty : Query
 empty =
     { ingredients = []
-    , processing = Nothing
+    , transform = Nothing
     , plant = { country = Nothing }
     }
 
@@ -107,7 +106,7 @@ tunaPizza =
           , labels = []
           }
         ]
-    , processing =
+    , transform =
         Just
             { -- Cooking, industrial, 1kg of cooked product/ FR U
               code = Process.codeFromString "aded2490573207ec7ad5a3813978f6a4"
@@ -131,7 +130,7 @@ type alias Ingredient =
     }
 
 
-type alias Processing =
+type alias Transform =
     { process : Process.Process
     , mass : Mass
     }
@@ -139,7 +138,7 @@ type alias Processing =
 
 type alias Recipe =
     { ingredients : List Ingredient
-    , processing : Maybe Processing
+    , transform : Maybe Transform
     , plant : PlantOptions
     }
 
@@ -166,7 +165,7 @@ fromQuery : FoodDb.Db -> Query -> Result String Recipe
 fromQuery foodDb query =
     Result.map3 Recipe
         (ingredientsFromQuery foodDb query)
-        (processingFromQuery foodDb query)
+        (transformFromQuery foodDb query)
         (Ok query.plant)
 
 
@@ -194,46 +193,45 @@ ingredientToQuery ingredient =
     }
 
 
-processingFromQuery : FoodDb.Db -> Query -> Result String (Maybe Processing)
-processingFromQuery { processes } query =
-    query.processing
-        |> Maybe.map
-            (\processing ->
-                Result.map2 Processing
-                    (Process.findByCode processes processing.code)
-                    (Ok processing.mass)
-                    |> Result.map Just
-            )
-        |> Maybe.withDefault (Ok Nothing)
-
-
-processingToQuery : Maybe Processing -> Maybe ProcessingQuery
-processingToQuery maybeProcessing =
-    maybeProcessing
-        |> Maybe.map
-            (\processing ->
-                { code = processing.process.code
-                , mass = processing.mass
-                }
-            )
-
-
 resetTransform : Query -> Query
 resetTransform query =
-    { query | processing = Nothing }
+    { query | transform = Nothing }
 
 
 setTransform : Mass -> Process.Code -> Query -> Query
 setTransform mass code query =
-    { query | processing = Just { code = code, mass = mass } }
+    { query | transform = Just { code = code, mass = mass } }
 
 
 toQuery : Recipe -> Query
 toQuery recipe =
     { ingredients = List.map ingredientToQuery recipe.ingredients
-    , processing = processingToQuery recipe.processing
+    , transform = transformToQuery recipe.transform
     , plant = recipe.plant
     }
+
+
+transformFromQuery : FoodDb.Db -> Query -> Result String (Maybe Transform)
+transformFromQuery { processes } query =
+    query.transform
+        |> Maybe.map
+            (\transform ->
+                Result.map2 Transform
+                    (Process.findByCode processes transform.code)
+                    (Ok transform.mass)
+                    |> Result.map Just
+            )
+        |> Maybe.withDefault (Ok Nothing)
+
+
+transformToQuery : Maybe Transform -> Maybe TransformQuery
+transformToQuery =
+    Maybe.map
+        (\transform ->
+            { code = transform.process.code
+            , mass = transform.mass
+            }
+        )
 
 
 updateIngredientMass : Mass -> Process.Code -> Query -> Query
@@ -255,8 +253,9 @@ updateIngredientMass mass code query =
 updateTransformMass : Mass -> Query -> Query
 updateTransformMass mass query =
     { query
-        | processing =
-            query.processing |> Maybe.map (\processing -> { processing | mass = mass })
+        | transform =
+            query.transform
+                |> Maybe.map (\transform -> { transform | mass = mass })
     }
 
 
@@ -268,7 +267,7 @@ encode : Query -> Encode.Value
 encode q =
     Encode.object
         [ ( "ingredients", Encode.list encodeIngredient q.ingredients )
-        , ( "processing", q.processing |> Maybe.map encodeProcessing |> Maybe.withDefault Encode.null )
+        , ( "transform", q.transform |> Maybe.map encodeTransform |> Maybe.withDefault Encode.null )
         , ( "plant", encodePlantOptions q.plant )
         ]
 
@@ -283,8 +282,8 @@ encodeIngredient i =
         ]
 
 
-encodeProcessing : ProcessingQuery -> Encode.Value
-encodeProcessing p =
+encodeTransform : TransformQuery -> Encode.Value
+encodeTransform p =
     Encode.object
         [ ( "code", p.code |> Process.codeToString |> Encode.string )
         , ( "mass", Encode.float (Mass.inKilograms p.mass) )
@@ -316,9 +315,9 @@ compute db query =
                         |> .ingredients
                         |> List.map computeIngredientImpacts
 
-                ingredientsImpactWithProcessingImpact : List Impacts
-                ingredientsImpactWithProcessingImpact =
-                    recipe.processing
+                ingredientsImpactWithTransformImpact : List Impacts
+                ingredientsImpactWithTransformImpact =
+                    recipe.transform
                         |> Maybe.map
                             (computeIngredientImpacts
                                 >> List.singleton
@@ -326,7 +325,7 @@ compute db query =
                             )
                         |> Maybe.withDefault ingredientsImpact
             in
-            ingredientsImpactWithProcessingImpact
+            ingredientsImpactWithTransformImpact
                 |> Impact.sumImpacts db.impacts
                 |> Ok
 

@@ -433,7 +433,7 @@ processSelectorView kind selectedCode event =
 processingView : FoodDb.Db -> Maybe SelectedProcess -> Recipe -> List (Html Msg)
 processingView foodDb selectedProcess recipe =
     [ div [ class "card-header" ] [ h5 [ class "mb-0" ] [ text "Transformation" ] ]
-    , case recipe.processing of
+    , case recipe.transform of
         Just { process, mass } ->
             ul [ class "list-group list-group-flush border-top-0" ]
                 [ rowTemplate
@@ -456,7 +456,7 @@ processingView foodDb selectedProcess recipe =
 
         Nothing ->
             addProcessFormView
-                { category = Process.Transformation
+                { category = Process.Transform
                 , defaultMass = Mass.grams 0
                 , excluded = List.map (.process >> .code) recipe.ingredients
                 , foodDb = foodDb

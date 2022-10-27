@@ -55,7 +55,7 @@ parseFoodQuery foodDb =
     -- succeed (Ok Recipe.tunaPizza)
     succeed (Ok Recipe.Query)
         |> apply (ingredientListParser "ingredients" foodDb.processes)
-        |> apply (maybeProcessingParser "processing" foodDb.processes)
+        |> apply (maybeTransformParser "transform" foodDb.processes)
         |> apply (plantOptionsParser "plant")
 
 
@@ -120,13 +120,13 @@ validateIngredientList list =
         Ok list
 
 
-maybeProcessingParser : String -> List FoodProcess.Process -> Parser (ParseResult (Maybe Recipe.ProcessingQuery))
-maybeProcessingParser key processings =
+maybeTransformParser : String -> List FoodProcess.Process -> Parser (ParseResult (Maybe Recipe.TransformQuery))
+maybeTransformParser key transforms =
     Query.string key
         |> Query.map
             (Maybe.map
                 (\str ->
-                    parseProcessing_ processings str
+                    parseTransform_ transforms str
                         |> Result.map Just
                         |> Result.mapError (\err -> ( key, err ))
                 )
@@ -134,12 +134,12 @@ maybeProcessingParser key processings =
             )
 
 
-parseProcessing_ : List FoodProcess.Process -> String -> Result String Recipe.ProcessingQuery
-parseProcessing_ processings string =
+parseTransform_ : List FoodProcess.Process -> String -> Result String Recipe.TransformQuery
+parseTransform_ transforms string =
     case String.split ";" string of
         [ code, mass ] ->
-            Ok Recipe.ProcessingQuery
-                |> RE.andMap (parseFoodProcessCode_ processings code)
+            Ok Recipe.TransformQuery
+                |> RE.andMap (parseFoodProcessCode_ transforms code)
                 |> RE.andMap (parseMass_ mass)
 
         [ "" ] ->
