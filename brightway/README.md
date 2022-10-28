@@ -56,14 +56,16 @@ Tout d'abord se placer dans le bon répertoire :
 
 Puis lancer le script d'export qui peut prendre plusieurs heures (!) :
 
-    $ python export.py
+    $ python export.py "../../../ecobalyse//public/data/impacts.json"
+    
+Il faut préciser le chemin vers le fichier [impacts.json](https://github.com/MTES-MCT/ecobalyse/blob/master/public/data/impacts.json) qui contient les coefficients de pondération et de normalisation du score PEF. 
 
 Il est possible d'utiliser l'option `--max` pour limiter le nombre de produits
 ciquals à exporter, et l'option `--no-impacts` pour ne pas calculer les impacts
 des procédés (ce qui exportera un fichier `processes-no-impacts.json` au lieu de
 `processes.json`) :
 
-    $ python export.py --max 1 --no-impacts # Beaucoup plus rapide, mais incomplet ;)
+    $ python export.py "../../../ecobalyse//public/data/impacts.json" --max 1 --no-impacts # Beaucoup plus rapide, mais incomplet ;)
 
 Optionnellement, lancer le script de vérification des différences d'impacts :
 
