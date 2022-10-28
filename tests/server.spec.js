@@ -4,25 +4,6 @@ const app = require("../server");
 
 const e2eOutput = { food: [], textile: [] };
 
-async function makeRequest(path, query = []) {
-  return await request(app).get(path).query(query.join("&"));
-}
-
-function expectFieldErrorMessage(response, field, message) {
-  expectStatus(response, 400);
-  expect("errors" in response.body).toEqual(true);
-  expect(field in response.body.errors).toEqual(true);
-  expect(response.body.errors[field]).toMatch(message);
-}
-
-function toComparable(impacts) {
-  return Object.keys(impacts)
-    .sort()
-    .map((trigram) => {
-      return { [trigram]: impacts[trigram] };
-    });
-}
-
 describe("Web", () => {
   it("should render the homepage", async () => {
     const response = await request(app).get("/");
@@ -54,10 +35,7 @@ describe("API", () => {
 
     describe("/countries", () => {
       it("should render with countries list", async () => {
-        const response = await request(app).get("/api/countries");
-
-        expectStatus(response, 200);
-        expect(response.body).toContainObject({ code: "FR", name: "France" });
+        await expectListResponseContains("/api/countries", { code: "FR", name: "France" });
       });
     });
   });
@@ -78,10 +56,7 @@ describe("API", () => {
       ];
     describe("/materials", () => {
       it("should render with materials list", async () => {
-        const response = await request(app).get("/api/materials");
-
-        expectStatus(response, 200);
-        expect(response.body).toContainObject({
+        await expectListResponseContains("/api/materials", {
           id: "coton",
           name: "Fil de coton conventionnel, inventaire partiellement agrégé",
         });
@@ -90,10 +65,7 @@ describe("API", () => {
 
     describe("/products", () => {
       it("should render with products list", async () => {
-        const response = await request(app).get("/api/products");
-
-        expectStatus(response, 200);
-        expect(response.body).toContainObject({ id: "tshirt", name: "T-shirt" });
+        await expectListResponseContains("/api/products", { id: "tshirt", name: "T-shirt" });
       });
     });
 
@@ -254,6 +226,78 @@ describe("API", () => {
   });
 
   describe("Food", () => {
+    describe("/food/ingredients", () => {
+      it("should render with ingredients list", async () => {
+        await expectListResponseContains("/api/food/ingredients", {
+          code: "7f20f2b7cc0440f6d1fa3add18e24151",
+          name: "Apricot, canned",
+        });
+      });
+    });
+
+    describe("/food/transforms", () => {
+      it("should render with transforms list", async () => {
+        await expectListResponseContains("/api/food/transforms", {
+          code: "aded2490573207ec7ad5a3813978f6a4",
+          name: "Cuisson",
+        });
+      });
+    });
+
+    describe("/food/recipe", () => {
+      it("should compute 17 impacts", async () => {
+        const response = await makeRequest("/api/food/recipe", [
+          "ingredients[]=2e3f03c6de1e43900e09ae852182e9c7;268",
+          "transform=aded2490573207ec7ad5a3813978f6a4;1050",
+        ]);
+
+        expectStatus(response, 200);
+        expect(Object.keys(response.body.impacts)).toHaveLength(17);
+      });
+
+      it("should validate the ingredient list length", async () => {
+        expectFieldErrorMessage(
+          await makeRequest("/api/food/recipe", []),
+          "ingredients",
+          /liste des ingrédients est vide/,
+        );
+      });
+
+      it("should validate an ingredient code", async () => {
+        expectFieldErrorMessage(
+          await makeRequest("/api/food/recipe", ["ingredients[]=invalid;268"]),
+          "ingredients",
+          /Procédé introuvable par code : invalid/,
+        );
+      });
+
+      it("should validate an ingredient mass", async () => {
+        expectFieldErrorMessage(
+          await makeRequest("/api/food/recipe", [
+            "ingredients[]=2e3f03c6de1e43900e09ae852182e9c7;0",
+          ]),
+          "ingredients",
+          /masse doit être supérieure à zéro/,
+        );
+      });
+
+      it("should validate transform code", async () => {
+        expectFieldErrorMessage(
+          await makeRequest("/api/food/recipe", ["transform=invalid;268"]),
+          "transform",
+          /Procédé introuvable par code : invalid/,
+        );
+      });
+
+      it("should validate a transform mass", async () => {
+        expectFieldErrorMessage(
+          await makeRequest("/api/food/recipe", ["transform=aded2490573207ec7ad5a3813978f6a4;0"]),
+          "transform",
+          /masse doit être supérieure à zéro/,
+        );
+      });
+    });
+
     describe("End to end food simulations", () => {
       const e2eFood = JSON.parse(fs.readFileSync(`${__dirname}/e2e-food.json`).toString());
 
@@ -285,6 +329,34 @@ afterAll(() => {
   writeE2eResult("textile");
   writeE2eResult("food");
 });
+
+// Test helpers
+
+async function makeRequest(path, query = []) {
+  return await request(app).get(path).query(query.join("&"));
+}
+
+function expectFieldErrorMessage(response, field, message) {
+  expectStatus(response, 400);
+  expect("errors" in response.body).toEqual(true);
+  expect(field in response.body.errors).toEqual(true);
+  expect(response.body.errors[field]).toMatch(message);
+}
+
+function toComparable(impacts) {
+  return Object.keys(impacts)
+    .sort()
+    .map((trigram) => {
+      return { [trigram]: impacts[trigram] };
+    });
+}
+
+async function expectListResponseContains(path, object) {
+  const response = await request(app).get(path);
+
+  expectStatus(response, 200);
+  expect(response.body).toContainObject(object);
+}
 
 function expectStatus(response, code, type = "application/json") {
   expect(response.type).toBe(type);
