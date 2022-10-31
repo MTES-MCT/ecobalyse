@@ -20,6 +20,7 @@ import Ports
 import RemoteData exposing (WebData)
 import Request.Gitbook exposing (getPage)
 import Route
+import Views.Alert as Alert
 import Views.Container as Container
 import Views.Icon as Icon
 import Views.Markdown as Markdown
@@ -28,19 +29,19 @@ import Views.Textile.Summary as SummaryView
 
 type alias Model =
     { content : WebData Gitbook.Page
-    , isIsntSectionIndex : Maybe Int
+    , openedSections : List String
     }
 
 
 type Msg
     = GitbookContentReceived (WebData Gitbook.Page)
-    | ToggleIsIsntIndex Int
+    | ToggleIsIsntTitle String
 
 
 init : Session -> ( Model, Session, Cmd Msg )
 init session =
     ( { content = RemoteData.Loading
-      , isIsntSectionIndex = Nothing
+      , openedSections = []
       }
     , session
     , Cmd.batch
@@ -56,14 +57,14 @@ update session msg model =
         GitbookContentReceived gitbookData ->
             ( { model | content = gitbookData }, session, Cmd.none )
 
-        ToggleIsIsntIndex index ->
+        ToggleIsIsntTitle index ->
             ( { model
-                | isIsntSectionIndex =
-                    if model.isIsntSectionIndex == Just index then
-                        Nothing
+                | openedSections =
+                    if List.member index model.openedSections then
+                        List.filter ((/=) index) model.openedSections
 
                     else
-                        Just index
+                        index :: model.openedSections
               }
             , session
             , Cmd.none
@@ -110,8 +111,8 @@ viewHero session =
         ]
 
 
-viewIsIsntColumn : Bool -> Maybe Int -> ( String, List ( String, String ) ) -> Html Msg
-viewIsIsntColumn positive isIsntSectionIndex ( title, sections ) =
+viewIsIsntColumn : Bool -> List String -> ( String, List ( String, String ) ) -> Html Msg
+viewIsIsntColumn positive openedSections ( title, sections ) =
     div [ class "mt-3" ]
         [ h2 [ class "h3 fw-light text-light text-center mb-3" ]
             [ span [ class "text-white me-1" ]
@@ -121,18 +122,18 @@ viewIsIsntColumn positive isIsntSectionIndex ( title, sections ) =
                   else
                     Icon.times
                 ]
-            , text title
+            , title |> String.replace "## " "" |> text
             ]
         , sections
-            |> List.indexedMap
-                (\index ( sectionTitle, markdown ) ->
+            |> List.map
+                (\( sectionTitle, markdown ) ->
                     div [ class "accordion-item" ]
                         [ h3 [ class "accordion-header" ]
                             [ button
                                 [ type_ "button"
                                 , class "AccordionButton accordion-button fw-bold py-0"
-                                , classList [ ( "collapsed", isIsntSectionIndex /= Just index ) ]
-                                , onClick (ToggleIsIsntIndex index)
+                                , onClick (ToggleIsIsntTitle sectionTitle)
+                                , classList [ ( "collapsed", True ) ]
                                 ]
                                 [ span [ class "d-flex align-items-start lh-base" ]
                                     [ if positive then
@@ -147,7 +148,7 @@ viewIsIsntColumn positive isIsntSectionIndex ( title, sections ) =
                         , markdown
                             |> Markdown.simple
                                 [ class "accordion-collapse collapse p-3"
-                                , classList [ ( "show", isIsntSectionIndex == Just index ) ]
+                                , classList [ ( "show", List.member sectionTitle openedSections ) ]
                                 ]
                         ]
                 )
@@ -155,29 +156,42 @@ viewIsIsntColumn positive isIsntSectionIndex ( title, sections ) =
         ]
 
 
-viewIsIsnt : Maybe Int -> Gitbook.IsIsnt -> Html Msg
-viewIsIsnt isIsntSectionIndex { is, isnt } =
+viewIsIsnt : List String -> Gitbook.IsIsnt -> Html Msg
+viewIsIsnt openedSections { is, isnt } =
     Container.full [ class "bg-info shadow pt-3 pb-5" ]
         [ Container.centered []
             [ div [ class "row" ]
-                [ div [ class "col-sm-6" ] [ viewIsIsntColumn True isIsntSectionIndex is ]
-                , div [ class "col-sm-6" ] [ viewIsIsntColumn False isIsntSectionIndex isnt ]
+                [ div [ class "col-sm-6" ] [ viewIsIsntColumn True openedSections is ]
+                , div [ class "col-sm-6" ] [ viewIsIsntColumn False openedSections isnt ]
                 ]
             ]
         ]
 
 
 view : Session -> Model -> ( String, List (Html Msg) )
-view session { content, isIsntSectionIndex } =
+view session { content, openedSections } =
     ( "Accueil"
     , [ div [ class "d-flex flex-column" ]
             [ viewHero session
             , content
                 |> RemoteData.map
-                    (.markdown
-                        >> Gitbook.parseIsIsnt
-                        >> Maybe.map (viewIsIsnt isIsntSectionIndex)
-                        >> Maybe.withDefault (text "")
+                    (\{ markdown } ->
+                        case Gitbook.parseIsIsnt markdown of
+                            Ok parsed ->
+                                viewIsIsnt openedSections parsed
+
+                            Err error ->
+                                Alert.simple
+                                    { level = Alert.Info
+                                    , close = Nothing
+                                    , title = Nothing
+                                    , content =
+                                        [ div [ class "d-flex justify-content-center align-items-center gap-1" ]
+                                            [ Icon.warning
+                                            , text error
+                                            ]
+                                        ]
+                                    }
                     )
                 |> RemoteData.withDefault (text "")
             ]

@@ -131,7 +131,6 @@ fromMarkdown path markdown =
 
         final =
             blocks
-                |> List.map String.trim
                 |> List.filter (\block -> not (String.startsWith "---\n" block && String.endsWith "---" block))
                 |> List.filter (\block -> title /= Just block)
                 |> String.join "\n\n"
@@ -220,7 +219,7 @@ type alias IsIsnt =
     }
 
 
-parseIsIsnt : String -> Maybe IsIsnt
+parseIsIsnt : String -> Result String IsIsnt
 parseIsIsnt markdown =
     let
         splitMap delim fn =
@@ -232,14 +231,20 @@ parseIsIsnt markdown =
         toIsIsnt list =
             case list of
                 [ is, isnt ] ->
-                    Just { is = is, isnt = isnt }
+                    Ok { is = is, isnt = isnt }
 
                 _ ->
-                    Nothing
+                    Err "Impossible de parser les informations édotoriales de la page d'acceuil."
     in
     markdown
         |> String.split "\n## "
-        |> List.drop 1
+        |> (\blocks ->
+                if (blocks |> List.head |> Maybe.map (\s -> String.startsWith "## " s)) == Just True then
+                    blocks
+
+                else
+                    List.drop 1 blocks
+           )
         |> List.filterMap
             (splitMap "\n### "
                 (\( title, mdrest ) ->

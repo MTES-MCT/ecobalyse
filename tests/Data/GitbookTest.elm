@@ -31,7 +31,14 @@ suite =
             [ let
                 sampleMarkdown =
                     String.join "\n\n"
-                        [ "# title"
+                        [ String.join "\n"
+                            [ "---"
+                            , "description: >-"
+                            , "  Accélérer la mise en place de l'affichage environnemental autour d'un"
+                            , "  calculateur pédagogique et collaboratif."
+                            , "---"
+                            ]
+                        , "# title"
                         , "stuff"
                         , "## is"
                         , "### isitem1"
@@ -47,7 +54,7 @@ suite =
               in
               Gitbook.parseIsIsnt sampleMarkdown
                 |> Expect.equal
-                    (Just
+                    (Ok
                         { is =
                             ( "is"
                             , [ ( "isitem1", "desc_is_item1" )
