@@ -71,14 +71,6 @@ frame config ( title, content ) =
             text ""
         , main_ [ class "bg-white" ]
             [ notificationListView config
-            , div [ class "alert alert-info py-1 rounded-0" ]
-                [ Container.centered
-                    [ class "text-center" ]
-                    [ span [ class "me-1" ] [ Icon.info ]
-                    , text "Wikicarbone change de nom et devient "
-                    , Link.external [ href Env.betagouvUrl ] [ text "Ecobalyse" ]
-                    ]
-                ]
             , div [ class "pt-2 pt-sm-5" ] content
             ]
         , pageFooter config.session
