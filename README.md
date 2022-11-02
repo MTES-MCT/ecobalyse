@@ -12,11 +12,9 @@ description: >-
 
 Ecobalyse permet d’estimer rapidement les impacts environnementaux d’un produit à partir de quelques critères simples : poids, composition, lieu d'assemblage, etc.
 
-Deux secteurs sont actuellement couverts par Ecobalyse : le Textile et l'Alimentaire. Concernant le Textile, l'outil est testé dans le cadre de l’[expérimentation Xtex](https://agirpourlatransition.ademe.fr/entreprises/aides-financieres/20210920/xtex2021-191) par plusieurs entreprises et fédérations professionnelles.&#x20;
+Deux secteurs sont actuellement couverts : le Textile et l'Alimentaire. L'ouverture à de nouveaux secteurs est envisagée.&#x20;
 
 Le positionnement d'Ecobalyse correspond à l’approche semi-spécifique proposée par le conseil scientifique sur l’alimentation (plus d'info [ici](https://expertises.ademe.fr/economie-circulaire/consommer-autrement/passer-a-laction/reconnaitre-produit-plus-respectueux-lenvironnement/dossier/laffichage-environnemental/affichage-environnemental-secteur-alimentaire-experimentation-20202021)).
-
-Le calculateur est encore en construction.&#x20;
 
 ### Un commun numérique
 
@@ -27,41 +25,37 @@ Ce positionnement a une double vocation :&#x20;
 * rendre accessible les bases de l'évaluation environnementale au plus grand nombre,
 * catalyser les débats techniques entre acteurs spécialisés afin de proposer des référentiels communs.
 
-Les entreprises souhaitant aller plus loin que le niveau 1 d'évaluation proposé par Ecobalyse pourront se tourner vers les acteurs spécialisés (bureaux d'étude, startup de type _ClimateTech_, cabinets de conseil spécialisés, etc.).&#x20;
+Les entreprises souhaitant aller plus loin pourront se tourner vers les acteurs spécialisés (bureaux d'étude, startup, conseils spécialisés, etc.).&#x20;
 
 ### Un outil **pédagogique**
 
-En décomposant les étapes du cycle de vie et en affichant immédiatement l’impact calculé en fonction du paramétrage, Ecobalyse doit aider des utilisateurs non experts à appréhender les méthodes de référence sur lesquelles l’outil s’appuie (PEFCR Apparel & Footwear, socle technique ADEME, etc.).
+En décomposant chaque étape du cycle de vie et l’impact calculé en fonction du paramétrage, Ecobalyse facilite l'appréhension des méthodes de référence (PEFCR Apparel & Footwear, socle technique ADEME, etc.).
 
 Le soin apporté à la [documentation](https://fabrique-numerique.gitbook.io/wikicarbone/) et à l’[explorateur](https://wikicarbone.beta.gouv.fr/#/explore) doit en outre permettre d’expliciter et de partager les orientations prises dans le but de simplifier les calculs.
 
 ### Un outil **collaboratif**
 
-Simplifier le calcul nécessite de faire des choix : quels paramètres doivent rester modifiables ? quels paramètres doivent être fixés par défaut ? comment ?
+Simplifier le calcul nécessite de faire des choix (valeurs par défaut, catégorisation des produits, etc.). Plus largement, la mise en place du dispositif d’affichage environnemental suscite de nombreux débats qui peuvent être éclairés par un outil pédagogique.
 
-Plus largement, la mise en place de l’affichage environnemental suscite de nombreux débats qui peuvent être éclairés par un outil pédagogique.
-
-L’ambition d'Ecobalyse est d’impliquer un maximum d’experts, de marques et d’industries dans le débat.&#x20;
-
-Les experts portent les analyses de cycle de vie en entreprise, les marques connaissent leurs produits, les industriels maîtrisent les procédés et matières, etc. Toutes ces connaissances sont utiles, et nécessaires, pour construire et enrichir l’outil.
+Ecobalyse permet de rassembler différents acteurs (marques, experts ACV, industriels, etc.) sur des enjeux partagés. Différentes initiatives sont mises en place afin de faciliter ces échanges (ateliers thématiques, rubrique _Contribuer_ sur le site, mails, participation à des groupes de travail sectoriels, etc.).&#x20;
 
 ## Ce que n’est pas Ecobalyse
 
-### Un **bureau d’études** qui accompagnerait les entreprises pour leurs calculs d’impacts
+### Un **bureau d’études** qui accompagnerait les entreprises
 
-Faire des calculs est une chose. Accompagner les entreprises qui mettent sur le marché les produits en est une autre : identifier les bons paramètres, s’intégrer dans un système d’information, proposer des calculs plus précis, des axes d’amélioration…
+Faire des calculs est une chose. Accompagner les entreprises qui mettent sur le marché les produits en est une autre.&#x20;
 
 Ecobalyse n'a pas vocation à concurrencer les spécialistes de l'évaluation environnementale produit. Son positionnement vis-à-vis de ces acteurs est d'accompagner leurs démarches grâce à :&#x20;
 
 * la mise à disposition de valeurs de référence,
 * un [accès en API au calculateur](https://wikicarbone.beta.gouv.fr/#/api),
-* une collaboration sur des sujets spécifiques (ateliers thématiques, enrichissement de la base de données, modification de paramètres, intégration de nouvelles catégories de produits, etc.)&#x20;
+* une collaboration sur des sujets spécifiques (enrichissement de la base de données, modification de paramètres, etc.)&#x20;
 
-### Un **concurrent des méthodologies de référence** : PEFCR AF et socle technique ADEME
+### Un **concurrent des méthodologies de référence**
 
 Ecobalyse s’appuie au maximum sur les méthodes de référence : PEFCR Apparel & Footwear, socle technique ADEME.
 
-Si des choix méthodologiques doivent être faits, c’est toujours en complément du cadre de référence et dans le but de faciliter les calculs. Par exemple, un choix de mix chaleur est attaché par défaut à chaque pays, afin que l’utilisateur n’ait pas à rechercher cette information au moment du calcul.&#x20;
+Si des choix méthodologiques doivent être faits, c’est toujours en complément du cadre de référence et dans le but de faciliter les calculs.&#x20;
 
 Tous ces choix sont explicités dans la [documentation](https://fabrique-numerique.gitbook.io/wikicarbone/) et sur l’[explorateur](https://wikicarbone.beta.gouv.fr/#/explore).
 
@@ -69,6 +63,6 @@ Tous ces choix sont explicités dans la [documentation](https://fabrique-numeriq
 
 Ecobalyse n’a pas pour objectif d’informer directement le grand public.
 
-En revanche, l’outil est au service de tous ceux qui cherchent à informer le grand public : entreprises, startups et applications web, associations, journalistes…
+En revanche, l’outil est au service de tous ceux qui cherchent à informer le grand public : entreprises, startups, associations, journalistes…
 
 La [documentation](https://fabrique-numerique.gitbook.io/wikicarbone/) et l’[accès API](https://wikicarbone.beta.gouv.fr/#/api) peuvent par exemple être mobilisés par les entreprises qui constituent des catalogues de produits dont elles évaluent l’impact pour le présenter aux consommateurs.

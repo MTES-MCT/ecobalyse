@@ -25,18 +25,15 @@ Non applicable
 
 _En l’absence de données suffisamment précises dans la Base Impacts, l’étape de Pré-traitement n’est pas paramétrable dans le calculateur. La mise en place d’une nouvelle base de données permettra de répondre à cette limite._&#x20;
 
-_NB : Un procédé de “désencollage” est inclus par défaut dans les procédés Teinture/Impression._
-
 </details>
 
 <details>
 
 <summary>Teinture / Impression</summary>
 
-* Support de teinture : sur Fil, Tissu, Article
-* Procédé d'impression : fixé-lavé, pigmentaire
-* Pays\
-  _Impacte les procédés d'arrière plan suivants : mix électrique, mix chaleur, efficacité du traitement des eaux usées_
+* Support de teinture (sur fil, tissu, article)
+* Procédé d'impression (fixé-lavé, pigmentaire
+* Pays
 * Quantité d'énergie consommée (électricité et chaleur)
 
 Prochainement disponibles :&#x20;
@@ -62,12 +59,12 @@ Prochainement disponibles :&#x20;
 
 L'étape Ennoblissement est modélisée comme suit :&#x20;
 
-|                                                                                                                  Teinture / Impression                                                                                                                  |                                                                                                                                   Finition                                                                                                                                  |
-| :-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-|    ![Procédés Teinture](https://lh5.googleusercontent.com/jqLuWcT2QKxQbN-RCWaoRzgUVpRxDJMb6QLzsbnhNG9xh7ksarvEbYH0lhw2GBkGVDYm6jaRa-iItg2GxagVaqbQKcfrZgcj45tM2Q-spgIw7BQd5F8xHE8Y66df6YS1FKgq8NS6ZbGJJuGyE3wrGIrqThW6BVuMiVN1ALSdvbNlIvGCb2iM9JSATg)   | ![Procédés Finition (apprêts chimiques)](https://lh6.googleusercontent.com/OMLBrxTzLifDKI8-yBAht3NcDsMbGZzbAQvti-D33Pp\_\_vKa\_b6bKWed8P7FqoH7ZqbbPTXu1SmpIfWUQZUurSI6u6sRLKbdNpBaFnUODDx\_1RcuA\_W6znyWPgQmJ1zXW-mADTxdeKX9PWBsuy0KisNRSMbaQABm5G4mY-rd-gE1PHtMKuObW0Ha4A) |
-| ![Procédés Impression](https://lh6.googleusercontent.com/WFXgakkV04JekfM2Cn-vkgOLU2QJv7m96A\_8SLg\_DWYqx8ko7cblFcaNafhUgBvH4brkdVZ2lksYJbixn8Lx74VBwqObrmHx5iPT3sWc4Otg2jgHeRnAma71VWeuPN96VKC2ufIYsghG80M7eiWRxOZPDQ3GCFOVf3Df-s8cUSqo\_NGYnqWsmYsrNQ) |                                                                                                                                                                                                                                                                             |
+|                                                                                                                                                  Teinture / Impression                                                                                                                                                 |                                                                                                                                                                 Finition                                                                                                                                                                |
+| :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+|   <p><em>procédé de teinture</em></p><p><em></em><img src="https://lh5.googleusercontent.com/jqLuWcT2QKxQbN-RCWaoRzgUVpRxDJMb6QLzsbnhNG9xh7ksarvEbYH0lhw2GBkGVDYm6jaRa-iItg2GxagVaqbQKcfrZgcj45tM2Q-spgIw7BQd5F8xHE8Y66df6YS1FKgq8NS6ZbGJJuGyE3wrGIrqThW6BVuMiVN1ALSdvbNlIvGCb2iM9JSATg" alt="Procédés Teinture"></p>  | <p><em>procédé de finition</em></p><p><em></em><img src="https://lh6.googleusercontent.com/OMLBrxTzLifDKI8-yBAht3NcDsMbGZzbAQvti-D33Pp__vKa_b6bKWed8P7FqoH7ZqbbPTXu1SmpIfWUQZUurSI6u6sRLKbdNpBaFnUODDx_1RcuA_W6znyWPgQmJ1zXW-mADTxdeKX9PWBsuy0KisNRSMbaQABm5G4mY-rd-gE1PHtMKuObW0Ha4A" alt="Procédés Finition (apprêts chimiques)"></p> |
+| <p><em>prodédé d'impression</em></p><p><em></em><img src="https://lh6.googleusercontent.com/WFXgakkV04JekfM2Cn-vkgOLU2QJv7m96A_8SLg_DWYqx8ko7cblFcaNafhUgBvH4brkdVZ2lksYJbixn8Lx74VBwqObrmHx5iPT3sWc4Otg2jgHeRnAma71VWeuPN96VKC2ufIYsghG80M7eiWRxOZPDQ3GCFOVf3Df-s8cUSqo_NGYnqWsmYsrNQ" alt="Procédés Impression"></p> |                                                                                                                                                                                                                                                                                                                                         |
 
-L'impact global de l'étape Ennoblissement se comprend donc comme résultant de la somme des impacts résultant des :&#x20;
+L'impact global de l'Ennoblissement se comprend donc comme résultant de la somme des impacts des :&#x20;
 
 * procédé retenus \
   (cf. intérieur du _system boundaries_)
@@ -91,8 +88,6 @@ Plus de détail sur la gestion des masses : [Pertes et rebut](pertes-et-rebus.md
 Non applicable
 
 _En l’absence de données suffisamment précises dans la Base Impacts, l’étape de Pré-traitement n’est pas paramétrable dans le calculateur. La mise en place d’une nouvelle base de données permettra de répondre à cette limite._&#x20;
-
-_NB : Un procédé de “désencollage” est inclus par défaut dans les procédés Teinture/Impression._
 
 </details>
 
@@ -136,8 +131,10 @@ Un procédé de teinture est appliqué par défaut selon la catégorie du produi
 |       Article       |                                                                                                         | <p>électricité : 2,56 kWh<br>chaleur : 39,28 MJ</p> |
 
 {% hint style="warning" %}
-Après une série d'interviews auprès d'industriels et experts de l'ennoblissement, nous avons constaté que la consommation d'énergie n'est pas maîtrisée par les industriels aujourd'hui. Nous ne permettons donc pas de modifier la quantité d'énergie.\
-\
+Après une série d'interviews auprès d'industriels et experts de l'ennoblissement, nous avons constaté que la consommation d'énergie n'est pas un paramètre maîtrisé par les industriels aujourd'hui.&#x20;
+
+Nous ne permettons donc pas de modifier la quantité d'énergie.
+
 Les quantités d'énergie par défaut proviennent de la Base Impacts.&#x20;
 {% endhint %}
 
@@ -159,8 +156,6 @@ Par défaut, la mise en place d'un apprêt chimique moyen est proposé dans Ecob
 
 L'ajout d'apprêt(s) mécanique(s) est aussi possible; ces procédés consomment une quantité d'énergie très faible par rapport aux apprêts chimiques. &#x20;
 
-
-
 **Focus sur la consommation d'énergie des procédés**
 
 _"Procédé : chaleur (MJ) & électricité (kWh)"_
@@ -179,7 +174,7 @@ Apprêt mécanique min : 0 MJ & 0,03 kW
 
 #### Type de fibre <=> Consommation d'énergie&#x20;
 
-La quantité d'énergie consommée par le procédé de teinture (teinture sur fil / tissu / article) est pondérée selon le type de fibre.&#x20;
+La quantité d'énergie nécessaire pour actionner le procédé de teinture est pondérée selon le type de fibre.&#x20;
 
 | Fibre             | Matières                                                                                                                      |           Energie consommée          |
 | ----------------- | ----------------------------------------------------------------------------------------------------------------------------- | :----------------------------------: |
@@ -193,10 +188,9 @@ Suite à différents travaux thématiques (interviews d'experts, revue bibliogra
 
 Par exemple, la teinture des mélanges prend toujours plus de temps et est une opération plus difficile que la teinture de fibres pures.
 
-Nous proposons en première approche une classification des fibres teintes et un niveau de consommation d'énergie.
+Nous proposons en première approche une classification des fibres teintes et une pondération de la consommation d'énergie.
 
-\
-:bulb: Vous souhaitez partager votre expertise sur ce sujet ? Rdv dans la rubrique Contribuer.&#x20;
+:bulb: N'hésitez pas à nous partager votre retour d'expérience sur ce sujet.&#x20;
 {% endhint %}
 
 #### Type de fibre <=> Procédé de teinture (en cours)
