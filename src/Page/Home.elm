@@ -14,7 +14,6 @@ import Data.Textile.Simulator as Simulator
 import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Html.Events exposing (..)
 import Page.Textile.Simulator.ViewMode as ViewMode
 import Ports
 import RemoteData exposing (WebData)
@@ -29,19 +28,16 @@ import Views.Textile.Summary as SummaryView
 
 type alias Model =
     { content : WebData Gitbook.Page
-    , openedSections : List String
     }
 
 
 type Msg
     = GitbookContentReceived (WebData Gitbook.Page)
-    | ToggleIsIsntTitle String
 
 
 init : Session -> ( Model, Session, Cmd Msg )
 init session =
     ( { content = RemoteData.Loading
-      , openedSections = []
       }
     , session
     , Cmd.batch
@@ -56,19 +52,6 @@ update session msg model =
     case msg of
         GitbookContentReceived gitbookData ->
             ( { model | content = gitbookData }, session, Cmd.none )
-
-        ToggleIsIsntTitle index ->
-            ( { model
-                | openedSections =
-                    if List.member index model.openedSections then
-                        List.filter ((/=) index) model.openedSections
-
-                    else
-                        index :: model.openedSections
-              }
-            , session
-            , Cmd.none
-            )
 
 
 viewHero : Session -> Html Msg
@@ -111,10 +94,10 @@ viewHero session =
         ]
 
 
-viewIsIsntColumn : Bool -> List String -> ( String, List ( String, String ) ) -> Html Msg
-viewIsIsntColumn positive openedSections ( title, sections ) =
-    div [ class "mt-3" ]
-        [ h2 [ class "h3 fw-light text-light text-center mb-3" ]
+viewIsIsntColumn : Bool -> ( String, List ( String, String ) ) -> Html Msg
+viewIsIsntColumn positive ( title, sections ) =
+    div [ class "d-flex flex-column gap-3 mt-1" ]
+        [ h2 [ class "h3 fw-light text-light text-center" ]
             [ span [ class "text-white me-1" ]
                 [ if positive then
                     Icon.check
@@ -127,49 +110,40 @@ viewIsIsntColumn positive openedSections ( title, sections ) =
         , sections
             |> List.map
                 (\( sectionTitle, markdown ) ->
-                    div [ class "accordion-item" ]
-                        [ h3 [ class "accordion-header" ]
-                            [ button
-                                [ type_ "button"
-                                , class "AccordionButton accordion-button fw-bold py-0"
-                                , onClick (ToggleIsIsntTitle sectionTitle)
-                                , classList [ ( "collapsed", True ) ]
-                                ]
-                                [ span [ class "d-flex align-items-start lh-base" ]
-                                    [ if positive then
-                                        span [ class "text-success me-1" ] [ Icon.check ]
+                    div [ class "card" ]
+                        [ div [ class "card-body" ]
+                            [ h3 [ class "h5 d-flex gap-2" ]
+                                [ if positive then
+                                    span [ class "text-success" ] [ Icon.check ]
 
-                                      else
-                                        span [ class "text-danger me-1" ] [ Icon.times ]
-                                    , Markdown.simple [ class "fw-normal inline-paragraphs" ] sectionTitle
-                                    ]
+                                  else
+                                    span [ class "text-danger" ] [ Icon.times ]
+                                , sectionTitle
+                                    |> Markdown.simple [ class "fw-normal inline-paragraphs" ]
                                 ]
+                            , markdown
+                                |> Markdown.simple []
                             ]
-                        , markdown
-                            |> Markdown.simple
-                                [ class "accordion-collapse collapse p-3"
-                                , classList [ ( "show", List.member sectionTitle openedSections ) ]
-                                ]
                         ]
                 )
-            |> div [ class "accordion" ]
+            |> div [ class "d-flex flex-column gap-3" ]
         ]
 
 
-viewIsIsnt : List String -> Gitbook.IsIsnt -> Html Msg
-viewIsIsnt openedSections { is, isnt } =
+viewIsIsnt : Gitbook.IsIsnt -> Html Msg
+viewIsIsnt { is, isnt } =
     Container.full [ class "bg-info shadow pt-3 pb-5" ]
         [ Container.centered []
             [ div [ class "row" ]
-                [ div [ class "col-sm-6" ] [ viewIsIsntColumn True openedSections is ]
-                , div [ class "col-sm-6" ] [ viewIsIsntColumn False openedSections isnt ]
+                [ div [ class "col-sm-6" ] [ viewIsIsntColumn True is ]
+                , div [ class "col-sm-6" ] [ viewIsIsntColumn False isnt ]
                 ]
             ]
         ]
 
 
 view : Session -> Model -> ( String, List (Html Msg) )
-view session { content, openedSections } =
+view session { content } =
     ( "Accueil"
     , [ div [ class "d-flex flex-column" ]
             [ viewHero session
@@ -178,7 +152,7 @@ view session { content, openedSections } =
                     (\{ markdown } ->
                         case Gitbook.parseIsIsnt markdown of
                             Ok parsed ->
-                                viewIsIsnt openedSections parsed
+                                viewIsIsnt parsed
 
                             Err error ->
                                 Alert.simple
