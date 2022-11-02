@@ -1,121 +1,214 @@
----
-description: Blanchiment puis imprégnation du tissu par des colorants.
----
+# 🌈 Etape 3 - Ennoblissement
 
-# 🌈 Etape 3 - Teinture
+## Description
 
-## Schéma
+L’ennoblissement consiste à donner aux tissus l'aspect visuel et les propriétés physiques et esthétiques exigées par les consommateurs. Il peut s'agir d'opérations mécaniques ou chimiques.
 
-Conformément à la documentation sectorielle textile de la [base Impacts](http://www.base-impacts.ademe.fr), le système "teinture" est schématisé comme suit :
+L’étape d’ennoblissement se décompose en 3 sous-étapes :&#x20;
 
-![Teinture - Schéma de synthèse](../.gitbook/assets/Teinture.png)
+* Pré-traitement = Traitement et nettoyage du tissu\
+  (les procédés de pré-traitement des fibres sont rattachés à la filature)&#x20;
+* Teinture et Impression = Application de colorants&#x20;
+* Finition = Application d’apprêts
 
-Par conséquent, l'impact global de l'étape de teinture se comprend comme résultant de la somme de l'impact résultant du procédé de teinture retenu (cf. intérieur du _system boundaries_) et des procédés externes devant être ajoutés, à savoir :
+Une description détaillée de ces sous-étapes est proposée en bas de page.
 
-| Flux externe | UUID du flux                           | Unité |
-| ------------ | -------------------------------------- | ----- |
-| Chaleur      | `32045a18-e8a3-4068-9078-d17c72cea73d` | MJ    |
-| Electricité  | `de442ef0-d725-4c3a-a5e2-b29f51a1186c` | MJ    |
+## Modélisation Ecobalyse
 
-La formule suivante s'applique donc :
+### Paramètres mobilisés
+
+<details>
+
+<summary>Pré-traitement</summary>
+
+Non applicable
+
+_En l’absence de données suffisamment précises dans la Base Impacts, l’étape de Pré-traitement n’est pas paramétrable dans le calculateur. La mise en place d’une nouvelle base de données permettra de répondre à cette limite._&#x20;
+
+_NB : Un procédé de “désencollage” est inclus par défaut dans les procédés Teinture/Impression._
+
+</details>
+
+<details>
+
+<summary>Teinture / Impression</summary>
+
+* Support de teinture : sur Fil, Tissu, Article
+* Procédé d'impression : fixé-lavé, pigmentaire
+* Pays\
+  _Impacte les procédés d'arrière plan suivants : mix électrique, mix chaleur, efficacité du traitement des eaux usées_
+* Quantité d'énergie consommée (électricité et chaleur)
+
+Prochainement disponibles :&#x20;
+
+* Procédé de teinture : discontinu, continu
+* Colorants de teinture : dispersés, acides, réactifs, cationiques, de cuve&#x20;
+* Source de chaleur (gaz naturel, fuel, etc.)
+
+</details>
+
+<details>
+
+<summary>Finition</summary>
+
+* Type(s) d'apprêt(s) (anti-acarien, déperlant, etc.)
+* Pays\
+  _Impacte les procédés d'arrière plan suivants : mix électrique, mix chaleur, efficacité du traitement des eaux usées_
+* Quantité d'énergie consommée (électricité et chaleur)
+
+</details>
+
+### Méthodologie de calcul
+
+L'étape Ennoblissement est modélisée comme suit :&#x20;
+
+|                                                                                                                  Teinture / Impression                                                                                                                  |                                                                                                                                   Finition                                                                                                                                  |
+| :-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+|    ![Procédés Teinture](https://lh5.googleusercontent.com/jqLuWcT2QKxQbN-RCWaoRzgUVpRxDJMb6QLzsbnhNG9xh7ksarvEbYH0lhw2GBkGVDYm6jaRa-iItg2GxagVaqbQKcfrZgcj45tM2Q-spgIw7BQd5F8xHE8Y66df6YS1FKgq8NS6ZbGJJuGyE3wrGIrqThW6BVuMiVN1ALSdvbNlIvGCb2iM9JSATg)   | ![Procédés Finition (apprêts chimiques)](https://lh6.googleusercontent.com/OMLBrxTzLifDKI8-yBAht3NcDsMbGZzbAQvti-D33Pp\_\_vKa\_b6bKWed8P7FqoH7ZqbbPTXu1SmpIfWUQZUurSI6u6sRLKbdNpBaFnUODDx\_1RcuA\_W6znyWPgQmJ1zXW-mADTxdeKX9PWBsuy0KisNRSMbaQABm5G4mY-rd-gE1PHtMKuObW0Ha4A) |
+| ![Procédés Impression](https://lh6.googleusercontent.com/WFXgakkV04JekfM2Cn-vkgOLU2QJv7m96A\_8SLg\_DWYqx8ko7cblFcaNafhUgBvH4brkdVZ2lksYJbixn8Lx74VBwqObrmHx5iPT3sWc4Otg2jgHeRnAma71VWeuPN96VKC2ufIYsghG80M7eiWRxOZPDQ3GCFOVf3Df-s8cUSqo\_NGYnqWsmYsrNQ) |                                                                                                                                                                                                                                                                             |
+
+L'impact global de l'étape Ennoblissement se comprend donc comme résultant de la somme des impacts résultant des :&#x20;
+
+* procédé retenus \
+  (cf. intérieur du _system boundaries_)
+* flux externes devant être ajoutés à chaque procédé \
+  ([chaleur](chaleur.md) et/ou [électricité](electricite.md))
+
+L'impact de chaque procédé pris séparement correspond au produit de la masse "sortante" avec le coefficient d'impact considéré (cf. [Impacts considérés](impacts-consideres.md)).
 
 $$
-ImpactTeinture = ImpactProcédéTeinture + ImpactChaleur + ImpactElec
+ImpactProcédé = MasseSortante(kg) * CoefImpactProcédé
 $$
-
-## Procédé de teinture
-
-L'impact du procédé de teinture retenu est le produit de la masse "sortante" avec le coefficient d'impact considéré (cf. [Impacts considérés](impacts-consideres.md)).
-
-$$
-ImpactProcédéTeinture = MasseSortante(kg) * CoefImpactProcédéTeinture
-$$
-
-Suivant le pays dans lequel la teinture est réalisée, un choix de procédé par défaut est réalisé.
-
-{% hint style="warning" %}
-**Ce choix de procédé relève d'une orientation spécifique à l'outil et devant être confrontée aux pratiques effectivement observées dans l'industrie**.
-{% endhint %}
-
-Les principes à appliquer pour opéré ces choix sont introduit dans la page suivante : [Hypothèses par défaut](hypotheses-par-defaut.md)
-
-| Pays       | Support de teinture | Positionnement | Traitement des eaux | UUID                                   |
-| ---------- | ------------------- | -------------- | ------------------- | -------------------------------------- |
-| Bangladesh | étoffe              | majorant       | inefficace          | `cf001531-5f2d-48b1-b30a-4a17466a8b30` |
-| Chine      | étoffe              | majorant       | inefficace          | `cf001531-5f2d-48b1-b30a-4a17466a8b30` |
-| Espagne    | étoffe              | représentatif  | très efficace       | `fb4bea16-7ce1-43e2-9e03-462250214988` |
-| France     | étoffe              | représentatif  | très efficace       | `fb4bea16-7ce1-43e2-9e03-462250214988` |
-| Inde       | étoffe              | majorant       | inefficace          | `cf001531-5f2d-48b1-b30a-4a17466a8b30` |
-| Portugal   | étoffe              | représentatif  | très efficace       | `fb4bea16-7ce1-43e2-9e03-462250214988` |
-| Tunisie    | étoffe              | majorant       | inefficace          | `cf001531-5f2d-48b1-b30a-4a17466a8b30` |
-| Turquie    | étoffe              | majorant       | inefficace          | `cf001531-5f2d-48b1-b30a-4a17466a8b30` |
-
-**Support de teinture** : alternativement, des teintures sur fil ou sur article pourraient être modélisées
-
-**Positionnement** : le choix de positionnement, majorant ou représentatif est très impactant, notamment pour les impacts en matière de changement climatique. L'efficacité du traitement de l'eau est par ailleurs très impactante sur l'eutrophisation eau douce. Afin que la sensibilité de ces paramètres puisse être appréciée, il est proposé de moduler le caractère représentatif ou majorant du procédé de teinture, ainsi que l'efficacité du traitement des eaux usées, retenus en déplaçant le curseur de sélection entre ces deux situations extrêmes. Dans ce cas, l'impact du procédé de teinture résulte d'une pondération entre les impacts potentiels de ces deux procédés :
-
-* procédé représentatif / traitement très efficace des eaux usées dans le cas le plus favorable (curseur à gauche)
-* procédé majorant / traitement inefficace des eaux usées dans le cas le plus défavorable (curseur à droite)
-
-{% hint style="info" %}
-Curseur ajustable permettant d'ajuster le caractère majorant du procédé de teinture retenu
-{% endhint %}
-
-Si le curseur de sélection est utilisé, avec `a` le pourcentage (%) traduisant le caractère majorant retenu (`100%` pour un procédé complètement majorant/inefficace et `0%` pour un procédé complètement représentatif/efficace) :
-
-$$
-ImpactTeinture = a * ImpactProcédéMajorantInefficace + (1-a) * ImpactProcédéReprésentatifEfficace
-$$
-
-## Pertes et rebut
-
-Les différents procédés de teinture ne prévoyant pas de perte (Flux intermédiaire - Textile Waste - UUID: `1cc67763-7318-4077-af4a-bcd0ab5ef33f`), les masses de produit en entrée et en sortie du procédé sont identiques.
 
 Plus de détail sur la gestion des masses : [Pertes et rebut](pertes-et-rebus.md).
 
-## Chaleur
+### Procédés disponibles
 
-La quantité de chaleur à mobiliser pour actionner le procédé de teinture est le produit de la masse "sortante", par exemple la masse d'étoffe en sortie de tissage-tricotage, avec le coefficient du flux intermédiaire correspondant à la chaleur (`32045a18-e8a3-4068-9078-d17c72cea73d`).
+<details>
 
-Elle s'exprime en MJ.
+<summary>Pré-traitement (0 procédé)</summary>
 
-$$
-ChaleurConsommée(MJ) = MasseSortante(kg) * CoefFluxChaleurProcédéTeinture
-$$
+Non applicable
 
-Le calcul d'impact de la chaleur ainsi mobilisée est détaillé dans la page [Chaleur](chaleur.md).
+_En l’absence de données suffisamment précises dans la Base Impacts, l’étape de Pré-traitement n’est pas paramétrable dans le calculateur. La mise en place d’une nouvelle base de données permettra de répondre à cette limite._&#x20;
 
-$$
-ImpactChaleur = ChaleurConsommée (MJ) * ImpactProcédéChaleur
-$$
+_NB : Un procédé de “désencollage” est inclus par défaut dans les procédés Teinture/Impression._
 
-## Electricité
+</details>
 
-La quantité d'électricité à mobiliser pour actionner le procédé de teinture est le produit de la masse "sortante", par exemple la masse d'étoffe en sortie de tissage-tricotage, avec le coefficient du flux intermédiaire correspondant à l'électricité (`de442ef0-d725-4c3a-a5e2-b29f51a1186c`).
+<details>
 
-Elle s'exprime en MJ dans la table des flux intermédiaires attachés au procédé de teinture.
+<summary>Teinture / Finition (5 procédés)</summary>
 
-$$
-ElecConsommée(MJ) = MasseSortante(kg) * CoefFluxElecProcédéTeinture
-$$
+* teinture sur fil, procédé représentatif
+* teinture sur tissu, procédé représentatif
+* teinture sur article, procédé représentatif
+* impression pigmentaire, procédé représentatif
+* impression fixé-lavé, procédé représentatif
 
-Le calcul d'impact de l'électricité ainsi mobilisée est détaillé dans la page suivante : [Electricité](electricite.md).
+</details>
 
-{% hint style="danger" %}
-L'électricité s'exprime en KWh dans la formule ci-dessous. Une division par 3,6 est donc nécessaire pour assurer le changement d'unité par rapport à l'électricité consommée, calculée d'abord en MJ.
+<details>
+
+<summary>Finition (8 procédés)</summary>
+
+* apprêt chimique moyen, procédé représentatif (par défaut)
+* apprêt chimique anti-acarien, procédé représentatif
+* apprêt chimique anti-bactérien, procédé représentatif
+* apprêt chimique anti-tache, procédé représentatif
+* apprêt chimique déperlant, procédé représentatif
+* apprêt chimique retardateur de flamme, procédé représentatif&#x20;
+* apprêt mécanique grattage, procédé représentatif
+* apprêt mécanique rasage, procédé représentatif
+
+</details>
+
+### Hypothèses par défaut
+
+#### Support de teinture <=> Vêtement
+
+Un procédé de teinture est appliqué par défaut selon la catégorie du produit modélisé (jean, jupe, t-shirt, etc.).
+
+| Support de teinture |                                                Catégorie                                                |                  Energie consommée                  |
+| :-----------------: | :-----------------------------------------------------------------------------------------------------: | :-------------------------------------------------: |
+|         Fil         |                                                   jean                                                  | <p>électricité : 2,82 kWh<br>chaleur : 33,42 MJ</p> |
+|        Tissu        | cape, châle, chemisier, débardeur, écharpe,  gilet, jupe, manteau, pantalon, pull, robe, t-shirt, veste | <p>électricité : 1,99 kWh<br>chaleur : 25,87 MJ</p> |
+|       Article       |                                                                                                         | <p>électricité : 2,56 kWh<br>chaleur : 39,28 MJ</p> |
+
+{% hint style="warning" %}
+Après une série d'interviews auprès d'industriels et experts de l'ennoblissement, nous avons constaté que la consommation d'énergie n'est pas maîtrisée par les industriels aujourd'hui. Nous ne permettons donc pas de modifier la quantité d'énergie.\
+\
+Les quantités d'énergie par défaut proviennent de la Base Impacts.&#x20;
 {% endhint %}
 
-$$
-ImpactElec = ElecConsommée (KWh) * ImpactProcédéElec
-$$
+#### Finition (apprêts chimiques et mécaniques)
+
+Un procédé moyen d'apprêt chimique est appliqué par défaut à chaque produit modélisé. &#x20;
+
+Dans la majorité des cas, tous les agents d'apprêt chimiques nécessaires pour donner à la matière textile les propriétés souhaitées sont appliqués en un seul bain plutôt qu'au cours de phases différentes.&#x20;
+
+<details>
+
+<summary>Plus d'info</summary>
+
+Comme expliqué précédemment, si plusieurs apprêts chimiques sont utilisés, la consommation d’énergie pour actionner le procédé ne varie pas. De plus et pour rappel, l’écotoxicité aquatique et la consommation d’eau ne sont pas modélisables actuellement dans le calculateur. Ainsi, appliquer un ou plusieurs procédés chimiques n'a que peu d'impact sur les résultats.
+
+De plus, deux procédés mécaniques sont proposés dans le calculateur. Ces procédés sont différents de ceux mécaniques et consomment une très faible quantité d'énergie.
+
+Par défaut, la mise en place d'un apprêt chimique moyen est proposé dans Ecobalyse (_Apprêt chimique moyen, procédé représentatif_). L'utilisateur a la possibilité de sélectionner un ou plusieurs apprêt(s) chimique(s) spécifique(s); dès lors la consommation d'énergie retenue sera celle du procédé le plus énergivore.&#x20;
+
+L'ajout d'apprêt(s) mécanique(s) est aussi possible; ces procédés consomment une quantité d'énergie très faible par rapport aux apprêts chimiques. &#x20;
+
+
+
+**Focus sur la consommation d'énergie des procédés**
+
+_"Procédé : chaleur (MJ) & électricité (kWh)"_
+
+Apprêt chimique moyen : 12,78 MJ & 0,59 kWh
+
+Apprêt chimique max : 20,95 MJ & 1,17 kWh
+
+Apprêt chimique min : 10,74 MJ & 0,45 kWh
+
+Apprêt mécanique max : 0 MJ & 0,03 kWh
+
+Apprêt mécanique min : 0 MJ & 0,03 kW
+
+</details>
+
+#### Type de fibre <=> Consommation d'énergie&#x20;
+
+La quantité d'énergie consommée par le procédé de teinture (teinture sur fil / tissu / article) est pondérée selon le type de fibre.&#x20;
+
+| Fibre             | Matières                                                                                                                      |           Energie consommée          |
+| ----------------- | ----------------------------------------------------------------------------------------------------------------------------- | :----------------------------------: |
+| cellulosique      | cotton, flax, chanvre, jute, lyocell, modal, viscose                                                                          | <p>Valeur par défaut</p><p>(Ref)</p> |
+| synthétique       | Acrylic, Nylon, Polyester, Polylactic Acid (PLA), Polypropylene (PP), Polytrimethylene terephthalate (PTT), Polyurethane (PU) |               Ref -25%               |
+| naturelle (autre) | Acetate Triacetate, Alpaca, Laine                                                                                             |               Ref +25%               |
+| mix               | Non applicable                                                                                                                |               Ref +50%               |
+
+{% hint style="warning" %}
+Suite à différents travaux thématiques (interviews d'experts, revue bibliographique, analyse de sensibilité), nous avons constaté que le type de fibre (mélange de fibres, laine, polyester, etc.) sur lequel est appliqué la teinture a une influence directe sur la quantité d'énergie consommée.&#x20;
+
+Par exemple, la teinture des mélanges prend toujours plus de temps et est une opération plus difficile que la teinture de fibres pures.
+
+Nous proposons en première approche une classification des fibres teintes et un niveau de consommation d'énergie.
+
+\
+:bulb: Vous souhaitez partager votre expertise sur ce sujet ? Rdv dans la rubrique Contribuer.&#x20;
+{% endhint %}
+
+#### Type de fibre <=> Procédé de teinture (en cours)
+
+Il n’est pas encore possible de différencier les procédés de teinture (continu vs discontinu) ni les colorants (dispersés, acides, réactifs, cationiques, de cuve) utilisés.
+
+Cela s’explique en partie par le manque de profondeur de la base de données utilisée (Base Impacts).
+
+Ces paramétrages seront prochainement disponibles sur le calculateur.
 
 ## Limites
 
-Dans un premier temps, seule la teinture est prise en compte dans le simulateur.
-
-Il conviendrait, d'intégrer progressivement les différents traitements qui peuvent relever de l'ennoblissement, ou de la finalisation du vêtement :
-
-* apprêts chimiques
-* apprêts mécaniques
-* enduction
-* impression
+* Les indicateurs "Consommations d'eau" et "Ecotoxicité aquatique" ne sont pas modélisés
+* Les principaux pocédés de Pré-Traitement de tissus ne sont pas encore disponibles
+* Les principaux procédés (continu vs discontinu) et colorants de teinture ne sont pas encore disponibles

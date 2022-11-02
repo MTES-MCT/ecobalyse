@@ -54,8 +54,8 @@ Faire des calculs est une chose. Accompagner les entreprises qui mettent sur le 
 Ecobalyse n'a pas vocation à concurrencer les spécialistes de l'évaluation environnementale produit. Son positionnement vis-à-vis de ces acteurs est d'accompagner leurs démarches grâce à :&#x20;
 
 * la mise à disposition de valeurs de référence,
-* un [accès en API au calculateur](https://wikicarbone.beta.gouv.fr/#/api) (non encore stabilisé),
-* des échanges constructifs sur des sujets spécifiques (enrichissement de la base de données, modification de paramètres, intégration de nouvelles catégories de produits, etc.)&#x20;
+* un [accès en API au calculateur](https://wikicarbone.beta.gouv.fr/#/api),
+* une collaboration sur des sujets spécifiques (ateliers thématiques, enrichissement de la base de données, modification de paramètres, intégration de nouvelles catégories de produits, etc.)&#x20;
 
 ### Un **concurrent des méthodologies de référence** : PEFCR AF et socle technique ADEME
 
@@ -71,4 +71,4 @@ Ecobalyse n’a pas pour objectif d’informer directement le grand public.
 
 En revanche, l’outil est au service de tous ceux qui cherchent à informer le grand public : entreprises, startups et applications web, associations, journalistes…
 
-La [documentation](https://fabrique-numerique.gitbook.io/wikicarbone/) et l’[accès API](https://wikicarbone.beta.gouv.fr/#/api) (non encore stabilisé) peuvent par exemple être mobilisés par les entreprises qui constituent des catalogues de produits dont elles évaluent l’impact pour le présenter aux consommateurs.
+La [documentation](https://fabrique-numerique.gitbook.io/wikicarbone/) et l’[accès API](https://wikicarbone.beta.gouv.fr/#/api) peuvent par exemple être mobilisés par les entreprises qui constituent des catalogues de produits dont elles évaluent l’impact pour le présenter aux consommateurs.
