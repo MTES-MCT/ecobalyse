@@ -322,36 +322,23 @@ serialize query =
 
 
 compute : FoodDb.Db -> Query -> Result String Impacts
-compute db query =
-    case fromQuery db query of
-        Ok recipe ->
-            let
-                ingredientsImpact : List Impacts
-                ingredientsImpact =
-                    recipe
-                        |> .ingredients
-                        |> List.map computeIngredientImpacts
-
-                ingredientsImpactWithTransformImpact : List Impacts
-                ingredientsImpactWithTransformImpact =
-                    recipe.transform
-                        |> Maybe.map
-                            (computeIngredientImpacts
-                                >> List.singleton
-                                >> (++) ingredientsImpact
-                            )
-                        |> Maybe.withDefault ingredientsImpact
-            in
-            ingredientsImpactWithTransformImpact
-                |> Impact.sumImpacts db.impacts
-                |> Ok
-
-        Err error ->
-            Err error
+compute db =
+    fromQuery db
+        >> Result.map
+            (\recipe ->
+                recipe.ingredients
+                    |> List.map computeProcessImpacts
+                    |> (::)
+                        (recipe.transform
+                            |> Maybe.map computeProcessImpacts
+                            |> Maybe.withDefault Impact.noImpacts
+                        )
+                    |> Impact.sumImpacts db.impacts
+            )
 
 
-computeIngredientImpacts : { a | process : Process, mass : Mass } -> Impacts
-computeIngredientImpacts item =
+computeProcessImpacts : { a | process : Process, mass : Mass } -> Impacts
+computeProcessImpacts item =
     let
         computeImpact : Mass -> Impact.Trigram -> Unit.Impact -> Unit.Impact
         computeImpact mass _ impact =
