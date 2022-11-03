@@ -479,15 +479,15 @@ menuView query =
 processSelectorView : String -> Maybe Process.Code -> (Maybe Process.Code -> msg) -> List Process -> Html msg
 processSelectorView kind selectedCode event =
     List.map
-        (\{ code, name } ->
+        (\process ->
             let
                 label =
-                    Process.nameToString name
+                    Process.getDisplayName process
             in
             ( label
             , option
-                [ selected <| selectedCode == Just code
-                , value <| Process.codeToString code
+                [ selected <| selectedCode == Just process.code
+                , value <| Process.codeToString process.code
                 ]
                 [ text label ]
             )
