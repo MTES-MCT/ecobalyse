@@ -121,7 +121,7 @@ _En l’absence de données suffisamment précises dans la Base Impacts, l’ét
 
 Un procédé de teinture est appliqué par défaut selon la catégorie du produit modélisé (jean, jupe, t-shirt, etc.).
 
-| Support de teinture |                                                Catégorie                                                |                  Energie consommée                  |
+| Support de teinture |                                                Catégorie                                                |      Energie consommée par kg de produit teint      |
 | :-----------------: | :-----------------------------------------------------------------------------------------------------: | :-------------------------------------------------: |
 |         Fil         |                                                   jean                                                  | <p>électricité : 2,82 kWh<br>chaleur : 33,42 MJ</p> |
 |        Tissu        | cape, châle, chemisier, débardeur, écharpe,  gilet, jupe, manteau, pantalon, pull, robe, t-shirt, veste | <p>électricité : 1,99 kWh<br>chaleur : 25,87 MJ</p> |
