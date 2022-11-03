@@ -252,7 +252,7 @@ describe("API", () => {
         ]);
 
         expectStatus(response, 200);
-        expect(Object.keys(response.body.impacts)).toHaveLength(17);
+        expect(Object.keys(response.body.results.impacts)).toHaveLength(17);
       });
 
       it("should validate the ingredient list length", async () => {
@@ -310,7 +310,7 @@ describe("API", () => {
             query,
             impacts: response.body.impacts,
           });
-          expect(toComparable(response.body.impacts)).toEqual(toComparable(impacts));
+          expect(toComparable(response.body.results.impacts)).toEqual(toComparable(impacts));
         });
       }
     });

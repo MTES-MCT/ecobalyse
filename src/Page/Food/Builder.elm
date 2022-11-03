@@ -9,7 +9,7 @@ module Page.Food.Builder exposing
 import Data.Food.Db as FoodDb
 import Data.Food.Process as Process exposing (Process)
 import Data.Food.Recipe as Recipe exposing (Recipe)
-import Data.Impact as Impact exposing (Impacts)
+import Data.Impact as Impact
 import Data.Session exposing (Session)
 import Data.Unit as Unit
 import Html exposing (..)
@@ -316,7 +316,7 @@ debugQueryView foodDb query =
             , div [ class "col-5" ]
                 [ query
                     |> Recipe.compute foodDb
-                    |> Result.map (Impact.encodeImpacts >> Encode.encode 2)
+                    |> Result.map (Recipe.encodeResults >> Encode.encode 2)
                     |> Result.withDefault "Error serializing the impacts"
                     |> debugView
                 ]
@@ -434,8 +434,8 @@ mainView foodDb model =
     div [ class "row gap-3 gap-lg-0" ]
         [ div [ class "col-lg-4 order-lg-2 d-flex flex-column gap-3" ]
             [ case Recipe.compute foodDb model.query of
-                Ok impacts ->
-                    sidebarView foodDb model impacts
+                Ok results ->
+                    sidebarView foodDb model results
 
                 Err error ->
                     errorView error
@@ -516,8 +516,8 @@ processSelectorView kind selectedCode event =
             ]
 
 
-sidebarView : FoodDb.Db -> Model -> Impacts -> Html Msg
-sidebarView foodDb model impacts =
+sidebarView : FoodDb.Db -> Model -> Recipe.Results -> Html Msg
+sidebarView foodDb model { impacts } =
     let
         definition =
             foodDb.impacts
