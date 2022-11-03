@@ -272,7 +272,7 @@ addProcessFormView { category, defaultMass, excluded, foodDb, kind, noOp, select
             )
             (foodDb.processes
                 |> Process.listByCategory category
-                |> List.sortBy (.name >> Process.nameToString)
+                |> List.sortBy Process.getDisplayName
                 |> List.filter (\{ code } -> not (List.member code excluded))
                 |> processSelectorView kind
                     (Maybe.map .code selectedProcess)
@@ -290,7 +290,7 @@ addProcessFormView { category, defaultMass, excluded, foodDb, kind, noOp, select
             )
             (button
                 [ type_ "submit"
-                , class "btn btn-primary no-outline"
+                , class "btn btn-sm btn-primary no-outline"
                 , title <| "Ajouter " ++ kind
                 , disabled <| selectedProcess == Nothing
                 ]
@@ -346,7 +346,7 @@ rowTemplate input content action =
 ingredientListView : FoodDb.Db -> Maybe SelectedProcess -> Recipe -> List (Html Msg)
 ingredientListView foodDb selectedProcess recipe =
     [ div [ class "card-header" ]
-        [ h5 [ class "mb-0" ] [ text "Ingrédients" ]
+        [ h6 [ class "mb-0" ] [ text "Ingrédients" ]
 
         -- TODO: render sub step impacts
         ]
@@ -365,10 +365,10 @@ ingredientListView foodDb selectedProcess recipe =
                                 , disabled = False
                                 }
                             )
-                            (text <| Process.nameToString process.name)
+                            (small [] [ text <| Process.getDisplayName process ])
                             (button
                                 [ type_ "button"
-                                , class "btn btn-outline-primary no-outline"
+                                , class "btn btn-sm btn-outline-primary no-outline"
                                 , title "Supprimer"
                                 , onClick (DeleteIngredient process.code)
                                 ]
@@ -393,7 +393,7 @@ ingredientListView foodDb selectedProcess recipe =
 packagingListView : FoodDb.Db -> Maybe SelectedProcess -> Recipe -> List (Html Msg)
 packagingListView foodDb selectedProcess recipe =
     [ div [ class "card-header" ]
-        [ h5 [ class "mb-0" ] [ text "Emballage" ]
+        [ h6 [ class "mb-0" ] [ text "Emballage" ]
 
         -- TODO: render sub step impacts
         ]
@@ -412,10 +412,10 @@ packagingListView foodDb selectedProcess recipe =
                                 , disabled = False
                                 }
                             )
-                            (text <| Process.nameToString process.name)
+                            (small [] [ text <| Process.getDisplayName process ])
                             (button
                                 [ type_ "button"
-                                , class "btn btn-outline-primary no-outline"
+                                , class "btn btn-sm btn-outline-primary no-outline"
                                 , title "Supprimer"
                                 , onClick (DeletePackaging process.code)
                                 ]
@@ -510,7 +510,7 @@ processSelectorView kind selectedCode event =
         -- We use Html.Keyed because when we add an item, we filter it out from the select box,
         -- which desynchronizes the DOM state and the virtual dom state
         >> Keyed.node "select"
-            [ class "form-select"
+            [ class "form-select form-select-sm"
             , onInput
                 (\str ->
                     event
@@ -582,7 +582,7 @@ stepListView foodDb { selectedIngredient, selectedPackaging, selectedTransform }
     div [ class "d-flex flex-column gap-3" ]
         [ div [ class "card" ]
             (div [ class "card-header" ]
-                [ h4 [ class "mb-0" ] [ text "Recette" ]
+                [ h5 [ class "mb-0" ] [ text "Recette" ]
                 ]
                 :: List.concat
                     [ ingredientListView foodDb selectedIngredient recipe
@@ -591,7 +591,7 @@ stepListView foodDb { selectedIngredient, selectedPackaging, selectedTransform }
             )
         , div [ class "card" ]
             (div [ class "card-header" ]
-                [ h4 [ class "mb-0" ] [ text "Conditionnement" ]
+                [ h5 [ class "mb-0" ] [ text "Conditionnement" ]
                 ]
                 :: packagingListView foodDb selectedPackaging recipe
             )
@@ -601,7 +601,7 @@ stepListView foodDb { selectedIngredient, selectedPackaging, selectedTransform }
 transformView : FoodDb.Db -> Maybe SelectedProcess -> Recipe -> List (Html Msg)
 transformView foodDb selectedProcess recipe =
     [ div [ class "card-header" ]
-        [ h5 [ class "mb-0" ] [ text "Transformation" ]
+        [ h6 [ class "mb-0" ] [ text "Transformation" ]
 
         -- TODO: render sub step impacts
         ]
@@ -615,10 +615,10 @@ transformView foodDb selectedProcess recipe =
                         , disabled = False
                         }
                     )
-                    (text <| Process.nameToString process.name)
+                    (small [] [ text <| Process.getDisplayName process ])
                     (button
                         [ type_ "button"
-                        , class "btn btn-outline-primary no-outline"
+                        , class "btn btn-sm btn-outline-primary no-outline"
                         , title "Supprimer"
                         , onClick ResetTransform
                         ]
