@@ -600,6 +600,11 @@ blockquote {
   }
 }
 
+.MassInputWrapper {
+  min-width: 75px;
+  max-width: 116px;
+}
+
 .Simulator {
   @media screen and (max-width: $viewport-sm) {
     margin-top: 190px;
