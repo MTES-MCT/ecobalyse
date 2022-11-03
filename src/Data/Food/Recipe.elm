@@ -7,8 +7,10 @@ module Data.Food.Recipe exposing
     , Recipe
     , TransformQuery
     , addIngredient
+    , addPackaging
     , compute
     , deleteIngredient
+    , deletePackaging
     , empty
     , encode
     , fromQuery
@@ -19,6 +21,7 @@ module Data.Food.Recipe exposing
     , toQuery
     , tunaPizza
     , updateIngredientMass
+    , updatePackagingMass
     , updateTransformMass
     )
 
@@ -183,6 +186,14 @@ addIngredient mass code query =
         |> updateTransformMass (sumMasses newIngredients)
 
 
+addPackaging : Mass -> Process.Code -> Query -> Query
+addPackaging mass code query =
+    { query
+        | packaging =
+            { code = code, mass = mass } :: query.packaging
+    }
+
+
 deleteIngredient : Process.Code -> Query -> Query
 deleteIngredient code query =
     let
@@ -192,6 +203,15 @@ deleteIngredient code query =
     in
     { query | ingredients = newIngredients }
         |> updateTransformMass (sumMasses newIngredients)
+
+
+deletePackaging : Process.Code -> Query -> Query
+deletePackaging code query =
+    { query
+        | packaging =
+            query.packaging
+                |> List.filter (.code >> (/=) code)
+    }
 
 
 fromQuery : FoodDb.Db -> Query -> Result String Recipe
@@ -310,6 +330,22 @@ updateIngredientMass mass code query =
     in
     { query | ingredients = newIngredients }
         |> updateTransformMass (sumMasses newIngredients)
+
+
+updatePackagingMass : Mass -> Process.Code -> Query -> Query
+updatePackagingMass mass code query =
+    { query
+        | packaging =
+            query.packaging
+                |> List.map
+                    (\ing ->
+                        if ing.code == code then
+                            { ing | mass = mass }
+
+                        else
+                            ing
+                    )
+    }
 
 
 updateTransformMass : Mass -> Query -> Query

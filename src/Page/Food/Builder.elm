@@ -39,6 +39,7 @@ type alias Model =
     , impact : Impact.Trigram
     , selectedIngredient : Maybe SelectedProcess
     , selectedTransform : Maybe SelectedProcess
+    , selectedPackaging : Maybe SelectedProcess
     }
 
 
@@ -50,16 +51,20 @@ type alias SelectedProcess =
 
 type Msg
     = AddIngredient SelectedProcess
+    | AddPackaging SelectedProcess
     | DbLoaded (WebData FoodDb.Db)
     | DeleteIngredient Process.Code
+    | DeletePackaging Process.Code
     | LoadQuery Recipe.Query
     | NoOp
     | ResetTransform
     | SelectIngredient (Maybe SelectedProcess)
+    | SelectPackaging (Maybe SelectedProcess)
     | SelectTransform (Maybe SelectedProcess)
     | SetTransform SelectedProcess
     | SwitchImpact Impact.Trigram
     | UpdateIngredientMass Process.Code (Maybe Mass)
+    | UpdatePackagingMass Process.Code (Maybe Mass)
     | UpdateTransformMass (Maybe Mass)
 
 
@@ -72,6 +77,7 @@ init session =
             , impact = Impact.defaultTrigram
             , selectedIngredient = Nothing
             , selectedTransform = Nothing
+            , selectedPackaging = Nothing
             }
     in
     if FoodDb.isEmpty session.foodDb then
@@ -103,6 +109,16 @@ update session msg model =
             , Cmd.none
             )
 
+        AddPackaging { mass, code } ->
+            ( { model
+                | query =
+                    model.query |> Recipe.addPackaging mass code
+                , selectedPackaging = Nothing
+              }
+            , session
+            , Cmd.none
+            )
+
         DbLoaded dbState ->
             ( { model | dbState = dbState }, session, Cmd.none )
 
@@ -111,6 +127,16 @@ update session msg model =
                 | query =
                     model.query
                         |> Recipe.deleteIngredient code
+              }
+            , session
+            , Cmd.none
+            )
+
+        DeletePackaging code ->
+            ( { model
+                | query =
+                    model.query
+                        |> Recipe.deletePackaging code
               }
             , session
             , Cmd.none
@@ -134,6 +160,9 @@ update session msg model =
 
         SelectIngredient selectedIngredient ->
             ( { model | selectedIngredient = selectedIngredient }, session, Cmd.none )
+
+        SelectPackaging selectedPackaging ->
+            ( { model | selectedPackaging = selectedPackaging }, session, Cmd.none )
 
         SelectTransform selectedTransform ->
             ( { model | selectedTransform = selectedTransform }, session, Cmd.none )
@@ -163,6 +192,19 @@ update session msg model =
             )
 
         UpdateIngredientMass _ Nothing ->
+            ( model, session, Cmd.none )
+
+        UpdatePackagingMass code (Just mass) ->
+            ( { model
+                | query =
+                    model.query
+                        |> Recipe.updatePackagingMass mass code
+              }
+            , session
+            , Cmd.none
+            )
+
+        UpdatePackagingMass _ Nothing ->
             ( model, session, Cmd.none )
 
         UpdateTransformMass (Just mass) ->
@@ -345,7 +387,7 @@ ingredientListView foodDb selectedProcess recipe =
 
 
 mainView : FoodDb.Db -> Model -> Html Msg
-mainView foodDb ({ selectedIngredient, selectedTransform } as model) =
+mainView foodDb model =
     div [ class "row gap-3 gap-lg-0" ]
         [ div [ class "col-lg-4 order-lg-2 d-flex flex-column gap-3" ]
             [ case Recipe.compute foodDb model.query of
@@ -360,8 +402,9 @@ mainView foodDb ({ selectedIngredient, selectedTransform } as model) =
             , case Recipe.fromQuery foodDb model.query of
                 Ok recipe ->
                     stepListView foodDb
-                        { selectedIngredient = selectedIngredient
-                        , selectedTransform = selectedTransform
+                        { selectedIngredient = model.selectedIngredient
+                        , selectedPackaging = model.selectedPackaging
+                        , selectedTransform = model.selectedTransform
                         }
                         recipe
 
@@ -390,6 +433,49 @@ menuView query =
         ]
 
 
+packagingListView : FoodDb.Db -> Maybe SelectedProcess -> Recipe -> List (Html Msg)
+packagingListView foodDb selectedProcess recipe =
+    [ div [ class "card-header" ] [ h5 [ class "mb-0" ] [ text "Emballage" ] ]
+    , ul [ class "list-group list-group-flush" ]
+        (if List.isEmpty recipe.packaging then
+            [ li [ class "list-group-item" ] [ text "Aucun emballage" ] ]
+
+         else
+            recipe.packaging
+                |> List.map
+                    (\{ mass, process } ->
+                        rowTemplate
+                            (MassInput.view
+                                { mass = mass
+                                , onChange = UpdatePackagingMass process.code
+                                , disabled = False
+                                }
+                            )
+                            (text <| Process.nameToString process.name)
+                            (button
+                                [ type_ "button"
+                                , class "btn btn-outline-primary no-outline"
+                                , title "Supprimer"
+                                , onClick (DeletePackaging process.code)
+                                ]
+                                [ Icon.trash ]
+                            )
+                    )
+        )
+    , addProcessFormView
+        { category = Process.Packaging
+        , defaultMass = Mass.grams 100
+        , excluded = List.map (.process >> .code) recipe.ingredients
+        , foodDb = foodDb
+        , kind = "un emballage"
+        , noOp = NoOp
+        , select = SelectPackaging
+        , selectedProcess = selectedProcess
+        , submit = AddPackaging
+        }
+    ]
+
+
 processSelectorView : String -> Maybe Process.Code -> (Maybe Process.Code -> msg) -> List Process -> Html msg
 processSelectorView kind selectedCode event =
     List.map
@@ -408,7 +494,7 @@ processSelectorView kind selectedCode event =
         )
         >> List.sortBy Tuple.first
         >> (++)
-            [ ( "-- Sélectionner un ingrédient dans la liste --"
+            [ ( ""
               , option [ Attr.selected <| selectedCode == Nothing ]
                     [ text <| "-- Sélectionnez " ++ kind ++ " et cliquez sur le bouton + pour l'ajouter" ]
               )
@@ -475,8 +561,16 @@ sidebarView foodDb model impacts =
         ]
 
 
-stepListView : FoodDb.Db -> { selectedIngredient : Maybe SelectedProcess, selectedTransform : Maybe SelectedProcess } -> Recipe -> Html Msg
-stepListView foodDb { selectedIngredient, selectedTransform } recipe =
+stepListView :
+    FoodDb.Db
+    ->
+        { selectedIngredient : Maybe SelectedProcess
+        , selectedPackaging : Maybe SelectedProcess
+        , selectedTransform : Maybe SelectedProcess
+        }
+    -> Recipe
+    -> Html Msg
+stepListView foodDb { selectedIngredient, selectedPackaging, selectedTransform } recipe =
     div [ class "d-flex flex-column gap-3" ]
         [ div [ class "card" ]
             (div [ class "card-header" ]
@@ -488,11 +582,11 @@ stepListView foodDb { selectedIngredient, selectedTransform } recipe =
                     ]
             )
         , div [ class "card" ]
-            [ div [ class "card-header" ]
+            (div [ class "card-header" ]
                 [ h4 [ class "mb-0" ] [ text "Conditionnement" ]
                 ]
-            , div [ class "card-body" ] [ text "TODO" ]
-            ]
+                :: packagingListView foodDb selectedPackaging recipe
+            )
         ]
 
 
