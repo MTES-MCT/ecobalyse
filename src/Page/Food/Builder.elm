@@ -404,7 +404,7 @@ ingredientListView foodDb selectedImpact selectedProcess recipe results =
 packagingListView : FoodDb.Db -> Impact.Trigram -> Maybe SelectedProcess -> Recipe -> Recipe.Results -> List (Html Msg)
 packagingListView foodDb selectedImpact selectedProcess recipe results =
     [ div [ class "card-header d-flex align-items-center justify-content-between" ]
-        [ h6 [ class "mb-0" ] [ text "Emballage" ]
+        [ h5 [ class "mb-0" ] [ text "Emballage" ]
         , results.packaging
             |> formatImpact foodDb selectedImpact
         ]
@@ -598,15 +598,7 @@ stepListView foodDb { impact, selectedIngredient, selectedPackaging, selectedTra
                     ]
             )
         , div [ class "card" ]
-            (div [ class "card-header d-flex align-items-center justify-content-between" ]
-                [ h5 [ class "mb-0" ] [ text "Conditionnement" ]
-                , results.packaging
-                    |> formatImpact foodDb impact
-                    |> List.singleton
-                    |> span [ class "fw-bold" ]
-                ]
-                :: packagingListView foodDb impact selectedPackaging recipe results
-            )
+            (packagingListView foodDb impact selectedPackaging recipe results)
         ]
 
 
@@ -620,7 +612,7 @@ stepResultsView foodDb model results =
             [ { label = "Recette"
               , impact = toFloat <| Recipe.recipeStepImpacts foodDb results
               }
-            , { label = "Conditionnement"
+            , { label = "Emballage"
               , impact = toFloat results.packaging
               }
             ]
