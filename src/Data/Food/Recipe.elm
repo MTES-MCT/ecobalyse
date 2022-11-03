@@ -179,12 +179,13 @@ addIngredient : Mass -> Process.Code -> Query -> Query
 addIngredient mass code query =
     let
         newIngredients =
-            { code = code
-            , mass = mass
-            , country = Nothing
-            , labels = []
-            }
-                :: query.ingredients
+            query.ingredients
+                ++ [ { code = code
+                     , mass = mass
+                     , country = Nothing
+                     , labels = []
+                     }
+                   ]
     in
     { query | ingredients = newIngredients }
         |> updateTransformMass (sumMasses newIngredients)
@@ -194,7 +195,7 @@ addPackaging : Mass -> Process.Code -> Query -> Query
 addPackaging mass code query =
     { query
         | packaging =
-            { code = code, mass = mass } :: query.packaging
+            query.packaging ++ [ { code = code, mass = mass } ]
     }
 
 
