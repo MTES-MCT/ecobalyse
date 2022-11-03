@@ -96,7 +96,7 @@ toFoodResults query results =
 executeFoodQuery : FoodDb.Db -> Request -> (Recipe.Results -> Encode.Value) -> Recipe.Query -> Cmd Msg
 executeFoodQuery foodDb request encoder =
     Recipe.compute foodDb
-        >> Result.map encoder
+        >> Result.map (Tuple.second >> encoder)
         >> toResponse request
 
 

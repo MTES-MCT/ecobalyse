@@ -316,7 +316,7 @@ debugQueryView foodDb query =
             , div [ class "col-5" ]
                 [ query
                     |> Recipe.compute foodDb
-                    |> Result.map (Recipe.encodeResults >> Encode.encode 2)
+                    |> Result.map (Tuple.second >> Recipe.encodeResults >> Encode.encode 2)
                     |> Result.withDefault "Error serializing the impacts"
                     |> debugView
                 ]
@@ -334,21 +334,26 @@ errorView error =
         }
 
 
-rowTemplate : Html Msg -> Html Msg -> Html Msg -> Html Msg
-rowTemplate input content action =
-    li [ class "list-group-item d-flex align-items-center gap-2" ]
-        [ span [ class "flex-shrink-1" ] [ input ]
-        , span [ class "w-100" ] [ content ]
-        , action
-        ]
+formatImpact : FoodDb.Db -> Impact.Trigram -> Impact.Impacts -> Html Msg
+formatImpact foodDb selectedImpact impacts =
+    let
+        definition =
+            foodDb.impacts
+                |> Impact.getDefinition selectedImpact
+                |> Result.withDefault Impact.invalid
+    in
+    impacts
+        |> Impact.getImpact selectedImpact
+        |> Unit.impactToFloat
+        |> Format.formatImpactFloat definition 2
 
 
-ingredientListView : FoodDb.Db -> Maybe SelectedProcess -> Recipe -> List (Html Msg)
-ingredientListView foodDb selectedProcess recipe =
-    [ div [ class "card-header" ]
+ingredientListView : FoodDb.Db -> Impact.Trigram -> Maybe SelectedProcess -> Recipe -> Recipe.Results -> List (Html Msg)
+ingredientListView foodDb selectedImpact selectedProcess recipe results =
+    [ div [ class "card-header d-flex align-items-center justify-content-between" ]
         [ h6 [ class "mb-0" ] [ text "Ingrédients" ]
-
-        -- TODO: render sub step impacts
+        , results.recipe.ingredients
+            |> formatImpact foodDb selectedImpact
         ]
     , ul [ class "list-group list-group-flush" ]
         (if List.isEmpty recipe.ingredients then
@@ -390,12 +395,12 @@ ingredientListView foodDb selectedProcess recipe =
     ]
 
 
-packagingListView : FoodDb.Db -> Maybe SelectedProcess -> Recipe -> List (Html Msg)
-packagingListView foodDb selectedProcess recipe =
-    [ div [ class "card-header" ]
+packagingListView : FoodDb.Db -> Impact.Trigram -> Maybe SelectedProcess -> Recipe -> Recipe.Results -> List (Html Msg)
+packagingListView foodDb selectedImpact selectedProcess recipe results =
+    [ div [ class "card-header d-flex align-items-center justify-content-between" ]
         [ h6 [ class "mb-0" ] [ text "Emballage" ]
-
-        -- TODO: render sub step impacts
+        , results.packaging
+            |> formatImpact foodDb selectedImpact
         ]
     , ul [ class "list-group list-group-flush" ]
         (if List.isEmpty recipe.packaging then
@@ -442,7 +447,7 @@ mainView foodDb model =
     div [ class "row gap-3 gap-lg-0" ]
         [ div [ class "col-lg-4 order-lg-2 d-flex flex-column gap-3" ]
             [ case Recipe.compute foodDb model.query of
-                Ok results ->
+                Ok ( _, results ) ->
                     sidebarView foodDb model results
 
                 Err error ->
@@ -450,14 +455,9 @@ mainView foodDb model =
             ]
         , div [ class "col-lg-8 order-lg-1 d-flex flex-column gap-3" ]
             [ menuView model.query
-            , case Recipe.fromQuery foodDb model.query of
-                Ok recipe ->
-                    stepListView foodDb
-                        { selectedIngredient = model.selectedIngredient
-                        , selectedPackaging = model.selectedPackaging
-                        , selectedTransform = model.selectedTransform
-                        }
-                        recipe
+            , case Recipe.compute foodDb model.query of
+                Ok ( recipe, results ) ->
+                    stepListView foodDb model recipe results
 
                 Err error ->
                     errorView error
@@ -524,14 +524,17 @@ processSelectorView kind selectedCode event =
             ]
 
 
+rowTemplate : Html Msg -> Html Msg -> Html Msg -> Html Msg
+rowTemplate input content action =
+    li [ class "list-group-item d-flex align-items-center gap-2" ]
+        [ span [ class "flex-shrink-1" ] [ input ]
+        , span [ class "w-100" ] [ content ]
+        , action
+        ]
+
+
 sidebarView : FoodDb.Db -> Model -> Recipe.Results -> Html Msg
 sidebarView foodDb model { impacts } =
-    let
-        definition =
-            foodDb.impacts
-                |> Impact.getDefinition model.impact
-                |> Result.withDefault Impact.invalid
-    in
     div
         [ class "d-flex flex-column gap-3 mb-3 sticky-md-top"
         , style "top" "7px"
@@ -551,10 +554,7 @@ sidebarView foodDb model { impacts } =
             , body =
                 [ div [ class "d-flex flex-column m-auto gap-1 px-2" ]
                     [ div [ class "display-4 lh-1 text-center text-nowrap" ]
-                        [ impacts
-                            |> Impact.getImpact model.impact
-                            |> Unit.impactToFloat
-                            |> Format.formatImpactFloat definition 2
+                        [ formatImpact foodDb model.impact impacts
                         ]
                     , small [ class "d-flex align-items-center gap-1" ]
                         [ Icon.warning
@@ -569,41 +569,33 @@ sidebarView foodDb model { impacts } =
         ]
 
 
-stepListView :
-    FoodDb.Db
-    ->
-        { selectedIngredient : Maybe SelectedProcess
-        , selectedPackaging : Maybe SelectedProcess
-        , selectedTransform : Maybe SelectedProcess
-        }
-    -> Recipe
-    -> Html Msg
-stepListView foodDb { selectedIngredient, selectedPackaging, selectedTransform } recipe =
+stepListView : FoodDb.Db -> Model -> Recipe -> Recipe.Results -> Html Msg
+stepListView foodDb { impact, selectedIngredient, selectedPackaging, selectedTransform } recipe results =
     div [ class "d-flex flex-column gap-3" ]
         [ div [ class "card" ]
             (div [ class "card-header" ]
                 [ h5 [ class "mb-0" ] [ text "Recette" ]
                 ]
                 :: List.concat
-                    [ ingredientListView foodDb selectedIngredient recipe
-                    , transformView foodDb selectedTransform recipe
+                    [ ingredientListView foodDb impact selectedIngredient recipe results
+                    , transformView foodDb impact selectedTransform recipe results
                     ]
             )
         , div [ class "card" ]
             (div [ class "card-header" ]
                 [ h5 [ class "mb-0" ] [ text "Conditionnement" ]
                 ]
-                :: packagingListView foodDb selectedPackaging recipe
+                :: packagingListView foodDb impact selectedPackaging recipe results
             )
         ]
 
 
-transformView : FoodDb.Db -> Maybe SelectedProcess -> Recipe -> List (Html Msg)
-transformView foodDb selectedProcess recipe =
-    [ div [ class "card-header" ]
+transformView : FoodDb.Db -> Impact.Trigram -> Maybe SelectedProcess -> Recipe -> Recipe.Results -> List (Html Msg)
+transformView foodDb selectedImpact selectedProcess recipe results =
+    [ div [ class "card-header d-flex align-items-center justify-content-between" ]
         [ h6 [ class "mb-0" ] [ text "Transformation" ]
-
-        -- TODO: render sub step impacts
+        , results.recipe.transform
+            |> formatImpact foodDb selectedImpact
         ]
     , case recipe.transform of
         Just { process, mass } ->

@@ -373,11 +373,11 @@ type alias Results =
     }
 
 
-compute : FoodDb.Db -> Query -> Result String Results
+compute : FoodDb.Db -> Query -> Result String ( Recipe, Results )
 compute db =
     fromQuery db
         >> Result.map
-            (\{ ingredients, transform, packaging } ->
+            (\({ ingredients, transform, packaging } as recipe) ->
                 let
                     ingredientsImpacts =
                         ingredients
@@ -392,19 +392,21 @@ compute db =
                         packaging
                             |> List.map computeProcessImpacts
                 in
-                { impacts =
-                    [ ingredientsImpacts
-                    , List.singleton transformImpacts
-                    , packagingImpacts
-                    ]
-                        |> List.concat
-                        |> Impact.sumImpacts db.impacts
-                , recipe =
-                    { ingredients = Impact.sumImpacts db.impacts ingredientsImpacts
-                    , transform = transformImpacts
-                    }
-                , packaging = Impact.sumImpacts db.impacts packagingImpacts
-                }
+                ( recipe
+                , { impacts =
+                        [ ingredientsImpacts
+                        , List.singleton transformImpacts
+                        , packagingImpacts
+                        ]
+                            |> List.concat
+                            |> Impact.sumImpacts db.impacts
+                  , recipe =
+                        { ingredients = Impact.sumImpacts db.impacts ingredientsImpacts
+                        , transform = transformImpacts
+                        }
+                  , packaging = Impact.sumImpacts db.impacts packagingImpacts
+                  }
+                )
             )
 
 
