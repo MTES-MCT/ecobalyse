@@ -93,7 +93,7 @@ _En l’absence de données suffisamment précises dans la Base Impacts, l’ét
 
 <details>
 
-<summary>Teinture / Finition (5 procédés)</summary>
+<summary>Teinture / Impression (5 procédés)</summary>
 
 * teinture sur fil, procédé représentatif
 * teinture sur tissu, procédé représentatif
@@ -105,9 +105,8 @@ _En l’absence de données suffisamment précises dans la Base Impacts, l’ét
 
 <details>
 
-<summary>Finition (8 procédés)</summary>
+<summary>Finition (7 procédés)</summary>
 
-* apprêt chimique moyen, procédé représentatif (par défaut)
 * apprêt chimique anti-acarien, procédé représentatif
 * apprêt chimique anti-bactérien, procédé représentatif
 * apprêt chimique anti-tache, procédé représentatif
@@ -140,7 +139,7 @@ Les quantités d'énergie par défaut proviennent de la Base Impacts.&#x20;
 
 #### Finition (apprêts chimiques et mécaniques)
 
-Un procédé moyen d'apprêt chimique est appliqué par défaut à chaque produit modélisé. &#x20;
+Un procédé d'apprêt chimique anti-accarien est appliqué par défaut à chaque produit modélisé. &#x20;
 
 Dans la majorité des cas, tous les agents d'apprêt chimiques nécessaires pour donner à la matière textile les propriétés souhaitées sont appliqués en un seul bain plutôt qu'au cours de phases différentes.&#x20;
 
@@ -152,15 +151,13 @@ Comme expliqué précédemment, si plusieurs apprêts chimiques sont utilisés, 
 
 De plus, deux procédés mécaniques sont proposés dans le calculateur. Ces procédés sont différents de ceux mécaniques et consomment une très faible quantité d'énergie.
 
-Par défaut, la mise en place d'un apprêt chimique moyen est proposé dans Ecobalyse (_Apprêt chimique moyen, procédé représentatif_). L'utilisateur a la possibilité de sélectionner un ou plusieurs apprêt(s) chimique(s) spécifique(s); dès lors la consommation d'énergie retenue sera celle du procédé le plus énergivore.&#x20;
+Par défaut, la mise en place d'un apprêt chimique anti-acarien __ est proposé dans Ecobalyse. L'utilisateur a la possibilité de sélectionner un ou plusieurs apprêt(s) chimique(s) spécifique(s); dès lors la consommation d'énergie retenue sera celle du procédé le plus énergivore.&#x20;
 
 L'ajout d'apprêt(s) mécanique(s) est aussi possible; ces procédés consomment une quantité d'énergie très faible par rapport aux apprêts chimiques. &#x20;
 
 **Focus sur la consommation d'énergie des procédés**
 
 _"Procédé : chaleur (MJ) & électricité (kWh)"_
-
-Apprêt chimique moyen : 12,78 MJ & 0,59 kWh
 
 Apprêt chimique max : 20,95 MJ & 1,17 kWh
 
