@@ -5,6 +5,7 @@ module Data.Food.Recipe exposing
     , PlantOptions
     , Query
     , Recipe
+    , Results
     , TransformQuery
     , addIngredient
     , addPackaging
@@ -13,6 +14,7 @@ module Data.Food.Recipe exposing
     , deletePackaging
     , empty
     , encode
+    , encodeResults
     , fromQuery
     , resetTransform
     , serialize
@@ -358,6 +360,24 @@ updateTransformMass mass query =
 
 
 
+---- Results
+
+
+type alias Results =
+    { impacts : Impacts
+
+    -- TODO: detailed results, by ingredient, transform, packaging, etc.
+    }
+
+
+encodeResults : Results -> Encode.Value
+encodeResults results =
+    Encode.object
+        [ ( "impacts", Impact.encodeImpacts results.impacts )
+        ]
+
+
+
 ---- Encoders
 
 
@@ -411,22 +431,24 @@ serialize query =
         |> Encode.encode 2
 
 
-compute : FoodDb.Db -> Query -> Result String Impacts
+compute : FoodDb.Db -> Query -> Result String Results
 compute db =
     fromQuery db
         >> Result.map
-            (\recipe ->
-                [ recipe.ingredients
-                    |> List.map computeProcessImpacts
-                , recipe.transform
-                    |> Maybe.map computeProcessImpacts
-                    |> Maybe.withDefault Impact.noImpacts
-                    |> List.singleton
-                , recipe.packaging
-                    |> List.map computeProcessImpacts
-                ]
-                    |> List.concat
-                    |> Impact.sumImpacts db.impacts
+            (\{ ingredients, transform, packaging } ->
+                { impacts =
+                    [ ingredients
+                        |> List.map computeProcessImpacts
+                    , transform
+                        |> Maybe.map computeProcessImpacts
+                        |> Maybe.withDefault Impact.noImpacts
+                        |> List.singleton
+                    , packaging
+                        |> List.map computeProcessImpacts
+                    ]
+                        |> List.concat
+                        |> Impact.sumImpacts db.impacts
+                }
             )
 
 
