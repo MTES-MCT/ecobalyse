@@ -310,7 +310,7 @@ debugQueryView foodDb query =
         , div [ class "row" ]
             [ div [ class "col-7" ]
                 [ query
-                    |> Recipe.serialize
+                    |> Recipe.serializeQuery
                     |> debugView
                 ]
             , div [ class "col-5" ]
