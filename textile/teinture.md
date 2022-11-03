@@ -173,12 +173,12 @@ Apprêt mécanique min : 0 MJ & 0,03 kW
 
 La quantité d'énergie nécessaire pour actionner le procédé de teinture est pondérée selon le type de fibre.&#x20;
 
-| Fibre             | Matières                                                                                                                      |           Energie consommée          |
-| ----------------- | ----------------------------------------------------------------------------------------------------------------------------- | :----------------------------------: |
-| cellulosique      | cotton, flax, chanvre, jute, lyocell, modal, viscose                                                                          | <p>Valeur par défaut</p><p>(Ref)</p> |
-| synthétique       | Acrylic, Nylon, Polyester, Polylactic Acid (PLA), Polypropylene (PP), Polytrimethylene terephthalate (PTT), Polyurethane (PU) |               Ref -25%               |
-| naturelle (autre) | Acetate Triacetate, Alpaca, Laine                                                                                             |               Ref +25%               |
-| mix               | Non applicable                                                                                                                |               Ref +50%               |
+| Fibre             | Matières                                                                                      |           Energie consommée          |
+| ----------------- | --------------------------------------------------------------------------------------------- | :----------------------------------: |
+| cellulosique      | cotton, flax, chanvre, jute, lyocell, modal, viscose                                          | <p>Valeur par défaut</p><p>(Ref)</p> |
+| synthétique       | acrylic, nylon, polyester, PU, PTT, PBT, PP, PLA, PE, PET, PA, acrylique, néoprène, aramide,  |               Ref -25%               |
+| naturelle (autre) | laine, soie, lin, cachemire, angora, acetate triacetate, alpaca,                              |               Ref +25%               |
+| mix               | non applicable                                                                                |               Ref +50%               |
 
 {% hint style="warning" %}
 Suite à différents travaux thématiques (interviews d'experts, revue bibliographique, analyse de sensibilité), nous avons constaté que le type de fibre (mélange de fibres, laine, polyester, etc.) sur lequel est appliqué la teinture a une influence directe sur la quantité d'énergie consommée.&#x20;
