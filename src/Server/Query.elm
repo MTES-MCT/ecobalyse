@@ -56,26 +56,27 @@ parseFoodQuery foodDb =
     succeed (Ok Recipe.Query)
         |> apply (ingredientListParser "ingredients" foodDb.processes)
         |> apply (maybeTransformParser "transform" foodDb.processes)
+        |> apply (packagingListParser "packaging" foodDb.processes)
         |> apply (plantOptionsParser "plant")
 
 
 ingredientListParser : String -> List FoodProcess.Process -> Parser (ParseResult (List Recipe.IngredientQuery))
 ingredientListParser key ingredients =
     Query.custom (key ++ "[]")
-        (List.map (parseIngredient_ ingredients)
+        (List.map (ingredientParser ingredients)
             >> RE.combine
             >> Result.andThen validateIngredientList
             >> Result.mapError (\err -> ( key, err ))
         )
 
 
-parseIngredient_ : List FoodProcess.Process -> String -> Result String Recipe.IngredientQuery
-parseIngredient_ ingredients string =
+ingredientParser : List FoodProcess.Process -> String -> Result String Recipe.IngredientQuery
+ingredientParser ingredients string =
     case String.split ";" string of
         [ code, mass ] ->
             Ok Recipe.IngredientQuery
-                |> RE.andMap (parseFoodProcessCode_ ingredients code)
-                |> RE.andMap (parseMass_ mass)
+                |> RE.andMap (foodProcessCodeParser ingredients code)
+                |> RE.andMap (validateMass mass)
                 -- TODO: parse country and labels
                 |> RE.andMap (Ok Nothing)
                 |> RE.andMap (Ok [])
@@ -87,16 +88,40 @@ parseIngredient_ ingredients string =
             Err <| "Format d'ingrédient invalide : " ++ string ++ "."
 
 
-parseFoodProcessCode_ : List FoodProcess.Process -> String -> Result String FoodProcess.Code
-parseFoodProcessCode_ ingredients string =
+foodProcessCodeParser : List FoodProcess.Process -> String -> Result String FoodProcess.Code
+foodProcessCodeParser ingredients string =
     string
         |> FoodProcess.codeFromString
         |> FoodProcess.findByCode ingredients
         |> Result.map .code
 
 
-parseMass_ : String -> Result String Mass
-parseMass_ string =
+packagingListParser : String -> List FoodProcess.Process -> Parser (ParseResult (List Recipe.PackagingQuery))
+packagingListParser key packagings =
+    Query.custom (key ++ "[]")
+        (List.map (packagingParser packagings)
+            >> RE.combine
+            >> Result.mapError (\err -> ( key, err ))
+        )
+
+
+packagingParser : List FoodProcess.Process -> String -> Result String Recipe.PackagingQuery
+packagingParser packagings string =
+    case String.split ";" string of
+        [ code, mass ] ->
+            Ok Recipe.PackagingQuery
+                |> RE.andMap (foodProcessCodeParser packagings code)
+                |> RE.andMap (validateMass mass)
+
+        [ "" ] ->
+            Err <| "Format d'emballage vide."
+
+        _ ->
+            Err <| "Format d'emballage invalide : " ++ string ++ "."
+
+
+validateMass : String -> Result String Mass
+validateMass string =
     string
         |> String.toFloat
         |> Result.fromMaybe ("Masse invalide : " ++ string)
@@ -139,8 +164,8 @@ parseTransform_ transforms string =
     case String.split ";" string of
         [ code, mass ] ->
             Ok Recipe.TransformQuery
-                |> RE.andMap (parseFoodProcessCode_ transforms code)
-                |> RE.andMap (parseMass_ mass)
+                |> RE.andMap (foodProcessCodeParser transforms code)
+                |> RE.andMap (validateMass mass)
 
         [ "" ] ->
             Err <| "Code de procédé de transformation manquant."
