@@ -366,6 +366,7 @@ encode q =
     Encode.object
         [ ( "ingredients", Encode.list encodeIngredient q.ingredients )
         , ( "transform", q.transform |> Maybe.map encodeTransform |> Maybe.withDefault Encode.null )
+        , ( "packaging", Encode.list encodePackaging q.packaging )
         , ( "plant", encodePlantOptions q.plant )
         ]
 
@@ -377,6 +378,14 @@ encodeIngredient i =
         , ( "mass", Encode.float (Mass.inKilograms i.mass) )
         , ( "country", i.country |> Maybe.map Country.encodeCode |> Maybe.withDefault Encode.null )
         , ( "labels", Encode.list Encode.string i.labels )
+        ]
+
+
+encodePackaging : PackagingQuery -> Encode.Value
+encodePackaging i =
+    Encode.object
+        [ ( "code", i.code |> Process.codeToString |> Encode.string )
+        , ( "mass", Encode.float (Mass.inKilograms i.mass) )
         ]
 
 
