@@ -215,7 +215,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/IngredientsListResponse'
+                $ref: '#/components/schemas/IngredientListResponse'
   /food/transforms:
     get:
       tags:
@@ -227,7 +227,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TransformsListResponse'
+                $ref: '#/components/schemas/TransformListResponse'
+  /food/packagings:
+    get:
+      tags:
+      - Alimentaire
+      summary: Liste des emballages disponibles pour conditionner une recette
+      responses:
+        200:
+          description: Opération réussie
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PackagingListResponse'
   /food/recipe:
     get:
       tags:
@@ -236,6 +248,7 @@ paths:
       parameters:
       - $ref: '#/components/parameters/ingredientsParam'
       - $ref: '#/components/parameters/transformParam'
+      - $ref: '#/components/parameters/packagingParam'
       responses:
         200:
           description: Opération réussie
@@ -534,6 +547,23 @@ components:
         threeIngredients:
           summary: Mozzarella, Olive Oil, Tuna
           value: ["2e3f03c6de1e43900e09ae852182e9c7;268", "83da330027d4b25dbc7817f06b738571;30", "568c715f977f32948813855d5efd95ba;149"]
+    packagingParam:
+      name: "packaging[]"
+      in: query
+      description: |
+        Liste des emballages composant la recette (liste disponible sur le point d'entrée `/food/packaging`).
+
+        Le format de chaque entrée est composé de l'identifiant de l'emballage et de sa masse **exprimée en grammes**.
+      required: true
+      style: form
+      schema:
+        type: array
+        items:
+          type: string
+      examples:
+        onePackaging:
+          summary: "Corrugated board box"
+          value: ["23b2754e5943bc77916f8f871edc53b6;105"]
     transformParam:
       name: transform
       in: query
@@ -662,7 +692,7 @@ components:
         query:
           type: object
           description: Le jeu de paramètres utilisé pour effectuer la simulation.
-    IngredientsListResponse:
+    IngredientListResponse:
       type: array
       description: Liste des ingrédients utilisables dans une recette
       items:
@@ -672,7 +702,17 @@ components:
             type: string
           name:
             type: string
-    TransformsListResponse:
+    PackagingListResponse:
+      type: array
+      description: Liste des emballages utilisables pour conditionner une recette
+      items:
+        type: object
+        properties:
+          code:
+            type: string
+          name:
+            type: string
+    TransformListResponse:
       type: array
       description: Liste des procédés de transformation utilisables pour une recette
       items:

@@ -1,5 +1,7 @@
 module Data.Food.Recipe exposing
     ( IngredientQuery
+    , Packaging
+    , PackagingQuery
     , PlantOptions
     , Query
     , Recipe
@@ -49,9 +51,16 @@ type alias TransformQuery =
     }
 
 
+type alias PackagingQuery =
+    { code : Process.Code
+    , mass : Mass
+    }
+
+
 type alias Query =
     { ingredients : List IngredientQuery
     , transform : Maybe TransformQuery
+    , packaging : List PackagingQuery
     , plant : PlantOptions
     }
 
@@ -64,6 +73,7 @@ empty : Query
 empty =
     { ingredients = []
     , transform = Nothing
+    , packaging = []
     , plant = { country = Nothing }
     }
 
@@ -114,6 +124,12 @@ tunaPizza =
               code = Process.codeFromString "aded2490573207ec7ad5a3813978f6a4"
             , mass = Mass.grams 1050
             }
+    , packaging =
+        [ { -- Corrugated board box {RER}| production | Cut-off, S - Copied from Ecoinvent
+            code = Process.codeFromString "23b2754e5943bc77916f8f871edc53b6"
+          , mass = Mass.grams 105
+          }
+        ]
     , plant =
         { country = Nothing
         }
@@ -138,9 +154,16 @@ type alias Transform =
     }
 
 
+type alias Packaging =
+    { process : Process.Process
+    , mass : Mass
+    }
+
+
 type alias Recipe =
     { ingredients : List Ingredient
     , transform : Maybe Transform
+    , packaging : List Packaging
     , plant : PlantOptions
     }
 
@@ -173,14 +196,15 @@ deleteIngredient code query =
 
 fromQuery : FoodDb.Db -> Query -> Result String Recipe
 fromQuery foodDb query =
-    Result.map3 Recipe
-        (ingredientsFromQuery foodDb query)
+    Result.map4 Recipe
+        (ingredientListFromQuery foodDb query)
         (transformFromQuery foodDb query)
+        (packagingListFromQuery foodDb query)
         (Ok query.plant)
 
 
-ingredientsFromQuery : FoodDb.Db -> Query -> Result String (List Ingredient)
-ingredientsFromQuery foodDb query =
+ingredientListFromQuery : FoodDb.Db -> Query -> Result String (List Ingredient)
+ingredientListFromQuery foodDb query =
     query.ingredients
         |> RE.combineMap (ingredientFromQuery foodDb)
 
@@ -203,6 +227,26 @@ ingredientToQuery ingredient =
     }
 
 
+packagingListFromQuery : FoodDb.Db -> Query -> Result String (List Packaging)
+packagingListFromQuery foodDb query =
+    query.packaging
+        |> RE.combineMap (packagingFromQuery foodDb)
+
+
+packagingFromQuery : FoodDb.Db -> PackagingQuery -> Result String Packaging
+packagingFromQuery { processes } { code, mass } =
+    Result.map2 Packaging
+        (Process.findByCode processes code)
+        (Ok mass)
+
+
+packagingToQuery : Packaging -> PackagingQuery
+packagingToQuery packaging =
+    { code = packaging.process.code
+    , mass = packaging.mass
+    }
+
+
 resetTransform : Query -> Query
 resetTransform query =
     { query | transform = Nothing }
@@ -222,6 +266,7 @@ toQuery : Recipe -> Query
 toQuery recipe =
     { ingredients = List.map ingredientToQuery recipe.ingredients
     , transform = transformToQuery recipe.transform
+    , packaging = List.map packagingToQuery recipe.packaging
     , plant = recipe.plant
     }
 

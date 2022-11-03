@@ -46,6 +46,7 @@ foodEndpoints db =
           , "ingredients[]=a343353e431d7dddc7bb25cbc41e179a;168"
           , "ingredients[]=3af9739fc89492167dd0d273daac957a;425"
           , "transform=aded2490573207ec7ad5a3813978f6a4;1050"
+          , "packaging[]=23b2754e5943bc77916f8f871edc53b6;105"
           ]
             |> String.join "&"
             |> getEndpoint db "GET"
