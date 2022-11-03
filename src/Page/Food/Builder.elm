@@ -536,7 +536,7 @@ rowTemplate input content action =
 
 
 sidebarView : FoodDb.Db -> Model -> Recipe.Results -> Html Msg
-sidebarView foodDb model { impacts } =
+sidebarView foodDb model results =
     div
         [ class "d-flex flex-column gap-3 mb-3 sticky-md-top"
         , style "top" "7px"
@@ -556,7 +556,8 @@ sidebarView foodDb model { impacts } =
             , body =
                 [ div [ class "d-flex flex-column m-auto gap-1 px-2" ]
                     [ div [ class "display-4 lh-1 text-center text-nowrap" ]
-                        [ formatImpact foodDb model.impact impacts
+                        [ results.impacts
+                            |> formatImpact foodDb model.impact
                         ]
                     , small [ class "d-flex align-items-center gap-1" ]
                         [ Icon.warning
@@ -566,6 +567,7 @@ sidebarView foodDb model { impacts } =
                 ]
             , footer = []
             }
+        , stepResultsView foodDb model results
         , a [ class "btn btn-primary", Route.href Route.FoodExplore ]
             [ text "Explorateur de recettes" ]
         ]
@@ -597,6 +599,56 @@ stepListView foodDb { impact, selectedIngredient, selectedPackaging, selectedTra
                 ]
                 :: packagingListView foodDb impact selectedPackaging recipe results
             )
+        ]
+
+
+stepResultsView : FoodDb.Db -> Model -> Recipe.Results -> Html Msg
+stepResultsView foodDb model results =
+    let
+        toFloat =
+            Impact.getImpact model.impact >> Unit.impactToFloat
+
+        stepsData =
+            [ { label = "Recette"
+              , impact = toFloat <| Recipe.recipeStepImpacts foodDb results
+              }
+            , { label = "Conditionnement"
+              , impact = toFloat results.packaging
+              }
+            ]
+
+        totalImpact =
+            toFloat results.impacts
+    in
+    div [ class "card fs-7" ]
+        [ stepsData
+            |> List.map
+                (\{ label, impact } ->
+                    let
+                        percent =
+                            if totalImpact /= 0 then
+                                impact / totalImpact * 100
+
+                            else
+                                0
+                    in
+                    li [ class "list-group-item d-flex justify-content-between align-items-center gap-1" ]
+                        [ span [ class "flex-fill w-33 text-truncate" ] [ text label ]
+                        , span [ class "flex-fill w-50" ]
+                            [ div [ class "progress", style "height" "13px" ]
+                                [ div
+                                    [ class "progress-bar"
+                                    , style "width" (String.fromFloat percent ++ "%")
+                                    ]
+                                    []
+                                ]
+                            ]
+                        , span [ class "flex-fill text-end", style "min-width" "62px" ]
+                            [ Format.percent percent
+                            ]
+                        ]
+                )
+            |> ul [ class "list-group list-group-flush" ]
         ]
 
 
