@@ -365,6 +365,11 @@ updateTransformMass mass query =
 
 type alias Results =
     { impacts : Impacts
+    , recipe :
+        { ingredients : Impacts
+        , transform : Impacts
+        }
+    , packaging : Impacts
     }
 
 
@@ -373,18 +378,32 @@ compute db =
     fromQuery db
         >> Result.map
             (\{ ingredients, transform, packaging } ->
+                let
+                    ingredientsImpacts =
+                        ingredients
+                            |> List.map computeProcessImpacts
+
+                    transformImpacts =
+                        transform
+                            |> Maybe.map computeProcessImpacts
+                            |> Maybe.withDefault Impact.noImpacts
+
+                    packagingImpacts =
+                        packaging
+                            |> List.map computeProcessImpacts
+                in
                 { impacts =
-                    [ ingredients
-                        |> List.map computeProcessImpacts
-                    , transform
-                        |> Maybe.map computeProcessImpacts
-                        |> Maybe.withDefault Impact.noImpacts
-                        |> List.singleton
-                    , packaging
-                        |> List.map computeProcessImpacts
+                    [ ingredientsImpacts
+                    , List.singleton transformImpacts
+                    , packagingImpacts
                     ]
                         |> List.concat
                         |> Impact.sumImpacts db.impacts
+                , recipe =
+                    { ingredients = Impact.sumImpacts db.impacts ingredientsImpacts
+                    , transform = transformImpacts
+                    }
+                , packaging = Impact.sumImpacts db.impacts packagingImpacts
                 }
             )
 
@@ -447,6 +466,13 @@ encodeResults : Results -> Encode.Value
 encodeResults results =
     Encode.object
         [ ( "impacts", Impact.encodeImpacts results.impacts )
+        , ( "recipe"
+          , Encode.object
+                [ ( "ingredients", Impact.encodeImpacts results.recipe.ingredients )
+                , ( "transform", Impact.encodeImpacts results.recipe.transform )
+                ]
+          )
+        , ( "packaging", Impact.encodeImpacts results.packaging )
         ]
 
 
