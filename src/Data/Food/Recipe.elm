@@ -13,11 +13,11 @@ module Data.Food.Recipe exposing
     , deleteIngredient
     , deletePackaging
     , empty
-    , encode
+    , encodeQuery
     , encodeResults
     , fromQuery
     , resetTransform
-    , serialize
+    , serializeQuery
     , setTransform
     , sumMasses
     , toQuery
@@ -365,70 +365,7 @@ updateTransformMass mass query =
 
 type alias Results =
     { impacts : Impacts
-
-    -- TODO: detailed results, by ingredient, transform, packaging, etc.
     }
-
-
-encodeResults : Results -> Encode.Value
-encodeResults results =
-    Encode.object
-        [ ( "impacts", Impact.encodeImpacts results.impacts )
-        ]
-
-
-
----- Encoders
-
-
-encode : Query -> Encode.Value
-encode q =
-    Encode.object
-        [ ( "ingredients", Encode.list encodeIngredient q.ingredients )
-        , ( "transform", q.transform |> Maybe.map encodeTransform |> Maybe.withDefault Encode.null )
-        , ( "packaging", Encode.list encodePackaging q.packaging )
-        , ( "plant", encodePlantOptions q.plant )
-        ]
-
-
-encodeIngredient : IngredientQuery -> Encode.Value
-encodeIngredient i =
-    Encode.object
-        [ ( "code", i.code |> Process.codeToString |> Encode.string )
-        , ( "mass", Encode.float (Mass.inKilograms i.mass) )
-        , ( "country", i.country |> Maybe.map Country.encodeCode |> Maybe.withDefault Encode.null )
-        , ( "labels", Encode.list Encode.string i.labels )
-        ]
-
-
-encodePackaging : PackagingQuery -> Encode.Value
-encodePackaging i =
-    Encode.object
-        [ ( "code", i.code |> Process.codeToString |> Encode.string )
-        , ( "mass", Encode.float (Mass.inKilograms i.mass) )
-        ]
-
-
-encodeTransform : TransformQuery -> Encode.Value
-encodeTransform p =
-    Encode.object
-        [ ( "code", p.code |> Process.codeToString |> Encode.string )
-        , ( "mass", Encode.float (Mass.inKilograms p.mass) )
-        ]
-
-
-encodePlantOptions : PlantOptions -> Encode.Value
-encodePlantOptions p =
-    Encode.object
-        [ ( "country", p.country |> Maybe.map Country.encodeCode |> Maybe.withDefault Encode.null )
-        ]
-
-
-serialize : Query -> String
-serialize query =
-    query
-        |> encode
-        |> Encode.encode 2
 
 
 compute : FoodDb.Db -> Query -> Result String Results
@@ -465,3 +402,62 @@ computeProcessImpacts item =
     -- total + (item.amount * impact)
     item.process.impacts
         |> Impact.mapImpacts (computeImpact item.mass)
+
+
+
+---- Encoders
+
+
+encodeQuery : Query -> Encode.Value
+encodeQuery q =
+    Encode.object
+        [ ( "ingredients", Encode.list encodeIngredient q.ingredients )
+        , ( "transform", q.transform |> Maybe.map encodeTransform |> Maybe.withDefault Encode.null )
+        , ( "packaging", Encode.list encodePackaging q.packaging )
+        , ( "plant", encodePlantOptions q.plant )
+        ]
+
+
+encodeIngredient : IngredientQuery -> Encode.Value
+encodeIngredient i =
+    Encode.object
+        [ ( "code", i.code |> Process.codeToString |> Encode.string )
+        , ( "mass", Encode.float (Mass.inKilograms i.mass) )
+        , ( "country", i.country |> Maybe.map Country.encodeCode |> Maybe.withDefault Encode.null )
+        , ( "labels", Encode.list Encode.string i.labels )
+        ]
+
+
+encodePackaging : PackagingQuery -> Encode.Value
+encodePackaging i =
+    Encode.object
+        [ ( "code", i.code |> Process.codeToString |> Encode.string )
+        , ( "mass", Encode.float (Mass.inKilograms i.mass) )
+        ]
+
+
+encodePlantOptions : PlantOptions -> Encode.Value
+encodePlantOptions p =
+    Encode.object
+        [ ( "country", p.country |> Maybe.map Country.encodeCode |> Maybe.withDefault Encode.null )
+        ]
+
+
+encodeResults : Results -> Encode.Value
+encodeResults results =
+    Encode.object
+        [ ( "impacts", Impact.encodeImpacts results.impacts )
+        ]
+
+
+encodeTransform : TransformQuery -> Encode.Value
+encodeTransform p =
+    Encode.object
+        [ ( "code", p.code |> Process.codeToString |> Encode.string )
+        , ( "mass", Encode.float (Mass.inKilograms p.mass) )
+        ]
+
+
+serializeQuery : Query -> String
+serializeQuery =
+    encodeQuery >> Encode.encode 2

@@ -89,7 +89,7 @@ toFoodResults query results =
     Encode.object
         [ ( "results", Recipe.encodeResults results )
         , ( "description", Encode.string "TODO" )
-        , ( "query", Recipe.encode query )
+        , ( "query", Recipe.encodeQuery query )
         ]
 
 
