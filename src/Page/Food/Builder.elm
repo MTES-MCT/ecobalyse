@@ -345,7 +345,11 @@ rowTemplate input content action =
 
 ingredientListView : FoodDb.Db -> Maybe SelectedProcess -> Recipe -> List (Html Msg)
 ingredientListView foodDb selectedProcess recipe =
-    [ div [ class "card-header" ] [ h5 [ class "mb-0" ] [ text "Ingrédients" ] ]
+    [ div [ class "card-header" ]
+        [ h5 [ class "mb-0" ] [ text "Ingrédients" ]
+
+        -- TODO: render sub step impacts
+        ]
     , ul [ class "list-group list-group-flush" ]
         (if List.isEmpty recipe.ingredients then
             [ li [ class "list-group-item" ] [ text "Aucun ingrédient" ] ]
@@ -388,7 +392,11 @@ ingredientListView foodDb selectedProcess recipe =
 
 packagingListView : FoodDb.Db -> Maybe SelectedProcess -> Recipe -> List (Html Msg)
 packagingListView foodDb selectedProcess recipe =
-    [ div [ class "card-header" ] [ h5 [ class "mb-0" ] [ text "Emballage" ] ]
+    [ div [ class "card-header" ]
+        [ h5 [ class "mb-0" ] [ text "Emballage" ]
+
+        -- TODO: render sub step impacts
+        ]
     , ul [ class "list-group list-group-flush" ]
         (if List.isEmpty recipe.packaging then
             [ li [ class "list-group-item" ] [ text "Aucun emballage" ] ]
@@ -592,7 +600,11 @@ stepListView foodDb { selectedIngredient, selectedPackaging, selectedTransform }
 
 transformView : FoodDb.Db -> Maybe SelectedProcess -> Recipe -> List (Html Msg)
 transformView foodDb selectedProcess recipe =
-    [ div [ class "card-header" ] [ h5 [ class "mb-0" ] [ text "Transformation" ] ]
+    [ div [ class "card-header" ]
+        [ h5 [ class "mb-0" ] [ text "Transformation" ]
+
+        -- TODO: render sub step impacts
+        ]
     , case recipe.transform of
         Just { process, mass } ->
             ul [ class "list-group list-group-flush border-top-0" ]
