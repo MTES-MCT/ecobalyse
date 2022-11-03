@@ -32,15 +32,14 @@ _En l’absence de données suffisamment précises dans la Base Impacts, l’ét
 <summary>Teinture / Impression</summary>
 
 * Support de teinture (sur fil, tissu, article)
-* Procédé d'impression (fixé-lavé, pigmentaire
+* Procédé d'impression (fixé-lavé, pigmentaire)
 * Pays
 * Quantité d'énergie consommée (électricité et chaleur)
 
-Prochainement disponibles :&#x20;
-
-* Procédé de teinture : discontinu, continu
-* Colorants de teinture : dispersés, acides, réactifs, cationiques, de cuve&#x20;
-* Source de chaleur (gaz naturel, fuel, etc.)
+Prochainement disponibles : \
+\=> Procédé de teinture (discontinu, continu)\
+\=> Colorants de teinture (dispersés, acides, réactifs, etc.)\
+\=> Source de chaleur (gaz naturel, fuel, etc.)
 
 </details>
 
@@ -49,8 +48,7 @@ Prochainement disponibles :&#x20;
 <summary>Finition</summary>
 
 * Type(s) d'apprêt(s) (anti-acarien, déperlant, etc.)
-* Pays\
-  _Impacte les procédés d'arrière plan suivants : mix électrique, mix chaleur, efficacité du traitement des eaux usées_
+* Pays
 * Quantité d'énergie consommée (électricité et chaleur)
 
 </details>
@@ -201,5 +199,5 @@ Ces paramétrages seront prochainement disponibles sur le calculateur.
 ## Limites
 
 * Les indicateurs "Consommations d'eau" et "Ecotoxicité aquatique" ne sont pas modélisés
-* Les principaux pocédés de Pré-Traitement de tissus ne sont pas encore disponibles
+* Les principaux pocédés de Pré-Traitement du tissu ne sont pas encore disponibles
 * Les principaux procédés (continu vs discontinu) et colorants de teinture ne sont pas encore disponibles
