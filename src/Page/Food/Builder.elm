@@ -364,7 +364,7 @@ ingredientListView foodDb selectedImpact selectedProcess recipe results =
          else
             recipe.ingredients
                 |> List.map
-                    (\{ mass, process } ->
+                    (\({ mass, process } as ingredient) ->
                         rowTemplate
                             (MassInput.view
                                 { mass = mass
@@ -373,13 +373,17 @@ ingredientListView foodDb selectedImpact selectedProcess recipe results =
                                 }
                             )
                             (small [] [ text <| Process.getDisplayName process ])
-                            (button
-                                [ type_ "button"
-                                , class "btn btn-sm btn-outline-primary no-outline"
-                                , title "Supprimer"
-                                , onClick (DeleteIngredient process.code)
+                            (div [ class "d-flex flex-nowrap align-items-center gap-2 fs-7 text-nowrap" ]
+                                [ Recipe.computeProcessImpacts ingredient
+                                    |> formatImpact foodDb selectedImpact
+                                , button
+                                    [ type_ "button"
+                                    , class "btn btn-sm btn-outline-primary no-outline"
+                                    , title "Supprimer"
+                                    , onClick (DeleteIngredient process.code)
+                                    ]
+                                    [ Icon.trash ]
                                 ]
-                                [ Icon.trash ]
                             )
                     )
         )
@@ -411,7 +415,7 @@ packagingListView foodDb selectedImpact selectedProcess recipe results =
          else
             recipe.packaging
                 |> List.map
-                    (\{ mass, process } ->
+                    (\({ mass, process } as packaging) ->
                         rowTemplate
                             (MassInput.view
                                 { mass = mass
@@ -420,13 +424,17 @@ packagingListView foodDb selectedImpact selectedProcess recipe results =
                                 }
                             )
                             (small [] [ text <| Process.getDisplayName process ])
-                            (button
-                                [ type_ "button"
-                                , class "btn btn-sm btn-outline-primary no-outline"
-                                , title "Supprimer"
-                                , onClick (DeletePackaging process.code)
+                            (div [ class "d-flex flex-nowrap align-items-center gap-2 fs-7 text-nowrap" ]
+                                [ Recipe.computeProcessImpacts packaging
+                                    |> formatImpact foodDb selectedImpact
+                                , button
+                                    [ type_ "button"
+                                    , class "btn btn-sm btn-outline-primary no-outline"
+                                    , title "Supprimer"
+                                    , onClick (DeletePackaging process.code)
+                                    ]
+                                    [ Icon.trash ]
                                 ]
-                                [ Icon.trash ]
                             )
                     )
         )
@@ -660,7 +668,7 @@ transformView foodDb selectedImpact selectedProcess recipe results =
             |> formatImpact foodDb selectedImpact
         ]
     , case recipe.transform of
-        Just { process, mass } ->
+        Just ({ process, mass } as transform) ->
             ul [ class "list-group list-group-flush border-top-0" ]
                 [ rowTemplate
                     (MassInput.view
@@ -670,13 +678,17 @@ transformView foodDb selectedImpact selectedProcess recipe results =
                         }
                     )
                     (small [] [ text <| Process.getDisplayName process ])
-                    (button
-                        [ type_ "button"
-                        , class "btn btn-sm btn-outline-primary no-outline"
-                        , title "Supprimer"
-                        , onClick ResetTransform
+                    (div [ class "d-flex flex-nowrap align-items-center gap-2 fs-7 text-nowrap" ]
+                        [ Recipe.computeProcessImpacts transform
+                            |> formatImpact foodDb selectedImpact
+                        , button
+                            [ type_ "button"
+                            , class "btn btn-sm btn-outline-primary no-outline"
+                            , title "Supprimer"
+                            , onClick ResetTransform
+                            ]
+                            [ Icon.trash ]
                         ]
-                        [ Icon.trash ]
                     )
                 ]
 

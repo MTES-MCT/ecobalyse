@@ -10,6 +10,7 @@ module Data.Food.Recipe exposing
     , addIngredient
     , addPackaging
     , compute
+    , computeProcessImpacts
     , deleteIngredient
     , deletePackaging
     , empty
