@@ -537,7 +537,7 @@ processSelectorView kind selectedCode event =
 rowTemplate : Html Msg -> Html Msg -> Html Msg -> Html Msg
 rowTemplate input content action =
     li [ class "list-group-item d-flex align-items-center gap-2" ]
-        [ span [ class "flex-shrink-1" ] [ input ]
+        [ span [ class "MassInputWrapper flex-shrink-1" ] [ input ]
         , span [ class "w-100" ] [ content ]
         , action
         ]
