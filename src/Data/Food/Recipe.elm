@@ -407,13 +407,16 @@ compute db =
     fromQuery db
         >> Result.map
             (\recipe ->
-                recipe.ingredients
+                [ recipe.ingredients
                     |> List.map computeProcessImpacts
-                    |> (::)
-                        (recipe.transform
-                            |> Maybe.map computeProcessImpacts
-                            |> Maybe.withDefault Impact.noImpacts
-                        )
+                , recipe.transform
+                    |> Maybe.map computeProcessImpacts
+                    |> Maybe.withDefault Impact.noImpacts
+                    |> List.singleton
+                , recipe.packaging
+                    |> List.map computeProcessImpacts
+                ]
+                    |> List.concat
                     |> Impact.sumImpacts db.impacts
             )
 

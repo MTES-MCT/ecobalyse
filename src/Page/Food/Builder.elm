@@ -386,6 +386,49 @@ ingredientListView foodDb selectedProcess recipe =
     ]
 
 
+packagingListView : FoodDb.Db -> Maybe SelectedProcess -> Recipe -> List (Html Msg)
+packagingListView foodDb selectedProcess recipe =
+    [ div [ class "card-header" ] [ h5 [ class "mb-0" ] [ text "Emballage" ] ]
+    , ul [ class "list-group list-group-flush" ]
+        (if List.isEmpty recipe.packaging then
+            [ li [ class "list-group-item" ] [ text "Aucun emballage" ] ]
+
+         else
+            recipe.packaging
+                |> List.map
+                    (\{ mass, process } ->
+                        rowTemplate
+                            (MassInput.view
+                                { mass = mass
+                                , onChange = UpdatePackagingMass process.code
+                                , disabled = False
+                                }
+                            )
+                            (text <| Process.nameToString process.name)
+                            (button
+                                [ type_ "button"
+                                , class "btn btn-outline-primary no-outline"
+                                , title "Supprimer"
+                                , onClick (DeletePackaging process.code)
+                                ]
+                                [ Icon.trash ]
+                            )
+                    )
+        )
+    , addProcessFormView
+        { category = Process.Packaging
+        , defaultMass = Mass.grams 100
+        , excluded = List.map (.process >> .code) recipe.packaging
+        , foodDb = foodDb
+        , kind = "un emballage"
+        , noOp = NoOp
+        , select = SelectPackaging
+        , selectedProcess = selectedProcess
+        , submit = AddPackaging
+        }
+    ]
+
+
 mainView : FoodDb.Db -> Model -> Html Msg
 mainView foodDb model =
     div [ class "row gap-3 gap-lg-0" ]
@@ -431,49 +474,6 @@ menuView query =
             ]
             [ text "Créer une nouvelle recette" ]
         ]
-
-
-packagingListView : FoodDb.Db -> Maybe SelectedProcess -> Recipe -> List (Html Msg)
-packagingListView foodDb selectedProcess recipe =
-    [ div [ class "card-header" ] [ h5 [ class "mb-0" ] [ text "Emballage" ] ]
-    , ul [ class "list-group list-group-flush" ]
-        (if List.isEmpty recipe.packaging then
-            [ li [ class "list-group-item" ] [ text "Aucun emballage" ] ]
-
-         else
-            recipe.packaging
-                |> List.map
-                    (\{ mass, process } ->
-                        rowTemplate
-                            (MassInput.view
-                                { mass = mass
-                                , onChange = UpdatePackagingMass process.code
-                                , disabled = False
-                                }
-                            )
-                            (text <| Process.nameToString process.name)
-                            (button
-                                [ type_ "button"
-                                , class "btn btn-outline-primary no-outline"
-                                , title "Supprimer"
-                                , onClick (DeletePackaging process.code)
-                                ]
-                                [ Icon.trash ]
-                            )
-                    )
-        )
-    , addProcessFormView
-        { category = Process.Packaging
-        , defaultMass = Mass.grams 100
-        , excluded = List.map (.process >> .code) recipe.ingredients
-        , foodDb = foodDb
-        , kind = "un emballage"
-        , noOp = NoOp
-        , select = SelectPackaging
-        , selectedProcess = selectedProcess
-        , submit = AddPackaging
-        }
-    ]
 
 
 processSelectorView : String -> Maybe Process.Code -> (Maybe Process.Code -> msg) -> List Process -> Html msg
