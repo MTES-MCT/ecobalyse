@@ -336,16 +336,18 @@ errorView error =
 
 formatImpact : FoodDb.Db -> Impact.Trigram -> Impact.Impacts -> Html Msg
 formatImpact foodDb selectedImpact impacts =
-    let
-        definition =
-            foodDb.impacts
-                |> Impact.getDefinition selectedImpact
-                |> Result.withDefault Impact.invalid
-    in
-    impacts
-        |> Impact.getImpact selectedImpact
-        |> Unit.impactToFloat
-        |> Format.formatImpactFloat definition 2
+    case Impact.getDefinition selectedImpact foodDb.impacts of
+        Ok definition ->
+            impacts
+                |> Impact.getImpact selectedImpact
+                |> Unit.impactToFloat
+                |> Format.formatImpactFloat definition 2
+
+        Err error ->
+            span [ class "d-flex align-items-center gap-1 bg-white text-danger" ]
+                [ Icon.warning
+                , text error
+                ]
 
 
 ingredientListView : FoodDb.Db -> Impact.Trigram -> Maybe SelectedProcess -> Recipe -> Recipe.Results -> List (Html Msg)
