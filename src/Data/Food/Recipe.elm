@@ -16,6 +16,7 @@ module Data.Food.Recipe exposing
     , encodeQuery
     , encodeResults
     , fromQuery
+    , recipeStepImpacts
     , resetTransform
     , serializeQuery
     , setTransform
@@ -423,6 +424,12 @@ computeProcessImpacts item =
     -- total + (item.amount * impact)
     item.process.impacts
         |> Impact.mapImpacts (computeImpact item.mass)
+
+
+recipeStepImpacts : FoodDb.Db -> Results -> Impacts
+recipeStepImpacts foodDb { recipe } =
+    [ recipe.ingredients, recipe.transform ]
+        |> Impact.sumImpacts foodDb.impacts
 
 
 

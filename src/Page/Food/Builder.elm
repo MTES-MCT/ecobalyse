@@ -575,8 +575,12 @@ stepListView : FoodDb.Db -> Model -> Recipe -> Recipe.Results -> Html Msg
 stepListView foodDb { impact, selectedIngredient, selectedPackaging, selectedTransform } recipe results =
     div [ class "d-flex flex-column gap-3" ]
         [ div [ class "card" ]
-            (div [ class "card-header" ]
+            (div [ class "card-header d-flex align-items-center justify-content-between" ]
                 [ h5 [ class "mb-0" ] [ text "Recette" ]
+                , Recipe.recipeStepImpacts foodDb results
+                    |> formatImpact foodDb impact
+                    |> List.singleton
+                    |> span [ class "fw-bold" ]
                 ]
                 :: List.concat
                     [ ingredientListView foodDb impact selectedIngredient recipe results
@@ -584,8 +588,12 @@ stepListView foodDb { impact, selectedIngredient, selectedPackaging, selectedTra
                     ]
             )
         , div [ class "card" ]
-            (div [ class "card-header" ]
+            (div [ class "card-header d-flex align-items-center justify-content-between" ]
                 [ h5 [ class "mb-0" ] [ text "Conditionnement" ]
+                , results.packaging
+                    |> formatImpact foodDb impact
+                    |> List.singleton
+                    |> span [ class "fw-bold" ]
                 ]
                 :: packagingListView foodDb impact selectedPackaging recipe results
             )
