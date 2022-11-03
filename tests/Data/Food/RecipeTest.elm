@@ -89,7 +89,7 @@ suite =
             , describe "compute"
                 [ Recipe.tunaPizza
                     |> Recipe.compute foodDb
-                    |> Result.map (.impacts >> AnyDict.toDict)
+                    |> Result.map (Tuple.second >> .impacts >> AnyDict.toDict)
                     |> Result.withDefault Dict.empty
                     |> Expect.equalDicts
                         (Dict.fromList
