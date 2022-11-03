@@ -158,6 +158,12 @@ handleRequest ({ foodDb, textileDb } as dbs) request =
                 |> encodeFoodProcessList
                 |> sendResponse 200 request
 
+        Just (Route.Get Route.FoodPackagingList) ->
+            foodDb.processes
+                |> List.filter (.category >> (==) FoodProcess.Packaging)
+                |> encodeFoodProcessList
+                |> sendResponse 200 request
+
         Just (Route.Get Route.FoodTransformList) ->
             foodDb.processes
                 |> List.filter (.category >> (==) FoodProcess.Transform)
