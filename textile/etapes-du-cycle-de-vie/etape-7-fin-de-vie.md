@@ -4,7 +4,7 @@ Pour évaluer l'impact de la fin de vie on se base sur le PEFCR de la commission
 
 Il est détaillé sur la figure suivante les différents scénarios considérés pour la fin de vie d'un vêtement.
 
-![PEFCR v1.3 p121](<../.gitbook/assets/image (5).png>)
+![PEFCR v1.3 p121](<../../.gitbook/assets/image (5).png>)
 
 
 
@@ -28,7 +28,7 @@ Pour évaluer l'impact de l'incinération et de la mise en décharge, on prend e
 
 Les distances parcourues ainsi que les proportions pour chaque scénarios sont définis dans le scénario suivant :
 
-![PEF RP Study Table 33](<../.gitbook/assets/Screenshot 2022-01-14 at 14.24.24.png>)
+![PEF RP Study Table 33](<../../.gitbook/assets/Screenshot 2022-01-14 at 14.24.24.png>)
 
 #### Transport en camion
 
@@ -74,7 +74,7 @@ d_voiture = 0.195 km
 
 Le PEFCR v1.3 indique qu'il faut prendre en compte la part du coffre qu'occupe le vêtement que l'on amène au point de collecte.&#x20;
 
-![PEFCR v1.3](<../.gitbook/assets/image (2).png>)
+![PEFCR v1.3](<../../.gitbook/assets/image (2).png>)
 
 
 

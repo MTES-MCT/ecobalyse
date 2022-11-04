@@ -57,7 +57,7 @@ En ce sens, plusieurs démarches sont actuellement déployées :&#x20;
 * la mise à disposition d'un point de contact mail ([ecobalyse@beta.gouv.fr](mailto:ecobalyse@beta.gouv.fr))&#x20;
 * la possibilité d'organiser des ateliers en 1-1 sur des enjeux méthodologiques précis
 
-## Des réflexions autour des données mobilisées
+## Des réflexions autour des données mobilisée
 
 La base de données actuellement utilisée par Ecobalyse est la Base Impacts développée par l’ADEME. D’autres bases de données de référence sont utilisées dans l’industrie telles que celles développées par Ecoinvent, Sphera (Gabi), Bureau Veritas (Codde) l’Union Européenne (PEF), Quantis, la Sustainable Apparel Coalition (Higg Index), etc.&#x20;
 

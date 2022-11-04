@@ -39,13 +39,13 @@ Dans la suite de cette page, vous trouverez pour information une documentation d
 
 Conformément à la documentation sectorielle textile de la [base Impacts](http://www.base-impacts.ademe.fr/), le système "matière et filature", est schématisé comme suit (exemple de la fibre de laine de mouton et du filament de viscose) :
 
-![](../../.gitbook/assets/FibreLaine.PNG)
+![](../../../.gitbook/assets/FibreLaine.PNG)
 
-![](../../.gitbook/assets/FilViscose.PNG)
+![](../../../.gitbook/assets/FilViscose.PNG)
 
 ### Procédé de matière et filature
 
-L'impact du procédé de confection retenu est le produit de la masse "sortante", en l'occurrence le fil, avec le coefficient d'impact considéré (cf. [Impacts considérés](../impacts-consideres.md)).
+L'impact du procédé de confection retenu est le produit de la masse "sortante", en l'occurrence le fil, avec le coefficient d'impact considéré (cf. [Impacts considérés](../../impacts-consideres.md)).
 
 $$
 ImpactProcédéMatièreFilature = MasseSortante(kg) * CoefImpactProcédéMatièreFilature

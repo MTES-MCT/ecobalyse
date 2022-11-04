@@ -1,25 +1,28 @@
----
-description: Choix du mix électrique à appliquer en fonction du pays
----
-
 # ⚡ Electricité
 
-## Procédés
+## Fonctionnement
 
-Le mix électrique appliqué dépend du pays dans lequel l'étape correspondante est réalisée.
+### Généralités
 
-| Pays       | Procédé électricité       | UUID                                 |
-| ---------- | ------------------------- | ------------------------------------ |
-| Bangladesh | Mix électrique réseau, BD | 1ee6061e-8e15-4558-9338-94ad87abf932 |
-| Chine      | Mix électrique réseau, CN | 8f923f3d-0bd2-4326-99e2-f984b4454226 |
-| Espagne    | Mix électrique réseau, ES | 37301c44-c4cf-4214-a4ac-eee5785ccdc5 |
-| France     | Mix électrique réseau, FR | 05585055-9742-4fff-81ff-ad2e30e1b791 |
-| Inde       | Mix électrique réseau, IN | 1b470f5c-6ae6-404d-bd71-8546d33dbc17 |
-| Portugal   | Mix électrique réseau, PT | a1d83202-0052-4d10-b9d2-938564be6a0b |
-| Tunisie    | Mix électrique réseau, TN | f0eb64cd-468d-4f3c-a9a3-3b3661625955 |
-| Turquie    | Mix électrique réseau, TR | 6fad8643-de3e-49dd-a48b-8e17b4175c23 |
+La consommation d'électricité s'exprime en kilowattheures (kWh).\
+Certains procédés nécessitent l'utilisation de l'unité mégajoule (MJ) pour la quantité d'électricité; une conversion est alors appliquée (1 kWh = 3,6 MJ).&#x20;
 
-## Paramétrage manuel de l'impact carbone
+Deux scénarios existent pour modéliser la consommation d'électricité des procédés mobilisés :&#x20;
+
+**Scénario 1** :  l'électricité est déjà intégrée dans le procédé mobilisé en tant que Flux Interne&#x20;
+
+**Scénario 2** : l'électricité n'est pas intégrée dans le procédé mobilisé et doit être intégrée en tant que Flux Externe\
+Dans ce cas précis, la quantité d'électricité nécessaire pour actionner le procédé mobilisé correspond au produit de la masse "sortante" du procédé mobilisé (ex : masse d'étoffe en sortie du tissage) avec le coefficient du flux intermédiaire correspondant à l'électricité (`de442ef0-d725-4c3a-a5e2-b29f51a1186c`).
+
+### Spécificités
+
+#### Source d'électricité < = >  pays&#x20;
+
+L'impact environnemental de la production d'électricité varie significativement selon le mix électrique utilisé.
+
+Ecobalyse applique par défaut les mix électriques nationaux des pays disponibles dans le calculateur.&#x20;
+
+#### Paramétrage manuel de l'impact carbone
 
 A chaque étape de la production qui mobilise de l'électricité, il est proposé de paramétrer manuellement l'intensité carbone du mix électrique.
 
@@ -27,7 +30,7 @@ Par défaut, l'intensité carbone du mix électrique est la valeur spécifiée d
 
 Le paramétrage manuel doit notamment permettre de traduire le cas d'un site industriel dont l'électricité serait produite grâce à des panneaux photovoltaïques sur site, ce qui justifierait un mix électrique différent du réseau national.
 
-Paramétrage :&#x20;
+Paramétrage :
 
 * unité : kg CO2e / kWh
 * valeur min : 0 kg CO2e / kWh
@@ -40,9 +43,7 @@ Paramétrage :&#x20;
 * La revendication d'un mix électrique différent de celui du réseau national, par exemple une énergie 100% renouvelable, **nécessite que des conditions soient remplies** \[à préciser pour lister les critères à remplir pour revendiquer une énergie verte en ACV].
 {% endhint %}
 
-### Repères utiles
-
-Pour déterminer l'intensité carbone d'un mix électrique, il est possible de considérer :&#x20;
+Pour déterminer l'intensité carbone d'un mix électrique, il est possible de considérer :
 
 * l'intensité carbone des différents mix électrique nationaux telle que définie dans la base Impacts (cf. impact "changement climatique" des différents procédés de mix électriques) ;
 * les intensités carbone des différents moyens de production présentés dans la base Carbone / bilan GES de l'ADEME ([lien](https://www.bilans-ges.ademe.fr/fr/basecarbone/donnees-consulter/choix-categorie/categorie/69)).
@@ -55,6 +56,4 @@ Pour déterminer l'intensité carbone d'un mix électrique, il est possible de c
 
 ## Limites
 
-Il peut être proposé :&#x20;
-
-* d'ajouter de nouveaux pays, et donc de nouveaux mix énergétiques.
+Il peut être proposé d'ajouter de nouveaux pays, et donc de nouveaux mix énergétiques.

@@ -18,7 +18,7 @@ En application de la méthodologie PEF, et plus particulièrement du projet de P
 
 Pour les matières premières, la formule à considérer est :
 
-![PEFCR A\&F - v1.2 - ligne 1056](<../../../.gitbook/assets/image (1).png>)
+![PEFCR A\&F - v1.2 - ligne 1056](<../../../../.gitbook/assets/image (1).png>)
 
 Ainsi dans le cas d'un vêtement comportant des matières recyclés, le calcul de l'impact matière est plus compliqué.&#x20;
 

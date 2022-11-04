@@ -25,7 +25,7 @@ Ce terme est négligé étant donné son impact faible. Pour plus de justificati
 
 Il est possible qu'un produit ait plusieurs filières de recyclage. Dans ce cas il faut appliquer le terme M3 pour chaque filière de recyclage.
 
-![PEFCR A\&F - v1.2 - ligne 1131](<../../../.gitbook/assets/Screenshot 2022-03-16 at 16.27.52.png>)
+![PEFCR A\&F - v1.2 - ligne 1131](<../../../../.gitbook/assets/Screenshot 2022-03-16 at 16.27.52.png>)
 
 3 filières de recyclage sont identifiés pour les vêtements dans le PEFCR A\&F :
 
@@ -33,7 +33,7 @@ Il est possible qu'un produit ait plusieurs filières de recyclage. Dans ce cas 
 * Vêtement -> Wiper
 * Vêtement -> Insulation
 
-![PEFCR A\&F - v1.2 - Filières de recyclage des vêtements](<../../../.gitbook/assets/Screenshot 2022-03-16 at 17.09.18.png>)
+![PEFCR A\&F - v1.2 - Filières de recyclage des vêtements](<../../../../.gitbook/assets/Screenshot 2022-03-16 at 17.09.18.png>)
 
 On remarque que les seules filières avec un taux de recyclage non nuls sont la filière Wiper et Insulation.
 

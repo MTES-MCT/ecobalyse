@@ -67,15 +67,15 @@ L'impact global de l'Ennoblissement se comprend donc comme résultant de la somm
 * procédé retenus \
   (cf. intérieur du _system boundaries_)
 * flux externes devant être ajoutés à chaque procédé \
-  ([chaleur](chaleur.md) et/ou [électricité](electricite.md))
+  ([chaleur](../parametres-transverses/chaleur.md) et/ou [électricité](../parametres-transverses/electricite.md))
 
-L'impact de chaque procédé pris séparement correspond au produit de la masse "sortante" avec le coefficient d'impact considéré (cf. [Impacts considérés](impacts-consideres.md)).
+L'impact de chaque procédé pris séparement correspond au produit de la masse "sortante" avec le coefficient d'impact considéré (cf. [Impacts considérés](../impacts-consideres.md)).
 
 $$
 ImpactProcédé = MasseSortante(kg) * CoefImpactProcédé
 $$
 
-Plus de détail sur la gestion des masses : [Pertes et rebut](pertes-et-rebus.md).
+Plus de détail sur la gestion des masses : [Pertes et rebut](../parametres-transverses/pertes-et-rebus.md).
 
 ### Procédés disponibles
 

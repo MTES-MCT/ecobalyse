@@ -12,14 +12,14 @@ Le transport considéré est la somme des transports à prévoir entre chaque é
 
 Entre chaque étape, la masse à considérer est ajustée en fonction des [Pertes et rebut](pertes-et-rebus.md).
 
-| #Etape | De                                                                                            | Vers                                                                                          | Masse de produit considéré |
-| ------ | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | -------------------------- |
-| 1.     | <p>Matière</p><p>Pays défini par défaut dans <a href="filature/">Matière et filature</a></p>  | <p>Filature</p><p>Pays défini par défaut dans <a href="filature/">Matière et filature</a></p> | Matière première           |
-| 2.     | <p>Filature</p><p>Pays défini par défaut dans <a href="filature/">Matière et filature</a></p> | <p>Tissage/tricotage</p><p>Pays*</p>                                                          | Matière première           |
-| 3.     | <p>Tissage/tricotage</p><p>Pays*</p>                                                          | <p>Teinture</p><p>Pays*</p>                                                                   | Fil                        |
-| 4.     | <p>Teinture</p><p>Pays*</p>                                                                   | <p>Confection</p><p>Pays*</p>                                                                 | Etoffe                     |
-| 5.     | <p>Confection</p><p>Pays*</p>                                                                 | <p>Entrepôt</p><p>Pays : France</p>                                                           | Habit                      |
-| 6.     | <p>Entrepôt</p><p>Pays : France</p>                                                           | <p>Magasin ou Point de retrait</p><p>Pays : France</p>                                        | Habit                      |
+| #Etape | De                                                                                                                      | Vers                                                                                                                    | Masse de produit considéré |
+| ------ | ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | -------------------------- |
+| 1.     | <p>Matière</p><p>Pays défini par défaut dans <a href="../etapes-du-cycle-de-vie/filature/">Matière et filature</a></p>  | <p>Filature</p><p>Pays défini par défaut dans <a href="../etapes-du-cycle-de-vie/filature/">Matière et filature</a></p> | Matière première           |
+| 2.     | <p>Filature</p><p>Pays défini par défaut dans <a href="../etapes-du-cycle-de-vie/filature/">Matière et filature</a></p> | <p>Tissage/tricotage</p><p>Pays*</p>                                                                                    | Matière première           |
+| 3.     | <p>Tissage/tricotage</p><p>Pays*</p>                                                                                    | <p>Teinture</p><p>Pays*</p>                                                                                             | Fil                        |
+| 4.     | <p>Teinture</p><p>Pays*</p>                                                                                             | <p>Confection</p><p>Pays*</p>                                                                                           | Etoffe                     |
+| 5.     | <p>Confection</p><p>Pays*</p>                                                                                           | <p>Entrepôt</p><p>Pays : France</p>                                                                                     | Habit                      |
+| 6.     | <p>Entrepôt</p><p>Pays : France</p>                                                                                     | <p>Magasin ou Point de retrait</p><p>Pays : France</p>                                                                  | Habit                      |
 
 \*Pays paramétré directement dans le calculateur.
 
@@ -74,7 +74,7 @@ La part du **transport terrestre (t)**, par rapport au transport "terrestre + ma
 | 500 km <= 1000 km      | 90%   |
 | 1000 km <= 2000 km     | 50%   |
 | 2000 km <= 3000 km     | 25%   |
-|  > 3000 km             | 0%    |
+| > 3000 km              | 0%    |
 
 Si 2 étapes successives ont lieu dans un même pays, on fait l'hypothèse que le déplacement est fait à 100% par la voie terrestre avec une distance de 500 km.
 
@@ -91,17 +91,17 @@ _"Pour un déplacement "Turquie-France", le transport terrestre-maritime sera fa
 
 #### Cas particulier des étapes 1 (Matière première --> Filature) et 2 (Filature --> Tricotage / Tissage)
 
-| Etape                                      | Distance terrestre                                                                                                                          | Distance maritime                                                                                                                           |
-| ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| Etape 1 (Matière première --> Filature)    | Non pris en compte. Distance internalisée dans le procédé unique                                                                            | Non pris en compte. Distance internalisée dans le procédé unique                                                                            |
-| Etape 2 (Filature --> Tricotage / Tissage) | Distance par défaut entre le pays de Tricotage / Tissage et le pays par défaut attaché à la filature (cf. [Matière et filature](filature/)) | Distance par défaut entre le pays de Tricotage / Tissage et le pays par défaut attaché à la filature (cf. [Matière et filature](filature/)) |
+| Etape                                      | Distance terrestre                                                                                                                                                    | Distance maritime                                                                                                                                                     |
+| ------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Etape 1 (Matière première --> Filature)    | Non pris en compte. Distance internalisée dans le procédé unique                                                                                                      | Non pris en compte. Distance internalisée dans le procédé unique                                                                                                      |
+| Etape 2 (Filature --> Tricotage / Tissage) | Distance par défaut entre le pays de Tricotage / Tissage et le pays par défaut attaché à la filature (cf. [Matière et filature](../etapes-du-cycle-de-vie/filature/)) | Distance par défaut entre le pays de Tricotage / Tissage et le pays par défaut attaché à la filature (cf. [Matière et filature](../etapes-du-cycle-de-vie/filature/)) |
 
 ### Part du transport aérien
 
 Une part de transport aérien est considérée :
 
 * Seulement pour le transport entre la confection et l'entrepôt (étape #5 ci-dessus)
-* Cette part n'est considérée que lorsque la confection est réalisée hors Europe (ou Turquie). Pour mémo, il est considéré que l'entrepôt est en France (cf. [Distribution](distribution.md))
+* Cette part n'est considérée que lorsque la confection est réalisée hors Europe (ou Turquie). Pour mémo, il est considéré que l'entrepôt est en France (cf. [Distribution](../etapes-du-cycle-de-vie/distribution.md))
 
 La part de **transport aérien (`a`)**, par rapport au transport "aérien + terrestre + maritime" est considérée comme suit :
 
@@ -154,4 +154,3 @@ Les procédés utilisés pour modéliser les impacts des différents modes de tr
 | <p>Terrestre</p><p>Distribution</p>          | Transport en camion non spécifié France (dont parc, utilisation et infrastructure) (50%) \[tkm], FR | f49b27fa-f22e-c6e1-ab4b-e9f873e2e648 |
 | Maritime                                     | Transport maritime de conteneurs 27,500 t (dont flotte, utilisation et infrastructure) \[tkm], GLO  | 8dc4ce62-ff0f-4680-897f-867c3b31a923 |
 | Aérien                                       | Transport aérien long-courrier (dont flotte, utilisation et infrastructure) \[tkm], GLO             | 839b263d-5111-4318-9275-7026937e88b2 |
-

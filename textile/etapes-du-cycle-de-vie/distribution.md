@@ -21,7 +21,7 @@ Un unique procédé est considéré pour modéliser la distribution, de l'entrep
 | --------------------------------------------------------------------------------------------------- | ------------------------------------ |
 | Transport en camion non spécifié France (dont parc, utilisation et infrastructure) (50%) \[tkm], FR | f49b27fa-f22e-c6e1-ab4b-e9f873e2e648 |
 
-Les modalités de calcul de l'impact environnemental de ce transport sont précisées dans la page [transport](transport.md).
+Les modalités de calcul de l'impact environnemental de ce transport sont précisées dans la page [transport](../parametres-transverses/transport.md).
 
 ## Limites
 

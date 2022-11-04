@@ -10,7 +10,7 @@ description: >-
 
 Conformément à la documentation sectorielle textile de la [base Impacts](http://www.base-impacts.ademe.fr), le système "confection" est schématisé comme suit :
 
-![](<../.gitbook/assets/Confection (1).PNG>)
+![](<../../.gitbook/assets/Confection (1).PNG>)
 
 Par conséquent, l'impact global de l'étape de confection se comprend comme résultant de la somme de l'impact résultant du procédé de confection retenu (cf. intérieur du _system boundaries_) et des procédés externes devant être ajoutés, à savoir :
 
@@ -26,7 +26,7 @@ $$
 
 ## Procédé de confection
 
-L'impact du procédé de confection retenu est le produit du nombre d'articles / vêtements par le coefficient d'impact considéré (cf. [Impacts considérés](impacts-consideres.md)).
+L'impact du procédé de confection retenu est le produit du nombre d'articles / vêtements par le coefficient d'impact considéré (cf. [Impacts considérés](../impacts-consideres.md)).
 
 $$
 ImpactProcédéConfection = NbrArticles * CoefImpactProcédéConfection
@@ -35,10 +35,10 @@ $$
 {% hint style="warning" %}
 Remarque : pour les procédés de confection retenus (cf. ci-après), les coefficients d'impact sont tous nuls, de sorte que l'impact de l'étape de confection se limite finalement à l'impact de l'électricité nécessaire pour opérer ce processus.
 
-Une ambigüité apparaît dans la méthodologie entre :&#x20;
+Une ambigüité apparaît dans la méthodologie entre :
 
 * la documentation sectorielle textile qui précise, pour la section "making of clothing" (1.2.2.3.4.), que "the inventory refers to the production of 1 item of clothing"
-* la documentation du procédé de la base impacts qui une unité de référence en kg.&#x20;
+* la documentation du procédé de la base impacts qui une unité de référence en kg.
 {% endhint %}
 
 Le choix de procédé réalisé dépend du vêtement considéré :
@@ -101,7 +101,7 @@ $$
 Attention : le calcul des pertes est donc différent pour l'étape de confection par rapport aux autres étapes de la fabrication du vêtement.
 {% endhint %}
 
-Plus de détail sur la gestion des masses : [Pertes et rebut](pertes-et-rebus.md).
+Plus de détail sur la gestion des masses : [Pertes et rebut](../parametres-transverses/pertes-et-rebus.md).
 
 ## Electricité
 
@@ -114,13 +114,13 @@ ElecConsommée(MJ) = NbrArticles * CoefFluxElecProcédéTeinture
 $$
 
 {% hint style="warning" %}
-Une ambigüité apparaît dans la méthodologie entre :&#x20;
+Une ambigüité apparaît dans la méthodologie entre :
 
 * la documentation sectorielle textile qui précise, pour la section "making of clothing" (1.2.2.3.4.), que "the inventory refers to the production of 1 item of clothing"
-* la documentation du procédé de la base impacts qui une unité de référence en kg.&#x20;
+* la documentation du procédé de la base impacts qui une unité de référence en kg.
 {% endhint %}
 
-Le calcul d'impact de l'électricité ainsi mobilisée est détaillé dans la page suivante : [Electricité](electricite.md).
+Le calcul d'impact de l'électricité ainsi mobilisée est détaillé dans la page suivante : [Electricité](../parametres-transverses/electricite.md).
 
 {% hint style="danger" %}
 L'électricité s'exprime en KWh dans la formule ci-dessous. Une division par 3,6 est donc nécessaire pour assurer le changement d'unité par rapport à l'électricité consommée, calculée d'abord en MJ.
@@ -138,7 +138,7 @@ $$
 
 Pour le jean on intègre dans l'étape confection le délavage. Le délavage est un procédé qui s'applique après la confection et qui a un impact environmental important. En effet le délavage demande des quantités significatives de chaleur, d'électricité et d'eau.
 
-Il existe différents procédés de délavage dans la base impacts :&#x20;
+Il existe différents procédés de délavage dans la base impacts :
 
 * mécanique ou chimique
 * représentatif ou majorant
