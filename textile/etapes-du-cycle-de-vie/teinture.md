@@ -232,4 +232,4 @@ Les procédés de teinture en discontinu conduisent en général à des consomma
 
 ### Finition
 
-Cette sous-étape regroupe les traitements qui servent à donner aux textiles les propriétés d'usage final souhaitées (les “apprêts”). Celles-ci peuvent inclure des propriétés relatives à l'effet visuel, au toucher et à des caractéristiques spéciales telles que l'imperméabilisation et d'ininflammabilité. Les apprêts peuvent impliquer des traitements mécaniques/physiques et chimiques. Dans la majorité des cas, la solution d’apprêts chimiques est appliquée sous la forme d’une solution aqueuse au moyen de la technique de foulardage.
+Cette sous-étape regroupe les traitements qui servent à donner aux textiles les propriétés d'usage final souhaitées (les “apprêts”). Celles-ci peuvent inclure des propriétés relatives à l'effet visuel, au toucher et à des caractéristiques spéciales telles que l'imperméabilisation et d'ininflammabilité. Les apprêts peuvent impliquer des traitements mécaniques/physiques et chimiques. Dans la majorité des cas, les apprêts chimiques sont appliquées sous la forme de solutions aqueuses au moyen de la technique de foulardage.

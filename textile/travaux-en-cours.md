@@ -12,14 +12,14 @@ L'ennoblissement contribue de manière élevée à l'impact environnemental glob
 
 Quelques données chiffrées :&#x20;
 
-* Impact carbone (kg CO2 eq.) => entre 10% et 40% de l'impact global
-* Ecotoxicité aquatique => l'industrie Textile contribue fortement à la pollution aquatique dans le monde à cause des teintures/colorants utilisés principalement lors de l'étape ennoblissement.&#x20;
+* Changement climatique (kg CO2 eq.) => entre 10% et 40% du total&#x20;
+* Ecotoxicité aquatique => l'industrie Textile contribue de manière significative sur la pollution aquatique dans le monde (les chiffres proposées dans la littérature spécialisée varient entre 10% et 20%). Cela est principalement dû aux rejets aqueux (bains de teinture, substances chimiques utilisés lors de l'application d'apprêts, etc.) de l'étape ennoblissement.&#x20;
 
 Ecobalyse mène des travaux poussés sur cette étape avec diférents experts de l'industrie afin de retranscrire les réalités industrielles dans l'outil. De plus, nous travaillons avec les fournisseurs de données et la communauté scientifique pour permettre une modélisation fiable de l'écotoxicité aquatique.
 
 ### Questions (non exhaustif)
 
-* De quelle manière le choix des fibres (cellulosique, synthétique, etc.) influe-t-il sur l'étape ennoblissement ?&#x20;
+* De quelle manière le choix des fibres (cellulosique, synthétique, etc.) influe-t-il sur les procédés ?&#x20;
 * Quels sont les principaux procédés (discontinu vs continu) et technologies (jet, batch, etc.) de teinture utilisés par type de vêtement/tissu ?
 * Quels sont les principaux procédés d'impression utilisés dans l'industrie ?
 * Comment s'effectue le choix du support de teinture (sur bourre/fil/tissu/article) ?
@@ -36,9 +36,7 @@ Ecobalyse mène des travaux poussés sur cette étape avec diférents experts de
 
 ### Contexte
 
-L'étape tissage/tricotage contribue de manière significative à l'impact environnemental global d'un vêtement (entre 2% et 15% de l'impact carbone global d'un vêtement).
-
-Les paramètres suivants sont clés en termes de consommation électrique pour actionner les machines : poids du produit, du grammage du tissu et titrage du fil.&#x20;
+L'étape tissage/tricotage contribue de manière significative à l'impact environnemental global d'un vêtement (entre 2% et 15% en moyenne pour l'indicateur _changement climatique_). Cette contribution provient principalement de la consommation d'électricité nécessaire pour actionner les machines.&#x20;
 
 Ecobalyse mène des travaux poussés sur cette étape avec diférents experts de l'industrie afin de retranscrire les réalités industrielles dans l'outil.&#x20;
 
