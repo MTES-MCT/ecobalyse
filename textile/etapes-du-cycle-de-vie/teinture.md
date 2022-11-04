@@ -201,3 +201,35 @@ Ces paramétrages seront prochainement disponibles sur le calculateur.
 * Les indicateurs "Consommations d'eau" et "Ecotoxicité aquatique" ne sont pas modélisés
 * Les principaux pocédés de Pré-Traitement du tissu ne sont pas encore disponibles
 * Les principaux procédés (continu vs discontinu) et colorants de teinture ne sont pas encore disponibles
+
+## En savoir plus sur l'ennoblissement
+
+### Pré-traitement
+
+Les procédés de pré-traitement consistent à traiter et nettoyer le tissu, généralement en préparation de la teinture. Cependant, même si le tissu n’est pas teint, l’étape de pré-traitement est nécessaire pour le nettoyer. Plusieurs procédés peuvent être utilisés selon la matière traitée (lavage, désencollage, flambage, mercerisage, débouillissage, blanchiment, etc.). Le pré-traitement des fibres naturelles est en général plus complexe que celui des fibres synthétiques et artificielles.
+
+### Teinture / Impression
+
+Les procédés de teinture et impression consistent tous les deux à appliquer un colorant sur le tissu. Toutefois, le procédé d’impression, au lieu de colorer l'ensemble du support, se concentre sur des zones définies afin d'obtenir le motif désiré.
+
+Le calculateur permet de modéliser cette étape directement après la fabrication du tissu. Dans certains cas, la teinture/impression peut être effectuée en amont (sur fil) ou en aval (sur article). Ecobalyse permet aussi de modéliser ces configurations dans cette sous-étape “Teinture et Impression” afin de faciliter les comparaisons.
+
+<details>
+
+<summary>En savoir plus</summary>
+
+Concernant la **teinture**, deux principaux procédés sont utilisés dans l’industrie : la teinture en discontinue et la teinture en continue (et semi-continue).&#x20;
+
+La teinture en **discontinu** (également appelée teinture par épuisement) consiste à tremper la matière dans une solution aqueuse contenant des colorants et produits auxiliaires pendant une période allant de quelques minutes à quelques heures. Un paramètre important en teinture discontinue est le rapport de bain (MLR = Mass to Liquor Ratio). Il s'agit du rapport de poids entre la matière sèche totale et la solution totale. Ainsi, par exemple, un rapport de bain de 1:10 signifie 10 litres d'eau pour 1 kg de matière textile.&#x20;
+
+La teinture en **continu** consiste à appliquer le bain de teinture soit par imprégnation (au moyen de foulards), soit en utilisant d'autres systèmes d'application. Dans ces procédés, le facteur dont il faut tenir compte est le taux d’emport ou taux d’exprimage (masse en grammes de solution absorbée pour 100 grammes d'étoffe sèche) et la concentration du colorant.
+
+Les procédés de teinture en discontinu conduisent en général à des consommations d'eau et d'énergie plus élevées que les procédés continus. Cependant, bien que les procédés de teinture à la continu consomment moins d'eau, ces derniers nécessitent une concentration plus élevée de colorant dans le bain d’imprégnation. (entre 10 et 100g/l vs entre 0,1 et 1g/l pour les procédés en discontinu). Ainsi, le rejet de cet effluent concentré peut entraîner une charge de pollution plus élevée qu’en teinture discontinue.
+
+**L’impression** consiste systématiquement à préparer la pâte d’impression, appliquer la pâte au support, fixer les colorants sur l’étoffe préalablement séchée puis laver et sécher l’étoffe. Deux techniques d'impression existent : l'impression avec des pigments (qui n'ont aucune affinité pour la fibre) : technique la plus utilisée aujourd’hui dans l’industrie l'impression avec des colorants (réactifs, de cuve, dispersés, etc.).
+
+</details>
+
+### Finition
+
+Cette sous-étape regroupe les traitements qui servent à donner aux textiles les propriétés d'usage final souhaitées (les “apprêts”). Celles-ci peuvent inclure des propriétés relatives à l'effet visuel, au toucher et à des caractéristiques spéciales telles que l'imperméabilisation et d'ininflammabilité. Les apprêts peuvent impliquer des traitements mécaniques/physiques et chimiques. Dans la majorité des cas, la solution d’apprêts chimiques est appliquée sous la forme d’une solution aqueuse au moyen de la technique de foulardage.

@@ -26,6 +26,8 @@
   * [🗑 Pertes et rebut](textile/parametres-transverses/pertes-et-rebus.md)
   * [🤯 Circular Footpring Formula (CFF)](textile/parametres-transverses/circular-footpring-formula-cff.md)
   * [🚢 Transport](textile/parametres-transverses/transport.md)
+* [Limites méthodologiques](textile/limites-methodologiques.md)
+* [Travaux en cours](textile/travaux-en-cours.md)
 * [Echelle comparative](textile/echelle-comparative.md)
 * [FAQ](textile/faq.md)
 
