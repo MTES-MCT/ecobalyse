@@ -26,11 +26,11 @@
   * [🗑 Pertes et rebut](textile/parametres-transverses/pertes-et-rebus.md)
   * [🤯 Circular Footpring Formula (CFF)](textile/parametres-transverses/circular-footpring-formula-cff.md)
   * [🚢 Transport](textile/parametres-transverses/transport.md)
-* [📏 Echelle comparative](textile/echelle-comparative.md)
+* [Echelle comparative](textile/echelle-comparative.md)
 
 ***
 
-* [❓ FAQ](faq.md)
+* [FAQ](faq.md)
 
 ## 🍕 Alimentaire
 
