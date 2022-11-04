@@ -185,7 +185,7 @@ Par exemple, la teinture des mélanges prend toujours plus de temps et est une o
 
 Nous proposons en première approche une classification des fibres teintes et une pondération de la consommation d'énergie.
 
-:bulb: N'hésitez pas à nous partager votre retour d'expérience sur ce sujet.&#x20;
+:bulb: N'hésitez pas à nous partager votre retour d'expérience sur ce sujet par [mail](mailto:ecobalyse@beta.gouv.fr).&#x20;
 {% endhint %}
 
 #### Type de fibre <=> Procédé de teinture (en cours)

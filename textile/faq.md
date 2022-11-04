@@ -2,10 +2,10 @@
 description: Les réponses aux questions qu'on nous pose souvent...
 ---
 
-# ❓ FAQ
+# FAQ
 
 {% hint style="info" %}
-Si vous avez d'autres interrogations, vous pouvez également nous les adresser par mail&#x20;
+Si vous avez d'autres interrogations, vous pouvez également nous les adresser par [mail](mailto:ecobalyse@beta.gouv.fr)
 {% endhint %}
 
 ### Certains vêtements ne sont pas représentés
@@ -25,7 +25,7 @@ Dans ce cas, merci de :&#x20;
 Vous avez l'œil ! \
 Certains indicateurs (ex : ecotoxicité aquatique) ne sont pas encore modélisables faute d'un socle technique/scientifique suffisament avancé. \
 Nous sommes en relation avec les fournisseurs de données (référentiel européen PEF, ADEME, Ecoinvent, etc.) pour palier à cette limite. \
-Cf. page méthodo sur ce sujet : [impacts considérés](textile/impacts-consideres.md)
+Cf. page méthodo sur ce sujet : [impacts considérés](impacts-consideres.md)
 
 ### Le résultat de ma simulation a changé entre deux visites !
 

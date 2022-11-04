@@ -1,4 +1,4 @@
-# 📏 Echelle comparative
+# Echelle comparative
 
 Lorsqu'une simulation est réalisée, l'impact calculé est positionné sur une échelle, au regard des impacts de 5 configurations "repères".
 

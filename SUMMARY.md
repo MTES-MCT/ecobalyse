@@ -27,10 +27,7 @@
   * [🤯 Circular Footpring Formula (CFF)](textile/parametres-transverses/circular-footpring-formula-cff.md)
   * [🚢 Transport](textile/parametres-transverses/transport.md)
 * [Echelle comparative](textile/echelle-comparative.md)
-
-***
-
-* [FAQ](faq.md)
+* [FAQ](textile/faq.md)
 
 ## 🍕 Alimentaire
 
