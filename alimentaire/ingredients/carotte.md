@@ -45,6 +45,15 @@ L'analyse comparée des impacts donne :&#x20;
 Graphique provisoire...
 {% endhint %}
 
+{% hint style="info" %}
+**Axes de progrès ?**
+
+Les données ICV disponibles dans Agribalyse permettraient potentiellement d'introduire une distinction suivant :&#x20;
+
+* L'origine géographique par région française (Aquitaine, Basse Normandie...)
+* La saisonnalité (early, fall, main season, winter)
+{% endhint %}
+
 ## Mix de consommation
 
 La carotte "mix de consommation" France proposée dans Agribalyse s'appuie sur la carotte conventionnelle France.
