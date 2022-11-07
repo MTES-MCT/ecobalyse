@@ -5943,7 +5943,7 @@
     "name": "Utilisation : Repassage - Ironing (Cape)",
     "info": "Utilisation > Electricité > Repassage",
     "unit": "Item(s)",
-    "source": "Base Impacts",
+    "source": "PEFCR A&F",
     "uuid": "b877ae15-96e0-43aa-bafa-a6abcfedbca3",
     "impacts": {
       "acd": 0.0,
@@ -5973,7 +5973,7 @@
     "name": "Utilisation : Repassage - Ironing (Châle)",
     "info": "Utilisation > Electricité > Repassage",
     "unit": "Item(s)",
-    "source": "Base Impacts",
+    "source": "PEFCR A&F",
     "uuid": "70067861-aa8d-4ddb-9921-c045012b7c76",
     "impacts": {
       "acd": 0.0,
@@ -6003,7 +6003,7 @@
     "name": "Utilisation : Repassage - Ironing (Chemisier)",
     "info": "Utilisation > Electricité > Repassage",
     "unit": "Item(s)",
-    "source": "Base Impacts",
+    "source": "PEFCR A&F",
     "uuid": "33773966-2704-4420-8663-ea4231a12040",
     "impacts": {
       "acd": 0.0,
@@ -6033,7 +6033,7 @@
     "name": "Utilisation : Repassage - Ironing (Débardeur)",
     "info": "Utilisation > Electricité > Repassage",
     "unit": "Item(s)",
-    "source": "Base Impacts",
+    "source": "PEFCR A&F",
     "uuid": "fcb8c240-1c4e-4413-925f-0b6a7465e5dd",
     "impacts": {
       "acd": 0.0,
@@ -6063,7 +6063,7 @@
     "name": "Utilisation : Repassage - Ironing (Echarpe)",
     "info": "Utilisation > Electricité > Repassage",
     "unit": "Item(s)",
-    "source": "Base Impacts",
+    "source": "PEFCR A&F",
     "uuid": "6efbbe3c-2ad2-47d4-9d8d-2bcbf5b19ada",
     "impacts": {
       "acd": 0.0,
@@ -6093,7 +6093,7 @@
     "name": "Utilisation : Repassage - Ironing (Gilet)",
     "info": "Utilisation > Electricité > Repassage",
     "unit": "Item(s)",
-    "source": "Base Impacts",
+    "source": "PEFCR A&F",
     "uuid": "c47a19ae-3d49-41aa-b38d-b8eef6ee8d8e",
     "impacts": {
       "acd": 0.0,
@@ -6123,7 +6123,7 @@
     "name": "Utilisation : Repassage - Ironing (Jean)",
     "info": "Utilisation > Electricité > Repassage",
     "unit": "Item(s)",
-    "source": "Base Impacts",
+    "source": "PEFCR A&F",
     "uuid": "6d71fdef-b7a8-4a67-81e9-dc0e3f01a007",
     "impacts": {
       "acd": 0.0,
@@ -6153,7 +6153,7 @@
     "name": "Utilisation : Repassage - Ironing (Jupe)",
     "info": "Utilisation > Electricité > Repassage",
     "unit": "Item(s)",
-    "source": "Base Impacts",
+    "source": "PEFCR A&F",
     "uuid": "2de2f5e5-79fb-4a4a-8399-a722012e82dc",
     "impacts": {
       "acd": 0.0,
@@ -6183,7 +6183,7 @@
     "name": "Utilisation : Repassage - Ironing (Manteau)",
     "info": "Utilisation > Electricité > Repassage",
     "unit": "Item(s)",
-    "source": "Base Impacts",
+    "source": "PEFCR A&F",
     "uuid": "60147175-ca20-49aa-8991-9ed6f172c47b",
     "impacts": {
       "acd": 0.0,
@@ -6213,7 +6213,7 @@
     "name": "Utilisation : Repassage - Ironing (Pantalon)",
     "info": "Utilisation > Electricité > Repassage",
     "unit": "Item(s)",
-    "source": "Base Impacts",
+    "source": "PEFCR A&F",
     "uuid": "f6b685ed-d5bd-40a0-af16-7c30838f3627",
     "impacts": {
       "acd": 0.0,
@@ -6243,7 +6243,7 @@
     "name": "Utilisation : Repassage - Ironing (Pull)",
     "info": "Utilisation > Electricité > Repassage",
     "unit": "Item(s)",
-    "source": "Base Impacts",
+    "source": "PEFCR A&F",
     "uuid": "4a94e796-cc40-4d74-b5ad-72ef0192a391",
     "impacts": {
       "acd": 0.0,
@@ -6273,7 +6273,7 @@
     "name": "Utilisation : Repassage - Ironing (Robe)",
     "info": "Utilisation > Electricité > Repassage",
     "unit": "Item(s)",
-    "source": "Base Impacts",
+    "source": "PEFCR A&F",
     "uuid": "ce224ffa-3d46-4eb9-b624-2e34d4b5a419",
     "impacts": {
       "acd": 0.0,
@@ -6303,7 +6303,7 @@
     "name": "Utilisation : Repassage - Ironing (T-shirt)",
     "info": "Utilisation > Electricité > Repassage",
     "unit": "Item(s)",
-    "source": "Base Impacts",
+    "source": "PEFCR A&F",
     "uuid": "974659b8-4635-43ba-86c5-73a186ea6f21",
     "impacts": {
       "acd": 0.0,
@@ -6333,7 +6333,7 @@
     "name": "Utilisation : Repassage - Ironing (Veste)",
     "info": "Utilisation > Electricité > Repassage",
     "unit": "Item(s)",
-    "source": "Base Impacts",
+    "source": "PEFCR A&F",
     "uuid": "12a83d8f-24e4-414f-9087-a7d37fefce91",
     "impacts": {
       "acd": 0.0,
@@ -6363,7 +6363,7 @@
     "name": "Utilisation : Impact hors repassage (électricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées)  (Cape) - Non ironing impact",
     "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "unit": "kg",
-    "source": "Base Impacts",
+    "source": "Précalcul Ecobalyse à partir de Base Impacts",
     "uuid": "86db560b-d31f-4745-a01e-ec74be00f865",
     "impacts": {
       "acd": 9.39401e-5,
@@ -6393,7 +6393,7 @@
     "name": "Utilisation : Impact hors repassage (électricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées)  (Châle) - Non ironing impact",
     "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "unit": "kg",
-    "source": "Base Impacts",
+    "source": "Précalcul Ecobalyse à partir de Base Impacts",
     "uuid": "81264b4c-dfb5-4cb1-b9e7-51b04a6f47d6",
     "impacts": {
       "acd": 9.39401e-5,
@@ -6423,7 +6423,7 @@
     "name": "Utilisation : Impact hors repassage (électricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées)  (Chemisier) - Non ironing impact",
     "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "unit": "kg",
-    "source": "Base Impacts",
+    "source": "Précalcul Ecobalyse à partir de Base Impacts",
     "uuid": "406d1f98-1052-458d-8f50-1901853d896d",
     "impacts": {
       "acd": 9.39401e-5,
@@ -6453,7 +6453,7 @@
     "name": "Utilisation : Impact hors repassage (électricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées)  (Débardeur) - Non ironing impact",
     "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "unit": "kg",
-    "source": "Base Impacts",
+    "source": "Précalcul Ecobalyse à partir de Base Impacts",
     "uuid": "24e2ff0a-75c6-471f-a375-d3f075ffad44",
     "impacts": {
       "acd": 9.39401e-5,
@@ -6483,7 +6483,7 @@
     "name": "Utilisation : Impact hors repassage (électricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées)  (Echarpe) - Non ironing impact",
     "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "unit": "kg",
-    "source": "Base Impacts",
+    "source": "Précalcul Ecobalyse à partir de Base Impacts",
     "uuid": "d88c97c6-6f9a-477e-a61c-01fc5aed0a3b",
     "impacts": {
       "acd": 9.39401e-5,
@@ -6513,7 +6513,7 @@
     "name": "Utilisation : Impact hors repassage (électricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées)  (Gilet) - Non ironing impact",
     "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "unit": "kg",
-    "source": "Base Impacts",
+    "source": "Précalcul Ecobalyse à partir de Base Impacts",
     "uuid": "1ecbfc31-9e9c-45de-9ed2-718b1c64357b",
     "impacts": {
       "acd": 9.39401e-5,
@@ -6543,7 +6543,7 @@
     "name": "Utilisation : Impact hors repassage (électricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées)  (Jean) - Non ironing impact",
     "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "unit": "kg",
-    "source": "Base Impacts",
+    "source": "Précalcul Ecobalyse à partir de Base Impacts",
     "uuid": "4964273a-cdbd-43cf-8cf8-4b017aee4f03",
     "impacts": {
       "acd": 9.39401e-5,
@@ -6573,7 +6573,7 @@
     "name": "Utilisation : Impact hors repassage (électricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées)  (Jupe) - Non ironing impact",
     "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "unit": "kg",
-    "source": "Base Impacts",
+    "source": "Précalcul Ecobalyse à partir de Base Impacts",
     "uuid": "2572015b-7320-4ce1-bc99-cc6de371a654",
     "impacts": {
       "acd": 9.39401e-5,
@@ -6603,7 +6603,7 @@
     "name": "Utilisation : Impact hors repassage (électricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées)  (Manteau) - Non ironing impact",
     "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "unit": "kg",
-    "source": "Base Impacts",
+    "source": "Précalcul Ecobalyse à partir de Base Impacts",
     "uuid": "8c040f35-e137-424b-a67f-2e50b628c1bf",
     "impacts": {
       "acd": 9.39401e-5,
@@ -6633,7 +6633,7 @@
     "name": "Utilisation : Impact hors repassage (électricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées)  (Pantalon) - Non ironing impact",
     "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "unit": "kg",
-    "source": "Base Impacts",
+    "source": "Précalcul Ecobalyse à partir de Base Impacts",
     "uuid": "ea7afeed-c058-4dbb-be01-66704a9afb1f",
     "impacts": {
       "acd": 9.39401e-5,
@@ -6663,7 +6663,7 @@
     "name": "Utilisation : Impact hors repassage (électricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées)  (Pull) - Non ironing impact",
     "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "unit": "kg",
-    "source": "Base Impacts",
+    "source": "Précalcul Ecobalyse à partir de Base Impacts",
     "uuid": "2b39a7ac-38bd-435f-85a4-783023d845bf",
     "impacts": {
       "acd": 9.39401e-5,
@@ -6693,7 +6693,7 @@
     "name": "Utilisation : Impact hors repassage (électricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées)  (Robe) - Non ironing impact",
     "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "unit": "kg",
-    "source": "Base Impacts",
+    "source": "Précalcul Ecobalyse à partir de Base Impacts",
     "uuid": "d3bff7b7-efc1-459b-856d-ea0801d6912f",
     "impacts": {
       "acd": 9.39401e-5,
@@ -6723,7 +6723,7 @@
     "name": "Utilisation : Impact hors repassage (électricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées)  (T-shirt) - Non ironing impact",
     "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "unit": "kg",
-    "source": "Base Impacts",
+    "source": "Précalcul Ecobalyse à partir de Base Impacts",
     "uuid": "7f76529e-521d-4795-bb36-ff896c4692da",
     "impacts": {
       "acd": 9.39401e-5,
@@ -6753,7 +6753,7 @@
     "name": "Utilisation : Impact hors repassage (électricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées)  (Veste) - Non ironing impact",
     "info": "Utilisation > Aggrégation multi-impacts > Electricité (lave-linge, sèche-linge), lessive liquide et traitement des eaux usées",
     "unit": "kg",
-    "source": "Base Impacts",
+    "source": "Précalcul Ecobalyse à partir de Base Impacts",
     "uuid": "493c32d2-506d-48c1-b8d7-0646fba88571",
     "impacts": {
       "acd": 9.39401e-5,
@@ -6783,7 +6783,7 @@
     "name": "Transport en voiture jusqu'au point de collecte précalculé pour la fin de vie",
     "info": "Transport > Routier > Voiture individuelle",
     "unit": "Item(s)",
-    "source": "EF2.0",
+    "source": "Précalcul Ecobalyse à partir d'EF2.0",
     "uuid": "1ead35dd-fc71-4b0c-9410-7e39da95c7dc",
     "impacts": {
       "acd": 1.1505e-4,
@@ -6813,7 +6813,7 @@
     "name": "Fin de vie hors voiture (transport en camion, incinération, mise en décharge)",
     "info": "Fin de vie > Aggrégation multi-impacts > ",
     "unit": "kg",
-    "source": "Base Impacts",
+    "source": "Précalcul Ecobalyse à partir de Base Impacts",
     "uuid": "266fa378-77c0-11ec-90d6-0242ac120003 ",
     "impacts": {
       "acd": 4.07082e-4,
@@ -6823,7 +6823,7 @@
       "fwe": 8.92823e-6,
       "htc": 0.0,
       "htn": 0.0,
-      "ior": -7.26052e-1,
+      "ior": -1.40706e-1,
       "ldu": 0.0,
       "mru": 5.50423e-8,
       "ozd": -1.59271e-10,
