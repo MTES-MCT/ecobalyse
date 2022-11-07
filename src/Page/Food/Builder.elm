@@ -513,7 +513,7 @@ processSelectorView kind selectedCode event =
         >> List.sortBy Tuple.first
         >> (++)
             [ ( ""
-              , option [ Attr.selected <| selectedCode == Nothing ]
+              , option [ Attr.selected <| selectedCode == Nothing, value "" ]
                     [ text <| "-- Sélectionnez " ++ kind ++ " et cliquez sur le bouton + pour l'ajouter" ]
               )
             ]
