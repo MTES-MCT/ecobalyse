@@ -37,6 +37,7 @@
 * [Données](alimentaire/donnees.md)
 * [🍅 Ingrédients](alimentaire/ingredients/README.md)
   * [🥕 Carotte](alimentaire/ingredients/carotte.md)
+  * [🌾 Blé tendre](alimentaire/ingredients/ble-tendre.md)
 * [🏭 Transformation](alimentaire/transformation.md)
 * [🥫 Emballage](alimentaire/emballage.md)
 * [Transport](alimentaire/transport.md)
