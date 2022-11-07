@@ -35,7 +35,7 @@
 
 * [Mode d'emploi](alimentaire/mode-demploi.md)
 * [Données](alimentaire/donnees.md)
-* [🍅 Ingrédients](alimentaire/ingredients/README.md)
+* [🍅 Ingrédients](alimentaire/ingredients.md)
   * [🥕 Carotte](alimentaire/ingredients/carotte.md)
   * [🌾 Blé tendre](alimentaire/ingredients/ble-tendre.md)
   * [🥚 Oeuf (poule)](alimentaire/ingredients/oeuf-poule.md)
