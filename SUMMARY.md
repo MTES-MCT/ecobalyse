@@ -39,6 +39,7 @@
   * [🥕 Carotte](alimentaire/ingredients/carotte.md)
   * [🌾 Blé tendre](alimentaire/ingredients/ble-tendre.md)
   * [🥚 Oeuf (poule)](alimentaire/ingredients/oeuf-poule.md)
+  * [🥛 Lait (vache)](alimentaire/ingredients/lait-vache.md)
 * [🏭 Transformation](alimentaire/transformation.md)
 * [🥫 Emballage](alimentaire/emballage.md)
 * [Transport](alimentaire/transport.md)
