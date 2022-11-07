@@ -35,7 +35,8 @@
 
 * [Mode d'emploi](alimentaire/mode-demploi.md)
 * [Données](alimentaire/donnees.md)
-* [🍅 Ingrédients](alimentaire/ingredients.md)
+* [🍅 Ingrédients](alimentaire/ingredients/README.md)
+  * [🥕 Carotte](alimentaire/ingredients/carotte.md)
 * [🏭 Transformation](alimentaire/transformation.md)
 * [🥫 Emballage](alimentaire/emballage.md)
 * [Transport](alimentaire/transport.md)
