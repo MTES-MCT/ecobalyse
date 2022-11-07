@@ -562,7 +562,7 @@ components:
           type: string
       examples:
         onePackaging:
-          summary: "Corrugated board box"
+          summary: "105g de Carton"
           value: ["23b2754e5943bc77916f8f871edc53b6;105"]
     transformParam:
       name: transform
@@ -580,6 +580,7 @@ components:
         maxLength: 32
       examples:
         Default:
+          summary: "Aucune transformation"
           value: ""
         Cuisson:
           summary: Cuisson d'1kg de matière
