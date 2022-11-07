@@ -569,6 +569,9 @@ components:
       in: query
       description: |
         Identifiant du procédé de transformation (optionnel — liste disponible sur le point d'entrée `/food/transforms`)
+
+        Le format est composé de l'identifiant de l'emballage et de sa masse **exprimée en grammes**.
+        Par exemple: `aded2490573207ec7ad5a3813978f6a4;1000` pour 1kg de matière à cuire.
       required: false
       style: form
       schema:
@@ -578,6 +581,9 @@ components:
       examples:
         Default:
           value: ""
+        Cuisson:
+          summary: Cuisson d'1kg de matière
+          value: "aded2490573207ec7ad5a3813978f6a4;1000"
   schemas:
     Impacts:
       type: object
