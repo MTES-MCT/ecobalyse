@@ -274,10 +274,10 @@ describe("API", () => {
       it("should validate an ingredient mass", async () => {
         expectFieldErrorMessage(
           await makeRequest("/api/food/recipe", [
-            "ingredients[]=2e3f03c6de1e43900e09ae852182e9c7;0",
+            "ingredients[]=2e3f03c6de1e43900e09ae852182e9c7;-1",
           ]),
           "ingredients",
-          /masse doit être supérieure à zéro/,
+          /masse doit être supérieure ou égale à zéro/,
         );
       });
 
@@ -291,9 +291,9 @@ describe("API", () => {
 
       it("should validate a transform mass", async () => {
         expectFieldErrorMessage(
-          await makeRequest("/api/food/recipe", ["transform=aded2490573207ec7ad5a3813978f6a4;0"]),
+          await makeRequest("/api/food/recipe", ["transform=aded2490573207ec7ad5a3813978f6a4;-1"]),
           "transform",
-          /masse doit être supérieure à zéro/,
+          /masse doit être supérieure ou égale à zéro/,
         );
       });
     });
