@@ -296,6 +296,24 @@ describe("API", () => {
           /masse doit être supérieure ou égale à zéro/,
         );
       });
+
+      it("should validate a packaging code", async () => {
+        expectFieldErrorMessage(
+          await makeRequest("/api/food/recipe", ["packaging[]=invalid;268"]),
+          "packaging",
+          /Procédé introuvable par code : invalid/,
+        );
+      });
+
+      it("should validate a packaging mass", async () => {
+        expectFieldErrorMessage(
+          await makeRequest("/api/food/recipe", [
+            "packaging[]=23b2754e5943bc77916f8f871edc53b6;-1",
+          ]),
+          "packaging",
+          /masse doit être supérieure ou égale à zéro/,
+        );
+      });
     });
 
     describe("End to end food simulations", () => {
