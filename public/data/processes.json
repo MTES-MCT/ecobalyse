@@ -6810,6 +6810,37 @@
     "alias": "passenger-car"
   },
   {
+    "name": "Mise en décharge de textiles, FR",
+    "info": "Traitement de fin de vie > Mise en décharge > Fractions de déchets",
+    "unit": "kg",
+    "source": "Base Impacts",
+    "uuid": "9adaf403-4eda-4d9c-80c3-f231754644ca",
+    "impacts": {
+      "acd": 2.61782e-4,
+      "cch": 2.22265,
+      "etf": 0.0,
+      "fru": 1.10287,
+      "fwe": 1.94935e-5,
+      "htc": 0.0,
+      "htn": 0.0,
+      "ior": 3.13935e-2,
+      "ldu": 0.0,
+      "mru": 3.10063e-9,
+      "ozd": 1.25701e-11,
+      "pco": 1.05709e-3,
+      "pma": 4.76351e-9,
+      "swe": 1.03294e-3,
+      "tre": 1.13587e-3,
+      "wtu": 0.0
+    },
+    "pef": 0.0640083026e8,
+    "heat_MJ": 0.0,
+    "elec_pppm": 0.0,
+    "elec_MJ": 0.0,
+    "waste": 0.0,
+    "alias": null
+  },
+  {
     "name": "Fin de vie hors voiture (transport en camion, incinération, mise en décharge)",
     "info": "Fin de vie > Aggrégation multi-impacts > ",
     "unit": "kg",
