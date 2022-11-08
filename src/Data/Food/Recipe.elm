@@ -324,17 +324,26 @@ updateIngredientMass mass code query =
     let
         newIngredients =
             query.ingredients
-                |> List.map
-                    (\ing ->
-                        if ing.code == code then
-                            { ing | mass = mass }
-
-                        else
-                            ing
-                    )
+                |> updateMass code mass
     in
     { query | ingredients = newIngredients }
         |> updateTransformMass (sumMasses newIngredients)
+
+
+updateMass :
+    Process.Code
+    -> Mass
+    -> List { a | code : Process.Code, mass : Mass }
+    -> List { a | code : Process.Code, mass : Mass }
+updateMass code mass =
+    List.map
+        (\item ->
+            if item.code == code then
+                { item | mass = mass }
+
+            else
+                item
+        )
 
 
 updatePackagingMass : Mass -> Process.Code -> Query -> Query
@@ -342,14 +351,7 @@ updatePackagingMass mass code query =
     { query
         | packaging =
             query.packaging
-                |> List.map
-                    (\ing ->
-                        if ing.code == code then
-                            { ing | mass = mass }
-
-                        else
-                            ing
-                    )
+                |> updateMass code mass
     }
 
 
