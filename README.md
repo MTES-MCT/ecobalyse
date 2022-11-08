@@ -20,10 +20,9 @@ Le positionnement d'Ecobalyse correspond à l’approche semi-spécifique propos
 
 Le calculateur est développé en open-source et son utilisation est gratuite.&#x20;
 
-Ce positionnement a une double vocation :&#x20;
-
-* rendre accessible les bases de l'évaluation environnementale au plus grand nombre,
-* catalyser les débats techniques entre acteurs spécialisés afin de proposer des référentiels communs.
+Ce positionnement a une double vocation : \
+\=> rendre accessible les bases de l'évaluation environnementale au plus grand nombre,\
+\=> catalyser les débats techniques entre acteurs spécialisés afin de proposer des référentiels communs.
 
 Les entreprises souhaitant aller plus loin pourront se tourner vers les acteurs spécialisés (bureaux d'étude, startup, conseils spécialisés, etc.).&#x20;
 
@@ -37,7 +36,7 @@ Le soin apporté à la [documentation](https://fabrique-numerique.gitbook.io/wik
 
 Simplifier le calcul nécessite de faire des choix (valeurs par défaut, catégorisation des produits, etc.). Plus largement, la mise en place du dispositif d’affichage environnemental suscite de nombreux débats qui peuvent être éclairés par un outil pédagogique.
 
-Ecobalyse permet de rassembler différents acteurs (marques, experts ACV, industriels, etc.) sur des enjeux partagés. Différentes initiatives sont mises en place afin de faciliter ces échanges (ateliers thématiques, rubrique _Contribuer_ sur le site, mails, participation à des groupes de travail sectoriels, etc.).&#x20;
+Ecobalyse permet de rassembler différents acteurs (marques, experts ACV, industriels, etc.) sur des enjeux communs. Différentes initiatives sont mises en place afin de faciliter ces échanges (ateliers thématiques, un groupe Slack, une [Documentation ](https://fabrique-numerique.gitbook.io/ecobalyse)riche, une rubrique _Contribuer (en cours)_, etc.). Pour toute question, vous pouvez nous contacter via le mail suivant : _ecobalyse@beta.gouv.fr ._&#x20;
 
 ## Ce que n’est pas Ecobalyse
 
@@ -45,11 +44,10 @@ Ecobalyse permet de rassembler différents acteurs (marques, experts ACV, indust
 
 Faire des calculs est une chose. Accompagner les entreprises qui mettent sur le marché les produits en est une autre.&#x20;
 
-Ecobalyse n'a pas vocation à concurrencer les spécialistes de l'évaluation environnementale produit. Son positionnement vis-à-vis de ces acteurs est d'accompagner leurs démarches grâce à :&#x20;
-
-* la mise à disposition de valeurs de référence,
-* un [accès en API au calculateur](https://wikicarbone.beta.gouv.fr/#/api),
-* une collaboration sur des sujets spécifiques (enrichissement de la base de données, modification de paramètres, etc.)&#x20;
+Ecobalyse n'a pas vocation à concurrencer les spécialistes de l'évaluation environnementale produit. Son positionnement vis-à-vis de ces acteurs est d'accompagner leurs démarches grâce à : \
+\=> la mise à disposition de valeurs de référence,\
+\=> un [accès en API au calculateur](https://wikicarbone.beta.gouv.fr/#/api),\
+\=> une collaboration sur des sujets spécifiques (enrichissement de la base de données, modification de paramètres, etc.)&#x20;
 
 ### Un **concurrent des méthodologies de référence**
 
