@@ -423,7 +423,6 @@ computeProcessImpacts item =
                 |> (*) (Mass.inKilograms mass)
                 |> Unit.impact
     in
-    -- total + (item.amount * impact)
     item.process.impacts
         |> Impact.mapImpacts (computeImpact item.mass)
 
