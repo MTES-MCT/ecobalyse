@@ -190,7 +190,6 @@ parseTextileQuery textileDb =
         |> apply (countryParser "countryFabric" textileDb.countries)
         |> apply (countryParser "countryDyeing" textileDb.countries)
         |> apply (countryParser "countryMaking" textileDb.countries)
-        |> apply (maybeRatioParser "dyeingWeighting")
         |> apply (maybeRatioParser "airTransportRatio")
         |> apply (maybeQualityParser "quality")
         |> apply (maybeReparabilityParser "reparability")

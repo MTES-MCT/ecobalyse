@@ -42,7 +42,6 @@ type alias Config msg =
     , toggleStep : Label -> msg
     , toggleStepViewMode : Int -> msg
     , updateCountry : Label -> Country.Code -> msg
-    , updateDyeingWeighting : Maybe Unit.Ratio -> msg
     , updateQuality : Maybe Unit.Quality -> msg
     , updateReparability : Maybe Unit.Reparability -> msg
     , updateAirTransportRatio : Maybe Unit.Ratio -> msg
@@ -135,27 +134,6 @@ airTransportRatioField { current, updateAirTransportRatio } =
             , update = updateAirTransportRatio
             , value = current.airTransportRatio
             , toString = Step.airTransportRatioToString
-            , disabled = not current.enabled
-            , min = 0
-            , max = 100
-            }
-        ]
-
-
-dyeingWeightingField : Config msg -> Html msg
-dyeingWeightingField { current, updateDyeingWeighting } =
-    span
-        [ [ "Procédé représentatif\u{00A0}: traitement très efficace des eaux usées."
-          , "Procédé majorant\u{00A0}: traitement inefficace des eaux usées."
-          ]
-            |> String.join " "
-            |> title
-        ]
-        [ RangeSlider.ratio
-            { id = "dyeingWeighting"
-            , update = updateDyeingWeighting
-            , value = current.dyeingWeighting
-            , toString = Step.dyeingWeightingToString
             , disabled = not current.enabled
             , min = 0
             , max = 100
@@ -401,10 +379,6 @@ simpleView ({ funit, inputs, daysOfWear, impact, current } as config) =
                                     , surfaceMassField config defaultSurfaceMass
                                     ]
 
-                    Label.Dyeing ->
-                        div [ class "mt-2" ]
-                            [ dyeingWeightingField config ]
-
                     Label.Making ->
                         div [ class "mt-2" ]
                             [ makingWasteField config
@@ -516,6 +490,7 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                 , viewProcessInfo current.processInfo.passengerCar
                 , viewProcessInfo current.processInfo.endOfLife
                 , viewProcessInfo current.processInfo.fabric
+                , viewProcessInfo current.processInfo.dyeing
                 , viewProcessInfo current.processInfo.making
                 , if inputs.product.making.fadable && inputs.disabledFading /= Just True then
                     viewProcessInfo current.processInfo.fading
@@ -537,9 +512,6 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                                 [ pickingField config defaultPicking
                                 , surfaceMassField config defaultSurfaceMass
                                 ]
-
-                    Label.Dyeing ->
-                        [ dyeingWeightingField config ]
 
                     Label.Making ->
                         [ makingWasteField config

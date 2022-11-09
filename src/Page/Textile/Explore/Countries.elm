@@ -39,14 +39,6 @@ table { detailed } =
     , { label = "Chaleur"
       , toCell = .heatProcess >> .name >> text
       }
-    , { label = "Majoration de teinture"
-      , toCell =
-            \country ->
-                div [ classList [ ( "text-end", not detailed ) ] ]
-                    [ Format.ratio country.dyeingWeighting
-                    , hypothesisDocLink
-                    ]
-      }
     , { label = "Part du transport aérien"
       , toCell =
             \country ->

@@ -4,7 +4,6 @@ module Data.Textile.Step exposing
     , computeTransports
     , create
     , displayLabel
-    , dyeingWeightingToString
     , encode
     , initMass
     , makingWasteToString
@@ -45,7 +44,6 @@ type alias Step =
     , heat : Energy
     , kwh : Energy
     , processInfo : ProcessInfo
-    , dyeingWeighting : Unit.Ratio -- FIXME: why not Maybe?
     , airTransportRatio : Unit.Ratio -- FIXME: why not Maybe?
     , quality : Unit.Quality
     , reparability : Unit.Reparability
@@ -58,7 +56,6 @@ type alias Step =
 type alias ProcessInfo =
     { countryElec : Maybe String
     , countryHeat : Maybe String
-    , dyeingWeighting : Maybe String
     , airTransportRatio : Maybe String
     , airTransport : Maybe String
     , seaTransport : Maybe String
@@ -68,6 +65,7 @@ type alias ProcessInfo =
     , passengerCar : Maybe String
     , endOfLife : Maybe String
     , fabric : Maybe String
+    , dyeing : Maybe String
     , making : Maybe String
     , distribution : Maybe String
     , fading : Maybe String
@@ -92,7 +90,6 @@ create { db, label, editable, country, enabled } =
     , heat = Quantity.zero
     , kwh = Quantity.zero
     , processInfo = defaultProcessInfo
-    , dyeingWeighting = country.dyeingWeighting
     , airTransportRatio = Unit.ratio 0 -- Note: this depends on next step country, so we can't set an accurate default value initially
     , quality = Unit.standardQuality
     , reparability = Unit.standardReparability
@@ -106,7 +103,6 @@ defaultProcessInfo : ProcessInfo
 defaultProcessInfo =
     { countryElec = Nothing
     , countryHeat = Nothing
-    , dyeingWeighting = Nothing
     , airTransportRatio = Nothing
     , airTransport = Nothing
     , seaTransport = Nothing
@@ -116,6 +112,7 @@ defaultProcessInfo =
     , passengerCar = Nothing
     , endOfLife = Nothing
     , fabric = Nothing
+    , dyeing = Nothing
     , making = Nothing
     , distribution = Nothing
     , fading = Nothing
@@ -259,7 +256,7 @@ getRoadTransportProcess wellKnown { label } =
 updateFromInputs : Db -> Inputs -> Step -> Step
 updateFromInputs { processes } inputs ({ label, country } as step) =
     let
-        { dyeingWeighting, airTransportRatio, quality, reparability, makingWaste, picking, surfaceMass } =
+        { airTransportRatio, quality, reparability, makingWaste, picking, surfaceMass } =
             inputs
     in
     case label of
@@ -284,13 +281,15 @@ updateFromInputs { processes } inputs ({ label, country } as step) =
 
         Label.Dyeing ->
             { step
-                | dyeingWeighting =
-                    dyeingWeighting |> Maybe.withDefault country.dyeingWeighting
-                , processInfo =
+                | processInfo =
                     { defaultProcessInfo
                         | countryHeat = Just country.heatProcess.name
                         , countryElec = Just country.electricityProcess.name
-                        , dyeingWeighting = Just (dyeingWeightingToString country.dyeingWeighting)
+                        , dyeing =
+                            processes
+                                |> Process.loadWellKnown
+                                |> Result.map (.dyeingLow >> .name)
+                                |> Result.toMaybe
                     }
             }
 
@@ -398,16 +397,6 @@ airTransportRatioToString (Unit.Ratio airTransportRatio) =
             String.fromInt p ++ "% de transport aérien"
 
 
-dyeingWeightingToString : Unit.Ratio -> String
-dyeingWeightingToString (Unit.Ratio dyeingWeighting) =
-    case round (dyeingWeighting * 100) of
-        0 ->
-            "Procédé représentatif"
-
-        p ->
-            "Procédé " ++ String.fromInt p ++ "% majorant"
-
-
 qualityToString : Unit.Quality -> String
 qualityToString (Unit.Quality float) =
     "Qualité intrinsèque\u{00A0}: " ++ String.fromFloat float
@@ -453,7 +442,6 @@ encode v =
         , ( "heat_MJ", Encode.float (Energy.inMegajoules v.heat) )
         , ( "elec_kWh", Encode.float (Energy.inKilowattHours v.kwh) )
         , ( "processInfo", encodeProcessInfo v.processInfo )
-        , ( "dyeingWeighting", Unit.encodeRatio v.dyeingWeighting )
         , ( "airTransportRatio", Unit.encodeRatio v.airTransportRatio )
         , ( "quality", Unit.encodeQuality v.quality )
         , ( "reparability", Unit.encodeReparability v.reparability )
@@ -472,7 +460,6 @@ encodeProcessInfo v =
     Encode.object
         [ ( "countryElec", encodeMaybeString v.countryElec )
         , ( "countryHeat", encodeMaybeString v.countryHeat )
-        , ( "dyeingWeighting", encodeMaybeString v.dyeingWeighting )
         , ( "airTransportRatio", encodeMaybeString v.airTransportRatio )
         , ( "airTransport", encodeMaybeString v.airTransport )
         , ( "seaTransport", encodeMaybeString v.seaTransport )

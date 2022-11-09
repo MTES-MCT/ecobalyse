@@ -93,8 +93,7 @@ createEntry db funit { trigram } { highlight, label } query =
 fromUserQuery : Inputs.Query -> Inputs.Query
 fromUserQuery query =
     { query
-        | dyeingWeighting = Nothing
-        , airTransportRatio = Nothing
+        | airTransportRatio = Nothing
         , quality = Just Unit.standardQuality
         , reparability = Just Unit.standardReparability
         , makingWaste = Nothing
