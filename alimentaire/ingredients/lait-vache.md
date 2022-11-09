@@ -60,4 +60,4 @@ Le lait de vache "mix de consommation" France (Cow milk, consumption mix) propos
 
 Un transport de <mark style="color:red;">XXX</mark> y est ajouté.
 
-<figure><img src="../../.gitbook/assets/Carotte.png" alt=""><figcaption><p><mark style="color:red;"><strong>Schéma à remplacer</strong></mark></p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/Screenshot 2022-11-08 at 15.04.24.png" alt=""><figcaption></figcaption></figure>

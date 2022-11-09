@@ -1,5 +1,7 @@
 ---
-description: Votre retour d'expérience sur tout ou partie de ces travaux est très utile
+description: >-
+  Votre retour d'expérience sur tout ou partie des travaux est précieux. (Pour
+  nous écrire => ecobalyse@beta.gouv.fr)
 ---
 
 # Travaux en cours

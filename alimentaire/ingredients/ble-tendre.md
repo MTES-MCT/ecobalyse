@@ -49,4 +49,4 @@ La blé tendre "mix de consommation" France proposée dans Agribalyse s'appuie s
 
 Un transport de <mark style="color:red;">XXX</mark> y est ajouté.
 
-<figure><img src="../../.gitbook/assets/Carotte.png" alt=""><figcaption><p><mark style="color:red;"><strong>Schéma à remplacer</strong></mark></p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/Screenshot 2022-11-08 at 14.56.24.png" alt=""><figcaption></figcaption></figure>

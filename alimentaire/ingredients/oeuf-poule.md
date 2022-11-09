@@ -86,4 +86,4 @@ L'oeuf de poule "mix de consommation" France (Chicken egg, raw, consumption mix)
 
 Un transport de <mark style="color:red;">XXX</mark> y est ajouté.
 
-<figure><img src="../../.gitbook/assets/Carotte.png" alt=""><figcaption><p><mark style="color:red;"><strong>Schéma à remplacer</strong></mark></p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/Screenshot 2022-11-08 at 14.55.21.png" alt=""><figcaption></figcaption></figure>
