@@ -63,7 +63,6 @@ type alias Inputs =
     , countryDistribution : Country
     , countryUse : Country
     , countryEndOfLife : Country
-    , dyeingWeighting : Maybe Unit.Ratio
     , airTransportRatio : Maybe Unit.Ratio
     , quality : Maybe Unit.Quality
     , reparability : Maybe Unit.Reparability
@@ -89,7 +88,6 @@ type alias Query =
     , countryFabric : Country.Code
     , countryDyeing : Country.Code
     , countryMaking : Country.Code
-    , dyeingWeighting : Maybe Unit.Ratio
     , airTransportRatio : Maybe Unit.Ratio
     , quality : Maybe Unit.Quality
     , reparability : Maybe Unit.Reparability
@@ -177,7 +175,6 @@ fromQuery db query =
         |> RE.andMap franceResult
         -- The end of life country is always France
         |> RE.andMap franceResult
-        |> RE.andMap (Ok query.dyeingWeighting)
         |> RE.andMap (Ok query.airTransportRatio)
         |> RE.andMap (Ok query.quality)
         |> RE.andMap (Ok query.reparability)
@@ -206,7 +203,6 @@ toQuery inputs =
     , countryFabric = inputs.countryFabric.code
     , countryDyeing = inputs.countryDyeing.code
     , countryMaking = inputs.countryMaking.code
-    , dyeingWeighting = inputs.dyeingWeighting
     , airTransportRatio = inputs.airTransportRatio
     , quality = inputs.quality
     , reparability = inputs.reparability
@@ -230,7 +226,7 @@ toString inputs =
 
         Product.Weaved _ _ _ ->
             [ "tissage", inputs.countryFabric.name ++ weavingOptionsToString inputs.picking inputs.surfaceMass ]
-    , [ "teinture", inputs.countryDyeing.name ++ dyeingOptionsToString inputs.dyeingWeighting ]
+    , [ "teinture", inputs.countryDyeing.name ]
     , [ "confection", inputs.countryMaking.name ++ makingOptionsToString inputs ]
     , [ "distribution", inputs.countryDistribution.name ]
     , [ "utilisation", inputs.countryUse.name ++ useOptionsToString inputs.quality inputs.reparability ]
@@ -257,22 +253,6 @@ weavingOptionsToString : Maybe Unit.PickPerMeter -> Maybe Unit.SurfaceMass -> St
 weavingOptionsToString _ _ =
     -- FIXME: migrate Step.*ToString fns to avoid circular import so we can reuse them here?
     ""
-
-
-dyeingOptionsToString : Maybe Unit.Ratio -> String
-dyeingOptionsToString maybeRatio =
-    case maybeRatio of
-        Nothing ->
-            " (procédé représentatif)"
-
-        Just ratio ->
-            if Unit.ratioToFloat ratio == 0 then
-                " (procédé représentatif)"
-
-            else
-                ratio
-                    |> Format.ratioToPercentString
-                    |> (\percent -> " (procédé " ++ percent ++ " majorant)")
 
 
 makingOptionsToString : Inputs -> String
@@ -347,16 +327,7 @@ updateStepCountry label code query =
             { query | countryFabric = code }
 
         Label.Dyeing ->
-            { query
-                | countryDyeing = code
-                , dyeingWeighting =
-                    if query.countryDyeing /= code then
-                        -- reset custom value as we just switched country, which dyeing weighting is totally different
-                        Nothing
-
-                    else
-                        query.dyeingWeighting
-            }
+            { query | countryDyeing = code }
 
         Label.Making ->
             { query
@@ -489,7 +460,6 @@ tShirtCotonFrance =
     , countryFabric = Country.Code "FR"
     , countryDyeing = Country.Code "FR"
     , countryMaking = Country.Code "FR"
-    , dyeingWeighting = Nothing
     , airTransportRatio = Nothing
     , quality = Nothing
     , reparability = Nothing
@@ -541,7 +511,6 @@ jupeCircuitAsie =
     , countryFabric = Country.Code "CN"
     , countryDyeing = Country.Code "CN"
     , countryMaking = Country.Code "CN"
-    , dyeingWeighting = Nothing
     , airTransportRatio = Nothing
     , quality = Nothing
     , reparability = Nothing
@@ -563,7 +532,6 @@ manteauCircuitEurope =
     , countryFabric = Country.Code "TR"
     , countryDyeing = Country.Code "TN"
     , countryMaking = Country.Code "ES"
-    , dyeingWeighting = Nothing
     , airTransportRatio = Nothing
     , quality = Nothing
     , reparability = Nothing
@@ -585,7 +553,6 @@ pantalonCircuitEurope =
     , countryFabric = Country.Code "TR"
     , countryDyeing = Country.Code "TR"
     , countryMaking = Country.Code "TR"
-    , dyeingWeighting = Nothing
     , airTransportRatio = Nothing
     , quality = Nothing
     , reparability = Nothing
@@ -617,7 +584,6 @@ encode inputs =
         , ( "countryFabric", Country.encode inputs.countryFabric )
         , ( "countryDyeing", Country.encode inputs.countryDyeing )
         , ( "countryMaking", Country.encode inputs.countryMaking )
-        , ( "dyeingWeighting", inputs.dyeingWeighting |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
         , ( "airTransportRatio", inputs.airTransportRatio |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
         , ( "quality", inputs.quality |> Maybe.map Unit.encodeQuality |> Maybe.withDefault Encode.null )
         , ( "reparability", inputs.reparability |> Maybe.map Unit.encodeReparability |> Maybe.withDefault Encode.null )
@@ -647,7 +613,6 @@ decodeQuery =
         |> Pipe.required "countryFabric" Country.decodeCode
         |> Pipe.required "countryDyeing" Country.decodeCode
         |> Pipe.required "countryMaking" Country.decodeCode
-        |> Pipe.optional "dyeingWeighting" (Decode.maybe Unit.decodeRatio) Nothing
         |> Pipe.optional "airTransportRatio" (Decode.maybe Unit.decodeRatio) Nothing
         |> Pipe.optional "quality" (Decode.maybe Unit.decodeQuality) Nothing
         |> Pipe.optional "reparability" (Decode.maybe Unit.decodeReparability) Nothing
@@ -675,7 +640,6 @@ encodeQuery query =
         , ( "countryFabric", query.countryFabric |> Country.encodeCode )
         , ( "countryDyeing", query.countryDyeing |> Country.encodeCode )
         , ( "countryMaking", query.countryMaking |> Country.encodeCode )
-        , ( "dyeingWeighting", query.dyeingWeighting |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
         , ( "airTransportRatio", query.airTransportRatio |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
         , ( "quality", query.quality |> Maybe.map Unit.encodeQuality |> Maybe.withDefault Encode.null )
         , ( "reparability", query.reparability |> Maybe.map Unit.encodeReparability |> Maybe.withDefault Encode.null )

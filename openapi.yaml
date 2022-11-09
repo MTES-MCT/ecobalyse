@@ -86,7 +86,6 @@ paths:
       - $ref: '#/components/parameters/countryDyeingParam'
       - $ref: '#/components/parameters/countryMakingParam'
       - $ref: '#/components/parameters/countrySpinningParam'
-      - $ref: '#/components/parameters/dyeingWeightingParam'
       - $ref: '#/components/parameters/airTransportRatioParam'
       - $ref: '#/components/parameters/qualityParam'
       - $ref: '#/components/parameters/reparabilityParam'
@@ -146,7 +145,6 @@ paths:
       - $ref: '#/components/parameters/countryDyeingParam'
       - $ref: '#/components/parameters/countryMakingParam'
       - $ref: '#/components/parameters/countrySpinningParam'
-      - $ref: '#/components/parameters/dyeingWeightingParam'
       - $ref: '#/components/parameters/airTransportRatioParam'
       - $ref: '#/components/parameters/qualityParam'
       - $ref: '#/components/parameters/reparabilityParam'
@@ -182,7 +180,6 @@ paths:
       - $ref: '#/components/parameters/countryDyeingParam'
       - $ref: '#/components/parameters/countryMakingParam'
       - $ref: '#/components/parameters/countrySpinningParam'
-      - $ref: '#/components/parameters/dyeingWeightingParam'
       - $ref: '#/components/parameters/airTransportRatioParam'
       - $ref: '#/components/parameters/qualityParam'
       - $ref: '#/components/parameters/reparabilityParam'
@@ -382,17 +379,6 @@ components:
           value: "CN"
         France:
           value: "FR"
-    dyeingWeightingParam:
-      name: dyeingWeighting
-      in: query
-      description: |
-        Majoration de l'impact du **procédé de Teinture**, entre `0` et `1`
-      required: false
-      style: form
-      schema:
-        type: number
-        minimum: 0
-        maximum: 1
     airTransportRatioParam:
       name: airTransportRatio
       in: query
