@@ -11,10 +11,12 @@ module Data.Textile.Inputs exposing
     , decodeQuery
     , defaultQuery
     , dyeingMediumFromString
+    , dyeingMediumLabel
     , dyeingMediumToString
     , encode
     , encodeQuery
     , fromQuery
+    , getDyeingProcess
     , getMainMaterial
     , jupeCircuitAsie
     , parseBase64Query
@@ -35,6 +37,7 @@ import Base64
 import Data.Country as Country exposing (Country)
 import Data.Textile.Db exposing (Db)
 import Data.Textile.Material as Material exposing (Material)
+import Data.Textile.Process as Process exposing (Process)
 import Data.Textile.Product as Product exposing (Product)
 import Data.Textile.Step.Label as Label exposing (Label)
 import Data.Unit as Unit
@@ -234,7 +237,7 @@ toString inputs =
 
         Product.Weaved _ _ _ ->
             [ "tissage", inputs.countryFabric.name ++ weavingOptionsToString inputs.picking inputs.surfaceMass ]
-    , [ "teinture", inputs.countryDyeing.name ]
+    , [ "teinture sur " ++ dyeingMediumLabel inputs.dyeingMedium, inputs.countryDyeing.name ]
     , [ "confection", inputs.countryMaking.name ++ makingOptionsToString inputs ]
     , [ "distribution", inputs.countryDistribution.name ]
     , [ "utilisation", inputs.countryUse.name ++ useOptionsToString inputs.quality inputs.reparability ]
@@ -323,6 +326,19 @@ countryList inputs =
     , inputs.countryUse
     , inputs.countryEndOfLife
     ]
+
+
+getDyeingProcess : DyeingMedium -> Process.WellKnown -> Process
+getDyeingProcess medium { dyeingArticle, dyeingFabric, dyeingYarn } =
+    case medium of
+        Article ->
+            dyeingArticle
+
+        Fabric ->
+            dyeingFabric
+
+        Yarn ->
+            dyeingYarn
 
 
 updateStepCountry : Label -> Country.Code -> Query -> Query
@@ -717,6 +733,19 @@ dyeingMediumFromString string =
 
         _ ->
             Err <| "Type de support de teinture inconnu: " ++ string
+
+
+dyeingMediumLabel : DyeingMedium -> String
+dyeingMediumLabel medium =
+    case medium of
+        Article ->
+            "Vêtement"
+
+        Fabric ->
+            "Étoffe"
+
+        Yarn ->
+            "Fil"
 
 
 dyeingMediumToString : DyeingMedium -> String

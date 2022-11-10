@@ -234,16 +234,20 @@ computeDyeingImpacts { processes } simulator =
     processes
         |> Process.loadWellKnown
         |> Result.map
-            (\{ dyeingFabric } ->
+            (\wellKnown ->
                 simulator
                     |> updateLifeCycleStep Label.Dyeing
-                        (\({ country } as step) ->
+                        (\({ country, dyeingMedium } as step) ->
                             let
+                                dyeingProcess =
+                                    Inputs.getDyeingProcess
+                                        (Maybe.withDefault Inputs.Fabric dyeingMedium)
+                                        wellKnown
+
                                 { heat, kwh, impacts } =
                                     step.outputMass
                                         |> Formula.dyeingImpacts step.impacts
-                                            -- FIXME: we should be able to select another dyeing medium
-                                            dyeingFabric
+                                            dyeingProcess
                                             country.heatProcess
                                             country.electricityProcess
                             in

@@ -19,7 +19,7 @@ import Data.Country as Country exposing (Country)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Textile.Db exposing (Db)
 import Data.Textile.Formula as Formula
-import Data.Textile.Inputs exposing (Inputs)
+import Data.Textile.Inputs as Inputs exposing (Inputs)
 import Data.Textile.Process as Process exposing (Process)
 import Data.Textile.Product as Product
 import Data.Textile.Step.Label as Label exposing (Label)
@@ -50,6 +50,7 @@ type alias Step =
     , makingWaste : Maybe Unit.Ratio
     , picking : Maybe Unit.PickPerMeter
     , surfaceMass : Maybe Unit.SurfaceMass
+    , dyeingMedium : Maybe Inputs.DyeingMedium
     }
 
 
@@ -96,6 +97,7 @@ create { db, label, editable, country, enabled } =
     , makingWaste = Nothing
     , picking = Nothing
     , surfaceMass = Nothing
+    , dyeingMedium = Nothing
     }
 
 
@@ -256,7 +258,7 @@ getRoadTransportProcess wellKnown { label } =
 updateFromInputs : Db -> Inputs -> Step -> Step
 updateFromInputs { processes } inputs ({ label, country } as step) =
     let
-        { airTransportRatio, quality, reparability, makingWaste, picking, surfaceMass } =
+        { airTransportRatio, quality, reparability, makingWaste, picking, surfaceMass, dyeingMedium } =
             inputs
     in
     case label of
@@ -281,15 +283,15 @@ updateFromInputs { processes } inputs ({ label, country } as step) =
 
         Label.Dyeing ->
             { step
-                | processInfo =
+                | dyeingMedium = Just dyeingMedium
+                , processInfo =
                     { defaultProcessInfo
                         | countryHeat = Just country.heatProcess.name
                         , countryElec = Just country.electricityProcess.name
                         , dyeing =
                             processes
                                 |> Process.loadWellKnown
-                                -- FIXME: we should be able to select another dyeing medium
-                                |> Result.map (.dyeingFabric >> .name)
+                                |> Result.map (Inputs.getDyeingProcess inputs.dyeingMedium >> .name)
                                 |> Result.toMaybe
                     }
             }
