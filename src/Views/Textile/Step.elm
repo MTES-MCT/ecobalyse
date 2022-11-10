@@ -142,14 +142,21 @@ airTransportRatioField { current, updateAirTransportRatio } =
 
 
 dyeingMediumField : Config msg -> Html msg
-dyeingMediumField config =
+dyeingMediumField _ =
+    let
+        dyeingMedium =
+            Inputs.Fabric
+    in
     [ { medium = Inputs.Yarn, caption = "Fil" }
     , { medium = Inputs.Fabric, caption = "Étoffe" }
     , { medium = Inputs.Article, caption = "Vêtement" }
     ]
         |> List.map
             (\{ caption, medium } ->
-                option [ value <| Inputs.dyeingMediumToString medium ]
+                option
+                    [ value <| Inputs.dyeingMediumToString medium
+                    , selected <| dyeingMedium == medium
+                    ]
                     [ text <| "Teinture sur " ++ caption ]
             )
         |> select [ class "form-select form-select-sm" ]
