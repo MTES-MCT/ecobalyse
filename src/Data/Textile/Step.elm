@@ -288,7 +288,8 @@ updateFromInputs { processes } inputs ({ label, country } as step) =
                         , dyeing =
                             processes
                                 |> Process.loadWellKnown
-                                |> Result.map (.dyeing >> .name)
+                                -- FIXME: we should be able to select another dyeing medium
+                                |> Result.map (.dyeingFabric >> .name)
                                 |> Result.toMaybe
                     }
             }
