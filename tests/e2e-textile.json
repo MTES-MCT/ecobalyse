@@ -155,15 +155,14 @@
     }
   },
   {
-    "name": "Robe 100% acrylique, 100% teinture majorante, Bangladesh",
+    "name": "Robe 100% acrylique, Bangladesh",
     "query": [
       "mass=0.3",
       "product=robe",
       "materials[]=acrylique;1",
       "countryFabric=BD",
       "countryDyeing=BD",
-      "countryMaking=BD",
-      "dyeingWeighting=1"
+      "countryMaking=BD"
     ],
     "impacts": {
       "acd": 0.13680200070375076,
