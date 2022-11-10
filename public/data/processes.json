@@ -1350,96 +1350,6 @@
     "alias": null
   },
   {
-    "name": "Teinture sur étoffe, procédé majorant, traitement inefficace des eaux usées",
-    "info": "Textile > Ennoblissement > Teinture",
-    "unit": "kg",
-    "source": "Base Impacts",
-    "uuid": "cf001531-5f2d-48b1-b30a-4a17466a8b30",
-    "impacts": {
-      "acd": 8.89336e-3,
-      "cch": 4.20837e-1,
-      "etf": 0.0,
-      "fru": 8.26457,
-      "fwe": 1.40002e-3,
-      "htc": 0.0,
-      "htn": 0.0,
-      "ior": 1.67068e-2,
-      "ldu": 1.745,
-      "mru": 4.83295e-6,
-      "ozd": 7.36272e-7,
-      "pco": 1.41501e-3,
-      "pma": 6.65213e-8,
-      "swe": 1.60159e-2,
-      "tre": 1.17059e-3,
-      "wtu": 0.0
-    },
-    "heat_MJ": 7.171e1,
-    "elec_pppm": 0.0,
-    "elec_MJ": 3.81e1,
-    "waste": 0.0,
-    "alias": "dyeing-high"
-  },
-  {
-    "name": "Teinture sur étoffe, procédé majorant, traitement moyen des eaux usées",
-    "info": "Textile > Ennoblissement > Teinture",
-    "unit": "kg",
-    "source": "Base Impacts",
-    "uuid": "56258c5b-ab76-4af4-b08b-b1d77700a578",
-    "impacts": {
-      "acd": 8.89336e-3,
-      "cch": 4.20837e-1,
-      "etf": 0.0,
-      "fru": 8.26457,
-      "fwe": 6.64016e-4,
-      "htc": 0.0,
-      "htn": 0.0,
-      "ior": 1.67068e-2,
-      "ldu": 1.745,
-      "mru": 4.83295e-6,
-      "ozd": 7.36272e-7,
-      "pco": 1.41501e-3,
-      "pma": 6.65213e-8,
-      "swe": 1.22991e-2,
-      "tre": 1.17059e-3,
-      "wtu": 0.0
-    },
-    "heat_MJ": 7.171e1,
-    "elec_pppm": 0.0,
-    "elec_MJ": 3.81e1,
-    "waste": 0.0,
-    "alias": null
-  },
-  {
-    "name": "Teinture sur étoffe, procédé majorant, traitement très efficace des eaux usées",
-    "info": "Textile > Ennoblissement > Teinture",
-    "unit": "kg",
-    "source": "Base Impacts",
-    "uuid": "e437d789-b59d-4fab-b7f4-115820f22271",
-    "impacts": {
-      "acd": 8.89336e-3,
-      "cch": 4.20837e-1,
-      "etf": 0.0,
-      "fru": 8.26457,
-      "fwe": 1.12016e-4,
-      "htc": 0.0,
-      "htn": 0.0,
-      "ior": 1.67068e-2,
-      "ldu": 1.745,
-      "mru": 4.83295e-6,
-      "ozd": 7.36272e-7,
-      "pco": 1.41501e-3,
-      "pma": 6.65213e-8,
-      "swe": 3.43032e-3,
-      "tre": 1.17059e-3,
-      "wtu": 0.0
-    },
-    "heat_MJ": 7.171e1,
-    "elec_pppm": 0.0,
-    "elec_MJ": 3.81e1,
-    "waste": 0.0,
-    "alias": null
-  },
-  {
     "name": "Teinture sur étoffe, procédé représentatif, traitement inefficace des eaux usées",
     "info": "Textile > Ennoblissement > Teinture",
     "unit": "kg",
@@ -1467,7 +1377,7 @@
     "elec_pppm": 0.0,
     "elec_MJ": 7.17,
     "waste": 0.0,
-    "alias": null
+    "alias": "dyeing-yarn"
   },
   {
     "name": "Teinture sur étoffe, procédé représentatif, traitement moyen des eaux usées",
@@ -1497,7 +1407,7 @@
     "elec_pppm": 0.0,
     "elec_MJ": 7.17,
     "waste": 0.0,
-    "alias": null
+    "alias": "dyeing-article"
   },
   {
     "name": "Teinture sur étoffe, procédé représentatif, traitement très efficace des eaux usées",
@@ -1527,7 +1437,7 @@
     "elec_pppm": 0.0,
     "elec_MJ": 7.17,
     "waste": 0.0,
-    "alias": "dyeing-low"
+    "alias": "dyeing-fabric"
   },
   {
     "name": "Confection (jeans)",
