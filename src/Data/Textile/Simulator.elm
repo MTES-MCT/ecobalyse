@@ -234,7 +234,7 @@ computeDyeingImpacts { processes } simulator =
     processes
         |> Process.loadWellKnown
         |> Result.map
-            (\{ dyeingLow } ->
+            (\{ dyeing } ->
                 simulator
                     |> updateLifeCycleStep Label.Dyeing
                         (\({ country } as step) ->
@@ -242,7 +242,7 @@ computeDyeingImpacts { processes } simulator =
                                 { heat, kwh, impacts } =
                                     step.outputMass
                                         |> Formula.dyeingImpacts step.impacts
-                                            dyeingLow
+                                            dyeing
                                             country.heatProcess
                                             country.electricityProcess
                             in

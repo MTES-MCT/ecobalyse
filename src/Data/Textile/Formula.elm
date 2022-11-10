@@ -134,7 +134,6 @@ dyeingImpacts :
     -> Mass
     -> { heat : Energy, kwh : Energy, impacts : Impacts }
 dyeingImpacts impacts dyeingProcess heatProcess elecProcess baseMass =
-    -- FIXME: rename dyingLowProcess to dyeingProcess
     let
         heatMJ =
             Mass.inKilograms baseMass
