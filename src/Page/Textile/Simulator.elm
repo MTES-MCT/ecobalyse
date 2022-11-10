@@ -84,6 +84,7 @@ type Msg
     | ToggleStep Label
     | ToggleStepViewMode Int
     | UpdateAirTransportRatio (Maybe Unit.Ratio)
+    | UpdateDyeingMedium Inputs.DyeingMedium
     | UpdateMakingWaste (Maybe Unit.Ratio)
     | UpdateMassInput String
     | UpdateMaterial Int Material.Id
@@ -282,6 +283,10 @@ update ({ db, query, navKey } as session) msg model =
             ( model, session, Cmd.none )
                 |> updateQuery { query | airTransportRatio = airTransportRatio }
 
+        UpdateDyeingMedium dyeingMedium ->
+            ( model, session, Cmd.none )
+                |> updateQuery { query | dyeingMedium = dyeingMedium }
+
         UpdateMakingWaste makingWaste ->
             ( model, session, Cmd.none )
                 |> updateQuery { query | makingWaste = makingWaste }
@@ -405,6 +410,7 @@ lifeCycleStepsView db { viewMode, funit, impact } simulator =
                     , toggleStepViewMode = ToggleStepViewMode
                     , updateCountry = UpdateStepCountry
                     , updateAirTransportRatio = UpdateAirTransportRatio
+                    , updateDyeingMedium = UpdateDyeingMedium
                     , updateQuality = UpdateQuality
                     , updateReparability = UpdateReparability
                     , updateMakingWaste = UpdateMakingWaste

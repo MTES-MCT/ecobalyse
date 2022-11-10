@@ -45,6 +45,7 @@ type alias Config msg =
     , updateQuality : Maybe Unit.Quality -> msg
     , updateReparability : Maybe Unit.Reparability -> msg
     , updateAirTransportRatio : Maybe Unit.Ratio -> msg
+    , updateDyeingMedium : Inputs.DyeingMedium -> msg
     , updateMakingWaste : Maybe Unit.Ratio -> msg
     , updateSurfaceMass : Maybe Unit.SurfaceMass -> msg
     , updatePicking : Maybe Unit.PickPerMeter -> msg
@@ -142,24 +143,24 @@ airTransportRatioField { current, updateAirTransportRatio } =
 
 
 dyeingMediumField : Config msg -> Html msg
-dyeingMediumField _ =
-    let
-        dyeingMedium =
-            Inputs.Fabric
-    in
-    [ { medium = Inputs.Yarn, caption = "Fil" }
-    , { medium = Inputs.Fabric, caption = "Étoffe" }
-    , { medium = Inputs.Article, caption = "Vêtement" }
-    ]
+dyeingMediumField { inputs, updateDyeingMedium } =
+    [ Inputs.Yarn, Inputs.Fabric, Inputs.Article ]
         |> List.map
-            (\{ caption, medium } ->
+            (\medium ->
                 option
                     [ value <| Inputs.dyeingMediumToString medium
-                    , selected <| dyeingMedium == medium
+                    , selected <| inputs.dyeingMedium == medium
                     ]
-                    [ text <| "Teinture sur " ++ caption ]
+                    [ text <| "Teinture sur " ++ Inputs.dyeingMediumLabel medium ]
             )
-        |> select [ class "form-select form-select-sm" ]
+        |> select
+            [ class "form-select form-select-sm"
+            , onInput
+                (Inputs.dyeingMediumFromString
+                    >> Result.withDefault Inputs.Fabric
+                    >> updateDyeingMedium
+                )
+            ]
 
 
 fadingField : Config msg -> Html msg
