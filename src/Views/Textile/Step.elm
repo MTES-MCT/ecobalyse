@@ -141,6 +141,16 @@ airTransportRatioField { current, updateAirTransportRatio } =
         ]
 
 
+dyeingMediumField : Config msg -> Html msg
+dyeingMediumField config =
+    [ { medium = "Fil" }
+    , { medium = "Étoffe" }
+    , { medium = "Vêtement" }
+    ]
+        |> List.map (\{ medium } -> option [] [ text <| "Teinture sur " ++ medium ])
+        |> select [ class "form-select form-select-sm" ]
+
+
 fadingField : Config msg -> Html msg
 fadingField { inputs, toggleDisabledFading } =
     if inputs.product.making.fadable then
@@ -379,6 +389,11 @@ simpleView ({ funit, inputs, daysOfWear, impact, current } as config) =
                                     , surfaceMassField config defaultSurfaceMass
                                     ]
 
+                    Label.Dyeing ->
+                        div [ class "mt-2" ]
+                            [ dyeingMediumField config
+                            ]
+
                     Label.Making ->
                         div [ class "mt-2" ]
                             [ makingWasteField config
@@ -512,6 +527,10 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                                 [ pickingField config defaultPicking
                                 , surfaceMassField config defaultSurfaceMass
                                 ]
+
+                    Label.Dyeing ->
+                        [ dyeingMediumField config
+                        ]
 
                     Label.Making ->
                         [ makingWasteField config
