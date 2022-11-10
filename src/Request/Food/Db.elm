@@ -1,6 +1,7 @@
 module Request.Food.Db exposing (loadDb)
 
 import Data.Food.Db exposing (Db)
+import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Process as Process exposing (Process)
 import Data.Food.Product as Product exposing (Products)
 import Data.Impact as Impact
@@ -10,11 +11,28 @@ import Request.Common exposing (getJson)
 import Task exposing (Task)
 
 
+handleIngredientsLoaded : List Impact.Definition -> List Process -> Products -> WebData (List Ingredient) -> Task () (WebData Db)
+handleIngredientsLoaded impacts processes products ingredientsData =
+    case ingredientsData of
+        RemoteData.Success ingredients ->
+            Task.succeed (RemoteData.succeed (Db impacts processes products ingredients))
+
+        RemoteData.Failure error ->
+            Task.succeed (RemoteData.Failure error)
+
+        RemoteData.NotAsked ->
+            Task.succeed RemoteData.NotAsked
+
+        RemoteData.Loading ->
+            Task.succeed RemoteData.Loading
+
+
 handleProductsLoaded : List Impact.Definition -> List Process -> WebData Products -> Task () (WebData Db)
 handleProductsLoaded impacts processes productsData =
     case productsData of
         RemoteData.Success products ->
-            Task.succeed (RemoteData.succeed (Db impacts processes products))
+            getJson (Ingredient.decodeIngredients processes) "food/ingredients.json"
+                |> Task.andThen (handleIngredientsLoaded impacts processes products)
 
         RemoteData.Failure error ->
             Task.succeed (RemoteData.Failure error)
