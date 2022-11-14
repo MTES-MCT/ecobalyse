@@ -141,6 +141,14 @@ describe("API", () => {
         );
       });
 
+      it("should validate the dyeingMedium param", async () => {
+        expectFieldErrorMessage(
+          await makeRequest("/api/simulator", ["dyeingMedium=xxx"]),
+          "dyeingMedium",
+          /support de teinture inconnu: xxx/i,
+        );
+      });
+
       it("should perform a simulation featuring 17 impacts", async () => {
         const response = await makeRequest("/api/simulator/", successQuery);
 

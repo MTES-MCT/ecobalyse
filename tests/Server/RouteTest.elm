@@ -262,6 +262,7 @@ textileEndpoints db =
           , "countryMaking=notACountryCode"
           , "disabledSteps=invalid"
           , "disabledFading=untrue"
+          , "dyeingMedium=yolo"
           ]
             |> String.join "&"
             |> getEndpoint db "GET"
@@ -276,6 +277,7 @@ textileEndpoints db =
                     , ( "product", "Produit non trouvé id=notAProductID." )
                     , ( "disabledSteps", "Impossible d'interpréter la liste des étapes désactivées; Code étape inconnu: invalid" )
                     , ( "disabledFading", "La valeur ne peut être que true ou false." )
+                    , ( "dyeingMedium", "Type de support de teinture inconnu: yolo" )
                     ]
                     |> Just
                 )
