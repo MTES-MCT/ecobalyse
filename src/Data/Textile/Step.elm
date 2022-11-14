@@ -291,11 +291,7 @@ updateFromInputs { processes } inputs ({ label, country } as step) =
                         , dyeing =
                             processes
                                 |> Process.loadWellKnown
-<<<<<<< HEAD
-                                |> Result.map (Inputs.getDyeingProcess inputs.dyeingMedium >> .name)
-=======
                                 |> Result.map (Inputs.getDyeingProcess dyeingMedium >> .name)
->>>>>>> 8cb116cd7715383a3ae2a32768787e314665a1cb
                                 |> Result.toMaybe
                     }
             }
