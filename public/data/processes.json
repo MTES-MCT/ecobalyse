@@ -1260,36 +1260,6 @@
     "alias": null
   },
   {
-    "name": "Production de fibres recyclées, traitement de déchets textiles post-consommation (recyclage mécanique), inventaire partiellement agrégé",
-    "info": "Textile > Matières > Matières recyclées",
-    "unit": "kg",
-    "source": "Base Impacts",
-    "uuid": "ca5dc5b3-7fa2-4779-af0b-aa6f31cd457f",
-    "impacts": {
-      "acd": 8.19605e-4,
-      "cch": 2.50572e-1,
-      "etf": 0.0,
-      "fru": 6.8379,
-      "fwe": 1.68832e-4,
-      "htc": 0.0,
-      "htn": 0.0,
-      "ior": 1.39498,
-      "ldu": 7.67968,
-      "mru": 5.37362e-6,
-      "ozd": 3.92493e-8,
-      "pco": 4.16466e-4,
-      "pma": 2.55443e-8,
-      "swe": 1.75056e-4,
-      "tre": 6.50187e-4,
-      "wtu": 0.0
-    },
-    "heat_MJ": 0.0,
-    "elec_pppm": 0.0,
-    "elec_MJ": 0.0,
-    "waste": 2.1e-1,
-    "alias": null
-  },
-  {
     "name": "Soie",
     "info": "Textile > Matières > Matières naturelles uuid_bi=94b4b0e1-61e4-4f4d-b9b2-efe7623b0e68",
     "unit": "kg",
