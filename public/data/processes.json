@@ -1350,7 +1350,7 @@
     "alias": null
   },
   {
-    "name": "Teinture sur étoffe, procédé représentatif, traitement moyen des eaux usées",
+    "name": "Teinture sur étoffe",
     "info": "Textile > Ennoblissement > Teinture",
     "unit": "kg",
     "source": "Base Impacts",
@@ -1380,7 +1380,7 @@
     "alias": "dyeing-fabric"
   },
   {
-    "name": "Teinture sur article, procédé représentatif, traitement moyen des eaux usées",
+    "name": "Teinture sur pièce",
     "info": "Textile > Ennoblissement > Teinture",
     "unit": "kg",
     "source": "Base Impacts",
@@ -1410,7 +1410,7 @@
     "alias": "dyeing-article"
   },
   {
-    "name": "Teinture sur fil, procédé représentatif, traitement moyen des eaux usées",
+    "name": "Teinture sur fil",
     "info": "Textile > Ennoblissement > Teinture",
     "unit": "kg",
     "source": "Base Impacts",
