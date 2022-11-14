@@ -7,6 +7,7 @@ module Page.Food.Builder exposing
     )
 
 import Data.Food.Db as FoodDb
+import Data.Food.Ingredient exposing (Ingredient)
 import Data.Food.Process as Process exposing (Process)
 import Data.Food.Recipe as Recipe exposing (Recipe)
 import Data.Impact as Impact
@@ -299,6 +300,81 @@ addProcessFormView { category, defaultMass, excluded, foodDb, kind, noOp, select
         ]
 
 
+type alias AddIngredientConfig msg =
+    { defaultMass : Mass
+    , excluded : List Process.Code
+    , foodDb : FoodDb.Db
+    , noOp : msg
+    , select : Maybe SelectedProcess -> msg
+    , selectedProcess : Maybe SelectedProcess
+    , submit : SelectedProcess -> msg
+    }
+
+
+addIngredientFormView : AddIngredientConfig Msg -> Html Msg
+addIngredientFormView { defaultMass, excluded, foodDb, noOp, select, selectedProcess, submit } =
+    let
+        kind =
+            "un ingrédient"
+    in
+    Html.form
+        [ class "list-group list-group-flush border-top-0"
+        , onSubmit
+            (case selectedProcess of
+                Just selected ->
+                    submit selected
+
+                Nothing ->
+                    noOp
+            )
+        ]
+        [ rowTemplate
+            (MassInput.view
+                { mass =
+                    selectedProcess
+                        |> Maybe.map .mass
+                        |> Maybe.withDefault defaultMass
+                , onChange =
+                    \maybeMass ->
+                        select
+                            (case ( maybeMass, selectedProcess ) of
+                                ( Just mass, Just selected ) ->
+                                    Just { selected | mass = mass }
+
+                                _ ->
+                                    Nothing
+                            )
+                , disabled = selectedProcess == Nothing
+                }
+            )
+            (foodDb.ingredients
+                |> List.sortBy .name
+                |> List.filter (\{ conventional } -> not (List.member conventional.code excluded))
+                |> ingredientSelectorView kind
+                    (Maybe.map .code selectedProcess)
+                    (\maybeCode ->
+                        case ( selectedProcess, maybeCode ) of
+                            ( Just selected, Just code ) ->
+                                select (Just { selected | code = code })
+
+                            ( Nothing, Just code ) ->
+                                select (Just { code = code, mass = defaultMass })
+
+                            _ ->
+                                select Nothing
+                    )
+            )
+            (button
+                [ type_ "submit"
+                , class "btn btn-sm btn-primary no-outline"
+                , title <| "Ajouter " ++ kind
+                , disabled <| selectedProcess == Nothing
+                ]
+                [ Icon.plus ]
+            )
+        ]
+
+
 debugQueryView : FoodDb.Db -> Recipe.Query -> Html Msg
 debugQueryView foodDb query =
     let
@@ -387,12 +463,10 @@ ingredientListView foodDb selectedImpact selectedProcess recipe results =
                             )
                     )
         )
-    , addProcessFormView
-        { category = Process.Ingredient
-        , defaultMass = Mass.grams 100
+    , addIngredientFormView
+        { defaultMass = Mass.grams 100
         , excluded = List.map (.process >> .code) recipe.ingredients
         , foodDb = foodDb
-        , kind = "un ingrédient"
         , noOp = NoOp
         , select = SelectIngredient
         , selectedProcess = selectedProcess
@@ -506,6 +580,46 @@ processSelectorView kind selectedCode event =
             , option
                 [ selected <| selectedCode == Just process.code
                 , value <| Process.codeToString process.code
+                ]
+                [ text label ]
+            )
+        )
+        >> List.sortBy Tuple.first
+        >> (++)
+            [ ( ""
+              , option [ Attr.selected <| selectedCode == Nothing, value "" ]
+                    [ text <| "-- Sélectionnez " ++ kind ++ " et cliquez sur le bouton + pour l'ajouter" ]
+              )
+            ]
+        -- We use Html.Keyed because when we add an item, we filter it out from the select box,
+        -- which desynchronizes the DOM state and the virtual dom state
+        >> Keyed.node "select"
+            [ class "form-select form-select-sm"
+            , onInput
+                (\str ->
+                    event
+                        (if str == "" then
+                            Nothing
+
+                         else
+                            Just (Process.codeFromString str)
+                        )
+                )
+            ]
+
+
+ingredientSelectorView : String -> Maybe Process.Code -> (Maybe Process.Code -> msg) -> List Ingredient -> Html msg
+ingredientSelectorView kind selectedCode event =
+    List.map
+        (\ingredient ->
+            let
+                label =
+                    ingredient.name
+            in
+            ( label
+            , option
+                [ selected <| selectedCode == Just ingredient.conventional.code
+                , value <| Process.codeToString ingredient.conventional.code
                 ]
                 [ text label ]
             )
