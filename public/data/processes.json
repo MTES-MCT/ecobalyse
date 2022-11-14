@@ -1410,36 +1410,6 @@
     "alias": null
   },
   {
-    "name": "Fil de laine de chameau",
-    "info": "Textile > Matières > Matières naturelles",
-    "unit": "kg",
-    "source": "Base Impacts",
-    "uuid": "c191a4dd-5080-4eb6-9c59-b13c943327bc",
-    "impacts": {
-      "acd": 1.72489,
-      "cch": 1.75102e2,
-      "etf": 0.0,
-      "fru": 2.56363e2,
-      "fwe": 2.97625e-4,
-      "htc": 0.0,
-      "htn": 0.0,
-      "ior": -1.33703e-1,
-      "ldu": 2.32501e5,
-      "mru": 2.22221e-5,
-      "ozd": 8.42207e-7,
-      "pco": 1.14578e-1,
-      "pma": 1.4739e-5,
-      "swe": 7.31482e-2,
-      "tre": 6.39218,
-      "wtu": 3.51234e-1
-    },
-    "heat_MJ": 0.0,
-    "elec_pppm": 0.0,
-    "elec_MJ": 0.0,
-    "waste": 3.17851,
-    "alias": null
-  },
-  {
     "name": "Jute",
     "info": "Textile > Matières > Matières naturelles uuid_bi=72010874-4d26-4c7a-95de-c6987dfdedeb",
     "unit": "kg",
@@ -1587,36 +1557,6 @@
     "elec_pppm": 0.0,
     "elec_MJ": 0.0,
     "waste": 5.38462e-1,
-    "alias": null
-  },
-  {
-    "name": "Fibres de kapok, inventaire agrégé",
-    "info": "Textile > Matières > Matières naturelles",
-    "unit": "kg",
-    "source": "Base Impacts",
-    "uuid": "36cdbfc4-3f48-47b0-8ae0-294bb6017df1",
-    "impacts": {
-      "acd": 6.616e-4,
-      "cch": -2.80245e-2,
-      "etf": 0.0,
-      "fru": 5.93901,
-      "fwe": -5.10209e-4,
-      "htc": 0.0,
-      "htn": 0.0,
-      "ior": 1.16285e-1,
-      "ldu": -3.17719e1,
-      "mru": 5.27283e-6,
-      "ozd": 7.02024e-8,
-      "pco": 1.62426e-3,
-      "pma": 7.27537e-8,
-      "swe": -5.14053e-4,
-      "tre": -4.56534e-3,
-      "wtu": 5.02892
-    },
-    "heat_MJ": 0.0,
-    "elec_pppm": 0.0,
-    "elec_MJ": 0.0,
-    "waste": 0.0,
     "alias": null
   },
   {
