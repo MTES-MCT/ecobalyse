@@ -252,7 +252,7 @@ describe("API", () => {
         ]);
 
         expectStatus(response, 200);
-        expect(Object.keys(response.body.impacts)).toHaveLength(17);
+        expect(Object.keys(response.body.results.impacts)).toHaveLength(17);
       });
 
       it("should validate the ingredient list length", async () => {
@@ -274,10 +274,10 @@ describe("API", () => {
       it("should validate an ingredient mass", async () => {
         expectFieldErrorMessage(
           await makeRequest("/api/food/recipe", [
-            "ingredients[]=2e3f03c6de1e43900e09ae852182e9c7;0",
+            "ingredients[]=2e3f03c6de1e43900e09ae852182e9c7;-1",
           ]),
           "ingredients",
-          /masse doit être supérieure à zéro/,
+          /masse doit être supérieure ou égale à zéro/,
         );
       });
 
@@ -291,9 +291,27 @@ describe("API", () => {
 
       it("should validate a transform mass", async () => {
         expectFieldErrorMessage(
-          await makeRequest("/api/food/recipe", ["transform=aded2490573207ec7ad5a3813978f6a4;0"]),
+          await makeRequest("/api/food/recipe", ["transform=aded2490573207ec7ad5a3813978f6a4;-1"]),
           "transform",
-          /masse doit être supérieure à zéro/,
+          /masse doit être supérieure ou égale à zéro/,
+        );
+      });
+
+      it("should validate a packaging code", async () => {
+        expectFieldErrorMessage(
+          await makeRequest("/api/food/recipe", ["packaging[]=invalid;268"]),
+          "packaging",
+          /Procédé introuvable par code : invalid/,
+        );
+      });
+
+      it("should validate a packaging mass", async () => {
+        expectFieldErrorMessage(
+          await makeRequest("/api/food/recipe", [
+            "packaging[]=23b2754e5943bc77916f8f871edc53b6;-1",
+          ]),
+          "packaging",
+          /masse doit être supérieure ou égale à zéro/,
         );
       });
     });
@@ -310,7 +328,7 @@ describe("API", () => {
             query,
             impacts: response.body.impacts,
           });
-          expect(toComparable(response.body.impacts)).toEqual(toComparable(impacts));
+          expect(toComparable(response.body.results.impacts)).toEqual(toComparable(impacts));
         });
       }
     });

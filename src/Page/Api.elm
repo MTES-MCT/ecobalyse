@@ -26,6 +26,7 @@ type Msg
 type alias News =
     { date : String
     , level : String
+    , domains : List String
     , md : String
     }
 
@@ -47,8 +48,16 @@ getApiServerUrl { clientUrl } =
 
 changelog : List News
 changelog =
-    [ { date = "15 septembre 2022"
+    [ { date = "9 novembre 2022"
       , level = "major"
+      , domains = [ "Textile" ]
+      , md =
+            """Le support du paramètre `dyeingWeighting` a été supprimé. Son utilisation est
+            désormais inopérante."""
+      }
+    , { date = "15 septembre 2022"
+      , level = "major"
+      , domains = [ "Alimentaire", "Textile" ]
       , md =
             """Les scores PEF renvoyés par l'API sont désormais exprimés en `µPt` (micropoints)
             au lieu de `mPt` (millipoints).
@@ -57,6 +66,7 @@ changelog =
       }
     , { date = "5 juillet 2022"
       , level = "minor"
+      , domains = [ "Textile" ]
       , md =
             """Un nouveau paramètre optionnel `disabledSteps` a été ajouté aux endpoints de
             simulation, permettant de définir la liste des étapes du cycle de vie à désactiver,
@@ -75,6 +85,7 @@ changelog =
       }
     , { date = "2 juin 2022"
       , level = "major"
+      , domains = [ "Textile" ]
       , md =
             """Le format de définition de la liste des matières a évolué\u{00A0};
             là où vous définissiez une liste de matières en y incluant le pourcentage de matière
@@ -146,7 +157,7 @@ view session _ =
                         [ div [ class "card-header" ] [ text "Dernières mises à jour" ]
                         , changelog
                             |> List.map
-                                (\{ date, level, md } ->
+                                (\{ date, level, domains, md } ->
                                     li [ class "list-group-item" ]
                                         [ div [ class "d-flex justify-content-between align-items-center mb-1" ]
                                             [ text date
@@ -158,6 +169,14 @@ view session _ =
                                                     ]
                                                 ]
                                                 [ text level ]
+                                                :: (domains
+                                                        |> List.map
+                                                            (\domain ->
+                                                                span [ class "badge bg-secondary" ]
+                                                                    [ text domain ]
+                                                            )
+                                                   )
+                                                |> div [ class "d-flex gap-1" ]
                                             ]
                                         , Markdown.simple [ class "fs-7" ] md
                                         ]

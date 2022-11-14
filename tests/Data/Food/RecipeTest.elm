@@ -89,27 +89,27 @@ suite =
             , describe "compute"
                 [ Recipe.tunaPizza
                     |> Recipe.compute foodDb
-                    |> Result.map AnyDict.toDict
+                    |> Result.map (Tuple.second >> .impacts >> AnyDict.toDict)
                     |> Result.withDefault Dict.empty
                     |> Expect.equalDicts
                         (Dict.fromList
-                            [ ( "acd", Unit.impact 0.03506343974477965 )
-                            , ( "cch", Unit.impact 2.233511511233806 )
-                            , ( "etf", Unit.impact 56.33753956463499 )
-                            , ( "fru", Unit.impact 25.520977035797088 )
-                            , ( "fwe", Unit.impact 0.00026193949288136565 )
-                            , ( "htc", Unit.impact 7.591811510804789e-10 )
-                            , ( "htn", Unit.impact 4.041660586108172e-8 )
-                            , ( "ior", Unit.impact 0.6159118897240684 )
-                            , ( "ldu", Unit.impact 98.44473501661737 )
-                            , ( "mru", Unit.impact 0.000005858507829227685 )
-                            , ( "ozd", Unit.impact 2.4874073808432914e-7 )
-                            , ( "pco", Unit.impact 0.014729543445464777 )
-                            , ( "pef", Unit.impact 290.3211763700539 )
-                            , ( "pma", Unit.impact 2.52021824433807e-7 )
-                            , ( "swe", Unit.impact 0.010653579129237457 )
-                            , ( "tre", Unit.impact 0.12223778737362728 )
-                            , ( "wtu", Unit.impact 0.6942896122967771 )
+                            [ ( "acd", Unit.impact 0.03563816517303142 )
+                            , ( "cch", Unit.impact 2.340400439828958 )
+                            , ( "etf", Unit.impact 70.13958449015763 )
+                            , ( "fru", Unit.impact 27.7623776311341 )
+                            , ( "fwe", Unit.impact 0.0003131751866055857 )
+                            , ( "htc", Unit.impact 8.16161881596257e-10 )
+                            , ( "htn", Unit.impact 4.2366936866668135e-8 )
+                            , ( "ior", Unit.impact 0.6655424206621998 )
+                            , ( "ldu", Unit.impact 103.19136587989166 )
+                            , ( "mru", Unit.impact 0.000006171700549716389 )
+                            , ( "ozd", Unit.impact 2.6450658409466755e-7 )
+                            , ( "pco", Unit.impact 0.015076022211779597 )
+                            , ( "pef", Unit.impact 308.38011755405006 )
+                            , ( "pma", Unit.impact 2.614489711886471e-7 )
+                            , ( "swe", Unit.impact 0.010932969853481399 )
+                            , ( "tre", Unit.impact 0.12407138654493885 )
+                            , ( "wtu", Unit.impact 0.7436928514704245 )
                             ]
                         )
                     |> asTest "should return computed impacts"

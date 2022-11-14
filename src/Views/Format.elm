@@ -3,7 +3,6 @@ module Views.Format exposing
     , formatFloat
     , formatImpact
     , formatImpactFloat
-    , formatInt
     , formatRichFloat
     , hours
     , kg
@@ -46,14 +45,6 @@ formatImpact funit { trigram, unit } daysOfWear def =
 formatImpactFloat : Impact.Definition -> Int -> Float -> Html msg
 formatImpactFloat { unit } decimals =
     formatRichFloat decimals unit
-
-
-formatInt : String -> Int -> String
-formatInt unit int =
-    FormatNumber.format { frenchLocale | decimals = Exact 0 }
-        (toFloat int)
-        ++ "\u{202F}"
-        ++ unit
 
 
 {-| Formats a float with a provided decimal precision, which is overriden

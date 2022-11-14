@@ -8,7 +8,7 @@ import Data.Country as Country exposing (Country)
 import Data.Food.Db as FoodDb
 import Data.Food.Process as FoodProcess
 import Data.Food.Recipe as Recipe
-import Data.Impact as Impact exposing (Impacts)
+import Data.Impact as Impact
 import Data.Textile.Db as TextileDb
 import Data.Textile.Inputs as Inputs
 import Data.Textile.Material as Material exposing (Material)
@@ -84,19 +84,19 @@ toSingleImpactSimple trigram { inputs, impacts } =
         ]
 
 
-toFoodImpacts : Recipe.Query -> Impacts -> Encode.Value
-toFoodImpacts query impacts =
+toFoodResults : Recipe.Query -> Recipe.Results -> Encode.Value
+toFoodResults query results =
     Encode.object
-        [ ( "impacts", Impact.encodeImpacts impacts )
+        [ ( "results", Recipe.encodeResults results )
         , ( "description", Encode.string "TODO" )
-        , ( "query", Recipe.encode query )
+        , ( "query", Recipe.encodeQuery query )
         ]
 
 
-executeFoodQuery : FoodDb.Db -> Request -> (Impacts -> Encode.Value) -> Recipe.Query -> Cmd Msg
+executeFoodQuery : FoodDb.Db -> Request -> (Recipe.Results -> Encode.Value) -> Recipe.Query -> Cmd Msg
 executeFoodQuery foodDb request encoder =
     Recipe.compute foodDb
-        >> Result.map encoder
+        >> Result.map (Tuple.second >> encoder)
         >> toResponse request
 
 
@@ -158,6 +158,12 @@ handleRequest ({ foodDb, textileDb } as dbs) request =
                 |> encodeFoodProcessList
                 |> sendResponse 200 request
 
+        Just (Route.Get Route.FoodPackagingList) ->
+            foodDb.processes
+                |> List.filter (.category >> (==) FoodProcess.Packaging)
+                |> encodeFoodProcessList
+                |> sendResponse 200 request
+
         Just (Route.Get Route.FoodTransformList) ->
             foodDb.processes
                 |> List.filter (.category >> (==) FoodProcess.Transform)
@@ -165,7 +171,7 @@ handleRequest ({ foodDb, textileDb } as dbs) request =
                 |> sendResponse 200 request
 
         Just (Route.Get (Route.FoodRecipe (Ok query))) ->
-            query |> executeFoodQuery foodDb request (toFoodImpacts query)
+            query |> executeFoodQuery foodDb request (toFoodResults query)
 
         Just (Route.Get (Route.FoodRecipe (Err errors))) ->
             Query.encodeErrors errors

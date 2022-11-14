@@ -47,8 +47,7 @@ type alias WellKnown =
     , roadTransportPreMaking : Process
     , roadTransportPostMaking : Process
     , distribution : Process
-    , dyeingHigh : Process
-    , dyeingLow : Process
+    , dyeing : Process
     , passengerCar : Process
     , endOfLife : Process
     , fading : Process
@@ -86,7 +85,6 @@ loadWellKnown processes =
         |> fromAlias "road-transport-pre-making"
         |> fromAlias "road-transport-post-making"
         |> fromAlias "distribution"
-        |> fromAlias "dyeing-high"
         |> fromAlias "dyeing-low"
         |> fromAlias "passenger-car"
         |> fromAlias "end-of-life"

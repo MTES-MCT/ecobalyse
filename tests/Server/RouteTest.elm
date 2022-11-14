@@ -45,7 +45,8 @@ foodEndpoints db =
           , "ingredients[]=65e2a1f81e8525d74bc3d4d5bd559114;100"
           , "ingredients[]=a343353e431d7dddc7bb25cbc41e179a;168"
           , "ingredients[]=3af9739fc89492167dd0d273daac957a;425"
-          , "transform=aded2490573207ec7ad5a3813978f6a4;1050"
+          , "transform=aded2490573207ec7ad5a3813978f6a4;1140"
+          , "packaging[]=23b2754e5943bc77916f8f871edc53b6;105"
           ]
             |> String.join "&"
             |> getEndpoint db "GET"
@@ -68,21 +69,31 @@ foodEndpoints db =
             |> Maybe.andThen (Dict.get "ingredients")
             |> Expect.equal (Just "Procédé introuvable par code : invalid")
             |> asTest "should validate that an ingredient code is valid"
-        , getEndpoint db "GET" "/food/recipe?ingredients[]=2e3f03c6de1e43900e09ae852182e9c7;0"
+        , getEndpoint db "GET" "/food/recipe?ingredients[]=2e3f03c6de1e43900e09ae852182e9c7;-1"
             |> Maybe.andThen extractFoodErrors
             |> Maybe.andThen (Dict.get "ingredients")
-            |> Expect.equal (Just "La masse doit être supérieure à zéro.")
+            |> Expect.equal (Just "La masse doit être supérieure ou égale à zéro.")
             |> asTest "should validate that an ingredient mass is greater than zero"
-        , getEndpoint db "GET" "/food/recipe?transform=aded2490573207ec7ad5a3813978f6a4;0"
+        , getEndpoint db "GET" "/food/recipe?transform=aded2490573207ec7ad5a3813978f6a4;-1"
             |> Maybe.andThen extractFoodErrors
             |> Maybe.andThen (Dict.get "transform")
-            |> Expect.equal (Just "La masse doit être supérieure à zéro.")
+            |> Expect.equal (Just "La masse doit être supérieure ou égale à zéro.")
             |> asTest "should validate that a transform mass is greater than zero"
         , getEndpoint db "GET" "/food/recipe?transform=invalid;100"
             |> Maybe.andThen extractFoodErrors
             |> Maybe.andThen (Dict.get "transform")
             |> Expect.equal (Just "Procédé introuvable par code : invalid")
             |> asTest "should validate that a transform code is valid"
+        , getEndpoint db "GET" "/food/recipe?packaging[]=23b2754e5943bc77916f8f871edc53b6;-1"
+            |> Maybe.andThen extractFoodErrors
+            |> Maybe.andThen (Dict.get "packaging")
+            |> Expect.equal (Just "La masse doit être supérieure ou égale à zéro.")
+            |> asTest "should validate that a packaging mass is greater than zero"
+        , getEndpoint db "GET" "/food/recipe?packaging[]=invalid;100"
+            |> Maybe.andThen extractFoodErrors
+            |> Maybe.andThen (Dict.get "packaging")
+            |> Expect.equal (Just "Procédé introuvable par code : invalid")
+            |> asTest "should validate that a packaging code is valid"
         ]
     ]
 

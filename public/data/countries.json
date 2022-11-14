@@ -4,7 +4,6 @@
     "name": "Albanie",
     "electricityProcessUuid": "945f8fc8-a7cb-4cbd-98aa-7ab364b482a0",
     "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
-    "dyeingWeighting": 0,
     "airTransportRatio": 0
   },
   {
@@ -12,7 +11,6 @@
     "name": "Bangladesh",
     "electricityProcessUuid": "1ee6061e-8e15-4558-9338-94ad87abf932",
     "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
-    "dyeingWeighting": 1,
     "airTransportRatio": 0.33
   },
   {
@@ -20,7 +18,6 @@
     "name": "Belgique",
     "electricityProcessUuid": "082fe936-dd69-4735-9a38-3dd218e9c128",
     "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
-    "dyeingWeighting": 0,
     "airTransportRatio": 0
   },
   {
@@ -28,7 +25,6 @@
     "name": "Suisse",
     "electricityProcessUuid": "8ff8fa00-8358-482c-a78e-11050ea1dc74",
     "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
-    "dyeingWeighting": 0,
     "airTransportRatio": 0
   },
   {
@@ -36,7 +32,6 @@
     "name": "Chine",
     "electricityProcessUuid": "8f923f3d-0bd2-4326-99e2-f984b4454226",
     "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
-    "dyeingWeighting": 1,
     "airTransportRatio": 0.33
   },
   {
@@ -44,7 +39,6 @@
     "name": "Tchèquie",
     "electricityProcessUuid": "3a453d41-341d-4f00-b23e-1c0326fdda50",
     "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
-    "dyeingWeighting": 0,
     "airTransportRatio": 0
   },
   {
@@ -52,7 +46,6 @@
     "name": "Allemagne",
     "electricityProcessUuid": "2f4ccc4d-d96d-4f9b-a462-487c914f88d5",
     "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
-    "dyeingWeighting": 0,
     "airTransportRatio": 0
   },
   {
@@ -60,7 +53,6 @@
     "name": "Egypte",
     "electricityProcessUuid": "92df3ca1-8f77-495f-83d1-0d1970585cea",
     "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
-    "dyeingWeighting": 1,
     "airTransportRatio": 0
   },
   {
@@ -68,7 +60,6 @@
     "name": "Espagne",
     "electricityProcessUuid": "37301c44-c4cf-4214-a4ac-eee5785ccdc5",
     "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
-    "dyeingWeighting": 0,
     "airTransportRatio": 0
   },
   {
@@ -76,7 +67,6 @@
     "name": "Ethiopie",
     "electricityProcessUuid": "65ec9860-bfb4-4c3a-bd72-e0e8bbcefea1",
     "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
-    "dyeingWeighting": 1,
     "airTransportRatio": 0
   },
   {
@@ -84,7 +74,6 @@
     "name": "France",
     "electricityProcessUuid": "05585055-9742-4fff-81ff-ad2e30e1b791",
     "heatProcessUuid": "12fc43f2-a007-423b-a619-619d725793ea",
-    "dyeingWeighting": 0,
     "airTransportRatio": 0
   },
   {
@@ -92,7 +81,6 @@
     "name": "Royaume-Uni",
     "electricityProcessUuid": "17c53aa0-ee44-4d2e-8923-5410a6fb1bba",
     "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
-    "dyeingWeighting": 0,
     "airTransportRatio": 0
   },
   {
@@ -100,7 +88,6 @@
     "name": "Grèce",
     "electricityProcessUuid": "2de25500-c6a5-4723-be3d-9fc674bce785",
     "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
-    "dyeingWeighting": 0,
     "airTransportRatio": 0
   },
   {
@@ -108,7 +95,6 @@
     "name": "Hongrie",
     "electricityProcessUuid": "ec323bac-9705-4d67-a12c-9d240b5a68c2",
     "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
-    "dyeingWeighting": 0,
     "airTransportRatio": 0
   },
   {
@@ -116,7 +102,6 @@
     "name": "Inde",
     "electricityProcessUuid": "1b470f5c-6ae6-404d-bd71-8546d33dbc17",
     "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
-    "dyeingWeighting": 1,
     "airTransportRatio": 0.33
   },
   {
@@ -124,7 +109,6 @@
     "name": "Italie",
     "electricityProcessUuid": "f23b9dd6-9400-4451-a7c4-ad44834b8400",
     "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
-    "dyeingWeighting": 0,
     "airTransportRatio": 0
   },
   {
@@ -132,7 +116,6 @@
     "name": "Cambodge",
     "electricityProcessUuid": "89039edc-900f-49dd-82cc-6a27f7cad4ad",
     "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
-    "dyeingWeighting": 1,
     "airTransportRatio": 0.33
   },
   {
@@ -140,7 +123,6 @@
     "name": "Maroc",
     "electricityProcessUuid": "7f879b58-013e-472c-8637-67d2d536f4e2",
     "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
-    "dyeingWeighting": 1,
     "airTransportRatio": 0
   },
   {
@@ -148,7 +130,6 @@
     "name": "Myanmar",
     "electricityProcessUuid": "11fbcf50-22e3-4db0-b19f-c841bf7f8692",
     "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
-    "dyeingWeighting": 1,
     "airTransportRatio": 0.33
   },
   {
@@ -156,7 +137,6 @@
     "name": "Pays-Bas",
     "electricityProcessUuid": "e06b4e70-a9a6-4d9f-ad94-6fe3ff797da8",
     "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
-    "dyeingWeighting": 0,
     "airTransportRatio": 0
   },
   {
@@ -164,7 +144,6 @@
     "name": "Pakistan",
     "electricityProcessUuid": "5235ba76-4f83-473c-9521-8f3e1c084a37",
     "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
-    "dyeingWeighting": 1,
     "airTransportRatio": 0.33
   },
   {
@@ -172,7 +151,6 @@
     "name": "Pologne",
     "electricityProcessUuid": "280eb6f6-2c6b-49a4-9c11-cbe1a373bc28",
     "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
-    "dyeingWeighting": 0,
     "airTransportRatio": 0
   },
   {
@@ -180,7 +158,6 @@
     "name": "Portugal",
     "electricityProcessUuid": "a1d83202-0052-4d10-b9d2-938564be6a0b",
     "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
-    "dyeingWeighting": 0,
     "airTransportRatio": 0
   },
   {
@@ -188,7 +165,6 @@
     "name": "Roumanie",
     "electricityProcessUuid": "9dadf1cf-d142-42c7-a269-da69c7bd0016",
     "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
-    "dyeingWeighting": 0,
     "airTransportRatio": 0
   },
   {
@@ -196,7 +172,6 @@
     "name": "Sri Lanka",
     "electricityProcessUuid": "a422bb06-6d07-436b-be71-9e2034272a2b",
     "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
-    "dyeingWeighting": 1,
     "airTransportRatio": 0.33
   },
   {
@@ -204,7 +179,6 @@
     "name": "Tunisie",
     "electricityProcessUuid": "f0eb64cd-468d-4f3c-a9a3-3b3661625955",
     "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
-    "dyeingWeighting": 1,
     "airTransportRatio": 0
   },
   {
@@ -212,7 +186,6 @@
     "name": "Turquie",
     "electricityProcessUuid": "6fad8643-de3e-49dd-a48b-8e17b4175c23",
     "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
-    "dyeingWeighting": 1,
     "airTransportRatio": 0.33
   },
   {
@@ -220,7 +193,6 @@
     "name": "Taiwan",
     "electricityProcessUuid": "b1fda481-0247-4b08-a86f-09847e695e9d",
     "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
-    "dyeingWeighting": 1,
     "airTransportRatio": 0.33
   },
   {
@@ -228,7 +200,6 @@
     "name": "Vietnam",
     "electricityProcessUuid": "0007ed7f-ef14-47a0-859c-d8ca92309f66",
     "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
-    "dyeingWeighting": 1,
     "airTransportRatio": 0.33
   }
 ]

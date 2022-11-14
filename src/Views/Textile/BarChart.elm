@@ -4,7 +4,6 @@ import Array
 import Data.Impact as Impact
 import Data.Textile.Product as Product
 import Data.Textile.Simulator exposing (Simulator)
-import Data.Textile.Step as Step
 import Data.Textile.Step.Label as Label
 import Data.Unit as Unit
 import Html exposing (..)
@@ -57,15 +56,6 @@ makeBars { simulator, impact, funit } =
 
                                     ( Label.Fabric, Product.Weaved _ _ _ ) ->
                                         text "Tissage"
-
-                                    ( Label.Dyeing, _ ) ->
-                                        span [ class "fw-normal", title <| Step.dyeingWeightingToString step.dyeingWeighting ]
-                                            [ strong [] [ text "Teinture" ]
-                                            , text " ("
-                                            , abbr [ class "Abbr" ]
-                                                [ text <| Format.formatInt "%" (round (Unit.ratioToFloat step.dyeingWeighting * 100)) ]
-                                            , text ")"
-                                            ]
 
                                     _ ->
                                         text (Label.toString step.label)

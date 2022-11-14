@@ -86,7 +86,6 @@ paths:
       - $ref: '#/components/parameters/countryDyeingParam'
       - $ref: '#/components/parameters/countryMakingParam'
       - $ref: '#/components/parameters/countrySpinningParam'
-      - $ref: '#/components/parameters/dyeingWeightingParam'
       - $ref: '#/components/parameters/airTransportRatioParam'
       - $ref: '#/components/parameters/qualityParam'
       - $ref: '#/components/parameters/reparabilityParam'
@@ -146,7 +145,6 @@ paths:
       - $ref: '#/components/parameters/countryDyeingParam'
       - $ref: '#/components/parameters/countryMakingParam'
       - $ref: '#/components/parameters/countrySpinningParam'
-      - $ref: '#/components/parameters/dyeingWeightingParam'
       - $ref: '#/components/parameters/airTransportRatioParam'
       - $ref: '#/components/parameters/qualityParam'
       - $ref: '#/components/parameters/reparabilityParam'
@@ -182,7 +180,6 @@ paths:
       - $ref: '#/components/parameters/countryDyeingParam'
       - $ref: '#/components/parameters/countryMakingParam'
       - $ref: '#/components/parameters/countrySpinningParam'
-      - $ref: '#/components/parameters/dyeingWeightingParam'
       - $ref: '#/components/parameters/airTransportRatioParam'
       - $ref: '#/components/parameters/qualityParam'
       - $ref: '#/components/parameters/reparabilityParam'
@@ -215,7 +212,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/IngredientsListResponse'
+                $ref: '#/components/schemas/IngredientListResponse'
   /food/transforms:
     get:
       tags:
@@ -227,7 +224,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TransformsListResponse'
+                $ref: '#/components/schemas/TransformListResponse'
+  /food/packagings:
+    get:
+      tags:
+      - Alimentaire
+      summary: Liste des emballages disponibles pour conditionner une recette
+      responses:
+        200:
+          description: Opération réussie
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PackagingListResponse'
   /food/recipe:
     get:
       tags:
@@ -236,13 +245,14 @@ paths:
       parameters:
       - $ref: '#/components/parameters/ingredientsParam'
       - $ref: '#/components/parameters/transformParam'
+      - $ref: '#/components/parameters/packagingParam'
       responses:
         200:
           description: Opération réussie
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericImpactsResponse'
+                $ref: '#/components/schemas/RecipeResultsResponse'
         400:
           description: Paramètres invalides
           content:
@@ -369,17 +379,6 @@ components:
           value: "CN"
         France:
           value: "FR"
-    dyeingWeightingParam:
-      name: dyeingWeighting
-      in: query
-      description: |
-        Majoration de l'impact du **procédé de Teinture**, entre `0` et `1`
-      required: false
-      style: form
-      schema:
-        type: number
-        minimum: 0
-        maximum: 1
     airTransportRatioParam:
       name: airTransportRatio
       in: query
@@ -534,11 +533,31 @@ components:
         threeIngredients:
           summary: Mozzarella, Olive Oil, Tuna
           value: ["2e3f03c6de1e43900e09ae852182e9c7;268", "83da330027d4b25dbc7817f06b738571;30", "568c715f977f32948813855d5efd95ba;149"]
+    packagingParam:
+      name: "packaging[]"
+      in: query
+      description: |
+        Liste des emballages composant la recette (liste disponible sur le point d'entrée `/food/packaging`).
+
+        Le format de chaque entrée est composé de l'identifiant de l'emballage et de sa masse **exprimée en grammes**.
+      required: true
+      style: form
+      schema:
+        type: array
+        items:
+          type: string
+      examples:
+        onePackaging:
+          summary: "105g de Carton"
+          value: ["23b2754e5943bc77916f8f871edc53b6;105"]
     transformParam:
       name: transform
       in: query
       description: |
         Identifiant du procédé de transformation (optionnel — liste disponible sur le point d'entrée `/food/transforms`)
+
+        Le format est composé de l'identifiant de l'emballage et de sa masse **exprimée en grammes**.
+        Par exemple: `aded2490573207ec7ad5a3813978f6a4;1000` pour 1kg de matière à cuire.
       required: false
       style: form
       schema:
@@ -547,8 +566,57 @@ components:
         maxLength: 32
       examples:
         Default:
+          summary: "Aucune transformation"
           value: ""
+        Cuisson:
+          summary: Cuisson d'1kg de matière
+          value: "aded2490573207ec7ad5a3813978f6a4;1000"
   schemas:
+    Impacts:
+      type: object
+      properties:
+        acd:
+          type: number
+          description: "Acidification (mol éq. H+)"
+        ozd:
+          type: number
+          description: "Appauvrissement de la couche d'ozone (kg éq. CFC 11)"
+        cch:
+          type: number
+          description: "Changement climatique (kg éq. CO2)"
+        fwe:
+          type: number
+          description: "Eutrophisation eaux douces (kg éq. P)"
+        swe:
+          type: number
+          description: "Eutrophisation marine (kg éq. N)"
+        tre:
+          type: number
+          description: "Eutrophisation terrestre (mol éq. N)"
+        pco:
+          type: number
+          description: "Formation d'ozone photochimique (kg éq. COVNM)"
+        pma:
+          type: number
+          description: "Particules (incidence de maladie)"
+        ior:
+          type: number
+          description: "Radiations ionisantes (éq. kBq U235)"
+        fru:
+          type: number
+          description: "Utilisation de ressources fossiles (MJ)"
+        mru:
+          type: number
+          description: "Utilisation de ressources minérales et métalliques (kg éq. Sb)"
+        ldu:
+          type: number
+          description: "Utilisation des sols (sans dimension (pt))"
+        wtu:
+          type: number
+          description: "Utilisation de ressources en eau (m³)"
+        pef:
+          type: number
+          description: "Score PEF (µPt)"
     InvalidParametersError:
       type: object
       properties:
@@ -590,6 +658,16 @@ components:
             type: string
           name:
             type: string
+    RecipeResultsResponse:
+      type: object
+      description: |
+        Recipe impact results.
+      properties:
+        results:
+          type: object
+          properties:
+            impacts:
+              $ref: '#/components/schemas/Impacts'
     GenericImpactsResponse:
       type: object
       description: |
@@ -597,50 +675,7 @@ components:
         [la documentation est disponible ici](https://fabrique-numerique.gitbook.io/ecobalyse/methodologie/impacts-consideres).
       properties:
         impacts:
-          type: object
-          properties:
-            acd:
-              type: number
-              description: "Acidification (mol éq. H+)"
-            ozd:
-              type: number
-              description: "Appauvrissement de la couche d'ozone (kg éq. CFC 11)"
-            cch:
-              type: number
-              description: "Changement climatique (kg éq. CO2)"
-            fwe:
-              type: number
-              description: "Eutrophisation eaux douces (kg éq. P)"
-            swe:
-              type: number
-              description: "Eutrophisation marine (kg éq. N)"
-            tre:
-              type: number
-              description: "Eutrophisation terrestre (mol éq. N)"
-            pco:
-              type: number
-              description: "Formation d'ozone photochimique (kg éq. COVNM)"
-            pma:
-              type: number
-              description: "Particules (incidence de maladie)"
-            ior:
-              type: number
-              description: "Radiations ionisantes (éq. kBq U235)"
-            fru:
-              type: number
-              description: "Utilisation de ressources fossiles (MJ)"
-            mru:
-              type: number
-              description: "Utilisation de ressources minérales et métalliques (kg éq. Sb)"
-            ldu:
-              type: number
-              description: "Utilisation des sols (sans dimension (pt))"
-            wtu:
-              type: number
-              description: "Utilisation de ressources en eau (m³)"
-            pef:
-              type: number
-              description: "Score PEF (µPt)"
+          $ref: '#/components/schemas/Impacts'
         description:
           type: string
           description: Une description de la simulation.
@@ -662,7 +697,7 @@ components:
         query:
           type: object
           description: Le jeu de paramètres utilisé pour effectuer la simulation.
-    IngredientsListResponse:
+    IngredientListResponse:
       type: array
       description: Liste des ingrédients utilisables dans une recette
       items:
@@ -672,7 +707,17 @@ components:
             type: string
           name:
             type: string
-    TransformsListResponse:
+    PackagingListResponse:
+      type: array
+      description: Liste des emballages utilisables pour conditionner une recette
+      items:
+        type: object
+        properties:
+          code:
+            type: string
+          name:
+            type: string
+    TransformListResponse:
       type: array
       description: Liste des procédés de transformation utilisables pour une recette
       items:

@@ -128,34 +128,21 @@ spinningImpacts impacts { spinningProcess, countryElecProcess } mass =
 
 dyeingImpacts :
     Impacts
-    -> ( Process, Process ) -- Inbound: Dyeing processes (low, high)
-    -> Unit.Ratio -- Low/high dyeing process ratio
+    -> Process -- Inbound: Dyeing processes (low)
     -> Process -- Outbound: country heat impact
     -> Process -- Outbound: country electricity impact
     -> Mass
     -> { heat : Energy, kwh : Energy, impacts : Impacts }
-dyeingImpacts impacts ( dyeingLowProcess, dyeingHighProcess ) (Unit.Ratio highDyeingWeighting) heatProcess elecProcess baseMass =
+dyeingImpacts impacts dyeingProcess heatProcess elecProcess baseMass =
     let
-        lowDyeingWeighting =
-            1 - highDyeingWeighting
-
-        ( lowDyeingMass, highDyeingMass ) =
-            ( baseMass |> Quantity.multiplyBy lowDyeingWeighting
-            , baseMass |> Quantity.multiplyBy highDyeingWeighting
-            )
-
         heatMJ =
             Mass.inKilograms baseMass
-                * ((highDyeingWeighting * Energy.inMegajoules dyeingHighProcess.heat)
-                    + (lowDyeingWeighting * Energy.inMegajoules dyeingLowProcess.heat)
-                  )
+                * Energy.inMegajoules dyeingProcess.heat
                 |> Energy.megajoules
 
         kwh =
             Mass.inKilograms baseMass
-                * ((highDyeingWeighting * Energy.inMegajoules dyeingHighProcess.elec)
-                    + (lowDyeingWeighting * Energy.inMegajoules dyeingLowProcess.elec)
-                  )
+                * Energy.inMegajoules dyeingProcess.elec
                 |> Energy.megajoules
     in
     { heat = heatMJ
@@ -164,20 +151,11 @@ dyeingImpacts impacts ( dyeingLowProcess, dyeingHighProcess ) (Unit.Ratio highDy
         impacts
             |> Impact.mapImpacts
                 (\trigram _ ->
-                    let
-                        dyeingImpact_ =
-                            Quantity.sum
-                                [ Unit.forKg (Process.getImpact trigram dyeingLowProcess) lowDyeingMass
-                                , Unit.forKg (Process.getImpact trigram dyeingHighProcess) highDyeingMass
-                                ]
-
-                        heatImpact =
-                            heatMJ |> Unit.forMJ (Process.getImpact trigram heatProcess)
-
-                        elecImpact =
-                            kwh |> Unit.forKWh (Process.getImpact trigram elecProcess)
-                    in
-                    Quantity.sum [ dyeingImpact_, heatImpact, elecImpact ]
+                    Quantity.sum
+                        [ baseMass |> Unit.forKg (Process.getImpact trigram dyeingProcess)
+                        , heatMJ |> Unit.forMJ (Process.getImpact trigram heatProcess)
+                        , kwh |> Unit.forKWh (Process.getImpact trigram elecProcess)
+                        ]
                 )
     }
 
