@@ -38,6 +38,7 @@ type alias Model =
     { dbState : WebData FoodDb.Db
     , query : Recipe.Query
     , impact : Impact.Trigram
+    , isIngredientOrganic : Bool
     , selectedIngredient : Maybe SelectedProcess
     , selectedTransform : Maybe SelectedProcess
     , selectedPackaging : Maybe SelectedProcess
@@ -64,6 +65,7 @@ type Msg
     | SelectTransform (Maybe SelectedProcess)
     | SetTransform SelectedProcess
     | SwitchImpact Impact.Trigram
+    | ToggleIngredientOrganic Bool
     | UpdateIngredientMass Process.Code (Maybe Mass)
     | UpdatePackagingMass Process.Code (Maybe Mass)
     | UpdateTransformMass (Maybe Mass)
@@ -76,6 +78,7 @@ init session =
             { dbState = RemoteData.Loading
             , query = Recipe.tunaPizza
             , impact = Impact.defaultTrigram
+            , isIngredientOrganic = False
             , selectedIngredient = Nothing
             , selectedTransform = Nothing
             , selectedPackaging = Nothing
@@ -101,9 +104,21 @@ update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
 update session msg model =
     case msg of
         AddIngredient { mass, code } ->
+            let
+                processCode =
+                    if model.isIngredientOrganic then
+                        session.foodDb.ingredients
+                            |> List.filter (.conventional >> .code >> (==) code)
+                            |> List.head
+                            |> Maybe.map (.labels >> .organic >> Maybe.map .code >> Maybe.withDefault code)
+                            |> Maybe.withDefault code
+
+                    else
+                        code
+            in
             ( { model
                 | query =
-                    model.query |> Recipe.addIngredient mass code
+                    model.query |> Recipe.addIngredient mass processCode
                 , selectedIngredient = Nothing
               }
             , session
@@ -189,6 +204,9 @@ update session msg model =
 
         SwitchImpact impact ->
             ( { model | impact = impact }, session, Cmd.none )
+
+        ToggleIngredientOrganic isOrganic ->
+            ( { model | isIngredientOrganic = isOrganic }, session, Cmd.none )
 
         UpdateIngredientMass code (Just mass) ->
             ( { model
@@ -312,6 +330,7 @@ type alias AddIngredientConfig msg =
     { defaultMass : Mass
     , excluded : List Process.Code
     , foodDb : FoodDb.Db
+    , isOrganic : Bool
     , noOp : msg
     , select : Maybe SelectedProcess -> msg
     , selectedProcess : Maybe SelectedProcess
@@ -320,7 +339,7 @@ type alias AddIngredientConfig msg =
 
 
 addIngredientFormView : AddIngredientConfig Msg -> Html Msg
-addIngredientFormView { defaultMass, excluded, foodDb, noOp, select, selectedProcess, submit } =
+addIngredientFormView { defaultMass, excluded, foodDb, isOrganic, noOp, select, selectedProcess, submit } =
     let
         kind =
             "un ingrédient"
@@ -356,8 +375,18 @@ addIngredientFormView { defaultMass, excluded, foodDb, noOp, select, selectedPro
                 }
             )
             (foodDb.ingredients
+                |> List.filter
+                    -- Exclude ingredients whose conventional or organis processes have already been added
+                    (\{ conventional, labels } ->
+                        case labels.organic of
+                            Just organicProcess ->
+                                not (List.member conventional.code excluded)
+                                    && not (List.member organicProcess.code excluded)
+
+                            Nothing ->
+                                not (List.member conventional.code excluded)
+                    )
                 |> List.sortBy .name
-                |> List.filter (\{ conventional } -> not (List.member conventional.code excluded))
                 |> ingredientSelectorView kind
                     (Maybe.map .code selectedProcess)
                     (\maybeCode ->
@@ -372,13 +401,26 @@ addIngredientFormView { defaultMass, excluded, foodDb, noOp, select, selectedPro
                                 select Nothing
                     )
             )
-            (button
-                [ type_ "submit"
-                , class "btn btn-sm btn-primary no-outline"
-                , title <| "Ajouter " ++ kind
-                , disabled <| selectedProcess == Nothing
+            (div []
+                [ label []
+                    [ input
+                        [ type_ "checkbox"
+                        , class "form-check-input mt-0 no-outline"
+                        , attribute "role" "switch"
+                        , checked isOrganic
+                        , onCheck ToggleIngredientOrganic
+                        ]
+                        []
+                    , text "bio"
+                    ]
+                , button
+                    [ type_ "submit"
+                    , class "btn btn-sm btn-primary no-outline"
+                    , title <| "Ajouter " ++ kind
+                    , disabled <| selectedProcess == Nothing
+                    ]
+                    [ Icon.plus ]
                 ]
-                [ Icon.plus ]
             )
         ]
 
@@ -434,8 +476,8 @@ formatImpact foodDb selectedImpact impacts =
                 ]
 
 
-ingredientListView : FoodDb.Db -> Impact.Trigram -> Maybe SelectedProcess -> Recipe -> Recipe.Results -> List (Html Msg)
-ingredientListView foodDb selectedImpact selectedProcess recipe results =
+ingredientListView : FoodDb.Db -> Impact.Trigram -> Maybe SelectedProcess -> Bool -> Recipe -> Recipe.Results -> List (Html Msg)
+ingredientListView foodDb selectedImpact selectedProcess isIngredientOrganic recipe results =
     [ div [ class "card-header d-flex align-items-center justify-content-between" ]
         [ h6 [ class "mb-0" ] [ text "Ingrédients" ]
         , results.recipe.ingredients
@@ -475,6 +517,7 @@ ingredientListView foodDb selectedImpact selectedProcess recipe results =
         { defaultMass = Mass.grams 100
         , excluded = List.map (.process >> .code) recipe.ingredients
         , foodDb = foodDb
+        , isOrganic = isIngredientOrganic
         , noOp = NoOp
         , select = SelectIngredient
         , selectedProcess = selectedProcess
@@ -704,7 +747,7 @@ sidebarView foodDb model results =
 
 
 stepListView : FoodDb.Db -> Model -> Recipe -> Recipe.Results -> Html Msg
-stepListView foodDb { impact, selectedIngredient, selectedPackaging, selectedTransform } recipe results =
+stepListView foodDb { impact, isIngredientOrganic, selectedIngredient, selectedPackaging, selectedTransform } recipe results =
     div [ class "d-flex flex-column gap-3" ]
         [ div [ class "card" ]
             (div [ class "card-header d-flex align-items-center justify-content-between" ]
@@ -715,7 +758,7 @@ stepListView foodDb { impact, selectedIngredient, selectedPackaging, selectedTra
                     |> span [ class "fw-bold" ]
                 ]
                 :: List.concat
-                    [ ingredientListView foodDb impact selectedIngredient recipe results
+                    [ ingredientListView foodDb impact selectedIngredient isIngredientOrganic recipe results
                     , transformView foodDb impact selectedTransform recipe results
                     ]
             )
