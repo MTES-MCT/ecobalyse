@@ -121,7 +121,15 @@ update session msg model =
             )
 
         DbLoaded dbState ->
-            ( { model | dbState = dbState }, session, Cmd.none )
+            ( { model | dbState = dbState }
+            , case dbState of
+                RemoteData.Success foodDb ->
+                    { session | foodDb = foodDb }
+
+                _ ->
+                    session
+            , Cmd.none
+            )
 
         DeleteIngredient code ->
             ( { model
