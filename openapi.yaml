@@ -515,14 +515,14 @@ components:
         - `fabric` lorsqu'elle est effectuée sur le tissu ;
         - `yarn` lorsqu'elle est effectuée sur le fil.
 
-        En l'absence d'utilisation explicite du paramètre, la teinture sur étoffe est implicitement utilisée par défaut.
+        En l'absence d'utilisation explicite du paramètre, la teinture sur tissu est implicitement utilisée par défaut.
       required: false
       style: form
       schema:
         type: string
       examples:
         default:
-          summary: "par défaut, sur étoffe"
+          summary: "par défaut, sur tissu"
           value: ""
         sur pièce:
           summary: "sur article"

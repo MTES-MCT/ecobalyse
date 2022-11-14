@@ -52,7 +52,7 @@ changelog =
       , level = "minor"
       , domains = [ "Textile" ]
       , md =
-            """Un nouveau paramètre `dyeingMedieum` a été ajouté pour permettre de préciser le
+            """Un nouveau paramètre `dyeingMedium` a été ajouté pour permettre de préciser le
             support de teinture, parmi les trois valeurs possibles suivantes\u{00A0}:
 
 - `article` lorsque la teinture est effectuée sur pièce\u{00A0};
