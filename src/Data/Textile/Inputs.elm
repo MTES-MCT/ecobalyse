@@ -739,10 +739,10 @@ dyeingMediumLabel : DyeingMedium -> String
 dyeingMediumLabel medium =
     case medium of
         Article ->
-            "Vêtement"
+            "Article"
 
         Fabric ->
-            "Étoffe"
+            "Tissu"
 
         Yarn ->
             "Fil"

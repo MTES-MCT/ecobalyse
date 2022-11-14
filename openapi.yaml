@@ -511,9 +511,9 @@ components:
       description: |
         Ce paramètre permet de préciser le support sur lequel s'effectue la teinture ; il peut prendre les valeurs suivantes :
 
-        - `article` lorsque la teinture est effectuée sur pièce ;
+        - `article` lorsque la teinture est effectuée sur l'article ;
         - `fabric` lorsqu'elle est effectuée sur le tissu ;
-        - `yarn` lorsqu'elle est effectuée sur fil.
+        - `yarn` lorsqu'elle est effectuée sur le fil.
 
         En l'absence d'utilisation explicite du paramètre, la teinture sur étoffe est implicitement utilisée par défaut.
       required: false
@@ -525,10 +525,10 @@ components:
           summary: "par défaut, sur étoffe"
           value: ""
         sur pièce:
-          summary: "sur pièce"
+          summary: "sur article"
           value: "article"
         fabric:
-          summary: "sur étoffe"
+          summary: "sur tissu"
           value: "fabric"
         yarn:
           summary: "sur fil"
