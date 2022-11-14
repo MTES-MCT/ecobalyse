@@ -401,11 +401,11 @@ addIngredientFormView { defaultMass, excluded, foodDb, isOrganic, noOp, select, 
                                 select Nothing
                     )
             )
-            (div []
-                [ label []
+            (span [ class "w-25 d-flex align-items-center gap-2" ]
+                [ label [ class "flex-grow-1" ]
                     [ input
                         [ type_ "checkbox"
-                        , class "form-check-input mt-0 no-outline"
+                        , class "form-check-input no-outline m-1"
                         , attribute "role" "switch"
                         , checked isOrganic
                         , onCheck ToggleIngredientOrganic
