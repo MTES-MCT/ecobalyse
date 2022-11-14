@@ -48,7 +48,19 @@ getApiServerUrl { clientUrl } =
 
 changelog : List News
 changelog =
-    [ { date = "9 novembre 2022"
+    [ { date = "14 novembre 2022"
+      , level = "minor"
+      , domains = [ "Textile" ]
+      , md =
+            """Un nouveau paramètre `dyeingMedium` a été ajouté pour permettre de préciser le
+            support de teinture, parmi les trois valeurs possibles suivantes\u{00A0}:
+
+- `article` lorsque la teinture est effectuée sur pièce\u{00A0};
+- `fabric` lorsqu'elle est effectuée sur le tissu\u{00A0};
+- `yarn` lorsqu'elle est effectuée sur fil.
+"""
+      }
+    , { date = "9 novembre 2022"
       , level = "major"
       , domains = [ "Textile" ]
       , md =

@@ -1,5 +1,6 @@
 module Data.Textile.Inputs exposing
-    ( Inputs
+    ( DyeingMedium(..)
+    , Inputs
     , MaterialInput
     , MaterialQuery
     , Query
@@ -9,9 +10,13 @@ module Data.Textile.Inputs exposing
     , countryList
     , decodeQuery
     , defaultQuery
+    , dyeingMediumFromString
+    , dyeingMediumLabel
+    , dyeingMediumToString
     , encode
     , encodeQuery
     , fromQuery
+    , getDyeingProcess
     , getMainMaterial
     , jupeCircuitAsie
     , parseBase64Query
@@ -32,10 +37,12 @@ import Base64
 import Data.Country as Country exposing (Country)
 import Data.Textile.Db exposing (Db)
 import Data.Textile.Material as Material exposing (Material)
+import Data.Textile.Process as Process exposing (Process)
 import Data.Textile.Product as Product exposing (Product)
 import Data.Textile.Step.Label as Label exposing (Label)
 import Data.Unit as Unit
 import Json.Decode as Decode exposing (Decoder)
+import Json.Decode.Extra as DE
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
 import List.Extra as LE
@@ -71,6 +78,7 @@ type alias Inputs =
     , surfaceMass : Maybe Unit.SurfaceMass
     , disabledSteps : List Label
     , disabledFading : Maybe Bool
+    , dyeingMedium : DyeingMedium
     }
 
 
@@ -96,6 +104,7 @@ type alias Query =
     , surfaceMass : Maybe Unit.SurfaceMass
     , disabledSteps : List Label
     , disabledFading : Maybe Bool
+    , dyeingMedium : DyeingMedium
     }
 
 
@@ -183,6 +192,7 @@ fromQuery db query =
         |> RE.andMap (Ok query.surfaceMass)
         |> RE.andMap (Ok query.disabledSteps)
         |> RE.andMap (Ok query.disabledFading)
+        |> RE.andMap (Ok query.dyeingMedium)
 
 
 toQuery : Inputs -> Query
@@ -211,6 +221,7 @@ toQuery inputs =
     , surfaceMass = inputs.surfaceMass
     , disabledSteps = inputs.disabledSteps
     , disabledFading = inputs.disabledFading
+    , dyeingMedium = inputs.dyeingMedium
     }
 
 
@@ -226,7 +237,7 @@ toString inputs =
 
         Product.Weaved _ _ _ ->
             [ "tissage", inputs.countryFabric.name ++ weavingOptionsToString inputs.picking inputs.surfaceMass ]
-    , [ "teinture", inputs.countryDyeing.name ]
+    , [ "teinture sur " ++ dyeingMediumLabel inputs.dyeingMedium, inputs.countryDyeing.name ]
     , [ "confection", inputs.countryMaking.name ++ makingOptionsToString inputs ]
     , [ "distribution", inputs.countryDistribution.name ]
     , [ "utilisation", inputs.countryUse.name ++ useOptionsToString inputs.quality inputs.reparability ]
@@ -315,6 +326,19 @@ countryList inputs =
     , inputs.countryUse
     , inputs.countryEndOfLife
     ]
+
+
+getDyeingProcess : DyeingMedium -> Process.WellKnown -> Process
+getDyeingProcess medium { dyeingArticle, dyeingFabric, dyeingYarn } =
+    case medium of
+        Article ->
+            dyeingArticle
+
+        Fabric ->
+            dyeingFabric
+
+        Yarn ->
+            dyeingYarn
 
 
 updateStepCountry : Label -> Country.Code -> Query -> Query
@@ -439,6 +463,7 @@ updateProduct product query =
             , picking = Nothing
             , surfaceMass = Nothing
             , disabledFading = Nothing
+            , dyeingMedium = Fabric
         }
 
     else
@@ -468,6 +493,7 @@ tShirtCotonFrance =
     , surfaceMass = Nothing
     , disabledSteps = []
     , disabledFading = Nothing
+    , dyeingMedium = Fabric
     }
 
 
@@ -519,6 +545,7 @@ jupeCircuitAsie =
     , surfaceMass = Nothing
     , disabledSteps = []
     , disabledFading = Nothing
+    , dyeingMedium = Fabric
     }
 
 
@@ -540,6 +567,7 @@ manteauCircuitEurope =
     , surfaceMass = Nothing
     , disabledSteps = []
     , disabledFading = Nothing
+    , dyeingMedium = Fabric
     }
 
 
@@ -561,6 +589,7 @@ pantalonCircuitEurope =
     , surfaceMass = Nothing
     , disabledSteps = []
     , disabledFading = Nothing
+    , dyeingMedium = Fabric
     }
 
 
@@ -621,6 +650,13 @@ decodeQuery =
         |> Pipe.optional "surfaceMass" (Decode.maybe Unit.decodeSurfaceMass) Nothing
         |> Pipe.optional "disabledSteps" (Decode.list Label.decodeFromCode) []
         |> Pipe.optional "disabledFading" (Decode.maybe Decode.bool) Nothing
+        |> Pipe.optional "dyeingMedium" decodeDyeingMedium Fabric
+
+
+decodeDyeingMedium : Decoder DyeingMedium
+decodeDyeingMedium =
+    Decode.string
+        |> Decode.andThen (dyeingMediumFromString >> DE.fromResult)
 
 
 decodeMaterialQuery : Decoder MaterialQuery
@@ -671,6 +707,58 @@ b64decode =
 b64encode : Query -> String
 b64encode =
     encodeQuery >> Encode.encode 0 >> Base64.encode
+
+
+
+-- Dyeing medium
+
+
+type DyeingMedium
+    = Article
+    | Fabric
+    | Yarn
+
+
+dyeingMediumFromString : String -> Result String DyeingMedium
+dyeingMediumFromString string =
+    case string of
+        "article" ->
+            Ok Article
+
+        "fabric" ->
+            Ok Fabric
+
+        "yarn" ->
+            Ok Yarn
+
+        _ ->
+            Err <| "Type de support de teinture inconnu: " ++ string
+
+
+dyeingMediumLabel : DyeingMedium -> String
+dyeingMediumLabel medium =
+    case medium of
+        Article ->
+            "Article"
+
+        Fabric ->
+            "Tissu"
+
+        Yarn ->
+            "Fil"
+
+
+dyeingMediumToString : DyeingMedium -> String
+dyeingMediumToString medium =
+    case medium of
+        Article ->
+            "article"
+
+        Fabric ->
+            "fabric"
+
+        Yarn ->
+            "yarn"
 
 
 

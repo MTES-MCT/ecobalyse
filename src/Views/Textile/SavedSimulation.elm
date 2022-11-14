@@ -114,7 +114,7 @@ savedSimulationView { session, impact, funit, viewMode, delete } ({ name, query 
                 |> (++) session.clientUrl
     in
     li
-        [ class "list-group-item d-flex justify-content-between align-items-center gap-1"
+        [ class "list-group-item d-flex justify-content-between align-items-center gap-1 fs-7"
         , classList [ ( "active", query == session.query ) ]
         ]
         [ a

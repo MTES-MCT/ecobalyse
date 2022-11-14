@@ -52,7 +52,6 @@ succeed =
 
 parseFoodQuery : FoodDb.Db -> Parser (Result Errors Recipe.Query)
 parseFoodQuery foodDb =
-    -- succeed (Ok Recipe.tunaPizza)
     succeed (Ok Recipe.Query)
         |> apply (ingredientListParser "ingredients" foodDb.processes)
         |> apply (maybeTransformParser "transform" foodDb.processes)
@@ -198,6 +197,7 @@ parseTextileQuery textileDb =
         |> apply (maybeSurfaceMassParser "surfaceMass")
         |> apply (maybeDisabledStepsParser "disabledSteps")
         |> apply (maybeBoolParser "disabledFading")
+        |> apply (maybeDyeingMedium "dyeingMedium")
 
 
 toErrors : ParseResult a -> Result Errors a
@@ -377,6 +377,20 @@ maybeCountryParser key countries =
                         |> Result.mapError (\err -> ( key, err ))
                 )
                 >> Maybe.withDefault (Ok Nothing)
+            )
+
+
+maybeDyeingMedium : String -> Parser (ParseResult Inputs.DyeingMedium)
+maybeDyeingMedium key =
+    Query.string key
+        |> Query.map
+            (Maybe.map
+                (\str ->
+                    str
+                        |> Inputs.dyeingMediumFromString
+                        |> Result.mapError (\err -> ( key, err ))
+                )
+                >> Maybe.withDefault (Ok Inputs.Fabric)
             )
 
 

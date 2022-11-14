@@ -45,6 +45,7 @@ type alias Config msg =
     , updateQuality : Maybe Unit.Quality -> msg
     , updateReparability : Maybe Unit.Reparability -> msg
     , updateAirTransportRatio : Maybe Unit.Ratio -> msg
+    , updateDyeingMedium : Inputs.DyeingMedium -> msg
     , updateMakingWaste : Maybe Unit.Ratio -> msg
     , updateSurfaceMass : Maybe Unit.SurfaceMass -> msg
     , updatePicking : Maybe Unit.PickPerMeter -> msg
@@ -138,6 +139,32 @@ airTransportRatioField { current, updateAirTransportRatio } =
             , min = 0
             , max = 100
             }
+        ]
+
+
+dyeingMediumField : Config msg -> Html msg
+dyeingMediumField { inputs, updateDyeingMedium } =
+    div [ class "d-flex align-items-center gap-2 fs-7" ]
+        [ label [ class "text-nowrap", for "dyeing-medium" ]
+            [ text "Teinture sur" ]
+        , [ Inputs.Yarn, Inputs.Fabric, Inputs.Article ]
+            |> List.map
+                (\medium ->
+                    option
+                        [ value <| Inputs.dyeingMediumToString medium
+                        , selected <| inputs.dyeingMedium == medium
+                        ]
+                        [ text <| Inputs.dyeingMediumLabel medium ]
+                )
+            |> select
+                [ id "dyeing-medium"
+                , class "form-select form-select-sm"
+                , onInput
+                    (Inputs.dyeingMediumFromString
+                        >> Result.withDefault Inputs.Fabric
+                        >> updateDyeingMedium
+                    )
+                ]
         ]
 
 
@@ -379,6 +406,11 @@ simpleView ({ funit, inputs, daysOfWear, impact, current } as config) =
                                     , surfaceMassField config defaultSurfaceMass
                                     ]
 
+                    Label.Dyeing ->
+                        div [ class "mt-2" ]
+                            [ dyeingMediumField config
+                            ]
+
                     Label.Making ->
                         div [ class "mt-2" ]
                             [ makingWasteField config
@@ -490,7 +522,6 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                 , viewProcessInfo current.processInfo.passengerCar
                 , viewProcessInfo current.processInfo.endOfLife
                 , viewProcessInfo current.processInfo.fabric
-                , viewProcessInfo current.processInfo.dyeing
                 , viewProcessInfo current.processInfo.making
                 , if inputs.product.making.fadable && inputs.disabledFading /= Just True then
                     viewProcessInfo current.processInfo.fading
@@ -512,6 +543,10 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                                 [ pickingField config defaultPicking
                                 , surfaceMassField config defaultSurfaceMass
                                 ]
+
+                    Label.Dyeing ->
+                        [ dyeingMediumField config
+                        ]
 
                     Label.Making ->
                         [ makingWasteField config
