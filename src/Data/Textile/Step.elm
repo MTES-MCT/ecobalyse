@@ -18,6 +18,7 @@ module Data.Textile.Step exposing
 import Data.Country as Country exposing (Country)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Textile.Db exposing (Db)
+import Data.Textile.DyeingMedium exposing (DyeingMedium)
 import Data.Textile.Formula as Formula
 import Data.Textile.Inputs as Inputs exposing (Inputs)
 import Data.Textile.Process as Process exposing (Process)
@@ -50,7 +51,7 @@ type alias Step =
     , makingWaste : Maybe Unit.Ratio
     , picking : Maybe Unit.PickPerMeter
     , surfaceMass : Maybe Unit.SurfaceMass
-    , dyeingMedium : Maybe Inputs.DyeingMedium
+    , dyeingMedium : Maybe DyeingMedium
     }
 
 

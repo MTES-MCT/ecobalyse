@@ -12,6 +12,8 @@ module Data.Textile.Product exposing
     , isKnitted
     )
 
+-- import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
+
 import Data.Textile.Process as Process exposing (Process)
 import Data.Unit as Unit
 import Duration exposing (Duration)
@@ -21,6 +23,12 @@ import Json.Encode as Encode
 import Mass exposing (Mass)
 import Quantity
 import Volume exposing (Volume)
+
+
+
+-- type alias DyeingOptions =
+--     { defaultMedium : DyeingMedium
+--     }
 
 
 type FabricOptions

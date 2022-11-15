@@ -8,6 +8,7 @@ import Data.Env as Env
 import Data.Gitbook as Gitbook
 import Data.Impact as Impact
 import Data.Textile.Db exposing (Db)
+import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
 import Data.Textile.Inputs as Inputs exposing (Inputs)
 import Data.Textile.Product as Product
 import Data.Textile.Step as Step exposing (Step)
@@ -45,7 +46,7 @@ type alias Config msg =
     , updateQuality : Maybe Unit.Quality -> msg
     , updateReparability : Maybe Unit.Reparability -> msg
     , updateAirTransportRatio : Maybe Unit.Ratio -> msg
-    , updateDyeingMedium : Inputs.DyeingMedium -> msg
+    , updateDyeingMedium : DyeingMedium -> msg
     , updateMakingWaste : Maybe Unit.Ratio -> msg
     , updateSurfaceMass : Maybe Unit.SurfaceMass -> msg
     , updatePicking : Maybe Unit.PickPerMeter -> msg
@@ -147,21 +148,21 @@ dyeingMediumField { inputs, updateDyeingMedium } =
     div [ class "d-flex align-items-center gap-2 fs-7" ]
         [ label [ class "text-nowrap", for "dyeing-medium" ]
             [ text "Teinture sur" ]
-        , [ Inputs.Yarn, Inputs.Fabric, Inputs.Article ]
+        , [ DyeingMedium.Yarn, DyeingMedium.Fabric, DyeingMedium.Article ]
             |> List.map
                 (\medium ->
                     option
-                        [ value <| Inputs.dyeingMediumToString medium
+                        [ value <| DyeingMedium.toString medium
                         , selected <| inputs.dyeingMedium == medium
                         ]
-                        [ text <| Inputs.dyeingMediumLabel medium ]
+                        [ text <| DyeingMedium.toLabel medium ]
                 )
             |> select
                 [ id "dyeing-medium"
                 , class "form-select form-select-sm"
                 , onInput
-                    (Inputs.dyeingMediumFromString
-                        >> Result.withDefault Inputs.Fabric
+                    (DyeingMedium.fromString
+                        >> Result.withDefault DyeingMedium.Fabric
                         >> updateDyeingMedium
                     )
                 ]

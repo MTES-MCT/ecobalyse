@@ -8,6 +8,7 @@ module Data.Textile.Simulator exposing
 import Array
 import Data.Impact as Impact exposing (Impacts)
 import Data.Textile.Db exposing (Db)
+import Data.Textile.DyeingMedium as DyeingMedium
 import Data.Textile.Formula as Formula
 import Data.Textile.Inputs as Inputs exposing (Inputs)
 import Data.Textile.LifeCycle as LifeCycle exposing (LifeCycle)
@@ -241,7 +242,7 @@ computeDyeingImpacts { processes } simulator =
                             let
                                 dyeingProcess =
                                     Inputs.getDyeingProcess
-                                        (Maybe.withDefault Inputs.Fabric dyeingMedium)
+                                        (Maybe.withDefault DyeingMedium.Fabric dyeingMedium)
                                         wellKnown
 
                                 { heat, kwh, impacts } =

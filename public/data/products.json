@@ -9,6 +9,9 @@
       "picking": 1600,
       "surfaceMass": 140
     },
+    "dyeing": {
+      "defaultMedium": "fabric"
+    },
     "making": {
       "processUuid": "7fe48d7c-a568-4bd5-a3ac-cfa88255b4fe",
       "fadable": false,
@@ -37,6 +40,9 @@
       "processUuid": "f9686809-f55e-4b96-b1f0-3298959de7d0",
       "picking": 1600,
       "surfaceMass": 140
+    },
+    "dyeing": {
+      "defaultMedium": "fabric"
     },
     "making": {
       "processUuid": "0a260a3f-260e-4b43-a0df-0cf673fda960",
@@ -67,6 +73,9 @@
       "picking": 5000,
       "surfaceMass": 40
     },
+    "dyeing": {
+      "defaultMedium": "fabric"
+    },
     "making": {
       "processUuid": "7fe48d7c-a568-4bd5-a3ac-cfa88255b4fe",
       "fadable": false,
@@ -93,6 +102,9 @@
     "fabric": {
       "type": "knitting",
       "processUuid": "2e16787c-7a89-4883-acdf-37d3d362bdab"
+    },
+    "dyeing": {
+      "defaultMedium": "fabric"
     },
     "making": {
       "processUuid": "26e3ca02-9bc0-45b4-b8b4-73f4b3701ad5",
@@ -123,6 +135,9 @@
       "picking": 1600,
       "surfaceMass": 140
     },
+    "dyeing": {
+      "defaultMedium": "fabric"
+    },
     "making": {
       "processUuid": "0a260a3f-260e-4b43-a0df-0cf673fda960",
       "fadable": false,
@@ -149,6 +164,9 @@
     "fabric": {
       "type": "knitting",
       "processUuid": "364298ad-2058-4ec4-b2d0-47f5214abffb"
+    },
+    "dyeing": {
+      "defaultMedium": "fabric"
     },
     "making": {
       "processUuid": "387059fc-72cb-4a92-b1e7-2ef9242f8380",
@@ -179,6 +197,9 @@
       "picking": 3000,
       "surfaceMass": 140
     },
+    "dyeing": {
+      "defaultMedium": "yarn"
+    },
     "making": {
       "processUuid": "1f428a50-73c0-4fc1-ab39-00fd312458ee",
       "fadable": true,
@@ -207,6 +228,9 @@
       "processUuid": "f9686809-f55e-4b96-b1f0-3298959de7d0",
       "picking": 5000,
       "surfaceMass": 40
+    },
+    "dyeing": {
+      "defaultMedium": "fabric"
     },
     "making": {
       "processUuid": "387059fc-72cb-4a92-b1e7-2ef9242f8380",
@@ -237,6 +261,9 @@
       "picking": 1600,
       "surfaceMass": 140
     },
+    "dyeing": {
+      "defaultMedium": "fabric"
+    },
     "making": {
       "processUuid": "7fe48d7c-a568-4bd5-a3ac-cfa88255b4fe",
       "fadable": false,
@@ -266,6 +293,9 @@
       "picking": 3000,
       "surfaceMass": 140
     },
+    "dyeing": {
+      "defaultMedium": "fabric"
+    },
     "making": {
       "processUuid": "387059fc-72cb-4a92-b1e7-2ef9242f8380",
       "fadable": false,
@@ -292,6 +322,9 @@
     "fabric": {
       "type": "knitting",
       "processUuid": "364298ad-2058-4ec4-b2d0-47f5214abffb"
+    },
+    "dyeing": {
+      "defaultMedium": "fabric"
     },
     "making": {
       "processUuid": "387059fc-72cb-4a92-b1e7-2ef9242f8380",
@@ -322,6 +355,9 @@
       "picking": 5000,
       "surfaceMass": 40
     },
+    "dyeing": {
+      "defaultMedium": "fabric"
+    },
     "making": {
       "processUuid": "7fe48d7c-a568-4bd5-a3ac-cfa88255b4fe",
       "fadable": false,
@@ -348,6 +384,9 @@
     "fabric": {
       "type": "knitting",
       "processUuid": "2e16787c-7a89-4883-acdf-37d3d362bdab"
+    },
+    "dyeing": {
+      "defaultMedium": "fabric"
     },
     "making": {
       "processUuid": "26e3ca02-9bc0-45b4-b8b4-73f4b3701ad5",
@@ -377,6 +416,9 @@
       "processUuid": "f9686809-f55e-4b96-b1f0-3298959de7d0",
       "picking": 3000,
       "surfaceMass": 140
+    },
+    "dyeing": {
+      "defaultMedium": "fabric"
     },
     "making": {
       "processUuid": "7fe48d7c-a568-4bd5-a3ac-cfa88255b4fe",

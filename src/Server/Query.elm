@@ -11,6 +11,7 @@ import Data.Food.Db as FoodDb
 import Data.Food.Process as FoodProcess
 import Data.Food.Recipe as Recipe
 import Data.Textile.Db as TextileDb
+import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
 import Data.Textile.Inputs as Inputs
 import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Product as Product exposing (Product)
@@ -380,17 +381,17 @@ maybeCountryParser key countries =
             )
 
 
-maybeDyeingMedium : String -> Parser (ParseResult Inputs.DyeingMedium)
+maybeDyeingMedium : String -> Parser (ParseResult DyeingMedium)
 maybeDyeingMedium key =
     Query.string key
         |> Query.map
             (Maybe.map
                 (\str ->
                     str
-                        |> Inputs.dyeingMediumFromString
+                        |> DyeingMedium.fromString
                         |> Result.mapError (\err -> ( key, err ))
                 )
-                >> Maybe.withDefault (Ok Inputs.Fabric)
+                >> Maybe.withDefault (Ok DyeingMedium.Fabric)
             )
 
 
