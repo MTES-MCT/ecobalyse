@@ -36,9 +36,7 @@ La base Agribalyse permet de distinguer plusieurs inventaires de cycle de vie po
 
 L'analyse comparée des impacts donne :&#x20;
 
-{% hint style="danger" %}
-Schéma à intégrer
-{% endhint %}
+<figure><img src="../../.gitbook/assets/image (1).png" alt=""><figcaption><p>source: AGB3.0 via Simapro, EF3.0 (adapted)</p></figcaption></figure>
 
 {% hint style="danger" %}
 Toute une série d'ICV "milk system" dont la portée doit être mieux appréciée
