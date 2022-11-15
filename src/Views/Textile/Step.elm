@@ -162,7 +162,7 @@ dyeingMediumField { inputs, updateDyeingMedium } =
                 , class "form-select form-select-sm"
                 , onInput
                     (DyeingMedium.fromString
-                        >> Result.withDefault DyeingMedium.Fabric
+                        >> Result.withDefault inputs.product.dyeing.defaultMedium
                         >> updateDyeingMedium
                     )
                 ]

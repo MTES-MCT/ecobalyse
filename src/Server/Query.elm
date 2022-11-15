@@ -386,10 +386,8 @@ maybeDyeingMedium key =
     Query.string key
         |> Query.map
             (Maybe.map
-                (\str ->
-                    str
-                        |> DyeingMedium.fromString
-                        |> Result.mapError (\err -> ( key, err ))
+                (DyeingMedium.fromString
+                    >> Result.mapError (\err -> ( key, err ))
                 )
                 >> Maybe.withDefault (Ok DyeingMedium.Fabric)
             )
