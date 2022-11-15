@@ -12,8 +12,7 @@ module Data.Textile.Product exposing
     , isKnitted
     )
 
--- import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
-
+import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
 import Data.Textile.Process as Process exposing (Process)
 import Data.Unit as Unit
 import Duration exposing (Duration)
@@ -25,10 +24,9 @@ import Quantity
 import Volume exposing (Volume)
 
 
-
--- type alias DyeingOptions =
---     { defaultMedium : DyeingMedium
---     }
+type alias DyeingOptions =
+    { defaultMedium : DyeingMedium
+    }
 
 
 type FabricOptions
@@ -65,6 +63,7 @@ type alias Product =
     , name : String
     , mass : Mass
     , fabric : FabricOptions
+    , dyeing : DyeingOptions
     , making : MakingOptions
     , use : UseOptions
     , endOfLife : EndOfLifeOptions
@@ -128,6 +127,12 @@ decodeFabricOptions processes =
             )
 
 
+decodeDyeingOptions : Decoder DyeingOptions
+decodeDyeingOptions =
+    Decode.map DyeingOptions
+        (Decode.field "defaultMedium" DyeingMedium.decode)
+
+
 decodeMakingOptions : List Process -> Decoder MakingOptions
 decodeMakingOptions processes =
     Decode.succeed MakingOptions
@@ -162,6 +167,7 @@ decode processes =
         |> Pipe.required "name" Decode.string
         |> Pipe.required "mass" (Decode.map Mass.kilograms Decode.float)
         |> Pipe.required "fabric" (decodeFabricOptions processes)
+        |> Pipe.required "dyeing" decodeDyeingOptions
         |> Pipe.required "making" (decodeMakingOptions processes)
         |> Pipe.required "use" (decodeUseOptions processes)
         |> Pipe.required "endOfLife" decodeEndOfLifeOptions

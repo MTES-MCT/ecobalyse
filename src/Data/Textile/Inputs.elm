@@ -460,7 +460,7 @@ updateProduct product query =
             , picking = Nothing
             , surfaceMass = Nothing
             , disabledFading = Nothing
-            , dyeingMedium = DyeingMedium.Fabric
+            , dyeingMedium = product.dyeing.defaultMedium
         }
 
     else

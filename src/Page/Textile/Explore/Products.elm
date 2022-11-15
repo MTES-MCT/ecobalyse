@@ -1,6 +1,7 @@
 module Page.Textile.Explore.Products exposing (table)
 
 import Data.Textile.Db as Db exposing (Db)
+import Data.Textile.DyeingMedium as DyeingMedium
 import Data.Textile.Process as Process
 import Data.Textile.Product as Product exposing (Product)
 import Html exposing (..)
@@ -94,6 +95,11 @@ table db { detailed } =
 
                 else
                     text "N/A"
+      }
+    , { label = "Teinture"
+      , toCell =
+            \{ dyeing } ->
+                text <| "sur " ++ DyeingMedium.toLabel dyeing.defaultMedium
       }
     , { label = "Nombre de jours porté"
       , toCell =

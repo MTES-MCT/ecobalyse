@@ -509,13 +509,15 @@ components:
       name: dyeingMedium
       in: query
       description: |
-        Ce paramètre permet de préciser le support sur lequel s'effectue la teinture ; il peut prendre les valeurs suivantes :
+        Ce paramètre permet de préciser le support sur lequel s'effectue la teinture ; il peut prendre les valeurs
+        suivantes :
 
         - `article` lorsque la teinture est effectuée sur l'article ;
         - `fabric` lorsqu'elle est effectuée sur le tissu ;
         - `yarn` lorsqu'elle est effectuée sur le fil.
 
-        ⚠️ En l'absence d'utilisation explicite du paramètre, la teinture **sur tissu** est implicitement utilisée par défaut.
+        ⚠️ En l'absence d'utilisation explicite du paramètre, le support de teinture utilisé sera celui affecté par
+        défaut à la famille de produit.
       required: false
       style: form
       schema:
