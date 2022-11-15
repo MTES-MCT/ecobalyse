@@ -63,6 +63,8 @@ La base Agribalyse permet de distinguer plusieurs inventaires de cycle de vie po
 
 L'analyse comparée des impacts donne :&#x20;
 
+<figure><img src="../../.gitbook/assets/image.png" alt=""><figcaption><p>Conventionnel vs bio vs bleu blanc coeur - source: Simapro, EF3.0 (adapted)</p></figcaption></figure>
+
 {% hint style="danger" %}
 Schéma à intégrer
 {% endhint %}
