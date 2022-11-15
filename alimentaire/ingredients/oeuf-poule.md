@@ -21,22 +21,6 @@ Vérifier que le procédé XXX {RoW}\* n'intègre pas déjà de transport ou de 
 La base Agribalyse permet de distinguer plusieurs inventaires de cycle de vie pour les oeufs de poule.&#x20;
 
 * 37 inventaires France "at farm" :&#x20;
-  * Conventional egg production, indoor cage 2012 rules, future reproductives, at farm
-  * Conventional egg production, indoor cage 2012 rules, laying hens, at farm
-  * Conventional egg production, indoor cage 2012 rules, reproductives, at farm
-  * Conventional egg production, indoor cage 2012 rules, young hens, at farm
-  * Conventional egg production, indoor cage system, future reproductives, at farm
-  * Conventional egg production, indoor cage system, laying hens, at farm
-  * Conventional egg production, indoor cage system, reproductives, at farm
-  * Conventional egg production, indoor cage system, young hens, at farm
-  * Conventional egg production, indoor non-cage system, future reproductives, at farm
-  * Conventional egg production, indoor non-cage system, laying hens, at farm
-  * Conventional egg production, indoor non-cage system, reproductives, at farm
-  * Conventional egg production, indoor non-cage system, young hens, at farm
-  * Conventional egg production, outdoor system, future reproductives, at farm
-  * Conventional egg production, outdoor system, laying hens, at farm
-  * Conventional egg production, outdoor system, reproductives, at farm
-  * Conventional egg production, outdoor system, young hens, at farm
   * **Egg, Bleu Blanc Coeur, outdoor system, at farm gate**
   * Egg, conventional, indoor production, cage 2012 rules, at farm gate
   * Egg, conventional, indoor system, cage, at farm gate
@@ -65,9 +49,7 @@ L'analyse comparée des impacts donne :&#x20;
 
 <figure><img src="../../.gitbook/assets/image.png" alt=""><figcaption><p>Conventionnel vs bio vs bleu blanc coeur - source: AGB3.0 via Simapro, EF3.0 (adapted)</p></figcaption></figure>
 
-{% hint style="danger" %}
-Schéma à intégrer
-{% endhint %}
+<figure><img src="../../.gitbook/assets/image (8).png" alt=""><figcaption><p>source: AGB3.0 via Simapro, EF3.0 (adapted)Schéma à intégrer</p></figcaption></figure>
 
 {% hint style="danger" %}
 Un "dummy process" unshelling egg est proposé dans Agribalyse. Conviendrait-il de l'intégrer aux impacts d'un ingrédient "oeuf" ?
