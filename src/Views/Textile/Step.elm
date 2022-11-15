@@ -153,7 +153,7 @@ dyeingMediumField { inputs, updateDyeingMedium } =
                 (\medium ->
                     option
                         [ value <| DyeingMedium.toString medium
-                        , selected <| inputs.dyeingMedium == medium
+                        , selected <| inputs.dyeingMedium == Just medium || inputs.product.dyeing.defaultMedium == medium
                         ]
                         [ text <| DyeingMedium.toLabel medium ]
                 )

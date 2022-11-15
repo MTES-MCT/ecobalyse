@@ -72,7 +72,7 @@ type alias Inputs =
     , surfaceMass : Maybe Unit.SurfaceMass
     , disabledSteps : List Label
     , disabledFading : Maybe Bool
-    , dyeingMedium : DyeingMedium
+    , dyeingMedium : Maybe DyeingMedium
     }
 
 
@@ -98,7 +98,7 @@ type alias Query =
     , surfaceMass : Maybe Unit.SurfaceMass
     , disabledSteps : List Label
     , disabledFading : Maybe Bool
-    , dyeingMedium : DyeingMedium
+    , dyeingMedium : Maybe DyeingMedium
     }
 
 
@@ -231,7 +231,14 @@ toString inputs =
 
         Product.Weaved _ _ _ ->
             [ "tissage", inputs.countryFabric.name ++ weavingOptionsToString inputs.picking inputs.surfaceMass ]
-    , [ "teinture sur " ++ DyeingMedium.toLabel inputs.dyeingMedium, inputs.countryDyeing.name ]
+    , [ case inputs.dyeingMedium of
+            Just dyeingMedium ->
+                "teinture sur " ++ DyeingMedium.toLabel dyeingMedium
+
+            Nothing ->
+                "teinture"
+      , inputs.countryDyeing.name
+      ]
     , [ "confection", inputs.countryMaking.name ++ makingOptionsToString inputs ]
     , [ "distribution", inputs.countryDistribution.name ]
     , [ "utilisation", inputs.countryUse.name ++ useOptionsToString inputs.quality inputs.reparability ]
@@ -444,7 +451,7 @@ updateProduct product query =
             , picking = Nothing
             , surfaceMass = Nothing
             , disabledFading = Nothing
-            , dyeingMedium = product.dyeing.defaultMedium
+            , dyeingMedium = Nothing
         }
 
     else
@@ -474,7 +481,7 @@ tShirtCotonFrance =
     , surfaceMass = Nothing
     , disabledSteps = []
     , disabledFading = Nothing
-    , dyeingMedium = DyeingMedium.Fabric
+    , dyeingMedium = Nothing
     }
 
 
@@ -526,7 +533,7 @@ jupeCircuitAsie =
     , surfaceMass = Nothing
     , disabledSteps = []
     , disabledFading = Nothing
-    , dyeingMedium = DyeingMedium.Fabric
+    , dyeingMedium = Nothing
     }
 
 
@@ -548,7 +555,7 @@ manteauCircuitEurope =
     , surfaceMass = Nothing
     , disabledSteps = []
     , disabledFading = Nothing
-    , dyeingMedium = DyeingMedium.Fabric
+    , dyeingMedium = Nothing
     }
 
 
@@ -570,7 +577,7 @@ pantalonCircuitEurope =
     , surfaceMass = Nothing
     , disabledSteps = []
     , disabledFading = Nothing
-    , dyeingMedium = DyeingMedium.Fabric
+    , dyeingMedium = Nothing
     }
 
 
@@ -602,7 +609,7 @@ encode inputs =
         , ( "surfaceMass", inputs.surfaceMass |> Maybe.map Unit.encodeSurfaceMass |> Maybe.withDefault Encode.null )
         , ( "disabledSteps", Encode.list Label.encode inputs.disabledSteps )
         , ( "disabledFading", inputs.disabledFading |> Maybe.map Encode.bool |> Maybe.withDefault Encode.null )
-        , ( "dyeingMedium", DyeingMedium.encode inputs.dyeingMedium )
+        , ( "dyeingMedium", inputs.dyeingMedium |> Maybe.map DyeingMedium.encode |> Maybe.withDefault Encode.null )
         ]
 
 
@@ -632,7 +639,7 @@ decodeQuery =
         |> Pipe.optional "surfaceMass" (Decode.maybe Unit.decodeSurfaceMass) Nothing
         |> Pipe.optional "disabledSteps" (Decode.list Label.decodeFromCode) []
         |> Pipe.optional "disabledFading" (Decode.maybe Decode.bool) Nothing
-        |> Pipe.optional "dyeingMedium" DyeingMedium.decode DyeingMedium.Fabric
+        |> Pipe.optional "dyeingMedium" (Decode.maybe DyeingMedium.decode) Nothing
 
 
 decodeMaterialQuery : Decoder MaterialQuery
@@ -660,7 +667,7 @@ encodeQuery query =
         , ( "surfaceMass", query.surfaceMass |> Maybe.map Unit.encodeSurfaceMass |> Maybe.withDefault Encode.null )
         , ( "disabledSteps", Encode.list Label.encode query.disabledSteps )
         , ( "disabledFading", query.disabledFading |> Maybe.map Encode.bool |> Maybe.withDefault Encode.null )
-        , ( "dyeingMedium", DyeingMedium.encode query.dyeingMedium )
+        , ( "dyeingMedium", query.dyeingMedium |> Maybe.map DyeingMedium.encode |> Maybe.withDefault Encode.null )
         ]
 
 

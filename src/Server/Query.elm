@@ -381,15 +381,20 @@ maybeCountryParser key countries =
             )
 
 
-maybeDyeingMedium : String -> Parser (ParseResult DyeingMedium)
+maybeDyeingMedium : String -> Parser (ParseResult (Maybe DyeingMedium))
 maybeDyeingMedium key =
     Query.string key
         |> Query.map
             (Maybe.map
-                (DyeingMedium.fromString
-                    >> Result.mapError (\err -> ( key, err ))
+                (\str ->
+                    case DyeingMedium.fromString str of
+                        Ok dyeingMedium ->
+                            Ok (Just dyeingMedium)
+
+                        Err err ->
+                            Err ( key, err )
                 )
-                >> Maybe.withDefault (Ok DyeingMedium.Fabric)
+                >> Maybe.withDefault (Ok Nothing)
             )
 
 

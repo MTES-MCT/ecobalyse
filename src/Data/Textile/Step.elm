@@ -284,7 +284,7 @@ updateFromInputs { processes } inputs ({ label, country } as step) =
 
         Label.Dyeing ->
             { step
-                | dyeingMedium = Just dyeingMedium
+                | dyeingMedium = dyeingMedium
                 , processInfo =
                     { defaultProcessInfo
                         | countryHeat = Just country.heatProcess.name
@@ -292,7 +292,13 @@ updateFromInputs { processes } inputs ({ label, country } as step) =
                         , dyeing =
                             processes
                                 |> Process.loadWellKnown
-                                |> Result.map (Process.getDyeingProcess dyeingMedium >> .name)
+                                |> Result.map
+                                    (Process.getDyeingProcess
+                                        (dyeingMedium
+                                            |> Maybe.withDefault inputs.product.dyeing.defaultMedium
+                                        )
+                                        >> .name
+                                    )
                                 |> Result.toMaybe
                     }
             }

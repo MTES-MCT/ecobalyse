@@ -286,7 +286,7 @@ update ({ db, query, navKey } as session) msg model =
 
         UpdateDyeingMedium dyeingMedium ->
             ( model, session, Cmd.none )
-                |> updateQuery { query | dyeingMedium = dyeingMedium }
+                |> updateQuery { query | dyeingMedium = Just dyeingMedium }
 
         UpdateMakingWaste makingWaste ->
             ( model, session, Cmd.none )
