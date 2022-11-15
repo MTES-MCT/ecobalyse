@@ -12,7 +12,6 @@ module Data.Textile.Inputs exposing
     , encode
     , encodeQuery
     , fromQuery
-    , getDyeingProcess
     , getMainMaterial
     , jupeCircuitAsie
     , parseBase64Query
@@ -34,7 +33,6 @@ import Data.Country as Country exposing (Country)
 import Data.Textile.Db exposing (Db)
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
 import Data.Textile.Material as Material exposing (Material)
-import Data.Textile.Process as Process exposing (Process)
 import Data.Textile.Product as Product exposing (Product)
 import Data.Textile.Step.Label as Label exposing (Label)
 import Data.Unit as Unit
@@ -322,20 +320,6 @@ countryList inputs =
     , inputs.countryUse
     , inputs.countryEndOfLife
     ]
-
-
-getDyeingProcess : DyeingMedium -> Process.WellKnown -> Process
-getDyeingProcess medium { dyeingArticle, dyeingFabric, dyeingYarn } =
-    -- FIXME: move to Process
-    case medium of
-        DyeingMedium.Article ->
-            dyeingArticle
-
-        DyeingMedium.Fabric ->
-            dyeingFabric
-
-        DyeingMedium.Yarn ->
-            dyeingYarn
 
 
 updateStepCountry : Label -> Country.Code -> Query -> Query

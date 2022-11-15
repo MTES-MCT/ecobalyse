@@ -20,7 +20,7 @@ import Data.Impact as Impact exposing (Impacts)
 import Data.Textile.Db exposing (Db)
 import Data.Textile.DyeingMedium exposing (DyeingMedium)
 import Data.Textile.Formula as Formula
-import Data.Textile.Inputs as Inputs exposing (Inputs)
+import Data.Textile.Inputs exposing (Inputs)
 import Data.Textile.Process as Process exposing (Process)
 import Data.Textile.Product as Product
 import Data.Textile.Step.Label as Label exposing (Label)
@@ -292,7 +292,7 @@ updateFromInputs { processes } inputs ({ label, country } as step) =
                         , dyeing =
                             processes
                                 |> Process.loadWellKnown
-                                |> Result.map (Inputs.getDyeingProcess dyeingMedium >> .name)
+                                |> Result.map (Process.getDyeingProcess dyeingMedium >> .name)
                                 |> Result.toMaybe
                     }
             }

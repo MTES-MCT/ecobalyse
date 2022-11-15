@@ -241,7 +241,7 @@ computeDyeingImpacts { processes } simulator =
                         (\({ country, dyeingMedium } as step) ->
                             let
                                 dyeingProcess =
-                                    Inputs.getDyeingProcess
+                                    Process.getDyeingProcess
                                         (Maybe.withDefault DyeingMedium.Fabric dyeingMedium)
                                         wellKnown
 
