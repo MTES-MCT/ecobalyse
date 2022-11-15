@@ -39,9 +39,9 @@ La base Agribalyse permet de distinguer plusieurs inventaires de cycle de vie po
 
 L'analyse comparée des impacts donne :&#x20;
 
-<figure><img src="../../.gitbook/assets/image (5).png" alt=""><figcaption><p>Conventionnel vs bio vs bleu blanc coeur - source: AGB3.0 via Simapro, EF3.0 (adapted)</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (5) (2).png" alt=""><figcaption><p>Conventionnel vs bio vs bleu blanc coeur - source: AGB3.0 via Simapro, EF3.0 (adapted)</p></figcaption></figure>
 
-<figure><img src="../../.gitbook/assets/image.png" alt=""><figcaption><p>source: AGB3.0 via Simapro, EF3.0 (adapted)</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1).png" alt=""><figcaption><p>source: AGB3.0 via Simapro, EF3.0 (adapted)</p></figcaption></figure>
 
 {% hint style="danger" %}
 Un "dummy process" unshelling egg est proposé dans Agribalyse. Conviendrait-il de l'intégrer aux impacts d'un ingrédient "oeuf" ?
@@ -60,6 +60,7 @@ Les données ICV disponibles dans Agribalyse permettraient potentiellement d'int
 
 L'oeuf de poule "mix de consommation" France (Chicken egg, raw, consumption mix) proposée dans Agribalyse s'appuie sur <mark style="color:red;">XXX</mark>.
 
-Un transport de <mark style="color:red;">XXX</mark> y est ajouté.
+Un transport de 160 km y est ajouté.
 
-<figure><img src="../../.gitbook/assets/Screenshot 2022-11-08 at 14.55.21.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+

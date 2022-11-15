@@ -36,7 +36,7 @@ La base Agribalyse permet de distinguer plusieurs inventaires de cycle de vie po
 
 L'analyse comparée des impacts donne :&#x20;
 
-<figure><img src="../../.gitbook/assets/image (1).png" alt=""><figcaption><p>source: AGB3.0 via Simapro, EF3.0 (adapted)</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1) (4).png" alt=""><figcaption><p>source: AGB3.0 via Simapro, EF3.0 (adapted)</p></figcaption></figure>
 
 {% hint style="danger" %}
 Toute une série d'ICV "milk system" dont la portée doit être mieux appréciée
@@ -56,6 +56,7 @@ Les données ICV disponibles dans Agribalyse permettraient potentiellement d'int
 
 Le lait de vache "mix de consommation" France (Cow milk, consumption mix) proposée dans Agribalyse s'appuie sur <mark style="color:red;">XXX</mark>.
 
-Un transport de <mark style="color:red;">XXX</mark> y est ajouté.
+Un transport de 160 km y est ajouté.
 
-<figure><img src="../../.gitbook/assets/Screenshot 2022-11-08 at 15.04.24.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (5).png" alt=""><figcaption></figcaption></figure>
+
