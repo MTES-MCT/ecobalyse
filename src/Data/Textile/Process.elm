@@ -5,12 +5,14 @@ module Data.Textile.Process exposing
     , decodeFromUuid
     , decodeList
     , encodeUuid
+    , getDyeingProcess
     , getImpact
     , loadWellKnown
     , uuidToString
     )
 
 import Data.Impact as Impact exposing (Impacts)
+import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
 import Data.Unit as Unit
 import Energy exposing (Energy)
 import Json.Decode as Decode exposing (Decoder)
@@ -68,6 +70,19 @@ findByAlias alias =
     List.filter (.alias >> (==) (Just alias))
         >> List.head
         >> Result.fromMaybe ("Procédé introuvable par alias: " ++ alias)
+
+
+getDyeingProcess : DyeingMedium -> WellKnown -> Process
+getDyeingProcess medium { dyeingArticle, dyeingFabric, dyeingYarn } =
+    case medium of
+        DyeingMedium.Article ->
+            dyeingArticle
+
+        DyeingMedium.Fabric ->
+            dyeingFabric
+
+        DyeingMedium.Yarn ->
+            dyeingYarn
 
 
 getImpact : Impact.Trigram -> Process -> Unit.Impact

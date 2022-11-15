@@ -230,7 +230,7 @@ computeMakingImpacts { processes } ({ inputs } as simulator) =
 
 
 computeDyeingImpacts : Db -> Simulator -> Result String Simulator
-computeDyeingImpacts { processes } simulator =
+computeDyeingImpacts { processes } ({ inputs } as simulator) =
     processes
         |> Process.loadWellKnown
         |> Result.map
@@ -239,10 +239,12 @@ computeDyeingImpacts { processes } simulator =
                     |> updateLifeCycleStep Label.Dyeing
                         (\({ country, dyeingMedium } as step) ->
                             let
+                                productDefaultMedium =
+                                    dyeingMedium
+                                        |> Maybe.withDefault inputs.product.dyeing.defaultMedium
+
                                 dyeingProcess =
-                                    Inputs.getDyeingProcess
-                                        (Maybe.withDefault Inputs.Fabric dyeingMedium)
-                                        wellKnown
+                                    Process.getDyeingProcess productDefaultMedium wellKnown
 
                                 { heat, kwh, impacts } =
                                     step.outputMass

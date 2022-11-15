@@ -15,6 +15,7 @@ import Data.Impact as Impact
 import Data.Key as Key
 import Data.Session as Session exposing (Session)
 import Data.Textile.Db exposing (Db)
+import Data.Textile.DyeingMedium exposing (DyeingMedium)
 import Data.Textile.Inputs as Inputs
 import Data.Textile.LifeCycle as LifeCycle
 import Data.Textile.Material as Material
@@ -84,7 +85,7 @@ type Msg
     | ToggleStep Label
     | ToggleStepViewMode Int
     | UpdateAirTransportRatio (Maybe Unit.Ratio)
-    | UpdateDyeingMedium Inputs.DyeingMedium
+    | UpdateDyeingMedium DyeingMedium
     | UpdateMakingWaste (Maybe Unit.Ratio)
     | UpdateMassInput String
     | UpdateMaterial Int Material.Id
@@ -285,7 +286,7 @@ update ({ db, query, navKey } as session) msg model =
 
         UpdateDyeingMedium dyeingMedium ->
             ( model, session, Cmd.none )
-                |> updateQuery { query | dyeingMedium = dyeingMedium }
+                |> updateQuery { query | dyeingMedium = Just dyeingMedium }
 
         UpdateMakingWaste makingWaste ->
             ( model, session, Cmd.none )
