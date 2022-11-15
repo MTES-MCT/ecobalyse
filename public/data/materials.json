@@ -1,6 +1,7 @@
 [
   {
     "id": "soie",
+    "materialAndSpinningProcessUuid": "94b4b0e1-61e4-4f4d-b9b2-efe7623b0e68",
     "materialProcessUuid": "e3e70682-c209-4cac-629f-6fbed82c07cd",
     "recycledProcessUuid": null,
     "recycledFrom": null,
@@ -16,6 +17,7 @@
   },
   {
     "id": "lin-filasse",
+    "materialAndSpinningProcessUuid": "e5a6d538-f932-4242-98b4-3a0c6439629c",
     "materialProcessUuid": "cd613e30-d8f1-6adf-91b7-584a2265b1f5",
     "recycledProcessUuid": null,
     "recycledFrom": null,
@@ -31,6 +33,7 @@
   },
   {
     "id": "lin-etoupe",
+    "materialAndSpinningProcessUuid": "fcef1a31-bb18-49e4-bdb6-e53dfe015ba0",
     "materialProcessUuid": "d95bafc8-f2a4-d27b-dcf4-bb99f4bea973",
     "recycledProcessUuid": null,
     "recycledFrom": null,
@@ -46,6 +49,7 @@
   },
   {
     "id": "laine-merinos",
+    "materialAndSpinningProcessUuid": "4e035dbf-f48b-4b5a-94ea-0006c713958b",
     "materialProcessUuid": "21636369-8b52-9b4a-97b7-50923ceb3ffd",
     "recycledProcessUuid": null,
     "recycledFrom": null,
@@ -61,6 +65,7 @@
   },
   {
     "id": "laine-mouton",
+    "materialAndSpinningProcessUuid": "376bd165-d354-41aa-a6e3-fd3228413bb2",
     "materialProcessUuid": "b8a1abcd-1a69-16c7-4da4-f9fc3c6da5d7",
     "recycledProcessUuid": "8bb01460-217f-871c-be0a-e8fa1ceac2cc",
     "recycledFrom": null,
@@ -76,6 +81,7 @@
   },
   {
     "id": "jute",
+    "materialAndSpinningProcessUuid": "72010874-4d26-4c7a-95de-c6987dfdedeb",
     "materialProcessUuid": "5bc8fbbc-bde5-c099-4164-d8399f767c45",
     "recycledProcessUuid": null,
     "recycledFrom": null,
@@ -91,6 +97,7 @@
   },
   {
     "id": "coton",
+    "materialAndSpinningProcessUuid": "f211bbdb-415c-46fd-be4d-ddf199575b44",
     "materialProcessUuid": "14a03569-d26b-9496-92e5-dfe8cb1855fe",
     "recycledProcessUuid": "9c6ab710-4a08-c720-cede-24428a013fda",
     "recycledFrom": null,
@@ -106,6 +113,7 @@
   },
   {
     "id": "chanvre",
+    "materialAndSpinningProcessUuid": "08601439-f338-4f94-ac8c-538061b65d16",
     "materialProcessUuid": "6513270e-269e-0d37-f2a7-4de452e6b438",
     "recycledProcessUuid": null,
     "recycledFrom": null,
@@ -121,6 +129,7 @@
   },
   {
     "id": "cachemire",
+    "materialAndSpinningProcessUuid": "380c0d9c-2840-4390-bd3f-5c960f26f5ed",
     "materialProcessUuid": "6018366c-f658-f7a7-5ed3-4fe53a096533",
     "recycledProcessUuid": null,
     "recycledFrom": null,
@@ -136,6 +145,7 @@
   },
   {
     "id": "angora",
+    "materialAndSpinningProcessUuid": "29bddef1-d753-45af-9ca6-aec05e2d02b9",
     "materialProcessUuid": "4462ebfc-5f91-5ef0-9cfb-ac6e7687a66e",
     "recycledProcessUuid": null,
     "recycledFrom": null,
@@ -151,6 +161,7 @@
   },
   {
     "id": "viscose",
+    "materialAndSpinningProcessUuid": "81a67d97-3cd9-44ef-9ee2-159364364c0f",
     "materialProcessUuid": "7b89296c-6dcb-ac50-0857-7eb1924770d3",
     "recycledProcessUuid": "a8d42934-33e7-98a0-e81f-9b0cbf4e7af6",
     "recycledFrom": null,
@@ -166,6 +177,7 @@
   },
   {
     "id": "pu",
+    "materialAndSpinningProcessUuid": "c3738500-0a62-4b95-b4a2-b7beb12a9e1a",
     "materialProcessUuid": "db5b5fab-8f4d-3e27-dda1-494c73cf256d",
     "recycledProcessUuid": null,
     "recycledFrom": null,
@@ -181,6 +193,7 @@
   },
   {
     "id": "ptt",
+    "materialAndSpinningProcessUuid": "eca33573-0d09-4d79-9b28-da42bfcc7a4b",
     "materialProcessUuid": "87751d4c-a850-1e2c-44dc-da6a797d76de",
     "recycledProcessUuid": null,
     "recycledFrom": null,
@@ -196,6 +209,7 @@
   },
   {
     "id": "pbt",
+    "materialAndSpinningProcessUuid": "7f8bbfdc-fb65-4e3a-ac81-eda197ef17fc",
     "materialProcessUuid": "e8d79f49-af6d-114c-4a6f-188a424e617b",
     "recycledProcessUuid": null,
     "recycledFrom": null,
@@ -211,6 +225,7 @@
   },
   {
     "id": "pp",
+    "materialAndSpinningProcessUuid": "a30cfbde-393a-40db-9263-ea00bfced0b7",
     "materialProcessUuid": "c15521b1-b3dc-a50a-9daa-37e51b591d75",
     "recycledProcessUuid": null,
     "recycledFrom": null,
@@ -226,6 +241,7 @@
   },
   {
     "id": "pla",
+    "materialAndSpinningProcessUuid": "f2dd799d-1b69-4e7a-99bd-696bbbd5a978",
     "materialProcessUuid": "85750621-02fb-cd4f-357f-bc5af71a1bfc",
     "recycledProcessUuid": null,
     "recycledFrom": null,
@@ -241,6 +257,7 @@
   },
   {
     "id": "pe",
+    "materialAndSpinningProcessUuid": "088ed617-67fa-4d42-b3af-ee6cf39cf36f",
     "materialProcessUuid": "48f165d5-7b00-c7f4-781e-f86f5c8cc1ab",
     "recycledProcessUuid": null,
     "recycledFrom": null,
@@ -256,6 +273,7 @@
   },
   {
     "id": "pet",
+    "materialAndSpinningProcessUuid": "4d57c51d-7d56-46e1-acde-02fbcdc943e4",
     "materialProcessUuid": "4dad2986-ce83-4960-6a06-e9ab85a0bcc1",
     "recycledProcessUuid": "3e1c26d3-23ef-323e-e848-f808f54d35bf",
     "recycledFrom": null,
@@ -271,6 +289,7 @@
   },
   {
     "id": "pa",
+    "materialAndSpinningProcessUuid": "182fa424-1f49-4728-b0f1-cb4e4ab36392",
     "materialProcessUuid": "72e63ac7-a953-8322-1f70-d5dc2e675fc7",
     "recycledProcessUuid": "46f7c9ea-b38c-f45a-7ad9-8a70a603e9e1",
     "recycledFrom": null,
@@ -286,6 +305,7 @@
   },
   {
     "id": "aramide",
+    "materialAndSpinningProcessUuid": "7a1ccc4a-2ea7-48dc-9ef0-d57066ea8fa5",
     "materialProcessUuid": "e539a78b-c8ef-f346-0b12-ae6ead581e57",
     "recycledProcessUuid": null,
     "recycledFrom": null,
@@ -301,6 +321,7 @@
   },
   {
     "id": "acrylique",
+    "materialAndSpinningProcessUuid": "aee6709f-0864-4fc5-8760-68cb644a0021",
     "materialProcessUuid": "c963cfe0-afae-5a3b-b909-6a04e7d80068",
     "recycledProcessUuid": "c393fd0e-1cc6-2be5-7836-46bf0324aac3",
     "recycledFrom": null,
@@ -316,6 +337,7 @@
   },
   {
     "id": "pp-pa",
+    "materialAndSpinningProcessUuid": "37396ac4-13a2-484c-9cc6-5b5a93ff6e6e",
     "materialProcessUuid": "6b0404f2-b094-90b8-6b01-a1c12a3a2107",
     "recycledProcessUuid": null,
     "recycledFrom": null,
@@ -331,6 +353,7 @@
   },
   {
     "id": "neoprene",
+    "materialAndSpinningProcessUuid": "76fefff3-3781-49a2-8deb-c12945a6b71f",
     "materialProcessUuid": "76fefff3-3781-49a2-8deb-c12945a6b71f",
     "recycledProcessUuid": null,
     "recycledFrom": null,
@@ -346,6 +369,7 @@
   },
   {
     "id": "pet-rm",
+    "materialAndSpinningProcessUuid": "4072bfa2-1948-4d12-8de9-bbeb6cc628e1",
     "materialProcessUuid": "3e1c26d3-23ef-323e-e848-f808f54d35bf",
     "recycledProcessUuid": null,
     "recycledFrom": "pet",
@@ -361,6 +385,7 @@
   },
   {
     "id": "pet-rcp",
+    "materialAndSpinningProcessUuid": "e65e8157-9bd1-4711-9571-8e4a22c2d2b5",
     "materialProcessUuid": "4a37fa2d-f2d7-d40f-c785-9faeecc3f80c",
     "recycledProcessUuid": null,
     "recycledFrom": "pet",
@@ -376,6 +401,7 @@
   },
   {
     "id": "pet-rcc",
+    "materialAndSpinningProcessUuid": "221067ba-5c2f-4dad-b09a-dd5af0a9ae31",
     "materialProcessUuid": "9530fcd9-d6fd-1d9b-6203-2801b65c1c28",
     "recycledProcessUuid": null,
     "recycledFrom": "pet",
@@ -391,6 +417,7 @@
   },
   {
     "id": "pa-rc",
+    "materialAndSpinningProcessUuid": "41ee61c2-9a98-4eec-8949-9d9b54289bd0",
     "materialProcessUuid": "d7f20e07-ed42-02ed-c4bb-895c608099f6",
     "recycledProcessUuid": null,
     "recycledFrom": "pa",
@@ -406,6 +433,7 @@
   },
   {
     "id": "viscose-r",
+    "materialAndSpinningProcessUuid": "9671ae26-d772-4bb1-aad5-6b826555d0cd",
     "materialProcessUuid": "a8d42934-33e7-98a0-e81f-9b0cbf4e7af6",
     "recycledProcessUuid": null,
     "recycledFrom": "viscose",
@@ -421,6 +449,7 @@
   },
   {
     "id": "pa-rm",
+    "materialAndSpinningProcessUuid": "af5d130d-f18b-438c-9f19-d1ee49756960",
     "materialProcessUuid": "46f7c9ea-b38c-f45a-7ad9-8a70a603e9e1",
     "recycledProcessUuid": null,
     "recycledFrom": "pa",
@@ -436,6 +465,7 @@
   },
   {
     "id": "laine-r",
+    "materialAndSpinningProcessUuid": "92dfabc7-9441-463e-bda8-7bc5943c0e9d",
     "materialProcessUuid": "8bb01460-217f-871c-be0a-e8fa1ceac2cc",
     "recycledProcessUuid": null,
     "recycledFrom": "laine-mouton",
@@ -451,6 +481,7 @@
   },
   {
     "id": "coton-rdpc",
+    "materialAndSpinningProcessUuid": "4d23093d-1346-4018-8c0f-7aae33c67bcd",
     "materialProcessUuid": "993955be-5888-6f39-137c-56af8c5187c1",
     "recycledProcessUuid": null,
     "recycledFrom": "coton",
@@ -466,6 +497,7 @@
   },
   {
     "id": "coton-rdp",
+    "materialAndSpinningProcessUuid": "2b24abb0-c1ec-4298-9b58-350904a26104",
     "materialProcessUuid": "9c6ab710-4a08-c720-cede-24428a013fda",
     "recycledProcessUuid": null,
     "recycledFrom": "coton",
@@ -481,6 +513,7 @@
   },
   {
     "id": "acrylique-r",
+    "materialAndSpinningProcessUuid": "7603beaa-c555-4283-b9f8-4d5d231b8490",
     "materialProcessUuid": "c393fd0e-1cc6-2be5-7836-46bf0324aac3",
     "recycledProcessUuid": null,
     "recycledFrom": "acrylique",
