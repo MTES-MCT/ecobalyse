@@ -39,7 +39,7 @@ La base Agribalyse permet de distinguer 14 inventaires de cycle de vie pour la c
 
 L'analyse comparée des impacts donne :&#x20;
 
-![](<../../.gitbook/assets/image (1).png>)
+<figure><img src="../../.gitbook/assets/image.png" alt=""><figcaption><p>Conventionnel vs bio - source: Simapro, EF3.0 (adapted)</p></figcaption></figure>
 
 {% hint style="danger" %}
 Graphique provisoire...
