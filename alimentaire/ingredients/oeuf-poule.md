@@ -41,7 +41,7 @@ L'analyse comparée des impacts donne :&#x20;
 
 <figure><img src="../../.gitbook/assets/image (5) (2).png" alt=""><figcaption><p>Conventionnel vs bio vs bleu blanc coeur - source: AGB3.0 via Simapro, EF3.0 (adapted)</p></figcaption></figure>
 
-<figure><img src="../../.gitbook/assets/image (1).png" alt=""><figcaption><p>source: AGB3.0 via Simapro, EF3.0 (adapted)</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1) (5).png" alt=""><figcaption><p>source: AGB3.0 via Simapro, EF3.0 (adapted)</p></figcaption></figure>
 
 {% hint style="danger" %}
 Un "dummy process" unshelling egg est proposé dans Agribalyse. Conviendrait-il de l'intégrer aux impacts d'un ingrédient "oeuf" ?
