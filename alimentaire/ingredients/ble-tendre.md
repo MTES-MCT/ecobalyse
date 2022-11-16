@@ -45,8 +45,8 @@ Pour passer du blé tendre à de la farine, il conviendrait d'intégrer des éta
 
 ## Mix de consommation
 
-La blé tendre "mix de consommation" France proposée dans Agribalyse s'appuie sur <mark style="color:red;">XXX</mark>.
+La blé tendre "mix de consommation" France proposée dans Agribalyse s'appuie sur le blé tendre conventionnel France.
 
-Un transport de <mark style="color:red;">XXX</mark> y est ajouté.
+Un transport de 160 km y est ajouté.
 
 <figure><img src="../../.gitbook/assets/Screenshot 2022-11-08 at 14.56.24.png" alt=""><figcaption></figcaption></figure>

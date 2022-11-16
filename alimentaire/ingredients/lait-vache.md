@@ -54,7 +54,7 @@ Les données ICV disponibles dans Agribalyse permettraient potentiellement d'int
 
 ## Mix de consommation
 
-Le lait de vache "mix de consommation" France (Cow milk, consumption mix) proposée dans Agribalyse s'appuie sur <mark style="color:red;">XXX</mark>.
+Le lait de vache "mix de consommation" France (Cow milk, consumption mix) proposée dans Agribalyse s'appuie sur le lait moyen de France.
 
 Un transport de 160 km y est ajouté.
 

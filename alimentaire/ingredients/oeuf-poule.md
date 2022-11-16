@@ -58,7 +58,7 @@ Les données ICV disponibles dans Agribalyse permettraient potentiellement d'int
 
 ## Mix de consommation
 
-L'oeuf de poule "mix de consommation" France (Chicken egg, raw, consumption mix) proposée dans Agribalyse s'appuie sur <mark style="color:red;">XXX</mark>.
+L'oeuf de poule "mix de consommation" France (Chicken egg, raw, consumption mix) proposée dans Agribalyse s'appuie l'oeuf moyen de France.
 
 Un transport de 160 km y est ajouté.
 
