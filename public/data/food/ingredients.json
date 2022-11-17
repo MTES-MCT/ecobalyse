@@ -1,27 +1,27 @@
 [
-  {
-    "name": "oeuf",
-    "conventional": "83752804d1bf53b08b817b1bf9f83d1b",
-    "labels": {
-      "organic": "a99a8677a1ad37bfa7471f6c94df3e59",
-      "bleu_blanc_coeur": "216bb767da5b0a3f8aca1e18440700ac"
+    {
+        "name": "oeuf",
+        "default": "83752804d1bf53b08b817b1bf9f83d1b",
+        "variants": {
+            "organic": "a99a8677a1ad37bfa7471f6c94df3e59",
+            "bleu_blanc_coeur": "216bb767da5b0a3f8aca1e18440700ac"
+        }
+    },
+    {
+        "name": "lait",
+        "default": "6dcf5acf59f35dce15894539dbb4f097",
+        "variants": {}
+    },
+    {
+        "name": "carotte",
+        "default": "61ca6413bd2be0106255b003424d00ba",
+        "variants": {
+            "organic": "9f147496e4f222def9af93b7b18ad49b"
+        }
+    },
+    {
+        "name": "blé tendre",
+        "default": "d77308bcc6f3988597e56b34d5e2c4fa",
+        "variants": {}
     }
-  },
-  {
-    "name": "lait",
-    "conventional": "6dcf5acf59f35dce15894539dbb4f097",
-    "labels": {}
-  },
-  {
-    "name": "carotte",
-    "conventional": "61ca6413bd2be0106255b003424d00ba",
-    "labels": {
-      "organic": "9f147496e4f222def9af93b7b18ad49b"
-    }
-  },
-  {
-    "name": "blé tendre",
-    "conventional": "d77308bcc6f3988597e56b34d5e2c4fa",
-    "labels": {}
-  }
 ]

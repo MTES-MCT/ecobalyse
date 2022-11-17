@@ -108,9 +108,9 @@ update session msg model =
                 processCode =
                     if model.isIngredientOrganic then
                         session.foodDb.ingredients
-                            |> List.filter (.conventional >> .code >> (==) code)
+                            |> List.filter (.default >> .code >> (==) code)
                             |> List.head
-                            |> Maybe.map (.labels >> .organic >> Maybe.map .code >> Maybe.withDefault code)
+                            |> Maybe.map (.variants >> .organic >> Maybe.map .code >> Maybe.withDefault code)
                             |> Maybe.withDefault code
 
                     else
@@ -376,15 +376,15 @@ addIngredientFormView { defaultMass, excluded, foodDb, isOrganic, noOp, select, 
             )
             (foodDb.ingredients
                 |> List.filter
-                    -- Exclude ingredients whose conventional or organis processes have already been added
-                    (\{ conventional, labels } ->
-                        case labels.organic of
+                    -- Exclude ingredients whose conventional or organic processes have already been added
+                    (\{ default, variants } ->
+                        case variants.organic of
                             Just organicProcess ->
-                                not (List.member conventional.code excluded)
+                                not (List.member default.code excluded)
                                     && not (List.member organicProcess.code excluded)
 
                             Nothing ->
-                                not (List.member conventional.code excluded)
+                                not (List.member default.code excluded)
                     )
                 |> List.sortBy .name
                 |> ingredientSelectorView kind
@@ -669,8 +669,8 @@ ingredientSelectorView kind selectedCode event =
             in
             ( label
             , option
-                [ selected <| selectedCode == Just ingredient.conventional.code
-                , value <| Process.codeToString ingredient.conventional.code
+                [ selected <| selectedCode == Just ingredient.default.code
+                , value <| Process.codeToString ingredient.default.code
                 ]
                 [ text label ]
             )
