@@ -12,12 +12,12 @@ import Json.Decode.Pipeline as Pipe
 
 type alias Ingredient =
     { name : String
-    , conventional : Process
-    , labels : Labels
+    , default : Process
+    , variants : Variants
     }
 
 
-type alias Labels =
+type alias Variants =
     { organic : Maybe Process
     }
 
@@ -37,13 +37,13 @@ decodeIngredient : Dict String Process -> Decoder Ingredient
 decodeIngredient processes =
     Decode.succeed Ingredient
         |> Pipe.required "name" Decode.string
-        |> Pipe.required "conventional" (linkProcess processes)
-        |> Pipe.required "labels" (decodeLabels processes)
+        |> Pipe.required "default" (linkProcess processes)
+        |> Pipe.required "variants" (decodeVariants processes)
 
 
-decodeLabels : Dict String Process -> Decoder Labels
-decodeLabels processes =
-    Decode.succeed Labels
+decodeVariants : Dict String Process -> Decoder Variants
+decodeVariants processes =
+    Decode.succeed Variants
         |> Pipe.optional "organic" (Decode.maybe (linkProcess processes)) Nothing
 
 
