@@ -16,7 +16,7 @@ $$
 
 Ce procédé est construit à partir :&#x20;
 
-* d'un blé tendre \[at farm] --> Soft wheat grain, conventional, breadmaking quality, 15% moisture, at farm gate
+* d'un [blé tendre](https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/ingredients-agricoles/ble-tendre) \[at farm] --> Soft wheat grain, conventional, breadmaking quality, 15% moisture, at farm gate
 
 $$
 BléREF
@@ -39,7 +39,7 @@ $$
 | Conventionnelle        | <p><strong>FarineREF</strong><br>Wheat flour, at industrial mill<br>Blé : Soft wheat grain, conventional, breadmaking quality, 15% moisture, at farm gate</p> | <p><strong>FarineREF</strong><br>Wheat flour, at industrial mill<br>Blé : Soft wheat grain, conventional, breadmaking quality, 15% moisture, at farm gate</p> |
 | Agriculture biologique | <p><strong>FarineBio</strong><br>Procédé construit (cf. formule)<br>Blé : [Blé bio à définir]</p>                                                             | <p><strong>FarineBio</strong><br>Procédé construit (cf. formule)<br>Blé : [Blé bio à définir]</p>                                                             |
 
-{% hint style="danger" %}
-XXX.
-{% endhint %}
+Les impacts comparés de ces procédés sont :&#x20;
+
+_<mark style="color:red;">\[Intégration d'un graphique comparant les scores PEF décomposés des deux Farines qui seraient considérées]</mark>_&#x20;
 
