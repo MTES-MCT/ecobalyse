@@ -1,6 +1,9 @@
 module Data.Food.Ingredient exposing
     ( Ingredient
+    , Name
     , decodeIngredients
+    , nameFromString
+    , nameToString
     )
 
 import Data.Food.Process as Process exposing (Process)
@@ -10,11 +13,25 @@ import Json.Decode.Extra as DE
 import Json.Decode.Pipeline as Pipe
 
 
+type Name
+    = Name String
+
+
 type alias Ingredient =
-    { name : String
+    { name : Name
     , default : Process
     , variants : Variants
     }
+
+
+nameFromString : String -> Name
+nameFromString str =
+    Name str
+
+
+nameToString : Name -> String
+nameToString (Name str) =
+    str
 
 
 type alias Variants =
@@ -36,7 +53,7 @@ decodeIngredients processes =
 decodeIngredient : Dict String Process -> Decoder Ingredient
 decodeIngredient processes =
     Decode.succeed Ingredient
-        |> Pipe.required "name" Decode.string
+        |> Pipe.required "name" (Decode.map Name Decode.string)
         |> Pipe.required "default" (linkProcess processes)
         |> Pipe.required "variants" (decodeVariants processes)
 
