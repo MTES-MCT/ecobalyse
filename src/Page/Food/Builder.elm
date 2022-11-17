@@ -7,7 +7,7 @@ module Page.Food.Builder exposing
     )
 
 import Data.Food.Db as FoodDb
-import Data.Food.Ingredient exposing (Ingredient)
+import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Process as Process exposing (Process)
 import Data.Food.Recipe as Recipe exposing (Recipe)
 import Data.Impact as Impact
@@ -386,7 +386,7 @@ addIngredientFormView { defaultMass, excluded, foodDb, isOrganic, noOp, select, 
                             Nothing ->
                                 not (List.member default.code excluded)
                     )
-                |> List.sortBy .name
+                |> List.sortBy (.name >> Ingredient.nameToString)
                 |> ingredientSelectorView kind
                     (Maybe.map .code selectedProcess)
                     (\maybeCode ->
@@ -665,7 +665,7 @@ ingredientSelectorView kind selectedCode event =
         (\ingredient ->
             let
                 label =
-                    ingredient.name
+                    Ingredient.nameToString ingredient.name
             in
             ( label
             , option
