@@ -4,15 +4,19 @@
 
 Considérée comme un ingrédient agricole (at farm), le lait de vache est modélisé à travers les procédés suivants :&#x20;
 
-| Label / Origine        | France                                              | Autres pays                              |
-| ---------------------- | --------------------------------------------------- | ---------------------------------------- |
-| Conventionnelle        | Cow milk, national average, at farm gate            | Cow milk, national average, at farm gate |
-| Agriculture biologique | <mark style="color:red;">\[Choix en attente]</mark> |                                          |
+| Label / Origine        | France                                       | Autres pays                                  |
+| ---------------------- | -------------------------------------------- | -------------------------------------------- |
+| Conventionnelle        | Cow milk, national average, at farm gate     | Cow milk, national average, at farm gate     |
+| Agriculture biologique | Cow milk, organic, system n°1, at farm gate  | Cow milk, organic, system n°1, at farm gate  |
 
 Les procédés retenus sont prioritairement des procédés "at farm", c'est à dire des procédés traduisant l'impact de l'ingrédient en sortie de ferme, avant que ne soit par exemple intégré l'impact du transport vers un lieu de transformation ou encore l'impact du conditionnement.
 
 {% hint style="danger" %}
 Pas d'inventaire "autres pays" => l'inventaire qui sera retenu pour le lait de vache "autres pays" est celui correspondant au mode de production majoritaire dans le pays dont la France importe le plus de lait de vache. Les importations françaises provenant principalement de l'UE (source : FranceAgriMer), l'approximation est faite que l'inventaire représentatif du lait "autres pays" correspond à l'inventaire mobilisé pour le lait FR.&#x20;
+{% endhint %}
+
+{% hint style="danger" %}
+Choix temporaire et arbitraire de l'inventaire du lait bio : l'impact de l'inventaire "Cow milk, organic, system n°1, at farm gate" est proche de l'impact d'un lait bio moyen. Dans un premier temps, il sera donc pris comme inventaire du lait bio.
 {% endhint %}
 
 ## Analyse des procédés disponibles

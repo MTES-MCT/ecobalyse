@@ -74,7 +74,7 @@ d_voiture = 0.195 km
 
 Le PEFCR v1.3 indique qu'il faut prendre en compte la part du coffre qu'occupe le vêtement que l'on amène au point de collecte.&#x20;
 
-![PEFCR v1.3](<../../.gitbook/assets/image (2) (2).png>)
+![PEFCR v1.3](<../../.gitbook/assets/image (2) (2) (1).png>)
 
 
 
