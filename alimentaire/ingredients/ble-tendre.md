@@ -4,10 +4,10 @@
 
 Considérée comme un ingrédient agricole (at farm), le blé tendre est modélisé à travers les procédés suivants :&#x20;
 
-| Label / Origine        | France                                                                                                                                                                      | Autres pays                                                                     |
-| ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
-| Conventionnelle        | Soft wheat grain, conventional, breadmaking quality, 15% moisture, at farm gate                                                                                             | Soft wheat grain, conventional, breadmaking quality, 15% moisture, at farm gate |
-| Agriculture biologique | <mark style="color:red;">Choix à faire en fonction notamment de l'analyse des écarts entre les 4 organic proposés et de leurs différences (animal feed, moisture...)</mark> |                                                                                 |
+| Label / Origine        | France                                                                          | Autres pays                                                                     |
+| ---------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| Conventionnelle        | Soft wheat grain, conventional, breadmaking quality, 15% moisture, at farm gate | Soft wheat grain, conventional, breadmaking quality, 15% moisture, at farm gate |
+| Agriculture biologique | Soft wheat grain, organic, 15% moisture, Central Region, at farm gate           | Soft wheat grain, organic, 15% moisture, Central Region, at farm gate           |
 
 Les procédés retenus sont prioritairement des procédés "at farm", c'est à dire des procédés traduisant l'impact de l'ingrédient en sortie de ferme, avant que ne soit par exemple intégré l'impact du transport vers un lieu de transformation ou encore l'impact du conditionnement.
 
@@ -15,6 +15,10 @@ Les procédés retenus sont prioritairement des procédés "at farm", c'est à d
 Hypothèse 1 : l'ingrédient "blé tendre" cible des usages de panification principalement. L'inventaire mobilisé pour l'ingrédient blé tendre est donc "Soft wheat grain, conventional, breadmaking quality, 15% moisture, at farm gate" (le consumption mix étant ciblé sur l'usage "alimentation animale")
 
 Hypothèse 2 : l'inventaire mobilisé pour le blé tendre "autres pays" est identique à l'inventaire FR. En effet, les importations de blé tendre peuvent être considérées comme négligeables (source : FranceAgriMer).
+{% endhint %}
+
+{% hint style="info" %}
+L'inventaire bio considéré dans un premier temps est celui dont le taux d'humidité correspond au taux d'humidité du blé panifiable (principal usage du blé tendre).
 {% endhint %}
 
 ## Analyse des procédés disponibles
