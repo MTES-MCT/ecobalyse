@@ -4,16 +4,18 @@
 
 Considérée comme un ingrédient agricole (at farm), l'oeuf de poule est modélisé à travers les procédés suivants :&#x20;
 
-| Label / Origine        | France                                                                                                                                                  | Autres pays                                                                                                             |
-| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| Conventionnelle        | <p>Egg, national average, at farm gate<br><mark style="color:red;">[Choix à reconsidérer suivant la construction précise du consumption mix]</mark></p> | <p>XXX<br><mark style="color:red;">[Choix à reconsidérer suivant la construction précise du consumption mix]</mark></p> |
-| Agriculture biologique | Egg, organic, at farm gate                                                                                                                              |                                                                                                                         |
-| Bleu blanc coeur       | Egg, Bleu Blanc Coeur, outdoor system, at farm gate                                                                                                     | N/A                                                                                                                     |
+| Label / Origine        | France                                              | Autres pays                                                                                                                                                                               |
+| ---------------------- | --------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Conventionnelle        | Egg, national average, at farm gate                 | <p>Egg, national average, at farm gate<br><mark style="color:red;">[Choix à reconsidérer suivant la biblio sur les modes de production moyens des pays exportateurs envers FR]</mark></p> |
+| Agriculture biologique | Egg, organic, at farm gate                          | Egg, organic, at farm gate                                                                                                                                                                |
+| Bleu blanc coeur       | Egg, Bleu Blanc Coeur, outdoor system, at farm gate | N/A                                                                                                                                                                                       |
 
 Les procédés retenus sont prioritairement des procédés "at farm", c'est à dire des procédés traduisant l'impact de l'ingrédient en sortie de ferme, avant que ne soit par exemple intégré l'impact du transport vers un lieu de transformation ou encore l'impact du conditionnement.
 
 {% hint style="danger" %}
-Vérifier que le procédé XXX {RoW}\* n'intègre pas déjà de transport ou de conditionnement.
+Agribalyse ne dispose pas d'ICV œuf "autres pays". Le procédé à prendre en compte pour "autres pays" est donc à préciser selon les modes de production moyens des pays exportateurs d'œufs vers la France.&#x20;
+
+Hypothèse actuelle : étant donné que le principal exportateur d'œufs est l'Espagne, le mix "autres pays" est égal au mix de consommation français.
 {% endhint %}
 
 ## Analyse des procédés disponibles
