@@ -16,7 +16,7 @@ Pas d'inventaire "autres pays" => l'inventaire qui sera retenu pour le lait de v
 {% endhint %}
 
 {% hint style="danger" %}
-Choix temporaire et arbitraire de l'inventaire du lait bio : l'impact de l'inventaire "Cow milk, organic, system n°1, at farm gate" est proche de l'impact d'un lait bio moyen. Dans un premier temps, il sera donc pris comme inventaire du lait bio.
+Choix temporaire et arbitraire de l'inventaire du lait bio : l'impact du "Cow milk, organic, system n°1, at farm gate" est proche de l'impact d'un lait bio moyen. Dans un premier temps, il sera donc pris comme inventaire du lait bio.
 {% endhint %}
 
 ## Analyse des procédés disponibles
