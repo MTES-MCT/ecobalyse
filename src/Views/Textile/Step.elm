@@ -644,6 +644,19 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
 
                   else
                     text ""
+                , case current.label of
+                    Label.Ennoblement ->
+                        li [ class "list-group-item text-muted d-flex justify-content-center gap-2" ]
+                            [ span [] [ text "Surface à ennoblir\u{00A0}:" ]
+                            , span []
+                                [ current
+                                    |> Step.getSurface inputs
+                                    |> Format.squareMetters
+                                ]
+                            ]
+
+                    _ ->
+                        text ""
                 , if Transport.totalKm current.transport > 0 then
                     li [ class "list-group-item text-muted" ]
                         [ current.transport

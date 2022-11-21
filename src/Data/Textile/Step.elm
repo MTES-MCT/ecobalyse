@@ -5,6 +5,7 @@ module Data.Textile.Step exposing
     , create
     , displayLabel
     , encode
+    , getSurface
     , initMass
     , makingWasteToString
     , pickingToString
@@ -15,6 +16,7 @@ module Data.Textile.Step exposing
     , updateWaste
     )
 
+import Area exposing (Area)
 import Data.Country as Country exposing (Country)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Textile.Db exposing (Db)
@@ -259,6 +261,14 @@ getRoadTransportProcess wellKnown { label } =
 
         _ ->
             wellKnown.roadTransportPreMaking
+
+
+getSurface : Inputs -> Step -> Area
+getSurface { product, surfaceMass } { inputMass } =
+    Mass.inGrams inputMass
+        / Unit.surfaceMassToFloat
+            (Maybe.withDefault product.surfaceMass surfaceMass)
+        |> Area.squareMeters
 
 
 updateFromInputs : Db -> Inputs -> Step -> Step

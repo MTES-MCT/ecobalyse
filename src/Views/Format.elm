@@ -16,9 +16,11 @@ module Views.Format exposing
     , ratio
     , ratioToDecimals
     , ratioToPercentString
+    , squareMetters
     , surfaceMass
     )
 
+import Area exposing (Area)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Unit as Unit
 import Decimal
@@ -134,6 +136,11 @@ megajoules =
 percent : Float -> Html msg
 percent =
     formatRichFloat 2 "%"
+
+
+squareMetters : Area -> Html msg
+squareMetters =
+    Area.inSquareMeters >> formatRichFloat 2 "m²"
 
 
 surfaceMass : Unit.SurfaceMass -> Html msg
