@@ -123,8 +123,10 @@ compute db query =
         |> nextIf Label.Spinning (computeSpinningImpacts db)
         -- Compute Weaving & Knitting step impacts
         |> nextIf Label.Fabric computeFabricImpacts
-        -- Compute Dyeing step impacts
+        -- Compute Ennoblement step Dyeing impacts
         |> nextWithDbIf Label.Ennoblement computeDyeingImpacts
+        -- Compute Ennoblement step Printing impacts
+        |> nextWithDbIf Label.Ennoblement computePrintingImpacts
         -- Compute Making step impacts
         |> nextWithDbIf Label.Making computeMakingImpacts
         -- Compute product Use impacts
@@ -230,8 +232,8 @@ computeMakingImpacts { processes } ({ inputs } as simulator) =
 
 
 computeDyeingImpacts : Db -> Simulator -> Result String Simulator
-computeDyeingImpacts { processes } ({ inputs } as simulator) =
-    processes
+computeDyeingImpacts db ({ inputs } as simulator) =
+    db.processes
         |> Process.loadWellKnown
         |> Result.map
             (\wellKnown ->
@@ -253,7 +255,45 @@ computeDyeingImpacts { processes } ({ inputs } as simulator) =
                                             country.heatProcess
                                             country.electricityProcess
                             in
-                            { step | heat = heat, kwh = kwh, impacts = impacts }
+                            { step
+                                | heat = step.heat |> Quantity.plus heat
+                                , kwh = step.kwh |> Quantity.plus kwh
+                                , impacts = Impact.sumImpacts db.impacts [ step.impacts, impacts ]
+                            }
+                        )
+            )
+
+
+computePrintingImpacts : Db -> Simulator -> Result String Simulator
+computePrintingImpacts db simulator =
+    db.processes
+        |> Process.loadWellKnown
+        |> Result.map
+            (\wellKnown ->
+                simulator
+                    |> updateLifeCycleStep Label.Ennoblement
+                        (\({ country } as step) ->
+                            case step.printing of
+                                Just printing ->
+                                    let
+                                        printingProcess =
+                                            Process.getPrintingProcess printing wellKnown
+
+                                        { heat, kwh, impacts } =
+                                            step.outputMass
+                                                |> Formula.printingImpacts step.impacts
+                                                    printingProcess
+                                                    country.heatProcess
+                                                    country.electricityProcess
+                                    in
+                                    { step
+                                        | heat = step.heat |> Quantity.plus heat
+                                        , kwh = step.kwh |> Quantity.plus kwh
+                                        , impacts = Impact.sumImpacts db.impacts [ step.impacts, impacts ]
+                                    }
+
+                                Nothing ->
+                                    step
                         )
             )
 

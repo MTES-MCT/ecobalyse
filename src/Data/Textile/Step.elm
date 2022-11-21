@@ -21,6 +21,7 @@ import Data.Textile.Db exposing (Db)
 import Data.Textile.DyeingMedium exposing (DyeingMedium)
 import Data.Textile.Formula as Formula
 import Data.Textile.Inputs exposing (Inputs)
+import Data.Textile.Printing exposing (Printing)
 import Data.Textile.Process as Process exposing (Process)
 import Data.Textile.Product as Product
 import Data.Textile.Step.Label as Label exposing (Label)
@@ -52,6 +53,7 @@ type alias Step =
     , picking : Maybe Unit.PickPerMeter
     , surfaceMass : Maybe Unit.SurfaceMass
     , dyeingMedium : Maybe DyeingMedium
+    , printing : Maybe Printing
     }
 
 
@@ -71,6 +73,7 @@ type alias ProcessInfo =
     , making : Maybe String
     , distribution : Maybe String
     , fading : Maybe String
+    , printing : Maybe String
     }
 
 
@@ -99,6 +102,7 @@ create { db, label, editable, country, enabled } =
     , picking = Nothing
     , surfaceMass = Nothing
     , dyeingMedium = Nothing
+    , printing = Nothing
     }
 
 
@@ -119,6 +123,7 @@ defaultProcessInfo =
     , making = Nothing
     , distribution = Nothing
     , fading = Nothing
+    , printing = Nothing
     }
 
 
@@ -259,7 +264,7 @@ getRoadTransportProcess wellKnown { label } =
 updateFromInputs : Db -> Inputs -> Step -> Step
 updateFromInputs { processes } inputs ({ label, country } as step) =
     let
-        { airTransportRatio, quality, reparability, makingWaste, picking, surfaceMass, dyeingMedium } =
+        { airTransportRatio, quality, reparability, makingWaste, picking, surfaceMass, dyeingMedium, printing } =
             inputs
     in
     case label of
@@ -285,6 +290,7 @@ updateFromInputs { processes } inputs ({ label, country } as step) =
         Label.Ennoblement ->
             { step
                 | dyeingMedium = dyeingMedium
+                , printing = printing
                 , processInfo =
                     { defaultProcessInfo
                         | countryHeat = Just country.heatProcess.name
@@ -300,6 +306,15 @@ updateFromInputs { processes } inputs ({ label, country } as step) =
                                         >> .name
                                     )
                                 |> Result.toMaybe
+                        , printing =
+                            printing
+                                |> Maybe.andThen
+                                    (\printingType ->
+                                        processes
+                                            |> Process.loadWellKnown
+                                            |> Result.map (Process.getPrintingProcess printingType >> .name)
+                                            |> Result.toMaybe
+                                    )
                     }
             }
 
