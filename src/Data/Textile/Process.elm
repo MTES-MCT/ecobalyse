@@ -7,12 +7,14 @@ module Data.Textile.Process exposing
     , encodeUuid
     , getDyeingProcess
     , getImpact
+    , getPrintingProcess
     , loadWellKnown
     , uuidToString
     )
 
 import Data.Impact as Impact exposing (Impacts)
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
+import Data.Textile.Printing as Printing exposing (Printing)
 import Data.Unit as Unit
 import Energy exposing (Energy)
 import Json.Decode as Decode exposing (Decoder)
@@ -85,6 +87,16 @@ getDyeingProcess medium { dyeingArticle, dyeingFabric, dyeingYarn } =
 
         DyeingMedium.Yarn ->
             dyeingYarn
+
+
+getPrintingProcess : Printing -> WellKnown -> Process
+getPrintingProcess medium { printingPigment, printingSubstantive } =
+    case medium of
+        Printing.Pigment ->
+            printingPigment
+
+        Printing.Substantive ->
+            printingSubstantive
 
 
 getImpact : Impact.Trigram -> Process -> Unit.Impact
