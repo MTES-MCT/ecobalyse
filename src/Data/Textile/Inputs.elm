@@ -229,7 +229,7 @@ toString inputs =
         Product.Knitted _ ->
             [ "tricotage", inputs.countryFabric.name ]
 
-        Product.Weaved _ _ _ ->
+        Product.Weaved _ _ ->
             [ "tissage", inputs.countryFabric.name ++ weavingOptionsToString inputs.picking inputs.surfaceMass ]
     , [ case inputs.dyeingMedium of
             Just dyeingMedium ->

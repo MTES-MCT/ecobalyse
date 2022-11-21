@@ -51,7 +51,7 @@ table db { detailed } =
                     Product.Knitted _ ->
                         text "Tricotage"
 
-                    Product.Weaved _ _ _ ->
+                    Product.Weaved _ _ ->
                         text "Tissage"
       }
     , { label = "Pick-per-meter"
@@ -62,20 +62,15 @@ table db { detailed } =
                         Product.Knitted _ ->
                             text "N/A"
 
-                        Product.Weaved _ picking _ ->
+                        Product.Weaved _ picking ->
                             Format.picking picking
                     ]
       }
     , { label = "Grammage"
       , toCell =
-            \product ->
+            \{ surfaceMass } ->
                 div [ classList [ ( "text-end", not detailed ) ] ]
-                    [ case product.fabric of
-                        Product.Knitted _ ->
-                            text "N/A"
-
-                        Product.Weaved _ _ surfaceMass ->
-                            Format.surfaceMass surfaceMass
+                    [ Format.surfaceMass surfaceMass
                     ]
       }
     , { label = "Procédé"
