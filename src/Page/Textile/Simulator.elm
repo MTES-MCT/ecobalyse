@@ -19,6 +19,7 @@ import Data.Textile.DyeingMedium exposing (DyeingMedium)
 import Data.Textile.Inputs as Inputs
 import Data.Textile.LifeCycle as LifeCycle
 import Data.Textile.Material as Material
+import Data.Textile.Printing exposing (Printing)
 import Data.Textile.Product as Product exposing (Product)
 import Data.Textile.Simulator as Simulator exposing (Simulator)
 import Data.Textile.Step.Label exposing (Label)
@@ -91,6 +92,7 @@ type Msg
     | UpdateMaterial Int Material.Id
     | UpdateMaterialShare Int Unit.Ratio
     | UpdatePicking (Maybe Unit.PickPerMeter)
+    | UpdatePrinting (Maybe Printing)
     | UpdateProduct Product.Id
     | UpdateQuality (Maybe Unit.Quality)
     | UpdateReparability (Maybe Unit.Reparability)
@@ -318,6 +320,10 @@ update ({ db, query, navKey } as session) msg model =
             ( model, session, Cmd.none )
                 |> updateQuery { query | picking = picking }
 
+        UpdatePrinting printing ->
+            ( model, session, Cmd.none )
+                |> updateQuery { query | printing = printing }
+
         UpdateProduct productId ->
             case Product.findById productId db.products of
                 Ok product ->
@@ -412,6 +418,7 @@ lifeCycleStepsView db { viewMode, funit, impact } simulator =
                     , updateCountry = UpdateStepCountry
                     , updateAirTransportRatio = UpdateAirTransportRatio
                     , updateDyeingMedium = UpdateDyeingMedium
+                    , updatePrinting = UpdatePrinting
                     , updateQuality = UpdateQuality
                     , updateReparability = UpdateReparability
                     , updateMakingWaste = UpdateMakingWaste
