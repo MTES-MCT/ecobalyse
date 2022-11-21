@@ -179,6 +179,13 @@ Cela s’explique en partie par le manque de profondeur de la base de données u
 
 Ces paramétrages seront prochainement disponibles sur le calculateur.
 
+## Impression : masse surfacique par défaut
+
+Les sources de la donnée des masses surfaciques par défaut pour chaque catégorie de produit sont les suivantes :&#x20;
+
+* Base Impacts : cape, châle, chemisier, écharpe, jean, jupe, manteau, pantalon, robe, veste
+* Extrapolation Base Impacts par Ecobalyse : débardeur, gilet, pull
+
 ## Limites
 
 * Les indicateurs "Consommations d'eau" et "Ecotoxicité aquatique" ne sont pas modélisés
