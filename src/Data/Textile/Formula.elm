@@ -163,20 +163,25 @@ dyeingImpacts impacts dyeingProcess heatProcess elecProcess baseMass =
 
 printingImpacts :
     Impacts
+    -> Unit.SurfaceMass
     -> Process -- Inbound: Printing processes
     -> Process -- Outbound: country heat impact
     -> Process -- Outbound: country electricity impact
     -> Mass
     -> { heat : Energy, kwh : Energy, impacts : Impacts }
-printingImpacts impacts printingProcess heatProcess elecProcess baseMass =
+printingImpacts impacts surfaceMass printingProcess heatProcess elecProcess baseMass =
     let
+        -- Surface (m2) = Poids (g) / Grammage (g/m2)
+        surface =
+            Mass.inGrams baseMass / Unit.surfaceMassToFloat surfaceMass
+
         heatMJ =
-            Mass.inKilograms baseMass
+            surface
                 * Energy.inMegajoules printingProcess.heat
                 |> Energy.megajoules
 
         kwh =
-            Mass.inKilograms baseMass
+            surface
                 * Energy.inMegajoules printingProcess.elec
                 |> Energy.megajoules
     in

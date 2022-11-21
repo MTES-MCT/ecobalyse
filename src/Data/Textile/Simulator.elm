@@ -265,7 +265,7 @@ computeDyeingImpacts db ({ inputs } as simulator) =
 
 
 computePrintingImpacts : Db -> Simulator -> Result String Simulator
-computePrintingImpacts db simulator =
+computePrintingImpacts db ({ inputs } as simulator) =
     db.processes
         |> Process.loadWellKnown
         |> Result.map
@@ -282,6 +282,7 @@ computePrintingImpacts db simulator =
                                         { heat, kwh, impacts } =
                                             step.outputMass
                                                 |> Formula.printingImpacts step.impacts
+                                                    (Maybe.withDefault inputs.product.surfaceMass inputs.surfaceMass)
                                                     printingProcess
                                                     country.heatProcess
                                                     country.electricityProcess
