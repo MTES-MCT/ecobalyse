@@ -47,7 +47,7 @@ Prochainement disponibles : \
 
 <summary>Finition</summary>
 
-* Type(s) d'apprêt(s) (anti-acarien, déperlant, etc.)
+* 1 procédé par défaut (application d'un apprêt chimique)
 * Pays
 * Quantité d'énergie consommée (électricité et chaleur)
 
@@ -103,15 +103,9 @@ _En l’absence de données suffisamment précises dans la Base Impacts, l’ét
 
 <details>
 
-<summary>Finition (7 procédés)</summary>
+<summary>Finition (1 procédé)</summary>
 
-* apprêt chimique anti-acarien, procédé représentatif
-* apprêt chimique anti-bactérien, procédé représentatif
 * apprêt chimique anti-tache, procédé représentatif
-* apprêt chimique déperlant, procédé représentatif
-* apprêt chimique retardateur de flamme, procédé représentatif&#x20;
-* apprêt mécanique grattage, procédé représentatif
-* apprêt mécanique rasage, procédé représentatif
 
 </details>
 
@@ -135,35 +129,24 @@ Nous ne permettons donc pas de modifier la quantité d'énergie.
 Les quantités d'énergie par défaut proviennent de la Base Impacts.&#x20;
 {% endhint %}
 
-#### Finition (apprêts chimiques et mécaniques)
+#### Finition
 
-Un procédé d'apprêt chimique anti-tache est appliqué par défaut à chaque produit modélisé. &#x20;
+Un procédé d'apprêt chimique anti-tache est appliqué par défaut à chaque produit modélisé.&#x20;
 
-Dans la majorité des cas, tous les agents d'apprêt chimiques nécessaires pour donner à la matière textile les propriétés souhaitées sont appliqués en un seul bain plutôt qu'au cours de phases différentes.&#x20;
+L'utilisateur n'a, à ce stade, pas la possibilité de préciser le(s) apprêt(s) utilisés pour son produit.&#x20;
 
 <details>
 
 <summary>Plus d'info</summary>
 
-Comme expliqué précédemment, si plusieurs apprêts chimiques sont utilisés, la consommation d’énergie pour actionner le procédé ne varie pas. De plus et pour rappel, l’écotoxicité aquatique et la consommation d’eau ne sont pas modélisables actuellement dans le calculateur. Ainsi, appliquer un ou plusieurs procédés chimiques n'a que peu d'impact sur les résultats.
+La Base Impacts propose 4 apprêts chimiques (anti-bactérien, déperlant, grattage, etc.) et 2 apprêts mécaniques (grattage, rasage) supplémentaires. Cependant, il n'est à ce stade pas pertinent de permettre de modéliser tout ou partie de ces procédés car :&#x20;
 
-De plus, deux procédés mécaniques sont proposés dans le calculateur. Ces procédés sont différents de ceux mécaniques et consomment une très faible quantité d'énergie.
+* la Base Impacts ne permet pas de modéliser l'indicateur _Ecotoxicité aquatique_ (les apprêts chimiques contribuent fortement à cet indicateur),
+* les apprêts chimiques sont généralement appliqués lors d'un même bain (donc la consommation d'énergie nécessaire pour actionner le procédé reste stable quelque soit le nombre d'apprêts utilisés),
+* les deux procédés d'apprêts mécaniques sont spécifiques à certaines fibres et consomment très peu d'énergie,
+* la liste des apprêts disponibles n'est pas exhaustive par rapport aux pratiques de l'industrie.
 
-Par défaut, la mise en place d'un apprêt chimique anti-tache est proposé dans Ecobalyse. L'utilisateur a la possibilité de sélectionner un ou plusieurs apprêt(s) chimique(s) spécifique(s); dès lors la consommation d'énergie retenue sera celle du procédé le plus énergivore.&#x20;
-
-L'ajout d'apprêt(s) mécanique(s) est aussi possible; ces procédés consomment une quantité d'énergie très faible par rapport aux apprêts chimiques. &#x20;
-
-**Focus sur la consommation d'énergie des procédés**
-
-_"Procédé : chaleur (MJ) & électricité (kWh)"_
-
-Apprêt chimique max : 20,95 MJ & 1,17 kWh
-
-Apprêt chimique min : 10,74 MJ & 0,45 kWh
-
-Apprêt mécanique max : 0 MJ & 0,03 kWh
-
-Apprêt mécanique min : 0 MJ & 0,03 kW
+Des évolutions sont prévues dans les prochains mois pour permettre de détailler cette étape.&#x20;
 
 </details>
 
