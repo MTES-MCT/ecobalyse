@@ -52,6 +52,8 @@ type alias WellKnown =
     , dyeingYarn : Process
     , dyeingFabric : Process
     , dyeingArticle : Process
+    , printingPigment : Process
+    , printingSubstantive : Process
     , passengerCar : Process
     , endOfLife : Process
     , fading : Process
@@ -93,21 +95,39 @@ getImpact trigram =
 loadWellKnown : List Process -> Result String WellKnown
 loadWellKnown processes =
     let
-        fromAlias alias =
-            RE.andMap (findByAlias alias processes)
+        map =
+            { airTransport = "air-transport"
+            , seaTransport = "sea-transport"
+            , roadTransportPreMaking = "road-transport-pre-making"
+            , roadTransportPostMaking = "road-transport-post-making"
+            , distribution = "distribution"
+            , dyeingYarn = "dyeing-yarn"
+            , dyeingFabric = "dyeing-fabric"
+            , dyeingArticle = "dyeing-article"
+            , printingPigment = "printing-pigment"
+            , printingSubstantive = "printing-substantive"
+            , passengerCar = "passenger-car"
+            , endOfLife = "end-of-life"
+            , fading = "fading"
+            }
+
+        load get =
+            RE.andMap (findByAlias (get map) processes)
     in
     Ok WellKnown
-        |> fromAlias "air-transport"
-        |> fromAlias "sea-transport"
-        |> fromAlias "road-transport-pre-making"
-        |> fromAlias "road-transport-post-making"
-        |> fromAlias "distribution"
-        |> fromAlias "dyeing-yarn"
-        |> fromAlias "dyeing-fabric"
-        |> fromAlias "dyeing-article"
-        |> fromAlias "passenger-car"
-        |> fromAlias "end-of-life"
-        |> fromAlias "fading"
+        |> load .airTransport
+        |> load .seaTransport
+        |> load .roadTransportPreMaking
+        |> load .roadTransportPostMaking
+        |> load .distribution
+        |> load .dyeingYarn
+        |> load .dyeingFabric
+        |> load .dyeingArticle
+        |> load .printingPigment
+        |> load .printingSubstantive
+        |> load .passengerCar
+        |> load .endOfLife
+        |> load .fading
 
 
 uuidToString : Uuid -> String
