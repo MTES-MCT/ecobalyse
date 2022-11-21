@@ -124,7 +124,7 @@ compute db query =
         -- Compute Weaving & Knitting step impacts
         |> nextIf Label.Fabric computeFabricImpacts
         -- Compute Dyeing step impacts
-        |> nextWithDbIf Label.Dyeing computeDyeingImpacts
+        |> nextWithDbIf Label.Ennoblement computeDyeingImpacts
         -- Compute Making step impacts
         |> nextWithDbIf Label.Making computeMakingImpacts
         -- Compute product Use impacts
@@ -236,7 +236,7 @@ computeDyeingImpacts { processes } ({ inputs } as simulator) =
         |> Result.map
             (\wellKnown ->
                 simulator
-                    |> updateLifeCycleStep Label.Dyeing
+                    |> updateLifeCycleStep Label.Ennoblement
                         (\({ country, dyeingMedium } as step) ->
                             let
                                 productDefaultMedium =
@@ -381,7 +381,7 @@ computeMakingStepWaste ({ inputs } as simulator) =
     simulator
         |> updateLifeCycleStep Label.Making (Step.updateWaste waste mass)
         |> updateLifeCycleSteps
-            [ Label.Material, Label.Spinning, Label.Fabric, Label.Dyeing ]
+            [ Label.Material, Label.Spinning, Label.Fabric, Label.Ennoblement ]
             (Step.initMass mass)
 
 

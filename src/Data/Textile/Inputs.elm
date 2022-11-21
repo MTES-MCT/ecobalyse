@@ -244,6 +244,7 @@ toString inputs =
                 "teinture"
       , inputs.countryDyeing.name
       ]
+    , [ "impression", inputs.printing |> Maybe.map Printing.toString |> Maybe.withDefault "Aucune" ]
     , [ "confection", inputs.countryMaking.name ++ makingOptionsToString inputs ]
     , [ "distribution", inputs.countryDistribution.name ]
     , [ "utilisation", inputs.countryUse.name ++ useOptionsToString inputs.quality inputs.reparability ]
@@ -343,7 +344,7 @@ updateStepCountry label code query =
         Label.Fabric ->
             { query | countryFabric = code }
 
-        Label.Dyeing ->
+        Label.Ennoblement ->
             { query | countryDyeing = code }
 
         Label.Making ->

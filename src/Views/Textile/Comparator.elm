@@ -45,7 +45,7 @@ type alias Entry =
     , material : Float
     , spinning : Float
     , weavingKnitting : Float
-    , dyeing : Float
+    , ennoblement : Float
     , making : Float
     , use : Float
     , endOfLife : Float
@@ -81,7 +81,7 @@ createEntry db funit { trigram } { highlight, label } query =
                 , material = stepScore Label.Material
                 , spinning = stepScore Label.Spinning
                 , weavingKnitting = stepScore Label.Fabric
-                , dyeing = stepScore Label.Dyeing
+                , ennoblement = stepScore Label.Ennoblement
                 , making = stepScore Label.Making
                 , use = stepScore Label.Use
                 , endOfLife = stepScore Label.EndOfLife

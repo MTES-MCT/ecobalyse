@@ -131,7 +131,7 @@ init db inputs =
             [ ( Label.Material, False )
             , ( Label.Spinning, True )
             , ( Label.Fabric, True )
-            , ( Label.Dyeing, True )
+            , ( Label.Ennoblement, True )
             , ( Label.Making, True )
             , ( Label.Distribution, False )
             , ( Label.Use, False )

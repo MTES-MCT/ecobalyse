@@ -85,15 +85,15 @@ changelog =
             séparée par des virgules. Chaque étape est identifiée par un code\u{00A0}:
 - `material`: Matière
 - `spinning`: Filature
-- `fabric`: Tissage ou Tricotage
-- `making`: Teinture/Ennoblissement
-- `dyeing`: Confection
+- `fabric`: Tissage/Tricotage
+- `ennoblement`: Ennoblissement
+- `making`: Confection
 - `distribution`: Distribution
 - `use`: Utilisation
 - `eol`: Fin de vie
 
-            Par exemple, pour désactiver les étapes de filature et de teinture, on peut passer
-            `disabledSteps=spinning,dyeing`."""
+            Par exemple, pour désactiver les étapes de filature et d'ennoblissement, on peut passer
+            `disabledSteps=spinning,ennoblement`."""
       }
     , { date = "2 juin 2022"
       , level = "major"
