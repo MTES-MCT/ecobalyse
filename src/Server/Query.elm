@@ -14,6 +14,7 @@ import Data.Textile.Db as TextileDb
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
 import Data.Textile.Inputs as Inputs
 import Data.Textile.Material as Material exposing (Material)
+import Data.Textile.Printing as Printing exposing (Printing)
 import Data.Textile.Product as Product exposing (Product)
 import Data.Textile.Step.Label as Label exposing (Label)
 import Data.Unit as Unit
@@ -199,6 +200,7 @@ parseTextileQuery textileDb =
         |> apply (maybeDisabledStepsParser "disabledSteps")
         |> apply (maybeBoolParser "disabledFading")
         |> apply (maybeDyeingMedium "dyeingMedium")
+        |> apply (maybePrinting "printing")
 
 
 toErrors : ParseResult a -> Result Errors a
@@ -390,6 +392,23 @@ maybeDyeingMedium key =
                     case DyeingMedium.fromString str of
                         Ok dyeingMedium ->
                             Ok (Just dyeingMedium)
+
+                        Err err ->
+                            Err ( key, err )
+                )
+                >> Maybe.withDefault (Ok Nothing)
+            )
+
+
+maybePrinting : String -> Parser (ParseResult (Maybe Printing))
+maybePrinting key =
+    Query.string key
+        |> Query.map
+            (Maybe.map
+                (\str ->
+                    case Printing.fromString str of
+                        Ok printing ->
+                            Ok (Just printing)
 
                         Err err ->
                             Err ( key, err )

@@ -33,6 +33,7 @@ import Data.Country as Country exposing (Country)
 import Data.Textile.Db exposing (Db)
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
 import Data.Textile.Material as Material exposing (Material)
+import Data.Textile.Printing as Printing exposing (Printing)
 import Data.Textile.Product as Product exposing (Product)
 import Data.Textile.Step.Label as Label exposing (Label)
 import Data.Unit as Unit
@@ -73,6 +74,7 @@ type alias Inputs =
     , disabledSteps : List Label
     , disabledFading : Maybe Bool
     , dyeingMedium : Maybe DyeingMedium
+    , printing : Maybe Printing
     }
 
 
@@ -99,6 +101,7 @@ type alias Query =
     , disabledSteps : List Label
     , disabledFading : Maybe Bool
     , dyeingMedium : Maybe DyeingMedium
+    , printing : Maybe Printing
     }
 
 
@@ -187,6 +190,7 @@ fromQuery db query =
         |> RE.andMap (Ok query.disabledSteps)
         |> RE.andMap (Ok query.disabledFading)
         |> RE.andMap (Ok query.dyeingMedium)
+        |> RE.andMap (Ok query.printing)
 
 
 toQuery : Inputs -> Query
@@ -216,6 +220,7 @@ toQuery inputs =
     , disabledSteps = inputs.disabledSteps
     , disabledFading = inputs.disabledFading
     , dyeingMedium = inputs.dyeingMedium
+    , printing = inputs.printing
     }
 
 
@@ -452,6 +457,7 @@ updateProduct product query =
             , surfaceMass = Nothing
             , disabledFading = Nothing
             , dyeingMedium = Nothing
+            , printing = Nothing
         }
 
     else
@@ -482,6 +488,7 @@ tShirtCotonFrance =
     , disabledSteps = []
     , disabledFading = Nothing
     , dyeingMedium = Nothing
+    , printing = Nothing
     }
 
 
@@ -534,6 +541,7 @@ jupeCircuitAsie =
     , disabledSteps = []
     , disabledFading = Nothing
     , dyeingMedium = Nothing
+    , printing = Nothing
     }
 
 
@@ -556,6 +564,7 @@ manteauCircuitEurope =
     , disabledSteps = []
     , disabledFading = Nothing
     , dyeingMedium = Nothing
+    , printing = Nothing
     }
 
 
@@ -578,6 +587,7 @@ pantalonCircuitEurope =
     , disabledSteps = []
     , disabledFading = Nothing
     , dyeingMedium = Nothing
+    , printing = Nothing
     }
 
 
@@ -610,6 +620,7 @@ encode inputs =
         , ( "disabledSteps", Encode.list Label.encode inputs.disabledSteps )
         , ( "disabledFading", inputs.disabledFading |> Maybe.map Encode.bool |> Maybe.withDefault Encode.null )
         , ( "dyeingMedium", inputs.dyeingMedium |> Maybe.map DyeingMedium.encode |> Maybe.withDefault Encode.null )
+        , ( "printing", inputs.printing |> Maybe.map Printing.encode |> Maybe.withDefault Encode.null )
         ]
 
 
@@ -640,6 +651,7 @@ decodeQuery =
         |> Pipe.optional "disabledSteps" (Decode.list Label.decodeFromCode) []
         |> Pipe.optional "disabledFading" (Decode.maybe Decode.bool) Nothing
         |> Pipe.optional "dyeingMedium" (Decode.maybe DyeingMedium.decode) Nothing
+        |> Pipe.optional "printing" (Decode.maybe Printing.decode) Nothing
 
 
 decodeMaterialQuery : Decoder MaterialQuery
@@ -668,6 +680,7 @@ encodeQuery query =
         , ( "disabledSteps", Encode.list Label.encode query.disabledSteps )
         , ( "disabledFading", query.disabledFading |> Maybe.map Encode.bool |> Maybe.withDefault Encode.null )
         , ( "dyeingMedium", query.dyeingMedium |> Maybe.map DyeingMedium.encode |> Maybe.withDefault Encode.null )
+        , ( "printing", query.printing |> Maybe.map Printing.encode |> Maybe.withDefault Encode.null )
         ]
 
 

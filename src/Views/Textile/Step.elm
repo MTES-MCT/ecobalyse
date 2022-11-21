@@ -10,6 +10,7 @@ import Data.Impact as Impact
 import Data.Textile.Db exposing (Db)
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
 import Data.Textile.Inputs as Inputs exposing (Inputs)
+import Data.Textile.Printing as Printing exposing (Printing)
 import Data.Textile.Product as Product
 import Data.Textile.Step as Step exposing (Step)
 import Data.Textile.Step.Label as Label exposing (Label)
@@ -47,6 +48,7 @@ type alias Config msg =
     , updateReparability : Maybe Unit.Reparability -> msg
     , updateAirTransportRatio : Maybe Unit.Ratio -> msg
     , updateDyeingMedium : DyeingMedium -> msg
+    , updatePrinting : Maybe Printing -> msg
     , updateMakingWaste : Maybe Unit.Ratio -> msg
     , updateSurfaceMass : Maybe Unit.SurfaceMass -> msg
     , updatePicking : Maybe Unit.PickPerMeter -> msg
@@ -146,7 +148,7 @@ airTransportRatioField { current, updateAirTransportRatio } =
 dyeingMediumField : Config msg -> Html msg
 dyeingMediumField { inputs, updateDyeingMedium } =
     div [ class "d-flex align-items-center gap-2 fs-7" ]
-        [ label [ class "text-nowrap", for "dyeing-medium" ]
+        [ label [ class "text-nowrap w-50", for "dyeing-medium" ]
             [ text "Teinture sur" ]
         , [ DyeingMedium.Yarn, DyeingMedium.Fabric, DyeingMedium.Article ]
             |> List.map
@@ -165,6 +167,29 @@ dyeingMediumField { inputs, updateDyeingMedium } =
                         >> Result.withDefault inputs.product.dyeing.defaultMedium
                         >> updateDyeingMedium
                     )
+                ]
+        ]
+
+
+printingField : Config msg -> Html msg
+printingField { inputs, updatePrinting } =
+    div [ class "d-flex align-items-center gap-2 fs-7" ]
+        [ label [ class "text-nowrap w-50", for "ennoblement-printing" ]
+            [ text "Impression" ]
+        , [ Printing.Pigment, Printing.Substantive ]
+            |> List.map
+                (\printing ->
+                    option
+                        [ value <| Printing.toString printing
+                        , selected <| inputs.printing == Just printing
+                        ]
+                        [ text <| Printing.toLabel printing ]
+                )
+            |> (::) (option [] [ text "Aucune" ])
+            |> select
+                [ id "ennoblement-printing"
+                , class "form-select form-select-sm"
+                , onInput (Printing.fromString >> Result.toMaybe >> updatePrinting)
                 ]
         ]
 
@@ -409,7 +434,7 @@ simpleView ({ funit, inputs, daysOfWear, impact, current } as config) =
 
                     Label.Dyeing ->
                         div [ class "mt-2" ]
-                            [ dyeingMediumField config
+                            [ ennoblementFields config
                             ]
 
                     Label.Making ->
@@ -490,6 +515,14 @@ daysOfWearInfo inputs =
         ]
 
 
+ennoblementFields : Config msg -> Html msg
+ennoblementFields config =
+    div [ class "d-flex flex-column gap-1" ]
+        [ dyeingMediumField config
+        , printingField config
+        ]
+
+
 detailedView : Config msg -> Html msg
 detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
     let
@@ -546,7 +579,7 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                                 ]
 
                     Label.Dyeing ->
-                        [ dyeingMediumField config
+                        [ ennoblementFields config
                         ]
 
                     Label.Making ->
