@@ -401,10 +401,10 @@ simpleView ({ funit, inputs, daysOfWear, impact, current } as config) =
                             Product.Knitted _ ->
                                 text ""
 
-                            Product.Weaved _ defaultPicking defaultSurfaceMass ->
+                            Product.Weaved _ defaultPicking ->
                                 div [ class "mt-2 fs-7 text-muted" ]
                                     [ pickingField config defaultPicking
-                                    , surfaceMassField config defaultSurfaceMass
+                                    , surfaceMassField config inputs.product.surfaceMass
                                     ]
 
                     Label.Dyeing ->
@@ -540,9 +540,9 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                             Product.Knitted _ ->
                                 []
 
-                            Product.Weaved _ defaultPicking defaultSurfaceMass ->
+                            Product.Weaved _ defaultPicking ->
                                 [ pickingField config defaultPicking
-                                , surfaceMassField config defaultSurfaceMass
+                                , surfaceMassField config inputs.product.surfaceMass
                                 ]
 
                     Label.Dyeing ->

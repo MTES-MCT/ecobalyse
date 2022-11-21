@@ -31,7 +31,7 @@ type alias DyeingOptions =
 
 type FabricOptions
     = Knitted Process
-    | Weaved Process Unit.PickPerMeter Unit.SurfaceMass
+    | Weaved Process Unit.PickPerMeter
 
 
 type alias MakingOptions =
@@ -62,6 +62,7 @@ type alias Product =
     { id : Id
     , name : String
     , mass : Mass
+    , surfaceMass : Unit.SurfaceMass
     , fabric : FabricOptions
     , dyeing : DyeingOptions
     , making : MakingOptions
@@ -80,7 +81,7 @@ getFabricProcess { fabric } =
         Knitted process ->
             process
 
-        Weaved process _ _ ->
+        Weaved process _ ->
             process
 
 
@@ -102,7 +103,7 @@ isKnitted { fabric } =
         Knitted _ ->
             True
 
-        Weaved _ _ _ ->
+        Weaved _ _ ->
             False
 
 
@@ -120,7 +121,6 @@ decodeFabricOptions processes =
                         Decode.succeed Weaved
                             |> Pipe.required "processUuid" (Process.decodeFromUuid processes)
                             |> Pipe.required "picking" Unit.decodePickPerMeter
-                            |> Pipe.required "surfaceMass" Unit.decodeSurfaceMass
 
                     _ ->
                         Decode.fail ("Type de production d'étoffe inconnu\u{00A0}: " ++ str)
@@ -166,6 +166,7 @@ decode processes =
         |> Pipe.required "id" (Decode.map Id Decode.string)
         |> Pipe.required "name" Decode.string
         |> Pipe.required "mass" (Decode.map Mass.kilograms Decode.float)
+        |> Pipe.required "surfaceMass" Unit.decodeSurfaceMass
         |> Pipe.required "fabric" (decodeFabricOptions processes)
         |> Pipe.required "dyeing" decodeDyeingOptions
         |> Pipe.required "making" (decodeMakingOptions processes)
@@ -187,12 +188,11 @@ encodeFabricOptions v =
                 , ( "processUuid", Process.encodeUuid process.uuid )
                 ]
 
-        Weaved process picking surfaceMass ->
+        Weaved process picking ->
             Encode.object
                 [ ( "type", Encode.string "weaving" )
                 , ( "processUuid", Process.encodeUuid process.uuid )
                 , ( "picking", Unit.encodePickPerMeter picking )
-                , ( "surfaceMass", Unit.encodeSurfaceMass surfaceMass )
                 ]
 
 

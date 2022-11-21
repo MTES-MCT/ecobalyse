@@ -347,22 +347,22 @@ computeFabricImpacts ({ inputs } as simulator) =
             (\({ country } as step) ->
                 let
                     { kwh, impacts } =
-                        case inputs.product.fabric of
-                            Product.Knitted process ->
-                                step.outputMass
-                                    |> Formula.knittingImpacts step.impacts
-                                        { elec = process.elec
-                                        , countryElecProcess = country.electricityProcess
-                                        }
+                        step.outputMass
+                            |> (case inputs.product.fabric of
+                                    Product.Knitted process ->
+                                        Formula.knittingImpacts step.impacts
+                                            { elec = process.elec
+                                            , countryElecProcess = country.electricityProcess
+                                            }
 
-                            Product.Weaved process defaultPicking defaultSurfaceMass ->
-                                step.outputMass
-                                    |> Formula.weavingImpacts step.impacts
-                                        { pickingElec = process.elec_pppm
-                                        , countryElecProcess = country.electricityProcess
-                                        , surfaceMass = Maybe.withDefault defaultSurfaceMass inputs.surfaceMass
-                                        , picking = Maybe.withDefault defaultPicking inputs.picking
-                                        }
+                                    Product.Weaved process defaultPicking ->
+                                        Formula.weavingImpacts step.impacts
+                                            { pickingElec = process.elec_pppm
+                                            , countryElecProcess = country.electricityProcess
+                                            , surfaceMass = Maybe.withDefault inputs.product.surfaceMass inputs.surfaceMass
+                                            , picking = Maybe.withDefault defaultPicking inputs.picking
+                                            }
+                               )
                 in
                 { step | impacts = impacts, kwh = kwh }
             )
