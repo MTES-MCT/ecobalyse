@@ -47,15 +47,15 @@ suite =
                     |> expectImpact textileDb cch 5.070273292372325
                     |> asTest "should compute a simulation cch impact"
                 , describe "disabled steps"
-                    [ { tShirtCotonFrance | disabledSteps = [ Label.Dyeing ] }
+                    [ { tShirtCotonFrance | disabledSteps = [ Label.Ennoblement ] }
                         |> Simulator.compute textileDb
-                        |> Result.map (.lifeCycle >> LifeCycle.getStepProp Label.Dyeing .enabled True)
+                        |> Result.map (.lifeCycle >> LifeCycle.getStepProp Label.Ennoblement .enabled True)
                         |> Expect.equal (Ok False)
                         |> asTest "should be handled from passed query"
                     , asTest "should handle disabled steps"
                         (case
                             ( getImpact textileDb cch tShirtCotonFrance
-                            , getImpact textileDb cch { tShirtCotonFrance | disabledSteps = [ Label.Dyeing ] }
+                            , getImpact textileDb cch { tShirtCotonFrance | disabledSteps = [ Label.Ennoblement ] }
                             )
                          of
                             ( Ok full, Ok partial ) ->
@@ -67,11 +67,11 @@ suite =
                     , asTest "should compute disabled steps accurately"
                         (case
                             ( Simulator.compute textileDb tShirtCotonFrance
-                            , getImpact textileDb cch { tShirtCotonFrance | disabledSteps = [ Label.Dyeing ] }
+                            , getImpact textileDb cch { tShirtCotonFrance | disabledSteps = [ Label.Ennoblement ] }
                             )
                          of
                             ( Ok full, Ok partialTotalImpacts ) ->
-                                case LifeCycle.getStep Label.Dyeing full.lifeCycle of
+                                case LifeCycle.getStep Label.Ennoblement full.lifeCycle of
                                     Just dyeingStep ->
                                         let
                                             asCchFloat =

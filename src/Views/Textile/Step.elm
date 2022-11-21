@@ -67,7 +67,7 @@ stepIcon label =
         Label.Fabric ->
             Icon.fabric
 
-        Label.Dyeing ->
+        Label.Ennoblement ->
             Icon.dyeing
 
         Label.Making ->
@@ -432,7 +432,7 @@ simpleView ({ funit, inputs, daysOfWear, impact, current } as config) =
                                     , surfaceMassField config inputs.product.surfaceMass
                                     ]
 
-                    Label.Dyeing ->
+                    Label.Ennoblement ->
                         div [ class "mt-2" ]
                             [ ennoblementFields config
                             ]
@@ -578,7 +578,7 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                                 , surfaceMassField config inputs.product.surfaceMass
                                 ]
 
-                    Label.Dyeing ->
+                    Label.Ennoblement ->
                         [ ennoblementFields config
                         ]
 

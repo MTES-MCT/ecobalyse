@@ -18,7 +18,7 @@ type Label
     = Material -- Matière
     | Spinning -- Filature
     | Fabric -- Tissage ou Tricotage
-    | Dyeing -- Teinture/Ennoblissement
+    | Ennoblement -- Ennoblissement
     | Making -- Confection
     | Distribution -- Distribution
     | Use -- Utilisation
@@ -30,7 +30,7 @@ all =
     [ Material
     , Spinning
     , Fabric
-    , Dyeing
+    , Ennoblement
     , Making
     , Distribution
     , Use
@@ -53,8 +53,8 @@ toString label =
         Making ->
             "Confection"
 
-        Dyeing ->
-            "Teinture"
+        Ennoblement ->
+            "Ennoblissement"
 
         Distribution ->
             "Distribution"
@@ -81,8 +81,8 @@ fromCodeString code =
         "making" ->
             Ok Making
 
-        "dyeing" ->
-            Ok Dyeing
+        "ennoblement" ->
+            Ok Ennoblement
 
         "distribution" ->
             Ok Distribution
@@ -112,7 +112,7 @@ toCodeString label =
         Making ->
             "making"
 
-        Dyeing ->
+        Ennoblement ->
             "dyeing"
 
         Distribution ->
@@ -137,8 +137,8 @@ toGitbookPath label =
         Fabric ->
             Gitbook.Fabric
 
-        Dyeing ->
-            Gitbook.Dyeing
+        Ennoblement ->
+            Gitbook.Ennoblement
 
         Making ->
             Gitbook.Making
