@@ -226,10 +226,24 @@ La teinture en **continu** consiste à appliquer le bain de teinture soit par im
 
 Les procédés de teinture en discontinu conduisent en général à des consommations d'eau et d'énergie plus élevées que les procédés continus. Cependant, bien que les procédés de teinture à la continu consomment moins d'eau, ces derniers nécessitent une concentration plus élevée de colorant dans le bain d’imprégnation. (entre 10 et 100g/l vs entre 0,1 et 1g/l pour les procédés en discontinu). Ainsi, le rejet de cet effluent concentré peut entraîner une charge de pollution plus élevée qu’en teinture discontinue.
 
-**L’impression** consiste systématiquement à préparer la pâte d’impression, appliquer la pâte au support, fixer les colorants sur l’étoffe préalablement séchée puis laver et sécher l’étoffe. Deux techniques d'impression existent : l'impression avec des pigments (qui n'ont aucune affinité pour la fibre) : technique la plus utilisée aujourd’hui dans l’industrie l'impression avec des colorants (réactifs, de cuve, dispersés, etc.).
+**L’impression** consiste systématiquement à préparer la pâte d’impression, appliquer la pâte au support en utilisant différentes techniques, fixer les colorants sur l’étoffe puis traiter/laver/sécher l’étoffe.&#x20;
+
+Deux techniques d'impression existent : \
+\- l'impression avec des pigments qui n'ont aucune affinité pour la fibre (technique la plus utilisée aujourd’hui dans l’industrie),\
+\- l'impression avec des colorants (réactifs, de cuve, dispersés, etc.).
+
+Les machines/techniques d'impression les plus utilisées sont : \
+\- impression au cadre plat\
+\- impression au cadre rotatif\
+\- impression au rouleau\
+\- impression par jet
 
 </details>
 
 ### Finition
 
-Cette sous-étape regroupe les traitements qui servent à donner aux textiles les propriétés d'usage final souhaitées (les “apprêts”). Celles-ci peuvent inclure des propriétés relatives à l'effet visuel, au toucher et à des caractéristiques spéciales telles que l'imperméabilisation et d'ininflammabilité. Les apprêts peuvent impliquer des traitements mécaniques/physiques et chimiques. Dans la majorité des cas, les apprêts chimiques sont appliquées sous la forme de solutions aqueuses au moyen de la technique de foulardage.
+Cette sous-étape regroupe les traitements qui servent à donner aux textiles les propriétés d'usage final souhaitées (les “apprêts”). Celles-ci peuvent inclure des propriétés relatives à l'effet visuel, au toucher et à des caractéristiques spéciales telles que l'imperméabilisation et d'ininflammabilité.&#x20;
+
+Les apprêts peuvent impliquer des traitements mécaniques/physiques et chimiques. Dans la majorité des cas, les apprêts chimiques sont appliquées sous la forme de solutions aqueuses au moyen de la technique de foulardage.&#x20;
+
+Certais apprêts sont spécifiques à certaines fibres (ex : les apprêts _easy care_ pour le coton) tandis que d'autres ont une application plus générale (ex : les adoucissants).
