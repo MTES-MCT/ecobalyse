@@ -95,6 +95,7 @@ paths:
       - $ref: '#/components/parameters/disabledFadingParam'
       - $ref: '#/components/parameters/disabledStepsParam'
       - $ref: '#/components/parameters/dyeingMediumParam'
+      - $ref: '#/components/parameters/printingParam'
       responses:
         200:
           description: Opération réussie
@@ -155,6 +156,7 @@ paths:
       - $ref: '#/components/parameters/disabledFadingParam'
       - $ref: '#/components/parameters/disabledStepsParam'
       - $ref: '#/components/parameters/dyeingMediumParam'
+      - $ref: '#/components/parameters/printingParam'
       responses:
         200:
           description: successful operation
@@ -191,6 +193,7 @@ paths:
       - $ref: '#/components/parameters/disabledFadingParam'
       - $ref: '#/components/parameters/disabledStepsParam'
       - $ref: '#/components/parameters/dyeingMediumParam'
+      - $ref: '#/components/parameters/printingParam'
       responses:
         200:
           description: Opération réussie
@@ -535,6 +538,29 @@ components:
         surFil:
           summary: "sur fil"
           value: "yarn"
+    printingParam:
+      name: printing
+      in: query
+      description: |
+        Ce paramètre permet de préciser le type d'impression effectuée sur le produit ; il peut prendre les valeurs
+        suivantes :
+
+        - `pigment` pour une impression pigmentaire ;
+        - `substantive` pour une impression fixé/lavé ;
+      required: false
+      style: form
+      schema:
+        type: string
+      examples:
+        default:
+          summary: "Aucune impression"
+          value: ""
+        pigment:
+          summary: "Pigmentaire"
+          value: "pigment"
+        substantive:
+          summary: "Fixé/Lavé"
+          value: "substantive"
     ingredientsParam:
       name: "ingredients[]"
       in: query
