@@ -103,7 +103,7 @@ _En l’absence de données suffisamment précises dans la Base Impacts, l’ét
 
 <details>
 
-<summary>Finition (1 procédé)</summary>
+<summary>Finition (1 procédé par défaut)</summary>
 
 * apprêt chimique anti-tache, procédé représentatif
 
@@ -179,12 +179,12 @@ Cela s’explique en partie par le manque de profondeur de la base de données u
 
 Ces paramétrages seront prochainement disponibles sur le calculateur.
 
-## Impression : masse surfacique par défaut
+#### Grammage / Masse surfacique (g/m2)
 
-Les sources de la donnée des masses surfaciques par défaut pour chaque catégorie de produit sont les suivantes :&#x20;
+Les données par défaut de grammage par catégorie de produits sont les suivantes :&#x20;
 
 * Base Impacts : cape, châle, chemisier, écharpe, jean, jupe, manteau, pantalon, robe, veste
-* Extrapolation Base Impacts par Ecobalyse : débardeur, gilet, pull
+* Extrapolation Base Impacts par Ecobalyse : débardeur, gilet, pull, t-shirt
 
 ## Limites
 
@@ -202,7 +202,12 @@ Les procédés de pré-traitement consistent à traiter et nettoyer le tissu, g�
 
 Les procédés de teinture et impression consistent tous les deux à appliquer un colorant sur le tissu. Toutefois, le procédé d’impression, au lieu de colorer l'ensemble du support, se concentre sur des zones définies afin d'obtenir le motif désiré.
 
-Le calculateur permet de modéliser cette étape directement après la fabrication du tissu. Dans certains cas, la teinture/impression peut être effectuée en amont (sur fil) ou en aval (sur article). Ecobalyse permet aussi de modéliser ces configurations dans cette sous-étape “Teinture et Impression” afin de faciliter les comparaisons.
+Le calculateur permet de modéliser cette étape directement après la fabrication du tissu.&#x20;
+
+Dans certains cas, la teinture peut être effectuée en amont (sur fil) ou en aval (sur article). Ecobalyse permet aussi de modéliser ces configurations dans cette sous-étape “Teinture et Impression” afin de faciliter les comparaisons.
+
+Deux procédés d'impression (pigmentaire et fixé-lavé) sont proposés. L'impression pigmentaire consiste à déposer des pigments colorés à la surface de l'étoffe et s'applique généralement aux fibres cellulosiques. L'impression fixé-lavé consiste à fixer des colorants sur la fibre comme une teinture (à l'inverse des pigments qui pénètrent moins dans la fibre). \
+Les deux procédés sont basés sur une moyenne de trois techniques : impression à cadre plat, impression à cadre rotatif, impression au jet d'encre (digitale). &#x20;
 
 <details>
 
@@ -226,7 +231,8 @@ Les machines/techniques d'impression les plus utilisées sont : \
 \- impression au cadre plat\
 \- impression au cadre rotatif\
 \- impression au rouleau\
-\- impression par jet
+\- impression digitale (par jet d'encre)\
+\- impression par transfert numérique (la sublimation)&#x20;
 
 </details>
 
