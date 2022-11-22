@@ -403,5 +403,69 @@
       "tre": 0.17611778171839435,
       "wtu": 1.837458944594566
     }
+  },
+  {
+    "name": "Tshirt coton, 300g/m² France, Pigment printing",
+    "query": [
+      "mass=0.3",
+      "product=tshirt",
+      "materials[]=coton;1",
+      "countryFabric=FR",
+      "countryDyeing=FR",
+      "countryMaking=FR",
+      "surfaceMass=300",
+      "printing=pigment"
+    ],
+    "impacts": {
+      "acd": 0.07724770581677007,
+      "cch": 9.715373771727629,
+      "etf": 0,
+      "fru": 191.16776746812172,
+      "fwe": 0.0008280777610535711,
+      "htc": 0,
+      "htn": 0,
+      "ior": 25.0282985977769,
+      "ldu": 271.76947497199455,
+      "mru": 0.00001863917555232,
+      "ozd": 7.749971549466959e-7,
+      "pco": 0.03185046710035542,
+      "pef": 1304.7449462211157,
+      "pma": 0.000001319447080366322,
+      "swe": 0.046322378287393606,
+      "tre": 0.1916133292478061,
+      "wtu": 1.837458944594566
+    }
+  },
+  {
+    "name": "Tshirt coton, 300g/m² France, Substantive printing",
+    "query": [
+      "mass=0.3",
+      "product=tshirt",
+      "materials[]=coton;1",
+      "countryFabric=FR",
+      "countryDyeing=FR",
+      "countryMaking=FR",
+      "surfaceMass=300",
+      "printing=substantive"
+    ],
+    "impacts": {
+      "acd": 0.07814850907951516,
+      "cch": 9.872103387021747,
+      "etf": 0,
+      "fru": 194.99264805635698,
+      "fwe": 0.0008360760888469436,
+      "htc": 0,
+      "htn": 0,
+      "ior": 25.19087279369847,
+      "ldu": 271.74742214846515,
+      "mru": 0.000018762653473339606,
+      "ozd": 7.738387975922253e-7,
+      "pco": 0.03237676964153189,
+      "pef": 1319.656963211462,
+      "pma": 0.0000013261469030329886,
+      "swe": 0.04662315807366812,
+      "tre": 0.19465013007133553,
+      "wtu": 1.837458944594566
+    }
   }
 ]
