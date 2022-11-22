@@ -43,6 +43,7 @@
   * [🌾 Blé tendre](alimentaire/ingredients/ble-tendre.md)
   * [🥚 Oeuf (poule)](alimentaire/ingredients/oeuf-poule.md)
   * [🥛 Lait (vache)](alimentaire/ingredients/lait-vache.md)
+  * [🥔 Pomme de terre](alimentaire/ingredients-agricoles/pomme-de-terre.md)
   * [❓ Modèle](alimentaire/ingredients-agricoles/modele.md)
 * [🏭 Transformation](alimentaire/transformation.md)
 * [🥫 Emballage](alimentaire/emballage.md)
