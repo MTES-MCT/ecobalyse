@@ -712,10 +712,10 @@ ingredientListView foodDb selectedImpact recipe results =
             |> formatImpact foodDb selectedImpact
         ]
     , ul [ class "list-group list-group-flush" ]
-        (if List.isEmpty recipe.ingredients then
+        ((if List.isEmpty recipe.ingredients then
             [ li [ class "list-group-item" ] [ text "Aucun ingrédient" ] ]
 
-         else
+          else
             recipe.ingredients
                 |> List.map
                     (\ingredient ->
@@ -725,6 +725,17 @@ ingredientListView foodDb selectedImpact recipe results =
                             , ingredient = ingredient
                             }
                     )
+         )
+            ++ [ button
+                    [ class "btn btn-outline-primary"
+                    , class "flex-fill d-flex justify-content-center align-items-center"
+                    , class " gap-1 no-outline"
+                    , onClick AddIngredient
+                    ]
+                    [ i [ class "icon icon-plus" ] []
+                    , text "Ajouter un ingrédient"
+                    ]
+               ]
         )
     ]
 
