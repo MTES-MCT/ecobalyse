@@ -257,12 +257,14 @@ textileEndpoints db =
           , "product=notAProductID"
           , "material=notAnID"
           , "materials[]=notAnID"
+          , "surfaceMass=-2"
           , "countryFabric=notACountryCode"
           , "countryDyeing=notACountryCode"
           , "countryMaking=notACountryCode"
           , "disabledSteps=invalid"
           , "disabledFading=untrue"
           , "dyeingMedium=yolo"
+          , "printing=yolo"
           ]
             |> String.join "&"
             |> getEndpoint db "GET"
@@ -274,10 +276,12 @@ textileEndpoints db =
                     , ( "countryMaking", "Code pays invalide: notACountryCode." )
                     , ( "mass", "La masse doit être supérieure ou égale à zéro." )
                     , ( "materials", "Format de matière invalide : notAnID." )
+                    , ( "surfaceMass", "Le grammage (surfaceMass) doit être compris entre 30 et 500 gr/m²." )
                     , ( "product", "Produit non trouvé id=notAProductID." )
                     , ( "disabledSteps", "Impossible d'interpréter la liste des étapes désactivées; Code étape inconnu: invalid" )
                     , ( "disabledFading", "La valeur ne peut être que true ou false." )
                     , ( "dyeingMedium", "Type de support de teinture inconnu: yolo" )
+                    , ( "printing", "Type d'impression inconnu: yolo" )
                     ]
                     |> Just
                 )
