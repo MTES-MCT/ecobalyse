@@ -6,6 +6,7 @@ module Data.Food.Recipe exposing
     , Query
     , Recipe
     , Results
+    , Transform
     , TransformQuery
     , addIngredient
     , addPackaging
@@ -14,15 +15,19 @@ module Data.Food.Recipe exposing
     , deleteIngredient
     , deletePackaging
     , empty
+    , encodePackaging
     , encodeQuery
     , encodeResults
+    , encodeTransform
     , fromQuery
+    , packagingListFromQuery
     , recipeStepImpacts
     , resetTransform
     , serializeQuery
     , setTransform
     , sumMasses
     , toQuery
+    , transformFromQuery
     , tunaPizza
     , updateIngredientMass
     , updatePackagingMass
@@ -191,7 +196,11 @@ addIngredient mass code query =
         |> updateTransformMass (sumMasses newIngredients)
 
 
-addPackaging : Mass -> Process.Code -> Query -> Query
+addPackaging :
+    Mass
+    -> Process.Code
+    -> { a | packaging : List PackagingQuery }
+    -> { a | packaging : List PackagingQuery }
 addPackaging mass code query =
     { query
         | packaging =
@@ -210,7 +219,10 @@ deleteIngredient code query =
         |> updateTransformMass (sumMasses newIngredients)
 
 
-deletePackaging : Process.Code -> Query -> Query
+deletePackaging :
+    Process.Code
+    -> { a | packaging : List PackagingQuery }
+    -> { a | packaging : List PackagingQuery }
 deletePackaging code query =
     { query
         | packaging =
@@ -252,7 +264,7 @@ ingredientToQuery ingredient =
     }
 
 
-packagingListFromQuery : FoodDb.Db -> Query -> Result String (List Packaging)
+packagingListFromQuery : FoodDb.Db -> { a | packaging : List PackagingQuery } -> Result String (List Packaging)
 packagingListFromQuery foodDb query =
     query.packaging
         |> RE.combineMap (packagingFromQuery foodDb)
@@ -272,12 +284,18 @@ packagingToQuery packaging =
     }
 
 
-resetTransform : Query -> Query
+resetTransform :
+    { a | transform : Maybe TransformQuery }
+    -> { a | transform : Maybe TransformQuery }
 resetTransform query =
     { query | transform = Nothing }
 
 
-setTransform : Mass -> Process.Code -> Query -> Query
+setTransform :
+    Mass
+    -> Process.Code
+    -> { a | transform : Maybe TransformQuery }
+    -> { a | transform : Maybe TransformQuery }
 setTransform mass code query =
     { query | transform = Just { code = code, mass = mass } }
 
@@ -296,7 +314,7 @@ toQuery recipe =
     }
 
 
-transformFromQuery : FoodDb.Db -> Query -> Result String (Maybe Transform)
+transformFromQuery : FoodDb.Db -> { a | transform : Maybe TransformQuery } -> Result String (Maybe Transform)
 transformFromQuery { processes } query =
     query.transform
         |> Maybe.map
@@ -346,7 +364,11 @@ updateMass code mass =
         )
 
 
-updatePackagingMass : Mass -> Process.Code -> Query -> Query
+updatePackagingMass :
+    Mass
+    -> Process.Code
+    -> { a | packaging : List PackagingQuery }
+    -> { a | packaging : List PackagingQuery }
 updatePackagingMass mass code query =
     { query
         | packaging =
@@ -355,7 +377,10 @@ updatePackagingMass mass code query =
     }
 
 
-updateTransformMass : Mass -> Query -> Query
+updateTransformMass :
+    Mass
+    -> { a | transform : Maybe TransformQuery }
+    -> { a | transform : Maybe TransformQuery }
 updateTransformMass mass query =
     { query
         | transform =

@@ -6,6 +6,7 @@ module Data.Food.Process exposing
     , codeFromString
     , codeToString
     , decodeList
+    , empty
     , findByCode
     , findByName
     , getDisplayName
@@ -37,6 +38,21 @@ type alias Process =
     , categoryTags : List String
     , comment : Maybe String
     , alias : Maybe String
+    }
+
+
+empty : Process
+empty =
+    { name = ProcessName ""
+    , displayName = Nothing
+    , impacts = Impact.noImpacts
+    , unit = ""
+    , code = Code ""
+    , category = Ingredient
+    , systemDescription = ""
+    , categoryTags = []
+    , comment = Nothing
+    , alias = Nothing
     }
 
 
