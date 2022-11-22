@@ -10,7 +10,7 @@ import Data.Food.Db as FoodDb
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Process as Process exposing (Process)
 import Data.Food.Recipe as Recipe exposing (Recipe)
-import Data.Impact as Impact
+import Data.Impact as Impact exposing (Impacts)
 import Data.Session exposing (Session)
 import Data.Unit as Unit
 import Html exposing (..)
@@ -23,6 +23,7 @@ import Ports
 import RemoteData exposing (WebData)
 import Request.Common
 import Request.Food.Db as RequestDb
+import Result.Extra as RE
 import Route
 import Views.Alert as Alert
 import Views.Component.MassInput as MassInput
@@ -34,14 +35,253 @@ import Views.Impact as ImpactView
 import Views.Spinner as Spinner
 
 
+
+---- Query
+
+
+type Variant
+    = Default
+    | Organic
+
+
+type alias IngredientQuery =
+    { name : Ingredient.Name
+    , mass : Mass
+    , variant : Variant
+    }
+
+
+emptyIngredientQuery : IngredientQuery
+emptyIngredientQuery =
+    { name = Ingredient.nameFromString ""
+    , mass = Mass.grams 100
+    , variant = Default
+    }
+
+
+type alias Query =
+    { ingredients : List IngredientQuery
+    , transform : Maybe Recipe.TransformQuery
+    , packaging : List Recipe.PackagingQuery
+    }
+
+
+emptyQuery : Query
+emptyQuery =
+    { ingredients = []
+    , transform = Nothing
+    , packaging = []
+    }
+
+
+carrotCake : Query
+carrotCake =
+    { ingredients =
+        [ { name = Ingredient.nameFromString "oeuf"
+          , mass = Mass.grams 120
+          , variant = Default
+          }
+        , { name = Ingredient.nameFromString "blé tendre"
+          , mass = Mass.grams 140
+          , variant = Default
+          }
+        , { name = Ingredient.nameFromString "lait"
+          , mass = Mass.grams 60
+          , variant = Default
+          }
+        , { name = Ingredient.nameFromString "carotte"
+          , mass = Mass.grams 225
+          , variant = Default
+          }
+        ]
+    , transform =
+        Just
+            { -- Cooking, industrial, 1kg of cooked product/ FR U
+              code = Process.codeFromString "aded2490573207ec7ad5a3813978f6a4"
+            , mass = Mass.grams 545
+            }
+    , packaging =
+        [ { -- Corrugated board box {RER}| production | Cut-off, S - Copied from Ecoinvent
+            code = Process.codeFromString "23b2754e5943bc77916f8f871edc53b6"
+          , mass = Mass.grams 105
+          }
+        ]
+    }
+
+
+updateIngredient : Ingredient.Name -> IngredientQuery -> List IngredientQuery -> List IngredientQuery
+updateIngredient oldIngredientName newIngredient ingredients =
+    ingredients
+        |> List.map
+            (\ingredient ->
+                if ingredient.name == oldIngredientName then
+                    newIngredient
+
+                else
+                    ingredient
+            )
+
+
+
+---- Results
+
+
+type alias RecipeIngredient =
+    { ingredient : Ingredient
+    , mass : Mass
+    , variant : Variant
+    }
+
+
+type alias Recipe =
+    { ingredients : List RecipeIngredient
+    , transform : Maybe Recipe.Transform
+    , packaging : List Recipe.Packaging
+    }
+
+
+type alias Results =
+    { impacts : Impacts
+    , recipe :
+        { ingredients : Impacts
+        , transform : Impacts
+        }
+    , packaging : Impacts
+    }
+
+
+compute : FoodDb.Db -> Query -> Result String ( Recipe, Results )
+compute db =
+    fromQuery db
+        >> Result.map
+            (\({ ingredients, transform, packaging } as recipe) ->
+                let
+                    ingredientsImpacts =
+                        ingredients
+                            |> List.map computeIngredientImpacts
+
+                    transformImpacts =
+                        transform
+                            |> Maybe.map computeProcessImpacts
+                            |> Maybe.withDefault Impact.noImpacts
+
+                    packagingImpacts =
+                        packaging
+                            |> List.map computeProcessImpacts
+                in
+                ( recipe
+                , { impacts =
+                        [ ingredientsImpacts
+                        , List.singleton transformImpacts
+                        , packagingImpacts
+                        ]
+                            |> List.concat
+                            |> Impact.sumImpacts db.impacts
+                  , recipe =
+                        { ingredients = Impact.sumImpacts db.impacts ingredientsImpacts
+                        , transform = transformImpacts
+                        }
+                  , packaging = Impact.sumImpacts db.impacts packagingImpacts
+                  }
+                )
+            )
+
+
+computeImpact : Mass -> Impact.Trigram -> Unit.Impact -> Unit.Impact
+computeImpact mass _ impact =
+    impact
+        |> Unit.impactToFloat
+        |> (*) (Mass.inKilograms mass)
+        |> Unit.impact
+
+
+computeProcessImpacts : { a | process : Process, mass : Mass } -> Impacts
+computeProcessImpacts item =
+    item.process.impacts
+        |> Impact.mapImpacts (computeImpact item.mass)
+
+
+computeIngredientImpacts : RecipeIngredient -> Impacts
+computeIngredientImpacts ingredient =
+    let
+        process =
+            case ingredient.variant of
+                Default ->
+                    ingredient.ingredient.default
+
+                Organic ->
+                    ingredient.ingredient.variants.organic
+                        |> Maybe.withDefault ingredient.ingredient.default
+    in
+    process.impacts
+        |> Impact.mapImpacts (computeImpact ingredient.mass)
+
+
+encodeQuery : Query -> Encode.Value
+encodeQuery q =
+    Encode.object
+        [ ( "ingredients", Encode.list encodeIngredient q.ingredients )
+        , ( "transform", q.transform |> Maybe.map Recipe.encodeTransform |> Maybe.withDefault Encode.null )
+        , ( "packaging", Encode.list Recipe.encodePackaging q.packaging )
+        ]
+
+
+fromQuery : FoodDb.Db -> Query -> Result String Recipe
+fromQuery foodDb query =
+    Result.map3 Recipe
+        (ingredientListFromQuery foodDb query)
+        (Recipe.transformFromQuery foodDb query)
+        (Recipe.packagingListFromQuery foodDb query)
+
+
+ingredientListFromQuery : FoodDb.Db -> Query -> Result String (List RecipeIngredient)
+ingredientListFromQuery foodDb query =
+    query.ingredients
+        |> RE.combineMap (ingredientFromQuery foodDb)
+
+
+ingredientFromQuery : FoodDb.Db -> IngredientQuery -> Result String RecipeIngredient
+ingredientFromQuery { ingredients } ingredientQuery =
+    Result.map3 RecipeIngredient
+        (Ingredient.findByName ingredients ingredientQuery.name)
+        (Ok ingredientQuery.mass)
+        (Ok ingredientQuery.variant)
+
+
+variantToString : Variant -> String
+variantToString variant =
+    case variant of
+        Default ->
+            "default"
+
+        Organic ->
+            "organic"
+
+
+encodeIngredient : IngredientQuery -> Encode.Value
+encodeIngredient i =
+    Encode.object
+        [ ( "name", i.name |> Ingredient.nameToString |> Encode.string )
+        , ( "mass", Encode.float (Mass.inKilograms i.mass) )
+        , ( "variant", variantToString i.variant |> Encode.string )
+        ]
+
+
+serializeQuery : Query -> String
+serializeQuery =
+    encodeQuery >> Encode.encode 2
+
+
+
+----
+
+
 type alias Model =
     { dbState : WebData FoodDb.Db
-    , query : Recipe.Query
     , impact : Impact.Trigram
-    , isIngredientOrganic : Bool
-    , selectedIngredient : Maybe SelectedProcess
-    , selectedTransform : Maybe SelectedProcess
+    , query : Query
     , selectedPackaging : Maybe SelectedProcess
+    , selectedTransform : Maybe SelectedProcess
     }
 
 
@@ -52,21 +292,19 @@ type alias SelectedProcess =
 
 
 type Msg
-    = AddIngredient SelectedProcess
+    = AddIngredient
     | AddPackaging SelectedProcess
     | DbLoaded (WebData FoodDb.Db)
-    | DeleteIngredient Process.Code
+    | DeleteIngredient IngredientQuery
     | DeletePackaging Process.Code
-    | LoadQuery Recipe.Query
+    | LoadQuery Query
     | NoOp
     | ResetTransform
-    | SelectIngredient (Maybe SelectedProcess)
     | SelectPackaging (Maybe SelectedProcess)
     | SelectTransform (Maybe SelectedProcess)
     | SetTransform SelectedProcess
     | SwitchImpact Impact.Trigram
-    | ToggleIngredientOrganic Bool
-    | UpdateIngredientMass Process.Code (Maybe Mass)
+    | UpdateIngredient Ingredient.Name IngredientQuery
     | UpdatePackagingMass Process.Code (Maybe Mass)
     | UpdateTransformMass (Maybe Mass)
 
@@ -76,10 +314,8 @@ init session =
     let
         model =
             { dbState = RemoteData.Loading
-            , query = Recipe.tunaPizza
+            , query = emptyQuery
             , impact = Impact.defaultTrigram
-            , isIngredientOrganic = False
-            , selectedIngredient = Nothing
             , selectedTransform = Nothing
             , selectedPackaging = Nothing
             }
@@ -94,7 +330,10 @@ init session =
         )
 
     else
-        ( { model | dbState = RemoteData.Success session.foodDb }
+        ( { model
+            | query = carrotCake
+            , dbState = RemoteData.Success session.foodDb
+          }
         , session
         , Ports.scrollTo { x = 0, y = 0 }
         )
@@ -103,23 +342,19 @@ init session =
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
 update session msg model =
     case msg of
-        AddIngredient { mass, code } ->
+        AddIngredient ->
             let
-                processCode =
-                    if model.isIngredientOrganic then
-                        session.foodDb.ingredients
-                            |> List.filter (.default >> .code >> (==) code)
-                            |> List.head
-                            |> Maybe.map (.variants >> .organic >> Maybe.map .code >> Maybe.withDefault code)
-                            |> Maybe.withDefault code
-
-                    else
-                        code
+                query =
+                    model.query
             in
             ( { model
                 | query =
-                    model.query |> Recipe.addIngredient mass processCode
-                , selectedIngredient = Nothing
+                    { query
+                        | ingredients =
+                            query.ingredients
+                                ++ [ emptyIngredientQuery
+                                   ]
+                    }
               }
             , session
             , Cmd.none
@@ -136,7 +371,10 @@ update session msg model =
             )
 
         DbLoaded dbState ->
-            ( { model | dbState = dbState }
+            ( { model
+                | dbState = dbState
+                , query = carrotCake
+              }
             , case dbState of
                 RemoteData.Success foodDb ->
                     { session | foodDb = foodDb }
@@ -146,11 +384,18 @@ update session msg model =
             , Cmd.none
             )
 
-        DeleteIngredient code ->
+        DeleteIngredient ingredientQuery ->
+            let
+                query =
+                    model.query
+            in
             ( { model
                 | query =
-                    model.query
-                        |> Recipe.deleteIngredient code
+                    { query
+                        | ingredients =
+                            query.ingredients
+                                |> List.filter ((/=) ingredientQuery)
+                    }
               }
             , session
             , Cmd.none
@@ -182,9 +427,6 @@ update session msg model =
             , Cmd.none
             )
 
-        SelectIngredient selectedIngredient ->
-            ( { model | selectedIngredient = selectedIngredient }, session, Cmd.none )
-
         SelectPackaging selectedPackaging ->
             ( { model | selectedPackaging = selectedPackaging }, session, Cmd.none )
 
@@ -205,21 +447,22 @@ update session msg model =
         SwitchImpact impact ->
             ( { model | impact = impact }, session, Cmd.none )
 
-        ToggleIngredientOrganic isOrganic ->
-            ( { model | isIngredientOrganic = isOrganic }, session, Cmd.none )
-
-        UpdateIngredientMass code (Just mass) ->
+        UpdateIngredient oldIngredientName newIngredient ->
+            let
+                query =
+                    model.query
+            in
             ( { model
                 | query =
-                    model.query
-                        |> Recipe.updateIngredientMass mass code
+                    { query
+                        | ingredients =
+                            query.ingredients
+                                |> updateIngredient oldIngredientName newIngredient
+                    }
               }
             , session
             , Cmd.none
             )
-
-        UpdateIngredientMass _ Nothing ->
-            ( model, session, Cmd.none )
 
         UpdatePackagingMass code (Just mass) ->
             ( { model
@@ -326,79 +569,53 @@ addProcessFormView { category, defaultMass, excluded, foodDb, kind, noOp, select
         ]
 
 
-type alias AddIngredientConfig msg =
-    { defaultMass : Mass
-    , excluded : List Process.Code
+type alias UpdateIngredientConfig =
+    { excluded : List Ingredient.Name
     , foodDb : FoodDb.Db
-    , isOrganic : Bool
-    , noOp : msg
-    , select : Maybe SelectedProcess -> msg
-    , selectedProcess : Maybe SelectedProcess
-    , submit : SelectedProcess -> msg
+    , ingredient : RecipeIngredient
     }
 
 
-addIngredientFormView : AddIngredientConfig Msg -> Html Msg
-addIngredientFormView { defaultMass, excluded, foodDb, isOrganic, noOp, select, selectedProcess, submit } =
+updateIngredientFormView : UpdateIngredientConfig -> Html Msg
+updateIngredientFormView { excluded, foodDb, ingredient } =
     let
-        kind =
-            "un ingrédient"
+        ingredientName =
+            ingredient.ingredient.name
+
+        ingredientQuery : IngredientQuery
+        ingredientQuery =
+            { name = ingredient.ingredient.name
+            , mass = ingredient.mass
+            , variant = ingredient.variant
+            }
+
+        event =
+            UpdateIngredient ingredientName
     in
     Html.form
-        [ class "list-group list-group-flush border-top-0"
-        , onSubmit
-            (case selectedProcess of
-                Just selected ->
-                    submit selected
-
-                Nothing ->
-                    noOp
-            )
-        ]
+        [ class "list-group list-group-flush border-top-0" ]
         [ rowTemplate
             (MassInput.view
                 { mass =
-                    selectedProcess
-                        |> Maybe.map .mass
-                        |> Maybe.withDefault defaultMass
+                    ingredient.mass
                 , onChange =
                     \maybeMass ->
-                        select
-                            (case ( maybeMass, selectedProcess ) of
-                                ( Just mass, Just selected ) ->
-                                    Just { selected | mass = mass }
+                        case maybeMass of
+                            Just mass ->
+                                event { ingredientQuery | mass = mass }
 
-                                _ ->
-                                    Nothing
-                            )
-                , disabled = selectedProcess == Nothing
+                            _ ->
+                                NoOp
+                , disabled = False
                 }
             )
             (foodDb.ingredients
-                |> List.filter
-                    -- Exclude ingredients whose conventional or organic processes have already been added
-                    (\{ default, variants } ->
-                        case variants.organic of
-                            Just organicProcess ->
-                                not (List.member default.code excluded)
-                                    && not (List.member organicProcess.code excluded)
-
-                            Nothing ->
-                                not (List.member default.code excluded)
-                    )
                 |> List.sortBy (.name >> Ingredient.nameToString)
-                |> ingredientSelectorView kind
-                    (Maybe.map .code selectedProcess)
-                    (\maybeCode ->
-                        case ( selectedProcess, maybeCode ) of
-                            ( Just selected, Just code ) ->
-                                select (Just { selected | code = code })
-
-                            ( Nothing, Just code ) ->
-                                select (Just { code = code, mass = defaultMass })
-
-                            _ ->
-                                select Nothing
+                |> ingredientSelectorView
+                    ingredientName
+                    excluded
+                    (\newIngredient ->
+                        event { ingredientQuery | name = newIngredient.name }
                     )
             )
             (span [ class "w-25 d-flex align-items-center gap-2" ]
@@ -407,25 +624,36 @@ addIngredientFormView { defaultMass, excluded, foodDb, isOrganic, noOp, select, 
                         [ type_ "checkbox"
                         , class "form-check-input no-outline m-1"
                         , attribute "role" "switch"
-                        , checked isOrganic
-                        , onCheck ToggleIngredientOrganic
+                        , checked <| ingredient.variant == Organic
+                        , onCheck
+                            (\checked ->
+                                { ingredientQuery
+                                    | variant =
+                                        if checked then
+                                            Organic
+
+                                        else
+                                            Default
+                                }
+                                    |> event
+                            )
                         ]
                         []
                     , text "bio"
                     ]
                 , button
                     [ type_ "submit"
-                    , class "btn btn-sm btn-primary no-outline"
-                    , title <| "Ajouter " ++ kind
-                    , disabled <| selectedProcess == Nothing
+                    , class "btn btn-sm btn-outline-primary no-outline"
+                    , title <| "Supprimer "
+                    , onClick <| DeleteIngredient ingredientQuery
                     ]
-                    [ Icon.plus ]
+                    [ Icon.trash ]
                 ]
             )
         ]
 
 
-debugQueryView : FoodDb.Db -> Recipe.Query -> Html Msg
+debugQueryView : FoodDb.Db -> Query -> Html Msg
 debugQueryView foodDb query =
     let
         debugView =
@@ -436,12 +664,12 @@ debugQueryView foodDb query =
         , div [ class "row" ]
             [ div [ class "col-7" ]
                 [ query
-                    |> Recipe.serializeQuery
+                    |> serializeQuery
                     |> debugView
                 ]
             , div [ class "col-5" ]
                 [ query
-                    |> Recipe.compute foodDb
+                    |> compute foodDb
                     |> Result.map (Tuple.second >> Recipe.encodeResults >> Encode.encode 2)
                     |> Result.withDefault "Error serializing the impacts"
                     |> debugView
@@ -476,8 +704,8 @@ formatImpact foodDb selectedImpact impacts =
                 ]
 
 
-ingredientListView : FoodDb.Db -> Impact.Trigram -> Maybe SelectedProcess -> Bool -> Recipe -> Recipe.Results -> List (Html Msg)
-ingredientListView foodDb selectedImpact selectedProcess isIngredientOrganic recipe results =
+ingredientListView : FoodDb.Db -> Impact.Trigram -> Recipe -> Results -> List (Html Msg)
+ingredientListView foodDb selectedImpact recipe results =
     [ div [ class "card-header d-flex align-items-center justify-content-between" ]
         [ h6 [ class "mb-0" ] [ text "Ingrédients" ]
         , results.recipe.ingredients
@@ -490,43 +718,18 @@ ingredientListView foodDb selectedImpact selectedProcess isIngredientOrganic rec
          else
             recipe.ingredients
                 |> List.map
-                    (\({ mass, process } as ingredient) ->
-                        rowTemplate
-                            (MassInput.view
-                                { mass = mass
-                                , onChange = UpdateIngredientMass process.code
-                                , disabled = False
-                                }
-                            )
-                            (small [] [ text <| Process.getDisplayName process ])
-                            (div [ class "d-flex flex-nowrap align-items-center gap-2 fs-7 text-nowrap" ]
-                                [ Recipe.computeProcessImpacts ingredient
-                                    |> formatImpact foodDb selectedImpact
-                                , button
-                                    [ type_ "button"
-                                    , class "btn btn-sm btn-outline-primary no-outline"
-                                    , title "Supprimer"
-                                    , onClick (DeleteIngredient process.code)
-                                    ]
-                                    [ Icon.trash ]
-                                ]
-                            )
+                    (\ingredient ->
+                        updateIngredientFormView
+                            { excluded = recipe.ingredients |> List.map (.ingredient >> .name)
+                            , foodDb = foodDb
+                            , ingredient = ingredient
+                            }
                     )
         )
-    , addIngredientFormView
-        { defaultMass = Mass.grams 100
-        , excluded = List.map (.process >> .code) recipe.ingredients
-        , foodDb = foodDb
-        , isOrganic = isIngredientOrganic
-        , noOp = NoOp
-        , select = SelectIngredient
-        , selectedProcess = selectedProcess
-        , submit = AddIngredient
-        }
     ]
 
 
-packagingListView : FoodDb.Db -> Impact.Trigram -> Maybe SelectedProcess -> Recipe -> Recipe.Results -> List (Html Msg)
+packagingListView : FoodDb.Db -> Impact.Trigram -> Maybe SelectedProcess -> Recipe -> Results -> List (Html Msg)
 packagingListView foodDb selectedImpact selectedProcess recipe results =
     [ div [ class "card-header d-flex align-items-center justify-content-between" ]
         [ h5 [ class "mb-0" ] [ text "Emballage" ]
@@ -579,9 +782,13 @@ packagingListView foodDb selectedImpact selectedProcess recipe results =
 
 mainView : FoodDb.Db -> Model -> Html Msg
 mainView foodDb model =
+    let
+        computed =
+            compute foodDb model.query
+    in
     div [ class "row gap-3 gap-lg-0" ]
         [ div [ class "col-lg-4 order-lg-2 d-flex flex-column gap-3" ]
-            [ case Recipe.compute foodDb model.query of
+            [ case computed of
                 Ok ( _, results ) ->
                     sidebarView foodDb model results
 
@@ -590,7 +797,7 @@ mainView foodDb model =
             ]
         , div [ class "col-lg-8 order-lg-1 d-flex flex-column gap-3" ]
             [ menuView model.query
-            , case Recipe.compute foodDb model.query of
+            , case computed of
                 Ok ( recipe, results ) ->
                     stepListView foodDb model recipe results
 
@@ -601,19 +808,19 @@ mainView foodDb model =
         ]
 
 
-menuView : Recipe.Query -> Html Msg
+menuView : Query -> Html Msg
 menuView query =
     div [ class "d-flex gap-2" ]
         [ button
             [ class "btn btn-outline-primary"
-            , classList [ ( "active", query == Recipe.tunaPizza ) ]
-            , onClick (LoadQuery Recipe.tunaPizza)
+            , classList [ ( "active", query == carrotCake ) ]
+            , onClick (LoadQuery carrotCake)
             ]
-            [ text "Pizza au Thon" ]
+            [ text "Carrot Cake" ]
         , button
             [ class "btn btn-outline-primary"
-            , classList [ ( "active", query == Recipe.empty ) ]
-            , onClick (LoadQuery Recipe.empty)
+            , classList [ ( "active", query == emptyQuery ) ]
+            , onClick (LoadQuery emptyQuery)
             ]
             [ text "Créer une nouvelle recette" ]
         ]
@@ -659,42 +866,44 @@ processSelectorView kind selectedCode event =
             ]
 
 
-ingredientSelectorView : String -> Maybe Process.Code -> (Maybe Process.Code -> msg) -> List Ingredient -> Html msg
-ingredientSelectorView kind selectedCode event =
-    List.map
-        (\ingredient ->
-            let
-                label =
-                    Ingredient.nameToString ingredient.name
-            in
-            ( label
-            , option
-                [ selected <| selectedCode == Just ingredient.default.code
-                , value <| Process.codeToString ingredient.default.code
-                ]
-                [ text label ]
+ingredientSelectorView : Ingredient.Name -> List Ingredient.Name -> (Ingredient -> msg) -> List Ingredient -> Html msg
+ingredientSelectorView selectedIngredient excluded event ingredients =
+    ingredients
+        |> List.map
+            (\ingredient ->
+                let
+                    label =
+                        Ingredient.nameToString ingredient.name
+                in
+                ( label
+                , option
+                    [ selected <| selectedIngredient == ingredient.name
+                    , disabled <| List.member ingredient.name excluded
+                    , value <| label
+                    ]
+                    [ text label ]
+                )
             )
-        )
-        >> List.sortBy Tuple.first
-        >> (++)
+        |> List.sortBy Tuple.first
+        |> (++)
             [ ( ""
-              , option [ Attr.selected <| selectedCode == Nothing, value "" ]
-                    [ text <| "-- Sélectionnez " ++ kind ++ " et cliquez sur le bouton + pour l'ajouter" ]
+              , option [ Attr.selected <| selectedIngredient == Ingredient.nameFromString "", value "" ]
+                    [ text <| "-- Sélectionnez un ingrédient" ]
               )
             ]
         -- We use Html.Keyed because when we add an item, we filter it out from the select box,
         -- which desynchronizes the DOM state and the virtual dom state
-        >> Keyed.node "select"
+        |> Keyed.node "select"
             [ class "form-select form-select-sm"
             , onInput
-                (\str ->
-                    event
-                        (if str == "" then
-                            Nothing
-
-                         else
-                            Just (Process.codeFromString str)
-                        )
+                (\ingredientName ->
+                    let
+                        newIngredient =
+                            Ingredient.nameFromString ingredientName
+                                |> Ingredient.findByName ingredients
+                                |> Result.withDefault Ingredient.empty
+                    in
+                    event newIngredient
                 )
             ]
 
@@ -708,7 +917,7 @@ rowTemplate input content action =
         ]
 
 
-sidebarView : FoodDb.Db -> Model -> Recipe.Results -> Html Msg
+sidebarView : FoodDb.Db -> Model -> Results -> Html Msg
 sidebarView foodDb model results =
     div
         [ class "d-flex flex-column gap-3 mb-3 sticky-md-top"
@@ -746,8 +955,8 @@ sidebarView foodDb model results =
         ]
 
 
-stepListView : FoodDb.Db -> Model -> Recipe -> Recipe.Results -> Html Msg
-stepListView foodDb { impact, isIngredientOrganic, selectedIngredient, selectedPackaging, selectedTransform } recipe results =
+stepListView : FoodDb.Db -> Model -> Recipe -> Results -> Html Msg
+stepListView foodDb { impact, selectedPackaging, selectedTransform } recipe results =
     div [ class "d-flex flex-column gap-3" ]
         [ div [ class "card" ]
             (div [ class "card-header d-flex align-items-center justify-content-between" ]
@@ -758,7 +967,7 @@ stepListView foodDb { impact, isIngredientOrganic, selectedIngredient, selectedP
                     |> span [ class "fw-bold" ]
                 ]
                 :: List.concat
-                    [ ingredientListView foodDb impact selectedIngredient isIngredientOrganic recipe results
+                    [ ingredientListView foodDb impact recipe results
                     , transformView foodDb impact selectedTransform recipe results
                     ]
             )
@@ -767,7 +976,7 @@ stepListView foodDb { impact, isIngredientOrganic, selectedIngredient, selectedP
         ]
 
 
-stepResultsView : FoodDb.Db -> Model -> Recipe.Results -> Html Msg
+stepResultsView : FoodDb.Db -> Model -> Results -> Html Msg
 stepResultsView foodDb model results =
     let
         toFloat =
@@ -817,7 +1026,7 @@ stepResultsView foodDb model results =
         ]
 
 
-transformView : FoodDb.Db -> Impact.Trigram -> Maybe SelectedProcess -> Recipe -> Recipe.Results -> List (Html Msg)
+transformView : FoodDb.Db -> Impact.Trigram -> Maybe SelectedProcess -> Recipe -> Results -> List (Html Msg)
 transformView foodDb selectedImpact selectedProcess recipe results =
     [ div [ class "card-header d-flex align-items-center justify-content-between" ]
         [ h6 [ class "mb-0" ] [ text "Transformation" ]
@@ -853,7 +1062,10 @@ transformView foodDb selectedImpact selectedProcess recipe results =
             addProcessFormView
                 { category = Process.Transform
                 , defaultMass = Recipe.sumMasses recipe.ingredients
-                , excluded = List.map (.process >> .code) recipe.ingredients
+                , excluded =
+                    recipe.transform
+                        |> Maybe.map (.process >> .code >> List.singleton)
+                        |> Maybe.withDefault []
                 , foodDb = foodDb
                 , kind = "une transformation"
                 , noOp = NoOp

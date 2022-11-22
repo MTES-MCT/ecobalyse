@@ -2,6 +2,8 @@ module Data.Food.Ingredient exposing
     ( Ingredient
     , Name
     , decodeIngredients
+    , empty
+    , findByName
     , nameFromString
     , nameToString
     )
@@ -21,6 +23,14 @@ type alias Ingredient =
     { name : Name
     , default : Process
     , variants : Variants
+    }
+
+
+empty : Ingredient
+empty =
+    { name = Name ""
+    , default = Process.empty
+    , variants = { organic = Nothing }
     }
 
 
@@ -74,3 +84,11 @@ linkProcess processes =
              )
                 >> DE.fromResult
             )
+
+
+findByName : List Ingredient -> Name -> Result String Ingredient
+findByName ingredients ((Name name) as ingredientName) =
+    ingredients
+        |> List.filter (.name >> (==) ingredientName)
+        |> List.head
+        |> Result.fromMaybe ("Ingrédient introuvable par nom : " ++ name)
