@@ -33,6 +33,7 @@ import Dict
 import Dict.Any as AnyDict exposing (AnyDict)
 import Duration exposing (Duration)
 import Json.Decode as Decode exposing (Decoder)
+import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
 import Quantity
 import Url.Parser as Parser exposing (Parser)
@@ -44,6 +45,7 @@ type alias Definition =
     , label : String
     , description : String
     , unit : String
+    , decimals : Int
     , quality : Quality
     , primary : Bool
     , pefData : Maybe PefData
@@ -86,6 +88,7 @@ invalid =
     , label = "Not applicable"
     , description = "Not applicable"
     , unit = "N/A"
+    , decimals = 0
     , quality = GoodQuality
     , primary = False
     , pefData = Nothing
@@ -109,29 +112,31 @@ decodeList : Decoder (List Definition)
 decodeList =
     let
         decodeDictValue =
-            Decode.map8
-                (\source label description unit quality primary pefData scopes ->
+            Decode.succeed
+                (\source label description unit decimals quality primary pefData scopes ->
                     { source = source
                     , label = label
                     , description = description
                     , unit = unit
+                    , decimals = decimals
                     , quality = quality
                     , primary = primary
                     , pefData = pefData
                     , scopes = scopes
                     }
                 )
-                (Decode.field "source" decodeSource)
-                (Decode.field "label_fr" Decode.string)
-                (Decode.field "description_fr" Decode.string)
-                (Decode.field "short_unit" Decode.string)
-                (Decode.field "quality" decodeQuality)
-                (Decode.field "primary" Decode.bool)
-                (Decode.field "pef" (Decode.maybe decodePefData))
-                (Decode.field "scopes" (Decode.list decodeScope))
+                |> Pipe.required "source" decodeSource
+                |> Pipe.required "label_fr" Decode.string
+                |> Pipe.required "description_fr" Decode.string
+                |> Pipe.required "short_unit" Decode.string
+                |> Pipe.required "decimals" Decode.int
+                |> Pipe.required "quality" decodeQuality
+                |> Pipe.required "primary" Decode.bool
+                |> Pipe.required "pef" (Decode.maybe decodePefData)
+                |> Pipe.required "scopes" (Decode.list decodeScope)
 
-        toImpact ( key, { source, label, description, unit, quality, primary, pefData, scopes } ) =
-            Definition (trg key) source label description unit quality primary pefData scopes
+        toImpact ( key, { source, label, description, unit, decimals, quality, primary, pefData, scopes } ) =
+            Definition (trg key) source label description unit decimals quality primary pefData scopes
     in
     Decode.dict decodeDictValue
         |> Decode.andThen (Dict.toList >> List.map toImpact >> Decode.succeed)

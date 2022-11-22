@@ -34,12 +34,12 @@ import Volume exposing (Volume)
 
 
 formatImpact : Unit.Functional -> Impact.Definition -> Duration -> Impacts -> Html msg
-formatImpact funit { trigram, unit } daysOfWear def =
+formatImpact funit { trigram, unit, decimals } daysOfWear def =
     def
         |> Impact.getImpact trigram
         |> Unit.inFunctionalUnit funit daysOfWear
         |> Unit.impactToFloat
-        |> formatRichFloat 0 unit
+        |> formatRichFloat decimals unit
 
 
 formatImpactFloat : Impact.Definition -> Int -> Float -> Html msg
