@@ -8,13 +8,10 @@ module Data.Food.Recipe exposing
     , Results
     , Transform
     , TransformQuery
-    , addIngredient
     , addPackaging
     , compute
     , computeProcessImpacts
-    , deleteIngredient
     , deletePackaging
-    , empty
     , encodePackaging
     , encodeQuery
     , encodeResults
@@ -23,13 +20,11 @@ module Data.Food.Recipe exposing
     , packagingListFromQuery
     , recipeStepImpacts
     , resetTransform
-    , serializeQuery
     , setTransform
     , sumMasses
     , toQuery
     , transformFromQuery
     , tunaPizza
-    , updateIngredientMass
     , updatePackagingMass
     , updateTransformMass
     )
@@ -79,15 +74,6 @@ type alias Query =
 
 type alias PlantOptions =
     { country : Maybe Country.Code }
-
-
-empty : Query
-empty =
-    { ingredients = []
-    , transform = Nothing
-    , packaging = []
-    , plant = { country = Nothing }
-    }
 
 
 tunaPizza : Query
@@ -180,22 +166,6 @@ type alias Recipe =
     }
 
 
-addIngredient : Mass -> Process.Code -> Query -> Query
-addIngredient mass code query =
-    let
-        newIngredients =
-            query.ingredients
-                ++ [ { code = code
-                     , mass = mass
-                     , country = Nothing
-                     , labels = []
-                     }
-                   ]
-    in
-    { query | ingredients = newIngredients }
-        |> updateTransformMass (sumMasses newIngredients)
-
-
 addPackaging :
     Mass
     -> Process.Code
@@ -206,17 +176,6 @@ addPackaging mass code query =
         | packaging =
             query.packaging ++ [ { code = code, mass = mass } ]
     }
-
-
-deleteIngredient : Process.Code -> Query -> Query
-deleteIngredient code query =
-    let
-        newIngredients =
-            query.ingredients
-                |> List.filter (.code >> (/=) code)
-    in
-    { query | ingredients = newIngredients }
-        |> updateTransformMass (sumMasses newIngredients)
 
 
 deletePackaging :
@@ -335,17 +294,6 @@ transformToQuery =
             , mass = transform.mass
             }
         )
-
-
-updateIngredientMass : Mass -> Process.Code -> Query -> Query
-updateIngredientMass mass code query =
-    let
-        newIngredients =
-            query.ingredients
-                |> updateMass code mass
-    in
-    { query | ingredients = newIngredients }
-        |> updateTransformMass (sumMasses newIngredients)
 
 
 updateMass :
@@ -519,8 +467,3 @@ encodeTransform p =
         [ ( "code", p.code |> Process.codeToString |> Encode.string )
         , ( "mass", Encode.float (Mass.inKilograms p.mass) )
         ]
-
-
-serializeQuery : Query -> String
-serializeQuery =
-    encodeQuery >> Encode.encode 2
