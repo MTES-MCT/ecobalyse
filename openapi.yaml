@@ -456,8 +456,7 @@ components:
       description: |
         Le grammage de l'étoffe, exprimé en gr/m², représente sa masse surfacique.
 
-        **Attention, ce paramètre est uniquement pris en compte pour les produits tissés**
-        et inopérant sur les produits tricotés.
+        **⚠️ Sur les produits tricotés, ce paramètre n'impacte que l'impression.**
       required: false
       style: form
       schema:

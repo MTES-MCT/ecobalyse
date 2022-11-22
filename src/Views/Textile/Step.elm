@@ -422,15 +422,17 @@ simpleView ({ funit, inputs, daysOfWear, impact, current } as config) =
                 [ countryField config
                 , case current.label of
                     Label.Fabric ->
-                        case inputs.product.fabric of
-                            Product.Knitted _ ->
-                                text ""
+                        div [ class "mt-2 fs-7 text-muted" ]
+                            (case inputs.product.fabric of
+                                Product.Knitted _ ->
+                                    [ surfaceMassField config inputs.product.surfaceMass
+                                    ]
 
-                            Product.Weaved _ defaultPicking ->
-                                div [ class "mt-2 fs-7 text-muted" ]
+                                Product.Weaved _ defaultPicking ->
                                     [ pickingField config defaultPicking
                                     , surfaceMassField config inputs.product.surfaceMass
                                     ]
+                            )
 
                     Label.Ennoblement ->
                         div [ class "mt-2" ]
@@ -571,7 +573,8 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                     Label.Fabric ->
                         case inputs.product.fabric of
                             Product.Knitted _ ->
-                                []
+                                [ surfaceMassField config inputs.product.surfaceMass
+                                ]
 
                             Product.Weaved _ defaultPicking ->
                                 [ pickingField config defaultPicking
