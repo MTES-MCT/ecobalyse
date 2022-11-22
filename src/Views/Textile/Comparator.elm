@@ -101,6 +101,8 @@ fromUserQuery query =
         , surfaceMass = Nothing
         , disabledSteps = []
         , disabledFading = Nothing
+        , dyeingMedium = Nothing
+        , printing = Nothing
     }
 
 
