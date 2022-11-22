@@ -19,7 +19,7 @@ Les procédés retenus sont prioritairement des procédés "at farm", c'est à d
 
 La base Agribalyse permet de distinguer les inventaires de cycle de vie suivants.&#x20;
 
-* **6 procédés** France "at farm" :&#x20;
+* **4 procédés** France "at farm" :&#x20;
   * Potato starch, at farm gate
   * Ware potato, conventional, for fresh market, firm flesh varieties, at farm gate
   * Ware potato, conventional, for fresh market, other varieties, at farm gate
@@ -40,7 +40,7 @@ Les données ICV disponibles dans Agribalyse permettraient potentiellement d'int
 
 ## Mix de consommation
 
-Le procédé "mix de consommation" France proposée dans Agribalyse s'appuie sur les procédés suivants.
+Le procédé "**Potato, consumption mix"** France proposée dans Agribalyse s'appuie sur les procédés suivants.
 
 Un transport de <mark style="color:red;">XXX</mark> km en camion y est intégré.
 
