@@ -129,7 +129,7 @@ spinningImpacts impacts { spinningProcess, countryElecProcess } mass =
 
 dyeingImpacts :
     Impacts
-    -> Process -- Inbound: Dyeing processes (low)
+    -> Process -- Inbound: Dyeing process
     -> Process -- Outbound: country heat impact
     -> Process -- Outbound: country electricity impact
     -> Mass
@@ -164,26 +164,22 @@ dyeingImpacts impacts dyeingProcess heatProcess elecProcess baseMass =
 printingImpacts :
     Impacts
     -> Unit.SurfaceMass
-    -> Process -- Inbound: Printing processes
+    -> Process -- Inbound: Printing process
     -> Process -- Outbound: country heat impact
     -> Process -- Outbound: country electricity impact
     -> Mass
     -> { heat : Energy, kwh : Energy, impacts : Impacts }
 printingImpacts impacts surfaceMass printingProcess heatProcess elecProcess baseMass =
     let
-        -- Surface (m2) = Poids (g) / Grammage (g/m2)
         surface =
+            -- area (m2) = mass (g) / surfaceMass (g/m2)
             Mass.inGrams baseMass / Unit.surfaceMassToFloat surfaceMass
 
-        heatMJ =
-            surface
-                * Energy.inMegajoules printingProcess.heat
-                |> Energy.megajoules
-
-        kwh =
-            surface
-                * Energy.inMegajoules printingProcess.elec
-                |> Energy.megajoules
+        ( heatMJ, kwh ) =
+            -- Note: printing processes heat and elec values are expressed "per square meter"
+            ( Quantity.multiplyBy surface printingProcess.heat
+            , Quantity.multiplyBy surface printingProcess.elec
+            )
     in
     { heat = heatMJ
     , kwh = kwh
