@@ -67,7 +67,7 @@
     "id": "chemisier",
     "name": "Chemisier",
     "mass": 0.25,
-    "surfaceMass": 40,
+    "surfaceMass": 140,
     "fabric": {
       "type": "weaving",
       "processUuid": "f9686809-f55e-4b96-b1f0-3298959de7d0",
@@ -225,7 +225,7 @@
     "id": "jupe",
     "name": "Jupe",
     "mass": 0.3,
-    "surfaceMass": 40,
+    "surfaceMass": 140,
     "fabric": {
       "type": "weaving",
       "processUuid": "f9686809-f55e-4b96-b1f0-3298959de7d0",
@@ -352,7 +352,7 @@
     "id": "robe",
     "name": "Robe",
     "mass": 0.3,
-    "surfaceMass": 40,
+    "surfaceMass": 140,
     "fabric": {
       "type": "weaving",
       "processUuid": "f9686809-f55e-4b96-b1f0-3298959de7d0",
@@ -384,7 +384,7 @@
     "id": "tshirt",
     "name": "T-shirt",
     "mass": 0.17,
-    "surfaceMass": 40,
+    "surfaceMass": 140,
     "fabric": {
       "type": "knitting",
       "processUuid": "2e16787c-7a89-4883-acdf-37d3d362bdab"
