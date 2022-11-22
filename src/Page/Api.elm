@@ -48,7 +48,24 @@ getApiServerUrl { clientUrl } =
 
 changelog : List News
 changelog =
-    [ { date = "14 novembre 2022"
+    [ { date = "22 novembre 2022"
+      , level = "major"
+      , domains = [ "Textile" ]
+      , md =
+            """Un nouveau paramètre `printing` a été ajouté, permettant si besoin de préciser
+            le procédé d'impression utilisé sur le vêtement\u{00A0}; les valeurs possibles
+            sont\u{00A0}:
+
+- `pigment`\u{00A0}: Impression pigmentaire
+- `substantive`\u{00A0}: Impression Fixé-Lavé
+
+D'autre part, le paramètre `surfaceMass` permettant de définir le grammage de l'étoffe est
+désormais opérant quand le paramètre `printing` est fourni\u{00A0}; en effet, le procédé d'impression
+est appliqué en fonction de la surface du vêtement, calculée au moyen de cette valeur et
+qui peut désormais varier.
+"""
+      }
+    , { date = "14 novembre 2022"
       , level = "minor"
       , domains = [ "Textile" ]
       , md =
