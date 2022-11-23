@@ -663,7 +663,7 @@ updateIngredientFormView { excluded, foodDb, ingredient } =
                     , text "bio"
                     ]
                 , button
-                    [ type_ "submit"
+                    [ type_ "button"
                     , class "btn btn-sm btn-outline-primary no-outline"
                     , title <| "Supprimer "
                     , onClick <| DeleteIngredient ingredientQuery
