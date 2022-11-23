@@ -5,7 +5,8 @@ module Data.Textile.Step exposing
     , create
     , displayLabel
     , encode
-    , getSurface
+    , getInputSurface
+    , getOutputSurface
     , initMass
     , makingWasteToString
     , pickingToString
@@ -263,9 +264,17 @@ getRoadTransportProcess wellKnown { label } =
             wellKnown.roadTransportPreMaking
 
 
-getSurface : Inputs -> Step -> Area
-getSurface { product, surfaceMass } { inputMass } =
+getInputSurface : Inputs -> Step -> Area
+getInputSurface { product, surfaceMass } { inputMass } =
     Mass.inGrams inputMass
+        / Unit.surfaceMassToFloat
+            (Maybe.withDefault product.surfaceMass surfaceMass)
+        |> Area.squareMeters
+
+
+getOutputSurface : Inputs -> Step -> Area
+getOutputSurface { product, surfaceMass } { outputMass } =
+    Mass.inGrams outputMass
         / Unit.surfaceMassToFloat
             (Maybe.withDefault product.surfaceMass surfaceMass)
         |> Area.squareMeters
