@@ -78,9 +78,12 @@ def fill_processes(processes, activity):
         # No specific classification/categorization from us, fallback on the category
         kind = category
 
-    processes[activity]["kind"] = kind  
-    processes[activity]["impacts"] = {}  
-    
+    processes[activity]["kind"] = kind
+    processes[activity]["category"] = category
+
+    processes[activity]["impacts"] = {}
+
+
 def open_db(dbname):
     bw.projects.set_current("EF calculation")
     bw.bw2setup()
@@ -109,6 +112,7 @@ def compute_pef(impacts_ecobalyse, impacts_dic):
         pef += impacts_dic[k] * weight / norm
     pef *= 1000000  # We need the result in µPt, but we have it in Pt
     return pef
+
 
 def compute_lca(processes, lcas):
     with open(args.impacts_file, "r") as f:
@@ -149,14 +153,14 @@ if __name__ == "__main__":
     )
 
     args = parser.parse_args()
-        
+
     df = pd.read_csv("selected_processes_to_export.csv")
     processes_array = df.values.tolist()
 
     processes_to_export = []
     for proc in processes_array:
         processes_to_export.append(proc[0])
-    
+
     agb = open_db("agribalyse3")
 
     activities = get_activities(agb, processes_to_export)

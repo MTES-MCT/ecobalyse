@@ -13,6 +13,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.0005168517186042084,
       "ozd": 7.298534297965397e-09,
@@ -47,6 +48,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.0005168692902091179,
       "ozd": 6.495063003329159e-09,
@@ -81,6 +83,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.0005498792605540936,
       "ozd": 6.403250644122492e-09,
@@ -115,6 +118,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.0006310124381210277,
       "ozd": 7.310407358390071e-09,
@@ -148,6 +152,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.001984043756255672,
       "ozd": 7.310407358390071e-09,
@@ -181,6 +186,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.000976236874258161,
       "ozd": 9.782927295721487e-09,
@@ -215,6 +221,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.0008470043710036988,
       "ozd": 9.416583268036365e-09,
@@ -249,6 +256,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.0025744556381506697,
       "ozd": 1.9815182051907616e-08,
@@ -283,6 +291,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.0007005499685547248,
       "ozd": 9.299692258579622e-09,
@@ -317,6 +326,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.0006611224386110566,
       "ozd": 9.575014729724483e-09,
@@ -350,6 +360,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.0008816646519388945,
       "ozd": 2.395068143683774e-08,
@@ -383,6 +394,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.23007933686139295,
       "ozd": 2.6729752039469155e-06,
@@ -416,6 +428,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.17864258645727016,
       "ozd": 4.857058174991517e-06,
@@ -450,6 +463,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.6700973131509789,
       "ozd": 1.1977929038789243e-06,
@@ -484,6 +498,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.06722522853468955,
       "ozd": 1.341116113601977e-07,
@@ -518,6 +533,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.01611660474024244,
       "ozd": 2.921872012040992e-08,
@@ -552,6 +568,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.6384478232588545,
       "ozd": 1.351393050864395e-06,
@@ -586,6 +603,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.23390590877511622,
       "ozd": 6.580629697433836e-07,
@@ -620,6 +638,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.23390591927798243,
       "ozd": 6.580629777596725e-07,
@@ -654,6 +673,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.06368756630975653,
       "ozd": 1.2765969486114078e-07,
@@ -688,6 +708,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.0812947154801934,
       "ozd": 1.6148524578249897e-07,
@@ -722,6 +743,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.014442114648250971,
       "ozd": 2.7023090699729496e-08,
@@ -756,6 +778,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.014442113780763833,
       "ozd": 2.7023088557437592e-08,
@@ -790,6 +813,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.19429079357163878,
       "ozd": 7.044495834740165e-07,
@@ -824,6 +848,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.20173568316332632,
       "ozd": 7.152772321160561e-07,
@@ -858,6 +883,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.23390591584311113,
       "ozd": 6.58062986537956e-07,
@@ -892,6 +918,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.07657675486304034,
       "ozd": 1.460149845205939e-07,
@@ -926,6 +953,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.014442114826613365,
       "ozd": 2.7023089432523354e-08,
@@ -960,6 +988,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.20173568285477006,
       "ozd": 7.152771537262058e-07,
@@ -994,6 +1023,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 15.140422896133904,
       "ozd": 1.8416350235715234e-05,
@@ -1028,6 +1058,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 49.55190147974084,
       "ozd": 6.050710522971062e-05,
@@ -1062,6 +1093,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 48.60984061327579,
       "ozd": 5.481344507810918e-05,
@@ -1096,6 +1128,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 10.269960474935557,
       "ozd": 1.5635782639855046e-05,
@@ -1130,6 +1163,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 10.269960676732529,
       "ozd": 1.563578263769846e-05,
@@ -1164,6 +1198,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.017085443176774816,
       "ozd": 2.5309788047787225e-08,
@@ -1198,6 +1233,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 4.634887606205057,
       "ozd": 7.040594881188048e-06,
@@ -1231,6 +1267,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.017085443176774816,
       "ozd": 2.5309788047787225e-08,
@@ -1264,6 +1301,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.17872037825133527,
       "ozd": 2.1848208238716747e-07,
@@ -1298,6 +1336,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 9.397074563494654,
       "ozd": 1.3920503097817547e-05,
@@ -1331,6 +1370,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.16975141613331282,
       "ozd": 2.5844269332348326e-07,
@@ -1365,6 +1405,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 43.74949908680168,
       "ozd": 5.24918232048896e-05,
@@ -1399,6 +1440,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 18.89103073450807,
       "ozd": 2.6101851741324625e-05,
@@ -1433,6 +1475,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 39.38719630550606,
       "ozd": 5.0704657536476345e-05,
@@ -1467,6 +1510,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 8.85392408952484,
       "ozd": 1.8814346321055444e-05,
@@ -1501,6 +1545,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 8.853923344373163,
       "ozd": 1.8814344798134885e-05,
@@ -1535,6 +1580,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.013504818062311377,
       "ozd": 2.7898406800245563e-08,
@@ -1568,6 +1614,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.01350481806231138,
       "ozd": 2.7898406800245563e-08,
@@ -1601,6 +1648,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.16630416934312575,
       "ozd": 2.2436356213899833e-07,
@@ -1635,6 +1683,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 7.578778067260463,
       "ozd": 1.1053526064510381e-05,
@@ -1669,6 +1718,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 8.039128526447291,
       "ozd": 1.660732257507656e-05,
@@ -1702,6 +1752,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.1788671639227937,
       "ozd": 3.80087826988478e-07,
@@ -1736,6 +1787,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 50.483922101213615,
       "ozd": 3.671388311788581e-05,
@@ -1770,6 +1822,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 33.25904052776068,
       "ozd": 2.382437887743393e-05,
@@ -1804,6 +1857,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 65.90744062341149,
       "ozd": 5.7453909637785886e-05,
@@ -1838,6 +1892,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 10.233430700863687,
       "ozd": 1.96579552318241e-05,
@@ -1872,6 +1927,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 10.233429850258302,
       "ozd": 1.965795386202402e-05,
@@ -1906,6 +1962,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.015308803346274633,
       "ozd": 2.459172865641443e-08,
@@ -1940,6 +1997,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 6.139956874486367,
       "ozd": 8.03076045610135e-06,
@@ -1974,6 +2032,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 9.08414375937848,
       "ozd": 1.4592571218889699e-05,
@@ -2008,6 +2067,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 45.87555771399957,
       "ozd": 6.100326726143224e-05,
@@ -2042,6 +2102,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 29.19201182591564,
       "ozd": 4.2122467895104606e-05,
@@ -2076,6 +2137,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 7.818722468063358,
       "ozd": 1.95690462038335e-05,
@@ -2110,6 +2172,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 7.818721602985526,
       "ozd": 1.9569044093029946e-05,
@@ -2144,6 +2207,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.011979679682680175,
       "ozd": 2.9764044507011345e-08,
@@ -2178,6 +2242,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 6.526109540195359,
       "ozd": 8.819737550751943e-06,
@@ -2211,6 +2276,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.011979679682680175,
       "ozd": 2.9764044507011345e-08,
@@ -2244,6 +2310,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.1281377641908725,
       "ozd": 1.894249380590038e-07,
@@ -2278,6 +2345,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 7.128344940076874,
       "ozd": 1.771068854077935e-05,
@@ -2311,6 +2379,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.15795398803145583,
       "ozd": 3.953342636847605e-07,
@@ -2344,6 +2413,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.015308803346274633,
       "ozd": 2.459172865641443e-08,
@@ -2377,6 +2447,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.2411689277202583,
       "ozd": 2.1298170069622314e-07,
@@ -2410,6 +2481,7 @@
     ],
     "comment": "FRANCE",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.013300273714267447,
       "ozd": 2.854541611570419e-08,
@@ -2443,6 +2515,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.015863163722336725,
       "ozd": 2.9215283709945388e-08,
@@ -2476,6 +2549,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.16475050676522388,
       "ozd": 2.1509811722727004e-07,
@@ -2509,6 +2583,7 @@
     ],
     "comment": "Functional unit: kg of fat and protein content corrected milk.",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.010469703155189311,
       "ozd": 2.1043710340683527e-08,
@@ -2542,6 +2617,7 @@
     ],
     "comment": "Functional unit: kg of fat and protein content corrected milk.",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.010906456883614322,
       "ozd": 2.195620763592709e-08,
@@ -2575,6 +2651,7 @@
     ],
     "comment": "Functional unit: kg of fat and protein content corrected milk.",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.013419870641098543,
       "ozd": 2.9175577002561385e-08,
@@ -2608,6 +2685,7 @@
     ],
     "comment": "Functional unit: kg of fat and protein content corrected milk.",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.014562314294185025,
       "ozd": 2.607215020216604e-08,
@@ -2641,6 +2719,7 @@
     ],
     "comment": "Functional unit: kg of fat and protein content corrected milk.",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.013420731630789069,
       "ozd": 1.9639663032265733e-08,
@@ -2674,6 +2753,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.17282599154569378,
       "ozd": 1.915219595073222e-07,
@@ -2708,6 +2788,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.0,
       "ozd": 0.0,
@@ -2741,6 +2822,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.29402760769729497,
       "ozd": 3.000711257124951e-07,
@@ -2775,6 +2857,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.0,
       "ozd": 0.0,
@@ -2809,6 +2892,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.0,
       "ozd": 0.0,
@@ -2842,6 +2926,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.240450334652772,
       "ozd": 2.7622386053831495e-07,
@@ -2876,6 +2961,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.0,
       "ozd": 0.0,
@@ -2909,6 +2995,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.12724742941052783,
       "ozd": 1.6115777659867429e-07,
@@ -2942,6 +3029,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.14961680923153595,
       "ozd": 1.9335765709790844e-07,
@@ -2976,6 +3064,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.0,
       "ozd": 0.0,
@@ -3009,6 +3098,7 @@
     ],
     "comment": "Allocation for milk and meat: parameter AlF",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.0008758940923257308,
       "ozd": 1.5109405686627754e-08,
@@ -3042,6 +3132,7 @@
     ],
     "comment": "Allocation for milk and meat: parameter AlF",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.000829402350806215,
       "ozd": 1.57558500691306e-08,
@@ -3075,6 +3166,7 @@
     ],
     "comment": "Allocation for milk and meat: parameter AlF",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.0008180773123738742,
       "ozd": 1.5873539294475622e-08,
@@ -3108,6 +3200,7 @@
     ],
     "comment": "Allocation for milk and meat: parameter AlF",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.0007925355921100394,
       "ozd": 1.5397092772830808e-08,
@@ -3141,6 +3234,7 @@
     ],
     "comment": "Allocation for milk and meat: parameter AlF",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.0007721230796136671,
       "ozd": 1.611645365039851e-08,
@@ -3174,6 +3268,7 @@
     ],
     "comment": "Allocation for milk and meat: parameter AlF",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.0006351960059243573,
       "ozd": 1.697650808183087e-08,
@@ -3207,6 +3302,7 @@
     ],
     "comment": "Allocation for milk and meat: parameter AlF",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.00016498919363531434,
       "ozd": 2.945471157073458e-09,
@@ -3240,6 +3336,7 @@
     ],
     "comment": "Allocation for milk and meat: parameter AlF",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.00017405379283380696,
       "ozd": 3.0336804603998676e-09,
@@ -3273,6 +3370,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.0731246784996249,
       "ozd": 1.2020136888821115e-07,
@@ -3306,6 +3404,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.06722522853468955,
       "ozd": 1.341116113601977e-07,
@@ -3339,6 +3438,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.06368756630975654,
       "ozd": 1.2765969486114078e-07,
@@ -3372,6 +3472,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.0812947154801934,
       "ozd": 1.6148524578249897e-07,
@@ -3405,6 +3506,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.07657675486304036,
       "ozd": 1.460149845205939e-07,
@@ -3438,6 +3540,7 @@
     ],
     "comment": "FRANCE",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.06581537585917512,
       "ozd": 1.3083166155670127e-07,
@@ -3471,6 +3574,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.06738809891627075,
       "ozd": 1.2452857772149223e-07,
@@ -3504,6 +3608,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.08290847310068743,
       "ozd": 1.3608835778484547e-07,
@@ -3537,6 +3642,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.0839340931765595,
       "ozd": 1.368257117101761e-07,
@@ -3571,6 +3677,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.012749160655834922,
       "ozd": 2.033358411296927e-08,
@@ -3605,6 +3712,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.012749160655834922,
       "ozd": 2.033358411296927e-08,
@@ -3639,6 +3747,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.5352138563332157,
       "ozd": 9.293765424292995e-07,
@@ -3673,6 +3782,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.4869498448973496,
       "ozd": 1.1534250118169648e-06,
@@ -3707,6 +3817,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.4869498448973496,
       "ozd": 1.1534250118169648e-06,
@@ -3741,6 +3852,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.08290847310068741,
       "ozd": 1.3608835778484547e-07,
@@ -3775,6 +3887,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.5352138563332157,
       "ozd": 9.293765424292995e-07,
@@ -3809,6 +3922,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.08540981258037184,
       "ozd": 1.5348178982351418e-07,
@@ -3842,6 +3956,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 21.268694597203314,
       "ozd": 0.00013662463696019887,
@@ -3876,6 +3991,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.23332482741327917,
       "ozd": 6.580629656349364e-07,
@@ -3910,6 +4026,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.06738809891627075,
       "ozd": 1.2452857772149223e-07,
@@ -3944,6 +4061,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.014441066228799227,
       "ozd": 2.7023090014242573e-08,
@@ -3978,6 +4096,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.2012815422373046,
       "ozd": 7.152772412286672e-07,
@@ -4012,6 +4131,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 19.972534238649427,
       "ozd": 3.225480743633035e-05,
@@ -4046,6 +4166,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 47.36973702935904,
       "ozd": 5.351182312046778e-05,
@@ -4080,6 +4201,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 41.45298154228221,
       "ozd": 4.553365103744498e-05,
@@ -4114,6 +4236,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 9.85727891915308,
       "ozd": 1.862198919070156e-05,
@@ -4148,6 +4271,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 9.857279212458005,
       "ozd": 1.8621989623340957e-05,
@@ -4182,6 +4306,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.015863163722336728,
       "ozd": 2.9215283709945388e-08,
@@ -4216,6 +4341,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 5.7968052775052,
       "ozd": 1.1787087570779227e-05,
@@ -4250,6 +4376,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 8.989048012184341,
       "ozd": 1.6555183921708812e-05,
@@ -4284,6 +4411,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 19.844584957582306,
       "ozd": 2.67091831489359e-05,
@@ -4318,6 +4446,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 24.237984093860494,
       "ozd": 2.890358157507302e-05,
@@ -4352,6 +4481,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 28.684197944719923,
       "ozd": 3.977462417165652e-05,
@@ -4386,6 +4516,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 10.699462582719402,
       "ozd": 1.558160199746352e-05,
@@ -4420,6 +4551,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 28.3694529060119,
       "ozd": 3.610451618893174e-05,
@@ -4454,6 +4586,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 8.0581876538831,
       "ozd": 1.4743701773821376e-05,
@@ -4488,6 +4621,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 5.397035066553132,
       "ozd": 1.1230026565469906e-05,
@@ -4522,6 +4656,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 6.701842393467572,
       "ozd": 1.0224774435562188e-05,
@@ -4556,6 +4691,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 6.345834116556911,
       "ozd": 1.4023542946716398e-05,
@@ -4590,6 +4726,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 6.158108521126218,
       "ozd": 1.262609090000809e-05,
@@ -4624,6 +4761,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 6.701842463273266,
       "ozd": 1.0224774556173368e-05,
@@ -4658,6 +4796,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 8.058187642496016,
       "ozd": 1.4743701703007988e-05,
@@ -4692,6 +4831,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 6.345834624701408,
       "ozd": 1.4023543910991119e-05,
@@ -4726,6 +4866,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 5.397035017314996,
       "ozd": 1.1230026311782742e-05,
@@ -4760,6 +4901,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 6.158108432055331,
       "ozd": 1.2626090899436465e-05,
@@ -4794,6 +4936,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 46.63510415942261,
       "ozd": 4.876082564356112e-05,
@@ -4828,6 +4971,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 60.110709157440596,
       "ozd": 7.010338789979685e-05,
@@ -4862,6 +5006,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 51.22060601762582,
       "ozd": 4.762029376485996e-05,
@@ -4896,6 +5041,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 56.7929618793178,
       "ozd": 6.19956288850399e-05,
@@ -4930,6 +5076,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 43.23486777011428,
       "ozd": 4.3229785399452386e-05,
@@ -4964,6 +5111,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 59.01049767902286,
       "ozd": 6.053408277823389e-05,
@@ -4998,6 +5146,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 17.17981285978689,
       "ozd": 9.312623369097625e-06,
@@ -5032,6 +5181,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 79.34773401284203,
       "ozd": 7.24893359317133e-05,
@@ -5066,6 +5216,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 8.573016568954284,
       "ozd": 1.8445381614876415e-05,
@@ -5100,6 +5251,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.011014712310896246,
       "ozd": 2.1956207692747012e-08,
@@ -5134,6 +5286,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.013419870641098543,
       "ozd": 2.9175577002561385e-08,
@@ -5168,6 +5321,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.013476719403463714,
       "ozd": 1.9744129048832097e-08,
@@ -5202,6 +5356,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.014562314294185018,
       "ozd": 2.607215020216604e-08,
@@ -5236,6 +5391,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.011050443567853294,
       "ozd": 2.280715014937211e-08,
@@ -5270,6 +5426,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 2.671858932612177,
       "ozd": 4.200700185331813e-06,
@@ -5304,6 +5461,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 5.690087279539931,
       "ozd": 1.2370805054823852e-05,
@@ -5338,6 +5496,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 5.371652502382277,
       "ozd": 1.0801302752059913e-05,
@@ -5372,6 +5531,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 5.058843434218899,
       "ozd": 1.0195435514682975e-05,
@@ -5406,6 +5566,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 6.896665513636061,
       "ozd": 1.2347796304417927e-05,
@@ -5440,6 +5601,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 5.941908244098995,
       "ozd": 8.692694150923522e-06,
@@ -5474,6 +5636,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 3.449833606355268,
       "ozd": 7.771077266456771e-06,
@@ -5508,6 +5671,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 1.9490448597631447,
       "ozd": 3.379958510972985e-06,
@@ -5542,6 +5706,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 3.2984912545086336,
       "ozd": 5.2418051366893225e-06,
@@ -5576,6 +5741,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 3.443245613977373,
       "ozd": 5.6481527009398935e-06,
@@ -5609,6 +5775,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.49449831675537453,
       "ozd": 5.72470189586439e-06,
@@ -5642,6 +5809,7 @@
     ],
     "comment": "Dairy farm archetype US-2218NY (New York state, USA, 2218 cows) according to FAO, IDF, IFCN (2014).US-2218NY represents a larger type of farm with a free stall barn and a milking carousel. This farm has been set up in the state of New York and the work is mainly done by hired employees. The farm operates on 1 909 ha and produces most of its feed needs on the farm. In addition, this farm creates some returns via cash crops. The milk yield of the Holstein Friesian cows is approximately 10 610 kg milk/cow per year.Inventory is for 1 kg raw milk, uncorrected. Mass produced is given for FPCM equivalent.",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.007787243505266573,
       "ozd": 3.253062710812418e-08,
@@ -5675,6 +5843,7 @@
     ],
     "comment": "Dairy farm archetype NZ-351 (New Zealand, 351 cows) according to FAO, IDF, IFCN (2014).NZ-351 is an average-sized farm in New Zealand, located on North Island. The farm has 128 ha, which is mainly used for grazing. The milk yield of the Holstein-Jersey cross-bred cows is 4 600 kg milk/cow per year. Milking is done by a swing-over parlour. The cows are not housed.Inventory is for 1 kg raw milk, uncorrected. Mass produced is given for FPCM equivalent.",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.005339273891234159,
       "ozd": 1.6642924388807276e-09,
@@ -5708,6 +5877,7 @@
     ],
     "comment": "Dairy farm archetype DE-90N (North Germany, 90 cows) according to FAO, IDF, IFCN (2014).DE-90N characterises an average-sized farm in northern Germany, having Holstein Friesian cows with an average milk yield of 8 165 kg milk/cow per year. The cows are kept in a free stall barn where milking is done using a 2 × 6 herringbone parlour. The farm operates on 97 ha of land (46 percent grassland) and has some cash crop returns and fattens its male calves. Besides the family members, a large share of the work is done by young people being trained as farmers on the farm.Inventory is for 1 kg raw milk, uncorrected. Mass produced is given for FPCM equivalent.",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.005250067315916693,
       "ozd": 1.8453444599896995e-08,
@@ -5741,6 +5911,7 @@
     ],
     "comment": "Dairy farm archetype FR-50-W (West France, 50 cows) according to FAO, IDF, IFCN (2014).FR-50-W represents an average-sized farm in the western part of France with a free stall barn and a milking parlour. The farm operates on 61 ha (60 percent grassland). From its Holstein cows, it has a milk yield of 7 470 kg milk/cow per year. Besides dairy, the farm also has returns from cash crops. All the work is done by the family members.Allocation for milk based on mass balance (IDF 2015)Inventory is for 1 kg raw milk, uncorrected. Mass produced is given for FPCM equivalent (IDF 2010)",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.0062185060478897524,
       "ozd": 1.842803499504233e-08,
@@ -5774,6 +5945,7 @@
     ],
     "comment": "Dairy farm archetype IN-3E (East India, 3 cows) according to FAO, IDF, IFCN (2014).IN-3E is an average-sized farm in India (West Bengal), household-style with cross-bred cows that produce 1 390 kg milk/cow per year. The feeding system is based on by-product feeds and concentrate. The family relies strongly on cash crop returns but to a lesser extent compared with farm IN-3S.Allocation for milk based on mass balance (IDF 2015)Inventory is for 1 kg raw milk, uncorrected. Mass produced is given for FPCM equivalent (IDF 2010)",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.011151285799775312,
       "ozd": 4.681457180064733e-08,
@@ -5807,6 +5979,7 @@
     ],
     "comment": "Dairy farm archetype PE-7 (Peru, 7 cows) according to FAO, IDF, IFCN (2014).PE-7 reflects an average-sized family farm and is located in the dairy region of Cajamarca at high altitude (3 000 m above sea level) in Peru. The farm operates on a grazing system and has 16 ha of land. The cows are Brown Swiss, have a milk yield of 2 360 kg milk/cow per year and are milked by hand. All the work is done by family members.Allocation for milk based on mass balance (IDF 2015)Inventory is for 1 kg raw milk, uncorrected. Mass produced is given for FPCM equivalent (IDF 2010)",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.007151583065762337,
       "ozd": 8.003646892267456e-09,
@@ -5840,6 +6013,7 @@
     ],
     "comment": "Raw milk production mix, at the farm, FPCM, in PAKISTAN0% Raw milk, large scale production, grazing, mechanized, at farm (WFLDB 3.1)/GLO U0% Raw milk, large scale production, non-grazing, mechanized, at farm (WFLDB 3.1)/GLO U10% Raw milk, medium scale production, non-grazing, mechanized, at farm (WFLDB 3.1)/GLO U0% Raw milk, medium scale production, grazing, mechanized, at farm (WFLDB 3.1)/GLO U10% Raw milk, small scale production, grazing, non-mechanized, at farm (WFLDB 3.1)/GLO U80% Raw milk, micro scale production, non-grazing, non-mechanized, at farm (WFLDB 3.1)/GLO U",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.017552979481115685,
       "ozd": 4.4288000458598764e-08,
@@ -5873,6 +6047,7 @@
     ],
     "comment": "Raw milk production mix, at the farm, FPCM, in UNITED KINGDOM0% Raw milk, large scale production, grazing, mechanized, at farm (WFLDB 3.1)/GLO U0% Raw milk, large scale production, non-grazing, mechanized, at farm (WFLDB 3.1)/GLO U60% Raw milk, medium scale production, non-grazing, mechanized, at farm (WFLDB 3.1)/GLO U40% Raw milk, medium scale production, grazing, mechanized, at farm (WFLDB 3.1)/GLO U0% Raw milk, small scale production, grazing, non-mechanized, at farm (WFLDB 3.1)/GLO U0% Raw milk, micro scale production, non-grazing, non-mechanized, at farm (WFLDB 3.1)/GLO U",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.009728128691585626,
       "ozd": 3.4316820602234825e-08,
@@ -5906,6 +6081,7 @@
     ],
     "comment": "Raw milk production mix, at the farm, FPCM, in GERMANY0% Raw milk, large scale production, grazing, mechanized, at farm (WFLDB 3.1)/GLO U0% Raw milk, large scale production, non-grazing, mechanized, at farm (WFLDB 3.1)/GLO U60% Raw milk, medium scale production, non-grazing, mechanized, at farm (WFLDB 3.1)/GLO U40% Raw milk, medium scale production, grazing, mechanized, at farm (WFLDB 3.1)/GLO U0% Raw milk, small scale production, grazing, non-mechanized, at farm (WFLDB 3.1)/GLO U0% Raw milk, micro scale production, non-grazing, non-mechanized, at farm (WFLDB 3.1)/GLO U",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.009785945471537483,
       "ozd": 3.355268699438696e-08,
@@ -5939,6 +6115,7 @@
     ],
     "comment": "Raw milk production mix, at the farm, FPCM, in FRANCE0% Raw milk, large scale production, grazing, mechanized, at farm (WFLDB 3.1)/GLO U0% Raw milk, large scale production, non-grazing, mechanized, at farm (WFLDB 3.1)/GLO U50% Raw milk, medium scale production, non-grazing, mechanized, at farm (WFLDB 3.1)/GLO U50% Raw milk, medium scale production, grazing, mechanized, at farm (WFLDB 3.1)/GLO U0% Raw milk, small scale production, grazing, non-mechanized, at farm (WFLDB 3.1)/GLO U0% Raw milk, micro scale production, non-grazing, non-mechanized, at farm (WFLDB 3.1)/GLO U",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.009610733519936037,
       "ozd": 3.5417247879300517e-08,
@@ -5972,6 +6149,7 @@
     ],
     "comment": "Average of modeled countries based on market share of global production --> the eight countries modeled represent 50% of the global production of raw milk from cows (FAOSTAT, 2012)",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.011545826497505195,
       "ozd": 3.9686815527953526e-08,
@@ -6005,6 +6183,7 @@
     ],
     "comment": "Raw milk production mix, at the farm, FPCM, in RUSSIA0% Raw milk, large scale production, grazing, mechanized, at farm (WFLDB 3.1)/GLO U60% Raw milk, large scale production, non-grazing, mechanized, at farm (WFLDB 3.1)/GLO U20% Raw milk, medium scale production, non-grazing, mechanized, at farm (WFLDB 3.1)/GLO U10% Raw milk, medium scale production, grazing, mechanized, at farm (WFLDB 3.1)/GLO U10% Raw milk, small scale production, grazing, non-mechanized, at farm (WFLDB 3.1)/GLO U0% Raw milk, micro scale production, non-grazing, non-mechanized, at farm (WFLDB 3.1)/GLO U",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.011214985546481305,
       "ozd": 4.0335866980686635e-08,
@@ -6038,6 +6217,7 @@
     ],
     "comment": "Raw milk production mix, at the farm, FPCM, in UNITED STATES0% Raw milk, large scale production, grazing, mechanized, at farm (WFLDB 3.1)/GLO U40% Raw milk, large scale production, non-grazing, mechanized, at farm (WFLDB 3.1)/GLO U40% Raw milk, medium scale production, non-grazing, mechanized, at farm (WFLDB 3.1)/GLO U20% Raw milk, medium scale production, grazing, mechanized, at farm (WFLDB 3.1)/GLO U0% Raw milk, small scale production, grazing, non-mechanized, at farm (WFLDB 3.1)/GLO U0% Raw milk, micro scale production, non-grazing, non-mechanized, at farm (WFLDB 3.1)/GLO U",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.010108710502530803,
       "ozd": 4.019568969142403e-08,
@@ -6071,6 +6251,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.006448469189131705,
       "ozd": 2.3456555584116584e-08,
@@ -6104,6 +6285,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.005955920020438376,
       "ozd": 2.2126652339778507e-08,
@@ -6137,6 +6319,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.0069132388954650705,
       "ozd": 2.4277831354923252e-08,
@@ -6170,6 +6353,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.0072186235889236065,
       "ozd": 2.1571214487318887e-08,
@@ -6203,6 +6387,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.007214191333115601,
       "ozd": 2.154575294270985e-08,
@@ -6236,6 +6421,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.00883530840660615,
       "ozd": 2.6188369052390746e-08,
@@ -6269,6 +6455,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.0015303200639266185,
       "ozd": 1.7144635350785836e-08,
@@ -6302,6 +6489,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.0013726453082555667,
       "ozd": 3.4133314010040675e-08,
@@ -6335,6 +6523,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.0014514826860910926,
       "ozd": 2.5638974680413262e-08,
@@ -6369,6 +6558,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.005542390994209125,
       "ozd": 2.5104628900379618e-08,
@@ -6402,6 +6592,7 @@
     ],
     "comment": "",
     "kind": "material",
+    "category": "material",
     "impacts": {
       "acd": 0.01290685410340579,
       "ozd": 5.424783363221258e-08,
@@ -6432,6 +6623,7 @@
     ],
     "comment": "(2,3,2,2,2);weighted average from 13 plants",
     "kind": "processing",
+    "category": "processing",
     "impacts": {
       "acd": 0.009067927250248936,
       "ozd": 4.345274712766263e-08,
@@ -6462,6 +6654,7 @@
     ],
     "comment": "(2,3,2,2,2);weighted average from 13 plants",
     "kind": "processing",
+    "category": "processing",
     "impacts": {
       "acd": 0.008502461986389298,
       "ozd": 3.443812910948849e-08,
@@ -6492,6 +6685,7 @@
     ],
     "comment": "(2,3,2,2,2);weighted average from 13 plants",
     "kind": "processing",
+    "category": "processing",
     "impacts": {
       "acd": 0.0030898906783193804,
       "ozd": 2.8827298717503008e-08,
@@ -6522,6 +6716,7 @@
     ],
     "comment": "(2,3,2,2,2);weighted average from 13 plants",
     "kind": "processing",
+    "category": "processing",
     "impacts": {
       "acd": 0.002963008445838628,
       "ozd": 1.4865671758706307e-08,
@@ -6552,6 +6747,7 @@
     ],
     "comment": "(2,3,2,2,2);",
     "kind": "processing",
+    "category": "processing",
     "impacts": {
       "acd": 7.235883969285477e-05,
       "ozd": 4.072854222191214e-09,
@@ -6583,6 +6779,7 @@
     ],
     "comment": "This process is a dummy process. It is assumed that no energy or water addition is needed for this process.",
     "kind": "processing",
+    "category": "processing",
     "impacts": {
       "acd": 0.0,
       "ozd": 0.0,
@@ -6615,6 +6812,7 @@
     ],
     "comment": "This process describes the average consumption mix of Carrot in France.Included activities are : production in country of origin and transport. The consumption mix was evaluated using data extracted from FAOstat",
     "kind": "ingredient",
+    "category": "material",
     "impacts": {
       "acd": 0.0010632881852701084,
       "ozd": 1.597728124759864e-08,
@@ -6647,6 +6845,7 @@
     ],
     "comment": "This process describes the average consumption mix of chicken egg, raw in France.  Included activities are production in country of origin and transport",
     "kind": "ingredient",
+    "category": "material",
     "impacts": {
       "acd": 0.06590242717018707,
       "ozd": 1.3702601550857838e-07,
@@ -6679,6 +6878,7 @@
     ],
     "comment": "This process describes the average consumption mix of cow milk in France.Included activities are production in country of origin and transport.",
     "kind": "ingredient",
+    "category": "material",
     "impacts": {
       "acd": 0.013387325025279395,
       "ozd": 3.473977006758134e-08,
@@ -6711,6 +6911,7 @@
     ],
     "comment": "This process describes the average consumption mix of hard cheese in France.Included activities are production in country of origin and transport.",
     "kind": "ingredient",
+    "category": "material",
     "impacts": {
       "acd": 0.06152607295686229,
       "ozd": 2.2330199301250517e-07,
@@ -6743,6 +6944,7 @@
     ],
     "comment": "This process describes the average consumption mix of soft cheese in France.Included activities are production in country of origin and transport.",
     "kind": "ingredient",
+    "category": "material",
     "impacts": {
       "acd": 0.054079221990285004,
       "ozd": 1.8162662630840317e-07,
@@ -6775,6 +6977,7 @@
     ],
     "comment": "This process describes the average consumption mix of Eggplant in France.Included activities are : production in country of origin and transport. The consumption mix was evaluated using data extracted from FAOstat",
     "kind": "ingredient",
+    "category": "material",
     "impacts": {
       "acd": 0.0228445339935777,
       "ozd": 1.2987165813657868e-07,
@@ -6807,6 +7010,7 @@
     ],
     "comment": "This process describes the average consumption mix of Soft wheat in France.Included activities are : production in country of origin and transport. The consumption mix was evaluated using data from technical institutes (Arvalis).",
     "kind": "ingredient",
+    "category": "material",
     "impacts": {
       "acd": 0.007301242644127548,
       "ozd": 2.7740106894587014e-08,
