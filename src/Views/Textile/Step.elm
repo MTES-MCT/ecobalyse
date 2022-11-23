@@ -647,18 +647,26 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
 
                   else
                     text ""
-                , if current.label == Label.Fabric || current.label == Label.Ennoblement then
-                    li [ class "list-group-item text-muted d-flex justify-content-center gap-2" ]
-                        [ span [] [ text "Surface étoffe\u{00A0}:" ]
-                        , span []
-                            [ current
-                                |> Step.getSurface inputs
-                                |> Format.squareMetters
-                            ]
-                        ]
+                , let
+                    surfaceInfo =
+                        if current.label == Label.Fabric then
+                            Just ( "sortante", Step.getOutputSurface inputs current )
 
-                  else
-                    text ""
+                        else if current.label == Label.Ennoblement then
+                            Just ( "entrante", Step.getInputSurface inputs current )
+
+                        else
+                            Nothing
+                  in
+                  case surfaceInfo of
+                    Just ( dir, surface ) ->
+                        li [ class "list-group-item text-muted d-flex justify-content-center gap-2" ]
+                            [ span [] [ text <| "Surface étoffe (" ++ dir ++ ")\u{00A0}:" ]
+                            , span [] [ Format.squareMetters surface ]
+                            ]
+
+                    Nothing ->
+                        text ""
                 , if Transport.totalKm current.transport > 0 then
                     li [ class "list-group-item text-muted" ]
                         [ current.transport
