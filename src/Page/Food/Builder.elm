@@ -51,14 +51,6 @@ type alias IngredientQuery =
     }
 
 
-emptyIngredientQuery : IngredientQuery
-emptyIngredientQuery =
-    { name = Ingredient.nameFromString ""
-    , mass = Mass.grams 100
-    , variant = Default
-    }
-
-
 type alias Query =
     { ingredients : List IngredientQuery
     , transform : Maybe Recipe.TransformQuery
@@ -148,6 +140,15 @@ type alias Results =
         }
     , packaging : Impacts
     }
+
+
+availableIngredients : List Ingredient.Name -> List Ingredient.Name -> List Ingredient.Name
+availableIngredients usedIngredientNames ingredientListNames =
+    ingredientListNames
+        |> List.filter
+            (\name ->
+                not (List.member name usedIngredientNames)
+            )
 
 
 compute : FoodDb.Db -> Query -> Result String ( Recipe, Results )
@@ -248,6 +249,14 @@ ingredientFromQuery { ingredients } ingredientQuery =
         (Ok ingredientQuery.variant)
 
 
+ingredientQueryFromIngredient : Ingredient.Name -> IngredientQuery
+ingredientQueryFromIngredient ingredientName =
+    { name = ingredientName
+    , mass = Mass.grams 100
+    , variant = Default
+    }
+
+
 variantToString : Variant -> String
 variantToString variant =
     case variant of
@@ -346,14 +355,22 @@ update session msg model =
             let
                 query =
                     model.query
+
+                firstIngredient =
+                    session.foodDb.ingredients
+                        |> List.map .name
+                        |> availableIngredients (List.map .name query.ingredients)
+                        |> List.head
+                        |> Maybe.map ingredientQueryFromIngredient
+                        |> Maybe.map List.singleton
+                        |> Maybe.withDefault []
             in
             ( { model
                 | query =
                     { query
                         | ingredients =
                             query.ingredients
-                                ++ [ emptyIngredientQuery
-                                   ]
+                                ++ firstIngredient
                     }
               }
             , session
@@ -730,6 +747,12 @@ ingredientListView foodDb selectedImpact recipe results =
                     [ class "btn btn-outline-primary"
                     , class "flex-fill d-flex justify-content-center align-items-center"
                     , class " gap-1 no-outline"
+                    , disabled <|
+                        (foodDb.ingredients
+                            |> List.map .name
+                            |> availableIngredients (List.map (.ingredient >> .name) recipe.ingredients)
+                            |> List.isEmpty
+                        )
                     , onClick AddIngredient
                     ]
                     [ i [ class "icon icon-plus" ] []
@@ -896,12 +919,6 @@ ingredientSelectorView selectedIngredient excluded event ingredients =
                 )
             )
         |> List.sortBy Tuple.first
-        |> (++)
-            [ ( ""
-              , option [ Attr.selected <| selectedIngredient == Ingredient.nameFromString "", value "" ]
-                    [ text <| "-- Sélectionnez un ingrédient" ]
-              )
-            ]
         -- We use Html.Keyed because when we add an item, we filter it out from the select box,
         -- which desynchronizes the DOM state and the virtual dom state
         |> Keyed.node "select"
