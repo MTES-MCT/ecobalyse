@@ -132,7 +132,7 @@
       "countryFabric=FR",
       "countryDyeing=FR",
       "countryMaking=FR",
-      "disabledSteps=ennoblement"
+      "disabledSteps=ennobling"
     ],
     "impacts": {
       "acd": 0.03746659042339192,

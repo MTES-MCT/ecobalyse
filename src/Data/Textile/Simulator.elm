@@ -123,10 +123,10 @@ compute db query =
         |> nextIf Label.Spinning (computeSpinningImpacts db)
         -- Compute Weaving & Knitting step impacts
         |> nextIf Label.Fabric computeFabricImpacts
-        -- Compute Ennoblement step Dyeing impacts
-        |> nextWithDbIf Label.Ennoblement computeDyeingImpacts
-        -- Compute Ennoblement step Printing impacts
-        |> nextWithDbIf Label.Ennoblement computePrintingImpacts
+        -- Compute Ennobling step Dyeing impacts
+        |> nextWithDbIf Label.Ennobling computeDyeingImpacts
+        -- Compute Ennobling step Printing impacts
+        |> nextWithDbIf Label.Ennobling computePrintingImpacts
         -- Compute Making step impacts
         |> nextWithDbIf Label.Making computeMakingImpacts
         -- Compute product Use impacts
@@ -238,7 +238,7 @@ computeDyeingImpacts db ({ inputs } as simulator) =
         |> Result.map
             (\wellKnown ->
                 simulator
-                    |> updateLifeCycleStep Label.Ennoblement
+                    |> updateLifeCycleStep Label.Ennobling
                         (\({ country, dyeingMedium } as step) ->
                             let
                                 productDefaultMedium =
@@ -271,7 +271,7 @@ computePrintingImpacts db ({ inputs } as simulator) =
         |> Result.map
             (\wellKnown ->
                 simulator
-                    |> updateLifeCycleStep Label.Ennoblement
+                    |> updateLifeCycleStep Label.Ennobling
                         (\({ country } as step) ->
                             case step.printing of
                                 Just printing ->
@@ -422,7 +422,7 @@ computeMakingStepWaste ({ inputs } as simulator) =
     simulator
         |> updateLifeCycleStep Label.Making (Step.updateWaste waste mass)
         |> updateLifeCycleSteps
-            [ Label.Material, Label.Spinning, Label.Fabric, Label.Ennoblement ]
+            [ Label.Material, Label.Spinning, Label.Fabric, Label.Ennobling ]
             (Step.initMass mass)
 
 

@@ -68,7 +68,7 @@ chart data =
                         , material = getStepShare "Matière"
                         , spinning = getStepShare "Filature"
                         , weavingKnitting = getStepShare "Tissage & Tricotage"
-                        , ennoblement = getStepShare "Ennoblissement"
+                        , ennobling = getStepShare "Ennoblissement"
                         , making = getStepShare "Confection"
                         , transport = getStepShare "Transports"
                         , use = getStepShare "Utilisation"
@@ -156,7 +156,7 @@ stepsLegendData :
                 | material : Float
                 , spinning : Float
                 , weavingKnitting : Float
-                , ennoblement : Float
+                , ennobling : Float
                 , making : Float
                 , transport : Float
                 , use : Float
@@ -178,7 +178,7 @@ stepsLegendData { knitted } =
     --       "Tissage"
     --
     --   )
-    -- , ( .ennoblement, "Ennoblissement" )
+    -- , ( .ennobling, "Ennoblissement" )
     -- , ( .making, "Confection" )
     -- , ( .transport, "Transport" )
     -- , ( .use, "Utilisation" )
@@ -201,7 +201,7 @@ stepsLegendData { knitted } =
                 [ .material
                 , .spinning
                 , .weavingKnitting
-                , .ennoblement
+                , .ennobling
                 , .making
                 , .transport
                 , .use
