@@ -78,8 +78,8 @@ def fill_processes(processes, activity):
         # No specific classification/categorization from us, fallback on the category
         kind = category
 
-    processes[activity]["kind"] = kind
-    processes[activity]["category"] = category
+    # We store the "kind" as the "category" key
+    processes[activity]["category"] = kind
 
     processes[activity]["impacts"] = {}
 
