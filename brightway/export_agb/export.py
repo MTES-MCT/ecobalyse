@@ -12,26 +12,62 @@ import pandas as pd
 import re
 
 processes_kind = {
-    "transformation": [
-        "Cooking, industrial, 1kg of cooked product/ FR U",
-        'Mixing, processing, at plant "dummy process"',
-        "Canning fruits or vegetables, industrial, 1kg of canned product/ FR U",
-    ],
-    "packaging": [
-        "Steel, unalloyed {RER}| steel production, converter, unalloyed | Cut-off, S - Copied from Ecoinvent",
-        "Polystyrene, expandable {RER}| production | Cut-off, S - Copied from Ecoinvent",
-        "Packaging glass, white {RER w/o CH+DE}| production | Cut-off, S - Copied from Ecoinvent",
-        "Polypropylene, granulate {RER}| production | Cut-off, S - Copied from Ecoinvent",
-        "Corrugated board box {RER}| production | Cut-off, S - Copied from Ecoinvent",
-        "Kraft paper, unbleached {RER}| production | Cut-off, S - Copied from Ecoinvent",
-        "Polyvinylchloride, suspension polymerised {RER}| polyvinylchloride production, suspension polymerisation | Cut-off, S - Copied from Ecoinvent",
-        "Polyethylene terephthalate, granulate, bottle grade {RER}| production | Cut-off, S - Copied from Ecoinvent",
-        "Polyethylene, high density, granulate {RER}| production | Cut-off, S - Copied from Ecoinvent",
-        "Packaging film, low density polyethylene {RER}| production | Cut-off, S - Copied from Ecoinvent",
-        "Extrusion of plastic sheets and thermoforming, inline {FR}| processing | Cut-off, S - Copied from Ecoinvent",
-        "Impact extrusion of aluminium, deformation stroke {RER}| processing | Cut-off, S - Copied from Ecoinvent",
-        "Impact extrusion of steel, cold, deformation stroke {RER}| processing | Cut-off, S - Copied from Ecoinvent",
-    ],
+    # transformation
+    "Cooking, industrial, 1kg of cooked product/ FR U": "transformation",
+    'Mixing, processing, at plant "dummy process"': "transformation",
+    "Canning fruits or vegetables, industrial, 1kg of canned product/ FR U": "transformation",
+    # packaging
+    "Corrugated board box {RER}| production | Cut-off, S - Copied from Ecoinvent": "packaging",
+    "Kraft paper, unbleached {RER}| production | Cut-off, S - Copied from Ecoinvent": "packaging",
+    "Polystyrene, expandable {RER}| production | Cut-off, S - Copied from Ecoinvent": "packaging",
+    "Packaging glass, white {RER w/o CH+DE}| production | Cut-off, S - Copied from Ecoinvent": "packaging",
+    "Polypropylene, granulate {RER}| production | Cut-off, S - Copied from Ecoinvent": "packaging",
+    "Polyethylene terephthalate, granulate, bottle grade {RER}| production | Cut-off, S - Copied from Ecoinvent": "packaging",
+    "Packaging film, low density polyethylene {RER}| production | Cut-off, S - Copied from Ecoinvent": "packaging",
+    "Polyethylene, high density, granulate {RER}| production | Cut-off, S - Copied from Ecoinvent": "packaging",
+    "Steel, unalloyed {RER}| steel production, converter, unalloyed | Cut-off, S - Copied from Ecoinvent": "packaging",
+    "Polyvinylchloride, suspension polymerised {RER}| polyvinylchloride production, suspension polymerisation | Cut-off, S - Copied from Ecoinvent": "packaging",
+    "Aluminium, primary, ingot {RoW}| production | Cut-off, S - Copied from Ecoinvent": "packaging",
+}
+
+
+processes_alias = {
+    # transformation
+    "Cooking, industrial, 1kg of cooked product/ FR U": "cooking",
+    'Mixing, processing, at plant "dummy process"': "mixing",
+    "Canning fruits or vegetables, industrial, 1kg of canned product/ FR U": "canning",
+    # packaging
+    "Corrugated board box {RER}| production | Cut-off, S - Copied from Ecoinvent": "cardboard",
+    "Kraft paper, unbleached {RER}| production | Cut-off, S - Copied from Ecoinvent": "paper",
+    "Polystyrene, expandable {RER}| production | Cut-off, S - Copied from Ecoinvent": "ps",
+    "Packaging glass, white {RER w/o CH+DE}| production | Cut-off, S - Copied from Ecoinvent": "glass",
+    "Polypropylene, granulate {RER}| production | Cut-off, S - Copied from Ecoinvent": "pp",
+    "Polyethylene terephthalate, granulate, bottle grade {RER}| production | Cut-off, S - Copied from Ecoinvent": "pet",
+    "Packaging film, low density polyethylene {RER}| production | Cut-off, S - Copied from Ecoinvent": "ldpe",
+    "Polyethylene, high density, granulate {RER}| production | Cut-off, S - Copied from Ecoinvent": "hdpe",
+    "Steel, unalloyed {RER}| steel production, converter, unalloyed | Cut-off, S - Copied from Ecoinvent": "steel",
+    "Polyvinylchloride, suspension polymerised {RER}| polyvinylchloride production, suspension polymerisation | Cut-off, S - Copied from Ecoinvent": "pvc",
+    "Aluminium, primary, ingot {RoW}| production | Cut-off, S - Copied from Ecoinvent": "aluminium",
+}
+
+
+processes_display_name = {
+    # transformation
+    "Cooking, industrial, 1kg of cooked product/ FR U": "Cuisson",
+    'Mixing, processing, at plant "dummy process"': "Mélange",
+    "Canning fruits or vegetables, industrial, 1kg of canned product/ FR U": "Mise en conserve",
+    # packaging
+    "Corrugated board box {RER}| production | Cut-off, S - Copied from Ecoinvent": "Carton",
+    "Kraft paper, unbleached {RER}| production | Cut-off, S - Copied from Ecoinvent": "Papier",
+    "Polystyrene, expandable {RER}| production | Cut-off, S - Copied from Ecoinvent": "Polystyrène",
+    "Packaging glass, white {RER w/o CH+DE}| production | Cut-off, S - Copied from Ecoinvent": "Verre",
+    "Polypropylene, granulate {RER}| production | Cut-off, S - Copied from Ecoinvent": "Polypropylène",
+    "Polyethylene terephthalate, granulate, bottle grade {RER}| production | Cut-off, S - Copied from Ecoinvent": "PET",
+    "Packaging film, low density polyethylene {RER}| production | Cut-off, S - Copied from Ecoinvent": "Polyéthylène basse densité",
+    "Polyethylene, high density, granulate {RER}| production | Cut-off, S - Copied from Ecoinvent": "Polyéthylène haute densité",
+    "Steel, unalloyed {RER}| steel production, converter, unalloyed | Cut-off, S - Copied from Ecoinvent": "Acier",
+    "Polyvinylchloride, suspension polymerised {RER}| polyvinylchloride production, suspension polymerisation | Cut-off, S - Copied from Ecoinvent": "PVC",
+    "Aluminium, primary, ingot {RoW}| production | Cut-off, S - Copied from Ecoinvent": "Aluminium",
 }
 
 
@@ -74,24 +110,26 @@ def fill_processes(processes, activity):
     if prod_exchange._data["comment"]:
         processes[activity]["comment"] = prod_exchange._data["comment"]
     category = activity._data["simapro metadata"]["Category type"]
+    activity_name = activity["name"]
 
-    # The `kind` key holds our own classification/categorization.
+    # We have our own classification/categorization.
     if (
         activity._data["simapro metadata"]["Category type"] == "material"
         and "Food" in processes[activity]["category_tags"]
         and processes[activity]["unit"] == "kilogram"
     ):
-        kind = "ingredient"
-    elif activity["name"] in processes_kind["transformation"]:
-        kind = "transformation"
-    elif activity["name"] in processes_kind["packaging"]:
-        kind = "packaging"
-    else:
-        # No specific classification/categorization from us, fallback on the category
-        kind = category
+        category = "ingredient"
+    elif activity_name in processes_kind:
+        category = processes_kind[activity_name]
 
     # We store the "kind" as the "category" key
-    processes[activity]["category"] = kind
+    processes[activity]["category"] = category
+
+    if activity_name in processes_alias:
+        processes[activity]["alias"] = processes_alias[activity_name]
+
+    if activity_name in processes_display_name:
+        processes[activity]["displayName"] = processes_display_name[activity_name]
 
     processes[activity]["impacts"] = {}
 
