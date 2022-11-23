@@ -60,7 +60,8 @@ def fill_processes(processes, activity):
     # Useful info like the category_tags and comment are in the production exchange
     prod_exchange = list(activity.production())[0]
     processes[activity]["category_tags"] = prod_exchange._data["categories"]
-    processes[activity]["comment"] = prod_exchange._data["comment"]
+    if prod_exchange._data["comment"]:
+        processes[activity]["comment"] = prod_exchange._data["comment"]
     category = activity._data["simapro metadata"]["Category type"]
 
     # The `kind` key holds our own classification/categorization.
