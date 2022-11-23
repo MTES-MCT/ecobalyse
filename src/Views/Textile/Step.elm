@@ -67,7 +67,7 @@ stepIcon label =
         Label.Fabric ->
             Icon.fabric
 
-        Label.Ennoblement ->
+        Label.Ennobling ->
             Icon.dyeing
 
         Label.Making ->
@@ -174,7 +174,7 @@ dyeingMediumField { inputs, updateDyeingMedium } =
 printingField : Config msg -> Html msg
 printingField { inputs, updatePrinting } =
     div [ class "d-flex align-items-center gap-2 fs-7" ]
-        [ label [ class "text-nowrap w-50", for "ennoblement-printing" ]
+        [ label [ class "text-nowrap w-50", for "ennobling-printing" ]
             [ text "Impression" ]
         , [ Printing.Pigment, Printing.Substantive ]
             |> List.map
@@ -187,7 +187,7 @@ printingField { inputs, updatePrinting } =
                 )
             |> (::) (option [] [ text "Aucune" ])
             |> select
-                [ id "ennoblement-printing"
+                [ id "ennobling-printing"
                 , class "form-select form-select-sm"
                 , onInput (Printing.fromString >> Result.toMaybe >> updatePrinting)
                 ]
@@ -434,9 +434,9 @@ simpleView ({ funit, inputs, daysOfWear, impact, current } as config) =
                                     ]
                             )
 
-                    Label.Ennoblement ->
+                    Label.Ennobling ->
                         div [ class "mt-2" ]
-                            [ ennoblementFields config
+                            [ ennoblingFields config
                             ]
 
                     Label.Making ->
@@ -517,8 +517,8 @@ daysOfWearInfo inputs =
         ]
 
 
-ennoblementFields : Config msg -> Html msg
-ennoblementFields config =
+ennoblingFields : Config msg -> Html msg
+ennoblingFields config =
     div [ class "d-flex flex-column gap-1" ]
         [ dyeingMediumField config
         , printingField config
@@ -581,8 +581,8 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                                 , surfaceMassField config inputs.product.surfaceMass
                                 ]
 
-                    Label.Ennoblement ->
-                        [ ennoblementFields config
+                    Label.Ennobling ->
+                        [ ennoblingFields config
                         ]
 
                     Label.Making ->
@@ -652,7 +652,7 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                         if current.label == Label.Fabric then
                             Just ( "sortante", Step.getOutputSurface inputs current )
 
-                        else if current.label == Label.Ennoblement then
+                        else if current.label == Label.Ennobling then
                             Just ( "entrante", Step.getInputSurface inputs current )
 
                         else

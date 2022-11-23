@@ -344,7 +344,7 @@ updateStepCountry label code query =
         Label.Fabric ->
             { query | countryFabric = code }
 
-        Label.Ennoblement ->
+        Label.Ennobling ->
             { query | countryDyeing = code }
 
         Label.Making ->

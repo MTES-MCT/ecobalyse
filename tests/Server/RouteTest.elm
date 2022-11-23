@@ -140,7 +140,7 @@ textileEndpoints db =
           , "countryFabric=FR"
           , "countryDyeing=FR"
           , "countryMaking=FR"
-          , "disabledSteps=making,ennoblement"
+          , "disabledSteps=making,ennobling"
           ]
             |> String.join "&"
             |> getEndpoint db "GET"
@@ -148,7 +148,7 @@ textileEndpoints db =
                 (Just <|
                     Route.Get <|
                         Route.TextileSimulator <|
-                            Ok { tShirtCotonFrance | disabledSteps = [ Label.Making, Label.Ennoblement ] }
+                            Ok { tShirtCotonFrance | disabledSteps = [ Label.Making, Label.Ennobling ] }
                 )
             |> asTest "should handle the /simulator endpoint with the disabledSteps parameter set"
         , [ "/simulator/fwe?mass=0.17"

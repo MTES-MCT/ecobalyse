@@ -63,6 +63,10 @@ D'autre part, le paramètre `surfaceMass` permettant de définir le grammage de 
 désormais opérant quand le paramètre `printing` est fourni\u{00A0}; en effet, le procédé d'impression
 est appliqué en fonction de la surface du vêtement, calculée au moyen de cette valeur et
 qui peut désormais varier.
+
+Enfin, l'identification de l'étape d'ennoblissement a été renommée de `dyeing` à `ennobling`. Cela
+impacte le paramètre `disabledSteps` qui n'accepte désormais plus `dyeing` mais bien `ennobling` en
+remplacement.
 """
       }
     , { date = "14 novembre 2022"
@@ -103,14 +107,14 @@ qui peut désormais varier.
 - `material`: Matière
 - `spinning`: Filature
 - `fabric`: Tissage/Tricotage
-- `ennoblement`: Ennoblissement
+- `ennobling`: Ennoblissement
 - `making`: Confection
 - `distribution`: Distribution
 - `use`: Utilisation
 - `eol`: Fin de vie
 
             Par exemple, pour désactiver les étapes de filature et d'ennoblissement, on peut passer
-            `disabledSteps=spinning,ennoblement`."""
+            `disabledSteps=spinning,ennobling`."""
       }
     , { date = "2 juin 2022"
       , level = "major"

@@ -223,7 +223,7 @@ computeTransportSummary step transport =
             )
     in
     case step.label of
-        Label.Ennoblement ->
+        Label.Ennobling ->
             transport
                 -- Note: no air transport ratio at the Dyeing step
                 |> Formula.transportRatio (Unit.ratio 0)
@@ -306,7 +306,7 @@ updateFromInputs { processes } inputs ({ label, country } as step) =
                     }
             }
 
-        Label.Ennoblement ->
+        Label.Ennobling ->
             { step
                 | dyeingMedium = dyeingMedium
                 , printing = printing

@@ -25,7 +25,7 @@ type Path
     = Home -- Page d'accueil
     | MaterialAndSpinning -- Matière & filature
     | Fabric -- Tissage/Tricotage
-    | Ennoblement -- Teinture
+    | Ennobling -- Ennoblissement
     | Making -- Confection
     | Distribution -- Distribution
     | Use -- Utilisation
@@ -50,7 +50,7 @@ pathToString path =
         Fabric ->
             "textile/tricotage-tissage"
 
-        Ennoblement ->
+        Ennobling ->
             "textile/teinture"
 
         Making ->
