@@ -635,13 +635,17 @@ updateIngredientFormView { excluded, foodDb, ingredient } =
                         event { ingredientQuery | name = newIngredient.name }
                     )
             )
-            (span [ class "w-25 d-flex align-items-center gap-2" ]
+            (span
+                [ class "w-25 d-flex align-items-center gap-2"
+                , classList [ ( "text-muted", ingredient.ingredient.variants.organic == Nothing ) ]
+                ]
                 [ label [ class "flex-grow-1" ]
                     [ input
                         [ type_ "checkbox"
                         , class "form-check-input no-outline m-1"
                         , attribute "role" "switch"
                         , checked <| ingredient.variant == Organic
+                        , disabled <| ingredient.ingredient.variants.organic == Nothing
                         , onCheck
                             (\checked ->
                                 { ingredientQuery
