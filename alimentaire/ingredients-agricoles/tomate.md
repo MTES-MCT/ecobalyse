@@ -37,7 +37,7 @@ La base Agribalyse permet de distinguer les inventaires de cycle de vie suivants
   * Tomato, production mix, greenhouse production, national average, at greenhouse' (kilogram, FR, None)
 * 1 procédé ES :
   * Tomato, fresh grade {ES}| tomato production, fresh grade, in unheated greenhouse | Cut-off, U - Copied from Ecoinvent' (kilogram, None, None)
-* 3 moyennes nationales France dont la construction est explicitée dans le schéma ci-après
+* Dont 3 moyennes nationales France dont la construction est explicitée dans le schéma ci-après
   * Tomato, average basket, conventional, heated greenhouse, national average, at greenhouse' (kilogram, FR, None)
   * **Tomato, organic, greenhouse production, national average, at greenhouse' (kilogram, FR, None)**
   * Tomato, production mix, greenhouse production, national average, at greenhouse' (kilogram, FR, None)
