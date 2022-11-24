@@ -23,8 +23,8 @@ La base Agribalyse permet de distinguer les inventaires de cycle de vie suivants
   * Sunflower grain, average from 2 optimized case study, basis scenario, at farm gate
   * Sunflower grain, average from 2 optimized case study, protein crop scenario, at farm gate
   * Sunflower grain, average from 2 optimized case study, systematic covercropping scenario, at farm gate
-  * Sunflower grain, conventional, 9% moisture, national average, animal feed, at farm gate, production
-  * Sunflower grain, conventional, national average, animal feed, at farm gate
+  * ~~Sunflower grain, conventional, 9% moisture, national average, animal feed, at farm gate, production~~
+  * ~~Sunflower grain, conventional, national average, animal feed, at farm gate~~
   * Sunflower grain, organic, Gers, at farm gate
   * Sunflower grain, organic, PaysDeLaLoire, at farm gate
   * Sunflower grain, organic, system n°1, at farm gate
@@ -33,12 +33,12 @@ La base Agribalyse permet de distinguer les inventaires de cycle de vie suivants
   * Sunflower grain, organic, system n°4, at farm gate
   * Sunflower grain, organic, system n°5, at farm gate
   * Sunflower, organic, animal feed, at farm gate
-  * Sunflower grain, conventional, national average, animal feed, at storage agency/ UA U
-* 2 moyennes nationales France dont la construction est explicitée dans le schéma ci-après
-  * Sunflower grain, conventional, 9% moisture, national average, animal feed, at farm gate, production
-  * Sunflower grain, conventional, national average, animal feed, at farm gate
-  * Sunflower grain, conventional, national average, animal feed, at storage agency/ UA U
-* 5 procédés ?
+  * ~~Sunflower grain, conventional, national average, animal feed, at storage agency/ UA U~~
+* Dont 3 moyennes nationales France dont la construction est explicitée dans le schéma ci-après
+  * ~~Sunflower grain, conventional, 9% moisture, national average, animal feed, at farm gate, production~~
+  * ~~Sunflower grain, conventional, national average, animal feed, at farm gate~~
+  * ~~Sunflower grain, conventional, national average, animal feed, at storage agency/ UA U~~
+* 5 procédés à préciser :
   * Sunflower, at farm (WFLDB 3.1)
   * Sunflower, at farm (WFLDB 3.1)
   * Sunflower, at farm (WFLDB 3.1)
