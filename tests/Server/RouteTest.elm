@@ -1,6 +1,6 @@
 module Server.RouteTest exposing (..)
 
-import Data.Food.Recipe as Recipe
+import Data.Food.ExplorerRecipe as Recipe
 import Data.Impact as Impact
 import Data.Textile.Inputs as Inputs exposing (tShirtCotonFrance)
 import Data.Textile.Material as Material

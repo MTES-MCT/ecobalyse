@@ -9,9 +9,9 @@ module Page.Food.Builder exposing
 import Data.Food.BuilderQuery as BuilderQuery exposing (Query)
 import Data.Food.BuilderRecipe as BuilderRecipe exposing (Recipe)
 import Data.Food.Db as FoodDb
+import Data.Food.ExplorerRecipe as Recipe
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Process as Process exposing (Process)
-import Data.Food.Recipe as Recipe
 import Data.Impact as Impact
 import Data.Session exposing (Session)
 import Data.Unit as Unit
