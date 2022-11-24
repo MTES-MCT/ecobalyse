@@ -104,26 +104,19 @@ update session msg model =
     case msg of
         AddIngredient ->
             let
-                query =
-                    model.query
-
                 firstIngredient =
                     session.foodDb.ingredients
                         |> List.map .name
-                        |> BuilderRecipe.availableIngredients (List.map .name query.ingredients)
+                        |> BuilderRecipe.availableIngredients (List.map .name model.query.ingredients)
                         |> List.head
                         |> Maybe.map BuilderRecipe.ingredientQueryFromIngredient
-                        |> Maybe.map List.singleton
-                        |> Maybe.withDefault []
             in
-            ( { model
-                | query =
-                    { query
-                        | ingredients =
-                            query.ingredients
-                                ++ firstIngredient
-                    }
-              }
+            ( case firstIngredient of
+                Just ingredient ->
+                    { model | query = BuilderQuery.addIngredient ingredient model.query }
+
+                Nothing ->
+                    model
             , session
             , Cmd.none
             )
@@ -153,18 +146,7 @@ update session msg model =
             )
 
         DeleteIngredient ingredientQuery ->
-            let
-                query =
-                    model.query
-            in
-            ( { model
-                | query =
-                    { query
-                        | ingredients =
-                            query.ingredients
-                                |> List.filter ((/=) ingredientQuery)
-                    }
-              }
+            ( { model | query = BuilderQuery.deleteIngredient ingredientQuery model.query }
             , session
             , Cmd.none
             )
@@ -216,18 +198,7 @@ update session msg model =
             ( { model | impact = impact }, session, Cmd.none )
 
         UpdateIngredient oldIngredientName newIngredient ->
-            let
-                query =
-                    model.query
-            in
-            ( { model
-                | query =
-                    { query
-                        | ingredients =
-                            query.ingredients
-                                |> BuilderQuery.updateIngredient oldIngredientName newIngredient
-                    }
-              }
+            ( { model | query = BuilderQuery.updateIngredient oldIngredientName newIngredient model.query }
             , session
             , Cmd.none
             )
