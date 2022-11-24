@@ -363,6 +363,8 @@
   },
   {
     "name": "Steel, unalloyed {RER}| steel production, converter, unalloyed | Cut-off, S - Copied from Ecoinvent",
+    "alias": "steel",
+    "displayName": "Acier",
     "unit": "kilogram",
     "simapro_id": "02e016a7d236303db90aec2977fc3e4d",
     "system_description": "Ecoinvent v3",
@@ -371,8 +373,6 @@
       "Ecoinvent cut-off S copy"
     ],
     "category": "packaging",
-    "alias": "steel",
-    "displayName": "Acier",
     "impacts": {
       "acd": 0.008987337459529902,
       "ozd": 9.533355788496087e-08,
@@ -486,6 +486,8 @@
   },
   {
     "name": "Canning fruits or vegetables, industrial, 1kg of canned product/ FR U",
+    "alias": "canning",
+    "displayName": "Mise en conserve",
     "unit": "kilogram",
     "simapro_id": "eaa6e949108ffd0fd2f8657fce7d2743",
     "system_description": "AGRIBALYSE v3.0",
@@ -495,8 +497,6 @@
     ],
     "comment": "\"Functional UnitTo obtain 1kg of canned vegetable or fruit. An input of 0,626kg of food is required. Added packaging should account for the 1% loss.BoundariesFrom peeled fruit or vegetable to canned product: food slicing, can filling (38% water) and sterilization. 1% loss rate is applied at the end. The washing of fruit and vegetable prior to canning and the production and EoL of packaging is out of scope (because already considered upstream or downstream in Agribalyse v3.0).Contrary to canned fruits, canned vegetables go through a blanching step prior to canning: Canned vegetables generally require more severe processing than do fruits because the vegetables have much lower acidity and contain more heat-resistant soil organisms. Many vegetables also require more cooking than fruits to develop their most desirable flavor and texture.we considered 50% of canned vegetables (with a blanching step) and 50% of canned fruits (without any blanching) to model the canning process.\"",
     "category": "transformation",
-    "alias": "canning",
-    "displayName": "Mise en conserve",
     "impacts": {
       "acd": 0.0005208253942273022,
       "ozd": 7.149309573252654e-08,
@@ -641,6 +641,8 @@
   },
   {
     "name": "Packaging film, low density polyethylene {RER}| production | Cut-off, S - Copied from Ecoinvent",
+    "alias": "ldpe",
+    "displayName": "Poly\u00e9thyl\u00e8ne basse densit\u00e9",
     "unit": "kilogram",
     "simapro_id": "14944f92fd7e016d686165ba22d7c6e3",
     "system_description": "Ecoinvent v3",
@@ -649,8 +651,6 @@
       "Ecoinvent cut-off S copy"
     ],
     "category": "packaging",
-    "alias": "ldpe",
-    "displayName": "Poly\u00e9thyl\u00e8ne basse densit\u00e9",
     "impacts": {
       "acd": 0.013051861795090608,
       "ozd": 5.2988249388641494e-08,
@@ -977,6 +977,8 @@
   },
   {
     "name": "Polystyrene, expandable {RER}| production | Cut-off, S - Copied from Ecoinvent",
+    "alias": "ps",
+    "displayName": "Polystyr\u00e8ne",
     "unit": "kilogram",
     "simapro_id": "556a250d480358473f2767e65a0df8f8",
     "system_description": "Ecoinvent v3",
@@ -985,8 +987,6 @@
       "Ecoinvent cut-off S copy"
     ],
     "category": "packaging",
-    "alias": "ps",
-    "displayName": "Polystyr\u00e8ne",
     "impacts": {
       "acd": 0.012881686467636343,
       "ozd": 4.109368521505781e-08,
@@ -1165,6 +1165,8 @@
   },
   {
     "name": "Cooking, industrial, 1kg of cooked product/ FR U",
+    "alias": "cooking",
+    "displayName": "Cuisson",
     "unit": "kilogram",
     "simapro_id": "aded2490573207ec7ad5a3813978f6a4",
     "system_description": "AGRIBALYSE v3.0",
@@ -1173,8 +1175,6 @@
       "Food"
     ],
     "category": "transformation",
-    "alias": "cooking",
-    "displayName": "Cuisson",
     "impacts": {
       "acd": 0.0011064406833956627,
       "ozd": 4.592886112909496e-08,
@@ -1444,6 +1444,8 @@
   },
   {
     "name": "Packaging glass, white {RER w/o CH+DE}| production | Cut-off, S - Copied from Ecoinvent",
+    "alias": "glass",
+    "displayName": "Verre",
     "unit": "kilogram",
     "simapro_id": "1f85c8460640d59143550d27d2882b6a",
     "system_description": "Ecoinvent v3",
@@ -1452,8 +1454,6 @@
       "Ecoinvent cut-off S copy"
     ],
     "category": "packaging",
-    "alias": "glass",
-    "displayName": "Verre",
     "impacts": {
       "acd": 0.00904400609003605,
       "ozd": 1.2936569281055393e-07,
@@ -1752,6 +1752,8 @@
   },
   {
     "name": "Polypropylene, granulate {RER}| production | Cut-off, S - Copied from Ecoinvent",
+    "alias": "pp",
+    "displayName": "Polypropyl\u00e8ne",
     "unit": "kilogram",
     "simapro_id": "ed6822027bfea51a3b29dac6966c82e7",
     "system_description": "Ecoinvent v3",
@@ -1760,8 +1762,6 @@
       "Ecoinvent cut-off S copy"
     ],
     "category": "packaging",
-    "alias": "pp",
-    "displayName": "Polypropyl\u00e8ne",
     "impacts": {
       "acd": 0.007430469290332315,
       "ozd": 8.913926366321514e-10,
@@ -2309,6 +2309,8 @@
   },
   {
     "name": "Corrugated board box {RER}| production | Cut-off, S - Copied from Ecoinvent",
+    "alias": "cardboard",
+    "displayName": "Carton",
     "unit": "kilogram",
     "simapro_id": "23b2754e5943bc77916f8f871edc53b6",
     "system_description": "Ecoinvent v3",
@@ -2317,8 +2319,6 @@
       "Ecoinvent cut-off S copy"
     ],
     "category": "packaging",
-    "alias": "cardboard",
-    "displayName": "Carton",
     "impacts": {
       "acd": 0.004525197778534851,
       "ozd": 1.1078331913066449e-07,
@@ -2968,6 +2968,8 @@
   },
   {
     "name": "Mixing, processing, at plant \"dummy process\"",
+    "alias": "mixing",
+    "displayName": "M\u00e9lange",
     "unit": "kilogram",
     "simapro_id": "704fd56a994e8e15d0fd1690f29df525",
     "system_description": "AGRIBALYSE v3.0",
@@ -2977,8 +2979,6 @@
     ],
     "comment": "This process is a dummy process. It is assumed that no energy or water addition is needed for this process.",
     "category": "transformation",
-    "alias": "mixing",
-    "displayName": "M\u00e9lange",
     "impacts": {
       "acd": 0.0,
       "ozd": 0.0,
@@ -3790,6 +3790,8 @@
   },
   {
     "name": "Kraft paper, unbleached {RER}| production | Cut-off, S - Copied from Ecoinvent",
+    "alias": "paper",
+    "displayName": "Papier",
     "unit": "kilogram",
     "simapro_id": "70c39f519678ffecc3a982f896da3fd5",
     "system_description": "Ecoinvent v3",
@@ -3798,8 +3800,6 @@
       "Ecoinvent cut-off S copy"
     ],
     "category": "packaging",
-    "alias": "paper",
-    "displayName": "Papier",
     "impacts": {
       "acd": 0.006901375916006631,
       "ozd": 1.0139723979248064e-07,
@@ -5868,6 +5868,8 @@
   },
   {
     "name": "Polyvinylchloride, suspension polymerised {RER}| polyvinylchloride production, suspension polymerisation | Cut-off, S - Copied from Ecoinvent",
+    "alias": "pvc",
+    "displayName": "PVC",
     "unit": "kilogram",
     "simapro_id": "60a6132f5227b0dbe2e75f2d2d54d1a8",
     "system_description": "Ecoinvent v3",
@@ -5876,8 +5878,6 @@
       "Ecoinvent cut-off S copy"
     ],
     "category": "packaging",
-    "alias": "pvc",
-    "displayName": "PVC",
     "impacts": {
       "acd": 0.006275260106961101,
       "ozd": 9.197531484651221e-10,
@@ -6052,6 +6052,8 @@
   },
   {
     "name": "Polyethylene terephthalate, granulate, bottle grade {RER}| production | Cut-off, S - Copied from Ecoinvent",
+    "alias": "pet",
+    "displayName": "PET",
     "unit": "kilogram",
     "simapro_id": "6ed392632f366c410e0af00f4d58e915",
     "system_description": "Ecoinvent v3",
@@ -6060,8 +6062,6 @@
       "Ecoinvent cut-off S copy"
     ],
     "category": "packaging",
-    "alias": "pet",
-    "displayName": "PET",
     "impacts": {
       "acd": 0.016036637290281278,
       "ozd": 1.7432527649183478e-07,
@@ -8613,6 +8613,8 @@
   },
   {
     "name": "Polyethylene, high density, granulate {RER}| production | Cut-off, S - Copied from Ecoinvent",
+    "alias": "hdpe",
+    "displayName": "Poly\u00e9thyl\u00e8ne haute densit\u00e9",
     "unit": "kilogram",
     "simapro_id": "eb7191a6556a749f482d12fb6adcad04",
     "system_description": "Ecoinvent v3",
@@ -8621,8 +8623,6 @@
       "Ecoinvent cut-off S copy"
     ],
     "category": "packaging",
-    "alias": "hdpe",
-    "displayName": "Poly\u00e9thyl\u00e8ne haute densit\u00e9",
     "impacts": {
       "acd": 0.007784896467004352,
       "ozd": 1.197493487274857e-09,
@@ -17420,6 +17420,8 @@
   },
   {
     "name": "Aluminium, primary, ingot {RoW}| production | Cut-off, S - Copied from Ecoinvent",
+    "alias": "aluminium",
+    "displayName": "Aluminium",
     "unit": "kilogram",
     "simapro_id": "034d5300eb6606c37e0a5679dfc1cb64",
     "system_description": "Ecoinvent v3",
@@ -17428,8 +17430,6 @@
       "Ecoinvent cut-off S copy"
     ],
     "category": "packaging",
-    "alias": "aluminium",
-    "displayName": "Aluminium",
     "impacts": {
       "acd": 0.11816025062739881,
       "ozd": 5.173717685858555e-07,
