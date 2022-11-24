@@ -6,13 +6,15 @@
 
 ## Construction de l'ingrédient industrie à partir d'ingrédients agricoles
 
-Le procédé proposé dans Agribalyse pour le est :&#x20;
+Le procédé proposé dans Agribalyse pour l'huile de tournesol est :&#x20;
 
-* Wheat flour, at industrial mill
+* Sunflower oil, at oil mill (WFLDB 3.1)
 
 $$
-FarineREF
+HuiletournesolREF
 $$
+
+
 
 Ce procédé est construit à partir :&#x20;
 
