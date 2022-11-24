@@ -6,6 +6,7 @@ module Page.Food.Builder exposing
     , view
     )
 
+import Data.Food.BuilderQuery as BuilderQuery exposing (Query)
 import Data.Food.Db as FoodDb
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Process as Process exposing (Process)
@@ -36,92 +37,13 @@ import Views.Spinner as Spinner
 
 
 
----- Query
-
-
-type Variant
-    = Default
-    | Organic
-
-
-type alias IngredientQuery =
-    { name : Ingredient.Name
-    , mass : Mass
-    , variant : Variant
-    }
-
-
-type alias Query =
-    { ingredients : List IngredientQuery
-    , transform : Maybe Recipe.TransformQuery
-    , packaging : List Recipe.PackagingQuery
-    }
-
-
-emptyQuery : Query
-emptyQuery =
-    { ingredients = []
-    , transform = Nothing
-    , packaging = []
-    }
-
-
-carrotCake : Query
-carrotCake =
-    { ingredients =
-        [ { name = Ingredient.nameFromString "oeuf"
-          , mass = Mass.grams 120
-          , variant = Default
-          }
-        , { name = Ingredient.nameFromString "blé tendre"
-          , mass = Mass.grams 140
-          , variant = Default
-          }
-        , { name = Ingredient.nameFromString "lait"
-          , mass = Mass.grams 60
-          , variant = Default
-          }
-        , { name = Ingredient.nameFromString "carotte"
-          , mass = Mass.grams 225
-          , variant = Default
-          }
-        ]
-    , transform =
-        Just
-            { -- Cooking, industrial, 1kg of cooked product/ FR U
-              code = Process.codeFromString "aded2490573207ec7ad5a3813978f6a4"
-            , mass = Mass.grams 545
-            }
-    , packaging =
-        [ { -- Corrugated board box {RER}| production | Cut-off, S - Copied from Ecoinvent
-            code = Process.codeFromString "23b2754e5943bc77916f8f871edc53b6"
-          , mass = Mass.grams 105
-          }
-        ]
-    }
-
-
-updateIngredient : Ingredient.Name -> IngredientQuery -> List IngredientQuery -> List IngredientQuery
-updateIngredient oldIngredientName newIngredient ingredients =
-    ingredients
-        |> List.map
-            (\ingredient ->
-                if ingredient.name == oldIngredientName then
-                    newIngredient
-
-                else
-                    ingredient
-            )
-
-
-
 ---- Results
 
 
 type alias RecipeIngredient =
     { ingredient : Ingredient
     , mass : Mass
-    , variant : Variant
+    , variant : BuilderQuery.Variant
     }
 
 
@@ -207,10 +129,10 @@ computeIngredientImpacts ingredient =
     let
         process =
             case ingredient.variant of
-                Default ->
+                BuilderQuery.Default ->
                     ingredient.ingredient.default
 
-                Organic ->
+                BuilderQuery.Organic ->
                     ingredient.ingredient.variants.organic
                         |> Maybe.withDefault ingredient.ingredient.default
     in
@@ -241,7 +163,7 @@ ingredientListFromQuery foodDb query =
         |> RE.combineMap (ingredientFromQuery foodDb)
 
 
-ingredientFromQuery : FoodDb.Db -> IngredientQuery -> Result String RecipeIngredient
+ingredientFromQuery : FoodDb.Db -> BuilderQuery.IngredientQuery -> Result String RecipeIngredient
 ingredientFromQuery { ingredients } ingredientQuery =
     Result.map3 RecipeIngredient
         (Ingredient.findByName ingredients ingredientQuery.name)
@@ -249,25 +171,25 @@ ingredientFromQuery { ingredients } ingredientQuery =
         (Ok ingredientQuery.variant)
 
 
-ingredientQueryFromIngredient : Ingredient.Name -> IngredientQuery
+ingredientQueryFromIngredient : Ingredient.Name -> BuilderQuery.IngredientQuery
 ingredientQueryFromIngredient ingredientName =
     { name = ingredientName
     , mass = Mass.grams 100
-    , variant = Default
+    , variant = BuilderQuery.Default
     }
 
 
-variantToString : Variant -> String
+variantToString : BuilderQuery.Variant -> String
 variantToString variant =
     case variant of
-        Default ->
+        BuilderQuery.Default ->
             "default"
 
-        Organic ->
+        BuilderQuery.Organic ->
             "organic"
 
 
-encodeIngredient : IngredientQuery -> Encode.Value
+encodeIngredient : BuilderQuery.IngredientQuery -> Encode.Value
 encodeIngredient i =
     Encode.object
         [ ( "name", i.name |> Ingredient.nameToString |> Encode.string )
@@ -304,7 +226,7 @@ type Msg
     = AddIngredient
     | AddPackaging SelectedProcess
     | DbLoaded (WebData FoodDb.Db)
-    | DeleteIngredient IngredientQuery
+    | DeleteIngredient BuilderQuery.IngredientQuery
     | DeletePackaging Process.Code
     | LoadQuery Query
     | NoOp
@@ -313,7 +235,7 @@ type Msg
     | SelectTransform (Maybe SelectedProcess)
     | SetTransform SelectedProcess
     | SwitchImpact Impact.Trigram
-    | UpdateIngredient Ingredient.Name IngredientQuery
+    | UpdateIngredient Ingredient.Name BuilderQuery.IngredientQuery
     | UpdatePackagingMass Process.Code (Maybe Mass)
     | UpdateTransformMass (Maybe Mass)
 
@@ -323,7 +245,7 @@ init session =
     let
         model =
             { dbState = RemoteData.Loading
-            , query = emptyQuery
+            , query = BuilderQuery.emptyQuery
             , impact = Impact.defaultTrigram
             , selectedTransform = Nothing
             , selectedPackaging = Nothing
@@ -340,7 +262,7 @@ init session =
 
     else
         ( { model
-            | query = carrotCake
+            | query = BuilderQuery.carrotCake
             , dbState = RemoteData.Success session.foodDb
           }
         , session
@@ -390,7 +312,7 @@ update session msg model =
         DbLoaded dbState ->
             ( { model
                 | dbState = dbState
-                , query = carrotCake
+                , query = BuilderQuery.carrotCake
               }
             , case dbState of
                 RemoteData.Success foodDb ->
@@ -474,7 +396,7 @@ update session msg model =
                     { query
                         | ingredients =
                             query.ingredients
-                                |> updateIngredient oldIngredientName newIngredient
+                                |> BuilderQuery.updateIngredient oldIngredientName newIngredient
                     }
               }
             , session
@@ -599,7 +521,7 @@ updateIngredientFormView { excluded, foodDb, ingredient } =
         ingredientName =
             ingredient.ingredient.name
 
-        ingredientQuery : IngredientQuery
+        ingredientQuery : BuilderQuery.IngredientQuery
         ingredientQuery =
             { name = ingredient.ingredient.name
             , mass = ingredient.mass
@@ -644,17 +566,17 @@ updateIngredientFormView { excluded, foodDb, ingredient } =
                         [ type_ "checkbox"
                         , class "form-check-input no-outline m-1"
                         , attribute "role" "switch"
-                        , checked <| ingredient.variant == Organic
+                        , checked <| ingredient.variant == BuilderQuery.Organic
                         , disabled <| ingredient.ingredient.variants.organic == Nothing
                         , onCheck
                             (\checked ->
                                 { ingredientQuery
                                     | variant =
                                         if checked then
-                                            Organic
+                                            BuilderQuery.Organic
 
                                         else
-                                            Default
+                                            BuilderQuery.Default
                                 }
                                     |> event
                             )
@@ -851,14 +773,14 @@ menuView query =
     div [ class "d-flex gap-2" ]
         [ button
             [ class "btn btn-outline-primary"
-            , classList [ ( "active", query == carrotCake ) ]
-            , onClick (LoadQuery carrotCake)
+            , classList [ ( "active", query == BuilderQuery.carrotCake ) ]
+            , onClick (LoadQuery BuilderQuery.carrotCake)
             ]
             [ text "Carrot Cake" ]
         , button
             [ class "btn btn-outline-primary"
-            , classList [ ( "active", query == emptyQuery ) ]
-            , onClick (LoadQuery emptyQuery)
+            , classList [ ( "active", query == BuilderQuery.emptyQuery ) ]
+            , onClick (LoadQuery BuilderQuery.emptyQuery)
             ]
             [ text "Créer une nouvelle recette" ]
         ]
