@@ -4,7 +4,7 @@ module Server.Route exposing
     , endpoint
     )
 
-import Data.Food.Recipe as Recipe
+import Data.Food.ExplorerRecipe as Recipe
 import Data.Impact as Impact
 import Data.Textile.Inputs as TextileInputs
 import Server.Query as Query

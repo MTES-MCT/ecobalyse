@@ -10,9 +10,9 @@ module Data.Food.BuilderRecipe exposing
 
 import Data.Food.BuilderQuery as BuilderQuery exposing (Query)
 import Data.Food.Db as FoodDb
+import Data.Food.ExplorerRecipe as Recipe exposing (Recipe)
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Process exposing (Process)
-import Data.Food.Recipe as Recipe exposing (Recipe)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Unit as Unit
 import Json.Encode as Encode

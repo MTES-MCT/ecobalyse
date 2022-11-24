@@ -7,9 +7,9 @@ module Data.Food.BuilderQuery exposing
     , updateIngredient
     )
 
+import Data.Food.ExplorerRecipe as Recipe
 import Data.Food.Ingredient as Ingredient
 import Data.Food.Process as Process
-import Data.Food.Recipe as Recipe
 import Mass exposing (Mass)
 
 

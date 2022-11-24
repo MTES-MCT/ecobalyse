@@ -8,8 +8,8 @@ module Server.Query exposing
 import Data.Country as Country exposing (Country)
 import Data.Env as Env
 import Data.Food.Db as FoodDb
+import Data.Food.ExplorerRecipe as Recipe
 import Data.Food.Process as FoodProcess
-import Data.Food.Recipe as Recipe
 import Data.Textile.Db as TextileDb
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
 import Data.Textile.Inputs as Inputs

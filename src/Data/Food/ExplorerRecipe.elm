@@ -1,4 +1,4 @@
-module Data.Food.Recipe exposing
+module Data.Food.ExplorerRecipe exposing
     ( IngredientQuery
     , Packaging
     , PackagingQuery
