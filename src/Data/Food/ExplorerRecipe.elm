@@ -8,25 +8,12 @@ module Data.Food.ExplorerRecipe exposing
     , Results
     , Transform
     , TransformQuery
-    , addPackaging
     , compute
-    , computeProcessImpacts
-    , deletePackaging
-    , encodePackaging
     , encodeQuery
     , encodeResults
-    , encodeTransform
     , fromQuery
-    , packagingListFromQuery
-    , recipeStepImpacts
-    , resetTransform
-    , setTransform
-    , sumMasses
     , toQuery
-    , transformFromQuery
     , tunaPizza
-    , updatePackagingMass
-    , updateTransformMass
     )
 
 import Data.Country as Country
@@ -36,7 +23,6 @@ import Data.Impact as Impact exposing (Impacts)
 import Data.Unit as Unit
 import Json.Encode as Encode
 import Mass exposing (Mass)
-import Quantity
 import Result.Extra as RE
 
 
@@ -166,23 +152,6 @@ type alias Recipe =
     }
 
 
-addPackaging : Mass -> Process.Code -> Query -> Query
-addPackaging mass code query =
-    { query
-        | packaging =
-            query.packaging ++ [ { code = code, mass = mass } ]
-    }
-
-
-deletePackaging : Process.Code -> Query -> Query
-deletePackaging code query =
-    { query
-        | packaging =
-            query.packaging
-                |> List.filter (.code >> (/=) code)
-    }
-
-
 fromQuery : FoodDb.Db -> Query -> Result String Recipe
 fromQuery foodDb query =
     Result.map4 Recipe
@@ -236,21 +205,6 @@ packagingToQuery packaging =
     }
 
 
-resetTransform : Query -> Query
-resetTransform query =
-    { query | transform = Nothing }
-
-
-setTransform : Mass -> Process.Code -> Query -> Query
-setTransform mass code query =
-    { query | transform = Just { code = code, mass = mass } }
-
-
-sumMasses : List { a | mass : Mass } -> Mass
-sumMasses =
-    List.map .mass >> Quantity.sum
-
-
 toQuery : Recipe -> Query
 toQuery recipe =
     { ingredients = List.map ingredientToQuery recipe.ingredients
@@ -262,10 +216,6 @@ toQuery recipe =
 
 transformFromQuery : FoodDb.Db -> Query -> Result String (Maybe Transform)
 transformFromQuery { processes } query =
-    let
-        _ =
-            Debug.log "processes" processes
-    in
     query.transform
         |> Maybe.map
             (\transform ->
@@ -285,40 +235,6 @@ transformToQuery =
             , mass = transform.mass
             }
         )
-
-
-updateMass :
-    Process.Code
-    -> Mass
-    -> List { a | code : Process.Code, mass : Mass }
-    -> List { a | code : Process.Code, mass : Mass }
-updateMass code mass =
-    List.map
-        (\item ->
-            if item.code == code then
-                { item | mass = mass }
-
-            else
-                item
-        )
-
-
-updatePackagingMass : Mass -> Process.Code -> Query -> Query
-updatePackagingMass mass code query =
-    { query
-        | packaging =
-            query.packaging
-                |> updateMass code mass
-    }
-
-
-updateTransformMass : Mass -> Query -> Query
-updateTransformMass mass query =
-    { query
-        | transform =
-            query.transform
-                |> Maybe.map (\transform -> { transform | mass = mass })
-    }
 
 
 
@@ -384,12 +300,6 @@ computeProcessImpacts item =
     in
     item.process.impacts
         |> Impact.mapImpacts (computeImpact item.mass)
-
-
-recipeStepImpacts : FoodDb.Db -> Results -> Impacts
-recipeStepImpacts foodDb { recipe } =
-    [ recipe.ingredients, recipe.transform ]
-        |> Impact.sumImpacts foodDb.impacts
 
 
 

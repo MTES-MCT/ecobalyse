@@ -3,7 +3,6 @@ module Data.Food.Db exposing
     , buildFromJson
     , empty
     , isBuilderEmpty
-    , isExplorerEmpty
     )
 
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
@@ -44,11 +43,6 @@ empty =
     , builderProcesses = []
     , ingredients = []
     }
-
-
-isExplorerEmpty : Db -> Bool
-isExplorerEmpty db =
-    db.processes == [] || db.products == Product.emptyProducts
 
 
 isBuilderEmpty : Db -> Bool
