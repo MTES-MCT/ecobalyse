@@ -87,6 +87,11 @@ def get_activities(agribalyse_db, processes_name):
 def fill_processes(processes, activity):
 
     processes[activity]["name"] = activity["name"]
+    activity_name = activity["name"]
+    if activity_name in processes_alias:
+        processes[activity]["alias"] = processes_alias[activity_name]
+    if activity_name in processes_display_name:
+        processes[activity]["displayName"] = processes_display_name[activity_name]
     processes[activity]["unit"] = activity._data["unit"]
     processes[activity]["simapro_id"] = activity._data["code"]
 
@@ -100,7 +105,6 @@ def fill_processes(processes, activity):
     if prod_exchange._data["comment"]:
         processes[activity]["comment"] = prod_exchange._data["comment"]
     category = activity._data["simapro metadata"]["Category type"]
-    activity_name = activity["name"]
 
     # We have our own classification/categorization.
     if (
@@ -113,12 +117,6 @@ def fill_processes(processes, activity):
         category = processes_kind[activity_name]
 
     processes[activity]["category"] = category
-
-    if activity_name in processes_alias:
-        processes[activity]["alias"] = processes_alias[activity_name]
-
-    if activity_name in processes_display_name:
-        processes[activity]["displayName"] = processes_display_name[activity_name]
 
     processes[activity]["impacts"] = {}
 
