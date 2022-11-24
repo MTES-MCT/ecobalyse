@@ -36,6 +36,10 @@ function buildFoodProductsJsonDb(basePath = "public/data/food") {
   return serializeForElmTemplateString(getJson(`${basePath}/products.json`));
 }
 
+function buildFoodBuilderProcessesJsonDb(basePath = "public/data/food") {
+  return serializeForElmTemplateString(getJson(`${basePath}/builder_processes.json`));
+}
+
 function buildFoodIngredientsJsonDb(basePath = "public/data/food") {
   return serializeForElmTemplateString(getJson(`${basePath}/ingredients.json`));
 }
@@ -46,6 +50,7 @@ const elmWithFixtures = elmTemplate
   .replace("%textileJson%", buildTextileJsonDb())
   .replace("%foodProcessesJson%", buildFoodProcessesJsonDb())
   .replace("%foodProductsJson%", buildFoodProductsJsonDb())
+  .replace("%foodBuilderProcessesJson%", buildFoodBuilderProcessesJsonDb())
   .replace("%foodIngredientsJson%", buildFoodIngredientsJsonDb());
 
 const header =
