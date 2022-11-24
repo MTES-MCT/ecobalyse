@@ -7,11 +7,12 @@ module Page.Food.Builder exposing
     )
 
 import Data.Food.BuilderQuery as BuilderQuery exposing (Query)
+import Data.Food.BuilderRecipe as BuilderRecipe exposing (Recipe)
 import Data.Food.Db as FoodDb
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Process as Process exposing (Process)
-import Data.Food.Recipe as Recipe exposing (Recipe)
-import Data.Impact as Impact exposing (Impacts)
+import Data.Food.Recipe as Recipe
+import Data.Impact as Impact
 import Data.Session exposing (Session)
 import Data.Unit as Unit
 import Html exposing (..)
@@ -24,7 +25,6 @@ import Ports
 import RemoteData exposing (WebData)
 import Request.Common
 import Request.Food.Db as RequestDb
-import Result.Extra as RE
 import Route
 import Views.Alert as Alert
 import Views.Component.MassInput as MassInput
@@ -34,177 +34,6 @@ import Views.Format as Format
 import Views.Icon as Icon
 import Views.Impact as ImpactView
 import Views.Spinner as Spinner
-
-
-
----- Results
-
-
-type alias RecipeIngredient =
-    { ingredient : Ingredient
-    , mass : Mass
-    , variant : BuilderQuery.Variant
-    }
-
-
-type alias Recipe =
-    { ingredients : List RecipeIngredient
-    , transform : Maybe Recipe.Transform
-    , packaging : List Recipe.Packaging
-    }
-
-
-type alias Results =
-    { impacts : Impacts
-    , recipe :
-        { ingredients : Impacts
-        , transform : Impacts
-        }
-    , packaging : Impacts
-    }
-
-
-availableIngredients : List Ingredient.Name -> List Ingredient.Name -> List Ingredient.Name
-availableIngredients usedIngredientNames ingredientListNames =
-    ingredientListNames
-        |> List.filter
-            (\name ->
-                not (List.member name usedIngredientNames)
-            )
-
-
-compute : FoodDb.Db -> Query -> Result String ( Recipe, Results )
-compute db =
-    fromQuery db
-        >> Result.map
-            (\({ ingredients, transform, packaging } as recipe) ->
-                let
-                    ingredientsImpacts =
-                        ingredients
-                            |> List.map computeIngredientImpacts
-
-                    transformImpacts =
-                        transform
-                            |> Maybe.map computeProcessImpacts
-                            |> Maybe.withDefault Impact.noImpacts
-
-                    packagingImpacts =
-                        packaging
-                            |> List.map computeProcessImpacts
-                in
-                ( recipe
-                , { impacts =
-                        [ ingredientsImpacts
-                        , List.singleton transformImpacts
-                        , packagingImpacts
-                        ]
-                            |> List.concat
-                            |> Impact.sumImpacts db.impacts
-                  , recipe =
-                        { ingredients = Impact.sumImpacts db.impacts ingredientsImpacts
-                        , transform = transformImpacts
-                        }
-                  , packaging = Impact.sumImpacts db.impacts packagingImpacts
-                  }
-                )
-            )
-
-
-computeImpact : Mass -> Impact.Trigram -> Unit.Impact -> Unit.Impact
-computeImpact mass _ impact =
-    impact
-        |> Unit.impactToFloat
-        |> (*) (Mass.inKilograms mass)
-        |> Unit.impact
-
-
-computeProcessImpacts : { a | process : Process, mass : Mass } -> Impacts
-computeProcessImpacts item =
-    item.process.impacts
-        |> Impact.mapImpacts (computeImpact item.mass)
-
-
-computeIngredientImpacts : RecipeIngredient -> Impacts
-computeIngredientImpacts ingredient =
-    let
-        process =
-            case ingredient.variant of
-                BuilderQuery.Default ->
-                    ingredient.ingredient.default
-
-                BuilderQuery.Organic ->
-                    ingredient.ingredient.variants.organic
-                        |> Maybe.withDefault ingredient.ingredient.default
-    in
-    process.impacts
-        |> Impact.mapImpacts (computeImpact ingredient.mass)
-
-
-encodeQuery : Query -> Encode.Value
-encodeQuery q =
-    Encode.object
-        [ ( "ingredients", Encode.list encodeIngredient q.ingredients )
-        , ( "transform", q.transform |> Maybe.map Recipe.encodeTransform |> Maybe.withDefault Encode.null )
-        , ( "packaging", Encode.list Recipe.encodePackaging q.packaging )
-        ]
-
-
-fromQuery : FoodDb.Db -> Query -> Result String Recipe
-fromQuery foodDb query =
-    Result.map3 Recipe
-        (ingredientListFromQuery foodDb query)
-        (Recipe.transformFromQuery foodDb query)
-        (Recipe.packagingListFromQuery foodDb query)
-
-
-ingredientListFromQuery : FoodDb.Db -> Query -> Result String (List RecipeIngredient)
-ingredientListFromQuery foodDb query =
-    query.ingredients
-        |> RE.combineMap (ingredientFromQuery foodDb)
-
-
-ingredientFromQuery : FoodDb.Db -> BuilderQuery.IngredientQuery -> Result String RecipeIngredient
-ingredientFromQuery { ingredients } ingredientQuery =
-    Result.map3 RecipeIngredient
-        (Ingredient.findByName ingredients ingredientQuery.name)
-        (Ok ingredientQuery.mass)
-        (Ok ingredientQuery.variant)
-
-
-ingredientQueryFromIngredient : Ingredient.Name -> BuilderQuery.IngredientQuery
-ingredientQueryFromIngredient ingredientName =
-    { name = ingredientName
-    , mass = Mass.grams 100
-    , variant = BuilderQuery.Default
-    }
-
-
-variantToString : BuilderQuery.Variant -> String
-variantToString variant =
-    case variant of
-        BuilderQuery.Default ->
-            "default"
-
-        BuilderQuery.Organic ->
-            "organic"
-
-
-encodeIngredient : BuilderQuery.IngredientQuery -> Encode.Value
-encodeIngredient i =
-    Encode.object
-        [ ( "name", i.name |> Ingredient.nameToString |> Encode.string )
-        , ( "mass", Encode.float (Mass.inKilograms i.mass) )
-        , ( "variant", variantToString i.variant |> Encode.string )
-        ]
-
-
-serializeQuery : Query -> String
-serializeQuery =
-    encodeQuery >> Encode.encode 2
-
-
-
-----
 
 
 type alias Model =
@@ -281,9 +110,9 @@ update session msg model =
                 firstIngredient =
                     session.foodDb.ingredients
                         |> List.map .name
-                        |> availableIngredients (List.map .name query.ingredients)
+                        |> BuilderRecipe.availableIngredients (List.map .name query.ingredients)
                         |> List.head
-                        |> Maybe.map ingredientQueryFromIngredient
+                        |> Maybe.map BuilderRecipe.ingredientQueryFromIngredient
                         |> Maybe.map List.singleton
                         |> Maybe.withDefault []
             in
@@ -511,7 +340,7 @@ addProcessFormView { category, defaultMass, excluded, foodDb, kind, noOp, select
 type alias UpdateIngredientConfig =
     { excluded : List Ingredient.Name
     , foodDb : FoodDb.Db
-    , ingredient : RecipeIngredient
+    , ingredient : BuilderRecipe.RecipeIngredient
     }
 
 
@@ -607,12 +436,12 @@ debugQueryView foodDb query =
         , div [ class "row" ]
             [ div [ class "col-7" ]
                 [ query
-                    |> serializeQuery
+                    |> BuilderRecipe.serializeQuery
                     |> debugView
                 ]
             , div [ class "col-5" ]
                 [ query
-                    |> compute foodDb
+                    |> BuilderRecipe.compute foodDb
                     |> Result.map (Tuple.second >> Recipe.encodeResults >> Encode.encode 2)
                     |> Result.withDefault "Error serializing the impacts"
                     |> debugView
@@ -647,7 +476,7 @@ formatImpact foodDb selectedImpact impacts =
                 ]
 
 
-ingredientListView : FoodDb.Db -> Impact.Trigram -> Recipe -> Results -> List (Html Msg)
+ingredientListView : FoodDb.Db -> Impact.Trigram -> Recipe -> BuilderRecipe.Results -> List (Html Msg)
 ingredientListView foodDb selectedImpact recipe results =
     [ div [ class "card-header d-flex align-items-center justify-content-between" ]
         [ h6 [ class "mb-0" ] [ text "Ingrédients" ]
@@ -676,7 +505,7 @@ ingredientListView foodDb selectedImpact recipe results =
                     , disabled <|
                         (foodDb.ingredients
                             |> List.map .name
-                            |> availableIngredients (List.map (.ingredient >> .name) recipe.ingredients)
+                            |> BuilderRecipe.availableIngredients (List.map (.ingredient >> .name) recipe.ingredients)
                             |> List.isEmpty
                         )
                     , onClick AddIngredient
@@ -689,7 +518,7 @@ ingredientListView foodDb selectedImpact recipe results =
     ]
 
 
-packagingListView : FoodDb.Db -> Impact.Trigram -> Maybe SelectedProcess -> Recipe -> Results -> List (Html Msg)
+packagingListView : FoodDb.Db -> Impact.Trigram -> Maybe SelectedProcess -> Recipe -> BuilderRecipe.Results -> List (Html Msg)
 packagingListView foodDb selectedImpact selectedProcess recipe results =
     [ div [ class "card-header d-flex align-items-center justify-content-between" ]
         [ h5 [ class "mb-0" ] [ text "Emballage" ]
@@ -744,7 +573,7 @@ mainView : FoodDb.Db -> Model -> Html Msg
 mainView foodDb model =
     let
         computed =
-            compute foodDb model.query
+            BuilderRecipe.compute foodDb model.query
     in
     div [ class "row gap-3 gap-lg-0" ]
         [ div [ class "col-lg-4 order-lg-2 d-flex flex-column gap-3" ]
@@ -871,7 +700,7 @@ rowTemplate input content action =
         ]
 
 
-sidebarView : FoodDb.Db -> Model -> Results -> Html Msg
+sidebarView : FoodDb.Db -> Model -> BuilderRecipe.Results -> Html Msg
 sidebarView foodDb model results =
     div
         [ class "d-flex flex-column gap-3 mb-3 sticky-md-top"
@@ -909,7 +738,7 @@ sidebarView foodDb model results =
         ]
 
 
-stepListView : FoodDb.Db -> Model -> Recipe -> Results -> Html Msg
+stepListView : FoodDb.Db -> Model -> Recipe -> BuilderRecipe.Results -> Html Msg
 stepListView foodDb { impact, selectedPackaging, selectedTransform } recipe results =
     div [ class "d-flex flex-column gap-3" ]
         [ div [ class "card" ]
@@ -930,7 +759,7 @@ stepListView foodDb { impact, selectedPackaging, selectedTransform } recipe resu
         ]
 
 
-stepResultsView : FoodDb.Db -> Model -> Results -> Html Msg
+stepResultsView : FoodDb.Db -> Model -> BuilderRecipe.Results -> Html Msg
 stepResultsView foodDb model results =
     let
         toFloat =
@@ -980,7 +809,7 @@ stepResultsView foodDb model results =
         ]
 
 
-transformView : FoodDb.Db -> Impact.Trigram -> Maybe SelectedProcess -> Recipe -> Results -> List (Html Msg)
+transformView : FoodDb.Db -> Impact.Trigram -> Maybe SelectedProcess -> Recipe -> BuilderRecipe.Results -> List (Html Msg)
 transformView foodDb selectedImpact selectedProcess recipe results =
     [ div [ class "card-header d-flex align-items-center justify-content-between" ]
         [ h6 [ class "mb-0" ] [ text "Transformation" ]
