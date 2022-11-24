@@ -8,7 +8,7 @@ L’étape d’ennoblissement se décompose en 3 sous-étapes :&#x20;
 
 * Pré-traitement = Traitement et nettoyage du tissu\
   (les procédés de pré-traitement des fibres sont rattachés à la filature)&#x20;
-* Teinture et Impression = Application de colorants&#x20;
+* Teinture et Impression = Application de colorants/pigments&#x20;
 * Finition = Application d’apprêts
 
 Une description détaillée de ces sous-étapes est proposée en bas de page.
@@ -31,15 +31,19 @@ _En l’absence de données suffisamment précises dans la Base Impacts, l’ét
 
 <summary>Teinture / Impression</summary>
 
-* Support de teinture (sur fil, tissu, article)
-* Procédé d'impression (fixé-lavé, pigmentaire)
-* Pays
-* Quantité d'énergie consommée (électricité et chaleur)
+* Pays (obligatoire)
+* Teinture (obligatoire)
+  * support : fil, tissu, article
+* Impression (optionnel)
+  * procédé : fixé-lavé, pigmentaire
+  * surface imprimée (%)\
 
-Prochainement disponibles : \
-\=> Procédé de teinture (discontinu, continu)\
-\=> Colorants de teinture (dispersés, acides, réactifs, etc.)\
-\=> Source de chaleur (gaz naturel, fuel, etc.)
+
+_Prochainement disponibles :_ \
+_=> Procédé de teinture (discontinu vs continu)_\
+_=> Type de fibre teinte (cellulosique, laine, polyester, etc.)_\
+_=> Colorants de teinture (dispersés, acides, réactifs, etc.)_\
+_=> Source de chaleur paramétrable (gaz naturel, fuel, etc.)_
 
 </details>
 
@@ -47,9 +51,7 @@ Prochainement disponibles : \
 
 <summary>Finition</summary>
 
-* 1 procédé par défaut (application d'un apprêt chimique)
-* Pays
-* Quantité d'énergie consommée (électricité et chaleur)
+* Pays (obligatoire)
 
 </details>
 
@@ -105,7 +107,7 @@ _En l’absence de données suffisamment précises dans la Base Impacts, l’ét
 
 <summary>Finition (1 procédé par défaut)</summary>
 
-* apprêt chimique anti-tache, procédé représentatif
+* apprêt chimique, procédé représentatif
 
 </details>
 
@@ -131,53 +133,22 @@ Les quantités d'énergie par défaut proviennent de la Base Impacts.&#x20;
 
 #### Finition
 
-Un procédé d'apprêt chimique anti-tache est appliqué par défaut à chaque produit modélisé.&#x20;
+Un procédé d'apprêt chimique (_apprêt chimique anti-tâche, procédé représentatif_) est appliqué par défaut à chaque produit modélisé.&#x20;
 
-L'utilisateur n'a, à ce stade, pas la possibilité de préciser le(s) apprêt(s) utilisés pour son produit.&#x20;
+L'utilisateur n'a, à ce stade, pas la possibilité de préciser cette sous-étape pour plusieurs raisons mentionnées ci-dessous.&#x20;
 
 <details>
 
 <summary>Plus d'info</summary>
 
-La Base Impacts propose 4 apprêts chimiques (anti-bactérien, déperlant, grattage, etc.) et 2 apprêts mécaniques (grattage, rasage) supplémentaires. Cependant, il n'est à ce stade pas pertinent de permettre de modéliser tout ou partie de ces procédés car :&#x20;
+* la majorité des textiles font l'objet d'au moins un apprêt chimique lors de la sous-étape Finition,
+* les apprêts chimiques contribuent fortement à l'indicateur écotoxicité aquatique qui n'est actuellement pas pris en compte dans le calculateur (donc modéliser l'utilisation d'un ou plusieurs apprêts chimiques n'a actuellement aucun impact sur cet indicateur),
+* la consommation d'énergie reste relativement stable quelquesoit le nombre d'apprêts chimiques utilisés (anti-tâche, anti-acarien, etc.) car ils sont généralement appliqués lors d'un même bain,
+* deux procédés d'apprêts mécaniques sont disponibles dans la Base Impacts mais s'appliquent uniquement à certaines fibres et consomment très peu d'énergie.
 
-* la Base Impacts ne permet pas de modéliser l'indicateur _Ecotoxicité aquatique_ (les apprêts chimiques contribuent fortement à cet indicateur),
-* les apprêts chimiques sont généralement appliqués lors d'un même bain (donc la consommation d'énergie nécessaire pour actionner le procédé reste stable quelque soit le nombre d'apprêts utilisés),
-* les deux procédés d'apprêts mécaniques sont spécifiques à certaines fibres et consomment très peu d'énergie,
-* la liste des apprêts disponibles n'est pas exhaustive par rapport aux pratiques de l'industrie.
-
-Des évolutions sont prévues dans les prochains mois pour permettre de détailler cette étape.&#x20;
+Des évolutions sont prévues dans les prochains mois pour répondre à cette limite.&#x20;
 
 </details>
-
-#### Type de fibre <=> Consommation d'énergie&#x20;
-
-La quantité d'énergie nécessaire pour actionner le procédé de teinture est pondérée selon le type de fibre.&#x20;
-
-| Fibre             | Matières                                                                                      |           Energie consommée          |
-| ----------------- | --------------------------------------------------------------------------------------------- | :----------------------------------: |
-| cellulosique      | cotton, flax, chanvre, jute, lyocell, modal, viscose                                          | <p>Valeur par défaut</p><p>(Ref)</p> |
-| synthétique       | acrylic, nylon, polyester, PU, PTT, PBT, PP, PLA, PE, PET, PA, acrylique, néoprène, aramide,  |               Ref -25%               |
-| naturelle (autre) | laine, soie, lin, cachemire, angora, acetate triacetate, alpaca,                              |               Ref +25%               |
-| mix               | non applicable                                                                                |               Ref +50%               |
-
-{% hint style="warning" %}
-Suite à différents travaux thématiques (interviews d'experts, revue bibliographique, analyse de sensibilité), nous avons constaté que le type de fibre (mélange de fibres, laine, polyester, etc.) sur lequel est appliqué la teinture a une influence directe sur la quantité d'énergie consommée.&#x20;
-
-Par exemple, la teinture des mélanges prend toujours plus de temps et est une opération plus difficile que la teinture de fibres pures.
-
-Nous proposons en première approche une classification des fibres teintes et une pondération de la consommation d'énergie.
-
-:bulb: N'hésitez pas à nous partager votre retour d'expérience sur ce sujet par [mail](mailto:ecobalyse@beta.gouv.fr).&#x20;
-{% endhint %}
-
-#### Type de fibre <=> Procédé de teinture (en cours)
-
-Il n’est pas encore possible de différencier les procédés de teinture (continu vs discontinu) ni les colorants (dispersés, acides, réactifs, cationiques, de cuve) utilisés.
-
-Cela s’explique en partie par le manque de profondeur de la base de données utilisée (Base Impacts).
-
-Ces paramétrages seront prochainement disponibles sur le calculateur.
 
 #### Grammage / Masse surfacique (g/m2)
 
@@ -186,11 +157,30 @@ Les données par défaut de grammage par catégorie de produits sont les suivant
 * Base Impacts : cape, châle, chemisier, écharpe, jean, jupe, manteau, pantalon, robe, veste
 * Extrapolation Base Impacts par Ecobalyse : débardeur, gilet, pull, t-shirt
 
+Le grammage est un paramètre clé pour les procédés d'impression (unité = m2) car il impacte la surface d'étoffe (m2) via la relation Poids (g) = grammage (g/m2) \* surface (m2)
+
+#### Source de production de vapeur &#x20;
+
+L'utilisateur a la possibilité de préciser la source de production de vapeur utilisée sur le site industriel des étapes d'ennoblissement.&#x20;
+
+4 sources (gaz naturel, fuel lourd, fuel léger, charbon) et deux régions (Europe, Asie) sont disponibles.
+
+Par défaut, un mix régional est appliqué selon le pays (cf. section [Chaleur](https://fabrique-numerique.gitbook.io/ecobalyse/textile/parametres-transverses/chaleur)).&#x20;
+
+#### Fibre <=> Procédé de teinture (en cours)
+
+Il n’est pas encore possible de différencier les procédés de teinture (continu vs discontinu) ni les colorants (dispersés, acides, réactifs, cationiques, de cuve) utilisés selon la fibre teinte (cellulosique, laine, mix de fibres, etc.).
+
+Cela s’explique en partie par le manque de profondeur de la base de données utilisée (Base Impacts).
+
+Ces paramétrages seront prochainement disponibles sur le calculateur.
+
 ## Limites
 
-* Les indicateurs "Consommations d'eau" et "Ecotoxicité aquatique" ne sont pas modélisés
-* Les principaux pocédés de Pré-Traitement du tissu ne sont pas encore disponibles
-* Les principaux procédés (continu vs discontinu) et colorants de teinture ne sont pas encore disponibles
+* Les indicateurs "Consommations d'eau" et "Ecotoxicité aquatique" ne sont pas modélisés,
+* Les principaux pocédés de Pré-Traitement du tissu ne sont pas encore disponibles,
+* Les principaux procédés (continu vs discontinu) et colorants de teinture ne sont pas encore disponibles,
+* La source de chaleur (gaz naturel, fioul, etc.) n'est pas encore paramétrable.
 
 ## En savoir plus sur l'ennoblissement
 
