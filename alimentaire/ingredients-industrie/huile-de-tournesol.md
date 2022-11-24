@@ -6,7 +6,7 @@
 
 ## Construction de l'ingrédient industrie à partir d'ingrédients agricoles
 
-Si l'on n'exclue la farine utilisée pour l'alimentation animale (animal feed), un procédé est proposé dans Agribalyse pour la farine :&#x20;
+Le procédé proposé dans Agribalyse pour le est :&#x20;
 
 * Wheat flour, at industrial mill
 

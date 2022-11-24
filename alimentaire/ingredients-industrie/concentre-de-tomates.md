@@ -6,9 +6,10 @@
 
 ## Construction de l'ingrédient industrie à partir d'ingrédients agricoles
 
-Si l'on n'exclue la farine utilisée pour l'alimentation animale (animal feed), un procédé est proposé dans Agribalyse pour la farine :&#x20;
+Deux procédés sont proposés dans Agribalyse pour le concentré de tomates est :&#x20;
 
-* Wheat flour, at industrial mill
+* Tomato paste 30° Brix, production, at plant' (kilogram, FR, None)
+* Tomato paste production, at plant (WFLDB 3.1)' (kilogram, GLO, None)
 
 $$
 FarineREF
