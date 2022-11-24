@@ -30,7 +30,7 @@ La base Agribalyse permet de distinguer les inventaires de cycle de vie suivants
 
 L'analyse comparée des impacts donne :&#x20;
 
-<figure><img src="../../.gitbook/assets/image (1).png" alt=""><figcaption><p>source: AGB3.0 via Simapro, EF3.0 (adapted)<br><mark style="color:red;"><strong>Schéma illustratif à remplacer</strong></mark></p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (4).png" alt=""><figcaption><p>source: AGB3.0 via Simapro, EF3.0 (adapted)</p></figcaption></figure>
 
 {% hint style="info" %}
 **Axes de progrès ?**
@@ -42,6 +42,7 @@ Les données ICV disponibles dans Agribalyse permettraient potentiellement d'int
 
 Le procédé "**Potato, consumption mix"** France proposée dans Agribalyse s'appuie sur les procédés suivants.
 
-Un transport de <mark style="color:red;">XXX</mark> km en camion y est intégré.
+Un transport de 160 km en camion y est intégré.
 
-<figure><img src="../../.gitbook/assets/Carotte.png" alt=""><figcaption><p><mark style="color:red;"><strong>Schéma illustratif à remplacer</strong></mark></p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
