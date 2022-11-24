@@ -166,11 +166,7 @@ type alias Recipe =
     }
 
 
-addPackaging :
-    Mass
-    -> Process.Code
-    -> { a | packaging : List PackagingQuery }
-    -> { a | packaging : List PackagingQuery }
+addPackaging : Mass -> Process.Code -> Query -> Query
 addPackaging mass code query =
     { query
         | packaging =
@@ -178,10 +174,7 @@ addPackaging mass code query =
     }
 
 
-deletePackaging :
-    Process.Code
-    -> { a | packaging : List PackagingQuery }
-    -> { a | packaging : List PackagingQuery }
+deletePackaging : Process.Code -> Query -> Query
 deletePackaging code query =
     { query
         | packaging =
@@ -223,7 +216,7 @@ ingredientToQuery ingredient =
     }
 
 
-packagingListFromQuery : FoodDb.Db -> { a | packaging : List PackagingQuery } -> Result String (List Packaging)
+packagingListFromQuery : FoodDb.Db -> Query -> Result String (List Packaging)
 packagingListFromQuery foodDb query =
     query.packaging
         |> RE.combineMap (packagingFromQuery foodDb)
@@ -243,18 +236,12 @@ packagingToQuery packaging =
     }
 
 
-resetTransform :
-    { a | transform : Maybe TransformQuery }
-    -> { a | transform : Maybe TransformQuery }
+resetTransform : Query -> Query
 resetTransform query =
     { query | transform = Nothing }
 
 
-setTransform :
-    Mass
-    -> Process.Code
-    -> { a | transform : Maybe TransformQuery }
-    -> { a | transform : Maybe TransformQuery }
+setTransform : Mass -> Process.Code -> Query -> Query
 setTransform mass code query =
     { query | transform = Just { code = code, mass = mass } }
 
@@ -273,8 +260,12 @@ toQuery recipe =
     }
 
 
-transformFromQuery : FoodDb.Db -> { a | transform : Maybe TransformQuery } -> Result String (Maybe Transform)
+transformFromQuery : FoodDb.Db -> Query -> Result String (Maybe Transform)
 transformFromQuery { processes } query =
+    let
+        _ =
+            Debug.log "processes" processes
+    in
     query.transform
         |> Maybe.map
             (\transform ->
@@ -312,11 +303,7 @@ updateMass code mass =
         )
 
 
-updatePackagingMass :
-    Mass
-    -> Process.Code
-    -> { a | packaging : List PackagingQuery }
-    -> { a | packaging : List PackagingQuery }
+updatePackagingMass : Mass -> Process.Code -> Query -> Query
 updatePackagingMass mass code query =
     { query
         | packaging =
@@ -325,10 +312,7 @@ updatePackagingMass mass code query =
     }
 
 
-updateTransformMass :
-    Mass
-    -> { a | transform : Maybe TransformQuery }
-    -> { a | transform : Maybe TransformQuery }
+updateTransformMass : Mass -> Query -> Query
 updateTransformMass mass query =
     { query
         | transform =

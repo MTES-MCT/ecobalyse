@@ -83,7 +83,7 @@ init session =
     , session
     , Cmd.batch
         [ Ports.scrollTo { x = 0, y = 0 }
-        , RequestDb.loadDb session DbLoaded
+        , RequestDb.loadExplorerDb session DbLoaded
         ]
     )
 

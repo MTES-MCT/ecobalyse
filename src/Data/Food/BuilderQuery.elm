@@ -1,6 +1,8 @@
 module Data.Food.BuilderQuery exposing
     ( IngredientQuery
+    , PackagingQuery
     , Query
+    , TransformQuery
     , Variant(..)
     , addIngredient
     , carrotCake
@@ -9,7 +11,6 @@ module Data.Food.BuilderQuery exposing
     , updateIngredient
     )
 
-import Data.Food.ExplorerRecipe as Recipe
 import Data.Food.Ingredient as Ingredient
 import Data.Food.Process as Process
 import Mass exposing (Mass)
@@ -28,10 +29,22 @@ type alias IngredientQuery =
     }
 
 
+type alias PackagingQuery =
+    { code : Process.Code
+    , mass : Mass
+    }
+
+
 type alias Query =
     { ingredients : List IngredientQuery
-    , transform : Maybe Recipe.TransformQuery
-    , packaging : List Recipe.PackagingQuery
+    , transform : Maybe TransformQuery
+    , packaging : List PackagingQuery
+    }
+
+
+type alias TransformQuery =
+    { code : Process.Code
+    , mass : Mass
     }
 
 

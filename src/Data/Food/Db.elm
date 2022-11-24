@@ -2,7 +2,8 @@ module Data.Food.Db exposing
     ( Db
     , buildFromJson
     , empty
-    , isEmpty
+    , isBuilderEmpty
+    , isExplorerEmpty
     )
 
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
@@ -15,6 +16,7 @@ import Json.Decode as Decode
 type alias Db =
     { impacts : List Impact.Definition
 
+    ---- EXPLORER
     ---- Processes are straightforward imports of public/data/food/processes.json
     , processes : List Process
 
@@ -24,6 +26,10 @@ type alias Db =
     ----        Category (material, processing, waste treatment, ...)
     ----            Ingredient (amount, process -- from the processes db --)
     , products : Products
+
+    ---- BUILDER
+    ---- builder Processes are straightforward imports of public/data/food/builder_processes.json
+    , builderProcesses : List Process
 
     ---- Ingredients are imported from public/data/food/ingredients.json
     , ingredients : List Ingredient
@@ -35,17 +41,23 @@ empty =
     { impacts = []
     , processes = []
     , products = Product.emptyProducts
+    , builderProcesses = []
     , ingredients = []
     }
 
 
-isEmpty : Db -> Bool
-isEmpty db =
-    db == empty
+isExplorerEmpty : Db -> Bool
+isExplorerEmpty db =
+    db.processes == [] || db.products == Product.emptyProducts
 
 
-buildFromJson : List Impact.Definition -> String -> String -> String -> Result String Db
-buildFromJson impacts processesJson productsJson ingredientsJson =
+isBuilderEmpty : Db -> Bool
+isBuilderEmpty db =
+    db.builderProcesses == [] || db.ingredients == []
+
+
+buildFromJson : List Impact.Definition -> String -> String -> String -> String -> Result String Db
+buildFromJson impacts processesJson productsJson builderProcessesJson ingredientsJson =
     processesJson
         |> Decode.decodeString (Process.decodeList impacts)
         |> Result.andThen
@@ -53,10 +65,15 @@ buildFromJson impacts processesJson productsJson ingredientsJson =
                 Decode.decodeString (Product.decodeProducts processes) productsJson
                     |> Result.andThen
                         (\products ->
-                            Decode.decodeString (Ingredient.decodeIngredients processes) ingredientsJson
-                                |> Result.map
-                                    (\ingredients ->
-                                        Db impacts processes products ingredients
+                            builderProcessesJson
+                                |> Decode.decodeString (Process.decodeList impacts)
+                                |> Result.andThen
+                                    (\builderProcesses ->
+                                        Decode.decodeString (Ingredient.decodeIngredients builderProcesses) ingredientsJson
+                                            |> Result.map
+                                                (\ingredients ->
+                                                    Db impacts processes products builderProcesses ingredients
+                                                )
                                     )
                         )
             )
