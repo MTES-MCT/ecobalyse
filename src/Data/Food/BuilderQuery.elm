@@ -2,7 +2,9 @@ module Data.Food.BuilderQuery exposing
     ( IngredientQuery
     , Query
     , Variant(..)
+    , addIngredient
     , carrotCake
+    , deleteIngredient
     , emptyQuery
     , updateIngredient
     )
@@ -11,6 +13,7 @@ import Data.Food.ExplorerRecipe as Recipe
 import Data.Food.Ingredient as Ingredient
 import Data.Food.Process as Process
 import Mass exposing (Mass)
+import Quantity
 
 
 type Variant
@@ -30,6 +33,16 @@ type alias Query =
     , transform : Maybe Recipe.TransformQuery
     , packaging : List Recipe.PackagingQuery
     }
+
+
+addIngredient : IngredientQuery -> Query -> Query
+addIngredient ingredient query =
+    { query
+        | ingredients =
+            query.ingredients
+                ++ [ ingredient ]
+    }
+        |> updateTransformMass
 
 
 emptyQuery : Query
@@ -75,14 +88,47 @@ carrotCake =
     }
 
 
-updateIngredient : Ingredient.Name -> IngredientQuery -> List IngredientQuery -> List IngredientQuery
-updateIngredient oldIngredientName newIngredient ingredients =
-    ingredients
-        |> List.map
-            (\ingredient ->
-                if ingredient.name == oldIngredientName then
-                    newIngredient
+deleteIngredient : IngredientQuery -> Query -> Query
+deleteIngredient ingredientQuery query =
+    { query
+        | ingredients =
+            query.ingredients
+                |> List.filter ((/=) ingredientQuery)
+    }
+        |> updateTransformMass
 
-                else
-                    ingredient
-            )
+
+getIngredientMass : Query -> Mass
+getIngredientMass query =
+    query.ingredients
+        |> List.map .mass
+        |> Quantity.sum
+
+
+updateIngredient : Ingredient.Name -> IngredientQuery -> Query -> Query
+updateIngredient oldIngredientName newIngredient query =
+    { query
+        | ingredients =
+            query.ingredients
+                |> List.map
+                    (\ingredient ->
+                        if ingredient.name == oldIngredientName then
+                            newIngredient
+
+                        else
+                            ingredient
+                    )
+    }
+        |> updateTransformMass
+
+
+updateTransformMass : Query -> Query
+updateTransformMass query =
+    { query
+        | transform =
+            query.transform
+                |> Maybe.map
+                    (\transform ->
+                        { transform | mass = getIngredientMass query }
+                    )
+    }
