@@ -117,7 +117,7 @@ _En l’absence de données suffisamment précises dans la Base Impacts, l’ét
 
 Un procédé de teinture est appliqué par défaut selon la catégorie du produit modélisé (jean, jupe, t-shirt, etc.).
 
-| Support de teinture |                                                Catégorie                                                |      Energie consommée par kg de produit teint      |
+| Support de teinture |                                                Catégorie                                                |         Energie consommée par kg de produit         |
 | :-----------------: | :-----------------------------------------------------------------------------------------------------: | :-------------------------------------------------: |
 |         Fil         |                                                   jean                                                  | <p>électricité : 2,82 kWh<br>chaleur : 33,42 MJ</p> |
 |        Tissu        | cape, châle, chemisier, débardeur, écharpe,  gilet, jupe, manteau, pantalon, pull, robe, t-shirt, veste | <p>électricité : 1,99 kWh<br>chaleur : 25,87 MJ</p> |
@@ -144,7 +144,7 @@ L'utilisateur n'a, à ce stade, pas la possibilité de préciser cette sous-éta
 * la majorité des textiles font l'objet d'au moins un apprêt chimique lors de la sous-étape Finition,
 * les apprêts chimiques contribuent fortement à l'indicateur écotoxicité aquatique qui n'est actuellement pas pris en compte dans le calculateur (donc modéliser l'utilisation d'un ou plusieurs apprêts chimiques n'a actuellement aucun impact sur cet indicateur),
 * la consommation d'énergie reste relativement stable quelquesoit le nombre d'apprêts chimiques utilisés (anti-tâche, anti-acarien, etc.) car ils sont généralement appliqués lors d'un même bain,
-* deux procédés d'apprêts mécaniques sont disponibles dans la Base Impacts mais s'appliquent uniquement à certaines fibres et consomment très peu d'énergie.
+* deux procédés d'apprêts mécaniques sont disponibles dans la Base Impacts mais ils s'appliquent uniquement à certaines fibres et ils consomment très peu d'énergie.
 
 Des évolutions sont prévues dans les prochains mois pour répondre à cette limite.&#x20;
 
@@ -180,7 +180,6 @@ Ces paramétrages seront prochainement disponibles sur le calculateur.
 * Les indicateurs "Consommations d'eau" et "Ecotoxicité aquatique" ne sont pas modélisés,
 * Les principaux pocédés de Pré-Traitement du tissu ne sont pas encore disponibles,
 * Les principaux procédés (continu vs discontinu) et colorants de teinture ne sont pas encore disponibles,
-* La source de chaleur (gaz naturel, fioul, etc.) n'est pas encore paramétrable.
 
 ## En savoir plus sur l'ennoblissement
 
