@@ -45,6 +45,10 @@ La base Agribalyse permet de distinguer les inventaires de cycle de vie suivants
   * Sunflower, at farm (WFLDB 3.1)
   * Sunflower, at farm (WFLDB 3.1)
 
+{% hint style="info" %}
+Le choix est fait d'exclure directement les procédés concernant le tournesol destiné à l'alimentation animale. En effet, dans un premier temps (niveau 1 de calcul), sont uniquement considérés les procédés susceptibles d'entrer directement dans la fabrication de produits alimentaires.&#x20;
+{% endhint %}
+
 L'analyse comparée des impacts donne :&#x20;
 
 <figure><img src="../../.gitbook/assets/image (1).png" alt=""><figcaption><p>source: AGB3.0 via Simapro, EF3.0 (adapted)<br><mark style="color:red;"><strong>Schéma illustratif à remplacer</strong></mark></p></figcaption></figure>
