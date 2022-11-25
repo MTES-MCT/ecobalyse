@@ -19,7 +19,7 @@ Attente des graphes Simapro pour isoler le procédé retenu.
 En l'absence de procédé "consumption mix", deux hypothèses :&#x20;
 
 * un procédé "beurre" retenu correspondant au procédé impliqué dans le beurre produit fini
-* un procédé "beurre" retenu correspondant au beurre intervenant des les recettes industrielles (ex. croissant au beurre)
+* un procédé "beurre" retenu correspondant au beurre intervenant dans les recettes industrielles (ex. croissant au beurre)
 {% endhint %}
 
 $$
