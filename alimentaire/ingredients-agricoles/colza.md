@@ -27,13 +27,19 @@ La base Agribalyse permet de distinguer les inventaires de cycle de vie suivants
   * Rapeseed, organic, animal feed, at farm gate
   * Rapeseed, seed, conventional, national average, animal feed, at farm gate
   * Winter rapeseed, organic, at farm gate
-* Dont 1 moyenne nationale France dont la construction est explicitée dans le schéma ci-après
-* XX procédés ?&#x20;
+* Dont 2 moyennes nationales France&#x20;
+  * Rapeseed, conventional, 9% moisture, national average, animal feed, at farm gate, production
+  * Rapeseed, seed, conventional, national average, animal feed, at farm gate
+* 2 procédés ? (à préciser)&#x20;
   * Rapeseed, at farm (WFLDB 3.1)
   * Rapeseed, at farm (WFLDB 3.1)
 
 {% hint style="info" %}
 Etant donné que l'ingrédient "colza", intervient principalement dans l'alimentation humaine pour la production d'huile, le procédé colza "at farm" retenu est celui qui intervient dans le procédé "huile de colza"
+{% endhint %}
+
+{% hint style="info" %}
+A priori, seront directement exclus les procédés colza "at farm" pour l'alimentation animale&#x20;
 {% endhint %}
 
 L'analyse comparée des impacts donne :&#x20;
