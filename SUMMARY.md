@@ -50,6 +50,7 @@
   * [🥔 Pomme de terre](alimentaire/ingredients-agricoles/pomme-de-terre.md)
   * [🌻 Tournesol](alimentaire/ingredients-agricoles/tournesol.md)
   * [🍅 Tomate](alimentaire/ingredients-agricoles/tomate.md)
+  * [🌼 Colza](alimentaire/ingredients-agricoles/colza.md)
   * [❓ Modèle](alimentaire/ingredients-agricoles/modele.md)
 * [🚛 Transport](<alimentaire/transport (1).md>)
 * [🏭 Transformation](alimentaire/transformation.md)
