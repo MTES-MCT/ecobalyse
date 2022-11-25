@@ -41,6 +41,7 @@
   * [🌻 Huile de tournesol](alimentaire/ingredients-industrie/huile-de-tournesol.md)
   * [🥔 Amidon de pomme de terre](alimentaire/ingredients-industrie/amidon-de-pomme-de-terre.md)
   * [🍅 Concentré de tomates](alimentaire/ingredients-industrie/concentre-de-tomates.md)
+  * [🧀 Comté](alimentaire/ingredients-industrie/comte.md)
 * [🍅 Ingrédients agricoles](alimentaire/ingredients.md)
   * [🥕 Carotte](alimentaire/ingredients/carotte.md)
   * [🌾 Blé tendre](alimentaire/ingredients/ble-tendre.md)
