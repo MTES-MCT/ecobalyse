@@ -43,6 +43,7 @@
   * [🍅 Concentré de tomates](alimentaire/ingredients-industrie/concentre-de-tomates.md)
   * [🧀 Comté](alimentaire/ingredients-industrie/comte.md)
   * [🌼 Huile de colza](alimentaire/ingredients-industrie/huile-de-colza.md)
+  * [🌾 Semoule de blé dur](alimentaire/ingredients-industrie/semoule-de-ble-dur.md)
   * [🧈 Beurre](alimentaire/ingredients-industrie/beurre.md)
 * [🍅 Ingrédients agricoles](alimentaire/ingredients.md)
   * [🥕 Carotte](alimentaire/ingredients/carotte.md)
