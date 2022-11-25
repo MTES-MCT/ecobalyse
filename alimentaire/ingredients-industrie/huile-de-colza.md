@@ -22,6 +22,10 @@ $$
 huilecolzaREF
 $$
 
+{% hint style="danger" %}
+A confirmer avec le graphe Simapro
+{% endhint %}
+
 
 
 Ce procédé est construit à partir :&#x20;
