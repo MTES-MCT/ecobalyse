@@ -15,7 +15,7 @@ Les procédés proposés dans Agribalyse pour la semoule de blé dur (intervenan
 \=> le procédé retenu devrait être un procédé "sortie de moulin" (at mill), donc :
 
 {% hint style="danger" %}
-Attente des graphes Simapro des 3 procédés ci-dessus pour identifier celui qui intervient à l'étape précédente&#x20;
+Attente des graphes Simapro des 3 procédés ci-dessus pour identifier le procédé mobilisé à l'étape précédente&#x20;
 {% endhint %}
 
 Le procédé retenu est finalement :
