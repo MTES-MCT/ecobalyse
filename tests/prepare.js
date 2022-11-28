@@ -29,7 +29,7 @@ function buildTextileJsonDb(basePath = "public/data") {
 }
 
 function buildFoodProcessesJsonDb(basePath = "public/data/food") {
-  return serializeForElmTemplateString(getJson(`${basePath}/processes.json`));
+  return serializeForElmTemplateString(getJson(`${basePath}/processes/explorer.json`));
 }
 
 function buildFoodProductsJsonDb(basePath = "public/data/food") {
@@ -37,7 +37,7 @@ function buildFoodProductsJsonDb(basePath = "public/data/food") {
 }
 
 function buildFoodBuilderProcessesJsonDb(basePath = "public/data/food") {
-  return serializeForElmTemplateString(getJson(`${basePath}/builder_processes.json`));
+  return serializeForElmTemplateString(getJson(`${basePath}/processes/builder.json`));
 }
 
 function buildFoodIngredientsJsonDb(basePath = "public/data/food") {
