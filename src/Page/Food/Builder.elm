@@ -10,6 +10,7 @@ import Data.Food.Builder.Query as Query exposing (Query)
 import Data.Food.Builder.Recipe as Recipe exposing (Recipe)
 import Data.Food.Db as FoodDb
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
+import Data.Food.IngredientID as IngredientID exposing (ID)
 import Data.Food.Process as Process exposing (Process)
 import Data.Impact as Impact
 import Data.Session exposing (Session)
@@ -63,7 +64,7 @@ type Msg
     | SelectTransform (Maybe SelectedProcess)
     | SetTransform SelectedProcess
     | SwitchImpact Impact.Trigram
-    | UpdateIngredient Ingredient.Name Query.IngredientQuery
+    | UpdateIngredient ID Query.IngredientQuery
     | UpdatePackagingMass Process.Code (Maybe Mass)
     | UpdateTransformMass (Maybe Mass)
 
@@ -105,8 +106,7 @@ update session msg model =
             let
                 firstIngredient =
                     session.foodDb.ingredients
-                        |> List.map .name
-                        |> Recipe.availableIngredients (List.map .name model.query.ingredients)
+                        |> Recipe.availableIngredients (List.map .id model.query.ingredients)
                         |> List.head
                         |> Maybe.map Recipe.ingredientQueryFromIngredient
             in
@@ -196,8 +196,8 @@ update session msg model =
         SwitchImpact impact ->
             ( { model | impact = impact }, session, Cmd.none )
 
-        UpdateIngredient oldIngredientName newIngredient ->
-            ( { model | query = Query.updateIngredient oldIngredientName newIngredient model.query }
+        UpdateIngredient oldIngredientID newIngredient ->
+            ( { model | query = Query.updateIngredient oldIngredientID newIngredient model.query }
             , session
             , Cmd.none
             )
@@ -308,7 +308,7 @@ addProcessFormView { category, defaultMass, excluded, foodDb, kind, noOp, select
 
 
 type alias UpdateIngredientConfig =
-    { excluded : List Ingredient.Name
+    { excluded : List ID
     , foodDb : FoodDb.Db
     , ingredient : Recipe.RecipeIngredient
     }
@@ -317,18 +317,16 @@ type alias UpdateIngredientConfig =
 updateIngredientFormView : UpdateIngredientConfig -> Html Msg
 updateIngredientFormView { excluded, foodDb, ingredient } =
     let
-        ingredientName =
-            ingredient.ingredient.name
-
         ingredientQuery : Query.IngredientQuery
         ingredientQuery =
-            { name = ingredient.ingredient.name
+            { id = ingredient.ingredient.id
+            , name = ingredient.ingredient.name
             , mass = ingredient.mass
             , variant = ingredient.variant
             }
 
         event =
-            UpdateIngredient ingredientName
+            UpdateIngredient ingredient.ingredient.id
     in
     rowTemplate
         (MassInput.view
@@ -346,12 +344,16 @@ updateIngredientFormView { excluded, foodDb, ingredient } =
             }
         )
         (foodDb.ingredients
-            |> List.sortBy (.name >> Ingredient.nameToString)
+            |> List.sortBy .name
             |> ingredientSelectorView
-                ingredientName
+                ingredient.ingredient.id
                 excluded
                 (\newIngredient ->
-                    event { ingredientQuery | name = newIngredient.name }
+                    event
+                        { ingredientQuery
+                            | id = newIngredient.id
+                            , name = newIngredient.name
+                        }
                 )
         )
         (span
@@ -459,7 +461,7 @@ ingredientListView foodDb selectedImpact recipe results =
                 |> List.map
                     (\ingredient ->
                         updateIngredientFormView
-                            { excluded = recipe.ingredients |> List.map (.ingredient >> .name)
+                            { excluded = recipe.ingredients |> List.map (.ingredient >> .id)
                             , foodDb = foodDb
                             , ingredient = ingredient
                             }
@@ -472,8 +474,7 @@ ingredientListView foodDb selectedImpact recipe results =
                         , class " gap-1 w-100"
                         , disabled <|
                             (foodDb.ingredients
-                                |> List.map .name
-                                |> Recipe.availableIngredients (List.map (.ingredient >> .name) recipe.ingredients)
+                                |> Recipe.availableIngredients (List.map (.ingredient >> .id) recipe.ingredients)
                                 |> List.isEmpty
                             )
                         , onClick AddIngredient
@@ -624,22 +625,18 @@ processSelectorView kind selectedCode event =
             ]
 
 
-ingredientSelectorView : Ingredient.Name -> List Ingredient.Name -> (Ingredient -> msg) -> List Ingredient -> Html msg
+ingredientSelectorView : ID -> List ID -> (Ingredient -> msg) -> List Ingredient -> Html msg
 ingredientSelectorView selectedIngredient excluded event ingredients =
     ingredients
         |> List.map
             (\ingredient ->
-                let
-                    label =
-                        Ingredient.nameToString ingredient.name
-                in
-                ( label
+                ( ingredient.name
                 , option
-                    [ selected <| selectedIngredient == ingredient.name
-                    , disabled <| List.member ingredient.name excluded
-                    , value <| label
+                    [ selected <| selectedIngredient == ingredient.id
+                    , disabled <| List.member ingredient.id excluded
+                    , value <| IngredientID.toString ingredient.id
                     ]
-                    [ text label ]
+                    [ text ingredient.name ]
                 )
             )
         |> List.sortBy Tuple.first
@@ -648,11 +645,11 @@ ingredientSelectorView selectedIngredient excluded event ingredients =
         |> Keyed.node "select"
             [ class "form-select form-select-sm"
             , onInput
-                (\ingredientName ->
+                (\ingredientID ->
                     let
                         newIngredient =
-                            Ingredient.nameFromString ingredientName
-                                |> Ingredient.findByName ingredients
+                            IngredientID.fromString ingredientID
+                                |> Ingredient.findByID ingredients
                                 |> Result.withDefault Ingredient.empty
                     in
                     event newIngredient

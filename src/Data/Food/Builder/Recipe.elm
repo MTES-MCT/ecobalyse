@@ -21,6 +21,7 @@ module Data.Food.Builder.Recipe exposing
 import Data.Food.Builder.Query as BuilderQuery exposing (Query)
 import Data.Food.Db as FoodDb
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
+import Data.Food.IngredientID as IngredientID exposing (ID)
 import Data.Food.Process as Process exposing (Process)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Unit as Unit
@@ -74,12 +75,12 @@ addPackaging mass code query =
     }
 
 
-availableIngredients : List Ingredient.Name -> List Ingredient.Name -> List Ingredient.Name
-availableIngredients usedIngredientNames ingredientListNames =
-    ingredientListNames
+availableIngredients : List ID -> List Ingredient -> List Ingredient
+availableIngredients usedIngredientIDs ingredientList =
+    ingredientList
         |> List.filter
-            (\name ->
-                not (List.member name usedIngredientNames)
+            (\{ id } ->
+                not (List.member id usedIngredientIDs)
             )
 
 
@@ -162,7 +163,8 @@ deletePackaging code query =
 encodeIngredient : BuilderQuery.IngredientQuery -> Encode.Value
 encodeIngredient i =
     Encode.object
-        [ ( "name", i.name |> Ingredient.nameToString |> Encode.string )
+        [ ( "id", IngredientID.encode i.id )
+        , ( "name", Encode.string i.name )
         , ( "mass", Encode.float (Mass.inKilograms i.mass) )
         , ( "variant", variantToString i.variant |> Encode.string )
         ]
@@ -224,14 +226,15 @@ ingredientListFromQuery foodDb query =
 ingredientFromQuery : FoodDb.Db -> BuilderQuery.IngredientQuery -> Result String RecipeIngredient
 ingredientFromQuery { ingredients } ingredientQuery =
     Result.map3 RecipeIngredient
-        (Ingredient.findByName ingredients ingredientQuery.name)
+        (Ingredient.findByID ingredients ingredientQuery.id)
         (Ok ingredientQuery.mass)
         (Ok ingredientQuery.variant)
 
 
-ingredientQueryFromIngredient : Ingredient.Name -> BuilderQuery.IngredientQuery
-ingredientQueryFromIngredient ingredientName =
-    { name = ingredientName
+ingredientQueryFromIngredient : Ingredient -> BuilderQuery.IngredientQuery
+ingredientQueryFromIngredient ingredient =
+    { id = ingredient.id
+    , name = ingredient.name
     , mass = Mass.grams 100
     , variant = BuilderQuery.Default
     }

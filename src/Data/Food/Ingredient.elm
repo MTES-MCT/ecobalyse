@@ -1,13 +1,11 @@
 module Data.Food.Ingredient exposing
     ( Ingredient
-    , Name
     , decodeIngredients
     , empty
-    , findByName
-    , nameFromString
-    , nameToString
+    , findByID
     )
 
+import Data.Food.IngredientID as IngredientID exposing (ID)
 import Data.Food.Process as Process exposing (Process)
 import Dict exposing (Dict)
 import Json.Decode as Decode exposing (Decoder)
@@ -15,12 +13,9 @@ import Json.Decode.Extra as DE
 import Json.Decode.Pipeline as Pipe
 
 
-type Name
-    = Name String
-
-
 type alias Ingredient =
-    { name : Name
+    { id : ID
+    , name : String
     , default : Process
     , variants : Variants
     }
@@ -28,20 +23,11 @@ type alias Ingredient =
 
 empty : Ingredient
 empty =
-    { name = Name ""
+    { id = IngredientID.fromString ""
+    , name = ""
     , default = Process.empty
     , variants = { organic = Nothing }
     }
-
-
-nameFromString : String -> Name
-nameFromString str =
-    Name str
-
-
-nameToString : Name -> String
-nameToString (Name str) =
-    str
 
 
 type alias Variants =
@@ -61,7 +47,8 @@ decodeIngredients processes =
 decodeIngredient : Dict String Process -> Decoder Ingredient
 decodeIngredient processes =
     Decode.succeed Ingredient
-        |> Pipe.required "name" (Decode.map Name Decode.string)
+        |> Pipe.required "id" IngredientID.decode
+        |> Pipe.required "name" Decode.string
         |> Pipe.required "default" (linkProcess processes)
         |> Pipe.required "variants" (decodeVariants processes)
 
@@ -84,9 +71,9 @@ linkProcess processes =
             )
 
 
-findByName : List Ingredient -> Name -> Result String Ingredient
-findByName ingredients ((Name name) as ingredientName) =
+findByID : List Ingredient -> ID -> Result String Ingredient
+findByID ingredients id =
     ingredients
-        |> List.filter (.name >> (==) ingredientName)
+        |> List.filter (.id >> (==) id)
         |> List.head
-        |> Result.fromMaybe ("Ingrédient introuvable par nom : " ++ name)
+        |> Result.fromMaybe ("Ingrédient introuvable par nom : " ++ IngredientID.toString id)
