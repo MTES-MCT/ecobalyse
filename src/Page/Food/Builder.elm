@@ -6,8 +6,8 @@ module Page.Food.Builder exposing
     , view
     )
 
-import Data.Food.BuilderQuery as Query exposing (Query)
-import Data.Food.BuilderRecipe as Recipe exposing (Recipe)
+import Data.Food.Builder.Query as Query exposing (Query)
+import Data.Food.Builder.Recipe as Recipe exposing (Recipe)
 import Data.Food.Db as FoodDb
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Process as Process exposing (Process)

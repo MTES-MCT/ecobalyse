@@ -1,4 +1,4 @@
-module Data.Food.BuilderRecipe exposing
+module Data.Food.Builder.Recipe exposing
     ( Recipe
     , RecipeIngredient
     , Results
@@ -18,7 +18,7 @@ module Data.Food.BuilderRecipe exposing
     , updateTransformMass
     )
 
-import Data.Food.BuilderQuery as BuilderQuery exposing (Query)
+import Data.Food.Builder.Query as BuilderQuery exposing (Query)
 import Data.Food.Db as FoodDb
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Process as Process exposing (Process)
