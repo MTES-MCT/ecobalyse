@@ -226,30 +226,68 @@ toQuery inputs =
 
 toString : Inputs -> String
 toString inputs =
+    let
+        ifStepEnabled label list =
+            if not (List.member label inputs.disabledSteps) then
+                list
+
+            else
+                []
+    in
     [ [ inputs.product.name ++ " de " ++ Format.kgToString inputs.mass ]
     , [ materialsToString inputs.materials ]
-    , [ "matière", inputs.countryMaterial.name ]
-    , [ "filature", inputs.countrySpinning.name ]
-    , case inputs.product.fabric of
-        Product.Knitted _ ->
-            [ "tricotage", inputs.countryFabric.name ]
+    , ifStepEnabled Label.Material
+        [ "matière"
+        , inputs.countryMaterial.name
+        ]
+    , ifStepEnabled Label.Spinning
+        [ "filature"
+        , inputs.countrySpinning.name
+        ]
+    , ifStepEnabled Label.Fabric
+        (case inputs.product.fabric of
+            Product.Knitted _ ->
+                [ "tricotage", inputs.countryFabric.name ]
 
-        Product.Weaved _ _ ->
-            [ "tissage", inputs.countryFabric.name ++ weavingOptionsToString inputs.picking inputs.surfaceMass ]
-    , [ case inputs.dyeingMedium of
+            Product.Weaved _ _ ->
+                [ "tissage", inputs.countryFabric.name ++ weavingOptionsToString inputs.picking inputs.surfaceMass ]
+        )
+    , ifStepEnabled Label.Ennobling
+        [ case inputs.dyeingMedium of
             Just dyeingMedium ->
                 "teinture sur " ++ DyeingMedium.toLabel dyeingMedium
 
             Nothing ->
                 "teinture"
-      , inputs.countryDyeing.name
-      ]
-    , [ "impression", inputs.printing |> Maybe.map Printing.toFullLabel |> Maybe.withDefault "Aucune" ]
-    , [ "confection", inputs.countryMaking.name ++ makingOptionsToString inputs ]
-    , [ "distribution", inputs.countryDistribution.name ]
-    , [ "utilisation", inputs.countryUse.name ++ useOptionsToString inputs.quality inputs.reparability ]
-    , [ "fin de vie", inputs.countryEndOfLife.name ]
+        , inputs.countryDyeing.name
+        ]
+    , ifStepEnabled Label.Ennobling
+        [ case inputs.printing of
+            Just printing ->
+                "impression " ++ Printing.toFullLabel printing
+
+            Nothing ->
+                "pas d'impression"
+        , inputs.countryDyeing.name
+        ]
+    , ifStepEnabled Label.Making
+        [ "confection"
+        , inputs.countryMaking.name ++ makingOptionsToString inputs
+        ]
+    , ifStepEnabled Label.Distribution
+        [ "distribution"
+        , inputs.countryDistribution.name
+        ]
+    , ifStepEnabled Label.Use
+        [ "utilisation"
+        , inputs.countryUse.name ++ useOptionsToString inputs.quality inputs.reparability
+        ]
+    , ifStepEnabled Label.EndOfLife
+        [ "fin de vie"
+        , inputs.countryEndOfLife.name
+        ]
     ]
+        |> List.filter (not << List.isEmpty)
         |> List.map (String.join "\u{00A0}: ")
         |> String.join ", "
 
