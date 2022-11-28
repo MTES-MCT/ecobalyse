@@ -298,7 +298,7 @@ addProcessFormView { category, defaultMass, excluded, foodDb, kind, noOp, select
             )
             (button
                 [ type_ "submit"
-                , class "btn btn-sm btn-primary no-outline"
+                , class "btn btn-sm btn-primary"
                 , title <| "Ajouter " ++ kind
                 , disabled <| selectedProcess == Nothing
                 ]
@@ -330,69 +330,66 @@ updateIngredientFormView { excluded, foodDb, ingredient } =
         event =
             UpdateIngredient ingredientName
     in
-    Html.form
-        [ class "list-group list-group-flush border-top-0" ]
-        [ rowTemplate
-            (MassInput.view
-                { mass =
-                    ingredient.mass
-                , onChange =
-                    \maybeMass ->
-                        case maybeMass of
-                            Just mass ->
-                                event { ingredientQuery | mass = mass }
+    rowTemplate
+        (MassInput.view
+            { mass =
+                ingredient.mass
+            , onChange =
+                \maybeMass ->
+                    case maybeMass of
+                        Just mass ->
+                            event { ingredientQuery | mass = mass }
 
-                            _ ->
-                                NoOp
-                , disabled = False
-                }
-            )
-            (foodDb.ingredients
-                |> List.sortBy (.name >> Ingredient.nameToString)
-                |> ingredientSelectorView
-                    ingredientName
-                    excluded
-                    (\newIngredient ->
-                        event { ingredientQuery | name = newIngredient.name }
-                    )
-            )
-            (span
-                [ class "w-25 d-flex align-items-center gap-2"
-                , classList [ ( "text-muted", ingredient.ingredient.variants.organic == Nothing ) ]
-                ]
-                [ label [ class "flex-grow-1" ]
-                    [ input
-                        [ type_ "checkbox"
-                        , class "form-check-input no-outline m-1"
-                        , attribute "role" "switch"
-                        , checked <| ingredient.variant == Query.Organic
-                        , disabled <| ingredient.ingredient.variants.organic == Nothing
-                        , onCheck
-                            (\checked ->
-                                { ingredientQuery
-                                    | variant =
-                                        if checked then
-                                            Query.Organic
+                        _ ->
+                            NoOp
+            , disabled = False
+            }
+        )
+        (foodDb.ingredients
+            |> List.sortBy (.name >> Ingredient.nameToString)
+            |> ingredientSelectorView
+                ingredientName
+                excluded
+                (\newIngredient ->
+                    event { ingredientQuery | name = newIngredient.name }
+                )
+        )
+        (span
+            [ class "w-25 d-flex align-items-center gap-2"
+            , classList [ ( "text-muted", ingredient.ingredient.variants.organic == Nothing ) ]
+            ]
+            [ label [ class "flex-grow-1" ]
+                [ input
+                    [ type_ "checkbox"
+                    , class "form-check-input m-1"
+                    , attribute "role" "switch"
+                    , checked <| ingredient.variant == Query.Organic
+                    , disabled <| ingredient.ingredient.variants.organic == Nothing
+                    , onCheck
+                        (\checked ->
+                            { ingredientQuery
+                                | variant =
+                                    if checked then
+                                        Query.Organic
 
-                                        else
-                                            Query.Default
-                                }
-                                    |> event
-                            )
-                        ]
-                        []
-                    , text "bio"
+                                    else
+                                        Query.Default
+                            }
+                                |> event
+                        )
                     ]
-                , button
-                    [ type_ "button"
-                    , class "btn btn-sm btn-outline-primary no-outline"
-                    , title <| "Supprimer "
-                    , onClick <| DeleteIngredient ingredientQuery
-                    ]
-                    [ Icon.trash ]
+                    []
+                , text "bio"
                 ]
-            )
-        ]
+            , button
+                [ type_ "button"
+                , class "btn btn-sm btn-outline-primary"
+                , title <| "Supprimer "
+                , onClick <| DeleteIngredient ingredientQuery
+                ]
+                [ Icon.trash ]
+            ]
+        )
 
 
 debugQueryView : FoodDb.Db -> Query -> Html Msg
@@ -468,20 +465,22 @@ ingredientListView foodDb selectedImpact recipe results =
                             }
                     )
          )
-            ++ [ button
-                    [ class "btn btn-outline-primary"
-                    , class "flex-fill d-flex justify-content-center align-items-center"
-                    , class " gap-1 no-outline"
-                    , disabled <|
-                        (foodDb.ingredients
-                            |> List.map .name
-                            |> Recipe.availableIngredients (List.map (.ingredient >> .name) recipe.ingredients)
-                            |> List.isEmpty
-                        )
-                    , onClick AddIngredient
-                    ]
-                    [ i [ class "icon icon-plus" ] []
-                    , text "Ajouter un ingrédient"
+            ++ [ li [ class "list-group-item" ]
+                    [ button
+                        [ class "btn btn-outline-primary"
+                        , class "d-flex justify-content-center align-items-center"
+                        , class " gap-1 w-100"
+                        , disabled <|
+                            (foodDb.ingredients
+                                |> List.map .name
+                                |> Recipe.availableIngredients (List.map (.ingredient >> .name) recipe.ingredients)
+                                |> List.isEmpty
+                            )
+                        , onClick AddIngredient
+                        ]
+                        [ i [ class "icon icon-plus" ] []
+                        , text "Ajouter un ingrédient"
+                        ]
                     ]
                ]
         )
@@ -516,7 +515,7 @@ packagingListView foodDb selectedImpact selectedProcess recipe results =
                                     |> formatImpact foodDb selectedImpact
                                 , button
                                     [ type_ "button"
-                                    , class "btn btn-sm btn-outline-primary no-outline"
+                                    , class "btn btn-sm btn-outline-primary"
                                     , title "Supprimer"
                                     , onClick (DeletePackaging process.code)
                                     ]
@@ -802,7 +801,7 @@ transformView foodDb selectedImpact selectedProcess recipe results =
                             |> formatImpact foodDb selectedImpact
                         , button
                             [ type_ "button"
-                            , class "btn btn-sm btn-outline-primary no-outline"
+                            , class "btn btn-sm btn-outline-primary"
                             , title "Supprimer"
                             , onClick ResetTransform
                             ]
