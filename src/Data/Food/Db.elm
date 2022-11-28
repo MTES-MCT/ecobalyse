@@ -16,7 +16,7 @@ type alias Db =
     { impacts : List Impact.Definition
 
     ---- EXPLORER
-    ---- Processes are straightforward imports of public/data/food/processes.json
+    ---- Processes are straightforward imports of public/data/food/processes/explorer.json
     , processes : List Process
 
     ---- Products are imported from public/data/food/products.json with several layers:
@@ -27,7 +27,7 @@ type alias Db =
     , products : Products
 
     ---- BUILDER
-    ---- builder Processes are straightforward imports of public/data/food/builder_processes.json
+    ---- builder Processes are straightforward imports of public/data/food/processes/builder.json
     , builderProcesses : List Process
 
     ---- Ingredients are imported from public/data/food/ingredients.json
