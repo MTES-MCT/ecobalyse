@@ -204,6 +204,9 @@ printingFields { inputs, updatePrinting } =
                                                 Just { kind = kind, ratio = Printing.defaultRatio }
 
                                     Err _ ->
+                                        -- Note: we've most likely received the "Aucune" string value from
+                                        -- when the user picked this choice, so it's fair to reset any
+                                        -- previously selected printing process.
                                         Nothing
                                 )
                         )

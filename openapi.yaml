@@ -541,8 +541,9 @@ components:
       name: printing
       in: query
       description: |
-        Ce paramètre permet de préciser le type d'impression effectuée sur le produit ; il peut prendre les valeurs
-        suivantes :
+        Ce paramètre permet de préciser le type d'impression effectuée sur le produit, suivi du pourcentage de
+        surface teinte. Par exemple, `pigment;0.1` signifie impression pigmentaire sur 10% de la superficie du
+        vêtement. L'identifiant de procédé d'impression peut prendre les valeurs suivantes :
 
         - `pigment` pour une impression pigmentaire ;
         - `substantive` pour une impression fixé/lavé ;
@@ -555,11 +556,11 @@ components:
           summary: "Aucune impression"
           value: ""
         pigment:
-          summary: "Pigmentaire"
-          value: "pigment"
+          summary: "Pigmentaire sur 50% de la surface"
+          value: "pigment;0.5"
         substantive:
-          summary: "Fixé/Lavé"
-          value: "substantive"
+          summary: "Fixé/Lavé sur 20% de la surface"
+          value: "substantive;0.2"
     ingredientsParam:
       name: "ingredients[]"
       in: query
