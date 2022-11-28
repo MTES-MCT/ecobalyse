@@ -201,7 +201,7 @@ printingFields { inputs, updatePrinting } =
                                                 Just { printing | kind = kind }
 
                                             Nothing ->
-                                                Just { kind = kind, ratio = Unit.ratio 1 }
+                                                Just { kind = kind, ratio = Printing.defaultRatio }
 
                                     Err _ ->
                                         Nothing
@@ -210,7 +210,7 @@ printingFields { inputs, updatePrinting } =
                     ]
             , case inputs.printing of
                 Just { ratio } ->
-                    [ 5, 25, 75, 100 ]
+                    [ 100, 50, 20, 5, 1 ]
                         |> List.map
                             (\percent ->
                                 option

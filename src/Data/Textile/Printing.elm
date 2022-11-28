@@ -2,6 +2,7 @@ module Data.Textile.Printing exposing
     ( Kind(..)
     , Printing
     , decode
+    , defaultRatio
     , encode
     , fromString
     , fromStringParam
@@ -38,6 +39,11 @@ decodeKind : Decoder Kind
 decodeKind =
     Decode.string
         |> Decode.andThen (fromString >> DE.fromResult)
+
+
+defaultRatio : Unit.Ratio
+defaultRatio =
+    Unit.ratio 0.2
 
 
 encode : Printing -> Encode.Value
