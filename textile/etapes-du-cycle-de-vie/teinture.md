@@ -167,6 +167,11 @@ L'utilisateur a la possibilité de préciser la source de production de vapeur u
 
 Par défaut, un mix régional est appliqué selon le pays (cf. section [Chaleur](https://fabrique-numerique.gitbook.io/ecobalyse/textile/parametres-transverses/chaleur)).&#x20;
 
+#### Impression <=> % étoffe &#x20;
+
+Deux types d'impression sont proposées (fixé-lavé et pigmentaire). \
+La quantité de tissu imprimée est à spécifier par l'utilisateur (en % de la surface d'étoffe entrante). Cette donnée n'étant généralement pas maîtrisée par les metteurs sur le marché, cinq scénarios sont proposés (1%, 5%, 20%, 50% et 100%).&#x20;
+
 #### Fibre <=> Procédé de teinture (en cours)
 
 Il n’est pas encore possible de différencier les procédés de teinture (continu vs discontinu) ni les colorants (dispersés, acides, réactifs, cationiques, de cuve) utilisés selon la fibre teinte (cellulosique, laine, mix de fibres, etc.).
