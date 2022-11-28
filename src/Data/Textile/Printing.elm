@@ -76,10 +76,10 @@ fromStringParam string =
     in
     case String.split ";" string of
         [ "pigment" ] ->
-            Ok { kind = Pigment, ratio = Unit.ratio 1 }
+            Ok { kind = Pigment, ratio = defaultRatio }
 
         [ "substantive" ] ->
-            Ok { kind = Substantive, ratio = Unit.ratio 1 }
+            Ok { kind = Substantive, ratio = defaultRatio }
 
         [ "pigment", str ] ->
             str |> toRatio |> Result.map (Printing Pigment)
