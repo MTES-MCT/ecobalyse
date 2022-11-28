@@ -237,6 +237,16 @@ textileEndpoints db =
             |> Maybe.andThen (Dict.get "materials")
             |> Expect.equal (Just "Un ratio doit être compris entre 0 et 1 inclus (ici : 12).")
             |> asTest "should validate invalid material ratios"
+        , getEndpoint db "GET" "/simulator?printing=plop"
+            |> Maybe.andThen extractTextileErrors
+            |> Maybe.andThen (Dict.get "printing")
+            |> Expect.equal (Just "Format de type et surface d'impression invalide: plop")
+            |> asTest "should validate invalid printing method identifier"
+        , getEndpoint db "GET" "/simulator?printing=substantive;1.2"
+            |> Maybe.andThen extractTextileErrors
+            |> Maybe.andThen (Dict.get "printing")
+            |> Expect.equal (Just "Le ratio de surface d'impression doit être supérieur à zéro et inférieur à 1.")
+            |> asTest "should validate invalid printing ratio"
         ]
     , describe "multiple parameters checks"
         [ getEndpoint db "GET" "/simulator"
@@ -281,7 +291,7 @@ textileEndpoints db =
                     , ( "disabledSteps", "Impossible d'interpréter la liste des étapes désactivées; Code étape inconnu: invalid" )
                     , ( "disabledFading", "La valeur ne peut être que true ou false." )
                     , ( "dyeingMedium", "Type de support de teinture inconnu: yolo" )
-                    , ( "printing", "Type d'impression inconnu: yolo" )
+                    , ( "printing", "Format de type et surface d'impression invalide: yolo" )
                     ]
                     |> Just
                 )

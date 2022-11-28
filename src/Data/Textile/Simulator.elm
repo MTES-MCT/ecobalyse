@@ -274,18 +274,17 @@ computePrintingImpacts db ({ inputs } as simulator) =
                     |> updateLifeCycleStep Label.Ennobling
                         (\({ country } as step) ->
                             case step.printing of
-                                Just printing ->
+                                Just { kind, ratio } ->
                                     let
-                                        printingProcess =
-                                            Process.getPrintingProcess printing wellKnown
-
                                         { heat, kwh, impacts } =
                                             step.outputMass
                                                 |> Formula.printingImpacts step.impacts
-                                                    (Maybe.withDefault inputs.product.surfaceMass inputs.surfaceMass)
-                                                    printingProcess
-                                                    country.heatProcess
-                                                    country.electricityProcess
+                                                    { printingProcess = Process.getPrintingProcess kind wellKnown
+                                                    , heatProcess = country.heatProcess
+                                                    , elecProcess = country.electricityProcess
+                                                    , surfaceMass = Maybe.withDefault inputs.product.surfaceMass inputs.surfaceMass
+                                                    , ratio = ratio
+                                                    }
                                     in
                                     { step
                                         | heat = step.heat |> Quantity.plus heat

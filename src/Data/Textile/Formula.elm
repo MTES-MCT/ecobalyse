@@ -163,17 +163,23 @@ dyeingImpacts impacts dyeingProcess heatProcess elecProcess baseMass =
 
 printingImpacts :
     Impacts
-    -> Unit.SurfaceMass
-    -> Process -- Inbound: Printing process
-    -> Process -- Outbound: country heat impact
-    -> Process -- Outbound: country electricity impact
+    ->
+        { printingProcess : Process -- Inbound: Printing process
+        , heatProcess : Process -- Outbound: country heat impact
+        , elecProcess : Process -- Outbound: country electricity impact
+        , surfaceMass : Unit.SurfaceMass
+        , ratio : Unit.Ratio
+        }
     -> Mass
     -> { heat : Energy, kwh : Energy, impacts : Impacts }
-printingImpacts impacts surfaceMass printingProcess heatProcess elecProcess baseMass =
+printingImpacts impacts { printingProcess, heatProcess, elecProcess, surfaceMass, ratio } baseMass =
     let
         surface =
             -- area (m2) = mass (g) / surfaceMass (g/m2)
-            Mass.inGrams baseMass / Unit.surfaceMassToFloat surfaceMass
+            Mass.inGrams baseMass
+                / Unit.surfaceMassToFloat surfaceMass
+                -- Apply ratio
+                * Unit.ratioToFloat ratio
 
         ( heatMJ, kwh ) =
             -- Note: printing processes heat and elec values are expressed "per square meter"

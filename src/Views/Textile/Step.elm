@@ -147,8 +147,8 @@ airTransportRatioField { current, updateAirTransportRatio } =
 
 dyeingMediumField : Config msg -> Html msg
 dyeingMediumField { inputs, updateDyeingMedium } =
-    div [ class "d-flex align-items-center gap-2 fs-7" ]
-        [ label [ class "text-nowrap w-50", for "dyeing-medium" ]
+    div [ class "d-flex justify-content-between align-items-center gap-2 fs-7" ]
+        [ label [ class "text-nowrap w-25", for "dyeing-medium" ]
             [ text "Teinture sur" ]
         , [ DyeingMedium.Yarn, DyeingMedium.Fabric, DyeingMedium.Article ]
             |> List.map
@@ -161,7 +161,7 @@ dyeingMediumField { inputs, updateDyeingMedium } =
                 )
             |> select
                 [ id "dyeing-medium"
-                , class "form-select form-select-sm"
+                , class "form-select form-select-sm w-75"
                 , onInput
                     (DyeingMedium.fromString
                         >> Result.withDefault inputs.product.dyeing.defaultMedium
@@ -171,26 +171,72 @@ dyeingMediumField { inputs, updateDyeingMedium } =
         ]
 
 
-printingField : Config msg -> Html msg
-printingField { inputs, updatePrinting } =
-    div [ class "d-flex align-items-center gap-2 fs-7" ]
-        [ label [ class "text-nowrap w-50", for "ennobling-printing" ]
+printingFields : Config msg -> Html msg
+printingFields { inputs, updatePrinting } =
+    div [ class "d-flex justify-content-between align-items-center gap-2 fs-7" ]
+        [ label [ class "text-nowrap w-25", for "ennobling-printing" ]
             [ text "Impression" ]
-        , [ Printing.Pigment, Printing.Substantive ]
-            |> List.map
-                (\printing ->
-                    option
-                        [ value <| Printing.toString printing
-                        , selected <| inputs.printing == Just printing
-                        ]
-                        [ text <| Printing.toLabel printing ]
-                )
-            |> (::) (option [] [ text "Aucune" ])
-            |> select
-                [ id "ennobling-printing"
-                , class "form-select form-select-sm"
-                , onInput (Printing.fromString >> Result.toMaybe >> updatePrinting)
-                ]
+        , div [ class "d-flex justify-content-between align-items-center gap-1 w-75" ]
+            [ [ Printing.Pigment, Printing.Substantive ]
+                |> List.map
+                    (\kind ->
+                        option
+                            [ value (Printing.toString kind)
+                            , selected <| Maybe.map .kind inputs.printing == Just kind
+                            ]
+                            [ text <| Printing.kindLabel kind ]
+                    )
+                |> (::) (option [ selected <| inputs.printing == Nothing ] [ text "Aucune" ])
+                |> select
+                    [ id "ennobling-printing"
+                    , class "form-select form-select-sm"
+                    , onInput
+                        (\str ->
+                            updatePrinting
+                                (case Printing.fromString str of
+                                    Ok kind ->
+                                        case inputs.printing of
+                                            Just printing ->
+                                                Just { printing | kind = kind }
+
+                                            Nothing ->
+                                                Just { kind = kind, ratio = Unit.ratio 1 }
+
+                                    Err _ ->
+                                        Nothing
+                                )
+                        )
+                    ]
+            , case inputs.printing of
+                Just { ratio } ->
+                    [ 5, 25, 75, 100 ]
+                        |> List.map
+                            (\percent ->
+                                option
+                                    [ value (String.fromFloat percent)
+                                    , selected <| Unit.ratioToFloat ratio == percent / 100
+                                    ]
+                                    [ text <| String.fromFloat percent ++ "%" ]
+                            )
+                        |> select
+                            [ class "form-select form-select-sm"
+                            , disabled <| inputs.printing == Nothing
+                            , onInput
+                                (\str ->
+                                    case String.toInt str of
+                                        Just percent ->
+                                            inputs.printing
+                                                |> Maybe.map (\p -> { p | ratio = Unit.ratio (toFloat percent / 100) })
+                                                |> updatePrinting
+
+                                        Nothing ->
+                                            updatePrinting Nothing
+                                )
+                            ]
+
+                Nothing ->
+                    text ""
+            ]
         ]
 
 
@@ -521,7 +567,7 @@ ennoblingFields : Config msg -> Html msg
 ennoblingFields config =
     div [ class "d-flex flex-column gap-1" ]
         [ dyeingMediumField config
-        , printingField config
+        , printingFields config
         ]
 
 

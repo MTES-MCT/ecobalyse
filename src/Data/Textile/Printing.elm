@@ -1,34 +1,91 @@
 module Data.Textile.Printing exposing
-    ( Printing(..)
+    ( Kind(..)
+    , Printing
     , decode
     , encode
     , fromString
-    , toLabel
+    , fromStringParam
+    , kindLabel
+    , toFullLabel
     , toString
     )
 
+import Data.Unit as Unit
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
 import Json.Encode as Encode
 
 
-type Printing
+type Kind
     = Pigment
     | Substantive
 
 
+type alias Printing =
+    { kind : Kind
+    , ratio : Unit.Ratio
+    }
+
+
 decode : Decoder Printing
 decode =
+    Decode.map2 Printing
+        (Decode.field "kind" decodeKind)
+        (Decode.field "ratio" Unit.decodeRatio)
+
+
+decodeKind : Decoder Kind
+decodeKind =
     Decode.string
         |> Decode.andThen (fromString >> DE.fromResult)
 
 
 encode : Printing -> Encode.Value
-encode =
+encode v =
+    Encode.object
+        [ ( "kind", encodeKind v.kind )
+        , ( "ratio", Unit.encodeRatio v.ratio )
+        ]
+
+
+encodeKind : Kind -> Encode.Value
+encodeKind =
     toString >> Encode.string
 
 
-fromString : String -> Result String Printing
+fromStringParam : String -> Result String Printing
+fromStringParam string =
+    let
+        toRatio s =
+            case String.toFloat s of
+                Just float ->
+                    if float > 0 && float <= 1 then
+                        Ok (Unit.ratio float)
+
+                    else
+                        Err "Le ratio de surface d'impression doit être supérieur à zéro et inférieur à 1."
+
+                Nothing ->
+                    Err <| "Ratio de surface teinte invalide: " ++ s
+    in
+    case String.split ";" string of
+        [ "pigment" ] ->
+            Ok { kind = Pigment, ratio = Unit.ratio 1 }
+
+        [ "substantive" ] ->
+            Ok { kind = Substantive, ratio = Unit.ratio 1 }
+
+        [ "pigment", str ] ->
+            str |> toRatio |> Result.map (Printing Pigment)
+
+        [ "substantive", str ] ->
+            str |> toRatio |> Result.map (Printing Substantive)
+
+        _ ->
+            Err <| "Format de type et surface d'impression invalide: " ++ string
+
+
+fromString : String -> Result String Kind
 fromString string =
     case string of
         "pigment" ->
@@ -41,9 +98,9 @@ fromString string =
             Err <| "Type d'impression inconnu: " ++ string
 
 
-toLabel : Printing -> String
-toLabel printing =
-    case printing of
+kindLabel : Kind -> String
+kindLabel kind =
+    case kind of
         Pigment ->
             "Pigmentaire"
 
@@ -51,7 +108,12 @@ toLabel printing =
             "Fixé-lavé"
 
 
-toString : Printing -> String
+toFullLabel : Printing -> String
+toFullLabel { kind, ratio } =
+    kindLabel kind ++ " (" ++ String.fromInt (round (Unit.ratioToFloat ratio * 100)) ++ "%)"
+
+
+toString : Kind -> String
 toString printing =
     case printing of
         Pigment ->
