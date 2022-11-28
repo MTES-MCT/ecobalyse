@@ -11,7 +11,7 @@ module Data.Food.Builder.Query exposing
     , updateIngredient
     )
 
-import Data.Food.Ingredient as Ingredient
+import Data.Food.IngredientID as IngredientID exposing (ID)
 import Data.Food.Process as Process
 import Mass exposing (Mass)
 import Quantity
@@ -23,7 +23,8 @@ type Variant
 
 
 type alias IngredientQuery =
-    { name : Ingredient.Name
+    { id : ID
+    , name : String
     , mass : Mass
     , variant : Variant
     }
@@ -69,19 +70,23 @@ emptyQuery =
 carrotCake : Query
 carrotCake =
     { ingredients =
-        [ { name = Ingredient.nameFromString "oeuf"
+        [ { id = IngredientID.fromString "egg"
+          , name = "oeuf"
           , mass = Mass.grams 120
           , variant = Default
           }
-        , { name = Ingredient.nameFromString "blé tendre"
+        , { id = IngredientID.fromString "wheat"
+          , name = "blé tendre"
           , mass = Mass.grams 140
           , variant = Default
           }
-        , { name = Ingredient.nameFromString "lait"
+        , { id = IngredientID.fromString "milk"
+          , name = "lait"
           , mass = Mass.grams 60
           , variant = Default
           }
-        , { name = Ingredient.nameFromString "carotte"
+        , { id = IngredientID.fromString "carrot"
+          , name = "carotte"
           , mass = Mass.grams 225
           , variant = Default
           }
@@ -118,14 +123,14 @@ getIngredientMass query =
         |> Quantity.sum
 
 
-updateIngredient : Ingredient.Name -> IngredientQuery -> Query -> Query
-updateIngredient oldIngredientName newIngredient query =
+updateIngredient : ID -> IngredientQuery -> Query -> Query
+updateIngredient oldIngredientID newIngredient query =
     { query
         | ingredients =
             query.ingredients
                 |> List.map
                     (\ingredient ->
-                        if ingredient.name == oldIngredientName then
+                        if ingredient.id == oldIngredientID then
                             newIngredient
 
                         else
