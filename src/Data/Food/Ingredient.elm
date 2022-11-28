@@ -51,13 +51,11 @@ type alias Variants =
 
 decodeIngredients : List Process -> Decoder (List Ingredient)
 decodeIngredients processes =
-    let
-        processesDict =
-            processes
-                |> List.map (\process -> ( Process.codeToString process.code, process ))
-                |> Dict.fromList
-    in
-    Decode.list (decodeIngredient processesDict)
+    processes
+        |> List.map (\process -> ( Process.codeToString process.code, process ))
+        |> Dict.fromList
+        |> decodeIngredient
+        |> Decode.list
 
 
 decodeIngredient : Dict String Process -> Decoder Ingredient
@@ -78,11 +76,11 @@ linkProcess : Dict String Process -> Decoder Process
 linkProcess processes =
     Decode.string
         |> Decode.andThen
-            ((\processCode ->
-                Dict.get processCode processes
-                    |> Result.fromMaybe ("Procédé introuvable par code : " ++ processCode)
-             )
-                >> DE.fromResult
+            (DE.fromResult
+                << (\processCode ->
+                        Dict.get processCode processes
+                            |> Result.fromMaybe ("Procédé introuvable par code : " ++ processCode)
+                   )
             )
 
 
