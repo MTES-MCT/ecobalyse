@@ -244,7 +244,7 @@ toString inputs =
                 "teinture"
       , inputs.countryDyeing.name
       ]
-    , [ "impression", inputs.printing |> Maybe.map Printing.toString |> Maybe.withDefault "Aucune" ]
+    , [ "impression", inputs.printing |> Maybe.map Printing.toFullLabel |> Maybe.withDefault "Aucune" ]
     , [ "confection", inputs.countryMaking.name ++ makingOptionsToString inputs ]
     , [ "distribution", inputs.countryDistribution.name ]
     , [ "utilisation", inputs.countryUse.name ++ useOptionsToString inputs.quality inputs.reparability ]

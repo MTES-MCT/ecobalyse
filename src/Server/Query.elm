@@ -406,7 +406,7 @@ maybePrinting key =
         |> Query.map
             (Maybe.map
                 (\str ->
-                    case Printing.fromString str of
+                    case Printing.fromStringParam str of
                         Ok printing ->
                             Ok (Just printing)
 

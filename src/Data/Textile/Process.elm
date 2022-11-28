@@ -14,7 +14,7 @@ module Data.Textile.Process exposing
 
 import Data.Impact as Impact exposing (Impacts)
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
-import Data.Textile.Printing as Printing exposing (Printing)
+import Data.Textile.Printing as Printing
 import Data.Unit as Unit
 import Energy exposing (Energy)
 import Json.Decode as Decode exposing (Decoder)
@@ -89,7 +89,7 @@ getDyeingProcess medium { dyeingArticle, dyeingFabric, dyeingYarn } =
             dyeingYarn
 
 
-getPrintingProcess : Printing -> WellKnown -> Process
+getPrintingProcess : Printing.Kind -> WellKnown -> Process
 getPrintingProcess medium { printingPigment, printingSubstantive } =
     case medium of
         Printing.Pigment ->

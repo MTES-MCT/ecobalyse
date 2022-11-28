@@ -328,10 +328,10 @@ updateFromInputs { processes } inputs ({ label, country } as step) =
                         , printing =
                             printing
                                 |> Maybe.andThen
-                                    (\printingType ->
+                                    (\{ kind } ->
                                         processes
                                             |> Process.loadWellKnown
-                                            |> Result.map (Process.getPrintingProcess printingType >> .name)
+                                            |> Result.map (Process.getPrintingProcess kind >> .name)
                                             |> Result.toMaybe
                                     )
                     }
