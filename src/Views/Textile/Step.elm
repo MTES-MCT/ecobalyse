@@ -190,6 +190,7 @@ printingFields { inputs, updatePrinting } =
                 |> select
                     [ id "ennobling-printing"
                     , class "form-select form-select-sm"
+                    , style "flex" "2"
                     , onInput
                         (\str ->
                             updatePrinting
@@ -220,6 +221,7 @@ printingFields { inputs, updatePrinting } =
                             )
                         |> select
                             [ class "form-select form-select-sm"
+                            , style "flex" "1"
                             , disabled <| inputs.printing == Nothing
                             , onInput
                                 (\str ->
