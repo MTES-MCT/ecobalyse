@@ -1,6 +1,6 @@
 module Data.Food.RecipeTest exposing (..)
 
-import Data.Food.ExplorerRecipe as Recipe
+import Data.Food.Explorer.Recipe as Recipe
 import Data.Food.Process as Process
 import Data.Unit as Unit
 import Dict

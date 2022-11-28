@@ -6,7 +6,7 @@ port module Server exposing
 
 import Data.Country as Country exposing (Country)
 import Data.Food.Db as FoodDb
-import Data.Food.ExplorerRecipe as Recipe
+import Data.Food.Explorer.Recipe as Recipe
 import Data.Food.Process as FoodProcess
 import Data.Impact as Impact
 import Data.Textile.Db as TextileDb
