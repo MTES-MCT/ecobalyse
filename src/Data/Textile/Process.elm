@@ -6,6 +6,7 @@ module Data.Textile.Process exposing
     , decodeList
     , encodeUuid
     , getDyeingProcess
+    , getEnnoblingHeatProcess
     , getImpact
     , getPrintingProcess
     , loadWellKnown
@@ -14,8 +15,10 @@ module Data.Textile.Process exposing
 
 import Data.Impact as Impact exposing (Impacts)
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
+import Data.Textile.HeatSource as HeatSource exposing (HeatSource)
 import Data.Textile.Printing as Printing
 import Data.Unit as Unit
+import Data.Zone as Zone exposing (Zone)
 import Energy exposing (Energy)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DecodeExtra
@@ -37,8 +40,12 @@ type alias Process =
 
     -- FIXME: waste should probably be Unit.Ratio
     , waste : Mass -- kg of textile wasted per kg of material to process
-    , alias : Maybe String
+    , alias : Maybe Alias
     }
+
+
+type Alias
+    = Alias String
 
 
 type Uuid
@@ -60,6 +67,14 @@ type alias WellKnown =
     , passengerCar : Process
     , endOfLife : Process
     , fading : Process
+    , steamGasRER : Process
+    , steamGasRSA : Process
+    , steamLightFuelRER : Process
+    , steamLightFuelRSA : Process
+    , steamHeavyFuelRER : Process
+    , steamHeavyFuelRSA : Process
+    , steamCoalRER : Process
+    , steamCoalRSA : Process
     }
 
 
@@ -70,11 +85,11 @@ findByUuid uuid =
         >> Result.fromMaybe ("Procédé introuvable par UUID: " ++ uuidToString uuid)
 
 
-findByAlias : String -> List Process -> Result String Process
+findByAlias : Alias -> List Process -> Result String Process
 findByAlias alias =
     List.filter (.alias >> (==) (Just alias))
         >> List.head
-        >> Result.fromMaybe ("Procédé introuvable par alias: " ++ alias)
+        >> Result.fromMaybe ("Procédé introuvable par alias: " ++ aliasToString alias)
 
 
 getDyeingProcess : DyeingMedium -> WellKnown -> Process
@@ -88,6 +103,38 @@ getDyeingProcess medium { dyeingArticle, dyeingFabric, dyeingYarn } =
 
         DyeingMedium.Yarn ->
             dyeingYarn
+
+
+getEnnoblingHeatProcess : Zone -> HeatSource -> List Process -> Result String Process
+getEnnoblingHeatProcess zone heatSource =
+    loadWellKnown
+        >> Result.map
+            (\wk ->
+                case ( zone, heatSource ) of
+                    ( Zone.Europe, HeatSource.Coal ) ->
+                        wk.steamCoalRER
+
+                    ( Zone.Europe, HeatSource.Gas ) ->
+                        wk.steamGasRER
+
+                    ( Zone.Europe, HeatSource.HeavyFuel ) ->
+                        wk.steamHeavyFuelRER
+
+                    ( Zone.Europe, HeatSource.LightFuel ) ->
+                        wk.steamLightFuelRER
+
+                    ( _, HeatSource.Coal ) ->
+                        wk.steamCoalRSA
+
+                    ( _, HeatSource.Gas ) ->
+                        wk.steamGasRSA
+
+                    ( _, HeatSource.HeavyFuel ) ->
+                        wk.steamHeavyFuelRSA
+
+                    ( _, HeatSource.LightFuel ) ->
+                        wk.steamLightFuelRSA
+            )
 
 
 getPrintingProcess : Printing.Kind -> WellKnown -> Process
@@ -123,10 +170,18 @@ loadWellKnown processes =
             , passengerCar = "passenger-car"
             , endOfLife = "end-of-life"
             , fading = "fading"
+            , steamGasRER = "steam-gas-rer"
+            , steamGasRSA = "steam-gas-rsa"
+            , steamLightFuelRER = "steam-light-fuel-rer"
+            , steamLightFuelRSA = "steam-light-fuel-rsa"
+            , steamHeavyFuelRER = "steam-heavy-fuel-rer"
+            , steamHeavyFuelRSA = "steam-heavy-fuel-rsa"
+            , steamCoalRER = "steam-coal-rer"
+            , steamCoalRSA = "steam-coal-rsa"
             }
 
         load get =
-            RE.andMap (findByAlias (get map) processes)
+            RE.andMap (findByAlias (Alias <| get map) processes)
     in
     Ok WellKnown
         |> load .airTransport
@@ -143,10 +198,23 @@ loadWellKnown processes =
         |> load .passengerCar
         |> load .endOfLife
         |> load .fading
+        |> load .steamGasRER
+        |> load .steamGasRSA
+        |> load .steamLightFuelRER
+        |> load .steamLightFuelRSA
+        |> load .steamHeavyFuelRER
+        |> load .steamHeavyFuelRSA
+        |> load .steamCoalRER
+        |> load .steamCoalRSA
 
 
 uuidToString : Uuid -> String
 uuidToString (Uuid string) =
+    string
+
+
+aliasToString : Alias -> String
+aliasToString (Alias string) =
     string
 
 
@@ -167,18 +235,28 @@ decode impacts =
         |> Pipe.required "name" Decode.string
         |> Pipe.required "info" Decode.string
         |> Pipe.required "unit" Decode.string
-        |> Pipe.required "uuid" (Decode.map Uuid Decode.string)
+        |> Pipe.required "uuid" decodeUuid
         |> Pipe.required "impacts" (Impact.decodeImpacts impacts)
         |> Pipe.required "heat_MJ" (Decode.map Energy.megajoules Decode.float)
         |> Pipe.required "elec_pppm" Decode.float
         |> Pipe.required "elec_MJ" (Decode.map Energy.megajoules Decode.float)
         |> Pipe.required "waste" (Decode.map Mass.kilograms Decode.float)
-        |> Pipe.required "alias" (Decode.maybe Decode.string)
+        |> Pipe.required "alias" (Decode.maybe decodeAlias)
 
 
 decodeList : List Impact.Definition -> Decoder (List Process)
 decodeList impacts =
     Decode.list (decode impacts)
+
+
+decodeUuid : Decoder Uuid
+decodeUuid =
+    Decode.map Uuid Decode.string
+
+
+decodeAlias : Decoder Alias
+decodeAlias =
+    Decode.map Alias Decode.string
 
 
 encodeUuid : Uuid -> Encode.Value

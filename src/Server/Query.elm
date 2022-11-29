@@ -12,6 +12,7 @@ import Data.Food.Process as FoodProcess
 import Data.Food.Recipe as Recipe
 import Data.Textile.Db as TextileDb
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
+import Data.Textile.HeatSource as HeatSource exposing (HeatSource)
 import Data.Textile.Inputs as Inputs
 import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Printing as Printing exposing (Printing)
@@ -201,6 +202,7 @@ parseTextileQuery textileDb =
         |> apply (maybeBoolParser "disabledFading")
         |> apply (maybeDyeingMedium "dyeingMedium")
         |> apply (maybePrinting "printing")
+        |> apply (maybeEnnoblingHeatSource "ennoblingHeatSource")
 
 
 toErrors : ParseResult a -> Result Errors a
@@ -392,6 +394,23 @@ maybeDyeingMedium key =
                     case DyeingMedium.fromString str of
                         Ok dyeingMedium ->
                             Ok (Just dyeingMedium)
+
+                        Err err ->
+                            Err ( key, err )
+                )
+                >> Maybe.withDefault (Ok Nothing)
+            )
+
+
+maybeEnnoblingHeatSource : String -> Parser (ParseResult (Maybe HeatSource))
+maybeEnnoblingHeatSource key =
+    Query.string key
+        |> Query.map
+            (Maybe.map
+                (\str ->
+                    case HeatSource.fromString str of
+                        Ok heatSource ->
+                            Ok (Just heatSource)
 
                         Err err ->
                             Err ( key, err )

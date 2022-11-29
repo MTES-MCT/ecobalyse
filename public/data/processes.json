@@ -6801,7 +6801,7 @@
     "elec_pppm": 0.0,
     "elec_MJ": 0.0,
     "waste": 0.0,
-    "alias": null
+    "alias": "steam-gas-rer"
   },
   {
     "name": "Utilisation : Repassage - Ironing (Cape)",
@@ -8031,7 +8031,7 @@
     "elec_pppm": 0.0,
     "elec_MJ": 0.0,
     "waste": 0.0,
-    "alias": null
+    "alias": "steam-gas-rsa"
   },
   {
     "name": "Vapeur à partir de fioul léger (technologie non spécifiée), RER",
@@ -8061,7 +8061,7 @@
     "elec_pppm": 0.0,
     "elec_MJ": 0.0,
     "waste": 0.0,
-    "alias": null
+    "alias": "steam-light-fuel-rer"
   },
   {
     "name": "Vapeur à partir de fioul léger (technologie non spécifiée), RSA",
@@ -8091,7 +8091,7 @@
     "elec_pppm": 0.0,
     "elec_MJ": 0.0,
     "waste": 0.0,
-    "alias": null
+    "alias": "steam-light-fuel-rsa"
   },
   {
     "name": "Vapeur à partir de fioul lourd (technologie non spécifiée), RER",
@@ -8121,7 +8121,7 @@
     "elec_pppm": 0.0,
     "elec_MJ": 0.0,
     "waste": 0.0,
-    "alias": null
+    "alias": "steam-heavy-fuel-rer"
   },
   {
     "name": "Vapeur à partir de fioul lourd (technologie non spécifiée), RSA",
@@ -8151,7 +8151,7 @@
     "elec_pppm": 0.0,
     "elec_MJ": 0.0,
     "waste": 0.0,
-    "alias": null
+    "alias": "steam-heavy-fuel-rsa"
   },
   {
     "name": "Vapeur à partir de charbon/anthracite (mix de technologies de combustion et d'épuration des effluents gazeux|en sortie de chaudière|> 50MW), RER",
@@ -8181,7 +8181,7 @@
     "elec_pppm": 0.0,
     "elec_MJ": 0.0,
     "waste": 0.0,
-    "alias": null
+    "alias": "steam-coal-rer"
   },
   {
     "name": "Vapeur à partir de charbon/anthracite (mix de technologies de combustion et d'épuration des effluents gazeux|en sortie de chaudière|> 50MW), RSA",
@@ -8211,6 +8211,6 @@
     "elec_pppm": 0.0,
     "elec_MJ": 0.0,
     "waste": 0.0,
-    "alias": null
+    "alias": "steam-coal-rsa"
   }
 ]
