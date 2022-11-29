@@ -11,10 +11,6 @@ Considérée comme un ingrédient agricole (at farm), le blé dur est modélisé
 
 Les procédés retenus sont prioritairement des procédés "at farm", c'est à dire des procédés traduisant l'impact de l'ingrédient en sortie de ferme, avant que ne soit par exemple intégré l'impact du transport vers un lieu de transformation ou encore l'impact du conditionnement.
 
-{% hint style="danger" %}
-**XXX**
-{% endhint %}
-
 ## Analyse des procédés disponibles
 
 La base Agribalyse permet de distinguer les inventaires de cycle de vie suivants.&#x20;
@@ -22,12 +18,10 @@ La base Agribalyse permet de distinguer les inventaires de cycle de vie suivants
 * **1 procédé** France "at farm", correspondant à une moyenne nationale FR :&#x20;
   * Durum wheat grain, conventional, national average, at farm gate
 
-L'analyse comparée des impacts donne :&#x20;
+
 
 {% hint style="info" %}
-**Axes de progrès ?**
-
-Les données ICV disponibles dans Agribalyse permettraient potentiellement d'introduire une distinction suivant : ...
+**Pour identifier le procédé agricole retenu, on se réfère au procédé mobilisé dans le "consumption mix" => cf. ci-dessous.**
 {% endhint %}
 
 ## Mix de consommation
