@@ -9,7 +9,7 @@ import Data.Gitbook as Gitbook
 import Data.Impact as Impact
 import Data.Textile.Db exposing (Db)
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
-import Data.Textile.HeatSource as HeatSource
+import Data.Textile.HeatSource as HeatSource exposing (HeatSource)
 import Data.Textile.Inputs as Inputs exposing (Inputs)
 import Data.Textile.Printing as Printing exposing (Printing)
 import Data.Textile.Product as Product
@@ -49,6 +49,7 @@ type alias Config msg =
     , updateReparability : Maybe Unit.Reparability -> msg
     , updateAirTransportRatio : Maybe Unit.Ratio -> msg
     , updateDyeingMedium : DyeingMedium -> msg
+    , updateEnnoblingHeatSource : Maybe HeatSource -> msg
     , updatePrinting : Maybe Printing -> msg
     , updateMakingWaste : Maybe Unit.Ratio -> msg
     , updateSurfaceMass : Maybe Unit.SurfaceMass -> msg
@@ -626,6 +627,11 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                                 |> select
                                     [ id "ennobling-heat-source"
                                     , class "form-select form-select-sm w-75"
+                                    , onInput
+                                        (HeatSource.fromString
+                                            >> Result.toMaybe
+                                            >> config.updateEnnoblingHeatSource
+                                        )
                                     ]
                             ]
 

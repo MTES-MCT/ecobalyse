@@ -16,6 +16,7 @@ import Data.Key as Key
 import Data.Session as Session exposing (Session)
 import Data.Textile.Db exposing (Db)
 import Data.Textile.DyeingMedium exposing (DyeingMedium)
+import Data.Textile.HeatSource exposing (HeatSource)
 import Data.Textile.Inputs as Inputs
 import Data.Textile.LifeCycle as LifeCycle
 import Data.Textile.Material as Material
@@ -87,6 +88,7 @@ type Msg
     | ToggleStepViewMode Int
     | UpdateAirTransportRatio (Maybe Unit.Ratio)
     | UpdateDyeingMedium DyeingMedium
+    | UpdateEnnoblingHeatSource (Maybe HeatSource)
     | UpdateMakingWaste (Maybe Unit.Ratio)
     | UpdateMassInput String
     | UpdateMaterial Int Material.Id
@@ -205,10 +207,6 @@ update ({ db, query, navKey } as session) msg model =
             , Cmd.none
             )
 
-        RemoveMaterial index ->
-            ( model, session, Cmd.none )
-                |> updateQuery (Inputs.removeMaterial index query)
-
         NoOp ->
             ( model, session, Cmd.none )
 
@@ -217,6 +215,10 @@ update ({ db, query, navKey } as session) msg model =
             , session |> Session.checkComparedSimulations
             , Cmd.none
             )
+
+        RemoveMaterial index ->
+            ( model, session, Cmd.none )
+                |> updateQuery (Inputs.removeMaterial index query)
 
         Reset ->
             ( model, session, Cmd.none )
@@ -289,6 +291,10 @@ update ({ db, query, navKey } as session) msg model =
         UpdateDyeingMedium dyeingMedium ->
             ( model, session, Cmd.none )
                 |> updateQuery { query | dyeingMedium = Just dyeingMedium }
+
+        UpdateEnnoblingHeatSource maybeEnnoblingHeatSource ->
+            ( model, session, Cmd.none )
+                |> updateQuery { query | ennoblingHeatSource = maybeEnnoblingHeatSource }
 
         UpdateMakingWaste makingWaste ->
             ( model, session, Cmd.none )
@@ -418,6 +424,7 @@ lifeCycleStepsView db { viewMode, funit, impact } simulator =
                     , updateCountry = UpdateStepCountry
                     , updateAirTransportRatio = UpdateAirTransportRatio
                     , updateDyeingMedium = UpdateDyeingMedium
+                    , updateEnnoblingHeatSource = UpdateEnnoblingHeatSource
                     , updatePrinting = UpdatePrinting
                     , updateQuality = UpdateQuality
                     , updateReparability = UpdateReparability
