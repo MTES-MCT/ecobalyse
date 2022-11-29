@@ -7,8 +7,10 @@ module Server.Query exposing
 
 import Data.Country as Country exposing (Country)
 import Data.Env as Env
-import Data.Food.Db as FoodDb
-import Data.Food.Explorer.Recipe as Recipe
+import Data.Food.Builder.Db as BuilderDb
+import Data.Food.Builder.Query as BuilderQuery
+import Data.Food.Ingredient as Ingredient
+import Data.Food.IngredientID as IngredientID
 import Data.Food.Process as FoodProcess
 import Data.Textile.Db as TextileDb
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
@@ -52,16 +54,15 @@ succeed =
     always >> Query.custom ""
 
 
-parseFoodQuery : FoodDb.Db -> Parser (Result Errors Recipe.Query)
-parseFoodQuery foodDb =
-    succeed (Ok Recipe.Query)
-        |> apply (ingredientListParser "ingredients" foodDb.processes)
-        |> apply (maybeTransformParser "transform" foodDb.processes)
-        |> apply (packagingListParser "packaging" foodDb.processes)
-        |> apply (plantOptionsParser "plant")
+parseFoodQuery : BuilderDb.Db -> Parser (Result Errors BuilderQuery.Query)
+parseFoodQuery builderDb =
+    succeed (Ok BuilderQuery.Query)
+        |> apply (ingredientListParser "ingredients" builderDb.ingredients)
+        |> apply (maybeTransformParser "transform" builderDb.processes)
+        |> apply (packagingListParser "packaging" builderDb.processes)
 
 
-ingredientListParser : String -> List FoodProcess.Process -> Parser (ParseResult (List Recipe.IngredientQuery))
+ingredientListParser : String -> List Ingredient.Ingredient -> Parser (ParseResult (List BuilderQuery.IngredientQuery))
 ingredientListParser key ingredients =
     Query.custom (key ++ "[]")
         (List.map (ingredientParser ingredients)
@@ -71,22 +72,53 @@ ingredientListParser key ingredients =
         )
 
 
-ingredientParser : List FoodProcess.Process -> String -> Result String Recipe.IngredientQuery
+ingredientParser : List Ingredient.Ingredient -> String -> Result String BuilderQuery.IngredientQuery
 ingredientParser ingredients string =
     case String.split ";" string of
-        [ code, mass ] ->
-            Ok Recipe.IngredientQuery
-                |> RE.andMap (foodProcessCodeParser ingredients code)
+        [ id, mass ] ->
+            let
+                ingredient =
+                    id
+                        |> IngredientID.fromString
+                        |> Ingredient.findByID ingredients
+            in
+            Ok BuilderQuery.IngredientQuery
+                |> RE.andMap (Result.map .id ingredient)
+                |> RE.andMap (Result.map .name ingredient)
                 |> RE.andMap (validateMass mass)
-                -- TODO: parse country and labels
-                |> RE.andMap (Ok Nothing)
-                |> RE.andMap (Ok [])
+                |> RE.andMap (Ok BuilderQuery.Default)
+
+        [ id, mass, variant ] ->
+            let
+                ingredient =
+                    id
+                        |> IngredientID.fromString
+                        |> Ingredient.findByID ingredients
+            in
+            Ok BuilderQuery.IngredientQuery
+                |> RE.andMap (Result.map .id ingredient)
+                |> RE.andMap (Result.map .name ingredient)
+                |> RE.andMap (validateMass mass)
+                |> RE.andMap (variantParser variant)
 
         [ "" ] ->
             Err <| "Format d'ingrédient vide."
 
         _ ->
             Err <| "Format d'ingrédient invalide : " ++ string ++ "."
+
+
+variantParser : String -> Result String BuilderQuery.Variant
+variantParser variant =
+    case variant of
+        "default" ->
+            Ok BuilderQuery.Default
+
+        "organic" ->
+            Ok BuilderQuery.Organic
+
+        _ ->
+            Err <| "Format de variant invalide : " ++ variant
 
 
 foodProcessCodeParser : List FoodProcess.Process -> String -> Result String FoodProcess.Code
@@ -97,7 +129,7 @@ foodProcessCodeParser ingredients string =
         |> Result.map .code
 
 
-packagingListParser : String -> List FoodProcess.Process -> Parser (ParseResult (List Recipe.PackagingQuery))
+packagingListParser : String -> List FoodProcess.Process -> Parser (ParseResult (List BuilderQuery.PackagingQuery))
 packagingListParser key packagings =
     Query.custom (key ++ "[]")
         (List.map (packagingParser packagings)
@@ -106,11 +138,11 @@ packagingListParser key packagings =
         )
 
 
-packagingParser : List FoodProcess.Process -> String -> Result String Recipe.PackagingQuery
+packagingParser : List FoodProcess.Process -> String -> Result String BuilderQuery.PackagingQuery
 packagingParser packagings string =
     case String.split ";" string of
         [ code, mass ] ->
-            Ok Recipe.PackagingQuery
+            Ok BuilderQuery.PackagingQuery
                 |> RE.andMap (foodProcessCodeParser packagings code)
                 |> RE.andMap (validateMass mass)
 
@@ -137,7 +169,7 @@ validateMass string =
         |> Result.map Mass.grams
 
 
-validateIngredientList : List Recipe.IngredientQuery -> Result String (List Recipe.IngredientQuery)
+validateIngredientList : List BuilderQuery.IngredientQuery -> Result String (List BuilderQuery.IngredientQuery)
 validateIngredientList list =
     if list == [] then
         Err "La liste des ingrédients est vide."
@@ -146,7 +178,7 @@ validateIngredientList list =
         Ok list
 
 
-maybeTransformParser : String -> List FoodProcess.Process -> Parser (ParseResult (Maybe Recipe.TransformQuery))
+maybeTransformParser : String -> List FoodProcess.Process -> Parser (ParseResult (Maybe BuilderQuery.TransformQuery))
 maybeTransformParser key transforms =
     Query.string key
         |> Query.map
@@ -160,11 +192,11 @@ maybeTransformParser key transforms =
             )
 
 
-parseTransform_ : List FoodProcess.Process -> String -> Result String Recipe.TransformQuery
+parseTransform_ : List FoodProcess.Process -> String -> Result String BuilderQuery.TransformQuery
 parseTransform_ transforms string =
     case String.split ";" string of
         [ code, mass ] ->
-            Ok Recipe.TransformQuery
+            Ok BuilderQuery.TransformQuery
                 |> RE.andMap (foodProcessCodeParser transforms code)
                 |> RE.andMap (validateMass mass)
 
@@ -173,12 +205,6 @@ parseTransform_ transforms string =
 
         _ ->
             Err <| "Format de procédé de transformation invalide : " ++ string ++ "."
-
-
-plantOptionsParser : String -> Parser (ParseResult Recipe.PlantOptions)
-plantOptionsParser _ =
-    -- TODO: implement parsing when we actually need these options
-    succeed (Ok { country = Nothing })
 
 
 parseTextileQuery : TextileDb.Db -> Parser (Result Errors Inputs.Query)

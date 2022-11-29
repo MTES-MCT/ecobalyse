@@ -15,7 +15,8 @@ module Data.Session exposing
     )
 
 import Browser.Navigation as Nav
-import Data.Food.Db as Food
+import Data.Food.Builder.Db as BuilderDb
+import Data.Food.Explorer.Db as ExplorerDb
 import Data.Textile.Db exposing (Db)
 import Data.Textile.Inputs as Inputs
 import Http
@@ -32,7 +33,8 @@ type alias Session =
     , store : Store
     , currentVersion : Version
     , db : Db
-    , foodDb : Food.Db
+    , builderDb : BuilderDb.Db
+    , explorerDb : ExplorerDb.Db
     , notifications : List Notification
     , query : Inputs.Query
     }

@@ -5,8 +5,11 @@ port module Server exposing
     )
 
 import Data.Country as Country exposing (Country)
-import Data.Food.Db as FoodDb
-import Data.Food.Explorer.Recipe as Recipe
+import Data.Food.Builder.Db as BuilderDb
+import Data.Food.Builder.Query as BuilderQuery
+import Data.Food.Builder.Recipe as BuilderRecipe
+import Data.Food.Ingredient as Ingredient
+import Data.Food.IngredientID as IngredientID
 import Data.Food.Process as FoodProcess
 import Data.Impact as Impact
 import Data.Textile.Db as TextileDb
@@ -84,18 +87,18 @@ toSingleImpactSimple trigram { inputs, impacts } =
         ]
 
 
-toFoodResults : Recipe.Query -> Recipe.Results -> Encode.Value
+toFoodResults : BuilderQuery.Query -> BuilderRecipe.Results -> Encode.Value
 toFoodResults query results =
     Encode.object
-        [ ( "results", Recipe.encodeResults results )
+        [ ( "results", BuilderRecipe.encodeResults results )
         , ( "description", Encode.string "TODO" )
-        , ( "query", Recipe.encodeQuery query )
+        , ( "query", BuilderRecipe.encodeQuery query )
         ]
 
 
-executeFoodQuery : FoodDb.Db -> Request -> (Recipe.Results -> Encode.Value) -> Recipe.Query -> Cmd Msg
-executeFoodQuery foodDb request encoder =
-    Recipe.compute foodDb
+executeFoodQuery : BuilderDb.Db -> Request -> (BuilderRecipe.Results -> Encode.Value) -> BuilderQuery.Query -> Cmd Msg
+executeFoodQuery builderDb request encoder =
+    BuilderRecipe.compute builderDb
         >> Result.map (Tuple.second >> encoder)
         >> toResponse request
 
@@ -144,8 +147,30 @@ encodeFoodProcessList =
     Encode.list encodeFoodProcess
 
 
+encodeIngredient : Ingredient.Ingredient -> Encode.Value
+encodeIngredient ingredient =
+    Encode.object
+        [ ( "id", IngredientID.toString ingredient.id |> Encode.string )
+        , ( "name", ingredient.name |> Encode.string )
+        , ( "variants"
+          , (if ingredient.variants.organic /= Nothing then
+                [ "organic" ]
+
+             else
+                []
+            )
+                |> Encode.list Encode.string
+          )
+        ]
+
+
+encodeIngredients : List Ingredient.Ingredient -> Encode.Value
+encodeIngredients ingredients =
+    Encode.list encodeIngredient ingredients
+
+
 handleRequest : StaticDb.Db -> Request -> Cmd Msg
-handleRequest ({ foodDb, textileDb } as dbs) request =
+handleRequest ({ builderDb, textileDb } as dbs) request =
     case Route.endpoint dbs request of
         Just (Route.Get Route.CountryList) ->
             textileDb.countries
@@ -153,25 +178,24 @@ handleRequest ({ foodDb, textileDb } as dbs) request =
                 |> sendResponse 200 request
 
         Just (Route.Get Route.FoodIngredientList) ->
-            foodDb.processes
-                |> List.filter (.category >> (==) FoodProcess.Ingredient)
-                |> encodeFoodProcessList
+            builderDb.ingredients
+                |> encodeIngredients
                 |> sendResponse 200 request
 
         Just (Route.Get Route.FoodPackagingList) ->
-            foodDb.processes
+            builderDb.processes
                 |> List.filter (.category >> (==) FoodProcess.Packaging)
                 |> encodeFoodProcessList
                 |> sendResponse 200 request
 
         Just (Route.Get Route.FoodTransformList) ->
-            foodDb.processes
+            builderDb.processes
                 |> List.filter (.category >> (==) FoodProcess.Transform)
                 |> encodeFoodProcessList
                 |> sendResponse 200 request
 
         Just (Route.Get (Route.FoodRecipe (Ok query))) ->
-            query |> executeFoodQuery foodDb request (toFoodResults query)
+            query |> executeFoodQuery builderDb request (toFoodResults query)
 
         Just (Route.Get (Route.FoodRecipe (Err errors))) ->
             Query.encodeErrors errors
