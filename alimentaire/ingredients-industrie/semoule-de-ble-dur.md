@@ -17,7 +17,7 @@ Les procédés proposés dans Agribalyse pour la semoule de blé dur (intervenan
 {% hint style="info" %}
 **Identification du procédé "semoule de blé dur" retenu à partir des ICV mobilisés dans les 3 procédés "at plant" ci-dessus => attente des graphes Simapro pour ces 3 procédés.**
 
-**Hypothèse : ingrédient semoule de blé dur non pertinent**
+Hypothèse : ingrédient semoule de blé dur non pertinent
 {% endhint %}
 
 Le procédé retenu est finalement :

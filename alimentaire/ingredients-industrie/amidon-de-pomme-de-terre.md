@@ -16,8 +16,8 @@ $$
 
 
 
-{% hint style="danger" %}
-Attente du graphe Simapro pour ce procédé "Potato starch, at farm gate". Point à creuser sur le fait qu'il s'agit d'un procédé "at farm" (il existe bien deux procédés Potato starch et Starch potato (pomme de terre à fécule), tous les deux "at farm"
+{% hint style="info" %}
+**Attente du graphe Simapro pour ce procédé "Potato starch, at farm gate".** Point à creuser sur le fait qu'il s'agit d'un procédé "at farm" (il existe bien deux procédés Potato starch et Starch potato (pomme de terre à fécule), tous les deux "at farm"
 {% endhint %}
 
 

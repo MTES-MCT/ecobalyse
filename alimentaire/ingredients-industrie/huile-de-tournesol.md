@@ -14,8 +14,8 @@ $$
 HuiletournesolREF
 $$
 
-{% hint style="danger" %}
-Attente du graphe Simapro pour confirmer ce procédé et identifier le procédé tournesol mobilisé pour l'huile de tournesol.
+{% hint style="info" %}
+**Attente du graphe Simapro pour confirmer ce procédé et identifier le procédé tournesol mobilisé pour l'huile de tournesol.**
 {% endhint %}
 
 
