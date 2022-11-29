@@ -8,7 +8,7 @@
 
 Les procédés proposés dans Agribalyse pour l'huile de colza sont :&#x20;
 
-* Rapeseed oil, at plant' (kilogram, FR, None)
+* **Rapeseed oil, at plant' (kilogram, FR, None)**
 * Rapeseed oil, crude, conventional, animal feed, at plant' (kilogram, FR, None)
 * Rapeseed oil, crude, organic, animal feed, at plant' (kilogram, FR, None)
 * Rapeseed oil, crude, organic, from CH, animal feed, at plant' (kilogram, FR, None)
@@ -22,8 +22,11 @@ $$
 huilecolzaREF
 $$
 
-{% hint style="danger" %}
-A confirmer avec le graphe Simapro
+{% hint style="info" %}
+Choix à faire en fonction des graphes Simapro&#x20;
+
+* **Rapeseed oil, at oil mill (WFLDB 3.1)**
+* **Rapeseed oil, at plant' (kilogram, FR, None)**
 {% endhint %}
 
 
