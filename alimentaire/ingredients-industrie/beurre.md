@@ -9,17 +9,17 @@
 Les procédés proposés dans Agribalyse pour le beurre "sortie de crèmerie" sont :&#x20;
 
 * **Butter, salted, at dairy**
-* Butter, salted, at dairy (WFLDB 3.1)
+* **Butter, salted, at dairy (WFLDB 3.1)**
 * **Butter, unsalted, at dairy**
 * **Butter, unsalted, at dairy (WFLDB 3.1)**
 
-{% hint style="danger" %}
-Attente des graphes Simapro pour pour isoler le procédé retenu.
+{% hint style="info" %}
+**Attente des graphes Simapro pour isoler le procédé retenu.**
 
-En l'absence de procédé "consumption mix", deux hypothèses :&#x20;
+**En l'absence de procédé "consumption mix", deux hypothèses :**&#x20;
 
-* un procédé "beurre" retenu correspondant au procédé impliqué dans le beurre produit fini
-* un procédé "beurre" retenu correspondant au beurre intervenant dans les recettes industrielles (ex. croissant au beurre)
+* **un procédé "beurre" retenu correspondant au procédé impliqué dans le beurre produit fini => identification du procédé à partir des graphes Simapro des 4 procédés ci-dessus**
+* **un procédé "beurre" retenu correspondant au beurre intervenant dans les recettes industrielles => identification de l'ingrédient beurre mobilisé dans "'Chocolate croissant, puff pastry, from bakery, at plant' (kilogram, FR, None)"**
 {% endhint %}
 
 $$
