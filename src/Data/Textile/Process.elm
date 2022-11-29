@@ -56,6 +56,7 @@ type alias WellKnown =
     , dyeingArticle : Process
     , printingPigment : Process
     , printingSubstantive : Process
+    , finishing : Process
     , passengerCar : Process
     , endOfLife : Process
     , fading : Process
@@ -118,6 +119,7 @@ loadWellKnown processes =
             , dyeingArticle = "dyeing-article"
             , printingPigment = "printing-pigment"
             , printingSubstantive = "printing-substantive"
+            , finishing = "finishing"
             , passengerCar = "passenger-car"
             , endOfLife = "end-of-life"
             , fading = "fading"
@@ -137,6 +139,7 @@ loadWellKnown processes =
         |> load .dyeingArticle
         |> load .printingPigment
         |> load .printingSubstantive
+        |> load .finishing
         |> load .passengerCar
         |> load .endOfLife
         |> load .fading

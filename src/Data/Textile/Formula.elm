@@ -1,6 +1,7 @@
 module Data.Textile.Formula exposing
     ( dyeingImpacts
     , endOfLifeImpacts
+    , finishingImpacts
     , genericWaste
     , knittingImpacts
     , makingImpacts
@@ -195,6 +196,37 @@ printingImpacts impacts { printingProcess, heatProcess, elecProcess, surfaceMass
                 (\trigram _ ->
                     Quantity.sum
                         [ baseMass |> Unit.forKg (Process.getImpact trigram printingProcess)
+                        , heatMJ |> Unit.forMJ (Process.getImpact trigram heatProcess)
+                        , kwh |> Unit.forKWh (Process.getImpact trigram elecProcess)
+                        ]
+                )
+    }
+
+
+finishingImpacts :
+    Impacts
+    ->
+        { finishingProcess : Process -- Inbound: Printing process
+        , heatProcess : Process -- Outbound: country heat impact
+        , elecProcess : Process -- Outbound: country electricity impact
+        }
+    -> Mass
+    -> { heat : Energy, kwh : Energy, impacts : Impacts }
+finishingImpacts impacts { finishingProcess, heatProcess, elecProcess } baseMass =
+    let
+        ( heatMJ, kwh ) =
+            ( Quantity.multiplyBy (Mass.inKilograms baseMass) finishingProcess.heat
+            , Quantity.multiplyBy (Mass.inKilograms baseMass) finishingProcess.elec
+            )
+    in
+    { heat = heatMJ
+    , kwh = kwh
+    , impacts =
+        impacts
+            |> Impact.mapImpacts
+                (\trigram _ ->
+                    Quantity.sum
+                        [ baseMass |> Unit.forKg (Process.getImpact trigram finishingProcess)
                         , heatMJ |> Unit.forMJ (Process.getImpact trigram heatProcess)
                         , kwh |> Unit.forKWh (Process.getImpact trigram elecProcess)
                         ]

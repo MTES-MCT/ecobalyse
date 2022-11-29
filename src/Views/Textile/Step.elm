@@ -610,6 +610,7 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                 , viewProcessInfo current.processInfo.endOfLife
                 , viewProcessInfo current.processInfo.fabric
                 , viewProcessInfo current.processInfo.making
+                , viewProcessInfo current.processInfo.finishing
                 , if inputs.product.making.fadable && inputs.disabledFading /= Just True then
                     viewProcessInfo current.processInfo.fading
 

@@ -77,6 +77,7 @@ type alias ProcessInfo =
     , distribution : Maybe String
     , fading : Maybe String
     , printing : Maybe String
+    , finishing : Maybe String
     }
 
 
@@ -127,6 +128,7 @@ defaultProcessInfo =
     , distribution = Nothing
     , fading = Nothing
     , printing = Nothing
+    , finishing = Nothing
     }
 
 
@@ -334,6 +336,9 @@ updateFromInputs { processes } inputs ({ label, country } as step) =
                                             |> Result.map (Process.getPrintingProcess kind >> .name)
                                             |> Result.toMaybe
                                     )
+
+                        -- Note: all products have necessarily the same finishing process applied
+                        , finishing = Just "Apprêt chimique de finition"
                     }
             }
 
