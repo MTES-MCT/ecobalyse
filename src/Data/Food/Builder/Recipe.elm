@@ -21,8 +21,7 @@ module Data.Food.Builder.Recipe exposing
 
 import Data.Food.Builder.Db exposing (Db)
 import Data.Food.Builder.Query as BuilderQuery exposing (Query)
-import Data.Food.Ingredient as Ingredient exposing (Ingredient)
-import Data.Food.IngredientID as IngredientID exposing (ID)
+import Data.Food.Ingredient as Ingredient exposing (Id, Ingredient)
 import Data.Food.Process as Process exposing (Process)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Unit as Unit
@@ -76,12 +75,12 @@ addPackaging mass code query =
     }
 
 
-availableIngredients : List ID -> List Ingredient -> List Ingredient
-availableIngredients usedIngredientIDs ingredientList =
+availableIngredients : List Id -> List Ingredient -> List Ingredient
+availableIngredients usedIngredientIds ingredientList =
     ingredientList
         |> List.filter
             (\{ id } ->
-                not (List.member id usedIngredientIDs)
+                not (List.member id usedIngredientIds)
             )
 
 
@@ -164,7 +163,7 @@ deletePackaging code query =
 encodeIngredient : BuilderQuery.IngredientQuery -> Encode.Value
 encodeIngredient i =
     Encode.object
-        [ ( "id", IngredientID.encode i.id )
+        [ ( "id", Ingredient.encodeId i.id )
         , ( "name", Encode.string i.name )
         , ( "mass", Encode.float (Mass.inKilograms i.mass) )
         , ( "variant", variantToString i.variant |> Encode.string )

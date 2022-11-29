@@ -9,8 +9,7 @@ module Page.Food.Builder exposing
 import Data.Food.Builder.Db as BuilderDb exposing (Db)
 import Data.Food.Builder.Query as Query exposing (Query)
 import Data.Food.Builder.Recipe as Recipe exposing (Recipe)
-import Data.Food.Ingredient as Ingredient exposing (Ingredient)
-import Data.Food.IngredientID as IngredientID exposing (ID)
+import Data.Food.Ingredient as Ingredient exposing (Id, Ingredient)
 import Data.Food.Process as Process exposing (Process)
 import Data.Impact as Impact
 import Data.Session exposing (Session)
@@ -64,7 +63,7 @@ type Msg
     | SelectTransform (Maybe SelectedProcess)
     | SetTransform SelectedProcess
     | SwitchImpact Impact.Trigram
-    | UpdateIngredient ID Query.IngredientQuery
+    | UpdateIngredient Id Query.IngredientQuery
     | UpdatePackagingMass Process.Code (Maybe Mass)
     | UpdateTransformMass (Maybe Mass)
 
@@ -196,8 +195,8 @@ update session msg model =
         SwitchImpact impact ->
             ( { model | impact = impact }, session, Cmd.none )
 
-        UpdateIngredient oldIngredientID newIngredient ->
-            ( { model | query = Query.updateIngredient oldIngredientID newIngredient model.query }
+        UpdateIngredient oldIngredientId newIngredient ->
+            ( { model | query = Query.updateIngredient oldIngredientId newIngredient model.query }
             , session
             , Cmd.none
             )
@@ -308,7 +307,7 @@ addProcessFormView { category, defaultMass, excluded, db, kind, noOp, select, se
 
 
 type alias UpdateIngredientConfig =
-    { excluded : List ID
+    { excluded : List Id
     , db : Db
     , ingredient : Recipe.RecipeIngredient
     }
@@ -625,7 +624,7 @@ processSelectorView kind selectedCode event =
             ]
 
 
-ingredientSelectorView : ID -> List ID -> (Ingredient -> msg) -> List Ingredient -> Html msg
+ingredientSelectorView : Id -> List Id -> (Ingredient -> msg) -> List Ingredient -> Html msg
 ingredientSelectorView selectedIngredient excluded event ingredients =
     ingredients
         |> List.map
@@ -634,7 +633,7 @@ ingredientSelectorView selectedIngredient excluded event ingredients =
                 , option
                     [ selected <| selectedIngredient == ingredient.id
                     , disabled <| List.member ingredient.id excluded
-                    , value <| IngredientID.toString ingredient.id
+                    , value <| Ingredient.idToString ingredient.id
                     ]
                     [ text ingredient.name ]
                 )
@@ -645,10 +644,10 @@ ingredientSelectorView selectedIngredient excluded event ingredients =
         |> Keyed.node "select"
             [ class "form-select form-select-sm"
             , onInput
-                (\ingredientID ->
+                (\ingredientId ->
                     let
                         newIngredient =
-                            IngredientID.fromString ingredientID
+                            Ingredient.idFromString ingredientId
                                 |> Ingredient.findByID ingredients
                                 |> Result.withDefault Ingredient.empty
                     in

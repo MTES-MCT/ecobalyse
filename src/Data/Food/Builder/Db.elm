@@ -41,10 +41,8 @@ buildFromJson impacts builderProcessesJson ingredientsJson =
         |> Decode.decodeString (Process.decodeList impacts)
         |> Result.andThen
             (\processes ->
-                Decode.decodeString (Ingredient.decodeIngredients processes) ingredientsJson
-                    |> Result.map
-                        (\ingredients ->
-                            Db impacts processes ingredients
-                        )
+                ingredientsJson
+                    |> Decode.decodeString (Ingredient.decodeIngredients processes)
+                    |> Result.map (Db impacts processes)
             )
         |> Result.mapError Decode.errorToString

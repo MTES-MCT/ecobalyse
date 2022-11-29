@@ -569,7 +569,7 @@ components:
       in: query
       description: |
         Liste des ingrédients composant la recette (liste disponible sur le point d'entrée `/food/ingredients`).
-        Le format de chaque entrée est composé de l'identifiant de la matière et de sa masse **exprimée en grammes**, ainsi que d'un éventuel variant à utiliser :
+        Le format de chaque entrée est composé de l'identifiant de la matière et de sa masse **exprimée en grammes**, ainsi que d'un éventuel mode de production alternatif à utiliser :
 
         - `milk;268` signifie *268g de lait*;
         - `carrot;30;organic` signifie *30g de carrotes bio*;
