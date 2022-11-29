@@ -10,7 +10,6 @@ import Data.Env as Env
 import Data.Food.Builder.Db as BuilderDb
 import Data.Food.Builder.Query as BuilderQuery
 import Data.Food.Ingredient as Ingredient
-import Data.Food.IngredientID as IngredientID
 import Data.Food.Process as FoodProcess
 import Data.Textile.Db as TextileDb
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
@@ -79,7 +78,7 @@ ingredientParser ingredients string =
             let
                 ingredient =
                     id
-                        |> IngredientID.fromString
+                        |> Ingredient.idFromString
                         |> Ingredient.findByID ingredients
             in
             Ok BuilderQuery.IngredientQuery
@@ -92,7 +91,7 @@ ingredientParser ingredients string =
             let
                 ingredient =
                     id
-                        |> IngredientID.fromString
+                        |> Ingredient.idFromString
                         |> Ingredient.findByID ingredients
             in
             Ok BuilderQuery.IngredientQuery

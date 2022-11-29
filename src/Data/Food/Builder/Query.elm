@@ -11,7 +11,7 @@ module Data.Food.Builder.Query exposing
     , updateIngredient
     )
 
-import Data.Food.IngredientID as IngredientID exposing (ID)
+import Data.Food.Ingredient as Ingredient exposing (Id)
 import Data.Food.Process as Process
 import Mass exposing (Mass)
 import Quantity
@@ -23,7 +23,7 @@ type Variant
 
 
 type alias IngredientQuery =
-    { id : ID
+    { id : Id
     , name : String
     , mass : Mass
     , variant : Variant
@@ -70,22 +70,22 @@ emptyQuery =
 carrotCake : Query
 carrotCake =
     { ingredients =
-        [ { id = IngredientID.fromString "egg"
+        [ { id = Ingredient.idFromString "egg"
           , name = "oeuf"
           , mass = Mass.grams 120
           , variant = Default
           }
-        , { id = IngredientID.fromString "wheat"
+        , { id = Ingredient.idFromString "wheat"
           , name = "blé tendre"
           , mass = Mass.grams 140
           , variant = Default
           }
-        , { id = IngredientID.fromString "milk"
+        , { id = Ingredient.idFromString "milk"
           , name = "lait"
           , mass = Mass.grams 60
           , variant = Default
           }
-        , { id = IngredientID.fromString "carrot"
+        , { id = Ingredient.idFromString "carrot"
           , name = "carotte"
           , mass = Mass.grams 225
           , variant = Default
@@ -123,14 +123,14 @@ getIngredientMass query =
         |> Quantity.sum
 
 
-updateIngredient : ID -> IngredientQuery -> Query -> Query
-updateIngredient oldIngredientID newIngredient query =
+updateIngredient : Id -> IngredientQuery -> Query -> Query
+updateIngredient oldIngredientId newIngredient query =
     { query
         | ingredients =
             query.ingredients
                 |> List.map
                     (\ingredient ->
-                        if ingredient.id == oldIngredientID then
+                        if ingredient.id == oldIngredientId then
                             newIngredient
 
                         else

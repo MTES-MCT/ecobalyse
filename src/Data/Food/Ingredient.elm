@@ -1,29 +1,58 @@
 module Data.Food.Ingredient exposing
-    ( Ingredient
+    ( Id
+    , Ingredient
     , decodeIngredients
     , empty
+    , encodeId
     , findByID
+    , idFromString
+    , idToString
     )
 
-import Data.Food.IngredientID as IngredientID exposing (ID)
 import Data.Food.Process as Process exposing (Process)
 import Dict exposing (Dict)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
 import Json.Decode.Pipeline as Pipe
+import Json.Encode as Encode
 
 
 type alias Ingredient =
-    { id : ID
+    { id : Id
     , name : String
     , default : Process
     , variants : Variants
     }
 
 
+type Id
+    = Id String
+
+
+decodeId : Decode.Decoder Id
+decodeId =
+    Decode.string
+        |> Decode.map idFromString
+
+
+encodeId : Id -> Encode.Value
+encodeId (Id str) =
+    Encode.string str
+
+
+idFromString : String -> Id
+idFromString str =
+    Id str
+
+
+idToString : Id -> String
+idToString (Id str) =
+    str
+
+
 empty : Ingredient
 empty =
-    { id = IngredientID.fromString ""
+    { id = idFromString ""
     , name = ""
     , default = Process.empty
     , variants = { organic = Nothing }
@@ -47,7 +76,7 @@ decodeIngredients processes =
 decodeIngredient : Dict String Process -> Decoder Ingredient
 decodeIngredient processes =
     Decode.succeed Ingredient
-        |> Pipe.required "id" IngredientID.decode
+        |> Pipe.required "id" decodeId
         |> Pipe.required "name" Decode.string
         |> Pipe.required "default" (linkProcess processes)
         |> Pipe.required "variants" (decodeVariants processes)
@@ -59,12 +88,12 @@ decodeVariants processes =
         |> Pipe.optional "organic" (Decode.maybe (linkProcess processes)) Nothing
 
 
-findByID : List Ingredient -> ID -> Result String Ingredient
+findByID : List Ingredient -> Id -> Result String Ingredient
 findByID ingredients id =
     ingredients
         |> List.filter (.id >> (==) id)
         |> List.head
-        |> Result.fromMaybe ("Ingrédient introuvable par id : " ++ IngredientID.toString id)
+        |> Result.fromMaybe ("Ingrédient introuvable par id : " ++ idToString id)
 
 
 linkProcess : Dict String Process -> Decoder Process

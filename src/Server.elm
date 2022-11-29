@@ -9,7 +9,6 @@ import Data.Food.Builder.Db as BuilderDb
 import Data.Food.Builder.Query as BuilderQuery
 import Data.Food.Builder.Recipe as BuilderRecipe
 import Data.Food.Ingredient as Ingredient
-import Data.Food.IngredientID as IngredientID
 import Data.Food.Process as FoodProcess
 import Data.Impact as Impact
 import Data.Textile.Db as TextileDb
@@ -150,7 +149,7 @@ encodeFoodProcessList =
 encodeIngredient : Ingredient.Ingredient -> Encode.Value
 encodeIngredient ingredient =
     Encode.object
-        [ ( "id", IngredientID.toString ingredient.id |> Encode.string )
+        [ ( "id", Ingredient.idToString ingredient.id |> Encode.string )
         , ( "name", ingredient.name |> Encode.string )
         , ( "variants"
           , (if ingredient.variants.organic /= Nothing then
