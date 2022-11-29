@@ -45,7 +45,7 @@ La base Agribalyse permet de distinguer les inventaires de cycle de vie suivants
 {% hint style="info" %}
 **Etant donnée l'existence d'un "consumption mix" pour la tomate, le procédé retenu pour la tomate conventionnelle est le procédé mobilisé dans ce consumption mix (cf. arborescence de** Fresh tomato, consumption mix**).**&#x20;
 
-**Pour la tomate bio, le procédé retenu est la tomate bio "national average".**
+Pour la tomate bio, le procédé retenu est la tomate bio "national average".
 {% endhint %}
 
 L'analyse comparée des impacts donne :&#x20;
