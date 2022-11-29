@@ -9,6 +9,7 @@ import Data.Gitbook as Gitbook
 import Data.Impact as Impact
 import Data.Textile.Db exposing (Db)
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
+import Data.Textile.HeatSource as HeatSource exposing (HeatSource)
 import Data.Textile.Inputs as Inputs exposing (Inputs)
 import Data.Textile.Printing as Printing exposing (Printing)
 import Data.Textile.Product as Product
@@ -605,7 +606,31 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
             , infoListElement
                 [ li [ class "list-group-item text-muted" ] [ countryField config ]
                 , viewProcessInfo current.processInfo.countryElec
-                , viewProcessInfo current.processInfo.countryHeat
+                , case current.label of
+                    Label.Ennobling ->
+                        li [ class "list-group-item text-muted d-flex align-items-center gap-2" ]
+                            [ label [ class "text-nowrap w-25", for "ennobling-heat-source" ] [ text "Chaleur" ]
+                            , [ HeatSource.Coal, HeatSource.Gas, HeatSource.HeavyFuel, HeatSource.LightFuel ]
+                                |> List.map
+                                    (\heatSource ->
+                                        option
+                                            [ value (HeatSource.toString heatSource)
+                                            , selected <| inputs.ennoblingHeatSource == Just heatSource
+                                            ]
+                                            [ text (HeatSource.toLabel heatSource) ]
+                                    )
+                                |> (::)
+                                    (option [ selected <| inputs.ennoblingHeatSource == Nothing ]
+                                        [ text "Mix régional" ]
+                                    )
+                                |> select
+                                    [ id "ennobling-heat-source"
+                                    , class "form-select form-select-sm w-75"
+                                    ]
+                            ]
+
+                    _ ->
+                        viewProcessInfo current.processInfo.countryHeat
                 , viewProcessInfo current.processInfo.distribution
                 , viewProcessInfo current.processInfo.useIroning
                 , viewProcessInfo current.processInfo.useNonIroning
