@@ -586,6 +586,12 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
 
                 Nothing ->
                     "Transport"
+
+        infoListElement =
+            ul
+                [ class "StepBody list-group list-group-flush fs-7"
+                , classList [ ( "disabled", not current.enabled ) ]
+                ]
     in
     div [ class "card-group" ]
         [ div [ class "card" ]
@@ -596,10 +602,7 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                     [ stepActions config current.label
                     ]
                 ]
-            , ul
-                [ class "StepBody list-group list-group-flush fs-7"
-                , classList [ ( "disabled", not current.enabled ) ]
-                ]
+            , infoListElement
                 [ li [ class "list-group-item text-muted" ] [ countryField config ]
                 , viewProcessInfo current.processInfo.countryElec
                 , viewProcessInfo current.processInfo.countryHeat
@@ -610,7 +613,6 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                 , viewProcessInfo current.processInfo.endOfLife
                 , viewProcessInfo current.processInfo.fabric
                 , viewProcessInfo current.processInfo.making
-                , viewProcessInfo current.processInfo.finishing
                 , if inputs.product.making.fadable && inputs.disabledFading /= Just True then
                     viewProcessInfo current.processInfo.fading
 
@@ -634,7 +636,11 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                                 ]
 
                     Label.Ennobling ->
-                        [ ennoblingFields config
+                        [ div [ class "text-muted fs-7 mb-2" ]
+                            [ text "Pré-traitement\u{00A0}: non applicable" ]
+                        , ennoblingFields config
+                        , div [ class "text-muted fs-7 mt-2" ]
+                            [ text "Finition\u{00A0}: apprêt chimique" ]
                         ]
 
                     Label.Making ->
