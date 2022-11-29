@@ -9,7 +9,7 @@ import Data.Gitbook as Gitbook
 import Data.Impact as Impact
 import Data.Textile.Db exposing (Db)
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
-import Data.Textile.HeatSource as HeatSource exposing (HeatSource)
+import Data.Textile.HeatSource as HeatSource
 import Data.Textile.Inputs as Inputs exposing (Inputs)
 import Data.Textile.Printing as Printing exposing (Printing)
 import Data.Textile.Product as Product

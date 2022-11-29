@@ -243,6 +243,14 @@ computeDyeingImpacts db ({ inputs } as simulator) =
                     |> updateLifeCycleStep Label.Ennobling
                         (\({ country, dyeingMedium } as step) ->
                             let
+                                heatProcess =
+                                    inputs.ennoblingHeatSource
+                                        |> Maybe.map
+                                            (\heatSource ->
+                                                Process.getEnnoblingHeatProcess country.zone heatSource wellKnown
+                                            )
+                                        |> Maybe.withDefault country.heatProcess
+
                                 productDefaultMedium =
                                     dyeingMedium
                                         |> Maybe.withDefault inputs.product.dyeing.defaultMedium
@@ -254,7 +262,7 @@ computeDyeingImpacts db ({ inputs } as simulator) =
                                     step.outputMass
                                         |> Formula.dyeingImpacts step.impacts
                                             dyeingProcess
-                                            country.heatProcess
+                                            heatProcess
                                             country.electricityProcess
                             in
                             { step
@@ -278,11 +286,19 @@ computePrintingImpacts db ({ inputs } as simulator) =
                             case step.printing of
                                 Just { kind, ratio } ->
                                     let
+                                        heatProcess =
+                                            inputs.ennoblingHeatSource
+                                                |> Maybe.map
+                                                    (\heatSource ->
+                                                        Process.getEnnoblingHeatProcess country.zone heatSource wellKnown
+                                                    )
+                                                |> Maybe.withDefault country.heatProcess
+
                                         { heat, kwh, impacts } =
                                             step.outputMass
                                                 |> Formula.printingImpacts step.impacts
                                                     { printingProcess = Process.getPrintingProcess kind wellKnown
-                                                    , heatProcess = country.heatProcess
+                                                    , heatProcess = heatProcess
                                                     , elecProcess = country.electricityProcess
                                                     , surfaceMass = Maybe.withDefault inputs.product.surfaceMass inputs.surfaceMass
                                                     , ratio = ratio
@@ -301,20 +317,28 @@ computePrintingImpacts db ({ inputs } as simulator) =
 
 
 computeFinishingImpacts : Db -> Simulator -> Result String Simulator
-computeFinishingImpacts db simulator =
+computeFinishingImpacts db ({ inputs } as simulator) =
     db.processes
         |> Process.loadWellKnown
         |> Result.map
-            (\{ finishing } ->
+            (\wellKnown ->
                 simulator
                     |> updateLifeCycleStep Label.Ennobling
                         (\({ country } as step) ->
                             let
+                                heatProcess =
+                                    inputs.ennoblingHeatSource
+                                        |> Maybe.map
+                                            (\heatSource ->
+                                                Process.getEnnoblingHeatProcess country.zone heatSource wellKnown
+                                            )
+                                        |> Maybe.withDefault country.heatProcess
+
                                 { heat, kwh, impacts } =
                                     step.outputMass
                                         |> Formula.finishingImpacts step.impacts
-                                            { finishingProcess = finishing
-                                            , heatProcess = country.heatProcess
+                                            { finishingProcess = wellKnown.finishing
+                                            , heatProcess = heatProcess
                                             , elecProcess = country.electricityProcess
                                             }
                             in

@@ -105,36 +105,32 @@ getDyeingProcess medium { dyeingArticle, dyeingFabric, dyeingYarn } =
             dyeingYarn
 
 
-getEnnoblingHeatProcess : Zone -> HeatSource -> List Process -> Result String Process
-getEnnoblingHeatProcess zone heatSource =
-    loadWellKnown
-        >> Result.map
-            (\wk ->
-                case ( zone, heatSource ) of
-                    ( Zone.Europe, HeatSource.Coal ) ->
-                        wk.steamCoalRER
+getEnnoblingHeatProcess : Zone -> HeatSource -> WellKnown -> Process
+getEnnoblingHeatProcess zone heatSource wk =
+    case ( zone, heatSource ) of
+        ( Zone.Europe, HeatSource.Coal ) ->
+            wk.steamCoalRER
 
-                    ( Zone.Europe, HeatSource.Gas ) ->
-                        wk.steamGasRER
+        ( Zone.Europe, HeatSource.Gas ) ->
+            wk.steamGasRER
 
-                    ( Zone.Europe, HeatSource.HeavyFuel ) ->
-                        wk.steamHeavyFuelRER
+        ( Zone.Europe, HeatSource.HeavyFuel ) ->
+            wk.steamHeavyFuelRER
 
-                    ( Zone.Europe, HeatSource.LightFuel ) ->
-                        wk.steamLightFuelRER
+        ( Zone.Europe, HeatSource.LightFuel ) ->
+            wk.steamLightFuelRER
 
-                    ( _, HeatSource.Coal ) ->
-                        wk.steamCoalRSA
+        ( _, HeatSource.Coal ) ->
+            wk.steamCoalRSA
 
-                    ( _, HeatSource.Gas ) ->
-                        wk.steamGasRSA
+        ( _, HeatSource.Gas ) ->
+            wk.steamGasRSA
 
-                    ( _, HeatSource.HeavyFuel ) ->
-                        wk.steamHeavyFuelRSA
+        ( _, HeatSource.HeavyFuel ) ->
+            wk.steamHeavyFuelRSA
 
-                    ( _, HeatSource.LightFuel ) ->
-                        wk.steamLightFuelRSA
-            )
+        ( _, HeatSource.LightFuel ) ->
+            wk.steamLightFuelRSA
 
 
 getPrintingProcess : Printing.Kind -> WellKnown -> Process
