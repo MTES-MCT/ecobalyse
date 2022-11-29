@@ -222,7 +222,7 @@ ingredientListFromQuery db query =
 ingredientFromQuery : Db -> BuilderQuery.IngredientQuery -> Result String RecipeIngredient
 ingredientFromQuery { ingredients } ingredientQuery =
     Result.map3 RecipeIngredient
-        (Ingredient.findByID ingredients ingredientQuery.id)
+        (Ingredient.findByID ingredientQuery.id ingredients)
         (Ok ingredientQuery.mass)
         (Ok ingredientQuery.variant)
 

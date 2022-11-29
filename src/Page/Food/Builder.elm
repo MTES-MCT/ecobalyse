@@ -647,8 +647,8 @@ ingredientSelectorView selectedIngredient excluded event ingredients =
                 (\ingredientId ->
                     let
                         newIngredient =
-                            Ingredient.idFromString ingredientId
-                                |> Ingredient.findByID ingredients
+                            ingredients
+                                |> Ingredient.findByID (Ingredient.idFromString ingredientId)
                                 |> Result.withDefault Ingredient.empty
                     in
                     event newIngredient
