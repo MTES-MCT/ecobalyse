@@ -36,7 +36,7 @@ explorerDb =
     textileDb
         |> Result.andThen
             (\textileDbParsed ->
-            ExplorerDb.buildFromJson textileDbParsed.impacts foodProcessesJson foodProductsJson
+                ExplorerDb.buildFromJson textileDbParsed.impacts foodProcessesJson foodProductsJson
             )
 
 builderDb : Result String BuilderDb.Db

@@ -77,9 +77,8 @@ ingredientParser ingredients string =
         [ id, mass ] ->
             let
                 ingredient =
-                    id
-                        |> Ingredient.idFromString
-                        |> Ingredient.findByID ingredients
+                    ingredients
+                        |> Ingredient.findByID (Ingredient.idFromString id)
             in
             Ok BuilderQuery.IngredientQuery
                 |> RE.andMap (Result.map .id ingredient)
@@ -90,9 +89,8 @@ ingredientParser ingredients string =
         [ id, mass, variant ] ->
             let
                 ingredient =
-                    id
-                        |> Ingredient.idFromString
-                        |> Ingredient.findByID ingredients
+                    ingredients
+                        |> Ingredient.findByID (Ingredient.idFromString id)
             in
             Ok BuilderQuery.IngredientQuery
                 |> RE.andMap (Result.map .id ingredient)

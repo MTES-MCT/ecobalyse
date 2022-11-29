@@ -76,12 +76,8 @@ addPackaging mass code query =
 
 
 availableIngredients : List Id -> List Ingredient -> List Ingredient
-availableIngredients usedIngredientIds ingredientList =
-    ingredientList
-        |> List.filter
-            (\{ id } ->
-                not (List.member id usedIngredientIds)
-            )
+availableIngredients usedIngredientIds =
+    List.filter (\{ id } -> not (List.member id usedIngredientIds))
 
 
 compute : Db -> Query -> Result String ( Recipe, Results )

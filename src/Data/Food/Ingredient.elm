@@ -88,8 +88,8 @@ decodeVariants processes =
         |> Pipe.optional "organic" (Decode.maybe (linkProcess processes)) Nothing
 
 
-findByID : List Ingredient -> Id -> Result String Ingredient
-findByID ingredients id =
+findByID : Id -> List Ingredient -> Result String Ingredient
+findByID id ingredients =
     ingredients
         |> List.filter (.id >> (==) id)
         |> List.head
