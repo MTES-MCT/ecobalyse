@@ -127,6 +127,8 @@ compute db query =
         |> nextWithDbIf Label.Ennobling computeDyeingImpacts
         -- Compute Ennobling step Printing impacts
         |> nextWithDbIf Label.Ennobling computePrintingImpacts
+        -- Compute Ennobling step Finishing impacts
+        |> nextWithDbIf Label.Ennobling computeFinishingImpacts
         -- Compute Making step impacts
         |> nextWithDbIf Label.Making computeMakingImpacts
         -- Compute product Use impacts
@@ -294,6 +296,33 @@ computePrintingImpacts db ({ inputs } as simulator) =
 
                                 Nothing ->
                                     step
+                        )
+            )
+
+
+computeFinishingImpacts : Db -> Simulator -> Result String Simulator
+computeFinishingImpacts db simulator =
+    db.processes
+        |> Process.loadWellKnown
+        |> Result.map
+            (\{ finishing } ->
+                simulator
+                    |> updateLifeCycleStep Label.Ennobling
+                        (\({ country } as step) ->
+                            let
+                                { heat, kwh, impacts } =
+                                    step.outputMass
+                                        |> Formula.finishingImpacts step.impacts
+                                            { finishingProcess = finishing
+                                            , heatProcess = country.heatProcess
+                                            , elecProcess = country.electricityProcess
+                                            }
+                            in
+                            { step
+                                | heat = step.heat |> Quantity.plus heat
+                                , kwh = step.kwh |> Quantity.plus kwh
+                                , impacts = Impact.sumImpacts db.impacts [ step.impacts, impacts ]
+                            }
                         )
             )
 
