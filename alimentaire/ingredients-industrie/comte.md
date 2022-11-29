@@ -10,10 +10,10 @@ Le procédé proposé dans Agribalyse pour le comté est :&#x20;
 
 * **Comté cheese, from cow's milk, at plant' (kilogram, FR, None)**
 
-{% hint style="danger" %}
+{% hint style="info" %}
 Attention, il ne s'agit pas d'un procédé "sortie d'usine de fabrication"
 
-Attente des graphes Simapro pour identifier le procédé parent du comté
+**Attente des graphes Simapro de Comté cheese, from cow's milk, at plant' (kilogram, FR, None) pour identifier le procédé parent du comté**
 {% endhint %}
 
 $$
