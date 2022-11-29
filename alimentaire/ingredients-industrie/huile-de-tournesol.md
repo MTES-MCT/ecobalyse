@@ -20,7 +20,7 @@ Attente du graphe Simapro pour confirmer ce procédé et identifier le procédé
 
 
 
-Ce procédé est construit à partir :&#x20;
+Ce procédé est construit à partir des pri:&#x20;
 
 * XXX
 

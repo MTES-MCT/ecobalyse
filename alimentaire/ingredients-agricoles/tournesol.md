@@ -46,7 +46,7 @@ La base Agribalyse permet de distinguer les inventaires de cycle de vie suivants
   * Sunflower, at farm (WFLDB 3.1)
 
 {% hint style="info" %}
-**Le procédé mobilisé pour l'ingrédient "at farm" huile de tournesol est le procédé mobilisé pour la fabrication de l**[**'huile de tournesol**](../ingredients-industrie/huile-de-tournesol.md).&#x20;
+**Le procédé mobilisé pour l'ingrédient "at farm" huile de tournesol est le procédé mobilisé pour la fabrication de l**[**'huile de tournesol**](../ingredients-industrie/huile-de-tournesol.md)
 
 En effet, le choix est fait d'exclure directement les procédés concernant le tournesol destiné à l'alimentation animale (dans un premier temps - niveau 1 de calcul - sont uniquement considérés les procédés susceptibles d'entrer directement dans la fabrication de produits alimentaires). De plus, le tournesol en tant qu'ingrédient intervient majoritairement pour la production d'huile.&#x20;
 {% endhint %}
