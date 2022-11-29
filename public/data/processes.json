@@ -150,36 +150,6 @@
     "alias": null
   },
   {
-    "name": "Vapeur à partir de gaz naturel (mix de technologies de combustion et d'épuration des effluents gazeux|en sortie de chaudière|Puissance non spécifiée), ES",
-    "info": "Energie > Chaleur > Valeur par énergie primaire",
-    "unit": "MJ",
-    "source": "Base Impacts",
-    "uuid": "618440a9-f4aa-65bc-21cb-ea40eee53f3d",
-    "impacts": {
-      "acd": 2.348e-4,
-      "cch": 8.30517e-2,
-      "etf": 0.0,
-      "fru": 1.25479,
-      "fwe": 7.67049e-10,
-      "htc": 0.0,
-      "htn": 0.0,
-      "ior": 1.24183e-3,
-      "ldu": 0.0,
-      "mru": 5.16394e-9,
-      "ozd": 1.87981e-13,
-      "pco": 2.46405e-4,
-      "pma": 9.63384e-10,
-      "swe": 1.20537e-4,
-      "tre": 1.3209e-3,
-      "wtu": 0.0
-    },
-    "heat_MJ": 0.0,
-    "elec_pppm": 0.0,
-    "elec_MJ": 0.0,
-    "waste": 0.0,
-    "alias": null
-  },
-  {
     "name": "Plume de canard, inventaire agrégé",
     "info": "Textile > Matières > Matières naturelles",
     "unit": "kg",
@@ -6805,7 +6775,7 @@
   },
   {
     "name": "Vapeur à partir de gaz naturel (mix de technologies de combustion et d'épuration des effluents gazeux|en sortie de chaudière|Puissance non spécifiée), RER",
-    "info": "Energie > Chaleur > Mix moyen",
+    "info": "Energie > Chaleur > Vapeur par énergie primaire",
     "unit": "MJ",
     "source": "Base Impacts",
     "uuid": "59c4c64c-0916-868a-5dd6-a42c4c42222f",
