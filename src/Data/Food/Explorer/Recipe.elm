@@ -8,10 +8,7 @@ module Data.Food.Explorer.Recipe exposing
     , Results
     , Transform
     , TransformQuery
-    ,  compute
-       -- , encodeQuery
-       -- , encodeResults
-
+    , compute
     , fromQuery
     , toQuery
     , tunaPizza
@@ -300,55 +297,3 @@ computeProcessImpacts item =
     in
     item.process.impacts
         |> Impact.mapImpacts (computeImpact item.mass)
-
-
-
----- Encoders
--- FIXME: remove this code once we're sure we don't want an API for the recipe explorer
--- encodeQuery : Query -> Encode.Value
--- encodeQuery q =
---     Encode.object
---         [ ( "ingredients", Encode.list encodeIngredient q.ingredients )
---         , ( "transform", q.transform |> Maybe.map encodeTransform |> Maybe.withDefault Encode.null )
---         , ( "packaging", Encode.list encodePackaging q.packaging )
---         , ( "plant", encodePlantOptions q.plant )
---         ]
--- encodeIngredient : IngredientQuery -> Encode.Value
--- encodeIngredient i =
---     Encode.object
---         [ ( "code", i.code |> Process.codeToString |> Encode.string )
---         , ( "mass", Encode.float (Mass.inKilograms i.mass) )
---         , ( "country", i.country |> Maybe.map Country.encodeCode |> Maybe.withDefault Encode.null )
---         , ( "labels", Encode.list Encode.string i.labels )
---         ]
--- encodePackaging : PackagingQuery -> Encode.Value
--- encodePackaging i =
---     Encode.object
---         [ ( "code", i.code |> Process.codeToString |> Encode.string )
---         , ( "mass", Encode.float (Mass.inKilograms i.mass) )
---         ]
--- encodePlantOptions : PlantOptions -> Encode.Value
--- encodePlantOptions p =
---     Encode.object
---         [ ( "country", p.country |> Maybe.map Country.encodeCode |> Maybe.withDefault Encode.null )
---         ]
--- encodeResults : Results -> Encode.Value
--- encodeResults results =
---     Encode.object
---         [ ( "impacts", Impact.encodeImpacts results.impacts )
---         , ( "recipe"
---           , Encode.object
---                 [ ( "ingredients", Impact.encodeImpacts results.recipe.ingredients )
---                 , ( "transform", Impact.encodeImpacts results.recipe.transform )
---                 ]
---           )
---         , ( "packaging", Impact.encodeImpacts results.packaging )
---         ]
---
---
--- encodeTransform : TransformQuery -> Encode.Value
--- encodeTransform p =
---     Encode.object
---         [ ( "code", p.code |> Process.codeToString |> Encode.string )
---         , ( "mass", Encode.float (Mass.inKilograms p.mass) )
---         ]

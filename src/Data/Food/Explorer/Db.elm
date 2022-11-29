@@ -45,10 +45,8 @@ buildFromJson impacts processesJson productsJson =
         |> Decode.decodeString (Process.decodeList impacts)
         |> Result.andThen
             (\processes ->
-                Decode.decodeString (Product.decodeProducts processes) productsJson
-                    |> Result.map
-                        (\products ->
-                            Db impacts processes products
-                        )
+                productsJson
+                    |> Decode.decodeString (Product.decodeProducts processes)
+                    |> Result.map (Db impacts processes)
             )
         |> Result.mapError Decode.errorToString
