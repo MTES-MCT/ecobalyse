@@ -35,7 +35,7 @@ La base Agribalyse permet de distinguer les inventaires de cycle de vie suivants
   * Rapeseed, at farm (WFLDB 3.1)
 
 {% hint style="info" %}
-**Pour identifier le procédé colza "at farm" retenu, on se réfère au procédé colza mobilisé pour l'huile de colza.**
+**Pour identifier le procédé colza "at farm" retenu, on se réfère au procédé colza mobilisé pour l'**[**huile de colza**](../ingredients-industrie/huile-de-colza.md)**.**
 
 En effet, pas de consumption mix car le colza est un ingrédient mobilisé quasi uniquement pour la production d'huile.
 
