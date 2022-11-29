@@ -14,11 +14,15 @@ $$
 HuiletournesolREF
 $$
 
+{% hint style="danger" %}
+Attente du graphe Simapro pour confirmer ce procédé et identifier le procédé tournesol mobilisé pour l'huile de tournesol.
+{% endhint %}
+
 
 
 Ce procédé est construit à partir :&#x20;
 
-* d'un [blé tendre](https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/ingredients-agricoles/ble-tendre) \[at farm] --> Soft wheat grain, conventional, breadmaking quality, 15% moisture, at farm gate
+* XXX
 
 $$
 BléREF

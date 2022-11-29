@@ -8,16 +8,20 @@
 
 Deux procédés sont proposés dans Agribalyse pour le concentré de tomates est :&#x20;
 
-* Tomato paste 30° Brix, production, at plant' (kilogram, FR, None)
-* Tomato paste production, at plant (WFLDB 3.1)' (kilogram, GLO, None)
+* **Tomato paste 30° Brix, production, at plant' (kilogram, FR, None)**
+* **Tomato paste production, at plant (WFLDB 3.1)' (kilogram, GLO, None)**
+
+{% hint style="danger" %}
+Attente des graphes Simapro pour ces deux procédés pour confirmer que l'on retient des procédés "at plant"
+{% endhint %}
 
 $$
-FarineREF
+ConcentretomatesREF
 $$
 
 Ce procédé est construit à partir :&#x20;
 
-* d'un [blé tendre](https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/ingredients-agricoles/ble-tendre) \[at farm] --> Soft wheat grain, conventional, breadmaking quality, 15% moisture, at farm gate
+*
 
 $$
 BléREF

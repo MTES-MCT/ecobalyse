@@ -8,9 +8,9 @@
 
 Les procédés proposés dans Agribalyse pour la semoule de blé dur (intervenant dans la recette des pâtes) sont :&#x20;
 
-* Durum wheat, bran, at plant (WFLDB 3.1)' (kilogram, GLO, None)
-* Durum wheat, semolina, at plant (WFLDB 3.1)' (kilogram, GLO, None)
-* Durum wheat, semolina, at plant' (kilogram, FR, None)
+* **Durum wheat, bran, at plant (WFLDB 3.1)' (kilogram, GLO, None)**
+* **Durum wheat, semolina, at plant (WFLDB 3.1)' (kilogram, GLO, None)**
+* **Durum wheat, semolina, at plant' (kilogram, FR, None)**
 
 \=> le procédé retenu devrait être un procédé "sortie de moulin" (at mill), donc :
 
