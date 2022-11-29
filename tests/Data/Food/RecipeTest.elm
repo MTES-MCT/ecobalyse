@@ -14,14 +14,14 @@ import TestUtils exposing (asTest, suiteWithDb)
 suite : Test
 suite =
     suiteWithDb "Data.Food.Recipe"
-        (\{ foodDb } ->
+        (\{ explorerDb } ->
             [ let
                 exampleQuery =
                     Recipe.tunaPizza
 
                 recipe =
                     exampleQuery
-                        |> Recipe.fromQuery foodDb
+                        |> Recipe.fromQuery explorerDb
               in
               describe "fromQuery"
                 [ recipe
@@ -36,7 +36,7 @@ suite =
                           }
                         ]
                   }
-                    |> Recipe.fromQuery foodDb
+                    |> Recipe.fromQuery explorerDb
                     |> Expect.err
                     |> asTest "should return an Err for an invalid query"
                 , case recipe of
@@ -63,7 +63,7 @@ suite =
                         Expect.fail error
                             |> asTest "should not raise a parse error"
                 , { exampleQuery | transform = Nothing }
-                    |> Recipe.fromQuery foodDb
+                    |> Recipe.fromQuery explorerDb
                     |> Result.map .transform
                     |> Expect.equal (Ok Nothing)
                     |> asTest "should have processing=Nothing if there was no processing in the query"
@@ -74,21 +74,21 @@ suite =
                             , mass = Mass.kilograms 0
                             }
                   }
-                    |> Recipe.fromQuery foodDb
+                    |> Recipe.fromQuery explorerDb
                     |> Result.map .transform
                     |> Expect.err
                     |> asTest "should return an Err for an invalid processing"
                 ]
             , describe "toQuery"
                 [ Recipe.tunaPizza
-                    |> Recipe.fromQuery foodDb
+                    |> Recipe.fromQuery explorerDb
                     |> Result.map Recipe.toQuery
                     |> Expect.equal (Ok Recipe.tunaPizza)
                     |> asTest "should convert a recipe to a query"
                 ]
             , describe "compute"
                 [ Recipe.tunaPizza
-                    |> Recipe.compute foodDb
+                    |> Recipe.compute explorerDb
                     |> Result.map (Tuple.second >> .impacts >> AnyDict.toDict)
                     |> Result.withDefault Dict.empty
                     |> Expect.equalDicts

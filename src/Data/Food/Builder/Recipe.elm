@@ -7,6 +7,7 @@ module Data.Food.Builder.Recipe exposing
     , compute
     , computeProcessImpacts
     , deletePackaging
+    , encodeQuery
     , encodeResults
     , ingredientQueryFromIngredient
     , recipeStepImpacts
@@ -18,8 +19,8 @@ module Data.Food.Builder.Recipe exposing
     , updateTransformMass
     )
 
+import Data.Food.Builder.Db exposing (Db)
 import Data.Food.Builder.Query as BuilderQuery exposing (Query)
-import Data.Food.Db as FoodDb
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.IngredientID as IngredientID exposing (ID)
 import Data.Food.Process as Process exposing (Process)
@@ -84,7 +85,7 @@ availableIngredients usedIngredientIDs ingredientList =
             )
 
 
-compute : FoodDb.Db -> Query -> Result String ( Recipe, Results )
+compute : Db -> Query -> Result String ( Recipe, Results )
 compute db =
     fromQuery db
         >> Result.map
@@ -209,21 +210,21 @@ encodeTransform p =
         ]
 
 
-fromQuery : FoodDb.Db -> Query -> Result String Recipe
-fromQuery foodDb query =
+fromQuery : Db -> Query -> Result String Recipe
+fromQuery db query =
     Result.map3 Recipe
-        (ingredientListFromQuery foodDb query)
-        (transformFromQuery foodDb query)
-        (packagingListFromQuery foodDb query)
+        (ingredientListFromQuery db query)
+        (transformFromQuery db query)
+        (packagingListFromQuery db query)
 
 
-ingredientListFromQuery : FoodDb.Db -> Query -> Result String (List RecipeIngredient)
-ingredientListFromQuery foodDb query =
+ingredientListFromQuery : Db -> Query -> Result String (List RecipeIngredient)
+ingredientListFromQuery db query =
     query.ingredients
-        |> RE.combineMap (ingredientFromQuery foodDb)
+        |> RE.combineMap (ingredientFromQuery db)
 
 
-ingredientFromQuery : FoodDb.Db -> BuilderQuery.IngredientQuery -> Result String RecipeIngredient
+ingredientFromQuery : Db -> BuilderQuery.IngredientQuery -> Result String RecipeIngredient
 ingredientFromQuery { ingredients } ingredientQuery =
     Result.map3 RecipeIngredient
         (Ingredient.findByID ingredients ingredientQuery.id)
@@ -240,23 +241,23 @@ ingredientQueryFromIngredient ingredient =
     }
 
 
-packagingListFromQuery : FoodDb.Db -> { a | packaging : List BuilderQuery.PackagingQuery } -> Result String (List Packaging)
-packagingListFromQuery foodDb query =
+packagingListFromQuery : Db -> { a | packaging : List BuilderQuery.PackagingQuery } -> Result String (List Packaging)
+packagingListFromQuery db query =
     query.packaging
-        |> RE.combineMap (packagingFromQuery foodDb)
+        |> RE.combineMap (packagingFromQuery db)
 
 
-packagingFromQuery : FoodDb.Db -> BuilderQuery.PackagingQuery -> Result String Packaging
-packagingFromQuery { builderProcesses } { code, mass } =
+packagingFromQuery : Db -> BuilderQuery.PackagingQuery -> Result String Packaging
+packagingFromQuery { processes } { code, mass } =
     Result.map2 Packaging
-        (Process.findByCode builderProcesses code)
+        (Process.findByCode processes code)
         (Ok mass)
 
 
-recipeStepImpacts : FoodDb.Db -> Results -> Impacts
-recipeStepImpacts foodDb { recipe } =
+recipeStepImpacts : Db -> Results -> Impacts
+recipeStepImpacts db { recipe } =
     [ recipe.ingredients, recipe.transform ]
-        |> Impact.sumImpacts foodDb.impacts
+        |> Impact.sumImpacts db.impacts
 
 
 resetTransform : Query -> Query
@@ -279,13 +280,13 @@ sumMasses =
     List.map .mass >> Quantity.sum
 
 
-transformFromQuery : FoodDb.Db -> { a | transform : Maybe BuilderQuery.TransformQuery } -> Result String (Maybe Transform)
-transformFromQuery { builderProcesses } query =
+transformFromQuery : Db -> { a | transform : Maybe BuilderQuery.TransformQuery } -> Result String (Maybe Transform)
+transformFromQuery { processes } query =
     query.transform
         |> Maybe.map
             (\transform ->
                 Result.map2 Transform
-                    (Process.findByCode builderProcesses transform.code)
+                    (Process.findByCode processes transform.code)
                     (Ok transform.mass)
                     |> Result.map Just
             )

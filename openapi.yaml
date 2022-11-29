@@ -7,31 +7,31 @@ externalDocs:
   description: Visiter le site
   url: https://ecobalyse.beta.gouv.fr
 servers:
-- url: https://ecobalyse.beta.gouv.fr/api
+  - url: https://ecobalyse.beta.gouv.fr/api
 tags:
-- name: Commun
-  description: Documentation de l'API multi-domaines au format OpenAPI
-  externalDocs:
-    description: À propos
-    url: https://fabrique-numerique.gitbook.io/ecobalyse
-- name: Textile
-  description: Documentation de l'API pour le domaine textile au format OpenAPI
-  externalDocs:
-    description: À propos
-    url: https://fabrique-numerique.gitbook.io/ecobalyse
-- name: Alimentaire
-  description: |
-    Documentation de l'API pour le domaine alimentaire au format OpenAPI
+  - name: Commun
+    description: Documentation de l'API multi-domaines au format OpenAPI
+    externalDocs:
+      description: À propos
+      url: https://fabrique-numerique.gitbook.io/ecobalyse
+  - name: Textile
+    description: Documentation de l'API pour le domaine textile au format OpenAPI
+    externalDocs:
+      description: À propos
+      url: https://fabrique-numerique.gitbook.io/ecobalyse
+  - name: Alimentaire
+    description: |
+      Documentation de l'API pour le domaine alimentaire au format OpenAPI
 
-    **⚠️ En construction, les résultats fournis sont incomplets et probablement invalides.**
-  externalDocs:
-    description: À propos
-    url: https://fabrique-numerique.gitbook.io/ecobalyse
+      **⚠️ En construction, les résultats fournis sont incomplets et probablement invalides.**
+    externalDocs:
+      description: À propos
+      url: https://fabrique-numerique.gitbook.io/ecobalyse
 paths:
   /:
     get:
       tags:
-      - Commun
+        - Commun
       summary: Documentation OpenAPI de l'API
       description: Sert la documentation de l'API au format [OpenAPI](https://swagger.io/specification/)
       responses:
@@ -40,7 +40,7 @@ paths:
   /countries:
     get:
       tags:
-      - Commun
+        - Commun
       summary: Liste des pays
       responses:
         200:
@@ -48,11 +48,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CountryListResponse'
+                $ref: "#/components/schemas/CountryListResponse"
   /materials:
     get:
       tags:
-      - Textile
+        - Textile
       summary: Liste des matières textile
       responses:
         200:
@@ -60,11 +60,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MaterialListResponse'
+                $ref: "#/components/schemas/MaterialListResponse"
   /products:
     get:
       tags:
-      - Textile
+        - Textile
       summary: Liste des types de produits textiles
       responses:
         200:
@@ -72,128 +72,128 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ProductListResponse'
+                $ref: "#/components/schemas/ProductListResponse"
   /simulator:
     get:
       tags:
-      - Textile
+        - Textile
       summary: Calcul des impacts environnementaux d'un produit textile
       parameters:
-      - $ref: '#/components/parameters/massParam'
-      - $ref: '#/components/parameters/materialsParam'
-      - $ref: '#/components/parameters/productParam'
-      - $ref: '#/components/parameters/countryFabricParam'
-      - $ref: '#/components/parameters/countryDyeingParam'
-      - $ref: '#/components/parameters/countryMakingParam'
-      - $ref: '#/components/parameters/countrySpinningParam'
-      - $ref: '#/components/parameters/airTransportRatioParam'
-      - $ref: '#/components/parameters/qualityParam'
-      - $ref: '#/components/parameters/reparabilityParam'
-      - $ref: '#/components/parameters/makingWasteParam'
-      - $ref: '#/components/parameters/pickingParam'
-      - $ref: '#/components/parameters/surfaceMassParam'
-      - $ref: '#/components/parameters/disabledFadingParam'
-      - $ref: '#/components/parameters/disabledStepsParam'
-      - $ref: '#/components/parameters/dyeingMediumParam'
-      - $ref: '#/components/parameters/printingParam'
+        - $ref: "#/components/parameters/massParam"
+        - $ref: "#/components/parameters/materialsParam"
+        - $ref: "#/components/parameters/productParam"
+        - $ref: "#/components/parameters/countryFabricParam"
+        - $ref: "#/components/parameters/countryDyeingParam"
+        - $ref: "#/components/parameters/countryMakingParam"
+        - $ref: "#/components/parameters/countrySpinningParam"
+        - $ref: "#/components/parameters/airTransportRatioParam"
+        - $ref: "#/components/parameters/qualityParam"
+        - $ref: "#/components/parameters/reparabilityParam"
+        - $ref: "#/components/parameters/makingWasteParam"
+        - $ref: "#/components/parameters/pickingParam"
+        - $ref: "#/components/parameters/surfaceMassParam"
+        - $ref: "#/components/parameters/disabledFadingParam"
+        - $ref: "#/components/parameters/disabledStepsParam"
+        - $ref: "#/components/parameters/dyeingMediumParam"
+        - $ref: "#/components/parameters/printingParam"
       responses:
         200:
           description: Opération réussie
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericImpactsResponse'
+                $ref: "#/components/schemas/GenericImpactsResponse"
         400:
           description: Paramètres invalides
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/InvalidParametersError'
+                $ref: "#/components/schemas/InvalidParametersError"
   /simulator/{impact}:
     get:
       tags:
-      - Textile
+        - Textile
       summary: Calcul d'un impact environnemental spécifique d'un produit textile
       parameters:
-      - name: impact
-        in: path
-        description: |
-          Trigramme de l'impact étudié ([la liste est documenté ici](https://fabrique-numerique.gitbook.io/ecobalyse/methodologie/impacts-consideres))
-        required: true
-        schema:
-          type: string
-          minLength: 3
-          maxLength: 3
-          default: "cch"
-          enum:
-          - "acd"
-          - "ozd"
-          - "cch"
-          - "fwe"
-          - "swe"
-          - "tre"
-          - "pco"
-          - "pma"
-          - "ior"
-          - "fru"
-          - "mru"
-          - "ldu"
-          - "wtu"
-          - "pef"
-      - $ref: '#/components/parameters/massParam'
-      - $ref: '#/components/parameters/materialsParam'
-      - $ref: '#/components/parameters/productParam'
-      - $ref: '#/components/parameters/countryFabricParam'
-      - $ref: '#/components/parameters/countryDyeingParam'
-      - $ref: '#/components/parameters/countryMakingParam'
-      - $ref: '#/components/parameters/countrySpinningParam'
-      - $ref: '#/components/parameters/airTransportRatioParam'
-      - $ref: '#/components/parameters/qualityParam'
-      - $ref: '#/components/parameters/reparabilityParam'
-      - $ref: '#/components/parameters/makingWasteParam'
-      - $ref: '#/components/parameters/pickingParam'
-      - $ref: '#/components/parameters/surfaceMassParam'
-      - $ref: '#/components/parameters/disabledFadingParam'
-      - $ref: '#/components/parameters/disabledStepsParam'
-      - $ref: '#/components/parameters/dyeingMediumParam'
-      - $ref: '#/components/parameters/printingParam'
+        - name: impact
+          in: path
+          description: |
+            Trigramme de l'impact étudié ([la liste est documenté ici](https://fabrique-numerique.gitbook.io/ecobalyse/methodologie/impacts-consideres))
+          required: true
+          schema:
+            type: string
+            minLength: 3
+            maxLength: 3
+            default: "cch"
+            enum:
+              - "acd"
+              - "ozd"
+              - "cch"
+              - "fwe"
+              - "swe"
+              - "tre"
+              - "pco"
+              - "pma"
+              - "ior"
+              - "fru"
+              - "mru"
+              - "ldu"
+              - "wtu"
+              - "pef"
+        - $ref: "#/components/parameters/massParam"
+        - $ref: "#/components/parameters/materialsParam"
+        - $ref: "#/components/parameters/productParam"
+        - $ref: "#/components/parameters/countryFabricParam"
+        - $ref: "#/components/parameters/countryDyeingParam"
+        - $ref: "#/components/parameters/countryMakingParam"
+        - $ref: "#/components/parameters/countrySpinningParam"
+        - $ref: "#/components/parameters/airTransportRatioParam"
+        - $ref: "#/components/parameters/qualityParam"
+        - $ref: "#/components/parameters/reparabilityParam"
+        - $ref: "#/components/parameters/makingWasteParam"
+        - $ref: "#/components/parameters/pickingParam"
+        - $ref: "#/components/parameters/surfaceMassParam"
+        - $ref: "#/components/parameters/disabledFadingParam"
+        - $ref: "#/components/parameters/disabledStepsParam"
+        - $ref: "#/components/parameters/dyeingMediumParam"
+        - $ref: "#/components/parameters/printingParam"
       responses:
         200:
           description: successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SingleImpactResponse'
+                $ref: "#/components/schemas/SingleImpactResponse"
         400:
           description: Paramètres invalides
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/InvalidParametersError'
+                $ref: "#/components/schemas/InvalidParametersError"
   /simulator/detailed:
     get:
       tags:
-      - Textile
+        - Textile
       summary: Calcul exhaustif des impacts environnementaux d'un produit textile
       description: L'intégralité des calculs intermédiaires sont présentés dans une réponse détaillée
       parameters:
-      - $ref: '#/components/parameters/massParam'
-      - $ref: '#/components/parameters/materialsParam'
-      - $ref: '#/components/parameters/productParam'
-      - $ref: '#/components/parameters/countryFabricParam'
-      - $ref: '#/components/parameters/countryDyeingParam'
-      - $ref: '#/components/parameters/countryMakingParam'
-      - $ref: '#/components/parameters/countrySpinningParam'
-      - $ref: '#/components/parameters/airTransportRatioParam'
-      - $ref: '#/components/parameters/qualityParam'
-      - $ref: '#/components/parameters/reparabilityParam'
-      - $ref: '#/components/parameters/makingWasteParam'
-      - $ref: '#/components/parameters/pickingParam'
-      - $ref: '#/components/parameters/surfaceMassParam'
-      - $ref: '#/components/parameters/disabledFadingParam'
-      - $ref: '#/components/parameters/disabledStepsParam'
-      - $ref: '#/components/parameters/dyeingMediumParam'
-      - $ref: '#/components/parameters/printingParam'
+        - $ref: "#/components/parameters/massParam"
+        - $ref: "#/components/parameters/materialsParam"
+        - $ref: "#/components/parameters/productParam"
+        - $ref: "#/components/parameters/countryFabricParam"
+        - $ref: "#/components/parameters/countryDyeingParam"
+        - $ref: "#/components/parameters/countryMakingParam"
+        - $ref: "#/components/parameters/countrySpinningParam"
+        - $ref: "#/components/parameters/airTransportRatioParam"
+        - $ref: "#/components/parameters/qualityParam"
+        - $ref: "#/components/parameters/reparabilityParam"
+        - $ref: "#/components/parameters/makingWasteParam"
+        - $ref: "#/components/parameters/pickingParam"
+        - $ref: "#/components/parameters/surfaceMassParam"
+        - $ref: "#/components/parameters/disabledFadingParam"
+        - $ref: "#/components/parameters/disabledStepsParam"
+        - $ref: "#/components/parameters/dyeingMediumParam"
+        - $ref: "#/components/parameters/printingParam"
       responses:
         200:
           description: Opération réussie
@@ -206,11 +206,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/InvalidParametersError'
+                $ref: "#/components/schemas/InvalidParametersError"
   /food/ingredients:
     get:
       tags:
-      - Alimentaire
+        - Alimentaire
       summary: Liste des ingrédients disponibles pour élaborer une recette
       responses:
         200:
@@ -218,11 +218,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/IngredientListResponse'
+                $ref: "#/components/schemas/IngredientListResponse"
   /food/transforms:
     get:
       tags:
-      - Alimentaire
+        - Alimentaire
       summary: Liste des procédés de transformation alimentaire
       responses:
         200:
@@ -230,11 +230,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TransformListResponse'
+                $ref: "#/components/schemas/TransformListResponse"
   /food/packagings:
     get:
       tags:
-      - Alimentaire
+        - Alimentaire
       summary: Liste des emballages disponibles pour conditionner une recette
       responses:
         200:
@@ -242,29 +242,29 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PackagingListResponse'
+                $ref: "#/components/schemas/PackagingListResponse"
   /food/recipe:
     get:
       tags:
-      - Alimentaire
+        - Alimentaire
       summary: Calcul des impacts environnementaux d'une recette alimentaire
       parameters:
-      - $ref: '#/components/parameters/ingredientsParam'
-      - $ref: '#/components/parameters/transformParam'
-      - $ref: '#/components/parameters/packagingParam'
+        - $ref: "#/components/parameters/ingredientsParam"
+        - $ref: "#/components/parameters/transformParam"
+        - $ref: "#/components/parameters/packagingParam"
       responses:
         200:
           description: Opération réussie
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RecipeResultsResponse'
+                $ref: "#/components/schemas/RecipeResultsResponse"
         400:
           description: Paramètres invalides
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/InvalidParametersError'
+                $ref: "#/components/schemas/InvalidParametersError"
 components:
   parameters:
     massParam:
@@ -566,15 +566,15 @@ components:
       in: query
       description: |
         Liste des ingrédients composant la recette (liste disponible sur le point d'entrée `/food/ingredients`).
-        Le format de chaque entrée est composé de l'identifiant de la matière et de sa masse **exprimée en grammes** :
+        Le format de chaque entrée est composé de l'identifiant de la matière et de sa masse **exprimée en grammes**, ainsi que d'un éventuel variant à utiliser :
 
-        - `2e3f03c6de1e43900e09ae852182e9c7;268` signifie *268g de mozzarella ("Mozzarella cheese, from cow's milk, at plant")*;
-        - `83da330027d4b25dbc7817f06b738571;30` signifie *30g d'huile d'olive* ("Olive oil, at plant");
+        - `milk;268` signifie *268g de lait*;
+        - `carrot;30;organic` signifie *30g de carrotes bio*;
 
-        > Par exemple, les paramètres à passer pour une recette à base de 268g de mozzarella et 30g d'huile d'olive sont :
+        > Par exemple, les paramètres à passer pour une recette à base de 268g de lait et 30g de carrotes bio sont :
         >
         > ```js
-        > ingredients[]=2e3f03c6de1e43900e09ae852182e9c7;268&ingredients[]=83da330027d4b25dbc7817f06b738571;30
+        > ingredients[]=milk;268&ingredients[]=carrot;30;organic
         > ```
       required: true
       style: form
@@ -584,14 +584,14 @@ components:
           type: string
       examples:
         oneIngredient:
-          summary: Mozzarella
-          value: ["2e3f03c6de1e43900e09ae852182e9c7;268"]
+          summary: Lait
+          value: ["milk;268"]
         twoIngredients:
-          summary: Mozzarella, Olive Oil
-          value: ["2e3f03c6de1e43900e09ae852182e9c7;268", "83da330027d4b25dbc7817f06b738571;30"]
+          summary: Lait, carrotes bio
+          value: ["milk;268", "carrot;30;organic"]
         threeIngredients:
-          summary: Mozzarella, Olive Oil, Tuna
-          value: ["2e3f03c6de1e43900e09ae852182e9c7;268", "83da330027d4b25dbc7817f06b738571;30", "568c715f977f32948813855d5efd95ba;149"]
+          summary: Lait, carrotes bio, oeuf
+          value: ["milk;268", "carrot;30;organic", "egg;149"]
     packagingParam:
       name: "packaging[]"
       in: query
@@ -726,7 +726,7 @@ components:
           type: object
           properties:
             impacts:
-              $ref: '#/components/schemas/Impacts'
+              $ref: "#/components/schemas/Impacts"
     GenericImpactsResponse:
       type: object
       description: |
@@ -734,7 +734,7 @@ components:
         [la documentation est disponible ici](https://fabrique-numerique.gitbook.io/ecobalyse/methodologie/impacts-consideres).
       properties:
         impacts:
-          $ref: '#/components/schemas/Impacts'
+          $ref: "#/components/schemas/Impacts"
         description:
           type: string
           description: Une description de la simulation.
@@ -762,10 +762,13 @@ components:
       items:
         type: object
         properties:
-          code:
+          id:
             type: string
           name:
             type: string
+          variants:
+            type: array
+            description: List des variants d'un ingrédient (par exemple label bio).
     PackagingListResponse:
       type: array
       description: Liste des emballages utilisables pour conditionner une recette

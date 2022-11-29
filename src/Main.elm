@@ -2,7 +2,8 @@ module Main exposing (main)
 
 import Browser exposing (Document)
 import Browser.Navigation as Nav
-import Data.Food.Db as FoodDb
+import Data.Food.Builder.Db as BuilderDb
+import Data.Food.Explorer.Db as ExplorerDb
 import Data.Session as Session exposing (Session)
 import Data.Textile.Db as Db exposing (Db)
 import Data.Textile.Inputs as Inputs
@@ -87,7 +88,8 @@ init flags url navKey =
             , store = Session.deserializeStore flags.rawStore
             , currentVersion = Request.Version.Unknown
             , db = Db.empty
-            , foodDb = FoodDb.empty
+            , builderDb = BuilderDb.empty
+            , explorerDb = ExplorerDb.empty
             , notifications = []
             , query = Inputs.defaultQuery
             }

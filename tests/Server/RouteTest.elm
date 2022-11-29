@@ -1,6 +1,6 @@
 module Server.RouteTest exposing (..)
 
-import Data.Food.Explorer.Recipe as Recipe
+import Data.Food.Builder.Query as BuilderQuery
 import Data.Impact as Impact
 import Data.Textile.Inputs as Inputs exposing (tShirtCotonFrance)
 import Data.Textile.Material as Material
@@ -36,21 +36,22 @@ foodEndpoints db =
         , getEndpoint db "GET" "/food/transforms"
             |> Expect.equal (Just (Route.Get Route.FoodTransformList))
             |> asTest "should handle the /food/transforms endpoint"
-        , [ "/food/recipe?1"
+        , getEndpoint db "GET" "/food/packagings"
+            |> Expect.equal (Just (Route.Get Route.FoodPackagingList))
+            |> asTest "should handle the /food/packagings endpoint"
+        , [ "/food/recipe?"
 
-          -- Here goes our "famous" tuna pizza…
-          , "ingredients[]=2e3f03c6de1e43900e09ae852182e9c7;268"
-          , "ingredients[]=83da330027d4b25dbc7817f06b738571;30"
-          , "ingredients[]=568c715f977f32948813855d5efd95ba;149"
-          , "ingredients[]=65e2a1f81e8525d74bc3d4d5bd559114;100"
-          , "ingredients[]=a343353e431d7dddc7bb25cbc41e179a;168"
-          , "ingredients[]=3af9739fc89492167dd0d273daac957a;425"
-          , "transform=aded2490573207ec7ad5a3813978f6a4;1140"
+          -- Here goes our "famous" carrot cake…
+          , "ingredients[]=egg;120"
+          , "ingredients[]=wheat;140"
+          , "ingredients[]=milk;60"
+          , "ingredients[]=carrot;225"
+          , "transform=aded2490573207ec7ad5a3813978f6a4;545"
           , "packaging[]=23b2754e5943bc77916f8f871edc53b6;105"
           ]
             |> String.join "&"
             |> getEndpoint db "GET"
-            |> Expect.equal (Just <| Route.Get (Route.FoodRecipe (Ok Recipe.tunaPizza)))
+            |> Expect.equal (Just <| Route.Get (Route.FoodRecipe (Ok BuilderQuery.carrotCake)))
             |> asTest "should handle the /food/recipe endpoint"
         ]
     , describe "validation"
@@ -59,21 +60,26 @@ foodEndpoints db =
             |> Maybe.andThen (Dict.get "ingredients")
             |> Expect.equal (Just "La liste des ingrédients est vide.")
             |> asTest "should validate an empty ingredients list"
-        , getEndpoint db "GET" "/food/recipe?ingredients[]=2e3f03c6de1e43900e09ae852182e9c7|0"
+        , getEndpoint db "GET" "/food/recipe?ingredients[]=egg|0"
             |> Maybe.andThen extractFoodErrors
             |> Maybe.andThen (Dict.get "ingredients")
-            |> Expect.equal (Just "Format d'ingrédient invalide : 2e3f03c6de1e43900e09ae852182e9c7|0.")
+            |> Expect.equal (Just "Format d'ingrédient invalide : egg|0.")
             |> asTest "should validate ingredient format"
         , getEndpoint db "GET" "/food/recipe?ingredients[]=invalid;100"
             |> Maybe.andThen extractFoodErrors
             |> Maybe.andThen (Dict.get "ingredients")
-            |> Expect.equal (Just "Procédé introuvable par code : invalid")
-            |> asTest "should validate that an ingredient code is valid"
-        , getEndpoint db "GET" "/food/recipe?ingredients[]=2e3f03c6de1e43900e09ae852182e9c7;-1"
+            |> Expect.equal (Just "Ingrédient introuvable par id : invalid")
+            |> asTest "should validate that an ingredient id is valid"
+        , getEndpoint db "GET" "/food/recipe?ingredients[]=egg;-1"
             |> Maybe.andThen extractFoodErrors
             |> Maybe.andThen (Dict.get "ingredients")
             |> Expect.equal (Just "La masse doit être supérieure ou égale à zéro.")
             |> asTest "should validate that an ingredient mass is greater than zero"
+        , getEndpoint db "GET" "/food/recipe?ingredients[]=egg;1;invalidVariant"
+            |> Maybe.andThen extractFoodErrors
+            |> Maybe.andThen (Dict.get "ingredients")
+            |> Expect.equal (Just "Format de variant invalide : invalidVariant")
+            |> asTest "should validate that an ingredient variant is valid"
         , getEndpoint db "GET" "/food/recipe?transform=aded2490573207ec7ad5a3813978f6a4;-1"
             |> Maybe.andThen extractFoodErrors
             |> Maybe.andThen (Dict.get "transform")

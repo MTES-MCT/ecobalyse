@@ -237,8 +237,8 @@ describe("API", () => {
     describe("/food/ingredients", () => {
       it("should render with ingredients list", async () => {
         await expectListResponseContains("/api/food/ingredients", {
-          code: "7f20f2b7cc0440f6d1fa3add18e24151",
-          name: "Apricot, canned",
+          id: "milk",
+          name: "lait",
         });
       });
     });
@@ -255,7 +255,7 @@ describe("API", () => {
     describe("/food/recipe", () => {
       it("should compute 17 impacts", async () => {
         const response = await makeRequest("/api/food/recipe", [
-          "ingredients[]=2e3f03c6de1e43900e09ae852182e9c7;268",
+          "ingredients[]=carrot;268",
           "transform=aded2490573207ec7ad5a3813978f6a4;1050",
         ]);
 
@@ -271,19 +271,17 @@ describe("API", () => {
         );
       });
 
-      it("should validate an ingredient code", async () => {
+      it("should validate an ingredient id", async () => {
         expectFieldErrorMessage(
           await makeRequest("/api/food/recipe", ["ingredients[]=invalid;268"]),
           "ingredients",
-          /Procédé introuvable par code : invalid/,
+          /Ingrédient introuvable par id : invalid/,
         );
       });
 
       it("should validate an ingredient mass", async () => {
         expectFieldErrorMessage(
-          await makeRequest("/api/food/recipe", [
-            "ingredients[]=2e3f03c6de1e43900e09ae852182e9c7;-1",
-          ]),
+          await makeRequest("/api/food/recipe", ["ingredients[]=carrot;-1"]),
           "ingredients",
           /masse doit être supérieure ou égale à zéro/,
         );

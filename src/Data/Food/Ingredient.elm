@@ -59,6 +59,14 @@ decodeVariants processes =
         |> Pipe.optional "organic" (Decode.maybe (linkProcess processes)) Nothing
 
 
+findByID : List Ingredient -> ID -> Result String Ingredient
+findByID ingredients id =
+    ingredients
+        |> List.filter (.id >> (==) id)
+        |> List.head
+        |> Result.fromMaybe ("Ingrédient introuvable par id : " ++ IngredientID.toString id)
+
+
 linkProcess : Dict String Process -> Decoder Process
 linkProcess processes =
     Decode.string
@@ -69,11 +77,3 @@ linkProcess processes =
                             |> Result.fromMaybe ("Procédé introuvable par code : " ++ processCode)
                    )
             )
-
-
-findByID : List Ingredient -> ID -> Result String Ingredient
-findByID ingredients id =
-    ingredients
-        |> List.filter (.id >> (==) id)
-        |> List.head
-        |> Result.fromMaybe ("Ingrédient introuvable par nom : " ++ IngredientID.toString id)
