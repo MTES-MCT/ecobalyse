@@ -48,7 +48,23 @@ getApiServerUrl { clientUrl } =
 
 changelog : List News
 changelog =
-    [ { date = "22 novembre 2022"
+    [ { date = "30 novembre 2022"
+      , level = "major"
+      , domains = [ "Textile" ]
+      , md =
+            """Un nouveau paramètre `ennoblingHeatSource` a été ajouté, permettant si besoin de préciser
+            la source de chaleur à l'étape d'ennoblissement\u{00A0}; il peut prendre les valeurs
+            suivantes\u{00A0}:
+
+- `coal`: Vapeur à partir de Charbon
+- `gas`: Vapeur à partir de Gaz naturel
+- `heavyfuel`: Vapeur à partir de Fioul lourd
+- `lightfuel`: Vapeur à partir de Fioul léger
+
+En l'absence d'utilisation explicite du paramètre, la source de chaleur utilisée sera celle du mix régional.
+"""
+      }
+    , { date = "22 novembre 2022"
       , level = "major"
       , domains = [ "Textile" ]
       , md =
