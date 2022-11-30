@@ -348,10 +348,25 @@ updateIngredientFormView { excluded, db, ingredient } =
                 ingredient.ingredient.id
                 excluded
                 (\newIngredient ->
+                    let
+                        newVariant =
+                            case ingredientQuery.variant of
+                                Query.Default ->
+                                    Query.Default
+
+                                Query.Organic ->
+                                    if newIngredient.variants.organic == Nothing then
+                                        -- Fallback to "Default" if the new ingredient doesn't have an "organic" variant
+                                        Query.Default
+
+                                    else
+                                        Query.Organic
+                    in
                     event
                         { ingredientQuery
                             | id = newIngredient.id
                             , name = newIngredient.name
+                            , variant = newVariant
                         }
                 )
         )
