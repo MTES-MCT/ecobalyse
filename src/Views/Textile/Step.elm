@@ -489,7 +489,7 @@ simpleView ({ funit, inputs, daysOfWear, impact, current } as config) =
 
                     Label.Ennobling ->
                         div [ class "mt-2" ]
-                            [ ennoblingFields config
+                            [ ennoblingGenericFields config
                             ]
 
                     Label.Making ->
@@ -570,11 +570,42 @@ daysOfWearInfo inputs =
         ]
 
 
-ennoblingFields : Config msg -> Html msg
-ennoblingFields config =
+ennoblingGenericFields : Config msg -> Html msg
+ennoblingGenericFields config =
+    -- Note: this fieldset is rendered in both simple and detailed step views
     div [ class "d-flex flex-column gap-1" ]
         [ dyeingMediumField config
         , printingFields config
+        ]
+
+
+ennoblingHeatSourceField : Config msg -> Html msg
+ennoblingHeatSourceField ({ inputs } as config) =
+    -- Note: This field is only rendered in the detailed step view
+    li [ class "list-group-item text-muted d-flex align-items-center gap-2" ]
+        [ label [ class "text-nowrap w-25", for "ennobling-heat-source" ] [ text "Chaleur" ]
+        , [ HeatSource.Coal, HeatSource.NaturalGas, HeatSource.HeavyFuel, HeatSource.LightFuel ]
+            |> List.map
+                (\heatSource ->
+                    option
+                        [ value (HeatSource.toString heatSource)
+                        , selected <| inputs.ennoblingHeatSource == Just heatSource
+                        ]
+                        [ text (HeatSource.toLabelWithZone inputs.countryDyeing.zone heatSource) ]
+                )
+            |> (::)
+                (option [ selected <| inputs.ennoblingHeatSource == Nothing ]
+                    [ text "Mix régional" ]
+                )
+            |> select
+                [ id "ennobling-heat-source"
+                , class "form-select form-select-sm w-75"
+                , onInput
+                    (HeatSource.fromString
+                        >> Result.toMaybe
+                        >> config.updateEnnoblingHeatSource
+                    )
+                ]
         ]
 
 
@@ -609,31 +640,7 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                 , viewProcessInfo current.processInfo.countryElec
                 , case current.label of
                     Label.Ennobling ->
-                        li [ class "list-group-item text-muted d-flex align-items-center gap-2" ]
-                            [ label [ class "text-nowrap w-25", for "ennobling-heat-source" ] [ text "Chaleur" ]
-                            , [ HeatSource.Coal, HeatSource.NaturalGas, HeatSource.HeavyFuel, HeatSource.LightFuel ]
-                                |> List.map
-                                    (\heatSource ->
-                                        option
-                                            [ value (HeatSource.toString heatSource)
-                                            , selected <| inputs.ennoblingHeatSource == Just heatSource
-                                            ]
-                                            [ text (HeatSource.toLabelWithZone inputs.countryDyeing.zone heatSource) ]
-                                    )
-                                |> (::)
-                                    (option [ selected <| inputs.ennoblingHeatSource == Nothing ]
-                                        [ text "Mix régional" ]
-                                    )
-                                |> select
-                                    [ id "ennobling-heat-source"
-                                    , class "form-select form-select-sm w-75"
-                                    , onInput
-                                        (HeatSource.fromString
-                                            >> Result.toMaybe
-                                            >> config.updateEnnoblingHeatSource
-                                        )
-                                    ]
-                            ]
+                        ennoblingHeatSourceField config
 
                     _ ->
                         viewProcessInfo current.processInfo.countryHeat
@@ -669,7 +676,7 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                     Label.Ennobling ->
                         [ div [ class "text-muted fs-7 mb-2" ]
                             [ text "Pré-traitement\u{00A0}: non applicable" ]
-                        , ennoblingFields config
+                        , ennoblingGenericFields config
                         , div [ class "text-muted fs-7 mt-2" ]
                             [ text "Finition\u{00A0}: apprêt chimique" ]
                         ]
