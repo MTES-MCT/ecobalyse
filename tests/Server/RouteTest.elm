@@ -237,6 +237,11 @@ textileEndpoints db =
             |> Maybe.andThen (Dict.get "materials")
             |> Expect.equal (Just "Un ratio doit être compris entre 0 et 1 inclus (ici : 12).")
             |> asTest "should validate invalid material ratios"
+        , getEndpoint db "GET" "/simulator?ennoblingHeatSource=bonk"
+            |> Maybe.andThen extractTextileErrors
+            |> Maybe.andThen (Dict.get "ennoblingHeatSource")
+            |> Expect.equal (Just "Source de production de vapeur inconnue: bonk")
+            |> asTest "should validate invalid ennoblingHeatSource identifier"
         , getEndpoint db "GET" "/simulator?printing=plop"
             |> Maybe.andThen extractTextileErrors
             |> Maybe.andThen (Dict.get "printing")
@@ -275,6 +280,7 @@ textileEndpoints db =
           , "disabledFading=untrue"
           , "dyeingMedium=yolo"
           , "printing=yolo"
+          , "ennoblingHeatSource=yolo"
           ]
             |> String.join "&"
             |> getEndpoint db "GET"
@@ -292,6 +298,7 @@ textileEndpoints db =
                     , ( "disabledFading", "La valeur ne peut être que true ou false." )
                     , ( "dyeingMedium", "Type de support de teinture inconnu: yolo" )
                     , ( "printing", "Format de type et surface d'impression invalide: yolo" )
+                    , ( "ennoblingHeatSource", "Source de production de vapeur inconnue: yolo" )
                     ]
                     |> Just
                 )
