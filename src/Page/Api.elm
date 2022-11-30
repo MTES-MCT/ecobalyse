@@ -56,10 +56,10 @@ changelog =
             la source de chaleur à l'étape d'ennoblissement\u{00A0}; il peut prendre les valeurs
             suivantes\u{00A0}:
 
-- `coal`: Vapeur à partir de Charbon
-- `gas`: Vapeur à partir de Gaz naturel
-- `heavyfuel`: Vapeur à partir de Fioul lourd
-- `lightfuel`: Vapeur à partir de Fioul léger
+- `coal`: Vapeur à partir de charbon
+- `naturalgas`: Vapeur à partir de gaz naturel
+- `lightfuel`: Vapeur à partir de fioul léger
+- `heavyfuel`: Vapeur à partir de fioul lourd
 
 En l'absence d'utilisation explicite du paramètre, la source de chaleur utilisée sera celle du mix régional.
 """

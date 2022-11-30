@@ -15,9 +15,9 @@ import Json.Encode as Encode
 
 type HeatSource
     = Coal
-    | Gas
     | HeavyFuel
     | LightFuel
+    | NaturalGas
 
 
 decode : Decoder HeatSource
@@ -37,14 +37,14 @@ fromString string =
         "coal" ->
             Ok Coal
 
-        "gas" ->
-            Ok Gas
-
         "heavyfuel" ->
             Ok HeavyFuel
 
         "lightfuel" ->
             Ok LightFuel
+
+        "naturalgas" ->
+            Ok NaturalGas
 
         _ ->
             Err <| "Source de production de vapeur inconnue: " ++ string
@@ -56,14 +56,14 @@ toLabel source =
         Coal ->
             "Charbon"
 
-        Gas ->
-            "Gaz naturel"
-
         HeavyFuel ->
             "Fioul lourd"
 
         LightFuel ->
             "Fioul léger"
+
+        NaturalGas ->
+            "Gaz naturel"
 
 
 toLabelWithZone : Zone -> HeatSource -> String
@@ -86,11 +86,11 @@ toString source =
         Coal ->
             "coal"
 
-        Gas ->
-            "gas"
-
         HeavyFuel ->
             "heavyfuel"
 
         LightFuel ->
             "lightfuel"
+
+        NaturalGas ->
+            "naturalgas"

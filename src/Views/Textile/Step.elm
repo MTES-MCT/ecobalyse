@@ -611,7 +611,7 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                     Label.Ennobling ->
                         li [ class "list-group-item text-muted d-flex align-items-center gap-2" ]
                             [ label [ class "text-nowrap w-25", for "ennobling-heat-source" ] [ text "Chaleur" ]
-                            , [ HeatSource.Coal, HeatSource.Gas, HeatSource.HeavyFuel, HeatSource.LightFuel ]
+                            , [ HeatSource.Coal, HeatSource.NaturalGas, HeatSource.HeavyFuel, HeatSource.LightFuel ]
                                 |> List.map
                                     (\heatSource ->
                                         option

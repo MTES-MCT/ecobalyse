@@ -518,9 +518,9 @@ components:
         suivantes :
 
         - `coal`: Vapeur à partir de Charbon
-        - `gas`: Vapeur à partir de Gaz naturel
-        - `heavyfuel`: Vapeur à partir de Fioul lourd
+        - `naturalgas`: Vapeur à partir de Gaz naturel
         - `lightfuel`: Vapeur à partir de Fioul léger
+        - `heavyfuel`: Vapeur à partir de Fioul lourd
 
         ⚠️ En l'absence d'utilisation explicite du paramètre, la source de chaleur utilisée sera celle du mix régional.
       required: false
@@ -536,7 +536,7 @@ components:
           value: "coal"
         naturalGas:
           summary: "Gaz naturel"
-          value: "gas"
+          value: "naturalgas"
         lightfuel:
           summary: "Fuel léger"
           value: "lightfuel"

@@ -111,7 +111,7 @@ getEnnoblingHeatProcess zone heatSource wk =
         ( Zone.Europe, HeatSource.Coal ) ->
             wk.steamCoalRER
 
-        ( Zone.Europe, HeatSource.Gas ) ->
+        ( Zone.Europe, HeatSource.NaturalGas ) ->
             wk.steamGasRER
 
         ( Zone.Europe, HeatSource.HeavyFuel ) ->
@@ -123,7 +123,7 @@ getEnnoblingHeatProcess zone heatSource wk =
         ( _, HeatSource.Coal ) ->
             wk.steamCoalRSA
 
-        ( _, HeatSource.Gas ) ->
+        ( _, HeatSource.NaturalGas ) ->
             wk.steamGasRSA
 
         ( _, HeatSource.HeavyFuel ) ->
