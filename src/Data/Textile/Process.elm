@@ -105,8 +105,8 @@ getDyeingProcess medium { dyeingArticle, dyeingFabric, dyeingYarn } =
             dyeingYarn
 
 
-getEnnoblingHeatProcess : Zone -> HeatSource -> WellKnown -> Process
-getEnnoblingHeatProcess zone heatSource wk =
+getEnnoblingHeatProcess : WellKnown -> Zone -> HeatSource -> Process
+getEnnoblingHeatProcess wk zone heatSource =
     case ( zone, heatSource ) of
         ( Zone.Europe, HeatSource.Coal ) ->
             wk.steamCoalRER
