@@ -1,12 +1,12 @@
 ---
 description: >-
-  Votre retour d'expérience sur tout ou partie des travaux est précieux. (Pour
-  nous écrire => ecobalyse@beta.gouv.fr)
+  Votre retour d'expérience sur tout ou partie des travaux est précieux (contact
+  : alban.fournier@beta.gouv.fr)
 ---
 
 # Travaux en cours
 
-## # 1 \_ Ennoblissement
+## # 1 \_ Ennoblissement (terminé le 30/11/2022)
 
 ### Contexte
 
@@ -15,7 +15,7 @@ L'ennoblissement contribue de manière élevée à l'impact environnemental glob
 Quelques données chiffrées :&#x20;
 
 * Changement climatique (kg CO2 eq.) => entre 10% et 40% du total&#x20;
-* Ecotoxicité aquatique => l'industrie Textile contribue de manière significative sur la pollution aquatique dans le monde (les chiffres proposées dans la littérature spécialisée varient entre 10% et 20%). Cela est principalement dû aux rejets aqueux (bains de teinture, substances chimiques utilisés lors de l'application d'apprêts, etc.) de l'étape ennoblissement.&#x20;
+* Ecotoxicité aquatique => l'industrie Textile contribue de manière significative sur la pollution aquatique dans le monde (les chiffres proposées dans la littérature spécialisée varient entre 10% et 20%).&#x20;
 
 Ecobalyse mène des travaux poussés sur cette étape avec diférents experts de l'industrie afin de retranscrire les réalités industrielles dans l'outil. De plus, nous travaillons avec les fournisseurs de données et la communauté scientifique pour permettre une modélisation fiable de l'écotoxicité aquatique.
 
@@ -34,7 +34,7 @@ Ecobalyse mène des travaux poussés sur cette étape avec diférents experts de
 
 
 
-## #2 \_ Tissage / Tricotage
+## #2 \_ Tissage / Tricotage (en cours)
 
 ### Contexte
 
@@ -46,7 +46,8 @@ Ecobalyse mène des travaux poussés sur cette étape avec diférents experts de
 
 * Existe-t-il une corrélation entre la catégorie du vêtement (jean, t-shirt, chaussettes, etc.) et le procédé (tissage/tricotage) utilisé ? Si oui, lesquelles ?
 * Quels sont les principaux procédés/techniques de tissage et tricotage utilisés dans l'industrie ?
-* Quels sont les grammages (g/m2) et poids (g) moyens utilisés dans l'industrie par catégorie de vêtement, taille et genre ?
+* Quels sont les principaux grammages (g/m2) de tissu utilisés dans l'industrie ?
+* Pourquoi à masse constante (1 kg) les procédés de tricotage consomment-ils généralement moins d'énergie (MJ) que ceux de tissage ?
 * \[...]
 
 ### Support de travail
