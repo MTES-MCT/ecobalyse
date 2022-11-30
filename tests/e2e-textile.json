@@ -499,5 +499,36 @@
       "tre": 0.19094268601839434,
       "wtu": 1.837458944594566
     }
+  },
+  {
+    "name": "Tshirt coton, Inde, Coal heat source for ennobling",
+    "query": [
+      "mass=0.3",
+      "product=tshirt",
+      "materials[]=coton;1",
+      "countryFabric=IN",
+      "countryDyeing=IN",
+      "countryMaking=IN",
+      "ennoblingHeatSource=coal"
+    ],
+    "impacts": {
+      "acd": 0.12133665813875955,
+      "cch": 14.653417993754829,
+      "etf": 0,
+      "fru": 199.1263338897495,
+      "fwe": 0.0008163218953372832,
+      "htc": 0,
+      "htn": 0,
+      "ior": 22.794215901916942,
+      "ldu": 272.0204302661122,
+      "mru": 0.000052486523200634406,
+      "ozd": 0.00003083145769188406,
+      "pco": 0.05470440683586884,
+      "pef": 1810.2120521636543,
+      "pma": 0.000002682821536069888,
+      "swe": 0.05585659618837246,
+      "tre": 0.2977256951491473,
+      "wtu": 1.837458944594566
+    }
   }
 ]
