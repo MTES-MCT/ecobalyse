@@ -78,18 +78,18 @@ type alias WellKnown =
     }
 
 
-findByUuid : Uuid -> List Process -> Result String Process
-findByUuid uuid =
-    List.filter (.uuid >> (==) uuid)
-        >> List.head
-        >> Result.fromMaybe ("Procédé introuvable par UUID: " ++ uuidToString uuid)
-
-
 findByAlias : Alias -> List Process -> Result String Process
 findByAlias alias =
     List.filter (.alias >> (==) (Just alias))
         >> List.head
         >> Result.fromMaybe ("Procédé introuvable par alias: " ++ aliasToString alias)
+
+
+findByUuid : Uuid -> List Process -> Result String Process
+findByUuid uuid =
+    List.filter (.uuid >> (==) uuid)
+        >> List.head
+        >> Result.fromMaybe ("Procédé introuvable par UUID: " ++ uuidToString uuid)
 
 
 getDyeingProcess : DyeingMedium -> WellKnown -> Process
@@ -204,13 +204,13 @@ loadWellKnown processes =
         |> load .steamCoalRSA
 
 
-uuidToString : Uuid -> String
-uuidToString (Uuid string) =
+aliasToString : Alias -> String
+aliasToString (Alias string) =
     string
 
 
-aliasToString : Alias -> String
-aliasToString (Alias string) =
+uuidToString : Uuid -> String
+uuidToString (Uuid string) =
     string
 
 
