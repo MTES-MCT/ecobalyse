@@ -492,24 +492,27 @@ components:
         - `material`: Matière
         - `spinning`: Filature
         - `fabric`: Tissage ou Tricotage
-        - `making`: Teinture/Ennoblissement
-        - `dyeing`: Confection
+        - `ennobling`: Ennoblissement (incluant le pré-traitement, la teinture et la finition)
+        - `making`: Confection
         - `distribution`: Distribution
         - `use`: Utilisation
         - `eol`: Fin de vie
 
-        Par exemple, pour désactiver l'étape de filature ainsi que celle de teinture, on peut passer `disabledSteps=spinning,dyeing`.
+        Par exemple, pour désactiver l'étape de filature ainsi que celle d'ennoblissement, on peut passer `disabledSteps=spinning,ennobling`.
       required: false
       style: form
       schema:
         type: string
       examples:
         default:
+          summary: "Aucune étape désactivée"
           value: ""
         making:
+          summary: "Confection desactivée"
           value: "making"
         spinningDyeing:
-          value: "spinning,dyeing"
+          summary: "Filature et ennoblissement désactivés"
+          value: "spinning,ennobling"
     ennoblingHeatSourceParam:
       name: ennoblingHeatSource
       in: query

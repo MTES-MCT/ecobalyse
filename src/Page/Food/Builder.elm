@@ -569,7 +569,7 @@ sidebarView foodDb model results =
                         ]
                     , small [ class "d-flex align-items-center gap-1" ]
                         [ Icon.warning
-                        , text "Attention, ces résultats sont partiels"
+                        , text "Attention, ce résultat est partiel"
                         ]
                     ]
                 ]
