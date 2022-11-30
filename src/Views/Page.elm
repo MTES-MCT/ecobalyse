@@ -71,6 +71,18 @@ frame config ( title, content ) =
             text ""
         , main_ [ class "bg-white" ]
             [ notificationListView config
+            , if config.activePage == FoodBuilder || config.activePage == FoodExplore then
+                div [ class "alert alert-info border-start-0 border-end-0 rounded-0" ]
+                    [ Container.centered []
+                        [ h2 [ class "d-flex align-items-center gap-1 h5" ] [ Icon.warning, text "Version Alpha" ]
+                        , text """Ce calculateur d’impacts environnementaux alimentaire est en
+                                  cours de développement\u{00A0}: les fonctionnalités, données
+                                  et valeurs calculées ne sont pas encore fiables."""
+                        ]
+                    ]
+
+              else
+                text ""
             , div [ class "pt-2 pt-sm-5" ] content
             ]
         , pageFooter config.session
