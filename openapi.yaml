@@ -94,6 +94,7 @@ paths:
       - $ref: '#/components/parameters/surfaceMassParam'
       - $ref: '#/components/parameters/disabledFadingParam'
       - $ref: '#/components/parameters/disabledStepsParam'
+      - $ref: '#/components/parameters/ennoblingHeatSourceParam'
       - $ref: '#/components/parameters/dyeingMediumParam'
       - $ref: '#/components/parameters/printingParam'
       responses:
@@ -155,6 +156,7 @@ paths:
       - $ref: '#/components/parameters/surfaceMassParam'
       - $ref: '#/components/parameters/disabledFadingParam'
       - $ref: '#/components/parameters/disabledStepsParam'
+      - $ref: '#/components/parameters/ennoblingHeatSourceParam'
       - $ref: '#/components/parameters/dyeingMediumParam'
       - $ref: '#/components/parameters/printingParam'
       responses:
@@ -192,6 +194,7 @@ paths:
       - $ref: '#/components/parameters/surfaceMassParam'
       - $ref: '#/components/parameters/disabledFadingParam'
       - $ref: '#/components/parameters/disabledStepsParam'
+      - $ref: '#/components/parameters/ennoblingHeatSourceParam'
       - $ref: '#/components/parameters/dyeingMediumParam'
       - $ref: '#/components/parameters/printingParam'
       responses:
@@ -507,6 +510,39 @@ components:
           value: "making"
         spinningDyeing:
           value: "spinning,dyeing"
+    ennoblingHeatSourceParam:
+      name: ennoblingHeatSource
+      in: query
+      description: |
+        Ce paramètre permet de préciser la source de chaleur à l'étape d'ennoblissement ; il peut prendre les valeurs
+        suivantes :
+
+        - `coal`: Vapeur à partir de Charbon
+        - `gas`: Vapeur à partir de Gaz naturel
+        - `heavyfuel`: Vapeur à partir de Fioul lourd
+        - `lightfuel`: Vapeur à partir de Fioul léger
+
+        ⚠️ En l'absence d'utilisation explicite du paramètre, la source de chaleur utilisée sera celle du mix régional.
+      required: false
+      style: form
+      schema:
+        type: string
+      examples:
+        default:
+          summary: "par défaut, mix régional"
+          value: ""
+        coal:
+          summary: "Charbon"
+          value: "coal"
+        naturalGas:
+          summary: "Gaz naturel"
+          value: "gas"
+        lightfuel:
+          summary: "Fuel léger"
+          value: "lightfuel"
+        heavyfuel:
+          summary: "Fuel lourd"
+          value: "heavyfuel"
     dyeingMediumParam:
       name: dyeingMedium
       in: query
