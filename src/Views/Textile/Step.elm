@@ -618,7 +618,7 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                                             [ value (HeatSource.toString heatSource)
                                             , selected <| inputs.ennoblingHeatSource == Just heatSource
                                             ]
-                                            [ text (HeatSource.toLabel heatSource) ]
+                                            [ text (HeatSource.toLabelWithZone inputs.countryDyeing.zone heatSource) ]
                                     )
                                 |> (::)
                                     (option [ selected <| inputs.ennoblingHeatSource == Nothing ]

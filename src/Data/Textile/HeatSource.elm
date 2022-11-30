@@ -3,10 +3,11 @@ module Data.Textile.HeatSource exposing
     , decode
     , encode
     , fromString
-    , toLabel
+    , toLabelWithZone
     , toString
     )
 
+import Data.Zone as Zone exposing (Zone)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
 import Json.Encode as Encode
@@ -63,6 +64,20 @@ toLabel source =
 
         LightFuel ->
             "Fioul léger"
+
+
+toLabelWithZone : Zone -> HeatSource -> String
+toLabelWithZone zone heatSource =
+    let
+        zoneLabel =
+            case zone of
+                Zone.Europe ->
+                    " (Europe)"
+
+                _ ->
+                    " (hors Europe)"
+    in
+    toLabel heatSource ++ zoneLabel
 
 
 toString : HeatSource -> String
