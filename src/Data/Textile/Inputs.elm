@@ -32,6 +32,7 @@ import Base64
 import Data.Country as Country exposing (Country)
 import Data.Textile.Db exposing (Db)
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
+import Data.Textile.HeatSource as HeatSource exposing (HeatSource)
 import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Printing as Printing exposing (Printing)
 import Data.Textile.Product as Product exposing (Product)
@@ -75,6 +76,7 @@ type alias Inputs =
     , disabledFading : Maybe Bool
     , dyeingMedium : Maybe DyeingMedium
     , printing : Maybe Printing
+    , ennoblingHeatSource : Maybe HeatSource
     }
 
 
@@ -102,6 +104,7 @@ type alias Query =
     , disabledFading : Maybe Bool
     , dyeingMedium : Maybe DyeingMedium
     , printing : Maybe Printing
+    , ennoblingHeatSource : Maybe HeatSource
     }
 
 
@@ -191,6 +194,7 @@ fromQuery db query =
         |> RE.andMap (Ok query.disabledFading)
         |> RE.andMap (Ok query.dyeingMedium)
         |> RE.andMap (Ok query.printing)
+        |> RE.andMap (Ok query.ennoblingHeatSource)
 
 
 toQuery : Inputs -> Query
@@ -221,6 +225,7 @@ toQuery inputs =
     , disabledFading = inputs.disabledFading
     , dyeingMedium = inputs.dyeingMedium
     , printing = inputs.printing
+    , ennoblingHeatSource = inputs.ennoblingHeatSource
     }
 
 
@@ -497,6 +502,7 @@ updateProduct product query =
             , disabledFading = Nothing
             , dyeingMedium = Nothing
             , printing = Nothing
+            , ennoblingHeatSource = Nothing
         }
 
     else
@@ -528,6 +534,7 @@ tShirtCotonFrance =
     , disabledFading = Nothing
     , dyeingMedium = Nothing
     , printing = Nothing
+    , ennoblingHeatSource = Nothing
     }
 
 
@@ -581,6 +588,7 @@ jupeCircuitAsie =
     , disabledFading = Nothing
     , dyeingMedium = Nothing
     , printing = Nothing
+    , ennoblingHeatSource = Nothing
     }
 
 
@@ -604,6 +612,7 @@ manteauCircuitEurope =
     , disabledFading = Nothing
     , dyeingMedium = Nothing
     , printing = Nothing
+    , ennoblingHeatSource = Nothing
     }
 
 
@@ -627,6 +636,7 @@ pantalonCircuitEurope =
     , disabledFading = Nothing
     , dyeingMedium = Nothing
     , printing = Nothing
+    , ennoblingHeatSource = Nothing
     }
 
 
@@ -660,6 +670,7 @@ encode inputs =
         , ( "disabledFading", inputs.disabledFading |> Maybe.map Encode.bool |> Maybe.withDefault Encode.null )
         , ( "dyeingMedium", inputs.dyeingMedium |> Maybe.map DyeingMedium.encode |> Maybe.withDefault Encode.null )
         , ( "printing", inputs.printing |> Maybe.map Printing.encode |> Maybe.withDefault Encode.null )
+        , ( "ennoblingHeatSource", inputs.ennoblingHeatSource |> Maybe.map HeatSource.encode |> Maybe.withDefault Encode.null )
         ]
 
 
@@ -691,6 +702,7 @@ decodeQuery =
         |> Pipe.optional "disabledFading" (Decode.maybe Decode.bool) Nothing
         |> Pipe.optional "dyeingMedium" (Decode.maybe DyeingMedium.decode) Nothing
         |> Pipe.optional "printing" (Decode.maybe Printing.decode) Nothing
+        |> Pipe.optional "ennoblingHeatSource" (Decode.maybe HeatSource.decode) Nothing
 
 
 decodeMaterialQuery : Decoder MaterialQuery
@@ -720,6 +732,7 @@ encodeQuery query =
         , ( "disabledFading", query.disabledFading |> Maybe.map Encode.bool |> Maybe.withDefault Encode.null )
         , ( "dyeingMedium", query.dyeingMedium |> Maybe.map DyeingMedium.encode |> Maybe.withDefault Encode.null )
         , ( "printing", query.printing |> Maybe.map Printing.encode |> Maybe.withDefault Encode.null )
+        , ( "ennoblingHeatSource", query.ennoblingHeatSource |> Maybe.map HeatSource.encode |> Maybe.withDefault Encode.null )
         ]
 
 

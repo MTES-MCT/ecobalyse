@@ -9,6 +9,7 @@ import Data.Gitbook as Gitbook
 import Data.Impact as Impact
 import Data.Textile.Db exposing (Db)
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
+import Data.Textile.HeatSource as HeatSource exposing (HeatSource)
 import Data.Textile.Inputs as Inputs exposing (Inputs)
 import Data.Textile.Printing as Printing exposing (Printing)
 import Data.Textile.Product as Product
@@ -48,6 +49,7 @@ type alias Config msg =
     , updateReparability : Maybe Unit.Reparability -> msg
     , updateAirTransportRatio : Maybe Unit.Ratio -> msg
     , updateDyeingMedium : DyeingMedium -> msg
+    , updateEnnoblingHeatSource : Maybe HeatSource -> msg
     , updatePrinting : Maybe Printing -> msg
     , updateMakingWaste : Maybe Unit.Ratio -> msg
     , updateSurfaceMass : Maybe Unit.SurfaceMass -> msg
@@ -487,7 +489,7 @@ simpleView ({ funit, inputs, daysOfWear, impact, current } as config) =
 
                     Label.Ennobling ->
                         div [ class "mt-2" ]
-                            [ ennoblingFields config
+                            [ ennoblingGenericFields config
                             ]
 
                     Label.Making ->
@@ -568,11 +570,42 @@ daysOfWearInfo inputs =
         ]
 
 
-ennoblingFields : Config msg -> Html msg
-ennoblingFields config =
+ennoblingGenericFields : Config msg -> Html msg
+ennoblingGenericFields config =
+    -- Note: this fieldset is rendered in both simple and detailed step views
     div [ class "d-flex flex-column gap-1" ]
         [ dyeingMediumField config
         , printingFields config
+        ]
+
+
+ennoblingHeatSourceField : Config msg -> Html msg
+ennoblingHeatSourceField ({ inputs } as config) =
+    -- Note: This field is only rendered in the detailed step view
+    li [ class "list-group-item text-muted d-flex align-items-center gap-2" ]
+        [ label [ class "text-nowrap w-25", for "ennobling-heat-source" ] [ text "Chaleur" ]
+        , [ HeatSource.Coal, HeatSource.NaturalGas, HeatSource.HeavyFuel, HeatSource.LightFuel ]
+            |> List.map
+                (\heatSource ->
+                    option
+                        [ value (HeatSource.toString heatSource)
+                        , selected <| inputs.ennoblingHeatSource == Just heatSource
+                        ]
+                        [ text (HeatSource.toLabelWithZone inputs.countryDyeing.zone heatSource) ]
+                )
+            |> (::)
+                (option [ selected <| inputs.ennoblingHeatSource == Nothing ]
+                    [ text "Mix régional" ]
+                )
+            |> select
+                [ id "ennobling-heat-source"
+                , class "form-select form-select-sm w-75"
+                , onInput
+                    (HeatSource.fromString
+                        >> Result.toMaybe
+                        >> config.updateEnnoblingHeatSource
+                    )
+                ]
         ]
 
 
@@ -605,7 +638,12 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
             , infoListElement
                 [ li [ class "list-group-item text-muted" ] [ countryField config ]
                 , viewProcessInfo current.processInfo.countryElec
-                , viewProcessInfo current.processInfo.countryHeat
+                , case current.label of
+                    Label.Ennobling ->
+                        ennoblingHeatSourceField config
+
+                    _ ->
+                        viewProcessInfo current.processInfo.countryHeat
                 , viewProcessInfo current.processInfo.distribution
                 , viewProcessInfo current.processInfo.useIroning
                 , viewProcessInfo current.processInfo.useNonIroning
@@ -638,7 +676,7 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                     Label.Ennobling ->
                         [ div [ class "text-muted fs-7 mb-2" ]
                             [ text "Pré-traitement\u{00A0}: non applicable" ]
-                        , ennoblingFields config
+                        , ennoblingGenericFields config
                         , div [ class "text-muted fs-7 mt-2" ]
                             [ text "Finition\u{00A0}: apprêt chimique" ]
                         ]

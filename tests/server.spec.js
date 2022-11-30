@@ -195,6 +195,22 @@ describe("API", () => {
           /ne peut être que true ou false/,
         );
       });
+
+      it("should validate the printing param", async () => {
+        expectFieldErrorMessage(
+          await makeRequest("/api/simulator", ["printing=bonk"]),
+          "printing",
+          /Format de type et surface d'impression invalide: bonk/,
+        );
+      });
+
+      it("should validate the ennoblingHeatSource param", async () => {
+        expectFieldErrorMessage(
+          await makeRequest("/api/simulator", ["ennoblingHeatSource=bonk"]),
+          "ennoblingHeatSource",
+          /Source de production de vapeur inconnue: bonk/,
+        );
+      });
     });
 
     describe("/simulator/fwe", () => {
