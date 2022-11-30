@@ -1,4 +1,4 @@
-module Data.Food.Recipe exposing
+module Data.Food.Explorer.Recipe exposing
     ( IngredientQuery
     , Packaging
     , PackagingQuery
@@ -6,37 +6,20 @@ module Data.Food.Recipe exposing
     , Query
     , Recipe
     , Results
+    , Transform
     , TransformQuery
-    , addIngredient
-    , addPackaging
     , compute
-    , computeProcessImpacts
-    , deleteIngredient
-    , deletePackaging
-    , empty
-    , encodeQuery
-    , encodeResults
     , fromQuery
-    , recipeStepImpacts
-    , resetTransform
-    , serializeQuery
-    , setTransform
-    , sumMasses
     , toQuery
     , tunaPizza
-    , updateIngredientMass
-    , updatePackagingMass
-    , updateTransformMass
     )
 
 import Data.Country as Country
-import Data.Food.Db as FoodDb
+import Data.Food.Explorer.Db exposing (Db)
 import Data.Food.Process as Process exposing (Process)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Unit as Unit
-import Json.Encode as Encode
 import Mass exposing (Mass)
-import Quantity
 import Result.Extra as RE
 
 
@@ -74,15 +57,6 @@ type alias Query =
 
 type alias PlantOptions =
     { country : Maybe Country.Code }
-
-
-empty : Query
-empty =
-    { ingredients = []
-    , transform = Nothing
-    , packaging = []
-    , plant = { country = Nothing }
-    }
 
 
 tunaPizza : Query
@@ -175,66 +149,22 @@ type alias Recipe =
     }
 
 
-addIngredient : Mass -> Process.Code -> Query -> Query
-addIngredient mass code query =
-    let
-        newIngredients =
-            query.ingredients
-                ++ [ { code = code
-                     , mass = mass
-                     , country = Nothing
-                     , labels = []
-                     }
-                   ]
-    in
-    { query | ingredients = newIngredients }
-        |> updateTransformMass (sumMasses newIngredients)
-
-
-addPackaging : Mass -> Process.Code -> Query -> Query
-addPackaging mass code query =
-    { query
-        | packaging =
-            query.packaging ++ [ { code = code, mass = mass } ]
-    }
-
-
-deleteIngredient : Process.Code -> Query -> Query
-deleteIngredient code query =
-    let
-        newIngredients =
-            query.ingredients
-                |> List.filter (.code >> (/=) code)
-    in
-    { query | ingredients = newIngredients }
-        |> updateTransformMass (sumMasses newIngredients)
-
-
-deletePackaging : Process.Code -> Query -> Query
-deletePackaging code query =
-    { query
-        | packaging =
-            query.packaging
-                |> List.filter (.code >> (/=) code)
-    }
-
-
-fromQuery : FoodDb.Db -> Query -> Result String Recipe
-fromQuery foodDb query =
+fromQuery : Db -> Query -> Result String Recipe
+fromQuery db query =
     Result.map4 Recipe
-        (ingredientListFromQuery foodDb query)
-        (transformFromQuery foodDb query)
-        (packagingListFromQuery foodDb query)
+        (ingredientListFromQuery db query)
+        (transformFromQuery db query)
+        (packagingListFromQuery db query)
         (Ok query.plant)
 
 
-ingredientListFromQuery : FoodDb.Db -> Query -> Result String (List Ingredient)
-ingredientListFromQuery foodDb query =
+ingredientListFromQuery : Db -> Query -> Result String (List Ingredient)
+ingredientListFromQuery db query =
     query.ingredients
-        |> RE.combineMap (ingredientFromQuery foodDb)
+        |> RE.combineMap (ingredientFromQuery db)
 
 
-ingredientFromQuery : FoodDb.Db -> IngredientQuery -> Result String Ingredient
+ingredientFromQuery : Db -> IngredientQuery -> Result String Ingredient
 ingredientFromQuery { processes } ingredientQuery =
     Result.map4 Ingredient
         (Process.findByCode processes ingredientQuery.code)
@@ -252,13 +182,13 @@ ingredientToQuery ingredient =
     }
 
 
-packagingListFromQuery : FoodDb.Db -> Query -> Result String (List Packaging)
-packagingListFromQuery foodDb query =
+packagingListFromQuery : Db -> Query -> Result String (List Packaging)
+packagingListFromQuery db query =
     query.packaging
-        |> RE.combineMap (packagingFromQuery foodDb)
+        |> RE.combineMap (packagingFromQuery db)
 
 
-packagingFromQuery : FoodDb.Db -> PackagingQuery -> Result String Packaging
+packagingFromQuery : Db -> PackagingQuery -> Result String Packaging
 packagingFromQuery { processes } { code, mass } =
     Result.map2 Packaging
         (Process.findByCode processes code)
@@ -272,21 +202,6 @@ packagingToQuery packaging =
     }
 
 
-resetTransform : Query -> Query
-resetTransform query =
-    { query | transform = Nothing }
-
-
-setTransform : Mass -> Process.Code -> Query -> Query
-setTransform mass code query =
-    { query | transform = Just { code = code, mass = mass } }
-
-
-sumMasses : List { a | mass : Mass } -> Mass
-sumMasses =
-    List.map .mass >> Quantity.sum
-
-
 toQuery : Recipe -> Query
 toQuery recipe =
     { ingredients = List.map ingredientToQuery recipe.ingredients
@@ -296,7 +211,7 @@ toQuery recipe =
     }
 
 
-transformFromQuery : FoodDb.Db -> Query -> Result String (Maybe Transform)
+transformFromQuery : Db -> Query -> Result String (Maybe Transform)
 transformFromQuery { processes } query =
     query.transform
         |> Maybe.map
@@ -319,51 +234,6 @@ transformToQuery =
         )
 
 
-updateIngredientMass : Mass -> Process.Code -> Query -> Query
-updateIngredientMass mass code query =
-    let
-        newIngredients =
-            query.ingredients
-                |> updateMass code mass
-    in
-    { query | ingredients = newIngredients }
-        |> updateTransformMass (sumMasses newIngredients)
-
-
-updateMass :
-    Process.Code
-    -> Mass
-    -> List { a | code : Process.Code, mass : Mass }
-    -> List { a | code : Process.Code, mass : Mass }
-updateMass code mass =
-    List.map
-        (\item ->
-            if item.code == code then
-                { item | mass = mass }
-
-            else
-                item
-        )
-
-
-updatePackagingMass : Mass -> Process.Code -> Query -> Query
-updatePackagingMass mass code query =
-    { query
-        | packaging =
-            query.packaging
-                |> updateMass code mass
-    }
-
-
-updateTransformMass : Mass -> Query -> Query
-updateTransformMass mass query =
-    { query
-        | transform =
-            query.transform
-                |> Maybe.map (\transform -> { transform | mass = mass })
-    }
-
-
 
 ---- Results
 
@@ -378,7 +248,7 @@ type alias Results =
     }
 
 
-compute : FoodDb.Db -> Query -> Result String ( Recipe, Results )
+compute : Db -> Query -> Result String ( Recipe, Results )
 compute db =
     fromQuery db
         >> Result.map
@@ -427,75 +297,3 @@ computeProcessImpacts item =
     in
     item.process.impacts
         |> Impact.mapImpacts (computeImpact item.mass)
-
-
-recipeStepImpacts : FoodDb.Db -> Results -> Impacts
-recipeStepImpacts foodDb { recipe } =
-    [ recipe.ingredients, recipe.transform ]
-        |> Impact.sumImpacts foodDb.impacts
-
-
-
----- Encoders
-
-
-encodeQuery : Query -> Encode.Value
-encodeQuery q =
-    Encode.object
-        [ ( "ingredients", Encode.list encodeIngredient q.ingredients )
-        , ( "transform", q.transform |> Maybe.map encodeTransform |> Maybe.withDefault Encode.null )
-        , ( "packaging", Encode.list encodePackaging q.packaging )
-        , ( "plant", encodePlantOptions q.plant )
-        ]
-
-
-encodeIngredient : IngredientQuery -> Encode.Value
-encodeIngredient i =
-    Encode.object
-        [ ( "code", i.code |> Process.codeToString |> Encode.string )
-        , ( "mass", Encode.float (Mass.inKilograms i.mass) )
-        , ( "country", i.country |> Maybe.map Country.encodeCode |> Maybe.withDefault Encode.null )
-        , ( "labels", Encode.list Encode.string i.labels )
-        ]
-
-
-encodePackaging : PackagingQuery -> Encode.Value
-encodePackaging i =
-    Encode.object
-        [ ( "code", i.code |> Process.codeToString |> Encode.string )
-        , ( "mass", Encode.float (Mass.inKilograms i.mass) )
-        ]
-
-
-encodePlantOptions : PlantOptions -> Encode.Value
-encodePlantOptions p =
-    Encode.object
-        [ ( "country", p.country |> Maybe.map Country.encodeCode |> Maybe.withDefault Encode.null )
-        ]
-
-
-encodeResults : Results -> Encode.Value
-encodeResults results =
-    Encode.object
-        [ ( "impacts", Impact.encodeImpacts results.impacts )
-        , ( "recipe"
-          , Encode.object
-                [ ( "ingredients", Impact.encodeImpacts results.recipe.ingredients )
-                , ( "transform", Impact.encodeImpacts results.recipe.transform )
-                ]
-          )
-        , ( "packaging", Impact.encodeImpacts results.packaging )
-        ]
-
-
-encodeTransform : TransformQuery -> Encode.Value
-encodeTransform p =
-    Encode.object
-        [ ( "code", p.code |> Process.codeToString |> Encode.string )
-        , ( "mass", Encode.float (Mass.inKilograms p.mass) )
-        ]
-
-
-serializeQuery : Query -> String
-serializeQuery =
-    encodeQuery >> Encode.encode 2

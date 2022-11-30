@@ -605,15 +605,15 @@ components:
       in: query
       description: |
         Liste des ingrédients composant la recette (liste disponible sur le point d'entrée `/food/ingredients`).
-        Le format de chaque entrée est composé de l'identifiant de la matière et de sa masse **exprimée en grammes** :
+        Le format de chaque entrée est composé de l'identifiant de la matière et de sa masse **exprimée en grammes**, ainsi que d'un éventuel mode de production alternatif à utiliser :
 
-        - `2e3f03c6de1e43900e09ae852182e9c7;268` signifie *268g de mozzarella ("Mozzarella cheese, from cow's milk, at plant")*;
-        - `83da330027d4b25dbc7817f06b738571;30` signifie *30g d'huile d'olive* ("Olive oil, at plant");
+        - `milk;268` signifie *268g de lait*;
+        - `carrot;30;organic` signifie *30g de carrotes bio*;
 
-        > Par exemple, les paramètres à passer pour une recette à base de 268g de mozzarella et 30g d'huile d'olive sont :
+        > Par exemple, les paramètres à passer pour une recette à base de 268g de lait et 30g de carrotes bio sont :
         >
         > ```js
-        > ingredients[]=2e3f03c6de1e43900e09ae852182e9c7;268&ingredients[]=83da330027d4b25dbc7817f06b738571;30
+        > ingredients[]=milk;268&ingredients[]=carrot;30;organic
         > ```
       required: true
       style: form
@@ -623,19 +623,14 @@ components:
           type: string
       examples:
         oneIngredient:
-          summary: Mozzarella
-          value: ["2e3f03c6de1e43900e09ae852182e9c7;268"]
+          summary: Lait
+          value: ["milk;268"]
         twoIngredients:
-          summary: Mozzarella, Olive Oil
-          value: ["2e3f03c6de1e43900e09ae852182e9c7;268", "83da330027d4b25dbc7817f06b738571;30"]
+          summary: Lait, carrotes bio
+          value: ["milk;268", "carrot;30;organic"]
         threeIngredients:
-          summary: Mozzarella, Olive Oil, Tuna
-          value:
-            [
-              "2e3f03c6de1e43900e09ae852182e9c7;268",
-              "83da330027d4b25dbc7817f06b738571;30",
-              "568c715f977f32948813855d5efd95ba;149",
-            ]
+          summary: Lait, carrotes bio, oeuf
+          value: ["milk;268", "carrot;30;organic", "egg;149"]
     packagingParam:
       name: "packaging[]"
       in: query
@@ -806,10 +801,13 @@ components:
       items:
         type: object
         properties:
-          code:
+          id:
             type: string
           name:
             type: string
+          variants:
+            type: array
+            description: List des variants d'un ingrédient (par exemple label bio).
     PackagingListResponse:
       type: array
       description: Liste des emballages utilisables pour conditionner une recette

@@ -1,11 +1,12 @@
 module Static.Db exposing (Db, db)
 
-import Data.Food.Db as FoodDb
+import Data.Food.Explorer.Db as ExplorerDb
+import Data.Food.Builder.Db as BuilderDb
 import Data.Textile.Db as TextileDb
 
 
 type alias Db =
-    { foodDb : FoodDb.Db, textileDb : TextileDb.Db }
+    { builderDb : BuilderDb.Db, explorerDb : ExplorerDb.Db,  textileDb : TextileDb.Db }
 
 
 textileDb : Result String TextileDb.Db
@@ -22,17 +23,31 @@ foodProductsJson : String
 foodProductsJson =
     """%foodProductsJson%"""
 
+foodBuilderProcessesJson : String
+foodBuilderProcessesJson =
+    """%foodBuilderProcessesJson%"""
 
+foodIngredientsJson : String
+foodIngredientsJson =
+    """%foodIngredientsJson%"""
 
-foodDb : Result String FoodDb.Db
-foodDb =
+explorerDb : Result String ExplorerDb.Db
+explorerDb =
     textileDb
         |> Result.andThen
             (\textileDbParsed ->
-                FoodDb.buildFromJson textileDbParsed.impacts foodProcessesJson foodProductsJson
+                ExplorerDb.buildFromJson textileDbParsed.impacts foodProcessesJson foodProductsJson
+            )
+
+builderDb : Result String BuilderDb.Db
+builderDb =
+    textileDb
+        |> Result.andThen
+            (\textileDbParsed ->
+                BuilderDb.buildFromJson textileDbParsed.impacts foodBuilderProcessesJson foodIngredientsJson
             )
 
 
 db : Result String Db
 db =
-    Result.map2 Db foodDb textileDb
+    Result.map3 Db builderDb explorerDb textileDb

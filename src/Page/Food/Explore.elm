@@ -8,7 +8,7 @@ module Page.Food.Explore exposing
 
 import Data.Country as Country exposing (Country)
 import Data.Food.Amount as Amount exposing (Amount)
-import Data.Food.Db as FoodDb
+import Data.Food.Explorer.Db as ExplorerDb
 import Data.Food.Process as Process exposing (Process)
 import Data.Food.Product as Product exposing (Product, ProductName)
 import Data.Impact as Impact
@@ -22,7 +22,7 @@ import Mass exposing (Mass)
 import Ports
 import Quantity
 import RemoteData exposing (WebData)
-import Request.Food.Db as RequestDb
+import Request.Food.ExplorerDb as RequestDb
 import Route
 import Views.Component.AmountInput as AmountInput
 import Views.Component.DownArrow as DownArrow
@@ -55,7 +55,7 @@ type alias Model =
 type Msg
     = AddIngredient
     | CountrySelected Country.Code
-    | DbLoaded (WebData FoodDb.Db)
+    | DbLoaded (WebData ExplorerDb.Db)
     | DeleteItem Product.Item
     | IngredientProcessSelected (Maybe Process)
     | IngredientMassChanged Product.Item (Maybe Mass)
@@ -83,13 +83,17 @@ init session =
     , session
     , Cmd.batch
         [ Ports.scrollTo { x = 0, y = 0 }
-        , RequestDb.loadDb session DbLoaded
+        , if ExplorerDb.isEmpty session.explorerDb then
+            RequestDb.loadDb session DbLoaded
+
+          else
+            Cmd.none
         ]
     )
 
 
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
-update ({ foodDb, db } as session) msg ({ currentProductInfo, newIngredientMass } as model) =
+update ({ explorerDb, db } as session) msg ({ currentProductInfo, newIngredientMass } as model) =
     case ( msg, currentProductInfo ) of
         ( AddIngredient, Just selected ) ->
             case model.selectedIngredientProcess of
@@ -114,7 +118,7 @@ update ({ foodDb, db } as session) msg ({ currentProductInfo, newIngredientMass 
             let
                 productWithUpdatedTransport =
                     selected.product
-                        |> Product.updatePlantTransport selected.original foodDb.processes db.impacts countryCode db.transports
+                        |> Product.updatePlantTransport selected.original explorerDb.processes db.impacts countryCode db.transports
             in
             ( { model
                 | currentProductInfo = Just { selected | product = productWithUpdatedTransport }
@@ -147,7 +151,7 @@ update ({ foodDb, db } as session) msg ({ currentProductInfo, newIngredientMass 
                                 , original = product
                                 }
                       }
-                    , { session | foodDb = loadedDb }
+                    , { session | explorerDb = loadedDb }
                     , Cmd.none
                     )
 
@@ -183,7 +187,7 @@ update ({ foodDb, db } as session) msg ({ currentProductInfo, newIngredientMass 
             )
 
         ( ProductSelected selectedProduct, _ ) ->
-            case Product.findByName selectedProduct foodDb.products of
+            case Product.findByName selectedProduct explorerDb.products of
                 Ok product ->
                     ( { model
                         | currentProductInfo =
@@ -303,7 +307,7 @@ onMassAmountChanged msg =
 
 
 view : Session -> Model -> ( String, List (Html Msg) )
-view ({ foodDb, db } as session) ({ selectedProduct, newIngredientMass, impact, selectedIngredientProcess, selectedCountry } as model) =
+view ({ explorerDb, db } as session) ({ selectedProduct, newIngredientMass, impact, selectedIngredientProcess, selectedCountry } as model) =
     ( "Simulateur de recettes"
     , [ case model.currentProductInfo of
             Just ({ original, product } as currentProductInfo) ->
@@ -335,10 +339,10 @@ view ({ foodDb, db } as session) ({ selectedProduct, newIngredientMass, impact, 
                                 |> viewSidebar session itemViewDataConfig
                             ]
                         , div [ class "col-lg-8 order-lg-1 d-flex flex-column" ]
-                            [ viewProductSelector selectedProduct foodDb.products
+                            [ viewProductSelector selectedProduct explorerDb.products
                             , viewPlantIngredientsAndMaterials itemViewDataConfig product.plant
                             , ProcessSelector.view
-                                { processes = foodDb.processes
+                                { processes = explorerDb.processes
                                 , category = Process.Ingredient
                                 , alreadyUsedProcesses =
                                     product.plant

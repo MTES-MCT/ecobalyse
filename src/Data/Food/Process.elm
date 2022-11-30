@@ -6,6 +6,7 @@ module Data.Food.Process exposing
     , codeFromString
     , codeToString
     , decodeList
+    , empty
     , findByCode
     , findByName
     , getDisplayName
@@ -23,7 +24,7 @@ import Result.Extra as RE
 
 
 {-| Process
-A process is an entry from public/data/food/processes.json. It has impacts and
+A process is an entry from public/data/food/processes/(explorer|builder).json. It has impacts and
 various other data like categories, code, unit...
 -}
 type alias Process =
@@ -37,6 +38,21 @@ type alias Process =
     , categoryTags : List String
     , comment : Maybe String
     , alias : Maybe String
+    }
+
+
+empty : Process
+empty =
+    { name = ProcessName ""
+    , displayName = Nothing
+    , impacts = Impact.noImpacts
+    , unit = ""
+    , code = Code ""
+    , category = Ingredient
+    , systemDescription = ""
+    , categoryTags = []
+    , comment = Nothing
+    , alias = Nothing
     }
 
 

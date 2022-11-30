@@ -29,11 +29,19 @@ function buildTextileJsonDb(basePath = "public/data") {
 }
 
 function buildFoodProcessesJsonDb(basePath = "public/data/food") {
-  return serializeForElmTemplateString(getJson(`${basePath}/processes.json`));
+  return serializeForElmTemplateString(getJson(`${basePath}/processes/explorer.json`));
 }
 
 function buildFoodProductsJsonDb(basePath = "public/data/food") {
   return serializeForElmTemplateString(getJson(`${basePath}/products.json`));
+}
+
+function buildFoodBuilderProcessesJsonDb(basePath = "public/data/food") {
+  return serializeForElmTemplateString(getJson(`${basePath}/processes/builder.json`));
+}
+
+function buildFoodIngredientsJsonDb(basePath = "public/data/food") {
+  return serializeForElmTemplateString(getJson(`${basePath}/ingredients.json`));
 }
 
 const targetDbFile = "src/Static/Db.elm";
@@ -41,10 +49,15 @@ const elmTemplate = fs.readFileSync(`${targetDbFile}-template`).toString();
 const elmWithFixtures = elmTemplate
   .replace("%textileJson%", buildTextileJsonDb())
   .replace("%foodProcessesJson%", buildFoodProcessesJsonDb())
-  .replace("%foodProductsJson%", buildFoodProductsJsonDb());
+  .replace("%foodProductsJson%", buildFoodProductsJsonDb())
+  .replace("%foodBuilderProcessesJson%", buildFoodBuilderProcessesJsonDb())
+  .replace("%foodIngredientsJson%", buildFoodIngredientsJsonDb());
+
+const header =
+  "---- THIS FILE WAS GENERATED FROM THE FILE `Db.elm-template` BY THE `/tests/prepare.js` SCRIPT";
 
 try {
-  fs.writeFileSync(targetDbFile, elmWithFixtures);
+  fs.writeFileSync(targetDbFile, `${header}\n\n${elmWithFixtures}`);
   console.log(`Successfully generated Elm static database at ${targetDbFile}`);
 } catch (err) {
   throw new Error(`Unable to generate Elm static database: ${err}`);

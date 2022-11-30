@@ -1,4 +1,4 @@
-module Data.Food.Db exposing
+module Data.Food.Explorer.Db exposing
     ( Db
     , buildFromJson
     , empty
@@ -14,7 +14,7 @@ import Json.Decode as Decode
 type alias Db =
     { impacts : List Impact.Definition
 
-    ---- Processes are straightforward imports of public/data/food/processes.json
+    ---- Processes are straightforward imports of public/data/food/processes/explorer.json
     , processes : List Process
 
     ---- Products are imported from public/data/food/products.json with several layers:
@@ -45,10 +45,8 @@ buildFromJson impacts processesJson productsJson =
         |> Decode.decodeString (Process.decodeList impacts)
         |> Result.andThen
             (\processes ->
-                Decode.decodeString (Product.decodeProducts processes) productsJson
-                    |> Result.map
-                        (\products ->
-                            Db impacts processes products
-                        )
+                productsJson
+                    |> Decode.decodeString (Product.decodeProducts processes)
+                    |> Result.map (Db impacts processes)
             )
         |> Result.mapError Decode.errorToString

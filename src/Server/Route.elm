@@ -4,7 +4,7 @@ module Server.Route exposing
     , endpoint
     )
 
-import Data.Food.Recipe as Recipe
+import Data.Food.Builder.Query as BuilderQuery
 import Data.Impact as Impact
 import Data.Textile.Inputs as TextileInputs
 import Server.Query as Query
@@ -41,7 +41,7 @@ type Route
       -- Food transforms list
     | FoodTransformList
       -- Food recipe builder
-    | FoodRecipe (Result Query.Errors Recipe.Query)
+    | FoodRecipe (Result Query.Errors BuilderQuery.Query)
       -- Textile Material list
     | TextileMaterialList
       -- Textile Product list
@@ -55,7 +55,7 @@ type Route
 
 
 parser : StaticDb.Db -> Parser (Route -> a) a
-parser { foodDb, textileDb } =
+parser { builderDb, textileDb } =
     Parser.oneOf
         [ Parser.map CountryList (Parser.s "countries")
 
@@ -63,7 +63,7 @@ parser { foodDb, textileDb } =
         , Parser.map FoodIngredientList (Parser.s "food" </> Parser.s "ingredients")
         , Parser.map FoodPackagingList (Parser.s "food" </> Parser.s "packagings")
         , Parser.map FoodTransformList (Parser.s "food" </> Parser.s "transforms")
-        , Parser.map FoodRecipe (Parser.s "food" </> Parser.s "recipe" <?> Query.parseFoodQuery foodDb)
+        , Parser.map FoodRecipe (Parser.s "food" </> Parser.s "recipe" <?> Query.parseFoodQuery builderDb)
 
         -- Textile
         , Parser.map TextileMaterialList (Parser.s "materials")

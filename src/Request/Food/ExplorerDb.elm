@@ -1,20 +1,30 @@
-module Request.Food.Db exposing (loadDb)
+module Request.Food.ExplorerDb exposing (loadDb)
 
-import Data.Food.Db exposing (Db)
+import Data.Food.Explorer.Db exposing (Db)
 import Data.Food.Process as Process exposing (Process)
 import Data.Food.Product as Product exposing (Products)
-import Data.Impact as Impact
 import Data.Session exposing (Session)
 import RemoteData exposing (WebData)
 import Request.Common exposing (getJson)
 import Task exposing (Task)
 
 
-handleProductsLoaded : List Impact.Definition -> List Process -> WebData Products -> Task () (WebData Db)
-handleProductsLoaded impacts processes productsData =
+handleProductsLoaded : Session -> List Process -> WebData Products -> Task () (WebData Db)
+handleProductsLoaded session processes productsData =
     case productsData of
         RemoteData.Success products ->
-            Task.succeed (RemoteData.succeed (Db impacts processes products))
+            let
+                explorerDb =
+                    session.explorerDb
+            in
+            Task.succeed
+                (RemoteData.succeed
+                    { explorerDb
+                        | processes = processes
+                        , products = products
+                        , impacts = session.db.impacts
+                    }
+                )
 
         RemoteData.Failure error ->
             Task.succeed (RemoteData.Failure error)
@@ -26,12 +36,12 @@ handleProductsLoaded impacts processes productsData =
             Task.succeed RemoteData.Loading
 
 
-handleProcessesLoaded : List Impact.Definition -> WebData (List Process) -> Task () (WebData Db)
-handleProcessesLoaded impacts processesData =
+handleProcessesLoaded : Session -> WebData (List Process) -> Task () (WebData Db)
+handleProcessesLoaded session processesData =
     case processesData of
         RemoteData.Success processes ->
             getJson (Product.decodeProducts processes) "food/products.json"
-                |> Task.andThen (handleProductsLoaded impacts processes)
+                |> Task.andThen (handleProductsLoaded session processes)
 
         RemoteData.Failure error ->
             Task.succeed (RemoteData.Failure error)
@@ -44,9 +54,9 @@ handleProcessesLoaded impacts processesData =
 
 
 loadDb : Session -> (WebData Db -> msg) -> Cmd msg
-loadDb { db } event =
-    getJson (Process.decodeList db.impacts) "food/processes.json"
-        |> Task.andThen (handleProcessesLoaded db.impacts)
+loadDb session event =
+    getJson (Process.decodeList session.db.impacts) "food/processes/explorer.json"
+        |> Task.andThen (handleProcessesLoaded session)
         |> Task.attempt
             (\result ->
                 case result of
