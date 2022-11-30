@@ -107,6 +107,8 @@ getDyeingProcess medium { dyeingArticle, dyeingFabric, dyeingYarn } =
 
 getEnnoblingHeatProcess : WellKnown -> Zone -> HeatSource -> Process
 getEnnoblingHeatProcess wk zone heatSource =
+    -- Note: As per methodology documentation, retrieve a RER heat source process
+    --       for european countries, RSA otherwise.
     case ( zone, heatSource ) of
         ( Zone.Europe, HeatSource.Coal ) ->
             wk.steamCoalRER
