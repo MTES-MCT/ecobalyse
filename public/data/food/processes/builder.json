@@ -290,6 +290,37 @@
     }
   },
   {
+    "name": "Wheat flour, at industrial mill",
+    "unit": "kilogram",
+    "simapro_id": "a343353e431d7dddc7bb25cbc41e179a",
+    "system_description": "AGRIBALYSE v3.0",
+    "category_tags": [
+      "Agricultural",
+      "Food",
+      "Transformation"
+    ],
+    "category": "ingredient",
+    "impacts": {
+      "acd": 0.008502461986389298,
+      "ozd": 3.443812910948848e-08,
+      "cch": 0.3778534398878642,
+      "fwe": 0.00013400979668549599,
+      "swe": 0.005961372201854682,
+      "tre": 0.03735491912900013,
+      "pco": 0.0016603785644458515,
+      "pma": 5.470598628092662e-08,
+      "ior": 0.06282285909534822,
+      "fru": 3.3132561812002628,
+      "mru": 7.531487065064181e-07,
+      "ldu": 78.20583230990351,
+      "wtu": 0.11639334343695017,
+      "etf": 20.97667164684907,
+      "htc": 1.9184832163370655e-11,
+      "htn": 2.468171735530492e-09,
+      "pef": 72.74375049468775
+    }
+  },
+  {
     "name": "Steel, unalloyed {RER}| steel production, converter, unalloyed | Cut-off, S - Copied from Ecoinvent",
     "alias": "steel",
     "displayName": "Acier",
@@ -737,6 +768,37 @@
       "htc": 1.0350561202753629e-10,
       "htn": 4.943101325507475e-09,
       "pef": 31.997330201500397
+    }
+  },
+  {
+    "name": "flour, organic, constructed by ecobalyse",
+    "unit": "kilogram",
+    "simapro_id": "85d53133-44c9-46e8-84b9-bd2cbe900a58",
+    "system_description": "ecobalyse",
+    "category_tags": [
+      "Agricultural",
+      "Food",
+      "Transformation"
+    ],
+    "category": "ingredient",
+    "impacts": {
+      "acd": 0.0018125785391035817,
+      "ozd": 3.915673093347796e-08,
+      "cch": 0.2813767220128639,
+      "fwe": 0.00020166054911963924,
+      "swe": 0.011290803992090492,
+      "tre": 0.007959961391091955,
+      "pco": 0.0016200723698821806,
+      "pma": 8.204816437335426e-09,
+      "ior": 0.06606308237632136,
+      "fru": 3.5109633131332045,
+      "mru": 7.192729687901942e-07,
+      "ldu": 179.29373241237727,
+      "wtu": 0.022185965785291986,
+      "etf": 1.3437188737869405,
+      "htc": -7.233088479689605e-10,
+      "htn": -1.0339227299911117e-07,
+      "pef": 49.93176222780052
     }
   }
 ]
