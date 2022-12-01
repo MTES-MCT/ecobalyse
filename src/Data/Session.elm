@@ -9,6 +9,7 @@ module Data.Session exposing
     , maxComparedSimulations
     , notifyError
     , notifyHttpError
+    , saveRecipe
     , saveSimulation
     , serializeStore
     , toggleComparedSimulation
@@ -16,9 +17,10 @@ module Data.Session exposing
 
 import Browser.Navigation as Nav
 import Data.Food.Builder.Db as BuilderDb
+import Data.Food.Builder.Query as FoodQuery
 import Data.Food.Explorer.Db as ExplorerDb
 import Data.Textile.Db exposing (Db)
-import Data.Textile.Inputs as Inputs
+import Data.Textile.Inputs as TextileInputs
 import Http
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as JDP
@@ -36,7 +38,7 @@ type alias Session =
     , builderDb : BuilderDb.Db
     , explorerDb : ExplorerDb.Db
     , notifications : List Notification
-    , query : Inputs.Query
+    , query : TextileInputs.Query
     }
 
 
@@ -65,12 +67,33 @@ notifyHttpError error ({ notifications } as session) =
 
 
 
--- Saved simulations
+-- Saved food recipes
+
+
+type alias SavedRecipe =
+    { name : String
+    , query : FoodQuery.Query
+    }
+
+
+saveRecipe : SavedRecipe -> Session -> Session
+saveRecipe recipe =
+    updateStore
+        (\store ->
+            { store
+                | savedRecipes =
+                    recipe :: store.savedRecipes
+            }
+        )
+
+
+
+-- Saved textile simulations
 
 
 type alias SavedSimulation =
     { name : String
-    , query : Inputs.Query
+    , query : TextileInputs.Query
     }
 
 
@@ -145,14 +168,16 @@ toggleComparedSimulation name checked =
 
 
 type alias Store =
-    { savedSimulations : List SavedSimulation
+    { savedRecipes : List SavedRecipe
+    , savedSimulations : List SavedSimulation
     , comparedSimulations : Set String
     }
 
 
 defaultStore : Store
 defaultStore =
-    { savedSimulations = []
+    { savedRecipes = []
+    , savedSimulations = []
     , comparedSimulations = Set.empty
     }
 
@@ -160,22 +185,39 @@ defaultStore =
 decodeStore : Decoder Store
 decodeStore =
     Decode.succeed Store
+        |> JDP.optional "savedRecipes" (Decode.list decodeSavedRecipes) []
         |> JDP.optional "savedSimulations" (Decode.list decodeSavedSimulation) []
         |> JDP.optional "comparedSimulations" (Decode.map Set.fromList (Decode.list Decode.string)) Set.empty
+
+
+decodeSavedRecipes : Decoder SavedRecipe
+decodeSavedRecipes =
+    Decode.map2 SavedRecipe
+        (Decode.field "name" Decode.string)
+        (Decode.field "query" FoodQuery.decode)
 
 
 decodeSavedSimulation : Decoder SavedSimulation
 decodeSavedSimulation =
     Decode.map2 SavedSimulation
         (Decode.field "name" Decode.string)
-        (Decode.field "query" Inputs.decodeQuery)
+        (Decode.field "query" TextileInputs.decodeQuery)
 
 
 encodeStore : Store -> Encode.Value
 encodeStore store =
     Encode.object
-        [ ( "savedSimulations", Encode.list encodeSavedSimulation store.savedSimulations )
+        [ ( "savedRecipes", Encode.list encodeSavedRecipe store.savedRecipes )
+        , ( "savedSimulations", Encode.list encodeSavedSimulation store.savedSimulations )
         , ( "comparedSimulations", store.comparedSimulations |> Set.toList |> Encode.list Encode.string )
+        ]
+
+
+encodeSavedRecipe : SavedRecipe -> Encode.Value
+encodeSavedRecipe { name, query } =
+    Encode.object
+        [ ( "name", Encode.string name )
+        , ( "query", FoodQuery.encode query )
         ]
 
 
@@ -183,7 +225,7 @@ encodeSavedSimulation : SavedSimulation -> Encode.Value
 encodeSavedSimulation { name, query } =
     Encode.object
         [ ( "name", Encode.string name )
-        , ( "query", Inputs.encodeQuery query )
+        , ( "query", TextileInputs.encodeQuery query )
         ]
 
 

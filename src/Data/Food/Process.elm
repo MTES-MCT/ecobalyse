@@ -5,8 +5,10 @@ module Data.Food.Process exposing
     , ProcessName
     , codeFromString
     , codeToString
+    , decodeCode
     , decodeList
     , empty
+    , encodeCode
     , findByCode
     , findByName
     , getDisplayName
@@ -20,6 +22,7 @@ import Data.Impact as Impact
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
 import Json.Decode.Pipeline as Pipe
+import Json.Encode as Encode
 import Result.Extra as RE
 
 
@@ -146,7 +149,7 @@ decodeProcess definitions =
         |> Pipe.optional "displayName" (Decode.maybe Decode.string) Nothing
         |> Pipe.required "impacts" (Impact.decodeImpacts definitions)
         |> Pipe.required "unit" decodeStringUnit
-        |> Pipe.required "simapro_id" (Decode.map codeFromString Decode.string)
+        |> Pipe.required "simapro_id" decodeCode
         |> Pipe.required "category" decodeCategory
         |> Pipe.required "system_description" Decode.string
         |> Pipe.required "category_tags" (Decode.list Decode.string)
@@ -154,9 +157,20 @@ decodeProcess definitions =
         |> Pipe.optional "alias" (Decode.maybe Decode.string) Nothing
 
 
+decodeCode : Decoder Code
+decodeCode =
+    Decode.string
+        |> Decode.map codeFromString
+
+
 decodeList : List Impact.Definition -> Decoder (List Process)
 decodeList definitions =
     Decode.list (decodeProcess definitions)
+
+
+encodeCode : Code -> Encode.Value
+encodeCode =
+    codeToString >> Encode.string
 
 
 findByCode : List Process -> Code -> Result String Process

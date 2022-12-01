@@ -553,8 +553,8 @@ packagingListView db selectedImpact selectedProcess recipe results =
     ]
 
 
-mainView : Db -> Model -> Html Msg
-mainView db model =
+mainView : Session -> Db -> Model -> Html Msg
+mainView session db model =
     let
         computed =
             Recipe.compute db model.query
@@ -563,7 +563,7 @@ mainView db model =
         [ div [ class "col-lg-4 order-lg-2 d-flex flex-column gap-3" ]
             [ case computed of
                 Ok ( _, results ) ->
-                    sidebarView db model results
+                    sidebarView session db model results
 
                 Err error ->
                     errorView error
@@ -680,8 +680,34 @@ rowTemplate input content action =
         ]
 
 
-sidebarView : Db -> Model -> Recipe.Results -> Html Msg
-sidebarView db model results =
+savedSimulationListView : Session -> Model -> Html Msg
+savedSimulationListView session model =
+    div [ class "card" ]
+        [ div [ class "card-header" ]
+            [ text "Recettes sauvegardées" ]
+        , if List.isEmpty session.store.savedRecipes then
+            div [ class "card-body" ]
+                [ text "Aucune recette sauvegardée." ]
+
+          else
+            session.store.savedRecipes
+                |> List.map (\_ -> li [ class "list-group-item" ] [])
+                |> ul [ class "list-group list-group-flush" ]
+        , div [ class "card-footer d-flex flex-column gap-2" ]
+            [ input
+                [ type_ "text"
+                , class "form-control form-control-sm"
+                , placeholder "Nom de la recette"
+                ]
+                []
+            , button [ class "btn btn-primary btn-sm w-100" ]
+                [ text "Sauvegarder la recette" ]
+            ]
+        ]
+
+
+sidebarView : Session -> Db -> Model -> Recipe.Results -> Html Msg
+sidebarView session db model results =
     div
         [ class "d-flex flex-column gap-3 mb-3 sticky-md-top"
         , style "top" "7px"
@@ -715,6 +741,7 @@ sidebarView db model results =
         , stepResultsView db model results
         , a [ class "btn btn-primary", Route.href Route.FoodExplore ]
             [ text "Explorateur de recettes" ]
+        , savedSimulationListView session model
         ]
 
 
@@ -844,12 +871,12 @@ transformView db selectedImpact selectedProcess recipe results =
 
 
 view : Session -> Model -> ( String, List (Html Msg) )
-view _ model =
+view session model =
     ( "Constructeur de recette"
     , [ Container.centered [ class "pb-3" ]
             [ case model.dbState of
                 RemoteData.Success db ->
-                    mainView db model
+                    mainView session db model
 
                 RemoteData.Loading ->
                     Spinner.view

@@ -1,6 +1,7 @@
 module Data.Food.Ingredient exposing
     ( Id
     , Ingredient
+    , decodeId
     , decodeIngredients
     , empty
     , encodeId
