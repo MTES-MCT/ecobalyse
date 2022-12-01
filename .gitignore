@@ -1,5 +1,8 @@
 .vscode
 *.pyc
 .DS_Store
-brightway/import_agb/agribalyse3_no_param.CSV
-brightway/export_agb/processes-no-impacts.json
+processes-no-impacts.json
+src/ecobalyse_data.egg-info/*
+/src/ecobalyse_data/food/import_agb/agribalyse3_no_param.CSV
+/src/ecobalyse_data/food/import_agb/agribalyse3_no_param.CSV.zip
+/src/ecobalyse_data/food/import_agb3.1/AGB31.bw2package

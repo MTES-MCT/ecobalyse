@@ -1,4 +1,0 @@
-import json
-
-
-json.load("transports.json")
