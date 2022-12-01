@@ -12,7 +12,7 @@ import Data.Food.Builder.Recipe as Recipe exposing (Recipe)
 import Data.Food.Ingredient as Ingredient exposing (Id, Ingredient)
 import Data.Food.Process as Process exposing (Process)
 import Data.Impact as Impact
-import Data.Session exposing (Session)
+import Data.Session as Session exposing (Session)
 import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
@@ -39,6 +39,7 @@ type alias Model =
     { dbState : WebData Db
     , impact : Impact.Trigram
     , query : Query
+    , recipeName : String
     , selectedPackaging : Maybe SelectedProcess
     , selectedTransform : Maybe SelectedProcess
     }
@@ -59,12 +60,14 @@ type Msg
     | LoadQuery Query
     | NoOp
     | ResetTransform
+    | SaveRecipe
     | SelectPackaging (Maybe SelectedProcess)
     | SelectTransform (Maybe SelectedProcess)
     | SetTransform SelectedProcess
     | SwitchImpact Impact.Trigram
     | UpdateIngredient Id Query.IngredientQuery
     | UpdatePackagingMass Process.Code (Maybe Mass)
+    | UpdateRecipeName String
     | UpdateTransformMass (Maybe Mass)
 
 
@@ -75,6 +78,9 @@ init session =
             { dbState = RemoteData.Loading
             , query = Query.emptyQuery
             , impact = Impact.defaultTrigram
+
+            -- FIXME: find name if already saved recipe
+            , recipeName = ""
             , selectedTransform = Nothing
             , selectedPackaging = Nothing
             }
@@ -175,6 +181,12 @@ update session msg model =
             , Cmd.none
             )
 
+        SaveRecipe ->
+            ( model
+            , session |> Session.saveRecipe { name = model.recipeName, query = model.query }
+            , Cmd.none
+            )
+
         SelectPackaging selectedPackaging ->
             ( { model | selectedPackaging = selectedPackaging }, session, Cmd.none )
 
@@ -213,6 +225,9 @@ update session msg model =
 
         UpdatePackagingMass _ Nothing ->
             ( model, session, Cmd.none )
+
+        UpdateRecipeName recipeName ->
+            ( { model | recipeName = recipeName }, session, Cmd.none )
 
         UpdateTransformMass (Just mass) ->
             ( { model
@@ -680,8 +695,8 @@ rowTemplate input content action =
         ]
 
 
-savedSimulationListView : Session -> Model -> Html Msg
-savedSimulationListView session model =
+savedRecipesView : Session -> (String -> Msg) -> Model -> Html Msg
+savedRecipesView session updateRecipeName { recipeName } =
     div [ class "card" ]
         [ div [ class "card-header" ]
             [ text "Recettes sauvegardées" ]
@@ -691,16 +706,21 @@ savedSimulationListView session model =
 
           else
             session.store.savedRecipes
-                |> List.map (\_ -> li [ class "list-group-item" ] [])
+                |> List.map (\{ name } -> li [ class "list-group-item" ] [ text name ])
                 |> ul [ class "list-group list-group-flush" ]
         , div [ class "card-footer d-flex flex-column gap-2" ]
             [ input
                 [ type_ "text"
                 , class "form-control form-control-sm"
                 , placeholder "Nom de la recette"
+                , value recipeName
+                , onInput updateRecipeName
                 ]
                 []
-            , button [ class "btn btn-primary btn-sm w-100" ]
+            , button
+                [ class "btn btn-primary btn-sm w-100"
+                , onClick SaveRecipe
+                ]
                 [ text "Sauvegarder la recette" ]
             ]
         ]
@@ -741,7 +761,7 @@ sidebarView session db model results =
         , stepResultsView db model results
         , a [ class "btn btn-primary", Route.href Route.FoodExplore ]
             [ text "Explorateur de recettes" ]
-        , savedSimulationListView session model
+        , savedRecipesView session UpdateRecipeName model
         ]
 
 
