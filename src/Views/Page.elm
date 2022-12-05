@@ -70,8 +70,7 @@ frame config ( title, content ) =
           else
             text ""
         , main_ [ class "bg-white" ]
-            [ notificationListView config
-            , if config.activePage == FoodBuilder || config.activePage == FoodExplore then
+            [ if config.activePage == FoodBuilder || config.activePage == FoodExplore then
                 div [ class "alert alert-info border-start-0 border-end-0 rounded-0" ]
                     [ Container.centered []
                         [ h2 [ class "d-flex align-items-center gap-1 h5" ] [ Icon.warning, text "Version Alpha" ]
@@ -83,6 +82,7 @@ frame config ( title, content ) =
 
               else
                 text ""
+            , notificationListView config
             , div [ class "pt-2 pt-sm-5" ] content
             ]
         , pageFooter config.session
