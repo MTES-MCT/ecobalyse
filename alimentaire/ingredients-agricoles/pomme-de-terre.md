@@ -9,7 +9,7 @@ Considérée comme un ingrédient agricole (at farm), **la pomme de terre** est 
 | Label / Origine             | France                                                                 | Autres pays                                                            |
 | --------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- |
 | Agriculture conventionnelle | Ware potato, conventional, variety mix, national average, at farm gate | Ware potato, conventional, variety mix, national average, at farm gate |
-| Agriculture biologique      |                                                                        |                                                                        |
+| Agriculture biologique      | Ware potato, conventional, variety mix, national average, at farm gate | Ware potato, conventional, variety mix, national average, at farm gate |
 
 {% hint style="info" %}
 **Pour identifier le procédé agricole retenu, on se réfère au procédé mobilisé dans le "consumption mix" => cf. ci-dessous.**

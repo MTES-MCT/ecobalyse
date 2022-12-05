@@ -4,10 +4,10 @@
 
 Considérée comme un ingrédient agricole (at farm), **le tournesol** est modélisée à travers les procédés suivants :&#x20;
 
-| Label / Origine             | France | Autres pays |
-| --------------------------- | ------ | ----------- |
-| Agriculture conventionnelle |        |             |
-| Agriculture biologique      |        |             |
+| Label / Origine             | France                              | Autres pays                          |
+| --------------------------- | ----------------------------------- | ------------------------------------ |
+| Agriculture conventionnelle | Sunflower, at farm (WFLDB 3.1)/FR U | Sunflower, at farm (WFLDB 3.1)/GLO U |
+| Agriculture biologique      |                                     |                                      |
 
 Les procédés retenus sont prioritairement des procédés "at farm", c'est à dire des procédés traduisant l'impact de l'ingrédient en sortie de ferme, avant que ne soit par exemple intégré l'impact du transport vers un lieu de transformation ou encore l'impact du conditionnement.
 
@@ -46,9 +46,13 @@ La base Agribalyse permet de distinguer les inventaires de cycle de vie suivants
   * Sunflower, at farm (WFLDB 3.1)
 
 {% hint style="info" %}
-**Le procédé mobilisé pour l'ingrédient "at farm" huile de tournesol est le procédé mobilisé pour la fabrication de l**[**'huile de tournesol**](../ingredients-industrie/huile-de-tournesol.md)
+**Le procédé mobilisé pour l'ingrédient tournesol "at farm" est le procédé mobilisé pour la fabrication de l**[**'huile de tournesol**](../ingredients-industrie/huile-de-tournesol.md) **(cf. graphe ci-dessous)**
 
 En effet, le choix est fait d'exclure directement les procédés concernant le tournesol destiné à l'alimentation animale (dans un premier temps - niveau 1 de calcul - sont uniquement considérés les procédés susceptibles d'entrer directement dans la fabrication de produits alimentaires). De plus, le tournesol en tant qu'ingrédient intervient majoritairement pour la production d'huile.&#x20;
+{% endhint %}
+
+{% hint style="info" %}
+Pour le tournesol bio, le procédé mobilisé est identifié grâce au graphe d'impacts comparés ci-dessous : &#x20;
 {% endhint %}
 
 L'analyse comparée des impacts donne :&#x20;
@@ -61,10 +65,12 @@ L'analyse comparée des impacts donne :&#x20;
 Les données ICV disponibles dans Agribalyse permettraient potentiellement d'introduire une distinction suivant : ...
 {% endhint %}
 
-## Mix de consommation
+## Mix utilisé pour la production de l'huile de tournesol
 
-Le procédé "Sunflower grain, consumption mix" France proposée dans Agribalyse s'appuie sur les procédés suivants.
+Le procédé "Sunflower oil, at oil mill (WFLDB 3.1)/GLO U" mobilise un procédé "Sunflower, at farm (WFLDB 3.1)/GLO U" issu d'une moyenne de 3 procédés FR, HU et UA.
 
-Un transport de <mark style="color:red;">XXX</mark> km en camion y est intégré.
+<figure><img src="../../.gitbook/assets/sunflower.png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../.gitbook/assets/Carotte.png" alt=""><figcaption><p><mark style="color:red;"><strong>Schéma illustratif à remplacer</strong></mark></p></figcaption></figure>
+{% hint style="info" %}
+
+{% endhint %}
