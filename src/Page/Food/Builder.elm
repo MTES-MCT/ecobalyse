@@ -708,11 +708,12 @@ savedRecipesView session updateRecipeName { recipeName } =
             session.store.savedRecipes
                 |> List.map (\{ name } -> li [ class "list-group-item" ] [ text name ])
                 |> ul [ class "list-group list-group-flush" ]
-        , div [ class "card-footer d-flex flex-column gap-2" ]
+        , Html.form [ class "card-footer d-flex flex-column gap-2", autocomplete False ]
             [ input
                 [ type_ "text"
                 , class "form-control form-control-sm"
                 , placeholder "Nom de la recette"
+                , name "recipe-name"
                 , value recipeName
                 , onInput updateRecipeName
                 ]
