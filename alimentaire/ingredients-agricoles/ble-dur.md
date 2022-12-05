@@ -4,10 +4,10 @@
 
 Considérée comme un ingrédient agricole (at farm), le blé dur est modélisé à travers les procédés suivants :&#x20;
 
-| Label / Origine             | France | Autres pays |
-| --------------------------- | ------ | ----------- |
-| Agriculture conventionnelle |        |             |
-| Agriculture biologique      |        |             |
+| Label / Origine             | France                                                          | Autres pays                                                     |
+| --------------------------- | --------------------------------------------------------------- | --------------------------------------------------------------- |
+| Agriculture conventionnelle | Durum wheat grain, conventional, national average, at farm gate | Durum wheat grain, conventional, national average, at farm gate |
+| Agriculture biologique      | Durum wheat grain, conventional, national average, at farm gate | Durum wheat grain, conventional, national average, at farm gate |
 
 Les procédés retenus sont prioritairement des procédés "at farm", c'est à dire des procédés traduisant l'impact de l'ingrédient en sortie de ferme, avant que ne soit par exemple intégré l'impact du transport vers un lieu de transformation ou encore l'impact du conditionnement.
 
@@ -28,6 +28,8 @@ La base Agribalyse permet de distinguer les inventaires de cycle de vie suivants
 
 Le procédé "**Durum wheat, consumption mix**" France proposée dans Agribalyse s'appuie sur les procédés suivants.
 
-Un transport de <mark style="color:red;">XXX</mark> km en camion y est intégré.
+<figure><img src="../../.gitbook/assets/ble dur.png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../.gitbook/assets/Carotte.png" alt=""><figcaption><p><mark style="color:red;"><strong>Schéma illustratif à remplacer</strong></mark></p></figcaption></figure>
+Le procédé "at farm" mobilisé est bien Durum wheat grain, conventional, national average, at farm gate.
+
+Un transport de <mark style="color:red;">XXX</mark> km en camion y est intégré.
