@@ -42,11 +42,15 @@ En effet, le colza est un ingrédient mobilisé quasi uniquement pour la product
 A priori, seront directement exclus les procédés colza "at farm" pour l'alimentation animale.&#x20;
 {% endhint %}
 
+{% hint style="info" %}
+Le procédé mobilisé pour le colza bio est en attente des graphes d'analyse d'impacts des ICV ci-dessus.
+{% endhint %}
+
 ## Mix utilisé pour la fabrication d'huile de colza
 
 Le procédé " **Rapeseed oil, at oil mill (WFLDB 3.1)/GLO U**" proposé dans Agribalyse s'appuie sur les procédés suivants :
 
-<figure><img src="../../.gitbook/assets/rapeseed (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/rapeseed.png" alt=""><figcaption></figcaption></figure>
 
 Un transport de <mark style="color:red;">XXX</mark> km en camion y est intégré.
 
