@@ -4,10 +4,10 @@
 
 Considérée comme un ingrédient agricole (at farm), **la tomate** est modélisée à travers les procédés suivants :&#x20;
 
-| Label / Origine             | France                                                                                        | Autres pays                                                                                   |
-| --------------------------- | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
-| Agriculture conventionnelle |                                                                                               |                                                                                               |
-| Agriculture biologique      | Tomato, organic, greenhouse production, national average, at greenhouse' (kilogram, FR, None) | Tomato, organic, greenhouse production, national average, at greenhouse' (kilogram, FR, None) |
+| Label / Origine             | France                                   | Autres pays                              |
+| --------------------------- | ---------------------------------------- | ---------------------------------------- |
+| Agriculture conventionnelle | y défini par la formule ci-dessous       | y défini par la formule ci-dessous       |
+| Agriculture biologique      | En attente des graphes comparés d'impact | En attente des graphes comparés d'impact |
 
 Les procédés retenus sont prioritairement des procédés "at farm", c'est à dire des procédés traduisant l'impact de l'ingrédient en sortie de ferme, avant que ne soit par exemple intégré l'impact du transport vers un lieu de transformation ou encore l'impact du conditionnement.
 
@@ -45,19 +45,27 @@ La base Agribalyse permet de distinguer les inventaires de cycle de vie suivants
 {% hint style="info" %}
 Pour la **tomate bio**, le procédé retenu pourrait être le procédé de la tomate bio "national average", ie Tomato, organic, greenhouse production, national average, at greenhouse' (kilogram, FR, None), qui correspond à une tomate sous serre.
 
-Cependant, il n'est pas justifié que l'ICV bio retenu corresponde à une tomate sous serre.&#x20;
+Cependant, il n'est pas justifié que l'ICV bio retenu corresponde uniquement à une tomate sous serre.&#x20;
 
 D'après les graphes d'analyse comparée des impacts, ...
 {% endhint %}
 
 {% hint style="info" %}
-**Etant donnée l'existence d'un "consumption mix" pour la tomate, le procédé retenu pour la tomate conventionnelle est le procédé mobilisé dans ce consumption mix (cf. arborescence de** Fresh tomato, consumption mix**).**&#x20;
+**Etant donnée l'existence d'un "consumption mix" pour la tomate, le procédé retenu pour la tomate conventionnelle est calculé à partir du procédé mobilisé dans le consumption mix, transport exclu (cf. arborescence de** Fresh tomato, consumption mix**).**
 {% endhint %}
 
-Ce mix de consommation appelle 2 procédés&#x20;
+Ce mix de consommation (transport exclu) y appelle 2 procédés x1 et x2 :
 
-* _Tomato, medium size, conventional, soil based, non-heated greenhouse, at greenhouse' (kilogram, FR, None)_
-* _Tomato, fresh grade {ES}| tomato production, fresh grade, in unheated greenhouse | Cut-off, U - Copied from Ecoinvent' (kilogram, None, None)_
+* _x1 : Tomato, medium size, conventional, soil based, non-heated greenhouse, at greenhouse' (kilogram, FR, None)_
+* _x2 : Tomato, fresh grade {ES}| tomato production, fresh grade, in unheated greenhouse | Cut-off, U - Copied from Ecoinvent' (kilogram, None, None)_
+
+Avec :
+
+$$
+y = 0,662*x1 + 0,338*x2
+$$
+
+__
 
 __
 
