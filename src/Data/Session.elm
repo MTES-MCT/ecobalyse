@@ -5,13 +5,11 @@ module Data.Session exposing
     , checkComparedSimulations
     , closeNotification
     , deleteBookmark
-    , deleteSimulation
     , deserializeStore
     , maxComparedSimulations
     , notifyError
     , notifyHttpError
     , saveBookmark
-    , saveSimulation
     , serializeStore
     , toggleComparedSimulation
     )
@@ -125,30 +123,6 @@ checkComparedSimulations session =
 
     else
         session
-
-
-deleteSimulation : SavedSimulation -> Session -> Session
-deleteSimulation simulation =
-    updateStore
-        (\store ->
-            { store
-                | savedSimulations =
-                    List.filter ((/=) simulation) store.savedSimulations
-                , comparedSimulations =
-                    Set.filter ((/=) simulation.name) store.comparedSimulations
-            }
-        )
-
-
-saveSimulation : SavedSimulation -> Session -> Session
-saveSimulation simulation =
-    updateStore
-        (\store ->
-            { store
-                | savedSimulations =
-                    simulation :: store.savedSimulations
-            }
-        )
 
 
 toggleComparedSimulation : String -> Bool -> Session -> Session

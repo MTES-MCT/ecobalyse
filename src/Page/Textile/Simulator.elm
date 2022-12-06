@@ -10,6 +10,7 @@ module Page.Textile.Simulator exposing
 import Array
 import Browser.Events
 import Browser.Navigation as Navigation
+import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Country as Country
 import Data.Impact as Impact
 import Data.Key as Key
@@ -32,7 +33,9 @@ import Mass
 import Page.Textile.Simulator.ViewMode as ViewMode exposing (ViewMode)
 import Ports
 import Route
+import Time exposing (Posix)
 import Views.Alert as Alert
+import Views.Bookmark as BookmarkView
 import Views.Component.DownArrow as DownArrow
 import Views.Container as Container
 import Views.Dataviz as Dataviz
@@ -46,7 +49,8 @@ import Views.Textile.Summary as SummaryView
 
 
 type alias Model =
-    { simulator : Result String Simulator
+    { currentTime : Posix
+    , simulator : Result String Simulator
     , linksTab : LinksTab
     , simulationName : String
     , massInput : String
@@ -71,12 +75,13 @@ type Modal
 type Msg
     = AddMaterial
     | CopyToClipBoard String
-    | DeleteSavedSimulation Session.SavedSimulation
+    | DeleteBookmark Bookmark
+    | NewTime Posix
     | NoOp
     | OpenComparator
     | RemoveMaterial Int
     | Reset
-    | SaveSimulation
+    | SaveBookmark
     | SelectInputText String
     | SetModal Modal
     | SwitchFunctionalUnit Unit.Functional
@@ -87,6 +92,7 @@ type Msg
     | ToggleStep Label
     | ToggleStepViewMode Int
     | UpdateAirTransportRatio (Maybe Unit.Ratio)
+    | UpdateBookmarkName String
     | UpdateDyeingMedium DyeingMedium
     | UpdateEnnoblingHeatSource (Maybe HeatSource)
     | UpdateMakingWaste (Maybe Unit.Ratio)
@@ -98,7 +104,6 @@ type Msg
     | UpdateProduct Product.Id
     | UpdateQuality (Maybe Unit.Quality)
     | UpdateReparability (Maybe Unit.Reparability)
-    | UpdateSimulationName String
     | UpdateStepCountry Label Country.Code
     | UpdateSurfaceMass (Maybe Unit.SurfaceMass)
 
@@ -122,7 +127,8 @@ init trigram funit viewMode maybeUrlQuery ({ db, store } as session) =
             initialQuery
                 |> Simulator.compute db
     in
-    ( { simulator = simulator
+    ( { currentTime = Time.millisToPosix 0
+      , simulator = simulator
       , linksTab = SaveLink
       , simulationName =
             simulator
@@ -201,11 +207,14 @@ update ({ db, query, navKey } as session) msg model =
         CopyToClipBoard shareableLink ->
             ( model, session, Ports.copyToClipboard shareableLink )
 
-        DeleteSavedSimulation savedSimulation ->
+        DeleteBookmark bookmark ->
             ( model
-            , session |> Session.deleteSimulation savedSimulation
+            , session |> Session.deleteBookmark bookmark
             , Cmd.none
             )
+
+        NewTime currentTime ->
+            ( { model | currentTime = currentTime }, session, Cmd.none )
 
         NoOp ->
             ( model, session, Cmd.none )
@@ -224,12 +233,13 @@ update ({ db, query, navKey } as session) msg model =
             ( model, session, Cmd.none )
                 |> updateQuery Inputs.defaultQuery
 
-        SaveSimulation ->
+        SaveBookmark ->
             ( model
             , session
-                |> Session.saveSimulation
+                |> Session.saveBookmark
                     { name = String.trim model.simulationName
-                    , query = query
+                    , query = Bookmark.Textile query
+                    , created = model.currentTime
                     }
             , Cmd.none
             )
@@ -287,6 +297,9 @@ update ({ db, query, navKey } as session) msg model =
         UpdateAirTransportRatio airTransportRatio ->
             ( model, session, Cmd.none )
                 |> updateQuery { query | airTransportRatio = airTransportRatio }
+
+        UpdateBookmarkName newName ->
+            ( { model | simulationName = newName }, session, Cmd.none )
 
         UpdateDyeingMedium dyeingMedium ->
             ( model, session, Cmd.none )
@@ -346,9 +359,6 @@ update ({ db, query, navKey } as session) msg model =
         UpdateReparability reparability ->
             ( model, session, Cmd.none )
                 |> updateQuery { query | reparability = reparability }
-
-        UpdateSimulationName newName ->
-            ( { model | simulationName = newName }, session, Cmd.none )
 
         UpdateStepCountry label code ->
             ( model, session, Cmd.none )
@@ -466,16 +476,18 @@ linksView session ({ linksTab } as model) =
                 shareLinkView session model
 
             SaveLink ->
-                SavedSimulationView.manager
+                BookmarkView.manager
                     { session = session
-                    , simulationName = model.simulationName
+                    , bookmarkName = model.simulationName
+                    , bookmarks = session.store.bookmarks |> List.filter Bookmark.isTextile
+                    , currentQuery = Bookmark.Textile session.query
                     , impact = model.impact
                     , funit = model.funit
                     , viewMode = model.viewMode
                     , compare = OpenComparator
-                    , delete = DeleteSavedSimulation
-                    , save = SaveSimulation
-                    , update = UpdateSimulationName
+                    , delete = DeleteBookmark
+                    , save = SaveBookmark
+                    , update = UpdateBookmarkName
                     }
         ]
 
@@ -651,9 +663,12 @@ view session model =
 
 subscriptions : Model -> Sub Msg
 subscriptions { modal } =
-    case modal of
-        NoModal ->
-            Sub.none
+    Sub.batch
+        [ Time.every 1000 NewTime
+        , case modal of
+            NoModal ->
+                Sub.none
 
-        SavedSimulationsModal ->
-            Browser.Events.onKeyDown (Key.escape (SetModal NoModal))
+            SavedSimulationsModal ->
+                Browser.Events.onKeyDown (Key.escape (SetModal NoModal))
+        ]

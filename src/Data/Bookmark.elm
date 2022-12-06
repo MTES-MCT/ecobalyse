@@ -3,9 +3,8 @@ module Data.Bookmark exposing
     , Query(..)
     , decode
     , encode
-    ,  isFood
-       -- , isTextile
-
+    , isFood
+    , isTextile
     )
 
 import Data.Food.Builder.Query as FoodQuery
@@ -72,11 +71,11 @@ isFood { query } =
             False
 
 
+isTextile : Bookmark -> Bool
+isTextile { query } =
+    case query of
+        Textile _ ->
+            True
 
--- isTextile : Bookmark -> Bool
--- isTextile { query } =
---     case query of
---         Textile _ ->
---             True
---         _ ->
---             False
+        _ ->
+            False
