@@ -1,6 +1,5 @@
 module Data.Session exposing
     ( Notification(..)
-    , SavedSimulation
     , Session
     , checkComparedSimulations
     , closeNotification
@@ -92,13 +91,7 @@ saveBookmark bookmark =
 
 
 
--- Saved textile simulations
-
-
-type alias SavedSimulation =
-    { name : String
-    , query : TextileInputs.Query
-    }
+-- Comparator
 
 
 maxComparedSimulations : Int
@@ -114,7 +107,7 @@ checkComparedSimulations session =
                 (\store ->
                     { store
                         | comparedSimulations =
-                            store.savedSimulations
+                            store.bookmarks
                                 |> List.take maxComparedSimulations
                                 |> List.map .name
                                 |> Set.fromList
@@ -148,16 +141,14 @@ toggleComparedSimulation name checked =
 
 
 type alias Store =
-    { savedSimulations : List SavedSimulation
-    , comparedSimulations : Set String
+    { comparedSimulations : Set String
     , bookmarks : List Bookmark
     }
 
 
 defaultStore : Store
 defaultStore =
-    { savedSimulations = []
-    , comparedSimulations = Set.empty
+    { comparedSimulations = Set.empty
     , bookmarks = []
     }
 
@@ -165,32 +156,15 @@ defaultStore =
 decodeStore : Decoder Store
 decodeStore =
     Decode.succeed Store
-        |> JDP.optional "savedSimulations" (Decode.list decodeSavedSimulation) []
         |> JDP.optional "comparedSimulations" (Decode.map Set.fromList (Decode.list Decode.string)) Set.empty
         |> JDP.optional "bookmarks" (Decode.list Bookmark.decode) []
-
-
-decodeSavedSimulation : Decoder SavedSimulation
-decodeSavedSimulation =
-    Decode.map2 SavedSimulation
-        (Decode.field "name" Decode.string)
-        (Decode.field "query" TextileInputs.decodeQuery)
 
 
 encodeStore : Store -> Encode.Value
 encodeStore store =
     Encode.object
-        [ ( "savedSimulations", Encode.list encodeSavedSimulation store.savedSimulations )
-        , ( "comparedSimulations", store.comparedSimulations |> Set.toList |> Encode.list Encode.string )
+        [ ( "comparedSimulations", store.comparedSimulations |> Set.toList |> Encode.list Encode.string )
         , ( "bookmarks", Encode.list Bookmark.encode store.bookmarks )
-        ]
-
-
-encodeSavedSimulation : SavedSimulation -> Encode.Value
-encodeSavedSimulation { name, query } =
-    Encode.object
-        [ ( "name", Encode.string name )
-        , ( "query", TextileInputs.encodeQuery query )
         ]
 
 

@@ -43,7 +43,6 @@ import Views.Icon as Icon
 import Views.Impact as ImpactView
 import Views.Modal as ModalView
 import Views.Textile.Material as MaterialView
-import Views.Textile.SavedSimulation as SavedSimulationView
 import Views.Textile.Step as StepView
 import Views.Textile.Summary as SummaryView
 
@@ -132,7 +131,7 @@ init trigram funit viewMode maybeUrlQuery ({ db, store } as session) =
       , linksTab = SaveLink
       , simulationName =
             simulator
-                |> findSimulationName store.savedSimulations
+                |> findSimulationName store.bookmarks
       , massInput =
             initialQuery.mass
                 |> Mass.inKilograms
@@ -166,12 +165,21 @@ init trigram funit viewMode maybeUrlQuery ({ db, store } as session) =
     )
 
 
-findSimulationName : List Session.SavedSimulation -> Result String Simulator -> String
-findSimulationName savedSimulations simulator =
+findSimulationName : List Bookmark -> Result String Simulator -> String
+findSimulationName bookmarks simulator =
     case simulator of
         Ok { inputs } ->
-            savedSimulations
-                |> List.filter (\{ query } -> Inputs.toQuery inputs == query)
+            bookmarks
+                |> List.filter
+                    (\bookmark ->
+                        case bookmark.query of
+                            Bookmark.Food _ ->
+                                -- FIXME: handle comparison of food recipes
+                                False
+
+                            Bookmark.Textile query ->
+                                Inputs.toQuery inputs == query
+                    )
                 |> List.head
                 |> Maybe.map .name
                 |> Maybe.withDefault (Inputs.toString inputs)
@@ -190,7 +198,7 @@ updateQuery query ( model, session, msg ) =
         | simulator = updatedSimulator
         , simulationName =
             updatedSimulator
-                |> findSimulationName session.store.savedSimulations
+                |> findSimulationName session.store.bookmarks
       }
     , { session | query = query }
     , msg
@@ -636,7 +644,7 @@ view session model =
                                         ++ Unit.functionalToString model.funit
                                 , formAction = Nothing
                                 , content =
-                                    [ SavedSimulationView.comparator
+                                    [ BookmarkView.comparator
                                         { session = session
                                         , impact = model.impact
                                         , funit = model.funit
