@@ -183,7 +183,11 @@ update session msg model =
 
         SaveRecipe ->
             ( model
-            , session |> Session.saveRecipe { name = model.recipeName, query = model.query }
+            , if String.trim model.recipeName /= "" then
+                session |> Session.saveRecipe { name = String.trim model.recipeName, query = model.query }
+
+              else
+                session |> Session.notifyError "Erreur" "Le nom de la recette ne peut être vide"
             , Cmd.none
             )
 
