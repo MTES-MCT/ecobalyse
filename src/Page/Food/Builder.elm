@@ -2,10 +2,12 @@ module Page.Food.Builder exposing
     ( Model
     , Msg(..)
     , init
+    , subscriptions
     , update
     , view
     )
 
+import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Food.Builder.Db as BuilderDb exposing (Db)
 import Data.Food.Builder.Query as Query exposing (Query)
 import Data.Food.Builder.Recipe as Recipe exposing (Recipe)
@@ -25,6 +27,7 @@ import RemoteData exposing (WebData)
 import Request.Common
 import Request.Food.BuilderDb as RequestDb
 import Route
+import Time exposing (Posix)
 import Views.Alert as Alert
 import Views.Component.MassInput as MassInput
 import Views.Component.Summary as SummaryComp
@@ -36,7 +39,8 @@ import Views.Spinner as Spinner
 
 
 type alias Model =
-    { dbState : WebData Db
+    { currentTime : Posix
+    , dbState : WebData Db
     , impact : Impact.Trigram
     , query : Query
     , recipeName : String
@@ -55,9 +59,11 @@ type Msg
     = AddIngredient
     | AddPackaging SelectedProcess
     | DbLoaded (WebData Db)
+    | DeleteBookmark Bookmark
     | DeleteIngredient Query.IngredientQuery
     | DeletePackaging Process.Code
     | LoadQuery Query
+    | NewTime Posix
     | NoOp
     | ResetTransform
     | SaveRecipe
@@ -75,7 +81,8 @@ init : Session -> ( Model, Session, Cmd Msg )
 init session =
     let
         model =
-            { dbState = RemoteData.Loading
+            { currentTime = Time.millisToPosix 0
+            , dbState = RemoteData.Loading
             , query = Query.emptyQuery
             , impact = Impact.defaultTrigram
 
@@ -155,6 +162,12 @@ update session msg model =
             , Cmd.none
             )
 
+        DeleteBookmark bookmark ->
+            ( model
+            , session |> Session.deleteBookmark bookmark
+            , Cmd.none
+            )
+
         DeletePackaging code ->
             ( { model
                 | query =
@@ -164,6 +177,9 @@ update session msg model =
             , session
             , Cmd.none
             )
+
+        NewTime currentTime ->
+            ( { model | currentTime = currentTime }, session, Cmd.none )
 
         NoOp ->
             ( model, session, Cmd.none )
@@ -182,14 +198,22 @@ update session msg model =
             )
 
         SaveRecipe ->
-            ( model
-            , if String.trim model.recipeName /= "" then
-                session |> Session.saveRecipe { name = String.trim model.recipeName, query = model.query }
+            if String.trim model.recipeName /= "" then
+                ( { model | recipeName = "" }
+                , session
+                    |> Session.saveBookmark
+                        { name = String.trim model.recipeName
+                        , query = Bookmark.Food model.query
+                        , created = model.currentTime
+                        }
+                , Cmd.none
+                )
 
-              else
-                session |> Session.notifyError "Erreur" "Le nom de la recette ne peut être vide"
-            , Cmd.none
-            )
+            else
+                ( model
+                , session |> Session.notifyError "Erreur" "Le nom de la recette ne peut être vide"
+                , Cmd.none
+                )
 
         SelectPackaging selectedPackaging ->
             ( { model | selectedPackaging = selectedPackaging }, session, Cmd.none )
@@ -699,20 +723,40 @@ rowTemplate input content action =
         ]
 
 
-savedRecipesView : Session -> (String -> Msg) -> Model -> Html Msg
-savedRecipesView session updateRecipeName { recipeName } =
+savedRecipesView : Session -> (String -> Msg) -> (Bookmark -> Msg) -> Model -> Html Msg
+savedRecipesView session updateRecipeName deleteBookmark { recipeName } =
+    let
+        bookmarks =
+            session.store.bookmarks
+                |> List.filter Bookmark.isFood
+    in
     div [ class "card" ]
         [ div [ class "card-header" ]
             [ text "Recettes sauvegardées" ]
-        , if List.isEmpty session.store.savedRecipes then
+        , if List.isEmpty bookmarks then
             div [ class "card-body" ]
                 [ text "Aucune recette sauvegardée." ]
 
           else
-            session.store.savedRecipes
-                |> List.map (\{ name } -> li [ class "list-group-item" ] [ text name ])
+            bookmarks
+                |> List.map
+                    (\bookmark ->
+                        li [ class "list-group-item d-flex justify-content-between align-items-center gap-1" ]
+                            [ div [ class "text-truncate" ]
+                                [ text bookmark.name ]
+                            , button
+                                [ class "btn btn-sm btn-danger"
+                                , onClick (deleteBookmark bookmark)
+                                ]
+                                [ Icon.trash ]
+                            ]
+                    )
                 |> ul [ class "list-group list-group-flush" ]
-        , Html.form [ class "card-footer d-flex flex-column gap-2", autocomplete False ]
+        , Html.form
+            [ class "card-footer d-flex flex-column gap-2"
+            , autocomplete False
+            , onSubmit SaveRecipe
+            ]
             [ input
                 [ type_ "text"
                 , class "form-control form-control-sm"
@@ -724,7 +768,6 @@ savedRecipesView session updateRecipeName { recipeName } =
                 []
             , button
                 [ class "btn btn-primary btn-sm w-100"
-                , onClick SaveRecipe
                 ]
                 [ text "Sauvegarder la recette" ]
             ]
@@ -766,7 +809,7 @@ sidebarView session db model results =
         , stepResultsView db model results
         , a [ class "btn btn-primary", Route.href Route.FoodExplore ]
             [ text "Explorateur de recettes" ]
-        , savedRecipesView session UpdateRecipeName model
+        , savedRecipesView session UpdateRecipeName DeleteBookmark model
         ]
 
 
@@ -918,3 +961,8 @@ view session model =
             ]
       ]
     )
+
+
+subscriptions : Model -> Sub Msg
+subscriptions _ =
+    Time.every 1000 NewTime

@@ -4,12 +4,13 @@ module Data.Session exposing
     , Session
     , checkComparedSimulations
     , closeNotification
+    , deleteBookmark
     , deleteSimulation
     , deserializeStore
     , maxComparedSimulations
     , notifyError
     , notifyHttpError
-    , saveRecipe
+    , saveBookmark
     , saveSimulation
     , serializeStore
     , toggleComparedSimulation
@@ -18,7 +19,6 @@ module Data.Session exposing
 import Browser.Navigation as Nav
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Food.Builder.Db as BuilderDb
-import Data.Food.Builder.Query as FoodQuery
 import Data.Food.Explorer.Db as ExplorerDb
 import Data.Textile.Db exposing (Db)
 import Data.Textile.Inputs as TextileInputs
@@ -68,22 +68,27 @@ notifyHttpError error ({ notifications } as session) =
 
 
 
--- Saved food recipes
+-- Boomarks
 
 
-type alias SavedRecipe =
-    { name : String
-    , query : FoodQuery.Query
-    }
-
-
-saveRecipe : SavedRecipe -> Session -> Session
-saveRecipe recipe =
+deleteBookmark : Bookmark -> Session -> Session
+deleteBookmark bookmark =
     updateStore
         (\store ->
             { store
-                | savedRecipes =
-                    recipe :: store.savedRecipes
+                | bookmarks =
+                    List.filter ((/=) bookmark) store.bookmarks
+            }
+        )
+
+
+saveBookmark : Bookmark -> Session -> Session
+saveBookmark bookmark =
+    updateStore
+        (\store ->
+            { store
+                | bookmarks =
+                    bookmark :: store.bookmarks
             }
         )
 
@@ -169,8 +174,7 @@ toggleComparedSimulation name checked =
 
 
 type alias Store =
-    { savedRecipes : List SavedRecipe
-    , savedSimulations : List SavedSimulation
+    { savedSimulations : List SavedSimulation
     , comparedSimulations : Set String
     , bookmarks : List Bookmark
     }
@@ -178,8 +182,7 @@ type alias Store =
 
 defaultStore : Store
 defaultStore =
-    { savedRecipes = []
-    , savedSimulations = []
+    { savedSimulations = []
     , comparedSimulations = Set.empty
     , bookmarks = []
     }
@@ -188,17 +191,9 @@ defaultStore =
 decodeStore : Decoder Store
 decodeStore =
     Decode.succeed Store
-        |> JDP.optional "savedRecipes" (Decode.list decodeSavedRecipes) []
         |> JDP.optional "savedSimulations" (Decode.list decodeSavedSimulation) []
         |> JDP.optional "comparedSimulations" (Decode.map Set.fromList (Decode.list Decode.string)) Set.empty
         |> JDP.optional "bookmarks" (Decode.list Bookmark.decode) []
-
-
-decodeSavedRecipes : Decoder SavedRecipe
-decodeSavedRecipes =
-    Decode.map2 SavedRecipe
-        (Decode.field "name" Decode.string)
-        (Decode.field "query" FoodQuery.decode)
 
 
 decodeSavedSimulation : Decoder SavedSimulation
@@ -211,18 +206,9 @@ decodeSavedSimulation =
 encodeStore : Store -> Encode.Value
 encodeStore store =
     Encode.object
-        [ ( "savedRecipes", Encode.list encodeSavedRecipe store.savedRecipes )
-        , ( "savedSimulations", Encode.list encodeSavedSimulation store.savedSimulations )
+        [ ( "savedSimulations", Encode.list encodeSavedSimulation store.savedSimulations )
         , ( "comparedSimulations", store.comparedSimulations |> Set.toList |> Encode.list Encode.string )
         , ( "bookmarks", Encode.list Bookmark.encode store.bookmarks )
-        ]
-
-
-encodeSavedRecipe : SavedRecipe -> Encode.Value
-encodeSavedRecipe { name, query } =
-    Encode.object
-        [ ( "name", Encode.string name )
-        , ( "query", FoodQuery.encode query )
         ]
 
 

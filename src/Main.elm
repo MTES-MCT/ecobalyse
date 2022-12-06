@@ -311,8 +311,9 @@ subscriptions model =
             EditorialPage _ ->
                 Sub.none
 
-            FoodBuilderPage _ ->
-                Sub.none
+            FoodBuilderPage subModel ->
+                FoodBuilder.subscriptions subModel
+                    |> Sub.map FoodBuilderMsg
 
             FoodExplorePage _ ->
                 Sub.none

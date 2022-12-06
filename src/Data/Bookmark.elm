@@ -2,8 +2,8 @@ module Data.Bookmark exposing
     ( Bookmark
     , Query(..)
     , decode
-    ,  encode
-       -- , isFood
+    , encode
+    ,  isFood
        -- , isTextile
 
     )
@@ -62,14 +62,17 @@ encodeQuery v =
             TextileQuery.encodeQuery query
 
 
+isFood : Bookmark -> Bool
+isFood { query } =
+    case query of
+        Food _ ->
+            True
 
--- isFood : Bookmark -> Bool
--- isFood { query } =
---     case query of
---         Food _ ->
---             True
---         _ ->
---             False
+        _ ->
+            False
+
+
+
 -- isTextile : Bookmark -> Bool
 -- isTextile { query } =
 --     case query of
