@@ -9,12 +9,6 @@ Considérée comme un ingrédient agricole (at farm), **la tomate** est modélis
 | Agriculture conventionnelle | Tomato, medium size, conventional, soil based, non-heated greenhouse, at greenhouse' (kilogram, FR, None) | Tomato, fresh grade {ES}\| tomato production, fresh grade, in unheated greenhouse \| Cut-off, U - Copied from Ecoinvent' (kilogram, None, None) | y défini par la formule ci-dessous                                                            |
 | Agriculture biologique      | Tomato, organic, greenhouse production, national average, at greenhouse' (kilogram, FR, None)             | Tomato, organic, greenhouse production, national average, at greenhouse' (kilogram, FR, None)                                                   | Tomato, organic, greenhouse production, national average, at greenhouse' (kilogram, FR, None) |
 
-Les procédés retenus sont prioritairement des procédés "at farm", c'est à dire des procédés traduisant l'impact de l'ingrédient en sortie de ferme, avant que ne soit par exemple intégré l'impact du transport vers un lieu de transformation ou encore l'impact du conditionnement.
-
-{% hint style="danger" %}
-**XXX**
-{% endhint %}
-
 ## Analyse des procédés disponibles
 
 La base Agribalyse permet de distinguer les inventaires de cycle de vie suivants.&#x20;
