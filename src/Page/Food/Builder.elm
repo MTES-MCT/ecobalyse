@@ -22,6 +22,7 @@ import Html.Events exposing (..)
 import Html.Keyed as Keyed
 import Json.Encode as Encode
 import Mass exposing (Mass)
+import Page.Textile.Simulator.ViewMode as ViewMode
 import Ports
 import RemoteData exposing (WebData)
 import Request.Common
@@ -29,6 +30,7 @@ import Request.Food.BuilderDb as RequestDb
 import Route
 import Time exposing (Posix)
 import Views.Alert as Alert
+import Views.Bookmark as BookmarkView
 import Views.Component.MassInput as MassInput
 import Views.Component.Summary as SummaryComp
 import Views.Container as Container
@@ -723,57 +725,6 @@ rowTemplate input content action =
         ]
 
 
-savedRecipesView : Session -> (String -> Msg) -> (Bookmark -> Msg) -> Model -> Html Msg
-savedRecipesView session updateRecipeName deleteBookmark { recipeName } =
-    let
-        bookmarks =
-            session.store.bookmarks
-                |> List.filter Bookmark.isFood
-    in
-    div [ class "card" ]
-        [ div [ class "card-header" ]
-            [ text "Recettes sauvegardées" ]
-        , if List.isEmpty bookmarks then
-            div [ class "card-body" ]
-                [ text "Aucune recette sauvegardée." ]
-
-          else
-            bookmarks
-                |> List.map
-                    (\bookmark ->
-                        li [ class "list-group-item d-flex justify-content-between align-items-center gap-1" ]
-                            [ div [ class "text-truncate" ]
-                                [ text bookmark.name ]
-                            , button
-                                [ class "btn btn-sm btn-danger"
-                                , onClick (deleteBookmark bookmark)
-                                ]
-                                [ Icon.trash ]
-                            ]
-                    )
-                |> ul [ class "list-group list-group-flush" ]
-        , Html.form
-            [ class "card-footer d-flex flex-column gap-2"
-            , autocomplete False
-            , onSubmit SaveRecipe
-            ]
-            [ input
-                [ type_ "text"
-                , class "form-control form-control-sm"
-                , placeholder "Nom de la recette"
-                , name "recipe-name"
-                , value recipeName
-                , onInput updateRecipeName
-                ]
-                []
-            , button
-                [ class "btn btn-primary btn-sm w-100"
-                ]
-                [ text "Sauvegarder la recette" ]
-            ]
-        ]
-
-
 sidebarView : Session -> Db -> Model -> Recipe.Results -> Html Msg
 sidebarView session db model results =
     div
@@ -809,7 +760,24 @@ sidebarView session db model results =
         , stepResultsView db model results
         , a [ class "btn btn-primary", Route.href Route.FoodExplore ]
             [ text "Explorateur de recettes" ]
-        , savedRecipesView session UpdateRecipeName DeleteBookmark model
+
+        -- , savedRecipesView session UpdateRecipeName DeleteBookmark model
+        , BookmarkView.manager
+            { session = session
+            , bookmarkName = model.recipeName
+            , bookmarks = session.store.bookmarks |> List.filter Bookmark.isFood
+            , currentQuery = Bookmark.Food model.query
+            , impact =
+                session.builderDb.impacts
+                    |> Impact.getDefinition model.impact
+                    |> Result.withDefault Impact.invalid
+            , funit = Unit.PerItem
+            , viewMode = ViewMode.Simple
+            , compare = NoOp
+            , delete = DeleteBookmark
+            , save = SaveRecipe
+            , update = UpdateRecipeName
+            }
         ]
 
 
