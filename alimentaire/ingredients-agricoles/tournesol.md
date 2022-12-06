@@ -65,7 +65,7 @@ les procédés xi tournesol bio présents dans Agribalyse sont&#x20;
 * Sunflower grain, organic, system n°4, at farm gate
 * Sunflower grain, organic, system n°5, at farm gate
 
-L'impact du tournesol bio peut être déterminé par la formule ci-dessous :&#x20;
+**L'impact du tournesol bio est déterminé par la formule ci-dessous :**&#x20;
 
 $$
 y = moy (xi)
