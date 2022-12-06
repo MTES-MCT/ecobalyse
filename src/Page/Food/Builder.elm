@@ -7,6 +7,7 @@ module Page.Food.Builder exposing
     , view
     )
 
+import Browser.Navigation as Navigation
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Food.Builder.Db as BuilderDb exposing (Db)
 import Data.Food.Builder.Query as Query exposing (Query)
@@ -87,15 +88,17 @@ type Msg
     | UpdateTransformMass (Maybe Mass)
 
 
-init : Session -> ( Model, Session, Cmd Msg )
-init session =
+init : Session -> Impact.Trigram -> Maybe Query -> ( Model, Session, Cmd Msg )
+init session trigram maybeQuery =
     let
         model =
             { currentTime = Time.millisToPosix 0
             , dbState = RemoteData.Loading
-            , impact = Impact.defaultTrigram
+            , impact = trigram
             , linksTab = SaveLinkTab
-            , query = Query.emptyQuery
+            , query =
+                maybeQuery
+                    |> Maybe.withDefault Query.carrotCake
 
             -- FIXME: find name if already saved recipe
             , recipeName = ""
@@ -113,10 +116,7 @@ init session =
         )
 
     else
-        ( { model
-            | query = Query.carrotCake
-            , dbState = RemoteData.Success session.builderDb
-          }
+        ( { model | dbState = RemoteData.Success session.builderDb }
         , session
         , Ports.scrollTo { x = 0, y = 0 }
         )
@@ -247,7 +247,13 @@ update session msg model =
             )
 
         SwitchImpact impact ->
-            ( { model | impact = impact }, session, Cmd.none )
+            ( { model | impact = impact }
+            , session
+            , Just model.query
+                |> Route.FoodBuilder model.impact
+                |> Route.toString
+                |> Navigation.pushUrl session.navKey
+            )
 
         SwitchLinksTab linksTab ->
             ( { model | linksTab = linksTab }
@@ -614,15 +620,13 @@ linksManagerView session ({ linksTab } as model) =
 
 
 shareLinkView : Session -> Model -> Html Msg
-shareLinkView _ _ =
+shareLinkView session { query, impact } =
     let
-        -- shareableLink =
-        --     Just session.query
-        --         |> Route.TextileSimulator impact.trigram funit ViewMode.Simple
-        --         |> Route.toString
-        --         |> (++) session.clientUrl
         shareableLink =
-            "TODO"
+            Just query
+                |> Route.FoodBuilder impact
+                |> Route.toString
+                |> (++) session.clientUrl
     in
     div [ class "card-body" ]
         [ div

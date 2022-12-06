@@ -147,8 +147,8 @@ setRoute maybeRoute ( { session } as model, cmds ) =
             Editorial.init slug session
                 |> toPage EditorialPage EditorialMsg
 
-        Just Route.FoodBuilder ->
-            FoodBuilder.init session
+        Just (Route.FoodBuilder trigram maybeQuery) ->
+            FoodBuilder.init session trigram maybeQuery
                 |> toPage FoodBuilderPage FoodBuilderMsg
 
         Just Route.FoodExplore ->

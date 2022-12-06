@@ -5,14 +5,17 @@ module Data.Food.Builder.Query exposing
     , TransformQuery
     , Variant(..)
     , addIngredient
+    , b64encode
     , carrotCake
     , decode
     , deleteIngredient
     , emptyQuery
     , encode
+    , parseBase64Query
     , updateIngredient
     )
 
+import Base64
 import Data.Food.Ingredient as Ingredient
 import Data.Food.Process as Process
 import Json.Decode as Decode exposing (Decoder)
@@ -20,6 +23,7 @@ import Json.Decode.Extra as DE
 import Json.Encode as Encode
 import Mass exposing (Mass)
 import Quantity
+import Url.Parser as Parser exposing (Parser)
 
 
 type Variant
@@ -266,3 +270,29 @@ variantToString variant =
 
         Organic ->
             "organic"
+
+
+b64decode : String -> Result String Query
+b64decode =
+    Base64.decode
+        >> Result.andThen
+            (Decode.decodeString decode
+                >> Result.mapError Decode.errorToString
+            )
+
+
+b64encode : Query -> String
+b64encode =
+    encode >> Encode.encode 0 >> Base64.encode
+
+
+
+-- Parser
+
+
+parseBase64Query : Parser (Maybe Query -> a) a
+parseBase64Query =
+    Parser.custom "QUERY" <|
+        b64decode
+            >> Result.toMaybe
+            >> Just

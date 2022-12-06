@@ -113,17 +113,15 @@ bookmarksView ({ bookmarks, compare } as config) =
 bookmarkView : ManagerConfig msg -> Bookmark -> Html msg
 bookmarkView { currentQuery, impact, funit, viewMode, delete, session } ({ name, query } as bookmark) =
     let
-        simulationLink =
+        bookmarkRoute =
             case query of
-                Bookmark.Food _ ->
-                    -- FIXME: we should have routes for recipes
-                    ""
+                Bookmark.Food foodQuery ->
+                    Just foodQuery
+                        |> Route.FoodBuilder impact.trigram
 
                 Bookmark.Textile textileQuery ->
                     Just textileQuery
                         |> Route.TextileSimulator impact.trigram funit viewMode
-                        |> Route.toString
-                        |> (++) session.clientUrl
     in
     li
         [ class "list-group-item d-flex justify-content-between align-items-center gap-1 fs-7"
@@ -132,8 +130,11 @@ bookmarkView { currentQuery, impact, funit, viewMode, delete, session } ({ name,
         [ a
             [ class "text-truncate"
             , classList [ ( "active text-white", query == currentQuery ) ]
-            , href simulationLink
             , title (detailsTooltip session bookmark)
+            , bookmarkRoute
+                |> Route.toString
+                |> (++) session.clientUrl
+                |> href
             ]
             [ text name ]
         , button
