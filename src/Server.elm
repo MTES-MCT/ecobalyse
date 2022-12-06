@@ -64,32 +64,32 @@ toResponse request encodedResult =
                 |> sendResponse 400 request
 
 
-toAllImpactsSimple : Simulator -> Encode.Value
-toAllImpactsSimple { inputs, impacts } =
+toAllImpactsSimple : List Impact.Definition -> Simulator -> Encode.Value
+toAllImpactsSimple definitions { inputs, impacts } =
     Encode.object
-        [ ( "impacts", Impact.encodeImpacts impacts )
+        [ ( "impacts", Impact.encodeImpacts definitions Impact.Textile impacts )
         , ( "description", inputs |> Inputs.toString |> Encode.string )
         , ( "query", inputs |> Inputs.toQuery |> Inputs.encodeQuery )
         ]
 
 
-toSingleImpactSimple : Impact.Trigram -> Simulator -> Encode.Value
-toSingleImpactSimple trigram { inputs, impacts } =
+toSingleImpactSimple : List Impact.Definition -> Impact.Trigram -> Simulator -> Encode.Value
+toSingleImpactSimple definitions trigram { inputs, impacts } =
     Encode.object
         [ ( "impacts"
           , impacts
                 |> Impact.filterImpacts (\trg _ -> trigram == trg)
-                |> Impact.encodeImpacts
+                |> Impact.encodeImpacts definitions Impact.Textile
           )
         , ( "description", inputs |> Inputs.toString |> Encode.string )
         , ( "query", inputs |> Inputs.toQuery |> Inputs.encodeQuery )
         ]
 
 
-toFoodResults : BuilderQuery.Query -> BuilderRecipe.Results -> Encode.Value
-toFoodResults query results =
+toFoodResults : List Impact.Definition -> BuilderQuery.Query -> BuilderRecipe.Results -> Encode.Value
+toFoodResults definitions query results =
     Encode.object
-        [ ( "results", BuilderRecipe.encodeResults results )
+        [ ( "results", BuilderRecipe.encodeResults definitions results )
         , ( "description", Encode.string "TODO" )
         , ( "query", BuilderRecipe.encodeQuery query )
         ]
@@ -194,7 +194,7 @@ handleRequest ({ builderDb, textileDb } as dbs) request =
                 |> sendResponse 200 request
 
         Just (Route.Get (Route.FoodRecipe (Ok query))) ->
-            query |> executeFoodQuery builderDb request (toFoodResults query)
+            query |> executeFoodQuery builderDb request (toFoodResults builderDb.impacts query)
 
         Just (Route.Get (Route.FoodRecipe (Err errors))) ->
             Query.encodeErrors errors
@@ -211,21 +211,21 @@ handleRequest ({ builderDb, textileDb } as dbs) request =
                 |> sendResponse 200 request
 
         Just (Route.Get (Route.TextileSimulator (Ok query))) ->
-            query |> executeTextileQuery textileDb request toAllImpactsSimple
+            query |> executeTextileQuery textileDb request (toAllImpactsSimple textileDb.impacts)
 
         Just (Route.Get (Route.TextileSimulator (Err errors))) ->
             Query.encodeErrors errors
                 |> sendResponse 400 request
 
         Just (Route.Get (Route.TextileSimulatorDetailed (Ok query))) ->
-            query |> executeTextileQuery textileDb request Simulator.encode
+            query |> executeTextileQuery textileDb request (Simulator.encode textileDb.impacts)
 
         Just (Route.Get (Route.TextileSimulatorDetailed (Err errors))) ->
             Query.encodeErrors errors
                 |> sendResponse 400 request
 
         Just (Route.Get (Route.TextileSimulatorSingle trigram (Ok query))) ->
-            query |> executeTextileQuery textileDb request (toSingleImpactSimple trigram)
+            query |> executeTextileQuery textileDb request (toSingleImpactSimple textileDb.impacts trigram)
 
         Just (Route.Get (Route.TextileSimulatorSingle _ (Err errors))) ->
             Query.encodeErrors errors

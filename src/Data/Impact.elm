@@ -312,9 +312,16 @@ decodeImpacts definitions =
         Unit.decodeImpact
 
 
-encodeImpacts : Impacts -> Encode.Value
-encodeImpacts =
-    AnyDict.encode toString Unit.encodeImpact
+encodeImpacts : List Definition -> Scope -> Impacts -> Encode.Value
+encodeImpacts definitions scope =
+    AnyDict.filter
+        (\trigram _ ->
+            definitions
+                |> List.filter (.scopes >> List.member scope)
+                |> List.map .trigram
+                |> List.member trigram
+        )
+        >> AnyDict.encode toString Unit.encodeImpact
 
 
 updatePefImpact : List Definition -> Impacts -> Impacts

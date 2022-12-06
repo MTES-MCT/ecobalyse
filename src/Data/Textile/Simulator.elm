@@ -37,13 +37,13 @@ type alias Simulator =
     }
 
 
-encode : Simulator -> Encode.Value
-encode v =
+encode : List Impact.Definition -> Simulator -> Encode.Value
+encode definitions v =
     Encode.object
         [ ( "inputs", Inputs.encode v.inputs )
-        , ( "lifeCycle", LifeCycle.encode v.lifeCycle )
-        , ( "impacts", Impact.encodeImpacts v.impacts )
-        , ( "transport", Transport.encode v.transport )
+        , ( "lifeCycle", LifeCycle.encode definitions v.lifeCycle )
+        , ( "impacts", Impact.encodeImpacts definitions Impact.Textile v.impacts )
+        , ( "transport", Transport.encode definitions v.transport )
         , ( "daysOfWear", v.daysOfWear |> Duration.inDays |> Encode.float )
         , ( "useNbCycles", Encode.int v.useNbCycles )
         ]

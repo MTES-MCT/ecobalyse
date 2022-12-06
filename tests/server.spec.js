@@ -149,11 +149,11 @@ describe("API", () => {
         );
       });
 
-      it("should perform a simulation featuring 17 impacts", async () => {
+      it("should perform a simulation featuring 14 impacts for textile", async () => {
         const response = await makeRequest("/api/simulator/", successQuery);
 
         expectStatus(response, 200);
-        expect(Object.keys(response.body.impacts)).toHaveLength(17);
+        expect(Object.keys(response.body.impacts)).toHaveLength(14);
       });
 
       it("should validate the airTransportRatio param", async () => {
@@ -269,14 +269,14 @@ describe("API", () => {
     });
 
     describe("/food/recipe", () => {
-      it("should compute 17 impacts", async () => {
+      it("should compute 17 impacts for food", async () => {
         const response = await makeRequest("/api/food/recipe", [
           "ingredients[]=carrot;268",
           "transform=aded2490573207ec7ad5a3813978f6a4;1050",
         ]);
 
         expectStatus(response, 200);
-        expect(Object.keys(response.body.results.impacts)).toHaveLength(17);
+        expect(Object.keys(response.body.results.impacts)).toHaveLength(18);
       });
 
       it("should validate the ingredient list length", async () => {
@@ -348,7 +348,7 @@ describe("API", () => {
           e2eOutput.food.push({
             name,
             query,
-            impacts: response.body.impacts,
+            impacts: response.body.results.impacts,
           });
           expect(toComparable(response.body.results.impacts)).toEqual(toComparable(impacts));
         });
