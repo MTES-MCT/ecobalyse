@@ -861,9 +861,9 @@ sidebarView session db model results =
             , footer = []
             }
         , stepResultsView db model results
+        , linksManagerView session model
         , a [ class "btn btn-primary", Route.href Route.FoodExplore ]
             [ text "Explorateur de recettes" ]
-        , linksManagerView session model
         ]
 
 
