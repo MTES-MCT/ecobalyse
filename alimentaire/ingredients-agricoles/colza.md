@@ -4,10 +4,10 @@
 
 Considérée comme un ingrédient agricole (at farm), le **colza** est modélisé à travers les procédés suivants :&#x20;
 
-| Label / Origine             | France                                                | Allemagne                                             | Etas-Unis                                             | Canada                                                | Autres pays                                           |
-| --------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
-| Agriculture conventionnelle | Rape seed {FR} \| production \| Cut-off, S-Copied     | Rape seed {DE} \| production \| Cut-off, S-Copied     | Rape seed {US} \| production \| Cut-off, S-Copied     | Rapeseed, at farm (WFLDB 3.1)/CA U                    | Rapeseed, at farm (WFLDB 3.1)/GLO U                   |
-| Agriculture biologique      | En attente des graphes d'analyse comparée des impacts | En attente des graphes d'analyse comparée des impacts | En attente des graphes d'analyse comparée des impacts | En attente des graphes d'analyse comparée des impacts | En attente des graphes d'analyse comparée des impacts |
+| Label / Origine             | France                                            | Allemagne                                         | Etas-Unis                                         | Canada                                 | Autres pays                            |
+| --------------------------- | ------------------------------------------------- | ------------------------------------------------- | ------------------------------------------------- | -------------------------------------- | -------------------------------------- |
+| Agriculture conventionnelle | Rape seed {FR} \| production \| Cut-off, S-Copied | Rape seed {DE} \| production \| Cut-off, S-Copied | Rape seed {US} \| production \| Cut-off, S-Copied | Rapeseed, at farm (WFLDB 3.1)/CA U     | Rapeseed, at farm (WFLDB 3.1)/GLO U    |
+| Agriculture biologique      | Winter rapeseed, organic, at farm gate            | Winter rapeseed, organic, at farm gate            | Winter rapeseed, organic, at farm gate            | Winter rapeseed, organic, at farm gate | Winter rapeseed, organic, at farm gate |
 
 Les procédés retenus sont prioritairement des procédés "at farm", c'est à dire des procédés traduisant l'impact de l'ingrédient en sortie de ferme, avant que ne soit par exemple intégré l'impact du transport vers un lieu de transformation ou encore l'impact du conditionnement.
 
@@ -26,7 +26,7 @@ La base Agribalyse permet de distinguer les inventaires de cycle de vie suivants
   * ~~Rapeseed, conventional, 9% moisture, national average, animal feed, at farm gate, production~~
   * ~~Rapeseed, organic, animal feed, at farm gate~~
   * ~~Rapeseed, seed, conventional, national average, animal feed, at farm gate~~
-  * Winter rapeseed, organic, at farm gate
+  * **Winter rapeseed, organic, at farm gate**
 * Dont 2 moyennes nationales France&#x20;
   * ~~Rapeseed, conventional, 9% moisture, national average, animal feed, at farm gate, production~~
   * ~~Rapeseed, seed, conventional, national average, animal feed, at farm gate~~
@@ -55,3 +55,5 @@ Le procédé " **Rapeseed oil, at oil mill (WFLDB 3.1)/GLO U**" proposé dans Ag
 Un transport de <mark style="color:red;">XXX</mark> km en camion y est intégré.
 
 Le procédé colza mobilisé pour la fabrication d'huile est donc Rapeseed, at farm (WFLDB 3.1)/GLO U, qui mobilise plusieurs procédés, dont un procédé Rape seed {FR}|production|Cut-off, S-Copied, qui peut être repris comme ICV colza FR.
+
+Idem pour les colza CA, US et DE
