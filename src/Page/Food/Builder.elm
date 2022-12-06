@@ -44,11 +44,17 @@ type alias Model =
     { currentTime : Posix
     , dbState : WebData Db
     , impact : Impact.Trigram
+    , linksTab : LinksManagerTab
     , query : Query
     , recipeName : String
     , selectedPackaging : Maybe SelectedProcess
     , selectedTransform : Maybe SelectedProcess
     }
+
+
+type LinksManagerTab
+    = SaveLinkTab
+    | ShareLinkTab
 
 
 type alias SelectedProcess =
@@ -60,6 +66,7 @@ type alias SelectedProcess =
 type Msg
     = AddIngredient
     | AddPackaging SelectedProcess
+    | CopyToClipBoard String
     | DbLoaded (WebData Db)
     | DeleteBookmark Bookmark
     | DeleteIngredient Query.IngredientQuery
@@ -72,6 +79,7 @@ type Msg
     | SelectPackaging (Maybe SelectedProcess)
     | SelectTransform (Maybe SelectedProcess)
     | SetTransform SelectedProcess
+    | SwitchLinksTab LinksManagerTab
     | SwitchImpact Impact.Trigram
     | UpdateIngredient Id Query.IngredientQuery
     | UpdatePackagingMass Process.Code (Maybe Mass)
@@ -85,8 +93,9 @@ init session =
         model =
             { currentTime = Time.millisToPosix 0
             , dbState = RemoteData.Loading
-            , query = Query.emptyQuery
             , impact = Impact.defaultTrigram
+            , linksTab = SaveLinkTab
+            , query = Query.emptyQuery
 
             -- FIXME: find name if already saved recipe
             , recipeName = ""
@@ -143,6 +152,9 @@ update session msg model =
             , session
             , Cmd.none
             )
+
+        CopyToClipBoard shareableLink ->
+            ( model, session, Ports.copyToClipboard shareableLink )
 
         DbLoaded dbState ->
             ( { model
@@ -236,6 +248,12 @@ update session msg model =
 
         SwitchImpact impact ->
             ( { model | impact = impact }, session, Cmd.none )
+
+        SwitchLinksTab linksTab ->
+            ( { model | linksTab = linksTab }
+            , session
+            , Cmd.none
+            )
 
         UpdateIngredient oldIngredientId newIngredient ->
             ( { model | query = Query.updateIngredient oldIngredientId newIngredient model.query }
@@ -547,6 +565,87 @@ ingredientListView db selectedImpact recipe results =
     ]
 
 
+linksManagerView : Session -> Model -> Html Msg
+linksManagerView session ({ linksTab } as model) =
+    -- FIXME: factor out with Textile version?
+    div [ class "card shadow-sm" ]
+        [ div [ class "card-header" ]
+            [ ul [ class "nav nav-tabs justify-content-end card-header-tabs" ]
+                [ li [ class "nav-item" ]
+                    [ button
+                        [ class "btn btn-text nav-link rounded-0 rounded-top no-outline"
+                        , classList [ ( "active", linksTab == SaveLinkTab ) ]
+                        , onClick <| SwitchLinksTab SaveLinkTab
+                        ]
+                        [ text "Sauvegarder" ]
+                    ]
+                , li [ class "nav-item" ]
+                    [ button
+                        [ class "btn btn-text nav-link rounded-0 rounded-top no-outline"
+                        , classList [ ( "active", linksTab == ShareLinkTab ) ]
+                        , onClick <| SwitchLinksTab ShareLinkTab
+                        ]
+                        [ text "Partager" ]
+                    ]
+                ]
+            ]
+        , case linksTab of
+            ShareLinkTab ->
+                shareLinkView session model
+
+            SaveLinkTab ->
+                BookmarkView.manager
+                    { session = session
+                    , bookmarkName = model.recipeName
+                    , bookmarks = session.store.bookmarks |> List.filter Bookmark.isFood
+                    , currentQuery = Bookmark.Food model.query
+                    , impact =
+                        session.builderDb.impacts
+                            |> Impact.getDefinition model.impact
+                            |> Result.withDefault Impact.invalid
+                    , funit = Unit.PerItem
+                    , viewMode = ViewMode.Simple
+                    , compare = NoOp
+                    , delete = DeleteBookmark
+                    , save = SaveRecipe
+                    , update = UpdateRecipeName
+                    }
+        ]
+
+
+shareLinkView : Session -> Model -> Html Msg
+shareLinkView _ _ =
+    let
+        -- shareableLink =
+        --     Just session.query
+        --         |> Route.TextileSimulator impact.trigram funit ViewMode.Simple
+        --         |> Route.toString
+        --         |> (++) session.clientUrl
+        shareableLink =
+            "TODO"
+    in
+    div [ class "card-body" ]
+        [ div
+            [ class "input-group" ]
+            [ input
+                [ type_ "url"
+                , class "form-control"
+                , value shareableLink
+                ]
+                []
+            , button
+                [ class "input-group-text"
+                , title "Copier l'adresse"
+                , onClick (CopyToClipBoard shareableLink)
+                ]
+                [ Icon.clipboard
+                ]
+            ]
+        , div [ class "form-text fs-7" ]
+            [ text "Copiez cette adresse pour partager ou sauvegarder votre simulation" ]
+        ]
+
+
 packagingListView : Db -> Impact.Trigram -> Maybe SelectedProcess -> Recipe -> Recipe.Results -> List (Html Msg)
 packagingListView db selectedImpact selectedProcess recipe results =
     [ div [ class "card-header d-flex align-items-center justify-content-between" ]
@@ -760,24 +859,7 @@ sidebarView session db model results =
         , stepResultsView db model results
         , a [ class "btn btn-primary", Route.href Route.FoodExplore ]
             [ text "Explorateur de recettes" ]
-
-        -- , savedRecipesView session UpdateRecipeName DeleteBookmark model
-        , BookmarkView.manager
-            { session = session
-            , bookmarkName = model.recipeName
-            , bookmarks = session.store.bookmarks |> List.filter Bookmark.isFood
-            , currentQuery = Bookmark.Food model.query
-            , impact =
-                session.builderDb.impacts
-                    |> Impact.getDefinition model.impact
-                    |> Result.withDefault Impact.invalid
-            , funit = Unit.PerItem
-            , viewMode = ViewMode.Simple
-            , compare = NoOp
-            , delete = DeleteBookmark
-            , save = SaveRecipe
-            , update = UpdateRecipeName
-            }
+        , linksManagerView session model
         ]
 
 

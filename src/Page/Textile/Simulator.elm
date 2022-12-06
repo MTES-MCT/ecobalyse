@@ -50,7 +50,7 @@ import Views.Textile.Summary as SummaryView
 type alias Model =
     { currentTime : Posix
     , simulator : Result String Simulator
-    , linksTab : LinksTab
+    , linksTab : LinksManagerTab
     , simulationName : String
     , massInput : String
     , initialQuery : Inputs.Query
@@ -61,9 +61,9 @@ type alias Model =
     }
 
 
-type LinksTab
-    = ShareLink
-    | SaveLink
+type LinksManagerTab
+    = SaveLinkTab
+    | ShareLinkTab
 
 
 type Modal
@@ -85,7 +85,7 @@ type Msg
     | SetModal Modal
     | SwitchFunctionalUnit Unit.Functional
     | SwitchImpact Impact.Trigram
-    | SwitchLinksTab LinksTab
+    | SwitchLinksTab LinksManagerTab
     | ToggleComparedSimulation String Bool
     | ToggleDisabledFading Bool
     | ToggleStep Label
@@ -128,7 +128,7 @@ init trigram funit viewMode maybeUrlQuery ({ db, store } as session) =
     in
     ( { currentTime = Time.millisToPosix 0
       , simulator = simulator
-      , linksTab = SaveLink
+      , linksTab = SaveLinkTab
       , simulationName =
             simulator
                 |> findSimulationName store.bookmarks
@@ -456,34 +456,35 @@ lifeCycleStepsView db { viewMode, funit, impact } simulator =
         |> div [ class "pt-1" ]
 
 
-linksView : Session -> Model -> Html Msg
-linksView session ({ linksTab } as model) =
+linksManagerView : Session -> Model -> Html Msg
+linksManagerView session ({ linksTab } as model) =
+    -- FIXME: factor out with Food version?
     div [ class "card shadow-sm" ]
         [ div [ class "card-header" ]
             [ ul [ class "nav nav-tabs justify-content-end card-header-tabs" ]
                 [ li [ class "nav-item" ]
                     [ button
                         [ class "btn btn-text nav-link rounded-0 rounded-top no-outline"
-                        , classList [ ( "active", linksTab == SaveLink ) ]
-                        , onClick <| SwitchLinksTab SaveLink
+                        , classList [ ( "active", linksTab == SaveLinkTab ) ]
+                        , onClick <| SwitchLinksTab SaveLinkTab
                         ]
                         [ text "Sauvegarder" ]
                     ]
                 , li [ class "nav-item" ]
                     [ button
                         [ class "btn btn-text nav-link rounded-0 rounded-top no-outline"
-                        , classList [ ( "active", linksTab == ShareLink ) ]
-                        , onClick <| SwitchLinksTab ShareLink
+                        , classList [ ( "active", linksTab == ShareLinkTab ) ]
+                        , onClick <| SwitchLinksTab ShareLinkTab
                         ]
                         [ text "Partager" ]
                     ]
                 ]
             ]
         , case linksTab of
-            ShareLink ->
+            ShareLinkTab ->
                 shareLinkView session model
 
-            SaveLink ->
+            SaveLinkTab ->
                 BookmarkView.manager
                     { session = session
                     , bookmarkName = model.simulationName
@@ -615,7 +616,7 @@ simulatorView ({ db } as session) ({ impact, funit, viewMode } as model) ({ inpu
                             , reusable = False
                             }
                     ]
-                , linksView session model
+                , linksManagerView session model
                 ]
             ]
         ]
