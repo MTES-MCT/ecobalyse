@@ -16,6 +16,7 @@ module Data.Session exposing
     )
 
 import Browser.Navigation as Nav
+import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Food.Builder.Db as BuilderDb
 import Data.Food.Builder.Query as FoodQuery
 import Data.Food.Explorer.Db as ExplorerDb
@@ -171,6 +172,7 @@ type alias Store =
     { savedRecipes : List SavedRecipe
     , savedSimulations : List SavedSimulation
     , comparedSimulations : Set String
+    , bookmarks : List Bookmark
     }
 
 
@@ -179,6 +181,7 @@ defaultStore =
     { savedRecipes = []
     , savedSimulations = []
     , comparedSimulations = Set.empty
+    , bookmarks = []
     }
 
 
@@ -188,6 +191,7 @@ decodeStore =
         |> JDP.optional "savedRecipes" (Decode.list decodeSavedRecipes) []
         |> JDP.optional "savedSimulations" (Decode.list decodeSavedSimulation) []
         |> JDP.optional "comparedSimulations" (Decode.map Set.fromList (Decode.list Decode.string)) Set.empty
+        |> JDP.optional "bookmarks" (Decode.list Bookmark.decode) []
 
 
 decodeSavedRecipes : Decoder SavedRecipe
@@ -210,6 +214,7 @@ encodeStore store =
         [ ( "savedRecipes", Encode.list encodeSavedRecipe store.savedRecipes )
         , ( "savedSimulations", Encode.list encodeSavedSimulation store.savedSimulations )
         , ( "comparedSimulations", store.comparedSimulations |> Set.toList |> Encode.list Encode.string )
+        , ( "bookmarks", Encode.list Bookmark.encode store.bookmarks )
         ]
 
 
