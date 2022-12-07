@@ -615,6 +615,7 @@ linksManagerView session ({ linksTab } as model) =
                     , delete = DeleteBookmark
                     , save = SaveRecipe
                     , update = UpdateRecipeName
+                    , showComparatorButton = False
                     }
         ]
 

@@ -30,6 +30,7 @@ type alias ManagerConfig msg =
     , impact : Impact.Definition
     , funit : Unit.Functional
     , viewMode : ViewMode
+    , showComparatorButton : Bool
 
     -- Messages
     , compare : msg
@@ -82,19 +83,23 @@ manager ({ bookmarks, bookmarkName, currentQuery } as config) =
 
 
 bookmarksView : ManagerConfig msg -> Html msg
-bookmarksView ({ bookmarks, compare } as config) =
+bookmarksView ({ bookmarks, compare, showComparatorButton } as config) =
     div []
-        [ div [ class "card-header border-top d-flex justify-content-between align-items-center" ]
+        [ div [ class "card-header border-top rounded-0 d-flex justify-content-between align-items-center" ]
             [ span [] [ text "Simulations sauvegardées" ]
-            , button
-                [ class "btn btn-sm btn-primary"
-                , title "Comparer vos simulations sauvegardées"
-                , disabled (List.length bookmarks < 2)
-                , onClick compare
-                ]
-                [ span [ class "me-1" ] [ Icon.stats ]
-                , text "Comparer"
-                ]
+            , if showComparatorButton then
+                button
+                    [ class "btn btn-sm btn-primary"
+                    , title "Comparer vos simulations sauvegardées"
+                    , disabled (List.length bookmarks < 2)
+                    , onClick compare
+                    ]
+                    [ span [ class "me-1" ] [ Icon.stats ]
+                    , text "Comparer"
+                    ]
+
+              else
+                text ""
             ]
         , if List.length bookmarks == 0 then
             div [ class "card-body form-text fs-7 pt-2" ]
@@ -168,6 +173,7 @@ getChartEntries { db, store } funit impact =
             ComparatorView.createEntry db funit impact
     in
     store.bookmarks
+        |> List.filter Bookmark.isTextile
         |> List.filterMap
             (\bookmark ->
                 if Set.member bookmark.name store.comparedSimulations then
@@ -203,6 +209,8 @@ comparator { session, impact, funit, daysOfWear, toggle } =
                     , text " simulations pour les comparer\u{00A0}:"
                     ]
                 , session.store.bookmarks
+                    -- TODO: handle food recipes later at some point
+                    |> List.filter Bookmark.isTextile
                     |> List.map
                         (\saved ->
                             let

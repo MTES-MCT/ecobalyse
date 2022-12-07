@@ -497,6 +497,7 @@ linksManagerView session ({ linksTab } as model) =
                     , delete = DeleteBookmark
                     , save = SaveBookmark
                     , update = UpdateBookmarkName
+                    , showComparatorButton = True
                     }
         ]
 
