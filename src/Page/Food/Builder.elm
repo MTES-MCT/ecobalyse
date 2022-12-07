@@ -157,10 +157,7 @@ update session msg model =
             ( model, session, Ports.copyToClipboard shareableLink )
 
         DbLoaded dbState ->
-            ( { model
-                | dbState = dbState
-                , query = Query.carrotCake
-              }
+            ( { model | dbState = dbState }
             , case dbState of
                 RemoteData.Success db ->
                     { session | builderDb = db }
