@@ -247,10 +247,10 @@ update session msg model =
             )
 
         SwitchImpact impact ->
-            ( { model | impact = impact }
+            ( model
             , session
             , Just model.query
-                |> Route.FoodBuilder model.impact
+                |> Route.FoodBuilder impact
                 |> Route.toString
                 |> Navigation.pushUrl session.navKey
             )
