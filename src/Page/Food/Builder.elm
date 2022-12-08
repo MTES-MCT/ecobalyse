@@ -99,30 +99,29 @@ init ({ builderDb, store } as session) trigram maybeQuery =
             store.bookmarks
                 |> Bookmark.findForFood query
 
-        model =
-            { currentTime = Time.millisToPosix 0
-            , dbState = RemoteData.Loading
-            , impact = trigram
-            , linksTab = SaveLinkTab
-            , query = query
-            , recipeName = existingBookmark |> Maybe.map .name |> Maybe.withDefault ""
-            , selectedTransform = Nothing
-            , selectedPackaging = Nothing
-            }
+        ( model, cmds ) =
+            ( { currentTime = Time.millisToPosix 0
+              , dbState = RemoteData.Loading
+              , impact = trigram
+              , linksTab = SaveLinkTab
+              , query = query
+              , recipeName = existingBookmark |> Maybe.map .name |> Maybe.withDefault ""
+              , selectedTransform = Nothing
+              , selectedPackaging = Nothing
+              }
+            , Ports.scrollTo { x = 0, y = 0 }
+            )
     in
     if BuilderDb.isEmpty builderDb then
         ( model
         , session
-        , Cmd.batch
-            [ Ports.scrollTo { x = 0, y = 0 }
-            , RequestDb.loadDb session DbLoaded
-            ]
+        , Cmd.batch [ cmds, RequestDb.loadDb session DbLoaded ]
         )
 
     else
         ( { model | dbState = RemoteData.Success builderDb }
         , session
-        , Ports.scrollTo { x = 0, y = 0 }
+        , cmds
         )
 
 

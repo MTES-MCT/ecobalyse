@@ -16,6 +16,7 @@ import Page.Textile.Simulator.ViewMode exposing (ViewMode)
 import Result.Extra as RE
 import Route
 import Set
+import Time
 import Views.Alert as Alert
 import Views.Container as Container
 import Views.Icon as Icon
@@ -107,6 +108,8 @@ bookmarksView ({ bookmarks, compare, showComparatorButton } as config) =
 
           else
             bookmarks
+                |> List.sortBy (.created >> Time.posixToMillis)
+                |> List.reverse
                 |> List.map (bookmarkView config)
                 |> ul
                     [ class "list-group list-group-flush rounded-bottom overflow-auto"
@@ -145,11 +148,11 @@ bookmarkView { currentQuery, impact, funit, viewMode, delete, session } ({ name,
         , button
             [ type_ "button"
             , class "btn btn-sm btn-danger"
+            , title "Supprimer"
+            , attribute "aria-label" "Supprimer"
             , onClick (delete bookmark)
             ]
-            [ span [ class "me-1" ] [ Icon.trash ]
-            , text "Supprimer"
-            ]
+            [ Icon.trash ]
         ]
 
 
