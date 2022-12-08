@@ -281,8 +281,34 @@ sumMasses =
 
 
 toString : Recipe -> String
-toString _ =
-    "TODO"
+toString { ingredients, transform, packaging } =
+    [ ingredients
+        |> List.map
+            (\{ ingredient, mass, variant } ->
+                ingredient.name
+                    ++ " ("
+                    ++ (case variant of
+                            BuilderQuery.Organic ->
+                                "bio, "
+
+                            _ ->
+                                ""
+                       )
+                    ++ String.fromFloat (Mass.inGrams mass)
+                    ++ "g.)"
+            )
+        |> String.join ", "
+        |> Just
+    , transform
+        |> Maybe.map (.process >> Process.getDisplayName)
+    , packaging
+        |> List.map (.process >> Process.getDisplayName)
+        |> String.join ", "
+        |> (++) "Emballage: "
+        |> Just
+    ]
+        |> List.filterMap identity
+        |> String.join "; "
 
 
 transformFromQuery :
