@@ -3,6 +3,7 @@ module Data.Bookmark exposing
     , Query(..)
     , decode
     , encode
+    , findForFood
     , isFood
     , isTextile
     )
@@ -79,3 +80,15 @@ isTextile { query } =
 
         _ ->
             False
+
+
+findByQuery : (Bookmark -> Bool) -> Query -> List Bookmark -> Maybe Bookmark
+findByQuery filter query =
+    List.filter filter
+        >> List.filter (.query >> (==) query)
+        >> List.head
+
+
+findForFood : FoodQuery.Query -> List Bookmark -> Maybe Bookmark
+findForFood foodQuery =
+    findByQuery isFood (Food foodQuery)

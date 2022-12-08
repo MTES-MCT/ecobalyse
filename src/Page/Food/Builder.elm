@@ -89,24 +89,28 @@ type Msg
 
 
 init : Session -> Impact.Trigram -> Maybe Query -> ( Model, Session, Cmd Msg )
-init session trigram maybeQuery =
+init ({ builderDb, store } as session) trigram maybeQuery =
     let
+        query =
+            maybeQuery
+                |> Maybe.withDefault Query.carrotCake
+
+        existingBookmark =
+            store.bookmarks
+                |> Bookmark.findForFood query
+
         model =
             { currentTime = Time.millisToPosix 0
             , dbState = RemoteData.Loading
             , impact = trigram
             , linksTab = SaveLinkTab
-            , query =
-                maybeQuery
-                    |> Maybe.withDefault Query.carrotCake
-
-            -- FIXME: find name if already saved recipe
-            , recipeName = ""
+            , query = query
+            , recipeName = existingBookmark |> Maybe.map .name |> Maybe.withDefault ""
             , selectedTransform = Nothing
             , selectedPackaging = Nothing
             }
     in
-    if BuilderDb.isEmpty session.builderDb then
+    if BuilderDb.isEmpty builderDb then
         ( model
         , session
         , Cmd.batch
@@ -116,7 +120,7 @@ init session trigram maybeQuery =
         )
 
     else
-        ( { model | dbState = RemoteData.Success session.builderDb }
+        ( { model | dbState = RemoteData.Success builderDb }
         , session
         , Ports.scrollTo { x = 0, y = 0 }
         )
