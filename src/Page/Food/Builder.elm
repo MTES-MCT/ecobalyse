@@ -95,9 +95,9 @@ init ({ builderDb, store } as session) trigram maybeQuery =
             maybeQuery
                 |> Maybe.withDefault Query.carrotCake
 
-        existingBookmark =
+        existingBookmarkName =
             store.bookmarks
-                |> Bookmark.findForFood query
+                |> findExistingBookmarkName builderDb query
 
         ( model, cmds ) =
             ( { currentTime = Time.millisToPosix 0
@@ -105,7 +105,7 @@ init ({ builderDb, store } as session) trigram maybeQuery =
               , impact = trigram
               , linksTab = SaveLinkTab
               , query = query
-              , recipeName = existingBookmark |> Maybe.map .name |> Maybe.withDefault ""
+              , recipeName = existingBookmarkName
               , selectedTransform = Nothing
               , selectedPackaging = Nothing
               }
@@ -126,7 +126,7 @@ init ({ builderDb, store } as session) trigram maybeQuery =
 
 
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
-update session msg model =
+update session msg ({ query } as model) =
     case msg of
         AddIngredient ->
             let
@@ -136,25 +136,18 @@ update session msg model =
                         |> List.head
                         |> Maybe.map Recipe.ingredientQueryFromIngredient
             in
-            ( case firstIngredient of
-                Just ingredient ->
-                    { model | query = Query.addIngredient ingredient model.query }
+            ( model, session, Cmd.none )
+                |> (case firstIngredient of
+                        Just ingredient ->
+                            updateQuery (Query.addIngredient ingredient query)
 
-                Nothing ->
-                    model
-            , session
-            , Cmd.none
-            )
+                        Nothing ->
+                            identity
+                   )
 
         AddPackaging { mass, code } ->
-            ( { model
-                | query =
-                    model.query |> Recipe.addPackaging mass code
-                , selectedPackaging = Nothing
-              }
-            , session
-            , Cmd.none
-            )
+            ( { model | selectedPackaging = Nothing }, session, Cmd.none )
+                |> updateQuery (Recipe.addPackaging mass code query)
 
         CopyToClipBoard shareableLink ->
             ( model, session, Ports.copyToClipboard shareableLink )
@@ -171,10 +164,8 @@ update session msg model =
             )
 
         DeleteIngredient ingredientQuery ->
-            ( { model | query = Query.deleteIngredient ingredientQuery model.query }
-            , session
-            , Cmd.none
-            )
+            ( model, session, Cmd.none )
+                |> updateQuery (Query.deleteIngredient ingredientQuery query)
 
         DeleteBookmark bookmark ->
             ( model
@@ -183,14 +174,8 @@ update session msg model =
             )
 
         DeletePackaging code ->
-            ( { model
-                | query =
-                    model.query
-                        |> Recipe.deletePackaging code
-              }
-            , session
-            , Cmd.none
-            )
+            ( model, session, Cmd.none )
+                |> updateQuery (Recipe.deletePackaging code query)
 
         NewTime currentTime ->
             ( { model | currentTime = currentTime }, session, Cmd.none )
@@ -198,22 +183,17 @@ update session msg model =
         NoOp ->
             ( model, session, Cmd.none )
 
-        LoadQuery query ->
-            ( { model | query = query }, session, Cmd.none )
+        LoadQuery queryToLoad ->
+            ( model, session, Cmd.none )
+                |> updateQuery queryToLoad
 
         ResetTransform ->
-            ( { model
-                | query =
-                    model.query
-                        |> Recipe.resetTransform
-              }
-            , session
-            , Cmd.none
-            )
+            ( model, session, Cmd.none )
+                |> updateQuery (Recipe.resetTransform query)
 
         SaveRecipe ->
             if String.trim model.recipeName /= "" then
-                ( { model | recipeName = "" }
+                ( model
                 , session
                     |> Session.saveBookmark
                         { name = String.trim model.recipeName
@@ -236,15 +216,8 @@ update session msg model =
             ( { model | selectedTransform = selectedTransform }, session, Cmd.none )
 
         SetTransform { mass, code } ->
-            ( { model
-                | query =
-                    model.query
-                        |> Recipe.setTransform mass code
-                , selectedTransform = Nothing
-              }
-            , session
-            , Cmd.none
-            )
+            ( { model | selectedTransform = Nothing }, session, Cmd.none )
+                |> updateQuery (Recipe.setTransform mass code query)
 
         SwitchImpact impact ->
             ( model
@@ -262,20 +235,12 @@ update session msg model =
             )
 
         UpdateIngredient oldIngredientId newIngredient ->
-            ( { model | query = Query.updateIngredient oldIngredientId newIngredient model.query }
-            , session
-            , Cmd.none
-            )
+            ( model, session, Cmd.none )
+                |> updateQuery (Query.updateIngredient oldIngredientId newIngredient query)
 
         UpdatePackagingMass code (Just mass) ->
-            ( { model
-                | query =
-                    model.query
-                        |> Recipe.updatePackagingMass mass code
-              }
-            , session
-            , Cmd.none
-            )
+            ( model, session, Cmd.none )
+                |> updateQuery (Recipe.updatePackagingMass mass code query)
 
         UpdatePackagingMass _ Nothing ->
             ( model, session, Cmd.none )
@@ -284,17 +249,36 @@ update session msg model =
             ( { model | recipeName = recipeName }, session, Cmd.none )
 
         UpdateTransformMass (Just mass) ->
-            ( { model
-                | query =
-                    model.query
-                        |> Recipe.updateTransformMass mass
-              }
-            , session
-            , Cmd.none
-            )
+            ( model, session, Cmd.none )
+                |> updateQuery (Recipe.updateTransformMass mass query)
 
         UpdateTransformMass Nothing ->
             ( model, session, Cmd.none )
+
+
+updateQuery : Query -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
+updateQuery query ( model, { builderDb, store } as session, msg ) =
+    ( { model
+        | query = query
+        , recipeName =
+            store.bookmarks
+                |> findExistingBookmarkName builderDb query
+      }
+    , session
+    , msg
+    )
+
+
+findExistingBookmarkName : BuilderDb.Db -> Query -> List Bookmark -> String
+findExistingBookmarkName builderDb query =
+    Bookmark.findForFood query
+        >> Maybe.map .name
+        >> Maybe.withDefault
+            (query
+                |> Recipe.fromQuery builderDb
+                |> Result.map Recipe.toString
+                |> Result.withDefault ""
+            )
 
 
 

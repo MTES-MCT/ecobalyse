@@ -9,12 +9,14 @@ module Data.Food.Builder.Recipe exposing
     , deletePackaging
     , encodeQuery
     , encodeResults
+    , fromQuery
     , ingredientQueryFromIngredient
     , recipeStepImpacts
     , resetTransform
     , serializeQuery
     , setTransform
     , sumMasses
+    , toString
     , updatePackagingMass
     , updateTransformMass
     )
@@ -236,7 +238,10 @@ ingredientQueryFromIngredient ingredient =
     }
 
 
-packagingListFromQuery : Db -> { a | packaging : List BuilderQuery.PackagingQuery } -> Result String (List Packaging)
+packagingListFromQuery :
+    Db
+    -> { a | packaging : List BuilderQuery.PackagingQuery }
+    -> Result String (List Packaging)
 packagingListFromQuery db query =
     query.packaging
         |> RE.combineMap (packagingFromQuery db)
@@ -275,7 +280,15 @@ sumMasses =
     List.map .mass >> Quantity.sum
 
 
-transformFromQuery : Db -> { a | transform : Maybe BuilderQuery.TransformQuery } -> Result String (Maybe Transform)
+toString : Recipe -> String
+toString _ =
+    "TODO"
+
+
+transformFromQuery :
+    Db
+    -> { a | transform : Maybe BuilderQuery.TransformQuery }
+    -> Result String (Maybe Transform)
 transformFromQuery { processes } query =
     query.transform
         |> Maybe.map
