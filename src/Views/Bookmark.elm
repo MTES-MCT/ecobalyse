@@ -1,4 +1,4 @@
-module Views.Bookmark exposing (manager)
+module Views.Bookmark exposing (LinksManagerTab(..), view)
 
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Impact as Impact
@@ -7,7 +7,7 @@ import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import Page.Textile.Simulator.ViewMode exposing (ViewMode)
+import Page.Textile.Simulator.ViewMode as ViewMode exposing (ViewMode)
 import Route
 import Time
 import Views.Icon as Icon
@@ -20,19 +20,85 @@ type alias ManagerConfig msg =
     , currentQuery : Bookmark.Query
     , impact : Impact.Definition
     , funit : Unit.Functional
+    , linksTab : LinksManagerTab
     , viewMode : ViewMode
     , showComparatorButton : Bool
 
     -- Messages
+    , copyToClipBoard : String -> msg
     , compare : msg
     , delete : Bookmark -> msg
     , save : msg
     , update : String -> msg
+    , switchTab : LinksManagerTab -> msg
     }
 
 
-manager : ManagerConfig msg -> Html msg
-manager ({ bookmarks, bookmarkName, currentQuery } as config) =
+type LinksManagerTab
+    = SaveLinkTab
+    | ShareLinkTab
+
+
+view : ManagerConfig msg -> Html msg
+view ({ linksTab, switchTab } as config) =
+    div [ class "card shadow-sm" ]
+        [ div [ class "card-header" ]
+            [ [ ( SaveLinkTab, "Sauvegarder" ), ( ShareLinkTab, "Partager" ) ]
+                |> List.map
+                    (\( msg, label ) ->
+                        li [ class "nav-item" ]
+                            [ button
+                                [ class "btn btn-text nav-link rounded-0 rounded-top no-outline"
+                                , classList [ ( "active", linksTab == msg ) ]
+                                , onClick <| switchTab msg
+                                ]
+                                [ text label ]
+                            ]
+                    )
+                |> ul [ class "nav nav-tabs justify-content-end card-header-tabs" ]
+            ]
+        , case linksTab of
+            ShareLinkTab ->
+                shareLinkView config
+
+            SaveLinkTab ->
+                bookmarksManagerView config
+        ]
+
+
+shareLinkView : ManagerConfig msg -> Html msg
+shareLinkView { session, impact, funit, copyToClipBoard } =
+    let
+        shareableLink =
+            Just session.queries.textile
+                |> Route.TextileSimulator impact.trigram funit ViewMode.Simple
+                |> Route.toString
+                |> (++) session.clientUrl
+    in
+    div [ class "card-body" ]
+        [ div
+            [ class "input-group" ]
+            [ input
+                [ type_ "url"
+                , class "form-control"
+                , value shareableLink
+                ]
+                []
+            , button
+                [ class "input-group-text"
+                , title "Copier l'adresse"
+                , onClick (copyToClipBoard shareableLink)
+                ]
+                [ Icon.clipboard
+                ]
+            ]
+        , div [ class "form-text fs-7" ]
+            [ text "Copiez cette adresse pour partager ou sauvegarder votre simulation" ]
+        ]
+
+
+bookmarksManagerView : ManagerConfig msg -> Html msg
+bookmarksManagerView ({ bookmarks, bookmarkName, currentQuery } as config) =
     let
         ( queryExists, nameExists ) =
             ( bookmarks

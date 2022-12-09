@@ -51,7 +51,7 @@ import Views.Textile.Summary as SummaryView
 type alias Model =
     { currentTime : Posix
     , simulator : Result String Simulator
-    , linksTab : LinksManagerTab
+    , linksTab : BookmarkView.LinksManagerTab
     , simulationName : String
     , massInput : String
     , initialQuery : Inputs.Query
@@ -60,11 +60,6 @@ type alias Model =
     , funit : Unit.Functional
     , modal : Modal
     }
-
-
-type LinksManagerTab
-    = SaveLinkTab
-    | ShareLinkTab
 
 
 type Modal
@@ -86,7 +81,7 @@ type Msg
     | SetModal Modal
     | SwitchFunctionalUnit Unit.Functional
     | SwitchImpact Impact.Trigram
-    | SwitchLinksTab LinksManagerTab
+    | SwitchLinksTab BookmarkView.LinksManagerTab
     | ToggleComparedSimulation String Bool
     | ToggleDisabledFading Bool
     | ToggleStep Label
@@ -129,7 +124,7 @@ init trigram funit viewMode maybeUrlQuery ({ db, store } as session) =
     in
     ( { currentTime = Time.millisToPosix 0
       , simulator = simulator
-      , linksTab = SaveLinkTab
+      , linksTab = BookmarkView.SaveLinkTab
       , simulationName =
             simulator
                 |> findSimulationName store.bookmarks
@@ -463,83 +458,6 @@ lifeCycleStepsView db { viewMode, funit, impact } simulator =
         |> div [ class "pt-1" ]
 
 
-linksManagerView : Session -> Model -> Html Msg
-linksManagerView session ({ linksTab } as model) =
-    -- FIXME: factor out with Food version?
-    div [ class "card shadow-sm" ]
-        [ div [ class "card-header" ]
-            [ ul [ class "nav nav-tabs justify-content-end card-header-tabs" ]
-                [ li [ class "nav-item" ]
-                    [ button
-                        [ class "btn btn-text nav-link rounded-0 rounded-top no-outline"
-                        , classList [ ( "active", linksTab == SaveLinkTab ) ]
-                        , onClick <| SwitchLinksTab SaveLinkTab
-                        ]
-                        [ text "Sauvegarder" ]
-                    ]
-                , li [ class "nav-item" ]
-                    [ button
-                        [ class "btn btn-text nav-link rounded-0 rounded-top no-outline"
-                        , classList [ ( "active", linksTab == ShareLinkTab ) ]
-                        , onClick <| SwitchLinksTab ShareLinkTab
-                        ]
-                        [ text "Partager" ]
-                    ]
-                ]
-            ]
-        , case linksTab of
-            ShareLinkTab ->
-                shareLinkView session model
-
-            SaveLinkTab ->
-                BookmarkView.manager
-                    { session = session
-                    , bookmarkName = model.simulationName
-                    , bookmarks = session.store.bookmarks |> List.filter Bookmark.isTextile
-                    , currentQuery = Bookmark.Textile session.queries.textile
-                    , impact = model.impact
-                    , funit = model.funit
-                    , viewMode = model.viewMode
-                    , compare = OpenComparator
-                    , delete = DeleteBookmark
-                    , save = SaveBookmark
-                    , update = UpdateBookmarkName
-                    , showComparatorButton = True
-                    }
-        ]
-
-
-shareLinkView : Session -> Model -> Html Msg
-shareLinkView session { impact, funit } =
-    let
-        shareableLink =
-            Just session.queries.textile
-                |> Route.TextileSimulator impact.trigram funit ViewMode.Simple
-                |> Route.toString
-                |> (++) session.clientUrl
-    in
-    div [ class "card-body" ]
-        [ div
-            [ class "input-group" ]
-            [ input
-                [ type_ "url"
-                , class "form-control"
-                , value shareableLink
-                ]
-                []
-            , button
-                [ class "input-group-text"
-                , title "Copier l'adresse"
-                , onClick (CopyToClipBoard shareableLink)
-                ]
-                [ Icon.clipboard
-                ]
-            ]
-        , div [ class "form-text fs-7" ]
-            [ text "Copiez cette adresse pour partager ou sauvegarder votre simulation" ]
-        ]
-
-
 displayModeView : Impact.Trigram -> Unit.Functional -> ViewMode -> Inputs.Query -> Html Msg
 displayModeView trigram funit viewMode query =
     let
@@ -624,7 +542,23 @@ simulatorView ({ db } as session) ({ impact, funit, viewMode } as model) ({ inpu
                             , reusable = False
                             }
                     ]
-                , linksManagerView session model
+                , BookmarkView.view
+                    { session = session
+                    , bookmarkName = model.simulationName
+                    , bookmarks = session.store.bookmarks |> List.filter Bookmark.isTextile
+                    , currentQuery = Bookmark.Textile session.queries.textile
+                    , impact = model.impact
+                    , funit = model.funit
+                    , linksTab = model.linksTab
+                    , viewMode = model.viewMode
+                    , copyToClipBoard = CopyToClipBoard
+                    , compare = OpenComparator
+                    , delete = DeleteBookmark
+                    , save = SaveBookmark
+                    , update = UpdateBookmarkName
+                    , showComparatorButton = True
+                    , switchTab = SwitchLinksTab
+                    }
                 ]
             ]
         ]

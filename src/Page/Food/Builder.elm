@@ -45,16 +45,11 @@ type alias Model =
     { currentTime : Posix
     , dbState : WebData Db
     , impact : Impact.Definition
-    , linksTab : LinksManagerTab
+    , linksTab : BookmarkView.LinksManagerTab
     , recipeName : String
     , selectedPackaging : Maybe SelectedProcess
     , selectedTransform : Maybe SelectedProcess
     }
-
-
-type LinksManagerTab
-    = SaveLinkTab
-    | ShareLinkTab
 
 
 type alias SelectedProcess =
@@ -75,15 +70,15 @@ type Msg
     | NewTime Posix
     | NoOp
     | ResetTransform
-    | SaveRecipe
+    | SaveBookmark
     | SelectPackaging (Maybe SelectedProcess)
     | SelectTransform (Maybe SelectedProcess)
     | SetTransform SelectedProcess
-    | SwitchLinksTab LinksManagerTab
+    | SwitchLinksTab BookmarkView.LinksManagerTab
     | SwitchImpact Impact.Trigram
+    | UpdateBookmarkName String
     | UpdateIngredient Id Query.IngredientQuery
     | UpdatePackagingMass Process.Code (Maybe Mass)
-    | UpdateRecipeName String
     | UpdateTransformMass (Maybe Mass)
 
 
@@ -105,7 +100,7 @@ init ({ builderDb, store, queries } as session) trigram maybeQuery =
                     session.builderDb.impacts
                         |> Impact.getDefinition trigram
                         |> Result.withDefault Impact.invalid
-              , linksTab = SaveLinkTab
+              , linksTab = BookmarkView.SaveLinkTab
               , recipeName = existingBookmarkName
               , selectedTransform = Nothing
               , selectedPackaging = Nothing
@@ -197,7 +192,7 @@ update ({ queries } as session) msg model =
             ( model, session, Cmd.none )
                 |> updateQuery (Recipe.resetTransform query)
 
-        SaveRecipe ->
+        SaveBookmark ->
             if String.trim model.recipeName /= "" then
                 ( model
                 , session
@@ -240,6 +235,9 @@ update ({ queries } as session) msg model =
             , Cmd.none
             )
 
+        UpdateBookmarkName recipeName ->
+            ( { model | recipeName = recipeName }, session, Cmd.none )
+
         UpdateIngredient oldIngredientId newIngredient ->
             ( model, session, Cmd.none )
                 |> updateQuery (Query.updateIngredient oldIngredientId newIngredient query)
@@ -250,9 +248,6 @@ update ({ queries } as session) msg model =
 
         UpdatePackagingMass _ Nothing ->
             ( model, session, Cmd.none )
-
-        UpdateRecipeName recipeName ->
-            ( { model | recipeName = recipeName }, session, Cmd.none )
 
         UpdateTransformMass (Just mass) ->
             ( model, session, Cmd.none )
@@ -551,83 +546,6 @@ ingredientListView db selectedImpact recipe results =
     ]
 
 
-linksManagerView : Session -> Model -> Html Msg
-linksManagerView session ({ linksTab } as model) =
-    -- FIXME: factor out with Textile version?
-    div [ class "card shadow-sm" ]
-        [ div [ class "card-header" ]
-            [ ul [ class "nav nav-tabs justify-content-end card-header-tabs" ]
-                [ li [ class "nav-item" ]
-                    [ button
-                        [ class "btn btn-text nav-link rounded-0 rounded-top no-outline"
-                        , classList [ ( "active", linksTab == SaveLinkTab ) ]
-                        , onClick <| SwitchLinksTab SaveLinkTab
-                        ]
-                        [ text "Sauvegarder" ]
-                    ]
-                , li [ class "nav-item" ]
-                    [ button
-                        [ class "btn btn-text nav-link rounded-0 rounded-top no-outline"
-                        , classList [ ( "active", linksTab == ShareLinkTab ) ]
-                        , onClick <| SwitchLinksTab ShareLinkTab
-                        ]
-                        [ text "Partager" ]
-                    ]
-                ]
-            ]
-        , case linksTab of
-            ShareLinkTab ->
-                shareLinkView session model
-
-            SaveLinkTab ->
-                BookmarkView.manager
-                    { session = session
-                    , bookmarkName = model.recipeName
-                    , bookmarks = session.store.bookmarks |> List.filter Bookmark.isFood
-                    , currentQuery = Bookmark.Food session.queries.food
-                    , impact = model.impact
-                    , funit = Unit.PerItem
-                    , viewMode = ViewMode.Simple
-                    , compare = NoOp
-                    , delete = DeleteBookmark
-                    , save = SaveRecipe
-                    , update = UpdateRecipeName
-                    , showComparatorButton = False
-                    }
-        ]
-
-
-shareLinkView : Session -> Model -> Html Msg
-shareLinkView ({ queries } as session) { impact } =
-    let
-        shareableLink =
-            Just queries.food
-                |> Route.FoodBuilder impact.trigram
-                |> Route.toString
-                |> (++) session.clientUrl
-    in
-    div [ class "card-body" ]
-        [ div
-            [ class "input-group" ]
-            [ input
-                [ type_ "url"
-                , class "form-control"
-                , value shareableLink
-                ]
-                []
-            , button
-                [ class "input-group-text"
-                , title "Copier l'adresse"
-                , onClick (CopyToClipBoard shareableLink)
-                ]
-                [ Icon.clipboard
-                ]
-            ]
-        , div [ class "form-text fs-7" ]
-            [ text "Copiez cette adresse pour partager ou sauvegarder votre simulation" ]
-        ]
-
-
 packagingListView : Db -> Impact.Definition -> Maybe SelectedProcess -> Recipe -> Recipe.Results -> List (Html Msg)
 packagingListView db selectedImpact selectedProcess recipe results =
     [ div [ class "card-header d-flex align-items-center justify-content-between" ]
@@ -839,7 +757,23 @@ sidebarView session db model results =
             , footer = []
             }
         , stepResultsView db model results
-        , linksManagerView session model
+        , BookmarkView.view
+            { session = session
+            , bookmarkName = model.recipeName
+            , bookmarks = session.store.bookmarks |> List.filter Bookmark.isFood
+            , currentQuery = Bookmark.Food session.queries.food
+            , impact = model.impact
+            , funit = Unit.PerItem
+            , linksTab = model.linksTab
+            , viewMode = ViewMode.Simple
+            , copyToClipBoard = CopyToClipBoard
+            , compare = NoOp
+            , delete = DeleteBookmark
+            , save = SaveBookmark
+            , update = UpdateBookmarkName
+            , showComparatorButton = False
+            , switchTab = SwitchLinksTab
+            }
         , a [ class "btn btn-primary", Route.href Route.FoodExplore ]
             [ text "Explorateur de recettes" ]
         ]
