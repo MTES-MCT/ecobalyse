@@ -6,9 +6,13 @@ module Data.Bookmark exposing
     , findForFood
     , isFood
     , isTextile
+    , toQueryDescription
     )
 
+import Data.Food.Builder.Db as BuilderDb
 import Data.Food.Builder.Query as FoodQuery
+import Data.Food.Builder.Recipe as Recipe
+import Data.Textile.Db as TextileDb
 import Data.Textile.Inputs as TextileQuery
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
@@ -92,3 +96,19 @@ findByQuery filter query =
 findForFood : FoodQuery.Query -> List Bookmark -> Maybe Bookmark
 findForFood foodQuery =
     findByQuery isFood (Food foodQuery)
+
+
+toQueryDescription : { foodDb : BuilderDb.Db, textileDb : TextileDb.Db } -> Bookmark -> String
+toQueryDescription { foodDb, textileDb } bookmark =
+    case bookmark.query of
+        Food foodQuery ->
+            foodQuery
+                |> Recipe.fromQuery foodDb
+                |> Result.map Recipe.toString
+                |> Result.withDefault bookmark.name
+
+        Textile textileQuery ->
+            textileQuery
+                |> TextileQuery.fromQuery textileDb
+                |> Result.map TextileQuery.toString
+                |> Result.withDefault bookmark.name

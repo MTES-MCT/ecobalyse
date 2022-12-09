@@ -36,6 +36,7 @@ import Route
 import Time exposing (Posix)
 import Views.Alert as Alert
 import Views.Bookmark as BookmarkView
+import Views.Comparator as ComparativeChartView
 import Views.Component.DownArrow as DownArrow
 import Views.Container as Container
 import Views.Dataviz as Dataviz
@@ -652,7 +653,7 @@ view session model =
                                         ++ Unit.functionalToString model.funit
                                 , formAction = Nothing
                                 , content =
-                                    [ BookmarkView.comparator
+                                    [ ComparativeChartView.comparator
                                         { session = session
                                         , impact = model.impact
                                         , funit = model.funit
