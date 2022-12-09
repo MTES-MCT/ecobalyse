@@ -98,7 +98,7 @@ init ({ builderDb, store, queries } as session) trigram maybeQuery =
             store.bookmarks
                 |> findExistingBookmarkName builderDb query
 
-        ( model, cmds ) =
+        ( model, newSession, cmds ) =
             ( { currentTime = Time.millisToPosix 0
               , dbState = RemoteData.Loading
               , impact = trigram
@@ -107,18 +107,19 @@ init ({ builderDb, store, queries } as session) trigram maybeQuery =
               , selectedTransform = Nothing
               , selectedPackaging = Nothing
               }
+            , session |> Session.updateFoodQuery query
             , Ports.scrollTo { x = 0, y = 0 }
             )
     in
     if BuilderDb.isEmpty builderDb then
         ( model
-        , session
+        , newSession
         , Cmd.batch [ cmds, RequestDb.loadDb session DbLoaded ]
         )
 
     else
         ( { model | dbState = RemoteData.Success builderDb }
-        , session
+        , newSession
         , cmds
         )
 
