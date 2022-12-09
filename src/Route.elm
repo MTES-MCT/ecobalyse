@@ -64,7 +64,7 @@ parser =
             (Parser.s "textile" </> Parser.s "explore")
         , Parser.map TextileExplore
             (Parser.s "textile" </> Parser.s "explore" </> Db.parseDatasetSlug)
-        , Parser.map toExploreWithId
+        , Parser.map toTextileExploreWithId
             (Parser.s "textile" </> Parser.s "explore" </> Db.parseDatasetSlug </> Parser.string)
 
         -- Textile Simulator
@@ -81,8 +81,8 @@ parser =
         ]
 
 
-toExploreWithId : Db.Dataset -> String -> Route
-toExploreWithId dataset idString =
+toTextileExploreWithId : Db.Dataset -> String -> Route
+toTextileExploreWithId dataset idString =
     TextileExplore (Db.datasetSlugWithId dataset idString)
 
 

@@ -45,7 +45,7 @@ type alias Model =
     { currentTime : Posix
     , dbState : WebData Db
     , impact : Impact.Definition
-    , linksTab : BookmarkView.LinksManagerTab
+    , bookmarkTab : BookmarkView.ActiveTab
     , recipeName : String
     , selectedPackaging : Maybe SelectedProcess
     , selectedTransform : Maybe SelectedProcess
@@ -74,7 +74,7 @@ type Msg
     | SelectPackaging (Maybe SelectedProcess)
     | SelectTransform (Maybe SelectedProcess)
     | SetTransform SelectedProcess
-    | SwitchLinksTab BookmarkView.LinksManagerTab
+    | SwitchLinksTab BookmarkView.ActiveTab
     | SwitchImpact Impact.Trigram
     | UpdateBookmarkName String
     | UpdateIngredient Id Query.IngredientQuery
@@ -85,6 +85,11 @@ type Msg
 init : Session -> Impact.Trigram -> Maybe Query -> ( Model, Session, Cmd Msg )
 init ({ builderDb, store, queries } as session) trigram maybeQuery =
     let
+        impact =
+            session.builderDb.impacts
+                |> Impact.getDefinition trigram
+                |> Result.withDefault Impact.invalid
+
         query =
             maybeQuery
                 |> Maybe.withDefault queries.food
@@ -96,11 +101,8 @@ init ({ builderDb, store, queries } as session) trigram maybeQuery =
         ( model, newSession, cmds ) =
             ( { currentTime = Time.millisToPosix 0
               , dbState = RemoteData.Loading
-              , impact =
-                    session.builderDb.impacts
-                        |> Impact.getDefinition trigram
-                        |> Result.withDefault Impact.invalid
-              , linksTab = BookmarkView.SaveLinkTab
+              , impact = impact
+              , bookmarkTab = BookmarkView.SaveTab
               , recipeName = existingBookmarkName
               , selectedTransform = Nothing
               , selectedPackaging = Nothing
@@ -229,8 +231,8 @@ update ({ queries } as session) msg model =
                 |> Navigation.pushUrl session.navKey
             )
 
-        SwitchLinksTab linksTab ->
-            ( { model | linksTab = linksTab }
+        SwitchLinksTab bookmarkTab ->
+            ( { model | bookmarkTab = bookmarkTab }
             , session
             , Cmd.none
             )
@@ -759,10 +761,10 @@ sidebarView session db model results =
         , stepResultsView db model results
         , BookmarkView.view
             { session = session
+            , activeTab = model.bookmarkTab
             , bookmarkName = model.recipeName
             , impact = model.impact
             , funit = Unit.PerItem
-            , linksTab = model.linksTab
             , scope = BookmarkView.Food
             , viewMode = ViewMode.Simple
             , copyToClipBoard = CopyToClipBoard

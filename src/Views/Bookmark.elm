@@ -1,4 +1,4 @@
-module Views.Bookmark exposing (LinksManagerTab(..), Scope(..), view)
+module Views.Bookmark exposing (ActiveTab(..), Scope(..), view)
 
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Impact as Impact
@@ -15,10 +15,10 @@ import Views.Icon as Icon
 
 type alias ManagerConfig msg =
     { session : Session
+    , activeTab : ActiveTab
     , bookmarkName : String
     , impact : Impact.Definition
     , funit : Unit.Functional
-    , linksTab : LinksManagerTab
     , viewMode : ViewMode
     , scope : Scope
 
@@ -28,7 +28,7 @@ type alias ManagerConfig msg =
     , delete : Bookmark -> msg
     , save : msg
     , update : String -> msg
-    , switchTab : LinksManagerTab -> msg
+    , switchTab : ActiveTab -> msg
     }
 
 
@@ -37,22 +37,22 @@ type Scope
     | Textile
 
 
-type LinksManagerTab
-    = SaveLinkTab
-    | ShareLinkTab
+type ActiveTab
+    = SaveTab
+    | ShareTab
 
 
 view : ManagerConfig msg -> Html msg
-view ({ linksTab, switchTab } as config) =
+view ({ activeTab, switchTab } as config) =
     div [ class "card shadow-sm" ]
         [ div [ class "card-header" ]
-            [ [ ( SaveLinkTab, "Sauvegarder" ), ( ShareLinkTab, "Partager" ) ]
+            [ [ ( SaveTab, "Sauvegarder" ), ( ShareTab, "Partager" ) ]
                 |> List.map
                     (\( msg, label ) ->
                         li [ class "nav-item" ]
                             [ button
                                 [ class "btn btn-text nav-link rounded-0 rounded-top no-outline"
-                                , classList [ ( "active", linksTab == msg ) ]
+                                , classList [ ( "active", activeTab == msg ) ]
                                 , onClick <| switchTab msg
                                 ]
                                 [ text label ]
@@ -60,11 +60,11 @@ view ({ linksTab, switchTab } as config) =
                     )
                 |> ul [ class "nav nav-tabs justify-content-end card-header-tabs" ]
             ]
-        , case linksTab of
-            ShareLinkTab ->
+        , case activeTab of
+            ShareTab ->
                 shareLinkView config
 
-            SaveLinkTab ->
+            SaveTab ->
                 managerView config
         ]
 

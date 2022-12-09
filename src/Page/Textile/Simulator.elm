@@ -51,7 +51,7 @@ import Views.Textile.Summary as SummaryView
 type alias Model =
     { currentTime : Posix
     , simulator : Result String Simulator
-    , linksTab : BookmarkView.LinksManagerTab
+    , bookmarkTab : BookmarkView.ActiveTab
     , simulationName : String
     , massInput : String
     , initialQuery : Inputs.Query
@@ -81,7 +81,7 @@ type Msg
     | SetModal Modal
     | SwitchFunctionalUnit Unit.Functional
     | SwitchImpact Impact.Trigram
-    | SwitchLinksTab BookmarkView.LinksManagerTab
+    | SwitchLinksTab BookmarkView.ActiveTab
     | ToggleComparedSimulation String Bool
     | ToggleDisabledFading Bool
     | ToggleStep Label
@@ -124,7 +124,7 @@ init trigram funit viewMode maybeUrlQuery ({ db, store } as session) =
     in
     ( { currentTime = Time.millisToPosix 0
       , simulator = simulator
-      , linksTab = BookmarkView.SaveLinkTab
+      , bookmarkTab = BookmarkView.SaveTab
       , simulationName =
             simulator
                 |> findSimulationName store.bookmarks
@@ -278,8 +278,8 @@ update ({ db, queries, navKey } as session) msg model =
                 |> Navigation.pushUrl navKey
             )
 
-        SwitchLinksTab linksTab ->
-            ( { model | linksTab = linksTab }
+        SwitchLinksTab bookmarkTab ->
+            ( { model | bookmarkTab = bookmarkTab }
             , session
             , Cmd.none
             )
@@ -544,10 +544,10 @@ simulatorView ({ db } as session) ({ impact, funit, viewMode } as model) ({ inpu
                     ]
                 , BookmarkView.view
                     { session = session
+                    , activeTab = model.bookmarkTab
                     , bookmarkName = model.simulationName
                     , impact = model.impact
                     , funit = model.funit
-                    , linksTab = model.linksTab
                     , scope = BookmarkView.Textile
                     , viewMode = model.viewMode
                     , copyToClipBoard = CopyToClipBoard
