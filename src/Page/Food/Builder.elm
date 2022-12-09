@@ -44,7 +44,7 @@ import Views.Spinner as Spinner
 type alias Model =
     { currentTime : Posix
     , dbState : WebData Db
-    , impact : Impact.Trigram
+    , impact : Impact.Definition
     , linksTab : LinksManagerTab
     , recipeName : String
     , selectedPackaging : Maybe SelectedProcess
@@ -101,7 +101,10 @@ init ({ builderDb, store, queries } as session) trigram maybeQuery =
         ( model, newSession, cmds ) =
             ( { currentTime = Time.millisToPosix 0
               , dbState = RemoteData.Loading
-              , impact = trigram
+              , impact =
+                    session.builderDb.impacts
+                        |> Impact.getDefinition trigram
+                        |> Result.withDefault Impact.invalid
               , linksTab = SaveLinkTab
               , recipeName = existingBookmarkName
               , selectedTransform = Nothing
@@ -498,28 +501,19 @@ errorView error =
         }
 
 
-formatImpact : Db -> Impact.Trigram -> Impact.Impacts -> Html Msg
-formatImpact db selectedImpact impacts =
-    case Impact.getDefinition selectedImpact db.impacts of
-        Ok definition ->
-            impacts
-                |> Impact.getImpact selectedImpact
-                |> Unit.impactToFloat
-                |> Format.formatImpactFloat definition 2
-
-        Err error ->
-            span [ class "d-flex align-items-center gap-1 bg-white text-danger" ]
-                [ Icon.warning
-                , text error
-                ]
+formatImpact : Impact.Definition -> Impact.Impacts -> Html Msg
+formatImpact selectedImpact =
+    Impact.getImpact selectedImpact.trigram
+        >> Unit.impactToFloat
+        >> Format.formatImpactFloat selectedImpact 2
 
 
-ingredientListView : Db -> Impact.Trigram -> Recipe -> Recipe.Results -> List (Html Msg)
+ingredientListView : Db -> Impact.Definition -> Recipe -> Recipe.Results -> List (Html Msg)
 ingredientListView db selectedImpact recipe results =
     [ div [ class "card-header d-flex align-items-center justify-content-between" ]
         [ h6 [ class "mb-0" ] [ text "Ingrédients" ]
         , results.recipe.ingredients
-            |> formatImpact db selectedImpact
+            |> formatImpact selectedImpact
         ]
     , ul [ class "list-group list-group-flush" ]
         ((if List.isEmpty recipe.ingredients then
@@ -591,10 +585,7 @@ linksManagerView session ({ linksTab } as model) =
                     , bookmarkName = model.recipeName
                     , bookmarks = session.store.bookmarks |> List.filter Bookmark.isFood
                     , currentQuery = Bookmark.Food session.queries.food
-                    , impact =
-                        session.builderDb.impacts
-                            |> Impact.getDefinition model.impact
-                            |> Result.withDefault Impact.invalid
+                    , impact = model.impact
                     , funit = Unit.PerItem
                     , viewMode = ViewMode.Simple
                     , compare = NoOp
@@ -611,7 +602,7 @@ shareLinkView ({ queries } as session) { impact } =
     let
         shareableLink =
             Just queries.food
-                |> Route.FoodBuilder impact
+                |> Route.FoodBuilder impact.trigram
                 |> Route.toString
                 |> (++) session.clientUrl
     in
@@ -637,12 +628,12 @@ shareLinkView ({ queries } as session) { impact } =
         ]
 
 
-packagingListView : Db -> Impact.Trigram -> Maybe SelectedProcess -> Recipe -> Recipe.Results -> List (Html Msg)
+packagingListView : Db -> Impact.Definition -> Maybe SelectedProcess -> Recipe -> Recipe.Results -> List (Html Msg)
 packagingListView db selectedImpact selectedProcess recipe results =
     [ div [ class "card-header d-flex align-items-center justify-content-between" ]
         [ h5 [ class "mb-0" ] [ text "Emballage" ]
         , results.packaging
-            |> formatImpact db selectedImpact
+            |> formatImpact selectedImpact
         ]
     , ul [ class "list-group list-group-flush" ]
         (if List.isEmpty recipe.packaging then
@@ -662,7 +653,7 @@ packagingListView db selectedImpact selectedProcess recipe results =
                             (small [] [ text <| Process.getDisplayName process ])
                             (div [ class "d-flex flex-nowrap align-items-center gap-2 fs-7 text-nowrap" ]
                                 [ Recipe.computeProcessImpacts packaging
-                                    |> formatImpact db selectedImpact
+                                    |> formatImpact selectedImpact
                                 , button
                                     [ type_ "button"
                                     , class "btn btn-sm btn-outline-primary"
@@ -823,7 +814,7 @@ sidebarView session db model results =
         ]
         [ ImpactView.impactSelector
             { impacts = db.impacts
-            , selectedImpact = model.impact
+            , selectedImpact = model.impact.trigram
             , switchImpact = SwitchImpact
 
             -- We don't use the following two configs
@@ -837,7 +828,7 @@ sidebarView session db model results =
                 [ div [ class "d-flex flex-column m-auto gap-1 px-2" ]
                     [ div [ class "display-4 lh-1 text-center text-nowrap" ]
                         [ results.impacts
-                            |> formatImpact db model.impact
+                            |> formatImpact model.impact
                         ]
                     , small [ class "d-flex align-items-center gap-1" ]
                         [ Icon.warning
@@ -861,7 +852,7 @@ stepListView db { impact, selectedPackaging, selectedTransform } recipe results 
             (div [ class "card-header d-flex align-items-center justify-content-between" ]
                 [ h5 [ class "mb-0" ] [ text "Recette" ]
                 , Recipe.recipeStepImpacts db results
-                    |> formatImpact db impact
+                    |> formatImpact impact
                     |> List.singleton
                     |> span [ class "fw-bold" ]
                 ]
@@ -879,7 +870,7 @@ stepResultsView : Db -> Model -> Recipe.Results -> Html Msg
 stepResultsView db model results =
     let
         toFloat =
-            Impact.getImpact model.impact >> Unit.impactToFloat
+            Impact.getImpact model.impact.trigram >> Unit.impactToFloat
 
         stepsData =
             [ { label = "Recette"
@@ -925,12 +916,12 @@ stepResultsView db model results =
         ]
 
 
-transformView : Db -> Impact.Trigram -> Maybe SelectedProcess -> Recipe -> Recipe.Results -> List (Html Msg)
+transformView : Db -> Impact.Definition -> Maybe SelectedProcess -> Recipe -> Recipe.Results -> List (Html Msg)
 transformView db selectedImpact selectedProcess recipe results =
     [ div [ class "card-header d-flex align-items-center justify-content-between" ]
         [ h6 [ class "mb-0" ] [ text "Transformation" ]
         , results.recipe.transform
-            |> formatImpact db selectedImpact
+            |> formatImpact selectedImpact
         ]
     , case recipe.transform of
         Just ({ process, mass } as transform) ->
@@ -945,7 +936,7 @@ transformView db selectedImpact selectedProcess recipe results =
                     (small [] [ text <| Process.getDisplayName process ])
                     (div [ class "d-flex flex-nowrap align-items-center gap-2 fs-7 text-nowrap" ]
                         [ Recipe.computeProcessImpacts transform
-                            |> formatImpact db selectedImpact
+                            |> formatImpact selectedImpact
                         , button
                             [ type_ "button"
                             , class "btn btn-sm btn-outline-primary"
