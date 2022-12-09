@@ -46,7 +46,6 @@ type alias Model =
     , dbState : WebData Db
     , impact : Impact.Trigram
     , linksTab : LinksManagerTab
-    , query : Query
     , recipeName : String
     , selectedPackaging : Maybe SelectedProcess
     , selectedTransform : Maybe SelectedProcess
@@ -104,7 +103,6 @@ init ({ builderDb, store, queries } as session) trigram maybeQuery =
               , dbState = RemoteData.Loading
               , impact = trigram
               , linksTab = SaveLinkTab
-              , query = query
               , recipeName = existingBookmarkName
               , selectedTransform = Nothing
               , selectedPackaging = Nothing
@@ -126,13 +124,17 @@ init ({ builderDb, store, queries } as session) trigram maybeQuery =
 
 
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
-update session msg ({ query } as model) =
+update ({ queries } as session) msg model =
+    let
+        query =
+            queries.food
+    in
     case msg of
         AddIngredient ->
             let
                 firstIngredient =
                     session.builderDb.ingredients
-                        |> Recipe.availableIngredients (List.map .id model.query.ingredients)
+                        |> Recipe.availableIngredients (List.map .id query.ingredients)
                         |> List.head
                         |> Maybe.map Recipe.ingredientQueryFromIngredient
             in
@@ -197,7 +199,7 @@ update session msg ({ query } as model) =
                 , session
                     |> Session.saveBookmark
                         { name = String.trim model.recipeName
-                        , query = Bookmark.Food model.query
+                        , query = Bookmark.Food query
                         , created = model.currentTime
                         }
                 , Cmd.none
@@ -222,7 +224,7 @@ update session msg ({ query } as model) =
         SwitchImpact impact ->
             ( model
             , session
-            , Just model.query
+            , Just query
                 |> Route.FoodBuilder impact
                 |> Route.toString
                 |> Navigation.pushUrl session.navKey
@@ -259,12 +261,11 @@ update session msg ({ query } as model) =
 updateQuery : Query -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
 updateQuery query ( model, { builderDb, store } as session, msg ) =
     ( { model
-        | query = query
-        , recipeName =
+        | recipeName =
             store.bookmarks
                 |> findExistingBookmarkName builderDb query
       }
-    , session
+    , session |> Session.updateFoodQuery query
     , msg
     )
 
@@ -588,7 +589,7 @@ linksManagerView session ({ linksTab } as model) =
                     { session = session
                     , bookmarkName = model.recipeName
                     , bookmarks = session.store.bookmarks |> List.filter Bookmark.isFood
-                    , currentQuery = Bookmark.Food model.query
+                    , currentQuery = Bookmark.Food session.queries.food
                     , impact =
                         session.builderDb.impacts
                             |> Impact.getDefinition model.impact
@@ -605,10 +606,10 @@ linksManagerView session ({ linksTab } as model) =
 
 
 shareLinkView : Session -> Model -> Html Msg
-shareLinkView session { query, impact } =
+shareLinkView ({ queries } as session) { impact } =
     let
         shareableLink =
-            Just query
+            Just queries.food
                 |> Route.FoodBuilder impact
                 |> Route.toString
                 |> (++) session.clientUrl
@@ -690,7 +691,7 @@ mainView : Session -> Db -> Model -> Html Msg
 mainView session db model =
     let
         computed =
-            Recipe.compute db model.query
+            Recipe.compute db session.queries.food
     in
     div [ class "row gap-3 gap-lg-0" ]
         [ div [ class "col-lg-4 order-lg-2 d-flex flex-column gap-3" ]
@@ -702,14 +703,14 @@ mainView session db model =
                     errorView error
             ]
         , div [ class "col-lg-8 order-lg-1 d-flex flex-column gap-3" ]
-            [ menuView model.query
+            [ menuView session.queries.food
             , case computed of
                 Ok ( recipe, results ) ->
                     stepListView db model recipe results
 
                 Err error ->
                     errorView error
-            , debugQueryView db model.query
+            , debugQueryView db session.queries.food
             ]
         ]
 
