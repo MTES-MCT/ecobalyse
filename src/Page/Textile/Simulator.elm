@@ -120,7 +120,7 @@ init trigram funit viewMode maybeUrlQuery ({ db, store } as session) =
             -- If we received a serialized query from the URL, use it
             -- Otherwise, fallback to use session query
             maybeUrlQuery
-                |> Maybe.withDefault session.query
+                |> Maybe.withDefault session.queries.textile
 
         simulator =
             initialQuery
@@ -145,13 +145,15 @@ init trigram funit viewMode maybeUrlQuery ({ db, store } as session) =
       , funit = funit
       , modal = NoModal
       }
-    , case simulator of
-        Err error ->
-            { session | query = initialQuery }
-                |> Session.notifyError "Erreur de récupération des paramètres d'entrée" error
+    , session
+        |> Session.updateTextileQuery initialQuery
+        |> (case simulator of
+                Err error ->
+                    Session.notifyError "Erreur de récupération des paramètres d'entrée" error
 
-        Ok _ ->
-            { session | query = initialQuery }
+                Ok _ ->
+                    identity
+           )
     , case maybeUrlQuery of
         -- If we don't have an URL query, we may be coming from another app page, so we should
         -- reposition the viewport at the top.
@@ -200,13 +202,17 @@ updateQuery query ( model, session, msg ) =
             updatedSimulator
                 |> findSimulationName session.store.bookmarks
       }
-    , { session | query = query }
+    , session |> Session.updateTextileQuery query
     , msg
     )
 
 
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
-update ({ db, query, navKey } as session) msg model =
+update ({ db, queries, navKey } as session) msg model =
+    let
+        query =
+            queries.textile
+    in
     case msg of
         AddMaterial ->
             ( model, session, Cmd.none )
@@ -489,7 +495,7 @@ linksManagerView session ({ linksTab } as model) =
                     { session = session
                     , bookmarkName = model.simulationName
                     , bookmarks = session.store.bookmarks |> List.filter Bookmark.isTextile
-                    , currentQuery = Bookmark.Textile session.query
+                    , currentQuery = Bookmark.Textile session.queries.textile
                     , impact = model.impact
                     , funit = model.funit
                     , viewMode = model.viewMode
@@ -506,7 +512,7 @@ shareLinkView : Session -> Model -> Html Msg
 shareLinkView session { impact, funit } =
     let
         shareableLink =
-            Just session.query
+            Just session.queries.textile
                 |> Route.TextileSimulator impact.trigram funit ViewMode.Simple
                 |> Route.toString
                 |> (++) session.clientUrl
@@ -578,7 +584,7 @@ simulatorView ({ db } as session) ({ impact, funit, viewMode } as model) ({ inpu
                 , updateShare = UpdateMaterialShare
                 , selectInputText = SelectInputText
                 }
-            , session.query
+            , session.queries.textile
                 |> displayModeView impact.trigram funit viewMode
             , if viewMode == ViewMode.Dataviz then
                 Dataviz.view db simulator
@@ -592,7 +598,7 @@ simulatorView ({ db } as session) ({ impact, funit, viewMode } as model) ({ inpu
                         , button
                             [ class "btn btn-secondary"
                             , onClick Reset
-                            , disabled (session.query == model.initialQuery)
+                            , disabled (session.queries.textile == model.initialQuery)
                             ]
                             [ text "Réinitialiser le simulateur" ]
                         ]

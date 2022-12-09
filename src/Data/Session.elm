@@ -11,11 +11,14 @@ module Data.Session exposing
     , saveBookmark
     , serializeStore
     , toggleComparedSimulation
+    , updateFoodQuery
+    , updateTextileQuery
     )
 
 import Browser.Navigation as Nav
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Food.Builder.Db as BuilderDb
+import Data.Food.Builder.Query as FoodQuery
 import Data.Food.Explorer.Db as ExplorerDb
 import Data.Textile.Db exposing (Db)
 import Data.Textile.Inputs as TextileInputs
@@ -36,7 +39,10 @@ type alias Session =
     , builderDb : BuilderDb.Db
     , explorerDb : ExplorerDb.Db
     , notifications : List Notification
-    , query : TextileInputs.Query
+    , queries :
+        { food : FoodQuery.Query
+        , textile : TextileInputs.Query
+        }
     }
 
 
@@ -88,6 +94,20 @@ saveBookmark bookmark =
                     bookmark :: store.bookmarks
             }
         )
+
+
+
+-- Queries
+
+
+updateFoodQuery : FoodQuery.Query -> Session -> Session
+updateFoodQuery foodQuery ({ queries } as session) =
+    { session | queries = { queries | food = foodQuery } }
+
+
+updateTextileQuery : TextileInputs.Query -> Session -> Session
+updateTextileQuery textileQuery ({ queries } as session) =
+    { session | queries = { queries | textile = textileQuery } }
 
 
 

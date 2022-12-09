@@ -89,11 +89,11 @@ type Msg
 
 
 init : Session -> Impact.Trigram -> Maybe Query -> ( Model, Session, Cmd Msg )
-init ({ builderDb, store } as session) trigram maybeQuery =
+init ({ builderDb, store, queries } as session) trigram maybeQuery =
     let
         query =
             maybeQuery
-                |> Maybe.withDefault Query.carrotCake
+                |> Maybe.withDefault queries.food
 
         existingBookmarkName =
             store.bookmarks

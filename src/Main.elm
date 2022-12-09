@@ -3,10 +3,11 @@ module Main exposing (main)
 import Browser exposing (Document)
 import Browser.Navigation as Nav
 import Data.Food.Builder.Db as BuilderDb
+import Data.Food.Builder.Query as FoodQuery
 import Data.Food.Explorer.Db as ExplorerDb
 import Data.Session as Session exposing (Session)
 import Data.Textile.Db as Db exposing (Db)
-import Data.Textile.Inputs as Inputs
+import Data.Textile.Inputs as TextileInputs
 import Html
 import Page.Api as Api
 import Page.Changelog as Changelog
@@ -91,7 +92,10 @@ init flags url navKey =
             , builderDb = BuilderDb.empty
             , explorerDb = ExplorerDb.empty
             , notifications = []
-            , query = Inputs.defaultQuery
+            , queries =
+                { food = FoodQuery.carrotCake
+                , textile = TextileInputs.defaultQuery
+                }
             }
     in
     ( { page = BlankPage
