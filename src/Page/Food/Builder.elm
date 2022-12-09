@@ -760,18 +760,16 @@ sidebarView session db model results =
         , BookmarkView.view
             { session = session
             , bookmarkName = model.recipeName
-            , bookmarks = session.store.bookmarks |> List.filter Bookmark.isFood
-            , currentQuery = Bookmark.Food session.queries.food
             , impact = model.impact
             , funit = Unit.PerItem
             , linksTab = model.linksTab
+            , scope = BookmarkView.Food
             , viewMode = ViewMode.Simple
             , copyToClipBoard = CopyToClipBoard
             , compare = NoOp
             , delete = DeleteBookmark
             , save = SaveBookmark
             , update = UpdateBookmarkName
-            , showComparatorButton = False
             , switchTab = SwitchLinksTab
             }
         , a [ class "btn btn-primary", Route.href Route.FoodExplore ]

@@ -545,18 +545,16 @@ simulatorView ({ db } as session) ({ impact, funit, viewMode } as model) ({ inpu
                 , BookmarkView.view
                     { session = session
                     , bookmarkName = model.simulationName
-                    , bookmarks = session.store.bookmarks |> List.filter Bookmark.isTextile
-                    , currentQuery = Bookmark.Textile session.queries.textile
                     , impact = model.impact
                     , funit = model.funit
                     , linksTab = model.linksTab
+                    , scope = BookmarkView.Textile
                     , viewMode = model.viewMode
                     , copyToClipBoard = CopyToClipBoard
                     , compare = OpenComparator
                     , delete = DeleteBookmark
                     , save = SaveBookmark
                     , update = UpdateBookmarkName
-                    , showComparatorButton = True
                     , switchTab = SwitchLinksTab
                     }
                 ]

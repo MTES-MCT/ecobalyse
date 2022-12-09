@@ -1,4 +1,4 @@
-module Views.Bookmark exposing (LinksManagerTab(..), view)
+module Views.Bookmark exposing (LinksManagerTab(..), Scope(..), view)
 
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Impact as Impact
@@ -15,14 +15,12 @@ import Views.Icon as Icon
 
 type alias ManagerConfig msg =
     { session : Session
-    , bookmarks : List Bookmark
     , bookmarkName : String
-    , currentQuery : Bookmark.Query
     , impact : Impact.Definition
     , funit : Unit.Functional
     , linksTab : LinksManagerTab
     , viewMode : ViewMode
-    , showComparatorButton : Bool
+    , scope : Scope
 
     -- Messages
     , copyToClipBoard : String -> msg
@@ -32,6 +30,11 @@ type alias ManagerConfig msg =
     , update : String -> msg
     , switchTab : LinksManagerTab -> msg
     }
+
+
+type Scope
+    = Food
+    | Textile
 
 
 type LinksManagerTab
@@ -62,18 +65,26 @@ view ({ linksTab, switchTab } as config) =
                 shareLinkView config
 
             SaveLinkTab ->
-                bookmarksManagerView config
+                managerView config
         ]
 
 
 shareLinkView : ManagerConfig msg -> Html msg
-shareLinkView { session, impact, funit, copyToClipBoard } =
+shareLinkView { session, impact, funit, copyToClipBoard, scope } =
     let
         shareableLink =
-            Just session.queries.textile
-                |> Route.TextileSimulator impact.trigram funit ViewMode.Simple
-                |> Route.toString
-                |> (++) session.clientUrl
+            case scope of
+                Food ->
+                    Just session.queries.food
+                        |> Route.FoodBuilder impact.trigram
+                        |> Route.toString
+                        |> (++) session.clientUrl
+
+                Textile ->
+                    Just session.queries.textile
+                        |> Route.TextileSimulator impact.trigram funit ViewMode.Simple
+                        |> Route.toString
+                        |> (++) session.clientUrl
     in
     div [ class "card-body" ]
         [ div
@@ -97,13 +108,16 @@ shareLinkView { session, impact, funit, copyToClipBoard } =
         ]
 
 
-bookmarksManagerView : ManagerConfig msg -> Html msg
-bookmarksManagerView ({ bookmarks, bookmarkName, currentQuery } as config) =
+managerView : ManagerConfig msg -> Html msg
+managerView ({ session, bookmarkName, scope } as config) =
     let
+        bookmarks =
+            scopedBookmarks session scope
+
         ( queryExists, nameExists ) =
             ( bookmarks
                 |> List.map .query
-                |> List.member currentQuery
+                |> List.member (queryFromScope session scope)
             , bookmarks
                 |> List.map .name
                 |> List.member bookmarkName
@@ -140,23 +154,28 @@ bookmarksManagerView ({ bookmarks, bookmarkName, currentQuery } as config) =
 
 
 bookmarksView : ManagerConfig msg -> Html msg
-bookmarksView ({ bookmarks, compare, showComparatorButton } as config) =
+bookmarksView ({ session, compare, scope } as config) =
+    let
+        bookmarks =
+            scopedBookmarks session scope
+    in
     div []
         [ div [ class "card-header border-top rounded-0 d-flex justify-content-between align-items-center" ]
             [ span [] [ text "Simulations sauvegardées" ]
-            , if showComparatorButton then
-                button
-                    [ class "btn btn-sm btn-primary"
-                    , title "Comparer vos simulations sauvegardées"
-                    , disabled (List.length bookmarks < 2)
-                    , onClick compare
-                    ]
-                    [ span [ class "me-1" ] [ Icon.stats ]
-                    , text "Comparer"
-                    ]
+            , case scope of
+                Food ->
+                    text ""
 
-              else
-                text ""
+                Textile ->
+                    button
+                        [ class "btn btn-sm btn-primary"
+                        , title "Comparer vos simulations sauvegardées"
+                        , disabled (List.length bookmarks < 2)
+                        , onClick compare
+                        ]
+                        [ span [ class "me-1" ] [ Icon.stats ]
+                        , text "Comparer"
+                        ]
             ]
         , if List.length bookmarks == 0 then
             div [ class "card-body form-text fs-7 pt-2" ]
@@ -175,8 +194,11 @@ bookmarksView ({ bookmarks, compare, showComparatorButton } as config) =
 
 
 bookmarkView : ManagerConfig msg -> Bookmark -> Html msg
-bookmarkView { currentQuery, impact, funit, viewMode, delete, session } ({ name, query } as bookmark) =
+bookmarkView { session, impact, funit, viewMode, delete, scope } ({ name, query } as bookmark) =
     let
+        currentQuery =
+            queryFromScope session scope
+
         bookmarkRoute =
             case query of
                 Bookmark.Food foodQuery ->
@@ -212,3 +234,26 @@ bookmarkView { currentQuery, impact, funit, viewMode, delete, session } ({ name,
             ]
             [ Icon.trash ]
         ]
+
+
+queryFromScope : Session -> Scope -> Bookmark.Query
+queryFromScope session scope =
+    case scope of
+        Food ->
+            Bookmark.Food session.queries.food
+
+        Textile ->
+            Bookmark.Textile session.queries.textile
+
+
+scopedBookmarks : Session -> Scope -> List Bookmark
+scopedBookmarks session scope =
+    session.store.bookmarks
+        |> List.filter
+            (case scope of
+                Food ->
+                    Bookmark.isFood
+
+                Textile ->
+                    Bookmark.isTextile
+            )
