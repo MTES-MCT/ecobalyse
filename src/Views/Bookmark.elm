@@ -122,6 +122,9 @@ managerView ({ session, bookmarkName, scope } as config) =
                 |> List.map .name
                 |> List.member bookmarkName
             )
+
+        bookmarkExists =
+            queryExists || nameExists
     in
     div []
         [ div [ class "card-body pb-2" ]
@@ -135,19 +138,25 @@ managerView ({ session, bookmarkName, scope } as config) =
                         , value bookmarkName
                         , required True
                         , pattern "^(?!\\s*$).+"
+                        , readonly bookmarkExists
                         ]
                         []
                     , button
                         [ type_ "submit"
                         , class "btn btn-primary"
                         , title "Sauvegarder la simulation dans le stockage local au navigateur"
-                        , disabled (queryExists || nameExists)
+                        , disabled bookmarkExists
                         ]
                         [ Icon.plus ]
                     ]
                 ]
             , div [ class "form-text fs-7 pb-0" ]
-                [ text "Donnez un nom à cette simulation pour la retrouver plus tard" ]
+                [ if bookmarkExists then
+                    span [ class "d-flex align-items-center gap-1" ] [ Icon.info, text "Cette simulation est déjà sauvegardée" ]
+
+                  else
+                    text "Donnez un nom à cette simulation pour la retrouver plus tard"
+                ]
             ]
         , bookmarksView config
         ]

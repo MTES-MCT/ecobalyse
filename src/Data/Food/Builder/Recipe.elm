@@ -282,6 +282,15 @@ sumMasses =
 
 toString : Recipe -> String
 toString { ingredients, transform, packaging } =
+    let
+        keepNonEmptyString string =
+            case string of
+                "" ->
+                    Nothing
+
+                nonEmptyString ->
+                    Just nonEmptyString
+    in
     [ ingredients
         |> List.map
             (\{ ingredient, mass, variant } ->
@@ -298,14 +307,20 @@ toString { ingredients, transform, packaging } =
                     ++ "g.)"
             )
         |> String.join ", "
-        |> Just
+        |> keepNonEmptyString
     , transform
         |> Maybe.map (.process >> Process.getDisplayName)
     , packaging
         |> List.map (.process >> Process.getDisplayName)
         |> String.join ", "
-        |> (++) "Emballage: "
-        |> Just
+        |> (\str ->
+                if String.isEmpty str then
+                    str
+
+                else
+                    "Emballage: " ++ str
+           )
+        |> keepNonEmptyString
     ]
         |> List.filterMap identity
         |> String.join "; "

@@ -171,10 +171,11 @@ update ({ queries } as session) msg model =
                 |> updateQuery (Query.deleteIngredient ingredientQuery query)
 
         DeleteBookmark bookmark ->
-            ( model
-            , session |> Session.deleteBookmark bookmark
-            , Cmd.none
-            )
+            updateQuery query
+                ( model
+                , session |> Session.deleteBookmark bookmark
+                , Cmd.none
+                )
 
         DeletePackaging code ->
             ( model, session, Cmd.none )
@@ -195,22 +196,15 @@ update ({ queries } as session) msg model =
                 |> updateQuery (Recipe.resetTransform query)
 
         SaveBookmark ->
-            if String.trim model.recipeName /= "" then
-                ( model
-                , session
-                    |> Session.saveBookmark
-                        { name = String.trim model.recipeName
-                        , query = Bookmark.Food query
-                        , created = model.currentTime
-                        }
-                , Cmd.none
-                )
-
-            else
-                ( model
-                , session |> Session.notifyError "Erreur" "Le nom de la recette ne peut être vide"
-                , Cmd.none
-                )
+            ( model
+            , session
+                |> Session.saveBookmark
+                    { name = String.trim model.recipeName
+                    , query = Bookmark.Food query
+                    , created = model.currentTime
+                    }
+            , Cmd.none
+            )
 
         SelectPackaging selectedPackaging ->
             ( { model | selectedPackaging = selectedPackaging }, session, Cmd.none )
