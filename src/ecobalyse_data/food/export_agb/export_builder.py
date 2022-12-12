@@ -2,9 +2,10 @@
 # coding: utf-8
 
 """Export de l'impact d'une liste de processes
-exemple : python export_builder.py ../../../../../ecobalyse/public/data/impacts.json builder_processes_to_export.txt"""
+exemple : python export_builder.py"""
 
 import copy
+import csv
 import json
 import argparse
 import brightway2 as bw
@@ -88,7 +89,7 @@ def get_activities(agribalyse_db, processes_name):
     return activities
 
 
-def fill_processes(processes, activity):
+def add_process(processes, activity):
     activity_name = activity["name"]
     processes[activity]["name"] = activity_name
 
@@ -122,7 +123,6 @@ def fill_processes(processes, activity):
         category = processes_kind[activity_name]
 
     processes[activity]["category"] = category
-
     processes[activity]["impacts"] = {}
 
 
@@ -146,40 +146,65 @@ def init_lcas(demand):
 
 def compute_pef(impacts_ecobalyse, impacts_dic):
     pef = 0
+    total_weighting = 0
     for k in impacts_ecobalyse.keys():
         if k == "pef" or impacts_ecobalyse[k]["pef"] is None:
             continue
         norm = impacts_ecobalyse[k]["pef"]["normalization"]
         weight = impacts_ecobalyse[k]["pef"]["weighting"]
+        total_weighting += weight
         pef += impacts_dic[k] * weight / norm
+    # The PEF is computed for a total weighting of 1 (100%), if we are above
+    # (because of BVI for example), then normalize it
+    pef /= total_weighting
     pef *= 1000000  # We need the result in µPt, but we have it in Pt
     return pef
 
 
-def impacts_for_activity(activity, lcas, impacts_ecobalyse):
+def impacts_for_activity(activity, lcas, impacts_ecobalyse, bvi_data):
     activity_impacts = {}
+    # Compute every impact but the PEF (computed later) and BVI (imported from bvi_data)
     for impact in impacts.keys():
         lca = lcas[impact]
 
         demand = {activity: 1}
         lca.redo_lcia(demand)
         activity_impacts[impact] = lca.score
+
+    # Add the bvi impact that's been imported from another source (not coming from agribalyse,
+    # and not computed by brightway).
+    for process_name, bvi in bvi_data.items():
+        # Remove various postfixes that differ between data sources
+        normalized_name = (
+            activity["name"]
+            .replace("/ FR U", "")
+            .replace("/FR U", "")
+            .replace(", U", "")
+            .replace(", S - Copied from Ecoinvent", "")
+        )
+        if process_name.startswith(normalized_name):
+            break
+    else:
+        print(f"No bvi data for {normalized_name}")
+        bvi = 0
+
+    activity_impacts["bvi"] = float(bvi)
     activity_impacts["pef"] = compute_pef(impacts_ecobalyse, activity_impacts)
     return activity_impacts
 
 
-def compute_lca(processes, lcas, impacts_ecobalyse):
+def compute_lca(processes, lcas, impacts_ecobalyse, bvi_data):
     num_processes = len(processes)
     print(f"Calcul de l'impact pour {num_processes} procédés")
     for index, activity in enumerate(processes):
-        impacts = impacts_for_activity(activity, lcas, impacts_ecobalyse)
+        impacts = impacts_for_activity(activity, lcas, impacts_ecobalyse, bvi_data)
         processes[activity]["impacts"] = impacts
         if index % 10 == 0:
             print(f"{round(index * 100 / num_processes)}%", end="\r")
     print("100%")
 
 
-class ProcessNotFoundError(Exception):
+class ProcessNotFoundByIdError(Exception):
     def __init__(self, process_id):
         self.message = f"Procédé non trouvé pour l'id {process_id}"
         super().__init__(self.message)
@@ -189,36 +214,53 @@ def get_process_by_id(processes, process_id):
     for process in processes.values():
         if process["simapro_id"] == process_id:
             return process
-    raise ProcessNotFoundError(process_id)
+    raise ProcessNotFoundByIdError(process_id)
 
 
-def compute_ingredient_list(agribalyse_db, processes, lcas, impacts_ecobalyse):
-    with open("ingredients_base.json", "r") as f:
-        ingredients_base = json.load(f)
+class ProcessNotFoundByNameError(Exception):
+    def __init__(self, process_name):
+        self.message = f"Procédé non trouvé pour le nom {process_name}"
+        super().__init__(self.message)
 
+
+def get_process_by_name(processes, process_name):
+    for process in processes.values():
+        if process["name"] == process_name:
+            return process
+    raise ProcessNotFoundByNameError(process_name)
+
+
+def parse_ingredient_list(ingredients_base):
+    processes_to_add = []
+
+    for ingredient in ingredients_base:
+        for variant_name, variant in ingredient["variants"].items():
+            if isinstance(variant, dict):
+                # This is a complex ingredient, we need to create a new process from the elements we have.
+                processes_to_add.append(variant["simple_ingredient_default"])
+                processes_to_add.append(variant["simple_ingredient_variant"])
+    return processes_to_add
+
+
+def compute_ingredient_list(processes, ingredients_base):
     new_processes = []
 
     for ingredient in ingredients_base:
-        for variant_name in ingredient["variants"]:
-            variant = ingredient["variants"][variant_name]
+        for variant_name, variant in ingredient["variants"].items():
             if isinstance(variant, dict):
                 # This is a complex ingredient, we need to create a new process from the elements we have.
                 complex_ingredient_default = get_process_by_id(
                     processes, ingredient["default"]
                 )
+                # The ratio is the quantity of simple ingredient necessary to produce 1 unit of complex ingredient
+                # For example, you need 1.16 kg of wheat (simple) to produce 1 kg of flour (complex) -> ratio = 1.16
                 ratio = variant["ratio"]
 
-                simple_ingredient_default = agribalyse_db.search(
-                    variant["simple_ingredient_default"]
-                )[0]
-                simple_ingredient_default_impacts = impacts_for_activity(
-                    simple_ingredient_default, lcas, impacts_ecobalyse
+                simple_ingredient_default = get_process_by_name(
+                    processes, variant["simple_ingredient_default"]
                 )
-                simple_ingredient_variant = agribalyse_db.search(
-                    variant["simple_ingredient_variant"]
-                )[0]
-                simple_ingredient_variant_impacts = impacts_for_activity(
-                    simple_ingredient_variant, lcas, impacts_ecobalyse
+                simple_ingredient_variant = get_process_by_name(
+                    processes, variant["simple_ingredient_variant"]
                 )
 
                 new_process = copy.deepcopy(complex_ingredient_default)
@@ -228,12 +270,12 @@ def compute_ingredient_list(agribalyse_db, processes, lcas, impacts_ecobalyse):
                 new_process["system_description"] = "ecobalyse"
                 new_process["simapro_id"] = str(uuid.uuid4())
                 for impact in new_process["impacts"]:
-                    # Formula: Impact farine bio = impact farine conventionnel + 1.16 *( impact blé bio -  impact blé conventionnel)
+                    # Formula: Impact farine bio = impact farine conventionnel + ratio * ( impact blé bio -  impact blé conventionnel)
                     new_process["impacts"][impact] = new_process["impacts"][
                         impact
                     ] + ratio * (
-                        simple_ingredient_variant_impacts[impact]
-                        - simple_ingredient_default_impacts[impact]
+                        simple_ingredient_variant["impacts"][impact]
+                        - simple_ingredient_default["impacts"][impact]
                     )
                 ingredient["variants"][variant_name] = new_process["simapro_id"]
 
@@ -251,47 +293,57 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description="Export agribalyse LCA data from a brightway database"
     )
-    parser.add_argument(
-        "impacts_file",
-        help="""Path to the impacts.json file, following the format of https://github.com/MTES-MCT/ecobalyse/blob/master/public/data/impacts.json
-        Eg:  ../../../../../ecobalyse/public/data/impacts.json
-        """,
-    )
-    parser.add_argument(
-        "input_processes_to_export",
-        help="""Path to the text file with the name of the processes (one per line) to export
-        Ex: builder_processes_to_export.txt
-        """,
-    )
 
     args = parser.parse_args()
 
-    with open(args.input_processes_to_export, "r") as processes_to_export_file:
-        processes_to_export = processes_to_export_file.readlines()
+    processes_to_export_file = "builder_processes_to_export.txt"
+    with open(processes_to_export_file, "r") as f:
+        processes_to_export = f.readlines()
 
+    # Parse the ingredients_base.json, which may contain complex ingredients to add/compute
+    with open("ingredients_base.json", "r") as f:
+        ingredients_base = json.load(f)
+    processes_to_add = parse_ingredient_list(ingredients_base)
+    print(
+        f"{len(processes_to_add)} procédés à rajouter provenant de ingredients_base.json (ingrédients complexes)"
+    )
+
+    processes_to_export += processes_to_add
     print(f"Total de {len(processes_to_export)} procédés à exporter")
+
     agb = open_db("agribalyse3")
 
     activities = get_activities(agb, processes_to_export)
+    print(f"Total de {len(activities)} activités trouvées dans agribalyse")
 
     processes = defaultdict(dict)
     for activity in activities:
-        fill_processes(processes, activity)
+        add_process(processes, activity)
 
     # Just get a random process, for example the very first one
     random_process = next(iter(processes))
     lcas = init_lcas({random_process: 1})
 
-    with open(args.impacts_file, "r") as f:
+    impacts_file = "impacts.json"
+    with open(impacts_file, "r") as f:
         impacts_ecobalyse = json.load(f)
 
-    compute_lca(processes, lcas, impacts_ecobalyse)
+    bvi_data_file = "bvi.csv"
+    bvi_data = {}
+    with open(bvi_data_file, "r", encoding="utf-8-sig") as f:
+        reader = csv.DictReader(f, delimiter=";")
+        for row in reader:
+            bvi_data[row["process_name"]] = row["bvi"]
+
+    compute_lca(processes, lcas, impacts_ecobalyse, bvi_data)
+
+    # Extract simple and complex ingredients. Complex ingredients are need a new process to be added.
+    (ingredient_list, new_processes) = compute_ingredient_list(
+        processes, ingredients_base
+    )
 
     # Export the ingredients.json file
     ingredients_export_file = "ingredients.json"
-    (ingredient_list, new_processes) = compute_ingredient_list(
-        agb, processes, lcas, impacts_ecobalyse
-    )
     print(
         f"Export de {len(ingredient_list)} ingrédients vers {ingredients_export_file}"
     )

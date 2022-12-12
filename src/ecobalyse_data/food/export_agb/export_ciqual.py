@@ -240,7 +240,8 @@ def compute_pef(impacts_ecobalyse, impacts_dic):
 
 
 def compute_lca(processes, lcas):
-    with open(args.impacts_file, "r") as f:
+    impacts_file = "impacts.json"
+    with open(impacts_file, "r") as f:
         impacts_ecobalyse = json.load(f)
 
     num_processes = len(processes)
@@ -270,12 +271,6 @@ path = "../Agribalyse_Synthese.csv"
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description="Export agribalyse LCA data from a brightway database"
-    )
-    parser.add_argument(
-        "impacts_file",
-        help="""Path to the impacts.json file, following the format of https://github.com/MTES-MCT/ecobalyse/blob/master/public/data/impacts.json
-        Eg: ../../../wikicarbone/public/data/impacts.json
-        """,
     )
     parser.add_argument(
         "--no-impacts",
