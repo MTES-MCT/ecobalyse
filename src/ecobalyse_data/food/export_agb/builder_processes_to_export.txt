@@ -22,3 +22,4 @@ Aluminium, primary, ingot {RoW}| production | Cut-off, S - Copied from Ecoinvent
 Canning fruits or vegetables, industrial, 1kg of canned product/ FR U
 Mixing, processing, at plant "dummy process"
 Cooking, industrial, 1kg of cooked product/ FR U
+Cow milk, organic, system n°1, at farm gate

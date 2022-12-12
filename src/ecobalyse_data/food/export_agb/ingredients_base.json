@@ -12,7 +12,9 @@
     "id": "milk",
     "name": "lait",
     "default": "6dcf5acf59f35dce15894539dbb4f097",
-    "variants": {}
+    "variants": {
+      "organic": "dbbfa8c533e09b20f7909f4c68f72ffa"
+    }
   },
   {
     "id": "carrot",
@@ -26,7 +28,9 @@
     "id": "wheat",
     "name": "blé tendre",
     "default": "d77308bcc6f3988597e56b34d5e2c4fa",
-    "variants": {}
+    "variants": {
+      "organic": "9a0d187afb6c6d30bd71b9306b32f28c"
+    }
   },
   {
     "id": "flour",
