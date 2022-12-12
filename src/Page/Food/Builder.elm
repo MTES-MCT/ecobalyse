@@ -104,7 +104,12 @@ init ({ builderDb, queries } as session) trigram maybeQuery =
               , selectedPackaging = Nothing
               }
             , session |> Session.updateFoodQuery query
-            , Ports.scrollTo { x = 0, y = 0 }
+            , case maybeQuery of
+                Nothing ->
+                    Ports.scrollTo { x = 0, y = 0 }
+
+                Just _ ->
+                    Cmd.none
             )
     in
     if BuilderDb.isEmpty builderDb then
