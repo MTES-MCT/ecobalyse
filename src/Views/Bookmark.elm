@@ -48,12 +48,12 @@ view ({ activeTab, switchTab } as config) =
         [ div [ class "card-header" ]
             [ [ ( SaveTab, "Sauvegarder" ), ( ShareTab, "Partager" ) ]
                 |> List.map
-                    (\( msg, label ) ->
+                    (\( tab, label ) ->
                         li [ class "nav-item" ]
                             [ button
                                 [ class "btn btn-text nav-link rounded-0 rounded-top no-outline"
-                                , classList [ ( "active", activeTab == msg ) ]
-                                , onClick <| switchTab msg
+                                , classList [ ( "active", activeTab == tab ) ]
+                                , onClick <| switchTab tab
                                 ]
                                 [ text label ]
                             ]
