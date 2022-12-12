@@ -3,7 +3,8 @@ module Data.Bookmark exposing
     , Query(..)
     , decode
     , encode
-    , findForFood
+    , findByFoodQuery
+    , findByTextileQuery
     , isFood
     , isTextile
     , toQueryDescription
@@ -93,9 +94,14 @@ findByQuery filter query =
         >> List.head
 
 
-findForFood : FoodQuery.Query -> List Bookmark -> Maybe Bookmark
-findForFood foodQuery =
+findByFoodQuery : FoodQuery.Query -> List Bookmark -> Maybe Bookmark
+findByFoodQuery foodQuery =
     findByQuery isFood (Food foodQuery)
+
+
+findByTextileQuery : TextileQuery.Query -> List Bookmark -> Maybe Bookmark
+findByTextileQuery textileQuery =
+    findByQuery isTextile (Textile textileQuery)
 
 
 toQueryDescription : { foodDb : BuilderDb.Db, textileDb : TextileDb.Db } -> Bookmark -> String

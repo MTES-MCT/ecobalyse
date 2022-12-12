@@ -51,8 +51,8 @@ import Views.Textile.Summary as SummaryView
 type alias Model =
     { currentTime : Posix
     , simulator : Result String Simulator
+    , bookmarkName : String
     , bookmarkTab : BookmarkView.ActiveTab
-    , simulationName : String
     , massInput : String
     , initialQuery : Inputs.Query
     , viewMode : ViewMode
@@ -110,7 +110,7 @@ init :
     -> Maybe Inputs.Query
     -> Session
     -> ( Model, Session, Cmd Msg )
-init trigram funit viewMode maybeUrlQuery ({ db, store } as session) =
+init trigram funit viewMode maybeUrlQuery ({ db } as session) =
     let
         initialQuery =
             -- If we received a serialized query from the URL, use it
@@ -124,10 +124,8 @@ init trigram funit viewMode maybeUrlQuery ({ db, store } as session) =
     in
     ( { currentTime = Time.millisToPosix 0
       , simulator = simulator
+      , bookmarkName = initialQuery |> findExistingBookmarkName session
       , bookmarkTab = BookmarkView.SaveTab
-      , simulationName =
-            simulator
-                |> findSimulationName store.bookmarks
       , massInput =
             initialQuery.mass
                 |> Mass.inKilograms
@@ -163,40 +161,24 @@ init trigram funit viewMode maybeUrlQuery ({ db, store } as session) =
     )
 
 
-findSimulationName : List Bookmark -> Result String Simulator -> String
-findSimulationName bookmarks simulator =
-    case simulator of
-        Ok { inputs } ->
-            bookmarks
-                |> List.filter
-                    (\bookmark ->
-                        case bookmark.query of
-                            Bookmark.Food _ ->
-                                -- FIXME: handle comparison of food recipes
-                                False
-
-                            Bookmark.Textile query ->
-                                Inputs.toQuery inputs == query
-                    )
-                |> List.head
-                |> Maybe.map .name
-                |> Maybe.withDefault (Inputs.toString inputs)
-
-        Err _ ->
-            ""
+findExistingBookmarkName : Session -> Inputs.Query -> String
+findExistingBookmarkName { db, store } query =
+    store.bookmarks
+        |> Bookmark.findByTextileQuery query
+        |> Maybe.map .name
+        |> Maybe.withDefault
+            (query
+                |> Inputs.fromQuery db
+                |> Result.map Inputs.toString
+                |> Result.withDefault ""
+            )
 
 
 updateQuery : Inputs.Query -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
 updateQuery query ( model, session, msg ) =
-    let
-        updatedSimulator =
-            Simulator.compute session.db query
-    in
     ( { model
-        | simulator = updatedSimulator
-        , simulationName =
-            updatedSimulator
-                |> findSimulationName session.store.bookmarks
+        | simulator = query |> Simulator.compute session.db
+        , bookmarkName = query |> findExistingBookmarkName session
       }
     , session |> Session.updateTextileQuery query
     , msg
@@ -247,7 +229,7 @@ update ({ db, queries, navKey } as session) msg model =
             ( model
             , session
                 |> Session.saveBookmark
-                    { name = String.trim model.simulationName
+                    { name = String.trim model.bookmarkName
                     , query = Bookmark.Textile query
                     , created = model.currentTime
                     }
@@ -309,7 +291,7 @@ update ({ db, queries, navKey } as session) msg model =
                 |> updateQuery { query | airTransportRatio = airTransportRatio }
 
         UpdateBookmarkName newName ->
-            ( { model | simulationName = newName }, session, Cmd.none )
+            ( { model | bookmarkName = newName }, session, Cmd.none )
 
         UpdateDyeingMedium dyeingMedium ->
             ( model, session, Cmd.none )
@@ -545,7 +527,7 @@ simulatorView ({ db } as session) ({ impact, funit, viewMode } as model) ({ inpu
                 , BookmarkView.view
                     { session = session
                     , activeTab = model.bookmarkTab
-                    , bookmarkName = model.simulationName
+                    , bookmarkName = model.bookmarkName
                     , impact = model.impact
                     , funit = model.funit
                     , scope = BookmarkView.Textile

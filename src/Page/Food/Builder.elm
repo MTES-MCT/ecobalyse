@@ -45,8 +45,8 @@ type alias Model =
     { currentTime : Posix
     , dbState : WebData Db
     , impact : Impact.Definition
+    , bookmarkName : String
     , bookmarkTab : BookmarkView.ActiveTab
-    , recipeName : String
     , selectedPackaging : Maybe SelectedProcess
     , selectedTransform : Maybe SelectedProcess
     }
@@ -83,7 +83,7 @@ type Msg
 
 
 init : Session -> Impact.Trigram -> Maybe Query -> ( Model, Session, Cmd Msg )
-init ({ builderDb, store, queries } as session) trigram maybeQuery =
+init ({ builderDb, queries } as session) trigram maybeQuery =
     let
         impact =
             session.builderDb.impacts
@@ -94,16 +94,12 @@ init ({ builderDb, store, queries } as session) trigram maybeQuery =
             maybeQuery
                 |> Maybe.withDefault queries.food
 
-        existingBookmarkName =
-            store.bookmarks
-                |> findExistingBookmarkName builderDb query
-
         ( model, newSession, cmds ) =
             ( { currentTime = Time.millisToPosix 0
               , dbState = RemoteData.Loading
               , impact = impact
+              , bookmarkName = query |> findExistingBookmarkName session
               , bookmarkTab = BookmarkView.SaveTab
-              , recipeName = existingBookmarkName
               , selectedTransform = Nothing
               , selectedPackaging = Nothing
               }
@@ -199,7 +195,7 @@ update ({ queries } as session) msg model =
             ( model
             , session
                 |> Session.saveBookmark
-                    { name = String.trim model.recipeName
+                    { name = String.trim model.bookmarkName
                     , query = Bookmark.Food query
                     , created = model.currentTime
                     }
@@ -232,7 +228,7 @@ update ({ queries } as session) msg model =
             )
 
         UpdateBookmarkName recipeName ->
-            ( { model | recipeName = recipeName }, session, Cmd.none )
+            ( { model | bookmarkName = recipeName }, session, Cmd.none )
 
         UpdateIngredient oldIngredientId newIngredient ->
             ( model, session, Cmd.none )
@@ -254,22 +250,19 @@ update ({ queries } as session) msg model =
 
 
 updateQuery : Query -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
-updateQuery query ( model, { builderDb, store } as session, msg ) =
-    ( { model
-        | recipeName =
-            store.bookmarks
-                |> findExistingBookmarkName builderDb query
-      }
+updateQuery query ( model, session, msg ) =
+    ( { model | bookmarkName = query |> findExistingBookmarkName session }
     , session |> Session.updateFoodQuery query
     , msg
     )
 
 
-findExistingBookmarkName : BuilderDb.Db -> Query -> List Bookmark -> String
-findExistingBookmarkName builderDb query =
-    Bookmark.findForFood query
-        >> Maybe.map .name
-        >> Maybe.withDefault
+findExistingBookmarkName : Session -> Query -> String
+findExistingBookmarkName { builderDb, store } query =
+    store.bookmarks
+        |> Bookmark.findByFoodQuery query
+        |> Maybe.map .name
+        |> Maybe.withDefault
             (query
                 |> Recipe.fromQuery builderDb
                 |> Result.map Recipe.toString
@@ -756,7 +749,7 @@ sidebarView session db model results =
         , BookmarkView.view
             { session = session
             , activeTab = model.bookmarkTab
-            , bookmarkName = model.recipeName
+            , bookmarkName = model.bookmarkName
             , impact = model.impact
             , funit = Unit.PerItem
             , scope = BookmarkView.Food
