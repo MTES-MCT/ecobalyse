@@ -303,7 +303,7 @@ toString { ingredients, transform, packaging } =
                             _ ->
                                 ""
                        )
-                    ++ String.fromFloat (Mass.inGrams mass)
+                    ++ (mass |> Mass.inGrams |> round |> String.fromInt)
                     ++ "g.)"
             )
         |> String.join ", "
