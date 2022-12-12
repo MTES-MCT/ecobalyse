@@ -45,7 +45,7 @@ parser =
         --
         -- Food specific routes
         --
-        , Parser.map (FoodBuilder (Impact.trg "pef") Nothing) (Parser.s "food" </> Parser.s "build")
+        , Parser.map (FoodBuilder Impact.defaultTrigram Nothing) (Parser.s "food" </> Parser.s "build")
         , Parser.map FoodBuilder
             (Parser.s "food"
                 </> Parser.s "build"
