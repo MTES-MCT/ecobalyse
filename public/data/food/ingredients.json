@@ -33,7 +33,23 @@
     "name": "farine",
     "default": "a343353e431d7dddc7bb25cbc41e179a",
     "variants": {
-      "organic": "15f49bfb-4830-4ec8-8988-c033a9719df4"
+      "organic": "b9227d37-305c-4306-af70-82f4c1082ad8"
+    }
+  },
+  {
+    "id": "sunflower",
+    "name": "tournesol",
+    "default": "e8bee37ff29dc235950eeda2410748f5",
+    "variants": {
+      "organic": "9f659ea8371928ec9e17956fea75fcae"
+    }
+  },
+  {
+    "id": "rapeseed",
+    "name": "colza",
+    "default": "6e52cdd418148c6aa2e6d94c4a92028d",
+    "variants": {
+      "organic": "1a558498ad7a0c44a2d90f83f3bf0970"
     }
   }
 ]

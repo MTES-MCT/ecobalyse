@@ -331,6 +331,137 @@
     }
   },
   {
+    "name": "Sunflower, at farm (WFLDB 3.1)",
+    "unit": "kilogram",
+    "simapro_id": "e8bee37ff29dc235950eeda2410748f5",
+    "system_description": "",
+    "category_tags": [
+      "Agricultural",
+      "Plant production",
+      "Oil seeds",
+      "Transformation"
+    ],
+    "comment": "FRANCE",
+    "category": "material",
+    "impacts": {
+      "acd": 0.023925870453453946,
+      "ozd": 6.57378010313484e-08,
+      "cch": 0.6300972753641991,
+      "fwe": 0.0004104509983086697,
+      "swe": 0.03560638078857057,
+      "tre": 0.10558999004377612,
+      "pco": 0.0031648344203288378,
+      "pma": 1.5613138623676448e-07,
+      "ior": 0.02295385094173905,
+      "fru": 3.9049195732254813,
+      "mru": 2.1346430815946575e-06,
+      "ldu": 239.9267357517553,
+      "wtu": 0.40808512169678735,
+      "etf": 43.74159948552134,
+      "htc": 4.639853630378423e-10,
+      "htn": 8.555292708535048e-08,
+      "bvi": 0.0,
+      "pef": 177.5424543389464
+    }
+  },
+  {
+    "name": "Sunflower grain, organic, system n°4, at farm gate",
+    "unit": "kilogram",
+    "simapro_id": "9c011cda324905ef764e3eb04f81f84e",
+    "system_description": "AGRIBALYSE v3.0",
+    "category_tags": [
+      "Agricultural",
+      "Plant production",
+      "Oil seeds",
+      "Transformation"
+    ],
+    "category": "material",
+    "impacts": {
+      "acd": 0.004812523520680404,
+      "ozd": 5.751626812691509e-08,
+      "cch": 0.48477619054248894,
+      "fwe": 0.0006755228638164731,
+      "swe": 0.014233229966430274,
+      "tre": 0.02145326643665323,
+      "pco": 0.003254420649559584,
+      "pma": 2.1609403369751866e-08,
+      "ior": 0.029064761374415934,
+      "fru": 3.9740229010143837,
+      "mru": 1.346261209439026e-06,
+      "ldu": 300.3149545192264,
+      "wtu": 0.030671141322917716,
+      "etf": 9.01216484655158,
+      "htc": 1.357556091220842e-10,
+      "htn": 5.039062430570658e-09,
+      "bvi": 0.0,
+      "pef": 85.90078703829896
+    }
+  },
+  {
+    "name": "Rape seed {FR}| production | Cut-off, S - Copied from Ecoinvent",
+    "unit": "kilogram",
+    "simapro_id": "6e52cdd418148c6aa2e6d94c4a92028d",
+    "system_description": "Ecoinvent v3",
+    "category_tags": [
+      "Others",
+      "Ecoinvent cut-off S copy"
+    ],
+    "category": "material",
+    "impacts": {
+      "acd": 0.020735158389030516,
+      "ozd": 9.379437628285523e-08,
+      "cch": 1.1479868711423642,
+      "fwe": 0.0003130933706587895,
+      "swe": 0.01744314674153314,
+      "tre": 0.08592402075578656,
+      "pco": 0.0036260596987465845,
+      "pma": 1.5521407173556505e-07,
+      "ior": 0.07327657142139343,
+      "fru": 8.25315672679625,
+      "mru": 4.941185620580286e-06,
+      "ldu": 186.7615376409765,
+      "wtu": 9.789717209953206,
+      "etf": 89.49872348372871,
+      "htc": 1.1275162360038496e-09,
+      "htn": 5.260646904415789e-08,
+      "bvi": 0.0,
+      "pef": 235.10232513369579
+    }
+  },
+  {
+    "name": "Winter rapeseed, organic, at farm gate",
+    "unit": "kilogram",
+    "simapro_id": "1a558498ad7a0c44a2d90f83f3bf0970",
+    "system_description": "",
+    "category_tags": [
+      "Agricultural",
+      "Plant production",
+      "Oil seeds",
+      "Transformation"
+    ],
+    "category": "material",
+    "impacts": {
+      "acd": 0.01881143574409583,
+      "ozd": 4.048684233998582e-08,
+      "cch": 0.39070753229859057,
+      "fwe": 0.00033812788302820847,
+      "swe": 0.014945465344867974,
+      "tre": 0.08321455014073509,
+      "pco": 0.002147636441399586,
+      "pma": 1.227979187094697e-07,
+      "ior": 0.02042597328776958,
+      "fru": 2.9271676012030112,
+      "mru": 9.957534482608416e-07,
+      "ldu": 255.81085049420855,
+      "wtu": 0.052136236412250805,
+      "etf": 24.520247799909924,
+      "htc": 8.507584879311014e-12,
+      "htn": 9.623407132423281e-08,
+      "bvi": 0.0,
+      "pef": 121.70854365128709
+    }
+  },
+  {
     "name": "Steel, unalloyed {RER}| steel production, converter, unalloyed | Cut-off, S - Copied from Ecoinvent",
     "alias": "steel",
     "displayName": "Acier",
@@ -797,7 +928,7 @@
   {
     "name": "flour, organic, constructed by ecobalyse",
     "unit": "kilogram",
-    "simapro_id": "15f49bfb-4830-4ec8-8988-c033a9719df4",
+    "simapro_id": "b9227d37-305c-4306-af70-82f4c1082ad8",
     "system_description": "ecobalyse",
     "category_tags": [
       "Agricultural",
