@@ -1,2 +1,0 @@
-# Mode d'emploi
-

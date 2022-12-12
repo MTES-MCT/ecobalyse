@@ -34,7 +34,7 @@
 
 ## 🍕 Alimentaire
 
-* [Mode d'emploi](alimentaire/mode-demploi.md)
+* [Indicateurs d'impacts](alimentaire/impacts-consideres.md)
 * [Données](alimentaire/donnees.md)
 * [🏭 Ingrédients industrie](alimentaire/ingredients-industrie/README.md)
   * [🍞 Farine](alimentaire/ingredients-industrie/farine.md)
