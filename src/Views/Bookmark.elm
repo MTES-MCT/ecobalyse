@@ -266,3 +266,5 @@ scopedBookmarks session scope =
                 Textile ->
                     Bookmark.isTextile
             )
+        |> List.sortBy (.created >> Time.posixToMillis)
+        |> List.reverse
