@@ -4,10 +4,10 @@
 
 Considérée comme un ingrédient agricole (at farm), **le tournesol** est modélisée à travers les procédés suivants :&#x20;
 
-| Label / Origine             | France                                                                                                      | Autres pays                                                                                                 |
-| --------------------------- | ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
-| Agriculture conventionnelle | Sunflower, at farm (WFLDB 3.1)/FR U                                                                         | Sunflower, at farm (WFLDB 3.1)/GLO U                                                                        |
-| Agriculture biologique      | <p>y défini par la formule ci-dessous<br>= moyenne arithmétique des procédés tournesol bio d'Agribalyse</p> | <p>y défini par la formule ci-dessous<br>= moyenne arithmétique des procédés tournesol bio d'Agribalyse</p> |
+| Label / Origine             | France                                             | Autres pays                                        |
+| --------------------------- | -------------------------------------------------- | -------------------------------------------------- |
+| Agriculture conventionnelle | Sunflower, at farm (WFLDB 3.1)/FR U                | Sunflower, at farm (WFLDB 3.1)/GLO U               |
+| Agriculture biologique      | Sunflower grain, organic, system n°3, at farm gate | Sunflower grain, organic, system n°3, at farm gate |
 
 Les procédés retenus sont prioritairement des procédés "at farm", c'est à dire des procédés traduisant l'impact de l'ingrédient en sortie de ferme, avant que ne soit par exemple intégré l'impact du transport vers un lieu de transformation ou encore l'impact du conditionnement.
 
@@ -51,25 +51,19 @@ La base Agribalyse permet de distinguer les inventaires de cycle de vie suivants
 En effet, le choix est fait d'exclure directement les procédés concernant le tournesol destiné à l'alimentation animale (dans un premier temps - niveau 1 de calcul - sont uniquement considérés les procédés susceptibles d'entrer directement dans la fabrication de produits alimentaires). De plus, le tournesol en tant qu'ingrédient intervient majoritairement pour la production d'huile.&#x20;
 {% endhint %}
 
-{% hint style="info" %}
-Le tournesol bio est déterminé par la formule ci-dessous. &#x20;
-{% endhint %}
-
-les procédés xi tournesol bio présents dans Agribalyse sont&#x20;
+Le tournesol bio est déterminé par l'analyse des procédés bio présents dans Agribalyse listés ci-dessous :
 
 * Sunflower grain, organic, Gers, at farm gate&#x20;
 * Sunflower grain, organic, PaysDeLaLoire, at farm gate
 * Sunflower grain, organic, system n°1, at farm gate
 * Sunflower grain, organic, system n°2, at farm gate
-* Sunflower grain, organic, system n°3, at farm gate
+* **Sunflower grain, organic, system n°3, at farm gate**
 * Sunflower grain, organic, system n°4, at farm gate
 * Sunflower grain, organic, system n°5, at farm gate
 
-**L'impact du tournesol bio est déterminé par la formule ci-dessous :**&#x20;
-
-$$
-y = moy (xi)
-$$
+{% hint style="info" %}
+**L'analyse des impacts de ces différents procédés permet de déterminer l'ICV bio à mobiliser : il correspond au procédé dont l'impact est le plus proche de la moyenne des impacts de tous les procédés bio.**
+{% endhint %}
 
 ## Mix utilisé pour la production de l'huile de tournesol
 
