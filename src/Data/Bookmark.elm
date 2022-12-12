@@ -87,21 +87,20 @@ isTextile { query } =
             False
 
 
-findByQuery : (Bookmark -> Bool) -> Query -> List Bookmark -> Maybe Bookmark
-findByQuery filter query =
-    List.filter filter
-        >> List.filter (.query >> (==) query)
+findByQuery : Query -> List Bookmark -> Maybe Bookmark
+findByQuery query =
+    List.filter (.query >> (==) query)
         >> List.head
 
 
 findByFoodQuery : FoodQuery.Query -> List Bookmark -> Maybe Bookmark
 findByFoodQuery foodQuery =
-    findByQuery isFood (Food foodQuery)
+    findByQuery (Food foodQuery)
 
 
 findByTextileQuery : TextileQuery.Query -> List Bookmark -> Maybe Bookmark
 findByTextileQuery textileQuery =
-    findByQuery isTextile (Textile textileQuery)
+    findByQuery (Textile textileQuery)
 
 
 toQueryDescription : { foodDb : BuilderDb.Db, textileDb : TextileDb.Db } -> Bookmark -> String

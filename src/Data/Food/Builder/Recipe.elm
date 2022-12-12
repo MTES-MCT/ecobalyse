@@ -31,6 +31,7 @@ import Json.Encode as Encode
 import Mass exposing (Mass)
 import Quantity
 import Result.Extra as RE
+import String.Extra as SE
 
 
 type alias Packaging =
@@ -283,13 +284,8 @@ sumMasses =
 toString : Recipe -> String
 toString { ingredients, transform, packaging } =
     let
-        keepNonEmptyString string =
-            case string of
-                "" ->
-                    Nothing
-
-                nonEmptyString ->
-                    Just nonEmptyString
+        formatMass =
+            Mass.inGrams >> round >> String.fromInt
     in
     [ ingredients
         |> List.map
@@ -303,24 +299,21 @@ toString { ingredients, transform, packaging } =
                             _ ->
                                 ""
                        )
-                    ++ (mass |> Mass.inGrams |> round |> String.fromInt)
+                    ++ formatMass mass
                     ++ "g.)"
             )
         |> String.join ", "
-        |> keepNonEmptyString
+        |> SE.nonEmpty
     , transform
-        |> Maybe.map (.process >> Process.getDisplayName)
+        |> Maybe.map
+            (\{ process, mass } ->
+                Process.getDisplayName process ++ "(" ++ formatMass mass ++ ")"
+            )
     , packaging
         |> List.map (.process >> Process.getDisplayName)
         |> String.join ", "
-        |> (\str ->
-                if String.isEmpty str then
-                    str
-
-                else
-                    "Emballage: " ++ str
-           )
-        |> keepNonEmptyString
+        |> SE.nonEmpty
+        |> Maybe.map ((++) "Emballage: ")
     ]
         |> List.filterMap identity
         |> String.join "; "
