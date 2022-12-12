@@ -94,6 +94,7 @@ suite =
                     |> Expect.equalDicts
                         (Dict.fromList
                             [ ( "acd", Unit.impact 0.03563816517303142 )
+                            , ( "bvi", Unit.impact 0 )
                             , ( "cch", Unit.impact 2.340400439828958 )
                             , ( "etf", Unit.impact 70.13958449015763 )
                             , ( "fru", Unit.impact 27.7623776311341 )

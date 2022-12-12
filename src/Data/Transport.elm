@@ -153,13 +153,13 @@ decode =
         (Decode.succeed Impact.noImpacts)
 
 
-encode : Transport -> Encode.Value
-encode v =
+encode : List Impact.Definition -> Transport -> Encode.Value
+encode definitions v =
     Encode.object
         [ ( "road", encodeKm v.road )
         , ( "sea", encodeKm v.sea )
         , ( "air", encodeKm v.air )
-        , ( "impacts", Impact.encodeImpacts v.impacts )
+        , ( "impacts", Impact.encodeImpacts definitions Impact.Textile v.impacts )
         ]
 
 

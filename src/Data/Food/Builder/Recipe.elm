@@ -183,17 +183,21 @@ encodeQuery q =
         ]
 
 
-encodeResults : Results -> Encode.Value
-encodeResults results =
+encodeResults : List Impact.Definition -> Results -> Encode.Value
+encodeResults definitions results =
+    let
+        encodeImpacts =
+            Impact.encodeImpacts definitions Impact.Food
+    in
     Encode.object
-        [ ( "impacts", Impact.encodeImpacts results.impacts )
+        [ ( "impacts", encodeImpacts results.impacts )
         , ( "recipe"
           , Encode.object
-                [ ( "ingredients", Impact.encodeImpacts results.recipe.ingredients )
-                , ( "transform", Impact.encodeImpacts results.recipe.transform )
+                [ ( "ingredients", encodeImpacts results.recipe.ingredients )
+                , ( "transform", encodeImpacts results.recipe.transform )
                 ]
           )
-        , ( "packaging", Impact.encodeImpacts results.packaging )
+        , ( "packaging", encodeImpacts results.packaging )
         ]
 
 

@@ -425,7 +425,7 @@ debugQueryView db query =
             , div [ class "col-5" ]
                 [ query
                     |> Recipe.compute db
-                    |> Result.map (Tuple.second >> Recipe.encodeResults >> Encode.encode 2)
+                    |> Result.map (Tuple.second >> Recipe.encodeResults db.impacts >> Encode.encode 2)
                     |> Result.withDefault "Error serializing the impacts"
                     |> debugView
                 ]

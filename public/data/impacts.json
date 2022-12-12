@@ -368,5 +368,27 @@
       "weighting": 0.0184
     },
     "scopes": ["food"]
+  },
+  "bvi": {
+    "source": {
+      "label": "Valuing Biodiversity in Life Cycle Impact Assessment, Lindner et al 2019",
+      "url": "https://www.researchgate.net/publication/336523544_Valuing_Biodiversity_in_Life_Cycle_Impact_Assessment"
+    },
+    "label_en": "Biodiversity impact",
+    "label_fr": "Impact biodiversité",
+    "unit_fr": "BVI",
+    "unit_en": "BVI",
+    "short_unit": "BVI",
+    "decimals": 2,
+    "description_en": "Biodiversity impact indicator calculated from the Biodiversity Value Increment (BVI) method, Lindner et al 2019.",
+    "description_fr": "Indicateur de l'impact sur la biodiversité calculé à partir de la méthode BVI (Biodiversity Value Increment), Lindner et al 2019",
+    "primary": true,
+    "quality": 3,
+    "pef": {
+      "color": "#00A300",
+      "normalization": 1.3459e14,
+      "weighting": 0.2106
+    },
+    "scopes": ["food"]
   }
 }
