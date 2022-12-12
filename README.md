@@ -18,19 +18,6 @@ Cette application est écrite en [Elm](https://elm-lang.org/). Vous devez dispos
 
 ## Développement
 
-### Développement sur Gitpod.io
-
-Ce projet a été configuré pour pouvoir se lancer sur un [workspace
-gitpod](https://gitpod.io/#https://github.com/MTES-MCT/ecobalyse), ce qui vous
-permettra de le tester et d'y contribuer sans avoir à configurer un
-environnement de développement local.
-
-Une fois le workspace lancé, vous aurez accès à un éditeur de code avec les
-extensions utilies pré-installées, et la possibilité de visualiser directement
-le projet dans une fenêtre ou dans un onglet séparé de votre navigateur :
-
-![Aperçu du développement sur gitpod.io](https://user-images.githubusercontent.com/41547/166465316-3df9dc11-516f-4f23-a53b-fa9020e113f8.png)
-
 ### Environnement de dev local
 
 Le serveur local de développement se lance au moyen des deux commandes suivantes :
