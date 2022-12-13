@@ -680,7 +680,7 @@ processSelectorView kind selectedCode event =
             ]
 
 
-ingredientSelectorView : Id -> List Id -> (Ingredient -> msg) -> List Ingredient -> Html msg
+ingredientSelectorView : Id -> List Id -> (Ingredient -> Msg) -> List Ingredient -> Html Msg
 ingredientSelectorView selectedIngredient excluded event ingredients =
     ingredients
         |> List.map
@@ -701,13 +701,12 @@ ingredientSelectorView selectedIngredient excluded event ingredients =
             [ class "form-select form-select-sm flex-grow-1"
             , onInput
                 (\ingredientId ->
-                    let
-                        newIngredient =
-                            ingredients
-                                |> Ingredient.findByID (Ingredient.idFromString ingredientId)
-                                |> Result.withDefault Ingredient.empty
-                    in
-                    event newIngredient
+                    case Ingredient.findByID (Ingredient.idFromString ingredientId) ingredients of
+                        Ok newIngredient ->
+                            event newIngredient
+
+                        Err _ ->
+                            NoOp
                 )
             ]
 
