@@ -47,7 +47,15 @@ $$
 | Conventionnelle        | <p><strong>ViandeAgneauREF</strong><br><strong></strong>Meat with bone, lamb/FR U<br>Agneau sortie de ferme : Lamb, conventional, indoor production system, at farm gate</p> | <p><strong>ViandeAgneauREF</strong><br>Meat with bone, lamb/FR U<br>Agneau sortie de ferme : Lamb, conventional, indoor production system, at farm gate</p> |
 | Agriculture biologique | <p><strong>ViandeAgneauBio</strong><br>Procédé construit (cf. formule)<br>Agneau : </p>                                                                                      | <p><strong>ViandeAgneauBio</strong><br>Procédé construit (cf. formule)<br>Agneau : </p>                                                                     |
 
-Les impacts comparés de ces procédés sont :&#x20;
+{% hint style="info" %}
+Le choix du procédé pour l'agneau bio se fait parmi la liste ci-dessous (agneau bio se rapprochant de la moyenne des agneaux bio)&#x20;
+{% endhint %}
 
-_<mark style="color:red;">\[Intégration d'un graphique comparant les scores PEF décomposés des deux Farines qui seraient considérées]</mark>_&#x20;
+Lamb, organic, system n°1, at farm gate
+
+Lamb, organic, system n°2, at farm gate
+
+Lamb, organic, system n°3, at farm gate
+
+Attente des graphes d'impacts
 

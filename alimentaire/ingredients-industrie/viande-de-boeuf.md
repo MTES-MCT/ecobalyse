@@ -48,7 +48,17 @@ $$
 Le boeuf bio considéré dans un premier temps pour le calcul de la viande de boeuf hachée bio est celui dont l'impact est proche de l'impact moyen des vaches de réforme bio&#x20;
 {% endhint %}
 
-Les impacts comparés de ces procédés sont :&#x20;
+Cull cow, organic, lowland milk system, silage maize 5 to 10%, at farm gate
 
-_<mark style="color:red;">\[Intégration d'un graphique comparant les scores PEF décomposés des deux Farines qui seraient considérées]</mark>_&#x20;
+***
+
+Cull cow, organic, milk system n°1, at farm gate
+
+Cull cow, organic, milk system n°2, at farm gate
+
+Cull cow, organic, milk system n°3, at farm gate
+
+Cull cow, organic, milk system n°4, at farm gate
+
+Cull cow, organic, milk system n°5, at farm gate
 
