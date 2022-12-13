@@ -450,8 +450,10 @@ updateIngredientFormView { excluded, db, ingredient, countries } =
                 ]
             , Views.CountrySelect.view
                 { attributes = [ class "form-select form-select-sm" ]
-                , onSelect = always NoOp
-                , selectedCountry = Query.defaultCountry
+                , onSelect =
+                    \countryCode ->
+                        event { ingredientQuery | country = countryCode }
+                , selectedCountry = ingredientQuery.country
                 , countries = countries
                 }
             , button
