@@ -21,6 +21,7 @@ module Data.Food.Builder.Recipe exposing
     , updateTransformMass
     )
 
+import Data.Country as Country exposing (Country)
 import Data.Food.Builder.Db exposing (Db)
 import Data.Food.Builder.Query as BuilderQuery exposing (Query)
 import Data.Food.Ingredient as Ingredient exposing (Id, Ingredient)
@@ -44,6 +45,7 @@ type alias RecipeIngredient =
     { ingredient : Ingredient
     , mass : Mass
     , variant : BuilderQuery.Variant
+    , country : Country
     }
 
 
@@ -83,9 +85,9 @@ availableIngredients usedIngredientIds =
     List.filter (\{ id } -> not (List.member id usedIngredientIds))
 
 
-compute : Db -> Query -> Result String ( Recipe, Results )
-compute db =
-    fromQuery db
+compute : Db -> List Country -> Query -> Result String ( Recipe, Results )
+compute db countries =
+    fromQuery db countries
         >> Result.map
             (\({ ingredients, transform, packaging } as recipe) ->
                 let
@@ -212,26 +214,27 @@ encodeTransform p =
         ]
 
 
-fromQuery : Db -> Query -> Result String Recipe
-fromQuery db query =
+fromQuery : Db -> List Country -> Query -> Result String Recipe
+fromQuery db countries query =
     Result.map3 Recipe
-        (ingredientListFromQuery db query)
+        (ingredientListFromQuery db countries query)
         (transformFromQuery db query)
         (packagingListFromQuery db query)
 
 
-ingredientListFromQuery : Db -> Query -> Result String (List RecipeIngredient)
-ingredientListFromQuery db query =
+ingredientListFromQuery : Db -> List Country -> Query -> Result String (List RecipeIngredient)
+ingredientListFromQuery db countries query =
     query.ingredients
-        |> RE.combineMap (ingredientFromQuery db)
+        |> RE.combineMap (ingredientFromQuery db countries)
 
 
-ingredientFromQuery : Db -> BuilderQuery.IngredientQuery -> Result String RecipeIngredient
-ingredientFromQuery { ingredients } ingredientQuery =
-    Result.map3 RecipeIngredient
+ingredientFromQuery : Db -> List Country -> BuilderQuery.IngredientQuery -> Result String RecipeIngredient
+ingredientFromQuery { ingredients } countries ingredientQuery =
+    Result.map4 RecipeIngredient
         (Ingredient.findByID ingredientQuery.id ingredients)
         (Ok ingredientQuery.mass)
         (Ok ingredientQuery.variant)
+        (Country.findByCode ingredientQuery.country countries)
 
 
 ingredientQueryFromIngredient : Ingredient -> BuilderQuery.IngredientQuery
@@ -240,6 +243,7 @@ ingredientQueryFromIngredient ingredient =
     , name = ingredient.name
     , mass = Mass.grams 100
     , variant = BuilderQuery.Default
+    , country = BuilderQuery.defaultCountry
     }
 
 

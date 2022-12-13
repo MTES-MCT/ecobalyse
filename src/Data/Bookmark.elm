@@ -10,6 +10,7 @@ module Data.Bookmark exposing
     , toQueryDescription
     )
 
+import Data.Country exposing (Country)
 import Data.Food.Builder.Db as BuilderDb
 import Data.Food.Builder.Query as FoodQuery
 import Data.Food.Builder.Recipe as Recipe
@@ -103,12 +104,12 @@ findByTextileQuery textileQuery =
     findByQuery (Textile textileQuery)
 
 
-toQueryDescription : { foodDb : BuilderDb.Db, textileDb : TextileDb.Db } -> Bookmark -> String
-toQueryDescription { foodDb, textileDb } bookmark =
+toQueryDescription : { countries : List Country, foodDb : BuilderDb.Db, textileDb : TextileDb.Db } -> Bookmark -> String
+toQueryDescription { countries, foodDb, textileDb } bookmark =
     case bookmark.query of
         Food foodQuery ->
             foodQuery
-                |> Recipe.fromQuery foodDb
+                |> Recipe.fromQuery foodDb countries
                 |> Result.map Recipe.toString
                 |> Result.withDefault bookmark.name
 
