@@ -1,10 +1,12 @@
-# 🍞 Viande de boeuf
+# 🐄 Viande de boeuf hachée
+
+
 
 {% hint style="danger" %}
 **Page en construction**
 {% endhint %}
 
-## Construction de l'ingrédient viande à partir du procédé agricole
+## Construction de l'ingrédient viande de boeuf hachée à partir du procédé agricole
 
 La viande de bœuf hachée correspond à l'ICV suivant :&#x20;
 
