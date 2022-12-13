@@ -27,7 +27,7 @@ $$
 * de procédés d'abattage : mouture (milling), réception, prélavage, stockage.&#x20;
 *
 
-    <figure><img src="../../.gitbook/assets/beef.png" alt=""><figcaption></figcaption></figure>
+    <figure><img src="../../.gitbook/assets/beef (1).png" alt=""><figcaption></figcaption></figure>
 
 On construit différents procédés de boeuf haché **(N)**, sur la base du procédé de référence ('Ground beef, fresh, case ready, for direct consumption, at plant' (kilogram, FR, None!), en appliquant les opérations d'abattage à différents procédés de boeuf **(N)**.
 
