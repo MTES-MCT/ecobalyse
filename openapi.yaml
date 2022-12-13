@@ -605,15 +605,16 @@ components:
       in: query
       description: |
         Liste des ingrédients composant la recette (liste disponible sur le point d'entrée `/food/ingredients`).
-        Le format de chaque entrée est composé de l'identifiant de la matière et de sa masse **exprimée en grammes**, ainsi que d'un éventuel mode de production alternatif à utiliser :
+        Le format de chaque entrée est composé de l'identifiant de la matière et de sa masse **exprimée en grammes**, ainsi que d'un éventuel mode de production alternatif à utiliser, et d'un éventuel pays d'origine :
 
         - `milk;268` signifie *268g de lait*;
         - `carrot;30;organic` signifie *30g de carrotes bio*;
+        - `tomato;123;default;ES` signifie *123g de tomates bio en provenance d'Espagne*;
 
-        > Par exemple, les paramètres à passer pour une recette à base de 268g de lait et 30g de carrotes bio sont :
+        > Par exemple, les paramètres à passer pour une recette à base de 268g de lait et 30g de carrotes bio d'espagne sont :
         >
         > ```js
-        > ingredients[]=milk;268&ingredients[]=carrot;30;organic
+        > ingredients[]=milk;268&ingredients[]=carrot;30;organic;ES
         > ```
       required: true
       style: form
@@ -631,6 +632,9 @@ components:
         threeIngredients:
           summary: Lait, carrotes bio, oeuf
           value: ["milk;268", "carrot;30;organic", "egg;149"]
+        fourIngredients:
+          summary: Lait, carrotes bio, oeuf, tomates d'espagne
+          value: ["milk;268", "carrot;30;organic", "egg;149", "tomato;123;default;ES"]
     packagingParam:
       name: "packaging[]"
       in: query

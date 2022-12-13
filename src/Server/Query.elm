@@ -54,26 +54,26 @@ succeed =
     always >> Query.custom ""
 
 
-parseFoodQuery : BuilderDb.Db -> Parser (Result Errors BuilderQuery.Query)
-parseFoodQuery builderDb =
+parseFoodQuery : BuilderDb.Db -> List Country -> Parser (Result Errors BuilderQuery.Query)
+parseFoodQuery builderDb countries =
     succeed (Ok BuilderQuery.Query)
-        |> apply (ingredientListParser "ingredients" builderDb.ingredients)
+        |> apply (ingredientListParser "ingredients" builderDb.ingredients countries)
         |> apply (maybeTransformParser "transform" builderDb.processes)
         |> apply (packagingListParser "packaging" builderDb.processes)
 
 
-ingredientListParser : String -> List Ingredient.Ingredient -> Parser (ParseResult (List BuilderQuery.IngredientQuery))
-ingredientListParser key ingredients =
+ingredientListParser : String -> List Ingredient.Ingredient -> List Country -> Parser (ParseResult (List BuilderQuery.IngredientQuery))
+ingredientListParser key ingredients countries =
     Query.custom (key ++ "[]")
-        (List.map (ingredientParser ingredients)
+        (List.map (ingredientParser ingredients countries)
             >> RE.combine
             >> Result.andThen validateIngredientList
             >> Result.mapError (\err -> ( key, err ))
         )
 
 
-ingredientParser : List Ingredient.Ingredient -> String -> Result String BuilderQuery.IngredientQuery
-ingredientParser ingredients string =
+ingredientParser : List Ingredient.Ingredient -> List Country -> String -> Result String BuilderQuery.IngredientQuery
+ingredientParser ingredients countries string =
     case String.split ";" string of
         [ id, mass ] ->
             let
@@ -86,6 +86,7 @@ ingredientParser ingredients string =
                 |> RE.andMap (Result.map .name ingredient)
                 |> RE.andMap (validateMass mass)
                 |> RE.andMap (Ok BuilderQuery.Default)
+                |> RE.andMap (Ok BuilderQuery.defaultCountry)
 
         [ id, mass, variant ] ->
             let
@@ -98,6 +99,20 @@ ingredientParser ingredients string =
                 |> RE.andMap (Result.map .name ingredient)
                 |> RE.andMap (validateMass mass)
                 |> RE.andMap (variantParser variant)
+                |> RE.andMap (Ok BuilderQuery.defaultCountry)
+
+        [ id, mass, variant, countryCode ] ->
+            let
+                ingredient =
+                    ingredients
+                        |> Ingredient.findByID (Ingredient.idFromString id)
+            in
+            Ok BuilderQuery.IngredientQuery
+                |> RE.andMap (Result.map .id ingredient)
+                |> RE.andMap (Result.map .name ingredient)
+                |> RE.andMap (validateMass mass)
+                |> RE.andMap (variantParser variant)
+                |> RE.andMap (validateCountry countryCode countries)
 
         [ "" ] ->
             Err <| "Format d'ingrédient vide."
@@ -149,6 +164,14 @@ packagingParser packagings string =
 
         _ ->
             Err <| "Format d'emballage invalide : " ++ string ++ "."
+
+
+validateCountry : String -> List Country -> Result String Country.Code
+validateCountry countryCode countries =
+    countryCode
+        |> Country.codeFromString
+        |> (\code -> Country.findByCode code countries)
+        |> Result.map .code
 
 
 validateMass : String -> Result String Mass

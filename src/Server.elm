@@ -95,9 +95,9 @@ toFoodResults definitions query results =
         ]
 
 
-executeFoodQuery : BuilderDb.Db -> Request -> (BuilderRecipe.Results -> Encode.Value) -> BuilderQuery.Query -> Cmd Msg
-executeFoodQuery builderDb request encoder =
-    BuilderRecipe.compute builderDb
+executeFoodQuery : BuilderDb.Db -> List Country -> Request -> (BuilderRecipe.Results -> Encode.Value) -> BuilderQuery.Query -> Cmd Msg
+executeFoodQuery builderDb countries request encoder =
+    BuilderRecipe.compute builderDb countries
         >> Result.map (Tuple.second >> encoder)
         >> toResponse request
 
@@ -194,7 +194,7 @@ handleRequest ({ builderDb, textileDb } as dbs) request =
                 |> sendResponse 200 request
 
         Just (Route.Get (Route.FoodRecipe (Ok query))) ->
-            query |> executeFoodQuery builderDb request (toFoodResults builderDb.impacts query)
+            query |> executeFoodQuery builderDb textileDb.countries request (toFoodResults builderDb.impacts query)
 
         Just (Route.Get (Route.FoodRecipe (Err errors))) ->
             Query.encodeErrors errors
