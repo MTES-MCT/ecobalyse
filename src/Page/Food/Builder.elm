@@ -14,7 +14,7 @@ import Data.Food.Builder.Query as Query exposing (Query)
 import Data.Food.Builder.Recipe as Recipe exposing (Recipe)
 import Data.Food.Ingredient as Ingredient exposing (Id, Ingredient)
 import Data.Food.Process as Process exposing (Process)
-import Data.Impact as Impact
+import Data.Impact as Impact exposing (Impacts)
 import Data.Session as Session exposing (Session)
 import Data.Unit as Unit
 import Html exposing (..)
@@ -751,6 +751,7 @@ sidebarView session db model results =
             , footer = []
             }
         , stepResultsView db model results
+        , protectionAreaView db results.impacts
         , BookmarkView.view
             { session = session
             , activeTab = model.bookmarkTab
@@ -768,6 +769,33 @@ sidebarView session db model results =
             }
         , a [ class "btn btn-primary", Route.href Route.FoodExplore ]
             [ text "Explorateur de recettes" ]
+        ]
+
+
+protectionAreaView : BuilderDb.Db -> Impacts -> Html Msg
+protectionAreaView builderDb impacts =
+    let
+        protectionAreaScores =
+            impacts
+                |> Impact.toProtectionAreas builderDb.impacts
+    in
+    div [ class "card" ]
+        [ div [ class "card-header" ] [ text "Aires de protection" ]
+        , [ ( "Climat", protectionAreaScores.climate )
+          , ( "Biodiversité", protectionAreaScores.biodiversity )
+          , ( "Santé environnementale", protectionAreaScores.health )
+          , ( "Ressource", protectionAreaScores.resources )
+          ]
+            |> List.map
+                (\( label, score ) ->
+                    li [ class "list-group-item d-flex justify-content-between align-items-center gap-1" ]
+                        [ span [ class "flex-fill" ] [ text label ]
+                        , span [ class "flex-fill text-end" ]
+                            [ Format.formatFloat 2 score |> text
+                            ]
+                        ]
+                )
+            |> ul [ class "list-group list-group-flush fs-7" ]
         ]
 
 
@@ -810,8 +838,9 @@ stepResultsView db model results =
         totalImpact =
             toFloat results.impacts
     in
-    div [ class "card fs-7" ]
-        [ stepsData
+    div [ class "card" ]
+        [ div [ class "card-header" ] [ text "Étapes du cycle de vie" ]
+        , stepsData
             |> List.map
                 (\{ label, impact } ->
                     let
@@ -838,7 +867,7 @@ stepResultsView db model results =
                             ]
                         ]
                 )
-            |> ul [ class "list-group list-group-flush" ]
+            |> ul [ class "list-group list-group-flush fs-7" ]
         ]
 
 

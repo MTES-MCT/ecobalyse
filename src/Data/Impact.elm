@@ -22,6 +22,7 @@ module Data.Impact exposing
     , parseTrigram
     , scopeToString
     , sumImpacts
+    , toProtectionAreas
     , toString
     , trg
     , updateImpact
@@ -236,6 +237,84 @@ toString (Trigram string) =
 trg : String -> Trigram
 trg =
     Trigram
+
+
+type alias ProtectionAreas =
+    { climate : Float -- Climat
+    , biodiversity : Float -- Biodiversité
+    , resources : Float -- Ressources
+    , health : Float -- Santé environnementale
+    }
+
+
+toProtectionAreas : List Definition -> Impacts -> ProtectionAreas
+toProtectionAreas defs impacts =
+    let
+        newTotal =
+            defs
+                |> List.filterMap (.pefData >> Maybe.map (.weighting >> Unit.ratioToFloat))
+                |> List.sum
+
+        newDefs =
+            defs
+                |> List.map
+                    (\def ->
+                        { def
+                            | pefData =
+                                def.pefData
+                                    |> Maybe.map
+                                        (\pefData ->
+                                            { pefData
+                                                | weighting =
+                                                    Unit.ratio (Unit.ratioToFloat pefData.weighting / newTotal)
+                                            }
+                                        )
+                        }
+                    )
+
+        pick trigrams =
+            impacts
+                |> AnyDict.filter (\t _ -> List.member t (List.map trg trigrams))
+                |> computePefScore newDefs
+                |> Unit.impactToFloat
+    in
+    { climate =
+        pick
+            [ "cch" -- Climate change
+            ]
+    , biodiversity =
+        pick
+            [ "cch" -- Climate change
+            , "bvi" -- Biodiversity impact
+            , "acd" -- Acidification
+            , "fwe" -- Freshwater Eutrophication
+            , "tre" -- Terrestrial eutrophication
+            , "swe" -- Marine eutrophication
+            , "etf" -- Ecotoxicity: freshwater
+            , "ozd" -- Ozone depletion
+            , "ior" -- Ionising radiation
+            , "pco" -- Photochemical ozone formation
+            , "wtu" -- Water use
+            , "ldu" -- Land use
+            ]
+    , resources =
+        pick
+            [ "wtu" -- Water use
+            , "ldu" -- Land use
+            , "fru" -- Fossile resource use
+            , "mru" -- Minerals and metal resource use
+            ]
+    , health =
+        pick
+            [ "cch" -- Climate change
+            , "ozd" -- Ozone depletion
+            , "ior" -- Ionising radiation
+            , "pco" -- Photochemical ozone formation
+            , "htn" -- Human toxicity: non-carcinogenic
+            , "htc" -- Human toxicity: carcinogenic
+            , "wtu" -- Water use
+            ]
+    }
 
 
 
