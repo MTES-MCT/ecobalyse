@@ -418,10 +418,10 @@ updateIngredientFormView { excluded, db, ingredient } =
                 )
         )
         (span
-            [ class "w-25 d-flex align-items-center gap-2"
+            [ class "flex-grow-1 d-flex align-items-center gap-2"
             , classList [ ( "text-muted", ingredient.ingredient.variants.organic == Nothing ) ]
             ]
-            [ label [ class "flex-grow-1" ]
+            [ label [ class "w-25" ]
                 [ input
                     [ type_ "checkbox"
                     , class "form-check-input m-1"
@@ -443,6 +443,9 @@ updateIngredientFormView { excluded, db, ingredient } =
                     ]
                     []
                 , text "bio"
+                ]
+            , select [ class "form-select form-select-sm" ]
+                [ option [] [ text "France" ]
                 ]
             , button
                 [ type_ "button"
@@ -695,7 +698,7 @@ ingredientSelectorView selectedIngredient excluded event ingredients =
         -- We use Html.Keyed because when we add an item, we filter it out from the select box,
         -- which desynchronizes the DOM state and the virtual dom state
         |> Keyed.node "select"
-            [ class "form-select form-select-sm"
+            [ class "form-select form-select-sm flex-grow-1"
             , onInput
                 (\ingredientId ->
                     let
@@ -713,7 +716,7 @@ rowTemplate : Html Msg -> Html Msg -> Html Msg -> Html Msg
 rowTemplate input content action =
     li [ class "list-group-item d-flex align-items-center gap-2" ]
         [ span [ class "MassInputWrapper flex-shrink-1" ] [ input ]
-        , span [ class "w-100" ] [ content ]
+        , span [ class "flex-grow-1" ] [ content ]
         , action
         ]
 
