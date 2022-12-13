@@ -83,10 +83,10 @@ type Msg
 
 
 init : Session -> Impact.Trigram -> Maybe Query -> ( Model, Session, Cmd Msg )
-init ({ builderDb, queries } as session) trigram maybeQuery =
+init ({ db, builderDb, queries } as session) trigram maybeQuery =
     let
         impact =
-            session.builderDb.impacts
+            db.impacts
                 |> Impact.getDefinition trigram
                 |> Result.withDefault Impact.invalid
 
