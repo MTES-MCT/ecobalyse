@@ -8,6 +8,14 @@ Egg, organic, at farm gate
 Egg, Bleu Blanc Coeur, outdoor system, at farm gate
 Cow milk, national average, at farm gate
 Wheat flour, at industrial mill
+Sunflower, at farm (WFLDB 3.1)/FR U
+Sunflower grain, organic, system n°3, at farm gate
+Rape seed {FR} | production | Cut-off, S-Copied
+Winter rapeseed, organic, at farm gate
+Tomato, medium size, conventional, soil based, non-heated greenhouse, at greenhouse
+Tomato, organic, greenhouse production, national average, at greenhouse
+Ware potato, conventional, variety mix, national average, at farm gate
+Durum wheat grain, conventional, national average, at farm gate
 Steel, unalloyed {RER}| steel production, converter, unalloyed | Cut-off, S - Copied from Ecoinvent
 Packaging film, low density polyethylene {RER}| production | Cut-off, S - Copied from Ecoinvent
 Polystyrene, expandable {RER}| production | Cut-off, S - Copied from Ecoinvent

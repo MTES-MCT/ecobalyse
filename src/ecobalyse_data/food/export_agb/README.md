@@ -72,6 +72,17 @@ Attention, il faut que les différents `simapro_id` correspondent à des procéd
 exportés dans `builder_processes.json`, et pour cela, il faut donc rajouter les
 noms de ces ingrédients (noms agribalyse) dans le fichier `builder_processes_to_export.txt`.
 
+Pour trouver le `simapro_id` correspondant à un nom d'ingrédient (nom
+agribalyse), il est possible d'utiliser le petit script python
+`code_for_process_name.py`:
+
+    python code_for_process_name.py "Sunflower, at farm (WFLDB 3.1)/FR U"
+
+Voici un exemple d'ajout d'un ingrédient simple : [le
+tournesol](https://github.com/MTES-MCT/ecobalyse-data/pull/14/commits/0dc2091095002c4f13b5147fe819ef6afa49e22f).
+
+Dans le cas où l'indicateur "bvi" (biodiversité de Lindner) est connu, il faut aussi rajouter une entrée dans le fichier `bvi.csv`
+
 ### Ingrédient complexe
 
     {
@@ -98,4 +109,5 @@ noms de ces ingrédients (noms agribalyse) dans le fichier `builder_processes_to
 Là aussi il faut que les différents `simapro_id` correspondent à des procédés
 exportés dans `builder_processes.json`.
 
-Voici un exemple d'ajout d'un ingrédient complexe : [la fariné de blé](https://github.com/MTES-MCT/ecobalyse-data/pull/11/commits/2c7817d310fbc65bb954e339fcaf45369f0b5abe).
+Voici un exemple d'ajout d'un ingrédient complexe : [la fariné de
+blé](https://github.com/MTES-MCT/ecobalyse-data/pull/11/commits/2c7817d310fbc65bb954e339fcaf45369f0b5abe).

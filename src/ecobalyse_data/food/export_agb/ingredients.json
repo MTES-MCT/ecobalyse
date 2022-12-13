@@ -12,7 +12,9 @@
     "id": "milk",
     "name": "lait",
     "default": "6dcf5acf59f35dce15894539dbb4f097",
-    "variants": {}
+    "variants": {
+      "organic": "dbbfa8c533e09b20f7909f4c68f72ffa"
+    }
   },
   {
     "id": "carrot",
@@ -26,14 +28,52 @@
     "id": "wheat",
     "name": "blé tendre",
     "default": "d77308bcc6f3988597e56b34d5e2c4fa",
-    "variants": {}
+    "variants": {
+      "organic": "9a0d187afb6c6d30bd71b9306b32f28c"
+    }
   },
   {
     "id": "flour",
     "name": "farine",
     "default": "a343353e431d7dddc7bb25cbc41e179a",
     "variants": {
-      "organic": "15f49bfb-4830-4ec8-8988-c033a9719df4"
+      "organic": "b5a61287-d7c9-4de2-bdcd-92d2454de8c3"
     }
+  },
+  {
+    "id": "sunflower",
+    "name": "tournesol",
+    "default": "e8bee37ff29dc235950eeda2410748f5",
+    "variants": {
+      "organic": "9f659ea8371928ec9e17956fea75fcae"
+    }
+  },
+  {
+    "id": "rapeseed",
+    "name": "colza",
+    "default": "6e52cdd418148c6aa2e6d94c4a92028d",
+    "variants": {
+      "organic": "1a558498ad7a0c44a2d90f83f3bf0970"
+    }
+  },
+  {
+    "id": "tomato",
+    "name": "tomate",
+    "default": "0eb889c2db4f2a017150c944bbf78278",
+    "variants": {
+      "organic": "e4a0e19482acde343e3d83f86747e7b6"
+    }
+  },
+  {
+    "id": "potato",
+    "name": "pomme de terre",
+    "default": "f2a99884d14493ebe4cd70b759106096",
+    "variants": {}
+  },
+  {
+    "id": "durum wheat",
+    "name": "blé dur",
+    "default": "da43175dd8163643ce4d9cac19a45884",
+    "variants": {}
   }
 ]
