@@ -365,9 +365,9 @@
     }
   },
   {
-    "name": "Sunflower grain, organic, system n°4, at farm gate",
+    "name": "Sunflower grain, organic, system n°3, at farm gate",
     "unit": "kilogram",
-    "simapro_id": "9c011cda324905ef764e3eb04f81f84e",
+    "simapro_id": "9f659ea8371928ec9e17956fea75fcae",
     "system_description": "AGRIBALYSE v3.0",
     "category_tags": [
       "Agricultural",
@@ -377,24 +377,24 @@
     ],
     "category": "material",
     "impacts": {
-      "acd": 0.004812523520680404,
-      "ozd": 5.751626812691509e-08,
-      "cch": 0.48477619054248894,
-      "fwe": 0.0006755228638164731,
-      "swe": 0.014233229966430274,
-      "tre": 0.02145326643665323,
-      "pco": 0.003254420649559584,
-      "pma": 2.1609403369751866e-08,
-      "ior": 0.029064761374415934,
-      "fru": 3.9740229010143837,
-      "mru": 1.346261209439026e-06,
-      "ldu": 300.3149545192264,
-      "wtu": 0.030671141322917716,
-      "etf": 9.01216484655158,
-      "htc": 1.357556091220842e-10,
-      "htn": 5.039062430570658e-09,
+      "acd": 0.005727222983014901,
+      "ozd": 5.2745529269240434e-08,
+      "cch": 0.4542491778321718,
+      "fwe": 0.0006591844450214553,
+      "swe": 0.013737033471140334,
+      "tre": 0.026031778274879912,
+      "pco": 0.0031481174666594235,
+      "pma": 2.729388121224271e-08,
+      "ior": 0.024065447265835503,
+      "fru": 3.53167383628525,
+      "mru": 1.0517663348475309e-06,
+      "ldu": 294.5170976488938,
+      "wtu": 0.012943901749161761,
+      "etf": 2.6180565995604086,
+      "htc": 1.1377415034505819e-10,
+      "htn": 3.0870616284878447e-09,
       "bvi": 0.0,
-      "pef": 85.90078703829896
+      "pef": 82.71794904264794
     }
   },
   {
@@ -926,9 +926,43 @@
     }
   },
   {
+    "name": "Cow milk, organic, system n°1, at farm gate",
+    "unit": "kilogram",
+    "simapro_id": "dbbfa8c533e09b20f7909f4c68f72ffa",
+    "system_description": "AGRIBALYSE v3.0",
+    "category_tags": [
+      "Agricultural",
+      "Animal production",
+      "Dairy",
+      "Transformation"
+    ],
+    "comment": "Functional unit: kg of fat and protein content corrected milk.",
+    "category": "material",
+    "impacts": {
+      "acd": 0.013419870641098543,
+      "ozd": 2.9175577002561385e-08,
+      "cch": 1.06470422978855,
+      "fwe": 6.294545793805503e-05,
+      "swe": 0.0024926061884905956,
+      "tre": 0.05972455756802297,
+      "pco": 0.0016840290588009683,
+      "pma": 8.836796813404219e-08,
+      "ior": 0.06280810775061464,
+      "fru": 2.8038416893049094,
+      "mru": 5.271958615955791e-07,
+      "ldu": 97.97231445291311,
+      "wtu": 0.11937969007089472,
+      "etf": 3.0951928304850886,
+      "htc": 6.458989730913717e-11,
+      "htn": 1.9776561521890385e-08,
+      "bvi": 0.0,
+      "pef": 77.48023147127928
+    }
+  },
+  {
     "name": "flour, organic, constructed by ecobalyse",
     "unit": "kilogram",
-    "simapro_id": "b9227d37-305c-4306-af70-82f4c1082ad8",
+    "simapro_id": "9ff2d511-f88a-48cc-bab9-a41801fc502b",
     "system_description": "ecobalyse",
     "category_tags": [
       "Agricultural",
