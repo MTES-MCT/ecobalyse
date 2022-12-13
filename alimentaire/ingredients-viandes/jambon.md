@@ -24,7 +24,7 @@ $$
 PorcREF
 $$
 
-* de procédés d'abattage etc. :
+* de procédés d'abattage, découpe etc. :
 
 <figure><img src="../../.gitbook/assets/porc.png" alt=""><figcaption></figcaption></figure>
 
