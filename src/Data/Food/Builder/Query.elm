@@ -5,16 +5,25 @@ module Data.Food.Builder.Query exposing
     , TransformQuery
     , Variant(..)
     , addIngredient
+    , b64encode
     , carrotCake
+    , decode
     , deleteIngredient
     , emptyQuery
+    , encode
+    , parseBase64Query
     , updateIngredient
     )
 
-import Data.Food.Ingredient as Ingredient exposing (Id)
+import Base64
+import Data.Food.Ingredient as Ingredient
 import Data.Food.Process as Process
+import Json.Decode as Decode exposing (Decoder)
+import Json.Decode.Extra as DE
+import Json.Encode as Encode
 import Mass exposing (Mass)
 import Quantity
+import Url.Parser as Parser exposing (Parser)
 
 
 type Variant
@@ -23,7 +32,7 @@ type Variant
 
 
 type alias IngredientQuery =
-    { id : Id
+    { id : Ingredient.Id
     , name : String
     , mass : Mass
     , variant : Variant
@@ -106,6 +115,49 @@ carrotCake =
     }
 
 
+decode : Decoder Query
+decode =
+    Decode.map3 Query
+        (Decode.field "ingredients" (Decode.list decodeIngredient))
+        (Decode.field "transform" (Decode.maybe decodeTransform))
+        (Decode.field "packaging" (Decode.list decodePackaging))
+
+
+decodeMass : Decoder Mass
+decodeMass =
+    Decode.float
+        |> Decode.map Mass.kilograms
+
+
+decodePackaging : Decoder PackagingQuery
+decodePackaging =
+    Decode.map2 PackagingQuery
+        (Decode.field "code" Process.decodeCode)
+        (Decode.field "mass" decodeMass)
+
+
+decodeIngredient : Decoder IngredientQuery
+decodeIngredient =
+    Decode.map4 IngredientQuery
+        (Decode.field "id" Ingredient.decodeId)
+        (Decode.field "name" Decode.string)
+        (Decode.field "mass" decodeMass)
+        (Decode.field "variant" decodeVariant)
+
+
+decodeTransform : Decoder TransformQuery
+decodeTransform =
+    Decode.map2 TransformQuery
+        (Decode.field "code" Process.decodeCode)
+        (Decode.field "mass" decodeMass)
+
+
+decodeVariant : Decoder Variant
+decodeVariant =
+    Decode.string
+        |> Decode.andThen (variantFromString >> DE.fromResult)
+
+
 deleteIngredient : IngredientQuery -> Query -> Query
 deleteIngredient ingredientQuery query =
     { query
@@ -116,6 +168,51 @@ deleteIngredient ingredientQuery query =
         |> updateTransformMass
 
 
+encode : Query -> Encode.Value
+encode v =
+    Encode.object
+        [ ( "ingredients", Encode.list encodeIngredient v.ingredients )
+        , ( "transform", v.transform |> Maybe.map encodeTransform |> Maybe.withDefault Encode.null )
+        , ( "packaging", Encode.list encodePackaging v.packaging )
+        ]
+
+
+encodeIngredient : IngredientQuery -> Encode.Value
+encodeIngredient v =
+    Encode.object
+        [ ( "id", Ingredient.encodeId v.id )
+        , ( "name", Encode.string v.name )
+        , ( "mass", encodeMass v.mass )
+        , ( "variant", encodeVariant v.variant )
+        ]
+
+
+encodeMass : Mass -> Encode.Value
+encodeMass =
+    Mass.inKilograms >> Encode.float
+
+
+encodePackaging : PackagingQuery -> Encode.Value
+encodePackaging v =
+    Encode.object
+        [ ( "code", Process.encodeCode v.code )
+        , ( "mass", encodeMass v.mass )
+        ]
+
+
+encodeTransform : TransformQuery -> Encode.Value
+encodeTransform v =
+    Encode.object
+        [ ( "code", Process.encodeCode v.code )
+        , ( "mass", encodeMass v.mass )
+        ]
+
+
+encodeVariant : Variant -> Encode.Value
+encodeVariant =
+    variantToString >> Encode.string
+
+
 getIngredientMass : Query -> Mass
 getIngredientMass query =
     query.ingredients
@@ -123,7 +220,7 @@ getIngredientMass query =
         |> Quantity.sum
 
 
-updateIngredient : Id -> IngredientQuery -> Query -> Query
+updateIngredient : Ingredient.Id -> IngredientQuery -> Query -> Query
 updateIngredient oldIngredientId newIngredient query =
     { query
         | ingredients =
@@ -150,3 +247,52 @@ updateTransformMass query =
                         { transform | mass = getIngredientMass query }
                     )
     }
+
+
+variantFromString : String -> Result String Variant
+variantFromString string =
+    case string of
+        "default" ->
+            Ok Default
+
+        "organic" ->
+            Ok Organic
+
+        _ ->
+            Err <| "Variante inconnnue: " ++ string
+
+
+variantToString : Variant -> String
+variantToString variant =
+    case variant of
+        Default ->
+            "default"
+
+        Organic ->
+            "organic"
+
+
+b64decode : String -> Result String Query
+b64decode =
+    Base64.decode
+        >> Result.andThen
+            (Decode.decodeString decode
+                >> Result.mapError Decode.errorToString
+            )
+
+
+b64encode : Query -> String
+b64encode =
+    encode >> Encode.encode 0 >> Base64.encode
+
+
+
+-- Parser
+
+
+parseBase64Query : Parser (Maybe Query -> a) a
+parseBase64Query =
+    Parser.custom "QUERY" <|
+        b64decode
+            >> Result.toMaybe
+            >> Just

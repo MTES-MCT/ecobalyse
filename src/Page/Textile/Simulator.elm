@@ -10,6 +10,7 @@ module Page.Textile.Simulator exposing
 import Array
 import Browser.Events
 import Browser.Navigation as Navigation
+import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Country as Country
 import Data.Impact as Impact
 import Data.Key as Key
@@ -32,7 +33,10 @@ import Mass
 import Page.Textile.Simulator.ViewMode as ViewMode exposing (ViewMode)
 import Ports
 import Route
+import Time exposing (Posix)
 import Views.Alert as Alert
+import Views.Bookmark as BookmarkView
+import Views.Comparator as ComparativeChartView
 import Views.Component.DownArrow as DownArrow
 import Views.Container as Container
 import Views.Dataviz as Dataviz
@@ -40,15 +44,15 @@ import Views.Icon as Icon
 import Views.Impact as ImpactView
 import Views.Modal as ModalView
 import Views.Textile.Material as MaterialView
-import Views.Textile.SavedSimulation as SavedSimulationView
 import Views.Textile.Step as StepView
 import Views.Textile.Summary as SummaryView
 
 
 type alias Model =
-    { simulator : Result String Simulator
-    , linksTab : LinksTab
-    , simulationName : String
+    { currentTime : Posix
+    , simulator : Result String Simulator
+    , bookmarkName : String
+    , bookmarkTab : BookmarkView.ActiveTab
     , massInput : String
     , initialQuery : Inputs.Query
     , viewMode : ViewMode
@@ -56,11 +60,6 @@ type alias Model =
     , funit : Unit.Functional
     , modal : Modal
     }
-
-
-type LinksTab
-    = ShareLink
-    | SaveLink
 
 
 type Modal
@@ -71,22 +70,24 @@ type Modal
 type Msg
     = AddMaterial
     | CopyToClipBoard String
-    | DeleteSavedSimulation Session.SavedSimulation
+    | DeleteBookmark Bookmark
+    | NewTime Posix
     | NoOp
     | OpenComparator
     | RemoveMaterial Int
     | Reset
-    | SaveSimulation
+    | SaveBookmark
     | SelectInputText String
     | SetModal Modal
     | SwitchFunctionalUnit Unit.Functional
     | SwitchImpact Impact.Trigram
-    | SwitchLinksTab LinksTab
+    | SwitchLinksTab BookmarkView.ActiveTab
     | ToggleComparedSimulation String Bool
     | ToggleDisabledFading Bool
     | ToggleStep Label
     | ToggleStepViewMode Int
     | UpdateAirTransportRatio (Maybe Unit.Ratio)
+    | UpdateBookmarkName String
     | UpdateDyeingMedium DyeingMedium
     | UpdateEnnoblingHeatSource (Maybe HeatSource)
     | UpdateMakingWaste (Maybe Unit.Ratio)
@@ -98,7 +99,6 @@ type Msg
     | UpdateProduct Product.Id
     | UpdateQuality (Maybe Unit.Quality)
     | UpdateReparability (Maybe Unit.Reparability)
-    | UpdateSimulationName String
     | UpdateStepCountry Label Country.Code
     | UpdateSurfaceMass (Maybe Unit.SurfaceMass)
 
@@ -110,23 +110,22 @@ init :
     -> Maybe Inputs.Query
     -> Session
     -> ( Model, Session, Cmd Msg )
-init trigram funit viewMode maybeUrlQuery ({ db, store } as session) =
+init trigram funit viewMode maybeUrlQuery ({ db } as session) =
     let
         initialQuery =
             -- If we received a serialized query from the URL, use it
             -- Otherwise, fallback to use session query
             maybeUrlQuery
-                |> Maybe.withDefault session.query
+                |> Maybe.withDefault session.queries.textile
 
         simulator =
             initialQuery
                 |> Simulator.compute db
     in
-    ( { simulator = simulator
-      , linksTab = SaveLink
-      , simulationName =
-            simulator
-                |> findSimulationName store.savedSimulations
+    ( { currentTime = Time.millisToPosix 0
+      , simulator = simulator
+      , bookmarkName = initialQuery |> findExistingBookmarkName session
+      , bookmarkTab = BookmarkView.SaveTab
       , massInput =
             initialQuery.mass
                 |> Mass.inKilograms
@@ -140,13 +139,15 @@ init trigram funit viewMode maybeUrlQuery ({ db, store } as session) =
       , funit = funit
       , modal = NoModal
       }
-    , case simulator of
-        Err error ->
-            { session | query = initialQuery }
-                |> Session.notifyError "Erreur de récupération des paramètres d'entrée" error
+    , session
+        |> Session.updateTextileQuery initialQuery
+        |> (case simulator of
+                Err error ->
+                    Session.notifyError "Erreur de récupération des paramètres d'entrée" error
 
-        Ok _ ->
-            { session | query = initialQuery }
+                Ok _ ->
+                    identity
+           )
     , case maybeUrlQuery of
         -- If we don't have an URL query, we may be coming from another app page, so we should
         -- reposition the viewport at the top.
@@ -160,39 +161,36 @@ init trigram funit viewMode maybeUrlQuery ({ db, store } as session) =
     )
 
 
-findSimulationName : List Session.SavedSimulation -> Result String Simulator -> String
-findSimulationName savedSimulations simulator =
-    case simulator of
-        Ok { inputs } ->
-            savedSimulations
-                |> List.filter (\{ query } -> Inputs.toQuery inputs == query)
-                |> List.head
-                |> Maybe.map .name
-                |> Maybe.withDefault (Inputs.toString inputs)
-
-        Err _ ->
-            ""
+findExistingBookmarkName : Session -> Inputs.Query -> String
+findExistingBookmarkName { db, store } query =
+    store.bookmarks
+        |> Bookmark.findByTextileQuery query
+        |> Maybe.map .name
+        |> Maybe.withDefault
+            (query
+                |> Inputs.fromQuery db
+                |> Result.map Inputs.toString
+                |> Result.withDefault ""
+            )
 
 
 updateQuery : Inputs.Query -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
 updateQuery query ( model, session, msg ) =
-    let
-        updatedSimulator =
-            Simulator.compute session.db query
-    in
     ( { model
-        | simulator = updatedSimulator
-        , simulationName =
-            updatedSimulator
-                |> findSimulationName session.store.savedSimulations
+        | simulator = query |> Simulator.compute session.db
+        , bookmarkName = query |> findExistingBookmarkName session
       }
-    , { session | query = query }
+    , session |> Session.updateTextileQuery query
     , msg
     )
 
 
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
-update ({ db, query, navKey } as session) msg model =
+update ({ db, queries, navKey } as session) msg model =
+    let
+        query =
+            queries.textile
+    in
     case msg of
         AddMaterial ->
             ( model, session, Cmd.none )
@@ -201,11 +199,14 @@ update ({ db, query, navKey } as session) msg model =
         CopyToClipBoard shareableLink ->
             ( model, session, Ports.copyToClipboard shareableLink )
 
-        DeleteSavedSimulation savedSimulation ->
+        DeleteBookmark bookmark ->
             ( model
-            , session |> Session.deleteSimulation savedSimulation
+            , session |> Session.deleteBookmark bookmark
             , Cmd.none
             )
+
+        NewTime currentTime ->
+            ( { model | currentTime = currentTime }, session, Cmd.none )
 
         NoOp ->
             ( model, session, Cmd.none )
@@ -224,12 +225,13 @@ update ({ db, query, navKey } as session) msg model =
             ( model, session, Cmd.none )
                 |> updateQuery Inputs.defaultQuery
 
-        SaveSimulation ->
+        SaveBookmark ->
             ( model
             , session
-                |> Session.saveSimulation
-                    { name = String.trim model.simulationName
-                    , query = query
+                |> Session.saveBookmark
+                    { name = String.trim model.bookmarkName
+                    , query = Bookmark.Textile query
+                    , created = model.currentTime
                     }
             , Cmd.none
             )
@@ -258,8 +260,8 @@ update ({ db, query, navKey } as session) msg model =
                 |> Navigation.pushUrl navKey
             )
 
-        SwitchLinksTab linksTab ->
-            ( { model | linksTab = linksTab }
+        SwitchLinksTab bookmarkTab ->
+            ( { model | bookmarkTab = bookmarkTab }
             , session
             , Cmd.none
             )
@@ -287,6 +289,9 @@ update ({ db, query, navKey } as session) msg model =
         UpdateAirTransportRatio airTransportRatio ->
             ( model, session, Cmd.none )
                 |> updateQuery { query | airTransportRatio = airTransportRatio }
+
+        UpdateBookmarkName newName ->
+            ( { model | bookmarkName = newName }, session, Cmd.none )
 
         UpdateDyeingMedium dyeingMedium ->
             ( model, session, Cmd.none )
@@ -346,9 +351,6 @@ update ({ db, query, navKey } as session) msg model =
         UpdateReparability reparability ->
             ( model, session, Cmd.none )
                 |> updateQuery { query | reparability = reparability }
-
-        UpdateSimulationName newName ->
-            ( { model | simulationName = newName }, session, Cmd.none )
 
         UpdateStepCountry label code ->
             ( model, session, Cmd.none )
@@ -438,79 +440,6 @@ lifeCycleStepsView db { viewMode, funit, impact } simulator =
         |> div [ class "pt-1" ]
 
 
-linksView : Session -> Model -> Html Msg
-linksView session ({ linksTab } as model) =
-    div [ class "card shadow-sm" ]
-        [ div [ class "card-header" ]
-            [ ul [ class "nav nav-tabs justify-content-end card-header-tabs" ]
-                [ li [ class "nav-item" ]
-                    [ button
-                        [ class "btn btn-text nav-link rounded-0 rounded-top no-outline"
-                        , classList [ ( "active", linksTab == SaveLink ) ]
-                        , onClick <| SwitchLinksTab SaveLink
-                        ]
-                        [ text "Sauvegarder" ]
-                    ]
-                , li [ class "nav-item" ]
-                    [ button
-                        [ class "btn btn-text nav-link rounded-0 rounded-top no-outline"
-                        , classList [ ( "active", linksTab == ShareLink ) ]
-                        , onClick <| SwitchLinksTab ShareLink
-                        ]
-                        [ text "Partager" ]
-                    ]
-                ]
-            ]
-        , case linksTab of
-            ShareLink ->
-                shareLinkView session model
-
-            SaveLink ->
-                SavedSimulationView.manager
-                    { session = session
-                    , simulationName = model.simulationName
-                    , impact = model.impact
-                    , funit = model.funit
-                    , viewMode = model.viewMode
-                    , compare = OpenComparator
-                    , delete = DeleteSavedSimulation
-                    , save = SaveSimulation
-                    , update = UpdateSimulationName
-                    }
-        ]
-
-
-shareLinkView : Session -> Model -> Html Msg
-shareLinkView session { impact, funit } =
-    let
-        shareableLink =
-            Just session.query
-                |> Route.TextileSimulator impact.trigram funit ViewMode.Simple
-                |> Route.toString
-                |> (++) session.clientUrl
-    in
-    div [ class "card-body" ]
-        [ div
-            [ class "input-group" ]
-            [ input
-                [ type_ "url"
-                , class "form-control"
-                , value shareableLink
-                ]
-                []
-            , button
-                [ class "input-group-text"
-                , title "Copier l'adresse"
-                , onClick (CopyToClipBoard shareableLink)
-                ]
-                [ Icon.clipboard
-                ]
-            ]
-        , div [ class "form-text fs-7" ]
-            [ text "Copiez cette adresse pour partager ou sauvegarder votre simulation" ]
-        ]
-
-
 displayModeView : Impact.Trigram -> Unit.Functional -> ViewMode -> Inputs.Query -> Html Msg
 displayModeView trigram funit viewMode query =
     let
@@ -556,7 +485,7 @@ simulatorView ({ db } as session) ({ impact, funit, viewMode } as model) ({ inpu
                 , updateShare = UpdateMaterialShare
                 , selectInputText = SelectInputText
                 }
-            , session.query
+            , session.queries.textile
                 |> displayModeView impact.trigram funit viewMode
             , if viewMode == ViewMode.Dataviz then
                 Dataviz.view db simulator
@@ -570,7 +499,7 @@ simulatorView ({ db } as session) ({ impact, funit, viewMode } as model) ({ inpu
                         , button
                             [ class "btn btn-secondary"
                             , onClick Reset
-                            , disabled (session.query == model.initialQuery)
+                            , disabled (session.queries.textile == model.initialQuery)
                             ]
                             [ text "Réinitialiser le simulateur" ]
                         ]
@@ -595,7 +524,21 @@ simulatorView ({ db } as session) ({ impact, funit, viewMode } as model) ({ inpu
                             , reusable = False
                             }
                     ]
-                , linksView session model
+                , BookmarkView.view
+                    { session = session
+                    , activeTab = model.bookmarkTab
+                    , bookmarkName = model.bookmarkName
+                    , impact = model.impact
+                    , funit = model.funit
+                    , scope = BookmarkView.Textile
+                    , viewMode = model.viewMode
+                    , copyToClipBoard = CopyToClipBoard
+                    , compare = OpenComparator
+                    , delete = DeleteBookmark
+                    , save = SaveBookmark
+                    , update = UpdateBookmarkName
+                    , switchTab = SwitchLinksTab
+                    }
                 ]
             ]
         ]
@@ -624,7 +567,7 @@ view session model =
                                         ++ Unit.functionalToString model.funit
                                 , formAction = Nothing
                                 , content =
-                                    [ SavedSimulationView.comparator
+                                    [ ComparativeChartView.comparator
                                         { session = session
                                         , impact = model.impact
                                         , funit = model.funit
@@ -651,9 +594,12 @@ view session model =
 
 subscriptions : Model -> Sub Msg
 subscriptions { modal } =
-    case modal of
-        NoModal ->
-            Sub.none
+    Sub.batch
+        [ Time.every 1000 NewTime
+        , case modal of
+            NoModal ->
+                Sub.none
 
-        SavedSimulationsModal ->
-            Browser.Events.onKeyDown (Key.escape (SetModal NoModal))
+            SavedSimulationsModal ->
+                Browser.Events.onKeyDown (Key.escape (SetModal NoModal))
+        ]

@@ -1,24 +1,27 @@
 module Data.Session exposing
     ( Notification(..)
-    , SavedSimulation
     , Session
     , checkComparedSimulations
     , closeNotification
-    , deleteSimulation
+    , deleteBookmark
     , deserializeStore
     , maxComparedSimulations
     , notifyError
     , notifyHttpError
-    , saveSimulation
+    , saveBookmark
     , serializeStore
     , toggleComparedSimulation
+    , updateFoodQuery
+    , updateTextileQuery
     )
 
 import Browser.Navigation as Nav
+import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Food.Builder.Db as BuilderDb
+import Data.Food.Builder.Query as FoodQuery
 import Data.Food.Explorer.Db as ExplorerDb
 import Data.Textile.Db exposing (Db)
-import Data.Textile.Inputs as Inputs
+import Data.Textile.Inputs as TextileInputs
 import Http
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as JDP
@@ -36,7 +39,10 @@ type alias Session =
     , builderDb : BuilderDb.Db
     , explorerDb : ExplorerDb.Db
     , notifications : List Notification
-    , query : Inputs.Query
+    , queries :
+        { food : FoodQuery.Query
+        , textile : TextileInputs.Query
+        }
     }
 
 
@@ -65,13 +71,47 @@ notifyHttpError error ({ notifications } as session) =
 
 
 
--- Saved simulations
+-- Boomarks
 
 
-type alias SavedSimulation =
-    { name : String
-    , query : Inputs.Query
-    }
+deleteBookmark : Bookmark -> Session -> Session
+deleteBookmark bookmark =
+    updateStore
+        (\store ->
+            { store
+                | bookmarks =
+                    List.filter ((/=) bookmark) store.bookmarks
+            }
+        )
+
+
+saveBookmark : Bookmark -> Session -> Session
+saveBookmark bookmark =
+    updateStore
+        (\store ->
+            { store
+                | bookmarks =
+                    bookmark :: store.bookmarks
+            }
+        )
+
+
+
+-- Queries
+
+
+updateFoodQuery : FoodQuery.Query -> Session -> Session
+updateFoodQuery foodQuery ({ queries } as session) =
+    { session | queries = { queries | food = foodQuery } }
+
+
+updateTextileQuery : TextileInputs.Query -> Session -> Session
+updateTextileQuery textileQuery ({ queries } as session) =
+    { session | queries = { queries | textile = textileQuery } }
+
+
+
+-- Comparator
 
 
 maxComparedSimulations : Int
@@ -87,7 +127,7 @@ checkComparedSimulations session =
                 (\store ->
                     { store
                         | comparedSimulations =
-                            store.savedSimulations
+                            store.bookmarks
                                 |> List.take maxComparedSimulations
                                 |> List.map .name
                                 |> Set.fromList
@@ -96,30 +136,6 @@ checkComparedSimulations session =
 
     else
         session
-
-
-deleteSimulation : SavedSimulation -> Session -> Session
-deleteSimulation simulation =
-    updateStore
-        (\store ->
-            { store
-                | savedSimulations =
-                    List.filter ((/=) simulation) store.savedSimulations
-                , comparedSimulations =
-                    Set.filter ((/=) simulation.name) store.comparedSimulations
-            }
-        )
-
-
-saveSimulation : SavedSimulation -> Session -> Session
-saveSimulation simulation =
-    updateStore
-        (\store ->
-            { store
-                | savedSimulations =
-                    simulation :: store.savedSimulations
-            }
-        )
 
 
 toggleComparedSimulation : String -> Bool -> Session -> Session
@@ -145,45 +161,30 @@ toggleComparedSimulation name checked =
 
 
 type alias Store =
-    { savedSimulations : List SavedSimulation
-    , comparedSimulations : Set String
+    { comparedSimulations : Set String
+    , bookmarks : List Bookmark
     }
 
 
 defaultStore : Store
 defaultStore =
-    { savedSimulations = []
-    , comparedSimulations = Set.empty
+    { comparedSimulations = Set.empty
+    , bookmarks = []
     }
 
 
 decodeStore : Decoder Store
 decodeStore =
     Decode.succeed Store
-        |> JDP.optional "savedSimulations" (Decode.list decodeSavedSimulation) []
         |> JDP.optional "comparedSimulations" (Decode.map Set.fromList (Decode.list Decode.string)) Set.empty
-
-
-decodeSavedSimulation : Decoder SavedSimulation
-decodeSavedSimulation =
-    Decode.map2 SavedSimulation
-        (Decode.field "name" Decode.string)
-        (Decode.field "query" Inputs.decodeQuery)
+        |> JDP.optional "bookmarks" (Decode.list Bookmark.decode) []
 
 
 encodeStore : Store -> Encode.Value
 encodeStore store =
     Encode.object
-        [ ( "savedSimulations", Encode.list encodeSavedSimulation store.savedSimulations )
-        , ( "comparedSimulations", store.comparedSimulations |> Set.toList |> Encode.list Encode.string )
-        ]
-
-
-encodeSavedSimulation : SavedSimulation -> Encode.Value
-encodeSavedSimulation { name, query } =
-    Encode.object
-        [ ( "name", Encode.string name )
-        , ( "query", Inputs.encodeQuery query )
+        [ ( "comparedSimulations", store.comparedSimulations |> Set.toList |> Encode.list Encode.string )
+        , ( "bookmarks", Encode.list Bookmark.encode store.bookmarks )
         ]
 
 

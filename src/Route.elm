@@ -5,9 +5,10 @@ module Route exposing
     , toString
     )
 
+import Data.Food.Builder.Query as FoodQuery
 import Data.Impact as Impact
 import Data.Textile.Db as Db
-import Data.Textile.Inputs as Inputs
+import Data.Textile.Inputs as TextileQuery
 import Data.Unit as Unit
 import Html exposing (Attribute)
 import Html.Attributes as Attr
@@ -21,11 +22,11 @@ type Route
     | Api
     | Changelog
     | Editorial String
-    | FoodBuilder
+    | FoodBuilder Impact.Trigram (Maybe FoodQuery.Query)
     | FoodExplore
     | TextileExplore Db.Dataset
     | TextileExamples
-    | TextileSimulator Impact.Trigram Unit.Functional ViewMode (Maybe Inputs.Query)
+    | TextileSimulator Impact.Trigram Unit.Functional ViewMode (Maybe TextileQuery.Query)
     | Stats
 
 
@@ -44,7 +45,13 @@ parser =
         --
         -- Food specific routes
         --
-        , Parser.map FoodBuilder (Parser.s "food" </> Parser.s "build")
+        , Parser.map (FoodBuilder Impact.defaultTrigram Nothing) (Parser.s "food" </> Parser.s "build")
+        , Parser.map FoodBuilder
+            (Parser.s "food"
+                </> Parser.s "build"
+                </> Impact.parseTrigram
+                </> FoodQuery.parseBase64Query
+            )
         , Parser.map FoodExplore (Parser.s "food")
 
         --
@@ -57,7 +64,7 @@ parser =
             (Parser.s "textile" </> Parser.s "explore")
         , Parser.map TextileExplore
             (Parser.s "textile" </> Parser.s "explore" </> Db.parseDatasetSlug)
-        , Parser.map toExploreWithId
+        , Parser.map toTextileExploreWithId
             (Parser.s "textile" </> Parser.s "explore" </> Db.parseDatasetSlug </> Parser.string)
 
         -- Textile Simulator
@@ -69,13 +76,13 @@ parser =
                 </> Impact.parseTrigram
                 </> Unit.parseFunctional
                 </> ViewMode.parse
-                </> Inputs.parseBase64Query
+                </> TextileQuery.parseBase64Query
             )
         ]
 
 
-toExploreWithId : Db.Dataset -> String -> Route
-toExploreWithId dataset idString =
+toTextileExploreWithId : Db.Dataset -> String -> Route
+toTextileExploreWithId dataset idString =
     TextileExplore (Db.datasetSlugWithId dataset idString)
 
 
@@ -130,8 +137,14 @@ toString route =
                 Editorial slug ->
                     [ "pages", slug ]
 
-                FoodBuilder ->
+                FoodBuilder (Impact.Trigram "pef") Nothing ->
                     [ "food", "build" ]
+
+                FoodBuilder trigram Nothing ->
+                    [ "food", "build", Impact.toString trigram ]
+
+                FoodBuilder trigram (Just query) ->
+                    [ "food", "build", Impact.toString trigram, FoodQuery.b64encode query ]
 
                 FoodExplore ->
                     [ "food" ]
@@ -151,7 +164,7 @@ toString route =
                     , Impact.toString trigram
                     , Unit.functionalToSlug funit
                     , ViewMode.toUrlSegment viewMode
-                    , Inputs.b64encode query
+                    , TextileQuery.b64encode query
                     ]
 
                 TextileSimulator (Impact.Trigram "pef") Unit.PerItem _ Nothing ->

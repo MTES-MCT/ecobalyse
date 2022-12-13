@@ -1,4 +1,4 @@
-module Views.Textile.Comparator exposing
+module Views.Textile.ComparativeChart exposing
     ( Entry
     , chart
     , createEntry

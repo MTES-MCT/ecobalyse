@@ -287,7 +287,10 @@ viewSidebar session { definition, trigram, totalImpact } { original, product } =
             , footer = []
             }
         , viewStepsSummary trigram product
-        , a [ class "btn btn-primary", Route.href Route.FoodBuilder ]
+        , a
+            [ class "btn btn-primary"
+            , Route.href (Route.FoodBuilder Impact.defaultTrigram Nothing)
+            ]
             [ text "Constructeur de recette" ]
         ]
 

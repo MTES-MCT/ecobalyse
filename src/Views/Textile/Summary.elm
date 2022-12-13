@@ -20,7 +20,7 @@ import Views.Format as Format
 import Views.Icon as Icon
 import Views.Link as Link
 import Views.Textile.BarChart as Chart
-import Views.Textile.Comparator as Comparator
+import Views.Textile.ComparativeChart as Comparator
 import Views.Textile.Step as StepView
 import Views.Transport as TransportView
 

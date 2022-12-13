@@ -2,17 +2,20 @@ module Page.Food.Builder exposing
     ( Model
     , Msg(..)
     , init
+    , subscriptions
     , update
     , view
     )
 
+import Browser.Navigation as Navigation
+import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Food.Builder.Db as BuilderDb exposing (Db)
 import Data.Food.Builder.Query as Query exposing (Query)
 import Data.Food.Builder.Recipe as Recipe exposing (Recipe)
 import Data.Food.Ingredient as Ingredient exposing (Id, Ingredient)
 import Data.Food.Process as Process exposing (Process)
 import Data.Impact as Impact
-import Data.Session exposing (Session)
+import Data.Session as Session exposing (Session)
 import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
@@ -20,12 +23,15 @@ import Html.Events exposing (..)
 import Html.Keyed as Keyed
 import Json.Encode as Encode
 import Mass exposing (Mass)
+import Page.Textile.Simulator.ViewMode as ViewMode
 import Ports
 import RemoteData exposing (WebData)
 import Request.Common
 import Request.Food.BuilderDb as RequestDb
 import Route
+import Time exposing (Posix)
 import Views.Alert as Alert
+import Views.Bookmark as BookmarkView
 import Views.Component.MassInput as MassInput
 import Views.Component.Summary as SummaryComp
 import Views.Container as Container
@@ -36,9 +42,11 @@ import Views.Spinner as Spinner
 
 
 type alias Model =
-    { dbState : WebData Db
-    , impact : Impact.Trigram
-    , query : Query
+    { currentTime : Posix
+    , dbState : WebData Db
+    , impact : Impact.Definition
+    , bookmarkName : String
+    , bookmarkTab : BookmarkView.ActiveTab
     , selectedPackaging : Maybe SelectedProcess
     , selectedTransform : Maybe SelectedProcess
     }
@@ -53,87 +61,103 @@ type alias SelectedProcess =
 type Msg
     = AddIngredient
     | AddPackaging SelectedProcess
+    | CopyToClipBoard String
     | DbLoaded (WebData Db)
+    | DeleteBookmark Bookmark
     | DeleteIngredient Query.IngredientQuery
     | DeletePackaging Process.Code
     | LoadQuery Query
+    | NewTime Posix
     | NoOp
     | ResetTransform
+    | SaveBookmark
     | SelectPackaging (Maybe SelectedProcess)
     | SelectTransform (Maybe SelectedProcess)
     | SetTransform SelectedProcess
+    | SwitchLinksTab BookmarkView.ActiveTab
     | SwitchImpact Impact.Trigram
+    | UpdateBookmarkName String
     | UpdateIngredient Id Query.IngredientQuery
     | UpdatePackagingMass Process.Code (Maybe Mass)
     | UpdateTransformMass (Maybe Mass)
 
 
-init : Session -> ( Model, Session, Cmd Msg )
-init session =
+init : Session -> Impact.Trigram -> Maybe Query -> ( Model, Session, Cmd Msg )
+init ({ builderDb, queries } as session) trigram maybeQuery =
     let
-        model =
-            { dbState = RemoteData.Loading
-            , query = Query.emptyQuery
-            , impact = Impact.defaultTrigram
-            , selectedTransform = Nothing
-            , selectedPackaging = Nothing
-            }
+        impact =
+            session.builderDb.impacts
+                |> Impact.getDefinition trigram
+                |> Result.withDefault Impact.invalid
+
+        query =
+            maybeQuery
+                |> Maybe.withDefault queries.food
+
+        ( model, newSession, cmds ) =
+            ( { currentTime = Time.millisToPosix 0
+              , dbState = RemoteData.Loading
+              , impact = impact
+              , bookmarkName = query |> findExistingBookmarkName session
+              , bookmarkTab = BookmarkView.SaveTab
+              , selectedTransform = Nothing
+              , selectedPackaging = Nothing
+              }
+            , session |> Session.updateFoodQuery query
+            , case maybeQuery of
+                Nothing ->
+                    Ports.scrollTo { x = 0, y = 0 }
+
+                Just _ ->
+                    Cmd.none
+            )
     in
-    if BuilderDb.isEmpty session.builderDb then
+    if BuilderDb.isEmpty builderDb then
         ( model
-        , session
-        , Cmd.batch
-            [ Ports.scrollTo { x = 0, y = 0 }
-            , RequestDb.loadDb session DbLoaded
-            ]
+        , newSession
+        , Cmd.batch [ cmds, RequestDb.loadDb session DbLoaded ]
         )
 
     else
-        ( { model
-            | query = Query.carrotCake
-            , dbState = RemoteData.Success session.builderDb
-          }
-        , session
-        , Ports.scrollTo { x = 0, y = 0 }
+        ( { model | dbState = RemoteData.Success builderDb }
+        , newSession
+        , cmds
         )
 
 
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
-update session msg model =
+update ({ queries } as session) msg model =
+    let
+        query =
+            queries.food
+    in
     case msg of
         AddIngredient ->
             let
                 firstIngredient =
                     session.builderDb.ingredients
-                        |> Recipe.availableIngredients (List.map .id model.query.ingredients)
+                        |> Recipe.availableIngredients (List.map .id query.ingredients)
                         |> List.head
                         |> Maybe.map Recipe.ingredientQueryFromIngredient
             in
-            ( case firstIngredient of
-                Just ingredient ->
-                    { model | query = Query.addIngredient ingredient model.query }
+            ( model, session, Cmd.none )
+                |> (case firstIngredient of
+                        Just ingredient ->
+                            updateQuery (Query.addIngredient ingredient query)
 
-                Nothing ->
-                    model
-            , session
-            , Cmd.none
-            )
+                        Nothing ->
+                            identity
+                   )
 
         AddPackaging { mass, code } ->
-            ( { model
-                | query =
-                    model.query |> Recipe.addPackaging mass code
-                , selectedPackaging = Nothing
-              }
-            , session
-            , Cmd.none
-            )
+            ( { model | selectedPackaging = Nothing }, session, Cmd.none )
+                |> updateQuery (Recipe.addPackaging mass code query)
+
+        CopyToClipBoard shareableLink ->
+            ( model, session, Ports.copyToClipboard shareableLink )
 
         DbLoaded dbState ->
-            ( { model
-                | dbState = dbState
-                , query = Query.carrotCake
-              }
+            ( { model | dbState = dbState }
             , case dbState of
                 RemoteData.Success db ->
                     { session | builderDb = db }
@@ -144,34 +168,42 @@ update session msg model =
             )
 
         DeleteIngredient ingredientQuery ->
-            ( { model | query = Query.deleteIngredient ingredientQuery model.query }
-            , session
-            , Cmd.none
-            )
+            ( model, session, Cmd.none )
+                |> updateQuery (Query.deleteIngredient ingredientQuery query)
+
+        DeleteBookmark bookmark ->
+            updateQuery query
+                ( model
+                , session |> Session.deleteBookmark bookmark
+                , Cmd.none
+                )
 
         DeletePackaging code ->
-            ( { model
-                | query =
-                    model.query
-                        |> Recipe.deletePackaging code
-              }
-            , session
-            , Cmd.none
-            )
+            ( model, session, Cmd.none )
+                |> updateQuery (Recipe.deletePackaging code query)
+
+        NewTime currentTime ->
+            ( { model | currentTime = currentTime }, session, Cmd.none )
 
         NoOp ->
             ( model, session, Cmd.none )
 
-        LoadQuery query ->
-            ( { model | query = query }, session, Cmd.none )
+        LoadQuery queryToLoad ->
+            ( model, session, Cmd.none )
+                |> updateQuery queryToLoad
 
         ResetTransform ->
-            ( { model
-                | query =
-                    model.query
-                        |> Recipe.resetTransform
-              }
+            ( model, session, Cmd.none )
+                |> updateQuery (Recipe.resetTransform query)
+
+        SaveBookmark ->
+            ( model
             , session
+                |> Session.saveBookmark
+                    { name = String.trim model.bookmarkName
+                    , query = Bookmark.Food query
+                    , created = model.currentTime
+                    }
             , Cmd.none
             )
 
@@ -182,50 +214,65 @@ update session msg model =
             ( { model | selectedTransform = selectedTransform }, session, Cmd.none )
 
         SetTransform { mass, code } ->
-            ( { model
-                | query =
-                    model.query
-                        |> Recipe.setTransform mass code
-                , selectedTransform = Nothing
-              }
-            , session
-            , Cmd.none
-            )
+            ( { model | selectedTransform = Nothing }, session, Cmd.none )
+                |> updateQuery (Recipe.setTransform mass code query)
 
         SwitchImpact impact ->
-            ( { model | impact = impact }, session, Cmd.none )
+            ( model
+            , session
+            , Just query
+                |> Route.FoodBuilder impact
+                |> Route.toString
+                |> Navigation.pushUrl session.navKey
+            )
+
+        SwitchLinksTab bookmarkTab ->
+            ( { model | bookmarkTab = bookmarkTab }
+            , session
+            , Cmd.none
+            )
+
+        UpdateBookmarkName recipeName ->
+            ( { model | bookmarkName = recipeName }, session, Cmd.none )
 
         UpdateIngredient oldIngredientId newIngredient ->
-            ( { model | query = Query.updateIngredient oldIngredientId newIngredient model.query }
-            , session
-            , Cmd.none
-            )
+            ( model, session, Cmd.none )
+                |> updateQuery (Query.updateIngredient oldIngredientId newIngredient query)
 
         UpdatePackagingMass code (Just mass) ->
-            ( { model
-                | query =
-                    model.query
-                        |> Recipe.updatePackagingMass mass code
-              }
-            , session
-            , Cmd.none
-            )
+            ( model, session, Cmd.none )
+                |> updateQuery (Recipe.updatePackagingMass mass code query)
 
         UpdatePackagingMass _ Nothing ->
             ( model, session, Cmd.none )
 
         UpdateTransformMass (Just mass) ->
-            ( { model
-                | query =
-                    model.query
-                        |> Recipe.updateTransformMass mass
-              }
-            , session
-            , Cmd.none
-            )
+            ( model, session, Cmd.none )
+                |> updateQuery (Recipe.updateTransformMass mass query)
 
         UpdateTransformMass Nothing ->
             ( model, session, Cmd.none )
+
+
+updateQuery : Query -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
+updateQuery query ( model, session, msg ) =
+    ( { model | bookmarkName = query |> findExistingBookmarkName session }
+    , session |> Session.updateFoodQuery query
+    , msg
+    )
+
+
+findExistingBookmarkName : Session -> Query -> String
+findExistingBookmarkName { builderDb, store } query =
+    store.bookmarks
+        |> Bookmark.findByFoodQuery query
+        |> Maybe.map .name
+        |> Maybe.withDefault
+            (query
+                |> Recipe.fromQuery builderDb
+                |> Result.map Recipe.toString
+                |> Result.withDefault ""
+            )
 
 
 
@@ -443,28 +490,19 @@ errorView error =
         }
 
 
-formatImpact : Db -> Impact.Trigram -> Impact.Impacts -> Html Msg
-formatImpact db selectedImpact impacts =
-    case Impact.getDefinition selectedImpact db.impacts of
-        Ok definition ->
-            impacts
-                |> Impact.getImpact selectedImpact
-                |> Unit.impactToFloat
-                |> Format.formatImpactFloat definition 2
-
-        Err error ->
-            span [ class "d-flex align-items-center gap-1 bg-white text-danger" ]
-                [ Icon.warning
-                , text error
-                ]
+formatImpact : Impact.Definition -> Impact.Impacts -> Html Msg
+formatImpact selectedImpact =
+    Impact.getImpact selectedImpact.trigram
+        >> Unit.impactToFloat
+        >> Format.formatImpactFloat selectedImpact 2
 
 
-ingredientListView : Db -> Impact.Trigram -> Recipe -> Recipe.Results -> List (Html Msg)
+ingredientListView : Db -> Impact.Definition -> Recipe -> Recipe.Results -> List (Html Msg)
 ingredientListView db selectedImpact recipe results =
     [ div [ class "card-header d-flex align-items-center justify-content-between" ]
         [ h6 [ class "mb-0" ] [ text "Ingrédients" ]
         , results.recipe.ingredients
-            |> formatImpact db selectedImpact
+            |> formatImpact selectedImpact
         ]
     , ul [ class "list-group list-group-flush" ]
         ((if List.isEmpty recipe.ingredients then
@@ -502,12 +540,12 @@ ingredientListView db selectedImpact recipe results =
     ]
 
 
-packagingListView : Db -> Impact.Trigram -> Maybe SelectedProcess -> Recipe -> Recipe.Results -> List (Html Msg)
+packagingListView : Db -> Impact.Definition -> Maybe SelectedProcess -> Recipe -> Recipe.Results -> List (Html Msg)
 packagingListView db selectedImpact selectedProcess recipe results =
     [ div [ class "card-header d-flex align-items-center justify-content-between" ]
         [ h5 [ class "mb-0" ] [ text "Emballage" ]
         , results.packaging
-            |> formatImpact db selectedImpact
+            |> formatImpact selectedImpact
         ]
     , ul [ class "list-group list-group-flush" ]
         (if List.isEmpty recipe.packaging then
@@ -527,7 +565,7 @@ packagingListView db selectedImpact selectedProcess recipe results =
                             (small [] [ text <| Process.getDisplayName process ])
                             (div [ class "d-flex flex-nowrap align-items-center gap-2 fs-7 text-nowrap" ]
                                 [ Recipe.computeProcessImpacts packaging
-                                    |> formatImpact db selectedImpact
+                                    |> formatImpact selectedImpact
                                 , button
                                     [ type_ "button"
                                     , class "btn btn-sm btn-outline-primary"
@@ -553,30 +591,30 @@ packagingListView db selectedImpact selectedProcess recipe results =
     ]
 
 
-mainView : Db -> Model -> Html Msg
-mainView db model =
+mainView : Session -> Db -> Model -> Html Msg
+mainView session db model =
     let
         computed =
-            Recipe.compute db model.query
+            Recipe.compute db session.queries.food
     in
     div [ class "row gap-3 gap-lg-0" ]
         [ div [ class "col-lg-4 order-lg-2 d-flex flex-column gap-3" ]
             [ case computed of
                 Ok ( _, results ) ->
-                    sidebarView db model results
+                    sidebarView session db model results
 
                 Err error ->
                     errorView error
             ]
         , div [ class "col-lg-8 order-lg-1 d-flex flex-column gap-3" ]
-            [ menuView model.query
+            [ menuView session.queries.food
             , case computed of
                 Ok ( recipe, results ) ->
                     stepListView db model recipe results
 
                 Err error ->
                     errorView error
-            , debugQueryView db model.query
+            , debugQueryView db session.queries.food
             ]
         ]
 
@@ -680,15 +718,15 @@ rowTemplate input content action =
         ]
 
 
-sidebarView : Db -> Model -> Recipe.Results -> Html Msg
-sidebarView db model results =
+sidebarView : Session -> Db -> Model -> Recipe.Results -> Html Msg
+sidebarView session db model results =
     div
         [ class "d-flex flex-column gap-3 mb-3 sticky-md-top"
         , style "top" "7px"
         ]
         [ ImpactView.impactSelector
             { impacts = db.impacts
-            , selectedImpact = model.impact
+            , selectedImpact = model.impact.trigram
             , switchImpact = SwitchImpact
 
             -- We don't use the following two configs
@@ -702,7 +740,7 @@ sidebarView db model results =
                 [ div [ class "d-flex flex-column m-auto gap-1 px-2" ]
                     [ div [ class "display-4 lh-1 text-center text-nowrap" ]
                         [ results.impacts
-                            |> formatImpact db model.impact
+                            |> formatImpact model.impact
                         ]
                     , small [ class "d-flex align-items-center gap-1" ]
                         [ Icon.warning
@@ -713,6 +751,21 @@ sidebarView db model results =
             , footer = []
             }
         , stepResultsView db model results
+        , BookmarkView.view
+            { session = session
+            , activeTab = model.bookmarkTab
+            , bookmarkName = model.bookmarkName
+            , impact = model.impact
+            , funit = Unit.PerItem
+            , scope = BookmarkView.Food
+            , viewMode = ViewMode.Simple
+            , copyToClipBoard = CopyToClipBoard
+            , compare = NoOp
+            , delete = DeleteBookmark
+            , save = SaveBookmark
+            , update = UpdateBookmarkName
+            , switchTab = SwitchLinksTab
+            }
         , a [ class "btn btn-primary", Route.href Route.FoodExplore ]
             [ text "Explorateur de recettes" ]
         ]
@@ -725,7 +778,7 @@ stepListView db { impact, selectedPackaging, selectedTransform } recipe results 
             (div [ class "card-header d-flex align-items-center justify-content-between" ]
                 [ h5 [ class "mb-0" ] [ text "Recette" ]
                 , Recipe.recipeStepImpacts db results
-                    |> formatImpact db impact
+                    |> formatImpact impact
                     |> List.singleton
                     |> span [ class "fw-bold" ]
                 ]
@@ -743,7 +796,7 @@ stepResultsView : Db -> Model -> Recipe.Results -> Html Msg
 stepResultsView db model results =
     let
         toFloat =
-            Impact.getImpact model.impact >> Unit.impactToFloat
+            Impact.getImpact model.impact.trigram >> Unit.impactToFloat
 
         stepsData =
             [ { label = "Recette"
@@ -789,12 +842,12 @@ stepResultsView db model results =
         ]
 
 
-transformView : Db -> Impact.Trigram -> Maybe SelectedProcess -> Recipe -> Recipe.Results -> List (Html Msg)
+transformView : Db -> Impact.Definition -> Maybe SelectedProcess -> Recipe -> Recipe.Results -> List (Html Msg)
 transformView db selectedImpact selectedProcess recipe results =
     [ div [ class "card-header d-flex align-items-center justify-content-between" ]
         [ h6 [ class "mb-0" ] [ text "Transformation" ]
         , results.recipe.transform
-            |> formatImpact db selectedImpact
+            |> formatImpact selectedImpact
         ]
     , case recipe.transform of
         Just ({ process, mass } as transform) ->
@@ -809,7 +862,7 @@ transformView db selectedImpact selectedProcess recipe results =
                     (small [] [ text <| Process.getDisplayName process ])
                     (div [ class "d-flex flex-nowrap align-items-center gap-2 fs-7 text-nowrap" ]
                         [ Recipe.computeProcessImpacts transform
-                            |> formatImpact db selectedImpact
+                            |> formatImpact selectedImpact
                         , button
                             [ type_ "button"
                             , class "btn btn-sm btn-outline-primary"
@@ -844,12 +897,12 @@ transformView db selectedImpact selectedProcess recipe results =
 
 
 view : Session -> Model -> ( String, List (Html Msg) )
-view _ model =
+view session model =
     ( "Constructeur de recette"
     , [ Container.centered [ class "pb-3" ]
             [ case model.dbState of
                 RemoteData.Success db ->
-                    mainView db model
+                    mainView session db model
 
                 RemoteData.Loading ->
                     Spinner.view
@@ -866,3 +919,8 @@ view _ model =
             ]
       ]
     )
+
+
+subscriptions : Model -> Sub Msg
+subscriptions _ =
+    Time.every 1000 NewTime

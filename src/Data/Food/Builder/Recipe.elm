@@ -9,12 +9,14 @@ module Data.Food.Builder.Recipe exposing
     , deletePackaging
     , encodeQuery
     , encodeResults
+    , fromQuery
     , ingredientQueryFromIngredient
     , recipeStepImpacts
     , resetTransform
     , serializeQuery
     , setTransform
     , sumMasses
+    , toString
     , updatePackagingMass
     , updateTransformMass
     )
@@ -29,6 +31,7 @@ import Json.Encode as Encode
 import Mass exposing (Mass)
 import Quantity
 import Result.Extra as RE
+import String.Extra as SE
 
 
 type alias Packaging =
@@ -240,7 +243,10 @@ ingredientQueryFromIngredient ingredient =
     }
 
 
-packagingListFromQuery : Db -> { a | packaging : List BuilderQuery.PackagingQuery } -> Result String (List Packaging)
+packagingListFromQuery :
+    Db
+    -> { a | packaging : List BuilderQuery.PackagingQuery }
+    -> Result String (List Packaging)
 packagingListFromQuery db query =
     query.packaging
         |> RE.combineMap (packagingFromQuery db)
@@ -279,7 +285,48 @@ sumMasses =
     List.map .mass >> Quantity.sum
 
 
-transformFromQuery : Db -> { a | transform : Maybe BuilderQuery.TransformQuery } -> Result String (Maybe Transform)
+toString : Recipe -> String
+toString { ingredients, transform, packaging } =
+    let
+        formatMass =
+            Mass.inGrams >> round >> String.fromInt
+    in
+    [ ingredients
+        |> List.map
+            (\{ ingredient, mass, variant } ->
+                ingredient.name
+                    ++ " ("
+                    ++ (case variant of
+                            BuilderQuery.Organic ->
+                                "bio, "
+
+                            _ ->
+                                ""
+                       )
+                    ++ formatMass mass
+                    ++ "g.)"
+            )
+        |> String.join ", "
+        |> SE.nonEmpty
+    , transform
+        |> Maybe.map
+            (\{ process, mass } ->
+                Process.getDisplayName process ++ "(" ++ formatMass mass ++ ")"
+            )
+    , packaging
+        |> List.map (.process >> Process.getDisplayName)
+        |> String.join ", "
+        |> SE.nonEmpty
+        |> Maybe.map ((++) "Emballage: ")
+    ]
+        |> List.filterMap identity
+        |> String.join "; "
+
+
+transformFromQuery :
+    Db
+    -> { a | transform : Maybe BuilderQuery.TransformQuery }
+    -> Result String (Maybe Transform)
 transformFromQuery { processes } query =
     query.transform
         |> Maybe.map
