@@ -37,7 +37,7 @@
     "name": "farine",
     "default": "a343353e431d7dddc7bb25cbc41e179a",
     "variants": {
-      "organic": "9ff2d511-f88a-48cc-bab9-a41801fc502b"
+      "organic": "b5a61287-d7c9-4de2-bdcd-92d2454de8c3"
     }
   },
   {
@@ -55,5 +55,25 @@
     "variants": {
       "organic": "1a558498ad7a0c44a2d90f83f3bf0970"
     }
+  },
+  {
+    "id": "tomato",
+    "name": "tomate",
+    "default": "0eb889c2db4f2a017150c944bbf78278",
+    "variants": {
+      "organic": "e4a0e19482acde343e3d83f86747e7b6"
+    }
+  },
+  {
+    "id": "potato",
+    "name": "pomme de terre",
+    "default": "f2a99884d14493ebe4cd70b759106096",
+    "variants": {}
+  },
+  {
+    "id": "durum wheat",
+    "name": "blé dur",
+    "default": "da43175dd8163643ce4d9cac19a45884",
+    "variants": {}
   }
 ]

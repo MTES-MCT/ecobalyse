@@ -462,6 +462,139 @@
     }
   },
   {
+    "name": "Tomato, medium size, conventional, soil based, non-heated greenhouse, at greenhouse",
+    "unit": "kilogram",
+    "simapro_id": "0eb889c2db4f2a017150c944bbf78278",
+    "system_description": "",
+    "category_tags": [
+      "Agricultural",
+      "Plant production",
+      "Vegetables",
+      "Transformation"
+    ],
+    "category": "material",
+    "impacts": {
+      "acd": 0.001207375889091675,
+      "ozd": 1.8502853544702132e-08,
+      "cch": 0.1431318445179231,
+      "fwe": 3.1045310747965966e-05,
+      "swe": 0.0002708706110256924,
+      "tre": 0.004575138730526955,
+      "pco": 0.0004228228723198389,
+      "pma": 9.352043484183581e-09,
+      "ior": 0.03201206810626501,
+      "fru": 2.7624625309973827,
+      "mru": 2.9804379427380796e-06,
+      "ldu": -2.3521707967379397,
+      "wtu": 0.048551328988411684,
+      "etf": 11.57519034212492,
+      "htc": 2.4207933000306064e-10,
+      "htn": 1.1914253902009273e-08,
+      "bvi": 0.0,
+      "pef": 18.96431231220902
+    }
+  },
+  {
+    "name": "Tomato, organic, greenhouse production, national average, at greenhouse",
+    "unit": "kilogram",
+    "simapro_id": "e4a0e19482acde343e3d83f86747e7b6",
+    "system_description": "",
+    "category_tags": [
+      "Agricultural",
+      "Plant production",
+      "Vegetables",
+      "Transformation"
+    ],
+    "category": "material",
+    "impacts": {
+      "acd": 0.0014597373329692843,
+      "ozd": 2.264658369967585e-08,
+      "cch": 0.20067269445630506,
+      "fwe": 4.05940621910985e-05,
+      "swe": 0.000319426208511322,
+      "tre": 0.005598570612901097,
+      "pco": 0.0006304051317706376,
+      "pma": 1.1591869600332118e-08,
+      "ior": 0.03956206466664588,
+      "fru": 3.513579966044878,
+      "mru": 4.61505213803175e-06,
+      "ldu": -3.364972821774294,
+      "wtu": 0.057973228830651105,
+      "etf": 6.6369174392018575,
+      "htc": 6.173016588667023e-10,
+      "htn": 5.292679331207211e-08,
+      "bvi": 0.0,
+      "pef": 25.010422923748006
+    }
+  },
+  {
+    "name": "Ware potato, conventional, variety mix, national average, at farm gate",
+    "unit": "kilogram",
+    "simapro_id": "f2a99884d14493ebe4cd70b759106096",
+    "system_description": "AGRIBALYSE v1.4",
+    "category_tags": [
+      "Agricultural",
+      "Plant production",
+      "Roots and tubers",
+      "Transformation"
+    ],
+    "comment": "FRANCE",
+    "category": "material",
+    "impacts": {
+      "acd": 0.0012807504364012472,
+      "ozd": 7.990204335706392e-09,
+      "cch": 0.06308918000465573,
+      "fwe": 2.1796472219186862e-05,
+      "swe": 0.0007981967388559422,
+      "tre": 0.005462584148540355,
+      "pco": 0.00039412945114089673,
+      "pma": 7.764699404108635e-09,
+      "ior": 0.010714211680899702,
+      "fru": 0.6863879831887928,
+      "mru": 3.478032079952498e-07,
+      "ldu": 14.558330110101199,
+      "wtu": 0.018218252075949345,
+      "etf": 8.477470188893836,
+      "htc": 2.0962693539458197e-11,
+      "htn": 5.807687462588193e-09,
+      "bvi": 0.0,
+      "pef": 12.15734451495841
+    }
+  },
+  {
+    "name": "Durum wheat grain, conventional, national average, at farm gate",
+    "unit": "kilogram",
+    "simapro_id": "da43175dd8163643ce4d9cac19a45884",
+    "system_description": "",
+    "category_tags": [
+      "Agricultural",
+      "Plant production",
+      "Cereals",
+      "Transformation"
+    ],
+    "category": "material",
+    "impacts": {
+      "acd": 0.008292601534560207,
+      "ozd": 2.941268194120456e-08,
+      "cch": 0.431117297882246,
+      "fwe": 0.0002368341940979251,
+      "swe": 0.007643583062756384,
+      "tre": 0.03702902239389641,
+      "pco": 0.001972863004467424,
+      "pma": 5.086315522699404e-08,
+      "ior": 0.03671471350274352,
+      "fru": 2.5995765756286633,
+      "mru": 6.440511745619197e-07,
+      "ldu": 101.09493175536628,
+      "wtu": 0.11044889007158215,
+      "etf": 12.353778038251988,
+      "htc": -3.635062299182681e-10,
+      "htn": 2.628844133195493e-09,
+      "bvi": 0.0,
+      "pef": 61.48173704703673
+    }
+  },
+  {
     "name": "Steel, unalloyed {RER}| steel production, converter, unalloyed | Cut-off, S - Copied from Ecoinvent",
     "alias": "steel",
     "displayName": "Acier",
@@ -962,7 +1095,7 @@
   {
     "name": "flour, organic, constructed by ecobalyse",
     "unit": "kilogram",
-    "simapro_id": "9ff2d511-f88a-48cc-bab9-a41801fc502b",
+    "simapro_id": "b5a61287-d7c9-4de2-bdcd-92d2454de8c3",
     "system_description": "ecobalyse",
     "category_tags": [
       "Agricultural",
