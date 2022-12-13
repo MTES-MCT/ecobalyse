@@ -39,7 +39,7 @@
 * [🏭 Ingrédients industrie](alimentaire/ingredients-industrie/README.md)
   * [🍞 Farine](alimentaire/ingredients-industrie/farine.md)
   * [🐄 Viande de boeuf hachée](alimentaire/ingredients-industrie/viande-de-boeuf.md)
-  * [🐖 Viande de porc](alimentaire/ingredients-industrie/viande-de-porc.md)
+  * [🐖 Jambon](alimentaire/ingredients-industrie/jambon.md)
   * [🐑 Viande d'agneau (épaule)](alimentaire/ingredients-industrie/viande-dagneau-epaule.md)
   * [🐑 Viande d'agneau (côte)](alimentaire/ingredients-industrie/viande-dagneau-cote.md)
   * [🌻 Huile de tournesol](alimentaire/ingredients-industrie/huile-de-tournesol.md)
