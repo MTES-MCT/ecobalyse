@@ -38,6 +38,7 @@
 * [Données](alimentaire/donnees.md)
 * [🏭 Ingrédients industrie](alimentaire/ingredients-industrie/README.md)
   * [🍞 Farine](alimentaire/ingredients-industrie/farine.md)
+  * [🍞 Viande de boeuf](alimentaire/ingredients-industrie/viande-de-boeuf.md)
   * [🌻 Huile de tournesol](alimentaire/ingredients-industrie/huile-de-tournesol.md)
   * [🥔 Amidon de pomme de terre](alimentaire/ingredients-industrie/amidon-de-pomme-de-terre.md)
   * [🍅 Concentré de tomates](alimentaire/ingredients-industrie/concentre-de-tomates.md)
