@@ -40,15 +40,14 @@
     "rapidoc": "^9.3.3"
   },
   "devDependencies": {
-    "concurrently": "^7.2.2",
+    "concurrently": "^7.6.0",
     "elm-format": "^0.8.5",
     "elm-review": "^2.7.2",
     "elm-test": "^0.19.1-revision9",
     "jest": "^28.1.2",
-    "nodemon": "^2.0.19",
-    "process": "^0.11.10",
+    "nodemon": "^2.0.20",
     "rimraf": "^3.0.2",
-    "supertest": "^6.2.4"
+    "supertest": "^6.3.3"
   },
   "cacheDirectories": [
     "node_modules",
