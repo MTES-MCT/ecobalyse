@@ -29,39 +29,46 @@ table { detailed } =
             \def ->
                 span [ title def.label ] [ text def.label ]
       }
-    , { label = "Description"
-      , toCell =
-            \def ->
-                if detailed then
-                    Markdown.simple [] def.description
-
-                else
-                    span [ title def.description ]
-                        [ def.description
-                            |> String.replace "*" ""
-                            |> text
-                        ]
-      }
     , { label = "Unité"
       , toCell = \def -> code [] [ text def.unit ]
       }
-    , { label = "Normalisation PEF"
+    , { label = "Données de calcul du score PEF"
       , toCell =
             \def ->
-                div [ classList [ ( "text-end", not detailed ) ] ]
-                    [ def.pefData
-                        |> Maybe.map (.normalization >> Unit.impactToFloat >> Format.formatRichFloat 2 def.unit)
-                        |> Maybe.withDefault (text "N/A")
-                    ]
+                case def.pefData of
+                    Just pefData ->
+                        div [ class "d-flex gap-2" ]
+                            [ span [ class "d-flex flex-column" ]
+                                [ text "Normalisation"
+                                , pefData.normalization |> Unit.impactToFloat |> Format.formatRichFloat 2 def.unit
+                                ]
+                            , span [ class "d-flex flex-column" ]
+                                [ text "Pondération"
+                                , pefData.weighting |> Format.ratio
+                                ]
+                            ]
+
+                    Nothing ->
+                        text "N/A"
       }
-    , { label = "Pondération PEF"
+    , { label = "Données de calcul du score d'impacts"
       , toCell =
             \def ->
-                div [ classList [ ( "text-end", not detailed ) ] ]
-                    [ def.pefData
-                        |> Maybe.map (.weighting >> Format.ratio)
-                        |> Maybe.withDefault (text "N/A")
-                    ]
+                case def.scoreData of
+                    Just scoreData ->
+                        div [ class "d-flex gap-2" ]
+                            [ span [ class "d-flex flex-column" ]
+                                [ text "Normalisation"
+                                , scoreData.normalization |> Unit.impactToFloat |> Format.formatRichFloat 2 def.unit
+                                ]
+                            , span [ class "d-flex flex-column" ]
+                                [ text "Pondération"
+                                , scoreData.weighting |> Format.ratio
+                                ]
+                            ]
+
+                    Nothing ->
+                        text "N/A"
       }
     , { label = "Niveau de qualité"
       , toCell =
@@ -94,5 +101,18 @@ table { detailed } =
                             [ text <| Impact.scopeToString scope ]
                     )
                 >> div [ class "d-flex gap-1" ]
+      }
+    , { label = "Description"
+      , toCell =
+            \def ->
+                if detailed then
+                    Markdown.simple [] def.description
+
+                else
+                    span [ title def.description ]
+                        [ def.description
+                            |> String.replace "*" ""
+                            |> text
+                        ]
       }
     ]
