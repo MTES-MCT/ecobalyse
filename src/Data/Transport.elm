@@ -120,15 +120,15 @@ getTransportBetween impacts cA cB distances =
     else
         distances
             |> Dict.get cA
-            |> Maybe.andThen
+            |> Maybe.map
                 (\countries ->
                     case Dict.get cB countries of
                         Just transport ->
-                            Just { transport | impacts = impacts }
+                            { transport | impacts = impacts }
 
                         Nothing ->
                             -- reverse query source dict
-                            Just (getTransportBetween impacts cB cA distances)
+                            getTransportBetween impacts cB cA distances
                 )
             |> Maybe.withDefault (default impacts)
 
