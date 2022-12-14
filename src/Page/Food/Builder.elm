@@ -740,7 +740,6 @@ sidebarView session db model results =
                 [ div [ class "d-flex flex-column m-auto gap-1 px-2" ]
                     [ div [ class "display-4 lh-1 text-center text-nowrap" ]
                         [ results.impacts
-                            |> Debug.log "plop"
                             |> formatImpact model.impact
                         ]
                     , small [ class "d-flex align-items-center gap-1" ]
