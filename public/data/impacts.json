@@ -23,7 +23,7 @@
       "url": "https://ecobalyse.beta.gouv.fr/"
     },
     "label_en": "Impact Score",
-    "label_fr": "Score d'Impact",
+    "label_fr": "Score d'impacts",
     "unit_fr": "pts d'impact",
     "unit_en": "impact pts",
     "description_en": "Aggregated impact: sum of the weighted and normalized impact of all environmental impact categories according to the Ecobalyse methodology.",
