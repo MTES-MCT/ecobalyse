@@ -139,11 +139,11 @@ impactSelector { impacts, selectedImpact, switchImpact, scope } =
         , onInput (Impact.trg >> switchImpact)
         ]
         [ scopeImpacts
-            |> List.filter (\{ trigram } -> trigram == Impact.trg "pef")
+            |> List.filter Impact.isAggregate
             |> List.map toOption
             |> optgroup [ attribute "label" "Impacts agrégés" ]
         , scopeImpacts
-            |> List.filter (\{ trigram, primary } -> primary && trigram /= Impact.trg "pef")
+            |> List.filter (Impact.isAggregate >> not)
             |> List.sortBy .label
             |> List.map toOption
             |> optgroup [ attribute "label" "Impacts détaillés" ]

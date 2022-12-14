@@ -5,7 +5,7 @@ module Data.Impact exposing
     , Scope(..)
     , Source
     , Trigram(..)
-    , computePefScore
+    , computeAggregateScore
     , decodeImpacts
     , decodeList
     , defaultTrigram
@@ -17,6 +17,7 @@ module Data.Impact exposing
     , grabImpactFloat
     , impactsFromDefinitons
     , invalid
+    , isAggregate
     , mapImpacts
     , noImpacts
     , parseTrigram
@@ -26,6 +27,7 @@ module Data.Impact exposing
     , toString
     , trg
     , updateImpact
+    , updateImpactScoreImpact
     , updatePefImpact
     )
 
@@ -48,8 +50,8 @@ type alias Definition =
     , unit : String
     , decimals : Int
     , quality : Quality
-    , primary : Bool
-    , pefData : Maybe PefData
+    , pefData : Maybe AggregateScoreData
+    , scoreData : Maybe AggregateScoreData
     , scopes : List Scope
     }
 
@@ -70,7 +72,7 @@ type Quality
     | UnknownQuality
 
 
-type alias PefData =
+type alias AggregateScoreData =
     { color : String
     , normalization : Unit.Impact
     , weighting : Unit.Ratio
@@ -91,8 +93,8 @@ invalid =
     , unit = "N/A"
     , decimals = 0
     , quality = GoodQuality
-    , primary = False
     , pefData = Nothing
+    , scoreData = Nothing
     , scopes = []
     }
 
@@ -109,20 +111,30 @@ getDefinition trigram =
         >> Result.fromMaybe ("Impact " ++ toString trigram ++ " invalide")
 
 
+isAggregate : Definition -> Bool
+isAggregate { pefData, scoreData } =
+    case ( pefData, scoreData ) of
+        ( Nothing, Nothing ) ->
+            True
+
+        _ ->
+            False
+
+
 decodeList : Decoder (List Definition)
 decodeList =
     let
         decodeDictValue =
             Decode.succeed
-                (\source label description unit decimals quality primary pefData scopes ->
+                (\source label description unit decimals quality pefData scoreData scopes ->
                     { source = source
                     , label = label
                     , description = description
                     , unit = unit
                     , decimals = decimals
                     , quality = quality
-                    , primary = primary
                     , pefData = pefData
+                    , scoreData = scoreData
                     , scopes = scopes
                     }
                 )
@@ -132,12 +144,12 @@ decodeList =
                 |> Pipe.required "short_unit" Decode.string
                 |> Pipe.required "decimals" Decode.int
                 |> Pipe.required "quality" decodeQuality
-                |> Pipe.required "primary" Decode.bool
-                |> Pipe.required "pef" (Decode.maybe decodePefData)
+                |> Pipe.required "pef" (Decode.maybe decodeAggregateScoreData)
+                |> Pipe.required "score" (Decode.maybe decodeAggregateScoreData)
                 |> Pipe.required "scopes" (Decode.list decodeScope)
 
-        toImpact ( key, { source, label, description, unit, decimals, quality, primary, pefData, scopes } ) =
-            Definition (trg key) source label description unit decimals quality primary pefData scopes
+        toImpact ( key, { source, label, description, unit, decimals, quality, pefData, scoreData, scopes } ) =
+            Definition (trg key) source label description unit decimals quality pefData scoreData scopes
     in
     Decode.dict decodeDictValue
         |> Decode.andThen (Dict.toList >> List.map toImpact >> Decode.succeed)
@@ -150,12 +162,12 @@ decodeSource =
         (Decode.field "url" Decode.string)
 
 
-decodePefData : Decoder PefData
-decodePefData =
-    Decode.map3 PefData
+decodeAggregateScoreData : Decoder AggregateScoreData
+decodeAggregateScoreData =
+    Decode.map3 AggregateScoreData
         (Decode.field "color" Decode.string)
         (Decode.field "normalization" Unit.decodeImpact)
-        (Decode.field "weighting" (Decode.map getPefWeighting Unit.decodeRatio))
+        (Decode.field "weighting" Unit.decodeRatio)
 
 
 decodeScope : Decoder Scope
@@ -183,27 +195,6 @@ scopeToString scope =
 
         Textile ->
             "Textile"
-
-
-getPefWeighting : Unit.Ratio -> Unit.Ratio
-getPefWeighting weighting =
-    -- The following is only relevant for the textile:
-    --
-    -- Pef score weighting is provided using percentages for each impact, though
-    -- we don't have data to take them all into account, so the actual weighting
-    -- total we're basing on is 94,11%, not 100%.
-    --
-    -- The PEF impacts not currently taken into account for the textile are:
-    -- - Toxicité humaine (cancer): 2,13 %
-    -- - Toxicité humaine (non cancer): 1,84 %
-    -- - Ecotoxicité eaux douces: 1,92 %
-    --
-    -- If we want to have results normalized to 100%, we can uncomment this line:
-    --
-    -- Unit.Ratio (weighting / 0.9411)
-    --
-    -- Otherwise, PEF scores are documented incomplete.
-    weighting
 
 
 decodeQuality : Decoder Quality
@@ -250,32 +241,10 @@ type alias ProtectionAreas =
 toProtectionAreas : List Definition -> Impacts -> ProtectionAreas
 toProtectionAreas defs impacts =
     let
-        newTotal =
-            defs
-                |> List.filterMap (.pefData >> Maybe.map (.weighting >> Unit.ratioToFloat))
-                |> List.sum
-
-        newDefs =
-            defs
-                |> List.map
-                    (\def ->
-                        { def
-                            | pefData =
-                                def.pefData
-                                    |> Maybe.map
-                                        (\pefData ->
-                                            { pefData
-                                                | weighting =
-                                                    Unit.ratio (Unit.ratioToFloat pefData.weighting / newTotal)
-                                            }
-                                        )
-                        }
-                    )
-
         pick trigrams =
             impacts
                 |> AnyDict.filter (\t _ -> List.member t (List.map trg trigrams))
-                |> computePefScore newDefs
+                |> computeAggregateScore .scoreData defs
                 |> Unit.impactToFloat
     in
     { climate =
@@ -407,7 +376,14 @@ updatePefImpact : List Definition -> Impacts -> Impacts
 updatePefImpact definitions impacts =
     impacts
         |> updateImpact (trg "pef")
-            (computePefScore definitions impacts)
+            (computeAggregateScore .pefData definitions impacts)
+
+
+updateImpactScoreImpact : List Definition -> Impacts -> Impacts
+updateImpactScoreImpact definitions impacts =
+    impacts
+        |> updateImpact (trg "scr")
+            (computeAggregateScore .scoreData definitions impacts)
 
 
 getPefPieData : List Definition -> Impacts -> String
@@ -429,7 +405,7 @@ getPefPieData defs =
                             { name = label
                             , value =
                                 impact
-                                    |> Unit.impactPefScore normalization weighting
+                                    |> Unit.impactAggregateScore normalization weighting
                                     |> Unit.impactToFloat
                             , color = color ++ "bb" -- pastelization through slight transparency
                             }
@@ -448,21 +424,16 @@ getPefPieData defs =
         >> Encode.encode 0
 
 
-computePefScore : List Definition -> Impacts -> Unit.Impact
-computePefScore defs =
+computeAggregateScore : (Definition -> Maybe AggregateScoreData) -> List Definition -> Impacts -> Unit.Impact
+computeAggregateScore getter defs =
     AnyDict.map
         (\trigram impact ->
-            case getDefinition trigram defs of
-                Ok { pefData } ->
-                    case pefData of
-                        Just { normalization, weighting } ->
-                            impact
-                                |> Unit.impactPefScore normalization weighting
+            case defs |> getDefinition trigram |> Result.map getter of
+                Ok (Just { normalization, weighting }) ->
+                    impact
+                        |> Unit.impactAggregateScore normalization weighting
 
-                        Nothing ->
-                            Quantity.zero
-
-                Err _ ->
+                _ ->
                     Quantity.zero
         )
         >> AnyDict.foldl (\_ -> Quantity.plus) Quantity.zero
@@ -477,7 +448,7 @@ parseTrigram =
     let
         trigrams =
             -- FIXME: find a way to have this check performed automatically from impacts db
-            "acd,bvi,cch,etf,fru,fwe,htc,htn,ior,ldu,mru,ozd,pco,pef,pma,swe,tre,wtu"
+            "acd,bvi,cch,etf,fru,fwe,htc,htn,ior,ldu,mru,ozd,pco,pef,pma,scr,swe,tre,wtu"
                 |> String.split ","
     in
     Parser.custom "TRIGRAM" <|

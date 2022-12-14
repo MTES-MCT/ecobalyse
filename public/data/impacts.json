@@ -1,4 +1,40 @@
 {
+  "pef": {
+    "source": {
+      "label": "Base Impacts",
+      "url": "https://base-impacts.ademe.fr/"
+    },
+    "label_en": "PEF Score",
+    "label_fr": "Score PEF",
+    "unit_fr": "µPt PEF",
+    "unit_en": "µPt PEF",
+    "description_en": "Aggregated impact: sum of the weighted and normalized impact of all environmental impact categories according to the PEF methodology.",
+    "description_fr": "Impact *agrégé* : somme des impacts **normalisés** et **pondérés** de chaque catégorie d'impact selon la méthode *single score* du PEF. 12 impacts différents pris en compte à ce stade. 4 encore à ajouter.\n\nCet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en **milliPoints** (`mPt`) ou en **microPoints** (`µPt`) avec `1 Pt = 1 000 mPt = 1 000 000 µPt`. `1 Pt` correspond à l'impact total d'un européen sur une année.",
+    "short_unit": "µPt PEF",
+    "decimals": 0,
+    "quality": null,
+    "pef": null,
+    "score": null,
+    "scopes": ["textile", "food"]
+  },
+  "scr": {
+    "source": {
+      "label": "Ecobalyse",
+      "url": "https://ecobalyse.beta.gouv.fr/"
+    },
+    "label_en": "Impact Score",
+    "label_fr": "Score d'Impact",
+    "unit_fr": "pts d'impact",
+    "unit_en": "impact pts",
+    "description_en": "Aggregated impact: sum of the weighted and normalized impact of all environmental impact categories according to the Ecobalyse methodology.",
+    "description_fr": "Impact *agrégé* : somme des impacts **normalisés** et **pondérés** de chaque catégorie d'impact selon la méthode Ecobalyse.",
+    "short_unit": "pts d'impact",
+    "decimals": 0,
+    "quality": null,
+    "pef": null,
+    "score": null,
+    "scopes": ["food"]
+  },
   "acd": {
     "source": {
       "label": "Base Impacts",
@@ -12,12 +48,16 @@
     "decimals": 2,
     "description_en": "Indicator of the **potential acidification of soils and water** due to the release of gases such as nitrogen oxides and sulphur oxides.",
     "description_fr": "Indicateur de l'**acidification potentielle des sols et des eaux** due à la libération de gaz tels que les oxydes d'azote et les oxydes de soufre.\n\nCet indicateur se mesure en mol (quantité de matière) d'équivalent d'ions hydrogène (`H+`).",
-    "primary": true,
     "quality": 2,
     "pef": {
       "color": "#ff1493",
       "normalization": 5.55695e1,
       "weighting": 0.062
+    },
+    "score": {
+      "color": "#ff1493",
+      "normalization": 5.55695e1,
+      "weighting": 0.051
     },
     "scopes": ["textile", "food"]
   },
@@ -34,12 +74,16 @@
     "decimals": 2,
     "description_en": "Indicator of **emissions to air** that cause the **destruction of the stratospheric ozone layer**.",
     "description_fr": "La couche d'ozone est située en haute altitude dans l'atmosphère, elle protège des rayons ultra-violets solaires. Son appauvrissement augmente l'**exposition de l'ensemble des êtres vivants à ces radiations négatives** (cancérigènes en particulier).\n\nCet indicateur se mesure en kg d'équivalent `CFC 11`, le CFC 11 (trichlorofluorométhane) étant l'un des gaz responsable de l'appauvrissement de la couche d'ozone.",
-    "primary": true,
     "quality": 1,
     "pef": {
       "color": "#800080",
       "normalization": 5.3648e-2,
       "weighting": 0.0631
+    },
+    "score": {
+      "color": "#800080",
+      "normalization": 5.3648e-2,
+      "weighting": 0.052
     },
     "scopes": ["textile", "food"]
   },
@@ -56,12 +100,16 @@
     "decimals": 2,
     "description_en": "Indicator of **potential global warming** due to **emissions of greenhouse gases to air**. Divided into 3 subcategories based on the emission source: (1) fossil resources, (2) bio-based resources and (3) land use change.",
     "description_fr": "Indicateur le plus connu, correspond à la **modification du climat**, affectant l'écosystème global.\n\nCet indicateur se mesure en kg équivalent `CO₂`, le principal gaz à effet de serre.",
-    "primary": true,
     "quality": 1,
     "pef": {
       "color": "#800000",
       "normalization": 8.09553e3,
       "weighting": 0.2106
+    },
+    "score": {
+      "color": "#800000",
+      "normalization": 8.09553e3,
+      "weighting": 0.174
     },
     "scopes": ["textile", "food"]
   },
@@ -78,12 +126,16 @@
     "description_fr": "Indicateur correspondant à un **enrichissement excessif des milieux naturels en nutriments**, ce qui conduit à une prolifération et une asphyxie (zone morte). C'est ce phénomène qui est à l'origine des algues vertes. On peut le retrouver en rivière et en lac également.\n\nCet indicateur se mesure en kg d'équivalent Phosphore (`P`), le phosphore étant l'un des éléments responsables de l'eutrophisation des eaux douces.",
     "short_unit": "kgPe",
     "decimals": 2,
-    "primary": true,
     "quality": 2,
     "pef": {
       "color": "#1f7dca",
       "normalization": 1.60685,
       "weighting": 0.028
+    },
+    "score": {
+      "color": "#1f7dca",
+      "normalization": 1.60685,
+      "weighting": 0.023
     },
     "scopes": ["textile", "food"]
   },
@@ -100,12 +152,16 @@
     "description_fr": "Indicateur correspondant à un **enrichissement excessif des milieux naturels en nutriments**, ce qui conduit à une prolifération et une asphyxie (zone morte). C'est ce phénomène qui est à l'origine des algues vertes.\n\nCet indicateur se mesure en kg d'équivalent azote (`N`), l'azote étant l'un des éléments responsables de l'eutrophisation des eaux marines.",
     "short_unit": "kgNe",
     "decimals": 2,
-    "primary": true,
     "quality": 2,
     "pef": {
       "color": "#000080",
       "normalization": 1.95e1,
       "weighting": 0.0296
+    },
+    "score": {
+      "color": "#000080",
+      "normalization": 1.95e1,
+      "weighting": 0.024
     },
     "scopes": ["textile", "food"]
   },
@@ -122,12 +178,16 @@
     "description_fr": "Comme dans l'eau, l'eutrophisation terrestre correspond à un **enrichissement excessif du milieu**, en azote en particulier, conduisant a un déséquilibre et un appauvrissement de l'écosystème. Ceci concerne principalement les sols agricoles.\n\nCet indicateur se mesure en mol d'équivalent azote (`N`).",
     "short_unit": "molNe",
     "decimals": 2,
-    "primary": true,
     "quality": 2,
     "pef": {
       "color": "#20b2aa",
       "normalization": 1.76755e2,
       "weighting": 0.0371
+    },
+    "score": {
+      "color": "#20b2aa",
+      "normalization": 1.76755e2,
+      "weighting": 0.031
     },
     "scopes": ["textile", "food"]
   },
@@ -144,12 +204,16 @@
     "description_fr": "Indicateur correspondant à la **dégradation de la qualité de l'air**, principalement via la formation de brouillard de basse altitude nommé *smog*. Il a des conséquences néfastes sur la santé.\n\nCet indicateur se mesure en kg d'équivalent Composés Organiques Volatiles Non Méthaniques (`COVNM`), un ensemble de composés organiques (alcools, aromatiques,...) contribuant à la formation d'ozone photochimique.",
     "short_unit": "kgNMVOCe",
     "decimals": 2,
-    "primary": true,
     "quality": 1,
     "pef": {
       "color": "#da70d6",
       "normalization": 4.06014e1,
       "weighting": 0.0478
+    },
+    "score": {
+      "color": "#da70d6",
+      "normalization": 4.06014e1,
+      "weighting": 0.039
     },
     "scopes": ["textile", "food"]
   },
@@ -166,12 +230,16 @@
     "description_fr": "Indicateur correspondant aux **effets négatifs sur la santé humaine** causés par les émissions de particules (`PM`) et de leurs précurseurs (`NOx`, `SOx`, `NH3`).\n\nCet indicateur se mesure en incidence de maladie supplémentaire due aux particules",
     "short_unit": "dis.inc.",
     "decimals": 2,
-    "primary": true,
     "quality": 2,
     "pef": {
       "color": "#696969",
       "normalization": 5.95387e-4,
       "weighting": 0.0896
+    },
+    "score": {
+      "color": "#696969",
+      "normalization": 5.95387e-4,
+      "weighting": 0.074
     },
     "scopes": ["textile", "food"]
   },
@@ -188,12 +256,16 @@
     "description_fr": "Indicateur correspondant aux dommages pour la **santé humaine et les écosystèmes** liés aux émissions de radionucléides.\n\nIl se mesure en kilobecquerel d'equivalent `Uranium 235`.",
     "short_unit": "kBqU235e",
     "decimals": 2,
-    "primary": true,
     "quality": 2,
     "pef": {
       "color": "#ffd700",
       "normalization": 4.22016e3,
       "weighting": 0.0501
+    },
+    "score": {
+      "color": "#ffd700",
+      "normalization": 4.22016e3,
+      "weighting": 0.041
     },
     "scopes": ["textile", "food"]
   },
@@ -210,12 +282,16 @@
     "description_fr": "Indicateur de l'**épuisement des ressources naturelles en combustibles fossiles** (gaz, charbon, pétrole).\n\nIl se mesure en mégajoules (`MJ`), la quantité d'énergie fossile utilisée.",
     "short_unit": "MJ",
     "decimals": 2,
-    "primary": true,
     "quality": 3,
     "pef": {
       "color": "#000000",
       "normalization": 6.50043e4,
       "weighting": 0.0832
+    },
+    "score": {
+      "color": "#000000",
+      "normalization": 6.50043e4,
+      "weighting": 0.069
     },
     "scopes": ["textile", "food"]
   },
@@ -232,12 +308,16 @@
     "description_fr": "Indicateur de l'**épuisement des ressources naturelles non fossiles**.\n\nIl se mesure en kg d'équivalent d'antimoine (`Sb`) (élément métallique).",
     "short_unit": "kgSbe",
     "decimals": 2,
-    "primary": true,
     "quality": 3,
     "pef": {
       "color": "#a9a9a9",
       "normalization": 6.36403e-2,
       "weighting": 0.0755
+    },
+    "score": {
+      "color": "#a9a9a9",
+      "normalization": 6.36403e-2,
+      "weighting": 0.062
     },
     "scopes": ["textile", "food"]
   },
@@ -254,31 +334,17 @@
     "description_fr": "Mesure de l'évolution de la **qualité des sols** (production biotique, résistance à l'érosion, filtration mécanique).\n\nCet indicateur n'a pas de dimension, il se mesure en Points (`Pt`).",
     "short_unit": "Pt",
     "decimals": 2,
-    "primary": true,
     "quality": 3,
     "pef": {
       "color": "#006400",
       "normalization": 8.19498e5,
       "weighting": 0.0794
     },
-    "scopes": ["textile", "food"]
-  },
-  "pef": {
-    "source": {
-      "label": "Base Impacts",
-      "url": "https://base-impacts.ademe.fr/"
+    "score": {
+      "color": "#006400",
+      "normalization": 8.19498e5,
+      "weighting": 0.066
     },
-    "label_en": "PEF Score",
-    "label_fr": "Score PEF",
-    "unit_fr": "µPt PEF",
-    "unit_en": "µPt PEF",
-    "description_en": "Aggregated impact : sum of the weighted and normalized impact of all environmental impact categories according to the PEF methodology.",
-    "description_fr": "Impact *agrégé* : somme des impacts **normalisés** et **pondérés** de chaque catégorie d'impact selon la méthode *single score* du PEF. 12 impacts différents pris en compte à ce stade. 4 encore à ajouter.\n\nCet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en **milliPoints** (`mPt`) ou en **microPoints** (`µPt`) avec `1 Pt = 1 000 mPt = 1 000 000 µPt`. `1 Pt` correspond à l'impact total d'un européen sur une année.",
-    "short_unit": "µPt PEF",
-    "decimals": 0,
-    "primary": true,
-    "quality": null,
-    "pef": null,
     "scopes": ["textile", "food"]
   },
   "wtu": {
@@ -294,12 +360,16 @@
     "description_fr": "Indicateur de la consommation d'eau et son épuisement dans certaines régions. **À ce stade, elle n'est prise en compte que pour l'étape “Matière & Filature”.**\n\nCet indicateur se mesure en **mètre cube (`m³`)** d'eau consommé.",
     "short_unit": "m³",
     "decimals": 2,
-    "primary": true,
     "quality": 0,
     "pef": {
       "color": "#00ffff",
       "normalization": 1.14687e4,
       "weighting": 0.0851
+    },
+    "score": {
+      "color": "#00ffff",
+      "normalization": 1.14687e4,
+      "weighting": 0.07
     },
     "scopes": ["textile", "food"]
   },
@@ -316,12 +386,16 @@
     "description_fr": "Indicateur d'écotoxicité pour écosystèmes aquatiques d'eau douce. Cet indicateur se mesure en Comparative Toxic Unit for ecosystems (CTUe)",
     "short_unit": "CTUe",
     "decimals": 2,
-    "primary": true,
     "quality": 0,
     "pef": {
       "color": "#03A764",
       "normalization": 4.27e4,
       "weighting": 0.0192
+    },
+    "score": {
+      "color": "#03A764",
+      "normalization": 4.27e4,
+      "weighting": 0.016
     },
     "scopes": ["food"]
   },
@@ -338,12 +412,16 @@
     "description_fr": "Indicateur de toxicité cancérigène pour l'homme. Cet indicateur se mesure en Comparative Toxic Unit for humans (CTUh)",
     "short_unit": "CTUh",
     "decimals": 2,
-    "primary": true,
     "quality": 0,
     "pef": {
       "color": "#A77C2B",
       "normalization": 1.69e-5,
       "weighting": 0.0213
+    },
+    "score": {
+      "color": "#A77C2B",
+      "normalization": 1.69e-5,
+      "weighting": 0.018
     },
     "scopes": ["food"]
   },
@@ -360,12 +438,16 @@
     "description_fr": "Indicateur de toxicité non cancérigène pour l'homme. Cet indicateur se mesure en Comparative Toxic Unit for humans (CTUh)",
     "short_unit": "CTUh",
     "decimals": 2,
-    "primary": true,
     "quality": 0,
     "pef": {
       "color": "#FFA907",
       "normalization": 2.297e-4,
       "weighting": 0.0184
+    },
+    "score": {
+      "color": "#FFA907",
+      "normalization": 2.297e-4,
+      "weighting": 0.015
     },
     "scopes": ["food"]
   },
@@ -382,12 +464,16 @@
     "decimals": 2,
     "description_en": "Biodiversity impact indicator calculated from the Biodiversity Value Increment (BVI) method, Lindner et al 2019.",
     "description_fr": "Indicateur de l'impact sur la biodiversité calculé à partir de la méthode BVI (Biodiversity Value Increment), Lindner et al 2019",
-    "primary": true,
     "quality": 3,
     "pef": {
       "color": "#00A300",
       "normalization": 1.3459e14,
       "weighting": 0.2106
+    },
+    "score": {
+      "color": "#00A300",
+      "normalization": 1.3459e14,
+      "weighting": 0.174
     },
     "scopes": ["food"]
   }

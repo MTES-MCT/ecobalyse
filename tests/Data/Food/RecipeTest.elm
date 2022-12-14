@@ -108,6 +108,7 @@ suite =
                             , ( "pco", Unit.impact 0.015076022211779597 )
                             , ( "pef", Unit.impact 308.38011755405006 )
                             , ( "pma", Unit.impact 2.614489711886471e-7 )
+                            , ( "scr", Unit.impact 0 )
                             , ( "swe", Unit.impact 0.010932969853481399 )
                             , ( "tre", Unit.impact 0.12407138654493885 )
                             , ( "wtu", Unit.impact 0.7436928514704245 )

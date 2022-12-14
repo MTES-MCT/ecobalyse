@@ -16,22 +16,22 @@ suite =
                 defaultImpacts =
                     Impact.impactsFromDefinitons textileDb.impacts
 
-                expectPefScore expectedValue testValue =
+                expectAggregateScore expectedValue testValue =
                     testValue
                         |> Unit.impactToFloat
                         |> Expect.within (Expect.Absolute 0.01) expectedValue
             in
-            [ describe "computePefScore"
+            [ describe "computeAggregateScore"
                 [ defaultImpacts
                     |> Impact.updateImpact (Impact.trg "cch") (Unit.impact 1)
-                    |> Impact.computePefScore textileDb.impacts
-                    |> expectPefScore 26.014356070572276
-                    |> asTest "should compute PEF score from cch impact"
+                    |> Impact.computeAggregateScore .pefData textileDb.impacts
+                    |> expectAggregateScore 26.014356070572276
+                    |> asTest "should compute aggregate score from cch impact"
                 , defaultImpacts
                     |> Impact.updateImpact (Impact.trg "fwe") (Unit.impact 1)
-                    |> Impact.computePefScore textileDb.impacts
-                    |> expectPefScore 17425.397516880857
-                    |> asTest "should compute PEF score from fwe impact"
+                    |> Impact.computeAggregateScore .pefData textileDb.impacts
+                    |> expectAggregateScore 17425.397516880857
+                    |> asTest "should compute aggregate score from fwe impact"
                 ]
             , describe "mapImpacts"
                 [ defaultImpacts
@@ -66,7 +66,7 @@ suite =
                     |> Impact.updateImpact (Impact.trg "fwe") (Unit.impact 1)
                     |> Impact.updatePefImpact textileDb.impacts
                     |> Impact.getImpact (Impact.trg "pef")
-                    |> expectPefScore 17451.41187295143
+                    |> expectAggregateScore 17451.41187295143
                     |> asTest "should update PEF impact score"
                 ]
             ]
