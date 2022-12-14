@@ -172,6 +172,7 @@ countriesExplorer maybeCode countries =
 impactsExplorer : Maybe Impact.Trigram -> List Impact.Definition -> List (Html Msg)
 impactsExplorer maybeTrigram definitions =
     [ definitions
+        |> List.sortBy (.trigram >> Impact.toString)
         |> Table.viewList ExploreImpacts.table
     , case maybeTrigram of
         Just trigram ->

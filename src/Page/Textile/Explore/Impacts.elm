@@ -24,15 +24,6 @@ table { detailed } =
                     a [ Route.href (Route.TextileExplore (Db.Impacts (Just def.trigram))) ]
                         [ code [] [ text (Impact.toString def.trigram) ] ]
       }
-    , { label = "Source"
-      , toCell =
-            \def ->
-                a
-                    [ href def.source.url
-                    , target "_blank"
-                    ]
-                    [ text def.source.label ]
-      }
     , { label = "Nom"
       , toCell =
             \def ->
@@ -78,6 +69,15 @@ table { detailed } =
                 def.quality
                     |> ImpactView.impactQuality
                     |> div [ classList [ ( "text-center", not detailed ) ] ]
+      }
+    , { label = "Source"
+      , toCell =
+            \def ->
+                a
+                    [ href def.source.url
+                    , target "_blank"
+                    ]
+                    [ text def.source.label ]
       }
     , { label = "Domaines"
       , toCell =
