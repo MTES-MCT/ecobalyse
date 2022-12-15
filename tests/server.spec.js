@@ -269,14 +269,14 @@ describe("API", () => {
     });
 
     describe("/food/recipe", () => {
-      it("should compute 17 impacts for food", async () => {
+      it("should compute 19 impacts for food", async () => {
         const response = await makeRequest("/api/food/recipe", [
           "ingredients[]=carrot;268",
           "transform=aded2490573207ec7ad5a3813978f6a4;1050",
         ]);
 
         expectStatus(response, 200);
-        expect(Object.keys(response.body.results.impacts)).toHaveLength(18);
+        expect(Object.keys(response.body.results.impacts)).toHaveLength(19);
       });
 
       it("should validate the ingredient list length", async () => {

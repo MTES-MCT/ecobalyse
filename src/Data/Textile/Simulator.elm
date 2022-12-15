@@ -148,7 +148,7 @@ compute db query =
         -- PEF scores
         --
         -- Compute PEF impact scores
-        |> next (computePefScores db)
+        |> next (computeAggregatedScores db)
         --
         -- Final impacts
         --
@@ -555,12 +555,12 @@ computeFinalImpacts db ({ lifeCycle } as simulator) =
     { simulator | impacts = LifeCycle.computeFinalImpacts db lifeCycle }
 
 
-computePefScores : Db -> Simulator -> Simulator
-computePefScores db =
+computeAggregatedScores : Db -> Simulator -> Simulator
+computeAggregatedScores db =
     updateLifeCycle
         (LifeCycle.mapSteps
             (\({ impacts } as step) ->
-                { step | impacts = Impact.updatePefImpact db.impacts impacts }
+                { step | impacts = impacts |> Impact.updateAggregatedScores db.impacts }
             )
         )
 
@@ -575,7 +575,6 @@ lifeCycleImpacts db simulator =
     -- wtu:
     --     ...
     db.impacts
-        |> List.filter .primary
         |> List.filter (.scopes >> List.member Impact.Textile)
         |> List.map
             (\def ->

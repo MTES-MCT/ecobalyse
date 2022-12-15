@@ -26,7 +26,7 @@ module Data.Unit exposing
     , functionalToSlug
     , functionalToString
     , impact
-    , impactPefScore
+    , impactAggregateScore
     , impactToFloat
     , inFunctionalUnit
     , maxPickPerMeter
@@ -411,11 +411,11 @@ impactToFloat (Quantity value) =
     value
 
 
-impactPefScore : Impact -> Ratio -> Impact -> Impact
-impactPefScore normalization weighting =
+impactAggregateScore : Impact -> Ratio -> Impact -> Impact
+impactAggregateScore normalization weighting =
     Quantity.divideBy (impactToFloat normalization)
         >> Quantity.multiplyBy (ratioToFloat weighting)
-        -- Raw PEF scores are expressed in Pt (points), we want µPt (micropoints)
+        -- Raw aggregate scores like PEF are expressed in Pt (points); we want µPt (micropoints)
         >> Quantity.multiplyBy 1000000
 
 

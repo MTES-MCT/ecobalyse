@@ -254,7 +254,7 @@ viewSidebar session { definition, trigram, totalImpact } { original, product } =
                     , text " de produit"
                     ]
                 , div [ class "display-5 lh-1 text-center text-nowrap" ]
-                    [ Format.formatImpactFloat definition 2 totalImpact ]
+                    [ Format.formatImpactFloat definition totalImpact ]
                 ]
 
             else
@@ -280,7 +280,7 @@ viewSidebar session { definition, trigram, totalImpact } { original, product } =
                 [ div [ class "d-flex flex-column m-auto gap-1 px-2" ]
                     (h2 [ class "h5 m-0" ] [ text "Impact par kg de produit" ]
                         :: div [ class "display-4 lh-1 text-center text-nowrap" ]
-                            [ Format.formatImpactFloat definition 2 impactPerKg ]
+                            [ Format.formatImpactFloat definition impactPerKg ]
                         :: totalImpactDisplay
                     )
                 ]
@@ -516,7 +516,7 @@ itemView { disabled } { config, percent, impact, item, width } =
         , div [ class "text-start py-1 ps-2 text-truncate flex-fill fs-7" ]
             [ impact
                 |> Unit.impactToFloat
-                |> Format.formatImpactFloat config.definition 2
+                |> Format.formatImpactFloat config.definition
             , text " ("
             , Format.percent percent
             , text ")"
@@ -783,7 +783,7 @@ viewStep label ({ definition, trigram } as itemViewDataConfig) step =
                     [ div [ class "col-9" ]
                         [ h3 [ class "h6 m-0" ] [ text label ] ]
                     , div [ class "col-3 text-end h5 m-0 text-nowrap overflow-hidden" ]
-                        [ Format.formatImpactFloat definition 0 stepImpact ]
+                        [ Format.formatImpactFloat definition stepImpact ]
                     ]
                 , if String.isEmpty step.mainItem.comment then
                     div [ class "fs-7 text-muted mt-1" ] [ text step.mainItem.comment ]
@@ -823,7 +823,7 @@ viewItemDetails { config, item, impact, percent, stepWeight, width } =
             , span [ class "w-33" ]
                 [ impact
                     |> Unit.impactToFloat
-                    |> Format.formatImpactFloat config.definition 2
+                    |> Format.formatImpactFloat config.definition
                 ]
             , span [ class "w-33" ]
                 [ Format.percent percent ]

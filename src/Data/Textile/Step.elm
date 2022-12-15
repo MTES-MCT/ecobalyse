@@ -210,7 +210,8 @@ computeTransportImpacts db impacts { seaTransport, airTransport } roadProcess ma
                     in
                     Quantity.sum [ roadImpact, seaImpact, airImpact ]
                 )
-            |> Impact.updatePefImpact db.impacts
+            -- Compute aggregated impacts
+            |> Impact.updateAggregatedScores db.impacts
     }
 
 

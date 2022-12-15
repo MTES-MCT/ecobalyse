@@ -89,13 +89,18 @@ compute db =
         >> Result.map
             (\({ ingredients, transform, packaging } as recipe) ->
                 let
+                    updateImpacts impacts =
+                        impacts
+                            |> Impact.sumImpacts db.impacts
+                            |> Impact.updateAggregatedScores db.impacts
+
                     ingredientsImpacts =
                         ingredients
                             |> List.map computeIngredientImpacts
 
                     transformImpacts =
                         transform
-                            |> Maybe.map computeProcessImpacts
+                            |> Maybe.map (computeProcessImpacts >> List.singleton >> updateImpacts)
                             |> Maybe.withDefault Impact.noImpacts
 
                     packagingImpacts =
@@ -109,12 +114,12 @@ compute db =
                         , packagingImpacts
                         ]
                             |> List.concat
-                            |> Impact.sumImpacts db.impacts
+                            |> updateImpacts
                   , recipe =
-                        { ingredients = Impact.sumImpacts db.impacts ingredientsImpacts
+                        { ingredients = updateImpacts ingredientsImpacts
                         , transform = transformImpacts
                         }
-                  , packaging = Impact.sumImpacts db.impacts packagingImpacts
+                  , packaging = updateImpacts packagingImpacts
                   }
                 )
             )

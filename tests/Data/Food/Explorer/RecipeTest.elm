@@ -1,4 +1,4 @@
-module Data.Food.RecipeTest exposing (..)
+module Data.Food.Explorer.RecipeTest exposing (..)
 
 import Data.Food.Explorer.Recipe as Recipe
 import Data.Food.Process as Process
@@ -13,7 +13,7 @@ import TestUtils exposing (asTest, suiteWithDb)
 
 suite : Test
 suite =
-    suiteWithDb "Data.Food.Recipe"
+    suiteWithDb "Data.Food.Explorer.Recipe"
         (\{ explorerDb } ->
             [ let
                 exampleQuery =
@@ -96,6 +96,7 @@ suite =
                             [ ( "acd", Unit.impact 0.03563816517303142 )
                             , ( "bvi", Unit.impact 0 )
                             , ( "cch", Unit.impact 2.340400439828958 )
+                            , ( "ecs", Unit.impact 0 )
                             , ( "etf", Unit.impact 70.13958449015763 )
                             , ( "fru", Unit.impact 27.7623776311341 )
                             , ( "fwe", Unit.impact 0.0003131751866055857 )
