@@ -4,8 +4,8 @@
       "label": "Ecobalyse",
       "url": "https://ecobalyse.beta.gouv.fr/"
     },
-    "label_en": "EcoScore",
-    "label_fr": "EcoScore",
+    "label_en": "Score d'impacts",
+    "label_fr": "Score d'impacts",
     "unit_fr": "µPts d'impact",
     "unit_en": "impact µPts",
     "description_en": "Aggregated impact: sum of the weighted and normalized impact of all environmental impact categories according to the Ecobalyse methodology, including Biodiversity.",
