@@ -373,11 +373,14 @@ encodeImpacts definitions scope =
 
 updateAggregatedScores : List Definition -> Impacts -> Impacts
 updateAggregatedScores definitions impacts =
+    let
+        aggregateScore getter trigram =
+            updateImpact trigram
+                (computeAggregateScore getter definitions impacts)
+    in
     impacts
-        |> updateImpact (trg "pef")
-            (computeAggregateScore .pefData definitions impacts)
-        |> updateImpact (trg "scr")
-            (computeAggregateScore .scoreData definitions impacts)
+        |> aggregateScore .pefData (trg "pef")
+        |> aggregateScore .scoreData (trg "scr")
 
 
 getPefPieData : List Definition -> Impacts -> String
