@@ -5,7 +5,7 @@ module Data.Impact exposing
     , Scope(..)
     , Source
     , Trigram(..)
-    , computeAggregateScore
+    , computeAggregatedScore
     , decodeImpacts
     , decodeList
     , defaultTrigram
@@ -243,7 +243,7 @@ toProtectionAreas defs impacts =
         pick trigrams =
             impacts
                 |> AnyDict.filter (\t _ -> List.member t (List.map trg trigrams))
-                |> computeAggregateScore .ecoscoreData defs
+                |> computeAggregatedScore .ecoscoreData defs
                 |> Unit.impactToFloat
     in
     { climate =
@@ -376,7 +376,7 @@ updateAggregatedScores definitions impacts =
     let
         aggregateScore getter trigram =
             updateImpact trigram
-                (computeAggregateScore getter definitions impacts)
+                (computeAggregatedScore getter definitions impacts)
     in
     impacts
         |> aggregateScore .ecoscoreData (trg "ecs")
@@ -421,8 +421,8 @@ getPefPieData defs =
         >> Encode.encode 0
 
 
-computeAggregateScore : (Definition -> Maybe AggregatedScoreData) -> List Definition -> Impacts -> Unit.Impact
-computeAggregateScore getter defs =
+computeAggregatedScore : (Definition -> Maybe AggregatedScoreData) -> List Definition -> Impacts -> Unit.Impact
+computeAggregatedScore getter defs =
     AnyDict.map
         (\trigram impact ->
             case defs |> getDefinition trigram |> Result.map getter of

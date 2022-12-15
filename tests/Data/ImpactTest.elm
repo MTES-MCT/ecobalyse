@@ -21,15 +21,15 @@ suite =
                         |> Unit.impactToFloat
                         |> Expect.within (Expect.Absolute 0.01) expectedValue
             in
-            [ describe "computeAggregateScore"
+            [ describe "computeAggregatedScore"
                 [ defaultImpacts
                     |> Impact.updateImpact (Impact.trg "cch") (Unit.impact 1)
-                    |> Impact.computeAggregateScore .pefData textileDb.impacts
+                    |> Impact.computeAggregatedScore .pefData textileDb.impacts
                     |> expectScoreEquals 26.014356070572276
                     |> asTest "should compute aggregate score from cch impact"
                 , defaultImpacts
                     |> Impact.updateImpact (Impact.trg "fwe") (Unit.impact 1)
-                    |> Impact.computeAggregateScore .pefData textileDb.impacts
+                    |> Impact.computeAggregatedScore .pefData textileDb.impacts
                     |> expectScoreEquals 17425.397516880857
                     |> asTest "should compute aggregate score from fwe impact"
                 ]
