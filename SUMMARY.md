@@ -39,7 +39,7 @@
 * [🥩 Ingrédients viandes](alimentaire/ingredients-viandes/README.md)
   * [🐄 Viande de boeuf hachée](alimentaire/ingredients-viandes/viande-de-boeuf-hachee.md)
   * [🐖 Jambon](alimentaire/ingredients-viandes/jambon.md)
-  * [🐣 Poulet](alimentaire/ingredients-viandes/poulet.md)
+  * [🐣 Poulet (blanc)](alimentaire/ingredients-viandes/poulet-blanc.md)
   * [🐑 Viande d'agneau (épaule)](alimentaire/ingredients-viandes/viande-dagneau-epaule.md)
   * [🐑 Viande d'agneau (côte)](alimentaire/ingredients-viandes/viande-dagneau-cote.md)
 * [🏭 Ingrédients industrie](alimentaire/ingredients-industrie/README.md)

@@ -1,12 +1,12 @@
-# 🐣 Poulet
+# 🐣 Poulet (blanc)
 
 {% hint style="danger" %}
 **Page en construction**
 {% endhint %}
 
-## Construction de l'ingrédient jambon à partir du procédé agricole
+## Construction de l'ingrédient poulet (blanc) à partir du procédé agricole
 
-Le jambon correspond à l'ICV suivant :&#x20;
+Le poulet (blanc) correspond à l'ICV suivant :&#x20;
 
 * Chicken, breast, without skin, raw, processed in FR |
 
