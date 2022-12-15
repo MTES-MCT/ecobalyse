@@ -128,19 +128,24 @@ paths:
             default: "cch"
             enum:
               - "acd"
-              - "ozd"
+              - "bvi"
               - "cch"
+              - "ecs"
+              - "etf"
+              - "fru"
               - "fwe"
+              - "htc"
+              - "htn"
+              - "ior"
+              - "ldu"
+              - "mru"
+              - "ozd"
+              - "pco"
+              - "pef"
+              - "pma"
               - "swe"
               - "tre"
-              - "pco"
-              - "pma"
-              - "ior"
-              - "fru"
-              - "mru"
-              - "ldu"
               - "wtu"
-              - "pef"
         - $ref: "#/components/parameters/massParam"
         - $ref: "#/components/parameters/materialsParam"
         - $ref: "#/components/parameters/productParam"
@@ -676,45 +681,60 @@ components:
         acd:
           type: number
           description: "Acidification (mol éq. H+)"
-        ozd:
+        bvi:
           type: number
-          description: "Appauvrissement de la couche d'ozone (kg éq. CFC 11)"
+          description: "Impact biodiversité (BVI)"
         cch:
           type: number
           description: "Changement climatique (kg éq. CO2)"
+        ecs:
+          type: number
+          description: "EcoScore (µPts d'impact)"
+        etf:
+          type: number
+          description: "Écotoxicité de l'eau douce (CTUe)"
+        fru:
+          type: number
+          description: "Utilisation de ressources fossiles (MJ)"
         fwe:
           type: number
           description: "Eutrophisation eaux douces (kg éq. P)"
+        htc:
+          type: number
+          description: "Toxicité humaine - cancer (CTUh)"
+        htn:
+          type: number
+          description: "Toxicité humaine - non-cancer (CTUh)"
+        ior:
+          type: number
+          description: "Radiations ionisantes (éq. kBq U235)"
+        ldu:
+          type: number
+          description: "Utilisation des sols (sans dimension (pt))"
+        mru:
+          type: number
+          description: "Utilisation de ressources minérales et métalliques (kg éq. Sb)"
+        ozd:
+          type: number
+          description: "Appauvrissement de la couche d'ozone (kg éq. CFC 11)"
+        pco:
+          type: number
+          description: "Formation d'ozone photochimique (kg éq. COVNM)"
+        pef:
+          type: number
+          description: "Score PEF (µPt)"
+        pma:
+          type: number
+          description: "Particules (incidence de maladie)"
         swe:
           type: number
           description: "Eutrophisation marine (kg éq. N)"
         tre:
           type: number
           description: "Eutrophisation terrestre (mol éq. N)"
-        pco:
-          type: number
-          description: "Formation d'ozone photochimique (kg éq. COVNM)"
-        pma:
-          type: number
-          description: "Particules (incidence de maladie)"
-        ior:
-          type: number
-          description: "Radiations ionisantes (éq. kBq U235)"
-        fru:
-          type: number
-          description: "Utilisation de ressources fossiles (MJ)"
-        mru:
-          type: number
-          description: "Utilisation de ressources minérales et métalliques (kg éq. Sb)"
-        ldu:
-          type: number
-          description: "Utilisation des sols (sans dimension (pt))"
         wtu:
           type: number
           description: "Utilisation de ressources en eau (m³)"
-        pef:
-          type: number
-          description: "Score PEF (µPt)"
     InvalidParametersError:
       type: object
       properties:
