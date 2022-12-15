@@ -1,7 +1,3 @@
----
-description: En cours
----
-
 # 🐣 Poulet
 
 {% hint style="danger" %}
