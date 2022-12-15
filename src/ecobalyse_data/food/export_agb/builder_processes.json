@@ -1093,9 +1093,102 @@
     }
   },
   {
+    "name": "Transport, freight, lorry 16-32 metric ton, EURO5 {RER}| transport, freight, lorry 16-32 metric ton, EURO5 | Cut-off, S - Copied from Ecoinvent",
+    "unit": "ton kilometer",
+    "simapro_id": "c24fc476f6d5237aa2c58d7d95bc1ca4",
+    "system_description": "Ecoinvent v3",
+    "category_tags": [
+      "Others",
+      "Ecoinvent cut-off S copy"
+    ],
+    "category": "transport",
+    "impacts": {
+      "acd": 0.0006804852512132117,
+      "ozd": 3.8135804241395213e-08,
+      "cch": 0.16622317749768678,
+      "fwe": 1.3322498536942648e-05,
+      "swe": 0.0001989011212802764,
+      "tre": 0.0021933331189726334,
+      "pco": 0.0006652763711103129,
+      "pma": 1.4413424638999413e-08,
+      "ior": 0.012304620142550751,
+      "fru": 2.4861258155137396,
+      "mru": 4.957825223325286e-07,
+      "ldu": 1.7059748451424261,
+      "wtu": 0.00926417137532409,
+      "etf": 1.8425692350593776,
+      "htc": 5.2297749554015126e-11,
+      "htn": 2.0885632281638764e-09,
+      "bvi": 0.0,
+      "pef": 11.80163901619295
+    }
+  },
+  {
+    "name": "Transport, freight, sea, transoceanic ship {GLO}| processing | Cut-off, S - Copied from Ecoinvent",
+    "unit": "ton kilometer",
+    "simapro_id": "958bbb33cf6cdb8e3c8d4f21aec5ef98",
+    "system_description": "Ecoinvent v3",
+    "category_tags": [
+      "Others",
+      "Ecoinvent cut-off S copy"
+    ],
+    "category": "transport",
+    "impacts": {
+      "acd": 0.0002886973502704292,
+      "ozd": 2.2332984847033394e-09,
+      "cch": 0.011399590590763117,
+      "fwe": 1.5324924579619402e-06,
+      "swe": 5.6884149422848524e-05,
+      "tre": 0.000637115657808907,
+      "pco": 0.0001677628785308972,
+      "pma": 3.5373271236587764e-10,
+      "ior": 0.0010129952146844367,
+      "fru": 0.16010819344042207,
+      "mru": 2.5693542372503717e-09,
+      "ldu": 0.025433429364475936,
+      "wtu": 0.0007870382010056807,
+      "etf": 0.11150915950019709,
+      "htc": 3.6444957297286786e-12,
+      "htn": 8.375406868279863e-11,
+      "bvi": 0.0,
+      "pef": 1.1635140631323218
+    }
+  },
+  {
+    "name": "Transport, freight, aircraft {RER}| intercontinental | Cut-off, S - Copied from Ecoinvent",
+    "unit": "ton kilometer",
+    "simapro_id": "5bc527741ac919ff8710a474f849614f",
+    "system_description": "Ecoinvent v3",
+    "category_tags": [
+      "Others",
+      "Ecoinvent cut-off S copy"
+    ],
+    "category": "transport",
+    "impacts": {
+      "acd": 0.005302243499220221,
+      "ozd": 2.5008506110274506e-07,
+      "cch": 1.079039068184488,
+      "fwe": 2.7279936212398748e-05,
+      "swe": 0.00178039051255576,
+      "tre": 0.01957919138098692,
+      "pco": 0.005330810018858858,
+      "pma": 1.788102674556236e-08,
+      "ior": 0.07614478437002418,
+      "fru": 15.33315244476252,
+      "mru": 1.2081162387881634e-07,
+      "ldu": 2.047463525858913,
+      "wtu": 0.03813353667993563,
+      "etf": 7.908202102355839,
+      "htc": 5.055017690107482e-10,
+      "htn": 3.39265208134653e-09,
+      "bvi": 0.0,
+      "pef": 62.905485419229464
+    }
+  },
+  {
     "name": "flour, organic, constructed by ecobalyse",
     "unit": "kilogram",
-    "simapro_id": "b5a61287-d7c9-4de2-bdcd-92d2454de8c3",
+    "simapro_id": "c71c619d-8f9a-43d6-abbc-aa0ed8769697",
     "system_description": "ecobalyse",
     "category_tags": [
       "Agricultural",
