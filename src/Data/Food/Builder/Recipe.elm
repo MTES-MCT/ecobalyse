@@ -22,17 +22,25 @@ module Data.Food.Builder.Recipe exposing
     )
 
 import Data.Country as Country exposing (Country)
+import Data.Food.Amount as Amount
 import Data.Food.Builder.Db exposing (Db)
 import Data.Food.Builder.Query as BuilderQuery exposing (Query)
 import Data.Food.Ingredient as Ingredient exposing (Id, Ingredient)
 import Data.Food.Process as Process exposing (Process)
 import Data.Impact as Impact exposing (Impacts)
+import Data.Textile.Formula as Formula
+import Data.Transport as Transport exposing (Distances)
 import Data.Unit as Unit
 import Json.Encode as Encode
 import Mass exposing (Mass)
 import Quantity
 import Result.Extra as RE
 import String.Extra as SE
+
+
+france : Country.Code
+france =
+    Country.codeFromString "FR"
 
 
 type alias Packaging =
@@ -85,15 +93,15 @@ availableIngredients usedIngredientIds =
     List.filter (\{ id } -> not (List.member id usedIngredientIds))
 
 
-compute : Db -> List Country -> Query -> Result String ( Recipe, Results )
-compute db countries =
+compute : Db -> Distances -> List Country -> Query -> Result String ( Recipe, Results )
+compute db distances countries =
     fromQuery db countries
         >> Result.map
             (\({ ingredients, transform, packaging } as recipe) ->
                 let
                     ingredientsImpacts =
                         ingredients
-                            |> List.map computeIngredientImpacts
+                            |> List.map (computeIngredientImpacts db.processes db.impacts distances)
 
                     transformImpacts =
                         transform
@@ -136,8 +144,8 @@ computeProcessImpacts item =
         |> Impact.mapImpacts (computeImpact item.mass)
 
 
-computeIngredientImpacts : RecipeIngredient -> Impacts
-computeIngredientImpacts ingredient =
+computeIngredientImpacts : List Process -> List Impact.Definition -> Distances -> RecipeIngredient -> Impacts
+computeIngredientImpacts processes impactDefinitions distances ingredient =
     let
         process =
             case ingredient.variant of
@@ -147,9 +155,56 @@ computeIngredientImpacts ingredient =
                 BuilderQuery.Organic ->
                     ingredient.ingredient.variants.organic
                         |> Maybe.withDefault ingredient.ingredient.default
+
+        process_impacts =
+            process.impacts
+                |> Impact.mapImpacts (computeImpact ingredient.mass)
+
+        impacts =
+            Impact.impactsFromDefinitons impactDefinitions
+
+        transport =
+            distances
+                |> Transport.getTransportBetween impacts france ingredient.country.code
+
+        transportWithRatio =
+            transport
+                -- We want the transport ratio for the plane to be 0 for food (for now)
+                -- Cf https://fabrique-numerique.gitbook.io/ecobalyse/textile/transport#part-du-transport-aerien
+                |> Formula.transportRatio (Unit.Ratio 0)
+
+        transports_impact =
+            Process.loadWellKnown processes
+                |> Result.map
+                    (\wellKnown ->
+                        [ ( wellKnown.lorryTransport, transportWithRatio.road )
+                        , ( wellKnown.boatTransport, transportWithRatio.sea )
+                        , ( wellKnown.planeTransport, transportWithRatio.air )
+                        ]
+                            |> List.map
+                                (\( transportProcess, distance ) ->
+                                    let
+                                        tonKm =
+                                            Amount.kilometerToTonKilometer distance ingredient.mass
+                                    in
+                                    transportProcess.impacts
+                                        |> Impact.mapImpacts
+                                            (\_ impact ->
+                                                impact
+                                                    |> Unit.impactToFloat
+                                                    |> (*) (Mass.inKilograms tonKm)
+                                                    |> Unit.impact
+                                            )
+                                )
+                    )
+                |> Result.withDefault []
+
+        with_transport_impacts =
+            process_impacts
+                :: transports_impact
+                |> Impact.sumImpacts impactDefinitions
     in
-    process.impacts
-        |> Impact.mapImpacts (computeImpact ingredient.mass)
+    with_transport_impacts
 
 
 deletePackaging : Process.Code -> Query -> Query

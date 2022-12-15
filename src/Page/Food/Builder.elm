@@ -17,6 +17,7 @@ import Data.Food.Ingredient as Ingredient exposing (Id, Ingredient)
 import Data.Food.Process as Process exposing (Process)
 import Data.Impact as Impact
 import Data.Session as Session exposing (Session)
+import Data.Transport exposing (Distances)
 import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
@@ -467,8 +468,8 @@ updateIngredientFormView { excluded, db, ingredient, countries } =
         )
 
 
-debugQueryView : Db -> List Country -> Query -> Html Msg
-debugQueryView db countries query =
+debugQueryView : Db -> Distances -> List Country -> Query -> Html Msg
+debugQueryView db distances countries query =
     let
         debugView =
             text >> List.singleton >> pre []
@@ -483,7 +484,7 @@ debugQueryView db countries query =
                 ]
             , div [ class "col-5" ]
                 [ query
-                    |> Recipe.compute db countries
+                    |> Recipe.compute db distances countries
                     |> Result.map (Tuple.second >> Recipe.encodeResults db.impacts >> Encode.encode 2)
                     |> Result.withDefault "Error serializing the impacts"
                     |> debugView
@@ -608,7 +609,7 @@ mainView : Session -> Db -> Model -> Html Msg
 mainView session db model =
     let
         computed =
-            Recipe.compute db session.db.countries session.queries.food
+            Recipe.compute db session.db.transports session.db.countries session.queries.food
     in
     div [ class "row gap-3 gap-lg-0" ]
         [ div [ class "col-lg-4 order-lg-2 d-flex flex-column gap-3" ]
@@ -627,7 +628,7 @@ mainView session db model =
 
                 Err error ->
                     errorView error
-            , debugQueryView db session.db.countries session.queries.food
+            , debugQueryView db session.db.transports session.db.countries session.queries.food
             ]
         ]
 
