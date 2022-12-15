@@ -49,8 +49,8 @@ type alias Definition =
     , unit : String
     , decimals : Int
     , quality : Quality
-    , pefData : Maybe AggregateScoreData
-    , scoreData : Maybe AggregateScoreData
+    , pefData : Maybe AggregatedScoreData
+    , scoreData : Maybe AggregatedScoreData
     , scopes : List Scope
     }
 
@@ -71,7 +71,7 @@ type Quality
     | UnknownQuality
 
 
-type alias AggregateScoreData =
+type alias AggregatedScoreData =
     { color : String
     , normalization : Unit.Impact
     , weighting : Unit.Ratio
@@ -151,8 +151,8 @@ decodeList =
                 |> Pipe.required "short_unit" Decode.string
                 |> Pipe.required "decimals" Decode.int
                 |> Pipe.required "quality" decodeQuality
-                |> Pipe.required "pef" (Decode.maybe decodeAggregateScoreData)
-                |> Pipe.required "score" (Decode.maybe decodeAggregateScoreData)
+                |> Pipe.required "pef" (Decode.maybe decodeAggregatedScoreData)
+                |> Pipe.required "ecoscore" (Decode.maybe decodeAggregatedScoreData)
                 |> Pipe.required "scopes" (Decode.list decodeScope)
 
         toImpact ( key, { source, label, description, unit, decimals, quality, pefData, scoreData, scopes } ) =
@@ -169,9 +169,9 @@ decodeSource =
         (Decode.field "url" Decode.string)
 
 
-decodeAggregateScoreData : Decoder AggregateScoreData
-decodeAggregateScoreData =
-    Decode.map3 AggregateScoreData
+decodeAggregatedScoreData : Decoder AggregatedScoreData
+decodeAggregatedScoreData =
+    Decode.map3 AggregatedScoreData
         (Decode.field "color" Decode.string)
         (Decode.field "normalization" Unit.decodeImpact)
         (Decode.field "weighting" Unit.decodeRatio)
@@ -379,8 +379,8 @@ updateAggregatedScores definitions impacts =
                 (computeAggregateScore getter definitions impacts)
     in
     impacts
+        |> aggregateScore .scoreData (trg "ecs")
         |> aggregateScore .pefData (trg "pef")
-        |> aggregateScore .scoreData (trg "scr")
 
 
 getPefPieData : List Definition -> Impacts -> String
@@ -421,7 +421,7 @@ getPefPieData defs =
         >> Encode.encode 0
 
 
-computeAggregateScore : (Definition -> Maybe AggregateScoreData) -> List Definition -> Impacts -> Unit.Impact
+computeAggregateScore : (Definition -> Maybe AggregatedScoreData) -> List Definition -> Impacts -> Unit.Impact
 computeAggregateScore getter defs =
     AnyDict.map
         (\trigram impact ->

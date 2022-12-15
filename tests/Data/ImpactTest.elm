@@ -67,15 +67,15 @@ suite =
                         |> Impact.updateImpact (Impact.trg "fwe") (Unit.impact 1)
                         |> Impact.updateAggregatedScores textileDb.impacts
               in
-              describe "updatAggregatedScores"
+              describe "updateAggregatedScores"
                 [ impacts
+                    |> Impact.getImpact (Impact.trg "ecs")
+                    |> expectScoreEquals 14335.212731488828
+                    |> asTest "should update EcoScore"
+                , impacts
                     |> Impact.getImpact (Impact.trg "pef")
                     |> expectScoreEquals 17451.41187295143
                     |> asTest "should update PEF score"
-                , impacts
-                    |> Impact.getImpact (Impact.trg "scr")
-                    |> expectScoreEquals 14335.212731488828
-                    |> asTest "should update impact score"
                 ]
             ]
         )
