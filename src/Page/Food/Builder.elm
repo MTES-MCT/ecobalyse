@@ -557,7 +557,8 @@ packagingListView db selectedImpact selectedProcess recipe results =
                             )
                             (small [] [ text <| Process.getDisplayName process ])
                             (div [ class "d-flex flex-nowrap align-items-center gap-2 fs-7 text-nowrap" ]
-                                [ Recipe.computeProcessImpacts packaging
+                                [ packaging
+                                    |> Recipe.computeProcessImpacts db.impacts
                                     |> Format.formatFoodSelectedImpact selectedImpact
                                 , button
                                     [ type_ "button"
@@ -886,7 +887,8 @@ transformView db selectedImpact selectedProcess recipe results =
                     )
                     (small [] [ text <| Process.getDisplayName process ])
                     (div [ class "d-flex flex-nowrap align-items-center gap-2 fs-7 text-nowrap" ]
-                        [ Recipe.computeProcessImpacts transform
+                        [ transform
+                            |> Recipe.computeProcessImpacts db.impacts
                             |> Format.formatFoodSelectedImpact selectedImpact
                         , button
                             [ type_ "button"

@@ -100,12 +100,12 @@ compute db =
 
                     transformImpacts =
                         transform
-                            |> Maybe.map (computeProcessImpacts >> List.singleton >> updateImpacts)
+                            |> Maybe.map (computeProcessImpacts db.impacts >> List.singleton >> updateImpacts)
                             |> Maybe.withDefault Impact.noImpacts
 
                     packagingImpacts =
                         packaging
-                            |> List.map computeProcessImpacts
+                            |> List.map (computeProcessImpacts db.impacts)
                 in
                 ( recipe
                 , { impacts =
@@ -126,17 +126,17 @@ compute db =
 
 
 computeImpact : Mass -> Impact.Trigram -> Unit.Impact -> Unit.Impact
-computeImpact mass _ impact =
-    impact
-        |> Unit.impactToFloat
-        |> (*) (Mass.inKilograms mass)
-        |> Unit.impact
+computeImpact mass _ =
+    Unit.impactToFloat
+        >> (*) (Mass.inKilograms mass)
+        >> Unit.impact
 
 
-computeProcessImpacts : { a | process : Process, mass : Mass } -> Impacts
-computeProcessImpacts item =
+computeProcessImpacts : List Impact.Definition -> { a | process : Process, mass : Mass } -> Impacts
+computeProcessImpacts defs item =
     item.process.impacts
         |> Impact.mapImpacts (computeImpact item.mass)
+        |> Impact.updateAggregatedScores defs
 
 
 computeIngredientImpacts : RecipeIngredient -> Impacts
