@@ -79,10 +79,10 @@ type alias AggregatedScoreData =
 
 
 type alias ProtectionAreas =
-    { climate : Float -- Climat
-    , biodiversity : Float -- Biodiversité
-    , resources : Float -- Ressources
-    , health : Float -- Santé environnementale
+    { climate : Unit.Impact -- Climat
+    , biodiversity : Unit.Impact -- Biodiversité
+    , resources : Unit.Impact -- Ressources
+    , health : Unit.Impact -- Santé environnementale
     }
 
 
@@ -244,7 +244,6 @@ toProtectionAreas defs impacts =
             impacts
                 |> AnyDict.filter (\t _ -> List.member t (List.map trg trigrams))
                 |> computeAggregatedScore .ecoscoreData defs
-                |> Unit.impactToFloat
     in
     { climate =
         pick

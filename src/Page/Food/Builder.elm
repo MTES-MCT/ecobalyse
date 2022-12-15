@@ -790,7 +790,9 @@ protectionAreaView builderDb impacts =
                 (\( label, score ) ->
                     li [ class "list-group-item d-flex justify-content-between align-items-center gap-1" ]
                         [ text label
-                        , Format.formatRichFloat 2 "pts d'impact" score
+                        , score
+                            |> Unit.impactToFloat
+                            |> Format.formatRichFloat 2 "µPts d'impact"
                         ]
                 )
             |> ul [ class "list-group list-group-flush fs-7" ]
