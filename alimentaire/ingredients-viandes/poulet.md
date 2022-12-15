@@ -18,46 +18,42 @@ $$
 BlancPouletREF
 $$
 
-
-
 Ce procédé est construit à partir du procédé :&#x20;
 
-* Pig, conventional, national average, at farm gate
+* Broiler, conventional, at farm gate
 
 $$
-PorcREF
+PouletREF
 $$
 
-* de procédés d'abattage etc. :
+* de procédés intermédiaires (abattage, desossage) :
 
-<figure><img src="../../.gitbook/assets/porc.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/chicken.png" alt=""><figcaption></figcaption></figure>
 
-On construit différents procédés de jambon **(N)**, sur la base du procédé de référence ('Cooked ham, case ready, at plant' (kilogram, FR, None)), en appliquant les opérations d'abattage à différents procédés de porc sortie de ferme **(N)**.
+<figure><img src="../../.gitbook/assets/broiler 1.jpg" alt=""><figcaption></figcaption></figure>
+
+On construit différents procédés de blanc de poulet **(N)**, sur la base du procédé de référence (Chicken, breast, without skin, raw, processed in FR |), en appliquant les opérations intermédiaires à différents procédés de poulet sortie de ferme **(N)**.
 
 $$
-ImpactJambon_N = (ImpactJambonREF - ImpactPorcREF )+ImpactPorc_N
+ImpactBlancPoulet_N = (ImpactBlancPouletREF - ImpactPouletREF )+ImpactPoulet_N
 $$
 
 ## Procédés retenus
 
-| Label / Origine        | France                                                                                                                                                                    | Autres pays                                                                                                                                                               |
-| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Conventionnelle        | <p><strong>JambonREF</strong><br><strong></strong>'Cooked ham, case ready, at plant' (kilogram, FR, None)<br>Porc : Pig, conventional, national average, at farm gate</p> | <p><strong>JambonREF</strong><br><strong></strong>'Cooked ham, case ready, at plant' (kilogram, FR, None)<br>Porc : Pig, conventional, national average, at farm gate</p> |
-| Agriculture biologique | <p><strong>JambonBio</strong><br>Procédé construit (cf. formule)<br>Porc : </p>                                                                                           | <p><strong>JambonBio</strong><br>Procédé construit (cf. formule)<br>Porc : </p>                                                                                           |
+| Label / Origine        | France                                                                                                                                                           | Autres pays                                                                                                                                                      |
+| ---------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Conventionnelle        | <p><strong>BlancPouletREF</strong><br><strong></strong>Chicken, breast, without skin, raw, processed in FR |<br>Poulet : Broiler, conventional, at farm gate</p> | <p><strong>BlancPouletREF</strong><br><strong></strong>Chicken, breast, without skin, raw, processed in FR |<br>Poulet : Broiler, conventional, at farm gate</p> |
+| Agriculture biologique | <p><strong>BlancPouletBio</strong><br>Procédé construit (cf. formule)<br>Poulet : </p>                                                                           | <p><strong>BlancPouletBio</strong><br>Procédé construit (cf. formule)<br>Poulet : </p>                                                                           |
 
 {% hint style="info" %}
-Le porc bio considéré dans un premier temps pour le calcul de la viande de boeuf hachée bio est celui dont l'impact est proche de l'impact moyen des porc bio ci-dessous
+Le poulet bio considéré dans un premier temps pour le calcul du blanc de poulet bio est celui dont l'impact est proche de l'impact moyen des poulets bio listés ci-dessous
 {% endhint %}
 
-Pig, organic, at farm gate
+Broiler, organic, at farm gate
 
-Pig, organic, system n°1, at farm gate
+Broiler, organic, system n°1, at farm gate
 
-Pig, organic, system n°2, at farm gate
-
-Pig, organic, system n°3, at farm gate
-
-Pig, organic, system n°4, at farm gate
+Broiler, organic, system n°2, at farm gate
 
 (attente des graphes d'impacts)
 
