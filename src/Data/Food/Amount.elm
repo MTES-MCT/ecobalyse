@@ -94,8 +94,12 @@ getMass amount =
 
 kilometerToTonKilometer : Length -> Mass -> Mass
 kilometerToTonKilometer length amount =
-    (Mass.inMetricTons amount / Length.inKilometers length)
-        |> Mass.metricTons
+    if length == Length.kilometers 0 || amount == Mass.metricTons 0 then
+        Mass.metricTons 0
+
+    else
+        (Mass.inMetricTons amount / Length.inKilometers length)
+            |> Mass.metricTons
 
 
 multiplyBy : Float -> Amount -> Amount
