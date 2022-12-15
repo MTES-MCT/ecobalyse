@@ -50,7 +50,7 @@ type alias Definition =
     , decimals : Int
     , quality : Quality
     , pefData : Maybe AggregatedScoreData
-    , scoreData : Maybe AggregatedScoreData
+    , ecoscoreData : Maybe AggregatedScoreData
     , scopes : List Scope
     }
 
@@ -101,7 +101,7 @@ invalid =
     , decimals = 0
     , quality = GoodQuality
     , pefData = Nothing
-    , scoreData = Nothing
+    , ecoscoreData = Nothing
     , scopes = []
     }
 
@@ -119,8 +119,8 @@ getDefinition trigram =
 
 
 isAggregate : Definition -> Bool
-isAggregate { pefData, scoreData } =
-    case ( pefData, scoreData ) of
+isAggregate { pefData, ecoscoreData } =
+    case ( pefData, ecoscoreData ) of
         ( Nothing, Nothing ) ->
             True
 
@@ -243,7 +243,7 @@ toProtectionAreas defs impacts =
         pick trigrams =
             impacts
                 |> AnyDict.filter (\t _ -> List.member t (List.map trg trigrams))
-                |> computeAggregateScore .scoreData defs
+                |> computeAggregateScore .ecoscoreData defs
                 |> Unit.impactToFloat
     in
     { climate =
@@ -379,7 +379,7 @@ updateAggregatedScores definitions impacts =
                 (computeAggregateScore getter definitions impacts)
     in
     impacts
-        |> aggregateScore .scoreData (trg "ecs")
+        |> aggregateScore .ecoscoreData (trg "ecs")
         |> aggregateScore .pefData (trg "pef")
 
 

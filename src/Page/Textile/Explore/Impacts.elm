@@ -54,16 +54,16 @@ table { detailed } =
     , { label = "Données de calcul du score d'impacts"
       , toCell =
             \def ->
-                case def.scoreData of
-                    Just scoreData ->
+                case def.ecoscoreData of
+                    Just ecoscoreData ->
                         div [ class "d-flex gap-2" ]
                             [ span [ class "d-flex flex-column" ]
                                 [ text "Normalisation"
-                                , scoreData.normalization |> Unit.impactToFloat |> Format.formatRichFloat 2 def.unit
+                                , ecoscoreData.normalization |> Unit.impactToFloat |> Format.formatRichFloat 2 def.unit
                                 ]
                             , span [ class "d-flex flex-column" ]
                                 [ text "Pondération"
-                                , scoreData.weighting |> Format.ratio
+                                , ecoscoreData.weighting |> Format.ratio
                                 ]
                             ]
 
