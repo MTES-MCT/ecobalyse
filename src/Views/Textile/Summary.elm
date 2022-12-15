@@ -50,7 +50,7 @@ viewMaterials materials =
 
 
 mainSummaryView : Config -> Simulator -> Html msg
-mainSummaryView { session, impact, funit } ({ inputs, lifeCycle } as simulator) =
+mainSummaryView { session, impact, funit } { inputs, impacts, daysOfWear, lifeCycle } =
     SummaryComp.view
         { header =
             [ span [ class "text-nowrap" ]
@@ -62,7 +62,7 @@ mainSummaryView { session, impact, funit } ({ inputs, lifeCycle } as simulator) 
             , span [ class "text-nowrap" ]
                 [ Format.kg inputs.mass ]
             , span [ class "text-nowrap" ]
-                [ Icon.day, Format.days simulator.daysOfWear ]
+                [ Icon.day, Format.days daysOfWear ]
             ]
         , body =
             [ div [ class "d-flex justify-content-center align-items-center" ]
@@ -74,8 +74,8 @@ mainSummaryView { session, impact, funit } ({ inputs, lifeCycle } as simulator) 
                     []
                 , div [ class "SummaryScore d-flex flex-column" ]
                     [ div [ class "display-5" ]
-                        [ simulator.impacts
-                            |> Format.formatTextileSelectedImpact funit impact simulator.daysOfWear
+                        [ impacts
+                            |> Format.formatTextileSelectedImpact funit daysOfWear impact
                         ]
                     , small [ class "SummaryScoreFunit text-end" ]
                         [ Unit.functionalToString funit

@@ -560,11 +560,7 @@ computeAggregatedScores db =
     updateLifeCycle
         (LifeCycle.mapSteps
             (\({ impacts } as step) ->
-                { step
-                    | impacts =
-                        impacts
-                            |> Impact.updateAggregatedScores db.impacts
-                }
+                { step | impacts = impacts |> Impact.updateAggregatedScores db.impacts }
             )
         )
 
