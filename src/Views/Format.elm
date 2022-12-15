@@ -1,9 +1,11 @@
 module Views.Format exposing
     ( days
     , formatFloat
+    , formatFoodSelectedImpact
     , formatImpact
     , formatImpactFloat
     , formatRichFloat
+    , formatTextileSelectedImpact
     , hours
     , kg
     , kgToString
@@ -35,18 +37,29 @@ import Mass exposing (Mass)
 import Volume exposing (Volume)
 
 
-formatImpact : Unit.Functional -> Impact.Definition -> Duration -> Impacts -> Html msg
-formatImpact funit { trigram, unit, decimals } daysOfWear def =
-    def
-        |> Impact.getImpact trigram
-        |> Unit.inFunctionalUnit funit daysOfWear
-        |> Unit.impactToFloat
-        |> formatRichFloat decimals unit
+formatImpact : Impact.Definition -> Unit.Impact -> Html msg
+formatImpact def =
+    Unit.impactToFloat >> formatImpactFloat def
 
 
-formatImpactFloat : Impact.Definition -> Int -> Float -> Html msg
-formatImpactFloat { unit } decimals =
+formatImpactFloat : Impact.Definition -> Float -> Html msg
+formatImpactFloat { unit, decimals } =
     formatRichFloat decimals unit
+
+
+formatFoodSelectedImpact : Impact.Definition -> Impacts -> Html msg
+formatFoodSelectedImpact { trigram, unit, decimals } =
+    Impact.getImpact trigram
+        >> Unit.impactToFloat
+        >> formatRichFloat decimals unit
+
+
+formatTextileSelectedImpact : Unit.Functional -> Impact.Definition -> Duration -> Impacts -> Html msg
+formatTextileSelectedImpact funit { trigram, unit, decimals } daysOfWear =
+    Impact.getImpact trigram
+        >> Unit.inFunctionalUnit funit daysOfWear
+        >> Unit.impactToFloat
+        >> formatRichFloat decimals unit
 
 
 {-| Formats a float with a provided decimal precision, which is overriden

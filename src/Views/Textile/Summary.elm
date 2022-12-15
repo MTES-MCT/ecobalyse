@@ -75,7 +75,7 @@ mainSummaryView { session, impact, funit } ({ inputs, lifeCycle } as simulator) 
                 , div [ class "SummaryScore d-flex flex-column" ]
                     [ div [ class "display-5" ]
                         [ simulator.impacts
-                            |> Format.formatImpact funit impact simulator.daysOfWear
+                            |> Format.formatTextileSelectedImpact funit impact simulator.daysOfWear
                         ]
                     , small [ class "SummaryScoreFunit text-end" ]
                         [ Unit.functionalToString funit

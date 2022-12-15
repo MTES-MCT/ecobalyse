@@ -490,19 +490,12 @@ errorView error =
         }
 
 
-formatImpact : Impact.Definition -> Impact.Impacts -> Html Msg
-formatImpact selectedImpact =
-    Impact.getImpact selectedImpact.trigram
-        >> Unit.impactToFloat
-        >> Format.formatImpactFloat selectedImpact 2
-
-
 ingredientListView : Db -> Impact.Definition -> Recipe -> Recipe.Results -> List (Html Msg)
 ingredientListView db selectedImpact recipe results =
     [ div [ class "card-header d-flex align-items-center justify-content-between" ]
         [ h6 [ class "mb-0" ] [ text "Ingrédients" ]
         , results.recipe.ingredients
-            |> formatImpact selectedImpact
+            |> Format.formatFoodSelectedImpact selectedImpact
         ]
     , ul [ class "list-group list-group-flush" ]
         ((if List.isEmpty recipe.ingredients then
@@ -545,7 +538,7 @@ packagingListView db selectedImpact selectedProcess recipe results =
     [ div [ class "card-header d-flex align-items-center justify-content-between" ]
         [ h5 [ class "mb-0" ] [ text "Emballage" ]
         , results.packaging
-            |> formatImpact selectedImpact
+            |> Format.formatFoodSelectedImpact selectedImpact
         ]
     , ul [ class "list-group list-group-flush" ]
         (if List.isEmpty recipe.packaging then
@@ -565,7 +558,7 @@ packagingListView db selectedImpact selectedProcess recipe results =
                             (small [] [ text <| Process.getDisplayName process ])
                             (div [ class "d-flex flex-nowrap align-items-center gap-2 fs-7 text-nowrap" ]
                                 [ Recipe.computeProcessImpacts packaging
-                                    |> formatImpact selectedImpact
+                                    |> Format.formatFoodSelectedImpact selectedImpact
                                 , button
                                     [ type_ "button"
                                     , class "btn btn-sm btn-outline-primary"
@@ -740,7 +733,7 @@ sidebarView session db model results =
                 [ div [ class "d-flex flex-column m-auto gap-1 px-2" ]
                     [ div [ class "display-4 lh-1 text-center text-nowrap" ]
                         [ results.impacts
-                            |> formatImpact model.impact
+                            |> Format.formatFoodSelectedImpact model.impact
                         ]
                     , small [ class "d-flex align-items-center gap-1" ]
                         [ Icon.warning
@@ -751,7 +744,7 @@ sidebarView session db model results =
             , footer = []
             }
         , stepResultsView db model results
-        , protectionAreaView db results.impacts
+        , protectionAreaView session results.impacts
         , BookmarkView.view
             { session = session
             , activeTab = model.bookmarkTab
@@ -772,12 +765,17 @@ sidebarView session db model results =
         ]
 
 
-protectionAreaView : BuilderDb.Db -> Impacts -> Html Msg
-protectionAreaView builderDb impacts =
+protectionAreaView : Session -> Impacts -> Html Msg
+protectionAreaView { db } impacts =
     let
         protectionAreaScores =
             impacts
-                |> Impact.toProtectionAreas builderDb.impacts
+                |> Impact.toProtectionAreas db.impacts
+
+        ecoscoreDefinition =
+            db.impacts
+                |> Impact.getDefinition (Impact.trg "ecs")
+                |> Result.withDefault Impact.invalid
     in
     div [ class "card" ]
         [ div [ class "card-header" ] [ text "Aires de protection" ]
@@ -790,9 +788,7 @@ protectionAreaView builderDb impacts =
                 (\( label, score ) ->
                     li [ class "list-group-item d-flex justify-content-between align-items-center gap-1" ]
                         [ text label
-                        , score
-                            |> Unit.impactToFloat
-                            |> Format.formatRichFloat 2 "µPts d'impact"
+                        , Format.formatImpact ecoscoreDefinition score
                         ]
                 )
             |> ul [ class "list-group list-group-flush fs-7" ]
@@ -806,7 +802,7 @@ stepListView db { impact, selectedPackaging, selectedTransform } recipe results 
             (div [ class "card-header d-flex align-items-center justify-content-between" ]
                 [ h5 [ class "mb-0" ] [ text "Recette" ]
                 , Recipe.recipeStepImpacts db results
-                    |> formatImpact impact
+                    |> Format.formatFoodSelectedImpact impact
                     |> List.singleton
                     |> span [ class "fw-bold" ]
                 ]
@@ -876,7 +872,7 @@ transformView db selectedImpact selectedProcess recipe results =
     [ div [ class "card-header d-flex align-items-center justify-content-between" ]
         [ h6 [ class "mb-0" ] [ text "Transformation" ]
         , results.recipe.transform
-            |> formatImpact selectedImpact
+            |> Format.formatFoodSelectedImpact selectedImpact
         ]
     , case recipe.transform of
         Just ({ process, mass } as transform) ->
@@ -891,7 +887,7 @@ transformView db selectedImpact selectedProcess recipe results =
                     (small [] [ text <| Process.getDisplayName process ])
                     (div [ class "d-flex flex-nowrap align-items-center gap-2 fs-7 text-nowrap" ]
                         [ Recipe.computeProcessImpacts transform
-                            |> formatImpact selectedImpact
+                            |> Format.formatFoodSelectedImpact selectedImpact
                         , button
                             [ type_ "button"
                             , class "btn btn-sm btn-outline-primary"
