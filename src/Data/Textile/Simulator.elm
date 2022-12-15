@@ -563,8 +563,7 @@ computeAggregatedScores db =
                 { step
                     | impacts =
                         impacts
-                            |> Impact.updatePefImpact db.impacts
-                            |> Impact.updateImpactScoreImpact db.impacts
+                            |> Impact.updateAggregatedScores db.impacts
                 }
             )
         )

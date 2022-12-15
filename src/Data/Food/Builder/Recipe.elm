@@ -92,8 +92,7 @@ compute db =
                     updateImpacts impacts =
                         impacts
                             |> Impact.sumImpacts db.impacts
-                            |> Impact.updatePefImpact db.impacts
-                            |> Impact.updateImpactScoreImpact db.impacts
+                            |> Impact.updateAggregatedScores db.impacts
 
                     ingredientsImpacts =
                         ingredients

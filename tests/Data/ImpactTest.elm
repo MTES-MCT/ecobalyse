@@ -16,7 +16,7 @@ suite =
                 defaultImpacts =
                     Impact.impactsFromDefinitons textileDb.impacts
 
-                expectAggregateScore expectedValue testValue =
+                expectScoreEquals expectedValue testValue =
                     testValue
                         |> Unit.impactToFloat
                         |> Expect.within (Expect.Absolute 0.01) expectedValue
@@ -25,12 +25,12 @@ suite =
                 [ defaultImpacts
                     |> Impact.updateImpact (Impact.trg "cch") (Unit.impact 1)
                     |> Impact.computeAggregateScore .pefData textileDb.impacts
-                    |> expectAggregateScore 26.014356070572276
+                    |> expectScoreEquals 26.014356070572276
                     |> asTest "should compute aggregate score from cch impact"
                 , defaultImpacts
                     |> Impact.updateImpact (Impact.trg "fwe") (Unit.impact 1)
                     |> Impact.computeAggregateScore .pefData textileDb.impacts
-                    |> expectAggregateScore 17425.397516880857
+                    |> expectScoreEquals 17425.397516880857
                     |> asTest "should compute aggregate score from fwe impact"
                 ]
             , describe "mapImpacts"
@@ -60,14 +60,22 @@ suite =
                     |> Expect.equal (Unit.impact 9)
                     |> asTest "should update a given impact"
                 ]
-            , describe "updatePefImpact"
-                [ defaultImpacts
-                    |> Impact.updateImpact (Impact.trg "cch") (Unit.impact 1)
-                    |> Impact.updateImpact (Impact.trg "fwe") (Unit.impact 1)
-                    |> Impact.updatePefImpact textileDb.impacts
+            , let
+                impacts =
+                    defaultImpacts
+                        |> Impact.updateImpact (Impact.trg "cch") (Unit.impact 1)
+                        |> Impact.updateImpact (Impact.trg "fwe") (Unit.impact 1)
+                        |> Impact.updateAggregatedScores textileDb.impacts
+              in
+              describe "updatAggregatedScores"
+                [ impacts
                     |> Impact.getImpact (Impact.trg "pef")
-                    |> expectAggregateScore 17451.41187295143
-                    |> asTest "should update PEF impact score"
+                    |> expectScoreEquals 17451.41187295143
+                    |> asTest "should update PEF score"
+                , impacts
+                    |> Impact.getImpact (Impact.trg "scr")
+                    |> expectScoreEquals 14335.212731488828
+                    |> asTest "should update impact score"
                 ]
             ]
         )

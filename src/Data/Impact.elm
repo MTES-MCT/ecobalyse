@@ -26,9 +26,8 @@ module Data.Impact exposing
     , toProtectionAreas
     , toString
     , trg
+    , updateAggregatedScores
     , updateImpact
-    , updateImpactScoreImpact
-    , updatePefImpact
     )
 
 import Data.Unit as Unit
@@ -372,16 +371,11 @@ encodeImpacts definitions scope =
         >> AnyDict.encode toString Unit.encodeImpact
 
 
-updatePefImpact : List Definition -> Impacts -> Impacts
-updatePefImpact definitions impacts =
+updateAggregatedScores : List Definition -> Impacts -> Impacts
+updateAggregatedScores definitions impacts =
     impacts
         |> updateImpact (trg "pef")
             (computeAggregateScore .pefData definitions impacts)
-
-
-updateImpactScoreImpact : List Definition -> Impacts -> Impacts
-updateImpactScoreImpact definitions impacts =
-    impacts
         |> updateImpact (trg "scr")
             (computeAggregateScore .scoreData definitions impacts)
 
