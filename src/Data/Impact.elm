@@ -78,6 +78,14 @@ type alias AggregateScoreData =
     }
 
 
+type alias ProtectionAreas =
+    { climate : Float -- Climat
+    , biodiversity : Float -- Biodiversité
+    , resources : Float -- Ressources
+    , health : Float -- Santé environnementale
+    }
+
+
 type Scope
     = Textile
     | Food
@@ -227,14 +235,6 @@ toString (Trigram string) =
 trg : String -> Trigram
 trg =
     Trigram
-
-
-type alias ProtectionAreas =
-    { climate : Float -- Climat
-    , biodiversity : Float -- Biodiversité
-    , resources : Float -- Ressources
-    , health : Float -- Santé environnementale
-    }
 
 
 toProtectionAreas : List Definition -> Impacts -> ProtectionAreas
