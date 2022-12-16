@@ -28,7 +28,6 @@ import Json.Decode.Pipeline as JDP
 import Json.Encode as Encode
 import Request.Version exposing (Version)
 import Set exposing (Set)
-import Time
 
 
 type alias Session =
@@ -129,8 +128,7 @@ checkComparedSimulations =
                     if Set.size comparedSimulations == 0 then
                         -- Add max bookmarks to compared sims
                         bookmarks
-                            |> List.sortBy (.created >> Time.posixToMillis)
-                            |> List.reverse
+                            |> Bookmark.sort
                             |> List.take maxComparedSimulations
                             |> List.map .name
                             |> Set.fromList

@@ -9,7 +9,6 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Page.Textile.Simulator.ViewMode as ViewMode exposing (ViewMode)
 import Route
-import Time
 import Views.Icon as Icon
 
 
@@ -192,8 +191,7 @@ bookmarksView ({ session, compare, scope } as config) =
 
           else
             bookmarks
-                |> List.sortBy (.created >> Time.posixToMillis)
-                |> List.reverse
+                |> Bookmark.sort
                 |> List.map (bookmarkView config)
                 |> ul
                     [ class "list-group list-group-flush rounded-bottom overflow-auto"
@@ -266,5 +264,4 @@ scopedBookmarks session scope =
                 Textile ->
                     Bookmark.isTextile
             )
-        |> List.sortBy (.created >> Time.posixToMillis)
-        |> List.reverse
+        |> Bookmark.sort
