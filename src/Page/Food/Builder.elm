@@ -210,8 +210,13 @@ update ({ queries } as session) msg model =
         SelectPackaging selectedPackaging ->
             ( { model | selectedPackaging = selectedPackaging }, session, Cmd.none )
 
-        SelectTransform selectedTransform ->
-            ( { model | selectedTransform = selectedTransform }, session, Cmd.none )
+        SelectTransform Nothing ->
+            ( { model | selectedTransform = Nothing }, session, Cmd.none )
+                |> updateQuery { query | transform = Nothing }
+
+        SelectTransform (Just { mass, code }) ->
+            ( { model | selectedTransform = Nothing }, session, Cmd.none )
+                |> updateQuery (Recipe.setTransform mass code query)
 
         SetTransform { mass, code } ->
             ( { model | selectedTransform = Nothing }, session, Cmd.none )
