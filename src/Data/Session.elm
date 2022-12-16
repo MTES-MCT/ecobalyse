@@ -28,6 +28,7 @@ import Json.Decode.Pipeline as JDP
 import Json.Encode as Encode
 import Request.Version exposing (Version)
 import Set exposing (Set)
+import Time
 
 
 type alias Session =
@@ -120,22 +121,31 @@ maxComparedSimulations =
 
 
 checkComparedSimulations : Session -> Session
-checkComparedSimulations session =
-    if Set.size session.store.comparedSimulations == 0 then
-        session
-            |> updateStore
-                (\store ->
-                    { store
-                        | comparedSimulations =
-                            store.bookmarks
-                                |> List.take maxComparedSimulations
-                                |> List.map .name
-                                |> Set.fromList
-                    }
-                )
+checkComparedSimulations =
+    updateStore
+        (\({ bookmarks, comparedSimulations } as store) ->
+            { store
+                | comparedSimulations =
+                    if Set.size comparedSimulations == 0 then
+                        -- Add max bookmarks to compared sims
+                        bookmarks
+                            |> List.sortBy (.created >> Time.posixToMillis)
+                            |> List.reverse
+                            |> List.take maxComparedSimulations
+                            |> List.map .name
+                            |> Set.fromList
 
-    else
-        session
+                    else
+                        -- Purge deleted bookmarks from compared sims
+                        comparedSimulations
+                            |> Set.filter
+                                (\name ->
+                                    bookmarks
+                                        |> List.map .name
+                                        |> List.member name
+                                )
+            }
+        )
 
 
 toggleComparedSimulation : String -> Bool -> Session -> Session
