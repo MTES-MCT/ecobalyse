@@ -33,6 +33,7 @@ import Mass
 import Page.Textile.Simulator.ViewMode as ViewMode exposing (ViewMode)
 import Ports
 import Route
+import Task
 import Time exposing (Posix)
 import Views.Alert as Alert
 import Views.Bookmark as BookmarkView
@@ -49,8 +50,7 @@ import Views.Textile.Summary as SummaryView
 
 
 type alias Model =
-    { currentTime : Posix
-    , simulator : Result String Simulator
+    { simulator : Result String Simulator
     , bookmarkName : String
     , bookmarkTab : BookmarkView.ActiveTab
     , massInput : String
@@ -71,12 +71,12 @@ type Msg
     = AddMaterial
     | CopyToClipBoard String
     | DeleteBookmark Bookmark
-    | NewTime Posix
     | NoOp
     | OpenComparator
     | RemoveMaterial Int
     | Reset
     | SaveBookmark
+    | SaveBookmarkWithTime String Bookmark.Query Posix
     | SelectInputText String
     | SetModal Modal
     | SwitchFunctionalUnit Unit.Functional
@@ -122,8 +122,7 @@ init trigram funit viewMode maybeUrlQuery ({ db } as session) =
             initialQuery
                 |> Simulator.compute db
     in
-    ( { currentTime = Time.millisToPosix 0
-      , simulator = simulator
+    ( { simulator = simulator
       , bookmarkName = initialQuery |> findExistingBookmarkName session
       , bookmarkTab = BookmarkView.SaveTab
       , massInput =
@@ -205,9 +204,6 @@ update ({ db, queries, navKey } as session) msg model =
             , Cmd.none
             )
 
-        NewTime currentTime ->
-            ( { model | currentTime = currentTime }, session, Cmd.none )
-
         NoOp ->
             ( model, session, Cmd.none )
 
@@ -228,10 +224,20 @@ update ({ db, queries, navKey } as session) msg model =
         SaveBookmark ->
             ( model
             , session
+            , Time.now
+                |> Task.perform
+                    (SaveBookmarkWithTime model.bookmarkName
+                        (Bookmark.Textile query)
+                    )
+            )
+
+        SaveBookmarkWithTime name foodQuery now ->
+            ( model
+            , session
                 |> Session.saveBookmark
-                    { name = String.trim model.bookmarkName
-                    , query = Bookmark.Textile query
-                    , created = model.currentTime
+                    { name = String.trim name
+                    , query = foodQuery
+                    , created = now
                     }
             , Cmd.none
             )
@@ -594,12 +600,9 @@ view session model =
 
 subscriptions : Model -> Sub Msg
 subscriptions { modal } =
-    Sub.batch
-        [ Time.every 1000 NewTime
-        , case modal of
-            NoModal ->
-                Sub.none
+    case modal of
+        NoModal ->
+            Sub.none
 
-            SavedSimulationsModal ->
-                Browser.Events.onKeyDown (Key.escape (SetModal NoModal))
-        ]
+        SavedSimulationsModal ->
+            Browser.Events.onKeyDown (Key.escape (SetModal NoModal))

@@ -29,6 +29,7 @@ import RemoteData exposing (WebData)
 import Request.Common
 import Request.Food.BuilderDb as RequestDb
 import Route
+import Task
 import Time exposing (Posix)
 import Views.Alert as Alert
 import Views.Bookmark as BookmarkView
@@ -42,8 +43,7 @@ import Views.Spinner as Spinner
 
 
 type alias Model =
-    { currentTime : Posix
-    , dbState : WebData Db
+    { dbState : WebData Db
     , impact : Impact.Definition
     , bookmarkName : String
     , bookmarkTab : BookmarkView.ActiveTab
@@ -67,10 +67,10 @@ type Msg
     | DeleteIngredient Query.IngredientQuery
     | DeletePackaging Process.Code
     | LoadQuery Query
-    | NewTime Posix
     | NoOp
     | ResetTransform
     | SaveBookmark
+    | SaveBookmarkWithTime String Bookmark.Query Posix
     | SelectPackaging (Maybe SelectedProcess)
     | SelectTransform (Maybe SelectedProcess)
     | SetTransform SelectedProcess
@@ -95,8 +95,7 @@ init ({ db, builderDb, queries } as session) trigram maybeQuery =
                 |> Maybe.withDefault queries.food
 
         ( model, newSession, cmds ) =
-            ( { currentTime = Time.millisToPosix 0
-              , dbState = RemoteData.Loading
+            ( { dbState = RemoteData.Loading
               , impact = impact
               , bookmarkName = query |> findExistingBookmarkName session
               , bookmarkTab = BookmarkView.SaveTab
@@ -182,9 +181,6 @@ update ({ queries } as session) msg model =
             ( model, session, Cmd.none )
                 |> updateQuery (Recipe.deletePackaging code query)
 
-        NewTime currentTime ->
-            ( { model | currentTime = currentTime }, session, Cmd.none )
-
         NoOp ->
             ( model, session, Cmd.none )
 
@@ -199,10 +195,20 @@ update ({ queries } as session) msg model =
         SaveBookmark ->
             ( model
             , session
+            , Time.now
+                |> Task.perform
+                    (SaveBookmarkWithTime model.bookmarkName
+                        (Bookmark.Food query)
+                    )
+            )
+
+        SaveBookmarkWithTime name foodQuery now ->
+            ( model
+            , session
                 |> Session.saveBookmark
-                    { name = String.trim model.bookmarkName
-                    , query = Bookmark.Food query
-                    , created = model.currentTime
+                    { name = String.trim name
+                    , query = foodQuery
+                    , created = now
                     }
             , Cmd.none
             )
@@ -955,4 +961,4 @@ view session model =
 
 subscriptions : Model -> Sub Msg
 subscriptions _ =
-    Time.every 1000 NewTime
+    Sub.none
