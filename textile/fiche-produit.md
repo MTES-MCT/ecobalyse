@@ -10,6 +10,4 @@ Deux formats sont proposés afin de faciliter votre retour. Ecobalyse garantit l
 
 L'intérêt pour les entreprises de contribuer est clair : bénéficier de scénarios et paramètres représentatifs du marché sur le calculateur.&#x20;
 
-**Formulaire** accessible **** [ici ](https://forms.gle/ptzj5hWh3jNLNa7T6)
-
 **GoogleSheet** accessible **** [ici ](https://docs.google.com/spreadsheets/d/1rplAhGN8aFDeRiCHThD2Ze2WgT6HI3WKUI8AwSE2wUc/edit?usp=sharing)
