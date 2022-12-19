@@ -20,9 +20,11 @@ handleProductsLoaded session processes productsData =
             Task.succeed
                 (RemoteData.succeed
                     { explorerDb
-                        | processes = processes
-                        , products = products
+                        | countries = session.db.countries
                         , impacts = session.db.impacts
+                        , transports = session.db.transports
+                        , processes = processes
+                        , products = products
                     }
                 )
 

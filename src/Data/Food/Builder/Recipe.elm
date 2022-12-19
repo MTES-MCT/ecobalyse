@@ -29,7 +29,7 @@ import Data.Food.Ingredient as Ingredient exposing (Id, Ingredient)
 import Data.Food.Process as Process exposing (Process)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Textile.Formula as Formula
-import Data.Transport as Transport exposing (Distances)
+import Data.Transport as Transport
 import Data.Unit as Unit
 import Json.Encode as Encode
 import Mass exposing (Mass)
@@ -93,9 +93,9 @@ availableIngredients usedIngredientIds =
     List.filter (\{ id } -> not (List.member id usedIngredientIds))
 
 
-compute : Db -> Distances -> List Country -> Query -> Result String ( Recipe, Results )
-compute db distances countries =
-    fromQuery db countries
+compute : Db -> Query -> Result String ( Recipe, Results )
+compute db =
+    fromQuery db
         >> Result.map
             (\({ ingredients, transform, packaging } as recipe) ->
                 let
@@ -106,7 +106,7 @@ compute db distances countries =
 
                     ingredientsImpacts =
                         ingredients
-                            |> List.map (computeIngredientImpacts db.processes db.impacts distances)
+                            |> List.map (computeIngredientImpacts db)
 
                     transformImpacts =
                         transform
@@ -149,8 +149,8 @@ computeProcessImpacts defs item =
         |> Impact.updateAggregatedScores defs
 
 
-computeIngredientImpacts : List Process -> List Impact.Definition -> Distances -> RecipeIngredient -> Impacts
-computeIngredientImpacts processes impactDefinitions distances ingredient =
+computeIngredientImpacts : Db -> RecipeIngredient -> Impacts
+computeIngredientImpacts db ingredient =
     let
         process =
             case ingredient.variant of
@@ -166,10 +166,10 @@ computeIngredientImpacts processes impactDefinitions distances ingredient =
                 |> Impact.mapImpacts (computeImpact ingredient.mass)
 
         impacts =
-            Impact.impactsFromDefinitons impactDefinitions
+            Impact.impactsFromDefinitons db.impacts
 
         transport =
-            distances
+            db.transports
                 |> Transport.getTransportBetween impacts france ingredient.country.code
 
         transportWithRatio =
@@ -179,7 +179,7 @@ computeIngredientImpacts processes impactDefinitions distances ingredient =
                 |> Formula.transportRatio (Unit.Ratio 0)
 
         transports_impact =
-            Process.loadWellKnown processes
+            Process.loadWellKnown db.processes
                 |> Result.map
                     (\wellKnown ->
                         [ ( wellKnown.lorryTransport, transportWithRatio.road )
@@ -207,7 +207,7 @@ computeIngredientImpacts processes impactDefinitions distances ingredient =
         with_transport_impacts =
             process_impacts
                 :: transports_impact
-                |> Impact.sumImpacts impactDefinitions
+                |> Impact.sumImpacts db.impacts
     in
     with_transport_impacts
 
@@ -274,22 +274,22 @@ encodeTransform p =
         ]
 
 
-fromQuery : Db -> List Country -> Query -> Result String Recipe
-fromQuery db countries query =
+fromQuery : Db -> Query -> Result String Recipe
+fromQuery db query =
     Result.map3 Recipe
-        (ingredientListFromQuery db countries query)
+        (ingredientListFromQuery db query)
         (transformFromQuery db query)
         (packagingListFromQuery db query)
 
 
-ingredientListFromQuery : Db -> List Country -> Query -> Result String (List RecipeIngredient)
-ingredientListFromQuery db countries query =
+ingredientListFromQuery : Db -> Query -> Result String (List RecipeIngredient)
+ingredientListFromQuery db query =
     query.ingredients
-        |> RE.combineMap (ingredientFromQuery db countries)
+        |> RE.combineMap (ingredientFromQuery db)
 
 
-ingredientFromQuery : Db -> List Country -> BuilderQuery.IngredientQuery -> Result String RecipeIngredient
-ingredientFromQuery { ingredients } countries ingredientQuery =
+ingredientFromQuery : Db -> BuilderQuery.IngredientQuery -> Result String RecipeIngredient
+ingredientFromQuery { countries, ingredients } ingredientQuery =
     Result.map4 RecipeIngredient
         (Ingredient.findByID ingredientQuery.id ingredients)
         (Ok ingredientQuery.mass)

@@ -17,7 +17,6 @@ import Data.Food.Ingredient as Ingredient exposing (Id, Ingredient)
 import Data.Food.Process as Process exposing (Process)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Session as Session exposing (Session)
-import Data.Transport exposing (Distances)
 import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
@@ -105,7 +104,8 @@ init ({ db, builderDb, queries } as session) trigram maybeQuery =
               , selectedTransform = Nothing
               , selectedPackaging = Nothing
               }
-            , session |> Session.updateFoodQuery query
+            , session
+                |> Session.updateFoodQuery query
             , case maybeQuery of
                 Nothing ->
                     Ports.scrollTo { x = 0, y = 0 }
@@ -277,13 +277,13 @@ updateQuery query ( model, session, msg ) =
 
 
 findExistingBookmarkName : Session -> Query -> String
-findExistingBookmarkName { db, builderDb, store } query =
+findExistingBookmarkName { builderDb, store } query =
     store.bookmarks
         |> Bookmark.findByFoodQuery query
         |> Maybe.map .name
         |> Maybe.withDefault
             (query
-                |> Recipe.fromQuery builderDb db.countries
+                |> Recipe.fromQuery builderDb
                 |> Result.map Recipe.toString
                 |> Result.withDefault ""
             )
@@ -479,8 +479,8 @@ updateIngredientFormView { excluded, db, ingredient, countries } =
         )
 
 
-debugQueryView : Db -> Distances -> List Country -> Query -> Html Msg
-debugQueryView db distances countries query =
+debugQueryView : Db -> Query -> Html Msg
+debugQueryView db query =
     let
         debugView =
             text >> List.singleton >> pre []
@@ -495,7 +495,7 @@ debugQueryView db distances countries query =
                 ]
             , div [ class "col-5" ]
                 [ query
-                    |> Recipe.compute db distances countries
+                    |> Recipe.compute db
                     |> Result.map (Tuple.second >> Recipe.encodeResults db.impacts >> Encode.encode 2)
                     |> Result.withDefault "Error serializing the impacts"
                     |> debugView
@@ -614,7 +614,8 @@ mainView : Session -> Db -> Model -> Html Msg
 mainView session db model =
     let
         computed =
-            Recipe.compute db session.db.transports session.db.countries session.queries.food
+            session.queries.food
+                |> Recipe.compute db
     in
     div [ class "row gap-3 gap-lg-0" ]
         [ div [ class "col-lg-4 order-lg-2 d-flex flex-column gap-3" ]
@@ -633,7 +634,8 @@ mainView session db model =
 
                 Err error ->
                     errorView error
-            , debugQueryView db session.db.transports session.db.countries session.queries.food
+            , session.queries.food
+                |> debugQueryView db
             ]
         ]
 

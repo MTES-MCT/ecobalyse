@@ -19,11 +19,11 @@ suite =
             Query.carrotCake
     in
     suiteWithDb "Data.Food.Builder.Recipe"
-        (\{ textileDb, builderDb } ->
+        (\{ builderDb } ->
             [ let
                 recipe =
                     exampleQuery
-                        |> Recipe.fromQuery builderDb textileDb.countries
+                        |> Recipe.fromQuery builderDb
               in
               describe "fromQuery"
                 [ recipe
@@ -36,14 +36,14 @@ suite =
                             , mass = Mass.kilograms 0
                             }
                   }
-                    |> Recipe.fromQuery builderDb textileDb.countries
+                    |> Recipe.fromQuery builderDb
                     |> Result.map .transform
                     |> Expect.err
                     |> asTest "should return an Err for an invalid processing"
                 ]
             , describe "compute"
                 [ exampleQuery
-                    |> Recipe.compute builderDb textileDb.transports textileDb.countries
+                    |> Recipe.compute builderDb
                     |> Result.map (Tuple.second >> .impacts >> AnyDict.toDict)
                     |> Result.withDefault Dict.empty
                     |> Expect.equalDicts

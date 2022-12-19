@@ -16,7 +16,6 @@ import Data.Textile.Inputs as Inputs
 import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Product as TextileProduct exposing (Product)
 import Data.Textile.Simulator as Simulator exposing (Simulator)
-import Data.Transport exposing (Distances)
 import Json.Encode as Encode
 import Server.Query as Query
 import Server.Request exposing (Request)
@@ -96,9 +95,9 @@ toFoodResults definitions query results =
         ]
 
 
-executeFoodQuery : BuilderDb.Db -> Distances -> List Country -> Request -> (BuilderRecipe.Results -> Encode.Value) -> BuilderQuery.Query -> Cmd Msg
-executeFoodQuery builderDb distances countries request encoder =
-    BuilderRecipe.compute builderDb distances countries
+executeFoodQuery : BuilderDb.Db -> Request -> (BuilderRecipe.Results -> Encode.Value) -> BuilderQuery.Query -> Cmd Msg
+executeFoodQuery builderDb request encoder =
+    BuilderRecipe.compute builderDb
         >> Result.map (Tuple.second >> encoder)
         >> toResponse request
 
@@ -195,7 +194,8 @@ handleRequest ({ builderDb, textileDb } as dbs) request =
                 |> sendResponse 200 request
 
         Just (Route.Get (Route.FoodRecipe (Ok query))) ->
-            query |> executeFoodQuery builderDb textileDb.transports textileDb.countries request (toFoodResults builderDb.impacts query)
+            query
+                |> executeFoodQuery builderDb request (toFoodResults builderDb.impacts query)
 
         Just (Route.Get (Route.FoodRecipe (Err errors))) ->
             Query.encodeErrors errors
@@ -212,21 +212,24 @@ handleRequest ({ builderDb, textileDb } as dbs) request =
                 |> sendResponse 200 request
 
         Just (Route.Get (Route.TextileSimulator (Ok query))) ->
-            query |> executeTextileQuery textileDb request (toAllImpactsSimple textileDb.impacts)
+            query
+                |> executeTextileQuery textileDb request (toAllImpactsSimple textileDb.impacts)
 
         Just (Route.Get (Route.TextileSimulator (Err errors))) ->
             Query.encodeErrors errors
                 |> sendResponse 400 request
 
         Just (Route.Get (Route.TextileSimulatorDetailed (Ok query))) ->
-            query |> executeTextileQuery textileDb request (Simulator.encode textileDb.impacts)
+            query
+                |> executeTextileQuery textileDb request (Simulator.encode textileDb.impacts)
 
         Just (Route.Get (Route.TextileSimulatorDetailed (Err errors))) ->
             Query.encodeErrors errors
                 |> sendResponse 400 request
 
         Just (Route.Get (Route.TextileSimulatorSingle trigram (Ok query))) ->
-            query |> executeTextileQuery textileDb request (toSingleImpactSimple textileDb.impacts trigram)
+            query
+                |> executeTextileQuery textileDb request (toSingleImpactSimple textileDb.impacts trigram)
 
         Just (Route.Get (Route.TextileSimulatorSingle _ (Err errors))) ->
             Query.encodeErrors errors

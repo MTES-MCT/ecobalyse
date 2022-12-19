@@ -46,7 +46,7 @@ comparator { session, impact, funit, daysOfWear, toggle } =
                             let
                                 ( description, isCompared ) =
                                     ( bookmark
-                                        |> Bookmark.toQueryDescription { countries = session.db.countries, foodDb = session.builderDb, textileDb = session.db }
+                                        |> Bookmark.toQueryDescription { foodDb = session.builderDb, textileDb = session.db }
                                     , Set.member bookmark.name session.store.comparedSimulations
                                     )
                             in
