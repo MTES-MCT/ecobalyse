@@ -3,7 +3,6 @@ module Data.Food.Amount exposing
     , format
     , fromUnitAndFloat
     , getMass
-    , kilometerToTonKilometer
     , multiplyBy
     , setFloat
     , toDisplayTuple
@@ -90,16 +89,6 @@ getMass amount =
 
         _ ->
             Quantity.zero
-
-
-kilometerToTonKilometer : Length -> Mass -> Mass
-kilometerToTonKilometer length amount =
-    if length == Length.kilometers 0 || amount == Mass.metricTons 0 then
-        Mass.metricTons 0
-
-    else
-        (Mass.inMetricTons amount / Length.inKilometers length)
-            |> Mass.metricTons
 
 
 multiplyBy : Float -> Amount -> Amount

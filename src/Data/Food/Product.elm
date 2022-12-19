@@ -474,7 +474,10 @@ updatePlantTransport originalProduct processes impactDefinitions countryCode dis
                         ]
                             |> List.map
                                 (\( process, distance ) ->
-                                    { amount = Amount.kilometerToTonKilometer distance plantWeight |> Amount.Mass
+                                    { amount =
+                                        plantWeight
+                                            |> Transport.kilometerToTonKilometer distance
+                                            |> Amount.Mass
                                     , comment = ""
                                     , process = process
                                     }

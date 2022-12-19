@@ -3,6 +3,7 @@ module Data.Food.Transport exposing
     , getLength
     , inKgKilometers
     , inTonKilometers
+    , kilometerToTonKilometer
     , tonKilometers
     )
 
@@ -36,6 +37,16 @@ inTonKilometers (Quantity.Quantity transport) =
         / 1000
         -- 1km = 1000m
         / 1000
+
+
+kilometerToTonKilometer : Length -> Mass -> Mass
+kilometerToTonKilometer length amount =
+    if length == Length.kilometers 0 || amount == Mass.metricTons 0 then
+        Mass.metricTons 0
+
+    else
+        (Mass.inMetricTons amount / Length.inKilometers length)
+            |> Mass.metricTons
 
 
 tonKilometers : Float -> Transport

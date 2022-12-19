@@ -22,11 +22,11 @@ module Data.Food.Builder.Recipe exposing
     )
 
 import Data.Country as Country exposing (Country)
-import Data.Food.Amount as Amount
 import Data.Food.Builder.Db exposing (Db)
 import Data.Food.Builder.Query as BuilderQuery exposing (Query)
 import Data.Food.Ingredient as Ingredient exposing (Id, Ingredient)
 import Data.Food.Process as Process exposing (Process)
+import Data.Food.Transport as FoodTransport
 import Data.Impact as Impact exposing (Impacts)
 import Data.Textile.Formula as Formula
 import Data.Transport as Transport
@@ -190,7 +190,8 @@ computeIngredientImpacts db ingredient =
                                 (\( transportProcess, distance ) ->
                                     let
                                         tonKm =
-                                            Amount.kilometerToTonKilometer distance ingredient.mass
+                                            ingredient.mass
+                                                |> FoodTransport.kilometerToTonKilometer distance
                                     in
                                     transportProcess.impacts
                                         |> Impact.mapImpacts
