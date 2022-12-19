@@ -36,7 +36,7 @@ import Views.Bookmark as BookmarkView
 import Views.Component.MassInput as MassInput
 import Views.Component.Summary as SummaryComp
 import Views.Container as Container
-import Views.CountrySelect
+import Views.CountrySelect as CountrySelect
 import Views.Format as Format
 import Views.Icon as Icon
 import Views.Impact as ImpactView
@@ -458,7 +458,7 @@ updateIngredientFormView { excluded, db, ingredient } =
                     []
                 , text "bio"
                 ]
-            , Views.CountrySelect.view
+            , CountrySelect.view
                 { attributes = [ class "form-select form-select-sm" ]
                 , onSelect =
                     \countryCode ->
