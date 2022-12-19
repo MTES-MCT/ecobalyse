@@ -283,9 +283,8 @@ fromQuery db query =
 
 
 ingredientListFromQuery : Db -> Query -> Result String (List RecipeIngredient)
-ingredientListFromQuery db query =
-    query.ingredients
-        |> RE.combineMap (ingredientFromQuery db)
+ingredientListFromQuery db =
+    .ingredients >> RE.combineMap (ingredientFromQuery db)
 
 
 ingredientFromQuery : Db -> BuilderQuery.IngredientQuery -> Result String RecipeIngredient

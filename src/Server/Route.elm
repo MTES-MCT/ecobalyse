@@ -63,7 +63,7 @@ parser { builderDb, textileDb } =
         , Parser.map FoodIngredientList (Parser.s "food" </> Parser.s "ingredients")
         , Parser.map FoodPackagingList (Parser.s "food" </> Parser.s "packagings")
         , Parser.map FoodTransformList (Parser.s "food" </> Parser.s "transforms")
-        , Parser.map FoodRecipe (Parser.s "food" </> Parser.s "recipe" <?> Query.parseFoodQuery builderDb textileDb.countries)
+        , Parser.map FoodRecipe (Parser.s "food" </> Parser.s "recipe" <?> Query.parseFoodQuery builderDb)
 
         -- Textile
         , Parser.map TextileMaterialList (Parser.s "materials")

@@ -9,7 +9,6 @@ module Page.Food.Builder exposing
 
 import Browser.Navigation as Navigation
 import Data.Bookmark as Bookmark exposing (Bookmark)
-import Data.Country exposing (Country)
 import Data.Food.Builder.Db as BuilderDb exposing (Db)
 import Data.Food.Builder.Query as Query exposing (Query)
 import Data.Food.Builder.Recipe as Recipe exposing (Recipe)
@@ -371,12 +370,11 @@ type alias UpdateIngredientConfig =
     { excluded : List Id
     , db : Db
     , ingredient : Recipe.RecipeIngredient
-    , countries : List Country
     }
 
 
 updateIngredientFormView : UpdateIngredientConfig -> Html Msg
-updateIngredientFormView { excluded, db, ingredient, countries } =
+updateIngredientFormView { excluded, db, ingredient } =
     let
         ingredientQuery : Query.IngredientQuery
         ingredientQuery =
@@ -466,7 +464,7 @@ updateIngredientFormView { excluded, db, ingredient, countries } =
                     \countryCode ->
                         event { ingredientQuery | country = countryCode }
                 , selectedCountry = ingredientQuery.country
-                , countries = countries
+                , countries = db.countries
                 }
             , button
                 [ type_ "button"
@@ -514,8 +512,8 @@ errorView error =
         }
 
 
-ingredientListView : Db -> List Country -> Impact.Definition -> Recipe -> Recipe.Results -> List (Html Msg)
-ingredientListView db countries selectedImpact recipe results =
+ingredientListView : Db -> Impact.Definition -> Recipe -> Recipe.Results -> List (Html Msg)
+ingredientListView db selectedImpact recipe results =
     [ div [ class "card-header d-flex align-items-center justify-content-between" ]
         [ h6 [ class "mb-0" ] [ text "Ingrédients" ]
         , results.recipe.ingredients
@@ -533,7 +531,6 @@ ingredientListView db countries selectedImpact recipe results =
                             { excluded = recipe.ingredients |> List.map (.ingredient >> .id)
                             , db = db
                             , ingredient = ingredient
-                            , countries = countries
                             }
                     )
          )
@@ -630,7 +627,7 @@ mainView session db model =
             [ menuView session.queries.food
             , case computed of
                 Ok ( recipe, results ) ->
-                    stepListView db session.db.countries model recipe results
+                    stepListView db model recipe results
 
                 Err error ->
                     errorView error
@@ -719,12 +716,10 @@ ingredientSelectorView selectedIngredient excluded event ingredients =
             [ class "form-select form-select-sm flex-grow-1"
             , onInput
                 (\ingredientId ->
-                    case Ingredient.findByID (Ingredient.idFromString ingredientId) ingredients of
-                        Ok newIngredient ->
-                            event newIngredient
-
-                        Err _ ->
-                            NoOp
+                    ingredients
+                        |> Ingredient.findByID (Ingredient.idFromString ingredientId)
+                        |> Result.map event
+                        |> Result.withDefault NoOp
                 )
             ]
 
@@ -822,8 +817,8 @@ protectionAreaView { db } impacts =
         ]
 
 
-stepListView : Db -> List Country -> Model -> Recipe -> Recipe.Results -> Html Msg
-stepListView db countries { impact, selectedPackaging, selectedTransform } recipe results =
+stepListView : Db -> Model -> Recipe -> Recipe.Results -> Html Msg
+stepListView db { impact, selectedPackaging, selectedTransform } recipe results =
     div [ class "d-flex flex-column gap-3" ]
         [ div [ class "card" ]
             (div [ class "card-header d-flex align-items-center justify-content-between" ]
@@ -834,7 +829,7 @@ stepListView db countries { impact, selectedPackaging, selectedTransform } recip
                     |> span [ class "fw-bold" ]
                 ]
                 :: List.concat
-                    [ ingredientListView db countries impact recipe results
+                    [ ingredientListView db impact recipe results
                     , transformView db impact selectedTransform recipe results
                     ]
             )

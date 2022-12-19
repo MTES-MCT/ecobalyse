@@ -54,26 +54,26 @@ succeed =
     always >> Query.custom ""
 
 
-parseFoodQuery : BuilderDb.Db -> List Country -> Parser (Result Errors BuilderQuery.Query)
-parseFoodQuery builderDb countries =
+parseFoodQuery : BuilderDb.Db -> Parser (Result Errors BuilderQuery.Query)
+parseFoodQuery builderDb =
     succeed (Ok BuilderQuery.Query)
-        |> apply (ingredientListParser "ingredients" builderDb.ingredients countries)
+        |> apply (ingredientListParser "ingredients" builderDb)
         |> apply (maybeTransformParser "transform" builderDb.processes)
         |> apply (packagingListParser "packaging" builderDb.processes)
 
 
-ingredientListParser : String -> List Ingredient.Ingredient -> List Country -> Parser (ParseResult (List BuilderQuery.IngredientQuery))
-ingredientListParser key ingredients countries =
+ingredientListParser : String -> BuilderDb.Db -> Parser (ParseResult (List BuilderQuery.IngredientQuery))
+ingredientListParser key builderDb =
     Query.custom (key ++ "[]")
-        (List.map (ingredientParser ingredients countries)
+        (List.map (ingredientParser builderDb)
             >> RE.combine
             >> Result.andThen validateIngredientList
             >> Result.mapError (\err -> ( key, err ))
         )
 
 
-ingredientParser : List Ingredient.Ingredient -> List Country -> String -> Result String BuilderQuery.IngredientQuery
-ingredientParser ingredients countries string =
+ingredientParser : BuilderDb.Db -> String -> Result String BuilderQuery.IngredientQuery
+ingredientParser { countries, ingredients } string =
     case String.split ";" string of
         [ id, mass ] ->
             let
@@ -167,11 +167,9 @@ packagingParser packagings string =
 
 
 validateCountry : String -> List Country -> Result String Country.Code
-validateCountry countryCode countries =
-    countryCode
-        |> Country.codeFromString
-        |> (\code -> Country.findByCode code countries)
-        |> Result.map .code
+validateCountry countryCode =
+    Country.findByCode (Country.codeFromString countryCode)
+        >> Result.map .code
 
 
 validateMass : String -> Result String Mass
