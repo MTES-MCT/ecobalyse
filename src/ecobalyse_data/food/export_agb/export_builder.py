@@ -12,6 +12,7 @@ import brightway2 as bw
 from collections import defaultdict
 from ecobalyse_data.food.impacts import impacts
 import uuid
+import hashlib
 
 processes_kind = {
     # transformation
@@ -278,7 +279,13 @@ def compute_ingredient_list(processes, ingredients_base):
                     "name"
                 ] = f"{ingredient['id']}, {variant_name}, constructed by ecobalyse"
                 new_process["system_description"] = "ecobalyse"
-                new_process["simapro_id"] = str(uuid.uuid4())
+
+                # We generate a uuid using the process name as a seed
+                m = hashlib.md5()
+                seed = new_process["name"]                
+                m.update(seed.encode('utf-8'))                
+                new_process["simapro_id"] = str(uuid.UUID(m.hexdigest()))
+
                 for impact in new_process["impacts"]:
                     # Formula: Impact farine bio = impact farine conventionnel + ratio * ( impact blé bio -  impact blé conventionnel)
                     new_process["impacts"][impact] = new_process["impacts"][
