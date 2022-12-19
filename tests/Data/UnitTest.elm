@@ -52,19 +52,19 @@ suite =
                     |> Expect.equal 1
                     |> asTest "should convert impact to float and the other way around"
                 ]
-            , describe "Unit.impactPefScore"
+            , describe "Unit.impactAggregateScore"
                 [ Unit.impact 1
-                    |> Unit.impactPefScore (Unit.impact 1) (Unit.ratio 1)
+                    |> Unit.impactAggregateScore (Unit.impact 1) (Unit.ratio 1)
                     |> Expect.equal (Unit.impact 1000000)
-                    |> asTest "should compute impact PEF score (1, 1)"
+                    |> asTest "should compute impact aggregate score (1, 1)"
                 , Unit.impact 1
-                    |> Unit.impactPefScore (Unit.impact 2) (Unit.ratio 0.5)
+                    |> Unit.impactAggregateScore (Unit.impact 2) (Unit.ratio 0.5)
                     |> Expect.equal (Unit.impact 250000)
-                    |> asTest "should compute impact PEF score (1, 0.5)"
+                    |> asTest "should compute impact aggregate score (1, 0.5)"
                 , Unit.impact 1
-                    |> Unit.impactPefScore (Unit.impact 0.25) (Unit.ratio 0.75)
+                    |> Unit.impactAggregateScore (Unit.impact 0.25) (Unit.ratio 0.75)
                     |> Expect.equal (Unit.impact 3000000)
-                    |> asTest "should compute impact PEF score (0.25, 0.75)"
+                    |> asTest "should compute impact aggregate score (0.25, 0.75)"
                 ]
             , describe "Unit.forKg"
                 [ Mass.kilograms 0.17

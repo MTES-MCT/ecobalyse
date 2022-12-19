@@ -7,6 +7,7 @@ module Data.Bookmark exposing
     , findByTextileQuery
     , isFood
     , isTextile
+    , sort
     , toQueryDescription
     )
 
@@ -102,6 +103,11 @@ findByFoodQuery foodQuery =
 findByTextileQuery : TextileQuery.Query -> List Bookmark -> Maybe Bookmark
 findByTextileQuery textileQuery =
     findByQuery (Textile textileQuery)
+
+
+sort : List Bookmark -> List Bookmark
+sort =
+    List.sortBy (.created >> Time.posixToMillis) >> List.reverse
 
 
 toQueryDescription : { countries : List Country, foodDb : BuilderDb.Db, textileDb : TextileDb.Db } -> Bookmark -> String

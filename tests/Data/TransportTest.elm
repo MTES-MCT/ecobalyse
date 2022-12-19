@@ -36,8 +36,8 @@ suite =
                     (\{ code } ->
                         AnyDict.keys textileDb.transports
                             |> List.member code
-                            |> Expect.true (Country.codeToString code ++ " has no transports data available")
-                            |> asTest (Country.codeToString code)
+                            |> Expect.equal True
+                            |> asTest (Country.codeToString code ++ "should have transports data available")
                     )
                 |> describe "transports data availability checks"
             , describe "getTransportBetween"

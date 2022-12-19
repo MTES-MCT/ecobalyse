@@ -514,7 +514,7 @@ simpleView ({ funit, inputs, daysOfWear, impact, current } as config) =
                     [ if current.label /= Label.Distribution then
                         div [ class "fs-3 fw-normal text-secondary" ]
                             [ current.impacts
-                                |> Format.formatImpact funit impact daysOfWear
+                                |> Format.formatTextileSelectedImpact funit daysOfWear impact
                             ]
 
                       else
@@ -523,7 +523,7 @@ simpleView ({ funit, inputs, daysOfWear, impact, current } as config) =
                         [ span [ class "me-1 align-bottom" ] [ Icon.info ]
                         , text "Transport\u{00A0}"
                         , current.transport.impacts
-                            |> Format.formatImpact funit impact daysOfWear
+                            |> Format.formatTextileSelectedImpact funit daysOfWear impact
                         ]
                     ]
                 ]
@@ -703,7 +703,7 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                 [ if (current.impacts |> Impact.getImpact impact.trigram |> Unit.impactToFloat) > 0 then
                     span [ class "fw-bold flex-fill" ]
                         [ current.impacts
-                            |> Format.formatImpact funit impact daysOfWear
+                            |> Format.formatTextileSelectedImpact funit daysOfWear impact
                         ]
 
                   else
@@ -781,7 +781,7 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                         (if Transport.totalKm current.transport > 0 then
                             [ strong [] [ text <| transportLabel ++ "\u{00A0}:\u{00A0}" ]
                             , current.transport.impacts
-                                |> Format.formatImpact funit impact daysOfWear
+                                |> Format.formatTextileSelectedImpact funit daysOfWear impact
                             , inlineDocumentationLink config Gitbook.Transport
                             ]
 

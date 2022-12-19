@@ -5,7 +5,7 @@ module Data.Impact exposing
     , Scope(..)
     , Source
     , Trigram(..)
-    , computePefScore
+    , computeAggregatedScore
     , decodeImpacts
     , decodeList
     , defaultTrigram
@@ -17,15 +17,17 @@ module Data.Impact exposing
     , grabImpactFloat
     , impactsFromDefinitons
     , invalid
+    , isAggregate
     , mapImpacts
     , noImpacts
     , parseTrigram
     , scopeToString
     , sumImpacts
+    , toProtectionAreas
     , toString
     , trg
+    , updateAggregatedScores
     , updateImpact
-    , updatePefImpact
     )
 
 import Data.Unit as Unit
@@ -47,8 +49,8 @@ type alias Definition =
     , unit : String
     , decimals : Int
     , quality : Quality
-    , primary : Bool
-    , pefData : Maybe PefData
+    , pefData : Maybe AggregatedScoreData
+    , ecoscoreData : Maybe AggregatedScoreData
     , scopes : List Scope
     }
 
@@ -69,10 +71,18 @@ type Quality
     | UnknownQuality
 
 
-type alias PefData =
+type alias AggregatedScoreData =
     { color : String
     , normalization : Unit.Impact
     , weighting : Unit.Ratio
+    }
+
+
+type alias ProtectionAreas =
+    { climate : Unit.Impact -- Climat
+    , biodiversity : Unit.Impact -- Biodiversité
+    , resources : Unit.Impact -- Ressources
+    , health : Unit.Impact -- Santé environnementale
     }
 
 
@@ -90,8 +100,8 @@ invalid =
     , unit = "N/A"
     , decimals = 0
     , quality = GoodQuality
-    , primary = False
     , pefData = Nothing
+    , ecoscoreData = Nothing
     , scopes = []
     }
 
@@ -108,20 +118,30 @@ getDefinition trigram =
         >> Result.fromMaybe ("Impact " ++ toString trigram ++ " invalide")
 
 
+isAggregate : Definition -> Bool
+isAggregate { pefData, ecoscoreData } =
+    case ( pefData, ecoscoreData ) of
+        ( Nothing, Nothing ) ->
+            True
+
+        _ ->
+            False
+
+
 decodeList : Decoder (List Definition)
 decodeList =
     let
         decodeDictValue =
             Decode.succeed
-                (\source label description unit decimals quality primary pefData scopes ->
+                (\source label description unit decimals quality pefData scoreData scopes ->
                     { source = source
                     , label = label
                     , description = description
                     , unit = unit
                     , decimals = decimals
                     , quality = quality
-                    , primary = primary
                     , pefData = pefData
+                    , scoreData = scoreData
                     , scopes = scopes
                     }
                 )
@@ -131,12 +151,12 @@ decodeList =
                 |> Pipe.required "short_unit" Decode.string
                 |> Pipe.required "decimals" Decode.int
                 |> Pipe.required "quality" decodeQuality
-                |> Pipe.required "primary" Decode.bool
-                |> Pipe.required "pef" (Decode.maybe decodePefData)
+                |> Pipe.required "pef" (Decode.maybe decodeAggregatedScoreData)
+                |> Pipe.required "ecoscore" (Decode.maybe decodeAggregatedScoreData)
                 |> Pipe.required "scopes" (Decode.list decodeScope)
 
-        toImpact ( key, { source, label, description, unit, decimals, quality, primary, pefData, scopes } ) =
-            Definition (trg key) source label description unit decimals quality primary pefData scopes
+        toImpact ( key, { source, label, description, unit, decimals, quality, pefData, scoreData, scopes } ) =
+            Definition (trg key) source label description unit decimals quality pefData scoreData scopes
     in
     Decode.dict decodeDictValue
         |> Decode.andThen (Dict.toList >> List.map toImpact >> Decode.succeed)
@@ -149,12 +169,12 @@ decodeSource =
         (Decode.field "url" Decode.string)
 
 
-decodePefData : Decoder PefData
-decodePefData =
-    Decode.map3 PefData
+decodeAggregatedScoreData : Decoder AggregatedScoreData
+decodeAggregatedScoreData =
+    Decode.map3 AggregatedScoreData
         (Decode.field "color" Decode.string)
         (Decode.field "normalization" Unit.decodeImpact)
-        (Decode.field "weighting" (Decode.map getPefWeighting Unit.decodeRatio))
+        (Decode.field "weighting" Unit.decodeRatio)
 
 
 decodeScope : Decoder Scope
@@ -182,27 +202,6 @@ scopeToString scope =
 
         Textile ->
             "Textile"
-
-
-getPefWeighting : Unit.Ratio -> Unit.Ratio
-getPefWeighting weighting =
-    -- The following is only relevant for the textile:
-    --
-    -- Pef score weighting is provided using percentages for each impact, though
-    -- we don't have data to take them all into account, so the actual weighting
-    -- total we're basing on is 94,11%, not 100%.
-    --
-    -- The PEF impacts not currently taken into account for the textile are:
-    -- - Toxicité humaine (cancer): 2,13 %
-    -- - Toxicité humaine (non cancer): 1,84 %
-    -- - Ecotoxicité eaux douces: 1,92 %
-    --
-    -- If we want to have results normalized to 100%, we can uncomment this line:
-    --
-    -- Unit.Ratio (weighting / 0.9411)
-    --
-    -- Otherwise, PEF scores are documented incomplete.
-    weighting
 
 
 decodeQuality : Decoder Quality
@@ -236,6 +235,53 @@ toString (Trigram string) =
 trg : String -> Trigram
 trg =
     Trigram
+
+
+toProtectionAreas : List Definition -> Impacts -> ProtectionAreas
+toProtectionAreas defs impacts =
+    let
+        pick trigrams =
+            impacts
+                |> AnyDict.filter (\t _ -> List.member t (List.map trg trigrams))
+                |> computeAggregatedScore .ecoscoreData defs
+    in
+    { climate =
+        pick
+            [ "cch" -- Climate change
+            ]
+    , biodiversity =
+        pick
+            [ "cch" -- Climate change
+            , "bvi" -- Biodiversity impact
+            , "acd" -- Acidification
+            , "fwe" -- Freshwater Eutrophication
+            , "tre" -- Terrestrial eutrophication
+            , "swe" -- Marine eutrophication
+            , "etf" -- Ecotoxicity: freshwater
+            , "ozd" -- Ozone depletion
+            , "ior" -- Ionising radiation
+            , "pco" -- Photochemical ozone formation
+            , "wtu" -- Water use
+            , "ldu" -- Land use
+            ]
+    , resources =
+        pick
+            [ "wtu" -- Water use
+            , "ldu" -- Land use
+            , "fru" -- Fossile resource use
+            , "mru" -- Minerals and metal resource use
+            ]
+    , health =
+        pick
+            [ "cch" -- Climate change
+            , "ozd" -- Ozone depletion
+            , "ior" -- Ionising radiation
+            , "pco" -- Photochemical ozone formation
+            , "htn" -- Human toxicity: non-carcinogenic
+            , "htc" -- Human toxicity: carcinogenic
+            , "wtu" -- Water use
+            ]
+    }
 
 
 
@@ -324,11 +370,16 @@ encodeImpacts definitions scope =
         >> AnyDict.encode toString Unit.encodeImpact
 
 
-updatePefImpact : List Definition -> Impacts -> Impacts
-updatePefImpact definitions impacts =
+updateAggregatedScores : List Definition -> Impacts -> Impacts
+updateAggregatedScores definitions impacts =
+    let
+        aggregateScore getter trigram =
+            updateImpact trigram
+                (computeAggregatedScore getter definitions impacts)
+    in
     impacts
-        |> updateImpact (trg "pef")
-            (computePefScore definitions impacts)
+        |> aggregateScore .ecoscoreData (trg "ecs")
+        |> aggregateScore .pefData (trg "pef")
 
 
 getPefPieData : List Definition -> Impacts -> String
@@ -350,7 +401,7 @@ getPefPieData defs =
                             { name = label
                             , value =
                                 impact
-                                    |> Unit.impactPefScore normalization weighting
+                                    |> Unit.impactAggregateScore normalization weighting
                                     |> Unit.impactToFloat
                             , color = color ++ "bb" -- pastelization through slight transparency
                             }
@@ -369,21 +420,16 @@ getPefPieData defs =
         >> Encode.encode 0
 
 
-computePefScore : List Definition -> Impacts -> Unit.Impact
-computePefScore defs =
+computeAggregatedScore : (Definition -> Maybe AggregatedScoreData) -> List Definition -> Impacts -> Unit.Impact
+computeAggregatedScore getter defs =
     AnyDict.map
         (\trigram impact ->
-            case getDefinition trigram defs of
-                Ok { pefData } ->
-                    case pefData of
-                        Just { normalization, weighting } ->
-                            impact
-                                |> Unit.impactPefScore normalization weighting
+            case defs |> getDefinition trigram |> Result.map getter of
+                Ok (Just { normalization, weighting }) ->
+                    impact
+                        |> Unit.impactAggregateScore normalization weighting
 
-                        Nothing ->
-                            Quantity.zero
-
-                Err _ ->
+                _ ->
                     Quantity.zero
         )
         >> AnyDict.foldl (\_ -> Quantity.plus) Quantity.zero
@@ -398,7 +444,7 @@ parseTrigram =
     let
         trigrams =
             -- FIXME: find a way to have this check performed automatically from impacts db
-            "acd,bvi,cch,etf,fru,fwe,htc,htn,ior,ldu,mru,ozd,pco,pef,pma,swe,tre,wtu"
+            "acd,bvi,cch,ecs,etf,fru,fwe,htc,htn,ior,ldu,mru,ozd,pco,pef,pma,swe,tre,wtu"
                 |> String.split ","
     in
     Parser.custom "TRIGRAM" <|

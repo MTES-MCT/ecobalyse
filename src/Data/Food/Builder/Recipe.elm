@@ -99,18 +99,23 @@ compute db distances countries =
         >> Result.map
             (\({ ingredients, transform, packaging } as recipe) ->
                 let
+                    updateImpacts impacts =
+                        impacts
+                            |> Impact.sumImpacts db.impacts
+                            |> Impact.updateAggregatedScores db.impacts
+
                     ingredientsImpacts =
                         ingredients
                             |> List.map (computeIngredientImpacts db.processes db.impacts distances)
 
                     transformImpacts =
                         transform
-                            |> Maybe.map computeProcessImpacts
+                            |> Maybe.map (computeProcessImpacts db.impacts >> List.singleton >> updateImpacts)
                             |> Maybe.withDefault Impact.noImpacts
 
                     packagingImpacts =
                         packaging
-                            |> List.map computeProcessImpacts
+                            |> List.map (computeProcessImpacts db.impacts)
                 in
                 ( recipe
                 , { impacts =
@@ -119,29 +124,29 @@ compute db distances countries =
                         , packagingImpacts
                         ]
                             |> List.concat
-                            |> Impact.sumImpacts db.impacts
+                            |> updateImpacts
                   , recipe =
-                        { ingredients = Impact.sumImpacts db.impacts ingredientsImpacts
+                        { ingredients = updateImpacts ingredientsImpacts
                         , transform = transformImpacts
                         }
-                  , packaging = Impact.sumImpacts db.impacts packagingImpacts
+                  , packaging = updateImpacts packagingImpacts
                   }
                 )
             )
 
 
 computeImpact : Mass -> Impact.Trigram -> Unit.Impact -> Unit.Impact
-computeImpact mass _ impact =
-    impact
-        |> Unit.impactToFloat
-        |> (*) (Mass.inKilograms mass)
-        |> Unit.impact
+computeImpact mass _ =
+    Unit.impactToFloat
+        >> (*) (Mass.inKilograms mass)
+        >> Unit.impact
 
 
-computeProcessImpacts : { a | process : Process, mass : Mass } -> Impacts
-computeProcessImpacts item =
+computeProcessImpacts : List Impact.Definition -> { a | process : Process, mass : Mass } -> Impacts
+computeProcessImpacts defs item =
     item.process.impacts
         |> Impact.mapImpacts (computeImpact item.mass)
+        |> Impact.updateAggregatedScores defs
 
 
 computeIngredientImpacts : List Process -> List Impact.Definition -> Distances -> RecipeIngredient -> Impacts

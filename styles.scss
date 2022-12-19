@@ -163,7 +163,7 @@ blockquote {
   }
 
   &-unit {
-    font-size: 0.7em;
+    font-size: min(0.7em, 24px);
   }
 
   &-80p {
