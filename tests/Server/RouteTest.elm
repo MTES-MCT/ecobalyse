@@ -85,6 +85,11 @@ foodEndpoints db =
             |> Maybe.andThen (Dict.get "ingredients")
             |> Expect.equal (Just "Code pays invalide: invalidCountry.")
             |> asTest "should validate that an ingredient country is valid"
+        , getEndpoint db "GET" "/food/recipe?ingredients[]=egg;1;default;BD"
+            |> Maybe.andThen extractFoodErrors
+            |> Maybe.andThen (Dict.get "ingredients")
+            |> Expect.equal (Just "Le code pays BD n'est pas utilisable dans un contexte Alimentaire.")
+            |> asTest "should validate that an ingredient country scope is valid"
         , getEndpoint db "GET" "/food/recipe?transform=aded2490573207ec7ad5a3813978f6a4;-1"
             |> Maybe.andThen extractFoodErrors
             |> Maybe.andThen (Dict.get "transform")
@@ -263,6 +268,11 @@ textileEndpoints db =
             |> Maybe.andThen (Dict.get "printing")
             |> Expect.equal (Just "Le ratio de surface d'impression doit être supérieur à zéro et inférieur à 1.")
             |> asTest "should validate invalid printing ratio"
+        , getEndpoint db "GET" "/simulator?countryDyeing=US"
+            |> Maybe.andThen extractTextileErrors
+            |> Maybe.andThen (Dict.get "countryDyeing")
+            |> Expect.equal (Just "Le code pays US n'est pas utilisable dans un contexte Textile.")
+            |> asTest "should validate that an ingredient country scope is valid"
         ]
     , describe "multiple parameters checks"
         [ getEndpoint db "GET" "/simulator"
@@ -286,7 +296,7 @@ textileEndpoints db =
           , "surfaceMass=-2"
           , "countryFabric=notACountryCode"
           , "countryDyeing=notACountryCode"
-          , "countryMaking=notACountryCode"
+          , "countryMaking=US"
           , "disabledSteps=invalid"
           , "disabledFading=untrue"
           , "dyeingMedium=yolo"
@@ -300,7 +310,7 @@ textileEndpoints db =
                 (Dict.fromList
                     [ ( "countryFabric", "Code pays invalide: notACountryCode." )
                     , ( "countryDyeing", "Code pays invalide: notACountryCode." )
-                    , ( "countryMaking", "Code pays invalide: notACountryCode." )
+                    , ( "countryMaking", "Le code pays US n'est pas utilisable dans un contexte Textile." )
                     , ( "mass", "La masse doit être supérieure ou égale à zéro." )
                     , ( "materials", "Format de matière invalide : notAnID." )
                     , ( "surfaceMass", "Le grammage (surfaceMass) doit être compris entre 30 et 500 gr/m²." )

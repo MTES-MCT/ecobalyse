@@ -11,6 +11,7 @@ import Data.Food.Builder.Db as BuilderDb
 import Data.Food.Builder.Query as BuilderQuery
 import Data.Food.Ingredient as Ingredient
 import Data.Food.Process as FoodProcess
+import Data.Scope as Scope exposing (Scope)
 import Data.Textile.Db as TextileDb
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
 import Data.Textile.HeatSource as HeatSource exposing (HeatSource)
@@ -112,7 +113,7 @@ ingredientParser { countries, ingredients } string =
                 |> RE.andMap (Result.map .name ingredient)
                 |> RE.andMap (validateMass mass)
                 |> RE.andMap (variantParser variant)
-                |> RE.andMap (validateCountry countryCode countries)
+                |> RE.andMap (validateCountry countryCode Scope.Food countries)
 
         [ "" ] ->
             Err <| "Format d'ingrédient vide."
@@ -166,10 +167,22 @@ packagingParser packagings string =
             Err <| "Format d'emballage invalide : " ++ string ++ "."
 
 
-validateCountry : String -> List Country -> Result String Country.Code
-validateCountry countryCode =
+validateCountry : String -> Scope -> List Country -> Result String Country.Code
+validateCountry countryCode scope =
     Country.findByCode (Country.codeFromString countryCode)
-        >> Result.map .code
+        >> Result.andThen
+            (\{ code, scopes } ->
+                if List.member scope scopes then
+                    Ok code
+
+                else
+                    "Le code pays "
+                        ++ countryCode
+                        ++ " n'est pas utilisable dans un contexte "
+                        ++ Scope.toLabel scope
+                        ++ "."
+                        |> Err
+            )
 
 
 validateMass : String -> Result String Mass
@@ -232,10 +245,10 @@ parseTextileQuery textileDb =
         |> apply (massParser "mass")
         |> apply (materialListParser "materials" textileDb.materials)
         |> apply (productParser "product" textileDb.products)
-        |> apply (maybeCountryParser "countrySpinning" textileDb.countries)
-        |> apply (countryParser "countryFabric" textileDb.countries)
-        |> apply (countryParser "countryDyeing" textileDb.countries)
-        |> apply (countryParser "countryMaking" textileDb.countries)
+        |> apply (maybeTextileCountryParser "countrySpinning" textileDb.countries)
+        |> apply (textileCountryParser "countryFabric" textileDb.countries)
+        |> apply (textileCountryParser "countryDyeing" textileDb.countries)
+        |> apply (textileCountryParser "countryMaking" textileDb.countries)
         |> apply (maybeRatioParser "airTransportRatio")
         |> apply (maybeQualityParser "quality")
         |> apply (maybeReparabilityParser "reparability")
@@ -399,30 +412,27 @@ validateMaterialList list =
             Ok list
 
 
-countryParser : String -> List Country -> Parser (ParseResult Country.Code)
-countryParser key countries =
+textileCountryParser : String -> List Country -> Parser (ParseResult Country.Code)
+textileCountryParser key countries =
     Query.string key
         |> Query.map (Result.fromMaybe ( key, "Code pays manquant." ))
         |> Query.map
             (Result.andThen
                 (\code ->
-                    countries
-                        |> Country.findByCode (Country.Code code)
-                        |> Result.map .code
+                    validateCountry code Scope.Textile countries
                         |> Result.mapError (\err -> ( key, err ))
                 )
             )
 
 
-maybeCountryParser : String -> List Country -> Parser (ParseResult (Maybe Country.Code))
-maybeCountryParser key countries =
+maybeTextileCountryParser : String -> List Country -> Parser (ParseResult (Maybe Country.Code))
+maybeTextileCountryParser key countries =
     Query.string key
         |> Query.map
             (Maybe.map
                 (\code ->
-                    countries
-                        |> Country.findByCode (Country.Code code)
-                        |> Result.map (.code >> Just)
+                    validateCountry code Scope.Textile countries
+                        |> Result.map Just
                         |> Result.mapError (\err -> ( key, err ))
                 )
                 >> Maybe.withDefault (Ok Nothing)
