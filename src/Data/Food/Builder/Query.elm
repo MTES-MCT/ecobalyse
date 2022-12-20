@@ -197,6 +197,7 @@ encodeIngredient v =
         , ( "name", Encode.string v.name )
         , ( "mass", encodeMass v.mass )
         , ( "variant", encodeVariant v.variant )
+        , ( "country", Country.encodeCode v.country )
         ]
 
 
