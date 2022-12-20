@@ -27,6 +27,8 @@ Pour le score d'impacts, les facteurs de normalisation du score PEF sont conserv
 * les indicateurs d'impacts biodiversité sont introduits avec une pondération double à la moyenne des 16 indicateurs PEF initiaux (12,5%) ;
 * les autres pondérations sont proportionnels aux pondérations PEF initiales, mais réduite afin que la somme des pondérations reste bien à 100%.
 
+![](<../.gitbook/assets/image (1).png>)
+
 | Indicateur                                          | Pondération score PEF (%) | Pondération score d'impacts (%) |
 | --------------------------------------------------- | ------------------------- | ------------------------------- |
 | Changement climatique                               | 21,06                     | 21,06                           |

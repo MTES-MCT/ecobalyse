@@ -41,7 +41,7 @@ L'analyse comparée des impacts donne :&#x20;
 
 <figure><img src="../../.gitbook/assets/image (2) (3).png" alt=""><figcaption><p>Conventionnel vs bio - source: AGB3.0 via Simapro, EF3.0 (adapted)</p></figcaption></figure>
 
-<figure><img src="../../.gitbook/assets/image (1).png" alt=""><figcaption><p>source: AGB3.0 via Simapro, EF3.0 (adapted)</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1) (6).png" alt=""><figcaption><p>source: AGB3.0 via Simapro, EF3.0 (adapted)</p></figcaption></figure>
 
 {% hint style="info" %}
 **Axes de progrès ?**
