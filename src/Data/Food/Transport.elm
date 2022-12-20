@@ -41,12 +41,13 @@ inTonKilometers (Quantity.Quantity transport) =
 
 kilometerToTonKilometer : Length -> Mass -> Mass
 kilometerToTonKilometer length amount =
-    if length == Length.kilometers 0 || amount == Mass.metricTons 0 then
-        Mass.metricTons 0
+    Mass.metricTons
+        (if length == Length.kilometers 0 then
+            0
 
-    else
-        (Mass.inMetricTons amount / Length.inKilometers length)
-            |> Mass.metricTons
+         else
+            Mass.inMetricTons amount / Length.inKilometers length
+        )
 
 
 tonKilometers : Float -> Transport

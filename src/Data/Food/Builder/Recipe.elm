@@ -150,27 +150,21 @@ computeProcessImpacts defs item =
 
 
 computeIngredientImpacts : Db -> RecipeIngredient -> Impacts
-computeIngredientImpacts db ingredient =
+computeIngredientImpacts db ({ country, mass } as recipeIngredient) =
     let
         process =
-            case ingredient.variant of
-                BuilderQuery.Default ->
-                    ingredient.ingredient.default
+            getRecipeIngredientProcess recipeIngredient
 
-                BuilderQuery.Organic ->
-                    ingredient.ingredient.variants.organic
-                        |> Maybe.withDefault ingredient.ingredient.default
-
-        process_impacts =
+        processImpacts =
             process.impacts
-                |> Impact.mapImpacts (computeImpact ingredient.mass)
+                |> Impact.mapImpacts (computeImpact mass)
 
-        impacts =
+        baseImpacts =
             Impact.impactsFromDefinitons db.impacts
 
         transport =
             db.transports
-                |> Transport.getTransportBetween impacts france ingredient.country.code
+                |> Transport.getTransportBetween baseImpacts france country.code
 
         transportWithRatio =
             transport
@@ -178,7 +172,7 @@ computeIngredientImpacts db ingredient =
                 -- Cf https://fabrique-numerique.gitbook.io/ecobalyse/textile/transport#part-du-transport-aerien
                 |> Formula.transportRatio (Unit.Ratio 0)
 
-        transports_impact =
+        transportsImpact =
             Process.loadWellKnown db.processes
                 |> Result.map
                     (\wellKnown ->
@@ -190,7 +184,7 @@ computeIngredientImpacts db ingredient =
                                 (\( transportProcess, distance ) ->
                                     let
                                         tonKm =
-                                            ingredient.mass
+                                            mass
                                                 |> FoodTransport.kilometerToTonKilometer distance
                                     in
                                     transportProcess.impacts
@@ -204,13 +198,10 @@ computeIngredientImpacts db ingredient =
                                 )
                     )
                 |> Result.withDefault []
-
-        with_transport_impacts =
-            process_impacts
-                :: transports_impact
-                |> Impact.sumImpacts db.impacts
     in
-    with_transport_impacts
+    processImpacts
+        :: transportsImpact
+        |> Impact.sumImpacts db.impacts
 
 
 deletePackaging : Process.Code -> Query -> Query
@@ -281,6 +272,17 @@ fromQuery db query =
         (ingredientListFromQuery db query)
         (transformFromQuery db query)
         (packagingListFromQuery db query)
+
+
+getRecipeIngredientProcess : RecipeIngredient -> Process
+getRecipeIngredientProcess { ingredient, variant } =
+    case variant of
+        BuilderQuery.Default ->
+            ingredient.default
+
+        BuilderQuery.Organic ->
+            ingredient.variants.organic
+                |> Maybe.withDefault ingredient.default
 
 
 ingredientListFromQuery : Db -> Query -> Result String (List RecipeIngredient)
