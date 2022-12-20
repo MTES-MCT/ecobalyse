@@ -24,6 +24,14 @@
     "airTransportRatio": 0
   },
   {
+    "code": "BR",
+    "name": "Brésil",
+    "zone": "South_America",
+    "electricityProcessUuid": "5f95d446-59c1-4456-a0c3-e90a84c4f2d3",
+    "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
+    "airTransportRatio": 0.33
+  },
+  {
     "code": "CH",
     "name": "Suisse",
     "zone": "Europe",
@@ -128,6 +136,14 @@
     "airTransportRatio": 0
   },
   {
+    "code": "KE",
+    "name": "Kenya",
+    "zone": "Africa",
+    "electricityProcessUuid": "eac80c30-22c6-4445-b574-32d21e3be8d3",
+    "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
+    "airTransportRatio": 0.33
+  },
+  {
     "code": "KH",
     "name": "Cambodge",
     "zone": "Asia",
@@ -158,6 +174,22 @@
     "electricityProcessUuid": "e06b4e70-a9a6-4d9f-ad94-6fe3ff797da8",
     "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
     "airTransportRatio": 0
+  },
+  {
+    "code": "NZ",
+    "name": "Nouvelle-Zélande",
+    "zone": "Oceania",
+    "electricityProcessUuid": "b0ccaaaa-d72c-4d83-ad9d-3e414c494d58",
+    "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
+    "airTransportRatio": 0.33
+  },
+  {
+    "code": "PE",
+    "name": "Pérou",
+    "zone": "South_America",
+    "electricityProcessUuid": "eb99f3b1-d1d0-4b8c-9573-ad558ade66e7",
+    "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
+    "airTransportRatio": 0.33
   },
   {
     "code": "PK",
@@ -220,6 +252,14 @@
     "name": "Taiwan",
     "zone": "Asia",
     "electricityProcessUuid": "b1fda481-0247-4b08-a86f-09847e695e9d",
+    "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
+    "airTransportRatio": 0.33
+  },
+  {
+    "code": "US",
+    "name": "Etats-Unis",
+    "zone": "North_America",
+    "electricityProcessUuid": "09c094a1-2ba7-4177-9258-4ec1e0c12cb8",
     "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
     "airTransportRatio": 0.33
   },
