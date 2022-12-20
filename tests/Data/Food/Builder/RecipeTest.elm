@@ -51,7 +51,7 @@ suite =
                             [ ( "acd", Unit.impact 0.011003657548498127 )
                             , ( "bvi", Unit.impact 0.710392 )
                             , ( "cch", Unit.impact 0.48260009555595884 )
-                            , ( "ecs", Unit.impact 78.50139639258865 )
+                            , ( "ecs", Unit.impact 84.8347574615068 )
                             , ( "etf", Unit.impact 32.575650059926154 )
                             , ( "fru", Unit.impact 9.080992944015192 )
                             , ( "fwe", Unit.impact 0.00015638016353461696 )
