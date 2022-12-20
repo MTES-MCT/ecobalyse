@@ -27,6 +27,7 @@ import Data.Food.Builder.Query as BuilderQuery exposing (Query)
 import Data.Food.Ingredient as Ingredient exposing (Id, Ingredient)
 import Data.Food.Process as Process exposing (Process)
 import Data.Impact as Impact exposing (Impacts)
+import Data.Scope as Scope
 import Data.Textile.Formula as Formula
 import Data.Transport as Transport
 import Data.Unit as Unit
@@ -240,7 +241,7 @@ encodeResults : List Impact.Definition -> Results -> Encode.Value
 encodeResults definitions results =
     let
         encodeImpacts =
-            Impact.encodeImpacts definitions Impact.Food
+            Impact.encodeImpacts definitions Scope.Food
     in
     Encode.object
         [ ( "impacts", encodeImpacts results.impacts )

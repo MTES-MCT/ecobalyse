@@ -14,6 +14,7 @@ module Data.Transport exposing
 
 import Data.Country as Country
 import Data.Impact as Impact exposing (Impacts)
+import Data.Scope as Scope
 import Dict.Any as Dict exposing (AnyDict)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
@@ -159,7 +160,7 @@ encode definitions v =
         [ ( "road", encodeKm v.road )
         , ( "sea", encodeKm v.sea )
         , ( "air", encodeKm v.air )
-        , ( "impacts", Impact.encodeImpacts definitions Impact.Textile v.impacts )
+        , ( "impacts", Impact.encodeImpacts definitions Scope.Textile v.impacts )
         ]
 
 

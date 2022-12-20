@@ -7,6 +7,7 @@ module Views.Impact exposing
 
 import Data.Gitbook as Gitbook
 import Data.Impact as Impact
+import Data.Scope exposing (Scope)
 import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
@@ -116,7 +117,7 @@ type alias SelectorConfig msg =
     , switchImpact : Impact.Trigram -> msg
     , selectedFunctionalUnit : Unit.Functional
     , switchFunctionalUnit : Unit.Functional -> msg
-    , scope : Impact.Scope
+    , scope : Scope
     }
 
 

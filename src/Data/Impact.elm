@@ -2,7 +2,6 @@ module Data.Impact exposing
     ( Definition
     , Impacts
     , Quality(..)
-    , Scope(..)
     , Source
     , Trigram(..)
     , computeAggregatedScore
@@ -21,7 +20,6 @@ module Data.Impact exposing
     , mapImpacts
     , noImpacts
     , parseTrigram
-    , scopeToString
     , sumImpacts
     , toProtectionAreas
     , toString
@@ -30,6 +28,7 @@ module Data.Impact exposing
     , updateImpact
     )
 
+import Data.Scope as Scope exposing (Scope)
 import Data.Unit as Unit
 import Dict
 import Dict.Any as AnyDict exposing (AnyDict)
@@ -84,11 +83,6 @@ type alias ProtectionAreas =
     , resources : Unit.Impact -- Ressources
     , health : Unit.Impact -- Santé environnementale
     }
-
-
-type Scope
-    = Textile
-    | Food
 
 
 invalid : Definition
@@ -153,7 +147,7 @@ decodeList =
                 |> Pipe.required "quality" decodeQuality
                 |> Pipe.required "pef" (Decode.maybe decodeAggregatedScoreData)
                 |> Pipe.required "ecoscore" (Decode.maybe decodeAggregatedScoreData)
-                |> Pipe.required "scopes" (Decode.list decodeScope)
+                |> Pipe.required "scopes" (Decode.list Scope.decode)
 
         toImpact ( key, { source, label, description, unit, decimals, quality, pefData, scoreData, scopes } ) =
             Definition (trg key) source label description unit decimals quality pefData scoreData scopes
@@ -175,33 +169,6 @@ decodeAggregatedScoreData =
         (Decode.field "color" Decode.string)
         (Decode.field "normalization" Unit.decodeImpact)
         (Decode.field "weighting" Unit.decodeRatio)
-
-
-decodeScope : Decoder Scope
-decodeScope =
-    Decode.string
-        |> Decode.andThen
-            (\scope ->
-                case scope of
-                    "textile" ->
-                        Decode.succeed Textile
-
-                    "food" ->
-                        Decode.succeed Food
-
-                    _ ->
-                        Decode.fail <| "Couldn't decode unknown scope " ++ scope
-            )
-
-
-scopeToString : Scope -> String
-scopeToString scope =
-    case scope of
-        Food ->
-            "Alimentaire"
-
-        Textile ->
-            "Textile"
 
 
 decodeQuality : Decoder Quality

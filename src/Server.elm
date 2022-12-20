@@ -11,6 +11,7 @@ import Data.Food.Builder.Recipe as BuilderRecipe
 import Data.Food.Ingredient as Ingredient
 import Data.Food.Process as FoodProcess
 import Data.Impact as Impact
+import Data.Scope as Scope
 import Data.Textile.Db as TextileDb
 import Data.Textile.Inputs as Inputs
 import Data.Textile.Material as Material exposing (Material)
@@ -67,7 +68,7 @@ toResponse request encodedResult =
 toAllImpactsSimple : List Impact.Definition -> Simulator -> Encode.Value
 toAllImpactsSimple definitions { inputs, impacts } =
     Encode.object
-        [ ( "impacts", Impact.encodeImpacts definitions Impact.Textile impacts )
+        [ ( "impacts", Impact.encodeImpacts definitions Scope.Textile impacts )
         , ( "description", inputs |> Inputs.toString |> Encode.string )
         , ( "query", inputs |> Inputs.toQuery |> Inputs.encodeQuery )
         ]
@@ -79,7 +80,7 @@ toSingleImpactSimple definitions trigram { inputs, impacts } =
         [ ( "impacts"
           , impacts
                 |> Impact.filterImpacts (\trg _ -> trigram == trg)
-                |> Impact.encodeImpacts definitions Impact.Textile
+                |> Impact.encodeImpacts definitions Scope.Textile
           )
         , ( "description", inputs |> Inputs.toString |> Encode.string )
         , ( "query", inputs |> Inputs.toQuery |> Inputs.encodeQuery )
