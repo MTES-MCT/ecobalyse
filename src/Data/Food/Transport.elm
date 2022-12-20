@@ -1,5 +1,5 @@
 module Data.Food.Transport exposing
-    ( Transport
+    ( TransportationQuantity
     , getLength
     , inKgKilometers
     , inTonKilometers
@@ -12,24 +12,24 @@ import Mass exposing (Mass)
 import Quantity
 
 
-type alias Transport =
+type alias TransportationQuantity =
     Quantity.Quantity Float (Quantity.Product Mass.Kilograms Length.Meters)
 
 
-getLength : Mass -> Transport -> Length
+getLength : Mass -> TransportationQuantity -> Length
 getLength mass transport =
     Quantity.over mass transport
 
 
-inKgKilometers : Transport -> Float
+inKgKilometers : TransportationQuantity -> Float
 inKgKilometers transport =
     -- Transport is stored in kg.m, we want it in kg.km
     inTonKilometers transport
         -- 1 km == 1000m
-        * 1000
+        / 1000
 
 
-inTonKilometers : Transport -> Float
+inTonKilometers : TransportationQuantity -> Float
 inTonKilometers (Quantity.Quantity transport) =
     -- Transport is stored in kg.m, we want it in ton.km
     transport
@@ -46,11 +46,11 @@ kilometerToTonKilometer length amount =
             0
 
          else
-            Mass.inMetricTons amount / Length.inKilometers length
+            Mass.inMetricTons amount * Length.inKilometers length
         )
 
 
-tonKilometers : Float -> Transport
+tonKilometers : Float -> TransportationQuantity
 tonKilometers amount =
     -- Could equally be written `Quantity.product  (Mass.metricTons 1) (Length.kilometers amount)
     Quantity.product (Mass.metricTons amount) (Length.kilometers 1)

@@ -26,12 +26,12 @@ import Data.Food.Builder.Db exposing (Db)
 import Data.Food.Builder.Query as BuilderQuery exposing (Query)
 import Data.Food.Ingredient as Ingredient exposing (Id, Ingredient)
 import Data.Food.Process as Process exposing (Process)
-import Data.Food.Transport as FoodTransport
 import Data.Impact as Impact exposing (Impacts)
 import Data.Textile.Formula as Formula
 import Data.Transport as Transport
 import Data.Unit as Unit
 import Json.Encode as Encode
+import Length
 import Mass exposing (Mass)
 import Quantity
 import Result.Extra as RE
@@ -164,9 +164,10 @@ computeIngredientImpacts db ({ country, mass } as recipeIngredient) =
 
         transport =
             db.transports
-                |> Transport.getTransportBetween baseImpacts france country.code
+                |> Transport.getTransportBetween baseImpacts country.code france
 
         transportWithRatio =
+            -- Note: this reuses the road/sea transport distances ratio computation stuff
             transport
                 -- We want the transport ratio for the plane to be 0 for food (for now)
                 -- Cf https://fabrique-numerique.gitbook.io/ecobalyse/textile/transport#part-du-transport-aerien
@@ -182,17 +183,12 @@ computeIngredientImpacts db ({ country, mass } as recipeIngredient) =
                         ]
                             |> List.map
                                 (\( transportProcess, distance ) ->
-                                    let
-                                        tonKm =
-                                            mass
-                                                |> FoodTransport.kilometerToTonKilometer distance
-                                    in
                                     transportProcess.impacts
                                         |> Impact.mapImpacts
                                             (\_ impact ->
                                                 impact
                                                     |> Unit.impactToFloat
-                                                    |> (*) (Mass.inKilograms tonKm)
+                                                    |> (*) (Mass.inMetricTons mass * Length.inKilometers distance)
                                                     |> Unit.impact
                                             )
                                 )

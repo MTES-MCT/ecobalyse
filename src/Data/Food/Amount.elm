@@ -9,7 +9,7 @@ module Data.Food.Amount exposing
     , toStandardFloat
     )
 
-import Data.Food.Transport as Transport exposing (Transport)
+import Data.Food.Transport as Transport exposing (TransportationQuantity)
 import Energy exposing (Energy)
 import Length exposing (Length)
 import Mass exposing (Mass)
@@ -23,7 +23,7 @@ type Amount
     | EnergyInMJ Energy
     | Length Length
     | Mass Mass
-    | Transport Transport
+    | Transport TransportationQuantity
     | Volume Volume
 
 
