@@ -7,6 +7,7 @@ module Page.Textile.Examples exposing
     )
 
 import Data.Impact as Impact
+import Data.Scope as Scope
 import Data.Session exposing (Session)
 import Data.Textile.Inputs as Inputs
 import Data.Textile.Simulator as Simulator
@@ -79,7 +80,7 @@ view session { impact, funit } =
                         , switchImpact = SwitchImpact
                         , selectedFunctionalUnit = funit
                         , switchFunctionalUnit = SwitchFunctionalUnit
-                        , scope = Impact.Textile
+                        , scope = Scope.Textile
                         }
                     ]
                 ]

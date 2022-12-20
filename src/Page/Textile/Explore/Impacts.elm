@@ -1,6 +1,7 @@
 module Page.Textile.Explore.Impacts exposing (table)
 
 import Data.Impact as Impact exposing (Definition)
+import Data.Scope as Scope
 import Data.Textile.Db as Db
 import Data.Unit as Unit
 import Html exposing (..)
@@ -94,11 +95,11 @@ table { detailed } =
                         span
                             [ class "badge"
                             , classList
-                                [ ( "bg-success", scope == Impact.Food )
-                                , ( "bg-info", scope == Impact.Textile )
+                                [ ( "bg-success", scope == Scope.Food )
+                                , ( "bg-info", scope == Scope.Textile )
                                 ]
                             ]
-                            [ text <| Impact.scopeToString scope ]
+                            [ text <| Scope.toLabel scope ]
                     )
                 >> div [ class "d-flex gap-1" ]
       }

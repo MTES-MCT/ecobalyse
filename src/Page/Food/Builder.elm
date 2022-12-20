@@ -15,6 +15,7 @@ import Data.Food.Builder.Recipe as Recipe exposing (Recipe)
 import Data.Food.Ingredient as Ingredient exposing (Id, Ingredient)
 import Data.Food.Process as Process exposing (Process)
 import Data.Impact as Impact exposing (Impacts)
+import Data.Scope as Scope
 import Data.Session as Session exposing (Session)
 import Data.Unit as Unit
 import Html exposing (..)
@@ -747,7 +748,7 @@ sidebarView session db model results =
             -- We don't use the following two configs
             , selectedFunctionalUnit = Unit.PerItem
             , switchFunctionalUnit = always NoOp
-            , scope = Impact.Food
+            , scope = Scope.Food
             }
         , SummaryComp.view
             { header = []
@@ -773,7 +774,7 @@ sidebarView session db model results =
             , bookmarkName = model.bookmarkName
             , impact = model.impact
             , funit = Unit.PerItem
-            , scope = BookmarkView.Food
+            , scope = Scope.Food
             , viewMode = ViewMode.Simple
             , copyToClipBoard = CopyToClipBoard
             , compare = NoOp
