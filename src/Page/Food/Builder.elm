@@ -461,11 +461,12 @@ updateIngredientFormView { excluded, db, ingredient } =
                 ]
             , CountrySelect.view
                 { attributes = [ class "form-select form-select-sm" ]
+                , countries = db.countries
                 , onSelect =
                     \countryCode ->
                         event { ingredientQuery | country = countryCode }
+                , scope = Scope.Food
                 , selectedCountry = ingredientQuery.country
-                , countries = db.countries
                 }
             , button
                 [ type_ "button"

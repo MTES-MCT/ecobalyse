@@ -7,6 +7,7 @@ import Data.Country as Country
 import Data.Env as Env
 import Data.Gitbook as Gitbook
 import Data.Impact as Impact
+import Data.Scope as Scope
 import Data.Textile.Db exposing (Db)
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
 import Data.Textile.HeatSource as HeatSource exposing (HeatSource)
@@ -123,9 +124,10 @@ countryField { db, current, inputs, updateCountry } =
                         , disabled (not current.editable || not current.enabled)
                         , onInput (Country.codeFromString >> updateCountry current.label)
                         ]
-                    , selectedCountry = current.country.code
-                    , onSelect = updateCountry current.label
                     , countries = db.countries
+                    , onSelect = updateCountry current.label
+                    , scope = Scope.Textile
+                    , selectedCountry = current.country.code
                     }
         ]
 

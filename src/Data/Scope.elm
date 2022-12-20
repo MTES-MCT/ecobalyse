@@ -2,6 +2,7 @@ module Data.Scope exposing
     ( Scope(..)
     , decode
     , encode
+    , only
     , toLabel
     )
 
@@ -37,6 +38,11 @@ fromString string =
 
         _ ->
             Err <| "Couldn't decode unknown scope " ++ string
+
+
+only : Scope -> List { a | scopes : List Scope } -> List { a | scopes : List Scope }
+only scope =
+    List.filter (.scopes >> List.member scope)
 
 
 toLabel : Scope -> String

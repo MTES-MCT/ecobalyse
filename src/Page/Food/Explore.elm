@@ -634,9 +634,10 @@ viewPlantTransport itemViewDataConfig items selectedCountry countries =
         countrySelector =
             Views.CountrySelect.view
                 { attributes = [ class "form-select w-50 d-inline" ]
-                , selectedCountry = selectedCountry
-                , onSelect = CountrySelected
                 , countries = countries
+                , onSelect = CountrySelected
+                , scope = Scope.Food
+                , selectedCountry = selectedCountry
                 }
 
         header =
