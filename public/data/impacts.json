@@ -468,7 +468,7 @@
     "pef": null,
     "ecoscore": {
       "color": "#00A300",
-      "normalization": 1.3459e14,
+      "normalization": 1.9517e4,
       "weighting": 0.174
     },
     "scopes": ["food"]
