@@ -5,6 +5,7 @@ import Data.Gitbook as Gitbook
 import Data.Textile.Db as Db
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import Page.Textile.Explore.Common as Common
 import Page.Textile.Explore.Table exposing (Table)
 import Route
 import Views.Format as Format
@@ -46,5 +47,8 @@ table { detailed } =
                     [ Format.ratio country.airTransportRatio
                     , hypothesisDocLink
                     ]
+      }
+    , { label = "Domaines"
+      , toCell = Common.scopesView
       }
     ]

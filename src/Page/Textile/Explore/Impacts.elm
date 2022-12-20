@@ -1,11 +1,11 @@
 module Page.Textile.Explore.Impacts exposing (table)
 
 import Data.Impact as Impact exposing (Definition)
-import Data.Scope as Scope
 import Data.Textile.Db as Db
 import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import Page.Textile.Explore.Common as Common
 import Page.Textile.Explore.Table exposing (Table)
 import Route
 import Views.Format as Format
@@ -88,20 +88,7 @@ table { detailed } =
                     [ text def.source.label ]
       }
     , { label = "Domaines"
-      , toCell =
-            .scopes
-                >> List.map
-                    (\scope ->
-                        span
-                            [ class "badge"
-                            , classList
-                                [ ( "bg-success", scope == Scope.Food )
-                                , ( "bg-info", scope == Scope.Textile )
-                                ]
-                            ]
-                            [ text <| Scope.toLabel scope ]
-                    )
-                >> div [ class "d-flex gap-1" ]
+      , toCell = Common.scopesView
       }
     , { label = "Description"
       , toCell =
