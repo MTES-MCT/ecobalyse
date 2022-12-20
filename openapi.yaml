@@ -752,7 +752,7 @@ components:
           description: "Lien hypertexte vers la documentation de l'API"
     CountryListResponse:
       type: array
-      description: Liste des pays
+      description: Liste des pays.
       items:
         type: object
         properties:
@@ -760,6 +760,17 @@ components:
             type: string
           name:
             type: string
+          scopes:
+            type: array
+            items:
+              type: string
+            description: |
+              Champ d'application :
+
+              - `["food"]` signifie que le pays n'est mobilisable que pour l'Alimentaire ;
+              - `["textile"]` signifie que le pays n'est mobilisable que pour le Textile ;
+              - `["food", "textile"]` signifie que le pays peut être utilisé dans les domaines Alimentaire et Textile.
+
     MaterialListResponse:
       type: array
       description: Liste des matières

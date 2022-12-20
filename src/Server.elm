@@ -111,10 +111,11 @@ executeTextileQuery textileDb request encoder =
 
 
 encodeCountry : Country -> Encode.Value
-encodeCountry { code, name } =
+encodeCountry { code, name, scopes } =
     Encode.object
         [ ( "code", Country.encodeCode code )
         , ( "name", Encode.string name )
+        , ( "scopes", Encode.list Scope.encode scopes )
         ]
 
 
