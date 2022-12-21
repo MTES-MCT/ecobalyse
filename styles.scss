@@ -94,6 +94,12 @@ input[type="number"].no-arrows {
   }
 }
 
+// Rapidoc overriden styles
+// @see https://rapidocweb.com/css-parts.html
+rapi-doc::part(section-endpoint-head-path) {
+  font-size: 14px;
+}
+
 // App styles
 
 body {
