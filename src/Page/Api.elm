@@ -52,12 +52,15 @@ changelog =
       , level = "major"
       , domains = [ "Alimentaire", "Textile" ]
       , md =
-            """La liste des pays est désormais istinctement accessible en fonction du domaine\u{00A0}:
+            """La liste des pays est désormais distinctement accessible en fonction du domaine\u{00A0}:
 
 - pour le textile, au point d'entrée `textile/countries`
 - pour l'alimentaire, au point d'entrée `food/countries`
 
-**Note\u{00A0}:** L'ancien point d'entrée `/countries` est redirigé vers `textile/countries`.
+De la même façon, l'ensemble des points d'entrée textile sont désormais préfixés par `textile`, en
+cohérence avec ceux de l'alimentaire qui le sont par `food`.
+
+L'ancien point d'entrée `/countries` est donc redirigé vers `textile/countries`.
 """
       }
     , { date = "30 novembre 2022"
