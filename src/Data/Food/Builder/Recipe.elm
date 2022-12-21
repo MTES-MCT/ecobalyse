@@ -135,7 +135,11 @@ compute db =
                             |> List.concat
                             |> updateImpacts
                   , recipe =
-                        { ingredients = updateImpacts ingredientsImpacts
+                        { ingredients =
+                            [ updateImpacts ingredientsImpacts
+                            , ingredientsTransport.impacts
+                            ]
+                                |> Impact.sumImpacts db.impacts
                         , transform = transformImpacts
                         , transports = ingredientsTransport
                         }
@@ -208,6 +212,7 @@ computeIngredientTransport db { country, mass } =
                     )
                 |> Result.withDefault []
                 |> Impact.sumImpacts db.impacts
+                |> Impact.updateAggregatedScores db.impacts
     }
 
 
@@ -334,8 +339,11 @@ packagingFromQuery { processes } { code, mass } =
 
 recipeStepImpacts : Db -> Results -> Impacts
 recipeStepImpacts db { recipe } =
-    [ recipe.ingredients, recipe.transform ]
-        |> Impact.sumImpacts db.impacts
+    Impact.sumImpacts db.impacts
+        [ recipe.ingredients
+        , recipe.transform
+        , recipe.transports.impacts
+        ]
 
 
 resetTransform : Query -> Query
