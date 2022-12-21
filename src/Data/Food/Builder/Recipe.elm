@@ -11,7 +11,6 @@ module Data.Food.Builder.Recipe exposing
     , encodeResults
     , fromQuery
     , ingredientQueryFromIngredient
-    , recipeStepImpacts
     , resetTransform
     , serializeQuery
     , setTransform
@@ -68,7 +67,8 @@ type alias Recipe =
 type alias Results =
     { impacts : Impacts
     , recipe :
-        { ingredients : Impacts
+        { impacts : Impacts
+        , ingredients : Impacts
         , transform : Impacts
         , transports : Transport
         }
@@ -110,6 +110,7 @@ compute db =
                     ingredientsImpacts =
                         ingredients
                             |> List.map computeIngredientImpacts
+                            |> updateImpacts
 
                     ingredientsTransport =
                         ingredients
@@ -121,32 +122,30 @@ compute db =
                             |> Maybe.map (computeProcessImpacts db.impacts >> List.singleton >> updateImpacts)
                             |> Maybe.withDefault Impact.noImpacts
 
+                    recipeImpacts =
+                        updateImpacts
+                            [ ingredientsImpacts
+                            , transformImpacts
+                            , ingredientsTransport.impacts
+                            ]
+
                     packagingImpacts =
                         packaging
                             |> List.map (computeProcessImpacts db.impacts)
+                            |> updateImpacts
                 in
                 ( recipe
                 , { impacts =
-                        [ ingredientsImpacts
-                        , List.singleton ingredientsTransport.impacts
-                        , List.singleton transformImpacts
-                        , packagingImpacts
-                        ]
-                            |> List.concat
-                            |> updateImpacts
+                        Impact.sumImpacts db.impacts
+                            [ recipeImpacts, packagingImpacts ]
                   , recipe =
-                        { ingredients =
-                            [ updateImpacts ingredientsImpacts
-                            , ingredientsTransport.impacts
-                            ]
-                                |> Impact.sumImpacts db.impacts
+                        { impacts = recipeImpacts
+                        , ingredients = ingredientsImpacts
                         , transform = transformImpacts
                         , transports = ingredientsTransport
                         }
-                  , packaging = updateImpacts packagingImpacts
-                  , transports =
-                        [ ingredientsTransport ]
-                            |> Transport.sum db.impacts
+                  , packaging = packagingImpacts
+                  , transports = ingredientsTransport
                   }
                 )
             )
@@ -335,15 +334,6 @@ packagingFromQuery { processes } { code, mass } =
     Result.map2 Packaging
         (Process.findByCode processes code)
         (Ok mass)
-
-
-recipeStepImpacts : Db -> Results -> Impacts
-recipeStepImpacts db { recipe } =
-    Impact.sumImpacts db.impacts
-        [ recipe.ingredients
-        , recipe.transform
-        , recipe.transports.impacts
-        ]
 
 
 resetTransform : Query -> Query

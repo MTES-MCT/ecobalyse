@@ -788,7 +788,7 @@ sidebarView session db model results =
                 ]
             , footer = []
             }
-        , stepResultsView db model results
+        , stepResultsView model results
         , protectionAreaView session results.impacts
         , BookmarkView.view
             { session = session
@@ -846,7 +846,7 @@ stepListView db { impact, selectedPackaging, selectedTransform } recipe results 
         [ div [ class "card" ]
             (div [ class "card-header d-flex align-items-center justify-content-between" ]
                 [ h5 [ class "mb-0" ] [ text "Recette" ]
-                , Recipe.recipeStepImpacts db results
+                , results.recipe.impacts
                     |> Format.formatFoodSelectedImpact impact
                     |> List.singleton
                     |> span [ class "fw-bold" ]
@@ -862,17 +862,15 @@ stepListView db { impact, selectedPackaging, selectedTransform } recipe results 
         ]
 
 
-stepResultsView : Db -> Model -> Recipe.Results -> Html Msg
-stepResultsView db model results =
+stepResultsView : Model -> Recipe.Results -> Html Msg
+stepResultsView model results =
     let
         toFloat =
             Impact.getImpact model.impact.trigram >> Unit.impactToFloat
 
         stepsData =
             [ { label = "Recette"
-
-              -- FIXME: we shouldn't need Recipe.recipeStepImpacts, rather using a precomputed property
-              , impact = toFloat <| Recipe.recipeStepImpacts db results
+              , impact = toFloat results.recipe.impacts
               }
             , { label = "Emballage"
               , impact = toFloat results.packaging
