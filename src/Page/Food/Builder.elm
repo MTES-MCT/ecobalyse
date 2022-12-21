@@ -42,6 +42,7 @@ import Views.Format as Format
 import Views.Icon as Icon
 import Views.Impact as ImpactView
 import Views.Spinner as Spinner
+import Views.Transport as TransportView
 
 
 type alias Model =
@@ -432,14 +433,23 @@ updateIngredientFormView { excluded, db, ingredient } =
                         }
                 )
         )
-        (span
-            [ class "flex-grow-1 d-flex align-items-center gap-2"
+        (div
+            [ class "d-flex align-items-center gap-2"
             , classList [ ( "text-muted", ingredient.ingredient.variants.organic == Nothing ) ]
             ]
-            [ label [ class "w-25" ]
+            [ CountrySelect.view
+                { attributes = [ class "form-select form-select-sm" ]
+                , countries = db.countries
+                , onSelect =
+                    \countryCode ->
+                        event { ingredientQuery | country = countryCode }
+                , scope = Scope.Food
+                , selectedCountry = ingredientQuery.country
+                }
+            , label [ class "d-flex gap-1" ]
                 [ input
                     [ type_ "checkbox"
-                    , class "form-check-input m-1"
+                    , class "form-check-input no-outline"
                     , attribute "role" "switch"
                     , checked <| ingredient.variant == Query.Organic
                     , disabled <| ingredient.ingredient.variants.organic == Nothing
@@ -459,15 +469,6 @@ updateIngredientFormView { excluded, db, ingredient } =
                     []
                 , text "bio"
                 ]
-            , CountrySelect.view
-                { attributes = [ class "form-select form-select-sm" ]
-                , countries = db.countries
-                , onSelect =
-                    \countryCode ->
-                        event { ingredientQuery | country = countryCode }
-                , scope = Scope.Food
-                , selectedCountry = ingredientQuery.country
-                }
             , button
                 [ type_ "button"
                 , class "btn btn-sm btn-outline-primary"
@@ -726,6 +727,26 @@ ingredientSelectorView selectedIngredient excluded event ingredients =
             ]
 
 
+recipeTransportsView : Impact.Definition -> Recipe.Results -> List (Html Msg)
+recipeTransportsView selectedImpact results =
+    [ div [ class "card-header d-flex align-items-center justify-content-between border-top" ]
+        [ h6 [ class "mb-0" ] [ text "Transports" ]
+        , results.recipe.transports.impacts
+            |> Format.formatFoodSelectedImpact selectedImpact
+        ]
+    , div [ class "card-body d-flex justify-content-between align-items-center gap-1 text-muted py-2 fs-7" ]
+        [ span [ class "text-nowrap" ] [ text "Transport total cumulé à cette étape" ]
+        , results.recipe.transports
+            |> TransportView.view
+                { fullWidth = False
+                , airTransportLabel = Nothing
+                , seaTransportLabel = Nothing
+                , roadTransportLabel = Nothing
+                }
+        ]
+    ]
+
+
 rowTemplate : Html Msg -> Html Msg -> Html Msg -> Html Msg
 rowTemplate input content action =
     li [ class "list-group-item d-flex align-items-center gap-2" ]
@@ -833,6 +854,7 @@ stepListView db { impact, selectedPackaging, selectedTransform } recipe results 
                 :: List.concat
                     [ ingredientListView db impact recipe results
                     , transformView db impact selectedTransform recipe results
+                    , recipeTransportsView impact results
                     ]
             )
         , div [ class "card" ]
@@ -852,6 +874,9 @@ stepResultsView db model results =
               }
             , { label = "Emballage"
               , impact = toFloat results.packaging
+              }
+            , { label = "Transports"
+              , impact = toFloat results.transports.impacts
               }
             ]
 

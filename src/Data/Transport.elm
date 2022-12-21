@@ -9,6 +9,7 @@ module Data.Transport exposing
     , encode
     , getTransportBetween
     , roadSeaTransportRatio
+    , sum
     , totalKm
     )
 
@@ -63,6 +64,20 @@ add a b =
         , sea = b.sea |> Quantity.plus a.sea
         , air = b.air |> Quantity.plus a.air
     }
+
+
+sum : List Impact.Definition -> List Transport -> Transport
+sum defs =
+    List.foldl
+        (\{ road, sea, air, impacts } acc ->
+            { acc
+                | road = acc.road |> Quantity.plus road
+                , sea = acc.sea |> Quantity.plus sea
+                , air = acc.air |> Quantity.plus air
+                , impacts = Impact.sumImpacts defs [ acc.impacts, impacts ]
+            }
+        )
+        (default (Impact.impactsFromDefinitons defs))
 
 
 emptyDistances : Distances

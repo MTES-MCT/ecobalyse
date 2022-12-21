@@ -29,7 +29,7 @@ import Data.Food.Process as Process exposing (Process)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Scope as Scope
 import Data.Textile.Formula as Formula
-import Data.Transport as Transport
+import Data.Transport as Transport exposing (Transport)
 import Data.Unit as Unit
 import Json.Encode as Encode
 import Length
@@ -70,8 +70,10 @@ type alias Results =
     , recipe :
         { ingredients : Impacts
         , transform : Impacts
+        , transports : Transport
         }
     , packaging : Impacts
+    , transports : Transport
     }
 
 
@@ -107,7 +109,12 @@ compute db =
 
                     ingredientsImpacts =
                         ingredients
-                            |> List.map (computeIngredientImpacts db)
+                            |> List.map computeIngredientImpacts
+
+                    ingredientsTransport =
+                        ingredients
+                            |> List.map (computeIngredientTransport db)
+                            |> Transport.sum db.impacts
 
                     transformImpacts =
                         transform
@@ -121,6 +128,7 @@ compute db =
                 ( recipe
                 , { impacts =
                         [ ingredientsImpacts
+                        , List.singleton ingredientsTransport.impacts
                         , List.singleton transformImpacts
                         , packagingImpacts
                         ]
@@ -129,8 +137,12 @@ compute db =
                   , recipe =
                         { ingredients = updateImpacts ingredientsImpacts
                         , transform = transformImpacts
+                        , transports = ingredientsTransport
                         }
                   , packaging = updateImpacts packagingImpacts
+                  , transports =
+                        [ ingredientsTransport ]
+                            |> Transport.sum db.impacts
                   }
                 )
             )
@@ -150,37 +162,37 @@ computeProcessImpacts defs item =
         |> Impact.updateAggregatedScores defs
 
 
-computeIngredientImpacts : Db -> RecipeIngredient -> Impacts
-computeIngredientImpacts db ({ country, mass } as recipeIngredient) =
+computeIngredientImpacts : RecipeIngredient -> Impacts
+computeIngredientImpacts ({ mass } as recipeIngredient) =
+    recipeIngredient
+        |> getRecipeIngredientProcess
+        |> .impacts
+        |> Impact.mapImpacts (computeImpact mass)
+
+
+computeIngredientTransport : Db -> RecipeIngredient -> Transport
+computeIngredientTransport db { country, mass } =
     let
-        process =
-            getRecipeIngredientProcess recipeIngredient
-
-        processImpacts =
-            process.impacts
-                |> Impact.mapImpacts (computeImpact mass)
-
         baseImpacts =
             Impact.impactsFromDefinitons db.impacts
 
         transport =
             db.transports
                 |> Transport.getTransportBetween baseImpacts country.code france
-
-        transportWithRatio =
-            -- Note: this reuses the road/sea transport distances ratio computation stuff
-            transport
-                -- We want the transport ratio for the plane to be 0 for food (for now)
-                -- Cf https://fabrique-numerique.gitbook.io/ecobalyse/textile/transport#part-du-transport-aerien
+                -- Notes:
+                -- - This reuses the road/sea transport distances ratio computation stuff
+                -- - We want the transport ratio for the plane to be 0 for food (for now)
                 |> Formula.transportRatio (Unit.Ratio 0)
-
-        transportsImpact =
-            Process.loadWellKnown db.processes
+    in
+    { transport
+        | impacts =
+            db.processes
+                |> Process.loadWellKnown
                 |> Result.map
-                    (\wellKnown ->
-                        [ ( wellKnown.lorryTransport, transportWithRatio.road )
-                        , ( wellKnown.boatTransport, transportWithRatio.sea )
-                        , ( wellKnown.planeTransport, transportWithRatio.air )
+                    (\{ lorryTransport, boatTransport, planeTransport } ->
+                        [ ( lorryTransport, transport.road )
+                        , ( boatTransport, transport.sea )
+                        , ( planeTransport, transport.air )
                         ]
                             |> List.map
                                 (\( transportProcess, distance ) ->
@@ -195,10 +207,8 @@ computeIngredientImpacts db ({ country, mass } as recipeIngredient) =
                                 )
                     )
                 |> Result.withDefault []
-    in
-    processImpacts
-        :: transportsImpact
-        |> Impact.sumImpacts db.impacts
+                |> Impact.sumImpacts db.impacts
+    }
 
 
 deletePackaging : Process.Code -> Query -> Query
