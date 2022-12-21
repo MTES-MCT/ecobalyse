@@ -870,6 +870,8 @@ stepResultsView db model results =
 
         stepsData =
             [ { label = "Recette"
+
+              -- FIXME: we shouldn't need Recipe.recipeStepImpacts, rather using a precomputed property
               , impact = toFloat <| Recipe.recipeStepImpacts db results
               }
             , { label = "Emballage"
