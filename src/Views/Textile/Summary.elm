@@ -164,7 +164,7 @@ summaryChartsView { session, impact, funit, reusable } ({ inputs } as simulator)
                         (inputs
                             |> Inputs.toQuery
                             |> Just
-                            |> Route.TextileSimulator Impact.defaultTrigram Unit.PerItem ViewMode.Simple
+                            |> Route.TextileSimulator Impact.defaultTextileTrigram Unit.PerItem ViewMode.Simple
                         )
                     ]
                     [ text "Reprendre cette simulation" ]

@@ -33,7 +33,7 @@ type Msg
 
 init : Session -> ( Model, Session, Cmd Msg )
 init session =
-    ( { impact = Impact.defaultTrigram
+    ( { impact = Impact.defaultTextileTrigram
       , funit = Unit.PerItem
       }
     , session
@@ -59,7 +59,7 @@ viewExample session funit impact query =
             { session = session
             , impact =
                 Impact.getDefinition impact session.db.impacts
-                    |> Result.withDefault Impact.invalid
+                    |> Result.withDefault (Impact.invalid Scope.Textile)
             , funit = funit
             , reusable = True
             }

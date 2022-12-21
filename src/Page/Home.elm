@@ -8,6 +8,7 @@ module Page.Home exposing
 
 import Data.Gitbook as Gitbook
 import Data.Impact as Impact
+import Data.Scope as Scope
 import Data.Session exposing (Session)
 import Data.Textile.Inputs as Inputs
 import Data.Textile.Simulator as Simulator
@@ -67,7 +68,7 @@ viewHero session =
                     [ div [ class "col-md-6 text-center text-md-end py-2" ]
                         [ a
                             [ class "btn btn-lg btn-primary"
-                            , Route.href (Route.TextileSimulator Impact.defaultTrigram Unit.PerItem ViewMode.Simple Nothing)
+                            , Route.href (Route.TextileSimulator Impact.defaultTextileTrigram Unit.PerItem ViewMode.Simple Nothing)
                             ]
                             [ text "Faire une simulation" ]
                         ]
@@ -85,7 +86,7 @@ viewHero session =
                         , impact =
                             session.db.impacts
                                 |> Impact.getDefinition (Impact.trg "pef")
-                                |> Result.withDefault Impact.invalid
+                                |> Result.withDefault (Impact.invalid Scope.Textile)
                         , funit = Unit.PerItem
                         , reusable = False
                         }

@@ -91,7 +91,7 @@ init ({ db, builderDb, queries } as session) trigram maybeQuery =
         impact =
             db.impacts
                 |> Impact.getDefinition trigram
-                |> Result.withDefault Impact.invalid
+                |> Result.withDefault (Impact.invalid Scope.Food)
 
         query =
             maybeQuery
@@ -818,7 +818,7 @@ protectionAreaView { db } impacts =
         ecoscoreDefinition =
             db.impacts
                 |> Impact.getDefinition (Impact.trg "ecs")
-                |> Result.withDefault Impact.invalid
+                |> Result.withDefault (Impact.invalid Scope.Food)
     in
     div [ class "card" ]
         [ div [ class "card-header" ] [ text "Aires de protection" ]

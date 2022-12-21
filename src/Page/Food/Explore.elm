@@ -76,7 +76,7 @@ init : Session -> ( Model, Session, Cmd Msg )
 init session =
     ( { currentProductInfo = Nothing
       , selectedProduct = tunaPizza
-      , impact = Impact.defaultTrigram
+      , impact = Impact.defaultFoodTrigram
       , selectedIngredientProcess = Nothing
       , newIngredientMass = Mass.grams 100
       , selectedCountry = Product.defaultCountry
@@ -290,7 +290,7 @@ viewSidebar session { definition, trigram, totalImpact } { original, product } =
         , viewStepsSummary trigram product
         , a
             [ class "btn btn-primary"
-            , Route.href (Route.FoodBuilder Impact.defaultTrigram Nothing)
+            , Route.href (Route.FoodBuilder Impact.defaultFoodTrigram Nothing)
             ]
             [ text "Constructeur de recette" ]
         ]
@@ -322,7 +322,7 @@ view ({ explorerDb, db } as session) ({ selectedProduct, newIngredientMass, impa
                     definition =
                         db.impacts
                             |> Impact.getDefinition impact
-                            |> Result.withDefault Impact.invalid
+                            |> Result.withDefault (Impact.invalid Scope.Food)
 
                     itemViewDataConfig =
                         { totalImpact = totalImpact
