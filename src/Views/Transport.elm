@@ -26,17 +26,20 @@ view { fullWidth, airTransportLabel, seaTransportLabel, roadTransportLabel } { r
             , ( "justify-content-center", not fullWidth )
             ]
         ]
-        [ air
-            |> entry (Maybe.withDefault "Transport aérien" airTransportLabel) Icon.plane
-        , sea
-            |> entry (Maybe.withDefault "Transport maritime" seaTransportLabel) Icon.boat
-        , road
-            |> entry (Maybe.withDefault "Transport routier" roadTransportLabel) Icon.bus
+        [ airTransportLabel
+            |> Maybe.withDefault "Transport aérien"
+            |> entry air Icon.plane
+        , seaTransportLabel
+            |> Maybe.withDefault "Transport maritime"
+            |> entry sea Icon.boat
+        , roadTransportLabel
+            |> Maybe.withDefault "Transport routier"
+            |> entry road Icon.bus
         ]
 
 
-entry : String -> Html msg -> Length -> Html msg
-entry label icon distance =
+entry : Length -> Html msg -> String -> Html msg
+entry distance icon label =
     span [ class "d-flex align-items-center gap-1", title label ]
         [ span [ style "cursor" "help" ] [ icon ]
         , Format.km distance
