@@ -786,7 +786,7 @@ sidebarView session db model results =
                 ]
             , footer = []
             }
-        , stepResultsView model results
+        , stepResultsView db model results
         , protectionAreaView session results.total
         , BookmarkView.view
             { session = session
@@ -860,15 +860,20 @@ stepListView db { impact, selectedPackaging, selectedTransform } recipe results 
         ]
 
 
-stepResultsView : Model -> Recipe.Results -> Html Msg
-stepResultsView model results =
+stepResultsView : Db -> Model -> Recipe.Results -> Html Msg
+stepResultsView db model results =
     let
         toFloat =
             Impact.getImpact model.impact.trigram >> Unit.impactToFloat
 
         stepsData =
             [ { label = "Recette"
-              , impact = toFloat results.recipe.total
+              , impact =
+                    [ results.recipe.ingredients
+                    , results.recipe.transform
+                    ]
+                        |> Impact.sumImpacts db.impacts
+                        |> toFloat
               }
             , { label = "Emballage"
               , impact = toFloat results.packaging
@@ -882,7 +887,7 @@ stepResultsView model results =
             toFloat results.total
     in
     div [ class "card" ]
-        [ div [ class "card-header" ] [ text "Étapes du cycle de vie" ]
+        [ div [ class "card-header" ] [ text "Détail des postes" ]
         , stepsData
             |> List.map
                 (\{ label, impact } ->
