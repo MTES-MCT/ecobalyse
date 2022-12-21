@@ -33,7 +33,8 @@ ExpressJS server directly (see server.js).
 
 -}
 type Route
-    = CountryList
+    = -- Food country list
+      FoodCountryList
       -- Food ingredient list
     | FoodIngredientList
       -- Food packaging list
@@ -42,6 +43,8 @@ type Route
     | FoodTransformList
       -- Food recipe builder
     | FoodRecipe (Result Query.Errors BuilderQuery.Query)
+      -- Textile country list
+    | TextileCountryList
       -- Textile Material list
     | TextileMaterialList
       -- Textile Product list
@@ -57,15 +60,15 @@ type Route
 parser : StaticDb.Db -> Parser (Route -> a) a
 parser { builderDb, textileDb } =
     Parser.oneOf
-        [ Parser.map CountryList (s "countries")
-
-        -- Food
+        [ -- Food
+          Parser.map FoodCountryList (s "food" </> s "countries")
         , Parser.map FoodIngredientList (s "food" </> s "ingredients")
-        , Parser.map FoodPackagingList (s "food" </> s "packagings")
         , Parser.map FoodTransformList (s "food" </> s "transforms")
+        , Parser.map FoodPackagingList (s "food" </> s "packagings")
         , Parser.map FoodRecipe (s "food" </> s "recipe" <?> Query.parseFoodQuery builderDb)
 
         -- Textile
+        , Parser.map TextileCountryList (s "textile" </> s "countries")
         , Parser.map TextileMaterialList (s "textile" </> s "materials")
         , Parser.map TextileProductList (s "textile" </> s "products")
         , Parser.map TextileSimulator (s "textile" </> s "simulator" <?> Query.parseTextileQuery textileDb)

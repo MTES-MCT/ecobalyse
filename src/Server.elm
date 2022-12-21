@@ -111,11 +111,10 @@ executeTextileQuery textileDb request encoder =
 
 
 encodeCountry : Country -> Encode.Value
-encodeCountry { code, name, scopes } =
+encodeCountry { code, name } =
     Encode.object
         [ ( "code", Country.encodeCode code )
         , ( "name", Encode.string name )
-        , ( "scopes", Encode.list Scope.encode scopes )
         ]
 
 
@@ -173,8 +172,9 @@ encodeIngredients ingredients =
 handleRequest : StaticDb.Db -> Request -> Cmd Msg
 handleRequest ({ builderDb, textileDb } as dbs) request =
     case Route.endpoint dbs request of
-        Just (Route.Get Route.CountryList) ->
-            textileDb.countries
+        Just (Route.Get Route.FoodCountryList) ->
+            builderDb.countries
+                |> Scope.only Scope.Food
                 |> Encode.list encodeCountry
                 |> sendResponse 200 request
 
@@ -202,6 +202,12 @@ handleRequest ({ builderDb, textileDb } as dbs) request =
         Just (Route.Get (Route.FoodRecipe (Err errors))) ->
             Query.encodeErrors errors
                 |> sendResponse 400 request
+
+        Just (Route.Get Route.TextileCountryList) ->
+            textileDb.countries
+                |> Scope.only Scope.Textile
+                |> Encode.list encodeCountry
+                |> sendResponse 200 request
 
         Just (Route.Get Route.TextileMaterialList) ->
             textileDb.materials

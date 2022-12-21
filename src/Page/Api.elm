@@ -48,7 +48,19 @@ getApiServerUrl { clientUrl } =
 
 changelog : List News
 changelog =
-    [ { date = "30 novembre 2022"
+    [ { date = "21 décembre 2022"
+      , level = "major"
+      , domains = [ "Alimentaire", "Textile" ]
+      , md =
+            """La liste des pays est désormais istinctement accessible en fonction du domaine\u{00A0}:
+
+- pour le textile, au point d'entrée `textile/countries`
+- pour l'alimentaire, au point d'entrée `food/countries`
+
+**Note\u{00A0}:** L'ancien point d'entrée `/countries` est redirigé vers `textile/countries`.
+"""
+      }
+    , { date = "30 novembre 2022"
       , level = "major"
       , domains = [ "Textile" ]
       , md =

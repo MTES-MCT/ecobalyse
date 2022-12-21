@@ -32,12 +32,6 @@ describe("API", () => {
         expect(response.body.info.title).toEqual("API Ecobalyse");
       });
     });
-
-    describe("/countries", () => {
-      it("should render with countries list", async () => {
-        await expectListResponseContains("/api/countries", { code: "FR", name: "France" });
-      });
-    });
   });
 
   describe("Textile", () => {
@@ -54,6 +48,13 @@ describe("API", () => {
         "countryDyeing=CN",
         "countryMaking=CN",
       ];
+
+    describe("/textile/countries", () => {
+      it("should render with textile countries list", async () => {
+        await expectListResponseContains("/api/textile/countries", { code: "FR", name: "France" });
+      });
+    });
+
     describe("/materials", () => {
       it("should render with materials list", async () => {
         await expectListResponseContains("/api/textile/materials", {
@@ -253,6 +254,12 @@ describe("API", () => {
   });
 
   describe("Food", () => {
+    describe("/food/countries", () => {
+      it("should render with food countries list", async () => {
+        await expectListResponseContains("/api/food/countries", { code: "FR", name: "France" });
+      });
+    });
+
     describe("/food/ingredients", () => {
       it("should render with ingredients list", async () => {
         await expectListResponseContains("/api/food/ingredients", {

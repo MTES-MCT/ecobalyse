@@ -92,10 +92,12 @@ api.get("/", (req, res) => {
   res.status(200).send(openApiContents);
 });
 
-// Redirecs: API
-api.get(/^\/materials(.*)/, ({ url }, res) => res.redirect(`textile${url}`));
-api.get(/^\/products(.*)/, ({ url }, res) => res.redirect(`textile${url}`));
-api.get(/^\/simulator(.*)/, ({ url }, res) => res.redirect(`textile${url}`));
+// Redirects: API
+api.get(/^\/countries$/, (_, res) => res.redirect("textile/countries"));
+api.get(/^\/materials$/, (_, res) => res.redirect("textile/materials"));
+api.get(/^\/products$/, (_, res) => res.redirect("textile/products"));
+const cleanRedirect = (url) => (url.startsWith("/") ? url : "");
+api.get(/^\/simulator(.*)$/, ({ url }, res) => res.redirect(`/api/textile${cleanRedirect(url)}`));
 
 api.all(/(.*)/, (req, res) => {
   elmApp.ports.input.send({

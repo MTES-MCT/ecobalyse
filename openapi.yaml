@@ -37,11 +37,11 @@ paths:
       responses:
         200:
           description: Documentation de l'API au format OpenAPI.
-  /countries:
+  /textile/countries:
     get:
       tags:
-        - Commun
-      summary: Liste des pays
+        - Textile
+      summary: Liste des pays utilisables pour les simulations textiles.
       responses:
         200:
           description: Opération réussie
@@ -215,6 +215,18 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/InvalidParametersError"
+  /food/countries:
+    get:
+      tags:
+        - Alimentaire
+      summary: Liste des pays utilisables pour les simulations alimentairess.
+      responses:
+        200:
+          description: Opération réussie
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CountryListResponse"
   /food/ingredients:
     get:
       tags:
@@ -289,7 +301,7 @@ components:
       name: "materials[]"
       in: query
       description: |
-        Liste des matières composant le produit (liste disponible sur le point d'entrée `/materials`).
+        Liste des matières composant le produit (liste disponible sur le point d'entrée `/textile/materials`).
         Le format de chaque entrée est composé de l'identifiant de la matière et de la part du produit
         qu'elle représente :
 
@@ -317,7 +329,7 @@ components:
     productParam:
       name: product
       in: query
-      description: Identifiant du produit (liste disponible sur le point d'entrée `/products`)
+      description: Identifiant du produit (liste disponible sur le point d'entrée `/textile/products`)
       required: true
       style: form
       schema:
@@ -331,7 +343,7 @@ components:
       name: countrySpinning
       in: query
       description: |
-        Code pays pour l'étape de **Filature** (liste disponible sur le point d'entrée `countries`).
+        Code pays pour l'étape de **Filature** (liste disponible sur le point d'entrée `textile/countries`).
         Si non spécifié, le pays de filature pris en considération est celui de production de
         la matière la plus représentée dans le mix.
       required: false
@@ -351,7 +363,7 @@ components:
       name: countryFabric
       in: query
       description: |
-        Code pays pour l'étape de **Tissage/Tricotage** (liste disponible sur le point d'entrée `countries`)
+        Code pays pour l'étape de **Tissage/Tricotage** (liste disponible sur le point d'entrée `textile/countries`)
       required: true
       style: form
       schema:
@@ -366,7 +378,7 @@ components:
     countryDyeingParam:
       name: countryDyeing
       in: query
-      description: "Code pays pour l'étape de **Teinture** (liste disponible sur le point d'entrée `countries`)"
+      description: "Code pays pour l'étape de **Teinture** (liste disponible sur le point d'entrée `textile/countries`)"
       required: true
       style: form
       schema:
@@ -381,7 +393,7 @@ components:
     countryMakingParam:
       name: countryMaking
       in: query
-      description: "Code pays pour l'étape de **Confection** (liste disponible sur le point d'entrée `countries`)"
+      description: "Code pays pour l'étape de **Confection** (liste disponible sur le point d'entrée `textile/countries`)"
       required: true
       style: form
       schema:
@@ -760,17 +772,6 @@ components:
             type: string
           name:
             type: string
-          scopes:
-            type: array
-            items:
-              type: string
-            description: |
-              Champ d'application :
-
-              - `["food"]` signifie que le pays n'est mobilisable que pour l'Alimentaire ;
-              - `["textile"]` signifie que le pays n'est mobilisable que pour le Textile ;
-              - `["food", "textile"]` signifie que le pays peut être utilisé dans les domaines Alimentaire et Textile.
-
     MaterialListResponse:
       type: array
       description: Liste des matières
