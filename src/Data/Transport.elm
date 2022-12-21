@@ -50,18 +50,15 @@ default impacts =
 
 defaultInland : Scope -> Impacts -> Transport
 defaultInland scope impacts =
-    let
-        distance =
-            case scope of
-                Scope.Food ->
-                    0
+    { road =
+        case scope of
+            Scope.Food ->
+                Quantity.zero
 
-                Scope.Textile ->
-                    500
-    in
-    { road = Length.kilometers distance
+            Scope.Textile ->
+                Length.kilometers 500
     , sea = Quantity.zero
-    , air = Length.kilometers distance
+    , air = Quantity.zero
     , impacts = impacts
     }
 
