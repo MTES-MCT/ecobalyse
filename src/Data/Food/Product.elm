@@ -28,6 +28,7 @@ import Data.Food.Amount as Amount exposing (Amount)
 import Data.Food.Process as Process exposing (Process, ProcessName)
 import Data.Food.Transport as Transport
 import Data.Impact as Impact
+import Data.Scope as Scope
 import Data.Textile.Formula as Formula
 import Data.Transport as Transport exposing (Distances)
 import Data.Unit as Unit
@@ -456,7 +457,7 @@ updatePlantTransport originalProduct processes impactDefinitions countryCode dis
 
         transport =
             distances
-                |> Transport.getTransportBetween impacts countryCode defaultCountry
+                |> Transport.getTransportBetween Scope.Food impacts countryCode defaultCountry
 
         transportWithRatio =
             transport

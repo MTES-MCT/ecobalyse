@@ -165,6 +165,7 @@ computeTransports db next ({ processInfo } as current) =
                     transport =
                         db.transports
                             |> Transport.getTransportBetween
+                                Scope.Textile
                                 current.transport.impacts
                                 current.country.code
                                 next.country.code
@@ -221,7 +222,7 @@ computeTransportSummary step transport =
     let
         ( noTransports, defaultInland ) =
             ( Transport.default step.transport.impacts
-            , Transport.defaultInland step.transport.impacts
+            , Transport.defaultInland Scope.Textile step.transport.impacts
             )
     in
     case step.label of

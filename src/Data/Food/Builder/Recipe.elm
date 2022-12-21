@@ -181,7 +181,7 @@ computeIngredientTransport db { country, mass } =
 
         transport =
             db.transports
-                |> Transport.getTransportBetween baseImpacts country.code france
+                |> Transport.getTransportBetween Scope.Food baseImpacts country.code france
                 -- Notes:
                 -- - This reuses the road/sea transport distances ratio computation stuff
                 -- - We want the transport ratio for the plane to be 0 for food (for now)

@@ -2,6 +2,7 @@ module Data.TransportTest exposing (..)
 
 import Data.Country as Country
 import Data.Impact as Impact exposing (Impacts)
+import Data.Scope as Scope
 import Data.Transport as Transport exposing (Transport)
 import Dict.Any as AnyDict
 import Expect
@@ -42,16 +43,16 @@ suite =
                 |> describe "transports data availability checks"
             , describe "getTransportBetween"
                 [ textileDb.transports
-                    |> Transport.getTransportBetween defaultImpacts (Country.Code "FR") (Country.Code "CN")
+                    |> Transport.getTransportBetween Scope.Textile defaultImpacts (Country.Code "FR") (Country.Code "CN")
                     |> Expect.equal (franceChina defaultImpacts)
                     |> asTest "should retrieve distance between two countries"
                 , textileDb.transports
-                    |> Transport.getTransportBetween defaultImpacts (Country.Code "CN") (Country.Code "FR")
+                    |> Transport.getTransportBetween Scope.Textile defaultImpacts (Country.Code "CN") (Country.Code "FR")
                     |> Expect.equal (franceChina defaultImpacts)
                     |> asTest "should retrieve distance between two swapped countries"
                 , textileDb.transports
-                    |> Transport.getTransportBetween defaultImpacts (Country.Code "FR") (Country.Code "FR")
-                    |> Expect.equal (Transport.defaultInland defaultImpacts)
+                    |> Transport.getTransportBetween Scope.Textile defaultImpacts (Country.Code "FR") (Country.Code "FR")
+                    |> Expect.equal (Transport.defaultInland Scope.Textile defaultImpacts)
                     |> asTest "should apply default inland transport when country is the same"
                 ]
             ]

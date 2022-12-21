@@ -15,7 +15,7 @@ module Data.Transport exposing
 
 import Data.Country as Country
 import Data.Impact as Impact exposing (Impacts)
-import Data.Scope as Scope
+import Data.Scope as Scope exposing (Scope)
 import Dict.Any as Dict exposing (AnyDict)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
@@ -48,11 +48,20 @@ default impacts =
     }
 
 
-defaultInland : Impacts -> Transport
-defaultInland impacts =
-    { road = Length.kilometers 500
+defaultInland : Scope -> Impacts -> Transport
+defaultInland scope impacts =
+    let
+        distance =
+            case scope of
+                Scope.Food ->
+                    0
+
+                Scope.Textile ->
+                    500
+    in
+    { road = Length.kilometers distance
     , sea = Quantity.zero
-    , air = Length.kilometers 500
+    , air = Length.kilometers distance
     , impacts = impacts
     }
 
@@ -124,14 +133,15 @@ roadSeaTransportRatio { road, sea } =
 
 
 getTransportBetween :
-    Impacts
+    Scope
+    -> Impacts
     -> Country.Code
     -> Country.Code
     -> Distances
     -> Transport
-getTransportBetween impacts cA cB distances =
+getTransportBetween scope impacts cA cB distances =
     if cA == cB then
-        defaultInland impacts
+        defaultInland scope impacts
 
     else
         distances
@@ -144,7 +154,7 @@ getTransportBetween impacts cA cB distances =
 
                         Nothing ->
                             -- reverse query source dict
-                            getTransportBetween impacts cB cA distances
+                            getTransportBetween scope impacts cB cA distances
                 )
             |> Maybe.withDefault (default impacts)
 
