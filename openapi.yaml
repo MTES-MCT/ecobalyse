@@ -49,7 +49,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/CountryListResponse"
-  /materials:
+  /textile/materials:
     get:
       tags:
         - Textile
@@ -61,7 +61,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/MaterialListResponse"
-  /products:
+  /textile/products:
     get:
       tags:
         - Textile
@@ -73,7 +73,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ProductListResponse"
-  /simulator:
+  /textile/simulator:
     get:
       tags:
         - Textile
@@ -110,7 +110,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/InvalidParametersError"
-  /simulator/{impact}:
+  /textile/simulator/{impact}:
     get:
       tags:
         - Textile
@@ -177,7 +177,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/InvalidParametersError"
-  /simulator/detailed:
+  /textile/simulator/detailed:
     get:
       tags:
         - Textile

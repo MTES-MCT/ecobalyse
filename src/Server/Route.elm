@@ -11,7 +11,7 @@ import Server.Query as Query
 import Server.Request exposing (Request)
 import Static.Db as StaticDb
 import Url
-import Url.Parser as Parser exposing ((</>), (<?>), Parser)
+import Url.Parser as Parser exposing ((</>), (<?>), Parser, s)
 
 
 type Endpoint
@@ -57,20 +57,20 @@ type Route
 parser : StaticDb.Db -> Parser (Route -> a) a
 parser { builderDb, textileDb } =
     Parser.oneOf
-        [ Parser.map CountryList (Parser.s "countries")
+        [ Parser.map CountryList (s "countries")
 
         -- Food
-        , Parser.map FoodIngredientList (Parser.s "food" </> Parser.s "ingredients")
-        , Parser.map FoodPackagingList (Parser.s "food" </> Parser.s "packagings")
-        , Parser.map FoodTransformList (Parser.s "food" </> Parser.s "transforms")
-        , Parser.map FoodRecipe (Parser.s "food" </> Parser.s "recipe" <?> Query.parseFoodQuery builderDb)
+        , Parser.map FoodIngredientList (s "food" </> s "ingredients")
+        , Parser.map FoodPackagingList (s "food" </> s "packagings")
+        , Parser.map FoodTransformList (s "food" </> s "transforms")
+        , Parser.map FoodRecipe (s "food" </> s "recipe" <?> Query.parseFoodQuery builderDb)
 
         -- Textile
-        , Parser.map TextileMaterialList (Parser.s "materials")
-        , Parser.map TextileProductList (Parser.s "products")
-        , Parser.map TextileSimulator (Parser.s "simulator" <?> Query.parseTextileQuery textileDb)
-        , Parser.map TextileSimulatorDetailed (Parser.s "simulator" </> Parser.s "detailed" <?> Query.parseTextileQuery textileDb)
-        , Parser.map TextileSimulatorSingle (Parser.s "simulator" </> Impact.parseTrigram <?> Query.parseTextileQuery textileDb)
+        , Parser.map TextileMaterialList (s "textile" </> s "materials")
+        , Parser.map TextileProductList (s "textile" </> s "products")
+        , Parser.map TextileSimulator (s "textile" </> s "simulator" <?> Query.parseTextileQuery textileDb)
+        , Parser.map TextileSimulatorDetailed (s "textile" </> s "simulator" </> s "detailed" <?> Query.parseTextileQuery textileDb)
+        , Parser.map TextileSimulatorSingle (s "textile" </> s "simulator" </> Impact.parseTrigram <?> Query.parseTextileQuery textileDb)
         ]
 
 

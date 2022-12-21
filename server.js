@@ -65,7 +65,7 @@ app.use(
   }),
 );
 
-// Redirections
+// Redirects: Web
 app.get("/accessibilite", (_, res) => res.redirect("/#/pages/accessibilité"));
 app.get("/mentions-legales", (_, res) => res.redirect("/#/pages/mentions-légales"));
 app.get("/stats", (_, res) => res.redirect("/#/stats"));
@@ -91,6 +91,11 @@ api.get("/", (req, res) => {
   apiTracker.track(200, req);
   res.status(200).send(openApiContents);
 });
+
+// Redirecs: API
+api.get(/^\/materials(.*)/, ({ url }, res) => res.redirect(`textile${url}`));
+api.get(/^\/products(.*)/, ({ url }, res) => res.redirect(`textile${url}`));
+api.get(/^\/simulator(.*)/, ({ url }, res) => res.redirect(`textile${url}`));
 
 api.all(/(.*)/, (req, res) => {
   elmApp.ports.input.send({
