@@ -3,6 +3,7 @@ module Views.Transport exposing (view)
 import Data.Transport exposing (Transport)
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import Length exposing (Length)
 import Views.Format as Format
 import Views.Icon as Icon
 
@@ -25,16 +26,18 @@ view { fullWidth, airTransportLabel, seaTransportLabel, roadTransportLabel } { r
             , ( "justify-content-center", not fullWidth )
             ]
         ]
-        [ span [ class "d-flex align-items-center gap-1", airTransportLabel |> Maybe.withDefault "" |> title ]
-            [ span [ style "cursor" "help" ] [ Icon.plane ]
-            , Format.km air
-            ]
-        , span [ class "d-flex align-items-center gap-1", seaTransportLabel |> Maybe.withDefault "" |> title ]
-            [ span [ style "cursor" "help" ] [ Icon.boat ]
-            , Format.km sea
-            ]
-        , span [ class "d-flex align-items-center gap-1", roadTransportLabel |> Maybe.withDefault "" |> title ]
-            [ span [ style "cursor" "help" ] [ Icon.bus ]
-            , Format.km road
-            ]
+        [ air
+            |> entry (Maybe.withDefault "Transport aérien" airTransportLabel) Icon.plane
+        , sea
+            |> entry (Maybe.withDefault "Transport maritime" seaTransportLabel) Icon.boat
+        , road
+            |> entry (Maybe.withDefault "Transport routier" roadTransportLabel) Icon.bus
+        ]
+
+
+entry : String -> Html msg -> Length -> Html msg
+entry label icon distance =
+    span [ class "d-flex align-items-center gap-1", title label ]
+        [ span [ style "cursor" "help" ] [ icon ]
+        , Format.km distance
         ]
