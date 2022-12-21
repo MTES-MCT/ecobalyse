@@ -40,7 +40,7 @@ $$
 Pour chaque ingrédient, l'impact est calculé comme suit, avec les procédés de transport introduits [ci-après](<transport (1).md#undefined>) :&#x20;
 
 $$
-ImpactTransport = MasseIngrédient (tonnes) * Distance (km) *  ImpactProccédéTransport
+ImpactTransport = MasseIngrédient (tonnes) * Distance (km) *  ImpactProcédéTransport
 $$
 
 {% hint style="warning" %}
@@ -101,6 +101,13 @@ Les distances entre pays sont considérées à partir des calculateurs mis en av
 | Terrestre         | ​[https://www.searates.com/services/distances-time/](https://www.searates.com/services/distances-time/)​ |
 | Maritime          | ​[https://www.searates.com/services/distances-time/](https://www.searates.com/services/distances-time/)​ |
 | Aérien            | Calcul de distance à vol d'oiseau geopy.distance                                                         |
+
+## Transport intra-France
+
+Pour tous les ingrédients qu'ils soient d'origine France ou étranger, on ajoute un transport de 160 km de camion intra-France.\
+Pour les ingrédients de l'étranger cela correspond à l'acheminement depuis le port/la frontière jusqu'au lieu de stockage.
+
+Pour les ingrédients d'origine France cela correspond au transport entre la ferme/le lieu de transformation (ingrédient agricole/industrie) vers le lieu de stockage.
 
 ## Procédés de transport
 
