@@ -7,7 +7,8 @@ module Data.Impact exposing
     , computeAggregatedScore
     , decodeImpacts
     , decodeList
-    , defaultTrigram
+    , defaultFoodTrigram
+    , defaultTextileTrigram
     , encodeImpacts
     , filterImpacts
     , getDefinition
@@ -85,9 +86,9 @@ type alias ProtectionAreas =
     }
 
 
-invalid : Definition
-invalid =
-    { trigram = defaultTrigram
+invalid : Scope -> Definition
+invalid scope =
+    { trigram = defaultTrigram scope
     , source = { label = "N/A", url = "https://example.com/" }
     , label = "Not applicable"
     , description = "Not applicable"
@@ -100,9 +101,24 @@ invalid =
     }
 
 
-defaultTrigram : Trigram
-defaultTrigram =
+defaultFoodTrigram : Trigram
+defaultFoodTrigram =
+    trg "ecs"
+
+
+defaultTextileTrigram : Trigram
+defaultTextileTrigram =
     trg "pef"
+
+
+defaultTrigram : Scope -> Trigram
+defaultTrigram scope =
+    case scope of
+        Scope.Food ->
+            defaultFoodTrigram
+
+        Scope.Textile ->
+            defaultTextileTrigram
 
 
 getDefinition : Trigram -> List Definition -> Result String Definition
@@ -406,8 +422,8 @@ computeAggregatedScore getter defs =
 -- Parser
 
 
-parseTrigram : Parser (Trigram -> a) a
-parseTrigram =
+parseTrigram : Scope -> Parser (Trigram -> a) a
+parseTrigram scope =
     let
         trigrams =
             -- FIXME: find a way to have this check performed automatically from impacts db
@@ -420,4 +436,4 @@ parseTrigram =
                 Just (trg trigram)
 
             else
-                Just defaultTrigram
+                Just (defaultTrigram scope)

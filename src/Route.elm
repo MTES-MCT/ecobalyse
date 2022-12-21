@@ -7,6 +7,7 @@ module Route exposing
 
 import Data.Food.Builder.Query as FoodQuery
 import Data.Impact as Impact
+import Data.Scope as Scope
 import Data.Textile.Db as Db
 import Data.Textile.Inputs as TextileQuery
 import Data.Unit as Unit
@@ -45,11 +46,11 @@ parser =
         --
         -- Food specific routes
         --
-        , Parser.map (FoodBuilder Impact.defaultTrigram Nothing) (Parser.s "food" </> Parser.s "build")
+        , Parser.map (FoodBuilder Impact.defaultFoodTrigram Nothing) (Parser.s "food" </> Parser.s "build")
         , Parser.map FoodBuilder
             (Parser.s "food"
                 </> Parser.s "build"
-                </> Impact.parseTrigram
+                </> Impact.parseTrigram Scope.Food
                 </> FoodQuery.parseBase64Query
             )
         , Parser.map FoodExplore (Parser.s "food")
@@ -68,12 +69,12 @@ parser =
             (Parser.s "textile" </> Parser.s "explore" </> Db.parseDatasetSlug </> Parser.string)
 
         -- Textile Simulator
-        , Parser.map (TextileSimulator Impact.defaultTrigram Unit.PerItem ViewMode.Simple Nothing)
+        , Parser.map (TextileSimulator Impact.defaultTextileTrigram Unit.PerItem ViewMode.Simple Nothing)
             (Parser.s "textile" </> Parser.s "simulator")
         , Parser.map TextileSimulator
             (Parser.s "textile"
                 </> Parser.s "simulator"
-                </> Impact.parseTrigram
+                </> Impact.parseTrigram Scope.Textile
                 </> Unit.parseFunctional
                 </> ViewMode.parse
                 </> TextileQuery.parseBase64Query
@@ -137,7 +138,7 @@ toString route =
                 Editorial slug ->
                     [ "pages", slug ]
 
-                FoodBuilder (Impact.Trigram "pef") Nothing ->
+                FoodBuilder (Impact.Trigram "ecs") Nothing ->
                     [ "food", "build" ]
 
                 FoodBuilder trigram Nothing ->

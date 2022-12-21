@@ -131,7 +131,7 @@ newVersionAlert { session, reloadPage } =
 headerMenuLinks : List MenuLink
 headerMenuLinks =
     [ Internal "Accueil" Route.Home Home
-    , Internal "Simulateur" (Route.TextileSimulator Impact.defaultTrigram Unit.PerItem ViewMode.Simple Nothing) TextileSimulator
+    , Internal "Simulateur" (Route.TextileSimulator Impact.defaultTextileTrigram Unit.PerItem ViewMode.Simple Nothing) TextileSimulator
     , Internal "Exemples" Route.TextileExamples TextileExamples
     , Internal "Explorateur" (Route.TextileExplore (Db.Countries Nothing)) TextileExplore
     , Internal "API" Route.Api Api
@@ -145,13 +145,13 @@ headerMenuLinks =
 footerMenuLinks : List MenuLink
 footerMenuLinks =
     [ Internal "Accueil" Route.Home Home
-    , Internal "Simulateur" (Route.TextileSimulator Impact.defaultTrigram Unit.PerItem ViewMode.Simple Nothing) TextileSimulator
+    , Internal "Simulateur" (Route.TextileSimulator Impact.defaultTextileTrigram Unit.PerItem ViewMode.Simple Nothing) TextileSimulator
     , Internal "Exemples" Route.TextileExamples TextileExamples
     , Internal "Explorateur" (Route.TextileExplore (Db.Countries Nothing)) TextileExplore
     , Internal "API" Route.Api Api
     , Internal "Nouveautés" Route.Changelog Changelog
     , Internal "Statistiques" Route.Stats Stats
-    , Internal "Alimentaire" (Route.FoodBuilder Impact.defaultTrigram Nothing) FoodBuilder
+    , Internal "Alimentaire" (Route.FoodBuilder Impact.defaultFoodTrigram Nothing) FoodBuilder
     , Internal "Accessibilité\u{00A0}: non conforme" (Route.Editorial "accessibilité") (Editorial "accessibilité")
     , Internal "Mentions légales" (Route.Editorial "mentions-légales") (Editorial "mentions-légales")
     , External "Code source" Env.githubUrl
