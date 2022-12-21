@@ -440,9 +440,7 @@ updateIngredientFormView { excluded, db, ingredient } =
             [ CountrySelect.view
                 { attributes = [ class "form-select form-select-sm" ]
                 , countries = db.countries
-                , onSelect =
-                    \countryCode ->
-                        event { ingredientQuery | country = countryCode }
+                , onSelect = \countryCode -> event { ingredientQuery | country = countryCode }
                 , scope = Scope.Food
                 , selectedCountry = ingredientQuery.country
                 }
@@ -455,15 +453,15 @@ updateIngredientFormView { excluded, db, ingredient } =
                     , disabled <| ingredient.ingredient.variants.organic == Nothing
                     , onCheck
                         (\checked ->
-                            { ingredientQuery
-                                | variant =
-                                    if checked then
-                                        Query.Organic
+                            event
+                                { ingredientQuery
+                                    | variant =
+                                        if checked then
+                                            Query.Organic
 
-                                    else
-                                        Query.Default
-                            }
-                                |> event
+                                        else
+                                            Query.Default
+                                }
                         )
                     ]
                     []

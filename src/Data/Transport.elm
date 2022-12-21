@@ -53,7 +53,7 @@ defaultInland scope impacts =
     { road =
         case scope of
             Scope.Food ->
-                Length.kilometers 160
+                Length.kilometers 0
 
             Scope.Textile ->
                 Length.kilometers 500
