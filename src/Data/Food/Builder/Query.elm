@@ -8,6 +8,7 @@ module Data.Food.Builder.Query exposing
     , b64encode
     , carrotCake
     , decode
+    , defaultCountry
     , deleteIngredient
     , emptyQuery
     , encode
@@ -16,6 +17,7 @@ module Data.Food.Builder.Query exposing
     )
 
 import Base64
+import Data.Country as Country
 import Data.Food.Ingredient as Ingredient
 import Data.Food.Process as Process
 import Json.Decode as Decode exposing (Decoder)
@@ -24,6 +26,11 @@ import Json.Encode as Encode
 import Mass exposing (Mass)
 import Quantity
 import Url.Parser as Parser exposing (Parser)
+
+
+defaultCountry : Country.Code
+defaultCountry =
+    Country.codeFromString "FR"
 
 
 type Variant
@@ -36,6 +43,7 @@ type alias IngredientQuery =
     , name : String
     , mass : Mass
     , variant : Variant
+    , country : Country.Code
     }
 
 
@@ -83,21 +91,25 @@ carrotCake =
           , name = "oeuf"
           , mass = Mass.grams 120
           , variant = Default
+          , country = defaultCountry
           }
         , { id = Ingredient.idFromString "wheat"
           , name = "blé tendre"
           , mass = Mass.grams 140
           , variant = Default
+          , country = defaultCountry
           }
         , { id = Ingredient.idFromString "milk"
           , name = "lait"
           , mass = Mass.grams 60
           , variant = Default
+          , country = defaultCountry
           }
         , { id = Ingredient.idFromString "carrot"
           , name = "carotte"
           , mass = Mass.grams 225
           , variant = Default
+          , country = defaultCountry
           }
         ]
     , transform =
@@ -138,11 +150,12 @@ decodePackaging =
 
 decodeIngredient : Decoder IngredientQuery
 decodeIngredient =
-    Decode.map4 IngredientQuery
+    Decode.map5 IngredientQuery
         (Decode.field "id" Ingredient.decodeId)
         (Decode.field "name" Decode.string)
         (Decode.field "mass" decodeMass)
         (Decode.field "variant" decodeVariant)
+        (Decode.field "country" Country.decodeCode)
 
 
 decodeTransform : Decoder TransformQuery
@@ -184,6 +197,7 @@ encodeIngredient v =
         , ( "name", Encode.string v.name )
         , ( "mass", encodeMass v.mass )
         , ( "variant", encodeVariant v.variant )
+        , ( "country", Country.encodeCode v.country )
         ]
 
 

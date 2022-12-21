@@ -80,6 +80,16 @@ foodEndpoints db =
             |> Maybe.andThen (Dict.get "ingredients")
             |> Expect.equal (Just "Format de variant invalide : invalidVariant")
             |> asTest "should validate that an ingredient variant is valid"
+        , getEndpoint db "GET" "/food/recipe?ingredients[]=egg;1;default;invalidCountry"
+            |> Maybe.andThen extractFoodErrors
+            |> Maybe.andThen (Dict.get "ingredients")
+            |> Expect.equal (Just "Code pays invalide: invalidCountry.")
+            |> asTest "should validate that an ingredient country is valid"
+        , getEndpoint db "GET" "/food/recipe?ingredients[]=egg;1;default;BD"
+            |> Maybe.andThen extractFoodErrors
+            |> Maybe.andThen (Dict.get "ingredients")
+            |> Expect.equal (Just "Le code pays BD n'est pas utilisable dans un contexte Alimentaire.")
+            |> asTest "should validate that an ingredient country scope is valid"
         , getEndpoint db "GET" "/food/recipe?transform=aded2490573207ec7ad5a3813978f6a4;-1"
             |> Maybe.andThen extractFoodErrors
             |> Maybe.andThen (Dict.get "transform")
@@ -107,7 +117,7 @@ foodEndpoints db =
 textileEndpoints : StaticDb.Db -> List Test
 textileEndpoints db =
     [ describe "endpoints"
-        [ [ "/simulator?mass=0.17"
+        [ [ "/textile/simulator?mass=0.17"
           , "product=tshirt"
           , "materials[]=coton;1"
           , "countryFabric=FR"
@@ -122,8 +132,8 @@ textileEndpoints db =
                         Route.TextileSimulator <|
                             Ok tShirtCotonFrance
                 )
-            |> asTest "should handle the /simulator endpoint"
-        , [ "/simulator?mass=0.17"
+            |> asTest "should handle the /textile/simulator endpoint"
+        , [ "/textile/simulator?mass=0.17"
           , "product=tshirt"
           , "materials[]=coton;1"
           , "countryFabric=FR"
@@ -139,8 +149,8 @@ textileEndpoints db =
                         Route.TextileSimulator <|
                             Ok { tShirtCotonFrance | quality = Just (Unit.quality 1.2) }
                 )
-            |> asTest "should handle the /simulator endpoint with the quality parameter set"
-        , [ "/simulator?mass=0.17"
+            |> asTest "should handle the /textile/simulator endpoint with the quality parameter set"
+        , [ "/textile/simulator?mass=0.17"
           , "product=tshirt"
           , "materials[]=coton;1"
           , "countryFabric=FR"
@@ -156,8 +166,8 @@ textileEndpoints db =
                         Route.TextileSimulator <|
                             Ok { tShirtCotonFrance | disabledSteps = [ Label.Making, Label.Ennobling ] }
                 )
-            |> asTest "should handle the /simulator endpoint with the disabledSteps parameter set"
-        , [ "/simulator/fwe?mass=0.17"
+            |> asTest "should handle the /textile/simulator endpoint with the disabledSteps parameter set"
+        , [ "/textile/simulator/fwe?mass=0.17"
           , "product=tshirt"
           , "materials[]=coton;1"
           , "countryFabric=FR"
@@ -172,8 +182,8 @@ textileEndpoints db =
                         Route.TextileSimulatorSingle (Impact.trg "fwe") <|
                             Ok tShirtCotonFrance
                 )
-            |> asTest "should handle the /simulator/{impact} endpoint"
-        , [ "/simulator/detailed?mass=0.17"
+            |> asTest "should handle the /textile/simulator/{impact} endpoint"
+        , [ "/textile/simulator/detailed?mass=0.17"
           , "product=tshirt"
           , "materials[]=coton;1"
           , "countryFabric=FR"
@@ -188,10 +198,10 @@ textileEndpoints db =
                         Route.TextileSimulatorDetailed <|
                             Ok tShirtCotonFrance
                 )
-            |> asTest "should handle the /simulator/detailed endpoint"
+            |> asTest "should handle the /textile/simulator/detailed endpoint"
         ]
     , describe "materials param checks"
-        [ [ "/simulator?mass=0.17"
+        [ [ "/textile/simulator?mass=0.17"
           , "product=tshirt"
           , "materials[]=coton;0.3"
           , "materials[]=coton-rdp;0.3"
@@ -217,50 +227,55 @@ textileEndpoints db =
                       }
                     ]
                 )
-            |> asTest "should handle the /simulator endpoint with the list of materials"
-        , getEndpoint db "GET" "/simulator?"
+            |> asTest "should handle the /textile/simulator endpoint with the list of materials"
+        , getEndpoint db "GET" "/textile/simulator?"
             |> Maybe.andThen extractTextileErrors
             |> Maybe.andThen (Dict.get "materials")
             |> Expect.equal (Just "La liste des matières est vide.")
             |> asTest "should validate an empty materials list"
-        , getEndpoint db "GET" "/simulator?materials[]="
+        , getEndpoint db "GET" "/textile/simulator?materials[]="
             |> Maybe.andThen extractTextileErrors
             |> Maybe.andThen (Dict.get "materials")
             |> Expect.equal (Just "Format de matière vide.")
             |> asTest "should validate empty material format"
-        , getEndpoint db "GET" "/simulator?materials[]=notAnID"
+        , getEndpoint db "GET" "/textile/simulator?materials[]=notAnID"
             |> Maybe.andThen extractTextileErrors
             |> Maybe.andThen (Dict.get "materials")
             |> Expect.equal (Just "Format de matière invalide : notAnID.")
             |> asTest "should validate invalid material format"
-        , getEndpoint db "GET" "/simulator?materials[]=coton"
+        , getEndpoint db "GET" "/textile/simulator?materials[]=coton"
             |> Maybe.andThen extractTextileErrors
             |> Maybe.andThen (Dict.get "materials")
             |> Expect.equal (Just "Format de matière invalide : coton.")
             |> asTest "should validate invalid material format even when valid material id"
-        , getEndpoint db "GET" "/simulator?materials[]=coton;12"
+        , getEndpoint db "GET" "/textile/simulator?materials[]=coton;12"
             |> Maybe.andThen extractTextileErrors
             |> Maybe.andThen (Dict.get "materials")
             |> Expect.equal (Just "Un ratio doit être compris entre 0 et 1 inclus (ici : 12).")
             |> asTest "should validate invalid material ratios"
-        , getEndpoint db "GET" "/simulator?ennoblingHeatSource=bonk"
+        , getEndpoint db "GET" "/textile/simulator?ennoblingHeatSource=bonk"
             |> Maybe.andThen extractTextileErrors
             |> Maybe.andThen (Dict.get "ennoblingHeatSource")
             |> Expect.equal (Just "Source de production de vapeur inconnue: bonk")
             |> asTest "should validate invalid ennoblingHeatSource identifier"
-        , getEndpoint db "GET" "/simulator?printing=plop"
+        , getEndpoint db "GET" "/textile/simulator?printing=plop"
             |> Maybe.andThen extractTextileErrors
             |> Maybe.andThen (Dict.get "printing")
             |> Expect.equal (Just "Format de type et surface d'impression invalide: plop")
             |> asTest "should validate invalid printing method identifier"
-        , getEndpoint db "GET" "/simulator?printing=substantive;1.2"
+        , getEndpoint db "GET" "/textile/simulator?printing=substantive;1.2"
             |> Maybe.andThen extractTextileErrors
             |> Maybe.andThen (Dict.get "printing")
             |> Expect.equal (Just "Le ratio de surface d'impression doit être supérieur à zéro et inférieur à 1.")
             |> asTest "should validate invalid printing ratio"
+        , getEndpoint db "GET" "/textile/simulator?countryDyeing=US"
+            |> Maybe.andThen extractTextileErrors
+            |> Maybe.andThen (Dict.get "countryDyeing")
+            |> Expect.equal (Just "Le code pays US n'est pas utilisable dans un contexte Textile.")
+            |> asTest "should validate that an ingredient country scope is valid"
         ]
     , describe "multiple parameters checks"
-        [ getEndpoint db "GET" "/simulator"
+        [ getEndpoint db "GET" "/textile/simulator"
             |> Maybe.andThen extractTextileErrors
             |> Expect.equal
                 (Dict.fromList
@@ -274,14 +289,14 @@ textileEndpoints db =
                     |> Just
                 )
             |> asTest "should expose query validation errors"
-        , [ "/simulator?mass=-0.17"
+        , [ "/textile/simulator?mass=-0.17"
           , "product=notAProductID"
           , "material=notAnID"
           , "materials[]=notAnID"
           , "surfaceMass=-2"
           , "countryFabric=notACountryCode"
           , "countryDyeing=notACountryCode"
-          , "countryMaking=notACountryCode"
+          , "countryMaking=US"
           , "disabledSteps=invalid"
           , "disabledFading=untrue"
           , "dyeingMedium=yolo"
@@ -295,7 +310,7 @@ textileEndpoints db =
                 (Dict.fromList
                     [ ( "countryFabric", "Code pays invalide: notACountryCode." )
                     , ( "countryDyeing", "Code pays invalide: notACountryCode." )
-                    , ( "countryMaking", "Code pays invalide: notACountryCode." )
+                    , ( "countryMaking", "Le code pays US n'est pas utilisable dans un contexte Textile." )
                     , ( "mass", "La masse doit être supérieure ou égale à zéro." )
                     , ( "materials", "Format de matière invalide : notAnID." )
                     , ( "surfaceMass", "Le grammage (surfaceMass) doit être compris entre 30 et 500 gr/m²." )

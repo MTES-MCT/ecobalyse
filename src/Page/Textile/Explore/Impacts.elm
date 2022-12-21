@@ -5,6 +5,7 @@ import Data.Textile.Db as Db
 import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import Page.Textile.Explore.Common as Common
 import Page.Textile.Explore.Table exposing (Table)
 import Route
 import Views.Format as Format
@@ -87,20 +88,7 @@ table { detailed } =
                     [ text def.source.label ]
       }
     , { label = "Domaines"
-      , toCell =
-            .scopes
-                >> List.map
-                    (\scope ->
-                        span
-                            [ class "badge"
-                            , classList
-                                [ ( "bg-success", scope == Impact.Food )
-                                , ( "bg-info", scope == Impact.Textile )
-                                ]
-                            ]
-                            [ text <| Impact.scopeToString scope ]
-                    )
-                >> div [ class "d-flex gap-1" ]
+      , toCell = Common.scopesView
       }
     , { label = "Description"
       , toCell =

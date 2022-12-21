@@ -11,6 +11,7 @@ import Data.Food.Builder.Recipe as BuilderRecipe
 import Data.Food.Ingredient as Ingredient
 import Data.Food.Process as FoodProcess
 import Data.Impact as Impact
+import Data.Scope as Scope
 import Data.Textile.Db as TextileDb
 import Data.Textile.Inputs as Inputs
 import Data.Textile.Material as Material exposing (Material)
@@ -67,7 +68,7 @@ toResponse request encodedResult =
 toAllImpactsSimple : List Impact.Definition -> Simulator -> Encode.Value
 toAllImpactsSimple definitions { inputs, impacts } =
     Encode.object
-        [ ( "impacts", Impact.encodeImpacts definitions Impact.Textile impacts )
+        [ ( "impacts", Impact.encodeImpacts definitions Scope.Textile impacts )
         , ( "description", inputs |> Inputs.toString |> Encode.string )
         , ( "query", inputs |> Inputs.toQuery |> Inputs.encodeQuery )
         ]
@@ -79,7 +80,7 @@ toSingleImpactSimple definitions trigram { inputs, impacts } =
         [ ( "impacts"
           , impacts
                 |> Impact.filterImpacts (\trg _ -> trigram == trg)
-                |> Impact.encodeImpacts definitions Impact.Textile
+                |> Impact.encodeImpacts definitions Scope.Textile
           )
         , ( "description", inputs |> Inputs.toString |> Encode.string )
         , ( "query", inputs |> Inputs.toQuery |> Inputs.encodeQuery )
@@ -171,8 +172,9 @@ encodeIngredients ingredients =
 handleRequest : StaticDb.Db -> Request -> Cmd Msg
 handleRequest ({ builderDb, textileDb } as dbs) request =
     case Route.endpoint dbs request of
-        Just (Route.Get Route.CountryList) ->
-            textileDb.countries
+        Just (Route.Get Route.FoodCountryList) ->
+            builderDb.countries
+                |> Scope.only Scope.Food
                 |> Encode.list encodeCountry
                 |> sendResponse 200 request
 
@@ -194,11 +196,18 @@ handleRequest ({ builderDb, textileDb } as dbs) request =
                 |> sendResponse 200 request
 
         Just (Route.Get (Route.FoodRecipe (Ok query))) ->
-            query |> executeFoodQuery builderDb request (toFoodResults builderDb.impacts query)
+            query
+                |> executeFoodQuery builderDb request (toFoodResults builderDb.impacts query)
 
         Just (Route.Get (Route.FoodRecipe (Err errors))) ->
             Query.encodeErrors errors
                 |> sendResponse 400 request
+
+        Just (Route.Get Route.TextileCountryList) ->
+            textileDb.countries
+                |> Scope.only Scope.Textile
+                |> Encode.list encodeCountry
+                |> sendResponse 200 request
 
         Just (Route.Get Route.TextileMaterialList) ->
             textileDb.materials
@@ -211,21 +220,24 @@ handleRequest ({ builderDb, textileDb } as dbs) request =
                 |> sendResponse 200 request
 
         Just (Route.Get (Route.TextileSimulator (Ok query))) ->
-            query |> executeTextileQuery textileDb request (toAllImpactsSimple textileDb.impacts)
+            query
+                |> executeTextileQuery textileDb request (toAllImpactsSimple textileDb.impacts)
 
         Just (Route.Get (Route.TextileSimulator (Err errors))) ->
             Query.encodeErrors errors
                 |> sendResponse 400 request
 
         Just (Route.Get (Route.TextileSimulatorDetailed (Ok query))) ->
-            query |> executeTextileQuery textileDb request (Simulator.encode textileDb.impacts)
+            query
+                |> executeTextileQuery textileDb request (Simulator.encode textileDb.impacts)
 
         Just (Route.Get (Route.TextileSimulatorDetailed (Err errors))) ->
             Query.encodeErrors errors
                 |> sendResponse 400 request
 
         Just (Route.Get (Route.TextileSimulatorSingle trigram (Ok query))) ->
-            query |> executeTextileQuery textileDb request (toSingleImpactSimple textileDb.impacts trigram)
+            query
+                |> executeTextileQuery textileDb request (toSingleImpactSimple textileDb.impacts trigram)
 
         Just (Route.Get (Route.TextileSimulatorSingle _ (Err errors))) ->
             Query.encodeErrors errors

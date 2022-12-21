@@ -12,6 +12,7 @@ import Data.Food.Explorer.Db as ExplorerDb
 import Data.Food.Process as Process exposing (Process)
 import Data.Food.Product as Product exposing (Product, ProductName)
 import Data.Impact as Impact
+import Data.Scope as Scope
 import Data.Session as Session exposing (Session)
 import Data.Unit as Unit
 import Dict.Any as AnyDict
@@ -272,7 +273,7 @@ viewSidebar session { definition, trigram, totalImpact } { original, product } =
             -- We don't use the following two configs
             , selectedFunctionalUnit = Unit.PerItem
             , switchFunctionalUnit = always NoOp
-            , scope = Impact.Food
+            , scope = Scope.Food
             }
         , SummaryComp.view
             { header = []
@@ -633,9 +634,10 @@ viewPlantTransport itemViewDataConfig items selectedCountry countries =
         countrySelector =
             Views.CountrySelect.view
                 { attributes = [ class "form-select w-50 d-inline" ]
-                , selectedCountry = selectedCountry
-                , onSelect = CountrySelected
                 , countries = countries
+                , onSelect = CountrySelected
+                , scope = Scope.Food
+                , selectedCountry = selectedCountry
                 }
 
         header =

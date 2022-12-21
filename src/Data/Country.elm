@@ -10,10 +10,12 @@ module Data.Country exposing
     , findByCode
     )
 
+import Data.Scope as Scope exposing (Scope)
 import Data.Textile.Process as Process exposing (Process)
 import Data.Unit as Unit
 import Data.Zone as Zone exposing (Zone)
 import Json.Decode as Decode exposing (Decoder)
+import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
 
 
@@ -28,6 +30,7 @@ type alias Country =
     , electricityProcess : Process
     , heatProcess : Process
     , airTransportRatio : Unit.Ratio
+    , scopes : List Scope
     }
 
 
@@ -50,13 +53,14 @@ findByCode code =
 
 decode : List Process -> Decoder Country
 decode processes =
-    Decode.map6 Country
-        (Decode.field "code" decodeCode)
-        (Decode.field "name" Decode.string)
-        (Decode.field "zone" Zone.decode)
-        (Decode.field "electricityProcessUuid" (Process.decodeFromUuid processes))
-        (Decode.field "heatProcessUuid" (Process.decodeFromUuid processes))
-        (Decode.field "airTransportRatio" Unit.decodeRatio)
+    Decode.succeed Country
+        |> Pipe.required "code" decodeCode
+        |> Pipe.required "name" Decode.string
+        |> Pipe.required "zone" Zone.decode
+        |> Pipe.required "electricityProcessUuid" (Process.decodeFromUuid processes)
+        |> Pipe.required "heatProcessUuid" (Process.decodeFromUuid processes)
+        |> Pipe.required "airTransportRatio" Unit.decodeRatio
+        |> Pipe.optional "scopes" (Decode.list Scope.decode) [ Scope.Food, Scope.Textile ]
 
 
 decodeCode : Decoder Code
@@ -77,6 +81,7 @@ encode v =
         , ( "electricityProcessUuid", v.electricityProcess.uuid |> Process.uuidToString |> Encode.string )
         , ( "heatProcessUuid", v.heatProcess.uuid |> Process.uuidToString |> Encode.string )
         , ( "airTransportRatio", Unit.encodeRatio v.airTransportRatio )
+        , ( "scopes", v.scopes |> Encode.list Scope.encode )
         ]
 
 

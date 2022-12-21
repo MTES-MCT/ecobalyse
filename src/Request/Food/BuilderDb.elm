@@ -37,9 +37,11 @@ handleIngredientsLoaded session processes ingredientsData =
             Task.succeed
                 (RemoteData.succeed
                     { builderDb
-                        | processes = processes
-                        , ingredients = ingredients
+                        | countries = session.db.countries
                         , impacts = session.db.impacts
+                        , transports = session.db.transports
+                        , ingredients = ingredients
+                        , processes = processes
                     }
                 )
 

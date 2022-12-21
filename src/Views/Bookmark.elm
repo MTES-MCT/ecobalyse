@@ -1,7 +1,8 @@
-module Views.Bookmark exposing (ActiveTab(..), Scope(..), view)
+module Views.Bookmark exposing (ActiveTab(..), view)
 
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Impact as Impact
+import Data.Scope as Scope exposing (Scope)
 import Data.Session exposing (Session)
 import Data.Unit as Unit
 import Html exposing (..)
@@ -29,11 +30,6 @@ type alias ManagerConfig msg =
     , update : String -> msg
     , switchTab : ActiveTab -> msg
     }
-
-
-type Scope
-    = Food
-    | Textile
 
 
 type ActiveTab
@@ -73,13 +69,13 @@ shareLinkView { session, impact, funit, copyToClipBoard, scope } =
     let
         shareableLink =
             case scope of
-                Food ->
+                Scope.Food ->
                     Just session.queries.food
                         |> Route.FoodBuilder impact.trigram
                         |> Route.toString
                         |> (++) session.clientUrl
 
-                Textile ->
+                Scope.Textile ->
                     Just session.queries.textile
                         |> Route.TextileSimulator impact.trigram funit ViewMode.Simple
                         |> Route.toString
@@ -171,10 +167,10 @@ bookmarksView ({ session, compare, scope } as config) =
         [ div [ class "card-header border-top rounded-0 d-flex justify-content-between align-items-center" ]
             [ span [] [ text "Simulations sauvegardées" ]
             , case scope of
-                Food ->
+                Scope.Food ->
                     text ""
 
-                Textile ->
+                Scope.Textile ->
                     button
                         [ class "btn btn-sm btn-primary"
                         , title "Comparer vos simulations sauvegardées"
@@ -246,10 +242,10 @@ bookmarkView { session, impact, funit, viewMode, delete, scope } ({ name, query 
 queryFromScope : Session -> Scope -> Bookmark.Query
 queryFromScope session scope =
     case scope of
-        Food ->
+        Scope.Food ->
             Bookmark.Food session.queries.food
 
-        Textile ->
+        Scope.Textile ->
             Bookmark.Textile session.queries.textile
 
 
@@ -258,10 +254,10 @@ scopedBookmarks session scope =
     session.store.bookmarks
         |> List.filter
             (case scope of
-                Food ->
+                Scope.Food ->
                     Bookmark.isFood
 
-                Textile ->
+                Scope.Textile ->
                     Bookmark.isTextile
             )
         |> Bookmark.sort

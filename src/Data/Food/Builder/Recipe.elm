@@ -11,7 +11,6 @@ module Data.Food.Builder.Recipe exposing
     , encodeResults
     , fromQuery
     , ingredientQueryFromIngredient
-    , recipeStepImpacts
     , resetTransform
     , serializeQuery
     , setTransform
@@ -21,17 +20,27 @@ module Data.Food.Builder.Recipe exposing
     , updateTransformMass
     )
 
+import Data.Country as Country exposing (Country)
 import Data.Food.Builder.Db exposing (Db)
 import Data.Food.Builder.Query as BuilderQuery exposing (Query)
 import Data.Food.Ingredient as Ingredient exposing (Id, Ingredient)
 import Data.Food.Process as Process exposing (Process)
 import Data.Impact as Impact exposing (Impacts)
+import Data.Scope as Scope
+import Data.Textile.Formula as Formula
+import Data.Transport as Transport exposing (Transport)
 import Data.Unit as Unit
 import Json.Encode as Encode
+import Length
 import Mass exposing (Mass)
 import Quantity
 import Result.Extra as RE
 import String.Extra as SE
+
+
+france : Country.Code
+france =
+    Country.codeFromString "FR"
 
 
 type alias Packaging =
@@ -44,6 +53,7 @@ type alias RecipeIngredient =
     { ingredient : Ingredient
     , mass : Mass
     , variant : BuilderQuery.Variant
+    , country : Country
     }
 
 
@@ -55,12 +65,15 @@ type alias Recipe =
 
 
 type alias Results =
-    { impacts : Impacts
+    { total : Impacts
     , recipe :
-        { ingredients : Impacts
+        { total : Impacts
+        , ingredients : Impacts
         , transform : Impacts
+        , transports : Transport
         }
     , packaging : Impacts
+    , transports : Transport
     }
 
 
@@ -97,29 +110,42 @@ compute db =
                     ingredientsImpacts =
                         ingredients
                             |> List.map computeIngredientImpacts
+                            |> updateImpacts
+
+                    ingredientsTransport =
+                        ingredients
+                            |> List.map (computeIngredientTransport db)
+                            |> Transport.sum db.impacts
 
                     transformImpacts =
                         transform
                             |> Maybe.map (computeProcessImpacts db.impacts >> List.singleton >> updateImpacts)
                             |> Maybe.withDefault Impact.noImpacts
 
+                    recipeImpacts =
+                        updateImpacts
+                            [ ingredientsImpacts
+                            , transformImpacts
+                            , ingredientsTransport.impacts
+                            ]
+
                     packagingImpacts =
                         packaging
                             |> List.map (computeProcessImpacts db.impacts)
+                            |> updateImpacts
                 in
                 ( recipe
-                , { impacts =
-                        [ ingredientsImpacts
-                        , List.singleton transformImpacts
-                        , packagingImpacts
-                        ]
-                            |> List.concat
-                            |> updateImpacts
+                , { total =
+                        Impact.sumImpacts db.impacts
+                            [ recipeImpacts, packagingImpacts ]
                   , recipe =
-                        { ingredients = updateImpacts ingredientsImpacts
+                        { total = recipeImpacts
+                        , ingredients = ingredientsImpacts
                         , transform = transformImpacts
+                        , transports = ingredientsTransport
                         }
-                  , packaging = updateImpacts packagingImpacts
+                  , packaging = packagingImpacts
+                  , transports = ingredientsTransport
                   }
                 )
             )
@@ -140,19 +166,55 @@ computeProcessImpacts defs item =
 
 
 computeIngredientImpacts : RecipeIngredient -> Impacts
-computeIngredientImpacts ingredient =
-    let
-        process =
-            case ingredient.variant of
-                BuilderQuery.Default ->
-                    ingredient.ingredient.default
+computeIngredientImpacts ({ mass } as recipeIngredient) =
+    recipeIngredient
+        |> getRecipeIngredientProcess
+        |> .impacts
+        |> Impact.mapImpacts (computeImpact mass)
 
-                BuilderQuery.Organic ->
-                    ingredient.ingredient.variants.organic
-                        |> Maybe.withDefault ingredient.ingredient.default
+
+computeIngredientTransport : Db -> RecipeIngredient -> Transport
+computeIngredientTransport db { country, mass } =
+    let
+        baseImpacts =
+            Impact.impactsFromDefinitons db.impacts
+
+        transport =
+            db.transports
+                -- This reuses the road/sea transport distances ratio computation stuff
+                |> Transport.getTransportBetween Scope.Food baseImpacts country.code france
+                -- We want air transport ratio to be 0 for all ingredients (for now)
+                |> Formula.transportRatio (Unit.Ratio 0)
+                -- We add 160km of road transport for every ingredient, wherever it comes
+                -- from (including France)
+                |> (\t -> { t | road = t.road |> Quantity.plus (Length.kilometers 160) })
     in
-    process.impacts
-        |> Impact.mapImpacts (computeImpact ingredient.mass)
+    { transport
+        | impacts =
+            db.processes
+                |> Process.loadWellKnown
+                |> Result.map
+                    (\{ lorryTransport, boatTransport, planeTransport } ->
+                        [ ( lorryTransport, transport.road )
+                        , ( boatTransport, transport.sea )
+                        , ( planeTransport, transport.air )
+                        ]
+                            |> List.map
+                                (\( transportProcess, distance ) ->
+                                    transportProcess.impacts
+                                        |> Impact.mapImpacts
+                                            (\_ impact ->
+                                                impact
+                                                    |> Unit.impactToFloat
+                                                    |> (*) (Mass.inMetricTons mass * Length.inKilometers distance)
+                                                    |> Unit.impact
+                                            )
+                                )
+                    )
+                |> Result.withDefault []
+                |> Impact.sumImpacts db.impacts
+                |> Impact.updateAggregatedScores db.impacts
+    }
 
 
 deletePackaging : Process.Code -> Query -> Query
@@ -192,20 +254,23 @@ encodeQuery q =
 
 
 encodeResults : List Impact.Definition -> Results -> Encode.Value
-encodeResults definitions results =
+encodeResults defs results =
     let
         encodeImpacts =
-            Impact.encodeImpacts definitions Impact.Food
+            Impact.encodeImpacts defs Scope.Food
     in
     Encode.object
-        [ ( "impacts", encodeImpacts results.impacts )
+        [ ( "total", encodeImpacts results.total )
         , ( "recipe"
           , Encode.object
-                [ ( "ingredients", encodeImpacts results.recipe.ingredients )
+                [ ( "total", encodeImpacts results.recipe.total )
+                , ( "ingredients", encodeImpacts results.recipe.ingredients )
                 , ( "transform", encodeImpacts results.recipe.transform )
+                , ( "transports", Transport.encode defs results.recipe.transports )
                 ]
           )
         , ( "packaging", encodeImpacts results.packaging )
+        , ( "transports", Transport.encode defs results.transports )
         ]
 
 
@@ -225,18 +290,29 @@ fromQuery db query =
         (packagingListFromQuery db query)
 
 
+getRecipeIngredientProcess : RecipeIngredient -> Process
+getRecipeIngredientProcess { ingredient, variant } =
+    case variant of
+        BuilderQuery.Default ->
+            ingredient.default
+
+        BuilderQuery.Organic ->
+            ingredient.variants.organic
+                |> Maybe.withDefault ingredient.default
+
+
 ingredientListFromQuery : Db -> Query -> Result String (List RecipeIngredient)
-ingredientListFromQuery db query =
-    query.ingredients
-        |> RE.combineMap (ingredientFromQuery db)
+ingredientListFromQuery db =
+    .ingredients >> RE.combineMap (ingredientFromQuery db)
 
 
 ingredientFromQuery : Db -> BuilderQuery.IngredientQuery -> Result String RecipeIngredient
-ingredientFromQuery { ingredients } ingredientQuery =
-    Result.map3 RecipeIngredient
+ingredientFromQuery { countries, ingredients } ingredientQuery =
+    Result.map4 RecipeIngredient
         (Ingredient.findByID ingredientQuery.id ingredients)
         (Ok ingredientQuery.mass)
         (Ok ingredientQuery.variant)
+        (Country.findByCode ingredientQuery.country countries)
 
 
 ingredientQueryFromIngredient : Ingredient -> BuilderQuery.IngredientQuery
@@ -245,6 +321,7 @@ ingredientQueryFromIngredient ingredient =
     , name = ingredient.name
     , mass = Mass.grams 100
     , variant = BuilderQuery.Default
+    , country = BuilderQuery.defaultCountry
     }
 
 
@@ -262,12 +339,6 @@ packagingFromQuery { processes } { code, mass } =
     Result.map2 Packaging
         (Process.findByCode processes code)
         (Ok mass)
-
-
-recipeStepImpacts : Db -> Results -> Impacts
-recipeStepImpacts db { recipe } =
-    [ recipe.ingredients, recipe.transform ]
-        |> Impact.sumImpacts db.impacts
 
 
 resetTransform : Query -> Query

@@ -3,7 +3,6 @@ module Data.Food.Ingredient exposing
     , Ingredient
     , decodeId
     , decodeIngredients
-    , empty
     , encodeId
     , findByID
     , idFromString
@@ -49,15 +48,6 @@ idFromString str =
 idToString : Id -> String
 idToString (Id str) =
     str
-
-
-empty : Ingredient
-empty =
-    { id = idFromString ""
-    , name = ""
-    , default = Process.empty
-    , variants = { organic = Nothing }
-    }
 
 
 type alias Variants =

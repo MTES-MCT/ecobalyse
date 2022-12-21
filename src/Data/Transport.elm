@@ -9,11 +9,13 @@ module Data.Transport exposing
     , encode
     , getTransportBetween
     , roadSeaTransportRatio
+    , sum
     , totalKm
     )
 
 import Data.Country as Country
 import Data.Impact as Impact exposing (Impacts)
+import Data.Scope as Scope exposing (Scope)
 import Dict.Any as Dict exposing (AnyDict)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
@@ -46,11 +48,17 @@ default impacts =
     }
 
 
-defaultInland : Impacts -> Transport
-defaultInland impacts =
-    { road = Length.kilometers 500
+defaultInland : Scope -> Impacts -> Transport
+defaultInland scope impacts =
+    { road =
+        case scope of
+            Scope.Food ->
+                Length.kilometers 0
+
+            Scope.Textile ->
+                Length.kilometers 500
     , sea = Quantity.zero
-    , air = Length.kilometers 500
+    , air = Quantity.zero
     , impacts = impacts
     }
 
@@ -62,6 +70,20 @@ add a b =
         , sea = b.sea |> Quantity.plus a.sea
         , air = b.air |> Quantity.plus a.air
     }
+
+
+sum : List Impact.Definition -> List Transport -> Transport
+sum defs =
+    List.foldl
+        (\{ road, sea, air, impacts } acc ->
+            { acc
+                | road = acc.road |> Quantity.plus road
+                , sea = acc.sea |> Quantity.plus sea
+                , air = acc.air |> Quantity.plus air
+                , impacts = Impact.sumImpacts defs [ acc.impacts, impacts ]
+            }
+        )
+        (default (Impact.impactsFromDefinitons defs))
 
 
 emptyDistances : Distances
@@ -108,14 +130,15 @@ roadSeaTransportRatio { road, sea } =
 
 
 getTransportBetween :
-    Impacts
+    Scope
+    -> Impacts
     -> Country.Code
     -> Country.Code
     -> Distances
     -> Transport
-getTransportBetween impacts cA cB distances =
+getTransportBetween scope impacts cA cB distances =
     if cA == cB then
-        defaultInland impacts
+        defaultInland scope impacts
 
     else
         distances
@@ -128,7 +151,7 @@ getTransportBetween impacts cA cB distances =
 
                         Nothing ->
                             -- reverse query source dict
-                            getTransportBetween impacts cB cA distances
+                            getTransportBetween scope impacts cB cA distances
                 )
             |> Maybe.withDefault (default impacts)
 
@@ -159,7 +182,7 @@ encode definitions v =
         [ ( "road", encodeKm v.road )
         , ( "sea", encodeKm v.sea )
         , ( "air", encodeKm v.air )
-        , ( "impacts", Impact.encodeImpacts definitions Impact.Textile v.impacts )
+        , ( "impacts", Impact.encodeImpacts definitions Scope.Textile v.impacts )
         ]
 
 

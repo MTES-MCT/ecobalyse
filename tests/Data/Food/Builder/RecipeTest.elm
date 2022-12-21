@@ -44,32 +44,34 @@ suite =
             , describe "compute"
                 [ exampleQuery
                     |> Recipe.compute builderDb
-                    |> Result.map (Tuple.second >> .impacts >> AnyDict.toDict)
+                    |> Result.map (Tuple.second >> .total >> AnyDict.toDict)
                     |> Result.withDefault Dict.empty
-                    |> Expect.equalDicts
+                    |> Dict.map (\_ v -> Unit.impactToFloat v > 0)
+                    |> Expect.equal
                         (Dict.fromList
-                            [ ( "acd", Unit.impact 0.011003657548498127 )
-                            , ( "bvi", Unit.impact 0.710392 )
-                            , ( "cch", Unit.impact 0.48260009555595884 )
-                            , ( "ecs", Unit.impact 84.8347574615068 )
-                            , ( "etf", Unit.impact 32.575650059926154 )
-                            , ( "fru", Unit.impact 9.080992944015192 )
-                            , ( "fwe", Unit.impact 0.00015638016353461696 )
-                            , ( "htc", Unit.impact 2.0964675010638222e-10 )
-                            , ( "htn", Unit.impact 1.7866923914337903e-8 )
-                            , ( "ior", Unit.impact 0.2844546503390845 )
-                            , ( "ldu", Unit.impact 41.01494334721711 )
-                            , ( "mru", Unit.impact 0.0000011758164443743993 )
-                            , ( "ozd", Unit.impact 5.929356623133964e-8 )
-                            , ( "pco", Unit.impact 0.0015898633138200164 )
-                            , ( "pef", Unit.impact 94.96342355600991 )
-                            , ( "pma", Unit.impact 8.096835076313684e-8 )
-                            , ( "swe", Unit.impact 0.003412585088489147 )
-                            , ( "tre", Unit.impact 0.04669426104713227 )
-                            , ( "wtu", Unit.impact 0.213976334671988 )
+                            -- Note: presented that way to ease diff viewing in test results
+                            [ ( "acd", True )
+                            , ( "bvi", True )
+                            , ( "cch", True )
+                            , ( "ecs", True )
+                            , ( "etf", True )
+                            , ( "fru", True )
+                            , ( "fwe", True )
+                            , ( "htc", True )
+                            , ( "htn", True )
+                            , ( "ior", True )
+                            , ( "ldu", True )
+                            , ( "mru", True )
+                            , ( "ozd", True )
+                            , ( "pco", True )
+                            , ( "pef", True )
+                            , ( "pma", True )
+                            , ( "swe", True )
+                            , ( "tre", True )
+                            , ( "wtu", True )
                             ]
                         )
-                    |> asTest "should return computed impacts"
+                    |> asTest "should return computed impacts where none equals zero"
                 ]
             ]
         )

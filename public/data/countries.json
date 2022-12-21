@@ -5,7 +5,8 @@
     "zone": "Europe",
     "electricityProcessUuid": "945f8fc8-a7cb-4cbd-98aa-7ab364b482a0",
     "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
-    "airTransportRatio": 0
+    "airTransportRatio": 0,
+    "scopes": ["textile"]
   },
   {
     "code": "BD",
@@ -13,7 +14,8 @@
     "zone": "Asia",
     "electricityProcessUuid": "1ee6061e-8e15-4558-9338-94ad87abf932",
     "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
-    "airTransportRatio": 0.33
+    "airTransportRatio": 0.33,
+    "scopes": ["textile"]
   },
   {
     "code": "BE",
@@ -21,7 +23,17 @@
     "zone": "Europe",
     "electricityProcessUuid": "082fe936-dd69-4735-9a38-3dd218e9c128",
     "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
-    "airTransportRatio": 0
+    "airTransportRatio": 0,
+    "scopes": ["textile"]
+  },
+  {
+    "code": "BR",
+    "name": "Brésil",
+    "zone": "South_America",
+    "electricityProcessUuid": "5f95d446-59c1-4456-a0c3-e90a84c4f2d3",
+    "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
+    "airTransportRatio": 0.33,
+    "scopes": ["food"]
   },
   {
     "code": "CH",
@@ -29,7 +41,8 @@
     "zone": "Europe",
     "electricityProcessUuid": "8ff8fa00-8358-482c-a78e-11050ea1dc74",
     "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
-    "airTransportRatio": 0
+    "airTransportRatio": 0,
+    "scopes": ["textile"]
   },
   {
     "code": "CN",
@@ -37,7 +50,8 @@
     "zone": "Asia",
     "electricityProcessUuid": "8f923f3d-0bd2-4326-99e2-f984b4454226",
     "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
-    "airTransportRatio": 0.33
+    "airTransportRatio": 0.33,
+    "scopes": ["food", "textile"]
   },
   {
     "code": "CZ",
@@ -45,7 +59,8 @@
     "zone": "Europe",
     "electricityProcessUuid": "3a453d41-341d-4f00-b23e-1c0326fdda50",
     "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
-    "airTransportRatio": 0
+    "airTransportRatio": 0,
+    "scopes": ["textile"]
   },
   {
     "code": "DE",
@@ -53,7 +68,8 @@
     "zone": "Europe",
     "electricityProcessUuid": "2f4ccc4d-d96d-4f9b-a462-487c914f88d5",
     "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
-    "airTransportRatio": 0
+    "airTransportRatio": 0,
+    "scopes": ["textile"]
   },
   {
     "code": "EG",
@@ -61,7 +77,8 @@
     "zone": "Africa",
     "electricityProcessUuid": "92df3ca1-8f77-495f-83d1-0d1970585cea",
     "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
-    "airTransportRatio": 0
+    "airTransportRatio": 0,
+    "scopes": ["textile"]
   },
   {
     "code": "ES",
@@ -69,7 +86,8 @@
     "zone": "Europe",
     "electricityProcessUuid": "37301c44-c4cf-4214-a4ac-eee5785ccdc5",
     "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
-    "airTransportRatio": 0
+    "airTransportRatio": 0,
+    "scopes": ["food", "textile"]
   },
   {
     "code": "ET",
@@ -77,7 +95,8 @@
     "zone": "Africa",
     "electricityProcessUuid": "65ec9860-bfb4-4c3a-bd72-e0e8bbcefea1",
     "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
-    "airTransportRatio": 0
+    "airTransportRatio": 0,
+    "scopes": ["textile"]
   },
   {
     "code": "FR",
@@ -85,7 +104,8 @@
     "zone": "Europe",
     "electricityProcessUuid": "05585055-9742-4fff-81ff-ad2e30e1b791",
     "heatProcessUuid": "12fc43f2-a007-423b-a619-619d725793ea",
-    "airTransportRatio": 0
+    "airTransportRatio": 0,
+    "scopes": ["food", "textile"]
   },
   {
     "code": "GB",
@@ -93,7 +113,8 @@
     "zone": "Europe",
     "electricityProcessUuid": "17c53aa0-ee44-4d2e-8923-5410a6fb1bba",
     "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
-    "airTransportRatio": 0
+    "airTransportRatio": 0,
+    "scopes": ["textile"]
   },
   {
     "code": "GR",
@@ -101,7 +122,8 @@
     "zone": "Europe",
     "electricityProcessUuid": "2de25500-c6a5-4723-be3d-9fc674bce785",
     "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
-    "airTransportRatio": 0
+    "airTransportRatio": 0,
+    "scopes": ["textile"]
   },
   {
     "code": "HU",
@@ -109,7 +131,8 @@
     "zone": "Europe",
     "electricityProcessUuid": "ec323bac-9705-4d67-a12c-9d240b5a68c2",
     "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
-    "airTransportRatio": 0
+    "airTransportRatio": 0,
+    "scopes": ["textile"]
   },
   {
     "code": "IN",
@@ -117,7 +140,8 @@
     "zone": "Asia",
     "electricityProcessUuid": "1b470f5c-6ae6-404d-bd71-8546d33dbc17",
     "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
-    "airTransportRatio": 0.33
+    "airTransportRatio": 0.33,
+    "scopes": ["textile"]
   },
   {
     "code": "IT",
@@ -125,7 +149,17 @@
     "zone": "Europe",
     "electricityProcessUuid": "f23b9dd6-9400-4451-a7c4-ad44834b8400",
     "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
-    "airTransportRatio": 0
+    "airTransportRatio": 0,
+    "scopes": ["food", "textile"]
+  },
+  {
+    "code": "KE",
+    "name": "Kenya",
+    "zone": "Africa",
+    "electricityProcessUuid": "eac80c30-22c6-4445-b574-32d21e3be8d3",
+    "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
+    "airTransportRatio": 0.33,
+    "scopes": ["food"]
   },
   {
     "code": "KH",
@@ -133,7 +167,8 @@
     "zone": "Asia",
     "electricityProcessUuid": "89039edc-900f-49dd-82cc-6a27f7cad4ad",
     "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
-    "airTransportRatio": 0.33
+    "airTransportRatio": 0.33,
+    "scopes": ["textile"]
   },
   {
     "code": "MA",
@@ -141,7 +176,8 @@
     "zone": "Africa",
     "electricityProcessUuid": "7f879b58-013e-472c-8637-67d2d536f4e2",
     "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
-    "airTransportRatio": 0
+    "airTransportRatio": 0,
+    "scopes": ["food", "textile"]
   },
   {
     "code": "MM",
@@ -149,7 +185,8 @@
     "zone": "Asia",
     "electricityProcessUuid": "11fbcf50-22e3-4db0-b19f-c841bf7f8692",
     "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
-    "airTransportRatio": 0.33
+    "airTransportRatio": 0.33,
+    "scopes": ["textile"]
   },
   {
     "code": "NL",
@@ -157,7 +194,26 @@
     "zone": "Europe",
     "electricityProcessUuid": "e06b4e70-a9a6-4d9f-ad94-6fe3ff797da8",
     "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
-    "airTransportRatio": 0
+    "airTransportRatio": 0,
+    "scopes": ["textile"]
+  },
+  {
+    "code": "NZ",
+    "name": "Nouvelle-Zélande",
+    "zone": "Oceania",
+    "electricityProcessUuid": "b0ccaaaa-d72c-4d83-ad9d-3e414c494d58",
+    "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
+    "airTransportRatio": 0.33,
+    "scopes": ["food"]
+  },
+  {
+    "code": "PE",
+    "name": "Pérou",
+    "zone": "South_America",
+    "electricityProcessUuid": "eb99f3b1-d1d0-4b8c-9573-ad558ade66e7",
+    "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
+    "airTransportRatio": 0.33,
+    "scopes": ["food"]
   },
   {
     "code": "PK",
@@ -165,7 +221,8 @@
     "zone": "Asia",
     "electricityProcessUuid": "5235ba76-4f83-473c-9521-8f3e1c084a37",
     "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
-    "airTransportRatio": 0.33
+    "airTransportRatio": 0.33,
+    "scopes": ["textile"]
   },
   {
     "code": "PL",
@@ -173,7 +230,8 @@
     "zone": "Europe",
     "electricityProcessUuid": "280eb6f6-2c6b-49a4-9c11-cbe1a373bc28",
     "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
-    "airTransportRatio": 0
+    "airTransportRatio": 0,
+    "scopes": ["textile"]
   },
   {
     "code": "PT",
@@ -181,7 +239,8 @@
     "zone": "Europe",
     "electricityProcessUuid": "a1d83202-0052-4d10-b9d2-938564be6a0b",
     "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
-    "airTransportRatio": 0
+    "airTransportRatio": 0,
+    "scopes": ["textile"]
   },
   {
     "code": "RO",
@@ -189,7 +248,8 @@
     "zone": "Europe",
     "electricityProcessUuid": "9dadf1cf-d142-42c7-a269-da69c7bd0016",
     "heatProcessUuid": "63b1b03f-1f73-4791-829d-d49c06ddc8ee",
-    "airTransportRatio": 0
+    "airTransportRatio": 0,
+    "scopes": ["textile"]
   },
   {
     "code": "LK",
@@ -197,7 +257,8 @@
     "zone": "Asia",
     "electricityProcessUuid": "a422bb06-6d07-436b-be71-9e2034272a2b",
     "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
-    "airTransportRatio": 0.33
+    "airTransportRatio": 0.33,
+    "scopes": ["textile"]
   },
   {
     "code": "TN",
@@ -205,7 +266,8 @@
     "zone": "Africa",
     "electricityProcessUuid": "f0eb64cd-468d-4f3c-a9a3-3b3661625955",
     "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
-    "airTransportRatio": 0
+    "airTransportRatio": 0,
+    "scopes": ["textile"]
   },
   {
     "code": "TR",
@@ -213,7 +275,8 @@
     "zone": "Middle_East",
     "electricityProcessUuid": "6fad8643-de3e-49dd-a48b-8e17b4175c23",
     "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
-    "airTransportRatio": 0.33
+    "airTransportRatio": 0.33,
+    "scopes": ["textile"]
   },
   {
     "code": "TW",
@@ -221,7 +284,17 @@
     "zone": "Asia",
     "electricityProcessUuid": "b1fda481-0247-4b08-a86f-09847e695e9d",
     "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
-    "airTransportRatio": 0.33
+    "airTransportRatio": 0.33,
+    "scopes": ["textile"]
+  },
+  {
+    "code": "US",
+    "name": "Etats-Unis",
+    "zone": "North_America",
+    "electricityProcessUuid": "09c094a1-2ba7-4177-9258-4ec1e0c12cb8",
+    "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
+    "airTransportRatio": 0.33,
+    "scopes": ["food"]
   },
   {
     "code": "VN",
@@ -229,6 +302,7 @@
     "zone": "Asia",
     "electricityProcessUuid": "0007ed7f-ef14-47a0-859c-d8ca92309f66",
     "heatProcessUuid": "2e8de6f6-0ea1-455b-adce-ea74d307d222",
-    "airTransportRatio": 0.33
+    "airTransportRatio": 0.33,
+    "scopes": ["textile"]
   }
 ]

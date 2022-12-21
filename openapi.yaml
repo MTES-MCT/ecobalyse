@@ -37,11 +37,11 @@ paths:
       responses:
         200:
           description: Documentation de l'API au format OpenAPI.
-  /countries:
+  /textile/countries:
     get:
       tags:
-        - Commun
-      summary: Liste des pays
+        - Textile
+      summary: Liste des pays utilisables pour les simulations textiles.
       responses:
         200:
           description: Opération réussie
@@ -49,7 +49,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/CountryListResponse"
-  /materials:
+  /textile/materials:
     get:
       tags:
         - Textile
@@ -61,7 +61,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/MaterialListResponse"
-  /products:
+  /textile/products:
     get:
       tags:
         - Textile
@@ -73,7 +73,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ProductListResponse"
-  /simulator:
+  /textile/simulator:
     get:
       tags:
         - Textile
@@ -110,7 +110,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/InvalidParametersError"
-  /simulator/{impact}:
+  /textile/simulator/{impact}:
     get:
       tags:
         - Textile
@@ -177,7 +177,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/InvalidParametersError"
-  /simulator/detailed:
+  /textile/simulator/detailed:
     get:
       tags:
         - Textile
@@ -215,6 +215,18 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/InvalidParametersError"
+  /food/countries:
+    get:
+      tags:
+        - Alimentaire
+      summary: Liste des pays utilisables pour les simulations alimentairess.
+      responses:
+        200:
+          description: Opération réussie
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CountryListResponse"
   /food/ingredients:
     get:
       tags:
@@ -289,7 +301,7 @@ components:
       name: "materials[]"
       in: query
       description: |
-        Liste des matières composant le produit (liste disponible sur le point d'entrée `/materials`).
+        Liste des matières composant le produit (liste disponible sur le point d'entrée `/textile/materials`).
         Le format de chaque entrée est composé de l'identifiant de la matière et de la part du produit
         qu'elle représente :
 
@@ -317,7 +329,7 @@ components:
     productParam:
       name: product
       in: query
-      description: Identifiant du produit (liste disponible sur le point d'entrée `/products`)
+      description: Identifiant du produit (liste disponible sur le point d'entrée `/textile/products`)
       required: true
       style: form
       schema:
@@ -331,7 +343,7 @@ components:
       name: countrySpinning
       in: query
       description: |
-        Code pays pour l'étape de **Filature** (liste disponible sur le point d'entrée `countries`).
+        Code pays pour l'étape de **Filature** (liste disponible sur le point d'entrée `textile/countries`).
         Si non spécifié, le pays de filature pris en considération est celui de production de
         la matière la plus représentée dans le mix.
       required: false
@@ -351,7 +363,7 @@ components:
       name: countryFabric
       in: query
       description: |
-        Code pays pour l'étape de **Tissage/Tricotage** (liste disponible sur le point d'entrée `countries`)
+        Code pays pour l'étape de **Tissage/Tricotage** (liste disponible sur le point d'entrée `textile/countries`)
       required: true
       style: form
       schema:
@@ -366,7 +378,7 @@ components:
     countryDyeingParam:
       name: countryDyeing
       in: query
-      description: "Code pays pour l'étape de **Teinture** (liste disponible sur le point d'entrée `countries`)"
+      description: "Code pays pour l'étape de **Teinture** (liste disponible sur le point d'entrée `textile/countries`)"
       required: true
       style: form
       schema:
@@ -381,7 +393,7 @@ components:
     countryMakingParam:
       name: countryMaking
       in: query
-      description: "Code pays pour l'étape de **Confection** (liste disponible sur le point d'entrée `countries`)"
+      description: "Code pays pour l'étape de **Confection** (liste disponible sur le point d'entrée `textile/countries`)"
       required: true
       style: form
       schema:
@@ -610,15 +622,16 @@ components:
       in: query
       description: |
         Liste des ingrédients composant la recette (liste disponible sur le point d'entrée `/food/ingredients`).
-        Le format de chaque entrée est composé de l'identifiant de la matière et de sa masse **exprimée en grammes**, ainsi que d'un éventuel mode de production alternatif à utiliser :
+        Le format de chaque entrée est composé de l'identifiant de la matière et de sa masse **exprimée en grammes**, ainsi que d'un éventuel mode de production alternatif à utiliser, et d'un éventuel pays d'origine :
 
         - `milk;268` signifie *268g de lait*;
         - `carrot;30;organic` signifie *30g de carrotes bio*;
+        - `tomato;123;default;ES` signifie *123g de tomates bio en provenance d'Espagne*;
 
-        > Par exemple, les paramètres à passer pour une recette à base de 268g de lait et 30g de carrotes bio sont :
+        > Par exemple, les paramètres à passer pour une recette à base de 268g de lait et 30g de carrotes bio d'espagne sont :
         >
         > ```js
-        > ingredients[]=milk;268&ingredients[]=carrot;30;organic
+        > ingredients[]=milk;268&ingredients[]=carrot;30;organic;ES
         > ```
       required: true
       style: form
@@ -636,6 +649,9 @@ components:
         threeIngredients:
           summary: Lait, carrotes bio, oeuf
           value: ["milk;268", "carrot;30;organic", "egg;149"]
+        fourIngredients:
+          summary: Lait, carrotes bio, oeuf, tomates d'espagne
+          value: ["milk;268", "carrot;30;organic", "egg;149", "tomato;123;default;ES"]
     packagingParam:
       name: "packaging[]"
       in: query
@@ -748,7 +764,7 @@ components:
           description: "Lien hypertexte vers la documentation de l'API"
     CountryListResponse:
       type: array
-      description: Liste des pays
+      description: Liste des pays.
       items:
         type: object
         properties:

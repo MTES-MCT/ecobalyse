@@ -65,7 +65,7 @@ app.use(
   }),
 );
 
-// Redirections
+// Redirects: Web
 app.get("/accessibilite", (_, res) => res.redirect("/#/pages/accessibilité"));
 app.get("/mentions-legales", (_, res) => res.redirect("/#/pages/mentions-légales"));
 app.get("/stats", (_, res) => res.redirect("/#/stats"));
@@ -91,6 +91,13 @@ api.get("/", (req, res) => {
   apiTracker.track(200, req);
   res.status(200).send(openApiContents);
 });
+
+// Redirects: API
+api.get(/^\/countries$/, (_, res) => res.redirect("textile/countries"));
+api.get(/^\/materials$/, (_, res) => res.redirect("textile/materials"));
+api.get(/^\/products$/, (_, res) => res.redirect("textile/products"));
+const cleanRedirect = (url) => (url.startsWith("/") ? url : "");
+api.get(/^\/simulator(.*)$/, ({ url }, res) => res.redirect(`/api/textile${cleanRedirect(url)}`));
 
 api.all(/(.*)/, (req, res) => {
   elmApp.ports.input.send({

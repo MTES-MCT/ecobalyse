@@ -8,6 +8,7 @@ module Data.Textile.Simulator exposing
 import Array
 import Data.Country exposing (Country)
 import Data.Impact as Impact exposing (Impacts)
+import Data.Scope as Scope
 import Data.Textile.Db exposing (Db)
 import Data.Textile.Formula as Formula
 import Data.Textile.HeatSource exposing (HeatSource)
@@ -42,7 +43,7 @@ encode definitions v =
     Encode.object
         [ ( "inputs", Inputs.encode v.inputs )
         , ( "lifeCycle", LifeCycle.encode definitions v.lifeCycle )
-        , ( "impacts", Impact.encodeImpacts definitions Impact.Textile v.impacts )
+        , ( "impacts", Impact.encodeImpacts definitions Scope.Textile v.impacts )
         , ( "transport", Transport.encode definitions v.transport )
         , ( "daysOfWear", v.daysOfWear |> Duration.inDays |> Encode.float )
         , ( "useNbCycles", Encode.int v.useNbCycles )
@@ -575,7 +576,7 @@ lifeCycleImpacts db simulator =
     -- wtu:
     --     ...
     db.impacts
-        |> List.filter (.scopes >> List.member Impact.Textile)
+        |> List.filter (.scopes >> List.member Scope.Textile)
         |> List.map
             (\def ->
                 ( def.label

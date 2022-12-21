@@ -14,6 +14,7 @@ import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Country as Country
 import Data.Impact as Impact
 import Data.Key as Key
+import Data.Scope as Scope
 import Data.Session as Session exposing (Session)
 import Data.Textile.Db exposing (Db)
 import Data.Textile.DyeingMedium exposing (DyeingMedium)
@@ -519,7 +520,7 @@ simulatorView ({ db } as session) ({ impact, funit, viewMode } as model) ({ inpu
                     , switchImpact = SwitchImpact
                     , selectedFunctionalUnit = model.funit
                     , switchFunctionalUnit = SwitchFunctionalUnit
-                    , scope = Impact.Textile
+                    , scope = Scope.Textile
                     }
                 , div [ class "Summary" ]
                     [ model.simulator
@@ -536,7 +537,7 @@ simulatorView ({ db } as session) ({ impact, funit, viewMode } as model) ({ inpu
                     , bookmarkName = model.bookmarkName
                     , impact = model.impact
                     , funit = model.funit
-                    , scope = BookmarkView.Textile
+                    , scope = Scope.Textile
                     , viewMode = model.viewMode
                     , copyToClipBoard = CopyToClipBoard
                     , compare = OpenComparator

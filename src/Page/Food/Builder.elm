@@ -15,6 +15,7 @@ import Data.Food.Builder.Recipe as Recipe exposing (Recipe)
 import Data.Food.Ingredient as Ingredient exposing (Id, Ingredient)
 import Data.Food.Process as Process exposing (Process)
 import Data.Impact as Impact exposing (Impacts)
+import Data.Scope as Scope
 import Data.Session as Session exposing (Session)
 import Data.Unit as Unit
 import Html exposing (..)
@@ -36,10 +37,12 @@ import Views.Bookmark as BookmarkView
 import Views.Component.MassInput as MassInput
 import Views.Component.Summary as SummaryComp
 import Views.Container as Container
+import Views.CountrySelect as CountrySelect
 import Views.Format as Format
 import Views.Icon as Icon
 import Views.Impact as ImpactView
 import Views.Spinner as Spinner
+import Views.Transport as TransportView
 
 
 type alias Model =
@@ -102,7 +105,8 @@ init ({ db, builderDb, queries } as session) trigram maybeQuery =
               , selectedTransform = Nothing
               , selectedPackaging = Nothing
               }
-            , session |> Session.updateFoodQuery query
+            , session
+                |> Session.updateFoodQuery query
             , case maybeQuery of
                 Nothing ->
                     Ports.scrollTo { x = 0, y = 0 }
@@ -380,6 +384,7 @@ updateIngredientFormView { excluded, db, ingredient } =
             , name = ingredient.ingredient.name
             , mass = ingredient.mass
             , variant = ingredient.variant
+            , country = ingredient.country.code
             }
 
         event =
@@ -428,28 +433,35 @@ updateIngredientFormView { excluded, db, ingredient } =
                         }
                 )
         )
-        (span
-            [ class "w-25 d-flex align-items-center gap-2"
+        (div
+            [ class "d-flex align-items-center gap-2"
             , classList [ ( "text-muted", ingredient.ingredient.variants.organic == Nothing ) ]
             ]
-            [ label [ class "flex-grow-1" ]
+            [ CountrySelect.view
+                { attributes = [ class "form-select form-select-sm" ]
+                , countries = db.countries
+                , onSelect = \countryCode -> event { ingredientQuery | country = countryCode }
+                , scope = Scope.Food
+                , selectedCountry = ingredientQuery.country
+                }
+            , label [ class "d-flex gap-1" ]
                 [ input
                     [ type_ "checkbox"
-                    , class "form-check-input m-1"
+                    , class "form-check-input no-outline"
                     , attribute "role" "switch"
                     , checked <| ingredient.variant == Query.Organic
                     , disabled <| ingredient.ingredient.variants.organic == Nothing
                     , onCheck
                         (\checked ->
-                            { ingredientQuery
-                                | variant =
-                                    if checked then
-                                        Query.Organic
+                            event
+                                { ingredientQuery
+                                    | variant =
+                                        if checked then
+                                            Query.Organic
 
-                                    else
-                                        Query.Default
-                            }
-                                |> event
+                                        else
+                                            Query.Default
+                                }
                         )
                     ]
                     []
@@ -600,7 +612,8 @@ mainView : Session -> Db -> Model -> Html Msg
 mainView session db model =
     let
         computed =
-            Recipe.compute db session.queries.food
+            session.queries.food
+                |> Recipe.compute db
     in
     div [ class "row gap-3 gap-lg-0" ]
         [ div [ class "col-lg-4 order-lg-2 d-flex flex-column gap-3" ]
@@ -619,7 +632,8 @@ mainView session db model =
 
                 Err error ->
                     errorView error
-            , debugQueryView db session.queries.food
+            , session.queries.food
+                |> debugQueryView db
             ]
         ]
 
@@ -682,7 +696,7 @@ processSelectorView kind selectedCode event =
             ]
 
 
-ingredientSelectorView : Id -> List Id -> (Ingredient -> msg) -> List Ingredient -> Html msg
+ingredientSelectorView : Id -> List Id -> (Ingredient -> Msg) -> List Ingredient -> Html Msg
 ingredientSelectorView selectedIngredient excluded event ingredients =
     ingredients
         |> List.map
@@ -700,25 +714,42 @@ ingredientSelectorView selectedIngredient excluded event ingredients =
         -- We use Html.Keyed because when we add an item, we filter it out from the select box,
         -- which desynchronizes the DOM state and the virtual dom state
         |> Keyed.node "select"
-            [ class "form-select form-select-sm"
+            [ class "form-select form-select-sm flex-grow-1"
             , onInput
                 (\ingredientId ->
-                    let
-                        newIngredient =
-                            ingredients
-                                |> Ingredient.findByID (Ingredient.idFromString ingredientId)
-                                |> Result.withDefault Ingredient.empty
-                    in
-                    event newIngredient
+                    ingredients
+                        |> Ingredient.findByID (Ingredient.idFromString ingredientId)
+                        |> Result.map event
+                        |> Result.withDefault NoOp
                 )
             ]
+
+
+recipeTransportsView : Impact.Definition -> Recipe.Results -> List (Html Msg)
+recipeTransportsView selectedImpact results =
+    [ div [ class "card-header d-flex align-items-center justify-content-between border-top" ]
+        [ h6 [ class "mb-0" ] [ text "Transports" ]
+        , results.recipe.transports.impacts
+            |> Format.formatFoodSelectedImpact selectedImpact
+        ]
+    , div [ class "card-body d-flex justify-content-between align-items-center gap-1 text-muted py-2 fs-7" ]
+        [ span [ class "text-nowrap" ] [ text "Transport total cumulé à cette étape" ]
+        , results.recipe.transports
+            |> TransportView.view
+                { fullWidth = False
+                , airTransportLabel = Nothing
+                , seaTransportLabel = Nothing
+                , roadTransportLabel = Nothing
+                }
+        ]
+    ]
 
 
 rowTemplate : Html Msg -> Html Msg -> Html Msg -> Html Msg
 rowTemplate input content action =
     li [ class "list-group-item d-flex align-items-center gap-2" ]
         [ span [ class "MassInputWrapper flex-shrink-1" ] [ input ]
-        , span [ class "w-100" ] [ content ]
+        , span [ class "flex-grow-1" ] [ content ]
         , action
         ]
 
@@ -737,14 +768,14 @@ sidebarView session db model results =
             -- We don't use the following two configs
             , selectedFunctionalUnit = Unit.PerItem
             , switchFunctionalUnit = always NoOp
-            , scope = Impact.Food
+            , scope = Scope.Food
             }
         , SummaryComp.view
             { header = []
             , body =
                 [ div [ class "d-flex flex-column m-auto gap-1 px-2" ]
                     [ div [ class "display-4 lh-1 text-center text-nowrap" ]
-                        [ results.impacts
+                        [ results.total
                             |> Format.formatFoodSelectedImpact model.impact
                         ]
                     , small [ class "d-flex align-items-center gap-1" ]
@@ -756,14 +787,14 @@ sidebarView session db model results =
             , footer = []
             }
         , stepResultsView db model results
-        , protectionAreaView session results.impacts
+        , protectionAreaView session results.total
         , BookmarkView.view
             { session = session
             , activeTab = model.bookmarkTab
             , bookmarkName = model.bookmarkName
             , impact = model.impact
             , funit = Unit.PerItem
-            , scope = BookmarkView.Food
+            , scope = Scope.Food
             , viewMode = ViewMode.Simple
             , copyToClipBoard = CopyToClipBoard
             , compare = NoOp
@@ -813,7 +844,7 @@ stepListView db { impact, selectedPackaging, selectedTransform } recipe results 
         [ div [ class "card" ]
             (div [ class "card-header d-flex align-items-center justify-content-between" ]
                 [ h5 [ class "mb-0" ] [ text "Recette" ]
-                , Recipe.recipeStepImpacts db results
+                , results.recipe.total
                     |> Format.formatFoodSelectedImpact impact
                     |> List.singleton
                     |> span [ class "fw-bold" ]
@@ -821,6 +852,7 @@ stepListView db { impact, selectedPackaging, selectedTransform } recipe results 
                 :: List.concat
                     [ ingredientListView db impact recipe results
                     , transformView db impact selectedTransform recipe results
+                    , recipeTransportsView impact results
                     ]
             )
         , div [ class "card" ]
@@ -836,18 +868,26 @@ stepResultsView db model results =
 
         stepsData =
             [ { label = "Recette"
-              , impact = toFloat <| Recipe.recipeStepImpacts db results
+              , impact =
+                    [ results.recipe.ingredients
+                    , results.recipe.transform
+                    ]
+                        |> Impact.sumImpacts db.impacts
+                        |> toFloat
               }
             , { label = "Emballage"
               , impact = toFloat results.packaging
               }
+            , { label = "Transports"
+              , impact = toFloat results.transports.impacts
+              }
             ]
 
         totalImpact =
-            toFloat results.impacts
+            toFloat results.total
     in
     div [ class "card" ]
-        [ div [ class "card-header" ] [ text "Étapes du cycle de vie" ]
+        [ div [ class "card-header" ] [ text "Détail des postes" ]
         , stepsData
             |> List.map
                 (\{ label, impact } ->

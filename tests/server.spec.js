@@ -32,12 +32,6 @@ describe("API", () => {
         expect(response.body.info.title).toEqual("API Ecobalyse");
       });
     });
-
-    describe("/countries", () => {
-      it("should render with countries list", async () => {
-        await expectListResponseContains("/api/countries", { code: "FR", name: "France" });
-      });
-    });
   });
 
   describe("Textile", () => {
@@ -54,9 +48,16 @@ describe("API", () => {
         "countryDyeing=CN",
         "countryMaking=CN",
       ];
+
+    describe("/textile/countries", () => {
+      it("should render with textile countries list", async () => {
+        await expectListResponseContains("/api/textile/countries", { code: "FR", name: "France" });
+      });
+    });
+
     describe("/materials", () => {
       it("should render with materials list", async () => {
-        await expectListResponseContains("/api/materials", {
+        await expectListResponseContains("/api/textile/materials", {
           id: "coton",
           name: "Fil de coton conventionnel, inventaire partiellement agrégé",
         });
@@ -65,13 +66,16 @@ describe("API", () => {
 
     describe("/products", () => {
       it("should render with products list", async () => {
-        await expectListResponseContains("/api/products", { id: "tshirt", name: "T-shirt" });
+        await expectListResponseContains("/api/textile/products", {
+          id: "tshirt",
+          name: "T-shirt",
+        });
       });
     });
 
     describe("/simulator", () => {
       it("should accept a valid query", async () => {
-        const response = await makeRequest("/api/simulator", successQuery);
+        const response = await makeRequest("/api/textile/simulator", successQuery);
 
         expectStatus(response, 200);
         expect(response.body.impacts.cch).toBeGreaterThan(0);
@@ -79,7 +83,7 @@ describe("API", () => {
 
       it("should validate the mass param", async () => {
         expectFieldErrorMessage(
-          await makeRequest("/api/simulator", ["mass=-1"]),
+          await makeRequest("/api/textile/simulator", ["mass=-1"]),
           "mass",
           /supérieure ou égale à zéro/,
         );
@@ -87,7 +91,7 @@ describe("API", () => {
 
       it("should validate the materials param", async () => {
         expectFieldErrorMessage(
-          await makeRequest("/api/simulator", ["materials[]=xxx;1"]),
+          await makeRequest("/api/textile/simulator", ["materials[]=xxx;1"]),
           "materials",
           /Matière non trouvée id=xxx/,
         );
@@ -95,7 +99,7 @@ describe("API", () => {
 
       it("should validate the product param", async () => {
         expectFieldErrorMessage(
-          await makeRequest("/api/simulator", ["product=xxx"]),
+          await makeRequest("/api/textile/simulator", ["product=xxx"]),
           "product",
           /Produit non trouvé id=xxx/,
         );
@@ -103,7 +107,7 @@ describe("API", () => {
 
       it("should validate the country params are present", async () => {
         expectFieldErrorMessage(
-          await makeRequest("/api/simulator", ["countryFabric=FR,countryDyeing=FR"]),
+          await makeRequest("/api/textile/simulator", ["countryFabric=FR,countryDyeing=FR"]),
           "countryMaking",
           /Code pays manquant/,
         );
@@ -111,7 +115,7 @@ describe("API", () => {
 
       it("should validate the countryFabric param (invalid code)", async () => {
         expectFieldErrorMessage(
-          await makeRequest("/api/simulator", ["countryFabric=XX"]),
+          await makeRequest("/api/textile/simulator", ["countryFabric=XX"]),
           "countryFabric",
           /Code pays invalide: XX/,
         );
@@ -119,7 +123,7 @@ describe("API", () => {
 
       it("should validate the countryDyeing param (invalid code)", async () => {
         expectFieldErrorMessage(
-          await makeRequest("/api/simulator", ["countryDyeing=XX"]),
+          await makeRequest("/api/textile/simulator", ["countryDyeing=XX"]),
           "countryDyeing",
           /Code pays invalide: XX/,
         );
@@ -127,7 +131,7 @@ describe("API", () => {
 
       it("should validate the countryMaking param (invalid code)", async () => {
         expectFieldErrorMessage(
-          await makeRequest("/api/simulator", ["countryMaking=XX"]),
+          await makeRequest("/api/textile/simulator", ["countryMaking=XX"]),
           "countryMaking",
           /Code pays invalide: XX/,
         );
@@ -135,7 +139,7 @@ describe("API", () => {
 
       it("should validate the disabledSteps param", async () => {
         expectFieldErrorMessage(
-          await makeRequest("/api/simulator", ["disabledSteps=xxx"]),
+          await makeRequest("/api/textile/simulator", ["disabledSteps=xxx"]),
           "disabledSteps",
           /Code étape inconnu: xxx/i,
         );
@@ -143,14 +147,14 @@ describe("API", () => {
 
       it("should validate the dyeingMedium param", async () => {
         expectFieldErrorMessage(
-          await makeRequest("/api/simulator", ["dyeingMedium=xxx"]),
+          await makeRequest("/api/textile/simulator", ["dyeingMedium=xxx"]),
           "dyeingMedium",
           /support de teinture inconnu: xxx/i,
         );
       });
 
       it("should perform a simulation featuring 14 impacts for textile", async () => {
-        const response = await makeRequest("/api/simulator/", successQuery);
+        const response = await makeRequest("/api/textile/simulator/", successQuery);
 
         expectStatus(response, 200);
         expect(Object.keys(response.body.impacts)).toHaveLength(14);
@@ -158,7 +162,7 @@ describe("API", () => {
 
       it("should validate the airTransportRatio param", async () => {
         expectFieldErrorMessage(
-          await makeRequest("/api/simulator", ["airTransportRatio=2"]),
+          await makeRequest("/api/textile/simulator", ["airTransportRatio=2"]),
           "airTransportRatio",
           /doit être compris entre/,
         );
@@ -166,7 +170,7 @@ describe("API", () => {
 
       it("should validate the makingWaste param", async () => {
         expectFieldErrorMessage(
-          await makeRequest("/api/simulator", ["makingWaste=0.9"]),
+          await makeRequest("/api/textile/simulator", ["makingWaste=0.9"]),
           "makingWaste",
           /doit être compris entre/,
         );
@@ -174,7 +178,7 @@ describe("API", () => {
 
       it("should validate the picking param", async () => {
         expectFieldErrorMessage(
-          await makeRequest("/api/simulator", ["picking=10"]),
+          await makeRequest("/api/textile/simulator", ["picking=10"]),
           "picking",
           /doit être compris entre/,
         );
@@ -182,7 +186,7 @@ describe("API", () => {
 
       it("should validate the surfaceMass param", async () => {
         expectFieldErrorMessage(
-          await makeRequest("/api/simulator", ["surfaceMass=10"]),
+          await makeRequest("/api/textile/simulator", ["surfaceMass=10"]),
           "surfaceMass",
           /doit être compris entre/,
         );
@@ -190,7 +194,7 @@ describe("API", () => {
 
       it("should validate the disabledFading param", async () => {
         expectFieldErrorMessage(
-          await makeRequest("/api/simulator", ["disabledFading=untrue"]),
+          await makeRequest("/api/textile/simulator", ["disabledFading=untrue"]),
           "disabledFading",
           /ne peut être que true ou false/,
         );
@@ -198,7 +202,7 @@ describe("API", () => {
 
       it("should validate the printing param", async () => {
         expectFieldErrorMessage(
-          await makeRequest("/api/simulator", ["printing=bonk"]),
+          await makeRequest("/api/textile/simulator", ["printing=bonk"]),
           "printing",
           /Format de type et surface d'impression invalide: bonk/,
         );
@@ -206,7 +210,7 @@ describe("API", () => {
 
       it("should validate the ennoblingHeatSource param", async () => {
         expectFieldErrorMessage(
-          await makeRequest("/api/simulator", ["ennoblingHeatSource=bonk"]),
+          await makeRequest("/api/textile/simulator", ["ennoblingHeatSource=bonk"]),
           "ennoblingHeatSource",
           /Source de production de vapeur inconnue: bonk/,
         );
@@ -215,7 +219,7 @@ describe("API", () => {
 
     describe("/simulator/fwe", () => {
       it("should accept a valid query", async () => {
-        const response = await makeRequest("/api/simulator/fwe", successQuery);
+        const response = await makeRequest("/api/textile/simulator/fwe", successQuery);
 
         expectStatus(response, 200);
         expect(response.body.impacts.fwe).toBeGreaterThan(0);
@@ -224,7 +228,7 @@ describe("API", () => {
 
     describe("/simulator/detailed", () => {
       it("should accept a valid query", async () => {
-        const response = await makeRequest("/api/simulator/detailed", successQuery);
+        const response = await makeRequest("/api/textile/simulator/detailed", successQuery);
 
         expectStatus(response, 200);
         expect(response.body.lifeCycle).toHaveLength(8);
@@ -236,7 +240,7 @@ describe("API", () => {
 
       for (const { name, query, impacts } of e2eTextile) {
         it(name, async () => {
-          const response = await makeRequest("/api/simulator", query);
+          const response = await makeRequest("/api/textile/simulator", query);
           expectStatus(response, 200);
           e2eOutput.textile.push({
             name,
@@ -250,6 +254,12 @@ describe("API", () => {
   });
 
   describe("Food", () => {
+    describe("/food/countries", () => {
+      it("should render with food countries list", async () => {
+        await expectListResponseContains("/api/food/countries", { code: "FR", name: "France" });
+      });
+    });
+
     describe("/food/ingredients", () => {
       it("should render with ingredients list", async () => {
         await expectListResponseContains("/api/food/ingredients", {
@@ -276,7 +286,7 @@ describe("API", () => {
         ]);
 
         expectStatus(response, 200);
-        expect(Object.keys(response.body.results.impacts)).toHaveLength(19);
+        expect(Object.keys(response.body.results.total)).toHaveLength(19);
       });
 
       it("should validate the ingredient list length", async () => {
@@ -348,9 +358,9 @@ describe("API", () => {
           e2eOutput.food.push({
             name,
             query,
-            impacts: response.body.results.impacts,
+            impacts: response.body.results.total,
           });
-          expect(toComparable(response.body.results.impacts)).toEqual(toComparable(impacts));
+          expect(toComparable(response.body.results.total)).toEqual(toComparable(impacts));
         });
       }
     });
