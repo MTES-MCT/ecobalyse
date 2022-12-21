@@ -777,7 +777,7 @@ sidebarView session db model results =
             , body =
                 [ div [ class "d-flex flex-column m-auto gap-1 px-2" ]
                     [ div [ class "display-4 lh-1 text-center text-nowrap" ]
-                        [ results.impacts
+                        [ results.total
                             |> Format.formatFoodSelectedImpact model.impact
                         ]
                     , small [ class "d-flex align-items-center gap-1" ]
@@ -789,7 +789,7 @@ sidebarView session db model results =
             , footer = []
             }
         , stepResultsView model results
-        , protectionAreaView session results.impacts
+        , protectionAreaView session results.total
         , BookmarkView.view
             { session = session
             , activeTab = model.bookmarkTab
@@ -846,7 +846,7 @@ stepListView db { impact, selectedPackaging, selectedTransform } recipe results 
         [ div [ class "card" ]
             (div [ class "card-header d-flex align-items-center justify-content-between" ]
                 [ h5 [ class "mb-0" ] [ text "Recette" ]
-                , results.recipe.impacts
+                , results.recipe.total
                     |> Format.formatFoodSelectedImpact impact
                     |> List.singleton
                     |> span [ class "fw-bold" ]
@@ -870,7 +870,7 @@ stepResultsView model results =
 
         stepsData =
             [ { label = "Recette"
-              , impact = toFloat results.recipe.impacts
+              , impact = toFloat results.recipe.total
               }
             , { label = "Emballage"
               , impact = toFloat results.packaging
@@ -881,7 +881,7 @@ stepResultsView model results =
             ]
 
         totalImpact =
-            toFloat results.impacts
+            toFloat results.total
     in
     div [ class "card" ]
         [ div [ class "card-header" ] [ text "Étapes du cycle de vie" ]

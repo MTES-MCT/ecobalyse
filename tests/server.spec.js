@@ -276,7 +276,7 @@ describe("API", () => {
         ]);
 
         expectStatus(response, 200);
-        expect(Object.keys(response.body.results.impacts)).toHaveLength(19);
+        expect(Object.keys(response.body.results.total)).toHaveLength(19);
       });
 
       it("should validate the ingredient list length", async () => {
@@ -348,9 +348,9 @@ describe("API", () => {
           e2eOutput.food.push({
             name,
             query,
-            impacts: response.body.results.impacts,
+            impacts: response.body.results.total,
           });
-          expect(toComparable(response.body.results.impacts)).toEqual(toComparable(impacts));
+          expect(toComparable(response.body.results.total)).toEqual(toComparable(impacts));
         });
       }
     });

@@ -65,9 +65,9 @@ type alias Recipe =
 
 
 type alias Results =
-    { impacts : Impacts
+    { total : Impacts
     , recipe :
-        { impacts : Impacts
+        { total : Impacts
         , ingredients : Impacts
         , transform : Impacts
         , transports : Transport
@@ -135,11 +135,11 @@ compute db =
                             |> updateImpacts
                 in
                 ( recipe
-                , { impacts =
+                , { total =
                         Impact.sumImpacts db.impacts
                             [ recipeImpacts, packagingImpacts ]
                   , recipe =
-                        { impacts = recipeImpacts
+                        { total = recipeImpacts
                         , ingredients = ingredientsImpacts
                         , transform = transformImpacts
                         , transports = ingredientsTransport
@@ -252,20 +252,23 @@ encodeQuery q =
 
 
 encodeResults : List Impact.Definition -> Results -> Encode.Value
-encodeResults definitions results =
+encodeResults defs results =
     let
         encodeImpacts =
-            Impact.encodeImpacts definitions Scope.Food
+            Impact.encodeImpacts defs Scope.Food
     in
     Encode.object
-        [ ( "impacts", encodeImpacts results.impacts )
+        [ ( "total", encodeImpacts results.total )
         , ( "recipe"
           , Encode.object
-                [ ( "ingredients", encodeImpacts results.recipe.ingredients )
+                [ ( "total", encodeImpacts results.recipe.total )
+                , ( "ingredients", encodeImpacts results.recipe.ingredients )
                 , ( "transform", encodeImpacts results.recipe.transform )
+                , ( "transports", Transport.encode defs results.recipe.transports )
                 ]
           )
         , ( "packaging", encodeImpacts results.packaging )
+        , ( "transports", Transport.encode defs results.transports )
         ]
 
 

@@ -44,7 +44,7 @@ suite =
             , describe "compute"
                 [ exampleQuery
                     |> Recipe.compute builderDb
-                    |> Result.map (Tuple.second >> .impacts >> AnyDict.toDict)
+                    |> Result.map (Tuple.second >> .total >> AnyDict.toDict)
                     |> Result.withDefault Dict.empty
                     |> Expect.equalDicts
                         (Dict.fromList
