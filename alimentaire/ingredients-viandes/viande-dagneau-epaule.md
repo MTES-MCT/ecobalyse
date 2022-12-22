@@ -45,10 +45,10 @@ $$
 | Label / Origine        | France                                                                                                                                                                       | Autres pays                                                                                                                                                 |
 | ---------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Conventionnelle        | <p><strong>ViandeAgneauREF</strong><br><strong></strong>Meat with bone, lamb/FR U<br>Agneau sortie de ferme : Lamb, conventional, indoor production system, at farm gate</p> | <p><strong>ViandeAgneauREF</strong><br>Meat with bone, lamb/FR U<br>Agneau sortie de ferme : Lamb, conventional, indoor production system, at farm gate</p> |
-| Agriculture biologique | <p><strong>ViandeAgneauBio</strong><br>Procédé construit (cf. formule)<br>Agneau : </p>                                                                                      | <p><strong>ViandeAgneauBio</strong><br>Procédé construit (cf. formule)<br>Agneau : </p>                                                                     |
+| Agriculture biologique | <p><strong>ViandeAgneauBio</strong><br>Procédé construit (cf. formule)<br>Agneau : Lamb, organic, system n°1, at farm gate</p>                                               | <p><strong>ViandeAgneauBio</strong><br>Procédé construit (cf. formule)<br>Agneau : Lamb, organic, system n°1, at farm gate</p>                              |
 
 {% hint style="info" %}
-Le choix du procédé pour l'agneau bio se fait parmi la liste ci-dessous (agneau bio se rapprochant de la moyenne des agneaux bio)&#x20;
+Le choix du procédé pour l'agneau bio se fait parmi la liste ci-dessous (à ce stade, le procédé retenu est le procédé intermédiaire entre les 3 procédés agneau bio)
 {% endhint %}
 
 Lamb, organic, system n°1, at farm gate

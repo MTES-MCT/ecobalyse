@@ -39,11 +39,13 @@ $$
 | Label / Origine        | France                                                                                                                                                           | Autres pays                                                                                                                                                      |
 | ---------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Conventionnelle        | <p><strong>BlancPouletREF</strong><br><strong></strong>Chicken, breast, without skin, raw, processed in FR |<br>Poulet : Broiler, conventional, at farm gate</p> | <p><strong>BlancPouletREF</strong><br><strong></strong>Chicken, breast, without skin, raw, processed in FR |<br>Poulet : Broiler, conventional, at farm gate</p> |
-| Agriculture biologique | <p><strong>BlancPouletBio</strong><br>Procédé construit (cf. formule)<br>Poulet : </p>                                                                           | <p><strong>BlancPouletBio</strong><br>Procédé construit (cf. formule)<br>Poulet : </p>                                                                           |
+| Agriculture biologique | <p><strong>BlancPouletBio</strong><br>Procédé construit (cf. formule)<br>Poulet : Broiler, organic, at farm gate</p>                                             | <p><strong>BlancPouletBio</strong><br>Procédé construit (cf. formule)<br>Poulet : Broiler, organic, at farm gate</p>                                             |
 
 {% hint style="info" %}
-Le poulet bio considéré dans un premier temps pour le calcul du blanc de poulet bio est celui dont l'impact est proche de l'impact moyen des poulets bio listés ci-dessous
+Le poulet bio considéré dans un premier temps pour le calcul du blanc de poulet bio est celui qui n'est pas assignés à un système de production particulier.
 {% endhint %}
+
+Les procédés "broiler, organic" existants dans Agribalyse sont :
 
 Broiler, organic, at farm gate
 
