@@ -23,19 +23,19 @@ type alias Page =
 
 type Path
     = Home -- Page d'accueil
-    | MaterialAndSpinning -- Matière & filature
-    | Fabric -- Tissage/Tricotage
-    | Ennobling -- Ennoblissement
-    | Making -- Confection
-    | Distribution -- Distribution
-    | Use -- Utilisation
-    | EndOfLife -- Fin de vie
-    | Electricity -- Électricité
-    | Transport -- Transport
-    | Heat -- Chaleur
-    | Waste -- Pertes et rebus
     | ImpactQuality -- Niveau de qualité d'impact
-    | CountryHypothesis -- Procédés et hypothèses spécifiques aux pays
+    | TextileAerialTransport -- Part du transport aérien textile
+    | TextileDistribution -- Distribution textile
+    | TextileElectricity -- Électricité textile
+    | TextileEndOfLife -- Fin de vie textile
+    | TextileEnnobling -- Ennoblissement textile
+    | TextileFabric -- Tissage/Tricotage textile
+    | TextileHeat -- Chaleur textile
+    | TextileMaking -- Confection textile
+    | TextileMaterialAndSpinning -- Matière & filature textile
+    | TextileTransport -- Transport textile
+    | TextileUse -- Utilisation textile
+    | TextileWaste -- Pertes et rebut textile
 
 
 pathToString : Path -> String
@@ -44,44 +44,44 @@ pathToString path =
         Home ->
             "README"
 
-        MaterialAndSpinning ->
-            "textile/filature"
-
-        Fabric ->
-            "textile/tricotage-tissage"
-
-        Ennobling ->
-            "textile/teinture"
-
-        Making ->
-            "textile/confection"
-
-        Distribution ->
-            "textile/distribution"
-
-        Use ->
-            "textile/etape-6-utilisation"
-
-        EndOfLife ->
-            "textile/etape-7-fin-de-vie"
-
-        Electricity ->
-            "textile/electricite"
-
-        Transport ->
-            "textile/transport"
-
-        Heat ->
-            "textile/chaleur"
-
-        Waste ->
-            "textile/pertes-et-rebus"
-
         ImpactQuality ->
             "textile/impacts-consideres#niveaux-de-recommandation"
 
-        CountryHypothesis ->
-            "textile/ajout-dun-pays#procedes-specifiques-au-pays"
+        TextileAerialTransport ->
+            "textile/parametres-transverses/transport#part-du-transport-aerien"
+
+        TextileDistribution ->
+            "textile/etapes-du-cycle-de-vie/distribution"
+
+        TextileElectricity ->
+            "textile/parametres-transverses/electricite"
+
+        TextileEndOfLife ->
+            "textile/etapes-du-cycle-de-vie/etape-7-fin-de-vie"
+
+        TextileEnnobling ->
+            "textile/etapes-du-cycle-de-vie/ennoblissement"
+
+        TextileFabric ->
+            "textile/etapes-du-cycle-de-vie/tricotage-tissage"
+
+        TextileHeat ->
+            "textile/parametres-transverses/chaleur"
+
+        TextileMaking ->
+            "textile/etapes-du-cycle-de-vie/confection"
+
+        TextileMaterialAndSpinning ->
+            "textile/etapes-du-cycle-de-vie/filature/"
+
+        TextileTransport ->
+            "textile/parametres-transverses/transport"
+
+        TextileUse ->
+            "textile/etapes-du-cycle-de-vie/etape-6-utilisation"
+
+        TextileWaste ->
+            "textile/parametres-transverses/pertes-et-rebus"
 
 
 transformMarkdown : String -> String

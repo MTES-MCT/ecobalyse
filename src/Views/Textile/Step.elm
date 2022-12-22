@@ -726,7 +726,7 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                         [ text "Perte"
                         , br [] []
                         , Format.kg current.waste
-                        , inlineDocumentationLink config Gitbook.Waste
+                        , inlineDocumentationLink config Gitbook.TextileWaste
                         ]
                     ]
                 , if Energy.inKilojoules current.heat > 0 || Energy.inKilowattHours current.kwh > 0 then
@@ -734,12 +734,12 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                         [ span [ class "d-flex align-items-center" ]
                             [ span [ class "me-1" ] [ text "Chaleur" ]
                             , Format.megajoules current.heat
-                            , inlineDocumentationLink config Gitbook.Heat
+                            , inlineDocumentationLink config Gitbook.TextileHeat
                             ]
                         , span [ class "d-flex align-items-center" ]
                             [ span [ class "me-1" ] [ text "Électricité" ]
                             , Format.kilowattHours current.kwh
-                            , inlineDocumentationLink config Gitbook.Electricity
+                            , inlineDocumentationLink config Gitbook.TextileElectricity
                             ]
                         ]
 
@@ -784,7 +784,7 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                             [ strong [] [ text <| transportLabel ++ "\u{00A0}:\u{00A0}" ]
                             , current.transport.impacts
                                 |> Format.formatTextileSelectedImpact funit daysOfWear impact
-                            , inlineDocumentationLink config Gitbook.Transport
+                            , inlineDocumentationLink config Gitbook.TextileTransport
                             ]
 
                          else

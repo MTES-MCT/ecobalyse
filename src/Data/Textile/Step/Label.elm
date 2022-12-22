@@ -129,28 +129,28 @@ toGitbookPath : Label -> Gitbook.Path
 toGitbookPath label =
     case label of
         Material ->
-            Gitbook.MaterialAndSpinning
+            Gitbook.TextileMaterialAndSpinning
 
         Spinning ->
-            Gitbook.MaterialAndSpinning
+            Gitbook.TextileMaterialAndSpinning
 
         Fabric ->
-            Gitbook.Fabric
+            Gitbook.TextileFabric
 
         Ennobling ->
-            Gitbook.Ennobling
+            Gitbook.TextileEnnobling
 
         Making ->
-            Gitbook.Making
+            Gitbook.TextileMaking
 
         Distribution ->
-            Gitbook.Distribution
+            Gitbook.TextileDistribution
 
         Use ->
-            Gitbook.Use
+            Gitbook.TextileUse
 
         EndOfLife ->
-            Gitbook.EndOfLife
+            Gitbook.TextileEndOfLife
 
 
 decodeFromCode : Decoder Label

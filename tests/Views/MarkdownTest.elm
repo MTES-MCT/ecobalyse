@@ -10,7 +10,11 @@ import Views.Markdown as Markdown
 
 gitbookPage : String -> Gitbook.Page
 gitbookPage md =
-    { title = "", description = Nothing, path = Gitbook.Use, markdown = md }
+    { title = ""
+    , description = Nothing
+    , path = Gitbook.TextileUse
+    , markdown = md
+    }
 
 
 suite : Test

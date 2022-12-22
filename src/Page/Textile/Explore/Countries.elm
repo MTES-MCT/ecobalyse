@@ -13,12 +13,6 @@ import Views.Icon as Icon
 import Views.Link as Link
 
 
-hypothesisDocLink : Html msg
-hypothesisDocLink =
-    Link.smallPillExternal [ href (Gitbook.publicUrlFromPath Gitbook.CountryHypothesis) ]
-        [ Icon.info ]
-
-
 table : { detailed : Bool } -> Table Country msg
 table { detailed } =
     [ { label = "Code"
@@ -45,7 +39,9 @@ table { detailed } =
             \country ->
                 div [ classList [ ( "text-end", not detailed ) ] ]
                     [ Format.ratio country.airTransportRatio
-                    , hypothesisDocLink
+                    , Link.smallPillExternal
+                        [ href (Gitbook.publicUrlFromPath Gitbook.TextileAerialTransport) ]
+                        [ Icon.info ]
                     ]
       }
     , { label = "Domaines"
