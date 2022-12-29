@@ -83,5 +83,37 @@
     "variants": {
       "organic": "f421457c-3eff-0e02-4b4e-ce9d13285321"
     }
+  },
+  {
+    "id": "cooked ham",
+    "name": "Jambon",
+    "default": "159fc059d675499a87c7f8973e66fd8e",
+    "variants": {
+      "organic": "5b306777-edf5-f0f9-836c-74ccc48a6383"
+    }
+  },
+  {
+    "id": "chicken breast",
+    "name": "Poulet",
+    "default": "b56e841975e6caee61355eae0a258eed",
+    "variants": {
+      "organic": "78da6b29-4bf9-ae19-be60-b129874659b0"
+    }
+  },
+  {
+    "id": "lamb shoulder",
+    "name": "Agneau (épaule)",
+    "default": "d7f6e6b4f67c68108d926e6974522237",
+    "variants": {
+      "organic": "66bd7080-b582-b1c1-aece-a126ed93c01e"
+    }
+  },
+  {
+    "id": "lamb chop fillet",
+    "name": "Agneau (côte)",
+    "default": "0704f452de9278b4a34adc7a9fbb9824",
+    "variants": {
+      "organic": "c51986fc-da5b-effa-9209-e2324dc0d1ff"
+    }
   }
 ]
