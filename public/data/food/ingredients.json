@@ -37,7 +37,7 @@
     "name": "farine",
     "default": "a343353e431d7dddc7bb25cbc41e179a",
     "variants": {
-      "organic": "c71c619d-8f9a-43d6-abbc-aa0ed8769697"
+      "organic": "85fe796d-44f6-fc91-9a7b-7f0bfdf305a0"
     }
   },
   {
@@ -75,5 +75,13 @@
     "name": "blé dur",
     "default": "da43175dd8163643ce4d9cac19a45884",
     "variants": {}
+  },
+  {
+    "id": "ground beef",
+    "name": "Boeuf haché",
+    "default": "da9409534ad17989aaccae4d44369016",
+    "variants": {
+      "organic": "f421457c-3eff-0e02-4b4e-ce9d13285321"
+    }
   }
 ]
