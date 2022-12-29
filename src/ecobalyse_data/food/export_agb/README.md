@@ -109,5 +109,5 @@ Dans le cas où l'indicateur "bvi" (biodiversité de Lindner) est connu, il faut
 Là aussi il faut que les différents `simapro_id` correspondent à des procédés
 exportés dans `builder_processes.json`.
 
-Voici un exemple d'ajout d'un ingrédient complexe : [la fariné de
+Voici un exemple d'ajout d'un ingrédient complexe : [la farine de
 blé](https://github.com/MTES-MCT/ecobalyse-data/pull/11/commits/2c7817d310fbc65bb954e339fcaf45369f0b5abe).
