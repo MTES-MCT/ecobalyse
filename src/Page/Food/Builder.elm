@@ -468,7 +468,11 @@ updateIngredientFormView { excluded, db, ingredient, impact } =
                     []
                 , text "bio"
                 ]
-            , impact
+            , span
+                [ class "text-end"
+                , style "width" "250px"
+                ]
+                [ impact ]
             , button
                 [ type_ "button"
                 , class "btn btn-sm btn-outline-primary"
