@@ -517,7 +517,7 @@ ingredientListView : Db -> Impact.Definition -> Recipe -> Recipe.Results -> List
 ingredientListView db selectedImpact recipe results =
     [ div [ class "card-header d-flex align-items-center justify-content-between" ]
         [ h6 [ class "mb-0" ] [ text "Ingrédients" ]
-        , results.recipe.ingredients
+        , results.recipe.ingredientsTotal
             |> Format.formatFoodSelectedImpact selectedImpact
         ]
     , ul [ class "list-group list-group-flush" ]
@@ -884,7 +884,7 @@ stepResultsView db model results =
         stepsData =
             [ { label = "Recette"
               , impact =
-                    [ results.recipe.ingredients
+                    [ results.recipe.ingredientsTotal
                     , results.recipe.transform
                     ]
                         |> Impact.sumImpacts db.impacts

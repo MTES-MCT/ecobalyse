@@ -68,7 +68,7 @@ type alias Results =
     { total : Impacts
     , recipe :
         { total : Impacts
-        , ingredients : Impacts
+        , ingredientsTotal : Impacts
         , transform : Impacts
         , transports : Transport
         }
@@ -140,7 +140,7 @@ compute db =
                             [ recipeImpacts, packagingImpacts ]
                   , recipe =
                         { total = recipeImpacts
-                        , ingredients = ingredientsImpacts
+                        , ingredientsTotal = ingredientsImpacts
                         , transform = transformImpacts
                         , transports = ingredientsTransport
                         }
@@ -264,7 +264,7 @@ encodeResults defs results =
         , ( "recipe"
           , Encode.object
                 [ ( "total", encodeImpacts results.recipe.total )
-                , ( "ingredients", encodeImpacts results.recipe.ingredients )
+                , ( "ingredientsTotal", encodeImpacts results.recipe.ingredientsTotal )
                 , ( "transform", encodeImpacts results.recipe.transform )
                 , ( "transports", Transport.encode defs results.recipe.transports )
                 ]
