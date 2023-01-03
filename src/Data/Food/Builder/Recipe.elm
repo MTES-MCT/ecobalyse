@@ -69,6 +69,7 @@ type alias Results =
     , recipe :
         { total : Impacts
         , ingredientsTotal : Impacts
+        , ingredients : List ( RecipeIngredient, Impacts )
         , transform : Impacts
         , transports : Transport
         }
@@ -109,8 +110,18 @@ compute db =
 
                     ingredientsImpacts =
                         ingredients
-                            |> List.map computeIngredientImpacts
-                            |> updateImpacts
+                            |> List.map
+                                (\recipeIngredient ->
+                                    recipeIngredient
+                                        |> computeIngredientImpacts
+                                        |> Impact.updateAggregatedScores db.impacts
+                                        |> Tuple.pair recipeIngredient
+                                )
+
+                    ingredientsTotalImpacts =
+                        ingredientsImpacts
+                            |> List.map Tuple.second
+                            |> Impact.sumImpacts db.impacts
 
                     ingredientsTransport =
                         ingredients
@@ -124,7 +135,7 @@ compute db =
 
                     recipeImpacts =
                         updateImpacts
-                            [ ingredientsImpacts
+                            [ ingredientsTotalImpacts
                             , transformImpacts
                             , ingredientsTransport.impacts
                             ]
@@ -140,7 +151,8 @@ compute db =
                             [ recipeImpacts, packagingImpacts ]
                   , recipe =
                         { total = recipeImpacts
-                        , ingredientsTotal = ingredientsImpacts
+                        , ingredientsTotal = ingredientsTotalImpacts
+                        , ingredients = ingredientsImpacts
                         , transform = transformImpacts
                         , transports = ingredientsTransport
                         }

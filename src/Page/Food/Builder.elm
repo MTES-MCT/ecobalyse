@@ -372,11 +372,12 @@ type alias UpdateIngredientConfig =
     { excluded : List Id
     , db : Db
     , ingredient : Recipe.RecipeIngredient
+    , impact : Html Msg
     }
 
 
 updateIngredientFormView : UpdateIngredientConfig -> Html Msg
-updateIngredientFormView { excluded, db, ingredient } =
+updateIngredientFormView { excluded, db, ingredient, impact } =
     let
         ingredientQuery : Query.IngredientQuery
         ingredientQuery =
@@ -467,6 +468,7 @@ updateIngredientFormView { excluded, db, ingredient } =
                     []
                 , text "bio"
                 ]
+            , impact
             , button
                 [ type_ "button"
                 , class "btn btn-sm btn-outline-primary"
@@ -532,6 +534,13 @@ ingredientListView db selectedImpact recipe results =
                             { excluded = recipe.ingredients |> List.map (.ingredient >> .id)
                             , db = db
                             , ingredient = ingredient
+                            , impact =
+                                results.recipe.ingredients
+                                    |> List.filter (\( recipeIngredient, _ ) -> recipeIngredient == ingredient)
+                                    |> List.head
+                                    |> Maybe.map Tuple.second
+                                    |> Maybe.withDefault Impact.noImpacts
+                                    |> Format.formatFoodSelectedImpact selectedImpact
                             }
                     )
          )
