@@ -61,6 +61,7 @@
   * [🍅 Tomate](alimentaire/ingredients-agricoles/tomate.md)
   * [🌼 Colza](alimentaire/ingredients-agricoles/colza.md)
   * [🌾 Blé dur](alimentaire/ingredients-agricoles/ble-dur.md)
+  * [🍏 Pomme](alimentaire/ingredients-agricoles/pomme.md)
   * [❓ Modèle](alimentaire/ingredients-agricoles/modele.md)
 * [🚛 Transport](<alimentaire/transport (1).md>)
 * [🏭 Transformation](alimentaire/transformation.md)
