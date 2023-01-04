@@ -11,7 +11,7 @@ Considérée comme un ingrédient agricole (at farm), le raisin de cuve (destin�
 
 Les procédés retenus sont des procédés "at farm", c'est à dire des procédés traduisant l'impact de l'ingrédient en sortie de ferme, avant que ne soit par exemple intégré l'impact du transport vers un lieu de transformation ou encore l'impact du conditionnement.
 
-## Analyse des procédés disponibles
+
 
 Dans Agribalyse, le procédé raisin mobilisé pour la fabrication de vin d'après le schéma Simapro ci-dessous sont :
 
