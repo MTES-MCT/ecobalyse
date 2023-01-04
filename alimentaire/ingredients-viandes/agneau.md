@@ -1,4 +1,4 @@
-# 🐑 Viande d'agneau (épaule)
+# 🐑 Agneau
 
 
 
@@ -8,7 +8,7 @@
 
 ## Construction de l'ingrédient viande d'agneau à partir du procédé agricole
 
-Quel que soit la pièce d'agneau (épaule, côte, etc.), le procédé mobilisé pour l'ingrédient viande d'agneau est :&#x20;
+Quelle que soit la pièce d'agneau (épaule, côte, etc.), le procédé mobilisé pour l'ingrédient viande d'agneau est :&#x20;
 
 * Meat with bone, lamb/FR U
 
