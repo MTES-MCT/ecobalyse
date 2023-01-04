@@ -6,13 +6,9 @@
 **Page en construction**
 {% endhint %}
 
-## Construction de l'ingrédient épaule d'agneau à partir du procédé agricole
+## Construction de l'ingrédient viande d'agneau à partir du procédé agricole
 
-L'épaule d'agneau correspond à l'ICV suivant :&#x20;
-
-* Lamb, shoulder, raw, processed in FR | Chilled | PS |&#x20;
-
-On constate que toutes les viandes d'agneau appellent le procédé&#x20;
+Quel que soit la pièce d'agneau (épaule, côte, etc.), le procédé mobilisé pour l'ingrédient viande d'agneau est :&#x20;
 
 * Meat with bone, lamb/FR U
 
