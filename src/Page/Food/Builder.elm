@@ -391,22 +391,23 @@ updateIngredientFormView { excluded, db, ingredient, impact } =
         event =
             UpdateIngredient ingredient.ingredient.id
     in
-    rowTemplate
-        (MassInput.view
-            { mass =
-                ingredient.mass
-            , onChange =
-                \maybeMass ->
-                    case maybeMass of
-                        Just mass ->
-                            event { ingredientQuery | mass = mass }
+    li [ class "IngredientFormWrapper" ]
+        [ span [ class "MassInputWrapper" ]
+            [ MassInput.view
+                { mass =
+                    ingredient.mass
+                , onChange =
+                    \maybeMass ->
+                        case maybeMass of
+                            Just mass ->
+                                event { ingredientQuery | mass = mass }
 
-                        _ ->
-                            NoOp
-            , disabled = False
-            }
-        )
-        (db.ingredients
+                            _ ->
+                                NoOp
+                , disabled = False
+                }
+            ]
+        , db.ingredients
             |> List.sortBy .name
             |> ingredientSelectorView
                 ingredient.ingredient.id
@@ -433,55 +434,49 @@ updateIngredientFormView { excluded, db, ingredient, impact } =
                             , variant = newVariant
                         }
                 )
-        )
-        (div
-            [ class "d-flex align-items-center gap-2"
+        , CountrySelect.view
+            { attributes = [ class "form-select form-select-sm CountrySelector" ]
+            , countries = db.countries
+            , onSelect = \countryCode -> event { ingredientQuery | country = countryCode }
+            , scope = Scope.Food
+            , selectedCountry = ingredientQuery.country
+            }
+        , label
+            [ class "BioCheckbox"
             , classList [ ( "text-muted", ingredient.ingredient.variants.organic == Nothing ) ]
             ]
-            [ CountrySelect.view
-                { attributes = [ class "form-select form-select-sm" ]
-                , countries = db.countries
-                , onSelect = \countryCode -> event { ingredientQuery | country = countryCode }
-                , scope = Scope.Food
-                , selectedCountry = ingredientQuery.country
-                }
-            , label [ class "d-flex gap-1" ]
-                [ input
-                    [ type_ "checkbox"
-                    , class "form-check-input no-outline"
-                    , attribute "role" "switch"
-                    , checked <| ingredient.variant == Query.Organic
-                    , disabled <| ingredient.ingredient.variants.organic == Nothing
-                    , onCheck
-                        (\checked ->
-                            event
-                                { ingredientQuery
-                                    | variant =
-                                        if checked then
-                                            Query.Organic
+            [ input
+                [ type_ "checkbox"
+                , class "form-check-input no-outline"
+                , attribute "role" "switch"
+                , checked <| ingredient.variant == Query.Organic
+                , disabled <| ingredient.ingredient.variants.organic == Nothing
+                , onCheck
+                    (\checked ->
+                        event
+                            { ingredientQuery
+                                | variant =
+                                    if checked then
+                                        Query.Organic
 
-                                        else
-                                            Query.Default
-                                }
-                        )
-                    ]
-                    []
-                , text "bio"
+                                    else
+                                        Query.Default
+                            }
+                    )
                 ]
-            , span
-                [ class "text-end"
-                , style "width" "250px"
-                ]
-                [ impact ]
-            , button
-                [ type_ "button"
-                , class "btn btn-sm btn-outline-primary"
-                , title <| "Supprimer "
-                , onClick <| DeleteIngredient ingredientQuery
-                ]
-                [ Icon.trash ]
+                []
+            , text "bio"
             ]
-        )
+        , span [ class "text-end ImpactDisplay" ]
+            [ impact ]
+        , button
+            [ type_ "button"
+            , class "btn btn-sm btn-outline-primary IngredientDelete"
+            , title <| "Supprimer "
+            , onClick <| DeleteIngredient ingredientQuery
+            ]
+            [ Icon.trash ]
+        ]
 
 
 debugQueryView : Db -> Query -> Html Msg
@@ -727,7 +722,7 @@ ingredientSelectorView selectedIngredient excluded event ingredients =
         -- We use Html.Keyed because when we add an item, we filter it out from the select box,
         -- which desynchronizes the DOM state and the virtual dom state
         |> Keyed.node "select"
-            [ class "form-select form-select-sm flex-grow-1"
+            [ class "form-select form-select-sm IngredientSelector"
             , onInput
                 (\ingredientId ->
                     ingredients
