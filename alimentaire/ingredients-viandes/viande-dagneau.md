@@ -1,4 +1,4 @@
-# 🐑 Agneau
+# 🐑 Viande d'agneau
 
 
 
@@ -8,7 +8,7 @@
 
 ## Construction de l'ingrédient viande d'agneau à partir du procédé agricole
 
-Quelle que soit la pièce d'agneau (épaule, côte, etc.), le procédé mobilisé pour l'ingrédient viande d'agneau est :&#x20;
+L'épaule d'agneau correspond à l'ICV suivant :&#x20;
 
 * Meat with bone, lamb/FR U
 
@@ -52,4 +52,8 @@ Lamb, organic, system n°1, at farm gate
 Lamb, organic, system n°2, at farm gate
 
 Lamb, organic, system n°3, at farm gate
+
+
+
+<figure><img src="../../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
 

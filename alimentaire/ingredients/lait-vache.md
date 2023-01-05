@@ -62,5 +62,5 @@ Le lait de vache "mix de consommation" France (Cow milk, consumption mix) propos
 
 Un transport de 160 km y est ajouté.
 
-<figure><img src="../../.gitbook/assets/image (5).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (5) (3).png" alt=""><figcaption></figcaption></figure>
 

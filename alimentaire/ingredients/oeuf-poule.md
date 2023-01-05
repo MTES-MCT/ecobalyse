@@ -64,5 +64,5 @@ L'oeuf de poule "mix de consommation" France (Chicken egg, raw, consumption mix)
 
 Un transport de 160 km y est ajouté.
 
-<figure><img src="../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
 

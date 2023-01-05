@@ -55,7 +55,5 @@ Pig, organic, system n°3, at farm gate
 
 Pig, organic, system n°4, at farm gate
 
-(attente des graphes d'impacts)
-
-_<mark style="color:red;">\[Intégration d'un graphique comparant les scores PEF décomposés des deux Farines qui seraient considérées]</mark>_&#x20;
+<figure><img src="../../.gitbook/assets/image (5).png" alt=""><figcaption></figcaption></figure>
 
