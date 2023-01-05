@@ -264,7 +264,7 @@ describe("API", () => {
       it("should render with ingredients list", async () => {
         await expectListResponseContains("/api/food/ingredients", {
           id: "milk",
-          name: "lait",
+          name: "Lait",
         });
       });
     });

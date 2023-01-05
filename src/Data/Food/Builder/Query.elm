@@ -88,25 +88,25 @@ carrotCake : Query
 carrotCake =
     { ingredients =
         [ { id = Ingredient.idFromString "egg"
-          , name = "oeuf"
+          , name = "Oeuf"
           , mass = Mass.grams 120
           , variant = Default
           , country = defaultCountry
           }
         , { id = Ingredient.idFromString "wheat"
-          , name = "blé tendre"
+          , name = "Blé tendre"
           , mass = Mass.grams 140
           , variant = Default
           , country = defaultCountry
           }
         , { id = Ingredient.idFromString "milk"
-          , name = "lait"
+          , name = "Lait"
           , mass = Mass.grams 60
           , variant = Default
           , country = defaultCountry
           }
         , { id = Ingredient.idFromString "carrot"
-          , name = "carotte"
+          , name = "Carotte"
           , mass = Mass.grams 225
           , variant = Default
           , country = defaultCountry
