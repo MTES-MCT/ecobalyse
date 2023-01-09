@@ -2,6 +2,7 @@ module Data.Food.Builder.Recipe exposing
     ( Recipe
     , RecipeIngredient
     , Results
+    , Transform
     , availableIngredients
     , availablePackagings
     , availableTransforms
@@ -12,13 +13,10 @@ module Data.Food.Builder.Recipe exposing
     , encodeResults
     , fromQuery
     , ingredientQueryFromIngredient
-    , packagingQueryFromPackaging
+    , processQueryFromProcess
     , resetTransform
     , serializeQuery
     , toString
-    , transformQueryFromTransform
-    , updatePackagingMass
-    , updateTransformMass
     )
 
 import Data.Country as Country exposing (Country)
@@ -260,20 +258,12 @@ encodeIngredient i =
         ]
 
 
-encodePackaging : BuilderQuery.PackagingQuery -> Encode.Value
-encodePackaging i =
-    Encode.object
-        [ ( "code", i.code |> Process.codeToString |> Encode.string )
-        , ( "mass", Encode.float (Mass.inKilograms i.mass) )
-        ]
-
-
 encodeQuery : Query -> Encode.Value
 encodeQuery q =
     Encode.object
         [ ( "ingredients", Encode.list encodeIngredient q.ingredients )
-        , ( "transform", q.transform |> Maybe.map encodeTransform |> Maybe.withDefault Encode.null )
-        , ( "packaging", Encode.list encodePackaging q.packaging )
+        , ( "transform", q.transform |> Maybe.map encodeProcess |> Maybe.withDefault Encode.null )
+        , ( "packaging", Encode.list encodeProcess q.packaging )
         ]
 
 
@@ -298,8 +288,8 @@ encodeResults defs results =
         ]
 
 
-encodeTransform : BuilderQuery.TransformQuery -> Encode.Value
-encodeTransform p =
+encodeProcess : BuilderQuery.ProcessQuery -> Encode.Value
+encodeProcess p =
     Encode.object
         [ ( "code", p.code |> Process.codeToString |> Encode.string )
         , ( "mass", Encode.float (Mass.inKilograms p.mass) )
@@ -351,25 +341,25 @@ ingredientQueryFromIngredient ingredient =
 
 packagingListFromQuery :
     Db
-    -> { a | packaging : List BuilderQuery.PackagingQuery }
+    -> { a | packaging : List BuilderQuery.ProcessQuery }
     -> Result String (List Packaging)
 packagingListFromQuery db query =
     query.packaging
         |> RE.combineMap (packagingFromQuery db)
 
 
-packagingQueryFromPackaging : Process -> BuilderQuery.PackagingQuery
-packagingQueryFromPackaging process =
-    { code = process.code
-    , mass = Mass.grams 100
-    }
-
-
-packagingFromQuery : Db -> BuilderQuery.PackagingQuery -> Result String Packaging
+packagingFromQuery : Db -> BuilderQuery.ProcessQuery -> Result String Packaging
 packagingFromQuery { processes } { code, mass } =
     Result.map2 Packaging
         (Process.findByCode processes code)
         (Ok mass)
+
+
+processQueryFromProcess : Process -> BuilderQuery.ProcessQuery
+processQueryFromProcess process =
+    { code = process.code
+    , mass = Mass.grams 100
+    }
 
 
 resetTransform : Query -> Query
@@ -422,7 +412,7 @@ toString { ingredients, transform, packaging } =
 
 transformFromQuery :
     Db
-    -> { a | transform : Maybe BuilderQuery.TransformQuery }
+    -> { a | transform : Maybe BuilderQuery.ProcessQuery }
     -> Result String (Maybe Transform)
 transformFromQuery { processes } query =
     query.transform
@@ -434,47 +424,6 @@ transformFromQuery { processes } query =
                     |> Result.map Just
             )
         |> Maybe.withDefault (Ok Nothing)
-
-
-transformQueryFromTransform : Mass -> Process -> BuilderQuery.TransformQuery
-transformQueryFromTransform mass process =
-    { code = process.code
-    , mass = mass
-    }
-
-
-updateMass :
-    Process.Code
-    -> Mass
-    -> List { a | code : Process.Code, mass : Mass }
-    -> List { a | code : Process.Code, mass : Mass }
-updateMass code mass =
-    List.map
-        (\item ->
-            if item.code == code then
-                { item | mass = mass }
-
-            else
-                item
-        )
-
-
-updatePackagingMass : Mass -> Process.Code -> Query -> Query
-updatePackagingMass mass code query =
-    { query
-        | packaging =
-            query.packaging
-                |> updateMass code mass
-    }
-
-
-updateTransformMass : Mass -> Query -> Query
-updateTransformMass mass query =
-    { query
-        | transform =
-            query.transform
-                |> Maybe.map (\transform -> { transform | mass = mass })
-    }
 
 
 variantToString : BuilderQuery.Variant -> String
