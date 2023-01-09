@@ -9,6 +9,7 @@ import Test exposing (..)
 import TestUtils exposing (asTest, suiteWithDb)
 
 
+km : Float -> Length.Length
 km =
     Length.kilometers
 
