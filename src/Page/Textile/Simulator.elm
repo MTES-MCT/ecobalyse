@@ -65,7 +65,7 @@ type alias Model =
 
 type Modal
     = NoModal
-    | SavedSimulationsModal
+    | ComparatorModal
 
 
 type Msg
@@ -209,7 +209,7 @@ update ({ db, queries, navKey } as session) msg model =
             ( model, session, Cmd.none )
 
         OpenComparator ->
-            ( { model | modal = SavedSimulationsModal }
+            ( { model | modal = ComparatorModal }
             , session |> Session.checkComparedSimulations
             , Cmd.none
             )
@@ -562,7 +562,7 @@ view session model =
                         NoModal ->
                             text ""
 
-                        SavedSimulationsModal ->
+                        ComparatorModal ->
                             ModalView.view
                                 { size = ModalView.ExtraLarge
                                 , close = SetModal NoModal
@@ -606,5 +606,5 @@ subscriptions { modal } =
         NoModal ->
             Sub.none
 
-        SavedSimulationsModal ->
+        ComparatorModal ->
             Browser.Events.onKeyDown (Key.escape (SetModal NoModal))
