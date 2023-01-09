@@ -38,13 +38,13 @@ import Task
 import Time exposing (Posix)
 import Views.Alert as Alert
 import Views.Bookmark as BookmarkView
+import Views.Comparator as ComparatorView
 import Views.Component.DownArrow as DownArrow
 import Views.Container as Container
 import Views.Dataviz as Dataviz
 import Views.Icon as Icon
 import Views.Impact as ImpactView
 import Views.Modal as ModalView
-import Views.Textile.Comparator as ComparativeChartView
 import Views.Textile.Material as MaterialView
 import Views.Textile.Step as StepView
 import Views.Textile.Summary as SummaryView
@@ -83,7 +83,7 @@ type Msg
     | SwitchFunctionalUnit Unit.Functional
     | SwitchImpact Impact.Trigram
     | SwitchLinksTab BookmarkView.ActiveTab
-    | ToggleComparedSimulation String Bool
+    | ToggleComparedSimulation Bookmark Bool
     | ToggleDisabledFading Bool
     | ToggleStep Label
     | ToggleStepViewMode Int
@@ -273,9 +273,9 @@ update ({ db, queries, navKey } as session) msg model =
             , Cmd.none
             )
 
-        ToggleComparedSimulation name checked ->
+        ToggleComparedSimulation bookmark checked ->
             ( model
-            , session |> Session.toggleComparedSimulation name checked
+            , session |> Session.toggleComparedSimulation bookmark checked
             , Cmd.none
             )
 
@@ -574,7 +574,7 @@ view session model =
                                         ++ Unit.functionalToString model.funit
                                 , formAction = Nothing
                                 , content =
-                                    [ ComparativeChartView.comparator
+                                    [ ComparatorView.comparator
                                         { session = session
                                         , impact = model.impact
                                         , funit = model.funit

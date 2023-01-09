@@ -7,6 +7,7 @@ module Page.Food.Builder exposing
     , view
     )
 
+import Browser.Events
 import Browser.Navigation as Navigation
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Food.Builder.Db as BuilderDb exposing (Db)
@@ -15,9 +16,11 @@ import Data.Food.Builder.Recipe as Recipe exposing (Recipe)
 import Data.Food.Ingredient as Ingredient exposing (Id, Ingredient)
 import Data.Food.Process as Process exposing (Process)
 import Data.Impact as Impact exposing (Impacts)
+import Data.Key as Key
 import Data.Scope as Scope
 import Data.Session as Session exposing (Session)
 import Data.Unit as Unit
+import Duration
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
@@ -34,6 +37,7 @@ import Task
 import Time exposing (Posix)
 import Views.Alert as Alert
 import Views.Bookmark as BookmarkView
+import Views.Comparator as ComparatorView
 import Views.Component.MassInput as MassInput
 import Views.Component.Summary as SummaryComp
 import Views.Container as Container
@@ -41,6 +45,7 @@ import Views.CountrySelect as CountrySelect
 import Views.Format as Format
 import Views.Icon as Icon
 import Views.Impact as ImpactView
+import Views.Modal as ModalView
 import Views.Spinner as Spinner
 import Views.Transport as TransportView
 
@@ -52,7 +57,13 @@ type alias Model =
     , bookmarkTab : BookmarkView.ActiveTab
     , selectedPackaging : Maybe SelectedProcess
     , selectedTransform : Maybe SelectedProcess
+    , modal : Modal
     }
+
+
+type Modal
+    = NoModal
+    | ComparatorModal
 
 
 type alias SelectedProcess =
@@ -71,14 +82,17 @@ type Msg
     | DeletePackaging Process.Code
     | LoadQuery Query
     | NoOp
+    | OpenComparator
     | ResetTransform
     | SaveBookmark
     | SaveBookmarkWithTime String Bookmark.Query Posix
+    | SetModal Modal
     | SelectPackaging (Maybe SelectedProcess)
     | SelectTransform (Maybe SelectedProcess)
     | SetTransform SelectedProcess
     | SwitchLinksTab BookmarkView.ActiveTab
     | SwitchImpact Impact.Trigram
+    | ToggleComparedSimulation Bookmark Bool
     | UpdateBookmarkName String
     | UpdateIngredient Id Query.IngredientQuery
     | UpdatePackagingMass Process.Code (Maybe Mass)
@@ -104,6 +118,7 @@ init ({ db, builderDb, queries } as session) trigram maybeQuery =
               , bookmarkTab = BookmarkView.SaveTab
               , selectedTransform = Nothing
               , selectedPackaging = Nothing
+              , modal = NoModal
               }
             , session
                 |> Session.updateFoodQuery query
@@ -185,16 +200,25 @@ update ({ queries } as session) msg model =
             ( model, session, Cmd.none )
                 |> updateQuery (Recipe.deletePackaging code query)
 
-        NoOp ->
-            ( model, session, Cmd.none )
-
         LoadQuery queryToLoad ->
             ( model, session, Cmd.none )
                 |> updateQuery queryToLoad
 
+        NoOp ->
+            ( model, session, Cmd.none )
+
+        OpenComparator ->
+            ( { model | modal = ComparatorModal }
+            , session |> Session.checkComparedSimulations
+            , Cmd.none
+            )
+
         ResetTransform ->
             ( model, session, Cmd.none )
                 |> updateQuery (Recipe.resetTransform query)
+
+        SetModal modal ->
+            ( { model | modal = modal }, session, Cmd.none )
 
         SaveBookmark ->
             ( model
@@ -244,6 +268,12 @@ update ({ queries } as session) msg model =
         SwitchLinksTab bookmarkTab ->
             ( { model | bookmarkTab = bookmarkTab }
             , session
+            , Cmd.none
+            )
+
+        ToggleComparedSimulation bookmark checked ->
+            ( model
+            , session |> Session.toggleComparedSimulation bookmark checked
             , Cmd.none
             )
 
@@ -812,7 +842,7 @@ sidebarView session db model recipe results =
             , scope = Scope.Food
             , viewMode = ViewMode.Simple
             , copyToClipBoard = CopyToClipBoard
-            , compare = NoOp
+            , compare = OpenComparator
             , delete = DeleteBookmark
             , save = SaveBookmark
             , update = UpdateBookmarkName
@@ -1009,11 +1039,41 @@ view session model =
 
                 RemoteData.NotAsked ->
                     text "Shouldn't happen"
+            , case model.modal of
+                NoModal ->
+                    text ""
+
+                ComparatorModal ->
+                    ModalView.view
+                        { size = ModalView.ExtraLarge
+                        , close = SetModal NoModal
+                        , noOp = NoOp
+                        , title = "Comparateur de simulations sauvegardées"
+                        , formAction = Nothing
+                        , content =
+                            [ ComparatorView.comparator
+                                { session = session
+                                , impact = model.impact
+
+                                -- FIXME: we should have distinct dedicated options for trextile and food
+                                , funit = Unit.PerDayOfWear
+                                , daysOfWear = Duration.day
+                                , scope = Scope.Food
+                                , toggle = ToggleComparedSimulation
+                                }
+                            ]
+                        , footer = []
+                        }
             ]
       ]
     )
 
 
 subscriptions : Model -> Sub Msg
-subscriptions _ =
-    Sub.none
+subscriptions { modal } =
+    case modal of
+        NoModal ->
+            Sub.none
+
+        ComparatorModal ->
+            Browser.Events.onKeyDown (Key.escape (SetModal NoModal))

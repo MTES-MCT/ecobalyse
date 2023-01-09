@@ -130,33 +130,33 @@ checkComparedSimulations =
                         bookmarks
                             |> Bookmark.sort
                             |> List.take maxComparedSimulations
-                            |> List.map .name
+                            |> List.map Bookmark.toId
                             |> Set.fromList
 
                     else
                         -- Purge deleted bookmarks from compared sims
                         comparedSimulations
                             |> Set.filter
-                                (\name ->
+                                (\id ->
                                     bookmarks
-                                        |> List.map .name
-                                        |> List.member name
+                                        |> List.map Bookmark.toId
+                                        |> List.member id
                                 )
             }
         )
 
 
-toggleComparedSimulation : String -> Bool -> Session -> Session
-toggleComparedSimulation name checked =
+toggleComparedSimulation : Bookmark -> Bool -> Session -> Session
+toggleComparedSimulation bookmark checked =
     updateStore
         (\store ->
             { store
                 | comparedSimulations =
                     if checked then
-                        Set.insert name store.comparedSimulations
+                        Set.insert (Bookmark.toId bookmark) store.comparedSimulations
 
                     else
-                        Set.remove name store.comparedSimulations
+                        Set.remove (Bookmark.toId bookmark) store.comparedSimulations
             }
         )
 

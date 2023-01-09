@@ -9,6 +9,7 @@ module Data.Bookmark exposing
     , isFood
     , isTextile
     , sort
+    , toId
     , toQueryDescription
     )
 
@@ -91,9 +92,9 @@ isTextile { query } =
 
 
 filterByScope : Scope -> List Bookmark -> List Bookmark
-filterByScope scope =
+filterByScope scope_ =
     List.filter
-        (case scope of
+        (case scope_ of
             Scope.Food ->
                 isFood
 
@@ -118,9 +119,24 @@ findByTextileQuery textileQuery =
     findByQuery (Textile textileQuery)
 
 
+scope : Bookmark -> Scope
+scope bookmark =
+    case bookmark.query of
+        Food _ ->
+            Scope.Food
+
+        Textile _ ->
+            Scope.Textile
+
+
 sort : List Bookmark -> List Bookmark
 sort =
     List.sortBy (.created >> Time.posixToMillis) >> List.reverse
+
+
+toId : Bookmark -> String
+toId bookmark =
+    Scope.toString (scope bookmark) ++ ":" ++ bookmark.name
 
 
 toQueryDescription : { foodDb : BuilderDb.Db, textileDb : TextileDb.Db } -> Bookmark -> String

@@ -4,6 +4,7 @@ module Data.Scope exposing
     , encode
     , only
     , toLabel
+    , toString
     )
 
 import Json.Decode as Decode exposing (Decoder)

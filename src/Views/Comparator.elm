@@ -1,6 +1,6 @@
-module Views.Textile.Comparator exposing (comparator)
+module Views.Comparator exposing (comparator)
 
-import Data.Bookmark as Bookmark
+import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Impact as Impact
 import Data.Scope exposing (Scope)
 import Data.Session as Session exposing (Session)
@@ -22,7 +22,7 @@ type alias ComparatorConfig msg =
     , funit : Unit.Functional
     , daysOfWear : Duration
     , scope : Scope
-    , toggle : String -> Bool -> msg
+    , toggle : Bookmark -> Bool -> msg
     }
 
 
@@ -41,14 +41,14 @@ comparator { session, impact, funit, daysOfWear, scope, toggle } =
                     , text " simulations pour les comparer\u{00A0}:"
                     ]
                 , session.store.bookmarks
-                    |> List.filter Bookmark.isTextile
+                    |> Bookmark.filterByScope scope
                     |> List.map
                         (\bookmark ->
                             let
                                 ( description, isCompared ) =
                                     ( bookmark
                                         |> Bookmark.toQueryDescription { foodDb = session.builderDb, textileDb = session.db }
-                                    , Set.member bookmark.name session.store.comparedSimulations
+                                    , Set.member (Bookmark.toId bookmark) session.store.comparedSimulations
                                     )
                             in
                             label
@@ -58,7 +58,7 @@ comparator { session, impact, funit, daysOfWear, scope, toggle } =
                                 [ input
                                     [ type_ "checkbox"
                                     , class "form-check-input"
-                                    , onCheck (toggle bookmark.name)
+                                    , onCheck (toggle bookmark)
                                     , checked isCompared
                                     , disabled (not isCompared && currentlyCompared >= Session.maxComparedSimulations)
                                     ]
