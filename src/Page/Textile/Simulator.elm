@@ -38,13 +38,13 @@ import Task
 import Time exposing (Posix)
 import Views.Alert as Alert
 import Views.Bookmark as BookmarkView
-import Views.Comparator as ComparativeChartView
 import Views.Component.DownArrow as DownArrow
 import Views.Container as Container
 import Views.Dataviz as Dataviz
 import Views.Icon as Icon
 import Views.Impact as ImpactView
 import Views.Modal as ModalView
+import Views.Textile.Comparator as ComparativeChartView
 import Views.Textile.Material as MaterialView
 import Views.Textile.Step as StepView
 import Views.Textile.Summary as SummaryView

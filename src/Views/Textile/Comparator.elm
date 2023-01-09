@@ -1,4 +1,4 @@
-module Views.Comparator exposing (comparator)
+module Views.Textile.Comparator exposing (comparator)
 
 import Data.Bookmark as Bookmark
 import Data.Impact as Impact
@@ -12,7 +12,7 @@ import Result.Extra as RE
 import Set
 import Views.Alert as Alert
 import Views.Container as Container
-import Views.Textile.ComparativeChart as ComparativeChartView
+import Views.Textile.ComparativeChart as TextileComparativeChart
 
 
 type alias ComparatorConfig msg =
@@ -39,7 +39,6 @@ comparator { session, impact, funit, daysOfWear, toggle } =
                     , text " simulations pour les comparer\u{00A0}:"
                     ]
                 , session.store.bookmarks
-                    -- TODO: handle food recipes later at some point
                     |> List.filter Bookmark.isTextile
                     |> List.map
                         (\bookmark ->
@@ -87,7 +86,7 @@ comparator { session, impact, funit, daysOfWear, toggle } =
 
                     Ok entries ->
                         entries
-                            |> ComparativeChartView.chart
+                            |> TextileComparativeChart.chart
                                 { funit = funit
                                 , impact = impact
                                 , daysOfWear = daysOfWear
@@ -116,11 +115,11 @@ getChartEntries :
     Session
     -> Unit.Functional
     -> Impact.Definition
-    -> Result String (List ComparativeChartView.Entry)
+    -> Result String (List TextileComparativeChart.Entry)
 getChartEntries { db, store } funit impact =
     let
         createEntry_ =
-            ComparativeChartView.createEntry db funit impact
+            TextileComparativeChart.createEntry db funit impact
     in
     store.bookmarks
         |> List.filter Bookmark.isTextile
