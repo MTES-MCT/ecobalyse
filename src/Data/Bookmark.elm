@@ -3,6 +3,7 @@ module Data.Bookmark exposing
     , Query(..)
     , decode
     , encode
+    , filterByScope
     , findByFoodQuery
     , findByTextileQuery
     , isFood
@@ -14,6 +15,7 @@ module Data.Bookmark exposing
 import Data.Food.Builder.Db as BuilderDb
 import Data.Food.Builder.Query as FoodQuery
 import Data.Food.Builder.Recipe as Recipe
+import Data.Scope as Scope exposing (Scope)
 import Data.Textile.Db as TextileDb
 import Data.Textile.Inputs as TextileQuery
 import Json.Decode as Decode exposing (Decoder)
@@ -86,6 +88,18 @@ isTextile { query } =
 
         _ ->
             False
+
+
+filterByScope : Scope -> List Bookmark -> List Bookmark
+filterByScope scope =
+    List.filter
+        (case scope of
+            Scope.Food ->
+                isFood
+
+            Scope.Textile ->
+                isTextile
+        )
 
 
 findByQuery : Query -> List Bookmark -> Maybe Bookmark

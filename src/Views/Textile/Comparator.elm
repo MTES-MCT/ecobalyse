@@ -2,6 +2,7 @@ module Views.Textile.Comparator exposing (comparator)
 
 import Data.Bookmark as Bookmark
 import Data.Impact as Impact
+import Data.Scope exposing (Scope)
 import Data.Session as Session exposing (Session)
 import Data.Unit as Unit
 import Duration exposing (Duration)
@@ -20,12 +21,13 @@ type alias ComparatorConfig msg =
     , impact : Impact.Definition
     , funit : Unit.Functional
     , daysOfWear : Duration
+    , scope : Scope
     , toggle : String -> Bool -> msg
     }
 
 
 comparator : ComparatorConfig msg -> Html msg
-comparator { session, impact, funit, daysOfWear, toggle } =
+comparator { session, impact, funit, daysOfWear, scope, toggle } =
     let
         currentlyCompared =
             Set.size session.store.comparedSimulations
@@ -77,7 +79,7 @@ comparator { session, impact, funit, daysOfWear, toggle } =
                         ]
                 ]
             , div [ class "col-lg-8 px-4 py-2 overflow-hidden", style "min-height" "500px" ]
-                [ case getChartEntries session funit impact of
+                [ case getChartEntries session funit impact scope of
                     Ok [] ->
                         p
                             [ class "d-flex h-100 justify-content-center align-items-center"
@@ -115,14 +117,15 @@ getChartEntries :
     Session
     -> Unit.Functional
     -> Impact.Definition
+    -> Scope
     -> Result String (List TextileComparativeChart.Entry)
-getChartEntries { db, store } funit impact =
+getChartEntries { db, store } funit impact scope =
     let
         createEntry_ =
             TextileComparativeChart.createEntry db funit impact
     in
     store.bookmarks
-        |> List.filter Bookmark.isTextile
+        |> Bookmark.filterByScope scope
         |> List.filterMap
             (\bookmark ->
                 if Set.member bookmark.name store.comparedSimulations then

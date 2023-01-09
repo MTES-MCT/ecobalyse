@@ -579,6 +579,7 @@ view session model =
                                         , impact = model.impact
                                         , funit = model.funit
                                         , daysOfWear = simulator.daysOfWear
+                                        , scope = Scope.Textile
                                         , toggle = ToggleComparedSimulation
                                         }
                                     ]

@@ -166,20 +166,15 @@ bookmarksView ({ session, compare, scope } as config) =
     div []
         [ div [ class "card-header border-top rounded-0 d-flex justify-content-between align-items-center" ]
             [ span [] [ text "Simulations sauvegardées" ]
-            , case scope of
-                Scope.Food ->
-                    text ""
-
-                Scope.Textile ->
-                    button
-                        [ class "btn btn-sm btn-primary"
-                        , title "Comparer vos simulations sauvegardées"
-                        , disabled (List.length bookmarks < 2)
-                        , onClick compare
-                        ]
-                        [ span [ class "me-1" ] [ Icon.stats ]
-                        , text "Comparer"
-                        ]
+            , button
+                [ class "btn btn-sm btn-primary"
+                , title "Comparer vos simulations sauvegardées"
+                , disabled (List.length bookmarks < 2)
+                , onClick compare
+                ]
+                [ span [ class "me-1" ] [ Icon.stats ]
+                , text "Comparer"
+                ]
             ]
         , if List.length bookmarks == 0 then
             div [ class "card-body form-text fs-7 pt-2" ]
