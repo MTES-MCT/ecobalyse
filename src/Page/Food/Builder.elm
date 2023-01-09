@@ -63,7 +63,8 @@ type alias SelectedProcess =
 
 type Msg
     = AddIngredient
-    | AddPackaging SelectedProcess
+    | AddPackaging
+    | AddTransform
     | CopyToClipBoard String
     | DbLoaded (WebData Db)
     | DeleteBookmark Bookmark
@@ -75,8 +76,6 @@ type Msg
     | SaveBookmark
     | SaveBookmarkWithTime String Bookmark.Query Posix
     | SelectPackaging (Maybe SelectedProcess)
-    | SelectTransform (Maybe SelectedProcess)
-    | SetTransform SelectedProcess
     | SwitchLinksTab BookmarkView.ActiveTab
     | SwitchImpact Impact.Trigram
     | UpdateBookmarkName String
@@ -152,9 +151,44 @@ update ({ queries } as session) msg model =
                             identity
                    )
 
-        AddPackaging { mass, code } ->
-            ( { model | selectedPackaging = Nothing }, session, Cmd.none )
-                |> updateQuery (Recipe.addPackaging mass code query)
+        AddPackaging ->
+            let
+                firstPackaging =
+                    session.builderDb.processes
+                        |> Recipe.availablePackagings (List.map .code query.packaging)
+                        |> List.sortBy Process.getDisplayName
+                        |> List.head
+                        |> Maybe.map Recipe.packagingQueryFromPackaging
+            in
+            ( model, session, Cmd.none )
+                |> (case firstPackaging of
+                        Just packaging ->
+                            updateQuery (Query.addPackaging packaging query)
+
+                        Nothing ->
+                            identity
+                   )
+
+        AddTransform ->
+            let
+                defaultMass =
+                    Query.sumMasses query.ingredients
+
+                firstTransform =
+                    session.builderDb.processes
+                        |> Recipe.availableTransforms (Maybe.map .code query.transform)
+                        |> List.sortBy Process.getDisplayName
+                        |> List.head
+                        |> Maybe.map (Recipe.transformQueryFromTransform defaultMass)
+            in
+            ( model, session, Cmd.none )
+                |> (case firstTransform of
+                        Just transform ->
+                            updateQuery (Query.setTransform transform query)
+
+                        Nothing ->
+                            identity
+                   )
 
         CopyToClipBoard shareableLink ->
             ( model, session, Ports.copyToClipboard shareableLink )
@@ -220,18 +254,6 @@ update ({ queries } as session) msg model =
         SelectPackaging selectedPackaging ->
             ( { model | selectedPackaging = selectedPackaging }, session, Cmd.none )
 
-        SelectTransform Nothing ->
-            ( { model | selectedTransform = Nothing }, session, Cmd.none )
-                |> updateQuery { query | transform = Nothing }
-
-        SelectTransform (Just { mass, code }) ->
-            ( { model | selectedTransform = Nothing }, session, Cmd.none )
-                |> updateQuery (Recipe.setTransform mass code query)
-
-        SetTransform { mass, code } ->
-            ( { model | selectedTransform = Nothing }, session, Cmd.none )
-                |> updateQuery (Recipe.setTransform mass code query)
-
         SwitchImpact impact ->
             ( model
             , session
@@ -295,77 +317,82 @@ findExistingBookmarkName { builderDb, store } query =
 
 
 type alias AddProcessConfig msg =
-    { category : Process.Category
-    , defaultMass : Mass
-    , excluded : List Process.Code
-    , db : Db
+    { isDisabled : Bool
+    , event : msg
     , kind : String
-    , noOp : msg
-    , select : Maybe SelectedProcess -> msg
-    , selectedProcess : Maybe SelectedProcess
-    , submit : SelectedProcess -> msg
     }
 
 
 addProcessFormView : AddProcessConfig Msg -> Html Msg
-addProcessFormView { category, defaultMass, excluded, db, kind, noOp, select, selectedProcess, submit } =
-    Html.form
-        [ class "list-group list-group-flush border-top-0"
-        , onSubmit
-            (case selectedProcess of
-                Just selected ->
-                    submit selected
-
-                Nothing ->
-                    noOp
-            )
+addProcessFormView { isDisabled, event, kind } =
+    li [ class "list-group-item" ]
+        [ button
+            [ class "btn btn-outline-primary"
+            , class "d-flex justify-content-center align-items-center"
+            , class " gap-1 w-100"
+            , disabled isDisabled
+            , onClick event
+            ]
+            [ i [ class "icon icon-plus" ] []
+            , text <| "Ajouter " ++ kind
+            ]
         ]
-        [ rowTemplate
-            (MassInput.view
-                { mass =
-                    selectedProcess
-                        |> Maybe.map .mass
-                        |> Maybe.withDefault defaultMass
-                , onChange =
-                    \maybeMass ->
-                        select
-                            (case ( maybeMass, selectedProcess ) of
-                                ( Just mass, Just selected ) ->
-                                    Just { selected | mass = mass }
 
-                                _ ->
-                                    Nothing
-                            )
-                , disabled = selectedProcess == Nothing
-                }
-            )
-            (db.processes
-                |> Process.listByCategory category
-                |> List.sortBy Process.getDisplayName
-                |> List.filter (\{ code } -> not (List.member code excluded))
-                |> processSelectorView kind
-                    (Maybe.map .code selectedProcess)
-                    (\maybeCode ->
-                        case ( selectedProcess, maybeCode ) of
-                            ( Just selected, Just code ) ->
-                                select (Just { selected | code = code })
 
-                            ( Nothing, Just code ) ->
-                                select (Just { code = code, mass = defaultMass })
 
-                            _ ->
-                                select Nothing
-                    )
-            )
-            (button
-                [ type_ "submit"
-                , class "btn btn-sm btn-primary"
-                , title <| "Ajouter " ++ kind
-                , disabled <| selectedProcess == Nothing
-                ]
-                [ Icon.plus ]
-            )
-        ]
+-- Html.form
+--     [ class "list-group list-group-flush border-top-0"
+--     , onSubmit
+--         (case selectedProcess of
+--             Just selected ->
+--                 submit selected
+--             Nothing ->
+--                 noOp
+--         )
+--     ]
+--     [ rowTemplate
+--         (MassInput.view
+--             { mass =
+--                 selectedProcess
+--                     |> Maybe.map .mass
+--                     |> Maybe.withDefault defaultMass
+--             , onChange =
+--                 \maybeMass ->
+--                     select
+--                         (case ( maybeMass, selectedProcess ) of
+--                             ( Just mass, Just selected ) ->
+--                                 Just { selected | mass = mass }
+--                             _ ->
+--                                 Nothing
+--                         )
+--             , disabled = selectedProcess == Nothing
+--             }
+--         )
+--         (db.processes
+--             |> Process.listByCategory category
+--             |> List.sortBy Process.getDisplayName
+--             |> List.filter (\{ code } -> not (List.member code excluded))
+--             |> processSelectorView kind
+--                 (Maybe.map .code selectedProcess)
+--                 (\maybeCode ->
+--                     case ( selectedProcess, maybeCode ) of
+--                         ( Just selected, Just code ) ->
+--                             select (Just { selected | code = code })
+--                         ( Nothing, Just code ) ->
+--                             select (Just { code = code, mass = defaultMass })
+--                         _ ->
+--                             select Nothing
+--                 )
+--         )
+--         (button
+--             [ type_ "submit"
+--             , class "btn btn-sm btn-primary"
+--             , title <| "Ajouter " ++ kind
+--             , disabled <| selectedProcess == Nothing
+--             ]
+--             [ Icon.plus ]
+--         )
+--     ]
 
 
 type alias UpdateIngredientConfig =
@@ -566,6 +593,11 @@ ingredientListView db selectedImpact recipe results =
 
 packagingListView : Db -> Impact.Definition -> Maybe SelectedProcess -> Recipe -> Recipe.Results -> List (Html Msg)
 packagingListView db selectedImpact selectedProcess recipe results =
+    let
+        availablePackagings =
+            Recipe.availablePackagings (List.map (.process >> .code) recipe.packaging) db.processes
+                |> Debug.log "availablePackagings"
+    in
     [ div [ class "card-header d-flex align-items-center justify-content-between" ]
         [ h5 [ class "mb-0" ] [ text "Emballage" ]
         , results.packaging
@@ -603,15 +635,9 @@ packagingListView db selectedImpact selectedProcess recipe results =
                     )
         )
     , addProcessFormView
-        { category = Process.Packaging
-        , defaultMass = Mass.grams 100
-        , excluded = List.map (.process >> .code) recipe.packaging
-        , db = db
+        { isDisabled = availablePackagings == []
+        , event = AddPackaging
         , kind = "un emballage"
-        , noOp = NoOp
-        , select = SelectPackaging
-        , selectedProcess = selectedProcess
-        , submit = AddPackaging
         }
     ]
 
@@ -951,49 +977,42 @@ transformView db selectedImpact selectedProcess recipe results =
         ]
     , case recipe.transform of
         Just ({ process, mass } as transform) ->
-            ul [ class "list-group list-group-flush border-top-0" ]
-                [ rowTemplate
-                    (MassInput.view
-                        { mass = mass
-                        , onChange = UpdateTransformMass
-                        , disabled = False
-                        }
-                    )
-                    (small [] [ text <| Process.getDisplayName process ])
-                    (div [ class "d-flex flex-nowrap align-items-center gap-2 fs-7 text-nowrap" ]
-                        [ transform
-                            |> Recipe.computeProcessImpacts db.impacts
-                            |> Format.formatFoodSelectedImpact selectedImpact
-                        , button
-                            [ type_ "button"
-                            , class "btn btn-sm btn-outline-primary"
-                            , title "Supprimer"
-                            , onClick ResetTransform
+            div []
+                [ ul [ class "list-group list-group-flush border-top-0" ]
+                    [ rowTemplate
+                        (MassInput.view
+                            { mass = mass
+                            , onChange = UpdateTransformMass
+                            , disabled = False
+                            }
+                        )
+                        (small [] [ text <| Process.getDisplayName process ])
+                        (div [ class "d-flex flex-nowrap align-items-center gap-2 fs-7 text-nowrap" ]
+                            [ transform
+                                |> Recipe.computeProcessImpacts db.impacts
+                                |> Format.formatFoodSelectedImpact selectedImpact
+                            , button
+                                [ type_ "button"
+                                , class "btn btn-sm btn-outline-primary"
+                                , title "Supprimer"
+                                , onClick ResetTransform
+                                ]
+                                [ Icon.trash ]
                             ]
-                            [ Icon.trash ]
-                        ]
-                    )
+                        )
+                    ]
+                , div [ class "card-body d-flex align-items-center gap-1 text-muted py-2" ]
+                    [ Icon.info
+                    , small [] [ text "Entrez la masse totale mobilisée par le procédé de transformation sélectionné" ]
+                    ]
                 ]
 
         Nothing ->
             addProcessFormView
-                { category = Process.Transform
-                , defaultMass = Recipe.sumMasses recipe.ingredients
-                , excluded =
-                    recipe.transform
-                        |> Maybe.map (.process >> .code >> List.singleton)
-                        |> Maybe.withDefault []
-                , db = db
+                { isDisabled = False
+                , event = AddTransform
                 , kind = "une transformation"
-                , noOp = NoOp
-                , select = SelectTransform
-                , selectedProcess = selectedProcess
-                , submit = SetTransform
                 }
-    , div [ class "card-body d-flex align-items-center gap-1 text-muted py-2" ]
-        [ Icon.info
-        , small [] [ text "Entrez la masse totale mobilisée par le procédé de transformation sélectionné" ]
-        ]
     ]
 
 

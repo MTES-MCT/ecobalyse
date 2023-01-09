@@ -5,6 +5,7 @@ module Data.Food.Builder.Query exposing
     , TransformQuery
     , Variant(..)
     , addIngredient
+    , addPackaging
     , b64encode
     , carrotCake
     , decode
@@ -13,6 +14,8 @@ module Data.Food.Builder.Query exposing
     , emptyQuery
     , encode
     , parseBase64Query
+    , setTransform
+    , sumMasses
     , updateIngredient
     )
 
@@ -74,6 +77,15 @@ addIngredient ingredient query =
                 ++ [ ingredient ]
     }
         |> updateTransformMass
+
+
+addPackaging : PackagingQuery -> Query -> Query
+addPackaging packaging query =
+    { query
+        | packaging =
+            query.packaging
+                ++ [ packaging ]
+    }
 
 
 emptyQuery : Query
@@ -232,6 +244,16 @@ getIngredientMass query =
     query.ingredients
         |> List.map .mass
         |> Quantity.sum
+
+
+setTransform : TransformQuery -> Query -> Query
+setTransform transform query =
+    { query | transform = Just transform }
+
+
+sumMasses : List { a | mass : Mass } -> Mass
+sumMasses =
+    List.map .mass >> Quantity.sum
 
 
 updateIngredient : Ingredient.Id -> IngredientQuery -> Query -> Query

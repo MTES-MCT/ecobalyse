@@ -2,8 +2,9 @@ module Data.Food.Builder.Recipe exposing
     ( Recipe
     , RecipeIngredient
     , Results
-    , addPackaging
     , availableIngredients
+    , availablePackagings
+    , availableTransforms
     , compute
     , computeProcessImpacts
     , deletePackaging
@@ -11,11 +12,11 @@ module Data.Food.Builder.Recipe exposing
     , encodeResults
     , fromQuery
     , ingredientQueryFromIngredient
+    , packagingQueryFromPackaging
     , resetTransform
     , serializeQuery
-    , setTransform
-    , sumMasses
     , toString
+    , transformQueryFromTransform
     , updatePackagingMass
     , updateTransformMass
     )
@@ -84,17 +85,28 @@ type alias Transform =
     }
 
 
-addPackaging : Mass -> Process.Code -> Query -> Query
-addPackaging mass code query =
-    { query
-        | packaging =
-            query.packaging ++ [ { code = code, mass = mass } ]
-    }
-
-
 availableIngredients : List Id -> List Ingredient -> List Ingredient
 availableIngredients usedIngredientIds =
     List.filter (\{ id } -> not (List.member id usedIngredientIds))
+
+
+availablePackagings : List Process.Code -> List Process -> List Process
+availablePackagings usedProcesses processes =
+    processes
+        |> Process.listByCategory Process.Packaging
+        |> List.filter (\process -> not (List.member process.code usedProcesses))
+
+
+availableTransforms : Maybe Process.Code -> List Process -> List Process
+availableTransforms maybeCode processes =
+    case maybeCode of
+        Just code ->
+            processes
+                |> Process.listByCategory Process.Transform
+                |> List.filter (\process -> process.code /= code)
+
+        Nothing ->
+            processes
 
 
 compute : Db -> Query -> Result String ( Recipe, Results )
@@ -346,6 +358,13 @@ packagingListFromQuery db query =
         |> RE.combineMap (packagingFromQuery db)
 
 
+packagingQueryFromPackaging : Process -> BuilderQuery.PackagingQuery
+packagingQueryFromPackaging process =
+    { code = process.code
+    , mass = Mass.grams 100
+    }
+
+
 packagingFromQuery : Db -> BuilderQuery.PackagingQuery -> Result String Packaging
 packagingFromQuery { processes } { code, mass } =
     Result.map2 Packaging
@@ -358,19 +377,9 @@ resetTransform query =
     { query | transform = Nothing }
 
 
-setTransform : Mass -> Process.Code -> Query -> Query
-setTransform mass code query =
-    { query | transform = Just { code = code, mass = mass } }
-
-
 serializeQuery : Query -> String
 serializeQuery =
     encodeQuery >> Encode.encode 2
-
-
-sumMasses : List { a | mass : Mass } -> Mass
-sumMasses =
-    List.map .mass >> Quantity.sum
 
 
 toString : Recipe -> String
@@ -425,6 +434,13 @@ transformFromQuery { processes } query =
                     |> Result.map Just
             )
         |> Maybe.withDefault (Ok Nothing)
+
+
+transformQueryFromTransform : Mass -> Process -> BuilderQuery.TransformQuery
+transformQueryFromTransform mass process =
+    { code = process.code
+    , mass = mass
+    }
 
 
 updateMass :
