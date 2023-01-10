@@ -21,7 +21,6 @@ import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import Html.Keyed as Keyed
 import Json.Encode as Encode
 import Mass
 import Page.Textile.Simulator.ViewMode as ViewMode
@@ -128,6 +127,7 @@ update ({ queries } as session) msg model =
                 firstIngredient =
                     session.builderDb.ingredients
                         |> Recipe.availableIngredients (List.map .id query.ingredients)
+                        |> List.sortBy .name
                         |> List.head
                         |> Maybe.map Recipe.ingredientQueryFromIngredient
             in
@@ -657,58 +657,49 @@ menuView query =
 
 
 processSelectorView : Process.Code -> (Process.Code -> msg) -> List Process.Code -> List Process -> Html msg
-processSelectorView selectedCode event excluded =
-    List.map
-        (\process ->
-            let
-                label =
-                    Process.getDisplayName process
-            in
-            ( label
-            , option
-                [ selected <| selectedCode == process.code
-                , value <| Process.codeToString process.code
-                , disabled <| List.member process.code excluded
-                ]
-                [ text label ]
-            )
+processSelectorView selectedCode event excluded processes =
+    select
+        [ class "form-select form-select-sm"
+        , onInput (Process.codeFromString >> event)
+        ]
+        (processes
+            |> List.sortBy (\process -> Process.getDisplayName process)
+            |> List.map
+                (\process ->
+                    option
+                        [ selected <| selectedCode == process.code
+                        , value <| Process.codeToString process.code
+                        , disabled <| List.member process.code excluded
+                        ]
+                        [ text <| Process.getDisplayName process ]
+                )
         )
-        >> List.sortBy Tuple.first
-        -- We use Html.Keyed because when we add an item, we filter it out from the select box,
-        -- which desynchronizes the DOM state and the virtual dom state
-        >> Keyed.node "select"
-            [ class "form-select form-select-sm"
-            , onInput (Process.codeFromString >> event)
-            ]
 
 
 ingredientSelectorView : Id -> List Id -> (Ingredient -> Msg) -> List Ingredient -> Html Msg
 ingredientSelectorView selectedIngredient excluded event ingredients =
-    ingredients
-        |> List.map
-            (\ingredient ->
-                ( ingredient.name
-                , option
-                    [ selected <| selectedIngredient == ingredient.id
-                    , disabled <| List.member ingredient.id excluded
-                    , value <| Ingredient.idToString ingredient.id
-                    ]
-                    [ text ingredient.name ]
-                )
+    select
+        [ class "form-select form-select-sm IngredientSelector"
+        , onInput
+            (\ingredientId ->
+                ingredients
+                    |> Ingredient.findByID (Ingredient.idFromString ingredientId)
+                    |> Result.map event
+                    |> Result.withDefault NoOp
             )
-        |> List.sortBy Tuple.first
-        -- We use Html.Keyed because when we add an item, we filter it out from the select box,
-        -- which desynchronizes the DOM state and the virtual dom state
-        |> Keyed.node "select"
-            [ class "form-select form-select-sm IngredientSelector"
-            , onInput
-                (\ingredientId ->
-                    ingredients
-                        |> Ingredient.findByID (Ingredient.idFromString ingredientId)
-                        |> Result.map event
-                        |> Result.withDefault NoOp
+        ]
+        (ingredients
+            |> List.sortBy .name
+            |> List.map
+                (\ingredient ->
+                    option
+                        [ selected <| selectedIngredient == ingredient.id
+                        , disabled <| List.member ingredient.id excluded
+                        , value <| Ingredient.idToString ingredient.id
+                        ]
+                        [ text ingredient.name ]
                 )
-            ]
+        )
 
 
 recipeTransportsView : Impact.Definition -> Recipe.Results -> List (Html Msg)
