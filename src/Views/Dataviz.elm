@@ -10,6 +10,7 @@ import Data.Textile.Db exposing (Db)
 import Data.Textile.Simulator as Simulator exposing (Simulator)
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import Json.Encode as Encode
 import List.Extra as LE
 import Svg as S
 import Svg.Attributes as SA
@@ -23,6 +24,10 @@ view db simulator =
         , node "chart-pefpie"
             [ simulator.impacts
                 |> Impact.getAggregatedScoreData db.impacts .pefData
+                |> List.sortBy .value
+                |> List.reverse
+                |> Encode.list Impact.encodeChartEntry
+                |> Encode.encode 0
                 |> attribute "data"
             ]
             []

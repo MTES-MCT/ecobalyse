@@ -9,6 +9,7 @@ module Data.Impact exposing
     , decodeList
     , defaultFoodTrigram
     , defaultTextileTrigram
+    , encodeChartEntry
     , encodeImpacts
     , filterImpacts
     , getAggregatedScoreData
@@ -365,16 +366,12 @@ updateAggregatedScores definitions impacts =
         |> aggregateScore .pefData (trg "pef")
 
 
-getAggregatedScoreData : List Definition -> (Definition -> Maybe AggregatedScoreData) -> Impacts -> String
+getAggregatedScoreData :
+    List Definition
+    -> (Definition -> Maybe AggregatedScoreData)
+    -> Impacts
+    -> List { color : String, name : String, value : Float }
 getAggregatedScoreData defs getter =
-    let
-        encode entry =
-            Encode.object
-                [ ( "name", Encode.string entry.name )
-                , ( "y", Encode.float entry.value )
-                , ( "color", Encode.string entry.color )
-                ]
-    in
     AnyDict.foldl
         (\trigram impact acc ->
             case getDefinition trigram defs of
@@ -397,10 +394,16 @@ getAggregatedScoreData defs getter =
                     acc
         )
         []
-        >> List.sortBy .value
-        >> List.reverse
-        >> Encode.list encode
-        >> Encode.encode 0
+
+
+encodeChartEntry : { name : String, value : Float, color : String } -> Encode.Value
+encodeChartEntry entry =
+    -- FIXME: move so it can be shared with other users of getAggregatedScoreData
+    Encode.object
+        [ ( "name", Encode.string entry.name )
+        , ( "y", Encode.float entry.value )
+        , ( "color", Encode.string entry.color )
+        ]
 
 
 computeAggregatedScore : (Definition -> Maybe AggregatedScoreData) -> List Definition -> Impacts -> Unit.Impact
