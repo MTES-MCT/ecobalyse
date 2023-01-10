@@ -1,8 +1,9 @@
 module Views.Comparator exposing (comparator)
 
 import Data.Bookmark as Bookmark exposing (Bookmark)
+import Data.Food.Builder.Recipe as Recipe
 import Data.Impact as Impact
-import Data.Scope exposing (Scope)
+import Data.Scope as Scope exposing (Scope)
 import Data.Session as Session exposing (Session)
 import Data.Unit as Unit
 import Duration exposing (Duration)
@@ -47,8 +48,10 @@ comparator { session, impact, funit, daysOfWear, scope, toggle } =
                             let
                                 ( description, isCompared ) =
                                     ( bookmark
-                                        |> Bookmark.toQueryDescription { foodDb = session.builderDb, textileDb = session.db }
-                                    , Set.member (Bookmark.toId bookmark) session.store.comparedSimulations
+                                        |> Bookmark.toQueryDescription
+                                            { foodDb = session.builderDb, textileDb = session.db }
+                                    , session.store.comparedSimulations
+                                        |> Set.member (Bookmark.toId bookmark)
                                     )
                             in
                             label
@@ -79,65 +82,126 @@ comparator { session, impact, funit, daysOfWear, scope, toggle } =
                         ]
                 ]
             , div [ class "col-lg-8 px-4 py-2 overflow-hidden", style "min-height" "500px" ]
-                [ case getChartEntries session funit impact scope of
-                    Ok [] ->
-                        p
-                            [ class "d-flex h-100 justify-content-center align-items-center"
-                            ]
-                            [ text "Merci de sélectionner des simulations à comparer" ]
+                [ text ""
+                , case scope of
+                    Scope.Food ->
+                        foodComparatorView session
 
-                    Ok entries ->
-                        entries
-                            |> TextileComparativeChart.chart
-                                { funit = funit
-                                , impact = impact
-                                , daysOfWear = daysOfWear
-                                , size = Just ( 700, 500 )
-                                , margins = Just { top = 22, bottom = 40, left = 40, right = 20 }
-                                }
-
-                    Err error ->
-                        Alert.simple
-                            { level = Alert.Danger
-                            , close = Nothing
-                            , title = Just "Erreur"
-                            , content = [ text error ]
-                            }
-                , div [ class "fs-7 text-end text-muted" ]
-                    [ text impact.label
-                    , text ", "
-                    , funit |> Unit.functionalToString |> text
-                    ]
+                    Scope.Textile ->
+                        textileComparatorView session funit daysOfWear impact
                 ]
             ]
         ]
 
 
-getChartEntries :
+foodComparatorView : Session -> Html msg
+foodComparatorView { builderDb, store } =
+    let
+        scores =
+            store.bookmarks
+                |> Bookmark.toFoodQueries
+                |> List.filterMap
+                    (\( id, label, foodQuery ) ->
+                        if Set.member id store.comparedSimulations then
+                            foodQuery
+                                |> Recipe.compute builderDb
+                                |> Result.map (Tuple.second >> .total >> (\i -> ( label, i )))
+                                |> Just
+
+                        else
+                            Nothing
+                    )
+                |> RE.combine
+
+        tmp =
+            scores
+                -- FIXME: handle error
+                |> Result.withDefault []
+                |> Debug.toString
+
+        json =
+            """
+        {
+        labels: ["Recette*1", "Recette*2", "Recette*3", "Recette*4", "Recette*5"],
+        series: [
+          {
+            // XXX: Impact name here
+            name: "Acidification des sols",
+            // XXX: impact values for each product here
+            data: [4, 4, 6, 15, 12],
+          },
+          {
+            name: "Biodiversité",
+            data: [5, 3, 12, 6, 11],
+          },
+          {
+            name: "Changement climatique",
+            data: [5, 15, 8, 5, 8],
+          },
+        ],
+      }
+            """
+    in
+    div []
+        [ pre [] [ text tmp ]
+
+        -- , node "chart-food-comparator"
+        --     [ json
+        --         |> attribute "data"
+        --     ]
+        --     []
+        ]
+
+
+textileComparatorView : Session -> Unit.Functional -> Duration -> Impact.Definition -> Html msg
+textileComparatorView session funit daysOfWear impact =
+    div []
+        [ case getTextileChartEntries session funit impact of
+            Ok [] ->
+                p
+                    [ class "d-flex h-100 justify-content-center align-items-center"
+                    ]
+                    [ text "Merci de sélectionner des simulations à comparer" ]
+
+            Ok entries ->
+                entries
+                    |> TextileComparativeChart.chart
+                        { funit = funit
+                        , impact = impact
+                        , daysOfWear = daysOfWear
+                        , size = Just ( 700, 500 )
+                        , margins = Just { top = 22, bottom = 40, left = 40, right = 20 }
+                        }
+
+            Err error ->
+                Alert.simple
+                    { level = Alert.Danger
+                    , close = Nothing
+                    , title = Just "Erreur"
+                    , content = [ text error ]
+                    }
+        , div [ class "fs-7 text-end text-muted" ]
+            [ text impact.label
+            , text ", "
+            , funit |> Unit.functionalToString |> text
+            ]
+        ]
+
+
+getTextileChartEntries :
     Session
     -> Unit.Functional
     -> Impact.Definition
-    -> Scope
     -> Result String (List TextileComparativeChart.Entry)
-getChartEntries { db, store } funit impact scope =
-    let
-        createEntry_ =
-            TextileComparativeChart.createEntry db funit impact
-    in
+getTextileChartEntries { db, store } funit impact =
     store.bookmarks
-        |> Bookmark.filterByScope scope
+        |> Bookmark.toTextileQueries
         |> List.filterMap
-            (\bookmark ->
-                if Set.member bookmark.name store.comparedSimulations then
-                    case bookmark.query of
-                        Bookmark.Food _ ->
-                            -- FIXME: handle comparison for saved recipes
-                            Nothing
-
-                        Bookmark.Textile query ->
-                            query
-                                |> createEntry_ { highlight = True, label = bookmark.name }
-                                |> Just
+            (\( id, label, textileQuery ) ->
+                if Set.member id store.comparedSimulations then
+                    textileQuery
+                        |> TextileComparativeChart.createEntry db funit impact { highlight = True, label = label }
+                        |> Just
 
                 else
                     Nothing

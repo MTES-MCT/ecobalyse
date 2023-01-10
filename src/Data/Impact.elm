@@ -11,9 +11,9 @@ module Data.Impact exposing
     , defaultTextileTrigram
     , encodeImpacts
     , filterImpacts
+    , getAggregatedScoreData
     , getDefinition
     , getImpact
-    , getPefPieData
     , grabImpactFloat
     , impactsFromDefinitons
     , invalid
@@ -365,8 +365,8 @@ updateAggregatedScores definitions impacts =
         |> aggregateScore .pefData (trg "pef")
 
 
-getPefPieData : List Definition -> Impacts -> String
-getPefPieData defs =
+getAggregatedScoreData : List Definition -> (Definition -> Maybe AggregatedScoreData) -> Impacts -> String
+getAggregatedScoreData defs getter =
     let
         encode entry =
             Encode.object
@@ -378,10 +378,10 @@ getPefPieData defs =
     AnyDict.foldl
         (\trigram impact acc ->
             case getDefinition trigram defs of
-                Ok { label, pefData } ->
-                    case pefData of
+                Ok def ->
+                    case getter def of
                         Just { normalization, weighting, color } ->
-                            { name = label
+                            { name = def.label
                             , value =
                                 impact
                                     |> Unit.impactAggregateScore normalization weighting

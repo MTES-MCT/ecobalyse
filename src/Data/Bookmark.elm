@@ -9,8 +9,10 @@ module Data.Bookmark exposing
     , isFood
     , isTextile
     , sort
+    , toFoodQueries
     , toId
     , toQueryDescription
+    , toTextileQueries
     )
 
 import Data.Food.Builder.Db as BuilderDb
@@ -139,6 +141,19 @@ toId bookmark =
     Scope.toString (scope bookmark) ++ ":" ++ bookmark.name
 
 
+toFoodQueries : List Bookmark -> List ( String, String, FoodQuery.Query )
+toFoodQueries =
+    List.filterMap
+        (\b ->
+            case b.query of
+                Food q ->
+                    Just ( toId b, b.name, q )
+
+                Textile _ ->
+                    Nothing
+        )
+
+
 toQueryDescription : { foodDb : BuilderDb.Db, textileDb : TextileDb.Db } -> Bookmark -> String
 toQueryDescription { foodDb, textileDb } bookmark =
     case bookmark.query of
@@ -153,3 +168,16 @@ toQueryDescription { foodDb, textileDb } bookmark =
                 |> TextileQuery.fromQuery textileDb
                 |> Result.map TextileQuery.toString
                 |> Result.withDefault bookmark.name
+
+
+toTextileQueries : List Bookmark -> List ( String, String, TextileQuery.Query )
+toTextileQueries =
+    List.filterMap
+        (\b ->
+            case b.query of
+                Food _ ->
+                    Nothing
+
+                Textile q ->
+                    Just ( toId b, b.name, q )
+        )
