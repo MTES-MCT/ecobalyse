@@ -2,6 +2,7 @@ module Views.Format exposing
     ( days
     , formatFloat
     , formatFoodSelectedImpact
+    , formatFoodSelectedImpactPerKg
     , formatImpact
     , formatImpactFloat
     , formatRichFloat
@@ -51,6 +52,14 @@ formatFoodSelectedImpact : Impact.Definition -> Impacts -> Html msg
 formatFoodSelectedImpact { trigram, unit, decimals } =
     Impact.getImpact trigram
         >> Unit.impactToFloat
+        >> formatRichFloat decimals unit
+
+
+formatFoodSelectedImpactPerKg : Impact.Definition -> Mass -> Impacts -> Html msg
+formatFoodSelectedImpactPerKg { trigram, unit, decimals } mass =
+    Impact.getImpact trigram
+        >> Unit.impactToFloat
+        >> (\impact -> impact / Mass.inKilograms mass)
         >> formatRichFloat decimals unit
 
 

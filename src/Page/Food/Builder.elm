@@ -618,8 +618,8 @@ mainView session db model =
     div [ class "row gap-3 gap-lg-0" ]
         [ div [ class "col-lg-4 order-lg-2 d-flex flex-column gap-3" ]
             [ case computed of
-                Ok ( _, results ) ->
-                    sidebarView session db model results
+                Ok ( recipe, results ) ->
+                    sidebarView session db model recipe results
 
                 Err error ->
                     errorView error
@@ -754,8 +754,8 @@ rowTemplate input content action =
         ]
 
 
-sidebarView : Session -> Db -> Model -> Recipe.Results -> Html Msg
-sidebarView session db model results =
+sidebarView : Session -> Db -> Model -> Recipe -> Recipe.Results -> Html Msg
+sidebarView session db model recipe results =
     div
         [ class "d-flex flex-column gap-3 mb-3 sticky-md-top"
         , style "top" "7px"
@@ -773,14 +773,29 @@ sidebarView session db model results =
         , SummaryComp.view
             { header = []
             , body =
-                [ div [ class "d-flex flex-column m-auto gap-1 px-2" ]
-                    [ div [ class "display-4 lh-1 text-center text-nowrap" ]
+                let
+                    totalWeight =
+                        Recipe.sumMasses recipe.ingredients
+
+                    totalWeightStr =
+                        totalWeight
+                            |> Mass.inKilograms
+                            |> String.fromFloat
+                in
+                [ div [ class "d-flex flex-column m-auto gap-1 px-2 text-center text-nowrap" ]
+                    [ h2 [ class "h5 m-0" ] [ text <| "Impact pour " ++ totalWeightStr ++ "kg de produit" ]
+                    , div [ class "display-4 lh-1" ]
                         [ results.total
                             |> Format.formatFoodSelectedImpact model.impact
                         ]
-                    , small [ class "d-flex align-items-center gap-1" ]
+                    , h3 [ class "h6 m-0 mt-2" ] [ text "Impact par kg de produit" ]
+                    , div [ class "display-5 lh-1" ]
+                        [ results.total
+                            |> Format.formatFoodSelectedImpactPerKg model.impact totalWeight
+                        ]
+                    , small []
                         [ Icon.warning
-                        , text "Attention, ce résultat est partiel"
+                        , text " Attention, ce résultat est partiel"
                         ]
                     ]
                 ]
