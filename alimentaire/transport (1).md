@@ -50,16 +50,16 @@ Vérification à faire : \
 
 En l'absence de paramétrage du pays d'origine, les hypothèses appliquées pour le choix de circuit et pour le transport vers la France (étape 3. RECETTE) sont établies en distinguant 4 catégories d'ingrédient. La catégorie à laquelle chaque ingrédient appartient est précisée dans la page méthodologique de l'ingrédient en question \[_<mark style="color:red;">à initier</mark>_].
 
-| Catégorie d'ingrédient                                                                               | Circuit appliqué    | Hypothèse par défaut (-> France)           |
-| ---------------------------------------------------------------------------------------------------- | ------------------- | ------------------------------------------ |
-| Ingrédients très majoritairement produits en France (seuil : \~95%)                                  | Circuit France      | N/A                                        |
-| Ingrédients très majoritairement produits en Europe ou sur le pourtour méditerranéen (seuil : \~95%) | Circuit hors France | Transport par défaut :  2500 km de camion  |
-| Ingrédient provenant de façon significative de pays hors Europe / Méditerrannée (seuil : \~5%)       | Circuit hors France | Transport par défaut : 18 000 km en bateau |
-| Cas particulier des ingrédients transportés de façon non marginale par avion                         | Circuit avion       | AD...                                      |
+| Catégorie d'ingrédient                                                                               | Circuit appliqué    | Hypothèse par défaut (-> France)                                                                                                                  |
+| ---------------------------------------------------------------------------------------------------- | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Ingrédients très majoritairement produits en France (seuil : \~95%)                                  | Circuit France      | N/A                                                                                                                                               |
+| Ingrédients très majoritairement produits en Europe ou sur le pourtour méditerranéen (seuil : \~95%) | Circuit hors France | <p>Transport par défaut :  <br>- 2500 km de camion pour les pays Européens <br>- 6000 km en bateau pour les pays méditerranéens (hors Europe)</p> |
+| Ingrédient provenant de façon significative de pays hors Europe / Méditerrannée (seuil : \~5%)       | Circuit hors France | Transport par défaut : 18 000 km en bateau                                                                                                        |
+| Cas particulier des ingrédients transportés de façon non marginale par avion (mangue, haricots...)   | Circuit avion       | Transport en avion, avec distance à préciser ingrédient par ingrédient (ex : distance Pérou-France pour la mangue ?)                              |
 
 ## Calcul
 
-Au regard du paragraphe précédent, un transport est considéré pour chacun des ingrédients de la recette.
+Pour les étapes relevant de la recette (ingrédients et jusqu'à une éventuelle transformation), un transport est considéré pour chacun des ingrédients de la recette. Au-delà, le transport est considéré pour l'ensemble du produit, avec son emballage.
 
 $$
 ImpactTransport = ImpactTransportIngrédient_1 + ImpactTransportIngrédient_2 ...
@@ -77,7 +77,7 @@ La masse s'exprime en **tonnes**. Une conversion est donc à prendre en compte p
 
 ## Types de transport
 
-En première approche, on ne considère que du transport maritime et du transport terrestre routier. La formule proposée ci-après anticipe toutefois l'introduction future du transport aérien.
+En première approche, hors des ingrédients qui mobilisent le "circuit avion" défini ci-dessus, on ne considère que du transport maritime et du transport terrestre routier. La formule proposée ci-après anticipe toutefois l'introduction du transport aérien.
 
 {% hint style="warning" %}
 Le transport aérien sera introduit avec l'ajout d'ingrédients susceptibles d'être transportés par avion (Mangue du Pérou, Haricot du Kenya...)
@@ -120,7 +120,7 @@ A introduire lors de l'ajout d'ingrédients susceptibles d'être transpotés par
 
 ## Distances
 
-Toutes les distances considérées entre pays sont visibles sur cette page \[**lien à ajouter**]
+Toutes les distances considérées entre pays sont visibles sur cette page \[<mark style="color:red;">**lien à ajouter**</mark>]
 
 Les distances entre pays sont considérées à partir des calculateurs mis en avant dans le projet de PEF CR Apparel & Footwear rendu public à l'été 2021 (Version 1.1 – Second draft PEFCR, 28 May 2021). Ainsi :
 
@@ -130,23 +130,31 @@ Les distances entre pays sont considérées à partir des calculateurs mis en av
 | Maritime          | ​[https://www.searates.com/services/distances-time/](https://www.searates.com/services/distances-time/)​ |
 | Aérien            | Calcul de distance à vol d'oiseau geopy.distance                                                         |
 
-## Transport intra-France
-
-Pour tous les ingrédients qu'ils soient d'origine France ou étranger, on ajoute un transport de 160 km de camion intra-France.\
-Pour les ingrédients de l'étranger cela correspond à l'acheminement depuis le port/la frontière jusqu'au lieu de stockage.
-
-Pour les ingrédients d'origine France cela correspond au transport entre la ferme/le lieu de transformation (ingrédient agricole/industrie) vers le lieu de stockage.
-
 ## Procédés de transport
 
 Les procédés de transport considérés sont extraits de la base Agribalyse.&#x20;
 
-| Type de transport  | Procédé | UUID |
-| ------------------ | ------- | ---- |
-| Transport maritime |         |      |
-| Transport routier  |         |      |
+| Type de transport               | Procédé                                        | UUID |
+| ------------------------------- | ---------------------------------------------- | ---- |
+| Transport maritime              | \[<mark style="color:red;">à compléter</mark>] |      |
+| Transport routier               |                                                |      |
+| Transport maritime frigorifique |                                                |      |
+| Transport routier frigorifique  |                                                |      |
+| Transport aérien                |                                                |      |
 
+Le choix d'un mode transport frigorifique dépend de l'ingrédient considéré. En accord avec la documentation Agribalyse, un transport frigorifique est considéré pour :&#x20;
 
+* Le lait et la viande sur toutes les étapes de transport
+* Les fruits, légumes et céréales pour toutes les étapes à l'exception de l'étape "2. RECETTE\
+  Transport international - Acheminement d'un ingrédient vers la zone logistique"
+
+<figure><img src="../.gitbook/assets/Tableau 36.PNG" alt=""><figcaption></figcaption></figure>
+
+{% hint style="info" %}
+La méthodologie Agribalyse introduit différents véhicules pour le transport routier, le transport maritime (ex : tableau 38 de la méthodologie). En première approche, on ne retient qu'un seul procédé pour le transport terrestre et un pour le transport maritime.
+{% endhint %}
+
+&#x20;
 
 
 
