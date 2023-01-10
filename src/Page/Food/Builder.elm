@@ -783,15 +783,15 @@ sidebarView session db model recipe results =
                             |> String.fromFloat
                 in
                 [ div [ class "d-flex flex-column m-auto gap-1 px-2 text-center text-nowrap" ]
-                    [ h2 [ class "h5 m-0" ] [ text <| "Impact pour " ++ totalWeightStr ++ "kg de produit" ]
+                    [ h2 [ class "h5 m-0" ] [ text "Impact par kg de produit" ]
                     , div [ class "display-4 lh-1" ]
                         [ results.total
-                            |> Format.formatFoodSelectedImpact model.impact
+                            |> Format.formatFoodSelectedImpactPerKg model.impact totalWeight
                         ]
-                    , h3 [ class "h6 m-0 mt-2" ] [ text "Impact par kg de produit" ]
+                    , h3 [ class "h6 m-0 mt-2" ] [ text <| "Impact pour " ++ totalWeightStr ++ "kg de produit" ]
                     , div [ class "display-5 lh-1" ]
                         [ results.total
-                            |> Format.formatFoodSelectedImpactPerKg model.impact totalWeight
+                            |> Format.formatFoodSelectedImpact model.impact
                         ]
                     , small []
                         [ Icon.warning
