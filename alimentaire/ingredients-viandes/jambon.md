@@ -55,5 +55,5 @@ Pig, organic, system n°3, at farm gate
 
 Pig, organic, system n°4, at farm gate
 
-<figure><img src="../../.gitbook/assets/image (5).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (5) (1).png" alt=""><figcaption></figcaption></figure>
 

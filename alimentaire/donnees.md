@@ -22,7 +22,7 @@ La base AGRIBALYSE est organisé en différents niveaux :&#x20;
 
 ![Modélisation d'un aliment dans la base AGRIBALYSE®](<../.gitbook/assets/image (4) (2).png>)
 
-![Exemple de la modélisation de la pizza margherita (CIQUAL 25404) dans la base AGRIBALYSE®](<../.gitbook/assets/image (6).png>)
+![Exemple de la modélisation de la pizza margherita (CIQUAL 25404) dans la base AGRIBALYSE®](<../.gitbook/assets/image (6) (1).png>)
 
 Pour l'instant nous n'affichons que l'étape "recette" c'est à dire l'étape à l'usine de fabrication du produit final à partir des ingrédients. Par exemple dans le cas d'une pizza margherita les aliments sont :&#x20;
 

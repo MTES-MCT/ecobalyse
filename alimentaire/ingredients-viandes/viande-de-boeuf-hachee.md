@@ -63,4 +63,4 @@ Cull cow, organic, milk system n°5, at farm gate
 
 Cull cow, organic, lowland milk system, silage maize 5 to 10%, at farm gate
 
-<figure><img src="../../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1) (2).png" alt=""><figcaption></figcaption></figure>

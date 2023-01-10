@@ -53,5 +53,5 @@ Broiler, organic, system n°1, at farm gate
 
 Broiler, organic, system n°2, at farm gate
 
-<figure><img src="../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (13).png" alt=""><figcaption></figcaption></figure>
 
