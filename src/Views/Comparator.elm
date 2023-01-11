@@ -117,6 +117,7 @@ foodComparatorView { builderDb, store } =
                         (Tuple.mapSecond
                             (Impact.getAggregatedScoreData builderDb.impacts .ecoscoreData
                                 >> List.sortBy .name
+                                >> List.reverse
                             )
                         )
                     )
