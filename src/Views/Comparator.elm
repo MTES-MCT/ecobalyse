@@ -98,7 +98,7 @@ comparator { session, impact, funit, daysOfWear, scope, toggle } =
 foodComparatorView : Session -> Html msg
 foodComparatorView { builderDb, store } =
     let
-        scores =
+        charts =
             store.bookmarks
                 |> Bookmark.toFoodQueries
                 |> List.filterMap
@@ -113,7 +113,6 @@ foodComparatorView { builderDb, store } =
                             Nothing
                     )
                 |> RE.combine
-                -- FIXME: handle error
                 |> Result.map
                     (List.map
                         (Tuple.mapSecond
@@ -122,48 +121,35 @@ foodComparatorView { builderDb, store } =
                             )
                         )
                     )
-                |> Result.withDefault []
-                |> Encode.list
-                    (\( name, entries ) ->
-                        Encode.object
-                            [ ( "label", Encode.string name )
-                            , ( "data", Encode.list Impact.encodeChartEntry entries )
-                            ]
-                    )
-                |> Encode.encode 2
-
-        --     json =
-        --         """
-        --     {
-        --     labels: ["Recette*1", "Recette*2", "Recette*3", "Recette*4", "Recette*5"],
-        --     series: [
-        --       {
-        --         // XXX: Impact name here
-        --         name: "Acidification des sols",
-        --         // XXX: impact values for each product here
-        --         data: [4, 4, 6, 15, 12],
-        --       },
-        --       {
-        --         name: "Biodiversité",
-        --         data: [5, 3, 12, 6, 11],
-        --       },
-        --       {
-        --         name: "Changement climatique",
-        --         data: [5, 15, 8, 5, 8],
-        --       },
-        --     ],
-        --   }
-        --         """
     in
-    div []
-        [ pre [] [ text scores ]
+    case charts of
+        Ok [] ->
+            emptyChartsMessage
 
-        -- , node "chart-food-comparator"
-        --     [ json
-        --         |> attribute "data"
-        --     ]
-        --     []
-        ]
+        Ok chartsData ->
+            div [ class "h-100" ]
+                [ node "chart-food-comparator"
+                    [ chartsData
+                        |> Encode.list
+                            (\( name, entries ) ->
+                                Encode.object
+                                    [ ( "label", Encode.string name )
+                                    , ( "data", Encode.list Impact.encodeChartEntry entries )
+                                    ]
+                            )
+                        |> Encode.encode 0
+                        |> attribute "data"
+                    ]
+                    []
+                ]
+
+        Err error ->
+            Alert.simple
+                { level = Alert.Danger
+                , close = Nothing
+                , title = Just "Erreur"
+                , content = [ text error ]
+                }
 
 
 textileComparatorView : Session -> Unit.Functional -> Duration -> Impact.Definition -> Html msg
@@ -171,10 +157,7 @@ textileComparatorView session funit daysOfWear impact =
     div []
         [ case getTextileChartEntries session funit impact of
             Ok [] ->
-                p
-                    [ class "d-flex h-100 justify-content-center align-items-center"
-                    ]
-                    [ text "Merci de sélectionner des simulations à comparer" ]
+                emptyChartsMessage
 
             Ok entries ->
                 entries
@@ -199,6 +182,14 @@ textileComparatorView session funit daysOfWear impact =
             , funit |> Unit.functionalToString |> text
             ]
         ]
+
+
+emptyChartsMessage : Html msg
+emptyChartsMessage =
+    p
+        [ class "d-flex h-100 justify-content-center align-items-center"
+        ]
+        [ text "Merci de sélectionner des simulations à comparer" ]
 
 
 getTextileChartEntries :
