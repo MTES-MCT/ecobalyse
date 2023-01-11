@@ -34,7 +34,7 @@
 
 ## 🍕 Alimentaire
 
-* [Indicateurs d'impacts](alimentaire/impacts-consideres/README.md)
+* [Indicateurs d'impacts](alimentaire/impacts-consideres.md)
   * [Score/100](alimentaire/impacts-consideres/score-100.md)
 * [Données](alimentaire/donnees.md)
 * [🥩 Ingrédients viandes](alimentaire/ingredients-viandes/README.md)

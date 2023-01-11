@@ -21,7 +21,7 @@ Avec :
 * $$x$$: l'impact du produit en µPt/kg
 * $$x_{93,6\%}$$: L'impact du produit du quantile 93,6% des produits CIQUAL. Pour calculer cette valeur, on calcule l'impact en score aggrégé (µPt/kg) des \~2500 produits CIQUAL que l'on ordonne par impact croissant. $$x_{93,6\%}$$est l'impact du produit tel que 93,6% des produits CIQUAL ont un impact inférieur ou égal (parallèlement on a 6,4% des produits CIQUAL ont un impact supérieur ou égal).\
   On a $$x_{93,6\%} = 2270$$ µPt/kg (source : annexe 4 du rapport du conseil scientifique)
-* score/100 : le score sur 100 du produit en question
+* score/100 : le score sur 100 du produit
 
 Etant donné que nous voulons que le score/100 soit compris entre 0 et 100, il faut ajouter ces conditions :&#x20;
 
@@ -30,13 +30,13 @@ Etant donné que nous voulons que le score/100 soit compris entre 0 et 100, il f
 
 ## Remarques
 
-* L'impact d'un produit varie entre 0 (le plus mauvais) et 100 (le meilleur)
-* L'échelle étant logarithmique, l'impact PEF est doublé tous les 20 points sur le score /100 :
-  * Un produit de score 40/100 a 2x plus d'impact qu'un produit de score 60/100
-  * Un produit de score 20/100 a 8x plus d'impact qu'un produit de score 80/100
+* Le score/100 d'un produit varie entre 0 (le plus mauvais) et 100 (le meilleur)
+* L'échelle étant logarithmique, l'impact PEF est doublé tous les 20 points sur le score/100 :
+  * Un produit de score 40/100 a 2x plus d'impact (score PEF) qu'un produit de score 60/100
+  * Un produit de score 20/100 a 8x plus d'impact (score PEF) qu'un produit de score 80/100
 * Il existe 5 intervalles de 20 points en 0 et 100, correspondant aux 5 lettres d'un affichage en lettre (A,B,C,D,E)
-* Le top 6,4% des produits ont tous la note 100
-* Le flop 6,4% des produits ont tous la note 0
+* Le top 6,4% des produits CIQUAL ont tous score/100 = 100
+* Le flop 6,4% des produits CIQUAL ont tous score/100 = 0
 
 
 
