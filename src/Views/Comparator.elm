@@ -133,7 +133,7 @@ foodComparatorView { builderDb, store } =
                             (\( name, entries ) ->
                                 Encode.object
                                     [ ( "label", Encode.string name )
-                                    , ( "data", Encode.list Impact.encodeChartEntry entries )
+                                    , ( "data", Encode.list Impact.encodeAggregatedScoreChartEntry entries )
                                     ]
                             )
                         |> Encode.encode 0

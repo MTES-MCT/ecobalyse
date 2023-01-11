@@ -26,7 +26,7 @@ view db simulator =
                 |> Impact.getAggregatedScoreData db.impacts .pefData
                 |> List.sortBy .value
                 |> List.reverse
-                |> Encode.list Impact.encodeChartEntry
+                |> Encode.list Impact.encodeAggregatedScoreChartEntry
                 |> Encode.encode 0
                 |> attribute "data"
             ]

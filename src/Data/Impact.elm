@@ -9,7 +9,7 @@ module Data.Impact exposing
     , decodeList
     , defaultFoodTrigram
     , defaultTextileTrigram
-    , encodeChartEntry
+    , encodeAggregatedScoreChartEntry
     , encodeImpacts
     , filterImpacts
     , getAggregatedScoreData
@@ -396,9 +396,9 @@ getAggregatedScoreData defs getter =
         []
 
 
-encodeChartEntry : { name : String, value : Float, color : String } -> Encode.Value
-encodeChartEntry entry =
-    -- FIXME: move so it can be shared with other users of getAggregatedScoreData
+encodeAggregatedScoreChartEntry : { name : String, value : Float, color : String } -> Encode.Value
+encodeAggregatedScoreChartEntry entry =
+    -- This is to be easily used with Highcharts.js in a Web Component
     Encode.object
         [ ( "name", Encode.string entry.name )
         , ( "y", Encode.float entry.value )
