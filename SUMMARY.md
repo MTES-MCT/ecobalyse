@@ -34,7 +34,8 @@
 
 ## 🍕 Alimentaire
 
-* [Indicateurs d'impacts](alimentaire/impacts-consideres.md)
+* [Indicateurs d'impacts](alimentaire/impacts-consideres/README.md)
+  * [Score/100](alimentaire/impacts-consideres/score-100.md)
 * [Données](alimentaire/donnees.md)
 * [🥩 Ingrédients viandes](alimentaire/ingredients-viandes/README.md)
   * [🐄 Boeuf hachée](alimentaire/ingredients-viandes/viande-de-boeuf-hachee.md)
