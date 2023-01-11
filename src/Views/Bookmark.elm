@@ -142,7 +142,7 @@ managerView ({ session, bookmarkName, scope } as config) =
                         [ Icon.plus ]
                     ]
                 ]
-            , div [ class "form-text fs-7 pb-0", classList [ ( "text-danger", nameExists ) ] ]
+            , div [ class "form-text fs-7 pb-0" ]
                 [ if queryExists then
                     span [ class "d-flex align-items-center gap-1" ] [ Icon.info, text "Cette simulation est déjà sauvegardée" ]
 
