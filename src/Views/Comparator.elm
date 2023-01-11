@@ -78,8 +78,7 @@ comparator { session, impact, funit, daysOfWear, scope, toggle } =
                                 ]
                         )
                     |> div
-                        [ class "list-group list-group-flush overflow-y-scroll overflow-x-hidden"
-                        , style "max-height" "520px"
+                        [ class "list-group list-group-flush overflow-x-hidden"
                         ]
                 ]
             , div [ class "col-lg-8 px-4 py-2 overflow-hidden", style "min-height" "500px" ]
