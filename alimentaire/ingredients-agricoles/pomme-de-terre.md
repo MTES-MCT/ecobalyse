@@ -54,9 +54,9 @@ Ce graphique met en évidence que le procédé pris en compte pour le mix de con
 
 Pour déterminer l'origine d'un ingrédient par défaut, chaque ingrédient est classé dans l'une des 4 catégories suivantes :&#x20;
 
-1. Ingrédient très majoritairement produit en France (> 95%) => transport par défaut : _160 km de camion ?_
-2. Ingrédient très majoritairement produit en Europe/_pourtour méditerranéen_ (>95%) => transport par défaut : _2500 km en camion ?_
-3. Ingrédient produit également hors Europe (> 5%) => transport par défaut : _18 000 km en bateau ?_
-4. Ingrédient spécifique (ex. Haricots et Mangues) => transport par défaut : _y km en avion_
+1. Ingrédient très majoritairement produit en France (> 95%) => transport par défaut
+2. Ingrédient très majoritairement produit en Europe/_pourtour méditerranéen_ (>95%) => transport par défaut&#x20;
+3. Ingrédient produit également hors Europe (> 5%) => transport par défaut&#x20;
+4. Ingrédient spécifique (ex. Haricots et Mangues) => transport par défaut&#x20;
 
-**Pomme de terre => catégorie 1** (source : FranceAgrimer - **à confirmer**) ****&#x20;
+**Pomme de terre => catégorie 1** (source : FranceAgrimer/dires d'experts) ****&#x20;
