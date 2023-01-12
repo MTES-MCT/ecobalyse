@@ -50,12 +50,12 @@ Vérification à faire : \
 
 En l'absence de paramétrage du pays d'origine, les hypothèses appliquées pour le choix de circuit et pour le transport vers la France (étape 3. RECETTE) sont établies en distinguant 4 catégories d'ingrédient. La catégorie à laquelle chaque ingrédient appartient est précisée dans la page méthodologique de l'ingrédient en question \[_<mark style="color:red;">à initier</mark>_].
 
-| Catégorie d'ingrédient                                                                               | Circuit appliqué    | Hypothèse par défaut (-> France)                                                                                     |
-| ---------------------------------------------------------------------------------------------------- | ------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| Ingrédients très majoritairement produits en France (seuil : \~95%)                                  | Circuit France      | N/A                                                                                                                  |
-| Ingrédients très majoritairement produits en Europe ou sur le pourtour méditerranéen (seuil : \~95%) | Circuit hors France | <p>Transport par défaut :  <br>- 2500 km de camion <br>- 3000 km en bateau</p>                                       |
-| Ingrédient provenant de façon significative de pays hors Europe / Méditerrannée (seuil : \~5%)       | Circuit hors France | Transport par défaut : 18 000 km en bateau                                                                           |
-| Cas particulier des ingrédients transportés de façon non marginale par avion (mangue, haricots...)   | Circuit avion       | Transport en avion, avec distance à préciser ingrédient par ingrédient (ex : distance Pérou-France pour la mangue ?) |
+| Catégorie d'ingrédient                                                                                                | Circuit appliqué    | Hypothèse par défaut (-> France)                                                                                     |
+| --------------------------------------------------------------------------------------------------------------------- | ------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| <p>FRANCE<br>Ingrédients très majoritairement produits en France (seuil : ~95%)</p>                                   | Circuit France      | N/A                                                                                                                  |
+| <p>EUROMED<br>Ingrédients très majoritairement produits en Europe ou sur le pourtour méditerranéen (seuil : ~95%)</p> | Circuit hors France | <p>Transport par défaut :  <br>- 2500 km de camion <br>- 3000 km en bateau</p>                                       |
+| <p>HORS EUROMED<br>Ingrédient provenant de façon significative de pays hors Europe / Méditerrannée (seuil : ~5%)</p>  | Circuit hors France | Transport par défaut : 18 000 km en bateau                                                                           |
+| <p>AVION<br>Cas particulier des ingrédients transportés de façon non marginale par avion (mangue, haricots...)</p>    | Circuit avion       | Transport en avion, avec distance à préciser ingrédient par ingrédient (ex : distance Pérou-France pour la mangue ?) |
 
 ## Calcul
 
