@@ -1005,7 +1005,7 @@ view session model =
                                 { session = session
                                 , impact = model.impact
 
-                                -- FIXME: we should have distinct dedicated options for trextile and food
+                                -- FIXME: we should have distinct dedicated options for textile and food
                                 , funit = Unit.PerDayOfWear
                                 , daysOfWear = Duration.day
                                 , scope = Scope.Food
