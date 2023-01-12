@@ -20,7 +20,12 @@ Avec :
 
 * $$x$$: l'impact du produit en µPt/kg
 * $$x_{93,6\%}$$: L'impact du produit du quantile 93,6% des produits CIQUAL. Pour calculer cette valeur, on calcule l'impact en score aggrégé (µPt/kg) des \~2500 produits CIQUAL que l'on ordonne par impact croissant. $$x_{93,6\%}$$est l'impact du produit tel que 93,6% des produits CIQUAL ont un impact inférieur ou égal (parallèlement on a 6,4% des produits CIQUAL ont un impact supérieur ou égal).\
-  On a $$x_{93,6\%} = 2270$$ µPt/kg (source : annexe 4 du rapport du conseil scientifique)
+  Pour le score PEF, on a $$x_{93,6\%} = 2270$$ µPt PEF/kg (source : annexe 4 du rapport du conseil scientifique)
+
+{% hint style="danger" %}
+Nous n'avons pas la valeur $$x_{93,6\%}$$pour le score d'impacts. On fait pour l'instant l'hypothèse que  $$x_{93,6\%} = 2270$$ µPt d'impacts/kg.
+{% endhint %}
+
 * score/100 : le score sur 100 du produit
 
 Etant donné que nous voulons que le score/100 soit compris entre 0 et 100, il faut ajouter ces conditions :&#x20;
