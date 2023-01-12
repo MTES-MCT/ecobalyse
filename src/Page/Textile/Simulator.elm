@@ -38,7 +38,7 @@ import Task
 import Time exposing (Posix)
 import Views.Alert as Alert
 import Views.Bookmark as BookmarkView
-import Views.Comparator as ComparativeChartView
+import Views.Comparator as ComparatorView
 import Views.Component.DownArrow as DownArrow
 import Views.Container as Container
 import Views.Dataviz as Dataviz
@@ -65,7 +65,7 @@ type alias Model =
 
 type Modal
     = NoModal
-    | SavedSimulationsModal
+    | ComparatorModal
 
 
 type Msg
@@ -83,7 +83,7 @@ type Msg
     | SwitchFunctionalUnit Unit.Functional
     | SwitchImpact Impact.Trigram
     | SwitchLinksTab BookmarkView.ActiveTab
-    | ToggleComparedSimulation String Bool
+    | ToggleComparedSimulation Bookmark Bool
     | ToggleDisabledFading Bool
     | ToggleStep Label
     | ToggleStepViewMode Int
@@ -209,7 +209,7 @@ update ({ db, queries, navKey } as session) msg model =
             ( model, session, Cmd.none )
 
         OpenComparator ->
-            ( { model | modal = SavedSimulationsModal }
+            ( { model | modal = ComparatorModal }
             , session |> Session.checkComparedSimulations
             , Cmd.none
             )
@@ -273,9 +273,9 @@ update ({ db, queries, navKey } as session) msg model =
             , Cmd.none
             )
 
-        ToggleComparedSimulation name checked ->
+        ToggleComparedSimulation bookmark checked ->
             ( model
-            , session |> Session.toggleComparedSimulation name checked
+            , session |> Session.toggleComparedSimulation bookmark checked
             , Cmd.none
             )
 
@@ -562,7 +562,7 @@ view session model =
                         NoModal ->
                             text ""
 
-                        SavedSimulationsModal ->
+                        ComparatorModal ->
                             ModalView.view
                                 { size = ModalView.ExtraLarge
                                 , close = SetModal NoModal
@@ -574,11 +574,12 @@ view session model =
                                         ++ Unit.functionalToString model.funit
                                 , formAction = Nothing
                                 , content =
-                                    [ ComparativeChartView.comparator
+                                    [ ComparatorView.comparator
                                         { session = session
                                         , impact = model.impact
                                         , funit = model.funit
                                         , daysOfWear = simulator.daysOfWear
+                                        , scope = Scope.Textile
                                         , toggle = ToggleComparedSimulation
                                         }
                                     ]
@@ -605,5 +606,5 @@ subscriptions { modal } =
         NoModal ->
             Sub.none
 
-        SavedSimulationsModal ->
+        ComparatorModal ->
             Browser.Events.onKeyDown (Key.escape (SetModal NoModal))

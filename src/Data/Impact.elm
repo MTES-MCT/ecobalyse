@@ -9,11 +9,12 @@ module Data.Impact exposing
     , decodeList
     , defaultFoodTrigram
     , defaultTextileTrigram
+    , encodeAggregatedScoreChartEntry
     , encodeImpacts
     , filterImpacts
+    , getAggregatedScoreData
     , getDefinition
     , getImpact
-    , getPefPieData
     , grabImpactFloat
     , impactsFromDefinitons
     , invalid
@@ -365,23 +366,19 @@ updateAggregatedScores definitions impacts =
         |> aggregateScore .pefData (trg "pef")
 
 
-getPefPieData : List Definition -> Impacts -> String
-getPefPieData defs =
-    let
-        encode entry =
-            Encode.object
-                [ ( "name", Encode.string entry.name )
-                , ( "y", Encode.float entry.value )
-                , ( "color", Encode.string entry.color )
-                ]
-    in
+getAggregatedScoreData :
+    List Definition
+    -> (Definition -> Maybe AggregatedScoreData)
+    -> Impacts
+    -> List { color : String, name : String, value : Float }
+getAggregatedScoreData defs getter =
     AnyDict.foldl
         (\trigram impact acc ->
             case getDefinition trigram defs of
-                Ok { label, pefData } ->
-                    case pefData of
+                Ok def ->
+                    case getter def of
                         Just { normalization, weighting, color } ->
-                            { name = label
+                            { name = def.label
                             , value =
                                 impact
                                     |> Unit.impactAggregateScore normalization weighting
@@ -397,10 +394,16 @@ getPefPieData defs =
                     acc
         )
         []
-        >> List.sortBy .value
-        >> List.reverse
-        >> Encode.list encode
-        >> Encode.encode 0
+
+
+encodeAggregatedScoreChartEntry : { name : String, value : Float, color : String } -> Encode.Value
+encodeAggregatedScoreChartEntry entry =
+    -- This is to be easily used with Highcharts.js in a Web Component
+    Encode.object
+        [ ( "name", Encode.string entry.name )
+        , ( "y", Encode.float entry.value )
+        , ( "color", Encode.string entry.color )
+        ]
 
 
 computeAggregatedScore : (Definition -> Maybe AggregatedScoreData) -> List Definition -> Impacts -> Unit.Impact
