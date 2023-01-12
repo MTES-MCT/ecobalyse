@@ -143,7 +143,7 @@ foodProcessCodeParser ingredients string =
         |> Result.map .code
 
 
-packagingListParser : String -> List FoodProcess.Process -> Parser (ParseResult (List BuilderQuery.PackagingQuery))
+packagingListParser : String -> List FoodProcess.Process -> Parser (ParseResult (List BuilderQuery.ProcessQuery))
 packagingListParser key packagings =
     Query.custom (key ++ "[]")
         (List.map (packagingParser packagings)
@@ -152,11 +152,11 @@ packagingListParser key packagings =
         )
 
 
-packagingParser : List FoodProcess.Process -> String -> Result String BuilderQuery.PackagingQuery
+packagingParser : List FoodProcess.Process -> String -> Result String BuilderQuery.ProcessQuery
 packagingParser packagings string =
     case String.split ";" string of
         [ code, mass ] ->
-            Ok BuilderQuery.PackagingQuery
+            Ok BuilderQuery.ProcessQuery
                 |> RE.andMap (foodProcessCodeParser packagings code)
                 |> RE.andMap (validateMass mass)
 
@@ -210,7 +210,7 @@ validateIngredientList list =
         Ok list
 
 
-maybeTransformParser : String -> List FoodProcess.Process -> Parser (ParseResult (Maybe BuilderQuery.TransformQuery))
+maybeTransformParser : String -> List FoodProcess.Process -> Parser (ParseResult (Maybe BuilderQuery.ProcessQuery))
 maybeTransformParser key transforms =
     Query.string key
         |> Query.map
@@ -224,11 +224,11 @@ maybeTransformParser key transforms =
             )
 
 
-parseTransform_ : List FoodProcess.Process -> String -> Result String BuilderQuery.TransformQuery
+parseTransform_ : List FoodProcess.Process -> String -> Result String BuilderQuery.ProcessQuery
 parseTransform_ transforms string =
     case String.split ";" string of
         [ code, mass ] ->
-            Ok BuilderQuery.TransformQuery
+            Ok BuilderQuery.ProcessQuery
                 |> RE.andMap (foodProcessCodeParser transforms code)
                 |> RE.andMap (validateMass mass)
 
