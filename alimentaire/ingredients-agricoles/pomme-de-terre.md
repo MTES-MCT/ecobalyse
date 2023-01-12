@@ -59,4 +59,4 @@ Pour déterminer l'origine d'un ingrédient par défaut, chaque ingrédient est 
 3. Ingrédient produit également hors Europe (> 5%) => transport par défaut : _18 000 km en bateau ?_
 4. Ingrédient spécifique (ex. Haricots et Mangues) => transport par défaut : _y km en avion_
 
-**Pomme de terre => catégorie 2** (source : FranceAgrimer - **à confirmer**) ****&#x20;
+**Pomme de terre => catégorie 1** (source : FranceAgrimer - **à confirmer**) ****&#x20;
