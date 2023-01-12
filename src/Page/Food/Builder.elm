@@ -795,7 +795,7 @@ sidebarView session db model recipe results =
                         ]
                     , small []
                         [ Icon.warning
-                        , text " Attention, ce résultat est partiel"
+                        , text " Attention, ces résultats sont partiels"
                         ]
                     ]
                 ]
