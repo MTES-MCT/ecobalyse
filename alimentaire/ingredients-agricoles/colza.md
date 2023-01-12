@@ -57,3 +57,14 @@ Un transport de <mark style="color:red;">XXX</mark> km en camion y est intégré
 Le procédé colza mobilisé pour la fabrication d'huile est donc Rapeseed, at farm (WFLDB 3.1)/GLO U, qui mobilise plusieurs procédés, dont un procédé Rape seed {FR}|production|Cut-off, S-Copied, qui peut être repris comme ICV colza FR.
 
 Idem pour les colza CA, US et DE
+
+## Identification de l'origine par défaut
+
+Pour déterminer l'origine d'un ingrédient par défaut, chaque ingrédient est classé dans l'une des 4 catégories suivantes :&#x20;
+
+1. Ingrédient très majoritairement produit en France (> 95%) => transport par défaut : _160 km de camion ?_
+2. Ingrédient très majoritairement produit en Europe/_pourtour méditerranéen_ (>95%) => transport par défaut : _2500 km en camion ?_
+3. Ingrédient produit également hors Europe (> 5%) => transport par défaut : _18 000 km en bateau ?_
+4. Ingrédient spécifique (ex. Haricots et Mangues) => transport par défaut : _y km en avion_
+
+**Colza => catégorie 3** (source : FranceAgriMer, chiffres et bilans 2022) ****&#x20;
