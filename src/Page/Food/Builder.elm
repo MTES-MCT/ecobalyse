@@ -169,11 +169,8 @@ update ({ queries } as session) msg model =
                         |> List.sortBy Process.getDisplayName
                         |> List.head
                         |> Maybe.map
-                            (\process ->
-                                Recipe.processQueryFromProcess process
-                                    |> (\processQuery ->
-                                            { processQuery | mass = defaultMass }
-                                       )
+                            (Recipe.processQueryFromProcess
+                                >> (\processQuery -> { processQuery | mass = defaultMass })
                             )
             in
             ( model, session, Cmd.none )
@@ -311,11 +308,11 @@ type alias AddProcessConfig msg =
 
 addProcessFormView : AddProcessConfig Msg -> Html Msg
 addProcessFormView { isDisabled, event, kind } =
-    li [ class "list-group-item" ]
+    li [ class "list-group-item px-3 py-2" ]
         [ button
             [ class "btn btn-outline-primary"
             , class "d-flex justify-content-center align-items-center"
-            , class " gap-1 w-100"
+            , class "gap-1 w-100"
             , disabled isDisabled
             , onClick event
             ]
@@ -396,8 +393,7 @@ updateIngredientFormView { excluded, db, ingredient, impact } =
     li [ class "IngredientFormWrapper" ]
         [ span [ class "MassInputWrapper" ]
             [ MassInput.view
-                { mass =
-                    ingredient.mass
+                { mass = ingredient.mass
                 , onChange =
                     \maybeMass ->
                         case maybeMass of

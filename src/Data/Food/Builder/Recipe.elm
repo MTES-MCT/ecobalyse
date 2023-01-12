@@ -101,7 +101,7 @@ availableTransforms maybeCode processes =
         Just code ->
             processes
                 |> Process.listByCategory Process.Transform
-                |> List.filter (\process -> process.code /= code)
+                |> List.filter (.code >> (/=) code)
 
         Nothing ->
             processes
