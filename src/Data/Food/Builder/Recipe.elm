@@ -2,8 +2,10 @@ module Data.Food.Builder.Recipe exposing
     ( Recipe
     , RecipeIngredient
     , Results
-    , addPackaging
+    , Transform
     , availableIngredients
+    , availablePackagings
+    , availableTransforms
     , compute
     , computeProcessImpacts
     , deletePackaging
@@ -11,13 +13,10 @@ module Data.Food.Builder.Recipe exposing
     , encodeResults
     , fromQuery
     , ingredientQueryFromIngredient
+    , processQueryFromProcess
     , resetTransform
     , serializeQuery
-    , setTransform
-    , sumMasses
     , toString
-    , updatePackagingMass
-    , updateTransformMass
     )
 
 import Data.Country as Country exposing (Country)
@@ -68,7 +67,8 @@ type alias Results =
     { total : Impacts
     , recipe :
         { total : Impacts
-        , ingredients : Impacts
+        , ingredientsTotal : Impacts
+        , ingredients : List ( RecipeIngredient, Impacts )
         , transform : Impacts
         , transports : Transport
         }
@@ -83,17 +83,28 @@ type alias Transform =
     }
 
 
-addPackaging : Mass -> Process.Code -> Query -> Query
-addPackaging mass code query =
-    { query
-        | packaging =
-            query.packaging ++ [ { code = code, mass = mass } ]
-    }
-
-
 availableIngredients : List Id -> List Ingredient -> List Ingredient
 availableIngredients usedIngredientIds =
     List.filter (\{ id } -> not (List.member id usedIngredientIds))
+
+
+availablePackagings : List Process.Code -> List Process -> List Process
+availablePackagings usedProcesses processes =
+    processes
+        |> Process.listByCategory Process.Packaging
+        |> List.filter (\process -> not (List.member process.code usedProcesses))
+
+
+availableTransforms : Maybe Process.Code -> List Process -> List Process
+availableTransforms maybeCode processes =
+    case maybeCode of
+        Just code ->
+            processes
+                |> Process.listByCategory Process.Transform
+                |> List.filter (.code >> (/=) code)
+
+        Nothing ->
+            processes
 
 
 compute : Db -> Query -> Result String ( Recipe, Results )
@@ -109,8 +120,18 @@ compute db =
 
                     ingredientsImpacts =
                         ingredients
-                            |> List.map computeIngredientImpacts
-                            |> updateImpacts
+                            |> List.map
+                                (\recipeIngredient ->
+                                    recipeIngredient
+                                        |> computeIngredientImpacts
+                                        |> Impact.updateAggregatedScores db.impacts
+                                        |> Tuple.pair recipeIngredient
+                                )
+
+                    ingredientsTotalImpacts =
+                        ingredientsImpacts
+                            |> List.map Tuple.second
+                            |> Impact.sumImpacts db.impacts
 
                     ingredientsTransport =
                         ingredients
@@ -124,7 +145,7 @@ compute db =
 
                     recipeImpacts =
                         updateImpacts
-                            [ ingredientsImpacts
+                            [ ingredientsTotalImpacts
                             , transformImpacts
                             , ingredientsTransport.impacts
                             ]
@@ -140,6 +161,7 @@ compute db =
                             [ recipeImpacts, packagingImpacts ]
                   , recipe =
                         { total = recipeImpacts
+                        , ingredientsTotal = ingredientsTotalImpacts
                         , ingredients = ingredientsImpacts
                         , transform = transformImpacts
                         , transports = ingredientsTransport
@@ -236,20 +258,12 @@ encodeIngredient i =
         ]
 
 
-encodePackaging : BuilderQuery.PackagingQuery -> Encode.Value
-encodePackaging i =
-    Encode.object
-        [ ( "code", i.code |> Process.codeToString |> Encode.string )
-        , ( "mass", Encode.float (Mass.inKilograms i.mass) )
-        ]
-
-
 encodeQuery : Query -> Encode.Value
 encodeQuery q =
     Encode.object
         [ ( "ingredients", Encode.list encodeIngredient q.ingredients )
-        , ( "transform", q.transform |> Maybe.map encodeTransform |> Maybe.withDefault Encode.null )
-        , ( "packaging", Encode.list encodePackaging q.packaging )
+        , ( "transform", q.transform |> Maybe.map encodeProcess |> Maybe.withDefault Encode.null )
+        , ( "packaging", Encode.list encodeProcess q.packaging )
         ]
 
 
@@ -264,7 +278,7 @@ encodeResults defs results =
         , ( "recipe"
           , Encode.object
                 [ ( "total", encodeImpacts results.recipe.total )
-                , ( "ingredients", encodeImpacts results.recipe.ingredients )
+                , ( "ingredientsTotal", encodeImpacts results.recipe.ingredientsTotal )
                 , ( "transform", encodeImpacts results.recipe.transform )
                 , ( "transports", Transport.encode defs results.recipe.transports )
                 ]
@@ -274,8 +288,8 @@ encodeResults defs results =
         ]
 
 
-encodeTransform : BuilderQuery.TransformQuery -> Encode.Value
-encodeTransform p =
+encodeProcess : BuilderQuery.ProcessQuery -> Encode.Value
+encodeProcess p =
     Encode.object
         [ ( "code", p.code |> Process.codeToString |> Encode.string )
         , ( "mass", Encode.float (Mass.inKilograms p.mass) )
@@ -327,18 +341,25 @@ ingredientQueryFromIngredient ingredient =
 
 packagingListFromQuery :
     Db
-    -> { a | packaging : List BuilderQuery.PackagingQuery }
+    -> { a | packaging : List BuilderQuery.ProcessQuery }
     -> Result String (List Packaging)
 packagingListFromQuery db query =
     query.packaging
         |> RE.combineMap (packagingFromQuery db)
 
 
-packagingFromQuery : Db -> BuilderQuery.PackagingQuery -> Result String Packaging
+packagingFromQuery : Db -> BuilderQuery.ProcessQuery -> Result String Packaging
 packagingFromQuery { processes } { code, mass } =
     Result.map2 Packaging
         (Process.findByCode processes code)
         (Ok mass)
+
+
+processQueryFromProcess : Process -> BuilderQuery.ProcessQuery
+processQueryFromProcess process =
+    { code = process.code
+    , mass = Mass.grams 100
+    }
 
 
 resetTransform : Query -> Query
@@ -346,19 +367,9 @@ resetTransform query =
     { query | transform = Nothing }
 
 
-setTransform : Mass -> Process.Code -> Query -> Query
-setTransform mass code query =
-    { query | transform = Just { code = code, mass = mass } }
-
-
 serializeQuery : Query -> String
 serializeQuery =
     encodeQuery >> Encode.encode 2
-
-
-sumMasses : List { a | mass : Mass } -> Mass
-sumMasses =
-    List.map .mass >> Quantity.sum
 
 
 toString : Recipe -> String
@@ -401,7 +412,7 @@ toString { ingredients, transform, packaging } =
 
 transformFromQuery :
     Db
-    -> { a | transform : Maybe BuilderQuery.TransformQuery }
+    -> { a | transform : Maybe BuilderQuery.ProcessQuery }
     -> Result String (Maybe Transform)
 transformFromQuery { processes } query =
     query.transform
@@ -413,40 +424,6 @@ transformFromQuery { processes } query =
                     |> Result.map Just
             )
         |> Maybe.withDefault (Ok Nothing)
-
-
-updateMass :
-    Process.Code
-    -> Mass
-    -> List { a | code : Process.Code, mass : Mass }
-    -> List { a | code : Process.Code, mass : Mass }
-updateMass code mass =
-    List.map
-        (\item ->
-            if item.code == code then
-                { item | mass = mass }
-
-            else
-                item
-        )
-
-
-updatePackagingMass : Mass -> Process.Code -> Query -> Query
-updatePackagingMass mass code query =
-    { query
-        | packaging =
-            query.packaging
-                |> updateMass code mass
-    }
-
-
-updateTransformMass : Mass -> Query -> Query
-updateTransformMass mass query =
-    { query
-        | transform =
-            query.transform
-                |> Maybe.map (\transform -> { transform | mass = mass })
-    }
 
 
 variantToString : BuilderQuery.Variant -> String

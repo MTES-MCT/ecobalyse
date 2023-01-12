@@ -1,10 +1,10 @@
 module Data.Food.Builder.Query exposing
     ( IngredientQuery
-    , PackagingQuery
+    , ProcessQuery
     , Query
-    , TransformQuery
     , Variant(..)
     , addIngredient
+    , addPackaging
     , b64encode
     , carrotCake
     , decode
@@ -13,7 +13,11 @@ module Data.Food.Builder.Query exposing
     , emptyQuery
     , encode
     , parseBase64Query
+    , setTransform
+    , sumMasses
     , updateIngredient
+    , updatePackaging
+    , updateTransform
     )
 
 import Base64
@@ -47,7 +51,7 @@ type alias IngredientQuery =
     }
 
 
-type alias PackagingQuery =
+type alias ProcessQuery =
     { code : Process.Code
     , mass : Mass
     }
@@ -55,14 +59,8 @@ type alias PackagingQuery =
 
 type alias Query =
     { ingredients : List IngredientQuery
-    , transform : Maybe TransformQuery
-    , packaging : List PackagingQuery
-    }
-
-
-type alias TransformQuery =
-    { code : Process.Code
-    , mass : Mass
+    , transform : Maybe ProcessQuery
+    , packaging : List ProcessQuery
     }
 
 
@@ -74,6 +72,15 @@ addIngredient ingredient query =
                 ++ [ ingredient ]
     }
         |> updateTransformMass
+
+
+addPackaging : ProcessQuery -> Query -> Query
+addPackaging packaging query =
+    { query
+        | packaging =
+            query.packaging
+                ++ [ packaging ]
+    }
 
 
 emptyQuery : Query
@@ -131,8 +138,8 @@ decode : Decoder Query
 decode =
     Decode.map3 Query
         (Decode.field "ingredients" (Decode.list decodeIngredient))
-        (Decode.field "transform" (Decode.maybe decodeTransform))
-        (Decode.field "packaging" (Decode.list decodePackaging))
+        (Decode.field "transform" (Decode.maybe decodeProcess))
+        (Decode.field "packaging" (Decode.list decodeProcess))
 
 
 decodeMass : Decoder Mass
@@ -141,9 +148,9 @@ decodeMass =
         |> Decode.map Mass.kilograms
 
 
-decodePackaging : Decoder PackagingQuery
-decodePackaging =
-    Decode.map2 PackagingQuery
+decodeProcess : Decoder ProcessQuery
+decodeProcess =
+    Decode.map2 ProcessQuery
         (Decode.field "code" Process.decodeCode)
         (Decode.field "mass" decodeMass)
 
@@ -156,13 +163,6 @@ decodeIngredient =
         (Decode.field "mass" decodeMass)
         (Decode.field "variant" decodeVariant)
         (Decode.field "country" Country.decodeCode)
-
-
-decodeTransform : Decoder TransformQuery
-decodeTransform =
-    Decode.map2 TransformQuery
-        (Decode.field "code" Process.decodeCode)
-        (Decode.field "mass" decodeMass)
 
 
 decodeVariant : Decoder Variant
@@ -185,8 +185,8 @@ encode : Query -> Encode.Value
 encode v =
     Encode.object
         [ ( "ingredients", Encode.list encodeIngredient v.ingredients )
-        , ( "transform", v.transform |> Maybe.map encodeTransform |> Maybe.withDefault Encode.null )
-        , ( "packaging", Encode.list encodePackaging v.packaging )
+        , ( "transform", v.transform |> Maybe.map encodeProcess |> Maybe.withDefault Encode.null )
+        , ( "packaging", Encode.list encodeProcess v.packaging )
         ]
 
 
@@ -206,16 +206,8 @@ encodeMass =
     Mass.inKilograms >> Encode.float
 
 
-encodePackaging : PackagingQuery -> Encode.Value
-encodePackaging v =
-    Encode.object
-        [ ( "code", Process.encodeCode v.code )
-        , ( "mass", encodeMass v.mass )
-        ]
-
-
-encodeTransform : TransformQuery -> Encode.Value
-encodeTransform v =
+encodeProcess : ProcessQuery -> Encode.Value
+encodeProcess v =
     Encode.object
         [ ( "code", Process.encodeCode v.code )
         , ( "mass", encodeMass v.mass )
@@ -234,6 +226,16 @@ getIngredientMass query =
         |> Quantity.sum
 
 
+setTransform : ProcessQuery -> Query -> Query
+setTransform transform query =
+    { query | transform = Just transform }
+
+
+sumMasses : List { a | mass : Mass } -> Mass
+sumMasses =
+    List.map .mass >> Quantity.sum
+
+
 updateIngredient : Ingredient.Id -> IngredientQuery -> Query -> Query
 updateIngredient oldIngredientId newIngredient query =
     { query
@@ -249,6 +251,29 @@ updateIngredient oldIngredientId newIngredient query =
                     )
     }
         |> updateTransformMass
+
+
+updatePackaging : Process.Code -> ProcessQuery -> Query -> Query
+updatePackaging oldPackagingCode newPackaging query =
+    { query
+        | packaging =
+            query.packaging
+                |> List.map
+                    (\p ->
+                        if p.code == oldPackagingCode then
+                            newPackaging
+
+                        else
+                            p
+                    )
+    }
+
+
+updateTransform : ProcessQuery -> Query -> Query
+updateTransform newTransform query =
+    { query
+        | transform = Just newTransform
+    }
 
 
 updateTransformMass : Query -> Query

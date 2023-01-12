@@ -544,6 +544,42 @@ blockquote {
   }
 }
 
+.IngredientFormWrapper {
+  border-bottom: $list-group-border-width solid $list-group-border-color;
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: minmax(75px, 116px) 1fr 160px auto 120px 31px;
+  grid-template-areas: "massInputWrapper ingredientSelector countrySelector bioCheckbox impactDisplay ingredientDelete";
+  padding: $list-group-item-padding-y $list-group-item-padding-x;
+  .BioCheckbox {
+    grid-area: bioCheckbox;
+    input {
+      margin-right: 5px;
+    }
+  }
+  .CountrySelector {
+    grid-area: countrySelector;
+  }
+  .ImpactDisplay {
+    grid-area: impactDisplay;
+  }
+  .IngredientDelete {
+    grid-area: ingredientDelete;
+  }
+  .IngredientSelector {
+    grid-area: ingredientSelector;
+  }
+  .MassInputWrapper {
+    grid-area: massInputWrapper;
+  }
+  @media screen and (max-width: $viewport-md) {
+    grid-template-columns: minmax(75px, 116px) 1fr 89px 31px;
+    grid-template-areas:
+      "massInputWrapper ingredientSelector impactDisplay impactDisplay"
+      "countrySelector countrySelector bioCheckbox ingredientDelete";
+  }
+}
+
 .MainMenu {
   @media screen and (max-width: $viewport-sm) {
     width: 100%;
