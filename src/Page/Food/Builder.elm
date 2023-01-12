@@ -25,7 +25,6 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Json.Encode as Encode
-import Mass
 import Page.Textile.Simulator.ViewMode as ViewMode
 import Ports
 import RemoteData exposing (WebData)
@@ -770,11 +769,6 @@ sidebarView session db model recipe results =
                 let
                     totalWeight =
                         Query.sumMasses recipe.ingredients
-
-                    totalWeightStr =
-                        totalWeight
-                            |> Mass.inKilograms
-                            |> String.fromFloat
                 in
                 [ div [ class "d-flex flex-column m-auto gap-1 px-2 text-center text-nowrap" ]
                     [ h2 [ class "h5 m-0" ] [ text "Impact par kg de produit" ]
@@ -782,7 +776,11 @@ sidebarView session db model recipe results =
                         [ results.total
                             |> Format.formatFoodSelectedImpactPerKg model.impact totalWeight
                         ]
-                    , h3 [ class "h6 m-0 mt-2" ] [ text <| "Impact pour " ++ totalWeightStr ++ "kg de produit" ]
+                    , h3 [ class "h6 m-0 mt-2" ]
+                        [ text "Impact pour "
+                        , Format.kg totalWeight
+                        , text " de produit"
+                        ]
                     , div [ class "display-5 lh-1" ]
                         [ results.total
                             |> Format.formatFoodSelectedImpact model.impact
