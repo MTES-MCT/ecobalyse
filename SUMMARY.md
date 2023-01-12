@@ -63,6 +63,7 @@
   * [🌾 Blé dur](alimentaire/ingredients-agricoles/ble-dur.md)
   * [🍏 Pomme](alimentaire/ingredients-agricoles/pomme.md)
   * [🍇 Raisin de cuve](alimentaire/ingredients-agricoles/raisin-de-cuve.md)
+  * [🥭 Mangue](alimentaire/ingredients-agricoles/mangue.md)
   * [❓ Modèle](alimentaire/ingredients-agricoles/modele.md)
 * [🚛 Transport](<alimentaire/transport (1).md>)
 * [🏭 Transformation](alimentaire/transformation.md)
