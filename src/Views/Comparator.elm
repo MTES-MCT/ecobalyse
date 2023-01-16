@@ -1,4 +1,7 @@
-module Views.Comparator exposing (comparator)
+module Views.Comparator exposing
+    ( ComparisonUnit(..)
+    , comparator
+    )
 
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Food.Builder.Recipe as Recipe
@@ -21,19 +24,22 @@ import Views.Textile.ComparativeChart as TextileComparativeChart
 type alias ComparatorConfig msg =
     { session : Session
     , impact : Impact.Definition
+    , foodComparisonUnit : ComparisonUnit
     , funit : Unit.Functional
     , daysOfWear : Duration
     , scope : Scope
+    , switchFoodComparisonUnit : ComparisonUnit -> msg
     , toggle : Bookmark -> Bool -> msg
     }
 
 
+type ComparisonUnit
+    = PerItem
+    | PerKgOfProduct
+
+
 comparator : ComparatorConfig msg -> Html msg
-comparator { session, impact, funit, daysOfWear, scope, toggle } =
-    let
-        currentlyCompared =
-            Set.size session.store.comparedSimulations
-    in
+comparator ({ session, impact, funit, daysOfWear, scope, toggle } as config) =
     Container.fluid []
         [ div [ class "row" ]
             [ div [ class "col-lg-4 border-end fs-7 p-0" ]
@@ -64,7 +70,11 @@ comparator { session, impact, funit, daysOfWear, scope, toggle } =
                                     , class "form-check-input"
                                     , onCheck (toggle bookmark)
                                     , checked isCompared
-                                    , disabled (not isCompared && currentlyCompared >= Session.maxComparedSimulations)
+                                    , disabled
+                                        (not isCompared
+                                            && Set.size session.store.comparedSimulations
+                                            >= Session.maxComparedSimulations
+                                        )
                                     ]
                                     []
                                 , span [ class "ps-2" ]
@@ -85,7 +95,7 @@ comparator { session, impact, funit, daysOfWear, scope, toggle } =
                 [ text ""
                 , case scope of
                     Scope.Food ->
-                        foodComparatorView session
+                        foodComparatorView config
 
                     Scope.Textile ->
                         textileComparatorView session funit daysOfWear impact
@@ -94,9 +104,12 @@ comparator { session, impact, funit, daysOfWear, scope, toggle } =
         ]
 
 
-foodComparatorView : Session -> Html msg
-foodComparatorView { builderDb, store } =
+foodComparatorView : ComparatorConfig msg -> Html msg
+foodComparatorView { session, foodComparisonUnit, switchFoodComparisonUnit } =
     let
+        { builderDb, store } =
+            session
+
         charts =
             store.bookmarks
                 |> Bookmark.toFoodQueries
@@ -108,7 +121,13 @@ foodComparatorView { builderDb, store } =
                                 |> Result.map
                                     (\( _, results ) ->
                                         results.total
-                                            |> Impact.perKg results.totalMass
+                                            |> (case foodComparisonUnit of
+                                                    PerItem ->
+                                                        identity
+
+                                                    PerKgOfProduct ->
+                                                        Impact.perKg results.totalMass
+                                               )
                                             |> (\i -> ( label, i ))
                                     )
                                 |> Just
@@ -126,36 +145,55 @@ foodComparatorView { builderDb, store } =
                             )
                         )
                     )
-    in
-    case charts of
-        Ok [] ->
-            emptyChartsMessage
 
-        Ok chartsData ->
-            div [ class "h-100" ]
-                [ node "chart-food-comparator"
-                    [ title "Comparaison des compositions du score d'impact des recettes sélectionnées, par kg de produit"
-                    , chartsData
-                        |> Encode.list
-                            (\( name, entries ) ->
-                                Encode.object
-                                    [ ( "label", Encode.string name )
-                                    , ( "data", Encode.list Impact.encodeAggregatedScoreChartEntry entries )
-                                    ]
-                            )
-                        |> Encode.encode 0
-                        |> attribute "data"
+        radio caption current to =
+            label [ class "form-check-label d-flex align-items-center gap-1" ]
+                [ input
+                    [ type_ "radio"
+                    , class "form-check-input"
+                    , name "unit"
+                    , checked <| current == to
+                    , onInput <| always (switchFoodComparisonUnit to)
                     ]
                     []
+                , text caption
                 ]
+    in
+    div []
+        [ h2 [ class "h5 text-center" ] [ text "Comparaison des compositions du score d'impact des recettes sélectionnées" ]
+        , div [ class "d-flex justify-content-center align-items-center gap-3" ]
+            [ radio "par produit" foodComparisonUnit PerItem
+            , radio "par kg de produit" foodComparisonUnit PerKgOfProduct
+            ]
+        , case charts of
+            Ok [] ->
+                emptyChartsMessage
 
-        Err error ->
-            Alert.simple
-                { level = Alert.Danger
-                , close = Nothing
-                , title = Just "Erreur"
-                , content = [ text error ]
-                }
+            Ok chartsData ->
+                div [ class "h-100" ]
+                    [ node "chart-food-comparator"
+                        [ chartsData
+                            |> Encode.list
+                                (\( name, entries ) ->
+                                    Encode.object
+                                        [ ( "label", Encode.string name )
+                                        , ( "data", Encode.list Impact.encodeAggregatedScoreChartEntry entries )
+                                        ]
+                                )
+                            |> Encode.encode 0
+                            |> attribute "data"
+                        ]
+                        []
+                    ]
+
+            Err error ->
+                Alert.simple
+                    { level = Alert.Danger
+                    , close = Nothing
+                    , title = Just "Erreur"
+                    , content = [ text error ]
+                    }
+        ]
 
 
 textileComparatorView : Session -> Unit.Functional -> Duration -> Impact.Definition -> Html msg

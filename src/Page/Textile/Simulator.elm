@@ -577,9 +577,13 @@ view session model =
                                     [ ComparatorView.comparator
                                         { session = session
                                         , impact = model.impact
+
+                                        -- FIXME: we should have distinct dedicated options for textile and food
+                                        , foodComparisonUnit = ComparatorView.PerKgOfProduct
                                         , funit = model.funit
                                         , daysOfWear = simulator.daysOfWear
                                         , scope = Scope.Textile
+                                        , switchFoodComparisonUnit = always NoOp
                                         , toggle = ToggleComparedSimulation
                                         }
                                     ]

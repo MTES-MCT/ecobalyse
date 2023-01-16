@@ -53,6 +53,7 @@ type alias Model =
     , impact : Impact.Definition
     , bookmarkName : String
     , bookmarkTab : BookmarkView.ActiveTab
+    , comparisonUnit : ComparatorView.ComparisonUnit
     , modal : Modal
     }
 
@@ -78,6 +79,7 @@ type Msg
     | SaveBookmark
     | SaveBookmarkWithTime String Bookmark.Query Posix
     | SetModal Modal
+    | SwitchComparisonUnit ComparatorView.ComparisonUnit
     | SwitchLinksTab BookmarkView.ActiveTab
     | SwitchImpact Impact.Trigram
     | ToggleComparedSimulation Bookmark Bool
@@ -104,6 +106,7 @@ init ({ db, builderDb, queries } as session) trigram maybeQuery =
               , impact = impact
               , bookmarkName = query |> findExistingBookmarkName session
               , bookmarkTab = BookmarkView.SaveTab
+              , comparisonUnit = ComparatorView.PerKgOfProduct
               , modal = NoModal
               }
             , session
@@ -273,6 +276,12 @@ update ({ queries } as session) msg model =
                 |> Route.FoodBuilder impact
                 |> Route.toString
                 |> Navigation.pushUrl session.navKey
+            )
+
+        SwitchComparisonUnit comparisonUnit ->
+            ( { model | comparisonUnit = comparisonUnit }
+            , session
+            , Cmd.none
             )
 
         SwitchLinksTab bookmarkTab ->
@@ -999,9 +1008,11 @@ view session model =
                                 , impact = model.impact
 
                                 -- FIXME: we should have distinct dedicated options for textile and food
+                                , foodComparisonUnit = model.comparisonUnit
                                 , funit = Unit.PerDayOfWear
                                 , daysOfWear = Duration.day
                                 , scope = Scope.Food
+                                , switchFoodComparisonUnit = SwitchComparisonUnit
                                 , toggle = ToggleComparedSimulation
                                 }
                             ]
