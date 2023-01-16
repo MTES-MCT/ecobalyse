@@ -105,7 +105,12 @@ foodComparatorView { builderDb, store } =
                         if Set.member id store.comparedSimulations then
                             foodQuery
                                 |> Recipe.compute builderDb
-                                |> Result.map (Tuple.second >> .total >> (\i -> ( label, i )))
+                                |> Result.map
+                                    (\( _, results ) ->
+                                        results.total
+                                            |> Impact.perKg results.totalMass
+                                            |> (\i -> ( label, i ))
+                                    )
                                 |> Just
 
                         else
@@ -129,7 +134,8 @@ foodComparatorView { builderDb, store } =
         Ok chartsData ->
             div [ class "h-100" ]
                 [ node "chart-food-comparator"
-                    [ chartsData
+                    [ title "Comparaison des compositions du score d'impact des recettes sélectionnées, par kg de produit"
+                    , chartsData
                         |> Encode.list
                             (\( name, entries ) ->
                                 Encode.object

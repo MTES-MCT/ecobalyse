@@ -643,8 +643,8 @@ mainView session db model =
     div [ class "row gap-3 gap-lg-0" ]
         [ div [ class "col-lg-4 order-lg-2 d-flex flex-column gap-3" ]
             [ case computed of
-                Ok ( recipe, results ) ->
-                    sidebarView session db model recipe results
+                Ok ( _, results ) ->
+                    sidebarView session db model results
 
                 Err error ->
                     errorView error
@@ -747,8 +747,8 @@ recipeTransportsView selectedImpact results =
     ]
 
 
-sidebarView : Session -> Db -> Model -> Recipe -> Recipe.Results -> Html Msg
-sidebarView session db model recipe results =
+sidebarView : Session -> Db -> Model -> Recipe.Results -> Html Msg
+sidebarView session db model results =
     div
         [ class "d-flex flex-column gap-3 mb-3 sticky-md-top"
         , style "top" "7px"
@@ -766,18 +766,14 @@ sidebarView session db model recipe results =
         , SummaryComp.view
             { header = []
             , body =
-                let
-                    totalWeight =
-                        Query.sumMasses recipe.ingredients
-                in
                 [ div [ class "d-flex flex-column m-auto gap-1 px-2 text-center text-nowrap" ]
                     [ div [ class "display-3 lh-1" ]
                         [ results.total
-                            |> Format.formatFoodSelectedImpactPerKg model.impact totalWeight
+                            |> Format.formatFoodSelectedImpactPerKg model.impact results.totalMass
                         ]
                     , h3 [ class "h6 m-0 mt-2" ]
                         [ text "Soit pour "
-                        , Format.kg totalWeight
+                        , Format.kg results.totalMass
                         , text " de produit\u{00A0}:"
                         ]
                     , div [ class "display-6" ]

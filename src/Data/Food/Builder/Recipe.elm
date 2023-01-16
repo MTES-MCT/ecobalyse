@@ -65,6 +65,7 @@ type alias Recipe =
 
 type alias Results =
     { total : Impacts
+    , totalMass : Mass
     , recipe :
         { total : Impacts
         , ingredientsTotal : Impacts
@@ -159,6 +160,7 @@ compute db =
                 , { total =
                         Impact.sumImpacts db.impacts
                             [ recipeImpacts, packagingImpacts ]
+                  , totalMass = getTotalMass recipe
                   , recipe =
                         { total = recipeImpacts
                         , ingredientsTotal = ingredientsTotalImpacts
@@ -171,6 +173,14 @@ compute db =
                   }
                 )
             )
+
+
+getTotalMass : Recipe -> Mass
+getTotalMass { ingredients, packaging } =
+    Quantity.sum
+        [ BuilderQuery.sumMasses ingredients
+        , BuilderQuery.sumMasses packaging
+        ]
 
 
 computeImpact : Mass -> Impact.Trigram -> Unit.Impact -> Unit.Impact
