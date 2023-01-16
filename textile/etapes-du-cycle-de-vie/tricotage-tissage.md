@@ -332,7 +332,7 @@ De manière générale, les procédés de tissage (entre 2 et 20 kWh / kg d'éto
 
 <summary>Illustration</summary>
 
-![](../../.gitbook/assets/image.png)
+![](<../../.gitbook/assets/image (15).png>)
 
 _Source : revue bibliographique réalisée par l'équipe Ecobalyse en 2022_
 

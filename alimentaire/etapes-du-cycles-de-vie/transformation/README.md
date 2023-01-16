@@ -16,7 +16,7 @@ Certains produits CIQUAL proposés dans la base Agribalyse mobilisent deux proc�
 {% endhint %}
 
 {% hint style="danger" %}
-Dans un second temps, la masse mobilisée pour le procédé de transformation pourrait être automatiquement calculée à partir de la masse des ingrédients mobilisés (cf. [ingredients.md](ingredients.md "mention"))
+Dans un second temps, la masse mobilisée pour le procédé de transformation pourrait être automatiquement calculée à partir de la masse des ingrédients mobilisés (cf. [ingredients.md](../../ingredients.md "mention"))
 {% endhint %}
 
 ## Liste des procédés de transformation proposés
@@ -44,7 +44,7 @@ Chaque procédé de transformation est caractérisé par :&#x20;
 
 La masse est considérée en sortie de procédé de transformation.
 
-Par défaut, la masse est initiée à une valeur correspondant à la somme des masses des [ingrédients](ingredients.md). Elle est modifiable.
+Par défaut, la masse est initiée à une valeur correspondant à la somme des masses des [ingrédients](../../ingredients.md). Elle est modifiable.
 
 $$
 MasseTransfo (g) = MasseIngrédient1 (g) + MasseIngrédient2 (g)+...
@@ -70,5 +70,5 @@ $$
 
 Les impacts considérés peuvent être indifféremment :&#x20;
 
-* l'un des 16 impact PEF proposés dans la base Agribalyse (cf. [impacts-consideres.md](../textile/impacts-consideres.md "mention")) - \[_**TODO : une modif à prévoir sur cette page, voire sur l'explorateur, pour dissocier l'alimentaire et le textile**_]
+* l'un des 16 impact PEF proposés dans la base Agribalyse (cf. [impacts-consideres.md](../../../textile/impacts-consideres.md "mention")) - \[_**TODO : une modif à prévoir sur cette page, voire sur l'explorateur, pour dissocier l'alimentaire et le textile**_]
 * le score PEF calculé comme une somme pondérée des 16 impacts, en application de la méthode PEF (cf. [https://fabrique-numerique.gitbook.io/ecobalyse/textile/impacts-consideres#score-pef](https://fabrique-numerique.gitbook.io/ecobalyse/textile/impacts-consideres#score-pef) )
