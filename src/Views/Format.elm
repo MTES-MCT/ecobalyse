@@ -56,11 +56,11 @@ formatFoodSelectedImpact { trigram, unit, decimals } =
 
 
 formatFoodSelectedImpactPerKg : Impact.Definition -> Mass -> Impacts -> Html msg
-formatFoodSelectedImpactPerKg { trigram, unit, decimals } mass =
-    Impact.getImpact trigram
+formatFoodSelectedImpactPerKg { trigram, unit, decimals } totalMass =
+    Impact.perKg totalMass
+        >> Impact.getImpact trigram
         >> Unit.impactToFloat
-        >> (\impact -> impact / Mass.inKilograms mass)
-        >> formatRichFloat decimals unit
+        >> formatRichFloat decimals (unit ++ "/kg")
 
 
 formatTextileSelectedImpact : Unit.Functional -> Duration -> Impact.Definition -> Impacts -> Html msg

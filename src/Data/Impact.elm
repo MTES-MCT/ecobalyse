@@ -22,6 +22,7 @@ module Data.Impact exposing
     , mapImpacts
     , noImpacts
     , parseTrigram
+    , perKg
     , sumImpacts
     , toProtectionAreas
     , toString
@@ -38,6 +39,7 @@ import Duration exposing (Duration)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
+import Mass exposing (Mass)
 import Quantity
 import Url.Parser as Parser exposing (Parser)
 
@@ -309,6 +311,11 @@ filterImpacts fn =
 mapImpacts : (Trigram -> Unit.Impact -> Unit.Impact) -> Impacts -> Impacts
 mapImpacts fn =
     AnyDict.map fn
+
+
+perKg : Mass -> Impacts -> Impacts
+perKg totalMass =
+    mapImpacts (\_ -> Quantity.divideBy (Mass.inKilograms totalMass))
 
 
 sumImpacts : List Definition -> List Impacts -> Impacts
