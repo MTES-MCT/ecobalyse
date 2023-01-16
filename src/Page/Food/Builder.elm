@@ -20,7 +20,6 @@ import Data.Key as Key
 import Data.Scope as Scope
 import Data.Session as Session exposing (Session)
 import Data.Unit as Unit
-import Duration
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -53,7 +52,7 @@ type alias Model =
     , impact : Impact.Definition
     , bookmarkName : String
     , bookmarkTab : BookmarkView.ActiveTab
-    , comparisonUnit : ComparatorView.ComparisonUnit
+    , comparisonUnit : ComparatorView.FoodComparisonUnit
     , modal : Modal
     }
 
@@ -79,7 +78,7 @@ type Msg
     | SaveBookmark
     | SaveBookmarkWithTime String Bookmark.Query Posix
     | SetModal Modal
-    | SwitchComparisonUnit ComparatorView.ComparisonUnit
+    | SwitchComparisonUnit ComparatorView.FoodComparisonUnit
     | SwitchLinksTab BookmarkView.ActiveTab
     | SwitchImpact Impact.Trigram
     | ToggleComparedSimulation Bookmark Bool
@@ -1006,13 +1005,11 @@ view session model =
                             [ ComparatorView.comparator
                                 { session = session
                                 , impact = model.impact
-
-                                -- FIXME: we should have distinct dedicated options for textile and food
-                                , foodComparisonUnit = model.comparisonUnit
-                                , funit = Unit.PerDayOfWear
-                                , daysOfWear = Duration.day
-                                , scope = Scope.Food
-                                , switchFoodComparisonUnit = SwitchComparisonUnit
+                                , options =
+                                    ComparatorView.foodOptions
+                                        { comparisonUnit = model.comparisonUnit
+                                        , switchComparisonUnit = SwitchComparisonUnit
+                                        }
                                 , toggle = ToggleComparedSimulation
                                 }
                             ]

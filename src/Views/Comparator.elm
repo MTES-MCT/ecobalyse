@@ -1,6 +1,8 @@
 module Views.Comparator exposing
-    ( ComparisonUnit(..)
+    ( FoodComparisonUnit(..)
     , comparator
+    , foodOptions
+    , textileOptions
     )
 
 import Data.Bookmark as Bookmark exposing (Bookmark)
@@ -21,25 +23,48 @@ import Views.Container as Container
 import Views.Textile.ComparativeChart as TextileComparativeChart
 
 
-type alias ComparatorConfig msg =
+type alias Config msg =
     { session : Session
     , impact : Impact.Definition
-    , foodComparisonUnit : ComparisonUnit
-    , funit : Unit.Functional
-    , daysOfWear : Duration
-    , scope : Scope
-    , switchFoodComparisonUnit : ComparisonUnit -> msg
+    , options : Options msg
     , toggle : Bookmark -> Bool -> msg
     }
 
 
-type ComparisonUnit
+type Options msg
+    = Food (FoodOptions msg)
+    | Textile TextileOptions
+
+
+type FoodComparisonUnit
     = PerItem
     | PerKgOfProduct
 
 
-comparator : ComparatorConfig msg -> Html msg
-comparator ({ session, impact, funit, daysOfWear, scope, toggle } as config) =
+type alias FoodOptions msg =
+    { comparisonUnit : FoodComparisonUnit
+    , switchComparisonUnit : FoodComparisonUnit -> msg
+    }
+
+
+type alias TextileOptions =
+    { funit : Unit.Functional
+    , daysOfWear : Duration
+    }
+
+
+foodOptions : FoodOptions msg -> Options msg
+foodOptions =
+    Food
+
+
+textileOptions : TextileOptions -> Options msg
+textileOptions =
+    Textile
+
+
+comparator : Config msg -> Html msg
+comparator ({ session, options, toggle } as config) =
     Container.fluid []
         [ div [ class "row" ]
             [ div [ class "col-lg-4 border-end fs-7 p-0" ]
@@ -49,7 +74,7 @@ comparator ({ session, impact, funit, daysOfWear, scope, toggle } as config) =
                     , text " simulations pour les comparer\u{00A0}:"
                     ]
                 , session.store.bookmarks
-                    |> Bookmark.filterByScope scope
+                    |> Bookmark.filterByScope (optionsScope options)
                     |> List.map
                         (\bookmark ->
                             let
@@ -93,48 +118,45 @@ comparator ({ session, impact, funit, daysOfWear, scope, toggle } as config) =
                 ]
             , div [ class "col-lg-8 px-4 py-2 overflow-hidden", style "min-height" "500px" ]
                 [ text ""
-                , case scope of
-                    Scope.Food ->
-                        foodComparatorView config
+                , case options of
+                    Food foodOptions_ ->
+                        foodComparatorView config foodOptions_
 
-                    Scope.Textile ->
-                        textileComparatorView session funit daysOfWear impact
+                    Textile textileOptions_ ->
+                        textileComparatorView config textileOptions_
                 ]
             ]
         ]
 
 
-foodComparatorView : ComparatorConfig msg -> Html msg
-foodComparatorView { session, foodComparisonUnit, switchFoodComparisonUnit } =
+foodComparatorView : Config msg -> FoodOptions msg -> Html msg
+foodComparatorView { session } { comparisonUnit, switchComparisonUnit } =
     let
         { builderDb, store } =
             session
 
+        addToComparison ( id, label, foodQuery ) =
+            if Set.member id store.comparedSimulations then
+                foodQuery
+                    |> Recipe.compute builderDb
+                    |> Result.map
+                        (\( _, { total, totalMass } ) ->
+                            case comparisonUnit of
+                                PerItem ->
+                                    ( label, total )
+
+                                PerKgOfProduct ->
+                                    ( label, Impact.perKg totalMass total )
+                        )
+                    |> Just
+
+            else
+                Nothing
+
         charts =
             store.bookmarks
                 |> Bookmark.toFoodQueries
-                |> List.filterMap
-                    (\( id, label, foodQuery ) ->
-                        if Set.member id store.comparedSimulations then
-                            foodQuery
-                                |> Recipe.compute builderDb
-                                |> Result.map
-                                    (\( _, results ) ->
-                                        results.total
-                                            |> (case foodComparisonUnit of
-                                                    PerItem ->
-                                                        identity
-
-                                                    PerKgOfProduct ->
-                                                        Impact.perKg results.totalMass
-                                               )
-                                            |> Tuple.pair label
-                                    )
-                                |> Just
-
-                        else
-                            Nothing
-                    )
+                |> List.filterMap addToComparison
                 |> RE.combine
                 |> Result.map
                     (List.map
@@ -146,24 +168,25 @@ foodComparatorView { session, foodComparisonUnit, switchFoodComparisonUnit } =
                         )
                     )
 
-        radio caption current to =
+        unitChoiceRadio caption current to =
             label [ class "form-check-label d-flex align-items-center gap-1" ]
                 [ input
                     [ type_ "radio"
                     , class "form-check-input"
                     , name "unit"
                     , checked <| current == to
-                    , onInput <| always (switchFoodComparisonUnit to)
+                    , onInput <| always (switchComparisonUnit to)
                     ]
                     []
                 , text caption
                 ]
     in
     div []
-        [ h2 [ class "h5 text-center" ] [ text "Comparaison des compositions du score d'impact des recettes sélectionnées" ]
+        [ h2 [ class "h5 text-center" ]
+            [ text "Comparaison des compositions du score d'impact des recettes sélectionnées" ]
         , div [ class "d-flex justify-content-center align-items-center gap-3" ]
-            [ radio "par produit" foodComparisonUnit PerItem
-            , radio "par kg de produit" foodComparisonUnit PerKgOfProduct
+            [ unitChoiceRadio "par produit" comparisonUnit PerItem
+            , unitChoiceRadio "par kg de produit" comparisonUnit PerKgOfProduct
             ]
         , case charts of
             Ok [] ->
@@ -196,8 +219,8 @@ foodComparatorView { session, foodComparisonUnit, switchFoodComparisonUnit } =
         ]
 
 
-textileComparatorView : Session -> Unit.Functional -> Duration -> Impact.Definition -> Html msg
-textileComparatorView session funit daysOfWear impact =
+textileComparatorView : Config msg -> TextileOptions -> Html msg
+textileComparatorView { session, impact } { funit, daysOfWear } =
     div []
         [ case getTextileChartEntries session funit impact of
             Ok [] ->
@@ -256,3 +279,13 @@ getTextileChartEntries { db, store } funit impact =
             )
         |> RE.combine
         |> Result.map (List.sortBy .score)
+
+
+optionsScope : Options msg -> Scope
+optionsScope options =
+    case options of
+        Food _ ->
+            Scope.Food
+
+        Textile _ ->
+            Scope.Textile
