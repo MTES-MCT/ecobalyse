@@ -629,7 +629,7 @@ maybeSurfaceMassParser key =
                                 ++ String.fromInt (Unit.surfaceMassToInt Unit.minSurfaceMass)
                                 ++ " et "
                                 ++ String.fromInt (Unit.surfaceMassToInt Unit.maxSurfaceMass)
-                                ++ " gr/m²."
+                                ++ " g/m²."
                             )
 
                     else

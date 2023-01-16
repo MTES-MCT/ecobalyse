@@ -357,7 +357,7 @@ pickingField { current, updatePicking } defaultPicking =
 surfaceMassField : Config msg -> Unit.SurfaceMass -> Html msg
 surfaceMassField { current, updateSurfaceMass } defaultSurfaceMass =
     span
-        [ [ "Le grammage de l'étoffe, exprimé en gr/m², représente sa masse surfacique."
+        [ [ "Le grammage de l'étoffe, exprimé en g/m², représente sa masse surfacique."
           ]
             |> String.join " "
             |> title

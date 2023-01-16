@@ -313,7 +313,7 @@ textileEndpoints db =
                     , ( "countryMaking", "Le code pays US n'est pas utilisable dans un contexte Textile." )
                     , ( "mass", "La masse doit être supérieure ou égale à zéro." )
                     , ( "materials", "Format de matière invalide : notAnID." )
-                    , ( "surfaceMass", "Le grammage (surfaceMass) doit être compris entre 30 et 500 gr/m²." )
+                    , ( "surfaceMass", "Le grammage (surfaceMass) doit être compris entre 30 et 500 g/m²." )
                     , ( "product", "Produit non trouvé id=notAProductID." )
                     , ( "disabledSteps", "Impossible d'interpréter la liste des étapes désactivées; Code étape inconnu: invalid" )
                     , ( "disabledFading", "La valeur ne peut être que true ou false." )

@@ -461,7 +461,7 @@ pickingToString (Unit.PickPerMeter int) =
 
 surfaceMassToString : Unit.SurfaceMass -> String
 surfaceMassToString (Unit.SurfaceMass int) =
-    "Grammage\u{00A0}: " ++ String.fromInt int ++ "\u{202F}gr/m²"
+    "Grammage\u{00A0}: " ++ String.fromInt int ++ "\u{202F}g/m²"
 
 
 makingWasteToString : Unit.Ratio -> String

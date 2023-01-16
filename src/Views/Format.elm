@@ -167,7 +167,7 @@ squareMetters =
 
 surfaceMass : Unit.SurfaceMass -> Html msg
 surfaceMass =
-    Unit.surfaceMassToFloat >> formatRichFloat 0 "gr/m²"
+    Unit.surfaceMassToFloat >> formatRichFloat 0 "g/m²"
 
 
 picking : Unit.PickPerMeter -> Html msg
