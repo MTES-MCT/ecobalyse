@@ -285,6 +285,7 @@ encodeResults defs results =
     in
     Encode.object
         [ ( "total", encodeImpacts results.total )
+        , ( "totalMass", results.totalMass |> Mass.inKilograms |> Encode.float )
         , ( "recipe"
           , Encode.object
                 [ ( "total", encodeImpacts results.recipe.total )

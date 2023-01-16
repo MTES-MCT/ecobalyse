@@ -128,7 +128,7 @@ foodComparatorView { session, foodComparisonUnit, switchFoodComparisonUnit } =
                                                     PerKgOfProduct ->
                                                         Impact.perKg results.totalMass
                                                )
-                                            |> (\i -> ( label, i ))
+                                            |> Tuple.pair label
                                     )
                                 |> Just
 
