@@ -22,10 +22,10 @@ Pour connaître la densité d, on utilise les hypothèses de la documentation ag
 Si
 
 * le produit comporte plusieurs ingrédients&#x20;
-* ou est un produit transformé (ex: farine)
+* ou est un produit transformé (ex: farine, boeuf)
 * ou subit une transformation (ex: cuisson)
 
-Alors on fait l'hypothèse que la densité de ce produit est de 1 kg/L
+\-> Alors on fait l'hypothèse que la densité de ce produit est de 1 kg/L
 
 Si
 
@@ -33,7 +33,7 @@ Si
 * ET n'est pas un produit transformé (ex: carotte)
 * ET ne subit pas de transformation (ex: cuisson)
 
-Alors on lui attribue la densité associée dans le tableau ci-dessus
+\-> Alors on lui attribue la densité associée dans le tableau ci-dessus
 
 
 
