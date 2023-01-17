@@ -73,3 +73,4 @@
   * [🏪 Vente au détail](alimentaire/etapes-du-cycles-de-vie/vente-au-detail.md)
 * [🚣♀ Densité](alimentaire/densite.md)
 * [Transport](alimentaire/transport.md)
+* [🍚 Rapport cru/cuit](alimentaire/rapport-cru-cuit.md)
