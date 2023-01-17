@@ -13,7 +13,7 @@ Pour passer du score en Pts au score/100 on utilise la méthode détaillée dans
 La formule est la suivante :
 
 $$
-score/100 = \frac{ln(x_{93,6\%})-ln(x)}{ln(2)}
+score/100 = 20 *\frac{ln(x_{93,6\%})-ln(x)}{ln(2)}
 $$
 
 Avec :

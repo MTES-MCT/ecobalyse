@@ -20,3 +20,9 @@ L'impact est la multiplication du volume par les différentes consommations dét
 
 <figure><img src="../../.gitbook/assets/image (3).png" alt=""><figcaption><p>Méthodologie AGB 3.0-20200218_rapport-vf2.pdf</p></figcaption></figure>
 
+
+
+## Pertes (à venir)
+
+
+
