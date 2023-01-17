@@ -73,5 +73,12 @@ suite =
                         )
                     |> asTest "should return computed impacts where none equals zero"
                 ]
+            , describe "getTotalMass"
+                [ exampleQuery
+                    |> Recipe.compute builderDb
+                    |> Result.map (Tuple.first >> Recipe.getTotalMass)
+                    |> Expect.equal (Ok (Mass.kilograms 0.65))
+                    |> asTest "should compute recipe total mass"
+                ]
             ]
         )

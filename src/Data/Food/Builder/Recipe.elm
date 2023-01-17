@@ -12,6 +12,7 @@ module Data.Food.Builder.Recipe exposing
     , encodeQuery
     , encodeResults
     , fromQuery
+    , getTotalMass
     , ingredientQueryFromIngredient
     , processQueryFromProcess
     , resetTransform
