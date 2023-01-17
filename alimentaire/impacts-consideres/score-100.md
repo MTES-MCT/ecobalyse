@@ -6,7 +6,9 @@ description: >-
 
 # Score/100
 
-Pour passer du score en Pts au score/100 on utilise la méthode détaillée dans [l'annexe 4 du rapport du conseil scientifique](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/f88c4def-8b48-4e8e-818f-9d3b6e477aef/rapport\_final\_CS\_dec\_2021\_Annexe\_4.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256\&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD\&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230111%2Fus-west-2%2Fs3%2Faws4\_request\&X-Amz-Date=20230111T134925Z\&X-Amz-Expires=86400\&X-Amz-Signature=0ff0f06cb5471e364aa5cf8f8fe0138f52916815b4cd11e762f658b2f5c39d0a\&X-Amz-SignedHeaders=host\&response-content-disposition=filename%3D%22rapport%2520final%2520CS%2520dec%25202021\_Annexe%25204.pdf%22\&x-id=GetObject). Des explications sur les choix effectués sont donnés dans cette annexe.
+Pour passer du score en Pts au score/100 on utilise la méthode détaillée dans l'annexe 4 du rapport final du Conseil Scientifique ci-dessous. Des explications sur les choix effectués sont donnés dans cette annexe.
+
+{% file src="../../.gitbook/assets/rapport final CS dec 2021_Annexe 4.pdf" %}
 
 ## Calcul
 
