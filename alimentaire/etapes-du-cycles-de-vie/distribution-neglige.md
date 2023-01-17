@@ -2,9 +2,9 @@
 description: Après l'emballage, le produit est stocké sur une plateforme de distribution
 ---
 
-# Distribution (négligé)
+# 👷♀ Distribution (négligé)
 
-Hormis les transports, cette étape du cycle de vie a un impact :&#x20;
+Hormis les transports, cette étape du cycle de vie a un impact qui provient de :&#x20;
 
 * la consommation d'énergie de la plateforme de distribution.
   * électricité
@@ -12,15 +12,13 @@ Hormis les transports, cette étape du cycle de vie a un impact :&#x20;
 * la consommation d'eau de la plateforme de distribution
 * l'émission de gaz réfrigérant (r404) (négligé pour l'instant)
 
-Estimons ces impacts sur un produit majorant. Par exemple un produit qui nécessite un refroidissement (surgelé) : les épinards surgelés.
+Pour estimer l'impact d'un produit, on a besoin de sa densité. Les hypothèses de la doc agribalyse&#x20;
 
-Selon la documentation agribalyse, l'hypothèse à prendre pour la densité des produits transformés est de 1 kg/L.
-
-<figure><img src="../../../.gitbook/assets/image.png" alt=""><figcaption><p>Méthodologie AGB 3.0-20200218_rapport-vf2.pdf</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image.png" alt=""><figcaption><p>Méthodologie AGB 3.0-20200218_rapport-vf2.pdf</p></figcaption></figure>
 
 De plus&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (1).png" alt=""><figcaption><p>Méthodologie AGB 3.0-20200218_rapport-vf2.pdf</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1).png" alt=""><figcaption><p>Méthodologie AGB 3.0-20200218_rapport-vf2.pdf</p></figcaption></figure>
 
 A partir de ces données et de l'impact unitaire de chaque procédé, on peut en déduire l'impact de le l'étape de distribution en µPt PEF par kg de produit.
 

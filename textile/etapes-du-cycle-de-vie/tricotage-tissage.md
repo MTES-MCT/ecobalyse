@@ -130,7 +130,7 @@ Ces étoffes sont notamment appréciées dans les secteurs de la construction, d
 
 **Exemple d'application :**&#x20;
 
-![Exemple d'application d'une étoffe non-tissée](<../../.gitbook/assets/image (8).png>)
+![Exemple d'application d'une étoffe non-tissée](<../../.gitbook/assets/image (8) (1).png>)
 
 </details>
 
@@ -267,7 +267,7 @@ L'utilisateur a la possibilité de modifier ce paramètre s'il le maîtrise.&#x2
 Si c'est le cas, une attention particulière doit être apportée à l'impact de cette modification sur la quantité d'étoffe sortante (m2) afin de ne pas modéliser de scénarios incohérents. \
 En effet, le poids (g) d'un vêtement dépend du grammage (g/m2) de l'étoffe et de la quantité d'étoffe (m2) mobilisée. Le poids du vêtement et le grammage de l'étoffe sont paramétrables par l'utilisateur tandis que la quantité d'étoffe ne l'est pas. Cette donnée d'arrière plan est cependant accessible lors de la modélisation.
 
-![](<../../.gitbook/assets/image (4).png>)
+![](<../../.gitbook/assets/image (4) (1).png>)
 
 </details>
 
