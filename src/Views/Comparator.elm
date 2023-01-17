@@ -1,4 +1,9 @@
-module Views.Comparator exposing (comparator)
+module Views.Comparator exposing
+    ( FoodComparisonUnit(..)
+    , comparator
+    , foodOptions
+    , textileOptions
+    )
 
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Food.Builder.Recipe as Recipe
@@ -18,22 +23,48 @@ import Views.Container as Container
 import Views.Textile.ComparativeChart as TextileComparativeChart
 
 
-type alias ComparatorConfig msg =
+type alias Config msg =
     { session : Session
     , impact : Impact.Definition
-    , funit : Unit.Functional
-    , daysOfWear : Duration
-    , scope : Scope
+    , options : Options msg
     , toggle : Bookmark -> Bool -> msg
     }
 
 
-comparator : ComparatorConfig msg -> Html msg
-comparator { session, impact, funit, daysOfWear, scope, toggle } =
-    let
-        currentlyCompared =
-            Set.size session.store.comparedSimulations
-    in
+type Options msg
+    = Food (FoodOptions msg)
+    | Textile TextileOptions
+
+
+type FoodComparisonUnit
+    = PerItem
+    | PerKgOfProduct
+
+
+type alias FoodOptions msg =
+    { comparisonUnit : FoodComparisonUnit
+    , switchComparisonUnit : FoodComparisonUnit -> msg
+    }
+
+
+type alias TextileOptions =
+    { funit : Unit.Functional
+    , daysOfWear : Duration
+    }
+
+
+foodOptions : FoodOptions msg -> Options msg
+foodOptions =
+    Food
+
+
+textileOptions : TextileOptions -> Options msg
+textileOptions =
+    Textile
+
+
+comparator : Config msg -> Html msg
+comparator ({ session, options, toggle } as config) =
     Container.fluid []
         [ div [ class "row" ]
             [ div [ class "col-lg-4 border-end fs-7 p-0" ]
@@ -43,7 +74,7 @@ comparator { session, impact, funit, daysOfWear, scope, toggle } =
                     , text " simulations pour les comparer\u{00A0}:"
                     ]
                 , session.store.bookmarks
-                    |> Bookmark.filterByScope scope
+                    |> Bookmark.filterByScope (optionsScope options)
                     |> List.map
                         (\bookmark ->
                             let
@@ -64,7 +95,11 @@ comparator { session, impact, funit, daysOfWear, scope, toggle } =
                                     , class "form-check-input"
                                     , onCheck (toggle bookmark)
                                     , checked isCompared
-                                    , disabled (not isCompared && currentlyCompared >= Session.maxComparedSimulations)
+                                    , disabled
+                                        (not isCompared
+                                            && Set.size session.store.comparedSimulations
+                                            >= Session.maxComparedSimulations
+                                        )
                                     ]
                                     []
                                 , span [ class "ps-2" ]
@@ -83,34 +118,45 @@ comparator { session, impact, funit, daysOfWear, scope, toggle } =
                 ]
             , div [ class "col-lg-8 px-4 py-2 overflow-hidden", style "min-height" "500px" ]
                 [ text ""
-                , case scope of
-                    Scope.Food ->
-                        foodComparatorView session
+                , case options of
+                    Food foodOptions_ ->
+                        foodComparatorView config foodOptions_
 
-                    Scope.Textile ->
-                        textileComparatorView session funit daysOfWear impact
+                    Textile textileOptions_ ->
+                        textileComparatorView config textileOptions_
                 ]
             ]
         ]
 
 
-foodComparatorView : Session -> Html msg
-foodComparatorView { builderDb, store } =
+foodComparatorView : Config msg -> FoodOptions msg -> Html msg
+foodComparatorView { session } { comparisonUnit, switchComparisonUnit } =
     let
+        { builderDb, store } =
+            session
+
+        addToComparison ( id, label, foodQuery ) =
+            if Set.member id store.comparedSimulations then
+                foodQuery
+                    |> Recipe.compute builderDb
+                    |> Result.map
+                        (\( _, { total, totalMass } ) ->
+                            case comparisonUnit of
+                                PerItem ->
+                                    ( label, total )
+
+                                PerKgOfProduct ->
+                                    ( label, Impact.perKg totalMass total )
+                        )
+                    |> Just
+
+            else
+                Nothing
+
         charts =
             store.bookmarks
                 |> Bookmark.toFoodQueries
-                |> List.filterMap
-                    (\( id, label, foodQuery ) ->
-                        if Set.member id store.comparedSimulations then
-                            foodQuery
-                                |> Recipe.compute builderDb
-                                |> Result.map (Tuple.second >> .total >> (\i -> ( label, i )))
-                                |> Just
-
-                        else
-                            Nothing
-                    )
+                |> List.filterMap addToComparison
                 |> RE.combine
                 |> Result.map
                     (List.map
@@ -121,39 +167,60 @@ foodComparatorView { builderDb, store } =
                             )
                         )
                     )
-    in
-    case charts of
-        Ok [] ->
-            emptyChartsMessage
 
-        Ok chartsData ->
-            div [ class "h-100" ]
-                [ node "chart-food-comparator"
-                    [ chartsData
-                        |> Encode.list
-                            (\( name, entries ) ->
-                                Encode.object
-                                    [ ( "label", Encode.string name )
-                                    , ( "data", Encode.list Impact.encodeAggregatedScoreChartEntry entries )
-                                    ]
-                            )
-                        |> Encode.encode 0
-                        |> attribute "data"
+        unitChoiceRadio caption current to =
+            label [ class "form-check-label d-flex align-items-center gap-1" ]
+                [ input
+                    [ type_ "radio"
+                    , class "form-check-input"
+                    , name "unit"
+                    , checked <| current == to
+                    , onInput <| always (switchComparisonUnit to)
                     ]
                     []
+                , text caption
                 ]
+    in
+    div []
+        [ h2 [ class "h5 text-center" ]
+            [ text "Comparaison des compositions du score d'impact des recettes sélectionnées" ]
+        , div [ class "d-flex justify-content-center align-items-center gap-3" ]
+            [ unitChoiceRadio "par produit" comparisonUnit PerItem
+            , unitChoiceRadio "par kg de produit" comparisonUnit PerKgOfProduct
+            ]
+        , case charts of
+            Ok [] ->
+                emptyChartsMessage
 
-        Err error ->
-            Alert.simple
-                { level = Alert.Danger
-                , close = Nothing
-                , title = Just "Erreur"
-                , content = [ text error ]
-                }
+            Ok chartsData ->
+                div [ class "h-100" ]
+                    [ node "chart-food-comparator"
+                        [ chartsData
+                            |> Encode.list
+                                (\( name, entries ) ->
+                                    Encode.object
+                                        [ ( "label", Encode.string name )
+                                        , ( "data", Encode.list Impact.encodeAggregatedScoreChartEntry entries )
+                                        ]
+                                )
+                            |> Encode.encode 0
+                            |> attribute "data"
+                        ]
+                        []
+                    ]
+
+            Err error ->
+                Alert.simple
+                    { level = Alert.Danger
+                    , close = Nothing
+                    , title = Just "Erreur"
+                    , content = [ text error ]
+                    }
+        ]
 
 
-textileComparatorView : Session -> Unit.Functional -> Duration -> Impact.Definition -> Html msg
-textileComparatorView session funit daysOfWear impact =
+textileComparatorView : Config msg -> TextileOptions -> Html msg
+textileComparatorView { session, impact } { funit, daysOfWear } =
     div []
         [ case getTextileChartEntries session funit impact of
             Ok [] ->
@@ -212,3 +279,13 @@ getTextileChartEntries { db, store } funit impact =
             )
         |> RE.combine
         |> Result.map (List.sortBy .score)
+
+
+optionsScope : Options msg -> Scope
+optionsScope options =
+    case options of
+        Food _ ->
+            Scope.Food
+
+        Textile _ ->
+            Scope.Textile

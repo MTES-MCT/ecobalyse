@@ -12,6 +12,7 @@ module Data.Food.Builder.Recipe exposing
     , encodeQuery
     , encodeResults
     , fromQuery
+    , getTotalMass
     , ingredientQueryFromIngredient
     , processQueryFromProcess
     , resetTransform
@@ -65,6 +66,7 @@ type alias Recipe =
 
 type alias Results =
     { total : Impacts
+    , totalMass : Mass
     , recipe :
         { total : Impacts
         , ingredientsTotal : Impacts
@@ -159,6 +161,7 @@ compute db =
                 , { total =
                         Impact.sumImpacts db.impacts
                             [ recipeImpacts, packagingImpacts ]
+                  , totalMass = getTotalMass recipe
                   , recipe =
                         { total = recipeImpacts
                         , ingredientsTotal = ingredientsTotalImpacts
@@ -171,6 +174,14 @@ compute db =
                   }
                 )
             )
+
+
+getTotalMass : Recipe -> Mass
+getTotalMass { ingredients, packaging } =
+    Quantity.sum
+        [ BuilderQuery.sumMasses ingredients
+        , BuilderQuery.sumMasses packaging
+        ]
 
 
 computeImpact : Mass -> Impact.Trigram -> Unit.Impact -> Unit.Impact
@@ -275,6 +286,7 @@ encodeResults defs results =
     in
     Encode.object
         [ ( "total", encodeImpacts results.total )
+        , ( "totalMass", results.totalMass |> Mass.inKilograms |> Encode.float )
         , ( "recipe"
           , Encode.object
                 [ ( "total", encodeImpacts results.recipe.total )

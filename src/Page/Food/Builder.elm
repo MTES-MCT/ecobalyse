@@ -20,7 +20,6 @@ import Data.Key as Key
 import Data.Scope as Scope
 import Data.Session as Session exposing (Session)
 import Data.Unit as Unit
-import Duration
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -53,6 +52,7 @@ type alias Model =
     , impact : Impact.Definition
     , bookmarkName : String
     , bookmarkTab : BookmarkView.ActiveTab
+    , comparisonUnit : ComparatorView.FoodComparisonUnit
     , modal : Modal
     }
 
@@ -78,6 +78,7 @@ type Msg
     | SaveBookmark
     | SaveBookmarkWithTime String Bookmark.Query Posix
     | SetModal Modal
+    | SwitchComparisonUnit ComparatorView.FoodComparisonUnit
     | SwitchLinksTab BookmarkView.ActiveTab
     | SwitchImpact Impact.Trigram
     | ToggleComparedSimulation Bookmark Bool
@@ -104,6 +105,7 @@ init ({ db, builderDb, queries } as session) trigram maybeQuery =
               , impact = impact
               , bookmarkName = query |> findExistingBookmarkName session
               , bookmarkTab = BookmarkView.SaveTab
+              , comparisonUnit = ComparatorView.PerKgOfProduct
               , modal = NoModal
               }
             , session
@@ -273,6 +275,12 @@ update ({ queries } as session) msg model =
                 |> Route.FoodBuilder impact
                 |> Route.toString
                 |> Navigation.pushUrl session.navKey
+            )
+
+        SwitchComparisonUnit comparisonUnit ->
+            ( { model | comparisonUnit = comparisonUnit }
+            , session
+            , Cmd.none
             )
 
         SwitchLinksTab bookmarkTab ->
@@ -643,8 +651,8 @@ mainView session db model =
     div [ class "row gap-3 gap-lg-0" ]
         [ div [ class "col-lg-4 order-lg-2 d-flex flex-column gap-3" ]
             [ case computed of
-                Ok ( recipe, results ) ->
-                    sidebarView session db model recipe results
+                Ok ( _, results ) ->
+                    sidebarView session db model results
 
                 Err error ->
                     errorView error
@@ -747,8 +755,8 @@ recipeTransportsView selectedImpact results =
     ]
 
 
-sidebarView : Session -> Db -> Model -> Recipe -> Recipe.Results -> Html Msg
-sidebarView session db model recipe results =
+sidebarView : Session -> Db -> Model -> Recipe.Results -> Html Msg
+sidebarView session db model results =
     div
         [ class "d-flex flex-column gap-3 mb-3 sticky-md-top"
         , style "top" "7px"
@@ -766,22 +774,17 @@ sidebarView session db model recipe results =
         , SummaryComp.view
             { header = []
             , body =
-                let
-                    totalWeight =
-                        Query.sumMasses recipe.ingredients
-                in
                 [ div [ class "d-flex flex-column m-auto gap-1 px-2 text-center text-nowrap" ]
-                    [ h2 [ class "h5 m-0" ] [ text "Impact par kg de produit" ]
-                    , div [ class "display-4 lh-1" ]
+                    [ div [ class "display-3 lh-1" ]
                         [ results.total
-                            |> Format.formatFoodSelectedImpactPerKg model.impact totalWeight
+                            |> Format.formatFoodSelectedImpactPerKg model.impact results.totalMass
                         ]
                     , h3 [ class "h6 m-0 mt-2" ]
-                        [ text "Impact pour "
-                        , Format.kg totalWeight
-                        , text " de produit"
+                        [ text "Soit pour "
+                        , Format.kg results.totalMass
+                        , text " de produit\u{00A0}:"
                         ]
-                    , div [ class "display-5 lh-1" ]
+                    , div [ class "display-6" ]
                         [ results.total
                             |> Format.formatFoodSelectedImpact model.impact
                         ]
@@ -1002,11 +1005,11 @@ view session model =
                             [ ComparatorView.comparator
                                 { session = session
                                 , impact = model.impact
-
-                                -- FIXME: we should have distinct dedicated options for textile and food
-                                , funit = Unit.PerDayOfWear
-                                , daysOfWear = Duration.day
-                                , scope = Scope.Food
+                                , options =
+                                    ComparatorView.foodOptions
+                                        { comparisonUnit = model.comparisonUnit
+                                        , switchComparisonUnit = SwitchComparisonUnit
+                                        }
                                 , toggle = ToggleComparedSimulation
                                 }
                             ]

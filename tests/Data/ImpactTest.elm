@@ -3,6 +3,7 @@ module Data.ImpactTest exposing (..)
 import Data.Impact as Impact
 import Data.Unit as Unit
 import Expect
+import Mass
 import Quantity
 import Test exposing (..)
 import TestUtils exposing (asTest, suiteWithDb)
@@ -40,6 +41,14 @@ suite =
                     |> Impact.getImpact (Impact.trg "cch")
                     |> Expect.equal (Unit.impact 2)
                     |> asTest "should map impacts"
+                ]
+            , describe "perKg"
+                [ defaultImpacts
+                    |> Impact.updateImpact (Impact.trg "cch") (Unit.impact 1)
+                    |> Impact.perKg (Mass.kilograms 2)
+                    |> Impact.getImpact (Impact.trg "cch")
+                    |> Expect.equal (Unit.impact 0.5)
+                    |> asTest "should compute impacts per kg of product"
                 ]
             , describe "sumImpacts"
                 [ []

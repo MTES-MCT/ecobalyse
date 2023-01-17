@@ -577,9 +577,11 @@ view session model =
                                     [ ComparatorView.comparator
                                         { session = session
                                         , impact = model.impact
-                                        , funit = model.funit
-                                        , daysOfWear = simulator.daysOfWear
-                                        , scope = Scope.Textile
+                                        , options =
+                                            ComparatorView.textileOptions
+                                                { funit = model.funit
+                                                , daysOfWear = simulator.daysOfWear
+                                                }
                                         , toggle = ToggleComparedSimulation
                                         }
                                     ]
