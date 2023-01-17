@@ -3,6 +3,7 @@ module Views.Format exposing
     , formatFloat
     , formatFoodSelectedImpact
     , formatFoodSelectedImpactPerKg
+    , formatFoodSelectedImpactScore
     , formatImpact
     , formatImpactFloat
     , formatRichFloat
@@ -61,6 +62,43 @@ formatFoodSelectedImpactPerKg { trigram, unit, decimals } totalMass =
         >> Impact.getImpact trigram
         >> Unit.impactToFloat
         >> formatRichFloat decimals (unit ++ "/kg")
+
+
+formatFoodSelectedImpactScore : Impact.Definition -> Mass -> Impacts -> Html msg
+formatFoodSelectedImpactScore { trigram } totalMass impacts =
+    let
+        ln =
+            logBase e
+
+        score =
+            impacts
+                |> Impact.perKg totalMass
+                |> Impact.getImpact trigram
+                |> Unit.impactToFloat
+                |> (\value ->
+                        -- See the documentation at https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/impacts-consideres/score-100
+                        (ln 2077 - ln value) / ln 2 * 20
+                   )
+                |> round
+                |> clamp 0 100
+
+        letter =
+            if score >= 80 then
+                "A"
+
+            else if score >= 60 then
+                "B"
+
+            else if score >= 40 then
+                "C"
+
+            else if score >= 20 then
+                "D"
+
+            else
+                "E"
+    in
+    text <| String.fromInt score ++ "/100 (" ++ letter ++ ")"
 
 
 formatTextileSelectedImpact : Unit.Functional -> Duration -> Impact.Definition -> Impacts -> Html msg
