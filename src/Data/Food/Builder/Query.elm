@@ -8,7 +8,6 @@ module Data.Food.Builder.Query exposing
     , b64encode
     , carrotCake
     , decode
-    , defaultCountry
     , deleteIngredient
     , emptyQuery
     , encode
@@ -32,11 +31,6 @@ import Quantity
 import Url.Parser as Parser exposing (Parser)
 
 
-defaultCountry : Country.Code
-defaultCountry =
-    Country.codeFromString "FR"
-
-
 type Variant
     = Default
     | Organic
@@ -47,7 +41,7 @@ type alias IngredientQuery =
     , name : String
     , mass : Mass
     , variant : Variant
-    , country : Country.Code
+    , country : Maybe Country.Code
     }
 
 
@@ -98,25 +92,25 @@ carrotCake =
           , name = "Oeuf"
           , mass = Mass.grams 120
           , variant = Default
-          , country = defaultCountry
+          , country = Nothing
           }
         , { id = Ingredient.idFromString "wheat"
           , name = "Blé tendre"
           , mass = Mass.grams 140
           , variant = Default
-          , country = defaultCountry
+          , country = Nothing
           }
         , { id = Ingredient.idFromString "milk"
           , name = "Lait"
           , mass = Mass.grams 60
           , variant = Default
-          , country = defaultCountry
+          , country = Nothing
           }
         , { id = Ingredient.idFromString "carrot"
           , name = "Carotte"
           , mass = Mass.grams 225
           , variant = Default
-          , country = defaultCountry
+          , country = Nothing
           }
         ]
     , transform =
@@ -162,7 +156,7 @@ decodeIngredient =
         (Decode.field "name" Decode.string)
         (Decode.field "mass" decodeMass)
         (Decode.field "variant" decodeVariant)
-        (Decode.field "country" Country.decodeCode)
+        (Decode.field "country" (Decode.maybe Country.decodeCode))
 
 
 decodeVariant : Decoder Variant
@@ -197,7 +191,7 @@ encodeIngredient v =
         , ( "name", Encode.string v.name )
         , ( "mass", encodeMass v.mass )
         , ( "variant", encodeVariant v.variant )
-        , ( "country", Country.encodeCode v.country )
+        , ( "country", v.country |> Maybe.map Country.encodeCode |> Maybe.withDefault Encode.null )
         ]
 
 

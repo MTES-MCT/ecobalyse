@@ -1,9 +1,7 @@
 module Data.Food.Origin exposing
     ( Origin(..)
     , decode
-    , fromString
     , toLabel
-    , toString
     )
 
 import Json.Decode as Decode exposing (Decoder)
@@ -49,16 +47,3 @@ toLabel origin =
 
         OutOfEuropeAndMaghreb ->
             "Hors Europe et Maghreb"
-
-
-toString : Origin -> String
-toString origin =
-    case origin of
-        France ->
-            "France"
-
-        EuropeAndMaghreb ->
-            "EuropeAndMaghreb"
-
-        OutOfEuropeAndMaghreb ->
-            "OutOfEuropeAndMaghreb"
