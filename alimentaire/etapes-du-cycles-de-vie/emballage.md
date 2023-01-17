@@ -19,7 +19,7 @@ Dans la modélisation des produits CIQUAL de la base Agribalyse, des procédés 
 
 Les matières proposées sont dans la documentation d'agribalyse&#x20;
 
-<figure><img src="../.gitbook/assets/image (7).png" alt=""><figcaption><p>Methodology AGB 3.0- 20200528_ANNEXES-CLEAN_vf.pdf, p205</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (7).png" alt=""><figcaption><p>Methodology AGB 3.0- 20200528_ANNEXES-CLEAN_vf.pdf, p205</p></figcaption></figure>
 
 La liste complète est :&#x20;
 
@@ -65,5 +65,5 @@ $$
 
 Les impacts considérés peuvent être indifféremment :&#x20;
 
-* l'un des 16 impact PEF proposés dans la base Agribalyse (cf. [impacts-consideres.md](../textile/impacts-consideres.md "mention")) - \[_**TODO : une modif à prévoir sur cette page, voire sur l'explorateur, pour dissocier l'alimentaire et le textile**_]
+* l'un des 16 impact PEF proposés dans la base Agribalyse (cf. [impacts-consideres.md](../../textile/impacts-consideres.md "mention")) - \[_**TODO : une modif à prévoir sur cette page, voire sur l'explorateur, pour dissocier l'alimentaire et le textile**_]
 * le score PEF calculé comme une somme pondérée des 16 impacts, en application de la méthode PEF (cf. [https://fabrique-numerique.gitbook.io/ecobalyse/textile/impacts-consideres#score-pef](https://fabrique-numerique.gitbook.io/ecobalyse/textile/impacts-consideres#score-pef) )
