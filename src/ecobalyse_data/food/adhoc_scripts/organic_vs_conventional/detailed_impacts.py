@@ -4,9 +4,6 @@
 """Calcul de l'impact détaillé d'une liste de procédés"""
 
 import json
-
-# import brightway.export_agb.impacts
-
 import pandas as pd
 import brightway2 as bw
 from brightway2 import *
@@ -16,7 +13,8 @@ import sys
 
 # import the list of impact categories from impacts.py to compute impacts
 sys.path.insert(1, "../")
-from export_agb.impacts import impacts
+from ecobalyse_data.food.impacts import impacts
+
 
 
 def open_db(dbname):
@@ -188,6 +186,10 @@ def export_json(content, filename):
 
 path = "detailed_impacts_input.csv"
 if __name__ == "__main__":
+
+    f = open(r"../../export_agb/impacts.json")
+    impacts_json = json.load(f)
+
     print(f"Get process list from {path}")
     procs_name = get_procs(path)
     print("Open the agribalyse3 brightway database")
@@ -197,8 +199,6 @@ if __name__ == "__main__":
 
     processes = fill_processes(processes_list)
 
-    f = open("impacts.json")
-    impacts_json = json.load(f)
 
     random_product = list(processes.keys())[0]
     lcas = init_lcas({random_product: 1})
