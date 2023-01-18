@@ -22,9 +22,9 @@ L'impact est la multiplication du volume par les différentes consommations dét
 
 
 
-## Exemple de calcul
+<details>
 
-
+<summary>Exemple de calcul</summary>
 
 Pour 1 kg de produit surgelés, de densité 1 kg/L. Notons son volume V. On a V = 1 L = 0.001 m3. Calculons l'impact de la vente au détail I\_vente. Cela dépend de :&#x20;
 
@@ -56,14 +56,17 @@ I_vente = Q_energy * Iu_élec + Q_cooling * Iu_élec + Q_water * Iu_water)
 I_vente = V * Qu_energy_frozen * Iu_élec + V * Qu_cooling_frozen * Iu_élec
  + V * Qu_water_frozen * Iu_water
 
-I_vente = V * [(Qu_energy_frozen + Qu_cooling_frozen)* Iu_élec
+**I_vente** = V * [(Qu_energy_frozen + Qu_cooling_frozen)* Iu_élec
  + Qu_water_frozen * Iu_water]
 
 
 I_vente = 0.001 * [(61.54 + 415.38)* Iu_élec
  + 280.8 * Iu_water]
-
 ```
+
+</details>
+
+
 
 ## Pertes (à venir)
 
