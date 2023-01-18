@@ -775,18 +775,7 @@ sidebarView session db model results =
             { header = []
             , body =
                 [ div [ class "d-flex flex-column m-auto gap-1 px-2 text-center text-nowrap" ]
-                    [ if Impact.isAggregate model.impact then
-                        div [ class "border-bottom mb-3 pb-3" ]
-                            [ text "score :"
-                            , span [ class "display-3 lh-1" ]
-                                [ results.total
-                                    |> Format.formatFoodSelectedImpactScore model.impact results.totalMass
-                                ]
-                            ]
-
-                      else
-                        text ""
-                    , div [ class "display-3 lh-1" ]
+                    [ div [ class "display-3 lh-1" ]
                         [ results.total
                             |> Format.formatFoodSelectedImpactPerKg model.impact results.totalMass
                         ]
@@ -803,6 +792,15 @@ sidebarView session db model results =
                         [ Icon.warning
                         , text " Attention, ces résultats sont partiels"
                         ]
+                    , if Impact.isAggregate model.impact then
+                        div [ class "border-top mt-3 pt-3" ]
+                            [ text "score :"
+                            , results.total
+                                |> Format.formatFoodSelectedImpactScore model.impact results.totalMass
+                            ]
+
+                      else
+                        text ""
                     ]
                 ]
             , footer = []

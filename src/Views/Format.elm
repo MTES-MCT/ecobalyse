@@ -81,24 +81,14 @@ formatFoodSelectedImpactScore { trigram } totalMass impacts =
                    )
                 |> round
                 |> clamp 0 100
-
-        letter =
-            if score >= 80 then
-                "A"
-
-            else if score >= 60 then
-                "B"
-
-            else if score >= 40 then
-                "C"
-
-            else if score >= 20 then
-                "D"
-
-            else
-                "E"
+                |> String.fromInt
     in
-    text <| String.fromInt score ++ "/100 (" ++ letter ++ ")"
+    span []
+        [ span [ class "display-3 lh-1" ]
+            [ text score
+            ]
+        , text "/100"
+        ]
 
 
 formatTextileSelectedImpact : Unit.Functional -> Duration -> Impact.Definition -> Impacts -> Html msg
