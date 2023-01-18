@@ -800,7 +800,7 @@ sidebarView session db model results =
             }
         , SummaryComp.view
             { header =
-                [ if Impact.isAggregate model.impact then
+                if Impact.isAggregate model.impact then
                     let
                         score =
                             results.total
@@ -810,7 +810,7 @@ sidebarView session db model results =
                             score
                                 |> Impact.getAggregatedScoreLetter
                     in
-                    div [ class "d-flex justify-content-center align-items-end gap-1 w-100" ]
+                    [ div [ class "d-flex justify-content-center align-items-end gap-1 w-100" ]
                         [ text "Score :"
                         , span [ class "h5 m-0" ]
                             [ text (String.fromInt score)
@@ -820,10 +820,10 @@ sidebarView session db model results =
                             [ text scoreLetter
                             ]
                         ]
+                    ]
 
-                  else
-                    text ""
-                ]
+                else
+                    []
             , body =
                 [ div [ class "d-flex flex-column m-auto gap-1 px-2 text-center text-nowrap" ]
                     [ div [ class "display-3 lh-1" ]
