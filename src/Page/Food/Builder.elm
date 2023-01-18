@@ -743,7 +743,7 @@ recipeTransportsView selectedImpact results =
             |> Format.formatFoodSelectedImpact selectedImpact
         ]
     , div [ class "card-body d-flex justify-content-between align-items-center gap-1 text-muted py-2 fs-7" ]
-        [ span [ class "text-nowrap" ] [ text "Transport total cumulé à cette étape" ]
+        [ text "Transport total cumulé à cette étape"
         , results.recipe.transports
             |> TransportView.view
                 { fullWidth = False
