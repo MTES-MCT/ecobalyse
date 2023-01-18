@@ -54,7 +54,7 @@ En l'absence de paramétrage du pays d'origine, les hypothèses appliquées pour
 | --------------------------------------------------------------------------------------------------------------------- | ------------------- | -------------------------------------------------------------------------------------------------------------------- |
 | <p>FRANCE<br>Ingrédients très majoritairement produits en France (seuil : ~95%)</p>                                   | Circuit France      | N/A                                                                                                                  |
 | <p>EUROPE-MAGREHB<br>Ingrédients très majoritairement produits en Europe ou au Magrehb (seuil : ~95%)</p>             | Circuit hors France | <p>Transport par défaut :  <br>- 2500 km de camion</p>                                                               |
-| <p>HORS EUROPE-MAGREHB<br>Ingrédient provenant de façon significative de pays hors Europe / Magrehb (seuil : ~5%)</p> | Circuit hors France | Transport par défaut : 18 000 km en bateau                                                                           |
+| <p>HORS EUROPE-MAGREHB<br>Ingrédient provenant de façon significative de pays hors Europe / Magrehb (seuil : ~5%)</p> | Circuit hors France | <p>Transport par défaut : <br>- 18 000 km en bateau<br>- 2500 km en camion</p>                                       |
 | <p>AVION<br>Cas particulier des ingrédients transportés de façon non marginale par avion (mangue, haricots...)</p>    | Circuit avion       | Transport en avion, avec distance à préciser ingrédient par ingrédient (ex : distance Pérou-France pour la mangue ?) |
 
 ## Calcul
