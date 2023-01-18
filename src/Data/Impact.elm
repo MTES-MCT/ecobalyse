@@ -13,6 +13,8 @@ module Data.Impact exposing
     , encodeImpacts
     , filterImpacts
     , getAggregatedScoreData
+    , getAggregatedScoreLetter
+    , getAggregatedScoreOutOf100
     , getDefinition
     , getImpact
     , grabImpactFloat
@@ -401,6 +403,42 @@ getAggregatedScoreData defs getter =
                     acc
         )
         []
+
+
+getAggregatedScoreOutOf100 : Definition -> Mass -> Impacts -> Int
+getAggregatedScoreOutOf100 { trigram } totalMass impacts =
+    let
+        ln =
+            logBase e
+    in
+    impacts
+        |> perKg totalMass
+        |> getImpact trigram
+        |> Unit.impactToFloat
+        |> (\value ->
+                -- See the documentation at https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/impacts-consideres/score-100
+                (ln 2077 - ln value) / ln 2 * 20
+           )
+        |> round
+        |> clamp 0 100
+
+
+getAggregatedScoreLetter : Int -> String
+getAggregatedScoreLetter score =
+    if score >= 80 then
+        "A"
+
+    else if score >= 60 then
+        "B"
+
+    else if score >= 40 then
+        "C"
+
+    else if score >= 20 then
+        "D"
+
+    else
+        "E"
 
 
 encodeAggregatedScoreChartEntry : { name : String, value : Float, color : String } -> Encode.Value

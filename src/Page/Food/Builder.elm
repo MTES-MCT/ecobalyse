@@ -793,8 +793,27 @@ sidebarView session db model results =
                         , text " Attention, ces résultats sont partiels"
                         ]
                     , if Impact.isAggregate model.impact then
-                        results.total
-                            |> Format.formatFoodSelectedImpactScore model.impact results.totalMass
+                        let
+                            score =
+                                results.total
+                                    |> Impact.getAggregatedScoreOutOf100 model.impact results.totalMass
+                        in
+                        div [ class "border-top mt-3 pt-3 d-flex" ]
+                            [ span [ class "text-start flex-grow-1" ]
+                                [ text "score :"
+                                , span [ class "display-3 lh-1" ]
+                                    [ score
+                                        |> String.fromInt
+                                        |> text
+                                    ]
+                                , text <| "/100"
+                                ]
+                            , span [ class "display-3 lh-1 text-end" ]
+                                [ score
+                                    |> Impact.getAggregatedScoreLetter
+                                    |> text
+                                ]
+                            ]
 
                       else
                         text ""
