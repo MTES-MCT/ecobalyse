@@ -1,6 +1,7 @@
 module Data.ImpactTest exposing (..)
 
 import Data.Impact as Impact
+import Data.Scope as Scope
 import Data.Unit as Unit
 import Expect
 import Mass
@@ -12,8 +13,11 @@ import TestUtils exposing (asTest, suiteWithDb)
 suite : Test
 suite =
     suiteWithDb "Data.Impact"
-        (\{ textileDb } ->
+        (\{ builderDb, textileDb } ->
             let
+                defaultBuilderImpacts =
+                    Impact.impactsFromDefinitons builderDb.impacts
+
                 defaultImpacts =
                     Impact.impactsFromDefinitons textileDb.impacts
 
@@ -85,6 +89,51 @@ suite =
                     |> Impact.getImpact (Impact.trg "pef")
                     |> expectScoreEquals 17451.41187295143
                     |> asTest "should update PEF score"
+                ]
+            , let
+                ecsDefinition =
+                    Impact.getDefinition (Impact.trg "ecs") builderDb.impacts
+                        |> Result.withDefault (Impact.invalid Scope.Food)
+              in
+              describe "getAggregatedScoreOutOf100"
+                [ defaultBuilderImpacts
+                    |> Impact.updateImpact (Impact.trg "ecs") (Unit.impact 1)
+                    |> Impact.getAggregatedScoreOutOf100
+                        ecsDefinition
+                        (Mass.kilograms 1)
+                    |> Expect.equal 100
+                    |> asTest "should return a score of 100 for a very low impact"
+                , defaultBuilderImpacts
+                    |> Impact.updateImpact (Impact.trg "ecs") (Unit.impact 10000)
+                    |> Impact.getAggregatedScoreOutOf100
+                        ecsDefinition
+                        (Mass.kilograms 1)
+                    |> Expect.equal 0
+                    |> asTest "should return a score of 0 for a very high impact"
+                , defaultBuilderImpacts
+                    |> Impact.updateImpact (Impact.trg "ecs") (Unit.impact 200)
+                    |> Impact.getAggregatedScoreOutOf100
+                        ecsDefinition
+                        (Mass.kilograms 1)
+                    |> Expect.equal 68
+                    |> asTest "should return a medium score for a medium impact"
+                ]
+            , describe "getAggregatedScoreLrtter"
+                [ Impact.getAggregatedScoreLetter 19
+                    |> Expect.equal "E"
+                    |> asTest "should return a letter E for anything below 20"
+                , Impact.getAggregatedScoreLetter 39
+                    |> Expect.equal "D"
+                    |> asTest "should return a letter D for anything below 40"
+                , Impact.getAggregatedScoreLetter 59
+                    |> Expect.equal "C"
+                    |> asTest "should return a letter C for anything below 60"
+                , Impact.getAggregatedScoreLetter 79
+                    |> Expect.equal "B"
+                    |> asTest "should return a letter B for anything below 80"
+                , Impact.getAggregatedScoreLetter 80
+                    |> Expect.equal "A"
+                    |> asTest "should return a letter C for anything equal or above 80"
                 ]
             ]
         )
