@@ -98,11 +98,16 @@ formatFoodSelectedImpactScore { trigram } totalMass impacts =
             else
                 "E"
     in
-    span []
-        [ span [ class "display-3 lh-1" ]
-            [ text <| String.fromInt score
+    div [ class "border-top mt-3 pt-3 d-flex" ]
+        [ span [ class "text-start flex-grow-1" ]
+            [ text "score :"
+            , span [ class "display-3 lh-1" ]
+                [ text <| String.fromInt score
+                ]
+            , text <| "/100"
             ]
-        , text <| "/100 (" ++ letter ++ ")"
+        , span [ class "display-3 lh-1 text-end" ]
+            [ text letter ]
         ]
 
 

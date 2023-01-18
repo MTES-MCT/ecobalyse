@@ -793,11 +793,8 @@ sidebarView session db model results =
                         , text " Attention, ces résultats sont partiels"
                         ]
                     , if Impact.isAggregate model.impact then
-                        div [ class "border-top mt-3 pt-3" ]
-                            [ text "score :"
-                            , results.total
-                                |> Format.formatFoodSelectedImpactScore model.impact results.totalMass
-                            ]
+                        results.total
+                            |> Format.formatFoodSelectedImpactScore model.impact results.totalMass
 
                       else
                         text ""
