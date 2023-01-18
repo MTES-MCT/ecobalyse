@@ -10,10 +10,12 @@ module Page.Food.Builder exposing
 import Browser.Events
 import Browser.Navigation as Navigation
 import Data.Bookmark as Bookmark exposing (Bookmark)
+import Data.Country as Country
 import Data.Food.Builder.Db as BuilderDb exposing (Db)
 import Data.Food.Builder.Query as Query exposing (Query)
 import Data.Food.Builder.Recipe as Recipe exposing (Recipe)
 import Data.Food.Ingredient as Ingredient exposing (Id, Ingredient)
+import Data.Food.Origin as Origin
 import Data.Food.Process as Process exposing (Process)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Key as Key
@@ -38,7 +40,6 @@ import Views.Comparator as ComparatorView
 import Views.Component.MassInput as MassInput
 import Views.Component.Summary as SummaryComp
 import Views.Container as Container
-import Views.CountrySelect as CountrySelect
 import Views.Format as Format
 import Views.Icon as Icon
 import Views.Impact as ImpactView
@@ -421,7 +422,7 @@ updateIngredientFormView { excluded, db, ingredient, impact } =
             , name = ingredient.ingredient.name
             , mass = ingredient.mass
             , variant = ingredient.variant
-            , country = ingredient.country.code
+            , country = ingredient.country |> Maybe.map .code
             }
 
         event =
@@ -469,13 +470,39 @@ updateIngredientFormView { excluded, db, ingredient, impact } =
                             , variant = newVariant
                         }
                 )
-        , CountrySelect.view
-            { attributes = [ class "form-select form-select-sm CountrySelector" ]
-            , countries = db.countries
-            , onSelect = \countryCode -> event { ingredientQuery | country = countryCode }
-            , scope = Scope.Food
-            , selectedCountry = ingredientQuery.country
-            }
+        , db.countries
+            |> Scope.only Scope.Food
+            |> List.sortBy .name
+            |> List.map
+                (\{ code, name } ->
+                    option
+                        [ selected (ingredientQuery.country == Just code)
+                        , value <| Country.codeToString code
+                        ]
+                        [ text name ]
+                )
+            |> (::)
+                (option
+                    [ value ""
+                    , selected (ingredientQuery.country == Nothing)
+                    ]
+                    [ text <| "Par défaut (" ++ Origin.toLabel ingredient.ingredient.defaultOrigin ++ ")" ]
+                )
+            |> select
+                [ class "form-select form-select-sm CountrySelector"
+                , onInput
+                    (\val ->
+                        event
+                            { ingredientQuery
+                                | country =
+                                    if val /= "" then
+                                        Just (Country.codeFromString val)
+
+                                    else
+                                        Nothing
+                            }
+                    )
+                ]
         , label
             [ class "BioCheckbox"
             , classList [ ( "text-muted", ingredient.ingredient.variants.organic == Nothing ) ]

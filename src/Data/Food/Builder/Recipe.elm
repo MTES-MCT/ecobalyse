@@ -53,7 +53,7 @@ type alias RecipeIngredient =
     { ingredient : Ingredient
     , mass : Mass
     , variant : BuilderQuery.Variant
-    , country : Country
+    , country : Maybe Country
     }
 
 
@@ -207,18 +207,28 @@ computeIngredientImpacts ({ mass } as recipeIngredient) =
 
 
 computeIngredientTransport : Db -> RecipeIngredient -> Transport
-computeIngredientTransport db { country, mass } =
+computeIngredientTransport db { ingredient, country, mass } =
     let
-        baseImpacts =
+        emptyImpacts =
             Impact.impactsFromDefinitons db.impacts
 
+        baseTransports =
+            case country of
+                -- In case a custom country is provided, compute the distances to it from France
+                Just { code } ->
+                    db.transports
+                        |> Transport.getTransportBetween Scope.Food emptyImpacts code france
+                        -- We want air transport ratio to be 0 for all ingredients (for now)
+                        |> Formula.transportRatio (Unit.Ratio 0)
+
+                -- Otherwise retrieve ingredient's default origin transport data
+                Nothing ->
+                    ingredient.defaultOrigin
+                        |> Ingredient.getDefaultOriginTransport db.impacts
+
         transport =
-            db.transports
-                -- This reuses the road/sea transport distances ratio computation stuff
-                |> Transport.getTransportBetween Scope.Food baseImpacts country.code france
-                -- We want air transport ratio to be 0 for all ingredients (for now)
-                |> Formula.transportRatio (Unit.Ratio 0)
-                -- We add 160km of road transport for every ingredient, wherever it comes
+            baseTransports
+                -- 160km of road transport are added for every ingredient, wherever they come
                 -- from (including France)
                 |> (\t -> { t | road = t.road |> Quantity.plus (Length.kilometers 160) })
     in
@@ -266,6 +276,7 @@ encodeIngredient i =
         , ( "name", Encode.string i.name )
         , ( "mass", Encode.float (Mass.inKilograms i.mass) )
         , ( "variant", variantToString i.variant |> Encode.string )
+        , ( "country", i.country |> Maybe.map Country.encodeCode |> Maybe.withDefault Encode.null )
         ]
 
 
@@ -333,12 +344,21 @@ ingredientListFromQuery db =
 
 
 ingredientFromQuery : Db -> BuilderQuery.IngredientQuery -> Result String RecipeIngredient
-ingredientFromQuery { countries, ingredients } ingredientQuery =
+ingredientFromQuery { countries, ingredients } { id, mass, variant, country } =
     Result.map4 RecipeIngredient
-        (Ingredient.findByID ingredientQuery.id ingredients)
-        (Ok ingredientQuery.mass)
-        (Ok ingredientQuery.variant)
-        (Country.findByCode ingredientQuery.country countries)
+        (Ingredient.findByID id ingredients)
+        (Ok mass)
+        (Ok variant)
+        (case Maybe.map (\c -> Country.findByCode c countries) country of
+            Just (Ok country_) ->
+                Ok (Just country_)
+
+            Just (Err error) ->
+                Err error
+
+            Nothing ->
+                Ok Nothing
+        )
 
 
 ingredientQueryFromIngredient : Ingredient -> BuilderQuery.IngredientQuery
@@ -347,7 +367,7 @@ ingredientQueryFromIngredient ingredient =
     , name = ingredient.name
     , mass = Mass.grams 100
     , variant = BuilderQuery.Default
-    , country = BuilderQuery.defaultCountry
+    , country = Nothing
     }
 
 

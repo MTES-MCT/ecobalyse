@@ -5,22 +5,28 @@ module Data.Food.Ingredient exposing
     , decodeIngredients
     , encodeId
     , findByID
+    , getDefaultOriginTransport
     , idFromString
     , idToString
     )
 
+import Data.Food.Origin as Origin exposing (Origin)
 import Data.Food.Process as Process exposing (Process)
+import Data.Impact as Impact
+import Data.Transport as Transport exposing (Transport)
 import Dict exposing (Dict)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
+import Length
 
 
 type alias Ingredient =
     { id : Id
     , name : String
     , default : Process
+    , defaultOrigin : Origin
     , variants : Variants
     }
 
@@ -70,6 +76,7 @@ decodeIngredient processes =
         |> Pipe.required "id" decodeId
         |> Pipe.required "name" Decode.string
         |> Pipe.required "default" (linkProcess processes)
+        |> Pipe.required "default_origin" Origin.decode
         |> Pipe.required "variants" (decodeVariants processes)
 
 
@@ -85,6 +92,23 @@ findByID id ingredients =
         |> List.filter (.id >> (==) id)
         |> List.head
         |> Result.fromMaybe ("Ingrédient introuvable par id : " ++ idToString id)
+
+
+getDefaultOriginTransport : List Impact.Definition -> Origin -> Transport
+getDefaultOriginTransport defs origin =
+    let
+        default =
+            Transport.default (Impact.impactsFromDefinitons defs)
+    in
+    case origin of
+        Origin.France ->
+            default
+
+        Origin.EuropeAndMaghreb ->
+            { default | road = Length.kilometers 2500 }
+
+        Origin.OutOfEuropeAndMaghreb ->
+            { default | road = Length.kilometers 2500, sea = Length.kilometers 18000 }
 
 
 linkProcess : Dict String Process -> Decoder Process
