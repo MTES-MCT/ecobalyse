@@ -30,10 +30,10 @@ Les données ICV disponibles dans Agribalyse permettraient potentiellement d'int
 
 Pour déterminer l'origine d'un ingrédient par défaut, chaque ingrédient est classé dans l'une des 4 catégories suivantes :&#x20;
 
-1. Ingrédient très majoritairement produit en France (> 95%) => transport par défaut &#x20;
-2. Ingrédient très majoritairement produit en Europe/_pourtour méditerranéen_ (>95%) => transport par défaut &#x20;
-3. Ingrédient produit également hors Europe (> 5%) => transport par défaut&#x20;
-4. Ingrédient spécifique (ex. Haricots et Mangues) => transport par défaut&#x20;
+1. Ingrédient très majoritairement produit en France (> 95%) => origine par défaut : FRANCE
+2. Ingrédient très majoritairement produit en Europe/Maghreb (>95%) => transport par défaut : EUROPE/MAGHREB&#x20;
+3. Ingrédient produit également hors Europe (> 5%) => transport par défaut : PAYS TIERS
+4. Ingrédient spécifique (ex. Haricots et Mangues)&#x20;
 
-**Pomme => catégorie 2** (source : Agreste, Synthèses et conjoncture n°370, AVRIL 2021) ****&#x20;
+**Pomme => catégorie 2 : EUROPE/MAGHREB** (source : Agreste, Synthèses et conjoncture n°370, AVRIL 2021) ****&#x20;
 
