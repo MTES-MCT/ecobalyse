@@ -43,7 +43,14 @@ $$
 Le blé bio considéré dans un premier temps pour le calcul de la farine bio est celui dont le taux d'humidité correspond au taux d'humidité du blé panifiable (principal usage du blé tendre)
 {% endhint %}
 
-Les impacts comparés de ces procédés sont :&#x20;
+## Identification de l'origine par défaut
 
-_<mark style="color:red;">\[Intégration d'un graphique comparant les scores PEF décomposés des deux Farines qui seraient considérées]</mark>_&#x20;
+Pour déterminer l'origine d'un ingrédient par défaut, chaque ingrédient est classé dans l'une des 4 catégories suivantes :&#x20;
+
+1. Ingrédient très majoritairement produit en France (> 95%) => origine par défaut : FRANCE
+2. Ingrédient très majoritairement produit en Europe/Maghreb (>95%) => transport par défaut : EUROPE/MAGHREB&#x20;
+3. Ingrédient produit également hors Europe (> 5%) => transport par défaut : PAYS TIERS
+4. Ingrédient spécifique (ex. Haricots et Mangues)&#x20;
+
+**Farine => catégorie 2 : EUROPE/MAGHREB** (source : Agreste) ****&#x20;
 
