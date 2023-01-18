@@ -22,6 +22,13 @@ L'impact est la multiplication du volume par les différentes consommations dét
 
 
 
+## Exemple de calcul
+
+Pour 1 kg de produit surgelés, on consomme :
+
+* 61.54 kWh pour l'energie (éclairage,..)
+* 415.38 kWh pour
+
 ## Pertes (à venir)
 
 
