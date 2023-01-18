@@ -799,54 +799,52 @@ sidebarView session db model results =
             , scope = Scope.Food
             }
         , SummaryComp.view
-            { header = []
+            { header =
+                [ if Impact.isAggregate model.impact then
+                    let
+                        score =
+                            results.total
+                                |> Impact.getAggregatedScoreOutOf100 model.impact results.totalMass
+
+                        scoreLetter =
+                            score
+                                |> Impact.getAggregatedScoreLetter
+                    in
+                    div [ class "d-flex justify-content-center align-items-end gap-1 w-100" ]
+                        [ text "Score :"
+                        , span [ class "h5 m-0" ]
+                            [ text (String.fromInt score)
+                            , span [ class "fs-7" ] [ text "/100" ]
+                            ]
+                        , span [ class <| "h5 m-0 ScoreLetter ScoreLetter" ++ scoreLetter ]
+                            [ text scoreLetter
+                            ]
+                        ]
+
+                  else
+                    text ""
+                ]
             , body =
                 [ div [ class "d-flex flex-column m-auto gap-1 px-2 text-center text-nowrap" ]
                     [ div [ class "display-3 lh-1" ]
                         [ results.total
                             |> Format.formatFoodSelectedImpactPerKg model.impact results.totalMass
                         ]
-                    , h3 [ class "h6 m-0 mt-2" ]
+                    ]
+                ]
+            , footer =
+                [ div [ class "d-flex justify-content-center align-items-end gap-1 w-100" ]
+                    [ span [ class "fs-7" ]
                         [ text "Soit pour "
                         , Format.kg results.totalMass
-                        , text " de produit\u{00A0}:"
+                        , text "\u{00A0}:"
                         ]
-                    , div [ class "display-6" ]
+                    , span [ class "h5 m-0" ]
                         [ results.total
                             |> Format.formatFoodSelectedImpact model.impact
                         ]
-                    , small []
-                        [ Icon.warning
-                        , text " Attention, ces résultats sont partiels"
-                        ]
-                    , if Impact.isAggregate model.impact then
-                        let
-                            score =
-                                results.total
-                                    |> Impact.getAggregatedScoreOutOf100 model.impact results.totalMass
-                        in
-                        div [ class "border-top mt-3 pt-3 d-flex" ]
-                            [ span [ class "text-start flex-grow-1" ]
-                                [ text "score :"
-                                , span [ class "display-3 lh-1" ]
-                                    [ score
-                                        |> String.fromInt
-                                        |> text
-                                    ]
-                                , text <| "/100"
-                                ]
-                            , span [ class "display-3 lh-1 text-end" ]
-                                [ score
-                                    |> Impact.getAggregatedScoreLetter
-                                    |> text
-                                ]
-                            ]
-
-                      else
-                        text ""
                     ]
                 ]
-            , footer = []
             }
         , stepResultsView db model results
         , protectionAreaView session results.total
