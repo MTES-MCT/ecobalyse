@@ -3,6 +3,8 @@
     "id": "egg",
     "name": "Oeuf",
     "default": "83752804d1bf53b08b817b1bf9f83d1b",
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.974,
     "variants": {
       "organic": "a99a8677a1ad37bfa7471f6c94df3e59",
       "bleu_blanc_coeur": "216bb767da5b0a3f8aca1e18440700ac"
@@ -12,6 +14,8 @@
     "id": "milk",
     "name": "Lait",
     "default": "6dcf5acf59f35dce15894539dbb4f097",
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 1,
     "variants": {
       "organic": "dbbfa8c533e09b20f7909f4c68f72ffa"
     }
@@ -20,6 +24,8 @@
     "id": "carrot",
     "name": "Carotte",
     "default": "61ca6413bd2be0106255b003424d00ba",
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
     "variants": {
       "organic": "9f147496e4f222def9af93b7b18ad49b"
     }
@@ -28,6 +34,8 @@
     "id": "wheat",
     "name": "Blé tendre",
     "default": "d77308bcc6f3988597e56b34d5e2c4fa",
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 2.259,
     "variants": {
       "organic": "9a0d187afb6c6d30bd71b9306b32f28c"
     }
@@ -36,6 +44,8 @@
     "id": "flour",
     "name": "Farine",
     "default": "a343353e431d7dddc7bb25cbc41e179a",
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 1,
     "variants": {
       "organic": "85fe796d-44f6-fc91-9a7b-7f0bfdf305a0"
     }
@@ -44,6 +54,8 @@
     "id": "sunflower",
     "name": "Tournesol",
     "default": "e8bee37ff29dc235950eeda2410748f5",
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 1,
     "variants": {
       "organic": "9f659ea8371928ec9e17956fea75fcae"
     }
@@ -52,6 +64,8 @@
     "id": "rapeseed",
     "name": "Colza",
     "default": "6e52cdd418148c6aa2e6d94c4a92028d",
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 1,
     "variants": {
       "organic": "1a558498ad7a0c44a2d90f83f3bf0970"
     }
@@ -60,6 +74,8 @@
     "id": "tomato",
     "name": "Tomate",
     "default": "0eb889c2db4f2a017150c944bbf78278",
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
     "variants": {
       "organic": "e4a0e19482acde343e3d83f86747e7b6"
     }
@@ -68,18 +84,24 @@
     "id": "potato",
     "name": "Pomme de terre",
     "default": "f2a99884d14493ebe4cd70b759106096",
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
     "variants": {}
   },
   {
     "id": "durum wheat",
     "name": "Blé dur",
     "default": "da43175dd8163643ce4d9cac19a45884",
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 2.259,
     "variants": {}
   },
   {
     "id": "ground beef",
     "name": "Boeuf haché",
     "default": "da9409534ad17989aaccae4d44369016",
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.792,
     "variants": {
       "organic": "f421457c-3eff-0e02-4b4e-ce9d13285321"
     }
@@ -88,6 +110,8 @@
     "id": "cooked ham",
     "name": "Jambon",
     "default": "159fc059d675499a87c7f8973e66fd8e",
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.792,
     "variants": {
       "organic": "5b306777-edf5-f0f9-836c-74ccc48a6383"
     }
@@ -96,6 +120,8 @@
     "id": "chicken breast",
     "name": "Poulet",
     "default": "199c1eb451fccdeadc3109d74f6802b5",
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.73,
     "variants": {
       "organic": "78da6b29-4bf9-ae19-be60-b129874659b0"
     }
@@ -104,6 +130,8 @@
     "id": "lamb",
     "name": "Agneau",
     "default": "920ac3e2ac3579b5c4d2f549382c7e6b",
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.792,
     "variants": {
       "organic": "c1a0b8e6-e9f2-e7e9-acc6-83e2f7df2018"
     }
@@ -112,6 +140,8 @@
     "id": "apple",
     "name": "Pomme",
     "default": "590c11ca7aa7534b27f5403fb4688c5b",
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
     "variants": {
       "organic": "f1308e8aaa0cee8f63f6afb48e9abecd"
     }
@@ -120,6 +150,8 @@
     "id": "grape",
     "name": "Raisin de cuve",
     "default": "264003a8e64837cf18d6aaa1a9f477f0",
+    "default_origin": "EuropeAndMaghreb",
+    "raw_to_cooked_ratio": 0.856,
     "variants": {
       "organic": "a16fca295aff5ab9de57b3915cf8657a"
     }
