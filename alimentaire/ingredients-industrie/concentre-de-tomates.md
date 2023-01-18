@@ -52,3 +52,13 @@ Les impacts comparés de ces procédés sont :&#x20;
 
 _<mark style="color:red;">\[Intégration d'un graphique comparant les scores PEF décomposés des deux Farines qui seraient considérées]</mark>_&#x20;
 
+## Identification de l'origine par défaut
+
+Pour déterminer l'origine d'un ingrédient par défaut, chaque ingrédient est classé dans l'une des 4 catégories suivantes :&#x20;
+
+1. Ingrédient très majoritairement produit en France (> 95%) => origine par défaut : FRANCE
+2. Ingrédient très majoritairement produit en Europe/Maghreb (>95%) => transport par défaut : EUROPE/MAGHREB&#x20;
+3. Ingrédient produit également hors Europe (> 5%) => transport par défaut : PAYS TIERS
+4. Ingrédient spécifique (ex. Haricots et Mangues)&#x20;
+
+**Amidon de pomme de terre => catégorie 3 : PAYS TIERS** (source : [https://www.ouest-france.fr/monde/chine/alimentation-du-concentre-de-tomates-chinois-sur-les-tables-francaises-c6419bf2-df33-11eb-9839-459d43fee0b1](https://www.ouest-france.fr/monde/chine/alimentation-du-concentre-de-tomates-chinois-sur-les-tables-francaises-c6419bf2-df33-11eb-9839-459d43fee0b1) )
