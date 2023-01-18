@@ -38,7 +38,7 @@
   * [Score/100](alimentaire/impacts-consideres/score-100.md)
 * [Données](alimentaire/donnees.md)
 * [🥩 Ingrédients viandes](alimentaire/ingredients-viandes/README.md)
-  * [🐄 Boeuf hachée](alimentaire/ingredients-viandes/viande-de-boeuf-hachee.md)
+  * [🐄 Boeuf haché](alimentaire/ingredients-viandes/boeuf-hache.md)
   * [🐖 Jambon](alimentaire/ingredients-viandes/jambon.md)
   * [🐣 Poulet (blanc)](alimentaire/ingredients-viandes/poulet-blanc.md)
   * [🐑 Viande d'agneau](alimentaire/ingredients-viandes/viande-dagneau.md)

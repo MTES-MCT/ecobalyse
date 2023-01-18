@@ -1,4 +1,4 @@
-# 🐄 Boeuf hachée
+# 🐄 Boeuf haché
 
 
 
@@ -64,3 +64,14 @@ Cull cow, organic, milk system n°5, at farm gate
 Cull cow, organic, lowland milk system, silage maize 5 to 10%, at farm gate
 
 <figure><img src="../../.gitbook/assets/image (1) (2).png" alt=""><figcaption></figcaption></figure>
+
+## Identification de l'origine par défaut
+
+Pour déterminer l'origine d'un ingrédient par défaut, chaque ingrédient est classé dans l'une des 4 catégories suivantes :&#x20;
+
+1. Ingrédient très majoritairement produit en France (> 95%) => origine par défaut : FRANCE
+2. Ingrédient très majoritairement produit en Europe/Maghreb (>95%) => transport par défaut : EUROPE/MAGHREB&#x20;
+3. Ingrédient produit également hors Europe (> 5%) => transport par défaut : PAYS TIERS
+4. Ingrédient spécifique (ex. Haricots et Mangues)&#x20;
+
+**Viande bovine => catégorie 2 : EUROPE/MAGHREB** (source : FranceAgrimer) ****&#x20;

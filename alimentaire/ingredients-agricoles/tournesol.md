@@ -75,9 +75,9 @@ Le procédé "Sunflower oil, at oil mill (WFLDB 3.1)/GLO U" mobilise un procéd�
 
 Pour déterminer l'origine d'un ingrédient par défaut, chaque ingrédient est classé dans l'une des 4 catégories suivantes :&#x20;
 
-1. Ingrédient très majoritairement produit en France (> 95%) => transport par défaut &#x20;
-2. Ingrédient très majoritairement produit en Europe/_pourtour méditerranéen_ (>95%) => transport par défaut &#x20;
-3. Ingrédient produit également hors Europe (> 5%) => transport par défaut &#x20;
-4. Ingrédient spécifique (ex. Haricots et Mangues) => transport par défaut &#x20;
+1. Ingrédient très majoritairement produit en France (> 95%) => origine par défaut : FRANCE
+2. Ingrédient très majoritairement produit en Europe/Maghreb (>95%) => transport par défaut : EUROPE/MAGHREB&#x20;
+3. Ingrédient produit également hors Europe (> 5%) => transport par défaut : PAYS TIERS
+4. Ingrédient spécifique (ex. Haricots et Mangues)&#x20;
 
-**Tournesol => catégorie 3** (source : FranceAgriMer, chiffres et bilan 2021) ****&#x20;
+**Tournesol => catégorie 3 : PAYS TIERS** (source : FranceAgriMer, chiffres et bilan 2021) ****&#x20;
