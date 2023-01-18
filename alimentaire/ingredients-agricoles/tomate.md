@@ -87,9 +87,9 @@ On observe 2 ICV "autres pays" mobilisés.
 
 Pour déterminer l'origine d'un ingrédient par défaut, chaque ingrédient est classé dans l'une des 4 catégories suivantes :&#x20;
 
-1. Ingrédient très majoritairement produit en France (> 95%) => transport par défaut &#x20;
-2. Ingrédient très majoritairement produit en Europe/_pourtour méditerranéen_ (>95%) => transport par défaut &#x20;
-3. Ingrédient produit également hors Europe (> 5%) => transport par défaut&#x20;
-4. Ingrédient spécifique (ex. Haricots et Mangues) => transport par défaut &#x20;
+1. Ingrédient très majoritairement produit en France (> 95%) => origine par défaut : FRANCE
+2. Ingrédient très majoritairement produit en Europe/Maghreb (>95%) => transport par défaut : EUROPE/MAGHREB&#x20;
+3. Ingrédient produit également hors Europe (> 5%) => transport par défaut : PAYS TIERS
+4. Ingrédient spécifique (ex. Haricots et Mangues)&#x20;
 
-**Tomate (fraiche + industrie) => catégorie 3** (source : FranceAgriMer/dires d'experts) ****&#x20;
+**Tomate => catégorie 3 : EUROPE/MAGHREB** (source : FranceAgriMer/dires d'experts) ****&#x20;
