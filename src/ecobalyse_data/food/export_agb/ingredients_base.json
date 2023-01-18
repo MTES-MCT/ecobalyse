@@ -47,7 +47,11 @@
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 1,
     "variants": {
-      "organic": "85fe796d-44f6-fc91-9a7b-7f0bfdf305a0"
+      "organic": {
+        "ratio": 1.16,
+        "simple_ingredient_default": "Soft wheat grain, conventional, breadmaking quality, 15% moisture, at farm gate",
+        "simple_ingredient_variant": "Soft wheat grain, organic, 15% moisture, Central Region, at farm gate"
+      }
     }
   },
   {
@@ -103,7 +107,11 @@
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.792,
     "variants": {
-      "organic": "f421457c-3eff-0e02-4b4e-ce9d13285321"
+      "organic": {
+        "ratio": 2.3,
+        "simple_ingredient_default": "Beef cattle, national average, at farm gate",
+        "simple_ingredient_variant": "Cull cow, organic, milk system n°4, at farm gate"
+      }
     }
   },
   {
@@ -113,7 +121,11 @@
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.792,
     "variants": {
-      "organic": "5b306777-edf5-f0f9-836c-74ccc48a6383"
+      "organic": {
+        "ratio": 2.02,
+        "simple_ingredient_default": "Pig, conventional, national average, at farm gate",
+        "simple_ingredient_variant": "Pig, organic, system n°2, at farm gate"
+      }
     }
   },
   {
@@ -123,7 +135,11 @@
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.73,
     "variants": {
-      "organic": "78da6b29-4bf9-ae19-be60-b129874659b0"
+      "organic": {
+        "ratio": 1,
+        "simple_ingredient_default": "Broiler, conventional, at farm gate",
+        "simple_ingredient_variant": "Broiler, organic, at farm gate"
+      }
     }
   },
   {
@@ -133,7 +149,11 @@
     "default_origin": "EuropeAndMaghreb",
     "raw_to_cooked_ratio": 0.792,
     "variants": {
-      "organic": "c1a0b8e6-e9f2-e7e9-acc6-83e2f7df2018"
+      "organic": {
+        "ratio": 1.91,
+        "simple_ingredient_default": "Lamb, conventional, indoor production system, at farm gate",
+        "simple_ingredient_variant": "Lamb, organic, system n°1, at farm gate"
+      }
     }
   },
   {
