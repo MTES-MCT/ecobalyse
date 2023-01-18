@@ -81,13 +81,28 @@ formatFoodSelectedImpactScore { trigram } totalMass impacts =
                    )
                 |> round
                 |> clamp 0 100
-                |> String.fromInt
+
+        letter =
+            if score >= 80 then
+                "A"
+
+            else if score >= 60 then
+                "B"
+
+            else if score >= 40 then
+                "C"
+
+            else if score >= 20 then
+                "D"
+
+            else
+                "E"
     in
     span []
         [ span [ class "display-3 lh-1" ]
-            [ text score
+            [ text <| String.fromInt score
             ]
-        , text "/100"
+        , text <| "/100 (" ++ letter ++ ")"
         ]
 
 
