@@ -17,7 +17,7 @@ Dans la modélisation des produits CIQUAL de la base Agribalyse, des procédés 
 
 ## Liste de matières proposées
 
-Les matières proposées sont dans la documentation d'agribalyse&#x20;
+Les matières proposées sont dans la documentation d'Agribalyse&#x20;
 
 <figure><img src="../../.gitbook/assets/image (7).png" alt=""><figcaption><p>Methodology AGB 3.0- 20200528_ANNEXES-CLEAN_vf.pdf, p205</p></figcaption></figure>
 

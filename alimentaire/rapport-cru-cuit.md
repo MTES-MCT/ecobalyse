@@ -1,10 +1,10 @@
 # 🍚 Rapport cru/cuit
 
-Un ingrédient peut perdre de la masse à la cuisson (ex: courgettes) ou en gagner (ex: riz). Pour prendre en compte cette variation de la masse, on associe à chaque ingrédient un rapport cru/cuit selon le tableau ci-dessous (provenant de la documentation d'Agribalyse).
+Un ingrédient peut perdre de la masse à la cuisson (ex: courgettes) ou en gagner (ex: riz). Pour prendre en compte cette variation de masse, on associe à chaque ingrédient un rapport cru/cuit selon le tableau ci-dessous (provenant de la documentation d'Agribalyse).
 
 <figure><img src="../.gitbook/assets/image (3).png" alt=""><figcaption><p>Méthodologie AGB 3.1_Alimentation.pdf</p></figcaption></figure>
 
-La masse post-cuisson s'exprime donc en fonction de la masse pre-cuisson et du rapport cru/cuit de cette manière :
+La masse post-cuisson s'exprime donc en fonction de la masse pré-cuisson et du rapport cru/cuit de cette manière :
 
 $$
 m_{post\_cuisson} = m_{pre\_cuisson} * r_{cru-cuit}

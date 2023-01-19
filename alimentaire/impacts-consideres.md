@@ -2,11 +2,11 @@
 
 ## Indicateurs PEF
 
-16 indicateurs environnementaux sont actuellement modélisés sur Ecobalyse Alimentaire, conformément au référentiel méthodologique du PEF (Product Environmental Footprint) de la commission européenne.
+16 indicateurs environnementaux sont actuellement modélisés sur Ecobalyse Alimentaire, conformément au référentiel méthodologique du PEF (_Product Environmental Footprint_) de la commission européenne.
 
 ## Indicateur de biodiversité locale
 
-Les 16 indicateurs du PEF sont complétées afin de mieux prendre en compte l'impact sur la biodiversité locale (à la parcelle). Cet indicateur est calculé selon la méthodologie décrite dans cet article de recherche : [Lindner et al. 2019, Valuing Biodiversity in Life Cycle Impact Assessment](https://www.researchgate.net/publication/336523544\_Valuing\_Biodiversity\_in\_Life\_Cycle\_Impact\_Assessment)
+Les 16 indicateurs du PEF sont complétés afin de mieux prendre en compte l'impact sur la biodiversité locale (à la parcelle). Cet indicateur est calculé selon la méthodologie décrite dans cet article de recherche : [Lindner et al. 2019, Valuing Biodiversity in Life Cycle Impact Assessment](https://www.researchgate.net/publication/336523544\_Valuing\_Biodiversity\_in\_Life\_Cycle\_Impact\_Assessment)
 
 ## Indicateur d'impacts sur la biodiversité marine
 
@@ -14,12 +14,12 @@ La pression sur les espèces marines n'est pas pris en compte, en l'état, à tr
 
 ## Indicateurs d'impacts agrégés
 
-A partir des indicateurs d'impacts unitaires, deux indicateurs agrégés sont considérés :&#x20;
+À partir des indicateurs d'impacts unitaires, deux indicateurs agrégés sont considérés :&#x20;
 
 * le score PEF, tel que défini dans le recommandation de la Commission européenne de décembre 2021 ;
 * un score d'impacts défini pour introduire les indicateurs de biodiversité avec les 16 indicateurs PEF.&#x20;
 
-Les modalités de calcul du score PEF, avec les facteurs de normalisation et de pondération, sont rappelés dans la page suivant : [https://fabrique-numerique.gitbook.io/ecobalyse/textile/impacts-consideres#score-pef](https://fabrique-numerique.gitbook.io/ecobalyse/textile/impacts-consideres#score-pef)
+Les modalités de calcul du score PEF, avec les facteurs de normalisation et de pondération, sont rappelés dans la page suivante : [https://fabrique-numerique.gitbook.io/ecobalyse/textile/impacts-consideres#score-pef](https://fabrique-numerique.gitbook.io/ecobalyse/textile/impacts-consideres#score-pef)
 
 Pour le score d'impacts, les facteurs de normalisation du score PEF sont conservés. Les pondérations sont définies comme suit. En première approche :&#x20;
 
@@ -45,8 +45,8 @@ Pour le score d'impacts, les facteurs de normalisation du score PEF sont conserv
 | Eutrophisation eaux douces                          | 2,80                      | 1,91                            |
 | Eutrophisation marine                               | 2,96                      | 2,02                            |
 | Utilisation des sols                                | 7,94                      | 5,43                            |
-| Ecotoxicité eaux douces                             | 1,92                      | 1,31                            |
-| Epuisement des ressources en eau                    | 8,51                      | 5,81                            |
+| Écotoxicité eaux douces                             | 1,92                      | 1,31                            |
+| Épuisement des ressources en eau                    | 8,51                      | 5,81                            |
 | Utilisation de ressources fossiles                  | 8,32                      | 5,69                            |
 | Utilisation des ressources minérales et métalliques | 7,55                      | 5,16                            |
 
@@ -67,8 +67,8 @@ Pour le score d'impacts, les facteurs de normalisation du score PEF sont conserv
 | Eutrophisation eaux douces                          | 2,3       |
 | Eutrophisation marine                               | 2,4       |
 | Utilisation des sols                                | 6,6       |
-| Ecotoxicité eaux douces                             | 1,6       |
-| Epuisement des ressources en eau                    | 7,0       |
+| Écotoxicité eaux douces                             | 1,6       |
+| Épuisement des ressources en eau                    | 7,0       |
 | Utilisation de ressources fossiles                  | 6,9       |
 | Utilisation des ressources minérales et métalliques | 6,2       |
 

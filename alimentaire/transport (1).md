@@ -1,6 +1,6 @@
 # 🚛 Transport
 
-## Etapes considérées
+## Étapes considérées
 
 Différentes étapes de transport peuvent être mobilisées dans le cycle de vie d'un produit alimentaire. Le modèle considéré s'appuie sur la documentation Agribalyse, et en particulier les deux figures suivantes (cf. [Méthodologie AGB 3.1\_Alimentation.pdf](https://3613321239-files.gitbook.io/\~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2F-LpO7Agg1DbhEBNAvmHP%2Fuploads%2FwE46PsDpfPPo7qd486O6%2FM%C3%A9thodologie%20AGB%203.1\_Alimentation.pdf?alt=media\&token=0da7c4e0-4332-4bc3-9c86-83b7a6325971) - section 3.6 Transport le long de la chaîne de valeur) :&#x20;
 
@@ -12,7 +12,7 @@ Par rapport à la modélisation mobilisée dans Agribalyse, des valeurs par déf
 
 Les étapes suivantes sont donc considérées :&#x20;
 
-| Etape                                                                                               | Hypothèse et paramétrage                                                          | Remarques                                                                                                                                                                                                          |
+| Étape                                                                                               | Hypothèse et paramétrage                                                          | Remarques                                                                                                                                                                                                          |
 | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | <p>1.RECETTE<br>Acheminement d'un ingrédient vers le site de transformation</p>                     | Hypothèse par défaut  : 160 km de transport terrestre                             | <p>Cette distance est considérée, que le site de transformation soit situé en France ou dans un autre pays.<br>Elle n'est pas considérée pour un ingrédient agricole</p>                                           |
 | <p>2. RECETTE<br>Transport international - Acheminement d'un ingrédient vers la zone logistique</p> | Hypothèse par défaut : 160 km de transport terrestre                              | Cette distance n'est considérée que si un ingrédient a été produit hors de France. Elle s'applique que la transformation se fasse en France ou dans le pays d'origine, voire même s'il n'y a pas de transformation |
@@ -48,13 +48,13 @@ Vérification à faire : \
 | <p>5. VENTE<br>Transport vers le lieu de vente au détail</p>                                        | 150 km de camion | 150 km de camion                                       | 150 km de camion                                       |
 | 6. CONSOMMATION                                                                                     | N/A              | N/A                                                    | N/A                                                    |
 
-En l'absence de paramétrage du pays d'origine, les hypothèses appliquées pour le choix de circuit et pour le transport vers la France (étape 3. RECETTE) sont établies en distinguant 4 catégories d'ingrédient. La catégorie à laquelle chaque ingrédient appartient est précisée dans la page méthodologique de l'ingrédient en question \[_<mark style="color:red;">à initier</mark>_]. Si le circuit à considérer par défaut n'est pas (encore) précisé dans la page méthodologique relative à un ingrédient, c'est le circuit EUROPE-MAGREHB qui s'applique par défaut.
+En l'absence de paramétrage du pays d'origine, les hypothèses appliquées pour le choix de circuit et pour le transport vers la France (étape 3. RECETTE) sont établies en distinguant 4 catégories d'ingrédient. La catégorie à laquelle chaque ingrédient appartient est précisée dans la page méthodologique de l'ingrédient en question \[_<mark style="color:red;">à initier</mark>_]. Si le circuit à considérer par défaut n'est pas (encore) précisé dans la page méthodologique relative à un ingrédient, c'est le circuit EUROPE-MAGHREB qui s'applique par défaut.
 
 | Catégorie d'ingrédient                                                                                                | Circuit appliqué    | Hypothèse par défaut (-> France)                                                                                     |
 | --------------------------------------------------------------------------------------------------------------------- | ------------------- | -------------------------------------------------------------------------------------------------------------------- |
 | <p>FRANCE<br>Ingrédients très majoritairement produits en France (seuil : ~95%)</p>                                   | Circuit France      | N/A                                                                                                                  |
-| <p>EUROPE-MAGREHB<br>Ingrédients très majoritairement produits en Europe ou au Magrehb (seuil : ~95%)</p>             | Circuit hors France | <p>Transport par défaut :  <br>- 2500 km de camion</p>                                                               |
-| <p>HORS EUROPE-MAGREHB<br>Ingrédient provenant de façon significative de pays hors Europe / Magrehb (seuil : ~5%)</p> | Circuit hors France | <p>Transport par défaut : <br>- 18 000 km en bateau<br>- 2500 km en camion</p>                                       |
+| <p>EUROPE-MAGHREB<br>Ingrédients très majoritairement produits en Europe ou au Maghreb (seuil : ~95%)</p>             | Circuit hors France | <p>Transport par défaut :  <br>- 2500 km de camion</p>                                                               |
+| <p>HORS EUROPE-MAGHREB<br>Ingrédient provenant de façon significative de pays hors Europe / Maghreb (seuil : ~5%)</p> | Circuit hors France | <p>Transport par défaut : <br>- 18 000 km en bateau<br>- 2500 km en camion</p>                                       |
 | <p>AVION<br>Cas particulier des ingrédients transportés de façon non marginale par avion (mangue, haricots...)</p>    | Circuit avion       | Transport en avion, avec distance à préciser ingrédient par ingrédient (ex : distance Pérou-France pour la mangue ?) |
 
 ## Calcul
@@ -77,7 +77,7 @@ La masse s'exprime en **tonnes**. Une conversion est donc à prendre en compte p
 
 ## Types de transport
 
-En première approche, hors des ingrédients qui mobilisent le "circuit avion" défini ci-dessus, on ne considère que du transport maritime et du transport terrestre routier. La formule proposée ci-après anticipe toutefois l'introduction du transport aérien.
+En première approche, hormis les ingrédients qui mobilisent le "circuit avion" défini ci-dessus, on ne considère que du transport maritime et du transport terrestre routier. La formule proposée ci-après anticipe toutefois l'introduction du transport aérien.
 
 {% hint style="warning" %}
 Le transport aérien sera introduit avec l'ajout d'ingrédients susceptibles d'être transportés par avion (Mangue du Pérou, Haricot du Kenya...)
@@ -115,7 +115,7 @@ $$
 ## Part du transport aérien
 
 {% hint style="danger" %}
-A introduire lors de l'ajout d'ingrédients susceptibles d'être transpotés par avion
+A introduire lors de l'ajout d'ingrédients susceptibles d'être transportés par avion
 {% endhint %}
 
 ## Distances

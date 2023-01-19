@@ -12,7 +12,7 @@ Hormis les transports, cette étape du cycle de vie a un impact qui provient de 
 * la consommation d'eau de la plateforme de distribution
 * l'émission de gaz réfrigérant (r404) (négligé pour l'instant)
 
-Pour estimer l'impact d'un produit, on a besoin de sa densité. Les hypothèses de la doc agribalyse&#x20;
+Pour estimer l'impact d'un produit, on a besoin de sa densité. Les hypothèses de la doc Agribalyse&#x20;
 
 <figure><img src="../../.gitbook/assets/image (1).png" alt=""><figcaption><p>Méthodologie AGB 3.0-20200218_rapport-vf2.pdf</p></figcaption></figure>
 
@@ -20,7 +20,7 @@ De plus&#x20;
 
 <figure><img src="../../.gitbook/assets/image (1) (3).png" alt=""><figcaption><p>Méthodologie AGB 3.0-20200218_rapport-vf2.pdf</p></figcaption></figure>
 
-A partir de ces données et de l'impact unitaire de chaque procédé, on peut en déduire l'impact de le l'étape de distribution en µPt PEF par kg de produit.
+À partir de ces données et de l'impact unitaire de chaque procédé, on peut en déduire l'impact de l'étape de distribution en µPt PEF par kg de produit.
 
 On obtient :&#x20;
 
