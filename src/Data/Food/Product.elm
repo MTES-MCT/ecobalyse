@@ -26,7 +26,7 @@ module Data.Food.Product exposing
 import Data.Country as Country
 import Data.Food.Amount as Amount exposing (Amount)
 import Data.Food.Process as Process exposing (Process, ProcessName)
-import Data.Food.Transport as Transport
+import Data.Food.Transport as FoodTransport
 import Data.Impact as Impact
 import Data.Scope as Scope
 import Data.Textile.Formula as Formula
@@ -268,7 +268,7 @@ getStepTransports step =
             (\( transport, process ) acc ->
                 let
                     distanceToAdd =
-                        Transport.getLength step.mainItem.mass transport
+                        FoodTransport.getLength step.mainItem.mass transport
                 in
                 case Dict.get (Process.nameToString process.name) transportModes of
                     Just "air" ->
@@ -477,7 +477,7 @@ updatePlantTransport originalProduct processes impactDefinitions countryCode dis
                                 (\( process, distance ) ->
                                     { amount =
                                         plantWeight
-                                            |> Transport.kilometerToTonKilometer distance
+                                            |> FoodTransport.kilometerToTonKilometer distance
                                             |> Amount.Mass
                                     , comment = ""
                                     , process = process
