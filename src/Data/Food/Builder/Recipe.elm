@@ -5,7 +5,6 @@ module Data.Food.Builder.Recipe exposing
     , Transform
     , availableIngredients
     , availablePackagings
-    , availableTransforms
     , compute
     , computeProcessImpacts
     , deletePackaging
@@ -95,18 +94,6 @@ availablePackagings usedProcesses processes =
     processes
         |> Process.listByCategory Process.Packaging
         |> List.filter (\process -> not (List.member process.code usedProcesses))
-
-
-availableTransforms : Maybe Process.Code -> List Process -> List Process
-availableTransforms maybeCode processes =
-    case maybeCode of
-        Just code ->
-            processes
-                |> Process.listByCategory Process.Transform
-                |> List.filter (.code >> (/=) code)
-
-        Nothing ->
-            processes
 
 
 compute : Db -> Query -> Result String ( Recipe, Results )
