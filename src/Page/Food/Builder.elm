@@ -994,7 +994,7 @@ transformView db selectedImpact recipe results =
     , case recipe.transform of
         Just transform ->
             div []
-                [ ul [ class "list-group list-group-flush border-top-0" ]
+                [ ul [ class "list-group list-group-flush border-top-0 border-bottom-0" ]
                     [ updateProcessFormView
                         { processes =
                             db.processes
@@ -1006,9 +1006,18 @@ transformView db selectedImpact recipe results =
                         , deleteEvent = ResetTransform
                         }
                     ]
-                , div [ class "card-body d-flex align-items-center gap-1 text-muted py-2" ]
-                    [ Icon.info
-                    , small [] [ text "Entrez la masse totale mobilisée par le procédé de transformation sélectionné" ]
+                , div
+                    [ class "card-body d-flex justify-content-between align-items-center gap-1"
+                    , class "border-top-0 text-muted py-2 fs-7"
+                    ]
+                    [ span [ class "text-truncate" ]
+                        [ text <|
+                            "Masse du produit après transformation ("
+                                ++ Process.nameToString transform.process.name
+                                ++ ")"
+                        ]
+                    , Recipe.getTransformedIngredientsMass recipe
+                        |> Format.kg
                     ]
                 ]
 
