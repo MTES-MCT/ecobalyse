@@ -13,7 +13,6 @@ module Data.Food.Builder.Query exposing
     , encode
     , parseBase64Query
     , setTransform
-    , sumMasses
     , updateIngredient
     , updatePackaging
     , updateTransform
@@ -223,11 +222,6 @@ getIngredientMass query =
 setTransform : ProcessQuery -> Query -> Query
 setTransform transform query =
     { query | transform = Just transform }
-
-
-sumMasses : List { a | mass : Mass } -> Mass
-sumMasses =
-    List.map .mass >> Quantity.sum
 
 
 updateIngredient : Ingredient.Id -> IngredientQuery -> Query -> Query

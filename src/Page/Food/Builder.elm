@@ -28,6 +28,7 @@ import Html.Events exposing (..)
 import Json.Encode as Encode
 import Page.Textile.Simulator.ViewMode as ViewMode
 import Ports
+import Quantity
 import RemoteData exposing (WebData)
 import Request.Common
 import Request.Food.BuilderDb as RequestDb
@@ -178,7 +179,7 @@ update ({ queries } as session) msg model =
         AddTransform ->
             let
                 defaultMass =
-                    Query.sumMasses query.ingredients
+                    query.ingredients |> List.map .mass |> Quantity.sum
 
                 firstTransform =
                     session.builderDb.processes

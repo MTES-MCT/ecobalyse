@@ -176,14 +176,6 @@ compute db =
             )
 
 
-getTotalMass : Recipe -> Mass
-getTotalMass { ingredients, packaging } =
-    Quantity.sum
-        [ BuilderQuery.sumMasses ingredients
-        , BuilderQuery.sumMasses packaging
-        ]
-
-
 computeImpact : Mass -> Impact.Trigram -> Unit.Impact -> Unit.Impact
 computeImpact mass _ =
     Unit.impactToFloat
@@ -336,6 +328,14 @@ getRecipeIngredientProcess { ingredient, variant } =
         BuilderQuery.Organic ->
             ingredient.variants.organic
                 |> Maybe.withDefault ingredient.default
+
+
+getTotalMass : Recipe -> Mass
+getTotalMass { ingredients, packaging } =
+    Quantity.sum
+        [ ingredients |> List.map .mass |> Quantity.sum
+        , packaging |> List.map .mass |> Quantity.sum
+        ]
 
 
 ingredientListFromQuery : Db -> Query -> Result String (List RecipeIngredient)
