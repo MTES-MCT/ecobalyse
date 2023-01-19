@@ -23,7 +23,7 @@ Une description détaillée de ces sous-étapes est proposée en bas de page.
 
 Non applicable
 
-_En l’absence de données suffisamment précises dans la Base Impacts, l’étape de Pré-traitement n’est pas paramétrable dans le calculateur. La mise en place d’une nouvelle base de données permettra de répondre à cette limite._&#x20;
+_En l’absence de donnée suffisamment précise dans la Base Impacts, l’étape de Pré-traitement n’est pas paramétrable dans le calculateur. La mise en place d’une nouvelle base de données permettra de répondre à cette limite._&#x20;
 
 </details>
 
@@ -66,12 +66,12 @@ L'étape Ennoblissement est modélisée comme suit :&#x20;
 
 L'impact global de l'Ennoblissement se comprend donc comme résultant de la somme des impacts des :&#x20;
 
-* procédé retenus \
+* procédés retenus \
   (cf. intérieur du _system boundaries_)
 * flux externes devant être ajoutés à chaque procédé \
   ([chaleur](../parametres-transverses/chaleur.md) et/ou [électricité](../parametres-transverses/electricite.md))
 
-L'impact de chaque procédé pris séparement correspond au produit de la masse "sortante" avec le coefficient d'impact considéré (cf. [Impacts considérés](../impacts-consideres.md)).
+L'impact de chaque procédé pris séparément correspond au produit de la masse "sortante" avec le coefficient d'impact considéré (cf. [Impacts considérés](../impacts-consideres.md)).
 
 $$
 ImpactProcédé = MasseSortante(kg) * CoefImpactProcédé
@@ -87,7 +87,7 @@ Plus de détail sur la gestion des masses : [Pertes et rebut](../parametres-tran
 
 Non applicable
 
-_En l’absence de données suffisamment précises dans la Base Impacts, l’étape de Pré-traitement n’est pas paramétrable dans le calculateur. La mise en place d’une nouvelle base de données permettra de répondre à cette limite._&#x20;
+_En l’absence de donnée suffisamment précise dans la Base Impacts, l’étape de Pré-traitement n’est pas paramétrable dans le calculateur. La mise en place d’une nouvelle base de données permettra de répondre à cette limite._&#x20;
 
 </details>
 
@@ -143,7 +143,7 @@ L'utilisateur n'a, à ce stade, pas la possibilité de préciser cette sous-éta
 
 * la majorité des textiles font l'objet d'au moins un apprêt chimique lors de la sous-étape Finition,
 * les apprêts chimiques contribuent fortement à l'indicateur écotoxicité aquatique qui n'est actuellement pas pris en compte dans le calculateur (donc modéliser l'utilisation d'un ou plusieurs apprêts chimiques n'a actuellement aucun impact sur cet indicateur),
-* la consommation d'énergie reste relativement stable quelquesoit le nombre d'apprêts chimiques utilisés (anti-tâche, anti-acarien, etc.) car ils sont généralement appliqués lors d'un même bain,
+* la consommation d'énergie reste relativement stable quel que soit le nombre d'apprêts chimiques utilisés (anti-tâche, anti-acarien, etc.) car ils sont généralement appliqués lors d'un même bain,
 * deux procédés d'apprêts mécaniques sont disponibles dans la Base Impacts mais ils s'appliquent uniquement à certaines fibres et ils consomment très peu d'énergie.
 
 Des évolutions sont prévues dans les prochains mois pour répondre à cette limite.&#x20;
@@ -174,7 +174,7 @@ La quantité de tissu imprimée est à spécifier par l'utilisateur (en % de la 
 
 #### Fibre <=> Procédé de teinture (en cours)
 
-Il n’est pas encore possible de différencier les procédés de teinture (continu vs discontinu) ni les colorants (dispersés, acides, réactifs, cationiques, de cuve) utilisés selon la fibre teinte (cellulosique, laine, mix de fibres, etc.).
+Il n’est pas encore possible de différencier les procédés de teinture (continu ou discontinu) ni les colorants (dispersés, acides, réactifs, cationiques, de cuve) utilisés selon la fibre teinte (cellulosique, laine, mix de fibres, etc.).
 
 Cela s’explique en partie par le manque de profondeur de la base de données utilisée (Base Impacts).
 
@@ -183,7 +183,7 @@ Ces paramétrages seront prochainement disponibles sur le calculateur.
 ## Limites
 
 * Les indicateurs "Consommations d'eau" et "Ecotoxicité aquatique" ne sont pas modélisés,
-* Les principaux pocédés de Pré-Traitement du tissu ne sont pas encore disponibles,
+* Les principaux procédés de Pré-Traitement du tissu ne sont pas encore disponibles,
 * Les principaux procédés (continu vs discontinu) et colorants de teinture ne sont pas encore disponibles,
 
 ## En savoir plus sur l'ennoblissement
@@ -207,13 +207,13 @@ Les deux procédés sont basés sur une moyenne de trois techniques : impression
 
 <summary>En savoir plus</summary>
 
-Concernant la **teinture**, deux principaux procédés sont utilisés dans l’industrie : la teinture en discontinue et la teinture en continue (et semi-continue).&#x20;
+Concernant la **teinture**, deux principaux procédés sont utilisés dans l’industrie : la teinture en discontinu et la teinture en continu (et semi-continu).&#x20;
 
-La teinture en **discontinu** (également appelée teinture par épuisement) consiste à tremper la matière dans une solution aqueuse contenant des colorants et produits auxiliaires pendant une période allant de quelques minutes à quelques heures. Un paramètre important en teinture discontinue est le rapport de bain (MLR = Mass to Liquor Ratio). Il s'agit du rapport de poids entre la matière sèche totale et la solution totale. Ainsi, par exemple, un rapport de bain de 1:10 signifie 10 litres d'eau pour 1 kg de matière textile.&#x20;
+La teinture en **discontinu** (également appelée teinture par épuisement) consiste à tremper la matière dans une solution aqueuse contenant des colorants et produits auxiliaires pendant une période allant de quelques minutes à quelques heures. Un paramètre important en teinture en discontinu est le rapport de bain (MLR = Mass to Liquor Ratio). Il s'agit du rapport de poids entre la matière sèche totale et la solution totale. Ainsi, par exemple, un rapport de bain de 1:10 signifie 10 litres d'eau pour 1 kg de matière textile.&#x20;
 
 La teinture en **continu** consiste à appliquer le bain de teinture soit par imprégnation (au moyen de foulards), soit en utilisant d'autres systèmes d'application. Dans ces procédés, le facteur dont il faut tenir compte est le taux d’emport ou taux d’exprimage (masse en grammes de solution absorbée pour 100 grammes d'étoffe sèche) et la concentration du colorant.
 
-Les procédés de teinture en discontinu conduisent en général à des consommations d'eau et d'énergie plus élevées que les procédés continus. Cependant, bien que les procédés de teinture à la continu consomment moins d'eau, ces derniers nécessitent une concentration plus élevée de colorant dans le bain d’imprégnation. (entre 10 et 100g/l vs entre 0,1 et 1g/l pour les procédés en discontinu). Ainsi, le rejet de cet effluent concentré peut entraîner une charge de pollution plus élevée qu’en teinture discontinue.
+Les procédés de teinture en discontinu conduisent en général à des consommations d'eau et d'énergie plus élevées que les procédés continus. Cependant, bien que les procédés de teinture en continu consomment moins d'eau, ces derniers nécessitent une concentration plus élevée de colorant dans le bain d’imprégnation. (entre 10 et 100g/L vs entre 0,1 et 1g/L pour les procédés en discontinu). Ainsi, le rejet de cet effluent concentré peut entraîner une charge de pollution plus élevée qu’en teinture en discontinu.
 
 **L’impression** consiste systématiquement à préparer la pâte d’impression, appliquer la pâte au support en utilisant différentes techniques, fixer les colorants sur l’étoffe puis traiter/laver/sécher l’étoffe.&#x20;
 
@@ -225,7 +225,7 @@ Les machines/techniques d'impression les plus utilisées sont : \
 \- impression au cadre plat\
 \- impression au cadre rotatif\
 \- impression au rouleau\
-\- impression digitale (par jet d'encre)\
+\- impression numérique (par jet d'encre)\
 \- impression par transfert numérique (la sublimation)&#x20;
 
 </details>
@@ -236,4 +236,4 @@ Cette sous-étape regroupe les traitements qui servent à donner aux textiles le
 
 Les apprêts peuvent impliquer des traitements mécaniques/physiques et chimiques. Dans la majorité des cas, les apprêts chimiques sont appliquées sous la forme de solutions aqueuses au moyen de la technique de foulardage.&#x20;
 
-Certais apprêts sont spécifiques à certaines fibres (ex : les apprêts _easy care_ pour le coton) tandis que d'autres ont une application plus générale (ex : les adoucissants).
+Certains apprêts sont spécifiques à certaines fibres (ex : les apprêts _easy care_ pour le coton) tandis que d'autres ont une application plus générale (ex : les adoucissants).

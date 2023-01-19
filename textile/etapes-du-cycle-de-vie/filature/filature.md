@@ -26,7 +26,7 @@ La liste des matières disponibles dans Ecobalyse est visible dans l'[Explorateu
 
 ## Cas du multi-matière
 
-* Pour l'étape Matière : Il est possible d'ajouter plusieurs matières. Dans le cas où l'on ajoute des matières ayant des **Pays de production et de filature par défaut,** on fait l'hypothèse que tous les matières ont le **Pays de production et de filature par défaut,** de la matière la plus présente (en %).
+* Pour l'étape Matière : Il est possible d'ajouter plusieurs matières. Dans le cas où l'on ajoute des matières ayant des **Pays de production et de filature par défaut,** on fait l'hypothèse que toutes les matières ont le **Pays de production et de filature par défaut** de la matière la plus présente (en %).
 * Pour l'étape de Filature : on fait l'hypothèse que la filature a lieu par défaut dans le **Pays de production et de filature par défaut** de la matière la plus présente (en %). Mais il est toujours possible de paramétrer un autre pays. Dans ce cas la filature de toutes les matières aura lieu dans ce pays (il est impossible de paramétrer la filature de chaque matière dans un pays différent).&#x20;
 
 ## Documentation des procédés Base Impacts

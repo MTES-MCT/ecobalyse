@@ -4,7 +4,7 @@
 
 ### Généralités
 
-La consommation d'électricité s'exprime en kilowattheures (kWh).\
+La consommation d'électricité s'exprime en kilowatt.heures (kWh).\
 Certains procédés nécessitent l'utilisation de l'unité mégajoule (MJ) pour la quantité d'électricité; une conversion est alors appliquée (1 kWh = 3,6 MJ).&#x20;
 
 Deux scénarios existent pour modéliser la consommation d'électricité des procédés mobilisés :&#x20;
@@ -24,7 +24,7 @@ Ecobalyse applique par défaut les mix électriques nationaux des pays disponibl
 
 #### Paramétrage manuel de l'impact carbone
 
-A chaque étape de la production qui mobilise de l'électricité, il est proposé de paramétrer manuellement l'intensité carbone du mix électrique.
+À chaque étape de la production qui mobilise de l'électricité, il est proposé de paramétrer manuellement l'intensité carbone du mix électrique.
 
 Par défaut, l'intensité carbone du mix électrique est la valeur spécifiée dans la base Impacts, pour l'impact "changement climatique" (UUID : `b2ad6d9a-c78d-11e6-9d9d-cec0c932ce01)`, pour chacun des mix électriques nationaux mentionnés (ci-dessus).
 
@@ -38,14 +38,14 @@ Paramétrage :
 * pas : 0,001 kg CO2e / kWh
 
 {% hint style="warning" %}
-* Le paramétrage manuel **ne concerne que le changement climatique** et pas les autres impacts qui pourraient être prochainement intégrés dans l'outil Wikicarbone
+* Le paramétrage manuel **ne concerne que le changement climatique** et pas les autres impacts qui pourraient être prochainement intégrés dans l'outil Ecobalyse
 * La modification manuelle de l'intensité carbone du mix électrique **ne s'applique qu'à l'étape considérée** (par exemple la teinture). Elle ne modifie pas le mix électrique mobilisé pour une autre étape qui serait réalisée dans le même pays (par exemple la confection).
 * La revendication d'un mix électrique différent de celui du réseau national, par exemple une énergie 100% renouvelable, **nécessite que des conditions soient remplies** \[à préciser pour lister les critères à remplir pour revendiquer une énergie verte en ACV].
 {% endhint %}
 
 Pour déterminer l'intensité carbone d'un mix électrique, il est possible de considérer :
 
-* l'intensité carbone des différents mix électrique nationaux telle que définie dans la base Impacts (cf. impact "changement climatique" des différents procédés de mix électriques) ;
+* l'intensité carbone des différents mix électriques nationaux telle que définie dans la base Impacts (cf. impact "changement climatique" des différents procédés de mix électriques) ;
 * les intensités carbone des différents moyens de production présentés dans la base Carbone / bilan GES de l'ADEME ([lien](https://www.bilans-ges.ademe.fr/fr/basecarbone/donnees-consulter/choix-categorie/categorie/69)).
 
 {% hint style="warning" %}

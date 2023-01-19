@@ -8,23 +8,23 @@ description: >-
 
 ## Qualité intrinsèque
 
-La qualité intrinsèque est définie dans le projet de référentiel PEFCR Apparel & Footwear (v1.2 et 1.3). Elle est traduite à travers un coefficient, compris entre 0.67 et 1.45, qui représente la durabilité du vêtement et s'applique à la durée de vie du vêtement. Pour le calculer un vêtement doit passer des tests de durabilité physique. Les tests à appliqués sont définis, produit par produit, dans l'annexe V du projet de PEFCR. Les résultats de ces tests donneront un score entre 0.67 et 1.45. Si un vêtement ne passe pas de tests, il a une qualité par défaut de 0.67.
+La qualité intrinsèque est définie dans le projet de référentiel PEFCR Apparel & Footwear (v1.2 et 1.3). Elle est traduite à travers un coefficient, compris entre 0.67 et 1.45, qui représente la durabilité du vêtement et s'applique à la durée de vie du vêtement. Pour le calculer un vêtement doit passer des tests de durabilité physique. Les tests à appliquer sont définis, produit par produit, dans l'annexe V du projet de PEFCR. Les résultats de ces tests donneront un score entre 0.67 et 1.45. Si un vêtement ne passe pas de test, il a une qualité par défaut de 0.67.
 
 {% hint style="success" %}
 Fairly Made® propose une retranscription du coefficient de qualité intrinsèque (aussi appelé coefficient de Durabilité) défini dans la méthodologie PEF-CR A\&F v1. 3 sous la forme d’un calculateur simple d’utilisation [accessible ici](https://docs.google.com/spreadsheets/d/15L\_AVG1qcd2iSj4v1O0xd8nPkI83pzEQqXkPorFutjc/edit?usp=sharing)\
 Pour en savoir plus sur le calculateur contactez : [clement.aumand@fairlymade.com](mailto:clement.aumand@fairlymade.com)
 {% endhint %}
 
-Ce score est ensuite appliqué en coefficient multiplicateur du nombre de jours d'utilisations.
+Ce score est ensuite appliqué en coefficient multiplicateur du nombre de jours d'utilisation.
 
-Prenons l'exemple d'une veste. Elle a par défaut 100 jours d'utilisation dans le référentiel PEFCR. Avec une qualité intrinsèque de 0.67, elle aura 67 jours d'utilisation. Etant donné qu'elle fera moins de cycle d'entretiens l'impact de cette veste va légèrement diminuer. Par contre l'impact **par jour d'utilisation** lui va augmenter fortement (environ 1/0.67 = +50%) car on va diviser par un nombre plus petit .\
-De la même manière, avec une qualité intrinsèque à 1.45, cette veste aura 145 jours d'utilisation. Son impact va augmenter légèrement (plus de cycle d'entretien). Mais l'impact **par jour d'utilisation** va diminuer fortement (environ 1/1.45 = -30%).
+Prenons l'exemple d'une veste. Elle a par défaut 100 jours d'utilisation dans le référentiel PEFCR. Avec une qualité intrinsèque de 0.67, elle aura 67 jours d'utilisation. Étant donné qu'elle fera moins de cycles d'entretien, l'impact de cette veste va légèrement diminuer. Par contre l'impact **par jour d'utilisation** lui va augmenter fortement (environ 1/0.67 = +50%) car on va diviser par un nombre plus petit .\
+De la même manière, avec une qualité intrinsèque à 1.45, cette veste aura 145 jours d'utilisation. Son impact va augmenter légèrement (plus de cycles d'entretien). Mais l'impact **par jour d'utilisation** va diminuer fortement (environ 1/1.45 = -30%).
 
 ## Réparabilité
 
 La réparabilité est introduite dans la version 1.3 du projet de PEFCR Apparel & Footwear éditée en mars 2022.
 
-Comme la qualité intrinsèque, elle se traduit par un coefficient, compris entre 1 et 1,15, qui s'applique ensuite à la durée de vie du vêtement. Les coefficients de réparabilité et de durabilité sont multipliés afin d'être appliqués, ensemble, à la durée de vie.
+Comme la qualité intrinsèque, elle se traduit par un coefficient, compris entre 1 et 1,15, qui s'applique ensuite à la durée de vie du vêtement. Les coefficients de réparabilité et de durabilité sont multipliés afin d'être appliqués ensemble à la durée de vie.
 
 Les paramètres à prendre en compte pour établir le coefficient de réparabilité sont introduits dans le projet de PEFCR Apparel & Footwear. Ils couvrent :
 
@@ -33,7 +33,7 @@ Les paramètres à prendre en compte pour établir le coefficient de réparabili
 * le prix de la réparation (_price of repair_)
 * la période de garantie pour réparation (_repair warranty period_)
 
-La méthode de calcul intègre par ailleurs les différents points de fragilités (ex : fermetures éclair), en introduisant un score de réparabilité du mode de défaillance (_Failure Mode Reparability Score_). Les modalités détaillées de calcul, produit par produit, sont en annexe VI du projet de PEFCR (v1.3).
+La méthode de calcul intègre par ailleurs les différents points de fragilité (ex : fermetures éclair), en introduisant un score de réparabilité du mode de défaillance (_Failure Mode Reparability Score_). Les modalités détaillées de calcul, produit par produit, sont en annexe VI du projet de PEFCR (v1.3).
 
 ![Exemple de calcul du coefficient de réparabilité (pour un T-shirt)](../../.gitbook/assets/RéparabilitéT-shirt.PNG)
 
@@ -46,11 +46,11 @@ Pour en savoir plus sur le calculateur contactez : clement.aumand@fairlymade.com
 
 Les impacts de la phase d'utilisation viennent en fait exclusivement de la phase d'entretien du produit. Conformément à la documentation textile de la [base Impacts](http://www.base-impacts.ademe.fr) nous prenons en compte les impacts suivants :
 
-* Lavage - Electricité
+* Lavage - Électricité
 * Lavage - Lessive
 * Lavage - Traitement des eaux usées
-* Séchage - Electricité
-* Repassage - Electricité
+* Séchage - Électricité
+* Repassage - Électricité
 
 On peut exprimer l'impact de l'utilisation _I_\__utilisation_ de la manière suivante :
 
@@ -58,7 +58,7 @@ $$
 I_{utilisation} = I_{élec\_lavage} + I_{lessive} + I_{eaux\_usées} + I_{élec\_séchage} + I_{élec\_repassage}
 $$
 
-Certaines grandeurs sont dépendantes du type de produit (jupe, pantalon, t-shirt,...). Pour indiquer cette dépendance on les noteras (p). Par exemple le nombre de cycles d'entretien par défaut est différent pour chaque type de produit. Il est de 45 pour un t-shirt et de 5 pour un manteau, ce qui exprime le fait que l'on va plus laver un t-shirt qu'un manteau.
+Certaines grandeurs sont dépendantes du type de produit (jupe, pantalon, t-shirt,...). Pour indiquer cette dépendance on les notera (p). Par exemple le nombre de cycles d'entretien par défaut est différent pour chaque type de produit. Il est de 45 pour un t-shirt et de 5 pour un manteau, ce qui exprime le fait que l'on va plus laver un t-shirt qu'un manteau.
 
 Toutes les valeurs dépendantes du type de produit (p) sont à retrouver dans [l'explorateur de la table des produits](https://wikicarbone.beta.gouv.fr/#/explore/products).
 
@@ -66,7 +66,7 @@ Toutes les valeurs dépendantes du type de produit (p) sont à retrouver dans [l
 
 ### Lavage
 
-#### Electricité
+#### Électricité
 
 $$
 I_{élec\_lavage} = n_{cycles}(p) \times m \times F_{kWh/kg\_lavage} \times C_{impact/kWh}
@@ -74,7 +74,7 @@ $$
 
 Avec
 
-_I_\__élec\_lavage : l'impact dans l'indicateur sélectionné de l'électricité du au lavage du produit (unité : impact)_
+_I_\__élec\_lavage : l'impact dans l'indicateur sélectionné de l'électricité due au lavage du produit (unité : impact)_
 
 _n\_cycles(p) :_ nombre de cycles d'entretien par défaut (unité : sans unité)
 
@@ -111,9 +111,9 @@ _C\_impact/m3\_eaux : l'impact du traitement d'1 m3 d'eaux usées (unité : impa
 
 ### Séchage
 
-#### Electricité
+#### Électricité
 
-Pour l'étape de séchage en sèche-linge, en accord avec le projet de PEFCR Apparel & Footwear (Table 33 - version de l'été 2021) on applique un ratio de produits séchés en sèche-linge différent pour chaque type de produit. Par exemple on fait l'hypothèse qu'un T-Shirt est séché en sèche-linge 30% du temps tandis qu'une jupe n'est séché en sèche-linge que 12% du temps.
+Pour l'étape de séchage en sèche-linge, en accord avec le projet de PEFCR Apparel & Footwear (Table 33 - version de l'été 2021) on applique un ratio de produits séchés en sèche-linge différent pour chaque type de produit. Par exemple on fait l'hypothèse qu'un T-Shirt est séché en sèche-linge 30% du temps tandis qu'une jupe n'est séchée en sèche-linge que 12% du temps.
 
 $$
 I_{élec\_séchage} = n_{cycles}(p) \times m\times ratio_{sèche-linge}(p) \times F_{kWh/kg\_sèche-linge} \times C_{impact/kWh}
@@ -125,7 +125,7 @@ _F\_kWh/kg\_sèche-linge : la quantité d'électricité nécessaire à sécher 1
 
 ### Repassage
 
-#### Electricité
+#### Électricité
 
 Pour l'étape de repassage, en accord avec le projet de PEFCR Apparel & Footwear (Table 33 - version de l'été 2021) on applique un ratio de produits repassés différent pour chaque type de produit. Par exemple on fait l'hypothèse qu'une chemise est repassé 70% du temps tandis qu'un pull n'est jamais repassé. De plus on fait l'hypothèse que le temps de repassage est différent pour chaque type de vêtement. Ainsi on suppose qu'un T-Shirt a un temps de repassage de 2 min tandis qu'un pantalon a un temps de repassage de 4,3 min.
 

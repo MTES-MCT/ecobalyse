@@ -69,7 +69,7 @@ Les 5 procédés mobilisés sont les seuls disponibles à ce jour dans la base I
 Les différents procédés de confection ne prévoient pas de perte dans la base Impacts, contrairement à ce qui peut être affiché dans le schéma "system boundaries" ci-dessus (Flux intermédiaire - Textile Waste - UUID: `1cc67763-7318-4077-af4a-bcd0ab5ef33f`).
 
 {% hint style="success" %}
-Le taux de perte en confection est maintenant paramètrable directement dans l'étape Confection
+Le taux de perte en confection est maintenant paramétrable directement dans l'étape Confection
 {% endhint %}
 
 En revanche, des pertes sont bien mentionnées dans la documentation sectorielle ADEME, en fonction du type de vêtement considéré (cf. Méthodologie d'évaluation des impacts environnementaux des articles d'habillement - Annexe A.1.c - p28) :
@@ -77,7 +77,7 @@ En revanche, des pertes sont bien mentionnées dans la documentation sectorielle
 | Vêtement  | Groupe   | Pertes (%) |
 | --------- | -------- | ---------- |
 | Châle     | Groupe 1 | `10%`      |
-| Echarpe   | Groupe 1 | `10%`      |
+| Écharpe   | Groupe 1 | `10%`      |
 | Débardeur | Groupe 2 | `15%`      |
 | T-shirt   | Groupe 2 | `15%`      |
 | Gilet     | Groupe 3 | `20%`      |
@@ -103,7 +103,7 @@ Attention : le calcul des pertes est donc différent pour l'étape de confection
 
 Plus de détail sur la gestion des masses : [Pertes et rebut](../parametres-transverses/pertes-et-rebus.md).
 
-## Electricité
+## Électricité
 
 La quantité d'électricité à mobiliser pour actionner le procédé de confection est le produit du nombre d'articles / vêtements, avec le coefficient du flux intermédiaire correspondant à l'électricité (`de442ef0-d725-4c3a-a5e2-b29f51a1186c`).
 
@@ -123,7 +123,7 @@ Une ambigüité apparaît dans la méthodologie entre :
 Le calcul d'impact de l'électricité ainsi mobilisée est détaillé dans la page suivante : [Electricité](../parametres-transverses/electricite.md).
 
 {% hint style="danger" %}
-L'électricité s'exprime en KWh dans la formule ci-dessous. Une division par 3,6 est donc nécessaire pour assurer le changement d'unité par rapport à l'électricité consommée, calculée d'abord en MJ.
+L'électricité s'exprime en kWh dans la formule ci-dessous. Une division par 3,6 est donc nécessaire pour assurer le changement d'unité par rapport à l'électricité consommée, calculée d'abord en MJ.
 {% endhint %}
 
 $$
@@ -134,9 +134,9 @@ $$
 
 * Lever l'ambigüité méthodologique sur la prise en compte du nombre d'articles ou de la masse sortante dans les calculs d'impacts et d'électricité mobilisée
 
-## Cas particulier du Jean : Délavage
+## Cas particulier du Jean : délavage
 
-Pour le jean on intègre dans l'étape confection le délavage. Le délavage est un procédé qui s'applique après la confection et qui a un impact environmental important. En effet le délavage demande des quantités significatives de chaleur, d'électricité et d'eau.
+Pour le jean on intègre dans l'étape confection le délavage. Le délavage est un procédé qui s'applique après la confection et qui a un impact environnemental important. En effet le délavage demande des quantités significatives de chaleur, d'électricité et d'eau.
 
 Il existe différents procédés de délavage dans la base impacts :
 

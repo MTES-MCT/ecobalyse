@@ -8,7 +8,7 @@ description: Choix du procédé de chaleur en fonction du pays
 
 ### Généralités
 
-La consommation de chaleur s'exprime en mégagoules (MJ).
+La consommation de chaleur s'exprime en mégajoules (MJ).
 
 Deux scénarios existent pour modéliser la consommation de chaleur des procédés mobilisés :&#x20;
 

@@ -32,7 +32,7 @@ Les distances parcourues ainsi que les proportions pour chaque scénarios sont d
 
 #### Transport en camion
 
-D'après Table 33 on peut estimer la distance en faites en camion (notée d\_camion) pour l'étape de fin de vie d'un vêtement :
+D'après Table 33 on peut estimer la distance faite en camion (notée d\_camion) pour l'étape de fin de vie d'un vêtement :
 
 ```
 d_camion = d_municipal_waste_collection + d_recycling_collection
@@ -54,7 +54,7 @@ D_camion = 0.00017 * 67.48
 D_camion = 0.01147 tonnes.km
 ```
 
-A partir du procédé de transport en camion P\__camion_\_cch, on peut en déduire l'impact sur le changement climatique du transport en camion de la fin de vie du t-shirt :
+À partir du procédé de transport en camion P\__camion_\_cch, on peut en déduire l'impact sur le changement climatique du transport en camion de la fin de vie du t-shirt :
 
 ```
 Impact_camion = D_camion * P_camion_cch
@@ -92,11 +92,11 @@ Impact_voiture = 0.328 gCO2e
 
 #### Incinération (CFF)
 
-On prend les hypothèses issue du document PEF RP study p.72 :
+On prend les hypothèses issues du document PEF RP study p.72 :
 
 > 45% of municipal waste collected is incinerated and 55% is landfilled.
 
-Soit P\_incinération le procédé d'incinération de déchets textile en France:
+Soit P\_incinération le procédé d'incinération de déchets textiles en France:
 
 ```
 Impact_incinération = m * part_incinération * P_incinération_cch

@@ -21,10 +21,10 @@ $$
 
 Avec&#x20;
 
-* `Qté_élec_{filature}`, la quantité d'électricité nécessaire pour filer 1 kg de fil.Nous faisons l'hypothèse que `Qté_élec_{filature} = 3.21 kWh/kg fil` **pour toutes les matières.**
+* `Qté_élec_{filature}`, la quantité d'électricité nécessaire pour filer 1 kg de fil. Nous faisons l'hypothèse que `Qté_élec_{filature} = 3.21 kWh/kg fil` **pour toutes les matières.**
 
 {% hint style="info" %}
-Le choix du chiffre de 3.21 kWh pour produire 1 kg de fil pour la filature provient des données de l'ITMF International Production Cost Comparison 2014. Pour obtenir ce chiffre on fait le rapport du coût en électricité de produire 1 kg de fil (spinning ring) divisé par le coût de l'électricité dans le pays concerné.&#x20;
+Le choix du chiffre de 3.21 kWh pour produire 1 kg de fil pour la filature provient des données de l'ITMF International Production Cost Comparison 2014. Pour obtenir ce chiffre on fait le rapport du coût en électricité de produire 1 kg de fil (_spinning ring_) divisé par le coût de l'électricité dans le pays concerné.&#x20;
 {% endhint %}
 
 * `I_élec` est l'impact de produire 1 kWh d'électricité dans le pays considéré. Cela dépend du lieu de la filature
@@ -38,7 +38,7 @@ I_{Matière} = I_{Matière+Filature} - I_{Filature}
 $$
 
 {% hint style="danger" %}
-Pour un certain nombre de matière (exclusivement des matières synthétiques) et pour certains impacts le résultat de&#x20;
+Pour un certain nombre de matières (exclusivement des matières synthétiques) et pour certains impacts le résultat de&#x20;
 
 `I_{Matière} = I_{Matière+Filature} - I_{Filature}` est négatif. Dans ce cas nous faisons l'hypothèse que
 
@@ -76,7 +76,7 @@ Perte_{Matière} = Perte_{Matière+Filature} - Perte_{Filature}
 $$
 
 {% hint style="danger" %}
-Pour un certain nombre de matière (exclusivement des matières synthétiques) le taux de perte calculé lors de l'étape matière est négatif. Dans ce cas nous faisons l'hypothèse que le taux de perte de l'étape matière est de `0%`. La liste des matières concernées est la suivante :
+Pour un certain nombre de matières (exclusivement des matières synthétiques) le taux de perte calculé lors de l'étape matière est négatif. Dans ce cas nous faisons l'hypothèse que le taux de perte de l'étape matière est de `0%`. La liste des matières concernées est la suivante :
 
 * polyuréthane
 * polytéréphtalate
@@ -88,12 +88,12 @@ Pour un certain nombre de matière (exclusivement des matières synthétiques) l
 
 Dans la donnée Base Impacts de l'impact {matière+filature}  est pris en compte le transport entre l'étape matière et filature, comme le montre cet extrait de la documentation du processus "fil de coton":&#x20;
 
-> The transports from the raw fibre production plant to the spinning plant includes the following steps: 1) Inland transport (with trucks) from the center of the production country to its main seaport, 2) Maritime transport (with a freight ship) from the main seaport of the production country to the main seaport of the spinning country, 3) Inland transport (with trucks) from the main seaport of the spinning country to its center. The average transport distance was calculated considering each production country and each transformation country. These countries are respectively weighted by their percentage of the production
+> The transports from the raw fibre production plant to the spinning plant includes the following steps: 1) Inland transport (with trucks) from the center of the production country to its main seaport, 2) Maritime transport (with a freight ship) from the main seaport of the production country to the main seaport of the spinning country, 3) Inland transport (with trucks) from the main seaport of the spinning country to its center. The average transport distance was calculated considering each production country and each transformation country. These countries are respectively weighted by their percentage of the production.
 
-Néanmoins il n'est pas détaillé dans la documentation quelles sont les hypothèses précises de transport (distances, part modales). Ainsi nous ne pouvons pas soustraire l'impact du transport inclus dans la donnée Base Impacts originale {matière+filature}.
+Néanmoins il n'est pas détaillé dans la documentation quelles sont les hypothèses précises de transport (distances, parts modales). Ainsi nous ne pouvons pas soustraire l'impact du transport inclus dans la donnée Base Impacts originale {matière+filature}.
 
 {% hint style="warning" %}
 Après la séparation matière et filature, nous offrons la possibilité à l'utilisateur de paramétrer un lieu de filature différent du lieu de matière. Nous prenons en compte le transport entre ces lieux. Il y a donc un double compte du transport : 1 fois dans la donnée originale {matière+filature} et 1 fois dans notre nouvelle modélisation.
 
-Etant donné que dans la donnée originale {matière+filature} ces 2 étapes ont lieu dans la même zone géographique (exemple : Asie-Pacifique), et que de manière général l'impact du transport est minoritaire, ce double compte paraît peu impactant.&#x20;
+Étant donné que dans la donnée originale {matière+filature} ces 2 étapes ont lieu dans la même zone géographique (exemple : Asie-Pacifique), et que de manière générale l'impact du transport est minoritaire, ce double compte paraît peu impactant.&#x20;
 {% endhint %}

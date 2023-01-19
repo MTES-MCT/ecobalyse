@@ -16,10 +16,10 @@ Ce terme est négligé étant donné son impact faible. Pour plus de justificati
 
 ### Définition des paramètres
 
-* **R2** - le taux de matière recyclé en fin de vie
-* **ErecyEOL** - impacts dues au recyclage en fin de vie : la collecte, le tri et le processus de recyclage
-* **E\*v** - impacts dues à la production de matière vierge substitué par le recyclage.
-* **Qsout/Qp** - Rapport de qualité entre la matière substitué (Qp) et la matière recyclé substituan (Qsout)
+* **R2** - le taux de matière recyclée en fin de vie
+* **ErecyEOL** - impacts dus au recyclage en fin de vie : la collecte, le tri et le processus de recyclage
+* **E\*v** - impacts dus à la production de matière vierge substituée par le recyclage.
+* **Qsout/Qp** - Rapport de qualité entre la matière substituée (Qp) et la matière recyclée substituante (Qsout)
 
 ### Filières de recyclage
 
@@ -27,7 +27,7 @@ Il est possible qu'un produit ait plusieurs filières de recyclage. Dans ce cas 
 
 ![PEFCR A\&F - v1.2 - ligne 1131](<../../../../.gitbook/assets/Screenshot 2022-03-16 at 16.27.52.png>)
 
-3 filières de recyclage sont identifiés pour les vêtements dans le PEFCR A\&F :
+3 filières de recyclage sont identifiées pour les vêtements dans le PEFCR A\&F :
 
 * Vêtement -> Vêtement
 * Vêtement -> Wiper
@@ -57,7 +57,7 @@ M3_wiper = - 0.001 mPt
 
 Ainsi le terme M3\_wiper réduit l'impact 0.001 mPt soit de 0.05%.
 
-Etant donné cet impact négligeable, on ne prend pas en compte la filière de reyclage en wiper dans le calcul de l'impact matière des vêtements.
+Étant donné cet impact négligeable, on ne prend pas en compte la filière de reyclage en wiper dans le calcul de l'impact matière des vêtements.
 
 #### Filière Isolant
 

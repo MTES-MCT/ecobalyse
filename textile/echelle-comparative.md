@@ -2,7 +2,7 @@
 
 Lorsqu'une simulation est réalisée, l'impact calculé est positionné sur une échelle, au regard des impacts de 5 configurations "repères".
 
-L'échelle permet de comparer des simulations dont le paramètres suivants sont identiques :
+L'échelle permet de comparer des simulations dont les paramètres suivants sont identiques :
 
 * Type de produit / vêtement
 * Masse de produit fini

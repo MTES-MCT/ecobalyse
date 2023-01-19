@@ -52,7 +52,7 @@ Une contexture est formulée comme suit : 30 x 27 Nm 56/50 :&#x20;
    __Les fils de chaîne sont alimentés à partir d’une ensouple (cylindre autour duquel est enroulée la chaîne du tissu) qui est installée à l’arrière d’un métier à tisser. La préparation de l'ensouple de tissage se fait par le procédé d'ourdissage.\
    \
    _Encollage_\
-   Afin de protéger et lubrifier les fils de chaîne, des agents d'encollage sont appliqués après l'ourdissage (sous forme de solutions ou de dispersion d'eau). Dans ce cas précis, il sera nécessaire post-tissage de procéder au désencollage de ces mêmes fils afin de pas empêcher les colorants de se fixer sur la matière textile lors de l'ennoblissement. Deux types d'agents d'encollage sont utilisés : les polymères synthétiques vs naturels (à base de polysacharrides).\
+   Afin de protéger et lubrifier les fils de chaîne, des agents d'encollage sont appliqués après l'ourdissage (sous forme de solutions ou de dispersion d'eau). Dans ce cas précis, il sera nécessaire post-tissage de procéder au désencollage de ces mêmes fils afin de ne pas empêcher les colorants de se fixer sur la matière textile lors de l'ennoblissement. Deux types d'agents d'encollage sont utilisés : les polymères synthétiques vs naturels (à base de polysaccharides).\
 
 2. **Tissage**\
    Il existe différents types de métiers en fonction des besoins de production, des largeurs de tissus, des matériaux utilisés, des motifs voulus, etc.\
@@ -75,6 +75,8 @@ Le tricotage est une technique de fabrication des étoffes où s’entrelacent d
 
 Il existe deux grandes classes de tricotage qui se distinguent par le mode de liaison des mailles :&#x20;
 
+* le tricotage à mailles cueillies (ou tricots « trame »)
+* le tricotage à mailles jetées (ou tricots « chaîne » ou tricots « indémaillables »)
 * le tricotage à mailles cueillies (ou tricots « trame »)\
   Ces tricots utilisent qu'un seul fil et sont fréquemment utilisés dans les sous-vêtements, t-shirts, pulls et chaussettes.
 * le tricotage à mailles jetée (ou tricots « chaîne » ou tricots « indémaillables »)\
@@ -87,14 +89,14 @@ Les principales armures sont le jersey, l'interlock ou la côte 1x1 (tricot à m
 
 <summary>Tricotage à mailles <em>cueillies</em> vs <em>jetées</em></summary>
 
-**Tricotage à mailles cueillies (tricots « trame » / weft knitting)**\
-Il emploie qu’un seul fil issu d’une bobine pour former des boucles et travaille dans le sens des rangées (largeur de l’étoffe). Ces tricots sont facilement détricotables. Les sous-vêtements, t-shirts, pulls et chaussettes sont généralement en mailles cueillies.
+**Tricotage à mailles cueillies (ou tricots « trame »)**\
+Il n'emploie qu’un seul fil issu d’une bobine pour former des boucles et travaille dans le sens des rangées (largeur de l’étoffe). Ces tricots sont facilement détricotables. Les sous-vêtements, t-shirts, pulls et chaussettes sont généralement en mailles cueillies.
 
 ![](<../../.gitbook/assets/image (9).png>)
 
 
 
-**Tricotage à mailles jetée (ou tricots « chaîne » / warp knitting)**\
+**Tricotage à mailles jetée (ou tricots « chaîne » ou tricots « indémaillables »)**\
 Il s'obtient par le tricotage simultané de 2000 à 3000 fils issus d’ensouples et travaille dans le sens des colonnes (longueur de l’étoffe). Ces tricots sont indémaillables. Les vêtements de sport, maillots de bain et lingerie sont généralement en mailles jetées.&#x20;
 
 ![](<../../.gitbook/assets/image (6) (2).png>)
@@ -127,7 +129,7 @@ Chacun de ces machines est équipée d’une jauge qui détermine la finesse du 
 
 **Techniques de tricotage (schéma simplifié)**
 
-![](<../../.gitbook/assets/image (3).png>)
+![](<../../.gitbook/assets/image (3) (2).png>)
 
 </details>
 
@@ -150,7 +152,7 @@ Ces étoffes sont notamment appréciées dans les secteurs de la construction, d
 
 **Exemple d'application :**&#x20;
 
-![Exemple d'application d'une étoffe non-tissée](<../../.gitbook/assets/image (8).png>)
+![Exemple d'application d'une étoffe non-tissée](<../../.gitbook/assets/image (8) (1).png>)
 
 </details>
 
@@ -166,7 +168,7 @@ En fonction du vêtement sélectionné, une opération de tissage ou de tricotag
 
 L'utilisateur n'a actuellement pas la possibilité de modifier ce paramètre par défaut.
 
-A date, le calculateur ne permet pas de modéliser des étoffes _non-tissées_.
+À date, le calculateur ne permet pas de modéliser des étoffes _non-tissées_.
 
 
 
@@ -219,7 +221,7 @@ Cf. l'onglet [Explorer](https://ecobalyse.beta.gouv.fr/#/textile/explore/product
 
 <summary>Embuvage et Retrait (%) (tissage)</summary>
 
-L’embuvage et le retrait sont exprimés en pourcentage (%), concernent les tissu et correspondent à la diminution de fil (chaîne et trame) due à leur entrelacement.
+L’embuvage et le retrait sont exprimés en pourcentage (%), concernent les tissus et correspondent à la diminution de fil (chaîne et trame) due à leur entrelacement.
 
 Ce paramètre est critique car il impacte d'autant la quantité de fil/matière mobilisée lors du tissage.&#x20;
 
@@ -253,7 +255,7 @@ L’étape _Fabrication de l'étoffe_ est modélisée comme suit :&#x20;
 
 L’impact global de cette étape (tissage ou tricotage) se comprend donc comme la somme des impacts des :&#x20;
 
-* procédé retenus (cf. intérieur du system boundaries)
+* procédé retenus (cf. intérieur du _system boundaries_)
 * flux externes devant être ajoutés (électricité)
 
 La formule suivante s'applique donc :
@@ -266,7 +268,7 @@ Par conséquent, l'impact global de Etoffe se comprend comme résultant de la so
 
 | Flux externe | UUID du flux                           | unité |
 | ------------ | -------------------------------------- | ----- |
-| Electricité  | `de442ef0-d725-4c3a-a5e2-b29f51a1186c` | MJ    |
+| Électricité  | `de442ef0-d725-4c3a-a5e2-b29f51a1186c` | MJ    |
 
 {% hint style="warning" %}
 Remarque : pour les procédés retenus (cf. ci-après), les coefficients d'impact sont tous nuls, de sorte que l'impact de l'étape Etoffe se limite finalement à l'impact de l'électricité nécessaire pour opérer ce processus.
@@ -280,20 +282,18 @@ Un grammage par défaut (g/m2) est appliqué par type de vêtement (cf. onglet [
 
 Cette valeur correspond à celle constatée sur le produit fini.&#x20;
 
-L'utilisateur a la possibilité de modifier ce paramètre s'il le maîtrise.&#x20;
-
 <details>
 
 <summary>Vous souhaitez modifier le grammage du vêtement ?</summary>
 
-Si c'est le cas, une attention particulière doit être apportée à l'impact de cette modification sur la quantité d'étoffe sortante (m2) afin de ne pas modéliser de scénarios incohérents. \
+Si c'est le cas, une attention particulière doit être apportée à l'impact de cette modification sur la quantité d'étoffe sortante (m2) afin de ne pas modéliser de scénario incohérent. \
 En effet, le poids (g) d'un vêtement dépend du grammage (g/m2) de l'étoffe et de la quantité d'étoffe (m2) mobilisée. Le poids du vêtement et le grammage de l'étoffe sont paramétrables par l'utilisateur tandis que la quantité d'étoffe ne l'est pas. Cette donnée d'arrière plan est cependant accessible lors de la modélisation.
 
-![](<../../.gitbook/assets/image (4) (3).png>)
-
-:warning: Une différence significative peut apparaître sur le grammage de l'étoffe entre la valeur en sortie d'usine de fabrication (tissage/tricotage) et celle constatée sur le produit fini mis sur le marché (notamment du fait des traitements appliqués lors de l'ennoblissement). Cette différence est notamment complexe à appréhender pour les les mailles/tricots qui font souvent l'objet d'une modification de la tension des fils/boucles entre la fabrication sur machine et le produit fini.
+![](<../../.gitbook/assets/image (4) (1).png>)
 
 </details>
+
+L'utilisateur a la possibilité de modifier ce paramètre s'il le maîtrise.&#x20;
 
 ### Titrage (Nm) et Densité (# fils/mailles)&#x20;
 
@@ -330,11 +330,9 @@ Pour les tissus, plus le compte en trame (duitage) est élevé, plus le nombre d
 
 
 
-L'utilisateur a la possibilité de préciser cette valeur par défaut s'il maîtrise les caractéristiques techniques de l'étoffe.
-
 <details>
 
-<summary>En savoir </summary>
+<summary>En savoir plus </summary>
 
 Toute étoffe est créée à partir de caractéristiques techniques propres (densité de fils, titrage fil, embuvage, longueur de fil absorbée, etc.). Ainsi, plusieurs configurations sont possibles pour une même étoffe. \
 \
@@ -351,10 +349,9 @@ Cet exemple éclaire le fait que plus le poids/titrage des fils augmente, plus l
 Dès lors, préciser le grammage d'une étoffe est nécessaire afin de refléter les réalités métiers sous-jacentes. Préciser le titrage des fils (plutôt que la densité de fils/mailles) est la solution la plus adaptée du fait de sa simplicité et du fait que cette information est plus accessible que la densité des fils/mailles. \
 Cela explique notamment pourquoi de nombreuses bases de données utilisées dans la communauté ACV proposent des procédés de tissage/tricotage selon le titrage du fil utilisé (ex : Knitting, 200 DTEX-180 denier-30/1 Ne-50 Nm).
 
-:warning: Pour les tricots/mailles, différentes réalités métier peuvent permettre de tricoter une étoffe spécifiques (c'est à dire avec un grammage (g/m2) + titrage fil  (Nm) + densité de mailles connus). Cela s'explique par différents paramètres tels que le choix de la machine (circulaire vs rectiligne), la jauge (# aiguilles / cm), le diamètre de la machine, le liage/point de la maille, la tension des fils, etc. \
-Rentrer à ce niveau de détails dans le calculateur n'est pas adapté car très peu d'acteurs maîtrisent ces paramètres tandis que les variations de consommation d'électricité induites par ces configurations sont non significatives par rapport à l'impact environnemental global du produit fini.  &#x20;
-
 </details>
+
+L'utilisateur a la possibilité de préciser cette valeur par défaut s'il maîtrise les caractéristiques techniques de l'étoffe.
 
 Hypothèses par défaut retenues concernant les machines/technologies utilisées :&#x20;
 
@@ -388,7 +385,7 @@ _Source : revue bibliographique réalisée par l'équipe Ecobalyse en 2022_
 
 <details>
 
-<summary>Tissage (6,5%)</summary>
+<summary>Tissage (6,25%)</summary>
 
 Un taux de perte de 6,25% est appliqué par défaut et correspond à la valeur retenue par le socle technique actuellement utilisé (Tissage (habillement) \_ Base Impacts \_ ADEME).&#x20;
 
@@ -416,7 +413,7 @@ Les taux de perte appliqués par défaut correspondent à ceux retenus par le so
 
 Non pris en compte à ce stade.&#x20;
 
-Le socle technique actuellement utilisé (Base Impacts \_ ADEME) ne permet pas de prendre en compte ce paramètre car l'impact environnemental du procédé de tissage (hors électricité) est nul comme expliqué précedemment.&#x20;
+Le socle technique actuellement utilisé (Base Impacts \_ ADEME) ne permet pas de prendre en compte ce paramètre car l'impact environnemental du procédé de tissage (hors électricité) est nul comme expliqué précédemment.&#x20;
 
 
 

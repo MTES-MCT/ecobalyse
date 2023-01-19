@@ -14,7 +14,7 @@ La biodiversité est « la variabilité des organismes vivants de toute origine 
 
 Le maintien de la biodiversité est une des clés du bon fonctionnement planétaire. La biodiversité apporte de nombreux services écosystémiques.
 
-La biodiversité est aujourd'hui difficile à adresser du fait de la complexité d'évaluation des écosystèmes (interractions multiples entre espèces) et de différentes pratiques agricoles à différencier.&#x20;
+La biodiversité est aujourd'hui un sujet difficile du fait de la complexité d'évaluation des écosystèmes (interactions multiples entre espèces) et de différentes pratiques agricoles à différencier.&#x20;
 
 Le Conseil Scientifique mis en place dans le cadre de l'expérimentation de l'affichage environnemental sur les produits Alimentaire recommande notamment de prendre en compte la biodiversité à la parcelle (accès au rapport [ici](https://expertises.ademe.fr/sites/default/files/assets/documents/affichage-environnemental-produits-alimentaires-rapport-final-conseil-scientifique.pdf)).&#x20;
 
@@ -26,12 +26,12 @@ Plusieurs indicateurs de l'ACV ont une incidence sur la biodiversité (8 des 16 
 
 <summary>Prise en compte des microfibres (dont plastiques)</summary>
 
-Les textiles synthétiques rejettent des quantités importantes de fibres microplastiques lors du lavage et de l’utilisation. Bien que  les centres de traitement des eaux usées en filtrent une partie, ces microplastiques plastiques se retrouvent dans les environnements terrestres et marins, ainsi que dans la chaîne alimentaire humaine.\
+Les textiles synthétiques rejettent des quantités importantes de fibres micro-plastiques lors du lavage et de l’utilisation. Bien que les centres de traitement des eaux usées en filtrent une partie, ces micro-plastiques se retrouvent dans les environnements terrestres et marins, ainsi que dans la chaîne alimentaire humaine.\
 La pollution micro-plastique provenant des matériaux synthétiques n'est actuellement pas prise en compte dans le socle ACV (donc dans le calculateur).
 
-Les autres matières rejettent également des microfibes lors du cycle de vie des vêtements.&#x20;
+Les autres matières rejettent également des microfibres lors du cycle de vie des vêtements.&#x20;
 
-Pour les matières/microfibres naturelles, leur caractère biodégradable est souvent mis en avant; cependant les traitements appliqués lors de la phase d'ennoblissement  pourraient limiter ces propriétés. &#x20;
+Pour les matières/microfibres naturelles, leur caractère biodégradable est souvent mis en avant ; cependant les traitements appliqués lors de la phase d'ennoblissement pourraient limiter ces propriétés. &#x20;
 
 </details>
 
@@ -42,7 +42,7 @@ Pour les matières/microfibres naturelles, leur caractère biodégradable est so
 Les modes de production/élevage et l'origine géographique de plusieurs matières naturelles (d'origine animale ou végétale) peuvent refléter des réalités différentes pour un même produit. &#x20;
 
 Ce niveau de détail dans les bases de données n'est pas toujours disponible. \
-(exemple : les pratiques agricoles liées à la production de coton diffèrent significativement selon la géographie - besoin ou non de systèmes d'irrigation - et le mode de production - conventionnel vs biologique -).
+Exemple : les pratiques agricoles liées à la production de coton diffèrent significativement selon la géographie (besoin ou non de systèmes d'irrigation) et le mode de production (conventionnel vs biologique).
 
 </details>
 
@@ -52,7 +52,7 @@ Ce niveau de détail dans les bases de données n'est pas toujours disponible. \
 
 La prise est en compte des labels n'est actuellement pas effective alors que ces derniers pourraient permettre d'affiner les résultats.
 
-Par exemple, la certification Biologique permet de de réduire l’impact sur la consommation des ressources en eau, l’utilisation de pesticides, fertilisants, antibiotiques (si matière première animale). De le même manière la labellisation Oeko-Tex® permet de réduire le risque lié à l’utilisation de produits chimiques et à la pollution de l’eau.
+Par exemple, la certification Biologique permet de réduire l’impact sur la consommation des ressources en eau, l’utilisation de pesticides, fertilisants, antibiotiques (si matière première animale). De la même manière la labellisation Oeko-Tex® permet de réduire le risque lié à l’utilisation de produits chimiques et à la pollution de l’eau.
 
 </details>
 
@@ -86,7 +86,7 @@ Une des principales causes de fin de vie des vêtements est liée à la lassitud
 
 Ce paramètre n'est actuellement pas pris en compte dans le calculateur ni par les référentiels existants basés sur l'ACV (socle technique de l'ADEME, PEF, etc.).&#x20;
 
-De plus, bien que la sur-consommation des produits textile est une préocupation majeure de l'industrie, l'ACV ne permet pas aujourd'hui de s'attaquer à ce sujet car le facteur prix n'est pas adressé; ce dernier limite notamment la réparabilité des vêtements car il est souvent plus simple d'acheter un produit équivalent que de le réparer.&#x20;
+De plus, bien que la sur-consommation des produits textile est une préoccupation majeure de l'industrie, l'ACV ne permet pas aujourd'hui de s'attaquer à ce sujet car le facteur prix n'est pas pris en compte ; ce dernier limite notamment la réparabilité des vêtements car il est souvent plus simple d'acheter un produit équivalent que de le réparer.&#x20;
 
 </details>
 

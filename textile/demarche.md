@@ -4,16 +4,16 @@ Le simulateur et les exemples qui en découlent sont des outils de travail en ph
 
 Ces outils sont développés en open-source afin d'accompagner les différents acteurs impliqués dans le dispositif français d’affichage environnemental.&#x20;
 
-Les analyses proposées par Ecobalyse à date ne font pas l'objet d'une quelquonque validation institutionnelles, ni de la part de l'ADEME, ni de la part du Ministère de la Transition Ecologique.
+Les analyses proposées par Ecobalyse à date ne font pas l'objet d'une quelconque validation institutionnelle, ni de la part de l'ADEME, ni de la part du Ministère de la Transition Ecologique.
 
 ## Un outil adossé au référentiel ADEME
 
-A date, le référentiel le plus avancé et exploitable par Ecobalyse est celui développé par l’[ADEME](https://base-impacts.ademe.fr/). Les évaluations d'impacts environnementaux s'appuient donc sur :&#x20;
+À date, le référentiel le plus avancé et exploitable par Ecobalyse est celui développé par l’[ADEME](https://base-impacts.ademe.fr/). Les évaluations d'impacts environnementaux s'appuient donc sur :&#x20;
 
 * les procédés de la Base Impacts
 * la documentation sectorielle textile
 
-Une ouverture à d'autres référentiels, en particulier le référentiel [PEF ](https://ec.europa.eu/environment/eussd/smgp/pdf/product-environmental-footprint-PEF-methode\_fr.pdf)porté par la Commission Européenne, est envisagée, sous réserve d'accessibilité des données sous-jacentes.
+Une ouverture à d'autres référentiels, en particulier le référentiel [PEF ](https://ec.europa.eu/environment/eussd/smgp/pdf/product-environmental-footprint-PEF-methode\_fr.pdf)porté par la Commission Européenne, est envisagée sous réserve d'accessibilité des données sous-jacentes.
 
 Conscient des limites du référentiel ADEME, Ecobalyse mène actuellement des travaux de fond avec différents acteurs de l’industrie afin de l'enrichir.
 
@@ -27,7 +27,7 @@ Ecobalyse n’hésite pas à intégrer dans ses travaux différentes connaissanc
 * menés au sein du dispositif français d’affichage environnemental [Xtex ](https://expertises.ademe.fr/economie-circulaire/consommer-autrement/passer-a-laction/reconnaitre-produit-plus-respectueux-lenvironnement/dossier/laffichage-environnemental/affichage-environnemental-secteur-textiles-dhabillement-chaussures-experimentation-20212022)
 * de l’initiative [Make The Label Count](https://www.makethelabelcount.org/)&#x20;
 * développés pour l’[Ecolabel européen](http://ec.europa.eu/ecat/category/en/14/textile-products)&#x20;
-* de cabinets spécialisés (ex : Quantis, Mc Kinsey)&#x20;
+* de cabinets spécialisés (ex : Quantis, McKinsey)&#x20;
 * de la Sustainable Apparel Coalition (SAC) via son outil [Higg Index](https://apparelcoalition.org/the-higg-index/)
 
 ## Comment sont faites les hypothèses ?
@@ -57,7 +57,7 @@ En ce sens, plusieurs démarches sont actuellement déployées :&#x20;
 * la mise à disposition d'un point de contact mail ([ecobalyse@beta.gouv.fr](mailto:ecobalyse@beta.gouv.fr))&#x20;
 * la possibilité d'organiser des ateliers en 1-1 sur des enjeux méthodologiques précis
 
-## Des réflexions autour des données mobilisée
+## Des réflexions autour des données mobilisées
 
 La base de données actuellement utilisée par Ecobalyse est la Base Impacts développée par l’ADEME. D’autres bases de données de référence sont utilisées dans l’industrie telles que celles développées par Ecoinvent, Sphera (Gabi), Bureau Veritas (Codde) l’Union Européenne (PEF), Quantis, la Sustainable Apparel Coalition (Higg Index), etc.&#x20;
 

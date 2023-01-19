@@ -4,9 +4,9 @@ description: >-
   la CFF ?
 ---
 
-# 📚 Utilisation de matière recyclé - M1 et M2
+# 📚 Utilisation de matière recyclée - M1 et M2
 
-On s'intéresse dans un premier temps aux 2 premiers termes de cette formule : M1 et M2
+On s'intéresse dans un premier temps aux deux premiers termes de cette formule : M1 et M2
 
 $$
 (1-R1)Ev + R1(AErec + (1-A)EvQsin/Qp)
@@ -24,16 +24,16 @@ Les impacts Ev et Erec sont considérés pour les étapes de "Matière" et de "F
 L'impact sur le résultat reste limité. Il est même nul lorsque Qsin/Qp = 1.
 {% endhint %}
 
-* **A** - Coefficient l'allocation des impacts et crédits entre le fournisseur et l'utilisateur de matériaux recyclés.
+* **A** - Coefficient d'allocation des impacts et crédits entre le fournisseur et l'utilisateur de matériaux recyclés.
 
 {% hint style="info" %}
 Cas limites. Tous les impacts liés au recyclage de la matière recyclée utilisée sont imputés
 
-* A = 1 -> A son utilisateur, donc à l'étape "matière" de la modélisation qui implique une part R1 de matière recyclée. Impact : **R1\*A\*Erec**
-* A = 0 -> A son fournisseur, donc à l'étape "fin de vie" de la modélisation de tous les produits qui utilisent de la matière dont le recyclage va permettre la production de la part R1 de matière recyclée dans la présente modélisation. Un système de compensation conduit toutefois à introduire l'impact de la matière primaire qui n'a pas réellement été consommée dans le cas présent mais qui devra l'être dans d'autres produits vu que la matière recyclée n'est plus disponible. Impact : **R1\*(1-A)\*Ev\*Qsin/Qp**.
+* A = 1 -> À son utilisateur, donc à l'étape "matière" de la modélisation qui implique une part R1 de matière recyclée. Impact : **R1\*A\*Erec**
+* A = 0 -> À son fournisseur, donc à l'étape "fin de vie" de la modélisation de tous les produits qui utilisent de la matière dont le recyclage va permettre la production de la part R1 de matière recyclée dans la présente modélisation. Un système de compensation conduit toutefois à introduire l'impact de la matière primaire qui n'a pas réellement été consommée dans le cas présent mais qui devra l'être dans d'autres produits vu que la matière recyclée n'est plus disponible. Impact : **R1\*(1-A)\*Ev\*Qsin/Qp**.
 {% endhint %}
 
-* **Qsin/Qp** - Rapport entre la qualité de la matière recyclée utilisée et la qualité de la matière primaire correspondante, avant recyclage donc.
+* **Qsin/Qp** - Rapport entre la qualité de la matière recyclée utilisée et la qualité de la matière primaire correspondante avant recyclage.
 
 {% hint style="info" %}
 Cas limites :
@@ -45,9 +45,9 @@ Cas limites :
 ### Valeurs des paramètres CFF
 
 * **R1**
-  * Pour les matières de la liste principales, R1 est la position du curseur "part d'origine recyclée"
+  * Pour les matières de la liste principale, R1 est la position du curseur "part d'origine recyclée"
   * Pour les autres matières de la liste complète, R1=0% pour les matières primaires, R1=100% pour les matières recyclées.
-* **Ev** et **Erec** correspondent aux impacts des matières primaires et recyclées tel qu'issues de la base Impacts.
+* **Ev** et **Erec** correspondent aux impacts des matières primaires et recyclées telles qu'issues de la base Impacts.
 
 $$
 ImpactProcédéMFPrimaire = (1-R1) Ev
@@ -74,7 +74,7 @@ L'application de ce tableau aux différentes matières présentées dans le simu
 
 ### Exemples de calcul
 
-* Pour un T-shirt de masse m = 0.17 kg de composition 100% laine recyclé
+* Pour un T-shirt de masse m = 0.17 kg de composition 100% laine recyclée
 
 ```
 On applique la CFF :
