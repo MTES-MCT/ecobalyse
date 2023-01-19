@@ -14,11 +14,11 @@ Hormis les transports, cette étape du cycle de vie a un impact qui provient de 
 
 Pour estimer l'impact d'un produit, on a besoin de sa densité. Les hypothèses de la doc agribalyse&#x20;
 
-<figure><img src="../../.gitbook/assets/image.png" alt=""><figcaption><p>Méthodologie AGB 3.0-20200218_rapport-vf2.pdf</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (4).png" alt=""><figcaption><p>Méthodologie AGB 3.0-20200218_rapport-vf2.pdf</p></figcaption></figure>
 
 De plus&#x20;
 
-<figure><img src="../../.gitbook/assets/image (1).png" alt=""><figcaption><p>Méthodologie AGB 3.0-20200218_rapport-vf2.pdf</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1) (1).png" alt=""><figcaption><p>Méthodologie AGB 3.0-20200218_rapport-vf2.pdf</p></figcaption></figure>
 
 A partir de ces données et de l'impact unitaire de chaque procédé, on peut en déduire l'impact de le l'étape de distribution en µPt PEF par kg de produit.
 

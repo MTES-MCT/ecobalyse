@@ -6,7 +6,7 @@ description: >-
 
 # 〰 Etape 2 - Fabrication de l'étoffe
 
-## Description
+Description
 
 La fabrication d’une étoffe consiste à enchevêtrer des fils/fibres/filaments selon des techniques variées.&#x20;
 
@@ -75,21 +75,26 @@ Le tricotage est une technique de fabrication des étoffes où s’entrelacent d
 
 Il existe deux grandes classes de tricotage qui se distinguent par le mode de liaison des mailles :&#x20;
 
-* le tricotage à mailles cueillies (ou tricots « trame »)
-* le tricotage à mailles jetée (ou tricots « chaîne » ou tricots « indémaillables »)
+* le tricotage à mailles cueillies (ou tricots « trame »)\
+  Ces tricots utilisent qu'un seul fil et sont fréquemment utilisés dans les sous-vêtements, t-shirts, pulls et chaussettes.
+* le tricotage à mailles jetée (ou tricots « chaîne » ou tricots « indémaillables »)\
+  Ces tricots s'obtiennent par le tricotage simultané de plusieurs fils et sont fréquemment utilisés pour les vêtements de sport, les maillots de bain et la lingerie.
+
+Le terme liage (ou point) est utilisé pour spécifier la manière dont s’entrelacent les fils dans les étoffes . Il s’agit de l’équivalence de l’armure en tissage. \
+Les principales armures sont le jersey, l'interlock ou la côte 1x1 (tricot à mailles cueillies) et la charmeuse, l'atlas ou le satin (tricot à mailles jetées).&#x20;
 
 <details>
 
 <summary>Tricotage à mailles <em>cueillies</em> vs <em>jetées</em></summary>
 
-**Tricotage à mailles cueillies (ou tricots « trame »)**\
+**Tricotage à mailles cueillies (tricots « trame » / weft knitting)**\
 Il emploie qu’un seul fil issu d’une bobine pour former des boucles et travaille dans le sens des rangées (largeur de l’étoffe). Ces tricots sont facilement détricotables. Les sous-vêtements, t-shirts, pulls et chaussettes sont généralement en mailles cueillies.
 
 ![](<../../.gitbook/assets/image (9).png>)
 
 
 
-**Tricotage à mailles jetée (ou tricots « chaîne » ou tricots « indémaillables »)**\
+**Tricotage à mailles jetée (ou tricots « chaîne » / warp knitting)**\
 Il s'obtient par le tricotage simultané de 2000 à 3000 fils issus d’ensouples et travaille dans le sens des colonnes (longueur de l’étoffe). Ces tricots sont indémaillables. Les vêtements de sport, maillots de bain et lingerie sont généralement en mailles jetées.&#x20;
 
 ![](<../../.gitbook/assets/image (6) (2).png>)
@@ -98,16 +103,31 @@ Il s'obtient par le tricotage simultané de 2000 à 3000 fils issus d’ensouple
 
 <details>
 
-<summary>En savoir plus</summary>
+<summary>Type de machine </summary>
 
-Le terme liage (ou point) est utilisé pour spécifier la manière dont s’entrelacent les fils dans les étoffes en mailles cueillies ou mailles jetées. Il s’agit de l’équivalence de l’armure en tissage.&#x20;
+Il existe quatre principales machines pour tricoter une étoffe : \
+\- rectilignes,\
+\- circulaires,\
+\- Rachel,\
+\- Chaîne.
 
-Il existe deux métiers de tricotage :
+De manière générale, ces machines se divisent selon le type de tricotage :&#x20;
 
-* les métiers rectilignes
-* les métiers circulaires
+* Mailles cueillies (trame)\
+  Utilisation de machines **rectilignes** ou **circulaires**, montées avec avec une ou deux fontures. \
 
-Chacun est équipé d’une jauge qui détermine la finesse du tricot (c'est-à-dire la densité des aiguilles). La jauge se définit comme le nombre d’aiguilles comprises dans un pouce anglais (2,54 cm). Plus la jauge est élevée, plus le tricot est fin, meilleure est la dextérité. Une jauge fine sera utilisée pour des articles de lingerie alors qu’une grosse jaune tricotera des pull-overs.
+* Mailles jetées (chaîne)\
+  Utilisation de machines rectilignes spécifiques de type **Chaîne** (une seule fonture) et **Rachel** (une ou deux fontures).&#x20;
+
+Les machines **circulaires** proposent des taux de productivité plus élevés que celles rectilignes, notamment en raison de leur mouvement continu et de leur grande vitesse.
+
+Chacun de ces machines est équipée d’une jauge qui détermine la finesse du tricot (c'est-à-dire la densité des aiguilles). La jauge se définit comme le nombre d’aiguilles comprises dans un pouce anglais (2,54 cm). Plus la jauge est élevée, plus le tricot est fin, meilleure est la dextérité. Une jauge fine sera utilisée pour des articles de lingerie alors qu’une grosse jaune tricotera des pull-overs.
+
+
+
+**Techniques de tricotage (schéma simplifié)**
+
+![](<../../.gitbook/assets/image (3).png>)
 
 </details>
 
@@ -130,7 +150,7 @@ Ces étoffes sont notamment appréciées dans les secteurs de la construction, d
 
 **Exemple d'application :**&#x20;
 
-![Exemple d'application d'une étoffe non-tissée](<../../.gitbook/assets/image (8) (1).png>)
+![Exemple d'application d'une étoffe non-tissée](<../../.gitbook/assets/image (8).png>)
 
 </details>
 
@@ -256,7 +276,9 @@ Remarque : pour les procédés retenus (cf. ci-après), les coefficients d'impac
 
 ### Grammage (g/m2) <=> Type de vêtement
 
-Un grammage par défaut (g/m2) est appliqué par type de vêtement (cf. onglet [Explorateur](https://ecobalyse.beta.gouv.fr/#/textile/explore/products)).
+Un grammage par défaut (g/m2) est appliqué par type de vêtement (cf. onglet [Explorateur](https://ecobalyse.beta.gouv.fr/#/textile/explore/products)).&#x20;
+
+Cette valeur correspond à celle constatée sur le produit fini.&#x20;
 
 L'utilisateur a la possibilité de modifier ce paramètre s'il le maîtrise.&#x20;
 
@@ -267,13 +289,15 @@ L'utilisateur a la possibilité de modifier ce paramètre s'il le maîtrise.&#x2
 Si c'est le cas, une attention particulière doit être apportée à l'impact de cette modification sur la quantité d'étoffe sortante (m2) afin de ne pas modéliser de scénarios incohérents. \
 En effet, le poids (g) d'un vêtement dépend du grammage (g/m2) de l'étoffe et de la quantité d'étoffe (m2) mobilisée. Le poids du vêtement et le grammage de l'étoffe sont paramétrables par l'utilisateur tandis que la quantité d'étoffe ne l'est pas. Cette donnée d'arrière plan est cependant accessible lors de la modélisation.
 
-![](<../../.gitbook/assets/image (4) (1).png>)
+![](<../../.gitbook/assets/image (4) (3).png>)
+
+:warning: Une différence significative peut apparaître sur le grammage de l'étoffe entre la valeur en sortie d'usine de fabrication (tissage/tricotage) et celle constatée sur le produit fini mis sur le marché (notamment du fait des traitements appliqués lors de l'ennoblissement). Cette différence est notamment complexe à appréhender pour les les mailles/tricots qui font souvent l'objet d'une modification de la tension des fils/boucles entre la fabrication sur machine et le produit fini.
 
 </details>
 
-### Titrage fil (Nm)&#x20;
+### Titrage (Nm) et Densité (# fils/mailles)&#x20;
 
-Préciser le titrage des fils (Nm) permet de préciser la consommation d'énergie nécessaire pour actionner le procédé de tissage ou tricotage. Toute modification du titrage fait varier d'autant la densité de fils/mailles pour un grammage d'étoffe pre-défini par l'utilisateur. Dès lors, le nombre d'opérations réalisées par la machine varie d'autant.
+Préciser le titrage des fils (Nm) permet de préciser la consommation d'énergie nécessaire pour actionner le procédé de tissage ou tricotage. En effet, toutes choses égales par ailleurs, toute modification du titrage (Nm) des fils fait varier d'autant la densité de fils (tissage) ou mailles (tricotage) pour un grammage (g/m2) d'étoffe pre-défini par l'utilisateur. Dès lors, le nombre d'opérations réalisées par la machine varie d'autant.
 
 <details>
 
@@ -287,15 +311,24 @@ Pour les tissus, plus le compte en trame (duitage) est élevé, plus le nombre d
 
 </details>
 
-Une valeur par défaut est appliquée à chaque produit modélisé selon : \
-\- le type de vêtement (t-shirt, robe, etc.),\
-\- le grammage (g/m2) de l'étoffe.
+**Valeurs par défaut (en cours de rédaction)**
 
-| Vêtement | Grammage (g/m2) | Titrage (Nm) |
-| -------- | --------------- | ------------ |
-| tbd      | tbd             | tbd          |
-| tbd      | tbd             | tbd          |
-| tbd      | tbd             | tbd          |
+{% tabs %}
+{% tab title="Tissus" %}
+| Grammage (g/m2)  | Titrage (Nm) | Densité (chaîne x trame) |
+| ---------------- | ------------ | ------------------------ |
+| < 200            |              |                          |
+| entre 200 et 300 |              |                          |
+| entre 300 et 400 |              |                          |
+| > 400            |              |                          |
+{% endtab %}
+
+{% tab title="Etoffes" %}
+
+{% endtab %}
+{% endtabs %}
+
+
 
 L'utilisateur a la possibilité de préciser cette valeur par défaut s'il maîtrise les caractéristiques techniques de l'étoffe.
 
@@ -318,7 +351,20 @@ Cet exemple éclaire le fait que plus le poids/titrage des fils augmente, plus l
 Dès lors, préciser le grammage d'une étoffe est nécessaire afin de refléter les réalités métiers sous-jacentes. Préciser le titrage des fils (plutôt que la densité de fils/mailles) est la solution la plus adaptée du fait de sa simplicité et du fait que cette information est plus accessible que la densité des fils/mailles. \
 Cela explique notamment pourquoi de nombreuses bases de données utilisées dans la communauté ACV proposent des procédés de tissage/tricotage selon le titrage du fil utilisé (ex : Knitting, 200 DTEX-180 denier-30/1 Ne-50 Nm).
 
+:warning: Pour les tricots/mailles, différentes réalités métier peuvent permettre de tricoter une étoffe spécifiques (c'est à dire avec un grammage (g/m2) + titrage fil  (Nm) + densité de mailles connus). Cela s'explique par différents paramètres tels que le choix de la machine (circulaire vs rectiligne), la jauge (# aiguilles / cm), le diamètre de la machine, le liage/point de la maille, la tension des fils, etc. \
+Rentrer à ce niveau de détails dans le calculateur n'est pas adapté car très peu d'acteurs maîtrisent ces paramètres tandis que les variations de consommation d'électricité induites par ces configurations sont non significatives par rapport à l'impact environnemental global du produit fini.  &#x20;
+
 </details>
+
+Hypothèses par défaut retenues concernant les machines/technologies utilisées :&#x20;
+
+|   | Tissage | Tricotage |
+| - | ------- | --------- |
+|   |         |           |
+|   |         |           |
+|   |         |           |
+
+
 
 ### Consommation d'électricité (kWh)&#x20;
 

@@ -39,11 +39,10 @@ Pour les matières/microfibres naturelles, leur caractère biodégradable est so
 
 <summary>Origine des matières</summary>
 
-Les modes de production/élevage et l'origine géographique de plusieurs matières naturelles (d'origine animale ou végétale) sont des enjeux clés sur l'impact environnemental final du produit.&#x20;
+Les modes de production/élevage et l'origine géographique de plusieurs matières naturelles (d'origine animale ou végétale) peuvent refléter des réalités différentes pour un même produit. &#x20;
 
-Ce niveau de détails n'est pas pris en compte dans le calculateur à ce stade car la base de données utilisée ne le permet pas.
-
-(exemple : les pratiques agricoles liées à la production de coton diffèrent significativement selon la gréographie - besoin ou non de systèmes d'irrigation - et le mode de production - conventionnel vs biologique -).
+Ce niveau de détail dans les bases de données n'est pas toujours disponible. \
+(exemple : les pratiques agricoles liées à la production de coton diffèrent significativement selon la géographie - besoin ou non de systèmes d'irrigation - et le mode de production - conventionnel vs biologique -).
 
 </details>
 
@@ -65,7 +64,7 @@ L'utilisation de produits chimiques et auxiliaires durant le cycle de vie est co
 
 La Banque Mondiale et l'Union Européenne estiment que 20% de la pollution aquatique provient de l'étape d'ennoblissement des produits textile ([source](https://www.europarl.europa.eu/news/en/headlines/society/20201208STO93327/the-impact-of-textile-production-and-waste-on-the-environment-infographic)).
 
-Le calculateur ne prend pas en compte cet indicateur car le facteur de caractérisation n'est pas suffisament robuste tandis que les flux élémentaires cartographsuffisament fiables. Les facteurs de caractérisations actuellement utilisés dans la communauté ACV ne sont pas suffisament robustes.
+Le calculateur ne prend pas en compte cet indicateur suite à la recommandation du référentiel PEF car les facteurs de caractérisations actuellement utilisés dans la communauté ACV ne sont pas suffisamment robustes.
 
 </details>
 
@@ -83,7 +82,7 @@ Une limite identifiée à ce sujet est le coût de mise en place des tests physi
 
 <summary>Durabilité émotionnelle</summary>
 
-Une des causes de fin de vie des vêtements est dûe à la lassitude des consommateurs (dans 30% des cas en moyenne selon 7 sondages retrouvés dans différentes études).&#x20;
+Une des principales causes de fin de vie des vêtements est liée à la lassitude des consommateurs (dans 30% des cas en moyenne selon 7 sondages retrouvés dans différentes études).&#x20;
 
 Ce paramètre n'est actuellement pas pris en compte dans le calculateur ni par les référentiels existants basés sur l'ACV (socle technique de l'ADEME, PEF, etc.).&#x20;
 
