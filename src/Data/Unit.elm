@@ -126,12 +126,12 @@ ratioToFloat (Ratio float) =
     float
 
 
-decodeRatio : Decoder Ratio
-decodeRatio =
+decodeRatio : { percentage : Bool } -> Decoder Ratio
+decodeRatio { percentage } =
     Decode.float
         |> Decode.andThen
             (\float ->
-                if float < 0 || float > 1 then
+                if percentage && (float < 0 || float > 1) then
                     Decode.fail
                         ("Le ratio spécifié ("
                             ++ String.fromFloat float

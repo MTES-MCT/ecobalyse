@@ -692,10 +692,10 @@ decodeQuery =
         |> Pipe.required "countryFabric" Country.decodeCode
         |> Pipe.required "countryDyeing" Country.decodeCode
         |> Pipe.required "countryMaking" Country.decodeCode
-        |> Pipe.optional "airTransportRatio" (Decode.maybe Unit.decodeRatio) Nothing
+        |> Pipe.optional "airTransportRatio" (Decode.maybe (Unit.decodeRatio { percentage = True })) Nothing
         |> Pipe.optional "quality" (Decode.maybe Unit.decodeQuality) Nothing
         |> Pipe.optional "reparability" (Decode.maybe Unit.decodeReparability) Nothing
-        |> Pipe.optional "makingWaste" (Decode.maybe Unit.decodeRatio) Nothing
+        |> Pipe.optional "makingWaste" (Decode.maybe (Unit.decodeRatio { percentage = True })) Nothing
         |> Pipe.optional "picking" (Decode.maybe Unit.decodePickPerMeter) Nothing
         |> Pipe.optional "surfaceMass" (Decode.maybe Unit.decodeSurfaceMass) Nothing
         |> Pipe.optional "disabledSteps" (Decode.list Label.decodeFromCode) []
@@ -709,7 +709,7 @@ decodeMaterialQuery : Decoder MaterialQuery
 decodeMaterialQuery =
     Decode.succeed MaterialQuery
         |> Pipe.required "id" (Decode.map Material.Id Decode.string)
-        |> Pipe.required "share" Unit.decodeRatio
+        |> Pipe.required "share" (Unit.decodeRatio { percentage = True })
 
 
 encodeQuery : Query -> Encode.Value

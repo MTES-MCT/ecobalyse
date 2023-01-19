@@ -32,7 +32,7 @@ decode : Decoder Printing
 decode =
     Decode.map2 Printing
         (Decode.field "kind" decodeKind)
-        (Decode.field "ratio" Unit.decodeRatio)
+        (Decode.field "ratio" (Unit.decodeRatio { percentage = True }))
 
 
 decodeKind : Decoder Kind
