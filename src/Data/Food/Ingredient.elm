@@ -14,6 +14,7 @@ import Data.Food.Origin as Origin exposing (Origin)
 import Data.Food.Process as Process exposing (Process)
 import Data.Impact as Impact
 import Data.Transport as Transport exposing (Transport)
+import Data.Unit as Unit
 import Dict exposing (Dict)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
@@ -27,6 +28,7 @@ type alias Ingredient =
     , name : String
     , default : Process
     , defaultOrigin : Origin
+    , rawToCookedRatio : Unit.Ratio
     , variants : Variants
     }
 
@@ -77,6 +79,7 @@ decodeIngredient processes =
         |> Pipe.required "name" Decode.string
         |> Pipe.required "default" (linkProcess processes)
         |> Pipe.required "default_origin" Origin.decode
+        |> Pipe.required "raw_to_cooked_ratio" (Unit.decodeRatio { percentage = False })
         |> Pipe.required "variants" (decodeVariants processes)
 
 
