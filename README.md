@@ -25,7 +25,7 @@ Ce positionnement a une double vocation :
 * Rendre accessible au plus grand nombre les bases de **l'évaluation environnementale** ;
 * Catalyser les débats techniques entre acteurs spécialisés afin de proposer des **référentiels communs**.
 
-Les entreprises souhaitant aller plus loin pourront se tourner vers les acteurs spécialisés (bureaux d'étude, startup, conseils spécialisés, etc.).&#x20;
+Les entreprises souhaitant aller plus loin pourront se tourner vers les acteurs spécialisés (bureaux d'étude, startups, conseils spécialisés, etc.).&#x20;
 
 ### Un outil **pédagogique**
 
