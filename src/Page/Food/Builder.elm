@@ -182,7 +182,7 @@ update ({ queries } as session) msg model =
 
                 firstTransform =
                     session.builderDb.processes
-                        |> Recipe.availableTransforms (Maybe.map .code query.transform)
+                        |> Process.listByCategory Process.Transform
                         |> List.sortBy Process.getDisplayName
                         |> List.head
                         |> Maybe.map
