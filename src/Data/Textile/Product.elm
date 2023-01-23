@@ -138,7 +138,7 @@ decodeMakingOptions processes =
     Decode.succeed MakingOptions
         |> Pipe.required "processUuid" (Process.decodeFromUuid processes)
         |> Pipe.required "fadable" Decode.bool
-        |> Pipe.required "pcrWaste" Unit.decodeRatio
+        |> Pipe.required "pcrWaste" (Unit.decodeRatio { percentage = True })
 
 
 decodeUseOptions : List Process -> Decoder UseOptions
@@ -148,8 +148,8 @@ decodeUseOptions processes =
         |> Pipe.required "nonIroningProcessUuid" (Process.decodeFromUuid processes)
         |> Pipe.required "wearsPerCycle" Decode.int
         |> Pipe.required "defaultNbCycles" Decode.int
-        |> Pipe.required "ratioDryer" Unit.decodeRatio
-        |> Pipe.required "ratioIroning" Unit.decodeRatio
+        |> Pipe.required "ratioDryer" (Unit.decodeRatio { percentage = True })
+        |> Pipe.required "ratioIroning" (Unit.decodeRatio { percentage = True })
         |> Pipe.required "timeIroning" (Decode.map Duration.hours Decode.float)
         |> Pipe.required "daysOfWear" (Decode.map Duration.days Decode.float)
 

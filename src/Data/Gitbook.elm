@@ -23,6 +23,7 @@ type alias Page =
 
 type Path
     = Home -- Page d'accueil
+    | FoodRawToCookedRatio -- Rapport cru/cuit alimentaire
     | ImpactQuality -- Niveau de qualité d'impact
     | TextileAerialTransport -- Part du transport aérien textile
     | TextileDistribution -- Distribution textile
@@ -43,6 +44,9 @@ pathToString path =
     case path of
         Home ->
             "README"
+
+        FoodRawToCookedRatio ->
+            "alimentaire/rapport-cru-cuit"
 
         ImpactQuality ->
             "textile/impacts-consideres#niveaux-de-recommandation"

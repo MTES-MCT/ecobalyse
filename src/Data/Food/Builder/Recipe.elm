@@ -11,7 +11,8 @@ module Data.Food.Builder.Recipe exposing
     , encodeQuery
     , encodeResults
     , fromQuery
-    , getTotalMass
+    , getMassAtPackaging
+    , getTransformedIngredientsMass
     , ingredientQueryFromIngredient
     , processQueryFromProcess
     , resetTransform
@@ -148,7 +149,9 @@ compute db =
                 , { total =
                         Impact.sumImpacts db.impacts
                             [ recipeImpacts, packagingImpacts ]
-                  , totalMass = getTotalMass recipe
+
+                  -- XXX: For now, we stop at packaging step
+                  , totalMass = getMassAtPackaging recipe
                   , recipe =
                         { total = recipeImpacts
                         , ingredientsTotal = ingredientsTotalImpacts
@@ -161,14 +164,6 @@ compute db =
                   }
                 )
             )
-
-
-getTotalMass : Recipe -> Mass
-getTotalMass { ingredients, packaging } =
-    Quantity.sum
-        [ BuilderQuery.sumMasses ingredients
-        , BuilderQuery.sumMasses packaging
-        ]
 
 
 computeImpact : Mass -> Impact.Trigram -> Unit.Impact -> Unit.Impact
@@ -199,7 +194,7 @@ computeIngredientTransport db { ingredient, country, mass } =
         emptyImpacts =
             Impact.impactsFromDefinitons db.impacts
 
-        baseTransports =
+        baseTransport =
             case country of
                 -- In case a custom country is provided, compute the distances to it from France
                 Just { code } ->
@@ -214,7 +209,7 @@ computeIngredientTransport db { ingredient, country, mass } =
                         |> Ingredient.getDefaultOriginTransport db.impacts
 
         transport =
-            baseTransports
+            baseTransport
                 -- 160km of road transport are added for every ingredient, wherever they come
                 -- from (including France)
                 |> (\t -> { t | road = t.road |> Quantity.plus (Length.kilometers 160) })
@@ -312,6 +307,32 @@ fromQuery db query =
         (ingredientListFromQuery db query)
         (transformFromQuery db query)
         (packagingListFromQuery db query)
+
+
+getMassAtPackaging : Recipe -> Mass
+getMassAtPackaging recipe =
+    Quantity.sum
+        [ getTransformedIngredientsMass recipe
+        , recipe.packaging
+            |> List.map .mass
+            |> Quantity.sum
+        ]
+
+
+getTransformedIngredientsMass : Recipe -> Mass
+getTransformedIngredientsMass { ingredients, transform } =
+    ingredients
+        |> List.map
+            (\{ ingredient, mass } ->
+                case transform |> Maybe.andThen (.process >> .alias) of
+                    Just "cooking" ->
+                        -- If the product is cooked, apply raw to cook ratio to ingredient masses
+                        mass |> Quantity.multiplyBy (Unit.ratioToFloat ingredient.rawToCookedRatio)
+
+                    _ ->
+                        mass
+            )
+        |> Quantity.sum
 
 
 getRecipeIngredientProcess : RecipeIngredient -> Process

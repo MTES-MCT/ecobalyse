@@ -30,10 +30,14 @@ suite =
                 |> Expect.err
                 |> asTest "should discard erroneous Quality value"
             , "1.1"
-                |> Decode.decodeString Unit.decodeRatio
+                |> Decode.decodeString (Unit.decodeRatio { percentage = True })
                 |> Result.mapError Decode.errorToString
                 |> Expect.err
                 |> asTest "should discard erroneous Ratio value"
+            , "1.1"
+                |> Decode.decodeString (Unit.decodeRatio { percentage = False })
+                |> Expect.ok
+                |> asTest "should not discard a non-percentage value"
             , "-100"
                 |> Decode.decodeString Unit.decodeReparability
                 |> Result.mapError Decode.errorToString

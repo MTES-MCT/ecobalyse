@@ -189,7 +189,7 @@ decodeAggregatedScoreData =
     Decode.map3 AggregatedScoreData
         (Decode.field "color" Decode.string)
         (Decode.field "normalization" Unit.decodeImpact)
-        (Decode.field "weighting" Unit.decodeRatio)
+        (Decode.field "weighting" (Unit.decodeRatio { percentage = True }))
 
 
 decodeQuality : Decoder Quality

@@ -17,6 +17,7 @@ import Data.Food.Builder.Recipe as Recipe exposing (Recipe)
 import Data.Food.Ingredient as Ingredient exposing (Id, Ingredient)
 import Data.Food.Origin as Origin
 import Data.Food.Process as Process exposing (Process)
+import Data.Gitbook as Gitbook
 import Data.Impact as Impact exposing (Impacts)
 import Data.Key as Key
 import Data.Scope as Scope
@@ -28,6 +29,7 @@ import Html.Events exposing (..)
 import Json.Encode as Encode
 import Page.Textile.Simulator.ViewMode as ViewMode
 import Ports
+import Quantity
 import RemoteData exposing (WebData)
 import Request.Common
 import Request.Food.BuilderDb as RequestDb
@@ -43,6 +45,7 @@ import Views.Container as Container
 import Views.Format as Format
 import Views.Icon as Icon
 import Views.Impact as ImpactView
+import Views.Link as Link
 import Views.Modal as ModalView
 import Views.Spinner as Spinner
 import Views.Transport as TransportView
@@ -178,7 +181,7 @@ update ({ queries } as session) msg model =
         AddTransform ->
             let
                 defaultMass =
-                    Query.sumMasses query.ingredients
+                    query.ingredients |> List.map .mass |> Quantity.sum
 
                 firstTransform =
                     session.builderDb.processes
@@ -993,7 +996,7 @@ transformView db selectedImpact recipe results =
     , case recipe.transform of
         Just transform ->
             div []
-                [ ul [ class "list-group list-group-flush border-top-0" ]
+                [ ul [ class "list-group list-group-flush border-top-0 border-bottom-0" ]
                     [ updateProcessFormView
                         { processes =
                             db.processes
@@ -1005,9 +1008,23 @@ transformView db selectedImpact recipe results =
                         , deleteEvent = ResetTransform
                         }
                     ]
-                , div [ class "card-body d-flex align-items-center gap-1 text-muted py-2" ]
-                    [ Icon.info
-                    , small [] [ text "Entrez la masse totale mobilisée par le procédé de transformation sélectionné" ]
+                , div
+                    [ class "card-body d-flex justify-content-between align-items-center gap-1"
+                    , class "border-top-0 text-muted py-2 fs-7"
+                    ]
+                    [ div [ class "text-truncate" ]
+                        [ text <|
+                            "Masse du produit après transformation ("
+                                ++ Process.nameToString transform.process.name
+                                ++ ")"
+                        ]
+                    , span [ class "d-flex" ]
+                        [ Recipe.getTransformedIngredientsMass recipe
+                            |> Format.kg
+                        , Link.smallPillExternal
+                            [ href (Gitbook.publicUrlFromPath Gitbook.FoodRawToCookedRatio) ]
+                            [ Icon.question ]
+                        ]
                     ]
                 ]
 

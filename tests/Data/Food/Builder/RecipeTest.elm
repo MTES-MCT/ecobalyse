@@ -2,6 +2,7 @@ module Data.Food.Builder.RecipeTest exposing (..)
 
 import Data.Food.Builder.Query as Query
 import Data.Food.Builder.Recipe as Recipe
+import Data.Food.Ingredient as Ingredient
 import Data.Food.Process as Process
 import Data.Unit as Unit
 import Dict
@@ -73,12 +74,33 @@ suite =
                         )
                     |> asTest "should return computed impacts where none equals zero"
                 ]
-            , describe "getTotalMass"
-                [ exampleQuery
+            , describe "getTransformedIngredientsMass"
+                [ { ingredients =
+                        [ { id = Ingredient.idFromString "egg"
+                          , name = "Oeuf"
+                          , mass = Mass.grams 120
+                          , variant = Query.Default
+                          , country = Nothing
+                          }
+                        , { id = Ingredient.idFromString "wheat"
+                          , name = "Blé tendre"
+                          , mass = Mass.grams 140
+                          , variant = Query.Default
+                          , country = Nothing
+                          }
+                        ]
+                  , transform = Nothing
+                  , packaging = []
+                  }
                     |> Recipe.compute builderDb
-                    |> Result.map (Tuple.first >> Recipe.getTotalMass)
-                    |> Expect.equal (Ok (Mass.kilograms 0.65))
-                    |> asTest "should compute recipe total mass"
+                    |> Result.map (Tuple.first >> Recipe.getMassAtPackaging)
+                    |> Expect.equal (Ok (Mass.kilograms 0.26))
+                    |> asTest "should compute recipe ingredients mass with no cooking involved"
+                , exampleQuery
+                    |> Recipe.compute builderDb
+                    |> Result.map (Tuple.first >> Recipe.getMassAtPackaging)
+                    |> Expect.equal (Ok (Mass.kilograms 0.79074))
+                    |> asTest "should compute recipe ingredients mass applying raw to cooked ratio"
                 ]
             ]
         )

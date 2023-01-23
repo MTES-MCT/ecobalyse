@@ -59,7 +59,7 @@ decode processes =
         |> Pipe.required "zone" Zone.decode
         |> Pipe.required "electricityProcessUuid" (Process.decodeFromUuid processes)
         |> Pipe.required "heatProcessUuid" (Process.decodeFromUuid processes)
-        |> Pipe.required "airTransportRatio" Unit.decodeRatio
+        |> Pipe.required "airTransportRatio" (Unit.decodeRatio { percentage = True })
         |> Pipe.optional "scopes" (Decode.list Scope.decode) [ Scope.Food, Scope.Textile ]
 
 
