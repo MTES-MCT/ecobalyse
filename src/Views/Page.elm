@@ -29,13 +29,13 @@ type ActivePage
     = Api
     | Changelog
     | Editorial String
+    | Explore
     | FoodBuilder
     | FoodExplore
     | Home
     | Other
     | Stats
     | TextileExamples
-    | TextileExplore
     | TextileSimulator
 
 
@@ -133,7 +133,7 @@ headerMenuLinks =
     [ Internal "Accueil" Route.Home Home
     , Internal "Simulateur" (Route.TextileSimulator Impact.defaultTextileTrigram Unit.PerItem ViewMode.Simple Nothing) TextileSimulator
     , Internal "Exemples" Route.TextileExamples TextileExamples
-    , Internal "Explorateur" (Route.TextileExplore (Db.Countries Nothing)) TextileExplore
+    , Internal "Explorateur" (Route.Explore (Db.Countries Nothing)) Explore
     , Internal "API" Route.Api Api
     , External "Documentation" Env.gitbookUrl
 
@@ -147,7 +147,7 @@ footerMenuLinks =
     [ Internal "Accueil" Route.Home Home
     , Internal "Simulateur" (Route.TextileSimulator Impact.defaultTextileTrigram Unit.PerItem ViewMode.Simple Nothing) TextileSimulator
     , Internal "Exemples" Route.TextileExamples TextileExamples
-    , Internal "Explorateur" (Route.TextileExplore (Db.Countries Nothing)) TextileExplore
+    , Internal "Explorateur" (Route.Explore (Db.Countries Nothing)) Explore
     , Internal "API" Route.Api Api
     , Internal "Nouveautés" Route.Changelog Changelog
     , Internal "Statistiques" Route.Stats Stats

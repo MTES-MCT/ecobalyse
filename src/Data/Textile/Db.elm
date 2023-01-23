@@ -76,16 +76,16 @@ It's used by Page.Explore and related routes.
 type Dataset
     = Countries (Maybe Country.Code)
     | Impacts (Maybe Impact.Trigram)
-    | Products (Maybe Product.Id)
-    | Materials (Maybe Material.Id)
+    | TextileProducts (Maybe Product.Id)
+    | TextileMaterials (Maybe Material.Id)
 
 
 datasets : List Dataset
 datasets =
     [ Countries Nothing
     , Impacts Nothing
-    , Products Nothing
-    , Materials Nothing
+    , TextileProducts Nothing
+    , TextileMaterials Nothing
     ]
 
 
@@ -98,10 +98,10 @@ datasetStrings dataset =
         Impacts _ ->
             { slug = "impacts", label = "Impacts" }
 
-        Products _ ->
+        TextileProducts _ ->
             { slug = "products", label = "Produits" }
 
-        Materials _ ->
+        TextileMaterials _ ->
             { slug = "materials", label = "Matières" }
 
 
@@ -112,10 +112,10 @@ datasetFromSlug string =
             Impacts Nothing
 
         "products" ->
-            Products Nothing
+            TextileProducts Nothing
 
         "materials" ->
-            Materials Nothing
+            TextileMaterials Nothing
 
         _ ->
             Countries Nothing
@@ -147,11 +147,11 @@ datasetSlugWithId dataset idString =
         Impacts _ ->
             Impacts (Just (Impact.trg idString))
 
-        Products _ ->
-            Products (Just (Product.Id idString))
+        TextileProducts _ ->
+            TextileProducts (Just (Product.Id idString))
 
-        Materials _ ->
-            Materials (Just (Material.Id idString))
+        TextileMaterials _ ->
+            TextileMaterials (Just (Material.Id idString))
 
 
 toDatasetRoutePath : Dataset -> List String
@@ -169,14 +169,14 @@ toDatasetRoutePath dataset =
         Impacts (Just trigram) ->
             [ datasetSlug dataset, Impact.toString trigram ]
 
-        Products Nothing ->
+        TextileProducts Nothing ->
             [ datasetSlug dataset ]
 
-        Products (Just id) ->
+        TextileProducts (Just id) ->
             [ datasetSlug dataset, Product.idToString id ]
 
-        Materials Nothing ->
+        TextileMaterials Nothing ->
             [ datasetSlug dataset ]
 
-        Materials (Just id) ->
+        TextileMaterials (Just id) ->
             [ datasetSlug dataset, Material.idToString id ]

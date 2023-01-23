@@ -1,12 +1,12 @@
-module Page.Textile.Explore.Impacts exposing (table)
+module Page.Explore.Impacts exposing (table)
 
 import Data.Impact as Impact exposing (Definition)
 import Data.Textile.Db as Db
 import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Page.Textile.Explore.Common as Common
-import Page.Textile.Explore.Table exposing (Table)
+import Page.Explore.Common as Common
+import Page.Explore.Table exposing (Table)
 import Route
 import Views.Format as Format
 import Views.Impact as ImpactView
@@ -22,7 +22,7 @@ table { detailed } =
                     code [] [ text (Impact.toString def.trigram) ]
 
                 else
-                    a [ Route.href (Route.TextileExplore (Db.Impacts (Just def.trigram))) ]
+                    a [ Route.href (Route.Explore (Db.Impacts (Just def.trigram))) ]
                         [ code [] [ text (Impact.toString def.trigram) ] ]
       }
     , { label = "Nom"

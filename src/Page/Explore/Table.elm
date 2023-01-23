@@ -1,4 +1,4 @@
-module Page.Textile.Explore.Table exposing
+module Page.Explore.Table exposing
     ( Table
     , viewDetails
     , viewList

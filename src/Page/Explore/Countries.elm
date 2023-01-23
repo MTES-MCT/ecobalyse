@@ -1,12 +1,12 @@
-module Page.Textile.Explore.Countries exposing (table)
+module Page.Explore.Countries exposing (table)
 
 import Data.Country as Country exposing (Country)
 import Data.Gitbook as Gitbook
 import Data.Textile.Db as Db
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Page.Textile.Explore.Common as Common
-import Page.Textile.Explore.Table exposing (Table)
+import Page.Explore.Common as Common
+import Page.Explore.Table exposing (Table)
 import Route
 import Views.Format as Format
 import Views.Icon as Icon
@@ -22,7 +22,7 @@ table { detailed } =
                     code [] [ text (Country.codeToString country.code) ]
 
                 else
-                    a [ Route.href (Route.TextileExplore (Db.Countries (Just country.code))) ]
+                    a [ Route.href (Route.Explore (Db.Countries (Just country.code))) ]
                         [ code [] [ text (Country.codeToString country.code) ] ]
       }
     , { label = "Nom"

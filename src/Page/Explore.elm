@@ -1,4 +1,4 @@
-module Page.Textile.Explore exposing
+module Page.Explore exposing
     ( Model
     , Msg(..)
     , init
@@ -18,11 +18,11 @@ import Data.Textile.Material as Material
 import Data.Textile.Product as Product
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Page.Textile.Explore.Countries as ExploreCountries
-import Page.Textile.Explore.Impacts as ExploreImpacts
-import Page.Textile.Explore.Materials as ExploreMaterials
-import Page.Textile.Explore.Products as ExploreProducts
-import Page.Textile.Explore.Table as Table
+import Page.Explore.Countries as ExploreCountries
+import Page.Explore.Impacts as ExploreImpacts
+import Page.Explore.Table as Table
+import Page.Explore.TextileMaterials as TextileMaterials
+import Page.Explore.TextileProducts as TextileProducts
 import Ports
 import Route
 import Views.Alert as Alert
@@ -59,16 +59,16 @@ update session msg model =
             , Nav.pushUrl session.navKey
                 (case model.dataset of
                     Db.Countries _ ->
-                        Route.toString <| Route.TextileExplore (Db.Countries Nothing)
+                        Route.toString <| Route.Explore (Db.Countries Nothing)
 
                     Db.Impacts _ ->
-                        Route.toString <| Route.TextileExplore (Db.Impacts Nothing)
+                        Route.toString <| Route.Explore (Db.Impacts Nothing)
 
-                    Db.Products _ ->
-                        Route.toString <| Route.TextileExplore (Db.Products Nothing)
+                    Db.TextileProducts _ ->
+                        Route.toString <| Route.Explore (Db.TextileProducts Nothing)
 
-                    Db.Materials _ ->
-                        Route.toString <| Route.TextileExplore (Db.Materials Nothing)
+                    Db.TextileMaterials _ ->
+                        Route.toString <| Route.Explore (Db.TextileMaterials Nothing)
                 )
             )
 
@@ -82,10 +82,10 @@ isActive a b =
         ( Db.Impacts _, Db.Impacts _ ) ->
             True
 
-        ( Db.Products _, Db.Products _ ) ->
+        ( Db.TextileProducts _, Db.TextileProducts _ ) ->
             True
 
-        ( Db.Materials _, Db.Materials _ ) ->
+        ( Db.TextileMaterials _, Db.TextileMaterials _ ) ->
             True
 
         _ ->
@@ -101,10 +101,10 @@ modalOpened dataset =
         Db.Impacts (Just _) ->
             True
 
-        Db.Products (Just _) ->
+        Db.TextileProducts (Just _) ->
             True
 
-        Db.Materials (Just _) ->
+        Db.TextileMaterials (Just _) ->
             True
 
         _ ->
@@ -119,7 +119,7 @@ menu dataset =
                 a
                     [ class "nav-link"
                     , classList [ ( "active", isActive ds dataset ) ]
-                    , Route.href (Route.TextileExplore ds)
+                    , Route.href (Route.Explore ds)
                     ]
                     [ text (Db.datasetLabel ds) ]
             )
@@ -193,13 +193,13 @@ impactsExplorer maybeTrigram definitions =
 materialsExplorer : Maybe Material.Id -> Db -> List (Html Msg)
 materialsExplorer maybeId db =
     [ db.materials
-        |> Table.viewList (ExploreMaterials.table db)
+        |> Table.viewList (TextileMaterials.table db)
     , case maybeId of
         Just id ->
             case Material.findById id db.materials of
                 Ok material ->
                     material
-                        |> Table.viewDetails (ExploreMaterials.table db)
+                        |> Table.viewDetails (TextileMaterials.table db)
                         |> detailsModal
 
                 Err error ->
@@ -213,13 +213,13 @@ materialsExplorer maybeId db =
 productsExplorer : Maybe Product.Id -> Db -> List (Html Msg)
 productsExplorer maybeId db =
     [ db.products
-        |> Table.viewList (ExploreProducts.table db)
+        |> Table.viewList (TextileProducts.table db)
     , case maybeId of
         Just id ->
             case Product.findById id db.products of
                 Ok product ->
                     product
-                        |> Table.viewDetails (ExploreProducts.table db)
+                        |> Table.viewDetails (TextileProducts.table db)
                         |> detailsModal
 
                 Err error ->
@@ -239,10 +239,10 @@ explore db dataset =
         Db.Impacts maybeTrigram ->
             db.impacts |> impactsExplorer maybeTrigram
 
-        Db.Materials maybeId ->
+        Db.TextileMaterials maybeId ->
             db |> materialsExplorer maybeId
 
-        Db.Products maybeId ->
+        Db.TextileProducts maybeId ->
             db |> productsExplorer maybeId
 
 
