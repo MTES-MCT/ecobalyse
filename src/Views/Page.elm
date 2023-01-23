@@ -71,7 +71,7 @@ frame config ( title, content ) =
             text ""
         , main_ [ class "bg-white" ]
             [ if config.activePage == FoodBuilder || config.activePage == FoodExplore then
-                div [ class "alert alert-info border-start-0 border-end-0 rounded-0" ]
+                div [ class "alert alert-info border-start-0 border-end-0 rounded-0 shadow-sm mb-0" ]
                     [ Container.centered []
                         [ h2 [ class "d-flex align-items-center gap-1 h5" ] [ Icon.warning, text "Version Alpha" ]
                         , text """Ce calculateur d’impacts environnementaux alimentaire est en
