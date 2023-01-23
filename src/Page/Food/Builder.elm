@@ -17,6 +17,7 @@ import Data.Food.Builder.Recipe as Recipe exposing (Recipe)
 import Data.Food.Ingredient as Ingredient exposing (Id, Ingredient)
 import Data.Food.Origin as Origin
 import Data.Food.Process as Process exposing (Process)
+import Data.Gitbook as Gitbook
 import Data.Impact as Impact exposing (Impacts)
 import Data.Key as Key
 import Data.Scope as Scope
@@ -44,6 +45,7 @@ import Views.Container as Container
 import Views.Format as Format
 import Views.Icon as Icon
 import Views.Impact as ImpactView
+import Views.Link as Link
 import Views.Modal as ModalView
 import Views.Spinner as Spinner
 import Views.Transport as TransportView
@@ -1010,14 +1012,19 @@ transformView db selectedImpact recipe results =
                     [ class "card-body d-flex justify-content-between align-items-center gap-1"
                     , class "border-top-0 text-muted py-2 fs-7"
                     ]
-                    [ span [ class "text-truncate" ]
+                    [ div [ class "text-truncate" ]
                         [ text <|
                             "Masse du produit après transformation ("
                                 ++ Process.nameToString transform.process.name
                                 ++ ")"
                         ]
-                    , Recipe.getTransformedIngredientsMass recipe
-                        |> Format.kg
+                    , span [ class "d-flex" ]
+                        [ Recipe.getTransformedIngredientsMass recipe
+                            |> Format.kg
+                        , Link.smallPillExternal
+                            [ href (Gitbook.publicUrlFromPath Gitbook.FoodRawToCookedRatio) ]
+                            [ Icon.question ]
+                        ]
                     ]
                 ]
 
