@@ -8,6 +8,7 @@ module Data.Dataset exposing
     )
 
 import Data.Country as Country
+import Data.Food.Ingredient as Ingredient
 import Data.Impact as Impact
 import Data.Textile.Material as Material
 import Data.Textile.Product as Product
@@ -22,6 +23,7 @@ It's used by Page.Explore and related routes.
 type Dataset
     = Countries (Maybe Country.Code)
     | Impacts (Maybe Impact.Trigram)
+    | FoodIngredients (Maybe Ingredient.Id)
     | TextileProducts (Maybe Product.Id)
     | TextileMaterials (Maybe Material.Id)
 
@@ -30,6 +32,7 @@ datasets : List Dataset
 datasets =
     [ Impacts Nothing
     , Countries Nothing
+    , FoodIngredients Nothing
     , TextileProducts Nothing
     , TextileMaterials Nothing
     ]
@@ -38,8 +41,11 @@ datasets =
 fromSlug : String -> Dataset
 fromSlug string =
     case string of
-        "impacts" ->
-            Impacts Nothing
+        "countries" ->
+            Countries Nothing
+
+        "ingredients" ->
+            FoodIngredients Nothing
 
         "products" ->
             TextileProducts Nothing
@@ -48,7 +54,7 @@ fromSlug string =
             TextileMaterials Nothing
 
         _ ->
-            Countries Nothing
+            Impacts Nothing
 
 
 label : Dataset -> String
@@ -77,6 +83,9 @@ slugWithId dataset idString =
         Impacts _ ->
             Impacts (Just (Impact.trg idString))
 
+        FoodIngredients _ ->
+            FoodIngredients (Just (Ingredient.idFromString idString))
+
         TextileProducts _ ->
             TextileProducts (Just (Product.Id idString))
 
@@ -92,6 +101,9 @@ strings dataset =
 
         Impacts _ ->
             { slug = "impacts", label = "Impacts" }
+
+        FoodIngredients _ ->
+            { slug = "ingredients", label = "Ingrédients" }
 
         TextileProducts _ ->
             { slug = "products", label = "Produits" }
@@ -111,6 +123,12 @@ toRoutePath dataset =
 
         Impacts Nothing ->
             []
+
+        FoodIngredients Nothing ->
+            [ slug dataset ]
+
+        FoodIngredients (Just id) ->
+            [ slug dataset, Ingredient.idToString id ]
 
         Impacts (Just trigram) ->
             [ slug dataset, Impact.toString trigram ]

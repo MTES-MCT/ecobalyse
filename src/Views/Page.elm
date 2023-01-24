@@ -133,7 +133,7 @@ headerMenuLinks =
     [ Internal "Accueil" Route.Home Home
     , Internal "Simulateur" (Route.TextileSimulator Impact.defaultTextileTrigram Unit.PerItem ViewMode.Simple Nothing) TextileSimulator
     , Internal "Exemples" Route.TextileExamples TextileExamples
-    , Internal "Explorateur" (Route.Explore (Dataset.Countries Nothing)) Explore
+    , Internal "Explorateur" (Route.Explore (Dataset.Impacts Nothing)) Explore
     , Internal "API" Route.Api Api
     , External "Documentation" Env.gitbookUrl
 

@@ -11,6 +11,8 @@ import Browser.Events
 import Browser.Navigation as Nav
 import Data.Country as Country exposing (Country)
 import Data.Dataset as Dataset exposing (Dataset)
+import Data.Food.Builder.Db as BuilderDb
+import Data.Food.Ingredient as Ingredient
 import Data.Impact as Impact
 import Data.Key as Key
 import Data.Session exposing (Session)
@@ -20,6 +22,7 @@ import Data.Textile.Product as Product
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Page.Explore.Countries as ExploreCountries
+import Page.Explore.FoodIngredients as FoodIngredients
 import Page.Explore.Impacts as ExploreImpacts
 import Page.Explore.Table as Table
 import Page.Explore.TextileMaterials as TextileMaterials
@@ -64,6 +67,9 @@ update session msg model =
                 Dataset.Impacts _ ->
                     Dataset.Impacts Nothing
 
+                Dataset.FoodIngredients _ ->
+                    Dataset.FoodIngredients Nothing
+
                 Dataset.TextileProducts _ ->
                     Dataset.TextileProducts Nothing
 
@@ -85,6 +91,9 @@ isActive a b =
         ( Dataset.Impacts _, Dataset.Impacts _ ) ->
             True
 
+        ( Dataset.FoodIngredients _, Dataset.FoodIngredients _ ) ->
+            True
+
         ( Dataset.TextileProducts _, Dataset.TextileProducts _ ) ->
             True
 
@@ -102,6 +111,9 @@ modalOpened dataset =
             True
 
         Dataset.Impacts (Just _) ->
+            True
+
+        Dataset.FoodIngredients (Just _) ->
             True
 
         Dataset.TextileProducts (Just _) ->
@@ -196,28 +208,8 @@ impactsExplorer maybeTrigram definitions =
     ]
 
 
-materialsExplorer : Maybe Material.Id -> Db -> List (Html Msg)
-materialsExplorer maybeId db =
-    [ db.materials
-        |> Table.viewList (TextileMaterials.table db)
-    , case maybeId of
-        Just id ->
-            case Material.findById id db.materials of
-                Ok material ->
-                    material
-                        |> Table.viewDetails (TextileMaterials.table db)
-                        |> detailsModal
-
-                Err error ->
-                    alert error
-
-        Nothing ->
-            text ""
-    ]
-
-
-productsExplorer : Maybe Product.Id -> Db -> List (Html Msg)
-productsExplorer maybeId db =
+textileProductsExplorer : Maybe Product.Id -> Db -> List (Html Msg)
+textileProductsExplorer maybeId db =
     [ db.products
         |> Table.viewList (TextileProducts.table db)
     , case maybeId of
@@ -236,8 +228,48 @@ productsExplorer maybeId db =
     ]
 
 
-explore : Db -> Dataset -> List (Html Msg)
-explore db dataset =
+textileMaterialsExplorer : Maybe Material.Id -> Db -> List (Html Msg)
+textileMaterialsExplorer maybeId db =
+    [ db.materials
+        |> Table.viewList (TextileMaterials.table db)
+    , case maybeId of
+        Just id ->
+            case Material.findById id db.materials of
+                Ok material ->
+                    material
+                        |> Table.viewDetails (TextileMaterials.table db)
+                        |> detailsModal
+
+                Err error ->
+                    alert error
+
+        Nothing ->
+            text ""
+    ]
+
+
+foodIngredientsExplorer : Maybe Ingredient.Id -> BuilderDb.Db -> List (Html Msg)
+foodIngredientsExplorer maybeId db =
+    [ db.ingredients
+        |> Table.viewList (FoodIngredients.table db)
+    , case maybeId of
+        Just id ->
+            case Ingredient.findByID id db.ingredients of
+                Ok ingredient ->
+                    ingredient
+                        |> Table.viewDetails (FoodIngredients.table db)
+                        |> detailsModal
+
+                Err error ->
+                    alert error
+
+        Nothing ->
+            text ""
+    ]
+
+
+explore : Session -> Dataset -> List (Html Msg)
+explore { db, builderDb } dataset =
     case dataset of
         Dataset.Countries maybeCode ->
             db.countries |> countriesExplorer maybeCode
@@ -245,11 +277,14 @@ explore db dataset =
         Dataset.Impacts maybeTrigram ->
             db.impacts |> impactsExplorer maybeTrigram
 
+        Dataset.FoodIngredients maybeId ->
+            builderDb |> foodIngredientsExplorer maybeId
+
         Dataset.TextileMaterials maybeId ->
-            db |> materialsExplorer maybeId
+            db |> textileMaterialsExplorer maybeId
 
         Dataset.TextileProducts maybeId ->
-            db |> productsExplorer maybeId
+            db |> textileProductsExplorer maybeId
 
 
 view : Session -> Model -> ( String, List (Html Msg) )
@@ -264,7 +299,7 @@ view session { dataset } =
                     ]
                 , menu dataset
                 ]
-            , explore session.db dataset
+            , explore session dataset
                 |> div [ class "mt-3" ]
             ]
       ]
