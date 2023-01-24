@@ -1,7 +1,8 @@
 module Page.Explore.TextileMaterials exposing (table)
 
 import Data.Country as Country
-import Data.Textile.Db as Db exposing (Db)
+import Data.Dataset as Dataset
+import Data.Textile.Db exposing (Db)
 import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Material.Category as Category
 import Data.Unit as Unit
@@ -21,7 +22,7 @@ table { countries } { detailed } =
                     code [] [ text (Material.idToString material.id) ]
 
                 else
-                    a [ Route.href (Route.Explore (Db.TextileMaterials (Just material.id))) ]
+                    a [ Route.href (Route.Explore (Dataset.TextileMaterials (Just material.id))) ]
                         [ code [] [ text (Material.idToString material.id) ] ]
       }
     , { label = "Nom"

@@ -7,10 +7,10 @@ module Views.Page exposing
     )
 
 import Browser exposing (Document)
+import Data.Dataset as Dataset
 import Data.Env as Env
 import Data.Impact as Impact
 import Data.Session as Session exposing (Session)
-import Data.Textile.Db as Db
 import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -133,7 +133,7 @@ headerMenuLinks =
     [ Internal "Accueil" Route.Home Home
     , Internal "Simulateur" (Route.TextileSimulator Impact.defaultTextileTrigram Unit.PerItem ViewMode.Simple Nothing) TextileSimulator
     , Internal "Exemples" Route.TextileExamples TextileExamples
-    , Internal "Explorateur" (Route.Explore (Db.Countries Nothing)) Explore
+    , Internal "Explorateur" (Route.Explore (Dataset.Countries Nothing)) Explore
     , Internal "API" Route.Api Api
     , External "Documentation" Env.gitbookUrl
 
@@ -147,7 +147,7 @@ footerMenuLinks =
     [ Internal "Accueil" Route.Home Home
     , Internal "Simulateur" (Route.TextileSimulator Impact.defaultTextileTrigram Unit.PerItem ViewMode.Simple Nothing) TextileSimulator
     , Internal "Exemples" Route.TextileExamples TextileExamples
-    , Internal "Explorateur" (Route.Explore (Db.Countries Nothing)) Explore
+    , Internal "Explorateur" (Route.Explore (Dataset.Countries Nothing)) Explore
     , Internal "API" Route.Api Api
     , Internal "Nouveautés" Route.Changelog Changelog
     , Internal "Statistiques" Route.Stats Stats

@@ -1,7 +1,7 @@
 module Page.Explore.Impacts exposing (table)
 
+import Data.Dataset as Dataset
 import Data.Impact as Impact exposing (Definition)
-import Data.Textile.Db as Db
 import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -22,7 +22,7 @@ table { detailed } =
                     code [] [ text (Impact.toString def.trigram) ]
 
                 else
-                    a [ Route.href (Route.Explore (Db.Impacts (Just def.trigram))) ]
+                    a [ Route.href (Route.Explore (Dataset.Impacts (Just def.trigram))) ]
                         [ code [] [ text (Impact.toString def.trigram) ] ]
       }
     , { label = "Nom"

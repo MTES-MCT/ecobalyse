@@ -5,10 +5,10 @@ module Route exposing
     , toString
     )
 
+import Data.Dataset as Dataset exposing (Dataset)
 import Data.Food.Builder.Query as FoodQuery
 import Data.Impact as Impact
 import Data.Scope as Scope
-import Data.Textile.Db as Db
 import Data.Textile.Inputs as TextileQuery
 import Data.Unit as Unit
 import Html exposing (Attribute)
@@ -23,7 +23,7 @@ type Route
     | Api
     | Changelog
     | Editorial String
-    | Explore Db.Dataset
+    | Explore Dataset
     | FoodBuilder Impact.Trigram (Maybe FoodQuery.Query)
     | FoodExplore
     | TextileExamples
@@ -61,12 +61,12 @@ parser =
         , Parser.map TextileExamples (Parser.s "textile" </> Parser.s "examples")
 
         -- Textile Explorer
-        , Parser.map (Explore (Db.Countries Nothing))
+        , Parser.map (Explore (Dataset.Countries Nothing))
             (Parser.s "textile" </> Parser.s "explore")
         , Parser.map Explore
-            (Parser.s "textile" </> Parser.s "explore" </> Db.parseDatasetSlug)
+            (Parser.s "textile" </> Parser.s "explore" </> Dataset.parseSlug)
         , Parser.map toExploreWithId
-            (Parser.s "textile" </> Parser.s "explore" </> Db.parseDatasetSlug </> Parser.string)
+            (Parser.s "textile" </> Parser.s "explore" </> Dataset.parseSlug </> Parser.string)
 
         -- Textile Simulator
         , Parser.map (TextileSimulator Impact.defaultTextileTrigram Unit.PerItem ViewMode.Simple Nothing)
@@ -82,9 +82,9 @@ parser =
         ]
 
 
-toExploreWithId : Db.Dataset -> String -> Route
+toExploreWithId : Dataset -> String -> Route
 toExploreWithId dataset idString =
-    Explore (Db.datasetSlugWithId dataset idString)
+    Explore (Dataset.slugWithId dataset idString)
 
 
 {-| Note: as the app relies on URL fragment based routing, the source URL is
@@ -153,11 +153,11 @@ toString route =
                 TextileExamples ->
                     [ "textile", "examples" ]
 
-                Explore (Db.Countries Nothing) ->
+                Explore (Dataset.Countries Nothing) ->
                     [ "textile", "explore" ]
 
                 Explore dataset ->
-                    "textile" :: "explore" :: Db.toDatasetRoutePath dataset
+                    "textile" :: "explore" :: Dataset.toRoutePath dataset
 
                 TextileSimulator trigram funit viewMode (Just query) ->
                     [ "textile"

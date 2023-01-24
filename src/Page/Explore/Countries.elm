@@ -1,8 +1,8 @@
 module Page.Explore.Countries exposing (table)
 
 import Data.Country as Country exposing (Country)
+import Data.Dataset as Dataset
 import Data.Gitbook as Gitbook
-import Data.Textile.Db as Db
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Page.Explore.Common as Common
@@ -22,7 +22,7 @@ table { detailed } =
                     code [] [ text (Country.codeToString country.code) ]
 
                 else
-                    a [ Route.href (Route.Explore (Db.Countries (Just country.code))) ]
+                    a [ Route.href (Route.Explore (Dataset.Countries (Just country.code))) ]
                         [ code [] [ text (Country.codeToString country.code) ] ]
       }
     , { label = "Nom"

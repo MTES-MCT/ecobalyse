@@ -10,10 +10,11 @@ module Page.Explore exposing
 import Browser.Events
 import Browser.Navigation as Nav
 import Data.Country as Country exposing (Country)
+import Data.Dataset as Dataset exposing (Dataset)
 import Data.Impact as Impact
 import Data.Key as Key
 import Data.Session exposing (Session)
-import Data.Textile.Db as Db exposing (Db)
+import Data.Textile.Db exposing (Db)
 import Data.Textile.Material as Material
 import Data.Textile.Product as Product
 import Html exposing (..)
@@ -31,7 +32,7 @@ import Views.Modal as ModalView
 
 
 type alias Model =
-    { dataset : Db.Dataset }
+    { dataset : Dataset }
 
 
 type Msg
@@ -39,7 +40,7 @@ type Msg
     | CloseModal
 
 
-init : Db.Dataset -> Session -> ( Model, Session, Cmd Msg )
+init : Dataset -> Session -> ( Model, Session, Cmd Msg )
 init dataset session =
     ( { dataset = dataset }
     , session
@@ -56,64 +57,66 @@ update session msg model =
         CloseModal ->
             ( model
             , session
-            , Nav.pushUrl session.navKey
-                (case model.dataset of
-                    Db.Countries _ ->
-                        Route.toString <| Route.Explore (Db.Countries Nothing)
+            , (case model.dataset of
+                Dataset.Countries _ ->
+                    Dataset.Countries Nothing
 
-                    Db.Impacts _ ->
-                        Route.toString <| Route.Explore (Db.Impacts Nothing)
+                Dataset.Impacts _ ->
+                    Dataset.Impacts Nothing
 
-                    Db.TextileProducts _ ->
-                        Route.toString <| Route.Explore (Db.TextileProducts Nothing)
+                Dataset.TextileProducts _ ->
+                    Dataset.TextileProducts Nothing
 
-                    Db.TextileMaterials _ ->
-                        Route.toString <| Route.Explore (Db.TextileMaterials Nothing)
-                )
+                Dataset.TextileMaterials _ ->
+                    Dataset.TextileMaterials Nothing
+              )
+                |> Route.Explore
+                |> Route.toString
+                |> Nav.pushUrl session.navKey
             )
 
 
-isActive : Db.Dataset -> Db.Dataset -> Bool
+isActive : Dataset -> Dataset -> Bool
 isActive a b =
     case ( a, b ) of
-        ( Db.Countries _, Db.Countries _ ) ->
+        ( Dataset.Countries _, Dataset.Countries _ ) ->
             True
 
-        ( Db.Impacts _, Db.Impacts _ ) ->
+        ( Dataset.Impacts _, Dataset.Impacts _ ) ->
             True
 
-        ( Db.TextileProducts _, Db.TextileProducts _ ) ->
+        ( Dataset.TextileProducts _, Dataset.TextileProducts _ ) ->
             True
 
-        ( Db.TextileMaterials _, Db.TextileMaterials _ ) ->
+        ( Dataset.TextileMaterials _, Dataset.TextileMaterials _ ) ->
             True
 
         _ ->
             False
 
 
-modalOpened : Db.Dataset -> Bool
+modalOpened : Dataset -> Bool
 modalOpened dataset =
     case dataset of
-        Db.Countries (Just _) ->
+        Dataset.Countries (Just _) ->
             True
 
-        Db.Impacts (Just _) ->
+        Dataset.Impacts (Just _) ->
             True
 
-        Db.TextileProducts (Just _) ->
+        Dataset.TextileProducts (Just _) ->
             True
 
-        Db.TextileMaterials (Just _) ->
+        Dataset.TextileMaterials (Just _) ->
             True
 
         _ ->
             False
 
 
-menu : Db.Dataset -> Html Msg
+menu : Dataset -> Html Msg
 menu dataset =
-    Db.datasets
+    Dataset.datasets
         |> List.map
             (\ds ->
                 a
@@ -121,7 +124,7 @@ menu dataset =
                     , classList [ ( "active", isActive ds dataset ) ]
                     , Route.href (Route.Explore ds)
                     ]
-                    [ text (Db.datasetLabel ds) ]
+                    [ text (Dataset.label ds) ]
             )
         |> nav [ class "nav nav-pills d-flex justify-content-between justify-content-sm-end align-items-center gap-0 gap-sm-2" ]
 
@@ -230,31 +233,31 @@ productsExplorer maybeId db =
     ]
 
 
-explore : Db -> Db.Dataset -> List (Html Msg)
+explore : Db -> Dataset -> List (Html Msg)
 explore db dataset =
     case dataset of
-        Db.Countries maybeCode ->
+        Dataset.Countries maybeCode ->
             db.countries |> countriesExplorer maybeCode
 
-        Db.Impacts maybeTrigram ->
+        Dataset.Impacts maybeTrigram ->
             db.impacts |> impactsExplorer maybeTrigram
 
-        Db.TextileMaterials maybeId ->
+        Dataset.TextileMaterials maybeId ->
             db |> materialsExplorer maybeId
 
-        Db.TextileProducts maybeId ->
+        Dataset.TextileProducts maybeId ->
             db |> productsExplorer maybeId
 
 
 view : Session -> Model -> ( String, List (Html Msg) )
 view session { dataset } =
-    ( Db.datasetLabel dataset ++ " | Explorer "
+    ( Dataset.label dataset ++ " | Explorer "
     , [ Container.centered [ class "pb-3" ]
             [ div [ class "d-block d-sm-flex justify-content-between align-items-center" ]
                 [ h1 []
                     [ text "Explorer "
                     , small [ class "text-muted" ]
-                        [ text <| "les " ++ String.toLower (Db.datasetLabel dataset) ]
+                        [ text <| "les " ++ String.toLower (Dataset.label dataset) ]
                     ]
                 , menu dataset
                 ]
