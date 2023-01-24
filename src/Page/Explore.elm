@@ -217,6 +217,7 @@ alert error =
 countriesExplorer : Scope -> Maybe Country.Code -> List Country -> List (Html Msg)
 countriesExplorer scope maybeCode countries =
     [ countries
+        |> List.filter (.scopes >> List.member scope)
         |> Table.viewList scope ExploreCountries.table
     , case maybeCode of
         Just code ->
@@ -237,6 +238,7 @@ countriesExplorer scope maybeCode countries =
 impactsExplorer : Scope -> Maybe Impact.Trigram -> List Impact.Definition -> List (Html Msg)
 impactsExplorer scope maybeTrigram definitions =
     [ definitions
+        |> List.filter (.scopes >> List.member scope)
         |> List.sortBy (.trigram >> Impact.toString)
         |> Table.viewList scope ExploreImpacts.table
     , case maybeTrigram of
