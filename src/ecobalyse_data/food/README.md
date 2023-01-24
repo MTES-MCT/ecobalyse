@@ -38,11 +38,15 @@ Activer l'environnement virtuel :
 
     $ conda activate env
 
-## Importer la base agribalyse dans brightway
+## Importer la base agribalyse v3.0 dans brightway
 
 Tout d'abord se placer dans le bon répertoire :
 
     $ cd import_agb
+
+Attention : il est nécessaire d'avoir le fichier `agribalyse3_no_param.CSV` dans
+le répertoire. Ce fichier est un export de la base Agribalyse par le biais du
+logiciel (payant) SimaPro. Veuillez nous contacter si vous en avez besoin.
 
 Puis lancer le script d'import qui prend plusieurs minutes :
 

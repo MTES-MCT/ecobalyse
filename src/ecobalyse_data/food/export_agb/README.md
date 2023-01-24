@@ -1,8 +1,8 @@
 # Exporter la base agribalyse de brightway vers des fichiers json
 
 Au préalable, vérifiez que vous avez bien suivi les instructions du
-[README](../../README.md) général, et que vous avez installé le projet comme
-indiqué dans le [README](../../../README.md) du repository.
+[README](../README.md) général, et que vous avez installé le projet comme
+indiqué dans le [README](../../../../README.md) du repository.
 
 ## Exporter les données pour l'explorateur de produits CIQUAL
 
