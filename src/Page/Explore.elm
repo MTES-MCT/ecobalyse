@@ -338,14 +338,10 @@ view : Session -> Model -> ( String, List (Html Msg) )
 view session model =
     ( Dataset.label model.dataset ++ " | Explorer "
     , [ Container.centered [ class "pb-3" ]
-            [ div [ class "row d-flex align-items-center gap-2 gap-sm-0" ]
-                [ h1 [ class "col-sm-5 m-0" ]
-                    [ text "Explorer "
-                    , small [ class "text-muted" ]
-                        [ text <| "les " ++ String.toLower (Dataset.label model.dataset) ]
-                    ]
-                , div [ class "col-sm-4" ] [ datasetsMenuView model ]
-                , div [ class "col-sm-3" ] [ scopesMenuView model ]
+            [ div [ class "row d-flex align-items-center gap-2 gap-lg-0" ]
+                [ h1 [ class "col-lg-4 m-0" ] [ text "Explorer " ]
+                , div [ class "col-lg-5" ] [ datasetsMenuView model ]
+                , div [ class "col-lg-3" ] [ scopesMenuView model ]
                 ]
             , explore session model
                 |> div [ class "mt-3" ]
