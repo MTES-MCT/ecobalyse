@@ -129,7 +129,7 @@ Chacun de ces machines est équipée d’une jauge qui détermine la finesse du 
 
 **Techniques de tricotage (schéma simplifié)**
 
-![](<../../.gitbook/assets/image (3) (2).png>)
+![](<../../.gitbook/assets/image (3).png>)
 
 </details>
 
@@ -152,7 +152,7 @@ Ces étoffes sont notamment appréciées dans les secteurs de la construction, d
 
 **Exemple d'application :**&#x20;
 
-![Exemple d'application d'une étoffe non-tissée](<../../.gitbook/assets/image (8) (1).png>)
+![Exemple d'application d'une étoffe non-tissée](<../../.gitbook/assets/image (8).png>)
 
 </details>
 
@@ -204,6 +204,8 @@ Le titrage indique la grosseur d’un fil textile. \
 Le titrage (ou titre) est le rapport existant entre le poids et la longueur de ce fil.&#x20;
 
 L’unité retenue est le numéro métrique (Nm). Il indique un nombre de kilomètres de ﬁl correspondant à un poids d’un kilogramme (ex : Nm 50 = 50 km de ce fil pèsent 1 kg).
+
+La majorité des fils utilisés dans l'industrie varient entre une épaisseur minimale (Nm 100) et maximale (Nm 20).
 
 Une valeur par défaut est appliquée selon le type de vêtement (t-shirt, robe, etc.) et le grammage (g/m2) de l'étoffe.&#x20;
 
@@ -276,7 +278,7 @@ Remarque : pour les procédés retenus (cf. ci-après), les coefficients d'impac
 
 ### Hypothèses par défaut&#x20;
 
-### Grammage (g/m2) <=> Type de vêtement
+#### Grammage (g/m2)
 
 Un grammage par défaut (g/m2) est appliqué par type de vêtement (cf. onglet [Explorateur](https://ecobalyse.beta.gouv.fr/#/textile/explore/products)).&#x20;
 
@@ -289,44 +291,21 @@ Cette valeur correspond à celle constatée sur le produit fini.&#x20;
 Si c'est le cas, une attention particulière doit être apportée à l'impact de cette modification sur la quantité d'étoffe sortante (m2) afin de ne pas modéliser de scénario incohérent. \
 En effet, le poids (g) d'un vêtement dépend du grammage (g/m2) de l'étoffe et de la quantité d'étoffe (m2) mobilisée. Le poids du vêtement et le grammage de l'étoffe sont paramétrables par l'utilisateur tandis que la quantité d'étoffe ne l'est pas. Cette donnée d'arrière plan est cependant accessible lors de la modélisation.
 
-![](<../../.gitbook/assets/image (4) (1).png>)
+![](<../../.gitbook/assets/image (4) (3).png>)
 
 </details>
 
 L'utilisateur a la possibilité de modifier ce paramètre s'il le maîtrise.&#x20;
 
-### Titrage (Nm) et Densité (# fils/mailles)&#x20;
-
-Préciser le titrage des fils (Nm) permet de préciser la consommation d'énergie nécessaire pour actionner le procédé de tissage ou tricotage. En effet, toutes choses égales par ailleurs, toute modification du titrage (Nm) des fils fait varier d'autant la densité de fils (tissage) ou mailles (tricotage) pour un grammage (g/m2) d'étoffe pre-défini par l'utilisateur. Dès lors, le nombre d'opérations réalisées par la machine varie d'autant.
-
-<details>
-
-<summary>En savoir plus</summary>
-
-En effet, la prise en compte du grammage (g/m2) d'une étoffe ainsi que du titrage (Nm) des fils permet d'appréhender la densité de fils/mailles constituant l'étoffe.
-
-Or, la densité de fils/mailles constituant l'étoffe reflète le nombre d'opérations réalisées par les machines lors de la fabrication de l'étoffe, et donc la consommation d'énergie.
-
-Pour les tissus, plus le compte en trame (duitage) est élevé, plus le nombre de propulsions de la navette est élevé. Pour les tricots, plus le nombre de mailles est élevé par unité de longueur, plus le nombre d'opérations/aiguilles à actionner est élevé.
-
-</details>
-
-**Valeurs par défaut (en cours de rédaction)**
+#### Contexture
 
 {% tabs %}
-{% tab title="Tissus" %}
-| Grammage (g/m2)  | Titrage (Nm) | Densité (chaîne x trame) |
-| ---------------- | ------------ | ------------------------ |
-| < 200            |              |                          |
-| entre 200 et 300 |              |                          |
-| entre 300 et 400 |              |                          |
-| > 400            |              |                          |
-{% endtab %}
+{% tab title="Tissu" %}
+Une contexture par défaut est appliquée à chaque vêtement.&#x20;
 
-{% tab title="Etoffes" %}
+L'utilisateur a la possibilité de préciser la contexture en précisant le titrage (Nm) de fil utilisé. Si les fils de chaîne et trame n'ont pas le même titrage, celui de la trame est retenu.
 
-{% endtab %}
-{% endtabs %}
+Toute modification du titrage fait varier la densité de fils (compte en chaîne et trame) en arrière plan, et donc la consommation d'électricité (kWh) associée au procédé. En effet, la densité de fils reflète le nombre d'opérations réalisées par les machines. Plus le compte en trame (duitage) est élevé, plus le nombre de propulsions de la navette est élevé.
 
 
 
@@ -334,9 +313,9 @@ Pour les tissus, plus le compte en trame (duitage) est élevé, plus le nombre d
 
 <summary>En savoir plus </summary>
 
-Toute étoffe est créée à partir de caractéristiques techniques propres (densité de fils, titrage fil, embuvage, longueur de fil absorbée, etc.). Ainsi, plusieurs configurations sont possibles pour une même étoffe. \
-\
-Illustration => les tissus ci-dessous proposent tous un grammage 280g/m2 :  \
+Plusieurs configurations/contextures sont possibles pour un tissu avec un grammage (g/m2) fixe.&#x20;
+
+Exemple de cinq contextures proposant toutes un tissu pesant 280 g/m2 :  \
 \- 25x25, Nm 30x30\
 \- 25x25, Nm 45x20\
 \- 25x25, Nm 20x45\
@@ -344,44 +323,57 @@ Illustration => les tissus ci-dessous proposent tous un grammage 280g/m2 :  \
 \- 50x50, Nm 60x60\
 _hypothèse : embuvage = retrait = 8%_
 
-Cet exemple éclaire le fait que plus le poids/titrage des fils augmente, plus le nombre/densité de fils utilisés diminue pour un grammage (g/m2) d'étoffe constant; et inversement.&#x20;
+Cet exemple illustre le fait que plus le poids/titrage des fils augmente, plus le nombre/densité de fils utilisés diminue pour un grammage (g/m2) constant; et inversement.&#x20;
 
-Dès lors, préciser le grammage d'une étoffe est nécessaire afin de refléter les réalités métiers sous-jacentes. Préciser le titrage des fils (plutôt que la densité de fils/mailles) est la solution la plus adaptée du fait de sa simplicité et du fait que cette information est plus accessible que la densité des fils/mailles. \
-Cela explique notamment pourquoi de nombreuses bases de données utilisées dans la communauté ACV proposent des procédés de tissage/tricotage selon le titrage du fil utilisé (ex : Knitting, 200 DTEX-180 denier-30/1 Ne-50 Nm).
+Dès lors, préciser la contexture d'un tissu avec un grammage (g/m2) spécifique permet de mieux refléter les réalités métiers sous-jacentes.&#x20;
+
+La communauté ACV permet cela en précisant le titrage de fil plutôt que le compte en chaine x trame (densité de fils). C'est par exemple le cas au niveau du référentiel européen PEF qui différencie les procédés de tissage selon le titrage des fils \
+(ex : Weaving, 33 DTEX-297 denier-18/1 Ne-3 Nm).
 
 </details>
 
-L'utilisateur a la possibilité de préciser cette valeur par défaut s'il maîtrise les caractéristiques techniques de l'étoffe.
-
-Hypothèses par défaut retenues concernant les machines/technologies utilisées :&#x20;
-
-|   | Tissage | Tricotage |
-| - | ------- | --------- |
-|   |         |           |
-|   |         |           |
-|   |         |           |
 
 
+**Valeurs par défaut**&#x20;
 
-### Consommation d'électricité (kWh)&#x20;
+| Grammage (g/m2)   | Titrage (Nm) |
+| ----------------- | ------------ |
+| < 200             | 50           |
+| entre 200 et 299  | 40           |
+| entre 300 et 400  | 30           |
+| > 401             | 25           |
+{% endtab %}
 
-La quantité d'électricité consommée constitue une des causes principales de l'impact environnemental des procédés de tissage/tricotage.&#x20;
+{% tab title="Tricot" %}
+Le raisonnement applicable aux tissus ne l'est pas pour les tricots du fait de leur complexité.
 
-Le calculateur permet de paramétrer cette variable comme expliqué précédemment.&#x20;
+Permettre de préciser le grammage (g/m2) d'un tricot selon le type de machine (circulaire, rectiligne, seamless) est suffisant.
 
-De manière générale, les procédés de tissage (entre 2 et 20 kWh / kg d'étoffe) sont bien moins énergivores que ceux de tricotage (entre 0,1 et 2 kWh / kg d'étoffe). &#x20;
+
 
 <details>
 
-<summary>Illustration</summary>
+<summary>En savoir plus </summary>
 
-![](<../../.gitbook/assets/image (15).png>)
+De (trop) nombreux paramètres impactent la manière dont est tricotée une étoffe, tels que : \
+\- le type de machine (circulaire vs rectiligne vs seamless),\
+\- la jauge (# aiguilles / cm),\
+\- le diamètre de la machine,\
+\- l'armure (jersey, interlock, etc.),\
+\- la tension des fils,\
+\- la LFA (longueur de fil absorbée),\
+\- etc.&#x20;
 
-_Source : revue bibliographique réalisée par l'équipe Ecobalyse en 2022_
+Dès lors, rentrer à ce niveau de détails dans le calculateur n'est pas adapté car : \
+\- ces paramètres sont très complexes à modéliser,\
+\- les metteurs sur le marché (marques) ne maîtrisent pas ces spécificités techniques,\
+\- les tricoteurs ne maîtrisent pas (encore) la consommation électrique de leurs différents procédés.&#x20;
 
 </details>
+{% endtab %}
+{% endtabs %}
 
-### Taux de perte (%)
+#### Taux de perte (%)
 
 <details>
 
@@ -409,7 +401,7 @@ Les taux de perte appliqués par défaut correspondent à ceux retenus par le so
 
 </details>
 
-### Produits d'encollage (tissage)
+#### Produits d'encollage (tissage)
 
 Non pris en compte à ce stade.&#x20;
 

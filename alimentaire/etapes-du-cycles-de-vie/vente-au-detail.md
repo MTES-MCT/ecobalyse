@@ -18,7 +18,7 @@ On calcule le volume du produit à partir de sa densité. Ce calcul est détaill
 
 L'impact est la multiplication du volume par les différentes consommations détaillées dans le tableau ci-dessous :
 
-<figure><img src="../../.gitbook/assets/image (3) (2) (1).png" alt=""><figcaption><p>Méthodologie AGB 3.0-20200218_rapport-vf2.pdf</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (3) (2).png" alt=""><figcaption><p>Méthodologie AGB 3.0-20200218_rapport-vf2.pdf</p></figcaption></figure>
 
 
 
