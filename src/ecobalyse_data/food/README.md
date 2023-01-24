@@ -63,7 +63,7 @@ Tout d'abord se placer dans le bon répertoire :
 
     $ cd food/export_agb
 
-Consulter le [README](food/export_agb/README.md) dédié.
+Consulter le [README](export_agb/README.md) dédié.
 
 ## Utiliser un notebook jupyter
 
