@@ -126,7 +126,10 @@ menu dataset =
                     ]
                     [ text (Dataset.label ds) ]
             )
-        |> nav [ class "nav nav-pills d-flex justify-content-between justify-content-sm-end align-items-center gap-0 gap-sm-2" ]
+        |> nav
+            [ class "nav nav-pills d-flex justify-content-between"
+            , class "justify-content-sm-end align-items-center gap-0 gap-sm-2"
+            ]
 
 
 detailsModal : Html Msg -> Html Msg

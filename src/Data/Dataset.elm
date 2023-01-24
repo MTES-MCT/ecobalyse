@@ -28,8 +28,8 @@ type Dataset
 
 datasets : List Dataset
 datasets =
-    [ Countries Nothing
-    , Impacts Nothing
+    [ Impacts Nothing
+    , Countries Nothing
     , TextileProducts Nothing
     , TextileMaterials Nothing
     ]
@@ -104,13 +104,13 @@ toRoutePath : Dataset -> List String
 toRoutePath dataset =
     case dataset of
         Countries Nothing ->
-            []
+            [ slug dataset ]
 
         Countries (Just code) ->
             [ slug dataset, Country.codeToString code ]
 
         Impacts Nothing ->
-            [ slug dataset ]
+            []
 
         Impacts (Just trigram) ->
             [ slug dataset, Impact.toString trigram ]

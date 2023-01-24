@@ -43,6 +43,14 @@ parser =
         , Parser.map Editorial (Parser.s "pages" </> Parser.string)
         , Parser.map Stats (Parser.s "stats")
 
+        --  Explorer
+        , Parser.map (Explore (Dataset.Impacts Nothing))
+            (Parser.s "explore")
+        , Parser.map Explore
+            (Parser.s "explore" </> Dataset.parseSlug)
+        , Parser.map toExploreWithId
+            (Parser.s "explore" </> Dataset.parseSlug </> Parser.string)
+
         --
         -- Food specific routes
         --
@@ -59,14 +67,6 @@ parser =
         -- Textile specific routes
         --
         , Parser.map TextileExamples (Parser.s "textile" </> Parser.s "examples")
-
-        -- Textile Explorer
-        , Parser.map (Explore (Dataset.Countries Nothing))
-            (Parser.s "textile" </> Parser.s "explore")
-        , Parser.map Explore
-            (Parser.s "textile" </> Parser.s "explore" </> Dataset.parseSlug)
-        , Parser.map toExploreWithId
-            (Parser.s "textile" </> Parser.s "explore" </> Dataset.parseSlug </> Parser.string)
 
         -- Textile Simulator
         , Parser.map (TextileSimulator Impact.defaultTextileTrigram Unit.PerItem ViewMode.Simple Nothing)
@@ -138,6 +138,12 @@ toString route =
                 Editorial slug ->
                     [ "pages", slug ]
 
+                Explore (Dataset.Impacts Nothing) ->
+                    [ "explore" ]
+
+                Explore dataset ->
+                    "explore" :: Dataset.toRoutePath dataset
+
                 FoodBuilder (Impact.Trigram "ecs") Nothing ->
                     [ "food", "build" ]
 
@@ -152,12 +158,6 @@ toString route =
 
                 TextileExamples ->
                     [ "textile", "examples" ]
-
-                Explore (Dataset.Countries Nothing) ->
-                    [ "textile", "explore" ]
-
-                Explore dataset ->
-                    "textile" :: "explore" :: Dataset.toRoutePath dataset
 
                 TextileSimulator trigram funit viewMode (Just query) ->
                     [ "textile"
