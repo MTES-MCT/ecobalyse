@@ -2,6 +2,7 @@ module Page.Explore.Impacts exposing (table)
 
 import Data.Dataset as Dataset
 import Data.Impact as Impact exposing (Definition)
+import Data.Scope exposing (Scope)
 import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -13,8 +14,8 @@ import Views.Impact as ImpactView
 import Views.Markdown as Markdown
 
 
-table : { detailed : Bool } -> Table Definition msg
-table { detailed } =
+table : { detailed : Bool, scope : Scope } -> Table Definition msg
+table { detailed, scope } =
     [ { label = "Code"
       , toCell =
             \def ->
@@ -22,7 +23,7 @@ table { detailed } =
                     code [] [ text (Impact.toString def.trigram) ]
 
                 else
-                    a [ Route.href (Route.Explore (Dataset.Impacts (Just def.trigram))) ]
+                    a [ Route.href (Route.Explore scope (Dataset.Impacts (Just def.trigram))) ]
                         [ code [] [ text (Impact.toString def.trigram) ] ]
       }
     , { label = "Nom"

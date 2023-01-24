@@ -151,8 +151,8 @@ setRoute maybeRoute ( { session } as model, cmds ) =
             Editorial.init slug session
                 |> toPage EditorialPage EditorialMsg
 
-        Just (Route.Explore dataset) ->
-            Explore.init dataset session
+        Just (Route.Explore scope dataset) ->
+            Explore.init scope dataset session
                 |> toPage ExplorePage ExploreMsg
 
         Just (Route.FoodBuilder trigram maybeQuery) ->

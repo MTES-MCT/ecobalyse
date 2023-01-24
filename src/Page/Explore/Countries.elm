@@ -3,6 +3,7 @@ module Page.Explore.Countries exposing (table)
 import Data.Country as Country exposing (Country)
 import Data.Dataset as Dataset
 import Data.Gitbook as Gitbook
+import Data.Scope exposing (Scope)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Page.Explore.Common as Common
@@ -13,8 +14,8 @@ import Views.Icon as Icon
 import Views.Link as Link
 
 
-table : { detailed : Bool } -> Table Country msg
-table { detailed } =
+table : { detailed : Bool, scope : Scope } -> Table Country msg
+table { detailed, scope } =
     [ { label = "Code"
       , toCell =
             \country ->
@@ -22,7 +23,7 @@ table { detailed } =
                     code [] [ text (Country.codeToString country.code) ]
 
                 else
-                    a [ Route.href (Route.Explore (Dataset.Countries (Just country.code))) ]
+                    a [ Route.href (Route.Explore scope (Dataset.Countries (Just country.code))) ]
                         [ code [] [ text (Country.codeToString country.code) ] ]
       }
     , { label = "Nom"

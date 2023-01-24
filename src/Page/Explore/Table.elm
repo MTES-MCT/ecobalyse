@@ -4,6 +4,7 @@ module Page.Explore.Table exposing
     , viewList
     )
 
+import Data.Scope exposing (Scope)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Views.Table as TableView
@@ -16,10 +17,10 @@ type alias Table a msg =
         }
 
 
-viewDetails : ({ detailed : Bool } -> Table a msg) -> a -> Html msg
-viewDetails createTable item =
+viewDetails : Scope -> ({ detailed : Bool, scope : Scope } -> Table a msg) -> a -> Html msg
+viewDetails scope createTable item =
     TableView.responsiveDefault [ class "view-details" ]
-        [ createTable { detailed = True }
+        [ createTable { detailed = True, scope = scope }
             |> List.map
                 (\{ label, toCell } ->
                     tr []
@@ -31,11 +32,11 @@ viewDetails createTable item =
         ]
 
 
-viewList : ({ detailed : Bool } -> Table a msg) -> List a -> Html msg
-viewList createTable items =
+viewList : Scope -> ({ detailed : Bool, scope : Scope } -> Table a msg) -> List a -> Html msg
+viewList scope createTable items =
     let
         tableData =
-            createTable { detailed = False }
+            createTable { detailed = False, scope = scope }
     in
     TableView.responsiveDefault [ class "view-list" ]
         [ thead []

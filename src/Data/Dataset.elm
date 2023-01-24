@@ -10,6 +10,7 @@ module Data.Dataset exposing
 import Data.Country as Country
 import Data.Food.Ingredient as Ingredient
 import Data.Impact as Impact
+import Data.Scope as Scope exposing (Scope)
 import Data.Textile.Material as Material
 import Data.Textile.Product as Product
 import Url.Parser as Parser exposing (Parser)
@@ -28,14 +29,19 @@ type Dataset
     | TextileMaterials (Maybe Material.Id)
 
 
-datasets : List Dataset
-datasets =
-    [ Impacts Nothing
-    , Countries Nothing
-    , FoodIngredients Nothing
-    , TextileProducts Nothing
-    , TextileMaterials Nothing
-    ]
+datasets : Scope -> List Dataset
+datasets scope =
+    Impacts Nothing
+        :: Countries Nothing
+        :: (case scope of
+                Scope.Food ->
+                    [ FoodIngredients Nothing ]
+
+                Scope.Textile ->
+                    [ TextileProducts Nothing
+                    , TextileMaterials Nothing
+                    ]
+           )
 
 
 fromSlug : String -> Dataset

@@ -6,6 +6,7 @@ import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Origin as Origin
 import Data.Food.Process as Process
 import Data.Gitbook as Gitbook
+import Data.Scope exposing (Scope)
 import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -15,8 +16,8 @@ import Views.Icon as Icon
 import Views.Link as Link
 
 
-table : BuilderDb.Db -> { detailed : Bool } -> Table Ingredient msg
-table _ { detailed } =
+table : BuilderDb.Db -> { detailed : Bool, scope : Scope } -> Table Ingredient msg
+table _ { detailed, scope } =
     [ { label = "Identifiant"
       , toCell =
             \ingredient ->
@@ -24,7 +25,7 @@ table _ { detailed } =
                     code [] [ text (Ingredient.idToString ingredient.id) ]
 
                 else
-                    a [ Route.href (Route.Explore (Dataset.FoodIngredients (Just ingredient.id))) ]
+                    a [ Route.href (Route.Explore scope (Dataset.FoodIngredients (Just ingredient.id))) ]
                         [ code [] [ text (Ingredient.idToString ingredient.id) ] ]
       }
     , { label = "Nom"

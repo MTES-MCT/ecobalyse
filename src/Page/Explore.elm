@@ -15,6 +15,7 @@ import Data.Food.Builder.Db as BuilderDb
 import Data.Food.Ingredient as Ingredient
 import Data.Impact as Impact
 import Data.Key as Key
+import Data.Scope as Scope exposing (Scope)
 import Data.Session exposing (Session)
 import Data.Textile.Db exposing (Db)
 import Data.Textile.Material as Material
@@ -37,7 +38,9 @@ import Views.Modal as ModalView
 
 
 type alias Model =
-    { dataset : Dataset }
+    { dataset : Dataset
+    , scope : Scope
+    }
 
 
 type Msg
@@ -46,9 +49,9 @@ type Msg
     | FoodDbLoaded (WebData BuilderDb.Db)
 
 
-init : Dataset -> Session -> ( Model, Session, Cmd Msg )
-init dataset session =
-    ( { dataset = dataset }
+init : Scope -> Dataset -> Session -> ( Model, Session, Cmd Msg )
+init scope dataset session =
+    ( { dataset = dataset, scope = scope }
     , session
     , Cmd.batch
         [ if BuilderDb.isEmpty session.builderDb then
@@ -86,7 +89,7 @@ update session msg model =
                 Dataset.TextileMaterials _ ->
                     Dataset.TextileMaterials Nothing
               )
-                |> Route.Explore
+                |> Route.Explore model.scope
                 |> Route.toString
                 |> Nav.pushUrl session.navKey
             )
@@ -147,21 +150,44 @@ modalOpened dataset =
             False
 
 
-menu : Dataset -> Html Msg
-menu dataset =
-    Dataset.datasets
+datasetsMenuView : Model -> Html Msg
+datasetsMenuView { scope, dataset } =
+    Dataset.datasets scope
         |> List.map
             (\ds ->
                 a
                     [ class "nav-link"
                     , classList [ ( "active", isActive ds dataset ) ]
-                    , Route.href (Route.Explore ds)
+                    , Route.href (Route.Explore scope ds)
                     ]
                     [ text (Dataset.label ds) ]
             )
         |> nav
-            [ class "nav nav-pills d-flex justify-content-between"
-            , class "justify-content-sm-end align-items-center gap-0 gap-sm-2"
+            [ class "nav nav-pills d-flex justify-content-start align-items-center gap-0 gap-sm-2"
+            ]
+
+
+scopesMenuView : Model -> Html Msg
+scopesMenuView model =
+    [ Scope.Food, Scope.Textile ]
+        |> List.map
+            (\scope ->
+                a
+                    [ class "nav-link"
+                    , classList [ ( "active", model.scope == scope ) ]
+                    , Route.href
+                        (case model.dataset of
+                            Dataset.Countries _ ->
+                                Route.Explore scope (Dataset.Countries Nothing)
+
+                            _ ->
+                                Route.Explore scope (Dataset.Impacts Nothing)
+                        )
+                    ]
+                    [ text (Scope.toLabel scope) ]
+            )
+        |> nav
+            [ class "nav nav-pills d-flex justify-content-end align-items-center gap-0 gap-sm-2"
             ]
 
 
@@ -188,16 +214,16 @@ alert error =
         }
 
 
-countriesExplorer : Maybe Country.Code -> List Country -> List (Html Msg)
-countriesExplorer maybeCode countries =
+countriesExplorer : Scope -> Maybe Country.Code -> List Country -> List (Html Msg)
+countriesExplorer scope maybeCode countries =
     [ countries
-        |> Table.viewList ExploreCountries.table
+        |> Table.viewList scope ExploreCountries.table
     , case maybeCode of
         Just code ->
             case Country.findByCode code countries of
                 Ok country ->
                     country
-                        |> Table.viewDetails ExploreCountries.table
+                        |> Table.viewDetails scope ExploreCountries.table
                         |> detailsModal
 
                 Err error ->
@@ -208,57 +234,17 @@ countriesExplorer maybeCode countries =
     ]
 
 
-impactsExplorer : Maybe Impact.Trigram -> List Impact.Definition -> List (Html Msg)
-impactsExplorer maybeTrigram definitions =
+impactsExplorer : Scope -> Maybe Impact.Trigram -> List Impact.Definition -> List (Html Msg)
+impactsExplorer scope maybeTrigram definitions =
     [ definitions
         |> List.sortBy (.trigram >> Impact.toString)
-        |> Table.viewList ExploreImpacts.table
+        |> Table.viewList scope ExploreImpacts.table
     , case maybeTrigram of
         Just trigram ->
             case Impact.getDefinition trigram definitions of
                 Ok definition ->
                     definition
-                        |> Table.viewDetails ExploreImpacts.table
-                        |> detailsModal
-
-                Err error ->
-                    alert error
-
-        Nothing ->
-            text ""
-    ]
-
-
-textileProductsExplorer : Maybe Product.Id -> Db -> List (Html Msg)
-textileProductsExplorer maybeId db =
-    [ db.products
-        |> Table.viewList (TextileProducts.table db)
-    , case maybeId of
-        Just id ->
-            case Product.findById id db.products of
-                Ok product ->
-                    product
-                        |> Table.viewDetails (TextileProducts.table db)
-                        |> detailsModal
-
-                Err error ->
-                    alert error
-
-        Nothing ->
-            text ""
-    ]
-
-
-textileMaterialsExplorer : Maybe Material.Id -> Db -> List (Html Msg)
-textileMaterialsExplorer maybeId db =
-    [ db.materials
-        |> Table.viewList (TextileMaterials.table db)
-    , case maybeId of
-        Just id ->
-            case Material.findById id db.materials of
-                Ok material ->
-                    material
-                        |> Table.viewDetails (TextileMaterials.table db)
+                        |> Table.viewDetails scope ExploreImpacts.table
                         |> detailsModal
 
                 Err error ->
@@ -272,13 +258,13 @@ textileMaterialsExplorer maybeId db =
 foodIngredientsExplorer : Maybe Ingredient.Id -> BuilderDb.Db -> List (Html Msg)
 foodIngredientsExplorer maybeId db =
     [ db.ingredients
-        |> Table.viewList (FoodIngredients.table db)
+        |> Table.viewList Scope.Food (FoodIngredients.table db)
     , case maybeId of
         Just id ->
             case Ingredient.findByID id db.ingredients of
                 Ok ingredient ->
                     ingredient
-                        |> Table.viewDetails (FoodIngredients.table db)
+                        |> Table.viewDetails Scope.Food (FoodIngredients.table db)
                         |> detailsModal
 
                 Err error ->
@@ -289,14 +275,54 @@ foodIngredientsExplorer maybeId db =
     ]
 
 
-explore : Session -> Dataset -> List (Html Msg)
-explore { db, builderDb } dataset =
+textileProductsExplorer : Maybe Product.Id -> Db -> List (Html Msg)
+textileProductsExplorer maybeId db =
+    [ db.products
+        |> Table.viewList Scope.Textile (TextileProducts.table db)
+    , case maybeId of
+        Just id ->
+            case Product.findById id db.products of
+                Ok product ->
+                    product
+                        |> Table.viewDetails Scope.Textile (TextileProducts.table db)
+                        |> detailsModal
+
+                Err error ->
+                    alert error
+
+        Nothing ->
+            text ""
+    ]
+
+
+textileMaterialsExplorer : Maybe Material.Id -> Db -> List (Html Msg)
+textileMaterialsExplorer maybeId db =
+    [ db.materials
+        |> Table.viewList Scope.Textile (TextileMaterials.table db)
+    , case maybeId of
+        Just id ->
+            case Material.findById id db.materials of
+                Ok material ->
+                    material
+                        |> Table.viewDetails Scope.Textile (TextileMaterials.table db)
+                        |> detailsModal
+
+                Err error ->
+                    alert error
+
+        Nothing ->
+            text ""
+    ]
+
+
+explore : Session -> Model -> List (Html Msg)
+explore { db, builderDb } { scope, dataset } =
     case dataset of
         Dataset.Countries maybeCode ->
-            db.countries |> countriesExplorer maybeCode
+            db.countries |> countriesExplorer scope maybeCode
 
         Dataset.Impacts maybeTrigram ->
-            db.impacts |> impactsExplorer maybeTrigram
+            db.impacts |> impactsExplorer scope maybeTrigram
 
         Dataset.FoodIngredients maybeId ->
             builderDb |> foodIngredientsExplorer maybeId
@@ -309,18 +335,19 @@ explore { db, builderDb } dataset =
 
 
 view : Session -> Model -> ( String, List (Html Msg) )
-view session { dataset } =
-    ( Dataset.label dataset ++ " | Explorer "
+view session model =
+    ( Dataset.label model.dataset ++ " | Explorer "
     , [ Container.centered [ class "pb-3" ]
-            [ div [ class "d-block d-sm-flex justify-content-between align-items-center" ]
-                [ h1 []
+            [ div [ class "row d-flex align-items-center gap-2 gap-sm-0" ]
+                [ h1 [ class "col-sm-5 m-0" ]
                     [ text "Explorer "
                     , small [ class "text-muted" ]
-                        [ text <| "les " ++ String.toLower (Dataset.label dataset) ]
+                        [ text <| "les " ++ String.toLower (Dataset.label model.dataset) ]
                     ]
-                , menu dataset
+                , div [ class "col-sm-4" ] [ datasetsMenuView model ]
+                , div [ class "col-sm-3" ] [ scopesMenuView model ]
                 ]
-            , explore session dataset
+            , explore session model
                 |> div [ class "mt-3" ]
             ]
       ]

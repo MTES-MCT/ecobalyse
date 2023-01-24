@@ -8,7 +8,7 @@ module Route exposing
 import Data.Dataset as Dataset exposing (Dataset)
 import Data.Food.Builder.Query as FoodQuery
 import Data.Impact as Impact
-import Data.Scope as Scope
+import Data.Scope as Scope exposing (Scope)
 import Data.Textile.Inputs as TextileQuery
 import Data.Unit as Unit
 import Html exposing (Attribute)
@@ -23,7 +23,7 @@ type Route
     | Api
     | Changelog
     | Editorial String
-    | Explore Dataset
+    | Explore Scope Dataset
     | FoodBuilder Impact.Trigram (Maybe FoodQuery.Query)
     | FoodExplore
     | TextileExamples
@@ -44,12 +44,12 @@ parser =
         , Parser.map Stats (Parser.s "stats")
 
         --  Explorer
-        , Parser.map (Explore (Dataset.Impacts Nothing))
-            (Parser.s "explore")
+        , Parser.map (\scope -> Explore scope (Dataset.Impacts Nothing))
+            (Parser.s "explore" </> Scope.parseSlug)
         , Parser.map Explore
-            (Parser.s "explore" </> Dataset.parseSlug)
+            (Parser.s "explore" </> Scope.parseSlug </> Dataset.parseSlug)
         , Parser.map toExploreWithId
-            (Parser.s "explore" </> Dataset.parseSlug </> Parser.string)
+            (Parser.s "explore" </> Scope.parseSlug </> Dataset.parseSlug </> Parser.string)
 
         --
         -- Food specific routes
@@ -82,9 +82,9 @@ parser =
         ]
 
 
-toExploreWithId : Dataset -> String -> Route
-toExploreWithId dataset idString =
-    Explore (Dataset.slugWithId dataset idString)
+toExploreWithId : Scope -> Dataset -> String -> Route
+toExploreWithId scope dataset idString =
+    Explore scope (Dataset.slugWithId dataset idString)
 
 
 {-| Note: as the app relies on URL fragment based routing, the source URL is
@@ -138,11 +138,11 @@ toString route =
                 Editorial slug ->
                     [ "pages", slug ]
 
-                Explore (Dataset.Impacts Nothing) ->
-                    [ "explore" ]
+                Explore Scope.Food (Dataset.Impacts Nothing) ->
+                    [ "explore", "food" ]
 
-                Explore dataset ->
-                    "explore" :: Dataset.toRoutePath dataset
+                Explore scope dataset ->
+                    "explore" :: Scope.toString scope :: Dataset.toRoutePath dataset
 
                 FoodBuilder (Impact.Trigram "ecs") Nothing ->
                     [ "food", "build" ]
