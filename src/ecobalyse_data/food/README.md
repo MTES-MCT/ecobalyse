@@ -52,6 +52,11 @@ Puis lancer le script d'import qui prend plusieurs minutes :
 
     $ python importing_databases.py
 
+Si vous souhaitez relancer un import en repartant de zéro, vous pouvez utiliser
+le script de nettoyage :
+
+    $ python clean_agb.py
+
 ## Exporter la base agribalyse de brightway vers des fichiers json
 
 Tout d'abord se placer dans le bon répertoire :
