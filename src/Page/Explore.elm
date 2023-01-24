@@ -206,12 +206,14 @@ detailsModal content =
 
 alert : String -> Html Msg
 alert error =
-    Alert.simple
-        { level = Alert.Danger
-        , content = [ text error ]
-        , title = Just "Erreur"
-        , close = Nothing
-        }
+    div [ class "p-3 pb-0" ]
+        [ Alert.simple
+            { level = Alert.Danger
+            , content = [ text error ]
+            , title = Just "Erreur"
+            , close = Nothing
+            }
+        ]
 
 
 countriesExplorer : Scope -> Maybe Country.Code -> List Country -> List (Html Msg)
@@ -221,14 +223,15 @@ countriesExplorer scope maybeCode countries =
         |> Table.viewList scope ExploreCountries.table
     , case maybeCode of
         Just code ->
-            case Country.findByCode code countries of
-                Ok country ->
-                    country
-                        |> Table.viewDetails scope ExploreCountries.table
-                        |> detailsModal
+            detailsModal
+                (case Country.findByCode code countries of
+                    Ok country ->
+                        country
+                            |> Table.viewDetails scope ExploreCountries.table
 
-                Err error ->
-                    alert error
+                    Err error ->
+                        alert error
+                )
 
         Nothing ->
             text ""
@@ -243,14 +246,15 @@ impactsExplorer scope maybeTrigram definitions =
         |> Table.viewList scope ExploreImpacts.table
     , case maybeTrigram of
         Just trigram ->
-            case Impact.getDefinition trigram definitions of
-                Ok definition ->
-                    definition
-                        |> Table.viewDetails scope ExploreImpacts.table
-                        |> detailsModal
+            detailsModal
+                (case Impact.getDefinition trigram definitions of
+                    Ok definition ->
+                        definition
+                            |> Table.viewDetails scope ExploreImpacts.table
 
-                Err error ->
-                    alert error
+                    Err error ->
+                        alert error
+                )
 
         Nothing ->
             text ""
@@ -263,14 +267,15 @@ foodIngredientsExplorer maybeId db =
         |> Table.viewList Scope.Food (FoodIngredients.table db)
     , case maybeId of
         Just id ->
-            case Ingredient.findByID id db.ingredients of
-                Ok ingredient ->
-                    ingredient
-                        |> Table.viewDetails Scope.Food (FoodIngredients.table db)
-                        |> detailsModal
+            detailsModal
+                (case Ingredient.findByID id db.ingredients of
+                    Ok ingredient ->
+                        ingredient
+                            |> Table.viewDetails Scope.Food (FoodIngredients.table db)
 
-                Err error ->
-                    alert error
+                    Err error ->
+                        alert error
+                )
 
         Nothing ->
             text ""
@@ -283,14 +288,15 @@ textileProductsExplorer maybeId db =
         |> Table.viewList Scope.Textile (TextileProducts.table db)
     , case maybeId of
         Just id ->
-            case Product.findById id db.products of
-                Ok product ->
-                    product
-                        |> Table.viewDetails Scope.Textile (TextileProducts.table db)
-                        |> detailsModal
+            detailsModal
+                (case Product.findById id db.products of
+                    Ok product ->
+                        product
+                            |> Table.viewDetails Scope.Textile (TextileProducts.table db)
 
-                Err error ->
-                    alert error
+                    Err error ->
+                        alert error
+                )
 
         Nothing ->
             text ""
@@ -303,14 +309,15 @@ textileMaterialsExplorer maybeId db =
         |> Table.viewList Scope.Textile (TextileMaterials.table db)
     , case maybeId of
         Just id ->
-            case Material.findById id db.materials of
-                Ok material ->
-                    material
-                        |> Table.viewDetails Scope.Textile (TextileMaterials.table db)
-                        |> detailsModal
+            detailsModal
+                (case Material.findById id db.materials of
+                    Ok material ->
+                        material
+                            |> Table.viewDetails Scope.Textile (TextileMaterials.table db)
 
-                Err error ->
-                    alert error
+                    Err error ->
+                        alert error
+                )
 
         Nothing ->
             text ""
