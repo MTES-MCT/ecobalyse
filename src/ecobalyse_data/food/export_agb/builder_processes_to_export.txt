@@ -1,0 +1,44 @@
+Carrot, organic, Lower Normandy, at farm gate
+Carrot, conventional, national average, at farm gate
+Soft wheat grain, conventional, national average, animal feed, at farm gate, production
+Soft wheat grain, organic, 15% moisture, Central Region, at farm gate
+Soft wheat grain, conventional, breadmaking quality, 15% moisture, at farm gate
+Egg, national average, at farm gate
+Egg, organic, at farm gate
+Egg, Bleu Blanc Coeur, outdoor system, at farm gate
+Cow milk, national average, at farm gate
+Wheat flour, at industrial mill
+Sunflower, at farm (WFLDB 3.1)/FR U
+Sunflower grain, organic, system n°3, at farm gate
+Rape seed {FR} | production | Cut-off, S-Copied
+Winter rapeseed, organic, at farm gate
+Tomato, medium size, conventional, soil based, non-heated greenhouse, at greenhouse
+Tomato, organic, greenhouse production, national average, at greenhouse
+Ware potato, conventional, variety mix, national average, at farm gate
+Durum wheat grain, conventional, national average, at farm gate
+Ground beef, fresh, case ready, for direct consumption, at plant
+Cooked ham, case ready, at plant
+Meat with bone, lamb
+Meat without bone, chicken, for direct consumption
+Steel, unalloyed {RER}| steel production, converter, unalloyed | Cut-off, S - Copied from Ecoinvent
+Packaging film, low density polyethylene {RER}| production | Cut-off, S - Copied from Ecoinvent
+Polystyrene, expandable {RER}| production | Cut-off, S - Copied from Ecoinvent
+Packaging glass, white {RER w/o CH+DE}| production | Cut-off, S - Copied from Ecoinvent
+Polypropylene, granulate {RER}| production | Cut-off, S - Copied from Ecoinvent
+Corrugated board box {RER}| production | Cut-off, S - Copied from Ecoinvent
+Kraft paper, unbleached {RER}| production | Cut-off, S - Copied from Ecoinvent
+Polyvinylchloride, suspension polymerised {RER}| polyvinylchloride production, suspension polymerisation | Cut-off, S - Copied from Ecoinvent
+Polyethylene terephthalate, granulate, bottle grade {RER}| production | Cut-off, S - Copied from Ecoinvent
+Polyethylene, high density, granulate {RER}| production | Cut-off, S - Copied from Ecoinvent
+Aluminium, primary, ingot {RoW}| production | Cut-off, S - Copied from Ecoinvent
+Canning fruits or vegetables, industrial, 1kg of canned product/ FR U
+Mixing, processing, at plant "dummy process"
+Cooking, industrial, 1kg of cooked product/ FR U
+Cow milk, organic, system n°1, at farm gate
+Transport, freight, lorry 16-32 metric ton, EURO5 {RER}| transport, freight, lorry 16-32 metric ton, EURO5 | Cut-off, S - Copied from Ecoinvent
+Transport, freight, sea, transoceanic ship {GLO}| processing | Cut-off, S - Copied from Ecoinvent
+Transport, freight, aircraft {RER}| intercontinental | Cut-off, S - Copied from Ecoinvent
+Apple, conventional, national average, at orchard
+Apple, organic, national average, at orchard
+Grape, full production (phase), integrated, variety mix, Languedoc-Roussillon, at vineyard
+Grape, full production (phase), organic, variety mix, Languedoc-Roussillon, at vineyard
