@@ -26,7 +26,9 @@ def check_missing_steps(products):
 
 
 if __name__ == "__main__":
-    products_filename = os.path.join(os.path.dirname(__file__), "products.json")
+    products_filename = os.path.join(
+        os.path.dirname(__file__), "../../../../public/data/food/products.json"
+    )
     if len(sys.argv) == 2:
         products_filename = sys.argv[1]
     with open(products_filename, "r") as infile:

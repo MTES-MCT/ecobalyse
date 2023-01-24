@@ -15,15 +15,11 @@ ciquals à exporter, et l'option `--no-impacts` pour ne pas calculer les impacts
 des procédés (ce qui exportera un fichier `processes-no-impacts.json` au lieu de
 `processes.json`) :
 
-    $ python export.py --max 1 --no-impacts
+    $ python export_ciqual.py --max 1 --no-impacts
     # Beaucoup plus rapide, mais incomplet ;)
 
-Les fichiers résultants sont `processes.json` et `products.json` qui sont à
-utiliser par exemple sur le projet
-[ecobalyse](https://github.com/MTES-MCT/ecobalyse/) :
-
-    - `processes.json` : à placer dans ecobalyse/public/data/food/processes/explorer.json
-    - `products.json` : à placer dans ecobalyse/public/data/food/products.json
+Les fichiers résultants sont `/public/data/food/processes/explorer.json` et
+`/public/data/food/products.json`.
 
 Optionnellement, lancer le script de vérification des différences d'impacts :
 
@@ -39,12 +35,7 @@ Exemple :
 
     $ python export_builder.py
 
-Les fichiers résultants sont `builder_processes.json` et `ingredients.json` qui sont à
-utiliser par exemple sur le projet
-[ecobalyse](https://github.com/MTES-MCT/ecobalyse/) :
-
-    - `builder_processes.json` : à placer dans ecobalyse/public/data/food/processes/builder.json
-    - `ingredients.json` : à placer dans ecobalyse/public/data/food/ingredients.json
+Les fichiers résultants sont `/public/data/food/processes/builder.json` et `/public/data/food/ingredients.json`.
 
 ## Ajouter un nouvel ingrédient (complexe)
 
