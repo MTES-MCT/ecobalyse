@@ -32,7 +32,7 @@ import Ports
 import Quantity
 import RemoteData exposing (WebData)
 import Request.Common
-import Request.Food.BuilderDb as RequestDb
+import Request.Food.BuilderDb as FoodRequestDb
 import Route
 import Task
 import Time exposing (Posix)
@@ -125,7 +125,7 @@ init ({ db, builderDb, queries } as session) trigram maybeQuery =
     if BuilderDb.isEmpty builderDb then
         ( model
         , newSession
-        , Cmd.batch [ cmds, RequestDb.loadDb session DbLoaded ]
+        , Cmd.batch [ cmds, FoodRequestDb.loadDb session DbLoaded ]
         )
 
     else

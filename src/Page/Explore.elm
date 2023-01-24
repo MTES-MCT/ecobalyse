@@ -28,6 +28,8 @@ import Page.Explore.Table as Table
 import Page.Explore.TextileMaterials as TextileMaterials
 import Page.Explore.TextileProducts as TextileProducts
 import Ports
+import RemoteData exposing (WebData)
+import Request.Food.BuilderDb as FoodRequestDb
 import Route
 import Views.Alert as Alert
 import Views.Container as Container
@@ -41,13 +43,21 @@ type alias Model =
 type Msg
     = NoOp
     | CloseModal
+    | FoodDbLoaded (WebData BuilderDb.Db)
 
 
 init : Dataset -> Session -> ( Model, Session, Cmd Msg )
 init dataset session =
     ( { dataset = dataset }
     , session
-    , Ports.scrollTo { x = 0, y = 0 }
+    , Cmd.batch
+        [ if BuilderDb.isEmpty session.builderDb then
+            FoodRequestDb.loadDb session FoodDbLoaded
+
+          else
+            Cmd.none
+        , Ports.scrollTo { x = 0, y = 0 }
+        ]
     )
 
 
@@ -79,6 +89,17 @@ update session msg model =
                 |> Route.Explore
                 |> Route.toString
                 |> Nav.pushUrl session.navKey
+            )
+
+        FoodDbLoaded dbState ->
+            ( model
+            , case dbState of
+                RemoteData.Success builderDb ->
+                    { session | builderDb = builderDb }
+
+                _ ->
+                    session
+            , Cmd.none
             )
 
 
