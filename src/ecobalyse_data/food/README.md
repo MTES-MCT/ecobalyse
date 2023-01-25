@@ -11,27 +11,15 @@ un script permettant d'importer la base de données
 [brightway/export_agb/](export_agb/) le script utilisé pour exporter
 des données sous format json.
 
-Pour utiliser ces scripts, il vous faudra installer le gestionnaire de paquets
-[anaconda](https://docs.conda.io/projects/conda/en/latest/) et créer un
-environnement virtuel.
+Pour utiliser ces scripts, veuillez au préalable suivre la procédure
+d'installation et de création d'un environnement virtuel comme indiqué dans [le
+README](../README.md).
 
 Dans le répertoire
 [brightway/brightway_tutorial_notebooks/](brightway_tutorial_notebooks/)
 vous trouverez plusieurs exemples d'utilisation de la librairie brightway2 sous
 forme de [notebooks jupyter](https://jupyter.org/) pour explorer et expérimenter
 par vous-même.
-
-## Installer anaconda et créer son environnement virtuel
-
-Suivre la [procédure d'installation](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html).
-
-Créer un environnement virtuel avec toutes les dépendences requises :
-
-    $ conda env create -f food/environment.yml
-
-Activer l'environnement virtuel :
-
-    $ conda activate ecobalyse-env
 
 ## Importer la base agribalyse v3.0 dans brightway
 

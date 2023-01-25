@@ -76,13 +76,8 @@ L'application est alors servie sur le port défini par la variable d'environneme
 
 # Ecobalyse data
 
-Ce repo contient aussi les scripts utilisées (principalement python) pour préparer/explorer les données du projet [Ecobalyse](https://github.com/MTES-MCT/ecobalyse).
-Certains scripts ont besoin d'importer d'autres modules. Pour cela il faut installer le package ecobalyse_data en se plaçant dans le répertoire `src/ecobalyse-data/` et en lançant :
+Ce dépôt contient aussi les scripts (principalement python) utilisés pour
+importer et exporter les données du projet [Ecobalyse](https://github.com/MTES-MCT/ecobalyse).
 
-    $ pip install -e .
-
-Si vous utilisez [anaconda](https://docs.conda.io/projects/conda/en/latest/)
-comme recommandé dans le [README de l'alimentaire](src/ecobalyse_data/food/README.md),
-utilisez plutôt la commande suivante :
-
-    $ conda develop .
+Ces scripts se trouvent dans `src/ecobalyse-data`, et il y a un
+[README](src/ecobalyse_data/README.md) en détaillant l'installation et l'utilisation.
