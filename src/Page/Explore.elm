@@ -73,22 +73,8 @@ update session msg model =
         CloseModal ->
             ( model
             , session
-            , (case model.dataset of
-                Dataset.Countries _ ->
-                    Dataset.Countries Nothing
-
-                Dataset.Impacts _ ->
-                    Dataset.Impacts Nothing
-
-                Dataset.FoodIngredients _ ->
-                    Dataset.FoodIngredients Nothing
-
-                Dataset.TextileProducts _ ->
-                    Dataset.TextileProducts Nothing
-
-                Dataset.TextileMaterials _ ->
-                    Dataset.TextileMaterials Nothing
-              )
+            , model.dataset
+                |> Dataset.reset
                 |> Route.Explore model.scope
                 |> Route.toString
                 |> Nav.pushUrl session.navKey
@@ -106,50 +92,6 @@ update session msg model =
             )
 
 
-isActive : Dataset -> Dataset -> Bool
-isActive a b =
-    case ( a, b ) of
-        ( Dataset.Countries _, Dataset.Countries _ ) ->
-            True
-
-        ( Dataset.Impacts _, Dataset.Impacts _ ) ->
-            True
-
-        ( Dataset.FoodIngredients _, Dataset.FoodIngredients _ ) ->
-            True
-
-        ( Dataset.TextileProducts _, Dataset.TextileProducts _ ) ->
-            True
-
-        ( Dataset.TextileMaterials _, Dataset.TextileMaterials _ ) ->
-            True
-
-        _ ->
-            False
-
-
-modalOpened : Dataset -> Bool
-modalOpened dataset =
-    case dataset of
-        Dataset.Countries (Just _) ->
-            True
-
-        Dataset.Impacts (Just _) ->
-            True
-
-        Dataset.FoodIngredients (Just _) ->
-            True
-
-        Dataset.TextileProducts (Just _) ->
-            True
-
-        Dataset.TextileMaterials (Just _) ->
-            True
-
-        _ ->
-            False
-
-
 datasetsMenuView : Model -> Html Msg
 datasetsMenuView { scope, dataset } =
     Dataset.datasets scope
@@ -157,7 +99,7 @@ datasetsMenuView { scope, dataset } =
             (\ds ->
                 a
                     [ class "nav-link"
-                    , classList [ ( "active", isActive ds dataset ) ]
+                    , classList [ ( "active", Dataset.same ds dataset ) ]
                     , Route.href (Route.Explore scope ds)
                     ]
                     [ text (Dataset.label ds) ]
@@ -362,7 +304,7 @@ view session model =
 
 subscriptions : Model -> Sub Msg
 subscriptions { dataset } =
-    if modalOpened dataset then
+    if Dataset.isDetailed dataset then
         Browser.Events.onKeyDown (Key.escape CloseModal)
 
     else

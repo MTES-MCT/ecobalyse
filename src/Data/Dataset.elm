@@ -1,8 +1,11 @@
 module Data.Dataset exposing
     ( Dataset(..)
     , datasets
+    , isDetailed
     , label
     , parseSlug
+    , reset
+    , same
     , slugWithId
     , toRoutePath
     )
@@ -63,6 +66,28 @@ fromSlug string =
             Impacts Nothing
 
 
+isDetailed : Dataset -> Bool
+isDetailed dataset =
+    case dataset of
+        Countries (Just _) ->
+            True
+
+        Impacts (Just _) ->
+            True
+
+        FoodIngredients (Just _) ->
+            True
+
+        TextileProducts (Just _) ->
+            True
+
+        TextileMaterials (Just _) ->
+            True
+
+        _ ->
+            False
+
+
 label : Dataset -> String
 label =
     strings >> .label
@@ -73,6 +98,47 @@ parseSlug =
     Parser.custom "DATASET" <|
         \string ->
             Just (fromSlug string)
+
+
+reset : Dataset -> Dataset
+reset dataset =
+    case dataset of
+        Countries _ ->
+            Countries Nothing
+
+        Impacts _ ->
+            Impacts Nothing
+
+        FoodIngredients _ ->
+            FoodIngredients Nothing
+
+        TextileProducts _ ->
+            TextileProducts Nothing
+
+        TextileMaterials _ ->
+            TextileMaterials Nothing
+
+
+same : Dataset -> Dataset -> Bool
+same a b =
+    case ( a, b ) of
+        ( Countries _, Countries _ ) ->
+            True
+
+        ( Impacts _, Impacts _ ) ->
+            True
+
+        ( FoodIngredients _, FoodIngredients _ ) ->
+            True
+
+        ( TextileProducts _, TextileProducts _ ) ->
+            True
+
+        ( TextileMaterials _, TextileMaterials _ ) ->
+            True
+
+        _ ->
+            False
 
 
 slug : Dataset -> String
