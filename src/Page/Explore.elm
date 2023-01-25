@@ -54,7 +54,7 @@ init scope dataset session =
     ( { dataset = dataset, scope = scope }
     , session
     , Cmd.batch
-        [ if BuilderDb.isEmpty session.builderDb then
+        [ if scope == Scope.Food && BuilderDb.isEmpty session.builderDb then
             FoodRequestDb.loadDb session FoodDbLoaded
 
           else
