@@ -1,19 +1,21 @@
-module Page.Textile.Explore.Materials exposing (table)
+module Page.Explore.TextileMaterials exposing (table)
 
 import Data.Country as Country
-import Data.Textile.Db as Db exposing (Db)
+import Data.Dataset as Dataset
+import Data.Scope exposing (Scope)
+import Data.Textile.Db exposing (Db)
 import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Material.Category as Category
 import Data.Unit as Unit
 import Html exposing (..)
-import Page.Textile.Explore.Table exposing (Table)
+import Page.Explore.Table exposing (Table)
 import Route
 import Views.Alert as Alert
 import Views.Format as Format
 
 
-table : Db -> { detailed : Bool } -> Table Material msg
-table { countries } { detailed } =
+table : Db -> { detailed : Bool, scope : Scope } -> Table Material msg
+table { countries } { detailed, scope } =
     [ { label = "Identifiant"
       , toCell =
             \material ->
@@ -21,7 +23,7 @@ table { countries } { detailed } =
                     code [] [ text (Material.idToString material.id) ]
 
                 else
-                    a [ Route.href (Route.TextileExplore (Db.Materials (Just material.id))) ]
+                    a [ Route.href (Route.Explore scope (Dataset.TextileMaterials (Just material.id))) ]
                         [ code [] [ text (Material.idToString material.id) ] ]
       }
     , { label = "Nom"

@@ -12,12 +12,12 @@ import Html
 import Page.Api as Api
 import Page.Changelog as Changelog
 import Page.Editorial as Editorial
+import Page.Explore as Explore
 import Page.Food.Builder as FoodBuilder
 import Page.Food.Explore as FoodExplore
 import Page.Home as Home
 import Page.Stats as Stats
 import Page.Textile.Examples as TextileExamples
-import Page.Textile.Explore as TextileExplore
 import Page.Textile.Simulator as TextileSimulator
 import Ports
 import RemoteData exposing (WebData)
@@ -39,13 +39,13 @@ type Page
     | BlankPage
     | ChangelogPage Changelog.Model
     | EditorialPage Editorial.Model
+    | ExplorePage Explore.Model
     | FoodBuilderPage FoodBuilder.Model
     | FoodExplorePage FoodExplore.Model
     | HomePage Home.Model
     | NotFoundPage
     | StatsPage Stats.Model
     | TextileExamplesPage TextileExamples.Model
-    | TextileExplorePage TextileExplore.Model
     | TextileSimulatorPage TextileSimulator.Model
 
 
@@ -62,6 +62,7 @@ type Msg
     | CloseMobileNavigation
     | CloseNotification Session.Notification
     | EditorialMsg Editorial.Msg
+    | ExploreMsg Explore.Msg
     | FoodExploreMsg FoodExplore.Msg
     | FoodBuilderMsg FoodBuilder.Msg
     | HomeMsg Home.Msg
@@ -72,7 +73,6 @@ type Msg
     | StoreChanged String
     | TextileDbReceived Url (WebData Db)
     | TextileExamplesMsg TextileExamples.Msg
-    | TextileExploreMsg TextileExplore.Msg
     | TextileSimulatorMsg TextileSimulator.Msg
     | UrlChanged Url
     | UrlRequested Browser.UrlRequest
@@ -151,6 +151,10 @@ setRoute maybeRoute ( { session } as model, cmds ) =
             Editorial.init slug session
                 |> toPage EditorialPage EditorialMsg
 
+        Just (Route.Explore scope dataset) ->
+            Explore.init scope dataset session
+                |> toPage ExplorePage ExploreMsg
+
         Just (Route.FoodBuilder trigram maybeQuery) ->
             FoodBuilder.init session trigram maybeQuery
                 |> toPage FoodBuilderPage FoodBuilderMsg
@@ -166,10 +170,6 @@ setRoute maybeRoute ( { session } as model, cmds ) =
         Just Route.TextileExamples ->
             TextileExamples.init session
                 |> toPage TextileExamplesPage TextileExamplesMsg
-
-        Just (Route.TextileExplore dataset) ->
-            TextileExplore.init dataset session
-                |> toPage TextileExplorePage TextileExploreMsg
 
         Just (Route.TextileSimulator trigram funit detailed maybeQuery) ->
             TextileSimulator.init trigram funit detailed maybeQuery session
@@ -211,6 +211,10 @@ update msg ({ page, session } as model) =
             Editorial.update session editorialMsg editorialModel
                 |> toPage EditorialPage EditorialMsg
 
+        ( ExploreMsg examplesMsg, ExplorePage examplesModel ) ->
+            Explore.update session examplesMsg examplesModel
+                |> toPage ExplorePage ExploreMsg
+
         -- Food
         ( FoodBuilderMsg foodMsg, FoodBuilderPage foodModel ) ->
             FoodBuilder.update session foodMsg foodModel
@@ -236,10 +240,6 @@ update msg ({ page, session } as model) =
         ( TextileExamplesMsg examplesMsg, TextileExamplesPage examplesModel ) ->
             TextileExamples.update session examplesMsg examplesModel
                 |> toPage TextileExamplesPage TextileExamplesMsg
-
-        ( TextileExploreMsg examplesMsg, TextileExplorePage examplesModel ) ->
-            TextileExplore.update session examplesMsg examplesModel
-                |> toPage TextileExplorePage TextileExploreMsg
 
         ( TextileSimulatorMsg counterMsg, TextileSimulatorPage counterModel ) ->
             TextileSimulator.update session counterMsg counterModel
@@ -315,6 +315,10 @@ subscriptions model =
             EditorialPage _ ->
                 Sub.none
 
+            ExplorePage subModel ->
+                Explore.subscriptions subModel
+                    |> Sub.map ExploreMsg
+
             FoodBuilderPage subModel ->
                 FoodBuilder.subscriptions subModel
                     |> Sub.map FoodBuilderMsg
@@ -324,10 +328,6 @@ subscriptions model =
 
             TextileExamplesPage _ ->
                 Sub.none
-
-            TextileExplorePage subModel ->
-                TextileExplore.subscriptions subModel
-                    |> Sub.map TextileExploreMsg
 
             TextileSimulatorPage subModel ->
                 TextileSimulator.subscriptions subModel
@@ -380,6 +380,11 @@ view { page, mobileNavigationOpened, session } =
                 |> mapMsg EditorialMsg
                 |> Page.frame (pageConfig (Page.Editorial editorialModel.slug))
 
+        ExplorePage examplesModel ->
+            Explore.view session examplesModel
+                |> mapMsg ExploreMsg
+                |> Page.frame (pageConfig Page.Explore)
+
         FoodBuilderPage foodModel ->
             FoodBuilder.view session foodModel
                 |> mapMsg FoodBuilderMsg
@@ -394,11 +399,6 @@ view { page, mobileNavigationOpened, session } =
             TextileExamples.view session examplesModel
                 |> mapMsg TextileExamplesMsg
                 |> Page.frame (pageConfig Page.TextileExamples)
-
-        TextileExplorePage examplesModel ->
-            TextileExplore.view session examplesModel
-                |> mapMsg TextileExploreMsg
-                |> Page.frame (pageConfig Page.TextileExplore)
 
         TextileSimulatorPage simulatorModel ->
             TextileSimulator.view session simulatorModel

@@ -3,6 +3,7 @@ module Data.Scope exposing
     , decode
     , encode
     , only
+    , parseSlug
     , toLabel
     , toString
     )
@@ -10,6 +11,7 @@ module Data.Scope exposing
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
 import Json.Encode as Encode
+import Url.Parser as Parser exposing (Parser)
 
 
 type Scope
@@ -44,6 +46,12 @@ fromString string =
 only : Scope -> List { a | scopes : List Scope } -> List { a | scopes : List Scope }
 only scope =
     List.filter (.scopes >> List.member scope)
+
+
+parseSlug : Parser (Scope -> a) a
+parseSlug =
+    Parser.custom "SCOPE" <|
+        (fromString >> Result.toMaybe)
 
 
 toLabel : Scope -> String

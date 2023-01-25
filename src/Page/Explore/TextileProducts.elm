@@ -1,18 +1,20 @@
-module Page.Textile.Explore.Products exposing (table)
+module Page.Explore.TextileProducts exposing (table)
 
-import Data.Textile.Db as Db exposing (Db)
+import Data.Dataset as Dataset
+import Data.Scope exposing (Scope)
+import Data.Textile.Db exposing (Db)
 import Data.Textile.DyeingMedium as DyeingMedium
 import Data.Textile.Process as Process
 import Data.Textile.Product as Product exposing (Product)
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Page.Textile.Explore.Table exposing (Table)
+import Page.Explore.Table exposing (Table)
 import Route
 import Views.Format as Format
 
 
-table : Db -> { detailed : Bool } -> Table Product msg
-table db { detailed } =
+table : Db -> { detailed : Bool, scope : Scope } -> Table Product msg
+table db { detailed, scope } =
     [ { label = "Identifiant"
       , toCell =
             \product ->
@@ -20,7 +22,7 @@ table db { detailed } =
                     code [] [ text (Product.idToString product.id) ]
 
                 else
-                    a [ Route.href (Route.TextileExplore (Db.Products (Just product.id))) ]
+                    a [ Route.href (Route.Explore scope (Dataset.TextileProducts (Just product.id))) ]
                         [ code [] [ text (Product.idToString product.id) ] ]
       }
     , { label = "Nom"

@@ -1,4 +1,4 @@
-module Page.Textile.Explore.Common exposing (scopesView)
+module Page.Explore.Common exposing (scopesView)
 
 import Data.Scope as Scope exposing (Scope)
 import Html exposing (..)

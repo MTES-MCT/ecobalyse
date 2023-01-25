@@ -11,6 +11,7 @@ import Browser.Events
 import Browser.Navigation as Navigation
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Country as Country
+import Data.Dataset as Dataset
 import Data.Food.Builder.Db as BuilderDb exposing (Db)
 import Data.Food.Builder.Query as Query exposing (Query)
 import Data.Food.Builder.Recipe as Recipe exposing (Recipe)
@@ -32,7 +33,7 @@ import Ports
 import Quantity
 import RemoteData exposing (WebData)
 import Request.Common
-import Request.Food.BuilderDb as RequestDb
+import Request.Food.BuilderDb as FoodRequestDb
 import Route
 import Task
 import Time exposing (Posix)
@@ -125,7 +126,7 @@ init ({ db, builderDb, queries } as session) trigram maybeQuery =
     if BuilderDb.isEmpty builderDb then
         ( model
         , newSession
-        , Cmd.batch [ cmds, RequestDb.loadDb session DbLoaded ]
+        , Cmd.batch [ cmds, FoodRequestDb.loadDb session DbLoaded ]
         )
 
     else
@@ -582,7 +583,12 @@ errorView error =
 ingredientListView : Db -> Impact.Definition -> Recipe -> Recipe.Results -> List (Html Msg)
 ingredientListView db selectedImpact recipe results =
     [ div [ class "card-header d-flex align-items-center justify-content-between" ]
-        [ h6 [ class "mb-0" ] [ text "Ingrédients" ]
+        [ h6 [ class "d-flex align-items-center mb-0" ]
+            [ text "Ingrédients"
+            , Link.smallPillExternal
+                [ Route.href (Route.Explore Scope.Food (Dataset.FoodIngredients Nothing)) ]
+                [ Icon.search ]
+            ]
         , results.recipe.ingredientsTotal
             |> Format.formatFoodSelectedImpact selectedImpact
         ]
