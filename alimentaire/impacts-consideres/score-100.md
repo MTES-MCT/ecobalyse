@@ -44,6 +44,10 @@ Nous n'avons pas la valeur $$x_{93,6\%}$$pour le score d'impacts. On fait pour l
 * Il existe 5 intervalles de 20 points en 0 et 100, correspondant aux 5 lettres d'un affichage en lettre (A,B,C,D,E)
 * Le top 6,4% des produits CIQUAL ont tous score/100 = 100
 * Le flop 6,4% des produits CIQUAL ont tous score/100 = 0
+* &#x20; $$\frac{x_{93,6\%}}{x_{6,4\%} }   = 2^5 = 32$$
+*   Le score/100 permet de représenter un écart de 32 entre le meilleur et le pire produit. Au delà de ces bornes les produits ont tous le même score (0 ou 100). Cela provient du choix de faire une échelle à 5 lettres qui double tous les 20 points.
+
+
 
 
 
