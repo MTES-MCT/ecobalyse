@@ -264,6 +264,7 @@ impactsExplorer scope maybeTrigram definitions =
 foodIngredientsExplorer : Maybe Ingredient.Id -> BuilderDb.Db -> List (Html Msg)
 foodIngredientsExplorer maybeId db =
     [ db.ingredients
+        |> List.sortBy .name
         |> Table.viewList Scope.Food (FoodIngredients.table db)
     , case maybeId of
         Just id ->
