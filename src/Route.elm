@@ -84,7 +84,13 @@ parser =
 
 toExploreWithId : Scope -> Dataset -> String -> Route
 toExploreWithId scope dataset idString =
-    Explore scope (Dataset.slugWithId dataset idString)
+    dataset
+        |> Dataset.setIdFromString
+            (idString
+                |> Url.percentDecode
+                |> Maybe.withDefault idString
+            )
+        |> Explore scope
 
 
 {-| Note: as the app relies on URL fragment based routing, the source URL is

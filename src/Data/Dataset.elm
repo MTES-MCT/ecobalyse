@@ -6,7 +6,7 @@ module Data.Dataset exposing
     , parseSlug
     , reset
     , same
-    , slugWithId
+    , setIdFromString
     , toRoutePath
     )
 
@@ -95,9 +95,7 @@ label =
 
 parseSlug : Parser (Dataset -> a) a
 parseSlug =
-    Parser.custom "DATASET" <|
-        \string ->
-            Just (fromSlug string)
+    Parser.custom "DATASET" (fromSlug >> Just)
 
 
 reset : Dataset -> Dataset
@@ -141,13 +139,8 @@ same a b =
             False
 
 
-slug : Dataset -> String
-slug =
-    strings >> .slug
-
-
-slugWithId : Dataset -> String -> Dataset
-slugWithId dataset idString =
+setIdFromString : String -> Dataset -> Dataset
+setIdFromString idString dataset =
     case dataset of
         Countries _ ->
             Countries (Just (Country.codeFromString idString))
@@ -163,6 +156,11 @@ slugWithId dataset idString =
 
         TextileMaterials _ ->
             TextileMaterials (Just (Material.Id idString))
+
+
+slug : Dataset -> String
+slug =
+    strings >> .slug
 
 
 strings : Dataset -> { slug : String, label : String }
