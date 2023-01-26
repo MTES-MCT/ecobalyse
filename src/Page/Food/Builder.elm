@@ -24,6 +24,7 @@ import Data.Key as Key
 import Data.Scope as Scope
 import Data.Session as Session exposing (Session)
 import Data.Unit as Unit
+import Dict
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -54,6 +55,7 @@ import Views.Transport as TransportView
 
 type alias Model =
     { dbState : WebData Db
+    , foodCategoryScale : Maybe String
     , impact : Impact.Definition
     , bookmarkName : String
     , bookmarkTab : BookmarkView.ActiveTab
@@ -82,6 +84,7 @@ type Msg
     | ResetTransform
     | SaveBookmark
     | SaveBookmarkWithTime String Bookmark.Query Posix
+    | SetFoodCategoryScale (Maybe String)
     | SetModal Modal
     | SwitchComparisonUnit ComparatorView.FoodComparisonUnit
     | SwitchLinksTab BookmarkView.ActiveTab
@@ -107,6 +110,7 @@ init ({ db, builderDb, queries } as session) trigram maybeQuery =
 
         ( model, newSession, cmds ) =
             ( { dbState = RemoteData.Loading
+              , foodCategoryScale = Nothing
               , impact = impact
               , bookmarkName = query |> findExistingBookmarkName session
               , bookmarkTab = BookmarkView.SaveTab
@@ -249,9 +253,6 @@ update ({ queries } as session) msg model =
             ( model, session, Cmd.none )
                 |> updateQuery (Recipe.resetTransform query)
 
-        SetModal modal ->
-            ( { model | modal = modal }, session, Cmd.none )
-
         SaveBookmark ->
             ( model
             , session
@@ -272,6 +273,12 @@ update ({ queries } as session) msg model =
                     }
             , Cmd.none
             )
+
+        SetFoodCategoryScale foodCategoryScale ->
+            ( { model | foodCategoryScale = foodCategoryScale }, session, Cmd.none )
+
+        SetModal modal ->
+            ( { model | modal = modal }, session, Cmd.none )
 
         SwitchImpact impact ->
             ( model
@@ -812,21 +819,60 @@ sidebarView session db model results =
                 if Impact.isAggregate model.impact then
                     let
                         score =
-                            results.perKg
-                                |> Impact.getAggregatedScoreOutOf100 model.impact
+                            case model.foodCategoryScale of
+                                Just categoryScale ->
+                                    results.perKg
+                                        |> Impact.getAggregatedCategoryScoreOutOf100 model.impact categoryScale
+
+                                Nothing ->
+                                    results.perKg
+                                        |> Impact.getAggregatedScoreOutOf100 model.impact
 
                         scoreLetter =
                             score
                                 |> Impact.getAggregatedScoreLetter
                     in
-                    [ div [ class "d-flex justify-content-center align-items-end gap-1 w-100" ]
-                        [ text "Score :"
-                        , span [ class "h5 m-0" ]
-                            [ text (String.fromInt score)
-                            , span [ class "fs-7" ] [ text "/100" ]
-                            ]
-                        , span [ class <| "h5 m-0 ScoreLetter ScoreLetter" ++ scoreLetter ]
-                            [ text scoreLetter
+                    [ div [ class "d-flex justify-content-between align-items-center gap-3 w-100" ]
+                        [ Impact.foodCategories
+                            |> Dict.toList
+                            |> List.sortBy (Tuple.second >> .name)
+                            |> List.map
+                                (\( categoryScale, { name } ) ->
+                                    option
+                                        [ value categoryScale
+                                        , selected <| model.foodCategoryScale == Just categoryScale
+                                        ]
+                                        [ text name ]
+                                )
+                            |> (::)
+                                (option
+                                    [ value ""
+                                    , selected <| model.foodCategoryScale == Nothing
+                                    ]
+                                    [ text "Toutes catégories" ]
+                                )
+                            |> select
+                                [ class "form-select form-select-sm"
+                                , onInput
+                                    (\s ->
+                                        SetFoodCategoryScale
+                                            (if s == "" then
+                                                Nothing
+
+                                             else
+                                                Just s
+                                            )
+                                    )
+                                ]
+                        , div [ class "d-flex justify-content-center align-items-end gap-1 text-nowrap" ]
+                            [ text "Score :"
+                            , span [ class "h5 m-0" ]
+                                [ text (String.fromInt score)
+                                , span [ class "fs-7" ] [ text "/100" ]
+                                ]
+                            , span [ class <| "h5 m-0 ScoreLetter ScoreLetter" ++ scoreLetter ]
+                                [ text scoreLetter
+                                ]
                             ]
                         ]
                     ]

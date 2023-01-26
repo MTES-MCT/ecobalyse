@@ -12,6 +12,8 @@ module Data.Impact exposing
     , encodeAggregatedScoreChartEntry
     , encodeImpacts
     , filterImpacts
+    , foodCategories
+    , getAggregatedCategoryScoreOutOf100
     , getAggregatedScoreData
     , getAggregatedScoreLetter
     , getAggregatedScoreOutOf100
@@ -35,7 +37,7 @@ module Data.Impact exposing
 
 import Data.Scope as Scope exposing (Scope)
 import Data.Unit as Unit
-import Dict
+import Dict exposing (Dict)
 import Dict.Any as AnyDict exposing (AnyDict)
 import Duration exposing (Duration)
 import Json.Decode as Decode exposing (Decoder)
@@ -420,6 +422,42 @@ getAggregatedScoreOutOf100 { trigram } impactsPerKg =
            )
         |> round
         |> clamp 0 100
+
+
+foodCategories : Dict String { name : String, bounds : ( Int, Int ) }
+foodCategories =
+    -- FIXME: move to somewhere food centric
+    Dict.fromList
+        [ ( "meats", { name = "Viandes", bounds = ( 1000, 4000 ) } )
+        , ( "fruitsAndVegetables", { name = "Fruits et légumes", bounds = ( 30, 450 ) } )
+        , ( "cakes", { name = "Gâteaux", bounds = ( 100, 700 ) } )
+        ]
+
+
+getAggregatedCategoryScoreOutOf100 : Definition -> String -> Impacts -> Int
+getAggregatedCategoryScoreOutOf100 { trigram } foodCategory impactsPerKg =
+    -- FIXME: move to somewhere food centric
+    case Dict.get foodCategory foodCategories of
+        Just { bounds } ->
+            let
+                ln =
+                    logBase e
+
+                ( min, max ) =
+                    bounds
+            in
+            impactsPerKg
+                |> getImpact trigram
+                |> Unit.impactToFloat
+                |> (\value ->
+                        -- See docs at https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/impacts-consideres/score-100#projet-declinaisons-du-score-100
+                        (ln (toFloat max) - ln value) / ln (toFloat max / toFloat min) * 20 * 5
+                   )
+                |> round
+                |> clamp 0 100
+
+        Nothing ->
+            -99
 
 
 getAggregatedScoreLetter : Int -> String
