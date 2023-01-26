@@ -141,10 +141,14 @@ compute db =
                             , ingredientsTransport.impacts
                             ]
 
+                    totalImpacts =
+                        Impact.sumImpacts db.impacts
+                            [ recipeImpacts, packagingImpacts ]
+
                     impactsPerKg =
                         -- Note: Product impacts per kg is computed against transformed
                         --       ingredients mass, excluding packaging
-                        recipeImpacts
+                        totalImpacts
                             |> Impact.perKg (getTransformedIngredientsMass recipe)
 
                     packagingImpacts =
@@ -153,9 +157,7 @@ compute db =
                             |> updateImpacts
                 in
                 ( recipe
-                , { total =
-                        Impact.sumImpacts db.impacts
-                            [ recipeImpacts, packagingImpacts ]
+                , { total = totalImpacts
                   , perKg = impactsPerKg
 
                   -- XXX: For now, we stop at packaging step
