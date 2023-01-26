@@ -270,17 +270,16 @@ Un grammage par défaut (g/m2) est appliqué par type de vêtement (cf. onglet [
 
 L'utilisateur a la possibilité de modifier cette valeur entre deux bornes : \
 \- minimum : 80 g/m2\
-\- maximum : 500 g/m2\
+\- maximum : 500 g/m2
 
-
-Cette valeur correspond au grammage de l'étoffe constaté sur le produit fini (comme précisé précédemment).
+Cette valeur correspond au grammage de l'étoffe constaté sur le produit fini (comme précisé [précédemment](https://fabrique-numerique.gitbook.io/ecobalyse/textile/etapes-du-cycle-de-vie/tricotage-tissage#grammage-g-m2-1)).
 
 <details>
 
 <summary>Vous souhaitez modifier le grammage du vêtement ?</summary>
 
 Si c'est le cas, une attention particulière doit être apportée à l'impact de cette modification sur la quantité d'étoffe sortante (m2) afin de ne pas modéliser de scénario incohérent. \
-En effet, le poids (g) d'un vêtement dépend du grammage (g/m2) de l'étoffe et de la quantité d'étoffe (m2) mobilisée. Le poids du vêtement et le grammage de l'étoffe sont paramétrables par l'utilisateur tandis que la quantité d'étoffe ne l'est pas. Cette donnée d'arrière plan est cependant accessible lors de la modélisation.
+En effet, le poids (g) d'un vêtement (hors accessoires) dépend du grammage (g/m2) de l'étoffe et de la quantité d'étoffe (m2) mobilisée. Le poids du vêtement et le grammage de l'étoffe sont paramétrables par l'utilisateur tandis que la quantité d'étoffe ne l'est pas. Cette donnée d'arrière plan est cependant accessible lors de la modélisation.
 
 ![](<../../.gitbook/assets/image (4) (3).png>)
 
@@ -299,8 +298,6 @@ Toute modification du titrage fait varier la densité de fils (# de fils / cm; c
 En effet, la densité de fils reflète le nombre d'opérations réalisées par les machines. Plus le compte en trame (duitage) est élevé, plus le nombre de propulsions de la navette est élevé.
 
 Le calculateur indique un compte en chaîne et trame approximatif lors du paramétrage du tissu afin d'éclairer l'utilisateur.
-
-
 
 <details>
 
@@ -407,12 +404,6 @@ Les taux de perte appliqués par défaut correspondent à ceux retenus par le so
 * Tricotage : 5,45%
 
 </details>
-
-#### Produits d'encollage (tissage)
-
-Non pris en compte à ce stade.&#x20;
-
-Le socle technique actuellement utilisé (Base Impacts \_ ADEME) ne permet pas de prendre en compte ce paramètre car l'impact environnemental du procédé de tissage (hors électricité) est nul comme expliqué précédemment.&#x20;
 
 
 
