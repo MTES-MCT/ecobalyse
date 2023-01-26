@@ -67,7 +67,7 @@ __
 
 L'analyse comparée des impacts donne :&#x20;
 
-<figure><img src="../../.gitbook/assets/image (2).png" alt=""><figcaption><p>source: AGB3.0 via Simapro, EF3.0 (adapted)</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (2) (4).png" alt=""><figcaption><p>source: AGB3.0 via Simapro, EF3.0 (adapted)</p></figcaption></figure>
 
 {% hint style="info" %}
 **Axes de progrès ?**

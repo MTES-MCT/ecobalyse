@@ -46,7 +46,7 @@ Le procédé "**Potato, consumption mix"** France proposée dans Agribalyse s'ap
 
 Un transport de 160 km en camion y est intégré.
 
-<figure><img src="../../.gitbook/assets/image (2) (4).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (2) (4) (1).png" alt=""><figcaption></figcaption></figure>
 
 Ce graphique met en évidence que le procédé pris en compte pour le mix de consommation français est Ware potato, conventional, variety mix, national average, at farm gate. C'est donc l'ICV retenu pour calculer l'impact de la pomme de terre conventionnelle.
 

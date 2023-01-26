@@ -41,7 +41,7 @@ La base Agribalyse permet de distinguer 14 inventaires de cycle de vie pour le b
 
 L'analyse comparée des impacts donne :&#x20;
 
-<figure><img src="../../.gitbook/assets/image (2) (5) (1).png" alt=""><figcaption><p>source : AGB 3.0 via Simapro, EF3.0 </p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (2) (5).png" alt=""><figcaption><p>source : AGB 3.0 via Simapro, EF3.0 </p></figcaption></figure>
 
 {% hint style="danger" %}
 Pour passer du blé tendre à de la farine, il conviendrait d'intégrer des étapes de transformation (milling process, reception, precleaning, storage...)

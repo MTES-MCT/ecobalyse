@@ -73,13 +73,11 @@ Les types d'insertion de trame varient selon les métiers : \
 
 Le tricotage est une technique de fabrication des étoffes où s’entrelacent des boucles de fils (appelées mailles) à l’aide d’aiguilles. L’ensemble des mailles constitue le tricot qui est une étoffe extensible car les mailles peuvent se déformer.
 
-Il existe deux grandes classes de tricotage qui se distinguent par le mode de liaison des mailles :&#x20;
+Il existe deux grandes familles qui se distinguent par le mode de liaison des mailles :&#x20;
 
-* le tricotage à mailles cueillies (ou tricots « trame »)
-* le tricotage à mailles jetées (ou tricots « chaîne » ou tricots « indémaillables »)
 * le tricotage à mailles cueillies (ou tricots « trame »)\
   Ces tricots utilisent qu'un seul fil et sont fréquemment utilisés dans les sous-vêtements, t-shirts, pulls et chaussettes.
-* le tricotage à mailles jetée (ou tricots « chaîne » ou tricots « indémaillables »)\
+* le tricotage à mailles jetéee (ou tricots « chaîne » ou tricots « indémaillables »)\
   Ces tricots s'obtiennent par le tricotage simultané de plusieurs fils et sont fréquemment utilisés pour les vêtements de sport, les maillots de bain et la lingerie.
 
 Le terme liage (ou point) est utilisé pour spécifier la manière dont s’entrelacent les fils dans les étoffes . Il s’agit de l’équivalence de l’armure en tissage. \
@@ -116,8 +114,7 @@ Il existe quatre principales machines pour tricoter une étoffe : \
 De manière générale, ces machines se divisent selon le type de tricotage :&#x20;
 
 * Mailles cueillies (trame)\
-  Utilisation de machines **rectilignes** ou **circulaires**, montées avec avec une ou deux fontures. \
-
+  Utilisation de machines **rectilignes** ou **circulaires**, montées avec avec une ou deux fontures. Certaines machines circulaires permettent de produire des mailles sans couture (**seamless).** Cette nouvelle technologie permet notamment de se passer des étapes de coupe et de couture, proposant ainsi des gains de productivité et de consommation matière conséquents.&#x20;
 * Mailles jetées (chaîne)\
   Utilisation de machines rectilignes spécifiques de type **Chaîne** (une seule fonture) et **Rachel** (une ou deux fontures).&#x20;
 
@@ -166,11 +163,10 @@ Ces étoffes sont notamment appréciées dans les secteurs de la construction, d
 
 En fonction du vêtement sélectionné, une opération de tissage ou de tricotage est appliquée par défaut.&#x20;
 
-L'utilisateur n'a actuellement pas la possibilité de modifier ce paramètre par défaut.
+L'utilisateur n'a actuellement pas la possibilité de : &#x20;
 
-À date, le calculateur ne permet pas de modéliser des étoffes _non-tissées_.
-
-
+* modifier le type d'étoffe du vêtement modélisé,
+* modéliser des étoffes _non-tissées_.
 
 Cf. l'onglet [Explorer](https://ecobalyse.beta.gouv.fr/#/textile/explore/products) pour les valeurs par défaut.
 
@@ -178,16 +174,16 @@ Cf. l'onglet [Explorer](https://ecobalyse.beta.gouv.fr/#/textile/explore/product
 
 <details>
 
-<summary>Grammage de l'étoffe  (g / m2)</summary>
+<summary>Grammage (g / m2)</summary>
 
 Le grammage (poids) d'une étoffe, autrement appelé _masse surfacique,_ est exprimé en grammes par mètre carré (g/m2). Le terme anglais utilisé dans l'industrie est GSM (Grams per Square Meter).&#x20;
 
-Ce paramètre est mobilisé car il reflète les caractéristiques techniques de l'étoffe et permet de définir la consommation d'énergie nécessaire pour actionner le procédé.&#x20;
+Ce paramètre est mobilisé car il constitue un paramètre clé pour évaluer les caractéristiques techniques de l'étoffe composant le vêtement.&#x20;
 
-En fonction du vêtement sélectionné, un grammage par défaut est appliqué.&#x20;
+En fonction du vêtement sélectionné (jean, t-shirt, etc.), un grammage par défaut est appliqué. L'utilisateur a la possibilité de modifier ce paramètre.&#x20;
 
-L'utilisateur a la possibilité de modifier ce paramètre.&#x20;
-
+:warning: La valeur à renseigner correspond à celle constatée sur le produit fini (hors accessoires). A ce stade, le calculateur permet de modéliser uniquement des produits mono-composant. Dès lors, la valeur à renseigner concerne le grammage de l'étoffe post-confection. \
+:bulb: Il existe généralement une différence entre le poids de l'étoffe en sortie de l'étape de fabrication de l'étoffe et le poids constaté sur le produit fini pour différentes raisons (ex : ajout d'apprêts sur l'étoffe lors de l'étape d'ennoblissement, différence de tension des fils/boucles, etc.).\
 
 
 Cf. la section _Hypothèses par défaut_ pour plus d'info.
@@ -205,11 +201,15 @@ Le titrage (ou titre) est le rapport existant entre le poids et la longueur de c
 
 L’unité retenue est le numéro métrique (Nm). Il indique un nombre de kilomètres de ﬁl correspondant à un poids d’un kilogramme (ex : Nm 50 = 50 km de ce fil pèsent 1 kg).
 
-La majorité des fils utilisés dans l'industrie varient entre une épaisseur minimale (Nm 100) et maximale (Nm 20).
+La majorité des fils utilisés dans l'industrie varient entre une épaisseur minimale (Nm 200) et maximale (Nm 9).
 
-Une valeur par défaut est appliquée selon le type de vêtement (t-shirt, robe, etc.) et le grammage (g/m2) de l'étoffe.&#x20;
+Une valeur par défaut est appliquée selon le type de vêtement (t-shirt, robe, etc.).
 
-L'utilisateur a la possibilité de préciser cette valeur par défaut.&#x20;
+L'utilisateur a la possibilité de préciser cette valeur par défaut.
+
+:bulb:Afin de simplifier l'expérience utilisateur, il est possible de renseigner le titrage en Dtex (poids en grammes de 10,000 mètres de fil) => 1 Dtex = 10,000 / Nm.\
+Cette unité de mesure est notamment utilisée pour les fibres chimiques. \
+
 
 
 
@@ -223,27 +223,13 @@ Cf. l'onglet [Explorer](https://ecobalyse.beta.gouv.fr/#/textile/explore/product
 
 <summary>Embuvage et Retrait (%) (tissage)</summary>
 
-L’embuvage et le retrait sont exprimés en pourcentage (%), concernent les tissus et correspondent à la diminution de fil (chaîne et trame) due à leur entrelacement.
+Lors de l'étape de tissage, une diminution de fil apparaît en chaîne et trame du fait de leur entrelacement. Ces variables s'expriment en % et sont exprimées ainsi : \
+\- taux d'embuvage (chaîne), \
+\- taux de retrait (trame). &#x20;
 
-Ce paramètre est critique car il impacte d'autant la quantité de fil/matière mobilisée lors du tissage.&#x20;
+Ce paramètre est critique car il impacte d'autant la quantité de fil/matière mobilisée lors du tissage.
 
 Une valeur par défaut de 8% est appliquée dans le calculateur pour ces deux paramètres.
-
-</details>
-
-<details>
-
-<summary>Longueur de fil absorbée (LFA) (%) (tricotage)</summary>
-
-La longueur de fil absorbée (LFA) correspond à la longueur d'une maille (boucle).&#x20;
-
-Ce paramètre est critique car il permet de calculer la quantité de matière/fil utilisée par l'étoffe.&#x20;
-
-Une valeur par défaut de xx est appliquée par type de vêtement.
-
-L'utilisateur a la possibilité de modifier ce paramètre s'il maîtrise les caractéristiques techniques de l'étoffe.&#x20;
-
-Cf. l'onglet [Explorer](https://ecobalyse.beta.gouv.fr/#/textile/explore/products) pour les valeurs par défaut.
 
 </details>
 
@@ -266,7 +252,7 @@ $$
 ImpactEtoffe = ImpactProcédé + ImpactElec
 $$
 
-Par conséquent, l'impact global de Etoffe se comprend comme résultant de la somme de l'impact résultant du procédé retenu (tissage ou tricotage) (cf. intérieur du _system boundaries_) et des procédés externes devant être ajoutés, à savoir :
+Le procédé externe (électricité) devant être ajouté est le suivant :
 
 | Flux externe | UUID du flux                           | unité |
 | ------------ | -------------------------------------- | ----- |
@@ -282,7 +268,12 @@ Remarque : pour les procédés retenus (cf. ci-après), les coefficients d'impac
 
 Un grammage par défaut (g/m2) est appliqué par type de vêtement (cf. onglet [Explorateur](https://ecobalyse.beta.gouv.fr/#/textile/explore/products)).&#x20;
 
-Cette valeur correspond à celle constatée sur le produit fini.&#x20;
+L'utilisateur a la possibilité de modifier cette valeur entre deux bornes : \
+\- minimum : 80 g/m2\
+\- maximum : 500 g/m2\
+
+
+Cette valeur correspond au grammage de l'étoffe constaté sur le produit fini (comme précisé précédemment).
 
 <details>
 
@@ -295,17 +286,19 @@ En effet, le poids (g) d'un vêtement dépend du grammage (g/m2) de l'étoffe et
 
 </details>
 
-L'utilisateur a la possibilité de modifier ce paramètre s'il le maîtrise.&#x20;
-
-#### Contexture
+#### Contexture (densité & titrage des fils)
 
 {% tabs %}
 {% tab title="Tissu" %}
-Une contexture par défaut est appliquée à chaque vêtement.&#x20;
+Une contexture par défaut est appliquée aux vêtements composés de tissu.&#x20;
 
 L'utilisateur a la possibilité de préciser la contexture en précisant le titrage (Nm) de fil utilisé. Si les fils de chaîne et trame n'ont pas le même titrage, celui de la trame est retenu.
 
-Toute modification du titrage fait varier la densité de fils (compte en chaîne et trame) en arrière plan, et donc la consommation d'électricité (kWh) associée au procédé. En effet, la densité de fils reflète le nombre d'opérations réalisées par les machines. Plus le compte en trame (duitage) est élevé, plus le nombre de propulsions de la navette est élevé.
+Toute modification du titrage fait varier la densité de fils (# de fils / cm; compte en chaîne et trame) en arrière plan, et donc la consommation d'électricité (kWh) associée au procédé.
+
+En effet, la densité de fils reflète le nombre d'opérations réalisées par les machines. Plus le compte en trame (duitage) est élevé, plus le nombre de propulsions de la navette est élevé.
+
+Le calculateur indique un compte en chaîne et trame approximatif lors du paramétrage du tissu afin d'éclairer l'utilisateur.
 
 
 
@@ -315,15 +308,15 @@ Toute modification du titrage fait varier la densité de fils (compte en chaîne
 
 Plusieurs configurations/contextures sont possibles pour un tissu avec un grammage (g/m2) fixe.&#x20;
 
-Exemple de cinq contextures proposant toutes un tissu pesant 280 g/m2 :  \
-\- 25x25, Nm 30x30\
+Exemple de cinq contextures proposant toutes un tissu de 280 g/m2 :  \
+\- 25x25 (fils / cm), Nm 30x30\
 \- 25x25, Nm 45x20\
 \- 25x25, Nm 20x45\
 \- 40x40, Nm 48x48\
 \- 50x50, Nm 60x60\
 _hypothèse : embuvage = retrait = 8%_
 
-Cet exemple illustre le fait que plus le poids/titrage des fils augmente, plus le nombre/densité de fils utilisés diminue pour un grammage (g/m2) constant; et inversement.&#x20;
+Cet exemple illustre le fait que plus l'épaisseur des fils augmente (donc Nm diminue), plus la densité de fils diminue pour un grammage (g/m2) constant; et inversement.&#x20;
 
 Dès lors, préciser la contexture d'un tissu avec un grammage (g/m2) spécifique permet de mieux refléter les réalités métiers sous-jacentes.&#x20;
 
@@ -336,24 +329,37 @@ La communauté ACV permet cela en précisant le titrage de fil plutôt que le co
 
 **Valeurs par défaut**&#x20;
 
-| Grammage (g/m2)   | Titrage (Nm) |
-| ----------------- | ------------ |
-| < 200             | 50           |
-| entre 200 et 299  | 40           |
-| entre 300 et 400  | 30           |
-| > 401             | 25           |
+| Grammage (g/m2)   | Titrage (Nm / Dtex) |
+| ----------------- | ------------------- |
+| < 200             | 50 / 200            |
+| entre 200 et 299  | 40 / 250            |
+| entre 300 et 400  | 30 / 333            |
+| > 401             | 25 / 400            |
 {% endtab %}
 
 {% tab title="Tricot" %}
-Le raisonnement applicable aux tissus ne l'est pas pour les tricots du fait de leur complexité.
+Le raisonnement applicable aux tissus ne l'est pas pour les tricots car :&#x20;
 
-Permettre de préciser le grammage (g/m2) d'un tricot selon le type de machine (circulaire, rectiligne, seamless) est suffisant.
+* l'énergie consommée lors du tricotage est non significative par rapport à l'impact global du vêtement (le tissage consomme plus d'électricité que le tricotage),&#x20;
+* la complexité de modélisation des différentes réalités métier du tricotage est élevée.&#x20;
+
+
+
+Permettre de préciser le grammage (g/m2) d'un tricot et le type de machine utilisée sont suffisants dans une logique d'analyse de cycle de vie.
 
 
 
 <details>
 
 <summary>En savoir plus </summary>
+
+**Consommation d'énergie**
+
+****![](<../../.gitbook/assets/image (2).png>)****
+
+_Une revue bibliographique effectuée par Ecobalyse fait ressortir une consommation moyenne d'électricité pour produire 1kg d'étoffe 2 à 5 fois plus faible pour du tricotage par rapport au tissage._&#x20;
+
+**Complexité**
 
 De (trop) nombreux paramètres impactent la manière dont est tricotée une étoffe, tels que : \
 \- le type de machine (circulaire vs rectiligne vs seamless),\
@@ -364,14 +370,15 @@ De (trop) nombreux paramètres impactent la manière dont est tricotée une éto
 \- la LFA (longueur de fil absorbée),\
 \- etc.&#x20;
 
-Dès lors, rentrer à ce niveau de détails dans le calculateur n'est pas adapté car : \
-\- ces paramètres sont très complexes à modéliser,\
-\- les metteurs sur le marché (marques) ne maîtrisent pas ces spécificités techniques,\
-\- les tricoteurs ne maîtrisent pas (encore) la consommation électrique de leurs différents procédés.&#x20;
-
 </details>
 {% endtab %}
 {% endtabs %}
+
+#### Tricotage seamless
+
+L'utilisateur a la possibilité de mettre en avant l'utilisation d'une machine de tricotage seamless (production de mailles sans couture). Dès lors, le taux de perte en confection est ramené à 2%, réduisant d'autant la quantité de matière mobilisée tout au long de la chaîne de valeur.&#x20;
+
+Les taux de pertes en confection sont détaillés ([ici](https://fabrique-numerique.gitbook.io/ecobalyse/textile/etapes-du-cycle-de-vie/confection#pertes-et-rebut)).&#x20;
 
 #### Taux de perte (%)
 
@@ -411,6 +418,6 @@ Le socle technique actuellement utilisé (Base Impacts \_ ADEME) ne permet pas d
 
 ## Limites générales
 
-* Produits d'encollage non pris en compte (tissage)
-* Le choix du procédé (tissage/tricotage) n'est pas paramétrable
-* Les taux de perte ne sont pas paramétrables
+* Produits d'encollage non pris en compte (tissage),
+* Le choix du procédé (tissage/tricotage) n'est pas paramétrable,
+* Les taux de perte ne sont pas paramétrables.
