@@ -852,7 +852,7 @@ sidebarView session db model results =
                                     [ text "Toutes catégories" ]
                                 )
                             |> select
-                                [ class "form-select form-select-sm"
+                                [ class "form-select form-select-sm w-50"
                                 , onInput
                                     (\s ->
                                         SetFoodCategoryScale
