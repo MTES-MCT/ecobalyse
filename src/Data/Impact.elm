@@ -420,7 +420,7 @@ getAggregatedScoreOutOf100 { trigram } impactsPerKg =
                 -- See the documentation at https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/impacts-consideres/score-100
                 (ln 2077 - ln value) / ln 2 * 20
            )
-        |> round
+        |> floor
         |> clamp 0 100
 
 
@@ -453,7 +453,7 @@ getAggregatedCategoryScoreOutOf100 { trigram } foodCategory impactsPerKg =
                         -- See docs at https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/impacts-consideres/score-100#projet-declinaisons-du-score-100
                         (ln (toFloat max) - ln value) / ln (toFloat max / toFloat min) * 20 * 5
                    )
-                |> round
+                |> floor
                 |> clamp 0 100
 
         Nothing ->
