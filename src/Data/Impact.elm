@@ -428,7 +428,7 @@ foodCategories : Dict String { name : String, bounds : ( Int, Int ) }
 foodCategories =
     -- FIXME: move to somewhere food centric
     Dict.fromList
-        [ ( "meats", { name = "Viandes", bounds = ( 1000, 4000 ) } )
+        [ ( "meats", { name = "Viandes", bounds = ( 500, 4000 ) } )
         , ( "fruitsAndVegetables", { name = "Fruits et légumes", bounds = ( 30, 450 ) } )
         , ( "cakes", { name = "Gâteaux", bounds = ( 100, 700 ) } )
         ]
