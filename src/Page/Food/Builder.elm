@@ -812,8 +812,8 @@ sidebarView session db model results =
                 if Impact.isAggregate model.impact then
                     let
                         score =
-                            results.total
-                                |> Impact.getAggregatedScoreOutOf100 model.impact results.totalMass
+                            results.perKg
+                                |> Impact.getAggregatedScoreOutOf100 model.impact
 
                         scoreLetter =
                             score
@@ -836,8 +836,8 @@ sidebarView session db model results =
             , body =
                 [ div [ class "d-flex flex-column m-auto gap-1 px-2 text-center text-nowrap" ]
                     [ div [ class "display-3 lh-1" ]
-                        [ results.total
-                            |> Format.formatFoodSelectedImpactPerKg model.impact results.totalMass
+                        [ results.perKg
+                            |> Format.formatFoodSelectedImpactPerKg model.impact
                         ]
                     ]
                 ]

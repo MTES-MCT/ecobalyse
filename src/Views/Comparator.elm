@@ -140,13 +140,13 @@ foodComparatorView { session } { comparisonUnit, switchComparisonUnit } =
                 foodQuery
                     |> Recipe.compute builderDb
                     |> Result.map
-                        (\( _, { total, totalMass } ) ->
+                        (\( _, { total, perKg } ) ->
                             case comparisonUnit of
                                 PerItem ->
                                     ( label, total )
 
                                 PerKgOfProduct ->
-                                    ( label, Impact.perKg totalMass total )
+                                    ( label, perKg )
                         )
                     |> Just
 

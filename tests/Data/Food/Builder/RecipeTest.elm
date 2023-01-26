@@ -1,6 +1,6 @@
 module Data.Food.Builder.RecipeTest exposing (..)
 
-import Data.Food.Builder.Query as Query
+import Data.Food.Builder.Query as Query exposing (carrotCake)
 import Data.Food.Builder.Recipe as Recipe
 import Data.Food.Ingredient as Ingredient
 import Data.Food.Process as Process
@@ -15,22 +15,18 @@ import TestUtils exposing (asTest, suiteWithDb)
 
 suite : Test
 suite =
-    let
-        exampleQuery =
-            Query.carrotCake
-    in
     suiteWithDb "Data.Food.Builder.Recipe"
         (\{ builderDb } ->
             [ let
                 recipe =
-                    exampleQuery
+                    carrotCake
                         |> Recipe.fromQuery builderDb
               in
               describe "fromQuery"
                 [ recipe
                     |> Expect.ok
                     |> asTest "should return an Ok for a valid query"
-                , { exampleQuery
+                , { carrotCake
                     | transform =
                         Just
                             { code = Process.codeFromString "not a process"
@@ -43,7 +39,7 @@ suite =
                     |> asTest "should return an Err for an invalid processing"
                 ]
             , describe "compute"
-                [ exampleQuery
+                [ carrotCake
                     |> Recipe.compute builderDb
                     |> Result.map (Tuple.second >> .total >> AnyDict.toDict)
                     |> Result.withDefault Dict.empty
@@ -74,7 +70,7 @@ suite =
                         )
                     |> asTest "should return computed impacts where none equals zero"
                 ]
-            , describe "getTransformedIngredientsMass"
+            , describe "getMassAtPackaging"
                 [ { ingredients =
                         [ { id = Ingredient.idFromString "egg"
                           , name = "Oeuf"
@@ -96,11 +92,30 @@ suite =
                     |> Result.map (Tuple.first >> Recipe.getMassAtPackaging)
                     |> Expect.equal (Ok (Mass.kilograms 0.26))
                     |> asTest "should compute recipe ingredients mass with no cooking involved"
-                , exampleQuery
+                , carrotCake
                     |> Recipe.compute builderDb
                     |> Result.map (Tuple.first >> Recipe.getMassAtPackaging)
                     |> Expect.equal (Ok (Mass.kilograms 0.79074))
                     |> asTest "should compute recipe ingredients mass applying raw to cooked ratio"
+                ]
+            , let
+                carrotCakeWithPackaging =
+                    carrotCake
+                        |> Recipe.compute builderDb
+                        |> Result.map (Tuple.first >> Recipe.getTransformedIngredientsMass)
+
+                carrotCakeWithNoPackaging =
+                    { carrotCake | packaging = [] }
+                        |> Recipe.compute builderDb
+                        |> Result.map (Tuple.first >> Recipe.getTransformedIngredientsMass)
+              in
+              describe "getTransformedIngredientsMass"
+                [ carrotCakeWithPackaging
+                    |> Expect.equal (Ok (Mass.kilograms 0.68574))
+                    |> asTest "should compute recipe treansformed ingredients mass excluding packaging one"
+                , carrotCakeWithPackaging
+                    |> Expect.equal carrotCakeWithNoPackaging
+                    |> asTest "should give the same mass including packaging or not"
                 ]
             ]
         )

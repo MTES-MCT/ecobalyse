@@ -405,14 +405,13 @@ getAggregatedScoreData defs getter =
         []
 
 
-getAggregatedScoreOutOf100 : Definition -> Mass -> Impacts -> Int
-getAggregatedScoreOutOf100 { trigram } totalMass impacts =
+getAggregatedScoreOutOf100 : Definition -> Impacts -> Int
+getAggregatedScoreOutOf100 { trigram } impactsPerKg =
     let
         ln =
             logBase e
     in
-    impacts
-        |> perKg totalMass
+    impactsPerKg
         |> getImpact trigram
         |> Unit.impactToFloat
         |> (\value ->

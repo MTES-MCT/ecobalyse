@@ -66,6 +66,7 @@ type alias Recipe =
 
 type alias Results =
     { total : Impacts
+    , perKg : Impacts
     , totalMass : Mass
     , recipe :
         { total : Impacts
@@ -140,15 +141,24 @@ compute db =
                             , ingredientsTransport.impacts
                             ]
 
+                    totalImpacts =
+                        Impact.sumImpacts db.impacts
+                            [ recipeImpacts, packagingImpacts ]
+
+                    impactsPerKg =
+                        -- Note: Product impacts per kg is computed against transformed
+                        --       ingredients mass, excluding packaging
+                        totalImpacts
+                            |> Impact.perKg (getTransformedIngredientsMass recipe)
+
                     packagingImpacts =
                         packaging
                             |> List.map (computeProcessImpacts db.impacts)
                             |> updateImpacts
                 in
                 ( recipe
-                , { total =
-                        Impact.sumImpacts db.impacts
-                            [ recipeImpacts, packagingImpacts ]
+                , { total = totalImpacts
+                  , perKg = impactsPerKg
 
                   -- XXX: For now, we stop at packaging step
                   , totalMass = getMassAtPackaging recipe
@@ -279,6 +289,7 @@ encodeResults defs results =
     in
     Encode.object
         [ ( "total", encodeImpacts results.total )
+        , ( "perKg", encodeImpacts results.perKg )
         , ( "totalMass", results.totalMass |> Mass.inKilograms |> Encode.float )
         , ( "recipe"
           , Encode.object
