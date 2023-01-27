@@ -6,6 +6,7 @@ module Data.Food.Builder.Recipe exposing
     , availableIngredients
     , availablePackagings
     , compute
+    , computeIngredientTransport
     , computeProcessImpacts
     , deletePackaging
     , encodeQuery

@@ -414,11 +414,12 @@ type alias UpdateIngredientConfig =
     , db : Db
     , ingredient : Recipe.RecipeIngredient
     , impact : Html Msg
+    , transportImpact : Html Msg
     }
 
 
-updateIngredientFormView : UpdateIngredientConfig -> Html Msg
-updateIngredientFormView { excluded, db, ingredient, impact } =
+updateIngredientFormView : UpdateIngredientConfig -> List (Html Msg)
+updateIngredientFormView { excluded, db, ingredient, impact, transportImpact } =
     let
         ingredientQuery : Query.IngredientQuery
         ingredientQuery =
@@ -432,7 +433,7 @@ updateIngredientFormView { excluded, db, ingredient, impact } =
         event =
             UpdateIngredient ingredient.ingredient.id
     in
-    li [ class "IngredientFormWrapper" ]
+    [ li [ class "IngredientFormWrapper" ]
         [ span [ class "MassInputWrapper" ]
             [ MassInput.view
                 { mass = ingredient.mass
@@ -542,7 +543,21 @@ updateIngredientFormView { excluded, db, ingredient, impact } =
             , onClick <| DeleteIngredient ingredientQuery
             ]
             [ Icon.trash ]
+        , span [ class "text-muted IngredientTransportLabel" ]
+            [ text "Transport pour cet ingrédient" ]
+        , ingredient
+            |> Recipe.computeIngredientTransport db
+            |> TransportView.viewDetails
+                { fullWidth = False
+                , airTransportLabel = Nothing
+                , seaTransportLabel = Nothing
+                , roadTransportLabel = Nothing
+                }
+            |> span [ class "text-muted d-flex fs-7 gap-3 justify-content-left IngredientTransportDistances" ]
+        , span [ class "text-muted text-end IngredientTransportImpact" ]
+            [ transportImpact ]
         ]
+    ]
 
 
 debugQueryView : Db -> Query -> Html Msg
@@ -598,7 +613,7 @@ ingredientListView db selectedImpact recipe results =
 
           else
             recipe.ingredients
-                |> List.map
+                |> List.concatMap
                     (\ingredient ->
                         updateIngredientFormView
                             { excluded = recipe.ingredients |> List.map (.ingredient >> .id)
@@ -610,6 +625,11 @@ ingredientListView db selectedImpact recipe results =
                                     |> List.head
                                     |> Maybe.map Tuple.second
                                     |> Maybe.withDefault Impact.noImpacts
+                                    |> Format.formatFoodSelectedImpact selectedImpact
+                            , transportImpact =
+                                ingredient
+                                    |> Recipe.computeIngredientTransport db
+                                    |> .impacts
                                     |> Format.formatFoodSelectedImpact selectedImpact
                             }
                     )
