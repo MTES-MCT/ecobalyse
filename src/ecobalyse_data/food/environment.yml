@@ -7,8 +7,15 @@ channels:
 dependencies:
   - python=3.9
   - jupyterlab
-  - brightway2
   - notebook
   - ipython
   - activity-browser
-prefix: /Users/mathieu/opt/anaconda3/envs/env
+  - bw2io=0.8.7
+  - bw2data=3.6.5
+  - bw2calc=1.8.1
+  - brightway2=2.3
+  - matplotlib-base=3.6.3
+  - numpy=1.23.5
+  - pandas=1.5.3
+  - xlrd=2.0.1
+prefix: ~/opt/anaconda3/envs/env
