@@ -79,5 +79,5 @@ L'application est alors servie sur le port défini par la variable d'environneme
 Ce dépôt contient aussi les scripts (principalement python) utilisés pour
 importer et exporter les données du projet [Ecobalyse](https://github.com/MTES-MCT/ecobalyse).
 
-Ces scripts se trouvent dans `src/ecobalyse-data`, et il y a un
-[README](src/ecobalyse_data/README.md) en détaillant l'installation et l'utilisation.
+Ces scripts se trouvent dans `data/`, et il y a un
+[README](data/README.md) en détaillant l'installation et l'utilisation.

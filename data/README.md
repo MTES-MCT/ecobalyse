@@ -2,7 +2,7 @@ Certains scripts ont besoin d'importer d'autres modules. Pour cela il faut
 installer le package ecobalyse_data, et pour cela il est recommandé de créer un
 environnement virtuel au préalable :
 
-Placez-vous en tout premier lieu dans le répertoire `src/ecobalyse-data/`.
+Placez-vous en tout premier lieu dans le répertoire `data/`.
 
 # Utilisation de anaconda (recommandé)
 

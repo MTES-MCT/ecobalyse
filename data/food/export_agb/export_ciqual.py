@@ -240,7 +240,7 @@ def compute_pef(impacts_ecobalyse, impacts_dic):
 
 
 def compute_lca(processes, lcas):
-    impacts_file = "../../../../public/data/impacts.json"
+    impacts_file = "../../../public/data/impacts.json"
     with open(impacts_file, "r") as f:
         impacts_ecobalyse = json.load(f)
 
@@ -302,10 +302,12 @@ if __name__ == "__main__":
     print("Building product tree")
     (products, processes) = build_product_tree(ciqual_products)
 
-    print(f"Export de {len(products)} produits vers ../../../../public/data/food/products.json")
-    export_json(products, "../../../../public/data/food/products.json")
+    print(
+        f"Export de {len(products)} produits vers ../../../public/data/food/products.json"
+    )
+    export_json(products, "../../../public/data/food/products.json")
 
-    processes_export_file = "../../../../public/data/food/processes/explorer.json"
+    processes_export_file = "../../../public/data/food/processes/explorer.json"
 
     if args.no_impacts:
         processes_export_file = "processes-no-impacts.json"

@@ -341,7 +341,7 @@ if __name__ == "__main__":
     random_process = next(iter(processes))
     lcas = init_lcas({random_process: 1})
 
-    impacts_file = "../../../../public/data/impacts.json"
+    impacts_file = "../../../public/data/impacts.json"
     with open(impacts_file, "r") as f:
         impacts_ecobalyse = json.load(f)
 
@@ -360,7 +360,7 @@ if __name__ == "__main__":
     )
 
     # Export the ingredients.json file
-    ingredients_export_file = "../../../../public/data/food/ingredients.json"
+    ingredients_export_file = "../../../public/data/food/ingredients.json"
     print(
         f"Export de {len(ingredient_list)} ingrédients vers {ingredients_export_file}"
     )
@@ -372,7 +372,7 @@ if __name__ == "__main__":
     # Add the new processes we computed for the complex ingredients
     processes_list += new_processes
 
-    processes_export_file = "../../../../public/data/food/processes/builder.json"
+    processes_export_file = "../../../public/data/food/processes/builder.json"
     print(f"Export de {len(processes_list)} procédés vers {processes_export_file}")
     export_json(processes_list, processes_export_file)
     print("Terminé.")
