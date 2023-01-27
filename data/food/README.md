@@ -1,3 +1,5 @@
+Les commandes dans ce README sont à lancer à partir du répertoire `data/food/`.
+
 # Utiliser la librairie python "Brightway2"
 
 La librairie python [brightway2](https://brightway.dev/) est un framework
