@@ -911,18 +911,9 @@ stepListView : Db -> Model -> Recipe -> Recipe.Results -> Html Msg
 stepListView db { impact } recipe results =
     div [ class "d-flex flex-column gap-3" ]
         [ div [ class "card" ]
-            (div [ class "card-header d-flex align-items-center justify-content-between" ]
-                [ h5 [ class "mb-0" ] [ text "Recette" ]
-                , results.recipe.total
-                    |> Format.formatFoodSelectedImpact impact
-                    |> List.singleton
-                    |> span [ class "fw-bold" ]
-                ]
-                :: List.concat
-                    [ ingredientListView db impact recipe results
-                    , transformView db impact recipe results
-                    ]
-            )
+            (ingredientListView db impact recipe results)
+        , div [ class "card" ]
+            (transformView db impact recipe results)
         , div [ class "card" ]
             (packagingListView db impact recipe results)
         ]
@@ -935,13 +926,11 @@ stepResultsView db model results =
             Impact.getImpact model.impact.trigram >> Unit.impactToFloat
 
         stepsData =
-            [ { label = "Recette"
-              , impact =
-                    [ results.recipe.ingredientsTotal
-                    , results.recipe.transform
-                    ]
-                        |> Impact.sumImpacts db.impacts
-                        |> toFloat
+            [ { label = "Ingrédients"
+              , impact = toFloat results.recipe.ingredientsTotal
+              }
+            , { label = "Transformation"
+              , impact = toFloat results.recipe.transform
               }
             , { label = "Emballage"
               , impact = toFloat results.packaging
