@@ -31,10 +31,6 @@ Lancer le script d'export :
 
     $ python export_builder.py
 
-Exemple :
-
-    $ python export_builder.py
-
 Les fichiers résultants sont `/public/data/food/processes/builder.json` et `/public/data/food/ingredients.json`.
 
 ## Ajouter un nouvel ingrédient (complexe)
