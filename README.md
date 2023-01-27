@@ -72,3 +72,12 @@ $ npm run server:start
 ```
 
 L'application est alors servie sur le port défini par la variable d'environnement `PORT` (par défaut: `3000`).
+
+
+# Ecobalyse data
+
+Ce dépôt contient aussi les scripts (principalement python) utilisés pour
+importer et exporter les données du projet [Ecobalyse](https://github.com/MTES-MCT/ecobalyse).
+
+Ces scripts se trouvent dans `data/`, et il y a un
+[README](data/README.md) en détaillant l'installation et l'utilisation.
