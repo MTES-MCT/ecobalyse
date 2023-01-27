@@ -791,26 +791,6 @@ ingredientSelectorView selectedIngredient excluded event ingredients =
         )
 
 
-recipeTransportsView : Impact.Definition -> Recipe.Results -> List (Html Msg)
-recipeTransportsView selectedImpact results =
-    [ div [ class "card-header d-flex align-items-center justify-content-between border-top" ]
-        [ h6 [ class "mb-0" ] [ text "Transports" ]
-        , results.recipe.transports.impacts
-            |> Format.formatFoodSelectedImpact selectedImpact
-        ]
-    , div [ class "card-body d-flex justify-content-between align-items-center gap-1 text-muted py-2 fs-7" ]
-        [ text "Transport total cumulé à cette étape"
-        , results.recipe.transports
-            |> TransportView.view
-                { fullWidth = False
-                , airTransportLabel = Nothing
-                , seaTransportLabel = Nothing
-                , roadTransportLabel = Nothing
-                }
-        ]
-    ]
-
-
 sidebarView : Session -> Db -> Model -> Recipe.Results -> Html Msg
 sidebarView session db model results =
     div
@@ -941,7 +921,6 @@ stepListView db { impact } recipe results =
                 :: List.concat
                     [ ingredientListView db impact recipe results
                     , transformView db impact recipe results
-                    , recipeTransportsView impact results
                     ]
             )
         , div [ class "card" ]
