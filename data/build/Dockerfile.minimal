@@ -1,0 +1,39 @@
+FROM debian:11
+
+ENV BRIGHTWAY2_DIR /home/jovyan/data
+ENV BRIGHTWAY2_DOCKER 1
+ENV BRIGHTWAY2_OUTPUT_DIR /home/jovyan/output
+
+ENV DEBIAN_FRONTEND noninteractive
+
+
+RUN set -x; \
+    apt-get update \
+    && apt-get install -y --no-install-recommends \
+        ca-certificates \
+        git \
+        libideep-dev \
+        python-is-python3 \
+        python3-matplotlib \
+        python3-numpy \
+        python3-pandas \
+        python3-pip \
+        python3-xlrd \
+        vim
+
+
+RUN pip install \
+        brightway2==2.3 \
+        bw2calc==1.8.1 \
+        bw2data==3.6.5 \
+        bw2io==0.8.7 \
+        pypardiso==0.4.2 \
+    && ldconfig
+
+RUN useradd -m --uid 1000 --gid 100 jovyan
+
+USER jovyan
+RUN mkdir -p /home/jovyan/data /home/jovyan/output
+
+VOLUME /home/jovyan
+WORKDIR /home/jovyan

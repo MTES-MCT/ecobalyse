@@ -1,0 +1,31 @@
+FROM jupyter/minimal-notebook:2023-01-23
+# 2023-01-23 / notebook-6.5.2 / ubuntu-22.04 / python-3.10.8 / lab-3.5.2 / x86_64
+
+ENV BRIGHTWAY2_DIR /home/jovyan/data
+ENV BRIGHTWAY2_DOCKER 1
+ENV BRIGHTWAY2_OUTPUT_DIR /home/jovyan/output
+ENV XDG_CACHE_HOME="/home/${NB_USER}/.cache/"
+USER $NB_USER
+
+RUN conda install --yes \
+        -c conda-forge \
+        -c cmutel \
+        bw2io=0.8.7 \
+        bw2data=3.6.5 \
+        bw2calc=1.8.1 \
+        brightway2=2.3 \
+        conda-build \
+        jupyter \
+        matplotlib-base=3.6.3 \
+        numpy=1.23.5 \
+        pandas=1.5.3 \
+        xlrd=2.0.1 \
+    && conda build purge-all \
+    && fix-permissions "/home/${NB_USER}" \
+    && mkdir -p /home/jovyan/data \
+    && mkdir -p /home/jovyan/notebooks \
+    && mkdir -p /home/jovyan/output
+
+VOLUME /home/jovyan
+USER $NB_UID
+WORKDIR /home/jovyan/notebooks
