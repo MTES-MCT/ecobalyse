@@ -1,10 +1,70 @@
+Comment générer les données json utilisées par le frontal elm :
+
+# Avec docker
+
+* Installez `docker` et `make`
+* Lancez **`make json`** ce qui va successivement :
+    * demander de choisir une image docker (minimal ou jupyter)
+    * construire l'image docker
+    * importer agrobalyse
+    * exporter les données json.
+
+Le processus entier prend entre 1 et 2h.
+En cas de problème vous pouvez redémarrer de zéro en faisant d'abord un `make clean_data`.
+
+## Autres commandes :
+
+* `make choice` : pressez `m` ou `j` pour choisir votre image docker (ou
+  attendez 10s qu'il choisisse `m` à votre place)
+    * Si vous voulez juste générer les données, choisissez `m`. C'est une image
+      minimale Debian avec Brightway installé avec `pip` (1,9Go).
+    * Si vous voulez aussi jouer avec Brightway dans des notebooks Jupyter,
+      choisissez `j`. C'est une image plus lourde avec le serveur Jupyter et
+      Brightway installé avec `conda` (4,2Go).
+* `make image` : pour construire l'image docker choisie
+* `make import_agribalyse` : pour importer la base dans Brightway
+* `make export_ciqual` : pour exporter les json des produits ciqual
+* `make export_builder` : pour exporter les json pour le builder
+* `make json` : lance toutes les commandes précédentes dans l'ordre
+* `make clean_data` : supprime toutes les données (celles de brightway et
+  jupyter mais pas les json générés)
+* `make clean_image` : supprime l'image docker
+
+## Travailler dans le conteneur :
+
+Toutes les données du conteneur, notamment celles de Brightway et de Jupyter,
+sont dans `/home/jovyan` qui est situé dans un volume docker
+(`/var/lib/docker/volume/jovyan` sur le *host*).  Le dépôt git ecobalyse se
+retrouve à l'intérieur du conteneur dans `/home/jovyan/ecobalyse` (via un
+bind-mount).  Les fichiers json générés arrivent directement sur place au bon
+endroit pour être comparées puis commités.
+
+## Lancer le serveur Jupyter
+
+Si vous avez choisi l'image Jupyter avec `make choice` vous pouvez démarrer le
+serveur Jupyter avec : `./run.sh`. Ensuite ctrl-cliquez sur le lien généré dans
+le terminal pour vous y connecter sans mot de passe
+
+## Remarques
+
+Si l'`export_ciqual` prend des heures, c'est un problème d'installation de
+`pypardiso` ou de la bibliothèque `mkl` (Math Kernel Library d'intel) ou une
+incompatibilité avec l'architecture CPU utilisée. Dans ce cas c'est le solveur
+de Scipy qui est utilisé. Il est possible que cela explique les très légères
+différences d'arrondi rencontrées dans les résultats.
+
+Les deux images docker utilisent les mêmes versions et le même solveur, elles fournissent exactement les mêmes fichiers en sortie.
+
+
+# À la main
+
 Certains scripts ont besoin d'importer d'autres modules. Pour cela il faut
-installer le package ecobalyse_data, et pour cela il est recommandé de créer un
+installer le package `ecobalyse_data`, et pour cela il est recommandé de créer un
 environnement virtuel au préalable :
 
 Placez-vous en tout premier lieu dans le répertoire `data/`.
 
-# Utilisation de anaconda (recommandé)
+### Utilisation de anaconda (recommandé)
 
 Suivez la [procédure d'installation de anaconda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html).
 
@@ -33,3 +93,4 @@ installez le package ecobalyse_data de la sorte :
 # Import et export des données
 
 Vous pouvez maintenant suivre la [procédure](food/README.md) pour lancer les scripts d'import et d'export.
+
