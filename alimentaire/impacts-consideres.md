@@ -25,30 +25,35 @@ Pour le score d'impacts, les facteurs de normalisation du score PEF sont conserv
 
 * la pondération du changement climatique est maintenue à 21,06%, afin que le poids relatif de cet impact ne soit pas diminué par l'ajout d'impacts biodiversité ;
 * les indicateurs d'impacts biodiversité sont introduits avec une pondération double à la moyenne des 16 indicateurs PEF initiaux (12,5%) ;
-* les autres pondérations sont proportionnels aux pondérations PEF initiales, mais réduite afin que la somme des pondérations reste bien à 100%.
+*   les niveaux des 3 indicateurs de toxicité (écotoxicité, toxicité humaine cancer, toxicité humaine non cancer) sont réhaussés proportionnellement de façons à ce que la somme des 3 fasse 12,5% ;
 
-<figure><img src="../.gitbook/assets/image (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+    _Cette modification revient environ à doubler la pondération de ces 3 indicateurs (\*2,12)._
+*   les autres pondérations sont proportionnels aux pondérations PEF initiales, mais réduite afin que la somme des pondérations reste bien à 100%
+
+    _Cette modification revient environ à réduire de 43% la pondération des 12 indicateurs concernés_.
+
+<figure><img src="../.gitbook/assets/Pondérations score d&#x27;impacts - score PEF.png" alt=""><figcaption><p>Pondérations comparées des impacts considérés pour le score PEF (EF 3.1) et le score d'impacts</p></figcaption></figure>
 
 | Indicateur                                          | Pondération score PEF (%) | Pondération score d'impacts (%) |
 | --------------------------------------------------- | ------------------------- | ------------------------------- |
-| Changement climatique                               | 21,06                     | 21,06                           |
-| Biodiversité locale (BVI)                           | N/A                       | 12,5                            |
-| Biodiversité marine                                 | N/A                       | 12,5                            |
-| Appauvrissement de la couche d'ozone                | 6,31                      | 4,31                            |
-| Toxicité humaine (cancer)                           | 2,13                      | 1,46                            |
-| Toxicité humaine (non cancer)                       | 1,84                      | 1,26                            |
-| Particules                                          | 8,96                      | 6,12                            |
-| Radiations ionisantes                               | 5,01                      | 3,42                            |
-| Formation d'ozone photochimique                     | 4,78                      | 3,27                            |
-| Acidification                                       | 6,20                      | 4,24                            |
-| Eutrophisation terrestre                            | 3,71                      | 2,54                            |
-| Eutrophisation eaux douces                          | 2,80                      | 1,91                            |
-| Eutrophisation marine                               | 2,96                      | 2,02                            |
-| Utilisation des sols                                | 7,94                      | 5,43                            |
-| Écotoxicité eaux douces                             | 1,92                      | 1,31                            |
-| Épuisement des ressources en eau                    | 8,51                      | 5,81                            |
-| Utilisation de ressources fossiles                  | 8,32                      | 5,69                            |
-| Utilisation des ressources minérales et métalliques | 7,55                      | 5,16                            |
+| Changement climatique                               | 21,06                     | **21,06**                       |
+| Biodiversité locale (BVI)                           | N/A                       | **12,5**                        |
+| Biodiversité marine                                 | N/A                       | **12,5**                        |
+| Appauvrissement de la couche d'ozone                | 6,31                      | 3,58                            |
+| Toxicité humaine (cancer)                           | 2,13                      | **4,52**                        |
+| Toxicité humaine (non cancer)                       | 1,84                      | **3,90**                        |
+| Particules                                          | 8,96                      | 5,08                            |
+| Radiations ionisantes                               | 5,01                      | 2,84                            |
+| Formation d'ozone photochimique                     | 4,78                      | 2,71                            |
+| Acidification                                       | 6,20                      | 3,52                            |
+| Eutrophisation terrestre                            | 3,71                      | 2,10                            |
+| Eutrophisation eaux douces                          | 2,80                      | 1,59                            |
+| Eutrophisation marine                               | 2,96                      | 1,68                            |
+| Utilisation des sols                                | 7,94                      | 4,50                            |
+| Écotoxicité eaux douces                             | 1,92                      | **4,07**                        |
+| Épuisement des ressources en eau                    | 8,51                      | 4,83                            |
+| Utilisation de ressources fossiles                  | 8,32                      | 4,72                            |
+| Utilisation des ressources minérales et métalliques | 7,55                      | 4,28                            |
 
 ### \[ARCHIVE] Poids avec biodiversité locale
 
