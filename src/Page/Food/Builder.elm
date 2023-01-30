@@ -479,6 +479,7 @@ updateIngredientFormView { excluded, db, ingredient, impact } =
                             | id = newIngredient.id
                             , name = newIngredient.name
                             , variant = newVariant
+                            , country = Nothing
                         }
                 )
         , db.countries
