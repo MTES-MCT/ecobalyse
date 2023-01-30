@@ -827,10 +827,7 @@ sidebarView session db model results =
                                 Nothing ->
                                     results.perKg
                                         |> Impact.getAggregatedScoreOutOf100 model.impact
-
-                        scoreLetter =
-                            score
-                                |> Impact.getAggregatedScoreLetter
+                                        |> Ok
                     in
                     [ div [ class "d-flex justify-content-between align-items-center gap-3 w-100" ]
                         [ Impact.foodCategories
@@ -865,15 +862,25 @@ sidebarView session db model results =
                                     )
                                 ]
                         , div [ class "d-flex justify-content-center align-items-end gap-1 text-nowrap" ]
-                            [ text "Score :"
-                            , span [ class "h5 m-0" ]
-                                [ text (String.fromInt score)
-                                , span [ class "fs-7" ] [ text "/100" ]
-                                ]
-                            , span [ class <| "h5 m-0 ScoreLetter ScoreLetter" ++ scoreLetter ]
-                                [ text scoreLetter
-                                ]
-                            ]
+                            (case score of
+                                Ok score_ ->
+                                    let
+                                        scoreLetter =
+                                            Impact.getAggregatedScoreLetter score_
+                                    in
+                                    [ text "Score :"
+                                    , span [ class "h5 m-0" ]
+                                        [ text (String.fromInt score_)
+                                        , span [ class "fs-7" ] [ text "/100" ]
+                                        ]
+                                    , span [ class <| "h5 m-0 ScoreLetter ScoreLetter" ++ scoreLetter ]
+                                        [ text scoreLetter
+                                        ]
+                                    ]
+
+                                Err error ->
+                                    [ span [ class "badge bg-danger" ] [ text error ] ]
+                            )
                         ]
                     ]
 

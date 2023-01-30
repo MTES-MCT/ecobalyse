@@ -452,7 +452,7 @@ foodCategories =
         ]
 
 
-getAggregatedCategoryScoreOutOf100 : Definition -> String -> Impacts -> Int
+getAggregatedCategoryScoreOutOf100 : Definition -> String -> Impacts -> Result String Int
 getAggregatedCategoryScoreOutOf100 { trigram } foodCategory impactsPerKg =
     case Dict.get foodCategory foodCategories of
         Just { bounds } ->
@@ -472,9 +472,10 @@ getAggregatedCategoryScoreOutOf100 { trigram } foodCategory impactsPerKg =
                    )
                 |> floor
                 |> clamp 0 100
+                |> Ok
 
         Nothing ->
-            0
+            Err <| "Invalid: " ++ foodCategory
 
 
 getAggregatedScoreLetter : Int -> String
