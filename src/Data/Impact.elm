@@ -425,12 +425,30 @@ getAggregatedScoreOutOf100 { trigram } impactsPerKg =
         |> clamp 0 100
 
 
-foodCategories : Dict String { name : String, bounds : ( Int, Int ) }
+type alias FoodCategory =
+    { name : String
+    , bounds : { impact100 : Int, impact0 : Int }
+    }
+
+
+foodCategories : Dict String FoodCategory
 foodCategories =
     Dict.fromList
-        [ ( "meats", { name = "Viandes", bounds = ( 500, 4000 ) } )
-        , ( "fruitsAndVegetables", { name = "Fruits et légumes", bounds = ( 30, 450 ) } )
-        , ( "cakes", { name = "Gâteaux", bounds = ( 100, 700 ) } )
+        [ ( "meats"
+          , { name = "Viandes"
+            , bounds = { impact100 = 500, impact0 = 4000 }
+            }
+          )
+        , ( "fruitsAndVegetables"
+          , { name = "Fruits et légumes"
+            , bounds = { impact100 = 30, impact0 = 450 }
+            }
+          )
+        , ( "cakes"
+          , { name = "Gâteaux"
+            , bounds = { impact100 = 100, impact0 = 700 }
+            }
+          )
         ]
 
 
@@ -442,7 +460,7 @@ getAggregatedCategoryScoreOutOf100 { trigram } foodCategory impactsPerKg =
                 ln =
                     logBase e
 
-                ( min, max ) =
+                { impact100, impact0 } =
                     bounds
             in
             impactsPerKg
@@ -450,13 +468,13 @@ getAggregatedCategoryScoreOutOf100 { trigram } foodCategory impactsPerKg =
                 |> Unit.impactToFloat
                 |> (\value ->
                         -- See docs at https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/impacts-consideres/score-100#projet-declinaisons-du-score-100
-                        (ln (toFloat max) - ln value) / ln (toFloat max / toFloat min) * 20 * 5
+                        (ln (toFloat impact0) - ln value) / ln (toFloat impact0 / toFloat impact100) * 20 * 5
                    )
                 |> floor
                 |> clamp 0 100
 
         Nothing ->
-            -99
+            0
 
 
 getAggregatedScoreLetter : Int -> String
