@@ -855,7 +855,7 @@ sidebarView session db model results =
                     ]
                 ]
             }
-        , stepResultsView db model results
+        , stepResultsView model results
         , protectionAreaView session results.total
         , BookmarkView.view
             { session = session
@@ -919,8 +919,8 @@ stepListView db { impact } recipe results =
         ]
 
 
-stepResultsView : Db -> Model -> Recipe.Results -> Html Msg
-stepResultsView db model results =
+stepResultsView : Model -> Recipe.Results -> Html Msg
+stepResultsView model results =
     let
         toFloat =
             Impact.getImpact model.impact.trigram >> Unit.impactToFloat
