@@ -12,6 +12,8 @@ module Data.Impact exposing
     , encodeAggregatedScoreChartEntry
     , encodeImpacts
     , filterImpacts
+    , foodCategories
+    , getAggregatedCategoryScoreOutOf100
     , getAggregatedScoreData
     , getAggregatedScoreLetter
     , getAggregatedScoreOutOf100
@@ -35,7 +37,7 @@ module Data.Impact exposing
 
 import Data.Scope as Scope exposing (Scope)
 import Data.Unit as Unit
-import Dict
+import Dict exposing (Dict)
 import Dict.Any as AnyDict exposing (AnyDict)
 import Duration exposing (Duration)
 import Json.Decode as Decode exposing (Decoder)
@@ -84,6 +86,7 @@ type alias AggregatedScoreData =
 
 
 type alias ProtectionAreas =
+    -- Protection Areas is basically scientific slang for subscores
     { climate : Unit.Impact -- Climat
     , biodiversity : Unit.Impact -- Biodiversité
     , resources : Unit.Impact -- Ressources
@@ -418,8 +421,61 @@ getAggregatedScoreOutOf100 { trigram } impactsPerKg =
                 -- See the documentation at https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/impacts-consideres/score-100
                 (ln 2077 - ln value) / ln 2 * 20
            )
-        |> round
+        |> floor
         |> clamp 0 100
+
+
+type alias FoodCategory =
+    { name : String
+    , bounds : { impact100 : Int, impact0 : Int }
+    }
+
+
+foodCategories : Dict String FoodCategory
+foodCategories =
+    Dict.fromList
+        [ ( "meats"
+          , { name = "Viandes"
+            , bounds = { impact100 = 500, impact0 = 4000 }
+            }
+          )
+        , ( "fruitsAndVegetables"
+          , { name = "Fruits et légumes"
+            , bounds = { impact100 = 30, impact0 = 450 }
+            }
+          )
+        , ( "cakes"
+          , { name = "Gâteaux"
+            , bounds = { impact100 = 100, impact0 = 700 }
+            }
+          )
+        ]
+
+
+getAggregatedCategoryScoreOutOf100 : Definition -> String -> Impacts -> Result String Int
+getAggregatedCategoryScoreOutOf100 { trigram } foodCategory impactsPerKg =
+    case Dict.get foodCategory foodCategories of
+        Just { bounds } ->
+            let
+                ln =
+                    logBase e
+
+                { impact100, impact0 } =
+                    bounds
+            in
+            impactsPerKg
+                |> getImpact trigram
+                |> Unit.impactToFloat
+                |> (\value ->
+                        -- See docs at https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/impacts-consideres/score-100#projet-declinaisons-du-score-100
+                        (ln (toFloat impact0) - ln value) / ln (toFloat impact0 / toFloat impact100) * 20 * 5
+                   )
+                |> floor
+                |> clamp 0 100
+                |> Ok
+
+        Nothing ->
+            Err <| "Invalid: " ++ foodCategory
 
 
 getAggregatedScoreLetter : Int -> String
