@@ -3,7 +3,6 @@ module Views.Format exposing
     , formatFloat
     , formatFoodSelectedImpact
     , formatFoodSelectedImpactPerKg
-    , formatImpact
     , formatImpactFloat
     , formatRichFloat
     , formatTextileSelectedImpact
@@ -20,6 +19,7 @@ module Views.Format exposing
     , ratioToDecimals
     , ratioToPercentString
     , squareMetters
+    , subScore
     , surfaceMass
     )
 
@@ -36,11 +36,6 @@ import Html.Attributes exposing (..)
 import Length exposing (Length)
 import Mass exposing (Mass)
 import Volume exposing (Volume)
-
-
-formatImpact : Impact.Definition -> Unit.Impact -> Html msg
-formatImpact def =
-    Unit.impactToFloat >> formatImpactFloat def
 
 
 formatImpactFloat : Impact.Definition -> Float -> Html msg
@@ -162,6 +157,11 @@ percent =
 squareMetters : Area -> Html msg
 squareMetters =
     Area.inSquareMeters >> formatRichFloat 2 "m²"
+
+
+subScore : Impact.Definition -> Unit.Impact -> Html msg
+subScore { decimals, unit } =
+    Unit.impactToFloat >> formatRichFloat decimals (unit ++ "/kg")
 
 
 surfaceMass : Unit.SurfaceMass -> Html msg

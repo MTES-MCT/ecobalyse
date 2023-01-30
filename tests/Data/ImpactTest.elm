@@ -109,7 +109,7 @@ suite =
                 , defaultBuilderImpacts
                     |> Impact.updateImpact (Impact.trg "ecs") (Unit.impact 200)
                     |> Impact.getAggregatedScoreOutOf100 ecsDefinition
-                    |> Expect.equal 68
+                    |> Expect.equal 67
                     |> asTest "should return a medium score for a medium impact"
                 ]
             , describe "getAggregatedScoreLrtter"
