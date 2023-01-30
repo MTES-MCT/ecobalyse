@@ -6,7 +6,7 @@ default: choice image
 json: choice image import_agribalyse export_builder export_ciqual
 
 choice:
-	@read -e -N 1 -t 10 -p "Press m or j to choose the Minimal or Jupyter image: " choice; \
+	@read -e -t 10 -p "Press m or j to choose the Minimal or Jupyter image: " choice; \
 	choice=$${choice:-m}; \
 	if [ "$$choice" == "j" ]; then \
 		ln -sf Dockerfile.jupyter Dockerfile; \
