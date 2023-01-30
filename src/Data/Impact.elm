@@ -12,7 +12,6 @@ module Data.Impact exposing
     , encodeAggregatedScoreChartEntry
     , encodeImpacts
     , filterImpacts
-    , foodCategories
     , getAggregatedCategoryScoreOutOf100
     , getAggregatedScoreData
     , getAggregatedScoreLetter
@@ -35,9 +34,10 @@ module Data.Impact exposing
     , updateImpact
     )
 
+import Data.Food.CategoryScale as CategoryScale
 import Data.Scope as Scope exposing (Scope)
 import Data.Unit as Unit
-import Dict exposing (Dict)
+import Dict
 import Dict.Any as AnyDict exposing (AnyDict)
 import Duration exposing (Duration)
 import Json.Decode as Decode exposing (Decoder)
@@ -425,36 +425,9 @@ getAggregatedScoreOutOf100 { trigram } impactsPerKg =
         |> clamp 0 100
 
 
-type alias FoodCategory =
-    { name : String
-    , bounds : { impact100 : Int, impact0 : Int }
-    }
-
-
-foodCategories : Dict String FoodCategory
-foodCategories =
-    Dict.fromList
-        [ ( "meats"
-          , { name = "Viandes"
-            , bounds = { impact100 = 500, impact0 = 4000 }
-            }
-          )
-        , ( "fruitsAndVegetables"
-          , { name = "Fruits et légumes"
-            , bounds = { impact100 = 30, impact0 = 450 }
-            }
-          )
-        , ( "cakes"
-          , { name = "Gâteaux"
-            , bounds = { impact100 = 100, impact0 = 700 }
-            }
-          )
-        ]
-
-
-getAggregatedCategoryScoreOutOf100 : Definition -> String -> Impacts -> Result String Int
+getAggregatedCategoryScoreOutOf100 : Definition -> CategoryScale.Id -> Impacts -> Result String Int
 getAggregatedCategoryScoreOutOf100 { trigram } foodCategory impactsPerKg =
-    case Dict.get foodCategory foodCategories of
+    case Dict.get foodCategory CategoryScale.all of
         Just { bounds } ->
             let
                 ln =

@@ -15,6 +15,7 @@ import Data.Dataset as Dataset
 import Data.Food.Builder.Db as BuilderDb exposing (Db)
 import Data.Food.Builder.Query as Query exposing (Query)
 import Data.Food.Builder.Recipe as Recipe exposing (Recipe)
+import Data.Food.CategoryScale as CategoryScale
 import Data.Food.Ingredient as Ingredient exposing (Id, Ingredient)
 import Data.Food.Origin as Origin
 import Data.Food.Process as Process exposing (Process)
@@ -830,7 +831,7 @@ sidebarView session db model results =
                                         |> Ok
                     in
                     [ div [ class "d-flex justify-content-between align-items-center gap-3 w-100" ]
-                        [ Impact.foodCategories
+                        [ CategoryScale.all
                             |> Dict.toList
                             |> List.sortBy (Tuple.second >> .name)
                             |> List.map
