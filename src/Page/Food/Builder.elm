@@ -19,7 +19,7 @@ import Data.Food.Ingredient as Ingredient exposing (Id, Ingredient)
 import Data.Food.Origin as Origin
 import Data.Food.Process as Process exposing (Process)
 import Data.Gitbook as Gitbook
-import Data.Impact as Impact exposing (Impacts)
+import Data.Impact as Impact
 import Data.Key as Key
 import Data.Scope as Scope
 import Data.Session as Session exposing (Session)
@@ -902,7 +902,7 @@ sidebarView session db model results =
                 ]
             }
         , stepResultsView db model results
-        , protectionAreaView session results.total
+        , protectionAreaView session results
         , BookmarkView.view
             { session = session
             , activeTab = model.bookmarkTab
@@ -923,30 +923,31 @@ sidebarView session db model results =
         ]
 
 
-protectionAreaView : Session -> Impacts -> Html Msg
-protectionAreaView { db } impacts =
+protectionAreaView : Session -> Recipe.Results -> Html Msg
+protectionAreaView { db } { perKg } =
     let
-        protectionAreaScores =
-            impacts
+        subScores =
+            perKg
                 |> Impact.toProtectionAreas db.impacts
 
-        ecoscoreDefinition =
+        ecs =
             db.impacts
                 |> Impact.getDefinition (Impact.trg "ecs")
                 |> Result.withDefault (Impact.invalid Scope.Food)
     in
     div [ class "card" ]
-        [ div [ class "card-header" ] [ text "Aires de protection" ]
-        , [ ( "Climat", protectionAreaScores.climate )
-          , ( "Biodiversité", protectionAreaScores.biodiversity )
-          , ( "Santé environnementale", protectionAreaScores.health )
-          , ( "Ressource", protectionAreaScores.resources )
+        [ div [ class "card-header" ] [ text "Sous-scores" ]
+        , [ ( "Climat", subScores.climate )
+          , ( "Biodiversité", subScores.biodiversity )
+          , ( "Santé environnementale", subScores.health )
+          , ( "Ressource", subScores.resources )
           ]
             |> List.map
-                (\( label, score ) ->
+                (\( label, subScore ) ->
                     li [ class "list-group-item d-flex justify-content-between align-items-center gap-1" ]
                         [ text label
-                        , Format.formatImpact ecoscoreDefinition score
+                        , subScore
+                            |> Format.subScore ecs
                         ]
                 )
             |> ul [ class "list-group list-group-flush fs-7" ]

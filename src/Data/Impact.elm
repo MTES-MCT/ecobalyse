@@ -86,6 +86,7 @@ type alias AggregatedScoreData =
 
 
 type alias ProtectionAreas =
+    -- Protection Areas is basically scientific slang for subscores
     { climate : Unit.Impact -- Climat
     , biodiversity : Unit.Impact -- Biodiversité
     , resources : Unit.Impact -- Ressources
@@ -426,7 +427,6 @@ getAggregatedScoreOutOf100 { trigram } impactsPerKg =
 
 foodCategories : Dict String { name : String, bounds : ( Int, Int ) }
 foodCategories =
-    -- FIXME: move to somewhere food centric
     Dict.fromList
         [ ( "meats", { name = "Viandes", bounds = ( 500, 4000 ) } )
         , ( "fruitsAndVegetables", { name = "Fruits et légumes", bounds = ( 30, 450 ) } )
@@ -436,7 +436,6 @@ foodCategories =
 
 getAggregatedCategoryScoreOutOf100 : Definition -> String -> Impacts -> Int
 getAggregatedCategoryScoreOutOf100 { trigram } foodCategory impactsPerKg =
-    -- FIXME: move to somewhere food centric
     case Dict.get foodCategory foodCategories of
         Just { bounds } ->
             let
