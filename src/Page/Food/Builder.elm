@@ -598,7 +598,7 @@ errorView error =
 ingredientListView : Db -> Impact.Definition -> Recipe -> Recipe.Results -> List (Html Msg)
 ingredientListView db selectedImpact recipe results =
     [ div [ class "card-header d-flex align-items-center justify-content-between" ]
-        [ h6 [ class "d-flex align-items-center mb-0" ]
+        [ h5 [ class "d-flex align-items-center mb-0" ]
             [ text "Ingrédients"
             , Link.smallPillExternal
                 [ Route.href (Route.Explore Scope.Food (Dataset.FoodIngredients Nothing)) ]
@@ -984,7 +984,7 @@ transformView db selectedImpact recipe results =
                 |> Format.formatFoodSelectedImpact selectedImpact
     in
     [ div [ class "card-header d-flex align-items-center justify-content-between" ]
-        [ h6 [ class "mb-0" ] [ text "Transformation" ]
+        [ h5 [ class "mb-0" ] [ text "Transformation" ]
         , impact
         ]
     , case recipe.transform of
