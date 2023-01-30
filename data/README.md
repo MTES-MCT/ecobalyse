@@ -26,11 +26,15 @@ En cas de problème vous pouvez redémarrer de zéro en faisant d'abord un `make
 * `make export_ciqual` : pour exporter les json des produits ciqual
 * `make export_builder` : pour exporter les json pour le builder
 * `make json` : lance toutes les commandes précédentes dans l'ordre
+* `make bash` : lance un shell à l'intérieur conteneur
+* `make server` : lancer le serveur Jupyter dans le conteneur (si image Jupyter)
 * `make clean_data` : supprime toutes les données (celles de brightway et
   jupyter mais pas les json générés)
 * `make clean_image` : supprime l'image docker
 
 ## Travailler dans le conteneur :
+
+Vous pouvez entrer dans le conteneur avec `make bash`.
 
 Toutes les données du conteneur, notamment celles de Brightway et de Jupyter,
 sont dans `/home/jovyan` qui est situé dans un volume docker
@@ -42,7 +46,7 @@ endroit pour être comparées puis commités.
 ## Lancer le serveur Jupyter
 
 Si vous avez choisi l'image Jupyter avec `make choice` vous pouvez démarrer le
-serveur Jupyter avec : `./run.sh`. Ensuite ctrl-cliquez sur le lien généré dans
+serveur Jupyter avec : `make server`. Ensuite ctrl-cliquez sur le lien généré dans
 le terminal pour vous y connecter sans mot de passe
 
 ## Remarques

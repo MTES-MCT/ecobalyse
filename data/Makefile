@@ -27,6 +27,12 @@ export_ciqual:
 export_builder:
 	$(DOCKERRUN) -w /home/jovyan/ecobalyse/data brightway2 bash -c "pip install -e . && cd food/export_agb && python3 export_builder.py"
 
+bash:
+	$(DOCKERRUN) brightway2 bash
+
+server:
+	$(DOCKERRUN) -p 8888:8888 -e JUPYTER_ENABLE_LAB=yes brightway2
+
 clean_data:
 	docker volume rm jovyan
 	rm -f Dockerfile
