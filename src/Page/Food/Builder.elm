@@ -543,7 +543,7 @@ updateIngredientFormView { excluded, db, ingredient, impact, transportImpact } =
             , onClick <| DeleteIngredient ingredientQuery
             ]
             [ Icon.trash ]
-        , span [ class "text-muted IngredientTransportLabel" ]
+        , span [ class "text-muted IngredientTransportLabel fs-7" ]
             [ text "Transport pour cet ingrédient" ]
         , ingredient
             |> Recipe.computeIngredientTransport db
@@ -554,7 +554,7 @@ updateIngredientFormView { excluded, db, ingredient, impact, transportImpact } =
                 , roadTransportLabel = Nothing
                 }
             |> span [ class "text-muted d-flex fs-7 gap-3 justify-content-left IngredientTransportDistances" ]
-        , span [ class "text-muted text-end IngredientTransportImpact" ]
+        , span [ class "text-muted text-end IngredientTransportImpact fs-7" ]
             [ transportImpact ]
         ]
     ]
