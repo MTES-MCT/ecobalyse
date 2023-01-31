@@ -22,12 +22,14 @@ RUN set -x; \
         vim
 
 
-RUN pip install \
+RUN PYPARDISO="" \
+    && if [ "$(dpkg --print-architecture)" = "amd64" ]; then PYPARDISO="pypardiso==0.4.2"; fi; \
+    pip install \
         brightway2==2.3 \
         bw2calc==1.8.1 \
         bw2data==3.6.5 \
         bw2io==0.8.7 \
-        pypardiso==0.4.2 \
+        ${PYPARDISO} \
     && ldconfig
 
 RUN useradd -m --uid 1000 --gid 100 jovyan
