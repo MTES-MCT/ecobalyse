@@ -450,11 +450,12 @@ type alias UpdateIngredientConfig =
     , db : Db
     , ingredient : Recipe.RecipeIngredient
     , impact : Html Msg
+    , transportImpact : Html Msg
     }
 
 
-updateIngredientFormView : UpdateIngredientConfig -> Html Msg
-updateIngredientFormView { excluded, db, ingredient, impact } =
+updateIngredientFormView : UpdateIngredientConfig -> List (Html Msg)
+updateIngredientFormView { excluded, db, ingredient, impact, transportImpact } =
     let
         ingredientQuery : Query.IngredientQuery
         ingredientQuery =
@@ -468,7 +469,7 @@ updateIngredientFormView { excluded, db, ingredient, impact } =
         event =
             UpdateIngredient ingredient.ingredient.id
     in
-    li [ class "IngredientFormWrapper" ]
+    [ li [ class "IngredientFormWrapper" ]
         [ span [ class "MassInputWrapper" ]
             [ MassInput.view
                 { mass = ingredient.mass
@@ -508,6 +509,7 @@ updateIngredientFormView { excluded, db, ingredient, impact } =
                             | id = newIngredient.id
                             , name = newIngredient.name
                             , variant = newVariant
+                            , country = Nothing
                         }
                 )
         , db.countries
@@ -578,7 +580,21 @@ updateIngredientFormView { excluded, db, ingredient, impact } =
             , onClick <| DeleteIngredient ingredientQuery
             ]
             [ Icon.trash ]
+        , span [ class "text-muted IngredientTransportLabel fs-7" ]
+            [ text "Transport pour cet ingrédient" ]
+        , ingredient
+            |> Recipe.computeIngredientTransport db
+            |> TransportView.viewDetails
+                { fullWidth = False
+                , airTransportLabel = Nothing
+                , seaTransportLabel = Nothing
+                , roadTransportLabel = Nothing
+                }
+            |> span [ class "text-muted d-flex fs-7 gap-3 justify-content-left IngredientTransportDistances" ]
+        , span [ class "text-muted text-end IngredientTransportImpact fs-7" ]
+            [ transportImpact ]
         ]
+    ]
 
 
 debugQueryView : Db -> Query -> Html Msg
@@ -619,7 +635,7 @@ errorView error =
 ingredientListView : Db -> Impact.Definition -> Recipe -> Recipe.Results -> List (Html Msg)
 ingredientListView db selectedImpact recipe results =
     [ div [ class "card-header d-flex align-items-center justify-content-between" ]
-        [ h6 [ class "d-flex align-items-center mb-0" ]
+        [ h5 [ class "d-flex align-items-center mb-0" ]
             [ text "Ingrédients"
             , Link.smallPillExternal
                 [ Route.href (Route.Explore Scope.Food (Dataset.FoodIngredients Nothing)) ]
@@ -634,7 +650,7 @@ ingredientListView db selectedImpact recipe results =
 
           else
             recipe.ingredients
-                |> List.map
+                |> List.concatMap
                     (\ingredient ->
                         updateIngredientFormView
                             { excluded = recipe.ingredients |> List.map (.ingredient >> .id)
@@ -646,6 +662,11 @@ ingredientListView db selectedImpact recipe results =
                                     |> List.head
                                     |> Maybe.map Tuple.second
                                     |> Maybe.withDefault Impact.noImpacts
+                                    |> Format.formatFoodSelectedImpact selectedImpact
+                            , transportImpact =
+                                ingredient
+                                    |> Recipe.computeIngredientTransport db
+                                    |> .impacts
                                     |> Format.formatFoodSelectedImpact selectedImpact
                             }
                     )
@@ -807,26 +828,6 @@ ingredientSelectorView selectedIngredient excluded event ingredients =
         )
 
 
-recipeTransportsView : Impact.Definition -> Recipe.Results -> List (Html Msg)
-recipeTransportsView selectedImpact results =
-    [ div [ class "card-header d-flex align-items-center justify-content-between border-top" ]
-        [ h6 [ class "mb-0" ] [ text "Transports" ]
-        , results.recipe.transports.impacts
-            |> Format.formatFoodSelectedImpact selectedImpact
-        ]
-    , div [ class "card-body d-flex justify-content-between align-items-center gap-1 text-muted py-2 fs-7" ]
-        [ text "Transport total cumulé à cette étape"
-        , results.recipe.transports
-            |> TransportView.view
-                { fullWidth = False
-                , airTransportLabel = Nothing
-                , seaTransportLabel = Nothing
-                , roadTransportLabel = Nothing
-                }
-        ]
-    ]
-
-
 sidebarView : Session -> Db -> Model -> Recipe.Results -> Html Msg
 sidebarView session db model results =
     div
@@ -849,7 +850,7 @@ sidebarView session db model results =
 
           else
             text ""
-        , stepResultsView db model results
+        , stepResultsView model results
         , BookmarkView.view
             { session = session
             , activeTab = model.bookmarkTab
@@ -973,38 +974,26 @@ stepListView : Db -> Model -> Recipe -> Recipe.Results -> Html Msg
 stepListView db { impact } recipe results =
     div [ class "d-flex flex-column gap-3" ]
         [ div [ class "card" ]
-            (div [ class "card-header d-flex align-items-center justify-content-between" ]
-                [ h5 [ class "mb-0" ] [ text "Recette" ]
-                , results.recipe.total
-                    |> Format.formatFoodSelectedImpact impact
-                    |> List.singleton
-                    |> span [ class "fw-bold" ]
-                ]
-                :: List.concat
-                    [ ingredientListView db impact recipe results
-                    , transformView db impact recipe results
-                    , recipeTransportsView impact results
-                    ]
-            )
+            (ingredientListView db impact recipe results)
+        , div [ class "card" ]
+            (transformView db impact recipe results)
         , div [ class "card" ]
             (packagingListView db impact recipe results)
         ]
 
 
-stepResultsView : Db -> Model -> Recipe.Results -> Html Msg
-stepResultsView db model results =
+stepResultsView : Model -> Recipe.Results -> Html Msg
+stepResultsView model results =
     let
         toFloat =
             Impact.getImpact model.impact.trigram >> Unit.impactToFloat
 
         stepsData =
-            [ { label = "Recette"
-              , impact =
-                    [ results.recipe.ingredientsTotal
-                    , results.recipe.transform
-                    ]
-                        |> Impact.sumImpacts db.impacts
-                        |> toFloat
+            [ { label = "Ingrédients"
+              , impact = toFloat results.recipe.ingredientsTotal
+              }
+            , { label = "Transformation"
+              , impact = toFloat results.recipe.transform
               }
             , { label = "Emballage"
               , impact = toFloat results.packaging
@@ -1058,7 +1047,7 @@ transformView db selectedImpact recipe results =
                 |> Format.formatFoodSelectedImpact selectedImpact
     in
     [ div [ class "card-header d-flex align-items-center justify-content-between" ]
-        [ h6 [ class "mb-0" ] [ text "Transformation" ]
+        [ h5 [ class "mb-0" ] [ text "Transformation" ]
         , impact
         ]
     , case recipe.transform of
