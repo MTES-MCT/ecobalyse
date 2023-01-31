@@ -891,13 +891,8 @@ scoresView { builderDb } model { perKg } =
             perKg
                 |> Impact.toProtectionAreas builderDb.impacts
 
-        ecs =
-            builderDb.impacts
-                |> Impact.getDefinition (Impact.trg "ecs")
-                |> Result.withDefault (Impact.invalid Scope.Food)
-
         letterView letter =
-            span [ class <| "m-0 ScoreLetter ScoreLetter" ++ letter ]
+            span [ class <| "ScoreLetter ScoreLetter" ++ letter ]
                 [ text letter
                 ]
     in
@@ -942,7 +937,7 @@ scoresView { builderDb } model { perKg } =
                                 scoreLetter =
                                     Impact.getAggregatedScoreLetter score_
                             in
-                            [ span [ class "m-0" ]
+                            [ span []
                                 [ text (String.fromInt score_)
                                 , span [ class "fs-7" ] [ text "/100" ]
                                 ]
@@ -962,30 +957,46 @@ scoresView { builderDb } model { perKg } =
               ]
                 |> List.map
                     (\( label, subScore, getter ) ->
-                        tr []
-                            [ th [] [ text label ]
-                            , td [ class "text-end" ]
-                                [ subScore
-                                    |> Format.subScore ecs
-                                ]
-                            , td []
-                                [ case model.foodCategory of
+                        let
+                            subScore100 =
+                                case model.foodCategory of
                                     Just categoryScale ->
                                         subScore
                                             |> Impact.getAggregatedCategoryScoreOutOf100 getter categoryScale
-                                            |> Result.map Impact.getAggregatedScoreLetter
-                                            |> Result.withDefault "?"
-                                            |> letterView
 
                                     Nothing ->
                                         perKg
                                             |> Impact.getAggregatedScoreOutOf100 model.impact
-                                            |> Impact.getAggregatedScoreLetter
-                                            |> letterView
+                                            |> Ok
+                        in
+                        tr []
+                            [ th [] [ text label ]
+                            , td [ class "text-end" ]
+                                [ strong []
+                                    [ subScore100
+                                        |> Result.map String.fromInt
+                                        |> Result.withDefault "N/A"
+                                        |> text
+                                    ]
+                                , small [] [ text "/100" ]
+                                ]
+                            , td
+                                [ class "text-end align-middle ps-1"
+                                , style "width" "1%"
+                                , subScore
+                                    |> Unit.impactToFloat
+                                    |> Format.formatFloat 2
+                                    |> (\x -> x ++ "\u{202F}µPts/kg")
+                                    |> title
+                                ]
+                                [ subScore100
+                                    |> Result.map Impact.getAggregatedScoreLetter
+                                    |> Result.withDefault "?"
+                                    |> letterView
                                 ]
                             ]
                     )
-                |> table [ class "table text-white m-0" ]
+                |> table [ class "w-100 text-white m-0" ]
             ]
         ]
 

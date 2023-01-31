@@ -19,7 +19,6 @@ module Views.Format exposing
     , ratioToDecimals
     , ratioToPercentString
     , squareMetters
-    , subScore
     , surfaceMass
     )
 
@@ -157,11 +156,6 @@ percent =
 squareMetters : Area -> Html msg
 squareMetters =
     Area.inSquareMeters >> formatRichFloat 2 "m²"
-
-
-subScore : Impact.Definition -> Unit.Impact -> Html msg
-subScore { decimals, unit } =
-    Unit.impactToFloat >> formatRichFloat decimals (unit ++ "/kg")
 
 
 surfaceMass : Unit.SurfaceMass -> Html msg
