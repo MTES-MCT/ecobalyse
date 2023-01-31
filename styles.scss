@@ -716,11 +716,11 @@ blockquote {
   justify-content: center;
   align-items: center;
 
-  &A { background-color: #018241 }
-  &B { background-color: #86bc30 }
-  &C { background-color: #ffcc01 }
-  &D { background-color: #f08000 }
-  &E { background-color: #e63f12 }
+  &A { background-color: #018241 !important }
+  &B { background-color: #86bc30 !important }
+  &C { background-color: #ffcc01 !important }
+  &D { background-color: #f08000 !important }
+  &E { background-color: #e63f12 !important }
 }
 
 .Step {

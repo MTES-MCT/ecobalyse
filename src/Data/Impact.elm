@@ -229,10 +229,10 @@ trg =
 
 
 toProtectionAreas : List Definition -> Impacts -> ProtectionAreas
-toProtectionAreas defs impacts =
+toProtectionAreas defs impactsPerKg =
     let
         pick trigrams =
-            impacts
+            impactsPerKg
                 |> AnyDict.filter (\t _ -> List.member t (List.map trg trigrams))
                 |> computeAggregatedScore .ecoscoreData defs
     in
@@ -427,18 +427,16 @@ getAggregatedScoreOutOf100 { trigram } impactsPerKg =
 
 
 getAggregatedCategoryScoreOutOf100 :
-    Definition
-    -> (CategoryScale.CategoryBounds -> CategoryScale.Bounds)
+    (CategoryScale.CategoryBounds -> CategoryScale.Bounds)
     -> CategoryScale.Id
-    -> Impacts
+    -> Unit.Impact
     -> Result String Int
-getAggregatedCategoryScoreOutOf100 { trigram } getter foodCategory impactsPerKg =
+getAggregatedCategoryScoreOutOf100 getter foodCategory impactPerKg =
     foodCategory
         |> CategoryScale.getCategoryBounds getter
         |> Result.map
             (\{ impact100, impact0 } ->
-                impactsPerKg
-                    |> getImpact trigram
+                impactPerKg
                     |> Unit.impactToFloat
                     |> (\value ->
                             -- See docs at https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/impacts-consideres/score-100#projet-declinaisons-du-score-100

@@ -845,7 +845,8 @@ sidebarView session db model results =
             , scope = Scope.Food
             }
         , absoluteImpactView model results
-        , if Impact.isAggregate model.impact then
+        , if Impact.trg "ecs" == model.impact.trigram then
+            -- We only compute and render subscores for ecs
             scoresView session model results
 
           else
@@ -878,7 +879,8 @@ scoresView { builderDb } model { perKg } =
             case model.foodCategory of
                 Just categoryScale ->
                     perKg
-                        |> Impact.getAggregatedCategoryScoreOutOf100 model.impact .all categoryScale
+                        |> Impact.getImpact (Impact.trg "ecs")
+                        |> Impact.getAggregatedCategoryScoreOutOf100 .all categoryScale
 
                 Nothing ->
                     perKg
@@ -893,9 +895,14 @@ scoresView { builderDb } model { perKg } =
             builderDb.impacts
                 |> Impact.getDefinition (Impact.trg "ecs")
                 |> Result.withDefault (Impact.invalid Scope.Food)
+
+        letterView letter =
+            span [ class <| "m-0 ScoreLetter ScoreLetter" ++ letter ]
+                [ text letter
+                ]
     in
-    SummaryComp.view
-        { header =
+    div [ class "card bg-primary shadow-sm" ]
+        [ div [ class "card-header text-white d-flex justify-content-between gap-1" ]
             [ div [ class "d-flex justify-content-between align-items-center gap-3 w-100" ]
                 [ FoodCategory.all
                     |> Dict.toList
@@ -928,21 +935,18 @@ scoresView { builderDb } model { perKg } =
                                     )
                             )
                         ]
-                , div [ class "d-flex justify-content-center align-items-end gap-1 text-nowrap" ]
+                , div [ class "d-flex justify-content-center align-items-end gap-1 text-nowrap h4 m-0 text-center" ]
                     (case score of
                         Ok score_ ->
                             let
                                 scoreLetter =
                                     Impact.getAggregatedScoreLetter score_
                             in
-                            [ text "Score :"
-                            , span [ class "h5 m-0" ]
+                            [ span [ class "m-0" ]
                                 [ text (String.fromInt score_)
                                 , span [ class "fs-7" ] [ text "/100" ]
                                 ]
-                            , span [ class <| "h5 m-0 ScoreLetter ScoreLetter" ++ scoreLetter ]
-                                [ text scoreLetter
-                                ]
+                            , letterView scoreLetter
                             ]
 
                         Err error ->
@@ -950,24 +954,40 @@ scoresView { builderDb } model { perKg } =
                     )
                 ]
             ]
-        , body =
-            [ [ ( "Climat", subScores.climate )
-              , ( "Biodiversité", subScores.biodiversity )
-              , ( "Santé environnementale", subScores.health )
-              , ( "Ressource", subScores.resources )
+        , div [ class "card-body" ]
+            [ [ ( "Climat", subScores.climate, .climate )
+              , ( "Biodiversité", subScores.biodiversity, .biodiversity )
+              , ( "Santé environnementale", subScores.health, .health )
+              , ( "Ressource", subScores.resources, .resources )
               ]
                 |> List.map
-                    (\( label, subScore ) ->
-                        li [ class "list-group-item d-flex justify-content-between align-items-center gap-1" ]
-                            [ text label
-                            , subScore
-                                |> Format.subScore ecs
+                    (\( label, subScore, getter ) ->
+                        tr []
+                            [ th [] [ text label ]
+                            , td [ class "text-end" ]
+                                [ subScore
+                                    |> Format.subScore ecs
+                                ]
+                            , td []
+                                [ case model.foodCategory of
+                                    Just categoryScale ->
+                                        subScore
+                                            |> Impact.getAggregatedCategoryScoreOutOf100 getter categoryScale
+                                            |> Result.map Impact.getAggregatedScoreLetter
+                                            |> Result.withDefault "?"
+                                            |> letterView
+
+                                    Nothing ->
+                                        perKg
+                                            |> Impact.getAggregatedScoreOutOf100 model.impact
+                                            |> Impact.getAggregatedScoreLetter
+                                            |> letterView
+                                ]
                             ]
                     )
-                |> ul [ class "list-group list-group-flush fs-7" ]
+                |> table [ class "table text-white m-0" ]
             ]
-        , footer = []
-        }
+        ]
 
 
 stepListView : Db -> Model -> Recipe -> Recipe.Results -> Html Msg
