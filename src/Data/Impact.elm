@@ -34,7 +34,7 @@ module Data.Impact exposing
     , updateImpact
     )
 
-import Data.Food.CategoryScale as CategoryScale
+import Data.Food.Category as CategoryScale
 import Data.Scope as Scope exposing (Scope)
 import Data.Unit as Unit
 import Dict

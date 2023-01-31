@@ -1,7 +1,7 @@
-module Data.Food.CategoryScale exposing
+module Data.Food.Category exposing
     ( Bounds
+    , Category
     , CategoryBounds
-    , CategoryScale
     , CategoryScales
     , Id
     , all
@@ -11,14 +11,14 @@ module Data.Food.CategoryScale exposing
 import Dict exposing (Dict)
 
 
-type alias CategoryScale =
+type alias Category =
     { name : String
     , bounds : CategoryBounds
     }
 
 
 type alias CategoryScales =
-    Dict Id CategoryScale
+    Dict Id Category
 
 
 type alias Id =
@@ -80,7 +80,7 @@ all =
         ]
 
 
-get : Id -> Result String CategoryScale
+get : Id -> Result String Category
 get id =
     all
         |> Dict.get id

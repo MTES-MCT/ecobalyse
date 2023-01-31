@@ -15,7 +15,7 @@ import Data.Dataset as Dataset
 import Data.Food.Builder.Db as BuilderDb exposing (Db)
 import Data.Food.Builder.Query as Query exposing (Query)
 import Data.Food.Builder.Recipe as Recipe exposing (Recipe)
-import Data.Food.CategoryScale as CategoryScale
+import Data.Food.Category as FoodCategory
 import Data.Food.Ingredient as Ingredient exposing (Id, Ingredient)
 import Data.Food.Origin as Origin
 import Data.Food.Process as Process exposing (Process)
@@ -56,7 +56,7 @@ import Views.Transport as TransportView
 
 type alias Model =
     { dbState : WebData Db
-    , foodCategoryScale : Maybe String
+    , foodCategory : Maybe FoodCategory.Id
     , impact : Impact.Definition
     , bookmarkName : String
     , bookmarkTab : BookmarkView.ActiveTab
@@ -85,7 +85,7 @@ type Msg
     | ResetTransform
     | SaveBookmark
     | SaveBookmarkWithTime String Bookmark.Query Posix
-    | SetFoodCategoryScale (Maybe String)
+    | SetFoodCategory (Maybe String)
     | SetModal Modal
     | SwitchComparisonUnit ComparatorView.FoodComparisonUnit
     | SwitchLinksTab BookmarkView.ActiveTab
@@ -111,7 +111,7 @@ init ({ db, builderDb, queries } as session) trigram maybeQuery =
 
         ( model, newSession, cmds ) =
             ( { dbState = RemoteData.Loading
-              , foodCategoryScale = Nothing
+              , foodCategory = Nothing
               , impact = impact
               , bookmarkName = query |> findExistingBookmarkName session
               , bookmarkTab = BookmarkView.SaveTab
@@ -275,8 +275,8 @@ update ({ queries } as session) msg model =
             , Cmd.none
             )
 
-        SetFoodCategoryScale foodCategoryScale ->
-            ( { model | foodCategoryScale = foodCategoryScale }, session, Cmd.none )
+        SetFoodCategory foodCategory ->
+            ( { model | foodCategory = foodCategory }, session, Cmd.none )
 
         SetModal modal ->
             ( { model | modal = modal }, session, Cmd.none )
@@ -820,7 +820,7 @@ sidebarView session db model results =
                 if Impact.isAggregate model.impact then
                     let
                         score =
-                            case model.foodCategoryScale of
+                            case model.foodCategory of
                                 Just categoryScale ->
                                     results.perKg
                                         |> Impact.getAggregatedCategoryScoreOutOf100 model.impact .all categoryScale
@@ -831,21 +831,21 @@ sidebarView session db model results =
                                         |> Ok
                     in
                     [ div [ class "d-flex justify-content-between align-items-center gap-3 w-100" ]
-                        [ CategoryScale.all
+                        [ FoodCategory.all
                             |> Dict.toList
                             |> List.sortBy (Tuple.second >> .name)
                             |> List.map
                                 (\( categoryScale, { name } ) ->
                                     option
                                         [ value categoryScale
-                                        , selected <| model.foodCategoryScale == Just categoryScale
+                                        , selected <| model.foodCategory == Just categoryScale
                                         ]
                                         [ text name ]
                                 )
                             |> (::)
                                 (option
                                     [ value ""
-                                    , selected <| model.foodCategoryScale == Nothing
+                                    , selected <| model.foodCategory == Nothing
                                     ]
                                     [ text "Toutes catégories" ]
                                 )
@@ -853,7 +853,7 @@ sidebarView session db model results =
                                 [ class "form-select form-select-sm w-50"
                                 , onInput
                                     (\s ->
-                                        SetFoodCategoryScale
+                                        SetFoodCategory
                                             (if s == "" then
                                                 Nothing
 
