@@ -349,6 +349,34 @@ findExistingBookmarkName { builderDb, store } query =
 -- Views
 
 
+absoluteImpactView : Model -> Recipe.Results -> Html Msg
+absoluteImpactView model results =
+    SummaryComp.view
+        { header = []
+        , body =
+            [ div [ class "d-flex flex-column m-auto gap-1 px-2 text-center text-nowrap" ]
+                [ div [ class "display-3 lh-1" ]
+                    [ results.perKg
+                        |> Format.formatFoodSelectedImpactPerKg model.impact
+                    ]
+                ]
+            ]
+        , footer =
+            [ div [ class "d-flex justify-content-center align-items-end gap-1 w-100" ]
+                [ span [ class "fs-7" ]
+                    [ text "Soit pour "
+                    , Format.kg results.totalMass
+                    , text "\u{00A0}:"
+                    ]
+                , span [ class "h5 m-0" ]
+                    [ results.total
+                        |> Format.formatFoodSelectedImpact model.impact
+                    ]
+                ]
+            ]
+        }
+
+
 type alias AddProcessConfig msg =
     { isDisabled : Bool
     , event : msg
@@ -815,102 +843,18 @@ sidebarView session db model results =
             , switchFunctionalUnit = always NoOp
             , scope = Scope.Food
             }
-        , SummaryComp.view
-            { header =
-                if Impact.isAggregate model.impact then
-                    let
-                        score =
-                            case model.foodCategory of
-                                Just categoryScale ->
-                                    results.perKg
-                                        |> Impact.getAggregatedCategoryScoreOutOf100 model.impact .all categoryScale
+        , absoluteImpactView model results
+        , if Impact.isAggregate model.impact then
+            scoresView model results
 
-                                Nothing ->
-                                    results.perKg
-                                        |> Impact.getAggregatedScoreOutOf100 model.impact
-                                        |> Ok
-                    in
-                    [ div [ class "d-flex justify-content-between align-items-center gap-3 w-100" ]
-                        [ FoodCategory.all
-                            |> Dict.toList
-                            |> List.sortBy (Tuple.second >> .name)
-                            |> List.map
-                                (\( categoryScale, { name } ) ->
-                                    option
-                                        [ value categoryScale
-                                        , selected <| model.foodCategory == Just categoryScale
-                                        ]
-                                        [ text name ]
-                                )
-                            |> (::)
-                                (option
-                                    [ value ""
-                                    , selected <| model.foodCategory == Nothing
-                                    ]
-                                    [ text "Toutes catégories" ]
-                                )
-                            |> select
-                                [ class "form-select form-select-sm w-50"
-                                , onInput
-                                    (\s ->
-                                        SetFoodCategory
-                                            (if s == "" then
-                                                Nothing
+          else
+            text ""
+        , if Impact.isAggregate model.impact then
+            protectionAreaView session results
 
-                                             else
-                                                Just s
-                                            )
-                                    )
-                                ]
-                        , div [ class "d-flex justify-content-center align-items-end gap-1 text-nowrap" ]
-                            (case score of
-                                Ok score_ ->
-                                    let
-                                        scoreLetter =
-                                            Impact.getAggregatedScoreLetter score_
-                                    in
-                                    [ text "Score :"
-                                    , span [ class "h5 m-0" ]
-                                        [ text (String.fromInt score_)
-                                        , span [ class "fs-7" ] [ text "/100" ]
-                                        ]
-                                    , span [ class <| "h5 m-0 ScoreLetter ScoreLetter" ++ scoreLetter ]
-                                        [ text scoreLetter
-                                        ]
-                                    ]
-
-                                Err error ->
-                                    [ span [ class "badge bg-danger" ] [ text error ] ]
-                            )
-                        ]
-                    ]
-
-                else
-                    []
-            , body =
-                [ div [ class "d-flex flex-column m-auto gap-1 px-2 text-center text-nowrap" ]
-                    [ div [ class "display-3 lh-1" ]
-                        [ results.perKg
-                            |> Format.formatFoodSelectedImpactPerKg model.impact
-                        ]
-                    ]
-                ]
-            , footer =
-                [ div [ class "d-flex justify-content-center align-items-end gap-1 w-100" ]
-                    [ span [ class "fs-7" ]
-                        [ text "Soit pour "
-                        , Format.kg results.totalMass
-                        , text "\u{00A0}:"
-                        ]
-                    , span [ class "h5 m-0" ]
-                        [ results.total
-                            |> Format.formatFoodSelectedImpact model.impact
-                        ]
-                    ]
-                ]
-            }
+          else
+            text ""
         , stepResultsView db model results
-        , protectionAreaView session results
         , BookmarkView.view
             { session = session
             , activeTab = model.bookmarkTab
@@ -960,6 +904,81 @@ protectionAreaView { db } { perKg } =
                 )
             |> ul [ class "list-group list-group-flush fs-7" ]
         ]
+
+
+scoresView : Model -> Recipe.Results -> Html Msg
+scoresView model results =
+    SummaryComp.view
+        { header =
+            let
+                score =
+                    case model.foodCategory of
+                        Just categoryScale ->
+                            results.perKg
+                                |> Impact.getAggregatedCategoryScoreOutOf100 model.impact .all categoryScale
+
+                        Nothing ->
+                            results.perKg
+                                |> Impact.getAggregatedScoreOutOf100 model.impact
+                                |> Ok
+            in
+            [ div [ class "d-flex justify-content-between align-items-center gap-3 w-100" ]
+                [ FoodCategory.all
+                    |> Dict.toList
+                    |> List.sortBy (Tuple.second >> .name)
+                    |> List.map
+                        (\( categoryScale, { name } ) ->
+                            option
+                                [ value categoryScale
+                                , selected <| model.foodCategory == Just categoryScale
+                                ]
+                                [ text name ]
+                        )
+                    |> (::)
+                        (option
+                            [ value ""
+                            , selected <| model.foodCategory == Nothing
+                            ]
+                            [ text "Toutes catégories" ]
+                        )
+                    |> select
+                        [ class "form-select form-select-sm w-50"
+                        , onInput
+                            (\s ->
+                                SetFoodCategory
+                                    (if s == "" then
+                                        Nothing
+
+                                     else
+                                        Just s
+                                    )
+                            )
+                        ]
+                , div [ class "d-flex justify-content-center align-items-end gap-1 text-nowrap" ]
+                    (case score of
+                        Ok score_ ->
+                            let
+                                scoreLetter =
+                                    Impact.getAggregatedScoreLetter score_
+                            in
+                            [ text "Score :"
+                            , span [ class "h5 m-0" ]
+                                [ text (String.fromInt score_)
+                                , span [ class "fs-7" ] [ text "/100" ]
+                                ]
+                            , span [ class <| "h5 m-0 ScoreLetter ScoreLetter" ++ scoreLetter ]
+                                [ text scoreLetter
+                                ]
+                            ]
+
+                        Err error ->
+                            [ span [ class "badge bg-danger" ] [ text error ] ]
+                    )
+                ]
+            ]
+        , body = []
+        , footer = []
+        }
 
 
 stepListView : Db -> Model -> Recipe -> Recipe.Results -> Html Msg
