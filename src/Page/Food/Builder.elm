@@ -845,12 +845,7 @@ sidebarView session db model results =
             }
         , absoluteImpactView model results
         , if Impact.isAggregate model.impact then
-            scoresView model results
-
-          else
-            text ""
-        , if Impact.isAggregate model.impact then
-            protectionAreaView session results
+            scoresView session model results
 
           else
             text ""
@@ -875,53 +870,31 @@ sidebarView session db model results =
         ]
 
 
-protectionAreaView : Session -> Recipe.Results -> Html Msg
-protectionAreaView { db } { perKg } =
+scoresView : Session -> Model -> Recipe.Results -> Html Msg
+scoresView { builderDb } model { perKg } =
     let
+        score =
+            case model.foodCategory of
+                Just categoryScale ->
+                    perKg
+                        |> Impact.getAggregatedCategoryScoreOutOf100 model.impact .all categoryScale
+
+                Nothing ->
+                    perKg
+                        |> Impact.getAggregatedScoreOutOf100 model.impact
+                        |> Ok
+
         subScores =
             perKg
-                |> Impact.toProtectionAreas db.impacts
+                |> Impact.toProtectionAreas builderDb.impacts
 
         ecs =
-            db.impacts
+            builderDb.impacts
                 |> Impact.getDefinition (Impact.trg "ecs")
                 |> Result.withDefault (Impact.invalid Scope.Food)
     in
-    div [ class "card" ]
-        [ div [ class "card-header" ] [ text "Sous-scores" ]
-        , [ ( "Climat", subScores.climate )
-          , ( "Biodiversité", subScores.biodiversity )
-          , ( "Santé environnementale", subScores.health )
-          , ( "Ressource", subScores.resources )
-          ]
-            |> List.map
-                (\( label, subScore ) ->
-                    li [ class "list-group-item d-flex justify-content-between align-items-center gap-1" ]
-                        [ text label
-                        , subScore
-                            |> Format.subScore ecs
-                        ]
-                )
-            |> ul [ class "list-group list-group-flush fs-7" ]
-        ]
-
-
-scoresView : Model -> Recipe.Results -> Html Msg
-scoresView model results =
     SummaryComp.view
         { header =
-            let
-                score =
-                    case model.foodCategory of
-                        Just categoryScale ->
-                            results.perKg
-                                |> Impact.getAggregatedCategoryScoreOutOf100 model.impact .all categoryScale
-
-                        Nothing ->
-                            results.perKg
-                                |> Impact.getAggregatedScoreOutOf100 model.impact
-                                |> Ok
-            in
             [ div [ class "d-flex justify-content-between align-items-center gap-3 w-100" ]
                 [ FoodCategory.all
                     |> Dict.toList
@@ -976,7 +949,22 @@ scoresView model results =
                     )
                 ]
             ]
-        , body = []
+        , body =
+            [ [ ( "Climat", subScores.climate )
+              , ( "Biodiversité", subScores.biodiversity )
+              , ( "Santé environnementale", subScores.health )
+              , ( "Ressource", subScores.resources )
+              ]
+                |> List.map
+                    (\( label, subScore ) ->
+                        li [ class "list-group-item d-flex justify-content-between align-items-center gap-1" ]
+                            [ text label
+                            , subScore
+                                |> Format.subScore ecs
+                            ]
+                    )
+                |> ul [ class "list-group list-group-flush fs-7" ]
+            ]
         , footer = []
         }
 
