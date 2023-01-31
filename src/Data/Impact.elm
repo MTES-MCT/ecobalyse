@@ -378,6 +378,11 @@ updateAggregatedScores definitions impacts =
         |> aggregateScore .pefData (trg "pef")
 
 
+ln : Float -> Float
+ln =
+    logBase e
+
+
 getAggregatedScoreData :
     List Definition
     -> (Definition -> Maybe AggregatedScoreData)
@@ -410,10 +415,6 @@ getAggregatedScoreData defs getter =
 
 getAggregatedScoreOutOf100 : Definition -> Impacts -> Int
 getAggregatedScoreOutOf100 { trigram } impactsPerKg =
-    let
-        ln =
-            logBase e
-    in
     impactsPerKg
         |> getImpact trigram
         |> Unit.impactToFloat
@@ -425,30 +426,27 @@ getAggregatedScoreOutOf100 { trigram } impactsPerKg =
         |> clamp 0 100
 
 
-getAggregatedCategoryScoreOutOf100 : Definition -> CategoryScale.Id -> Impacts -> Result String Int
-getAggregatedCategoryScoreOutOf100 { trigram } foodCategory impactsPerKg =
-    case Dict.get foodCategory CategoryScale.all of
-        Just { bounds } ->
-            let
-                ln =
-                    logBase e
-
-                { impact100, impact0 } =
-                    bounds
-            in
-            impactsPerKg
-                |> getImpact trigram
-                |> Unit.impactToFloat
-                |> (\value ->
-                        -- See docs at https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/impacts-consideres/score-100#projet-declinaisons-du-score-100
-                        (ln (toFloat impact0) - ln value) / ln (toFloat impact0 / toFloat impact100) * 20 * 5
-                   )
-                |> floor
-                |> clamp 0 100
-                |> Ok
-
-        Nothing ->
-            Err <| "Invalid: " ++ foodCategory
+getAggregatedCategoryScoreOutOf100 :
+    Definition
+    -> (CategoryScale.CategoryBounds -> CategoryScale.Bounds)
+    -> CategoryScale.Id
+    -> Impacts
+    -> Result String Int
+getAggregatedCategoryScoreOutOf100 { trigram } getter foodCategory impactsPerKg =
+    foodCategory
+        |> CategoryScale.getCategoryBounds getter
+        |> Result.map
+            (\{ impact100, impact0 } ->
+                impactsPerKg
+                    |> getImpact trigram
+                    |> Unit.impactToFloat
+                    |> (\value ->
+                            -- See docs at https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/impacts-consideres/score-100#projet-declinaisons-du-score-100
+                            (ln impact0 - ln value) / ln (impact0 / impact100) * 20 * 5
+                       )
+                    |> floor
+                    |> clamp 0 100
+            )
 
 
 getAggregatedScoreLetter : Int -> String

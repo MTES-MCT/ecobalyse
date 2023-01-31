@@ -823,7 +823,7 @@ sidebarView session db model results =
                             case model.foodCategoryScale of
                                 Just categoryScale ->
                                     results.perKg
-                                        |> Impact.getAggregatedCategoryScoreOutOf100 model.impact categoryScale
+                                        |> Impact.getAggregatedCategoryScoreOutOf100 model.impact .all categoryScale
 
                                 Nothing ->
                                     results.perKg
