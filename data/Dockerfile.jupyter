@@ -8,23 +8,20 @@ ENV XDG_CACHE_HOME="/home/${NB_USER}/.cache/"
 USER $NB_USER
 
 RUN conda install --yes \
-        -c conda-forge \
-        -c cmutel \
-        bw2io=0.8.7 \
-        bw2data=3.6.5 \
-        bw2calc=1.8.1 \
-        brightway2=2.3 \
         conda-build \
         jupyter \
-        matplotlib-base=3.6.3 \
-        numpy=1.23.5 \
-        pandas=1.5.3 \
-        xlrd=2.0.1 \
     && conda build purge-all \
     && fix-permissions "/home/${NB_USER}" \
     && mkdir -p /home/jovyan/data \
     && mkdir -p /home/jovyan/notebooks \
     && mkdir -p /home/jovyan/output
+
+USER root
+
+COPY requirements.txt /root/
+
+RUN pip install -r /root/requirements.txt \
+    && if [ "$(dpkg --print-architecture)" = "amd64" ]; then pip install  pypardiso==0.4; ldconfig; fi;
 
 VOLUME /home/jovyan
 USER $NB_UID
