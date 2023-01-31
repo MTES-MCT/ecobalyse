@@ -954,7 +954,7 @@ scoresView { builderDb } model { perKg } =
                     )
                 ]
             ]
-        , div [ class "card-body" ]
+        , div [ class "card-body py-2" ]
             [ [ ( "Climat", subScores.climate, .climate )
               , ( "Biodiversité", subScores.biodiversity, .biodiversity )
               , ( "Santé environnementale", subScores.health, .health )
