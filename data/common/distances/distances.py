@@ -8,9 +8,7 @@ import json
 import random
 import time
 from datetime import datetime
-from lxml.html import fromstring
 import requests
-from itertools import cycle
 
 
 """Script to get the distances between countries for a list of countries. To identify countries we use the 2 letters code (France->FR).
@@ -22,6 +20,47 @@ Takes about 1 minute to compute 10 routes.
 The number of routes is n(n-1)/2 with n the number of countries.
 20 countries -> 190 routes -> 19 minutes
 """
+
+
+# select list of countries to calculate distances
+# be careful, the number of pairs of n countries is big : n(n-1)/2
+
+countries = [
+"AL",
+"BD",
+"BE",
+"BR",
+"CH",
+"CN",
+"CZ",
+"DE",
+"EG",
+"ES",
+"ET",
+"FR",
+"GB",
+"GR",
+"HU",
+"IN",
+"IT",
+"KE",
+"KH",
+"LK",
+"MA",
+"MM",
+"NL",
+"NZ",
+"PE",
+"PK",
+"PL",
+"PT",
+"RO",
+"TN",
+"TR",
+"TW",
+"US",
+"VN"
+]
 
 
 def getSearatesDistance(route_type, route, headers):
@@ -151,48 +190,6 @@ def compute_distances(countries, intermediarySave = False):
 
         print(remaining_countries)
     
-
-# select list of countries to calculate distances
-# be careful, the number of pairs of n countries is big : n(n-1)/2
-
-countries = [
-"AL",
-"BD",
-"BE",
-"BR",
-"CH",
-"CN",
-"CZ",
-"DE",
-"EG",
-"ES",
-"ET",
-"FR",
-"GB",
-"GR",
-"HU",
-"IN",
-"IT",
-"KE",
-"KH",
-"LK",
-"MA",
-"MM",
-"NL",
-"NZ",
-"PE",
-"PK",
-"PL",
-"PT",
-"RO",
-"TN",
-"TR",
-"TW",
-"US",
-"VN"
-]
-
-
 # Searates API won't work after a nb of requests
 # Changing the user agent fix that
 
@@ -207,7 +204,7 @@ url = "https://httpbin.org/headers"
 
 
 if __name__ == "__main__":
-
+    # source url : https://gist.github.com/tadast/8827699
     countries_data = pd.read_csv(
         "countries_data.csv"
     )

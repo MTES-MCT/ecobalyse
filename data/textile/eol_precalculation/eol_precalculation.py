@@ -8,8 +8,6 @@ import os
      "Fin de vie hors voiture (transport en camion, incinération, mise en décharge)"    
     """
 
-# adapt path
-f = open("../../ecobalyse/public/data/processes.json")
 f = open("eol_processes.json")
 processes = json.load(f)
 
