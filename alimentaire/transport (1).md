@@ -114,8 +114,12 @@ $$
 
 ## Part du transport aérien
 
-{% hint style="danger" %}
-A introduire lors de l'ajout d'ingrédients susceptibles d'être transportés par avion
+Pour les ingrédients relevant de la catégories "Hors Europe-Maghreb (Avion)", la part du transport aérien est, par défaut, à 100%.
+
+Donc, pour ces ingrédients, le transport international se limite au seul transport par avion, sur une distance calculée spécifiquement pour le pays d'origine (lorsqu'il est sélectionné) come suit.
+
+{% hint style="warning" %}
+Dans un premier temps, les "états impossibles" ne sont pas traités. Il est donc théoriquement possible de simuler, par exemple, une mangue qui serait originaire d'Espagne ou de France et qui serait donc transportée par avion.
 {% endhint %}
 
 ## Distances
