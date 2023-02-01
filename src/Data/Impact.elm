@@ -35,7 +35,7 @@ module Data.Impact exposing
     , updateImpact
     )
 
-import Data.Food.Category as CategoryScale
+import Data.Food.Category as Category
 import Data.Scope as Scope exposing (Scope)
 import Data.Unit as Unit
 import Dict
@@ -428,17 +428,17 @@ getAggregatedScoreOutOf100 { trigram } impactsPerKg =
 
 
 getAggregatedCategoryScoreOutOf100 :
-    (CategoryScale.CategoryBounds -> CategoryScale.Bounds)
-    -> CategoryScale.Id
+    (Category.CategoryBounds -> Category.Bounds)
+    -> Category.Id
     -> Unit.Impact
     -> Result String Int
 getAggregatedCategoryScoreOutOf100 getter foodCategory impactPerKg =
     foodCategory
-        |> CategoryScale.getCategoryBounds getter
+        |> Category.getCategoryBounds getter
         |> Result.map (\bounds -> getBoundedScoreOutOf100 bounds impactPerKg)
 
 
-getBoundedScoreOutOf100 : CategoryScale.Bounds -> Unit.Impact -> Int
+getBoundedScoreOutOf100 : Category.Bounds -> Unit.Impact -> Int
 getBoundedScoreOutOf100 { impact100, impact0 } impactPerKg =
     impactPerKg
         |> Unit.impactToFloat

@@ -15,7 +15,7 @@ import Data.Dataset as Dataset
 import Data.Food.Builder.Db as BuilderDb exposing (Db)
 import Data.Food.Builder.Query as Query exposing (Query)
 import Data.Food.Builder.Recipe as Recipe exposing (Recipe)
-import Data.Food.Category as FoodCategory
+import Data.Food.Category as Category
 import Data.Food.Ingredient as Ingredient exposing (Id, Ingredient)
 import Data.Food.Origin as Origin
 import Data.Food.Process as Process exposing (Process)
@@ -56,7 +56,7 @@ import Views.Transport as TransportView
 
 type alias Model =
     { dbState : WebData Db
-    , foodCategory : Maybe FoodCategory.Id
+    , category : Maybe Category.Id
     , impact : Impact.Definition
     , bookmarkName : String
     , bookmarkTab : BookmarkView.ActiveTab
@@ -85,7 +85,7 @@ type Msg
     | ResetTransform
     | SaveBookmark
     | SaveBookmarkWithTime String Bookmark.Query Posix
-    | SetFoodCategory (Maybe String)
+    | SetCategory (Maybe String)
     | SetModal Modal
     | SwitchComparisonUnit ComparatorView.FoodComparisonUnit
     | SwitchLinksTab BookmarkView.ActiveTab
@@ -111,7 +111,7 @@ init ({ db, builderDb, queries } as session) trigram maybeQuery =
 
         ( model, newSession, cmds ) =
             ( { dbState = RemoteData.Loading
-              , foodCategory = Nothing
+              , category = Nothing
               , impact = impact
               , bookmarkName = query |> findExistingBookmarkName session
               , bookmarkTab = BookmarkView.SaveTab
@@ -275,8 +275,8 @@ update ({ queries } as session) msg model =
             , Cmd.none
             )
 
-        SetFoodCategory foodCategory ->
-            ( { model | foodCategory = foodCategory }, session, Cmd.none )
+        SetCategory category ->
+            ( { model | category = category }, session, Cmd.none )
 
         SetModal modal ->
             ( { model | modal = modal }, session, Cmd.none )
@@ -876,11 +876,11 @@ scoresView : Session -> Model -> Recipe.Results -> Html Msg
 scoresView { builderDb } model { perKg } =
     let
         score =
-            case model.foodCategory of
-                Just categoryScale ->
+            case model.category of
+                Just category ->
                     perKg
                         |> Impact.getImpact (Impact.trg "ecs")
-                        |> Impact.getAggregatedCategoryScoreOutOf100 .all categoryScale
+                        |> Impact.getAggregatedCategoryScoreOutOf100 .all category
 
                 Nothing ->
                     perKg
@@ -899,21 +899,21 @@ scoresView { builderDb } model { perKg } =
     div [ class "card bg-primary shadow-sm" ]
         [ div [ class "card-header text-white d-flex justify-content-between gap-1" ]
             [ div [ class "d-flex justify-content-between align-items-center gap-3 w-100" ]
-                [ FoodCategory.all
+                [ Category.all
                     |> Dict.toList
                     |> List.sortBy (Tuple.second >> .name)
                     |> List.map
-                        (\( categoryScale, { name } ) ->
+                        (\( category, { name } ) ->
                             option
-                                [ value categoryScale
-                                , selected <| model.foodCategory == Just categoryScale
+                                [ value category
+                                , selected <| model.category == Just category
                                 ]
                                 [ text name ]
                         )
                     |> (::)
                         (option
                             [ value ""
-                            , selected <| model.foodCategory == Nothing
+                            , selected <| model.category == Nothing
                             ]
                             [ text "Toutes catégories" ]
                         )
@@ -921,7 +921,7 @@ scoresView { builderDb } model { perKg } =
                         [ class "form-select form-select-sm w-50"
                         , onInput
                             (\s ->
-                                SetFoodCategory
+                                SetCategory
                                     (if s == "" then
                                         Nothing
 
@@ -959,10 +959,10 @@ scoresView { builderDb } model { perKg } =
                     (\( label, subScore, getter ) ->
                         let
                             subScore100 =
-                                case model.foodCategory of
-                                    Just categoryScale ->
+                                case model.category of
+                                    Just category ->
                                         subScore
-                                            |> Impact.getAggregatedCategoryScoreOutOf100 getter categoryScale
+                                            |> Impact.getAggregatedCategoryScoreOutOf100 getter category
 
                                     Nothing ->
                                         perKg

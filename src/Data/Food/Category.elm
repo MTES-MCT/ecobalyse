@@ -1,8 +1,8 @@
 module Data.Food.Category exposing
     ( Bounds
+    , Categories
     , Category
     , CategoryBounds
-    , CategoryScales
     , Id
     , all
     , getCategoryBounds
@@ -17,7 +17,7 @@ type alias Category =
     }
 
 
-type alias CategoryScales =
+type alias Categories =
     Dict Id Category
 
 
@@ -40,7 +40,7 @@ type alias CategoryBounds =
     }
 
 
-all : CategoryScales
+all : Categories
 all =
     -- FIXME: This should ideally live in a JSON static file or API response
     Dict.fromList
