@@ -20,16 +20,6 @@ Puis installez le package ecobalyse_data :
 
     $ conda develop .
 
-# Utilisation de pip (non maintenu)
-
-Une fois que vous avez [installé
-pip](https://pip.pypa.io/en/stable/installation/) et [créé et activé un
-environnement
-virtuel](https://packaging.python.org/en/latest/tutorials/installing-packages/#creating-and-using-virtual-environments),
-installez le package ecobalyse_data de la sorte :
-
-    $ pip install -e .
-
 # Import et export des données
 
 Vous pouvez maintenant suivre la [procédure](food/README.md) pour lancer les scripts d'import et d'export.
