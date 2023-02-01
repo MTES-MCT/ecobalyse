@@ -16,6 +16,7 @@ module Data.Impact exposing
     , getAggregatedScoreData
     , getAggregatedScoreLetter
     , getAggregatedScoreOutOf100
+    , getBoundedScoreOutOf100
     , getDefinition
     , getImpact
     , grabImpactFloat
@@ -434,17 +435,19 @@ getAggregatedCategoryScoreOutOf100 :
 getAggregatedCategoryScoreOutOf100 getter foodCategory impactPerKg =
     foodCategory
         |> CategoryScale.getCategoryBounds getter
-        |> Result.map
-            (\{ impact100, impact0 } ->
-                impactPerKg
-                    |> Unit.impactToFloat
-                    |> (\value ->
-                            -- See docs at https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/impacts-consideres/score-100#projet-declinaisons-du-score-100
-                            (ln impact0 - ln value) / ln (impact0 / impact100) * 20 * 5
-                       )
-                    |> floor
-                    |> clamp 0 100
-            )
+        |> Result.map (\bounds -> getBoundedScoreOutOf100 bounds impactPerKg)
+
+
+getBoundedScoreOutOf100 : CategoryScale.Bounds -> Unit.Impact -> Int
+getBoundedScoreOutOf100 { impact100, impact0 } impactPerKg =
+    impactPerKg
+        |> Unit.impactToFloat
+        |> (\value ->
+                -- See docs at https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/impacts-consideres/score-100#projet-declinaisons-du-score-100
+                (ln impact0 - ln value) / ln (impact0 / impact100) * 20 * 5
+           )
+        |> floor
+        |> clamp 0 100
 
 
 getAggregatedScoreLetter : Int -> String
