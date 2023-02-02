@@ -996,7 +996,7 @@ scoresView { builderDb } model { perKg } =
                                 ]
                             ]
                     )
-                |> table [ class "w-100 text-white m-0" ]
+                |> table [ class "Subscores w-100 text-white m-0" ]
             ]
         ]
 
