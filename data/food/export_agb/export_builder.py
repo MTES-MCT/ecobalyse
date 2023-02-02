@@ -304,6 +304,7 @@ def compute_ingredient_list(processes, ingredients_base):
 def export_json(content, filename):
     with open(filename, "w") as outfile:
         json.dump(content, outfile, indent=2, ensure_ascii=False)
+        outfile.write("\n")  # Add a newline at the end of the file, as many editors do.
 
 
 if __name__ == "__main__":
