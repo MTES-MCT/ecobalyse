@@ -724,6 +724,40 @@
     }
   },
   {
+    "name": "Mango, conventional, Val de San Francisco, at orchard",
+    "unit": "kilogram",
+    "simapro_id": "c1e6f84a4fa89c2408bd7a2b2ed6cb96",
+    "system_description": "AGRIBALYSE v1.4",
+    "category_tags": [
+      "Agricultural",
+      "Plant production",
+      "Fruits",
+      "Transformation"
+    ],
+    "comment": "BRAZIL",
+    "category": "material",
+    "impacts": {
+      "acd": 0.0023495655092450264,
+      "ozd": 1.4505848683939055e-08,
+      "cch": 0.1223274606436889,
+      "fwe": 3.832921465294252e-05,
+      "swe": 0.0002654939302281478,
+      "tre": 0.009156838489994207,
+      "pco": 0.0006203713305802625,
+      "pma": 1.5250357563192335e-08,
+      "ior": 0.009312422846439053,
+      "fru": 1.3485429853584745,
+      "mru": 1.2441737422801986e-06,
+      "ldu": 20.785276516354987,
+      "wtu": 0.09768925571584185,
+      "etf": 67.43096463527166,
+      "htc": 7.327931292306994e-11,
+      "htn": 3.0628514383642146e-09,
+      "bvi": 0.0,
+      "pef": 48.54835424512012
+    }
+  },
+  {
     "name": "Steel, unalloyed {RER}| steel production, converter, unalloyed | Cut-off, S - Copied from Ecoinvent",
     "alias": "steel",
     "displayName": "Acier",

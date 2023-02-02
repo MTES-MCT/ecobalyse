@@ -113,6 +113,9 @@ getDefaultOriginTransport defs origin =
         Origin.OutOfEuropeAndMaghreb ->
             { default | road = Length.kilometers 2500, sea = Length.kilometers 18000 }
 
+        Origin.OutOfEuropeAndMaghrebByPlane ->
+            { default | road = Length.kilometers 2500, air = Length.kilometers 18000 }
+
 
 linkProcess : Dict String Process -> Decoder Process
 linkProcess processes =
