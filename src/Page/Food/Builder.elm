@@ -68,6 +68,7 @@ type alias Model =
 type Modal
     = NoModal
     | ComparatorModal
+    | TagPreviewModal
 
 
 type Msg
@@ -734,6 +735,41 @@ packagingListView db selectedImpact recipe results =
     ]
 
 
+categorySelectorView : Maybe Category.Id -> Html Msg
+categorySelectorView maybeCategory =
+    Category.all
+        |> Dict.toList
+        |> List.sortBy (Tuple.second >> .name)
+        |> List.map
+            (\( category, { name } ) ->
+                option
+                    [ value category
+                    , selected <| maybeCategory == Just category
+                    ]
+                    [ text name ]
+            )
+        |> (::)
+            (option
+                [ value ""
+                , selected <| maybeCategory == Nothing
+                ]
+                [ text "Toutes catégories" ]
+            )
+        |> select
+            [ class "form-select form-select-sm"
+            , onInput
+                (\s ->
+                    SetCategory
+                        (if s == "" then
+                            Nothing
+
+                         else
+                            Just s
+                        )
+                )
+            ]
+
+
 mainView : Session -> Db -> Model -> Html Msg
 mainView session db model =
     let
@@ -899,37 +935,12 @@ scoresView { builderDb } model { perKg } =
     div [ class "card bg-primary shadow-sm" ]
         [ div [ class "card-header text-white d-flex justify-content-between gap-1" ]
             [ div [ class "d-flex justify-content-between align-items-center gap-3 w-100" ]
-                [ Category.all
-                    |> Dict.toList
-                    |> List.sortBy (Tuple.second >> .name)
-                    |> List.map
-                        (\( category, { name } ) ->
-                            option
-                                [ value category
-                                , selected <| model.category == Just category
-                                ]
-                                [ text name ]
-                        )
-                    |> (::)
-                        (option
-                            [ value ""
-                            , selected <| model.category == Nothing
-                            ]
-                            [ text "Toutes catégories" ]
-                        )
-                    |> select
-                        [ class "form-select form-select-sm w-50"
-                        , onInput
-                            (\s ->
-                                SetCategory
-                                    (if s == "" then
-                                        Nothing
-
-                                     else
-                                        Just s
-                                    )
-                            )
-                        ]
+                [ categorySelectorView model.category
+                , button
+                    [ class "btn text-white text-decoration-none d-flex align-items-end p-0"
+                    , onClick (SetModal TagPreviewModal)
+                    ]
+                    [ Icon.lab ]
                 , div [ class "d-flex justify-content-center align-items-end gap-1 text-nowrap h4 m-0 text-center" ]
                     (case score of
                         Ok score_ ->
@@ -1170,6 +1181,21 @@ view session model =
                             ]
                         , footer = []
                         }
+
+                TagPreviewModal ->
+                    ModalView.view
+                        { size = ModalView.Standard
+                        , close = SetModal NoModal
+                        , noOp = NoOp
+                        , title = "Prévisualisation d'étiquettes"
+                        , formAction = Nothing
+                        , content =
+                            [ div [ class "p-3" ]
+                                [ categorySelectorView model.category
+                                ]
+                            ]
+                        , footer = []
+                        }
             ]
       ]
     )
@@ -1181,5 +1207,5 @@ subscriptions { modal } =
         NoModal ->
             Sub.none
 
-        ComparatorModal ->
+        _ ->
             Browser.Events.onKeyDown (Key.escape (SetModal NoModal))
