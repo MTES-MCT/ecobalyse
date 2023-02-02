@@ -12,11 +12,11 @@ module Data.Impact exposing
     , encodeAggregatedScoreChartEntry
     , encodeImpacts
     , filterImpacts
-    , foodCategories
     , getAggregatedCategoryScoreOutOf100
     , getAggregatedScoreData
     , getAggregatedScoreLetter
     , getAggregatedScoreOutOf100
+    , getBoundedScoreOutOf100
     , getDefinition
     , getImpact
     , grabImpactFloat
@@ -35,9 +35,10 @@ module Data.Impact exposing
     , updateImpact
     )
 
+import Data.Food.Category as Category
 import Data.Scope as Scope exposing (Scope)
 import Data.Unit as Unit
-import Dict exposing (Dict)
+import Dict
 import Dict.Any as AnyDict exposing (AnyDict)
 import Duration exposing (Duration)
 import Json.Decode as Decode exposing (Decoder)
@@ -229,10 +230,10 @@ trg =
 
 
 toProtectionAreas : List Definition -> Impacts -> ProtectionAreas
-toProtectionAreas defs impacts =
+toProtectionAreas defs impactsPerKg =
     let
         pick trigrams =
-            impacts
+            impactsPerKg
                 |> AnyDict.filter (\t _ -> List.member t (List.map trg trigrams))
                 |> computeAggregatedScore .ecoscoreData defs
     in
@@ -378,6 +379,11 @@ updateAggregatedScores definitions impacts =
         |> aggregateScore .pefData (trg "pef")
 
 
+ln : Float -> Float
+ln =
+    logBase e
+
+
 getAggregatedScoreData :
     List Definition
     -> (Definition -> Maybe AggregatedScoreData)
@@ -410,10 +416,6 @@ getAggregatedScoreData defs getter =
 
 getAggregatedScoreOutOf100 : Definition -> Impacts -> Int
 getAggregatedScoreOutOf100 { trigram } impactsPerKg =
-    let
-        ln =
-            logBase e
-    in
     impactsPerKg
         |> getImpact trigram
         |> Unit.impactToFloat
@@ -425,57 +427,27 @@ getAggregatedScoreOutOf100 { trigram } impactsPerKg =
         |> clamp 0 100
 
 
-type alias FoodCategory =
-    { name : String
-    , bounds : { impact100 : Int, impact0 : Int }
-    }
+getAggregatedCategoryScoreOutOf100 :
+    (Category.CategoryBounds -> Category.Bounds)
+    -> Category.Id
+    -> Unit.Impact
+    -> Result String Int
+getAggregatedCategoryScoreOutOf100 getter foodCategory impactPerKg =
+    foodCategory
+        |> Category.getCategoryBounds getter
+        |> Result.map (\bounds -> getBoundedScoreOutOf100 bounds impactPerKg)
 
 
-foodCategories : Dict String FoodCategory
-foodCategories =
-    Dict.fromList
-        [ ( "meats"
-          , { name = "Viandes"
-            , bounds = { impact100 = 500, impact0 = 4000 }
-            }
-          )
-        , ( "fruitsAndVegetables"
-          , { name = "Fruits et légumes"
-            , bounds = { impact100 = 30, impact0 = 450 }
-            }
-          )
-        , ( "cakes"
-          , { name = "Gâteaux"
-            , bounds = { impact100 = 100, impact0 = 700 }
-            }
-          )
-        ]
-
-
-getAggregatedCategoryScoreOutOf100 : Definition -> String -> Impacts -> Result String Int
-getAggregatedCategoryScoreOutOf100 { trigram } foodCategory impactsPerKg =
-    case Dict.get foodCategory foodCategories of
-        Just { bounds } ->
-            let
-                ln =
-                    logBase e
-
-                { impact100, impact0 } =
-                    bounds
-            in
-            impactsPerKg
-                |> getImpact trigram
-                |> Unit.impactToFloat
-                |> (\value ->
-                        -- See docs at https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/impacts-consideres/score-100#projet-declinaisons-du-score-100
-                        (ln (toFloat impact0) - ln value) / ln (toFloat impact0 / toFloat impact100) * 20 * 5
-                   )
-                |> floor
-                |> clamp 0 100
-                |> Ok
-
-        Nothing ->
-            Err <| "Invalid: " ++ foodCategory
+getBoundedScoreOutOf100 : Category.Bounds -> Unit.Impact -> Int
+getBoundedScoreOutOf100 { impact100, impact0 } impactPerKg =
+    impactPerKg
+        |> Unit.impactToFloat
+        |> (\value ->
+                -- See docs at https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/impacts-consideres/score-100#projet-declinaisons-du-score-100
+                (ln impact0 - ln value) / ln (impact0 / impact100) * 20 * 5
+           )
+        |> floor
+        |> clamp 0 100
 
 
 getAggregatedScoreLetter : Int -> String
