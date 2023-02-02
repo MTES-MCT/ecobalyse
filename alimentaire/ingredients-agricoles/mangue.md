@@ -24,11 +24,9 @@ Pour déterminer l'origine d'un ingrédient par défaut, chaque ingrédient est 
 1. Ingrédient très majoritairement produit en France (> 95%) => origine par défaut : FRANCE
 2. Ingrédient très majoritairement produit en Europe/Maghreb (>95%) => transport par défaut : EUROPE/MAGHREB&#x20;
 3. Ingrédient produit également hors Europe (> 5%) => transport par défaut : PAYS TIERS
-4. Ingrédient spécifique (ex. Haricots et Mangues)&#x20;
+4. Ingrédient spécifique AVION (ex. Haricots et Mangues)&#x20;
 
-**Mangue => catégorie 4**&#x20;
-
-**Pays d'origine par défaut : BRESIL** (source : FAOstat) ****&#x20;
+**Mangue => catégorie 4 (ingrédient spécifique)**&#x20;
 
 
 
