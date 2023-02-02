@@ -12,6 +12,7 @@ type Origin
     = France
     | EuropeAndMaghreb
     | OutOfEuropeAndMaghreb
+    | OutOfEuropeAndMaghrebByPlane
 
 
 decode : Decoder Origin
@@ -32,6 +33,9 @@ fromString string =
         "OutOfEuropeAndMaghreb" ->
             Ok OutOfEuropeAndMaghreb
 
+        "OutOfEuropeAndMaghrebByPlane" ->
+            Ok OutOfEuropeAndMaghrebByPlane
+
         _ ->
             Err <| "Origine géographique inconnue : " ++ string
 
@@ -47,3 +51,6 @@ toLabel origin =
 
         OutOfEuropeAndMaghreb ->
             "Hors Europe et Maghreb"
+
+        OutOfEuropeAndMaghrebByPlane ->
+            "Hors Europe et Maghreb par avion"
