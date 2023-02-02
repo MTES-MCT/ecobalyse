@@ -25,6 +25,12 @@ $viewport-xxl: 1320px;
 
 $enable-cssgrid: true;
 
+$score-letter-A: #018241;
+$score-letter-B: #86bc30;
+$score-letter-C: #ffcc01;
+$score-letter-D: #f08000;
+$score-letter-E: #e63f12;
+
 @import "./node_modules/bootstrap/scss/bootstrap.scss";
 
 body {
@@ -294,6 +300,79 @@ blockquote {
   font-weight: normal;
   cursor: help;
   border-bottom: 1px dashed $primary;
+}
+
+.Abcde {
+  // playground: https://codepen.io/n1k0/pen/OJwagVv?editors=1100
+  $AbcdeStroke: 4px;
+  $AbcdeColors: (
+    "A": $score-letter-A,
+    "B": $score-letter-B,
+    "C": $score-letter-C,
+    "D": $score-letter-D,
+    "E": $score-letter-E
+  );
+
+  display: inline-flex;
+  margin: 0;
+  padding: 0;
+
+  &Letter {
+    list-style-type: none;
+    font-size: 1em;
+    position: relative;
+    font-size: 0;
+
+    &:before {
+      display: block;
+      width: 1.2em;
+      height: 1.2em;
+      border: $AbcdeStroke solid grey;
+      border-radius: 50%;
+      background-color: #fff;
+      color: grey;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 20px;
+      font-weight: bold;
+      line-height: 1.2em;
+      margin: 0 auto;
+      text-align: center;
+      opacity: 0;
+    }
+
+    &:after {
+      // horizontal bar
+      width: 100%;
+      height: $AbcdeStroke;
+      content: "";
+      position: absolute;
+      background-color: #333;
+      top: 14px;
+      z-index: -1;
+    }
+
+    @each $letter, $color in $AbcdeColors {
+      &#{$letter} {
+        &:before {
+          content: $letter;
+          border-color: $color;
+          color: $color;
+        }
+        &:after {
+          background-color: $color;
+        }
+      }
+    }
+
+    &Active {
+      &:before {
+        opacity: 1;
+      }
+      &:after {
+        display: none;
+      }
+    }
+  }
 }
 
 .AccordionButton {
@@ -706,21 +785,21 @@ blockquote {
 }
 
 .ScoreLetter {
-  display: inline-block;
-  color: rgba(255, 255, 255, 0.95);
-  padding: 3px !important;
-  border-radius: 4px;
-  width: 1.3em;
-  height: 1.3em;
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 1.4em;
+  height: 1.4em;
+  border-radius: 4px;
+  color: rgba(255, 255, 255, 0.95);
+  line-height: 1em;
+  padding: 0.75em !important;
 
-  &A { background-color: #018241 !important }
-  &B { background-color: #86bc30 !important }
-  &C { background-color: #ffcc01 !important }
-  &D { background-color: #f08000 !important }
-  &E { background-color: #e63f12 !important }
+  &A { background-color: $score-letter-A !important }
+  &B { background-color: $score-letter-B !important }
+  &C { background-color: $score-letter-C !important }
+  &D { background-color: $score-letter-D !important }
+  &E { background-color: $score-letter-E !important }
 }
 
 .Step {
