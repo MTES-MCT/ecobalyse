@@ -1171,15 +1171,28 @@ view session model =
                         , title = "Prévisualisation d'étiquettes"
                         , formAction = Nothing
                         , content =
-                            [ div [ class "p-3" ]
-                                [ categorySelectorView session.queries.food.category
-                                ]
+                            [ case Recipe.compute session.builderDb session.queries.food of
+                                Ok ( recipe, results ) ->
+                                    tagViewer results recipe
+
+                                Err error ->
+                                    errorView error
                             ]
                         , footer = []
                         }
             ]
       ]
     )
+
+
+tagViewer : Recipe.Results -> Recipe -> Html Msg
+tagViewer _ recipe =
+    div [ class "p-3" ]
+        [ recipe.category
+            |> Maybe.map .id
+            |> categorySelectorView
+        , text "TODO"
+        ]
 
 
 subscriptions : Model -> Sub Msg
