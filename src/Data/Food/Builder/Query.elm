@@ -20,10 +20,12 @@ module Data.Food.Builder.Query exposing
 
 import Base64
 import Data.Country as Country
+import Data.Food.Category as Category
 import Data.Food.Ingredient as Ingredient
 import Data.Food.Process as Process
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
+import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
 import Mass exposing (Mass)
 import Quantity
@@ -54,6 +56,7 @@ type alias Query =
     { ingredients : List IngredientQuery
     , transform : Maybe ProcessQuery
     , packaging : List ProcessQuery
+    , category : Maybe Category.Id
     }
 
 
@@ -81,6 +84,7 @@ emptyQuery =
     { ingredients = []
     , transform = Nothing
     , packaging = []
+    , category = Nothing
     }
 
 
@@ -124,15 +128,17 @@ carrotCake =
           , mass = Mass.grams 105
           }
         ]
+    , category = Just (Category.Id "cakes")
     }
 
 
 decode : Decoder Query
 decode =
-    Decode.map3 Query
-        (Decode.field "ingredients" (Decode.list decodeIngredient))
-        (Decode.field "transform" (Decode.maybe decodeProcess))
-        (Decode.field "packaging" (Decode.list decodeProcess))
+    Decode.succeed Query
+        |> Pipe.required "ingredients" (Decode.list decodeIngredient)
+        |> Pipe.optional "transform" (Decode.maybe decodeProcess) Nothing
+        |> Pipe.required "packaging" (Decode.list decodeProcess)
+        |> Pipe.optional "category" (Decode.maybe Category.decodeId) Nothing
 
 
 decodeMass : Decoder Mass
@@ -180,6 +186,7 @@ encode v =
         [ ( "ingredients", Encode.list encodeIngredient v.ingredients )
         , ( "transform", v.transform |> Maybe.map encodeProcess |> Maybe.withDefault Encode.null )
         , ( "packaging", Encode.list encodeProcess v.packaging )
+        , ( "category", v.category |> Maybe.map Category.encodeId |> Maybe.withDefault Encode.null )
         ]
 
 

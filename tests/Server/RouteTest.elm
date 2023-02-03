@@ -48,6 +48,7 @@ foodEndpoints db =
           , "ingredients[]=carrot;225"
           , "transform=aded2490573207ec7ad5a3813978f6a4;545"
           , "packaging[]=23b2754e5943bc77916f8f871edc53b6;105"
+          , "category=cakes"
           ]
             |> String.join "&"
             |> getEndpoint db "GET"
@@ -110,6 +111,11 @@ foodEndpoints db =
             |> Maybe.andThen (Dict.get "packaging")
             |> Expect.equal (Just "Procédé introuvable par code : invalid")
             |> asTest "should validate that a packaging code is valid"
+        , getEndpoint db "GET" "/food/recipe?category=invalid"
+            |> Maybe.andThen extractFoodErrors
+            |> Maybe.andThen (Dict.get "category")
+            |> Expect.equal (Just "Catégorie inconnue: invalid")
+            |> asTest "should validate that a category id is valid"
         ]
     ]
 

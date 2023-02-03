@@ -346,6 +346,14 @@ describe("API", () => {
           /masse doit être supérieure ou égale à zéro/,
         );
       });
+
+      it("should validate a category id", async () => {
+        expectFieldErrorMessage(
+          await makeRequest("/api/food/recipe", ["category=invalid"]),
+          "category",
+          /Catégorie inconnue: invalid/,
+        );
+      });
     });
 
     describe("End to end food simulations", () => {

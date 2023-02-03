@@ -89,6 +89,7 @@ suite =
                         ]
                   , transform = Nothing
                   , packaging = []
+                  , category = Nothing
                   }
                     |> Recipe.compute builderDb
                     |> Result.map (Tuple.first >> Recipe.getMassAtPackaging)
@@ -147,6 +148,7 @@ suite =
                         ]
                   , transform = Nothing
                   , packaging = []
+                  , category = Nothing
                   }
                     |> Recipe.compute builderDb
                     |> Result.map firstIngredientAirDistance
@@ -155,6 +157,7 @@ suite =
                 , { ingredients = [ mango ]
                   , transform = Nothing
                   , packaging = []
+                  , category = Nothing
                   }
                     |> Recipe.compute builderDb
                     |> Result.map firstIngredientAirDistance
@@ -163,6 +166,7 @@ suite =
                 , { ingredients = [ { mango | country = Just (Country.codeFromString "CN") } ]
                   , transform = Nothing
                   , packaging = []
+                  , category = Nothing
                   }
                     |> Recipe.compute builderDb
                     |> Result.map firstIngredientAirDistance

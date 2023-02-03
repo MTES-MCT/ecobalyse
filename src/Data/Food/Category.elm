@@ -3,8 +3,10 @@ module Data.Food.Category exposing
     , Categories
     , Category
     , CategoryBounds
-    , Id
+    , Id(..)
     , all
+    , decodeId
+    , encodeId
     , getCategoryBounds
     , idFromString
     , idToString
@@ -12,6 +14,9 @@ module Data.Food.Category exposing
     )
 
 import Dict.Any as AnyDict exposing (AnyDict)
+import Json.Decode as Decode exposing (Decoder)
+import Json.Decode.Extra as DE
+import Json.Encode as Encode
 
 
 type alias Category =
@@ -83,6 +88,17 @@ all =
         ]
 
 
+decodeId : Decoder Id
+decodeId =
+    Decode.string
+        |> Decode.andThen (idFromString >> DE.fromResult)
+
+
+encodeId : Id -> Encode.Value
+encodeId (Id id) =
+    Encode.string id
+
+
 get : Id -> Result String Category
 get id =
     all
@@ -102,7 +118,7 @@ idFromString string =
         Ok (Id string)
 
     else
-        Err <| "Catégorie inconnue:" ++ string
+        Err <| "Catégorie inconnue: " ++ string
 
 
 idToString : Id -> String
