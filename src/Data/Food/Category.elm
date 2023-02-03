@@ -7,6 +7,7 @@ module Data.Food.Category exposing
     , all
     , decodeId
     , encodeId
+    , get
     , getCategoryBounds
     , idFromString
     , idToString

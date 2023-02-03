@@ -24,6 +24,7 @@ module Data.Food.Builder.Recipe exposing
 import Data.Country as Country exposing (Country)
 import Data.Food.Builder.Db exposing (Db)
 import Data.Food.Builder.Query as BuilderQuery exposing (Query)
+import Data.Food.Category as Category exposing (Category)
 import Data.Food.Ingredient as Ingredient exposing (Id, Ingredient)
 import Data.Food.Origin as Origin
 import Data.Food.Process as Process exposing (Process)
@@ -63,6 +64,7 @@ type alias Recipe =
     { ingredients : List RecipeIngredient
     , transform : Maybe Transform
     , packaging : List Packaging
+    , category : Maybe Category
     }
 
 
@@ -98,6 +100,12 @@ availablePackagings usedProcesses processes =
     processes
         |> Process.listByCategory Process.Packaging
         |> List.filter (\process -> not (List.member process.code usedProcesses))
+
+
+categoryFromQuery : Maybe Category.Id -> Result String (Maybe Category)
+categoryFromQuery =
+    Maybe.map (Category.get >> Result.map Just)
+        >> Maybe.withDefault (Ok Nothing)
 
 
 compute : Db -> Query -> Result String ( Recipe, Results )
@@ -324,10 +332,11 @@ encodeProcess p =
 
 fromQuery : Db -> Query -> Result String Recipe
 fromQuery db query =
-    Result.map3 Recipe
+    Result.map4 Recipe
         (ingredientListFromQuery db query)
         (transformFromQuery db query)
         (packagingListFromQuery db query)
+        (categoryFromQuery query.category)
 
 
 getMassAtPackaging : Recipe -> Mass
