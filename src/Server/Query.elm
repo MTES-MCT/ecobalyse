@@ -88,6 +88,7 @@ ingredientParser { countries, ingredients } string =
                 |> RE.andMap (validateMass mass)
                 |> RE.andMap (Ok BuilderQuery.Default)
                 |> RE.andMap (Ok Nothing)
+                |> RE.andMap (Result.map (.defaultOrigin >> Ingredient.byPlaneFromOrigin) ingredient)
 
         [ id, mass, variant ] ->
             let
@@ -101,6 +102,7 @@ ingredientParser { countries, ingredients } string =
                 |> RE.andMap (validateMass mass)
                 |> RE.andMap (variantParser variant)
                 |> RE.andMap (Ok Nothing)
+                |> RE.andMap (Result.map (.defaultOrigin >> Ingredient.byPlaneFromOrigin) ingredient)
 
         [ id, mass, variant, countryCode ] ->
             let
@@ -118,6 +120,7 @@ ingredientParser { countries, ingredients } string =
                         |> validateCountry countryCode Scope.Food
                         |> Result.map Just
                     )
+                |> RE.andMap (Result.map (.defaultOrigin >> Ingredient.byPlaneFromOrigin) ingredient)
 
         [ "" ] ->
             Err <| "Format d'ingrédient vide."

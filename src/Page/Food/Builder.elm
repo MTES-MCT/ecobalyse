@@ -511,7 +511,7 @@ updateIngredientFormView { excluded, db, ingredient, impact, transportImpact } =
                             , name = newIngredient.name
                             , variant = newVariant
                             , country = Nothing
-                            , byPlane = Recipe.byPlaneFromIngredient newIngredient
+                            , byPlane = Ingredient.byPlaneFromOrigin newIngredient.defaultOrigin
                         }
                 )
         , db.countries

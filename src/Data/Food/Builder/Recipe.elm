@@ -5,7 +5,6 @@ module Data.Food.Builder.Recipe exposing
     , Transform
     , availableIngredients
     , availablePackagings
-    , byPlaneFromIngredient
     , compute
     , computeIngredientTransport
     , computeProcessImpacts
@@ -26,7 +25,6 @@ import Data.Country as Country exposing (Country)
 import Data.Food.Builder.Db exposing (Db)
 import Data.Food.Builder.Query as BuilderQuery exposing (Query)
 import Data.Food.Ingredient as Ingredient exposing (Id, Ingredient)
-import Data.Food.Origin as Origin
 import Data.Food.Process as Process exposing (Process)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Scope as Scope
@@ -100,11 +98,6 @@ availablePackagings usedProcesses processes =
     processes
         |> Process.listByCategory Process.Packaging
         |> List.filter (\process -> not (List.member process.code usedProcesses))
-
-
-byPlaneFromIngredient : Ingredient -> Bool
-byPlaneFromIngredient ingredient =
-    ingredient.defaultOrigin == Origin.OutOfEuropeAndMaghrebByPlane
 
 
 compute : Db -> Query -> Result String ( Recipe, Results )
@@ -402,7 +395,7 @@ ingredientQueryFromIngredient ingredient =
     , mass = Mass.grams 100
     , variant = BuilderQuery.Default
     , country = Nothing
-    , byPlane = byPlaneFromIngredient ingredient
+    , byPlane = Ingredient.byPlaneFromOrigin ingredient.defaultOrigin
     }
 
 
