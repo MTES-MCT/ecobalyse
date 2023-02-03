@@ -5,6 +5,7 @@ module Data.Food.Builder.Recipe exposing
     , Transform
     , availableIngredients
     , availablePackagings
+    , byPlaneFromIngredient
     , compute
     , computeIngredientTransport
     , computeProcessImpacts
@@ -56,6 +57,7 @@ type alias RecipeIngredient =
     , mass : Mass
     , variant : BuilderQuery.Variant
     , country : Maybe Country
+    , byPlane : Bool
     }
 
 
@@ -98,6 +100,11 @@ availablePackagings usedProcesses processes =
     processes
         |> Process.listByCategory Process.Packaging
         |> List.filter (\process -> not (List.member process.code usedProcesses))
+
+
+byPlaneFromIngredient : Ingredient -> Bool
+byPlaneFromIngredient ingredient =
+    ingredient.defaultOrigin == Origin.OutOfEuropeAndMaghrebByPlane
 
 
 compute : Db -> Query -> Result String ( Recipe, Results )
@@ -201,7 +208,7 @@ computeIngredientImpacts ({ mass } as recipeIngredient) =
 
 
 computeIngredientTransport : Db -> RecipeIngredient -> Transport
-computeIngredientTransport db { ingredient, country, mass } =
+computeIngredientTransport db { ingredient, country, mass, byPlane } =
     let
         emptyImpacts =
             Impact.impactsFromDefinitons db.impacts
@@ -213,13 +220,10 @@ computeIngredientTransport db { ingredient, country, mass } =
                     db.transports
                         |> Transport.getTransportBetween Scope.Food emptyImpacts code france
                         |> (\ingredientTransport ->
-                                if ingredient.defaultOrigin == Origin.OutOfEuropeAndMaghrebByPlane then
-                                    -- Special case: if the default origin of an ingredient is "by plane",
-                                    -- then we take an air transport ratio of 1
+                                if byPlane then
                                     Formula.transportRatio (Unit.Ratio 1) ingredientTransport
 
                                 else
-                                    -- We want air transport ratio to be 0 for all ingredients (for now)
                                     Formula.transportRatio (Unit.Ratio 0) ingredientTransport
                            )
 
@@ -373,8 +377,8 @@ ingredientListFromQuery db =
 
 
 ingredientFromQuery : Db -> BuilderQuery.IngredientQuery -> Result String RecipeIngredient
-ingredientFromQuery { countries, ingredients } { id, mass, variant, country } =
-    Result.map4 RecipeIngredient
+ingredientFromQuery { countries, ingredients } { id, mass, variant, country, byPlane } =
+    Result.map5 RecipeIngredient
         (Ingredient.findByID id ingredients)
         (Ok mass)
         (Ok variant)
@@ -388,6 +392,7 @@ ingredientFromQuery { countries, ingredients } { id, mass, variant, country } =
             Nothing ->
                 Ok Nothing
         )
+        (Ok byPlane)
 
 
 ingredientQueryFromIngredient : Ingredient -> BuilderQuery.IngredientQuery
@@ -397,6 +402,7 @@ ingredientQueryFromIngredient ingredient =
     , mass = Mass.grams 100
     , variant = BuilderQuery.Default
     , country = Nothing
+    , byPlane = byPlaneFromIngredient ingredient
     }
 
 
