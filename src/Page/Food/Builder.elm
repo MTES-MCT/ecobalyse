@@ -15,7 +15,7 @@ import Data.Dataset as Dataset
 import Data.Food.Builder.Db as BuilderDb exposing (Db)
 import Data.Food.Builder.Query as Query exposing (Query)
 import Data.Food.Builder.Recipe as Recipe exposing (Recipe)
-import Data.Food.Category as Category exposing (Category)
+import Data.Food.Category as Category
 import Data.Food.Ingredient as Ingredient exposing (Id, Ingredient)
 import Data.Food.Origin as Origin
 import Data.Food.Process as Process exposing (Process)
@@ -736,22 +736,22 @@ packagingListView db selectedImpact recipe results =
     ]
 
 
-categorySelectorView : Maybe Category -> Html Msg
-categorySelectorView maybeCategory =
+categorySelectorView : Maybe Category.Id -> Html Msg
+categorySelectorView maybeId =
     Category.all
         |> List.sortBy .name
         |> List.map
             (\{ id, name } ->
                 option
                     [ value <| Category.idToString id
-                    , selected <| Maybe.map .id maybeCategory == Just id
+                    , selected <| maybeId == Just id
                     ]
                     [ text name ]
             )
         |> (::)
             (option
                 [ value "all"
-                , selected <| maybeCategory == Nothing
+                , selected <| maybeId == Nothing
                 ]
                 [ text "Toutes catégories" ]
             )
@@ -910,7 +910,7 @@ sidebarView session db model results recipe =
 
 
 scoresView : Session -> Model -> Recipe.Results -> Recipe -> Html Msg
-scoresView { builderDb } model { perKg } recipe =
+scoresView { builderDb, queries } model { perKg } recipe =
     let
         score =
             case recipe.category of
@@ -935,7 +935,7 @@ scoresView { builderDb } model { perKg } recipe =
     div [ class "card bg-primary shadow-sm" ]
         [ div [ class "card-header text-white d-flex justify-content-between gap-1" ]
             [ div [ class "d-flex justify-content-between align-items-center gap-3 w-100" ]
-                [ categorySelectorView recipe.category
+                [ categorySelectorView queries.food.category
                 , button
                     [ class "btn text-white text-decoration-none d-flex align-items-end p-0"
                     , onClick (SetModal TagPreviewModal)
@@ -1172,7 +1172,7 @@ view session model =
                         , formAction = Nothing
                         , content =
                             [ div [ class "p-3" ]
-                                [ text "TODO"
+                                [ categorySelectorView session.queries.food.category
                                 ]
                             ]
                         , footer = []
