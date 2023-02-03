@@ -25,7 +25,6 @@ import Data.Key as Key
 import Data.Scope as Scope
 import Data.Session as Session exposing (Session)
 import Data.Unit as Unit
-import Dict
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -86,7 +85,7 @@ type Msg
     | ResetTransform
     | SaveBookmark
     | SaveBookmarkWithTime String Bookmark.Query Posix
-    | SetCategory (Maybe String)
+    | SetCategory (Result String (Maybe Category.Id))
     | SetModal Modal
     | SwitchComparisonUnit ComparatorView.FoodComparisonUnit
     | SwitchLinksTab BookmarkView.ActiveTab
@@ -276,8 +275,11 @@ update ({ queries } as session) msg model =
             , Cmd.none
             )
 
-        SetCategory category ->
-            ( { model | category = category }, session, Cmd.none )
+        SetCategory (Ok maybeCategory) ->
+            ( { model | category = maybeCategory }, session, Cmd.none )
+
+        SetCategory (Err error) ->
+            ( model, session |> Session.notifyError "Erreur de catégorie" error, Cmd.none )
 
         SetModal modal ->
             ( { model | modal = modal }, session, Cmd.none )
@@ -738,13 +740,13 @@ packagingListView db selectedImpact recipe results =
 categorySelectorView : Maybe Category.Id -> Html Msg
 categorySelectorView maybeCategory =
     Category.all
-        |> Dict.toList
+        |> Category.toList
         |> List.sortBy (Tuple.second >> .name)
         |> List.map
-            (\( category, { name } ) ->
+            (\( categoryId, { name } ) ->
                 option
-                    [ value category
-                    , selected <| maybeCategory == Just category
+                    [ value <| Category.idToString categoryId
+                    , selected <| maybeCategory == Just categoryId
                     ]
                     [ text name ]
             )
@@ -761,10 +763,11 @@ categorySelectorView maybeCategory =
                 (\s ->
                     SetCategory
                         (if s == "" then
-                            Nothing
+                            Ok Nothing
 
                          else
-                            Just s
+                            Category.idFromString s
+                                |> Result.map Just
                         )
                 )
             ]

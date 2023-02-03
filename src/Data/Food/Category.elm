@@ -6,9 +6,12 @@ module Data.Food.Category exposing
     , Id
     , all
     , getCategoryBounds
+    , idFromString
+    , idToString
+    , toList
     )
 
-import Dict exposing (Dict)
+import Dict.Any as AnyDict exposing (AnyDict)
 
 
 type alias Category =
@@ -18,11 +21,11 @@ type alias Category =
 
 
 type alias Categories =
-    Dict Id Category
+    AnyDict String Id Category
 
 
-type alias Id =
-    String
+type Id
+    = Id String
 
 
 type alias Bounds =
@@ -43,8 +46,8 @@ type alias CategoryBounds =
 all : Categories
 all =
     -- FIXME: This should ideally live in a JSON static file or API response
-    Dict.fromList
-        [ ( "meats"
+    AnyDict.fromList idToString
+        [ ( Id "meats"
           , { name = "Viandes"
             , bounds =
                 { all = { impact100 = 500, impact0 = 4000 }
@@ -55,7 +58,7 @@ all =
                 }
             }
           )
-        , ( "fruitsAndVegetables"
+        , ( Id "fruitsAndVegetables"
           , { name = "Fruits et légumes"
             , bounds =
                 { all = { impact100 = 30, impact0 = 450 }
@@ -66,7 +69,7 @@ all =
                 }
             }
           )
-        , ( "cakes"
+        , ( Id "cakes"
           , { name = "Gâteaux"
             , bounds =
                 { all = { impact100 = 100, impact0 = 700 }
@@ -83,11 +86,30 @@ all =
 get : Id -> Result String Category
 get id =
     all
-        |> Dict.get id
-        |> Result.fromMaybe ("Invalide: " ++ id)
+        |> AnyDict.get id
+        |> Result.fromMaybe ("Invalide: " ++ idToString id)
 
 
 getCategoryBounds : (CategoryBounds -> Bounds) -> Id -> Result String Bounds
 getCategoryBounds getter id =
     get id
         |> Result.map (.bounds >> getter)
+
+
+idFromString : String -> Result String Id
+idFromString string =
+    if all |> AnyDict.keys |> List.map idToString |> List.member string then
+        Ok (Id string)
+
+    else
+        Err <| "Catégorie inconnue:" ++ string
+
+
+idToString : Id -> String
+idToString (Id string) =
+    string
+
+
+toList : Categories -> List ( Id, Category )
+toList =
+    AnyDict.toList
