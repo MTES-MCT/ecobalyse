@@ -8,7 +8,6 @@ module Data.Food.Category exposing
     , decodeId
     , encodeId
     , get
-    , getCategoryBounds
     , idFromString
     , idToString
     , toList
@@ -105,12 +104,6 @@ get id =
     all
         |> AnyDict.get id
         |> Result.fromMaybe ("Invalide: " ++ idToString id)
-
-
-getCategoryBounds : (CategoryBounds -> Bounds) -> Id -> Result String Bounds
-getCategoryBounds getter id =
-    get id
-        |> Result.map (.bounds >> getter)
 
 
 idFromString : String -> Result String Id

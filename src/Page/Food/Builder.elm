@@ -15,7 +15,7 @@ import Data.Dataset as Dataset
 import Data.Food.Builder.Db as BuilderDb exposing (Db)
 import Data.Food.Builder.Query as Query exposing (Query)
 import Data.Food.Builder.Recipe as Recipe exposing (Recipe)
-import Data.Food.Category as Category
+import Data.Food.Category as Category exposing (Category)
 import Data.Food.Ingredient as Ingredient exposing (Id, Ingredient)
 import Data.Food.Origin as Origin
 import Data.Food.Process as Process exposing (Process)
@@ -55,7 +55,6 @@ import Views.Transport as TransportView
 
 type alias Model =
     { dbState : WebData Db
-    , category : Maybe Category.Id
     , impact : Impact.Definition
     , bookmarkName : String
     , bookmarkTab : BookmarkView.ActiveTab
@@ -111,7 +110,6 @@ init ({ db, builderDb, queries } as session) trigram maybeQuery =
 
         ( model, newSession, cmds ) =
             ( { dbState = RemoteData.Loading
-              , category = Nothing
               , impact = impact
               , bookmarkName = query |> findExistingBookmarkName session
               , bookmarkTab = BookmarkView.SaveTab
@@ -276,7 +274,8 @@ update ({ queries } as session) msg model =
             )
 
         SetCategory (Ok maybeCategory) ->
-            ( { model | category = maybeCategory }, session, Cmd.none )
+            ( model, session, Cmd.none )
+                |> updateQuery (Recipe.setCategory maybeCategory query)
 
         SetCategory (Err error) ->
             ( model, session |> Session.notifyError "Erreur de catégorie" error, Cmd.none )
@@ -737,7 +736,7 @@ packagingListView db selectedImpact recipe results =
     ]
 
 
-categorySelectorView : Maybe Category.Id -> Html Msg
+categorySelectorView : Maybe Category -> Html Msg
 categorySelectorView maybeCategory =
     Category.all
         |> Category.toList
@@ -746,13 +745,13 @@ categorySelectorView maybeCategory =
             (\( categoryId, { name } ) ->
                 option
                     [ value <| Category.idToString categoryId
-                    , selected <| maybeCategory == Just categoryId
+                    , selected <| Maybe.map .name maybeCategory == Just name
                     ]
                     [ text name ]
             )
         |> (::)
             (option
-                [ value ""
+                [ value "all"
                 , selected <| maybeCategory == Nothing
                 ]
                 [ text "Toutes catégories" ]
@@ -762,7 +761,7 @@ categorySelectorView maybeCategory =
             , onInput
                 (\s ->
                     SetCategory
-                        (if s == "" then
+                        (if s == "all" then
                             Ok Nothing
 
                          else
@@ -783,8 +782,8 @@ mainView session db model =
     div [ class "row gap-3 gap-lg-0" ]
         [ div [ class "col-lg-4 order-lg-2 d-flex flex-column gap-3" ]
             [ case computed of
-                Ok ( _, results ) ->
-                    sidebarView session db model results
+                Ok ( recipe, results ) ->
+                    sidebarView session db model results recipe
 
                 Err error ->
                     errorView error
@@ -867,8 +866,8 @@ ingredientSelectorView selectedIngredient excluded event ingredients =
         )
 
 
-sidebarView : Session -> Db -> Model -> Recipe.Results -> Html Msg
-sidebarView session db model results =
+sidebarView : Session -> Db -> Model -> Recipe.Results -> Recipe -> Html Msg
+sidebarView session db model results recipe =
     div
         [ class "d-flex flex-column gap-3 mb-3 sticky-md-top"
         , style "top" "7px"
@@ -886,7 +885,7 @@ sidebarView session db model results =
         , absoluteImpactView model results
         , if Impact.trg "ecs" == model.impact.trigram then
             -- We only compute and render subscores for ecs
-            scoresView session model results
+            scoresView session model results recipe
 
           else
             text ""
@@ -911,20 +910,19 @@ sidebarView session db model results =
         ]
 
 
-scoresView : Session -> Model -> Recipe.Results -> Html Msg
-scoresView { builderDb } model { perKg } =
+scoresView : Session -> Model -> Recipe.Results -> Recipe -> Html Msg
+scoresView { builderDb } model { perKg } recipe =
     let
         score =
-            case model.category of
+            case recipe.category of
                 Just category ->
                     perKg
                         |> Impact.getImpact (Impact.trg "ecs")
-                        |> Impact.getAggregatedCategoryScoreOutOf100 .all category
+                        |> Impact.getBoundedScoreOutOf100 category.bounds.all
 
                 Nothing ->
                     perKg
                         |> Impact.getAggregatedScoreOutOf100 model.impact
-                        |> Ok
 
         subScores =
             perKg
@@ -938,29 +936,19 @@ scoresView { builderDb } model { perKg } =
     div [ class "card bg-primary shadow-sm" ]
         [ div [ class "card-header text-white d-flex justify-content-between gap-1" ]
             [ div [ class "d-flex justify-content-between align-items-center gap-3 w-100" ]
-                [ categorySelectorView model.category
+                [ categorySelectorView recipe.category
                 , button
                     [ class "btn text-white text-decoration-none d-flex align-items-end p-0"
                     , onClick (SetModal TagPreviewModal)
                     ]
                     [ Icon.lab ]
                 , div [ class "d-flex justify-content-center align-items-end gap-1 text-nowrap h4 m-0 text-center" ]
-                    (case score of
-                        Ok score_ ->
-                            let
-                                scoreLetter =
-                                    Impact.getAggregatedScoreLetter score_
-                            in
-                            [ span []
-                                [ text (String.fromInt score_)
-                                , span [ class "fs-7" ] [ text "/100" ]
-                                ]
-                            , letterView scoreLetter
-                            ]
-
-                        Err error ->
-                            [ span [ class "badge bg-danger" ] [ text error ] ]
-                    )
+                    [ span []
+                        [ text (String.fromInt score)
+                        , span [ class "fs-7" ] [ text "/100" ]
+                        ]
+                    , letterView (Impact.getAggregatedScoreLetter score)
+                    ]
                 ]
             ]
         , div [ class "card-body py-2" ]
@@ -973,25 +961,19 @@ scoresView { builderDb } model { perKg } =
                     (\( label, subScore, getter ) ->
                         let
                             subScore100 =
-                                case model.category of
+                                case recipe.category of
                                     Just category ->
                                         subScore
-                                            |> Impact.getAggregatedCategoryScoreOutOf100 getter category
+                                            |> Impact.getBoundedScoreOutOf100 (getter category.bounds)
 
                                     Nothing ->
                                         perKg
                                             |> Impact.getAggregatedScoreOutOf100 model.impact
-                                            |> Ok
                         in
                         tr []
                             [ th [] [ text label ]
                             , td [ class "text-end" ]
-                                [ strong []
-                                    [ subScore100
-                                        |> Result.map String.fromInt
-                                        |> Result.withDefault "N/A"
-                                        |> text
-                                    ]
+                                [ strong [] [ text (String.fromInt subScore100) ]
                                 , small [] [ text "/100" ]
                                 ]
                             , td
@@ -1003,10 +985,7 @@ scoresView { builderDb } model { perKg } =
                                     |> (\x -> x ++ "\u{202F}µPts/kg")
                                     |> title
                                 ]
-                                [ subScore100
-                                    |> Result.map Impact.getAggregatedScoreLetter
-                                    |> Result.withDefault "?"
-                                    |> letterView
+                                [ letterView (Impact.getAggregatedScoreLetter subScore100)
                                 ]
                             ]
                     )
@@ -1194,7 +1173,7 @@ view session model =
                         , formAction = Nothing
                         , content =
                             [ div [ class "p-3" ]
-                                [ categorySelectorView model.category
+                                [ text "TODO"
                                 ]
                             ]
                         , footer = []

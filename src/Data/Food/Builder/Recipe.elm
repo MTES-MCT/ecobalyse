@@ -18,6 +18,7 @@ module Data.Food.Builder.Recipe exposing
     , processQueryFromProcess
     , resetTransform
     , serializeQuery
+    , setCategory
     , toString
     )
 
@@ -435,6 +436,11 @@ processQueryFromProcess process =
 resetTransform : Query -> Query
 resetTransform query =
     { query | transform = Nothing }
+
+
+setCategory : Maybe Category.Id -> Query -> Query
+setCategory maybeId query =
+    { query | category = maybeId }
 
 
 serializeQuery : Query -> String
