@@ -739,13 +739,12 @@ packagingListView db selectedImpact recipe results =
 categorySelectorView : Maybe Category -> Html Msg
 categorySelectorView maybeCategory =
     Category.all
-        |> Category.toList
-        |> List.sortBy (Tuple.second >> .name)
+        |> List.sortBy .name
         |> List.map
-            (\( categoryId, { name } ) ->
+            (\{ id, name } ->
                 option
-                    [ value <| Category.idToString categoryId
-                    , selected <| Maybe.map .name maybeCategory == Just name
+                    [ value <| Category.idToString id
+                    , selected <| Maybe.map .id maybeCategory == Just id
                     ]
                     [ text name ]
             )
