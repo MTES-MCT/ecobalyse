@@ -50029,38 +50029,6 @@
     }
   },
   {
-    "name": "In-season tomatoes, consumption mix",
-    "unit": "kilogram",
-    "simapro_id": "7b8e377188c5bc44b89744599f654d99",
-    "system_description": "AGRIBALYSE v3.0",
-    "category_tags": [
-      "Agricultural",
-      "Food",
-      "Consumption mixes"
-    ],
-    "comment": "\"This process describes the average consumption mix of On season tomatoes in France.Included activities are : production in country of origin and transport. The consumption mix was evaluated using data from technical institutes (Agreste - FranceAgrimer).\"",
-    "category": "ingredient",
-    "impacts": {
-      "acd": 0.001294427200103622,
-      "ozd": 2.4697207496579285e-08,
-      "cch": 0.17055318906127723,
-      "fwe": 3.3677503266570354e-05,
-      "swe": 0.00028943698383032364,
-      "tre": 0.004782528779710075,
-      "pco": 0.0004957351700118683,
-      "pma": 1.1568093400927918e-08,
-      "ior": 0.034191711066434455,
-      "fru": 3.173365247738064,
-      "mru": 3.0619297912242313e-06,
-      "ldu": -2.0668490863601,
-      "wtu": 0.05031412078304093,
-      "etf": 11.884911109014276,
-      "htc": 2.514022531584796e-10,
-      "htn": 1.225381851338972e-08,
-      "pef": 25.180285227761125
-    }
-  },
-  {
     "name": "Fresh tomato, consumption mix",
     "unit": "kilogram",
     "simapro_id": "1f6310e22568b0997cae651052acf81a",
@@ -50121,6 +50089,38 @@
       "htc": 1.7079689895504787e-09,
       "htn": 1.7409034794652984e-08,
       "pef": 71.85206118679032
+    }
+  },
+  {
+    "name": "In-season tomatoes, consumption mix",
+    "unit": "kilogram",
+    "simapro_id": "7b8e377188c5bc44b89744599f654d99",
+    "system_description": "AGRIBALYSE v3.0",
+    "category_tags": [
+      "Agricultural",
+      "Food",
+      "Consumption mixes"
+    ],
+    "comment": "\"This process describes the average consumption mix of On season tomatoes in France.Included activities are : production in country of origin and transport. The consumption mix was evaluated using data from technical institutes (Agreste - FranceAgrimer).\"",
+    "category": "ingredient",
+    "impacts": {
+      "acd": 0.001294427200103622,
+      "ozd": 2.4697207496579285e-08,
+      "cch": 0.17055318906127723,
+      "fwe": 3.3677503266570354e-05,
+      "swe": 0.00028943698383032364,
+      "tre": 0.004782528779710075,
+      "pco": 0.0004957351700118683,
+      "pma": 1.1568093400927918e-08,
+      "ior": 0.034191711066434455,
+      "fru": 3.173365247738064,
+      "mru": 3.0619297912242313e-06,
+      "ldu": -2.0668490863601,
+      "wtu": 0.05031412078304093,
+      "etf": 11.884911109014276,
+      "htc": 2.514022531584796e-10,
+      "htn": 1.225381851338972e-08,
+      "pef": 25.180285227761125
     }
   },
   {
