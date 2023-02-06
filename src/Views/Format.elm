@@ -3,7 +3,6 @@ module Views.Format exposing
     , formatFloat
     , formatFoodSelectedImpact
     , formatFoodSelectedImpactPerKg
-    , formatImpact
     , formatImpactFloat
     , formatRichFloat
     , formatTextileSelectedImpact
@@ -36,11 +35,6 @@ import Html.Attributes exposing (..)
 import Length exposing (Length)
 import Mass exposing (Mass)
 import Volume exposing (Volume)
-
-
-formatImpact : Impact.Definition -> Unit.Impact -> Html msg
-formatImpact def =
-    Unit.impactToFloat >> formatImpactFloat def
 
 
 formatImpactFloat : Impact.Definition -> Float -> Html msg

@@ -1,4 +1,4 @@
-module Views.Transport exposing (view)
+module Views.Transport exposing (view, viewDetails)
 
 import Data.Transport exposing (Transport)
 import Html exposing (..)
@@ -17,7 +17,7 @@ type alias Config =
 
 
 view : Config -> Transport -> Html msg
-view { fullWidth, airTransportLabel, seaTransportLabel, roadTransportLabel } { road, air, sea } =
+view ({ fullWidth } as config) transport =
     div
         [ classList
             [ ( "d-flex fs-7 gap-3", True )
@@ -26,16 +26,21 @@ view { fullWidth, airTransportLabel, seaTransportLabel, roadTransportLabel } { r
             , ( "justify-content-center", not fullWidth )
             ]
         ]
-        [ airTransportLabel
-            |> Maybe.withDefault "Transport aérien"
-            |> entry air Icon.plane
-        , seaTransportLabel
-            |> Maybe.withDefault "Transport maritime"
-            |> entry sea Icon.boat
-        , roadTransportLabel
-            |> Maybe.withDefault "Transport routier"
-            |> entry road Icon.bus
-        ]
+        (viewDetails config transport)
+
+
+viewDetails : Config -> Transport -> List (Html msg)
+viewDetails { airTransportLabel, seaTransportLabel, roadTransportLabel } { road, air, sea } =
+    [ airTransportLabel
+        |> Maybe.withDefault "Transport aérien"
+        |> entry air Icon.plane
+    , seaTransportLabel
+        |> Maybe.withDefault "Transport maritime"
+        |> entry sea Icon.boat
+    , roadTransportLabel
+        |> Maybe.withDefault "Transport routier"
+        |> entry road Icon.bus
+    ]
 
 
 entry : Length -> Html msg -> String -> Html msg

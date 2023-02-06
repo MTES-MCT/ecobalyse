@@ -6,6 +6,7 @@ module Data.Food.Builder.Recipe exposing
     , availableIngredients
     , availablePackagings
     , compute
+    , computeIngredientTransport
     , computeProcessImpacts
     , deletePackaging
     , encodeQuery
@@ -24,6 +25,7 @@ import Data.Country as Country exposing (Country)
 import Data.Food.Builder.Db exposing (Db)
 import Data.Food.Builder.Query as BuilderQuery exposing (Query)
 import Data.Food.Ingredient as Ingredient exposing (Id, Ingredient)
+import Data.Food.Origin as Origin
 import Data.Food.Process as Process exposing (Process)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Scope as Scope
@@ -210,8 +212,16 @@ computeIngredientTransport db { ingredient, country, mass } =
                 Just { code } ->
                     db.transports
                         |> Transport.getTransportBetween Scope.Food emptyImpacts code france
-                        -- We want air transport ratio to be 0 for all ingredients (for now)
-                        |> Formula.transportRatio (Unit.Ratio 0)
+                        |> (\ingredientTransport ->
+                                if ingredient.defaultOrigin == Origin.OutOfEuropeAndMaghrebByPlane then
+                                    -- Special case: if the default origin of an ingredient is "by plane",
+                                    -- then we take an air transport ratio of 1
+                                    Formula.transportRatio (Unit.Ratio 1) ingredientTransport
+
+                                else
+                                    -- We want air transport ratio to be 0 for all ingredients (for now)
+                                    Formula.transportRatio (Unit.Ratio 0) ingredientTransport
+                           )
 
                 -- Otherwise retrieve ingredient's default origin transport data
                 Nothing ->

@@ -15,15 +15,17 @@ import Data.Dataset as Dataset
 import Data.Food.Builder.Db as BuilderDb exposing (Db)
 import Data.Food.Builder.Query as Query exposing (Query)
 import Data.Food.Builder.Recipe as Recipe exposing (Recipe)
+import Data.Food.Category as Category
 import Data.Food.Ingredient as Ingredient exposing (Id, Ingredient)
 import Data.Food.Origin as Origin
 import Data.Food.Process as Process exposing (Process)
 import Data.Gitbook as Gitbook
-import Data.Impact as Impact exposing (Impacts)
+import Data.Impact as Impact
 import Data.Key as Key
 import Data.Scope as Scope
 import Data.Session as Session exposing (Session)
 import Data.Unit as Unit
+import Dict
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -54,6 +56,7 @@ import Views.Transport as TransportView
 
 type alias Model =
     { dbState : WebData Db
+    , category : Maybe Category.Id
     , impact : Impact.Definition
     , bookmarkName : String
     , bookmarkTab : BookmarkView.ActiveTab
@@ -82,6 +85,7 @@ type Msg
     | ResetTransform
     | SaveBookmark
     | SaveBookmarkWithTime String Bookmark.Query Posix
+    | SetCategory (Maybe String)
     | SetModal Modal
     | SwitchComparisonUnit ComparatorView.FoodComparisonUnit
     | SwitchLinksTab BookmarkView.ActiveTab
@@ -107,6 +111,7 @@ init ({ db, builderDb, queries } as session) trigram maybeQuery =
 
         ( model, newSession, cmds ) =
             ( { dbState = RemoteData.Loading
+              , category = Nothing
               , impact = impact
               , bookmarkName = query |> findExistingBookmarkName session
               , bookmarkTab = BookmarkView.SaveTab
@@ -249,9 +254,6 @@ update ({ queries } as session) msg model =
             ( model, session, Cmd.none )
                 |> updateQuery (Recipe.resetTransform query)
 
-        SetModal modal ->
-            ( { model | modal = modal }, session, Cmd.none )
-
         SaveBookmark ->
             ( model
             , session
@@ -272,6 +274,12 @@ update ({ queries } as session) msg model =
                     }
             , Cmd.none
             )
+
+        SetCategory category ->
+            ( { model | category = category }, session, Cmd.none )
+
+        SetModal modal ->
+            ( { model | modal = modal }, session, Cmd.none )
 
         SwitchImpact impact ->
             ( model
@@ -339,6 +347,34 @@ findExistingBookmarkName { builderDb, store } query =
 
 
 -- Views
+
+
+absoluteImpactView : Model -> Recipe.Results -> Html Msg
+absoluteImpactView model results =
+    SummaryComp.view
+        { header = []
+        , body =
+            [ div [ class "d-flex flex-column m-auto gap-1 px-2 text-center text-nowrap" ]
+                [ div [ class "display-3 lh-1" ]
+                    [ results.perKg
+                        |> Format.formatFoodSelectedImpactPerKg model.impact
+                    ]
+                ]
+            ]
+        , footer =
+            [ div [ class "d-flex justify-content-center align-items-end gap-1 w-100" ]
+                [ span [ class "fs-7" ]
+                    [ text "Soit pour "
+                    , Format.kg results.totalMass
+                    , text "\u{00A0}:"
+                    ]
+                , span [ class "h5 m-0" ]
+                    [ results.total
+                        |> Format.formatFoodSelectedImpact model.impact
+                    ]
+                ]
+            ]
+        }
 
 
 type alias AddProcessConfig msg =
@@ -414,11 +450,12 @@ type alias UpdateIngredientConfig =
     , db : Db
     , ingredient : Recipe.RecipeIngredient
     , impact : Html Msg
+    , transportImpact : Html Msg
     }
 
 
-updateIngredientFormView : UpdateIngredientConfig -> Html Msg
-updateIngredientFormView { excluded, db, ingredient, impact } =
+updateIngredientFormView : UpdateIngredientConfig -> List (Html Msg)
+updateIngredientFormView { excluded, db, ingredient, impact, transportImpact } =
     let
         ingredientQuery : Query.IngredientQuery
         ingredientQuery =
@@ -432,7 +469,7 @@ updateIngredientFormView { excluded, db, ingredient, impact } =
         event =
             UpdateIngredient ingredient.ingredient.id
     in
-    li [ class "IngredientFormWrapper" ]
+    [ li [ class "IngredientFormWrapper" ]
         [ span [ class "MassInputWrapper" ]
             [ MassInput.view
                 { mass = ingredient.mass
@@ -472,6 +509,7 @@ updateIngredientFormView { excluded, db, ingredient, impact } =
                             | id = newIngredient.id
                             , name = newIngredient.name
                             , variant = newVariant
+                            , country = Nothing
                         }
                 )
         , db.countries
@@ -542,7 +580,21 @@ updateIngredientFormView { excluded, db, ingredient, impact } =
             , onClick <| DeleteIngredient ingredientQuery
             ]
             [ Icon.trash ]
+        , span [ class "text-muted IngredientTransportLabel fs-7" ]
+            [ text "Transport pour cet ingrédient" ]
+        , ingredient
+            |> Recipe.computeIngredientTransport db
+            |> TransportView.viewDetails
+                { fullWidth = False
+                , airTransportLabel = Nothing
+                , seaTransportLabel = Nothing
+                , roadTransportLabel = Nothing
+                }
+            |> span [ class "text-muted d-flex fs-7 gap-3 justify-content-left IngredientTransportDistances" ]
+        , span [ class "text-muted text-end IngredientTransportImpact fs-7" ]
+            [ transportImpact ]
         ]
+    ]
 
 
 debugQueryView : Db -> Query -> Html Msg
@@ -583,7 +635,7 @@ errorView error =
 ingredientListView : Db -> Impact.Definition -> Recipe -> Recipe.Results -> List (Html Msg)
 ingredientListView db selectedImpact recipe results =
     [ div [ class "card-header d-flex align-items-center justify-content-between" ]
-        [ h6 [ class "d-flex align-items-center mb-0" ]
+        [ h5 [ class "d-flex align-items-center mb-0" ]
             [ text "Ingrédients"
             , Link.smallPillExternal
                 [ Route.href (Route.Explore Scope.Food (Dataset.FoodIngredients Nothing)) ]
@@ -598,7 +650,7 @@ ingredientListView db selectedImpact recipe results =
 
           else
             recipe.ingredients
-                |> List.map
+                |> List.concatMap
                     (\ingredient ->
                         updateIngredientFormView
                             { excluded = recipe.ingredients |> List.map (.ingredient >> .id)
@@ -610,6 +662,11 @@ ingredientListView db selectedImpact recipe results =
                                     |> List.head
                                     |> Maybe.map Tuple.second
                                     |> Maybe.withDefault Impact.noImpacts
+                                    |> Format.formatFoodSelectedImpact selectedImpact
+                            , transportImpact =
+                                ingredient
+                                    |> Recipe.computeIngredientTransport db
+                                    |> .impacts
                                     |> Format.formatFoodSelectedImpact selectedImpact
                             }
                     )
@@ -771,26 +828,6 @@ ingredientSelectorView selectedIngredient excluded event ingredients =
         )
 
 
-recipeTransportsView : Impact.Definition -> Recipe.Results -> List (Html Msg)
-recipeTransportsView selectedImpact results =
-    [ div [ class "card-header d-flex align-items-center justify-content-between border-top" ]
-        [ h6 [ class "mb-0" ] [ text "Transports" ]
-        , results.recipe.transports.impacts
-            |> Format.formatFoodSelectedImpact selectedImpact
-        ]
-    , div [ class "card-body d-flex justify-content-between align-items-center gap-1 text-muted py-2 fs-7" ]
-        [ text "Transport total cumulé à cette étape"
-        , results.recipe.transports
-            |> TransportView.view
-                { fullWidth = False
-                , airTransportLabel = Nothing
-                , seaTransportLabel = Nothing
-                , roadTransportLabel = Nothing
-                }
-        ]
-    ]
-
-
 sidebarView : Session -> Db -> Model -> Recipe.Results -> Html Msg
 sidebarView session db model results =
     div
@@ -807,56 +844,14 @@ sidebarView session db model results =
             , switchFunctionalUnit = always NoOp
             , scope = Scope.Food
             }
-        , SummaryComp.view
-            { header =
-                if Impact.isAggregate model.impact then
-                    let
-                        score =
-                            results.perKg
-                                |> Impact.getAggregatedScoreOutOf100 model.impact
+        , absoluteImpactView model results
+        , if Impact.trg "ecs" == model.impact.trigram then
+            -- We only compute and render subscores for ecs
+            scoresView session model results
 
-                        scoreLetter =
-                            score
-                                |> Impact.getAggregatedScoreLetter
-                    in
-                    [ div [ class "d-flex justify-content-center align-items-end gap-1 w-100" ]
-                        [ text "Score :"
-                        , span [ class "h5 m-0" ]
-                            [ text (String.fromInt score)
-                            , span [ class "fs-7" ] [ text "/100" ]
-                            ]
-                        , span [ class <| "h5 m-0 ScoreLetter ScoreLetter" ++ scoreLetter ]
-                            [ text scoreLetter
-                            ]
-                        ]
-                    ]
-
-                else
-                    []
-            , body =
-                [ div [ class "d-flex flex-column m-auto gap-1 px-2 text-center text-nowrap" ]
-                    [ div [ class "display-3 lh-1" ]
-                        [ results.perKg
-                            |> Format.formatFoodSelectedImpactPerKg model.impact
-                        ]
-                    ]
-                ]
-            , footer =
-                [ div [ class "d-flex justify-content-center align-items-end gap-1 w-100" ]
-                    [ span [ class "fs-7" ]
-                        [ text "Soit pour "
-                        , Format.kg results.totalMass
-                        , text "\u{00A0}:"
-                        ]
-                    , span [ class "h5 m-0" ]
-                        [ results.total
-                            |> Format.formatFoodSelectedImpact model.impact
-                        ]
-                    ]
-                ]
-            }
-        , stepResultsView db model results
-        , protectionAreaView session results.total
+          else
+            text ""
+        , stepResultsView model results
         , BookmarkView.view
             { session = session
             , activeTab = model.bookmarkTab
@@ -877,33 +872,132 @@ sidebarView session db model results =
         ]
 
 
-protectionAreaView : Session -> Impacts -> Html Msg
-protectionAreaView { db } impacts =
+scoresView : Session -> Model -> Recipe.Results -> Html Msg
+scoresView { builderDb } model { perKg } =
     let
-        protectionAreaScores =
-            impacts
-                |> Impact.toProtectionAreas db.impacts
+        score =
+            case model.category of
+                Just category ->
+                    perKg
+                        |> Impact.getImpact (Impact.trg "ecs")
+                        |> Impact.getAggregatedCategoryScoreOutOf100 .all category
 
-        ecoscoreDefinition =
-            db.impacts
-                |> Impact.getDefinition (Impact.trg "ecs")
-                |> Result.withDefault (Impact.invalid Scope.Food)
+                Nothing ->
+                    perKg
+                        |> Impact.getAggregatedScoreOutOf100 model.impact
+                        |> Ok
+
+        subScores =
+            perKg
+                |> Impact.toProtectionAreas builderDb.impacts
+
+        letterView letter =
+            span [ class <| "ScoreLetter ScoreLetter" ++ letter ]
+                [ text letter
+                ]
     in
-    div [ class "card" ]
-        [ div [ class "card-header" ] [ text "Aires de protection" ]
-        , [ ( "Climat", protectionAreaScores.climate )
-          , ( "Biodiversité", protectionAreaScores.biodiversity )
-          , ( "Santé environnementale", protectionAreaScores.health )
-          , ( "Ressource", protectionAreaScores.resources )
-          ]
-            |> List.map
-                (\( label, score ) ->
-                    li [ class "list-group-item d-flex justify-content-between align-items-center gap-1" ]
-                        [ text label
-                        , Format.formatImpact ecoscoreDefinition score
+    div [ class "card bg-primary shadow-sm" ]
+        [ div [ class "card-header text-white d-flex justify-content-between gap-1" ]
+            [ div [ class "d-flex justify-content-between align-items-center gap-3 w-100" ]
+                [ Category.all
+                    |> Dict.toList
+                    |> List.sortBy (Tuple.second >> .name)
+                    |> List.map
+                        (\( category, { name } ) ->
+                            option
+                                [ value category
+                                , selected <| model.category == Just category
+                                ]
+                                [ text name ]
+                        )
+                    |> (::)
+                        (option
+                            [ value ""
+                            , selected <| model.category == Nothing
+                            ]
+                            [ text "Toutes catégories" ]
+                        )
+                    |> select
+                        [ class "form-select form-select-sm w-50"
+                        , onInput
+                            (\s ->
+                                SetCategory
+                                    (if s == "" then
+                                        Nothing
+
+                                     else
+                                        Just s
+                                    )
+                            )
                         ]
-                )
-            |> ul [ class "list-group list-group-flush fs-7" ]
+                , div [ class "d-flex justify-content-center align-items-end gap-1 text-nowrap h4 m-0 text-center" ]
+                    (case score of
+                        Ok score_ ->
+                            let
+                                scoreLetter =
+                                    Impact.getAggregatedScoreLetter score_
+                            in
+                            [ span []
+                                [ text (String.fromInt score_)
+                                , span [ class "fs-7" ] [ text "/100" ]
+                                ]
+                            , letterView scoreLetter
+                            ]
+
+                        Err error ->
+                            [ span [ class "badge bg-danger" ] [ text error ] ]
+                    )
+                ]
+            ]
+        , div [ class "card-body py-2" ]
+            [ [ ( "Climat", subScores.climate, .climate )
+              , ( "Biodiversité", subScores.biodiversity, .biodiversity )
+              , ( "Santé environnementale", subScores.health, .health )
+              , ( "Ressource", subScores.resources, .resources )
+              ]
+                |> List.map
+                    (\( label, subScore, getter ) ->
+                        let
+                            subScore100 =
+                                case model.category of
+                                    Just category ->
+                                        subScore
+                                            |> Impact.getAggregatedCategoryScoreOutOf100 getter category
+
+                                    Nothing ->
+                                        perKg
+                                            |> Impact.getAggregatedScoreOutOf100 model.impact
+                                            |> Ok
+                        in
+                        tr []
+                            [ th [] [ text label ]
+                            , td [ class "text-end" ]
+                                [ strong []
+                                    [ subScore100
+                                        |> Result.map String.fromInt
+                                        |> Result.withDefault "N/A"
+                                        |> text
+                                    ]
+                                , small [] [ text "/100" ]
+                                ]
+                            , td
+                                [ class "text-end align-middle ps-1"
+                                , style "width" "1%"
+                                , subScore
+                                    |> Unit.impactToFloat
+                                    |> Format.formatFloat 2
+                                    |> (\x -> x ++ "\u{202F}µPts/kg")
+                                    |> title
+                                ]
+                                [ subScore100
+                                    |> Result.map Impact.getAggregatedScoreLetter
+                                    |> Result.withDefault "?"
+                                    |> letterView
+                                ]
+                            ]
+                    )
+                |> table [ class "w-100 text-white m-0" ]
+            ]
         ]
 
 
@@ -911,38 +1005,26 @@ stepListView : Db -> Model -> Recipe -> Recipe.Results -> Html Msg
 stepListView db { impact } recipe results =
     div [ class "d-flex flex-column gap-3" ]
         [ div [ class "card" ]
-            (div [ class "card-header d-flex align-items-center justify-content-between" ]
-                [ h5 [ class "mb-0" ] [ text "Recette" ]
-                , results.recipe.total
-                    |> Format.formatFoodSelectedImpact impact
-                    |> List.singleton
-                    |> span [ class "fw-bold" ]
-                ]
-                :: List.concat
-                    [ ingredientListView db impact recipe results
-                    , transformView db impact recipe results
-                    , recipeTransportsView impact results
-                    ]
-            )
+            (ingredientListView db impact recipe results)
+        , div [ class "card" ]
+            (transformView db impact recipe results)
         , div [ class "card" ]
             (packagingListView db impact recipe results)
         ]
 
 
-stepResultsView : Db -> Model -> Recipe.Results -> Html Msg
-stepResultsView db model results =
+stepResultsView : Model -> Recipe.Results -> Html Msg
+stepResultsView model results =
     let
         toFloat =
             Impact.getImpact model.impact.trigram >> Unit.impactToFloat
 
         stepsData =
-            [ { label = "Recette"
-              , impact =
-                    [ results.recipe.ingredientsTotal
-                    , results.recipe.transform
-                    ]
-                        |> Impact.sumImpacts db.impacts
-                        |> toFloat
+            [ { label = "Ingrédients"
+              , impact = toFloat results.recipe.ingredientsTotal
+              }
+            , { label = "Transformation"
+              , impact = toFloat results.recipe.transform
               }
             , { label = "Emballage"
               , impact = toFloat results.packaging
@@ -996,7 +1078,7 @@ transformView db selectedImpact recipe results =
                 |> Format.formatFoodSelectedImpact selectedImpact
     in
     [ div [ class "card-header d-flex align-items-center justify-content-between" ]
-        [ h6 [ class "mb-0" ] [ text "Transformation" ]
+        [ h5 [ class "mb-0" ] [ text "Transformation" ]
         , impact
         ]
     , case recipe.transform of

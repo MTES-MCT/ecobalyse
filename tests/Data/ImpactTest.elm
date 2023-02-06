@@ -83,7 +83,7 @@ suite =
               describe "updateAggregatedScores"
                 [ impacts
                     |> Impact.getImpact (Impact.trg "ecs")
-                    |> expectScoreEquals 14335.212731488828
+                    |> expectScoreEquals 9921.150803156486
                     |> asTest "should update EcoScore"
                 , impacts
                     |> Impact.getImpact (Impact.trg "pef")
@@ -109,10 +109,10 @@ suite =
                 , defaultBuilderImpacts
                     |> Impact.updateImpact (Impact.trg "ecs") (Unit.impact 200)
                     |> Impact.getAggregatedScoreOutOf100 ecsDefinition
-                    |> Expect.equal 68
+                    |> Expect.equal 67
                     |> asTest "should return a medium score for a medium impact"
                 ]
-            , describe "getAggregatedScoreLrtter"
+            , describe "getAggregatedScoreLetter"
                 [ Impact.getAggregatedScoreLetter 19
                     |> Expect.equal "E"
                     |> asTest "should return a letter E for anything below 20"
@@ -128,6 +128,20 @@ suite =
                 , Impact.getAggregatedScoreLetter 80
                     |> Expect.equal "A"
                     |> asTest "should return a letter C for anything equal or above 80"
+                ]
+            , describe "getBoundedScoreOutOf100"
+                [ Unit.impact 500
+                    |> Impact.getBoundedScoreOutOf100 { impact100 = 100, impact0 = 1000 }
+                    |> Expect.equal 30
+                    |> asTest "should compute an average bounded score"
+                , Unit.impact 10000
+                    |> Impact.getBoundedScoreOutOf100 { impact100 = 100, impact0 = 1000 }
+                    |> Expect.equal 0
+                    |> asTest "should compute an a very low bounded score from very high impact"
+                , Unit.impact 1
+                    |> Impact.getBoundedScoreOutOf100 { impact100 = 100, impact0 = 1000 }
+                    |> Expect.equal 100
+                    |> asTest "should compute an a high bounded score from very low impact"
                 ]
             ]
         )

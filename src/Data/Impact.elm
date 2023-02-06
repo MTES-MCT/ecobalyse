@@ -12,9 +12,11 @@ module Data.Impact exposing
     , encodeAggregatedScoreChartEntry
     , encodeImpacts
     , filterImpacts
+    , getAggregatedCategoryScoreOutOf100
     , getAggregatedScoreData
     , getAggregatedScoreLetter
     , getAggregatedScoreOutOf100
+    , getBoundedScoreOutOf100
     , getDefinition
     , getImpact
     , grabImpactFloat
@@ -33,6 +35,7 @@ module Data.Impact exposing
     , updateImpact
     )
 
+import Data.Food.Category as Category
 import Data.Scope as Scope exposing (Scope)
 import Data.Unit as Unit
 import Dict
@@ -84,6 +87,7 @@ type alias AggregatedScoreData =
 
 
 type alias ProtectionAreas =
+    -- Protection Areas is basically scientific slang for subscores
     { climate : Unit.Impact -- Climat
     , biodiversity : Unit.Impact -- Biodiversité
     , resources : Unit.Impact -- Ressources
@@ -226,10 +230,10 @@ trg =
 
 
 toProtectionAreas : List Definition -> Impacts -> ProtectionAreas
-toProtectionAreas defs impacts =
+toProtectionAreas defs impactsPerKg =
     let
         pick trigrams =
-            impacts
+            impactsPerKg
                 |> AnyDict.filter (\t _ -> List.member t (List.map trg trigrams))
                 |> computeAggregatedScore .ecoscoreData defs
     in
@@ -375,6 +379,11 @@ updateAggregatedScores definitions impacts =
         |> aggregateScore .pefData (trg "pef")
 
 
+ln : Float -> Float
+ln =
+    logBase e
+
+
 getAggregatedScoreData :
     List Definition
     -> (Definition -> Maybe AggregatedScoreData)
@@ -407,10 +416,6 @@ getAggregatedScoreData defs getter =
 
 getAggregatedScoreOutOf100 : Definition -> Impacts -> Int
 getAggregatedScoreOutOf100 { trigram } impactsPerKg =
-    let
-        ln =
-            logBase e
-    in
     impactsPerKg
         |> getImpact trigram
         |> Unit.impactToFloat
@@ -418,7 +423,30 @@ getAggregatedScoreOutOf100 { trigram } impactsPerKg =
                 -- See the documentation at https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/impacts-consideres/score-100
                 (ln 2077 - ln value) / ln 2 * 20
            )
-        |> round
+        |> floor
+        |> clamp 0 100
+
+
+getAggregatedCategoryScoreOutOf100 :
+    (Category.CategoryBounds -> Category.Bounds)
+    -> Category.Id
+    -> Unit.Impact
+    -> Result String Int
+getAggregatedCategoryScoreOutOf100 getter foodCategory impactPerKg =
+    foodCategory
+        |> Category.getCategoryBounds getter
+        |> Result.map (\bounds -> getBoundedScoreOutOf100 bounds impactPerKg)
+
+
+getBoundedScoreOutOf100 : Category.Bounds -> Unit.Impact -> Int
+getBoundedScoreOutOf100 { impact100, impact0 } impactPerKg =
+    impactPerKg
+        |> Unit.impactToFloat
+        |> (\value ->
+                -- See docs at https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/impacts-consideres/score-100#projet-declinaisons-du-score-100
+                (ln impact0 - ln value) / ln (impact0 / impact100) * 20 * 5
+           )
+        |> floor
         |> clamp 0 100
 
 
