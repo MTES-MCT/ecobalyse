@@ -1,7 +1,7 @@
 SHELL := /bin/bash
 DOCKERRUN := docker run --rm --name brightway2 -it -v $$PWD/../:/home/jovyan/ecobalyse -v jovyan:/home/jovyan
 
-json: image import_agribalyse export_builder export_ciqual
+json: image import_agribalyse export_builder
 
 image:
 	docker build -t brightway2 -f Dockerfile .
