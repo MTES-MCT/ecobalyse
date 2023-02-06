@@ -3,11 +3,11 @@ Comment générer les données json utilisées par le frontal elm :
 # Avec docker
 
 * Installez `docker` et `make`
-* Si vous êtes sur Mac sur architecture ARM, affectez 6Go de RAM à Docker dans Docker Desktop : Settings → Ressources → Advanced → Memory = 6G
-* Lancez **`make json`** ce qui va successivement :
+* Si vous êtes sur Mac avec architecture ARM, affectez 6Go de RAM à Docker dans Docker Desktop : Settings → Ressources → Advanced → Memory = 6G
+* Lancez **`make`** ce qui va successivement :
     * construire l'image docker
     * importer agrobalyse
-    * exporter les données json.
+    * exporter les données json pour le builder
 
 Le processus entier prend entre 1 et 2h.
 En cas de problème vous pouvez redémarrer de zéro en faisant d'abord un `make clean_data`.
@@ -16,9 +16,9 @@ En cas de problème vous pouvez redémarrer de zéro en faisant d'abord un `make
 
 * `make image` : pour construire l'image docker choisie
 * `make import_agribalyse` : pour importer la base dans Brightway. Assurez-vous d'avoir le fichier `agribalyse3_no_param.CSV.zip` dans le dossier `food/import_agb/`
-* `make export_ciqual` : pour exporter les json des produits ciqual. Assurez-vous d'avoir le fichier `Agribalyse_Synthese.csv` dans le dossier `food/`
 * `make export_builder` : pour exporter les json pour le builder
 * `make json` : lance toutes les commandes précédentes dans l'ordre
+* `make export_ciqual` : pour exporter les json des produits ciqual. Assurez-vous d'avoir le fichier `Agribalyse_Synthese.csv` dans le dossier `food/`
 * `make bash` : lance un shell à l'intérieur conteneur
 * `make server` : lancer le serveur Jupyter dans le conteneur (si image Jupyter)
 * `make clean_data` : supprime toutes les données (celles de brightway et
