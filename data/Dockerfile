@@ -19,7 +19,7 @@ USER root
 
 COPY requirements.txt .
 
-RUN pip install -r requirements.txt \
+RUN pip install -r /home/$NB_USER/requirements.txt \
     && if [ "$(dpkg --print-architecture)" = "amd64" ]; then pip install  pypardiso==0.4; ldconfig; fi;
 
 VOLUME /home/$NB_USER
