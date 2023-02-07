@@ -28,6 +28,7 @@
   * [🚢 Transport](textile/parametres-transverses/transport.md)
 * [Limites méthodologiques](textile/limites-methodologiques.md)
 * [Travaux en cours](textile/travaux-en-cours.md)
+* [Mises à jour](textile/mises-a-jour.md)
 * [Contribuer aux travaux](textile/contribuer-aux-travaux.md)
 * [Echelle comparative](textile/echelle-comparative.md)
 * [FAQ](textile/faq.md)
