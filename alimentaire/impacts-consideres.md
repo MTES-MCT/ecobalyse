@@ -55,25 +55,3 @@ Pour le score d'impacts, les facteurs de normalisation du score PEF sont conserv
 | Utilisation de ressources fossiles                  | 8,32                      | 4,72                            |
 | Utilisation des ressources minérales et métalliques | 7,55                      | 4,28                            |
 
-### \[ARCHIVE] Poids avec biodiversité locale
-
-| Indicateur                                          | Poids (%) |
-| --------------------------------------------------- | --------- |
-| Impact biodiversité                                 | 17,4      |
-| Changement climatique                               | 17,4      |
-| Appauvrissement de la couche d'ozone                | 5,2       |
-| Toxicité humaine (cancer)                           | 1,8       |
-| Toxicité humaine (non cancer)                       | 1,5       |
-| Particules                                          | 7,4       |
-| Radiations ionisantes                               | 4,1       |
-| Formation d'ozone photochimique                     | 3,9       |
-| Acidification                                       | 5,1       |
-| Eutrophisation terrestre                            | 3,1       |
-| Eutrophisation eaux douces                          | 2,3       |
-| Eutrophisation marine                               | 2,4       |
-| Utilisation des sols                                | 6,6       |
-| Écotoxicité eaux douces                             | 1,6       |
-| Épuisement des ressources en eau                    | 7,0       |
-| Utilisation de ressources fossiles                  | 6,9       |
-| Utilisation des ressources minérales et métalliques | 6,2       |
-
