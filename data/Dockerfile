@@ -1,5 +1,4 @@
-FROM jupyter/minimal-notebook:2023-01-23
-# 2023-01-23 / notebook-6.5.2 / ubuntu-22.04 / python-3.10.8 / lab-3.5.2 / x86_64
+FROM jupyter/minimal-notebook:python-3.9
 
 ENV BRIGHTWAY2_DIR /home/$NB_USER/data
 ENV BRIGHTWAY2_DOCKER 1
