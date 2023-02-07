@@ -10,6 +10,8 @@ image:
 	docker build -t $(NAME) -f Dockerfile .
 
 import_agribalyse:
+	@read -e -p "Agribalyse shared password: " password; \
+	curl -o food/import_agb/agribalyse3_no_param.CSV.zip -u kmYtfqHa42EZA9R:$$password -H "X-Requested-With: XMLHttpRequest" https://nextcloud.prelab.fr/public.php/webdav/
 	$(DOCKERRUN) -w /home/jovyan/ecobalyse/data/food/import_agb $(NAME) python3 importing_databases.py
 
 export_ciqual:
