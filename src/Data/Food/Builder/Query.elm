@@ -93,21 +93,21 @@ carrotCake =
           , mass = Mass.grams 120
           , variant = Default
           , country = Nothing
-            , byPlane = False
+          , byPlane = False
           }
         , { id = Ingredient.idFromString "wheat"
           , name = "Blé tendre"
           , mass = Mass.grams 140
           , variant = Default
           , country = Nothing
-            , byPlane = False
+          , byPlane = False
           }
         , { id = Ingredient.idFromString "milk"
           , name = "Lait"
           , mass = Mass.grams 60
           , variant = Default
           , country = Nothing
-            , byPlane = False
+          , byPlane = False
           }
         , { id = Ingredient.idFromString "carrot"
           , name = "Carotte"
@@ -115,7 +115,7 @@ carrotCake =
           , variant = Default
           , country = Nothing
           , byPlane = False
-      }
+          }
         ]
     , transform =
         Just
@@ -197,7 +197,6 @@ encodeIngredient v =
         , ( "mass", encodeMass v.mass )
         , ( "variant", encodeVariant v.variant )
         , ( "country", v.country |> Maybe.map Country.encodeCode |> Maybe.withDefault Encode.null )
-        , ( "byPlane", Encode.bool v.byPlane)
         ]
 
 

@@ -511,7 +511,7 @@ updateIngredientFormView { excluded, db, ingredient, impact, transportImpact } =
                             , name = newIngredient.name
                             , variant = newVariant
                             , country = Nothing
-                            , byPlane = Ingredient.byPlaneFromOrigin newIngredient.defaultOrigin
+                            , byPlane = Ingredient.byPlaneByDefault newIngredient
                         }
                 )
         , db.countries
@@ -584,7 +584,7 @@ updateIngredientFormView { excluded, db, ingredient, impact, transportImpact } =
             [ Icon.trash ]
         , span [ class "text-muted IngredientTransportLabel fs-7" ]
             [ text "Transport pour cet ingrédient"
-            , if Ingredient.byPlaneFromOrigin ingredient.ingredient.defaultOrigin then
+            , if Ingredient.byPlaneByDefault ingredient.ingredient then
                 label
                     [ class "PlaneCheckbox ps-2" ]
                     [ text "("

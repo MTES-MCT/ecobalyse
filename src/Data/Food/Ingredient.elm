@@ -1,7 +1,7 @@
 module Data.Food.Ingredient exposing
     ( Id
     , Ingredient
-    , byPlaneFromOrigin
+    , byPlaneByDefault
     , decodeId
     , decodeIngredients
     , encodeId
@@ -38,9 +38,9 @@ type Id
     = Id String
 
 
-byPlaneFromOrigin : Origin.Origin -> Bool
-byPlaneFromOrigin origin =
-    origin == Origin.OutOfEuropeAndMaghrebByPlane
+byPlaneByDefault : Ingredient -> Bool
+byPlaneByDefault ingredient =
+    ingredient.defaultOrigin == Origin.OutOfEuropeAndMaghrebByPlane
 
 
 decodeId : Decode.Decoder Id

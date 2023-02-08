@@ -216,7 +216,7 @@ computeIngredientTransport db { ingredient, country, mass, byPlane } =
                         |> (\ingredientTransport ->
                                 if (ingredient.defaultOrigin == Origin.OutOfEuropeAndMaghrebByPlane) && byPlane then
                                     -- Special case: if the default origin of an ingredient is "by plane"
-                                    -- and we selected a transport by plan, then we take an air transport ratio of 1
+                                    -- and we selected a transport by plane, then we take an air transport ratio of 1
                                     Formula.transportRatio (Unit.Ratio 1) ingredientTransport
 
                                 else
@@ -398,7 +398,7 @@ ingredientQueryFromIngredient ingredient =
     , mass = Mass.grams 100
     , variant = BuilderQuery.Default
     , country = Nothing
-    , byPlane = Ingredient.byPlaneFromOrigin ingredient.defaultOrigin
+    , byPlane = Ingredient.byPlaneByDefault ingredient
     }
 
 
