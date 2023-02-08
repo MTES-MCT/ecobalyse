@@ -44,7 +44,7 @@ Ecobalyse mène des travaux poussés sur cette étape avec différents experts d
 
 ### Questions (non exhaustif)
 
-* Quelles sont les consommations moyennes d'électricitité (kWh / kg) constatées sur les principales machines de tissage et de tricotage ?&#x20;
+* Existe-t-il une corrélation entre la catégorie du vêtement (jean, t-shirt, chaussettes, etc.) et le procédé (tissage/tricotage) utilisé ? Si oui, laquelle ?
 * Quels sont les principaux procédés/techniques de tissage et tricotage utilisés dans l'industrie ?
 * Quels sont les principaux grammages (g/m2) de tissu utilisés dans l'industrie ?
 * Pourquoi à masse constante (1 kg) les procédés de tricotage consomment-ils généralement moins d'énergie (MJ) que ceux de tissage ?

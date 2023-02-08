@@ -2,7 +2,7 @@
 
 <details>
 
-<summary>Février 2023 _ refonte du module <em>Fabrication de l'étoffe</em></summary>
+<summary>Février 2023 _ refonte du module <em>Fabrication de l'étoffe (en cours de déploiement)</em></summary>
 
 * Tissage : suppression du paramètre "Duites.m" \
   (utilisé dans le Socle Technique ADEME mais non maîtrisé par les industriels/marques)
