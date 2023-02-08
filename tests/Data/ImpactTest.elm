@@ -1,7 +1,6 @@
 module Data.ImpactTest exposing (..)
 
 import Data.Impact as Impact
-import Data.Scope as Scope
 import Data.Unit as Unit
 import Expect
 import Mass
@@ -90,25 +89,23 @@ suite =
                     |> expectScoreEquals 17451.41187295143
                     |> asTest "should update PEF score"
                 ]
-            , let
-                ecsDefinition =
-                    Impact.getDefinition (Impact.trg "ecs") builderDb.impacts
-                        |> Result.withDefault (Impact.invalid Scope.Food)
-              in
-              describe "getAggregatedScoreOutOf100"
+            , describe "getAggregatedScoreOutOf100"
                 [ defaultBuilderImpacts
                     |> Impact.updateImpact (Impact.trg "ecs") (Unit.impact 1)
-                    |> Impact.getAggregatedScoreOutOf100 ecsDefinition
+                    |> Impact.getImpact (Impact.trg "ecs")
+                    |> Impact.getAggregatedScoreOutOf100
                     |> Expect.equal 100
                     |> asTest "should return a score of 100 for a very low impact"
                 , defaultBuilderImpacts
                     |> Impact.updateImpact (Impact.trg "ecs") (Unit.impact 10000)
-                    |> Impact.getAggregatedScoreOutOf100 ecsDefinition
+                    |> Impact.getImpact (Impact.trg "ecs")
+                    |> Impact.getAggregatedScoreOutOf100
                     |> Expect.equal 0
                     |> asTest "should return a score of 0 for a very high impact"
                 , defaultBuilderImpacts
                     |> Impact.updateImpact (Impact.trg "ecs") (Unit.impact 200)
-                    |> Impact.getAggregatedScoreOutOf100 ecsDefinition
+                    |> Impact.getImpact (Impact.trg "ecs")
+                    |> Impact.getAggregatedScoreOutOf100
                     |> Expect.equal 67
                     |> asTest "should return a medium score for a medium impact"
                 ]

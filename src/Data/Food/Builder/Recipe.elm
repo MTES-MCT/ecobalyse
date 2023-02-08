@@ -72,6 +72,7 @@ type alias Recipe =
 type alias Results =
     { total : Impacts
     , perKg : Impacts
+    , scoring : Scoring
     , totalMass : Mass
     , recipe :
         { total : Impacts
@@ -83,6 +84,10 @@ type alias Results =
     , packaging : Impacts
     , transports : Transport
     }
+
+
+type alias Scoring =
+    {}
 
 
 type alias Transform =
@@ -113,7 +118,7 @@ compute : Db -> Query -> Result String ( Recipe, Results )
 compute db =
     fromQuery db
         >> Result.map
-            (\({ ingredients, transform, packaging } as recipe) ->
+            (\({ ingredients, transform, packaging, category } as recipe) ->
                 let
                     updateImpacts impacts =
                         impacts
@@ -166,10 +171,15 @@ compute db =
                         packaging
                             |> List.map (computeProcessImpacts db.impacts)
                             |> updateImpacts
+
+                    scoring =
+                        impactsPerKg
+                            |> computeScoring category
                 in
                 ( recipe
                 , { total = totalImpacts
                   , perKg = impactsPerKg
+                  , scoring = scoring
 
                   -- XXX: For now, we stop at packaging step
                   , totalMass = getMassAtPackaging recipe
@@ -185,6 +195,27 @@ compute db =
                   }
                 )
             )
+
+
+computeScoring : Maybe Category -> Impacts -> Scoring
+computeScoring maybeCategory perKg =
+    let
+        -- Note: Score/100 is only computed for ecoscore
+        ecsPerKg =
+            perKg
+                |> Impact.getImpact (Impact.trg "ecs")
+
+        score =
+            case maybeCategory of
+                Just category ->
+                    ecsPerKg
+                        |> Impact.getBoundedScoreOutOf100 category.bounds.all
+
+                Nothing ->
+                    ecsPerKg
+                        |> Impact.getAggregatedScoreOutOf100
+    in
+    {}
 
 
 computeImpact : Mass -> Impact.Trigram -> Unit.Impact -> Unit.Impact

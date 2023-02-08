@@ -884,7 +884,7 @@ sidebarView session db model results recipe =
         , absoluteImpactView model results
         , if Impact.trg "ecs" == model.impact.trigram then
             -- We only compute and render subscores for ecs
-            scoresView session model results recipe
+            scoresView session results recipe
 
           else
             text ""
@@ -909,19 +909,19 @@ sidebarView session db model results recipe =
         ]
 
 
-scoresView : Session -> Model -> Recipe.Results -> Recipe -> Html Msg
-scoresView { builderDb, queries } model { perKg } recipe =
+scoresView : Session -> Recipe.Results -> Recipe -> Html Msg
+scoresView { builderDb, queries } { perKg } recipe =
     let
         score =
-            case recipe.category of
-                Just category ->
-                    perKg
-                        |> Impact.getImpact (Impact.trg "ecs")
-                        |> Impact.getBoundedScoreOutOf100 category.bounds.all
+            perKg
+                |> Impact.getImpact (Impact.trg "ecs")
+                |> (case recipe.category of
+                        Just category ->
+                            Impact.getBoundedScoreOutOf100 category.bounds.all
 
-                Nothing ->
-                    perKg
-                        |> Impact.getAggregatedScoreOutOf100 model.impact
+                        Nothing ->
+                            Impact.getAggregatedScoreOutOf100
+                   )
 
         subScores =
             perKg
@@ -970,7 +970,8 @@ scoresView { builderDb, queries } model { perKg } recipe =
 
                                     Nothing ->
                                         perKg
-                                            |> Impact.getAggregatedScoreOutOf100 model.impact
+                                            |> Impact.getImpact (Impact.trg "ecs")
+                                            |> Impact.getAggregatedScoreOutOf100
                         in
                         tr []
                             [ th [] [ text label ]

@@ -413,10 +413,9 @@ getAggregatedScoreData defs getter =
         []
 
 
-getAggregatedScoreOutOf100 : Definition -> Impacts -> Int
-getAggregatedScoreOutOf100 { trigram } impactsPerKg =
+getAggregatedScoreOutOf100 : Unit.Impact -> Int
+getAggregatedScoreOutOf100 impactsPerKg =
     impactsPerKg
-        |> getImpact trigram
         |> Unit.impactToFloat
         |> (\value ->
                 -- See the documentation at https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/impacts-consideres/score-100
