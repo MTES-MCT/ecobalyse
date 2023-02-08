@@ -584,23 +584,27 @@ updateIngredientFormView { excluded, db, ingredient, impact, transportImpact } =
             [ Icon.trash ]
         , span [ class "text-muted IngredientTransportLabel fs-7" ]
             [ text "Transport pour cet ingrédient"
-            , label
-                [ class "PlaneCheckbox ps-2" ]
-                [ text "("
-                , input
-                    [ type_ "checkbox"
-                    , class "form-check-input no-outline"
-                    , attribute "role" "switch"
-                    , checked ingredientQuery.byPlane
-                    , disabled <| ingredient.country == Nothing
-                    , onCheck
-                        (\checked ->
-                            event { ingredientQuery | byPlane = checked }
-                        )
+            , if Ingredient.byPlaneFromOrigin ingredient.ingredient.defaultOrigin then
+                label
+                    [ class "PlaneCheckbox ps-2" ]
+                    [ text "("
+                    , input
+                        [ type_ "checkbox"
+                        , class "form-check-input no-outline"
+                        , attribute "role" "switch"
+                        , checked ingredientQuery.byPlane
+                        , disabled <| ingredient.country == Nothing
+                        , onCheck
+                            (\checked ->
+                                event { ingredientQuery | byPlane = checked }
+                            )
+                        ]
+                        []
+                    , text " par avion)"
                     ]
-                    []
-                , text " par avion)"
-                ]
+
+              else
+                text ""
             ]
         , ingredient
             |> Recipe.computeIngredientTransport db

@@ -25,6 +25,7 @@ import Data.Country as Country exposing (Country)
 import Data.Food.Builder.Db exposing (Db)
 import Data.Food.Builder.Query as BuilderQuery exposing (Query)
 import Data.Food.Ingredient as Ingredient exposing (Id, Ingredient)
+import Data.Food.Origin as Origin
 import Data.Food.Process as Process exposing (Process)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Scope as Scope
@@ -213,7 +214,9 @@ computeIngredientTransport db { ingredient, country, mass, byPlane } =
                     db.transports
                         |> Transport.getTransportBetween Scope.Food emptyImpacts code france
                         |> (\ingredientTransport ->
-                                if byPlane then
+                                if (ingredient.defaultOrigin == Origin.OutOfEuropeAndMaghrebByPlane) && byPlane then
+                                    -- Special case: if the default origin of an ingredient is "by plane"
+                                    -- and we selected a transport by plan, then we take an air transport ratio of 1
                                     Formula.transportRatio (Unit.Ratio 1) ingredientTransport
 
                                 else
