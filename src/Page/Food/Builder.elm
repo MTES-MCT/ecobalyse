@@ -935,12 +935,15 @@ scoresView { builderDb, queries } model { perKg } recipe =
     div [ class "card bg-primary shadow-sm" ]
         [ div [ class "card-header text-white d-flex justify-content-between gap-1" ]
             [ div [ class "d-flex justify-content-between align-items-center gap-3 w-100" ]
-                [ categorySelectorView queries.food.category
-                , button
-                    [ class "btn text-white text-decoration-none d-flex align-items-end p-0"
-                    , onClick (SetModal TagPreviewModal)
+                [ div [ class "input-group" ]
+                    [ categorySelectorView queries.food.category
+                    , button
+                        [ class "btn btn-sm btn-info"
+                        , title "Afficher les propositions d'étiquette"
+                        , onClick (SetModal TagPreviewModal)
+                        ]
+                        [ Icon.lab ]
                     ]
-                    [ Icon.lab ]
                 , div [ class "d-flex justify-content-center align-items-end gap-1 text-nowrap h4 m-0 text-center" ]
                     [ span []
                         [ text (String.fromInt score)
