@@ -622,12 +622,15 @@ components:
       in: query
       description: |
         Liste des ingrédients composant la recette (liste disponible sur le point d'entrée `/food/ingredients`).
-        Le format de chaque entrée est composé de l'identifiant de la matière et de sa masse **exprimée en grammes**, ainsi que d'un éventuel mode de production alternatif à utiliser, et d'un éventuel pays d'origine :
+        Le format de chaque entrée est composé de l'identifiant de la matière et de sa masse **exprimée en grammes**, ainsi que d'un éventuel mode de production alternatif à utiliser, et d'un éventuel pays d'origine, et d'un éventuel transport par avion :
 
         - `milk;268` signifie *268g de lait*;
         - `carrot;30;organic` signifie *30g de carrotes bio*;
         - `tomato;123;default;ES` signifie *123g de tomates bio en provenance d'Espagne*;
-
+        - `mango;123;default` signifie *123g de mangues en provenance de son origine par défaut (hors Europe-Maghreb, transport par avion)*;
+        - `mango;123;default;BR` signifie *123g de mangues en provenance du Brésil, par avion*;
+        - `mango;123;default;BR;false` signifie *123g de mangues en provenance du Brésil, par bateau (pas par avion)*;
+ 
         > Par exemple, les paramètres à passer pour une recette à base de 268g de lait et 30g de carrotes bio d'espagne sont :
         >
         > ```js
@@ -844,6 +847,11 @@ components:
           variants:
             type: array
             description: List des variants d'un ingrédient (par exemple label bio).
+          defaultOrigin:
+            type: string
+            description: 
+              Lieu d'origine par défaut de cet ingrédient dont la liste est disponible dans
+              [la documentation](https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/transport#circuits-consideres)
     PackagingListResponse:
       type: array
       description: Liste des emballages utilisables pour conditionner une recette
