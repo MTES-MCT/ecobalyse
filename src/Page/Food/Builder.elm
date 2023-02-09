@@ -1196,7 +1196,7 @@ tagViewer { scoring } =
                         |> letterView [ class "ScoreLetterLarge" ]
                     ]
                 , h1 [ class <| "m-0 text-end ScoreColoredText" ++ scoring.all.letter ]
-                    [ text (String.fromInt scoring.all.outOf100)
+                    [ span [ class "h2 m-0" ] [ text (String.fromInt scoring.all.outOf100) ]
                     , span [ class "fs-7" ] [ text "/100" ]
                     ]
                 ]
