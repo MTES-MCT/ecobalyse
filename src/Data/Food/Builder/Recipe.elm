@@ -86,8 +86,21 @@ type alias Results =
     }
 
 
+type alias Score =
+    { impact : Unit.Impact
+    , letter : String
+    , outOf100 : Int
+    }
+
+
 type alias Scoring =
-    {}
+    { category : String
+    , all : Score
+    , climate : Score
+    , biodiversity : Score
+    , health : Score
+    , resources : Score
+    }
 
 
 type alias Transform =
@@ -174,7 +187,7 @@ compute db =
 
                     scoring =
                         impactsPerKg
-                            |> computeScoring category
+                            |> computeScoring db.impacts category
                 in
                 ( recipe
                 , { total = totalImpacts
@@ -197,25 +210,52 @@ compute db =
             )
 
 
-computeScoring : Maybe Category -> Impacts -> Scoring
-computeScoring maybeCategory perKg =
+computeScoring : List Impact.Definition -> Maybe Category -> Impacts -> Scoring
+computeScoring defs maybeCategory perKg =
     let
-        -- Note: Score/100 is only computed for ecoscore
+        -- Note: Score out of 100 is only computed for ecoscore
         ecsPerKg =
             perKg
                 |> Impact.getImpact (Impact.trg "ecs")
 
-        score =
+        mainScore =
             case maybeCategory of
-                Just category ->
+                Just { bounds } ->
                     ecsPerKg
-                        |> Impact.getBoundedScoreOutOf100 category.bounds.all
+                        |> Impact.getBoundedScoreOutOf100 bounds.all
 
                 Nothing ->
                     ecsPerKg
                         |> Impact.getAggregatedScoreOutOf100
+
+        subScores =
+            perKg
+                |> Impact.toProtectionAreas defs
+
+        makeScore get scoreImpact =
+            let
+                outOf100 =
+                    case maybeCategory of
+                        Just { bounds } ->
+                            scoreImpact
+                                |> Impact.getBoundedScoreOutOf100 (get bounds)
+
+                        Nothing ->
+                            -- Note: if no category is specified, all subscores equal the main score
+                            mainScore
+            in
+            { outOf100 = outOf100
+            , letter = Impact.getAggregatedScoreLetter outOf100
+            , impact = scoreImpact
+            }
     in
-    {}
+    { category = maybeCategory |> Maybe.map .name |> Maybe.withDefault "Toutes les catégories"
+    , all = makeScore .all ecsPerKg
+    , climate = makeScore .climate subScores.climate
+    , biodiversity = makeScore .biodiversity subScores.biodiversity
+    , health = makeScore .health subScores.health
+    , resources = makeScore .resources subScores.resources
+    }
 
 
 computeImpact : Mass -> Impact.Trigram -> Unit.Impact -> Unit.Impact
@@ -322,6 +362,14 @@ encodeIngredient i =
         ]
 
 
+encodeProcess : BuilderQuery.ProcessQuery -> Encode.Value
+encodeProcess p =
+    Encode.object
+        [ ( "code", p.code |> Process.codeToString |> Encode.string )
+        , ( "mass", Encode.float (Mass.inKilograms p.mass) )
+        ]
+
+
 encodeQuery : Query -> Encode.Value
 encodeQuery q =
     Encode.object
@@ -340,6 +388,7 @@ encodeResults defs results =
     Encode.object
         [ ( "total", encodeImpacts results.total )
         , ( "perKg", encodeImpacts results.perKg )
+        , ( "scoring", encodeScoring results.scoring )
         , ( "totalMass", results.totalMass |> Mass.inKilograms |> Encode.float )
         , ( "recipe"
           , Encode.object
@@ -354,11 +403,24 @@ encodeResults defs results =
         ]
 
 
-encodeProcess : BuilderQuery.ProcessQuery -> Encode.Value
-encodeProcess p =
+encodeScore : Score -> Encode.Value
+encodeScore score =
     Encode.object
-        [ ( "code", p.code |> Process.codeToString |> Encode.string )
-        , ( "mass", Encode.float (Mass.inKilograms p.mass) )
+        [ ( "impact", Unit.encodeImpact score.impact )
+        , ( "letter", Encode.string score.letter )
+        , ( "outOf100", Encode.int score.outOf100 )
+        ]
+
+
+encodeScoring : Scoring -> Encode.Value
+encodeScoring scoring =
+    Encode.object
+        [ ( "category", Encode.string scoring.category )
+        , ( "all", encodeScore scoring.all )
+        , ( "climate", encodeScore scoring.climate )
+        , ( "biodiversity", encodeScore scoring.biodiversity )
+        , ( "health", encodeScore scoring.health )
+        , ( "resources", encodeScore scoring.resources )
         ]
 
 
