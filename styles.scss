@@ -304,7 +304,7 @@ blockquote {
 
 .Abcde {
   // playground: https://codepen.io/n1k0/pen/OJwagVv?editors=1100
-  $AbcdeStroke: 4px;
+  $AbcdeStroke: 3px;
   $AbcdeColors: (
     "A": $score-letter-A,
     "B": $score-letter-B,
@@ -324,17 +324,17 @@ blockquote {
     font-size: 0;
 
     &:before {
+      // circled letter
       display: block;
-      width: 1.2em;
-      height: 1.2em;
+      width: 30px;
+      height: 30px;
       border: $AbcdeStroke solid grey;
       border-radius: 50%;
       background-color: #fff;
       color: grey;
-      font-family: Arial, Helvetica, sans-serif;
-      font-size: 20px;
+      font-size: 18px;
       font-weight: bold;
-      line-height: 1.2em;
+      line-height: 24px;
       margin: 0 auto;
       text-align: center;
       opacity: 0;
@@ -348,7 +348,6 @@ blockquote {
       position: absolute;
       background-color: #333;
       top: 14px;
-      z-index: -1;
     }
 
     @each $letter, $color in $AbcdeColors {
@@ -801,6 +800,11 @@ blockquote {
   &C { background-color: $score-letter-C !important }
   &D { background-color: $score-letter-D !important }
   &E { background-color: $score-letter-E !important }
+  &Large {
+    width: 1em;
+    height: 1em;
+    font-size: 66px;
+  }
 }
 
 .Step {

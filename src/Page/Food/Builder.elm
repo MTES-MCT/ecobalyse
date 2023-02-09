@@ -909,14 +909,15 @@ sidebarView session db model results =
         ]
 
 
+letterView : List (Attribute Msg) -> String -> Html Msg
+letterView attrs letter =
+    span (class ("ScoreLetter ScoreLetter" ++ letter) :: attrs)
+        [ text letter
+        ]
+
+
 scoresView : Session -> Recipe.Results -> Html Msg
 scoresView { queries } { scoring } =
-    let
-        letterView letter =
-            span [ class <| "ScoreLetter ScoreLetter" ++ letter ]
-                [ text letter
-                ]
-    in
     div [ class "card bg-primary shadow-sm" ]
         [ div [ class "card-header text-white d-flex justify-content-between gap-1" ]
             [ div [ class "d-flex justify-content-between align-items-center gap-3 w-100" ]
@@ -934,7 +935,7 @@ scoresView { queries } { scoring } =
                         [ text (String.fromInt scoring.all.outOf100)
                         , span [ class "fs-7" ] [ text "/100" ]
                         ]
-                    , letterView scoring.all.letter
+                    , letterView [] scoring.all.letter
                     ]
                 ]
             ]
@@ -961,7 +962,7 @@ scoresView { queries } { scoring } =
                                     |> (\x -> x ++ "\u{202F}µPts/kg")
                                     |> title
                                 ]
-                                [ letterView subScore.letter
+                                [ letterView [] subScore.letter
                                 ]
                             ]
                     )
@@ -1141,35 +1142,88 @@ view session model =
                         }
 
                 TagPreviewModal ->
-                    ModalView.view
-                        { size = ModalView.Standard
-                        , close = SetModal NoModal
-                        , noOp = NoOp
-                        , title = "Prévisualisation d'étiquettes"
-                        , formAction = Nothing
-                        , content =
-                            [ case Recipe.compute session.builderDb session.queries.food of
-                                Ok ( recipe, results ) ->
-                                    tagViewer results recipe
+                    case Recipe.compute session.builderDb session.queries.food of
+                        Ok ( recipe, results ) ->
+                            ModalView.view
+                                { size = ModalView.Standard
+                                , close = SetModal NoModal
+                                , noOp = NoOp
+                                , title = "Prévisualisation d'étiquette"
+                                , formAction = Nothing
+                                , content = [ tagViewer results ]
+                                , footer =
+                                    [ recipe.category
+                                        |> Maybe.map .id
+                                        |> categorySelectorView
+                                    ]
+                                }
 
-                                Err error ->
-                                    errorView error
-                            ]
-                        , footer = []
-                        }
+                        Err error ->
+                            errorView error
             ]
       ]
     )
 
 
-tagViewer : Recipe.Results -> Recipe -> Html Msg
-tagViewer _ recipe =
-    div [ class "p-3" ]
-        [ recipe.category
-            |> Maybe.map .id
-            |> categorySelectorView
-        , text "TODO"
+tagViewer : Recipe.Results -> Html Msg
+tagViewer { scoring } =
+    div [ class "p-3 px-lg-5 d-flex flex-column gap-2" ]
+        [ h1 [ class "m-0 text-center", style "font-size" "44px" ]
+            [ if Unit.impactToFloat scoring.all.impact == 0 then
+                text "0"
+
+              else
+                scoring.all.impact
+                    |> Unit.impactToFloat
+                    |> Format.formatFloat 2
+                    |> text
+            , small [ class "text-muted text-truncate h5 ms-2" ]
+                [ text "µPts d'impact par kg de produit" ]
+            ]
+        , hr [ class "mt-1 mb-2" ] []
+        , div [ class "d-flex gap-1 gap-md-3 justify-content-between" ]
+            [ div []
+                [ div [ class "d-flex flex-column gap-2" ]
+                    [ scoring.all.letter
+                        |> letterView [ class "ScoreLetterLarge" ]
+                    ]
+                , h1 [ class "m-0 text-end" ]
+                    [ text (String.fromInt scoring.all.outOf100)
+                    , span [ class "fs-7" ] [ text "/100" ]
+                    ]
+                ]
+            , div [ class "col-9" ]
+                [ [ ( "Climat", scoring.climate )
+                  , ( "Biodiversité", scoring.biodiversity )
+                  , ( "Santé environnementale", scoring.health )
+                  , ( "Ressource", scoring.resources )
+                  ]
+                    |> List.map
+                        (\( label, subScore ) ->
+                            div [ class "w-100 d-flex justify-content-between align-items-center gap-1 gap-sm-2 gap-md-3 pt-1" ]
+                                [ span [ class "text-truncate w-100" ] [ text label ]
+                                , abcdeLetter subScore.letter
+                                ]
+                        )
+                    |> div []
+                ]
+            ]
         ]
+
+
+abcdeLetter : String -> Html Msg
+abcdeLetter letter =
+    "ABCDE"
+        |> String.split ""
+        |> List.map
+            (\l ->
+                li
+                    [ class <| "AbcdeLetter AbcdeLetter" ++ l
+                    , classList [ ( "AbcdeLetterActive", letter == l ) ]
+                    ]
+                    [ text l ]
+            )
+        |> ul [ class "Abcde" ]
 
 
 subscriptions : Model -> Sub Msg
