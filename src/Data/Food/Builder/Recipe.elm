@@ -25,7 +25,6 @@ import Data.Country as Country exposing (Country)
 import Data.Food.Builder.Db exposing (Db)
 import Data.Food.Builder.Query as BuilderQuery exposing (Query)
 import Data.Food.Ingredient as Ingredient exposing (Id, Ingredient)
-import Data.Food.Origin as Origin
 import Data.Food.Process as Process exposing (Process)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Scope as Scope
@@ -56,7 +55,7 @@ type alias RecipeIngredient =
     , mass : Mass
     , variant : BuilderQuery.Variant
     , country : Maybe Country
-    , byPlane : Bool
+    , byPlane : Maybe Bool
     }
 
 
@@ -214,7 +213,7 @@ computeIngredientTransport db { ingredient, country, mass, byPlane } =
                     db.transports
                         |> Transport.getTransportBetween Scope.Food emptyImpacts code france
                         |> (\ingredientTransport ->
-                                if (ingredient.defaultOrigin == Origin.OutOfEuropeAndMaghrebByPlane) && byPlane then
+                                if byPlane == Just True then
                                     -- Special case: if the default origin of an ingredient is "by plane"
                                     -- and we selected a transport by plane, then we take an air transport ratio of 1
                                     Formula.transportRatio (Unit.Ratio 1) ingredientTransport
@@ -388,7 +387,16 @@ ingredientFromQuery { countries, ingredients } { id, mass, variant, country, byP
             Nothing ->
                 Ok Nothing
         )
-        (Ok byPlane)
+        (Ingredient.findByID id ingredients
+            |> Result.andThen
+                (\ingredient ->
+                    if Ingredient.byPlaneByDefault ingredient == Nothing && byPlane /= Nothing then
+                        Err "Cet ingrédient ne peux pas configurer un transport par avion alors que son origine par défault n'est pas par avion"
+
+                    else
+                        Ok byPlane
+                )
+        )
 
 
 ingredientQueryFromIngredient : Ingredient -> BuilderQuery.IngredientQuery

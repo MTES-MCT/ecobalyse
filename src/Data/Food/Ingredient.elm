@@ -38,9 +38,13 @@ type Id
     = Id String
 
 
-byPlaneByDefault : Ingredient -> Bool
+byPlaneByDefault : Ingredient -> Maybe Bool
 byPlaneByDefault ingredient =
-    ingredient.defaultOrigin == Origin.OutOfEuropeAndMaghrebByPlane
+    if ingredient.defaultOrigin == Origin.OutOfEuropeAndMaghrebByPlane then
+        Just True
+
+    else
+        Nothing
 
 
 decodeId : Decode.Decoder Id

@@ -584,7 +584,7 @@ updateIngredientFormView { excluded, db, ingredient, impact, transportImpact } =
             [ Icon.trash ]
         , span [ class "text-muted IngredientTransportLabel fs-7" ]
             [ text "Transport pour cet ingrédient"
-            , if Ingredient.byPlaneByDefault ingredient.ingredient then
+            , if ingredient.byPlane /= Nothing then
                 label
                     [ class "PlaneCheckbox ps-2" ]
                     [ text "("
@@ -592,11 +592,11 @@ updateIngredientFormView { excluded, db, ingredient, impact, transportImpact } =
                         [ type_ "checkbox"
                         , class "form-check-input no-outline"
                         , attribute "role" "switch"
-                        , checked ingredientQuery.byPlane
+                        , checked <| ingredientQuery.byPlane == Just True
                         , disabled <| ingredient.country == Nothing
                         , onCheck
                             (\checked ->
-                                event { ingredientQuery | byPlane = checked }
+                                event { ingredientQuery | byPlane = Just checked }
                             )
                         ]
                         []
