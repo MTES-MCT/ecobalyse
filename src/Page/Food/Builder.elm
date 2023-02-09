@@ -781,8 +781,8 @@ mainView session db model =
     div [ class "row gap-3 gap-lg-0" ]
         [ div [ class "col-lg-4 order-lg-2 d-flex flex-column gap-3" ]
             [ case computed of
-                Ok ( recipe, results ) ->
-                    sidebarView session db model results recipe
+                Ok ( _, results ) ->
+                    sidebarView session db model results
 
                 Err error ->
                     errorView error
@@ -865,8 +865,8 @@ ingredientSelectorView selectedIngredient excluded event ingredients =
         )
 
 
-sidebarView : Session -> Db -> Model -> Recipe.Results -> Recipe -> Html Msg
-sidebarView session db model results recipe =
+sidebarView : Session -> Db -> Model -> Recipe.Results -> Html Msg
+sidebarView session db model results =
     div
         [ class "d-flex flex-column gap-3 mb-3 sticky-md-top"
         , style "top" "7px"
@@ -883,8 +883,8 @@ sidebarView session db model results recipe =
             }
         , absoluteImpactView model results
         , if Impact.trg "ecs" == model.impact.trigram then
-            -- We only compute and render subscores for ecs
-            scoresView session results recipe
+            -- We only show subscores for ecs
+            scoresView session results
 
           else
             text ""
@@ -909,24 +909,9 @@ sidebarView session db model results recipe =
         ]
 
 
-scoresView : Session -> Recipe.Results -> Recipe -> Html Msg
-scoresView { builderDb, queries } { perKg } recipe =
+scoresView : Session -> Recipe.Results -> Html Msg
+scoresView { queries } { scoring } =
     let
-        score =
-            perKg
-                |> Impact.getImpact (Impact.trg "ecs")
-                |> (case recipe.category of
-                        Just category ->
-                            Impact.getBoundedScoreOutOf100 category.bounds.all
-
-                        Nothing ->
-                            Impact.getAggregatedScoreOutOf100
-                   )
-
-        subScores =
-            perKg
-                |> Impact.toProtectionAreas builderDb.impacts
-
         letterView letter =
             span [ class <| "ScoreLetter ScoreLetter" ++ letter ]
                 [ text letter
@@ -946,49 +931,37 @@ scoresView { builderDb, queries } { perKg } recipe =
                     ]
                 , div [ class "d-flex justify-content-center align-items-end gap-1 text-nowrap h4 m-0 text-center" ]
                     [ span []
-                        [ text (String.fromInt score)
+                        [ text (String.fromInt scoring.all.outOf100)
                         , span [ class "fs-7" ] [ text "/100" ]
                         ]
-                    , letterView (Impact.getAggregatedScoreLetter score)
+                    , letterView scoring.all.letter
                     ]
                 ]
             ]
         , div [ class "card-body py-2" ]
-            [ [ ( "Climat", subScores.climate, .climate )
-              , ( "Biodiversité", subScores.biodiversity, .biodiversity )
-              , ( "Santé environnementale", subScores.health, .health )
-              , ( "Ressource", subScores.resources, .resources )
+            [ [ ( "Climat", scoring.climate )
+              , ( "Biodiversité", scoring.biodiversity )
+              , ( "Santé environnementale", scoring.health )
+              , ( "Ressource", scoring.resources )
               ]
                 |> List.map
-                    (\( label, subScore, getter ) ->
-                        let
-                            subScore100 =
-                                case recipe.category of
-                                    Just category ->
-                                        subScore
-                                            |> Impact.getBoundedScoreOutOf100 (getter category.bounds)
-
-                                    Nothing ->
-                                        perKg
-                                            |> Impact.getImpact (Impact.trg "ecs")
-                                            |> Impact.getAggregatedScoreOutOf100
-                        in
+                    (\( label, subScore ) ->
                         tr []
                             [ th [] [ text label ]
                             , td [ class "text-end" ]
-                                [ strong [] [ text (String.fromInt subScore100) ]
+                                [ strong [] [ text (String.fromInt subScore.outOf100) ]
                                 , small [] [ text "/100" ]
                                 ]
                             , td
                                 [ class "text-end align-middle ps-1"
                                 , style "width" "1%"
-                                , subScore
+                                , subScore.impact
                                     |> Unit.impactToFloat
                                     |> Format.formatFloat 2
                                     |> (\x -> x ++ "\u{202F}µPts/kg")
                                     |> title
                                 ]
-                                [ letterView (Impact.getAggregatedScoreLetter subScore100)
+                                [ letterView subScore.letter
                                 ]
                             ]
                     )

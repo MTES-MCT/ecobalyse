@@ -218,16 +218,6 @@ computeScoring defs maybeCategory perKg =
             perKg
                 |> Impact.getImpact (Impact.trg "ecs")
 
-        mainScore =
-            case maybeCategory of
-                Just { bounds } ->
-                    ecsPerKg
-                        |> Impact.getBoundedScoreOutOf100 bounds.all
-
-                Nothing ->
-                    ecsPerKg
-                        |> Impact.getAggregatedScoreOutOf100
-
         subScores =
             perKg
                 |> Impact.toProtectionAreas defs
@@ -242,7 +232,8 @@ computeScoring defs maybeCategory perKg =
 
                         Nothing ->
                             -- Note: if no category is specified, all subscores equal the main score
-                            mainScore
+                            ecsPerKg
+                                |> Impact.getAggregatedScoreOutOf100
             in
             { outOf100 = outOf100
             , letter = Impact.getAggregatedScoreLetter outOf100
