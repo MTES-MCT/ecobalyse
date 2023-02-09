@@ -6,7 +6,7 @@ Comment générer les données json utilisées par le frontal elm :
 * Si vous êtes sur Mac avec architecture ARM, affectez 6Go de RAM à Docker dans Docker Desktop : Settings → Ressources → Advanced → Memory = 6G
 * Lancez **`make`** ce qui va successivement :
     * construire l'image docker
-    * importer agrobalyse
+    * importer agribalyse
     * exporter les données json pour le builder
 
 Le processus entier prend entre 1 et 2h.
