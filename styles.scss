@@ -783,27 +783,36 @@ blockquote {
   }
 }
 
-.ScoreLetter {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 1.4em;
-  height: 1.4em;
-  border-radius: 4px;
-  color: rgba(255, 255, 255, 0.95);
-  line-height: 1em;
-  padding: 0.66em !important;
-  font-weight: 700;
+.Score {
+  &Letter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 1.4em;
+    height: 1.4em;
+    border-radius: 4px;
+    color: rgba(255, 255, 255, 0.95);
+    line-height: 1em;
+    padding: 0.66em !important;
+    font-weight: 700;
 
-  &A { background-color: $score-letter-A !important }
-  &B { background-color: $score-letter-B !important }
-  &C { background-color: $score-letter-C !important }
-  &D { background-color: $score-letter-D !important }
-  &E { background-color: $score-letter-E !important }
-  &Large {
-    width: 1em;
-    height: 1em;
-    font-size: 66px;
+    &A { background-color: $score-letter-A !important }
+    &B { background-color: $score-letter-B !important }
+    &C { background-color: $score-letter-C !important }
+    &D { background-color: $score-letter-D !important }
+    &E { background-color: $score-letter-E !important }
+    &Large {
+      width: 1em;
+      height: 1em;
+      font-size: 66px;
+    }
+  }
+  &ColoredText {
+    &A { color: darken($score-letter-A, 10%) }
+    &B { color: darken($score-letter-B, 10%) }
+    &C { color: darken($score-letter-C, 10%) }
+    &D { color: darken($score-letter-D, 10%) }
+    &E { color: darken($score-letter-E, 10%) }
   }
 }
 

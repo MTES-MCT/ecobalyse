@@ -1159,7 +1159,15 @@ view session model =
                                 }
 
                         Err error ->
-                            errorView error
+                            ModalView.view
+                                { size = ModalView.Small
+                                , close = SetModal NoModal
+                                , noOp = NoOp
+                                , title = "Exemple d'étiquette"
+                                , formAction = Nothing
+                                , content = [ errorView error ]
+                                , footer = []
+                                }
             ]
       ]
     )
@@ -1187,7 +1195,7 @@ tagViewer { scoring } =
                     [ scoring.all.letter
                         |> letterView [ class "ScoreLetterLarge" ]
                     ]
-                , h1 [ class "m-0 text-end" ]
+                , h1 [ class <| "m-0 text-end ScoreColoredText" ++ scoring.all.letter ]
                     [ text (String.fromInt scoring.all.outOf100)
                     , span [ class "fs-7" ] [ text "/100" ]
                     ]
