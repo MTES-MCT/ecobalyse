@@ -3,6 +3,7 @@ module Data.Food.Builder.RecipeTest exposing (..)
 import Data.Country as Country
 import Data.Food.Builder.Query as Query exposing (carrotCake)
 import Data.Food.Builder.Recipe as Recipe
+import Data.Food.Category as Category
 import Data.Food.Ingredient as Ingredient
 import Data.Food.Process as Process
 import Data.Unit as Unit
@@ -41,8 +42,12 @@ suite =
                     |> asTest "should return an Err for an invalid processing"
                 ]
             , describe "compute"
-                [ carrotCake
-                    |> Recipe.compute builderDb
+                (let
+                    carrotCakeResults =
+                        carrotCake
+                            |> Recipe.compute builderDb
+                 in
+                 [ carrotCakeResults
                     |> Result.map (Tuple.second >> .total >> AnyDict.toDict)
                     |> Result.withDefault Dict.empty
                     |> Dict.map (\_ v -> Unit.impactToFloat v > 0)
@@ -71,7 +76,24 @@ suite =
                             ]
                         )
                     |> asTest "should return computed impacts where none equals zero"
-                ]
+                 , carrotCakeResults
+                    |> Result.map (Tuple.second >> .scoring)
+                    |> Expect.equal
+                        (Ok
+                            { category =
+                                Category.get (Category.Id "cakes")
+                                    |> Result.map .name
+                                    |> Result.withDefault "Not found"
+                            , all = { impact = Unit.impact 155.3642304206504, letter = "B", outOf100 = 77 }
+                            , biodiversity = { impact = Unit.impact 122.06821814763829, letter = "C", outOf100 = 56 }
+                            , climate = { impact = Unit.impact 26.99402247682233, letter = "B", outOf100 = 74 }
+                            , health = { impact = Unit.impact 40.559132670966044, letter = "B", outOf100 = 69 }
+                            , resources = { impact = Unit.impact 19.73424508355989, letter = "B", outOf100 = 70 }
+                            }
+                        )
+                    |> asTest "should return expected scoring"
+                 ]
+                )
             , describe "getMassAtPackaging"
                 [ { ingredients =
                         [ { id = Ingredient.idFromString "egg"
