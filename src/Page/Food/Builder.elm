@@ -925,7 +925,7 @@ scoresView { queries } { scoring } =
                     [ categorySelectorView queries.food.category
                     , button
                         [ class "btn btn-sm btn-info"
-                        , title "Afficher les propositions d'étiquette"
+                        , title "Afficher un exemple d'étiquette"
                         , onClick (SetModal TagPreviewModal)
                         ]
                         [ Icon.lab ]
@@ -1148,7 +1148,7 @@ view session model =
                                 { size = ModalView.Standard
                                 , close = SetModal NoModal
                                 , noOp = NoOp
-                                , title = "Prévisualisation d'étiquette"
+                                , title = "Exemple d'étiquette"
                                 , formAction = Nothing
                                 , content = [ tagViewer results ]
                                 , footer =
