@@ -1096,7 +1096,7 @@ transformView db selectedImpact recipe results =
 
 
 view : Session -> Model -> ( String, List (Html Msg) )
-view session model =
+view ({ builderDb, queries } as session) model =
     ( "Constructeur de recette"
     , [ Container.centered [ class "pb-3" ]
             [ case model.dbState of
@@ -1142,32 +1142,28 @@ view session model =
                         }
 
                 TagPreviewModal ->
-                    case Recipe.compute session.builderDb session.queries.food of
-                        Ok ( recipe, results ) ->
+                    let
+                        makeModal content footer =
                             ModalView.view
                                 { size = ModalView.Standard
                                 , close = SetModal NoModal
                                 , noOp = NoOp
                                 , title = "Exemple d'étiquette"
                                 , formAction = Nothing
-                                , content = [ tagViewer results ]
-                                , footer =
-                                    [ recipe.category
-                                        |> Maybe.map .id
-                                        |> categorySelectorView
-                                    ]
+                                , content = content
+                                , footer = footer
                                 }
+                    in
+                    case Recipe.compute builderDb queries.food of
+                        Ok ( recipe, results ) ->
+                            recipe.category
+                                |> Maybe.map .id
+                                |> categorySelectorView
+                                |> List.singleton
+                                |> makeModal [ tagViewer results ]
 
                         Err error ->
-                            ModalView.view
-                                { size = ModalView.Small
-                                , close = SetModal NoModal
-                                , noOp = NoOp
-                                , title = "Exemple d'étiquette"
-                                , formAction = Nothing
-                                , content = [ errorView error ]
-                                , footer = []
-                                }
+                            makeModal [ errorView error ] []
             ]
       ]
     )
