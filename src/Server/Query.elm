@@ -139,13 +139,15 @@ ingredientParser { countries, ingredients } string =
                         |> Result.map Just
                     )
                 |> RE.andMap
-                    (validateBool byPlane
+                    (ingredient
                         |> Result.andThen
-                            (\byPlaneBool ->
-                                ingredient
-                                    |> Result.andThen (validateByPlane byPlaneBool)
+                            (\ingredientResult ->
+                                validateByPlaneValue byPlane ingredientResult
+                                    |> Result.andThen
+                                        (\maybeByPlane ->
+                                            Ingredient.byPlaneAllowed maybeByPlane ingredientResult
+                                        )
                             )
-                        |> Result.map Just
                     )
 
         [ "" ] ->
@@ -213,13 +215,20 @@ validateBool str =
             Err "La valeur ne peut être que true ou false."
 
 
-validateByPlane : Bool -> Ingredient -> Result String Bool
-validateByPlane byPlane ingredient =
-    if Ingredient.byPlaneByDefault ingredient == Nothing then
-        Err Ingredient.byPlaneErrorMessage
+validateByPlaneValue : String -> Ingredient -> Result String (Maybe Bool)
+validateByPlaneValue str ingredient =
+    case str of
+        "default" ->
+            Ok (Ingredient.byPlaneByDefault ingredient)
 
-    else
-        Ok byPlane
+        "byPlane" ->
+            Ok (Just True)
+
+        "notByPlane" ->
+            Ok (Just False)
+
+        _ ->
+            Err "La valeur ne peut être que parmis les choix suivants: 'default', 'byPlane', 'notByPlane'."
 
 
 validateCountry : String -> Scope -> List Country -> Result String Country.Code

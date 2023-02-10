@@ -391,14 +391,7 @@ ingredientFromQuery { countries, ingredients } { id, mass, variant, country, byP
                 Ok Nothing
         )
         (Ingredient.findByID id ingredients
-            |> Result.andThen
-                (\ingredient ->
-                    if Ingredient.byPlaneByDefault ingredient == Nothing && byPlane /= Nothing then
-                        Err Ingredient.byPlaneErrorMessage
-
-                    else
-                        Ok byPlane
-                )
+            |> Result.andThen (Ingredient.byPlaneAllowed byPlane)
         )
 
 

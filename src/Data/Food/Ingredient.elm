@@ -1,8 +1,8 @@
 module Data.Food.Ingredient exposing
     ( Id
     , Ingredient
+    , byPlaneAllowed
     , byPlaneByDefault
-    , byPlaneErrorMessage
     , decodeId
     , decodeIngredients
     , encodeId
@@ -37,6 +37,15 @@ type alias Ingredient =
 
 type Id
     = Id String
+
+
+byPlaneAllowed : Maybe Bool -> Ingredient -> Result String (Maybe Bool)
+byPlaneAllowed maybeByPlane ingredient =
+    if byPlaneByDefault ingredient == Nothing && maybeByPlane /= Nothing then
+        Err byPlaneErrorMessage
+
+    else
+        Ok maybeByPlane
 
 
 byPlaneByDefault : Ingredient -> Maybe Bool
