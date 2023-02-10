@@ -391,7 +391,7 @@ ingredientFromQuery { countries, ingredients } { id, mass, variant, country, byP
             |> Result.andThen
                 (\ingredient ->
                     if Ingredient.byPlaneByDefault ingredient == Nothing && byPlane /= Nothing then
-                        Err "Cet ingrédient ne peux pas configurer un transport par avion alors que son origine par défault n'est pas par avion"
+                        Err Ingredient.byPlaneErrorMessage
 
                     else
                         Ok byPlane

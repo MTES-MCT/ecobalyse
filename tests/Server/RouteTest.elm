@@ -85,6 +85,11 @@ foodEndpoints db =
             |> Maybe.andThen (Dict.get "ingredients")
             |> Expect.equal (Just "Code pays invalide: invalidCountry.")
             |> asTest "should validate that an ingredient country is valid"
+        , getEndpoint db "GET" "/food/recipe?ingredients[]=egg;1;default;FR;true"
+            |> Maybe.andThen extractFoodErrors
+            |> Maybe.andThen (Dict.get "ingredients")
+            |> Expect.equal (Just "Cet ingrédient ne peux pas configurer un transport par avion alors que son origine par défault n'est pas par avion")
+            |> asTest "should validate that an ingredient can be transported by plane"
         , getEndpoint db "GET" "/food/recipe?ingredients[]=egg;1;default;BD"
             |> Maybe.andThen extractFoodErrors
             |> Maybe.andThen (Dict.get "ingredients")

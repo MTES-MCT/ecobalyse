@@ -330,14 +330,13 @@ describe("API", () => {
         );
       });
 
-      // TODO: fix this test
-      // it("should validate an ingredient transport by plane", async () => {
-      //   expectFieldErrorMessage(
-      //     await makeRequest("/api/food/recipe", ["ingredients[]=carrot;123;default;BR;true"]),
-      //     "ingredients",
-      //     /Cet ingrédient ne peux pas configurer un transport par avion alors que son origine par défault n'est pas par avion/,
-      //   );
-      // });
+      it("should validate an ingredient transport by plane", async () => {
+        expectFieldErrorMessage(
+          await makeRequest("/api/food/recipe", ["ingredients[]=carrot;123;default;BR;true"]),
+          "ingredients",
+          /Cet ingrédient ne peux pas configurer un transport par avion alors que son origine par défault n'est pas par avion/,
+        );
+      });
 
       it("should validate transform code", async () => {
         expectFieldErrorMessage(

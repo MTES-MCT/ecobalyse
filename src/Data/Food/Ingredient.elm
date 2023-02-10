@@ -2,6 +2,7 @@ module Data.Food.Ingredient exposing
     ( Id
     , Ingredient
     , byPlaneByDefault
+    , byPlaneErrorMessage
     , decodeId
     , decodeIngredients
     , encodeId
@@ -45,6 +46,11 @@ byPlaneByDefault ingredient =
 
     else
         Nothing
+
+
+byPlaneErrorMessage : String
+byPlaneErrorMessage =
+    "Cet ingrédient ne peux pas configurer un transport par avion alors que son origine par défault n'est pas par avion"
 
 
 decodeId : Decode.Decoder Id

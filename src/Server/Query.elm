@@ -9,7 +9,7 @@ import Data.Country as Country exposing (Country)
 import Data.Env as Env
 import Data.Food.Builder.Db as BuilderDb
 import Data.Food.Builder.Query as BuilderQuery
-import Data.Food.Ingredient as Ingredient
+import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Process as FoodProcess
 import Data.Scope as Scope exposing (Scope)
 import Data.Textile.Db as TextileDb
@@ -138,7 +138,15 @@ ingredientParser { countries, ingredients } string =
                         |> validateCountry countryCode Scope.Food
                         |> Result.map Just
                     )
-                |> RE.andMap (validateBool byPlane |> Result.map Just)
+                |> RE.andMap
+                    (validateBool byPlane
+                        |> Result.andThen
+                            (\byPlaneBool ->
+                                ingredient
+                                    |> Result.andThen (validateByPlane byPlaneBool)
+                            )
+                        |> Result.map Just
+                    )
 
         [ "" ] ->
             Err <| "Format d'ingrédient vide."
@@ -203,6 +211,15 @@ validateBool str =
 
         _ ->
             Err "La valeur ne peut être que true ou false."
+
+
+validateByPlane : Bool -> Ingredient -> Result String Bool
+validateByPlane byPlane ingredient =
+    if Ingredient.byPlaneByDefault ingredient == Nothing then
+        Err Ingredient.byPlaneErrorMessage
+
+    else
+        Ok byPlane
 
 
 validateCountry : String -> Scope -> List Country -> Result String Country.Code
