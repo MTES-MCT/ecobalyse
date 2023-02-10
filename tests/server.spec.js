@@ -334,7 +334,7 @@ describe("API", () => {
         expectFieldErrorMessage(
           await makeRequest("/api/food/recipe", ["ingredients[]=carrot;123;default;BR;true"]),
           "ingredients",
-          /Cet ingrédient ne peux pas configurer un transport par avion alors que son origine par défault n'est pas par avion/,
+          /Impossible d'acheminer cet ingrédient par avion, son origine par défaut ne le permet pas./,
         );
       });
 
