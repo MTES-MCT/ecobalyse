@@ -206,21 +206,24 @@ computeIngredientTransport db { ingredient, country, mass, byPlane } =
         emptyImpacts =
             Impact.impactsFromDefinitons db.impacts
 
+        planeRatio =
+            -- Special case: if the default origin of an ingredient is "by plane"
+            -- and we selected a transport by plane, then we take an air transport ratio of 1
+            Unit.Ratio
+                (if byPlane == Just True then
+                    1
+
+                 else
+                    0
+                )
+
         baseTransport =
             case country of
                 -- In case a custom country is provided, compute the distances to it from France
                 Just { code } ->
                     db.transports
                         |> Transport.getTransportBetween Scope.Food emptyImpacts code france
-                        |> (\ingredientTransport ->
-                                if byPlane == Just True then
-                                    -- Special case: if the default origin of an ingredient is "by plane"
-                                    -- and we selected a transport by plane, then we take an air transport ratio of 1
-                                    Formula.transportRatio (Unit.Ratio 1) ingredientTransport
-
-                                else
-                                    Formula.transportRatio (Unit.Ratio 0) ingredientTransport
-                           )
+                        |> Formula.transportRatio planeRatio
 
                 -- Otherwise retrieve ingredient's default origin transport data
                 Nothing ->
