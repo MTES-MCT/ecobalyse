@@ -78,7 +78,10 @@ formatFloat decimals float =
             FormatNumber.format { frenchLocale | decimals = Exact dc }
                 >> String.replace "−" "-"
     in
-    if abs float >= 100 then
+    if float == 0 then
+        "0"
+
+    else if abs float >= 100 then
         simpleFmt 0 float
 
     else if abs float < 0.01 then
@@ -106,13 +109,9 @@ formatFloat decimals float =
 formatRichFloat : Int -> String -> Float -> Html msg
 formatRichFloat decimals unit value =
     span []
-        [ text
-            (if value == 0 then
-                "0"
-
-             else
-                formatFloat decimals value
-            )
+        [ value
+            |> formatFloat decimals
+            |> text
         , span [ class "fs-unit" ] [ text "\u{202F}", text unit ]
         ]
 
