@@ -20,6 +20,7 @@ Ground beef, fresh, case ready, for direct consumption, at plant
 Cooked ham, case ready, at plant
 Meat with bone, lamb
 Meat without bone, chicken, for direct consumption
+Mango, conventional, Val de San Francisco, at orchard
 Steel, unalloyed {RER}| steel production, converter, unalloyed | Cut-off, S - Copied from Ecoinvent
 Packaging film, low density polyethylene {RER}| production | Cut-off, S - Copied from Ecoinvent
 Polystyrene, expandable {RER}| production | Cut-off, S - Copied from Ecoinvent
@@ -43,3 +44,4 @@ Apple, organic, national average, at orchard
 Grape, full production (phase), integrated, variety mix, Languedoc-Roussillon, at vineyard
 Grape, full production (phase), organic, variety mix, Languedoc-Roussillon, at vineyard
 Electricity, low voltage {FR}| market for | Cut-off, S - Copied from Ecoinvent
+

@@ -9,7 +9,7 @@ import Data.Country as Country exposing (Country)
 import Data.Env as Env
 import Data.Food.Builder.Db as BuilderDb
 import Data.Food.Builder.Query as BuilderQuery
-import Data.Food.Ingredient as Ingredient
+import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Process as FoodProcess
 import Data.Scope as Scope exposing (Scope)
 import Data.Textile.Db as TextileDb
@@ -89,6 +89,7 @@ ingredientParser { countries, ingredients } string =
                 |> RE.andMap (validateMass mass)
                 |> RE.andMap (Ok BuilderQuery.Default)
                 |> RE.andMap (Ok Nothing)
+                |> RE.andMap (Result.map Ingredient.byPlaneByDefault ingredient)
 
         [ id, mass, variant ] ->
             let
@@ -102,6 +103,7 @@ ingredientParser { countries, ingredients } string =
                 |> RE.andMap (validateMass mass)
                 |> RE.andMap (variantParser variant)
                 |> RE.andMap (Ok Nothing)
+                |> RE.andMap (Result.map Ingredient.byPlaneByDefault ingredient)
 
         [ id, mass, variant, countryCode ] ->
             let
@@ -118,6 +120,35 @@ ingredientParser { countries, ingredients } string =
                     (countries
                         |> validateCountry countryCode Scope.Food
                         |> Result.map Just
+                    )
+                |> RE.andMap (Result.map Ingredient.byPlaneByDefault ingredient)
+
+        [ id, mass, variant, countryCode, byPlane ] ->
+            let
+                ingredient =
+                    ingredients
+                        |> Ingredient.findByID (Ingredient.idFromString id)
+            in
+            Ok BuilderQuery.IngredientQuery
+                |> RE.andMap (Result.map .id ingredient)
+                |> RE.andMap (Result.map .name ingredient)
+                |> RE.andMap (validateMass mass)
+                |> RE.andMap (variantParser variant)
+                |> RE.andMap
+                    (countries
+                        |> validateCountry countryCode Scope.Food
+                        |> Result.map Just
+                    )
+                |> RE.andMap
+                    (ingredient
+                        |> Result.andThen
+                            (\ingredientResult ->
+                                validateByPlaneValue byPlane ingredientResult
+                                    |> Result.andThen
+                                        (\maybeByPlane ->
+                                            Ingredient.byPlaneAllowed maybeByPlane ingredientResult
+                                        )
+                            )
                     )
 
         [ "" ] ->
@@ -157,6 +188,35 @@ packagingParser packagings string =
 
         _ ->
             Err <| "Format d'emballage invalide : " ++ string ++ "."
+
+
+validateBool : String -> Result String Bool
+validateBool str =
+    case str of
+        "true" ->
+            Ok True
+
+        "false" ->
+            Ok False
+
+        _ ->
+            Err "La valeur ne peut être que true ou false."
+
+
+validateByPlaneValue : String -> Ingredient -> Result String (Maybe Bool)
+validateByPlaneValue str ingredient =
+    case str of
+        "default" ->
+            Ok (Ingredient.byPlaneByDefault ingredient)
+
+        "byPlane" ->
+            Ok (Just True)
+
+        "noPlane" ->
+            Ok (Just False)
+
+        _ ->
+            Err "La valeur ne peut être que parmis les choix suivants: 'default', 'byPlane', 'noPlane'."
 
 
 validateCountry : String -> Scope -> List Country -> Result String Country.Code
@@ -702,16 +762,9 @@ maybeBoolParser key =
     Query.string key
         |> Query.map
             (Maybe.map
-                (\str ->
-                    case str of
-                        "true" ->
-                            Ok (Just True)
-
-                        "false" ->
-                            Ok (Just False)
-
-                        _ ->
-                            Err ( key, "La valeur ne peut être que true ou false." )
+                (validateBool
+                    >> Result.map Just
+                    >> Result.mapError (Tuple.pair key)
                 )
                 >> Maybe.withDefault (Ok Nothing)
             )

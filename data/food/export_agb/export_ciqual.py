@@ -265,6 +265,7 @@ def compute_lca(processes, lcas):
 def export_json(content, filename):
     with open(filename, "w") as outfile:
         json.dump(content, outfile, indent=2)
+        outfile.write("\n")  # Add a newline at the end of the file, as many editors do.
 
 
 path = "../Agribalyse_Synthese.csv"

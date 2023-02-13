@@ -1,7 +1,9 @@
 import json
 import pandas as pd
-import pycountry
 import gettext
+
+"""Convert distances.json to distances.csv, countries.csv to use it in excel
+"""
 
 with open("distances.json", "r") as f:
     distances = json.load(f)
@@ -77,4 +79,4 @@ for alpha2 in countries_list:
 
 # csv export
 countries_df = pd.DataFrame(country_alpha2, columns=["alpha-2", "name_fr", "name_en"])
-countries_df.to_csv("countries.csv", index=False, encoding="utf-8")
+countries_df.to_csv("countries_output.csv", index=False, encoding="utf-8")

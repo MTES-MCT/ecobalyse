@@ -15,6 +15,7 @@ import Data.Dataset as Dataset
 import Data.Food.Builder.Db as BuilderDb exposing (Db)
 import Data.Food.Builder.Query as Query exposing (Query)
 import Data.Food.Builder.Recipe as Recipe exposing (Recipe)
+import Data.Food.Category as Category
 import Data.Food.Ingredient as Ingredient exposing (Id, Ingredient)
 import Data.Food.Origin as Origin
 import Data.Food.Process as Process exposing (Process)
@@ -55,7 +56,7 @@ import Views.Transport as TransportView
 
 type alias Model =
     { dbState : WebData Db
-    , foodCategoryScale : Maybe String
+    , category : Maybe Category.Id
     , impact : Impact.Definition
     , bookmarkName : String
     , bookmarkTab : BookmarkView.ActiveTab
@@ -84,7 +85,7 @@ type Msg
     | ResetTransform
     | SaveBookmark
     | SaveBookmarkWithTime String Bookmark.Query Posix
-    | SetFoodCategoryScale (Maybe String)
+    | SetCategory (Maybe String)
     | SetModal Modal
     | SwitchComparisonUnit ComparatorView.FoodComparisonUnit
     | SwitchLinksTab BookmarkView.ActiveTab
@@ -111,7 +112,7 @@ init ({ db, builderDb, queries } as session) trigram maybeQuery =
 
         ( model, newSession, cmds ) =
             ( { dbState = RemoteData.Loading
-              , foodCategoryScale = Nothing
+              , category = Nothing
               , impact = impact
               , bookmarkName = query |> findExistingBookmarkName session
               , bookmarkTab = BookmarkView.SaveTab
@@ -275,8 +276,8 @@ update ({ queries } as session) msg model =
             , Cmd.none
             )
 
-        SetFoodCategoryScale foodCategoryScale ->
-            ( { model | foodCategoryScale = foodCategoryScale }, session, Cmd.none )
+        SetCategory category ->
+            ( { model | category = category }, session, Cmd.none )
 
         SetModal modal ->
             ( { model | modal = modal }, session, Cmd.none )
@@ -351,6 +352,34 @@ findExistingBookmarkName { builderDb, store } query =
 
 
 -- Views
+
+
+absoluteImpactView : Model -> Recipe.Results -> Html Msg
+absoluteImpactView model results =
+    SummaryComp.view
+        { header = []
+        , body =
+            [ div [ class "d-flex flex-column m-auto gap-1 px-2 text-center text-nowrap" ]
+                [ div [ class "display-3 lh-1" ]
+                    [ results.perKg
+                        |> Format.formatFoodSelectedImpactPerKg model.impact
+                    ]
+                ]
+            ]
+        , footer =
+            [ div [ class "d-flex justify-content-center align-items-end gap-1 w-100" ]
+                [ span [ class "fs-7" ]
+                    [ text "Soit pour "
+                    , Format.kg results.totalMass
+                    , text "\u{00A0}:"
+                    ]
+                , span [ class "h5 m-0" ]
+                    [ results.total
+                        |> Format.formatFoodSelectedImpact model.impact
+                    ]
+                ]
+            ]
+        }
 
 
 type alias AddProcessConfig msg =
@@ -440,6 +469,7 @@ updateIngredientFormView { excluded, db, ingredient, impact, transportImpact } =
             , mass = ingredient.mass
             , variant = ingredient.variant
             , country = ingredient.country |> Maybe.map .code
+            , byPlane = ingredient.byPlane
             }
 
         event =
@@ -486,6 +516,7 @@ updateIngredientFormView { excluded, db, ingredient, impact, transportImpact } =
                             , name = newIngredient.name
                             , variant = newVariant
                             , country = Nothing
+                            , byPlane = Ingredient.byPlaneByDefault newIngredient
                         }
                 )
         , db.countries
@@ -557,7 +588,29 @@ updateIngredientFormView { excluded, db, ingredient, impact, transportImpact } =
             ]
             [ Icon.trash ]
         , span [ class "text-muted IngredientTransportLabel fs-7" ]
-            [ text "Transport pour cet ingrédient" ]
+            [ text "Transport pour cet ingrédient"
+            , if ingredient.byPlane /= Nothing then
+                label
+                    [ class "PlaneCheckbox ps-2" ]
+                    [ text "("
+                    , input
+                        [ type_ "checkbox"
+                        , class "form-check-input no-outline"
+                        , attribute "role" "switch"
+                        , checked <| ingredientQuery.byPlane == Just True
+                        , disabled <| ingredient.country == Nothing
+                        , onCheck
+                            (\checked ->
+                                event { ingredientQuery | byPlane = Just checked }
+                            )
+                        ]
+                        []
+                    , text " par avion)"
+                    ]
+
+              else
+                text ""
+            ]
         , ingredient
             |> Recipe.computeIngredientTransport db
             |> TransportView.viewDetails
@@ -854,102 +907,14 @@ sidebarView session db model results =
             , switchFunctionalUnit = always NoOp
             , scope = Scope.Food
             }
-        , SummaryComp.view
-            { header =
-                if Impact.isAggregate model.impact then
-                    let
-                        score =
-                            case model.foodCategoryScale of
-                                Just categoryScale ->
-                                    results.perKg
-                                        |> Impact.getAggregatedCategoryScoreOutOf100 model.impact categoryScale
+        , absoluteImpactView model results
+        , if Impact.trg "ecs" == model.impact.trigram then
+            -- We only compute and render subscores for ecs
+            scoresView session model results
 
-                                Nothing ->
-                                    results.perKg
-                                        |> Impact.getAggregatedScoreOutOf100 model.impact
-                                        |> Ok
-                    in
-                    [ div [ class "d-flex justify-content-between align-items-center gap-3 w-100" ]
-                        [ Impact.foodCategories
-                            |> Dict.toList
-                            |> List.sortBy (Tuple.second >> .name)
-                            |> List.map
-                                (\( categoryScale, { name } ) ->
-                                    option
-                                        [ value categoryScale
-                                        , selected <| model.foodCategoryScale == Just categoryScale
-                                        ]
-                                        [ text name ]
-                                )
-                            |> (::)
-                                (option
-                                    [ value ""
-                                    , selected <| model.foodCategoryScale == Nothing
-                                    ]
-                                    [ text "Toutes catégories" ]
-                                )
-                            |> select
-                                [ class "form-select form-select-sm w-50"
-                                , onInput
-                                    (\s ->
-                                        SetFoodCategoryScale
-                                            (if s == "" then
-                                                Nothing
-
-                                             else
-                                                Just s
-                                            )
-                                    )
-                                ]
-                        , div [ class "d-flex justify-content-center align-items-end gap-1 text-nowrap" ]
-                            (case score of
-                                Ok score_ ->
-                                    let
-                                        scoreLetter =
-                                            Impact.getAggregatedScoreLetter score_
-                                    in
-                                    [ text "Score :"
-                                    , span [ class "h5 m-0" ]
-                                        [ text (String.fromInt score_)
-                                        , span [ class "fs-7" ] [ text "/100" ]
-                                        ]
-                                    , span [ class <| "h5 m-0 ScoreLetter ScoreLetter" ++ scoreLetter ]
-                                        [ text scoreLetter
-                                        ]
-                                    ]
-
-                                Err error ->
-                                    [ span [ class "badge bg-danger" ] [ text error ] ]
-                            )
-                        ]
-                    ]
-
-                else
-                    []
-            , body =
-                [ div [ class "d-flex flex-column m-auto gap-1 px-2 text-center text-nowrap" ]
-                    [ div [ class "display-3 lh-1" ]
-                        [ results.perKg
-                            |> Format.formatFoodSelectedImpactPerKg model.impact
-                        ]
-                    ]
-                ]
-            , footer =
-                [ div [ class "d-flex justify-content-center align-items-end gap-1 w-100" ]
-                    [ span [ class "fs-7" ]
-                        [ text "Soit pour "
-                        , Format.kg results.totalMass
-                        , text "\u{00A0}:"
-                        ]
-                    , span [ class "h5 m-0" ]
-                        [ results.total
-                            |> Format.formatFoodSelectedImpact model.impact
-                        ]
-                    ]
-                ]
-            }
+          else
+            text ""
         , stepResultsView model results
-        , protectionAreaView session results
         , BookmarkView.view
             { session = session
             , activeTab = model.bookmarkTab
@@ -970,34 +935,132 @@ sidebarView session db model results =
         ]
 
 
-protectionAreaView : Session -> Recipe.Results -> Html Msg
-protectionAreaView { db } { perKg } =
+scoresView : Session -> Model -> Recipe.Results -> Html Msg
+scoresView { builderDb } model { perKg } =
     let
+        score =
+            case model.category of
+                Just category ->
+                    perKg
+                        |> Impact.getImpact (Impact.trg "ecs")
+                        |> Impact.getAggregatedCategoryScoreOutOf100 .all category
+
+                Nothing ->
+                    perKg
+                        |> Impact.getAggregatedScoreOutOf100 model.impact
+                        |> Ok
+
         subScores =
             perKg
-                |> Impact.toProtectionAreas db.impacts
+                |> Impact.toProtectionAreas builderDb.impacts
 
-        ecs =
-            db.impacts
-                |> Impact.getDefinition (Impact.trg "ecs")
-                |> Result.withDefault (Impact.invalid Scope.Food)
+        letterView letter =
+            span [ class <| "ScoreLetter ScoreLetter" ++ letter ]
+                [ text letter
+                ]
     in
-    div [ class "card" ]
-        [ div [ class "card-header" ] [ text "Sous-scores" ]
-        , [ ( "Climat", subScores.climate )
-          , ( "Biodiversité", subScores.biodiversity )
-          , ( "Santé environnementale", subScores.health )
-          , ( "Ressource", subScores.resources )
-          ]
-            |> List.map
-                (\( label, subScore ) ->
-                    li [ class "list-group-item d-flex justify-content-between align-items-center gap-1" ]
-                        [ text label
-                        , subScore
-                            |> Format.subScore ecs
+    div [ class "card bg-primary shadow-sm" ]
+        [ div [ class "card-header text-white d-flex justify-content-between gap-1" ]
+            [ div [ class "d-flex justify-content-between align-items-center gap-3 w-100" ]
+                [ Category.all
+                    |> Dict.toList
+                    |> List.sortBy (Tuple.second >> .name)
+                    |> List.map
+                        (\( category, { name } ) ->
+                            option
+                                [ value category
+                                , selected <| model.category == Just category
+                                ]
+                                [ text name ]
+                        )
+                    |> (::)
+                        (option
+                            [ value ""
+                            , selected <| model.category == Nothing
+                            ]
+                            [ text "Toutes catégories" ]
+                        )
+                    |> select
+                        [ class "form-select form-select-sm w-50"
+                        , onInput
+                            (\s ->
+                                SetCategory
+                                    (if s == "" then
+                                        Nothing
+
+                                     else
+                                        Just s
+                                    )
+                            )
                         ]
-                )
-            |> ul [ class "list-group list-group-flush fs-7" ]
+                , div [ class "d-flex justify-content-center align-items-end gap-1 text-nowrap h4 m-0 text-center" ]
+                    (case score of
+                        Ok score_ ->
+                            let
+                                scoreLetter =
+                                    Impact.getAggregatedScoreLetter score_
+                            in
+                            [ span []
+                                [ text (String.fromInt score_)
+                                , span [ class "fs-7" ] [ text "/100" ]
+                                ]
+                            , letterView scoreLetter
+                            ]
+
+                        Err error ->
+                            [ span [ class "badge bg-danger" ] [ text error ] ]
+                    )
+                ]
+            ]
+        , div [ class "card-body py-2" ]
+            [ [ ( "Climat", subScores.climate, .climate )
+              , ( "Biodiversité", subScores.biodiversity, .biodiversity )
+              , ( "Santé environnementale", subScores.health, .health )
+              , ( "Ressource", subScores.resources, .resources )
+              ]
+                |> List.map
+                    (\( label, subScore, getter ) ->
+                        let
+                            subScore100 =
+                                case model.category of
+                                    Just category ->
+                                        subScore
+                                            |> Impact.getAggregatedCategoryScoreOutOf100 getter category
+
+                                    Nothing ->
+                                        perKg
+                                            |> Impact.getAggregatedScoreOutOf100 model.impact
+                                            |> Ok
+                        in
+                        tr []
+                            [ th [] [ text label ]
+                            , td [ class "text-end" ]
+                                [ strong []
+                                    [ subScore100
+                                        |> Result.map String.fromInt
+                                        |> Result.withDefault "N/A"
+                                        |> text
+                                    ]
+                                , small [] [ text "/100" ]
+                                ]
+                            , td
+                                [ class "text-end align-middle ps-1"
+                                , style "width" "1%"
+                                , subScore
+                                    |> Unit.impactToFloat
+                                    |> Format.formatFloat 2
+                                    |> (\x -> x ++ "\u{202F}µPts/kg")
+                                    |> title
+                                ]
+                                [ subScore100
+                                    |> Result.map Impact.getAggregatedScoreLetter
+                                    |> Result.withDefault "?"
+                                    |> letterView
+                                ]
+                            ]
+                    )
+                |> table [ class "w-100 text-white m-0" ]
+            ]
         ]
 
 

@@ -622,12 +622,22 @@ components:
       in: query
       description: |
         Liste des ingrédients composant la recette (liste disponible sur le point d'entrée `/food/ingredients`).
-        Le format de chaque entrée est composé de l'identifiant de la matière et de sa masse **exprimée en grammes**, ainsi que d'un éventuel mode de production alternatif à utiliser, et d'un éventuel pays d'origine :
+        Le format de chaque entrée est composé de
+        - l'identifiant de la matière (pour avoir la liste, utiliser l'API de liste d'ingrédients)
+        - sa masse **exprimée en grammes**
+        - un éventuel mode de production alternatif à utiliser (ex: `organic` pour du bio, `default` pour du conventionnel)
+        - un éventuel code de pays d'origine (ex: `BR` pour le Brésil)
+        - un éventuel transport par avion *uniquement si c'est un [ingrédient de catégorie "HORS EUROPE-MAGHREB (AVION)"](https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/transport#circuits-consideres)* (valeurs possible: `default`, `byPlane`, `noPlane`)
 
         - `milk;268` signifie *268g de lait*;
         - `carrot;30;organic` signifie *30g de carrotes bio*;
         - `tomato;123;default;ES` signifie *123g de tomates bio en provenance d'Espagne*;
-
+        - `mango;123;default` signifie *123g de mangues en provenance de son origine par défaut (hors Europe-Maghreb, transport par avion)*;
+        - `mango;123;default;BR` signifie *123g de mangues en provenance du Brésil, par avion*;
+        - `mango;123;default;BR;byPlane` signifie de la même manière *123g de mangues en provenance du Brésil, par avion*;
+        - `mango;123;default;BR;default` signifie toujours *123g de mangues en provenance du Brésil, par avion*;
+        - `mango;123;default;BR;noPlane` signifie *123g de mangues en provenance du Brésil, par bateau (pas par avion)*;
+ 
         > Par exemple, les paramètres à passer pour une recette à base de 268g de lait et 30g de carrotes bio d'espagne sont :
         >
         > ```js
@@ -652,6 +662,12 @@ components:
         fourIngredients:
           summary: Lait, carrotes bio, oeuf, tomates d'espagne
           value: ["milk;268", "carrot;30;organic", "egg;149", "tomato;123;default;ES"]
+        byPlane:
+          summary: Mangue du Brésil par avion
+          value: ["mango;123;default;BR"]
+        noPlane:
+          summary: Mangue du Brésil par bateau
+          value: ["mango;123;default;BR;noPlane"]
     packagingParam:
       name: "packaging[]"
       in: query
@@ -844,6 +860,11 @@ components:
           variants:
             type: array
             description: List des variants d'un ingrédient (par exemple label bio).
+          defaultOrigin:
+            type: string
+            description: 
+              Lieu d'origine par défaut de cet ingrédient dont la liste est disponible dans
+              [la documentation](https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/transport#circuits-consideres)
     PackagingListResponse:
       type: array
       description: Liste des emballages utilisables pour conditionner une recette

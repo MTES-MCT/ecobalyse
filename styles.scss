@@ -708,7 +708,7 @@ blockquote {
 .ScoreLetter {
   display: inline-block;
   color: rgba(255, 255, 255, 0.95);
-  padding: 3px;
+  padding: 3px !important;
   border-radius: 4px;
   width: 1.3em;
   height: 1.3em;
@@ -716,11 +716,11 @@ blockquote {
   justify-content: center;
   align-items: center;
 
-  &A { background-color: #018241 }
-  &B { background-color: #86bc30 }
-  &C { background-color: #ffcc01 }
-  &D { background-color: #f08000 }
-  &E { background-color: #e63f12 }
+  &A { background-color: #018241 !important }
+  &B { background-color: #86bc30 !important }
+  &C { background-color: #ffcc01 !important }
+  &D { background-color: #f08000 !important }
+  &E { background-color: #e63f12 !important }
 }
 
 .Step {

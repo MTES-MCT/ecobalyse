@@ -47,6 +47,7 @@ type alias IngredientQuery =
     , mass : Mass
     , variant : Variant
     , country : Maybe Country.Code
+    , byPlane : Maybe Bool
     }
 
 
@@ -129,24 +130,28 @@ carrotCake =
           , mass = Mass.grams 120
           , variant = Default
           , country = Nothing
+          , byPlane = Nothing
           }
         , { id = Ingredient.idFromString "wheat"
           , name = "Blé tendre"
           , mass = Mass.grams 140
           , variant = Default
           , country = Nothing
+          , byPlane = Nothing
           }
         , { id = Ingredient.idFromString "milk"
           , name = "Lait"
           , mass = Mass.grams 60
           , variant = Default
           , country = Nothing
+          , byPlane = Nothing
           }
         , { id = Ingredient.idFromString "carrot"
           , name = "Carotte"
           , mass = Mass.grams 225
           , variant = Default
           , country = Nothing
+          , byPlane = Nothing
           }
         ]
     , transform =
@@ -220,12 +225,13 @@ conservationTypeFromString str =
 
 decodeIngredient : Decoder IngredientQuery
 decodeIngredient =
-    Decode.map5 IngredientQuery
+    Decode.map6 IngredientQuery
         (Decode.field "id" Ingredient.decodeId)
         (Decode.field "name" Decode.string)
         (Decode.field "mass" decodeMass)
         (Decode.field "variant" decodeVariant)
         (Decode.field "country" (Decode.maybe Country.decodeCode))
+        (Decode.field "byPlane" (Decode.maybe Decode.bool))
 
 
 decodeVariant : Decoder Variant
@@ -262,6 +268,7 @@ encodeIngredient v =
         , ( "mass", encodeMass v.mass )
         , ( "variant", encodeVariant v.variant )
         , ( "country", v.country |> Maybe.map Country.encodeCode |> Maybe.withDefault Encode.null )
+        , ( "byPlane", v.byPlane |> Maybe.map Encode.bool |> Maybe.withDefault Encode.null )
         ]
 
 
