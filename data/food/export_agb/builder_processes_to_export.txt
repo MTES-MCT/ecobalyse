@@ -44,4 +44,3 @@ Apple, organic, national average, at orchard
 Grape, full production (phase), integrated, variety mix, Languedoc-Roussillon, at vineyard
 Grape, full production (phase), organic, variety mix, Languedoc-Roussillon, at vineyard
 Electricity, low voltage {FR}| market for | Cut-off, S - Copied from Ecoinvent
-
