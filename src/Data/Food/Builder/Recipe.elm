@@ -153,17 +153,42 @@ compute db =
                             transport =
                                 Transport.sum db.impacts [ { noTransport | road = Length.kilometers 600 } ]
 
-                            foo =
+                            transportWithImpact =
+                                -- TODO simplify
+                                { transport
+                                    | impacts =
+                                        db.processes
+                                            |> Process.loadWellKnown
+                                            |> Result.map
+                                                (\{ lorryTransport } ->
+                                                    lorryTransport.impacts
+                                                        |> Impact.mapImpacts
+                                                            (\_ impact ->
+                                                                impact
+                                                                    |> Unit.impactToFloat
+                                                                    |> (*) (Mass.inMetricTons {- TODO -} (Mass.kilograms 10) * Length.inKilometers transport.road)
+                                                                    |> Unit.impact
+                                                            )
+                                                )
+                                            |> Result.withDefault Impact.noImpacts
+                                            |> Impact.updateAggregatedScores db.impacts
+                                }
+
+                            mass =
                                 ingredients
-                                    |> List.map (computeIngredientTransport db)
-                                    |> Transport.sum db.impacts
+                                    |> List.foldl (\i total -> Quantity.plus total i.mass) (Mass.kilograms 0.0)
+
+                            volume =
+                                ingredients
+                                    |> List.foldl (\i total -> Quantity.divideBy i.ingredient.density <| Quantity.plus total i.mass) (Mass.kilograms 0.0)
 
                             bar =
                                 conservation
+                                    -- TODO
                                     |> Maybe.map (computeConservationImpacts db.impacts >> List.singleton >> updateImpacts)
                                     |> Maybe.withDefault Impact.noImpacts
                         in
-                        Impact.noImpacts
+                        transport.impacts
 
                     recipeImpacts =
                         updateImpacts
