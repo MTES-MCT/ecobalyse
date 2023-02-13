@@ -83,6 +83,7 @@ type alias Results =
         , ingredients : List ( RecipeIngredient, Impacts )
         , transform : Impacts
         , transports : Transport
+        , conservation : Impacts
         }
     , packaging : Impacts
     , transports : Transport
@@ -150,7 +151,7 @@ compute db =
                                 Transport.default Impact.noImpacts
 
                             transport =
-                                { noTransport | road = Length.kilometers 600 }
+                                Transport.sum db.impacts [ { noTransport | road = Length.kilometers 600 } ]
 
                             foo =
                                 ingredients
@@ -224,9 +225,8 @@ computeProcessImpacts defs item =
 
 computeConservationImpacts : List Impact.Definition -> Conservation -> Impacts
 computeConservationImpacts defs conservation =
-    item.process.impacts
-        |> Impact.mapImpacts (computeImpact item.mass)
-        |> Impact.updateAggregatedScores defs
+    -- TODO
+    Impact.noImpacts
 
 
 computeIngredientImpacts : RecipeIngredient -> Impacts
