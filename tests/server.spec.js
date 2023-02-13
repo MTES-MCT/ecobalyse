@@ -265,6 +265,7 @@ describe("API", () => {
         await expectListResponseContains("/api/food/ingredients", {
           id: "milk",
           name: "Lait",
+          defaultOrigin: "Europe et Maghreb"
         });
       });
     });
@@ -310,6 +311,38 @@ describe("API", () => {
           await makeRequest("/api/food/recipe", ["ingredients[]=carrot;-1"]),
           "ingredients",
           /masse doit être supérieure ou égale à zéro/,
+        );
+      });
+      
+      it("should validate an ingredient variant", async () => {
+        expectFieldErrorMessage(
+          await makeRequest("/api/food/recipe", ["ingredients[]=carrot;123;BadVariant"]),
+          "ingredients",
+          /Format de variant invalide : BadVariant/,
+        );
+      });
+
+      it("should validate an ingredient country code", async () => {
+        expectFieldErrorMessage(
+          await makeRequest("/api/food/recipe", ["ingredients[]=carrot;123;default;BadCountryCode"]),
+          "ingredients",
+          /Code pays invalide: BadCountryCode/,
+        );
+      });
+
+      it("should validate an ingredient transport by plane value", async () => {
+        expectFieldErrorMessage(
+          await makeRequest("/api/food/recipe", ["ingredients[]=mango;123;default;BR;badValue"]),
+          "ingredients",
+          /La valeur ne peut être que parmis les choix suivants: 'default', 'byPlane', 'noPlane'./,
+        );
+      });
+
+      it("should validate an ingredient transport by plane", async () => {
+        expectFieldErrorMessage(
+          await makeRequest("/api/food/recipe", ["ingredients[]=carrot;123;default;BR;byPlane"]),
+          "ingredients",
+          /Impossible de spécifier un acheminement par avion pour cet ingrédient, son origine par défaut ne le permet pas./,
         );
       });
 

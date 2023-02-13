@@ -293,5 +293,285 @@
         "outOf100": 15
       }
     }
+  },
+  {
+    "name": "Mango by plane from Brazil (by default)",
+    "query": [
+      "ingredients[]=mango;120;default;BR"
+    ],
+    "impacts": {
+      "acd": 0.005640310894366586,
+      "bvi": 0.01338425272908,
+      "cch": 1.1056716457033444,
+      "ecs": 72.27176919245173,
+      "etf": 16.09950978897271,
+      "fru": 15.667216416514874,
+      "fwe": 0.00003235674702470583,
+      "htc": 5.19404077717321e-10,
+      "htn": 3.827843002831516e-9,
+      "ior": 0.07811681946741846,
+      "ldu": 4.59107682867822,
+      "mru": 2.8061248776712073e-7,
+      "ozd": 2.545886610824069e-7,
+      "pco": 0.005461314062206943,
+      "pef": 82.87186024130524,
+      "pma": 2.01330013433882e-8,
+      "swe": 0.001830525456673672,
+      "tre": 0.020879107029684114,
+      "wtu": 0.050343763774083956
+    },
+    "scoring": {
+      "category": "Toutes les catégories",
+      "all": {
+        "impact": 602.264743270431,
+        "letter": "D",
+        "outOf100": 35
+      },
+      "climate": {
+        "impact": 239.694465737187,
+        "letter": "D",
+        "outOf100": 35
+      },
+      "biodiversity": {
+        "impact": 474.584156182176,
+        "letter": "D",
+        "outOf100": 35
+      },
+      "health": {
+        "impact": 294.6272378120228,
+        "letter": "D",
+        "outOf100": 35
+      },
+      "resources": {
+        "impact": 100.24084754744443,
+        "letter": "D",
+        "outOf100": 35
+      }
+    }
+  },
+  {
+    "name": "Mango by plane from Brazil (by default, explicitely)",
+    "query": [
+      "ingredients[]=mango;120;default;BR;default"
+    ],
+    "impacts": {
+      "acd": 0.005640310894366586,
+      "bvi": 0.01338425272908,
+      "cch": 1.1056716457033444,
+      "ecs": 72.27176919245173,
+      "etf": 16.09950978897271,
+      "fru": 15.667216416514874,
+      "fwe": 0.00003235674702470583,
+      "htc": 5.19404077717321e-10,
+      "htn": 3.827843002831516e-9,
+      "ior": 0.07811681946741846,
+      "ldu": 4.59107682867822,
+      "mru": 2.8061248776712073e-7,
+      "ozd": 2.545886610824069e-7,
+      "pco": 0.005461314062206943,
+      "pef": 82.87186024130524,
+      "pma": 2.01330013433882e-8,
+      "swe": 0.001830525456673672,
+      "tre": 0.020879107029684114,
+      "wtu": 0.050343763774083956
+    },
+    "scoring": {
+      "category": "Toutes les catégories",
+      "all": {
+        "impact": 602.264743270431,
+        "letter": "D",
+        "outOf100": 35
+      },
+      "climate": {
+        "impact": 239.694465737187,
+        "letter": "D",
+        "outOf100": 35
+      },
+      "biodiversity": {
+        "impact": 474.584156182176,
+        "letter": "D",
+        "outOf100": 35
+      },
+      "health": {
+        "impact": 294.6272378120228,
+        "letter": "D",
+        "outOf100": 35
+      },
+      "resources": {
+        "impact": 100.24084754744443,
+        "letter": "D",
+        "outOf100": 35
+      }
+    }
+  },
+  {
+    "name": "Mango by plane from Brazil (explicitely)",
+    "query": [
+      "ingredients[]=mango;120;default;BR;byPlane"
+    ],
+    "impacts": {
+      "acd": 0.005640310894366586,
+      "bvi": 0.01338425272908,
+      "cch": 1.1056716457033444,
+      "ecs": 72.27176919245173,
+      "etf": 16.09950978897271,
+      "fru": 15.667216416514874,
+      "fwe": 0.00003235674702470583,
+      "htc": 5.19404077717321e-10,
+      "htn": 3.827843002831516e-9,
+      "ior": 0.07811681946741846,
+      "ldu": 4.59107682867822,
+      "mru": 2.8061248776712073e-7,
+      "ozd": 2.545886610824069e-7,
+      "pco": 0.005461314062206943,
+      "pef": 82.87186024130524,
+      "pma": 2.01330013433882e-8,
+      "swe": 0.001830525456673672,
+      "tre": 0.020879107029684114,
+      "wtu": 0.050343763774083956
+    },
+    "scoring": {
+      "category": "Toutes les catégories",
+      "all": {
+        "impact": 602.264743270431,
+        "letter": "D",
+        "outOf100": 35
+      },
+      "climate": {
+        "impact": 239.694465737187,
+        "letter": "D",
+        "outOf100": 35
+      },
+      "biodiversity": {
+        "impact": 474.584156182176,
+        "letter": "D",
+        "outOf100": 35
+      },
+      "health": {
+        "impact": 294.6272378120228,
+        "letter": "D",
+        "outOf100": 35
+      },
+      "resources": {
+        "impact": 100.24084754744443,
+        "letter": "D",
+        "outOf100": 35
+      }
+    }
+  },
+  {
+    "name": "Mango by boat from Brazil",
+    "query": [
+      "ingredients[]=mango;120;default;BR;noPlane"
+    ],
+    "impacts": {
+      "acd": 0.0005830753940325311,
+      "bvi": 0.0013627830600000002,
+      "cch": 0.029245291776661693,
+      "ecs": 10.433722595691764,
+      "etf": 8.238356924895037,
+      "fru": 0.3693147293157339,
+      "fwe": 0.0000063844187048168255,
+      "htc": 1.343411218132876e-11,
+      "htn": 4.912123963161486e-10,
+      "ior": 0.0023645060735217917,
+      "ldu": 2.5523653748092068,
+      "mru": 1.613835751603368e-7,
+      "ozd": 4.701294511544467e-9,
+      "pco": 0.00025461166619307875,
+      "pef": 7.505565456473443,
+      "pma": 2.4597351610505417e-9,
+      "swe": 0.0000924371774500773,
+      "tre": 0.001776646618045307,
+      "wtu": 0.012685889493270711
+    },
+    "scoring": {
+      "category": "Toutes les catégories",
+      "all": {
+        "impact": 86.94768829743137,
+        "letter": "A",
+        "outOf100": 91
+      },
+      "climate": {
+        "impact": 6.339978613882139,
+        "letter": "A",
+        "outOf100": 91
+      },
+      "biodiversity": {
+        "impact": 81.06519175787083,
+        "letter": "A",
+        "outOf100": 91
+      },
+      "health": {
+        "impact": 9.354574191173914,
+        "letter": "A",
+        "outOf100": 91
+      },
+      "resources": {
+        "impact": 4.752313505524962,
+        "letter": "A",
+        "outOf100": 91
+      }
+    }
+  },
+  {
+    "name": "Carrot cake, organic, China, default 'by plane' value",
+    "query": [
+      "ingredients[]=egg;120;organic;CN;default",
+      "ingredients[]=wheat;140;organic;CN;default",
+      "ingredients[]=milk;60;organic;CN;default",
+      "ingredients[]=carrot;225;organic;CN;default",
+      "transform=aded2490573207ec7ad5a3813978f6a4;545",
+      "packaging[]=23b2754e5943bc77916f8f871edc53b6;105"
+    ],
+    "impacts": {
+      "acd": 0.013821361348792718,
+      "bvi": 0.6797443178492201,
+      "cch": 0.6205951119849945,
+      "ecs": 92.83210596322871,
+      "etf": 25.73865106302882,
+      "fru": 11.34410730430613,
+      "fwe": 0.00019398744478513755,
+      "htc": 1.1433058925006605e-10,
+      "htn": -2.83299111003112e-9,
+      "ior": 0.29998742998272154,
+      "ldu": 79.60357559539811,
+      "mru": 0.000001036559863727332,
+      "ozd": 9.188955890975069e-8,
+      "pco": 0.003739079046272871,
+      "pef": 112.22920633435382,
+      "pma": 8.17845525787701e-8,
+      "swe": 0.00589023693593783,
+      "tre": 0.05216461222123258,
+      "wtu": 0.2778837786988998
+    },
+    "scoring": {
+      "category": "Toutes les catégories",
+      "all": {
+        "impact": 135.37507796428488,
+        "letter": "B",
+        "outOf100": 78
+      },
+      "climate": {
+        "impact": 23.54300787300482,
+        "letter": "B",
+        "outOf100": 78
+      },
+      "biodiversity": {
+        "impact": 112.42615516001341,
+        "letter": "B",
+        "outOf100": 78
+      },
+      "health": {
+        "impact": 31.66692510382064,
+        "letter": "B",
+        "outOf100": 78
+      },
+      "resources": {
+        "impact": 21.109460860679217,
+        "letter": "B",
+        "outOf100": 78
+      }
+    }
   }
 ]
