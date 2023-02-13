@@ -59,7 +59,7 @@ byPlaneByDefault ingredient =
 
 byPlaneErrorMessage : String
 byPlaneErrorMessage =
-    "Impossible d'acheminer cet ingrédient par avion, son origine par défaut ne le permet pas."
+    "Impossible de spécifier un acheminement par avion pour cet ingrédient, son origine par défaut ne le permet pas."
 
 
 decodeId : Decode.Decoder Id
