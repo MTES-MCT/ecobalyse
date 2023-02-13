@@ -32,12 +32,14 @@ import Data.Scope as Scope
 import Data.Textile.Formula as Formula
 import Data.Transport as Transport exposing (Transport)
 import Data.Unit as Unit
+import Density exposing (Density)
 import Json.Encode as Encode
 import Length
 import Mass exposing (Mass)
 import Quantity
 import Result.Extra as RE
 import String.Extra as SE
+import Volume exposing (Volume)
 
 
 france : Country.Code
@@ -176,11 +178,15 @@ compute db =
 
                             mass =
                                 ingredients
-                                    |> List.foldl (\i total -> Quantity.plus total i.mass) (Mass.kilograms 0.0)
+                                    |> List.foldl (\i tmass -> Quantity.plus tmass i.mass) (Mass.kilograms 0.0)
 
                             volume =
                                 ingredients
-                                    |> List.foldl (\i total -> Quantity.divideBy i.ingredient.density <| Quantity.plus total i.mass) (Mass.kilograms 0.0)
+                                    |> List.foldl
+                                        (\i tvolume ->
+                                            Quantity.plus tvolume (i.mass |> Quantity.at_ (Density.gramsPerCubicCentimeter i.ingredient.density))
+                                        )
+                                        (Volume.liters 0.0)
 
                             bar =
                                 conservation
