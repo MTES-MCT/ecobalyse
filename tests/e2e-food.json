@@ -241,7 +241,7 @@
   {
     "name": "Mango by boat from Brazil",
     "query": [
-      "ingredients[]=mango;120;default;BR;notByPlane"
+      "ingredients[]=mango;120;default;BR;noPlane"
     ],
     "impacts": {
       "acd": 0.0005830753940325311,
