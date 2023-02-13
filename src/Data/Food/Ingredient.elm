@@ -1,6 +1,8 @@
 module Data.Food.Ingredient exposing
     ( Id
     , Ingredient
+    , byPlaneAllowed
+    , byPlaneByDefault
     , decodeId
     , decodeIngredients
     , encodeId
@@ -35,6 +37,29 @@ type alias Ingredient =
 
 type Id
     = Id String
+
+
+byPlaneAllowed : Maybe Bool -> Ingredient -> Result String (Maybe Bool)
+byPlaneAllowed maybeByPlane ingredient =
+    if byPlaneByDefault ingredient == Nothing && maybeByPlane /= Nothing then
+        Err byPlaneErrorMessage
+
+    else
+        Ok maybeByPlane
+
+
+byPlaneByDefault : Ingredient -> Maybe Bool
+byPlaneByDefault ingredient =
+    if ingredient.defaultOrigin == Origin.OutOfEuropeAndMaghrebByPlane then
+        Just True
+
+    else
+        Nothing
+
+
+byPlaneErrorMessage : String
+byPlaneErrorMessage =
+    "Impossible de spécifier un acheminement par avion pour cet ingrédient, son origine par défaut ne le permet pas."
 
 
 decodeId : Decode.Decoder Id

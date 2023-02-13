@@ -464,6 +464,7 @@ updateIngredientFormView { excluded, db, ingredient, impact, transportImpact } =
             , mass = ingredient.mass
             , variant = ingredient.variant
             , country = ingredient.country |> Maybe.map .code
+            , byPlane = ingredient.byPlane
             }
 
         event =
@@ -510,6 +511,7 @@ updateIngredientFormView { excluded, db, ingredient, impact, transportImpact } =
                             , name = newIngredient.name
                             , variant = newVariant
                             , country = Nothing
+                            , byPlane = Ingredient.byPlaneByDefault newIngredient
                         }
                 )
         , db.countries
@@ -581,7 +583,29 @@ updateIngredientFormView { excluded, db, ingredient, impact, transportImpact } =
             ]
             [ Icon.trash ]
         , span [ class "text-muted IngredientTransportLabel fs-7" ]
-            [ text "Transport pour cet ingrédient" ]
+            [ text "Transport pour cet ingrédient"
+            , if ingredient.byPlane /= Nothing then
+                label
+                    [ class "PlaneCheckbox ps-2" ]
+                    [ text "("
+                    , input
+                        [ type_ "checkbox"
+                        , class "form-check-input no-outline"
+                        , attribute "role" "switch"
+                        , checked <| ingredientQuery.byPlane == Just True
+                        , disabled <| ingredient.country == Nothing
+                        , onCheck
+                            (\checked ->
+                                event { ingredientQuery | byPlane = Just checked }
+                            )
+                        ]
+                        []
+                    , text " par avion)"
+                    ]
+
+              else
+                text ""
+            ]
         , ingredient
             |> Recipe.computeIngredientTransport db
             |> TransportView.viewDetails

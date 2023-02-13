@@ -39,6 +39,14 @@ suite =
                     |> Result.map .transform
                     |> Expect.err
                     |> asTest "should return an Err for an invalid processing"
+                , { carrotCake
+                    | ingredients =
+                        carrotCake.ingredients
+                            |> List.map (\ingredient -> { ingredient | byPlane = Just True })
+                  }
+                    |> Recipe.fromQuery builderDb
+                    |> Expect.err
+                    |> asTest "should return an Err for an invalid 'byPlane' value for an ingredient without a default origin by plane"
                 ]
             , describe "compute"
                 [ carrotCake
@@ -79,12 +87,14 @@ suite =
                           , mass = Mass.grams 120
                           , variant = Query.Default
                           , country = Nothing
+                          , byPlane = Nothing
                           }
                         , { id = Ingredient.idFromString "wheat"
                           , name = "Blé tendre"
                           , mass = Mass.grams 140
                           , variant = Query.Default
                           , country = Nothing
+                          , byPlane = Nothing
                           }
                         ]
                   , transform = Nothing
@@ -126,6 +136,7 @@ suite =
                     , mass = Mass.grams 120
                     , variant = Query.Default
                     , country = Nothing
+                    , byPlane = Just True
                     }
 
                 firstIngredientAirDistance ( recipe, _ ) =
@@ -143,6 +154,7 @@ suite =
                           , mass = Mass.grams 120
                           , variant = Query.Default
                           , country = Nothing
+                          , byPlane = Nothing
                           }
                         ]
                   , transform = Nothing
@@ -160,14 +172,22 @@ suite =
                     |> Result.map firstIngredientAirDistance
                     |> Expect.equal (Ok (Just 18000))
                     |> asTest "should have air transport for mango from its default origin"
-                , { ingredients = [ { mango | country = Just (Country.codeFromString "CN") } ]
+                , { ingredients = [ { mango | country = Just (Country.codeFromString "CN"), byPlane = Just True } ]
                   , transform = Nothing
                   , packaging = []
                   }
                     |> Recipe.compute builderDb
                     |> Result.map firstIngredientAirDistance
                     |> Expect.equal (Ok (Just 8189))
-                    |> asTest "should always have air transport for mango even from other countries"
+                    |> asTest "should always have air transport for mango even from other countries if 'byPlane' is true"
+                , { ingredients = [ { mango | country = Just (Country.codeFromString "CN"), byPlane = Just False } ]
+                  , transform = Nothing
+                  , packaging = []
+                  }
+                    |> Recipe.compute builderDb
+                    |> Result.map firstIngredientAirDistance
+                    |> Expect.equal (Ok (Just 0))
+                    |> asTest "should not have air transport for mango from other countries if 'byPlane' is false"
                 ]
             ]
         )
