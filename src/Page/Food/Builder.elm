@@ -94,6 +94,7 @@ type Msg
     | UpdateIngredient Id Query.IngredientQuery
     | UpdatePackaging Process.Code Query.ProcessQuery
     | UpdateTransform Query.ProcessQuery
+    | UpdateConservation String
 
 
 init : Session -> Impact.Trigram -> Maybe Query -> ( Model, Session, Cmd Msg )
@@ -321,6 +322,10 @@ update ({ queries } as session) msg model =
         UpdateTransform newTransform ->
             ( model, session, Cmd.none )
                 |> updateQuery (Query.updateTransform newTransform query)
+
+        UpdateConservation newConservation ->
+            ( model, session, Cmd.none )
+                |> updateQuery (Query.updateConservation newConservation query)
 
 
 updateQuery : Query -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
@@ -639,7 +644,7 @@ ingredientListView db selectedImpact recipe results =
                                     |> Recipe.computeIngredientTransport db
                                     |> .impacts
                                     |> Format.formatFoodSelectedImpact selectedImpact
-                             }
+                            }
                     )
          )
             ++ [ li [ class "list-group-item" ]
@@ -702,6 +707,40 @@ packagingListView db selectedImpact recipe results =
         , event = AddPackaging
         , kind = "un emballage"
         }
+    ]
+
+
+distributionView : Db -> Impact.Definition -> Recipe -> Recipe.Results -> List (Html Msg)
+distributionView db impact recipe results =
+    [ div [ class "card-header d-flex align-items-center justify-content-between" ]
+        [ h5 [ class "mb-0" ] [ text "Stockage et distribution" ]
+        , text "TODO impact"
+        ]
+    , div []
+        [ ul [ class "list-group list-group-flush border-top-0 border-bottom-0" ]
+            [ li [ class "IngredientFormWrapper" ]
+                [ select
+                    [ class "form-select form-select-sm"
+                    , onInput UpdateConservation
+                    ]
+                    (Query.conservationTypes
+                        |> List.map
+                            (\type_ ->
+                                option
+                                    [ selected <| (recipe.conservation |> Maybe.map (.type_ >> (==) type_) |> Maybe.withDefault False)
+                                    , value <| Query.conservationTypetoString type_
+                                    ]
+                                    [ text <| Query.conservationTypetoString type_ ]
+                            )
+                    )
+                ]
+            ]
+        , div
+            [ class "card-body d-flex justify-content-between align-items-center gap-1"
+            , class "border-top-0 text-muted py-2 fs-7"
+            ]
+            []
+        ]
     ]
 
 
@@ -971,6 +1010,8 @@ stepListView db { impact } recipe results =
             (transformView db impact recipe results)
         , div [ class "card" ]
             (packagingListView db impact recipe results)
+        , div [ class "card" ]
+            (distributionView db impact recipe results)
         ]
 
 

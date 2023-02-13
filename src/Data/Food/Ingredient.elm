@@ -30,6 +30,7 @@ type alias Ingredient =
     , defaultOrigin : Origin
     , rawToCookedRatio : Unit.Ratio
     , variants : Variants
+    , density : Float
     }
 
 
@@ -81,6 +82,7 @@ decodeIngredient processes =
         |> Pipe.required "default_origin" Origin.decode
         |> Pipe.required "raw_to_cooked_ratio" (Unit.decodeRatio { percentage = False })
         |> Pipe.required "variants" (decodeVariants processes)
+        |> Pipe.required "density" Decode.float
 
 
 decodeVariants : Dict String Process -> Decoder Variants

@@ -1451,6 +1451,37 @@
     }
   },
   {
+    "name": "Electricity, low voltage {FR}| market for | Cut-off, S - Copied from Ecoinvent",
+    "unit": "kilowatt hour",
+    "simapro_id": "ef953c00d48ee59f57773534f6487b09",
+    "system_description": "Ecoinvent v3",
+    "category_tags": [
+      "Others",
+      "Ecoinvent cut-off S copy"
+    ],
+    "category": "energy",
+    "impacts": {
+      "acd": 0.00044779056520196443,
+      "ozd": 5.326111136732162e-08,
+      "cch": 0.06176707642370041,
+      "fwe": 4.0346918494323116e-05,
+      "swe": 0.00010037521833242096,
+      "tre": 0.0008815914737872435,
+      "pco": 0.00018168973950971975,
+      "pma": 4.993499991260468e-09,
+      "ior": 0.6156904369535053,
+      "fru": 12.983525385846955,
+      "mru": 5.551109112255851e-07,
+      "ldu": 0.3053480360195681,
+      "wtu": 0.15389935857296463,
+      "etf": 3.269025555241707,
+      "htc": 8.441908308530978e-11,
+      "htn": 1.6234818441361719e-09,
+      "bvi": 0.0,
+      "pef": 31.6384309286394
+    }
+  },
+  {
     "name": "Beef cattle, national average, at farm gate",
     "unit": "kilogram",
     "simapro_id": "1e0d969027eb2d70ac658448d0bf1394",

@@ -61,6 +61,7 @@ parseFoodQuery builderDb =
         |> apply (ingredientListParser "ingredients" builderDb)
         |> apply (maybeTransformParser "transform" builderDb.processes)
         |> apply (packagingListParser "packaging" builderDb.processes)
+        |> apply (maybeConservationParser "conservation")
 
 
 ingredientListParser : String -> BuilderDb.Db -> Parser (ParseResult (List BuilderQuery.IngredientQuery))
@@ -124,19 +125,6 @@ ingredientParser { countries, ingredients } string =
 
         _ ->
             Err <| "Format d'ingrédient invalide : " ++ string ++ "."
-
-
-variantParser : String -> Result String BuilderQuery.Variant
-variantParser variant =
-    case variant of
-        "default" ->
-            Ok BuilderQuery.Default
-
-        "organic" ->
-            Ok BuilderQuery.Organic
-
-        _ ->
-            Err <| "Format de variant invalide : " ++ variant
 
 
 foodProcessCodeParser : List FoodProcess.Process -> String -> Result String FoodProcess.Code
@@ -226,6 +214,51 @@ maybeTransformParser key transforms =
                 )
                 >> Maybe.withDefault (Ok Nothing)
             )
+
+
+variantParser : String -> Result String BuilderQuery.Variant
+variantParser variant =
+    case variant of
+        "default" ->
+            Ok BuilderQuery.Default
+
+        "organic" ->
+            Ok BuilderQuery.Organic
+
+        _ ->
+            Err <| "Format de variant invalide : " ++ variant
+
+
+maybeConservationParser : String -> Parser (ParseResult (Maybe BuilderQuery.ConservationQuery))
+maybeConservationParser key =
+    Query.string key
+        |> Query.map
+            (Maybe.map
+                (\str ->
+                    conservationTypeParser str
+                        |> Result.map Just
+                        |> Result.mapError (\err -> ( key, err ))
+                )
+                >> Maybe.withDefault (Ok Nothing)
+            )
+
+
+conservationTypeParser : String -> Result String BuilderQuery.ConservationQuery
+conservationTypeParser key =
+    (case key of
+        "ambient" ->
+            Ok BuilderQuery.Ambient
+
+        "chilled" ->
+            Ok BuilderQuery.Chilled
+
+        "frozen" ->
+            Ok BuilderQuery.Frozen
+
+        _ ->
+            Err <| "Type de conservation invalide : " ++ key
+    )
+        |> Result.map BuilderQuery.ConservationQuery
 
 
 parseTransform_ : List FoodProcess.Process -> String -> Result String BuilderQuery.ProcessQuery

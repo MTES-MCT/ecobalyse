@@ -1,5 +1,7 @@
 module Data.Food.Builder.Query exposing
-    ( IngredientQuery
+    ( ConservationQuery
+    , ConservationType(..)
+    , IngredientQuery
     , ProcessQuery
     , Query
     , Variant(..)
@@ -7,12 +9,15 @@ module Data.Food.Builder.Query exposing
     , addPackaging
     , b64encode
     , carrotCake
+    , conservationTypes
+    , conservationTypetoString
     , decode
     , deleteIngredient
     , emptyQuery
     , encode
     , parseBase64Query
     , setTransform
+    , updateConservation
     , updateIngredient
     , updatePackaging
     , updateTransform
@@ -27,6 +32,7 @@ import Json.Decode.Extra as DE
 import Json.Encode as Encode
 import Mass exposing (Mass)
 import Quantity
+import Result.Extra as RE
 import Url.Parser as Parser exposing (Parser)
 
 
@@ -50,10 +56,40 @@ type alias ProcessQuery =
     }
 
 
+type ConservationType
+    = Ambient
+    | Chilled
+    | Frozen
+
+
+conservationTypes : List ConservationType
+conservationTypes =
+    [ Ambient, Chilled, Frozen ]
+
+
+conservationTypetoString : ConservationType -> String
+conservationTypetoString t =
+    case t of
+        Ambient ->
+            "Sec"
+
+        Chilled ->
+            "Frais"
+
+        Frozen ->
+            "Surgelé"
+
+
+type alias ConservationQuery =
+    { type_ : ConservationType
+    }
+
+
 type alias Query =
     { ingredients : List IngredientQuery
     , transform : Maybe ProcessQuery
     , packaging : List ProcessQuery
+    , conservation : Maybe ConservationQuery
     }
 
 
@@ -81,6 +117,7 @@ emptyQuery =
     { ingredients = []
     , transform = Nothing
     , packaging = []
+    , conservation = Nothing
     }
 
 
@@ -124,15 +161,20 @@ carrotCake =
           , mass = Mass.grams 105
           }
         ]
+    , conservation =
+        Just
+            { type_ = Ambient
+            }
     }
 
 
 decode : Decoder Query
 decode =
-    Decode.map3 Query
+    Decode.map4 Query
         (Decode.field "ingredients" (Decode.list decodeIngredient))
         (Decode.field "transform" (Decode.maybe decodeProcess))
         (Decode.field "packaging" (Decode.list decodeProcess))
+        (Decode.field "conservation" (Decode.maybe decodeConservation))
 
 
 decodeMass : Decoder Mass
@@ -146,6 +188,34 @@ decodeProcess =
     Decode.map2 ProcessQuery
         (Decode.field "code" Process.decodeCode)
         (Decode.field "mass" decodeMass)
+
+
+decodeConservation : Decoder ConservationQuery
+decodeConservation =
+    Decode.map ConservationQuery
+        (Decode.field "type" decodeConservationType)
+
+
+decodeConservationType : Decoder ConservationType
+decodeConservationType =
+    Decode.string
+        |> Decode.andThen (conservationTypeFromString >> RE.unpack Decode.fail Decode.succeed)
+
+
+conservationTypeFromString : String -> Result String ConservationType
+conservationTypeFromString str =
+    case str of
+        "Sec" ->
+            Ok Ambient
+
+        "Frais" ->
+            Ok Chilled
+
+        "Surgelé" ->
+            Ok Frozen
+
+        _ ->
+            Err "Type de conservation incorrect"
 
 
 decodeIngredient : Decoder IngredientQuery
@@ -180,6 +250,7 @@ encode v =
         [ ( "ingredients", Encode.list encodeIngredient v.ingredients )
         , ( "transform", v.transform |> Maybe.map encodeProcess |> Maybe.withDefault Encode.null )
         , ( "packaging", Encode.list encodeProcess v.packaging )
+        , ( "conservation", v.conservation |> Maybe.map encodeConservation |> Maybe.withDefault Encode.null )
         ]
 
 
@@ -205,6 +276,18 @@ encodeProcess v =
         [ ( "code", Process.encodeCode v.code )
         , ( "mass", encodeMass v.mass )
         ]
+
+
+encodeConservation : ConservationQuery -> Encode.Value
+encodeConservation c =
+    Encode.object
+        [ ( "type", encodeConservationType c.type_ )
+        ]
+
+
+encodeConservationType : ConservationType -> Encode.Value
+encodeConservationType =
+    Encode.string << conservationTypetoString
 
 
 encodeVariant : Variant -> Encode.Value
@@ -273,6 +356,16 @@ updateTransformMass query =
                     (\transform ->
                         { transform | mass = getIngredientMass query }
                     )
+    }
+
+
+updateConservation : String -> Query -> Query
+updateConservation newConservation query =
+    { query
+        | conservation =
+            conservationTypeFromString newConservation
+                |> Result.toMaybe
+                |> Maybe.map ConservationQuery
     }
 
 

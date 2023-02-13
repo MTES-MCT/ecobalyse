@@ -25,6 +25,7 @@ import Data.Country as Country exposing (Country)
 import Data.Food.Builder.Db exposing (Db)
 import Data.Food.Builder.Query as BuilderQuery exposing (Query)
 import Data.Food.Ingredient as Ingredient exposing (Id, Ingredient)
+import Data.Food.Origin as Origin
 import Data.Food.Process as Process exposing (Process)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Scope as Scope
@@ -50,6 +51,11 @@ type alias Packaging =
     }
 
 
+type alias Conservation =
+    { type_ : BuilderQuery.ConservationType
+    }
+
+
 type alias RecipeIngredient =
     { ingredient : Ingredient
     , mass : Mass
@@ -62,6 +68,7 @@ type alias Recipe =
     { ingredients : List RecipeIngredient
     , transform : Maybe Transform
     , packaging : List Packaging
+    , conservation : Maybe Conservation
     }
 
 
@@ -103,7 +110,7 @@ compute : Db -> Query -> Result String ( Recipe, Results )
 compute db =
     fromQuery db
         >> Result.map
-            (\({ ingredients, transform, packaging } as recipe) ->
+            (\({ ingredients, transform, packaging, conservation } as recipe) ->
                 let
                     updateImpacts impacts =
                         impacts
@@ -135,11 +142,33 @@ compute db =
                             |> Maybe.map (computeProcessImpacts db.impacts >> List.singleton >> updateImpacts)
                             |> Maybe.withDefault Impact.noImpacts
 
+                    conservationImpacts =
+                        let
+                            -- WIP
+                            noTransport =
+                                Transport.default Impact.noImpacts
+
+                            transport =
+                                { noTransport | road = Length.kilometers 600 }
+
+                            foo =
+                                ingredients
+                                    |> List.map (computeIngredientTransport db)
+                                    |> Transport.sum db.impacts
+
+                            bar =
+                                conservation
+                                    |> Maybe.map (computeConservationImpacts db.impacts >> List.singleton >> updateImpacts)
+                                    |> Maybe.withDefault Impact.noImpacts
+                        in
+                        Impact.noImpacts
+
                     recipeImpacts =
                         updateImpacts
                             [ ingredientsTotalImpacts
                             , transformImpacts
                             , ingredientsTransport.impacts
+                            , conservationImpacts
                             ]
 
                     totalImpacts =
@@ -169,6 +198,7 @@ compute db =
                         , ingredients = ingredientsImpacts
                         , transform = transformImpacts
                         , transports = ingredientsTransport
+                        , conservation = conservationImpacts
                         }
                   , packaging = packagingImpacts
                   , transports = ingredientsTransport
@@ -186,6 +216,13 @@ computeImpact mass _ =
 
 computeProcessImpacts : List Impact.Definition -> { a | process : Process, mass : Mass } -> Impacts
 computeProcessImpacts defs item =
+    item.process.impacts
+        |> Impact.mapImpacts (computeImpact item.mass)
+        |> Impact.updateAggregatedScores defs
+
+
+computeConservationImpacts : List Impact.Definition -> Conservation -> Impacts
+computeConservationImpacts defs conservation =
     item.process.impacts
         |> Impact.mapImpacts (computeImpact item.mass)
         |> Impact.updateAggregatedScores defs
@@ -212,7 +249,7 @@ computeIngredientTransport db { ingredient, country, mass } =
                     db.transports
                         |> Transport.getTransportBetween Scope.Food emptyImpacts code france
                         -- We want air transport ratio to be 0 for all ingredients (for now)
-                        |> Formula.transportRatio (Unit.Ratio 0)
+                        |> Formula.transportRatio (Unit.Ratio 0) ingredientTransport
 
                 -- Otherwise retrieve ingredient's default origin transport data
                 Nothing ->
@@ -315,10 +352,11 @@ encodeProcess p =
 
 fromQuery : Db -> Query -> Result String Recipe
 fromQuery db query =
-    Result.map3 Recipe
+    Result.map4 Recipe
         (ingredientListFromQuery db query)
         (transformFromQuery db query)
         (packagingListFromQuery db query)
+        (conservationFromQuery db query)
 
 
 getMassAtPackaging : Recipe -> Mass
@@ -473,6 +511,18 @@ transformFromQuery { processes } query =
                 Result.map2 Transform
                     (Process.findByCode processes transform.code)
                     (Ok transform.mass)
+                    |> Result.map Just
+            )
+        |> Maybe.withDefault (Ok Nothing)
+
+
+conservationFromQuery : Db -> { a | conservation : Maybe BuilderQuery.ConservationQuery } -> Result String (Maybe Conservation)
+conservationFromQuery { processes } query =
+    query.conservation
+        |> Maybe.map
+            (\conservation ->
+                Result.map Conservation
+                    (Ok conservation.type_)
                     |> Result.map Just
             )
         |> Maybe.withDefault (Ok Nothing)
