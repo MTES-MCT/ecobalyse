@@ -25,3 +25,5 @@ processes-no-impacts.json
 /data/food/import_agb/agribalyse3_no_param.CSV
 /data/food/import_agb/agribalyse3_no_param.CSV.zip
 /data/food/import_agb3.1/AGB31.bw2package
+/data/Dockerfile
+data/ecobalyse_data.egg-info/

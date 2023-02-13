@@ -7,9 +7,9 @@ import copy
 
 # This script is used to compute to separate the impact of the raw material and the impact of spinning
 
-f = open("../../ecobalyse/public/data/materials.json")
+f = open("../../../public/data/materials.json")
 materials = json.load(f)
-f = open("../../ecobalyse/public/data/processes.json")
+f = open("../../../public/data/processes.json")
 processes = json.load(f)
 
 material_without_spinning = ["neoprene"]
