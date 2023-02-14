@@ -10,7 +10,11 @@ suite : Test
 suite =
     describe "Views.Format"
         [ describe "Format.formatFloat"
-            [ 5
+            [ 0
+                |> Format.formatFloat 99
+                |> Expect.equal "0"
+                |> asTest "should format zero"
+            , 5
                 |> Format.formatFloat 2
                 |> Expect.equal "5,00"
                 |> asTest "should not format an int rendering a specific number of 0 decimals"

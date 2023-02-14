@@ -20,7 +20,7 @@ En cas de problème vous pouvez redémarrer de zéro en faisant d'abord un `make
 * `make json` : lance toutes les commandes précédentes dans l'ordre
 * `make export_ciqual` : pour exporter les json des produits ciqual. Assurez-vous d'avoir le fichier `Agribalyse_Synthese.csv` dans le dossier `food/`
 * `make bash` : lance un shell à l'intérieur conteneur
-* `make server` : lancer le serveur Jupyter dans le conteneur (si image Jupyter)
+* `make notebook` : lancer le serveur Jupyter dans le conteneur (si image Jupyter)
 * `make clean_data` : supprime toutes les données (celles de brightway et
   jupyter mais pas les json générés)
 * `make clean_image` : supprime l'image docker
@@ -38,7 +38,7 @@ comparées puis commités.
 
 ## Lancer le serveur Jupyter
 
-Vous pouvez démarrer le serveur Jupyter avec : `make server`. Ensuite
+Vous pouvez démarrer le serveur Jupyter avec : `make notebook`. Ensuite
 ctrl-cliquez sur le lien généré dans le terminal pour vous y connecter sans mot
 de passe
 

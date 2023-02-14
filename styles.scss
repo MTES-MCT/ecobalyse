@@ -25,6 +25,12 @@ $viewport-xxl: 1320px;
 
 $enable-cssgrid: true;
 
+$score-letter-A: #018241;
+$score-letter-B: #86bc30;
+$score-letter-C: #ffcc01;
+$score-letter-D: #f08000;
+$score-letter-E: #e63f12;
+
 @import "./node_modules/bootstrap/scss/bootstrap.scss";
 
 body {
@@ -168,6 +174,10 @@ blockquote {
     font-size: 0.85rem;
   }
 
+  &-75 {
+    font-size: 0.9rem;
+  }
+
   &-unit {
     font-size: min(0.7em, 24px);
   }
@@ -294,6 +304,78 @@ blockquote {
   font-weight: normal;
   cursor: help;
   border-bottom: 1px dashed $primary;
+}
+
+.Abcde {
+  // playground: https://codepen.io/n1k0/pen/OJwagVv?editors=1100
+  $AbcdeStroke: 3px;
+  $AbcdeColors: (
+    "A": $score-letter-A,
+    "B": $score-letter-B,
+    "C": $score-letter-C,
+    "D": $score-letter-D,
+    "E": $score-letter-E
+  );
+
+  display: inline-flex;
+  margin: 0;
+  padding: 0;
+
+  &Letter {
+    list-style-type: none;
+    font-size: 1em;
+    position: relative;
+    font-size: 0;
+
+    &:before {
+      // circled letter
+      display: block;
+      width: 30px;
+      height: 30px;
+      border: $AbcdeStroke solid grey;
+      border-radius: 50%;
+      background-color: #fff;
+      color: grey;
+      font-size: 18px;
+      font-weight: bold;
+      line-height: 24px;
+      margin: 0 auto;
+      text-align: center;
+      opacity: 0;
+    }
+
+    &:after {
+      // horizontal bar
+      width: 100%;
+      height: $AbcdeStroke;
+      content: "";
+      position: absolute;
+      background-color: #333;
+      top: 14px;
+    }
+
+    @each $letter, $color in $AbcdeColors {
+      &#{$letter} {
+        &:before {
+          content: $letter;
+          border-color: $color;
+          color: $color;
+        }
+        &:after {
+          background-color: $color;
+        }
+      }
+    }
+
+    &Active {
+      &:before {
+        opacity: 1;
+      }
+      &:after {
+        display: none;
+      }
+    }
+  }
 }
 
 .AccordionButton {
@@ -705,22 +787,37 @@ blockquote {
   }
 }
 
-.ScoreLetter {
-  display: inline-block;
-  color: rgba(255, 255, 255, 0.95);
-  padding: 3px !important;
-  border-radius: 4px;
-  width: 1.3em;
-  height: 1.3em;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.Score {
+  &Letter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 1.4em;
+    height: 1.4em;
+    border-radius: 4px;
+    color: rgba(255, 255, 255, 0.95);
+    line-height: 1em;
+    padding: 0.66em !important;
+    font-weight: 700;
 
-  &A { background-color: #018241 !important }
-  &B { background-color: #86bc30 !important }
-  &C { background-color: #ffcc01 !important }
-  &D { background-color: #f08000 !important }
-  &E { background-color: #e63f12 !important }
+    &A { background-color: $score-letter-A !important }
+    &B { background-color: $score-letter-B !important }
+    &C { background-color: $score-letter-C !important }
+    &D { background-color: $score-letter-D !important }
+    &E { background-color: $score-letter-E !important }
+    &Large {
+      width: 1em;
+      height: 1em;
+      font-size: 66px;
+    }
+  }
+  &ColoredText {
+    &A { color: darken($score-letter-A, 2%) }
+    &B { color: darken($score-letter-B, 10%) }
+    &C { color: darken($score-letter-C, 10%) }
+    &D { color: darken($score-letter-D, 10%) }
+    &E { color: darken($score-letter-E, 10%) }
+  }
 }
 
 .Step {
@@ -743,6 +840,10 @@ blockquote {
     width: 22px;
     height: 22px;
   }
+}
+
+.Subscores {
+  line-height: 1.5em;
 }
 
 .Summary {

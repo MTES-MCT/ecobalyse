@@ -247,7 +247,7 @@ describe("API", () => {
             query,
             impacts: response.body.impacts,
           });
-          expect(toComparable(response.body.impacts)).toEqual(toComparable(impacts));
+          expect(response.body.impacts).toEqual(impacts);
         });
       }
     });
@@ -379,12 +379,20 @@ describe("API", () => {
           /masse doit être supérieure ou égale à zéro/,
         );
       });
+
+      it("should validate a category id", async () => {
+        expectFieldErrorMessage(
+          await makeRequest("/api/food/recipe", ["category=invalid"]),
+          "category",
+          /Catégorie inconnue: invalid/,
+        );
+      });
     });
 
     describe("End to end food simulations", () => {
       const e2eFood = JSON.parse(fs.readFileSync(`${__dirname}/e2e-food.json`).toString());
 
-      for (const { name, query, impacts } of e2eFood) {
+      for (const { name, query, impacts, scoring } of e2eFood) {
         it(name, async () => {
           const response = await makeRequest("/api/food/recipe", query);
           expectStatus(response, 200);
@@ -392,8 +400,10 @@ describe("API", () => {
             name,
             query,
             impacts: response.body.results.total,
+            scoring: response.body.results.scoring,
           });
-          expect(toComparable(response.body.results.total)).toEqual(toComparable(impacts));
+          expect(response.body.results.total).toEqual(impacts);
+          expect(response.body.results.scoring).toEqual(scoring);
         });
       }
     });
@@ -424,14 +434,6 @@ function expectFieldErrorMessage(response, field, message) {
   expect("errors" in response.body).toEqual(true);
   expect(field in response.body.errors).toEqual(true);
   expect(response.body.errors[field]).toMatch(message);
-}
-
-function toComparable(impacts) {
-  return Object.keys(impacts)
-    .sort()
-    .map((trigram) => {
-      return { [trigram]: impacts[trigram] };
-    });
 }
 
 async function expectListResponseContains(path, object) {
