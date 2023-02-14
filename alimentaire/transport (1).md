@@ -57,6 +57,11 @@ En l'absence de paramétrage du pays d'origine, les hypothèses appliquées pour
 | <p>HORS EUROPE-MAGHREB<br>Ingrédient provenant de façon significative de pays hors Europe / Maghreb (seuil : ~5%)</p>                    | Circuit hors France | <p>Transport par défaut : <br>- 18 000 km en bateau<br>- 2500 km en camion</p> |
 | <p>HORS EUROPE-MAGHREB (AVION)<br>Cas particulier des ingrédients transportés de façon non marginale par avion (mangue, haricots...)</p> | Circuit avion       | <p>Transport par défaut : <br>- 18 000 km en avion<br>- 2500 km en camion</p>  |
 
+{% hint style="info" %}
+Sélecteur "_**\[x] par avion**_"\
+Pour les ingrédients de la catégorie "HORS EUROPE-MAGHREB (AVION)", un sélecteur est proposé. Il permet de remplacer les 18 000 km en avion par 18 000 km en bateau.&#x20;
+{% endhint %}
+
 ## Calcul
 
 Pour les étapes relevant de la recette (ingrédients et jusqu'à une éventuelle transformation), un transport est considéré pour chacun des ingrédients de la recette. Au-delà, le transport est considéré pour l'ensemble du produit, avec son emballage.
@@ -120,6 +125,12 @@ Donc, pour ces ingrédients, le transport international se limite au seul transp
 
 {% hint style="warning" %}
 Dans un premier temps, les "états impossibles" ne sont pas traités. Il est donc théoriquement possible de simuler, par exemple, une mangue qui serait originaire d'Espagne ou de France et qui serait donc transportée par avion.
+{% endhint %}
+
+{% hint style="info" %}
+Sélecteur "_**\[x] par avion**_"\
+Pour les ingrédients de la catégorie "HORS EUROPE-MAGHREB (AVION)", un sélecteur est proposé. Il permet de faire passer à 0% la part du transport en avion. Dès lors, le produit est considéré comme transporté par voie terrestre et maritime, suivant les règles générales applicables au pays d'origine.\
+Rq : le cas particulier d'un ingrédient dont le pays d'origine n'aurait pas été précisé est traité ci-dessus, juste après le tableau qui introduit les 4 catégories d'ingrédients : France, Europe Maghreb, Hors Europe Maghreb, Hors Europe Maghreb (avion).&#x20;
 {% endhint %}
 
 ## Distances
