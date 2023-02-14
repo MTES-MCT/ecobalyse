@@ -29,6 +29,34 @@
       "swe": 0.0038616974567236037,
       "tre": 0.05168658789219255,
       "wtu": 0.22735164864750493
+    },
+    "scoring": {
+      "category": "Toutes les catégories",
+      "all": {
+        "impact": 155.3642304206504,
+        "letter": "B",
+        "outOf100": 74
+      },
+      "climate": {
+        "impact": 26.99402247682233,
+        "letter": "B",
+        "outOf100": 74
+      },
+      "biodiversity": {
+        "impact": 122.06821814763829,
+        "letter": "B",
+        "outOf100": 74
+      },
+      "health": {
+        "impact": 40.559132670966044,
+        "letter": "B",
+        "outOf100": 74
+      },
+      "resources": {
+        "impact": 19.73424508355989,
+        "letter": "B",
+        "outOf100": 74
+      }
     }
   },
   {
@@ -61,6 +89,34 @@
       "swe": 0.004097988378337351,
       "tre": 0.05436793658912434,
       "wtu": 0.2240273083913582
+    },
+    "scoring": {
+      "category": "Toutes les catégories",
+      "all": {
+        "impact": 149.17128503069287,
+        "letter": "B",
+        "outOf100": 75
+      },
+      "climate": {
+        "impact": 23.936738891227375,
+        "letter": "B",
+        "outOf100": 75
+      },
+      "biodiversity": {
+        "impact": 119.64748483842877,
+        "letter": "B",
+        "outOf100": 75
+      },
+      "health": {
+        "impact": 37.5543837283437,
+        "letter": "B",
+        "outOf100": 75
+      },
+      "resources": {
+        "impact": 17.757305818319317,
+        "letter": "B",
+        "outOf100": 75
+      }
     }
   },
   {
@@ -93,6 +149,34 @@
       "swe": 0.005653946014324082,
       "tre": 0.04948326352430079,
       "wtu": 0.2812081189550465
+    },
+    "scoring": {
+      "category": "Toutes les catégories",
+      "all": {
+        "impact": 141.56802335424243,
+        "letter": "B",
+        "outOf100": 77
+      },
+      "climate": {
+        "impact": 26.600291458599777,
+        "letter": "B",
+        "outOf100": 77
+      },
+      "biodiversity": {
+        "impact": 114.84688846922295,
+        "letter": "B",
+        "outOf100": 77
+      },
+      "health": {
+        "impact": 34.671674046442995,
+        "letter": "B",
+        "outOf100": 77
+      },
+      "resources": {
+        "impact": 23.08640012591979,
+        "letter": "B",
+        "outOf100": 77
+      }
     }
   },
   {
@@ -125,6 +209,34 @@
       "swe": 0.00589023693593783,
       "tre": 0.05216461222123258,
       "wtu": 0.2778837786988998
+    },
+    "scoring": {
+      "category": "Toutes les catégories",
+      "all": {
+        "impact": 135.37507796428488,
+        "letter": "B",
+        "outOf100": 78
+      },
+      "climate": {
+        "impact": 23.54300787300482,
+        "letter": "B",
+        "outOf100": 78
+      },
+      "biodiversity": {
+        "impact": 112.42615516001341,
+        "letter": "B",
+        "outOf100": 78
+      },
+      "health": {
+        "impact": 31.66692510382064,
+        "letter": "B",
+        "outOf100": 78
+      },
+      "resources": {
+        "impact": 21.109460860679217,
+        "letter": "B",
+        "outOf100": 78
+      }
     }
   },
   {
@@ -152,6 +264,34 @@
       "swe": 0.003940992016660484,
       "tre": 0.04408998593330711,
       "wtu": 0.09704827341756544
+    },
+    "scoring": {
+      "category": "Toutes les catégories",
+      "all": {
+        "impact": 1230.7521714388874,
+        "letter": "E",
+        "outOf100": 15
+      },
+      "climate": {
+        "impact": 519.9537302717442,
+        "letter": "E",
+        "outOf100": 15
+      },
+      "biodiversity": {
+        "impact": 952.6122121238438,
+        "letter": "E",
+        "outOf100": 15
+      },
+      "health": {
+        "impact": 638.3248024472462,
+        "letter": "E",
+        "outOf100": 15
+      },
+      "resources": {
+        "impact": 216.19021506040843,
+        "letter": "E",
+        "outOf100": 15
+      }
     }
   },
   {
@@ -179,8 +319,35 @@
       "swe": 0.001830525456673672,
       "tre": 0.020879107029684114,
       "wtu": 0.050343763774083956
+    },
+    "scoring": {
+      "category": "Toutes les catégories",
+      "all": {
+        "impact": 602.264743270431,
+        "letter": "D",
+        "outOf100": 35
+      },
+      "climate": {
+        "impact": 239.694465737187,
+        "letter": "D",
+        "outOf100": 35
+      },
+      "biodiversity": {
+        "impact": 474.584156182176,
+        "letter": "D",
+        "outOf100": 35
+      },
+      "health": {
+        "impact": 294.6272378120228,
+        "letter": "D",
+        "outOf100": 35
+      },
+      "resources": {
+        "impact": 100.24084754744443,
+        "letter": "D",
+        "outOf100": 35
+      }
     }
-
   },
   {
     "name": "Mango by plane from Brazil (by default, explicitely)",
@@ -207,8 +374,35 @@
       "swe": 0.001830525456673672,
       "tre": 0.020879107029684114,
       "wtu": 0.050343763774083956
+    },
+    "scoring": {
+      "category": "Toutes les catégories",
+      "all": {
+        "impact": 602.264743270431,
+        "letter": "D",
+        "outOf100": 35
+      },
+      "climate": {
+        "impact": 239.694465737187,
+        "letter": "D",
+        "outOf100": 35
+      },
+      "biodiversity": {
+        "impact": 474.584156182176,
+        "letter": "D",
+        "outOf100": 35
+      },
+      "health": {
+        "impact": 294.6272378120228,
+        "letter": "D",
+        "outOf100": 35
+      },
+      "resources": {
+        "impact": 100.24084754744443,
+        "letter": "D",
+        "outOf100": 35
+      }
     }
-
   },
   {
     "name": "Mango by plane from Brazil (explicitely)",
@@ -235,8 +429,35 @@
       "swe": 0.001830525456673672,
       "tre": 0.020879107029684114,
       "wtu": 0.050343763774083956
+    },
+    "scoring": {
+      "category": "Toutes les catégories",
+      "all": {
+        "impact": 602.264743270431,
+        "letter": "D",
+        "outOf100": 35
+      },
+      "climate": {
+        "impact": 239.694465737187,
+        "letter": "D",
+        "outOf100": 35
+      },
+      "biodiversity": {
+        "impact": 474.584156182176,
+        "letter": "D",
+        "outOf100": 35
+      },
+      "health": {
+        "impact": 294.6272378120228,
+        "letter": "D",
+        "outOf100": 35
+      },
+      "resources": {
+        "impact": 100.24084754744443,
+        "letter": "D",
+        "outOf100": 35
+      }
     }
-
   },
   {
     "name": "Mango by boat from Brazil",
@@ -263,6 +484,34 @@
       "swe": 0.0000924371774500773,
       "tre": 0.001776646618045307,
       "wtu": 0.012685889493270711
+    },
+    "scoring": {
+      "category": "Toutes les catégories",
+      "all": {
+        "impact": 86.94768829743137,
+        "letter": "A",
+        "outOf100": 91
+      },
+      "climate": {
+        "impact": 6.339978613882139,
+        "letter": "A",
+        "outOf100": 91
+      },
+      "biodiversity": {
+        "impact": 81.06519175787083,
+        "letter": "A",
+        "outOf100": 91
+      },
+      "health": {
+        "impact": 9.354574191173914,
+        "letter": "A",
+        "outOf100": 91
+      },
+      "resources": {
+        "impact": 4.752313505524962,
+        "letter": "A",
+        "outOf100": 91
+      }
     }
   },
   {
@@ -295,6 +544,34 @@
       "swe": 0.00589023693593783,
       "tre": 0.05216461222123258,
       "wtu": 0.2778837786988998
+    },
+    "scoring": {
+      "category": "Toutes les catégories",
+      "all": {
+        "impact": 135.37507796428488,
+        "letter": "B",
+        "outOf100": 78
+      },
+      "climate": {
+        "impact": 23.54300787300482,
+        "letter": "B",
+        "outOf100": 78
+      },
+      "biodiversity": {
+        "impact": 112.42615516001341,
+        "letter": "B",
+        "outOf100": 78
+      },
+      "health": {
+        "impact": 31.66692510382064,
+        "letter": "B",
+        "outOf100": 78
+      },
+      "resources": {
+        "impact": 21.109460860679217,
+        "letter": "B",
+        "outOf100": 78
+      }
     }
   }
 ]

@@ -22,10 +22,12 @@ module Data.Food.Builder.Query exposing
 import Base64
 import Data.Country as Country
 import Data.Food.Builder.Conservation as Conservation
+import Data.Food.Category as Category
 import Data.Food.Ingredient as Ingredient
 import Data.Food.Process as Process
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
+import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
 import Mass exposing (Mass)
 import Quantity
@@ -58,6 +60,7 @@ type alias Query =
     , transform : Maybe ProcessQuery
     , packaging : List ProcessQuery
     , conservation : Maybe Conservation.Query
+    , category : Maybe Category.Id
     }
 
 
@@ -86,6 +89,7 @@ emptyQuery =
     , transform = Nothing
     , packaging = []
     , conservation = Nothing
+    , category = Nothing
     }
 
 
@@ -137,16 +141,18 @@ carrotCake =
         Just
             { type_ = Conservation.ambient
             }
+    , category = Just (Category.Id "cakes")
     }
 
 
 decode : Decoder Query
 decode =
-    Decode.map4 Query
-        (Decode.field "ingredients" (Decode.list decodeIngredient))
-        (Decode.field "transform" (Decode.maybe decodeProcess))
-        (Decode.field "packaging" (Decode.list decodeProcess))
-        (Decode.field "conservation" (Decode.maybe Conservation.decodeQuery))
+    Decode.succeed Query
+        |> Pipe.required "ingredients" (Decode.list decodeIngredient)
+        |> Pipe.optional "transform" (Decode.maybe decodeProcess) Nothing
+        |> Pipe.required "packaging" (Decode.list decodeProcess)
+        |> Pipe.optional "conservation" (Decode.maybe Conservation.decodeQuery) Nothing
+        |> Pipe.optional "category" (Decode.maybe Category.decodeId) Nothing
 
 
 decodeMass : Decoder Mass
@@ -196,6 +202,7 @@ encode v =
         , ( "transform", v.transform |> Maybe.map encodeProcess |> Maybe.withDefault Encode.null )
         , ( "packaging", Encode.list encodeProcess v.packaging )
         , ( "conservation", v.conservation |> Maybe.map Conservation.encodeQuery |> Maybe.withDefault Encode.null )
+        , ( "category", v.category |> Maybe.map Category.encodeId |> Maybe.withDefault Encode.null )
         ]
 
 

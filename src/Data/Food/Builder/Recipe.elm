@@ -18,6 +18,7 @@ module Data.Food.Builder.Recipe exposing
     , processQueryFromProcess
     , resetTransform
     , serializeQuery
+    , setCategory
     , toString
     )
 
@@ -25,6 +26,7 @@ import Data.Country as Country exposing (Country)
 import Data.Food.Builder.Conservation as Conservation
 import Data.Food.Builder.Db exposing (Db)
 import Data.Food.Builder.Query as BuilderQuery exposing (Query)
+import Data.Food.Category as Category exposing (Category)
 import Data.Food.Ingredient as Ingredient exposing (Id, Ingredient)
 import Data.Food.Origin as Origin
 import Data.Food.Process as Process exposing (Process)
@@ -68,12 +70,14 @@ type alias Recipe =
     , transform : Maybe Transform
     , packaging : List Packaging
     , conservation : Maybe Conservation.Type
+    , category : Maybe Category
     }
 
 
 type alias Results =
     { total : Impacts
     , perKg : Impacts
+    , scoring : Scoring
     , totalMass : Mass
     , recipe :
         { total : Impacts
@@ -85,6 +89,23 @@ type alias Results =
         }
     , packaging : Impacts
     , transports : Transport
+    }
+
+
+type alias Score =
+    { impact : Unit.Impact
+    , letter : String
+    , outOf100 : Int
+    }
+
+
+type alias Scoring =
+    { category : String
+    , all : Score
+    , climate : Score
+    , biodiversity : Score
+    , health : Score
+    , resources : Score
     }
 
 
@@ -106,11 +127,17 @@ availablePackagings usedProcesses processes =
         |> List.filter (\process -> not (List.member process.code usedProcesses))
 
 
+categoryFromQuery : Maybe Category.Id -> Result String (Maybe Category)
+categoryFromQuery =
+    Maybe.map (Category.get >> Result.map Just)
+        >> Maybe.withDefault (Ok Nothing)
+
+
 compute : Db -> Query -> Result String ( Recipe, Results )
 compute db =
     fromQuery db
         >> Result.map
-            (\({ ingredients, transform, packaging, conservation } as recipe) ->
+            (\({ ingredients, transform, packaging, conservation, category } as recipe) ->
                 let
                     updateImpacts impacts =
                         impacts
@@ -214,10 +241,15 @@ compute db =
                         packaging
                             |> List.map (computeProcessImpacts db.impacts)
                             |> updateImpacts
+
+                    scoring =
+                        impactsPerKg
+                            |> computeScoring db.impacts category
                 in
                 ( recipe
                 , { total = totalImpacts
                   , perKg = impactsPerKg
+                  , scoring = scoring
 
                   -- XXX: For now, we stop at packaging step
                   , totalMass = getMassAtPackaging recipe
@@ -234,6 +266,45 @@ compute db =
                   }
                 )
             )
+
+
+computeScoring : List Impact.Definition -> Maybe Category -> Impacts -> Scoring
+computeScoring defs maybeCategory perKg =
+    let
+        -- Note: Score out of 100 is only computed for ecoscore
+        ecsPerKg =
+            perKg
+                |> Impact.getImpact (Impact.trg "ecs")
+
+        subScores =
+            perKg
+                |> Impact.toProtectionAreas defs
+
+        makeScore get scoreImpact =
+            let
+                outOf100 =
+                    case maybeCategory of
+                        Just { bounds } ->
+                            scoreImpact
+                                |> Impact.getBoundedScoreOutOf100 (get bounds)
+
+                        Nothing ->
+                            -- Note: if no category is specified, all subscores equal the main score
+                            ecsPerKg
+                                |> Impact.getAggregatedScoreOutOf100
+            in
+            { outOf100 = outOf100
+            , letter = Impact.getAggregatedScoreLetter outOf100
+            , impact = scoreImpact
+            }
+    in
+    { category = maybeCategory |> Maybe.map .name |> Maybe.withDefault "Toutes les catégories"
+    , all = makeScore .all ecsPerKg
+    , climate = makeScore .climate subScores.climate
+    , biodiversity = makeScore .biodiversity subScores.biodiversity
+    , health = makeScore .health subScores.health
+    , resources = makeScore .resources subScores.resources
+    }
 
 
 computeImpact : Mass -> Impact.Trigram -> Unit.Impact -> Unit.Impact
@@ -348,6 +419,14 @@ encodeIngredient i =
         ]
 
 
+encodeProcess : BuilderQuery.ProcessQuery -> Encode.Value
+encodeProcess p =
+    Encode.object
+        [ ( "code", p.code |> Process.codeToString |> Encode.string )
+        , ( "mass", Encode.float (Mass.inKilograms p.mass) )
+        ]
+
+
 encodeQuery : Query -> Encode.Value
 encodeQuery q =
     Encode.object
@@ -366,6 +445,7 @@ encodeResults defs results =
     Encode.object
         [ ( "total", encodeImpacts results.total )
         , ( "perKg", encodeImpacts results.perKg )
+        , ( "scoring", encodeScoring results.scoring )
         , ( "totalMass", results.totalMass |> Mass.inKilograms |> Encode.float )
         , ( "recipe"
           , Encode.object
@@ -380,21 +460,35 @@ encodeResults defs results =
         ]
 
 
-encodeProcess : BuilderQuery.ProcessQuery -> Encode.Value
-encodeProcess p =
+encodeScore : Score -> Encode.Value
+encodeScore score =
     Encode.object
-        [ ( "code", p.code |> Process.codeToString |> Encode.string )
-        , ( "mass", Encode.float (Mass.inKilograms p.mass) )
+        [ ( "impact", Unit.encodeImpact score.impact )
+        , ( "letter", Encode.string score.letter )
+        , ( "outOf100", Encode.int score.outOf100 )
+        ]
+
+
+encodeScoring : Scoring -> Encode.Value
+encodeScoring scoring =
+    Encode.object
+        [ ( "category", Encode.string scoring.category )
+        , ( "all", encodeScore scoring.all )
+        , ( "climate", encodeScore scoring.climate )
+        , ( "biodiversity", encodeScore scoring.biodiversity )
+        , ( "health", encodeScore scoring.health )
+        , ( "resources", encodeScore scoring.resources )
         ]
 
 
 fromQuery : Db -> Query -> Result String Recipe
 fromQuery db query =
-    Result.map4 Recipe
+    Result.map5 Recipe
         (ingredientListFromQuery db query)
         (transformFromQuery db query)
         (packagingListFromQuery db query)
         (conservationFromQuery db query)
+        (categoryFromQuery query.category)
 
 
 getMassAtPackaging : Recipe -> Mass
@@ -497,6 +591,11 @@ processQueryFromProcess process =
 resetTransform : Query -> Query
 resetTransform query =
     { query | transform = Nothing }
+
+
+setCategory : Maybe Category.Id -> Query -> Query
+setCategory maybeId query =
+    { query | category = maybeId }
 
 
 serializeQuery : Query -> String

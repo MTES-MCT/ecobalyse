@@ -9,6 +9,7 @@ import Data.Country as Country exposing (Country)
 import Data.Env as Env
 import Data.Food.Builder.Db as BuilderDb
 import Data.Food.Builder.Query as BuilderQuery
+import Data.Food.Category as Category
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Process as FoodProcess
 import Data.Scope as Scope exposing (Scope)
@@ -62,6 +63,7 @@ parseFoodQuery builderDb =
         |> apply (maybeTransformParser "transform" builderDb.processes)
         |> apply (packagingListParser "packaging" builderDb.processes)
         |> apply (maybeConservationParser "conservation")
+        |> apply (maybeFoodCategoryParser "category")
 
 
 ingredientListParser : String -> BuilderDb.Db -> Parser (ParseResult (List BuilderQuery.IngredientQuery))
@@ -190,6 +192,19 @@ packagingParser packagings string =
             Err <| "Format d'emballage invalide : " ++ string ++ "."
 
 
+maybeFoodCategoryParser : String -> Parser (ParseResult (Maybe Category.Id))
+maybeFoodCategoryParser key =
+    Query.string key
+        |> Query.map
+            (Maybe.map
+                (Category.idFromString
+                    >> Result.map Just
+                    >> Result.mapError (\error -> ( key, error ))
+                )
+                >> Maybe.withDefault (Ok Nothing)
+            )
+
+
 validateBool : String -> Result String Bool
 validateBool str =
     case str of
@@ -307,13 +322,13 @@ conservationTypeParser : String -> Result String BuilderQuery.ConservationQuery
 conservationTypeParser key =
     (case key of
         "ambient" ->
-            Ok BuilderQuery.Ambient
+            Ok BuilderQuery.ambient
 
         "chilled" ->
-            Ok BuilderQuery.Chilled
+            Ok BuilderQuery.chilled
 
         "frozen" ->
-            Ok BuilderQuery.Frozen
+            Ok BuilderQuery.frozen
 
         _ ->
             Err <| "Type de conservation invalide : " ++ key

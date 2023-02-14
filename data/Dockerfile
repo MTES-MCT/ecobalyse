@@ -14,13 +14,17 @@ RUN mkdir -p /home/$NB_USER/data \
     && fix-permissions "/home/${NB_USER}/notebooks" \
     && fix-permissions "/home/${NB_USER}/output" 
 
-USER root
 
 COPY requirements.txt .
-
-RUN pip install -r /home/$NB_USER/requirements.txt \
+USER root
+RUN apt update \
+    && apt install -y gosu \
+    && pip install -r /home/$NB_USER/requirements.txt \
+    && rm /home/$NB_USER/requirements.txt \
     && if [ "$(dpkg --print-architecture)" = "amd64" ]; then pip install  pypardiso==0.4; ldconfig; fi;
 
+COPY entrypoint.sh /
+
 VOLUME /home/$NB_USER
-USER $NB_UID
 WORKDIR /home/$NB_USER/notebooks
+ENTRYPOINT ["/entrypoint.sh"]
