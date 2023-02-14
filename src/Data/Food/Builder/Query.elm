@@ -27,13 +27,15 @@ import Base64
 import Data.Country as Country
 import Data.Food.Ingredient as Ingredient
 import Data.Food.Process as Process
+import Energy exposing (Joules, kilowattHours)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
 import Json.Encode as Encode
 import Mass exposing (Mass)
-import Quantity
+import Quantity exposing (Quantity, Rate, rate)
 import Result.Extra as RE
 import Url.Parser as Parser exposing (Parser)
+import Volume exposing (CubicMeters, cubicMeters, liters)
 
 
 type Variant
@@ -57,27 +59,66 @@ type alias ProcessQuery =
     }
 
 
-type ConservationType
-    = Ambient
-    | Chilled
-    | Frozen
+type alias ConservationNeeds =
+    { energy : Quantity Float (Rate Joules CubicMeters)
+    , cooling : Quantity Float (Rate Joules CubicMeters)
+    , water : Quantity Float (Rate CubicMeters CubicMeters)
+    }
+
+
+type
+    ConservationType
+    -- TODO move in a module
+    = Ambient ConservationNeeds
+    | Chilled ConservationNeeds
+    | Frozen ConservationNeeds
+
+
+ambient : ConservationType
+ambient =
+    Ambient
+        { energy = rate (kilowattHours 123.08) (cubicMeters 1)
+        , cooling = rate (kilowattHours 0) (cubicMeters 1)
+        , water = rate (liters 561.5) (cubicMeters 1)
+        }
+
+
+chilled : ConservationType
+chilled =
+    Chilled
+        { energy = rate (kilowattHours 61.54) (cubicMeters 1)
+        , cooling = rate (kilowattHours 415.38) (cubicMeters 1)
+        , water = rate (liters 280.8) (cubicMeters 1)
+        }
+
+
+frozen : ConservationType
+frozen =
+    Frozen
+        { energy = rate (kilowattHours 123.08) (cubicMeters 1)
+        , cooling = rate (kilowattHours 0) (cubicMeters 1)
+        , water = rate (liters 561.5) (cubicMeters 1)
+        }
 
 
 conservationTypes : List ConservationType
 conservationTypes =
-    [ Ambient, Chilled, Frozen ]
+    [ ambient
+    , chilled
+    , frozen
+    ]
 
 
 conservationTypetoString : ConservationType -> String
 conservationTypetoString t =
     case t of
-        Ambient ->
+        Ambient _ ->
             "Sec"
 
-        Chilled ->
+        Chilled _ ->
             "Frais"
 
-        Frozen ->
+        Frozen _ ->
             "Surgelé"
 
 
@@ -168,7 +209,7 @@ carrotCake =
         ]
     , conservation =
         Just
-            { type_ = Ambient
+            { type_ = ambient
             }
     }
 
@@ -211,13 +252,13 @@ conservationTypeFromString : String -> Result String ConservationType
 conservationTypeFromString str =
     case str of
         "Sec" ->
-            Ok Ambient
+            Ok ambient
 
         "Frais" ->
-            Ok Chilled
+            Ok chilled
 
         "Surgelé" ->
-            Ok Frozen
+            Ok frozen
 
         _ ->
             Err "Type de conservation incorrect"

@@ -155,6 +155,10 @@ compute db =
                             transport =
                                 Transport.sum db.impacts [ { noTransport | road = Length.kilometers 600 } ]
 
+                            mass =
+                                ingredients
+                                    |> List.foldl (\i tmass -> Quantity.plus tmass i.mass) (Mass.kilograms 0.0)
+
                             transportWithImpact =
                                 -- TODO simplify
                                 { transport
@@ -168,17 +172,13 @@ compute db =
                                                             (\_ impact ->
                                                                 impact
                                                                     |> Unit.impactToFloat
-                                                                    |> (*) (Mass.inMetricTons {- TODO -} (Mass.kilograms 10) * Length.inKilometers transport.road)
+                                                                    |> (*) (Mass.inMetricTons {- TODO -} mass * Length.inKilometers transport.road)
                                                                     |> Unit.impact
                                                             )
                                                 )
                                             |> Result.withDefault Impact.noImpacts
                                             |> Impact.updateAggregatedScores db.impacts
                                 }
-
-                            mass =
-                                ingredients
-                                    |> List.foldl (\i tmass -> Quantity.plus tmass i.mass) (Mass.kilograms 0.0)
 
                             volume =
                                 ingredients
