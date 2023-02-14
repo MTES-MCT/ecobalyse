@@ -1,5 +1,7 @@
 module Data.Food.Builder.Conservation exposing (..)
 
+import Data.Food.Builder.Db exposing (Db)
+import Data.Impact as Impact exposing (Impacts)
 import Energy exposing (Joules, kilowattHours)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
@@ -33,6 +35,10 @@ type alias Conservation =
     }
 
 
+
+-- Data table from https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/etapes-du-cycles-de-vie/vente-au-detail
+
+
 ambient : Type
 ambient =
     Ambient
@@ -62,10 +68,7 @@ frozen =
 
 all : List Type
 all =
-    [ ambient
-    , chilled
-    , frozen
-    ]
+    [ ambient, chilled, frozen ]
 
 
 toString : Type -> String
@@ -119,3 +122,16 @@ decodeType : Decoder Type
 decodeType =
     Decode.string
         |> Decode.andThen (fromString >> RE.unpack Decode.fail Decode.succeed)
+
+
+fromQuery : Db -> { a | conservation : Maybe Query } -> Result String (Maybe Type)
+fromQuery { processes } query =
+    query.conservation
+        |> Maybe.map .type_
+        |> Ok
+
+
+computeImpacts : List Impact.Definition -> Type -> Impacts
+computeImpacts defs conservation =
+    -- TODO
+    Impact.noImpacts

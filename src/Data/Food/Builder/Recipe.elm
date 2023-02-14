@@ -214,7 +214,7 @@ compute db =
                             bar =
                                 conservation
                                     -- TODO
-                                    |> Maybe.map (computeConservationImpacts db.impacts >> List.singleton >> updateImpacts)
+                                    |> Maybe.map (Conservation.computeImpacts db.impacts >> List.singleton >> updateImpacts)
                                     |> Maybe.withDefault Impact.noImpacts
                         in
                         transport.impacts
@@ -319,12 +319,6 @@ computeProcessImpacts defs item =
     item.process.impacts
         |> Impact.mapImpacts (computeImpact item.mass)
         |> Impact.updateAggregatedScores defs
-
-
-computeConservationImpacts : List Impact.Definition -> Conservation.Type -> Impacts
-computeConservationImpacts defs conservation =
-    -- TODO
-    Impact.noImpacts
 
 
 computeIngredientImpacts : RecipeIngredient -> Impacts
@@ -487,7 +481,7 @@ fromQuery db query =
         (ingredientListFromQuery db query)
         (transformFromQuery db query)
         (packagingListFromQuery db query)
-        (conservationFromQuery db query)
+        (Conservation.fromQuery db query)
         (categoryFromQuery query.category)
 
 
@@ -655,13 +649,6 @@ transformFromQuery { processes } query =
                     |> Result.map Just
             )
         |> Maybe.withDefault (Ok Nothing)
-
-
-conservationFromQuery : Db -> { a | conservation : Maybe Conservation.Query } -> Result String (Maybe Conservation.Type)
-conservationFromQuery { processes } query =
-    query.conservation
-        |> Maybe.map .type_
-        |> Ok
 
 
 variantToString : BuilderQuery.Variant -> String
