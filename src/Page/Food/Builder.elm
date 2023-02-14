@@ -12,6 +12,7 @@ import Browser.Navigation as Navigation
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Country as Country
 import Data.Dataset as Dataset
+import Data.Food.Builder.Conservation as Conservation
 import Data.Food.Builder.Db as BuilderDb exposing (Db)
 import Data.Food.Builder.Query as Query exposing (Query)
 import Data.Food.Builder.Recipe as Recipe exposing (Recipe)
@@ -776,14 +777,14 @@ distributionView db impact recipe results =
                     [ class "form-select form-select-sm"
                     , onInput UpdateConservation
                     ]
-                    (Query.conservationTypes
+                    (Conservation.all
                         |> List.map
                             (\type_ ->
                                 option
-                                    [ selected <| (recipe.conservation |> Maybe.map (.type_ >> (==) type_) |> Maybe.withDefault False)
-                                    , value <| Query.conservationTypetoString type_
+                                    [ selected <| (recipe.conservation |> Maybe.map ((==) type_) |> Maybe.withDefault False)
+                                    , value <| Conservation.toString type_
                                     ]
-                                    [ text <| Query.conservationTypetoString type_ ]
+                                    [ text <| Conservation.toString type_ ]
                             )
                     )
                 ]

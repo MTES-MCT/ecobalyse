@@ -1516,6 +1516,37 @@
     }
   },
   {
+    "name": "Tap water {Europe without Switzerland}| market for | Cut-off, S - Copied from Ecoinvent",
+    "unit": "kilogram",
+    "simapro_id": "224411d9aa3c0ed3cf9b5fc590c237d2",
+    "system_description": "Ecoinvent v3",
+    "category_tags": [
+      "Others",
+      "Ecoinvent cut-off S copy"
+    ],
+    "category": "material",
+    "impacts": {
+      "acd": 2.5165793793542648e-06,
+      "ozd": 3.065458156127504e-11,
+      "cch": 0.00035861490374054344,
+      "fwe": 2.769130134680817e-07,
+      "swe": 4.0806341157653827e-07,
+      "tre": 5.584985301564687e-06,
+      "pco": 1.2167911573327183e-06,
+      "pma": 2.1661652914484027e-11,
+      "ior": 0.0001275835662646913,
+      "fru": 0.00617268998676624,
+      "mru": 1.6124876618968004e-09,
+      "ldu": 0.001654003191270537,
+      "wtu": 0.00025819746728940286,
+      "etf": 0.006653658717957412,
+      "htc": 9.479093491199899e-13,
+      "htn": 2.146436438633664e-11,
+      "bvi": 0.0,
+      "pef": 0.04279254190585496
+    }
+  },
+  {
     "name": "Beef cattle, national average, at farm gate",
     "unit": "kilogram",
     "simapro_id": "1e0d969027eb2d70ac658448d0bf1394",

@@ -22,6 +22,7 @@ module Data.Food.Builder.Recipe exposing
     )
 
 import Data.Country as Country exposing (Country)
+import Data.Food.Builder.Conservation as Conservation
 import Data.Food.Builder.Db exposing (Db)
 import Data.Food.Builder.Query as BuilderQuery exposing (Query)
 import Data.Food.Ingredient as Ingredient exposing (Id, Ingredient)
@@ -53,11 +54,6 @@ type alias Packaging =
     }
 
 
-type alias Conservation =
-    { type_ : BuilderQuery.ConservationType
-    }
-
-
 type alias RecipeIngredient =
     { ingredient : Ingredient
     , mass : Mass
@@ -71,7 +67,7 @@ type alias Recipe =
     { ingredients : List RecipeIngredient
     , transform : Maybe Transform
     , packaging : List Packaging
-    , conservation : Maybe Conservation
+    , conservation : Maybe Conservation.Type
     }
 
 
@@ -172,7 +168,7 @@ compute db =
                                                             (\_ impact ->
                                                                 impact
                                                                     |> Unit.impactToFloat
-                                                                    |> (*) (Mass.inMetricTons {- TODO -} mass * Length.inKilometers transport.road)
+                                                                    |> (*) (Mass.inMetricTons mass * Length.inKilometers transport.road)
                                                                     |> Unit.impact
                                                             )
                                                 )
@@ -254,7 +250,7 @@ computeProcessImpacts defs item =
         |> Impact.updateAggregatedScores defs
 
 
-computeConservationImpacts : List Impact.Definition -> Conservation -> Impacts
+computeConservationImpacts : List Impact.Definition -> Conservation.Type -> Impacts
 computeConservationImpacts defs conservation =
     -- TODO
     Impact.noImpacts
@@ -562,16 +558,11 @@ transformFromQuery { processes } query =
         |> Maybe.withDefault (Ok Nothing)
 
 
-conservationFromQuery : Db -> { a | conservation : Maybe BuilderQuery.ConservationQuery } -> Result String (Maybe Conservation)
+conservationFromQuery : Db -> { a | conservation : Maybe Conservation.Query } -> Result String (Maybe Conservation.Type)
 conservationFromQuery { processes } query =
     query.conservation
-        |> Maybe.map
-            (\conservation ->
-                Result.map Conservation
-                    (Ok conservation.type_)
-                    |> Result.map Just
-            )
-        |> Maybe.withDefault (Ok Nothing)
+        |> Maybe.map .type_
+        |> Ok
 
 
 variantToString : BuilderQuery.Variant -> String

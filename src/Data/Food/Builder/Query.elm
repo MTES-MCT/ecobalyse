@@ -1,7 +1,5 @@
 module Data.Food.Builder.Query exposing
-    ( ConservationQuery
-    , ConservationType(..)
-    , IngredientQuery
+    ( IngredientQuery
     , ProcessQuery
     , Query
     , Variant(..)
@@ -9,8 +7,6 @@ module Data.Food.Builder.Query exposing
     , addPackaging
     , b64encode
     , carrotCake
-    , conservationTypes
-    , conservationTypetoString
     , decode
     , deleteIngredient
     , emptyQuery
@@ -25,17 +21,15 @@ module Data.Food.Builder.Query exposing
 
 import Base64
 import Data.Country as Country
+import Data.Food.Builder.Conservation as Conservation
 import Data.Food.Ingredient as Ingredient
 import Data.Food.Process as Process
-import Energy exposing (Joules, kilowattHours)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
 import Json.Encode as Encode
 import Mass exposing (Mass)
-import Quantity exposing (Quantity, Rate, rate)
-import Result.Extra as RE
+import Quantity
 import Url.Parser as Parser exposing (Parser)
-import Volume exposing (CubicMeters, cubicMeters, liters)
 
 
 type Variant
@@ -59,79 +53,11 @@ type alias ProcessQuery =
     }
 
 
-type alias ConservationNeeds =
-    { energy : Quantity Float (Rate Joules CubicMeters)
-    , cooling : Quantity Float (Rate Joules CubicMeters)
-    , water : Quantity Float (Rate CubicMeters CubicMeters)
-    }
-
-
-type
-    ConservationType
-    -- TODO move in a module
-    = Ambient ConservationNeeds
-    | Chilled ConservationNeeds
-    | Frozen ConservationNeeds
-
-
-ambient : ConservationType
-ambient =
-    Ambient
-        { energy = rate (kilowattHours 123.08) (cubicMeters 1)
-        , cooling = rate (kilowattHours 0) (cubicMeters 1)
-        , water = rate (liters 561.5) (cubicMeters 1)
-        }
-
-
-chilled : ConservationType
-chilled =
-    Chilled
-        { energy = rate (kilowattHours 61.54) (cubicMeters 1)
-        , cooling = rate (kilowattHours 415.38) (cubicMeters 1)
-        , water = rate (liters 280.8) (cubicMeters 1)
-        }
-
-
-frozen : ConservationType
-frozen =
-    Frozen
-        { energy = rate (kilowattHours 123.08) (cubicMeters 1)
-        , cooling = rate (kilowattHours 0) (cubicMeters 1)
-        , water = rate (liters 561.5) (cubicMeters 1)
-        }
-
-
-conservationTypes : List ConservationType
-conservationTypes =
-    [ ambient
-    , chilled
-    , frozen
-    ]
-
-
-conservationTypetoString : ConservationType -> String
-conservationTypetoString t =
-    case t of
-        Ambient _ ->
-            "Sec"
-
-        Chilled _ ->
-            "Frais"
-
-        Frozen _ ->
-            "Surgelé"
-
-
-type alias ConservationQuery =
-    { type_ : ConservationType
-    }
-
-
 type alias Query =
     { ingredients : List IngredientQuery
     , transform : Maybe ProcessQuery
     , packaging : List ProcessQuery
-    , conservation : Maybe ConservationQuery
+    , conservation : Maybe Conservation.Query
     }
 
 
@@ -209,7 +135,7 @@ carrotCake =
         ]
     , conservation =
         Just
-            { type_ = ambient
+            { type_ = Conservation.ambient
             }
     }
 
@@ -220,7 +146,7 @@ decode =
         (Decode.field "ingredients" (Decode.list decodeIngredient))
         (Decode.field "transform" (Decode.maybe decodeProcess))
         (Decode.field "packaging" (Decode.list decodeProcess))
-        (Decode.field "conservation" (Decode.maybe decodeConservation))
+        (Decode.field "conservation" (Decode.maybe Conservation.decodeQuery))
 
 
 decodeMass : Decoder Mass
@@ -234,34 +160,6 @@ decodeProcess =
     Decode.map2 ProcessQuery
         (Decode.field "code" Process.decodeCode)
         (Decode.field "mass" decodeMass)
-
-
-decodeConservation : Decoder ConservationQuery
-decodeConservation =
-    Decode.map ConservationQuery
-        (Decode.field "type" decodeConservationType)
-
-
-decodeConservationType : Decoder ConservationType
-decodeConservationType =
-    Decode.string
-        |> Decode.andThen (conservationTypeFromString >> RE.unpack Decode.fail Decode.succeed)
-
-
-conservationTypeFromString : String -> Result String ConservationType
-conservationTypeFromString str =
-    case str of
-        "Sec" ->
-            Ok ambient
-
-        "Frais" ->
-            Ok chilled
-
-        "Surgelé" ->
-            Ok frozen
-
-        _ ->
-            Err "Type de conservation incorrect"
 
 
 decodeIngredient : Decoder IngredientQuery
@@ -297,7 +195,7 @@ encode v =
         [ ( "ingredients", Encode.list encodeIngredient v.ingredients )
         , ( "transform", v.transform |> Maybe.map encodeProcess |> Maybe.withDefault Encode.null )
         , ( "packaging", Encode.list encodeProcess v.packaging )
-        , ( "conservation", v.conservation |> Maybe.map encodeConservation |> Maybe.withDefault Encode.null )
+        , ( "conservation", v.conservation |> Maybe.map Conservation.encodeQuery |> Maybe.withDefault Encode.null )
         ]
 
 
@@ -324,18 +222,6 @@ encodeProcess v =
         [ ( "code", Process.encodeCode v.code )
         , ( "mass", encodeMass v.mass )
         ]
-
-
-encodeConservation : ConservationQuery -> Encode.Value
-encodeConservation c =
-    Encode.object
-        [ ( "type", encodeConservationType c.type_ )
-        ]
-
-
-encodeConservationType : ConservationType -> Encode.Value
-encodeConservationType =
-    Encode.string << conservationTypetoString
 
 
 encodeVariant : Variant -> Encode.Value
@@ -411,9 +297,9 @@ updateConservation : String -> Query -> Query
 updateConservation newConservation query =
     { query
         | conservation =
-            conservationTypeFromString newConservation
+            Conservation.fromString newConservation
                 |> Result.toMaybe
-                |> Maybe.map ConservationQuery
+                |> Maybe.map Conservation.Query
     }
 
 
