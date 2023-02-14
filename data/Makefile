@@ -15,7 +15,7 @@ export_ciqual:
 	$(DOCKERRUN) -w /home/jovyan/ecobalyse/data/food/export_agb $(NAME) python3 export_ciqual.py
 
 export_builder:
-	$(DOCKERRUN) -w /home/jovyan/ecobalyse/data/food/export_agb $(NAME) python3 export_builder.py"
+	$(DOCKERRUN) -w /home/jovyan/ecobalyse/data/food/export_agb $(NAME) python3 export_builder.py
 
 bash:
 	$(DOCKERRUN) -w /home/jovyan/ecobalyse/data $(NAME) bash
