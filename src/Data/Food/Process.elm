@@ -66,6 +66,8 @@ type alias WellKnown =
     { lorryTransport : Process
     , boatTransport : Process
     , planeTransport : Process
+    , water : Process
+    , electricity : Process
     }
 
 
@@ -234,3 +236,7 @@ loadWellKnown processes =
         |> resolve "958bbb33cf6cdb8e3c8d4f21aec5ef98"
         -- Transport, freight, aircraft {RER}| intercontinental | Cut-off, S - Copied from Ecoinvent
         |> resolve "5bc527741ac919ff8710a474f849614f"
+        -- Tap water {Europe without Switzerland}| market for | Cut-off, S - Copied from Ecoinvent
+        |> resolve "224411d9aa3c0ed3cf9b5fc590c237d2"
+        -- Electricity, low voltage {FR}| market for | Cut-off, S - Copied from Ecoinvent
+        |> resolve "ef953c00d48ee59f57773534f6487b09"

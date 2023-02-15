@@ -173,39 +173,14 @@ compute db =
 
                     conservationImpacts =
                         let
-                            -- WIP
-                            noTransport =
-                                Transport.default Impact.noImpacts
-
-                            transport =
-                                Transport.sum db.impacts [ { noTransport | road = Length.kilometers 600 } ]
+                            wellknown =
+                                db.processes
+                                    |> Process.loadWellKnown
 
                             mass =
                                 ingredients
                                     |> List.map .mass
                                     |> Quantity.sum
-
-                            transportWithImpact =
-                                -- TODO simplify
-                                { transport
-                                    | impacts =
-                                        db.processes
-                                            |> Process.loadWellKnown
-                                            |> Result.map
-                                                (\{ lorryTransport } ->
-                                                    lorryTransport.impacts
-                                                        |> Impact.mapImpacts
-                                                            (\_ impact ->
-                                                                impact
-                                                                    |> Unit.impactToFloat
-                                                                    |> (*) (Mass.inMetricTons mass * Length.inKilometers transport.road)
-                                                                    |> Unit.impact
-                                                            )
-                                                )
-                                            -- TODO
-                                            |> Result.withDefault Impact.noImpacts
-                                            |> Impact.updateAggregatedScores db.impacts
-                                }
 
                             volume =
                                 ingredients
@@ -214,31 +189,34 @@ compute db =
                                             Quantity.plus tvolume (i.mass |> Quantity.at_ (Density.gramsPerCubicCentimeter i.ingredient.density))
                                         )
                                         (Volume.liters 0.0)
-
-                            bar =
-                                conservation
-                                    |> Maybe.map (Conservation.computeImpacts db volume >> List.singleton >> updateImpacts)
-                                    |> Maybe.withDefault Impact.noImpacts
                         in
-                        transport.impacts
+                        conservation
+                            |> Result.fromMaybe "No conservation defined"
+                            |> Result.andThen
+                                (Conservation.computeImpacts db mass volume
+                                    >> List.singleton
+                                    >> RE.combine
+                                    >> Result.map updateImpacts
+                                )
 
                     recipeImpacts =
                         updateImpacts
                             [ ingredientsTotalImpacts
                             , transformImpacts
                             , ingredientsTransport.impacts
-                            , conservationImpacts
                             ]
 
                     totalImpacts =
-                        Impact.sumImpacts db.impacts
-                            [ recipeImpacts, packagingImpacts ]
+                        [ Ok recipeImpacts, Ok packagingImpacts, conservationImpacts ]
+                            |> RE.combine
+                            |> Result.map (Impact.sumImpacts db.impacts)
 
                     impactsPerKg =
                         -- Note: Product impacts per kg is computed against transformed
                         --       ingredients mass, excluding packaging
                         totalImpacts
-                            |> Impact.perKg (getTransformedIngredientsMass recipe)
+                            |> Result.map
+                                (Impact.perKg (getTransformedIngredientsMass recipe))
 
                     packagingImpacts =
                         packaging
@@ -247,28 +225,36 @@ compute db =
 
                     scoring =
                         impactsPerKg
-                            |> computeScoring db.impacts category
+                            |> Result.map (computeScoring db.impacts category)
                 in
-                ( recipe
-                , { total = totalImpacts
-                  , perKg = impactsPerKg
-                  , scoring = scoring
+                Result.map4
+                    (\t i c s ->
+                        ( recipe
+                        , { total = t
+                          , perKg = i
+                          , scoring = s
 
-                  -- XXX: For now, we stop at packaging step
-                  , totalMass = getMassAtPackaging recipe
-                  , recipe =
-                        { total = recipeImpacts
-                        , ingredientsTotal = ingredientsTotalImpacts
-                        , ingredients = ingredientsImpacts
-                        , transform = transformImpacts
-                        , transports = ingredientsTransport
-                        , conservation = conservationImpacts
-                        }
-                  , packaging = packagingImpacts
-                  , transports = ingredientsTransport
-                  }
-                )
+                          -- XXX: For now, we stop at packaging step
+                          , totalMass = getMassAtPackaging recipe
+                          , recipe =
+                                { total = recipeImpacts
+                                , ingredientsTotal = ingredientsTotalImpacts
+                                , ingredients = ingredientsImpacts
+                                , transform = transformImpacts
+                                , transports = ingredientsTransport
+                                , conservation = c
+                                }
+                          , packaging = packagingImpacts
+                          , transports = ingredientsTransport
+                          }
+                        )
+                    )
+                    totalImpacts
+                    impactsPerKg
+                    conservationImpacts
+                    scoring
             )
+        >> RE.join
 
 
 computeScoring : List Impact.Definition -> Maybe Category -> Impacts -> Scoring

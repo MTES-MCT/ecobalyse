@@ -11,9 +11,11 @@ import Data.Unit as Unit
 import Energy exposing (Joules, inKilowattHours, kilowattHours)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
+import Length exposing (Length)
+import Mass exposing (Mass, inMetricTons)
 import Quantity exposing (Quantity, Rate, rate, ratio)
 import Result.Extra as RE
-import Volume exposing (CubicMeters, cubicMeters, liters)
+import Volume exposing (CubicMeters, Volume, cubicMeters, liters)
 
 
 type
@@ -32,7 +34,8 @@ type alias Needs =
     --- what it needs to store a product at the retail store
     { energy : Quantity Float (Rate Joules CubicMeters)
     , cooling : Quantity Float (Rate Joules CubicMeters)
-    , water : Float
+    , water : Float -- TODO try to use a Rate Liters CubicMeters)
+    , transport : Length
     }
 
 
@@ -46,6 +49,7 @@ ambient =
         { energy = rate (kilowattHours 123.08) (cubicMeters 1)
         , cooling = rate (kilowattHours 0) (cubicMeters 1)
         , water = ratio (liters 561.5) (cubicMeters 1)
+        , transport = Length.kilometers 600
         }
 
 
@@ -55,6 +59,7 @@ chilled =
         { energy = rate (kilowattHours 61.54) (cubicMeters 1)
         , cooling = rate (kilowattHours 415.38) (cubicMeters 1)
         , water = ratio (liters 280.8) (cubicMeters 1)
+        , transport = Length.kilometers 600
         }
 
 
@@ -64,6 +69,7 @@ frozen =
         { energy = rate (kilowattHours 123.08) (cubicMeters 1)
         , cooling = rate (kilowattHours 0) (cubicMeters 1)
         , water = ratio (liters 561.5) (cubicMeters 1)
+        , transport = Length.kilometers 600
         }
 
 
@@ -126,28 +132,43 @@ decode =
         |> Decode.andThen (fromString >> RE.unpack Decode.fail Decode.succeed)
 
 
-waterImpact : Float -> Quantity Float CubicMeters -> Impacts -> Impacts
-waterImpact waterNeeds volume unitImpacts =
-    unitImpacts
-        |> Impact.mapImpacts
+waterImpact : Float -> Volume -> Result String Impacts -> Result String Impacts
+waterImpact waterNeeds volume =
+    Result.map
+        (Impact.mapImpacts
             (\_ impact ->
                 impact
                     |> Unit.impactToFloat
                     |> (*) (Quantity.multiplyBy waterNeeds volume |> Volume.inCubicMeters)
                     |> Unit.impact
             )
+        )
 
 
-elecImpact : Quantity Float (Rate Joules CubicMeters) -> Quantity Float CubicMeters -> Impacts -> Impacts
-elecImpact elecNeeds volume unitImpacts =
-    unitImpacts
-        |> Impact.mapImpacts
+elecImpact : Quantity Float (Rate Joules CubicMeters) -> Volume -> Result String Impacts -> Result String Impacts
+elecImpact elecNeeds volume =
+    Result.map
+        (Impact.mapImpacts
             (\_ impact ->
                 impact
                     |> Unit.impactToFloat
-                    |> (*) (Quantity.at elecNeeds volume |> Energy.inJoules)
+                    |> (*) (Quantity.at elecNeeds volume |> Energy.inKilowattHours)
                     |> Unit.impact
             )
+        )
+
+
+transportImpact : Length -> Mass -> Result String Impacts -> Result String Impacts
+transportImpact distance mass =
+    Result.map
+        (Impact.mapImpacts
+            (\_ impact ->
+                impact
+                    |> Unit.impactToFloat
+                    |> (*) (Length.inKilometers distance * Mass.inMetricTons mass)
+                    |> Unit.impact
+            )
+        )
 
 
 extractNeeds : Conservation -> Needs
@@ -155,26 +176,41 @@ extractNeeds (Conservation _ needs) =
     needs
 
 
-waterUnitImpact : Db -> Impacts
+waterUnitImpact : Db -> Result String Impacts
 waterUnitImpact db =
-    Process.codeFromString "224411d9aa3c0ed3cf9b5fc590c237d2" |> Process.findByCode db.processes |> Result.map .impacts |> Result.withDefault Impact.noImpacts
+    Process.codeFromString "224411d9aa3c0ed3cf9b5fc590c237d2"
+        |> Process.findByCode db.processes
+        |> Result.map .impacts
 
 
-elecUnitImpact : Db -> Impacts
+elecUnitImpact : Db -> Result String Impacts
 elecUnitImpact db =
-    Process.codeFromString "ef953c00d48ee59f57773534f6487b09" |> Process.findByCode db.processes |> Result.map .impacts |> Result.withDefault Impact.noImpacts
+    Process.codeFromString "ef953c00d48ee59f57773534f6487b09"
+        |> Process.findByCode db.processes
+        |> Result.map .impacts
 
 
-impacts : Db -> Needs -> Quantity Float CubicMeters -> Impacts
-impacts db needs volume =
+lorryTransportImpact : Db -> Result String Impacts
+lorryTransportImpact db =
+    Process.codeFromString "c24fc476f6d5237aa2c58d7d95bc1ca4"
+        |> Process.findByCode db.processes
+        |> Result.map .impacts
+
+
+impacts : Db -> Needs -> Mass -> Volume -> Result String Impacts
+impacts db needs mass volume =
     [ waterImpact needs.water volume (waterUnitImpact db)
     , elecImpact needs.cooling volume (elecUnitImpact db)
     , elecImpact needs.energy volume (elecUnitImpact db)
+    , transportImpact needs.transport mass (lorryTransportImpact db)
     ]
-        |> Impact.sumImpacts db.impacts
-        |> Impact.updateAggregatedScores db.impacts
+        |> RE.combine
+        |> Result.map
+            (Impact.sumImpacts db.impacts
+                >> Impact.updateAggregatedScores db.impacts
+            )
 
 
-computeImpacts : Db -> Quantity Float CubicMeters -> Conservation -> Impacts
-computeImpacts db volume (Conservation type_ needs) =
-    impacts db needs volume
+computeImpacts : Db -> Mass -> Volume -> Conservation -> Result String Impacts
+computeImpacts db mass volume (Conservation type_ needs) =
+    impacts db needs mass volume
