@@ -56,9 +56,9 @@ ambient =
 chilled : Conservation
 chilled =
     Conservation Chilled
-        { energy = rate (kilowattHours 61.54) (cubicMeters 1)
-        , cooling = rate (kilowattHours 415.38) (cubicMeters 1)
-        , water = ratio (liters 280.8) (cubicMeters 1)
+        { energy = rate (kilowattHours 46.15) (cubicMeters 1)
+        , cooling = rate (kilowattHours 219.23) (cubicMeters 1)
+        , water = ratio (liters 210.6) (cubicMeters 1)
         , transport = Length.kilometers 600
         }
 
@@ -66,9 +66,9 @@ chilled =
 frozen : Conservation
 frozen =
     Conservation Frozen
-        { energy = rate (kilowattHours 123.08) (cubicMeters 1)
-        , cooling = rate (kilowattHours 0) (cubicMeters 1)
-        , water = ratio (liters 561.5) (cubicMeters 1)
+        { energy = rate (kilowattHours 61.54) (cubicMeters 1)
+        , cooling = rate (kilowattHours 415.38) (cubicMeters 1)
+        , water = ratio (liters 280.8) (cubicMeters 1)
         , transport = Length.kilometers 600
         }
 
@@ -86,7 +86,7 @@ toString (Conservation type_ _) =
             "ambient"
 
         Chilled ->
-            "frais"
+            "chilled"
 
         Frozen ->
             "frozen"
@@ -108,8 +108,8 @@ fromString str =
             Err "Type de conservation incorrect"
 
 
-toDisplay : Type -> String
-toDisplay t =
+toDisplay : Conservation -> String
+toDisplay (Conservation t _) =
     case t of
         Ambient ->
             "Sec"
