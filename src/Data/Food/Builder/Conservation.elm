@@ -152,100 +152,63 @@ fromQuery { processes } mquery =
         |> Ok
 
 
-computeImpacts : Db -> Quantity Float CubicMeters -> Type -> Impacts
-computeImpacts db volume conservation =
-    -- TODO
-    let
-        waterImpact =
-            Process.codeFromString "224411d9aa3c0ed3cf9b5fc590c237d2" |> Process.findByCode db.processes |> Result.map .impacts |> Result.withDefault Impact.noImpacts
+waterImpact : Float -> Quantity Float CubicMeters -> Impacts -> Impacts
+waterImpact waterNeeds volume unitImpacts =
+    unitImpacts
+        |> Impact.mapImpacts
+            (\_ impact ->
+                impact
+                    |> Unit.impactToFloat
+                    |> (*) (Quantity.multiplyBy waterNeeds volume |> Volume.inCubicMeters)
+                    |> Unit.impact
+            )
 
-        elecImpact =
-            Process.codeFromString "ef953c00d48ee59f57773534f6487b09" |> Process.findByCode db.processes |> Result.map .impacts |> Result.withDefault Impact.noImpacts
-    in
-    case conservation of
+
+elecImpact : Quantity Float (Rate Joules CubicMeters) -> Quantity Float CubicMeters -> Impacts -> Impacts
+elecImpact elecNeeds volume unitImpacts =
+    unitImpacts
+        |> Impact.mapImpacts
+            (\_ impact ->
+                impact
+                    |> Unit.impactToFloat
+                    |> (*) (Quantity.at elecNeeds volume |> Energy.inJoules)
+                    |> Unit.impact
+            )
+
+
+extractNeeds : Type -> Needs
+extractNeeds type_ =
+    case type_ of
         Ambient needs ->
-            [ waterImpact
-                |> Impact.mapImpacts
-                    (\_ impact ->
-                        impact
-                            |> Unit.impactToFloat
-                            |> (*) (Quantity.multiplyBy needs.water volume |> Volume.inCubicMeters)
-                            |> Unit.impact
-                    )
-            , elecImpact
-                |> Impact.mapImpacts
-                    (\_ impact ->
-                        impact
-                            |> Unit.impactToFloat
-                            |> (*) (Quantity.at needs.energy volume |> Energy.inJoules)
-                            |> Unit.impact
-                    )
-            , elecImpact
-                |> Impact.mapImpacts
-                    (\_ impact ->
-                        impact
-                            |> Unit.impactToFloat
-                            |> (*) (Quantity.at needs.cooling volume |> Energy.inKilowattHours)
-                            |> Unit.impact
-                    )
-            ]
-                |> Impact.sumImpacts db.impacts
-                |> Impact.updateAggregatedScores db.impacts
+            needs
 
         Chilled needs ->
-            [ waterImpact
-                |> Impact.mapImpacts
-                    (\_ impact ->
-                        impact
-                            |> Unit.impactToFloat
-                            |> (*) (Quantity.multiplyBy needs.water volume |> Volume.inCubicMeters)
-                            |> Unit.impact
-                    )
-            , elecImpact
-                |> Impact.mapImpacts
-                    (\_ impact ->
-                        impact
-                            |> Unit.impactToFloat
-                            |> (*) (Quantity.at needs.energy volume |> Energy.inJoules)
-                            |> Unit.impact
-                    )
-            , elecImpact
-                |> Impact.mapImpacts
-                    (\_ impact ->
-                        impact
-                            |> Unit.impactToFloat
-                            |> (*) (Quantity.at needs.cooling volume |> Energy.inKilowattHours)
-                            |> Unit.impact
-                    )
-            ]
-                |> Impact.sumImpacts db.impacts
-                |> Impact.updateAggregatedScores db.impacts
+            needs
 
         Frozen needs ->
-            [ waterImpact
-                |> Impact.mapImpacts
-                    (\_ impact ->
-                        impact
-                            |> Unit.impactToFloat
-                            |> (*) (Quantity.multiplyBy needs.water volume |> Volume.inCubicMeters)
-                            |> Unit.impact
-                    )
-            , elecImpact
-                |> Impact.mapImpacts
-                    (\_ impact ->
-                        impact
-                            |> Unit.impactToFloat
-                            |> (*) (Quantity.at needs.energy volume |> Energy.inJoules)
-                            |> Unit.impact
-                    )
-            , elecImpact
-                |> Impact.mapImpacts
-                    (\_ impact ->
-                        impact
-                            |> Unit.impactToFloat
-                            |> (*) (Quantity.at needs.cooling volume |> Energy.inKilowattHours)
-                            |> Unit.impact
-                    )
-            ]
-                |> Impact.sumImpacts db.impacts
-                |> Impact.updateAggregatedScores db.impacts
+            needs
+
+
+waterUnitImpact : Db -> Impacts
+waterUnitImpact db =
+    Process.codeFromString "224411d9aa3c0ed3cf9b5fc590c237d2" |> Process.findByCode db.processes |> Result.map .impacts |> Result.withDefault Impact.noImpacts
+
+
+elecUnitImpact : Db -> Impacts
+elecUnitImpact db =
+    Process.codeFromString "ef953c00d48ee59f57773534f6487b09" |> Process.findByCode db.processes |> Result.map .impacts |> Result.withDefault Impact.noImpacts
+
+
+impacts : Db -> Needs -> Quantity Float CubicMeters -> Impacts
+impacts db needs volume =
+    [ waterImpact needs.water volume (waterUnitImpact db)
+    , elecImpact needs.cooling volume (elecUnitImpact db)
+    , elecImpact needs.energy volume (elecUnitImpact db)
+    ]
+        |> Impact.sumImpacts db.impacts
+        |> Impact.updateAggregatedScores db.impacts
+
+
+computeImpacts : Db -> Quantity Float CubicMeters -> Type -> Impacts
+computeImpacts db volume conservation =
+    impacts db (extractNeeds conservation) volume
