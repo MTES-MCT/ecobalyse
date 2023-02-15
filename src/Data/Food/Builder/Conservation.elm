@@ -5,7 +5,7 @@ module Data.Food.Builder.Conservation exposing (..)
 -}
 
 import Data.Food.Builder.Db exposing (Db)
-import Data.Food.Process as Process
+import Data.Food.Process as Process exposing (Process, WellKnown)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Unit as Unit
 import Energy exposing (Joules, inKilowattHours, kilowattHours)
@@ -132,85 +132,48 @@ decode =
         |> Decode.andThen (fromString >> RE.unpack Decode.fail Decode.succeed)
 
 
-waterImpact : Float -> Volume -> Result String Impacts -> Result String Impacts
+waterImpact : Float -> Volume -> Process -> Impacts
 waterImpact waterNeeds volume =
-    Result.map
-        (Impact.mapImpacts
+    .impacts
+        >> Impact.mapImpacts
             (\_ impact ->
                 impact
                     |> Unit.impactToFloat
                     |> (*) (Quantity.multiplyBy waterNeeds volume |> Volume.inCubicMeters)
                     |> Unit.impact
             )
-        )
 
 
-elecImpact : Quantity Float (Rate Joules CubicMeters) -> Volume -> Result String Impacts -> Result String Impacts
+elecImpact : Quantity Float (Rate Joules CubicMeters) -> Volume -> Process -> Impacts
 elecImpact elecNeeds volume =
-    Result.map
-        (Impact.mapImpacts
+    .impacts
+        >> Impact.mapImpacts
             (\_ impact ->
                 impact
                     |> Unit.impactToFloat
                     |> (*) (Quantity.at elecNeeds volume |> Energy.inKilowattHours)
                     |> Unit.impact
             )
-        )
 
 
-transportImpact : Length -> Mass -> Result String Impacts -> Result String Impacts
+transportImpact : Length -> Mass -> Process -> Impacts
 transportImpact distance mass =
-    Result.map
-        (Impact.mapImpacts
+    .impacts
+        >> Impact.mapImpacts
             (\_ impact ->
                 impact
                     |> Unit.impactToFloat
                     |> (*) (Length.inKilometers distance * Mass.inMetricTons mass)
                     |> Unit.impact
             )
-        )
 
 
-extractNeeds : Conservation -> Needs
-extractNeeds (Conservation _ needs) =
-    needs
-
-
-waterUnitImpact : Db -> Result String Impacts
-waterUnitImpact db =
-    Process.codeFromString "224411d9aa3c0ed3cf9b5fc590c237d2"
-        |> Process.findByCode db.processes
-        |> Result.map .impacts
-
-
-elecUnitImpact : Db -> Result String Impacts
-elecUnitImpact db =
-    Process.codeFromString "ef953c00d48ee59f57773534f6487b09"
-        |> Process.findByCode db.processes
-        |> Result.map .impacts
-
-
-lorryTransportImpact : Db -> Result String Impacts
-lorryTransportImpact db =
-    Process.codeFromString "c24fc476f6d5237aa2c58d7d95bc1ca4"
-        |> Process.findByCode db.processes
-        |> Result.map .impacts
-
-
-impacts : Db -> Needs -> Mass -> Volume -> Result String Impacts
-impacts db needs mass volume =
-    [ waterImpact needs.water volume (waterUnitImpact db)
-    , elecImpact needs.cooling volume (elecUnitImpact db)
-    , elecImpact needs.energy volume (elecUnitImpact db)
-    , transportImpact needs.transport mass (lorryTransportImpact db)
+computeImpacts : Db -> Mass -> Volume -> WellKnown -> Conservation -> Impacts
+computeImpacts db mass volume wellknown (Conservation type_ needs) =
+    [ waterImpact needs.water volume wellknown.water
+    , elecImpact needs.cooling volume wellknown.electricity
+    , elecImpact needs.energy volume wellknown.electricity
+    , transportImpact needs.transport mass wellknown.lorryTransport
     ]
-        |> RE.combine
-        |> Result.map
-            (Impact.sumImpacts db.impacts
-                >> Impact.updateAggregatedScores db.impacts
-            )
-
-
-computeImpacts : Db -> Mass -> Volume -> Conservation -> Result String Impacts
-computeImpacts db mass volume (Conservation type_ needs) =
-    impacts db needs mass volume
+        |> Impact.sumImpacts db.impacts
+        |> Impact.updateAggregatedScores db.impacts

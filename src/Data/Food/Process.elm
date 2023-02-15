@@ -3,6 +3,7 @@ module Data.Food.Process exposing
     , Code
     , Process
     , ProcessName
+    , WellKnown
     , codeFromString
     , codeToString
     , decodeCode

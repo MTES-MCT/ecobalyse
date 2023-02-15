@@ -185,19 +185,16 @@ compute db =
                             volume =
                                 ingredients
                                     |> List.foldl
-                                        (\i tvolume ->
-                                            Quantity.plus tvolume (i.mass |> Quantity.at_ (Density.gramsPerCubicCentimeter i.ingredient.density))
+                                        (\ingredient tvolume ->
+                                            Quantity.plus tvolume (ingredient.mass |> Quantity.at_ (Density.gramsPerCubicCentimeter ingredient.ingredient.density))
                                         )
                                         (Volume.liters 0.0)
                         in
-                        conservation
-                            |> Result.fromMaybe "No conservation defined"
-                            |> Result.andThen
-                                (Conservation.computeImpacts db mass volume
-                                    >> List.singleton
-                                    >> RE.combine
-                                    >> Result.map updateImpacts
-                                )
+                        Result.map2 (Conservation.computeImpacts db mass volume)
+                            wellknown
+                            (conservation
+                                |> Result.fromMaybe "No conservation defined"
+                            )
 
                     recipeImpacts =
                         updateImpacts
