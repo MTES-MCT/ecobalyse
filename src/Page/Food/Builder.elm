@@ -767,10 +767,10 @@ packagingListView db selectedImpact recipe results =
 
 
 distributionView : Db -> Impact.Definition -> Recipe -> Recipe.Results -> List (Html Msg)
-distributionView db impact recipe results =
+distributionView db selectedImpact recipe results =
     [ div [ class "card-header d-flex align-items-center justify-content-between" ]
         [ h5 [ class "mb-0" ] [ text "Stockage et distribution" ]
-        , text "TODO impact"
+        , Format.formatFoodSelectedImpact selectedImpact <| results.recipe.conservation
         ]
     , div []
         [ ul [ class "list-group list-group-flush border-top-0 border-bottom-0" ]
@@ -786,7 +786,7 @@ distributionView db impact recipe results =
                                     [ selected <| (recipe.conservation |> Maybe.map ((==) type_) |> Maybe.withDefault False)
                                     , value <| Conservation.toString type_
                                     ]
-                                    [ text <| Conservation.toString type_ ]
+                                    [ text <| Conservation.toDisplay type_ ]
                             )
                     )
                 ]
@@ -1067,6 +1067,9 @@ stepResultsView model results =
               }
             , { label = "Transports"
               , impact = toFloat results.transports.impacts
+              }
+            , { label = "Stockage distributeur"
+              , impact = toFloat results.recipe.conservation
               }
             ]
 
