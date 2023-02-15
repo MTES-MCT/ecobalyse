@@ -69,7 +69,7 @@ type alias Recipe =
     { ingredients : List RecipeIngredient
     , transform : Maybe Transform
     , packaging : List Packaging
-    , conservation : Maybe Conservation.Type
+    , conservation : Maybe Conservation.Conservation
     , category : Maybe Category
     }
 
@@ -484,7 +484,7 @@ fromQuery db query =
         (ingredientListFromQuery db query)
         (transformFromQuery db query)
         (packagingListFromQuery db query)
-        (Conservation.fromQuery db query.conservation)
+        (Ok query.conservation)
         (categoryFromQuery query.category)
 
 

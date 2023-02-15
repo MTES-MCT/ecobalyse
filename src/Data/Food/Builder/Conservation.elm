@@ -16,6 +16,18 @@ import Result.Extra as RE
 import Volume exposing (CubicMeters, cubicMeters, liters)
 
 
+type
+    Conservation
+    -- A consevation type and its needs in energy, cooling, water
+    = Conservation Type Needs
+
+
+type Type
+    = Ambient
+    | Chilled
+    | Frozen
+
+
 type alias Needs =
     --- what it needs to store a product at the retail store
     { energy : Quantity Float (Rate Joules CubicMeters)
@@ -24,75 +36,57 @@ type alias Needs =
     }
 
 
-type Type
-    = Ambient Needs
-    | Chilled Needs
-    | Frozen Needs
-
-
-type alias Query =
-    -- TODO remove ?
-    { type_ : Type
-    }
-
-
-type alias Conservation =
-    -- TODO remove ?
-    { type_ : Type
-    }
-
-
 
 -- Data table from https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/etapes-du-cycles-de-vie/vente-au-detail
 
 
-ambient : Type
+ambient : Conservation
 ambient =
-    Ambient
+    Conservation Ambient
         { energy = rate (kilowattHours 123.08) (cubicMeters 1)
         , cooling = rate (kilowattHours 0) (cubicMeters 1)
         , water = ratio (liters 561.5) (cubicMeters 1)
         }
 
 
-chilled : Type
+chilled : Conservation
 chilled =
-    Chilled
+    Conservation Chilled
         { energy = rate (kilowattHours 61.54) (cubicMeters 1)
         , cooling = rate (kilowattHours 415.38) (cubicMeters 1)
         , water = ratio (liters 280.8) (cubicMeters 1)
         }
 
 
-frozen : Type
+frozen : Conservation
 frozen =
-    Frozen
+    Conservation Frozen
         { energy = rate (kilowattHours 123.08) (cubicMeters 1)
         , cooling = rate (kilowattHours 0) (cubicMeters 1)
         , water = ratio (liters 561.5) (cubicMeters 1)
         }
 
 
-all : List Type
+all : List Conservation
 all =
     -- for selection list in the builder
     [ ambient, chilled, frozen ]
 
 
-toString : Type -> String
-toString t =
-    case t of
-        Ambient _ ->
+toString : Conservation -> String
+toString (Conservation type_ _) =
+    case type_ of
+        Ambient ->
             "ambient"
 
-        Chilled _ ->
+        Chilled ->
             "frais"
 
-        Frozen _ ->
+        Frozen ->
             "frozen"
 
 
-fromString : String -> Result String Type
+fromString : String -> Result String Conservation
 fromString str =
     case str of
         "ambient" ->
@@ -111,45 +105,25 @@ fromString str =
 toDisplay : Type -> String
 toDisplay t =
     case t of
-        Ambient _ ->
+        Ambient ->
             "Sec"
 
-        Chilled _ ->
+        Chilled ->
             "Frais"
 
-        Frozen _ ->
+        Frozen ->
             "Surgelé"
 
 
-encodeQuery : Query -> Encode.Value
-encodeQuery c =
-    Encode.object
-        [ ( "type", encodeType c.type_ )
-        ]
-
-
-encodeType : Type -> Encode.Value
-encodeType =
+encode : Conservation -> Encode.Value
+encode =
     Encode.string << toString
 
 
-decodeQuery : Decoder Query
-decodeQuery =
-    Decode.map Query
-        (Decode.field "type" decodeType)
-
-
-decodeType : Decoder Type
-decodeType =
+decode : Decoder Conservation
+decode =
     Decode.string
         |> Decode.andThen (fromString >> RE.unpack Decode.fail Decode.succeed)
-
-
-fromQuery : Db -> Maybe Query -> Result String (Maybe Type)
-fromQuery { processes } mquery =
-    mquery
-        |> Maybe.map .type_
-        |> Ok
 
 
 waterImpact : Float -> Quantity Float CubicMeters -> Impacts -> Impacts
@@ -176,17 +150,9 @@ elecImpact elecNeeds volume unitImpacts =
             )
 
 
-extractNeeds : Type -> Needs
-extractNeeds type_ =
-    case type_ of
-        Ambient needs ->
-            needs
-
-        Chilled needs ->
-            needs
-
-        Frozen needs ->
-            needs
+extractNeeds : Conservation -> Needs
+extractNeeds (Conservation _ needs) =
+    needs
 
 
 waterUnitImpact : Db -> Impacts
@@ -209,6 +175,6 @@ impacts db needs volume =
         |> Impact.updateAggregatedScores db.impacts
 
 
-computeImpacts : Db -> Quantity Float CubicMeters -> Type -> Impacts
-computeImpacts db volume conservation =
-    impacts db (extractNeeds conservation) volume
+computeImpacts : Db -> Quantity Float CubicMeters -> Conservation -> Impacts
+computeImpacts db volume (Conservation type_ needs) =
+    impacts db needs volume
