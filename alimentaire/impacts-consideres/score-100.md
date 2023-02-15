@@ -56,10 +56,10 @@ Le score /100 introduit ci-dessus s'applique :&#x20;
 * à un score d'impact agrégé global (score PEF, score d'impacts...)
 * à l'ensemble des produits alimentaires
 
-D'autres scores /100 pourraient également être définis et appliqués :&#x20;
+D'autres scores /100 peuvent également être définis et appliqués :&#x20;
 
-* à des sous-scores (ou aires de protection) : biodiversité, climat, ressources \[TODO : lien à ajouter...]
-* à des ensembles de produits plus restreints (les fruits et légumes, les viandes...)
+* à des sous-scores (ou aires de protection) : biodiversité, climat, ressources, santé environnementale
+* à des catégories de produits plus restreintes (les fruits et légumes, les viandes...)
 
 Quelle que soit la situation considérée, la définition d'une nouvelle formule de calcul se fait à partir de deux paramètres :&#x20;
 
@@ -68,15 +68,9 @@ Quelle que soit la situation considérée, la définition d'une nouvelle formule
 
 La formule de calcul du score /100 correspondant à un impact x s'écrit alors comme suit :&#x20;
 
+
+
 $$
-score/100 = 20 *5*\frac{ln(Impact_{0})-ln(x)}{ln(\frac{Impact_{0}}{Impact_{100}})}
+score/100 = 100*\frac{ln(Impact_{0})-ln(x)}{ln(Impact_{0})-ln(Impact_{100})}
 $$
-
-
-
-
-
-
-
-
 
