@@ -1,19 +1,26 @@
 module Data.Food.Builder.Conservation exposing (..)
 
+{- This module allow to compute the impacts of the transport of finished products to the retail stores,
+   and the impact of storing the product at the store
+-}
+
 import Data.Food.Builder.Db exposing (Db)
+import Data.Food.Process as Process
 import Data.Impact as Impact exposing (Impacts)
-import Energy exposing (Joules, kilowattHours)
+import Data.Unit as Unit
+import Energy exposing (Joules, inKilowattHours, kilowattHours)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
-import Quantity exposing (Quantity, Rate, rate)
+import Quantity exposing (Quantity, Rate, rate, ratio)
 import Result.Extra as RE
 import Volume exposing (CubicMeters, cubicMeters, liters)
 
 
 type alias Needs =
+    --- what it needs to store a product at the retail store
     { energy : Quantity Float (Rate Joules CubicMeters)
     , cooling : Quantity Float (Rate Joules CubicMeters)
-    , water : Quantity Float (Rate CubicMeters CubicMeters)
+    , water : Float
     }
 
 
@@ -44,7 +51,7 @@ ambient =
     Ambient
         { energy = rate (kilowattHours 123.08) (cubicMeters 1)
         , cooling = rate (kilowattHours 0) (cubicMeters 1)
-        , water = rate (liters 561.5) (cubicMeters 1)
+        , water = ratio (liters 561.5) (cubicMeters 1)
         }
 
 
@@ -53,7 +60,7 @@ chilled =
     Chilled
         { energy = rate (kilowattHours 61.54) (cubicMeters 1)
         , cooling = rate (kilowattHours 415.38) (cubicMeters 1)
-        , water = rate (liters 280.8) (cubicMeters 1)
+        , water = ratio (liters 280.8) (cubicMeters 1)
         }
 
 
@@ -62,17 +69,47 @@ frozen =
     Frozen
         { energy = rate (kilowattHours 123.08) (cubicMeters 1)
         , cooling = rate (kilowattHours 0) (cubicMeters 1)
-        , water = rate (liters 561.5) (cubicMeters 1)
+        , water = ratio (liters 561.5) (cubicMeters 1)
         }
 
 
 all : List Type
 all =
+    -- for selection list in the builder
     [ ambient, chilled, frozen ]
 
 
 toString : Type -> String
 toString t =
+    case t of
+        Ambient _ ->
+            "ambient"
+
+        Chilled _ ->
+            "frais"
+
+        Frozen _ ->
+            "frozen"
+
+
+fromString : String -> Result String Type
+fromString str =
+    case str of
+        "ambient" ->
+            Ok ambient
+
+        "chilled" ->
+            Ok chilled
+
+        "frozen" ->
+            Ok frozen
+
+        _ ->
+            Err "Type de conservation incorrect"
+
+
+toDisplay : Type -> String
+toDisplay t =
     case t of
         Ambient _ ->
             "Sec"
@@ -82,22 +119,6 @@ toString t =
 
         Frozen _ ->
             "Surgelé"
-
-
-fromString : String -> Result String Type
-fromString str =
-    case str of
-        "Sec" ->
-            Ok ambient
-
-        "Frais" ->
-            Ok chilled
-
-        "Surgelé" ->
-            Ok frozen
-
-        _ ->
-            Err "Type de conservation incorrect"
 
 
 encodeQuery : Query -> Encode.Value
@@ -124,14 +145,107 @@ decodeType =
         |> Decode.andThen (fromString >> RE.unpack Decode.fail Decode.succeed)
 
 
-fromQuery : Db -> { a | conservation : Maybe Query } -> Result String (Maybe Type)
-fromQuery { processes } query =
-    query.conservation
+fromQuery : Db -> Maybe Query -> Result String (Maybe Type)
+fromQuery { processes } mquery =
+    mquery
         |> Maybe.map .type_
         |> Ok
 
 
-computeImpacts : List Impact.Definition -> Type -> Impacts
-computeImpacts defs conservation =
+computeImpacts : Db -> Quantity Float CubicMeters -> Type -> Impacts
+computeImpacts db volume conservation =
     -- TODO
-    Impact.noImpacts
+    let
+        waterImpact =
+            Process.codeFromString "224411d9aa3c0ed3cf9b5fc590c237d2" |> Process.findByCode db.processes |> Result.map .impacts |> Result.withDefault Impact.noImpacts
+
+        elecImpact =
+            Process.codeFromString "ef953c00d48ee59f57773534f6487b09" |> Process.findByCode db.processes |> Result.map .impacts |> Result.withDefault Impact.noImpacts
+    in
+    case conservation of
+        Ambient needs ->
+            [ waterImpact
+                |> Impact.mapImpacts
+                    (\_ impact ->
+                        impact
+                            |> Unit.impactToFloat
+                            |> (*) (Quantity.multiplyBy needs.water volume |> Volume.inCubicMeters)
+                            |> Unit.impact
+                    )
+            , elecImpact
+                |> Impact.mapImpacts
+                    (\_ impact ->
+                        impact
+                            |> Unit.impactToFloat
+                            |> (*) (Quantity.at needs.energy volume |> Energy.inJoules)
+                            |> Unit.impact
+                    )
+            , elecImpact
+                |> Impact.mapImpacts
+                    (\_ impact ->
+                        impact
+                            |> Unit.impactToFloat
+                            |> (*) (Quantity.at needs.cooling volume |> Energy.inKilowattHours)
+                            |> Unit.impact
+                    )
+            ]
+                |> Impact.sumImpacts db.impacts
+                |> Impact.updateAggregatedScores db.impacts
+
+        Chilled needs ->
+            [ waterImpact
+                |> Impact.mapImpacts
+                    (\_ impact ->
+                        impact
+                            |> Unit.impactToFloat
+                            |> (*) (Quantity.multiplyBy needs.water volume |> Volume.inCubicMeters)
+                            |> Unit.impact
+                    )
+            , elecImpact
+                |> Impact.mapImpacts
+                    (\_ impact ->
+                        impact
+                            |> Unit.impactToFloat
+                            |> (*) (Quantity.at needs.energy volume |> Energy.inJoules)
+                            |> Unit.impact
+                    )
+            , elecImpact
+                |> Impact.mapImpacts
+                    (\_ impact ->
+                        impact
+                            |> Unit.impactToFloat
+                            |> (*) (Quantity.at needs.cooling volume |> Energy.inKilowattHours)
+                            |> Unit.impact
+                    )
+            ]
+                |> Impact.sumImpacts db.impacts
+                |> Impact.updateAggregatedScores db.impacts
+
+        Frozen needs ->
+            [ waterImpact
+                |> Impact.mapImpacts
+                    (\_ impact ->
+                        impact
+                            |> Unit.impactToFloat
+                            |> (*) (Quantity.multiplyBy needs.water volume |> Volume.inCubicMeters)
+                            |> Unit.impact
+                    )
+            , elecImpact
+                |> Impact.mapImpacts
+                    (\_ impact ->
+                        impact
+                            |> Unit.impactToFloat
+                            |> (*) (Quantity.at needs.energy volume |> Energy.inJoules)
+                            |> Unit.impact
+                    )
+            , elecImpact
+                |> Impact.mapImpacts
+                    (\_ impact ->
+                        impact
+                            |> Unit.impactToFloat
+                            |> (*) (Quantity.at needs.cooling volume |> Energy.inKilowattHours)
+                            |> Unit.impact
+                    )
+            ]
+                |> Impact.sumImpacts db.impacts
+                |> Impact.updateAggregatedScores db.impacts

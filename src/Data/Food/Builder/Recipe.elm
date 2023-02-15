@@ -135,6 +135,7 @@ categoryFromQuery =
 
 compute : Db -> Query -> Result String ( Recipe, Results )
 compute db =
+    -- FIXME get the wellknown early and propagate the error to the computation
     fromQuery db
         >> Result.map
             (\({ ingredients, transform, packaging, conservation, category } as recipe) ->
@@ -161,6 +162,7 @@ compute db =
 
                     ingredientsTransport =
                         ingredients
+                            -- FIXME pass the wellknown to computeIngredientTransport
                             |> List.map (computeIngredientTransport db)
                             |> Transport.sum db.impacts
 
@@ -180,7 +182,8 @@ compute db =
 
                             mass =
                                 ingredients
-                                    |> List.foldl (\i tmass -> Quantity.plus tmass i.mass) (Mass.kilograms 0.0)
+                                    |> List.map .mass
+                                    |> Quantity.sum
 
                             transportWithImpact =
                                 -- TODO simplify
@@ -199,6 +202,7 @@ compute db =
                                                                     |> Unit.impact
                                                             )
                                                 )
+                                            -- TODO
                                             |> Result.withDefault Impact.noImpacts
                                             |> Impact.updateAggregatedScores db.impacts
                                 }
@@ -213,8 +217,7 @@ compute db =
 
                             bar =
                                 conservation
-                                    -- TODO
-                                    |> Maybe.map (Conservation.computeImpacts db.impacts >> List.singleton >> updateImpacts)
+                                    |> Maybe.map (Conservation.computeImpacts db volume >> List.singleton >> updateImpacts)
                                     |> Maybe.withDefault Impact.noImpacts
                         in
                         transport.impacts
@@ -481,7 +484,7 @@ fromQuery db query =
         (ingredientListFromQuery db query)
         (transformFromQuery db query)
         (packagingListFromQuery db query)
-        (Conservation.fromQuery db query)
+        (Conservation.fromQuery db query.conservation)
         (categoryFromQuery query.category)
 
 
