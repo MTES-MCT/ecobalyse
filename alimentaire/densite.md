@@ -22,7 +22,6 @@ Pour connaître la densité `d`, on utilise les hypothèses de la documentation 
 Si
 
 * le produit comporte plusieurs ingrédients&#x20;
-* OU est un produit transformé (ex: farine, boeuf)
 * OU subit une transformation (ex: cuisson)
 
 \-> Alors on fait l'hypothèse que la densité de ce produit est de 1 kg/L
