@@ -48,6 +48,7 @@ foodEndpoints db =
           , "ingredients[]=carrot;225"
           , "transform=aded2490573207ec7ad5a3813978f6a4;545"
           , "packaging[]=23b2754e5943bc77916f8f871edc53b6;105"
+          , "conservation=ambient"
           , "category=cakes"
           ]
             |> String.join "&"

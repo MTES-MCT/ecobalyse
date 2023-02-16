@@ -6,6 +6,7 @@ import Data.Food.Builder.Recipe as Recipe
 import Data.Food.Category as Category
 import Data.Food.Ingredient as Ingredient
 import Data.Food.Process as Process
+import Data.Food.Retail as Retail
 import Data.Unit as Unit
 import Dict
 import Dict.Any as AnyDict
@@ -92,11 +93,11 @@ suite =
                                 Category.get (Category.Id "cakes")
                                     |> Result.map .name
                                     |> Result.withDefault "Not found"
-                            , all = { impact = Unit.impact 155.3642304206504, letter = "B", outOf100 = 77 }
-                            , biodiversity = { impact = Unit.impact 122.06821814763829, letter = "C", outOf100 = 56 }
-                            , climate = { impact = Unit.impact 26.99402247682233, letter = "B", outOf100 = 74 }
-                            , health = { impact = Unit.impact 40.559132670966044, letter = "B", outOf100 = 69 }
-                            , resources = { impact = Unit.impact 19.73424508355989, letter = "B", outOf100 = 70 }
+                            , all = { impact = Unit.impact 163.6692742116548, letter = "B", outOf100 = 74 }
+                            , biodiversity = { impact = Unit.impact 127.22793699536987, letter = "C", outOf100 = 54 }
+                            , climate = { impact = Unit.impact 29.25526080588257, letter = "B", outOf100 = 70 }
+                            , health = { impact = Unit.impact 44.00131364299298, letter = "B", outOf100 = 65 }
+                            , resources = { impact = Unit.impact 22.085123708936436, letter = "B", outOf100 = 65 }
                             }
                         )
                     |> asTest "should return expected scoring"
@@ -122,6 +123,7 @@ suite =
                   , transform = Nothing
                   , packaging = []
                   , category = Nothing
+                  , conservation = Just Retail.ambient
                   }
                     |> Recipe.compute builderDb
                     |> Result.map (Tuple.first >> Recipe.getMassAtPackaging)
@@ -183,6 +185,7 @@ suite =
                   , transform = Nothing
                   , packaging = []
                   , category = Nothing
+                  , conservation = Just Retail.ambient
                   }
                     |> Recipe.compute builderDb
                     |> Result.map firstIngredientAirDistance
@@ -192,6 +195,7 @@ suite =
                   , transform = Nothing
                   , packaging = []
                   , category = Nothing
+                  , conservation = Just Retail.ambient
                   }
                     |> Recipe.compute builderDb
                     |> Result.map firstIngredientAirDistance
@@ -201,6 +205,7 @@ suite =
                   , transform = Nothing
                   , packaging = []
                   , category = Nothing
+                  , conservation = Just Retail.ambient
                   }
                     |> Recipe.compute builderDb
                     |> Result.map firstIngredientAirDistance
@@ -210,6 +215,7 @@ suite =
                   , transform = Nothing
                   , packaging = []
                   , category = Nothing
+                  , conservation = Just Retail.ambient
                   }
                     |> Recipe.compute builderDb
                     |> Result.map firstIngredientAirDistance

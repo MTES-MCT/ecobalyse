@@ -7,12 +7,12 @@ module Server.Query exposing
 
 import Data.Country as Country exposing (Country)
 import Data.Env as Env
-import Data.Food.Builder.Conservation as Conservation exposing (Conservation)
 import Data.Food.Builder.Db as BuilderDb
 import Data.Food.Builder.Query as BuilderQuery
 import Data.Food.Category as Category
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Process as FoodProcess
+import Data.Food.Retail as Retail exposing (Conservation)
 import Data.Scope as Scope exposing (Scope)
 import Data.Textile.Db as TextileDb
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
@@ -305,13 +305,13 @@ maybeTransformParser key transforms =
             )
 
 
-maybeConservationParser : String -> Parser (ParseResult (Maybe Conservation.Conservation))
+maybeConservationParser : String -> Parser (ParseResult (Maybe Conservation))
 maybeConservationParser key =
     Query.string key
         |> Query.map
             (Maybe.map
                 (\str ->
-                    Conservation.fromString str
+                    Retail.fromString str
                         |> Result.map Just
                         |> Result.mapError (\err -> ( key, err ))
                 )
