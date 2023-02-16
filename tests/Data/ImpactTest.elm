@@ -106,7 +106,7 @@ suite =
                     |> Impact.updateImpact (Impact.trg "ecs") (Unit.impact 200)
                     |> Impact.getImpact (Impact.trg "ecs")
                     |> Impact.getAggregatedScoreOutOf100
-                    |> Expect.equal 67
+                    |> Expect.equal 70
                     |> asTest "should return a medium score for a medium impact"
                 ]
             , describe "getAggregatedScoreLetter"

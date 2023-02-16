@@ -7,7 +7,8 @@
       "ingredients[]=milk;60",
       "ingredients[]=carrot;225",
       "transform=aded2490573207ec7ad5a3813978f6a4;545",
-      "packaging[]=23b2754e5943bc77916f8f871edc53b6;105"
+      "packaging[]=23b2754e5943bc77916f8f871edc53b6;105",
+      "category=cakes"
     ],
     "impacts": {
       "acd": 0.012921211447852535,
@@ -31,31 +32,31 @@
       "wtu": 0.22735164864750493
     },
     "scoring": {
-      "category": "Toutes les catégories",
+      "category": "Gâteaux",
       "all": {
         "impact": 155.3642304206504,
         "letter": "B",
-        "outOf100": 74
+        "outOf100": 77
       },
       "climate": {
         "impact": 26.99402247682233,
-        "letter": "B",
-        "outOf100": 74
+        "letter": "A",
+        "outOf100": 87
       },
       "biodiversity": {
         "impact": 122.06821814763829,
         "letter": "B",
-        "outOf100": 74
+        "outOf100": 66
       },
       "health": {
         "impact": 40.559132670966044,
-        "letter": "B",
-        "outOf100": 74
+        "letter": "A",
+        "outOf100": 81
       },
       "resources": {
         "impact": 19.73424508355989,
-        "letter": "B",
-        "outOf100": 74
+        "letter": "A",
+        "outOf100": 82
       }
     }
   },
@@ -67,7 +68,8 @@
       "ingredients[]=milk;60;default;CN",
       "ingredients[]=carrot;225;default;CN",
       "transform=aded2490573207ec7ad5a3813978f6a4;545",
-      "packaging[]=23b2754e5943bc77916f8f871edc53b6;105"
+      "packaging[]=23b2754e5943bc77916f8f871edc53b6;105",
+      "category=cakes"
     ],
     "impacts": {
       "acd": 0.014453516726936646,
@@ -91,31 +93,31 @@
       "wtu": 0.2240273083913582
     },
     "scoring": {
-      "category": "Toutes les catégories",
+      "category": "Gâteaux",
       "all": {
         "impact": 149.17128503069287,
         "letter": "B",
-        "outOf100": 75
+        "outOf100": 79
       },
       "climate": {
         "impact": 23.936738891227375,
-        "letter": "B",
-        "outOf100": 75
+        "letter": "A",
+        "outOf100": 93
       },
       "biodiversity": {
         "impact": 119.64748483842877,
         "letter": "B",
-        "outOf100": 75
+        "outOf100": 67
       },
       "health": {
         "impact": 37.5543837283437,
-        "letter": "B",
-        "outOf100": 75
+        "letter": "A",
+        "outOf100": 85
       },
       "resources": {
         "impact": 17.757305818319317,
-        "letter": "B",
-        "outOf100": 75
+        "letter": "A",
+        "outOf100": 88
       }
     }
   },
@@ -127,7 +129,8 @@
       "ingredients[]=milk;60;organic",
       "ingredients[]=carrot;225;organic",
       "transform=aded2490573207ec7ad5a3813978f6a4;545",
-      "packaging[]=23b2754e5943bc77916f8f871edc53b6;105"
+      "packaging[]=23b2754e5943bc77916f8f871edc53b6;105",
+      "category=cakes"
     ],
     "impacts": {
       "acd": 0.012289056069708608,
@@ -151,31 +154,31 @@
       "wtu": 0.2812081189550465
     },
     "scoring": {
-      "category": "Toutes les catégories",
+      "category": "Gâteaux",
       "all": {
         "impact": 141.56802335424243,
-        "letter": "B",
-        "outOf100": 77
+        "letter": "A",
+        "outOf100": 82
       },
       "climate": {
         "impact": 26.600291458599777,
-        "letter": "B",
-        "outOf100": 77
+        "letter": "A",
+        "outOf100": 88
       },
       "biodiversity": {
         "impact": 114.84688846922295,
         "letter": "B",
-        "outOf100": 77
+        "outOf100": 69
       },
       "health": {
         "impact": 34.671674046442995,
-        "letter": "B",
-        "outOf100": 77
+        "letter": "A",
+        "outOf100": 89
       },
       "resources": {
         "impact": 23.08640012591979,
         "letter": "B",
-        "outOf100": 77
+        "outOf100": 74
       }
     }
   },
@@ -187,7 +190,8 @@
       "ingredients[]=milk;60;organic;CN",
       "ingredients[]=carrot;225;organic;CN",
       "transform=aded2490573207ec7ad5a3813978f6a4;545",
-      "packaging[]=23b2754e5943bc77916f8f871edc53b6;105"
+      "packaging[]=23b2754e5943bc77916f8f871edc53b6;105",
+      "category=cakes"
     ],
     "impacts": {
       "acd": 0.013821361348792718,
@@ -211,38 +215,39 @@
       "wtu": 0.2778837786988998
     },
     "scoring": {
-      "category": "Toutes les catégories",
+      "category": "Gâteaux",
       "all": {
         "impact": 135.37507796428488,
-        "letter": "B",
-        "outOf100": 78
+        "letter": "A",
+        "outOf100": 84
       },
       "climate": {
         "impact": 23.54300787300482,
-        "letter": "B",
-        "outOf100": 78
+        "letter": "A",
+        "outOf100": 94
       },
       "biodiversity": {
         "impact": 112.42615516001341,
         "letter": "B",
-        "outOf100": 78
+        "outOf100": 70
       },
       "health": {
         "impact": 31.66692510382064,
-        "letter": "B",
-        "outOf100": 78
+        "letter": "A",
+        "outOf100": 94
       },
       "resources": {
         "impact": 21.109460860679217,
         "letter": "B",
-        "outOf100": 78
+        "outOf100": 79
       }
     }
   },
   {
     "name": "Mango by plane",
     "query": [
-      "ingredients[]=mango;120"
+      "ingredients[]=mango;120",
+      "category=fruitsAndVegetables"
     ],
     "impacts": {
       "acd": 0.011952004711612337,
@@ -266,38 +271,39 @@
       "wtu": 0.09704827341756544
     },
     "scoring": {
-      "category": "Toutes les catégories",
+      "category": "Fruits et légumes",
       "all": {
         "impact": 1230.7521714388874,
         "letter": "E",
-        "outOf100": 15
+        "outOf100": 0
       },
       "climate": {
         "impact": 519.9537302717442,
         "letter": "E",
-        "outOf100": 15
+        "outOf100": 0
       },
       "biodiversity": {
         "impact": 952.6122121238438,
         "letter": "E",
-        "outOf100": 15
+        "outOf100": 0
       },
       "health": {
         "impact": 638.3248024472462,
         "letter": "E",
-        "outOf100": 15
+        "outOf100": 0
       },
       "resources": {
         "impact": 216.19021506040843,
         "letter": "E",
-        "outOf100": 15
+        "outOf100": 0
       }
     }
   },
   {
     "name": "Mango by plane from Brazil (by default)",
     "query": [
-      "ingredients[]=mango;120;default;BR"
+      "ingredients[]=mango;120;default;BR",
+      "category=fruitsAndVegetables"
     ],
     "impacts": {
       "acd": 0.005640310894366586,
@@ -321,38 +327,39 @@
       "wtu": 0.050343763774083956
     },
     "scoring": {
-      "category": "Toutes les catégories",
+      "category": "Fruits et légumes",
       "all": {
         "impact": 602.264743270431,
-        "letter": "D",
-        "outOf100": 35
+        "letter": "E",
+        "outOf100": 0
       },
       "climate": {
         "impact": 239.694465737187,
-        "letter": "D",
-        "outOf100": 35
+        "letter": "E",
+        "outOf100": 0
       },
       "biodiversity": {
         "impact": 474.584156182176,
-        "letter": "D",
-        "outOf100": 35
+        "letter": "E",
+        "outOf100": 0
       },
       "health": {
         "impact": 294.6272378120228,
-        "letter": "D",
-        "outOf100": 35
+        "letter": "E",
+        "outOf100": 0
       },
       "resources": {
         "impact": 100.24084754744443,
-        "letter": "D",
-        "outOf100": 35
+        "letter": "E",
+        "outOf100": 0
       }
     }
   },
   {
     "name": "Mango by plane from Brazil (by default, explicitely)",
     "query": [
-      "ingredients[]=mango;120;default;BR;default"
+      "ingredients[]=mango;120;default;BR;default",
+      "category=fruitsAndVegetables"
     ],
     "impacts": {
       "acd": 0.005640310894366586,
@@ -376,38 +383,39 @@
       "wtu": 0.050343763774083956
     },
     "scoring": {
-      "category": "Toutes les catégories",
+      "category": "Fruits et légumes",
       "all": {
         "impact": 602.264743270431,
-        "letter": "D",
-        "outOf100": 35
+        "letter": "E",
+        "outOf100": 0
       },
       "climate": {
         "impact": 239.694465737187,
-        "letter": "D",
-        "outOf100": 35
+        "letter": "E",
+        "outOf100": 0
       },
       "biodiversity": {
         "impact": 474.584156182176,
-        "letter": "D",
-        "outOf100": 35
+        "letter": "E",
+        "outOf100": 0
       },
       "health": {
         "impact": 294.6272378120228,
-        "letter": "D",
-        "outOf100": 35
+        "letter": "E",
+        "outOf100": 0
       },
       "resources": {
         "impact": 100.24084754744443,
-        "letter": "D",
-        "outOf100": 35
+        "letter": "E",
+        "outOf100": 0
       }
     }
   },
   {
     "name": "Mango by plane from Brazil (explicitely)",
     "query": [
-      "ingredients[]=mango;120;default;BR;byPlane"
+      "ingredients[]=mango;120;default;BR;byPlane",
+      "category=fruitsAndVegetables"
     ],
     "impacts": {
       "acd": 0.005640310894366586,
@@ -431,38 +439,39 @@
       "wtu": 0.050343763774083956
     },
     "scoring": {
-      "category": "Toutes les catégories",
+      "category": "Fruits et légumes",
       "all": {
         "impact": 602.264743270431,
-        "letter": "D",
-        "outOf100": 35
+        "letter": "E",
+        "outOf100": 0
       },
       "climate": {
         "impact": 239.694465737187,
-        "letter": "D",
-        "outOf100": 35
+        "letter": "E",
+        "outOf100": 0
       },
       "biodiversity": {
         "impact": 474.584156182176,
-        "letter": "D",
-        "outOf100": 35
+        "letter": "E",
+        "outOf100": 0
       },
       "health": {
         "impact": 294.6272378120228,
-        "letter": "D",
-        "outOf100": 35
+        "letter": "E",
+        "outOf100": 0
       },
       "resources": {
         "impact": 100.24084754744443,
-        "letter": "D",
-        "outOf100": 35
+        "letter": "E",
+        "outOf100": 0
       }
     }
   },
   {
     "name": "Mango by boat from Brazil",
     "query": [
-      "ingredients[]=mango;120;default;BR;noPlane"
+      "ingredients[]=mango;120;default;BR;noPlane",
+      "category=fruitsAndVegetables"
     ],
     "impacts": {
       "acd": 0.0005830753940325311,
@@ -486,31 +495,31 @@
       "wtu": 0.012685889493270711
     },
     "scoring": {
-      "category": "Toutes les catégories",
+      "category": "Fruits et légumes",
       "all": {
         "impact": 86.94768829743137,
-        "letter": "A",
-        "outOf100": 91
+        "letter": "B",
+        "outOf100": 60
       },
       "climate": {
         "impact": 6.339978613882139,
         "letter": "A",
-        "outOf100": 91
+        "outOf100": 99
       },
       "biodiversity": {
         "impact": 81.06519175787083,
-        "letter": "A",
-        "outOf100": 91
+        "letter": "C",
+        "outOf100": 46
       },
       "health": {
         "impact": 9.354574191173914,
         "letter": "A",
-        "outOf100": 91
+        "outOf100": 96
       },
       "resources": {
         "impact": 4.752313505524962,
         "letter": "A",
-        "outOf100": 91
+        "outOf100": 95
       }
     }
   },
@@ -522,7 +531,8 @@
       "ingredients[]=milk;60;organic;CN;default",
       "ingredients[]=carrot;225;organic;CN;default",
       "transform=aded2490573207ec7ad5a3813978f6a4;545",
-      "packaging[]=23b2754e5943bc77916f8f871edc53b6;105"
+      "packaging[]=23b2754e5943bc77916f8f871edc53b6;105",
+      "category=cakes"
     ],
     "impacts": {
       "acd": 0.013821361348792718,
@@ -546,31 +556,31 @@
       "wtu": 0.2778837786988998
     },
     "scoring": {
-      "category": "Toutes les catégories",
+      "category": "Gâteaux",
       "all": {
         "impact": 135.37507796428488,
-        "letter": "B",
-        "outOf100": 78
+        "letter": "A",
+        "outOf100": 84
       },
       "climate": {
         "impact": 23.54300787300482,
-        "letter": "B",
-        "outOf100": 78
+        "letter": "A",
+        "outOf100": 94
       },
       "biodiversity": {
         "impact": 112.42615516001341,
         "letter": "B",
-        "outOf100": 78
+        "outOf100": 70
       },
       "health": {
         "impact": 31.66692510382064,
-        "letter": "B",
-        "outOf100": 78
+        "letter": "A",
+        "outOf100": 94
       },
       "resources": {
         "impact": 21.109460860679217,
         "letter": "B",
-        "outOf100": 78
+        "outOf100": 79
       }
     }
   }

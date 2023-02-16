@@ -49,30 +49,30 @@ all =
       , name = "Viandes"
       , bounds =
             { all = { impact100 = 500, impact0 = 4000 }
-            , climate = { impact100 = 75, impact0 = 846 }
-            , biodiversity = { impact100 = 225, impact0 = 2537 }
-            , resources = { impact100 = 50, impact0 = 564 }
-            , health = { impact100 = 100, impact0 = 1128 }
+            , climate = { impact100 = 105.8, impact0 = 846 }
+            , biodiversity = { impact100 = 317.3, impact0 = 2537 }
+            , resources = { impact100 = 70.5, impact0 = 564 }
+            , health = { impact100 = 141, impact0 = 1128 }
             }
       }
     , { id = Id "fruitsAndVegetables"
       , name = "Fruits et légumes"
       , bounds =
             { all = { impact100 = 30, impact0 = 450 }
-            , climate = { impact100 = 4.5, impact0 = 95 }
-            , biodiversity = { impact100 = 13.5, impact0 = 285 }
-            , resources = { impact100 = 3, impact0 = 63 }
-            , health = { impact100 = 6, impact0 = 127 }
+            , climate = { impact100 = 6.3, impact0 = 95 }
+            , biodiversity = { impact100 = 19, impact0 = 285 }
+            , resources = { impact100 = 4.2, impact0 = 63 }
+            , health = { impact100 = 8.5, impact0 = 127 }
             }
       }
     , { id = Id "cakes"
       , name = "Gâteaux"
       , bounds =
             { all = { impact100 = 100, impact0 = 700 }
-            , climate = { impact100 = 15, impact0 = 148 }
-            , biodiversity = { impact100 = 45, impact0 = 444 }
-            , resources = { impact100 = 10, impact0 = 99 }
-            , health = { impact100 = 20, impact0 = 197 }
+            , climate = { impact100 = 21.2, impact0 = 148 }
+            , biodiversity = { impact100 = 63.5, impact0 = 444 }
+            , resources = { impact100 = 14.1, impact0 = 99 }
+            , health = { impact100 = 28.2, impact0 = 197 }
             }
       }
     ]
