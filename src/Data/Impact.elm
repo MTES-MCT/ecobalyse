@@ -414,28 +414,19 @@ getAggregatedScoreData defs getter =
 
 
 getAggregatedScoreOutOf100 : Unit.Impact -> Int
-getAggregatedScoreOutOf100 impactsPerKg =
-    impactsPerKg
-        |> Unit.impactToFloat
-        |> (\value ->
-                -- See the documentation at https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/impacts-consideres/score-100
-                (ln 2077 - ln value) / ln 2 * 20
-           )
-        |> floor
-        |> clamp 0 100
+getAggregatedScoreOutOf100 =
+    getBoundedScoreOutOf100 { impact100 = 70.9, impact0 = 2270 }
 
 
 getBoundedScoreOutOf100 : Category.Bounds -> Unit.Impact -> Int
-getBoundedScoreOutOf100 { impact100, impact0 } impactPerKg =
-    -- TODO: use this for global score
-    impactPerKg
-        |> Unit.impactToFloat
-        |> (\value ->
-                -- See docs at https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/impacts-consideres/score-100#projet-declinaisons-du-score-100
+getBoundedScoreOutOf100 { impact100, impact0 } =
+    -- Docs: https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/impacts-consideres/score-100
+    Unit.impactToFloat
+        >> (\value ->
                 100 * (ln impact0 - ln value) / (ln impact0 - ln impact100)
            )
-        |> floor
-        |> clamp 0 100
+        >> floor
+        >> clamp 0 100
 
 
 getAggregatedScoreLetter : Int -> String
