@@ -781,21 +781,27 @@ distributionView db selectedImpact recipe results =
                     ]
                     (Retail.all
                         |> List.map
-                            (\conservation ->
+                            (\c ->
                                 option
-                                    [ selected <| (recipe.conservation |> Maybe.map ((==) conservation) |> Maybe.withDefault False)
-                                    , value <| Retail.toString conservation
+                                    [ selected <| (recipe.conservation |> Maybe.map ((==) c) |> Maybe.withDefault False)
+                                    , value <| Retail.toString c
                                     ]
-                                    [ text <| Retail.toDisplay conservation ]
+                                    [ text <| Retail.toDisplay c ]
                             )
                     )
                 ]
+            , div
+                [ class "card-body d-flex justify-content-between align-items-center gap-1"
+                , class "border-top-0 text-muted py-2 fs-7"
+                ]
+                [ div [ class "text-truncate" ]
+                    [ recipe.conservation
+                        |> Maybe.map Retail.displayNeeds
+                        |> Maybe.withDefault "N/A"
+                        |> text
+                    ]
+                ]
             ]
-        , div
-            [ class "card-body d-flex justify-content-between align-items-center gap-1"
-            , class "border-top-0 text-muted py-2 fs-7"
-            ]
-            []
         ]
     ]
 

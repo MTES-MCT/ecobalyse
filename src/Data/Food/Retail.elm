@@ -1,4 +1,4 @@
-module Data.Food.Retail exposing (Conservation, all, ambient, chilled, computeImpacts, decode, encode, fromString, frozen, toDisplay, toString)
+module Data.Food.Retail exposing (Conservation, all, ambient, chilled, computeImpacts, decode, displayNeeds, encode, extractNeeds, fromString, frozen, toDisplay, toString)
 
 {- This module allow to compute the impacts of the transport of finished products to the retail stores,
    and the impact of storing the product at the store
@@ -20,7 +20,7 @@ import Volume exposing (CubicMeters, Volume, cubicMeters, liters)
 
 type
     Conservation
-    -- A consevation type and its needs in energy, cooling, water
+    -- A consevation type and its needs in energy, cooling, water and transport
     = Conservation Type Needs
 
 
@@ -73,10 +73,29 @@ frozen =
         }
 
 
+displayNeeds : Conservation -> String
+displayNeeds (Conservation type_ _) =
+    case type_ of
+        Ambient ->
+            -- FIXME Would be better to display the rounded floats above
+            "Énergie: 123.08 kWh/m³, Réfrigération: 0 kWh/m³, Eau 561.5 L/m³, Transport: 600km"
+
+        Chilled ->
+            "Énergie: 46.15 kWh/m³, Réfrigération: 219.23 kWh/m³, Eau 210.6 L/m³, Transport: 600km"
+
+        Frozen ->
+            "Énergie: 61.54 kWh/m³, Réfrigération: 415.38 kWh/m³, Eau 280.8 L/m³, Transport: 600km"
+
+
 all : List Conservation
 all =
     -- for selection list in the builder
     [ ambient, chilled, frozen ]
+
+
+extractNeeds : Conservation -> Needs
+extractNeeds (Conservation _ n) =
+    n
 
 
 toString : Conservation -> String
@@ -169,11 +188,11 @@ transportImpact distance mass =
 
 
 computeImpacts : Db -> Mass -> Volume -> WellKnown -> Conservation -> Impacts
-computeImpacts db mass volume wellknown (Conservation type_ needs) =
-    [ waterImpact needs.water volume wellknown.water
-    , elecImpact needs.cooling volume wellknown.electricity
-    , elecImpact needs.energy volume wellknown.electricity
-    , transportImpact needs.transport mass wellknown.lorryTransport
+computeImpacts db mass volume wellknown (Conservation t n) =
+    [ waterImpact n.water volume wellknown.water
+    , elecImpact n.cooling volume wellknown.electricity
+    , elecImpact n.energy volume wellknown.electricity
+    , transportImpact n.transport mass wellknown.lorryTransport
     ]
         |> Impact.sumImpacts db.impacts
         |> Impact.updateAggregatedScores db.impacts
