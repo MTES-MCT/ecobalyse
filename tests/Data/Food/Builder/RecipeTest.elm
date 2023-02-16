@@ -3,7 +3,6 @@ module Data.Food.Builder.RecipeTest exposing (..)
 import Data.Country as Country
 import Data.Food.Builder.Query as Query exposing (carrotCake)
 import Data.Food.Builder.Recipe as Recipe
-import Data.Food.Category as Category
 import Data.Food.Ingredient as Ingredient
 import Data.Food.Process as Process
 import Data.Unit as Unit
@@ -88,15 +87,12 @@ suite =
                     |> Result.map (Tuple.second >> .scoring)
                     |> Expect.equal
                         (Ok
-                            { category =
-                                Category.get (Category.Id "cakes")
-                                    |> Result.map .name
-                                    |> Result.withDefault "Not found"
+                            { category = "Gâteaux"
                             , all = { impact = Unit.impact 155.3642304206504, letter = "B", outOf100 = 77 }
-                            , biodiversity = { impact = Unit.impact 122.06821814763829, letter = "C", outOf100 = 56 }
-                            , climate = { impact = Unit.impact 26.99402247682233, letter = "B", outOf100 = 74 }
-                            , health = { impact = Unit.impact 40.559132670966044, letter = "B", outOf100 = 69 }
-                            , resources = { impact = Unit.impact 19.73424508355989, letter = "B", outOf100 = 70 }
+                            , biodiversity = { impact = Unit.impact 122.06821814763829, letter = "B", outOf100 = 66 }
+                            , climate = { impact = Unit.impact 26.99402247682233, letter = "A", outOf100 = 87 }
+                            , health = { impact = Unit.impact 40.559132670966044, letter = "A", outOf100 = 81 }
+                            , resources = { impact = Unit.impact 19.73424508355989, letter = "A", outOf100 = 82 }
                             }
                         )
                     |> asTest "should return expected scoring"

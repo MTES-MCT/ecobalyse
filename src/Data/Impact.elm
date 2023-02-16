@@ -427,11 +427,12 @@ getAggregatedScoreOutOf100 impactsPerKg =
 
 getBoundedScoreOutOf100 : Category.Bounds -> Unit.Impact -> Int
 getBoundedScoreOutOf100 { impact100, impact0 } impactPerKg =
+    -- TODO: use this for global score
     impactPerKg
         |> Unit.impactToFloat
         |> (\value ->
                 -- See docs at https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/impacts-consideres/score-100#projet-declinaisons-du-score-100
-                (ln impact0 - ln value) / ln (impact0 / impact100) * 20 * 5
+                100 * (ln impact0 - ln value) / (ln impact0 - ln impact100)
            )
         |> floor
         |> clamp 0 100
