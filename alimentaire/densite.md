@@ -29,7 +29,6 @@ Si
 Si
 
 * le produit ne comporte qu'un seul ingrédient&#x20;
-* ET n'est pas un produit transformé (ex: carotte)
 * ET ne subit pas de transformation (ex: cuisson)
 
 \-> Alors on lui attribue la densité associée dans le tableau ci-dessus
