@@ -182,12 +182,13 @@ compute db =
                                     |> Quantity.sum
 
                             volume =
-                                ingredients
-                                    |> List.foldl
-                                        (\ingredient tvolume ->
-                                            Quantity.plus tvolume (ingredient.mass |> Quantity.at_ (gramsPerCubicCentimeter ingredient.ingredient.density))
-                                        )
-                                        (liters 0.0)
+                                case ingredients of
+                                    [ i ] ->
+                                        i.mass |> Quantity.at_ (gramsPerCubicCentimeter i.ingredient.density)
+
+                                    _ ->
+                                        --density 1 for recipes
+                                        mass |> Quantity.at_ (gramsPerCubicCentimeter 1)
                         in
                         Result.map2 (Retail.computeImpacts db mass volume)
                             wellknown
