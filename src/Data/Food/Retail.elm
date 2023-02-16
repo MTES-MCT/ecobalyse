@@ -1,4 +1,4 @@
-module Data.Food.Builder.Conservation exposing {- TODO elm-review -} (..)
+module Data.Food.Retail exposing (Conservation, all, ambient, chilled, computeImpacts, decode, encode, fromString, frozen, toDisplay, toString)
 
 {- This module allow to compute the impacts of the transport of finished products to the retail stores,
    and the impact of storing the product at the store
@@ -34,7 +34,7 @@ type alias Needs =
     --- what it needs to store a product at the retail store
     { energy : Quantity Float (Rate Joules CubicMeters)
     , cooling : Quantity Float (Rate Joules CubicMeters)
-    , water : Float -- TODO try to use a Rate Liters CubicMeters)
+    , water : Float
     , transport : Length
     }
 

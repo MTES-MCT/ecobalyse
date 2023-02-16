@@ -21,10 +21,10 @@ module Data.Food.Builder.Query exposing
 
 import Base64
 import Data.Country as Country
-import Data.Food.Builder.Conservation as Conservation
 import Data.Food.Category as Category
 import Data.Food.Ingredient as Ingredient
 import Data.Food.Process as Process
+import Data.Food.Retail as Retail
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
 import Json.Decode.Pipeline as Pipe
@@ -59,7 +59,7 @@ type alias Query =
     { ingredients : List IngredientQuery
     , transform : Maybe ProcessQuery
     , packaging : List ProcessQuery
-    , conservation : Maybe Conservation.Conservation
+    , conservation : Maybe Retail.Conservation
     , category : Maybe Category.Id
     }
 
@@ -137,7 +137,7 @@ carrotCake =
           , mass = Mass.grams 105
           }
         ]
-    , conservation = Just Conservation.ambient
+    , conservation = Just Retail.ambient
     , category = Just (Category.Id "cakes")
     }
 
@@ -148,7 +148,7 @@ decode =
         |> Pipe.required "ingredients" (Decode.list decodeIngredient)
         |> Pipe.optional "transform" (Decode.maybe decodeProcess) Nothing
         |> Pipe.required "packaging" (Decode.list decodeProcess)
-        |> Pipe.optional "conservation" (Decode.maybe Conservation.decode) Nothing
+        |> Pipe.optional "conservation" (Decode.maybe Retail.decode) Nothing
         |> Pipe.optional "category" (Decode.maybe Category.decodeId) Nothing
 
 
@@ -198,7 +198,7 @@ encode v =
         [ ( "ingredients", Encode.list encodeIngredient v.ingredients )
         , ( "transform", v.transform |> Maybe.map encodeProcess |> Maybe.withDefault Encode.null )
         , ( "packaging", Encode.list encodeProcess v.packaging )
-        , ( "conservation", v.conservation |> Maybe.map Conservation.encode |> Maybe.withDefault Encode.null )
+        , ( "conservation", v.conservation |> Maybe.map Retail.encode |> Maybe.withDefault Encode.null )
         , ( "category", v.category |> Maybe.map Category.encodeId |> Maybe.withDefault Encode.null )
         ]
 
@@ -301,7 +301,7 @@ updateConservation : String -> Query -> Query
 updateConservation newConservation query =
     { query
         | conservation =
-            Conservation.fromString newConservation
+            Retail.fromString newConservation
                 |> Result.toMaybe
     }
 

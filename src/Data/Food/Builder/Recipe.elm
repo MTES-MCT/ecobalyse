@@ -23,13 +23,13 @@ module Data.Food.Builder.Recipe exposing
     )
 
 import Data.Country as Country exposing (Country)
-import Data.Food.Builder.Conservation as Conservation
 import Data.Food.Builder.Db exposing (Db)
 import Data.Food.Builder.Query as BuilderQuery exposing (Query)
 import Data.Food.Category as Category exposing (Category)
 import Data.Food.Ingredient as Ingredient exposing (Id, Ingredient)
 import Data.Food.Origin as Origin
 import Data.Food.Process as Process exposing (Process)
+import Data.Food.Retail as Retail
 import Data.Impact as Impact exposing (Impacts)
 import Data.Scope as Scope
 import Data.Textile.Formula as Formula
@@ -69,7 +69,7 @@ type alias Recipe =
     { ingredients : List RecipeIngredient
     , transform : Maybe Transform
     , packaging : List Packaging
-    , conservation : Maybe Conservation.Conservation
+    , conservation : Maybe Retail.Conservation
     , category : Maybe Category
     }
 
@@ -190,7 +190,7 @@ compute db =
                                         )
                                         (Volume.liters 0.0)
                         in
-                        Result.map2 (Conservation.computeImpacts db mass volume)
+                        Result.map2 (Retail.computeImpacts db mass volume)
                             wellknown
                             (conservation
                                 |> Result.fromMaybe "No conservation defined"

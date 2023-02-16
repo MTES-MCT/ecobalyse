@@ -12,7 +12,6 @@ import Browser.Navigation as Navigation
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Country as Country
 import Data.Dataset as Dataset
-import Data.Food.Builder.Conservation as Conservation
 import Data.Food.Builder.Db as BuilderDb exposing (Db)
 import Data.Food.Builder.Query as Query exposing (Query)
 import Data.Food.Builder.Recipe as Recipe exposing (Recipe)
@@ -20,6 +19,7 @@ import Data.Food.Category as Category
 import Data.Food.Ingredient as Ingredient exposing (Id, Ingredient)
 import Data.Food.Origin as Origin
 import Data.Food.Process as Process exposing (Process)
+import Data.Food.Retail as Retail
 import Data.Gitbook as Gitbook
 import Data.Impact as Impact
 import Data.Key as Key
@@ -779,14 +779,14 @@ distributionView db selectedImpact recipe results =
                     [ class "form-select form-select-sm"
                     , onInput UpdateConservation
                     ]
-                    (Conservation.all
+                    (Retail.all
                         |> List.map
-                            (\type_ ->
+                            (\conservation ->
                                 option
-                                    [ selected <| (recipe.conservation |> Maybe.map ((==) type_) |> Maybe.withDefault False)
-                                    , value <| Conservation.toString type_
+                                    [ selected <| (recipe.conservation |> Maybe.map ((==) conservation) |> Maybe.withDefault False)
+                                    , value <| Retail.toString conservation
                                     ]
-                                    [ text <| Conservation.toDisplay type_ ]
+                                    [ text <| Retail.toDisplay conservation ]
                             )
                     )
                 ]
