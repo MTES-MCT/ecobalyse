@@ -158,7 +158,7 @@ waterImpact waterNeeds volume =
             (\_ impact ->
                 impact
                     |> Unit.impactToFloat
-                    |> (*) (Quantity.multiplyBy waterNeeds volume |> Volume.inCubicMeters)
+                    |> (*) (Quantity.multiplyBy waterNeeds volume |> Volume.inLiters)
                     |> Unit.impact
             )
 
