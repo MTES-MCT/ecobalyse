@@ -27,7 +27,6 @@ import Data.Food.Builder.Db exposing (Db)
 import Data.Food.Builder.Query as BuilderQuery exposing (Query)
 import Data.Food.Category as Category exposing (Category)
 import Data.Food.Ingredient as Ingredient exposing (Id, Ingredient)
-import Data.Food.Origin as Origin
 import Data.Food.Process as Process exposing (Process)
 import Data.Food.Retail as Retail
 import Data.Impact as Impact exposing (Impacts)
@@ -35,14 +34,14 @@ import Data.Scope as Scope
 import Data.Textile.Formula as Formula
 import Data.Transport as Transport exposing (Transport)
 import Data.Unit as Unit
-import Density exposing (Density)
+import Density exposing (gramsPerCubicCentimeter)
 import Json.Encode as Encode
 import Length
 import Mass exposing (Mass)
 import Quantity
 import Result.Extra as RE
 import String.Extra as SE
-import Volume exposing (Volume)
+import Volume exposing (liters)
 
 
 france : Country.Code
@@ -186,9 +185,9 @@ compute db =
                                 ingredients
                                     |> List.foldl
                                         (\ingredient tvolume ->
-                                            Quantity.plus tvolume (ingredient.mass |> Quantity.at_ (Density.gramsPerCubicCentimeter ingredient.ingredient.density))
+                                            Quantity.plus tvolume (ingredient.mass |> Quantity.at_ (gramsPerCubicCentimeter ingredient.ingredient.density))
                                         )
-                                        (Volume.liters 0.0)
+                                        (liters 0.0)
                         in
                         Result.map2 (Retail.computeImpacts db mass volume)
                             wellknown

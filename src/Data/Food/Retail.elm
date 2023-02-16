@@ -1,18 +1,18 @@
-module Data.Food.Retail exposing (Conservation, all, ambient, chilled, computeImpacts, decode, displayNeeds, encode, extractNeeds, fromString, frozen, toDisplay, toString)
+module Data.Food.Retail exposing (Conservation, all, ambient, computeImpacts, decode, displayNeeds, encode, fromString, toDisplay, toString)
 
 {- This module allow to compute the impacts of the transport of finished products to the retail stores,
    and the impact of storing the product at the store
 -}
 
 import Data.Food.Builder.Db exposing (Db)
-import Data.Food.Process as Process exposing (Process, WellKnown)
+import Data.Food.Process exposing (Process, WellKnown)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Unit as Unit
-import Energy exposing (Joules, inKilowattHours, kilowattHours)
+import Energy exposing (Joules, kilowattHours)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
 import Length exposing (Length)
-import Mass exposing (Mass, inMetricTons)
+import Mass exposing (Mass)
 import Quantity exposing (Quantity, Rate, rate, ratio)
 import Result.Extra as RE
 import Volume exposing (CubicMeters, Volume, cubicMeters, liters)
@@ -91,11 +91,6 @@ all : List Conservation
 all =
     -- for selection list in the builder
     [ ambient, chilled, frozen ]
-
-
-extractNeeds : Conservation -> Needs
-extractNeeds (Conservation _ n) =
-    n
 
 
 toString : Conservation -> String
@@ -188,7 +183,7 @@ transportImpact distance mass =
 
 
 computeImpacts : Db -> Mass -> Volume -> WellKnown -> Conservation -> Impacts
-computeImpacts db mass volume wellknown (Conservation t n) =
+computeImpacts db mass volume wellknown (Conservation _ n) =
     [ waterImpact n.water volume wellknown.water
     , elecImpact n.cooling volume wellknown.electricity
     , elecImpact n.energy volume wellknown.electricity

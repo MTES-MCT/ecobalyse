@@ -766,8 +766,8 @@ packagingListView db selectedImpact recipe results =
     ]
 
 
-distributionView : Db -> Impact.Definition -> Recipe -> Recipe.Results -> List (Html Msg)
-distributionView db selectedImpact recipe results =
+distributionView : Impact.Definition -> Recipe -> Recipe.Results -> List (Html Msg)
+distributionView selectedImpact recipe results =
     [ div [ class "card-header d-flex align-items-center justify-content-between" ]
         [ h5 [ class "mb-0" ] [ text "Stockage et distribution" ]
         , Format.formatFoodSelectedImpact selectedImpact <| results.recipe.conservation
@@ -1051,7 +1051,7 @@ stepListView db { impact } recipe results =
         , div [ class "card" ]
             (packagingListView db impact recipe results)
         , div [ class "card" ]
-            (distributionView db impact recipe results)
+            (distributionView impact recipe results)
         ]
 
 
