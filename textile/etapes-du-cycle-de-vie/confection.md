@@ -91,15 +91,15 @@ Un temps de confection, exprimé en minutes, est associé à chaque niveau de co
 
 **0,029 kWh** d'électricité est retenue par défaut pour chaque minute de confection. Cette valeur se base sur les travaux réalisés par le programme [Mistra Future Fashion](#user-content-fn-1)[^1] (Suède). &#x20;
 
-Dès lors, une quantité d'électricité est calculée selon la niveau de complexité de la confection.
+Dès lors, une quantité d'électricité est calculée selon le niveau de complexité de la confection.
 
-| Complexité    | Temps de confection (minutes) | Electricité consommée (MJ / kWh) |
-| ------------- | ----------------------------- | -------------------------------- |
-| Très simple   | Moins de 5 minutes            | 0,36 / 0,1                       |
-| Simple        | Entre 5 et 15 minutes         | 1,44 / 0,4                       |
-| Moyen         | Entre 15 et 30 minutes        | 3,24 / 0,9                       |
-| Complexe      | Entre 30 minutes et 1H        | 6,12 / 1,7                       |
-| Très complexe | Plus de 1H                    | 12,6 / 3,5                       |
+| Complexité    | Temps de confection    | Electricité consommée (MJ / kWh) |
+| ------------- | ---------------------- | -------------------------------- |
+| Très simple   | Moins de 5 minutes     | 0,36 / 0,1                       |
+| Simple        | Entre 5 et 15 minutes  | 1,44 / 0,4                       |
+| Moyen         | Entre 15 et 30 minutes | 3,24 / 0,9                       |
+| Complexe      | Entre 30 minutes et 1H | 6,12 / 1,7                       |
+| Très complexe | Plus de 1H             | 12,6 / 3,5                       |
 
 {% hint style="warning" %}
 Le procédé d'électricité mobilisé  (`de442ef0-d725-4c3a-a5e2-b29f51a1186c`) s'exprime en MJ tandis que l'affichage sur le calculateur se fait en kWh car cette unité est plus communément utilisée (1kWh = 3,6MJ).
