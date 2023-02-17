@@ -122,8 +122,8 @@ findByID id ingredients =
         |> Result.fromMaybe ("Ingrédient introuvable par id : " ++ idToString id)
 
 
-getDefaultOriginTransport : List Impact.Definition -> Origin -> Transport
-getDefaultOriginTransport defs origin =
+getDefaultOriginTransport : List Impact.Definition -> Maybe Bool -> Origin -> Transport
+getDefaultOriginTransport defs byPlane origin =
     let
         default =
             Transport.default (Impact.impactsFromDefinitons defs)
@@ -139,7 +139,11 @@ getDefaultOriginTransport defs origin =
             { default | road = Length.kilometers 2500, sea = Length.kilometers 18000 }
 
         Origin.OutOfEuropeAndMaghrebByPlane ->
-            { default | road = Length.kilometers 2500, air = Length.kilometers 18000 }
+            if byPlane == Just True then
+                { default | road = Length.kilometers 2500, air = Length.kilometers 18000 }
+
+            else
+                { default | road = Length.kilometers 2500, sea = Length.kilometers 18000 }
 
 
 linkProcess : Dict String Process -> Decoder Process

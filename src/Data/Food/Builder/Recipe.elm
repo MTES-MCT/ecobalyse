@@ -299,7 +299,7 @@ computeIngredientTransport db { ingredient, country, mass, byPlane } =
                 -- Otherwise retrieve ingredient's default origin transport data
                 Nothing ->
                     ingredient.defaultOrigin
-                        |> Ingredient.getDefaultOriginTransport db.impacts
+                        |> Ingredient.getDefaultOriginTransport db.impacts byPlane
 
         transport =
             baseTransport

@@ -595,7 +595,6 @@ updateIngredientFormView { excluded, db, ingredient, impact, transportImpact } =
                         , class "form-check-input no-outline"
                         , attribute "role" "switch"
                         , checked <| ingredientQuery.byPlane == Just True
-                        , disabled <| ingredient.country == Nothing
                         , onCheck
                             (\checked ->
                                 event { ingredientQuery | byPlane = Just checked }

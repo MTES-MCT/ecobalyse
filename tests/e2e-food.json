@@ -299,6 +299,62 @@
       }
     }
   },
+{
+    "name": "Mango from default origin, but by boat",
+    "query": [
+      "ingredients[]=mango;120;default;default;noPlane",
+      "category=fruitsAndVegetables"
+    ],
+    "impacts": {
+      "acd": 0.0011227450298807874,
+      "bvi": 0.0184327220928,
+      "cch": 0.09236084921055261,
+      "ecs": 15.21858902787425,
+      "etf": 8.920723640583978,
+      "fru": 1.3012302163863143,
+      "fwe": 0.000012162231000542987,
+      "htc": 3.335906998462397e-11,
+      "htn": 1.21512034338846e-9,
+      "ior": 0.007233195154793269,
+      "ldu": 3.093716559959329,
+      "mru": 3.1310443535462777e-7,
+      "ozd": 1.873757528288525e-8,
+      "pco": 0.0006491685949547814,
+      "pef": 13.42870166944949,
+      "pma": 7.194870711061988e-9,
+      "swe": 0.00021821827229339476,
+      "tre": 0.0031751023712426087,
+      "wtu": 0.01637983670307674
+    },
+    "scoring": {
+      "category": "Fruits et légumes",
+      "all": {
+        "impact": 126.82157523228543,
+        "letter": "C",
+        "outOf100": 46
+      },
+      "climate": {
+        "impact": 20.022566819531256,
+        "letter": "C",
+        "outOf100": 57
+      },
+      "biodiversity": {
+        "impact": 109.61473918869413,
+        "letter": "D",
+        "outOf100": 35
+      },
+      "health": {
+        "impact": 27.18083747114541,
+        "letter": "C",
+        "outOf100": 57
+      },
+      "resources": {
+        "impact": 11.618892424306784,
+        "letter": "B",
+        "outOf100": 62
+      }
+    }
+  },
   {
     "name": "Mango by plane from Brazil (by default)",
     "query": [

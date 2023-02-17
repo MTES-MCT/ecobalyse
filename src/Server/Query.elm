@@ -117,11 +117,7 @@ ingredientParser { countries, ingredients } string =
                 |> RE.andMap (Result.map .name ingredient)
                 |> RE.andMap (validateMass mass)
                 |> RE.andMap (variantParser variant)
-                |> RE.andMap
-                    (countries
-                        |> validateCountry countryCode Scope.Food
-                        |> Result.map Just
-                    )
+                |> RE.andMap (foodCountryParser countries countryCode)
                 |> RE.andMap (Result.map Ingredient.byPlaneByDefault ingredient)
 
         [ id, mass, variant, countryCode, byPlane ] ->
@@ -135,11 +131,7 @@ ingredientParser { countries, ingredients } string =
                 |> RE.andMap (Result.map .name ingredient)
                 |> RE.andMap (validateMass mass)
                 |> RE.andMap (variantParser variant)
-                |> RE.andMap
-                    (countries
-                        |> validateCountry countryCode Scope.Food
-                        |> Result.map Just
-                    )
+                |> RE.andMap (foodCountryParser countries countryCode)
                 |> RE.andMap
                     (ingredient
                         |> Result.andThen
@@ -170,6 +162,17 @@ variantParser variant =
 
         _ ->
             Err <| "Format de variant invalide : " ++ variant
+
+
+foodCountryParser : List Country -> String -> Result String (Maybe Country.Code)
+foodCountryParser countries countryStr =
+    if countryStr == "default" then
+        Ok Nothing
+
+    else
+        countries
+            |> validateCountry countryStr Scope.Food
+            |> Result.map Just
 
 
 foodProcessCodeParser : List FoodProcess.Process -> String -> Result String FoodProcess.Code
