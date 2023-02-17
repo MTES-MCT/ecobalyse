@@ -8,7 +8,7 @@ description: >-
 
 ## Description
 
-L'étape de confection a pour but de séparer les différentes pièces composant un produit et de les assembler par le biais de la confection afin d’obtenir le produit final. Cette étape comprend généralement la découpe du tissu, l'assemblage des différentes pièces ainsi que le repassage et pliage du produit fini.
+L'étape de confection a pour but de séparer les différentes pièces composant un produit et de les assembler afin d’obtenir le produit final. Cette étape comprend généralement la découpe du tissu, l'assemblage des différentes pièces ainsi que le repassage et pliage du produit fini.
 
 ## Modélisation Ecobalyse
 
@@ -31,7 +31,9 @@ Cf. l'[Explorateur](https://ecobalyse.beta.gouv.fr/#/explore/textile/products) p
 
 <summary>Electricité consommée  (MJ / kWh)</summary>
 
-Une quantité d'électricité à mobiliser pour actionner le procédé de confection est appliquée par défaut. Cette valeur est définie selon le niveau de complexité de confection associé au vêtement. Cinq options sont possibles :&#x20;
+Une quantité d'électricité à mobiliser pour actionner le procédé de confection est appliquée par défaut. Cette valeur est définie selon le niveau de complexité de confection associé au vêtement.&#x20;
+
+Cinq options sont possibles :&#x20;
 
 * Très simple (moins de 5 minutes)
 * Simple (entre 5 et 15 minutes)
@@ -66,13 +68,14 @@ $$
 ImpactConfection = ImpactProcédéConfection + ImpactElec
 $$
 
-Les **procédés de confection** mis en place sont spécifiques aux spécificités de chaque vêtement. Le socle technique actuellement utilisé (Base Impacts) propose 5 procédés de confection.&#x20;
+Les **procédés de confection** utilisés dans l'industrie sont spécifiques à chaque vêtement. \
+Le socle technique actuellement utilisé (Base Impacts) propose 5 procédés de confection.&#x20;
 
 {% hint style="warning" %}
 Remarque : Les coefficients d'impact des procédés de confection sont tous nuls.&#x20;
 {% endhint %}
 
-Dès lors, l'impact de l'étape de confection se limite finalement à l'impact de l'électricité nécessaire pour opérer ce processus.&#x20;
+Dès lors, l'impact de cette étape se limite finalement à l'électricité nécessaire pour opérer ce processus.&#x20;
 
 Le **procédé externe (électricité)** devant être ajouté est le suivant :
 
@@ -86,7 +89,9 @@ Le **procédé externe (électricité)** devant être ajouté est le suivant :
 
 Un temps de confection, exprimé en minutes, est associé à chaque niveau de complexité (cf. ci-dessous).
 
-Aussi, 0,029kWh d'électricité est consommée par minute de confection. Cette valeur se base sur les travaux réalisés par le programme [Mistra Future Fashion](#user-content-fn-1)[^1] (Suède). &#x20;
+**0,029 kWh** d'électricité est retenue par défaut pour chaque minute de confection. Cette valeur se base sur les travaux réalisés par le programme [Mistra Future Fashion](#user-content-fn-1)[^1] (Suède). &#x20;
+
+Dès lors, une quantité d'électricité est calculée selon la niveau de complexité de la confection.
 
 | Complexité    | Temps de confection (minutes) | Electricité consommée (MJ / kWh) |
 | ------------- | ----------------------------- | -------------------------------- |
@@ -104,18 +109,13 @@ Le procédé d'électricité mobilisé  (`de442ef0-d725-4c3a-a5e2-b29f51a1186c`)
 
 Pour le jean on intègre dans l'étape confection le délavage. Le délavage est un procédé qui s'applique après la confection et qui a un impact environnemental important. En effet le délavage demande des quantités significatives de chaleur, d'électricité et d'eau.
 
-Il existe différents procédés de délavage dans la base impacts :
+Il existe différents procédés de délavage dans le socle technique actuellement utilisé :
 
 * mécanique ou chimique
 * représentatif ou majorant
 * traitement des eaux très efficace à inefficace
 
 Pour l'instant nous ne prenons que le procédé par défaut qui est le plus impactant (chimique, majorant, traitement des eaux inefficace).
-
-## Limites
-
-* Non applicable \
-  Les principaux enjeux de la confection d'un point de vue environnemental sont traités de manière satisfaisante.
 
 [^1]: cf. p. 49/167 de l'étude : \
     Environmental assessment of Swedish clothing consumption - six garments, sustainable futurs (2019)
