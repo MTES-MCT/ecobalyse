@@ -224,9 +224,8 @@ Deux techniques d'impression existent : \
 Les machines/techniques d'impression les plus utilisées sont : \
 \- impression au cadre plat\
 \- impression au cadre rotatif\
-\- impression au rouleau\
-\- impression numérique (par jet d'encre)\
-\- impression par transfert numérique (la sublimation)&#x20;
+\- impression digitale (par jet d'encre)\
+\- impression numérique par sublimation (motif imprimé sur un papier support)
 
 </details>
 

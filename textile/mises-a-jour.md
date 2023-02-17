@@ -16,6 +16,15 @@
 
 <details>
 
+<summary>Janvier 2023 _ divers</summary>
+
+* ajout de la section "Mises à jour"
+* enrichissement de la section "Contribuer aux travaux" avec la mise à disposition d'une Fiche Produit (sous format GSheet & GSlides) afin de permettre aux partenaires d'Ecobalyse (marques, bureaux d'études, etc.) de nous transmettre des données de produits réels afin d'enrichir le calculateur
+
+</details>
+
+<details>
+
 <summary>Décembre 2022 _ refonte du module <em>Ennoblissement</em></summary>
 
 * Teinture : suppression des procédés majorants de la Base Impacts \

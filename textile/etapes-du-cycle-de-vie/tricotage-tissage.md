@@ -6,7 +6,7 @@ description: >-
 
 # 〰 Etape 2 - Fabrication de l'étoffe
 
-Description
+## Description
 
 La fabrication d’une étoffe consiste à enchevêtrer des fils/fibres/filaments selon des techniques variées.&#x20;
 
@@ -371,9 +371,11 @@ De (trop) nombreux paramètres impactent la manière dont est tricotée une éto
 {% endtab %}
 {% endtabs %}
 
-#### Tricotage seamless
+#### Tricotage fully-fashioned
 
-L'utilisateur a la possibilité de mettre en avant l'utilisation d'une machine de tricotage seamless (production de mailles sans couture). Dès lors, le taux de perte en confection est ramené à 2%, réduisant d'autant la quantité de matière mobilisée tout au long de la chaîne de valeur.&#x20;
+L'utilisateur a la possibilité de spécifier si sa maille est tricotée en _fully-fashioned_. Cette technique consiste à tricoter directement chaque pièce séparement, contrairement à la technique _coupé-cousu_ qui consiste à tricoter la maille au mètre puis à découper les pièces selon le patron.&#x20;
+
+Le tricotage fully-fashioned implique un faible taux de perte en confection car il n'y a pas de chutes d'étoffe. Le taux de perte par défaut retenu dans le calculateur est 2%.
 
 Les taux de pertes en confection sont détaillés ([ici](https://fabrique-numerique.gitbook.io/ecobalyse/textile/etapes-du-cycle-de-vie/confection#pertes-et-rebut)).&#x20;
 
