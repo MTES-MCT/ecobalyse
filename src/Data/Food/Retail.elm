@@ -85,17 +85,29 @@ frozen =
 
 
 displayNeeds : Conservation -> String
-displayNeeds (Conservation type_ _) =
+displayNeeds (Conservation type_ needs) =
+    let
+        energy =
+            needs.energy |> Quantity.in_ (Energy.kilowattHours >> Quantity.per (Volume.cubicMeters 1)) |> String.fromFloat
+
+        cooling =
+            needs.cooling |> Quantity.in_ (Energy.kilowattHours >> Quantity.per (Volume.cubicMeters 1)) |> String.fromFloat
+
+        water =
+            needs.water / ratio (Volume.liters 1) (Volume.cubicMeters 1) |> String.fromFloat
+
+        transport =
+            needs.transport |> Length.inKilometers |> String.fromFloat
+    in
     case type_ of
         Ambient ->
-            -- FIXME Would be better to display the rounded floats above
-            "Énergie: 123.08 kWh/m³, Réfrigération: 0 kWh/m³, Eau 561.5 L/m³, Transport: 600km"
+            "Énergie: " ++ energy ++ " kWh/m³, Réfrigération: " ++ cooling ++ " kWh/m³, Eau " ++ water ++ " L/m³, Transport: " ++ transport ++ "km"
 
         Fresh ->
-            "Énergie: 46.15 kWh/m³, Réfrigération: 219.23 kWh/m³, Eau 210.6 L/m³, Transport: 600km"
+            "Énergie: " ++ energy ++ " kWh/m³, Réfrigération: " ++ cooling ++ " kWh/m³, Eau " ++ water ++ " L/m³, Transpor" ++ transport ++ "km"
 
         Frozen ->
-            "Énergie: 61.54 kWh/m³, Réfrigération: 415.38 kWh/m³, Eau 280.8 L/m³, Transport: 600km"
+            "Énergie: " ++ energy ++ " kWh/m³, Réfrigération: " ++ cooling ++ " kWh/m³, Eau " ++ water ++ " L/m³, Transport: " ++ transport ++ "km"
 
 
 all : List Conservation
