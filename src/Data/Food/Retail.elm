@@ -37,7 +37,7 @@ type
 
 type Type
     = Ambient
-    | Chilled
+    | Fresh
     | Frozen
 
 
@@ -64,9 +64,9 @@ ambient =
         }
 
 
-chilled : Conservation
-chilled =
-    Conservation Chilled
+fresh : Conservation
+fresh =
+    Conservation Fresh
         { energy = rate (kilowattHours 46.15) (cubicMeters 1)
         , cooling = rate (kilowattHours 219.23) (cubicMeters 1)
         , water = ratio (liters 210.6) (cubicMeters 1)
@@ -91,7 +91,7 @@ displayNeeds (Conservation type_ _) =
             -- FIXME Would be better to display the rounded floats above
             "Énergie: 123.08 kWh/m³, Réfrigération: 0 kWh/m³, Eau 561.5 L/m³, Transport: 600km"
 
-        Chilled ->
+        Fresh ->
             "Énergie: 46.15 kWh/m³, Réfrigération: 219.23 kWh/m³, Eau 210.6 L/m³, Transport: 600km"
 
         Frozen ->
@@ -101,7 +101,7 @@ displayNeeds (Conservation type_ _) =
 all : List Conservation
 all =
     -- for selection list in the builder
-    [ ambient, chilled, frozen ]
+    [ ambient, fresh, frozen ]
 
 
 toString : Conservation -> String
@@ -110,8 +110,8 @@ toString (Conservation type_ _) =
         Ambient ->
             "ambient"
 
-        Chilled ->
-            "chilled"
+        Fresh ->
+            "fresh"
 
         Frozen ->
             "frozen"
@@ -123,8 +123,8 @@ fromString str =
         "ambient" ->
             Ok ambient
 
-        "chilled" ->
-            Ok chilled
+        "fresh" ->
+            Ok fresh
 
         "frozen" ->
             Ok frozen
@@ -139,7 +139,7 @@ toDisplay (Conservation t _) =
         Ambient ->
             "Sec"
 
-        Chilled ->
+        Fresh ->
             "Frais"
 
         Frozen ->
