@@ -173,7 +173,7 @@ compute db =
                     conservationImpacts =
                         let
                             mass =
-                                getTransformedIngredientsMass recipe
+                                getMassAtPackaging recipe
 
                             volume =
                                 getTransformedIngredientsVolume recipe

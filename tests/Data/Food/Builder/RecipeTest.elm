@@ -93,11 +93,11 @@ suite =
                                 Category.get (Category.Id "cakes")
                                     |> Result.map .name
                                     |> Result.withDefault "Not found"
-                            , all = { impact = Unit.impact 165.19386699311576, letter = "B", outOf100 = 74 }
-                            , biodiversity = { impact = Unit.impact 128.25205455071114, letter = "C", outOf100 = 54 }
-                            , climate = { impact = Unit.impact 29.791542867496094, letter = "B", outOf100 = 70 }
-                            , health = { impact = Unit.impact 44.68391740968728, letter = "B", outOf100 = 64 }
-                            , resources = { impact = Unit.impact 22.388932019398293, letter = "B", outOf100 = 64 }
+                            , all = { impact = Unit.impact 166.29451849110046, letter = "B", outOf100 = 73 }
+                            , biodiversity = { impact = Unit.impact 128.99781596268198, letter = "C", outOf100 = 53 }
+                            , climate = { impact = Unit.impact 30.18881282750459, letter = "B", outOf100 = 69 }
+                            , health = { impact = Unit.impact 45.180941631048185, letter = "B", outOf100 = 64 }
+                            , resources = { impact = Unit.impact 22.59760103643419, letter = "B", outOf100 = 64 }
                             }
                         )
                     |> asTest "should return expected scoring"
