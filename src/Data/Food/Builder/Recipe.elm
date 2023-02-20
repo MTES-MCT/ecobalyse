@@ -27,6 +27,7 @@ import Data.Food.Builder.Db exposing (Db)
 import Data.Food.Builder.Query as BuilderQuery exposing (Query)
 import Data.Food.Category as Category exposing (Category)
 import Data.Food.Ingredient as Ingredient exposing (Id, Ingredient)
+import Data.Food.Origin as Origin
 import Data.Food.Process as Process exposing (Process)
 import Data.Food.Retail as Retail
 import Data.Impact as Impact exposing (Impacts)
@@ -330,11 +331,35 @@ computeIngredientTransport db { ingredient, country, mass, byPlane } =
                     ingredient.defaultOrigin
                         |> Ingredient.getDefaultOriginTransport db.impacts
 
+        toTransformation t =
+            -- 160km of road transport are added for every ingredient, wherever they come
+            -- from (including France). This corresponds to the step "1. RECETTE" in the
+            -- [transport documentation](https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/transport#circuits-consideres)
+            { t | road = t.road |> Quantity.plus (Length.kilometers 160) }
+
+        toLogistics t =
+            -- 500km of road transport are added for every ingredient that are not coming from France.
+            -- This corresponds to the step "2. RECETTE" in the
+            -- [transport documentation](https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/transport#circuits-consideres)
+            case country of
+                Just { code } ->
+                    if code /= Country.codeFromString "FR" then
+                        { t | road = t.road |> Quantity.plus (Length.kilometers 500) }
+
+                    else
+                        t
+
+                Nothing ->
+                    if ingredient.defaultOrigin /= Origin.France then
+                        { t | road = t.road |> Quantity.plus (Length.kilometers 500) }
+
+                    else
+                        t
+
         transport =
             baseTransport
-                -- 160km of road transport are added for every ingredient, wherever they come
-                -- from (including France)
-                |> (\t -> { t | road = t.road |> Quantity.plus (Length.kilometers 160) })
+                |> toTransformation
+                |> toLogistics
     in
     { transport
         | impacts =
