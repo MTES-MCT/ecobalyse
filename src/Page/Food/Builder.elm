@@ -770,7 +770,8 @@ distributionView : Impact.Definition -> Recipe -> Recipe.Results -> List (Html M
 distributionView selectedImpact recipe results =
     [ div [ class "card-header d-flex align-items-center justify-content-between" ]
         [ h5 [ class "mb-0" ] [ text "Stockage et distribution" ]
-        , Format.formatFoodSelectedImpact selectedImpact <| results.recipe.conservation
+        , results.recipe.conservation
+            |> Format.formatFoodSelectedImpact selectedImpact
         ]
     , div []
         [ ul [ class "list-group list-group-flush border-top-0 border-bottom-0" ]
@@ -783,10 +784,10 @@ distributionView selectedImpact recipe results =
                         |> List.map
                             (\c ->
                                 option
-                                    [ selected <| (recipe.conservation |> Maybe.map ((==) c) |> Maybe.withDefault False)
-                                    , value <| Retail.toString c
+                                    [ selected (recipe.conservation |> Maybe.map ((==) c) |> Maybe.withDefault False)
+                                    , value (Retail.toString c)
                                     ]
-                                    [ text <| Retail.toDisplay c ]
+                                    [ text (Retail.toDisplay c) ]
                             )
                     )
                 ]
