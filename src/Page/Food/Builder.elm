@@ -784,7 +784,7 @@ distributionView selectedImpact recipe results =
                         |> List.map
                             (\c ->
                                 option
-                                    [ selected (recipe.conservation |> Maybe.map ((==) c) |> Maybe.withDefault False)
+                                    [ selected (recipe.conservation == c)
                                     , value (Retail.toString c)
                                     ]
                                     [ text (Retail.toDisplay c) ]
@@ -797,8 +797,7 @@ distributionView selectedImpact recipe results =
                 ]
                 [ div [ class "text-truncate" ]
                     [ recipe.conservation
-                        |> Maybe.map Retail.displayNeeds
-                        |> Maybe.withDefault "N/A"
+                        |> Retail.displayNeeds
                         |> text
                     ]
                 ]
