@@ -68,7 +68,7 @@ type alias Recipe =
     { ingredients : List RecipeIngredient
     , transform : Maybe Transform
     , packaging : List Packaging
-    , conservation : Maybe Retail.Conservation
+    , conservation : Retail.Conservation
     , category : Maybe Category
     }
 
@@ -178,11 +178,8 @@ compute db =
                             volume =
                                 getTransformedIngredientsVolume recipe
                         in
-                        Result.map2 (Retail.computeImpacts db mass volume)
+                        Result.map (Retail.computeImpacts db mass volume conservation)
                             (Process.loadWellKnown db.processes)
-                            (conservation
-                                |> Result.fromMaybe "No conservation defined"
-                            )
 
                     recipeImpacts =
                         updateImpacts

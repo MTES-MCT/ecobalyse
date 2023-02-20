@@ -119,7 +119,7 @@ suite =
                   , transform = Nothing
                   , packaging = []
                   , category = Nothing
-                  , conservation = Just Retail.ambient
+                  , conservation = Retail.ambient
                   }
                     |> Recipe.compute builderDb
                     |> Result.map (Tuple.first >> Recipe.getMassAtPackaging)
@@ -181,7 +181,7 @@ suite =
                   , transform = Nothing
                   , packaging = []
                   , category = Nothing
-                  , conservation = Just Retail.ambient
+                  , conservation = Retail.ambient
                   }
                     |> Recipe.compute builderDb
                     |> Result.map firstIngredientAirDistance
@@ -191,7 +191,7 @@ suite =
                   , transform = Nothing
                   , packaging = []
                   , category = Nothing
-                  , conservation = Just Retail.ambient
+                  , conservation = Retail.ambient
                   }
                     |> Recipe.compute builderDb
                     |> Result.map firstIngredientAirDistance
@@ -201,7 +201,7 @@ suite =
                   , transform = Nothing
                   , packaging = []
                   , category = Nothing
-                  , conservation = Just Retail.ambient
+                  , conservation = Retail.ambient
                   }
                     |> Recipe.compute builderDb
                     |> Result.map firstIngredientAirDistance
@@ -211,7 +211,7 @@ suite =
                   , transform = Nothing
                   , packaging = []
                   , category = Nothing
-                  , conservation = Just Retail.ambient
+                  , conservation = Retail.ambient
                   }
                     |> Recipe.compute builderDb
                     |> Result.map firstIngredientAirDistance

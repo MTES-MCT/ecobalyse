@@ -193,8 +193,8 @@ transportImpact distance mass =
             )
 
 
-computeImpacts : Db -> Mass -> Volume -> WellKnown -> Conservation -> Impacts
-computeImpacts db mass volume wellknown (Conservation _ needs) =
+computeImpacts : Db -> Mass -> Volume -> Conservation -> WellKnown -> Impacts
+computeImpacts db mass volume (Conservation _ needs) wellknown =
     [ waterImpact needs.water volume wellknown.water
     , elecImpact needs.cooling volume wellknown.electricity
     , elecImpact needs.energy volume wellknown.electricity

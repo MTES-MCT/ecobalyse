@@ -59,7 +59,7 @@ type alias Query =
     { ingredients : List IngredientQuery
     , transform : Maybe ProcessQuery
     , packaging : List ProcessQuery
-    , conservation : Maybe Retail.Conservation
+    , conservation : Retail.Conservation
     , category : Maybe Category.Id
     }
 
@@ -88,7 +88,7 @@ emptyQuery =
     { ingredients = []
     , transform = Nothing
     , packaging = []
-    , conservation = Nothing
+    , conservation = Retail.ambient
     , category = Nothing
     }
 
@@ -137,7 +137,7 @@ carrotCake =
           , mass = Mass.grams 105
           }
         ]
-    , conservation = Just Retail.ambient
+    , conservation = Retail.ambient
     , category = Just (Category.Id "cakes")
     }
 
@@ -148,7 +148,7 @@ decode =
         |> Pipe.required "ingredients" (Decode.list decodeIngredient)
         |> Pipe.optional "transform" (Decode.maybe decodeProcess) Nothing
         |> Pipe.required "packaging" (Decode.list decodeProcess)
-        |> Pipe.optional "conservation" (Decode.maybe Retail.decode) Nothing
+        |> Pipe.custom (Decode.field "conservation" Retail.decode)
         |> Pipe.optional "category" (Decode.maybe Category.decodeId) Nothing
 
 
@@ -198,7 +198,7 @@ encode v =
         [ ( "ingredients", Encode.list encodeIngredient v.ingredients )
         , ( "transform", v.transform |> Maybe.map encodeProcess |> Maybe.withDefault Encode.null )
         , ( "packaging", Encode.list encodeProcess v.packaging )
-        , ( "conservation", v.conservation |> Maybe.map Retail.encode |> Maybe.withDefault Encode.null )
+        , ( "conservation", Retail.encode v.conservation )
         , ( "category", v.category |> Maybe.map Category.encodeId |> Maybe.withDefault Encode.null )
         ]
 
@@ -302,7 +302,7 @@ updateConservation newConservation query =
     { query
         | conservation =
             Retail.fromString newConservation
-                |> Result.toMaybe
+                |> Result.withDefault Retail.ambient
     }
 
 

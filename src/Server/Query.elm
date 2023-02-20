@@ -63,7 +63,7 @@ parseFoodQuery builderDb =
         |> apply (ingredientListParser "ingredients" builderDb)
         |> apply (maybeTransformParser "transform" builderDb.processes)
         |> apply (packagingListParser "packaging" builderDb.processes)
-        |> apply (maybeConservationParser "conservation")
+        |> apply (conservationParser "conservation")
         |> apply (maybeFoodCategoryParser "category")
 
 
@@ -305,17 +305,13 @@ maybeTransformParser key transforms =
             )
 
 
-maybeConservationParser : String -> Parser (ParseResult (Maybe Conservation))
-maybeConservationParser key =
+conservationParser : String -> Parser (ParseResult Conservation)
+conservationParser key =
     Query.string key
         |> Query.map
-            (Maybe.map
-                (\str ->
-                    Retail.fromString str
-                        |> Result.map Just
-                        |> Result.mapError (\err -> ( key, err ))
-                )
-                >> Maybe.withDefault (Ok Nothing)
+            (Maybe.withDefault "ambient"
+                >> Retail.fromString
+                >> Result.mapError (\err -> ( key, err ))
             )
 
 
