@@ -743,7 +743,7 @@ components:
         Type de conservation chez le distributeur, parmi les valeurs possibles suivantes :
 
         - `ambient`: Température ambiante
-        - `fresh`: Réfrigérée
+        - `fresh`: Réfrigéré
         - `frozen`: Congelé
 
         Le type de conservation inclut 450km de transport terrestre vers le site de stockage + 150km vers le site de distribution.
