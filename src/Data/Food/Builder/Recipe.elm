@@ -183,7 +183,16 @@ compute db =
                             volume =
                                 case ingredients of
                                     [ i ] ->
-                                        i.mass |> Quantity.at_ (gramsPerCubicCentimeter i.ingredient.density)
+                                        -- density = 1 for a transformed ingredient
+                                        let
+                                            density =
+                                                if transform /= Nothing then
+                                                    1
+
+                                                else
+                                                    i.ingredient.density
+                                        in
+                                        i.mass |> Quantity.at_ (gramsPerCubicCentimeter density)
 
                                     _ ->
                                         --density 1 for recipes
