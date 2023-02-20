@@ -130,7 +130,7 @@ fromString str =
             Ok frozen
 
         _ ->
-            Err "Type de conservation incorrect"
+            Err <| "Type de conservation inconnue : " ++ str
 
 
 toDisplay : Conservation -> String

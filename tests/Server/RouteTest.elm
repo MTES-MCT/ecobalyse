@@ -122,6 +122,11 @@ foodEndpoints db =
             |> Maybe.andThen (Dict.get "category")
             |> Expect.equal (Just "Catégorie inconnue: invalid")
             |> asTest "should validate that a category id is valid"
+        , getEndpoint db "GET" "/food/recipe?conservation=invalid"
+            |> Maybe.andThen extractFoodErrors
+            |> Maybe.andThen (Dict.get "conservation")
+            |> Expect.equal (Just "Type de conservation inconnue : invalid")
+            |> asTest "should validate that a conservation is valid"
         ]
     ]
 

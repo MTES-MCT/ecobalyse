@@ -34,7 +34,7 @@ import Data.Scope as Scope
 import Data.Textile.Formula as Formula
 import Data.Transport as Transport exposing (Transport)
 import Data.Unit as Unit
-import Density exposing (Density, gramsPerCubicCentimeter)
+import Density exposing (Density)
 import Json.Encode as Encode
 import Length
 import Mass exposing (Mass)
