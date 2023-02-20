@@ -1257,6 +1257,7 @@
   },
   {
     "name": "Transport, freight, lorry 16-32 metric ton, EURO5 {RER}| transport, freight, lorry 16-32 metric ton, EURO5 | Cut-off, S - Copied from Ecoinvent",
+    "alias": "lorry",
     "unit": "ton kilometer",
     "simapro_id": "c24fc476f6d5237aa2c58d7d95bc1ca4",
     "system_description": "Ecoinvent v3",
@@ -1288,6 +1289,7 @@
   },
   {
     "name": "Transport, freight, sea, transoceanic ship {GLO}| processing | Cut-off, S - Copied from Ecoinvent",
+    "alias": "boat",
     "unit": "ton kilometer",
     "simapro_id": "958bbb33cf6cdb8e3c8d4f21aec5ef98",
     "system_description": "Ecoinvent v3",
@@ -1319,6 +1321,7 @@
   },
   {
     "name": "Transport, freight, aircraft {RER}| intercontinental | Cut-off, S - Copied from Ecoinvent",
+    "alias": "plane",
     "unit": "ton kilometer",
     "simapro_id": "5bc527741ac919ff8710a474f849614f",
     "system_description": "Ecoinvent v3",
@@ -1486,6 +1489,7 @@
   },
   {
     "name": "Electricity, low voltage {FR}| market for | Cut-off, S - Copied from Ecoinvent",
+    "alias": "electricity",
     "unit": "kilowatt hour",
     "simapro_id": "ef953c00d48ee59f57773534f6487b09",
     "system_description": "Ecoinvent v3",
@@ -1517,6 +1521,7 @@
   },
   {
     "name": "Tap water {Europe without Switzerland}| market for | Cut-off, S - Copied from Ecoinvent",
+    "alias": "tapwater",
     "unit": "kilogram",
     "simapro_id": "224411d9aa3c0ed3cf9b5fc590c237d2",
     "system_description": "Ecoinvent v3",

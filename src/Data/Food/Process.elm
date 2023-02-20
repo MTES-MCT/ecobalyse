@@ -160,6 +160,14 @@ encodeCode =
     codeToString >> Encode.string
 
 
+findByAlias : List Process -> String -> Result String Process
+findByAlias processes alias =
+    processes
+        |> List.filter (.alias >> (==) (Just alias))
+        |> List.head
+        |> Result.fromMaybe ("Procédé introuvable par alias : " ++ alias)
+
+
 findByCode : List Process -> Code -> Result String Process
 findByCode processes ((Code codeString) as code) =
     processes
@@ -227,17 +235,16 @@ listByCategory category =
 loadWellKnown : List Process -> Result String WellKnown
 loadWellKnown processes =
     let
-        resolve code =
-            RE.andMap (codeFromString code |> findByCode processes)
+        resolve alias =
+            RE.andMap (findByAlias processes alias)
     in
     Ok WellKnown
-        -- Transport, freight, lorry 16-32 metric ton, EURO5 {RER}| transport, freight, lorry 16-32 metric ton, EURO5 | Cut-off, S - Copied from Ecoinvent
-        |> resolve "c24fc476f6d5237aa2c58d7d95bc1ca4"
-        -- Transport, freight, sea, transoceanic ship {GLO}| processing | Cut-off, S - Copied from Ecoinvent
-        |> resolve "958bbb33cf6cdb8e3c8d4f21aec5ef98"
-        -- Transport, freight, aircraft {RER}| intercontinental | Cut-off, S - Copied from Ecoinvent
-        |> resolve "5bc527741ac919ff8710a474f849614f"
-        -- Tap water {Europe without Switzerland}| market for | Cut-off, S - Copied from Ecoinvent
-        |> resolve "224411d9aa3c0ed3cf9b5fc590c237d2"
-        -- Electricity, low voltage {FR}| market for | Cut-off, S - Copied from Ecoinvent
-        |> resolve "ef953c00d48ee59f57773534f6487b09"
+        |> resolve "lorry"
+        |> resolve "boat"
+        |> resolve "plane"
+        |> resolve "tapwater"
+        |> resolve "electricity"
+
+
+
+-- low voltage
