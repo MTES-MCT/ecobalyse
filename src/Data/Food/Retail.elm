@@ -1,4 +1,15 @@
-module Data.Food.Retail exposing (Conservation, all, ambient, computeImpacts, decode, displayNeeds, encode, fromString, toDisplay, toString)
+module Data.Food.Retail exposing
+    ( Conservation
+    , all
+    , ambient
+    , computeImpacts
+    , decode
+    , displayNeeds
+    , encode
+    , fromString
+    , toDisplay
+    , toString
+    )
 
 {- This module allow to compute the impacts of the transport of finished products to the retail stores,
    and the impact of storing the product at the store
