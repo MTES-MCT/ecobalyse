@@ -34,13 +34,14 @@ import Data.Scope as Scope
 import Data.Textile.Formula as Formula
 import Data.Transport as Transport exposing (Transport)
 import Data.Unit as Unit
-import Density exposing (gramsPerCubicCentimeter)
+import Density exposing (Density, gramsPerCubicCentimeter)
 import Json.Encode as Encode
 import Length
 import Mass exposing (Mass)
 import Quantity
 import Result.Extra as RE
 import String.Extra as SE
+import Volume exposing (Volume)
 
 
 france : Country.Code
@@ -171,35 +172,14 @@ compute db =
 
                     conservationImpacts =
                         let
-                            wellknown =
-                                db.processes
-                                    |> Process.loadWellKnown
-
                             mass =
-                                ingredients
-                                    |> List.map .mass
-                                    |> Quantity.sum
+                                getTransformedIngredientsMass recipe
 
                             volume =
-                                case ingredients of
-                                    [ i ] ->
-                                        -- density = 1 for a transformed ingredient
-                                        let
-                                            density =
-                                                if transform /= Nothing then
-                                                    1
-
-                                                else
-                                                    i.ingredient.density
-                                        in
-                                        i.mass |> Quantity.at_ (gramsPerCubicCentimeter density)
-
-                                    _ ->
-                                        --density 1 for recipes
-                                        mass |> Quantity.at_ (gramsPerCubicCentimeter 1)
+                                getTransformedIngredientsVolume recipe
                         in
                         Result.map2 (Retail.computeImpacts db mass volume)
-                            wellknown
+                            (Process.loadWellKnown db.processes)
                             (conservation
                                 |> Result.fromMaybe "No conservation defined"
                             )
@@ -503,6 +483,28 @@ getTransformedIngredientsMass { ingredients, transform } =
                         mass
             )
         |> Quantity.sum
+
+
+getTransformedIngredientsDensity : Recipe -> Density
+getTransformedIngredientsDensity { ingredients, transform } =
+    Density.gramsPerCubicCentimeter <|
+        case ingredients of
+            [ i ] ->
+                -- density = 1 for a transformed ingredient
+                if transform /= Nothing then
+                    1
+
+                else
+                    i.ingredient.density
+
+            --density 1 for recipes
+            _ ->
+                1
+
+
+getTransformedIngredientsVolume : Recipe -> Volume
+getTransformedIngredientsVolume recipe =
+    getTransformedIngredientsMass recipe |> Quantity.at_ (getTransformedIngredientsDensity recipe)
 
 
 getRecipeIngredientProcess : RecipeIngredient -> Process
