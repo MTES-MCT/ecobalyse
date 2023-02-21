@@ -782,12 +782,12 @@ distributionView selectedImpact recipe results =
                     ]
                     (Retail.all
                         |> List.map
-                            (\c ->
+                            (\distribution ->
                                 option
-                                    [ selected (recipe.distribution == c)
-                                    , value (Retail.toString c)
+                                    [ selected (recipe.distribution == distribution)
+                                    , value (Retail.toString distribution)
                                     ]
-                                    [ text (Retail.toDisplay c) ]
+                                    [ text (Retail.toDisplay distribution) ]
                             )
                     )
                 ]
