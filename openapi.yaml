@@ -273,7 +273,7 @@ paths:
         - $ref: "#/components/parameters/transformParam"
         - $ref: "#/components/parameters/packagingParam"
         - $ref: "#/components/parameters/foodCategoryParam"
-        - $ref: "#/components/parameters/conservationParam"
+        - $ref: "#/components/parameters/distributionParam"
       responses:
         200:
           description: Opération réussie
@@ -736,23 +736,23 @@ components:
         cakes:
           summary: Gâteaux
           value: cakes
-    conservationParam:
-      name: conservation
+    distributionParam:
+      name: distribution
       in: query
       description: |
-        Type de conservation chez le distributeur, parmi les valeurs possibles suivantes :
+        Choix du mode de stockage chez le distributeur, parmi ces valeurs possibles :
 
         - `ambient`: Température ambiante
         - `fresh`: Réfrigéré
         - `frozen`: Congelé
 
-        Le type de conservation inclut 450km de transport terrestre vers le site de stockage + 150km vers le site de distribution.
+        La distribution inclut 450km de transport terrestre vers le site de stockage + 150km vers le site de distribution.
 
       required: false
       style: form
       schema:
         type: string
-        description: Type de conservation chez le distributeur
+        description: Type de distribution chez le distributeur
         default: "ambient"
         enum:
           - "ambient"

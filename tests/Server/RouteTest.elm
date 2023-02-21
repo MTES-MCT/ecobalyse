@@ -48,7 +48,7 @@ foodEndpoints db =
           , "ingredients[]=carrot;225"
           , "transform=aded2490573207ec7ad5a3813978f6a4;545"
           , "packaging[]=23b2754e5943bc77916f8f871edc53b6;105"
-          , "conservation=ambient"
+          , "distribution=ambient"
           , "category=cakes"
           ]
             |> String.join "&"
@@ -122,11 +122,11 @@ foodEndpoints db =
             |> Maybe.andThen (Dict.get "category")
             |> Expect.equal (Just "Catégorie inconnue: invalid")
             |> asTest "should validate that a category id is valid"
-        , getEndpoint db "GET" "/food/recipe?conservation=invalid"
+        , getEndpoint db "GET" "/food/recipe?distribution=invalid"
             |> Maybe.andThen extractFoodErrors
-            |> Maybe.andThen (Dict.get "conservation")
-            |> Expect.equal (Just "Type de conservation inconnue : invalid")
-            |> asTest "should validate that a conservation is valid"
+            |> Maybe.andThen (Dict.get "distribution")
+            |> Expect.equal (Just "Choix invalide pour la distribution : invalid")
+            |> asTest "should validate that a distribution is valid"
         ]
     ]
 

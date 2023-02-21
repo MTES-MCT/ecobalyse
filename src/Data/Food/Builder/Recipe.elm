@@ -68,7 +68,7 @@ type alias Recipe =
     { ingredients : List RecipeIngredient
     , transform : Maybe Transform
     , packaging : List Packaging
-    , conservation : Retail.Conservation
+    , distribution : Retail.Distribution
     , category : Maybe Category
     }
 
@@ -84,7 +84,7 @@ type alias Results =
         , ingredients : List ( RecipeIngredient, Impacts )
         , transform : Impacts
         , transports : Transport
-        , conservation : Impacts
+        , distribution : Impacts
         }
     , packaging : Impacts
     , transports : Transport
@@ -137,7 +137,7 @@ compute db =
     -- FIXME get the wellknown early and propagate the error to the computation
     fromQuery db
         >> Result.map
-            (\({ ingredients, transform, packaging, conservation, category } as recipe) ->
+            (\({ ingredients, transform, packaging, distribution, category } as recipe) ->
                 let
                     updateImpacts impacts =
                         impacts
@@ -170,7 +170,7 @@ compute db =
                             |> Maybe.map (computeProcessImpacts db.impacts >> List.singleton >> updateImpacts)
                             |> Maybe.withDefault Impact.noImpacts
 
-                    conservationImpacts =
+                    distributionImpacts =
                         let
                             mass =
                                 getMassAtPackaging recipe
@@ -178,7 +178,7 @@ compute db =
                             volume =
                                 getTransformedIngredientsVolume recipe
                         in
-                        Result.map (Retail.computeImpacts db mass volume conservation)
+                        Result.map (Retail.computeImpacts db mass volume distribution)
                             (Process.loadWellKnown db.processes)
 
                     recipeImpacts =
@@ -189,7 +189,7 @@ compute db =
                             ]
 
                     totalImpacts =
-                        [ Ok recipeImpacts, Ok packagingImpacts, conservationImpacts ]
+                        [ Ok recipeImpacts, Ok packagingImpacts, distributionImpacts ]
                             |> RE.combine
                             |> Result.map (Impact.sumImpacts db.impacts)
 
@@ -210,11 +210,11 @@ compute db =
                             |> Result.map (computeScoring db.impacts category)
                 in
                 Result.map4
-                    (\t i c s ->
+                    (\total perKg distrib score ->
                         ( recipe
-                        , { total = t
-                          , perKg = i
-                          , scoring = s
+                        , { total = total
+                          , perKg = perKg
+                          , scoring = score
 
                           -- XXX: For now, we stop at packaging step
                           , totalMass = getMassAtPackaging recipe
@@ -224,7 +224,7 @@ compute db =
                                 , ingredients = ingredientsImpacts
                                 , transform = transformImpacts
                                 , transports = ingredientsTransport
-                                , conservation = c
+                                , distribution = distrib
                                 }
                           , packaging = packagingImpacts
                           , transports = ingredientsTransport
@@ -233,7 +233,7 @@ compute db =
                     )
                     totalImpacts
                     impactsPerKg
-                    conservationImpacts
+                    distributionImpacts
                     scoring
             )
         >> RE.join
@@ -452,7 +452,7 @@ fromQuery db query =
         (ingredientListFromQuery db query)
         (transformFromQuery db query)
         (packagingListFromQuery db query)
-        (Ok query.conservation)
+        (Ok query.distribution)
         (categoryFromQuery query.category)
 
 

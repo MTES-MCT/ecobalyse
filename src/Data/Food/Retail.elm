@@ -1,5 +1,5 @@
 module Data.Food.Retail exposing
-    ( Conservation
+    ( Distribution
     , all
     , ambient
     , computeImpacts
@@ -30,9 +30,10 @@ import Volume exposing (CubicMeters, Volume, cubicMeters, liters)
 
 
 type
-    Conservation
-    -- A consevation type and its needs in energy, cooling, water and transport
-    = Conservation Type Needs
+    Distribution
+    -- A distribution type and its needs
+    -- in energy, cooling, water and transport
+    = Distribution Type Needs
 
 
 type Type
@@ -54,9 +55,9 @@ type alias Needs =
 -- Data table from https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/etapes-du-cycles-de-vie/vente-au-detail
 
 
-ambient : Conservation
+ambient : Distribution
 ambient =
-    Conservation Ambient
+    Distribution Ambient
         { energy = rate (kilowattHours 123.08) (cubicMeters 1)
         , cooling = rate (kilowattHours 0) (cubicMeters 1)
         , water = ratio (liters 561.5) (cubicMeters 1)
@@ -64,9 +65,9 @@ ambient =
         }
 
 
-fresh : Conservation
+fresh : Distribution
 fresh =
-    Conservation Fresh
+    Distribution Fresh
         { energy = rate (kilowattHours 46.15) (cubicMeters 1)
         , cooling = rate (kilowattHours 219.23) (cubicMeters 1)
         , water = ratio (liters 210.6) (cubicMeters 1)
@@ -74,9 +75,9 @@ fresh =
         }
 
 
-frozen : Conservation
+frozen : Distribution
 frozen =
-    Conservation Frozen
+    Distribution Frozen
         { energy = rate (kilowattHours 61.54) (cubicMeters 1)
         , cooling = rate (kilowattHours 415.38) (cubicMeters 1)
         , water = ratio (liters 280.8) (cubicMeters 1)
@@ -84,8 +85,8 @@ frozen =
         }
 
 
-displayNeeds : Conservation -> String
-displayNeeds (Conservation type_ needs) =
+displayNeeds : Distribution -> String
+displayNeeds (Distribution type_ needs) =
     let
         energy =
             needs.energy |> Quantity.in_ (Energy.kilowattHours >> Quantity.per (Volume.cubicMeters 1)) |> String.fromFloat
@@ -110,14 +111,14 @@ displayNeeds (Conservation type_ needs) =
             "Énergie: " ++ energy ++ " kWh/m³, Réfrigération: " ++ cooling ++ " kWh/m³, Eau " ++ water ++ " L/m³, Transport: " ++ transport ++ "km"
 
 
-all : List Conservation
+all : List Distribution
 all =
     -- for selection list in the builder
     [ ambient, fresh, frozen ]
 
 
-toString : Conservation -> String
-toString (Conservation type_ _) =
+toString : Distribution -> String
+toString (Distribution type_ _) =
     case type_ of
         Ambient ->
             "ambient"
@@ -129,7 +130,7 @@ toString (Conservation type_ _) =
             "frozen"
 
 
-fromString : String -> Result String Conservation
+fromString : String -> Result String Distribution
 fromString str =
     case str of
         "ambient" ->
@@ -142,11 +143,11 @@ fromString str =
             Ok frozen
 
         _ ->
-            Err <| "Type de conservation inconnue : " ++ str
+            Err <| "Choix invalide pour la distribution : " ++ str
 
 
-toDisplay : Conservation -> String
-toDisplay (Conservation t _) =
+toDisplay : Distribution -> String
+toDisplay (Distribution t _) =
     case t of
         Ambient ->
             "Sec"
@@ -158,12 +159,12 @@ toDisplay (Conservation t _) =
             "Surgelé"
 
 
-encode : Conservation -> Encode.Value
+encode : Distribution -> Encode.Value
 encode =
     Encode.string << toString
 
 
-decode : Decoder Conservation
+decode : Decoder Distribution
 decode =
     Decode.string
         |> Decode.andThen (fromString >> RE.unpack Decode.fail Decode.succeed)
@@ -205,8 +206,8 @@ transportImpact distance mass =
             )
 
 
-computeImpacts : Db -> Mass -> Volume -> Conservation -> WellKnown -> Impacts
-computeImpacts db mass volume (Conservation _ needs) wellknown =
+computeImpacts : Db -> Mass -> Volume -> Distribution -> WellKnown -> Impacts
+computeImpacts db mass volume (Distribution _ needs) wellknown =
     [ waterImpact needs.water volume wellknown.water
     , elecImpact needs.cooling volume wellknown.electricity
     , elecImpact needs.energy volume wellknown.electricity

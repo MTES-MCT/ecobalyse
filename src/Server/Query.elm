@@ -12,7 +12,7 @@ import Data.Food.Builder.Query as BuilderQuery
 import Data.Food.Category as Category
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Process as FoodProcess
-import Data.Food.Retail as Retail exposing (Conservation)
+import Data.Food.Retail as Retail exposing (Distribution)
 import Data.Scope as Scope exposing (Scope)
 import Data.Textile.Db as TextileDb
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
@@ -63,7 +63,7 @@ parseFoodQuery builderDb =
         |> apply (ingredientListParser "ingredients" builderDb)
         |> apply (maybeTransformParser "transform" builderDb.processes)
         |> apply (packagingListParser "packaging" builderDb.processes)
-        |> apply (conservationParser "conservation")
+        |> apply (distributionParser "distribution")
         |> apply (maybeFoodCategoryParser "category")
 
 
@@ -305,8 +305,8 @@ maybeTransformParser key transforms =
             )
 
 
-conservationParser : String -> Parser (ParseResult Conservation)
-conservationParser key =
+distributionParser : String -> Parser (ParseResult Distribution)
+distributionParser key =
     Query.string key
         |> Query.map
             (Maybe.withDefault "ambient"

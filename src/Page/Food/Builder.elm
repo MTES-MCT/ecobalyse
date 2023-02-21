@@ -95,7 +95,7 @@ type Msg
     | UpdateIngredient Id Query.IngredientQuery
     | UpdatePackaging Process.Code Query.ProcessQuery
     | UpdateTransform Query.ProcessQuery
-    | UpdateConservation String
+    | UpdateDistribution String
 
 
 init : Session -> Impact.Trigram -> Maybe Query -> ( Model, Session, Cmd Msg )
@@ -327,9 +327,9 @@ update ({ queries } as session) msg model =
             ( model, session, Cmd.none )
                 |> updateQuery (Query.updateTransform newTransform query)
 
-        UpdateConservation newConservation ->
+        UpdateDistribution distribution ->
             ( model, session, Cmd.none )
-                |> updateQuery (Query.updateConservation newConservation query)
+                |> updateQuery (Query.updateDistribution distribution query)
 
 
 updateQuery : Query -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
@@ -770,7 +770,7 @@ distributionView : Impact.Definition -> Recipe -> Recipe.Results -> List (Html M
 distributionView selectedImpact recipe results =
     [ div [ class "card-header d-flex align-items-center justify-content-between" ]
         [ h5 [ class "mb-0" ] [ text "Stockage et distribution" ]
-        , results.recipe.conservation
+        , results.recipe.distribution
             |> Format.formatFoodSelectedImpact selectedImpact
         ]
     , div []
@@ -778,13 +778,13 @@ distributionView selectedImpact recipe results =
             [ li [ class "IngredientFormWrapper" ]
                 [ select
                     [ class "form-select form-select-sm"
-                    , onInput UpdateConservation
+                    , onInput UpdateDistribution
                     ]
                     (Retail.all
                         |> List.map
                             (\c ->
                                 option
-                                    [ selected (recipe.conservation == c)
+                                    [ selected (recipe.distribution == c)
                                     , value (Retail.toString c)
                                     ]
                                     [ text (Retail.toDisplay c) ]
@@ -796,7 +796,7 @@ distributionView selectedImpact recipe results =
                 , class "border-top-0 text-muted py-2 fs-7"
                 ]
                 [ div [ class "text-truncate" ]
-                    [ recipe.conservation
+                    [ recipe.distribution
                         |> Retail.displayNeeds
                         |> text
                     ]
@@ -1074,8 +1074,8 @@ stepResultsView model results =
             , { label = "Transports"
               , impact = toFloat results.transports.impacts
               }
-            , { label = "Stockage distributeur"
-              , impact = toFloat results.recipe.conservation
+            , { label = "Distribution"
+              , impact = toFloat results.recipe.distribution
               }
             ]
 

@@ -13,7 +13,7 @@ module Data.Food.Builder.Query exposing
     , encode
     , parseBase64Query
     , setTransform
-    , updateConservation
+    , updateDistribution
     , updateIngredient
     , updatePackaging
     , updateTransform
@@ -59,7 +59,7 @@ type alias Query =
     { ingredients : List IngredientQuery
     , transform : Maybe ProcessQuery
     , packaging : List ProcessQuery
-    , conservation : Retail.Conservation
+    , distribution : Retail.Distribution
     , category : Maybe Category.Id
     }
 
@@ -88,7 +88,7 @@ emptyQuery =
     { ingredients = []
     , transform = Nothing
     , packaging = []
-    , conservation = Retail.ambient
+    , distribution = Retail.ambient
     , category = Nothing
     }
 
@@ -137,7 +137,7 @@ carrotCake =
           , mass = Mass.grams 105
           }
         ]
-    , conservation = Retail.ambient
+    , distribution = Retail.ambient
     , category = Just (Category.Id "cakes")
     }
 
@@ -148,7 +148,7 @@ decode =
         |> Pipe.required "ingredients" (Decode.list decodeIngredient)
         |> Pipe.optional "transform" (Decode.maybe decodeProcess) Nothing
         |> Pipe.required "packaging" (Decode.list decodeProcess)
-        |> Pipe.custom (Decode.field "conservation" Retail.decode)
+        |> Pipe.custom (Decode.field "distribution" Retail.decode)
         |> Pipe.optional "category" (Decode.maybe Category.decodeId) Nothing
 
 
@@ -198,7 +198,7 @@ encode v =
         [ ( "ingredients", Encode.list encodeIngredient v.ingredients )
         , ( "transform", v.transform |> Maybe.map encodeProcess |> Maybe.withDefault Encode.null )
         , ( "packaging", Encode.list encodeProcess v.packaging )
-        , ( "conservation", Retail.encode v.conservation )
+        , ( "distribution", Retail.encode v.distribution )
         , ( "category", v.category |> Maybe.map Category.encodeId |> Maybe.withDefault Encode.null )
         ]
 
@@ -297,11 +297,11 @@ updateTransformMass query =
     }
 
 
-updateConservation : String -> Query -> Query
-updateConservation newConservation query =
+updateDistribution : String -> Query -> Query
+updateDistribution distribution query =
     { query
-        | conservation =
-            Retail.fromString newConservation
+        | distribution =
+            Retail.fromString distribution
                 |> Result.withDefault Retail.ambient
     }
 

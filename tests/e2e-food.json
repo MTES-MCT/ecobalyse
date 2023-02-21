@@ -8,7 +8,7 @@
       "ingredients[]=carrot;225",
       "transform=aded2490573207ec7ad5a3813978f6a4;545",
       "packaging[]=23b2754e5943bc77916f8f871edc53b6;105",
-      "conservation=ambient"
+      "distribution=ambient"
     ],
     "impacts": {
       "acd": 0.013282826501078777,
@@ -69,7 +69,7 @@
       "ingredients[]=carrot;225;default;CN",
       "transform=aded2490573207ec7ad5a3813978f6a4;545",
       "packaging[]=23b2754e5943bc77916f8f871edc53b6;105",
-      "conservation=ambient"
+      "distribution=ambient"
     ],
     "impacts": {
       "acd": 0.014815131780162888,
@@ -130,7 +130,7 @@
       "ingredients[]=carrot;225;organic",
       "transform=aded2490573207ec7ad5a3813978f6a4;545",
       "packaging[]=23b2754e5943bc77916f8f871edc53b6;105",
-      "conservation=ambient"
+      "distribution=ambient"
     ],
     "impacts": {
       "acd": 0.01265067112293485,
@@ -191,7 +191,7 @@
       "ingredients[]=carrot;225;organic;CN",
       "transform=aded2490573207ec7ad5a3813978f6a4;545",
       "packaging[]=23b2754e5943bc77916f8f871edc53b6;105",
-      "conservation=ambient"
+      "distribution=ambient"
     ],
     "impacts": {
       "acd": 0.01418297640201896,
@@ -247,7 +247,7 @@
     "name": "Mango by plane",
     "query": [
       "ingredients[]=mango;120",
-      "conservation=ambient"
+      "distribution=ambient"
     ],
     "impacts": {
       "acd": 0.012016174716031652,
@@ -303,7 +303,7 @@
     "name": "Mango by plane from Brazil (by default)",
     "query": [
       "ingredients[]=mango;120;default;BR",
-      "conservation=ambient"
+      "distribution=ambient"
     ],
     "impacts": {
       "acd": 0.005704480898785901,
@@ -359,7 +359,7 @@
     "name": "Mango by plane from Brazil (by default, explicitely)",
     "query": [
       "ingredients[]=mango;120;default;BR;default",
-      "conservation=ambient"
+      "distribution=ambient"
     ],
     "impacts": {
       "acd": 0.005704480898785901,
@@ -415,7 +415,7 @@
     "name": "Mango by plane from Brazil (explicitely)",
     "query": [
       "ingredients[]=mango;120;default;BR;byPlane",
-      "conservation=ambient"
+      "distribution=ambient"
     ],
     "impacts": {
       "acd": 0.005704480898785901,
@@ -471,7 +471,7 @@
     "name": "Mango by boat from Brazil",
     "query": [
       "ingredients[]=mango;120;default;BR;noPlane",
-      "conservation=ambient"
+      "distribution=ambient"
     ],
     "impacts": {
       "acd": 0.0006472453984518461,
@@ -532,7 +532,7 @@
       "ingredients[]=carrot;225;organic;CN;default",
       "transform=aded2490573207ec7ad5a3813978f6a4;545",
       "packaging[]=23b2754e5943bc77916f8f871edc53b6;105",
-      "conservation=ambient"
+      "distribution=ambient"
     ],
     "impacts": {
       "acd": 0.01418297640201896,
