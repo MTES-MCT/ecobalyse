@@ -86,7 +86,7 @@ frozen =
 
 
 displayNeeds : Distribution -> String
-displayNeeds (Distribution type_ needs) =
+displayNeeds (Distribution _ needs) =
     let
         energy =
             needs.energy |> Quantity.in_ (Energy.kilowattHours >> Quantity.per (Volume.cubicMeters 1)) |> String.fromFloat
@@ -100,15 +100,7 @@ displayNeeds (Distribution type_ needs) =
         transport =
             needs.transport |> Length.inKilometers |> String.fromFloat
     in
-    case type_ of
-        Ambient ->
-            "Énergie: " ++ energy ++ " kWh/m³, Réfrigération: " ++ cooling ++ " kWh/m³, Eau " ++ water ++ " L/m³, Transport: " ++ transport ++ "km"
-
-        Fresh ->
-            "Énergie: " ++ energy ++ " kWh/m³, Réfrigération: " ++ cooling ++ " kWh/m³, Eau " ++ water ++ " L/m³, Transpor" ++ transport ++ "km"
-
-        Frozen ->
-            "Énergie: " ++ energy ++ " kWh/m³, Réfrigération: " ++ cooling ++ " kWh/m³, Eau " ++ water ++ " L/m³, Transport: " ++ transport ++ "km"
+    "Énergie: " ++ energy ++ " kWh/m³, Réfrigération: " ++ cooling ++ " kWh/m³, Eau " ++ water ++ " L/m³, Transport: " ++ transport ++ "km"
 
 
 all : List Distribution
