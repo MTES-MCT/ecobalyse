@@ -769,7 +769,7 @@ packagingListView db selectedImpact recipe results =
 distributionView : Impact.Definition -> Recipe -> Recipe.Results -> List (Html Msg)
 distributionView selectedImpact recipe results =
     [ div [ class "card-header d-flex align-items-center justify-content-between" ]
-        [ h5 [ class "mb-0" ] [ text "Stockage et distribution" ]
+        [ h5 [ class "mb-0" ] [ text "Distribution" ]
         , results.recipe.distribution
             |> Format.formatFoodSelectedImpact selectedImpact
         ]
