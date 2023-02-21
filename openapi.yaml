@@ -273,6 +273,7 @@ paths:
         - $ref: "#/components/parameters/transformParam"
         - $ref: "#/components/parameters/packagingParam"
         - $ref: "#/components/parameters/foodCategoryParam"
+        - $ref: "#/components/parameters/distributionParam"
       responses:
         200:
           description: Opération réussie
@@ -735,6 +736,38 @@ components:
         cakes:
           summary: Gâteaux
           value: cakes
+    distributionParam:
+      name: distribution
+      in: query
+      description: |
+        Choix du mode de stockage chez le distributeur, parmi ces valeurs possibles :
+
+        - `ambient`: Température ambiante (valeur par défaut)
+        - `fresh`: Réfrigéré
+        - `frozen`: Congelé
+
+        La distribution inclut 450km de transport terrestre vers le site de stockage + 150km vers le site de distribution.
+
+      required: false
+      style: form
+      schema:
+        type: string
+        description: Type de distribution chez le distributeur
+        default: "ambient"
+        enum:
+          - "ambient"
+          - "fresh"
+          - "frozen"
+      examples:
+        Default:
+          summary: "Température ambiante"
+          value: "ambient"
+        fresh:
+          summary: Température ambiante
+          value: fresh
+        frozen:
+          summary: Congelé
+          value: frozen
   schemas:
     Impacts:
       type: object

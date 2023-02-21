@@ -17,6 +17,7 @@ import Data.Food.Process as Process exposing (Process)
 import Data.Impact as Impact
 import Data.Transport as Transport exposing (Transport)
 import Data.Unit as Unit
+import Density exposing (Density, gramsPerCubicCentimeter)
 import Dict exposing (Dict)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
@@ -32,6 +33,7 @@ type alias Ingredient =
     , defaultOrigin : Origin
     , rawToCookedRatio : Unit.Ratio
     , variants : Variants
+    , density : Density
     }
 
 
@@ -106,6 +108,7 @@ decodeIngredient processes =
         |> Pipe.required "default_origin" Origin.decode
         |> Pipe.required "raw_to_cooked_ratio" (Unit.decodeRatio { percentage = False })
         |> Pipe.required "variants" (decodeVariants processes)
+        |> Pipe.required "density" (Decode.float |> Decode.andThen (gramsPerCubicCentimeter >> Decode.succeed))
 
 
 decodeVariants : Dict String Process -> Decoder Variants

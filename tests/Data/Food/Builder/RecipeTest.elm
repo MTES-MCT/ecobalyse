@@ -5,6 +5,7 @@ import Data.Food.Builder.Query as Query exposing (carrotCake)
 import Data.Food.Builder.Recipe as Recipe
 import Data.Food.Ingredient as Ingredient
 import Data.Food.Process as Process
+import Data.Food.Retail as Retail
 import Data.Unit as Unit
 import Dict
 import Dict.Any as AnyDict
@@ -88,11 +89,11 @@ suite =
                     |> Expect.equal
                         (Ok
                             { category = "Gâteaux"
-                            , all = { impact = Unit.impact 155.3642304206504, letter = "B", outOf100 = 77 }
-                            , biodiversity = { impact = Unit.impact 122.06821814763829, letter = "B", outOf100 = 66 }
-                            , climate = { impact = Unit.impact 26.99402247682233, letter = "A", outOf100 = 87 }
-                            , health = { impact = Unit.impact 40.559132670966044, letter = "A", outOf100 = 81 }
-                            , resources = { impact = Unit.impact 19.73424508355989, letter = "A", outOf100 = 82 }
+                            , all = { impact = Unit.impact 166.29451849110046, letter = "B", outOf100 = 73 }
+                            , biodiversity = { impact = Unit.impact 128.99781596268198, letter = "B", outOf100 = 63 }
+                            , climate = { impact = Unit.impact 30.18881282750459, letter = "A", outOf100 = 81 }
+                            , health = { impact = Unit.impact 45.180941631048185, letter = "B", outOf100 = 75 }
+                            , resources = { impact = Unit.impact 22.59760103643419, letter = "B", outOf100 = 75 }
                             }
                         )
                     |> asTest "should return expected scoring"
@@ -118,6 +119,7 @@ suite =
                   , transform = Nothing
                   , packaging = []
                   , category = Nothing
+                  , distribution = Retail.ambient
                   }
                     |> Recipe.compute builderDb
                     |> Result.map (Tuple.first >> Recipe.getMassAtPackaging)
@@ -179,6 +181,7 @@ suite =
                   , transform = Nothing
                   , packaging = []
                   , category = Nothing
+                  , distribution = Retail.ambient
                   }
                     |> Recipe.compute builderDb
                     |> Result.map firstIngredientAirDistance
@@ -188,6 +191,7 @@ suite =
                   , transform = Nothing
                   , packaging = []
                   , category = Nothing
+                  , distribution = Retail.ambient
                   }
                     |> Recipe.compute builderDb
                     |> Result.map firstIngredientAirDistance
@@ -197,6 +201,7 @@ suite =
                   , transform = Nothing
                   , packaging = []
                   , category = Nothing
+                  , distribution = Retail.ambient
                   }
                     |> Recipe.compute builderDb
                     |> Result.map firstIngredientAirDistance
@@ -206,6 +211,7 @@ suite =
                   , transform = Nothing
                   , packaging = []
                   , category = Nothing
+                  , distribution = Retail.ambient
                   }
                     |> Recipe.compute builderDb
                     |> Result.map firstIngredientAirDistance

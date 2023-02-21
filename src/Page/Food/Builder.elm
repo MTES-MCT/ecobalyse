@@ -19,6 +19,7 @@ import Data.Food.Category as Category
 import Data.Food.Ingredient as Ingredient exposing (Id, Ingredient)
 import Data.Food.Origin as Origin
 import Data.Food.Process as Process exposing (Process)
+import Data.Food.Retail as Retail
 import Data.Gitbook as Gitbook
 import Data.Impact as Impact
 import Data.Key as Key
@@ -94,6 +95,7 @@ type Msg
     | UpdateIngredient Id Query.IngredientQuery
     | UpdatePackaging Process.Code Query.ProcessQuery
     | UpdateTransform Query.ProcessQuery
+    | UpdateDistribution String
 
 
 init : Session -> Impact.Trigram -> Maybe Query -> ( Model, Session, Cmd Msg )
@@ -324,6 +326,10 @@ update ({ queries } as session) msg model =
         UpdateTransform newTransform ->
             ( model, session, Cmd.none )
                 |> updateQuery (Query.updateTransform newTransform query)
+
+        UpdateDistribution distribution ->
+            ( model, session, Cmd.none )
+                |> updateQuery (Query.updateDistribution distribution query)
 
 
 updateQuery : Query -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
@@ -760,6 +766,46 @@ packagingListView db selectedImpact recipe results =
     ]
 
 
+distributionView : Impact.Definition -> Recipe -> Recipe.Results -> List (Html Msg)
+distributionView selectedImpact recipe results =
+    [ div [ class "card-header d-flex align-items-center justify-content-between" ]
+        [ h5 [ class "mb-0" ] [ text "Distribution" ]
+        , results.recipe.distribution
+            |> Format.formatFoodSelectedImpact selectedImpact
+        ]
+    , div []
+        [ ul [ class "list-group list-group-flush border-top-0 border-bottom-0" ]
+            [ li [ class "IngredientFormWrapper" ]
+                [ select
+                    [ class "form-select form-select-sm"
+                    , onInput UpdateDistribution
+                    ]
+                    (Retail.all
+                        |> List.map
+                            (\distribution ->
+                                option
+                                    [ selected (recipe.distribution == distribution)
+                                    , value (Retail.toString distribution)
+                                    ]
+                                    [ text (Retail.toDisplay distribution) ]
+                            )
+                    )
+                ]
+            , div
+                [ class "card-body d-flex justify-content-between align-items-center gap-1"
+                , class "border-top-0 text-muted py-2 fs-7"
+                ]
+                [ div [ class "text-truncate" ]
+                    [ recipe.distribution
+                        |> Retail.displayNeeds
+                        |> text
+                    ]
+                ]
+            ]
+        ]
+    ]
+
+
 categorySelectorView : Maybe Category.Id -> Html Msg
 categorySelectorView maybeId =
     Category.all
@@ -1004,6 +1050,8 @@ stepListView db { impact } recipe results =
             (transformView db impact recipe results)
         , div [ class "card" ]
             (packagingListView db impact recipe results)
+        , div [ class "card" ]
+            (distributionView impact recipe results)
         ]
 
 
@@ -1025,6 +1073,9 @@ stepResultsView model results =
               }
             , { label = "Transports"
               , impact = toFloat results.transports.impacts
+              }
+            , { label = "Distribution"
+              , impact = toFloat results.recipe.distribution
               }
             ]
 

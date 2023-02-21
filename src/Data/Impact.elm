@@ -314,8 +314,8 @@ filterImpacts fn =
 
 
 mapImpacts : (Trigram -> Unit.Impact -> Unit.Impact) -> Impacts -> Impacts
-mapImpacts fn =
-    AnyDict.map fn
+mapImpacts =
+    AnyDict.map
 
 
 perKg : Mass -> Impacts -> Impacts

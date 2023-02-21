@@ -1257,6 +1257,7 @@
   },
   {
     "name": "Transport, freight, lorry 16-32 metric ton, EURO5 {RER}| transport, freight, lorry 16-32 metric ton, EURO5 | Cut-off, S - Copied from Ecoinvent",
+    "alias": "lorry",
     "unit": "ton kilometer",
     "simapro_id": "c24fc476f6d5237aa2c58d7d95bc1ca4",
     "system_description": "Ecoinvent v3",
@@ -1288,6 +1289,7 @@
   },
   {
     "name": "Transport, freight, sea, transoceanic ship {GLO}| processing | Cut-off, S - Copied from Ecoinvent",
+    "alias": "boat",
     "unit": "ton kilometer",
     "simapro_id": "958bbb33cf6cdb8e3c8d4f21aec5ef98",
     "system_description": "Ecoinvent v3",
@@ -1319,6 +1321,7 @@
   },
   {
     "name": "Transport, freight, aircraft {RER}| intercontinental | Cut-off, S - Copied from Ecoinvent",
+    "alias": "plane",
     "unit": "ton kilometer",
     "simapro_id": "5bc527741ac919ff8710a474f849614f",
     "system_description": "Ecoinvent v3",
@@ -1482,6 +1485,70 @@
       "htn": 7.573579126554939e-08,
       "bvi": 0.539152617,
       "pef": 91.17393973868025
+    }
+  },
+  {
+    "name": "Electricity, low voltage {FR}| market for | Cut-off, S - Copied from Ecoinvent",
+    "alias": "electricity",
+    "unit": "kilowatt hour",
+    "simapro_id": "ef953c00d48ee59f57773534f6487b09",
+    "system_description": "Ecoinvent v3",
+    "category_tags": [
+      "Others",
+      "Ecoinvent cut-off S copy"
+    ],
+    "category": "energy",
+    "impacts": {
+      "acd": 0.00044779056520196443,
+      "ozd": 5.326111136732162e-08,
+      "cch": 0.06176707642370041,
+      "fwe": 4.0346918494323116e-05,
+      "swe": 0.00010037521833242096,
+      "tre": 0.0008815914737872435,
+      "pco": 0.00018168973950971975,
+      "pma": 4.993499991260468e-09,
+      "ior": 0.6156904369535053,
+      "fru": 12.983525385846955,
+      "mru": 5.551109112255851e-07,
+      "ldu": 0.3053480360195681,
+      "wtu": 0.15389935857296463,
+      "etf": 3.269025555241707,
+      "htc": 8.441908308530978e-11,
+      "htn": 1.6234818441361719e-09,
+      "bvi": 0.0,
+      "pef": 31.6384309286394
+    }
+  },
+  {
+    "name": "Tap water {Europe without Switzerland}| market for | Cut-off, S - Copied from Ecoinvent",
+    "alias": "tapwater",
+    "unit": "kilogram",
+    "simapro_id": "224411d9aa3c0ed3cf9b5fc590c237d2",
+    "system_description": "Ecoinvent v3",
+    "category_tags": [
+      "Others",
+      "Ecoinvent cut-off S copy"
+    ],
+    "category": "material",
+    "impacts": {
+      "acd": 2.5165793793542648e-06,
+      "ozd": 3.065458156127504e-11,
+      "cch": 0.00035861490374054344,
+      "fwe": 2.769130134680817e-07,
+      "swe": 4.0806341157653827e-07,
+      "tre": 5.584985301564687e-06,
+      "pco": 1.2167911573327183e-06,
+      "pma": 2.1661652914484027e-11,
+      "ior": 0.0001275835662646913,
+      "fru": 0.00617268998676624,
+      "mru": 1.6124876618968004e-09,
+      "ldu": 0.001654003191270537,
+      "wtu": 0.00025819746728940286,
+      "etf": 0.006653658717957412,
+      "htc": 9.479093491199899e-13,
+      "htn": 2.146436438633664e-11,
+      "bvi": 0.0,
+      "pef": 0.04279254190585496
     }
   },
   {

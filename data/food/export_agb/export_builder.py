@@ -316,7 +316,7 @@ if __name__ == "__main__":
 
     processes_to_export_file = "builder_processes_to_export.txt"
     with open(processes_to_export_file, "r") as f:
-        processes_to_export = f.readlines()
+        processes_to_export = [line for line in f.readlines() if line.strip()]
 
     # Parse the ingredients_base.json, which may contain complex ingredients to add/compute
     with open("ingredients_base.json", "r") as f:

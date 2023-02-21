@@ -284,6 +284,7 @@ describe("API", () => {
         const response = await makeRequest("/api/food/recipe", [
           "ingredients[]=carrot;268",
           "transform=aded2490573207ec7ad5a3813978f6a4;1050",
+          "distribution=ambient"
         ]);
 
         expectStatus(response, 200);

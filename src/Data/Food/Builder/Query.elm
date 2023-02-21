@@ -13,6 +13,7 @@ module Data.Food.Builder.Query exposing
     , encode
     , parseBase64Query
     , setTransform
+    , updateDistribution
     , updateIngredient
     , updatePackaging
     , updateTransform
@@ -23,6 +24,7 @@ import Data.Country as Country
 import Data.Food.Category as Category
 import Data.Food.Ingredient as Ingredient
 import Data.Food.Process as Process
+import Data.Food.Retail as Retail
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
 import Json.Decode.Pipeline as Pipe
@@ -57,6 +59,7 @@ type alias Query =
     { ingredients : List IngredientQuery
     , transform : Maybe ProcessQuery
     , packaging : List ProcessQuery
+    , distribution : Retail.Distribution
     , category : Maybe Category.Id
     }
 
@@ -85,6 +88,7 @@ emptyQuery =
     { ingredients = []
     , transform = Nothing
     , packaging = []
+    , distribution = Retail.ambient
     , category = Nothing
     }
 
@@ -133,6 +137,7 @@ carrotCake =
           , mass = Mass.grams 105
           }
         ]
+    , distribution = Retail.ambient
     , category = Just (Category.Id "cakes")
     }
 
@@ -143,6 +148,7 @@ decode =
         |> Pipe.required "ingredients" (Decode.list decodeIngredient)
         |> Pipe.optional "transform" (Decode.maybe decodeProcess) Nothing
         |> Pipe.required "packaging" (Decode.list decodeProcess)
+        |> Pipe.custom (Decode.field "distribution" Retail.decode)
         |> Pipe.optional "category" (Decode.maybe Category.decodeId) Nothing
 
 
@@ -192,6 +198,7 @@ encode v =
         [ ( "ingredients", Encode.list encodeIngredient v.ingredients )
         , ( "transform", v.transform |> Maybe.map encodeProcess |> Maybe.withDefault Encode.null )
         , ( "packaging", Encode.list encodeProcess v.packaging )
+        , ( "distribution", Retail.encode v.distribution )
         , ( "category", v.category |> Maybe.map Category.encodeId |> Maybe.withDefault Encode.null )
         ]
 
@@ -287,6 +294,15 @@ updateTransformMass query =
                     (\transform ->
                         { transform | mass = getIngredientMass query }
                     )
+    }
+
+
+updateDistribution : String -> Query -> Query
+updateDistribution distribution query =
+    { query
+        | distribution =
+            Retail.fromString distribution
+                |> Result.withDefault Retail.ambient
     }
 
 

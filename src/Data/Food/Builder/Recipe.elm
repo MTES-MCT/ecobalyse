@@ -28,17 +28,20 @@ import Data.Food.Builder.Query as BuilderQuery exposing (Query)
 import Data.Food.Category as Category exposing (Category)
 import Data.Food.Ingredient as Ingredient exposing (Id, Ingredient)
 import Data.Food.Process as Process exposing (Process)
+import Data.Food.Retail as Retail
 import Data.Impact as Impact exposing (Impacts)
 import Data.Scope as Scope
 import Data.Textile.Formula as Formula
 import Data.Transport as Transport exposing (Transport)
 import Data.Unit as Unit
+import Density exposing (Density, gramsPerCubicCentimeter)
 import Json.Encode as Encode
 import Length
 import Mass exposing (Mass)
 import Quantity
 import Result.Extra as RE
 import String.Extra as SE
+import Volume exposing (Volume)
 
 
 france : Country.Code
@@ -65,6 +68,7 @@ type alias Recipe =
     { ingredients : List RecipeIngredient
     , transform : Maybe Transform
     , packaging : List Packaging
+    , distribution : Retail.Distribution
     , category : Maybe Category
     }
 
@@ -80,6 +84,7 @@ type alias Results =
         , ingredients : List ( RecipeIngredient, Impacts )
         , transform : Impacts
         , transports : Transport
+        , distribution : Impacts
         }
     , packaging : Impacts
     , transports : Transport
@@ -129,9 +134,10 @@ categoryFromQuery =
 
 compute : Db -> Query -> Result String ( Recipe, Results )
 compute db =
+    -- FIXME get the wellknown early and propagate the error to the computation
     fromQuery db
         >> Result.map
-            (\({ ingredients, transform, packaging, category } as recipe) ->
+            (\({ ingredients, transform, packaging, distribution, category } as recipe) ->
                 let
                     updateImpacts impacts =
                         impacts
@@ -155,6 +161,7 @@ compute db =
 
                     ingredientsTransport =
                         ingredients
+                            -- FIXME pass the wellknown to computeIngredientTransport
                             |> List.map (computeIngredientTransport db)
                             |> Transport.sum db.impacts
 
@@ -162,6 +169,17 @@ compute db =
                         transform
                             |> Maybe.map (computeProcessImpacts db.impacts >> List.singleton >> updateImpacts)
                             |> Maybe.withDefault Impact.noImpacts
+
+                    distributionImpacts =
+                        let
+                            mass =
+                                getMassAtPackaging recipe
+
+                            volume =
+                                getTransformedIngredientsVolume recipe
+                        in
+                        Result.map (Retail.computeImpacts db mass volume distribution)
+                            (Process.loadWellKnown db.processes)
 
                     recipeImpacts =
                         updateImpacts
@@ -171,14 +189,16 @@ compute db =
                             ]
 
                     totalImpacts =
-                        Impact.sumImpacts db.impacts
-                            [ recipeImpacts, packagingImpacts ]
+                        [ Ok recipeImpacts, Ok packagingImpacts, distributionImpacts ]
+                            |> RE.combine
+                            |> Result.map (Impact.sumImpacts db.impacts)
 
                     impactsPerKg =
                         -- Note: Product impacts per kg is computed against transformed
                         --       ingredients mass, excluding packaging
                         totalImpacts
-                            |> Impact.perKg (getTransformedIngredientsMass recipe)
+                            |> Result.map
+                                (Impact.perKg (getTransformedIngredientsMass recipe))
 
                     packagingImpacts =
                         packaging
@@ -187,27 +207,36 @@ compute db =
 
                     scoring =
                         impactsPerKg
-                            |> computeScoring db.impacts category
+                            |> Result.map (computeScoring db.impacts category)
                 in
-                ( recipe
-                , { total = totalImpacts
-                  , perKg = impactsPerKg
-                  , scoring = scoring
+                Result.map4
+                    (\total perKg distrib score ->
+                        ( recipe
+                        , { total = total
+                          , perKg = perKg
+                          , scoring = score
 
-                  -- XXX: For now, we stop at packaging step
-                  , totalMass = getMassAtPackaging recipe
-                  , recipe =
-                        { total = recipeImpacts
-                        , ingredientsTotal = ingredientsTotalImpacts
-                        , ingredients = ingredientsImpacts
-                        , transform = transformImpacts
-                        , transports = ingredientsTransport
-                        }
-                  , packaging = packagingImpacts
-                  , transports = ingredientsTransport
-                  }
-                )
+                          -- XXX: For now, we stop at packaging step
+                          , totalMass = getMassAtPackaging recipe
+                          , recipe =
+                                { total = recipeImpacts
+                                , ingredientsTotal = ingredientsTotalImpacts
+                                , ingredients = ingredientsImpacts
+                                , transform = transformImpacts
+                                , transports = ingredientsTransport
+                                , distribution = distrib
+                                }
+                          , packaging = packagingImpacts
+                          , transports = ingredientsTransport
+                          }
+                        )
+                    )
+                    totalImpacts
+                    impactsPerKg
+                    distributionImpacts
+                    scoring
             )
+        >> RE.join
 
 
 computeScoring : List Impact.Definition -> Maybe Category -> Impacts -> Scoring
@@ -419,10 +448,11 @@ encodeScoring scoring =
 
 fromQuery : Db -> Query -> Result String Recipe
 fromQuery db query =
-    Result.map4 Recipe
+    Result.map5 Recipe
         (ingredientListFromQuery db query)
         (transformFromQuery db query)
         (packagingListFromQuery db query)
+        (Ok query.distribution)
         (categoryFromQuery query.category)
 
 
@@ -450,6 +480,27 @@ getTransformedIngredientsMass { ingredients, transform } =
                         mass
             )
         |> Quantity.sum
+
+
+getTransformedIngredientsDensity : Recipe -> Density
+getTransformedIngredientsDensity { ingredients, transform } =
+    case ingredients of
+        [ i ] ->
+            -- density = 1 for a transformed ingredient
+            if transform /= Nothing then
+                gramsPerCubicCentimeter 1
+
+            else
+                i.ingredient.density
+
+        _ ->
+            -- density = 1 for recipes
+            gramsPerCubicCentimeter 1
+
+
+getTransformedIngredientsVolume : Recipe -> Volume
+getTransformedIngredientsVolume recipe =
+    getTransformedIngredientsMass recipe |> Quantity.at_ (getTransformedIngredientsDensity recipe)
 
 
 getRecipeIngredientProcess : RecipeIngredient -> Process
