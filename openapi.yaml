@@ -742,7 +742,7 @@ components:
       description: |
         Choix du mode de stockage chez le distributeur, parmi ces valeurs possibles :
 
-        - `ambient`: Température ambiante
+        - `ambient`: Température ambiante (valeur par défaut)
         - `fresh`: Réfrigéré
         - `frozen`: Congelé
 

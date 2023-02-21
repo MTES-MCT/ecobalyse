@@ -34,7 +34,7 @@ import Data.Scope as Scope
 import Data.Textile.Formula as Formula
 import Data.Transport as Transport exposing (Transport)
 import Data.Unit as Unit
-import Density exposing (Density)
+import Density exposing (Density, gramsPerCubicCentimeter)
 import Json.Encode as Encode
 import Length
 import Mass exposing (Mass)
@@ -484,19 +484,18 @@ getTransformedIngredientsMass { ingredients, transform } =
 
 getTransformedIngredientsDensity : Recipe -> Density
 getTransformedIngredientsDensity { ingredients, transform } =
-    Density.gramsPerCubicCentimeter <|
-        case ingredients of
-            [ i ] ->
-                -- density = 1 for a transformed ingredient
-                if transform /= Nothing then
-                    1
+    case ingredients of
+        [ i ] ->
+            -- density = 1 for a transformed ingredient
+            if transform /= Nothing then
+                gramsPerCubicCentimeter 1
 
-                else
-                    i.ingredient.density
+            else
+                i.ingredient.density
 
-            --density 1 for recipes
-            _ ->
-                1
+        _ ->
+            -- density = 1 for recipes
+            gramsPerCubicCentimeter 1
 
 
 getTransformedIngredientsVolume : Recipe -> Volume
