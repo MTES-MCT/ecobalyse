@@ -42,11 +42,11 @@ suite =
                 , { carrotCake
                     | ingredients =
                         carrotCake.ingredients
-                            |> List.map (\ingredient -> { ingredient | byPlane = Just True })
+                            |> List.map (\ingredient -> { ingredient | planeTransport = Ingredient.ByPlane })
                   }
                     |> Recipe.fromQuery builderDb
                     |> Expect.err
-                    |> asTest "should return an Err for an invalid 'byPlane' value for an ingredient without a default origin by plane"
+                    |> asTest "should return an Err for an invalid 'planeTransport' value for an ingredient without a default origin by plane"
                 ]
             , describe "compute"
                 (let
@@ -105,14 +105,14 @@ suite =
                           , mass = Mass.grams 120
                           , variant = Query.Default
                           , country = Nothing
-                          , byPlane = Nothing
+                          , planeTransport = Ingredient.PlaneNotApplicable
                           }
                         , { id = Ingredient.idFromString "wheat"
                           , name = "Blé tendre"
                           , mass = Mass.grams 140
                           , variant = Query.Default
                           , country = Nothing
-                          , byPlane = Nothing
+                          , planeTransport = Ingredient.PlaneNotApplicable
                           }
                         ]
                   , transform = Nothing
@@ -155,7 +155,7 @@ suite =
                     , mass = Mass.grams 120
                     , variant = Query.Default
                     , country = Nothing
-                    , byPlane = Just True
+                    , planeTransport = Ingredient.ByPlane
                     }
 
                 firstIngredientAirDistance ( recipe, _ ) =
@@ -173,7 +173,7 @@ suite =
                           , mass = Mass.grams 120
                           , variant = Query.Default
                           , country = Nothing
-                          , byPlane = Nothing
+                          , planeTransport = Ingredient.PlaneNotApplicable
                           }
                         ]
                   , transform = Nothing
@@ -193,7 +193,7 @@ suite =
                     |> Result.map firstIngredientAirDistance
                     |> Expect.equal (Ok (Just 18000))
                     |> asTest "should have air transport for mango from its default origin"
-                , { ingredients = [ { mango | country = Just (Country.codeFromString "CN"), byPlane = Just True } ]
+                , { ingredients = [ { mango | country = Just (Country.codeFromString "CN"), planeTransport = Ingredient.ByPlane } ]
                   , transform = Nothing
                   , packaging = []
                   , category = Nothing
@@ -201,8 +201,8 @@ suite =
                     |> Recipe.compute builderDb
                     |> Result.map firstIngredientAirDistance
                     |> Expect.equal (Ok (Just 8189))
-                    |> asTest "should always have air transport for mango even from other countries if 'byPlane' is true"
-                , { ingredients = [ { mango | country = Just (Country.codeFromString "CN"), byPlane = Just False } ]
+                    |> asTest "should always have air transport for mango even from other countries if 'planeTransport' is 'byPlane'"
+                , { ingredients = [ { mango | country = Just (Country.codeFromString "CN"), planeTransport = Ingredient.NoPlane } ]
                   , transform = Nothing
                   , packaging = []
                   , category = Nothing
@@ -210,7 +210,7 @@ suite =
                     |> Recipe.compute builderDb
                     |> Result.map firstIngredientAirDistance
                     |> Expect.equal (Ok (Just 0))
-                    |> asTest "should not have air transport for mango from other countries if 'byPlane' is false"
+                    |> asTest "should not have air transport for mango from other countries if 'planeTransport' is 'noPlane'"
                 ]
             ]
         )

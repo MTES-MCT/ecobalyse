@@ -43,7 +43,7 @@ type alias IngredientQuery =
     , mass : Mass
     , variant : Variant
     , country : Maybe Country.Code
-    , byPlane : Maybe Bool
+    , planeTransport : Ingredient.PlaneTransport
     }
 
 
@@ -97,28 +97,28 @@ carrotCake =
           , mass = Mass.grams 120
           , variant = Default
           , country = Nothing
-          , byPlane = Nothing
+          , planeTransport = Ingredient.PlaneNotApplicable
           }
         , { id = Ingredient.idFromString "wheat"
           , name = "Blé tendre"
           , mass = Mass.grams 140
           , variant = Default
           , country = Nothing
-          , byPlane = Nothing
+          , planeTransport = Ingredient.PlaneNotApplicable
           }
         , { id = Ingredient.idFromString "milk"
           , name = "Lait"
           , mass = Mass.grams 60
           , variant = Default
           , country = Nothing
-          , byPlane = Nothing
+          , planeTransport = Ingredient.PlaneNotApplicable
           }
         , { id = Ingredient.idFromString "carrot"
           , name = "Carotte"
           , mass = Mass.grams 225
           , variant = Default
           , country = Nothing
-          , byPlane = Nothing
+          , planeTransport = Ingredient.PlaneNotApplicable
           }
         ]
     , transform =
@@ -146,6 +146,34 @@ decode =
         |> Pipe.optional "category" (Decode.maybe Category.decodeId) Nothing
 
 
+decodePlaneTransport : Decoder Ingredient.PlaneTransport
+decodePlaneTransport =
+    Decode.maybe
+        (Decode.string
+            |> Decode.map
+                (\str ->
+                    case str of
+                        "byPlane" ->
+                            Ingredient.ByPlane
+
+                        "noPlane" ->
+                            Ingredient.NoPlane
+
+                        _ ->
+                            Ingredient.PlaneNotApplicable
+                )
+        )
+        |> Decode.map
+            (\maybe ->
+                case maybe of
+                    Just planeTransport ->
+                        planeTransport
+
+                    Nothing ->
+                        Ingredient.PlaneNotApplicable
+            )
+
+
 decodeMass : Decoder Mass
 decodeMass =
     Decode.float
@@ -167,7 +195,9 @@ decodeIngredient =
         (Decode.field "mass" decodeMass)
         (Decode.field "variant" decodeVariant)
         (Decode.field "country" (Decode.maybe Country.decodeCode))
-        (Decode.field "byPlane" (Decode.maybe Decode.bool))
+        (Decode.field "byPlane"
+            decodePlaneTransport
+        )
 
 
 decodeVariant : Decoder Variant
@@ -204,13 +234,26 @@ encodeIngredient v =
         , ( "mass", encodeMass v.mass )
         , ( "variant", encodeVariant v.variant )
         , ( "country", v.country |> Maybe.map Country.encodeCode |> Maybe.withDefault Encode.null )
-        , ( "byPlane", v.byPlane |> Maybe.map Encode.bool |> Maybe.withDefault Encode.null )
+        , ( "byPlane", encodePlaneTransport v.planeTransport )
         ]
 
 
 encodeMass : Mass -> Encode.Value
 encodeMass =
     Mass.inKilograms >> Encode.float
+
+
+encodePlaneTransport : Ingredient.PlaneTransport -> Encode.Value
+encodePlaneTransport planeTransport =
+    case planeTransport of
+        Ingredient.PlaneNotApplicable ->
+            Encode.null
+
+        Ingredient.ByPlane ->
+            Encode.string "byPlane"
+
+        Ingredient.NoPlane ->
+            Encode.string "noPlane"
 
 
 encodeProcess : ProcessQuery -> Encode.Value
