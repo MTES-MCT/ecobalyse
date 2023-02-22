@@ -238,7 +238,7 @@ validateBool str =
 validateByPlaneValue : String -> Ingredient -> Result String Ingredient.PlaneTransport
 validateByPlaneValue str ingredient =
     case str of
-        "default" ->
+        "" ->
             Ok (Ingredient.byPlaneByDefault ingredient)
 
         "byPlane" ->
@@ -248,7 +248,7 @@ validateByPlaneValue str ingredient =
             Ok Ingredient.NoPlane
 
         _ ->
-            Err "La valeur ne peut être que parmi les choix suivants: 'default', 'byPlane', 'noPlane'."
+            Err "La valeur ne peut être que parmi les choix suivants: '', 'byPlane', 'noPlane'."
 
 
 validateCountry : String -> Scope -> List Country -> Result String Country.Code

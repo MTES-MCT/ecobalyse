@@ -335,7 +335,7 @@ describe("API", () => {
         expectFieldErrorMessage(
           await makeRequest("/api/food/recipe", ["ingredients[]=mango;123;;BR;badValue"]),
           "ingredients",
-          /La valeur ne peut être que parmi les choix suivants: 'default', 'byPlane', 'noPlane'./,
+          /La valeur ne peut être que parmi les choix suivants: '', 'byPlane', 'noPlane'./,
         );
       });
 

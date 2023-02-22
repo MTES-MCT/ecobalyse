@@ -629,7 +629,7 @@ components:
         - sa masse **exprimée en grammes**
         - un éventuel mode de production alternatif à utiliser (ex: `organic` pour du bio, laisser vide pour du conventionnel)
         - un éventuel code de pays d'origine (ex: `BR` pour le Brésil)
-        - un éventuel transport par avion *uniquement si c'est un [ingrédient de catégorie "HORS EUROPE-MAGHREB (AVION)"](https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/transport#circuits-consideres)* (valeurs possible: `default`, `byPlane`, `noPlane`)
+        - un éventuel transport par avion *uniquement si c'est un [ingrédient de catégorie "HORS EUROPE-MAGHREB (AVION)"](https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/transport#circuits-consideres)* (valeurs possible: ``, `byPlane`, `noPlane`)
 
         - `milk;268` signifie *268g de lait*;
         - `carrot;30;organic` signifie *30g de carrotes bio*;
@@ -638,7 +638,6 @@ components:
         - `mango;123;;;noPlane` signifie *123g de mangues en provenance de son origine par défaut (hors Europe-Maghreb), par bateau*;
         - `mango;123;;BR` signifie *123g de mangues en provenance du Brésil, par avion*;
         - `mango;123;;BR;byPlane` signifie de la même manière *123g de mangues en provenance du Brésil, par avion*;
-        - `mango;123;;BR;default` signifie toujours *123g de mangues en provenance du Brésil, par avion*;
         - `mango;123;;BR;noPlane` signifie *123g de mangues en provenance du Brésil, par bateau (pas par avion)*;
  
         > Par exemple, les paramètres à passer pour une recette à base de 268g de lait et 30g de carrotes bio d'espagne sont :

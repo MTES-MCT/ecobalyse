@@ -412,62 +412,6 @@
     }
   },
   {
-    "name": "Mango by plane from Brazil (by default, explicitely)",
-    "query": [
-      "ingredients[]=mango;120;;BR;default",
-      "distribution=ambient"
-    ],
-    "impacts": {
-      "acd": 0.005745310013858694,
-      "bvi": 0.020745336217080003,
-      "cch": 1.12970804581349,
-      "ecs": 74.56228379327935,
-      "etf": 16.451745758794985,
-      "fru": 16.425312076489565,
-      "fwe": 0.00003549018539140605,
-      "htc": 5.292396093418527e-10,
-      "htn": 4.16041130491672e-9,
-      "ior": 0.10010366480346873,
-      "ldu": 4.826604020737742,
-      "mru": 3.646406029367058e-7,
-      "ozd": 2.613870409696903e-7,
-      "pco": 0.005555317281817316,
-      "pef": 85.80958790699027,
-      "pma": 2.22038319184303e-8,
-      "swe": 0.0018601584743411798,
-      "tre": 0.021198598074634287,
-      "wtu": 0.05669063733013506
-    },
-    "scoring": {
-      "category": "Toutes les catégories",
-      "all": {
-        "impact": 621.3523649439946,
-        "letter": "D",
-        "outOf100": 37
-      },
-      "climate": {
-        "impact": 244.90522799652092,
-        "letter": "D",
-        "outOf100": 37
-      },
-      "biodiversity": {
-        "impact": 486.45153459042695,
-        "letter": "D",
-        "outOf100": 37
-      },
-      "health": {
-        "impact": 302.54420154379795,
-        "letter": "D",
-        "outOf100": 37
-      },
-      "resources": {
-        "impact": 105.62944661857613,
-        "letter": "D",
-        "outOf100": 37
-      }
-    }
-  },
-  {
     "name": "Mango by plane from Brazil (explicitely)",
     "query": [
       "ingredients[]=mango;120;;BR;byPlane",
@@ -582,10 +526,10 @@
   {
     "name": "Carrot cake, organic, China, default 'by plane' value",
     "query": [
-      "ingredients[]=egg;120;organic;CN;default",
-      "ingredients[]=wheat;140;organic;CN;default",
-      "ingredients[]=milk;60;organic;CN;default",
-      "ingredients[]=carrot;225;organic;CN;default",
+      "ingredients[]=egg;120;organic;CN",
+      "ingredients[]=wheat;140;organic;CN",
+      "ingredients[]=milk;60;organic;CN",
+      "ingredients[]=carrot;225;organic;CN",
       "transform=aded2490573207ec7ad5a3813978f6a4;545",
       "packaging[]=23b2754e5943bc77916f8f871edc53b6;105",
       "distribution=ambient"
