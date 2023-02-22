@@ -246,7 +246,7 @@ validateByPlaneValue str ingredient =
             Ok Ingredient.NoPlane
 
         _ ->
-            Err "La valeur ne peut être que parmis les choix suivants: 'default', 'byPlane', 'noPlane'."
+            Err "La valeur ne peut être que parmi les choix suivants: 'default', 'byPlane', 'noPlane'."
 
 
 validateCountry : String -> Scope -> List Country -> Result String Country.Code
