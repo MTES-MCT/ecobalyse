@@ -1,9 +1,3 @@
----
-description: >-
-  Votre retour d'expérience sur tout ou partie des travaux est précieux (contact
-  : alban.fournier@beta.gouv.fr)
----
-
 # Travaux en cours
 
 ## # 1 \_ Ennoblissement (terminé le 30/11/2022)
