@@ -16,9 +16,9 @@ Il est possible d'ajouter de nouvelles catégories si leur cycle de vie est maî
 
 Dans ce cas, merci de :&#x20;
 
-* nous contacter (ecobalyse@beta.gouv.fr),
-* préparer à minima une _Fiche Produit_ représentative du produit moyen de la catégorie à ajouter,
-* nous transmettre toute documentation (ACV, cahier des charges, etc.) permettant de maîtriser le cycle de vie de la catégorie à ajouter.
+* nous contacter (alban.fournier@beta.gouv.fr),
+* nous transmettre un maximum de Fiche Produit (cf. la page [Contribuer](https://fabrique-numerique.gitbook.io/ecobalyse/textile/mises-a-jour/contribuer-aux-travaux)),
+* nous transmettre toute documentation (ACV, cahier des charges, etc.) permettant de mieux appréhender le cycle de vie de la catégorie/vêtement à ajouter.
 
 ### L'indicateur qui m'intéresse n'est pas pris en compte
 
@@ -31,11 +31,19 @@ Cf. page méthodo sur ce sujet : [impacts considérés](impacts-consideres.md)
 
 C'est normal, nous enrichissons notre référentiel et affinons nos calculs au fil de l'eau. Il se peut donc que les résultats évoluent (à la marge) en fonction de ces évolutions. C'est plutôt une bonne chose, si on y réfléchit !
 
-### Je ne peux pas choisir le cuir
+### Je ne trouve pas une matière spécifique (ex : cuir)&#x20;
 
-Le cuir n'est pas proposé parmi les matières référencées dans la base Impacts pour le textile.\
-La prise en compte du cuir nécessiterait d'introduire un nouveau procédé pour couvrir cette matière. \
+Le socle technique actuellement utilisé (Base Impacts) est relativement limité concernant la modélisation des matières. Une nouvelle base de données sera mise en place courant 2023 et permettra d'enrichir la modélisation de l'étape Matière.&#x20;
+
+N'hésitez pas à nous partager toute ACV/ICV/études que vous auriez réalisée sur des matières afin d'enrichir nos prochains travaux.&#x20;
+
 On y travaille !
+
+### Comment s'articule votre méthodologie avec le PEFCR A\&F développé par la Commission Européenne ?&#x20;
+
+Nous participons aux travaux du PEFCR A\&F et souhaitons une harmonisation entre les cadres européen et français. La principale différence concerne le calendrier : le référentiel européen est en construction et ne sera pas finalisé/exploitable avant 2025 alors que le dispositif français devrait être finalisé fin 2023.
+
+Dès lors, Ecobalyse participe à enrichir les réflexions/travaux en cours, tant au niveau européen que français.&#x20;
 
 {% hint style="info" %}
 Si vous avez d'autres interrogations, vous pouvez également nous les adresser [par email](mailto:ecobalyse@beta.gouv.fr).
