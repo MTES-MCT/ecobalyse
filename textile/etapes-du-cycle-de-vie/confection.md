@@ -20,7 +20,9 @@ L'étape de confection a pour but de séparer les différentes pièces composant
 
 Un taux de perte par défaut est appliqué par type de vêtement.&#x20;
 
-L'utilisateur a la possibilité de modifier ce paramètre dans le calculateur (min = 0% / max = 40%).\
+Plus cette valeur est élevée, plus la quantité d'étoffe à produire est élevée.&#x20;
+
+L'utilisateur a la possibilité de modifier ce paramètre dans le calculateur.\
 
 
 Cf. l'[Explorateur](https://ecobalyse.beta.gouv.fr/#/explore/textile/products) pour les valeurs par défaut.
@@ -116,6 +118,16 @@ Il existe différents procédés de délavage dans le socle technique actuelleme
 * traitement des eaux très efficace à inefficace
 
 Pour l'instant nous ne prenons que le procédé par défaut qui est le plus impactant (chimique, majorant, traitement des eaux inefficace).
+
+#### Taux de perte (%)&#x20;
+
+Un taux de perte par défaut est appliqué à chaque vêtement (ex : 20% pour un pantalon, 15% pour un t-shirt, etc.).&#x20;
+
+Cf. l'[Explorateur](https://ecobalyse.beta.gouv.fr/#/explore/textile/products) pour l'ensemble des valeurs par défaut.
+
+L'utilisateur a la possibilité de modifier ce paramètre entre une borne min (0%) et max (40%).&#x20;
+
+
 
 [^1]: cf. p. 49/167 de l'étude : \
     Environmental assessment of Swedish clothing consumption - six garments, sustainable futurs (2019)

@@ -180,6 +180,10 @@ Cela s’explique en partie par le manque de profondeur de la base de données u
 
 Ces paramétrages seront prochainement disponibles sur le calculateur.
 
+#### Taux de perte (%)
+
+Aucune perte n'est appliquée lors de l'étape Ennoblissement.
+
 ## Limites
 
 * Les indicateurs "Consommations d'eau" et "Ecotoxicité aquatique" ne sont pas modélisés,
