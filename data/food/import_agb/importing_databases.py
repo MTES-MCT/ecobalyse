@@ -2,7 +2,7 @@ import brightway2 as bw
 from zipfile import ZipFile
 
 from custom_import_migrations import (
-    wfldb_technosphere_migration_data,
+    # wfldb_technosphere_migration_data,
     agb_technosphere_migration_data,
 )
 
@@ -47,8 +47,7 @@ def main():
             print("Extracting the (big) agribalyse zip file, please hold...")
             zf.extractall()
             print("Importing the agribalyse database in the brightway database...")
-            agb_importer = bw.SimaProCSVImporter(
-                agb_csv_filepath, "agribalyse3")
+            agb_importer = bw.SimaProCSVImporter(agb_csv_filepath, "agribalyse3")
 
         agb_technosphere_migration = bw.Migration("agb-technosphere")
         agb_technosphere_migration.write(
