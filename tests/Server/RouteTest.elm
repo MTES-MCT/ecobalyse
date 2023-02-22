@@ -82,17 +82,17 @@ foodEndpoints db =
             |> Maybe.andThen (Dict.get "ingredients")
             |> Expect.equal (Just "Format de variant invalide : invalidVariant")
             |> asTest "should validate that an ingredient variant is valid"
-        , getEndpoint db "GET" "/food/recipe?ingredients[]=egg;1;default;invalidCountry"
+        , getEndpoint db "GET" "/food/recipe?ingredients[]=egg;1;;invalidCountry"
             |> Maybe.andThen extractFoodErrors
             |> Maybe.andThen (Dict.get "ingredients")
             |> Expect.equal (Just "Code pays invalide: invalidCountry.")
             |> asTest "should validate that an ingredient country is valid"
-        , getEndpoint db "GET" "/food/recipe?ingredients[]=egg;1;default;FR;byPlane"
+        , getEndpoint db "GET" "/food/recipe?ingredients[]=egg;1;;FR;byPlane"
             |> Maybe.andThen extractFoodErrors
             |> Maybe.andThen (Dict.get "ingredients")
             |> Expect.equal (Just "Impossible de spécifier un acheminement par avion pour cet ingrédient, son origine par défaut ne le permet pas.")
             |> asTest "should validate that an ingredient can be transported by plane"
-        , getEndpoint db "GET" "/food/recipe?ingredients[]=egg;1;default;BD"
+        , getEndpoint db "GET" "/food/recipe?ingredients[]=egg;1;;BD"
             |> Maybe.andThen extractFoodErrors
             |> Maybe.andThen (Dict.get "ingredients")
             |> Expect.equal (Just "Le code pays BD n'est pas utilisable dans un contexte Alimentaire.")

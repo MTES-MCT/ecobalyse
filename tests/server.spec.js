@@ -325,7 +325,7 @@ describe("API", () => {
 
       it("should validate an ingredient country code", async () => {
         expectFieldErrorMessage(
-          await makeRequest("/api/food/recipe", ["ingredients[]=carrot;123;default;BadCountryCode"]),
+          await makeRequest("/api/food/recipe", ["ingredients[]=carrot;123;;BadCountryCode"]),
           "ingredients",
           /Code pays invalide: BadCountryCode/,
         );
@@ -333,7 +333,7 @@ describe("API", () => {
 
       it("should validate an ingredient transport by plane value", async () => {
         expectFieldErrorMessage(
-          await makeRequest("/api/food/recipe", ["ingredients[]=mango;123;default;BR;badValue"]),
+          await makeRequest("/api/food/recipe", ["ingredients[]=mango;123;;BR;badValue"]),
           "ingredients",
           /La valeur ne peut être que parmi les choix suivants: 'default', 'byPlane', 'noPlane'./,
         );
@@ -341,7 +341,7 @@ describe("API", () => {
 
       it("should validate an ingredient transport by plane", async () => {
         expectFieldErrorMessage(
-          await makeRequest("/api/food/recipe", ["ingredients[]=carrot;123;default;BR;byPlane"]),
+          await makeRequest("/api/food/recipe", ["ingredients[]=carrot;123;;BR;byPlane"]),
           "ingredients",
           /Impossible de spécifier un acheminement par avion pour cet ingrédient, son origine par défaut ne le permet pas./,
         );

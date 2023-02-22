@@ -352,7 +352,7 @@ updateDistribution distribution query =
 variantFromString : String -> Result String Variant
 variantFromString string =
     case string of
-        "default" ->
+        "" ->
             Ok DefaultVariant
 
         "organic" ->
@@ -366,7 +366,7 @@ variantToString : Variant -> String
 variantToString variant =
     case variant of
         DefaultVariant ->
-            "default"
+            ""
 
         Organic ->
             "organic"

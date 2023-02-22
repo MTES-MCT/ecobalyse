@@ -156,7 +156,7 @@ ingredientParser { countries, ingredients } string =
 variantParser : String -> Result String BuilderQuery.Variant
 variantParser variant =
     case variant of
-        "default" ->
+        "" ->
             Ok BuilderQuery.DefaultVariant
 
         "organic" ->

@@ -63,10 +63,10 @@
   {
     "name": "Carrot cake, conventional, China",
     "query": [
-      "ingredients[]=egg;120;default;CN",
-      "ingredients[]=wheat;140;default;CN",
-      "ingredients[]=milk;60;default;CN",
-      "ingredients[]=carrot;225;default;CN",
+      "ingredients[]=egg;120;;CN",
+      "ingredients[]=wheat;140;;CN",
+      "ingredients[]=milk;60;;CN",
+      "ingredients[]=carrot;225;;CN",
       "transform=aded2490573207ec7ad5a3813978f6a4;545",
       "packaging[]=23b2754e5943bc77916f8f871edc53b6;105",
       "distribution=ambient"
@@ -302,7 +302,7 @@
   {
     "name": "Mango from default origin, but by boat",
     "query": [
-      "ingredients[]=mango;120;default;default;noPlane",
+      "ingredients[]=mango;120;;default;noPlane",
       "category=fruitsAndVegetables"
     ],
     "impacts": {
@@ -358,7 +358,7 @@
   {
     "name": "Mango by plane from Brazil (by default)",
     "query": [
-      "ingredients[]=mango;120;default;BR",
+      "ingredients[]=mango;120;;BR",
       "distribution=ambient"
     ],
     "impacts": {
@@ -414,7 +414,7 @@
   {
     "name": "Mango by plane from Brazil (by default, explicitely)",
     "query": [
-      "ingredients[]=mango;120;default;BR;default",
+      "ingredients[]=mango;120;;BR;default",
       "distribution=ambient"
     ],
     "impacts": {
@@ -470,7 +470,7 @@
   {
     "name": "Mango by plane from Brazil (explicitely)",
     "query": [
-      "ingredients[]=mango;120;default;BR;byPlane",
+      "ingredients[]=mango;120;;BR;byPlane",
       "distribution=ambient"
     ],
     "impacts": {
@@ -526,7 +526,7 @@
   {
     "name": "Mango by boat from Brazil",
     "query": [
-      "ingredients[]=mango;120;default;BR;noPlane",
+      "ingredients[]=mango;120;;BR;noPlane",
       "distribution=ambient"
     ],
     "impacts": {
