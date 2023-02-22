@@ -1,9 +1,3 @@
----
-description: >-
-  Cette page est en cours de construction et régulièrement mise à jour. Sa
-  prochaine validation permettra de faire évoluer le module dans le calculateur.
----
-
 # 〰 Etape 2 - Fabrication de l'étoffe
 
 ## Description

@@ -1,9 +1,3 @@
----
-description: >-
-  Ce module est en cours de refonte afin d'enrichir la Documentation et le
-  Calculateur.
----
-
 # 👗 Etape 4 - Confection
 
 ## Description
@@ -16,7 +10,7 @@ L'étape de confection a pour but de séparer les différentes pièces composant
 
 <details>
 
-<summary>Taux de perte (%)</summary>
+<summary>Emploi matière / Chutes / Taux de perte (%)</summary>
 
 Un taux de perte par défaut est appliqué par type de vêtement.&#x20;
 
@@ -89,7 +83,7 @@ Le **procédé externe (électricité)** devant être ajouté est le suivant :
 
 #### Électricité consommée
 
-Un temps de confection, exprimé en minutes, est associé à chaque niveau de complexité (cf. ci-dessous).
+Un temps de confection, exprimé en minutes, est associé à chaque niveau de complexité (cf. ci-dessous). Le terme anglais généralement utilisé dans l'industrie pour désigner ce "temps-minute" est le Standard Minute Value (SMV) ou Standard Allowed Minute (SAM).
 
 **0,029 kWh** d'électricité est retenue par défaut pour chaque minute de confection. Cette valeur se base sur les travaux réalisés par le programme [Mistra Future Fashion](#user-content-fn-1)[^1] (Suède). &#x20;
 
@@ -119,13 +113,14 @@ Il existe différents procédés de délavage dans le socle technique actuelleme
 
 Pour l'instant nous ne prenons que le procédé par défaut qui est le plus impactant (chimique, majorant, traitement des eaux inefficace).
 
-#### Taux de perte (%)&#x20;
+#### Emploi matière / Chutes / Taux de perte (%)&#x20;
 
-Un taux de perte par défaut est appliqué à chaque vêtement (ex : 20% pour un pantalon, 15% pour un t-shirt, etc.).&#x20;
+Un taux de perte par défaut est appliqué à chaque vêtement (ex : 20% pour un pantalon, 15% pour un t-shirt, etc.). Ces données se basent sur le socle technique ADEME et des retours métiers de la part de professionnels de la confection.\
+La littérature scientifique fait ressortir en moyenne des taux de perte autour de 15%.&#x20;
 
 Cf. l'[Explorateur](https://ecobalyse.beta.gouv.fr/#/explore/textile/products) pour l'ensemble des valeurs par défaut.
 
-L'utilisateur a la possibilité de modifier ce paramètre entre une borne min (0%) et max (40%).&#x20;
+L'utilisateur a la possibilité de modifier ce paramètre entre une borne min (0%) et max (40%).
 
 
 
