@@ -89,11 +89,11 @@ suite =
                     |> Expect.equal
                         (Ok
                             { category = "Gâteaux"
-                            , all = { impact = Unit.impact 166.29451849110046, letter = "B", outOf100 = 73 }
-                            , biodiversity = { impact = Unit.impact 128.99781596268198, letter = "B", outOf100 = 63 }
-                            , climate = { impact = Unit.impact 30.18881282750459, letter = "A", outOf100 = 81 }
-                            , health = { impact = Unit.impact 45.180941631048185, letter = "B", outOf100 = 75 }
-                            , resources = { impact = Unit.impact 22.59760103643419, letter = "B", outOf100 = 75 }
+                            , climate = { impact = Unit.impact 31.465751984674757, letter = "B", outOf100 = 79 }
+                            , all = { impact = Unit.impact 169.83232687747997, letter = "B", outOf100 = 72 }
+                            , biodiversity = { impact = Unit.impact 131.39490621544522, letter = "B", outOf100 = 62 }
+                            , health = { impact = Unit.impact 46.77851948542256, letter = "B", outOf100 = 73 }
+                            , resources = { impact = Unit.impact 23.268322876906748, letter = "B", outOf100 = 74 }
                             }
                         )
                     |> asTest "should return expected scoring"
