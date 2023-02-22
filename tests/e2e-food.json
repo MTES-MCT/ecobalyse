@@ -302,7 +302,7 @@
   {
     "name": "Mango from default origin, but by boat",
     "query": [
-      "ingredients[]=mango;120;;default;noPlane",
+      "ingredients[]=mango;120;;;noPlane",
       "category=fruitsAndVegetables"
     ],
     "impacts": {

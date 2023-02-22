@@ -635,7 +635,7 @@ components:
         - `carrot;30;organic` signifie *30g de carrotes bio*;
         - `tomato;123;;ES` signifie *123g de tomates conventionnelles en provenance d'Espagne*;
         - `mango;123` signifie *123g de mangues en provenance de son origine par défaut (hors Europe-Maghreb, transport par avion)*;
-        - `mango;123;;default;noPlane` signifie *123g de mangues en provenance de son origine par défaut (hors Europe-Maghreb), par bateau*;
+        - `mango;123;;;noPlane` signifie *123g de mangues en provenance de son origine par défaut (hors Europe-Maghreb), par bateau*;
         - `mango;123;;BR` signifie *123g de mangues en provenance du Brésil, par avion*;
         - `mango;123;;BR;byPlane` signifie de la même manière *123g de mangues en provenance du Brésil, par avion*;
         - `mango;123;;BR;default` signifie toujours *123g de mangues en provenance du Brésil, par avion*;

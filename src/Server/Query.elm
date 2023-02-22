@@ -168,7 +168,7 @@ variantParser variant =
 
 foodCountryParser : List Country -> String -> Result String (Maybe Country.Code)
 foodCountryParser countries countryStr =
-    if countryStr == "default" then
+    if countryStr == "" then
         Ok Nothing
 
     else
