@@ -104,14 +104,14 @@ suite =
                         [ { id = Ingredient.idFromString "egg"
                           , name = "Oeuf"
                           , mass = Mass.grams 120
-                          , variant = Query.Default
+                          , variant = Query.DefaultVariant
                           , country = Nothing
                           , planeTransport = Ingredient.PlaneNotApplicable
                           }
                         , { id = Ingredient.idFromString "wheat"
                           , name = "Blé tendre"
                           , mass = Mass.grams 140
-                          , variant = Query.Default
+                          , variant = Query.DefaultVariant
                           , country = Nothing
                           , planeTransport = Ingredient.PlaneNotApplicable
                           }
@@ -155,7 +155,7 @@ suite =
                     { id = Ingredient.idFromString "mango"
                     , name = "Mangue"
                     , mass = Mass.grams 120
-                    , variant = Query.Default
+                    , variant = Query.DefaultVariant
                     , country = Nothing
                     , planeTransport = Ingredient.ByPlane
                     }
@@ -173,7 +173,7 @@ suite =
                         [ { id = Ingredient.idFromString "egg"
                           , name = "Oeuf"
                           , mass = Mass.grams 120
-                          , variant = Query.Default
+                          , variant = Query.DefaultVariant
                           , country = Nothing
                           , planeTransport = Ingredient.PlaneNotApplicable
                           }

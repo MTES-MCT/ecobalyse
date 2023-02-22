@@ -90,7 +90,7 @@ ingredientParser { countries, ingredients } string =
                 |> RE.andMap (Result.map .id ingredient)
                 |> RE.andMap (Result.map .name ingredient)
                 |> RE.andMap (validateMass mass)
-                |> RE.andMap (Ok BuilderQuery.Default)
+                |> RE.andMap (Ok BuilderQuery.DefaultVariant)
                 |> RE.andMap (Ok Nothing)
                 |> RE.andMap (Result.map Ingredient.byPlaneByDefault ingredient)
 
@@ -157,7 +157,7 @@ variantParser : String -> Result String BuilderQuery.Variant
 variantParser variant =
     case variant of
         "default" ->
-            Ok BuilderQuery.Default
+            Ok BuilderQuery.DefaultVariant
 
         "organic" ->
             Ok BuilderQuery.Organic
