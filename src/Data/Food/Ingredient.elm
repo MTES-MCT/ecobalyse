@@ -1,6 +1,7 @@
 module Data.Food.Ingredient exposing
     ( Id
     , Ingredient
+    , PlaneTransport(..)
     , byPlaneAllowed
     , byPlaneByDefault
     , decodeId
@@ -41,22 +42,28 @@ type Id
     = Id String
 
 
-byPlaneAllowed : Maybe Bool -> Ingredient -> Result String (Maybe Bool)
-byPlaneAllowed maybeByPlane ingredient =
-    if byPlaneByDefault ingredient == Nothing && maybeByPlane /= Nothing then
+type PlaneTransport
+    = PlaneNotApplicable
+    | ByPlane
+    | NoPlane
+
+
+byPlaneAllowed : PlaneTransport -> Ingredient -> Result String PlaneTransport
+byPlaneAllowed planeTransport ingredient =
+    if byPlaneByDefault ingredient == PlaneNotApplicable && planeTransport /= PlaneNotApplicable then
         Err byPlaneErrorMessage
 
     else
-        Ok maybeByPlane
+        Ok planeTransport
 
 
-byPlaneByDefault : Ingredient -> Maybe Bool
+byPlaneByDefault : Ingredient -> PlaneTransport
 byPlaneByDefault ingredient =
     if ingredient.defaultOrigin == Origin.OutOfEuropeAndMaghrebByPlane then
-        Just True
+        ByPlane
 
     else
-        Nothing
+        PlaneNotApplicable
 
 
 byPlaneErrorMessage : String
@@ -125,8 +132,8 @@ findByID id ingredients =
         |> Result.fromMaybe ("Ingrédient introuvable par id : " ++ idToString id)
 
 
-getDefaultOriginTransport : List Impact.Definition -> Origin -> Transport
-getDefaultOriginTransport defs origin =
+getDefaultOriginTransport : List Impact.Definition -> PlaneTransport -> Origin -> Transport
+getDefaultOriginTransport defs planeTransport origin =
     let
         default =
             Transport.default (Impact.impactsFromDefinitons defs)
@@ -142,7 +149,11 @@ getDefaultOriginTransport defs origin =
             { default | road = Length.kilometers 2500, sea = Length.kilometers 18000 }
 
         Origin.OutOfEuropeAndMaghrebByPlane ->
-            { default | road = Length.kilometers 2500, air = Length.kilometers 18000 }
+            if planeTransport == ByPlane then
+                { default | road = Length.kilometers 2500, air = Length.kilometers 18000 }
+
+            else
+                { default | road = Length.kilometers 2500, sea = Length.kilometers 18000 }
 
 
 linkProcess : Dict String Process -> Decoder Process

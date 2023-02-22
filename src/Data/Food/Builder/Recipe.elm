@@ -61,7 +61,7 @@ type alias RecipeIngredient =
     , mass : Mass
     , variant : BuilderQuery.Variant
     , country : Maybe Country
-    , byPlane : Maybe Bool
+    , planeTransport : Ingredient.PlaneTransport
     }
 
 
@@ -302,7 +302,7 @@ computeIngredientImpacts ({ mass } as recipeIngredient) =
 
 
 computeIngredientTransport : Db -> RecipeIngredient -> Transport
-computeIngredientTransport db { ingredient, country, mass, byPlane } =
+computeIngredientTransport db { ingredient, country, mass, planeTransport } =
     let
         emptyImpacts =
             Impact.impactsFromDefinitons db.impacts
@@ -311,7 +311,7 @@ computeIngredientTransport db { ingredient, country, mass, byPlane } =
             -- Special case: if the default origin of an ingredient is "by plane"
             -- and we selected a transport by plane, then we take an air transport ratio of 1
             Unit.Ratio
-                (if byPlane == Just True then
+                (if planeTransport == Ingredient.ByPlane then
                     1
 
                  else
@@ -329,7 +329,7 @@ computeIngredientTransport db { ingredient, country, mass, byPlane } =
                 -- Otherwise retrieve ingredient's default origin transport data
                 Nothing ->
                     ingredient.defaultOrigin
-                        |> Ingredient.getDefaultOriginTransport db.impacts
+                        |> Ingredient.getDefaultOriginTransport db.impacts planeTransport
 
         toTransformation t =
             -- 160km of road transport are added for every ingredient, wherever they come
@@ -366,10 +366,10 @@ computeIngredientTransport db { ingredient, country, mass, byPlane } =
             db.processes
                 |> Process.loadWellKnown
                 |> Result.map
-                    (\{ lorryTransport, boatTransport, planeTransport } ->
-                        [ ( lorryTransport, transport.road )
-                        , ( boatTransport, transport.sea )
-                        , ( planeTransport, transport.air )
+                    (\wellKnown ->
+                        [ ( wellKnown.lorryTransport, transport.road )
+                        , ( wellKnown.boatTransport, transport.sea )
+                        , ( wellKnown.planeTransport, transport.air )
                         ]
                             |> List.map
                                 (\( transportProcess, distance ) ->
@@ -545,7 +545,7 @@ ingredientListFromQuery db =
 
 
 ingredientFromQuery : Db -> BuilderQuery.IngredientQuery -> Result String RecipeIngredient
-ingredientFromQuery { countries, ingredients } { id, mass, variant, country, byPlane } =
+ingredientFromQuery { countries, ingredients } { id, mass, variant, country, planeTransport } =
     Result.map5 RecipeIngredient
         (Ingredient.findByID id ingredients)
         (Ok mass)
@@ -561,7 +561,7 @@ ingredientFromQuery { countries, ingredients } { id, mass, variant, country, byP
                 Ok Nothing
         )
         (Ingredient.findByID id ingredients
-            |> Result.andThen (Ingredient.byPlaneAllowed byPlane)
+            |> Result.andThen (Ingredient.byPlaneAllowed planeTransport)
         )
 
 
@@ -572,7 +572,7 @@ ingredientQueryFromIngredient ingredient =
     , mass = Mass.grams 100
     , variant = BuilderQuery.Default
     , country = Nothing
-    , byPlane = Ingredient.byPlaneByDefault ingredient
+    , planeTransport = Ingredient.byPlaneByDefault ingredient
     }
 
 

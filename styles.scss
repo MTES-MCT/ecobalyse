@@ -673,10 +673,7 @@ blockquote {
     grid-template-areas:
       "massInputWrapper ingredientSelector impactDisplay impactDisplay"
       "countrySelector countrySelector bioCheckbox ingredientDelete"
-      "transportDistances transportDistances transportImpact transportImpact";
-    .IngredientTransportLabel {
-      display: none;
-    }
+      "transportLabel transportDistances transportImpact transportImpact";
   }
 }
 

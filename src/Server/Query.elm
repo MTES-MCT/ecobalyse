@@ -235,20 +235,20 @@ validateBool str =
             Err "La valeur ne peut être que true ou false."
 
 
-validateByPlaneValue : String -> Ingredient -> Result String (Maybe Bool)
+validateByPlaneValue : String -> Ingredient -> Result String Ingredient.PlaneTransport
 validateByPlaneValue str ingredient =
     case str of
         "default" ->
             Ok (Ingredient.byPlaneByDefault ingredient)
 
         "byPlane" ->
-            Ok (Just True)
+            Ok Ingredient.ByPlane
 
         "noPlane" ->
-            Ok (Just False)
+            Ok Ingredient.NoPlane
 
         _ ->
-            Err "La valeur ne peut être que parmis les choix suivants: 'default', 'byPlane', 'noPlane'."
+            Err "La valeur ne peut être que parmi les choix suivants: 'default', 'byPlane', 'noPlane'."
 
 
 validateCountry : String -> Scope -> List Country -> Result String Country.Code
