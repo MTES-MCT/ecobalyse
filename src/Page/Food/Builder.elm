@@ -623,13 +623,12 @@ updateIngredientFormView { excluded, db, ingredient, impact, transportImpact } =
             ]
         , ingredient
             |> Recipe.computeIngredientTransport db
-            |> TransportView.viewDetails
+            |> TransportView.viewFoodTransport
                 { fullWidth = False
                 , airTransportLabel = Nothing
                 , seaTransportLabel = Nothing
                 , roadTransportLabel = Nothing
                 }
-            |> span [ class "text-muted d-flex fs-7 gap-3 justify-content-left IngredientTransportDistances" ]
         , span [ class "text-muted text-end IngredientTransportImpact fs-7" ]
             [ transportImpact ]
         ]
