@@ -630,7 +630,9 @@ updateIngredientFormView { excluded, db, ingredient, impact, transportImpact } =
                 , roadTransportLabel = Nothing
                 }
         , span [ class "text-muted text-end IngredientTransportImpact fs-7" ]
-            [ transportImpact ]
+            [ text "+ "
+            , transportImpact
+            ]
         ]
     ]
 
