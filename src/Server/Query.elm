@@ -90,7 +90,7 @@ ingredientParser { countries, ingredients } string =
                 |> RE.andMap (Result.map .id ingredient)
                 |> RE.andMap (Result.map .name ingredient)
                 |> RE.andMap (validateMass mass)
-                |> RE.andMap (Ok BuilderQuery.Default)
+                |> RE.andMap (Ok BuilderQuery.DefaultVariant)
                 |> RE.andMap (Ok Nothing)
                 |> RE.andMap (Result.map Ingredient.byPlaneByDefault ingredient)
 
@@ -156,8 +156,8 @@ ingredientParser { countries, ingredients } string =
 variantParser : String -> Result String BuilderQuery.Variant
 variantParser variant =
     case variant of
-        "default" ->
-            Ok BuilderQuery.Default
+        "" ->
+            Ok BuilderQuery.DefaultVariant
 
         "organic" ->
             Ok BuilderQuery.Organic
@@ -168,7 +168,7 @@ variantParser variant =
 
 foodCountryParser : List Country -> String -> Result String (Maybe Country.Code)
 foodCountryParser countries countryStr =
-    if countryStr == "default" then
+    if countryStr == "" then
         Ok Nothing
 
     else
@@ -238,7 +238,7 @@ validateBool str =
 validateByPlaneValue : String -> Ingredient -> Result String Ingredient.PlaneTransport
 validateByPlaneValue str ingredient =
     case str of
-        "default" ->
+        "" ->
             Ok (Ingredient.byPlaneByDefault ingredient)
 
         "byPlane" ->
@@ -248,7 +248,7 @@ validateByPlaneValue str ingredient =
             Ok Ingredient.NoPlane
 
         _ ->
-            Err "La valeur ne peut être que parmi les choix suivants: 'default', 'byPlane', 'noPlane'."
+            Err "La valeur ne peut être que parmi les choix suivants: '', 'byPlane', 'noPlane'."
 
 
 validateCountry : String -> Scope -> List Country -> Result String Country.Code

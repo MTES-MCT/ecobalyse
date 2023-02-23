@@ -35,7 +35,7 @@ import Url.Parser as Parser exposing (Parser)
 
 
 type Variant
-    = Default
+    = DefaultVariant
     | Organic
 
 
@@ -99,28 +99,28 @@ carrotCake =
         [ { id = Ingredient.idFromString "egg"
           , name = "Oeuf"
           , mass = Mass.grams 120
-          , variant = Default
+          , variant = DefaultVariant
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
           }
         , { id = Ingredient.idFromString "wheat"
           , name = "Blé tendre"
           , mass = Mass.grams 140
-          , variant = Default
+          , variant = DefaultVariant
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
           }
         , { id = Ingredient.idFromString "milk"
           , name = "Lait"
           , mass = Mass.grams 60
-          , variant = Default
+          , variant = DefaultVariant
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
           }
         , { id = Ingredient.idFromString "carrot"
           , name = "Carotte"
           , mass = Mass.grams 225
-          , variant = Default
+          , variant = DefaultVariant
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
           }
@@ -352,8 +352,8 @@ updateDistribution distribution query =
 variantFromString : String -> Result String Variant
 variantFromString string =
     case string of
-        "default" ->
-            Ok Default
+        "" ->
+            Ok DefaultVariant
 
         "organic" ->
             Ok Organic
@@ -365,8 +365,8 @@ variantFromString string =
 variantToString : Variant -> String
 variantToString variant =
     case variant of
-        Default ->
-            "default"
+        DefaultVariant ->
+            ""
 
         Organic ->
             "organic"

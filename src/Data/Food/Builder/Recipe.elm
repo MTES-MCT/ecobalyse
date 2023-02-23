@@ -531,7 +531,7 @@ getTransformedIngredientsVolume recipe =
 getRecipeIngredientProcess : RecipeIngredient -> Process
 getRecipeIngredientProcess { ingredient, variant } =
     case variant of
-        BuilderQuery.Default ->
+        BuilderQuery.DefaultVariant ->
             ingredient.default
 
         BuilderQuery.Organic ->
@@ -570,7 +570,7 @@ ingredientQueryFromIngredient ingredient =
     { id = ingredient.id
     , name = ingredient.name
     , mass = Mass.grams 100
-    , variant = BuilderQuery.Default
+    , variant = BuilderQuery.DefaultVariant
     , country = Nothing
     , planeTransport = Ingredient.byPlaneByDefault ingredient
     }
@@ -671,7 +671,7 @@ transformFromQuery { processes } query =
 variantToString : BuilderQuery.Variant -> String
 variantToString variant =
     case variant of
-        BuilderQuery.Default ->
+        BuilderQuery.DefaultVariant ->
             "default"
 
         BuilderQuery.Organic ->
