@@ -30,6 +30,7 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Json.Encode as Encode
+import Length
 import Page.Textile.Simulator.ViewMode as ViewMode
 import Ports
 import Quantity
@@ -591,50 +592,86 @@ updateIngredientFormView { excluded, db, ingredient, impact, transportImpact } =
             ]
             [ Icon.trash ]
         , span [ class "text-muted IngredientTransportLabel fs-7" ]
-            [ text "Transport pour cet ingrédient"
-            , if ingredient.planeTransport /= Ingredient.PlaneNotApplicable then
-                label
-                    [ class "PlaneCheckbox ps-2" ]
-                    [ text "("
-                    , input
-                        [ type_ "checkbox"
-                        , class "form-check-input no-outline"
-                        , attribute "role" "switch"
-                        , checked <| ingredientQuery.planeTransport == Ingredient.ByPlane
-                        , onCheck
-                            (\checked ->
-                                event
-                                    { ingredientQuery
-                                        | planeTransport =
-                                            if checked then
-                                                Ingredient.ByPlane
-
-                                            else
-                                                Ingredient.NoPlane
-                                    }
-                            )
-                        ]
-                        []
-                    , text " par avion)"
-                    ]
-
-              else
-                text ""
-            ]
-        , ingredient
-            |> Recipe.computeIngredientTransport db
-            |> TransportView.viewFoodTransport
-                { fullWidth = False
-                , airTransportLabel = Nothing
-                , seaTransportLabel = Nothing
-                , roadTransportLabel = Nothing
-                }
+            [ text "Transport pour cet ingrédient" ]
+        , displayTransportDistances db ingredient ingredientQuery event
         , span [ class "text-muted text-end IngredientTransportImpact fs-7" ]
             [ text "+ "
             , transportImpact
             ]
         ]
     ]
+
+
+displayTransportDistances : Db -> Recipe.RecipeIngredient -> Query.IngredientQuery -> (Query.IngredientQuery -> Msg) -> Html Msg
+displayTransportDistances db ingredient ingredientQuery event =
+    span [ class "text-muted d-flex fs-7 gap-3 justify-content-left IngredientTransportDistances" ]
+        (if ingredient.planeTransport /= Ingredient.PlaneNotApplicable then
+            let
+                isByPlane =
+                    ingredientQuery.planeTransport == Ingredient.ByPlane
+
+                { road, air, sea } =
+                    ingredient
+                        |> Recipe.computeIngredientTransport db
+            in
+            [ label [ class "IngredientPlaneOrBoatCheckbox" ]
+                [ input
+                    [ type_ "checkbox"
+                    , attribute "role" "switch"
+                    , checked isByPlane
+                    , onCheck
+                        (\checked ->
+                            event
+                                { ingredientQuery
+                                    | planeTransport =
+                                        if checked then
+                                            Ingredient.ByPlane
+
+                                        else
+                                            Ingredient.NoPlane
+                                }
+                        )
+                    ]
+                    []
+                , i
+                    [ attribute "aria-hidden" "true"
+                    , class "icon icon-plane checked"
+                    ]
+                    []
+                , i
+                    [ attribute "aria-hidden" "true"
+                    , class "icon icon-ship unchecked"
+                    ]
+                    []
+                , if isByPlane then
+                    span [ class "ps-1 align-items-center gap-1", title "Tranport aérien" ]
+                        [ Format.km air ]
+
+                  else
+                    span [ class "ps-1 align-items-center gap-1", title "Tranport maritime" ]
+                        [ Format.km sea ]
+                ]
+            , TransportView.entry road Icon.bus "Transport routier"
+            ]
+
+         else
+            ingredient
+                |> Recipe.computeIngredientTransport db
+                |> (\{ air, sea, road } ->
+                        [ { distance = air, icon = Icon.plane, label = "Transport aérien" }
+                        , { distance = sea, icon = Icon.boat, label = "Transport maritime" }
+                        , { distance = road, icon = Icon.bus, label = "Transport routier" }
+                        ]
+                            |> List.filterMap
+                                (\{ distance, icon, label } ->
+                                    if Length.inKilometers distance /= 0 then
+                                        Just <| TransportView.entry distance icon label
+
+                                    else
+                                        Nothing
+                                )
+                   )
+        )
 
 
 debugQueryView : Db -> Query -> Html Msg

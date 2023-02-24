@@ -1,4 +1,4 @@
-module Views.Transport exposing (view, viewFoodTransport)
+module Views.Transport exposing (entry, view)
 
 import Data.Transport exposing (Transport)
 import Html exposing (..)
@@ -36,40 +36,6 @@ view { fullWidth, airTransportLabel, seaTransportLabel, roadTransportLabel } { r
             |> Maybe.withDefault "Transport routier"
             |> entry road Icon.bus
         ]
-
-
-viewFoodTransport : Config -> Transport -> Html msg
-viewFoodTransport { airTransportLabel, seaTransportLabel, roadTransportLabel } { road, air, sea } =
-    span [ class "text-muted d-flex fs-7 gap-3 justify-content-left IngredientTransportDistances" ]
-        ([ { label =
-                airTransportLabel
-                    |> Maybe.withDefault "Transport aérien"
-           , distance = air
-           , icon = Icon.plane
-           }
-         , { label =
-                seaTransportLabel
-                    |> Maybe.withDefault "Transport maritime"
-           , distance = sea
-           , icon = Icon.boat
-           }
-         , { label =
-                roadTransportLabel
-                    |> Maybe.withDefault "Transport routier"
-           , distance = road
-           , icon = Icon.bus
-           }
-         ]
-            |> List.filterMap
-                (\{ label, distance, icon } ->
-                    if Length.inKilometers distance == 0 then
-                        Nothing
-
-                    else
-                        entry distance icon label
-                            |> Just
-                )
-        )
 
 
 entry : Length -> Html msg -> String -> Html msg

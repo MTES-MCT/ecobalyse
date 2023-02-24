@@ -673,7 +673,46 @@ blockquote {
     grid-template-areas:
       "massInputWrapper ingredientSelector impactDisplay impactDisplay"
       "countrySelector countrySelector bioCheckbox ingredientDelete"
-      "transportLabel transportDistances transportImpact transportImpact";
+      "transportDistances transportDistances transportImpact transportImpact";
+    .IngredientTransportLabel {
+      display: none;
+    }
+  }
+}
+
+.IngredientPlaneOrBoatCheckbox {
+  input[type=checkbox] {
+    display: none;
+  }
+  i {
+    border: 1px solid var(--bs-primary);
+    border-radius: 4px;
+    color: var(--bs-primary);
+    padding: 4px 7px;
+    transition: background-color 0.5s, color 0.5s;
+  }
+
+  i.checked {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  i.unchecked {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  input[type=checkbox]:checked ~ i.checked {
+    background-color: var(--bs-primary);
+    color: var(--bs-white);
+  }
+
+  input[type=checkbox] ~ i.unchecked {
+    background-color: var(--bs-primary);
+    color: var(--bs-white);
+  }
+  input[type=checkbox]:checked ~ i.unchecked {
+    background-color: inherit;
+    color: var(--bs-primary);
   }
 }
 
