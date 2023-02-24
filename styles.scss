@@ -674,8 +674,8 @@ blockquote {
   }
 }
 
-.IngredientPlaneOrBoatCheckbox {
-  input[type=checkbox] {
+.IngredientPlaneOrBoatSelector {
+  input[type=radio] {
     display: none;
   }
   i {
@@ -687,27 +687,23 @@ blockquote {
     transition: background-color 0.5s, color 0.5s;
   }
 
-  i.checked {
+  input[type=radio] ~ i{
+    background-color: var(--bs-white);
+    color: var(--bs-primary);
+  }
+
+  input[type=radio]:checked ~ i{
+    background-color: var(--bs-primary);
+    color: var(--bs-white);
+  }
+
+  .PlaneSelector i{
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
   }
-  i.unchecked {
+  .BoatSelector i{
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
-  }
-
-  input[type=checkbox]:checked ~ i.checked {
-    background-color: var(--bs-primary);
-    color: var(--bs-white);
-  }
-
-  input[type=checkbox] ~ i.unchecked {
-    background-color: var(--bs-primary);
-    color: var(--bs-white);
-  }
-  input[type=checkbox]:checked ~ i.unchecked {
-    background-color: inherit;
-    color: var(--bs-primary);
   }
 }
 

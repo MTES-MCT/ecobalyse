@@ -615,35 +615,27 @@ displayTransportDistances db ingredient ingredientQuery event =
                     ingredient
                         |> Recipe.computeIngredientTransport db
             in
-            [ label [ class "IngredientPlaneOrBoatCheckbox" ]
-                [ input
-                    [ type_ "checkbox"
-                    , attribute "role" "switch"
-                    , checked isByPlane
-                    , onCheck
-                        (\checked ->
-                            event
-                                { ingredientQuery
-                                    | planeTransport =
-                                        if checked then
-                                            Ingredient.ByPlane
-
-                                        else
-                                            Ingredient.NoPlane
-                                }
-                        )
+            [ div [ class "IngredientPlaneOrBoatSelector" ]
+                [ label [ class "PlaneSelector" ]
+                    [ input
+                        [ type_ "radio"
+                        , attribute "role" "switch"
+                        , checked isByPlane
+                        , onInput <| always (event { ingredientQuery | planeTransport = Ingredient.ByPlane })
+                        ]
+                        []
+                    , Icon.plane
                     ]
-                    []
-                , i
-                    [ attribute "aria-hidden" "true"
-                    , class "icon icon-plane checked"
+                , label [ class "BoatSelector" ]
+                    [ input
+                        [ type_ "radio"
+                        , attribute "role" "switch"
+                        , checked <| not isByPlane
+                        , onInput <| always (event { ingredientQuery | planeTransport = Ingredient.NoPlane })
+                        ]
+                        []
+                    , Icon.boat
                     ]
-                    []
-                , i
-                    [ attribute "aria-hidden" "true"
-                    , class "icon icon-ship unchecked"
-                    ]
-                    []
                 , if isByPlane then
                     span [ class "ps-1 align-items-center gap-1", title "Tranport aérien" ]
                         [ Format.km air ]
