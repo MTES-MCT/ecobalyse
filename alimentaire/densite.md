@@ -9,7 +9,10 @@ La densité `d` d'un ingrédient est nécessaire pour calculer l'impact à la di
 La formule pour calculer le volume `V` d'un produit de masse `m` et de densité `d` est la suivante :&#x20;
 
 \
-$$V = m / d$$
+$$V = \frac{m}{d}$$
+-------------------
+
+##
 
 <figure><img src="../.gitbook/assets/image (8) (1).png" alt=""><figcaption><p>Methodology AGB 3.0- 20200528_MAIN-CLEAN-vf2.pdf</p></figcaption></figure>
 
