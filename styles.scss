@@ -633,7 +633,7 @@ blockquote {
   grid-template-columns: 116px 1fr 1fr auto 120px 31px;
   grid-template-areas:
     "massInputWrapper ingredientSelector countrySelector bioCheckbox impactDisplay ingredientDelete"
-    "transportLabel transportLabel transportDistances transportDistances transportImpact unused";
+    "empty empty transportDistances transportDistances transportImpact unused";
   padding: $list-group-item-padding-y $list-group-item-padding-x;
   align-items: center;
   .BioCheckbox {
@@ -654,9 +654,6 @@ blockquote {
   .IngredientSelector {
     grid-area: ingredientSelector;
   }
-  .IngredientTransportLabel {
-    grid-area: transportLabel;
-  }
   .IngredientTransportDistances {
     grid-area: transportDistances;
   }
@@ -674,9 +671,6 @@ blockquote {
       "massInputWrapper ingredientSelector impactDisplay impactDisplay"
       "countrySelector countrySelector bioCheckbox ingredientDelete"
       "transportDistances transportDistances transportImpact transportImpact";
-    .IngredientTransportLabel {
-      display: none;
-    }
   }
 }
 
@@ -688,6 +682,7 @@ blockquote {
     border: 1px solid var(--bs-primary);
     border-radius: 4px;
     color: var(--bs-primary);
+    cursor: grab;
     padding: 4px 7px;
     transition: background-color 0.5s, color 0.5s;
   }
