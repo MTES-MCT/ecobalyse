@@ -15,7 +15,12 @@ Dans un premier temps, l'impact lié à la fin de vie des emballages et des part
 Dans le cas par exemple d'une pizza au thon, l'impact lié à la fin de vie du carton représente environ 0,08 microPts PEF, à comparer à plus de 31 microPts PEF pour l'énergie électrique mobilisée.  Dans cet exemple, la fin de vie de l'emballage représenterait donc 0,25% de l'impact à l'étape de consommation.
 {% endhint %}
 
-## Energie mobilisée pour la cuisson, la congélation ou le maintien au frais
+## Energie mobilisée pour la cuisson, la congélation, la réfrigération...
+
+Le principe général est l'ajout de différentes [techniques de préparation](consommation.md#techniques-de-preparation).
+
+* L'ajout de ces techniques est **optionnel**, de sorte que l'étape de consommation peut être vide. Par exemple, une pomme peut être consommée telle quelle, sans nécessiter ni réfrigération, ni cuisson...
+* L'ajout de **deux techniques de préparation** est possible. Par exemple, un plat surgelé peut être conservé au congélateur avant d'être cuit à la poêle.
 
 ### Energies mobilisables et procédés correspondants
 
