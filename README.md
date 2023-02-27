@@ -31,13 +31,13 @@ Les entreprises souhaitant aller plus loin pourront se tourner vers les acteurs 
 
 En décomposant chaque étape du cycle de vie et en calculant leur impact en fonction du paramétrage, Ecobalyse facilite l'appréhension des **méthodes de référence** (PEFCR Apparel & Footwear, socle technique ADEME, etc.).
 
-Le soin apporté à la [documentation](https://fabrique-numerique.gitbook.io/wikicarbone/) et à l’[explorateur](https://wikicarbone.beta.gouv.fr/#/explore) doit en outre permettre d’expliciter et de partager les orientations prises dans le but de simplifier les calculs.
+Le soin apporté à la [documentation](https://fabrique-numerique.gitbook.io/ecobalyse/) et à l’[explorateur](https://ecobalyse.beta.gouv.fr/#/explore/textile) doit en outre permettre d’expliciter et de partager les orientations prises dans le but de simplifier les calculs.
 
 ### Un outil **collaboratif**
 
 Simplifier le calcul nécessite de faire des choix (valeurs par défaut, catégorisation des produits, etc.). Plus largement, la mise en place du dispositif d’affichage environnemental suscite de nombreux débats qui peuvent être **éclairés** par un **outil pédagogique**.
 
-Ecobalyse permet de rassembler différents acteurs (marques, experts ACV, industriels, etc.) sur des enjeux communs. Différentes initiatives sont mises en place afin de faciliter ces échanges (ateliers thématiques, un groupe Slack, une [Documentation ](https://fabrique-numerique.gitbook.io/ecobalyse)riche, une rubrique _Contribuer (en cours)_, etc.). Pour toute question, vous pouvez nous contacter via le mail suivant : [_ecobalyse@beta.gouv.fr_](mailto:ecobalyse@beta.gouv.fr)_._
+Ecobalyse permet de rassembler différents acteurs (marques, experts ACV, industriels, etc.) sur des enjeux communs. Différentes initiatives sont mises en place afin de faciliter ces échanges (ateliers thématiques, un groupe Slack, une [documentation](https://fabrique-numerique.gitbook.io/ecobalyse/) riche, une rubrique _Contribuer (en cours)_, etc.). Pour toute question, vous pouvez nous contacter via le mail suivant : [_ecobalyse@beta.gouv.fr_](mailto:ecobalyse@beta.gouv.fr)_._
 
 ## Ce que n’est pas Ecobalyse
 
@@ -47,7 +47,7 @@ Faire des calculs est une chose. Accompagner les entreprises qui mettent sur le 
 
 Ecobalyse n'a pas vocation à concurrencer les spécialistes de l'évaluation environnementale produit. Son positionnement vis-à-vis de ces acteurs est d'accompagner leurs démarches grâce à : \
 \=> la mise à disposition de valeurs de référence,\
-\=> un [accès en API au calculateur](https://wikicarbone.beta.gouv.fr/#/api),\
+\=> un [accès en API au calculateur](https://ecobalyse.beta.gouv.fr/#/api),\
 \=> une collaboration sur des sujets spécifiques (enrichissement de la base de données, modification de paramètres, etc.)&#x20;
 
 ### Un **concurrent des méthodologies de référence**
@@ -56,7 +56,7 @@ Ecobalyse s’appuie au maximum sur les méthodes de référence : PEFCR Apparel
 
 Si des choix méthodologiques doivent être faits, c’est toujours en complément du cadre de référence et dans le but de faciliter les calculs.&#x20;
 
-Tous ces choix sont explicités dans la [documentation](https://fabrique-numerique.gitbook.io/wikicarbone/) et sur l’[explorateur](https://wikicarbone.beta.gouv.fr/#/explore).
+Tous ces choix sont explicités dans la [documentation](https://fabrique-numerique.gitbook.io/ecobalyse/) et sur l’[explorateur](https://ecobalyse.beta.gouv.fr/#/explore/textile).
 
 ### Un outil d'information pour le **grand public**
 
@@ -64,4 +64,4 @@ Ecobalyse n’a pas pour objectif d’informer directement le grand public.
 
 En revanche, l’outil est au service de tous ceux qui cherchent à informer le grand public : entreprises, startups, associations, journalistes…
 
-La [documentation](https://fabrique-numerique.gitbook.io/wikicarbone/) et l’[accès API](https://wikicarbone.beta.gouv.fr/#/api) peuvent par exemple être mobilisés par les entreprises qui constituent des catalogues de produits dont elles évaluent l’impact pour le présenter aux consommateurs.
+La [documentation](https://fabrique-numerique.gitbook.io/ecobalyse/) et l’[accès API](https://ecobalyse.beta.gouv.fr/#/api) peuvent par exemple être mobilisés par les entreprises qui constituent des catalogues de produits dont elles évaluent l’impact pour le présenter aux consommateurs.
