@@ -808,7 +808,7 @@ distributionView : Impact.Definition -> Recipe -> Recipe.Results -> List (Html M
 distributionView selectedImpact recipe results =
     [ div [ class "card-header d-flex align-items-center justify-content-between" ]
         [ h5 [ class "mb-0" ] [ text "Distribution" ]
-        , results.recipe.distribution
+        , results.distribution
             |> Format.formatFoodSelectedImpact selectedImpact
         ]
     , div []
@@ -1113,7 +1113,7 @@ stepResultsView model results =
               , impact = toFloat results.transports.impacts
               }
             , { label = "Distribution"
-              , impact = toFloat results.recipe.distribution
+              , impact = toFloat results.distribution
               }
             ]
 

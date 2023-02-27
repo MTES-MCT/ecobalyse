@@ -85,9 +85,9 @@ type alias Results =
         , ingredients : List ( RecipeIngredient, Impacts )
         , transform : Impacts
         , transports : Transport
-        , distribution : Impacts
         }
     , packaging : Impacts
+    , distribution : Impacts
     , transports : Transport
     }
 
@@ -225,9 +225,9 @@ compute db =
                                 , ingredients = ingredientsImpacts
                                 , transform = transformImpacts
                                 , transports = ingredientsTransport
-                                , distribution = distrib
                                 }
                           , packaging = packagingImpacts
+                          , distribution = distrib
                           , transports = ingredientsTransport
                           }
                         )
@@ -423,6 +423,7 @@ encodeQuery q =
         [ ( "ingredients", Encode.list encodeIngredient q.ingredients )
         , ( "transform", q.transform |> Maybe.map encodeProcess |> Maybe.withDefault Encode.null )
         , ( "packaging", Encode.list encodeProcess q.packaging )
+        , ( "distribution", Retail.encode q.distribution )
         ]
 
 
@@ -447,6 +448,7 @@ encodeResults defs results =
           )
         , ( "packaging", encodeImpacts results.packaging )
         , ( "transports", Transport.encode defs results.transports )
+        , ( "distribution", encodeImpacts results.distribution )
         ]
 
 
