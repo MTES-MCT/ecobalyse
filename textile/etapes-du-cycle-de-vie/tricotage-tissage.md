@@ -162,7 +162,7 @@ L'utilisateur n'a actuellement pas la possibilité de : &#x20;
 * modifier le type d'étoffe du vêtement modélisé,
 * modéliser des étoffes _non-tissées_.
 
-Cf. l'onglet [Explorer](https://ecobalyse.beta.gouv.fr/#/textile/explore/products) pour les valeurs par défaut.
+Cf. l'onglet [Explorer](https://ecobalyse.beta.gouv.fr/#/explore/textile/products) pour les valeurs par défaut.
 
 </details>
 
@@ -182,7 +182,7 @@ En fonction du vêtement sélectionné (jean, t-shirt, etc.), un grammage par d�
 
 Cf. la section _Hypothèses par défaut_ pour plus d'info.
 
-Cf. l'onglet [Explorer](https://ecobalyse.beta.gouv.fr/#/textile/explore/products) pour les valeurs par défaut.
+Cf. l'onglet [Explorer](https://ecobalyse.beta.gouv.fr/#/explore/textile/products) pour les valeurs par défaut.
 
 </details>
 
@@ -209,7 +209,7 @@ Cette unité de mesure est notamment utilisée pour les fibres chimiques. \
 
 Cf. la section _Hypothèses par défaut_ pour plus d'info.
 
-Cf. l'onglet [Explorer](https://ecobalyse.beta.gouv.fr/#/textile/explore/products) pour les valeurs par défaut.
+Cf. l'onglet [Explorer](https://ecobalyse.beta.gouv.fr/#/explore/textile/products) pour les valeurs par défaut.
 
 </details>
 
