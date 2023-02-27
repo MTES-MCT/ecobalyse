@@ -804,11 +804,18 @@ packagingListView db selectedImpact recipe results =
     ]
 
 
+transportToDistributionView : Impact.Definition -> Recipe -> Recipe.Results -> List (Html Msg)
+transportToDistributionView selectedImpact recipe results =
+    [ Format.km results.distribution.transports.road
+    , Format.formatFoodSelectedImpact selectedImpact results.distribution.transports.impacts
+    ]
+
+
 distributionView : Impact.Definition -> Recipe -> Recipe.Results -> List (Html Msg)
 distributionView selectedImpact recipe results =
     [ div [ class "card-header d-flex align-items-center justify-content-between" ]
         [ h5 [ class "mb-0" ] [ text "Distribution" ]
-        , results.distribution
+        , results.distribution.total
             |> Format.formatFoodSelectedImpact selectedImpact
         ]
     , div []
@@ -1081,13 +1088,17 @@ scoresView { queries } { scoring } =
 
 stepListView : Db -> Model -> Recipe -> Recipe.Results -> Html Msg
 stepListView db { impact } recipe results =
-    div [ class "d-flex flex-column gap-3" ]
-        [ div [ class "card" ]
-            (ingredientListView db impact recipe results)
-        , div [ class "card" ]
-            (transformView db impact recipe results)
-        , div [ class "card" ]
-            (packagingListView db impact recipe results)
+    div []
+        [ div [ class "d-flex flex-column gap-3" ]
+            [ div [ class "card" ]
+                (ingredientListView db impact recipe results)
+            , div [ class "card" ]
+                (transformView db impact recipe results)
+            , div [ class "card" ]
+                (packagingListView db impact recipe results)
+            ]
+        , div [ class "TransportToDistribution" ]
+            (transportToDistributionView impact recipe results)
         , div [ class "card" ]
             (distributionView impact recipe results)
         ]
@@ -1113,7 +1124,7 @@ stepResultsView model results =
               , impact = toFloat results.transports.impacts
               }
             , { label = "Distribution"
-              , impact = toFloat results.distribution
+              , impact = toFloat results.distribution.total
               }
             ]
 

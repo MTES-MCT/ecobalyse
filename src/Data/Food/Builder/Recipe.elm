@@ -87,7 +87,10 @@ type alias Results =
         , transports : Transport
         }
     , packaging : Impacts
-    , distribution : Impacts
+    , distribution :
+        { total : Impacts
+        , transports : Transport
+        }
     , transports : Transport
     }
 
@@ -173,13 +176,18 @@ compute db =
 
                     distributionImpacts =
                         let
-                            mass =
-                                getMassAtPackaging recipe
-
                             volume =
                                 getTransformedIngredientsVolume recipe
                         in
-                        Result.map (Retail.computeImpacts db mass volume distribution)
+                        Result.map (Retail.computeImpacts db volume distribution)
+                            (Process.loadWellKnown db.processes)
+
+                    distributionTransport =
+                        let
+                            mass =
+                                getMassAtPackaging recipe
+                        in
+                        Result.map (Retail.transportImpact db mass distribution)
                             (Process.loadWellKnown db.processes)
 
                     recipeImpacts =
@@ -190,7 +198,12 @@ compute db =
                             ]
 
                     totalImpacts =
-                        [ Ok recipeImpacts, Ok packagingImpacts, distributionImpacts ]
+                        [ Ok recipeImpacts
+                        , Ok packagingImpacts
+                        , distributionImpacts
+                        , distributionTransport
+                            |> Result.map .impacts
+                        ]
                             |> RE.combine
                             |> Result.map (Impact.sumImpacts db.impacts)
 
@@ -210,8 +223,8 @@ compute db =
                         impactsPerKg
                             |> Result.map (computeScoring db.impacts category)
                 in
-                Result.map4
-                    (\total perKg distrib score ->
+                Result.map5
+                    (\total perKg distrib distribTransport score ->
                         ( recipe
                         , { total = total
                           , perKg = perKg
@@ -227,14 +240,22 @@ compute db =
                                 , transports = ingredientsTransport
                                 }
                           , packaging = packagingImpacts
-                          , distribution = distrib
-                          , transports = ingredientsTransport
+                          , distribution =
+                                { total = distrib
+                                , transports = distribTransport
+                                }
+                          , transports =
+                                [ ingredientsTransport
+                                , distribTransport
+                                ]
+                                    |> Transport.sum db.impacts
                           }
                         )
                     )
                     totalImpacts
                     impactsPerKg
                     distributionImpacts
+                    distributionTransport
                     scoring
             )
         >> RE.join
@@ -448,7 +469,12 @@ encodeResults defs results =
           )
         , ( "packaging", encodeImpacts results.packaging )
         , ( "transports", Transport.encode defs results.transports )
-        , ( "distribution", encodeImpacts results.distribution )
+        , ( "distribution"
+          , Encode.object
+                [ ( "total", encodeImpacts results.distribution.total )
+                , ( "transports", Transport.encode defs results.distribution.transports )
+                ]
+          )
         ]
 
 
