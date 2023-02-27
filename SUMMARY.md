@@ -73,5 +73,6 @@
   * [🥫 Emballage](alimentaire/etapes-du-cycles-de-vie/emballage.md)
   * [👷♀ Distribution (négligé)](alimentaire/etapes-du-cycles-de-vie/distribution-neglige.md)
   * [🏪 Vente au détail](alimentaire/etapes-du-cycles-de-vie/vente-au-detail.md)
+  * [🍳 Consommation](alimentaire/etapes-du-cycles-de-vie/consommation.md)
 * [🚣♀ Densité](alimentaire/densite.md)
 * [🍚 Rapport cru/cuit](alimentaire/rapport-cru-cuit.md)
