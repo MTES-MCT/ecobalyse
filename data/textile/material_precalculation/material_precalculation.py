@@ -1,7 +1,7 @@
-from xxlimited import new
 import json
 import fjson
 import uuid
+import sys
 import random as rd
 import copy
 
@@ -13,7 +13,8 @@ f = open("../../../public/data/processes.json")
 processes = json.load(f)
 
 material_without_spinning = ["neoprene"]
-    
+
+
 def get_process(uuid):
     matches = [x for x in processes if x["uuid"] == uuid]
     if len(matches) > 1 or len(matches) == 0:
@@ -55,7 +56,6 @@ materials_dic = {}
 materials_uuids = []
 for current_material in materials:
     if current_material["id"] not in material_without_spinning:
-
         # assign a category ("Synthétiques et artificielles", "Naturelles") to each material
         # for recycled material we use the category of the virgin material
         if current_material["category"] == "Recyclées":
@@ -90,7 +90,9 @@ for index, (current_material_id, current_material) in enumerate(materials_dic.it
     material_process["info"] = (
         material_process["info"] + " uuid_bi=" + material_process["uuid"]
     )
-    material_process["source"] = "Séparation matière-filature Ecobalyse à partir de Base Impacts"
+    material_process[
+        "source"
+    ] = "Séparation matière-filature Ecobalyse à partir de Base Impacts"
 
     # generate a new uuid, as it's a new process
     rd.seed(index)
@@ -108,9 +110,12 @@ for index, (current_material_id, current_material) in enumerate(materials_dic.it
 
     if current_material["category"] == "Naturelles":
         spinning_waste_ratio_multiplier = 0.08
-
-    if current_material["category"] == "Synthétiques et artificielles":
+    elif current_material["category"] == "Synthétiques et artificielles":
         spinning_waste_ratio_multiplier = 0.02
+    else:
+        print("spinning_waste_ratio_multiplier is undefined" )
+        sys.exit(1)
+
 
     # compute the new waste ratio
     # the material_spinning_waste_ratio is a divider ratio (m_output = m /(1+ratio)) whereas  the spinning_waste_ratio is a multiplier ratio (m_output = m * (1-ratio))
@@ -147,14 +152,16 @@ for index, (current_material_id, current_material) in enumerate(materials_dic.it
 
         material_process["impacts"][impact] = only_material_impact
     new_materials_process.append(material_process)
-    
+
 # once we have finished our new process "material_process" we insert it in the processes list after the Base Impacts process
 for index, new_material_process in enumerate(new_materials_process):
     # delete old process
-    matches = [proc  for proc in processes if proc["uuid"] == new_material_process["uuid"]]    
+    matches = [
+        proc for proc in processes if proc["uuid"] == new_material_process["uuid"]
+    ]
     processes.remove(matches[0])
     # add new process
-    processes.insert(material_index+index+1, new_material_process)
+    processes.insert(material_index + index + 1, new_material_process)
 
 
 ## Update materials.json ##
@@ -194,15 +201,11 @@ for process in processes:
     processes_string += proc_formatted + ","
 processes_string = processes_string[:-1] + "]"
 
-with open(
-    "processes_new.json", "w", encoding="utf-8"
-) as outfile:
+with open("processes_new.json", "w", encoding="utf-8") as outfile:
     outfile.write(processes_string)
 
 
 materials_string = json.dumps(materials, ensure_ascii=False)
-with open(
-    "materials_new.json", "w", encoding="utf-8"
-) as outfile:
+with open("materials_new.json", "w", encoding="utf-8") as outfile:
     outfile.write(materials_string)
 print("SUCCESS : Finished writing processes_new.json and materials_new.json")
