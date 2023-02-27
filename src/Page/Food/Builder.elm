@@ -806,8 +806,23 @@ packagingListView db selectedImpact recipe results =
 
 transportToDistributionView : Impact.Definition -> Recipe -> Recipe.Results -> List (Html Msg)
 transportToDistributionView selectedImpact recipe results =
-    [ Format.km results.distribution.transports.road
-    , Format.formatFoodSelectedImpact selectedImpact results.distribution.transports.impacts
+    [ span [ class "w-50" ] [ text "" ]
+    , div [ class "align-self-stretch DownArrow" ]
+        [ text "" ]
+    , div
+        [ class "w-50"
+        , style "padding" ".5rem 1rem"
+        ]
+        [ div []
+            [ text "Masse : "
+            , Recipe.getMassAtPackaging recipe
+                |> Format.kg
+            ]
+        , div [ class "d-flex justify-content-between" ]
+            [ TransportView.entry results.distribution.transports.road Icon.bus "Transport routier"
+            , Format.formatFoodSelectedImpact selectedImpact results.distribution.transports.impacts
+            ]
+        ]
     ]
 
 
@@ -1097,7 +1112,7 @@ stepListView db { impact } recipe results =
             , div [ class "card" ]
                 (packagingListView db impact recipe results)
             ]
-        , div [ class "TransportToDistribution" ]
+        , div [ class "d-flex justify-content-between TransportToDistribution text-muted" ]
             (transportToDistributionView impact recipe results)
         , div [ class "card" ]
             (distributionView impact recipe results)
