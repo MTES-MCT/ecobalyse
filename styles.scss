@@ -682,7 +682,7 @@ blockquote {
     border: 1px solid var(--bs-primary);
     border-radius: 4px;
     color: var(--bs-primary);
-    cursor: grab;
+    cursor: pointer;
     padding: 4px 7px;
     transition: background-color 0.5s, color 0.5s;
   }
