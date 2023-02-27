@@ -12,7 +12,7 @@ Pour en savoir plus sur notre méthodologie de séparation de ces étapes, [voir
 
 ## Matières proposées
 
-La liste des matières disponibles dans Ecobalyse est visible dans l'[Explorateur Matière](https://ecobalyse.beta.gouv.fr/#/explore/materials)&#x20;
+La liste des matières disponibles dans Ecobalyse est visible dans l'[Explorateur Matière](https://ecobalyse.beta.gouv.fr/#/explore/textile/materials)&#x20;
 
 * Pour chaque matière il est indiqué l'**Origine Géographique**, c'est à dire le continent (ou parfois le pays) d'origine dans la Base Impacts. Néanmoins pour faire nos calculs de transport et [pour la séparation des étapes de matière et de filature](filature-1.md), nous avons besoin de faire des calculs à partir d'un pays.\
 
