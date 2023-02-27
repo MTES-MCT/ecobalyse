@@ -48,7 +48,20 @@ getApiServerUrl { clientUrl } =
 
 changelog : List News
 changelog =
-    [ { date = "21 décembre 2022"
+    [ { date = "21 février 2023"
+      , level = "minor"
+      , domains = [ "Alimentaire" ]
+      , md =
+            """Une étape a été ajoutée au constructeur de recette pour tenir
+            compte de l'impact de la distribution. Elle se matérialise par un
+            paramètre optionnel `distribution` sur le point d'entrée
+            `/food/recipe` qui prend `ambient` comme valeur par défaut pour
+            indiquer qu'il s'agit d'une stockage sec à température ambiante, ou
+            `fresh` pour un produit réfrigéré, ou `frozen` pour un produit
+            surgelé.
+"""
+      }
+    , { date = "21 décembre 2022"
       , level = "major"
       , domains = [ "Alimentaire", "Textile" ]
       , md =

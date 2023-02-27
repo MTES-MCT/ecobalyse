@@ -502,13 +502,13 @@ updateIngredientFormView { excluded, db, ingredient, impact, transportImpact } =
                     let
                         newVariant =
                             case ingredientQuery.variant of
-                                Query.Default ->
-                                    Query.Default
+                                Query.DefaultVariant ->
+                                    Query.DefaultVariant
 
                                 Query.Organic ->
                                     if newIngredient.variants.organic == Nothing then
                                         -- Fallback to "Default" if the new ingredient doesn't have an "organic" variant
-                                        Query.Default
+                                        Query.DefaultVariant
 
                                     else
                                         Query.Organic
@@ -574,7 +574,7 @@ updateIngredientFormView { excluded, db, ingredient, impact, transportImpact } =
                                         Query.Organic
 
                                     else
-                                        Query.Default
+                                        Query.DefaultVariant
                             }
                     )
                 ]
