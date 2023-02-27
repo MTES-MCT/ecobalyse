@@ -815,7 +815,10 @@ transportToDistributionView selectedImpact recipe results =
         ]
         [ div []
             [ text "Masse : "
-            , Recipe.getMassAtPackaging recipe
+            , Recipe.getTransformedIngredientsMass recipe
+                |> Format.kg
+            , text " + Emballage : "
+            , Recipe.getPackagingMass recipe
                 |> Format.kg
             ]
         , div [ class "d-flex justify-content-between" ]

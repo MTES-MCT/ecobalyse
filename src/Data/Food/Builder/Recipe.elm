@@ -13,6 +13,7 @@ module Data.Food.Builder.Recipe exposing
     , encodeResults
     , fromQuery
     , getMassAtPackaging
+    , getPackagingMass
     , getTransformedIngredientsMass
     , ingredientQueryFromIngredient
     , processQueryFromProcess
@@ -513,10 +514,15 @@ getMassAtPackaging : Recipe -> Mass
 getMassAtPackaging recipe =
     Quantity.sum
         [ getTransformedIngredientsMass recipe
-        , recipe.packaging
-            |> List.map .mass
-            |> Quantity.sum
+        , getPackagingMass recipe
         ]
+
+
+getPackagingMass : Recipe -> Mass
+getPackagingMass recipe =
+    recipe.packaging
+        |> List.map .mass
+        |> Quantity.sum
 
 
 getTransformedIngredientsMass : Recipe -> Mass
