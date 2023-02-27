@@ -149,13 +149,13 @@ Les distances entre pays sont considérées à partir des calculateurs mis en av
 
 Les procédés de transport considérés sont extraits de la base Agribalyse.&#x20;
 
-| Type de transport               | Procédé                                        | UUID |
-| ------------------------------- | ---------------------------------------------- | ---- |
-| Transport maritime              | \[<mark style="color:red;">à compléter</mark>] |      |
-| Transport routier               |                                                |      |
-| Transport maritime frigorifique |                                                |      |
-| Transport routier frigorifique  |                                                |      |
-| Transport aérien                |                                                |      |
+| Type de transport               | Procédé                                                                                                                                                                                                                                               | UUID                             |
+| ------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------- |
+| Transport maritime              | Transport, freight, sea, transoceanic ship {GLO}\| market for \| Cut-off, S - Copied from Ecoinvent                                                                                                                                                   | c6f76b8b01d48313eda9f181ee4c88fc |
+| Transport routier               | Transport, freight, lorry 16-32 metric ton, euro6 {RER}\| market for transport, freight, lorry 16-32 metric ton, EURO6 \| Cut-off, S - Copied from Ecoinvent                                                                                          | 16169bc9e466feddd69c726496a7cb87 |
+| Transport maritime frigorifique | Transport, freight, sea, transoceanic ship with reefer, cooling {GLO}\| processing \| Cut-off, S - Copied from Ecoinvent                                                                                                                              | c254a7d7883068c09fb00e4a4e36b24a |
+| Transport routier frigorifique  | Transport, freight, lorry with refrigeration machine, 7.5-16 ton, EURO5, R134a refrigerant, cooling {GLO}\| transport, freight, lorry with refrigeration machine, 7.5-16 ton, EURO5, R134a refrigerant, cooling \| Cut-off, S - Copied from Ecoinvent | fb83f037d88e4f4f3c459af6599a09b3 |
+| Transport aérien                | Transport, freight, aircraft {RER}\| intercontinental \| Cut-off, S - Copied from Ecoinvent                                                                                                                                                           | 5bc527741ac919ff8710a474f849614f |
 
 Le choix d'un mode transport frigorifique dépend de l'ingrédient considéré. En accord avec la documentation Agribalyse, un transport frigorifique est considéré pour :&#x20;
 
