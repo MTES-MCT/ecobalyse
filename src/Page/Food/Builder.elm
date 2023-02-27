@@ -807,7 +807,7 @@ packagingListView db selectedImpact recipe results =
 transportToDistributionView : Impact.Definition -> Recipe -> Recipe.Results -> List (Html Msg)
 transportToDistributionView selectedImpact recipe results =
     [ span [ class "w-50" ] [ text "" ]
-    , div [ class "align-self-stretch DownArrow" ]
+    , div [ class "DownArrow" ]
         [ text "" ]
     , div
         [ class "w-50"

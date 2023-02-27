@@ -527,6 +527,30 @@ blockquote {
   }
 }
 
+.DownArrow {
+  border-right: 1px solid  $list-group-border-color;
+  position: relative;
+  width: 20px;
+  
+  &::after, &::before {
+    border-bottom: 1px solid $list-group-border-color;
+    bottom: 2px;
+    content: "";
+    display: inline-block;
+    position: absolute;
+    vertical-align: bottom;
+    width: 10px;
+  }
+  &::after{
+    right: -8px;
+    transform: rotate(-45deg);
+  }
+  &::before {
+    right: -3px;
+    transform: rotate(45deg);
+  }
+}
+
 .GitbookContent {
   font-size: 0.9rem;
 
