@@ -148,8 +148,8 @@ I_congélation = 0.0018 kgCO2e = 1.8 gCO2e
 ```
 I_cuisson = m * (part_élec * Qté_élec_poêle_par_kg * I_élec_par_kWh + part_gaz * Qté_gaz_poêle_par_kg * I_gaz_par_MJ)
 
-I_cuisson = 0.1 * (0.4 * 1.584 * 0.062 + 0.6 * 1.584 * 0.076)
-I_cuisson = 0.011 kgCO2e = 11 gCO2e
+I_cuisson = 0.1 * (0.4 * 0.44 * 0.062 + 0.6 * 1.584 * 0.076)
+I_cuisson = 0.0083 kgCO2e = 8.3 gCO2e
 ```
 {% endcode %}
 
