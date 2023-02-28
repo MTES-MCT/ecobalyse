@@ -1,4 +1,4 @@
-module Views.Transport exposing (entry, view)
+module Views.Transport exposing (entry, view, viewDetails)
 
 import Data.Transport exposing (Transport)
 import Html exposing (..)
@@ -10,6 +10,7 @@ import Views.Icon as Icon
 
 type alias Config =
     { fullWidth : Bool
+    , hideNoLength : Bool
     , airTransportLabel : Maybe String
     , seaTransportLabel : Maybe String
     , roadTransportLabel : Maybe String
@@ -17,7 +18,7 @@ type alias Config =
 
 
 view : Config -> Transport -> Html msg
-view { fullWidth, airTransportLabel, seaTransportLabel, roadTransportLabel } { road, air, sea } =
+view ({ fullWidth } as config) transport =
     div
         [ classList
             [ ( "d-flex fs-7 gap-3", True )
@@ -26,16 +27,23 @@ view { fullWidth, airTransportLabel, seaTransportLabel, roadTransportLabel } { r
             , ( "justify-content-center", not fullWidth )
             ]
         ]
-        [ airTransportLabel
-            |> Maybe.withDefault "Transport aérien"
-            |> entry air Icon.plane
-        , seaTransportLabel
-            |> Maybe.withDefault "Transport maritime"
-            |> entry sea Icon.boat
-        , roadTransportLabel
-            |> Maybe.withDefault "Transport routier"
-            |> entry road Icon.bus
-        ]
+        (viewDetails config transport)
+
+
+viewDetails : Config -> Transport -> List (Html msg)
+viewDetails { hideNoLength, airTransportLabel, seaTransportLabel, roadTransportLabel } { air, sea, road } =
+    [ { distance = air, icon = Icon.plane, label = Maybe.withDefault "Transport aérien" airTransportLabel }
+    , { distance = sea, icon = Icon.boat, label = Maybe.withDefault "Transport maritime" seaTransportLabel }
+    , { distance = road, icon = Icon.bus, label = Maybe.withDefault "Transport routier" roadTransportLabel }
+    ]
+        |> List.filterMap
+            (\{ distance, icon, label } ->
+                if Length.inKilometers distance == 0 && hideNoLength then
+                    Nothing
+
+                else
+                    Just <| entry distance icon label
+            )
 
 
 entry : Length -> Html msg -> String -> Html msg

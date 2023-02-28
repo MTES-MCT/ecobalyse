@@ -30,7 +30,6 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Json.Encode as Encode
-import Length
 import Page.Textile.Simulator.ViewMode as ViewMode
 import Ports
 import Quantity
@@ -650,20 +649,13 @@ displayTransportDistances db ingredient ingredientQuery event =
          else
             ingredient
                 |> Recipe.computeIngredientTransport db
-                |> (\{ air, sea, road } ->
-                        [ { distance = air, icon = Icon.plane, label = "Transport aérien" }
-                        , { distance = sea, icon = Icon.boat, label = "Transport maritime" }
-                        , { distance = road, icon = Icon.bus, label = "Transport routier" }
-                        ]
-                            |> List.filterMap
-                                (\{ distance, icon, label } ->
-                                    if Length.inKilometers distance /= 0 then
-                                        Just <| TransportView.entry distance icon label
-
-                                    else
-                                        Nothing
-                                )
-                   )
+                |> TransportView.viewDetails
+                    { fullWidth = False
+                    , hideNoLength = True
+                    , airTransportLabel = Nothing
+                    , seaTransportLabel = Nothing
+                    , roadTransportLabel = Nothing
+                    }
         )
 
 
