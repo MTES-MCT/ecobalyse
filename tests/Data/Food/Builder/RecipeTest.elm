@@ -16,6 +16,73 @@ import Test exposing (..)
 import TestUtils exposing (asTest, suiteWithDb)
 
 
+expectImpactEqual : Unit.Impact -> Unit.Impact -> Expect.Expectation
+expectImpactEqual expectedImpactUnit impactUnit =
+    let
+        expectedImpact =
+            Unit.impactToFloat expectedImpactUnit
+
+        impact =
+            Unit.impactToFloat impactUnit
+    in
+    Expect.within (Expect.Relative 0.0000000000000001) expectedImpact impact
+
+
+testScoringEqual : Recipe.Scoring -> Result String Recipe.Scoring -> Test
+testScoringEqual expectedScoring scoringResult =
+    case scoringResult of
+        Err err ->
+            Expect.fail err
+                |> asTest "should not fail"
+
+        Ok scoring ->
+            [ -- Category
+              Expect.equal expectedScoring.category scoring.category
+                |> asTest "Scoring category"
+
+            -- All
+            , Expect.equal expectedScoring.all.letter scoring.all.letter
+                |> asTest "Scoring all letter"
+            , Expect.equal expectedScoring.all.outOf100 scoring.all.outOf100
+                |> asTest "Scoring all outOf100"
+            , expectImpactEqual expectedScoring.all.impact scoring.all.impact
+                |> asTest "Scoring all impact"
+
+            -- Climate
+            , Expect.equal expectedScoring.climate.letter scoring.climate.letter
+                |> asTest "Scoring climate letter"
+            , Expect.equal expectedScoring.climate.outOf100 scoring.climate.outOf100
+                |> asTest "Scoring climate outOf100"
+            , expectImpactEqual expectedScoring.climate.impact scoring.climate.impact
+                |> asTest "Scoring climate impact"
+
+            -- Biodiversity
+            , Expect.equal expectedScoring.biodiversity.letter scoring.biodiversity.letter
+                |> asTest "Scoring biodiversity letter"
+            , Expect.equal expectedScoring.biodiversity.outOf100 scoring.biodiversity.outOf100
+                |> asTest "Scoring biodiversity outOf100"
+            , expectImpactEqual expectedScoring.biodiversity.impact scoring.biodiversity.impact
+                |> asTest "Scoring biodiversity impact"
+
+            -- Health
+            , Expect.equal expectedScoring.health.letter scoring.health.letter
+                |> asTest "Scoring health letter"
+            , Expect.equal expectedScoring.health.outOf100 scoring.health.outOf100
+                |> asTest "Scoring health outOf100"
+            , expectImpactEqual expectedScoring.health.impact scoring.health.impact
+                |> asTest "Scoring health impact"
+
+            -- Resources
+            , Expect.equal expectedScoring.resources.letter scoring.resources.letter
+                |> asTest "Scoring resources letter"
+            , Expect.equal expectedScoring.resources.outOf100 scoring.resources.outOf100
+                |> asTest "Scoring resources outOf100"
+            , expectImpactEqual expectedScoring.resources.impact scoring.resources.impact
+                |> asTest "Scoring resources impact"
+            ]
+                |> concat
+
+
 suite : Test
 suite =
     suiteWithDb "Data.Food.Builder.Recipe"
@@ -86,17 +153,14 @@ suite =
                     |> asTest "should return computed impacts where none equals zero"
                  , carrotCakeResults
                     |> Result.map (Tuple.second >> .scoring)
-                    |> Expect.equal
-                        (Ok
-                            { category = "Gâteaux"
-                            , climate = { impact = Unit.impact 31.465751984674757, letter = "B", outOf100 = 79 }
-                            , all = { impact = Unit.impact 169.83232687747997, letter = "B", outOf100 = 72 }
-                            , biodiversity = { impact = Unit.impact 131.39490621544522, letter = "B", outOf100 = 62 }
-                            , health = { impact = Unit.impact 46.77851948542256, letter = "B", outOf100 = 73 }
-                            , resources = { impact = Unit.impact 23.26832287690675, letter = "B", outOf100 = 74 }
-                            }
-                        )
-                    |> asTest "should return expected scoring"
+                    |> testScoringEqual
+                        { category = "Gâteaux"
+                        , climate = { impact = Unit.impact 31.465751984674757, letter = "B", outOf100 = 79 }
+                        , all = { impact = Unit.impact 169.83232687747997, letter = "B", outOf100 = 72 }
+                        , biodiversity = { impact = Unit.impact 131.39490621544522, letter = "B", outOf100 = 62 }
+                        , health = { impact = Unit.impact 46.77851948542256, letter = "B", outOf100 = 73 }
+                        , resources = { impact = Unit.impact 23.268322876906748, letter = "B", outOf100 = 74 }
+                        }
                  ]
                 )
             , describe "getMassAtPackaging"

@@ -2,6 +2,7 @@ module Data.Food.Builder.Recipe exposing
     ( Recipe
     , RecipeIngredient
     , Results
+    , Scoring
     , Transform
     , availableIngredients
     , availablePackagings
