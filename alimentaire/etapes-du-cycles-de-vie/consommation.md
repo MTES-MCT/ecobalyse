@@ -38,17 +38,17 @@ Les procédés mobilisés sont les suivants :&#x20;
 
 En repartant des tableaux 41, 42 et 43 de la méthodologie Agribalyse ([lien](https://3613321239-files.gitbook.io/\~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2F-LpO7Agg1DbhEBNAvmHP%2Fuploads%2FwE46PsDpfPPo7qd486O6%2FM%C3%A9thodologie%20AGB%203.1\_Alimentation.pdf?alt=media\&token=0da7c4e0-4332-4bc3-9c86-83b7a6325971)), 9 techniques de préparation sont proposées :&#x20;
 
-| Technique de préparation         | Electricité (kWh/kg ou kWh)                                                                              | Gaz (MJ/kg ou MJ)                                                                             |
-| -------------------------------- | -------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
-| Friture                          | 0,667 kWh/kg (100%)                                                                                      | (0%)                                                                                          |
-| Cuisson à la poêle               | <p>0,44 kWh (40%)<br><em><mark style="color:blue;">Extrapolation cf. ci-après</mark></em></p>            | <p>1,584 MJ (60%)<br><em><mark style="color:blue;">Extrapolation cf. ci-après</mark></em></p> |
-| Réchauffage à la poêle           | <p>0,08 kWh (40%)<br><em><mark style="color:blue;">Extrapolation cf. ci-après</mark></em></p>            | <p>0,288 MJ (60%)<br><em><mark style="color:blue;">Extrapolation cf. ci-après</mark></em></p> |
-| Cuisson à l'eau ou sous pression | <mark style="color:red;">Info insuffisantes</mark> (40%)                                                 | <mark style="color:red;">Info insuffisantes</mark> (60%)                                      |
-| Bouilloire                       | <p>0,127 kWh/kg (100%)<br><em><mark style="color:red;">Non proposé dans un premier temps</mark></em></p> | (0%)                                                                                          |
-| Four                             | <p>0,999 kWh (100%)<br><em><mark style="color:blue;">3000 W * temps (défaut : 20')</mark></em></p>       | (0%)                                                                                          |
-| Four micro-ondes                 | <p>0,128 kWh (100%)<br><em><mark style="color:blue;">1100 W * temps (défaut : 7')</mark></em></p>        | (0%)                                                                                          |
-| Réfrigération                    | 0,0777 kWh/kg (100%)                                                                                     | (0%)                                                                                          |
-| Congélation                      | 0,294 kWh/kg (100%)                                                                                      | (0%)                                                                                          |
+| Technique de préparation         | Electricité (kWh/kg)                                                                                     | Gaz (MJ/kg)                                                                                      |
+| -------------------------------- | -------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
+| Friture                          | 0,667 kWh/kg (100%)                                                                                      | (0%)                                                                                             |
+| Cuisson à la poêle               | <p>0,44 kWh/kg (40%)<br><em><mark style="color:blue;">Extrapolation cf. ci-après</mark></em></p>         | <p>1,584 MJ/kg (60%)<br><em><mark style="color:blue;">Extrapolation cf. ci-après</mark></em></p> |
+| Réchauffage à la poêle           | <p>0,08 kWh/kg (40%)<br><em><mark style="color:blue;">Extrapolation cf. ci-après</mark></em></p>         | <p>0,288 MJ/kg (60%)<br><em><mark style="color:blue;">Extrapolation cf. ci-après</mark></em></p> |
+| Cuisson à l'eau ou sous pression | <mark style="color:red;">Info insuffisantes</mark> (40%)                                                 | <mark style="color:red;">Info insuffisantes</mark> (60%)                                         |
+| Bouilloire                       | <p>0,127 kWh/kg (100%)<br><em><mark style="color:red;">Non proposé dans un premier temps</mark></em></p> | (0%)                                                                                             |
+| Four                             | <p>0,999 kWh/kg (100%)<br><em><mark style="color:blue;">3000 W * 20')</mark></em></p>                    | (0%)                                                                                             |
+| Four micro-ondes                 | <p>0,128 kWh/kg (100%)<br><em><mark style="color:blue;">1100 W * 7'</mark></em></p>                      | (0%)                                                                                             |
+| Réfrigération                    | 0,0777 kWh/kg (100%)                                                                                     | (0%)                                                                                             |
+| Congélation                      | 0,294 kWh/kg (100%)                                                                                      | (0%)                                                                                             |
 
 Pour la **cuisson à la poêle**, la durée et la puissance de cuisson dépend de l'ingrédient (cf. tableau 42) :&#x20;
 
@@ -115,19 +115,13 @@ $$
 ImpactTechnique = RatioElc * ImpactElec + RatioGaz * ImpactGaz
 $$
 
-Pour certaines techniques de préparation, le calcul d'impact est indépendant de la masse de produit préparée. C'est le cas pour la cuisson (et le réchauffage) à la poêle, la cuisson au four et la cuisson au four micro-ondes.
-
-$$
-ImpactElecFour = ElecFour (kWh) * ImpactProcedeElec(/kWh)
-$$
-
 {% hint style="warning" %}
 Pour le gaz, l'unité considérée est le MJ et non le kWh
 
 Les procédés à considérer pour le gaz et l'électricité sont introduits [supra](consommation.md#energies-mobilisables-et-procedes-correspondants).
 {% endhint %}
 
-Pour d'autres techniques, le calcul est proportionnel à la masse des ingrédients. C'est le cas pour la friture, la réfrigération et la congélation.
+Pour toutes les techniques, le calcul est proportionnel à la masse des ingrédients. Par exemple pour la congélation :&#x20;
 
 $$
 ImpactElecCongel = Masse (kg) * ElecCongel (kWh/kg) * ImpactProcedeElec
