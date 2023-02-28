@@ -189,7 +189,7 @@ compute db =
                             mass =
                                 getMassAtPackaging recipe
                         in
-                        Result.map (Retail.transportImpact db mass distribution)
+                        Result.map (Retail.distributionTransportImpact db mass distribution)
                             (Process.loadWellKnown db.processes)
 
                     recipeImpacts =

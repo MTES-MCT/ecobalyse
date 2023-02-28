@@ -5,11 +5,11 @@ module Data.Food.Retail exposing
     , computeImpacts
     , decode
     , displayNeeds
+    , distributionTransportImpact
     , encode
     , fromString
     , toDisplay
     , toString
-    , transportImpact
     )
 
 {- This module allow to compute the impacts of the transport of finished products to the retail stores,
@@ -185,8 +185,8 @@ elecImpact elecNeeds volume =
             )
 
 
-transportImpact : Db -> Mass -> Distribution -> WellKnown -> Transport
-transportImpact db mass (Distribution _ needs) wellKnown =
+distributionTransportImpact : Db -> Mass -> Distribution -> WellKnown -> Transport
+distributionTransportImpact db mass (Distribution _ needs) wellKnown =
     let
         impacts =
             wellKnown.lorryTransport.impacts
