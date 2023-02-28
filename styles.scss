@@ -531,7 +531,6 @@ blockquote {
   border-right: 1px solid  $list-group-border-color;
   min-height: 2rem;
   position: relative;
-  width: 20px;
   
   &::after, &::before {
     border-bottom: 1px solid $list-group-border-color;

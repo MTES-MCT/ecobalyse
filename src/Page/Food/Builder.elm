@@ -42,6 +42,7 @@ import Time exposing (Posix)
 import Views.Alert as Alert
 import Views.Bookmark as BookmarkView
 import Views.Comparator as ComparatorView
+import Views.Component.DownArrow as DownArrow
 import Views.Component.MassInput as MassInput
 import Views.Component.Summary as SummaryComp
 import Views.Container as Container
@@ -796,27 +797,9 @@ packagingListView db selectedImpact recipe results =
     ]
 
 
-downArrow : List (Html Msg) -> List (Html Msg) -> Html Msg
-downArrow leftChildren rightChildren =
-    div [ class "d-flex justify-content-between TransportToDistribution text-muted" ]
-        [ span
-            [ class "w-50 fs-7"
-            , style "padding" ".5rem 1rem"
-            ]
-            leftChildren
-        , div [ class "DownArrow" ]
-            []
-        , div
-            [ class "w-50 fs-7"
-            , style "padding" ".5rem 1rem"
-            ]
-            rightChildren
-        ]
-
-
 transportToDistributionView : Impact.Definition -> Recipe -> Recipe.Results -> Html Msg
 transportToDistributionView selectedImpact recipe results =
-    downArrow
+    DownArrow.view
         []
         [ div []
             [ text "Masse : "
@@ -1113,10 +1096,10 @@ stepListView db { impact } recipe results =
     div []
         [ div [ class "card" ]
             (ingredientListView db impact recipe results)
-        , downArrow [] []
+        , DownArrow.view [] []
         , div [ class "card" ]
             (transformView db impact recipe results)
-        , downArrow [] []
+        , DownArrow.view [] []
         , div [ class "card" ]
             (packagingListView db impact recipe results)
         , transportToDistributionView impact recipe results
