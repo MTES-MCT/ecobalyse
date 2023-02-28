@@ -133,9 +133,37 @@ $$
 ImpactElecCongel = Masse (kg) * ElecCongel (kWh/kg) * ImpactProcedeElec
 $$
 
+<details>
+
+<summary>Exemple de calcul : steak surgelé</summary>
+
+Prenons le cas d'un steak de boeuf surgelé de masse m = 0.1 kg cuit au poêle, calculons l'impact sur la catégorie \`Changement Climatique\`.&#x20;
+
+#### Impact Changement Climatique de la congélation :&#x20;
+
+```markup
+I_congélation = m * Qté_élec_congélation_par_kg * I_élec_par_kWh
+
+I_congélation = 0.1 * 0.294 * 0.062
+I_congélation = 0.0018 kgCO2e = 1.8 gCO2e 
+```
+
+#### Impact Changement Climatique de la cuisson au poêle :
+
+{% code overflow="wrap" %}
+```
+I_cuisson = m * (part_élec * Qté_élec_poêle_par_kg * I_élec_par_kWh + part_gaz * Qté_gaz_poêle_par_kg * I_gaz_par_MJ)
+
+I_cuisson = 0.1 * (0.4 * 1.584 * 0.062 + 0.6 * 1.584 * 0.076)
+I_cuisson = 0.011 kgCO2e = 11 gCO2e
+```
+{% endcode %}
+
+</details>
+
 ### Masse finale
 
-Suite à l'application des techniques de préparation, la masse finale du produit (et donc des ingrédients) préparé peut avoir évolué. Il convient en effet de prendre en compte le [rapport cru/cuit](../rapport-cru-cuit.md).
+Suite à l'application des techniques d e préparation, la masse finale du produit (et donc des ingrédients) préparé peut avoir évolué. Il convient en effet de prendre en compte le [rapport cru/cuit](../rapport-cru-cuit.md).
 
 C'est bien cette masse finale du produit, tel que consommé, qui doit ensuite être considérée dans le calcul de l'impact par kg.
 
