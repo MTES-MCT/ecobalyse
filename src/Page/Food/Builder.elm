@@ -796,15 +796,28 @@ packagingListView db selectedImpact recipe results =
     ]
 
 
-transportToDistributionView : Impact.Definition -> Recipe -> Recipe.Results -> List (Html Msg)
-transportToDistributionView selectedImpact recipe results =
-    [ span [ class "w-50" ] [ text "" ]
-    , div [ class "DownArrow" ]
-        []
-    , div
-        [ class "w-50 fs-7"
-        , style "padding" ".5rem 1rem"
+downArrow : List (Html Msg) -> List (Html Msg) -> Html Msg
+downArrow leftChildren rightChildren =
+    div [ class "d-flex justify-content-between TransportToDistribution text-muted" ]
+        [ span
+            [ class "w-50 fs-7"
+            , style "padding" ".5rem 1rem"
+            ]
+            leftChildren
+        , div [ class "DownArrow" ]
+            []
+        , div
+            [ class "w-50 fs-7"
+            , style "padding" ".5rem 1rem"
+            ]
+            rightChildren
         ]
+
+
+transportToDistributionView : Impact.Definition -> Recipe -> Recipe.Results -> Html Msg
+transportToDistributionView selectedImpact recipe results =
+    downArrow
+        []
         [ div []
             [ text "Masse : "
             , Recipe.getTransformedIngredientsMass recipe
@@ -818,7 +831,6 @@ transportToDistributionView selectedImpact recipe results =
             , Format.formatFoodSelectedImpact selectedImpact results.distribution.transports.impacts
             ]
         ]
-    ]
 
 
 distributionView : Impact.Definition -> Recipe -> Recipe.Results -> List (Html Msg)
@@ -1099,16 +1111,15 @@ scoresView { queries } { scoring } =
 stepListView : Db -> Model -> Recipe -> Recipe.Results -> Html Msg
 stepListView db { impact } recipe results =
     div []
-        [ div [ class "d-flex flex-column gap-3" ]
-            [ div [ class "card" ]
-                (ingredientListView db impact recipe results)
-            , div [ class "card" ]
-                (transformView db impact recipe results)
-            , div [ class "card" ]
-                (packagingListView db impact recipe results)
-            ]
-        , div [ class "d-flex justify-content-between TransportToDistribution text-muted" ]
-            (transportToDistributionView impact recipe results)
+        [ div [ class "card" ]
+            (ingredientListView db impact recipe results)
+        , downArrow [] []
+        , div [ class "card" ]
+            (transformView db impact recipe results)
+        , downArrow [] []
+        , div [ class "card" ]
+            (packagingListView db impact recipe results)
+        , transportToDistributionView impact recipe results
         , div [ class "card" ]
             (distributionView impact recipe results)
         ]
