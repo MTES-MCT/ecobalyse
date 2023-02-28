@@ -442,7 +442,7 @@ updateProcessFormView { processes, excluded, processQuery, impact, updateEvent, 
                 processQuery.code
                 (\code -> updateEvent { processQuery | code = code })
                 excluded
-        , span [ class "text-end ImpactDisplay" ]
+        , span [ class "text-end ImpactDisplay fs-7" ]
             [ impact ]
         , button
             [ type_ "button"
@@ -582,7 +582,7 @@ updateIngredientFormView { excluded, db, ingredient, impact, transportImpact } =
                 []
             , text "bio"
             ]
-        , span [ class "text-end ImpactDisplay" ]
+        , span [ class "text-end ImpactDisplay fs-7" ]
             [ impact ]
         , button
             [ type_ "button"
@@ -808,9 +808,9 @@ transportToDistributionView : Impact.Definition -> Recipe -> Recipe.Results -> L
 transportToDistributionView selectedImpact recipe results =
     [ span [ class "w-50" ] [ text "" ]
     , div [ class "DownArrow" ]
-        [ text "" ]
+        []
     , div
-        [ class "w-50"
+        [ class "w-50 fs-7"
         , style "padding" ".5rem 1rem"
         ]
         [ div []
