@@ -454,7 +454,7 @@ components:
       schema:
         type: number
         minimum: 0
-        maximum: 0.25
+        maximum: 0.4
     pickingParam:
       name: picking
       in: query
