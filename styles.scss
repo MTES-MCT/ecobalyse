@@ -527,6 +527,30 @@ blockquote {
   }
 }
 
+.DownArrow {
+  border-right: 1px solid  $list-group-border-color;
+  min-height: 2rem;
+  position: relative;
+  
+  &::after, &::before {
+    border-bottom: 1px solid $list-group-border-color;
+    bottom: 2px;
+    content: "";
+    display: inline-block;
+    position: absolute;
+    vertical-align: bottom;
+    width: 10px;
+  }
+  &::after{
+    right: -8px;
+    transform: rotate(-45deg);
+  }
+  &::before {
+    right: -3px;
+    transform: rotate(45deg);
+  }
+}
+
 .GitbookContent {
   font-size: 0.9rem;
 
@@ -633,7 +657,7 @@ blockquote {
   grid-template-columns: 116px 1fr 1fr auto 120px 31px;
   grid-template-areas:
     "massInputWrapper ingredientSelector countrySelector bioCheckbox impactDisplay ingredientDelete"
-    "transportLabel transportLabel transportDistances transportDistances transportImpact unused";
+    "empty empty transportDistances transportDistances transportImpact unused";
   padding: $list-group-item-padding-y $list-group-item-padding-x;
   align-items: center;
   .BioCheckbox {
@@ -654,9 +678,6 @@ blockquote {
   .IngredientSelector {
     grid-area: ingredientSelector;
   }
-  .IngredientTransportLabel {
-    grid-area: transportLabel;
-  }
   .IngredientTransportDistances {
     grid-area: transportDistances;
   }
@@ -673,7 +694,40 @@ blockquote {
     grid-template-areas:
       "massInputWrapper ingredientSelector impactDisplay impactDisplay"
       "countrySelector countrySelector bioCheckbox ingredientDelete"
-      "transportLabel transportDistances transportImpact transportImpact";
+      "transportDistances transportDistances transportImpact transportImpact";
+  }
+}
+
+.IngredientPlaneOrBoatSelector {
+  input[type=radio] {
+    display: none;
+  }
+  i {
+    border: 1px solid var(--bs-primary);
+    border-radius: 4px;
+    color: var(--bs-primary);
+    cursor: pointer;
+    padding: 4px 7px;
+    transition: background-color 0.5s, color 0.5s;
+  }
+
+  input[type=radio] ~ i{
+    background-color: var(--bs-white);
+    color: var(--bs-primary);
+  }
+
+  input[type=radio]:checked ~ i{
+    background-color: var(--bs-primary);
+    color: var(--bs-white);
+  }
+
+  .PlaneSelector i{
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  .BoatSelector i{
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
   }
 }
 

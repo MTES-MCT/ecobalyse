@@ -105,6 +105,7 @@ mainSummaryView { session, impact, funit } { inputs, impacts, daysOfWear, lifeCy
                 |> LifeCycle.computeTotalTransportImpacts session.db
                 |> TransportView.view
                     { fullWidth = False
+                    , hideNoLength = False
                     , airTransportLabel = Just "Transport aérien total"
                     , seaTransportLabel = Just "Transport maritime total"
                     , roadTransportLabel = Just "Transport routier total"
