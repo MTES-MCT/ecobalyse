@@ -1,26 +1,22 @@
-module Views.Component.DownArrow exposing (large, standard)
+module Views.Component.DownArrow exposing (view)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
 
 
-img : String -> Html msg
-img path =
-    div [ class "text-center" ]
-        [ Html.img
-            [ src path
-            , alt ""
-            , attribute "aria-hidden" "true"
+view : List (Html msg) -> List (Html msg) -> Html msg
+view leftChildren rightChildren =
+    div [ class "d-flex justify-content-between text-muted" ]
+        [ span
+            [ class "w-50 fs-7"
+            , style "padding" ".5rem 1rem"
             ]
+            leftChildren
+        , div [ class "DownArrow" ]
             []
+        , div
+            [ class "w-50 fs-7"
+            , style "padding" ".5rem 1rem"
+            ]
+            rightChildren
         ]
-
-
-standard : Html msg
-standard =
-    img "img/down-arrow-icon.png"
-
-
-large : Html msg
-large =
-    img "img/down-arrow-lg-icon.png"

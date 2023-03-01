@@ -5,6 +5,7 @@ module Data.Food.Retail exposing
     , computeImpacts
     , decode
     , displayNeeds
+    , distributionTransportImpact
     , encode
     , fromString
     , toDisplay
@@ -18,6 +19,7 @@ module Data.Food.Retail exposing
 import Data.Food.Builder.Db exposing (Db)
 import Data.Food.Process exposing (Process, WellKnown)
 import Data.Impact as Impact exposing (Impacts)
+import Data.Transport as Transport exposing (Transport)
 import Data.Unit as Unit
 import Energy exposing (Joules, kilowattHours)
 import Json.Decode as Decode exposing (Decoder)
@@ -96,11 +98,8 @@ displayNeeds (Distribution _ needs) =
 
         water =
             needs.water / ratio (Volume.liters 1) (Volume.cubicMeters 1) |> String.fromFloat
-
-        transport =
-            needs.transport |> Length.inKilometers |> String.fromFloat
     in
-    "Énergie: " ++ energy ++ " kWh/m³, Réfrigération: " ++ cooling ++ " kWh/m³, Eau " ++ water ++ " L/m³, Transport: " ++ transport ++ "km"
+    "Énergie: " ++ energy ++ " kWh/m³, Réfrigération: " ++ cooling ++ " kWh/m³, Eau " ++ water ++ " L/m³"
 
 
 all : List Distribution
@@ -186,24 +185,34 @@ elecImpact elecNeeds volume =
             )
 
 
-transportImpact : Length -> Mass -> Process -> Impacts
-transportImpact distance mass =
-    .impacts
-        >> Impact.mapImpacts
-            (\_ impact ->
-                impact
-                    |> Unit.impactToFloat
-                    |> (*) (Length.inKilometers distance * Mass.inMetricTons mass)
-                    |> Unit.impact
-            )
+distributionTransportImpact : Db -> Mass -> Distribution -> WellKnown -> Transport
+distributionTransportImpact db mass (Distribution _ needs) wellKnown =
+    let
+        impacts =
+            wellKnown.lorryTransport.impacts
+                |> Impact.mapImpacts
+                    (\_ impact ->
+                        impact
+                            |> Unit.impactToFloat
+                            |> (*) (Length.inKilometers needs.transport * Mass.inMetricTons mass)
+                            |> Unit.impact
+                    )
+
+        baseTransport =
+            impacts
+                |> Impact.updateAggregatedScores db.impacts
+                |> Transport.default
+    in
+    { baseTransport
+        | road = needs.transport
+    }
 
 
-computeImpacts : Db -> Mass -> Volume -> Distribution -> WellKnown -> Impacts
-computeImpacts db mass volume (Distribution _ needs) wellknown =
+computeImpacts : Db -> Volume -> Distribution -> WellKnown -> Impacts
+computeImpacts db volume (Distribution _ needs) wellknown =
     [ waterImpact needs.water volume wellknown.water
     , elecImpact needs.cooling volume wellknown.electricity
     , elecImpact needs.energy volume wellknown.electricity
-    , transportImpact needs.transport mass wellknown.lorryTransport
     ]
         |> Impact.sumImpacts db.impacts
         |> Impact.updateAggregatedScores db.impacts
