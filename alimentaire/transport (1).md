@@ -160,8 +160,9 @@ Les procédés de transport considérés sont extraits de la base Agribalyse.&#x
 Le choix d'un mode transport frigorifique dépend de l'ingrédient considéré. En accord avec la [documentation Agribalyse](https://3613321239-files.gitbook.io/\~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2F-LpO7Agg1DbhEBNAvmHP%2Fuploads%2FwE46PsDpfPPo7qd486O6%2FM%C3%A9thodologie%20AGB%203.1\_Alimentation.pdf?alt=media\&token=0da7c4e0-4332-4bc3-9c86-83b7a6325971), un transport frigorifique est considéré pour :&#x20;
 
 * Le lait et la viande sur toutes les étapes de transport
-* Les fruits, légumes et céréales pour toutes les étapes à l'exception de l'étape "2. RECETTE\
-  Transport international - Acheminement d'un ingrédient vers la zone logistique"
+* Les fruits, légumes et céréales pour toutes les étapes à l'exception des étapes :&#x20;
+  * "1. RECETTE Acheminement vers le site de transformations
+  * "2. RECETTE Transport international - Acheminement d'un ingrédient vers la zone logistique"
 
 <figure><img src="../.gitbook/assets/Tableau 36.PNG" alt=""><figcaption></figcaption></figure>
 
