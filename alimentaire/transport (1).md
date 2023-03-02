@@ -164,6 +164,10 @@ Le choix d'un mode transport frigorifique dépend de l'ingrédient considéré. 
   * "1. RECETTE Acheminement vers le site de transformations
   * "2. RECETTE Transport international - Acheminement d'un ingrédient vers la zone logistique"
 
+{% hint style="info" %}
+Au-delà de la première étape (Ingrédients), il faut considérer potentiellement le transport de plusieurs ingrédients. Dès lors qu'au moins un des ingrédients doit être transporté en frigorifique, c'est bien le transport frigorifique qui est considéré pour l'ensemble du produit.
+{% endhint %}
+
 <figure><img src="../.gitbook/assets/Tableau 36.PNG" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
