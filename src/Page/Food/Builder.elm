@@ -16,6 +16,7 @@ import Data.Food.Builder.Db as BuilderDb exposing (Db)
 import Data.Food.Builder.Query as Query exposing (Query)
 import Data.Food.Builder.Recipe as Recipe exposing (Recipe)
 import Data.Food.Category as Category
+import Data.Food.Comsumption as Consumption
 import Data.Food.Ingredient as Ingredient exposing (Id, Ingredient)
 import Data.Food.Origin as Origin
 import Data.Food.Process as Process exposing (Process)
@@ -773,6 +774,39 @@ packagingListView db selectedImpact recipe results =
     ]
 
 
+consumptionView : Db -> Impact.Definition -> Recipe -> Recipe.Results -> List (Html Msg)
+consumptionView db selectedImpact recipe _ =
+    [ div [ class "card-header d-flex align-items-center justify-content-between" ]
+        [ h5 [ class "mb-0" ] [ text "Consommation" ]
+        , -- TODO: use results
+          Impact.impactsFromDefinitons db.impacts
+            |> Format.formatFoodSelectedImpact selectedImpact
+        ]
+    , ul [ class "list-group list-group-flush" ]
+        (if List.isEmpty recipe.packaging then
+            [ li [ class "list-group-item" ] [ text "Sans préparation" ] ]
+
+         else
+            Consumption.techniques
+                |> List.map
+                    (\{ name } ->
+                        li [ class "list-group-item" ]
+                            [ label [ class "d-flex gap-1" ]
+                                [ input [ type_ "checkbox" ]
+                                    []
+                                , text name
+                                ]
+                            ]
+                    )
+        )
+    , addProcessFormView
+        { isDisabled = False
+        , event = NoOp
+        , kind = "une technique de préparation"
+        }
+    ]
+
+
 distributionView : Impact.Definition -> Recipe -> Recipe.Results -> List (Html Msg)
 distributionView selectedImpact recipe results =
     [ div [ class "card-header d-flex align-items-center justify-content-between" ]
@@ -1059,6 +1093,8 @@ stepListView db { impact } recipe results =
             (packagingListView db impact recipe results)
         , div [ class "card" ]
             (distributionView impact recipe results)
+        , div [ class "card" ]
+            (consumptionView db impact recipe results)
         ]
 
 
