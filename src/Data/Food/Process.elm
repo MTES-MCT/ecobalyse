@@ -69,6 +69,7 @@ type alias WellKnown =
     , planeTransport : Process
     , water : Process
     , electricity : Process
+    , domesticGasHeat : Process
     }
 
 
@@ -245,3 +246,4 @@ loadWellKnown processes =
         |> resolve "tapwater"
         -- low voltage:
         |> resolve "electricity"
+        |> resolve "domestic-gas-heat"

@@ -1553,6 +1553,7 @@
   },
   {
     "name": "Heat, central or small-scale, natural gas {Europe without Switzerland}| market for heat, central or small-scale, natural gas | Cut-off, S - Copied from Ecoinvent",
+    "alias": "domestic-gas-heat",
     "unit": "megajoule",
     "simapro_id": "0fc6ebb5c70ad7b213fe289d039e307a",
     "system_description": "Ecoinvent v3",
