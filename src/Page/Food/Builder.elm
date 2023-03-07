@@ -16,7 +16,7 @@ import Data.Food.Builder.Db as BuilderDb exposing (Db)
 import Data.Food.Builder.Query as Query exposing (Query)
 import Data.Food.Builder.Recipe as Recipe exposing (Recipe)
 import Data.Food.Category as Category
-import Data.Food.Comsumption as Consumption
+import Data.Food.Consumption as Consumption
 import Data.Food.Ingredient as Ingredient exposing (Id, Ingredient)
 import Data.Food.Origin as Origin
 import Data.Food.Process as Process exposing (Process)
@@ -72,12 +72,14 @@ type Modal
 
 
 type Msg
-    = AddIngredient
+    = AddConsumptionTechnique
+    | AddIngredient
     | AddPackaging
     | AddTransform
     | CopyToClipBoard String
     | DbLoaded (WebData Db)
     | DeleteBookmark Bookmark
+    | DeleteConsumptionTechnique Consumption.Id
     | DeleteIngredient Query.IngredientQuery
     | DeletePackaging Process.Code
     | LoadQuery Query
@@ -93,6 +95,7 @@ type Msg
     | SwitchImpact Impact.Trigram
     | ToggleComparedSimulation Bookmark Bool
     | UpdateBookmarkName String
+    | UpdateConsumptionTechnique Consumption.Id Consumption.Id
     | UpdateIngredient Id Query.IngredientQuery
     | UpdatePackaging Process.Code Query.ProcessQuery
     | UpdateTransform Query.ProcessQuery
@@ -149,6 +152,22 @@ update ({ queries } as session) msg model =
             queries.food
     in
     case msg of
+        AddConsumptionTechnique ->
+            let
+                firstConsumptionTechnique =
+                    Consumption.techniques
+                        |> Consumption.unused query.consumption
+                        |> List.head
+            in
+            ( model, session, Cmd.none )
+                |> (case firstConsumptionTechnique of
+                        Just { id } ->
+                            updateQuery (Query.addConsumptionTechnique id query)
+
+                        Nothing ->
+                            identity
+                   )
+
         AddIngredient ->
             let
                 firstIngredient =
@@ -222,6 +241,10 @@ update ({ queries } as session) msg model =
                     session
             , Cmd.none
             )
+
+        DeleteConsumptionTechnique techniqueId ->
+            ( model, session, Cmd.none )
+                |> updateQuery (Query.deleteConsumptionTechnique techniqueId query)
 
         DeleteIngredient ingredientQuery ->
             ( model, session, Cmd.none )
@@ -315,6 +338,10 @@ update ({ queries } as session) msg model =
 
         UpdateBookmarkName recipeName ->
             ( { model | bookmarkName = recipeName }, session, Cmd.none )
+
+        UpdateConsumptionTechnique oldId newId ->
+            ( model, session, Cmd.none )
+                |> updateQuery (Query.updateConsumptionTechnique oldId newId query)
 
         UpdateIngredient oldIngredientId newIngredient ->
             ( model, session, Cmd.none )
@@ -648,7 +675,7 @@ debugQueryView db query =
         , div [ class "row" ]
             [ div [ class "col-7" ]
                 [ query
-                    |> Recipe.serializeQuery
+                    |> Query.serialize
                     |> debugView
                 ]
             , div [ class "col-5" ]
@@ -774,34 +801,52 @@ packagingListView db selectedImpact recipe results =
     ]
 
 
-consumptionView : Db -> Impact.Definition -> Recipe -> Recipe.Results -> List (Html Msg)
-consumptionView db selectedImpact recipe _ =
+consumptionView : Impact.Definition -> Recipe -> Recipe.Results -> List (Html Msg)
+consumptionView selectedImpact recipe results =
     [ div [ class "card-header d-flex align-items-center justify-content-between" ]
         [ h5 [ class "mb-0" ] [ text "Consommation" ]
-        , -- TODO: use results
-          Impact.impactsFromDefinitons db.impacts
+        , results.consumption
             |> Format.formatFoodSelectedImpact selectedImpact
         ]
     , ul [ class "list-group list-group-flush" ]
-        (if List.isEmpty recipe.packaging then
+        (if List.isEmpty recipe.consumption then
             [ li [ class "list-group-item" ] [ text "Sans préparation" ] ]
 
          else
-            Consumption.techniques
+            recipe.consumption
                 |> List.map
-                    (\{ name } ->
-                        li [ class "list-group-item" ]
-                            [ label [ class "d-flex gap-1" ]
-                                [ input [ type_ "checkbox" ]
-                                    []
-                                , text name
+                    (\usedTechnique ->
+                        li [ class "list-group-item d-flex justify-content-between align-items-center gap-2" ]
+                            [ Consumption.techniques
+                                |> List.sortBy .name
+                                |> List.map
+                                    (\{ id, name } ->
+                                        option
+                                            [ selected <| usedTechnique.id == id
+                                            , value <| Consumption.idToString id
+                                            , disabled <| List.member id (List.map .id recipe.consumption)
+                                            ]
+                                            [ text name ]
+                                    )
+                                |> select
+                                    [ class "form-select form-select-sm"
+                                    , onInput (Consumption.Id >> UpdateConsumptionTechnique usedTechnique.id)
+                                    ]
+                            , span [ class "text-end ImpactDisplay" ]
+                                [ text "impact" ]
+                            , button
+                                [ type_ "button"
+                                , class "btn btn-sm btn-outline-primary"
+                                , title <| "Supprimer "
+                                , onClick (DeleteConsumptionTechnique usedTechnique.id)
                                 ]
+                                [ Icon.trash ]
                             ]
                     )
         )
     , addProcessFormView
-        { isDisabled = False
-        , event = NoOp
+        { isDisabled = List.length recipe.consumption == 2
+        , event = AddConsumptionTechnique
         , kind = "une technique de préparation"
         }
     ]
@@ -1094,7 +1139,7 @@ stepListView db { impact } recipe results =
         , div [ class "card" ]
             (distributionView impact recipe results)
         , div [ class "card" ]
-            (consumptionView db impact recipe results)
+            (consumptionView impact recipe results)
         ]
 
 

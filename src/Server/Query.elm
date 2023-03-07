@@ -10,6 +10,7 @@ import Data.Env as Env
 import Data.Food.Builder.Db as BuilderDb
 import Data.Food.Builder.Query as BuilderQuery
 import Data.Food.Category as Category
+import Data.Food.Consumption as Consumption
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Process as FoodProcess
 import Data.Food.Retail as Retail exposing (Distribution)
@@ -64,6 +65,7 @@ parseFoodQuery builderDb =
         |> apply (maybeTransformParser "transform" builderDb.processes)
         |> apply (packagingListParser "packaging" builderDb.processes)
         |> apply (distributionParser "distribution")
+        |> apply (consumptionListParser "consumption")
         |> apply (maybeFoodCategoryParser "category")
 
 
@@ -189,6 +191,16 @@ packagingListParser : String -> List FoodProcess.Process -> Parser (ParseResult 
 packagingListParser key packagings =
     Query.custom (key ++ "[]")
         (List.map (packagingParser packagings)
+            >> RE.combine
+            >> Result.mapError (\err -> ( key, err ))
+        )
+
+
+consumptionListParser : String -> Parser (ParseResult (List Consumption.Id))
+consumptionListParser key =
+    Query.custom (key ++ "[]")
+        -- Note: leveraging Consumption.findById for validation
+        (List.map (Consumption.Id >> Consumption.findById >> Result.map .id)
             >> RE.combine
             >> Result.mapError (\err -> ( key, err ))
         )

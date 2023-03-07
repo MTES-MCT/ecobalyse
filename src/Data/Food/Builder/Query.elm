@@ -3,16 +3,20 @@ module Data.Food.Builder.Query exposing
     , ProcessQuery
     , Query
     , Variant(..)
+    , addConsumptionTechnique
     , addIngredient
     , addPackaging
     , b64encode
     , carrotCake
     , decode
+    , deleteConsumptionTechnique
     , deleteIngredient
     , emptyQuery
     , encode
     , parseBase64Query
+    , serialize
     , setTransform
+    , updateConsumptionTechnique
     , updateDistribution
     , updateIngredient
     , updatePackaging
@@ -22,6 +26,7 @@ module Data.Food.Builder.Query exposing
 import Base64
 import Data.Country as Country
 import Data.Food.Category as Category
+import Data.Food.Consumption as Consumption
 import Data.Food.Ingredient as Ingredient
 import Data.Food.Process as Process
 import Data.Food.Retail as Retail
@@ -60,7 +65,17 @@ type alias Query =
     , transform : Maybe ProcessQuery
     , packaging : List ProcessQuery
     , distribution : Retail.Distribution
+    , consumption : List Consumption.Id
     , category : Maybe Category.Id
+    }
+
+
+addConsumptionTechnique : Consumption.Id -> Query -> Query
+addConsumptionTechnique techniqueId query =
+    { query
+        | consumption =
+            query.consumption
+                ++ [ techniqueId ]
     }
 
 
@@ -89,6 +104,7 @@ emptyQuery =
     , transform = Nothing
     , packaging = []
     , distribution = Retail.ambient
+    , consumption = []
     , category = Nothing
     }
 
@@ -138,6 +154,7 @@ carrotCake =
           }
         ]
     , distribution = Retail.ambient
+    , consumption = []
     , category = Just (Category.Id "cakes")
     }
 
@@ -149,6 +166,7 @@ decode =
         |> Pipe.optional "transform" (Decode.maybe decodeProcess) Nothing
         |> Pipe.required "packaging" (Decode.list decodeProcess)
         |> Pipe.custom (Decode.field "distribution" Retail.decode)
+        |> Pipe.optional "consumption" (Decode.list Consumption.decodeId) []
         |> Pipe.optional "category" (Decode.maybe Category.decodeId) Nothing
 
 
@@ -212,6 +230,15 @@ decodeVariant =
         |> Decode.andThen (variantFromString >> DE.fromResult)
 
 
+deleteConsumptionTechnique : Consumption.Id -> Query -> Query
+deleteConsumptionTechnique techniqueId query =
+    { query
+        | consumption =
+            query.consumption
+                |> List.filter ((/=) techniqueId)
+    }
+
+
 deleteIngredient : IngredientQuery -> Query -> Query
 deleteIngredient ingredientQuery query =
     { query
@@ -229,6 +256,7 @@ encode v =
         , ( "transform", v.transform |> Maybe.map encodeProcess |> Maybe.withDefault Encode.null )
         , ( "packaging", Encode.list encodeProcess v.packaging )
         , ( "distribution", Retail.encode v.distribution )
+        , ( "consumption", Encode.list Consumption.encodeId v.consumption )
         , ( "category", v.category |> Maybe.map Category.encodeId |> Maybe.withDefault Encode.null )
         ]
 
@@ -286,6 +314,22 @@ getIngredientMass query =
 setTransform : ProcessQuery -> Query -> Query
 setTransform transform query =
     { query | transform = Just transform }
+
+
+updateConsumptionTechnique : Consumption.Id -> Consumption.Id -> Query -> Query
+updateConsumptionTechnique oldId newId query =
+    { query
+        | consumption =
+            query.consumption
+                |> List.map
+                    (\id ->
+                        if id == oldId then
+                            newId
+
+                        else
+                            id
+                    )
+    }
 
 
 updateIngredient : Ingredient.Id -> IngredientQuery -> Query -> Query
@@ -370,6 +414,11 @@ variantToString variant =
 
         Organic ->
             "organic"
+
+
+serialize : Query -> String
+serialize =
+    encode >> Encode.encode 2
 
 
 b64decode : String -> Result String Query

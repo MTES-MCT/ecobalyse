@@ -9,7 +9,7 @@ module Data.Food.Builder.Recipe exposing
     , computeIngredientTransport
     , computeProcessImpacts
     , deletePackaging
-    , encodeQuery
+    , encode
     , encodeResults
     , fromQuery
     , getMassAtPackaging
@@ -17,7 +17,6 @@ module Data.Food.Builder.Recipe exposing
     , ingredientQueryFromIngredient
     , processQueryFromProcess
     , resetTransform
-    , serializeQuery
     , setCategory
     , toString
     )
@@ -26,6 +25,7 @@ import Data.Country as Country exposing (Country)
 import Data.Food.Builder.Db exposing (Db)
 import Data.Food.Builder.Query as BuilderQuery exposing (Query)
 import Data.Food.Category as Category exposing (Category)
+import Data.Food.Consumption as Consumption
 import Data.Food.Ingredient as Ingredient exposing (Id, Ingredient)
 import Data.Food.Origin as Origin
 import Data.Food.Process as Process exposing (Process)
@@ -70,6 +70,7 @@ type alias Recipe =
     , transform : Maybe Transform
     , packaging : List Packaging
     , distribution : Retail.Distribution
+    , consumption : List Consumption.Technique
     , category : Maybe Category
     }
 
@@ -88,6 +89,7 @@ type alias Results =
         , distribution : Impacts
         }
     , packaging : Impacts
+    , consumption : Impacts
     , transports : Transport
     }
 
@@ -138,7 +140,7 @@ compute db =
     -- FIXME get the wellknown early and propagate the error to the computation
     fromQuery db
         >> Result.map
-            (\({ ingredients, transform, packaging, distribution, category } as recipe) ->
+            (\({ ingredients, transform, packaging, distribution, consumption, category } as recipe) ->
                 let
                     updateImpacts impacts =
                         impacts
@@ -194,24 +196,33 @@ compute db =
                             |> RE.combine
                             |> Result.map (Impact.sumImpacts db.impacts)
 
+                    transformedIngredientsMass =
+                        getTransformedIngredientsMass recipe
+
                     impactsPerKg =
                         -- Note: Product impacts per kg is computed against transformed
                         --       ingredients mass, excluding packaging
                         totalImpacts
                             |> Result.map
-                                (Impact.perKg (getTransformedIngredientsMass recipe))
+                                (Impact.perKg transformedIngredientsMass)
 
                     packagingImpacts =
                         packaging
                             |> List.map (computeProcessImpacts db.impacts)
                             |> updateImpacts
 
+                    consumptionImpacts =
+                        consumption
+                            |> List.map (Consumption.applyTechnique db transformedIngredientsMass)
+                            |> RE.combine
+                            |> Result.map (Impact.sumImpacts db.impacts)
+
                     scoring =
                         impactsPerKg
                             |> Result.map (computeScoring db.impacts category)
                 in
-                Result.map4
-                    (\total perKg distrib score ->
+                Result.map5
+                    (\total perKg distrib consumer score ->
                         ( recipe
                         , { total = total
                           , perKg = perKg
@@ -228,6 +239,7 @@ compute db =
                                 , distribution = distrib
                                 }
                           , packaging = packagingImpacts
+                          , consumption = consumer
                           , transports = ingredientsTransport
                           }
                         )
@@ -235,6 +247,7 @@ compute db =
                     totalImpacts
                     impactsPerKg
                     distributionImpacts
+                    consumptionImpacts
                     scoring
             )
         >> RE.join
@@ -389,6 +402,13 @@ computeIngredientTransport db { ingredient, country, mass, planeTransport } =
     }
 
 
+consumptionListFromQuery : Query -> Result String (List Consumption.Technique)
+consumptionListFromQuery =
+    .consumption
+        >> List.map Consumption.findById
+        >> RE.combine
+
+
 deletePackaging : Process.Code -> Query -> Query
 deletePackaging code query =
     { query
@@ -417,8 +437,8 @@ encodeProcess p =
         ]
 
 
-encodeQuery : Query -> Encode.Value
-encodeQuery q =
+encode : Query -> Encode.Value
+encode q =
     Encode.object
         [ ( "ingredients", Encode.list encodeIngredient q.ingredients )
         , ( "transform", q.transform |> Maybe.map encodeProcess |> Maybe.withDefault Encode.null )
@@ -443,9 +463,11 @@ encodeResults defs results =
                 , ( "ingredientsTotal", encodeImpacts results.recipe.ingredientsTotal )
                 , ( "transform", encodeImpacts results.recipe.transform )
                 , ( "transports", Transport.encode defs results.recipe.transports )
+                , ( "distribution", encodeImpacts results.recipe.distribution )
                 ]
           )
         , ( "packaging", encodeImpacts results.packaging )
+        , ( "consumption", encodeImpacts results.consumption )
         , ( "transports", Transport.encode defs results.transports )
         ]
 
@@ -473,12 +495,13 @@ encodeScoring scoring =
 
 fromQuery : Db -> Query -> Result String Recipe
 fromQuery db query =
-    Result.map5 Recipe
-        (ingredientListFromQuery db query)
-        (transformFromQuery db query)
-        (packagingListFromQuery db query)
-        (Ok query.distribution)
-        (categoryFromQuery query.category)
+    Ok Recipe
+        |> RE.andMap (ingredientListFromQuery db query)
+        |> RE.andMap (transformFromQuery db query)
+        |> RE.andMap (packagingListFromQuery db query)
+        |> RE.andMap (Ok query.distribution)
+        |> RE.andMap (consumptionListFromQuery query)
+        |> RE.andMap (categoryFromQuery query.category)
 
 
 getMassAtPackaging : Recipe -> Mass
@@ -607,11 +630,6 @@ resetTransform query =
 setCategory : Maybe Category.Id -> Query -> Query
 setCategory maybeId query =
     { query | category = maybeId }
-
-
-serializeQuery : Query -> String
-serializeQuery =
-    encodeQuery >> Encode.encode 2
 
 
 toString : Recipe -> String
