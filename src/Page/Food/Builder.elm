@@ -1191,6 +1191,7 @@ stepListView db { impact } recipe results =
         , transportToDistributionView impact recipe results
         , div [ class "card" ]
             (distributionView impact recipe results)
+        , DownArrow.view [] []
         , div [ class "card" ]
             (consumptionView db impact recipe results)
         ]
