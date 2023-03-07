@@ -78,7 +78,7 @@ findById id =
     techniques
         |> List.filter (.id >> (==) id)
         |> List.head
-        |> Result.fromMaybe ("Technique de préparation " ++ idToString id ++ " inconnue")
+        |> Result.fromMaybe (notFoundError (idToString id))
 
 
 idFromString : String -> Result String Id
@@ -87,12 +87,17 @@ idFromString string =
         Ok (Id string)
 
     else
-        Err <| "Technique de préparation inconnue: " ++ string
+        Err <| notFoundError string
 
 
 idToString : Id -> String
 idToString (Id string) =
     string
+
+
+notFoundError : String -> String
+notFoundError str =
+    "Technique de préparation inconnue: " ++ str
 
 
 techniques : List Technique

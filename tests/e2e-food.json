@@ -583,5 +583,68 @@
         "outOf100": 78
       }
     }
+  },
+  {
+    "name": "Carrot cake, frozen then baked in oven at consumer",
+    "query": [
+      "ingredients[]=egg;120;organic",
+      "ingredients[]=wheat;140;organic",
+      "ingredients[]=milk;60;organic",
+      "ingredients[]=carrot;225;organic",
+      "transform=aded2490573207ec7ad5a3813978f6a4;545",
+      "packaging[]=23b2754e5943bc77916f8f871edc53b6;105",
+      "distribution=ambient",
+      "consumption[]=freezing",
+      "consumption[]=oven"
+    ],
+    "impacts": {
+      "acd": 0.013185508183826328,
+      "bvi": 0.771705208568896,
+      "cch": 0.8738268610636524,
+      "ecs": 125.87737086348433,
+      "etf": 31.17058499341933,
+      "fru": 26.922566341505227,
+      "fwe": 0.0002439897598685848,
+      "htc": 2.5698441973524484e-10,
+      "htn": 1.6358658955215552e-9,
+      "ior": 0.9109043465491113,
+      "ldu": 82.58718349271152,
+      "mru": 0.000002394055910080879,
+      "ozd": 1.908660901021513e-7,
+      "pco": 0.003749124886775155,
+      "pef": 156.26810490479406,
+      "pma": 1.0827087659843906e-7,
+      "swe": 0.005886218687378971,
+      "tre": 0.051826258274869474,
+      "wtu": 0.43702478785353505
+    },
+    "scoring": {
+      "category": "Toutes les catégories",
+      "all": {
+        "impact": 183.5642821819995,
+        "letter": "B",
+        "outOf100": 72
+      },
+      "climate": {
+        "impact": 33.14965308679725,
+        "letter": "B",
+        "outOf100": 72
+      },
+      "biodiversity": {
+        "impact": 137.83013786112704,
+        "letter": "B",
+        "outOf100": 72
+      },
+      "health": {
+        "impact": 50.01520145386922,
+        "letter": "B",
+        "outOf100": 72
+      },
+      "resources": {
+        "impact": 40.15256392320141,
+        "letter": "B",
+        "outOf100": 72
+      }
+    }
   }
 ]

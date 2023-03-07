@@ -202,25 +202,8 @@ compute db =
                             , ingredientsTransport.impacts
                             ]
 
-                    totalImpacts =
-                        [ Ok recipeImpacts
-                        , Ok packagingImpacts
-                        , distributionImpacts
-                        , distributionTransport
-                            |> Result.map .impacts
-                        ]
-                            |> RE.combine
-                            |> Result.map (Impact.sumImpacts db.impacts)
-
                     transformedIngredientsMass =
                         getTransformedIngredientsMass recipe
-
-                    impactsPerKg =
-                        -- Note: Product impacts per kg is computed against transformed
-                        --       ingredients mass, excluding packaging
-                        totalImpacts
-                            |> Result.map
-                                (Impact.perKg transformedIngredientsMass)
 
                     packagingImpacts =
                         packaging
@@ -231,6 +214,24 @@ compute db =
                         consumption
                             |> RE.combineMap (Consumption.applyTechnique db transformedIngredientsMass)
                             |> Result.map (Impact.sumImpacts db.impacts >> List.singleton >> updateImpacts)
+
+                    totalImpacts =
+                        [ Ok recipeImpacts
+                        , Ok packagingImpacts
+                        , distributionImpacts
+                        , distributionTransport
+                            |> Result.map .impacts
+                        , consumptionImpacts
+                        ]
+                            |> RE.combine
+                            |> Result.map (Impact.sumImpacts db.impacts)
+
+                    impactsPerKg =
+                        -- Note: Product impacts per kg is computed against transformed
+                        --       ingredients mass, excluding packaging
+                        totalImpacts
+                            |> Result.map
+                                (Impact.perKg transformedIngredientsMass)
 
                     scoring =
                         impactsPerKg
@@ -258,10 +259,10 @@ compute db =
                                 }
                           , consumption = consumptionImpacts_
                           , transports =
-                                [ ingredientsTransport
-                                , distribTransport
-                                ]
-                                    |> Transport.sum db.impacts
+                                Transport.sum db.impacts
+                                    [ ingredientsTransport
+                                    , distribTransport
+                                    ]
                           }
                         )
                     )

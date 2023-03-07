@@ -127,6 +127,11 @@ foodEndpoints db =
             |> Maybe.andThen (Dict.get "distribution")
             |> Expect.equal (Just "Choix invalide pour la distribution : invalid")
             |> asTest "should validate that a distribution is valid"
+        , getEndpoint db "GET" "/food/recipe?consumption[]=invalid"
+            |> Maybe.andThen extractFoodErrors
+            |> Maybe.andThen (Dict.get "consumption")
+            |> Expect.equal (Just "Technique de préparation inconnue: invalid")
+            |> asTest "should validate that a consumption list is valid"
         ]
     ]
 
