@@ -1218,6 +1218,9 @@ stepResultsView model results =
             , { label = "Distribution"
               , impact = toFloat results.distribution.total
               }
+            , { label = "Consommation"
+              , impact = toFloat results.consumption
+              }
             ]
 
         totalImpact =
