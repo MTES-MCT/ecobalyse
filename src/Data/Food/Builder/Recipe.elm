@@ -213,22 +213,19 @@ compute db =
 
                     consumptionImpacts =
                         consumption
-                            |> List.map (Consumption.applyTechnique db transformedIngredientsMass)
-                            |> RE.combine
-                            |> Result.map (Impact.sumImpacts db.impacts)
+                            |> RE.combineMap (Consumption.applyTechnique db transformedIngredientsMass)
+                            |> Result.map (Impact.sumImpacts db.impacts >> List.singleton >> updateImpacts)
 
                     scoring =
                         impactsPerKg
                             |> Result.map (computeScoring db.impacts category)
                 in
                 Result.map5
-                    (\total perKg distrib consumer score ->
+                    (\total perKg distrib consumptionImpacts_ score ->
                         ( recipe
                         , { total = total
                           , perKg = perKg
                           , scoring = score
-
-                          -- XXX: For now, we stop at packaging step
                           , totalMass = getMassAtPackaging recipe
                           , recipe =
                                 { total = recipeImpacts
@@ -239,7 +236,7 @@ compute db =
                                 , distribution = distrib
                                 }
                           , packaging = packagingImpacts
-                          , consumption = consumer
+                          , consumption = consumptionImpacts_
                           , transports = ingredientsTransport
                           }
                         )
