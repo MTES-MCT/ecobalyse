@@ -87,6 +87,7 @@ type alias Results =
         , transform : Impacts
         , transports : Transport
         , distribution : Impacts
+        , transformedMass : Mass
         }
     , packaging : Impacts
     , consumption : Impacts
@@ -234,6 +235,7 @@ compute db =
                                 , transform = transformImpacts
                                 , transports = ingredientsTransport
                                 , distribution = distrib
+                                , transformedMass = transformedIngredientsMass
                                 }
                           , packaging = packagingImpacts
                           , consumption = consumptionImpacts_

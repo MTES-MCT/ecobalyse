@@ -801,8 +801,8 @@ packagingListView db selectedImpact recipe results =
     ]
 
 
-consumptionView : Impact.Definition -> Recipe -> Recipe.Results -> List (Html Msg)
-consumptionView selectedImpact recipe results =
+consumptionView : BuilderDb.Db -> Impact.Definition -> Recipe -> Recipe.Results -> List (Html Msg)
+consumptionView db selectedImpact recipe results =
     [ div [ class "card-header d-flex align-items-center justify-content-between" ]
         [ h5 [ class "mb-0" ] [ text "Consommation" ]
         , results.consumption
@@ -829,11 +829,18 @@ consumptionView selectedImpact recipe results =
                                             [ text name ]
                                     )
                                 |> select
-                                    [ class "form-select form-select-sm"
+                                    [ class "form-select form-select-sm w-50"
                                     , onInput (Consumption.Id >> UpdateConsumptionTechnique usedTechnique.id)
                                     ]
-                            , span [ class "text-end ImpactDisplay" ]
-                                [ text "impact" ]
+                            , span [ class "w-50 text-end" ]
+                                [ usedTechnique
+                                    |> Consumption.applyTechnique db results.recipe.transformedMass
+                                    |> Result.map
+                                        (Impact.updateAggregatedScores db.impacts
+                                            >> Format.formatFoodSelectedImpact selectedImpact
+                                        )
+                                    |> Result.withDefault (text "N/A")
+                                ]
                             , button
                                 [ type_ "button"
                                 , class "btn btn-sm btn-outline-primary"
@@ -1139,7 +1146,7 @@ stepListView db { impact } recipe results =
         , div [ class "card" ]
             (distributionView impact recipe results)
         , div [ class "card" ]
-            (consumptionView impact recipe results)
+            (consumptionView db impact recipe results)
         ]
 
 
