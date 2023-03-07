@@ -274,6 +274,7 @@ paths:
         - $ref: "#/components/parameters/packagingParam"
         - $ref: "#/components/parameters/foodCategoryParam"
         - $ref: "#/components/parameters/distributionParam"
+        - $ref: "#/components/parameters/consumptionParam"
       responses:
         200:
           description: Opération réussie
@@ -639,7 +640,7 @@ components:
         - `mango;123;;BR` signifie *123g de mangues en provenance du Brésil, par avion*;
         - `mango;123;;BR;byPlane` signifie de la même manière *123g de mangues en provenance du Brésil, par avion*;
         - `mango;123;;BR;noPlane` signifie *123g de mangues en provenance du Brésil, par bateau (pas par avion)*;
- 
+
         > Par exemple, les paramètres à passer pour une recette à base de 268g de lait et 30g de carrotes bio d'espagne sont :
         >
         > ```js
@@ -768,6 +769,47 @@ components:
         frozen:
           summary: Congelé
           value: frozen
+    consumptionParam:
+      name: consumption[]
+      in: query
+      description: |
+        Liste des techniques de préparation mobilisées à l'étape de consommation :
+
+        - `frying`: Friture
+        - `pan-cooking`: Cuisson à la poêle
+        - `pan-warming`: Réchauffage à la poêle
+        - `oven`: Four
+        - `microwaves`: Four micro-ondes
+        - `refrigeration`: Réfrigération
+        - `freezing`: Congélation
+      required: false
+      style: form
+      schema:
+        type: array
+        items:
+          type: string
+        description: Liste d'identifiants de techniques de préparation.
+        enum:
+          - "freezing"
+          - "frying"
+          - "microwaves"
+          - "oven"
+          - "pan-cooking"
+          - "pan-warming"
+          - "refrigeration"
+      examples:
+        Default:
+          summary: "Sans préparation"
+          value: ""
+        frying:
+          summary: Friture
+          value: frying
+        freezing:
+          summary: Congélation
+          value: freezing
+        freezingAndOven:
+          summary: Congélation et cuisson au four
+          value: ["freezing", "oven"]
   schemas:
     Impacts:
       type: object
@@ -924,7 +966,7 @@ components:
             description: List des variants d'un ingrédient (par exemple label bio).
           defaultOrigin:
             type: string
-            description: 
+            description:
               Lieu d'origine par défaut de cet ingrédient dont la liste est disponible dans
               [la documentation](https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/transport#circuits-consideres)
     PackagingListResponse:
