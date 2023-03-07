@@ -43,6 +43,7 @@ import Time exposing (Posix)
 import Views.Alert as Alert
 import Views.Bookmark as BookmarkView
 import Views.Comparator as ComparatorView
+import Views.Component.DownArrow as DownArrow
 import Views.Component.MassInput as MassInput
 import Views.Component.Summary as SummaryComp
 import Views.Container as Container
@@ -469,7 +470,7 @@ updateProcessFormView { processes, excluded, processQuery, impact, updateEvent, 
                 processQuery.code
                 (\code -> updateEvent { processQuery | code = code })
                 excluded
-        , span [ class "text-end ImpactDisplay" ]
+        , span [ class "text-end ImpactDisplay fs-7" ]
             [ impact ]
         , button
             [ type_ "button"
@@ -609,7 +610,7 @@ updateIngredientFormView { excluded, db, ingredient, impact, transportImpact } =
                 []
             , text "bio"
             ]
-        , span [ class "text-end ImpactDisplay" ]
+        , span [ class "text-end ImpactDisplay fs-7" ]
             [ impact ]
         , button
             [ type_ "button"
@@ -618,50 +619,73 @@ updateIngredientFormView { excluded, db, ingredient, impact, transportImpact } =
             , onClick <| DeleteIngredient ingredientQuery
             ]
             [ Icon.trash ]
-        , span [ class "text-muted IngredientTransportLabel fs-7" ]
-            [ text "Transport pour cet ingrédient"
-            , if ingredient.planeTransport /= Ingredient.PlaneNotApplicable then
-                label
-                    [ class "PlaneCheckbox ps-2" ]
-                    [ text "("
-                    , input
-                        [ type_ "checkbox"
-                        , class "form-check-input no-outline"
-                        , attribute "role" "switch"
-                        , checked <| ingredientQuery.planeTransport == Ingredient.ByPlane
-                        , onCheck
-                            (\checked ->
-                                event
-                                    { ingredientQuery
-                                        | planeTransport =
-                                            if checked then
-                                                Ingredient.ByPlane
-
-                                            else
-                                                Ingredient.NoPlane
-                                    }
-                            )
-                        ]
-                        []
-                    , text " par avion)"
-                    ]
-
-              else
-                text ""
+        , displayTransportDistances db ingredient ingredientQuery event
+        , span
+            [ class "text-muted text-end IngredientTransportImpact fs-7"
+            , title "Impact du transport pour cet ingrédient"
             ]
-        , ingredient
-            |> Recipe.computeIngredientTransport db
-            |> TransportView.viewDetails
-                { fullWidth = False
-                , airTransportLabel = Nothing
-                , seaTransportLabel = Nothing
-                , roadTransportLabel = Nothing
-                }
-            |> span [ class "text-muted d-flex fs-7 gap-3 justify-content-left IngredientTransportDistances" ]
-        , span [ class "text-muted text-end IngredientTransportImpact fs-7" ]
-            [ transportImpact ]
+            [ text "+ "
+            , transportImpact
+            ]
         ]
     ]
+
+
+displayTransportDistances : Db -> Recipe.RecipeIngredient -> Query.IngredientQuery -> (Query.IngredientQuery -> Msg) -> Html Msg
+displayTransportDistances db ingredient ingredientQuery event =
+    span [ class "text-muted d-flex fs-7 gap-3 justify-content-left IngredientTransportDistances" ]
+        (if ingredient.planeTransport /= Ingredient.PlaneNotApplicable then
+            let
+                isByPlane =
+                    ingredientQuery.planeTransport == Ingredient.ByPlane
+
+                { road, air, sea } =
+                    ingredient
+                        |> Recipe.computeIngredientTransport db
+            in
+            [ div [ class "IngredientPlaneOrBoatSelector" ]
+                [ label [ class "PlaneSelector" ]
+                    [ input
+                        [ type_ "radio"
+                        , attribute "role" "switch"
+                        , checked isByPlane
+                        , onInput <| always (event { ingredientQuery | planeTransport = Ingredient.ByPlane })
+                        ]
+                        []
+                    , Icon.plane
+                    ]
+                , label [ class "BoatSelector" ]
+                    [ input
+                        [ type_ "radio"
+                        , attribute "role" "switch"
+                        , checked <| not isByPlane
+                        , onInput <| always (event { ingredientQuery | planeTransport = Ingredient.NoPlane })
+                        ]
+                        []
+                    , Icon.boat
+                    ]
+                , if isByPlane then
+                    span [ class "ps-1 align-items-center gap-1", title "Tranport aérien" ]
+                        [ Format.km air ]
+
+                  else
+                    span [ class "ps-1 align-items-center gap-1", title "Tranport maritime" ]
+                        [ Format.km sea ]
+                ]
+            , TransportView.entry road Icon.bus "Transport routier"
+            ]
+
+         else
+            ingredient
+                |> Recipe.computeIngredientTransport db
+                |> TransportView.viewDetails
+                    { fullWidth = False
+                    , hideNoLength = True
+                    , airTransportLabel = Nothing
+                    , seaTransportLabel = Nothing
+                    , roadTransportLabel = Nothing
+                    }
+        )
 
 
 debugQueryView : Db -> Query -> Html Msg
@@ -801,6 +825,65 @@ packagingListView db selectedImpact recipe results =
     ]
 
 
+transportToDistributionView : Impact.Definition -> Recipe -> Recipe.Results -> Html Msg
+transportToDistributionView selectedImpact recipe results =
+    DownArrow.view
+        []
+        [ div []
+            [ text "Masse : "
+            , Recipe.getTransformedIngredientsMass recipe
+                |> Format.kg
+            , text " + Emballage : "
+            , Recipe.getPackagingMass recipe
+                |> Format.kg
+            ]
+        , div [ class "d-flex justify-content-between" ]
+            [ TransportView.entry results.distribution.transports.road Icon.bus "Transport routier"
+            , Format.formatFoodSelectedImpact selectedImpact results.distribution.transports.impacts
+            ]
+        ]
+
+
+distributionView : Impact.Definition -> Recipe -> Recipe.Results -> List (Html Msg)
+distributionView selectedImpact recipe results =
+    [ div [ class "card-header d-flex align-items-center justify-content-between" ]
+        [ h5 [ class "mb-0" ] [ text "Distribution" ]
+        , results.distribution.total
+            |> Format.formatFoodSelectedImpact selectedImpact
+        ]
+    , div []
+        [ ul [ class "list-group list-group-flush border-top-0 border-bottom-0" ]
+            [ li [ class "IngredientFormWrapper" ]
+                [ select
+                    [ class "form-select form-select-sm"
+                    , onInput UpdateDistribution
+                    ]
+                    (Retail.all
+                        |> List.map
+                            (\distribution ->
+                                option
+                                    [ selected (recipe.distribution == distribution)
+                                    , value (Retail.toString distribution)
+                                    ]
+                                    [ text (Retail.toDisplay distribution) ]
+                            )
+                    )
+                ]
+            , div
+                [ class "card-body d-flex justify-content-between align-items-center gap-1"
+                , class "border-top-0 text-muted py-2 fs-7"
+                ]
+                [ div [ class "text-truncate" ]
+                    [ recipe.distribution
+                        |> Retail.displayNeeds
+                        |> text
+                    ]
+                ]
+            ]
+        ]
+    ]
+
+
 consumptionView : BuilderDb.Db -> Impact.Definition -> Recipe -> Recipe.Results -> List (Html Msg)
 consumptionView db selectedImpact recipe results =
     [ div [ class "card-header d-flex align-items-center justify-content-between" ]
@@ -856,46 +939,6 @@ consumptionView db selectedImpact recipe results =
         , event = AddConsumptionTechnique
         , kind = "une technique de préparation"
         }
-    ]
-
-
-distributionView : Impact.Definition -> Recipe -> Recipe.Results -> List (Html Msg)
-distributionView selectedImpact recipe results =
-    [ div [ class "card-header d-flex align-items-center justify-content-between" ]
-        [ h5 [ class "mb-0" ] [ text "Distribution" ]
-        , results.recipe.distribution
-            |> Format.formatFoodSelectedImpact selectedImpact
-        ]
-    , div []
-        [ ul [ class "list-group list-group-flush border-top-0 border-bottom-0" ]
-            [ li [ class "IngredientFormWrapper" ]
-                [ select
-                    [ class "form-select form-select-sm"
-                    , onInput UpdateDistribution
-                    ]
-                    (Retail.all
-                        |> List.map
-                            (\distribution ->
-                                option
-                                    [ selected (recipe.distribution == distribution)
-                                    , value (Retail.toString distribution)
-                                    ]
-                                    [ text (Retail.toDisplay distribution) ]
-                            )
-                    )
-                ]
-            , div
-                [ class "card-body d-flex justify-content-between align-items-center gap-1"
-                , class "border-top-0 text-muted py-2 fs-7"
-                ]
-                [ div [ class "text-truncate" ]
-                    [ recipe.distribution
-                        |> Retail.displayNeeds
-                        |> text
-                    ]
-                ]
-            ]
-        ]
     ]
 
 
@@ -1136,13 +1179,16 @@ scoresView { queries } { scoring } =
 
 stepListView : Db -> Model -> Recipe -> Recipe.Results -> Html Msg
 stepListView db { impact } recipe results =
-    div [ class "d-flex flex-column gap-3" ]
+    div []
         [ div [ class "card" ]
             (ingredientListView db impact recipe results)
+        , DownArrow.view [] []
         , div [ class "card" ]
             (transformView db impact recipe results)
+        , DownArrow.view [] []
         , div [ class "card" ]
             (packagingListView db impact recipe results)
+        , transportToDistributionView impact recipe results
         , div [ class "card" ]
             (distributionView impact recipe results)
         , div [ class "card" ]
@@ -1170,7 +1216,7 @@ stepResultsView model results =
               , impact = toFloat results.transports.impacts
               }
             , { label = "Distribution"
-              , impact = toFloat results.recipe.distribution
+              , impact = toFloat results.distribution.total
               }
             ]
 

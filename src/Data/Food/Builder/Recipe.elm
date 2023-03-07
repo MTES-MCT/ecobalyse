@@ -2,6 +2,7 @@ module Data.Food.Builder.Recipe exposing
     ( Recipe
     , RecipeIngredient
     , Results
+    , Scoring
     , Transform
     , availableIngredients
     , availablePackagings
@@ -13,6 +14,7 @@ module Data.Food.Builder.Recipe exposing
     , encodeResults
     , fromQuery
     , getMassAtPackaging
+    , getPackagingMass
     , getTransformedIngredientsMass
     , ingredientQueryFromIngredient
     , processQueryFromProcess
@@ -86,10 +88,13 @@ type alias Results =
         , ingredients : List ( RecipeIngredient, Impacts )
         , transform : Impacts
         , transports : Transport
-        , distribution : Impacts
         , transformedMass : Mass
         }
     , packaging : Impacts
+    , distribution :
+        { total : Impacts
+        , transports : Transport
+        }
     , consumption : Impacts
     , transports : Transport
     }
@@ -176,13 +181,18 @@ compute db =
 
                     distributionImpacts =
                         let
-                            mass =
-                                getMassAtPackaging recipe
-
                             volume =
                                 getTransformedIngredientsVolume recipe
                         in
-                        Result.map (Retail.computeImpacts db mass volume distribution)
+                        Result.map (Retail.computeImpacts db volume distribution)
+                            (Process.loadWellKnown db.processes)
+
+                    distributionTransport =
+                        let
+                            mass =
+                                getMassAtPackaging recipe
+                        in
+                        Result.map (Retail.distributionTransportImpact db mass distribution)
                             (Process.loadWellKnown db.processes)
 
                     recipeImpacts =
@@ -193,7 +203,12 @@ compute db =
                             ]
 
                     totalImpacts =
-                        [ Ok recipeImpacts, Ok packagingImpacts, distributionImpacts ]
+                        [ Ok recipeImpacts
+                        , Ok packagingImpacts
+                        , distributionImpacts
+                        , distributionTransport
+                            |> Result.map .impacts
+                        ]
                             |> RE.combine
                             |> Result.map (Impact.sumImpacts db.impacts)
 
@@ -221,8 +236,8 @@ compute db =
                         impactsPerKg
                             |> Result.map (computeScoring db.impacts category)
                 in
-                Result.map5
-                    (\total perKg distrib consumptionImpacts_ score ->
+                Ok
+                    (\total perKg distrib distribTransport consumptionImpacts_ score ->
                         ( recipe
                         , { total = total
                           , perKg = perKg
@@ -234,20 +249,28 @@ compute db =
                                 , ingredients = ingredientsImpacts
                                 , transform = transformImpacts
                                 , transports = ingredientsTransport
-                                , distribution = distrib
                                 , transformedMass = transformedIngredientsMass
                                 }
                           , packaging = packagingImpacts
+                          , distribution =
+                                { total = distrib
+                                , transports = distribTransport
+                                }
                           , consumption = consumptionImpacts_
-                          , transports = ingredientsTransport
+                          , transports =
+                                [ ingredientsTransport
+                                , distribTransport
+                                ]
+                                    |> Transport.sum db.impacts
                           }
                         )
                     )
-                    totalImpacts
-                    impactsPerKg
-                    distributionImpacts
-                    consumptionImpacts
-                    scoring
+                    |> RE.andMap totalImpacts
+                    |> RE.andMap impactsPerKg
+                    |> RE.andMap distributionImpacts
+                    |> RE.andMap distributionTransport
+                    |> RE.andMap consumptionImpacts
+                    |> RE.andMap scoring
             )
         >> RE.join
 
@@ -442,6 +465,7 @@ encode q =
         [ ( "ingredients", Encode.list encodeIngredient q.ingredients )
         , ( "transform", q.transform |> Maybe.map encodeProcess |> Maybe.withDefault Encode.null )
         , ( "packaging", Encode.list encodeProcess q.packaging )
+        , ( "distribution", Retail.encode q.distribution )
         ]
 
 
@@ -462,12 +486,17 @@ encodeResults defs results =
                 , ( "ingredientsTotal", encodeImpacts results.recipe.ingredientsTotal )
                 , ( "transform", encodeImpacts results.recipe.transform )
                 , ( "transports", Transport.encode defs results.recipe.transports )
-                , ( "distribution", encodeImpacts results.recipe.distribution )
                 ]
           )
         , ( "packaging", encodeImpacts results.packaging )
         , ( "consumption", encodeImpacts results.consumption )
         , ( "transports", Transport.encode defs results.transports )
+        , ( "distribution"
+          , Encode.object
+                [ ( "total", encodeImpacts results.distribution.total )
+                , ( "transports", Transport.encode defs results.distribution.transports )
+                ]
+          )
         ]
 
 
@@ -507,10 +536,15 @@ getMassAtPackaging : Recipe -> Mass
 getMassAtPackaging recipe =
     Quantity.sum
         [ getTransformedIngredientsMass recipe
-        , recipe.packaging
-            |> List.map .mass
-            |> Quantity.sum
+        , getPackagingMass recipe
         ]
+
+
+getPackagingMass : Recipe -> Mass
+getPackagingMass recipe =
+    recipe.packaging
+        |> List.map .mass
+        |> Quantity.sum
 
 
 getTransformedIngredientsMass : Recipe -> Mass

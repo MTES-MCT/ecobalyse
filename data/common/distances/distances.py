@@ -1,14 +1,10 @@
 import json
-import math
-from re import A
 import requests
 import pandas as pd
 import geopy.distance
-import json
 import random
 import time
 from datetime import datetime
-import requests
 
 
 """Script to get the distances between countries for a list of countries. To identify countries we use the 2 letters code (France->FR).
@@ -26,40 +22,40 @@ The number of routes is n(n-1)/2 with n the number of countries.
 # be careful, the number of pairs of n countries is big : n(n-1)/2
 
 countries = [
-"AL",
-"BD",
-"BE",
-"BR",
-"CH",
-"CN",
-"CZ",
-"DE",
-"EG",
-"ES",
-"ET",
-"FR",
-"GB",
-"GR",
-"HU",
-"IN",
-"IT",
-"KE",
-"KH",
-"LK",
-"MA",
-"MM",
-"NL",
-"NZ",
-"PE",
-"PK",
-"PL",
-"PT",
-"RO",
-"TN",
-"TR",
-"TW",
-"US",
-"VN"
+    "AL",
+    "BD",
+    "BE",
+    "BR",
+    "CH",
+    "CN",
+    "CZ",
+    "DE",
+    "EG",
+    "ES",
+    "ET",
+    "FR",
+    "GB",
+    "GR",
+    "HU",
+    "IN",
+    "IT",
+    "KE",
+    "KH",
+    "LK",
+    "MA",
+    "MM",
+    "NL",
+    "NZ",
+    "PE",
+    "PK",
+    "PL",
+    "PT",
+    "RO",
+    "TN",
+    "TR",
+    "TW",
+    "US",
+    "VN",
 ]
 
 
@@ -87,13 +83,13 @@ def getSearatesDistance(route_type, route, headers):
                 # proxies={"http": proxy, "https": proxy}
             )
             resp_json = response.json()
-            if route_type == "road":    
+            if route_type == "road":
                 dist = round(float(resp_json[route_type]["distance"]))
             else:
                 dist = round(float(resp_json[route_type]["dist"]))
             break
 
-        except Exception as e:
+        except Exception:
             print("Error")
             time.sleep(1)
             if i == 5:
@@ -125,10 +121,7 @@ def buildSearatesQuery(route_type, route):
     return base_url + from_str + to_str + countries_str
 
 
-
-
-
-def compute_distances(countries, intermediarySave = False):
+def compute_distances(countries, intermediarySave=False):
     remaining_countries = countries.copy()
 
     index = 1
@@ -143,7 +136,7 @@ def compute_distances(countries, intermediarySave = False):
 
         if len(remaining_countries) > 0:
             # iterate on all remaining countries (country_to)
-            for i2, country_to in enumerate(remaining_countries):                
+            for i2, country_to in enumerate(remaining_countries):
                 route = (country_from, country_to)
                 # sleep 10 seconds 1 out of 10 times
                 # if random.randint(1, 10) == 10:
@@ -172,24 +165,23 @@ def compute_distances(countries, intermediarySave = False):
                         ).km
                     ),
                 }
-                index += 1            
+                index += 1
             # add dictionary of distances to master dictionary
             distances[country_from] = country_from_dic
             timeObj = str(datetime.now().time())
-            print(timeObj + " finished computing distances for " + country_from)            
+            print(timeObj + " finished computing distances for " + country_from)
         else:
             distances[country_from] = {}
 
         if i % 2 == 0 and intermediarySave:
-            with open(
-                "distances_" + str(index) + ".json", "w"
-            ) as outfile:
-                json.dump(distances, outfile)        
+            with open("distances_" + str(index) + ".json", "w") as outfile:
+                json.dump(distances, outfile)
             timeObj = str(datetime.now().time())
             print(timeObj + " " + str(index) + " writing intermediate output")
 
         print(remaining_countries)
-    
+
+
 # Searates API won't work after a nb of requests
 # Changing the user agent fix that
 
@@ -205,9 +197,7 @@ url = "https://httpbin.org/headers"
 
 if __name__ == "__main__":
     # source url : https://gist.github.com/tadast/8827699
-    countries_data = pd.read_csv(
-        "countries_data.csv"
-    )
+    countries_data = pd.read_csv("countries_data.csv")
 
     # build dic of country -> coordinates
     country_coords = {}
@@ -218,17 +208,17 @@ if __name__ == "__main__":
             float(country_data["Longitude (average)"]),
         )
 
-    countries = sorted(countries)    
-    
+    countries = sorted(countries)
+
     # log the nb of routes
 
     distances = {}
-    
+
     n = len(countries)
     nb_routes = round(n * (n - 1) / 2)
     print("number of routes : " + str(nb_routes))
 
-    compute_distances(countries, intermediarySave = True)
+    compute_distances(countries, intermediarySave=True)
 
     with open("distances.json", "w") as outfile:
         json.dump(distances, outfile)

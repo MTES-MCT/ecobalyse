@@ -1,15 +1,13 @@
-import pandas as pd
 import json
 import fjson
-import pprint
-import os
 
 """Script to compute the precalculated process :
-     "Fin de vie hors voiture (transport en camion, incinération, mise en décharge)"    
+     "Fin de vie hors voiture (transport en camion, incinération, mise en décharge)"
     """
 
 f = open("eol_processes.json")
 processes = json.load(f)
+
 
 def get_process(process_name):
     matches = [x for x in processes if x["name"] == process_name]
@@ -70,7 +68,7 @@ eol_process = {
     "heat_MJ": 0.0,
     "elec_pppm": 0.0,
     "elec_MJ": 0.0,
-    "waste": 0.0,    
+    "waste": 0.0,
     "alias": "end-of-life",
 }
 # We convert floats to scientific notation with 5 digits of precision

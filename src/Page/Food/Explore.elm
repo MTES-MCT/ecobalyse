@@ -368,7 +368,7 @@ view ({ explorerDb, db } as session) ({ selectedProduct, newIngredientMass, impa
                                 ]
                                 [ text "Réinitialiser" ]
                             , viewSteps itemViewDataConfig product
-                            , DownArrow.standard
+                            , DownArrow.view [] []
                             , div [ class "d-flex justify-content-center fs-7 mb-3" ]
                                 [ span
                                     [ class "d-flex justify-content-center align-items-center border rounded-circle shadow-sm"
@@ -754,14 +754,13 @@ viewStep label ({ definition, trigram } as itemViewDataConfig) step =
             Product.getStepTransports step
     in
     div []
-        [ div [ class "d-flex align-items-center fs-7" ]
-            [ span [ class "w-50 text-end p-2" ]
+        [ DownArrow.view
+            [ span [ class "text-end p-2 d-block" ]
                 [ step.mainItem.mass
                     |> Format.kg
                 ]
-            , span [ class "text-center" ]
-                [ DownArrow.large ]
-            , [ ( Icon.bus, .road, "Routier" )
+            ]
+            [ [ ( Icon.bus, .road, "Routier" )
               , ( Icon.boat, .sea, "Maritime" )
               , ( Icon.rail, .rail, "Féroviaire" )
               , ( Icon.plane, .air, "Aérien" )
@@ -775,7 +774,7 @@ viewStep label ({ definition, trigram } as itemViewDataConfig) step =
                     )
                 |> span
                     [ class "d-flex flex-column flex-sm-row justify-content-start gap-1 gap-sm-3"
-                    , class "w-50 p-2"
+                    , class "p-2"
                     ]
             ]
         , div

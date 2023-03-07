@@ -9,7 +9,6 @@ import brightway2 as bw
 from collections import defaultdict
 from food.impacts import impacts
 import pandas as pd
-import re
 
 processes_kind = {
     # transformation

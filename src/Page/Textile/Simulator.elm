@@ -443,7 +443,7 @@ lifeCycleStepsView db { viewMode, funit, impact } simulator =
                     }
             )
         |> Array.toList
-        |> List.intersperse DownArrow.standard
+        |> List.intersperse (DownArrow.view [] [])
         |> div [ class "pt-1" ]
 
 
