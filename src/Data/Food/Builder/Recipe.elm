@@ -27,9 +27,9 @@ import Data.Country as Country exposing (Country)
 import Data.Food.Builder.Db exposing (Db)
 import Data.Food.Builder.Query as BuilderQuery exposing (Query)
 import Data.Food.Category as Category exposing (Category)
-import Data.Food.Ingredient as Ingredient exposing (Id, Ingredient)
+import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Origin as Origin
-import Data.Food.Preparation as Preparation
+import Data.Food.Preparation as Preparation exposing (Preparation)
 import Data.Food.Process as Process exposing (Process)
 import Data.Food.Retail as Retail
 import Data.Impact as Impact exposing (Impacts)
@@ -72,7 +72,7 @@ type alias Recipe =
     , transform : Maybe Transform
     , packaging : List Packaging
     , distribution : Retail.Distribution
-    , preparation : List Preparation.Preparation
+    , preparation : List Preparation
     , category : Maybe Category
     }
 
@@ -123,7 +123,7 @@ type alias Transform =
     }
 
 
-availableIngredients : List Id -> List Ingredient -> List Ingredient
+availableIngredients : List Ingredient.Id -> List Ingredient -> List Ingredient
 availableIngredients usedIngredientIds =
     List.filter (\{ id } -> not (List.member id usedIngredientIds))
 
@@ -425,7 +425,7 @@ computeIngredientTransport db { ingredient, country, mass, planeTransport } =
     }
 
 
-preparationListFromQuery : Query -> Result String (List Preparation.Preparation)
+preparationListFromQuery : Query -> Result String (List Preparation)
 preparationListFromQuery =
     .preparation
         >> List.map Preparation.findById
