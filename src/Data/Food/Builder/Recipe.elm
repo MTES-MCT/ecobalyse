@@ -215,23 +215,24 @@ compute db =
                             |> RE.combineMap (Preparation.apply db transformedIngredientsMass)
                             |> Result.map (Impact.sumImpacts db.impacts >> List.singleton >> updateImpacts)
 
+                    edibleMass =
+                        getEdiblePreparedMass recipe
+
                     totalImpacts =
                         [ Ok recipeImpacts
                         , Ok packagingImpacts
                         , distributionImpacts
-                        , distributionTransport
-                            |> Result.map .impacts
+                        , distributionTransport |> Result.map .impacts
                         , preparationImpacts
                         ]
                             |> RE.combine
                             |> Result.map (Impact.sumImpacts db.impacts)
 
                     impactsPerKg =
-                        -- Note: Product impacts per kg is computed against transformed
-                        --       ingredients mass, excluding packaging
+                        -- Note: Product impacts per kg is computed against edible
+                        --       product mass as consumer, excluding packaging
                         totalImpacts
-                            |> Result.map
-                                (Impact.perKg transformedIngredientsMass)
+                            |> Result.map (Impact.perKg edibleMass)
 
                     scoring =
                         impactsPerKg
@@ -546,6 +547,33 @@ getPackagingMass : Recipe -> Mass
 getPackagingMass recipe =
     recipe.packaging
         |> List.map .mass
+        |> Quantity.sum
+
+
+getEdiblePreparedMass : Recipe -> Mass
+getEdiblePreparedMass { ingredients, transform, preparation } =
+    let
+        cookedAtPlant =
+            case transform |> Maybe.andThen (.process >> .alias) of
+                Just "cooking" ->
+                    True
+
+                _ ->
+                    False
+
+        cookedAtConsumer =
+            (preparation |> List.filter .applyRawToCookedRatio |> List.length) > 0
+    in
+    ingredients
+        |> List.map
+            (\{ ingredient, mass } ->
+                if not cookedAtPlant && cookedAtConsumer then
+                    -- apply raw to cooked ratio
+                    mass |> Quantity.multiplyBy (Unit.ratioToFloat ingredient.rawToCookedRatio)
+
+                else
+                    mass
+            )
         |> Quantity.sum
 
 
