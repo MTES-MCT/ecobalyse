@@ -19,6 +19,7 @@ suite =
                   , name = "Sample"
                   , elec = ( Energy.kilowattHours 1, Unit.ratio 0.5 )
                   , heat = ( Energy.megajoules 1, Unit.ratio 0.5 )
+                  , applyRawToCookedRatio = False
                   }
                     |> Preparation.apply builderDb (Mass.kilograms 1)
                     |> Result.map (Impact.getImpact (Impact.trg "cch") >> Unit.impactToFloat)

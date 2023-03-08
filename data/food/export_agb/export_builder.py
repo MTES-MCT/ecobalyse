@@ -51,7 +51,7 @@ processes_alias = {
     "Steel, unalloyed {RER}| steel production, converter, unalloyed | Cut-off, S - Copied from Ecoinvent": "steel",
     "Polyvinylchloride, suspension polymerised {RER}| polyvinylchloride production, suspension polymerisation | Cut-off, S - Copied from Ecoinvent": "pvc",
     "Aluminium, primary, ingot {RoW}| production | Cut-off, S - Copied from Ecoinvent": "aluminium",
-    "Electricity, low voltage {FR}| market for | Cut-off, S - Copied from Ecoinvent": "electricity",
+    "Electricity, low voltage {FR}| market for | Cut-off, S - Copied from Ecoinvent": "low-voltage-electricity",
     "Tap water {Europe without Switzerland}| market for | Cut-off, S - Copied from Ecoinvent": "tapwater",
     "Transport, freight, aircraft {RER}| intercontinental | Cut-off, S - Copied from Ecoinvent":"plane",
     "Transport, freight, sea, transoceanic ship {GLO}| processing | Cut-off, S - Copied from Ecoinvent": "boat",

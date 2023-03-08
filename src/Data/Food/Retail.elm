@@ -211,8 +211,8 @@ distributionTransportImpact db mass (Distribution _ needs) wellKnown =
 computeImpacts : Db -> Volume -> Distribution -> WellKnown -> Impacts
 computeImpacts db volume (Distribution _ needs) wellknown =
     [ waterImpact needs.water volume wellknown.water
-    , elecImpact needs.cooling volume wellknown.electricity
-    , elecImpact needs.energy volume wellknown.electricity
+    , elecImpact needs.cooling volume wellknown.lowVoltageElectricity
+    , elecImpact needs.energy volume wellknown.lowVoltageElectricity
     ]
         |> Impact.sumImpacts db.impacts
         |> Impact.updateAggregatedScores db.impacts

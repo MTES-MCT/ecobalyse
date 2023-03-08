@@ -26,6 +26,7 @@ type alias Preparation =
     , name : String
     , elec : ( Energy, Unit.Ratio )
     , heat : ( Energy, Unit.Ratio )
+    , applyRawToCookedRatio : Bool
     }
 
 
@@ -40,36 +41,43 @@ all =
       , name = "Friture"
       , elec = ( Energy.kilowattHours 0.667, Unit.ratio 1 )
       , heat = ( Energy.megajoules 0, Unit.ratio 0 )
+      , applyRawToCookedRatio = True
       }
     , { id = Id "pan-cooking"
       , name = "Cuisson à la poêle"
       , elec = ( Energy.kilowattHours 0.44, Unit.ratio 0.4 )
       , heat = ( Energy.megajoules 1.584, Unit.ratio 0.6 )
+      , applyRawToCookedRatio = True
       }
     , { id = Id "pan-warming"
       , name = "Réchauffage à la poêle"
       , elec = ( Energy.kilowattHours 0.08, Unit.ratio 0.4 )
       , heat = ( Energy.megajoules 0.288, Unit.ratio 0.6 )
+      , applyRawToCookedRatio = False
       }
     , { id = Id "oven"
       , name = "Four"
       , elec = ( Energy.kilowattHours 0.999, Unit.ratio 1 )
       , heat = ( Energy.megajoules 0, Unit.ratio 0 )
+      , applyRawToCookedRatio = True
       }
     , { id = Id "microwaves"
       , name = "Four micro-ondes"
       , elec = ( Energy.kilowattHours 0.128, Unit.ratio 1 )
       , heat = ( Energy.megajoules 0, Unit.ratio 0 )
+      , applyRawToCookedRatio = True
       }
     , { id = Id "refrigeration"
       , name = "Réfrigération"
       , elec = ( Energy.kilowattHours 0.0777, Unit.ratio 1 )
       , heat = ( Energy.megajoules 0, Unit.ratio 0 )
+      , applyRawToCookedRatio = False
       }
     , { id = Id "freezing"
       , name = "Congélation"
       , elec = ( Energy.kilowattHours 0.294, Unit.ratio 1 )
       , heat = ( Energy.megajoules 0, Unit.ratio 0 )
+      , applyRawToCookedRatio = False
       }
     ]
 
@@ -79,9 +87,9 @@ apply db mass preparation =
     db.processes
         |> Process.loadWellKnown
         |> Result.map
-            (\{ electricity, domesticGasHeat } ->
+            (\{ lowVoltageElectricity, domesticGasHeat } ->
                 Impact.sumImpacts db.impacts
-                    [ electricity.impacts
+                    [ lowVoltageElectricity.impacts
                         |> Impact.mapImpacts
                             (\_ ->
                                 Unit.impactToFloat

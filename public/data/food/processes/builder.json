@@ -1489,7 +1489,7 @@
   },
   {
     "name": "Electricity, low voltage {FR}| market for | Cut-off, S - Copied from Ecoinvent",
-    "alias": "electricity",
+    "alias": "low-voltage-electricity",
     "unit": "kilowatt hour",
     "simapro_id": "ef953c00d48ee59f57773534f6487b09",
     "system_description": "Ecoinvent v3",
