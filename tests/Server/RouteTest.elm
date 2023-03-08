@@ -132,6 +132,11 @@ foodEndpoints db =
             |> Maybe.andThen (Dict.get "preparation")
             |> Expect.equal (Just "Préparation inconnue: invalid")
             |> asTest "should validate that a preparation list entry is valid"
+        , getEndpoint db "GET" "/food/recipe?preparation[]=freezing&preparation[]=frying&preparation[]=oven"
+            |> Maybe.andThen extractFoodErrors
+            |> Maybe.andThen (Dict.get "preparation")
+            |> Expect.equal (Just "Deux techniques de préparation maximum.")
+            |> asTest "should validate preparation list length"
         ]
     ]
 

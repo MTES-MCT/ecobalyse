@@ -778,25 +778,28 @@ components:
         - `frying`: Friture
         - `pan-cooking`: Cuisson à la poêle
         - `pan-warming`: Réchauffage à la poêle
-        - `oven`: Four
-        - `microwaves`: Four micro-ondes
+        - `oven`: Cuisson au four
+        - `microwave`: Cuisson au four micro-ondes
         - `refrigeration`: Réfrigération
         - `freezing`: Congélation
+
+        **Un maximum de deux techniques de préparation est autorisé.**
       required: false
       style: form
       schema:
         type: array
         items:
           type: string
+          enum:
+            - "freezing"
+            - "frying"
+            - "microwaves"
+            - "oven"
+            - "pan-cooking"
+            - "pan-warming"
+            - "refrigeration"
+        maxItems: 2
         description: Liste d'identifiants de techniques de préparation.
-        enum:
-          - "freezing"
-          - "frying"
-          - "microwaves"
-          - "oven"
-          - "pan-cooking"
-          - "pan-warming"
-          - "refrigeration"
       examples:
         Default:
           summary: "Sans préparation"

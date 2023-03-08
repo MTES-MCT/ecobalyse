@@ -56,13 +56,13 @@ all =
       , applyRawToCookedRatio = False
       }
     , { id = Id "oven"
-      , name = "Four"
+      , name = "Cuisson au four"
       , elec = ( Energy.kilowattHours 0.999, Unit.ratio 1 )
       , heat = ( Energy.megajoules 0, Unit.ratio 0 )
       , applyRawToCookedRatio = True
       }
-    , { id = Id "microwaves"
-      , name = "Four micro-ondes"
+    , { id = Id "microwave"
+      , name = "Cuisson au four micro-ondes"
       , elec = ( Energy.kilowattHours 0.128, Unit.ratio 1 )
       , heat = ( Energy.megajoules 0, Unit.ratio 0 )
       , applyRawToCookedRatio = True

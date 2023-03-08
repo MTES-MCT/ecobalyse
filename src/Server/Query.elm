@@ -202,6 +202,14 @@ preparationListParser key =
         -- Note: leveraging Preparation.findById for validation
         (List.map (Preparation.Id >> Preparation.findById >> Result.map .id)
             >> RE.combine
+            >> Result.andThen
+                (\list ->
+                    if List.length list > 2 then
+                        Err "Deux techniques de préparation maximum."
+
+                    else
+                        Ok list
+                )
             >> Result.mapError (\err -> ( key, err ))
         )
 

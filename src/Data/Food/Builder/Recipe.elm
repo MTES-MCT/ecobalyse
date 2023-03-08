@@ -466,6 +466,7 @@ encode q =
         [ ( "ingredients", Encode.list encodeIngredient q.ingredients )
         , ( "transform", q.transform |> Maybe.map encodeProcess |> Maybe.withDefault Encode.null )
         , ( "packaging", Encode.list encodeProcess q.packaging )
+        , ( "preparation", Encode.list Preparation.encodeId q.preparation )
         , ( "distribution", Retail.encode q.distribution )
         ]
 
