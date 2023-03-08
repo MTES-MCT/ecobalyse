@@ -82,6 +82,7 @@ type alias Results =
     , perKg : Impacts
     , scoring : Scoring
     , totalMass : Mass
+    , edibleMass : Mass
     , recipe :
         { total : Impacts
         , ingredientsTotal : Impacts
@@ -245,6 +246,7 @@ compute db =
                           , perKg = perKg
                           , scoring = score
                           , totalMass = getMassAtPackaging recipe
+                          , edibleMass = edibleMass
                           , recipe =
                                 { total = recipeImpacts
                                 , ingredientsTotal = ingredientsTotalImpacts
@@ -483,6 +485,7 @@ encodeResults defs results =
         , ( "perKg", encodeImpacts results.perKg )
         , ( "scoring", encodeScoring results.scoring )
         , ( "totalMass", results.totalMass |> Mass.inKilograms |> Encode.float )
+        , ( "edibleMass", results.edibleMass |> Mass.inKilograms |> Encode.float )
         , ( "recipe"
           , Encode.object
                 [ ( "total", encodeImpacts results.recipe.total )
@@ -551,7 +554,7 @@ getPackagingMass recipe =
 
 
 getEdiblePreparedMass : Recipe -> Mass
-getEdiblePreparedMass { ingredients, transform, preparation } =
+getEdiblePreparedMass ({ ingredients, transform, preparation } as recipe) =
     let
         cookedAtPlant =
             case transform |> Maybe.andThen (.process >> .alias) of
@@ -564,17 +567,17 @@ getEdiblePreparedMass { ingredients, transform, preparation } =
         cookedAtConsumer =
             (preparation |> List.filter .applyRawToCookedRatio |> List.length) > 0
     in
-    ingredients
-        |> List.map
-            (\{ ingredient, mass } ->
-                if not cookedAtPlant && cookedAtConsumer then
+    if not cookedAtPlant && cookedAtConsumer then
+        ingredients
+            |> List.map
+                (\{ ingredient, mass } ->
                     -- apply raw to cooked ratio
                     mass |> Quantity.multiplyBy (Unit.ratioToFloat ingredient.rawToCookedRatio)
+                )
+            |> Quantity.sum
 
-                else
-                    mass
-            )
-        |> Quantity.sum
+    else
+        getTransformedIngredientsMass recipe
 
 
 getTransformedIngredientsMass : Recipe -> Mass
