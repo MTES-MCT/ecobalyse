@@ -154,7 +154,7 @@ carrotCake =
           }
         ]
     , distribution = Retail.ambient
-    , preparation = []
+    , preparation = [ Preparation.Id "refrigeration" ]
     , category = Just (Category.Id "cakes")
     }
 
