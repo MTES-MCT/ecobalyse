@@ -166,14 +166,12 @@ suite =
             , describe "getMassAtPackaging"
                 [ { ingredients =
                         [ { id = Ingredient.idFromString "egg"
-                          , name = "Oeuf"
                           , mass = Mass.grams 120
                           , variant = Query.DefaultVariant
                           , country = Nothing
                           , planeTransport = Ingredient.PlaneNotApplicable
                           }
                         , { id = Ingredient.idFromString "wheat"
-                          , name = "Blé tendre"
                           , mass = Mass.grams 140
                           , variant = Query.DefaultVariant
                           , country = Nothing
@@ -217,7 +215,6 @@ suite =
             , let
                 mango =
                     { id = Ingredient.idFromString "mango"
-                    , name = "Mangue"
                     , mass = Mass.grams 120
                     , variant = Query.DefaultVariant
                     , country = Nothing
@@ -235,7 +232,6 @@ suite =
               describe "computeIngredientTransport"
                 [ { ingredients =
                         [ { id = Ingredient.idFromString "egg"
-                          , name = "Oeuf"
                           , mass = Mass.grams 120
                           , variant = Query.DefaultVariant
                           , country = Nothing

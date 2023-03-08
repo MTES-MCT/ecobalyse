@@ -469,7 +469,6 @@ updateIngredientFormView { excluded, db, ingredient, impact, transportImpact } =
         ingredientQuery : Query.IngredientQuery
         ingredientQuery =
             { id = ingredient.ingredient.id
-            , name = ingredient.ingredient.name
             , mass = ingredient.mass
             , variant = ingredient.variant
             , country = ingredient.country |> Maybe.map .code
@@ -517,7 +516,6 @@ updateIngredientFormView { excluded, db, ingredient, impact, transportImpact } =
                     event
                         { ingredientQuery
                             | id = newIngredient.id
-                            , name = newIngredient.name
                             , variant = newVariant
                             , country = Nothing
                             , planeTransport = Ingredient.byPlaneByDefault newIngredient
