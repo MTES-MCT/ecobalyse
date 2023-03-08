@@ -594,8 +594,8 @@
       "transform=aded2490573207ec7ad5a3813978f6a4;545",
       "packaging[]=23b2754e5943bc77916f8f871edc53b6;105",
       "distribution=ambient",
-      "consumption[]=freezing",
-      "consumption[]=oven"
+      "preparation[]=freezing",
+      "preparation[]=oven"
     ],
     "impacts": {
       "acd": 0.013185508183826328,

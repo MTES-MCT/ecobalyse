@@ -1,6 +1,6 @@
-module Data.Food.ConsumptionTest exposing (..)
+module Data.Food.PreparationTest exposing (..)
 
-import Data.Food.Consumption as Consumption
+import Data.Food.Preparation as Preparation
 import Data.Impact as Impact
 import Data.Unit as Unit
 import Energy
@@ -12,15 +12,15 @@ import TestUtils exposing (asTest, suiteWithDb)
 
 suite : Test
 suite =
-    suiteWithDb "Data.Food.Consumption"
+    suiteWithDb "Data.Food.Preparation"
         (\{ builderDb } ->
-            [ describe "applyTechnique"
-                [ { id = Consumption.Id "sample"
+            [ describe "apply"
+                [ { id = Preparation.Id "sample"
                   , name = "Sample"
                   , elec = ( Energy.kilowattHours 1, Unit.ratio 0.5 )
                   , heat = ( Energy.megajoules 1, Unit.ratio 0.5 )
                   }
-                    |> Consumption.applyTechnique builderDb (Mass.kilograms 1)
+                    |> Preparation.apply builderDb (Mass.kilograms 1)
                     |> Result.map (Impact.getImpact (Impact.trg "cch") >> Unit.impactToFloat)
                     |> Result.withDefault 0
                     |> Expect.within (Expect.Absolute 0.001) 0.069

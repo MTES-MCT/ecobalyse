@@ -399,9 +399,9 @@ describe("API", () => {
 
       it("should validate a consumption preparation technique id", async () => {
         expectFieldErrorMessage(
-          await makeRequest("/api/food/recipe", ["consumption[]=invalid"]),
-          "consumption",
-          /Technique de préparation inconnue: invalid/,
+          await makeRequest("/api/food/recipe", ["preparation[]=invalid"]),
+          "preparation",
+          /Préparation inconnue: invalid/,
         );
       });
     });

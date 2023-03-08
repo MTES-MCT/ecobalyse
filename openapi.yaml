@@ -274,7 +274,7 @@ paths:
         - $ref: "#/components/parameters/packagingParam"
         - $ref: "#/components/parameters/foodCategoryParam"
         - $ref: "#/components/parameters/distributionParam"
-        - $ref: "#/components/parameters/consumptionParam"
+        - $ref: "#/components/parameters/preparationParam"
       responses:
         200:
           description: Opération réussie
@@ -769,11 +769,11 @@ components:
         frozen:
           summary: Congelé
           value: frozen
-    consumptionParam:
-      name: consumption[]
+    preparationParam:
+      name: preparation[]
       in: query
       description: |
-        Liste des techniques de préparation mobilisées à l'étape de consommation :
+        Liste des techniques de préparation mobilisées **à l'étape de consommation** :
 
         - `frying`: Friture
         - `pan-cooking`: Cuisson à la poêle

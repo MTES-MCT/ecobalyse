@@ -27,9 +27,9 @@ import Data.Country as Country exposing (Country)
 import Data.Food.Builder.Db exposing (Db)
 import Data.Food.Builder.Query as BuilderQuery exposing (Query)
 import Data.Food.Category as Category exposing (Category)
-import Data.Food.Consumption as Consumption
 import Data.Food.Ingredient as Ingredient exposing (Id, Ingredient)
 import Data.Food.Origin as Origin
+import Data.Food.Preparation as Preparation
 import Data.Food.Process as Process exposing (Process)
 import Data.Food.Retail as Retail
 import Data.Impact as Impact exposing (Impacts)
@@ -72,7 +72,7 @@ type alias Recipe =
     , transform : Maybe Transform
     , packaging : List Packaging
     , distribution : Retail.Distribution
-    , consumption : List Consumption.Technique
+    , preparation : List Preparation.Preparation
     , category : Maybe Category
     }
 
@@ -95,7 +95,7 @@ type alias Results =
         { total : Impacts
         , transports : Transport
         }
-    , consumption : Impacts
+    , preparation : Impacts
     , transports : Transport
     }
 
@@ -146,7 +146,7 @@ compute db =
     -- FIXME get the wellknown early and propagate the error to the computation
     fromQuery db
         >> Result.map
-            (\({ ingredients, transform, packaging, distribution, consumption, category } as recipe) ->
+            (\({ ingredients, transform, packaging, distribution, preparation, category } as recipe) ->
                 let
                     updateImpacts impacts =
                         impacts
@@ -210,9 +210,9 @@ compute db =
                             |> List.map (computeProcessImpacts db.impacts)
                             |> updateImpacts
 
-                    consumptionImpacts =
-                        consumption
-                            |> RE.combineMap (Consumption.applyTechnique db transformedIngredientsMass)
+                    preparationImpacts =
+                        preparation
+                            |> RE.combineMap (Preparation.apply db transformedIngredientsMass)
                             |> Result.map (Impact.sumImpacts db.impacts >> List.singleton >> updateImpacts)
 
                     totalImpacts =
@@ -221,7 +221,7 @@ compute db =
                         , distributionImpacts
                         , distributionTransport
                             |> Result.map .impacts
-                        , consumptionImpacts
+                        , preparationImpacts
                         ]
                             |> RE.combine
                             |> Result.map (Impact.sumImpacts db.impacts)
@@ -238,7 +238,7 @@ compute db =
                             |> Result.map (computeScoring db.impacts category)
                 in
                 Ok
-                    (\total perKg distrib distribTransport consumptionImpacts_ score ->
+                    (\total perKg distrib distribTransport preparationImpacts_ score ->
                         ( recipe
                         , { total = total
                           , perKg = perKg
@@ -257,7 +257,7 @@ compute db =
                                 { total = distrib
                                 , transports = distribTransport
                                 }
-                          , consumption = consumptionImpacts_
+                          , preparation = preparationImpacts_
                           , transports =
                                 Transport.sum db.impacts
                                     [ ingredientsTransport
@@ -270,7 +270,7 @@ compute db =
                     |> RE.andMap impactsPerKg
                     |> RE.andMap distributionImpacts
                     |> RE.andMap distributionTransport
-                    |> RE.andMap consumptionImpacts
+                    |> RE.andMap preparationImpacts
                     |> RE.andMap scoring
             )
         >> RE.join
@@ -425,10 +425,10 @@ computeIngredientTransport db { ingredient, country, mass, planeTransport } =
     }
 
 
-consumptionListFromQuery : Query -> Result String (List Consumption.Technique)
-consumptionListFromQuery =
-    .consumption
-        >> List.map Consumption.findById
+preparationListFromQuery : Query -> Result String (List Preparation.Preparation)
+preparationListFromQuery =
+    .preparation
+        >> List.map Preparation.findById
         >> RE.combine
 
 
@@ -490,7 +490,7 @@ encodeResults defs results =
                 ]
           )
         , ( "packaging", encodeImpacts results.packaging )
-        , ( "consumption", encodeImpacts results.consumption )
+        , ( "preparation", encodeImpacts results.preparation )
         , ( "transports", Transport.encode defs results.transports )
         , ( "distribution"
           , Encode.object
@@ -529,7 +529,7 @@ fromQuery db query =
         |> RE.andMap (transformFromQuery db query)
         |> RE.andMap (packagingListFromQuery db query)
         |> RE.andMap (Ok query.distribution)
-        |> RE.andMap (consumptionListFromQuery query)
+        |> RE.andMap (preparationListFromQuery query)
         |> RE.andMap (categoryFromQuery query.category)
 
 

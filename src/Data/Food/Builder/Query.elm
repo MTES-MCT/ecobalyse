@@ -3,31 +3,31 @@ module Data.Food.Builder.Query exposing
     , ProcessQuery
     , Query
     , Variant(..)
-    , addConsumptionTechnique
     , addIngredient
     , addPackaging
+    , addPreparation
     , b64encode
     , carrotCake
     , decode
-    , deleteConsumptionTechnique
     , deleteIngredient
+    , deletePreparation
     , emptyQuery
     , encode
     , parseBase64Query
     , serialize
     , setTransform
-    , updateConsumptionTechnique
     , updateDistribution
     , updateIngredient
     , updatePackaging
+    , updatePreparation
     , updateTransform
     )
 
 import Base64
 import Data.Country as Country
 import Data.Food.Category as Category
-import Data.Food.Consumption as Consumption
 import Data.Food.Ingredient as Ingredient
+import Data.Food.Preparation as Preparation
 import Data.Food.Process as Process
 import Data.Food.Retail as Retail
 import Json.Decode as Decode exposing (Decoder)
@@ -65,17 +65,17 @@ type alias Query =
     , transform : Maybe ProcessQuery
     , packaging : List ProcessQuery
     , distribution : Retail.Distribution
-    , consumption : List Consumption.Id
+    , preparation : List Preparation.Id
     , category : Maybe Category.Id
     }
 
 
-addConsumptionTechnique : Consumption.Id -> Query -> Query
-addConsumptionTechnique techniqueId query =
+addPreparation : Preparation.Id -> Query -> Query
+addPreparation preparationId query =
     { query
-        | consumption =
-            query.consumption
-                ++ [ techniqueId ]
+        | preparation =
+            query.preparation
+                ++ [ preparationId ]
     }
 
 
@@ -104,7 +104,7 @@ emptyQuery =
     , transform = Nothing
     , packaging = []
     , distribution = Retail.ambient
-    , consumption = []
+    , preparation = []
     , category = Nothing
     }
 
@@ -154,7 +154,7 @@ carrotCake =
           }
         ]
     , distribution = Retail.ambient
-    , consumption = []
+    , preparation = []
     , category = Just (Category.Id "cakes")
     }
 
@@ -166,7 +166,7 @@ decode =
         |> Pipe.optional "transform" (Decode.maybe decodeProcess) Nothing
         |> Pipe.required "packaging" (Decode.list decodeProcess)
         |> Pipe.custom (Decode.field "distribution" Retail.decode)
-        |> Pipe.optional "consumption" (Decode.list Consumption.decodeId) []
+        |> Pipe.optional "preparation" (Decode.list Preparation.decodeId) []
         |> Pipe.optional "category" (Decode.maybe Category.decodeId) Nothing
 
 
@@ -230,12 +230,12 @@ decodeVariant =
         |> Decode.andThen (variantFromString >> DE.fromResult)
 
 
-deleteConsumptionTechnique : Consumption.Id -> Query -> Query
-deleteConsumptionTechnique techniqueId query =
+deletePreparation : Preparation.Id -> Query -> Query
+deletePreparation preparationId query =
     { query
-        | consumption =
-            query.consumption
-                |> List.filter ((/=) techniqueId)
+        | preparation =
+            query.preparation
+                |> List.filter ((/=) preparationId)
     }
 
 
@@ -256,7 +256,7 @@ encode v =
         , ( "transform", v.transform |> Maybe.map encodeProcess |> Maybe.withDefault Encode.null )
         , ( "packaging", Encode.list encodeProcess v.packaging )
         , ( "distribution", Retail.encode v.distribution )
-        , ( "consumption", Encode.list Consumption.encodeId v.consumption )
+        , ( "preparation", Encode.list Preparation.encodeId v.preparation )
         , ( "category", v.category |> Maybe.map Category.encodeId |> Maybe.withDefault Encode.null )
         ]
 
@@ -316,11 +316,11 @@ setTransform transform query =
     { query | transform = Just transform }
 
 
-updateConsumptionTechnique : Consumption.Id -> Consumption.Id -> Query -> Query
-updateConsumptionTechnique oldId newId query =
+updatePreparation : Preparation.Id -> Preparation.Id -> Query -> Query
+updatePreparation oldId newId query =
     { query
-        | consumption =
-            query.consumption
+        | preparation =
+            query.preparation
                 |> List.map
                     (\id ->
                         if id == oldId then
