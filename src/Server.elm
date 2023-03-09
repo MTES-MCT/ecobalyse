@@ -93,7 +93,7 @@ toFoodResults definitions query results =
     Encode.object
         [ ( "results", BuilderRecipe.encodeResults definitions results )
         , ( "description", Encode.string "TODO" )
-        , ( "query", BuilderRecipe.encodeQuery query )
+        , ( "query", BuilderRecipe.encode query )
         ]
 
 

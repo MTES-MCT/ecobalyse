@@ -45,3 +45,4 @@ Grape, full production (phase), integrated, variety mix, Languedoc-Roussillon, a
 Grape, full production (phase), organic, variety mix, Languedoc-Roussillon, at vineyard
 Electricity, low voltage {FR}| market for | Cut-off, S - Copied from Ecoinvent
 Tap water {Europe without Switzerland}| market for | Cut-off, S - Copied from Ecoinvent
+Heat, central or small-scale, natural gas {Europe without Switzerland}| market for heat, central or small-scale, natural gas | Cut-off, S - Copied from Ecoinvent

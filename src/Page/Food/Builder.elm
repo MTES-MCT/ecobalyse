@@ -18,6 +18,7 @@ import Data.Food.Builder.Recipe as Recipe exposing (Recipe)
 import Data.Food.Category as Category
 import Data.Food.Ingredient as Ingredient exposing (Id, Ingredient)
 import Data.Food.Origin as Origin
+import Data.Food.Preparation as Preparation
 import Data.Food.Process as Process exposing (Process)
 import Data.Food.Retail as Retail
 import Data.Gitbook as Gitbook
@@ -74,12 +75,14 @@ type Modal
 type Msg
     = AddIngredient
     | AddPackaging
+    | AddPreparation
     | AddTransform
     | CopyToClipBoard String
     | DbLoaded (WebData Db)
     | DeleteBookmark Bookmark
     | DeleteIngredient Query.IngredientQuery
     | DeletePackaging Process.Code
+    | DeletePreparation Preparation.Id
     | LoadQuery Query
     | NoOp
     | OpenComparator
@@ -95,6 +98,7 @@ type Msg
     | UpdateBookmarkName String
     | UpdateIngredient Id Query.IngredientQuery
     | UpdatePackaging Process.Code Query.ProcessQuery
+    | UpdatePreparation Preparation.Id Preparation.Id
     | UpdateTransform Query.ProcessQuery
     | UpdateDistribution String
 
@@ -185,6 +189,22 @@ update ({ queries } as session) msg model =
                             identity
                    )
 
+        AddPreparation ->
+            let
+                firstPreparation =
+                    Preparation.all
+                        |> Preparation.unused query.preparation
+                        |> List.head
+            in
+            ( model, session, Cmd.none )
+                |> (case firstPreparation of
+                        Just { id } ->
+                            updateQuery (Query.addPreparation id query)
+
+                        Nothing ->
+                            identity
+                   )
+
         AddTransform ->
             let
                 defaultMass =
@@ -223,10 +243,6 @@ update ({ queries } as session) msg model =
             , Cmd.none
             )
 
-        DeleteIngredient ingredientQuery ->
-            ( model, session, Cmd.none )
-                |> updateQuery (Query.deleteIngredient ingredientQuery query)
-
         DeleteBookmark bookmark ->
             updateQuery query
                 ( model
@@ -234,9 +250,17 @@ update ({ queries } as session) msg model =
                 , Cmd.none
                 )
 
+        DeleteIngredient ingredientQuery ->
+            ( model, session, Cmd.none )
+                |> updateQuery (Query.deleteIngredient ingredientQuery query)
+
         DeletePackaging code ->
             ( model, session, Cmd.none )
                 |> updateQuery (Recipe.deletePackaging code query)
+
+        DeletePreparation id ->
+            ( model, session, Cmd.none )
+                |> updateQuery (Query.deletePreparation id query)
 
         LoadQuery queryToLoad ->
             ( model, session, Cmd.none )
@@ -316,6 +340,10 @@ update ({ queries } as session) msg model =
         UpdateBookmarkName recipeName ->
             ( { model | bookmarkName = recipeName }, session, Cmd.none )
 
+        UpdateDistribution distribution ->
+            ( model, session, Cmd.none )
+                |> updateQuery (Query.updateDistribution distribution query)
+
         UpdateIngredient oldIngredientId newIngredient ->
             ( model, session, Cmd.none )
                 |> updateQuery (Query.updateIngredient oldIngredientId newIngredient query)
@@ -324,13 +352,13 @@ update ({ queries } as session) msg model =
             ( model, session, Cmd.none )
                 |> updateQuery (Query.updatePackaging code newPackaging query)
 
+        UpdatePreparation oldId newId ->
+            ( model, session, Cmd.none )
+                |> updateQuery (Query.updatePreparation oldId newId query)
+
         UpdateTransform newTransform ->
             ( model, session, Cmd.none )
                 |> updateQuery (Query.updateTransform newTransform query)
-
-        UpdateDistribution distribution ->
-            ( model, session, Cmd.none )
-                |> updateQuery (Query.updateDistribution distribution query)
 
 
 updateQuery : Query -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
@@ -669,7 +697,7 @@ debugQueryView db query =
         , div [ class "row" ]
             [ div [ class "col-7" ]
                 [ query
-                    |> Recipe.serializeQuery
+                    |> Query.serialize
                     |> debugView
                 ]
             , div [ class "col-5" ]
@@ -851,6 +879,64 @@ distributionView selectedImpact recipe results =
                 ]
             ]
         ]
+    ]
+
+
+consumptionView : BuilderDb.Db -> Impact.Definition -> Recipe -> Recipe.Results -> List (Html Msg)
+consumptionView db selectedImpact recipe results =
+    [ div [ class "card-header d-flex align-items-center justify-content-between" ]
+        [ h5 [ class "mb-0" ] [ text "Consommation" ]
+        , results.preparation
+            |> Format.formatFoodSelectedImpact selectedImpact
+        ]
+    , ul [ class "list-group list-group-flush" ]
+        (if List.isEmpty recipe.preparation then
+            [ li [ class "list-group-item" ] [ text "Sans préparation" ] ]
+
+         else
+            recipe.preparation
+                |> List.map
+                    (\usedPreparation ->
+                        li [ class "list-group-item d-flex justify-content-between align-items-center gap-2" ]
+                            [ Preparation.all
+                                |> List.sortBy .name
+                                |> List.map
+                                    (\{ id, name } ->
+                                        option
+                                            [ selected <| usedPreparation.id == id
+                                            , value <| Preparation.idToString id
+                                            , disabled <| List.member id (List.map .id recipe.preparation)
+                                            ]
+                                            [ text name ]
+                                    )
+                                |> select
+                                    [ class "form-select form-select-sm w-50"
+                                    , onInput (Preparation.Id >> UpdatePreparation usedPreparation.id)
+                                    ]
+                            , span [ class "w-50 text-end" ]
+                                [ usedPreparation
+                                    |> Preparation.apply db results.recipe.transformedMass
+                                    |> Result.map
+                                        (Impact.updateAggregatedScores db.impacts
+                                            >> Format.formatFoodSelectedImpact selectedImpact
+                                        )
+                                    |> Result.withDefault (text "N/A")
+                                ]
+                            , button
+                                [ type_ "button"
+                                , class "btn btn-sm btn-outline-primary"
+                                , title <| "Supprimer "
+                                , onClick (DeletePreparation usedPreparation.id)
+                                ]
+                                [ Icon.trash ]
+                            ]
+                    )
+        )
+    , addProcessFormView
+        { isDisabled = List.length recipe.preparation == 2
+        , event = AddPreparation
+        , kind = "une technique de préparation"
+        }
     ]
 
 
@@ -1103,6 +1189,9 @@ stepListView db { impact } recipe results =
         , transportToDistributionView impact recipe results
         , div [ class "card" ]
             (distributionView impact recipe results)
+        , DownArrow.view [] []
+        , div [ class "card" ]
+            (consumptionView db impact recipe results)
         ]
 
 
@@ -1127,6 +1216,9 @@ stepResultsView model results =
               }
             , { label = "Distribution"
               , impact = toFloat results.distribution.total
+              }
+            , { label = "Consommation"
+              , impact = toFloat results.preparation
               }
             ]
 

@@ -265,7 +265,7 @@ describe("API", () => {
         await expectListResponseContains("/api/food/ingredients", {
           id: "milk",
           name: "Lait",
-          defaultOrigin: "Europe et Maghreb"
+          defaultOrigin: "Europe et Maghreb",
         });
       });
     });
@@ -284,7 +284,7 @@ describe("API", () => {
         const response = await makeRequest("/api/food/recipe", [
           "ingredients[]=carrot;268",
           "transform=aded2490573207ec7ad5a3813978f6a4;1050",
-          "distribution=ambient"
+          "distribution=ambient",
         ]);
 
         expectStatus(response, 200);
@@ -314,7 +314,7 @@ describe("API", () => {
           /masse doit être supérieure ou égale à zéro/,
         );
       });
-      
+
       it("should validate an ingredient variant", async () => {
         expectFieldErrorMessage(
           await makeRequest("/api/food/recipe", ["ingredients[]=carrot;123;BadVariant"]),
@@ -381,11 +381,27 @@ describe("API", () => {
         );
       });
 
+      it("should validate a distribution storage type", async () => {
+        expectFieldErrorMessage(
+          await makeRequest("/api/food/recipe", ["distribution=invalid"]),
+          "distribution",
+          /Choix invalide pour la distribution : invalid/,
+        );
+      });
+
       it("should validate a category id", async () => {
         expectFieldErrorMessage(
           await makeRequest("/api/food/recipe", ["category=invalid"]),
           "category",
           /Catégorie inconnue: invalid/,
+        );
+      });
+
+      it("should validate a consumption preparation technique id", async () => {
+        expectFieldErrorMessage(
+          await makeRequest("/api/food/recipe", ["preparation[]=invalid"]),
+          "preparation",
+          /Préparation inconnue: invalid/,
         );
       });
     });

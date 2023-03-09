@@ -49,6 +49,7 @@ foodEndpoints db =
           , "transform=aded2490573207ec7ad5a3813978f6a4;545"
           , "packaging[]=23b2754e5943bc77916f8f871edc53b6;105"
           , "distribution=ambient"
+          , "preparation[]=refrigeration"
           , "category=cakes"
           ]
             |> String.join "&"
@@ -127,6 +128,16 @@ foodEndpoints db =
             |> Maybe.andThen (Dict.get "distribution")
             |> Expect.equal (Just "Choix invalide pour la distribution : invalid")
             |> asTest "should validate that a distribution is valid"
+        , getEndpoint db "GET" "/food/recipe?preparation[]=invalid"
+            |> Maybe.andThen extractFoodErrors
+            |> Maybe.andThen (Dict.get "preparation")
+            |> Expect.equal (Just "Préparation inconnue: invalid")
+            |> asTest "should validate that a preparation list entry is valid"
+        , getEndpoint db "GET" "/food/recipe?preparation[]=freezing&preparation[]=frying&preparation[]=oven"
+            |> Maybe.andThen extractFoodErrors
+            |> Maybe.andThen (Dict.get "preparation")
+            |> Expect.equal (Just "Deux techniques de préparation maximum.")
+            |> asTest "should validate preparation list length"
         ]
     ]
 
