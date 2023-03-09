@@ -8,8 +8,8 @@ image:
 	docker build -t $(NAME) -f Dockerfile .
 
 import_agribalyse:
-	curl -o food/import_agb/agribalyse3_no_param.CSV.zip https://nextcloud.prelab.fr/index.php/s/kmYtfqHa42EZA9R/download/agribalyse3_no_param.CSV.zip
-	$(DOCKERRUN) -w /home/jovyan/ecobalyse/data/food/import_agb $(NAME) python3 importing_databases.py
+	curl -o food/import_agb/AGB3.1.1.20230306.CSV.zip https://nextcloud.prelab.fr/index.php/s/nDT3DSkgxYJLgJ3/download/AGB3.1.1.20230306.CSV.zip
+	$(DOCKERRUN) -w /home/jovyan/ecobalyse/data/food/import_agb $(NAME) python3 import_agribalyse.py
 
 export_ciqual:
 	$(DOCKERRUN) -w /home/jovyan/ecobalyse/data/food/export_agb $(NAME) python3 export_ciqual.py

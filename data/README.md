@@ -50,7 +50,8 @@ incompatibilité avec l'architecture CPU utilisée. Dans ce cas c'est le solveur
 de Scipy qui est utilisé. Il est possible que cela explique les très légères
 différences d'arrondi rencontrées dans les résultats.
 
-Les deux images docker utilisent les mêmes versions et le même solveur, elles fournissent exactement les mêmes fichiers en sortie.
+Les deux images docker utilisent les mêmes versions et le même solveur, elles
+fournissent exactement les mêmes fichiers en sortie.
 
 
 # À la main
@@ -61,30 +62,13 @@ environnement virtuel au préalable :
 
 Placez-vous en tout premier lieu dans le répertoire `data/`.
 
-### Utilisation de anaconda
-
-Suivez la [procédure d'installation de anaconda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html).
-
-Ensuite créez un environnement virtuel avec toutes les dépendences requises :
-
-    $ conda env create --name ecobalyse-env --file requirements.txt
-
-Activez l'environnement virtuel :
-
-    $ conda activate ecobalyse-env
-
-Puis installez le package ecobalyse_data :
-
-    $ conda develop .
-
-# Utilisation de pip
-
 Une fois que vous avez [installé
-pip](https://pip.pypa.io/en/stable/installation/) et [créé et activé un
-environnement
-virtuel](https://packaging.python.org/en/latest/tutorials/installing-packages/#creating-and-using-virtual-environments),
-installez le package ecobalyse_data de la sorte :
+pip](https://pip.pypa.io/en/stable/installation/), créez et activez un
+[virtualenv](https://packaging.python.org/en/latest/tutorials/installing-packages/#creating-and-using-virtual-environments),
+puis installez le package ecobalyse_data de la sorte :
 
+    $ python -m venv env
+    $ source env/bin/activate
     $ pip install -r requirements.txt
     $ pip install -e .
 

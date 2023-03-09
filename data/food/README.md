@@ -17,25 +17,26 @@ Pour utiliser ces scripts, veuillez au préalable suivre la procédure
 d'installation et de création d'un environnement virtuel comme indiqué dans [le
 README](../README.md).
 
-Dans le répertoire
-[brightway/brightway_tutorial_notebooks/](brightway_tutorial_notebooks/)
-vous trouverez plusieurs exemples d'utilisation de la librairie brightway2 sous
-forme de [notebooks jupyter](https://jupyter.org/) pour explorer et expérimenter
-par vous-même.
+Si vous utilisez l'environnement Docker via les commandes `make` de la doc
+d'installation, vous pourrez démarrer un serveur Jupyter pour expérimenter
+directement avec Brightway2 sous forme de notebooks
+[Jupyter](https://jupyter.org/). Vous pouvez consulter les [exemples de
+Notebooks](https://training.brightway.dev/content/0_main_page.html) pour
+Brightway.
 
-## Importer la base agribalyse v3.0 dans brightway
+## Importer la base agribalyse v3.1 dans brightway
 
 Tout d'abord se placer dans le bon répertoire :
 
     $ cd import_agb
 
-Attention : il est nécessaire d'avoir le fichier `agribalyse3_no_param.CSV.zip` dans
+Attention : il est nécessaire d'avoir le fichier `AGB3.1.1.20230306.CSV.zip` dans
 le répertoire. Ce fichier est un export de la base Agribalyse par le biais du
 logiciel (payant) SimaPro. Veuillez nous contacter si vous en avez besoin.
 
 Puis lancer le script d'import qui prend plusieurs minutes :
 
-    $ python importing_databases.py
+    $ python import_agibalyse.py
 
 Si vous souhaitez relancer un import en repartant de zéro, vous pouvez utiliser
 le script de nettoyage :
@@ -49,17 +50,3 @@ Tout d'abord se placer dans le bon répertoire :
     $ cd export_agb
 
 Consulter le [README](export_agb/README.md) dédié.
-
-## Utiliser un notebook jupyter
-
-Tout d'abord se placer dans le bon répertoire :
-
-    $ cd sandbox
-
-Lancer jupyter :
-
-    $ jupyter-notebook
-
-Puis ouvrir un des liens affichés, par exemple :
-
-    http://localhost:8888/?token=........
