@@ -217,7 +217,7 @@ compute db =
                             |> Result.map (Impact.sumImpacts db.impacts >> List.singleton >> updateImpacts)
 
                     preparedMass =
-                        getEdiblePreparedMass recipe
+                        getPreparedMassAtConsumer recipe
 
                     totalImpacts =
                         [ Ok recipeImpacts
@@ -231,7 +231,7 @@ compute db =
 
                     impactsPerKg =
                         -- Note: Product impacts per kg is computed against prepared
-                        --       product mass as consumer, excluding packaging
+                        --       product mass at consumer, excluding packaging
                         totalImpacts
                             |> Result.map (Impact.perKg preparedMass)
 
@@ -552,8 +552,8 @@ getPackagingMass recipe =
         |> Quantity.sum
 
 
-getEdiblePreparedMass : Recipe -> Mass
-getEdiblePreparedMass ({ ingredients, transform, preparation } as recipe) =
+getPreparedMassAtConsumer : Recipe -> Mass
+getPreparedMassAtConsumer ({ ingredients, transform, preparation } as recipe) =
     let
         cookedAtPlant =
             case transform |> Maybe.andThen (.process >> .alias) of
@@ -564,7 +564,8 @@ getEdiblePreparedMass ({ ingredients, transform, preparation } as recipe) =
                     False
 
         cookedAtConsumer =
-            (preparation |> List.filter .applyRawToCookedRatio |> List.length) > 0
+            preparation
+                |> List.any .applyRawToCookedRatio
     in
     if not cookedAtPlant && cookedAtConsumer then
         ingredients
