@@ -197,7 +197,9 @@ computeTransports db next ({ processInfo } as current) =
 computeTransportImpacts : Db -> Impacts -> Process.WellKnown -> Process -> Mass -> Transport -> Transport
 computeTransportImpacts db impacts { seaTransport, airTransport } roadProcess mass { road, sea, air } =
     { road = road
+    , roadCooled = Quantity.zero
     , sea = sea
+    , seaCooled = Quantity.zero
     , air = air
     , impacts =
         impacts

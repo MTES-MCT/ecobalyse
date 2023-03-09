@@ -33,7 +33,9 @@ type alias Distances =
 
 type alias Transport =
     { road : Length
+    , roadCooled : Length
     , sea : Length
+    , seaCooled : Length
     , air : Length
     , impacts : Impacts
     }
@@ -42,7 +44,9 @@ type alias Transport =
 default : Impacts -> Transport
 default impacts =
     { road = Quantity.zero
+    , roadCooled = Quantity.zero
     , sea = Quantity.zero
+    , seaCooled = Quantity.zero
     , air = Quantity.zero
     , impacts = impacts
     }
@@ -57,7 +61,9 @@ defaultInland scope impacts =
 
             Scope.Textile ->
                 Length.kilometers 500
+    , roadCooled = Quantity.zero
     , sea = Quantity.zero
+    , seaCooled = Quantity.zero
     , air = Quantity.zero
     , impacts = impacts
     }
@@ -169,9 +175,13 @@ encodeKm =
 
 decode : Decoder Transport
 decode =
-    Decode.map4 Transport
+    Decode.map6 Transport
         (Decode.field "road" decodeKm)
+        -- roadCooled
+        (Decode.succeed Quantity.zero)
         (Decode.field "sea" decodeKm)
+        -- seaCooled
+        (Decode.succeed Quantity.zero)
         (Decode.field "air" decodeKm)
         (Decode.succeed Impact.noImpacts)
 
@@ -180,7 +190,9 @@ encode : List Impact.Definition -> Transport -> Encode.Value
 encode definitions v =
     Encode.object
         [ ( "road", encodeKm v.road )
+        , ( "roadCooled", encodeKm v.roadCooled )
         , ( "sea", encodeKm v.sea )
+        , ( "seaCooled", encodeKm v.seaCooled )
         , ( "air", encodeKm v.air )
         , ( "impacts", Impact.encodeImpacts definitions Scope.Textile v.impacts )
         ]
