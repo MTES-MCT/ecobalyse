@@ -39,6 +39,8 @@ Cow milk, organic, system n°1, at farm gate
 Transport, freight, lorry 16-32 metric ton, EURO5 {RER}| transport, freight, lorry 16-32 metric ton, EURO5 | Cut-off, S - Copied from Ecoinvent
 Transport, freight, sea, transoceanic ship {GLO}| processing | Cut-off, S - Copied from Ecoinvent
 Transport, freight, aircraft {RER}| intercontinental | Cut-off, S - Copied from Ecoinvent
+Transport, freight, sea, transoceanic ship with reefer, cooling {GLO}| processing | Cut-off, S - Copied from Ecoinvent"
+Transport, freight, lorry with refrigeration machine, 7.5-16 ton, EURO5, R134a refrigerant, cooling {GLO}| transport, freight, lorry with refrigeration machine, 7.5-16 ton, EURO5, R134a refrigerant, cooling | Cut-off, S - Copied from Ecoinvent"
 Apple, conventional, national average, at orchard
 Apple, organic, national average, at orchard
 Grape, full production (phase), integrated, variety mix, Languedoc-Roussillon, at vineyard
