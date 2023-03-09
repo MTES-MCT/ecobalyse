@@ -358,23 +358,41 @@ computeIngredientTransport db { ingredient, country, mass, planeTransport } =
                 )
 
         baseTransport =
-            case country of
-                -- In case a custom country is provided, compute the distances to it from France
-                Just { code } ->
-                    db.transports
-                        |> Transport.getTransportBetween Scope.Food emptyImpacts code france
-                        |> Formula.transportRatio planeRatio
+            let
+                base =
+                    case country of
+                        -- In case a custom country is provided, compute the distances to it from France
+                        Just { code } ->
+                            db.transports
+                                |> Transport.getTransportBetween Scope.Food emptyImpacts code france
+                                |> Formula.transportRatio planeRatio
 
-                -- Otherwise retrieve ingredient's default origin transport data
-                Nothing ->
-                    ingredient.defaultOrigin
-                        |> Ingredient.getDefaultOriginTransport db.impacts planeTransport
+                        -- Otherwise retrieve ingredient's default origin transport data
+                        Nothing ->
+                            ingredient.defaultOrigin
+                                |> Ingredient.getDefaultOriginTransport db.impacts planeTransport
+            in
+            if ingredient.transportCooling /= Ingredient.NoCooling then
+                -- Switch the distances to use the "cooled" version of the transport medium
+                { base
+                    | road = Quantity.zero
+                    , roadCooled = base.road
+                    , sea = Quantity.zero
+                    , seaCooled = base.sea
+                }
+
+            else
+                base
 
         toTransformation t =
             -- 160km of road transport are added for every ingredient, wherever they come
             -- from (including France). This corresponds to the step "1. RECETTE" in the
             -- [transport documentation](https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/transport#circuits-consideres)
-            { t | road = t.road |> Quantity.plus (Length.kilometers 160) }
+            if ingredient.transportCooling == Ingredient.AlwaysCool then
+                { t | roadCooled = t.roadCooled |> Quantity.plus (Length.kilometers 160) }
+
+            else
+                { t | road = t.road |> Quantity.plus (Length.kilometers 160) }
 
         toLogistics t =
             -- 500km of road transport are added for every ingredient that are not coming from France.
@@ -383,14 +401,22 @@ computeIngredientTransport db { ingredient, country, mass, planeTransport } =
             case country of
                 Just { code } ->
                     if code /= Country.codeFromString "FR" then
-                        { t | road = t.road |> Quantity.plus (Length.kilometers 500) }
+                        if ingredient.transportCooling == Ingredient.AlwaysCool then
+                            { t | roadCooled = t.roadCooled |> Quantity.plus (Length.kilometers 500) }
+
+                        else
+                            { t | road = t.road |> Quantity.plus (Length.kilometers 500) }
 
                     else
                         t
 
                 Nothing ->
                     if ingredient.defaultOrigin /= Origin.France then
-                        { t | road = t.road |> Quantity.plus (Length.kilometers 500) }
+                        if ingredient.transportCooling == Ingredient.AlwaysCool then
+                            { t | roadCooled = t.roadCooled |> Quantity.plus (Length.kilometers 500) }
+
+                        else
+                            { t | road = t.road |> Quantity.plus (Length.kilometers 500) }
 
                     else
                         t
@@ -407,7 +433,9 @@ computeIngredientTransport db { ingredient, country, mass, planeTransport } =
                 |> Result.map
                     (\wellKnown ->
                         [ ( wellKnown.lorryTransport, transport.road )
+                        , ( wellKnown.lorryCoolingTransport, transport.roadCooled )
                         , ( wellKnown.boatTransport, transport.sea )
+                        , ( wellKnown.boatCoolingTransport, transport.seaCooled )
                         , ( wellKnown.planeTransport, transport.air )
                         ]
                             |> List.map
