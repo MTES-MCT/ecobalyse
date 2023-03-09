@@ -402,7 +402,7 @@ absoluteImpactView model results =
             [ div [ class "d-flex justify-content-center align-items-end gap-1 w-100" ]
                 [ span [ class "fs-7" ]
                     [ text "Soit pour "
-                    , Format.kg results.totalMass
+                    , Format.kg results.preparedMass
                     , text "\u{00A0}:"
                     ]
                 , span [ class "h5 m-0" ]
@@ -867,15 +867,15 @@ distributionView selectedImpact recipe results =
                             )
                     )
                 ]
-            , div
-                [ class "card-body d-flex justify-content-between align-items-center gap-1"
-                , class "border-top-0 text-muted py-2 fs-7"
-                ]
-                [ div [ class "text-truncate" ]
-                    [ recipe.distribution
-                        |> Retail.displayNeeds
-                        |> text
-                    ]
+            ]
+        , div
+            [ class "card-body d-flex justify-content-between align-items-center gap-1"
+            , class "border-top-0 text-muted py-2 fs-7"
+            ]
+            [ div [ class "text-truncate" ]
+                [ recipe.distribution
+                    |> Retail.displayNeeds
+                    |> text
                 ]
             ]
         ]
@@ -937,6 +937,15 @@ consumptionView db selectedImpact recipe results =
         , event = AddPreparation
         , kind = "une technique de préparation"
         }
+    , div
+        [ class "card-body d-flex justify-content-between align-items-center gap-1 border-top"
+        , class "text-muted py-2 fs-7"
+        ]
+        [ div [ class "text-truncate" ]
+            [ text <| "Masse finale de produit préparé\u{00A0}:\u{00A0}"
+            , Format.kg results.preparedMass
+            ]
+        ]
     ]
 
 

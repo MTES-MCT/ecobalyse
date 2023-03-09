@@ -82,6 +82,7 @@ type alias Results =
     , perKg : Impacts
     , scoring : Scoring
     , totalMass : Mass
+    , preparedMass : Mass
     , recipe :
         { total : Impacts
         , ingredientsTotal : Impacts
@@ -215,23 +216,24 @@ compute db =
                             |> RE.combineMap (Preparation.apply db transformedIngredientsMass)
                             |> Result.map (Impact.sumImpacts db.impacts >> List.singleton >> updateImpacts)
 
+                    preparedMass =
+                        getPreparedMassAtConsumer recipe
+
                     totalImpacts =
                         [ Ok recipeImpacts
                         , Ok packagingImpacts
                         , distributionImpacts
-                        , distributionTransport
-                            |> Result.map .impacts
+                        , distributionTransport |> Result.map .impacts
                         , preparationImpacts
                         ]
                             |> RE.combine
                             |> Result.map (Impact.sumImpacts db.impacts)
 
                     impactsPerKg =
-                        -- Note: Product impacts per kg is computed against transformed
-                        --       ingredients mass, excluding packaging
+                        -- Note: Product impacts per kg is computed against prepared
+                        --       product mass at consumer, excluding packaging
                         totalImpacts
-                            |> Result.map
-                                (Impact.perKg transformedIngredientsMass)
+                            |> Result.map (Impact.perKg preparedMass)
 
                     scoring =
                         impactsPerKg
@@ -244,6 +246,7 @@ compute db =
                           , perKg = perKg
                           , scoring = score
                           , totalMass = getMassAtPackaging recipe
+                          , preparedMass = preparedMass
                           , recipe =
                                 { total = recipeImpacts
                                 , ingredientsTotal = ingredientsTotalImpacts
@@ -481,6 +484,7 @@ encodeResults defs results =
         , ( "perKg", encodeImpacts results.perKg )
         , ( "scoring", encodeScoring results.scoring )
         , ( "totalMass", results.totalMass |> Mass.inKilograms |> Encode.float )
+        , ( "preparedMass", results.preparedMass |> Mass.inKilograms |> Encode.float )
         , ( "recipe"
           , Encode.object
                 [ ( "total", encodeImpacts results.recipe.total )
@@ -546,6 +550,34 @@ getPackagingMass recipe =
     recipe.packaging
         |> List.map .mass
         |> Quantity.sum
+
+
+getPreparedMassAtConsumer : Recipe -> Mass
+getPreparedMassAtConsumer ({ ingredients, transform, preparation } as recipe) =
+    let
+        cookedAtPlant =
+            case transform |> Maybe.andThen (.process >> .alias) of
+                Just "cooking" ->
+                    True
+
+                _ ->
+                    False
+
+        cookedAtConsumer =
+            preparation
+                |> List.any .applyRawToCookedRatio
+    in
+    if not cookedAtPlant && cookedAtConsumer then
+        ingredients
+            |> List.map
+                (\{ ingredient, mass } ->
+                    -- apply raw to cooked ratio
+                    mass |> Quantity.multiplyBy (Unit.ratioToFloat ingredient.rawToCookedRatio)
+                )
+            |> Quantity.sum
+
+    else
+        getTransformedIngredientsMass recipe
 
 
 getTransformedIngredientsMass : Recipe -> Mass
