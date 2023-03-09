@@ -46,7 +46,6 @@ type Variant
 
 type alias IngredientQuery =
     { id : Ingredient.Id
-    , name : String
     , mass : Mass
     , variant : Variant
     , country : Maybe Country.Code
@@ -113,28 +112,24 @@ carrotCake : Query
 carrotCake =
     { ingredients =
         [ { id = Ingredient.idFromString "egg"
-          , name = "Oeuf"
           , mass = Mass.grams 120
           , variant = DefaultVariant
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
           }
         , { id = Ingredient.idFromString "wheat"
-          , name = "Blé tendre"
           , mass = Mass.grams 140
           , variant = DefaultVariant
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
           }
         , { id = Ingredient.idFromString "milk"
-          , name = "Lait"
           , mass = Mass.grams 60
           , variant = DefaultVariant
           , country = Nothing
           , planeTransport = Ingredient.PlaneNotApplicable
           }
         , { id = Ingredient.idFromString "carrot"
-          , name = "Carotte"
           , mass = Mass.grams 225
           , variant = DefaultVariant
           , country = Nothing
@@ -213,15 +208,12 @@ decodeProcess =
 
 decodeIngredient : Decoder IngredientQuery
 decodeIngredient =
-    Decode.map6 IngredientQuery
+    Decode.map5 IngredientQuery
         (Decode.field "id" Ingredient.decodeId)
-        (Decode.field "name" Decode.string)
         (Decode.field "mass" decodeMass)
         (Decode.field "variant" decodeVariant)
         (Decode.field "country" (Decode.maybe Country.decodeCode))
-        (Decode.field "byPlane"
-            decodePlaneTransport
-        )
+        (Decode.field "byPlane" decodePlaneTransport)
 
 
 decodeVariant : Decoder Variant
@@ -265,7 +257,6 @@ encodeIngredient : IngredientQuery -> Encode.Value
 encodeIngredient v =
     Encode.object
         [ ( "id", Ingredient.encodeId v.id )
-        , ( "name", Encode.string v.name )
         , ( "mass", encodeMass v.mass )
         , ( "variant", encodeVariant v.variant )
         , ( "country", v.country |> Maybe.map Country.encodeCode |> Maybe.withDefault Encode.null )

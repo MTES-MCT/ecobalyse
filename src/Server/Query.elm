@@ -90,7 +90,6 @@ ingredientParser { countries, ingredients } string =
             in
             Ok BuilderQuery.IngredientQuery
                 |> RE.andMap (Result.map .id ingredient)
-                |> RE.andMap (Result.map .name ingredient)
                 |> RE.andMap (validateMass mass)
                 |> RE.andMap (Ok BuilderQuery.DefaultVariant)
                 |> RE.andMap (Ok Nothing)
@@ -104,7 +103,6 @@ ingredientParser { countries, ingredients } string =
             in
             Ok BuilderQuery.IngredientQuery
                 |> RE.andMap (Result.map .id ingredient)
-                |> RE.andMap (Result.map .name ingredient)
                 |> RE.andMap (validateMass mass)
                 |> RE.andMap (variantParser variant)
                 |> RE.andMap (Ok Nothing)
@@ -118,7 +116,6 @@ ingredientParser { countries, ingredients } string =
             in
             Ok BuilderQuery.IngredientQuery
                 |> RE.andMap (Result.map .id ingredient)
-                |> RE.andMap (Result.map .name ingredient)
                 |> RE.andMap (validateMass mass)
                 |> RE.andMap (variantParser variant)
                 |> RE.andMap (foodCountryParser countries countryCode)
@@ -132,7 +129,6 @@ ingredientParser { countries, ingredients } string =
             in
             Ok BuilderQuery.IngredientQuery
                 |> RE.andMap (Result.map .id ingredient)
-                |> RE.andMap (Result.map .name ingredient)
                 |> RE.andMap (validateMass mass)
                 |> RE.andMap (variantParser variant)
                 |> RE.andMap (foodCountryParser countries countryCode)

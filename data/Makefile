@@ -28,3 +28,5 @@ clean_data:
 
 clean_image:
 	docker image rm $(NAME)
+
+clean: clean_data clean_image

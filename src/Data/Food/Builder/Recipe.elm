@@ -230,7 +230,7 @@ compute db =
                             |> Result.map (Impact.sumImpacts db.impacts)
 
                     impactsPerKg =
-                        -- Note: Product impacts per kg is computed against edible
+                        -- Note: Product impacts per kg is computed against prepared
                         --       product mass as consumer, excluding packaging
                         totalImpacts
                             |> Result.map (Impact.perKg preparedMass)
@@ -448,7 +448,6 @@ encodeIngredient : BuilderQuery.IngredientQuery -> Encode.Value
 encodeIngredient i =
     Encode.object
         [ ( "id", Ingredient.encodeId i.id )
-        , ( "name", Encode.string i.name )
         , ( "mass", Encode.float (Mass.inKilograms i.mass) )
         , ( "variant", variantToString i.variant |> Encode.string )
         , ( "country", i.country |> Maybe.map Country.encodeCode |> Maybe.withDefault Encode.null )
@@ -657,7 +656,6 @@ ingredientFromQuery { countries, ingredients } { id, mass, variant, country, pla
 ingredientQueryFromIngredient : Ingredient -> BuilderQuery.IngredientQuery
 ingredientQueryFromIngredient ingredient =
     { id = ingredient.id
-    , name = ingredient.name
     , mass = Mass.grams 100
     , variant = BuilderQuery.DefaultVariant
     , country = Nothing
