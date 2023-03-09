@@ -82,7 +82,7 @@ type alias Results =
     , perKg : Impacts
     , scoring : Scoring
     , totalMass : Mass
-    , edibleMass : Mass
+    , preparedMass : Mass
     , recipe :
         { total : Impacts
         , ingredientsTotal : Impacts
@@ -216,7 +216,7 @@ compute db =
                             |> RE.combineMap (Preparation.apply db transformedIngredientsMass)
                             |> Result.map (Impact.sumImpacts db.impacts >> List.singleton >> updateImpacts)
 
-                    edibleMass =
+                    preparedMass =
                         getEdiblePreparedMass recipe
 
                     totalImpacts =
@@ -233,7 +233,7 @@ compute db =
                         -- Note: Product impacts per kg is computed against edible
                         --       product mass as consumer, excluding packaging
                         totalImpacts
-                            |> Result.map (Impact.perKg edibleMass)
+                            |> Result.map (Impact.perKg preparedMass)
 
                     scoring =
                         impactsPerKg
@@ -246,7 +246,7 @@ compute db =
                           , perKg = perKg
                           , scoring = score
                           , totalMass = getMassAtPackaging recipe
-                          , edibleMass = edibleMass
+                          , preparedMass = preparedMass
                           , recipe =
                                 { total = recipeImpacts
                                 , ingredientsTotal = ingredientsTotalImpacts
@@ -485,7 +485,7 @@ encodeResults defs results =
         , ( "perKg", encodeImpacts results.perKg )
         , ( "scoring", encodeScoring results.scoring )
         , ( "totalMass", results.totalMass |> Mass.inKilograms |> Encode.float )
-        , ( "edibleMass", results.edibleMass |> Mass.inKilograms |> Encode.float )
+        , ( "preparedMass", results.preparedMass |> Mass.inKilograms |> Encode.float )
         , ( "recipe"
           , Encode.object
                 [ ( "total", encodeImpacts results.recipe.total )

@@ -402,7 +402,7 @@ absoluteImpactView model results =
             [ div [ class "d-flex justify-content-center align-items-end gap-1 w-100" ]
                 [ span [ class "fs-7" ]
                     [ text "Soit pour "
-                    , Format.kg results.edibleMass
+                    , Format.kg results.preparedMass
                     , text "\u{00A0}:"
                     ]
                 , span [ class "h5 m-0" ]
@@ -945,7 +945,7 @@ consumptionView db selectedImpact recipe results =
         ]
         [ div [ class "text-truncate" ]
             [ text <| "Masse finale de produit préparé\u{00A0}:\u{00A0}"
-            , Format.kg results.edibleMass
+            , Format.kg results.preparedMass
             ]
         ]
     ]
