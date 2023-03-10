@@ -18,7 +18,7 @@ boatCooled : Html msg
 boatCooled =
     span [ class "icon composed-icon" ]
         [ boat
-        , i [ attribute "aria-hidden" "true", class "icon icon-snow" ] []
+        , snow
         ]
 
 
@@ -36,7 +36,7 @@ busCooled : Html msg
 busCooled =
     span [ class "icon composed-icon" ]
         [ bus
-        , i [ attribute "aria-hidden" "true", class "icon icon-snow" ] []
+        , snow
         ]
 
 
@@ -178,6 +178,11 @@ shrink =
 slice : Html msg
 slice =
     icon "slice"
+
+
+snow : Html msg
+snow =
+    icon "snow"
 
 
 stats : Html msg

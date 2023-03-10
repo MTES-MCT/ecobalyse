@@ -159,6 +159,17 @@ blockquote {
   background: linear-gradient(15deg, #054a80, $primary);
 }
 
+.composed-icon {
+  position: relative;
+  
+  > :last-child::before {
+    position: absolute;
+    top: -2px;
+    left: -5px;
+    font-size: 8px; 
+  }
+}
+
 .cursor {
   &-help {
     cursor: help;
@@ -937,17 +948,3 @@ blockquote {
   }
 }
 
-.composed-icon {
-  position: relative;
-  
-  .icon-snow {
-    background-image: url("public/img/snowflake.svg");
-    background-size: 8px 8px;
-    display: inline-block;
-    height: 8px;
-    position: absolute;
-    top: 0;
-    left: -5px;
-    width: 8px; 
-  }
-}
