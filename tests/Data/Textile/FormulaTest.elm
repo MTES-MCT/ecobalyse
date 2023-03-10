@@ -222,7 +222,9 @@ suite =
 testTransportRatio : Unit.Ratio -> { road : Float, sea : Float, air : Float } -> ( Int, Int, Int )
 testTransportRatio airTransportRatio { road, sea, air } =
     { road = km road
+    , roadCooled = km 0
     , sea = km sea
+    , seaCooled = km 0
     , air = km air
     , impacts = defaultImpacts
     }
