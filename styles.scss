@@ -936,3 +936,18 @@ blockquote {
     }
   }
 }
+
+.composed-icon {
+  position: relative;
+  
+  .icon-snow {
+    background-image: url("public/img/snowflake.svg");
+    background-size: 8px 8px;
+    display: inline-block;
+    height: 8px;
+    position: absolute;
+    top: 0;
+    left: -5px;
+    width: 8px; 
+  }
+}

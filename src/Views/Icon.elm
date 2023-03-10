@@ -14,6 +14,14 @@ boat =
     icon "ship"
 
 
+boatCooled : Html msg
+boatCooled =
+    span [ class "icon composed-icon" ]
+        [ boat
+        , i [ attribute "aria-hidden" "true", class "icon icon-snow" ] []
+        ]
+
+
 build : Html msg
 build =
     icon "build"
@@ -22,6 +30,14 @@ build =
 bus : Html msg
 bus =
     icon "truck"
+
+
+busCooled : Html msg
+busCooled =
+    span [ class "icon composed-icon" ]
+        [ bus
+        , i [ attribute "aria-hidden" "true", class "icon icon-snow" ] []
+        ]
 
 
 check : Html msg

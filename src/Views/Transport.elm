@@ -31,10 +31,12 @@ view ({ fullWidth } as config) transport =
 
 
 viewDetails : Config -> Transport -> List (Html msg)
-viewDetails { hideNoLength, airTransportLabel, seaTransportLabel, roadTransportLabel } { air, sea, road } =
+viewDetails { hideNoLength, airTransportLabel, seaTransportLabel, roadTransportLabel } { air, sea, seaCooled, road, roadCooled } =
     [ { distance = air, icon = Icon.plane, label = Maybe.withDefault "Transport aérien" airTransportLabel }
     , { distance = sea, icon = Icon.boat, label = Maybe.withDefault "Transport maritime" seaTransportLabel }
+    , { distance = seaCooled, icon = Icon.boatCooled, label = "Transport maritime réfrigéré" }
     , { distance = road, icon = Icon.bus, label = Maybe.withDefault "Transport routier" roadTransportLabel }
+    , { distance = roadCooled, icon = Icon.busCooled, label = "Transport routier réfrigéré" }
     ]
         |> List.filterMap
             (\{ distance, icon, label } ->
