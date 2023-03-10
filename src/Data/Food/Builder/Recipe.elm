@@ -388,11 +388,7 @@ computeIngredientTransport db { ingredient, country, mass, planeTransport } =
             -- 160km of road transport are added for every ingredient, wherever they come
             -- from (including France). This corresponds to the step "1. RECETTE" in the
             -- [transport documentation](https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/transport#circuits-consideres)
-            if ingredient.transportCooling == Ingredient.AlwaysCool then
-                { t | roadCooled = t.roadCooled |> Quantity.plus (Length.kilometers 160) }
-
-            else
-                { t | road = t.road |> Quantity.plus (Length.kilometers 160) }
+            Transport.addRoadWithCooling (Length.kilometers 160) (ingredient.transportCooling == Ingredient.AlwaysCool) t
 
         toLogistics t =
             -- 500km of road transport are added for every ingredient that are not coming from France.
@@ -401,22 +397,14 @@ computeIngredientTransport db { ingredient, country, mass, planeTransport } =
             case country of
                 Just { code } ->
                     if code /= Country.codeFromString "FR" then
-                        if ingredient.transportCooling == Ingredient.AlwaysCool then
-                            { t | roadCooled = t.roadCooled |> Quantity.plus (Length.kilometers 500) }
-
-                        else
-                            { t | road = t.road |> Quantity.plus (Length.kilometers 500) }
+                        Transport.addRoadWithCooling (Length.kilometers 500) (ingredient.transportCooling == Ingredient.AlwaysCool) t
 
                     else
                         t
 
                 Nothing ->
                     if ingredient.defaultOrigin /= Origin.France then
-                        if ingredient.transportCooling == Ingredient.AlwaysCool then
-                            { t | roadCooled = t.roadCooled |> Quantity.plus (Length.kilometers 500) }
-
-                        else
-                            { t | road = t.road |> Quantity.plus (Length.kilometers 500) }
+                        Transport.addRoadWithCooling (Length.kilometers 500) (ingredient.transportCooling == Ingredient.AlwaysCool) t
 
                     else
                         t

@@ -2,6 +2,7 @@ module Data.Transport exposing
     ( Distances
     , Transport
     , add
+    , addRoadWithCooling
     , decodeDistances
     , default
     , defaultInland
@@ -76,6 +77,15 @@ add a b =
         , sea = b.sea |> Quantity.plus a.sea
         , air = b.air |> Quantity.plus a.air
     }
+
+
+addRoadWithCooling : Length.Length -> Bool -> Transport -> Transport
+addRoadWithCooling distance withCooling transport =
+    if withCooling then
+        { transport | roadCooled = transport.roadCooled |> Quantity.plus distance }
+
+    else
+        { transport | road = transport.road |> Quantity.plus distance }
 
 
 sum : List Impact.Definition -> List Transport -> Transport
