@@ -159,15 +159,15 @@ blockquote {
   background: linear-gradient(15deg, #054a80, $primary);
 }
 
-.composed-icon {
+.icon {
   position: relative;
-  
-  > :last-child::before {
-    position: absolute;
-    top: -2px;
-    left: -5px;
-    font-size: 8px; 
-  }
+}
+
+.icon-snow {
+  left: -5px;
+  font-size: 8px; 
+  position: absolute;
+  top: -2px;
 }
 
 .cursor {
@@ -713,30 +713,35 @@ blockquote {
   input[type=radio] {
     display: none;
   }
-  i {
+  label > i {
     border: 1px solid var(--bs-primary);
     border-radius: 4px;
     color: var(--bs-primary);
     cursor: pointer;
     padding: 4px 7px;
     transition: background-color 0.5s, color 0.5s;
+
+    .icon-snow {
+      left: 2px;
+      top: 2px;
+    }
   }
 
-  input[type=radio] ~ i{
+  input[type=radio] ~ i {
     background-color: var(--bs-white);
     color: var(--bs-primary);
   }
 
-  input[type=radio]:checked ~ i{
+  input[type=radio]:checked ~ i {
     background-color: var(--bs-primary);
     color: var(--bs-white);
   }
 
-  .PlaneSelector i{
+  .PlaneSelector > i {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
   }
-  .BoatSelector i{
+  .BoatSelector > i {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
   }

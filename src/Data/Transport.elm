@@ -122,10 +122,12 @@ computeImpacts impactsDefinition mass transport wellKnown =
 sum : List Impact.Definition -> List Transport -> Transport
 sum defs =
     List.foldl
-        (\{ road, sea, air, impacts } acc ->
+        (\{ road, roadCooled, sea, seaCooled, air, impacts } acc ->
             { acc
                 | road = acc.road |> Quantity.plus road
+                , roadCooled = acc.roadCooled |> Quantity.plus roadCooled
                 , sea = acc.sea |> Quantity.plus sea
+                , seaCooled = acc.seaCooled |> Quantity.plus seaCooled
                 , air = acc.air |> Quantity.plus air
                 , impacts = Impact.sumImpacts defs [ acc.impacts, impacts ]
             }
