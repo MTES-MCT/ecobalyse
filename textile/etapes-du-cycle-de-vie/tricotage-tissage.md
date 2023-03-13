@@ -322,10 +322,12 @@ La communauté ACV permet cela en précisant le titrage de fil plutôt que le co
 
 | Grammage (g/m2)   | Titrage (Nm / Dtex) |
 | ----------------- | ------------------- |
-| < 200             | 50 / 200            |
+| inférieur à 200   | 50 / 200            |
 | entre 200 et 299  | 40 / 250            |
-| entre 300 et 400  | 30 / 333            |
-| > 401             | 25 / 400            |
+| entre 300 et 499  | 30 / 333            |
+|  à partir de 500  | 25 / 400            |
+
+
 {% endtab %}
 
 {% tab title="Tricot" %}
