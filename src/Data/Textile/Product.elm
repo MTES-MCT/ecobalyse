@@ -4,6 +4,7 @@ module Data.Textile.Product exposing
     , Product
     , customDaysOfWear
     , decodeList
+    , defaultYarnSize
     , encode
     , encodeId
     , findById
@@ -177,6 +178,21 @@ decode processes =
 decodeList : List Process -> Decoder (List Product)
 decodeList processes =
     Decode.list (decode processes)
+
+
+defaultYarnSize : Unit.SurfaceMass -> Unit.YarnSize
+defaultYarnSize surfaceMass =
+    if Unit.surfaceMassToFloat surfaceMass < 200 then
+        Unit.yarnSize 50
+
+    else if Unit.surfaceMassToFloat surfaceMass <= 300 then
+        Unit.yarnSize 40
+
+    else if Unit.surfaceMassToFloat surfaceMass <= 400 then
+        Unit.yarnSize 30
+
+    else
+        Unit.yarnSize 25
 
 
 encodeFabricOptions : FabricOptions -> Encode.Value

@@ -7,7 +7,7 @@ module Data.Unit exposing
     , Ratio(..)
     , Reparability(..)
     , SurfaceMass(..)
-    , YarnSize
+    , YarnSize(..)
     , decodeImpact
     , decodePickPerMeter
     , decodeQuality
@@ -291,12 +291,12 @@ encodeYarnSize (YarnSize int) =
 
 minYarnSize : YarnSize
 minYarnSize =
-    YarnSize 800
+    YarnSize 9
 
 
 maxYarnSize : YarnSize
 maxYarnSize =
-    YarnSize 9000
+    YarnSize 200
 
 
 yarnSize : Int -> YarnSize

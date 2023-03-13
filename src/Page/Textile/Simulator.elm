@@ -102,6 +102,7 @@ type Msg
     | UpdateReparability (Maybe Unit.Reparability)
     | UpdateStepCountry Label Country.Code
     | UpdateSurfaceMass (Maybe Unit.SurfaceMass)
+    | UpdateYarnSize (Maybe Unit.YarnSize)
 
 
 init :
@@ -367,6 +368,10 @@ update ({ db, queries, navKey } as session) msg model =
             ( model, session, Cmd.none )
                 |> updateQuery { query | surfaceMass = surfaceMass }
 
+        UpdateYarnSize yarnSize ->
+            ( model, session, Cmd.none )
+                |> updateQuery { query | yarnSize = yarnSize }
+
 
 massField : String -> Html Msg
 massField massInput =
@@ -440,6 +445,7 @@ lifeCycleStepsView db { viewMode, funit, impact } simulator =
                     , updateMakingWaste = UpdateMakingWaste
                     , updatePicking = UpdatePicking
                     , updateSurfaceMass = UpdateSurfaceMass
+                    , updateYarnSize = UpdateYarnSize
                     }
             )
         |> Array.toList

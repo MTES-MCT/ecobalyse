@@ -55,6 +55,7 @@ type alias Config msg =
     , updateMakingWaste : Maybe Unit.Ratio -> msg
     , updateSurfaceMass : Maybe Unit.SurfaceMass -> msg
     , updatePicking : Maybe Unit.PickPerMeter -> msg
+    , updateYarnSize : Maybe Unit.YarnSize -> msg
     }
 
 
@@ -354,6 +355,23 @@ pickingField { current, updatePicking } defaultPicking =
         ]
 
 
+yarnSizeField : Config msg -> Unit.YarnSize -> Html msg
+yarnSizeField { current, updateYarnSize } defaultYarnSize =
+    span
+        [ [ "TODO", "field doc" ]
+            |> String.join " "
+            |> title
+        ]
+        [ RangeSlider.yarnSize
+            { id = "yarnSize"
+            , update = updateYarnSize
+            , value = Maybe.withDefault defaultYarnSize current.yarnSize
+            , toString = Step.yarnSizeToString
+            , disabled = not current.enabled
+            }
+        ]
+
+
 surfaceMassField : Config msg -> Unit.SurfaceMass -> Html msg
 surfaceMassField { current, updateSurfaceMass } defaultSurfaceMass =
     span
@@ -476,6 +494,12 @@ simpleView ({ funit, inputs, daysOfWear, impact, current } as config) =
             [ div [ class "col-sm-6 col-lg-7" ]
                 [ countryField config
                 , case current.label of
+                    Label.Spinning ->
+                        div [ class "mt-2 fs-7 text-muted" ]
+                            [ Product.defaultYarnSize inputs.product.surfaceMass
+                                |> yarnSizeField config
+                            ]
+
                     Label.Fabric ->
                         div [ class "mt-2 fs-7 text-muted" ]
                             (case inputs.product.fabric of
@@ -664,6 +688,11 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                 , classList [ ( "disabled", not current.enabled ) ]
                 ]
                 (case current.label of
+                    Label.Spinning ->
+                        [ Product.defaultYarnSize inputs.product.surfaceMass
+                            |> yarnSizeField config
+                        ]
+
                     Label.Fabric ->
                         case inputs.product.fabric of
                             Product.Knitted _ ->

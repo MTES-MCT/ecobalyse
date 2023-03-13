@@ -325,6 +325,7 @@ weavingImpacts :
     -> { kwh : Energy, impacts : Impacts }
 weavingImpacts impacts { pickingElec, countryElecProcess, picking, surfaceMass } baseMass =
     let
+        -- TODO: update formula to use yarnSize
         electricityKWh =
             (Mass.inKilograms baseMass * 1000 * Unit.pickPerMeterToFloat picking / Unit.surfaceMassToFloat surfaceMass)
                 * pickingElec

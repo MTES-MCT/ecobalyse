@@ -15,6 +15,7 @@ module Data.Textile.Step exposing
     , surfaceMassToString
     , updateFromInputs
     , updateWaste
+    , yarnSizeToString
     )
 
 import Area exposing (Area)
@@ -55,6 +56,7 @@ type alias Step =
     , reparability : Unit.Reparability
     , makingWaste : Maybe Unit.Ratio
     , picking : Maybe Unit.PickPerMeter
+    , yarnSize : Maybe Unit.YarnSize
     , surfaceMass : Maybe Unit.SurfaceMass
     , dyeingMedium : Maybe DyeingMedium
     , printing : Maybe Printing
@@ -104,6 +106,7 @@ create { db, label, editable, country, enabled } =
     , reparability = Unit.standardReparability
     , makingWaste = Nothing
     , picking = Nothing
+    , yarnSize = Nothing
     , surfaceMass = Nothing
     , dyeingMedium = Nothing
     , printing = Nothing
@@ -286,13 +289,14 @@ getOutputSurface { product, surfaceMass } { outputMass } =
 updateFromInputs : Db -> Inputs -> Step -> Step
 updateFromInputs { processes } inputs ({ label, country } as step) =
     let
-        { airTransportRatio, quality, reparability, makingWaste, picking, surfaceMass, dyeingMedium, printing } =
+        { airTransportRatio, quality, reparability, makingWaste, picking, yarnSize, surfaceMass, dyeingMedium, printing } =
             inputs
     in
     case label of
         Label.Spinning ->
             { step
-                | processInfo =
+                | yarnSize = yarnSize
+                , processInfo =
                     { defaultProcessInfo
                         | countryElec = Just country.electricityProcess.name
                     }
@@ -462,6 +466,11 @@ pickingToString (Unit.PickPerMeter int) =
 surfaceMassToString : Unit.SurfaceMass -> String
 surfaceMassToString (Unit.SurfaceMass int) =
     "Grammage\u{00A0}: " ++ String.fromInt int ++ "\u{202F}g/m²"
+
+
+yarnSizeToString : Unit.YarnSize -> String
+yarnSizeToString (Unit.YarnSize int) =
+    "Titrage\u{00A0}: " ++ String.fromInt int ++ "\u{202F}Nm"
 
 
 makingWasteToString : Unit.Ratio -> String
