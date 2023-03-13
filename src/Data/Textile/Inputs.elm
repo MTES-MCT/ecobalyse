@@ -71,6 +71,7 @@ type alias Inputs =
     , reparability : Maybe Unit.Reparability
     , makingWaste : Maybe Unit.Ratio
     , picking : Maybe Unit.PickPerMeter
+    , yarnSize : Maybe Unit.YarnSize
     , surfaceMass : Maybe Unit.SurfaceMass
     , disabledSteps : List Label
     , disabledFading : Maybe Bool
@@ -98,7 +99,10 @@ type alias Query =
     , quality : Maybe Unit.Quality
     , reparability : Maybe Unit.Reparability
     , makingWaste : Maybe Unit.Ratio
+
+    -- TODO: replace picking with yarnSize
     , picking : Maybe Unit.PickPerMeter
+    , yarnSize : Maybe Unit.YarnSize
     , surfaceMass : Maybe Unit.SurfaceMass
     , disabledSteps : List Label
     , disabledFading : Maybe Bool
@@ -189,6 +193,7 @@ fromQuery db query =
         |> RE.andMap (Ok query.reparability)
         |> RE.andMap (Ok query.makingWaste)
         |> RE.andMap (Ok query.picking)
+        |> RE.andMap (Ok query.yarnSize)
         |> RE.andMap (Ok query.surfaceMass)
         |> RE.andMap (Ok query.disabledSteps)
         |> RE.andMap (Ok query.disabledFading)
@@ -220,6 +225,7 @@ toQuery inputs =
     , reparability = inputs.reparability
     , makingWaste = inputs.makingWaste
     , picking = inputs.picking
+    , yarnSize = inputs.yarnSize
     , surfaceMass = inputs.surfaceMass
     , disabledSteps = inputs.disabledSteps
     , disabledFading = inputs.disabledFading
@@ -498,6 +504,7 @@ updateProduct product query =
             , reparability = Nothing
             , makingWaste = Nothing
             , picking = Nothing
+            , yarnSize = Nothing
             , surfaceMass = Nothing
             , disabledFading = Nothing
             , dyeingMedium = Nothing
@@ -529,6 +536,7 @@ tShirtCotonFrance =
     , reparability = Nothing
     , makingWaste = Nothing
     , picking = Nothing
+    , yarnSize = Nothing
     , surfaceMass = Nothing
     , disabledSteps = []
     , disabledFading = Nothing
@@ -583,6 +591,7 @@ jupeCircuitAsie =
     , reparability = Nothing
     , makingWaste = Nothing
     , picking = Nothing
+    , yarnSize = Nothing
     , surfaceMass = Nothing
     , disabledSteps = []
     , disabledFading = Nothing
@@ -607,6 +616,7 @@ manteauCircuitEurope =
     , reparability = Nothing
     , makingWaste = Nothing
     , picking = Nothing
+    , yarnSize = Nothing
     , surfaceMass = Nothing
     , disabledSteps = []
     , disabledFading = Nothing
@@ -631,6 +641,7 @@ pantalonCircuitEurope =
     , reparability = Nothing
     , makingWaste = Nothing
     , picking = Nothing
+    , yarnSize = Nothing
     , surfaceMass = Nothing
     , disabledSteps = []
     , disabledFading = Nothing
@@ -665,6 +676,7 @@ encode inputs =
         , ( "reparability", inputs.reparability |> Maybe.map Unit.encodeReparability |> Maybe.withDefault Encode.null )
         , ( "makingWaste", inputs.makingWaste |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
         , ( "picking", inputs.picking |> Maybe.map Unit.encodePickPerMeter |> Maybe.withDefault Encode.null )
+        , ( "yarnSize", inputs.yarnSize |> Maybe.map Unit.encodeYarnSize |> Maybe.withDefault Encode.null )
         , ( "surfaceMass", inputs.surfaceMass |> Maybe.map Unit.encodeSurfaceMass |> Maybe.withDefault Encode.null )
         , ( "disabledSteps", Encode.list Label.encode inputs.disabledSteps )
         , ( "disabledFading", inputs.disabledFading |> Maybe.map Encode.bool |> Maybe.withDefault Encode.null )
@@ -697,6 +709,7 @@ decodeQuery =
         |> Pipe.optional "reparability" (Decode.maybe Unit.decodeReparability) Nothing
         |> Pipe.optional "makingWaste" (Decode.maybe (Unit.decodeRatio { percentage = True })) Nothing
         |> Pipe.optional "picking" (Decode.maybe Unit.decodePickPerMeter) Nothing
+        |> Pipe.optional "yarnSize" (Decode.maybe Unit.decodeYarnSize) Nothing
         |> Pipe.optional "surfaceMass" (Decode.maybe Unit.decodeSurfaceMass) Nothing
         |> Pipe.optional "disabledSteps" (Decode.list Label.decodeFromCode) []
         |> Pipe.optional "disabledFading" (Decode.maybe Decode.bool) Nothing
@@ -727,6 +740,7 @@ encodeQuery query =
         , ( "reparability", query.reparability |> Maybe.map Unit.encodeReparability |> Maybe.withDefault Encode.null )
         , ( "makingWaste", query.makingWaste |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
         , ( "picking", query.picking |> Maybe.map Unit.encodePickPerMeter |> Maybe.withDefault Encode.null )
+        , ( "yarnSize", query.yarnSize |> Maybe.map Unit.encodeYarnSize |> Maybe.withDefault Encode.null )
         , ( "surfaceMass", query.surfaceMass |> Maybe.map Unit.encodeSurfaceMass |> Maybe.withDefault Encode.null )
         , ( "disabledSteps", Encode.list Label.encode query.disabledSteps )
         , ( "disabledFading", query.disabledFading |> Maybe.map Encode.bool |> Maybe.withDefault Encode.null )

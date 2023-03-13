@@ -364,6 +364,7 @@ parseTextileQuery textileDb =
         |> apply (maybeReparabilityParser "reparability")
         |> apply (maybeMakingWasteParser "makingWaste")
         |> apply (maybePickingParser "picking")
+        |> apply (maybeYarnSize "yarnSize")
         |> apply (maybeSurfaceMassParser "surfaceMass")
         |> apply (maybeDisabledStepsParser "disabledSteps")
         |> apply (maybeBoolParser "disabledFading")
@@ -718,6 +719,32 @@ maybePickingParser key =
 
                     else
                         Ok (Just (Unit.pickPerMeter int))
+                )
+                >> Maybe.withDefault (Ok Nothing)
+            )
+
+
+maybeYarnSize : String -> Parser (ParseResult (Maybe Unit.YarnSize))
+maybeYarnSize key =
+    Query.int key
+        |> Query.map
+            (Maybe.map
+                (\int ->
+                    if
+                        (int < Unit.yarnSizeToInt Unit.minYarnSize)
+                            || (int > Unit.yarnSizeToInt Unit.maxYarnSize)
+                    then
+                        Err
+                            ( key
+                            , "Le titrage (yarnSize) doit être compris entre "
+                                ++ String.fromInt (Unit.yarnSizeToInt Unit.minYarnSize)
+                                ++ " et "
+                                ++ String.fromInt (Unit.yarnSizeToInt Unit.maxYarnSize)
+                                ++ " duites/m."
+                            )
+
+                    else
+                        Ok (Just (Unit.yarnSize int))
                 )
                 >> Maybe.withDefault (Ok Nothing)
             )

@@ -7,18 +7,21 @@ module Data.Unit exposing
     , Ratio(..)
     , Reparability(..)
     , SurfaceMass(..)
+    , YarnSize
     , decodeImpact
     , decodePickPerMeter
     , decodeQuality
     , decodeRatio
     , decodeReparability
     , decodeSurfaceMass
+    , decodeYarnSize
     , encodeImpact
     , encodePickPerMeter
     , encodeQuality
     , encodeRatio
     , encodeReparability
     , encodeSurfaceMass
+    , encodeYarnSize
     , forKWh
     , forKg
     , forKgAndDistance
@@ -33,10 +36,12 @@ module Data.Unit exposing
     , maxQuality
     , maxReparability
     , maxSurfaceMass
+    , maxYarnSize
     , minPickPerMeter
     , minQuality
     , minReparability
     , minSurfaceMass
+    , minYarnSize
     , parseFunctional
     , pickPerMeter
     , pickPerMeterToFloat
@@ -55,6 +60,8 @@ module Data.Unit exposing
     , surfaceMass
     , surfaceMassToFloat
     , surfaceMassToInt
+    , yarnSize
+    , yarnSizeToInt
     )
 
 import Duration exposing (Duration)
@@ -267,6 +274,61 @@ decodeReparability =
 encodeReparability : Reparability -> Encode.Value
 encodeReparability (Reparability float) =
     Encode.float float
+
+
+
+-- Yarn size (Titrage)
+
+
+type YarnSize
+    = YarnSize Int
+
+
+encodeYarnSize : YarnSize -> Encode.Value
+encodeYarnSize (YarnSize int) =
+    Encode.int int
+
+
+minYarnSize : YarnSize
+minYarnSize =
+    YarnSize 800
+
+
+maxYarnSize : YarnSize
+maxYarnSize =
+    YarnSize 9000
+
+
+yarnSize : Int -> YarnSize
+yarnSize =
+    YarnSize
+
+
+yarnSizeToInt : YarnSize -> Int
+yarnSizeToInt (YarnSize int) =
+    int
+
+
+decodeYarnSize : Decoder YarnSize
+decodeYarnSize =
+    Decode.int
+        |> Decode.andThen
+            (\int ->
+                if int < yarnSizeToInt minYarnSize || int > yarnSizeToInt maxYarnSize then
+                    Decode.fail
+                        ("Le titrage spécifié ("
+                            ++ String.fromInt int
+                            ++ ") doit être compris entre "
+                            ++ String.fromInt (yarnSizeToInt minYarnSize)
+                            ++ " et "
+                            ++ String.fromInt (yarnSizeToInt maxYarnSize)
+                            ++ "."
+                        )
+
+                else
+                    Decode.succeed int
+            )
+        |> Decode.map yarnSize
 
 
 
