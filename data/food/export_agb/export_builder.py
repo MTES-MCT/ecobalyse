@@ -4,15 +4,27 @@
 """Export de l'impact d'une liste de processes
 exemple : python export_builder.py"""
 
-import copy
-import csv
-import json
-import argparse
-import brightway2 as bw
+from bw2data import projects, Database
+from bw2io import bw2setup
+from bw2calc import LCA
 from collections import defaultdict
 from food.impacts import impacts
-import uuid
+import argparse
+import copy
+import csv
 import hashlib
+import json
+import uuid
+
+PROJECT = "AGB3.1.1"
+# INPUT
+DATABASE = "agribalyse3.1"
+PROCESSES_TO_EXPORT = "builder_processes_to_export.txt"
+INGREDIENTS_BASE = "ingredients_base.json"
+IMPACTS = "../../../public/data/impacts.json"
+# OUTPUT
+INGREDIENTS = "../../../public/data/food/ingredients.json"
+PROCESSES = "../../../public/data/food/processes/builder.json"
 
 processes_kind = {
     # transformation
@@ -81,6 +93,7 @@ def get_activities(agribalyse_db, processes_name):
         stripped_name = (
             process_name.strip()
         )  # Remove extraneous newline at the end of the line.
+        print("Looking for: %s" % stripped_name)
         results = agribalyse_db.search(stripped_name)
         for result in results:
             if result["name"] == stripped_name:
@@ -137,18 +150,12 @@ def add_process(processes, activity):
     processes[activity]["impacts"] = {}
 
 
-def open_db(dbname):
-    bw.projects.set_current("EF calculation")
-    bw.bw2setup()
-    return bw.Database(dbname)
-
-
 def init_lcas(demand):
     # Speed hack: initialize a LCA for each method, using just any product that we'll change later
     lcas = {}
-    for (key, method) in impacts.items():
+    for key, method in impacts.items():
         print("Initialisation de la méthode", method)
-        lca = bw.LCA(demand, method)
+        lca = LCA(demand, method)
         lca.lci()
         lca.lcia()
         lcas[key] = lca
@@ -192,11 +199,12 @@ def impacts_for_activity(activity, lcas, impacts_ecobalyse, bvi_data):
             .replace("/FR U", "")
             .replace(", U", "")
             .replace(", S - Copied from Ecoinvent", "")
+            .replace("/FR", "")
         )
         if process_name.startswith(normalized_name):
             break
     else:
-        print(f"No bvi data for {normalized_name}")
+        print("No bvi data")
         bvi = 0
 
     activity_impacts["bvi"] = float(bvi)
@@ -245,7 +253,7 @@ def parse_ingredient_list(ingredients_base):
     processes_to_add = []
 
     for ingredient in ingredients_base:
-        for variant_name, variant in ingredient["variants"].items():
+        for _, variant in ingredient["variants"].items():
             if isinstance(variant, dict):
                 # This is a complex ingredient, we need to create a new process from the elements we have.
                 processes_to_add.append(variant["simple_ingredient_default"])
@@ -314,12 +322,11 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    processes_to_export_file = "builder_processes_to_export.txt"
-    with open(processes_to_export_file, "r") as f:
+    with open(PROCESSES_TO_EXPORT, "r") as f:
         processes_to_export = [line for line in f.readlines() if line.strip()]
 
     # Parse the ingredients_base.json, which may contain complex ingredients to add/compute
-    with open("ingredients_base.json", "r") as f:
+    with open(INGREDIENTS_BASE, "r") as f:
         ingredients_base = json.load(f)
     processes_to_add = parse_ingredient_list(ingredients_base)
     print(
@@ -329,9 +336,11 @@ if __name__ == "__main__":
     processes_to_export += processes_to_add
     print(f"Total de {len(processes_to_export)} procédés à exporter")
 
-    agb = open_db("agribalyse3")
+    projects.set_current(PROJECT)
+    bw2setup()
+    db = Database(DATABASE)
 
-    activities = get_activities(agb, processes_to_export)
+    activities = get_activities(db, processes_to_export)
     print(f"Total de {len(activities)} activités trouvées dans agribalyse")
 
     processes = defaultdict(dict)
@@ -342,8 +351,7 @@ if __name__ == "__main__":
     random_process = next(iter(processes))
     lcas = init_lcas({random_process: 1})
 
-    impacts_file = "../../../public/data/impacts.json"
-    with open(impacts_file, "r") as f:
+    with open(IMPACTS, "r") as f:
         impacts_ecobalyse = json.load(f)
 
     bvi_data_file = "bvi.csv"
@@ -361,11 +369,8 @@ if __name__ == "__main__":
     )
 
     # Export the ingredients.json file
-    ingredients_export_file = "../../../public/data/food/ingredients.json"
-    print(
-        f"Export de {len(ingredient_list)} ingrédients vers {ingredients_export_file}"
-    )
-    export_json(ingredient_list, ingredients_export_file)
+    print(f"Export de {len(ingredient_list)} ingrédients vers {INGREDIENTS}")
+    export_json(ingredient_list, INGREDIENTS)
 
     # reformat processes in a list of dictionaries
     processes_list = list(processes.values())
@@ -373,7 +378,6 @@ if __name__ == "__main__":
     # Add the new processes we computed for the complex ingredients
     processes_list += new_processes
 
-    processes_export_file = "../../../public/data/food/processes/builder.json"
-    print(f"Export de {len(processes_list)} procédés vers {processes_export_file}")
-    export_json(processes_list, processes_export_file)
+    print(f"Export de {len(processes_list)} procédés vers {PROCESSES}")
+    export_json(processes_list, PROCESSES)
     print("Terminé.")

@@ -1,4 +1,5 @@
-import brightway2 as bw
+#!/usr/bin/env python
+from bw2data import databases
 
-for db in bw.databases:
-    del bw.databases[db]
+for db in databases:
+    del databases[db]

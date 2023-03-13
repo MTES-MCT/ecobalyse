@@ -2,11 +2,17 @@
 
 from subprocess import call
 from zipfile import ZipFile
-import brightway2 as bw
+import bw2data
+import bw2io
+from bw2io.importers.simapro_csv import SimaProCSVImporter
+from bw2io.migrations import Migration
+from bw2data import Database
 
-csvfile = "AGB3.1.1.20230306.CSV"
+CSVFILE = "AGB3.1.1.20230306.CSV"
+PROJECT = "AGB3.1.1"
+DATABASE = "agribalyse3.1"
 
-with ZipFile(csvfile + ".zip") as zf:
+with ZipFile(CSVFILE + ".zip") as zf:
     print("Extracting the agribalyse zip file...")
     zf.extractall()
 
@@ -14,12 +20,12 @@ print("Importing the agribalyse database in the brightway database...")
 
 
 # sed is faster than Python
-call("sed -i 's/yield/Yield_/g' " + csvfile, shell=True)
-call("sed -i 's/01\\/03\\/2005/1\\/3\\/2005/g' " + csvfile, shell=True)
-call("sed -i 's/0;001172/0,001172/' " + csvfile, shell=True)
+call("sed -i 's/yield/Yield_/g' " + CSVFILE, shell=True)
+call("sed -i 's/01\\/03\\/2005/10000\\/3\\/5/g' " + CSVFILE, shell=True)
+call("sed -i 's/0;001172/0,001172/' " + CSVFILE, shell=True)
 
-bw.projects.set_current("Importing AGB3.1")
-bw.bw2setup()
+bw2data.projects.set_current(PROJECT)
+bw2io.bw2setup()
 
 agb_technosphere_migration_data = {
     "fields": ["name", "unit"],
@@ -75,9 +81,9 @@ agb_technosphere_migration_data = {
         ),
     ],
 }
-agb_importer = bw.SimaProCSVImporter(csvfile, "agribalyse3.1")
+agb_importer = SimaProCSVImporter(CSVFILE, DATABASE)
 
-agb_technosphere_migration = bw.Migration("agb-technosphere")
+agb_technosphere_migration = Migration("agb-technosphere")
 agb_technosphere_migration.write(
     agb_technosphere_migration_data,
     description="Specific technosphere fixes for Agribalyse 3",
@@ -88,8 +94,8 @@ agb_importer.apply_strategies()
 agb_importer.migrate("agb-technosphere")
 agb_importer.statistics()
 # agb_importer.write_excel(only_unlinked=True)
-bw.Database("agribalyse3.1 biosphere").register()
-agb_importer.add_unlinked_flows_to_biosphere_database("agribalyse3.1 biosphere")
+Database(DATABASE + " biosphere").register()
+agb_importer.add_unlinked_flows_to_biosphere_database(DATABASE + " biosphere")
 agb_importer.add_unlinked_activities()
 agb_importer.statistics()
 
@@ -236,7 +242,7 @@ for ds in agb_importer.data:
 agb_importer.write_database()
 
 # bw.BW2Package.export_objs(
-#    [bw.Database("agribalyse3.1 biosphere"), bw.Database("agribalyse3.1")],
-#    filename="AGB3.1",
+#    [bw.Database(DATABASE + " biosphere"), bw.Database(DATABASE)],
+#    filename=DATABASE,
 #    folder=os.path.join(os.path.realpath(""), "data"),
 # )
