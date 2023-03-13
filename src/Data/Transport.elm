@@ -3,6 +3,7 @@ module Data.Transport exposing
     , Transport
     , add
     , addRoadWithCooling
+    , computeImpacts
     , decodeDistances
     , default
     , defaultInland
@@ -15,12 +16,15 @@ module Data.Transport exposing
     )
 
 import Data.Country as Country
+import Data.Food.Process as Process
 import Data.Impact as Impact exposing (Impacts)
 import Data.Scope as Scope exposing (Scope)
+import Data.Unit as Unit
 import Dict.Any as Dict exposing (AnyDict)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
 import Length exposing (Length)
+import Mass exposing (Mass)
 import Quantity
 
 
@@ -86,6 +90,33 @@ addRoadWithCooling distance withCooling transport =
 
     else
         { transport | road = transport.road |> Quantity.plus distance }
+
+
+computeImpacts : List Impact.Definition -> Mass -> Transport -> Process.WellKnown -> Transport
+computeImpacts impactsDefinition mass transport wellKnown =
+    let
+        impacts =
+            [ ( wellKnown.lorryTransport, transport.road )
+            , ( wellKnown.lorryCoolingTransport, transport.roadCooled )
+            , ( wellKnown.boatTransport, transport.sea )
+            , ( wellKnown.boatCoolingTransport, transport.seaCooled )
+            , ( wellKnown.planeTransport, transport.air )
+            ]
+                |> List.map
+                    (\( transportProcess, distance ) ->
+                        transportProcess.impacts
+                            |> Impact.mapImpacts
+                                (\_ impact ->
+                                    impact
+                                        |> Unit.impactToFloat
+                                        |> (*) (Mass.inMetricTons mass * Length.inKilometers distance)
+                                        |> Unit.impact
+                                )
+                            |> Impact.updateAggregatedScores impactsDefinition
+                    )
+                |> Impact.sumImpacts impactsDefinition
+    in
+    { transport | impacts = impacts }
 
 
 sum : List Impact.Definition -> List Transport -> Transport

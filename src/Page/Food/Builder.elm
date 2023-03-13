@@ -836,7 +836,16 @@ transportToDistributionView selectedImpact recipe results =
                 |> Format.kg
             ]
         , div [ class "d-flex justify-content-between" ]
-            [ TransportView.entry results.distribution.transports.road Icon.bus "Transport routier"
+            [ div []
+                (results.distribution.transports
+                    |> TransportView.viewDetails
+                        { fullWidth = False
+                        , hideNoLength = True
+                        , airTransportLabel = Nothing
+                        , seaTransportLabel = Nothing
+                        , roadTransportLabel = Nothing
+                        }
+                )
             , Format.formatFoodSelectedImpact selectedImpact results.distribution.transports.impacts
             ]
         ]

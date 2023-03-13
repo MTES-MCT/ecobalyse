@@ -188,13 +188,22 @@ compute db =
                         Result.map (Retail.computeImpacts db volume distribution)
                             (Process.loadWellKnown db.processes)
 
+                    distributionTransportNeedsCooling =
+                        ingredients
+                            |> List.map (.ingredient >> .transportCooling)
+                            |> List.any ((/=) Ingredient.NoCooling)
+
                     distributionTransport =
                         let
                             mass =
                                 getMassAtPackaging recipe
+
+                            transport =
+                                Retail.distributionTransport distribution distributionTransportNeedsCooling
                         in
-                        Result.map (Retail.distributionTransportImpact db mass distribution)
-                            (Process.loadWellKnown db.processes)
+                        db.processes
+                            |> Process.loadWellKnown
+                            |> Result.map (Transport.computeImpacts db.impacts mass transport)
 
                     recipeImpacts =
                         updateImpacts
@@ -414,34 +423,10 @@ computeIngredientTransport db { ingredient, country, mass, planeTransport } =
                 |> toTransformation
                 |> toLogistics
     in
-    { transport
-        | impacts =
-            db.processes
-                |> Process.loadWellKnown
-                |> Result.map
-                    (\wellKnown ->
-                        [ ( wellKnown.lorryTransport, transport.road )
-                        , ( wellKnown.lorryCoolingTransport, transport.roadCooled )
-                        , ( wellKnown.boatTransport, transport.sea )
-                        , ( wellKnown.boatCoolingTransport, transport.seaCooled )
-                        , ( wellKnown.planeTransport, transport.air )
-                        ]
-                            |> List.map
-                                (\( transportProcess, distance ) ->
-                                    transportProcess.impacts
-                                        |> Impact.mapImpacts
-                                            (\_ impact ->
-                                                impact
-                                                    |> Unit.impactToFloat
-                                                    |> (*) (Mass.inMetricTons mass * Length.inKilometers distance)
-                                                    |> Unit.impact
-                                            )
-                                )
-                    )
-                |> Result.withDefault []
-                |> Impact.sumImpacts db.impacts
-                |> Impact.updateAggregatedScores db.impacts
-    }
+    db.processes
+        |> Process.loadWellKnown
+        |> Result.map (Transport.computeImpacts db.impacts mass transport)
+        |> Result.withDefault (Transport.default Impact.noImpacts)
 
 
 preparationListFromQuery : Query -> Result String (List Preparation)

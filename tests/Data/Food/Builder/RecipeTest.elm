@@ -157,11 +157,11 @@ suite =
                         |> Result.map (Tuple.second >> .scoring)
                         |> testScoringEqual
                             { category = "Gâteaux"
-                            , climate = { impact = Unit.impact 36.65491592473388, letter = "B", outOf100 = 71 }
-                            , all = { impact = Unit.impact 184.17382750906822, letter = "B", outOf100 = 68 }
-                            , biodiversity = { impact = Unit.impact 141.6552022298202, letter = "C", outOf100 = 58 }
-                            , health = { impact = Unit.impact 53.96328728679386, letter = "B", outOf100 = 66 }
-                            , resources = { impact = Unit.impact 26.467162212744146, letter = "B", outOf100 = 67 }
+                            , climate = { impact = Unit.impact 38.78295109442929, letter = "B", outOf100 = 68 }
+                            , all = { impact = Unit.impact 188.53256189309315, letter = "B", outOf100 = 67 }
+                            , biodiversity = { impact = Unit.impact 144.78279126286014, letter = "C", outOf100 = 57 }
+                            , health = { impact = Unit.impact 56.46785116591931, letter = "B", outOf100 = 64 }
+                            , resources = { impact = Unit.impact 27.363737354043284, letter = "B", outOf100 = 65 }
                             }
                      ]
                     )
