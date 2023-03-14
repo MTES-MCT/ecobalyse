@@ -255,6 +255,12 @@ toString inputs =
         [ "filature"
         , inputs.countrySpinning.name
         ]
+    , case inputs.yarnSize of
+        Just yarnSize ->
+            [ "Titrage", String.fromInt (Unit.yarnSizeToInt yarnSize) ++ "Nm" ]
+
+        Nothing ->
+            []
     , ifStepEnabled Label.Fabric
         (case inputs.product.fabric of
             Product.Knitted _ ->
