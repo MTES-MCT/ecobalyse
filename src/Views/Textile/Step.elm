@@ -334,23 +334,6 @@ makingWasteField { current, inputs, updateMakingWaste } =
         ]
 
 
-yarnSizeField : Config msg -> Unit.YarnSize -> Html msg
-yarnSizeField { current, updateYarnSize } defaultYarnSize =
-    span
-        [ [ "TODO", "field doc" ]
-            |> String.join " "
-            |> title
-        ]
-        [ RangeSlider.yarnSize
-            { id = "yarnSize"
-            , update = updateYarnSize
-            , value = Maybe.withDefault defaultYarnSize current.yarnSize
-            , toString = Step.yarnSizeToString
-            , disabled = not current.enabled
-            }
-        ]
-
-
 surfaceMassField : Config msg -> Unit.SurfaceMass -> Html msg
 surfaceMassField { current, updateSurfaceMass } defaultSurfaceMass =
     span
@@ -364,6 +347,23 @@ surfaceMassField { current, updateSurfaceMass } defaultSurfaceMass =
             , update = updateSurfaceMass
             , value = Maybe.withDefault defaultSurfaceMass current.surfaceMass
             , toString = Step.surfaceMassToString
+            , disabled = not current.enabled
+            }
+        ]
+
+
+yarnSizeField : Config msg -> Unit.YarnSize -> Html msg
+yarnSizeField { current, updateYarnSize } defaultYarnSize =
+    span
+        [ [ "TODO", "field doc" ]
+            |> String.join " "
+            |> title
+        ]
+        [ RangeSlider.yarnSize
+            { id = "yarnSize"
+            , update = updateYarnSize
+            , value = Maybe.withDefault defaultYarnSize current.yarnSize
+            , toString = Step.yarnSizeToString
             , disabled = not current.enabled
             }
         ]
@@ -760,6 +760,17 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                         li [ class "list-group-item text-muted d-flex justify-content-center gap-2" ]
                             [ span [] [ text <| "Surface étoffe (" ++ dir ++ ")\u{00A0}:" ]
                             , span [] [ Format.squareMetters surface ]
+                            ]
+
+                    Nothing ->
+                        text ""
+                , case current.picking of
+                    Just picking ->
+                        li [ class "list-group-item text-muted d-flex justify-content-center gap-2" ]
+                            [ text "Duitage\u{00A0}:\u{00A0}"
+                            , picking
+                                |> Unit.pickPerMeterToFloat
+                                |> Format.formatRichFloat 0 "duites.m"
                             ]
 
                     Nothing ->

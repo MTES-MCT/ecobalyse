@@ -434,7 +434,7 @@ computeFabricImpacts ({ inputs, lifeCycle } as simulator) =
         |> updateLifeCycleStep Label.Fabric
             (\({ country } as step) ->
                 let
-                    { kwh, impacts } =
+                    { kwh, picking, impacts } =
                         step.outputMass
                             |> (case inputs.product.fabric of
                                     Product.Knitted process ->
@@ -460,7 +460,7 @@ computeFabricImpacts ({ inputs, lifeCycle } as simulator) =
                                             }
                                )
                 in
-                { step | impacts = impacts, kwh = kwh }
+                { step | impacts = impacts, picking = picking, kwh = kwh }
             )
 
 

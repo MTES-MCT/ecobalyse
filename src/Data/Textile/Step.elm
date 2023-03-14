@@ -461,7 +461,7 @@ reparabilityToString (Unit.Reparability float) =
 
 pickingToString : Unit.PickPerMeter -> String
 pickingToString (Unit.PickPerMeter int) =
-    "Duitage\u{00A0}: " ++ String.fromInt int ++ "\u{202F}duites/m"
+    "Duitage\u{00A0}: " ++ String.fromInt int ++ "\u{202F}duites.m"
 
 
 surfaceMassToString : Unit.SurfaceMass -> String

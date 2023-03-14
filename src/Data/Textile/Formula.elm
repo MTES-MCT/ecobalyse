@@ -21,7 +21,6 @@ import Data.Textile.Process as Process exposing (Process)
 import Data.Transport as Transport exposing (Transport)
 import Data.Unit as Unit
 import Energy exposing (Energy)
-import Length
 import Mass exposing (Mass)
 import Quantity
 import Volume exposing (Volume)
@@ -296,7 +295,7 @@ knittingImpacts :
     Impacts
     -> { elec : Energy, countryElecProcess : Process }
     -> Mass
-    -> { kwh : Energy, impacts : Impacts }
+    -> { kwh : Energy, picking : Maybe Unit.PickPerMeter, impacts : Impacts }
 knittingImpacts impacts { elec, countryElecProcess } baseMass =
     let
         electricityKWh =
@@ -304,6 +303,7 @@ knittingImpacts impacts { elec, countryElecProcess } baseMass =
                 (Mass.inKilograms baseMass * Energy.inKilowattHours elec)
     in
     { kwh = electricityKWh
+    , picking = Nothing
     , impacts =
         impacts
             |> Impact.mapImpacts
@@ -324,26 +324,27 @@ weavingImpacts :
         , yarnSize : Unit.YarnSize
         }
     -> Mass
-    -> { kwh : Energy, impacts : Impacts }
+    -> { kwh : Energy, picking : Maybe Unit.PickPerMeter, impacts : Impacts }
 weavingImpacts impacts { countryElecProcess, outputMass, pickingElec, surfaceMass, yarnSize } inputMass =
     let
-        -- - Laize = largeur du tissu (`fabricWidth`) = 1,6m (valeur fixe pour tout le monde)
+        -- Laize (largeur du tissu, en m) = 1.6m (valeur constate)
         fabricWidth =
-            Length.meters 1.6
+            1.6
 
-        -- - Métrage = longueur du tissu (`fabricLength`) = Surface sortante (m2) / Laize (m)
-        surface =
+        -- Surface sortante (en m2)
+        outputSurface =
             Mass.inGrams outputMass
                 / Unit.surfaceMassToFloat surfaceMass
 
+        -- Métrage (longueur du tissu, en m2) = Surface sortante (en m2) / Laize (en m)
         fabricLength =
-            surface / Length.inMeters fabricWidth
+            outputSurface / fabricWidth
 
-        -- - Densité de fils (# fils / cm) = [ Masse sortante(g) * Titrage (Nm) / (Laize + Métrage) / (1,08) / 100 ]
+        -- Densité de fils (# fils/cm) = Masse sortante(g) * Titrage (Nm) / (Laize + Métrage) / (1,08) / 100
         density =
             Mass.inGrams outputMass
                 * toFloat (Unit.yarnSizeToInt yarnSize)
-                / (Length.inMeters fabricWidth + fabricLength)
+                / (fabricWidth + fabricLength)
                 / 1.08
                 / 100
 
@@ -357,6 +358,7 @@ weavingImpacts impacts { countryElecProcess, outputMass, pickingElec, surfaceMas
                 |> Energy.kilowattHours
     in
     { kwh = electricityKWh
+    , picking = Just <| Unit.pickPerMeter <| round picking
     , impacts =
         impacts
             |> Impact.mapImpacts
