@@ -353,7 +353,10 @@ weavingImpacts impacts { countryElecProcess, outputMass, pickingElec, surfaceMas
             yarnDensity * 100 * fabricLength
 
         electricityKWh =
-            (Mass.inKilograms inputMass * 1000 * picking / Unit.surfaceMassToFloat surfaceMass)
+            Mass.inKilograms inputMass
+                * 1000
+                * picking
+                / Unit.surfaceMassToFloat surfaceMass
                 * pickingElec
                 |> Energy.kilowattHours
     in
