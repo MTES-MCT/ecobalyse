@@ -330,6 +330,7 @@ textileEndpoints db =
           , "dyeingMedium=yolo"
           , "printing=yolo"
           , "ennoblingHeatSource=yolo"
+          , "yarnSize=0"
           ]
             |> String.join "&"
             |> getEndpoint db "GET"
@@ -348,6 +349,7 @@ textileEndpoints db =
                     , ( "dyeingMedium", "Type de support de teinture inconnu: yolo" )
                     , ( "printing", "Format de type et surface d'impression invalide: yolo" )
                     , ( "ennoblingHeatSource", "Source de production de vapeur inconnue: yolo" )
+                    , ( "yarnSize", "Le titrage (yarnSize) doit être compris entre 9 et 200 duites/m." )
                     ]
                     |> Just
                 )
