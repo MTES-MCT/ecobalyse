@@ -341,16 +341,16 @@ weavingImpacts impacts { countryElecProcess, outputMass, pickingElec, surfaceMas
             outputSurface / fabricWidth
 
         -- Densité de fils (# fils/cm) = Masse sortante(g) * Titrage (Nm) / (Laize + Métrage) / (1,08) / 100
-        density =
+        yarnDensity =
             Mass.inGrams outputMass
                 * toFloat (Unit.yarnSizeToInt yarnSize)
                 / (fabricWidth + fabricLength)
                 / 1.08
                 / 100
 
-        -- - Duites.m = Densité de fils (# fils / cm)  * 100 * Métrage (m)
+        -- Duites.m = Densité de fils (# fils / cm) * 100 * Métrage (m)
         picking =
-            density * 100 * fabricLength
+            yarnDensity * 100 * fabricLength
 
         electricityKWh =
             (Mass.inKilograms inputMass * 1000 * picking / Unit.surfaceMassToFloat surfaceMass)

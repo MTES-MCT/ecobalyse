@@ -9,7 +9,6 @@ module Data.Textile.Step exposing
     , getOutputSurface
     , initMass
     , makingWasteToString
-    , pickingToString
     , qualityToString
     , reparabilityToString
     , surfaceMassToString
@@ -457,11 +456,6 @@ qualityToString (Unit.Quality float) =
 reparabilityToString : Unit.Reparability -> String
 reparabilityToString (Unit.Reparability float) =
     "Réparabilité\u{00A0}: " ++ String.fromFloat float
-
-
-pickingToString : Unit.PickPerMeter -> String
-pickingToString (Unit.PickPerMeter int) =
-    "Duitage\u{00A0}: " ++ String.fromInt int ++ "\u{202F}duites.m"
 
 
 surfaceMassToString : Unit.SurfaceMass -> String
