@@ -923,6 +923,20 @@ transportToDistributionView selectedImpact recipe results =
         ]
 
 
+transportAfterConsumptionView : Recipe -> Recipe.Results -> Html Msg
+transportAfterConsumptionView recipe result =
+    div []
+        [ DownArrow.view
+            []
+            [ text <| "Masse : "
+            , Format.kg result.preparedMass
+            , text " + Emballage : "
+            , Recipe.getPackagingMass recipe
+                |> Format.kg
+            ]
+        ]
+
+
 distributionView : Impact.Definition -> Recipe -> Recipe.Results -> List (Html Msg)
 distributionView selectedImpact recipe results =
     [ div [ class "card-header d-flex align-items-center justify-content-between" ]
@@ -1018,15 +1032,6 @@ consumptionView db selectedImpact recipe results =
         , event = AddPreparation
         , kind = "une technique de préparation"
         }
-    , div
-        [ class "card-body d-flex justify-content-between align-items-center gap-1 border-top"
-        , class "text-muted py-2 fs-7"
-        ]
-        [ div [ class "text-truncate" ]
-            [ text <| "Masse finale de produit préparé\u{00A0}:\u{00A0}"
-            , Format.kg results.preparedMass
-            ]
-        ]
     ]
 
 
@@ -1282,6 +1287,7 @@ stepListView db { impact } recipe results =
         , DownArrow.view [] []
         , div [ class "card" ]
             (consumptionView db impact recipe results)
+        , transportAfterConsumptionView recipe results
         ]
 
 
