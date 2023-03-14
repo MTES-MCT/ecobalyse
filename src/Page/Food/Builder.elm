@@ -923,17 +923,28 @@ transportToDistributionView selectedImpact recipe results =
         ]
 
 
+transportToConsumptionView : Recipe -> Html Msg
+transportToConsumptionView recipe =
+    DownArrow.view
+        []
+        [ text <| "Masse : "
+        , Recipe.getTransformedIngredientsMass recipe
+            |> Format.kg
+        , text " + Emballage : "
+        , Recipe.getPackagingMass recipe
+            |> Format.kg
+        ]
+
+
 transportAfterConsumptionView : Recipe -> Recipe.Results -> Html Msg
 transportAfterConsumptionView recipe result =
-    div []
-        [ DownArrow.view
-            []
-            [ text <| "Masse : "
-            , Format.kg result.preparedMass
-            , text " + Emballage : "
-            , Recipe.getPackagingMass recipe
-                |> Format.kg
-            ]
+    DownArrow.view
+        []
+        [ text <| "Masse : "
+        , Format.kg result.preparedMass
+        , text " + Emballage : "
+        , Recipe.getPackagingMass recipe
+            |> Format.kg
         ]
 
 
@@ -1284,7 +1295,7 @@ stepListView db { impact } recipe results =
         , transportToDistributionView impact recipe results
         , div [ class "card" ]
             (distributionView impact recipe results)
-        , DownArrow.view [] []
+        , transportToConsumptionView recipe
         , div [ class "card" ]
             (consumptionView db impact recipe results)
         , transportAfterConsumptionView recipe results
