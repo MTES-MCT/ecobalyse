@@ -13,6 +13,7 @@ module Data.Food.Builder.Query exposing
     , deletePreparation
     , emptyQuery
     , encode
+    , getIngredientMass
     , parseBase64Query
     , serialize
     , setTransform
@@ -295,9 +296,9 @@ encodeVariant =
     variantToString >> Encode.string
 
 
-getIngredientMass : Query -> Mass
-getIngredientMass query =
-    query.ingredients
+getIngredientMass : List { a | mass : Mass } -> Mass
+getIngredientMass ingredients =
+    ingredients
         |> List.map .mass
         |> Quantity.sum
 
@@ -370,7 +371,7 @@ updateTransformMass query =
             query.transform
                 |> Maybe.map
                     (\transform ->
-                        { transform | mass = getIngredientMass query }
+                        { transform | mass = getIngredientMass query.ingredients }
                     )
     }
 

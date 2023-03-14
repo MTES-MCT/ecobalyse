@@ -106,6 +106,7 @@ mainSummaryView { session, impact, funit } { inputs, impacts, daysOfWear, lifeCy
                 |> TransportView.view
                     { fullWidth = False
                     , hideNoLength = False
+                    , onlyIcons = False
                     , airTransportLabel = Just "Transport aérien total"
                     , seaTransportLabel = Just "Transport maritime total"
                     , roadTransportLabel = Just "Transport routier total"

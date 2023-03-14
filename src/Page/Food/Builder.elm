@@ -683,12 +683,12 @@ displayTransportDistances db ingredient ingredientQuery event =
                         [ Format.km sea ]
                 ]
             , if road /= Length.kilometers 0 then
-                TransportView.entry road Icon.bus "Transport routier"
+                TransportView.entry { onlyIcons = False, distance = road, icon = Icon.bus, label = "Transport routier" }
 
               else
                 text ""
             , if roadCooled /= Length.kilometers 0 then
-                TransportView.entry roadCooled Icon.busCooled "Transport routier réfrigéré"
+                TransportView.entry { onlyIcons = False, distance = roadCooled, icon = Icon.busCooled, label = "Transport routier réfrigéré" }
 
               else
                 text ""
@@ -700,6 +700,7 @@ displayTransportDistances db ingredient ingredientQuery event =
                 |> TransportView.viewDetails
                     { fullWidth = False
                     , hideNoLength = True
+                    , onlyIcons = False
                     , airTransportLabel = Nothing
                     , seaTransportLabel = Nothing
                     , roadTransportLabel = Nothing
@@ -844,6 +845,33 @@ packagingListView db selectedImpact recipe results =
     ]
 
 
+transportToTransformationView : Impact.Definition -> Recipe -> Recipe.Results -> Html Msg
+transportToTransformationView selectedImpact recipe results =
+    DownArrow.view
+        []
+        [ div []
+            [ text "Masse : "
+            , recipe.ingredients
+                |> Query.getIngredientMass
+                |> Format.kg
+            ]
+        , div [ class "d-flex justify-content-between" ]
+            [ div [ class "d-flex justify-content-between gap-3" ]
+                (results.recipe.transports
+                    |> TransportView.viewDetails
+                        { fullWidth = False
+                        , hideNoLength = True
+                        , onlyIcons = True
+                        , airTransportLabel = Nothing
+                        , seaTransportLabel = Nothing
+                        , roadTransportLabel = Nothing
+                        }
+                )
+            , Format.formatFoodSelectedImpact selectedImpact results.recipe.transports.impacts
+            ]
+        ]
+
+
 transportToDistributionView : Impact.Definition -> Recipe -> Recipe.Results -> Html Msg
 transportToDistributionView selectedImpact recipe results =
     DownArrow.view
@@ -862,6 +890,7 @@ transportToDistributionView selectedImpact recipe results =
                     |> TransportView.viewDetails
                         { fullWidth = False
                         , hideNoLength = True
+                        , onlyIcons = False
                         , airTransportLabel = Nothing
                         , seaTransportLabel = Nothing
                         , roadTransportLabel = Nothing
@@ -1219,7 +1248,7 @@ stepListView db { impact } recipe results =
     div []
         [ div [ class "card" ]
             (ingredientListView db impact recipe results)
-        , DownArrow.view [] []
+        , transportToTransformationView impact recipe results
         , div [ class "card" ]
             (transformView db impact recipe results)
         , DownArrow.view [] []
