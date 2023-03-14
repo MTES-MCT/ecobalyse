@@ -354,7 +354,9 @@ surfaceMassField { current, updateSurfaceMass } defaultSurfaceMass =
 yarnSizeField : Config msg -> Unit.YarnSize -> Html msg
 yarnSizeField { current, updateYarnSize } defaultYarnSize =
     span
-        [ [ "TODO", "field doc" ]
+        [ [ "Le titrage indique la grosseur d’un fil textile, exprimée en numéro métrique (Nm)."
+          , "Cette unité indique un nombre de kilomètres de ﬁl correspondant à un poids d’un kilogramme (ex : 50Nm = 50km de ce fil pèsent 1 kg)."
+          ]
             |> String.join " "
             |> title
         ]
