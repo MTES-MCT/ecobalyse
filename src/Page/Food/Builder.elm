@@ -872,6 +872,28 @@ transportToTransformationView selectedImpact recipe results =
         ]
 
 
+transportToPackagingView : Recipe -> Html Msg
+transportToPackagingView recipe =
+    DownArrow.view
+        []
+        [ div []
+            [ case recipe.transform of
+                Just transform ->
+                    span
+                        [ title <| "(" ++ Process.nameToString transform.process.name ++ ")" ]
+                        [ text "Masse du produit après transformation : " ]
+
+                Nothing ->
+                    text "Masse : "
+            , Recipe.getTransformedIngredientsMass recipe
+                |> Format.kg
+            , Link.smallPillExternal
+                [ href (Gitbook.publicUrlFromPath Gitbook.FoodRawToCookedRatio) ]
+                [ Icon.question ]
+            ]
+        ]
+
+
 transportToDistributionView : Impact.Definition -> Recipe -> Recipe.Results -> Html Msg
 transportToDistributionView selectedImpact recipe results =
     DownArrow.view
@@ -1251,7 +1273,7 @@ stepListView db { impact } recipe results =
         , transportToTransformationView impact recipe results
         , div [ class "card" ]
             (transformView db impact recipe results)
-        , DownArrow.view [] []
+        , transportToPackagingView recipe
         , div [ class "card" ]
             (packagingListView db impact recipe results)
         , transportToDistributionView impact recipe results
@@ -1337,47 +1359,27 @@ transformView db selectedImpact recipe results =
         [ h5 [ class "mb-0" ] [ text "Transformation" ]
         , impact
         ]
-    , case recipe.transform of
-        Just transform ->
-            div []
-                [ ul [ class "list-group list-group-flush border-top-0 border-bottom-0" ]
-                    [ updateProcessFormView
-                        { processes =
-                            db.processes
-                                |> Process.listByCategory Process.Transform
-                        , excluded = [ transform.process.code ]
-                        , processQuery = { code = transform.process.code, mass = transform.mass }
-                        , impact = impact
-                        , updateEvent = UpdateTransform
-                        , deleteEvent = ResetTransform
-                        }
-                    ]
-                , div
-                    [ class "card-body d-flex justify-content-between align-items-center gap-1"
-                    , class "border-top-0 text-muted py-2 fs-7"
-                    ]
-                    [ div [ class "text-truncate" ]
-                        [ text <|
-                            "Masse du produit après transformation ("
-                                ++ Process.nameToString transform.process.name
-                                ++ ")"
-                        ]
-                    , span [ class "d-flex" ]
-                        [ Recipe.getTransformedIngredientsMass recipe
-                            |> Format.kg
-                        , Link.smallPillExternal
-                            [ href (Gitbook.publicUrlFromPath Gitbook.FoodRawToCookedRatio) ]
-                            [ Icon.question ]
-                        ]
-                    ]
-                ]
+    , ul [ class "list-group list-group-flush border-top-0 border-bottom-0" ]
+        [ case recipe.transform of
+            Just transform ->
+                updateProcessFormView
+                    { processes =
+                        db.processes
+                            |> Process.listByCategory Process.Transform
+                    , excluded = [ transform.process.code ]
+                    , processQuery = { code = transform.process.code, mass = transform.mass }
+                    , impact = impact
+                    , updateEvent = UpdateTransform
+                    , deleteEvent = ResetTransform
+                    }
 
-        Nothing ->
-            addProcessFormView
-                { isDisabled = False
-                , event = AddTransform
-                , kind = "une transformation"
-                }
+            Nothing ->
+                addProcessFormView
+                    { isDisabled = False
+                    , event = AddTransform
+                    , kind = "une transformation"
+                    }
+        ]
     ]
 
 
