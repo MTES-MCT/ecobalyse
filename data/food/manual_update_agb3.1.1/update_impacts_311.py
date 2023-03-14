@@ -59,8 +59,6 @@ if __name__ == "__main__":
     df.set_index("name", inplace = True, verify_integrity=True)
     agb311_dict = df.to_dict('index')
 
-    print(agb311_dict)
-
     # processes name changed between agb3.1 and agb3.11 
     # so we have to update the names
 
@@ -69,14 +67,11 @@ if __name__ == "__main__":
     name_change_dict = name_change_df.to_dict('index')
     name_change_dict = {k:v["name3.1.1"] for (k,v) in name_change_dict.items()}
 
-    print(name_change_dict)
-
     with open(PROCESSES) as json_file:
         processes_list = json.load(json_file)
 
     with open(IMPACTS, "r") as f:
         impacts_ecobalyse = json.load(f)
-
         
     for proc in processes_list:
         # replace old name with new names is there is one    
@@ -93,7 +88,7 @@ if __name__ == "__main__":
         except KeyError as e:
             print(f"KeyError, normal for complex ingredients 'constructed by ecobalyse', which are computed in the next step : {e}")
 
-    # Compute impacts for complex ingredients. Complex ingredients impacts are computed from other ingredients impacts 
+    # Compute impacts for complex ingredients from other ingredients impacts 
 
     # Parse the ingredients_base.json, which contains complex ingredients to add/compute
     with open(INGREDIENTS_BASE, "r") as f:
