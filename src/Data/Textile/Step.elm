@@ -143,10 +143,10 @@ displayLabel { knitted, fadable } label =
             "Confection"
 
         ( Label.Fabric, True, _ ) ->
-            "Tricotage"
+            "Fabrication de l’étoffe — Tricotage"
 
         ( Label.Fabric, False, _ ) ->
-            "Tissage"
+            "Fabrication de l’étoffe — Tissage"
 
         _ ->
             Label.toString label
