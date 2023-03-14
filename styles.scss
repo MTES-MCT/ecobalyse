@@ -671,6 +671,10 @@ blockquote {
     "empty empty transportDistances transportDistances transportImpact unused";
   padding: $list-group-item-padding-y $list-group-item-padding-x;
   align-items: center;
+
+  &:last-child {
+    border-bottom: 0;
+  }
   .BioCheckbox {
     grid-area: bioCheckbox;
     input {

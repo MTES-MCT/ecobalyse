@@ -815,10 +815,10 @@ packagingListView db selectedImpact recipe results =
             |> Format.formatFoodSelectedImpact selectedImpact
         ]
     , ul [ class "list-group list-group-flush" ]
-        (if List.isEmpty recipe.packaging then
+        ((if List.isEmpty recipe.packaging then
             [ li [ class "list-group-item" ] [ text "Aucun emballage" ] ]
 
-         else
+          else
             recipe.packaging
                 |> List.map
                     (\packaging ->
@@ -836,12 +836,14 @@ packagingListView db selectedImpact recipe results =
                             , deleteEvent = DeletePackaging packaging.process.code
                             }
                     )
+         )
+            ++ [ addProcessFormView
+                    { isDisabled = availablePackagings == []
+                    , event = AddPackaging
+                    , kind = "un emballage"
+                    }
+               ]
         )
-    , addProcessFormView
-        { isDisabled = availablePackagings == []
-        , event = AddPackaging
-        , kind = "un emballage"
-        }
     ]
 
 
@@ -973,15 +975,13 @@ distributionView selectedImpact recipe results =
                             )
                     )
                 ]
-            ]
-        , div
-            [ class "card-body d-flex justify-content-between align-items-center gap-1"
-            , class "border-top-0 text-muted py-2 fs-7"
-            ]
-            [ div [ class "text-truncate" ]
-                [ recipe.distribution
-                    |> Retail.displayNeeds
-                    |> text
+            , li
+                [ class "list-group-item fs-7" ]
+                [ span [ class "text-truncate" ]
+                    [ recipe.distribution
+                        |> Retail.displayNeeds
+                        |> text
+                    ]
                 ]
             ]
         ]
@@ -996,10 +996,10 @@ consumptionView db selectedImpact recipe results =
             |> Format.formatFoodSelectedImpact selectedImpact
         ]
     , ul [ class "list-group list-group-flush" ]
-        (if List.isEmpty recipe.preparation then
-            [ li [ class "list-group-item" ] [ text "Sans préparation" ] ]
+        ((if List.isEmpty recipe.preparation then
+            [ li [ class "list-group-item" ] [ text "Aucune préparation" ] ]
 
-         else
+          else
             recipe.preparation
                 |> List.map
                     (\usedPreparation ->
@@ -1037,12 +1037,14 @@ consumptionView db selectedImpact recipe results =
                                 [ Icon.trash ]
                             ]
                     )
+         )
+            ++ [ addProcessFormView
+                    { isDisabled = List.length recipe.preparation == 2
+                    , event = AddPreparation
+                    , kind = "une technique de préparation"
+                    }
+               ]
         )
-    , addProcessFormView
-        { isDisabled = List.length recipe.preparation == 2
-        , event = AddPreparation
-        , kind = "une technique de préparation"
-        }
     ]
 
 
