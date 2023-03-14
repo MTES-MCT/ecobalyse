@@ -21,6 +21,7 @@ import Data.Textile.Process as Process exposing (Process)
 import Data.Transport as Transport exposing (Transport)
 import Data.Unit as Unit
 import Energy exposing (Energy)
+import Length
 import Mass exposing (Mass)
 import Quantity
 import Volume exposing (Volume)
@@ -316,18 +317,42 @@ knittingImpacts impacts { elec, countryElecProcess } baseMass =
 weavingImpacts :
     Impacts
     ->
-        { pickingElec : Float
-        , countryElecProcess : Process
-        , picking : Unit.PickPerMeter
+        { countryElecProcess : Process
+        , outputMass : Mass
+        , pickingElec : Float
         , surfaceMass : Unit.SurfaceMass
+        , yarnSize : Unit.YarnSize
         }
     -> Mass
     -> { kwh : Energy, impacts : Impacts }
-weavingImpacts impacts { pickingElec, countryElecProcess, picking, surfaceMass } baseMass =
+weavingImpacts impacts { countryElecProcess, outputMass, pickingElec, surfaceMass, yarnSize } inputMass =
     let
-        -- TODO: update formula to use yarnSize
+        -- - Laize = largeur du tissu (`fabricWidth`) = 1,6m (valeur fixe pour tout le monde)
+        fabricWidth =
+            Length.meters 1.6
+
+        -- - Métrage = longueur du tissu (`fabricLength`) = Surface sortante (m2) / Laize (m)
+        surface =
+            Mass.inGrams outputMass
+                / Unit.surfaceMassToFloat surfaceMass
+
+        fabricLength =
+            surface / Length.inMeters fabricWidth
+
+        -- - Densité de fils (# fils / cm) = [ Masse sortante(g) * Titrage (Nm) / (Laize + Métrage) / (1,08) / 100 ]
+        density =
+            Mass.inGrams outputMass
+                * toFloat (Unit.yarnSizeToInt yarnSize)
+                / (Length.inMeters fabricWidth + fabricLength)
+                / 1.08
+                / 100
+
+        -- - Duites.m = Densité de fils (# fils / cm)  * 100 * Métrage (m)
+        picking =
+            density * 100 * fabricLength
+
         electricityKWh =
-            (Mass.inKilograms baseMass * 1000 * Unit.pickPerMeterToFloat picking / Unit.surfaceMassToFloat surfaceMass)
+            (Mass.inKilograms inputMass * 1000 * picking / Unit.surfaceMassToFloat surfaceMass)
                 * pickingElec
                 |> Energy.kilowattHours
     in

@@ -182,6 +182,8 @@ decodeList processes =
 
 defaultYarnSize : Unit.SurfaceMass -> Unit.YarnSize
 defaultYarnSize surfaceMass =
+    -- Default yarn size depends on surface mass
+    -- see https://fabrique-numerique.gitbook.io/ecobalyse/textile/etapes-du-cycle-de-vie/tricotage-tissage#contexture-densite-and-titrage-des-fils
     if Unit.surfaceMassToFloat surfaceMass < 200 then
         Unit.yarnSize 50
 

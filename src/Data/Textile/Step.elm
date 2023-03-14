@@ -305,6 +305,7 @@ updateFromInputs { processes } inputs ({ label, country } as step) =
         Label.Fabric ->
             { step
                 | picking = picking
+                , yarnSize = yarnSize
                 , surfaceMass = surfaceMass
                 , processInfo =
                     { defaultProcessInfo
