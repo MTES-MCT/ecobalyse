@@ -363,7 +363,6 @@ parseTextileQuery textileDb =
         |> apply (maybeQualityParser "quality")
         |> apply (maybeReparabilityParser "reparability")
         |> apply (maybeMakingWasteParser "makingWaste")
-        |> apply (maybePickingParser "picking")
         |> apply (maybeYarnSize "yarnSize")
         |> apply (maybeSurfaceMassParser "surfaceMass")
         |> apply (maybeDisabledStepsParser "disabledSteps")
@@ -693,32 +692,6 @@ maybeMakingWasteParser key =
 
                     else
                         Ok (Just (Unit.ratio float))
-                )
-                >> Maybe.withDefault (Ok Nothing)
-            )
-
-
-maybePickingParser : String -> Parser (ParseResult (Maybe Unit.PickPerMeter))
-maybePickingParser key =
-    Query.int key
-        |> Query.map
-            (Maybe.map
-                (\int ->
-                    if
-                        (int < Unit.pickPerMeterToInt Unit.minPickPerMeter)
-                            || (int > Unit.pickPerMeterToInt Unit.maxPickPerMeter)
-                    then
-                        Err
-                            ( key
-                            , "Le duitage (picking) doit être compris entre "
-                                ++ String.fromInt (Unit.pickPerMeterToInt Unit.minPickPerMeter)
-                                ++ " et "
-                                ++ String.fromInt (Unit.pickPerMeterToInt Unit.maxPickPerMeter)
-                                ++ " duites/m."
-                            )
-
-                    else
-                        Ok (Just (Unit.pickPerMeter int))
                 )
                 >> Maybe.withDefault (Ok Nothing)
             )

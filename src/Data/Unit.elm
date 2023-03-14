@@ -9,7 +9,6 @@ module Data.Unit exposing
     , SurfaceMass(..)
     , YarnSize(..)
     , decodeImpact
-    , decodePickPerMeter
     , decodeQuality
     , decodeRatio
     , decodeReparability
@@ -32,12 +31,10 @@ module Data.Unit exposing
     , impactAggregateScore
     , impactToFloat
     , inFunctionalUnit
-    , maxPickPerMeter
     , maxQuality
     , maxReparability
     , maxSurfaceMass
     , maxYarnSize
-    , minPickPerMeter
     , minQuality
     , minReparability
     , minSurfaceMass
@@ -45,7 +42,6 @@ module Data.Unit exposing
     , parseFunctional
     , pickPerMeter
     , pickPerMeterToFloat
-    , pickPerMeterToInt
     , quality
     , qualityToFloat
     , ratio
@@ -339,16 +335,6 @@ type PickPerMeter
     = PickPerMeter Int
 
 
-minPickPerMeter : PickPerMeter
-minPickPerMeter =
-    PickPerMeter 800
-
-
-maxPickPerMeter : PickPerMeter
-maxPickPerMeter =
-    PickPerMeter 9000
-
-
 pickPerMeter : Int -> PickPerMeter
 pickPerMeter =
     PickPerMeter
@@ -357,33 +343,6 @@ pickPerMeter =
 pickPerMeterToFloat : PickPerMeter -> Float
 pickPerMeterToFloat (PickPerMeter int) =
     toFloat int
-
-
-pickPerMeterToInt : PickPerMeter -> Int
-pickPerMeterToInt (PickPerMeter int) =
-    int
-
-
-decodePickPerMeter : Decoder PickPerMeter
-decodePickPerMeter =
-    Decode.int
-        |> Decode.andThen
-            (\int ->
-                if int < pickPerMeterToInt minPickPerMeter || int > pickPerMeterToInt maxPickPerMeter then
-                    Decode.fail
-                        ("Le duitage spécifié ("
-                            ++ String.fromInt int
-                            ++ ") doit être compris entre "
-                            ++ String.fromInt (pickPerMeterToInt minPickPerMeter)
-                            ++ " et "
-                            ++ String.fromInt (pickPerMeterToInt maxPickPerMeter)
-                            ++ "."
-                        )
-
-                else
-                    Decode.succeed int
-            )
-        |> Decode.map pickPerMeter
 
 
 encodePickPerMeter : PickPerMeter -> Encode.Value

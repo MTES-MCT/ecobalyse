@@ -95,7 +95,6 @@ type Msg
     | UpdateMassInput String
     | UpdateMaterial Int Material.Id
     | UpdateMaterialShare Int Unit.Ratio
-    | UpdatePicking (Maybe Unit.PickPerMeter)
     | UpdatePrinting (Maybe Printing)
     | UpdateProduct Product.Id
     | UpdateQuality (Maybe Unit.Quality)
@@ -335,10 +334,6 @@ update ({ db, queries, navKey } as session) msg model =
             ( model, session, Cmd.none )
                 |> updateQuery (Inputs.updateMaterialShare index share query)
 
-        UpdatePicking picking ->
-            ( model, session, Cmd.none )
-                |> updateQuery { query | picking = picking }
-
         UpdatePrinting printing ->
             ( model, session, Cmd.none )
                 |> updateQuery { query | printing = printing }
@@ -443,7 +438,6 @@ lifeCycleStepsView db { viewMode, funit, impact } simulator =
                     , updateQuality = UpdateQuality
                     , updateReparability = UpdateReparability
                     , updateMakingWaste = UpdateMakingWaste
-                    , updatePicking = UpdatePicking
                     , updateSurfaceMass = UpdateSurfaceMass
                     , updateYarnSize = UpdateYarnSize
                     }

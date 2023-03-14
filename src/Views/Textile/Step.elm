@@ -54,7 +54,6 @@ type alias Config msg =
     , updatePrinting : Maybe Printing -> msg
     , updateMakingWaste : Maybe Unit.Ratio -> msg
     , updateSurfaceMass : Maybe Unit.SurfaceMass -> msg
-    , updatePicking : Maybe Unit.PickPerMeter -> msg
     , updateYarnSize : Maybe Unit.YarnSize -> msg
     }
 

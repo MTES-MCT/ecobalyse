@@ -288,7 +288,7 @@ getOutputSurface { product, surfaceMass } { outputMass } =
 updateFromInputs : Db -> Inputs -> Step -> Step
 updateFromInputs { processes } inputs ({ label, country } as step) =
     let
-        { airTransportRatio, quality, reparability, makingWaste, picking, yarnSize, surfaceMass, dyeingMedium, printing } =
+        { airTransportRatio, quality, reparability, makingWaste, yarnSize, surfaceMass, dyeingMedium, printing } =
             inputs
     in
     case label of
@@ -303,8 +303,7 @@ updateFromInputs { processes } inputs ({ label, country } as step) =
 
         Label.Fabric ->
             { step
-                | picking = picking
-                , yarnSize = yarnSize
+                | yarnSize = yarnSize
                 , surfaceMass = surfaceMass
                 , processInfo =
                     { defaultProcessInfo
