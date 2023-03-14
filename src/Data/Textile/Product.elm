@@ -32,7 +32,7 @@ type alias DyeingOptions =
 
 type FabricOptions
     = Knitted Process
-    | Weaved Process Unit.PickPerMeter
+    | Weaved Process
 
 
 type alias MakingOptions =
@@ -82,7 +82,7 @@ getFabricProcess { fabric } =
         Knitted process ->
             process
 
-        Weaved process _ ->
+        Weaved process ->
             process
 
 
@@ -104,7 +104,7 @@ isKnitted { fabric } =
         Knitted _ ->
             True
 
-        Weaved _ _ ->
+        Weaved _ ->
             False
 
 
@@ -121,7 +121,6 @@ decodeFabricOptions processes =
                     "weaving" ->
                         Decode.succeed Weaved
                             |> Pipe.required "processUuid" (Process.decodeFromUuid processes)
-                            |> Pipe.required "picking" Unit.decodePickPerMeter
 
                     _ ->
                         Decode.fail ("Type de production d'étoffe inconnu\u{00A0}: " ++ str)
@@ -206,11 +205,10 @@ encodeFabricOptions v =
                 , ( "processUuid", Process.encodeUuid process.uuid )
                 ]
 
-        Weaved process picking ->
+        Weaved process ->
             Encode.object
                 [ ( "type", Encode.string "weaving" )
                 , ( "processUuid", Process.encodeUuid process.uuid )
-                , ( "picking", Unit.encodePickPerMeter picking )
                 ]
 
 

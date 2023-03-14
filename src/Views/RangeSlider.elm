@@ -1,6 +1,5 @@
 module Views.RangeSlider exposing
-    ( picking
-    , quality
+    ( quality
     , ratio
     , reparability
     , surfaceMass
@@ -102,34 +101,6 @@ ratio config =
             -- the `value` one MUST be set AFTER the `step` one.
             , step "1"
             , value (String.fromInt (round (Unit.ratioToFloat config.value * 100)))
-            , Attr.disabled config.disabled
-            ]
-        }
-
-
-type alias PickingConfig msg =
-    { id : String
-    , update : Maybe Unit.PickPerMeter -> msg
-    , value : Unit.PickPerMeter
-    , toString : Unit.PickPerMeter -> String
-    , disabled : Bool
-    }
-
-
-picking : PickingConfig msg -> Html msg
-picking config =
-    layout
-        { id = config.id
-        , label = config.toString config.value
-        , attributes =
-            [ onInput (String.toInt >> Maybe.map Unit.pickPerMeter >> config.update)
-            , Attr.min (String.fromInt (Unit.pickPerMeterToInt Unit.minPickPerMeter))
-            , Attr.max (String.fromInt (Unit.pickPerMeterToInt Unit.maxPickPerMeter))
-
-            -- WARNING: be careful when reordering attributes: for obscure reasons,
-            -- the `value` one MUST be set AFTER the `step` one.
-            , step "1"
-            , value (String.fromInt (Unit.pickPerMeterToInt config.value))
             , Attr.disabled config.disabled
             ]
         }

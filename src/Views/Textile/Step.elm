@@ -334,27 +334,6 @@ makingWasteField { current, inputs, updateMakingWaste } =
         ]
 
 
-pickingField : Config msg -> Unit.PickPerMeter -> Html msg
-pickingField { current, updatePicking } defaultPicking =
-    span
-        [ [ "Le duitage correspond au nombre de fils de trame (aussi appelés duites) par mètre"
-          , "pour un tissu. Ce paramètre est pris en compte car il est connecté avec la consommation"
-          , "électrique du métier à tisser. À grammage égal, plus le duitage est important,"
-          , "plus la consommation d'électricité est élevée."
-          ]
-            |> String.join " "
-            |> title
-        ]
-        [ RangeSlider.picking
-            { id = "picking"
-            , update = updatePicking
-            , value = Maybe.withDefault defaultPicking current.picking
-            , toString = Step.pickingToString
-            , disabled = not current.enabled
-            }
-        ]
-
-
 yarnSizeField : Config msg -> Unit.YarnSize -> Html msg
 yarnSizeField { current, updateYarnSize } defaultYarnSize =
     span
@@ -507,9 +486,8 @@ simpleView ({ funit, inputs, daysOfWear, impact, current } as config) =
                                     [ surfaceMassField config inputs.product.surfaceMass
                                     ]
 
-                                Product.Weaved _ defaultPicking ->
-                                    [ pickingField config defaultPicking
-                                    , surfaceMassField config inputs.product.surfaceMass
+                                Product.Weaved _ ->
+                                    [ surfaceMassField config inputs.product.surfaceMass
                                     ]
                             )
 
@@ -694,15 +672,7 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                         ]
 
                     Label.Fabric ->
-                        case inputs.product.fabric of
-                            Product.Knitted _ ->
-                                [ surfaceMassField config inputs.product.surfaceMass
-                                ]
-
-                            Product.Weaved _ defaultPicking ->
-                                [ pickingField config defaultPicking
-                                , surfaceMassField config inputs.product.surfaceMass
-                                ]
+                        [ surfaceMassField config inputs.product.surfaceMass ]
 
                     Label.Ennobling ->
                         [ div [ class "text-muted fs-7 mb-2" ]

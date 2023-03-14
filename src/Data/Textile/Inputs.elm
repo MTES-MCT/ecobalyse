@@ -266,7 +266,7 @@ toString inputs =
             Product.Knitted _ ->
                 [ "tricotage", inputs.countryFabric.name ]
 
-            Product.Weaved _ _ ->
+            Product.Weaved _ ->
                 [ "tissage", inputs.countryFabric.name ++ weavingOptionsToString inputs.picking inputs.surfaceMass ]
         )
     , ifStepEnabled Label.Ennobling

@@ -443,7 +443,7 @@ computeFabricImpacts ({ inputs, lifeCycle } as simulator) =
                                             , countryElecProcess = country.electricityProcess
                                             }
 
-                                    Product.Weaved process _ ->
+                                    Product.Weaved process ->
                                         let
                                             surfaceMass =
                                                 inputs.surfaceMass

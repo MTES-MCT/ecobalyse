@@ -296,7 +296,7 @@ minYarnSize =
 
 maxYarnSize : YarnSize
 maxYarnSize =
-    YarnSize 200
+    YarnSize 900
 
 
 yarnSize : Int -> YarnSize
