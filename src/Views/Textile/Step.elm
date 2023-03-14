@@ -745,37 +745,9 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
 
                   else
                     text ""
-                , let
-                    surfaceInfo =
-                        if current.label == Label.Fabric then
-                            Just ( "sortante", Step.getOutputSurface inputs current )
-
-                        else if current.label == Label.Ennobling then
-                            Just ( "entrante", Step.getInputSurface inputs current )
-
-                        else
-                            Nothing
-                  in
-                  case surfaceInfo of
-                    Just ( dir, surface ) ->
-                        li [ class "list-group-item text-muted d-flex justify-content-center gap-2" ]
-                            [ span [] [ text <| "Surface étoffe (" ++ dir ++ ")\u{00A0}:" ]
-                            , span [] [ Format.squareMetters surface ]
-                            ]
-
-                    Nothing ->
-                        text ""
-                , case current.picking of
-                    Just picking ->
-                        li [ class "list-group-item text-muted d-flex justify-content-center gap-2" ]
-                            [ text "Duitage\u{00A0}:\u{00A0}"
-                            , picking
-                                |> Unit.pickPerMeterToFloat
-                                |> Format.formatRichFloat 0 "duites.m"
-                            ]
-
-                    Nothing ->
-                        text ""
+                , surfaceInfoView inputs current
+                , pickingView current.picking
+                , threadDensityView current.threadDensity
                 , if Transport.totalKm current.transport > 0 then
                     li [ class "list-group-item text-muted" ]
                         [ current.transport
@@ -806,6 +778,73 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                 ]
             ]
         ]
+
+
+surfaceInfoView : Inputs -> Step -> Html msg
+surfaceInfoView inputs current =
+    let
+        surfaceInfo =
+            if current.label == Label.Fabric then
+                Just ( "sortante", Step.getOutputSurface inputs current )
+
+            else if current.label == Label.Ennobling then
+                Just ( "entrante", Step.getInputSurface inputs current )
+
+            else
+                Nothing
+    in
+    case surfaceInfo of
+        Just ( dir, surface ) ->
+            li [ class "list-group-item text-muted d-flex justify-content-center gap-2" ]
+                [ span [] [ text <| "Surface étoffe (" ++ dir ++ ")\u{00A0}:" ]
+                , span [] [ Format.squareMetters surface ]
+                ]
+
+        Nothing ->
+            text ""
+
+
+pickingView : Maybe Unit.PickPerMeter -> Html msg
+pickingView maybePicking =
+    case maybePicking of
+        Just picking ->
+            li [ class "list-group-item text-muted d-flex justify-content-center gap-2" ]
+                [ text "Duitage\u{00A0}:\u{00A0}"
+                , picking
+                    |> Unit.pickPerMeterToFloat
+                    |> Format.formatRichFloat 0 "duites.m"
+                ]
+
+        Nothing ->
+            text ""
+
+
+threadDensityView : Maybe Unit.ThreadDensity -> Html msg
+threadDensityView threadDensity =
+    case threadDensity of
+        Just density ->
+            let
+                value =
+                    Unit.threadDensityToFloat density
+            in
+            li [ class "list-group-item text-muted" ]
+                [ span [ class "d-flex justify-content-center gap-2" ]
+                    [ text "Densité de fils (approx.)\u{00A0}:\u{00A0}"
+                    , value
+                        |> Format.formatRichFloat 0 "fils/cm"
+                    ]
+                , if value < 10 then
+                    text "⚠️ la densité de fils semble très faible"
+
+                  else if value > 80 then
+                    text "⚠️ la densité de fils semble très élevée"
+
+                  else
+                    text ""
+                ]
+
+        Nothing ->
+            text ""
 
 
 view : Config msg -> Html msg

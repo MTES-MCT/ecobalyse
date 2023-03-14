@@ -295,7 +295,12 @@ knittingImpacts :
     Impacts
     -> { elec : Energy, countryElecProcess : Process }
     -> Mass
-    -> { kwh : Energy, picking : Maybe Unit.PickPerMeter, impacts : Impacts }
+    ->
+        { kwh : Energy
+        , threadDensity : Maybe Unit.ThreadDensity
+        , picking : Maybe Unit.PickPerMeter
+        , impacts : Impacts
+        }
 knittingImpacts impacts { elec, countryElecProcess } baseMass =
     let
         electricityKWh =
@@ -303,6 +308,7 @@ knittingImpacts impacts { elec, countryElecProcess } baseMass =
                 (Mass.inKilograms baseMass * Energy.inKilowattHours elec)
     in
     { kwh = electricityKWh
+    , threadDensity = Nothing
     , picking = Nothing
     , impacts =
         impacts
@@ -324,7 +330,12 @@ weavingImpacts :
         , yarnSize : Unit.YarnSize
         }
     -> Mass
-    -> { kwh : Energy, picking : Maybe Unit.PickPerMeter, impacts : Impacts }
+    ->
+        { kwh : Energy
+        , threadDensity : Maybe Unit.ThreadDensity
+        , picking : Maybe Unit.PickPerMeter
+        , impacts : Impacts
+        }
 weavingImpacts impacts { countryElecProcess, outputMass, pickingElec, surfaceMass, yarnSize } inputMass =
     let
         -- Laize (largeur du tissu, en m) = 1.6m (valeur constate)
@@ -341,7 +352,7 @@ weavingImpacts impacts { countryElecProcess, outputMass, pickingElec, surfaceMas
             outputSurface / fabricWidth
 
         -- Densité de fils (# fils/cm) = Masse sortante(g) * Titrage (Nm) / (Laize + Métrage) / (1,08) / 100
-        yarnDensity =
+        threadDensity =
             Mass.inGrams outputMass
                 * toFloat (Unit.yarnSizeToInt yarnSize)
                 / (fabricWidth + fabricLength)
@@ -350,7 +361,7 @@ weavingImpacts impacts { countryElecProcess, outputMass, pickingElec, surfaceMas
 
         -- Duites.m = Densité de fils (# fils / cm) * 100 * Métrage (m)
         picking =
-            yarnDensity * 100 * fabricLength
+            threadDensity * 100 * fabricLength
 
         electricityKWh =
             Mass.inKilograms inputMass
@@ -361,6 +372,7 @@ weavingImpacts impacts { countryElecProcess, outputMass, pickingElec, surfaceMas
                 |> Energy.kilowattHours
     in
     { kwh = electricityKWh
+    , threadDensity = Just (Unit.threadDensity threadDensity)
     , picking = Just <| Unit.pickPerMeter <| round picking
     , impacts =
         impacts

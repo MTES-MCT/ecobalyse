@@ -55,6 +55,7 @@ type alias Step =
     , reparability : Unit.Reparability
     , makingWaste : Maybe Unit.Ratio
     , picking : Maybe Unit.PickPerMeter
+    , threadDensity : Maybe Unit.ThreadDensity
     , yarnSize : Maybe Unit.YarnSize
     , surfaceMass : Maybe Unit.SurfaceMass
     , dyeingMedium : Maybe DyeingMedium
@@ -105,6 +106,7 @@ create { db, label, editable, country, enabled } =
     , reparability = Unit.standardReparability
     , makingWaste = Nothing
     , picking = Nothing
+    , threadDensity = Nothing
     , yarnSize = Nothing
     , surfaceMass = Nothing
     , dyeingMedium = Nothing
@@ -497,6 +499,7 @@ encode definitions v =
         , ( "reparability", Unit.encodeReparability v.reparability )
         , ( "makingWaste", v.makingWaste |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
         , ( "picking", v.picking |> Maybe.map Unit.encodePickPerMeter |> Maybe.withDefault Encode.null )
+        , ( "threadDensity", v.threadDensity |> Maybe.map Unit.encodeThreadDensity |> Maybe.withDefault Encode.null )
         , ( "yarnSize", v.yarnSize |> Maybe.map Unit.encodeYarnSize |> Maybe.withDefault Encode.null )
         , ( "surfaceMass", v.surfaceMass |> Maybe.map Unit.encodeSurfaceMass |> Maybe.withDefault Encode.null )
         ]

@@ -7,6 +7,7 @@ module Data.Unit exposing
     , Ratio(..)
     , Reparability(..)
     , SurfaceMass(..)
+    , ThreadDensity(..)
     , YarnSize(..)
     , decodeImpact
     , decodeQuality
@@ -20,6 +21,7 @@ module Data.Unit exposing
     , encodeRatio
     , encodeReparability
     , encodeSurfaceMass
+    , encodeThreadDensity
     , encodeYarnSize
     , forKWh
     , forKg
@@ -56,6 +58,8 @@ module Data.Unit exposing
     , surfaceMass
     , surfaceMassToFloat
     , surfaceMassToInt
+    , threadDensity
+    , threadDensityToFloat
     , yarnSize
     , yarnSizeToInt
     )
@@ -325,6 +329,29 @@ decodeYarnSize =
                     Decode.succeed int
             )
         |> Decode.map yarnSize
+
+
+
+-- Yarn density (Densité de fils)
+
+
+type ThreadDensity
+    = ThreadDensity Float
+
+
+encodeThreadDensity : ThreadDensity -> Encode.Value
+encodeThreadDensity (ThreadDensity float) =
+    Encode.float float
+
+
+threadDensity : Float -> ThreadDensity
+threadDensity =
+    ThreadDensity
+
+
+threadDensityToFloat : ThreadDensity -> Float
+threadDensityToFloat (ThreadDensity float) =
+    float
 
 
 
