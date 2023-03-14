@@ -6,6 +6,7 @@ import pandas as pd
 import json
 import hashlib
 import uuid
+from food.export_agb import export_builder
 
 # INPUT
 PROCESSES_AGB311 = "agb311.csv"
@@ -14,111 +15,6 @@ IMPACTS = "../../../public/data/impacts.json"
 # OUTPUT
 PROCESSES = "../../../public/data/food/processes/builder.json"
 
-def export_json(content, filename):
-    with open(filename, "w") as outfile:
-        json.dump(content, outfile, indent=2, ensure_ascii=False)
-        outfile.write("\n")  # Add a newline at the end of the file, as many editors do.
-
-
-def parse_ingredient_list(ingredients_base):
-    processes_to_add = []
-
-    for ingredient in ingredients_base:
-        for variant_name, variant in ingredient["variants"].items():
-            if isinstance(variant, dict):
-                # This is a complex ingredient, we need to create a new process from the elements we have.
-                processes_to_add.append(variant["simple_ingredient_default"])
-                processes_to_add.append(variant["simple_ingredient_variant"])
-    return processes_to_add
-
-class ProcessNotFoundByIdError(Exception):
-    def __init__(self, process_id):
-        self.message = f"Procédé non trouvé pour l'id {process_id}"
-        super().__init__(self.message)
-
-def get_process_by_id(processes, process_id):
-    for process in processes.values():
-        if process["simapro_id"] == process_id:
-            return process
-    raise ProcessNotFoundByIdError(process_id)
-
-
-class ProcessNotFoundByNameError(Exception):
-    def __init__(self, process_name):
-        self.message = f"Procédé non trouvé pour le nom {process_name}"
-        super().__init__(self.message)
-
-
-def get_process_by_name(processes, process_name):
-    new_name = name_change_dict.get(process_name,process_name)
-    for process in processes.values():        
-        if process["name"] == new_name:
-            return process
-    raise ProcessNotFoundByNameError(process_name)
-
-
-def compute_complex_ingredient(processes, ingredients_base):
-    new_processes = []
-
-    for ingredient in ingredients_base:
-        for variant_name, variant in ingredient["variants"].items():
-            if isinstance(variant, dict):
-                # This is a complex ingredient, we need to create a new process from the elements we have.
-                complex_ingredient_default = get_process_by_id(
-                    processes, ingredient["default"]
-                )
-                # The ratio is the quantity of simple ingredient necessary to produce 1 unit of complex ingredient
-                # For example, you need 1.16 kg of wheat (simple) to produce 1 kg of flour (complex) -> ratio = 1.16
-                ratio = variant["ratio"]
-
-                simple_ingredient_default = get_process_by_name(
-                    processes, variant["simple_ingredient_default"]
-                )
-                simple_ingredient_variant = get_process_by_name(
-                    processes, variant["simple_ingredient_variant"]
-                )
-
-                new_process = copy.deepcopy(complex_ingredient_default)
-                new_process[
-                    "name"
-                ] = f"{ingredient['id']}, {variant_name}, constructed by ecobalyse"
-                new_process["system_description"] = "ecobalyse"
-
-                # We generate a uuid using the process name as a seed
-                m = hashlib.md5()
-                seed = new_process["name"]
-                m.update(seed.encode("utf-8"))
-                new_process["simapro_id"] = str(uuid.UUID(m.hexdigest()))
-
-                for impact in new_process["impacts"]:
-                    # Formula: Impact farine bio = impact farine conventionnel + ratio * ( impact blé bio -  impact blé conventionnel)
-                    new_process["impacts"][impact] = new_process["impacts"][
-                        impact
-                    ] + ratio * (
-                        simple_ingredient_variant["impacts"][impact]
-                        - simple_ingredient_default["impacts"][impact]
-                    )
-                ingredient["variants"][variant_name] = new_process["simapro_id"]
-
-                new_processes.append(new_process)
-
-    return (ingredients_base, new_processes)
-
-def compute_pef(impacts_ecobalyse, impacts_dic):
-    pef = 0
-    total_weighting = 0
-    for k in impacts_ecobalyse.keys():
-        if k == "pef" or impacts_ecobalyse[k]["pef"] is None:
-            continue
-        norm = impacts_ecobalyse[k]["pef"]["normalization"]
-        weight = impacts_ecobalyse[k]["pef"]["weighting"]
-        total_weighting += weight
-        pef += impacts_dic[k] * weight / norm
-    # The PEF is computed for a total weighting of 1 (100%), if we are above
-    # (because of BVI for example), then normalize it
-    pef /= total_weighting
-    pef *= 1000000  # We need the result in µPt, but we have it in Pt
-    return pef
 
 
 if __name__ == "__main__":
@@ -193,7 +89,7 @@ if __name__ == "__main__":
             for impact,value in agb311_dict[proc["name"]].items():
                 proc["impacts"][impact] = value
 
-            proc["impacts"]["pef"] = compute_pef(impacts_ecobalyse, proc["impacts"])
+            proc["impacts"]["pef"] = export_builder.compute_pef(impacts_ecobalyse, proc["impacts"])
         except KeyError as e:
             print(f"KeyError, normal for complex ingredients 'constructed by ecobalyse', which are computed in the next step : {e}")
 
@@ -205,12 +101,12 @@ if __name__ == "__main__":
 
     processes_dic = {p["name"]:p for p in processes_list}
 
-    (ingredient_list, complex_processes) = compute_complex_ingredient(
+    (ingredient_list, complex_processes) = export_builder.compute_ingredient_list(
         processes_dic, ingredients_base
     )
     # update processes_dic with complex impacts
     for complex_p in complex_processes:
         processes_dic[complex_p["name"]] = complex_p 
     
-    processes_list = [v for (k,v) in processes_dic.items()]
-    export_json(processes_list, PROCESSES)
+    processes_list = list(processes_dic.values())
+    export_builder.export_json(processes_list, PROCESSES)
