@@ -481,7 +481,7 @@ components:
       style: form
       schema:
         type: number
-        minimum: 30
+        minimum: 80
         maximum: 500
     disabledFadingParam:
       name: disabledFading

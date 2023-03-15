@@ -387,7 +387,7 @@ type SurfaceMass
 
 minSurfaceMass : SurfaceMass
 minSurfaceMass =
-    SurfaceMass 30
+    SurfaceMass 80
 
 
 maxSurfaceMass : SurfaceMass
