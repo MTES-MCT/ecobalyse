@@ -1,6 +1,6 @@
 [
   {
-    "name": "Carrot, organic, Lower Normandy, at farm gate {FR} U",
+    "name": "Carrot, organic, Lower Normandy, at farm gate",
     "unit": "kilogram",
     "simapro_id": "9f147496e4f222def9af93b7b18ad49b",
     "system_description": "",
@@ -36,7 +36,7 @@
     }
   },
   {
-    "name": "Carrot, conventional, national average, at farm gate {FR} U",
+    "name": "Carrot, conventional, national average, at farm gate",
     "unit": "kilogram",
     "simapro_id": "61ca6413bd2be0106255b003424d00ba",
     "system_description": "",
@@ -72,7 +72,7 @@
     }
   },
   {
-    "name": "Soft wheat grain, conventional, national average, animal feed, at farm gate, production {FR} U",
+    "name": "Soft wheat grain, conventional, national average, animal feed, at farm gate, production",
     "unit": "kilogram",
     "simapro_id": "d77308bcc6f3988597e56b34d5e2c4fa",
     "system_description": "",
@@ -108,7 +108,7 @@
     }
   },
   {
-    "name": "Soft wheat grain, organic, 15% moisture, Central Region, at feed plant {FR} U",
+    "name": "Soft wheat grain, organic, 15% moisture, Central Region, at farm gate",
     "unit": "kilogram",
     "simapro_id": "9a0d187afb6c6d30bd71b9306b32f28c",
     "system_description": "AGRIBALYSE v1.4",
@@ -144,7 +144,7 @@
     }
   },
   {
-    "name": "Soft wheat grain, conventional, breadmaking quality, 15% moisture, at farm gate {FR} U",
+    "name": "Soft wheat grain, conventional, breadmaking quality, 15% moisture, at farm gate",
     "unit": "kilogram",
     "simapro_id": "16d88eaffeb666c4d39facde53afa26f",
     "system_description": "",
@@ -180,7 +180,7 @@
     }
   },
   {
-    "name": "Egg, national average, at farm gate {FR} U",
+    "name": "Egg, national average, at farm gate",
     "unit": "kilogram",
     "simapro_id": "83752804d1bf53b08b817b1bf9f83d1b",
     "system_description": "AGRIBALYSE v1.4",
@@ -217,7 +217,7 @@
     }
   },
   {
-    "name": "Egg, organic, at farm gate {FR} U",
+    "name": "Egg, organic, at farm gate",
     "unit": "kilogram",
     "simapro_id": "a99a8677a1ad37bfa7471f6c94df3e59",
     "system_description": "",
@@ -253,7 +253,7 @@
     }
   },
   {
-    "name": "Egg, Bleu Blanc Coeur, outdoor system, at farm gate {FR} U",
+    "name": "Egg, Bleu Blanc Coeur, outdoor system, at farm gate",
     "unit": "kilogram",
     "simapro_id": "216bb767da5b0a3f8aca1e18440700ac",
     "system_description": "",
@@ -289,7 +289,7 @@
     }
   },
   {
-    "name": "Cow milk, national average, at farm gate {FR} U",
+    "name": "Cow milk, national average, at farm gate",
     "unit": "kilogram",
     "simapro_id": "6dcf5acf59f35dce15894539dbb4f097",
     "system_description": "AGRIBALYSE v1.4",
@@ -326,7 +326,7 @@
     }
   },
   {
-    "name": "Wheat flour, at industrial mill {FR} U",
+    "name": "Wheat flour, at industrial mill",
     "unit": "kilogram",
     "simapro_id": "a343353e431d7dddc7bb25cbc41e179a",
     "system_description": "AGRIBALYSE v3.0",
@@ -361,7 +361,7 @@
     }
   },
   {
-    "name": "Sunflower, at farm {FR} - Adapted from WFLDB U",
+    "name": "Sunflower, at farm (WFLDB 3.1)",
     "unit": "kilogram",
     "simapro_id": "e8bee37ff29dc235950eeda2410748f5",
     "system_description": "",
@@ -398,7 +398,7 @@
     }
   },
   {
-    "name": "Sunflower grain, organic, system number 3, at farm gate {FR} U",
+    "name": "Sunflower grain, organic, system n°3, at farm gate",
     "unit": "kilogram",
     "simapro_id": "9f659ea8371928ec9e17956fea75fcae",
     "system_description": "AGRIBALYSE v3.0",
@@ -434,7 +434,7 @@
     }
   },
   {
-    "name": "Rape seed {FR}| production | Cut-off, U - Adapted from Ecoinvent U",
+    "name": "Rape seed {FR}| production | Cut-off, S - Copied from Ecoinvent",
     "unit": "kilogram",
     "simapro_id": "6e52cdd418148c6aa2e6d94c4a92028d",
     "system_description": "Ecoinvent v3",
@@ -468,7 +468,7 @@
     }
   },
   {
-    "name": "Winter rapeseed, organic, at farm gate {FR} U",
+    "name": "Winter rapeseed, organic, at farm gate",
     "unit": "kilogram",
     "simapro_id": "1a558498ad7a0c44a2d90f83f3bf0970",
     "system_description": "",
@@ -504,7 +504,7 @@
     }
   },
   {
-    "name": "Tomato, medium size, conventional, soil based, non-heated greenhouse, at greenhouse {FR} U",
+    "name": "Tomato, medium size, conventional, soil based, non-heated greenhouse, at greenhouse",
     "unit": "kilogram",
     "simapro_id": "0eb889c2db4f2a017150c944bbf78278",
     "system_description": "",
@@ -540,7 +540,7 @@
     }
   },
   {
-    "name": "Tomato, organic, greenhouse production, national average, at greenhouse {FR} U",
+    "name": "Tomato, organic, greenhouse production, national average, at greenhouse",
     "unit": "kilogram",
     "simapro_id": "e4a0e19482acde343e3d83f86747e7b6",
     "system_description": "",
@@ -576,7 +576,7 @@
     }
   },
   {
-    "name": "Ware potato, conventional, variety mix, national average, at farm gate {FR} U",
+    "name": "Ware potato, conventional, variety mix, national average, at farm gate",
     "unit": "kilogram",
     "simapro_id": "f2a99884d14493ebe4cd70b759106096",
     "system_description": "AGRIBALYSE v1.4",
@@ -613,7 +613,7 @@
     }
   },
   {
-    "name": "Durum wheat grain, conventional, national average, at farm gate {FR} U",
+    "name": "Durum wheat grain, conventional, national average, at farm gate",
     "unit": "kilogram",
     "simapro_id": "da43175dd8163643ce4d9cac19a45884",
     "system_description": "",
@@ -649,7 +649,7 @@
     }
   },
   {
-    "name": "Ground beef, fresh, case ready, for direct consumption, at plant {FR} U",
+    "name": "Ground beef, fresh, case ready, for direct consumption, at plant",
     "unit": "kilogram",
     "simapro_id": "da9409534ad17989aaccae4d44369016",
     "system_description": "AGRIBALYSE v3.0",
@@ -684,7 +684,7 @@
     }
   },
   {
-    "name": "Cooked ham, case ready, at plant {FR} U",
+    "name": "Cooked ham, case ready, at plant",
     "unit": "kilogram",
     "simapro_id": "159fc059d675499a87c7f8973e66fd8e",
     "system_description": "AGRIBALYSE v3.0",
@@ -720,7 +720,7 @@
     }
   },
   {
-    "name": "Meat with bone, lamb {FR} U",
+    "name": "Meat with bone, lamb",
     "unit": "kilogram",
     "simapro_id": "920ac3e2ac3579b5c4d2f549382c7e6b",
     "system_description": "AGRIBALYSE v3.0",
@@ -755,7 +755,7 @@
     }
   },
   {
-    "name": "Meat without bone, chicken, for direct consumption {FR} U",
+    "name": "Meat without bone, chicken, for direct consumption",
     "unit": "kilogram",
     "simapro_id": "199c1eb451fccdeadc3109d74f6802b5",
     "system_description": "AGRIBALYSE v3.0",
@@ -790,7 +790,7 @@
     }
   },
   {
-    "name": "Mango, conventional, Val de San Francisco, at orchard {BR} U",
+    "name": "Mango, conventional, Val de San Francisco, at orchard",
     "unit": "kilogram",
     "simapro_id": "c1e6f84a4fa89c2408bd7a2b2ed6cb96",
     "system_description": "AGRIBALYSE v1.4",
@@ -827,7 +827,7 @@
     }
   },
   {
-    "name": "Steel, unalloyed {RER}| steel production, converter, unalloyed | Cut-off, S - Copied from Ecoinvent U",
+    "name": "Steel, unalloyed {RER}| steel production, converter, unalloyed | Cut-off, S - Copied from Ecoinvent",
     "alias": "steel",
     "displayName": "Acier",
     "unit": "kilogram",
@@ -863,7 +863,7 @@
     }
   },
   {
-    "name": "Packaging film, low density polyethylene {RER}| production | Cut-off, S - Copied from Ecoinvent U",
+    "name": "Packaging film, low density polyethylene {RER}| production | Cut-off, S - Copied from Ecoinvent",
     "alias": "ldpe",
     "displayName": "Polyéthylène basse densité",
     "unit": "kilogram",
@@ -899,7 +899,7 @@
     }
   },
   {
-    "name": "Polystyrene, expandable {RER}| production | Cut-off, S - Copied from Ecoinvent U",
+    "name": "Polystyrene, expandable {RER}| production | Cut-off, S - Copied from Ecoinvent",
     "alias": "ps",
     "displayName": "Polystyrène",
     "unit": "kilogram",
@@ -935,7 +935,7 @@
     }
   },
   {
-    "name": "Packaging glass, white {RER w/o CH+DE}| production | Cut-off, S - Copied from Ecoinvent U",
+    "name": "Packaging glass, white {RER w/o CH+DE}| production | Cut-off, S - Copied from Ecoinvent",
     "alias": "glass",
     "displayName": "Verre",
     "unit": "kilogram",
@@ -971,7 +971,7 @@
     }
   },
   {
-    "name": "Polypropylene, granulate {RER}| production | Cut-off, S - Copied from Ecoinvent U",
+    "name": "Polypropylene, granulate {RER}| production | Cut-off, S - Copied from Ecoinvent",
     "alias": "pp",
     "displayName": "Polypropylène",
     "unit": "kilogram",
@@ -1007,7 +1007,7 @@
     }
   },
   {
-    "name": "Corrugated board box {RER}| production | Cut-off, S - Copied from Ecoinvent U",
+    "name": "Corrugated board box {RER}| production | Cut-off, S - Copied from Ecoinvent",
     "alias": "cardboard",
     "displayName": "Carton",
     "unit": "kilogram",
@@ -1043,7 +1043,7 @@
     }
   },
   {
-    "name": "Kraft paper {RER}| kraft paper production | Cut-off, S - Copied from Ecoinvent U",
+    "name": "Kraft paper, unbleached {RER}| production | Cut-off, S - Copied from Ecoinvent",
     "alias": "paper",
     "displayName": "Papier",
     "unit": "kilogram",
@@ -1079,7 +1079,7 @@
     }
   },
   {
-    "name": "Polyvinylchloride, suspension polymerised {RER}| polyvinylchloride production, suspension polymerisation | Cut-off, S - Copied from Ecoinvent U",
+    "name": "Polyvinylchloride, suspension polymerised {RER}| polyvinylchloride production, suspension polymerisation | Cut-off, S - Copied from Ecoinvent",
     "alias": "pvc",
     "displayName": "PVC",
     "unit": "kilogram",
@@ -1115,7 +1115,7 @@
     }
   },
   {
-    "name": "Polyethylene terephthalate, granulate, bottle grade {RER}| production | Cut-off, S - Copied from Ecoinvent U",
+    "name": "Polyethylene terephthalate, granulate, bottle grade {RER}| production | Cut-off, S - Copied from Ecoinvent",
     "alias": "pet",
     "displayName": "PET",
     "unit": "kilogram",
@@ -1151,7 +1151,7 @@
     }
   },
   {
-    "name": "Polyethylene, high density, granulate {RER}| production | Cut-off, S - Copied from Ecoinvent U",
+    "name": "Polyethylene, high density, granulate {RER}| production | Cut-off, S - Copied from Ecoinvent",
     "alias": "hdpe",
     "displayName": "Polyéthylène haute densité",
     "unit": "kilogram",
@@ -1187,7 +1187,7 @@
     }
   },
   {
-    "name": "Aluminium, primary, ingot {RoW}| production | Cut-off, S - Copied from Ecoinvent U",
+    "name": "Aluminium, primary, ingot {RoW}| production | Cut-off, S - Copied from Ecoinvent",
     "alias": "aluminium",
     "displayName": "Aluminium",
     "unit": "kilogram",
@@ -1223,7 +1223,7 @@
     }
   },
   {
-    "name": "Canning fruits or vegetables, industrial, 1kg of canned product {FR} U",
+    "name": "Canning fruits or vegetables, industrial, 1kg of canned product/ FR U",
     "alias": "canning",
     "displayName": "Mise en conserve",
     "unit": "kilogram",
@@ -1294,7 +1294,7 @@
     }
   },
   {
-    "name": "Cooking, industrial, 1kg of cooked product {FR} U",
+    "name": "Cooking, industrial, 1kg of cooked product/ FR U",
     "alias": "cooking",
     "displayName": "Cuisson",
     "unit": "kilogram",
@@ -1330,7 +1330,7 @@
     }
   },
   {
-    "name": "Cow milk, organic, national average, at farm gate/FR U",
+    "name": "Cow milk, organic, system n°1, at farm gate",
     "unit": "kilogram",
     "simapro_id": "dbbfa8c533e09b20f7909f4c68f72ffa",
     "system_description": "AGRIBALYSE v3.0",
@@ -1399,7 +1399,7 @@
     }
   },
   {
-    "name": "Transport, freight, sea, container ship {GLO}| transport, freight, sea, container ship | Cut-off, S - Copied from Ecoinvent U",
+    "name": "Transport, freight, sea, transoceanic ship {GLO}| processing | Cut-off, S - Copied from Ecoinvent",
     "alias": "boat",
     "unit": "ton kilometer",
     "simapro_id": "958bbb33cf6cdb8e3c8d4f21aec5ef98",
@@ -1434,7 +1434,7 @@
     }
   },
   {
-    "name": "Transport, freight, aircraft, long haul {GLO}| market for transport, freight, aircraft, long haul | Cut-off, S - Copied from Ecoinvent U",
+    "name": "Transport, freight, aircraft {RER}| intercontinental | Cut-off, S - Copied from Ecoinvent",
     "alias": "plane",
     "unit": "ton kilometer",
     "simapro_id": "5bc527741ac919ff8710a474f849614f",
@@ -1469,7 +1469,7 @@
     }
   },
   {
-    "name": "Transport, freight, sea, container ship with reefer, cooling {GLO}| transport, freight, sea, container ship with reefer, cooling | Cut-off, S - Copied from Ecoinvent U",
+    "name": "Transport, freight, sea, transoceanic ship with reefer, cooling {GLO}| processing | Cut-off, S - Copied from Ecoinvent",
     "alias": "boat-cooling",
     "unit": "ton kilometer",
     "simapro_id": "c254a7d7883068c09fb00e4a4e36b24a",
@@ -1504,7 +1504,7 @@
     }
   },
   {
-    "name": "Transport, freight, lorry with refrigeration machine, 7.5-16 ton, EURO5, R134a refrigerant, cooling {GLO}| transport, freight, lorry with refrigeration machine, 7.5-16 ton, EURO5, R134a refrigerant, cooling | Cut-off, S - Copied from Ecoinvent U",
+    "name": "Transport, freight, lorry with refrigeration machine, 7.5-16 ton, EURO5, R134a refrigerant, cooling {GLO}| transport, freight, lorry with refrigeration machine, 7.5-16 ton, EURO5, R134a refrigerant, cooling | Cut-off, S - Copied from Ecoinvent",
     "alias": "lorry-cooling",
     "unit": "ton kilometer",
     "simapro_id": "fb83f037d88e4f4f3c459af6599a09b3",
@@ -1539,7 +1539,7 @@
     }
   },
   {
-    "name": "Apple, conventional, national average, at orchard {FR} U",
+    "name": "Apple, conventional, national average, at orchard",
     "unit": "kilogram",
     "simapro_id": "590c11ca7aa7534b27f5403fb4688c5b",
     "system_description": "AGRIBALYSE v1.4",
@@ -1576,7 +1576,7 @@
     }
   },
   {
-    "name": "Apple, organic, national average, at orchard {FR} U",
+    "name": "Apple, organic, national average, at orchard",
     "unit": "kilogram",
     "simapro_id": "f1308e8aaa0cee8f63f6afb48e9abecd",
     "system_description": "AGRIBALYSE v1.4",
@@ -1613,7 +1613,7 @@
     }
   },
   {
-    "name": "Grape, full production (phase), integrated, variety mix, Languedoc-Roussillon, at vineyard {FR} U",
+    "name": "Grape, full production (phase), integrated, variety mix, Languedoc-Roussillon, at vineyard",
     "unit": "kilogram",
     "simapro_id": "264003a8e64837cf18d6aaa1a9f477f0",
     "system_description": "",
@@ -1650,7 +1650,7 @@
     }
   },
   {
-    "name": "Grape, organic, for wine production, national average, at vineyard gate/FR U",
+    "name": "Grape, full production (phase), organic, variety mix, Languedoc-Roussillon, at vineyard",
     "unit": "kilogram",
     "simapro_id": "a16fca295aff5ab9de57b3915cf8657a",
     "system_description": "",
@@ -1687,7 +1687,7 @@
     }
   },
   {
-    "name": "Electricity, low voltage {FR}| market for | Cut-off, S - Copied from Ecoinvent U",
+    "name": "Electricity, low voltage {FR}| market for | Cut-off, S - Copied from Ecoinvent",
     "alias": "low-voltage-electricity",
     "unit": "kilowatt hour",
     "simapro_id": "ef953c00d48ee59f57773534f6487b09",
@@ -1722,7 +1722,7 @@
     }
   },
   {
-    "name": "Tap water {Europe without Switzerland}| market for | Cut-off, S - Copied from Ecoinvent U",
+    "name": "Tap water {Europe without Switzerland}| market for | Cut-off, S - Copied from Ecoinvent",
     "alias": "tapwater",
     "unit": "kilogram",
     "simapro_id": "224411d9aa3c0ed3cf9b5fc590c237d2",
@@ -1789,7 +1789,7 @@
     }
   },
   {
-    "name": "Beef cattle, national average, at farm gate {FR} U",
+    "name": "Beef cattle, national average, at farm gate",
     "unit": "kilogram",
     "simapro_id": "1e0d969027eb2d70ac658448d0bf1394",
     "system_description": "AGRIBALYSE v1.4",
@@ -1826,7 +1826,7 @@
     }
   },
   {
-    "name": "Cull cow, organic, national average, at farm gate/FR U",
+    "name": "Cull cow, organic, milk system n°4, at farm gate",
     "unit": "kilogram",
     "simapro_id": "cfb9f0014d252d241eda4c65b0abd7fb",
     "system_description": "AGRIBALYSE v3.0",
@@ -1862,7 +1862,7 @@
     }
   },
   {
-    "name": "Pig, conventional, national average, at farm gate {FR} U",
+    "name": "Pig, conventional, national average, at farm gate",
     "unit": "kilogram",
     "simapro_id": "14b16da7d27fe13918762f43fee3f3db",
     "system_description": "",
@@ -1898,7 +1898,7 @@
     }
   },
   {
-    "name": "Pig, organic, system number 2, at farm gate {FR} U",
+    "name": "Pig, organic, system n°2, at farm gate",
     "unit": "kilogram",
     "simapro_id": "ec41a3c4d241bc09e42f9d94b5167334",
     "system_description": "AGRIBALYSE v3.0",
@@ -1934,7 +1934,7 @@
     }
   },
   {
-    "name": "Broiler, conventional, at farm gate {FR} U",
+    "name": "Broiler, conventional, at farm gate",
     "unit": "kilogram",
     "simapro_id": "ce7c1c71e54b4ff253517485cda4c9ad",
     "system_description": "",
@@ -1970,7 +1970,7 @@
     }
   },
   {
-    "name": "Broiler, organic, at farm gate {FR} U",
+    "name": "Broiler, organic, at farm gate",
     "unit": "kilogram",
     "simapro_id": "8518dbefcaa3d63862cc4918b0d4a084",
     "system_description": "",
@@ -2006,7 +2006,7 @@
     }
   },
   {
-    "name": "Lamb, conventional, indoor production system, at farm gate {FR} U",
+    "name": "Lamb, conventional, indoor production system, at farm gate",
     "unit": "kilogram",
     "simapro_id": "652f4fc016d29fb9fb8ecd63a44fb1c7",
     "system_description": "",
@@ -2042,7 +2042,7 @@
     }
   },
   {
-    "name": "Lamb, organic, national average, at farm gate/FR U",
+    "name": "Lamb, organic, system n°1, at farm gate",
     "unit": "kilogram",
     "simapro_id": "aab1f93200c0ab2ca604bf7488de55a6",
     "system_description": "AGRIBALYSE v3.0",
