@@ -2003,9 +2003,9 @@
     }
   },
   {
-    "name": "ground beef, organic, constructed by ecobalyse",
+    "name": "ground-beef, organic, constructed by ecobalyse",
     "unit": "kilogram",
-    "simapro_id": "f421457c-3eff-0e02-4b4e-ce9d13285321",
+    "simapro_id": "f1d2d7d3-1d37-eb4d-7bb2-31a3f399d747",
     "system_description": "ecobalyse",
     "category_tags": [
       "Agricultural",
@@ -2038,9 +2038,9 @@
     }
   },
   {
-    "name": "cooked ham, organic, constructed by ecobalyse",
+    "name": "cooked-ham, organic, constructed by ecobalyse",
     "unit": "kilogram",
-    "simapro_id": "5b306777-edf5-f0f9-836c-74ccc48a6383",
+    "simapro_id": "8cf39ae6-b10d-d055-8d10-8455fa551851",
     "system_description": "ecobalyse",
     "category_tags": [
       "Agricultural",
@@ -2074,9 +2074,9 @@
     }
   },
   {
-    "name": "chicken breast, organic, constructed by ecobalyse",
+    "name": "chicken-breast, organic, constructed by ecobalyse",
     "unit": "kilogram",
-    "simapro_id": "78da6b29-4bf9-ae19-be60-b129874659b0",
+    "simapro_id": "dc42d8b3-55a9-68e6-d5fe-cc2f3a20d2bb",
     "system_description": "ecobalyse",
     "category_tags": [
       "Agricultural",

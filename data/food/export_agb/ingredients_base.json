@@ -111,7 +111,7 @@
     "variants": {}
   },
   {
-    "id": "ground beef",
+    "id": "ground-beef",
     "name": "Boeuf haché",
     "default": "da9409534ad17989aaccae4d44369016",
     "default_origin": "EuropeAndMaghreb",
@@ -127,7 +127,7 @@
     }
   },
   {
-    "id": "cooked ham",
+    "id": "cooked-ham",
     "name": "Jambon",
     "default": "159fc059d675499a87c7f8973e66fd8e",
     "default_origin": "EuropeAndMaghreb",
@@ -143,7 +143,7 @@
     }
   },
   {
-    "id": "chicken breast",
+    "id": "chicken-breast",
     "name": "Poulet",
     "default": "199c1eb451fccdeadc3109d74f6802b5",
     "default_origin": "EuropeAndMaghreb",
