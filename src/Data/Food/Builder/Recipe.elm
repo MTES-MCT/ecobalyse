@@ -190,8 +190,7 @@ compute db =
 
                     distributionTransportNeedsCooling =
                         ingredients
-                            |> List.map (.ingredient >> .transportCooling)
-                            |> List.any ((/=) Ingredient.NoCooling)
+                            |> List.any (.ingredient >> .transportCooling >> (/=) Ingredient.NoCooling)
 
                     distributionTransport =
                         let
