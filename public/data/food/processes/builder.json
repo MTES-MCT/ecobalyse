@@ -613,42 +613,6 @@
     }
   },
   {
-    "name": "Durum wheat grain, conventional, national average, at farm gate",
-    "unit": "kilogram",
-    "simapro_id": "da43175dd8163643ce4d9cac19a45884",
-    "system_description": "",
-    "category_tags": [
-      "Agricultural",
-      "Plant production",
-      "Cereals",
-      "Transformation"
-    ],
-    "category": "material",
-    "impacts": {
-      "acd": 0.008970646,
-      "ozd": 3.91046e-08,
-      "cch": 0.7232765,
-      "fwe": 0.0002370794,
-      "swe": 0.007697249,
-      "tre": 0.03946135,
-      "pco": 0.002087522,
-      "pma": 5.533526e-08,
-      "ior": 0.03629047,
-      "fru": 4.006096,
-      "mru": 2.868718e-06,
-      "ldu": 101.1153,
-      "wtu": 1.833084,
-      "etf": 4.564571,
-      "htc": 1.505849e-10,
-      "htn": 1.05522e-09,
-      "bvi": 0.940864665,
-      "pef": 98.44047043772649,
-      "etf-c": 7.88051731,
-      "htc-c": 2.9210444199999997e-10,
-      "htn-c": 1.4399008199999999e-09
-    }
-  },
-  {
     "name": "Ground beef, fresh, case ready, for direct consumption, at plant",
     "unit": "kilogram",
     "simapro_id": "da9409534ad17989aaccae4d44369016",
@@ -1536,80 +1500,6 @@
       "etf-c": 1.610684,
       "htc-c": 1.2093536e-10,
       "htn-c": 6.925307999999999e-10
-    }
-  },
-  {
-    "name": "Apple, conventional, national average, at orchard",
-    "unit": "kilogram",
-    "simapro_id": "590c11ca7aa7534b27f5403fb4688c5b",
-    "system_description": "AGRIBALYSE v1.4",
-    "category_tags": [
-      "Agricultural",
-      "Plant production",
-      "Fruits",
-      "Transformation"
-    ],
-    "comment": "FRANCE",
-    "category": "material",
-    "impacts": {
-      "acd": 0.0009772764,
-      "ozd": 1.767505e-08,
-      "cch": 0.09022531,
-      "fwe": 1.515841e-05,
-      "swe": 0.0004402154,
-      "tre": 0.00507008,
-      "pco": 0.0005639516,
-      "pma": 7.940157e-09,
-      "ior": 0.01646114,
-      "fru": 1.107745,
-      "mru": 1.462623e-06,
-      "ldu": 12.01061,
-      "wtu": 2.574607,
-      "etf": 6.807739,
-      "htc": 1.511943e-10,
-      "htn": 1.182823e-09,
-      "bvi": 0.201080315,
-      "pef": 34.27632472839745,
-      "etf-c": 13.087289659999998,
-      "htc-c": 2.97706333e-10,
-      "htn-c": 2.023706811e-09
-    }
-  },
-  {
-    "name": "Apple, organic, national average, at orchard",
-    "unit": "kilogram",
-    "simapro_id": "f1308e8aaa0cee8f63f6afb48e9abecd",
-    "system_description": "AGRIBALYSE v1.4",
-    "category_tags": [
-      "Agricultural",
-      "Plant production",
-      "Fruits",
-      "Transformation"
-    ],
-    "comment": "FRANCE",
-    "category": "material",
-    "impacts": {
-      "acd": 0.00146442,
-      "ozd": 1.896668e-08,
-      "cch": 0.1127617,
-      "fwe": 2.859758e-05,
-      "swe": 0.001655601,
-      "tre": 0.006288799,
-      "pco": 0.001041295,
-      "pma": 7.660257e-09,
-      "ior": 0.03193412,
-      "fru": 1.8865,
-      "mru": 4.509942e-06,
-      "ldu": 24.79391,
-      "wtu": 5.253923,
-      "etf": 0.7074084,
-      "htc": 4.856564e-11,
-      "htn": 1.165704e-09,
-      "bvi": 0.182874822,
-      "pef": 61.303873822924544,
-      "etf-c": 0.8426286000000001,
-      "htc-c": 8.304254e-11,
-      "htn-c": 1.3077028919999999e-09
     }
   },
   {

@@ -15,7 +15,6 @@ Winter rapeseed, organic, at farm gate
 Tomato, medium size, conventional, soil based, non-heated greenhouse, at greenhouse
 Tomato, organic, greenhouse production, national average, at greenhouse
 Ware potato, conventional, variety mix, national average, at farm gate
-Durum wheat grain, conventional, national average, at farm gate
 Ground beef, fresh, case ready, for direct consumption, at plant
 Cooked ham, case ready, at plant
 Meat with bone, lamb
@@ -41,8 +40,6 @@ Transport, freight, sea, transoceanic ship {GLO}| processing | Cut-off, S - Copi
 Transport, freight, aircraft {RER}| intercontinental | Cut-off, S - Copied from Ecoinvent
 Transport, freight, sea, transoceanic ship with reefer, cooling {GLO}| processing | Cut-off, S - Copied from Ecoinvent"
 Transport, freight, lorry with refrigeration machine, 7.5-16 ton, EURO5, R134a refrigerant, cooling {GLO}| transport, freight, lorry with refrigeration machine, 7.5-16 ton, EURO5, R134a refrigerant, cooling | Cut-off, S - Copied from Ecoinvent"
-Apple, conventional, national average, at orchard
-Apple, organic, national average, at orchard
 Grape, full production (phase), integrated, variety mix, Languedoc-Roussillon, at vineyard
 Grape, full production (phase), organic, variety mix, Languedoc-Roussillon, at vineyard
 Electricity, low voltage {FR}| market for | Cut-off, S - Copied from Ecoinvent
