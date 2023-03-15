@@ -771,6 +771,7 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                             |> TransportView.view
                                 { fullWidth = True
                                 , hideNoLength = False
+                                , onlyIcons = False
                                 , airTransportLabel = current.processInfo.airTransport
                                 , seaTransportLabel = current.processInfo.seaTransport
                                 , roadTransportLabel = current.processInfo.roadTransport

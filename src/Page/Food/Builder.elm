@@ -683,12 +683,12 @@ displayTransportDistances db ingredient ingredientQuery event =
                         [ Format.km sea ]
                 ]
             , if road /= Length.kilometers 0 then
-                TransportView.entry road Icon.bus "Transport routier"
+                TransportView.entry { onlyIcons = False, distance = road, icon = Icon.bus, label = "Transport routier" }
 
               else
                 text ""
             , if roadCooled /= Length.kilometers 0 then
-                TransportView.entry roadCooled Icon.busCooled "Transport routier réfrigéré"
+                TransportView.entry { onlyIcons = False, distance = roadCooled, icon = Icon.busCooled, label = "Transport routier réfrigéré" }
 
               else
                 text ""
@@ -700,6 +700,7 @@ displayTransportDistances db ingredient ingredientQuery event =
                 |> TransportView.viewDetails
                     { fullWidth = False
                     , hideNoLength = True
+                    , onlyIcons = False
                     , airTransportLabel = Nothing
                     , seaTransportLabel = Nothing
                     , roadTransportLabel = Nothing
@@ -814,10 +815,10 @@ packagingListView db selectedImpact recipe results =
             |> Format.formatFoodSelectedImpact selectedImpact
         ]
     , ul [ class "list-group list-group-flush" ]
-        (if List.isEmpty recipe.packaging then
+        ((if List.isEmpty recipe.packaging then
             [ li [ class "list-group-item" ] [ text "Aucun emballage" ] ]
 
-         else
+          else
             recipe.packaging
                 |> List.map
                     (\packaging ->
@@ -835,13 +836,64 @@ packagingListView db selectedImpact recipe results =
                             , deleteEvent = DeletePackaging packaging.process.code
                             }
                     )
+         )
+            ++ [ addProcessFormView
+                    { isDisabled = availablePackagings == []
+                    , event = AddPackaging
+                    , kind = "un emballage"
+                    }
+               ]
         )
-    , addProcessFormView
-        { isDisabled = availablePackagings == []
-        , event = AddPackaging
-        , kind = "un emballage"
-        }
     ]
+
+
+transportToTransformationView : Impact.Definition -> Recipe -> Recipe.Results -> Html Msg
+transportToTransformationView selectedImpact recipe results =
+    DownArrow.view
+        []
+        [ div []
+            [ text "Masse : "
+            , recipe.ingredients
+                |> Query.getIngredientMass
+                |> Format.kg
+            ]
+        , div [ class "d-flex justify-content-between" ]
+            [ div [ class "d-flex justify-content-between gap-3" ]
+                (results.recipe.transports
+                    |> TransportView.viewDetails
+                        { fullWidth = False
+                        , hideNoLength = True
+                        , onlyIcons = True
+                        , airTransportLabel = Nothing
+                        , seaTransportLabel = Nothing
+                        , roadTransportLabel = Nothing
+                        }
+                )
+            , Format.formatFoodSelectedImpact selectedImpact results.recipe.transports.impacts
+            ]
+        ]
+
+
+transportToPackagingView : Recipe -> Html Msg
+transportToPackagingView recipe =
+    DownArrow.view
+        []
+        [ div []
+            [ case recipe.transform of
+                Just transform ->
+                    span
+                        [ title <| "(" ++ Process.nameToString transform.process.name ++ ")" ]
+                        [ text "Masse du produit après transformation : " ]
+
+                Nothing ->
+                    text "Masse : "
+            , Recipe.getTransformedIngredientsMass recipe
+                |> Format.kg
+            , Link.smallPillExternal
+                [ href (Gitbook.publicUrlFromPath Gitbook.FoodRawToCookedRatio) ]
+                [ Icon.question ]
+            ]
+        ]
 
 
 transportToDistributionView : Impact.Definition -> Recipe -> Recipe.Results -> Html Msg
@@ -862,6 +914,7 @@ transportToDistributionView selectedImpact recipe results =
                     |> TransportView.viewDetails
                         { fullWidth = False
                         , hideNoLength = True
+                        , onlyIcons = False
                         , airTransportLabel = Nothing
                         , seaTransportLabel = Nothing
                         , roadTransportLabel = Nothing
@@ -869,6 +922,31 @@ transportToDistributionView selectedImpact recipe results =
                 )
             , Format.formatFoodSelectedImpact selectedImpact results.distribution.transports.impacts
             ]
+        ]
+
+
+transportToConsumptionView : Recipe -> Html Msg
+transportToConsumptionView recipe =
+    DownArrow.view
+        []
+        [ text <| "Masse : "
+        , Recipe.getTransformedIngredientsMass recipe
+            |> Format.kg
+        , text " + Emballage : "
+        , Recipe.getPackagingMass recipe
+            |> Format.kg
+        ]
+
+
+transportAfterConsumptionView : Recipe -> Recipe.Results -> Html Msg
+transportAfterConsumptionView recipe result =
+    DownArrow.view
+        []
+        [ text <| "Masse : "
+        , Format.kg result.preparedMass
+        , text " + Emballage : "
+        , Recipe.getPackagingMass recipe
+            |> Format.kg
         ]
 
 
@@ -897,15 +975,13 @@ distributionView selectedImpact recipe results =
                             )
                     )
                 ]
-            ]
-        , div
-            [ class "card-body d-flex justify-content-between align-items-center gap-1"
-            , class "border-top-0 text-muted py-2 fs-7"
-            ]
-            [ div [ class "text-truncate" ]
-                [ recipe.distribution
-                    |> Retail.displayNeeds
-                    |> text
+            , li
+                [ class "list-group-item fs-7" ]
+                [ span [ class "text-truncate" ]
+                    [ recipe.distribution
+                        |> Retail.displayNeeds
+                        |> text
+                    ]
                 ]
             ]
         ]
@@ -920,10 +996,10 @@ consumptionView db selectedImpact recipe results =
             |> Format.formatFoodSelectedImpact selectedImpact
         ]
     , ul [ class "list-group list-group-flush" ]
-        (if List.isEmpty recipe.preparation then
-            [ li [ class "list-group-item" ] [ text "Sans préparation" ] ]
+        ((if List.isEmpty recipe.preparation then
+            [ li [ class "list-group-item" ] [ text "Aucune préparation" ] ]
 
-         else
+          else
             recipe.preparation
                 |> List.map
                     (\usedPreparation ->
@@ -961,21 +1037,14 @@ consumptionView db selectedImpact recipe results =
                                 [ Icon.trash ]
                             ]
                     )
+         )
+            ++ [ addProcessFormView
+                    { isDisabled = List.length recipe.preparation == 2
+                    , event = AddPreparation
+                    , kind = "une technique de préparation"
+                    }
+               ]
         )
-    , addProcessFormView
-        { isDisabled = List.length recipe.preparation == 2
-        , event = AddPreparation
-        , kind = "une technique de préparation"
-        }
-    , div
-        [ class "card-body d-flex justify-content-between align-items-center gap-1 border-top"
-        , class "text-muted py-2 fs-7"
-        ]
-        [ div [ class "text-truncate" ]
-            [ text <| "Masse finale de produit préparé\u{00A0}:\u{00A0}"
-            , Format.kg results.preparedMass
-            ]
-        ]
     ]
 
 
@@ -1219,18 +1288,19 @@ stepListView db { impact } recipe results =
     div []
         [ div [ class "card" ]
             (ingredientListView db impact recipe results)
-        , DownArrow.view [] []
+        , transportToTransformationView impact recipe results
         , div [ class "card" ]
             (transformView db impact recipe results)
-        , DownArrow.view [] []
+        , transportToPackagingView recipe
         , div [ class "card" ]
             (packagingListView db impact recipe results)
         , transportToDistributionView impact recipe results
         , div [ class "card" ]
             (distributionView impact recipe results)
-        , DownArrow.view [] []
+        , transportToConsumptionView recipe
         , div [ class "card" ]
             (consumptionView db impact recipe results)
+        , transportAfterConsumptionView recipe results
         ]
 
 
@@ -1308,47 +1378,27 @@ transformView db selectedImpact recipe results =
         [ h5 [ class "mb-0" ] [ text "Transformation" ]
         , impact
         ]
-    , case recipe.transform of
-        Just transform ->
-            div []
-                [ ul [ class "list-group list-group-flush border-top-0 border-bottom-0" ]
-                    [ updateProcessFormView
-                        { processes =
-                            db.processes
-                                |> Process.listByCategory Process.Transform
-                        , excluded = [ transform.process.code ]
-                        , processQuery = { code = transform.process.code, mass = transform.mass }
-                        , impact = impact
-                        , updateEvent = UpdateTransform
-                        , deleteEvent = ResetTransform
-                        }
-                    ]
-                , div
-                    [ class "card-body d-flex justify-content-between align-items-center gap-1"
-                    , class "border-top-0 text-muted py-2 fs-7"
-                    ]
-                    [ div [ class "text-truncate" ]
-                        [ text <|
-                            "Masse du produit après transformation ("
-                                ++ Process.nameToString transform.process.name
-                                ++ ")"
-                        ]
-                    , span [ class "d-flex" ]
-                        [ Recipe.getTransformedIngredientsMass recipe
-                            |> Format.kg
-                        , Link.smallPillExternal
-                            [ href (Gitbook.publicUrlFromPath Gitbook.FoodRawToCookedRatio) ]
-                            [ Icon.question ]
-                        ]
-                    ]
-                ]
+    , ul [ class "list-group list-group-flush border-top-0 border-bottom-0" ]
+        [ case recipe.transform of
+            Just transform ->
+                updateProcessFormView
+                    { processes =
+                        db.processes
+                            |> Process.listByCategory Process.Transform
+                    , excluded = [ transform.process.code ]
+                    , processQuery = { code = transform.process.code, mass = transform.mass }
+                    , impact = impact
+                    , updateEvent = UpdateTransform
+                    , deleteEvent = ResetTransform
+                    }
 
-        Nothing ->
-            addProcessFormView
-                { isDisabled = False
-                , event = AddTransform
-                , kind = "une transformation"
-                }
+            Nothing ->
+                addProcessFormView
+                    { isDisabled = False
+                    , event = AddTransform
+                    , kind = "une transformation"
+                    }
+        ]
     ]
 
 
