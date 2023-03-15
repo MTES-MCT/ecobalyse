@@ -250,12 +250,16 @@ def get_process_by_name(processes, process_name):
     raise ProcessNotFoundByNameError(process_name)
 
 
+def is_complex_ingredient(variant):
+    return "simple_ingredient_default" in variant  # This is enough (for now?) to detect if an ingredient is complex
+
+
 def parse_ingredient_list(ingredients_base):
     processes_to_add = []
 
     for ingredient in ingredients_base:
         for variant_name, variant in ingredient["variants"].items():
-            if isinstance(variant, dict):
+            if is_complex_ingredient(variant):
                 # This is a complex ingredient, we need to create a new process from the elements we have.
                 processes_to_add.append(variant["simple_ingredient_default"])
                 processes_to_add.append(variant["simple_ingredient_variant"])
@@ -267,7 +271,7 @@ def compute_ingredient_list(processes, ingredients_base):
 
     for ingredient in ingredients_base:
         for variant_name, variant in ingredient["variants"].items():
-            if isinstance(variant, dict):
+            if is_complex_ingredient(variant):
                 # This is a complex ingredient, we need to create a new process from the elements we have.
                 complex_ingredient_default = get_process_by_id(
                     processes, ingredient["default"]
