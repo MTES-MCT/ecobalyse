@@ -101,7 +101,20 @@ idToString (Id str) =
 
 
 type alias Variants =
-    { organic : Maybe Process
+    { organic : Maybe OrganicVariant
+    }
+
+
+type alias OrganicVariant =
+    { process : Process
+    , defaultBeyondACV : BeyondACV
+    }
+
+
+type alias BeyondACV =
+    { agroDiversity : Unit.Ratio
+    , agroEcology : Unit.Ratio
+    , animalWellness : Unit.Ratio
     }
 
 
@@ -150,7 +163,7 @@ decodeTransportCooling =
 decodeVariants : Dict String Process -> Decoder Variants
 decodeVariants processes =
     Decode.succeed Variants
-        |> Pipe.optional "organic" (Decode.maybe (linkProcess processes)) Nothing
+        |> Pipe.optional "organic" (Decode.maybe (linkOrganicVariant processes)) Nothing
 
 
 findByID : Id -> List Ingredient -> Result String Ingredient
@@ -195,3 +208,18 @@ linkProcess processes =
                             |> Result.fromMaybe ("Procédé introuvable par code : " ++ processCode)
                    )
             )
+
+
+linkOrganicVariant : Dict String Process -> Decoder OrganicVariant
+linkOrganicVariant processes =
+    Decode.succeed OrganicVariant
+        |> Pipe.required "process" (linkProcess processes)
+        |> Pipe.required "beyondACV" decodeBeyondACV
+
+
+decodeBeyondACV : Decoder BeyondACV
+decodeBeyondACV =
+    Decode.succeed BeyondACV
+        |> Pipe.required "agro-diversity" (Unit.decodeRatio { percentage = True })
+        |> Pipe.required "agro-ecology" (Unit.decodeRatio { percentage = True })
+        |> Pipe.optional "animal-wellness" (Unit.decodeRatio { percentage = True }) (Unit.ratio 0)

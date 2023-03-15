@@ -625,6 +625,7 @@ getRecipeIngredientProcess { ingredient, variant } =
 
         BuilderQuery.Organic ->
             ingredient.variants.organic
+                |> Maybe.map .process
                 |> Maybe.withDefault ingredient.default
 
 
