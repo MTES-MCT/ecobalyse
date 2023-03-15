@@ -71,7 +71,7 @@ type alias Inputs =
     , quality : Maybe Unit.Quality
     , reparability : Maybe Unit.Reparability
     , makingWaste : Maybe Split
-    , picking : Maybe Unit.PickPerMeter
+    , yarnSize : Maybe Unit.YarnSize
     , surfaceMass : Maybe Unit.SurfaceMass
     , disabledSteps : List Label
     , disabledFading : Maybe Bool
@@ -99,7 +99,7 @@ type alias Query =
     , quality : Maybe Unit.Quality
     , reparability : Maybe Unit.Reparability
     , makingWaste : Maybe Split
-    , picking : Maybe Unit.PickPerMeter
+    , yarnSize : Maybe Unit.YarnSize
     , surfaceMass : Maybe Unit.SurfaceMass
     , disabledSteps : List Label
     , disabledFading : Maybe Bool
@@ -189,7 +189,7 @@ fromQuery db query =
         |> RE.andMap (Ok query.quality)
         |> RE.andMap (Ok query.reparability)
         |> RE.andMap (Ok query.makingWaste)
-        |> RE.andMap (Ok query.picking)
+        |> RE.andMap (Ok query.yarnSize)
         |> RE.andMap (Ok query.surfaceMass)
         |> RE.andMap (Ok query.disabledSteps)
         |> RE.andMap (Ok query.disabledFading)
@@ -220,7 +220,7 @@ toQuery inputs =
     , quality = inputs.quality
     , reparability = inputs.reparability
     , makingWaste = inputs.makingWaste
-    , picking = inputs.picking
+    , yarnSize = inputs.yarnSize
     , surfaceMass = inputs.surfaceMass
     , disabledSteps = inputs.disabledSteps
     , disabledFading = inputs.disabledFading
@@ -250,13 +250,19 @@ toString inputs =
         [ "filature"
         , inputs.countrySpinning.name
         ]
+    , case inputs.yarnSize of
+        Just yarnSize ->
+            [ "Titrage", String.fromInt (Unit.yarnSizeToInt yarnSize) ++ "Nm" ]
+
+        Nothing ->
+            []
     , ifStepEnabled Label.Fabric
         (case inputs.product.fabric of
             Product.Knitted _ ->
                 [ "tricotage", inputs.countryFabric.name ]
 
-            Product.Weaved _ _ ->
-                [ "tissage", inputs.countryFabric.name ++ weavingOptionsToString inputs.picking inputs.surfaceMass ]
+            Product.Weaved _ ->
+                [ "tissage", inputs.countryFabric.name ]
         )
     , ifStepEnabled Label.Ennobling
         [ case inputs.dyeingMedium of
@@ -309,12 +315,6 @@ materialsToString materials =
                     ++ material.shortName
             )
         |> String.join ", "
-
-
-weavingOptionsToString : Maybe Unit.PickPerMeter -> Maybe Unit.SurfaceMass -> String
-weavingOptionsToString _ _ =
-    -- FIXME: migrate Step.*ToString fns to avoid circular import so we can reuse them here?
-    ""
 
 
 makingOptionsToString : Inputs -> String
@@ -498,7 +498,7 @@ updateProduct product query =
             , quality = Nothing
             , reparability = Nothing
             , makingWaste = Nothing
-            , picking = Nothing
+            , yarnSize = Nothing
             , surfaceMass = Nothing
             , disabledFading = Nothing
             , dyeingMedium = Nothing
@@ -529,7 +529,7 @@ tShirtCotonFrance =
     , quality = Nothing
     , reparability = Nothing
     , makingWaste = Nothing
-    , picking = Nothing
+    , yarnSize = Nothing
     , surfaceMass = Nothing
     , disabledSteps = []
     , disabledFading = Nothing
@@ -583,7 +583,7 @@ jupeCircuitAsie =
     , quality = Nothing
     , reparability = Nothing
     , makingWaste = Nothing
-    , picking = Nothing
+    , yarnSize = Nothing
     , surfaceMass = Nothing
     , disabledSteps = []
     , disabledFading = Nothing
@@ -607,7 +607,7 @@ manteauCircuitEurope =
     , quality = Nothing
     , reparability = Nothing
     , makingWaste = Nothing
-    , picking = Nothing
+    , yarnSize = Nothing
     , surfaceMass = Nothing
     , disabledSteps = []
     , disabledFading = Nothing
@@ -631,7 +631,7 @@ pantalonCircuitEurope =
     , quality = Nothing
     , reparability = Nothing
     , makingWaste = Nothing
-    , picking = Nothing
+    , yarnSize = Nothing
     , surfaceMass = Nothing
     , disabledSteps = []
     , disabledFading = Nothing
@@ -665,7 +665,7 @@ encode inputs =
         , ( "quality", inputs.quality |> Maybe.map Unit.encodeQuality |> Maybe.withDefault Encode.null )
         , ( "reparability", inputs.reparability |> Maybe.map Unit.encodeReparability |> Maybe.withDefault Encode.null )
         , ( "makingWaste", inputs.makingWaste |> Maybe.map Split.encodeFloat |> Maybe.withDefault Encode.null )
-        , ( "picking", inputs.picking |> Maybe.map Unit.encodePickPerMeter |> Maybe.withDefault Encode.null )
+        , ( "yarnSize", inputs.yarnSize |> Maybe.map Unit.encodeYarnSize |> Maybe.withDefault Encode.null )
         , ( "surfaceMass", inputs.surfaceMass |> Maybe.map Unit.encodeSurfaceMass |> Maybe.withDefault Encode.null )
         , ( "disabledSteps", Encode.list Label.encode inputs.disabledSteps )
         , ( "disabledFading", inputs.disabledFading |> Maybe.map Encode.bool |> Maybe.withDefault Encode.null )
@@ -697,7 +697,7 @@ decodeQuery =
         |> Pipe.optional "quality" (Decode.maybe Unit.decodeQuality) Nothing
         |> Pipe.optional "reparability" (Decode.maybe Unit.decodeReparability) Nothing
         |> Pipe.optional "makingWaste" (Decode.maybe Split.decodeFloat) Nothing
-        |> Pipe.optional "picking" (Decode.maybe Unit.decodePickPerMeter) Nothing
+        |> Pipe.optional "yarnSize" (Decode.maybe Unit.decodeYarnSize) Nothing
         |> Pipe.optional "surfaceMass" (Decode.maybe Unit.decodeSurfaceMass) Nothing
         |> Pipe.optional "disabledSteps" (Decode.list Label.decodeFromCode) []
         |> Pipe.optional "disabledFading" (Decode.maybe Decode.bool) Nothing
@@ -727,7 +727,7 @@ encodeQuery query =
         , ( "quality", query.quality |> Maybe.map Unit.encodeQuality |> Maybe.withDefault Encode.null )
         , ( "reparability", query.reparability |> Maybe.map Unit.encodeReparability |> Maybe.withDefault Encode.null )
         , ( "makingWaste", query.makingWaste |> Maybe.map Split.encodeFloat |> Maybe.withDefault Encode.null )
-        , ( "picking", query.picking |> Maybe.map Unit.encodePickPerMeter |> Maybe.withDefault Encode.null )
+        , ( "yarnSize", query.yarnSize |> Maybe.map Unit.encodeYarnSize |> Maybe.withDefault Encode.null )
         , ( "surfaceMass", query.surfaceMass |> Maybe.map Unit.encodeSurfaceMass |> Maybe.withDefault Encode.null )
         , ( "disabledSteps", Encode.list Label.encode query.disabledSteps )
         , ( "disabledFading", query.disabledFading |> Maybe.map Encode.bool |> Maybe.withDefault Encode.null )

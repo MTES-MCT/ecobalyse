@@ -294,7 +294,12 @@ knittingImpacts :
     Impacts
     -> { elec : Energy, countryElecProcess : Process }
     -> Mass
-    -> { kwh : Energy, impacts : Impacts }
+    ->
+        { kwh : Energy
+        , threadDensity : Maybe Unit.ThreadDensity
+        , picking : Maybe Unit.PickPerMeter
+        , impacts : Impacts
+        }
 knittingImpacts impacts { elec, countryElecProcess } baseMass =
     let
         electricityKWh =
@@ -302,6 +307,8 @@ knittingImpacts impacts { elec, countryElecProcess } baseMass =
                 (Mass.inKilograms baseMass * Energy.inKilowattHours elec)
     in
     { kwh = electricityKWh
+    , threadDensity = Nothing
+    , picking = Nothing
     , impacts =
         impacts
             |> Impact.mapImpacts
@@ -315,21 +322,63 @@ knittingImpacts impacts { elec, countryElecProcess } baseMass =
 weavingImpacts :
     Impacts
     ->
-        { pickingElec : Float
-        , countryElecProcess : Process
-        , picking : Unit.PickPerMeter
+        { countryElecProcess : Process
+        , outputMass : Mass
+        , pickingElec : Float
         , surfaceMass : Unit.SurfaceMass
+        , yarnSize : Unit.YarnSize
         }
     -> Mass
-    -> { kwh : Energy, impacts : Impacts }
-weavingImpacts impacts { pickingElec, countryElecProcess, picking, surfaceMass } baseMass =
+    ->
+        { kwh : Energy
+        , threadDensity : Maybe Unit.ThreadDensity
+        , picking : Maybe Unit.PickPerMeter
+        , impacts : Impacts
+        }
+weavingImpacts impacts { countryElecProcess, outputMass, pickingElec, surfaceMass, yarnSize } inputMass =
+    -- Methodology: https://fabrique-numerique.gitbook.io/ecobalyse/textile/etapes-du-cycle-de-vie/tricotage-tissage
     let
+        -- Surface sortante (en m2)
+        outputSurface =
+            Mass.inGrams outputMass
+                / Unit.surfaceMassToFloat surfaceMass
+
+        -- Laize (largeur du tissu, en m) = 1.6m (valeur constate)
+        fabricWidth =
+            1.6
+
+        -- Métrage (longueur du tissu, en m2) = Surface sortante (en m2) / Laize (en m)
+        fabricLength =
+            outputSurface / fabricWidth
+
+        -- Taux d'embuvage/retrait = 8% (valeur constante)
+        wasteRatio =
+            1.08
+
+        -- Densité de fils (# fils/cm) = Masse sortante(g) * Titrage (Nm) / (Laize + Métrage) / 1.08 / 100
+        threadDensity =
+            Mass.inGrams outputMass
+                * Unit.yarnSizeToFloat yarnSize
+                / (fabricWidth + fabricLength)
+                / wasteRatio
+                / 100
+
+        -- Duites.m = Densité de fils (# fils / cm) * 100 * Métrage (m)
+        picking =
+            threadDensity * 100 * fabricLength
+
+        -- Note: pickingElec is expressed in kWh/(pick,m) per kg of material to process (see Base Impacts)
         electricityKWh =
-            (Mass.inKilograms baseMass * 1000 * Unit.pickPerMeterToFloat picking / Unit.surfaceMassToFloat surfaceMass)
-                * pickingElec
+            pickingElec
+                * picking
+                * Mass.inKilograms inputMass
+                * 1000
+                / Unit.surfaceMassToFloat surfaceMass
                 |> Energy.kilowattHours
     in
     { kwh = electricityKWh
+    , threadDensity = Just (Unit.threadDensity threadDensity)
+    , picking = Just <| Unit.pickPerMeter <| round picking
     , impacts =
         impacts
             |> Impact.mapImpacts

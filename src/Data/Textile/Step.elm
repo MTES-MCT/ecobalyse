@@ -9,12 +9,12 @@ module Data.Textile.Step exposing
     , getOutputSurface
     , initMass
     , makingWasteToString
-    , pickingToString
     , qualityToString
     , reparabilityToString
     , surfaceMassToString
     , updateFromInputs
     , updateWaste
+    , yarnSizeToString
     )
 
 import Area exposing (Area)
@@ -56,6 +56,8 @@ type alias Step =
     , reparability : Unit.Reparability
     , makingWaste : Maybe Split
     , picking : Maybe Unit.PickPerMeter
+    , threadDensity : Maybe Unit.ThreadDensity
+    , yarnSize : Maybe Unit.YarnSize
     , surfaceMass : Maybe Unit.SurfaceMass
     , dyeingMedium : Maybe DyeingMedium
     , printing : Maybe Printing
@@ -105,6 +107,8 @@ create { db, label, editable, country, enabled } =
     , reparability = Unit.standardReparability
     , makingWaste = Nothing
     , picking = Nothing
+    , threadDensity = Nothing
+    , yarnSize = Nothing
     , surfaceMass = Nothing
     , dyeingMedium = Nothing
     , printing = Nothing
@@ -142,10 +146,10 @@ displayLabel { knitted, fadable } label =
             "Confection"
 
         ( Label.Fabric, True, _ ) ->
-            "Tricotage"
+            "Fabrication de l’étoffe — Tricotage"
 
         ( Label.Fabric, False, _ ) ->
-            "Tissage"
+            "Fabrication de l’étoffe — Tissage"
 
         _ ->
             Label.toString label
@@ -289,13 +293,14 @@ getOutputSurface { product, surfaceMass } { outputMass } =
 updateFromInputs : Db -> Inputs -> Step -> Step
 updateFromInputs { processes } inputs ({ label, country } as step) =
     let
-        { airTransportRatio, quality, reparability, makingWaste, picking, surfaceMass, dyeingMedium, printing } =
+        { airTransportRatio, quality, reparability, makingWaste, yarnSize, surfaceMass, dyeingMedium, printing } =
             inputs
     in
     case label of
         Label.Spinning ->
             { step
-                | processInfo =
+                | yarnSize = yarnSize
+                , processInfo =
                     { defaultProcessInfo
                         | countryElec = Just country.electricityProcess.name
                     }
@@ -303,7 +308,7 @@ updateFromInputs { processes } inputs ({ label, country } as step) =
 
         Label.Fabric ->
             { step
-                | picking = picking
+                | yarnSize = yarnSize
                 , surfaceMass = surfaceMass
                 , processInfo =
                     { defaultProcessInfo
@@ -457,11 +462,6 @@ reparabilityToString (Unit.Reparability float) =
     "Réparabilité\u{00A0}: " ++ String.fromFloat float
 
 
-pickingToString : Unit.PickPerMeter -> String
-pickingToString (Unit.PickPerMeter int) =
-    "Duitage\u{00A0}: " ++ String.fromInt int ++ "\u{202F}duites/m"
-
-
 surfaceMassToString : Unit.SurfaceMass -> String
 surfaceMassToString (Unit.SurfaceMass int) =
     "Grammage\u{00A0}: " ++ String.fromInt int ++ "\u{202F}g/m²"
@@ -474,6 +474,11 @@ makingWasteToString makingWaste =
 
     else
         Split.toPercentString makingWaste ++ "% de pertes en confection"
+
+
+yarnSizeToString : Unit.YarnSize -> String
+yarnSizeToString (Unit.YarnSize int) =
+    "Titrage\u{00A0}: " ++ String.fromInt int ++ "\u{202F}Nm"
 
 
 encode : List Impact.Definition -> Step -> Encode.Value
@@ -496,6 +501,8 @@ encode definitions v =
         , ( "reparability", Unit.encodeReparability v.reparability )
         , ( "makingWaste", v.makingWaste |> Maybe.map Split.encodeFloat |> Maybe.withDefault Encode.null )
         , ( "picking", v.picking |> Maybe.map Unit.encodePickPerMeter |> Maybe.withDefault Encode.null )
+        , ( "threadDensity", v.threadDensity |> Maybe.map Unit.encodeThreadDensity |> Maybe.withDefault Encode.null )
+        , ( "yarnSize", v.yarnSize |> Maybe.map Unit.encodeYarnSize |> Maybe.withDefault Encode.null )
         , ( "surfaceMass", v.surfaceMass |> Maybe.map Unit.encodeSurfaceMass |> Maybe.withDefault Encode.null )
         ]
 

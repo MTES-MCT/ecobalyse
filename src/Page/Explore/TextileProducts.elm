@@ -41,18 +41,6 @@ table _ { detailed, scope } =
                 div [ classList [ ( "text-center", not detailed ) ] ]
                     [ Format.kg product.mass ]
       }
-    , { label = "Pick-per-meter"
-      , toCell =
-            \product ->
-                div [ classList [ ( "text-center", not detailed ) ] ]
-                    [ case product.fabric of
-                        Product.Knitted _ ->
-                            text "N/A"
-
-                        Product.Weaved _ picking ->
-                            Format.picking picking
-                    ]
-      }
     , { label = "Grammage"
       , toCell =
             \{ surfaceMass } ->

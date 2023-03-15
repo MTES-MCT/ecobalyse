@@ -114,11 +114,10 @@ suite =
         , describe "Formula.weavingImpact"
             (let
                 res =
-                    kg 1
+                    kg 0.35
                         |> Formula.weavingImpacts
                             defaultImpacts
-                            { pickingElec = 0.01
-                            , countryElecProcess =
+                            { countryElecProcess =
                                 { noOpProcess
                                     | impacts =
                                         AnyDict.fromList Impact.toString
@@ -126,24 +125,15 @@ suite =
                                             , ( Impact.trg "fwe", Unit.impact 0.5 )
                                             ]
                                 }
-                            , picking = Unit.pickPerMeter 400
-                            , surfaceMass = Unit.surfaceMass 500
+                            , outputMass = kg 0.478
+                            , pickingElec = 1
+                            , surfaceMass = Unit.surfaceMass 180
+                            , yarnSize = Unit.yarnSize 45
                             }
              in
-             [ res.impacts
-                |> Impact.getImpact (Impact.trg "cch")
-                |> Unit.impactToFloat
-                |> Expect.within (Expect.Absolute 0.01) 0.8
-                |> asTest "should compute KnittingWeaving step cch from process and product data"
-             , res.impacts
-                |> Impact.getImpact (Impact.trg "fwe")
-                |> Unit.impactToFloat
-                |> Expect.within (Expect.Absolute 0.01) 4
-                |> asTest "should compute KnittingWeaving step fwe from process and product data"
-             , res.kwh
-                |> Energy.inKilowattHours
-                |> Expect.within (Expect.Absolute 0.01) 8
-                |> asTest "should compute KnittingWeaving step kwh from process and product data"
+             [ res.picking
+                |> Expect.equal (Just (Unit.pickPerMeter 10141))
+                |> asTest "should compute picking"
              ]
             )
         , describe "Formula.knittingImpact"

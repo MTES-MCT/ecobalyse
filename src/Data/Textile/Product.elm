@@ -4,6 +4,7 @@ module Data.Textile.Product exposing
     , Product
     , customDaysOfWear
     , decodeList
+    , defaultYarnSize
     , encode
     , encodeId
     , findById
@@ -34,7 +35,7 @@ type alias DyeingOptions =
 
 type FabricOptions
     = Knitted Process
-    | Weaved Process Unit.PickPerMeter
+    | Weaved Process
 
 
 type MakingComplexity
@@ -92,7 +93,7 @@ getFabricProcess { fabric } =
         Knitted process ->
             process
 
-        Weaved process _ ->
+        Weaved process ->
             process
 
 
@@ -132,7 +133,7 @@ isKnitted { fabric } =
         Knitted _ ->
             True
 
-        Weaved _ _ ->
+        Weaved _ ->
             False
 
 
@@ -149,7 +150,6 @@ decodeFabricOptions processes =
                     "weaving" ->
                         Decode.succeed Weaved
                             |> Pipe.required "processUuid" (Process.decodeFromUuid processes)
-                            |> Pipe.required "picking" Unit.decodePickPerMeter
 
                     _ ->
                         Decode.fail ("Type de production d'étoffe inconnu\u{00A0}: " ++ str)
@@ -221,6 +221,23 @@ decodeList processes =
     Decode.list (decode processes)
 
 
+defaultYarnSize : Unit.SurfaceMass -> Unit.YarnSize
+defaultYarnSize surfaceMass =
+    -- Default yarn size depends on surface mass
+    -- see https://fabrique-numerique.gitbook.io/ecobalyse/textile/etapes-du-cycle-de-vie/tricotage-tissage#contexture-densite-and-titrage-des-fils
+    if Unit.surfaceMassToFloat surfaceMass < 200 then
+        Unit.yarnSize 50
+
+    else if Unit.surfaceMassToFloat surfaceMass <= 300 then
+        Unit.yarnSize 40
+
+    else if Unit.surfaceMassToFloat surfaceMass <= 400 then
+        Unit.yarnSize 30
+
+    else
+        Unit.yarnSize 25
+
+
 encodeFabricOptions : FabricOptions -> Encode.Value
 encodeFabricOptions v =
     case v of
@@ -230,11 +247,10 @@ encodeFabricOptions v =
                 , ( "processUuid", Process.encodeUuid process.uuid )
                 ]
 
-        Weaved process picking ->
+        Weaved process ->
             Encode.object
                 [ ( "type", Encode.string "weaving" )
                 , ( "processUuid", Process.encodeUuid process.uuid )
-                , ( "picking", Unit.encodePickPerMeter picking )
                 ]
 
 encodeMakingOptions : MakingOptions -> Encode.Value

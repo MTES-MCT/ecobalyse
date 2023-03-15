@@ -7,17 +7,21 @@ module Data.Unit exposing
     , Ratio(..)
     , Reparability(..)
     , SurfaceMass(..)
+    , ThreadDensity(..)
+    , YarnSize(..)
     , decodeImpact
-    , decodePickPerMeter
     , decodeQuality
     , decodeRatio
     , decodeReparability
     , decodeSurfaceMass
+    , decodeYarnSize
     , encodeImpact
     , encodePickPerMeter
     , encodeQuality
     , encodeReparability
     , encodeSurfaceMass
+    , encodeThreadDensity
+    , encodeYarnSize
     , forKWh
     , forKg
     , forKgAndDistance
@@ -28,18 +32,17 @@ module Data.Unit exposing
     , impactAggregateScore
     , impactToFloat
     , inFunctionalUnit
-    , maxPickPerMeter
     , maxQuality
     , maxReparability
     , maxSurfaceMass
-    , minPickPerMeter
+    , maxYarnSize
     , minQuality
     , minReparability
     , minSurfaceMass
+    , minYarnSize
     , parseFunctional
     , pickPerMeter
     , pickPerMeterToFloat
-    , pickPerMeterToInt
     , quality
     , qualityToFloat
     , ratio
@@ -54,6 +57,14 @@ module Data.Unit exposing
     , surfaceMass
     , surfaceMassToFloat
     , surfaceMassToInt
+    , threadDensity
+    , threadDensityHigh
+    , threadDensityLow
+    , threadDensityToFloat
+    , threadDensityToInt
+    , yarnSize
+    , yarnSizeToFloat
+    , yarnSizeToInt
     )
 
 import Duration exposing (Duration)
@@ -264,21 +275,109 @@ encodeReparability (Reparability float) =
 
 
 
+-- Yarn size (Titrage)
+
+
+type YarnSize
+    = YarnSize Int
+
+
+encodeYarnSize : YarnSize -> Encode.Value
+encodeYarnSize (YarnSize int) =
+    Encode.int int
+
+
+minYarnSize : YarnSize
+minYarnSize =
+    YarnSize 9
+
+
+maxYarnSize : YarnSize
+maxYarnSize =
+    YarnSize 200
+
+
+yarnSize : Int -> YarnSize
+yarnSize =
+    YarnSize
+
+
+yarnSizeToFloat : YarnSize -> Float
+yarnSizeToFloat (YarnSize int) =
+    toFloat int
+
+
+yarnSizeToInt : YarnSize -> Int
+yarnSizeToInt (YarnSize int) =
+    int
+
+
+decodeYarnSize : Decoder YarnSize
+decodeYarnSize =
+    Decode.int
+        |> Decode.andThen
+            (\int ->
+                if int < yarnSizeToInt minYarnSize || int > yarnSizeToInt maxYarnSize then
+                    Decode.fail
+                        ("Le titrage spécifié ("
+                            ++ String.fromInt int
+                            ++ ") doit être compris entre "
+                            ++ String.fromInt (yarnSizeToInt minYarnSize)
+                            ++ " et "
+                            ++ String.fromInt (yarnSizeToInt maxYarnSize)
+                            ++ "."
+                        )
+
+                else
+                    Decode.succeed int
+            )
+        |> Decode.map yarnSize
+
+
+
+-- Thread density (Densité de fils)
+
+
+type ThreadDensity
+    = ThreadDensity Float
+
+
+encodeThreadDensity : ThreadDensity -> Encode.Value
+encodeThreadDensity (ThreadDensity float) =
+    Encode.float float
+
+
+threadDensity : Float -> ThreadDensity
+threadDensity =
+    ThreadDensity
+
+
+threadDensityLow : ThreadDensity
+threadDensityLow =
+    threadDensity 10
+
+
+threadDensityHigh : ThreadDensity
+threadDensityHigh =
+    threadDensity 80
+
+
+threadDensityToInt : ThreadDensity -> Int
+threadDensityToInt (ThreadDensity float) =
+    round float
+
+
+threadDensityToFloat : ThreadDensity -> Float
+threadDensityToFloat (ThreadDensity float) =
+    float
+
+
+
 -- Picking (Duitage)
 
 
 type PickPerMeter
     = PickPerMeter Int
-
-
-minPickPerMeter : PickPerMeter
-minPickPerMeter =
-    PickPerMeter 800
-
-
-maxPickPerMeter : PickPerMeter
-maxPickPerMeter =
-    PickPerMeter 9000
 
 
 pickPerMeter : Int -> PickPerMeter
@@ -289,33 +388,6 @@ pickPerMeter =
 pickPerMeterToFloat : PickPerMeter -> Float
 pickPerMeterToFloat (PickPerMeter int) =
     toFloat int
-
-
-pickPerMeterToInt : PickPerMeter -> Int
-pickPerMeterToInt (PickPerMeter int) =
-    int
-
-
-decodePickPerMeter : Decoder PickPerMeter
-decodePickPerMeter =
-    Decode.int
-        |> Decode.andThen
-            (\int ->
-                if int < pickPerMeterToInt minPickPerMeter || int > pickPerMeterToInt maxPickPerMeter then
-                    Decode.fail
-                        ("Le duitage spécifié ("
-                            ++ String.fromInt int
-                            ++ ") doit être compris entre "
-                            ++ String.fromInt (pickPerMeterToInt minPickPerMeter)
-                            ++ " et "
-                            ++ String.fromInt (pickPerMeterToInt maxPickPerMeter)
-                            ++ "."
-                        )
-
-                else
-                    Decode.succeed int
-            )
-        |> Decode.map pickPerMeter
 
 
 encodePickPerMeter : PickPerMeter -> Encode.Value
@@ -333,7 +405,7 @@ type SurfaceMass
 
 minSurfaceMass : SurfaceMass
 minSurfaceMass =
-    SurfaceMass 30
+    SurfaceMass 80
 
 
 maxSurfaceMass : SurfaceMass

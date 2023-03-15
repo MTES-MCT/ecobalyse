@@ -6,8 +6,7 @@
     "surfaceMass": 200,
     "fabric": {
       "type": "weaving",
-      "processUuid": "f9686809-f55e-4b96-b1f0-3298959de7d0",
-      "picking": 5000
+      "processUuid": "f9686809-f55e-4b96-b1f0-3298959de7d0"
     },
     "dyeing": {
       "defaultMedium": "fabric"
@@ -40,8 +39,7 @@
     "surfaceMass": 250,
     "fabric": {
       "type": "weaving",
-      "processUuid": "f9686809-f55e-4b96-b1f0-3298959de7d0",
-      "picking": 3000
+      "processUuid": "f9686809-f55e-4b96-b1f0-3298959de7d0"
     },
     "dyeing": {
       "defaultMedium": "yarn"
@@ -74,8 +72,7 @@
     "surfaceMass": 200,
     "fabric": {
       "type": "weaving",
-      "processUuid": "f9686809-f55e-4b96-b1f0-3298959de7d0",
-      "picking": 5000
+      "processUuid": "f9686809-f55e-4b96-b1f0-3298959de7d0"
     },
     "dyeing": {
       "defaultMedium": "fabric"
@@ -108,8 +105,7 @@
     "surfaceMass": 450,
     "fabric": {
       "type": "weaving",
-      "processUuid": "f9686809-f55e-4b96-b1f0-3298959de7d0",
-      "picking": 1600
+      "processUuid": "f9686809-f55e-4b96-b1f0-3298959de7d0"
     },
     "dyeing": {
       "defaultMedium": "fabric"
@@ -142,8 +138,7 @@
     "surfaceMass": 250,
     "fabric": {
       "type": "weaving",
-      "processUuid": "f9686809-f55e-4b96-b1f0-3298959de7d0",
-      "picking": 3000
+      "processUuid": "f9686809-f55e-4b96-b1f0-3298959de7d0"
     },
     "dyeing": {
       "defaultMedium": "fabric"
