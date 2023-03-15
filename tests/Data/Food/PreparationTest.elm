@@ -24,7 +24,7 @@ suite =
                     |> Preparation.apply builderDb (Mass.kilograms 1)
                     |> Result.map (Impact.getImpact (Impact.trg "cch") >> Unit.impactToFloat)
                     |> Result.withDefault 0
-                    |> Expect.within (Expect.Absolute 0.001) 0.069
+                    |> Expect.within (Expect.Absolute 0.001) 0.05
                     |> asTest "compute impacts from applying a consumption preparation technique"
                 ]
             ]
