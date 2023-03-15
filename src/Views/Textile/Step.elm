@@ -833,10 +833,10 @@ threadDensityView threadDensity =
                     , value
                         |> Format.formatRichFloat 0 "fils/cm"
                     ]
-                , if value < 10 then
+                , if round value < Unit.threadDensityToInt Unit.threadDensityLow then
                     text "⚠️ la densité de fils semble très faible"
 
-                  else if value > 80 then
+                  else if round value > Unit.threadDensityToInt Unit.threadDensityHigh then
                     text "⚠️ la densité de fils semble très élevée"
 
                   else

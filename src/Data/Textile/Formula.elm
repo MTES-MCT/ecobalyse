@@ -337,38 +337,44 @@ weavingImpacts :
         , impacts : Impacts
         }
 weavingImpacts impacts { countryElecProcess, outputMass, pickingElec, surfaceMass, yarnSize } inputMass =
+    -- Methodology: https://fabrique-numerique.gitbook.io/ecobalyse/textile/etapes-du-cycle-de-vie/tricotage-tissage
     let
-        -- Laize (largeur du tissu, en m) = 1.6m (valeur constate)
-        fabricWidth =
-            1.6
-
         -- Surface sortante (en m2)
         outputSurface =
             Mass.inGrams outputMass
                 / Unit.surfaceMassToFloat surfaceMass
 
+        -- Laize (largeur du tissu, en m) = 1.6m (valeur constate)
+        fabricWidth =
+            1.6
+
         -- Métrage (longueur du tissu, en m2) = Surface sortante (en m2) / Laize (en m)
         fabricLength =
             outputSurface / fabricWidth
 
-        -- Densité de fils (# fils/cm) = Masse sortante(g) * Titrage (Nm) / (Laize + Métrage) / (1,08) / 100
+        -- Taux d'embuvage/retrait = 8% (valeur constante)
+        wasteRatio =
+            1.08
+
+        -- Densité de fils (# fils/cm) = Masse sortante(g) * Titrage (Nm) / (Laize + Métrage) / 1.08 / 100
         threadDensity =
             Mass.inGrams outputMass
-                * toFloat (Unit.yarnSizeToInt yarnSize)
+                * Unit.yarnSizeToFloat yarnSize
                 / (fabricWidth + fabricLength)
-                / 1.08
+                / wasteRatio
                 / 100
 
         -- Duites.m = Densité de fils (# fils / cm) * 100 * Métrage (m)
         picking =
             threadDensity * 100 * fabricLength
 
+        -- Note: pickingElec is expressed in kWh/(pick,m) per kg of material to process (see Base Impacts)
         electricityKWh =
-            Mass.inKilograms inputMass
-                * 1000
+            pickingElec
                 * picking
+                * Mass.inKilograms inputMass
+                * 1000
                 / Unit.surfaceMassToFloat surfaceMass
-                * pickingElec
                 |> Energy.kilowattHours
     in
     { kwh = electricityKWh

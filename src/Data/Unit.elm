@@ -59,8 +59,12 @@ module Data.Unit exposing
     , surfaceMassToFloat
     , surfaceMassToInt
     , threadDensity
+    , threadDensityHigh
+    , threadDensityLow
     , threadDensityToFloat
+    , threadDensityToInt
     , yarnSize
+    , yarnSizeToFloat
     , yarnSizeToInt
     )
 
@@ -304,6 +308,11 @@ yarnSize =
     YarnSize
 
 
+yarnSizeToFloat : YarnSize -> Float
+yarnSizeToFloat (YarnSize int) =
+    toFloat int
+
+
 yarnSizeToInt : YarnSize -> Int
 yarnSizeToInt (YarnSize int) =
     int
@@ -347,6 +356,21 @@ encodeThreadDensity (ThreadDensity float) =
 threadDensity : Float -> ThreadDensity
 threadDensity =
     ThreadDensity
+
+
+threadDensityLow : ThreadDensity
+threadDensityLow =
+    threadDensity 10
+
+
+threadDensityHigh : ThreadDensity
+threadDensityHigh =
+    threadDensity 80
+
+
+threadDensityToInt : ThreadDensity -> Int
+threadDensityToInt (ThreadDensity float) =
+    round float
 
 
 threadDensityToFloat : ThreadDensity -> Float
