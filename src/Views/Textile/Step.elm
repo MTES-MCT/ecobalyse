@@ -13,7 +13,7 @@ import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
 import Data.Textile.HeatSource as HeatSource exposing (HeatSource)
 import Data.Textile.Inputs as Inputs exposing (Inputs)
 import Data.Textile.Printing as Printing exposing (Printing)
-import Data.Textile.Product as Product
+import Data.Textile.Product as Product exposing (Product)
 import Data.Textile.Step as Step exposing (Step)
 import Data.Textile.Step.Label as Label exposing (Label)
 import Data.Transport as Transport
@@ -333,10 +333,15 @@ makingWasteField { current, inputs, updateMakingWaste } =
         ]
 
 
-surfaceMassField : Config msg -> Unit.SurfaceMass -> Html msg
-surfaceMassField { current, updateSurfaceMass } defaultSurfaceMass =
+surfaceMassField : Config msg -> Product -> Html msg
+surfaceMassField { current, updateSurfaceMass } product =
     span
-        [ [ "Le grammage de l'étoffe, exprimé en g/m², représente sa masse surfacique."
+        [ [ if Product.isKnitted product then
+                "Désactivé car inopérant sur un produit tricoté."
+
+            else
+                ""
+          , "Le grammage de l'étoffe, exprimé en g/m², représente sa masse surfacique."
           ]
             |> String.join " "
             |> title
@@ -344,17 +349,28 @@ surfaceMassField { current, updateSurfaceMass } defaultSurfaceMass =
         [ RangeSlider.surfaceMass
             { id = "surface-density"
             , update = updateSurfaceMass
-            , value = Maybe.withDefault defaultSurfaceMass current.surfaceMass
+            , value = current.surfaceMass |> Maybe.withDefault product.surfaceMass
             , toString = Step.surfaceMassToString
-            , disabled = not current.enabled
+
+            -- Note: hide for knitted products as surface mass doesn't have any impact on them
+            , disabled = not current.enabled || Product.isKnitted product
             }
         ]
 
 
-yarnSizeField : Config msg -> Unit.YarnSize -> Html msg
-yarnSizeField { current, updateYarnSize } defaultYarnSize =
+yarnSizeField : Config msg -> Product -> Html msg
+yarnSizeField { current, updateYarnSize } product =
+    let
+        yarnSize =
+            Product.defaultYarnSize product.surfaceMass
+    in
     span
-        [ [ "Le titrage indique la grosseur d’un fil textile, exprimée en numéro métrique (Nm)."
+        [ [ if Product.isKnitted product then
+                "Désactivé car inopérant sur un produit tricoté."
+
+            else
+                ""
+          , "Le titrage indique la grosseur d’un fil textile, exprimée en numéro métrique (Nm)."
           , "Cette unité indique un nombre de kilomètres de ﬁl correspondant à un poids d’un kilogramme (ex : 50Nm = 50km de ce fil pèsent 1 kg)."
           ]
             |> String.join " "
@@ -363,9 +379,9 @@ yarnSizeField { current, updateYarnSize } defaultYarnSize =
         [ RangeSlider.yarnSize
             { id = "yarnSize"
             , update = updateYarnSize
-            , value = Maybe.withDefault defaultYarnSize current.yarnSize
+            , value = current.yarnSize |> Maybe.withDefault yarnSize
             , toString = Step.yarnSizeToString
-            , disabled = not current.enabled
+            , disabled = not current.enabled || Product.isKnitted product
             }
         ]
 
@@ -476,21 +492,12 @@ simpleView ({ funit, inputs, daysOfWear, impact, current } as config) =
                 , case current.label of
                     Label.Spinning ->
                         div [ class "mt-2 fs-7 text-muted" ]
-                            [ Product.defaultYarnSize inputs.product.surfaceMass
-                                |> yarnSizeField config
+                            [ yarnSizeField config inputs.product
                             ]
 
                     Label.Fabric ->
                         div [ class "mt-2 fs-7 text-muted" ]
-                            (case inputs.product.fabric of
-                                Product.Knitted _ ->
-                                    [ surfaceMassField config inputs.product.surfaceMass
-                                    ]
-
-                                Product.Weaved _ ->
-                                    [ surfaceMassField config inputs.product.surfaceMass
-                                    ]
-                            )
+                            [ surfaceMassField config inputs.product ]
 
                     Label.Ennobling ->
                         div [ class "mt-2" ]
@@ -668,12 +675,11 @@ detailedView ({ inputs, funit, impact, daysOfWear, next, current } as config) =
                 ]
                 (case current.label of
                     Label.Spinning ->
-                        [ Product.defaultYarnSize inputs.product.surfaceMass
-                            |> yarnSizeField config
+                        [ yarnSizeField config inputs.product
                         ]
 
                     Label.Fabric ->
-                        [ surfaceMassField config inputs.product.surfaceMass ]
+                        [ surfaceMassField config inputs.product ]
 
                     Label.Ennobling ->
                         [ div [ class "text-muted fs-7 mb-2" ]

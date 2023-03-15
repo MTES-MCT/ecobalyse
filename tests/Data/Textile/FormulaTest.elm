@@ -133,22 +133,6 @@ suite =
              [ res.picking
                 |> Expect.equal (Just (Unit.pickPerMeter 10141))
                 |> asTest "should compute picking"
-
-             -- FIXME: check these
-             --  , res.impacts
-             --     |> Impact.getImpact (Impact.trg "cch")
-             --     |> Unit.impactToFloat
-             --     |> Expect.within (Expect.Absolute 0.01) 0.8
-             --     |> asTest "should compute KnittingWeaving step cch from process and product data"
-             --  , res.impacts
-             --     |> Impact.getImpact (Impact.trg "fwe")
-             --     |> Unit.impactToFloat
-             --     |> Expect.within (Expect.Absolute 0.01) 4
-             --     |> asTest "should compute KnittingWeaving step fwe from process and product data"
-             --  , res.kwh
-             --     |> Energy.inKilowattHours
-             --     |> Expect.within (Expect.Absolute 0.01) 8
-             --     |> asTest "should compute KnittingWeaving step kwh from process and product data"
              ]
             )
         , describe "Formula.knittingImpact"

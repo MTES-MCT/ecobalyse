@@ -341,7 +341,7 @@ decodeYarnSize =
 
 
 
--- Yarn density (Densité de fils)
+-- Thread density (Densité de fils)
 
 
 type ThreadDensity
