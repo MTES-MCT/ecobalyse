@@ -1,9 +1,9 @@
 module Views.RangeSlider exposing
-    ( picking
-    , quality
+    ( quality
     , ratio
     , reparability
     , surfaceMass
+    , yarnSize
     )
 
 import Data.Unit as Unit
@@ -106,34 +106,6 @@ ratio config =
         }
 
 
-type alias PickingConfig msg =
-    { id : String
-    , update : Maybe Unit.PickPerMeter -> msg
-    , value : Unit.PickPerMeter
-    , toString : Unit.PickPerMeter -> String
-    , disabled : Bool
-    }
-
-
-picking : PickingConfig msg -> Html msg
-picking config =
-    layout
-        { id = config.id
-        , label = config.toString config.value
-        , attributes =
-            [ onInput (String.toInt >> Maybe.map Unit.pickPerMeter >> config.update)
-            , Attr.min (String.fromInt (Unit.pickPerMeterToInt Unit.minPickPerMeter))
-            , Attr.max (String.fromInt (Unit.pickPerMeterToInt Unit.maxPickPerMeter))
-
-            -- WARNING: be careful when reordering attributes: for obscure reasons,
-            -- the `value` one MUST be set AFTER the `step` one.
-            , step "1"
-            , value (String.fromInt (Unit.pickPerMeterToInt config.value))
-            , Attr.disabled config.disabled
-            ]
-        }
-
-
 type alias SurfaceMassConfig msg =
     { id : String
     , update : Maybe Unit.SurfaceMass -> msg
@@ -157,6 +129,34 @@ surfaceMass config =
             -- WARNING: be careful when reordering attributes: for obscure reasons,
             -- the `value` one MUST be set AFTER the `step` one.
             , value (String.fromInt (Unit.surfaceMassToInt config.value))
+            , Attr.disabled config.disabled
+            ]
+        }
+
+
+type alias YarnSizeConfig msg =
+    { id : String
+    , update : Maybe Unit.YarnSize -> msg
+    , value : Unit.YarnSize
+    , toString : Unit.YarnSize -> String
+    , disabled : Bool
+    }
+
+
+yarnSize : YarnSizeConfig msg -> Html msg
+yarnSize config =
+    layout
+        { id = config.id
+        , label = config.toString config.value
+        , attributes =
+            [ onInput (String.toInt >> Maybe.map Unit.yarnSize >> config.update)
+            , Attr.min (String.fromInt (Unit.yarnSizeToInt Unit.minYarnSize))
+            , Attr.max (String.fromInt (Unit.yarnSizeToInt Unit.maxYarnSize))
+
+            -- WARNING: be careful when reordering attributes: for obscure reasons,
+            -- the `value` one MUST be set AFTER the `step` one.
+            , step "1"
+            , value (String.fromInt (Unit.yarnSizeToInt config.value))
             , Attr.disabled config.disabled
             ]
         }

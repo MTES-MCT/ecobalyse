@@ -53,20 +53,8 @@ table db { detailed, scope } =
                     Product.Knitted _ ->
                         text "Tricotage"
 
-                    Product.Weaved _ _ ->
+                    Product.Weaved _ ->
                         text "Tissage"
-      }
-    , { label = "Pick-per-meter"
-      , toCell =
-            \product ->
-                div [ classList [ ( "text-end", not detailed ) ] ]
-                    [ case product.fabric of
-                        Product.Knitted _ ->
-                            text "N/A"
-
-                        Product.Weaved _ picking ->
-                            Format.picking picking
-                    ]
       }
     , { label = "Grammage"
       , toCell =
