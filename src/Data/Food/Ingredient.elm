@@ -2,6 +2,7 @@ module Data.Food.Ingredient exposing
     ( Id
     , Ingredient
     , PlaneTransport(..)
+    , TransportCooling(..)
     , byPlaneAllowed
     , byPlaneByDefault
     , decodeId
@@ -35,6 +36,7 @@ type alias Ingredient =
     , rawToCookedRatio : Unit.Ratio
     , variants : Variants
     , density : Density
+    , transportCooling : TransportCooling
     }
 
 
@@ -46,6 +48,12 @@ type PlaneTransport
     = PlaneNotApplicable
     | ByPlane
     | NoPlane
+
+
+type TransportCooling
+    = NoCooling
+    | AlwaysCool
+    | CoolOnceTransformed
 
 
 byPlaneAllowed : PlaneTransport -> Ingredient -> Result String PlaneTransport
@@ -116,6 +124,27 @@ decodeIngredient processes =
         |> Pipe.required "raw_to_cooked_ratio" (Unit.decodeRatio { percentage = False })
         |> Pipe.required "variants" (decodeVariants processes)
         |> Pipe.required "density" (Decode.float |> Decode.andThen (gramsPerCubicCentimeter >> Decode.succeed))
+        |> Pipe.required "transport_cooling" decodeTransportCooling
+
+
+decodeTransportCooling : Decoder TransportCooling
+decodeTransportCooling =
+    Decode.string
+        |> Decode.andThen
+            (\str ->
+                case str of
+                    "none" ->
+                        Decode.succeed NoCooling
+
+                    "always" ->
+                        Decode.succeed AlwaysCool
+
+                    "once_transformed" ->
+                        Decode.succeed CoolOnceTransformed
+
+                    invalid ->
+                        Decode.fail <| "Valeur de transport frigorifique invalide : " ++ invalid
+            )
 
 
 decodeVariants : Dict String Process -> Decoder Variants

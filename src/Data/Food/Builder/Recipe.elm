@@ -188,13 +188,21 @@ compute db =
                         Result.map (Retail.computeImpacts db volume distribution)
                             (Process.loadWellKnown db.processes)
 
+                    distributionTransportNeedsCooling =
+                        ingredients
+                            |> List.any (.ingredient >> .transportCooling >> (/=) Ingredient.NoCooling)
+
                     distributionTransport =
                         let
                             mass =
                                 getMassAtPackaging recipe
+
+                            transport =
+                                Retail.distributionTransport distribution distributionTransportNeedsCooling
                         in
-                        Result.map (Retail.distributionTransportImpact db mass distribution)
-                            (Process.loadWellKnown db.processes)
+                        db.processes
+                            |> Process.loadWellKnown
+                            |> Result.map (Transport.computeImpacts db.impacts mass transport)
 
                     recipeImpacts =
                         updateImpacts
@@ -358,23 +366,37 @@ computeIngredientTransport db { ingredient, country, mass, planeTransport } =
                 )
 
         baseTransport =
-            case country of
-                -- In case a custom country is provided, compute the distances to it from France
-                Just { code } ->
-                    db.transports
-                        |> Transport.getTransportBetween Scope.Food emptyImpacts code france
-                        |> Formula.transportRatio planeRatio
+            let
+                base =
+                    case country of
+                        -- In case a custom country is provided, compute the distances to it from France
+                        Just { code } ->
+                            db.transports
+                                |> Transport.getTransportBetween Scope.Food emptyImpacts code france
+                                |> Formula.transportRatio planeRatio
 
-                -- Otherwise retrieve ingredient's default origin transport data
-                Nothing ->
-                    ingredient.defaultOrigin
-                        |> Ingredient.getDefaultOriginTransport db.impacts planeTransport
+                        -- Otherwise retrieve ingredient's default origin transport data
+                        Nothing ->
+                            ingredient.defaultOrigin
+                                |> Ingredient.getDefaultOriginTransport db.impacts planeTransport
+            in
+            if ingredient.transportCooling /= Ingredient.NoCooling then
+                -- Switch the distances to use the "cooled" version of the transport medium
+                { base
+                    | road = Quantity.zero
+                    , roadCooled = base.road
+                    , sea = Quantity.zero
+                    , seaCooled = base.sea
+                }
+
+            else
+                base
 
         toTransformation t =
             -- 160km of road transport are added for every ingredient, wherever they come
             -- from (including France). This corresponds to the step "1. RECETTE" in the
             -- [transport documentation](https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/transport#circuits-consideres)
-            { t | road = t.road |> Quantity.plus (Length.kilometers 160) }
+            Transport.addRoadWithCooling (Length.kilometers 160) (ingredient.transportCooling == Ingredient.AlwaysCool) t
 
         toLogistics t =
             -- 500km of road transport are added for every ingredient that are not coming from France.
@@ -383,14 +405,14 @@ computeIngredientTransport db { ingredient, country, mass, planeTransport } =
             case country of
                 Just { code } ->
                     if code /= Country.codeFromString "FR" then
-                        { t | road = t.road |> Quantity.plus (Length.kilometers 500) }
+                        Transport.addRoadWithCooling (Length.kilometers 500) (ingredient.transportCooling == Ingredient.AlwaysCool) t
 
                     else
                         t
 
                 Nothing ->
                     if ingredient.defaultOrigin /= Origin.France then
-                        { t | road = t.road |> Quantity.plus (Length.kilometers 500) }
+                        Transport.addRoadWithCooling (Length.kilometers 500) (ingredient.transportCooling == Ingredient.AlwaysCool) t
 
                     else
                         t
@@ -400,32 +422,10 @@ computeIngredientTransport db { ingredient, country, mass, planeTransport } =
                 |> toTransformation
                 |> toLogistics
     in
-    { transport
-        | impacts =
-            db.processes
-                |> Process.loadWellKnown
-                |> Result.map
-                    (\wellKnown ->
-                        [ ( wellKnown.lorryTransport, transport.road )
-                        , ( wellKnown.boatTransport, transport.sea )
-                        , ( wellKnown.planeTransport, transport.air )
-                        ]
-                            |> List.map
-                                (\( transportProcess, distance ) ->
-                                    transportProcess.impacts
-                                        |> Impact.mapImpacts
-                                            (\_ impact ->
-                                                impact
-                                                    |> Unit.impactToFloat
-                                                    |> (*) (Mass.inMetricTons mass * Length.inKilometers distance)
-                                                    |> Unit.impact
-                                            )
-                                )
-                    )
-                |> Result.withDefault []
-                |> Impact.sumImpacts db.impacts
-                |> Impact.updateAggregatedScores db.impacts
-    }
+    db.processes
+        |> Process.loadWellKnown
+        |> Result.map (Transport.computeImpacts db.impacts mass transport)
+        |> Result.withDefault (Transport.default Impact.noImpacts)
 
 
 preparationListFromQuery : Query -> Result String (List Preparation)

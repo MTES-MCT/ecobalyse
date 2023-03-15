@@ -31,6 +31,7 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Json.Encode as Encode
+import Length
 import Page.Textile.Simulator.ViewMode as ViewMode
 import Ports
 import Quantity
@@ -637,9 +638,12 @@ displayTransportDistances db ingredient ingredientQuery event =
                 isByPlane =
                     ingredientQuery.planeTransport == Ingredient.ByPlane
 
-                { road, air, sea } =
+                { road, roadCooled, air, sea, seaCooled } =
                     ingredient
                         |> Recipe.computeIngredientTransport db
+
+                needsCooling =
+                    ingredient.ingredient.transportCooling /= Ingredient.NoCooling
             in
             [ div [ class "IngredientPlaneOrBoatSelector" ]
                 [ label [ class "PlaneSelector" ]
@@ -660,17 +664,34 @@ displayTransportDistances db ingredient ingredientQuery event =
                         , onInput <| always (event { ingredientQuery | planeTransport = Ingredient.NoPlane })
                         ]
                         []
-                    , Icon.boat
+                    , if needsCooling then
+                        Icon.boatCooled
+
+                      else
+                        Icon.boat
                     ]
                 , if isByPlane then
                     span [ class "ps-1 align-items-center gap-1", title "Tranport aérien" ]
                         [ Format.km air ]
 
+                  else if needsCooling then
+                    span [ class "ps-1 align-items-center gap-1", title "Tranport maritime réfrigéré" ]
+                        [ Format.km seaCooled ]
+
                   else
                     span [ class "ps-1 align-items-center gap-1", title "Tranport maritime" ]
                         [ Format.km sea ]
                 ]
-            , TransportView.entry road Icon.bus "Transport routier"
+            , if road /= Length.kilometers 0 then
+                TransportView.entry road Icon.bus "Transport routier"
+
+              else
+                text ""
+            , if roadCooled /= Length.kilometers 0 then
+                TransportView.entry roadCooled Icon.busCooled "Transport routier réfrigéré"
+
+              else
+                text ""
             ]
 
          else
@@ -836,7 +857,16 @@ transportToDistributionView selectedImpact recipe results =
                 |> Format.kg
             ]
         , div [ class "d-flex justify-content-between" ]
-            [ TransportView.entry results.distribution.transports.road Icon.bus "Transport routier"
+            [ div []
+                (results.distribution.transports
+                    |> TransportView.viewDetails
+                        { fullWidth = False
+                        , hideNoLength = True
+                        , airTransportLabel = Nothing
+                        , seaTransportLabel = Nothing
+                        , roadTransportLabel = Nothing
+                        }
+                )
             , Format.formatFoodSelectedImpact selectedImpact results.distribution.transports.impacts
             ]
         ]
