@@ -16,7 +16,6 @@ module Views.Format exposing
     , percent
     , picking
     , ratio
-    , ratioToDecimals
     , ratioToPercentString
     , splitAsPercentage
     , squareMetters

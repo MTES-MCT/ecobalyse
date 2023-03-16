@@ -468,7 +468,7 @@ parseMaterial_ materials string =
         [ id, share ] ->
             Ok Inputs.MaterialQuery
                 |> RE.andMap (parseMaterialId_ materials id)
-                |> RE.andMap (parseRatio_ share)
+                |> RE.andMap (parseSplit share)
 
         [ "" ] ->
             Err <| "Format de matière vide."
@@ -484,23 +484,12 @@ parseMaterialId_ materials string =
         |> Result.map .id
 
 
-parseRatio_ : String -> Result String Unit.Ratio
-parseRatio_ string =
+parseSplit : String -> Result String Split
+parseSplit string =
     string
         |> String.toFloat
         |> Result.fromMaybe ("Ratio invalide : " ++ string)
-        |> Result.andThen
-            (\ratio ->
-                if ratio < 0 || ratio > 1 then
-                    Err <|
-                        "Un ratio doit être compris entre 0 et 1 inclus (ici : "
-                            ++ String.fromFloat ratio
-                            ++ ")."
-
-                else
-                    Ok ratio
-            )
-        |> Result.map Unit.ratio
+        |> Result.andThen Split.fromFloat
 
 
 validateMaterialList : List Inputs.MaterialQuery -> Result String (List Inputs.MaterialQuery)
@@ -511,7 +500,7 @@ validateMaterialList list =
     else
         let
             total =
-                list |> List.map (.share >> Unit.ratioToFloat) |> List.sum
+                list |> List.map (.share >> Split.asFloat) |> List.sum
         in
         if total /= 1 then
             Err <|

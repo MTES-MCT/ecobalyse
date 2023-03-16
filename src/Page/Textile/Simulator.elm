@@ -95,7 +95,7 @@ type Msg
     | UpdateMakingWaste (Maybe Unit.Ratio)
     | UpdateMassInput String
     | UpdateMaterial Int Material.Id
-    | UpdateMaterialShare Int Unit.Ratio
+    | UpdateMaterialShare Int Split
     | UpdatePicking (Maybe Unit.PickPerMeter)
     | UpdatePrinting (Maybe Printing)
     | UpdateProduct Product.Id

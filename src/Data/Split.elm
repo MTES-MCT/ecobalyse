@@ -61,7 +61,7 @@ quarter =
 fromFloat : Float -> Result String Split
 fromFloat float =
     if float < 0 || float > 1 then
-        Err "Une part (en flottant) doit être comprise entre 0 et 1"
+        Err ("Une part (en flottant) doit être comprise entre 0 et 1 inclus (ici: " ++ String.fromFloat float ++ ")")
 
     else
         float
@@ -74,7 +74,7 @@ fromFloat float =
 fromPercent : Int -> Result String Split
 fromPercent int =
     if int < 0 || int > 100 then
-        Err "Une part (en pourcentage) doit être comprise entre 0 et 100"
+        Err ("Une part (en pourcentage) doit être comprise entre 0 et 100 inclus (ici: " ++ String.fromInt int ++ ")")
 
     else
         Ok (Split int)

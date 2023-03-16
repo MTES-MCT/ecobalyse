@@ -51,7 +51,7 @@ import Views.Format as Format
 
 type alias MaterialInput =
     { material : Material
-    , share : Unit.Ratio
+    , share : Split
     }
 
 
@@ -83,7 +83,7 @@ type alias Inputs =
 
 type alias MaterialQuery =
     { id : Material.Id
-    , share : Unit.Ratio
+    , share : Split
     }
 
 
@@ -131,7 +131,7 @@ toMaterialQuery =
 
 getMainMaterial : List MaterialInput -> Result String Material
 getMainMaterial =
-    List.sortBy (.share >> Unit.ratioToFloat)
+    List.sortBy (.share >> Split.asFloat)
         >> List.reverse
         >> List.head
         >> Maybe.map .material
@@ -301,10 +301,10 @@ toString inputs =
 materialsToString : List MaterialInput -> String
 materialsToString materials =
     materials
-        |> List.filter (\{ share } -> Unit.ratioToFloat share > 0)
+        |> List.filter (\{ share } -> Split.asFloat share > 0)
         |> List.map
             (\{ material, share } ->
-                Format.formatFloat 0 (Unit.ratioToFloat share * 100)
+                Split.toPercentString share
                     ++ "% "
                     ++ material.shortName
             )
@@ -452,7 +452,7 @@ addMaterial db query =
         Just id ->
             { query
                 | materials =
-                    query.materials ++ [ { id = id, share = Unit.ratio 0 } ]
+                    query.materials ++ [ { id = id, share = Split.zero } ]
             }
 
         Nothing ->
@@ -470,7 +470,7 @@ updateMaterial index { id } =
     updateMaterialAt index (\({ share } as m) -> { m | id = id, share = share })
 
 
-updateMaterialShare : Int -> Unit.Ratio -> Query -> Query
+updateMaterialShare : Int -> Split -> Query -> Query
 updateMaterialShare index share =
     updateMaterialAt index (\m -> { m | share = share })
 
@@ -481,7 +481,7 @@ removeMaterial index query =
         |> (\({ materials } as q) ->
                 -- set share to 100% when a single material remains
                 if List.length materials == 1 then
-                    updateMaterialShare 0 (Unit.ratio 1) q
+                    updateMaterialShare 0 Split.full q
 
                 else
                     q
@@ -519,7 +519,7 @@ tShirtCotonFrance : Query
 tShirtCotonFrance =
     -- T-shirt circuit France
     { mass = Mass.kilograms 0.17
-    , materials = [ { id = Material.Id "coton", share = Unit.ratio 1 } ]
+    , materials = [ { id = Material.Id "coton", share = Split.full } ]
     , product = Product.Id "tshirt"
     , countrySpinning = Nothing
     , countryFabric = Country.Code "FR"
@@ -573,7 +573,7 @@ jupeCircuitAsie : Query
 jupeCircuitAsie =
     -- Jupe circuit Asie
     { mass = Mass.kilograms 0.3
-    , materials = [ { id = Material.Id "acrylique", share = Unit.ratio 1 } ]
+    , materials = [ { id = Material.Id "acrylique", share = Split.full } ]
     , product = Product.Id "jupe"
     , countrySpinning = Nothing
     , countryFabric = Country.Code "CN"
@@ -597,7 +597,7 @@ manteauCircuitEurope : Query
 manteauCircuitEurope =
     -- Manteau circuit Europe
     { mass = Mass.kilograms 0.95
-    , materials = [ { id = Material.Id "cachemire", share = Unit.ratio 1 } ]
+    , materials = [ { id = Material.Id "cachemire", share = Split.full } ]
     , product = Product.Id "manteau"
     , countrySpinning = Nothing
     , countryFabric = Country.Code "TR"
@@ -621,7 +621,7 @@ pantalonCircuitEurope : Query
 pantalonCircuitEurope =
     -- Pantalon circuit Europe
     { mass = Mass.kilograms 0.45
-    , materials = [ { id = Material.Id "lin-filasse", share = Unit.ratio 1 } ]
+    , materials = [ { id = Material.Id "lin-filasse", share = Split.full } ]
     , product = Product.Id "pantalon"
     , countrySpinning = Nothing
     , countryFabric = Country.Code "TR"
@@ -679,7 +679,7 @@ encodeMaterialInput : MaterialInput -> Encode.Value
 encodeMaterialInput v =
     Encode.object
         [ ( "material", Material.encode v.material )
-        , ( "share", Unit.encodeRatio v.share )
+        , ( "share", Split.encode v.share )
         ]
 
 
@@ -710,7 +710,7 @@ decodeMaterialQuery : Decoder MaterialQuery
 decodeMaterialQuery =
     Decode.succeed MaterialQuery
         |> Pipe.required "id" (Decode.map Material.Id Decode.string)
-        |> Pipe.required "share" (Unit.decodeRatio { percentage = True })
+        |> Pipe.required "share" Split.decode
 
 
 encodeQuery : Query -> Encode.Value
@@ -741,7 +741,7 @@ encodeMaterialQuery : MaterialQuery -> Encode.Value
 encodeMaterialQuery v =
     Encode.object
         [ ( "id", Material.encodeId v.id )
-        , ( "share", Unit.encodeRatio v.share )
+        , ( "share", Split.encode v.share )
         ]
 
 

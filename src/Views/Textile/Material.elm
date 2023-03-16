@@ -1,9 +1,9 @@
 module Views.Textile.Material exposing (formSet)
 
 import Data.Env as Env
+import Data.Split as Split exposing (Split)
 import Data.Textile.Inputs as Inputs
 import Data.Textile.Material as Material exposing (Material)
-import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
@@ -16,7 +16,7 @@ type alias FormSetConfig msg =
     , add : msg
     , remove : Int -> msg
     , update : Int -> Material.Id -> msg
-    , updateShare : Int -> Unit.Ratio -> msg
+    , updateShare : Int -> Split -> msg
     , selectInputText : String -> msg
     }
 
@@ -31,7 +31,7 @@ formSet ({ add, inputs } as config) =
 
         totalShares =
             inputs
-                |> List.map (.share >> Unit.ratioToFloat >> clamp 0 1)
+                |> List.map (.share >> Split.asFloat >> clamp 0 1)
                 |> List.sum
 
         valid =
@@ -184,9 +184,9 @@ shareField :
         { length : Int
         , valid : Bool
         , selectInputText : String -> msg
-        , update : Int -> Unit.Ratio -> msg
+        , update : Int -> Split -> msg
         }
-    -> Unit.Ratio
+    -> Split
     -> List (Html msg)
 shareField index { length, valid, selectInputText, update } share =
     let
@@ -207,18 +207,15 @@ shareField index { length, valid, selectInputText, update } share =
         , Attr.step "1"
         , Attr.min "0"
         , Attr.max "100"
-        , Unit.ratioToFloat share
-            * 100
-            |> round
-            |> clamp 0 100
-            |> String.fromInt
+        , Split.toPercentString share
             |> value
         , Attr.disabled <| length == 1
         , onInput
             (String.toInt
                 >> Maybe.withDefault 0
-                >> (\int -> clamp 0 1 (toFloat int / 100))
-                >> Unit.ratio
+                >> Split.fromPercent
+                >> Result.toMaybe
+                >> Maybe.withDefault Split.zero
                 >> update index
             )
         , onFocus (selectInputText domId)
