@@ -1,11 +1,13 @@
 module Views.RangeSlider exposing
-    ( picking
+    ( percent
+    , picking
     , quality
     , ratio
     , reparability
     , surfaceMass
     )
 
+import Data.Split as Split exposing (Split)
 import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
@@ -101,6 +103,36 @@ ratio config =
             -- the `value` one MUST be set AFTER the `step` one.
             , step "1"
             , value (String.fromInt (round (Unit.ratioToFloat config.value * 100)))
+            , Attr.disabled config.disabled
+            ]
+        }
+
+
+type alias PercentConfig msg =
+    { id : String
+    , update : Maybe Split -> msg
+    , value : Split
+    , toString : Split -> String
+    , disabled : Bool
+    , min : Int
+    , max : Int
+    }
+
+
+percent : PercentConfig msg -> Html msg
+percent config =
+    layout
+        { id = config.id
+        , label = config.toString config.value
+        , attributes =
+            [ onInput (String.toInt >> Maybe.andThen (Split.fromPercent >> Result.toMaybe) >> config.update)
+            , Attr.min (String.fromInt config.min)
+            , Attr.max (String.fromInt config.max)
+
+            -- WARNING: be careful when reordering attributes: for obscure reasons,
+            -- the `value` one MUST be set AFTER the `step` one.
+            , step "1"
+            , value (String.fromInt (Split.asPercent config.value))
             , Attr.disabled config.disabled
             ]
         }

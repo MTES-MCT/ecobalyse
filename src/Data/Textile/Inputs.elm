@@ -30,6 +30,7 @@ module Data.Textile.Inputs exposing
 
 import Base64
 import Data.Country as Country exposing (Country)
+import Data.Split as Split exposing (Split)
 import Data.Textile.Db exposing (Db)
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
 import Data.Textile.HeatSource as HeatSource exposing (HeatSource)
@@ -66,7 +67,7 @@ type alias Inputs =
     , countryDistribution : Country
     , countryUse : Country
     , countryEndOfLife : Country
-    , airTransportRatio : Maybe Unit.Ratio
+    , airTransportRatio : Maybe Split
     , quality : Maybe Unit.Quality
     , reparability : Maybe Unit.Reparability
     , makingWaste : Maybe Unit.Ratio
@@ -94,7 +95,7 @@ type alias Query =
     , countryFabric : Country.Code
     , countryDyeing : Country.Code
     , countryMaking : Country.Code
-    , airTransportRatio : Maybe Unit.Ratio
+    , airTransportRatio : Maybe Split
     , quality : Maybe Unit.Quality
     , reparability : Maybe Unit.Reparability
     , makingWaste : Maybe Unit.Ratio
@@ -323,11 +324,11 @@ makingOptionsToString { product, makingWaste, airTransportRatio, disabledFading 
     , airTransportRatio
         |> Maybe.andThen
             (\ratio ->
-                if Unit.ratioToFloat ratio == 0 then
+                if Split.asPercent ratio == 0 then
                     Nothing
 
                 else
-                    Just (Format.ratioToPercentString ratio ++ " de transport aérien")
+                    Just (Split.toPercentString ratio ++ " de transport aérien")
             )
     , if product.making.fadable && disabledFading == Just True then
         Just "non-délavé"
@@ -660,7 +661,7 @@ encode inputs =
         , ( "countryFabric", Country.encode inputs.countryFabric )
         , ( "countryDyeing", Country.encode inputs.countryDyeing )
         , ( "countryMaking", Country.encode inputs.countryMaking )
-        , ( "airTransportRatio", inputs.airTransportRatio |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
+        , ( "airTransportRatio", inputs.airTransportRatio |> Maybe.map Split.encode |> Maybe.withDefault Encode.null )
         , ( "quality", inputs.quality |> Maybe.map Unit.encodeQuality |> Maybe.withDefault Encode.null )
         , ( "reparability", inputs.reparability |> Maybe.map Unit.encodeReparability |> Maybe.withDefault Encode.null )
         , ( "makingWaste", inputs.makingWaste |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
@@ -692,7 +693,7 @@ decodeQuery =
         |> Pipe.required "countryFabric" Country.decodeCode
         |> Pipe.required "countryDyeing" Country.decodeCode
         |> Pipe.required "countryMaking" Country.decodeCode
-        |> Pipe.optional "airTransportRatio" (Decode.maybe (Unit.decodeRatio { percentage = True })) Nothing
+        |> Pipe.optional "airTransportRatio" (Decode.maybe Split.decode) Nothing
         |> Pipe.optional "quality" (Decode.maybe Unit.decodeQuality) Nothing
         |> Pipe.optional "reparability" (Decode.maybe Unit.decodeReparability) Nothing
         |> Pipe.optional "makingWaste" (Decode.maybe (Unit.decodeRatio { percentage = True })) Nothing
@@ -722,7 +723,7 @@ encodeQuery query =
         , ( "countryFabric", query.countryFabric |> Country.encodeCode )
         , ( "countryDyeing", query.countryDyeing |> Country.encodeCode )
         , ( "countryMaking", query.countryMaking |> Country.encodeCode )
-        , ( "airTransportRatio", query.airTransportRatio |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )
+        , ( "airTransportRatio", query.airTransportRatio |> Maybe.map Split.encode |> Maybe.withDefault Encode.null )
         , ( "quality", query.quality |> Maybe.map Unit.encodeQuality |> Maybe.withDefault Encode.null )
         , ( "reparability", query.reparability |> Maybe.map Unit.encodeReparability |> Maybe.withDefault Encode.null )
         , ( "makingWaste", query.makingWaste |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )

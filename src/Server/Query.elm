@@ -15,6 +15,7 @@ import Data.Food.Preparation as Preparation
 import Data.Food.Process as FoodProcess
 import Data.Food.Retail as Retail exposing (Distribution)
 import Data.Scope as Scope exposing (Scope)
+import Data.Split as Split exposing (Split)
 import Data.Textile.Db as TextileDb
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
 import Data.Textile.HeatSource as HeatSource exposing (HeatSource)
@@ -359,7 +360,7 @@ parseTextileQuery textileDb =
         |> apply (textileCountryParser "countryFabric" textileDb.countries)
         |> apply (textileCountryParser "countryDyeing" textileDb.countries)
         |> apply (textileCountryParser "countryMaking" textileDb.countries)
-        |> apply (maybeRatioParser "airTransportRatio")
+        |> apply (maybeSplitParser "airTransportRatio")
         |> apply (maybeQualityParser "quality")
         |> apply (maybeReparabilityParser "reparability")
         |> apply (maybeMakingWasteParser "makingWaste")
@@ -600,8 +601,8 @@ maybePrinting key =
             )
 
 
-maybeRatioParser : String -> Parser (ParseResult (Maybe Unit.Ratio))
-maybeRatioParser key =
+maybeSplitParser : String -> Parser (ParseResult (Maybe Split))
+maybeSplitParser key =
     floatParser key
         |> Query.map
             (Maybe.map
@@ -610,7 +611,7 @@ maybeRatioParser key =
                         Err ( key, "Un ratio doit être compris entre 0 et 1 inclus." )
 
                     else
-                        Ok (Just (Unit.ratio float))
+                        Ok (Result.toMaybe (Split.fromFloat float))
                 )
                 >> Maybe.withDefault (Ok Nothing)
             )

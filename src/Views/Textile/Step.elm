@@ -8,6 +8,7 @@ import Data.Env as Env
 import Data.Gitbook as Gitbook
 import Data.Impact as Impact
 import Data.Scope as Scope
+import Data.Split exposing (Split)
 import Data.Textile.Db exposing (Db)
 import Data.Textile.DyeingMedium as DyeingMedium exposing (DyeingMedium)
 import Data.Textile.HeatSource as HeatSource exposing (HeatSource)
@@ -48,7 +49,7 @@ type alias Config msg =
     , updateCountry : Label -> Country.Code -> msg
     , updateQuality : Maybe Unit.Quality -> msg
     , updateReparability : Maybe Unit.Reparability -> msg
-    , updateAirTransportRatio : Maybe Unit.Ratio -> msg
+    , updateAirTransportRatio : Maybe Split -> msg
     , updateDyeingMedium : DyeingMedium -> msg
     , updateEnnoblingHeatSource : Maybe HeatSource -> msg
     , updatePrinting : Maybe Printing -> msg
@@ -137,7 +138,7 @@ airTransportRatioField { current, updateAirTransportRatio } =
     span
         [ title "Part de transport aérien pour le transport entre la confection et l'entrepôt en France."
         ]
-        [ RangeSlider.ratio
+        [ RangeSlider.percent
             { id = "airTransportRatio"
             , update = updateAirTransportRatio
             , value = current.airTransportRatio

@@ -1,6 +1,7 @@
 module Data.Textile.FormulaTest exposing (..)
 
 import Data.Impact as Impact exposing (Impacts)
+import Data.Split as Split exposing (Split)
 import Data.Textile.Formula as Formula
 import Data.Textile.Process as Process exposing (Process)
 import Data.Unit as Unit
@@ -181,45 +182,49 @@ suite =
         , describe "Formula.transportRatio"
             [ describe "no air transport ratio"
                 [ { road = 0, sea = 0, air = 0 }
-                    |> testTransportRatio (Unit.ratio 0)
+                    |> testTransportRatio Split.zero
                     |> Expect.equal ( 0, 0, 0 )
                     |> asTest "should handle ratio with empty distances"
                 , { road = 400, sea = 200, air = 0 }
-                    |> testTransportRatio (Unit.ratio 0)
+                    |> testTransportRatio Split.zero
                     |> Expect.equal ( 400, 0, 0 )
                     |> asTest "should handle ratio for road < 500km"
                 , { road = 900, sea = 1000, air = 0 }
-                    |> testTransportRatio (Unit.ratio 0)
+                    |> testTransportRatio Split.zero
                     |> Expect.equal ( 810, 100, 0 )
                     |> asTest "should handle ratio for road < 1000km"
                 , { road = 1800, sea = 1000, air = 0 }
-                    |> testTransportRatio (Unit.ratio 0)
+                    |> testTransportRatio Split.zero
                     |> Expect.equal ( 900, 500, 0 )
                     |> asTest "should handle ratio for road < 2000km"
                 , { road = 2800, sea = 4000, air = 0 }
-                    |> testTransportRatio (Unit.ratio 0)
+                    |> testTransportRatio Split.zero
                     |> Expect.equal ( 700, 3000, 0 )
                     |> asTest "should handle ratio for road < 3000km"
                 , { road = 5000, sea = 10000, air = 0 }
-                    |> testTransportRatio (Unit.ratio 0)
+                    |> testTransportRatio Split.zero
                     |> Expect.equal ( 0, 10000, 0 )
                     |> asTest "should handle ratio for road > 3000km"
                 , { road = 0, sea = 11310, air = 7300 }
-                    |> testTransportRatio (Unit.ratio 0)
+                    |> testTransportRatio Split.zero
                     |> Expect.equal ( 0, 11310, 0 )
                     |> asTest "should handle case where road=0km"
                 ]
             , describe "with air transport ratio"
-                [ { road = 1000, sea = 5000, air = 5000 }
-                    |> testTransportRatio (Unit.ratio 0.5)
-                    |> Expect.equal ( 250, 1250, 2500 )
+                [ let
+                    transport =
+                        { road = 1000, sea = 5000, air = 5000 }
+                  in
+                  Split.fromFloat 0.5
+                    |> Result.map (\split -> testTransportRatio split transport)
+                    |> Expect.equal (Ok ( 250, 1250, 2500 ))
                     |> asTest "should handle air transport ratio"
                 ]
             ]
         ]
 
 
-testTransportRatio : Unit.Ratio -> { road : Float, sea : Float, air : Float } -> ( Int, Int, Int )
+testTransportRatio : Split -> { road : Float, sea : Float, air : Float } -> ( Int, Int, Int )
 testTransportRatio airTransportRatio { road, sea, air } =
     { road = km road
     , roadCooled = km 0

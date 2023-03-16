@@ -1,6 +1,8 @@
 module Views.FormatTest exposing (..)
 
+import Data.Split as Split
 import Expect
+import Html exposing (text)
 import Test exposing (..)
 import TestUtils exposing (asTest)
 import Views.Format as Format
@@ -58,5 +60,12 @@ suite =
                 |> Format.formatFloat 2
                 |> Expect.equal "105"
                 |> asTest "should not format a number > 100 to provided decimal precision"
+            ]
+        , describe "Format.percentage"
+            [ 0.12
+                |> Split.fromFloat
+                |> Result.map Format.splitAsPercentage
+                |> Expect.equal (Ok (text "12\u{202F}%"))
+                |> asTest "should properly format a Split"
             ]
         ]

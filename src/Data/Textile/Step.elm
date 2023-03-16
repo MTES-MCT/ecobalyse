@@ -21,6 +21,7 @@ import Area exposing (Area)
 import Data.Country as Country exposing (Country)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Scope as Scope
+import Data.Split as Split exposing (Split)
 import Data.Textile.Db exposing (Db)
 import Data.Textile.DyeingMedium exposing (DyeingMedium)
 import Data.Textile.Formula as Formula
@@ -50,7 +51,7 @@ type alias Step =
     , heat : Energy
     , kwh : Energy
     , processInfo : ProcessInfo
-    , airTransportRatio : Unit.Ratio -- FIXME: why not Maybe?
+    , airTransportRatio : Split -- FIXME: why not Maybe?
     , quality : Unit.Quality
     , reparability : Unit.Reparability
     , makingWaste : Maybe Unit.Ratio
@@ -99,7 +100,7 @@ create { db, label, editable, country, enabled } =
     , heat = Quantity.zero
     , kwh = Quantity.zero
     , processInfo = defaultProcessInfo
-    , airTransportRatio = Unit.ratio 0 -- Note: this depends on next step country, so we can't set an accurate default value initially
+    , airTransportRatio = Split.zero -- Note: this depends on next step country, so we can't set an accurate default value initially
     , quality = Unit.standardQuality
     , reparability = Unit.standardReparability
     , makingWaste = Nothing
@@ -231,7 +232,7 @@ computeTransportSummary step transport =
         Label.Ennobling ->
             transport
                 -- Note: no air transport ratio at the Dyeing step
-                |> Formula.transportRatio (Unit.ratio 0)
+                |> Formula.transportRatio Split.zero
                 -- Added intermediary inland transport distances to materialize
                 -- "processing" + "dyeing" steps (see Excel)
                 -- Also ensure we don't add unnecessary air transport
@@ -253,7 +254,7 @@ computeTransportSummary step transport =
         _ ->
             -- All other steps don't use air transport, force a 0 ratio
             transport
-                |> Formula.transportRatio (Unit.ratio 0)
+                |> Formula.transportRatio Split.zero
 
 
 getRoadTransportProcess : Process.WellKnown -> Step -> Process
@@ -436,14 +437,14 @@ updateWaste waste mass step =
     }
 
 
-airTransportRatioToString : Unit.Ratio -> String
-airTransportRatioToString (Unit.Ratio airTransportRatio) =
-    case round (airTransportRatio * 100) of
+airTransportRatioToString : Split -> String
+airTransportRatioToString percentage =
+    case Split.asPercent percentage of
         0 ->
             "Aucun transport aérien"
 
-        p ->
-            String.fromInt p ++ "% de transport aérien"
+        _ ->
+            Split.toPercentString percentage ++ "% de transport aérien"
 
 
 qualityToString : Unit.Quality -> String
@@ -491,7 +492,7 @@ encode definitions v =
         , ( "heat_MJ", Encode.float (Energy.inMegajoules v.heat) )
         , ( "elec_kWh", Encode.float (Energy.inKilowattHours v.kwh) )
         , ( "processInfo", encodeProcessInfo v.processInfo )
-        , ( "airTransportRatio", Unit.encodeRatio v.airTransportRatio )
+        , ( "airTransportRatio", Split.encode v.airTransportRatio )
         , ( "quality", Unit.encodeQuality v.quality )
         , ( "reparability", Unit.encodeReparability v.reparability )
         , ( "makingWaste", v.makingWaste |> Maybe.map Unit.encodeRatio |> Maybe.withDefault Encode.null )

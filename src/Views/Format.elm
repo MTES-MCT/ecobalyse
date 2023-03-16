@@ -18,12 +18,14 @@ module Views.Format exposing
     , ratio
     , ratioToDecimals
     , ratioToPercentString
+    , splitAsPercentage
     , squareMetters
     , surfaceMass
     )
 
 import Area exposing (Area)
 import Data.Impact as Impact exposing (Impacts)
+import Data.Split as Split exposing (Split)
 import Data.Unit as Unit
 import Decimal
 import Duration exposing (Duration)
@@ -187,6 +189,13 @@ ratioToDecimals : Int -> Unit.Ratio -> Html msg
 ratioToDecimals decimals (Unit.Ratio float) =
     (float * 100)
         |> formatRichFloat decimals "%"
+
+
+splitAsPercentage : Split -> Html msg
+splitAsPercentage value =
+    Split.toPercentString value
+        ++ "\u{202F}%"
+        |> Html.text
 
 
 days : Duration -> Html msg
