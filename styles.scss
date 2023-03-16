@@ -165,7 +165,7 @@ blockquote {
 
 .icon-snow {
   left: -5px;
-  font-size: 8px; 
+  font-size: 8px;
   position: absolute;
   top: -2px;
 }
@@ -542,7 +542,7 @@ blockquote {
   border-right: 1px solid  $list-group-border-color;
   min-height: 2rem;
   position: relative;
-  
+
   &::after, &::before {
     border-bottom: 1px solid $list-group-border-color;
     bottom: 2px;
@@ -667,10 +667,20 @@ blockquote {
   grid-gap: 7px 10px;
   grid-template-columns: 116px 1fr 1fr auto 120px 31px;
   grid-template-areas:
-    "massInputWrapper ingredientSelector countrySelector bioCheckbox impactDisplay ingredientDelete"
-    "empty empty transportDistances transportDistances transportImpact unused";
+    "massInputWrapper ingredientSelector countrySelector    bioCheckbox        impactDisplay     ingredientDelete"
+    ".                ingredientBonuses  ingredientBonuses  ingredientBonuses  ingredientBonuses .               "
+    ".                .                  transportDistances transportDistances transportImpact   .               ";
   padding: $list-group-item-padding-y $list-group-item-padding-x;
   align-items: center;
+
+  @media screen and (max-width: $viewport-md) {
+    grid-template-columns: 90px 1fr 70px 31px;
+    grid-template-areas:
+      "massInputWrapper ingredientSelector impactDisplay impactDisplay"
+      "countrySelector countrySelector bioCheckbox ingredientDelete"
+      "ingredientBonuses ingredientBonuses ingredientBonuses ingredientBonuses"
+      "transportDistances transportDistances transportImpact transportImpact";
+  }
 
   &:last-child {
     border-bottom: 0;
@@ -704,12 +714,8 @@ blockquote {
     min-width: 90px;
     max-width: 116px;
   }
-  @media screen and (max-width: $viewport-md) {
-    grid-template-columns: 90px 1fr 70px 31px;
-    grid-template-areas:
-      "massInputWrapper ingredientSelector impactDisplay impactDisplay"
-      "countrySelector countrySelector bioCheckbox ingredientDelete"
-      "transportDistances transportDistances transportImpact transportImpact";
+  .IngredientBonuses {
+    grid-area: ingredientBonuses;
   }
 }
 

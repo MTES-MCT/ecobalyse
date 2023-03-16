@@ -492,7 +492,7 @@ type alias UpdateIngredientConfig =
     }
 
 
-updateIngredientFormView : UpdateIngredientConfig -> List (Html Msg)
+updateIngredientFormView : UpdateIngredientConfig -> Html Msg
 updateIngredientFormView { excluded, db, ingredient, impact, transportImpact } =
     let
         ingredientQuery : Query.IngredientQuery
@@ -507,7 +507,7 @@ updateIngredientFormView { excluded, db, ingredient, impact, transportImpact } =
         event =
             UpdateIngredient ingredient.ingredient.id
     in
-    [ li [ class "IngredientFormWrapper" ]
+    li [ class "IngredientFormWrapper" ]
         [ span [ class "MassInputWrapper" ]
             [ MassInput.view
                 { mass = ingredient.mass
@@ -618,6 +618,11 @@ updateIngredientFormView { excluded, db, ingredient, impact, transportImpact } =
             , onClick <| DeleteIngredient ingredientQuery
             ]
             [ Icon.trash ]
+        , div [ class "IngredientBonuses fs-7" ]
+            [ div [] [ text "bonus name" ]
+            , div [] [ text "bonus name" ]
+            , div [] [ text "bonus name" ]
+            ]
         , displayTransportDistances db ingredient ingredientQuery event
         , span
             [ class "text-muted text-end IngredientTransportImpact fs-7"
@@ -627,7 +632,6 @@ updateIngredientFormView { excluded, db, ingredient, impact, transportImpact } =
             , transportImpact
             ]
         ]
-    ]
 
 
 displayTransportDistances : Db -> Recipe.RecipeIngredient -> Query.IngredientQuery -> (Query.IngredientQuery -> Msg) -> Html Msg
@@ -761,7 +765,7 @@ ingredientListView db selectedImpact recipe results =
 
           else
             recipe.ingredients
-                |> List.concatMap
+                |> List.map
                     (\ingredient ->
                         updateIngredientFormView
                             { excluded = recipe.ingredients |> List.map (.ingredient >> .id)
