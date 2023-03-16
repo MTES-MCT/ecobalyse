@@ -23,6 +23,24 @@ suite =
                 |> Expect.equal 100
                 |> asTest "should have a 'hundred' constructor"
             ]
+        , describe "tenth"
+            [ Split.tenth
+                |> Split.asPercent
+                |> Expect.equal 10
+                |> asTest "should have a 'tenth' constructor"
+            ]
+        , describe "half"
+            [ Split.half
+                |> Split.asPercent
+                |> Expect.equal 50
+                |> asTest "should have a 'half' constructor"
+            ]
+        , describe "quarter"
+            [ Split.quarter
+                |> Split.asPercent
+                |> Expect.equal 25
+                |> asTest "should have a 'quarter' constructor"
+            ]
         , describe "fromFloat constructor"
             [ -0.1
                 |> Split.fromFloat

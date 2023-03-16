@@ -252,7 +252,7 @@ computeTransportSummary step transport =
             noTransports
 
         _ ->
-            -- All other steps don't use air transport, force a 0 ratio
+            -- All other steps don't use air transport, force a 0 split
             transport
                 |> Formula.transportRatio Split.zero
 

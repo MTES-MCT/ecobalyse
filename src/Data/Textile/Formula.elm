@@ -449,10 +449,10 @@ transportRatio airTransportRatio ({ road, sea, air } as transport) =
             Transport.roadSeaTransportRatio transport
 
         seaRatio =
-            1 - roadRatio
+            Split.complement roadRatio
     in
     { transport
-        | road = road |> Quantity.multiplyBy (Split.apply roadRatio (Split.complement airTransportRatio))
-        , sea = sea |> Quantity.multiplyBy (Split.apply seaRatio (Split.complement airTransportRatio))
+        | road = road |> Quantity.multiplyBy (Split.apply (Split.asFloat roadRatio) (Split.complement airTransportRatio))
+        , sea = sea |> Quantity.multiplyBy (Split.apply (Split.asFloat seaRatio) (Split.complement airTransportRatio))
         , air = air |> Quantity.multiplyBy (Split.asFloat airTransportRatio)
     }

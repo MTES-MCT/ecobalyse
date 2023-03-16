@@ -10,6 +10,9 @@ module Data.Split exposing
     , fromFloat
     , fromPercent
     , full
+    , half
+    , quarter
+    , tenth
     , toFloatString
     , toPercentString
     , zero
@@ -38,6 +41,21 @@ zero =
 full : Split
 full =
     Split 100
+
+
+tenth : Split
+tenth =
+    Split 10
+
+
+half : Split
+half =
+    Split 50
+
+
+quarter : Split
+quarter =
+    Split 25
 
 
 fromFloat : Float -> Result String Split
