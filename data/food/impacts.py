@@ -1,59 +1,82 @@
 impacts = {
-    "acd": ("EF v3.1 EN15804", "acidification", "accumulated exceedance (AE)"),
-    "ozd": ("EF v3.1", "ozone depletion", "ozone depletion potential (ODP)"),
-    "cch": ("EF v3.1", "climate change", "global warming potential (GWP100)"),
+    "acd": ("EF 3.1 Method interim for AGRIBALYSE (Subimpacts)", "Acidification"),
+    "ozd": ("EF 3.1 Method interim for AGRIBALYSE (Subimpacts)", "Ozone depletion"),
+    "cch": ("EF 3.1 Method interim for AGRIBALYSE (Subimpacts)", "Climate change"),
     "fwe": (
-        "EF v3.1",
-        "eutrophication: freshwater",
-        "fraction of nutrients reaching freshwater end compartment (P)",
+        "EF 3.1 Method interim for AGRIBALYSE (Subimpacts)",
+        "Eutrophication, freshwater",
     ),
     "swe": (
-        "EF v3.1",
-        "eutrophication: marine",
-        "fraction of nutrients reaching marine end compartment (N)",
+        "EF 3.1 Method interim for AGRIBALYSE (Subimpacts)",
+        "Eutrophication, marine",
     ),
-    "tre": ("EF v3.1", "eutrophication: terrestrial", "accumulated exceedance (AE)"),
+    "tre": (
+        "EF 3.1 Method interim for AGRIBALYSE (Subimpacts)",
+        "Eutrophication, terrestrial",
+    ),
     "pco": (
-        "EF v3.1 EN15804",
-        "photochemical oxidant formation: human health",
-        "tropospheric ozone concentration increase",
+        "EF 3.1 Method interim for AGRIBALYSE (Subimpacts)",
+        "Photochemical ozone formation",
     ),
-    "pma": ("EF v3.1", "particulate matter formation", "impact on human health"),
-    "ior": (
-        "EF v3.1",
-        "ionising radiation: human health",
-        "human exposure efficiency relative to u235",
-    ),
+    "pma": ("EF 3.1 Method interim for AGRIBALYSE (Subimpacts)", "Particulate matter"),
+    "ior": ("EF 3.1 Method interim for AGRIBALYSE (Subimpacts)", "Ionising radiation"),
     "fru": (
-        "EF v3.1",
-        "energy resources: non-renewable",
-        "abiotic depletion potential (ADP): fossil fuels",
+        "EF 3.1 Method interim for AGRIBALYSE (Subimpacts)",
+        "Resource use, fossils",
     ),
     "mru": (
-        "EF v3.1",
-        "material resources: metals/minerals",
-        "abiotic depletion potential (ADP): elements (ultimate reserves)",
+        "EF 3.1 Method interim for AGRIBALYSE (Subimpacts)",
+        "Resource use, minerals and metals",
     ),
-    "ldu": ("EF v3.1", "land use", "soil quality index"),
-    "wtu": (
-        "EF v3.1",
-        "water use",
-        "user deprivation potential (deprivation-weighted water consumption)",
-    ),
+    "ldu": ("EF 3.1 Method interim for AGRIBALYSE (Subimpacts)", "Land use"),
+    "wtu": ("EF 3.1 Method interim for AGRIBALYSE (Subimpacts)", "Water use"),
     "etf": (
-        "EF v3.1",
-        "ecotoxicity: freshwater",
-        "comparative toxic unit for ecosystems (CTUe)",
+        "EF 3.1 Method interim for AGRIBALYSE (Subimpacts)",
+        "Ecotoxicity, freshwater",
+    ),
+    "etfo": (
+        "EF 3.1 Method interim for AGRIBALYSE (Subimpacts)",
+        "Ecotoxicity, freshwater - organics",
+    ),
+    "etfi": (
+        "EF 3.1 Method interim for AGRIBALYSE (Subimpacts)",
+        "Ecotoxicity, freshwater - inorganics",
+    ),
+    "etfm": (
+        "EF 3.1 Method interim for AGRIBALYSE (Subimpacts)",
+        "Ecotoxicity, freshwater - metals",
     ),
     "htc": (
-        "EF v3.1",
-        "human toxicity: carcinogenic",
-        "comparative toxic unit for human (CTUh)",
+        "EF 3.1 Method interim for AGRIBALYSE (Subimpacts)",
+        "Human toxicity, cancer",
+    ),
+    "htco": (
+        "EF 3.1 Method interim for AGRIBALYSE (Subimpacts)",
+        "Human toxicity, cancer - organics",
+    ),
+    "htci": (
+        "EF 3.1 Method interim for AGRIBALYSE (Subimpacts)",
+        "Human toxicity, cancer - inorganics",
+    ),
+    "htcm": (
+        "EF 3.1 Method interim for AGRIBALYSE (Subimpacts)",
+        "Human toxicity, cancer - metals",
     ),
     "htn": (
-        "EF v3.1 EN15804",
-        "human toxicity: non-carcinogenic",
-        "comparative toxic unit for human (CTUh)",
+        "EF 3.1 Method interim for AGRIBALYSE (Subimpacts)",
+        "Human toxicity, non-cancer",
+    ),
+    "htno": (
+        "EF 3.1 Method interim for AGRIBALYSE (Subimpacts)",
+        "Human toxicity, non-cancer - organics",
+    ),
+    "htni": (
+        "EF 3.1 Method interim for AGRIBALYSE (Subimpacts)",
+        "Human toxicity, non-cancer - inorganics",
+    ),
+    "htnm": (
+        "EF 3.1 Method interim for AGRIBALYSE (Subimpacts)",
+        "Human toxicity, non-cancer - metals",
     ),
 }
 
